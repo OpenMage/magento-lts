@@ -125,9 +125,7 @@ class Mage_XmlConnect_Model_Resource_ConfigData_Collection extends Mage_Core_Mod
      * return items array
      * array(
      *      application_id => array(
-     *          category => array(
-     *              path
-     *          )
+     *          category => array(path)
      *      )
      * )
      *

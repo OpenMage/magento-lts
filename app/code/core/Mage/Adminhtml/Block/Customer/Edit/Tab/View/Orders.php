@@ -71,7 +71,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Orders extends Mage_Adminhtml_
         ));
 
         $this->addColumn('created_at', array(
-            'header'    => Mage::helper('customer')->__('Purchased At'),
+            'header'    => Mage::helper('customer')->__('Purchased On'),
             'index'     => 'created_at',
             'type'      => 'datetime',
         ));
@@ -87,7 +87,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Orders extends Mage_Adminhtml_
         ));
 
         $this->addColumn('grand_total', array(
-            'header'    => Mage::helper('customer')->__('Grand Total'),
+            'header'    => Mage::helper('customer')->__('Order Total'),
             'index'     => 'grand_total',
             'type'      => 'currency',
             'currency'  => 'order_currency_code',

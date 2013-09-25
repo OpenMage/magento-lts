@@ -28,7 +28,7 @@
 <div class="cards-list">
 
 <?php if (!$this->getHideTitle()): ?>
-    <div class="bold"><?php echo $this->htmlEscape($this->getMethod()->getTitle()) ?></div>
+    <div class="bold"><?php echo $this->escapeHtml($this->getMethod()->getTitle()) ?></div>
 <?php endif;?>
 
 <?php

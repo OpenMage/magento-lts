@@ -416,6 +416,16 @@ class Mage_Paypal_Model_Cart
     }
 
     /**
+     * Check whether items are valid
+     *
+     * @return bool
+     */
+    public function areItemsValid()
+    {
+        return $this->_areItemsValid;
+    }
+
+    /**
      * Add a usual line item with amount and qty
      *
      * @param Varien_Object $salesItem

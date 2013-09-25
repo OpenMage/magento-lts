@@ -53,7 +53,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Attributes extends Mage_Catalog_Bloc
                     /** @var $attrXmlObject Mage_XmlConnect_Model_Simplexml_Element */
                     $attrXmlObject = $attributesXmlObj->addChild('item');
                     $attrXmlObject->addCustomChild('label', $data['label']);
-                    $attrXmlObject->addCustomChild('value', $attribute);
+                    $attrXmlObject->addCustomChild('value', $attrXmlObject->escapeXml($attribute));
                 }
             }
         }

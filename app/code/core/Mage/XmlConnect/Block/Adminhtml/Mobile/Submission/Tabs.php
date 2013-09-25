@@ -31,8 +31,7 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Tabs
-    extends Mage_Adminhtml_Block_Widget_Tabs
+class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
 {
     /**
      * Constructor

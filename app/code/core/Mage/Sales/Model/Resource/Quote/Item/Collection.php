@@ -201,13 +201,13 @@ class Mage_Sales_Model_Resource_Quote_Item_Collection extends Mage_Core_Model_Re
                 $optionProductIds   = array();
                 foreach ($item->getOptions() as $option) {
                     /**
-                     * Call type specified logic for product associated with quote item
+                     * Call type-specific logic for product associated with quote item
                      */
                     $product->getTypeInstance(true)->assignProductToOption(
-                            $productCollection->getItemById($option->getProductId()),
-                            $option,
-                            $product
-                        );
+                        $productCollection->getItemById($option->getProductId()),
+                        $option,
+                        $product
+                    );
 
                     if (is_object($option->getProduct()) && $option->getProduct()->getId() != $product->getId()) {
                         $optionProductIds[$option->getProduct()->getId()] = $option->getProduct()->getId();
@@ -222,9 +222,8 @@ class Mage_Sales_Model_Resource_Quote_Item_Collection extends Mage_Core_Model_Re
                         }
                     }
                 }
-                $item->setQtyOptions($qtyOptions);
 
-                $item->setProduct($product);
+                $item->setQtyOptions($qtyOptions)->setProduct($product);
             } else {
                 $item->isDeleted(true);
                 $recollectQuote = true;

@@ -31,8 +31,7 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Adminhtml_Template_Edit_Form
-    extends Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form
+class Mage_XmlConnect_Block_Adminhtml_Template_Edit_Form extends Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form
 {
     /**
      * Enabled fields flag
@@ -86,12 +85,8 @@ class Mage_XmlConnect_Block_Adminhtml_Template_Edit_Form
         $this->_addElementTypes($fieldset);
 
         if ($model->getId()) {
-            $fieldset->addField('id', 'hidden', array(
-                'name'  => 'id',
-            ));
-            $fieldset->addField('template_id', 'hidden', array(
-                'name'  => 'template_id',
-            ));
+            $fieldset->addField('id', 'hidden', array('name'  => 'id'));
+            $fieldset->addField('template_id', 'hidden', array('name'  => 'template_id'));
         }
 
         $fieldset->addField('application_id', 'select', array(

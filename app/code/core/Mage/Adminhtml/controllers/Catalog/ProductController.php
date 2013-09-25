@@ -510,8 +510,17 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
                 }
             }
             $productData = $this->_filterDates($productData, $dateFields);
-
             $product->addData($productData);
+
+            /* set restrictions for date ranges */
+            $resource = $product->getResource();
+            $resource->getAttribute('special_from_date')
+                ->setMaxValue($product->getSpecialToDate());
+            $resource->getAttribute('news_from_date')
+                ->setMaxValue($product->getNewsToDate());
+            $resource->getAttribute('custom_design_from')
+                ->setMaxValue($product->getCustomDesignTo());
+
             $product->validate();
             /**
              * @todo implement full validation process with errors returning which are ignoring now
@@ -668,8 +677,13 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
      * Filter product stock data
      *
      * @param array $stockData
+     * @return null
      */
-    protected function _filterStockData(&$stockData) {
+    protected function _filterStockData(&$stockData)
+    {
+        if (is_null($stockData)) {
+            return;
+        }
         if (!isset($stockData['use_config_manage_stock'])) {
             $stockData['use_config_manage_stock'] = 0;
         }
@@ -726,8 +740,6 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
                             ->save();
                     }
                 }
-
-                Mage::getModel('catalogrule/rule')->applyAllRulesToProduct($productId);
 
                 $this->_getSession()->addSuccess($this->__('The product has been saved.'));
             } catch (Mage_Core_Exception $e) {

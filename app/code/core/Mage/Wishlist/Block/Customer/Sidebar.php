@@ -144,4 +144,19 @@ class Mage_Wishlist_Block_Customer_Sidebar extends Mage_Wishlist_Block_Abstract
     {
         return $this->getItemCount() > 0;
     }
+
+    /**
+     * Retrieve cache tags
+     *
+     * @return array
+     */
+    public function getCacheTags()
+    {
+        if ($this->getItemCount()) {
+            $this->addModelTags($this->_getHelper()->getWishlist());
+        }
+        return parent::getCacheTags();
+    }
+
+
 }

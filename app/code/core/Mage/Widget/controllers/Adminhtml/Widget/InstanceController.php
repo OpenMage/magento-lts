@@ -182,21 +182,21 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
                 Mage::helper('widget')->__('The widget instance has been saved.')
             );
             if ($this->getRequest()->getParam('back', false)) {
-                    $this->_redirect('*/*/edit', array(
-                        'instance_id' => $widgetInstance->getId(),
-                        '_current' => true
-                    ));
+                $this->_redirect('*/*/edit', array(
+                    'instance_id' => $widgetInstance->getId(),
+                    '_current' => true
+                ));
             } else {
                 $this->_redirect('*/*/');
             }
             return;
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
-            $this->_redirect('*/*/edit', array('_current' => true));
-            return;
+        } catch (Exception $e) {
+            Mage::logException($e);
+            $this->_getSession()->addError($this->__('An error occurred during saving a widget: %s', $e->getMessage()));
         }
-        $this->_redirect('*/*/');
-        return;
+        $this->_redirect('*/*/edit', array('_current' => true));
     }
 
     /**

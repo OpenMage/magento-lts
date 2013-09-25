@@ -62,7 +62,7 @@ class Mage_Payment_Block_Form extends Mage_Core_Block_Template
      */
     public function getInfoData($field)
     {
-        return $this->htmlEscape($this->getMethod()->getInfoInstance()->getData($field));
+        return $this->escapeHtml($this->getMethod()->getInfoInstance()->getData($field));
     }
 
     /**

@@ -40,7 +40,7 @@
                 <?php foreach ($this->getCollection() as $_review): ?>
                 <tr>
                     <td><span class="nobr"><?php echo $this->dateFormat($_review->getReviewCreatedAt()); ?></span></td>
-                    <td><h2 class="product-name"><a href="<?php echo $this->getProductLink() ?>id/<?php echo $_review->getEntityPkValue() ?>"><?php echo $this->htmlEscape($_review->getName()) ?></a></h2></td>
+                    <td><h2 class="product-name"><a href="<?php echo $this->getProductLink() ?>id/<?php echo $_review->getEntityPkValue() ?>"><?php echo $this->escapeHtml($_review->getName()) ?></a></h2></td>
                     <td>
                     <?php if($_review->getSum()): ?>
                         <div class="rating-box">

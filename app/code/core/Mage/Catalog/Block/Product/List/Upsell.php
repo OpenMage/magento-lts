@@ -102,7 +102,7 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
 
     public function getItems()
     {
-        if (is_null($this->_items)) {
+        if (is_null($this->_items) && $this->getItemCollection()) {
             $this->_items = $this->getItemCollection()->getItems();
         }
         return $this->_items;
@@ -166,5 +166,15 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
         else {
             return 0;
         }
+    }
+
+    /**
+     * Get tags array for saving cache
+     *
+     * @return array
+     */
+    public function getCacheTags()
+    {
+        return array_merge(parent::getCacheTags(), $this->getItemsTags($this->getItems()));
     }
 }

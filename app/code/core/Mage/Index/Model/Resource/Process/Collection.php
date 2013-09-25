@@ -35,6 +35,20 @@
 class Mage_Index_Model_Resource_Process_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
+     * Event object name
+     *
+     * @var string
+     */
+    protected $_eventObject = 'process_collection';
+
+    /**
+     * Event prefix name
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'process_collection';
+
+    /**
      * Initialize resource
      *
      */

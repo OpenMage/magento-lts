@@ -140,7 +140,20 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element
         if (!$attribute || Mage::app()->isSingleStoreMode() || $attribute->getFrontendInput()=='gallery') {
             return $html;
         }
-        if ($attribute->isScopeGlobal()) {
+
+        /*
+         * Check if the current attribute is a 'price' attribute. If yes, check
+         * the config setting 'Catalog Price Scope' and modify the scope label.
+         */
+        $isGlobalPriceScope = false;
+        if ($attribute->getFrontendInput() == 'price') {
+            $priceScope = Mage::getStoreConfig('catalog/price/scope');
+            if ($priceScope == 0) {
+                $isGlobalPriceScope = true;
+            }
+        }
+
+        if ($attribute->isScopeGlobal() || $isGlobalPriceScope) {
             $html .= Mage::helper('adminhtml')->__('[GLOBAL]');
         } elseif ($attribute->isScopeWebsite()) {
             $html .= Mage::helper('adminhtml')->__('[WEBSITE]');

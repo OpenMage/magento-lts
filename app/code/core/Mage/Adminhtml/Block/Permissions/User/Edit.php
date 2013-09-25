@@ -48,7 +48,7 @@ class Mage_Adminhtml_Block_Permissions_User_Edit extends Mage_Adminhtml_Block_Wi
     public function getHeaderText()
     {
         if (Mage::registry('permissions_user')->getId()) {
-            return Mage::helper('adminhtml')->__("Edit User '%s'", $this->htmlEscape(Mage::registry('permissions_user')->getUsername()));
+            return Mage::helper('adminhtml')->__("Edit User '%s'", $this->escapeHtml(Mage::registry('permissions_user')->getUsername()));
         }
         else {
             return Mage::helper('adminhtml')->__('New User');

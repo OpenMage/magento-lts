@@ -402,4 +402,19 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
         );
     }
 
+    /**
+     * Processing object after save data
+     *
+     * @return Mage_Core_Model_Abstract
+     */
+    protected function _afterSave()
+    {
+        if ($this->hasData('tag_assigned_products')) {
+            $tagRelationModel = Mage::getModel('tag/tag_relation');
+            $tagRelationModel->addRelations($this, $this->getData('tag_assigned_products'));
+        }
+
+        return parent::_afterSave();
+    }
+
 }

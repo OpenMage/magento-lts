@@ -56,6 +56,13 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
     protected $_collection;
 
     /**
+     * Defines whether specified products ids order should be used
+     *
+     * @var bool
+     */
+    protected $_useProductIdsOrder = false;
+
+    /**
      * Retrieve page size
      *
      * @return int
@@ -139,12 +146,27 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
                 $this->_collection->addFilterByIds($ids);
             }
             $this->_collection->setAddedAtOrder();
+            if ($this-> _useProductIdsOrder && is_array($ids)) {
+                $this->_collection->setSortIds($ids);
+            }
 
             Mage::getSingleton('catalog/product_visibility')
                 ->addVisibleInSiteFilterToCollection($this->_collection);
         }
 
         return $this->_collection;
+    }
+
+    /**
+     * Set flag that defines whether products ids order should be used
+     *
+     * @param bool $use
+     * @return Mage_Reports_Block_Product_Abstract
+     */
+    public function useProductIdsOrder($use = true)
+    {
+        $this->_useProductIdsOrder = $use;
+        return $this;
     }
 
     /**

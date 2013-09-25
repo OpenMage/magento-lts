@@ -25,7 +25,7 @@
  */
 
 /**
- * Tab design accordion xml renderer
+ * Tab design accordion block renderer
  *
  * @category     Mage
  * @package      Mage_Xmlconnect

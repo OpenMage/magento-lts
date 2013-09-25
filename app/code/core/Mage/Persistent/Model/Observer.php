@@ -151,7 +151,6 @@ class Mage_Persistent_Model_Observer
     public function emulateTopLinks($block)
     {
         $this->_applyAccountLinksPersistentData();
-        $block->removeLinkByUrl(Mage::getUrl('customer/account/login'));
     }
 
     /**
@@ -344,7 +343,7 @@ class Mage_Persistent_Model_Observer
 
         /** @var $controllerAction Mage_Core_Controller_Front_Action */
         $controllerAction = $observer->getEvent()->getControllerAction();
-        if (is_callable(array($controllerAction, 'redirectLogin'))) {
+        if (method_exists($controllerAction, 'redirectLogin')) {
             Mage::getSingleton('core/session')->addNotice(
                 Mage::helper('persistent')->__('To proceed to Checkout, please log in using your email address.')
             );
@@ -494,7 +493,9 @@ class Mage_Persistent_Model_Observer
             $customerSession->setCustomerId(null)->setCustomerGroupId(null);
         }
     }
-
+    /**
+     * Active Persistent Sessions
+     */
     protected function _expirePersistentSession()
     {
         /** @var $checkoutSession Mage_Checkout_Model_Session */

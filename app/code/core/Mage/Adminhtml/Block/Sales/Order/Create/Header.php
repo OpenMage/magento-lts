@@ -55,7 +55,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Header extends Mage_Adminhtml_Bloc
         else {
             $out.= Mage::helper('sales')->__('Create New Order');
         }
-        $out = $this->htmlEscape($out);
+        $out = $this->escapeHtml($out);
         $out = '<h3 class="icon-head head-sales-order">' . $out . '</h3>';
         return $out;
     }

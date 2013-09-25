@@ -120,6 +120,6 @@ class Mage_Adminhtml_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function decodeFilter(&$value)
     {
-        $value = rawurldecode($value);
+        $value = trim(rawurldecode($value));
     }
 }

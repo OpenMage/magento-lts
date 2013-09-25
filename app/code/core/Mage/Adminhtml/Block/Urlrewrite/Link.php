@@ -42,7 +42,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Link extends Mage_Core_Block_Abstract
     {
         if ($this->getItem()) {
             return '<p>' . $this->getLabel() . ' <a href="' . $this->getItemUrl() . '">'
-                . $this->htmlEscape($this->getItem()->getName()) . '</a></p>';
+                . $this->escapeHtml($this->getItem()->getName()) . '</a></p>';
         }
     }
 }

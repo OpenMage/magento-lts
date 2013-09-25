@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+    <name>Lib_Magento</name>
+    <version>1.8.0.0</version>
+    <stability>stable</stability>
+    <license uri="http://opensource.org/licenses/osl-3.0.php">OSL v3.0</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Magento Library</summary>
+    <description>Magento Library</description>
+    <notes>1.8.0.0</notes>
+    <authors><author><name>Magento Core Team</name><user>core</user><email>core@magentocommerce.com</email></author></authors>
+    <date>2013-09-23</date>
+    <time>18:30:58</time>
+    <contents><target name="magelib"><dir name="Magento"><file name="Crypt.php" hash="0375279e6d5f6fe5c355e55ed567d50c"/><dir name="Db"><dir name="Adapter"><dir name="Pdo"><file name="Mysql.php" hash="4c72a737a41d548d816b9b23846d6d55"/></dir></dir><dir name="Object"><file name="Interface.php" hash="75538d642ffbd217e6b4f0d6c47ee41d"/><file name="Table.php" hash="4782020387d53b62131ccedaa84a1c07"/><file name="Trigger.php" hash="33e76ea340956805d2951e2d7b166323"/><file name="View.php" hash="e813377fd04712667ad00d6c2cc295cf"/></dir><file name="Object.php" hash="b61d21392c22ed7c035d7232b05997b7"/><dir name="Sql"><file name="Select.php" hash="666a857be35c4cfa3fb153ef757e19b6"/><file name="Trigger.php" hash="2364b625b934404de9965c120d84ca0f"/></dir></dir><file name="Exception.php" hash="d6af7ed137881f7bb5b1687ab0c71626"/><dir name="Profiler"><dir name="Output"><file name="Csvfile.php" hash="4d26324422704578a6f0f10f24b206b1"/><file name="Firebug.php" hash="188662da429ea2f349adeb5dbd30736d"/><file name="Html.php" hash="eb0b933bdd9061385aafdded108db6a0"/></dir><file name="OutputAbstract.php" hash="3a16286d897eae373dc0f8bf5f28d4d3"/></dir><file name="Profiler.php" hash="00b200d890f107c748794e2e31dad910"/></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.2.0</min><max>6.0.0</max></php></required></dependencies>
+</package>

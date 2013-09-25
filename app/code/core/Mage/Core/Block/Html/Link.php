@@ -64,7 +64,7 @@ class Mage_Core_Block_Html_Link extends Mage_Core_Block_Template
         foreach ($allow as $attribute) {
             $value = $this->getDataUsingMethod($attribute);
             if (!is_null($value)) {
-                $attributes[$attribute] = $this->htmlEscape($value);
+                $attributes[$attribute] = $this->escapeHtml($value);
             }
         }
 

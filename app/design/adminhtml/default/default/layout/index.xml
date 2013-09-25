@@ -42,4 +42,10 @@
             </block>
         </reference>
     </adminhtml_process_edit>
+
+    <adminhtml_process_list>
+        <reference name="content">
+            <block type="index/adminhtml_process" name="process" />
+        </reference>
+    </adminhtml_process_list>
 </layout>

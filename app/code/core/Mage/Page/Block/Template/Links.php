@@ -238,4 +238,17 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
         return $position;
     }
 
+    /**
+     * Get tags array for saving cache
+     *
+     * @return array
+     */
+    public function getCacheTags()
+    {
+        if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+            $this->addModelTags(Mage::getSingleton('customer/session')->getCustomer());
+        }
+
+        return parent::getCacheTags();
+    }
 }

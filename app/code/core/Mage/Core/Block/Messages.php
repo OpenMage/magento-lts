@@ -213,7 +213,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
         $html = '<' . $this->_messagesFirstLevelTagName . ' id="admin_messages">';
         foreach ($this->getMessages($type) as $message) {
             $html.= '<' . $this->_messagesSecondLevelTagName . ' class="'.$message->getType().'-msg">'
-                . ($this->_escapeMessageFlag) ? $this->htmlEscape($message->getText()) : $message->getText()
+                . ($this->_escapeMessageFlag) ? $this->escapeHtml($message->getText()) : $message->getText()
                 . '</' . $this->_messagesSecondLevelTagName . '>';
         }
         $html .= '</' . $this->_messagesFirstLevelTagName . '>';
@@ -246,7 +246,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
                 foreach ( $messages as $message ) {
                     $html.= '<' . $this->_messagesSecondLevelTagName . '>';
                     $html.= '<' . $this->_messagesContentWrapperTagName . '>';
-                    $html.= ($this->_escapeMessageFlag) ? $this->htmlEscape($message->getText()) : $message->getText();
+                    $html.= ($this->_escapeMessageFlag) ? $this->escapeHtml($message->getText()) : $message->getText();
                     $html.= '</' . $this->_messagesContentWrapperTagName . '>';
                     $html.= '</' . $this->_messagesSecondLevelTagName . '>';
                 }

@@ -81,6 +81,7 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
                 if ($category->getId()) {
                     $origCategory = $layer->getCurrentCategory();
                     $layer->setCurrentCategory($category);
+                    $this->addModelTags($category);
                 }
             }
             $this->_productCollection = $layer->getProductCollection();
@@ -253,5 +254,18 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
         }
 
         return $this;
+    }
+
+    /**
+     * Retrieve block cache tags based on product collection
+     *
+     * @return array
+     */
+    public function getCacheTags()
+    {
+        return array_merge(
+            parent::getCacheTags(),
+            $this->getItemsTags($this->_getProductCollection())
+        );
     }
 }

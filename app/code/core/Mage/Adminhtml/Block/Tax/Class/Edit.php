@@ -48,7 +48,7 @@ class Mage_Adminhtml_Block_Tax_Class_Edit extends Mage_Adminhtml_Block_Widget_Fo
     public function getHeaderText()
     {
         if (Mage::registry('tax_class')->getId()) {
-            return Mage::helper('tax')->__("Edit Class '%s'", $this->htmlEscape(Mage::registry('tax_class')->getClassName()));
+            return Mage::helper('tax')->__("Edit Class '%s'", $this->escapeHtml(Mage::registry('tax_class')->getClassName()));
         }
         else {
             return Mage::helper('tax')->__('New Class');

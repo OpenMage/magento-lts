@@ -71,6 +71,13 @@ class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
         return $this->_data['logo_alt'];
     }
 
+    /**
+     * Retrieve page welcome message
+     *
+     * @deprecated after 1.7.0.2
+     * @see Mage_Page_Block_Html_Welcome
+     * @return mixed
+     */
     public function getWelcome()
     {
         if (empty($this->_data['welcome'])) {

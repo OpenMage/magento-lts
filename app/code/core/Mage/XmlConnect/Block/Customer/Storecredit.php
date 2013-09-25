@@ -31,7 +31,7 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Customer_Storecredit extends Mage_Core_Block_Template
+class Mage_XmlConnect_Block_Customer_Storecredit extends Mage_Core_Block_Abstract
 {
     /**
      * Render customer store credits xml

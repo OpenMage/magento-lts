@@ -105,4 +105,20 @@ class Mage_Wishlist_Block_Links extends Mage_Page_Block_Template_Links_Block
     {
         return $this;
     }
+
+    /**
+     * Retrieve block cache tags
+     *
+     * @return array
+     */
+    public function getCacheTags()
+    {
+        /** @var $wishlist Mage_Wishlist_Model_Wishlist */
+        $wishlist = $this->helper('wishlist')->getWishlist();
+        $this->addModelTags($wishlist);
+        foreach ($wishlist->getItemCollection() as $item) {
+            $this->addModelTags($item);
+        }
+        return parent::getCacheTags();
+    }
 }

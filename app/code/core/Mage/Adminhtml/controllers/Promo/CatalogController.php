@@ -303,6 +303,7 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
             $this->_getSession()->addError($errorMessage . ' ' . $e->getMessage());
         } catch (Exception $e) {
             $this->_getSession()->addError($errorMessage);
+            Mage::logException($e);
         }
         $this->_redirect('*/*');
     }

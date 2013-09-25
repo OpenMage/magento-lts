@@ -84,4 +84,14 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Grouped extends Mage_Checkout_Block
         $renderer->overrideProductThumbnail(null);
         return $rendererHtml;
     }
+
+    /**
+     * Retrieve block cache tags
+     *
+     * @return array
+     */
+    public function getCacheTags()
+    {
+        return array_merge(parent::getCacheTags(), $this->getGroupedProduct()->getCacheIdTags());
+    }
 }

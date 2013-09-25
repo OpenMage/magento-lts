@@ -44,8 +44,8 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_Info_Ccsave extends Mage_Pay
         $orderItemXmlObj->addAttribute('type', $this->getMethod()->getCode());
         $orderItemXmlObj->addAttribute('title', $orderItemXmlObj->xmlAttribute($this->getMethod()->getTitle()));
 
-        if ($_specificInfo = $this->getSpecificInformation()) {
-            foreach ($_specificInfo as $label => $value) {
+        if ($specificInfo = $this->getSpecificInformation()) {
+            foreach ($specificInfo as $label => $value) {
                 $orderItemXmlObj->addCustomChild('item', implode($this->getValueAsArray($value, true), '\n'), array(
                     'label' => $label
                 ));

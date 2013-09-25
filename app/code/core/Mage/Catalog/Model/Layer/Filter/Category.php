@@ -169,7 +169,7 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
             foreach ($categories as $category) {
                 if ($category->getIsActive() && $category->getProductCount()) {
                     $data[] = array(
-                        'label' => Mage::helper('core')->htmlEscape($category->getName()),
+                        'label' => Mage::helper('core')->escapeHtml($category->getName()),
                         'value' => $category->getId(),
                         'count' => $category->getProductCount(),
                     );

@@ -470,6 +470,6 @@ class Mage_Paypal_Model_Pro
      */
     protected function _getParentTransactionId(Varien_Object $payment)
     {
-        return $payment->getParentTransactionId();
+        return $payment->getParentTransactionId() ? $payment->getParentTransactionId() : $payment->getLastTransId();
     }
 }

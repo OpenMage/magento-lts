@@ -61,7 +61,8 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
             return $this;
         }
 
-        if (Mage::helper('catalog/category_flat')->isEnabled()) {
+        // If Flat Data enabled then use it but only on frontend
+        if (Mage::helper('catalog/category_flat')->isAvailable() && !Mage::app()->getStore()->isAdmin()) {
             $this->_applyDesign($object, $calledFrom);
         } else {
             $this->_inheritDesign($object, $calledFrom);

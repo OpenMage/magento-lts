@@ -171,6 +171,11 @@
                 </create>
             </order>
         </sales>
+        <messages>
+            <website_chnaged_indexers translate="label" module="catalog">
+                <label><![CDATA[Please refresh "Catalog URL Rewrites" and "Product Attributes" in System -&gt; <a href="%s">Index Management</a>]]></label>
+            </website_chnaged_indexers>
+        </messages>
     </adminhtml>
     <default>
         <system>

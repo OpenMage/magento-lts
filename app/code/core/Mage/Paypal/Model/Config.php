@@ -630,7 +630,7 @@ class Mage_Paypal_Model_Config
      */
     public function getPaypalUrl(array $params = array())
     {
-        return sprintf('https://www.%spaypal.com/webscr%s',
+        return sprintf('https://www.%spaypal.com/cgi-bin/webscr%s',
             $this->sandboxFlag ? 'sandbox.' : '',
             $params ? '?' . http_build_query($params) : ''
         );
@@ -1166,6 +1166,8 @@ class Mage_Paypal_Model_Config
                     break;
                 case self::METHOD_WPP_PE_EXPRESS:
                 case self::METHOD_WPP_PE_DIRECT:
+                case self::METHOD_PAYFLOWADVANCED:
+                case self::METHOD_PAYFLOWLINK:
                     $path = $this->_mapWpukFieldset($fieldName);
                     break;
             }
@@ -1302,6 +1304,10 @@ class Mage_Paypal_Model_Config
         if ($this->_methodCode == self::METHOD_WPP_PE_EXPRESS
             && !$this->isMethodAvailable(self::METHOD_WPP_PE_DIRECT)) {
             $pathPrefix = 'payment/verisign';
+        } elseif ($this->_methodCode == self::METHOD_PAYFLOWADVANCED
+            || $this->_methodCode == self::METHOD_PAYFLOWLINK
+        ) {
+            $pathPrefix = 'payment/' . $this->_methodCode;
         }
         switch ($fieldName) {
             case 'partner':

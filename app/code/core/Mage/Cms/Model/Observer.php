@@ -73,5 +73,4 @@ class Mage_Cms_Model_Observer
         }
         return $this;
     }
-
 }

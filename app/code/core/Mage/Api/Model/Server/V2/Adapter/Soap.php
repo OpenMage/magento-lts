@@ -61,16 +61,20 @@ class Mage_Api_Model_Server_V2_Adapter_Soap extends Mage_Api_Model_Server_Adapte
             try {
                 $this->_instantiateServer();
 
+                $content = str_replace(
+                    '><',
+                    ">\n<",
+                    preg_replace(
+                        '/<\?xml version="([^\"]+)"([^\>]+)>/i',
+                        '<?xml version="$1" encoding="' . $apiConfigCharset . '"?>',
+                        $this->_soap->handle()
+                    )
+                );
                 $this->getController()->getResponse()
                     ->clearHeaders()
-                    ->setHeader('Content-Type','text/xml; charset='.$apiConfigCharset)
-                    ->setBody(
-                            preg_replace(
-                                '/<\?xml version="([^\"]+)"([^\>]+)>/i',
-                                '<?xml version="$1" encoding="'.$apiConfigCharset.'"?>',
-                                $this->_soap->handle()
-                            )
-                    );
+                    ->setHeader('Content-Type', 'text/xml; charset=' . $apiConfigCharset)
+                    ->setHeader('Content-Length', strlen($content), true)
+                    ->setBody($content);
             } catch( Zend_Soap_Server_Exception $e ) {
                 $this->fault( $e->getCode(), $e->getMessage() );
             } catch( Exception $e ) {

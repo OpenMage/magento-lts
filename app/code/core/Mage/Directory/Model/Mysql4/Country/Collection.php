@@ -26,7 +26,7 @@
 
 
 /**
- * Country collection
+ * Country Collection
  *
  * @category    Mage
  * @package     Mage_Directory

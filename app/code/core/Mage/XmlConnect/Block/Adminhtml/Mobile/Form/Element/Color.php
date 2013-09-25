@@ -31,8 +31,7 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Color
-    extends Varien_Data_Form_Element_Text
+class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Color extends Varien_Data_Form_Element_Text
 {
     /**
      * Return html code for current block

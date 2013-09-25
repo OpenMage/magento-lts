@@ -78,7 +78,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View
      */
     public function getCreateDate()
     {
-        return Mage::helper('core')->formatDate($this->getCustomer()->getCreatedAtTimestamp(),
+        return $this->_getCoreHelper()->formatDate($this->getCustomer()->getCreatedAt(),
             Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true);
     }
 
@@ -211,4 +211,13 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View
         return true;
     }
 
+    /**
+     * Return instance of core helper
+     *
+     * @return Mage_Core_Helper_Data
+     */
+    protected function _getCoreHelper()
+    {
+        return Mage::helper('core');
+    }
 }

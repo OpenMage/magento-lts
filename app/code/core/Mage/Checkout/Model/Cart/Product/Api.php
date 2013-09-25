@@ -295,8 +295,10 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
                 /** @var $quoteItem Mage_Sales_Model_Quote_Item */
                 $quoteItem = $this->_getQuoteItemByProduct($quote, $productByItem,
                     $this->_getProductRequest($productItem));
-                if($quoteItem->getId()){
-                    $customerQuote->addItem($quoteItem);
+                if($quoteItem && $quoteItem->getId()){
+                    $newQuoteItem = clone $quoteItem;
+                    $newQuoteItem->setId(null);
+                    $customerQuote->addItem($newQuoteItem);
                     $quote->removeItem($quoteItem->getId());
                     unset($productsData[$key]);
                 } else {

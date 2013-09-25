@@ -71,10 +71,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Element_Multiline
      */
     public function getRequiredXmlAttributes()
     {
-        return array(
-            'label' => null,
-            'type' => null
-        );
+        return array('label' => null, 'type' => null);
     }
 
     /**

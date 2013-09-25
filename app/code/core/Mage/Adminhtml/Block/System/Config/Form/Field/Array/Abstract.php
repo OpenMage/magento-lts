@@ -31,7 +31,8 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract extends Mage_Adminhtml_Block_System_Config_Form_Field
+abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
+    extends Mage_Adminhtml_Block_System_Config_Form_Field
 {
     /**
      * Grid columns
@@ -145,7 +146,7 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract exte
         if ($element->getValue() && is_array($element->getValue())) {
             foreach ($element->getValue() as $rowId => $row) {
                 foreach ($row as $key => $value) {
-                    $row[$key] = $this->htmlEscape($value);
+                    $row[$key] = $this->escapeHtml($value);
                 }
                 $row['_id'] = $rowId;
                 $result[$rowId] = new Varien_Object($row);

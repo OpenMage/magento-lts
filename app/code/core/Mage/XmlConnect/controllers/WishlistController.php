@@ -88,6 +88,9 @@ class Mage_XmlConnect_WishlistController extends Mage_XmlConnect_Controller_Acti
      */
     public function indexAction()
     {
+        if ($this->_checkApiForward('details', Mage_XmlConnect_Helper_Data::DEVICE_API_V_23)) {
+            return;
+        }
         $this->_getWishlist();
         try {
             $this->loadLayout(false);
@@ -100,6 +103,25 @@ class Mage_XmlConnect_WishlistController extends Mage_XmlConnect_Controller_Acti
                 $this->__('An error occurred while loading wishlist.'),
                 self::MESSAGE_STATUS_ERROR
             );
+        }
+    }
+
+    /**
+     * Display customer wishlist details
+     *
+     * @return null
+     */
+    public function detailsAction()
+    {
+        $this->_getWishlist();
+        try {
+            $this->loadLayout(false);
+            $this->renderLayout();
+        } catch (Mage_Core_Exception $e) {
+            $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
+        } catch (Exception $e) {
+            Mage::logException($e);
+            $this->_message($this->__('An error occurred while loading wishlist.'), self::MESSAGE_STATUS_ERROR);
         }
     }
 

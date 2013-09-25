@@ -174,8 +174,10 @@ class Mage_Shipping_Model_Shipping
                     if (!empty($packages)) {
                         $sumResults = array();
                         foreach ($packages as $weight => $packageCount) {
+                            //clone carrier for multi-requests
+                            $carrierObj = clone $carrier;
                             $request->setPackageWeight($weight);
-                            $result = $carrier->collectRates($request);
+                            $result = $carrierObj->collectRates($request);
                             if (!$result) {
                                 return $this;
                             } else {
@@ -383,7 +385,8 @@ class Mage_Shipping_Model_Shipping
         $request->setPackageCurrency(Mage::app()->getStore()->getCurrentCurrency());
         $request->setLimitCarrier($limitCarrier);
 
-        $request->setBaseSubtotalInclTax($address->getBaseSubtotalInclTax());
+        $request->setBaseSubtotalInclTax($address->getBaseSubtotalInclTax()
+            + $address->getBaseExtraTaxAmount());
 
         return $this->collectRates($request);
     }

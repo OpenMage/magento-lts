@@ -31,8 +31,7 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Adminhtml_Queue_Edit
-    extends Mage_Adminhtml_Block_Widget_Form_Container
+class Mage_XmlConnect_Block_Adminhtml_Queue_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
     /**
      * Constructor
@@ -66,8 +65,7 @@ class Mage_XmlConnect_Block_Adminhtml_Queue_Edit
     {
         $template = Mage::registry('current_template');
         $message  = Mage::registry('current_message');
-        return $message && !$message->getId() && $template && $template->getId()
-            ? $this->getUrl('*/*/template')
+        return $message && !$message->getId() && $template && $template->getId() ? $this->getUrl('*/*/template')
             : $this->getUrl('*/*/queue');
     }
 

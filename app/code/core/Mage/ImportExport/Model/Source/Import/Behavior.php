@@ -40,20 +40,18 @@ class Mage_ImportExport_Model_Source_Import_Behavior
      */
     public function toOptionArray()
     {
-        $helper = Mage::helper('importexport');
-
         return array(
             array(
                 'value' => Mage_ImportExport_Model_Import::BEHAVIOR_APPEND,
-                'label' => $helper->__('Append Complex Data')
+                'label' => Mage::helper('importexport')->__('Append Complex Data')
             ),
             array(
                 'value' => Mage_ImportExport_Model_Import::BEHAVIOR_REPLACE,
-                'label' => $helper->__('Replace Existing Complex Data')
+                'label' => Mage::helper('importexport')->__('Replace Existing Complex Data')
             ),
             array(
                 'value' => Mage_ImportExport_Model_Import::BEHAVIOR_DELETE,
-                'label' => $helper->__('Delete Entities')
+                'label' => Mage::helper('importexport')->__('Delete Entities')
             )
         );
     }

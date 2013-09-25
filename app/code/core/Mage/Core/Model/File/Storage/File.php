@@ -253,7 +253,7 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
     public function saveFile($file, $overwrite = true)
     {
         if (isset($file['filename']) && !empty($file['filename'])
-            && isset($file['content']) && !empty($file['content'])
+            && isset($file['content'])
         ) {
             try {
                 $filename = (isset($file['directory']) && !empty($file['directory']))

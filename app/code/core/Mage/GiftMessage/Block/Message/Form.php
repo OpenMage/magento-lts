@@ -97,7 +97,7 @@ class Mage_GiftMessage_Block_Message_Form extends Mage_Core_Block_Template
 
     public function getEscaped($value)
     {
-        return $this->htmlEscape($value);
+        return $this->escapeHtml($value);
     }
 
     public function getEscapedForJs($value)

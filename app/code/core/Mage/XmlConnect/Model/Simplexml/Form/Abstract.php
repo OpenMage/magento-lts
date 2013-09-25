@@ -386,7 +386,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Abstract extends Varien_Object
 
         foreach ($this->getRequiredXmlAttributes() as $attribute => $defValue) {
             $data = $this->getData($this->_underscore($attribute));
-            if ($data) {
+            if (null !== $data) {
                 $xmlObj->addAttribute($attribute, $xmlObj->xmlAttribute($data));
             } elseif(null !== $defValue){
                 $xmlObj->addAttribute($attribute, $xmlObj->xmlAttribute($defValue));

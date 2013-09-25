@@ -648,13 +648,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
 
                 $product->addCustomOption('selection_qty_' . $selection->getSelectionId(), $qty, $selection);
                 $selection->addCustomOption('selection_id', $selection->getSelectionId());
-
-                $beforeQty = 0;
-                $customOption = $product->getCustomOption('product_qty_' . $selection->getId());
-                if ($customOption) {
-                    $beforeQty = (float)$customOption->getValue();
-                }
-                $product->addCustomOption('product_qty_' . $selection->getId(), $qty + $beforeQty, $selection);
+                $product->addCustomOption('product_qty_' . $selection->getId(), $qty, $selection);
 
                 /*
                  * Create extra attributes that will be converted to product options in order item
@@ -733,6 +727,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             $usedSelections = Mage::getResourceModel('bundle/selection_collection')
                 ->addAttributeToSelect('*')
                 ->setFlag('require_stock_items', true)
+                ->setFlag('product_children', true)
                 ->addStoreFilter($this->getStoreFilter($product))
                 ->setStoreId($storeId)
                 ->setPositionOrder()

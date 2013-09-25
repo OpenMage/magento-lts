@@ -80,6 +80,7 @@ Default layout, loads most of the pages
                     <label>Page Header</label>
                     <action method="setElementClass"><value>top-container</value></action>
                 </block>
+                <block type="page/html_welcome" name="welcome" as="welcome"/>
             </block>
 
             <block type="core/text_list" name="left" as="left" translate="label">

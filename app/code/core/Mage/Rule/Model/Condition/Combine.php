@@ -24,7 +24,9 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * @method string getAggregator()
+ */
 class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstract
 {
     /**
@@ -34,9 +36,25 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
      */
     static protected $_conditionModels = array();
 
+    /**
+     * Prepare sql where by condition
+     *
+     * @return string
+     */
+    public function prepareConditionSql()
+    {
+        $wheres = array();
+        foreach ($this->getConditions() as $condition) {
+            /** @var $condition Mage_Rule_Model_Condition_Abstract */
+            $wheres[] = $condition->prepareConditionSql();
+        }
 
-
-
+        if (empty($wheres)) {
+            return '';
+        }
+        $delimiter = $this->getAggregator() == "all" ? ' AND ' : ' OR ';
+        return ' (' . implode($delimiter, $wheres) . ') ';
+    }
 
     /**
      * Retrieve new object for each requested model.

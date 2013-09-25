@@ -45,12 +45,12 @@ abstract class Mage_Sales_Model_Abstract extends Mage_Core_Model_Abstract
      *
      * @return Mage_Core_Model_Abstract
      */
-    protected function _afterSave()
+    public function afterCommitCallback()
     {
         if (!$this->getForceUpdateGridRecords()) {
             $this->_getResource()->updateGridRecords($this->getId());
         }
-        return parent::_afterSave();
+        return parent::afterCommitCallback();
     }
 
     /**

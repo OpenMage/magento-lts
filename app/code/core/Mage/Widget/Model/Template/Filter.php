@@ -60,13 +60,13 @@ class Mage_Widget_Model_Template_Filter extends Mage_Cms_Model_Template_Filter
         } else {
             return '';
         }
-        
-        // we have no other way to avoid fatal errors for type like 'cms/widget__link', '_cms/widget_link' etc. 
+
+        // we have no other way to avoid fatal errors for type like 'cms/widget__link', '_cms/widget_link' etc.
         $xml = Mage::getSingleton('widget/widget')->getXmlElementByType($type);
         if ($xml === null) {
             return '';
         }
-        
+
         // define widget block and check the type is instance of Widget Interface
         $widget = Mage::app()->getLayout()->createBlock($type, $name, $params);
         if (!$widget instanceof Mage_Widget_Block_Interface) {

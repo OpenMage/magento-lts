@@ -40,11 +40,12 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
     public function __construct()
     {
         parent::__construct();
-        $this->prepareItemUrls();
     }
 
     /**
-     * prepare cart items URLs
+     * Prepare cart items URLs
+     *
+     * @deprecated after 1.7.0.2
      */
     public function prepareItemUrls()
     {

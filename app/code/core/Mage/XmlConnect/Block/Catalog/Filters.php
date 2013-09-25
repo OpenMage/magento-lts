@@ -41,6 +41,7 @@ class Mage_XmlConnect_Block_Catalog_Filters extends Mage_XmlConnect_Block_Catalo
     protected function _toHtml()
     {
         $categoryId         = $this->getRequest()->getParam('category_id', null);
+        /** @var $categoryXmlObj Mage_XmlConnect_Model_Simplexml_Element */
         $categoryXmlObj     = Mage::getModel('xmlconnect/simplexml_element', '<category></category>');
         $filtersCollection  = Mage::getResourceModel('xmlconnect/filter_collection')->setCategoryId($categoryId);
 
@@ -61,7 +62,7 @@ class Mage_XmlConnect_Block_Catalog_Filters extends Mage_XmlConnect_Block_Catalo
                 $valueXmlObj->addChild('count', (int)$value->getProductsCount());
             }
         }
-        $categoryXmlObj->appendChild($this->getProductSortFeildsXmlObject());
+        $categoryXmlObj->appendChild($this->getProductSortFieldsXmlObject());
 
         return $categoryXmlObj->asNiceXml();
     }

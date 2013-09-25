@@ -65,7 +65,6 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Grid extends Mage_Adminhtml_Block_
     {
         $this->addColumn('name', array(
             'header'    =>Mage::helper('reports')->__('Tag Name'),
-            'sortable'  =>false,
             'index'     =>'name'
         ));
 
@@ -73,7 +72,6 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Grid extends Mage_Adminhtml_Block_
             'header'    =>Mage::helper('reports')->__('Popularity'),
             'width'     =>'50px',
             'align'     =>'right',
-            'sortable'  =>false,
             'index'     =>'popularity'
         ));
 

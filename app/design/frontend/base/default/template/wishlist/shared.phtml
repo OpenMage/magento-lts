@@ -27,7 +27,7 @@
 ?>
 <div class="my-wishlist">
     <div class="page-title">
-        <h1><?php echo $this->htmlEscape($this->getHeader()) ?></h1>
+        <h1><?php echo $this->escapeHtml($this->getHeader()) ?></h1>
     </div>
     <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
     <?php if ($this->hasWishlistItems()): ?>

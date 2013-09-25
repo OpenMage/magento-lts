@@ -76,6 +76,16 @@ abstract class Mage_Rule_Model_Condition_Abstract
     }
 
     /**
+     * Prepare sql where by condition
+     *
+     * @return string
+     */
+    public function prepareConditionSql()
+    {
+        return '';
+    }
+
+    /**
      * Default operator input by type map getter
      *
      * @return array
@@ -522,7 +532,7 @@ abstract class Mage_Rule_Model_Condition_Abstract
     }
 
     /**
-     * Validate product attrbute value for condition
+     * Validate product attribute value for condition
      *
      * @param   mixed $validatedValue product attribute value
      * @return  bool

@@ -67,6 +67,13 @@ class Mage_XmlConnect_Model_Payment_Method_Paypal_Mecl extends Mage_Paypal_Model
     protected $_canManageRecurringProfiles = false;
 
     /**
+     * PayPal Website Payments Pro model
+     *
+     * @var string
+     */
+    protected $_proType = 'xmlconnect/payment_method_paypal_pro';
+
+    /**
      * Check whether payment method can be used
      *
      * @param Mage_Sales_Model_Quote $quote

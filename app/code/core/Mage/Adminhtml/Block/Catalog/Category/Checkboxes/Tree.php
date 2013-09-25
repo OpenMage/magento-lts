@@ -58,7 +58,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Checkboxes_Tree extends Mage_Adminht
     protected function _getNodeJson($node, $level = 1)
     {
         $item = array();
-        $item['text']= $this->htmlEscape($node->getName());
+        $item['text']= $this->escapeHtml($node->getName());
 
         if ($this->_withProductCount) {
              $item['text'].= ' ('.$node->getProductCount().')';

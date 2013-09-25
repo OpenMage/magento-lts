@@ -154,20 +154,24 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
                 $data[$key] = Mage::helper('catalog')->stripTags($value);
             }
         }
-        // setProductOptions expects data to be an array of options arrays
-        $data = array($data);
-        if (!$product->getOptionsReadonly()) {
-            $product->setProductOptions($data);
-        }
-        $product->setCanSaveCustomOptions(!$product->getOptionsReadonly());
+
         try {
-            // an empty request can be set as event parameter
-            // because it is not used for options changing in observers
-            Mage::dispatchEvent(
-                'catalog_product_prepare_save',
-                array('product' => $product, 'request' => new Mage_Core_Controller_Request_Http())
-            );
-            $product->save();
+            if (!$product->getOptionsReadonly()) {
+                $product
+                    ->getOptionInstance()
+                    ->setOptions(array($data));
+
+                $product->setHasOptions(true);
+
+                // an empty request can be set as event parameter
+                // because it is not used for options changing in observers
+                Mage::dispatchEvent(
+                    'catalog_product_prepare_save',
+                    array('product' => $product, 'request' => new Mage_Core_Controller_Request_Http())
+                );
+
+                $product->save();
+            }
         } catch (Exception $e) {
             $this->_fault('save_option_error', $e->getMessage());
         }

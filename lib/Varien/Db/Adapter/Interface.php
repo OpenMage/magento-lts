@@ -103,6 +103,15 @@ interface Varien_Db_Adapter_Interface
     public function createTable(Varien_Db_Ddl_Table $table);
 
     /**
+     * Create temporary table from DDL object
+     *
+     * @param Varien_Db_Ddl_Table $table
+     * @throws Zend_Db_Exception
+     * @return Zend_Db_Statement_Interface
+     */
+    public function createTemporaryTable(Varien_Db_Ddl_Table $table);
+
+    /**
      * Drop table from database
      *
      * @param string $tableName
@@ -110,6 +119,15 @@ interface Varien_Db_Adapter_Interface
      * @return boolean
      */
     public function dropTable($tableName, $schemaName = null);
+
+    /**
+     * Drop temporary table from database
+     *
+     * @param string $tableName
+     * @param string $schemaName
+     * @return boolean
+     */
+    public function dropTemporaryTable($tableName, $schemaName = null);
 
     /**
      * Truncate a table
@@ -198,6 +216,16 @@ interface Varien_Db_Adapter_Interface
      * @return boolean
      */
     public function renameTable($oldTableName, $newTableName, $schemaName = null);
+
+    /**
+     * Rename several tables
+     *
+     * @param array $tablePairs array('oldName' => 'Name1', 'newName' => 'Name2')
+     *
+     * @return boolean
+     * @throws Zend_Db_Exception
+     */
+    public function renameTablesBatch(array $tablePairs);
 
     /**
      * Adds new column to the table.
@@ -728,6 +756,18 @@ interface Varien_Db_Adapter_Interface
     public function getCheckSql($condition, $true, $false);
 
     /**
+     * Generate fragment of SQL, that check value against multiple condition cases
+     * and return different result depends on them
+     *
+     * @param string $valueName Name of value to check
+     * @param array $casesResults Cases and results
+     * @param string $defaultValue value to use if value doesn't confirm to any cases
+     *
+     * @return Zend_Db_Expr
+     */
+    public function getCaseSql($valueName, $casesResults, $defaultValue = null);
+
+    /**
      * Returns valid IFNULL expression
      *
      * @param string $column
@@ -746,6 +786,12 @@ interface Varien_Db_Adapter_Interface
      * @return Zend_Db_Expr
      */
     public function getConcatSql(array $data, $separator = null);
+
+    /**
+     * Returns the configuration variables in this adapter.
+     * @return array
+     */
+    public function getConfig();
 
     /**
      * Generate fragment of SQL that returns length of character string
@@ -911,10 +957,20 @@ interface Varien_Db_Adapter_Interface
      * @param Varien_Db_Select $select
      * @param string $table     insert into table
      * @param array $fields
-     * @param int $mode
+     * @param bool|int $mode
      * @return string
      */
     public function insertFromSelect(Varien_Db_Select $select, $table, array $fields = array(), $mode = false);
+
+    /**
+     * Get insert queries in array for insert by range with step parameter
+     *
+     * @param string $rangeField
+     * @param Varien_Db_Select $select
+     * @param int $stepCount
+     * @return array
+     */
+    public function selectsByRange($rangeField, Varien_Db_Select $select, $stepCount = 100);
 
     /**
      * Get update table query using select object for join and update
@@ -999,9 +1055,43 @@ interface Varien_Db_Adapter_Interface
     public function getSuggestedZeroDate();
 
     /**
+     * Drop trigger
+     *
+     * @param string $triggerName
+     * @return Varien_Db_Adapter_Interface
+     */
+    public function dropTrigger($triggerName);
+
+    /**
      * Get adapter transaction level state. Return 0 if all transactions are complete
      *
      * @return int
      */
     public function getTransactionLevel();
+
+    /**
+     * Convert date format to unix time
+     *
+     * @param string|Zend_Db_Expr $date
+     * @return mixed
+     */
+    public function getUnixTimestamp($date);
+
+    /**
+     * Convert unix time to date format
+     *
+     * @param int|Zend_Db_Expr $timestamp
+     * @return mixed
+     */
+    public function fromUnixtime($timestamp);
+
+    /**
+     * Create new table from provided select statement
+     *
+     * @param string $tableName
+     * @param Zend_Db_Select $select
+     * @param bool $temporary
+     * @return mixed
+     */
+    public function createTableFromSelect($tableName, Zend_Db_Select $select, $temporary = false);
 }

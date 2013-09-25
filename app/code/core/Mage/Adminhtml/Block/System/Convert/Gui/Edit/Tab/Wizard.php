@@ -84,7 +84,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
         }
 
         $value = $this->getData($key);
-        return $this->htmlEscape(strlen($value) > 0 ? $value : $default);
+        return $this->escapeHtml(strlen($value) > 0 ? $value : $default);
     }
 
     public function getSelected($key, $value)
@@ -226,7 +226,9 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
     public function getShortDateFormat()
     {
         if (!$this->_shortDateFormat) {
-            $this->_shortDateFormat = Mage::app()->getLocale()->getDateStrFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
+            $this->_shortDateFormat = Mage::app()->getLocale()->getDateStrFormat(
+                Mage_Core_Model_Locale::FORMAT_TYPE_SHORT
+            );
         }
         return $this->_shortDateFormat;
     }

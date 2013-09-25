@@ -52,20 +52,18 @@ class Mage_Rss_OrderController extends Mage_Core_Controller_Front_Action
         }
     }
 
+    /**
+     * Order status action
+     */
     public function statusAction()
     {
-        $decrypt = Mage::helper('core')->decrypt($this->getRequest()->getParam('data'));
-        $data = explode(":",$decrypt);
-        $oid = (int) $data[0];
-        if ($oid) {
-            $order = Mage::getModel('sales/order')->load($oid);
-            if ($order && $order->getId()) {
-                Mage::register('current_order', $order);
-                $this->getResponse()->setHeader('Content-type', 'text/xml; charset=UTF-8');
-                $this->loadLayout(false);
-                $this->renderLayout();
-                return;
-            }
+        $order = Mage::helper('rss/order')->getOrderByStatusUrlKey((string)$this->getRequest()->getParam('data'));
+        if (!is_null($order)) {
+            Mage::register('current_order', $order);
+            $this->getResponse()->setHeader('Content-type', 'text/xml; charset=UTF-8');
+            $this->loadLayout(false);
+            $this->renderLayout();
+            return;
         }
         $this->_forward('nofeed', 'index', 'rss');
     }

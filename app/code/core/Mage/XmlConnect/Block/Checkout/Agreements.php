@@ -49,7 +49,7 @@ class Mage_XmlConnect_Block_Checkout_Agreements extends Mage_Checkout_Block_Agre
                 if (!$agreement->getIsHtml()) {
                     $content = nl2br($agreementsXmlObj->escapeXml($content));
                 } else {
-                    $agreementsXmlObj->xmlentities($content);
+                    $content = $agreementsXmlObj->xmlentities($content);
                 }
                 $agreementText = $agreementsXmlObj->escapeXml($agreement->getCheckboxText());
                 $itemXmlObj->addChild('label', $agreementText);

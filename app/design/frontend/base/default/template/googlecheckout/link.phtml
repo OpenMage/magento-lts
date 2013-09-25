@@ -26,12 +26,12 @@
 ?>
 <?php echo $this->getBeforeHtml(); ?>
 <?php if ($this->getIsDisabled()): ?>
-<img src="<?php echo $this->htmlEscape($this->getImageUrl())?>" alt="<?php echo Mage::helper('googlecheckout')->__('Fast checkout through Google');?>" title="<?php echo Mage::helper('googlecheckout')->__('Fast Checkout through Google');?>" />
+<img src="<?php echo $this->escapeHtml($this->getImageUrl())?>" alt="<?php echo Mage::helper('googlecheckout')->__('Fast checkout through Google');?>" title="<?php echo Mage::helper('googlecheckout')->__('Fast Checkout through Google');?>" />
 <?php else: ?>
 <form method="post" action="<?php echo $this->getCheckoutUrl();?>"<?php if ($this->getOnsubmitJs()):?> onsubmit="<?php echo $this->getOnsubmitJs() ?>"<?php endif;?>>
     <fieldset>
         <input type="hidden" name="analyticsdata" value="" />
-        <input type="image" src="<?php echo $this->htmlEscape($this->getImageUrl())?>" title="<?php echo Mage::helper('googlecheckout')->__('Fast checkout through Google');?>" alt="<?php echo Mage::helper('googlecheckout')->__('Fast Checkout through Google');?>" />
+        <input type="image" src="<?php echo $this->escapeHtml($this->getImageUrl())?>" title="<?php echo Mage::helper('googlecheckout')->__('Fast checkout through Google');?>" alt="<?php echo Mage::helper('googlecheckout')->__('Fast Checkout through Google');?>" />
     </fieldset>
 </form>
 <?php endif; ?>

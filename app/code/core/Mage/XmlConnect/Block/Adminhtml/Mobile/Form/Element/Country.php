@@ -31,8 +31,7 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Country
-    extends Varien_Data_Form_Element_Checkboxes
+class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Country extends Varien_Data_Form_Element_Checkboxes
 {
     /**
      * Flag of using the border in the table's TD

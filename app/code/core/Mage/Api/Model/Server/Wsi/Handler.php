@@ -176,4 +176,16 @@ class Mage_Api_Model_Server_WSI_Handler extends Mage_Api_Model_Server_Handler_Ab
         return $callArgs;
     }
 
+    /**
+     * End web service session
+     *
+     * @param object $request
+     * @return stdClass
+     */
+    public function endSession($request)
+    {
+        $stdObject = new stdClass();
+        $stdObject->result = parent::endSession($request->sessionId);
+        return $stdObject;
+    }
 }

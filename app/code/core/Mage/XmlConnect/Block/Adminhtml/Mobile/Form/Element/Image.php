@@ -31,8 +31,7 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Image
-    extends Varien_Data_Form_Element_Image
+class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Image extends Varien_Data_Form_Element_Image
 {
     /**
      * Function fetches image Url actual or default

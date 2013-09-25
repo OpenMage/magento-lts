@@ -124,6 +124,11 @@ abstract class Mage_GoogleCheckout_Model_Api_Xml_Abstract extends Varien_Object
      */
     public function getGResponse()
     {
+        $merchantId = $this->getMerchantId();
+        $merchantKey = $this->getMerchantKey();
+        if (empty($merchantId) || empty($merchantKey)) {
+            Mage::throwException(Mage::helper('googlecheckout')->__('GoogleCheckout is not configured'));
+        }
         if (!$this->hasData('g_response')) {
             $this->setData('g_response', new GoogleResponse(
                 $this->getMerchantId(),

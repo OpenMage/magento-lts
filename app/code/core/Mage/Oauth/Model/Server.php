@@ -348,6 +348,9 @@ class Mage_Oauth_Model_Server
                 if ($this->_token->getRevoked()) {
                     $this->_throwException('', self::ERR_TOKEN_REVOKED);
                 }
+                if ($this->_token->getConsumerId() != $this->_consumer->getId()) {
+                    $this->_throwException('', self::ERR_TOKEN_REJECTED);
+                }
                 //TODO: Implement check for expiration (after it implemented in token model)
             }
         } else {
@@ -542,7 +545,7 @@ class Mage_Oauth_Model_Server
         );
 
         if ($calculatedSign != $this->_protocolParams['oauth_signature']) {
-            $this->_throwException($calculatedSign, self::ERR_SIGNATURE_INVALID);
+            $this->_throwException('', self::ERR_SIGNATURE_INVALID);
         }
     }
 

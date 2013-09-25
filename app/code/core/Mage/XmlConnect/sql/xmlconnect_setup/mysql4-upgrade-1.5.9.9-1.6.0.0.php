@@ -111,8 +111,6 @@ $installer->getConnection()->addColumn($templateTableName, 'application_id', arr
     )
 );
 
-$installer->getConnection()->dropColumn($templateTableName, 'app_code');
-
 /**
  * Modify fields for 'xmlconnect_queue'
  */

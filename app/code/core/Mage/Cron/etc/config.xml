@@ -65,6 +65,14 @@
                     </cron_observer>
                 </observers>
             </default>
+            <always>
+                <observers>
+                    <cron_observer>
+                        <class>cron/observer</class>
+                        <method>dispatchAlways</method>
+                    </cron_observer>
+                </observers>
+            </always>
         </events>
     </crontab>
     <default>

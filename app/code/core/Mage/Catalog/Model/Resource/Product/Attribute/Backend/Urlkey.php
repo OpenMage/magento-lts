@@ -31,6 +31,7 @@
  * @category    Mage
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated since 1.7.0.2
  */
 class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Urlkey
     extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract

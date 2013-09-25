@@ -55,11 +55,11 @@
             <?php if($_giftMessage=$this->getMessage()): ?>
             <span class="field-row">
                 <label><?php echo Mage::helper('giftmessage')->__('From') ?></label>
-                <?php echo $this->htmlEscape($_giftMessage->getSender()) ?>
+                <?php echo $this->escapeHtml($_giftMessage->getSender()) ?>
             </span>
             <span class="field-row">
                 <label><?php echo Mage::helper('giftmessage')->__('To') ?></label>
-                <?php echo $this->htmlEscape($_giftMessage->getRecipient()) ?>
+                <?php echo $this->escapeHtml($_giftMessage->getRecipient()) ?>
             </span>
             <span class="field-row">
                 <label><?php echo Mage::helper('giftmessage')->__('Message') ?></label>
@@ -77,11 +77,11 @@
 
             <span class="field-row">
                 <label><?php echo Mage::helper('giftmessage')->__('From') ?></label>
-                <?php echo $this->htmlEscape($_giftMessage->getSender()) ?>
+                <?php echo $this->escapeHtml($_giftMessage->getSender()) ?>
             </span>
             <span class="field-row">
                 <label><?php echo Mage::helper('giftmessage')->__('To') ?></label>
-                <?php echo $this->htmlEscape($_giftMessage->getRecipient()) ?>
+                <?php echo $this->escapeHtml($_giftMessage->getRecipient()) ?>
             </span>
             <span class="field-row">
                 <label><?php echo Mage::helper('giftmessage')->__('Message') ?></label>

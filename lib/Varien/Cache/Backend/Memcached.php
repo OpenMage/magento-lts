@@ -24,7 +24,12 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-class Varien_Cache_Backend_Memcached 
+/**
+ * Class Varien_Cache_Backend_Memcached
+ *
+ * @deprecated after 1.7.0.2
+ */
+class Varien_Cache_Backend_Memcached
     extends Zend_Cache_Backend_Memcached
     implements Zend_Cache_Backend_ExtendedInterface
 {

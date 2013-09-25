@@ -37,7 +37,7 @@ class Mage_XmlConnect_Model_Adminhtml_System_Config_Backend_Currency_Default
     /**
      * Update all applications "updated at" parameter with current date
      *
-     * @return this
+     * @return Mage_XmlConnect_Model_Adminhtml_System_Config_Backend_Currency_Default
      */
     protected function _afterSave()
     {

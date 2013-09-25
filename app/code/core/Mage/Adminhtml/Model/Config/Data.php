@@ -132,7 +132,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                 /**
                  * Get field backend model
                  */
-                $backendClass = $fieldConfig->backend_model;
+                $backendClass = (isset($fieldConfig->backend_model))? $fieldConfig->backend_model : false;
                 if (!$backendClass) {
                     $backendClass = 'core/config_data';
                 }
@@ -335,7 +335,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
         if (is_null($configData)) {
             $configData = $this->_configData;
         }
-        if (isset($configData[$path])) {
+        if (array_key_exists($path, $configData)) {
             $data = $configData[$path];
             $inherit = false;
         } else {

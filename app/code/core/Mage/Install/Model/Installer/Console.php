@@ -157,10 +157,12 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
         }
 
         /**
-         * Validate license aggreement acceptance
+         * Validate license agreement acceptance
          */
         if (!$this->_checkFlag($args['license_agreement_accepted'])) {
-            $this->addError('ERROR: You have to accept Magento license agreement terms and conditions to continue installation');
+            $this->addError(
+                'ERROR: You have to accept Magento license agreement terms and conditions to continue installation'
+            );
             return false;
         }
 
@@ -355,7 +357,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
             /**
              * Install configuration
              */
-            $installer->installConfig($this->_getDataModel()->getConfigData()); // TODO fix wizard and simplify this everywhere
+            $installer->installConfig($this->_getDataModel()->getConfigData());
 
             if ($this->hasErrors()) {
                 return false;

@@ -34,6 +34,13 @@
 abstract class Mage_XmlConnect_Model_Preview_Abstract extends Varien_Object
 {
     /**
+     * XmlConnect image model
+     *
+     * @var Mage_XmlConnect_Model_Images
+     */
+    protected $_imageModel;
+
+    /**
      * Current active tab according preview action
      *
      * @var bool|string
@@ -205,12 +212,19 @@ abstract class Mage_XmlConnect_Model_Preview_Abstract extends Varien_Object
      */
     public function getLogoUrl()
     {
-        $configPath = 'conf/navigationBar/icon';
-        if ($this->getData($configPath)) {
-            return $this->getData($configPath);
-        } else {
-            return $this->getPreviewImagesUrl('smallIcon.png');
+        $imageArray = $this->_getDeviceImageByType('icon');
+        $iconImage = false;
+        if (count($imageArray)) {
+            $iconImage = $this->getImageModel()->getCustomSizeImageUrl(
+                $imageArray[0]['image_file'], 35, 35
+            );
         }
+
+        if (!$iconImage) {
+            $iconImage = $this->getPreviewImagesUrl('smallIcon.png');
+        }
+
+        return $iconImage;
     }
 
     /**
@@ -262,5 +276,43 @@ abstract class Mage_XmlConnect_Model_Preview_Abstract extends Varien_Object
             }
         }
         return $this->_categoryItemTintColor;
+    }
+
+    /**
+     * Get device image by type
+     *
+     * @param string $type
+     * @param int $limit
+     * @param int $offset
+     * @return array
+     */
+    protected function _getDeviceImageByType($type, $limit = 1, $offset = 0)
+    {
+        return $this->getImageModel()->getDeviceImagesByType($type, $limit, $offset);
+    }
+
+    /**
+     * Get XmlConnect Image Model
+     *
+     * @return Mage_XmlConnect_Model_Images
+     */
+    public function getImageModel()
+    {
+        if ($this->_imageModel === null) {
+            $this->setImageModel(Mage::getModel('xmlconnect/images'));
+        }
+        return $this->_imageModel;
+    }
+
+    /**
+     * Set XmlConnect image model
+     *
+     * @param Mage_XmlConnect_Model_Images $imageModel
+     * @return Mage_XmlConnect_Model_Preview_Abstract
+     */
+    public function setImageModel($imageModel)
+    {
+        $this->_imageModel = $imageModel;
+        return $this;
     }
 }

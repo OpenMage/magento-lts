@@ -164,6 +164,15 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
     }
 
     /**
+     * Adds session handler via static call
+     */
+    public static function setStaticSaveHandler()
+    {
+        $handler = new self;
+        $handler->setSaveHandler();
+    }
+
+    /**
      * Open session
      *
      * @param string $savePath ignored

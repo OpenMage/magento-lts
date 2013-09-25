@@ -31,8 +31,7 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Adminhtml_Template_Preview_Form
-    extends Mage_Adminhtml_Block_Widget_Form
+class Mage_XmlConnect_Block_Adminhtml_Template_Preview_Form extends Mage_Adminhtml_Block_Widget_Form
 {
     /**
      * Preparing from for revision page

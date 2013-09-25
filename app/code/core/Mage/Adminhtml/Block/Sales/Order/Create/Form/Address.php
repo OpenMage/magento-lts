@@ -216,6 +216,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address
      */
     public function getAddressAsString($address)
     {
-        return $this->htmlEscape($address->format('oneline'));
+        return $this->escapeHtml($address->format('oneline'));
     }
 }

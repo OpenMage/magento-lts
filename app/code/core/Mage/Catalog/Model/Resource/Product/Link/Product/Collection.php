@@ -116,6 +116,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
         $this->_product = $product;
         if ($product && $product->getId()) {
             $this->_hasLinkFilter = true;
+            $this->setStore($product->getStore());
         }
         return $this;
     }

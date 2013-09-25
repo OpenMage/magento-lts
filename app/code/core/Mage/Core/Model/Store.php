@@ -581,15 +581,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     protected function _updatePathUseRewrites($url)
     {
-        if ($this->isAdmin()
-            || !$this->getConfig(self::XML_PATH_USE_REWRITES)
-            || !Mage::isInstalled()
-        ) {
-            if ($this->_isCustomEntryPoint()) {
-                $indexFileName = 'index.php';
-            } else {
-                $indexFileName = basename($_SERVER['SCRIPT_FILENAME']);
-            }
+        if ($this->isAdmin() || !$this->getConfig(self::XML_PATH_USE_REWRITES) || !Mage::isInstalled()) {
+            $indexFileName = $this->_isCustomEntryPoint() ? 'index.php' : basename($_SERVER['SCRIPT_FILENAME']);
             $url .= $indexFileName . '/';
         }
         return $url;

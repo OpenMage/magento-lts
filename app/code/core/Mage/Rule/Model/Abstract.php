@@ -83,6 +83,20 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
     abstract public function getActionsInstance();
 
     /**
+     * Prepare select for condition
+     *
+     * @param int $storeId
+     * @return Varien_Db_Select
+     */
+    public function getProductFlatSelect($storeId)
+    {
+        /** @var $resource Mage_Rule_Model_Resource_Abstract */
+        $resource = $this->getResource();
+
+        return $resource->getProductFlatSelect($storeId, $this->getConditions());
+    }
+
+    /**
      * Prepare data before saving
      *
      * @return Mage_Rule_Model_Abstract

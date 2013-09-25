@@ -45,6 +45,7 @@ class Mage_XmlConnect_Block_Catalog_Search_Suggest extends Mage_CatalogSearch_Bl
      */
     protected function _toHtml()
     {
+        /** @var $suggestXmlObj Mage_XmlConnect_Model_Simplexml_Element */
         $suggestXmlObj = Mage::getModel('xmlconnect/simplexml_element', '<suggestions></suggestions>');
 
         if (!$this->getRequest()->getParam(Mage_CatalogSearch_Helper_Data::QUERY_VAR_NAME, false)) {

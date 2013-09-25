@@ -72,8 +72,8 @@ class Mage_XmlConnect_Block_Customer_Order_Item_Renderer_Giftcard
         $item = $this->getOrderItem();
         $item->setProductOptions(array('additional_options' => $this->getItemOptions()));
 
-        $defaultRenderer = $this->getLayout()->getBlock('xmlconnect.customer.order.items')->getItemRenderer(null);
-        $defaultRenderer->setItem($item);
+        $defaultRenderer = $this->getLayout()->getBlock('order.items')->getItemRenderer(null);
+        $defaultRenderer->setItem($item)->setNewApi($this->getNewApi());
         $defaultRenderer->addItemToXmlObject($orderItemXmlObj);
     }
 }

@@ -44,5 +44,5 @@ class Mage_XmlConnect_Block_Adminhtml_Template_Grid_Renderer_Name
     {
         $str = $this->escapeHtml($row->getName());
         return $str;
-     }
+    }
 }

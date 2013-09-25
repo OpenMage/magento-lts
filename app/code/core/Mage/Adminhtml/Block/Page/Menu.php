@@ -141,7 +141,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
             }
 
             $aclResource = 'admin/' . ($child->resource ? (string)$child->resource : $path . $childName);
-            if (!$this->_checkAcl($aclResource)) {
+            if (!$this->_checkAcl($aclResource) || !$this->_isEnabledModuleOutput($child)) {
                 continue;
             }
 
@@ -306,5 +306,22 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
         $html .= '</ul>' . PHP_EOL;
 
         return $html;
+    }
+
+    /**
+     * Check is module output enabled
+     *
+     * @param Varien_Simplexml_Element $child
+     * @return bool
+     */
+    protected function _isEnabledModuleOutput(Varien_Simplexml_Element $child)
+    {
+        $helperName      = 'adminhtml';
+        $childAttributes = $child->attributes();
+        if (isset($childAttributes['module'])) {
+            $helperName  = (string)$childAttributes['module'];
+        }
+
+        return Mage::helper($helperName)->isModuleOutputEnabled();
     }
 }

@@ -405,15 +405,11 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
      */
     public function getErrorMessages()
     {
-        $translator = Mage::helper('importexport');
         $messages = array();
-
         foreach ($this->_errors as $errorCode => $errorRows) {
-            if (isset($this->_messageTemplates[$errorCode])) {
-                $message = $translator->__($this->_messageTemplates[$errorCode]);
-            } else {
-                $message = $translator->__("Invalid value for '%s' column", $errorCode);
-            }
+            $message = isset($this->_messageTemplates[$errorCode])
+                ? Mage::helper('importexport')->__($this->_messageTemplates[$errorCode])
+                : Mage::helper('importexport')->__("Invalid value for '%s' column", $errorCode);
             $messages[$message] = $errorRows;
         }
         return $messages;

@@ -51,7 +51,7 @@
             <tr>
                 <td>
                     <input type="hidden" value="1" name="wishlist[<?php echo $item->getItemId() ?>]" />
-                    <a href="<?php echo $this->getUrl('catalog/product/view/id/'.$item->getProduct()->getId()) ?>"><?php echo $this->htmlEscape($item->getProduct()->getName()) ?></a>
+                    <a href="<?php echo $this->getUrl('catalog/product/view/id/'.$item->getProduct()->getId()) ?>"><?php echo $this->escapeHtml($item->getProduct()->getName()) ?></a>
                 </td>
                 <td><?php echo $item->getStatus() ?></td>
                 <td><input type="checkbox" value="1" name="to_cart[<?php echo $item->getItemId() ?>]" class="checkbox" /></td>

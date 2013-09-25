@@ -69,12 +69,12 @@ class Mage_XmlConnect_Model_Resource_ConfigData extends Mage_Core_Model_Mysql4_A
      * Delete config value
      *
      * @param int $applicationId
-     * @param bool $category
-     * @param bool $path
+     * @param string $category
+     * @param string $path
      * @param bool $pathLike
      * @return Mage_XmlConnect_Model_Mysql4_ConfigData
      */
-    public function deleteConfig($applicationId, $category = false, $path = false, $pathLike = true)
+    public function deleteConfig($applicationId, $category = '', $path = '', $pathLike = true)
     {
         try {
             $this->_getWriteAdapter()->beginTransaction();

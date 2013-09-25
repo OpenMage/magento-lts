@@ -77,7 +77,12 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
 
     public function getRssLink()
     {
-        return Mage::getUrl('rss/catalog/category',array('cid' => $this->getCurrentCategory()->getId(), 'store_id' => Mage::app()->getStore()->getId()));
+        return Mage::getUrl('rss/catalog/category',
+            array(
+                'cid' => $this->getCurrentCategory()->getId(),
+                'store_id' => Mage::app()->getStore()->getId()
+            )
+        );
     }
 
     public function getProductListHtml()
@@ -147,5 +152,15 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
             }
         }
         return $res;
+    }
+
+    /**
+     * Retrieve block cache tags based on category
+     *
+     * @return array
+     */
+    public function getCacheTags()
+    {
+        return array_merge(parent::getCacheTags(), $this->getCurrentCategory()->getCacheIdTags());
     }
 }

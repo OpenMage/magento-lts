@@ -42,12 +42,10 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_Info_Pbridge_Verisign extend
     public function addPaymentInfoToXmlObj(Mage_XmlConnect_Model_Simplexml_Element $orderItemXmlObj)
     {
         $orderItemXmlObj->addAttribute('type', $this->getMethod()->getCode());
-        $orderItemXmlObj->addAttribute(
-            'title', $orderItemXmlObj->xmlAttribute($this->getMethod()->getTitle())
-        );
+        $orderItemXmlObj->addAttribute('title', $orderItemXmlObj->xmlAttribute($this->getMethod()->getTitle()));
 
-        if ($_specificInfo = $this->getSpecificInformation()) {
-            foreach ($_specificInfo as $label => $value) {
+        if ($specificInfo = $this->getSpecificInformation()) {
+            foreach ($specificInfo as $label => $value) {
                 $orderItemXmlObj->addCustomChild('item', implode($this->getValueAsArray($value, true), '\n'), array(
                     'label' => $label
                 ));

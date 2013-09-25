@@ -91,6 +91,21 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
     protected $_isProductNameJoined = false;
 
     /**
+     * Customer website ID
+     *
+     * @var int
+     */
+    protected $_websiteId = null;
+
+    /**
+     * Customer group ID
+     *
+     * @var int
+     */
+    protected $_customerGroupId = null;
+
+
+    /**
      * Initialize resource model for collection
      *
      * @return void
@@ -178,7 +193,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
             Mage::getSingleton('catalog/product_visibility')->addVisibleInSiteFilterToCollection($productCollection);
         }
 
-        $productCollection->addPriceData()
+        $productCollection->addPriceData($this->_customerGroupId, $this->_websiteId)
             ->addTaxPercents()
             ->addIdFilter($this->_productIds)
             ->addAttributeToSelect($attributes)
@@ -487,5 +502,29 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
         }
 
         return (int)$this->_itemsQty;
+    }
+
+    /**
+     * Setter for $_websiteId
+     *
+     * @param int $websiteId
+     * @return Mage_Wishlist_Model_Resource_Item_Collection
+     */
+    public function setWebsiteId($websiteId)
+    {
+        $this->_websiteId = $websiteId;
+        return $this;
+    }
+
+    /**
+     * Setter for $_customerGroupId
+     *
+     * @param int $customerGroupId
+     * @return Mage_Wishlist_Model_Resource_Item_Collection
+     */
+    public function setCustomerGroupId($customerGroupId)
+    {
+        $this->_customerGroupId = $customerGroupId;
+        return $this;
     }
 }

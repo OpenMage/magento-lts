@@ -726,7 +726,7 @@ $tables = array(
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'nullable'  => false,
-                'default'   => 'Translate String',
+                'default'   => Mage_Core_Model_Translate::DEFAULT_STRING,
                 'comment'   => 'Translation String'
             ),
             'store_id' => array(

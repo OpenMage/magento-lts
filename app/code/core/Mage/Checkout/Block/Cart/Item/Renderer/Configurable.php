@@ -112,4 +112,14 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Configurable extends Mage_Checkout_
         $options = $helper->getConfigurableOptions($this->getItem());
         return $options;
     }
+
+    /**
+     * Retrieve block cache tags
+     *
+     * @return array
+     */
+    public function getCacheTags()
+    {
+        return array_merge(parent::getCacheTags(), $this->getConfigurableProduct()->getCacheIdTags());
+    }
 }

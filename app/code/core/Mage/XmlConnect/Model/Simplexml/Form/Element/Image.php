@@ -31,8 +31,7 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Model_Simplexml_Form_Element_Image
-    extends Mage_XmlConnect_Model_Simplexml_Form_Element_File
+class Mage_XmlConnect_Model_Simplexml_Form_Element_Image extends Mage_XmlConnect_Model_Simplexml_Form_Element_File
 {
     /**
      * Init text element

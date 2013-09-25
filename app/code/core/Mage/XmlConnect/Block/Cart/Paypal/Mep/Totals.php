@@ -59,10 +59,7 @@ class Mage_XmlConnect_Block_Cart_Paypal_Mep_Totals extends Mage_Checkout_Block_C
             switch ($code) {
                 case 'subtotal':
                     $subtotal = intval($total->getValueExclTax()) ? $total->getValueExclTax() : $total->getValue();
-                    $paypalTotals->addAttribute(
-                        $code,
-                        Mage::helper('xmlconnect')->formatPriceForXml($subtotal)
-                    );
+                    $paypalTotals->addAttribute($code, Mage::helper('xmlconnect')->formatPriceForXml($subtotal));
                     break;
                 case 'tax':
                     $paypalTotals->addAttribute(

@@ -61,6 +61,18 @@
         <?php $isTop = 0; ?>
         <?php endforeach; ?>
     <?php endforeach; ?>
+    <?php $weees = $this->getAllWeee(); ?>
+    <?php foreach ($weees as $weeeTitle => $weeeAmount): ?>
+    <tr class="summary-details-<?php echo $taxIter; ?> summary-details<?php if ($isTop): echo ' summary-details-first'; endif; ?>" style="display:none;">
+        <td class="a-right" style="<?php echo $_style ?>" colspan="1">
+            <?php echo $this->escapeHtml($weeeTitle); ?>
+            <br />
+        </td>
+        <td style="<?php echo $_style ?>" class="a-right" rowspan="1">
+            <?php echo $this->helper('checkout')->formatPrice($weeeAmount); ?>
+        </td>
+    </tr>
+    <?php endforeach; ?>
 <?php endif;?>
 <tr <?php if ($this->helper('tax')->displayFullSummary() && $_value!=0): ?> class="summary-total" onclick="expandDetails(this, '.summary-details-<?php echo $taxIter;?>')"<?php endif; ?>>
     <td style="<?php echo $_style ?>" class="a-right" colspan="<?php echo $this->getColspan(); ?>">
