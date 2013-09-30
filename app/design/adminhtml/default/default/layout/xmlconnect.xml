@@ -21,7 +21,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -30,6 +30,7 @@
     <default>
         <reference name="head">
             <action method="addCss"><name>xmlconnect/boxes.css</name></action>
+            <action method="addItem"><type>skin_css</type><name>xmlconnect/iestyles.css</name><params/><if>lte IE 8</if></action>
         </reference>
     </default>
 
@@ -80,7 +81,7 @@
             <action method="addJs"><script>mage/adminhtml/browser.js</script></action>
             <action method="addJs"><script>prototype/window.js</script></action>
             <action method="addItem"><type>js_css</type><name>prototype/windows/themes/default.css</name></action>
-            <action method="addCss"><name>lib/prototype/windows/themes/magento.css</name></action>
+            <action method="addItem"><type>js_css</type><name>prototype/windows/themes/magento.css</name></action>
         </reference>
         <reference name="content">
             <block type="xmlconnect/adminhtml_template_edit" name="template_edit"/>
@@ -97,19 +98,20 @@
     </adminhtml_mobile_new>
 
     <adminhtml_mobile_edit>
+        <update handle="editor"/>
         <reference name="left">
             <block type="xmlconnect/adminhtml_mobile_edit_tabs" name="mobile_edit_tabs">
+                <block type="xmlconnect/adminhtml_mobile_edit_tab_offlineCatalog" name="mobile_edit_tab_offlineCatalog"/>
                 <block type="xmlconnect/adminhtml_mobile_edit_tab_general" name="mobile_edit_tab_general"/>
                 <block type="xmlconnect/adminhtml_mobile_edit_tab_design" name="mobile_edit_tab_design">
+                    <block type="adminhtml/media_uploader" name="adminhtml_media_uploader" as="media_uploader"/>
+                    <block type="xmlconnect/adminhtml_mobile_edit_tab_design_images" name="mobile_edit_tab_design_images" as="design_images" />
                     <block type="xmlconnect/adminhtml_mobile_edit_tab_design_accordion" name="mobile_edit_tab_design_accordion" as="design_accordion">
-                        <block type="xmlconnect/adminhtml_mobile_edit_tab_design_accordion_images" name="accordion_images" />
                         <block type="xmlconnect/adminhtml_mobile_edit_tab_design_accordion_themes" name="accordion_themes" />
                         <block type="xmlconnect/adminhtml_mobile_edit_tab_design_accordion_tabs" name="accordion_tabs" />
 
-                        <action method="addAccordionItem"><name>images</name><block>accordion_images</block></action>
                         <action method="addAccordionItem"><name>themes</name><block>accordion_themes</block></action>
                         <action method="addAccordionItem"><name>tabs</name><block>accordion_tabs</block></action>
-
                     </block>
                     <block type="xmlconnect/adminhtml_mobile_edit_tab_design_preview" name="mobile_edit_tab_design_preview" as="app_preview" />
                 </block>
@@ -132,10 +134,14 @@
                 <action method="addTab"><id>cache_section</id><block>mobile_edit_tab_cache</block></action>
                 <action method="addTab"><id>social_section</id><block>mobile_edit_tab_social</block></action>
                 <action method="addTab"><id>notification_section</id><block>mobile_edit_tab_notification</block></action>
+                <!--<action method="addTab"><id>offline_catalog</id><block>mobile_edit_tab_offlineCatalog</block></action>-->
             </block>
         </reference>
         <reference name="content">
             <block type="xmlconnect/adminhtml_mobile_edit" name="mobile_edit_content"/>
+        </reference>
+        <reference name="before_body_end">
+            <block type="core/template" name="image_action_block" template="xmlconnect/edit/tab/design/image_edit.phtml"/>
         </reference>
         <reference name="head">
             <action method="addCss"><name>xmlconnect/dropdown.css</name></action>
@@ -188,6 +194,7 @@
                     <action method="setActiveTab"><tab>home</tab></action>
                 </block>
             </block>
+            <block type="core/template" template="xmlconnect/edit/tab/design/preview/banner_rotator.phtml"/>
         </block>
     </adminhtml_mobile_previewhome>
 
@@ -199,6 +206,7 @@
                     <action method="setActiveTab"><tab>home</tab></action>
                 </block>
             </block>
+            <block type="core/template" template="xmlconnect/edit/tab/design/preview/banner_rotator.phtml"/>
         </block>
     </adminhtml_mobile_previewhomehor>
 
@@ -234,4 +242,41 @@
             </block>
         </block>
     </adminhtml_mobile_previewproductinfo>
+
+    <!-- Admin application actions -->
+    <adminhtml_admin_application_index>
+        <reference name="left">
+            <block type="xmlconnect/adminhtml_admin_application_edit_tabs" name="admin_app_settings_tabs"/>
+        </reference>
+        <reference name="content">
+            <block type="xmlconnect/adminhtml_admin_application_edit" name="admin_app_settings"/>
+        </reference>
+    </adminhtml_admin_application_index>
+
+    <adminhtml_connect_config_index>
+        <block type="xmlconnect/adminhtml_connect_config" name="admin.connect.config" output="toHtml"/>
+    </adminhtml_connect_config_index>
+
+    <adminhtml_connect_config_localization>
+        <block type="xmlconnect/localization" name="xmlconnect.localization" output="toHtml"/>
+    </adminhtml_connect_config_localization>
+
+    <adminhtml_connect_dashboard_index>
+        <block type="xmlconnect/adminhtml_connect_dashboard" name="admin.connect.dashboard" output="toHtml">
+            <block type="xmlconnect/adminhtml_connect_dashboard_storeSwitcher" name="admin.connect.store.switcher" as="store_switcher"/>
+            <block type="xmlconnect/adminhtml_connect_dashboard_salesInfo" name="dashboard.sales.info" as="sales_info"/>
+            <block type="xmlconnect/adminhtml_connect_dashboard_graphInfo" name="dashboard.graph.info" as="graph_info">
+                <block type="xmlconnect/adminhtml_connect_dashboard_graphOrderData" name="dashboard.graph.order.data" as="graph_order_data"/>
+                <block type="xmlconnect/adminhtml_connect_dashboard_graphAmountsData" name="dashboard.graph.amounts.data" as="graph_amounts_data"/>
+                <block type="xmlconnect/adminhtml_connect_dashboard_graphTotalsData" name="dashboard.graph.totals.data" as="graph_totals_data"/>
+            </block>
+            <block type="xmlconnect/adminhtml_connect_dashboard_lastOrders" name="dashboard.last.orders" as="last_orders"/>
+            <block type="xmlconnect/adminhtml_connect_dashboard_lastSearchTerms" name="dashboard.last.search.terms" as="last_search_terms"/>
+            <block type="xmlconnect/adminhtml_connect_dashboard_newCustomers" name="dashboard.new.customers" as="new_customers"/>
+            <block type="xmlconnect/adminhtml_connect_dashboard_topSearchTerms" name="dashboard.top.search.terms" as="top_search_terms"/>
+            <block type="xmlconnect/adminhtml_connect_dashboard_mostViewedProducts" name="dashboard.most.viewed.products" as="most_viewed"/>
+            <block type="xmlconnect/adminhtml_connect_dashboard_bestSellers" name="dashboard.best.sellers" as="best_sellers"/>
+            <block type="xmlconnect/adminhtml_connect_dashboard_customers" name="dashboard.customers" as="customers"/>
+        </block>
+    </adminhtml_connect_dashboard_index>
 </layout>

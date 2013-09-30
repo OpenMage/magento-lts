@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_ImportExport
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -536,7 +536,9 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
         }
 
         $categoryId = array_shift($rowCategories[$productId]);
-        $dataRow[self::COL_ROOT_CATEGORY] = $this->_rootCategories[$categoryId];
+        if (isset($this->_rootCategories[$categoryId])) {
+            $dataRow[self::COL_ROOT_CATEGORY] = $this->_rootCategories[$categoryId];
+        }
         if (isset($this->_categories[$categoryId])) {
             $dataRow[self::COL_CATEGORY] = $this->_categories[$categoryId];
         }
@@ -714,11 +716,12 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                 foreach ($productAttributesOptions as $productAttributeOption) {
                     $configurableData[$product->getId()] = array();
                     foreach ($productAttributeOption as $optionValues) {
+                        $priceType = $optionValues['pricing_is_percent'] ? '%' : '';
                         $configurableData[$product->getId()][] = array(
                             '_super_products_sku'           => $optionValues['sku'],
                             '_super_attribute_code'         => $optionValues['attribute_code'],
                             '_super_attribute_option'       => $optionValues['option_title'],
-                            '_super_attribute_price_corr'   => $optionValues['pricing_value']
+                            '_super_attribute_price_corr'   => $optionValues['pricing_value'] . $priceType
                         );
                     }
                 }

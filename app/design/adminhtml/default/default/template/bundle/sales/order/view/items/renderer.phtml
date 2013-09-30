@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -67,11 +67,11 @@
         <?php if (!$_item->getParentItem()): ?>
         <td>
             <h5 class="title">
-                <span id="order_item_<?php echo $_item->getId() ?>_title"><?php echo $this->htmlEscape($_item->getName()) ?></span>
+                <span id="order_item_<?php echo $_item->getId() ?>_title"><?php echo $this->escapeHtml($_item->getName()) ?></span>
             </h5>
             <div>
                 <strong><?php echo $this->helper('sales')->__('SKU') ?>:</strong>
-                <?php echo implode('<br />', Mage::helper('catalog')->splitSku($this->htmlEscape($_item->getSku()))); ?>
+                <?php echo implode('<br />', Mage::helper('catalog')->splitSku($this->escapeHtml($_item->getSku()))); ?>
             </div>
         </td>
         <?php else: ?>
@@ -400,7 +400,7 @@
             <?php else: ?>
                 &nbsp;
             <?php endif; ?>
-            <?php echo $this->htmlEscape($_item->getDescription()) ?>
+            <?php echo $this->escapeHtml($_item->getDescription()) ?>
         </td>
         <td>&nbsp;</td>
         <td>&nbsp;</td>

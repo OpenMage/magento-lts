@@ -21,7 +21,7 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -74,6 +74,7 @@ Load this update on every page when customer is logged out
     <customer_logged_out>
         <reference name="account.links">
             <action method="addLink" translate="label title" module="customer"><label>Log In</label><url helper="customer/getLoginUrl"/><title>Log In</title><prepare/><urlParams/><position>1</position></action>
+            <action method="removeLinkByUrl" ifconfig="enterprise_invitation/general/registration_required_invitation"><url helper="customer/getRegisterUrl" /></action>
             <!-- <action method="addLink" translate="label title" module="customer"><label>register</label><url helper="customer/getRegisterUrl" /><title>register</title><prepare/><urlParams/><position>100</position><li/><a/><before_text> or </before_text><after_text>.</after_text></action> -->
         </reference>
         <remove name="reorder"></remove>

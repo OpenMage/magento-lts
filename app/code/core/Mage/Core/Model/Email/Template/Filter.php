@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -185,7 +185,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         if (isset($blockParameters['output'])) {
             $method = $blockParameters['output'];
         }
-        if (!isset($method) || !is_string($method) || !is_callable(array($block, $method))) {
+        if (!isset($method) || !is_string($method) || !method_exists($block, $method)) {
             $method = 'toHtml';
         }
         return $block->$method();
@@ -341,7 +341,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
             $allowedTags = preg_split('/\s*\,\s*/', $params['allowed_tags'], 0, PREG_SPLIT_NO_EMPTY);
         }
 
-        return Mage::helper('core')->htmlEscape($params['var'], $allowedTags);
+        return Mage::helper('core')->escapeHtml($params['var'], $allowedTags);
     }
 
     /**
@@ -481,7 +481,9 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
             $variable = Mage::getModel('core/variable')
                 ->setStoreId($this->getStoreId())
                 ->loadByCode($params['code']);
-            $mode = $this->getPlainTemplateMode()?Mage_Core_Model_Variable::TYPE_TEXT:Mage_Core_Model_Variable::TYPE_HTML;
+            $mode = $this->getPlainTemplateMode()
+                ? Mage_Core_Model_Variable::TYPE_TEXT
+                : Mage_Core_Model_Variable::TYPE_HTML;
             if ($value = $variable->getValue($mode)) {
                 $customVarValue = $value;
             }

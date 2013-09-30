@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,8 +42,8 @@ class Mage_XmlConnect_Block_Cart_Paypal_Mecl_Details extends Mage_Paypal_Block_E
     public function addDetailsToXmlObj(Mage_XmlConnect_Model_Simplexml_Element $reviewXmlObj)
     {
         $itemsXmlObj = $reviewXmlObj->addChild('ordered_items');
-        foreach ($this->getItems() as $_item) {
-            $this->getItemXml($_item, $itemsXmlObj);
+        foreach ($this->getItems() as $item) {
+            $this->getItemXml($item, $itemsXmlObj);
         }
 
         $reviewXmlObj->appendChild($this->getChild('totals')->setReturnObjectFlag(true)->_toHtml());
@@ -59,10 +59,8 @@ class Mage_XmlConnect_Block_Cart_Paypal_Mecl_Details extends Mage_Paypal_Block_E
      * @return Mage_XmlConnect_Model_Simplexml_Element
      */
     public function getItemXml(
-        Mage_Sales_Model_Quote_Item $item,
-        Mage_XmlConnect_Model_Simplexml_Element $reviewXmlObj
-    )
-    {
+        Mage_Sales_Model_Quote_Item $item, Mage_XmlConnect_Model_Simplexml_Element $reviewXmlObj
+    ) {
         $renderer = $this->getItemRenderer($item->getProductType())->setItem($item)->setQuote($this->getQuote());
         return $renderer->addProductToXmlObj($reviewXmlObj);
     }
@@ -78,9 +76,7 @@ class Mage_XmlConnect_Block_Cart_Paypal_Mecl_Details extends Mage_Paypal_Block_E
     public function addItemRender($productType, $blockType, $template)
     {
         $this->_itemRenders[$productType] = array(
-            'block' => $blockType,
-            'template' => $template,
-            'blockInstance' => null
+            'block' => $blockType, 'template' => $template, 'blockInstance' => null
         );
         return $this;
     }

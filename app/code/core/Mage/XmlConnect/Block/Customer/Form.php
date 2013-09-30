@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,7 +31,7 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Customer_Form extends Mage_Core_Block_Template
+class Mage_XmlConnect_Block_Customer_Form extends Mage_Core_Block_Abstract
 {
     /**
      * Render customer form xml
@@ -40,57 +40,160 @@ class Mage_XmlConnect_Block_Customer_Form extends Mage_Core_Block_Template
      */
     protected function _toHtml()
     {
-        $editFlag = (int)$this->getRequest()->getParam('edit');
-        $customer  = $this->getCustomer();
-        /** @var $xmlModel Mage_XmlConnect_Model_Simplexml_Element */
-        $xmlModel  = Mage::getModel('xmlconnect/simplexml_element', '<node></node>');
-        //Enterprise_Customer
-        if ($editFlag == 1 && $customer && $customer->getId()) {
-            $firstname = $xmlModel->escapeXml($customer->getFirstname());
-            $lastname  = $xmlModel->escapeXml($customer->getLastname());
-            $email     = $xmlModel->escapeXml($customer->getEmail());
-        } else {
-            $firstname = $lastname = $email = '';
+        $this->_setCustomerFields();
+        $this->_prepareFormData();
+
+        $action = Mage::helper('xmlconnect')->getActionUrl($this->getFormAction());
+
+        /** @var Mage_XmlConnect_Model_Simplexml_Form $fromXmlObj */
+        $fromXmlObj = Mage::getModel('xmlconnect/simplexml_form', array(
+            'xml_id' => 'account_form',
+            'action' => $action,
+            'use_container' => true
+        ));
+
+        $customerFieldset = $fromXmlObj->addFieldset('account_info', array(
+            'legend' => $this->__('Account Information')
+        ))->setCustomAttributes(array('legend'));
+
+        if ($this->getIsCheckoutRegistrationPage()) {
+            $customerFieldset->addField('checkout_page_registration', 'text', array(
+                'label' => $this->__('Checkout Page Registration'),
+                'value' => true,
+                'visible' => 0
+            ));
         }
 
-        if ($editFlag) {
-            $passwordManageXml = '
-                   <field name="change_password" type="checkbox" label="' . $xmlModel->escapeXml($this->__('Change Password')) . '"/>
-                </fieldset>
-                <fieldset>
-                    <field name="current_password" type="password" label="' . $xmlModel->escapeXml($this->__('Current Password')) . '"/>
-                    <field name="password" type="password" label="' . $xmlModel->escapeXml($this->__('New Password')) . '"/>
-                    <field name="confirmation" type="password" label="' . $xmlModel->escapeXml($this->__('Confirm New Password')) . '">
-                        <validators>
-                            <validator type="confirmation" message="' . $xmlModel->escapeXml($this->__('Regular and confirmation passwords must be equal')) . '">password</validator>
-                        </validators>
-                    </field>
-                </fieldset>';
+        $this->_addCustomerData($customerFieldset);
+
+        /** Add custom attributes for customer */
+        Mage::helper('xmlconnect/customer_form_renderer')->setAttributesBlockName($this->getAttributesBlockName())
+            ->setFormCode($this->getCustomerFormCode())->setBlockEntity($this->getCustomer())
+            ->addCustomAttributes($customerFieldset, $this->getLayout());
+
+        if ($this->getIsEditPage()) {
+            $customerFieldset->addField('change_password', 'checkbox', array('label' => $this->__('Change Password')));
+
+            $customerPasswordFieldset = $fromXmlObj->addFieldset('password_edit', array(
+                'legend' => $this->__('Change Password')
+            ))->setCustomAttributes(array('legend'));
+
+            $this->_addPasswordFields($customerPasswordFieldset);
         } else {
-            $passwordManageXml = '
-                    <field name="password" type="password" label="' . $xmlModel->escapeXml($this->__('Password')) . '" required="true"/>
-                    <field name="confirmation" type="password" label="' . $xmlModel->escapeXml($this->__('Confirm Password')) . '" required="true">
-                        <validators>
-                            <validator type="confirmation" message="' . $xmlModel->escapeXml($this->__('Regular and confirmation passwords must be equal')) . '">password</validator>
-                        </validators>
-                    </field>
-                </fieldset>';
+            $this->_addPasswordFields($customerFieldset);
         }
 
-        $xml = <<<EOT
-<form name="account_form" method="post">
-    <fieldset>
-        <field name="firstname" type="text" label="{$xmlModel->escapeXml($this->__('First Name'))}" required="true" value="$firstname" />
-        <field name="lastname" type="text" label="{$xmlModel->escapeXml($this->__('Last Name'))}" required="true" value="$lastname" />
-        <field name="email" type="text" label="{$xmlModel->escapeXml($this->__('Email'))}" required="true" value="$email">
-            <validators>
-                <validator type="email" message="{$xmlModel->escapeXml($this->__('Wrong email format'))}"/>
-            </validators>
-        </field>
-        $passwordManageXml
-</form>
-EOT;
+        return $fromXmlObj->getXml();
+    }
 
-        return $xml;
+    /**
+     * Set customers fields for edit form
+     *
+     * @return Mage_XmlConnect_Block_Customer_Form
+     */
+    protected function _setCustomerFields()
+    {
+        $customer = $this->getCustomer();
+        if ($this->getIsEditPage() && $customer && $customer->getId()) {
+            $this->setFirstname($customer->getFirstname());
+            $this->setLastname($customer->getLastname());
+            $this->setEmail($customer->getEmail());
+        }
+        return $this;
+    }
+
+    /**
+     * Set form data
+     *
+     * @return Mage_XmlConnect_Block_Customer_Form
+     */
+    protected function _prepareFormData()
+    {
+        if ($this->getIsEditPage()) {
+            $this->setFormAction('xmlconnect/customer/edit');
+            $this->setPasswordLabel($this->__('New Password'));
+            $this->setConfirmLabel($this->__('Confirm New Password'));
+        } else {
+            $this->setFormAction('xmlconnect/customer/save');
+            $this->setPasswordLabel($this->__('Password'));
+            $this->setConfirmLabel($this->__('Confirm Password'));
+            $this->setIsPasswordRequired(true);
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * Add customer fields - first name, last name and email
+     *
+     * @param Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $customerFieldset
+     * @return Mage_XmlConnect_Block_Customer_Form
+     */
+    protected function _addCustomerData(Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $customerFieldset)
+    {
+        $customerFieldset->addField('firstname', 'text', array(
+            'label' => $this->__('First Name'),
+            'required' => 'true',
+            'value' => $this->getFirstname()
+        ));
+        $customerFieldset->addField('lastname', 'text', array(
+            'label' => $this->__('Last Name'),
+            'required' => 'true',
+            'value' => $this->getLastname()
+        ));
+        $customerFieldset->addField('email', 'text', array(
+            'label' => $this->__('Email'), 'required' => 'true', 'value' => $this->getEmail()
+        ))->addValidator()->addRule(array('type' => 'email', 'message' => $this->__('Wrong email format')));
+
+        return $this;
+    }
+
+    /**
+     * Add password fields
+     *
+     * Add to form current password, password and password confirmation fields
+     *
+     * @param Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $formFieldset
+     * @return Mage_XmlConnect_Block_Customer_Form
+     */
+    protected function _addPasswordFields(Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $formFieldset)
+    {
+        /**
+         * Return password confirmation validator in old format
+         */
+        if ($this->getIsEditPage()) {
+            $formFieldset->addField('current_password', 'password', array(
+                'label' => $this->__('Current Password'),
+                'required' => 'true'
+            ));
+        }
+        $formFieldset->addField('password', 'password', array(
+            'label' => $this->getPasswordLabel()
+        ) + $this->_getRequiredParam());
+
+        $field = $formFieldset->addField('confirmation', 'password', array(
+            'label' => $this->getConfirmLabel()
+        ) + $this->_getRequiredParam())->addValidator();
+
+        $field->getXmlObject()->addCustomChild('validator', 'password', array(
+            'type' => 'confirmation',
+            'message' => $this->__('Regular and confirmation passwords must be equal')
+        ));
+
+        return $this;
+    }
+
+    /**
+     * Get is password required param
+     *
+     * @return array
+     */
+    protected function _getRequiredParam()
+    {
+        if ($this->getIsPasswordRequired()) {
+            return array('required' => 'true');
+        }
+        return array();
     }
 }

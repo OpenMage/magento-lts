@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -77,7 +77,12 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
 
     public function getRssLink()
     {
-        return Mage::getUrl('rss/catalog/category',array('cid' => $this->getCurrentCategory()->getId(), 'store_id' => Mage::app()->getStore()->getId()));
+        return Mage::getUrl('rss/catalog/category',
+            array(
+                'cid' => $this->getCurrentCategory()->getId(),
+                'store_id' => Mage::app()->getStore()->getId()
+            )
+        );
     }
 
     public function getProductListHtml()
@@ -147,5 +152,15 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
             }
         }
         return $res;
+    }
+
+    /**
+     * Retrieve block cache tags based on category
+     *
+     * @return array
+     */
+    public function getCacheTags()
+    {
+        return array_merge(parent::getCacheTags(), $this->getCurrentCategory()->getCacheIdTags());
     }
 }

@@ -168,11 +168,11 @@ final class Mage
     {
         return array(
             'major'     => '1',
-            'minor'     => '7',
+            'minor'     => '8',
             'revision'  => '0',
-            'patch'     => '2',
-            'stability' => '',
-            'number'    => '',
+            'patch'     => '0',
+            'stability' => 'alpha',
+            'number'    => '1',
         );
     }
 
@@ -695,7 +695,7 @@ final class Mage
             }
             try {
                 self::dispatchEvent('mage_run_exception', array('exception' => $e));
-                if (!headers_sent()) {
+                if (!headers_sent() && self::isInstalled()) {
                     header('Location:' . self::getUrl('install'));
                 } else {
                     self::printException($e);

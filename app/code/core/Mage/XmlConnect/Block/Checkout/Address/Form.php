@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,7 +31,7 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Checkout_Address_Form extends Mage_Core_Block_Template
+class Mage_XmlConnect_Block_Checkout_Address_Form extends Mage_Core_Block_Abstract
 {
     /**
      * Render customer address form xml
@@ -40,134 +40,82 @@ class Mage_XmlConnect_Block_Checkout_Address_Form extends Mage_Core_Block_Templa
      */
     protected function _toHtml()
     {
-        /** @var $xmlModel Mage_XmlConnect_Model_Simplexml_Element */
-        $xmlModel = Mage::getModel('xmlconnect/simplexml_element', '<form></form>');
-        $xmlModel->addAttribute('name', 'address_form');
-        $xmlModel->addAttribute('method', 'post');
+        $addressType = $this->getType() ? $this->getType() : 'billing';
 
-        $addressType = $this->getType();
-        if (!$addressType) {
-            $addressType = 'billing';
-        }
+        $action = Mage::helper('xmlconnect')->getActionUrl('xmlconnect/checkout/savebillingaddress');
+
+        /** @var Mage_XmlConnect_Model_Simplexml_Form $fromXmlObj */
+        $fromXmlObj = Mage::getModel('xmlconnect/simplexml_form', array(
+            'xml_id' => 'address_form', 'action' => $action, 'use_container' => true
+        ))->setFieldNameSuffix($addressType);
 
         $isAllowedGuestCheckout = Mage::getSingleton('checkout/session')->getQuote()->isAllowedGuestCheckout();
 
-        $countries = $this->_getCountryOptions();
-
-        $xmlModel->addField($addressType . '[firstname]', 'text', array(
-            'label'     => $this->__('First Name'),
-            'required'  => 'true',
-            'value'     => ''
+        $fromXmlObj->addField('firstname', 'text', array(
+            'name' => 'firstname', 'label' => $this->__('First Name'), 'required' => 'true'
         ));
 
-        $xmlModel->addField($addressType . '[lastname]', 'text', array(
-            'label'     => $this->__('Last Name'),
-            'required'  => 'true',
-            'value'     => ''
+        $fromXmlObj->addField('lastname', 'text', array(
+            'name' => 'lastname', 'label' => $this->__('Last Name'), 'required' => 'true'
         ));
 
-        $xmlModel->addField($addressType . '[company]', 'text', array(
-            'label'     => $this->__('Company'),
-            'required'  => 'true',
-            'value'     => ''
-        ));
+        $fromXmlObj->addField('company', 'text', array('name' => 'company', 'label' => $this->__('Company')));
 
         if ($isAllowedGuestCheckout && !Mage::getSingleton('customer/session')->isLoggedIn()
             && $addressType == 'billing'
         ) {
-            $emailField = $xmlModel->addField($addressType . '[email]', 'text', array(
-                'label'     => $this->__('Email Address'),
-                'required'  => 'true',
-                'value'     => ''
-            ));
-            $emailValidator = $emailField->addChild('validators')->addChild('validator');
-            $emailValidator->addAttribute('type', 'email');
-            $emailValidator->addAttribute('message', $this->__('Wrong email format'));
+            $fromXmlObj->addField('email', 'text', array(
+                'name' => 'email', 'label' => $this->__('Email Address'), 'required' => 'true'
+            ))->addValidator()->addRule(array('type' => 'email', 'message' => 'Wrong email format'));
         }
 
-        $xmlModel->addField($addressType . '[street][]', 'text', array(
-            'label'     => $this->__('Address'),
-            'required'  => 'true',
-            'value'     => ''
+        $fromXmlObj->addField('street', 'text', array(
+            'name' => 'street[]', 'label' => $this->__('Address'), 'required' => 'true'
         ));
 
-        $xmlModel->addField($addressType . '[street][]', 'text', array(
-             'label'     => $this->__('Address 2'),
-             'value'     => ''
+        $fromXmlObj->addField('street_2', 'text', array('name' => 'street[]', 'label' => $this->__('Address 2')));
+
+        $fromXmlObj->addField('city', 'text', array(
+            'name' => 'city', 'label' => $this->__('City'), 'required' => 'true'
         ));
 
-        $xmlModel->addField($addressType . '[city]', 'text', array(
-            'label'     => $this->__('City'),
-            'required'  => 'true',
-            'value'     => ''
+        $fromXmlObj->addField('country_id', 'countryListSelect', array(
+            'name' => 'country_id', 'label' => $this->__('Country'), 'required' => 'true', 'old_format' => true
         ));
 
-        $countryOptionsXml = $xmlModel->addField($addressType . '[country_id]', 'select', array(
-            'label'     => $this->__('Country'),
-            'required'  => 'true',
-            'value'     => ''
-        ))->addChild('values');
+        $fromXmlObj->addField('region', 'text', array('name' => 'region', 'label' => $this->__('State/Province')));
 
-        foreach ($countries as $data) {
-            $regions = array();
-
-            if ($data['value']) {
-                $regions = $this->_getRegionOptions($data['value']);
-            }
-
-            $regionStr = (!empty($regions) ? 'region_id' : 'region');
-
-            $countryXml = $countryOptionsXml->addCustomChild('item', null, array('relation' => $regionStr));
-            $countryXml->addCustomChild('label', (string)$data['label']);
-            $countryXml->addCustomChild('value', (string)$data['value']);
-            if (!empty($regions)) {
-                $regionXml = $countryXml->addChild('regions');
-                foreach ($regions as $_data) {
-                    $regionItemXml = $regionXml->addChild('region_item');
-                    $regionItemXml->addCustomChild('label', (string)$_data['label']);
-                    $regionItemXml->addCustomChild('value', (string)$_data['value']);
-                }
-            }
-        }
-
-        $xmlModel->addField($addressType . '[region]', 'text', array(
-            'label' => $this->__('State/Province'),
-            'value' => ''
+        $fromXmlObj->addField('region_id', 'select', array(
+            'name' => 'region_id', 'label' => $this->__('State/Province'), 'required' => 'true'
         ));
 
-        $xmlModel->addField($addressType . '[region_id]', 'select', array(
-            'label'     => $this->__('State/Province'),
-            'required'  => 'true',
-            'value'     => ''
+        $fromXmlObj->addField('postcode', 'text', array(
+            'name' => 'postcode', 'label' => $this->__('Zip/Postal Code'), 'required' => 'true'
         ));
 
-        $xmlModel->addField($addressType . '[postcode]', 'text', array(
-            'label'     => $this->__('Zip/Postal Code'),
-            'required'  => 'true',
-            'value'     => ''
+        $fromXmlObj->addField('telephone', 'text', array(
+            'name' => 'telephone', 'label' => $this->__('Telephone'), 'required' => 'true'
         ));
 
-        $xmlModel->addField($addressType . '[telephone]', 'text', array(
-            'label'     => $this->__('Telephone'),
-            'required'  => 'true',
-            'value'     => ''
+        $fromXmlObj->addField('fax', 'text', array('name' => 'fax', 'label' => $this->__('Fax')));
+
+        $fromXmlObj->addField('save_in_address_book', 'checkbox', array(
+            'name' => 'save_in_address_book','label' => $this->__('Save in address book')
         ));
 
-        $xmlModel->addField($addressType . '[fax]', 'text', array(
-            'label' => $this->__('Fax'),
-            'value' => ''
-        ));
+        // Add custom address attributes
+        Mage::helper('xmlconnect/customer_form_renderer')
+            ->setAttributesBlockName('customer_form_billing_address_user_defined_attributes')
+            ->setFormCode('customer_register_address')->setBlockEntity(Mage::getModel('customer/address'))
+            ->addCustomAttributes($fromXmlObj, $this->getLayout(), $addressType);
 
-        $xmlModel->addField($addressType . '[save_in_address_book]', 'checkbox', array(
-            'label' => $this->__('Save in address book'),
-        ));
-
-        return $xmlModel->asNiceXml();
+        return $fromXmlObj->getXml();
     }
 
     /**
      * Retrieve regions by country
      *
+     * @deprecated will delete in the next version
      * @param string $countryId
      * @return array
      */
@@ -191,6 +139,7 @@ class Mage_XmlConnect_Block_Checkout_Address_Form extends Mage_Core_Block_Templa
     /**
      * Retrieve countries
      *
+     * @deprecated will delete in the next version
      * @return array
      */
     protected function _getCountryOptions()

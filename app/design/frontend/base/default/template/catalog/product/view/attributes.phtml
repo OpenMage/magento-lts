@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -42,7 +42,7 @@
         <tbody>
         <?php foreach ($_additional as $_data): ?>
             <tr>
-                <th class="label"><?php echo $this->htmlEscape($this->__($_data['label'])) ?></th>
+                <th class="label"><?php echo $this->escapeHtml($this->__($_data['label'])) ?></th>
                 <td class="data"><?php echo $_helper->productAttribute($_product, $_data['value'], $_data['code']) ?></td>
             </tr>
         <?php endforeach; ?>

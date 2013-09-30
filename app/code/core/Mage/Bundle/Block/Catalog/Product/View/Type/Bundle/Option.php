@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Bundle
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -218,6 +218,11 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     public function getSelectionTitlePrice($_selection, $includeContainer = true)
     {
         $price = $this->getProduct()->getPriceModel()->getSelectionPreFinalPrice($this->getProduct(), $_selection, 1);
+        $tierPrice = $_selection->getTierPrice();
+        if (!empty($tierPrice)) {
+            $qty = $_selection->getSelectionQty();
+            $price = $qty * (float) $_selection->getPriceModel()->getTierPrice($qty, $_selection);
+        }
         $this->setFormatProduct($_selection);
         $priceTitle = $this->escapeHtml($_selection->getName());
         $priceTitle .= ' &nbsp; ' . ($includeContainer ? '<span class="price-notice">' : '')

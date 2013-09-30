@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,109 +39,107 @@ class Mage_XmlConnect_Block_Catalog_Product_Price_Bundle extends Mage_Bundle_Blo
      * @param Mage_Catalog_Model_Product $product
      * @param Mage_XmlConnect_Model_Simplexml_Element $item
      */
-    public function collectProductPrices(
-        Mage_Catalog_Model_Product $product, Mage_XmlConnect_Model_Simplexml_Element $item
-    ) {
-        $this->setProduct($product)->setDisplayMinimalPrice(true) ->setUseLinkForAsLowAs(false);
+    public function collectProductPrices(Mage_Catalog_Model_Product $product,
+        Mage_XmlConnect_Model_Simplexml_Element $item)
+    {
+        $this->setProduct($product)->setDisplayMinimalPrice(true)->setUseLinkForAsLowAs(false);
 
         $priceXmlObj = $item->addChild('price');
 
-        /** @var $_coreHelper Mage_Core_Helper_Data */
-        $_coreHelper = $this->helper('core');
-        /** @var $_weeeHelper Mage_Weee_Helper_Data */
-        $_weeeHelper = $this->helper('weee');
-        /** @var $_taxHelper Mage_Tax_Helper_Data */
-        $_taxHelper  = $this->helper('tax');
+        /** @var $coreHelper Mage_Core_Helper_Data */
+        $coreHelper = $this->helper('core');
+        /** @var $weeeHelper Mage_Weee_Helper_Data */
+        $weeeHelper = $this->helper('weee');
+        /** @var $taxHelper Mage_Tax_Helper_Data */
+        $taxHelper  = $this->helper('tax');
 
-        $_tierPrices = $this->_getTierPrices($product);
+        $tierPrices = $this->_getTierPrices($product);
 
-        if (count($_tierPrices) > 0) {
+        if (count($tierPrices) > 0) {
             $tierPricesTextArray = array();
-            foreach ($_tierPrices as $_price) {
-                $discount = ' ' . ($_price['price'] * 1) . '%';
-                $tierPricesTextArray[] = $this->__('Buy %1$s with %2$s discount each', $_price['price_qty'], $discount);
+            foreach ($tierPrices as $price) {
+                $discount = ' ' . ($price['price'] * 1) . '%';
+                $tierPricesTextArray[] = $this->__('Buy %1$s with %2$s discount each', $price['price_qty'], $discount);
             }
             $item->addChild('price_tier', implode(PHP_EOL, $tierPricesTextArray));
         }
 
-        list($_minimalPrice, $_maximalPrice) = $product->getPriceModel()->getPrices($product);
+        list($minimalPrice, $maximalPrice) = $product->getPriceModel()->getPrices($product);
 
-        $_weeeTaxAmount = 0;
-        $_minimalPriceTax = $_taxHelper->getPrice($product, $_minimalPrice);
-        $_minimalPriceInclTax = $_taxHelper->getPrice($product, $_minimalPrice, true);
+        $weeeTaxAmount = 0;
+        $minimalPriceTax = $taxHelper->getPrice($product, $minimalPrice);
+        $minimalPriceInclTax = $taxHelper->getPrice($product, $minimalPrice, true);
 
         if ($product->getPriceType() == 1) {
-            $_weeeTaxAmount = $_weeeHelper->getAmount($product);
-            if ($_weeeTaxAmount && $_weeeHelper->typeOfDisplay($product, array(0, 1, 4))) {
-                $_minimalPriceTax += $_weeeTaxAmount;
-                $_minimalPriceInclTax += $_weeeTaxAmount;
+            $weeeTaxAmount = $weeeHelper->getAmount($product);
+            if ($weeeTaxAmount && $weeeHelper->typeOfDisplay($product, array(0, 1, 4))) {
+                $minimalPriceTax += $weeeTaxAmount;
+                $minimalPriceInclTax += $weeeTaxAmount;
             }
-            if ($_weeeTaxAmount && $_weeeHelper->typeOfDisplay($product, 2)) {
-                $_minimalPriceInclTax += $_weeeTaxAmount;
+            if ($weeeTaxAmount && $weeeHelper->typeOfDisplay($product, 2)) {
+                $minimalPriceInclTax += $weeeTaxAmount;
             }
 
-            if ($_weeeHelper->typeOfDisplay($product, array(1, 2, 4))) {
-                $_weeeTaxAttributes = $_weeeHelper->getProductWeeeAttributesForDisplay($product);
+            if ($weeeHelper->typeOfDisplay($product, array(1, 2, 4))) {
+                $weeeTaxAttributes = $weeeHelper->getProductWeeeAttributesForDisplay($product);
             }
         }
 
         if ($product->getPriceView()) {
-            if ($_taxHelper->displayBothPrices()) {
+            if ($taxHelper->displayBothPrices()) {
                 $priceXmlObj->addAttribute(
-                    'as_low_as_excluding_tax', $_coreHelper->currency($_minimalPriceTax, true, false)
+                    'as_low_as_excluding_tax', $coreHelper->currency($minimalPriceTax, true, false)
                 );
-                if ($_weeeTaxAmount && $product->getPriceType() == 1
-                    && $_weeeHelper->typeOfDisplay($product, array(2, 1, 4))
+                if ($weeeTaxAmount && $product->getPriceType() == 1
+                    && $weeeHelper->typeOfDisplay($product, array(2, 1, 4))
                 ) {
                     $weeeXmlObj = $priceXmlObj->addChild('weee');
-                    $_weeeSeparator = ' + ';
-                    $weeeXmlObj->addAttribute('separator', $_weeeSeparator);
-                    foreach ($_weeeTaxAttributes as $_weeeTaxAttribute) {
-                        if ($_weeeHelper->typeOfDisplay($product, array(2, 4))) {
-                            $amount = $_weeeTaxAttribute->getAmount() + $_weeeTaxAttribute->getTaxAmount();
+                    $weeeSeparator = ' + ';
+                    $weeeXmlObj->addAttribute('separator', $weeeSeparator);
+                    foreach ($weeeTaxAttributes as $weeeTaxAttribute) {
+                        if ($weeeHelper->typeOfDisplay($product, array(2, 4))) {
+                            $amount = $weeeTaxAttribute->getAmount() + $weeeTaxAttribute->getTaxAmount();
                         } else {
-                            $amount = $_weeeTaxAttribute->getAmount();
+                            $amount = $weeeTaxAttribute->getAmount();
                         }
                         $weeeItemXmlObj = $weeeXmlObj->addChild('item');
                         $weeeItemXmlObj->addAttribute(
-                            'name', $weeeItemXmlObj->escapeXml($_weeeTaxAttribute->getName())
+                            'name', $weeeItemXmlObj->escapeXml($weeeTaxAttribute->getName())
                         );
-                        $weeeItemXmlObj->addAttribute(
-                            'amount', $_coreHelper->currency($amount, true, false)
-                        );
+                        $weeeItemXmlObj->addAttribute('amount', $coreHelper->currency($amount, true, false));
                     }
                 }
                 $priceXmlObj->addAttribute(
-                    'as_low_as_including_tax', $_coreHelper->currency($_minimalPriceInclTax, true, false)
+                    'as_low_as_including_tax', $coreHelper->currency($minimalPriceInclTax, true, false)
                 );
             } else {
                 $priceXmlObj->addAttribute(
-                    'as_low_as', $_coreHelper->currency($_minimalPriceTax, true, false)
+                    'as_low_as', $coreHelper->currency($minimalPriceTax, true, false)
                 );
-                if ($_weeeTaxAmount && $product->getPriceType() == 1
-                    && $_weeeHelper->typeOfDisplay($product, array(2, 1, 4))
+                if ($weeeTaxAmount && $product->getPriceType() == 1
+                    && $weeeHelper->typeOfDisplay($product, array(2, 1, 4))
                 ) {
                     $weeeXmlObj = $priceXmlObj->addChild('weee');
-                    $_weeeSeparator = ' + ';
-                    $weeeXmlObj->addAttribute('separator', $_weeeSeparator);
-                    foreach ($_weeeTaxAttributes as $_weeeTaxAttribute) {
-                        if ($_weeeHelper->typeOfDisplay($product, array(2, 4))) {
-                            $amount = $_weeeTaxAttribute->getAmount() + $_weeeTaxAttribute->getTaxAmount();
+                    $weeeSeparator = ' + ';
+                    $weeeXmlObj->addAttribute('separator', $weeeSeparator);
+                    foreach ($weeeTaxAttributes as $weeeTaxAttribute) {
+                        if ($weeeHelper->typeOfDisplay($product, array(2, 4))) {
+                            $amount = $weeeTaxAttribute->getAmount() + $weeeTaxAttribute->getTaxAmount();
                         } else {
-                            $amount = $_weeeTaxAttribute->getAmount();
+                            $amount = $weeeTaxAttribute->getAmount();
                         }
                         $weeeItemXmlObj = $weeeXmlObj->addChild('item');
                         $weeeItemXmlObj->addAttribute(
-                            'name', $weeeItemXmlObj->escapeXml($_weeeTaxAttribute->getName())
+                            'name', $weeeItemXmlObj->escapeXml($weeeTaxAttribute->getName())
                         );
                         $weeeItemXmlObj->addAttribute(
-                            'amount', $_coreHelper->currency($amount, true, false)
+                            'amount', $coreHelper->currency($amount, true, false)
                         );
                     }
                 }
-                if ($_weeeHelper->typeOfDisplay($product, 2) && $_weeeTaxAmount) {
+                if ($weeeHelper->typeOfDisplay($product, 2) && $weeeTaxAmount) {
                     $priceXmlObj->addAttribute(
-                        'as_low_as_including_tax', $_coreHelper->currency($_minimalPriceInclTax, true, false)
+                        'as_low_as_including_tax', $coreHelper->currency($minimalPriceInclTax, true, false)
                     );
                 }
             }
@@ -149,195 +147,179 @@ class Mage_XmlConnect_Block_Catalog_Product_Price_Bundle extends Mage_Bundle_Blo
          * if ($product->getPriceView()) {
          */
         } else {
-            if ($_minimalPrice <> $_maximalPrice) {
-                if ($_taxHelper->displayBothPrices()) {
+            if ($minimalPrice <> $maximalPrice) {
+                if ($taxHelper->displayBothPrices()) {
                     $priceXmlObj->addAttribute(
-                        'from_excluding_tax', $_coreHelper->currency($_minimalPriceTax, true, false)
+                        'from_excluding_tax', $coreHelper->currency($minimalPriceTax, true, false)
                     );
-                    if ($_weeeTaxAmount && $product->getPriceType() == 1
-                        && $_weeeHelper->typeOfDisplay($product, array(2, 1, 4))
+                    if ($weeeTaxAmount && $product->getPriceType() == 1
+                        && $weeeHelper->typeOfDisplay($product, array(2, 1, 4))
                     ) {
                         $weeeXmlObj = $priceXmlObj->addChild('from_weee');
-                        $_weeeSeparator = ' + ';
-                        $weeeXmlObj->addAttribute('separator', $_weeeSeparator);
-                        foreach ($_weeeTaxAttributes as $_weeeTaxAttribute) {
-                            if ($_weeeHelper->typeOfDisplay($product, array(2, 4))) {
-                                $amount = $_weeeTaxAttribute->getAmount() + $_weeeTaxAttribute->getTaxAmount();
+                        $weeeSeparator = ' + ';
+                        $weeeXmlObj->addAttribute('separator', $weeeSeparator);
+                        foreach ($weeeTaxAttributes as $weeeTaxAttribute) {
+                            if ($weeeHelper->typeOfDisplay($product, array(2, 4))) {
+                                $amount = $weeeTaxAttribute->getAmount() + $weeeTaxAttribute->getTaxAmount();
                             } else {
-                                $amount = $_weeeTaxAttribute->getAmount();
+                                $amount = $weeeTaxAttribute->getAmount();
                             }
                             $weeeItemXmlObj = $weeeXmlObj->addChild('item');
                             $weeeItemXmlObj->addAttribute(
-                                'name', $weeeItemXmlObj->escapeXml($_weeeTaxAttribute->getName())
+                                'name', $weeeItemXmlObj->escapeXml($weeeTaxAttribute->getName())
                             );
-                            $weeeItemXmlObj->addAttribute(
-                                'amount', $_coreHelper->currency($amount, true, false)
-                            );
+                            $weeeItemXmlObj->addAttribute('amount', $coreHelper->currency($amount, true, false));
                         }
                     }
                     $priceXmlObj->addAttribute(
-                        'from_including_tax', $_coreHelper->currency($_minimalPriceInclTax, true, false)
+                        'from_including_tax', $coreHelper->currency($minimalPriceInclTax, true, false)
                     );
                 } else {
-                    $priceXmlObj->addAttribute('from', $_coreHelper->currency($_minimalPriceTax, true, false));
-                    if ($_weeeTaxAmount && $product->getPriceType() == 1
-                        && $_weeeHelper->typeOfDisplay($product, array(2, 1, 4))
+                    $priceXmlObj->addAttribute('from', $coreHelper->currency($minimalPriceTax, true, false));
+                    if ($weeeTaxAmount && $product->getPriceType() == 1
+                        && $weeeHelper->typeOfDisplay($product, array(2, 1, 4))
                     ) {
                         $weeeXmlObj = $priceXmlObj->addChild('from_weee');
-                        $_weeeSeparator = ' + ';
-                        $weeeXmlObj->addAttribute('separator', $_weeeSeparator);
-                        foreach ($_weeeTaxAttributes as $_weeeTaxAttribute) {
-                            if ($_weeeHelper->typeOfDisplay($product, array(2, 4))) {
-                                $amount = $_weeeTaxAttribute->getAmount() + $_weeeTaxAttribute->getTaxAmount();
+                        $weeeSeparator = ' + ';
+                        $weeeXmlObj->addAttribute('separator', $weeeSeparator);
+                        foreach ($weeeTaxAttributes as $weeeTaxAttribute) {
+                            if ($weeeHelper->typeOfDisplay($product, array(2, 4))) {
+                                $amount = $weeeTaxAttribute->getAmount() + $weeeTaxAttribute->getTaxAmount();
                             } else {
-                                $amount = $_weeeTaxAttribute->getAmount();
+                                $amount = $weeeTaxAttribute->getAmount();
                             }
                             $weeeItemXmlObj = $weeeXmlObj->addChild('item');
                             $weeeItemXmlObj->addAttribute(
-                                'name', $weeeItemXmlObj->escapeXml($_weeeTaxAttribute->getName())
+                                'name', $weeeItemXmlObj->escapeXml($weeeTaxAttribute->getName())
                             );
-                            $weeeItemXmlObj->addAttribute('amount', $_coreHelper->currency($amount, true, false));
+                            $weeeItemXmlObj->addAttribute('amount', $coreHelper->currency($amount, true, false));
                         }
                     }
-                    if ($_weeeHelper->typeOfDisplay($product, 2) && $_weeeTaxAmount) {
+                    if ($weeeHelper->typeOfDisplay($product, 2) && $weeeTaxAmount) {
                         $priceXmlObj->addAttribute(
-                            'from_including_tax', $_coreHelper->currency($_minimalPriceInclTax, true, false)
+                            'from_including_tax', $coreHelper->currency($minimalPriceInclTax, true, false)
                         );
                     }
                 }
 
-                $_maximalPriceTax = Mage::helper('tax')->getPrice($product, $_maximalPrice);
-                $_maximalPriceInclTax = Mage::helper('tax')->getPrice($product, $_maximalPrice, true);
+                $maximalPriceTax = Mage::helper('tax')->getPrice($product, $maximalPrice);
+                $maximalPriceInclTax = Mage::helper('tax')->getPrice($product, $maximalPrice, true);
 
                 if ($product->getPriceType() == 1) {
-                    if ($_weeeTaxAmount && $_weeeHelper->typeOfDisplay($product, array(0, 1, 4))) {
-                        $_maximalPriceTax += $_weeeTaxAmount;
-                        $_maximalPriceInclTax += $_weeeTaxAmount;
+                    if ($weeeTaxAmount && $weeeHelper->typeOfDisplay($product, array(0, 1, 4))) {
+                        $maximalPriceTax += $weeeTaxAmount;
+                        $maximalPriceInclTax += $weeeTaxAmount;
                     }
-                    if ($_weeeTaxAmount && $_weeeHelper->typeOfDisplay($product, 2)) {
-                        $_maximalPriceInclTax += $_weeeTaxAmount;
+                    if ($weeeTaxAmount && $weeeHelper->typeOfDisplay($product, 2)) {
+                        $maximalPriceInclTax += $weeeTaxAmount;
                     }
                 }
 
-                if ($_taxHelper->displayBothPrices()) {
+                if ($taxHelper->displayBothPrices()) {
                     $priceXmlObj->addAttribute(
-                        'to_excluding_tax', $_coreHelper->currency($_maximalPriceTax, true, false)
+                        'to_excluding_tax', $coreHelper->currency($maximalPriceTax, true, false)
                     );
-                    if ($_weeeTaxAmount && $product->getPriceType() == 1
-                        && $_weeeHelper->typeOfDisplay($product, array(2, 1, 4))
+                    if ($weeeTaxAmount && $product->getPriceType() == 1
+                        && $weeeHelper->typeOfDisplay($product, array(2, 1, 4))
                     ) {
                         $weeeXmlObj = $priceXmlObj->addChild('to_weee');
-                        $_weeeSeparator = ' + ';
-                        $weeeXmlObj->addAttribute('separator', $_weeeSeparator);
-                        foreach ($_weeeTaxAttributes as $_weeeTaxAttribute) {
-                            if ($_weeeHelper->typeOfDisplay($product, array(2, 4))) {
-                                $amount = $_weeeTaxAttribute->getAmount() + $_weeeTaxAttribute->getTaxAmount();
+                        $weeeSeparator = ' + ';
+                        $weeeXmlObj->addAttribute('separator', $weeeSeparator);
+                        foreach ($weeeTaxAttributes as $weeeTaxAttribute) {
+                            if ($weeeHelper->typeOfDisplay($product, array(2, 4))) {
+                                $amount = $weeeTaxAttribute->getAmount() + $weeeTaxAttribute->getTaxAmount();
                             } else {
-                                $amount = $_weeeTaxAttribute->getAmount();
+                                $amount = $weeeTaxAttribute->getAmount();
                             }
                             $weeeItemXmlObj = $weeeXmlObj->addChild('item');
                             $weeeItemXmlObj->addAttribute(
-                                'name', $weeeItemXmlObj->escapeXml($_weeeTaxAttribute->getName())
+                                'name', $weeeItemXmlObj->escapeXml($weeeTaxAttribute->getName())
                             );
-                            $weeeItemXmlObj->addAttribute(
-                                'amount', $_coreHelper->currency($amount, true, false)
-                            );
+                            $weeeItemXmlObj->addAttribute('amount', $coreHelper->currency($amount, true, false));
                         }
                     }
                     $priceXmlObj->addAttribute(
-                        'to_including_tax', $_coreHelper->currency($_maximalPriceInclTax, true, false)
+                        'to_including_tax', $coreHelper->currency($maximalPriceInclTax, true, false)
                     );
                 } else {
-                    $priceXmlObj->addAttribute(
-                        'to', $_coreHelper->currency($_maximalPriceTax, true, false)
-                    );
-                    if ($_weeeTaxAmount && $product->getPriceType() == 1
-                        && $_weeeHelper->typeOfDisplay($product, array(2, 1, 4))
+                    $priceXmlObj->addAttribute('to', $coreHelper->currency($maximalPriceTax, true, false));
+                    if ($weeeTaxAmount && $product->getPriceType() == 1
+                        && $weeeHelper->typeOfDisplay($product, array(2, 1, 4))
                     ) {
                         $weeeXmlObj = $priceXmlObj->addChild('to_weee');
-                        $_weeeSeparator = ' + ';
-                        $weeeXmlObj->addAttribute('separator', $_weeeSeparator);
-                        foreach ($_weeeTaxAttributes as $_weeeTaxAttribute) {
-                            if ($_weeeHelper->typeOfDisplay($product, array(2, 4))) {
-                                $amount = $_weeeTaxAttribute->getAmount() + $_weeeTaxAttribute->getTaxAmount();
+                        $weeeSeparator = ' + ';
+                        $weeeXmlObj->addAttribute('separator', $weeeSeparator);
+                        foreach ($weeeTaxAttributes as $weeeTaxAttribute) {
+                            if ($weeeHelper->typeOfDisplay($product, array(2, 4))) {
+                                $amount = $weeeTaxAttribute->getAmount() + $weeeTaxAttribute->getTaxAmount();
                             } else {
-                                $amount = $_weeeTaxAttribute->getAmount();
+                                $amount = $weeeTaxAttribute->getAmount();
                             }
                             $weeeItemXmlObj = $weeeXmlObj->addChild('item');
                             $weeeItemXmlObj->addAttribute(
-                                'name', $weeeItemXmlObj->escapeXml($_weeeTaxAttribute->getName())
+                                'name', $weeeItemXmlObj->escapeXml($weeeTaxAttribute->getName())
                             );
-                            $weeeItemXmlObj->addAttribute(
-                                'amount', $_coreHelper->currency($amount, true, false)
-                            );
+                            $weeeItemXmlObj->addAttribute('amount', $coreHelper->currency($amount, true, false));
                         }
                     }
-                    if ($_weeeHelper->typeOfDisplay($product, 2) && $_weeeTaxAmount) {
+                    if ($weeeHelper->typeOfDisplay($product, 2) && $weeeTaxAmount) {
                         $priceXmlObj->addAttribute(
-                            'to_including_tax', $_coreHelper->currency($_maximalPriceInclTax, true, false)
+                            'to_including_tax', $coreHelper->currency($maximalPriceInclTax, true, false)
                         );
                     }
                 }
             /**
-             * if ($_minimalPrice <> $_maximalPrice) {
+             * if ($minimalPrice <> $maximalPrice) {
              */
             } else {
-                if ($_taxHelper->displayBothPrices()) {
-                    $priceXmlObj->addAttribute(
-                        'excluding_tax', $_coreHelper->currency($_minimalPriceTax, true, false)
-                    );
-                    if ($_weeeTaxAmount && $product->getPriceType() == 1
-                        && $_weeeHelper->typeOfDisplay($product, array(2, 1, 4))
+                if ($taxHelper->displayBothPrices()) {
+                    $priceXmlObj->addAttribute('excluding_tax', $coreHelper->currency($minimalPriceTax, true, false));
+                    if ($weeeTaxAmount && $product->getPriceType() == 1
+                        && $weeeHelper->typeOfDisplay($product, array(2, 1, 4))
                     ) {
                         $weeeXmlObj = $priceXmlObj->addChild('weee');
-                        $_weeeSeparator = ' + ';
-                        $weeeXmlObj->addAttribute('separator', $_weeeSeparator);
-                        foreach ($_weeeTaxAttributes as $_weeeTaxAttribute) {
-                            if ($_weeeHelper->typeOfDisplay($product, array(2, 4))) {
-                                $amount = $_weeeTaxAttribute->getAmount() + $_weeeTaxAttribute->getTaxAmount();
+                        $weeeSeparator = ' + ';
+                        $weeeXmlObj->addAttribute('separator', $weeeSeparator);
+                        foreach ($weeeTaxAttributes as $weeeTaxAttribute) {
+                            if ($weeeHelper->typeOfDisplay($product, array(2, 4))) {
+                                $amount = $weeeTaxAttribute->getAmount() + $weeeTaxAttribute->getTaxAmount();
                             } else {
-                                $amount = $_weeeTaxAttribute->getAmount();
+                                $amount = $weeeTaxAttribute->getAmount();
                             }
                             $weeeItemXmlObj = $weeeXmlObj->addChild('item');
                             $weeeItemXmlObj->addAttribute(
-                                'name', $weeeItemXmlObj->escapeXml($_weeeTaxAttribute->getName())
+                                'name', $weeeItemXmlObj->escapeXml($weeeTaxAttribute->getName())
                             );
-                            $weeeItemXmlObj->addAttribute(
-                                'amount', $_coreHelper->currency($amount, true, false)
-                            );
+                            $weeeItemXmlObj->addAttribute('amount', $coreHelper->currency($amount, true, false));
                         }
                     }
                     $priceXmlObj->addAttribute(
-                        'including_tax', $_coreHelper->currency($_minimalPriceInclTax, true, false)
+                        'including_tax',$coreHelper->currency($minimalPriceInclTax, true, false)
                     );
                 } else {
-                    $priceXmlObj->addAttribute(
-                        'regular', $_coreHelper->currency($_minimalPriceTax, true, false)
-                    );
-                    if ($_weeeTaxAmount && $product->getPriceType() == 1
-                        && $_weeeHelper->typeOfDisplay($product, array(2, 1, 4))
+                    $priceXmlObj->addAttribute('regular', $coreHelper->currency($minimalPriceTax, true, false));
+                    if ($weeeTaxAmount && $product->getPriceType() == 1
+                        && $weeeHelper->typeOfDisplay($product, array(2, 1, 4))
                     ) {
                         $weeeXmlObj = $priceXmlObj->addChild('weee');
-                        $_weeeSeparator = ' + ';
-                        $weeeXmlObj->addAttribute('separator', $_weeeSeparator);
-                        foreach ($_weeeTaxAttributes as $_weeeTaxAttribute) {
-                            if ($_weeeHelper->typeOfDisplay($product, array(2, 4))) {
-                                $amount = $_weeeTaxAttribute->getAmount() + $_weeeTaxAttribute->getTaxAmount();
+                        $weeeSeparator = ' + ';
+                        $weeeXmlObj->addAttribute('separator', $weeeSeparator);
+                        foreach ($weeeTaxAttributes as $weeeTaxAttribute) {
+                            if ($weeeHelper->typeOfDisplay($product, array(2, 4))) {
+                                $amount = $weeeTaxAttribute->getAmount() + $weeeTaxAttribute->getTaxAmount();
                             } else {
-                                $amount = $_weeeTaxAttribute->getAmount();
+                                $amount = $weeeTaxAttribute->getAmount();
                             }
                             $weeeItemXmlObj = $weeeXmlObj->addChild('item');
                             $weeeItemXmlObj->addAttribute(
-                                'name', $weeeItemXmlObj->escapeXml($_weeeTaxAttribute->getName())
+                                'name', $weeeItemXmlObj->escapeXml($weeeTaxAttribute->getName())
                             );
-                            $weeeItemXmlObj->addAttribute(
-                                'amount', $_coreHelper->currency($amount, true, false)
-                            );
+                            $weeeItemXmlObj->addAttribute('amount', $coreHelper->currency($amount, true, false));
                         }
                     }
-                    if ($_weeeHelper->typeOfDisplay($product, 2) && $_weeeTaxAmount) {
+                    if ($weeeHelper->typeOfDisplay($product, 2) && $weeeTaxAmount) {
                         $priceXmlObj->addAttribute(
-                            'including_tax', $_coreHelper->currency($_minimalPriceInclTax, true, false)
+                            'including_tax', $coreHelper->currency($minimalPriceInclTax, true, false)
                         );
                     }
                 }

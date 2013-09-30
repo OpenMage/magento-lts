@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -68,16 +68,18 @@ class Mage_XmlConnect_Block_Home extends Mage_XmlConnect_Block_Catalog
         foreach ($categoryCollection as $item) {
             /** @var $item Mage_Catalog_Model_Category */
             $item = Mage::getModel('catalog/category')->load($item->getId());
+            if (!$item->getIncludeInMenu()) {
+                continue;
+            }
             $itemXmlObj = $itemsXmlObj->addChild('item');
             $itemXmlObj->addChild('label', $homeXmlObj->escapeXml($item->getName()));
             $itemXmlObj->addChild('entity_id', $item->getId());
             $itemXmlObj->addChild('content_type', $item->hasChildren() ? 'categories' : 'products');
             $icon = Mage::helper('xmlconnect/catalog_category_image')->initialize($item, 'thumbnail')
-                ->resize(Mage::helper('xmlconnect/image')->getImageSizeForContent('category'));
+                ->resize(Mage::getModel('xmlconnect/images')->getImageLimitParam('content/category'));
 
             $iconXml = $itemXmlObj->addChild('icon', $icon);
-            $file = Mage::helper('xmlconnect')->urlToPath($icon);
-            $iconXml->addAttribute('modification_time', filemtime($file));
+            $iconXml->addAttribute('modification_time', filemtime($icon->getNewFile()));
         }
         $homeXmlObj->addChild('home_banner', '/current/media/catalog/category/banner_home.png');
 

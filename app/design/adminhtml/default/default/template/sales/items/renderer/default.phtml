@@ -20,13 +20,13 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 
 <?php echo $this->getItem()->getName() ?>
-<div><strong><?php echo $this->helper('sales')->__('SKU') ?>:</strong> <?php echo implode('<br />', Mage::helper('catalog')->splitSku($this->htmlEscape($this->getItem()->getSku()))); ?></div>
+<div><strong><?php echo $this->helper('sales')->__('SKU') ?>:</strong> <?php echo implode('<br />', Mage::helper('catalog')->splitSku($this->escapeHtml($this->getItem()->getSku()))); ?></div>
 <?php if ($this->getOrderOptions()): ?>
     <ul class="item-options">
     <?php foreach ($this->getOrderOptions() as $option): ?>
@@ -36,10 +36,10 @@
             <?php echo $this->getValueHtml($item) ?><br />
             <?php endforeach; ?>
         <?php else: ?>
-            <?php echo $this->htmlEscape($option['value']); ?>
+            <?php echo $this->escapeHtml($option['value']); ?>
         <?php endif; ?>
         </li>
     <?php endforeach; ?>
     </ul>
 <?php endif; ?>
-<?php echo $this->htmlEscape($this->getItem()->getDescription()) ?>
+<?php echo $this->escapeHtml($this->getItem()->getDescription()) ?>

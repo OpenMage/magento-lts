@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,7 +31,7 @@
  * @package     Mage_Xmlconnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Catalog extends Mage_Core_Block_Template
+class Mage_XmlConnect_Block_Catalog extends Mage_Catalog_Block_Product_List_Toolbar
 {
     /**
      * Limit for product sorting fields to return
@@ -39,22 +39,48 @@ class Mage_XmlConnect_Block_Catalog extends Mage_Core_Block_Template
     const PRODUCT_SORT_FIELDS_NUMBER = 3;
 
     /**
-     * Prefix that used in specifing filters on request
+     * Prefix that used in specifying filters on request
+     *
+     * @deprecated renamed
      */
-    const REQUEST_FILTER_PARAM_REFIX = 'filter_';
+    const REQUEST_FILTER_PARAM_REFIX = self::REQUEST_FILTER_PARAM_PREFIX;
 
     /**
-     * Prefix that used in specifing sort order params on request
+     * Prefix that used in specifying filters on request
      */
-    const REQUEST_SORT_ORDER_PARAM_REFIX = 'order_';
+    const REQUEST_FILTER_PARAM_PREFIX = 'filter_';
+
+    /**
+     * Prefix that used in specifying sort order params on request
+     *
+     * @deprecated renamed
+     */
+    const REQUEST_SORT_ORDER_PARAM_REFIX = self::REQUEST_SORT_ORDER_PARAM_PREFIX;
+
+    /**
+     * Prefix that used in specifying sort order params on request
+     */
+    const REQUEST_SORT_ORDER_PARAM_PREFIX = 'order_';
+
+    /**
+     * Retrieve product sort fields as xml object
+     *
+     * @deprecated method renamed
+     * @return Mage_XmlConnect_Model_Simplexml_Element
+     */
+    public function getProductSortFeildsXmlObject()
+    {
+        $this->getProductSortFieldsXmlObject();
+    }
 
     /**
      * Retrieve product sort fields as xml object
      *
      * @return Mage_XmlConnect_Model_Simplexml_Element
      */
-    public function getProductSortFeildsXmlObject()
+    public function getProductSortFieldsXmlObject()
     {
+        /** @var $ordersXmlObject Mage_XmlConnect_Model_Simplexml_Element */
         $ordersXmlObject    = Mage::getModel('xmlconnect/simplexml_element', '<orders></orders>');
         /* @var $category Mage_Catalog_Model_Category */
         $category           = Mage::getModel('catalog/category');
@@ -70,6 +96,34 @@ class Mage_XmlConnect_Block_Catalog extends Mage_Core_Block_Template
             $item->addChild('name', $ordersXmlObject->escapeXml($name));
         }
 
+        return $ordersXmlObject;
+    }
+
+    /**
+     * Retrieve catalog search product sort fields as xml object
+     *
+     * @return Mage_XmlConnect_Model_Simplexml_Element
+     */
+    public function getSearchProductSortFieldsXmlObject()
+    {
+        /** @var $ordersXmlObject Mage_XmlConnect_Model_Simplexml_Element */
+        $ordersXmlObject    = Mage::getModel('xmlconnect/simplexml_element', '<orders></orders>');
+        /* @var $category Mage_Catalog_Model_Category */
+        $category           = Mage::getModel('catalog/category');
+        $sortOptions        = $category->getAvailableSortByOptions();
+        $sortOptions        = array_slice($sortOptions, 0, self::PRODUCT_SORT_FIELDS_NUMBER);
+        unset($sortOptions['position']);
+        $sortOptions        = array_merge(array('relevance' => $this->__('Relevance')), $sortOptions);
+        $this->setAvailableOrders($sortOptions)->setDefaultDirection('desc')->setSortBy('relevance');
+
+        foreach($this->getAvailableOrders() as $key => $order) {
+            $item = $ordersXmlObject->addChild('item');
+            if ($this->isOrderCurrent($key)) {
+                $item->addAttribute('isDefault', 1);
+            }
+            $item->addChild('code', $key);
+            $item->addChild('name', $ordersXmlObject->escapeXml($order));
+        }
         return $ordersXmlObject;
     }
 }

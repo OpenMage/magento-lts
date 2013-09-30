@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,6 +33,28 @@
  */
 class Mage_Paypal_PayflowadvancedController extends Mage_Paypal_Controller_Express_Abstract
 {
+    /**
+     * Config mode type
+     *
+     * @var string
+     */
+    protected $_configType = 'Mage_Paypal_Model_Config';
+
+    /**
+     * Config method type
+     *
+     * @var string
+     */
+    protected $_configMethod = Mage_Paypal_Model_Config::METHOD_PAYFLOWADVANCED;
+
+    /**
+     * Checkout mode type
+     *
+     * @var string
+     */
+    protected $_checkoutType = 'Mage_Paypal_Model_Payflowadvanced';
+
+
     /**
      * When a customer cancel payment from payflow gateway.
      *
@@ -119,30 +141,12 @@ class Mage_Paypal_PayflowadvancedController extends Mage_Paypal_Controller_Expre
     protected function _cancelPayment($errorMsg = '')
     {
         $gotoSection = false;
-        $session = $this->_getCheckout();
-        if ($session->getLastRealOrderId()) {
-            $order = Mage::getModel('sales/order')->loadByIncrementId($session->getLastRealOrderId());
-            if ($order->getId()) {
-                //Cancel order
-                if ($order->getState() != Mage_Sales_Model_Order::STATE_CANCELED) {
-                    $order->registerCancellation($errorMsg)->save();
-                }
-                $quote = Mage::getModel('sales/quote')
-                    ->load($order->getQuoteId());
-                //Return quote
-                if ($quote->getId()) {
-                    $quote->setIsActive(1)
-                        ->setReservedOrderId(NULL)
-                        ->save();
-                    $session->replaceQuote($quote);
-                }
-                //Unset data
-                $session->unsLastRealOrderId();
-                //Redirect to payment step
-                $gotoSection = 'payment';
-            }
+        /* @var $helper Mage_Paypal_Helper_Checkout */
+        $helper = Mage::helper('paypal/checkout');
+        $helper->cancelCurrentOrder($errorMsg);
+        if ($helper->restoreQuote()) {
+            $gotoSection = 'payment';
         }
-
         return $gotoSection;
     }
 

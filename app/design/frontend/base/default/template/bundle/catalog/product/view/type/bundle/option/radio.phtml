@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -31,14 +31,19 @@
 <?php $_selections  = $_option->getSelections(); ?>
 <?php $_default     = $_option->getDefaultSelection(); ?>
 <?php list($_defaultQty, $_canChangeQty) = $this->_getDefaultValues(); ?>
+<?php $tierPriceHtml = ''; ?>
 
 <dt>
-    <label<?php if ($_option->getRequired()) echo ' class="required"' ?>><?php echo $this->htmlEscape($_option->getTitle()) ?><?php if ($_option->getRequired()) echo '<em>*</em>' ?></label>
+    <label<?php if ($_option->getRequired()) echo ' class="required"' ?>><?php echo $this->escapeHtml($_option->getTitle()) ?><?php if ($_option->getRequired()) echo '<em>*</em>' ?></label>
 </dt>
 <dd<?php if ($_option->decoratedIsLast){?> class="last"<?php }?>>
     <div class="input-box">
-    <?php if ($this->_showSingle()): ?>
-        <?php echo $this->getSelectionTitlePrice($_selections[0]) ?>
+        <?php /** @var $_selection Mage_Catalog_Model_Product*/ ?>
+        <?php if ($this->_showSingle()): ?>
+            <?php echo $this->getSelectionTitlePrice($_selections[0]); ?>
+            <?php if ($_selections[0]->getSelectionCanChangeQty()): ?>
+                <?php $tierPriceHtml = $this->getTierPriceHtml($_selections[0]); ?>
+        <?php endif; ?>
         <input type="hidden" name="bundle_option[<?php echo $_option->getId() ?>]" value="<?php echo $_selections[0]->getSelectionId() ?>" />
     <?php else:?>
         <ul class="options-list">
@@ -48,6 +53,9 @@
             </li>
         <?php endif; ?>
         <?php foreach ($_selections as $_selection): ?>
+            <?php if ($_selection->getSelectionCanChangeQty() && $this->_isSelected($_selection)): ?>
+                <?php $tierPriceHtml = $this->getTierPriceHtml($_selection); ?>
+            <?php endif; ?>
             <li><input type="radio" onclick="bundle.changeSelection(this)" class="radio<?php echo $_option->getRequired()?' validate-one-required-by-name':'' ?> change-container-classname" id="bundle-option-<?php echo $_option->getId() ?>-<?php echo $_selection->getSelectionId() ?>" name="bundle_option[<?php echo $_option->getId() ?>]"<?php if ($this->_isSelected($_selection)) echo ' checked="checked"' ?><?php if (!$_selection->isSaleable()) echo ' disabled="disabled"' ?>value="<?php echo $_selection->getSelectionId() ?>"/>
             <span class="label"><label for="bundle-option-<?php echo $_option->getId() ?>-<?php echo $_selection->getSelectionId() ?>"><?php echo $this->getSelectionTitlePrice($_selection) ?></label></span>
             <?php if ($_option->getRequired()): ?>
@@ -59,6 +67,7 @@
         <div id="bundle-option-<?php echo $_option->getId() ?>-container"></div>
     <?php endif; ?>
     </div>
+    <span id="bundle-option-<?php echo $_option->getId() ?>-tier-prices"> <?php echo $tierPriceHtml; ?></span>
     <span class="qty-holder">
         <label for="bundle-option-<?php echo $_option->getId() ?>-qty-input"><?php echo $this->__('Qty:') ?>&nbsp;</label><input onkeyup="bundle.changeOptionQty(this, event)" onblur="bundle.changeOptionQty(this, event)" <?php if (!$_canChangeQty) echo ' disabled="disabled"' ?> id="bundle-option-<?php echo $_option->getId() ?>-qty-input" class="input-text qty<?php if (!$_canChangeQty) echo ' qty-disabled' ?>" type="text" name="bundle_option_qty[<?php echo $_option->getId() ?>]" value="<?php echo $_defaultQty ?>"/>
     </span>

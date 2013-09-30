@@ -21,14 +21,14 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Core>
-            <version>1.6.0.2</version>
+            <version>1.6.0.3</version>
         </Mage_Core>
     </modules>
     <global>
@@ -146,6 +146,12 @@
                 <writer_model>Zend_Log_Writer_Stream</writer_model>
             </core>
         </log>
+        <url_rewrite>
+            <model>core/url_rewrite</model>
+        </url_rewrite>
+        <request_rewrite>
+            <model>core/url_rewrite_request</model>
+        </request_rewrite>
     </global>
     <frontend>
         <routers>
@@ -209,6 +215,14 @@
                     </synchronize_notification>
                 </observers>
             </show_synchronize_message>
+            <clean_cache_by_tags>
+                <observers>
+                    <clean_cache_observer>
+                        <class>core/observer</class>
+                        <method>cleanCacheByTags</method>
+                    </clean_cache_observer>
+                </observers>
+            </clean_cache_by_tags>
         </events>
     </adminhtml>
     <install>

@@ -1,0 +1,148 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+
+<?php $helper =  Mage::helper('xmlconnect') ?>
+
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('Pages') ?></h4>
+    </div>
+    <fieldset id="content_fields">
+        <table cellspacing="0" class="data border" id="tiers_table">
+            <col width="200" />
+            <col width="300" />
+            <col width/>
+            <thead>
+                <tr class="headings">
+                    <th><?php echo $this->__('Label') ?></th>
+                    <th><?php echo $this->__('Get Content from CMS Page') ?></th>
+                    <th><?php echo $this->getChildHtml('add_button') ?></th>
+                </tr>
+            </thead>
+            <tbody id='content_pages'>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </fieldset>
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+    var cmsPageTemplate = '<tr id="config_data[{{trId}}][tr]">' +
+        '<td class="label">' +
+            '<span class="field-row">' +
+                '<input type="text" name="config_data[pages:{{pageFieldName}}][label]" value="{{labelFieldValue}}" class="label onclick_text input-text" id="config_data[pages:{{pageFieldName}}][label]">' +
+            '</span>' +
+        '</td>' +
+        '<td class="value">' +
+            '<span class="field-row">' +
+                '<select name="config_data[pages:{{pageFieldName}}][id]" id="config_data[pages:{{pageFieldName}}][id]" class=" select">' +
+                    '<option value="">' +
+                    '{{optionsList}}' +
+                '</select>' +
+            '</span>' +
+        '</td>' +
+        '<td class="label">' +
+            '<?php echo $this->getChildHtml('delete_button') ?>' +
+        '</td>' +
+    '</tr>';
+
+    var newPageTemplate = '<tr id="config_data[{{newId}}][tr]">' +
+        '<td class="label">' +
+            '<span class="field-row">' +
+                '<input type="text" name="config_data[new_pages][{{newId}}][label]" class="label onclick_text input-text" id="config_data[new_pages][{{newId}}][label]">' +
+            '</span>' +
+        '</td>' +
+        '<td class="value">' +
+            '<span class="field-row">' +
+                '<select name="config_data[new_pages][{{newId}}][id]" id="config_data[new_pages][{{newId}}][id]" class=" select">' +
+                    '<option value="">' +
+                    '{{optionsList}}' +
+                '</select>' +
+            '</span>' +
+        '</td>' +
+        '<td class="label">' +
+            '<?php echo $this->getChildHtml('delete_button') ?>' +
+        '</td>' +
+    '</tr>';
+
+    var cmsPageActionHelper = {
+        templateSyntax : /(^|.|\r|\n)({{(\w+)}})/,
+        templateText : cmsPageTemplate,
+        templateNew : newPageTemplate,
+
+        labelFieldValue : null,
+        pageFieldName : null,
+        trId : null,
+        pageOptions : '',
+
+        init : function() {
+            $('content_pages').update('');
+            <?php foreach($this->getPages() as $page): ?>
+                this.pageOptions += '<option value="<?php echo $helper->jsQuoteEscape($page['value']) ?>"><?php echo $helper->jsQuoteEscape($page['label']) ?></option>';
+            <?php endforeach; ?>
+        },
+        showPage : function(node, label, idValue) {
+            data = {};
+            data.trId  = node;
+            data.deleteId = node;
+            data.pageFieldName  = node;
+            data.labelFieldValue = label;
+            data.optionsList = this.pageOptions;
+
+            this.Template = new Template(this.templateText, this.templateSyntax);
+
+            $('content_pages').insert({'bottom': this.Template.evaluate(data)});
+            $('config_data[pages:' + node + '][id]').value = idValue;
+        },
+        insertPage : function() {
+            data = {};
+            data.newId = $('content_pages').childElementCount;
+            data.deleteId = $('content_pages').childElementCount;
+            data.optionsList = this.pageOptions;
+
+            this.Template = new Template(this.templateNew, this.templateSyntax);
+            $('content_pages').insert({'bottom': this.Template.evaluate(data)});
+        },
+        deletePage : function(id) {
+            var element = document.getElementById(id);
+            element.parentNode.removeChild(element);
+            return false;
+        }
+    }
+
+    cmsPageActionHelper.init();
+
+    <?php foreach ($this->getStaticPageList() as $category => $savedPage) : ?>
+        cmsPageActionHelper.showPage('<?php echo $category ?>', '<?php echo $helper->jsQuoteEscape($helper->jsQuoteEscape($savedPage['label'], '\\')) ?>', '<?php echo $savedPage['id'] ?>');
+    <?php endforeach; ?>
+// ]]>
+</script>

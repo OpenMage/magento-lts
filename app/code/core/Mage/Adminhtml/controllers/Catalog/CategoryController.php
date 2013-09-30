@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -285,6 +285,15 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
             }
 
             /**
+             * Check "Use Default Value" checkboxes values
+             */
+            if ($useDefaults = $this->getRequest()->getPost('use_default')) {
+                foreach ($useDefaults as $attributeCode) {
+                    $category->setData($attributeCode, false);
+                }
+            }
+
+            /**
              * Process "Use Config Settings" checkboxes
              */
             if ($useConfig = $this->getRequest()->getPost('use_config')) {
@@ -336,15 +345,6 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
                 }
 
                 /**
-                 * Check "Use Default Value" checkboxes values
-                 */
-                if ($useDefaults = $this->getRequest()->getPost('use_default')) {
-                    foreach ($useDefaults as $attributeCode) {
-                        $category->setData($attributeCode, false);
-                    }
-                }
-
-                /**
                  * Unset $_POST['use_config'] before save
                  */
                 $category->unsetData('use_post_data_config');
@@ -392,7 +392,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
             $this->getResponse()->setBody($e->getMessage());
         }
         catch (Exception $e){
-            $this->getResponse()->setBody(Mage::helper('catalog')->__('Category move error'.$e));
+            $this->getResponse()->setBody(Mage::helper('catalog')->__('Category move error %s', $e));
             Mage::logException($e);
         }
 

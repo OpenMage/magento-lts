@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogInventory
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -277,10 +277,12 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
      * @param int $status
      * @param int $stockId
      * @param int $websiteId
+     *
      * @return Mage_CatalogInventory_Model_Stock_Status
      */
-    protected function _processChildren($productId, $productType, $qty = 0, $status = self::STATUS_IN_STOCK, $stockId = 1, $websiteId = null)
-    {
+    protected function _processChildren($productId, $productType, $qty = 0, $status = self::STATUS_IN_STOCK,
+        $stockId = 1, $websiteId = null
+    ) {
         if ($status == self::STATUS_OUT_OF_STOCK) {
             $this->saveProductStatus($productId, $status, $qty, $stockId, $websiteId);
             return $this;

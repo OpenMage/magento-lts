@@ -36,6 +36,10 @@ to app/etc/local.xml manually.
         <session_cache_limiter><![CDATA[]]></session_cache_limiter><!-- see http://php.net/manual/en/function.session-cache-limiter.php#82174 for possible values -->
         <cache>
             <backend></backend><!-- apc / memcached / xcache / empty=file -->
+            <backend_options>
+                <connection></connection> <!-- Custom connection for db backend -->
+                <enable_two_levels>true</enable_two_levels> <!-- Enable two level cache -->
+            </backend_options>
             <slow_backend></slow_backend> <!-- database / file (default) - used for 2 levels cache setup, necessary for all shared memory storages -->
             <slow_backend_store_data></slow_backend_store_data> <!-- 1 / 0 (default) - used for 2 levels cache setup, sets whether store data in db slow cache backend -->
             <auto_refresh_fast_cache></auto_refresh_fast_cache> <!-- 1 / 0 (default) - used for 2 levels cache setup, sets whether refresh data in fast cache backend -->
@@ -76,5 +80,9 @@ to app/etc/local.xml manually.
             <header1>HTTP_X_REAL_IP</header1>
             <header2>HTTP_X_FORWARDED_FOR</header2>
         </remote_addr_headers>
+
+        <!-- example of redis session storage -->
+        <session_save><![CDATA[redis]]></session_save>
+        <session_save_path><![CDATA[tcp://127.0.0.1:6379?weight=2&timeout=2.5]]></session_save_path>
     </global>
 </config>

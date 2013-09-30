@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -30,7 +30,7 @@
     <form action="<?php echo $this->getAction() ?>" method="post" id="review-form">
         <fieldset>
             <?php echo $this->getChildHtml('form_fields_before')?>
-            <h3><?php echo $this->__("You're reviewing:"); ?> <span><?php echo $this->htmlEscape($this->getProductInfo()->getName()) ?></span></h3>
+            <h3><?php echo $this->__("You're reviewing:"); ?> <span><?php echo $this->escapeHtml($this->getProductInfo()->getName()) ?></span></h3>
             <?php if( $this->getRatings() && $this->getRatings()->getSize()): ?>
                 <h4><?php echo $this->__('How do you rate this product?') ?> <em class="required">*</em></h4>
                 <span id="input-message-box"></span>
@@ -69,19 +69,19 @@
                     <li>
                         <label for="nickname_field" class="required"><em>*</em><?php echo $this->__('Nickname') ?></label>
                         <div class="input-box">
-                            <input type="text" name="nickname" id="nickname_field" class="input-text required-entry" value="<?php echo $this->htmlEscape($data->getNickname()) ?>" />
+                            <input type="text" name="nickname" id="nickname_field" class="input-text required-entry" value="<?php echo $this->escapeHtml($data->getNickname()) ?>" />
                         </div>
                     </li>
                     <li>
                         <label for="summary_field" class="required"><em>*</em><?php echo $this->__('Summary of Your Review') ?></label>
                         <div class="input-box">
-                            <input type="text" name="title" id="summary_field" class="input-text required-entry" value="<?php echo $this->htmlEscape($data->getTitle()) ?>" />
+                            <input type="text" name="title" id="summary_field" class="input-text required-entry" value="<?php echo $this->escapeHtml($data->getTitle()) ?>" />
                         </div>
                     </li>
                     <li>
                         <label for="review_field" class="required"><em>*</em><?php echo $this->__('Review') ?></label>
                         <div class="input-box">
-                            <textarea name="detail" id="review_field" cols="5" rows="3" class="required-entry"><?php echo $this->htmlEscape($data->getDetail()) ?></textarea>
+                            <textarea name="detail" id="review_field" cols="5" rows="3" class="required-entry"><?php echo $this->escapeHtml($data->getDetail()) ?></textarea>
                         </div>
                     </li>
                 </ul>
@@ -99,18 +99,18 @@
                     var trs = $('product-review-table').select('tr');
                     var inputs;
                     var error = 1;
-    
+
                     for( var j=0; j < trs.length; j++ ) {
                         var tr = trs[j];
                         if( j > 0 ) {
                             inputs = tr.select('input');
-    
+
                             for( i in inputs ) {
                                 if( inputs[i].checked == true ) {
                                     error = 0;
                                 }
                             }
-    
+
                             if( error == 1 ) {
                                 return false;
                             } else {

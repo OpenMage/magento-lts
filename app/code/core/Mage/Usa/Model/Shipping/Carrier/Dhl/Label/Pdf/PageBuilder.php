@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Usa
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -107,7 +107,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * Add Border
      *
      * @return Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page
-     * @throws Zend_Pdf_Exception
      */
     public function addBorder()
     {
@@ -163,7 +162,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * @param string $name
      * @return Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * @throws InvalidArgumentException
-     * @throws Zend_Pdf_Exception
      */
     public function addProductName($name)
     {
@@ -182,7 +180,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      *
      * @param string $code
      * @return Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
-     * @throws Zend_Pdf_Exception
      * @throws InvalidArgumentException
      */
     public function addProductContentCode($code)
@@ -221,7 +218,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      *
      * @param int $id
      * @return Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page
-     * @throws Zend_Pdf_Exception
      */
     public function addUnitId($id)
     {
@@ -238,7 +234,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      *
      * @param $data
      * @return Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page
-     * @throws Zend_Pdf_Exception
      */
     public function addReferenceData($data)
     {
@@ -256,7 +251,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * @param SimpleXMLElement $sender
      * @return Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * @throws InvalidArgumentException
-     * @throws Zend_Pdf_Exception
      */
     public function addSenderInfo(SimpleXMLElement $sender)
     {
@@ -301,7 +295,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * @param SimpleXMLElement $addressLines
      * @param string $phoneNumber
      * @return float
-     * @throws Zend_Pdf_Exception
      */
     protected function _drawSenderAddress(SimpleXMLElement $addressLines, $phoneNumber)
     {
@@ -332,7 +325,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * @param string $serviceAreaCode
      * @return Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * @throws InvalidArgumentException
-     * @throws Zend_Pdf_Exception
      */
     public function addOriginInfo($serviceAreaCode)
     {
@@ -354,7 +346,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      *
      * @param SimpleXMLElement $consignee
      * @return Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
-     * @throws Zend_Pdf_Exception
      */
     public function addReceiveInfo(SimpleXMLElement $consignee)
     {
@@ -397,7 +388,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * @param string $facilityCode
      * @return Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * @throws InvalidArgumentException
-     * @throws Zend_Pdf_Exception
      */
     public function addDestinationFacilityCode($countryCode, $serviceAreaCode, $facilityCode)
     {
@@ -420,7 +410,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * Add Service Features Codes
      *
      * @return Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
-     * @throws Zend_Pdf_Exception
      */
     public function addServiceFeaturesCodes()
     {
@@ -436,7 +425,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * Add Delivery Date Code
      *
      * @return Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
-     * @throws Zend_Pdf_Exception
      */
     public function addDeliveryDateCode()
     {
@@ -457,7 +445,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      *
      * @param Mage_Sales_Model_Order_Shipment $data
      * @return Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page
-     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function addShipmentInformation($data)
     {
@@ -479,7 +467,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * Add Date Info
      * @param string $date
      * @return Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
-     * @throws Zend_Pdf_Exception
      */
     public function addDateInfo($date)
     {
@@ -500,7 +487,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * @param string $unit
      * @return Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * @throws InvalidArgumentException
-     * @throws Zend_Pdf_Exception
      */
     public function addWeightInfo($weight, $unit)
     {
@@ -526,7 +512,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      *
      * @param array $package
      * @return Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
-     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function addContentInfo($package)
     {
@@ -558,7 +544,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * @param string $barCode
      * @return Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * @throws InvalidArgumentException
-     * @throws Zend_Pdf_Exception
      */
     public function addWaybillBarcode($number, $barCode)
     {
@@ -586,7 +571,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * @param string $barCode
      * @return Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * @throws InvalidArgumentException
-     * @throws Zend_Pdf_Exception
      */
     public function addRoutingBarcode($routingCode, $id, $barCode)
     {
@@ -615,7 +599,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * @param string $barCode
      * @return Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * @throws InvalidArgumentException
-     * @throws Zend_Pdf_Exception
      */
     public function addPieceIdBarcode($dataIdentifier, $licensePlate, $barCode)
     {
@@ -645,7 +628,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * @param int $piecesTotal
      * @return Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * @throws InvalidArgumentException
-     * @throws Zend_Pdf_Exception
      */
     public function addPieceNumber($pieceNumber, $piecesTotal)
     {

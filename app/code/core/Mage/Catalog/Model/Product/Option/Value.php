@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -142,7 +142,7 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
      *  return converted percent to price
      *
      * @param bool $flag
-     * @return decimal
+     * @return float|int
      */
     public function getPrice($flag=false)
     {

@@ -20,11 +20,17 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * Model to calculate grand total or an order
+ *
+ * @category    Mage
+ * @package     Mage_Sales
+ * @author      Magento Core Team
+ */
 class Mage_Sales_Model_Quote_Address_Total_Grand extends Mage_Sales_Model_Quote_Address_Total_Abstract
 {
     /**
@@ -38,8 +44,11 @@ class Mage_Sales_Model_Quote_Address_Total_Grand extends Mage_Sales_Model_Quote_
         $grandTotal     = $address->getGrandTotal();
         $baseGrandTotal = $address->getBaseGrandTotal();
 
+        $store      = $address->getQuote()->getStore();
         $totals     = array_sum($address->getAllTotalAmounts());
+        $totals     = $store->roundPrice($totals);
         $baseTotals = array_sum($address->getAllBaseTotalAmounts());
+        $baseTotals = $store->roundPrice($baseTotals);
 
         $address->setGrandTotal($grandTotal+$totals);
         $address->setBaseGrandTotal($baseGrandTotal+$baseTotals);

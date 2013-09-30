@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Page
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -40,6 +40,28 @@ class Mage_Page_Block_Html_Welcome extends Mage_Core_Block_Template
      */
     protected function _toHtml()
     {
-        return Mage::app()->getLayout()->getBlock('header')->getWelcome();
+        if (empty($this->_data['welcome'])) {
+            if (Mage::isInstalled() && Mage::getSingleton('customer/session')->isLoggedIn()) {
+                $this->_data['welcome'] = $this->__('Welcome, %s!', $this->escapeHtml(Mage::getSingleton('customer/session')->getCustomer()->getName()));
+            } else {
+                $this->_data['welcome'] = Mage::getStoreConfig('design/header/welcome');
+            }
+        }
+
+        return $this->_data['welcome'];
+    }
+
+    /**
+     * Get tags array for saving cache
+     *
+     * @return array
+     */
+    public function getCacheTags()
+    {
+        if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+            $this->addModelTags(Mage::getSingleton('customer/session')->getCustomer());
+        }
+
+        return parent::getCacheTags();
     }
 }

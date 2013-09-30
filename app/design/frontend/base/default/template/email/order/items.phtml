@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -62,9 +62,9 @@
 
         <tr>
             <td colspan="4" align="left" style="padding:3px 9px">
-            <strong><?php echo $this->__('From:'); ?></strong> <?php echo $this->htmlEscape($_giftMessage->getSender()) ?>
-            <br /><strong><?php echo $this->__('To:'); ?></strong> <?php echo $this->htmlEscape($_giftMessage->getRecipient()) ?>
-            <br /><strong><?php echo $this->__('Message:'); ?></strong><br /> <?php echo $this->htmlEscape($_giftMessage->getMessage()) ?>
+            <strong><?php echo $this->__('From:'); ?></strong> <?php echo $this->escapeHtml($_giftMessage->getSender()) ?>
+            <br /><strong><?php echo $this->__('To:'); ?></strong> <?php echo $this->escapeHtml($_giftMessage->getRecipient()) ?>
+            <br /><strong><?php echo $this->__('Message:'); ?></strong><br /> <?php echo $this->escapeHtml($_giftMessage->getMessage()) ?>
             </td>
         </tr>
     </tbody>

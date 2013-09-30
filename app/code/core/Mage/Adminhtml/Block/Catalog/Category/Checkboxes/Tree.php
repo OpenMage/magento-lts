@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -58,7 +58,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Checkboxes_Tree extends Mage_Adminht
     protected function _getNodeJson($node, $level = 1)
     {
         $item = array();
-        $item['text']= $this->htmlEscape($node->getName());
+        $item['text']= $this->escapeHtml($node->getName());
 
         if ($this->_withProductCount) {
              $item['text'].= ' ('.$node->getProductCount().')';

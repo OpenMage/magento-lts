@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogInventory
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,6 +31,10 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
 {
     const XML_PATH_SHOW_OUT_OF_STOCK    = 'cataloginventory/options/show_out_of_stock';
     const XML_PATH_ITEM_AUTO_RETURN     = 'cataloginventory/item_options/auto_return';
+    /**
+     * Path to configuration option 'Display product stock status'
+     */
+    const XML_PATH_DISPLAY_PRODUCT_STOCK_STATUS = 'cataloginventory/options/display_product_stock_status';
 
     /**
      * Error codes, that Catalog Inventory module can set to quote or quote items
@@ -124,5 +128,16 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
     public function isAutoReturnEnabled()
     {
         return Mage::getStoreConfigFlag(self::XML_PATH_ITEM_AUTO_RETURN);
+    }
+
+    /**
+     * Get 'Display product stock status' option value
+     * Shows if it is necessary to show product stock status ('in stock'/'out of stock')
+     *
+     * @return bool
+     */
+    public function isDisplayProductStockStatus()
+    {
+        return Mage::getStoreConfigFlag(self::XML_PATH_DISPLAY_PRODUCT_STOCK_STATUS);
     }
 }

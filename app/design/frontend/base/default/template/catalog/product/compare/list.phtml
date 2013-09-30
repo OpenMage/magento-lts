@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /* @var $this Mage_Catalog_Block_Product_Compare_List */
@@ -71,7 +71,7 @@
                     <?php endif; ?>
                     <?php if ($this->helper('wishlist')->isAllow()) : ?>
                         <ul class="add-to-links">
-                            <li><a href="<?php echo $this->getAddToWishlistUrl($_item) ?>" class="link-wishlist" onclick="setPLocation(this.href, true)"><?php echo $this->__('Add to Wishlist') ?></a></li>
+                            <li><a href="<?php echo $this->getAddToWishlistUrl($_item) ?>" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a></li>
                         </ul>
                     <?php endif; ?>
                 </td>
@@ -92,7 +92,7 @@
                             <?php echo $this->getPriceHtml($_item, true, '-compare-list-' . $_attribute->getCode()) ?>
                             <?php break;
                         case "small_image": ?>
-                            <img src="<?php echo $this->helper('catalog/image')->init($_item, 'small_image')->resize(125, 125); ?>" width="125" height="125" alt="<?php echo $this->htmlEscape($_item->getName()) ?>" title="<?php echo $this->htmlEscape($_item->getName()) ?>" />
+                            <img src="<?php echo $this->helper('catalog/image')->init($_item, 'small_image')->resize(125, 125); ?>" width="125" height="125" alt="<?php echo $this->escapeHtml($_item->getName()) ?>" title="<?php echo $this->escapeHtml($_item->getName()) ?>" />
                             <?php break;
                         case "date":
                               echo substr($this->getProductAttributeValue($_item, $_attribute),0,10);
@@ -124,7 +124,7 @@
                     <?php endif; ?>
                     <?php if ($this->helper('wishlist')->isAllow()) : ?>
                         <ul class="add-to-links">
-                            <li><a href="<?php echo $this->getAddToWishlistUrl($_item);?>" class="link-wishlist" onclick="setPLocation(this.href, true)"><?php echo $this->__('Add to Wishlist') ?></a></li>
+                            <li><a href="<?php echo $this->getAddToWishlistUrl($_item);?>" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a></li>
                         </ul>
                     <?php endif; ?>
                 </td>

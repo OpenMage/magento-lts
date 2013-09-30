@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -121,7 +121,7 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
     /**
      * Create new credit memo for order
      *
-     * @param string $creditmemoIncrementId
+     * @param string $orderIncrementId
      * @param array $creditmemoData array('qtys' => array('sku1' => qty1, ... , 'skuN' => qtyN),
      *      'shipping_amount' => value, 'adjustment_positive' => value, 'adjustment_negative' => value)
      * @param string|null $comment
@@ -130,11 +130,11 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
      * @param string $refundToStoreCreditAmount
      * @return string $creditmemoIncrementId
      */
-    public function create($creditmemoIncrementId, $creditmemoData = null, $comment = null, $notifyCustomer = false,
+    public function create($orderIncrementId, $creditmemoData = null, $comment = null, $notifyCustomer = false,
         $includeComment = false, $refundToStoreCreditAmount = null)
     {
         /** @var $order Mage_Sales_Model_Order */
-        $order = Mage::getModel('sales/order')->load($creditmemoIncrementId, 'increment_id');
+        $order = Mage::getModel('sales/order')->load($orderIncrementId, 'increment_id');
         if (!$order->getId()) {
             $this->_fault('order_not_exists');
         }

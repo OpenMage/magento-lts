@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,7 +37,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
     public function __construct()
     {
         parent::__construct();
-        $this->setTemplate('catalog/product/attribute/options.phtml');
+        $this->setTemplate('eav/attribute/options.phtml');
     }
 
     /**
@@ -137,6 +137,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
                 ->setPositionOrder('desc', true)
                 ->load();
 
+            $helper = Mage::helper('core');
             foreach ($optionCollection as $option) {
                 $value = array();
                 if (in_array($option->getId(), $defaultValues)) {
@@ -150,12 +151,8 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
                 $value['sort_order'] = $option->getSortOrder();
                 foreach ($this->getStores() as $store) {
                     $storeValues = $this->getStoreOptionValues($store->getId());
-                    if (isset($storeValues[$option->getId()])) {
-                        $value['store'.$store->getId()] = htmlspecialchars($storeValues[$option->getId()]);
-                    }
-                    else {
-                        $value['store'.$store->getId()] = '';
-                    }
+                    $value['store' . $store->getId()] = isset($storeValues[$option->getId()])
+                        ? $helper->escapeHtml($storeValues[$option->getId()]) : '';
                 }
                 $values[] = new Varien_Object($value);
             }

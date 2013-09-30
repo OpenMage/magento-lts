@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,13 +41,22 @@ class Mage_XmlConnect_Model_Preview_Iphone extends Mage_XmlConnect_Model_Preview
      */
     public function getBannerImage()
     {
-        $configPath = 'conf/body/bannerImage';
-        if ($this->getData($configPath)) {
-            $bannerImage = $this->getData($configPath);
+        $result = array();
+        $bannerImages = $this->getImageModel()
+            ->getDeviceImagesByType(Mage_XmlConnect_Model_Device_Iphone::IMAGE_TYPE_PORTRAIT_BANNER);
+        if (!empty($bannerImages)) {
+            $width  = Mage_XmlConnect_Model_Device_Iphone::PREVIEW_PORTRAIT_BANNER_WIDTH;
+            $height = Mage_XmlConnect_Model_Device_Iphone::PREVIEW_PORTRAIT_BANNER_HEIGHT;
+            foreach ($bannerImages as $banner) {
+                if (!isset($banner['image_file'])) {
+                    continue;
+                }
+                $result[] = $this->getImageModel()->getCustomSizeImageUrl($banner['image_file'], $width, $height);
+            }
         } else {
-            $bannerImage = $this->getPreviewImagesUrl('banner.png');
+            $result[] = $this->getPreviewImagesUrl('banner.png');
         }
-        return $bannerImage;
+        return $result;
     }
 
     /**

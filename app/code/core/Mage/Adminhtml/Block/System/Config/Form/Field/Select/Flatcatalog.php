@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,12 +32,13 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_System_Config_Form_Field_Select_Flatcatalog extends Mage_Adminhtml_Block_System_Config_Form_Field
+class Mage_Adminhtml_Block_System_Config_Form_Field_Select_Flatcatalog
+    extends Mage_Adminhtml_Block_System_Config_Form_Field
 {
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
-        if (!Mage::helper('catalog/category_flat')->isRebuilt()) {
-            $element->setDisabled('disabled')
+        if (!Mage::helper('catalog/category_flat')->isBuilt()) {
+            $element->setDisabled(true)
                 ->setValue(0);
         }
         return parent::_getElementHtml($element);

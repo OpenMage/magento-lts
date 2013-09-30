@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Captcha
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -162,7 +162,7 @@ class Mage_Captcha_Model_Observer
     {
         $formId = 'backend_login';
         $captchaModel = Mage::helper('captcha')->getCaptcha($formId);
-        $loginParams = Mage::app()->getRequest()->getPost('login');
+        $loginParams = Mage::app()->getRequest()->getPost('login', array());
         $login = array_key_exists('username', $loginParams) ? $loginParams['username'] : null;
         if ($captchaModel->isRequired($login)) {
             if (!$captchaModel->isCorrect($this->_getCaptchaString(Mage::app()->getRequest(), $formId))) {

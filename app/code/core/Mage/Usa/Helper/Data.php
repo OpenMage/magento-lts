@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Usa
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -119,14 +119,14 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
             'usps_Express Mail Hold For Pickup',
             'usps_Express Mail International',
             'usps_First-Class Mail International Package',
-            'usps_First-Class Mail International Parcel',
+            'usps_First-Class Mail International Parcel', // label: usps_First-Class Package International Service
             'usps_First-Class Mail International Large Envelope',
             'usps_First-Class Mail International',
             'usps_Global Express Guaranteed (GXG)',
             'usps_USPS GXG Envelopes',
             'usps_Global Express Guaranteed Non-Document Non-Rectangular',
             'usps_Media Mail',
-            'usps_Parcel Post',
+            'usps_Parcel Post', // label: usps_Standard Post
             'usps_Express Mail',
             'usps_Priority Mail'
         ))) {

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,10 +39,6 @@ class Mage_Adminhtml_Block_Review_Edit_Form extends Mage_Adminhtml_Block_Widget_
         $review = Mage::registry('review_data');
         $product = Mage::getModel('catalog/product')->load($review->getEntityPkValue());
         $customer = Mage::getModel('customer/customer')->load($review->getCustomerId());
-        $statuses = Mage::getModel('review/review')
-            ->getStatusCollection()
-            ->load()
-            ->toOptionArray();
 
         $form = new Varien_Data_Form(array(
             'id'        => 'edit_form',
@@ -89,7 +85,7 @@ class Mage_Adminhtml_Block_Review_Edit_Form extends Mage_Adminhtml_Block_Widget_
             'label'     => Mage::helper('review')->__('Status'),
             'required'  => true,
             'name'      => 'status_id',
-            'values'    => Mage::helper('review')->translateArray($statuses),
+            'values'    => Mage::helper('review')->getReviewStatusesOptionArray(),
         ));
 
         /**

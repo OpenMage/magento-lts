@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Wishlist
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -69,6 +69,13 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * @var array
      */
     protected $_storeIds = null;
+
+    /**
+     * Entity cache tag
+     *
+     * @var string
+     */
+    protected $_cacheTag = 'wishlist';
 
     /**
      * Initialize resource model
@@ -211,6 +218,9 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
                 ->setProduct($product)
                 ->setQty($qty)
                 ->save();
+
+            Mage::dispatchEvent('wishlist_item_add_after', array('wishlist' => $this));
+
             if ($item->getId()) {
                 $this->getItemCollection()->addItem($item);
             }
@@ -239,6 +249,12 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
                 ->addWishlistFilter($this)
                 ->addStoreFilter($this->getSharedStoreIds($currentWebsiteOnly))
                 ->setVisibilityFilter();
+
+            if (Mage::app()->getStore()->isAdmin()) {
+                $customer = Mage::getModel('customer/customer')->load($this->getCustomerId());
+                $this->_itemCollection->setWebsiteId($customer->getWebsiteId());
+                $this->_itemCollection->setCustomerGroupId($customer->getGroupId());
+            }
         }
 
         return $this->_itemCollection;

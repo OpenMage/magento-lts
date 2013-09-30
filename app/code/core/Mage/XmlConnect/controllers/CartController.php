@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -414,8 +414,7 @@ class Mage_XmlConnect_CartController extends Mage_XmlConnect_Controller_Action
             return;
         } else {
             $this->_message(
-                $this->__('Store Credit payment is not being used in your shopping cart.'),
-                self::MESSAGE_STATUS_ERROR
+                $this->__('Store Credit payment is not being used in your shopping cart.'), self::MESSAGE_STATUS_ERROR
             );
             return;
         }
@@ -489,5 +488,149 @@ class Mage_XmlConnect_CartController extends Mage_XmlConnect_Controller_Action
             return false;
         }
         return $wishlist;
+    }
+
+    /**
+     * Shopping cart display action
+     */
+    public function shoppingCartAction()
+    {
+        try {
+            $messages = array();
+            $cart = $this->_getCart();
+            if ($cart->getQuote()->getItemsCount()) {
+                $cart->init();
+                $cart->save();
+
+                if (!$this->_getQuote()->validateMinimumAmount()) {
+                    $warning = Mage::getStoreConfig('sales/minimum_order/description');
+                    $messages[parent::MESSAGE_STATUS_WARNING][] = $warning;
+                }
+            }
+            foreach ($cart->getQuote()->getMessages() as $message) {
+                if ($message) {
+                    $messages[$message->getType()][] = $message->getText();
+                }
+            }
+
+            /**
+             * if customer enters shopping cart we should mark quote
+             * as modified bc he might have checkout page in another window.
+             */
+            $this->_getSession()->setCartWasUpdated(true);
+            $this->loadLayout(false)->getLayout()->getBlock('xmlconnect.cart')->setMessages($messages);
+            $this->renderLayout();
+        } catch (Mage_Core_Exception $e) {
+            $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
+        } catch (Exception $e) {
+            Mage::logException($e);
+            $this->_message($this->__('Can\'t load cart.'), self::MESSAGE_STATUS_ERROR);
+        }
+    }
+
+    /**
+     * Action to reconfigure cart item
+     */
+    public function configureAction()
+    {
+        // Extract item and product to configure
+        $id = (int) $this->getRequest()->getParam('id');
+        $quoteItem = null;
+        try {
+            $cart = $this->_getCart();
+            $quoteItem = $cart->getQuote()->getItemById($id);
+            if (!$quoteItem) {
+                $this->_message($this->__('Quote item is not found.'), self::MESSAGE_STATUS_ERROR);
+                return;
+            }
+            $params = new Varien_Object();
+            $params->setCategoryId(false);
+            $params->setConfigureMode(true);
+            $params->setBuyRequest($quoteItem->getBuyRequest());
+
+            $productHelper = Mage::helper('catalog/product');
+            $buyRequest = $params->getBuyRequest();
+            /** @var $product Mage_Catalog_Model_Product */
+            $product = $productHelper->initProduct($quoteItem->getProduct()->getId(), $this, $params);
+
+            if ($buyRequest) {
+                $productHelper->prepareProductOptions($product, $buyRequest);
+            }
+            if ($params->hasConfigureMode()) {
+                $product->setConfigureMode($params->getConfigureMode());
+            }
+
+            $this->loadLayout(false);
+            $this->getLayout()->getBlock('xmlconnect.catalog.product')->setProduct($product);
+            $this->renderLayout();
+        } catch (Exception $e) {
+            $this->_message($this->__('Cannot configure product.'), self::MESSAGE_STATUS_ERROR);
+            Mage::logException($e);
+            return;
+        }
+    }
+
+    /**
+     * Update product configuration for a cart item
+     */
+    public function updateItemOptionsAction()
+    {
+        $cart = $this->_getCart();
+        $id = (int) $this->getRequest()->getParam('id');
+        $params = $this->getRequest()->getParams();
+
+        if (!isset($params['options'])) {
+            $params['options'] = array();
+        }
+        try {
+            if (isset($params['qty'])) {
+                $filter = new Zend_Filter_LocalizedToNormalized(
+                    array('locale' => Mage::app()->getLocale()->getLocaleCode())
+                );
+                $params['qty'] = $filter->filter($params['qty']);
+            }
+
+            $quoteItem = $cart->getQuote()->getItemById($id);
+            if (!$quoteItem) {
+                $this->_message($this->__('Quote item is not found.'), parent::MESSAGE_STATUS_ERROR);
+                return;
+            }
+
+            $item = $cart->updateItem($id, new Varien_Object($params));
+            if (is_string($item)) {
+                Mage::throwException($item);
+            }
+            if ($item->getHasError()) {
+                Mage::throwException($item->getMessage());
+            }
+            $related = $this->getRequest()->getParam('related_product');
+            if (!empty($related)) {
+                $cart->addProductsByIds(explode(',', $related));
+            }
+
+            $cart->save();
+            $this->_getSession()->setCartWasUpdated(true);
+
+            Mage::dispatchEvent('checkout_cart_update_item_complete', array(
+                'item' => $item, 'request' => $this->getRequest(), 'response' => $this->getResponse()
+            ));
+
+            $productName = Mage::helper('core')->escapeHtml($item->getProduct()->getName());
+            $message = $this->__('%s was updated in your shopping cart.', $productName);
+            if ($cart->getQuote()->getHasError()) {
+                $message .= $this->__(' But cart has some errors.');
+            }
+            $this->_message($message, parent::MESSAGE_STATUS_SUCCESS);
+        } catch (Mage_Core_Exception $e) {
+            if ($this->_getSession()->getUseNotice(true)) {
+                $this->_message($e->getMessage(), parent::MESSAGE_STATUS_ERROR);
+            } else {
+                $messageText = implode("\n", array_unique(explode("\n", $e->getMessage())));
+                $this->_message($messageText, parent::MESSAGE_STATUS_ERROR);
+            }
+        } catch (Exception $e) {
+            Mage::logException($e);
+            $this->_message($this->__('Cannot update the item.'), self::MESSAGE_STATUS_ERROR);
+        }
     }
 }

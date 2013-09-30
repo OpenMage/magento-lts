@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Archive
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -458,11 +458,8 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
                 $list[] = $currentFile . DS;
             } elseif ($header['type'] == '2') {
 
-                $symlinkResult = @symlink($header['symlink'], $currentFile);
-
-                if (false === $symlinkResult) {
-                    throw new Mage_Exception('Failed to create symlink ' . $currentFile . ' to ' . $header['symlink']);
-                }
+                //we do not interrupt unpack process if symlink creation failed as symlinks are not so important
+                @symlink($header['symlink'], $currentFile);
             }
         }
 

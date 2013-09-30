@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,5 +32,54 @@
  */
 class Mage_Tax_Block_Checkout_Tax extends Mage_Checkout_Block_Total_Default
 {
+    /**
+     * Template used in the block
+     *
+     * @var string
+     */
     protected $_template = 'tax/checkout/tax.phtml';
+
+    /**
+     * The factory instance to get helper
+     *
+     * @var Mage_Core_Model_Factory
+     */
+    protected $_factory;
+
+    /**
+     * Initialize factory instance
+     *
+     * @param array $args
+     */
+    public function __construct(array $args = array())
+    {
+        $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('core/factory');
+    }
+
+    /**
+     * Get all FPTs
+     *
+     * @return array
+     */
+    public function getAllWeee()
+    {
+        $allWeee = array();
+        $store = $this->getTotal()->getAddress()->getQuote()->getStore();
+        $helper = $this->_factory->getHelper('weee');
+        if (!$helper->includeInSubtotal($store)) {
+            foreach ($this->getTotal()->getAddress()->getCachedItemsAll() as $item) {
+                foreach ($helper->getApplied($item) as $tax) {
+                    $weeeDiscount = isset($tax['weee_discount']) ? $tax['weee_discount'] : 0;
+                    $title = $tax['title'];
+                    $amount = isset($tax['row_amount']) ? $tax['row_amount'] : 0;
+                    if (array_key_exists($title, $allWeee)) {
+                        $allWeee[$title] = $allWeee[$title] + $amount - $weeeDiscount;
+                    } else {
+                        $allWeee[$title] = $amount - $weeeDiscount;
+                    }
+                }
+            }
+        }
+        return $allWeee;
+    }
 }

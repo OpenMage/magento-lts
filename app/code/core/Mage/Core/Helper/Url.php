@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -65,7 +65,13 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
         return $this->urlEncode($this->getCurrentUrl());
     }
 
-    public function getEncodedUrl($url=null)
+    /**
+     * Return encoded url
+     *
+     * @param null|string $url
+     * @return string
+     */
+    public function getEncodedUrl($url = null)
     {
         if (!$url) {
             $url = $this->getCurrentUrl();
@@ -83,6 +89,12 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
         return Mage::getBaseUrl();
     }
 
+    /**
+     * Formatting string
+     *
+     * @param string $string
+     * @return string
+     */
     protected function _prepareString($string)
     {
         $string = preg_replace('#[^0-9a-z]+#i', '-', $string);
@@ -104,7 +116,7 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
         $startDelimiter = (false === strpos($url,'?'))? '?' : '&';
 
         $arrQueryParams = array();
-        foreach($param as $key=>$value) {
+        foreach ($param as $key => $value) {
             if (is_numeric($key) || is_object($value)) {
                 continue;
             }
@@ -128,6 +140,7 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
      *
      * @param string $url
      * @param string $paramKey
+     * @param boolean $caseSensitive
      * @return string
      */
     public function removeRequestParam($url, $paramKey, $caseSensitive = false)
@@ -142,5 +155,17 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
             }
         }
         return $url;
+    }
+
+    /**
+     * Return singleton model instance
+     *
+     * @param string $name
+     * @param array $arguments
+     * @return Mage_Core_Model_Abstract
+     */
+    protected function _getSingletonModel($name, $arguments = array())
+    {
+        return Mage::getSingleton($name, $arguments);
     }
 }

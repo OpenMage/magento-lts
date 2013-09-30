@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogSearch
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -56,8 +56,8 @@ class Mage_CatalogSearch_Block_Autocomplete extends Mage_Core_Block_Abstract
                 $item['row_class'] .= ' last';
             }
 
-            $html .=  '<li title="'.$this->htmlEscape($item['title']).'" class="'.$item['row_class'].'">'
-                . '<span class="amount">'.$item['num_of_results'].'</span>'.$this->htmlEscape($item['title']).'</li>';
+            $html .=  '<li title="'.$this->escapeHtml($item['title']).'" class="'.$item['row_class'].'">'
+                . '<span class="amount">'.$item['num_of_results'].'</span>'.$this->escapeHtml($item['title']).'</li>';
         }
 
         $html.= '</ul>';

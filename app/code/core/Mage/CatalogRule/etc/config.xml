@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogRule
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -52,6 +52,9 @@
                     <rule_product>
                         <table>catalogrule_product</table>
                     </rule_product>
+                    <rule_product_price_tmp>
+                        <table>catalogrule_product_price_tmp</table>
+                    </rule_product_price_tmp>
                     <rule_product_price>
                         <table>catalogrule_product_price</table>
                     </rule_product_price>
@@ -149,14 +152,14 @@
                     </catalogrule>
                 </observers>
             </catalog_product_get_final_price>
-            <catalog_product_save_after>
+            <catalog_product_save_commit_after>
                 <observers>
                     <catalogrule>
                         <class>catalogrule/observer</class>
                         <method>applyAllRulesOnProduct</method>
                     </catalogrule>
                 </observers>
-            </catalog_product_save_after>
+            </catalog_product_save_commit_after>
 
             <catalog_product_import_finish_before>
                 <observers>

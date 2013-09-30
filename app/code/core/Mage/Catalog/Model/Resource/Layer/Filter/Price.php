@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -309,7 +309,9 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
     {
         $select = $this->_getSelect($filter);
         $priceExpression = $this->_getPriceExpression($filter, $select);
-        $select->columns(array($this->_getFullPriceExpression($filter, $select)));
+        $select->columns(array(
+            'min_price_expr' => $this->_getFullPriceExpression($filter, $select)
+        ));
         if (!is_null($lowerPrice)) {
             $select->where("$priceExpression >= " . $this->_getComparingValue($lowerPrice, $filter));
         }
@@ -371,7 +373,9 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
         }
 
         $pricesSelect
-            ->columns(array($this->_getFullPriceExpression($filter, $pricesSelect)))
+            ->columns(array(
+                'min_price_expr' => $this->_getFullPriceExpression($filter, $pricesSelect)
+            ))
             ->where("$priceExpression >= " . $this->_getComparingValue($price, $filter));
         if (!is_null($upperPrice)) {
             $pricesSelect->where("$priceExpression < " . $this->_getComparingValue($upperPrice, $filter));

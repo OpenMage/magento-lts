@@ -43,12 +43,51 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      */
     protected $_resized = false;
 
+    /**
+     * Opens image file.
+     *
+     * @param string $filename
+     * @throws Varien_Exception
+     */
     public function open($filename)
     {
         $this->_fileName = $filename;
         $this->getMimeType();
         $this->_getFileAttributes();
+        if ($this->_isMemoryLimitReached()) {
+            throw new Varien_Exception('Memory limit has been reached.');
+        }
         $this->_imageHandler = call_user_func($this->_getCallback('create'), $this->_fileName);
+    }
+
+    /**
+     * Checks whether memory limit is reached.
+     *
+     * @return bool
+     */
+    protected function _isMemoryLimitReached()
+    {
+        $limit = $this->_convertToByte(ini_get('memory_limit'));
+        $size = getimagesize($this->_fileName);
+        $requiredMemory = $size[0] * $size[1] * 3;
+        return (memory_get_usage(true) + $requiredMemory) > $limit;
+    }
+
+    /**
+     * Converts memory value (e.g. 64M, 129KB) to bytes.
+     * Case insensitive value might be used.
+     *
+     * @param string $memoryValue
+     * @return int
+     */
+    protected function _convertToByte($memoryValue)
+    {
+        if (stripos($memoryValue, 'M') !== false) {
+            return (int)$memoryValue * 1024 * 1024;
+        } elseif (stripos($memoryValue, 'KB') !== false) {
+            return (int)$memoryValue * 1024;
+        }
+        return (int)$memoryValue;
     }
 
     public function save($destination=null, $newName=null)

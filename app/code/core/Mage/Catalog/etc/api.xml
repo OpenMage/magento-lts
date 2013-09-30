@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -163,6 +163,10 @@
                         <title>Update product</title>
                         <acl>catalog/product/update</acl>
                     </update>
+                    <multiUpdate translate="title" module="Mage_Catalog">
+                        <title>Multi update product</title>
+                        <acl>catalog/product/update</acl>
+                    </multiUpdate>
                     <delete translate="title" module="catalog">
                         <title>Delete product</title>
                         <acl>catalog/product/delete</acl>
@@ -209,6 +213,14 @@
                         <code>106</code>
                         <message>Product attribute set is not belong catalog product entity type</message>
                     </product_attribute_set_not_valid>
+                    <multi_update_not_match>
+                        <code>107</code>
+                        <message>Quantity of product IDs and product data should match. No changes made.</message>
+                    </multi_update_not_match>
+                    <partially_updated>
+                        <code>108</code>
+                        <message>There was an error during one or more products update. See error log for details.</message>
+                    </partially_updated>
                 </faults>
             </catalog_product>
             <catalog_product_attribute translate="title" module="catalog">

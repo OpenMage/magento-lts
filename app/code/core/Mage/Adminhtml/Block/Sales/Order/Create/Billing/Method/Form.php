@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -36,14 +36,12 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Billing_Method_Form extends Mage_P
     /**
      * Check payment method model
      *
+     * @param Mage_Payment_Model_Method_Abstract|null $method
      * @return bool
      */
     protected function _canUseMethod($method)
     {
-        if (!$method->canUseInternal()) {
-            return false;
-        }
-        return parent::_canUseMethod($method);
+        return $method && $method->canUseInternal() && parent::_canUseMethod($method);
     }
 
     /**

@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -35,7 +35,7 @@ $categoryItemTintColor = $previewModel->getData('conf/categoryItem/tintColor');
 $title1color = $previewModel->getConfigFontInfo('Title1/color');
 $title9size = $previewModel->getConfigFontInfo('Title9/size');
 $productImage = $previewModel->getPreviewImagesUrl('android/product_image.png');
-$bannerImageAndroid = $previewModel->getBannerImage();
+$bannerImagesAndroid = $previewModel->getBannerImage();
 ?>
 <div class="main-frame main-frame-home" style="background-color:<?php echo $previewModel->getData('conf/body/backgroundColor'); ?>;">
     <div class="phone home-page" style="">
@@ -49,7 +49,15 @@ $bannerImageAndroid = $previewModel->getBannerImage();
                 </div>
             </div>
         </div>
-        <div class="content" style="background-image:url(<?php echo $bannerImageAndroid; ?>)"></div>
+        <div class="content" <?php if (count($bannerImagesAndroid) > 0): ?>style="background: none;" <?php endif; ?>>
+            <div class="banners-wrap">
+                <div class="banners">
+                    <?php foreach ($bannerImagesAndroid as $image): ?>
+                        <img src="<?php echo $image; ?>" alt="" />
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
         <div class="items-list-wrap" style="background-color:<?php echo $previewModel->getData('conf/body/scrollBackgroundColor'); ?>">
             <div class="items-list">
                 <ul>

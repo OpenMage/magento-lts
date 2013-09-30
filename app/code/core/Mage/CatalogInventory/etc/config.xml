@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogInventory
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -78,6 +78,14 @@
             </cataloginventory>
         </blocks>
         <events>
+            <catalog_block_product_status_display>
+                <observers>
+                    <inventory>
+                        <class>cataloginventory/observer</class>
+                        <method>displayProductStatusInfo</method>
+                    </inventory>
+                </observers>
+            </catalog_block_product_status_display>
             <catalog_product_load_after>
                 <observers>
                     <inventory>
@@ -305,6 +313,7 @@
                 <can_back_in_stock>1</can_back_in_stock>
                 <show_out_of_stock>0</show_out_of_stock>
                 <stock_threshold_qty>0</stock_threshold_qty>
+                <display_product_stock_status>1</display_product_stock_status>
             </options>
             <item_options>
                 <manage_stock>1</manage_stock>

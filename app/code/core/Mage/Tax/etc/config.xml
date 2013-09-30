@@ -21,14 +21,14 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Tax>
-            <version>1.6.0.3</version>
+            <version>1.6.0.4</version>
         </Mage_Tax>
     </modules>
     <global>
@@ -229,6 +229,13 @@
         </pdf>
     </global>
     <adminhtml>
+        <layout>
+            <updates>
+                <tax>
+                    <file>tax.xml</file>
+                </tax>
+            </updates>
+        </layout>
         <translate>
             <modules>
                 <Mage_Tax>
@@ -257,12 +264,11 @@
             </classes>
             <calculation>
                 <algorithm>TOTAL_BASE_CALCULATION</algorithm>
-                <apply_after_discount>0</apply_after_discount>
+                <apply_after_discount>1</apply_after_discount>
                 <discount_tax>0</discount_tax>
                 <based_on>shipping</based_on>
                 <price_includes_tax>0</price_includes_tax>
                 <shipping_includes_tax>0</shipping_includes_tax>
-                <discount_tax>0</discount_tax>
                 <apply_tax_on>0</apply_tax_on>
             </calculation>
             <defaults>
@@ -292,6 +298,9 @@
                 <full_summary>0</full_summary>
                 <zero_tax>0</zero_tax>
             </sales_display>
+            <notification>
+                <url>http://www.magentocommerce.com/knowledge-base/entry/magento-ce-18-ee-113-tax-calc</url>
+            </notification>
         </tax>
     </default>
     <crontab>

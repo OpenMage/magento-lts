@@ -69,6 +69,13 @@ abstract class Mage_Shell_Abstract
     protected $_args        = array();
 
     /**
+     * Factory instance
+     *
+     * @var Mage_Core_Model_Factory
+     */
+    protected $_factory;
+
+    /**
      * Initialize application and parse input parameters
      *
      */
@@ -78,6 +85,7 @@ abstract class Mage_Shell_Abstract
             require_once $this->_getRootPath() . 'app' . DIRECTORY_SEPARATOR . 'Mage.php';
             Mage::app($this->_appCode, $this->_appType);
         }
+        $this->_factory = new Mage_Core_Model_Factory();
 
         $this->_applyPhpVariables();
         $this->_parseArgs();

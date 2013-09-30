@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Shipping
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,7 +37,18 @@ class Mage_Shipping_Model_Carrier_Freeshipping
     implements Mage_Shipping_Model_Carrier_Interface
 {
 
+    /**
+     * Carrier's code
+     *
+     * @var string
+     */
     protected $_code = 'freeshipping';
+
+    /**
+     * Whether this carrier has fixed rates calculation
+     *
+     * @var bool
+     */
     protected $_isFixed = true;
 
     /**
@@ -57,7 +68,8 @@ class Mage_Shipping_Model_Carrier_Freeshipping
         $this->_updateFreeMethodQuote($request);
 
         if (($request->getFreeShipping())
-            || ($request->getBaseSubtotalInclTax() >= $this->getConfigData('free_shipping_subtotal'))
+            || ($request->getBaseSubtotalInclTax() >=
+                $this->getConfigData('free_shipping_subtotal'))
         ) {
             $method = Mage::getModel('shipping/rate_result_method');
 
@@ -101,9 +113,14 @@ class Mage_Shipping_Model_Carrier_Freeshipping
         }
     }
 
+    /**
+     * Get allowed shipping methods
+     *
+     * @return array
+     */
     public function getAllowedMethods()
     {
-        return array('freeshipping'=>$this->getConfigData('name'));
+        return array('freeshipping' => $this->getConfigData('name'));
     }
 
 }

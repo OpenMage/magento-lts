@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,7 +31,7 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Configuration extends Mage_Core_Block_Template
+class Mage_XmlConnect_Block_Configuration extends Mage_Core_Block_Abstract
 {
     /**
      * Current application model
@@ -61,40 +61,40 @@ class Mage_XmlConnect_Block_Configuration extends Mage_Core_Block_Template
      * Recursively build XML configuration tree
      *
      * @param Mage_XmlConnect_Model_Simplexml_Element $section
-     * @param array $subtree
-     * @return Mage_XmlConnect_Model_Simplexml_Element
+     * @param array $subTree
+     * @return Mage_XmlConnect_Block_Configuration
      */
-    protected function _buildRecursive($section, $subtree)
+    protected function _buildRecursive($section, $subTree)
     {
-        Mage::helper('xmlconnect')->getDeviceHelper()->checkRequiredConfigFields($subtree);
+        Mage::helper('xmlconnect')->getDeviceHelper()->checkRequiredConfigFields($subTree);
 
-        foreach ($subtree as $key => $value) {
+        foreach ($subTree as $key => $value) {
             if (is_array($value)) {
                 if ($key == 'fonts') {
-                    $subsection = $section->addChild('fonts');
-                    foreach ($value as $label=>$v) {
-                        if (empty($v['name']) || empty($v['size']) || empty($v['color'])) {
+                    $subSection = $section->addChild('fonts');
+                    foreach ($value as $label => $val) {
+                        if (empty($val['name']) || empty($val['size']) || empty($val['color'])) {
                             continue;
                         }
-                        $font = $subsection->addChild('font');
+                        $font = $subSection->addChild('font');
                         $font->addAttribute('label', $label);
-                        $font->addAttribute('name', $v['name']);
-                        $font->addAttribute('size', $v['size']);
-                        $font->addAttribute('color', $v['color']);
+                        $font->addAttribute('name', $val['name']);
+                        $font->addAttribute('size', $val['size']);
+                        $font->addAttribute('color', $val['color']);
                     }
                 } elseif ($key == 'pages') {
-                    $subsection = $section->addChild('content');
+                    $subSection = $section->addChild('content');
                     foreach ($value as $page) {
-                        $this->_buildRecursive($subsection->addChild('page'), $page);
+                        $this->_buildRecursive($subSection->addChild('page'), $page);
                     }
                 } else {
-                    $subsection = $section->addChild($key);
-                    $this->_buildRecursive($subsection, $value);
+                    $subSection = $section->addChild($key);
+                    $this->_buildRecursive($subSection, $value);
                 }
             } elseif ($value instanceof Mage_XmlConnect_Model_Tabs) {
                 foreach ($value->getRenderTabs() as $tab) {
-                    $subsection = $section->addChild('tab');
-                    $this->_buildRecursive($subsection, $tab);
+                    $subSection = $section->addChild('tab');
+                    $this->_buildRecursive($subSection, $tab);
                 }
             } else {
                 $value = (string)$value;
@@ -103,6 +103,7 @@ class Mage_XmlConnect_Block_Configuration extends Mage_Core_Block_Template
                 }
             }
         }
+        return $this;
     }
 
     /**
@@ -112,8 +113,26 @@ class Mage_XmlConnect_Block_Configuration extends Mage_Core_Block_Template
      */
     protected function _toHtml()
     {
+        /** @var $xml Mage_XmlConnect_Model_Simplexml_Element */
         $xml = Mage::getModel('xmlconnect/simplexml_element', '<configuration></configuration>');
-        $this->_buildRecursive($xml, Mage::helper('xmlconnect')->excludeXmlConfigKeys($this->_app->getRenderConf()));
+        $this->_buildRecursive($xml, Mage::helper('xmlconnect')->excludeXmlConfigKeys($this->_app->getRenderConf()))
+            ->_addLocalization($xml);
         return $xml->asNiceXml();
+    }
+
+    /**
+     * Add localization data to xml object
+     *
+     * @param Mage_XmlConnect_Model_Simplexml_Element $xml
+     * @return Mage_XmlConnect_Block_Configuration
+     */
+    protected function _addLocalization(Mage_XmlConnect_Model_Simplexml_Element $xml)
+    {
+        /** @var $translateHelper Mage_XmlConnect_Helper_Translate */
+        $translateHelper = Mage::helper('xmlconnect/translate');
+        $xml->addCustomChild('localization', Mage::helper('xmlconnect')->getActionUrl('xmlconnect/localization'), array(
+            'hash' => $translateHelper->getHash()
+        ));
+        return $this;
     }
 }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -123,7 +123,6 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
         if ($this->_ignoreProductUrl) {
             return false;
         }
-
         if ($this->_productUrl || $this->getItem()->getRedirectUrl()) {
             return true;
         }
@@ -133,19 +132,9 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
         if ($option) {
             $product = $option->getProduct();
         }
-
         if ($product->isVisibleInSiteVisibility()) {
             return true;
         }
-        else {
-            if ($product->hasUrlDataObject()) {
-                $data = $product->getUrlDataObject();
-                if (in_array($data->getVisibility(), $product->getVisibleInSiteVisibilities())) {
-                    return true;
-                }
-            }
-        }
-
         return false;
     }
 
@@ -414,5 +403,45 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     {
         $this->_ignoreProductUrl = $ignore;
         return $this;
+    }
+
+    /**
+     * Common code to be called by product renders of gift registry to create a block, which is be used to
+     * generate html for mrsp price
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return Mage_Catalog_Block_Product_Price
+     */
+    protected function _preparePriceBlock($product)
+    {
+        return $this->getLayout()
+            ->createBlock('catalog/product_price')
+            ->setTemplate('catalog/product/price.phtml')
+            ->setIdSuffix($this->getIdSuffix())
+            ->setProduct($product);
+    }
+
+    /**
+     *  Common code to be called by product renders of gift registry to  generate final html block
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return string
+     */
+    protected function _getPriceContent($product)
+    {
+        return $this->getLayout()->createBlock('catalog/product_price')
+            ->setTemplate('catalog/product/price_msrp.phtml')
+            ->setProduct($product)
+            ->toHtml();
+    }
+
+    /**
+     * Retrieve block cache tags
+     *
+     * @return array
+     */
+    public function getCacheTags()
+    {
+        return array_merge(parent::getCacheTags(), $this->getProduct()->getCacheIdTags());
     }
 }

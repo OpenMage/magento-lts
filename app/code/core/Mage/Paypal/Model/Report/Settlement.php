@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -135,7 +135,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                 'Transaction Event Code' => 5,
                 'Transaction Initiation Date' => 6,
                 'Transaction Completion Date' => 7,
-                'Transaction  Debit or Credit' => 8,
+                'Transaction Debit or Credit' => 8,
                 'Gross Transaction Amount' => 9,
                 'Gross Transaction Currency' => 10,
                 'Fee Debit or Credit' => 11,
@@ -143,7 +143,8 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                 'Fee Currency' => 13,
                 'Custom Field' => 14,
                 'Consumer ID' => 15,
-                'Payment Tracking ID' => 16
+                'Payment Tracking ID' => 16,
+                'Store ID' => 17,
             ),
             'rowmap' => array(
                 'Transaction ID' => 'transaction_id',
@@ -153,7 +154,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                 'Transaction Event Code' => 'transaction_event_code',
                 'Transaction Initiation Date' => 'transaction_initiation_date',
                 'Transaction Completion Date' => 'transaction_completion_date',
-                'Transaction  Debit or Credit' => 'transaction_debit_or_credit',
+                'Transaction Debit or Credit' => 'transaction_debit_or_credit',
                 'Gross Transaction Amount' => 'gross_transaction_amount',
                 'Gross Transaction Currency' => 'gross_transaction_currency',
                 'Fee Debit or Credit' => 'fee_debit_or_credit',
@@ -161,7 +162,8 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                 'Fee Currency' => 'fee_currency',
                 'Custom Field' => 'custom_field',
                 'Consumer ID' => 'consumer_id',
-                'Payment Tracking ID' => 'payment_tracking_id'
+                'Payment Tracking ID' => 'payment_tracking_id',
+                'Store ID' => 'store_id'
             )
         )
     );
@@ -217,8 +219,11 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
 
                 $encoded = file_get_contents($localCsv);
                 $csvFormat = 'new';
-                if (self::FILES_OUT_CHARSET != mb_detect_encoding(($encoded))) {
-                    $decoded = @iconv(self::FILES_IN_CHARSET, self::FILES_OUT_CHARSET.'//IGNORE', $encoded);
+
+                $fileEncoding = mb_detect_encoding($encoded);
+
+                if (self::FILES_OUT_CHARSET != $fileEncoding) {
+                    $decoded = @iconv($fileEncoding, self::FILES_OUT_CHARSET.'//IGNORE', $encoded);
                     file_put_contents($localCsv, $decoded);
                     $csvFormat = 'old';
                 }

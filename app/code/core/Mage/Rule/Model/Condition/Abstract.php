@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Rule
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -73,6 +73,16 @@ abstract class Mage_Rule_Model_Condition_Abstract
         if ($options = $this->getOperatorOptions()) {
             foreach ($options as $operator=>$dummy) { $this->setOperator($operator); break; }
         }
+    }
+
+    /**
+     * Prepare sql where by condition
+     *
+     * @return string
+     */
+    public function prepareConditionSql()
+    {
+        return '';
     }
 
     /**
@@ -522,7 +532,7 @@ abstract class Mage_Rule_Model_Condition_Abstract
     }
 
     /**
-     * Validate product attrbute value for condition
+     * Validate product attribute value for condition
      *
      * @param   mixed $validatedValue product attribute value
      * @return  bool

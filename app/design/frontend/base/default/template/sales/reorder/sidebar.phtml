@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -38,6 +38,7 @@
         <strong><span><?php echo $this->__('My Orders') ?></span></strong>
     </div>
     <form method="post" action="<?php echo $this->getFormActionUrl() ?>" id="reorder-validate-detail">
+        <?php echo $this->getBlockHtml('formkey'); ?>
         <div class="block-content">
             <p class="block-subtitle"><?php echo $this->__('Last Ordered Items') ?></p>
             <ol id="cart-sidebar-reorder">
@@ -53,7 +54,7 @@
                         //]]>
                         </script>
                     <?php endif; ?>
-                    <p class="product-name"><a href="<?php echo $_item->getProduct()->getProductUrl() ?>"><?php echo $this->htmlEscape($_item->getName()) ?></a></p>
+                    <p class="product-name"><a href="<?php echo $_item->getProduct()->getProductUrl() ?>"><?php echo $this->escapeHtml($_item->getName()) ?></a></p>
                 </li>
             <?php endforeach; ?>
             </ol>

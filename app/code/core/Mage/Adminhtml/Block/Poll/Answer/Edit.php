@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -55,7 +55,7 @@ class Mage_Adminhtml_Block_Poll_Answer_Edit extends Mage_Adminhtml_Block_Widget_
 
     public function getHeaderText()
     {
-        return Mage::helper('poll')->__("Edit Answer '%s'", $this->htmlEscape(Mage::registry('answer_data')->getAnswerTitle()));
+        return Mage::helper('poll')->__("Edit Answer '%s'", $this->escapeHtml(Mage::registry('answer_data')->getAnswerTitle()));
     }
 
 }

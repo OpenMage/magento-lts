@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    Mage
+ * @package     Mage_Mview
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Mage_Mview>
+            <version>1.7.0.0</version>
+        </Mage_Mview>
+    </modules>
+    <global>
+        <models>
+            <mview>
+                <class>Mage_Mview_Model</class>
+                <resourceModel>mview_resource</resourceModel>
+            </mview>
+            <mview_resource>
+                <class>Mage_Mview_Model_Resource</class>
+                <entities>
+                    <metadata>
+                        <table>mview_metadata</table>
+                    </metadata>
+                    <changelog>
+                        <table>mview_changelog</table>
+                    </changelog>
+                </entities>
+            </mview_resource>
+        </models>
+        <resources>
+            <mview_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </mview_write>
+            <mview_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </mview_read>
+            <mview_setup>
+                <setup>
+                    <module>Mage_Mview</module>
+                      <!--<class>Mage_Mview_Model_Resource_Setup</class>-->
+                </setup>
+            </mview_setup>
+        </resources>
+        <helpers>
+            <mview>
+                <class>Mage_Mview_Helper</class>
+            </mview>
+        </helpers>
+    </global>
+    <adminhtml>
+        <translate>
+            <modules>
+                <Mage_Mview>
+                    <files>
+                        <default>Mview.csv</default>
+                    </files>
+                </Mage_Mview>
+            </modules>
+        </translate>
+    </adminhtml>
+</config>

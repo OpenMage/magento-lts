@@ -1102,7 +1102,7 @@
                 <xsd:complexType>
                     <xsd:sequence>
                         <xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />
-                        <xsd:element minOccurs="1" maxOccurs="1" name="creditmemoIncrementId" type="xsd:string" />
+                        <xsd:element minOccurs="1" maxOccurs="1" name="orderIncrementId" type="xsd:string" />
                         <xsd:element minOccurs="0" maxOccurs="1" name="creditmemoData" type="typens:salesOrderCreditmemoData" />
                         <xsd:element minOccurs="0" maxOccurs="1" name="comment" type="xsd:string" />
                         <xsd:element minOccurs="0" maxOccurs="1" name="notifyCustomer" type="xsd:int" />

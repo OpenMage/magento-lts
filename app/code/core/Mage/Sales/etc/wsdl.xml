@@ -921,7 +921,7 @@
     </message>
     <message name="salesOrderCreditmemoCreateRequest">
         <part name="sessionId" type="xsd:string" />
-        <part name="creditmemoIncrementId" type="xsd:string" />
+        <part name="orderIncrementId" type="xsd:string" />
         <part name="creditmemoData" type="typens:salesOrderCreditmemoData" />
         <part name="comment" type="xsd:string" />
         <part name="notifyCustomer" type="xsd:int" />

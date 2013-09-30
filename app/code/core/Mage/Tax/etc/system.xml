@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -74,6 +74,7 @@
                             <label>Tax Calculation Based On</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_tax_basedon</source_model>
+                            <backend_model>tax/config_notification</backend_model>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -105,6 +106,7 @@
                             <label>Apply Customer Tax</label>
                             <frontend_type>select</frontend_type>
                             <source_model>tax/system_config_source_apply</source_model>
+                            <backend_model>tax/config_notification</backend_model>
                             <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -114,6 +116,7 @@
                             <label>Apply Discount On Prices</label>
                             <frontend_type>select</frontend_type>
                             <source_model>tax/system_config_source_priceType</source_model>
+                            <backend_model>tax/config_notification</backend_model>
                             <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -178,6 +181,7 @@
                             <label>Display Product Prices In Catalog</label>
                             <frontend_type>select</frontend_type>
                             <source_model>tax/system_config_source_tax_display_type</source_model>
+                            <backend_model>tax/config_notification</backend_model>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -187,6 +191,7 @@
                             <label>Display Shipping Prices</label>
                             <frontend_type>select</frontend_type>
                             <source_model>tax/system_config_source_tax_display_type</source_model>
+                            <backend_model>tax/config_notification</backend_model>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -205,6 +210,7 @@
                             <label>Display Prices</label>
                             <frontend_type>select</frontend_type>
                             <source_model>tax/system_config_source_tax_display_type</source_model>
+                            <backend_model>tax/config_notification</backend_model>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -214,6 +220,7 @@
                             <label>Display Subtotal</label>
                             <frontend_type>select</frontend_type>
                             <source_model>tax/system_config_source_tax_display_type</source_model>
+                            <backend_model>tax/config_notification</backend_model>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -223,6 +230,7 @@
                             <label>Display Shipping Amount</label>
                             <frontend_type>select</frontend_type>
                             <source_model>tax/system_config_source_tax_display_type</source_model>
+                            <backend_model>tax/config_notification</backend_model>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -277,6 +285,7 @@
                             <label>Display Prices</label>
                             <frontend_type>select</frontend_type>
                             <source_model>tax/system_config_source_tax_display_type</source_model>
+                            <backend_model>tax/config_notification</backend_model>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -286,6 +295,7 @@
                             <label>Display Subtotal</label>
                             <frontend_type>select</frontend_type>
                             <source_model>tax/system_config_source_tax_display_type</source_model>
+                            <backend_model>tax/config_notification</backend_model>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -295,6 +305,7 @@
                             <label>Display Shipping Amount</label>
                             <frontend_type>select</frontend_type>
                             <source_model>tax/system_config_source_tax_display_type</source_model>
+                            <backend_model>tax/config_notification</backend_model>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>

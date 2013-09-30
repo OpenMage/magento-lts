@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_SalesRule
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -43,9 +43,26 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
      */
     protected $_rules;
 
+    /**
+     * Rounding deltas
+     *
+     * @var array
+     */
     protected $_roundingDeltas = array();
 
+    /**
+     * Base rounding deltas
+     *
+     * @var array
+     */
     protected $_baseRoundingDeltas = array();
+
+    /**
+     * Quote address
+     *
+     * @var null|Mage_Sales_Model_Quote_Address
+     */
+    protected $_address = null;
 
     /**
      * Defines if method Mage_SalesRule_Model_Validator::process() was already called
@@ -123,6 +140,8 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
     {
         if ($item instanceof Mage_Sales_Model_Quote_Address_Item) {
             $address = $item->getAddress();
+        } elseif ($this->_address) {
+            $address = $this->_address;
         } elseif ($item->getQuote()->getItemVirtualQty() > 0) {
             $address = $item->getQuote()->getBillingAddress();
         } else {
@@ -257,6 +276,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
             $address->getQuote()->setAppliedRuleIds('');
             $this->_isFirstTimeResetRun = false;
         }
+        $this->_address = $address;
 
         return $this;
     }
@@ -314,11 +334,12 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                         $qty = floor($qty/$step)*$step;
                     }
                     $_rulePct = $rulePercent/100;
-                    $discountAmount    = ($qty*$itemPrice - $item->getDiscountAmount()) * $_rulePct;
-                    $baseDiscountAmount= ($qty*$baseItemPrice - $item->getBaseDiscountAmount()) * $_rulePct;
+                    $discountAmount    = ($qty * $itemPrice - $item->getDiscountAmount()) * $_rulePct;
+                    $baseDiscountAmount = ($qty * $baseItemPrice - $item->getBaseDiscountAmount()) * $_rulePct;
                     //get discount for original price
-                    $originalDiscountAmount    = ($qty*$itemOriginalPrice - $item->getDiscountAmount()) * $_rulePct;
-                    $baseOriginalDiscountAmount= ($qty*$baseItemOriginalPrice - $item->getDiscountAmount()) * $_rulePct;
+                    $originalDiscountAmount    = ($qty * $itemOriginalPrice - $item->getDiscountAmount()) * $_rulePct;
+                    $baseOriginalDiscountAmount =
+                        ($qty * $baseItemOriginalPrice - $item->getDiscountAmount()) * $_rulePct;
 
                     if (!$rule->getDiscountQty() || $rule->getDiscountQty()>$qty) {
                         $discountPercent = min(100, $item->getDiscountPercent()+$rulePercent);
@@ -327,11 +348,11 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                     break;
                 case Mage_SalesRule_Model_Rule::TO_FIXED_ACTION:
                     $quoteAmount = $quote->getStore()->convertPrice($rule->getDiscountAmount());
-                    $discountAmount    = $qty*($itemPrice-$quoteAmount);
-                    $baseDiscountAmount= $qty*($baseItemPrice-$rule->getDiscountAmount());
+                    $discountAmount    = $qty * ($itemPrice-$quoteAmount);
+                    $baseDiscountAmount = $qty * ($baseItemPrice-$rule->getDiscountAmount());
                     //get discount for original price
-                    $originalDiscountAmount    = $qty*($itemOriginalPrice-$quoteAmount);
-                    $baseOriginalDiscountAmount= $qty*($baseItemOriginalPrice-$rule->getDiscountAmount());
+                    $originalDiscountAmount    = $qty * ($itemOriginalPrice-$quoteAmount);
+                    $baseOriginalDiscountAmount = $qty * ($baseItemOriginalPrice-$rule->getDiscountAmount());
                     break;
 
                 case Mage_SalesRule_Model_Rule::BY_FIXED_ACTION:
@@ -340,8 +361,8 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                         $qty = floor($qty/$step)*$step;
                     }
                     $quoteAmount        = $quote->getStore()->convertPrice($rule->getDiscountAmount());
-                    $discountAmount     = $qty*$quoteAmount;
-                    $baseDiscountAmount = $qty*$rule->getDiscountAmount();
+                    $discountAmount     = $qty * $quoteAmount;
+                    $baseDiscountAmount = $qty * $rule->getDiscountAmount();
                     break;
 
                 case Mage_SalesRule_Model_Rule::CART_FIXED_ACTION:
@@ -385,7 +406,6 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
 
                         //get discount for original price
                         $originalDiscountAmount = min($itemOriginalPrice * $qty, $quoteAmount);
-                        $baseOriginalDiscountAmount = $quote->getStore()->roundPrice($originalDiscountAmount);
                         $baseOriginalDiscountAmount = $quote->getStore()->roundPrice($baseItemOriginalPrice);
 
                         $cartRules[$rule->getId()] -= $baseDiscountAmount;
@@ -411,10 +431,10 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                     }
 
                     $discountAmount    = $discountQty * $itemPrice;
-                    $baseDiscountAmount= $discountQty * $baseItemPrice;
+                    $baseDiscountAmount = $discountQty * $baseItemPrice;
                     //get discount for original price
                     $originalDiscountAmount    = $discountQty * $itemOriginalPrice;
-                    $baseOriginalDiscountAmount= $discountQty * $baseItemOriginalPrice;
+                    $baseOriginalDiscountAmount = $discountQty * $baseItemOriginalPrice;
                     break;
             }
 
@@ -443,8 +463,8 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                 $baseDelta  = isset($this->_baseRoundingDeltas[$percentKey])
                         ? $this->_baseRoundingDeltas[$percentKey]
                         : 0;
-                $discountAmount+= $delta;
-                $baseDiscountAmount+=$baseDelta;
+                $discountAmount += $delta;
+                $baseDiscountAmount += $baseDelta;
 
                 $this->_roundingDeltas[$percentKey]     = $discountAmount -
                                                           $quote->getStore()->roundPrice($discountAmount);
@@ -492,6 +512,121 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Apply discount amount to FPT
+     *
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @param array $items
+     * @return Mage_SalesRule_Model_Validator
+     */
+    public function processWeeeAmount(Mage_Sales_Model_Quote_Address $address, $items)
+    {
+        $quote = $address->getQuote();
+        $store = $quote->getStore();
+
+        if (!$this->_getHelper('weee')->isEnabled() || !$this->_getHelper('weee')->isDiscounted()) {
+            return $this;
+        }
+
+        /**
+         *   for calculating weee tax discount
+         */
+        $config = $this->_getSingleton('tax/config');
+        $calculator = $this->_getSingleton('tax/calculation');
+        $request = $calculator->getRateRequest(
+            $address,
+            $quote->getBillingAddress(),
+            $quote->getCustomerTaxClassId(),
+            $store
+        );
+
+        $applyTaxAfterDiscount = $config->applyTaxAfterDiscount();
+        $discountTax = $config->discountTax();
+        $includeInSubtotal = $this->_getHelper('weee')->includeInSubtotal();
+
+        foreach ($this->_getRules() as $rule) {
+            /* @var $rule Mage_SalesRule_Model_Rule */
+            $rulePercent = min(100, $rule->getDiscountAmount());
+            switch ($rule->getSimpleAction()) {
+                case Mage_SalesRule_Model_Rule::TO_PERCENT_ACTION:
+                    $rulePercent = max(0, 100 - $rule->getDiscountAmount());
+                case Mage_SalesRule_Model_Rule::BY_PERCENT_ACTION:
+                    foreach ($items as $item) {
+                        $weeeTaxAppliedRowAmount = $item->getWeeeTaxAppliedRowAmount();
+                        $baseWeeeTaxAppliedRowAmount = $item->getBaseWeeeTaxAppliedRowAmount();
+                        $request->setProductClassId($item->getProduct()->getTaxClassId());
+                        $rate = $calculator->getRate($request);
+
+                        /*
+                         * calculate weee discount
+                         */
+                        $weeeDiscount = 0;
+                        $baseWeeeDiscount = 0;
+
+                        if ($this->_getHelper('weee')->isTaxable()) {
+                            if ($applyTaxAfterDiscount) {
+                                if ($discountTax) {
+                                    $weeeTax = $weeeTaxAppliedRowAmount * $rate / 100;
+                                    $baseWeeeTax = $baseWeeeTaxAppliedRowAmount * $rate / 100;
+                                    $weeeDiscount = ($weeeTaxAppliedRowAmount + $weeeTax) * $rulePercent / 100;
+                                    $baseWeeeDiscount = ($baseWeeeTaxAppliedRowAmount + $baseWeeeTax)
+                                        * $rulePercent / 100;
+                                } else {
+                                    $weeeDiscount = $weeeTaxAppliedRowAmount * $rulePercent / 100;
+                                    $baseWeeeDiscount = $baseWeeeTaxAppliedRowAmount * $rulePercent / 100;
+                                }
+                            } else {
+                                if ($discountTax) {
+                                    $weeeTax = $weeeTaxAppliedRowAmount * $rate / 100;
+                                    $baseWeeeTax = $baseWeeeTaxAppliedRowAmount * $rate / 100;
+                                    $weeeDiscount = ($weeeTaxAppliedRowAmount + $weeeTax) * $rulePercent / 100;
+                                    $baseWeeeDiscount = ($baseWeeeTaxAppliedRowAmount + $baseWeeeTax)
+                                        * $rulePercent / 100;
+                                } else {
+                                    $weeeDiscount = $weeeTaxAppliedRowAmount * $rulePercent / 100;
+                                    $baseWeeeDiscount = $baseWeeeTaxAppliedRowAmount * $rulePercent / 100;
+                                }
+                            }
+                        } else {
+                            // weee is not taxable
+                            $weeeDiscount = $weeeTaxAppliedRowAmount * $rulePercent / 100;
+                            $baseWeeeDiscount = $baseWeeeTaxAppliedRowAmount * $rulePercent / 100;
+                        }
+                        $item->setWeeeDiscount($weeeDiscount);
+                        $item->setBaseWeeeDiscount($baseWeeeDiscount);
+
+                           // weee after discount can be displayed instead of original
+                        $applied = $this->_getHelper('weee')->getApplied($item);
+                        $applied[0]['weee_discount'] = $weeeDiscount;
+                        $this->_getHelper('weee')->setApplied($item, $applied);
+
+                        $item->setDiscountAmount($item->getDiscountAmount() + $weeeDiscount);
+                        $item->setBaseDiscountAmount($item->getBaseDiscountAmount() + $baseWeeeDiscount);
+                        if ($includeInSubtotal) {
+                            $address->addTotalAmount('discount', -$weeeDiscount);
+                            $address->addBaseTotalAmount('discount', -$baseWeeeDiscount);
+                        } else {
+                            if ($applyTaxAfterDiscount ) {
+                                $address->setExtraTaxAmount($address->getExtraTaxAmount() - $weeeDiscount);
+                                $address->setBaseExtraTaxAmount($address->getBaseExtraTaxAmount() - $baseWeeeDiscount);
+                                $address->setWeeeDiscount($address->getWeeeDiscount() + $weeeDiscount);
+                                $address->setBaseWeeeDiscount($address->getBaseWeeeDiscount() + $baseWeeeDiscount);
+                            } else {
+                                //tax has already been calculated, we need to remove weeeDiscount from total tax
+                                $address->setExtraTaxAmount($address->getExtraTaxAmount() - $weeeDiscount);
+                                $address->setBaseExtraTaxAmount($address->getBaseExtraTaxAmount() - $baseWeeeDiscount);
+                                $address->addTotalAmount('tax', -$weeeDiscount);
+                                $address->addBaseTotalAmount('tax', -$baseWeeeDiscount);
+                                $address->setWeeeDiscount($address->getWeeeDiscount() + $weeeDiscount);
+                                $address->setBaseWeeeDiscount($address->getBaseWeeeDiscount() + $baseWeeeDiscount);
+                            }
+                        }
+                    }
+                    break;
+            }
+        }
+        return $this;
+    }
+    /**
      * Apply discounts to shipping amount
      *
      * @param   Mage_Sales_Model_Quote_Address $address
@@ -499,8 +634,8 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
      */
     public function processShippingAmount(Mage_Sales_Model_Quote_Address $address)
     {
-        $shippingAmount     = $address->getShippingAmountForDiscount();
-        if ($shippingAmount!==null) {
+        $shippingAmount = $address->getShippingAmountForDiscount();
+        if ($shippingAmount !== null) {
             $baseShippingAmount = $address->getBaseShippingAmountForDiscount();
         } else {
             $shippingAmount     = $address->getShippingAmount();
@@ -522,7 +657,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                     $rulePercent = max(0, 100-$rule->getDiscountAmount());
                 case Mage_SalesRule_Model_Rule::BY_PERCENT_ACTION:
                     $discountAmount    = ($shippingAmount - $address->getShippingDiscountAmount()) * $rulePercent/100;
-                    $baseDiscountAmount= ($baseShippingAmount -
+                    $baseDiscountAmount = ($baseShippingAmount -
                                           $address->getBaseShippingDiscountAmount()) * $rulePercent/100;
                     $discountPercent = min(100, $address->getShippingDiscountPercent()+$rulePercent);
                     $address->setShippingDiscountPercent($discountPercent);
@@ -530,7 +665,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                 case Mage_SalesRule_Model_Rule::TO_FIXED_ACTION:
                     $quoteAmount = $quote->getStore()->convertPrice($rule->getDiscountAmount());
                     $discountAmount    = $shippingAmount-$quoteAmount;
-                    $baseDiscountAmount= $baseShippingAmount-$rule->getDiscountAmount();
+                    $baseDiscountAmount = $baseShippingAmount-$rule->getDiscountAmount();
                     break;
                 case Mage_SalesRule_Model_Rule::BY_FIXED_ACTION:
                     $quoteAmount        = $quote->getStore()->convertPrice($rule->getDiscountAmount());
@@ -690,7 +825,8 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
     {
         /*
         Rule is a part of rules collection, which includes only rules with 'No Coupon' type or with validated coupon.
-        As a result, if rule uses coupon code(s) ('Specific' or 'Auto' Coupon Type), it always contains validated coupon
+        As a result, if rule uses coupon code(s) ('Specific' or 'Auto' Coupon Type), it always contains validated
+        coupon
         */
         if ($rule->getCouponType() != Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON) {
             $address->setCouponCode($this->getCouponCode());
@@ -793,20 +929,39 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
      * @param string $separator
      * @return Mage_SalesRule_Model_Validator
      */
-    public function prepareDescription($address, $separator=', ')
+    public function prepareDescription($address, $separator = ', ')
     {
-        $description = $address->getDiscountDescriptionArray();
-
-        if (is_array($description) && !empty($description)) {
-            $description = array_unique($description);
-            $description = implode($separator, $description);
-        } else {
-            $description = '';
+        $descriptionArray = $address->getDiscountDescriptionArray();
+        /** @see Mage_SalesRule_Model_Validator::_getAddress */
+        if (!$descriptionArray && $address->getQuote()->getItemVirtualQty() > 0) {
+            $descriptionArray = $address->getQuote()->getBillingAddress()->getDiscountDescriptionArray();
         }
+
+        $description = $descriptionArray && is_array($descriptionArray)
+            ? implode($separator, array_unique($descriptionArray))
+            :  '';
+
         $address->setDiscountDescription($description);
         return $this;
     }
 
+    /**
+     * wrap Mage::getSingleton
+     *
+     * @param string $name
+     * @return mixed
+     */
+    protected  function _getSingleton($name) {
+        return Mage::getSingleton($name);
+    }
 
-
+    /**
+     * wrap Mage::helper
+     *
+     * @param string $name
+     * @return mixed
+     */
+    protected function _getHelper($name) {
+        return Mage::helper($name);
+    }
 }

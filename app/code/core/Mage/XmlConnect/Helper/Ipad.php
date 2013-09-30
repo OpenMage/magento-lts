@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,7 +31,7 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Helper_Ipad extends Mage_Core_Helper_Abstract
+class Mage_XmlConnect_Helper_Ipad extends Mage_XmlConnect_Helper_Device_Abstract
 {
     /**
      * Submission title length
@@ -44,52 +44,62 @@ class Mage_XmlConnect_Helper_Ipad extends Mage_Core_Helper_Abstract
     const SUBMISSION_DESCRIPTION_LENGTH = 500;
 
     /**
-     * Ipad landscape orientation identificator
+     * Ipad landscape orientation identifier
+     * @deprecated
      */
     const ORIENTATION_LANDSCAPE = 'landscape';
 
     /**
-     * Ipad portrait orientation identificator
+     * Ipad portrait orientation identifier
+     * @deprecated
      */
     const ORIENTATION_PORTRAIT = 'portrait';
 
     /**
-     * Ipad portrait preview banner widht
+     * Ipad portrait preview banner width
+     * @deprecated
      */
     const PREVIEW_PORTRAIT_BANNER_WIDTH = 350;
 
     /**
      * Ipad portrait preview banner image height
+     * @deprecated
      */
     const PREVIEW_PORTRAIT_BANNER_HEIGHT = 135;
 
     /**
-     * Ipad landscape preview banner widht
+     * Ipad landscape preview banner width
+     * @deprecated
      */
     const PREVIEW_LANDSCAPE_BANNER_WIDTH = 467;
 
     /**
      * Ipad landscape preview banner image height
+     * @deprecated
      */
     const PREVIEW_LANDSCAPE_BANNER_HEIGHT = 157;
 
     /**
-     * Ipad landscape orientation preview image widht
+     * Ipad landscape orientation preview image width
+     * @deprecated
      */
     const PREVIEW_LANDSCAPE_BACKGROUND_WIDTH = 467;
 
     /**
      * Ipad landscape orientation preview image height
+     * @deprecated
      */
     const PREVIEW_LANDSCAPE_BACKGROUND_HEIGHT = 321;
 
     /**
-     * Ipad portrait orientation preview image widht
+     * Ipad portrait orientation preview image width
+     * @deprecated
      */
     const PREVIEW_PORTRAIT_BACKGROUND_WIDTH = 350;
 
     /**
      * Ipad portrait orientation preview image height
+     * @deprecated
      */
     const PREVIEW_PORTRAIT_BACKGROUND_HEIGHT = 438;
 
@@ -101,23 +111,6 @@ class Mage_XmlConnect_Helper_Ipad extends Mage_Core_Helper_Abstract
     protected $_imageIds = array(
         'icon', 'ipad_loader_portrait_image', 'ipad_loader_landscape_image', 'ipad_logo', 'big_logo'
     );
-
-    /**
-     * Country field renderer
-     *
-     * @var Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Renderer_Country_Istore
-     */
-    protected $_countryRenderer = null;
-
-    /**
-     * Get submit images that are required for application submit
-     *
-     * @return array
-     */
-    public function getSubmitImages()
-    {
-        return $this->_imageIds;
-    }
 
     /**
      * Get default application tabs
@@ -152,6 +145,46 @@ class Mage_XmlConnect_Helper_Ipad extends Mage_Core_Helper_Abstract
         }
         return $this->_tabs;
     }
+
+    /**
+     * Default images list
+     *
+     * @return array
+     */
+     public function getImagesTypesList()
+     {
+         return array(
+             Mage_XmlConnect_Model_Device_Ipad::IMAGE_TYPE_ICON => array(
+                 'count' => Mage_XmlConnect_Model_Device_Ipad::IMAGE_TYPE_ICON_COUNT,
+                 'label' => $this->__('Logo in Header'),
+                 'sortable' => false,
+                 'sizeTip' => $this->__('Recommended size %spx x %spx.', 35, 35)
+             ),
+             Mage_XmlConnect_Model_Device_Ipad::IMAGE_TYPE_PORTRAIT_BACKGROUND => array(
+                 'count' => Mage_XmlConnect_Model_Device_Ipad::IMAGE_TYPE_BACKGROUND_COUNT,
+                 'label' => $this->__('Portrait app Background'),
+                 'sortable' => false,
+                 'sizeTip' => $this->__('Recommended size %spx x %spx.', 768, 960) . $this->__('Note: Image size affects the performance of your app.')
+             ),
+             Mage_XmlConnect_Model_Device_Ipad::IMAGE_TYPE_LANDSCAPE_BACKGROUND => array(
+                 'count' => Mage_XmlConnect_Model_Device_Ipad::IMAGE_TYPE_BACKGROUND_COUNT,
+                 'label' => $this->__('Landscape app Background'),
+                 'sortable' => false,
+                 'sizeTip' => $this->__('Recommended size %spx x %spx.', 1024, 704) . $this->__('Note: Image size affects the performance of your app.')
+             ),
+             Mage_XmlConnect_Model_Device_Ipad::IMAGE_TYPE_PORTRAIT_BANNER => array(
+                 'count' => Mage_XmlConnect_Model_Device_Ipad::IMAGE_TYPE_BANNER_COUNT,
+                 'label' => $this->__('Portrait banners on Home Screen'),
+                 'sortable' => true,
+                 'sizeTip' => $this->__('Recommended size %spx x %spx.', 768, 294) . $this->__('Note: Image size affects the performance of your app.')
+             ),
+             Mage_XmlConnect_Model_Device_Ipad::IMAGE_TYPE_LANDSCAPE_BANNER => array(
+                 'count' => Mage_XmlConnect_Model_Device_Ipad::IMAGE_TYPE_BANNER_COUNT,
+                 'label' => $this->__('Landscape banners on Home Screen'),
+                 'sortable' => true,
+                 'sizeTip' => $this->__('Recommended size %spx x %spx.', 1024, 344) . $this->__('Note: Image size affects the performance of your app.')
+         ));
+     }
 
     /**
      * Default application configuration
@@ -224,10 +257,7 @@ class Mage_XmlConnect_Helper_Ipad extends Mage_Core_Helper_Abstract
                          'name' => 'HelveticaNeue',
                          'size' => '12',
                          'color' => '#222222',
-                     ),
-                 ),
-             ),
-         );
+         ))));
      }
 
     /**
@@ -445,36 +475,21 @@ class Mage_XmlConnect_Helper_Ipad extends Mage_Core_Helper_Abstract
             array(
                 'value' => 'STHeitiK-Light',
                 'label' => 'STHeitiK-Light',
-            ),
-        );
+        ));
     }
 
-    /**
-     * List of allowed font sizes for iPad application
-     *
-     * @return array
-     */
-    public function getFontSizes()
-    {
-        $result = array();
-        for ($i = 6; $i < 32; $i++) {
-            $result[] = array(
-                'value' => $i,
-                'label' => $i . ' pt',
-            );
-        }
-        return $result;
-    }
 
     /**
      * Get list of countries that allowed in Itunes by Apple Store for Ipad
      * (we get info from Iphone helper)
      *
+     * @deprecated
+     * @see $this->getAllowedCountriesArray()
      * @return array
      */
     public function getItunesCountriesArray()
     {
-        return Mage::helper('xmlconnect/iphone')->getItunesCountriesArray();
+        return $this->_allowedCountries;
     }
 
     /**
@@ -551,6 +566,7 @@ class Mage_XmlConnect_Helper_Ipad extends Mage_Core_Helper_Abstract
     /**
      * Check config for valid values
      *
+     * @deprecated we don't use it since 1.11.1.0
      * @param array $native
      * @return array
      */
@@ -585,65 +601,11 @@ class Mage_XmlConnect_Helper_Ipad extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Get renderer for submission country
-     *
-     * @return Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Renderer_Country_Istore
-     */
-    public function getCountryRenderer()
-    {
-        if (empty($this->_countryRenderer)) {
-            $renderer = 'xmlconnect/adminhtml_mobile_submission_renderer_country_'
-                . Mage_XmlConnect_Helper_Iphone::SUBMISSION_COUNTRY_RENDERER;
-            $this->_countryRenderer = Mage::app()->getLayout()->createBlock($renderer);
-        }
-        return $this->_countryRenderer;
-    }
-
-    /**
-     * Get label for submission country
-     *
-     * @return string
-     */
-    public function getCountryLabel()
-    {
-        return Mage::helper('xmlconnect')->__('App Stores');
-    }
-
-    /**
-     * Get columns for submission country
-     *
-     * @return int
-     */
-    public function getCountryColumns()
-    {
-        return Mage_XmlConnect_Helper_Iphone::SUBMISSION_COUNTRY_COLUMNS;
-    }
-
-    /**
-     * Get placement of Country Names for submission country
-     *
-     * @return bool
-     */
-    public function isCountryNamePlaceLeft()
-    {
-        return true;
-    }
-
-    /**
-     * Get class name for submission country
-     *
-     * @return string
-     */
-    public function getCountryClass()
-    {
-        return Mage_XmlConnect_Helper_Iphone::SUBMISSION_COUNTRY_RENDERER . ' stripy';
-    }
-
-    /**
      * Check image fields
      *
      * We set empty value for image field if file was missed in some reason
      *
+     * @deprecated will delete in the next version
      * @param array $data
      * @return array
      */
@@ -688,6 +650,7 @@ class Mage_XmlConnect_Helper_Ipad extends Mage_Core_Helper_Abstract
     /**
      * Check required fields of a config for a front-end
      *
+     * @deprecated will delete in the next version
      * @throws Mage_Core_Exception
      * @param array $data
      * @return null
@@ -727,15 +690,5 @@ class Mage_XmlConnect_Helper_Ipad extends Mage_Core_Helper_Abstract
                 Mage::helper('xmlconnect')->__('App Background (portrait mode).')
             );
         }
-    }
-
-    /**
-     * Check the notifications are allowed for current type of application
-     *
-     * @return bool
-     */
-    public function isNotificationsAllowed()
-    {
-        return true;
     }
 }

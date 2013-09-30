@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -48,7 +48,7 @@ class Mage_Adminhtml_Block_Permissions_User_Edit extends Mage_Adminhtml_Block_Wi
     public function getHeaderText()
     {
         if (Mage::registry('permissions_user')->getId()) {
-            return Mage::helper('adminhtml')->__("Edit User '%s'", $this->htmlEscape(Mage::registry('permissions_user')->getUsername()));
+            return Mage::helper('adminhtml')->__("Edit User '%s'", $this->escapeHtml(Mage::registry('permissions_user')->getUsername()));
         }
         else {
             return Mage::helper('adminhtml')->__('New User');

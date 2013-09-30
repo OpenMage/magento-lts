@@ -21,7 +21,7 @@
  *
  * @category    design
  * @package     default_modern
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -80,6 +80,7 @@ Default layout, loads most of the pages
                     <label>Page Header</label>
                     <action method="setElementClass"><value>top-container</value></action>
                 </block>
+                <block type="page/html_welcome" name="welcome" as="welcome"/>
             </block>
 
             <block type="core/text_list" name="left" as="left" translate="label">

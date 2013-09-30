@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,7 +31,7 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Review_Form extends Mage_Core_Block_Template
+class Mage_XmlConnect_Block_Review_Form extends Mage_Core_Block_Abstract
 {
     /**
      * Collection of ratings
@@ -68,6 +68,7 @@ class Mage_XmlConnect_Block_Review_Form extends Mage_Core_Block_Template
                     'label'     => $rating->getRatingCode(),
                     'required'  => 'true'
                 ));
+
                 foreach ($rating->getOptions() as $option) {
                     $ratingField->addCustomChild('value', $option->getId());
                 }

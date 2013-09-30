@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -47,7 +47,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Related extends Mage_XmlConnect_Bloc
         $productObj = $this->getParentBlock()->getProduct();
 
         if (is_object(Mage::getConfig()->getNode('modules/Enterprise_TargetRule'))) {
-            Mage::register('product', $productObj);
+            Mage::register('product', $productObj, true);
 
             $productBlock = $this->getLayout()->addBlock(
                 'enterprise_targetrule/catalog_product_list_related', 'relatedProducts'
@@ -111,7 +111,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Related extends Mage_XmlConnect_Bloc
      */
     protected function _getProductCollection()
     {
-        if (is_null($this->_productCollection)) {
+        if ($this->_productCollection === null) {
             $collection = $this->getParentBlock()->getProduct()->getRelatedProductCollection();
             Mage::getSingleton('catalog/layer')->prepareProductCollection($collection);
             /**

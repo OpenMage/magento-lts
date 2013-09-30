@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,7 +41,7 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_List extends Mage_Payment_Bl
     protected $_methodArray = array(
         'payment_ccsave'            => 'Mage_Payment_Model_Method_Cc',
         'payment_checkmo'           => 'Mage_Payment_Model_Method_Checkmo',
-        'payment_purchaseorder'     => 'Mage_Payment_Model_Method_Purchaseorder',
+        'payment_purchaseorder'     => 'Mage_Payment_Model_Method_Purchaseorder'
     );
 
     /**
@@ -80,29 +80,6 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_List extends Mage_Payment_Bl
     }
 
     /**
-     * Add customer balance details to XML object
-     *
-     * @param Mage_XmlConnect_Model_Simplexml_Element $methodsXmlObj
-     */
-    public function addCustomerBalanceToXmlObj(Mage_XmlConnect_Model_Simplexml_Element $methodsXmlObj)
-    {
-        /** @var $customerBalanceBlock Enterprise_CustomerBalance_Block_Checkout_Onepage_Payment_Additional */
-        $customerBalanceBlock = $this->getLayout()
-            ->addBlock('enterprise_customerbalance/checkout_onepage_payment_additional', 'customer_balance');
-        $storeCreditFlag = (int) Mage::getStoreConfig(Enterprise_CustomerBalance_Helper_Data::XML_PATH_ENABLED);
-        if ($storeCreditFlag && $customerBalanceBlock->isDisplayContainer()) {
-            $balance = $this->getQuote()->getStore()->formatPrice($customerBalanceBlock->getBalance(), false);
-            $methodsXmlObj->addCustomChild('customer_balance', null, array(
-                'post_name' => 'payment[use_customer_balance]',
-                'code'      => 1,
-                'label'     => $this->__('Use Store Credit (%s available)', $balance),
-                'is_cover_a_quote' => intval($customerBalanceBlock->isFullyPaidAfterApplication()),
-                'selected'  => intval($customerBalanceBlock->isCustomerBalanceUsed())
-            ));
-        }
-    }
-
-    /**
      * Add gift card details to XML object
      *
      * @param Mage_XmlConnect_Model_Simplexml_Element $methodsXmlObj
@@ -119,15 +96,6 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_List extends Mage_Payment_Bl
 
             $methodsXmlObj->addCustomChild('information', null, array('label' => $amount, 'disabled' => '1'));
 
-            if ($this->_isPaymentRequired()) {
-                $methodsXmlObj->addCustomChild('method', null, array(
-                    'post_name' => 'payment[method]',
-                    'code' => 'free',
-                    'label' => $this->__('No Payment Information Required'),
-                    'selected' => '1',
-                    'disabled' => '1'
-                ));
-            }
             $this->setIsUsedGiftCard(true);
         }
     }
@@ -175,24 +143,109 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_List extends Mage_Payment_Bl
      * Render payment methods xml
      *
      * @return string
-     * @throw Mage_Core_Exception
      */
     protected function _toHtml()
     {
         /** @var $methodsXmlObj Mage_XmlConnect_Model_Simplexml_Element */
         $methodsXmlObj = Mage::getModel('xmlconnect/simplexml_element', '<payment_methods></payment_methods>');
 
+        if ($this->_addGiftCard($methodsXmlObj)) {
+            return $methodsXmlObj->asNiceXml();
+        }
+
+        $this->addCustomerBalanceToXmlObj($methodsXmlObj)->_buildPaymentMethods($methodsXmlObj);
+        return $methodsXmlObj->asNiceXml();
+    }
+
+    /**
+     * Add free payment method xml to payment method list
+     *
+     * @param Mage_XmlConnect_Model_Simplexml_Element $methodsXmlObj
+     * @return Mage_XmlConnect_Block_Checkout_Payment_Method_List
+     */
+    protected function _addFreePaymentToXmlObj(Mage_XmlConnect_Model_Simplexml_Element $methodsXmlObj)
+    {
+        $methodsXmlObj->addCustomChild('method', null, array(
+            'id' => 'free',
+            'code' => 'free',
+            'post_name' => 'payment[method]',
+            'label' => $this->__('No Payment Information Required'),
+            'selected' => '1',
+            'disabled' => '1'
+        ));
+        return $this;
+    }
+
+    /**
+     * Check and prepare payment method model
+     *
+     * @param mixed $method
+     * @return bool
+     */
+    protected function _canUseMethod($method)
+    {
+        if (!($method instanceof Mage_Payment_Model_Method_Abstract) || !$method->canUseCheckout()
+            || !$method->isAvailable($this->getQuote())
+        ) {
+            return false;
+        }
+        return parent::_canUseMethod($method);
+    }
+
+    /**
+     * Add gift card info to xml and check is covered a quote
+     *
+     * @param Mage_XmlConnect_Model_Simplexml_Element $methodsXmlObj
+     * @return bool
+     */
+    protected function _addGiftCard(Mage_XmlConnect_Model_Simplexml_Element $methodsXmlObj)
+    {
         if (is_object(Mage::getConfig()->getNode('modules/Enterprise_GiftCardAccount'))) {
             $this->addGiftcardToXmlObj($methodsXmlObj);
             if ($this->getIsUsedGiftCard() && $this->_isPaymentRequired()) {
-                return $methodsXmlObj->asNiceXml();
+                $this->_addFreePaymentToXmlObj($methodsXmlObj);
+                return true;
             }
         }
+        return false;
+    }
 
+    /**
+     * Add customer balance details to XML object
+     *
+     * @param Mage_XmlConnect_Model_Simplexml_Element $methodsXmlObj
+     * @return Mage_XmlConnect_Block_Checkout_Payment_Method_List
+     */
+    public function addCustomerBalanceToXmlObj(Mage_XmlConnect_Model_Simplexml_Element $methodsXmlObj)
+    {
         if (is_object(Mage::getConfig()->getNode('modules/Enterprise_CustomerBalance'))) {
-            $this->addCustomerBalanceToXmlObj($methodsXmlObj);
+            /** @var $customerBalanceBlock Enterprise_CustomerBalance_Block_Checkout_Onepage_Payment_Additional */
+            $customerBalanceBlock = $this->getLayout()
+                ->addBlock('enterprise_customerbalance/checkout_onepage_payment_additional', 'customer_balance');
+            $storeCreditFlag = (int) Mage::getStoreConfig(Enterprise_CustomerBalance_Helper_Data::XML_PATH_ENABLED);
+            if ($storeCreditFlag && $customerBalanceBlock->isDisplayContainer()) {
+                $balance = $this->getQuote()->getStore()->formatPrice($customerBalanceBlock->getBalance(), false);
+                $methodsXmlObj->addCustomChild('customer_balance', null, array(
+                    'post_name' => 'payment[use_customer_balance]',
+                    'code'      => 1,
+                    'label'     => $this->__('Use Store Credit (%s available)', $balance),
+                    'is_cover_a_quote' => intval($customerBalanceBlock->isFullyPaidAfterApplication()),
+                    'selected'  => intval($customerBalanceBlock->isCustomerBalanceUsed())
+                ));
+            }
         }
+        return $this;
+    }
 
+    /**
+     * Add payment methods info to xml object
+     *
+     * @throw Mage_Core_Exception
+     * @param Mage_XmlConnect_Model_Simplexml_Element $methodsXmlObj
+     * @return Mage_XmlConnect_Block_Checkout_Payment_Method_List
+     */
+    protected function _buildPaymentMethods(Mage_XmlConnect_Model_Simplexml_Element $methodsXmlObj)
+    {
         $methodArray = $this->_getPaymentMethodArray();
         $usedMethods = $sortedAvailableMethodCodes = $usedCodes = array();
 
@@ -202,6 +255,17 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_List extends Mage_Payment_Bl
         $allAvailableMethods  = Mage::helper('payment')->getStoreMethods(
             Mage::app()->getStore(), $this->getQuote()
         );
+
+        $total = $this->getQuote()->getGrandTotal();
+        foreach ($allAvailableMethods as $key => $method) {
+            if ($this->_canUseMethod($method) && ($total != 0 || $method->getCode() == 'free'
+                || ($this->getQuote()->hasRecurringItems() && $method->canManageRecurringProfiles()))
+            ) {
+                $this->_assignMethod($method);
+            } else {
+                unset($allAvailableMethods[$key]);
+            }
+        }
 
         /**
          * Get sorted codes of available methods
@@ -223,7 +287,6 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_List extends Mage_Payment_Bl
                 if (!$block) {
                     continue;
                 }
-
                 $method = $block->getMethod();
                 if (!$this->_canUseMethod($method) || in_array($method->getCode(), $usedCodes)) {
                     continue;
@@ -282,36 +345,32 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_List extends Mage_Payment_Bl
                 $renderer->setData('method', $method);
             }
 
-            $methodItemXmlObj = $methodsXmlObj->addChild('method');
-            $methodItemXmlObj->addAttribute('post_name', 'payment[method]');
-            $methodItemXmlObj->addAttribute('code', $method->getCode());
-            $methodItemXmlObj->addAttribute('label', $methodsXmlObj->escapeXml($method->getTitle()));
+            $options = array(
+                'id' => $method->getCode(),
+                'code' => $method->getCode(),
+                'post_name' => 'payment[method]',
+                'label' => $methodsXmlObj->escapeXml($method->getTitle()),
+            );
+
             if ($this->getQuote()->getPayment()->getMethod() == $method->getCode()) {
-                $methodItemXmlObj->addAttribute('selected', 1);
+                $options['selected'] = 1;
             }
+
+            $methodItemXmlObj = $methodsXmlObj->addCustomChild('method', null, $options);
             $renderer->addPaymentFormToXmlObj($methodItemXmlObj);
         }
-        if (!count($usedMethods)) {
-            Mage::throwException($this->__('Sorry, no payment options are available for this order at this time.'));
-        }
-        return $methodsXmlObj->asNiceXml();
-    }
 
-    /**
-     * Check and prepare payment method model
-     *
-     * @param mixed $method
-     * @return bool
-     */
-    protected function _canUseMethod($method)
-    {
-        if (!($method instanceof Mage_Payment_Model_Method_Abstract)
-            || !$method->canUseCheckout()
-            || !$method->isAvailable($this->getQuote())
-        ) {
-            return false;
+        if (count($allAvailableMethods) == 1 && isset($sortedAvailableMethodCodes[0])
+            && $sortedAvailableMethodCodes[0] == 'free') {
+            if ($this->_isPaymentRequired()) {
+                $this->_addFreePaymentToXmlObj($methodsXmlObj);
+            }
         }
-        return parent::_canUseMethod($method);
+
+        if (!count($allAvailableMethods)) {
+            Mage::throwException($this->__('Your order cannot be completed at this time as there is no payment methods available for it.'));
+        }
+        return $this;
     }
 
     /**

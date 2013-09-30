@@ -20,10 +20,9 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Base Content Block class
@@ -33,7 +32,7 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Core_Block_Abstract extends Varien_Object
 {
@@ -41,6 +40,12 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Cache group Tag
      */
     const CACHE_GROUP = 'block_html';
+
+    /**
+     * Cache tags data key
+     */
+    const CACHE_TAGS_DATA_KEY = 'cache_tags';
+
     /**
      * Block name in layout
      *
@@ -162,6 +167,24 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * @var array
      */
     protected $_sortInstructions = array();
+
+    /**
+     * Factory instance
+     *
+     * @var Mage_Core_Model_Factory
+     */
+    protected $_factory;
+
+    /**
+     * Initialize factory instance
+     *
+     * @param array $args
+     */
+    public function __construct(array $args = array())
+    {
+        $this->_factory = !empty($args['core_factory']) ? $args['core_factory'] : Mage::getSingleton('core/factory');
+        parent::__construct($args);
+    }
 
     /**
      * Internal constructor, that is called from real constructor
@@ -1139,6 +1162,19 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     }
 
     /**
+     * Escape quotes inside html attributes
+     * Use $addSlashes = false for escaping js that inside html attribute (onClick, onSubmit etc)
+     *
+     * @param  string $data
+     * @param  bool $addSlashes
+     * @return string
+     */
+    public function quoteEscape($data, $addSlashes = false)
+    {
+        return $this->helper('core')->quoteEscape($data, $addSlashes);
+    }
+
+    /**
      * Escape quotes in java scripts
      *
      * @param mixed $data
@@ -1241,14 +1277,49 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      */
     public function getCacheTags()
     {
-        if (!$this->hasData('cache_tags')) {
-            $tags = array();
-        } else {
-            $tags = $this->getData('cache_tags');
+        $tagsCache = Mage::app()->loadCache($this->_getTagsCacheKey());
+        if ($tagsCache) {
+            $tags = json_decode($tagsCache);
         }
-        $tags[] = self::CACHE_GROUP;
-        return $tags;
+        if (!isset($tags) || !is_array($tags) || empty($tags)) {
+            $tags = !$this->hasData(self::CACHE_TAGS_DATA_KEY) ? array() : $this->getData(self::CACHE_TAGS_DATA_KEY);
+            if (!in_array(self::CACHE_GROUP, $tags)) {
+                $tags[] = self::CACHE_GROUP;
+            }
+        }
+        return array_unique($tags);
     }
+
+    /**
+     * Add tag to block
+     *
+     * @param string|array $tag
+     * @return Mage_Core_Block_Abstract
+     */
+    public function addCacheTag($tag)
+    {
+        $tag = is_array($tag) ? $tag : array($tag);
+        $tags = !$this->hasData(self::CACHE_TAGS_DATA_KEY) ?
+            $tag : array_merge($this->getData(self::CACHE_TAGS_DATA_KEY), $tag);
+        $this->setData(self::CACHE_TAGS_DATA_KEY, $tags);
+        return $this;
+    }
+
+    /**
+     * Add tags from specified model to current block
+     *
+     * @param Mage_Core_Model_Abstract $model
+     * @return Mage_Core_Block_Abstract
+     */
+    public function addModelTags(Mage_Core_Model_Abstract $model)
+    {
+        $cacheTags = $model->getCacheIdTags();
+        if (false !== $cacheTags) {
+            $this->addCacheTag($cacheTags);
+        }
+        return $this;
+    }
+
 
     /**
      * Get block cache life time
@@ -1307,8 +1378,29 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             $data
         );
 
-        Mage::app()->saveCache($data, $cacheKey, $this->getCacheTags(), $this->getCacheLifetime());
+        $tags = $this->getCacheTags();
+
+        Mage::app()->saveCache($data, $cacheKey, $tags, $this->getCacheLifetime());
+        Mage::app()->saveCache(
+            json_encode($tags),
+            $this->_getTagsCacheKey($cacheKey),
+            $tags,
+            $this->getCacheLifetime()
+        );
         return $this;
+    }
+
+    /**
+     * Get cache key for tags
+     *
+     * @param string $cacheKey
+     * @return string
+     */
+    protected function _getTagsCacheKey($cacheKey = null)
+    {
+        $cacheKey = !empty($cacheKey) ? $cacheKey : $this->getCacheKey();
+        $cacheKey = md5($cacheKey . '_tags');
+        return $cacheKey;
     }
 
     /**
@@ -1324,5 +1416,26 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         }
 
         return '<!--SID=' . $cacheKey . '-->';
+    }
+
+    /**
+     * Collect and retrieve items tags.
+     * Item should implements Mage_Core_Model_Abstract::getCacheIdTags method
+     *
+     * @param array|Varien_Data_Collection $items
+     * @return array
+     */
+    public function getItemsTags($items)
+    {
+        $tags = array();
+        /** @var $item Mage_Core_Model_Abstract */
+        foreach($items as $item) {
+            $itemTags = $item->getCacheIdTags();
+            if (false === $itemTags) {
+                continue;
+            }
+            $tags = array_merge($tags, $itemTags);
+        }
+        return $tags;
     }
 }

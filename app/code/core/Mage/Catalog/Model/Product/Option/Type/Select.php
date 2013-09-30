@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -86,7 +86,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
     public function getFormattedOptionValue($optionValue)
     {
         if ($this->_formattedOptionValue === null) {
-            $this->_formattedOptionValue = Mage::helper('core')->htmlEscape(
+            $this->_formattedOptionValue = Mage::helper('core')->escapeHtml(
                 $this->getEditableOptionValue($optionValue)
             );
         }
@@ -105,13 +105,13 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
     }
 
     /**
-     * Return wrong product configuration message
+     * Return currently unavailable product configuration message
      *
      * @return string
      */
     protected function _getWrongConfigurationMessage()
     {
-        return Mage::helper('catalog')->__('Some of the products below do not have all the required options. Please edit them and configure all the required options.');
+        return Mage::helper('catalog')->__('Some of the selected item options are not currently available.');
     }
 
     /**
@@ -205,6 +205,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
      * Return Price for selected option
      *
      * @param string $optionValue Prepared for cart option value
+     * @param float $basePrice
      * @return float
      */
     public function getOptionPrice($optionValue, $basePrice)

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -45,17 +45,20 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Tax extends Mage_Tax_Block_Sales_O
 
         $taxClassAmount = array();
         if ($source instanceof Mage_Sales_Model_Order) {
-            $taxClassAmount = Mage::helper('tax')->getCalculatedTaxes($source);
-            if (empty($taxClassAmount)) {
-                $rates = Mage::getModel('sales/order_tax')->getCollection()->loadByOrder($source)->toArray();
-                $taxClassAmount =  Mage::getSingleton('tax/calculation')->reproduceProcess($rates['items']);
-            } else {
-                $shippingTax    = Mage::helper('tax')->getShippingTax($source);
-                $taxClassAmount = array_merge($shippingTax, $taxClassAmount);
-            }
+            $taxClassAmount = $this->_getTaxHelper()->getCalculatedTaxes($source);
         }
 
         return $taxClassAmount;
+    }
+
+    /**
+     * Return Mage_Tax_Helper_Data instance
+     *
+     * @return Mage_Tax_Helper_Data
+     */
+    protected function _getTaxHelper()
+    {
+        return Mage::helper('tax');
     }
 
     /**

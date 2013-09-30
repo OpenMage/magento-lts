@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -523,7 +523,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
 
             return sprintf('<a href="%s" target="_blank">%s</a> %s',
                 $this->_getOptionDownloadUrl($urlRoute, $urlParams),
-                Mage::helper('core')->htmlEscape($title),
+                Mage::helper('core')->escapeHtml($title),
                 $sizes
             );
         } catch (Exception $e) {
@@ -570,7 +570,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         try {
             $value = unserialize($optionValue);
             return sprintf('%s [%d]',
-                Mage::helper('core')->htmlEscape($value['title']),
+                Mage::helper('core')->escapeHtml($value['title']),
                 $this->getConfigurationItemOption()->getId()
             );
 

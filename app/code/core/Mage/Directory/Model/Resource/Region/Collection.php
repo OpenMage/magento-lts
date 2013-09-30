@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Directory
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -150,6 +150,21 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
             } else {
                 $this->addFieldToFilter('main_table.default_name', $regionName);
             }
+        }
+        return $this;
+    }
+
+    /**
+     * Filter region by its code or name
+     *
+     * @param string|array $region
+     * @return Mage_Directory_Model_Resource_Region_Collection
+     */
+    public function addRegionCodeOrNameFilter($region)
+    {
+        if (!empty($region)) {
+            $condition = is_array($region) ? array('in' => $region) : $region;
+            $this->addFieldToFilter(array('main_table.code', 'main_table.default_name'), array($condition, $condition));
         }
         return $this;
     }

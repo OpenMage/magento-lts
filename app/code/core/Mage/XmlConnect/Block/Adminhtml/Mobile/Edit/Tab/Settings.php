@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,15 +37,11 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Settings
 {
     protected function _prepareLayout()
     {
-        $this->setChild('continue_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
-                    'label'     => Mage::helper('catalog')->__('Continue'),
-                    'onclick'   => "if (editForm.submit()) { return false }",
-                    'class'     => 'save'
-                )
-            )
-        );
+        $this->setChild('continue_button', $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
+            'label'     => Mage::helper('catalog')->__('Continue'),
+            'onclick'   => "if (editForm.submit()) { return false }",
+            'class'     => 'save'
+        )));
         return parent::_prepareLayout();
     }
 
@@ -63,11 +59,11 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Settings
         $fieldset = $form->addFieldset('base_fieldset', array('legend' => $this->__('Device Information')));
 
         $fieldset->addField('type', 'select', array(
-                'name'      => 'type',
-                'label'     => $this->__('Device Type'),
-                'title'     => $this->__('Device Type'),
-                'values'    => Mage::helper('xmlconnect')->getDeviceTypeOptions(),
-                'required'  => true
+            'name'      => 'type',
+            'label'     => $this->__('Device Type'),
+            'title'     => $this->__('Device Type'),
+            'values'    => Mage::helper('xmlconnect')->getDeviceTypeOptions(),
+            'required'  => true
         ));
 
         $fieldset->addField('continue_button', 'note', array(

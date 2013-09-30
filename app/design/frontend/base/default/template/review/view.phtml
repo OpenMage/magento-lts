@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -30,14 +30,14 @@
         <h1><?php echo $this->__('Review Details') ?></h1>
     </div>
     <div class="product-img-box">
-        <a href="<?php echo $this->getProductData()->getProductUrl() ?>" title="<?php echo $this->htmlEscape($this->getProductData()->getName()) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($this->getProductData(), 'small_image')->resize(125, 125); ?>" height="125" width="125" alt="<?php echo $this->htmlEscape($this->getProductData()->getName()) ?>" /></a>
+        <a href="<?php echo $this->getProductData()->getProductUrl() ?>" title="<?php echo $this->escapeHtml($this->getProductData()->getName()) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($this->getProductData(), 'small_image')->resize(125, 125); ?>" height="125" width="125" alt="<?php echo $this->escapeHtml($this->getProductData()->getName()) ?>" /></a>
         <?php if( $this->getRating() && $this->getRating()->getSize()): ?>
              <p class="label"><?php echo $this->__('Average Customer Rating') ?>:</p>
              <?php echo $this->getReviewsSummaryHtml($this->getProductData()) ?>
         <?php endif; ?>
     </div>
     <div class="product-details">
-        <h2 class="product-name"><?php echo $this->htmlEscape($this->getProductData()->getName()) ?></h2>
+        <h2 class="product-name"><?php echo $this->escapeHtml($this->getProductData()->getName()) ?></h2>
         <?php if( $this->getRating() && $this->getRating()->getSize()): ?>
             <h3><?php echo $this->__('Product Rating:') ?></h3>
             <table class="ratings-table">
@@ -61,7 +61,7 @@
                 <?php echo $this->__('Product Review (submitted on %s):', $this->dateFormat($this->getReviewData()->getCreatedAt())) ?>
             </dt>
             <dd>
-                <?php echo nl2br($this->htmlEscape($this->getReviewData()->getDetail())) ?>
+                <?php echo nl2br($this->escapeHtml($this->getReviewData()->getDetail())) ?>
             </dd>
         </dl>
     </div>

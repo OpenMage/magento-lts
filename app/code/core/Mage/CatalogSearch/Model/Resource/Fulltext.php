@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogSearch
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -685,7 +685,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
             }
 
             $attribute->setStoreId($storeId);
-            $value = $attribute->getSource()->getOptionText($value);
+            $value = $attribute->getSource()->getIndexOptionText($value);
 
             if (is_array($value)) {
                 $value = implode($this->_separator, $value);

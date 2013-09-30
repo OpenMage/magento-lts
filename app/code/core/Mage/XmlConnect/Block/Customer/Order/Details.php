@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -71,12 +71,13 @@ class Mage_XmlConnect_Block_Customer_Order_Details extends Mage_Payment_Block_In
              'label' => $this->__('Order #%s - %s', $order->getRealOrderId(), $order->getStatusLabel()),
              'order_date' => $this->__('Order Date: %s', $orderDate)
         ));
+
+        $billing  = Mage::helper('xmlconnect')->trimLineBreaks($order->getBillingAddress()->format('text'));
+        $orderXmlObj->addCustomChild('billing_address', $billing);
+
         if (!$order->getIsVirtual()) {
             $shipping = Mage::helper('xmlconnect')->trimLineBreaks($order->getShippingAddress()->format('text'));
-            $billing  = Mage::helper('xmlconnect')->trimLineBreaks($order->getBillingAddress()->format('text'));
-
             $orderXmlObj->addCustomChild('shipping_address', $shipping);
-            $orderXmlObj->addCustomChild('billing_address', $billing);
 
             if ($order->getShippingDescription()) {
                 $shippingMethodDescription = $order->getShippingDescription();
@@ -88,12 +89,12 @@ class Mage_XmlConnect_Block_Customer_Order_Details extends Mage_Payment_Block_In
 
         $this->_addPaymentMethodInfoToXmlObj($orderXmlObj);
 
-        $itemsBlock = $this->getLayout()->getBlock('xmlconnect.customer.order.items');
+        $itemsBlock = $this->getLayout()->getBlock('order.items');
         if ($itemsBlock) {
             /** @var $itemsBlock Mage_XmlConnect_Block_Customer_Order_Items */
             $itemsBlock->setItems($order->getItemsCollection());
             $itemsBlock->addItemsToXmlObject($orderXmlObj);
-            $totalsBlock = $this->getLayout()->getBlock('xmlconnect.customer.order.totals');
+            $totalsBlock = $this->getLayout()->getBlock('order.totals');
             if ($totalsBlock) {
                 $totalsBlock->setOrder($order);
                 $totalsBlock->addTotalsToXmlObject($orderXmlObj);
@@ -141,9 +142,9 @@ class Mage_XmlConnect_Block_Customer_Order_Details extends Mage_Payment_Block_In
             if (!empty($specificInfo)) {
                 foreach ($specificInfo as $label => $value) {
                     if ($value) {
-                        $paymentNode->addCustomChild('item', implode($this->getValueAsArray($value, true), '\n'),
-                            array('label' => $label)
-                        );
+                        $paymentNode->addCustomChild('item',implode($this->getValueAsArray($value, true), '\n'), array(
+                            'label' => $label
+                        ));
                     }
                 }
             }
@@ -176,10 +177,6 @@ class Mage_XmlConnect_Block_Customer_Order_Details extends Mage_Payment_Block_In
      */
     protected function _formatAddress($address)
     {
-        return preg_replace(
-            array('@\r@', '@\n+@'),
-            array('', '\n'),
-            $address
-        );
+        return preg_replace(array('@\r@', '@\n+@'), array('', '\n'), $address);
     }
 }

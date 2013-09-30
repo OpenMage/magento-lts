@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -49,7 +49,7 @@ if (Mage::helper('weee')->typeOfDisplay($_product, array(1,2,4))) {
     <?php endif; ?>
     <?php Mage::helper('weee')->processTierPrices($_product, $_tierPrices); ?>
     <?php foreach ($_tierPrices as $_index => $_price): ?>
-        <li>
+        <li class="tier-price tier-<?php echo $_index; ?>">
         <?php if ($_catalogHelper->canApplyMsrp($_product)): ?>
             <?php if ($this->getInGrouped()): ?>
                 <?php echo $this->__('Buy %1$s for', $_price['price_qty']) ?>:

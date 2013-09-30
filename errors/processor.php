@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Errors
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -558,7 +558,8 @@ class Error_Processor
      */
     protected function _validate()
     {
-        $email = eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$", $this->postData['email']);
+        $email = preg_match('/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/',
+            $this->postData['email']);
         return ($this->postData['firstName'] && $this->postData['lastName'] && $email);
     }
 
@@ -566,7 +567,7 @@ class Error_Processor
      * Skin setter
      *
      * @param string $value
-     * @param object $config
+     * @param stdClass $config
      */
     protected function _setSkin($value, stdClass $config = null)
     {

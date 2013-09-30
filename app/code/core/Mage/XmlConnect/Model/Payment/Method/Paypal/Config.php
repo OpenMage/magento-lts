@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -47,5 +47,26 @@ class Mage_XmlConnect_Model_Payment_Method_Paypal_Config extends Mage_Paypal_Mod
     public function getExpressCheckoutStartUrl($token)
     {
         return $this->getPaypalUrl(array('cmd' => '_express-checkout-mobile', 'token' => $token));
+    }
+
+    /**
+     * Map any supported payment method into a config path by specified field name
+     *
+     * @param string $fieldName
+     * @return string|null
+     */
+    protected function _getSpecificConfigPath($fieldName)
+    {
+        $path = $this->_mapExpressFieldset($fieldName);
+
+        if ($path === null) {
+            $path = $this->_mapWppFieldset($fieldName);
+        }
+
+        if ($path === null) {
+            $path = parent::_getSpecificConfigPath($fieldName);
+        }
+
+        return $path;
     }
 }

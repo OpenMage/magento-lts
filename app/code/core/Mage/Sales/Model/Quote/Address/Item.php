@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -165,7 +165,12 @@ class Mage_Sales_Model_Quote_Address_Item extends Mage_Sales_Model_Quote_Item_Ab
         return $this->_quote;
     }
 
-
+    /**
+     * Import item to quote
+     *
+     * @param Mage_Sales_Model_Quote_Item $quoteItem
+     * @return Mage_Sales_Model_Quote_Address_Item
+     */
     public function importQuoteItem(Mage_Sales_Model_Quote_Item $quoteItem)
     {
         $this->_quote = $quoteItem->getQuote();
@@ -178,6 +183,7 @@ class Mage_Sales_Model_Quote_Address_Item extends Mage_Sales_Model_Quote_Item_Ab
             ->setDescription($quoteItem->getDescription())
             ->setWeight($quoteItem->getWeight())
             ->setPrice($quoteItem->getPrice())
+            ->setIsQtyDecimal($quoteItem->getIsQtyDecimal())
             ->setCost($quoteItem->getCost());
 
         if (!$this->hasQty()) {

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,6 +42,7 @@ class Mage_XmlConnect_Block_Checkout_Order_Review_Info extends Mage_Checkout_Blo
     {
         $itemsXmlObj = Mage::getModel('xmlconnect/simplexml_element', '<products></products>');
         $quote = Mage::getSingleton('checkout/session')->getQuote();
+        $productSmallImageSize = Mage::getModel('xmlconnect/images')->getImageLimitParam('content/product_small');
 
         /* @var $item Mage_Sales_Model_Quote_Item */
         foreach ($this->getItems() as $item) {
@@ -57,14 +58,10 @@ class Mage_XmlConnect_Block_Checkout_Order_Review_Info extends Mage_Checkout_Blo
             $itemXml->addChild('item_id', $item->getId());
             $itemXml->addChild('name', $itemsXmlObj->escapeXml($renderer->getProductName()));
             $itemXml->addChild('qty', $renderer->getQty());
-            $icon = $renderer->getProductThumbnail()->resize(
-                Mage::helper('xmlconnect/image')->getImageSizeForContent('product_small')
-            );
+            $icon = $renderer->getProductThumbnail()->resize($productSmallImageSize);
 
             $iconXml = $itemXml->addChild('icon', $icon);
-
-            $file = Mage::helper('xmlconnect')->urlToPath($icon);
-            $iconXml->addAttribute('modification_time', filemtime($file));
+            $iconXml->addAttribute('modification_time', filemtime($icon->getNewFile()));
 
             /**
              * Price
@@ -81,12 +78,12 @@ class Mage_XmlConnect_Block_Checkout_Order_Review_Info extends Mage_Checkout_Blo
             }
 
             if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()) {
-                $_incl = $this->helper('checkout')->getPriceInclTax($item);
+                $incl = $this->helper('checkout')->getPriceInclTax($item);
                 $typeOfDisplay = Mage::helper('weee')->typeOfDisplay($item, array(0, 1, 4), 'sales');
                 if ($typeOfDisplay && $item->getWeeeTaxAppliedAmount()) {
-                    $inclPrice = $_incl + $item->getWeeeTaxAppliedAmount();
+                    $inclPrice = $incl + $item->getWeeeTaxAppliedAmount();
                 } else {
-                    $inclPrice = $_incl - $item->getWeeeTaxDisposition();
+                    $inclPrice = $incl - $item->getWeeeTaxDisposition();
                 }
             }
 
@@ -130,13 +127,13 @@ class Mage_XmlConnect_Block_Checkout_Order_Review_Info extends Mage_Checkout_Blo
                 }
             }
             if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()) {
-                $_incl = $this->helper('checkout')->getSubtotalInclTax($item);
+                $incl = $this->helper('checkout')->getSubtotalInclTax($item);
                 if (Mage::helper('weee')->typeOfDisplay($item, array(0, 1, 4), 'sales')
                     && $item->getWeeeTaxAppliedAmount()
                 ) {
-                    $inclPrice = $_incl + $item->getWeeeTaxAppliedRowAmount();
+                    $inclPrice = $incl + $item->getWeeeTaxAppliedRowAmount();
                 } else {
-                    $inclPrice = $_incl - $item->getWeeeTaxRowDisposition();
+                    $inclPrice = $incl - $item->getWeeeTaxRowDisposition();
                 }
             }
 
@@ -169,16 +166,29 @@ class Mage_XmlConnect_Block_Checkout_Order_Review_Info extends Mage_Checkout_Blo
             /**
              * Options list
              */
-            $_options = $renderer->getOptionList();
-            if ($_options) {
+            $options = $renderer->getOptionList();
+            if ($options) {
                 $itemOptionsXml = $itemXml->addChild('options');
-                foreach ($_options as $_option) {
-                    $_formattedOptionValue = $renderer->getFormatedOptionValue($_option);
+                foreach ($options as $option) {
+                    $formattedOptionValue = $renderer->getFormatedOptionValue($option);
                     $optionXml = $itemOptionsXml->addChild('option');
-                    $labelValue = $itemsXmlObj->escapeXml($_option['label']);
+                    $labelValue = $itemsXmlObj->escapeXml($option['label']);
                     $optionXml->addAttribute('label', $labelValue);
-                    $textValue = $itemsXmlObj->escapeXml($_formattedOptionValue['value']);
+                    $textValue = $itemsXmlObj->escapeXml($formattedOptionValue['value']);
                     $optionXml->addAttribute('text', $textValue);
+                }
+            }
+
+            /**
+             * Downloadable product options
+             */
+            $links = $renderer->getLinks();
+            if ($links) {
+                $itemOptionsXml = $itemXml->addCustomChild('options', null, array(
+                    'label' => $renderer->getLinksTitle()
+                ));
+                foreach ($links as $link) {
+                    $itemOptionsXml->addCustomChild('option', null, array('label' => $link->getTitle()));
                 }
             }
         }

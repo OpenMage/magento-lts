@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,8 +31,7 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Model_Simplexml_Form_Element_File
-    extends Mage_XmlConnect_Model_Simplexml_Form_Element_Abstract
+class Mage_XmlConnect_Model_Simplexml_Form_Element_File extends Mage_XmlConnect_Model_Simplexml_Form_Element_Abstract
 {
     /**
      * Init text element

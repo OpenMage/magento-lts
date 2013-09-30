@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Wishlist
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -104,5 +104,21 @@ class Mage_Wishlist_Block_Links extends Mage_Page_Block_Template_Links_Block
     public function addWishlistLink()
     {
         return $this;
+    }
+
+    /**
+     * Retrieve block cache tags
+     *
+     * @return array
+     */
+    public function getCacheTags()
+    {
+        /** @var $wishlist Mage_Wishlist_Model_Wishlist */
+        $wishlist = $this->helper('wishlist')->getWishlist();
+        $this->addModelTags($wishlist);
+        foreach ($wishlist->getItemCollection() as $item) {
+            $this->addModelTags($item);
+        }
+        return parent::getCacheTags();
     }
 }

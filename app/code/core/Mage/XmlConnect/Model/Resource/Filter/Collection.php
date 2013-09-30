@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -65,7 +65,6 @@ class Mage_XmlConnect_Model_Resource_Filter_Collection extends Varien_Data_Colle
             }
             if ($layer->getCurrentCategory()->getIsAnchor()) {
                 foreach ($layer->getFilterableAttributes() as $attributeItem) {
-                    $filterModelName = 'catalog/layer_filter_attribute';
                     switch ($attributeItem->getAttributeCode()) {
                         case 'price':
                             $filterModelName = 'catalog/layer_filter_price';

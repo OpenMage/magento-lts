@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -482,7 +482,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product
 
         $stockItems = Mage::registry('current_imported_inventory');
         if ($collections) foreach ($collections as $storeId=>$collection) {
-            $this->addException(Mage::helper('catalog')->__('Records for "'.$stores[$storeId].'" store found.'));
+            $this->addException(Mage::helper('catalog')->__('Records for "%s" store found.', $stores[$storeId]));
 
             if (!$collection instanceof Mage_Catalog_Model_Entity_Product_Collection) {
                 $this->addException(

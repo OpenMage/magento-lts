@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -35,13 +35,13 @@
             <li class="item">
                 <span class="number"><?php echo ++$iterator ?></span>
                 <div class="details">
-                    <h3 class="product-name"><a href="<?php echo $_item->getProductUrl() ?>"><?php echo $this->htmlEscape($_item->getName()) ?></a></h3>
+                    <h3 class="product-name"><a href="<?php echo $_item->getProductUrl() ?>"><?php echo $this->escapeHtml($_item->getName()) ?></a></h3>
                     <div class="tags">
                         <strong><?php echo $this->__('Tags:') ?></strong>
                         <?php $_i = 0; ?>
                         <ul>
                         <?php foreach( $_item->getProductTags() as $_tag ): ?>
-                            <li><a href="<?php echo $_tag->getViewTagUrl() ?>"><?php echo $this->htmlEscape($_tag->getName()) ?></a><?php if(++$_i != sizeof($_item->getProductTags()->getItems())): ?>,<?php endif; ?></li>
+                            <li><a href="<?php echo $_tag->getViewTagUrl() ?>"><?php echo $this->escapeHtml($_tag->getName()) ?></a><?php if(++$_i != sizeof($_item->getProductTags()->getItems())): ?>,<?php endif; ?></li>
                         <?php endforeach; ?>
                         </ul>
                     </div>

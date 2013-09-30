@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,11 +34,10 @@
  */
 class Mage_Catalog_Model_Category_Attribute_Backend_Urlkey extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
-
     /**
-     * Enter description here...
+     * Format url_key value
      *
-     * @param Varien_Object $object
+     * @param Mage_Catalog_Model_Category $object
      * @return Mage_Catalog_Model_Category_Attribute_Backend_Urlkey
      */
     public function beforeSave($object)
@@ -52,28 +51,38 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Urlkey extends Mage_Eav_Mode
         if ($urlKey=='') {
             $urlKey = $object->getName();
         }
-
+        if (empty($urlKey)) {
+            $urlKey = Mage::helper('core')->uniqHash();
+        }
         $object->setData($attributeName, $object->formatUrlKey($urlKey));
 
+        $this->_validateEntityUrl($object);
         return $this;
     }
 
     /**
-     * Enter description here...
+     * Check unique url_key value in catalog_category_entity_url_key table.
      *
-     * @param Varien_Object $object
+     * @param Mage_Catalog_Model_Category $object
+     * @return Mage_Catalog_Model_Category_Attribute_Backend_Urlkey
+     * @throws Mage_Core_Exception
      */
-    public function afterSave($object)
+    protected function _validateEntityUrl($object)
     {
-        /* @var $object Mage_Catalog_Model_Category */
-        /**
-         * Logic moved to Mage_Catalog_Molde_Indexer_Url
-         */
-        /*if (!$object->getInitialSetupFlag() && $object->getLevel() > 1) {
-            if ($object->dataHasChangedFor('url_key') || $object->getIsChangedProductList()) {
-                Mage::getSingleton('catalog/url')->refreshCategoryRewrite($object->getId());
-            }
-        }*/
-    }
+        $connection = $object->getResource()->getReadConnection();
 
+        $select = $connection->select()
+            ->from($this->getAttribute()->getBackendTable(), array('count' => new Zend_Db_Expr('COUNT(\'value_id\')')))
+            ->where($connection->quoteInto('entity_id <> ?', $object->getId()))
+            ->where($connection->quoteInto('value = ?', $object->getUrlKey()));
+        $result = $connection->fetchOne($select);
+        if ((int)$result) {
+            throw new Mage_Core_Exception(
+                Mage::helper('catalog')->__("Category with the '%s' url_key attribute already exists.",
+                    $object->getUrlKey())
+            );
+        }
+
+        return $this;
+    }
 }

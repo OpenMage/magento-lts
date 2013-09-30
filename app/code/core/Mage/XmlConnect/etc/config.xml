@@ -21,15 +21,15 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_XmlConnect>
-            <version>1.6.0.0</version>
-            <innerVersion>22.1</innerVersion>
+            <version>1.6.0.0.1</version>
+            <innerVersion>23.1</innerVersion>
         </Mage_XmlConnect>
     </modules>
     <global>
@@ -48,6 +48,7 @@
                     <queue><table>xmlconnect_queue</table></queue>
                     <template><table>xmlconnect_notification_template</table></template>
                     <configData><table>xmlconnect_config_data</table></configData>
+                    <images><table>xmlconnect_images</table></images>
                 </entities>
             </xmlconnect_resource>
         </models>
@@ -83,7 +84,52 @@
                     </xmlconnect>
                 </observers>
             </websiterestriction_frontend>
+            <clean_catalog_images_cache_after>
+                <observers>
+                    <xmlconnect>
+                        <class>xmlconnect/observer</class>
+                        <method>clearCategoryImagesCache</method>
+                    </xmlconnect>
+                </observers>
+            </clean_catalog_images_cache_after>
+            <controller_action_predispatch>
+                <observers>
+                    <xmlconnect>
+                        <class>xmlconnect/observer</class>
+                        <method>actionFrontPreDispatchXmlAdmin</method>
+                    </xmlconnect>
+                </observers>
+            </controller_action_predispatch>
         </events>
+        <xmlconnect>
+            <sales>
+                <quote>
+                    <totals>
+                        <subtotal>
+                            <renderer>xmlconnect/cart_cartTotals_subtotal</renderer>
+                        </subtotal>
+                        <grand_total>
+                            <renderer>xmlconnect/cart_cartTotals_grandtotal</renderer>
+                        </grand_total>
+                        <shipping>
+                            <renderer>xmlconnect/cart_cartTotals_shipping</renderer>
+                        </shipping>
+                        <giftcardaccount>
+                            <renderer>xmlconnect/cart_cartTotals_nodes_giftcardaccount</renderer>
+                            <is_node>1</is_node>
+                        </giftcardaccount>
+                        <discount>
+                            <renderer>xmlconnect/cart_cartTotals_nodes_default</renderer>
+                            <is_node>1</is_node>
+                        </discount>
+                        <customerbalance>
+                            <renderer>xmlconnect/cart_cartTotals_nodes_default</renderer>
+                            <is_node>1</is_node>
+                        </customerbalance>
+                    </totals>
+                </quote>
+            </sales>
+        </xmlconnect>
     </global>
     <admin>
          <routers>
@@ -122,6 +168,14 @@
                     </xmlconnect>
                 </observers>
             </core_config_data_save_after>
+            <core_config_data_save_before>
+                <observers>
+                    <xmlconnect>
+                        <class>xmlconnect/observer</class>
+                        <method>changeUpdatedAtParamOnConfigSave</method>
+                    </xmlconnect>
+                </observers>
+            </core_config_data_save_before>
             <before_save_message_queue>
                 <observers>
                     <xmlconnect>
@@ -130,6 +184,14 @@
                     </xmlconnect>
                 </observers>
             </before_save_message_queue>
+            <controller_action_predispatch>
+                <observers>
+                    <xmlconnect>
+                        <class>xmlconnect/observer</class>
+                        <method>actionPreDispatchXmlAdmin</method>
+                    </xmlconnect>
+                </observers>
+            </controller_action_predispatch>
         </events>
     </adminhtml>
     <frontend>
@@ -167,6 +229,7 @@
                 <title>PayPal Mobile Payments Library</title>
                 <allowspecific>0</allowspecific>
                 <group>paypal</group>
+                <line_items_enabled>1</line_items_enabled>
             </paypal_mep>
             <paypal_mecl>
                 <active>1</active>
@@ -174,26 +237,20 @@
                 <title>PayPal Mobile Express Checkout Library</title>
                 <allowspecific>0</allowspecific>
                 <group>paypal</group>
+                <payment_action>Authorization</payment_action>
+                <line_items_enabled>1</line_items_enabled>
+                <solution_type>Mark</solution_type>
+                <authorization_honor_period>3</authorization_honor_period>
+                <order_valid_period>29</order_valid_period>
+                <child_authorization_number>1</child_authorization_number>
             </paypal_mecl>
         </payment>
         <screen_size>
             <!-- WARNING !!!!!  ALL IMAGE NODES MUST END ON "icon"|"Icon"|"Image"  !!!!!  -->
             <default>
-                <content>
-                        <product_small>70</product_small>
-                        <product_big>130</product_big>
-                        <category>80</category>
-                        <product_gallery_big>280</product_gallery_big>
-                        <product_gallery_small>40</product_gallery_small>
-                </content>
                 <interface>
                     <native>
-                        <navigationBar>
-                            <icon> <widthMax>35</widthMax> <heightMax>35</heightMax> </icon>
-                        </navigationBar>
-                        <sortingBar>
-                            <backgroundImage> <width>320</width> <height>40</height> </backgroundImage>
-                        </sortingBar>
+                        <!-- for all devices preview and config -->
                         <tabBar>
                             <home> <icon> <heightMax>35</heightMax> </icon> </home>
                             <shop> <icon> <heightMax>35</heightMax> </icon> </shop>
@@ -201,31 +258,8 @@
                             <cart> <icon> <heightMax>35</heightMax> </icon> </cart>
                             <more> <icon> <heightMax>35</heightMax> </icon> </more>
                         </tabBar>
-                        <body>
-                            <!-- iphone images -->
-                            <bannerImage> <width>320</width> <height>230</height> </bannerImage>
-                            <backgroundImage> <width>320</width> <height>367</height> </backgroundImage>
+                        <!-- for all devices preview end -->
 
-                            <!-- ipad images -->
-                            <bannerIpadLandscapeImage> <width>1024</width> <height>344</height> </bannerIpadLandscapeImage>
-                            <bannerIpadImage> <width>768</width> <height>294</height> </bannerIpadImage>
-                            <backgroundIpadLandscapeImage> <width>1024</width> <height>704</height> </backgroundIpadLandscapeImage>
-                            <backgroundIpadPortraitImage> <width>768</width> <height>960</height> </backgroundIpadPortraitImage>
-
-                            <!-- andriod images -->
-                            <bannerAndroidImage> <width>320</width> <height>258</height> </bannerAndroidImage>
-
-                            <!-- images that are the same for all type of devices -->
-                            <itemBackgroundIcon> <width>90</width> <height>120</height> </itemBackgroundIcon>
-                            <rowBackgroundIcon> <width>320</width> <height>90</height> </rowBackgroundIcon>
-                            <rowAttributeIcon> <widthMax>30</widthMax> <heightMax>90</heightMax> </rowAttributeIcon>
-                            <addToCartBackgroundIcon> <width>136</width> <height>28</height> </addToCartBackgroundIcon>
-                            <actionsBackgroundIcon> <width>107</width> <height>37</height> </actionsBackgroundIcon>
-                            <reviewsBackgroundIcon> <width>320</width> <height>37</height> </reviewsBackgroundIcon>
-                        </body>
-                        <appliedFilters>
-                            <backgroundImage> <width>320</width> <height>20</height> </backgroundImage>
-                        </appliedFilters>
                         <itemActions>
                             <backgroundImage> <width>320</width> <height>90</height> </backgroundImage>
                             <viewGalleryIcon> <widthMax>40</widthMax> <heightMax>40</heightMax> </viewGalleryIcon>
@@ -262,134 +296,12 @@
                     </submit>
                 </interface>
             </default>
-            <_320x480>
-                <default>
-                    <source>default</source>
-                    <updates>
-                        <u1>
-                            <path>content/product_gallery_big</path>
-                            <function>update</function>
-                            <data>560</data>
-                        </u1>
-                    </updates>
-                </default>
-                <a>
-                    <source>default</source>
-                    <updates>
-                        <u1>
-                            <path>interface/native/tabBar</path>
-                            <function>zoom</function>
-                            <data>1.02857</data>
-                        </u1>
-                    </updates>
-                </a>
-                <b>
-                    <source>default</source>
-                    <updates>
-                        <u1>
-                            <path>interface/native/tabBar</path>
-                            <!-- 48px -->
-                            <function>zoom</function>
-                            <data>1.31428</data>
-                        </u1>
-                    </updates>
-                </b>
-                <c>
-                    <source>default</source>
-                    <updates>
-                        <u1>
-                            <path>interface/native/tabBar</path>
-                            <!-- 72px -->
-                            <function>zoom</function>
-                            <data>2.05714</data>
-                        </u1>
-                    </updates>
-                </c>
-            </_320x480>
-            <_480x800>
-                <default>
-                    <source>default</source>
-                    <updates>
-                        <u1>
-                            <path>/</path>
-                            <function>zoom</function>
-                            <data>1.5</data>
-                        </u1>
-                        <u2>
-                            <path>content/product_gallery_big</path>
-                            <function>update</function>
-                            <data>840</data>
-                        </u2>
-                    </updates>
-                </default>
-            </_480x800>
-            <_480x854>
-                <default>
-                    <source>default</source>
-                    <updates>
-                        <u1>
-                            <path>/</path>
-                            <function>zoom</function>
-                            <data>1.5</data>
-                        </u1>
-                         <u2>
-                            <path>content/product_gallery_big</path>
-                            <function>update</function>
-                            <data>840</data>
-                        </u2>
-                    </updates>
-                </default>
-            </_480x854>
-            <_640x960>
-                <default>
-                    <source>default</source>
-                    <updates>
-                        <u1>
-                            <path>/</path>
-                            <function>zoom</function>
-                            <data>2.0</data>
-                        </u1>
-                        <u2>
-                            <path>content/product_gallery_big</path>
-                            <function>update</function>
-                            <data>1120</data>
-                        </u2>
-                    </updates>
-                </default>
-            </_640x960>
-            <_768x1024>
-                <default>
-                    <source>default</source>
-                    <updates>
-                        <u1>
-                            <path>content/product_small</path>
-                            <function>update</function>
-                            <data>210</data>
-                        </u1>
-                        <u2>
-                            <path>content/product_big</path>
-                            <function>update</function>
-                            <data>400</data>
-                        </u2>
-                        <u3>
-                            <path>content/category</path>
-                            <function>update</function>
-                            <data>243</data>
-                        </u3>
-                        <u4>
-                            <path>content/product_gallery_big</path>
-                            <function>update</function>
-                            <data>1288</data>
-                        </u4>
-                    </updates>
-                </default>
-            </_768x1024>
         </screen_size>
         <xmlconnect>
             <mobile_application>
                 <curl_ssl_verifypeer>1</curl_ssl_verifypeer>
                 <magentocommerce_url>www.magentocommerce.com/products/index.php/mobile/activate/index/key/</magentocommerce_url>
-                <activation_key_url>http://www.magentocommerce.com/product/mobile</activation_key_url>
+                <activation_key_url>http://magentocommerce.com/product/mobile</activation_key_url>
                 <resubmission_key_url>http://www.magentocommerce.com/product/mobile#resubmission</resubmission_key_url>
                 <urbanairship_push_url>http://urbanairship.com/products/push-notifications/</urbanairship_push_url>
                 <urbanairship_rich_push_url>http://urbanairship.com/products/rich-push/</urbanairship_rich_push_url>

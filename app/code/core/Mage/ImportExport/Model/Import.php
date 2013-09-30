@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_ImportExport
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -143,9 +143,7 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
                 if ($this->getProcessedRowsCount() == $this->getInvalidRowsCount()) {
                     $messages[] = Mage::helper('importexport')->__('File is totally invalid. Please fix errors and re-upload file');
                 } elseif ($this->getErrorsCount() >= $this->getErrorsLimit()) {
-                    $messages[] = Mage::helper('importexport')->__('Errors limit (%d) reached. Please fix errors and re-upload file',
-                        $this->getErrorsLimit()
-                    );
+                    $messages[] = Mage::helper('importexport')->__('Errors limit (%d) reached. Please fix errors and re-upload file', $this->getErrorsLimit());
                 } else {
                     if ($this->isImportAllowed()) {
                         $messages[] = Mage::helper('importexport')->__('Please fix errors and re-upload file');
@@ -171,10 +169,7 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
             if (is_array($notices)) {
                 $messages = array_merge($messages, $notices);
             }
-            $messages[] = Mage::helper('importexport')->__('Checked rows: %d, checked entities: %d, invalid rows: %d, total errors: %d',
-                $this->getProcessedRowsCount(), $this->getProcessedEntitiesCount(),
-                $this->getInvalidRowsCount(), $this->getErrorsCount()
-            );
+            $messages[] = Mage::helper('importexport')->__('Checked rows: %d, checked entities: %d, invalid rows: %d, total errors: %d', $this->getProcessedRowsCount(), $this->getProcessedEntitiesCount(), $this->getInvalidRowsCount(), $this->getErrorsCount());
         } else {
             $messages[] = Mage::helper('importexport')->__('File does not contain data.');
         }
@@ -329,10 +324,7 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
         $this->addLogComment(Mage::helper('importexport')->__('Begin import of "%s" with "%s" behavior', $this->getEntity(), $this->getBehavior()));
         $result = $this->_getEntityAdapter()->importData();
         $this->addLogComment(array(
-            Mage::helper('importexport')->__('Checked rows: %d, checked entities: %d, invalid rows: %d, total errors: %d',
-                $this->getProcessedRowsCount(), $this->getProcessedEntitiesCount(),
-                $this->getInvalidRowsCount(), $this->getErrorsCount()
-            ),
+            Mage::helper('importexport')->__('Checked rows: %d, checked entities: %d, invalid rows: %d, total errors: %d', $this->getProcessedRowsCount(), $this->getProcessedEntitiesCount(), $this->getInvalidRowsCount(), $this->getErrorsCount()),
             Mage::helper('importexport')->__('Import has been done successfuly.')
         ));
         return $result;

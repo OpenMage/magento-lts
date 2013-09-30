@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -46,7 +46,6 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
             $this->setTemplate('sales/order/history.phtml');
             $this->initOrders();
         }
-
     }
 
     /**
@@ -120,10 +119,14 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
     /**
      * Last order getter
      *
-     * @return Mage_Sales_Model_Order|false
+     * @return Mage_Sales_Model_Order|bool
      */
     public function getLastOrder()
     {
+        if (!$this->getOrders()) {
+            return false;
+        }
+
         foreach ($this->getOrders() as $order) {
             return $order;
         }
@@ -148,5 +151,32 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
     protected function _getCustomerSession()
     {
         return Mage::getSingleton('customer/session');
+    }
+
+    /**
+     * Retrieve block cache tags
+     *
+     * @return array
+     */
+    public function getCacheTags()
+    {
+        return array_merge(
+            parent::getCacheTags(),
+            $this->getItemsTags($this->_getItemProducts())
+        );
+    }
+
+    /**
+     * Retrieve products list from items
+     *
+     * @return array
+     */
+    protected function _getItemProducts()
+    {
+        $products =  array();
+        foreach ($this->getItems() as $item) {
+            $products[] = $item->getProduct();
+        }
+        return $products;
     }
 }

@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -45,13 +45,13 @@
     </div>
     <form id="pollForm" action="<?php echo $action ?>" method="post" onsubmit="return validatePollAnswerIsSelected();">
         <div class="block-content">
-            <p class="block-subtitle"><?php echo $this->htmlEscape($poll->getPollTitle()); ?></p>
+            <p class="block-subtitle"><?php echo $this->escapeHtml($poll->getPollTitle()); ?></p>
             <?php if( $poll_answers ): ?>
             <ul id="poll-answers">
                 <?php foreach( $poll_answers as $answer ): ?>
                 <li>
                     <input type="radio" name="vote" class="radio poll_vote" id="vote_<?php echo $answer->getId() ?>" value="<?php echo $answer->getAnswerId() ?>" />
-                    <span class="label"><label for="vote_<?php echo $answer->getId() ?>"><?php echo $this->htmlEscape($answer->getAnswerTitle()) ?></label></span>
+                    <span class="label"><label for="vote_<?php echo $answer->getId() ?>"><?php echo $this->escapeHtml($answer->getAnswerTitle()) ?></label></span>
                 </li>
                 <?php endforeach; ?>
             </ul>

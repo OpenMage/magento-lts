@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -86,7 +86,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
      */
     protected function _createCollection()
     {
-        return Mage::getModel('wishlist/item')->getCollection();
+        return Mage::getModel('wishlist/item')->getCollection()
+            ->setWebsiteId($this->_getCustomer()->getWebsiteId())
+            ->setCustomerGroupId($this->_getCustomer()->getGroupId());
     }
 
     /**
@@ -113,13 +115,13 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
     protected function _prepareColumns()
     {
         $this->addColumn('product_name', array(
-            'header'    => Mage::helper('catalog')->__('Product name'),
+            'header'    => Mage::helper('catalog')->__('Product Name'),
             'index'     => 'product_name',
             'renderer'  => 'adminhtml/customer_edit_tab_view_grid_renderer_item'
         ));
 
         $this->addColumn('description', array(
-            'header'    => Mage::helper('wishlist')->__('User description'),
+            'header'    => Mage::helper('wishlist')->__('User Description'),
             'index'     => 'description',
             'renderer'  => 'adminhtml/customer_edit_tab_wishlist_grid_renderer_description'
         ));

@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Shipping
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -458,6 +458,7 @@
                             <label>Show Method if Not Applicable</label>
                             <frontend_type>select</frontend_type>
                             <sort_order>92</sort_order>
+                            <frontend_class>shipping-skip-hide</frontend_class>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>

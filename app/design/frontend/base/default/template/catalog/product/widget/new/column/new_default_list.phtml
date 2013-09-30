@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -31,6 +31,7 @@
             <strong><span><?php echo $this->__('New Products') ?></span></strong>
         </div>
         <div class="block-content">
+            <?php echo $this->getPagerHtml() ?>
             <?php $suffix = $this->getNameInLayout(); ?>
             <ol class="mini-products-list" id="widget-new-products-<?php echo $suffix; ?>">
             <?php foreach ($_products->getItems() as $_product): ?>

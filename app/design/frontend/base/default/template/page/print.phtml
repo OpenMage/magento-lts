@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -39,7 +39,7 @@
     <div class="print-head">
         <img src="<?php echo $this->getPrintLogoUrl() ? $this->getPrintLogoUrl() : $this->getSkinUrl('images/logo_print.gif') ?>" class="logo" alt="" />
         <?php if ($this->getPrintLogoText()):?>
-            <address><?php echo nl2br($this->htmlEscape($this->getPrintLogoText())) ?></address>
+            <address><?php echo nl2br($this->escapeHtml($this->getPrintLogoText())) ?></address>
         <?php endif;?>
     </div>
     <?php echo $this->getChildHtml('content') ?>

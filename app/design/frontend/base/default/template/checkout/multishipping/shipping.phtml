@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -70,7 +70,7 @@
                                                 <?php echo $this->escapeHtml($_rate->getCarrierTitle()) ?>: <?php echo $this->escapeHtml($_rate->getErrorMessage()) ?>
                                            <?php else: ?>
                                                 <?php if ($_sole) : ?>
-                                                <span class="no-display"><input type="radio" name="shipping_method[<?php echo $_address->getId() ?>]" value="<?php echo $this->htmlEscape($_rate->getCode()) ?>" id="s_method_<?php echo $_address->getId() ?>_<?php echo $_rate->getCode() ?>" checked="checked"/></span>
+                                                <span class="no-display"><input type="radio" name="shipping_method[<?php echo $_address->getId() ?>]" value="<?php echo $this->escapeHtml($_rate->getCode()) ?>" id="s_method_<?php echo $_address->getId() ?>_<?php echo $_rate->getCode() ?>" checked="checked"/></span>
                                                 <?php else: ?>
                                                 <input type="radio" name="shipping_method[<?php echo $_address->getId() ?>]" value="<?php echo $_rate->getCode() ?>" id="s_method_<?php echo $_address->getId() ?>_<?php echo $_rate->getCode() ?>"<?php if($_rate->getCode()===$this->getAddressShippingMethod($_address)) echo ' checked="checked"' ?> class="radio" />
                                                 <?php endif; ?>

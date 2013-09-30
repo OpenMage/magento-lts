@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_ImportExport
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -405,15 +405,11 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
      */
     public function getErrorMessages()
     {
-        $translator = Mage::helper('importexport');
         $messages = array();
-
         foreach ($this->_errors as $errorCode => $errorRows) {
-            if (isset($this->_messageTemplates[$errorCode])) {
-                $message = $translator->__($this->_messageTemplates[$errorCode]);
-            } else {
-                $message = $translator->__("Invalid value for '%s' column", $errorCode);
-            }
+            $message = isset($this->_messageTemplates[$errorCode])
+                ? Mage::helper('importexport')->__($this->_messageTemplates[$errorCode])
+                : Mage::helper('importexport')->__("Invalid value for '%s' column", $errorCode);
             $messages[$message] = $errorRows;
         }
         return $messages;

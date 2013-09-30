@@ -40,10 +40,39 @@ Mage::app('admin')->setUseSessionInUrl(false);
 
 umask(0);
 
+$disabledFuncs = explode(',', ini_get('disable_functions'));
+$isShellDisabled = is_array($disabledFuncs) ? in_array('shell_exec', $disabledFuncs) : true;
+$isShellDisabled = (stripos(PHP_OS, 'win') === false) ? $isShellDisabled : true;
+
 try {
+    if (stripos(PHP_OS, 'win') === false) {
+        $options = getopt('m::');
+        if (isset($options['m'])) {
+            if ($options['m'] == 'always') {
+                $cronMode = 'always';
+            } elseif ($options['m'] == 'default') {
+                $cronMode = 'default';
+            } else {
+                Mage::throwException('Unrecognized cron mode was defined');
+            }
+        } else if (!$isShellDisabled) {
+            $fileName = basename(__FILE__);
+            $baseDir = dirname(__FILE__);
+            shell_exec("/bin/sh $baseDir/cron.sh $fileName -mdefault 1 > /dev/null 2>&1 &");
+            shell_exec("/bin/sh $baseDir/cron.sh $fileName -malways 1 > /dev/null 2>&1 &");
+            exit;
+        }
+    }
+
     Mage::getConfig()->init()->loadEventObservers('crontab');
     Mage::app()->addEventArea('crontab');
-    Mage::dispatchEvent('default');
+    if ($isShellDisabled) {
+        Mage::dispatchEvent('always');
+        Mage::dispatchEvent('default');
+    } else {
+        Mage::dispatchEvent($cronMode);
+    }
 } catch (Exception $e) {
     Mage::printException($e);
+    exit(1);
 }

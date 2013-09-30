@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -191,7 +191,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Tab_Container_Submission
         $fieldset->addField('conf/submit_text/contact_email', 'text', array(
             'name'      => 'conf[submit_text][email]',
             'label'     => $this->__('Contact Email'),
-            'class'     => 'email',
+            'class'     => 'validate-email email',
             'maxlength' => '40',
             'value'     => isset($formData['conf[submit_text][email]']) ? $formData['conf[submit_text][email]'] : null,
             'note'      => $this->__('Administrative contact for this app and for app submission issues.'),
@@ -270,54 +270,54 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Tab_Container_Submission
         switch ($deviceType) {
             case Mage_XmlConnect_Helper_Data::DEVICE_TYPE_IPHONE:
                 $this->addImage($fieldset, 'conf/submit/icon', $this->__('Large iTunes Icon'),
-                    $this->__('Large icon that appears in the iTunes App Store. You do not need to apply a gradient or soft edges (this is done automatically by Apple). Required size: 512px x 512px.'), '', true);
+                    $this->__('Large icon that appears in the iTunes App Store. You do not need to apply a gradient or soft edges (this is done automatically by Apple).') . $this->__('Required size: %spx x %spx.', 1024, 1024), '', true);
 
                 $this->addImage($fieldset, 'conf/submit/loader_image', $this->__('Loader Splash Screen'),
-                    $this->__('Image that appears on first screen while your app is loading. Required size: 320px x 460px.'), '', true);
+                    $this->__('Image that appears on first screen while your app is loading.') . $this->__('Required size: %spx x %spx.', 320, 460), '', true);
 
-                $this->addImage($fieldset, 'conf/submit/loader_image_i4', $this->__('Loader Splash Screen <br />(iPhone 4 retina)'),
-                    $this->__('Image that appears on first screen while your app is loading. Required size: 640px x 920px.'), '', false);
+                $this->addImage($fieldset, 'conf/submit/loader_image_i4', $this->__('Loader Splash Screen (iPhone 4 retina)'),
+                    $this->__('Image that appears on first screen while your app is loading.') . $this->__('Required size: %spx x %spx.', 640, 920), '', false);
 
                 $this->addImage($fieldset, 'conf/submit/logo', $this->__('Custom App Icon'),
-                    $this->__('Icon that will appear on the user’s phone after they download your app.  You do not need to apply a gradient or soft edges (this is done automatically by Apple).  Recommended size: 57px x 57px at 72 dpi.'), '', true);
+                    $this->__('Icon that will appear on the user\'s phone after they download your app.  You do not need to apply a gradient or soft edges (this is done automatically by Apple).') . $this->__('Recommended size: %spx x %spx at %s dpi.', 57, 57, 72), '', true);
 
-                $this->addImage($fieldset, 'conf/submit/logo_i4', $this->__('Custom App Icon <br />(iPhone 4 retina)'),
-                    $this->__('Icon that will appear on the user\'s phone after they download your app. You do not need to apply a gradient or soft edges (this is done automatically by Apple). Recommended size: 114px x 114px.'), '', false);
+                $this->addImage($fieldset, 'conf/submit/logo_i4', $this->__('Custom App Icon (iPhone 4 retina)'),
+                    $this->__('Icon that will appear on the user\'s phone after they download your app. You do not need to apply a gradient or soft edges (this is done automatically by Apple).') . $this->__('Recommended size: %spx x %spx.', 114, 114), '', false);
 
                 $this->addImage($fieldset, 'conf/submit/big_logo', $this->__('Copyright Page Logo'),
-                    $this->__('Store logo that is displayed on copyright page of app. Preferred size: 100px x 100px.'), '', true);
+                    $this->__('Store logo that is displayed on copyright page of app.') . $this->__('Preferred size: %spx x %spx.', 100, 100), '', true);
 
-                $this->addImage($fieldset, 'conf/submit/big_logo_i4', $this->__('Copyright Page Logo <br />(iPhone 4 retina)'),
-                    $this->__('Store logo that is displayed on copyright page of app. Preferred size: 200px x 200px.'), '', false);
+                $this->addImage($fieldset, 'conf/submit/big_logo_i4', $this->__('Copyright Page Logo (iPhone 4 retina)'),
+                    $this->__('Store logo that is displayed on copyright page of app.') . $this->__('Preferred size: %spx x %spx.', 200, 200), '', false);
                 break;
             case Mage_XmlConnect_Helper_Data::DEVICE_TYPE_IPAD:
                 $this->addImage($fieldset, 'conf/submit/icon', $this->__('Large iTunes Icon'),
-                    $this->__('Large icon that appears in the iTunes App Store. You do not need to apply a gradient or soft edges (this is done automatically by Apple). Required size: 512px x 512px.'), '', true);
+                    $this->__('Large icon that appears in the iTunes App Store. You do not need to apply a gradient or soft edges (this is done automatically by Apple).') . $this->__('Required size: %spx x %spx.', 1024, 1024), '', true);
 
-                $this->addImage($fieldset, 'conf/submit/ipad_loader_portrait_image', $this->__('Loader Splash Screen <br />(portrait mode)'),
-                    $this->__('Image that appears on first screen while your app is loading. Required size: 768px x 1024px.'), '', true);
+                $this->addImage($fieldset, 'conf/submit/ipad_loader_portrait_image', $this->__('Loader Splash Screen (portrait mode)'),
+                    $this->__('Image that appears on first screen while your app is loading.') . $this->__('Required size: %spx x %spx.', 768, 1024), '', true);
 
-                $this->addImage($fieldset, 'conf/submit/ipad_loader_landscape_image', $this->__('Loader Splash Screen <br />(landscape mode)'),
-                    $this->__('Image that appears on first screen while your app is loading. Required size: 1024px x 768px.'), '', true);
+                $this->addImage($fieldset, 'conf/submit/ipad_loader_landscape_image', $this->__('Loader Splash Screen (landscape mode)'),
+                    $this->__('Image that appears on first screen while your app is loading.') . $this->__('Required size: %spx x %spx.', 1024, 768), '', true);
 
                 $this->addImage($fieldset, 'conf/submit/ipad_logo', $this->__('Custom App Icon'),
-                    $this->__('Icon that will appear on the user\'s device after they download your app. You do not need to apply a gradient or soft edges (this is done automatically by Apple). Recommended size: 72px x 72px.'), '', true);
+                    $this->__('Icon that will appear on the user\'s device after they download your app. You do not need to apply a gradient or soft edges (this is done automatically by Apple).') . $this->__('Recommended size: %spx x %spx.', 72, 72), '', true);
 
                 $this->addImage($fieldset, 'conf/submit/big_logo', $this->__('Copyright Page Logo'),
-                    $this->__('Store logo that is displayed on copyright page of app. Preferred size: 100px x 100px.'), '', true);
+                    $this->__('Store logo that is displayed on copyright page of app.') . $this->__('Preferred size: %spx x %spx.', 100, 100), '', true);
                 break;
             case Mage_XmlConnect_Helper_Data::DEVICE_TYPE_ANDROID:
                 $this->addImage($fieldset, 'conf/submit/icon', $this->__('High Resolution Application Icon'),
-                    $this->__('The icon that appears in the Android Market. Recommended size: 512px x 512px. Maximum size: 1024 KB.'), '', true);
+                    $this->__('The icon that appears in the Android Market.') . $this->__('Recommended size: %spx x %spx.', 512, 512) . $this->__('Maximum size: %s KB.', 1024), '', true);
 
                 $this->addImage($fieldset, 'conf/submit/android_loader_image', $this->__('Loader Splash Screen'),
-                    $this->__('Image that appears on first screen while your app is loading. Required size: 320px x 455px.'), '', true);
+                    $this->__('Image that appears on first screen while your app is loading.') . $this->__('Required size: %spx x %spx.', 320, 455), '', true);
 
                 $this->addImage($fieldset, 'conf/submit/android_logo', $this->__('Custom App Icon'),
-                    $this->__('Icon that will appear on the user\'s device after they download your app. Recommended size: 48px x 48px.'), '', true);
+                    $this->__('Icon that will appear on the user\'s device after they download your app.') . $this->__('Recommended size: %spx x %spx.', 48, 48), '', true);
 
                 $this->addImage($fieldset, 'conf/submit/big_logo', $this->__('Copyright Page Logo'),
-                    $this->__('Store logo that is displayed on copyright page of app. Preferred size: 100px x 100px.'), '', true);
+                    $this->__('Store logo that is displayed on copyright page of app.') . $this->__('Preferred size: %spx x %spx.', 100, 100), '', true);
                 break;
         }
 

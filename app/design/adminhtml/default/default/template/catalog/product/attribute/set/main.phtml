@@ -20,14 +20,14 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <div class="content-header">
     <table cellspacing="0">
         <tr>
-            <td style="width:50%;"><h3 class="icon-head head-product-attribute-sets"><?php echo $this->htmlEscape($this->_getHeader()) ?></h3></td>
+            <td style="width:50%;"><h3 class="icon-head head-product-attribute-sets"><?php echo $this->escapeHtml($this->_getHeader()) ?></h3></td>
             <td class="form-buttons">
                 <?php echo $this->getBackButtonHtml() ?>
                 <?php echo $this->getResetButtonHtml() ?>

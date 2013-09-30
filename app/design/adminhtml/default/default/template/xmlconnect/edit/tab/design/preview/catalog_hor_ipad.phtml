@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -36,7 +36,7 @@ $primaryColor = $previewModel->getData('conf/body/primaryColor');
 $secondaryColor = $previewModel->getData('conf/body/secondaryColor');
 
 $productImage = $previewModel->getPreviewImagesUrl('ipad/bg_product_image.png');
-$backgroundIpadLandscapeImage = $previewModel->setOrientation(Mage_XmlConnect_Helper_Ipad::ORIENTATION_LANDSCAPE)->getBackgroundImage();
+$backgroundIpadLandscapeImage = $previewModel->setOrientation(Mage_XmlConnect_Model_Device_Ipad::ORIENTATION_LANDSCAPE)->getBackgroundImage();
 ?>
 <div class="ipad-catalog ipad-catalog-landscape" style="background: <?php echo $previewModel->getData('conf/body/backgroundColor'); ?>;">
     <div class="status-bar"></div>

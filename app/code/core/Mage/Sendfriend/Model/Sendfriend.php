@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sendfriend
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -126,8 +126,8 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
 
         $message = nl2br(htmlspecialchars($this->getSender()->getMessage()));
         $sender  = array(
-            'name'  => $this->_getHelper()->htmlEscape($this->getSender()->getName()),
-            'email' => $this->_getHelper()->htmlEscape($this->getSender()->getEmail())
+            'name'  => $this->_getHelper()->escapeHtml($this->getSender()->getName()),
+            'email' => $this->_getHelper()->escapeHtml($this->getSender()->getEmail())
         );
 
         $mailTemplate->setDesignConfig(array(
@@ -392,7 +392,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
      * @deprecated after 1.3.2.4
      * For get count sent letters use Mage_Sendfriend_Model_Sendfriend::getSentCount
      * or Mage_Sendfriend_Model_Sendfriend::isExceedLimit
-     * 
+     *
      * @param int $ip
      * @param int $startTime
      * @return int
@@ -461,8 +461,8 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
 
     /**
      * Return count of sent in last period
-     * 
-     * @param bool $useCache - flag, is allow to use value of attribute of model if it is processed last time 
+     *
+     * @param bool $useCache - flag, is allow to use value of attribute of model if it is processed last time
      * @return int
      */
     public function getSentCount($useCache = true)
@@ -483,7 +483,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
 
     /**
      * Increase count of sent
-     * 
+     *
      * @return int
      */
     protected function _incrementSentCount()
@@ -501,7 +501,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     /**
      * Return count of sent in last period by cookie
      *
-     * @param bool $increment - flag, increase count before return value 
+     * @param bool $increment - flag, increase count before return value
      * @return int
      */
     protected function _sentCountByCookies($increment = false)
@@ -554,7 +554,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
             $this->_getResource()->addSendItem($this->getRemoteAddr(), $time, $websiteId);
         }
 
-        return $this->_getResource()->getSendCount($this, $this->getRemoteAddr(), time() - $period, $websiteId); 
+        return $this->_getResource()->getSendCount($this, $this->getRemoteAddr(), time() - $period, $websiteId);
     }
     /**
      * Register self in global register with name send_to_friend_model
@@ -572,7 +572,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     /**
      * @deprecated after 1.3.2.4
      * use Mage_Sendfriend_Model_Sendfriend::_sentCountByCookies
-     * 
+     *
      * @return int
      */
     protected function _amountByCookies()

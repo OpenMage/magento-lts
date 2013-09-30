@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -161,13 +161,13 @@ billing.onSave = function(evt){
                  <li class="item">
                      <div class="product-img-box">
                          <p class="product-image">
-                             <img src="<?php echo $this->helper('catalog/image')->init($_product, 'thumbnail')->resize(75); ?>" width="75" height="75" alt="<?php echo $this->htmlEscape($_product->getName()) ?>" title="<?php echo $this->htmlEscape($_product->getName()) ?>" />
+                             <img src="<?php echo $this->helper('catalog/image')->init($_product, 'thumbnail')->resize(75); ?>" width="75" height="75" alt="<?php echo $this->escapeHtml($_product->getName()) ?>" title="<?php echo $this->escapeHtml($_product->getName()) ?>" />
                          </p>
                          <p class="number"><?php echo $this->__('Item %d of %d', $_index+1, $this->countItems()) ?></p>
                      </div>
                      <div class="details">
                          <div class="f-fix">
-                             <h5 class="product-name"><?php echo $this->htmlEscape($_product->getName()) ?></h5>
+                             <h5 class="product-name"><?php echo $this->escapeHtml($_product->getName()) ?></h5>
                              <input type="hidden" name="giftmessage[<?php echo $_item->getId() ?>][type]" value="quote_item" />
                               <ul class="form-list">
                                  <li class="fields">
@@ -278,14 +278,14 @@ billing.onSave = function(evt){
              <?php $_product=$_item->getProduct() ?>
                  <li class="item">
                      <div class="product-img-box">
-                         <p class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(75); ?>" width="75" height="75" alt="<?php echo $this->htmlEscape($_product->getName()) ?>" title="<?php echo $this->htmlEscape($_product->getName()) ?>" /></p>
+                         <p class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(75); ?>" width="75" height="75" alt="<?php echo $this->escapeHtml($_product->getName()) ?>" title="<?php echo $this->escapeHtml($_product->getName()) ?>" /></p>
                          <p class="number"><?php echo $this->__('Item %d of %d', $_index+1, $this->countItems()) ?></p>
                      </div>
                      <div class="details">
                          <div class="f-fix">
                              <input type="hidden" name="giftmessage[<?php echo $_item->getId() ?>][type]" value="quote_address_item" />
                              <input type="hidden" name="giftmessage[<?php echo $_item->getId() ?>][address]" value="<?php echo $this->getEntity()->getId()?>" />
-                             <h5 class="product-name"><?php echo $this->htmlEscape($_product->getName()) ?></h5>
+                             <h5 class="product-name"><?php echo $this->escapeHtml($_product->getName()) ?></h5>
                              <ul class="form-list">
                                  <li class="fields">
                                      <div class="field">

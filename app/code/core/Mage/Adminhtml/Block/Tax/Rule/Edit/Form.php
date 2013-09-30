@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,14 +29,12 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Tax_Rule_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
     /**
      * Init class
-     *
      */
     public function __construct()
     {
@@ -73,9 +71,12 @@ class Mage_Adminhtml_Block_Tax_Rule_Edit_Form extends Mage_Adminhtml_Block_Widge
             ->setClassTypeFilter(Mage_Tax_Model_Class::TAX_CLASS_TYPE_CUSTOMER)
             ->toOptionArray();
 
+        /**
+         * Get rates array without memory leak
+         */
         $rates = Mage::getModel('tax/calculation_rate')
             ->getCollection()
-            ->toOptionArray();
+            ->getOptionRates();
 
         $fieldset->addField('code', 'text',
             array(
@@ -126,6 +127,15 @@ class Mage_Adminhtml_Block_Tax_Rule_Edit_Form extends Mage_Adminhtml_Block_Widge
                 'value'     => (int) $model->getPriority(),
                 'required'  => true,
                 'note'      => Mage::helper('tax')->__('Tax rates at the same priority are added, others are compounded.'),
+            )
+        );
+
+        $fieldset->addField('calculate_subtotal', 'checkbox',
+            array(
+                'name'      => 'calculate_subtotal',
+                'label'     => Mage::helper('tax')->__('Calculate off subtotal only'),
+                'onclick'   => 'this.value = this.checked ? 1 : 0;',
+                'checked'   => $model->getCalculateSubtotal()
             )
         );
         $fieldset->addField('position', 'text',

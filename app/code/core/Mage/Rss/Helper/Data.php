@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Rss
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,6 +34,11 @@
  */
 class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    /**
+     * Config path to RSS field
+     */
+    const XML_PATH_RSS_ACTIVE = 'rss/config/active';
+
     /**
      * Authenticate customer on frontend
      *
@@ -69,7 +74,7 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
         $adminSession = Mage::getSingleton('admin/session');
         $user = $adminSession->login($username, $password);
         //$user = Mage::getModel('admin/user')->login($username, $password);
-        if($user && $user->getId() && $user->getIsActive() == '1' && $adminSession->isAllowed($path)){
+        if ($user && $user->getId() && $user->getIsActive() == '1' && $adminSession->isAllowed($path)) {
             $session->setAdmin($user);
         } else {
             $this->authFailed();
@@ -82,7 +87,7 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
      * @param array $headers
      * @return array
      */
-    public function authValidate($headers=null)
+    public function authValidate($headers = null)
     {
         $userPass = Mage::helper('core/http')->authValidate($headers);
         return $userPass;
@@ -107,12 +112,22 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
     {
         /* @var $flatHelper Mage_Catalog_Helper_Product_Flat */
         $flatHelper = Mage::helper('catalog/product_flat');
-        if ($flatHelper->isEnabled()) {
+        if ($flatHelper->isAvailable()) {
             /* @var $emulationModel Mage_Core_Model_App_Emulation */
             $emulationModel = Mage::getModel('core/app_emulation');
             // Emulate admin environment to disable using flat model - otherwise we won't get global stats
             // for all stores
             $emulationModel->startEnvironmentEmulation(0, Mage_Core_Model_App_Area::AREA_ADMINHTML);
         }
+    }
+
+    /**
+     * Check if module was activated in system configurations
+     *
+     * @return bool
+     */
+    public function isRssEnabled()
+    {
+        return Mage::getStoreConfigFlag(self::XML_PATH_RSS_ACTIVE);
     }
 }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_ImportExport
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -40,25 +40,24 @@ class Mage_ImportExport_Block_Adminhtml_Export_Edit_Form extends Mage_Adminhtml_
      */
     protected function _prepareForm()
     {
-        $helper = Mage::helper('importexport');
         $form = new Varien_Data_Form(array(
             'id'     => 'edit_form',
             'action' => $this->getUrl('*/*/getFilter'),
             'method' => 'post'
         ));
-        $fieldset = $form->addFieldset('base_fieldset', array('legend' => $helper->__('Export Settings')));
+        $fieldset = $form->addFieldset('base_fieldset', array('legend' => Mage::helper('importexport')->__('Export Settings')));
         $fieldset->addField('entity', 'select', array(
             'name'     => 'entity',
-            'title'    => $helper->__('Entity Type'),
-            'label'    => $helper->__('Entity Type'),
+            'title'    => Mage::helper('importexport')->__('Entity Type'),
+            'label'    => Mage::helper('importexport')->__('Entity Type'),
             'required' => false,
             'onchange' => 'editForm.getFilter();',
             'values'   => Mage::getModel('importexport/source_export_entity')->toOptionArray()
         ));
         $fieldset->addField('file_format', 'select', array(
             'name'     => 'file_format',
-            'title'    => $helper->__('Export File Format'),
-            'label'    => $helper->__('Export File Format'),
+            'title'    => Mage::helper('importexport')->__('Export File Format'),
+            'label'    => Mage::helper('importexport')->__('Export File Format'),
             'required' => false,
             'values'   => Mage::getModel('importexport/source_export_format')->toOptionArray()
         ));

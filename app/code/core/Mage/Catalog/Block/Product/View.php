@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -61,7 +61,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
             $currentCategory = Mage::registry('current_category');
             if ($keyword) {
                 $headBlock->setKeywords($keyword);
-            } elseif($currentCategory) {
+            } elseif ($currentCategory) {
                 $headBlock->setKeywords($product->getName());
             }
             $description = $product->getMetaDescription();
@@ -71,7 +71,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
                 $headBlock->setDescription(Mage::helper('core/string')->substr($product->getDescription(), 0, 255));
             }
             if ($this->helper('catalog/product')->canUseCanonicalTag()) {
-                $params = array('_ignore_category'=>true);
+                $params = array('_ignore_category' => true);
                 $headBlock->addLinkRel('canonical', $product->getUrlModel()->getUrl($product, $params));
             }
         }
@@ -117,7 +117,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
             return $this->getCustomAddToCartUrl();
         }
 
-        if ($this->getRequest()->getParam('wishlist_next')){
+        if ($this->getRequest()->getParam('wishlist_next')) {
             $additional['wishlist_next'] = 1;
         }
 
@@ -191,9 +191,9 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
         );
 
         $responseObject = new Varien_Object();
-        Mage::dispatchEvent('catalog_product_view_config', array('response_object'=>$responseObject));
+        Mage::dispatchEvent('catalog_product_view_config', array('response_object' => $responseObject));
         if (is_array($responseObject->getAdditionalOptions())) {
-            foreach ($responseObject->getAdditionalOptions() as $option=>$value) {
+            foreach ($responseObject->getAdditionalOptions() as $option => $value) {
                 $config[$option] = $value;
             }
         }
@@ -258,5 +258,15 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
         }
 
         return $qty;
+    }
+
+    /**
+     * Retrieve block cache tags
+     *
+     * @return array
+     */
+    public function getCacheTags()
+    {
+        return array_merge(parent::getCacheTags(), $this->getProduct()->getCacheIdTags());
     }
 }

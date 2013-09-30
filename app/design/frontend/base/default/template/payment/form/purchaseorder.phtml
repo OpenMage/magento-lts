@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -28,7 +28,7 @@
     <li>
         <label for="po_number" class="required"><em>*</em><?php echo $this->__('Purchase Order Number') ?></label>
         <div class="input-box">
-            <input type="text" id="po_number" name="payment[po_number]" title="<?php echo $this->__('Purchase Order Number') ?>" class="input-text required-entry" value="<?php echo $this->htmlEscape($this->getInfoData('po_number')) ?>" />
+            <input type="text" id="po_number" name="payment[po_number]" title="<?php echo $this->__('Purchase Order Number') ?>" class="input-text required-entry" value="<?php echo $this->escapeHtml($this->getInfoData('po_number')) ?>" />
         </div>
     </li>
 </ul>

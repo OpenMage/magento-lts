@@ -1,0 +1,67 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_iphone
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/* @var $this Enterprise_Wishlist_Block_Customer_Wishlist_Management */
+?>
+<?php if ($this->getCurrentWishlist()): ?>
+<div class="wishlist-management">
+    <div class="sub-title">
+        <div id="wishlists-select" class="split-button">
+            <strong>
+                <span title="<?php echo $this->escapeHtml($this->getCurrentWishlist()->getName());?>"><?php echo $this->escapeHtml($this->getCurrentWishlist()->getName());?></span>
+                <span class="item-count">(<?php echo $this->getCurrentWishlist()->getVisibility() ? $this->__('Public') : $this->__('Private'); ?>, <?php echo $this->getItemCount($this->getCurrentWishlist()) ?>)</span>
+            </strong>
+            <a class="change" href="#">(<span><?php echo $this->__('Change') ?></span>)</a>
+            <div class="list-container">
+                <ul>
+                    <?php foreach($this->getWishlists() as $wishlist): ?>
+                        <?php if ($wishlist->getId() != $this->getCurrentWishlist()->getId()): ?>
+                            <li><a title="<?php echo $this->escapeHtml($wishlist->getName());?>" href="<?php echo $this->getWishlistManagementUrl($wishlist);?>"><?php echo $this->escapeHtml($wishlist->getName());?></a></li>
+                        <?php endif; ?>
+                    <?php endforeach;?>
+                    <?php if ($this->canCreateWishlists($this->getWishlists())): ?>
+                        <li onclick="Enterprise.Wishlist.create('<?php echo $this->getCreateUrl();?>');" class="new"><span title="<?php echo $this->__('Create New Wishlist')?>"><?php echo $this->__('Create New Wishlist')?></span></li>
+                    <?php endif;?>
+                </ul>
+            </div>
+        </div>
+        <p><a href="#" onclick="Enterprise.Wishlist.edit('<?php echo $this->getEditUrl($this->getCurrentWishlist()->getId());?>', '<?php echo $this->helper('core')->jsQuoteEscape($this->getCurrentWishlist()->getName());?>', <?php echo $this->getCurrentWishlist()->getVisibility() ? 'true' : 'false';?>); return false;" title="<?php echo $this->__('Edit Wishlist')?>" class="link-edit wishlist-edit"><?php echo $this->__('Edit')?></a></p>
+    </div>
+    <script type="text/javascript">
+    //<![CDATA[
+        Enterprise.Wishlist.form = $('wishlist-view-form');
+        if (!Enterprise.Wishlist.url) {
+            Enterprise.Wishlist.url = {};
+        }
+        Enterprise.Wishlist.url.copySelected = '<?php echo $this->getCopySelectedUrl();?>';
+        Enterprise.Wishlist.url.moveSelected = '<?php echo $this->getMoveSelectedUrl();?>';
+        Enterprise.Wishlist.url.copyItem = '<?php echo $this->getCopyItemUrl();?>';
+        Enterprise.Wishlist.url.moveItem = '<?php echo $this->getMoveItemUrl();?>';
+    //]]>
+    </script>
+</div>
+<?php endif; ?>

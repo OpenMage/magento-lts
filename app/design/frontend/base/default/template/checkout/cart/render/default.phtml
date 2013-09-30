@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -31,7 +31,7 @@
 <?php $_item = $this->getItem() ?>
 <tr>
     <td class="a-center"><a href="<?php echo $this->getItemDeleteUrl($_item) ?>" title="<?php echo $this->__('Remove Item')?>" class="btn-remove2"><?php echo $this->__('Remove Item')?></a></td>
-    <td><a href="<?php echo $this->getItemUrl($_item) ?>" title="<?php echo $this->htmlEscape($this->getItemName($_item)) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($this->getItemProductForThumbnail($_item), 'thumbnail')->resize(75); ?>" width="75" alt="<?php echo $this->htmlEscape($this->getItemName($_item)) ?>" /></a></td>
+    <td><a href="<?php echo $this->getItemUrl($_item) ?>" title="<?php echo $this->escapeHtml($this->getItemName($_item)) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($this->getItemProductForThumbnail($_item), 'thumbnail')->resize(75); ?>" width="75" alt="<?php echo $this->escapeHtml($this->getItemName($_item)) ?>" /></a></td>
     <td>
         <h3 class="product-name"><a href="<?php echo $this->getItemUrl($_item) ?>"><?php echo $this->getItemName($_item) ?></a></h3>
         <?php echo $this->getItemDescription($_item) ?>

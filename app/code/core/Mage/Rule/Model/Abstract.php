@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Rule
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -81,6 +81,20 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
      * @return Mage_Rule_Model_Action_Collection
      */
     abstract public function getActionsInstance();
+
+    /**
+     * Prepare select for condition
+     *
+     * @param int $storeId
+     * @return Varien_Db_Select
+     */
+    public function getProductFlatSelect($storeId)
+    {
+        /** @var $resource Mage_Rule_Model_Resource_Abstract */
+        $resource = $this->getResource();
+
+        return $resource->getProductFlatSelect($storeId, $this->getConditions());
+    }
 
     /**
      * Prepare data before saving

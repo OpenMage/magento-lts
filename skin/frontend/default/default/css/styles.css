@@ -19,7 +19,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -189,11 +189,11 @@ input.input-text:focus,select:focus,textarea:focus { background-color:#edf7fd; }
 .form-list li.additional-row .btn-remove { float:right; margin:5px 0 0; }
 .form-list .input-range input.input-text { width:74px; }
 
-.form-list-narrow li  { margin-bottom:0; } 
+.form-list-narrow li  { margin-bottom:0; }
 .form-list-narrow li .input-box { margin-bottom:6px; }
-.form-list-narrow li.wide .input-box { width:260px; } 
-.form-list-narrow li.wide input.input-text, 
-.form-list-narrow li.wide textarea { width:254px } 
+.form-list-narrow li.wide .input-box { width:260px; }
+.form-list-narrow li.wide input.input-text,
+.form-list-narrow li.wide textarea { width:254px }
 .form-list-narrow li.wide select { width:260px; }
 
 /* Customer */
@@ -211,9 +211,6 @@ input.input-text:focus,select:focus,textarea:focus { background-color:#edf7fd; }
 .form-list .name-suffix { width:65px; }
 .form-list .name-suffix select { width:55px; }
 .form-list .name-suffix input.input-text { width:49px; }
-
-.form-list .name-middlename { width:70px; }
-.form-list .name-middlename input.input-text { width:49px; }
 
 .form-list .customer-name-prefix-middlename-suffix .name-firstname,
 .form-list .customer-name-prefix-middlename .name-firstname { width:140px; }
@@ -233,16 +230,19 @@ input.input-text:focus,select:focus,textarea:focus { background-color:#edf7fd; }
 .form-list .customer-name-prefix-suffix .name-lastname input.input-text { width:189px; }
 
 .form-list .customer-name-prefix .name-firstname,
-.form-list .customer-name-middlename .name-firstname { width:210px; }
+.form-list .customer-name-middlename .name-firstname,
+.form-list .customer-name-middlename .name-middlename { width:210px; }
 
 .form-list .customer-name-suffix .name-lastname,
 .form-list .customer-name-middlename .name-firstname,
+.form-list .customer-name-middlename .name-middlename,
 .form-list .customer-name-middlename-suffix .name-firstname,
 .form-list .customer-name-middlename-suffix .name-lastname { width:205px; }
 
 .form-list .customer-name-prefix .name-firstname input.input-text,
 .form-list .customer-name-suffix .name-lastname input.input-text,
 .form-list .customer-name-middlename .name-firstname input.input-text,
+.form-list .customer-name-middlename .name-middlename input.input-text,
 .form-list .customer-name-middlename-suffix .name-firstname input.input-text,
 .form-list .customer-name-middlename-suffix .name-lastname input.input-text { width:189px; }
 
@@ -622,6 +622,7 @@ tr.summary-details-excluded { font-style:italic; }
 .block-compare,
 .block-reorder,
 .block-poll,
+.block-gr-search,
 .block-viewed,
 .block-compared,
 .block-related,
@@ -742,6 +743,10 @@ tr.summary-details-excluded { font-style:italic; }
 .block-poll button.button span { border-color:#406a83; background:#618499; }
 .block-poll .answer { font-weight:bold; }
 .block-poll .votes { float:right; margin-left:10px; }
+
+/* Block: Orders and Returns */
+.block-gr-search li { padding:3px 9px; }
+.block-gr-search button.button span { border-color:#406a83; background:#618499; }
 
 /* Block: Tags */
 .block-tags .block-title strong { background-image:url(../images/i_block-tags.gif); }
@@ -1367,6 +1372,13 @@ tr.summary-details-excluded { font-style:italic; }
 .block-progress .cards-list dt { background:none; border:0 none; color:inherit; font-size:12px; margin:5px 0; padding:0; }
 .block-progress .cards-list dd { border:0 none; margin:0; padding:0; }
 .block-progress .cards-list .info-table th { font-weight:normal; }
+
+/* show/hide "change" link for progress step depend on complete status
+ * should be placed in .css file */
+.opc-block-progress dt.complete a,
+.opc-block-progress dt.complete .separator { display: inline; }
+.opc-block-progress dt a,
+.opc-block-progress dt .separator { display: none; }
 
 .opc .buttons-set { margin-top:0; padding-top:2em; }
 .opc .buttons-set p.required { margin:0; padding:0 0 10px; }

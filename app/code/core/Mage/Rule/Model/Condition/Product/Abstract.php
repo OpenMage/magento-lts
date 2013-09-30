@@ -20,12 +20,15 @@
  *
  * @category    Mage
  * @package     Mage_Rule
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract Rule product condition data model
+ *
+ * @method string getAttribute()
+ * @method string getOperator()
  *
  * @category Mage
  * @package Mage_Rule
@@ -33,6 +36,13 @@
  */
 abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Model_Condition_Abstract
 {
+    /**
+     * Rule condition SQL builder
+     *
+     * @var Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder
+     */
+    protected $_ruleResourceHelper;
+
     /**
      * All attribute values as array in form:
      * array(
@@ -74,6 +84,70 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             $this->_arrayInputTypes[] = 'category';
         }
         return $this->_defaultOperatorInputByType;
+    }
+
+    /**
+     * Prepare bind array of ids from string or array
+     *
+     * @param string|int|array $value
+     * @return array
+     */
+    public function bindArrayOfIds($value)
+    {
+        if (!is_array($value)) {
+            $value = explode(',', $value);
+        }
+
+        $value = array_map('trim', $value);
+        $value = array_filter($value, 'is_numeric');
+
+        return $value;
+    }
+
+    /**
+     * Prepare sql where by condition
+     *
+     * @return string
+     */
+    public function prepareConditionSql()
+    {
+        $alias     = 'cpf';
+        $attribute = $this->getAttribute();
+        $value     = $this->getValue();
+        $operator  = $this->correctOperator($this->getOperator(), $this->getInputType());
+        if ($attribute == 'category_ids') {
+            $alias     = 'ccp';
+            $attribute = 'category_id';
+            $value     = $this->bindArrayOfIds($value);
+        }
+
+        /** @var $ruleResource Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder */
+        $ruleResource = $this->getRuleResourceHelper();
+
+        return $ruleResource->getOperatorCondition($alias . '.' . $attribute, $operator, $value);
+    }
+
+    /**
+     * Rule condition SQL builder setter
+     *
+     * @param Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder $ruleHelper
+     */
+    public function setRuleResourceHelper(Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder $ruleHelper)
+    {
+        $this->_ruleResourceHelper = $ruleHelper;
+    }
+
+    /**
+     * Rule condition SQL builder getter
+     *
+     * @return Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder
+     */
+    public function getRuleResourceHelper()
+    {
+        if (!$this->_ruleResourceHelper) {
+            $this->_ruleResourceHelper = Mage::getModel('rule/resource_rule_condition_sqlBuilder');
+        }
+        return $this->_ruleResourceHelper;
     }
 
     /**
@@ -441,6 +515,9 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
     public function validate(Varien_Object $object)
     {
         $attrCode = $this->getAttribute();
+        if (!($object instanceof Mage_Catalog_Model_Product)) {
+            $object = Mage::getModel('catalog/product')->load($object->getId());
+        }
 
         if ('category_ids' == $attrCode) {
             return $this->validateAttribute($object->getAvailableInCategories());
@@ -495,22 +572,33 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
     }
 
     /**
-     * Correct '==' and '!=' operators
-     * Categories can't be equal because product is included categories selected by administrator and in their parents
+     * Get correct operator for validation
      *
      * @return string
      */
     public function getOperatorForValidate()
     {
-        $op = $this->getOperator();
-        if ($this->getInputType() == 'category') {
-            if ($op == '==') {
-                $op = '{}';
-            } elseif ($op == '!=') {
-                $op = '!{}';
+        return $this->correctOperator($this->getOperator(), $this->getInputType());
+    }
+
+    /**
+     * Correct '==' and '!=' operators
+     * Categories can't be equal because product is included categories selected by administrator and in their parents
+     *
+     * @param string $operator
+     * @param string $inputType
+     * @return string
+     */
+    public function correctOperator($operator, $inputType)
+    {
+        if ($inputType == 'category') {
+            if ($operator == '==') {
+                $operator = '{}';
+            } elseif ($operator == '!=') {
+                $operator = '!{}';
             }
         }
 
-        return $op;
+        return $operator;
     }
 }

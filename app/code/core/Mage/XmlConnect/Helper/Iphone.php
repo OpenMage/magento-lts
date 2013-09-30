@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,7 +31,7 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Helper_Iphone extends Mage_Core_Helper_Abstract
+class Mage_XmlConnect_Helper_Iphone extends Mage_XmlConnect_Helper_Device_Abstract
 {
     /**
      * Submission title length
@@ -45,11 +45,14 @@ class Mage_XmlConnect_Helper_Iphone extends Mage_Core_Helper_Abstract
 
     /**
      * Country renderer for submission page
+     *
+     * @deprecated
      */
     const SUBMISSION_COUNTRY_RENDERER = 'istore';
 
     /**
      * Country columns for submission page
+     * @deprecated
      */
     const SUBMISSION_COUNTRY_COLUMNS = 4;
 
@@ -61,125 +64,6 @@ class Mage_XmlConnect_Helper_Iphone extends Mage_Core_Helper_Abstract
     protected $_imageIds = array(
         'icon', 'loader_image', 'loader_image_i4', 'logo', 'logo_i4', 'big_logo', 'big_logo_i4'
     );
-
-    /**
-     * List of coutries that allowed in Ituens by Apple Store
-     *
-     * array(
-     *      'country name' => 'country id at directory model'
-     * )
-     *
-     * @var array
-     */
-    protected $_allowedCountries = array(
-        'Argentina'     => 'AR',
-        'Armenia'       => 'AM',
-        'Australia'     => 'AU',
-        'Austria'       => 'AT',
-        'Belgium'       => 'BE',
-        'Botswana'      => 'BW',
-        'Brazil'        => 'BR',
-        'Bulgaria'      => 'BG',
-        'Canada'        => 'CA',
-        'Chile'         => 'CL',
-        'China'         => 'CN',
-        'Colombia'      => 'CO',
-        'Costa Rica'    => 'CR',
-        'Croatia'       => 'HR',
-        'Czech Republic' => 'CZ',
-        'Denmark'       => 'DK',
-        'Dominican Republic' => 'DO',
-        'Ecuador'       => 'EC',
-        'Egypt'         => 'EG',
-        'El Salvador'   => 'SV',
-        'Estonia'       => 'EE',
-        'Finland'       => 'FI',
-        'France'        => 'FR',
-        'Germany'       => 'DE',
-        'Greece'        => 'GR',
-        'Guatemala'     => 'GT',
-        'Honduras'      => 'HN',
-        'Hong Kong SAR China' => 'HK',
-        'Hungary'       => 'HU',
-        'India'         => 'IN',
-        'Indonesia'     => 'ID',
-        'Ireland'       => 'IE',
-        'Israel'        => 'IL',
-        'Italy'         => 'IT',
-        'Jamaica'       => 'JM',
-        'Japan'         => 'JP',
-        'Jordan'        => 'JO',
-        'Kazakstan'     => 'KZ',
-        'Kenya'         => 'KE',
-        'South Korea'   => 'KR',
-        'Kuwait'        => 'KW',
-        'Latvia'        => 'LV',
-        'Lebanon'       => 'LB',
-        'Lithuania'     => 'LT',
-        'Luxembourg'    => 'LU',
-        'Macau SAR China' => 'MO',
-        'Macedonia'     => 'MK',
-        'Madagascar'    => 'MG',
-        'Malaysia'      => 'MY',
-        'Mali'          => 'ML',
-        'Malta'         => 'MT',
-        'Mauritius'     => 'MU',
-        'Mexico'        => 'MX',
-        'Moldova'       => 'MD',
-        'Netherlands'   => 'NL',
-        'New Zealand'   => 'NZ',
-        'Nicaragua'     => 'NI',
-        'Niger'         => 'NE',
-        'Norway'        => 'NO',
-        'Pakistan'      => 'PK',
-        'Panama'        => 'PA',
-        'Paraguay'      => 'PY',
-        'Peru'          => 'PE',
-        'Philippines'   => 'PH',
-        'Poland'        => 'PL',
-        'Portugal'      => 'PT',
-        'Qatar'         => 'QA',
-        'Romania'       => 'RO',
-        'Russia'        => 'RU',
-        'Saudi Arabia'  => 'SA',
-        'Senegal'       => 'SN',
-        'Singapore'     => 'SG',
-        'Slovakia'      => 'SK',
-        'Slovenia'      => 'SI',
-        'South Africa'  => 'ZA',
-        'Spain'         => 'ES',
-        'Sri Lanka'     => 'LK',
-        'Sweden'        => 'SE',
-        'Switzerland'   => 'CH',
-        'Taiwan'        => 'TW',
-        'Thailand'      => 'TH',
-        'Tunisia'       => 'TN',
-        'Turkey'        => 'TR',
-        'Uganda'        => 'UG',
-        'United Arab Emirates' => 'AE',
-        'United Kingdom' => 'GB',
-        'United States' => 'US',
-        'Uruguay'       => 'UY',
-        'Venezuela'     => 'VE',
-        'Vietnam'       => 'VN',
-    );
-
-    /**
-     * Country field renderer
-     *
-     * @var Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Renderer_Country_Istore
-     */
-    protected $_countryRenderer = null;
-
-    /**
-     * Get submit images that are required for application submit
-     *
-     * @return array
-     */
-    public function getSubmitImages()
-    {
-        return $this->_imageIds;
-    }
 
     /**
      * Get default application tabs
@@ -229,6 +113,34 @@ class Mage_XmlConnect_Helper_Iphone extends Mage_Core_Helper_Abstract
         }
         return $this->_tabs;
     }
+
+    /**
+     * Default images list
+     *
+     * @return array
+     */
+     public function getImagesTypesList()
+     {
+         return array(
+             Mage_XmlConnect_Model_Device_Iphone::IMAGE_TYPE_ICON => array(
+                 'count' => Mage_XmlConnect_Model_Device_Iphone::IMAGE_TYPE_ICON_COUNT,
+                 'label' => $this->__('Logo in Header'),
+                 'sortable' => false,
+                 'sizeTip' => $this->__('Recommended size %spx x %spx.', 35, 35)
+             ),
+             Mage_XmlConnect_Model_Device_Iphone::IMAGE_TYPE_PORTRAIT_BACKGROUND => array(
+                 'count' => Mage_XmlConnect_Model_Device_Iphone::IMAGE_TYPE_BACKGROUND_COUNT,
+                 'label' => $this->__('App Background'),
+                 'sortable' => false,
+                 'sizeTip' => $this->__('Recommended size %spx x %spx.', 320, 367) . $this->__('Note: Image size affects the performance of your app.') . $this->__('Keep your image size below %s KB for optimal performance.', 75)
+             ),
+             Mage_XmlConnect_Model_Device_Iphone::IMAGE_TYPE_PORTRAIT_BANNER => array(
+                 'count' => Mage_XmlConnect_Model_Device_Iphone::IMAGE_TYPE_BANNER_COUNT,
+                 'label' => $this->__('Banners on Home Screen'),
+                 'sortable' => true,
+                 'sizeTip' => $this->__('Recommended size %spx x %spx.', 320, 230) . $this->__('Note: Image size affects the performance of your app.') . $this->__('Keep your image size below %s KB for optimal performance.', 50)
+         ));
+     }
 
     /**
      * Default application configuration
@@ -522,30 +434,15 @@ class Mage_XmlConnect_Helper_Iphone extends Mage_Core_Helper_Abstract
             array(
                 'value' => 'STHeitiK-Light',
                 'label' => 'STHeitiK-Light',
-            ),
-        );
-    }
-
-    /**
-     * List of allowed font sizes for iPhone application
-     *
-     * @return array
-     */
-    public function getFontSizes()
-    {
-        $result = array();
-        for ($i = 6; $i < 32; $i++) {
-            $result[] = array(
-                'value' => $i,
-                'label' => $i . ' pt',
-            );
-        }
-        return $result;
+        ));
     }
 
     /**
      * Get list of countries that allowed in Itunes by Apple Store for Iphone
+     * (we get info from Iphone helper)
      *
+     * @deprecated
+     * @see $this->getAllowedCountriesArray()
      * @return array
      */
     public function getItunesCountriesArray()
@@ -628,6 +525,7 @@ class Mage_XmlConnect_Helper_Iphone extends Mage_Core_Helper_Abstract
     /**
      * Check config for valid values
      *
+     * @deprecated we don't use it since 1.11.1.0
      * @param array $native
      * @return array
      */
@@ -653,65 +551,11 @@ class Mage_XmlConnect_Helper_Iphone extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Get renderer for submission country
-     *
-     * @return Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Renderer_Country_Istore
-     */
-    public function getCountryRenderer()
-    {
-        if (empty($this->_countryRenderer)) {
-            $renderer = 'xmlconnect/adminhtml_mobile_submission_renderer_country_'
-                . self::SUBMISSION_COUNTRY_RENDERER;
-            $this->_countryRenderer = Mage::app()->getLayout()->createBlock($renderer);
-        }
-        return $this->_countryRenderer;
-    }
-
-    /**
-     * Get label for submission country
-     *
-     * @return string
-     */
-    public function getCountryLabel()
-    {
-        return Mage::helper('xmlconnect')->__('App Stores');
-    }
-
-    /**
-     * Get columns for submission country
-     *
-     * @return int
-     */
-    public function getCountryColumns()
-    {
-        return self::SUBMISSION_COUNTRY_COLUMNS;
-    }
-
-    /**
-     * Get placement of Country Names for submission country
-     *
-     * @return bool
-     */
-    public function isCountryNamePlaceLeft()
-    {
-        return true;
-    }
-
-    /**
-     * Get class name for submission country
-     *
-     * @return string
-     */
-    public function getCountryClass()
-    {
-        return self::SUBMISSION_COUNTRY_RENDERER . ' stripy';
-    }
-
-    /**
      * Check image fields
      *
      * We set empty value for image field if file was missed in some reason
      *
+     * @deprecated will delete in the next version
      * @param array $data
      * @return array
      */
@@ -744,6 +588,7 @@ class Mage_XmlConnect_Helper_Iphone extends Mage_Core_Helper_Abstract
     /**
      * Check required fields of a config for a front-end
      *
+     * @deprecated will delete in the next version
      * @throws Mage_Core_Exception
      * @param array $data
      * @return null
@@ -763,15 +608,5 @@ class Mage_XmlConnect_Helper_Iphone extends Mage_Core_Helper_Abstract
         if (isset($data['body']['backgroundImage']) && empty($data['body']['backgroundImage'])) {
             Mage::throwException(Mage::helper('xmlconnect')->__('App Background image missing.'));
         }
-    }
-
-    /**
-     * Check the notifications are allowed for current type of application
-     *
-     * @return bool
-     */
-    public function isNotificationsAllowed()
-    {
-        return true;
     }
 }

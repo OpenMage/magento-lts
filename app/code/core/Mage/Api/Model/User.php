@@ -20,12 +20,12 @@
  *
  * @category    Mage
  * @package     Mage_Api
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Enter description here ...
+ * Api model
  *
  * @method Mage_Api_Model_Resource_User _getResource()
  * @method Mage_Api_Model_Resource_User getResource()
@@ -63,11 +63,19 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      */
     protected $_eventPrefix = 'api_user';
 
+    /**
+     * Constructor
+     */
     protected function _construct()
     {
         $this->_init('api/user');
     }
 
+    /**
+     * Save user
+     *
+     * @return Mage_Api_Model_User|Mage_Core_Model_Abstract
+     */
     public function save()
     {
         $this->_beforeSave();
@@ -78,11 +86,11 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
                 'modified'  => Mage::getSingleton('core/date')->gmtDate()
             );
 
-        if($this->getId() > 0) {
+        if ($this->getId() > 0) {
             $data['user_id']   = $this->getId();
         }
 
-        if( $this->getUsername() ) {
+        if ( $this->getUsername() ) {
             $data['username']   = $this->getUsername();
         }
 
@@ -104,6 +112,11 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
         return $this;
     }
 
+    /**
+     * Delete user
+     *
+     * @return Mage_Api_Model_User|Mage_Core_Model_Abstract
+     */
     public function delete()
     {
         $this->_beforeDelete();
@@ -112,50 +125,96 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
         return $this;
     }
 
+    /**
+     * Save relations for users
+     *
+     * @return Mage_Api_Model_User
+     */
     public function saveRelations()
     {
         $this->_getResource()->_saveRelations($this);
         return $this;
     }
 
+    /**
+     * Get user roles
+     *
+     * @return array
+     */
     public function getRoles()
     {
         return $this->_getResource()->_getRoles($this);
     }
 
+    /**
+     * Delete user from role
+     *
+     * @return Mage_Api_Model_User
+     */
     public function deleteFromRole()
     {
         $this->_getResource()->deleteFromRole($this);
         return $this;
     }
 
+    /**
+     * Check is user role exists
+     *
+     * @return bool
+     */
     public function roleUserExists()
     {
         $result = $this->_getResource()->roleUserExists($this);
         return ( is_array($result) && count($result) > 0 ) ? true : false;
     }
 
+    /**
+     * Add user
+     *
+     * @return Mage_Api_Model_User
+     */
     public function add()
     {
         $this->_getResource()->add($this);
         return $this;
     }
 
+    /**
+     * Check if user exists
+     *
+     * @return bool
+     */
     public function userExists()
     {
         $result = $this->_getResource()->userExists($this);
         return ( is_array($result) && count($result) > 0 ) ? true : false;
     }
 
+    /**
+     * Get collection of users
+     *
+     * @return Object|Mage_Api_Model_Resource_User_Collection
+     */
     public function getCollection() {
         return Mage::getResourceModel('api/user_collection');
     }
 
-    public function getName($separator=' ')
+    /**
+     * Get user's name
+     *
+     * @param string $separator
+     * @return string
+     */
+    public function getName($separator = ' ')
     {
         return $this->getFirstname().$separator.$this->getLastname();
     }
 
+    /**
+     * Get user's id
+     *
+     * @return string
+     */
     public function getId()
     {
         return $this->getUserId();
@@ -196,7 +255,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Login user
      *
-     * @param   string $login
+     * @param   string $username
      * @param   string $apiKey
      * @return  Mage_Api_Model_User
      */
@@ -217,38 +276,83 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
         return $this;
     }
 
+    /**
+     * Reload user
+     *
+     * @return Mage_Api_Model_User
+     */
     public function reload()
     {
         $this->load($this->getId());
         return $this;
     }
 
+    /**
+     * Load user by username
+     *
+     * @param string $username
+     * @return Mage_Api_Model_User
+     */
     public function loadByUsername($username)
     {
         $this->setData($this->getResource()->loadByUsername($username));
         return $this;
     }
 
+    /**
+     * Load user by session id
+     *
+     * @param string $sessId
+     * @return Mage_Api_Model_User
+     */
     public function loadBySessId ($sessId)
     {
         $this->setData($this->getResource()->loadBySessId($sessId));
         return $this;
     }
 
+    /**
+     * Logout user by session id
+     *
+     * @param string $sessid
+     * @return Mage_Api_Model_User
+     */
     public function logoutBySessId($sessid)
     {
         $this->getResource()->clearBySessId($sessid);
         return $this;
     }
 
+    /**
+     * Check if user is assigned to role
+     *
+     * @param int|Mage_Core_Model_Abstract $user
+     * @return array|null
+     */
     public function hasAssigned2Role($user)
     {
         return $this->getResource()->hasAssigned2Role($user);
     }
 
+    /**
+     * Retrieve encoded api key
+     *
+     * @param string $apiKey
+     * @return string
+     */
     protected function _getEncodedApiKey($apiKey)
     {
-        return Mage::helper('core')->getHash($apiKey, 2);
+        return $this->_getHelper('core')->getHash($apiKey, Mage_Admin_Model_User::HASH_SALT_LENGTH);
     }
 
+    /**
+     * Get helper instance
+     *
+     * @param string $helperName
+     * @return Mage_Core_Helper_Abstract
+     */
+    protected function _getHelper($helperName)
+    {
+        return Mage::helper($helperName);
+    }
 }

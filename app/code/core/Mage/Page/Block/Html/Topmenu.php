@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Page
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,11 +41,22 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
     protected $_menu;
 
     /**
+     * Current entity key
+     *
+     * @var string|int
+     */
+    protected $_currentEntityKey;
+
+    /**
      * Init top menu tree structure
      */
     public function _construct()
     {
         $this->_menu = new Varien_Data_Tree_Node(array(), 'root', new Varien_Data_Tree());
+
+        $this->addData(array(
+            'cache_lifetime' => false,
+        ));
     }
 
     /**
@@ -58,7 +69,8 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
     public function getHtml($outermostClass = '', $childrenWrapClass = '')
     {
         Mage::dispatchEvent('page_block_html_topmenu_gethtml_before', array(
-            'menu' => $this->_menu
+            'menu' => $this->_menu,
+            'block' => $this
         ));
 
         $this->_menu->setOutermostClass($outermostClass);
@@ -202,5 +214,48 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
         }
 
         return $classes;
+    }
+
+    /**
+     * Retrieve cache key data
+     *
+     * @return array
+     */
+    public function getCacheKeyInfo()
+    {
+        $shortCacheId = array(
+            'TOPMENU',
+            Mage::app()->getStore()->getId(),
+            Mage::getDesign()->getPackageName(),
+            Mage::getDesign()->getTheme('template'),
+            Mage::getSingleton('customer/session')->getCustomerGroupId(),
+            'template' => $this->getTemplate(),
+            'name' => $this->getNameInLayout(),
+            $this->getCurrentEntityKey()
+        );
+        $cacheId = $shortCacheId;
+
+        $shortCacheId = array_values($shortCacheId);
+        $shortCacheId = implode('|', $shortCacheId);
+        $shortCacheId = md5($shortCacheId);
+
+        $cacheId['entity_key'] = $this->getCurrentEntityKey();
+        $cacheId['short_cache_id'] = $shortCacheId;
+
+        return $cacheId;
+    }
+
+    /**
+     * Retrieve current entity key
+     *
+     * @return int|string
+     */
+    public function getCurrentEntityKey()
+    {
+        if (null === $this->_currentEntityKey) {
+            $this->_currentEntityKey = Mage::registry('current_entity_key')
+                ? Mage::registry('current_entity_key') : Mage::app()->getStore()->getRootCategoryId();
+        }
+        return $this->_currentEntityKey;
     }
 }

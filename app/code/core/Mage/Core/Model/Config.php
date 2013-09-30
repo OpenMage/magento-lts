@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -1236,7 +1236,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
              * In MMDB release resource nodes <..._mysql4> were renamed to <..._resource>. So <deprecatedNode> is left
              * to keep name of previously used nodes, that still may be used by non-updated extensions.
              */
-            if ($config->deprecatedNode) {
+            if (isset($config->deprecatedNode)) {
                 $deprecatedNode = $config->deprecatedNode;
                 $configOld = $this->_xml->global->{$groupType.'s'}->$deprecatedNode;
                 if (isset($configOld->rewrite->$class)) {

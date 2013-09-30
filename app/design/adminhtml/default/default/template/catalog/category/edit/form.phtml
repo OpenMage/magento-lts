@@ -20,13 +20,13 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 
 <div class="content-header">
-        <h3 class="icon-head head-categories"><?php echo $this->htmlEscape($this->getHeader()) . ($this->getCategoryId() ? ' (' . Mage::helper('catalog')->__('ID: %s', $this->getCategoryId()) . ')' : '') ?></h3>
+        <h3 class="icon-head head-categories"><?php echo $this->escapeHtml($this->getHeader()) . ($this->getCategoryId() ? ' (' . Mage::helper('catalog')->__('ID: %s', $this->getCategoryId()) . ')' : '') ?></h3>
         <p class="content-buttons form-buttons">
             <?php echo $this->getResetButtonHtml() ?>
             <?php if($this->getCategoryId()): ?>

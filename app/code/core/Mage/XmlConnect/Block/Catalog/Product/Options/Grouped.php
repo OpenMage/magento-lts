@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,7 +38,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Grouped extends Mage_XmlConn
      *
      * @param Mage_Catalog_Model_Product $product
      * @param bool $isObject
-     * @return string | Mage_XmlConnect_Model_Simplexml_Element
+     * @return string|Mage_XmlConnect_Model_Simplexml_Element
      */
     public function getProductOptionsXml(Mage_Catalog_Model_Product $product, $isObject = false)
     {
@@ -55,30 +55,30 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Grouped extends Mage_XmlConn
         /**
          * Grouped (associated) products
          */
-        $_associatedProducts = $product->getTypeInstance(true)->getAssociatedProducts($product);
-        if (!sizeof($_associatedProducts)) {
+        $associatedProducts = $product->getTypeInstance(true)->getAssociatedProducts($product);
+        if (!sizeof($associatedProducts)) {
             return $isObject ? $xmlModel : $xmlModel->asNiceXml();
         }
 
-        foreach ($_associatedProducts as $_item) {
-            if (!$_item->isSaleable()) {
+        foreach ($associatedProducts as $item) {
+            if (!$item->isSaleable()) {
                 continue;
             }
             $optionNode = $optionsNode->addChild('option');
 
-            $optionNode->addAttribute('code', 'super_group[' . $_item->getId() . ']');
+            $optionNode->addAttribute('code', 'super_group[' . $item->getId() . ']');
             $optionNode->addAttribute('type', 'product');
-            $optionNode->addAttribute('label', $xmlModel->escapeXml($_item->getName()));
+            $optionNode->addAttribute('label', $xmlModel->escapeXml($item->getName()));
             $optionNode->addAttribute('is_qty_editable', 1);
-            $optionNode->addAttribute('qty', $_item->getQty()*1);
+            $optionNode->addAttribute('qty', $item->getQty()*1);
 
             /**
              * Process product price
              */
-            if ($_item->getPrice() != $_item->getFinalPrice()) {
-                $productPrice = $_item->getFinalPrice();
+            if ($item->getPrice() != $item->getFinalPrice()) {
+                $productPrice = $item->getFinalPrice();
             } else {
-                $productPrice = $_item->getPrice();
+                $productPrice = $item->getPrice();
             }
 
             if ($productPrice != 0) {

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -55,6 +55,8 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
         }
         Mage::getSingleton('catalog/session')->setLastVisitedCategoryId($category->getId());
         Mage::register('current_category', $category);
+        Mage::register('current_entity_key', $category->getPath());
+
         try {
             Mage::dispatchEvent(
                 'catalog_controller_category_init_after',

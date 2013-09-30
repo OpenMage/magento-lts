@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,6 +42,10 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Configurable extends Mage_Xm
      */
     public function getProductOptionsXml(Mage_Catalog_Model_Product $product, $isObject = false)
     {
+        if ($product->hasPreconfiguredValues()) {
+            $optionData = $product->getPreconfiguredValues()->getData('super_attribute');
+        }
+
         $xmlModel = $this->getProductCustomOptionsXmlObject($product);
         $optionsXmlObj = $xmlModel->options;
         $options = array();
@@ -53,28 +57,28 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Configurable extends Mage_Xm
         /**
          * Configurable attributes
          */
-        $_attributes = $product->getTypeInstance(true)->getConfigurableAttributes($product);
-        if (!sizeof($_attributes)) {
+        $productAttributes = $product->getTypeInstance(true)->getConfigurableAttributes($product);
+        if (!sizeof($productAttributes)) {
             return $isObject ? $xmlModel : $xmlModel->asNiceXml();
         }
 
-        $_allowProducts = array();
-        $_allProducts = $product->getTypeInstance(true)->getUsedProducts(null, $product);
-        foreach ($_allProducts as $_product) {
-            if ($_product->isSaleable()) {
-                $_allowProducts[] = $_product;
+        $allowProducts = array();
+        $allProducts = $product->getTypeInstance(true)->getUsedProducts(null, $product);
+        foreach ($allProducts as $productItem) {
+            if ($productItem->isSaleable()) {
+                $allowProducts[] = $productItem;
             }
         }
 
         /**
          * Allowed products options
          */
-        foreach ($_allowProducts as $_item) {
-            $_productId  = $_item->getId();
+        foreach ($allowProducts as $item) {
+            $productId  = $item->getId();
 
-            foreach ($_attributes as $attribute) {
+            foreach ($productAttributes as $attribute) {
                 $productAttribute = $attribute->getProductAttribute();
-                $attributeValue = $_item->getData($productAttribute->getAttributeCode());
+                $attributeValue = $item->getData($productAttribute->getAttributeCode());
                 if (!isset($options[$productAttribute->getId()])) {
                     $options[$productAttribute->getId()] = array();
                 }
@@ -82,11 +86,11 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Configurable extends Mage_Xm
                 if (!isset($options[$productAttribute->getId()][$attributeValue])) {
                     $options[$productAttribute->getId()][$attributeValue] = array();
                 }
-                $options[$productAttribute->getId()][$attributeValue][] = $_productId;
+                $options[$productAttribute->getId()][$attributeValue][] = $productId;
             }
         }
 
-        foreach ($_attributes as $attribute) {
+        foreach ($productAttributes as $attribute) {
             $productAttribute = $attribute->getProductAttribute();
             $attributeId = $productAttribute->getId();
             $info = array(
@@ -125,8 +129,8 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Configurable extends Mage_Xm
 
         $isFirst = true;
 
-        $_attributes = $attributes;
-        reset($_attributes);
+        $productAttributes = $attributes;
+        reset($productAttributes);
         foreach ($attributes as $id => $attribute) {
             $optionNode = $optionsXmlObj->addChild('option');
             $optionNode->addAttribute('code', 'super_attribute[' . $id . ']');
@@ -142,8 +146,13 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Configurable extends Mage_Xm
                         $valueNode->addAttribute('price', $option['price']);
                         $valueNode->addAttribute('formated_price', $option['formated_price']);
                     }
-                    if (sizeof($_attributes) > 1) {
-                        $this->_prepareRecursivelyRelatedValues($valueNode, $_attributes, $option['products'], 1);
+                    if (sizeof($productAttributes) > 1) {
+                        $this->_prepareRecursivelyRelatedValues($valueNode, $productAttributes, $option['products'], 1);
+                    }
+                    if ($product->hasPreconfiguredValues()) {
+                        $this->_setCartSelectedValue($valueNode, 'select', $this->_getPreconfiguredOption(
+                            $optionData, $id, $option['id']
+                        ));
                     }
                 }
                 $isFirst = false;
@@ -185,21 +194,21 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Configurable extends Mage_Xm
                 $relatedNode->addAttribute('to', 'super_attribute[' . $attrId . ']');
             }
 
-            $_valueNode = $relatedNode->addChild('value');
-            $_valueNode->addAttribute('code', $option['id']);
-            $_valueNode->addAttribute('label', $_valueNode->escapeXml($option['label']));
+            $nodeValue = $relatedNode->addChild('value');
+            $nodeValue->addAttribute('code', $option['id']);
+            $nodeValue->addAttribute('label', $nodeValue->escapeXml($option['label']));
             if ((float)$option['price'] != 0.00) {
-                $_valueNode->addAttribute('price', $option['price']);
-                $_valueNode->addAttribute('formated_price', $option['formated_price']);
+                $nodeValue->addAttribute('price', $option['price']);
+                $nodeValue->addAttribute('formated_price', $option['formated_price']);
             }
 
             /**
              * Recursive relation adding
              */
-            $_attrClone = $attributes;
-            if (next($_attrClone) != false) {
-                reset($_attrClone);
-                $this->_prepareRecursivelyRelatedValues($_valueNode, $_attrClone, $intersect, $cycle + 1);
+            $attrClone = $attributes;
+            if (next($attrClone) != false) {
+                reset($attrClone);
+                $this->_prepareRecursivelyRelatedValues($nodeValue, $attrClone, $intersect, $cycle + 1);
             }
         }
     }

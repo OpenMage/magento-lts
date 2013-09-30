@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,6 +31,7 @@
  * @category    Mage
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated since 1.7.0.2
  */
 class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Urlkey
     extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -40,6 +40,7 @@ class Mage_XmlConnect_Block_Checkout_Address_Shipping extends Mage_Checkout_Bloc
      */
     protected function _toHtml()
     {
+        /** @var $shippingXmlObj Mage_XmlConnect_Model_Simplexml_Element */
         $shippingXmlObj = Mage::getModel('xmlconnect/simplexml_element', '<shipping></shipping>');
 
         $addressId = $this->getAddress()->getId();

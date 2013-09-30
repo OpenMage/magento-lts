@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -76,7 +76,7 @@
             <connection>
                 <types>
                     <pdo_mysql>
-                        <adapter>Varien_Db_Adapter_Pdo_Mysql</adapter>
+                        <adapter>Magento_Db_Adapter_Pdo_Mysql</adapter>
                         <class>Mage_Core_Model_Resource_Type_Db_Pdo_Mysql</class>
                         <compatibleMode>1</compatibleMode>
                     </pdo_mysql>

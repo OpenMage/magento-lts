@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -41,7 +41,7 @@ $title9color = $previewModel->getConfigFontInfo('Title9/color');
 
 $backgroundColor = $previewModel->getData('conf/body/backgroundColor');
 $menImage = $previewModel->getPreviewImagesUrl('men.png');
-$bannerImage = $previewModel->getBannerImage();
+$bannerImages = $previewModel->getBannerImage();
 ?>
 <div class="iphone-home">
     <div class="main-frame">
@@ -77,7 +77,13 @@ $bannerImage = $previewModel->getBannerImage();
                 </div>
             </div>
             <div class="big-logo">
-                <img src="<?php echo $bannerImage; ?>" alt="" />
+                <div class="banners-wrap">
+                    <div class="banners">
+                        <?php foreach ($bannerImages as $image): ?>
+                            <img src="<?php echo $image; ?>" alt="" />
+                        <?php endforeach; ?>
+                    </div>
+                </div>
             </div>
             <div class="catalog">
                 <div class="item" style="background:<?php echo $categoryItemBackgroundColor; ?>">

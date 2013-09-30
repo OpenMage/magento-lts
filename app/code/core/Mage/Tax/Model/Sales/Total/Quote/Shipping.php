@@ -20,11 +20,17 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * Model to calculate shipping tax
+ *
+ * @category    Mage
+ * @package     Mage_Tax
+ * @author      Magento Core Team
+ */
 class Mage_Tax_Model_Sales_Total_Quote_Shipping extends Mage_Sales_Model_Quote_Address_Total_Abstract
 {
     /**
@@ -99,15 +105,17 @@ class Mage_Tax_Model_Sales_Total_Quote_Shipping extends Mage_Sales_Model_Quote_A
         $rate               = $calc->getRate($addressTaxRequest);
         if ($priceIncludesTax) {
             if ($this->_areTaxRequestsSimilar) {
-                $tax            = $this->_round($calc->calcTaxAmount($shipping, $rate, true, false), $rate, true);
-                $baseTax        = $this->_round($calc->calcTaxAmount($baseShipping, $rate, true, false), $rate, true, 'base');
+                $taxExact       = $calc->calcTaxAmount($shipping, $rate, true, false);
+                $baseTaxExact   = $calc->calcTaxAmount($baseShipping, $rate, true, false);
                 $taxShipping    = $shipping;
-                $baseTaxShipping= $baseShipping;
-                $shipping       = $shipping - $tax;
-                $baseShipping   = $baseShipping - $baseTax;
+                $baseTaxShipping = $baseShipping;
+                $shippingExact  = $shipping - $taxExact;
+                $baseShippingExact = $baseShipping - $baseTaxExact;
                 $taxable        = $taxShipping;
                 $baseTaxable    = $baseTaxShipping;
                 $isPriceInclTax = true;
+                $address->setTotalAmount('shipping', $shippingExact);
+                $address->setBaseTotalAmount('shipping', $baseShippingExact);
             } else {
                 $storeRate      = $calc->getStoreRate($addressTaxRequest, $store);
                 $storeTax       = $calc->calcTaxAmount($shipping, $storeRate, true, false);
@@ -115,24 +123,28 @@ class Mage_Tax_Model_Sales_Total_Quote_Shipping extends Mage_Sales_Model_Quote_A
                 $shipping       = $calc->round($shipping - $storeTax);
                 $baseShipping   = $calc->round($baseShipping - $baseStoreTax);
                 $tax            = $this->_round($calc->calcTaxAmount($shipping, $rate, false, false), $rate, false);
-                $baseTax        = $this->_round($calc->calcTaxAmount($baseShipping, $rate, false, false), $rate, false, 'base');
+                $baseTax        = $this->_round(
+                    $calc->calcTaxAmount($baseShipping, $rate, false, false), $rate, false, 'base');
                 $taxShipping    = $shipping + $tax;
-                $baseTaxShipping= $baseShipping + $baseTax;
+                $baseTaxShipping = $baseShipping + $baseTax;
                 $taxable        = $shipping;
                 $baseTaxable    = $baseShipping;
                 $isPriceInclTax = false;
+                $address->setTotalAmount('shipping', $shipping);
+                $address->setBaseTotalAmount('shipping', $baseShipping);
             }
         } else {
             $tax            = $this->_round($calc->calcTaxAmount($shipping, $rate, false, false), $rate, false);
-            $baseTax        = $this->_round($calc->calcTaxAmount($baseShipping, $rate, false, false), $rate, false, 'base');
+            $baseTax        = $this->_round(
+                $calc->calcTaxAmount($baseShipping, $rate, false, false), $rate, false, 'base');
             $taxShipping    = $shipping + $tax;
-            $baseTaxShipping= $baseShipping + $baseTax;
+            $baseTaxShipping = $baseShipping + $baseTax;
             $taxable        = $shipping;
             $baseTaxable    = $baseShipping;
             $isPriceInclTax = false;
+            $address->setTotalAmount('shipping', $shipping);
+            $address->setBaseTotalAmount('shipping', $baseShipping);
         }
-        $address->setTotalAmount('shipping', $shipping);
-        $address->setBaseTotalAmount('shipping', $baseShipping);
         $address->setShippingInclTax($taxShipping);
         $address->setBaseShippingInclTax($baseTaxShipping);
         $address->setShippingTaxable($taxable);
@@ -166,18 +178,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Shipping extends Mage_Sales_Model_Quote_A
         $delta = isset($deltas[$key][$rate]) ? $deltas[$key][$rate] : 0;
         return $this->_calculator->round($price+$delta);
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
     /**
      * Get request for fetching store tax rate

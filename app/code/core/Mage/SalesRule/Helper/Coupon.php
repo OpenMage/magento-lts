@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_SalesRule
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -142,6 +142,6 @@ class Mage_SalesRule_Helper_Coupon extends Mage_Core_Helper_Abstract
      */
     public function getCodeSeparator()
     {
-        return (string) Mage::app()->getConfig()->getNode(Mage_SalesRule_Helper_Coupon::XML_CHARSET_SEPARATOR);
+        return (string)Mage::app()->getConfig()->getNode(Mage_SalesRule_Helper_Coupon::XML_CHARSET_SEPARATOR);
     }
 }

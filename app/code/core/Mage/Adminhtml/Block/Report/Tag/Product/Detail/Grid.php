@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -75,7 +75,7 @@ class Mage_Adminhtml_Block_Report_Tag_Product_Detail_Grid extends Mage_Adminhtml
             $this->addColumn('visible', array(
                 'header'    => Mage::helper('reports')->__('Visible In'),
                 'sortable'  => false,
-                'index'     =>  'stores',
+                'index'     => 'stores',
                 'type'      => 'store',
                 'store_view'=> true
             ));

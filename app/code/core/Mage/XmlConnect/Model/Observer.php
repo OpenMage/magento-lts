@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -40,6 +40,7 @@ class Mage_XmlConnect_Model_Observer
      */
     protected $_appDependOnConfigFieldPathes = array(
         Mage_XmlConnect_Model_Application::XML_PATH_PAYPAL_BUSINESS_ACCOUNT,
+        Mage_Checkout_Helper_Data::XML_PATH_GUEST_CHECKOUT,
         'sendfriend/email/max_recipients',
         'sendfriend/email/allow_guest',
         'general/locale/code',
@@ -57,7 +58,11 @@ class Mage_XmlConnect_Model_Observer
      */
     public function restrictWebsite($observer)
     {
-        if (Mage::app()->getRequest()->getModuleName() == 'xmlconnect') {
+        $controller = $observer->getEvent()->getController();
+        if ($controller instanceof Mage_XmlConnect_Controller_AdminAction
+            || $controller instanceof Mage_XmlConnect_Controller_Action
+            || Mage::app()->getRequest()->getModuleName() == 'xmlconnect'
+        ) {
             $observer->getEvent()->getResult()->setShouldProceed(false);
         }
     }
@@ -85,15 +90,18 @@ class Mage_XmlConnect_Model_Observer
      */
     public function sendMessageImmediately($observer)
     {
+        /** @var $message Mage_XmlConnect_Model_Queue */
         $message = $observer->getEvent()->getData('queueMessage');
-        if ($message instanceof Mage_XmlConnect_Model_Queue && (strtolower($message->getExecTime()) == 'null'
-            || !$message->getExecTime())
-        ) {
+        $execTime = strtotime($message->getExecTime());
+        $isPastTime = false;
+        if (false !== $execTime) {
+            $isPastTime = strtotime(Mage::getSingleton('core/date')->gmtDate()) - strtotime($message->getExecTime());
+        }
+        if ($isPastTime === false || $isPastTime > 0) {
             $message->setExecTime(Mage::getSingleton('core/date')->gmtDate());
             Mage::helper('xmlconnect')->sendBroadcastMessage($message);
             return true;
         }
-
         return false;
     }
 
@@ -105,14 +113,76 @@ class Mage_XmlConnect_Model_Observer
     public function scheduledSend()
     {
         $countOfQueue = Mage::getStoreConfig(Mage_XmlConnect_Model_Queue::XML_PATH_CRON_MESSAGES_COUNT);
-
         $collection = Mage::getModel('xmlconnect/queue')->getCollection()->addOnlyForSendingFilter()
             ->setPageSize($countOfQueue)->setCurPage(1)->load();
-
         foreach ($collection as $message) {
             if ($message->getId()) {
                 Mage::helper('xmlconnect')->sendBroadcastMessage($message);
             }
+        }
+    }
+
+    /**
+     * Clear category images cache
+     *
+     * @return null
+     */
+    public function clearCategoryImagesCache()
+    {
+        Mage::getModel('xmlconnect/catalog_category_image')->clearCache();
+    }
+
+    /**
+     * Handle xmlconnect admin actions
+     *
+     * @param Varien_Event_Observer $event
+     * @return null
+     */
+    public function actionFrontPreDispatchXmlAdmin($event)
+    {
+        /** @var $request Mage_Core_Controller_Request_Http */
+        $request = Mage::app()->getRequest();
+        if (true === $this->_checkAdminController($request, $event->getControllerAction())) {
+            $request->setParam('forwarded', true)->setDispatched(true);
+        }
+    }
+
+    /**
+     * Forward unauthorized users for xmlconnect admin actions
+     *
+     * @param Varien_Event_Observer $event
+     * @return null
+     */
+    public function actionPreDispatchXmlAdmin($event)
+    {
+        /** @var $request Mage_Core_Controller_Request_Http */
+        $request = Mage::app()->getRequest();
+        if (false === $this->_checkAdminController($request, $event->getControllerAction())
+            && !Mage::getSingleton('admin/session')->isLoggedIn()
+        ) {
+            $request->setParam('forwarded', true)->setRouteName('adminhtml')->setControllerName('connect_user')
+                ->setActionName('loginform')->setDispatched(false);
+        }
+    }
+
+    /**
+     * Check is controller action is allowed w/o authorization
+     *
+     * @param Mage_Core_Controller_Request_Http $request
+     * @param Mage_XmlConnect_Controller_AdminAction $controllerAction
+     * @return bool|null
+     */
+    protected function _checkAdminController($request, $controllerAction)
+    {
+        if ($controllerAction instanceof Mage_XmlConnect_Controller_AdminAction) {
+            foreach ($controllerAction->getAllowedControllerActions() as $controller => $allowedActions) {
+                if ($request->getControllerName() == $controller
+                    && in_array(strtolower($request->getActionName()), $allowedActions)
+                ) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

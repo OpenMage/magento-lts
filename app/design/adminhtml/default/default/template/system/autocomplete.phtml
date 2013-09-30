@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -28,8 +28,8 @@
 <?php foreach ($items as $item): ?>
     <li id="<?php echo $item['id'] ?>" url="<?php echo $item['url'] ?>">
         <div style="float:right; color:red; font-weight:bold;">[<?php echo $item['type'] ?>]</div>
-        <strong><?php echo $this->htmlEscape($item['name']) ?></strong><br/>
-        <span class="informal"><?php echo $this->htmlEscape($item['description']) ?></span>
+        <strong><?php echo $this->escapeHtml($item['name']) ?></strong><br/>
+        <span class="informal"><?php echo $this->escapeHtml($item['description']) ?></span>
     </li>
 <?php endforeach ?>
 </ul>

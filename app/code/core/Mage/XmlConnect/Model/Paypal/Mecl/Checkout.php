@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,4 +39,28 @@ class Mage_XmlConnect_Model_Paypal_Mecl_Checkout extends Mage_Paypal_Model_Expre
      * @var string
      */
     protected $_methodType = Mage_XmlConnect_Model_Payment_Method_Paypal_Config::METHOD_WPP_MECL;
+
+    /**
+     * Set sandbox flag and get api
+     *
+     * @return Mage_Paypal_Model_Api_Nvp
+     */
+    protected function _getApi()
+    {
+        $this->_setSandboxFlag();
+        return parent::_getApi();
+    }
+
+    /**
+     * Set sandbox flag
+     *
+     * @return Mage_XmlConnect_Model_Paypal_Mecl_Checkout
+     */
+    protected function _setSandboxFlag()
+    {
+        $this->_config->sandboxFlag = Mage::helper('payment')
+            ->getMethodInstance(Mage_XmlConnect_Model_Payment_Method_Paypal_Config::METHOD_WPP_EXPRESS)
+            ->getConfigData('sandbox_flag');
+        return $this;
+    }
 }
