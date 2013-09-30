@@ -126,7 +126,9 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     {
         // If Flat Data enabled then use it but only on frontend
         $flatHelper = Mage::helper('catalog/category_flat');
-        if ($flatHelper->isAvailable() && !Mage::app()->getStore()->isAdmin() && $flatHelper->isBuilt(true)) {
+        if ($flatHelper->isAvailable() && !Mage::app()->getStore()->isAdmin() && $flatHelper->isBuilt(true)
+            && !$this->getDisableFlat()
+        ) {
             $this->_init('catalog/category_flat');
             $this->_useFlatResource = true;
         } else {
@@ -469,7 +471,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      */
     public function formatUrlKey($str)
     {
-        $str = Mage::helper('core')->removeAccents($str);
+        $str = Mage::helper('catalog/product_url')->format($str);
         $urlKey = preg_replace('#[^0-9a-z]+#i', '-', $str);
         $urlKey = strtolower($urlKey);
         $urlKey = trim($urlKey, '-');
@@ -726,6 +728,9 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      */
     public function getRequestPath()
     {
+        if (!$this->_getData('request_path')) {
+            $this->getUrl();
+        }
         return $this->_getData('request_path');
     }
 
@@ -832,6 +837,16 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     public function getChildrenCategories()
     {
         return $this->getResource()->getChildrenCategories($this);
+    }
+
+    /**
+     * Return children categories of current category
+     *
+     * @return array
+     */
+    public function getChildrenCategoriesWithInactive()
+    {
+        return $this->getResource()->getChildrenCategoriesWithInactive($this);
     }
 
     /**

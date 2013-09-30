@@ -105,6 +105,16 @@ class Mage_Core_Model_Factory
     }
 
     /**
+     * Get config instance
+     *
+     * @return Mage_Core_Model_Config
+     */
+    public function getConfig()
+    {
+        return $this->_config;
+    }
+
+    /**
      * Retrieve url_rewrite instance
      *
      * @return Mage_Core_Model_Url_Rewrite

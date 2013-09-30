@@ -65,9 +65,18 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
      */
     public function viewAction()
     {
-        if (!$agreement = $this->_initAgreement()) {
+        $agreement = $this->_initAgreement();
+        if (!$agreement) {
+            $this->_redirect('*/*/index');
             return;
         }
+
+        $customerIdSession = $this->_getSession()->getCustomer()->getId();
+        if (!$agreement->canPerformAction($customerIdSession)) {
+            $this->_redirect('*/*/index');
+            return;
+        }
+
         $this->_title($this->__('Billing Agreements'))
             ->_title($this->__('Billing Agreement # %s', $agreement->getReferenceId()));
         $this->loadLayout();
@@ -154,7 +163,18 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
     public function cancelAction()
     {
         $agreement = $this->_initAgreement();
-        if ($agreement && $agreement->canCancel()) {
+        if(!$agreement) {
+            $this->_redirect('*/*/view', array('_current' => true));
+            return;
+        }
+
+        $customerIdSession = $this->_getSession()->getCustomer()->getId();
+        if (!$agreement->canPerformAction($customerIdSession)) {
+            $this->_redirect('*/*/view', array('_current' => true));
+            return;
+        }
+
+        if ($agreement->canCancel()) {
             try {
                 $agreement->cancel();
                 $this->_getSession()->addNotice($this->__('The billing agreement "%s" has been canceled.', $agreement->getReferenceId()));

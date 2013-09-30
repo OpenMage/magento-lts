@@ -258,9 +258,10 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      * @param Mage_Catalog_Model_Category|int $parentNode
      * @param integer $recursionLevel
      * @param integer $storeId
+     * @param bool $onlyActive
      * @return Mage_Catalog_Model_Resource_Category_Flat
      */
-    protected function _loadNodes($parentNode = null, $recursionLevel = 0, $storeId = 0)
+    protected function _loadNodes($parentNode = null, $recursionLevel = 0, $storeId = 0, $onlyActive = true)
     {
         $_conn = $this->_getReadAdapter();
         $startLevel = 1;
@@ -287,9 +288,13 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
                     new Zend_Db_Expr('main_table.' . $_conn->quoteIdentifier('path')),
                     'is_active',
                     'is_anchor'))
-            ->where('main_table.is_active = ?', '1')
+
             ->where('main_table.include_in_menu = ?', '1')
             ->order('main_table.position');
+
+        if ($onlyActive) {
+            $select->where('main_table.is_active = ?', '1');
+        }
 
         /** @var $urlRewrite Mage_Catalog_Helper_Category_Url_Rewrite_Interface */
         $urlRewrite = $this->_factory->getCategoryUrlRewriteHelper();
@@ -1271,6 +1276,17 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     {
         $categories = $this->_loadNodes($category, 1, $category->getStoreId());
         return $categories;
+    }
+
+    /**
+     * Return children categories of category with inactive
+     *
+     * @param Mage_Catalog_Model_Category $category
+     * @return array
+     */
+    public function getChildrenCategoriesWithInactive($category)
+    {
+        return $this->_loadNodes($category, 1, $category->getStoreId(), false);
     }
 
     /**

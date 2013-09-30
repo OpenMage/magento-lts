@@ -141,6 +141,18 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
     }
 
     /**
+     * Check for permissions
+     *
+     * @param int $customerIdSession
+     * @return boolean
+     */
+    public function canPerformAction($customerIdSession)
+    {
+        // Get the customer id from billing agreement and compare to logged in customer id
+        return ((int)$this->getCustomerId() === (int)$customerIdSession) ? true : false;
+    }
+
+    /**
      * Create billing agreement
      *
      * @return Mage_Sales_Model_Billing_Agreement

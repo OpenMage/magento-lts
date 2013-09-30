@@ -58,6 +58,11 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
     protected $_factory;
 
     /**
+     * @var Mage_Core_Model_Store
+     */
+    protected $_store;
+
+    /**
      * Initialize Url model
      *
      * @param array $args
@@ -65,6 +70,7 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
     public function __construct(array $args = array())
     {
         $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('catalog/factory');
+        $this->_store = !empty($args['store']) ? $args['store'] : Mage::app()->getStore();
     }
 
     /**
@@ -193,11 +199,11 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
             return $url;
         }
 
-            $requestPath = $product->getRequestPath();
-            if (empty($requestPath)) {
-                $requestPath = $this->_getRequestPath($product, $this->_getCategoryIdForUrl($product, $params));
-                $product->setRequestPath($requestPath);
-            }
+        $requestPath = $product->getData('request_path');
+        if (empty($requestPath)) {
+            $requestPath = $this->_getRequestPath($product, $this->_getCategoryIdForUrl($product, $params));
+            $product->setRequestPath($requestPath);
+        }
 
         if (isset($params['_store'])) {
             $storeId = $this->_getStoreId($params['_store']);

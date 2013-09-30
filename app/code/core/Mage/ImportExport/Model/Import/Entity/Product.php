@@ -1871,12 +1871,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             }
             return true;
         }
-        // common validation
-        $this->_isProductWebsiteValid($rowData, $rowNum);
-        $this->_isProductCategoryValid($rowData, $rowNum);
-        $this->_isTierPriceValid($rowData, $rowNum);
-        $this->_isGroupPriceValid($rowData, $rowNum);
-        $this->_isSuperProductsSkuValid($rowData, $rowNum);
+
+        $this->_validate($rowData, $rowNum, $sku);
 
         if (self::SCOPE_DEFAULT == $rowScope) { // SKU is specified, row is SCOPE_DEFAULT, new product block begins
             $this->_processedEntitiesCount ++;
@@ -1939,6 +1935,22 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             }
         }
         return !isset($this->_invalidRows[$rowNum]);
+    }
+
+    /**
+     * Common validation
+     *
+     * @param array $rowData
+     * @param int $rowNum
+     * @param string|false|null $sku
+     */
+    protected function _validate($rowData, $rowNum, $sku)
+    {
+        $this->_isProductWebsiteValid($rowData, $rowNum);
+        $this->_isProductCategoryValid($rowData, $rowNum);
+        $this->_isTierPriceValid($rowData, $rowNum);
+        $this->_isGroupPriceValid($rowData, $rowNum);
+        $this->_isSuperProductsSkuValid($rowData, $rowNum);
     }
 
     /**

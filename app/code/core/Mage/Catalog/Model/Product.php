@@ -1077,8 +1077,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             ->setCreatedAt(null)
             ->setUpdatedAt(null)
             ->setId(null)
-            ->setStoreId(Mage::app()->getStore()->getId())
-            ->setUrlKey(Mage::helper('core')->uniqHash());
+            ->setStoreId(Mage::app()->getStore()->getId());
 
         Mage::dispatchEvent(
             'catalog_model_product_duplicate',
@@ -1536,6 +1535,9 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function getRequestPath()
     {
+        if (!$this->_getData('request_path')) {
+            $this->getProductUrl();
+        }
         return $this->_getData('request_path');
     }
 

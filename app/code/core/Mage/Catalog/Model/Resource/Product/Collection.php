@@ -1196,6 +1196,9 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         }
 
         foreach($this->getItems() as $item) {
+            if (empty($this->_urlRewriteCategory)) {
+                $item->setDoNotUseCategoryId(true);
+            }
             if (isset($urlRewrites[$item->getEntityId()])) {
                 $item->setData('request_path', $urlRewrites[$item->getEntityId()]);
             } else {

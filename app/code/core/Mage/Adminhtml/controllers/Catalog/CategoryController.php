@@ -383,7 +383,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
          * Category id after which we have put our category
          */
         $prevNodeId     = $this->getRequest()->getPost('aid', false);
-
+        $category->setData('save_rewrites_history', Mage::helper('catalog')->shouldSaveUrlRewritesHistory());
         try {
             $category->move($parentNodeId, $prevNodeId);
             $this->getResponse()->setBody("SUCCESS");

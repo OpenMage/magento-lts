@@ -79,8 +79,8 @@ class Mage_Catalog_Model_Category_Url
 
         Varien_Profiler::start('REWRITE: '.__METHOD__);
 
-        if ($category->hasData('request_path') && $category->getRequestPath() != '') {
-            $category->setData('url', $this->getUrlInstance()->getDirectUrl($category->getRequestPath()));
+        if ($category->hasData('request_path') && $category->getData('request_path') != '') {
+            $category->setData('url', $this->_getDirectUrl($category));
             Varien_Profiler::stop('REWRITE: '.__METHOD__);
             return $category->getData('url');
         }
@@ -88,7 +88,7 @@ class Mage_Catalog_Model_Category_Url
         $requestPath = $this->_getRequestPath($category);
         if ($requestPath) {
             $category->setRequestPath($requestPath);
-            $category->setData('url', $this->getUrlInstance()->getDirectUrl($requestPath));
+            $category->setData('url', $this->_getDirectUrl($category));
             Varien_Profiler::stop('REWRITE: '.__METHOD__);
             return $category->getData('url');
         }
@@ -97,6 +97,16 @@ class Mage_Catalog_Model_Category_Url
 
         $category->setData('url', $category->getCategoryIdUrl());
         return $category->getData('url');
+    }
+
+    /**
+     * Returns category URL by which it can be accessed
+     * @param Mage_Catalog_Model_Category $category
+     * @return string
+     */
+    protected function _getDirectUrl(Mage_Catalog_Model_Category $category)
+    {
+        return $this->getUrlInstance()->getDirectUrl($category->getRequestPath());
     }
 
     /**

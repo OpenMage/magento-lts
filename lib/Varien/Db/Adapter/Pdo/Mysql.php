@@ -187,6 +187,13 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     protected $_ddlRoutines = array('alt', 'cre', 'ren', 'dro', 'tru');
 
     /**
+     * DDL statements for temporary tables
+     *
+     * @var string
+     */
+    protected $_tempRoutines =  '#^\w+\s+temporary\s#im';
+
+    /**
      * Allowed interval units array
      *
      * @var array
@@ -395,7 +402,9 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     {
         if (is_string($sql) && $this->getTransactionLevel() > 0) {
             $startSql = strtolower(substr(ltrim($sql), 0, 3));
-            if (in_array($startSql, $this->_ddlRoutines)) {
+            if (in_array($startSql, $this->_ddlRoutines)
+                && (preg_match($this->_tempRoutines, $sql) !== 1)
+            ) {
                 trigger_error(Varien_Db_Adapter_Interface::ERROR_DDL_MESSAGE, E_USER_ERROR);
             }
         }
@@ -3351,7 +3360,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                     }
                 } elseif (is_string($v)) {
                     $value = sprintf('VALUES(%s)', $this->quoteIdentifier($v));
-                    $field = $v;
+                    $field = $this->quoteIdentifier($v);
                 }
 
                 if ($field && $value) {
@@ -3827,6 +3836,24 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         );
         $this->query($query);
         return $this;
+    }
+
+    /**
+     * Create new table from provided select statement
+     *
+     * @param string $tableName
+     * @param Zend_Db_Select $select
+     * @param bool $temporary
+     * @return mixed
+     */
+    public function createTableFromSelect($tableName, Zend_Db_Select $select, $temporary = false)
+    {
+        $query = sprintf(
+            'CREATE' . ($temporary ? ' TEMPORARY' : '') . ' TABLE `%s` AS (%s)',
+            $this->_getTableName($tableName),
+            (string)$select
+        );
+        $this->query($query);
     }
 
     /**

@@ -1084,4 +1084,14 @@ interface Varien_Db_Adapter_Interface
      * @return mixed
      */
     public function fromUnixtime($timestamp);
+
+    /**
+     * Create new table from provided select statement
+     *
+     * @param string $tableName
+     * @param Zend_Db_Select $select
+     * @param bool $temporary
+     * @return mixed
+     */
+    public function createTableFromSelect($tableName, Zend_Db_Select $select, $temporary = false);
 }

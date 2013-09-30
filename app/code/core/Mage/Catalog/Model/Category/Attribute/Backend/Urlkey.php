@@ -30,59 +30,9 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Model_Category_Attribute_Backend_Urlkey extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+class Mage_Catalog_Model_Category_Attribute_Backend_Urlkey extends Mage_Catalog_Model_Attribute_Backend_Urlkey_Abstract
 {
-    /**
-     * Format url_key value
-     *
-     * @param Mage_Catalog_Model_Category $object
-     * @return Mage_Catalog_Model_Category_Attribute_Backend_Urlkey
-     */
-    public function beforeSave($object)
-    {
-        $attributeName = $this->getAttribute()->getName();
 
-        $urlKey = $object->getData($attributeName);
-        if ($urlKey === false) {
-            return $this;
-        }
-        if ($urlKey=='') {
-            $urlKey = $object->getName();
-        }
-        if (empty($urlKey)) {
-            $urlKey = Mage::helper('core')->uniqHash();
-        }
-        $object->setData($attributeName, $object->formatUrlKey($urlKey));
-
-        $this->_validateEntityUrl($object);
-        return $this;
-    }
-
-    /**
-     * Check unique url_key value in catalog_category_entity_url_key table.
-     *
-     * @param Mage_Catalog_Model_Category $object
-     * @return Mage_Catalog_Model_Category_Attribute_Backend_Urlkey
-     * @throws Mage_Core_Exception
-     */
-    protected function _validateEntityUrl($object)
-    {
-        $connection = $object->getResource()->getReadConnection();
-
-        $select = $connection->select()
-            ->from($this->getAttribute()->getBackendTable(), array('count' => new Zend_Db_Expr('COUNT(\'value_id\')')))
-            ->where($connection->quoteInto('entity_id <> ?', $object->getId()))
-            ->where($connection->quoteInto('value = ?', $object->getUrlKey()));
-        $result = $connection->fetchOne($select);
-        if ((int)$result) {
-            throw new Mage_Core_Exception(
-                Mage::helper('catalog')->__("Category with the '%s' url_key attribute already exists.",
-                    $object->getUrlKey())
-            );
-        }
-
-        return $this;
-    }
 }

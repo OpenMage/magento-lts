@@ -994,8 +994,8 @@ final class Maged_Controller
             'minor'     => '8',
             'revision'  => '0',
             'patch'     => '0',
-            'stability' => 'alpha',
-            'number'    => '1',
+            'stability' => '',
+            'number'    => '',
         );
     }
 

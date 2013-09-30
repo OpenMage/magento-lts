@@ -25,7 +25,7 @@
  */
 
 /**
- * Mage_Mview_Model_Command_Factory
+ * Magento PDO MySQL DB adapter
  *
  * @category    Magento
  * @package     Magento_Db
@@ -71,5 +71,34 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
         } while ($affectedRows > 0);
 
         return $totalAffectedRows;
+    }
+
+    /**
+     * Retrieve bunch of queries for specified select splitted by specified step
+     *
+     * @param Varien_Db_Select $select
+     * @param string $entityIdField
+     * @param int $step
+     * @return array
+     */
+    public function splitSelect(Varien_Db_Select $select, $entityIdField = '*', $step = 10000)
+    {
+        $countSelect = clone $select;
+
+        $countSelect->reset(Zend_Db_Select::COLUMNS);
+        $countSelect->reset(Zend_Db_Select::LIMIT_COUNT);
+        $countSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
+        $countSelect->columns('COUNT(' . $entityIdField . ')');
+
+        $row = $this->fetchRow($countSelect);
+        $totalRows = array_shift($row);
+
+        $bunches = array();
+        for ($i = 0; $i <= $totalRows; $i += $step) {
+            $bunchSelect = clone $select;
+            $bunches[] = $bunchSelect->limit($step, $i);
+        }
+
+        return $bunches;
     }
 }

@@ -764,7 +764,7 @@ class Mage_Paypal_Model_Express_Checkout
 
                 $options[$i] = new Varien_Object(array(
                     'is_default' => $isDefault,
-                    'name'       => trim("{$rate->getCarrierTitle()} - {$rate->getMethodTitle()}", ' -'),
+                    'name'       => trim("{$rate->getCarrier()} - {$rate->getMethodTitle()}", ' -'),
                     'code'       => $rate->getCode(),
                     'amount'     => $amountExclTax,
                 ));

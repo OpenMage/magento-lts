@@ -464,7 +464,7 @@ class Varien_File_Uploader
     private function _setUploadFileId($fileId)
     {
         if (empty($_FILES)) {
-            throw new Exception('$_FILES array is empty');
+            throw new Exception('$_FILES array is empty', self::TMP_NAME_EMPTY);
         }
 
         if (is_array($fileId)) {
