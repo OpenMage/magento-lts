@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -40,6 +40,7 @@ class Mage_XmlConnect_Block_Checkout_Address_Billing extends Mage_Checkout_Block
      */
     protected function _toHtml()
     {
+        /** @var $billingXmlObj Mage_XmlConnect_Model_Simplexml_Element */
         $billingXmlObj = Mage::getModel('xmlconnect/simplexml_element', '<billing></billing>');
 
         $addressId = $this->getAddress()->getId();
@@ -54,9 +55,7 @@ class Mage_XmlConnect_Block_Checkout_Address_Billing extends Mage_Checkout_Block
                 $item->addAttribute('selected', 1);
             }
             $this->getChild('address_list')->prepareAddressData($address, $item);
-            $item->addChild(
-                'address_line', $billingXmlObj->escapeXml($address->format('oneline'))
-            );
+            $item->addChild('address_line', $billingXmlObj->escapeXml($address->format('oneline')));
         }
 
         return $billingXmlObj->asNiceXml();

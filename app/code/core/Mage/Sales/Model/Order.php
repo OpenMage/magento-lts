@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -265,7 +265,6 @@
  * @method Mage_Sales_Model_Order setRelationParentRealId(string $value)
  * @method string getRemoteIp()
  * @method Mage_Sales_Model_Order setRemoteIp(string $value)
- * @method string getShippingMethod()
  * @method Mage_Sales_Model_Order setShippingMethod(string $value)
  * @method string getStoreCurrencyCode()
  * @method Mage_Sales_Model_Order setStoreCurrencyCode(string $value)
@@ -534,6 +533,9 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function canCancel()
     {
+        if (!$this->_canVoidOrder()) {
+            return false;
+        }
         if ($this->canUnhold()) {  // $this->isPaymentReview()
             return false;
         }
@@ -557,7 +559,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if ($this->getActionFlag(self::ACTION_FLAG_CANCEL) === false) {
             return false;
         }
-
         /**
          * Use only state for availability detect
          */
@@ -572,18 +573,25 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
     /**
      * Getter whether the payment can be voided
+     *
      * @return bool
      */
     public function canVoidPayment()
     {
+        return $this->_canVoidOrder() ? $this->getPayment()->canVoid($this->getPayment()) : false;
+    }
+
+    /**
+     * Check whether order could be canceled by states and flags
+     *
+     * @return bool
+     */
+    protected function _canVoidOrder()
+    {
         if ($this->canUnhold() || $this->isPaymentReview()) {
             return false;
         }
-        $state = $this->getState();
-        if ($this->isCanceled() || $state === self::STATE_COMPLETE || $state === self::STATE_CLOSED) {
-            return false;
-        }
-        return $this->getPayment()->canVoid(new Varien_Object);
+        return true;
     }
 
     /**
@@ -1053,7 +1061,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      *
      * @param string $comment
      * @param string $status
-     * @return Mage_Sales_Order_Status_History
+     * @return Mage_Sales_Model_Order_Status_History
      */
     public function addStatusHistoryComment($comment, $status = false)
     {
@@ -1151,7 +1159,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function registerCancellation($comment = '', $graceful = true)
     {
-        if ($this->canCancel()) {
+        if ($this->canCancel() || $this->isPaymentReview()) {
             $cancelState = self::STATE_CANCELED;
             foreach ($this->getAllItems() as $item) {
                 if ($cancelState != self::STATE_PROCESSING && $item->getQtyToRefund()) {

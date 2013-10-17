@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Api
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -73,28 +73,33 @@ class Mage_Api_Model_Server_WSI_Adapter_Soap extends Mage_Api_Model_Server_Adapt
             try {
                 $this->_instantiateServer();
 
-                $this->getController()->getResponse()
-                    ->clearHeaders()
-                    ->setHeader('Content-Type','text/xml; charset='.$apiConfigCharset)
-                    ->setBody(
+                $content = str_replace(
+                    '><',
+                    ">\n<",
+                    str_replace(
+                        '<soap:operation soapAction=""></soap:operation>',
+                        "<soap:operation soapAction=\"\" />\n",
                         str_replace(
-                            '<soap:operation soapAction=""></soap:operation>',
-                            "<soap:operation soapAction=\"\" />\n",
-                            str_replace(
-                                '<soap:body use="literal"></soap:body>',
-                                "<soap:body use=\"literal\" />\n",
-                                preg_replace(
-                                    '/<\?xml version="([^\"]+)"([^\>]+)>/i',
-                                    '<?xml version="$1" encoding="'.$apiConfigCharset.'"?>',
-                                    $this->_soap->handle()
-                                )
+                            '<soap:body use="literal"></soap:body>',
+                            "<soap:body use=\"literal\" />\n",
+                            preg_replace(
+                                '/<\?xml version="([^\"]+)"([^\>]+)>/i',
+                                '<?xml version="$1" encoding="' . $apiConfigCharset . '"?>',
+                                $this->_soap->handle()
                             )
                         )
-                    );
-            } catch( Zend_Soap_Server_Exception $e ) {
-                $this->fault( $e->getCode(), $e->getMessage() );
-            } catch( Exception $e ) {
-                $this->fault( $e->getCode(), $e->getMessage() );
+                    )
+                );
+
+                $this->getController()->getResponse()
+                    ->clearHeaders()
+                    ->setHeader('Content-Type', 'text/xml; charset=' . $apiConfigCharset)
+                    ->setHeader('Content-Length', strlen($content), true)
+                    ->setBody($content);
+            } catch (Zend_Soap_Server_Exception $e) {
+                $this->fault($e->getCode(), $e->getMessage());
+            } catch (Exception $e) {
+                $this->fault($e->getCode(), $e->getMessage());
             }
         }
 

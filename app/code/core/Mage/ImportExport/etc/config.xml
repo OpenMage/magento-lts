@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_ImportExport
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -103,6 +103,15 @@
                 <virtual>importexport/export_entity_product_type_simple</virtual>
                 <grouped>importexport/export_entity_product_type_grouped</grouped>
             </export_product_types>
+            <import>
+                <catalog_product>
+                    <attributes>
+                        <url_key>
+                            <backend_model>importexport/product_attribute_backend_urlkey</backend_model>
+                        </url_key>
+                    </attributes>
+                </catalog_product>
+            </import>
         </importexport>
     </global>
     <admin>

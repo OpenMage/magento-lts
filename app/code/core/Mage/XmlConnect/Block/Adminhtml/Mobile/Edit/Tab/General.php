@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -100,16 +100,16 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_General
         }
 
         $fieldset->addField('showdev', 'select', array(
-                'name'      => 'showdev',
-                'label'     => $this->__('Device Type'),
-                'title'     => $this->__('Device Type'),
-                'values'    => array($model->getType() => $model->getDevtype()),
-                'disabled'  => true,
+            'name'      => 'showdev',
+            'label'     => $this->__('Device Type'),
+            'title'     => $this->__('Device Type'),
+            'values'    => array($model->getType() => $model->getDevtype()),
+            'disabled'  => true,
         ));
 
         $fieldset->addField('devtype', 'hidden', array(
-                'name'  => 'devtype',
-                'value' => $model->getType(),
+            'name'  => 'devtype',
+            'value' => $model->getType(),
         ));
 
         $yesNoValues = Mage::getModel('adminhtml/system_config_source_yesno')->toOptionArray();
@@ -153,7 +153,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_General
      */
     public function canShowTab()
     {
-        return (bool) !Mage::getSingleton('adminhtml/session')->getNewApplication();
+        return (bool)!Mage::getSingleton('adminhtml/session')->getNewApplication();
     }
 
     /**

@@ -20,9 +20,9 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<p><?php echo $this->getMethod()->getTitle() ?></p>
-<p><?php echo Mage::helper('payment')->__('Purchase Order Number: %s', $this->htmlEscape($this->getInfo()->getPoNumber())) ?></p>
+<p><?php echo $this->escapeHtml($this->getMethod()->getTitle()) ?></p>
+<p><?php echo Mage::helper('payment')->__('Purchase Order Number: %s', $this->escapeHtml($this->getInfo()->getPoNumber())) ?></p>

@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -1243,7 +1243,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>&lt;strong style="color:red"&gt;Warning!&lt;/strong&gt; When using CDN, in some cases JavaScript may not run properly if CDN is not in your subdomain</comment>
+                            <comment><![CDATA[<strong style="color:red">Warning!</strong> When using CDN, in some cases JavaScript may not run properly if CDN is not in your subdomain]]></comment>
                         </base_js_url>
                     </fields>
                 </unsecure>
@@ -1301,7 +1301,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>&lt;strong style="color:red"&gt;Warning!&lt;/strong&gt; When using CDN, in some cases JavaScript may not run properly if CDN is not in your subdomain</comment>
+                            <comment><![CDATA[<strong style="color:red">Warning!</strong> When using CDN, in some cases JavaScript may not run properly if CDN is not in your subdomain]]></comment>
                         </base_js_url>
                         <use_in_frontend translate="label">
                             <label>Use Secure URLs in Frontend</label>

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,6 +33,9 @@
  */
 class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * Index action
+     */
     public function indexAction()
     {
         $this->_title($this->__('System'))->_title($this->__('Transactional Emails'));
@@ -44,21 +47,27 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
 
         $this->loadLayout();
         $this->_setActiveMenu('system/email_template');
-        $this->_addBreadcrumb(Mage::helper('adminhtml')->__('Transactional Emails'), Mage::helper('adminhtml')->__('Transactional Emails'));
+        $this->_addBreadcrumb(
+            Mage::helper('adminhtml')->__('Transactional Emails'),
+            Mage::helper('adminhtml')->__('Transactional Emails')
+        );
 
         $this->_addContent($this->getLayout()->createBlock('adminhtml/system_email_template', 'template'));
         $this->renderLayout();
     }
 
+    /**
+     * Grid action
+     */
     public function gridAction()
     {
-        $this->getResponse()->setBody($this->getLayout()->createBlock('adminhtml/system_email_template_grid')->toHtml());
+        $this->getResponse()->setBody(
+            $this->getLayout()->createBlock('adminhtml/system_email_template_grid')->toHtml()
+        );
     }
-
 
     /**
      * New transactional email action
-     *
      */
     public function newAction()
     {
@@ -66,29 +75,43 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
     }
 
     /**
-     * Edit transactioanl email action
-     *
+     * Edit transactional email action
      */
     public function editAction()
     {
         $this->loadLayout();
         $template = $this->_initTemplate('id');
         $this->_setActiveMenu('system/email_template');
-        $this->_addBreadcrumb(Mage::helper('adminhtml')->__('Transactional Emails'), Mage::helper('adminhtml')->__('Transactional Emails'), $this->getUrl('*/*'));
+        $this->_addBreadcrumb(
+            Mage::helper('adminhtml')->__('Transactional Emails'),
+            Mage::helper('adminhtml')->__('Transactional Emails'),
+            $this->getUrl('*/*')
+        );
 
         if ($this->getRequest()->getParam('id')) {
-            $this->_addBreadcrumb(Mage::helper('adminhtml')->__('Edit Template'), Mage::helper('adminhtml')->__('Edit System Template'));
+            $this->_addBreadcrumb(
+                Mage::helper('adminhtml')->__('Edit Template'),
+                Mage::helper('adminhtml')->__('Edit System Template')
+            );
         } else {
-            $this->_addBreadcrumb(Mage::helper('adminhtml')->__('New Template'), Mage::helper('adminhtml')->__('New System Template'));
+            $this->_addBreadcrumb(
+                Mage::helper('adminhtml')->__('New Template'),
+                Mage::helper('adminhtml')->__('New System Template')
+            );
         }
 
         $this->_title($template->getId() ? $template->getTemplateCode() : $this->__('New Template'));
-
-        $this->_addContent($this->getLayout()->createBlock('adminhtml/system_email_template_edit', 'template_edit')
-                                                            ->setEditMode((bool)$this->getRequest()->getParam('id')));
+        $this->_addContent(
+            $this->getLayout()->createBlock('adminhtml/system_email_template_edit', 'template_edit')->setEditMode(
+                (bool)$this->getRequest()->getParam('id')
+            )
+        );
         $this->renderLayout();
     }
 
+    /**
+     * Save action
+     */
     public function saveAction()
     {
         $request = $this->getRequest();
@@ -96,7 +119,9 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
 
         $template = $this->_initTemplate('id');
         if (!$template->getId() && $id) {
-            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('This Email template no longer exists.'));
+            Mage::getSingleton('adminhtml/session')->addError(
+                Mage::helper('adminhtml')->__('This Email template no longer exists.')
+            );
             $this->_redirect('*/*/');
             return;
         }
@@ -104,10 +129,6 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
         try {
             $template->setTemplateSubject($request->getParam('template_subject'))
                 ->setTemplateCode($request->getParam('template_code'))
-/*
-                ->setTemplateSenderEmail($request->getParam('sender_email'))
-                ->setTemplateSenderName($request->getParam('sender_name'))
-*/
                 ->setTemplateText($request->getParam('template_text'))
                 ->setTemplateStyles($request->getParam('template_styles'))
                 ->setModifiedAt(Mage::getSingleton('core/date')->gmtDate())
@@ -115,38 +136,44 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
                 ->setOrigTemplateVariables($request->getParam('orig_template_variables'));
 
             if (!$template->getId()) {
-                //$type = constant(Mage::getConfig()->getModelClassName('core/email_template') . "::TYPE_HTML");
+                $template->setAddedAt(Mage::getSingleton('core/date')->gmtDate());
                 $template->setTemplateType(Mage_Core_Model_Email_Template::TYPE_HTML);
             }
 
-            if($request->getParam('_change_type_flag')) {
-                //$type = constant(Mage::getConfig()->getModelClassName('core/email_template') . "::TYPE_TEXT");
+            if ($request->getParam('_change_type_flag')) {
                 $template->setTemplateType(Mage_Core_Model_Email_Template::TYPE_TEXT);
                 $template->setTemplateStyles('');
             }
 
             $template->save();
             Mage::getSingleton('adminhtml/session')->setFormData(false);
-            Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('The email template has been saved.'));
+            Mage::getSingleton('adminhtml/session')->addSuccess(
+                Mage::helper('adminhtml')->__('The email template has been saved.')
+            );
             $this->_redirect('*/*');
         }
         catch (Exception $e) {
-            Mage::getSingleton('adminhtml/session')->setData('email_template_form_data', $this->getRequest()->getParams());
+            Mage::getSingleton('adminhtml/session')->setData(
+                'email_template_form_data',
+                $this->getRequest()->getParams()
+            );
             Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             $this->_forward('new');
         }
-
     }
 
-    public function deleteAction() {
-
+    /**
+     * Delete action
+     */
+    public function deleteAction()
+    {
         $template = $this->_initTemplate('id');
-        if($template->getId()) {
+        if ($template->getId()) {
             try {
                 $template->delete();
-                 // display success message
-                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('The email template has been deleted.'));
-                // go to grid
+                Mage::getSingleton('adminhtml/session')->addSuccess(
+                    Mage::helper('adminhtml')->__('The email template has been deleted.')
+                );
                 $this->_redirect('*/*/');
                 return;
             }
@@ -154,21 +181,23 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
                 $this->_getSession()->addError($e->getMessage());
             }
             catch (Exception $e) {
-                $this->_getSession()->addError(Mage::helper('adminhtml')->__('An error occurred while deleting email template data. Please review log and try again.'));
+                $this->_getSession()->addError(
+                    Mage::helper('adminhtml')->__('An error occurred while deleting email template data. Please review log and try again.')
+                );
                 Mage::logException($e);
-                // save data in session
-                Mage::getSingleton('adminhtml/session')->setFormData($data);
-                // redirect to edit form
-                $this->_redirect('*/*/edit', array('id' => $id));
+                $this->_redirect('*/*/edit', array('id' => $template));
                 return;
             }
         }
-        // display error message
-        Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Unable to find a Email Template to delete.'));
-        // go to grid
+        Mage::getSingleton('adminhtml/session')->addError(
+            Mage::helper('adminhtml')->__('Unable to find a Email Template to delete.')
+        );
         $this->_redirect('*/*/');
     }
 
+    /**
+     * Preview action
+     */
     public function previewAction()
     {
         $this->loadLayout('systemPreview');
@@ -177,7 +206,6 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
 
     /**
      * Set template data to retrieve it in template info form
-     *
      */
     public function defaultTemplateAction()
     {
@@ -198,7 +226,7 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
      * Load email template from request
      *
      * @param string $idFieldName
-     * @return Mage_Adminhtml_Model_Email_Template $model
+     * @return Mage_Adminhtml_Model_Email_Template
      */
     protected function _initTemplate($idFieldName = 'template_id')
     {
@@ -218,6 +246,11 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
         return $model;
     }
 
+    /**
+     * Check permissions
+     *
+     * @return bool
+     */
     protected function _isAllowed()
     {
         return Mage::getSingleton('admin/session')->isAllowed('system/email_template');

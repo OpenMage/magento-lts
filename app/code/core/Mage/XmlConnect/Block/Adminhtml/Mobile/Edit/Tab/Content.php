@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -35,6 +35,11 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Content
     extends Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form
     implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+    /**
+     * List of static CMS pages
+     *
+     * @var array
+     */
     protected $_pages;
 
     /**
@@ -45,63 +50,58 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Content
     {
         parent::__construct();
         $this->setShowGlobalIcon(true);
+        $this->setTemplate('/xmlconnect/edit/tab/content.phtml');
+        $this->_pages = Mage::getResourceModel('xmlconnect/cms_page_collection')->toOptionIdArray();
     }
 
     /**
      * Add page input to fieldset
      *
+     * @deprecated will delete in the next version
      * @param Varien_Data_Form_Element_Fieldset $fieldset
      * @param string $fieldPrefix
+     * @return null
      */
     protected function _addPage($fieldset, $fieldPrefix)
     {
-        $element = $fieldset->addField($fieldPrefix, 'page', array(
-            'name'      => $fieldPrefix,
-        ));
-        $element->initFields(array(
-            'name'      => $fieldPrefix,
-            'values'    => $this->_pages,
-        ));
+        $element = $fieldset->addField($fieldPrefix, 'page', array('name' => $fieldPrefix));
+        $element->initFields(array('name' => $fieldPrefix, 'values' => $this->_pages));
     }
 
     /**
      * Prepare form before rendering HTML
-     * Setting Form Fieldsets and fields
      *
      * @return Mage_Adminhtml_Block_Widget_Form
      */
     protected function _prepareForm()
     {
-        $model = Mage::helper('xmlconnect')->getApplication();
-        $conf = $model->getConf();
-        $form = new Varien_Data_Form();
-        $this->setForm($form);
-
-        $pages = Mage::getResourceModel('xmlconnect/cms_page_collection')->toOptionIdArray();
-        $dummy = array(array( 'value' => '', 'label' => '' ));
-        $this->_pages = array_merge($dummy, $pages);
-
-        $fieldset = $form->addFieldset('cms_pages', array('legend' => $this->__('Pages')));
-        $this->_addElementTypes($fieldset);
-
-        $fieldset->addField('page_row_add', 'addrow', array(
-            'onclick' => 'insertNewTableRow(this)',
-            'options' => $this->_pages,
-            'class' => ' scalable save ',
-            'label' => $this->__('Label'),
-            'before_element_html' => $this->__('Get Content from CMS Page').'</td><td class="label">',
-        ));
-
-        if (!empty($conf['native']['pages'])) {
-            foreach ($conf['native']['pages'] as $key=>$dummy) {
-                $this->_addPage($fieldset, 'conf[native][pages]['.$key.']');
-            }
-        }
-
-        $data = $model->getFormData();
-        $data['page_row_add'] = $this->__('Add Page');
-        $form->setValues($data);
+        $this->_prepareButtons();
         return parent::_prepareForm();
+    }
+
+    /**
+     * Prepare add and delete buttons for content tab
+     *
+     * @return Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Content
+     */
+    protected function _prepareButtons()
+    {
+        $addButton = $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
+            'label'     => $this->__('Add Page'),
+            'onclick'   => 'cmsPageActionHelper.insertPage(); return false;',
+            'class'     => 'add'
+        ))->setName('add_page_item_button');
+
+        $this->setChild('add_button', $addButton);
+
+        $deleteButton = $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
+            'label'     => $this->__('Delete'),
+            'onclick'   => "$(\'config_data[{{deleteId}}][tr]\').remove(); return false;",
+            'class'     => 'delete'
+        ))->setName('add_page_item_button');
+
+        $this->setChild('delete_button', $deleteButton);
+        return $this;
     }
 
     /**
@@ -142,5 +142,25 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Content
     public function isHidden()
     {
         return false;
+    }
+
+    /**
+     * Return cms page list
+     *
+     * @return array
+     */
+    public function getPages()
+    {
+        return $this->_pages;
+    }
+
+    /**
+     * Return saved static page list
+     *
+     * @return array
+     */
+    public function getStaticPageList()
+    {
+        return Mage::getSingleton('xmlconnect/configuration')->getDeviceStaticPages();
     }
 }

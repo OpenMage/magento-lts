@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -1178,9 +1178,8 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         // attempt to fetch region_id from directory
         if ($address->getCountryId() && $address->getRegion()) {
             $regions = Mage::getModel('directory/country')->loadByCode($address->getCountryId())->getRegionCollection()
-                ->addRegionCodeFilter($address->getRegion())
-                ->setPageSize(1)
-            ;
+                ->addRegionCodeOrNameFilter($address->getRegion())
+                ->setPageSize(1);
             foreach ($regions as $region) {
                 $address->setRegionId($region->getId());
                 $address->setExportedKeys(array_merge($address->getExportedKeys(), array('region_id')));

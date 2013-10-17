@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -161,19 +161,15 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
         $this->_checkBaseUrl($request);
 
         $request->setPathInfo()->setDispatched(false);
-        if (!$request->isStraight()) {
-            Varien_Profiler::start('mage::dispatch::db_url_rewrite');
-            Mage::getModel('core/url_rewrite')->rewrite();
-            Varien_Profiler::stop('mage::dispatch::db_url_rewrite');
-        }
-        Varien_Profiler::start('mage::dispatch::config_url_rewrite');
-        $this->rewrite();
-        Varien_Profiler::stop('mage::dispatch::config_url_rewrite');
+
+        $this->_getRequestRewriteController()->rewrite();
+
         Varien_Profiler::start('mage::dispatch::routers_match');
         $i = 0;
-        while (!$request->isDispatched() && $i++<100) {
+        while (!$request->isDispatched() && $i++ < 100) {
             foreach ($this->_routers as $router) {
-                if ($router->match($this->getRequest())) {
+                /** @var $router Mage_Core_Controller_Varien_Router_Abstract */
+                if ($router->match($request)) {
                     break;
                 }
             }
@@ -191,6 +187,27 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
         return $this;
     }
 
+    /**
+     * Returns request rewrite instance.
+     * Class name alias is declared in the configuration
+     *
+     * @return Mage_Core_Model_Url_Rewrite_Request
+     */
+    protected function _getRequestRewriteController()
+    {
+        $className = (string)Mage::getConfig()->getNode('global/request_rewrite/model');
+
+        return Mage::getSingleton('core/factory')->getModel($className, array(
+            'routers' => $this->getRouters(),
+        ));
+    }
+
+    /**
+     * Returns router instance by route name
+     *
+     * @param string $routeName
+     * @return Mage_Core_Controller_Varien_Router_Abstract
+     */
     public function getRouterByRoute($routeName)
     {
         // empty route supplied - return base url
@@ -237,6 +254,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
      * Apply configuration rewrites to current url
      *
      * @return Mage_Core_Controller_Varien_Front
+     * @deprecated since 1.7.0.2. Refactored and moved to Mage_Core_Controller_Request_Rewrite
      */
     public function rewrite()
     {
@@ -269,6 +287,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
      *
      * @param   string $url
      * @return  string
+     * @deprecated since 1.7.0.2. Refactored and moved to Mage_Core_Controller_Request_Rewrite
      */
     protected function _processRewriteUrl($url)
     {
@@ -293,7 +312,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
      */
     protected function _checkBaseUrl($request)
     {
-        if (!Mage::isInstalled() || $request->getPost()) {
+        if (!Mage::isInstalled() || $request->getPost() || strtolower($request->getMethod()) == 'post') {
             return;
         }
 

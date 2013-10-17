@@ -19,7 +19,7 @@
  *
  * @category    Varien
  * @package     js
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 if(typeof Product=='undefined') {
@@ -133,14 +133,17 @@ Product.Zoom.prototype = {
         this.imageZoom = this.floorZoom+(v*(this.ceilingZoom-this.floorZoom));
 
         if (overSize) {
-            if (this.imageDim.width > this.containerDim.width) {
+            if (this.imageDim.width > this.imageDim.height) {
                 this.imageEl.style.width = (this.imageZoom*this.containerDim.width)+'px';
-            } else if (this.imageDim.height > this.containerDim.height) {
+            } else {
                 this.imageEl.style.height = (this.imageZoom*this.containerDim.height)+'px';
             }
-
-            if(this.containerDim.ratio){
-                this.imageEl.style.height = (this.imageZoom*this.containerDim.width*this.containerDim.ratio)+'px'; // for safari
+            if (this.containerDim.ratio) {
+                if (this.imageDim.width > this.imageDim.height) {
+                    this.imageEl.style.height = (this.imageZoom*this.containerDim.width*this.containerDim.ratio)+'px'; // for safari
+                } else {
+                    this.imageEl.style.width = (this.imageZoom*this.containerDim.height*this.containerDim.ratio)+'px'; // for safari
+                }
             }
         } else {
             this.slider.setDisabled();
@@ -365,7 +368,8 @@ Product.Config.prototype = {
         var attributeId = element.id.replace(/[a-z]*/, '');
         var options = this.getAttributeOptions(attributeId);
         this.clearSelect(element);
-        element.options[0] = new Option(this.config.chooseText, '');
+        element.options[0] = new Option('', '');
+        element.options[0].innerHTML = this.config.chooseText;
 
         var prevConfig = false;
         if(element.prevSetting){
@@ -561,7 +565,7 @@ Product.OptionsPrice.prototype = {
         this.productOldPrice    = config.productOldPrice;
         this.priceInclTax       = config.priceInclTax;
         this.priceExclTax       = config.priceExclTax;
-        this.skipCalculate      = config.skipCalculate;//@deprecated after 1.5.1.0
+        this.skipCalculate      = config.skipCalculate; /** @deprecated after 1.5.1.0 */
         this.duplicateIdSuffix  = config.idSuffix;
         this.specialTaxPrice    = config.specialTaxPrice;
         this.tierPrices         = config.tierPrices;
@@ -760,8 +764,8 @@ Product.OptionsPrice.prototype = {
                 };
                 var container = $(this.containers[3]) ? this.containers[3] : this.containers[0];
                 var price = parsePrice($(container).innerHTML);
-                var tierPrice = $$('.price.tier-' + i);
-                tierPrice = tierPrice.length ? parseInt(tierPrice[0].innerHTML, 10) : 0;
+                var tierPrice = $$('.tier-price.tier-' + i+' .price');
+                tierPrice = tierPrice.length ? parsePrice(tierPrice[0].innerHTML, 10) : 0;
                 var $percent = Selector.findChildElements(el, ['.percent.tier-' + i]);
                 $percent.each(function (el) {
                     el.innerHTML = Math.ceil(100 - ((100 / price) * tierPrice));

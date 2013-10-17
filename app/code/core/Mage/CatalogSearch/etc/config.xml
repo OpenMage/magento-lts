@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogSearch
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -32,6 +32,9 @@
         </Mage_CatalogSearch>
     </modules>
     <global>
+        <catalogsearch_fulltext>
+            <model>catalogsearch/fulltext</model>
+        </catalogsearch_fulltext>
         <models>
             <catalogsearch>
                 <class>Mage_CatalogSearch_Model</class>

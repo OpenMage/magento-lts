@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Backup
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -62,10 +62,10 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
     public function getBackupTypes()
     {
         return array(
-            self::TYPE_DB => self::__('Database'),
-            self::TYPE_MEDIA => self::__('Database and Media'),
-            self::TYPE_SYSTEM_SNAPSHOT => self::__('System'),
-            self::TYPE_SNAPSHOT_WITHOUT_MEDIA => self::__('System (excluding Media)')
+            self::TYPE_DB                     => $this->__('Database'),
+            self::TYPE_MEDIA                  => $this->__('Database and Media'),
+            self::TYPE_SYSTEM_SNAPSHOT        => $this->__('System'),
+            self::TYPE_SNAPSHOT_WITHOUT_MEDIA => $this->__('System (excluding Media)')
         );
     }
 

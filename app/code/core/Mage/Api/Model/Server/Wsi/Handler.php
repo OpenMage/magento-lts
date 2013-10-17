@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Api
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -176,4 +176,16 @@ class Mage_Api_Model_Server_WSI_Handler extends Mage_Api_Model_Server_Handler_Ab
         return $callArgs;
     }
 
+    /**
+     * End web service session
+     *
+     * @param object $request
+     * @return stdClass
+     */
+    public function endSession($request)
+    {
+        $stdObject = new stdClass();
+        $stdObject->result = parent::endSession($request->sessionId);
+        return $stdObject;
+    }
 }

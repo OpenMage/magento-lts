@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -213,7 +213,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
         $html = '<' . $this->_messagesFirstLevelTagName . ' id="admin_messages">';
         foreach ($this->getMessages($type) as $message) {
             $html.= '<' . $this->_messagesSecondLevelTagName . ' class="'.$message->getType().'-msg">'
-                . ($this->_escapeMessageFlag) ? $this->htmlEscape($message->getText()) : $message->getText()
+                . ($this->_escapeMessageFlag) ? $this->escapeHtml($message->getText()) : $message->getText()
                 . '</' . $this->_messagesSecondLevelTagName . '>';
         }
         $html .= '</' . $this->_messagesFirstLevelTagName . '>';
@@ -246,7 +246,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
                 foreach ( $messages as $message ) {
                     $html.= '<' . $this->_messagesSecondLevelTagName . '>';
                     $html.= '<' . $this->_messagesContentWrapperTagName . '>';
-                    $html.= ($this->_escapeMessageFlag) ? $this->htmlEscape($message->getText()) : $message->getText();
+                    $html.= ($this->_escapeMessageFlag) ? $this->escapeHtml($message->getText()) : $message->getText();
                     $html.= '</' . $this->_messagesContentWrapperTagName . '>';
                     $html.= '</' . $this->_messagesSecondLevelTagName . '>';
                 }

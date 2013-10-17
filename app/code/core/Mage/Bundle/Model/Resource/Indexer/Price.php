@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Bundle
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -242,17 +242,17 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
         if ($priceType == Mage_Bundle_Model_Product_Price::PRICE_TYPE_FIXED) {
             $finalPrice = $write->getCheckSql(
                 $specialExpr . ' > 0',
-                'ROUND(' . $price . ' * (' . $specialExpr . '  / 100), 4)',
+                'ROUND(' . $price . ' * (' . $specialExpr . '  / 100), 2)',
                 $price
             );
             $tierPrice = $write->getCheckSql(
                 $tierExpr . ' IS NOT NULL',
-                'ROUND(' . $price . ' - ' . '(' . $price . ' * (' . $tierExpr . ' / 100)), 4)',
+                'ROUND(' . $price . ' - ' . '(' . $price . ' * (' . $tierExpr . ' / 100)), 2)',
                 'NULL'
             );
             $groupPrice = $write->getCheckSql(
                 $groupPriceExpr . ' > 0',
-                'ROUND(' . $price . ' - ' . '(' . $price . ' * (' . $groupPriceExpr . ' / 100)), 4)',
+                'ROUND(' . $price . ' - ' . '(' . $price . ' * (' . $groupPriceExpr . ' / 100)), 2)',
                 'NULL'
             );
             $finalPrice = $write->getCheckSql(
@@ -417,10 +417,10 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
             $priceExpr = new Zend_Db_Expr(
                 $write->getCheckSql(
                     $selectionPriceType . ' = 1',
-                    'ROUND(i.price * (' . $selectionPriceValue . ' / 100),4)',
+                    'ROUND(i.price * (' . $selectionPriceValue . ' / 100),2)',
                     $write->getCheckSql(
                         'i.special_price > 0 AND i.special_price < 100',
-                        'ROUND(' . $selectionPriceValue . ' * (i.special_price / 100),4)',
+                        'ROUND(' . $selectionPriceValue . ' * (i.special_price / 100),2)',
                         $selectionPriceValue
                     )
                 ) . '* bs.selection_qty'
@@ -430,11 +430,11 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
                 'i.base_tier IS NOT NULL',
                 $write->getCheckSql(
                     $selectionPriceType .' = 1',
-                    'ROUND(i.base_tier - (i.base_tier * (' . $selectionPriceValue . ' / 100)),4)',
+                    'ROUND(i.base_tier - (i.base_tier * (' . $selectionPriceValue . ' / 100)),2)',
                     $write->getCheckSql(
                         'i.tier_percent > 0',
                         'ROUND(' . $selectionPriceValue
-                        . ' - (' . $selectionPriceValue . ' * (i.tier_percent / 100)),4)',
+                        . ' - (' . $selectionPriceValue . ' * (i.tier_percent / 100)),2)',
                         $selectionPriceValue
                     )
                 ) . ' * bs.selection_qty',
@@ -449,7 +449,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
                     $write->getCheckSql(
                         'i.group_price_percent > 0',
                         'ROUND(' . $selectionPriceValue
-                        . ' - (' . $selectionPriceValue . ' * (i.group_price_percent / 100)),4)',
+                        . ' - (' . $selectionPriceValue . ' * (i.group_price_percent / 100)),2)',
                         $selectionPriceValue
                     )
                 ) . ' * bs.selection_qty',
@@ -462,24 +462,24 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
             $priceExpr = new Zend_Db_Expr(
                 $write->getCheckSql(
                     'i.special_price > 0 AND i.special_price < 100',
-                    'ROUND(idx.min_price * (i.special_price / 100), 4)',
+                    'ROUND(idx.min_price * (i.special_price / 100), 2)',
                     'idx.min_price'
                 ) . ' * bs.selection_qty'
             );
             $tierExpr = $write->getCheckSql(
                 'i.base_tier IS NOT NULL',
-                'ROUND(idx.min_price * (i.base_tier / 100), 4)* bs.selection_qty',
+                'ROUND(idx.min_price * (i.base_tier / 100), 2)* bs.selection_qty',
                 'NULL'
             );
             $groupExpr = $write->getCheckSql(
                 'i.base_group_price IS NOT NULL',
-                'ROUND(idx.min_price * (i.base_group_price / 100), 4)* bs.selection_qty',
+                'ROUND(idx.min_price * (i.base_group_price / 100), 2)* bs.selection_qty',
                 'NULL'
             );
             $groupPriceExpr = new Zend_Db_Expr(
                 $write->getCheckSql(
                     'i.base_group_price IS NOT NULL AND i.base_group_price > 0 AND i.base_group_price < 100',
-                    'ROUND(idx.min_price - idx.min_price * (i.base_group_price / 100), 4)',
+                    'ROUND(idx.min_price - idx.min_price * (i.base_group_price / 100), 2)',
                     'idx.min_price'
                 ) . ' * bs.selection_qty'
             );

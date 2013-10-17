@@ -1,0 +1,16 @@
+<config>
+    <modules>
+        <Cm_RedisSession>
+            <version>0.2</version>
+        </Cm_RedisSession>
+    </modules>
+    <global>
+        <models>
+            <core_mysql4>
+                <rewrite>
+                    <session>Cm_RedisSession_Model_Session</session>
+                </rewrite>
+            </core_mysql4>
+        </models>
+    </global>
+</config>

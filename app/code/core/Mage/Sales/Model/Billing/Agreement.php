@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -138,6 +138,18 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
         $this->getPaymentMethodInstance()
             ->getBillingAgreementTokenInfo($this);
         return $this;
+    }
+
+    /**
+     * Check for permissions
+     *
+     * @param int $customerIdSession
+     * @return boolean
+     */
+    public function canPerformAction($customerIdSession)
+    {
+        // Get the customer id from billing agreement and compare to logged in customer id
+        return ((int)$this->getCustomerId() === (int)$customerIdSession) ? true : false;
     }
 
     /**

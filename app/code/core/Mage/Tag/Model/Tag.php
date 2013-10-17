@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tag
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -400,6 +400,21 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
             $relationModel->getCustomerId(),
             $relationModel->getStoreId()
         );
+    }
+
+    /**
+     * Processing object after save data
+     *
+     * @return Mage_Core_Model_Abstract
+     */
+    protected function _afterSave()
+    {
+        if ($this->hasData('tag_assigned_products')) {
+            $tagRelationModel = Mage::getModel('tag/tag_relation');
+            $tagRelationModel->addRelations($this, $this->getData('tag_assigned_products'));
+        }
+
+        return parent::_afterSave();
     }
 
 }

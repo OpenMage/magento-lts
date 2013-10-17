@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -654,7 +654,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      * Check if product can be bought
      *
      * @param  Mage_Catalog_Model_Product $product
-     * @return Mage_Catalog_Model_Product_Type_Abstract
+     * @return Mage_Catalog_Model_Product_Type_Configurable
      * @throws Mage_Core_Exception
      */
     public function checkProductBuyState($product = null)
@@ -778,20 +778,18 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      * Implementation of product specify logic of which product needs to be assigned to option.
      * For example if product which was added to option already removed from catalog.
      *
-     * @param  Mage_Catalog_Model_Product $optionProduct
+     * @param  Mage_Catalog_Model_Product|null $optionProduct
      * @param  Mage_Sales_Model_Quote_Item_Option $option
-     * @param  Mage_Catalog_Model_Product $product
-     * @return Mage_Catalog_Model_Product_Type_Abstract
+     * @param  Mage_Catalog_Model_Product|null $product
+     * @return Mage_Catalog_Model_Product_Type_Configurable
      */
     public function assignProductToOption($optionProduct, $option, $product = null)
     {
         if ($optionProduct) {
             $option->setProduct($optionProduct);
         } else {
-            $option->getItem()->setHasError('error');
-            $option->getItem()->addMessage(Mage::helper('catalog')->__('Selected configuration is not available.', $this->getProduct($product)->getName()));
+            $option->getItem()->setHasConfigurationUnavailableError(true);
         }
-
         return $this;
     }
 

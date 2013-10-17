@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -116,8 +116,9 @@
                             <show_in_store>0</show_in_store>
                         </flat_catalog_category>
 
-                        <flat_catalog_product translate="label">
+                        <flat_catalog_product translate="label comment">
                             <label>Use Flat Catalog Product</label>
+                            <comment><![CDATA[Enable for reindexing a big number of SKUs]]>.</comment>
                             <frontend_type>select</frontend_type>
                             <frontend_model>adminhtml/system_config_form_field_select_flatproduct</frontend_model>
                             <backend_model>catalog/system_config_backend_catalog_product_flat</backend_model>

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_GoogleCheckout
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -94,7 +94,9 @@ class Mage_GoogleCheckout_Model_Api extends Varien_Object
 
     public function deliver($gOrderId, $carrier, $trackingNo, $sendMail = true)
     {
-        $gCarriers = array('dhl' => 'DHL', 'fedex' => 'FedEx', 'ups' => 'UPS', 'usps' => 'USPS');
+        $this->setCarriers(array('dhl' => 'DHL', 'fedex' => 'FedEx', 'ups' => 'UPS', 'usps' => 'USPS'));
+        Mage::dispatchEvent('googlecheckout_api_deliver_carriers_array', array('api' => $this));
+        $gCarriers = $this->getCarriers();
         $carrier = strtolower($carrier);
         $carrier = isset($gCarriers[$carrier]) ? $gCarriers[$carrier] : 'Other';
 

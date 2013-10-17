@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Rss
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,7 +30,6 @@
  * @file        IndexController.php
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Rss_IndexController extends Mage_Core_Controller_Front_Action
 {
     /**
@@ -52,7 +51,7 @@ class Mage_Rss_IndexController extends Mage_Core_Controller_Front_Action
      */
     public function indexAction()
     {
-        if (Mage::getStoreConfig('rss/config/active')) {
+        if ($this->_getHelper('rss')->isRssEnabled()) {
             $this->loadLayout();
             $this->renderLayout();
         } else {
@@ -129,7 +128,7 @@ class Mage_Rss_IndexController extends Mage_Core_Controller_Front_Action
             if ($wishlistId) {
                 $this->_wishlist->load($wishlistId);
             } else {
-                if($this->_getCustomer()->getId()) {
+                if ($this->_getCustomer()->getId()) {
                     $this->_wishlist->loadByCustomer($this->_getCustomer());
                 }
             }
@@ -147,7 +146,7 @@ class Mage_Rss_IndexController extends Mage_Core_Controller_Front_Action
         if (is_null($this->_customer)) {
             $this->_customer = Mage::getModel('customer/customer');
 
-            $params = Mage::helper('core')->urlDecode($this->getRequest()->getParam('data'));
+            $params = $this->_getHelper('core')->urlDecode($this->getRequest()->getParam('data'));
             $data   = explode(',', $params);
             $customerId    = abs(intval($data[0]));
             if ($customerId && ($customerId == Mage::getSingleton('customer/session')->getCustomerId()) ) {
@@ -156,5 +155,16 @@ class Mage_Rss_IndexController extends Mage_Core_Controller_Front_Action
         }
 
         return $this->_customer;
+    }
+
+    /**
+     * Retrieve helper instance
+     *
+     * @param string $name
+     * @return Mage_Core_Helper_Abstract
+     */
+    protected function _getHelper($name)
+    {
+        return Mage::helper($name);
     }
 }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -48,20 +48,20 @@ class Mage_XmlConnect_Block_Customer_Form_Renderer_Date extends Enterprise_Custo
     protected function _prepareValues()
     {
         return array('day' => array(
-            'id' => $this->getHtmlId('day'),
-            'title' => $this->__('Day'),
-            'label' => $this->__('DD'),
-            'value' => $this->getDay()
-        ), 'month' => array(
-            'id' => $this->getHtmlId('month'),
-            'title' => $this->__('Month'),
-            'label' => $this->__('MM'),
-            'value' => $this->getMonth()
-        ), 'year' => array(
-            'id' => $this->getHtmlId('year'),
-            'title' => $this->__('Year'),
-            'label' => $this->__('YYYY'),
-            'value' => $this->getYear()
+                'id' => $this->getHtmlId('day'),
+                'title' => $this->__('Day'),
+                'label' => $this->__('DD'),
+                'value' => $this->getDay()
+            ), 'month' => array(
+                'id' => $this->getHtmlId('month'),
+                'title' => $this->__('Month'),
+                'label' => $this->__('MM'),
+                'value' => $this->getMonth()
+            ), 'year' => array(
+                'id' => $this->getHtmlId('year'),
+                'title' => $this->__('Year'),
+                'label' => $this->__('YYYY'),
+                'value' => $this->getYear()
         ));
     }
 
@@ -82,7 +82,9 @@ class Mage_XmlConnect_Block_Customer_Form_Renderer_Date extends Enterprise_Custo
 
         $attributes += Mage::helper('xmlconnect/customer_form_renderer')
             ->addTitleAndRequiredAttr($fieldsetXmlObj, $this);
+
         $fieldXmlObj = $fieldsetXmlObj->addField($this->getHtmlId('full'), $this->_filedType, $attributes);
+
         $validateRules = $this->getAttributeObject()->getValidateRules();
 
         if (!empty($validateRules)) {

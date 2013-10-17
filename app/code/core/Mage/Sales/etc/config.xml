@@ -21,14 +21,14 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Sales>
-            <version>1.6.0.7</version>
+            <version>1.6.0.8</version>
         </Mage_Sales>
     </modules>
     <global>
@@ -622,6 +622,12 @@
                 <discount_amount>
                     <to_quote_address_shipping>*</to_quote_address_shipping>
                 </discount_amount>
+                <discount_description>
+                    <to_invoice>*</to_invoice>
+                </discount_description>
+                <discount_description>
+                    <to_cm>*</to_cm>
+                </discount_description>
                 <shipping_amount>
                     <to_quote_address_shipping>*</to_quote_address_shipping>
                 </shipping_amount>
@@ -1443,7 +1449,8 @@
                 <discount translate="title">
                     <title>Discount</title>
                     <source_field>discount_amount</source_field>
-                    <amount_prefix>-</amount_prefix>
+                    <amount_prefix></amount_prefix>
+                    <title_source_field>discount_description</title_source_field>
                     <font_size>7</font_size>
                     <display_zero>0</display_zero>
                     <sort_order>200</sort_order>
@@ -1577,14 +1584,6 @@
                     </sales_quote_observer>
                 </observers>
             </catalog_product_delete_before>
-            <catalogrule_before_apply>
-                <observers>
-                    <sales_quote_observer>
-                        <class>sales/observer</class>
-                        <method>markQuotesRecollectOnCatalogRules</method>
-                    </sales_quote_observer>
-                </observers>
-            </catalogrule_before_apply>
             <catalogrule_after_apply>
                 <observers>
                     <sales_quote_observer>

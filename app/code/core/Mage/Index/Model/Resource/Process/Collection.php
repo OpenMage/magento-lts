@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Index
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,6 +34,20 @@
  */
 class Mage_Index_Model_Resource_Process_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+    /**
+     * Event object name
+     *
+     * @var string
+     */
+    protected $_eventObject = 'process_collection';
+
+    /**
+     * Event prefix name
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'process_collection';
+
     /**
      * Initialize resource
      *

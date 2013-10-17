@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -103,7 +103,7 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
             $value = $this->getData('plain_value');
             //escape html if type is html, but html value is not defined
             if ($type == self::TYPE_HTML) {
-                $value = nl2br(Mage::helper('core')->htmlEscape($value));
+                $value = nl2br(Mage::helper('core')->escapeHtml($value));
             }
             return $value;
         }

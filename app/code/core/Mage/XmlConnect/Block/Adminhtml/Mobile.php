@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -40,12 +40,8 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile extends Mage_Adminhtml_Block_Widget
     {
         $this->_controller = 'adminhtml_mobile';
         $this->_blockGroup = 'xmlconnect';
-        $xmlconnectVersion = Mage::getConfig()->getNode(
-            Mage_XmlConnect_Model_Application::XML_PATH_MODULE_VERSION
-        );
-        $this->_headerText = $this->__('Manage Apps')
-            . ' '
-            . $this->__('ver. %s', $xmlconnectVersion);
+        $xmlconnectVersion = Mage::getConfig()->getNode(Mage_XmlConnect_Model_Application::XML_PATH_MODULE_VERSION);
+        $this->_headerText = $this->__('Manage Apps') . ' ' . $this->__('ver. %s', $xmlconnectVersion);
         $this->_addButtonLabel = $this->__('Add App');
 
         parent::__construct();

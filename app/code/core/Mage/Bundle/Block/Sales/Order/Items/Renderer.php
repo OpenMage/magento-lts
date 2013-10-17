@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Bundle
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,7 +41,9 @@ class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Orde
             }
             if ($parentItem = $item->getParentItem()) {
                 if ($options = $parentItem->getProductOptions()) {
-                    if (isset($options['shipment_type']) && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY) {
+                    if (isset($options['shipment_type'])
+                        && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY
+                    ) {
                         return true;
                     } else {
                         return false;
@@ -49,7 +51,9 @@ class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Orde
                 }
             } else {
                 if ($options = $item->getProductOptions()) {
-                    if (isset($options['shipment_type']) && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY) {
+                    if (isset($options['shipment_type'])
+                        && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY
+                    ) {
                         return false;
                     } else {
                         return true;
@@ -59,7 +63,9 @@ class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Orde
         }
 
         if ($options = $this->getOrderItem()->getProductOptions()) {
-            if (isset($options['shipment_type']) && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY) {
+            if (isset($options['shipment_type'])
+                && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY
+            ) {
                 return true;
             }
         }
@@ -74,7 +80,9 @@ class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Orde
             }
             if ($parentItem = $item->getParentItem()) {
                 if ($options = $parentItem->getProductOptions()) {
-                    if (isset($options['product_calculations']) && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD) {
+                    if (isset($options['product_calculations'])
+                        && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD
+                    ) {
                         return true;
                     } else {
                         return false;
@@ -82,7 +90,9 @@ class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Orde
                 }
             } else {
                 if ($options = $item->getProductOptions()) {
-                    if (isset($options['product_calculations']) && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD) {
+                    if (isset($options['product_calculations'])
+                        && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD
+                    ) {
                         return false;
                     } else {
                         return true;
@@ -93,7 +103,8 @@ class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Orde
 
         if ($options = $this->getOrderItem()->getProductOptions()) {
             if (isset($options['product_calculations'])
-                && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD) {
+                && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD
+            ) {
                 return true;
             }
         }
@@ -116,10 +127,10 @@ class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Orde
     {
         if ($attributes = $this->getSelectionAttributes($item)) {
             return sprintf('%d', $attributes['qty']) . ' x ' .
-                $this->htmlEscape($item->getName()) .
+                $this->escapeHtml($item->getName()) .
                 " " . $this->getOrder()->formatPrice($attributes['price']);
         } else {
-            return $this->htmlEscape($item->getName());
+            return $this->escapeHtml($item->getName());
         }
     }
 

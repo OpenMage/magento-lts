@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -36,7 +36,7 @@
         <li class="item">
             <span class="number"><?php echo ++$iterator ?></span>
             <div class="details">
-                <h3 class="product-name"><a href="<?php echo $this->getReviewUrl($_review->getReviewId()) ?>"><?php echo $this->htmlEscape($_review->getName()) ?></a></h3>
+                <h3 class="product-name"><a href="<?php echo $this->getReviewUrl($_review->getReviewId()) ?>"><?php echo $this->escapeHtml($_review->getName()) ?></a></h3>
                 <?php if($_review->getSum()): ?>
                     <div class="ratings">
                         <strong><?php echo $this->__('Rating:') ?></strong>

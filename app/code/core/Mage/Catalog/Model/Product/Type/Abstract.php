@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -885,12 +885,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      */
     public function assignProductToOption($optionProduct, $option, $product = null)
     {
-        if ($optionProduct) {
-            $option->setProduct($optionProduct);
-        } else {
-            $option->setProduct($this->getProduct($product));
-        }
-
+        $option->setProduct($optionProduct ? $optionProduct : $this->getProduct($product));
         return $this;
     }
 

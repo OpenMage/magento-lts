@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -54,11 +54,11 @@
 <?php endif; ?>
 <tr id="order-item-row-<?php echo $_item->getId() ?>">
     <?php if (!$_item->getParentItem()): ?>
-    <td align="left" valign="top" style="padding:3px 9px"><strong><?php echo $this->htmlEscape($_item->getName()) ?></strong></td>
+    <td align="left" valign="top" style="padding:3px 9px"><strong><?php echo $this->escapeHtml($_item->getName()) ?></strong></td>
     <?php else: ?>
     <td align="left" valign="top" style="padding:3px 19px"><?php echo $this->getValueHtml($_item)?></td>
     <?php endif; ?>
-    <td align="left" valign="top" style="padding:3px 9px"><?php echo $this->htmlEscape($_item->getSku()) ?></td>
+    <td align="left" valign="top" style="padding:3px 9px"><?php echo $this->escapeHtml($_item->getSku()) ?></td>
     <td align="center" valign="top" style="padding:3px 9px">
     <?php if (!$_item->getParentItem()): ?>
         <?php echo $_item->getQtyOrdered()*1 ?>
@@ -162,9 +162,9 @@
         <?php endif; ?>
         <?php if ($_item->getGiftMessageId() && $_giftMessage = $this->helper('giftmessage/message')->getGiftMessage($_item->getGiftMessageId())): ?>
         <br /><strong><?php echo $this->__('Gift Message') ?></strong>
-        <br /><?php echo $this->__('From:'); ?> <?php echo $this->htmlEscape($_giftMessage->getSender()) ?>
-        <br /><?php echo $this->__('To:'); ?> <?php echo $this->htmlEscape($_giftMessage->getRecipient()) ?>
-        <br /><?php echo $this->__('Message:'); ?><br /> <?php echo $this->htmlEscape($_giftMessage->getMessage()) ?>
+        <br /><?php echo $this->__('From:'); ?> <?php echo $this->escapeHtml($_giftMessage->getSender()) ?>
+        <br /><?php echo $this->__('To:'); ?> <?php echo $this->escapeHtml($_giftMessage->getRecipient()) ?>
+        <br /><?php echo $this->__('Message:'); ?><br /> <?php echo $this->escapeHtml($_giftMessage->getMessage()) ?>
         <?php endif; ?>
     </td>
     <td>&nbsp;</td>

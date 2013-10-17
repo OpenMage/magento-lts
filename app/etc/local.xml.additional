@@ -36,6 +36,10 @@ to app/etc/local.xml manually.
         <session_cache_limiter><![CDATA[]]></session_cache_limiter><!-- see http://php.net/manual/en/function.session-cache-limiter.php#82174 for possible values -->
         <cache>
             <backend></backend><!-- apc / memcached / xcache / empty=file -->
+            <backend_options>
+                <connection></connection> <!-- Custom connection for db backend -->
+                <enable_two_levels>true</enable_two_levels> <!-- Enable two level cache -->
+            </backend_options>
             <slow_backend></slow_backend> <!-- database / file (default) - used for 2 levels cache setup, necessary for all shared memory storages -->
             <slow_backend_store_data></slow_backend_store_data> <!-- 1 / 0 (default) - used for 2 levels cache setup, sets whether store data in db slow cache backend -->
             <auto_refresh_fast_cache></auto_refresh_fast_cache> <!-- 1 / 0 (default) - used for 2 levels cache setup, sets whether refresh data in fast cache backend -->
@@ -76,5 +80,63 @@ to app/etc/local.xml manually.
             <header1>HTTP_X_REAL_IP</header1>
             <header2>HTTP_X_FORWARDED_FOR</header2>
         </remote_addr_headers>
+
+        <!-- example of redis cache -->
+        <cache>
+            <backend>Cm_Cache_Backend_Redis</backend>
+            <backend_options>
+                <server>127.0.0.1</server> <!-- or absolute path to unix socket for better performance -->
+                <port>6379</port>
+                <database>0</database>
+                <password></password>
+                <force_standalone>0</force_standalone>  <!-- 0 for phpredis, 1 for standalone PHP -->
+                <connect_retries>1</connect_retries>    <!-- Reduces errors due to random connection failures -->
+                <automatic_cleaning_factor>0</automatic_cleaning_factor> <!-- Disabled by default -->
+                <compress_data>1</compress_data>  <!-- 0-9 for compression level, recommended: 0 or 1 -->
+                <compress_tags>1</compress_tags>  <!-- 0-9 for compression level, recommended: 0 or 1 -->
+                <compress_threshold>20480</compress_threshold>  <!-- Strings below this size will not be compressed -->
+                <compression_lib>gzip</compression_lib> <!-- Supports gzip, lzf and snappy -->
+                <persistent>1</persistent> <!-- persistence value, 0: not in use, > 0 used as persistence ID -->
+            </backend_options>
+        </cache>
+
+        <!-- example of redis full page cache -->
+        <full_page_cache>
+            <backend>Cm_Cache_Backend_Redis</backend>
+            <backend_options>
+                <server>127.0.0.1</server> <!-- or absolute path to unix socket for better performance -->
+                <port>6379</port>
+                <database>1</database>
+                <password></password>
+                <force_standalone>0</force_standalone>  <!-- 0 for phpredis, 1 for standalone PHP -->
+                <connect_retries>1</connect_retries>    <!-- Reduces errors due to random connection failures -->
+                <automatic_cleaning_factor>0</automatic_cleaning_factor> <!-- Disabled by default -->
+                <!-- in FPC data is already gzipped, no need to do this twice -->
+                <compress_data>0</compress_data>  <!-- 0-9 for compression level, recommended: 0 or 1 -->
+                <compress_tags>1</compress_tags>  <!-- 0-9 for compression level, recommended: 0 or 1 -->
+                <compress_threshold>20480</compress_threshold>  <!-- Strings below this size will not be compressed -->
+                <compression_lib>gzip</compression_lib> <!-- Supports gzip, lzf and snappy -->
+                <lifetimelimit>43200</lifetimelimit> <!-- set lifetime for keys without TTL -->
+                <persistent>2</persistent>
+            </backend_options>
+        </full_page_cache>
+
+        <!-- example of redis session storage -->
+        <session_save>db</session_save>
+        <redis_session>                       <!-- All options seen here are the defaults -->
+            <host>127.0.0.1</host>            <!-- Specify an absolute path if using a unix socket -->
+            <port>6379</port>
+            <password></password>             <!-- Specify if your Redis server requires authentication -->
+            <timeout>2.5</timeout>            <!-- This is the Redis connection timeout, not the locking timeout -->
+            <persistent></persistent>         <!-- Specify unique string to enable persistent connections. E.g.: sess-db0; bugs with phpredis and php-fpm are known: https://github.com/nicolasff/phpredis/issues/70 -->
+            <db>0</db>                        <!-- Redis database number; protection from accidental loss is improved by using a unique DB number for sessions -->
+            <compression_threshold>2048</compression_threshold>  <!-- Set to 0 to disable compression (recommended when suhosin.session.encrypt=on); known bug with strings over 64k: https://github.com/colinmollenhour/Cm_Cache_Backend_Redis/issues/18 -->
+            <compression_lib>gzip</compression_lib>              <!-- gzip, lzf or snappy -->
+            <log_level>1</log_level>               <!-- 0 (emergency: system is unusable), 4 (warning; additional information, recommended), 5 (notice: normal but significant condition), 6 (info: informational messages), 7 (debug: the most information for development/testing) -->
+            <max_concurrency>6</max_concurrency>                 <!-- maximum number of processes that can wait for a lock on one session; for large production clusters, set this to at least 10% of the number of PHP processes -->
+            <break_after_frontend>5</break_after_frontend>       <!-- seconds to wait for a session lock in the frontend; not as critical as admin -->
+            <break_after_adminhtml>30</break_after_adminhtml>
+            <bot_lifetime>7200</bot_lifetime>                    <!-- Bots get shorter session lifetimes. 0 to disable -->
+        </redis_session>
     </global>
 </config>

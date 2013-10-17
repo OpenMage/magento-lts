@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -49,7 +49,7 @@ class Mage_XmlConnect_Block_Checkout_Agreements extends Mage_Checkout_Block_Agre
                 if (!$agreement->getIsHtml()) {
                     $content = nl2br($agreementsXmlObj->escapeXml($content));
                 } else {
-                    $agreementsXmlObj->xmlentities($content);
+                    $content = $agreementsXmlObj->xmlentities($content);
                 }
                 $agreementText = $agreementsXmlObj->escapeXml($agreement->getCheckboxText());
                 $itemXmlObj->addChild('label', $agreementText);

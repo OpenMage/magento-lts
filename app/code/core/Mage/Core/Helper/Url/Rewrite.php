@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,26 +33,45 @@
  */
 class Mage_Core_Helper_Url_Rewrite extends Mage_Core_Helper_Abstract
 {
-    /**
+    /**#@+
      * Validation error constants
      */
     const VERR_MANYSLASHES = 1; // Too many slashes in a row of request path, e.g. '///foo//'
     const VERR_ANCHOR = 2;      // Anchor is not supported in request path, e.g. 'foo#bar'
+    /**#@-*/
+
+    /**
+     * Allowed request path length
+     */
+    const TARGET_PATH_ALLOWED_LENGTH = 255;
 
     /**
      * Core func to validate request path
      * If something is wrong with a path it throws localized error message and error code,
      * that can be checked to by wrapper func to alternate error message
      *
+     * @throws Mage_Core_Exception
+     * @param string $requestPath
      * @return bool
      */
     protected function _validateRequestPath($requestPath)
     {
+        if (strlen($requestPath) > self::TARGET_PATH_ALLOWED_LENGTH) {
+            throw new Mage_Core_Exception(
+                $this->__('Request path length exceeds allowed %s symbols.', self::TARGET_PATH_ALLOWED_LENGTH)
+            );
+        }
         if (strpos($requestPath, '//') !== false) {
-            throw new Exception($this->__('Two and more slashes together are not permitted in request path'), self::VERR_MANYSLASHES);
+            throw new Mage_Core_Exception(
+                $this->__('Two and more slashes together are not permitted in request path'),
+                self::VERR_MANYSLASHES
+            );
         }
         if (strpos($requestPath, '#') !== false) {
-            throw new Exception($this->__('Anchor symbol (#) is not supported in request path'), self::VERR_ANCHOR);
+            throw new Mage_Core_Exception(
+                $this->__('Anchor symbol (#) is not supported in request path'),
+                self::VERR_ANCHOR
+            );
         }
         return true;
     }
@@ -61,15 +80,12 @@ class Mage_Core_Helper_Url_Rewrite extends Mage_Core_Helper_Abstract
      * Validates request path
      * Either returns TRUE (success) or throws error (validation failed)
      *
+     * @param string $requestPath
      * @return bool
      */
     public function validateRequestPath($requestPath)
     {
-        try {
-            $this->_validateRequestPath($requestPath);
-        } catch (Exception $e) {
-            Mage::throwException($e->getMessage());
-        }
+        $this->_validateRequestPath($requestPath);
         return true;
     }
 
@@ -77,6 +93,8 @@ class Mage_Core_Helper_Url_Rewrite extends Mage_Core_Helper_Abstract
      * Validates suffix for url rewrites to inform user about errors in it
      * Either returns TRUE (success) or throws error (validation failed)
      *
+     * @throws Mage_Core_Exception|Exception
+     * @param string $suffix
      * @return bool
      */
     public function validateSuffix($suffix)
@@ -87,10 +105,11 @@ class Mage_Core_Helper_Url_Rewrite extends Mage_Core_Helper_Abstract
             // Make message saying about suffix, not request path
             switch ($e->getCode()) {
                 case self::VERR_MANYSLASHES:
-                    Mage::throwException($this->__('Two and more slashes together are not permitted in url rewrite suffix'));
+                    throw new Mage_Core_Exception($this->__('Two and more slashes together are not permitted in url rewrite suffix'));
                 case self::VERR_ANCHOR:
-                    Mage::throwException($this->__('Anchor symbol (#) is not supported in url rewrite suffix'));
+                    throw new Mage_Core_Exception($this->__('Anchor symbol (#) is not supported in url rewrite suffix'));
             }
+            throw $e;
         }
         return true;
     }

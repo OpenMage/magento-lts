@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,7 +32,9 @@
  * @package    Mage_Customer
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstract implements Mage_Customer_Block_Address_Renderer_Interface
+class Mage_Customer_Block_Address_Renderer_Default
+    extends Mage_Core_Block_Abstract
+    implements Mage_Customer_Block_Address_Renderer_Interface
 {
     /**
      * Format type object
@@ -65,7 +67,9 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
 
     public function getFormat(Mage_Customer_Model_Address_Abstract $address=null)
     {
-        $countryFormat = is_null($address) ? false : $address->getCountryModel()->getFormat($this->getType()->getCode());
+        $countryFormat = is_null($address)
+            ? false
+            : $address->getCountryModel()->getFormat($this->getType()->getCode());
         $format = $countryFormat ? $countryFormat->getFormat() : $this->getType()->getDefaultFormat();
         return $format;
     }
@@ -105,7 +109,7 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
             if ($attribute->getAttributeCode() == 'country_id') {
                 $data['country'] = $address->getCountryModel()->getName();
             } else if ($attribute->getAttributeCode() == 'region') {
-                $data['region'] = $address->getRegion();
+                $data['region'] = Mage::helper('directory')->__($address->getRegion());
             } else {
                 $dataModel = Mage_Customer_Model_Attribute_Data::factory($attribute, $address);
                 $value     = $dataModel->outputValue($dataFormat);
@@ -123,7 +127,7 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
 
         if ($this->getType()->getHtmlEscape()) {
             foreach ($data as $key => $value) {
-                $data[$key] = $this->htmlEscape($value);
+                $data[$key] = $this->escapeHtml($value);
             }
         }
 

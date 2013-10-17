@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -55,7 +55,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Header extends Mage_Adminhtml_Bloc
         else {
             $out.= Mage::helper('sales')->__('Create New Order');
         }
-        $out = $this->htmlEscape($out);
+        $out = $this->escapeHtml($out);
         $out = '<h3 class="icon-head head-sales-order">' . $out . '</h3>';
         return $out;
     }

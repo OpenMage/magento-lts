@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -33,8 +33,8 @@ $categoryItemTintColor = $previewModel->getCategoryItemTintColor();
 $categoryItemBackgroundColor = $previewModel->getData('conf/categoryItem/backgroundColor');
 
 $productImage = $previewModel->getPreviewImagesUrl('ipad/product_image.jpg');
-$backgroundIpadPortraitImage = $previewModel->setOrientation(Mage_XmlConnect_Helper_Ipad::ORIENTATION_PORTRAIT)->getBackgroundImage();
-$bannerImageIpad = $previewModel->getBannerImage();
+$backgroundIpadPortraitImage = $previewModel->setOrientation(Mage_XmlConnect_Model_Device_Ipad::ORIENTATION_PORTRAIT)->getBackgroundImage();
+$bannerImagesIpad = $previewModel->getBannerImage();
 ?>
 <div class="ipad" style="background: <?php echo $previewModel->getData('conf/body/backgroundColor'); ?>;">
     <div class="status-bar"></div>
@@ -45,7 +45,15 @@ $bannerImageIpad = $previewModel->getBannerImage();
     </div>
     <div class="shadow"></div>
     <div class="content" style="background-image:url(<?php echo $backgroundIpadPortraitImage; ?>);">
-        <div class="app-logo" style="background-image:url(<?php echo $bannerImageIpad; ?>);"></div>
+        <div class="app-logo" <?php if (count($bannerImagesIpad) > 0): ?>style="background: none;" <?php endif; ?>>
+            <div class="banners-wrap">
+                <div class="banners">
+                    <?php foreach ($bannerImagesIpad as $image): ?>
+                        <img src="<?php echo $image; ?>" alt="" />
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
         <div class="products-list-wrap">
             <ul class="products-list">
                 <li style="background-color:<?php echo $categoryItemBackgroundColor; ?>">

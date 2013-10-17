@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -72,6 +72,9 @@
     <validate-date translate="message" module="core">
         <message>Please enter a valid date.</message>
     </validate-date>
+    <validate-date-range translate="message" module="core">
+        <message>The From Date value should be less than or equal to the To Date value.</message>
+    </validate-date-range>
     <validate-email translate="message" module="core">
         <message>Please enter a valid email address. For example johndoe@domain.com.</message>
     </validate-email>

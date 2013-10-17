@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Connect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -991,9 +991,9 @@ final class Maged_Controller
     {
         return array(
             'major'     => '1',
-            'minor'     => '7',
+            'minor'     => '8',
             'revision'  => '0',
-            'patch'     => '1',
+            'patch'     => '0',
             'stability' => '',
             'number'    => '',
         );

@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -28,7 +28,7 @@
     <h1><?php echo $this->__('Edit Account Information') ?></h1>
 </div>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
-<form action="<?php echo $this->getUrl('customer/account/editPost') ?>" method="post" id="form-validate">
+<form action="<?php echo $this->getUrl('customer/account/editPost') ?>" method="post" id="form-validate" autocomplete="off">
     <div class="fieldset">
         <?php echo $this->getBlockHtml('formkey')?>
         <h2 class="legend"><?php echo $this->__('Account Information') ?></h2>
@@ -39,7 +39,7 @@
             <li>
                 <label for="email" class="required"><em>*</em><?php echo $this->__('Email Address') ?></label>
                 <div class="input-box">
-                    <input type="text" name="email" id="email" value="<?php echo $this->htmlEscape($this->getCustomer()->getEmail()) ?>" title="<?php echo $this->__('Email Address') ?>" class="input-text required-entry validate-email" />
+                    <input type="text" name="email" id="email" value="<?php echo $this->escapeHtml($this->getCustomer()->getEmail()) ?>" title="<?php echo $this->__('Email Address') ?>" class="input-text required-entry validate-email" />
                 </div>
             </li>
         <?php $_dob = $this->getLayout()->createBlock('customer/widget_dob') ?>
@@ -65,6 +65,8 @@
             <li>
                 <label for="current_password" class="required"><em>*</em><?php echo $this->__('Current Password') ?></label>
                 <div class="input-box">
+                    <!-- This is a dummy hidden field to trick firefox from auto filling the password -->
+                    <input type="text" class="input-text no-display" name="dummy" id="dummy" />
                     <input type="password" title="<?php echo $this->__('Current Password') ?>" class="input-text" name="current_password" id="current_password" />
                 </div>
             </li>
@@ -107,6 +109,7 @@
             $('confirmation').removeClassName('required-entry');
         }
     }
+
     <?php if($this->getCustomer()->getChangePassword()): ?>
         setPasswordForm(true);
     <?php endif; ?>

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Design
@@ -89,7 +89,8 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Design
             'label'     => Mage::helper('cms')->__('Custom Design From'),
             'image'     => $this->getSkinUrl('images/grid-cal.gif'),
             'format'    => $dateFormatIso,
-            'disabled'  => $isElementDisabled
+            'disabled'  => $isElementDisabled,
+            'class'     => 'validate-date validate-date-range date-range-custom_theme-from'
         ));
 
         $designFieldset->addField('custom_theme_to', 'date', array(
@@ -97,7 +98,8 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Design
             'label'     => Mage::helper('cms')->__('Custom Design To'),
             'image'     => $this->getSkinUrl('images/grid-cal.gif'),
             'format'    => $dateFormatIso,
-            'disabled'  => $isElementDisabled
+            'disabled'  => $isElementDisabled,
+            'class'     => 'validate-date validate-date-range date-range-custom_theme-to'
         ));
 
         $designFieldset->addField('custom_theme', 'select', array(

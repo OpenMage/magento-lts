@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,9 +33,13 @@
  */
 class Mage_XmlConnect_Block_Catalog_Product_Options extends Mage_XmlConnect_Block_Catalog
 {
+     /**#@+
+     * Option input type
+     */
     const OPTION_TYPE_SELECT    = 'select';
     const OPTION_TYPE_CHECKBOX  = 'checkbox';
     const OPTION_TYPE_TEXT      = 'text';
+    /**#@-*/
 
     /**
      * Store supported product options xml renderers based on product types
@@ -70,6 +74,11 @@ class Mage_XmlConnect_Block_Catalog_Product_Options extends Mage_XmlConnect_Bloc
         $xmlModel = Mage::getModel('xmlconnect/simplexml_element', '<product></product>');
         $optionsNode = $xmlModel->addChild('options');
 
+        if ($product->hasPreconfiguredValues()) {
+            $preConfiguredValues = $product->getPreconfiguredValues();
+            $optionData = $preConfiguredValues->getData('options');
+        }
+
         if (!$product->getId()) {
             return $xmlModel;
         }
@@ -101,10 +110,12 @@ class Mage_XmlConnect_Block_Catalog_Product_Options extends Mage_XmlConnect_Bloc
                 $formattedPrice = Mage::app()->getStore($product->getStoreId())->formatPrice($price, false);
                 $optionNode->addAttribute('formated_price', $formattedPrice);
             }
+            $optionId = $option->getOptionId();
             if ($type == self::OPTION_TYPE_CHECKBOX || $type == self::OPTION_TYPE_SELECT) {
                 foreach ($option->getValues() as $value) {
+                    $code = $value->getId();
                     $valueNode = $optionNode->addChild('value');
-                    $valueNode->addAttribute('code', $value->getId());
+                    $valueNode->addAttribute('code', $code);
                     $valueNode->addAttribute('label', $xmlModel->escapeXml($value->getTitle()));
 
                     if ($value->getPrice() != 0) {
@@ -113,6 +124,15 @@ class Mage_XmlConnect_Block_Catalog_Product_Options extends Mage_XmlConnect_Bloc
                         $formattedPrice = $this->_formatPriceString($price, $product);
                         $valueNode->addAttribute('formated_price', $formattedPrice);
                     }
+                    if ($product->hasPreconfiguredValues()) {
+                        $this->_setCartSelectedValue($valueNode, $type, $this->_getPreconfiguredOption(
+                            $optionData, $optionId, $code
+                        ));
+                    }
+                }
+            } else {
+                if ($product->hasPreconfiguredValues() && array_key_exists($option->getOptionId(), $optionData)) {
+                    $this->_setCartSelectedValue($optionNode, $type, $optionData[$optionId]);
                 }
             }
         }
@@ -203,6 +223,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Options extends Mage_XmlConnect_Bloc
         }
 
         if ($product->getId()) {
+            Mage::register('product', $product);
             $type = $product->getTypeId();
             if (isset($this->_renderers[$type])) {
                 $renderer = $this->getLayout()->createBlock($this->_renderers[$type]);
@@ -213,4 +234,66 @@ class Mage_XmlConnect_Block_Catalog_Product_Options extends Mage_XmlConnect_Bloc
         }
         return '<?xml version="1.0" encoding="UTF-8"?><options/>';
     }
+
+    /**
+     * Retrieve option type name by specified option real type name
+     *
+     * @param Mage_XmlConnect_Model_Simplexml_Element $xmlItem
+     * @param string $type
+     * @param int|null $value
+     * @return Mage_XmlConnect_Block_Catalog_Product_Options
+     */
+    protected function _setCartSelectedValue($xmlItem, $type, $value = null)
+    {
+        if (empty($value)) {
+            return $this;
+        }
+
+        switch ($type) {
+            case Mage_Catalog_Model_Product_Option::OPTION_TYPE_DROP_DOWN:
+            case Mage_Catalog_Model_Product_Option::OPTION_TYPE_RADIO:
+            case Mage_Catalog_Model_Product_Option::OPTION_TYPE_MULTIPLE:
+            case Mage_Catalog_Model_Product_Option::OPTION_GROUP_SELECT:
+                $xmlItem->addAttribute('selected', 1);
+                break;
+            case Mage_Catalog_Model_Product_Option::OPTION_TYPE_CHECKBOX:
+                $xmlItem->addAttribute('value', 1);
+                break;
+            case Mage_Catalog_Model_Product_Option::OPTION_TYPE_FIELD:
+            case Mage_Catalog_Model_Product_Option::OPTION_TYPE_AREA:
+            case Mage_Catalog_Model_Product_Option::OPTION_TYPE_FILE:
+            case Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE:
+            case Mage_Catalog_Model_Product_Option::OPTION_TYPE_TIME:
+            case Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE_TIME:
+            default:
+                $xmlItem->addAttribute('value', $value);
+                break;
+        }
+        return $this;
+    }
+
+    /**
+     * Get preConfigured option value
+     *
+     * @param array $optionsData
+     * @param int $optionId
+     * @param int $valueId
+     * @return int|null
+     */
+    protected function _getPreconfiguredOption($optionsData, $optionId, $valueId)
+    {
+        $optionValue = $optionsData[$optionId];
+        if (is_array($optionValue)) {
+            if (in_array($valueId, $optionValue)) {
+                return $valueId;
+            }
+        }
+        if ($valueId == $optionValue) {
+            return $valueId;
+        }
+
+        return null;
+    }
 }
+
+

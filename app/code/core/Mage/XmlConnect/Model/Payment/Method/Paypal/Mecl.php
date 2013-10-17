@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -65,6 +65,13 @@ class Mage_XmlConnect_Model_Payment_Method_Paypal_Mecl extends Mage_Paypal_Model
      * @var bool
      */
     protected $_canManageRecurringProfiles = false;
+
+    /**
+     * PayPal Website Payments Pro model
+     *
+     * @var string
+     */
+    protected $_proType = 'xmlconnect/payment_method_paypal_pro';
 
     /**
      * Check whether payment method can be used

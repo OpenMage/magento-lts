@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,7 +33,7 @@
  */
 class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
 {
-    /**
+    /**#@+
      * Configuration pathes for email templates and identities
      */
     const XML_PATH_REGISTER_EMAIL_TEMPLATE = 'customer/create_account/email_template';
@@ -41,23 +41,30 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     const XML_PATH_REMIND_EMAIL_TEMPLATE = 'customer/password/remind_email_template';
     const XML_PATH_FORGOT_EMAIL_TEMPLATE = 'customer/password/forgot_email_template';
     const XML_PATH_FORGOT_EMAIL_IDENTITY = 'customer/password/forgot_email_identity';
-
     const XML_PATH_DEFAULT_EMAIL_DOMAIN         = 'customer/create_account/email_domain';
     const XML_PATH_IS_CONFIRM                   = 'customer/create_account/confirm';
     const XML_PATH_CONFIRM_EMAIL_TEMPLATE       = 'customer/create_account/email_confirmation_template';
     const XML_PATH_CONFIRMED_EMAIL_TEMPLATE     = 'customer/create_account/email_confirmed_template';
     const XML_PATH_GENERATE_HUMAN_FRIENDLY_ID   = 'customer/create_account/generate_human_friendly_id';
+    /**#@-*/
 
-    /**
+    /**#@+
      * Codes of exceptions related to customer model
      */
     const EXCEPTION_EMAIL_NOT_CONFIRMED       = 1;
     const EXCEPTION_INVALID_EMAIL_OR_PASSWORD = 2;
     const EXCEPTION_EMAIL_EXISTS              = 3;
     const EXCEPTION_INVALID_RESET_PASSWORD_LINK_TOKEN = 4;
+    /**#@-*/
 
+    /**#@+
+     * Subscriptions
+     */
     const SUBSCRIBED_YES = 'yes';
     const SUBSCRIBED_NO  = 'no';
+    /**#@-*/
+
+    const CACHE_TAG = 'customer';
 
     /**
      * Model event prefix
@@ -115,6 +122,13 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * @var boolean
      */
     protected $_isReadonly = false;
+
+    /**
+     * Model cache tag for clear cache in after save and after delete
+     *
+     * @var string
+     */
+    protected $_cacheTag = self::CACHE_TAG;
 
     /**
      * Confirmation requirement flag
@@ -366,7 +380,19 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function hashPassword($password, $salt = null)
     {
-        return Mage::helper('core')->getHash($password, !is_null($salt) ? $salt : 2);
+        return $this->_getHelper('core')
+            ->getHash($password, !is_null($salt) ? $salt : Mage_Admin_Model_User::HASH_SALT_LENGTH);
+    }
+
+    /**
+     * Get helper instance
+     *
+     * @param string $helperName
+     * @return Mage_Core_Helper_Abstract
+     */
+    protected function _getHelper($helperName)
+    {
+        return Mage::helper($helperName);
     }
 
     /**
@@ -561,9 +587,9 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     public function sendNewAccountEmail($type = 'registered', $backUrl = '', $storeId = '0')
     {
         $types = array(
-            'registered'   => self::XML_PATH_REGISTER_EMAIL_TEMPLATE,  // welcome email, when confirmation is disabled
+            'registered'   => self::XML_PATH_REGISTER_EMAIL_TEMPLATE, // welcome email, when confirmation is disabled
             'confirmed'    => self::XML_PATH_CONFIRMED_EMAIL_TEMPLATE, // welcome email, when confirmation is enabled
-            'confirmation' => self::XML_PATH_CONFIRM_EMAIL_TEMPLATE,   // email with confirmation link
+            'confirmation' => self::XML_PATH_CONFIRM_EMAIL_TEMPLATE, // email with confirmation link
         );
         if (!isset($types[$type])) {
             Mage::throwException(Mage::helper('customer')->__('Wrong transactional account email type'));
@@ -1096,7 +1122,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         $prefix = $type ? $type . '_' : '';
 
         if ($data) {
-            foreach($fields as $field) {
+            foreach ($fields as $field) {
                 if (!isset($data[$prefix . $field])) {
                     return false;
                 }

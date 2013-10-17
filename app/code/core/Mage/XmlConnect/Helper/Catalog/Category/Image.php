@@ -20,12 +20,15 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog image helper
+ *
+ * Helper used to display thumbnail image for category
+ * Prepare category image for cache and resize for mobile devices
  *
  * @category    Mage
  * @package     Mage_XmlConnect
@@ -40,7 +43,6 @@ class Mage_XmlConnect_Helper_Catalog_Category_Image extends Mage_Catalog_Helper_
      * @param string $attributeName
      * @param string $imageFile
      * @return Mage_XmlConnect_Helper_Catalog_Category_Image
-     *
      */
     public function init(Mage_Catalog_Model_Product $product, $attributeName, $imageFile = null)
     {
@@ -81,11 +83,63 @@ class Mage_XmlConnect_Helper_Catalog_Category_Image extends Mage_Catalog_Helper_
             /*
              * add for work original size
              */
-            $this->_getModel()->setBaseFile(
-                $this->getProduct()->getData($this->_getModel()->getDestinationSubdir())
-            );
+            $this->_getModel()->setBaseFile($this->getProduct()->getData($this->_getModel()->getDestinationSubdir()));
         }
         return $this;
+    }
+
+    /**
+     * Re-write parent to handle an exception if any
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        try {
+            if ($this->getImageFile()) {
+                $this->_getModel()->setBaseFile($this->getImageFile());
+            } else {
+                $this->_getModel()->setBaseFile(
+                    $this->getProduct()->getData($this->_getModel()->getDestinationSubdir())
+                );
+            }
+
+            if ($this->_getModel()->isCached()) {
+                return $this->_getModel()->getUrl();
+            } else {
+                if ($this->_scheduleRotate) {
+                    $this->_getModel()->rotate($this->getAngle());
+                }
+
+                if ($this->_scheduleResize) {
+                    $this->_getModel()->resize();
+                }
+
+                if ($this->getWatermark()) {
+                    $this->_getModel()->setWatermark($this->getWatermark());
+                }
+
+                $url = $this->_getModel()->saveFile()->getUrl();
+            }
+        } catch(Exception $e) {
+            Mage::logException($e);
+            $url = Mage::getDesign()->getSkinUrl($this->getPlaceholder());
+            $params = array('_package' => Mage_Core_Model_Design_Package::DEFAULT_PACKAGE,
+                '_theme' => Mage_Core_Model_Design_Package::DEFAULT_THEME);
+            $filePath = Mage::getDesign()->getSkinBaseDir($params) . DS . str_replace('/', DS, $this->getPlaceholder());
+            $this->_getModel()->setNewFile($filePath);
+        }
+        return $url;
+    }
+
+    /**
+     * Get new file path
+     *
+     * @return string
+     */
+    public function getNewFile()
+    {
+        return $this->_getModel()->getNewFile();
     }
 
     /**

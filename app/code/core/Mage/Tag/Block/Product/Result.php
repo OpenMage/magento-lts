@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tag
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -88,7 +88,9 @@ class Mage_Tag_Block_Product_Result extends Mage_Catalog_Block_Product_Abstract
                 ->addUrlRewrite()
                 ->setActiveFilter();
             Mage::getSingleton('catalog/product_status')->addSaleableFilterToCollection($this->_productCollection);
-            Mage::getSingleton('catalog/product_visibility')->addVisibleInSiteFilterToCollection($this->_productCollection);
+            Mage::getSingleton('catalog/product_visibility')->addVisibleInSiteFilterToCollection(
+                $this->_productCollection
+            );
         }
 
         return $this->_productCollection;
@@ -106,7 +108,7 @@ class Mage_Tag_Block_Product_Result extends Mage_Catalog_Block_Product_Abstract
     public function getHeaderText()
     {
         if( $this->getTag()->getName() ) {
-            return Mage::helper('tag')->__("Products tagged with '%s'", $this->htmlEscape($this->getTag()->getName()));
+            return Mage::helper('tag')->__("Products tagged with '%s'", $this->escapeHtml($this->getTag()->getName()));
         } else {
             return false;
         }

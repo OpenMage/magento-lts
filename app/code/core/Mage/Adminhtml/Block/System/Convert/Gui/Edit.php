@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -58,7 +58,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit extends Mage_Adminhtml_Block_
     public function getHeaderText()
     {
         if (Mage::registry('current_convert_profile')->getId()) {
-            return $this->htmlEscape(Mage::registry('current_convert_profile')->getName());
+            return $this->escapeHtml(Mage::registry('current_convert_profile')->getName());
         }
         else {
             return Mage::helper('adminhtml')->__('New Profile');

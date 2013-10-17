@@ -20,22 +20,22 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<h3 class="product-name"><a href="<?php echo $this->getProductUrl() ?>"><?php echo $this->htmlEscape($this->getProductName()) ?></a></h3>
+<h3 class="product-name"><a href="<?php echo $this->getProductUrl() ?>"><?php echo $this->escapeHtml($this->getProductName()) ?></a></h3>
 <!-- item custom options -->
 <?php if ($_options = $this->getOptionList()):?>
 <dl class="item-options">
     <?php foreach ($_options as $_option) : ?>
     <?php $_formatedOptionValue = $this->getFormatedOptionValue($_option) ?>
-    <dt><?php echo $this->htmlEscape($_option['label']) ?></dt>
+    <dt><?php echo $this->escapeHtml($_option['label']) ?></dt>
     <dd<?php if (isset($_formatedOptionValue['full_view'])): ?> class="truncated"<?php endif; ?>><?php echo $_formatedOptionValue['value'] ?>
         <?php if (isset($_formatedOptionValue['full_view'])): ?>
         <div class="truncated_full_value">
             <dl class="item-options">
-                <dt><?php echo $this->htmlEscape($_option['label']) ?></dt>
+                <dt><?php echo $this->escapeHtml($_option['label']) ?></dt>
                 <dd><?php echo $_formatedOptionValue['full_view'] ?></dd>
             </dl>
         </div>

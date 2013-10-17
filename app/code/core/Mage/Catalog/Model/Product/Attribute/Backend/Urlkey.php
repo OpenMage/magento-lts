@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,38 +29,9 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
-class Mage_Catalog_Model_Product_Attribute_Backend_Urlkey extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+class Mage_Catalog_Model_Product_Attribute_Backend_Urlkey extends Mage_Catalog_Model_Attribute_Backend_Urlkey_Abstract
 {
-    public function beforeSave($object)
-    {
-        $attributeName = $this->getAttribute()->getName();
 
-        $urlKey = $object->getData($attributeName);
-        if ($urlKey === false) {
-            return $this;
-        }
-        if ($urlKey == '') {
-            $urlKey = $object->getName();
-        }
-
-        $object->setData($attributeName, $object->formatUrlKey($urlKey));
-
-        return $this;
-    }
-
-    public function afterSave($object)
-    {
-        /* @var $object Mage_Catalog_Model_Product */
-        /**
-         * Logic moved to Mage_Catalog_Model_Indexer_Url
-         */
-        /*if (!$object->getExcludeUrlRewrite() &&
-            ($object->dataHasChangedFor('url_key') || $object->getIsChangedCategories() || $object->getIsChangedWebsites())) {
-            Mage::getSingleton('catalog/url')->refreshProductRewrite($object->getId());
-        }*/
-        return $this;
-    }
 }

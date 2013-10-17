@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -171,6 +171,11 @@
                 </create>
             </order>
         </sales>
+        <messages>
+            <website_chnaged_indexers translate="label" module="catalog">
+                <label><![CDATA[Please refresh "Catalog URL Rewrites" and "Product Attributes" in System -&gt; <a href="%s">Index Management</a>]]></label>
+            </website_chnaged_indexers>
+        </messages>
     </adminhtml>
     <default>
         <system>

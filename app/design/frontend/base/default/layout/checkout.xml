@@ -21,7 +21,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -310,7 +310,12 @@ One page checkout main layout
             <block type="page/html_wrapper" name="checkout.progress.wrapper" translate="label">
                 <label>Checkout Progress Wrapper</label>
                 <action method="setElementId"><value>checkout-progress-wrapper</value></action>
-                <block type="checkout/onepage_progress" name="checkout.progress" before="-" template="checkout/onepage/progress.phtml"/>
+                <block type="checkout/onepage_progress" name="checkout.progress" before="-" template="checkout/onepage/progress.phtml">
+                    <block type="checkout/onepage_progress" name="billing.progress" template="checkout/onepage/progress/billing.phtml"></block>
+                    <block type="checkout/onepage_progress" name="shipping.progress" template="checkout/onepage/progress/shipping.phtml"></block>
+                    <block type="checkout/onepage_progress" name="shippingmethod.progress" template="checkout/onepage/progress/shipping_method.phtml"></block>
+                    <block type="checkout/onepage_progress" name="payment.progress" template="checkout/onepage/progress/payment.phtml"></block>
+                </block>
             </block>
         </reference>
         <reference name="content">
@@ -328,7 +333,7 @@ One page checkout main layout
                     <block type="checkout/onepage_shipping_method_additional" name="checkout.onepage.shipping_method.additional" as="additional" template="checkout/onepage/shipping_method/additional.phtml"/>
                 </block>
                 <block type="checkout/onepage_payment" name="checkout.onepage.payment" as="payment" template="checkout/onepage/payment.phtml">
-                    <block type="checkout/onepage_payment_methods" name="checkout.payment.methods" as="methods" template="checkout/onepage/payment/methods.phtml">
+                    <block type="checkout/onepage_payment_methods" name="checkout.payment.methods" as="methods" template="checkout/onepage/payment/info.phtml">
                         <action method="setMethodFormTemplate"><method>purchaseorder</method><template>payment/form/purchaseorder.phtml</template></action>
                     </block>
                 </block>
@@ -337,9 +342,9 @@ One page checkout main layout
         </reference>
     </checkout_onepage_index>
 
-<!--
-One page checkout progress block
--->
+    <!--
+    One page checkout progress block
+    -->
 
     <checkout_onepage_progress>
         <!-- Mage_Checkout -->
@@ -347,15 +352,65 @@ One page checkout progress block
         <remove name="left"/>
 
         <block type="checkout/onepage_progress" name="root" output="toHtml" template="checkout/onepage/progress.phtml">
-            <block type="checkout/onepage_payment_info" name="payment_info">
-                <action method="setInfoTemplate"><method></method><template></template></action>
-            </block>
+            <action method="setInfoTemplate"><method></method><template></template></action>
+            <block type="checkout/onepage_progress" name="billing.progress" template="checkout/onepage/progress/billing.phtml"></block>
+            <block type="checkout/onepage_progress" name="shipping.progress" template="checkout/onepage/progress/shipping.phtml"></block>
+            <block type="checkout/onepage_progress" name="shippingmethod.progress" template="checkout/onepage/progress/shipping_method.phtml"></block>
+            <block type="checkout/onepage_progress" name="payment.progress" template="checkout/onepage/progress/payment.phtml"></block>
         </block>
     </checkout_onepage_progress>
 
-<!--
-One page checkout payment methods block
--->
+    <!-- Individual blocks for Progress steps begins -->
+    <checkout_onepage_progress_billing>
+        <!-- Mage_Checkout -->
+        <remove name="right"/>
+        <remove name="left"/>
+
+        <block type="checkout/onepage_progress" name="root" output="toHtml" template="checkout/onepage/progress/billing.phtml">
+            <action method="setInfoTemplate"><method></method><template></template></action>
+        </block>
+    </checkout_onepage_progress_billing>
+
+
+    <checkout_onepage_progress_shipping>
+        <!-- Mage_Checkout -->
+        <remove name="right"/>
+        <remove name="left"/>
+
+        <block type="checkout/onepage_progress" name="root" output="toHtml" template="checkout/onepage/progress/shipping.phtml">
+            <action method="setInfoTemplate"><method></method><template></template></action>
+        </block>
+    </checkout_onepage_progress_shipping>
+
+
+    <checkout_onepage_progress_shipping_method>
+        <!-- Mage_Checkout -->
+        <remove name="right"/>
+        <remove name="left"/>
+
+        <block type="checkout/onepage_progress" name="root" output="toHtml" template="checkout/onepage/progress/shipping_method.phtml">
+            <action method="setInfoTemplate"><method></method><template></template></action>
+        </block>
+    </checkout_onepage_progress_shipping_method>
+
+    <checkout_onepage_progress_payment>
+    <!-- Mage_Checkout -->
+    <remove name="right"/>
+    <remove name="left"/>
+
+    <block type="checkout/onepage_progress" name="root" output="toHtml" template="checkout/onepage/progress/payment.phtml">
+        <block type="checkout/onepage_payment_info" name="payment_info">
+            <action method="setInfoTemplate"><method></method><template></template></action>
+        </block>
+        <action method="setInfoTemplate"><method></method><template></template></action>
+    </block>
+    </checkout_onepage_progress_payment>
+
+<!-- end individual progress blocks -->
+
+    <!--
+    One page checkout payment methods block
+    -->
     <checkout_onepage_paymentmethod>
         <remove name="right"/>
         <remove name="left"/>

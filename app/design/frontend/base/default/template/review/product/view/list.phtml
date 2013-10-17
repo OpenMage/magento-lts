@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -33,7 +33,7 @@
         <dl>
         <?php foreach ($_items as $_review):?>
             <dt>
-                <a href="<?php echo $this->getReviewUrl($_review->getId()) ?>"><?php echo $this->htmlEscape($_review->getTitle()) ?></a> <?php echo $this->__('Review by <span>%s</span>', $this->htmlEscape($_review->getNickname())) ?>
+                <a href="<?php echo $this->getReviewUrl($_review->getId()) ?>"><?php echo $this->escapeHtml($_review->getTitle()) ?></a> <?php echo $this->__('Review by <span>%s</span>', $this->escapeHtml($_review->getNickname())) ?>
             </dt>
             <dd>
                 <?php $_votes = $_review->getRatingVotes(); ?>
@@ -55,7 +55,7 @@
                     </tbody>
                 </table>
                 <?php endif; ?>
-                <?php echo nl2br($this->htmlEscape($_review->getDetail())) ?>
+                <?php echo nl2br($this->escapeHtml($_review->getDetail())) ?>
                 <small class="date"><?php echo $this->__('(Posted on %s)', $this->formatDate($_review->getCreatedAt()), 'long') ?></small>
             </dd>
         <?php endforeach; ?>

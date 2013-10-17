@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Wishlist
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -144,4 +144,19 @@ class Mage_Wishlist_Block_Customer_Sidebar extends Mage_Wishlist_Block_Abstract
     {
         return $this->getItemCount() > 0;
     }
+
+    /**
+     * Retrieve cache tags
+     *
+     * @return array
+     */
+    public function getCacheTags()
+    {
+        if ($this->getItemCount()) {
+            $this->addModelTags($this->_getHelper()->getWishlist());
+        }
+        return parent::getCacheTags();
+    }
+
+
 }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,7 +31,7 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Customer_Address_List extends Mage_Core_Block_Template
+class Mage_XmlConnect_Block_Customer_Address_List extends Mage_Core_Block_Abstract
 {
     /**
      * Render customer address list xml
@@ -43,10 +43,10 @@ class Mage_XmlConnect_Block_Customer_Address_List extends Mage_Core_Block_Templa
         $addressXmlObj          = Mage::getModel('xmlconnect/simplexml_element', '<address></address>');
         $customer               = Mage::getSingleton('customer/session')->getCustomer();
 
-        $_billingAddssesId      = $customer->getDefaultBilling();
-        $_shippingAddssesId     = $customer->getDefaultShipping();
-        $billingAddress         = $customer->getAddressById($_billingAddssesId);
-        $shippingAddress        = $customer->getAddressById($_shippingAddssesId);
+        $billingAddssesId      = $customer->getDefaultBilling();
+        $shippingAddssesId     = $customer->getDefaultShipping();
+        $billingAddress         = $customer->getAddressById($billingAddssesId);
+        $shippingAddress        = $customer->getAddressById($shippingAddssesId);
 
         if ($billingAddress && $billingAddress->getId()) {
             $item = $addressXmlObj->addChild('item');
@@ -60,13 +60,13 @@ class Mage_XmlConnect_Block_Customer_Address_List extends Mage_Core_Block_Templa
             $item->addAttribute('default_shipping', 1);
             $this->prepareAddressData($shippingAddress, $item);
         }
-        $_additionalAddresses = $customer->getAdditionalAddresses();
-        if ($_additionalAddresses) {
-            foreach ($_additionalAddresses as $_address) {
+        $additionalAddresses = $customer->getAdditionalAddresses();
+        if ($additionalAddresses) {
+            foreach ($additionalAddresses as $address) {
                 $item = $addressXmlObj->addChild('item');
                 $item->addAttribute('label', $this->__('Additional Address'));
                 $item->addAttribute('additional', 1);
-                $this->prepareAddressData($_address, $item);
+                $this->prepareAddressData($address, $item);
             }
         }
 
@@ -81,9 +81,9 @@ class Mage_XmlConnect_Block_Customer_Address_List extends Mage_Core_Block_Templa
      * @param Mage_XmlConnect_Model_Simplexml_Element $item
      * @return array
      */
-    public function prepareAddressData(
-        Mage_Customer_Model_Address $address, Mage_XmlConnect_Model_Simplexml_Element $item
-    ) {
+    public function prepareAddressData(Mage_Customer_Model_Address $address,
+        Mage_XmlConnect_Model_Simplexml_Element $item)
+    {
         if (!$address) {
             return array();
         }

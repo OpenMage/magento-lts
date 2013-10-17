@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -46,14 +46,10 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Grid_Renderer_Bool
         $status = (int) $row->getData($this->getColumn()->getIndex());
         $options = Mage::helper('xmlconnect')->getStatusOptions();
         if ($status == Mage_XmlConnect_Model_Application::APP_STATUS_SUCCESS) {
-            $result = '<img src="'
-                . Mage::helper('xmlconnect/image')->getSkinImagesUrl('gel_green.png')
-                . '" >&nbsp;'
+            $result = '<img src="' . Mage::helper('xmlconnect/image')->getSkinImagesUrl('gel_green.png') . '" >&nbsp;'
                 . (isset($options[$status]) ? $options[$status] : '');
         } else if ($status == Mage_XmlConnect_Model_Application::APP_STATUS_INACTIVE) {
-            $result = '<img src="'
-            . Mage::helper('xmlconnect/image')->getSkinImagesUrl('gel_red.png')
-            . '" >&nbsp;'
+            $result = '<img src="' . Mage::helper('xmlconnect/image')->getSkinImagesUrl('gel_red.png') . '" >&nbsp;'
             . (isset($options[$status]) ? $options[$status] : '');
         }
         return $result;

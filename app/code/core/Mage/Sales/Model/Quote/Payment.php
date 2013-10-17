@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -143,11 +143,13 @@ class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
 
         /**
          * Payment availability related with quote totals.
-         * We have recollect quote totals before checking
+         * We have to recollect quote totals before checking
          */
         $this->getQuote()->collectTotals();
 
-        if (!$method->isAvailable($this->getQuote())) {
+        if (!$method->isAvailable($this->getQuote())
+            || !$method->isApplicableToQuote($this->getQuote(), $data->getChecks())
+        ) {
             Mage::throwException(Mage::helper('sales')->__('The requested Payment Method is not available.'));
         }
 

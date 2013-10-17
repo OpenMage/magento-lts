@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,11 +42,33 @@ class Mage_XmlConnect_Block_Customer_Order_Totals_Customerbalance_Refunded
      */
     public function addToXmlObject(Mage_XmlConnect_Model_Simplexml_Element $totalsXml)
     {
+        if ($this->getNewApi()) {
+            $this->addToXmlObjectApi23($totalsXml);
+            return;
+        }
+
         $balance = $this->getSource()->getCustomerBalanceTotalRefunded();
         if ($balance) {
-            $totalsXml->addCustomChild($this->getTotal()->getCode(), $this->_formatPrice($balance),
-                array('label' => Mage::helper('enterprise_giftcardaccount')->__('Refunded to Store Credit'))
-            );
+            $totalsXml->addCustomChild($this->getTotal()->getCode(), $this->_formatPrice($balance), array(
+                'label' => Mage::helper('enterprise_giftcardaccount')->__('Refunded to Store Credit')
+            ));
+        }
+    }
+
+    /**
+     * Add order total rendered to XML object. Api version 23
+     *
+     * @param $totalsXml Mage_XmlConnect_Model_Simplexml_Element
+     * @return null
+     */
+    public function addToXmlObjectApi23(Mage_XmlConnect_Model_Simplexml_Element $totalsXml)
+    {
+        $balance = $this->getSource()->getCustomerBalanceTotalRefunded();
+        if ($balance) {
+            $totalsXml->addCustomChild('item', $this->_formatPrice($balance), array(
+                'id' => $this->getTotal()->getCode(),
+                'label' => Mage::helper('enterprise_giftcardaccount')->__('Refunded to Store Credit')
+            ));
         }
     }
 

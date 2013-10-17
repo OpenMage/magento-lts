@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /** @var $this Mage_Sales_Block_Widget_Guest_Form */
@@ -29,7 +29,9 @@
     <div class="widget">
         <div class="block block-gr-search">
             <div class="block-title">
-                <h2><?php echo $this->__('Orders and Returns') ?></h2>
+                <strong>
+                    <span><?php echo $this->__('Orders and Returns') ?></span>
+                </strong>
             </div>
             <div class="block-content">
                <form id="oar_widget_orders_and_returns_form" action="<?php echo $this->getActionUrl() ?>" method="post" class="search-form" name="guest_post">

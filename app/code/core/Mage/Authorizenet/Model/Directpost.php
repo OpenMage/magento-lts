@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Authorizenet
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -426,6 +426,13 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
         if ($orderIncrementId) {
             /* @var $order Mage_Sales_Model_Order */
             $order = Mage::getModel('sales/order')->loadByIncrementId($orderIncrementId);
+            //check payment method
+            $payment = $order->getPayment();
+            if (!$payment || $payment->getMethod() != $this->getCode()) {
+                Mage::throwException(
+                    Mage::helper('authorizenet')->__('Payment error. Order was not found.')
+                );
+            }
             if ($order->getId() &&  $order->getState() == Mage_Sales_Model_Order::STATE_PENDING_PAYMENT) {
                 //operate with order
                 $this->_authOrder($order);
@@ -536,12 +543,8 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
 
         $payment->addTransaction(Mage_Sales_Model_Order_Payment_Transaction::TYPE_AUTH);
 
-        // Set transaction apporval message
-        $message = Mage::helper('authorizenet')->__(
-            'Amount of %s approved by payment gateway. Transaction ID: "%s".',
-            $order->getBaseCurrency()->formatTxt($payment->getBaseAmountAuthorized()),
-            $response->getXTransId()
-        );
+        // Set transaction approval message
+        $message = Mage::helper('authorizenet')->__('Amount of %s approved by payment gateway. Transaction ID: "%s".', $order->getBaseCurrency()->formatTxt($payment->getBaseAmountAuthorized()), $response->getXTransId());
 
         $orderState = Mage_Sales_Model_Order::STATE_PROCESSING;
         $orderStatus = $this->getConfigData('order_status');

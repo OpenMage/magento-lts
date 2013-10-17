@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -30,7 +30,7 @@
     $showCount = count($cards) > 1;
 ?>
 
-<?php echo $this->getMethod()->getTitle() ?>{{pdf_row_separator}}
+<?php echo $this->escapeHtml($this->getMethod()->getTitle()) ?>{{pdf_row_separator}}
 <?php foreach ($cards as $key => $card): ?>
     <?php if ($showCount): ?>
        <?php echo sprintf($this->__('Credit Card %s'), $key + 1); ?>

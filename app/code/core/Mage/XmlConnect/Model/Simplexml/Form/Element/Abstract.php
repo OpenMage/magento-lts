@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -118,6 +118,9 @@ abstract class Mage_XmlConnect_Model_Simplexml_Form_Element_Abstract
      */
     public function getXmlId()
     {
+        if (!$this->getForm()) {
+            return parent::getXmlId();
+        }
         return $this->getForm()->getXmlIdPrefix() . $this->getData('xml_id') . $this->getForm()->getXmlIdSuffix();
     }
 
@@ -129,7 +132,11 @@ abstract class Mage_XmlConnect_Model_Simplexml_Form_Element_Abstract
     public function getName()
     {
         $name = $this->getData('name');
-        if ($suffix = $this->getForm()->getFieldNameSuffix()) {
+        $suffix = null;
+        if ($this->getForm()) {
+            $suffix = $this->getForm()->getFieldNameSuffix();
+        }
+        if ($name && $suffix) {
             $name = $this->getForm()->addSuffixToName($name, $suffix);
         }
         return $name;
@@ -213,7 +220,6 @@ abstract class Mage_XmlConnect_Model_Simplexml_Form_Element_Abstract
         }
 
         $this->addAfterXmlElementToObj($xmlObj);
-
         return $xmlObj;
     }
 
@@ -291,7 +297,7 @@ abstract class Mage_XmlConnect_Model_Simplexml_Form_Element_Abstract
      */
     public function getXml()
     {
-        return $this->toXmlObject->asNiceXml();
+        return $this->toXmlObject()->asNiceXml();
     }
 
     /**

@@ -20,17 +20,17 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php echo $this->getMethod()->getTitle() ?>
+<?php echo $this->escapeHtml($this->getMethod()->getTitle()) ?>
 <?php if($this->getInfo()->getAdditionalData()): ?>
-    <?php if($this->getPayableTo()): ?><br /><?php echo Mage::helper('payment')->__('Make Check payable to: %s', $this->htmlEscape($this->getPayableTo())) ?><?php endif; ?>
+    <?php if($this->getPayableTo()): ?><br /><?php echo Mage::helper('payment')->__('Make Check payable to: %s', $this->escapeHtml($this->getPayableTo())) ?><?php endif; ?>
     <?php if($this->getMailingAddress()): ?>
         <label><?php echo Mage::helper('payment')->__('Send Check to:') ?></label>
         <div class="checkmo-mailing-address">
-            <?php echo nl2br($this->htmlEscape($this->getMailingAddress())) ?>
+            <?php echo nl2br($this->escapeHtml($this->getMailingAddress())) ?>
         </div>
     <?php endif; ?>
 <?php endif; ?>

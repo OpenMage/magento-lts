@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Oauth
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -88,13 +88,21 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
      */
     protected function _generateRandomString($length)
     {
+        if (function_exists('openssl_random_pseudo_bytes')) {
+            // use openssl lib if it is install. It provides a better randomness
+            $bytes = openssl_random_pseudo_bytes(ceil($length/2), $strong);
+            $hex = bin2hex($bytes); // hex() doubles the length of the string
+            $randomString = substr($hex, 0, $length); // we truncate at most 1 char if length parameter is an odd number
+        } else {
+            // fallback to mt_rand() if openssl is not installed
+            /** @var $helper Mage_Core_Helper_Data */
+            $helper = Mage::helper('core');
+            $randomString = $helper->getRandomString(
+                $length, Mage_Core_Helper_Data::CHARS_DIGITS . Mage_Core_Helper_Data::CHARS_LOWERS
+            );
+        }
 
-        /** @var $helper Mage_Core_Helper_Data */
-        $helper = Mage::helper('core');
-
-        return $helper->getRandomString(
-            $length, Mage_Core_Helper_Data::CHARS_DIGITS . Mage_Core_Helper_Data::CHARS_LOWERS
-        );
+        return $randomString;
     }
 
     /**

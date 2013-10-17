@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -49,6 +49,10 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Bundle extends Mage_XmlConne
             return $isObject ? $xmlModel : $xmlModel->asNiceXml();
         }
 
+        if ($product->hasPreconfiguredValues()) {
+            $optionData = $product->getPreconfiguredValues()->getData('bundle_option');
+        }
+
         /**
          * Bundle options
          */
@@ -62,8 +66,9 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Bundle extends Mage_XmlConne
             return $isObject ? $xmlModel : $xmlModel->asNiceXml();
         }
 
-        foreach ($bundleOptions as $_option) {
-            $selections = $_option->getSelections();
+        foreach ($bundleOptions as $option) {
+            $selections = $option->getSelections();
+            $optionId = $option->getOptionId();
             if (empty($selections)) {
                 continue;
             }
@@ -71,37 +76,43 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Bundle extends Mage_XmlConne
             $optionNode = $optionsXmlObj->addChild('option');
 
             $type = parent::OPTION_TYPE_SELECT;
-            if ($_option->isMultiSelection()) {
+            if ($option->isMultiSelection()) {
                 $type = parent::OPTION_TYPE_CHECKBOX;
             }
-            $code = 'bundle_option[' . $_option->getId() . ']';
+            $code = 'bundle_option[' . $option->getId() . ']';
             if ($type == parent::OPTION_TYPE_CHECKBOX) {
                 $code .= '[]';
             }
             $optionNode->addAttribute('code', $code);
             $optionNode->addAttribute('type', $type);
-            $optionNode->addAttribute('label', $optionsXmlObj->escapeXml($_option->getTitle()));
-            if ($_option->getRequired()) {
+            $optionNode->addAttribute('label', $optionsXmlObj->escapeXml($option->getTitle()));
+            if ($option->getRequired()) {
                 $optionNode->addAttribute('is_required', 1);
             }
 
-            foreach ($selections as $_selection) {
-                if (!$_selection->isSaleable()) {
+            foreach ($selections as $selection) {
+                if (!$selection->isSaleable()) {
                     continue;
                 }
-                $_qty = !($_selection->getSelectionQty() * 1) ? '1' : $_selection->getSelectionQty() * 1;
+                $qty = null;
+                if ($product->hasPreconfiguredValues()) {
+                    $qty = $product->getPreconfiguredValues()->getData("bundle_option_qty/{$optionId}");
+                }
+                if (null === $qty) {
+                    $qty = !($selection->getSelectionQty() * 1) ? '1' : $selection->getSelectionQty() * 1;
+                }
 
                 $valueNode = $optionNode->addChild('value');
-                $valueNode->addAttribute('code', $_selection->getSelectionId());
-                $valueNode->addAttribute('label', $optionsXmlObj->escapeXml($_selection->getName()));
-                if (!$_option->isMultiSelection()) {
-                    if ($_selection->getSelectionCanChangeQty()) {
+                $valueNode->addAttribute('code', $selection->getSelectionId());
+                $valueNode->addAttribute('label', $optionsXmlObj->escapeXml($selection->getName()));
+                if (!$option->isMultiSelection()) {
+                    if ($selection->getSelectionCanChangeQty()) {
                         $valueNode->addAttribute('is_qty_editable', 1);
                     }
                 }
-                $valueNode->addAttribute('qty', $_qty);
+                $valueNode->addAttribute('qty', $qty);
 
-                $price = $product->getPriceModel()->getSelectionPreFinalPrice($product, $_selection);
+                $price = $product->getPriceModel()->getSelectionPreFinalPrice($product, $selection);
                 $price = Mage::helper('xmlconnect')->formatPriceForXml($price);
                 if ((float)$price != 0.00) {
                     $valueNode->addAttribute('price', Mage::helper('xmlconnect')->formatPriceForXml(
@@ -109,9 +120,14 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Bundle extends Mage_XmlConne
                     ));
                     $valueNode->addAttribute('formated_price', $this->_formatPriceString($price, $product));
                 }
+
+                if ($product->hasPreconfiguredValues()) {
+                    $this->_setCartSelectedValue($valueNode, $type, $this->_getPreconfiguredOption(
+                        $optionData, $optionId, $selection->getSelectionId()
+                    ));
+                }
             }
         }
-
         return $isObject ? $xmlModel : $xmlModel->asNiceXml();
     }
 }

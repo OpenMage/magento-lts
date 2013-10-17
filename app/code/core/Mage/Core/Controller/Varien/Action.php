@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -151,7 +151,7 @@ abstract class Mage_Core_Controller_Varien_Action
 
     public function hasAction($action)
     {
-        return is_callable(array($this, $this->getActionMethodName($action)));
+        return method_exists($this, $this->getActionMethodName($action));
     }
 
     /**
@@ -399,8 +399,7 @@ abstract class Mage_Core_Controller_Varien_Action
     {
         try {
             $actionMethodName = $this->getActionMethodName($action);
-
-            if (!is_callable(array($this, $actionMethodName))) {
+            if (!method_exists($this, $actionMethodName)) {
                 $actionMethodName = 'norouteAction';
             }
 
@@ -787,8 +786,6 @@ abstract class Mage_Core_Controller_Varien_Action
         if ($url = $this->getRequest()->getParam(self::PARAM_NAME_URL_ENCODED)) {
             $refererUrl = Mage::helper('core')->urlDecode($url);
         }
-
-        $refererUrl = Mage::helper('core')->escapeUrl($refererUrl);
 
         if (!$this->_isUrlInternal($refererUrl)) {
             $refererUrl = Mage::app()->getStore()->getBaseUrl();

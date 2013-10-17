@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,6 +41,14 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
      * @var null|int
      */
     protected $_customerId = null;
+
+    /**
+     * List of ids
+     * After collection will be loaded Items will be sorted as this list
+     *
+     * @var array
+     */
+    protected $_sortIds = array();
 
     /**
      * Retrieve Product Index table name
@@ -146,6 +154,50 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
         }
         return $this;
     }
+
+    /**
+     * Set list of ids with expected order
+     *
+     * @param array $ids
+     * @return Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
+     */
+    public function setSortIds(array $ids)
+    {
+        $this->_sortIds = $ids;
+        return $this;
+    }
+
+    /**
+     * Sort loaded collection by predefined items ids
+     *
+     * @return Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
+     */
+    protected function _sort()
+    {
+        if (!empty($this->_sortIds)) {
+            $orderedItems = array();
+            foreach ($this->_sortIds as $id) {
+                if (isset($this->_items[$id])) {
+                    $orderedItems[$id] = $this->_items[$id];
+                }
+            }
+            $this->_items = $orderedItems;
+        }
+        return $this;
+    }
+
+    /**
+     * Sort items
+     *
+     * @return Mage_Catalog_Model_Resource_Product_Collection
+     */
+    protected function _afterLoad()
+    {
+        $result = parent::_afterLoad();
+        $this->_sort();
+        return $result;
+    }
+
 
     /**
      * Add exclude Product Ids

@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -51,6 +51,11 @@
                     <sort_order>40</sort_order>
                     <action>adminhtml/mobile/queue</action>
                 </queue>
+                <mobile_admin_app translate="title" module="xmlconnect">
+                    <title>Admin Application Settings</title>
+                    <sort_order>50</sort_order>
+                    <action>adminhtml/admin_application</action>
+                </mobile_admin_app>
             </children>
         </xmlconnect>
     </menu>
@@ -78,6 +83,10 @@
                                 <title>Message Queue</title>
                                 <sort_order>40</sort_order>
                             </queue>
+                            <admin_connect translate="title" module="xmlconnect">
+                                <title>Admin Mobile Application</title>
+                                <sort_order>50</sort_order>
+                            </admin_connect>
                         </children>
                     </xmlconnect>
                 </children>

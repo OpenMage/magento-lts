@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -354,7 +354,7 @@ $table = $installer->getConnection()
         ), 'Key Id of Translation')
     ->addColumn('string', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
         'nullable'  => false,
-        'default'   => 'Translate String',
+        'default'   => Mage_Core_Model_Translate::DEFAULT_STRING,
         ), 'Translation String')
     ->addColumn('store_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
         'unsigned'  => true,

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -40,6 +40,13 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
      * @var int
      */
     protected $_storeId;
+
+    /**
+     * Store flag which defines if Catalog Product Flat Data has been initialized
+     *
+     * @var array
+     */
+    protected $_isBuilt                  = array();
 
     /**
      * Init connection and resource table
@@ -216,5 +223,34 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
     public function getMainTable()
     {
         return $this->getFlatTableName($this->getStoreId());
+    }
+
+    /**
+     * Check if Catalog Product Flat Data has been initialized
+     *
+     * @param bool|int|\Mage_Core_Model_Store|null $storeView Store(id) for which the value is checked
+     * @return bool
+     */
+    public function isBuilt($storeView = null)
+    {
+        if ($storeView === null) {
+            $storeId = Mage::app()->getDefaultStoreView()->getId();
+        } elseif (is_int($storeView)) {
+            $storeId = $storeView;
+        } else {
+            $storeId = Mage::app()->getStore($storeView)->getId();
+        }
+
+        if (!isset($this->_isBuilt[$storeId])) {
+            $select = $this->_getReadAdapter()->select()
+                ->from($this->getFlatTableName($storeId), 'entity_id')
+                ->limit(1);
+            try {
+                $this->_isBuilt[$storeId] = (bool)$this->_getReadAdapter()->fetchOne($select);
+            } catch (Exception $e) {
+                $this->_isBuilt[$storeId] = false;
+            }
+        }
+        return $this->_isBuilt[$storeId];
     }
 }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,10 +28,11 @@
  * Catalog product model
  *
  * @method Mage_Catalog_Model_Resource_Product getResource()
- * @method Mage_Catalog_Model_Resource_Product _getResource()
+ * @method Mage_Catalog_Model_Product setHasError(bool $value)
+ * @method null|bool getHasError()
  *
- * @category   Mage
- * @package    Mage_Catalog
+ * @category    Mage
+ * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
@@ -165,7 +166,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     public function getUrlModel()
     {
         if ($this->_urlModel === null) {
-            $this->_urlModel = Mage::getSingleton('catalog/product_url');
+            $this->_urlModel = Mage::getSingleton('catalog/factory')->getProductUrlInstance();
         }
         return $this->_urlModel;
     }
@@ -1325,7 +1326,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     public function getIsSalable()
     {
         $productType = $this->getTypeInstance(true);
-        if (is_callable(array($productType, 'getIsSalable'))) {
+        if (method_exists($productType, 'getIsSalable')) {
             return $productType->getIsSalable($this);
         }
         if ($this->hasData('is_salable')) {
@@ -1534,6 +1535,9 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function getRequestPath()
     {
+        if (!$this->_getData('request_path')) {
+            $this->getProductUrl();
+        }
         return $this->_getData('request_path');
     }
 
@@ -1914,7 +1918,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         $products = $this->_getResource()->getProductsSku($productIds);
         if (count($products)) {
             foreach ($products as $product) {
-                if (empty($product['sku'])) {
+                if (!strlen($product['sku'])) {
                     return false;
                 }
             }

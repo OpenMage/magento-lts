@@ -21,14 +21,14 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Catalog>
-            <version>1.6.0.0.14</version>
+            <version>1.6.0.0.18</version>
         </Mage_Catalog>
     </modules>
     <admin>
@@ -467,6 +467,14 @@
                     </catalog_add_topmenu_items>
                 </observers>
             </page_block_html_topmenu_gethtml_before>
+            <catalog_entity_attribute_save_before>
+                <observers>
+                    <catalog_check_reserved_attribute_codes>
+                        <class>catalog/observer</class>
+                        <method>checkReservedAttributeCodes</method>
+                    </catalog_check_reserved_attribute_codes>
+                </observers>
+            </catalog_entity_attribute_save_before>
         </events>
         <catalog>
             <product>
@@ -587,11 +595,28 @@
                     </attribute_nodes>
                     <add_filterable_attributes>0</add_filterable_attributes>
                     <add_child_data>0</add_child_data>
+                    <flag>
+                        <model>catalog/product_flat_flag</model>
+                    </flag>
                 </flat>
+                <url>
+                    <model>catalog/product_url</model>
+                </url>
+                <url_rewrite>
+                    <helper>catalog/product_url_rewrite</helper>
+                </url_rewrite>
             </product>
             <content>
                 <tempate_filter>catalog/template_filter</tempate_filter>
             </content>
+            <category>
+                <url>
+                    <model>catalog/category_url</model>
+                </url>
+                <url_rewrite>
+                    <helper>catalog/category_url_rewrite</helper>
+                </url_rewrite>
+            </category>
         </catalog>
         <eav_attributes>
             <catalog_product>
@@ -646,6 +671,14 @@
                     </catalog_wysiwyg>
                 </observers>
             </cms_wysiwyg_images_static_urls_allowed>
+            <admin_system_config_changed_section_catalog>
+                <observers>
+                    <mage_catalog>
+                        <class>core/observer</class>
+                        <method>cleanCacheByTags</method>
+                    </mage_catalog>
+                </observers>
+            </admin_system_config_changed_section_catalog>
         </events>
     </adminhtml>
     <frontend>

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -43,7 +43,7 @@ class Mage_Adminhtml_UrlrewriteController extends Mage_Adminhtml_Controller_Acti
         $this->_title($this->__('Rewrite Rules'));
 
         // initialize urlrewrite, product and category models
-        Mage::register('current_urlrewrite', Mage::getModel('core/url_rewrite')
+        Mage::register('current_urlrewrite', Mage::getSingleton('core/factory')->getUrlRewriteInstance()
             ->load($this->getRequest()->getParam('id', 0))
         );
         $productId  = $this->getRequest()->getParam('product', 0);

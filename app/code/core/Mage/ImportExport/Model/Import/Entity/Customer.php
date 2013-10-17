@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_ImportExport
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -369,6 +369,8 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
             $entityRowsUp = array();
             $attributes   = array();
 
+            $oldCustomersToLower = array_change_key_case($this->_oldCustomers, CASE_LOWER);
+
             foreach ($bunch as $rowNum => $rowData) {
                 if (!$this->validateRow($rowData, $rowNum)) {
                     continue;
@@ -383,8 +385,10 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                                         ? now() : gmstrftime($strftimeFormat, strtotime($rowData['created_at'])),
                         'updated_at' => now()
                     );
-                    if (isset($this->_oldCustomers[$rowData[self::COL_EMAIL]][$rowData[self::COL_WEBSITE]])) { // edit
-                        $entityId = $this->_oldCustomers[$rowData[self::COL_EMAIL]][$rowData[self::COL_WEBSITE]];
+
+                    $emailToLower = strtolower($rowData[self::COL_EMAIL]);
+                    if (isset($oldCustomersToLower[$emailToLower][$rowData[self::COL_WEBSITE]])) { // edit
+                        $entityId = $oldCustomersToLower[$emailToLower][$rowData[self::COL_WEBSITE]];
                         $entityRow['entity_id'] = $entityId;
                         $entityRowsUp[] = $entityRow;
                     } else { // create
@@ -553,22 +557,28 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
         if (self::SCOPE_DEFAULT == $rowScope) {
             $this->_processedEntitiesCount ++;
         }
+
+
+        $email        = $rowData[self::COL_EMAIL];
+        $emailToLower = strtolower($rowData[self::COL_EMAIL]);
+        $website      = $rowData[self::COL_WEBSITE];
+
+        $oldCustomersToLower = array_change_key_case($this->_oldCustomers, CASE_LOWER);
+        $newCustomersToLower = array_change_key_case($this->_newCustomers, CASE_LOWER);
+
         // BEHAVIOR_DELETE use specific validation logic
         if (Mage_ImportExport_Model_Import::BEHAVIOR_DELETE == $this->getBehavior()) {
             if (self::SCOPE_DEFAULT == $rowScope
-                    && !isset($this->_oldCustomers[$rowData[self::COL_EMAIL]][$rowData[self::COL_WEBSITE]])) {
+                && !isset($oldCustomersToLower[$emailToLower][$website])) {
                 $this->addRowError(self::ERROR_EMAIL_SITE_NOT_FOUND, $rowNum);
             }
         } elseif (self::SCOPE_DEFAULT == $rowScope) { // row is SCOPE_DEFAULT = new customer block begins
-            $email   = $rowData[self::COL_EMAIL];
-            $website = $rowData[self::COL_WEBSITE];
-
             if (!Zend_Validate::is($email, 'EmailAddress')) {
                 $this->addRowError(self::ERROR_INVALID_EMAIL, $rowNum);
             } elseif (!isset($this->_websiteCodeToId[$website])) {
                 $this->addRowError(self::ERROR_INVALID_WEBSITE, $rowNum);
             } else {
-                if (isset($this->_newCustomers[$email][$website])) {
+                if (isset($newCustomersToLower[$emailToLower][$website])) {
                     $this->addRowError(self::ERROR_DUPLICATE_EMAIL_SITE, $rowNum);
                 }
                 $this->_newCustomers[$email][$website] = false;
@@ -589,7 +599,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                     }
                     if (isset($rowData[$attrCode]) && strlen($rowData[$attrCode])) {
                         $this->isAttributeValid($attrCode, $attrParams, $rowData, $rowNum);
-                    } elseif ($attrParams['is_required'] && !isset($this->_oldCustomers[$email][$website])) {
+                    } elseif ($attrParams['is_required'] && !isset($oldCustomersToLower[$emailToLower][$website])) {
                         $this->addRowError(self::ERROR_VALUE_IS_REQUIRED, $rowNum, $attrCode);
                     }
                 }

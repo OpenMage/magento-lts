@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -422,7 +422,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Get cahce tags associated with object id
      *
-     * @return array
+     * @return array|bool
      */
     public function getCacheIdTags()
     {

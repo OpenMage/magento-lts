@@ -20,14 +20,14 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php $_item = $this->getItem() ?>
 <tr>
     <td align="left" valign="top" style="font-size:11px; padding:3px 9px;">
-        <strong><?php echo $this->htmlEscape($_item->getName()) ?></strong>
+        <strong><?php echo $this->escapeHtml($_item->getName()) ?></strong>
         <?php if ($this->getItemOptions()): ?>
         <dl style="margin:0; padding:0;">
             <?php foreach ($this->getItemOptions() as $option): ?>
@@ -40,8 +40,8 @@
         <?php if ($addInfoBlock) :?>
             <?php echo $addInfoBlock->setItem($_item->getOrderItem())->toHtml(); ?>
         <?php endif; ?>
-        <?php echo $this->htmlEscape($_item->getDescription()) ?>
+        <?php echo $this->escapeHtml($_item->getDescription()) ?>
     </td>
-    <td align="left" valign="top" style="font-size:11px; padding:3px 9px;"><?php echo $this->htmlEscape($this->getSku($_item)) ?></td>
+    <td align="left" valign="top" style="font-size:11px; padding:3px 9px;"><?php echo $this->escapeHtml($this->getSku($_item)) ?></td>
     <td align="center" valign="top" style="font-size:11px; padding:3px 9px;"><?php echo $_item->getQty()*1 ?></td>
 </tr>

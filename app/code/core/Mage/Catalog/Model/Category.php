@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -111,12 +111,24 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     protected $_treeModel = null;
 
     /**
+     * Category Url instance
+     *
+     * @var Mage_Catalog_Model_Category_Url
+     */
+    protected $_urlModel;
+
+    /**
      * Initialize resource mode
      *
+     * @return void
      */
     protected function _construct()
     {
-        if (Mage::helper('catalog/category_flat')->isEnabled()) {
+        // If Flat Data enabled then use it but only on frontend
+        $flatHelper = Mage::helper('catalog/category_flat');
+        if ($flatHelper->isAvailable() && !Mage::app()->getStore()->isAdmin() && $flatHelper->isBuilt(true)
+            && !$this->getDisableFlat()
+        ) {
             $this->_init('catalog/category_flat');
             $this->_useFlatResource = true;
         } else {
@@ -145,7 +157,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     public function getUrlRewrite()
     {
         if (!self::$_urlRewrite) {
-            self::$_urlRewrite = Mage::getModel('core/url_rewrite');
+            self::$_urlRewrite = Mage::getSingleton('core/factory')->getUrlRewriteInstance();
         }
         return self::$_urlRewrite;
     }
@@ -418,37 +430,20 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      */
     public function getUrl()
     {
-        $url = $this->_getData('url');
-        if (is_null($url)) {
-            Varien_Profiler::start('REWRITE: '.__METHOD__);
+        return $this->getUrlModel()->getCategoryUrl($this);
+    }
 
-            if ($this->hasData('request_path') && $this->getRequestPath() != '') {
-                $this->setData('url', $this->getUrlInstance()->getDirectUrl($this->getRequestPath()));
-                Varien_Profiler::stop('REWRITE: '.__METHOD__);
-                return $this->getData('url');
-            }
-
-            Varien_Profiler::stop('REWRITE: '.__METHOD__);
-
-            $rewrite = $this->getUrlRewrite();
-            if ($this->getStoreId()) {
-                $rewrite->setStoreId($this->getStoreId());
-            }
-            $idPath = 'category/' . $this->getId();
-            $rewrite->loadByIdPath($idPath);
-
-            if ($rewrite->getId()) {
-                $this->setData('url', $this->getUrlInstance()->getDirectUrl($rewrite->getRequestPath()));
-                Varien_Profiler::stop('REWRITE: '.__METHOD__);
-                return $this->getData('url');
-            }
-
-            Varien_Profiler::stop('REWRITE: '.__METHOD__);
-
-            $this->setData('url', $this->getCategoryIdUrl());
-            return $this->getData('url');
+    /**
+     * Get product url model
+     *
+     * @return Mage_Catalog_Model_Category_Url
+     */
+    public function getUrlModel()
+    {
+        if ($this->_urlModel === null) {
+            $this->_urlModel = Mage::getSingleton('catalog/factory')->getCategoryUrlInstance();
         }
-        return $url;
+        return $this->_urlModel;
     }
 
     /**
@@ -476,7 +471,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      */
     public function formatUrlKey($str)
     {
-        $str = Mage::helper('core')->removeAccents($str);
+        $str = Mage::helper('catalog/product_url')->format($str);
         $urlKey = preg_replace('#[^0-9a-z]+#i', '-', $str);
         $urlKey = strtolower($urlKey);
         $urlKey = trim($urlKey, '-');
@@ -733,6 +728,9 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      */
     public function getRequestPath()
     {
+        if (!$this->_getData('request_path')) {
+            $this->getUrl();
+        }
         return $this->_getData('request_path');
     }
 
@@ -839,6 +837,16 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     public function getChildrenCategories()
     {
         return $this->getResource()->getChildrenCategories($this);
+    }
+
+    /**
+     * Return children categories of current category
+     *
+     * @return array
+     */
+    public function getChildrenCategoriesWithInactive()
+    {
+        return $this->getResource()->getChildrenCategoriesWithInactive($this);
     }
 
     /**

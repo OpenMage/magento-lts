@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -49,15 +49,16 @@ class Mage_XmlConnect_Block_Customer_Form_Renderer_Text extends Enterprise_Custo
     public function addFieldToXmlObj(Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $fieldsetXmlObj)
     {
         $attributes = array(
-            'label' => $this->getLabel(), 'name' => $this->getFieldName(), 'value' => $this->getEscapedValue()
+            'label' => $this->getLabel(),
+            'name'  => $this->getFieldName(),
+            'value' => $this->getEscapedValue()
         );
 
         $attributes += Mage::helper('xmlconnect/customer_form_renderer')
             ->addTitleAndRequiredAttr($fieldsetXmlObj, $this);
 
-        $fieldXmlObj = $fieldsetXmlObj->addField($this->getHtmlId(), $this->_filedType, $attributes);
-
-        $validateRules = $this->getAttributeObject()->getValidateRules();
+        $fieldXmlObj    = $fieldsetXmlObj->addField($this->getHtmlId(), $this->_filedType, $attributes);
+        $validateRules  = $this->getAttributeObject()->getValidateRules();
 
         if (!empty($validateRules)) {
             $validatorXmlObj = $fieldXmlObj->addValidator();

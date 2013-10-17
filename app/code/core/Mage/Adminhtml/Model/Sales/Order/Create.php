@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -309,6 +309,13 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             }
         }
 
+        $shippingAddress = $order->getShippingAddress();
+        if ($shippingAddress) {
+            $addressDiff = array_diff_assoc($shippingAddress->getData(), $order->getBillingAddress()->getData());
+            unset($addressDiff['address_type'], $addressDiff['entity_id']);
+            $shippingAddress->setSameAsBilling(empty($addressDiff));
+        }
+
         $this->_initBillingAddressFromOrder($order);
         $this->_initShippingAddressFromOrder($order);
 
@@ -384,12 +391,15 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
 
     protected function _initShippingAddressFromOrder(Mage_Sales_Model_Order $order)
     {
-        $this->getQuote()->getShippingAddress()->setCustomerAddressId('');
+        $orderShippingAddress = $order->getShippingAddress();
+        $quoteShippingAddress = $this->getQuote()->getShippingAddress()
+            ->setCustomerAddressId('')
+            ->setSameAsBilling($orderShippingAddress && $orderShippingAddress->getSameAsBilling());
         Mage::helper('core')->copyFieldset(
             'sales_copy_order_shipping_address',
             'to_order',
-            $order->getShippingAddress(),
-            $this->getQuote()->getShippingAddress()
+            $orderShippingAddress,
+            $quoteShippingAddress
         );
     }
 
@@ -622,7 +632,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                     break;
             }
             if ($removeItem) {
-                $this->getQuote()->removeItem($item->getId());
+                $this->getQuote()->deleteItem($item);
             }
             $this->setRecollect(true);
         }
@@ -855,8 +865,9 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                             $item->getProduct()->setIsSuperMode(true);
                             $item->getProduct()->unsSkipCheckRequiredOption();
                             $item->checkData();
-                        } else {
-                            $this->moveQuoteItem($item->getId(), $info['action'], $itemQty);
+                        }
+                        if (!empty($info['action'])) {
+                            $this->moveQuoteItem($item, $info['action'], $itemQty);
                         }
                     }
                 }

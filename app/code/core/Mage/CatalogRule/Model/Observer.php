@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogRule
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -50,22 +50,14 @@ class Mage_CatalogRule_Model_Observer
             return;
         }
 
-        $productWebsiteIds = $product->getWebsiteIds();
-
-        $rules = Mage::getModel('catalogrule/rule')->getCollection()
-            ->addFieldToFilter('is_active', 1);
-
-        foreach ($rules as $rule) {
-            $websiteIds = array_intersect($productWebsiteIds, $rule->getWebsiteIds());
-            $rule->applyToProduct($product, $websiteIds);
-        }
+        Mage::getModel('catalogrule/rule')->applyAllRulesToProduct($product);
 
         return $this;
     }
 
     /**
      * Apply all price rules for current date.
-     * Handle cataolg_product_import_after event
+     * Handle catalog_product_import_after event
      *
      * @param   Varien_Event_Observer $observer
      *
@@ -73,8 +65,9 @@ class Mage_CatalogRule_Model_Observer
      */
     public function applyAllRules($observer)
     {
+        /** @var $resource Mage_CatalogRule_Model_Resource_Rule */
         $resource = Mage::getResourceSingleton('catalogrule/rule');
-        $resource->applyAllRulesForDateRange($resource->formatDate(mktime(0,0,0)));
+        $resource->applyAllRules();
         Mage::getModel('catalogrule/flag')->loadSelf()
             ->setState(0)
             ->save();
@@ -206,7 +199,9 @@ class Mage_CatalogRule_Model_Observer
      */
     public function dailyCatalogUpdate($observer)
     {
-        Mage::getResourceSingleton('catalogrule/rule')->applyAllRulesForDateRange();
+        /** @var $resource Mage_CatalogRule_Model_Resource_Rule */
+        $resource = Mage::getResourceSingleton('catalogrule/rule');
+        $resource->applyAllRules();
 
         return $this;
     }
@@ -397,6 +392,19 @@ class Mage_CatalogRule_Model_Observer
         foreach ($rules as $rule) {
             $rule->setProductsFilter($affectedEntityIds);
             Mage::getResourceSingleton('catalogrule/rule')->updateRuleProductData($rule);
+        }
+    }
+
+    /**
+     * Runs Catalog Product Price Reindex
+     *
+     * @param Varien_Event_Observer $observer
+     */
+    public function runCatalogProductPriceReindex(Varien_Event_Observer $observer)
+    {
+        $indexProcess = Mage::getSingleton('index/indexer')->getProcessByCode('catalog_product_price');
+        if ($indexProcess) {
+            $indexProcess->reindexAll();
         }
     }
 }

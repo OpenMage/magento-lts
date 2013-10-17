@@ -19,7 +19,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -75,7 +75,7 @@ tinyMceWysiwygSetup.prototype =
 
     getSettings: function(mode)
     {
-        var plugins = 'safari,pagebreak,style,layer,table,advhr,advimage,emotions,iespell,media,searchreplace,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras';
+        var plugins = 'inlinepopups,safari,pagebreak,style,layer,table,advhr,advimage,emotions,iespell,media,searchreplace,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras';
 
         if (this.config.widget_plugin_src) {
             plugins = 'magentowidget,' + plugins;
@@ -176,7 +176,6 @@ tinyMceWysiwygSetup.prototype =
                    'store/' + storeId + '/';
 
         this.mediaBrowserOpener = o.win;
-        this.mediaBrowserOpener.blur();
         this.mediaBrowserTargetElementId = o.field;
 
         if (typeof(o.type) != 'undefined' && o.type != "") {
@@ -186,7 +185,11 @@ tinyMceWysiwygSetup.prototype =
             typeTitle = this.translate('Insert File...');
         }
 
-        MediabrowserUtility.openDialog(wUrl, false, false, typeTitle);
+        MediabrowserUtility.openDialog(wUrl, false, false, typeTitle, {
+            onBeforeShow: function(win) {
+                win.element.setStyle({zIndex: 300200});
+            }
+        });
     },
 
     translate: function(string) {
@@ -225,9 +228,11 @@ tinyMceWysiwygSetup.prototype =
             e.show();
         });
         if (Prototype.Browser.IE) {
-            // workaround for ie textarea redraw bug
-            window.setTimeout(function(){
-                $(this.id).value = $(this.id).value;
+            // workaround for IE textarea redraw bug
+            window.setTimeout(function() {
+                if ($(this.id)) {
+                    $(this.id).value = $(this.id).value;
+                }
             }.bind(this), 0);
         }
     },

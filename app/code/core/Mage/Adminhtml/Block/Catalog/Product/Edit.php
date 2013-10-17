@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -57,7 +57,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData(array(
                         'label'     => Mage::helper('catalog')->__('Back'),
-                        'onclick'   => 'setLocation(\''.$this->getUrl('*/*/', array('store'=>$this->getRequest()->getParam('store', 0))).'\')',
+                        'onclick'   => 'setLocation(\''
+                            . $this->getUrl('*/*/', array('store'=>$this->getRequest()->getParam('store', 0))).'\')',
                         'class' => 'back'
                     ))
             );
@@ -107,7 +108,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                         ->setData(array(
                             'label'     => Mage::helper('catalog')->__('Delete'),
-                            'onclick'   => 'confirmSetLocation(\''.Mage::helper('catalog')->__('Are you sure?').'\', \''.$this->getDeleteUrl().'\')',
+                            'onclick'   => 'confirmSetLocation(\''
+                                . Mage::helper('catalog')->__('Are you sure?').'\', \''.$this->getDeleteUrl().'\')',
                             'class'  => 'delete'
                         ))
                 );
@@ -211,7 +213,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
     {
         $header = '';
         if ($this->getProduct()->getId()) {
-            $header = $this->htmlEscape($this->getProduct()->getName());
+            $header = $this->escapeHtml($this->getProduct()->getName());
         }
         else {
             $header = Mage::helper('catalog')->__('New Product');
@@ -235,7 +237,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
     public function getIsConfigured()
     {
         if ($this->getProduct()->isConfigurable()
-            && !($superAttributes = $this->getProduct()->getTypeInstance(true)->getUsedProductAttributeIds($this->getProduct()))) {
+            && !($superAttributes = $this->getProduct()
+                ->getTypeInstance(true)
+                ->getUsedProductAttributeIds($this->getProduct()))
+        ) {
             $superAttributes = false;
         }
 

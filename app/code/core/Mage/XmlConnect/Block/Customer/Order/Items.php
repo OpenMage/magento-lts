@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -71,7 +71,6 @@ class Mage_XmlConnect_Block_Customer_Order_Items extends Mage_Sales_Block_Order_
     public function addItemsToXmlObject(Mage_XmlConnect_Model_Simplexml_Element $orderXmlObj)
     {
         $itemsXml = $orderXmlObj->addChild('ordered_items');
-
         foreach ($this->getItems() as $item) {
             if ($item->getParentItem()) {
                 // if Item is option of grouped product - do not render it
@@ -84,7 +83,7 @@ class Mage_XmlConnect_Block_Customer_Order_Items extends Mage_Sales_Block_Order_
             if ($type == 'giftcard' && !is_object(Mage::getConfig()->getNode('modules/Enterprise_GiftCard'))) {
                 continue;
             }
-            $renderer = $this->getItemRenderer($type)->setItem($item);
+            $renderer = $this->getItemRenderer($type)->setNewApi($this->getNewApi())->setItem($item);
             if (method_exists($renderer, 'addItemToXmlObject')) {
                 $renderer->addItemToXmlObject($itemsXml);
             }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -79,17 +79,17 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
      */
     public function getListUrl()
     {
-         $itemIds = array();
-         foreach ($this->getItemCollection() as $item) {
-             $itemIds[] = $item->getId();
-         }
+        $itemIds = array();
+        foreach ($this->getItemCollection() as $item) {
+            $itemIds[] = $item->getId();
+        }
 
          $params = array(
-            'items'=>implode(',', $itemIds),
+            'items' => implode(',', $itemIds),
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->getEncodedUrl()
-         );
+        );
 
-         return $this->_getUrl('catalog/product_compare', $params);
+        return $this->_getUrl('catalog/product_compare', $params);
     }
 
     /**
@@ -128,7 +128,8 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
         $beforeCompareUrl = Mage::getSingleton('catalog/session')->getBeforeCompareUrl();
 
         $params = array(
-            'product'=>$product->getId(),
+            'product' => $product->getId(),
+            Mage_Core_Model_Url::FORM_KEY => $this->_getSingletonModel('core/session')->getFormKey(),
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->getEncodedUrl($beforeCompareUrl)
         );
 
@@ -143,10 +144,11 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
      */
     public function getAddToCartUrl($product)
     {
-        $beforeCompareUrl = Mage::getSingleton('catalog/session')->getBeforeCompareUrl();
+        $beforeCompareUrl = $this->_getSingletonModel('catalog/session')->getBeforeCompareUrl();
         $params = array(
-            'product'=>$product->getId(),
-            Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->getEncodedUrl($beforeCompareUrl)
+            'product' => $product->getId(),
+            Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->getEncodedUrl($beforeCompareUrl),
+            Mage_Core_Model_Url::FORM_KEY => $this->_getSingletonModel('core/session')->getFormKey()
         );
 
         return $this->_getUrl('checkout/cart/add', $params);
@@ -161,7 +163,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     public function getRemoveUrl($item)
     {
         $params = array(
-            'product'=>$item->getId(),
+            'product' => $item->getId(),
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->getEncodedUrl()
         );
         return $this->_getUrl('catalog/product_compare/remove', $params);

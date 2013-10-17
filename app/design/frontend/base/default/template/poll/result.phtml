@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -30,13 +30,13 @@
         <strong><span><?php echo $this->__('Community Poll') ?></span></strong>
     </div>
     <div class="block-content">
-        <p class="block-subtitle"><?php echo $this->htmlEscape($poll->getPollTitle()); ?></p>
+        <p class="block-subtitle"><?php echo $this->escapeHtml($poll->getPollTitle()); ?></p>
         <?php if( $poll_answers ): ?>
         <ol id="poll-answers">
             <?php foreach( $poll_answers as $answer ): ?>
                 <li>
                     <span class="votes"><?php echo $answer->getVotesCount() ?> (<?php echo $answer->getPercent() ?>%)</span>
-                    <span class="answer"><?php echo $this->htmlEscape($answer->getAnswerTitle()) ?>:</span>
+                    <span class="answer"><?php echo $this->escapeHtml($answer->getAnswerTitle()) ?>:</span>
                 </li>
             <?php endforeach; ?>
         </ol>

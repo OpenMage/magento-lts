@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,7 +29,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract
 {
@@ -40,12 +40,20 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
      */
     protected $_moveToCustomerStorage = true;
 
+    /**
+     * Class constructor
+     */
     public function __construct()
     {
         parent::__construct();
         $this->setId('sales_order_create_search_grid');
     }
 
+    /**
+     * Returns the items
+     *
+     * @return array
+     */
     public function getItems()
     {
         $items = $this->getParentBlock()->getItems();
@@ -72,41 +80,69 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
         return $items;
     }
 
+    /**
+     * Returns the session
+     *
+     * @return Mage_Persistent_Helper_Session
+     */
     public function getSession()
     {
         return $this->getParentBlock()->getSession();
     }
 
+    /**
+     * Returns the item's calculation price
+     *
+     * @param Mage_Sales_Model_Quote_Item $item
+     * @return float
+     */
     public function getItemEditablePrice($item)
     {
-        return $item->getCalculationPrice()*1;
+        return $item->getCalculationPrice() * 1;
     }
 
+    /**
+     * Returns the item's original editable price
+     *
+     * @param Mage_Sales_Model_Quote_Item $item
+     * @return float
+     */
     public function getOriginalEditablePrice($item)
     {
         if ($item->hasOriginalCustomPrice()) {
-            $result = $item->getOriginalCustomPrice()*1;
+            $result = $item->getOriginalCustomPrice() * 1;
         } elseif ($item->hasCustomPrice()) {
-            $result = $item->getCustomPrice()*1;
+            $result = $item->getCustomPrice() * 1;
         } else {
             if (Mage::helper('tax')->priceIncludesTax($this->getStore())) {
-                $result = $item->getPriceInclTax()*1;
+                $result = $item->getPriceInclTax() * 1;
             } else {
-                $result = $item->getOriginalPrice()*1;
+                $result = $item->getOriginalPrice() * 1;
             }
         }
         return $result;
     }
 
+    /**
+     * Returns the item's original price
+     *
+     * @param Mage_Sales_Model_Quote_Item $item
+     * @return double
+     */
     public function getItemOrigPrice($item)
     {
-//        return $this->convertPrice($item->getProduct()->getPrice());
         return $this->convertPrice($item->getPrice());
     }
 
-    public function isGiftMessagesAvailable($item=null)
+    /**
+     * Returns whether the item's gift message is available
+     *
+     * @param null|Mage_Sales_Model_Quote_Item $item
+     * @return bool
+     */
+    public function isGiftMessagesAvailable($item = null)
     {
-        if(is_null($item)) {
+        if (is_null($item)) {
             return $this->helper('giftmessage/message')->getIsMessagesAvailable(
                 'items', $this->getQuote(), $this->getStore()
             );
@@ -117,6 +153,12 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
         );
     }
 
+    /**
+     * Returns whether the item is allowed for the gift message
+     *
+     * @param Mage_Sales_Model_Quote_Item $item
+     * @return bool
+     */
     public function isAllowedForGiftMessage($item)
     {
         return Mage::getSingleton('adminhtml/giftmessage_save')->getIsAllowedQuoteItem($item);
@@ -134,6 +176,11 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
         return $res;
     }
 
+    /**
+     * Returns the subtotal
+     *
+     * @return float
+     */
     public function getSubtotal()
     {
         $address = $this->getQuoteAddress();
@@ -148,23 +195,51 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
         return false;
     }
 
+    /**
+     * Returns the subtotal with any discount removed
+     *
+     * @return float
+     */
     public function getSubtotalWithDiscount()
     {
         $address = $this->getQuoteAddress();
         if ($this->displayTotalsIncludeTax()) {
-            return $address->getSubtotal()+$address->getTaxAmount()+$this->getDiscountAmount();
+            if ($this->getIsPriceInclTax()) {
+                return $address->getSubtotalInclTax() + $this->getDiscountAmount();
+            } else {
+                return $address->getSubtotal() + $address->getTaxAmount() + $this->getDiscountAmount();
+            }
         } else {
-            return $address->getSubtotal()+$this->getDiscountAmount();
+            if ($this->getIsPriceInclTax()) {
+                return $address->getSubtotalInclTax() - $address->getTaxAmount() + $this->getDiscountAmount();
+            } else {
+                return $address->getSubtotal() + $this->getDiscountAmount();
+            }
         }
     }
 
+    /**
+     * Return whether the catalog prices include tax
+     *
+     * @return bool
+     */
+    public function getIsPriceInclTax()
+    {
+        return Mage::getSingleton('tax/config')->priceIncludesTax($this->getStore());
+    }
+
+    /**
+     * Returns the discount amount
+     *
+     * @return float
+     */
     public function getDiscountAmount()
     {
         return $this->getQuote()->getShippingAddress()->getDiscountAmount();
     }
 
     /**
-     * Retrive quote address
+     * Retrieve quote address
      *
      * @return Mage_Sales_Model_Quote_Address
      */
@@ -200,13 +275,19 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
         return !$item->isChildrenCalculated();
     }
 
+    /**
+     * Returns the string that contains the 'quantity' title
+     *
+     * @param Mage_Sales_Model_Quote_Item $item
+     * @return string
+     */
     public function getQtyTitle($item)
     {
         $prices = $item->getProduct()->getTierPrice();
         if ($prices) {
             $info = array();
             foreach ($prices as $data) {
-                $qty    = $data['price_qty']*1;
+                $qty    = $data['price_qty'] * 1;
                 $price  = $this->convertPrice($data['price']);
                 $info[] = $this->helper('sales')->__('Buy %s for price %s', $qty, $price);
             }
@@ -217,13 +298,19 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
         }
     }
 
+    /**
+     * Returns the HTML string for the tiered pricing
+     *
+     * @param Mage_Sales_Model_Quote_Item $item
+     * @return string
+     */
     public function getTierHtml($item)
     {
         $html = '';
         $prices = $item->getProduct()->getTierPrice();
         if ($prices) {
             foreach ($prices as $data) {
-                $qty    = $data['price_qty']*1;
+                $qty    = $data['price_qty'] * 1;
                 $price  = $this->convertPrice($data['price']);
                 $info[] = $this->helper('sales')->__('%s for %s', $qty, $price);
             }
@@ -242,9 +329,11 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
     {
         $optionStr = '';
         $this->_moveToCustomerStorage = true;
-        if ($optionIds = $item->getOptionByCode('option_ids')) {
+        $optionIds = $item->getOptionByCode('option_ids');
+        if ($optionIds) {
             foreach (explode(',', $optionIds->getValue()) as $optionId) {
-                if ($option = $item->getProduct()->getOptionById($optionId)) {
+                $option = $item->getProduct()->getOptionById($optionId);
+                if ($option) {
                     $optionValue = $item->getOptionByCode('option_' . $option->getId())->getValue();
 
                     $optionStr .= $option->getTitle() . ':';
@@ -272,6 +361,12 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
         return $this->_moveToCustomerStorage;
     }
 
+    /**
+     * Returns the item's subtotal that includes tax
+     *
+     * @param Mage_Sales_Model_Quote_Item $item
+     * @return string
+     */
     public function displaySubtotalInclTax($item)
     {
         if ($item->getTaxBeforeDiscount()) {
@@ -282,21 +377,38 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
         return $this->formatPrice($item->getRowTotal() + $tax);
     }
 
+    /**
+     * Returns the item's original price that includes tax
+     *
+     * @param Mage_Sales_Model_Quote_Item $item
+     * @return double
+     */
     public function displayOriginalPriceInclTax($item)
     {
         $tax = 0;
         if ($item->getTaxPercent()) {
             $tax = $item->getPrice() * ($item->getTaxPercent() / 100);
         }
-        return $this->convertPrice($item->getPrice()+($tax/$item->getQty()));
+        return $this->convertPrice($item->getPrice() + ($tax / $item->getQty()));
     }
 
+    /**
+     * Returns the item's row total with any discount and also with any tax
+     *
+     * @param Mage_Sales_Model_Quote_Item $item
+     * @return string
+     */
     public function displayRowTotalWithDiscountInclTax($item)
     {
         $tax = ($item->getTaxAmount() ? $item->getTaxAmount() : 0);
         return $this->formatPrice($item->getRowTotal()-$item->getDiscountAmount()+$tax);
     }
 
+    /**
+     * Returns the text for the custom price (whether it includes or excludes tax)
+     *
+     * @return string
+     */
     public function getInclExclTaxMessage()
     {
         if (Mage::helper('tax')->priceIncludesTax($this->getStore())) {
@@ -306,6 +418,11 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
         }
     }
 
+    /**
+     * Returns the store
+     *
+     * @return Mage_Core_Model_Store
+     */
     public function getStore()
     {
         return $this->getQuote()->getStore();
@@ -314,7 +431,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
     /**
      * Return html button which calls configure window
      *
-     * @param  $item
+     * @param  Mage_Sales_Model_Quote_Item $item
      * @return string
      */
     public function getConfigureButtonHtml($item)

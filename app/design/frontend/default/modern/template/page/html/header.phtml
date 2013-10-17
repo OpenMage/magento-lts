@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_modern
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /**
@@ -39,7 +39,7 @@
     </div>
     <div class="quick-access">
         <?php echo $this->getChildHtml('store_language') ?>
-        <p class="welcome-msg"><?php echo $this->getWelcome()?></p>
+        <p class="welcome-msg"><?php echo $this->getChildHtml('welcome') ?></p>
         <?php echo $this->getChildHtml('topLinks') ?>
     </div>
     <?php echo $this->getChildHtml('topBar') ?>

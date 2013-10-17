@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -55,8 +55,7 @@ class Mage_XmlConnect_Block_Adminhtml_Queue_Grid extends Mage_Adminhtml_Block_Wi
         $collection = Mage::getModel('xmlconnect/queue')->getCollection();
 
         $collection->addFieldToFilter(
-            'main_table.status',
-            array('neq' => Mage_XmlConnect_Model_Queue::STATUS_DELETED)
+            'main_table.status', array('neq' => Mage_XmlConnect_Model_Queue::STATUS_DELETED)
         );
         $this->setCollection($collection);
         return parent::_prepareCollection();
@@ -159,13 +158,13 @@ class Mage_XmlConnect_Block_Adminhtml_Queue_Grid extends Mage_Adminhtml_Block_Wi
         $this->getMassactionBlock()->addItem('delete', array(
              'label'    => $this->__('Delete'),
              'url'      => $this->getUrl('*/*/massDeleteQueue'),
-             'confirm'  => $this->__('Are you sure you what to delete selected records?')
+             'confirm'  => $this->__('Are you sure you want to delete selected records?')
         ));
 
         $this->getMassactionBlock()->addItem('cancel', array(
              'label'    => $this->__('Cancel'),
              'url'      => $this->getUrl('*/*/massCancelQueue'),
-             'confirm'  => $this->__('Are you sure you what to cancel selected records?')
+             'confirm'  => $this->__('Are you sure you want to cancel selected records?')
         ));
         return $this;
     }

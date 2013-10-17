@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,8 +31,7 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Block_Adminhtml_Queue_Edit_Form
-    extends Mage_XmlConnect_Block_Adminhtml_Template_Edit_Form
+class Mage_XmlConnect_Block_Adminhtml_Queue_Edit_Form extends Mage_XmlConnect_Block_Adminhtml_Template_Edit_Form
 {
     /**
      * Prepare form before rendering HTML
@@ -59,15 +58,11 @@ class Mage_XmlConnect_Block_Adminhtml_Queue_Edit_Form
         }
 
         $fieldset = $this->getForm()->addFieldset(
-            "message_settings",
-            array('legend' => $this->__('Message Settings')),
-            '^'
+            "message_settings", array('legend' => $this->__('Message Settings')), '^'
         );
 
         if ($model->getId()) {
-            $fieldset->addField('message_id', 'hidden', array(
-                'name'  => 'message_id'
-            ));
+            $fieldset->addField('message_id', 'hidden', array('name'  => 'message_id'));
         }
 
         // set exec_time for showing accordingly to locale datetime settings
@@ -155,12 +150,14 @@ class Mage_XmlConnect_Block_Adminhtml_Queue_Edit_Form
         if (!$model->getTemplateId()) {
             $model->setTemplateId($templateModel->getId());
         }
+        if (!$model->getApplicationId()) {
+            $model->setApplicationId($templateModel->getApplicationId());
+        }
         $model->setMessageId($model->getId());
-        $model->setData('app_code', $templateModel->getData('app_code'));
 
         $this->getForm()->setAction($this->getUrl('*/*/saveMessage'));
         $this->getForm()->setValues($model->getData());
 
         $this->setForm($this->getForm());
-     }
+    }
 }

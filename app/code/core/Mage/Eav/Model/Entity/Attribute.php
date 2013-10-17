@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -135,16 +135,10 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
      * Prepare data for save
      *
      * @return Mage_Eav_Model_Entity_Attribute
+     * @throws Mage_Eav_Exception
      */
     protected function _beforeSave()
     {
-        // prevent overriding product data
-        if (isset($this->_data['attribute_code'])
-            && Mage::getModel('catalog/product')->isReservedAttribute($this))
-        {
-            throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('The attribute code \'%s\' is reserved by system. Please try another attribute code', $this->_data['attribute_code']));
-        }
-
         /**
          * Check for maximum attribute_code length
          */

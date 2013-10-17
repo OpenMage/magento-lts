@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -58,10 +58,7 @@ class Mage_XmlConnect_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Totals
                     if ($renderer->displayBoth()) {
                         $title = $this->__('Subtotal (Excl. Tax)');
                         $this->_addTotalDataToXmlObj(
-                            $totalsXmlObj,
-                            $code . '_excl_tax',
-                            $title,
-                            $total->getValueExclTax()
+                            $totalsXmlObj, $code . '_excl_tax', $title, $total->getValueExclTax()
                         );
 
                         $code  = $code . '_incl_tax';
@@ -103,12 +100,12 @@ class Mage_XmlConnect_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Totals
                     }
                     continue 2;
                 case 'giftcardaccount':
-                    $_cards = $renderer->getTotal()->getGiftCards();
-                    if (!$_cards) {
-                        $_cards = $renderer->getQuoteGiftCards();
+                    $cards = $renderer->getTotal()->getGiftCards();
+                    if (!$cards) {
+                        $cards = $renderer->getQuoteGiftCards();
                     }
                     if ($renderer->getTotal()->getValue()) {
-                        foreach ($_cards as $cardCode) {
+                        foreach ($cards as $cardCode) {
                             $title = $this->__('Gift Card (%s)', $cardCode['c']);
                             $value = $cardCode['c'];
                             $totalXmlObj = $totalsXmlObj->addChild($code);

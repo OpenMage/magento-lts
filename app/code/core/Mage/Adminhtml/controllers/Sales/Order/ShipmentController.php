@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -671,14 +671,15 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
             $outputPdf = $this->_combineLabelsPdf($labelsContent);
             $this->_prepareDownloadResponse('ShippingLabels.pdf', $outputPdf->render(), 'application/pdf');
             return;
-        } else {
-            $createdFromPartErrorMsg = $createdFromOrders ? 'orders' : 'shipments';
-            $this->_getSession()
-                ->addError(Mage::helper('sales')->__('There are no shipping labels related to selected %s.', $createdFromPartErrorMsg));
         }
+
         if ($createdFromOrders) {
+            $this->_getSession()
+                ->addError(Mage::helper('sales')->__('There are no shipping labels related to selected orders.'));
             $this->_redirect('*/sales_order/index');
         } else {
+            $this->_getSession()
+                ->addError(Mage::helper('sales')->__('There are no shipping labels related to selected shipments.'));
             $this->_redirect('*/sales_order_shipment/index');
         }
     }

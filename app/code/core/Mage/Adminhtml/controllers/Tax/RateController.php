@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -61,8 +61,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
      */
     public function addAction()
     {
-        $rateModel = Mage::getSingleton('tax/calculation_rate')
-            ->load(null);
+        $rateModel = Mage::getSingleton('tax/calculation_rate')->load(null);
 
         $this->_title($this->__('Sales'))
              ->_title($this->__('Tax'))
@@ -70,8 +69,11 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
 
         $this->_title($this->__('New Rate'));
 
-        //This line substitutes in the form the previously entered by the user values, if any of them were wrong.
         $rateModel->setData(Mage::getSingleton('adminhtml/session')->getFormData(true));
+
+        if ($rateModel->getZipIsRange() && !$rateModel->hasTaxPostcode()) {
+            $rateModel->setTaxPostcode($rateModel->getZipFrom() . '-' . $rateModel->getZipTo());
+        }
 
         $this->_initAction()
             ->_addBreadcrumb(Mage::helper('tax')->__('Manage Tax Rates'), Mage::helper('tax')->__('Manage Tax Rates'), $this->getUrl('*/tax_rate'))
@@ -133,10 +135,19 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
              ->_title($this->__('Manage Tax Zones and Rates'));
 
         $rateId = (int)$this->getRequest()->getParam('rate');
-        $rateModel = Mage::getSingleton('tax/calculation_rate')->load($rateId);
+        $rateModel = Mage::getSingleton('tax/calculation_rate')->load(null);
+        $rateModel->setData(Mage::getSingleton('adminhtml/session')->getFormData(true));
+        if ($rateModel->getId() != $rateId) {
+            $rateModel->load($rateId);
+        }
+
         if (!$rateModel->getId()) {
             $this->getResponse()->setRedirect($this->getUrl("*/*/"));
-            return ;
+            return;
+        }
+
+        if ($rateModel->getZipIsRange() && !$rateModel->hasTaxPostcode()) {
+            $rateModel->setTaxPostcode($rateModel->getZipFrom() . '-' . $rateModel->getZipTo());
         }
 
         $this->_title(sprintf("%s", $rateModel->getCode()));

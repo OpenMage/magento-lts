@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -33,8 +33,8 @@
             </div>
             <div class="box-content">
                 <p>
-                    <?php echo $this->htmlEscape($this->getCustomer()->getName()) ?><br />
-                    <?php echo $this->htmlEscape($this->getCustomer()->getEmail()) ?><br />
+                    <?php echo $this->escapeHtml($this->getCustomer()->getName()) ?><br />
+                    <?php echo $this->escapeHtml($this->getCustomer()->getEmail()) ?><br />
                     <a href="<?php echo $this->getChangePasswordUrl() ?>"><?php echo $this->__('Change Password') ?></a>
                 </p>
             </div>

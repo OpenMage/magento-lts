@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,7 +34,7 @@
 class Mage_XmlConnect_Model_Catalog_Category_Image extends Mage_Catalog_Model_Product_Image
 {
     /**
-     * Set filenames for base file and new file
+     * Set file names for base file and new file
      *
      * @param string $file
      * @return Mage_Catalog_Model_Product_Image
@@ -76,8 +76,9 @@ class Mage_XmlConnect_Model_Catalog_Category_Image extends Mage_Catalog_Model_Pr
                 } else {
                     $baseDir = Mage::getDesign()->getSkinBaseDir(array('_theme' => 'default'));
                     if (!file_exists($baseDir . $file)) {
-                        $baseDir = Mage::getDesign()
-                            ->getSkinBaseDir(array('_theme' => 'default', '_package' => 'base'));
+                        $baseDir = Mage::getDesign()->getSkinBaseDir(
+                            array('_theme' => 'default', '_package' => 'base')
+                        );
                     }
                 }
             }
@@ -93,18 +94,22 @@ class Mage_XmlConnect_Model_Catalog_Category_Image extends Mage_Catalog_Model_Pr
         $this->_baseFile = $baseFile;
 
         // build new filename (most important params)
-        $path = array(Mage::getSingleton('xmlconnect/catalog_category_media_config')->getBaseMediaPath(), 'cache',
-            Mage::app()->getStore()->getId(), $path[] = $this->getDestinationSubdir()
-        );
+        $path = array(Mage::getSingleton('xmlconnect/catalog_category_media_config')->getBaseMediaPath(),
+            'cache', Mage::app()->getStore()->getId(), $path[] = $this->getDestinationSubdir());
+
         if ((!empty($this->_width)) || (!empty($this->_height))) {
             $path[] = "{$this->_width}x{$this->_height}";
         }
 
         // add misk params as a hash
-        $miscParams = array(($this->_keepAspectRatio  ? '' : 'non') . 'proportional',
-            ($this->_keepFrame ? '' : 'no') . 'frame', ($this->_keepTransparency ? '' : 'no') . 'transparency',
-            ($this->_constrainOnly ? 'do' : 'not')  . 'constrainonly', $this->_rgbToString($this->_backgroundColor),
-            'angle' . $this->_angle, 'quality' . $this->_quality
+        $miscParams = array(
+            ($this->_keepAspectRatio  ? '' : 'non') . 'proportional',
+            ($this->_keepFrame        ? '' : 'no')  . 'frame',
+            ($this->_keepTransparency ? '' : 'no')  . 'transparency',
+            ($this->_constrainOnly ? 'do' : 'not')  . 'constrainonly',
+            $this->_rgbToString($this->_backgroundColor),
+            'angle' . $this->_angle,
+            'quality' . $this->_quality
         );
 
         // if has watermark add watermark params to hash
@@ -125,10 +130,22 @@ class Mage_XmlConnect_Model_Catalog_Category_Image extends Mage_Catalog_Model_Pr
     }
 
     /**
+     * Set new file
+     *
+     * @param string $filePath
+     * @return Mage_XmlConnect_Model_Catalog_Category_Image
+     */
+    public function setNewFile($filePath)
+    {
+        $this->_newFile = $filePath;
+        return $this;
+    }
+
+    /**
      * Get relative watermark file path
      * or false if file not found
      *
-     * @return string | bool
+     * @return string|bool
      */
     protected function _getWatermarkFilePath()
     {

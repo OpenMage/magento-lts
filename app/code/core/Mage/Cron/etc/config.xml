@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Cron
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -65,6 +65,14 @@
                     </cron_observer>
                 </observers>
             </default>
+            <always>
+                <observers>
+                    <cron_observer>
+                        <class>cron/observer</class>
+                        <method>dispatchAlways</method>
+                    </cron_observer>
+                </observers>
+            </always>
         </events>
     </crontab>
     <default>

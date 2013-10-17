@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -99,13 +99,15 @@
 <script type="text/javascript">
 //<![CDATA[
     var createShipment = $('invoice_do_shipment');
-    createShipment.observe('click', function(e){
-        if (createShipment.checked) {
-            document.getElementById('tracking').style.display = 'block';
-        } else {
-            document.getElementById('tracking').style.display = 'none'
-        }
-    })
+    if (createShipment) {
+        createShipment.observe('click', function(e){
+            if (createShipment.checked) {
+                document.getElementById('tracking').style.display = 'block';
+            } else {
+                document.getElementById('tracking').style.display = 'none'
+            }
+        })
+    }
 
     /*forced creating of shipment*/
     var forcedShipmentCreate = <?php echo $this->getForcedShipmentCreate() ?>;

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Usa
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,7 +33,7 @@
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Usa_Model_Shipping_Carrier_Dhl
-    extends Mage_Usa_Model_Shipping_Carrier_Abstract
+    extends Mage_Usa_Model_Shipping_Carrier_Dhl_Abstract
     implements Mage_Shipping_Model_Carrier_Interface
 {
 
@@ -422,34 +422,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
         $freeWeight = round(max(1, $weight), 0);
         $r->setWeight($freeWeight);
         $r->setService($freeMethod);
-    }
-
-    /**
-     * Get shipping date
-     *
-     * @param bool $domestic
-     * @return string
-     */
-    protected function _getShipDate($domestic = true)
-    {
-        if ($domestic) {
-            $days = explode(',', $this->getConfigData('shipment_days'));
-        } else {
-            $days = explode(',', $this->getConfigData('intl_shipment_days'));
-        }
-
-        if (!$days) {
-            return date('Y-m-d');
-        }
-
-        $i = 0;
-        $weekday = date('w');
-        while (!in_array($weekday, $days) && $i < 10) {
-            $i++;
-            $weekday = date('w', strtotime("+$i day"));
-        }
-
-        return date('Y-m-d', strtotime("+$i day"));
     }
 
     /**
@@ -1032,10 +1004,9 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
     }
 
     /**
-     * Send request for tracking
+     * Send request for trackings
      *
-     * @param array $tracking
-     * @return null
+     * @param array $trackings
      */
     protected function _getXMLTracking($trackings)
     {

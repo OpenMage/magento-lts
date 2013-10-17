@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -386,7 +386,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Abstract extends Varien_Object
 
         foreach ($this->getRequiredXmlAttributes() as $attribute => $defValue) {
             $data = $this->getData($this->_underscore($attribute));
-            if ($data) {
+            if (null !== $data) {
                 $xmlObj->addAttribute($attribute, $xmlObj->xmlAttribute($data));
             } elseif(null !== $defValue){
                 $xmlObj->addAttribute($attribute, $xmlObj->xmlAttribute($defValue));

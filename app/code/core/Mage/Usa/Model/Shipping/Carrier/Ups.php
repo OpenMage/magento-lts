@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Usa
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -102,13 +102,15 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
     protected $_defaultCgiGatewayUrl = 'http://www.ups.com:80/using/services/rave/qcostcgi.cgi';
 
     /**
-     * Default urls for shipment
+     * Default urls for XML
      *
      * @var array
      */
     protected $_defaultUrls = array(
-        'ShipConfirm' => 'https://wwwcie.ups.com/ups.app/xml/ShipConfirm',
-        'ShipAccept'  => 'https://wwwcie.ups.com/ups.app/xml/ShipAccept',
+        'Rate'        => 'https://onlinetools.ups.com/ups.app/xml/Rate',
+        'Track'       => 'https://onlinetools.ups.com/ups.app/xml/Track',
+        'ShipConfirm' => 'https://onlinetools.ups.com/ups.app/xml/ShipConfirm',
+        'ShipAccept'  => 'https://onlinetools.ups.com/ups.app/xml/ShipAccept',
     );
 
     /**
@@ -441,7 +443,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
                 switch (substr($r[0],-1)) {
                     case 3: case 4:
                         if (in_array($r[1], $allowedMethods)) {
-                            $responsePrice = Mage::app()->getLocale()->getNumber($r[8]);
+                            $responsePrice = Mage::app()->getLocale()->getNumber($r[10]);
                             $costArr[$r[1]] = $responsePrice;
                             $priceArr[$r[1]] = $this->getMethodPrice($responsePrice, $r[1]);
                         }
@@ -476,7 +478,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
                 $rate->setCarrierTitle($this->getConfigData('title'));
                 $rate->setMethod($method);
                 $method_arr = $this->getCode('method', $method);
-                $rate->setMethodTitle(Mage::helper('usa')->__($method_arr));
+                $rate->setMethodTitle($method_arr);
                 $rate->setCost($costArr[$method]);
                 $rate->setPrice($price);
                 $result->append($rate);
@@ -791,6 +793,9 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
     protected function _getXmlQuotes()
     {
         $url = $this->getConfigData('gateway_xml_url');
+        if (!$url) {
+            $url = $this->_defaultUrls['Rate'];
+        }
 
         $this->setXMLAccessRequest();
         $xmlRequest=$this->_xmlAccessRequest;
@@ -1144,6 +1149,9 @@ XMLAuth;
     protected function _getXmlTracking($trackings)
     {
         $url = $this->getConfigData('tracking_xml_url');
+        if (!$url) {
+            $url = $this->_defaultUrls['Track'];
+        }
 
         foreach($trackings as $tracking){
             $xmlRequest=$this->_xmlAccessRequest;
@@ -1166,7 +1174,7 @@ XMLAuth;
 
             try {
                 $ch = curl_init();
-                   curl_setopt($ch, CURLOPT_URL, $url);
+                curl_setopt($ch, CURLOPT_URL, $url);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
                 curl_setopt($ch, CURLOPT_HEADER, 0);
                 curl_setopt($ch, CURLOPT_POST, 1);
@@ -1559,7 +1567,10 @@ XMLAuth;
 
         $debugData = array('request' => $xmlRequest->asXML());
         try {
-            $url = $this->_defaultUrls['ShipAccept'];
+            $url = $this->getConfigData('shipaccept_xml_url');
+            if (!$url) {
+                $url = $this->_defaultUrls['ShipAccept'];
+            }
 
             $ch = curl_init($url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -1612,7 +1623,7 @@ XMLAuth;
         $xmlResponse = $this->_getCachedQuotes($xmlRequest);
 
         if ($xmlResponse === null) {
-            $url = $this->getConfigData('url');
+            $url = $this->getConfigData('shipconfirm_xml_url');
             if (!$url) {
                 $url = $this->_defaultUrls['ShipConfirm'];
             }

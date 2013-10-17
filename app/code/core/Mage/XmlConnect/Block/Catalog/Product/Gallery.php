@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -40,43 +40,42 @@ class Mage_XmlConnect_Block_Catalog_Product_Gallery extends Mage_XmlConnect_Bloc
      */
     protected function _toHtml()
     {
-        $productId = $this->getRequest()->getParam('id', null);
-        $product = Mage::getModel('catalog/product')->setStoreId(Mage::app()->getStore()->getId())->load($productId);
+        $product = Mage::getModel('catalog/product')->setStoreId(Mage::app()->getStore()->getId())
+            ->load($this->getProductId());
         $collection = $product->getMediaGalleryImages();
 
         $imagesNode = Mage::getModel('xmlconnect/simplexml_element', '<images></images>');
-        $helper = $this->helper('catalog/image');
+        $productImageHelper = $this->helper('xmlconnect/catalog_product_image');
 
+        /** @var $imageLimitsModel Mage_XmlConnect_Model_Images */
+        $imageLimitsModel = Mage::getModel('xmlconnect/images');
+        $gallerySmallImageSize = $imageLimitsModel->getImageLimitParam('content/product_gallery_small');
+        $galleryBigImageSize = $imageLimitsModel->getImageLimitParam('content/product_gallery_big');
         foreach ($collection as $item) {
             $imageNode = $imagesNode->addChild('image');
 
             /**
              * Big image
              */
-            $bigImage = $helper->init($product, 'image', $item->getFile())->constrainOnly(true)->keepFrame(false)
-                ->resize(Mage::helper('xmlconnect/image')->getImageSizeForContent('product_gallery_big'));
+            $bigImage = $productImageHelper->init($product, 'image', $item->getFile())->constrainOnly(true)
+                ->keepFrame(false)->resize($galleryBigImageSize);
 
             $fileNode = $imageNode->addChild('file');
             $fileNode->addAttribute('type', 'big');
             $fileNode->addAttribute('url', $bigImage);
-
-            $file = Mage::helper('xmlconnect')->urlToPath($bigImage);
-
             $fileNode->addAttribute('id', ($id = $item->getId()) ? (int) $id : 0);
-            $fileNode->addAttribute('modification_time', filemtime($file));
+            $fileNode->addAttribute('modification_time', filemtime($bigImage->getNewFile()));
 
             /**
              * Small image
              */
-            $smallImage = $helper->init($product, 'thumbnail', $item->getFile())->constrainOnly(true)->keepFrame(false)
-                ->resize(Mage::helper('xmlconnect/image')->getImageSizeForContent('product_gallery_small'));
+            $smallImage = $productImageHelper->init($product, 'thumbnail', $item->getFile())->constrainOnly(true)
+                ->keepFrame(false)->resize($gallerySmallImageSize);
 
             $fileNode = $imageNode->addChild('file');
             $fileNode->addAttribute('type', 'small');
             $fileNode->addAttribute('url', $smallImage);
-
-            $file = Mage::helper('xmlconnect')->urlToPath($smallImage);
-            $fileNode->addAttribute('modification_time', filemtime($file));
+            $fileNode->addAttribute('modification_time', filemtime($smallImage->getNewFile()));
         }
         return $imagesNode->asNiceXml();
     }

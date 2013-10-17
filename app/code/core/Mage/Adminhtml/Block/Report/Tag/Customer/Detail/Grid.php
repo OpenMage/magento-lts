@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -47,7 +47,6 @@ class Mage_Adminhtml_Block_Report_Tag_Customer_Detail_Grid extends Mage_Adminhtm
             ->joinAttribute('original_name', 'catalog_product/name', 'entity_id')
             ->addCustomerFilter($this->getRequest()->getParam('id'))
             ->addStatusFilter(Mage_Tag_Model_Tag::STATUS_APPROVED)
-            ->setDescOrder('DESC')
             ->addStoresVisibility()
             ->setActiveFilter()
             ->addGroupByTag()
@@ -62,28 +61,25 @@ class Mage_Adminhtml_Block_Report_Tag_Customer_Detail_Grid extends Mage_Adminhtm
     {
         $this->addColumn('name', array(
             'header'    =>Mage::helper('reports')->__('Product Name'),
-            'sortable'  => false,
             'index'     =>'original_name'
         ));
 
         $this->addColumn('tag_name', array(
             'header'    =>Mage::helper('reports')->__('Tag Name'),
-            'sortable'  => false,
             'index'     =>'tag_name'
         ));
 
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('visible', array(
                 'header'    => Mage::helper('reports')->__('Visible In'),
-                'sortable'  => false,
                 'index'     => 'stores',
                 'type'      => 'store',
+                'sortable'  => false,
                 'store_view'=> true
             ));
 
             $this->addColumn('added_in', array(
                 'header'    =>Mage::helper('reports')->__('Submitted In'),
-                'sortable'  => false,
                 'index'     =>'store_id',
                 'type'      =>'store',
                 'store_view'=>true
@@ -92,7 +88,6 @@ class Mage_Adminhtml_Block_Report_Tag_Customer_Detail_Grid extends Mage_Adminhtm
 
         $this->addColumn('created_at', array(
             'header'    =>Mage::helper('reports')->__('Submitted On'),
-            'sortable'  => false,
             'width'     => '140px',
             'type'      => 'datetime',
             'index'     => 'created_at'

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,6 +34,16 @@
 class Mage_XmlConnect_Helper_Data extends Mage_Core_Helper_Abstract
 {
     /**
+     * Thumbnail image width
+     */
+    const THUMBNAIL_IMAGE_WIDTH = 160;
+
+    /**
+     * Thumbnail image height
+     */
+    const THUMBNAIL_IMAGE_HEIGHT = 115;
+
+    /**
      * Push title length
      */
     const PUSH_TITLE_LENGTH = 140;
@@ -42,11 +52,6 @@ class Mage_XmlConnect_Helper_Data extends Mage_Core_Helper_Abstract
      * Message title length
      */
     const MESSAGE_TITLE_LENGTH = 255;
-
-    /**
-     * Curl default timeout
-     */
-    const CURLOPT_DEFAULT_TIMEOUT = 60;
 
     /**
      * List of the keys for xml config that have to be excluded form application config
@@ -108,6 +113,16 @@ class Mage_XmlConnect_Helper_Data extends Mage_Core_Helper_Abstract
      * Social network LinkedIn id
      */
     const SOCIAL_NETWORK_LINKEDIN = 'linkedin';
+
+    /**
+     * Api changes for version 23
+     */
+    const DEVICE_API_V_23 = '23';
+
+    /**
+     * API version request param
+     */
+    const API_VERSION_REQUEST_PARAM = 'api_version';
 
     /**
      * Get device preview model
@@ -197,6 +212,16 @@ class Mage_XmlConnect_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * Get application id from model in registry
+     *
+     * @return int
+     */
+    public function getApplicationId()
+    {
+        return $this->getApplication()->getId();
+    }
+
+    /**
      * Create array with filter model and filter block by key
      *
      * Create array with:
@@ -248,15 +273,14 @@ class Mage_XmlConnect_Helper_Data extends Mage_Core_Helper_Abstract
     {
         Varien_Profiler::start('TEST: ' . __METHOD__);
         $deviceType = $this->getDeviceType();
+        $deviceCountries = $this->getDeviceHelper()->getAllowedCountriesArray();
         switch ($deviceType) {
             case self::DEVICE_TYPE_IPHONE:
             case self::DEVICE_TYPE_IPAD:
                 $cacheKey = 'XMLCONNECT_COUNTRY_ITUNES_SELECT_STORE_' . Mage::app()->getStore()->getCode();
-                $deviceCountries = $this->getDeviceHelper()->getItunesCountriesArray();
                 break;
             case self::DEVICE_TYPE_ANDROID:
                 $cacheKey = 'XMLCONNECT_COUNTRY_ANDROID_SELECT_STORE_' . Mage::app()->getStore()->getCode();
-                $deviceCountries = $this->getDeviceHelper()->getAndroidMarketCountriesArray();
                 break;
             default:
                 Mage::throwException(
@@ -625,13 +649,17 @@ EOT;
         }
 
         try {
-            $applicationId = Mage::getModel('xmlconnect/template')->load($queue->getTemplateId())->getApplicationId();
             /** @var $app Mage_XmlConnect_Model_Application */
-            $app = Mage::getModel('xmlconnect/application')->load($applicationId);
-
+            $templateModel = Mage::getModel('xmlconnect/template')->load($queue->getTemplateId());
+            if (!$templateModel->getId()) {
+                Mage::throwException(
+                    Mage::helper('xmlconnect')->__('Can\'t load template with id "%s"', $templateModel->getId())
+                );
+            }
+            $app = Mage::getModel('xmlconnect/application')->load($templateModel->getApplicationId());
             if (!$app->getId()) {
                 Mage::throwException(
-                    Mage::helper('xmlconnect')->__('Can\'t load application with id "%s"', $applicationId)
+                    Mage::helper('xmlconnect')->__('Can\'t load application with id "%s"', $templateModel->getApplicationId())
                 );
             }
 
@@ -641,6 +669,7 @@ EOT;
             }
 
             $sendType = $queue->getData('type');
+
             switch ($sendType) {
                 case Mage_XmlConnect_Model_Queue::MESSAGE_TYPE_AIRMAIL:
                     $configPath = 'xmlconnect/' . Mage_XmlConnect_Model_Queue::MESSAGE_TYPE_AIRMAIL . '/broadcast_url';
@@ -654,19 +683,30 @@ EOT;
                     break;
             }
 
-            $curl = new Varien_Http_Adapter_Curl();
-            $curl->setConfig($this->_getCurlConfig($app->getUserpwd()));
+            $curlHandler = curl_init(Mage::getStoreConfig($configPath));
 
-            $urbanUrl = Mage::getStoreConfig($configPath);
-            $curl->write(
-                Zend_Http_Client::POST, $urbanUrl, HTTP_REQUEST_HTTP_VER_1_1, $this->getHttpHeaders(), $params
-            );
+            $httpHeaders = $this->getHttpHeaders();
 
-            if ($curl->read() && $curl->getInfo(CURLINFO_HTTP_CODE) == 200) {
+            curl_setopt($curlHandler, CURLOPT_POST, 1);
+            curl_setopt($curlHandler, CURLOPT_HTTPHEADER, $httpHeaders);
+            curl_setopt($curlHandler, CURLOPT_POSTFIELDS, $params);
+            curl_setopt($curlHandler, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($curlHandler, CURLOPT_USERPWD, $app->getUserpwd());
+            curl_setopt($curlHandler, CURLOPT_TIMEOUT, 60);
+
+            // Execute the request.
+            $result = curl_exec($curlHandler);
+            $succeeded  = curl_errno($curlHandler) == 0;
+            $responseCode = curl_getinfo($curlHandler, CURLINFO_HTTP_CODE);
+            // close cURL resource, and free up system resources
+            curl_close($curlHandler);
+
+            if ($succeeded && $responseCode == 200) {
                 $queue->setStatus(Mage_XmlConnect_Model_Queue::STATUS_COMPLETED);
+            } else {
+                Mage::log($result);
+                $queue->setStatus(Mage_XmlConnect_Model_Queue::STATUS_CANCELED);
             }
-            $curl->close();
-
             $queue->setIsSent(true);
             $queue->save();
             return;
@@ -684,18 +724,6 @@ EOT;
     public function getHttpHeaders()
     {
         return array('Content-Type: application/json');
-    }
-
-    /**
-     * Get urban airship curl request configuration
-     *
-     * @param string $userPwd
-     * @param int $timeout
-     * @return array
-     */
-    protected function _getCurlConfig($userPwd, $timeout = self::CURLOPT_DEFAULT_TIMEOUT)
-    {
-        return array ('timeout' => $timeout, 'userpwd' => $userPwd);
     }
 
     /**
@@ -813,6 +841,7 @@ EOT;
     /**
      * Convert Url link to file path for images
      *
+     * @deprecated will remove in new release
      * @param string $icon
      * @return string
      */
@@ -880,5 +909,71 @@ EOT;
     public function trimLineBreaks($string)
     {
         return preg_replace(array('@\r@', '@\n+@'), array('', PHP_EOL), $string);
+    }
+
+    /**
+     * Add item to total node
+     *
+     * @param Mage_XmlConnect_Model_Simplexml_Element $xmlObj
+     * @param string $code
+     * @param string $label
+     * @param float $value
+     * @param string $formattedValue
+     * @return Mage_XmlConnect_Helper_Data
+     */
+    public function addTotalItemToXmlObj($xmlObj, $code, $label, $value, $formattedValue)
+    {
+        $xmlObj->addCustomChild('item', Mage::helper('xmlconnect')->formatPriceForXml($value), array(
+            'id' => $code,
+            'label' => $label,
+            'formatted_value' => $formattedValue
+        ));
+        return $this;
+    }
+
+    /**
+     * Check if current api version equal to device api version
+     *
+     * @param string $apiVersion
+     * @param string $operator
+     * @return bool
+     */
+    public function checkApiVersion($apiVersion, $operator = '>=')
+    {
+        if (version_compare($this->getApiVersion(), $apiVersion, $operator) === true) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Get api version param
+     *
+     * @return string
+     */
+    public function getApiVersion()
+    {
+        return Mage::app()->getRequest()->getParam(self::API_VERSION_REQUEST_PARAM, false);
+    }
+
+    /**
+     * Check is localization has been changed
+     *
+     * @return bool
+     */
+    public function isChangeLocalization()
+    {
+        /** @var $translateHelper Mage_XmlConnect_Helper_Translate */
+        $translateHelper = Mage::helper('xmlconnect/translate');
+        $localizationHash = $translateHelper->getHash();
+
+        /** @var $configuration Mage_XmlConnect_Model_Configuration */
+        $configuration = Mage::getSingleton('xmlconnect/configuration');
+        if ($configuration->getPreviousLocalizationHash() !== $localizationHash) {
+            $configuration->setPreviousLocalizationHash($localizationHash);
+            $configuration->getApplicationModel()->updateAllAppsUpdatedAtParameter();
+            return true;
+        }
+        return false;
     }
 }

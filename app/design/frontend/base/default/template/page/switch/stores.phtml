@@ -20,11 +20,11 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php 
+<?php
 /**
  * Store switcher template
  *
@@ -40,7 +40,7 @@
     <?php endforeach;*/ ?>
     <?php foreach ($this->getGroups() as $_group): ?>
         <?php $_selected = ($_group->getId()==$this->getCurrentGroupId()) ? ' selected="selected"' : '' ?>
-        <option value="<?php echo $_group->getHomeUrl() ?>"<?php echo $_selected ?>><?php echo $this->htmlEscape($_group->getName()) ?></option>
+        <option value="<?php echo $_group->getHomeUrl() ?>"<?php echo $_selected ?>><?php echo $this->escapeHtml($_group->getName()) ?></option>
     <?php endforeach; ?>
     </select>
 </div>

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -181,23 +181,21 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
      */
     public function markQuotesRecollectOnCatalogRules()
     {
-        $tableQuote = $this->getTable('sales/quote');
-        $subSelect = $this->_getReadAdapter()
-            ->select()
-            ->from(array('t2' => $this->getTable('sales/quote_item')), array('entity_id' => 'quote_id'))
-            ->from(array('t3' => $this->getTable('catalogrule/rule_product_price')), array())
-            ->where('t2.product_id = t3.product_id')
-            ->group('quote_id');
+        $quoteItemTable = $this->getTable('sales/quote_item');
+        $productPriceTable = $this->getTable('catalogrule/rule_product_price');
 
-        $select = $this->_getReadAdapter()->select()->join(
-            array('t2' => $subSelect),
-            't1.entity_id = t2.entity_id',
-            array('trigger_recollect' => new Zend_Db_Expr('1'))
-        );
+        $select = $this->_getReadAdapter()
+          ->select()
+          ->distinct()
+          ->from(array('t2' => $quoteItemTable), array('entity_id' => 'quote_id'))
+          ->join(array('t3' => $productPriceTable), 't2.product_id = t3.product_id', array());
 
-        $updateQuery = $select->crossUpdateFromSelect(array('t1' => $tableQuote));
+        $entityIds = $this->_getReadAdapter()->fetchCol($select);
 
-        $this->_getWriteAdapter()->query($updateQuery);
+        if (count($entityIds) > 0) {
+            $where = $this->_getWriteAdapter()->quoteInto('entity_id IN (?)', $entityIds);
+            $this->_getWriteAdapter()->update($this->getTable('sales/quote'), array('trigger_recollect' => 1), $where);
+        }
 
         return $this;
     }

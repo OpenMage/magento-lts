@@ -19,7 +19,7 @@
  *
  * @category    Varien
  * @package     js
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 VarienForm = Class.create();
@@ -289,6 +289,7 @@ RegionUpdater.prototype = {
             }
             this.setMarkDisplay(this.regionSelectEl, true);
         } else {
+            this.regionSelectEl.options.length = 1;
             if (this.disableAction=='hide') {
                 if (this.regionTextEl) {
                     this.regionTextEl.style.display = '';

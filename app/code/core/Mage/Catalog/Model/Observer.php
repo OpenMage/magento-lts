@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,24 +42,13 @@ class Mage_Catalog_Model_Observer
      */
     public function storeEdit(Varien_Event_Observer $observer)
     {
+        /** @var $store Mage_Core_Model_Store */
         $store = $observer->getEvent()->getStore();
-        /* @var $store Mage_Core_Model_Store */
         if ($store->dataHasChangedFor('group_id')) {
             Mage::app()->reinitStores();
-            /**
-             * @see Mage_Catalog_Model_Indexer_Url
-             */
-            //Mage::getModel('catalog/url')->refreshRewrites($store->getId());
-
-            /**
-             * @see Mage_Catalog_Model_Category_Indexer_Product
-             */
-            /*Mage::getResourceModel('catalog/category')->refreshProductIndex(
-                array(),
-                array(),
-                array($store->getId())
-            );*/
-            if (Mage::helper('catalog/category_flat')->isEnabled(true)) {
+            /** @var $categoryFlatHelper Mage_Catalog_Helper_Category_Flat */
+            $categoryFlatHelper = Mage::helper('catalog/category_flat');
+            if ($categoryFlatHelper->isAvailable() && $categoryFlatHelper->isBuilt()) {
                 Mage::getResourceModel('catalog/category_flat')->synchronize(null, array($store->getId()));
             }
             Mage::getResourceSingleton('catalog/product')->refreshEnabledIndex($store);
@@ -75,26 +64,14 @@ class Mage_Catalog_Model_Observer
      */
     public function storeAdd(Varien_Event_Observer $observer)
     {
-        $store = $observer->getEvent()->getStore();
         /* @var $store Mage_Core_Model_Store */
+        $store = $observer->getEvent()->getStore();
         Mage::app()->reinitStores();
         Mage::getConfig()->reinit();
-
-        /**
-         * @see Mage_Catalog_Model_Indexer_Url
-         */
-        //Mage::getModel('catalog/url')->refreshRewrites($store->getId());
-        /**
-         * @see Mage_Catalog_Model_Category_Indexer_Product
-         */
-        /*Mage::getResourceSingleton('catalog/category')->refreshProductIndex(
-            array(),
-            array(),
-            array($store->getId())
-        );*/
-        if (Mage::helper('catalog/category_flat')->isEnabled(true)) {
-            Mage::getResourceModel('catalog/category_flat')
-                ->synchronize(null, array($store->getId()));
+        /** @var $categoryFlatHelper Mage_Catalog_Helper_Category_Flat */
+        $categoryFlatHelper = Mage::helper('catalog/category_flat');
+        if ($categoryFlatHelper->isAvailable() && $categoryFlatHelper->isBuilt()) {
+            Mage::getResourceModel('catalog/category_flat')->synchronize(null, array($store->getId()));
         }
         Mage::getResourceModel('catalog/product')->refreshEnabledIndex($store);
         return $this;
@@ -108,26 +85,15 @@ class Mage_Catalog_Model_Observer
      */
     public function storeGroupSave(Varien_Event_Observer $observer)
     {
-        $group = $observer->getEvent()->getGroup();
         /* @var $group Mage_Core_Model_Store_Group */
+        $group = $observer->getEvent()->getGroup();
         if ($group->dataHasChangedFor('root_category_id') || $group->dataHasChangedFor('website_id')) {
             Mage::app()->reinitStores();
             foreach ($group->getStores() as $store) {
-                /**
-                 * @see Mage_Catalog_Model_Indexer_Url
-                 */
-                //Mage::getModel('catalog/url')->refreshRewrites($store->getId());
-                /**
-                 * @see Mage_Catalog_Model_Category_Indexer_Product
-                 */
-                /*Mage::getResourceSingleton('catalog/category')->refreshProductIndex(
-                    array(),
-                    array(),
-                    array($store->getId())
-                );*/
-                if (Mage::helper('catalog/category_flat')->isEnabled(true)) {
-                    Mage::getResourceModel('catalog/category_flat')
-                        ->synchronize(null, array($store->getId()));
+                /** @var $categoryFlatHelper Mage_Catalog_Helper_Category_Flat */
+                $categoryFlatHelper = Mage::helper('catalog/category_flat');
+                if ($categoryFlatHelper->isAvailable() && $categoryFlatHelper->isBuilt()) {
+                    Mage::getResourceModel('catalog/category_flat')->synchronize(null, array($store->getId()));
                 }
             }
         }
@@ -142,7 +108,9 @@ class Mage_Catalog_Model_Observer
      */
     public function storeDelete(Varien_Event_Observer $observer)
     {
-        if (Mage::helper('catalog/category_flat')->isEnabled(true)) {
+        /** @var $categoryFlatHelper Mage_Catalog_Helper_Category_Flat */
+        $categoryFlatHelper = Mage::helper('catalog/category_flat');
+        if ($categoryFlatHelper->isAvailable() && $categoryFlatHelper->isBuilt()) {
             $store = $observer->getEvent()->getStore();
             Mage::getResourceModel('catalog/category_flat')->deleteStores($store->getId());
         }
@@ -160,21 +128,10 @@ class Mage_Catalog_Model_Observer
         $categoryId = $observer->getEvent()->getCategoryId();
         $prevParentId = $observer->getEvent()->getPrevParentId();
         $parentId = $observer->getEvent()->getParentId();
-        /**
-         * @see Mage_Catalog_Model_Indexer_Url
-         */
-        //Mage::getModel('catalog/url')->refreshCategoryRewrite($categoryId);
-        /**
-         * @see Mage_Catalog_Model_Category_Indexer_Product
-         */
-        /*Mage::getResourceSingleton('catalog/category')->refreshProductIndex(array(
-            $categoryId, $prevParentId, $parentId
-        ));*/
-        //Mage::getModel('catalog/category')->load($prevParentId)->save();
-        //Mage::getModel('catalog/category')->load($parentId)->save();
-        if (Mage::helper('catalog/category_flat')->isEnabled(true)) {
-            Mage::getResourceModel('catalog/category_flat')
-                ->move($categoryId, $prevParentId, $parentId);
+        /** @var $categoryFlatHelper Mage_Catalog_Helper_Category_Flat */
+        $categoryFlatHelper = Mage::helper('catalog/category_flat');
+        if ($categoryFlatHelper->isAvailable() && $categoryFlatHelper->isBuilt()) {
+            Mage::getResourceModel('catalog/category_flat')->move($categoryId, $prevParentId, $parentId);
         }
         return $this;
     }
@@ -212,7 +169,9 @@ class Mage_Catalog_Model_Observer
      */
     public function categorySaveAfter(Varien_Event_Observer $observer)
     {
-        if (Mage::helper('catalog/category_flat')->isEnabled(true)) {
+        /** @var $categoryFlatHelper Mage_Catalog_Helper_Category_Flat */
+        $categoryFlatHelper = Mage::helper('catalog/category_flat');
+        if ($categoryFlatHelper->isAvailable() && $categoryFlatHelper->isBuilt()) {
             $category = $observer->getEvent()->getCategory();
             Mage::getResourceModel('catalog/category_flat')->synchronize($category);
         }
@@ -252,7 +211,11 @@ class Mage_Catalog_Model_Observer
      */
     public function addCatalogToTopmenuItems(Varien_Event_Observer $observer)
     {
-        $this->_addCategoriesToMenu(Mage::helper('catalog/category')->getStoreCategories(), $observer->getMenu());
+        $block = $observer->getEvent()->getBlock();
+        $block->addCacheTag(Mage_Catalog_Model_Category::CACHE_TAG);
+        $this->_addCategoriesToMenu(
+            Mage::helper('catalog/category')->getStoreCategories(), $observer->getMenu(), $block, true
+        );
     }
 
     /**
@@ -260,15 +223,23 @@ class Mage_Catalog_Model_Observer
      *
      * @param Varien_Data_Tree_Node_Collection|array $categories
      * @param Varien_Data_Tree_Node $parentCategoryNode
+     * @param Mage_Page_Block_Html_Topmenu $menuBlock
+     * @param bool $addTags
      */
-    protected function _addCategoriesToMenu($categories, $parentCategoryNode)
+    protected function _addCategoriesToMenu($categories, $parentCategoryNode, $menuBlock, $addTags = false)
     {
+        $categoryModel = Mage::getModel('catalog/category');
         foreach ($categories as $category) {
             if (!$category->getIsActive()) {
                 continue;
             }
 
             $nodeId = 'category-node-' . $category->getId();
+
+            $categoryModel->setId($category->getId());
+            if ($addTags) {
+                $menuBlock->addModelTags($categoryModel);
+            }
 
             $tree = $parentCategoryNode->getTree();
             $categoryData = array(
@@ -280,13 +251,14 @@ class Mage_Catalog_Model_Observer
             $categoryNode = new Varien_Data_Tree_Node($categoryData, 'id', $tree, $parentCategoryNode);
             $parentCategoryNode->addChild($categoryNode);
 
-            if (Mage::helper('catalog/category_flat')->isEnabled()) {
+            $flatHelper = Mage::helper('catalog/category_flat');
+            if ($flatHelper->isEnabled() && $flatHelper->isBuilt(true)) {
                 $subcategories = (array)$category->getChildrenNodes();
             } else {
                 $subcategories = $category->getChildren();
             }
 
-            $this->_addCategoriesToMenu($subcategories, $categoryNode);
+            $this->_addCategoriesToMenu($subcategories, $categoryNode, $menuBlock, $addTags);
         }
     }
 
@@ -310,5 +282,27 @@ class Mage_Catalog_Model_Observer
 
         $categoryPathIds = explode(',', $currentCategory->getPathInStore());
         return in_array($category->getId(), $categoryPathIds);
+    }
+
+    /**
+     * Checks whether attribute_code by current module is reserved
+     *
+     * @param Varien_Event_Observer $observer
+     * @throws Mage_Core_Exception
+     */
+    public function checkReservedAttributeCodes(Varien_Event_Observer $observer)
+    {
+        /** @var $attribute Mage_Catalog_Model_Entity_Attribute */
+        $attribute = $observer->getEvent()->getAttribute();
+        if (!is_object($attribute)) {
+            return;
+        }
+        /** @var $product Mage_Catalog_Model_Product */
+        $product = Mage::getModel('catalog/product');
+        if ($product->isReservedAttribute($attribute)) {
+            throw new Mage_Core_Exception(
+                Mage::helper('catalog')->__('The attribute code \'%s\' is reserved by system. Please try another attribute code', $attribute->getAttributeCode())
+            );
+        }
     }
 }

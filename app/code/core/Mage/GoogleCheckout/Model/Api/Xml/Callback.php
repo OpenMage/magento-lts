@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_GoogleCheckout
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -809,6 +809,9 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
 
         $order = $this->getOrder();
         $payment = $order->getPayment();
+        if ($payment->getMethod() !== 'googlecheckout') {
+            return;
+        }
 
         $latestCharged = $this->getData('root/latest-charge-amount/VALUE');
         $totalCharged = $this->getData('root/total-charge-amount/VALUE');

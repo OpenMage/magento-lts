@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 if($this->getIsShipping()):
@@ -64,7 +64,7 @@ endif; ?>
         </select>
         <br/>
         <?php if($this->getIsShipping()): ?>
-            <input type="checkbox" id="order-shipping_same_as_billing" name="shipping_same_as_billing" onchange="order.setShippingAsBilling(this.checked)" <?php if($this->getIsAsBilling()): ?>checked<?php endif; ?>/>
+            <input type="checkbox" id="order-shipping_same_as_billing" name="shipping_same_as_billing" onclick="order.setShippingAsBilling(this.checked)" <?php if($this->getIsAsBilling()): ?>checked<?php endif; ?>/>
             <label for="order-shipping_same_as_billing" class="no-float"><?php echo Mage::helper('sales')->__('Same As Billing Address') ?></label>
         <?php else: ?>
             &nbsp;

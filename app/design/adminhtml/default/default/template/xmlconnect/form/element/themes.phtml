@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -32,6 +32,138 @@ $themeId        = $_themesHelper->getThemeId();
 $defaultThemesArray = $_themesHelper->getDefaultThemes();
 ?>
 <tr><td colspan="2"  style="width:540px">
+    <div id="scroll_to_id" class="theme-select-cont">
+
+        <div class="advice-container" id="advice-container" style="display:none; color: #D40707;"></div>
+
+        <label for="theme_selector_id" class="f-left theme-selector-title"><?php echo $this->__('Preset Theme'); ?></label>
+
+        <div class="no-display">
+            <input type="hidden" name="conf[extra][theme]" id="theme_selector_id_value" value="<?php echo $themeId; ?>"/>
+            <input type="hidden" name="current_theme" id="theme_selector_id_value_flat" value="<?php echo $themeId; ?>"/>
+        </div>
+
+        <div id="themeSelectorList">
+            <?php echo $_themesHelper->getThemesSelector(); ?>
+        </div>
+
+        <div class="form-buttons" style="float:right">
+            <button type="button" class="scalable" id="save_theme" onclick="saveTheme();">
+                <span><?php echo $this->__('Save Theme'); ?></span>
+            </button>
+            <button type="button" class="scalable" id="save_as_theme_init">
+                <span><?php echo $this->__('Save As'); ?></span>
+            </button>
+        </div>
+
+        <div id="save_as_input_block" style="display:none;">
+            <div id="popup-window-mask"></div>
+            <div class="popup-theme-save" id="popup-theme-save">
+                <h3>Save as...</h3>
+                <div class="popup-content">
+                    <label for="input_save_as"><?php echo $this->__('Theme label:'); ?></label>
+                    <input id="input_save_as" type="text" class="input-text" name="input_save_as" autocomplete="off" value="" />
+                    <div class="validation-advice" id="advice-required-theme-name" style="display:none;"><?php echo $this->__('Theme label can\'t be empty'); ?></div>
+                    <button type="button" class="scalable save" id="save_as_theme">
+                        <span><?php echo $this->__('Save'); ?></span>
+                    </button>
+                    <button type="button" class="scalable" id="save_as_theme_cancel">
+                        <span><?php echo $this->__('Cancel'); ?></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<script type="text/javascript">
+//<![CDATA[
+document.body.appendChild($('save_as_input_block'));
+//]]>
+</script>
+</td></tr>
+
+<?php
+$colorFieldset  = $this->getColorFieldset();
+$id2observe     = array();
+?>
+<?php foreach ($colorFieldset as $set) : ?>
+<tr>
+    <td colspan="2">
+        <h4 class="color-block-heading">
+            <a href="javascript:void(0);" onclick="toggleBlock('<?php echo $set['id']; ?>', this);">
+                <?php echo $set['label']; ?>
+            </a>
+        </h4>
+    </td>
+</tr>
+    <?php foreach ($set['fields'] as $field) : ?>
+        <tr class="<?php echo $set['id']; ?>_cl">
+            <td class="label"><label for="<?php echo $field['id']; ?>"><?php echo $field['label'] ?></label></td>
+            <td class="value" style="clear:both;">
+                <label class="field_label" for="<?php echo $field['id']; ?>">
+                    <span id="box_<?php echo $field['id']; ?>" class="color" style="background:<?php echo $field['value'] ?>;display:block;width:20px;height:20px;">&nbsp;</span>
+                </label>
+                <input style="background:#fff !important;color:#000 !important;margin:2px 0 0 6px;width:75px;float:left;" autocomplete="off" id="<?php echo $field['id']; ?>" name="<?php echo $field['name'] ?>" value="<?php echo $field['value'] ?>" class=" color {required:false,hash:true} input-text" type="text">
+            </td>
+        </tr>
+        <?php $id2observe[] = $field['id']; ?>
+    <?php endforeach; ?>
+<?php endforeach; ?>
+
+<tr>
+    <td colspan="2">
+        <script type="text/javascript">
+        //<![CDATA[
+                Event.observe(document, 'dom:loaded', function() {
+
+                <?php foreach ($id2observe as $id) : ?>
+                    $('<?php echo $id; ?>').observe('change', function() {
+                        changeColorListener('<?php echo $id; ?>');
+                    });
+                <?php endforeach; ?>
+
+                    toggleButtonsView();
+                });
+
+                function toggleButtonsView() {
+                    var isDefaultThemeActive = false,
+                        delete_button = $('delete_theme'),
+                        reset_button  = $('reset_theme');
+
+                    for(i = 0; i < defaultThemes.length; i++) {
+                        if ($('theme_selector_id_value_flat').value == defaultThemes[i]) {
+                            isDefaultThemeActive = true;
+                        }
+                    }
+                    if (isDefaultThemeActive) {
+                        delete_button.addClassName('disabled');
+                        reset_button.removeClassName('disabled');
+                    } else {
+                        delete_button.removeClassName('disabled');
+                        reset_button.addClassName('disabled');
+                    }
+                }
+        //]]>
+        </script>
+        <div class="reset-theme">
+
+            <button id="reset_theme" type="button" class="scalable">
+                <span><?php echo $this->__('Reset theme to default'); ?></span>
+            </button>
+
+            <button id="delete_theme" type="button" class="scalable delete">
+                <span><?php echo $this->__('Delete theme'); ?></span>
+            </button>
+
+            <div id="reset_note" style="display:none;"><?php echo $this->__('Only default theme can be reset'); ?></div>
+            <div id="delete_note" style="display:none;"><?php echo $this->__('Only custom theme can be deleted'); ?></div>
+
+        </div>
+    </td>
+</tr>
+
 <script type="text/javascript">
 // <![CDATA[
 var defaultThemes = [];
@@ -483,134 +615,3 @@ function deleteTheme() {
 }
 // ]]>
 </script>
-    <div id="scroll_to_id" class="theme-select-cont">
-
-        <div class="advice-container" id="advice-container" style="display:none; color: #D40707;"></div>
-
-        <label for="theme_selector_id" class="f-left theme-selector-title"><?php echo $this->__('Preset Theme'); ?></label>
-
-        <div class="no-display">
-            <input type="hidden" name="conf[extra][theme]" id="theme_selector_id_value" value="<?php echo $themeId; ?>"/>
-            <input type="hidden" name="current_theme" id="theme_selector_id_value_flat" value="<?php echo $themeId; ?>"/>
-        </div>
-
-        <div id="themeSelectorList">
-            <?php echo $_themesHelper->getThemesSelector(); ?>
-        </div>
-
-        <div class="form-buttons" style="float:right">
-            <button type="button" class="scalable" id="save_theme" onclick="saveTheme();">
-                <span><span><span><?php echo $this->__('Save Theme'); ?></span></span></span>
-            </button>
-            <button type="button" class="scalable" id="save_as_theme_init">
-                <span><span><span><?php echo $this->__('Save As'); ?></span></span></span>
-            </button>
-        </div>
-
-        <div id="save_as_input_block" style="display:none;">
-            <div id="popup-window-mask"></div>
-            <div class="popup-theme-save" id="popup-theme-save">
-                <h3>Save as...</h3>
-                <div class="popup-content">
-                    <label for="input_save_as"><?php echo $this->__('Theme label:'); ?></label>
-                    <input id="input_save_as" type="text" class="input-text" name="input_save_as" autocomplete="off" value="" />
-                    <div class="validation-advice" id="advice-required-theme-name" style="display:none;"><?php echo $this->__('Theme label can\'t be empty'); ?></div>
-                    <button type="button" class="scalable save" id="save_as_theme">
-                        <span><span><span><?php echo $this->__('Save'); ?></span></span></span>
-                    </button>
-                    <button type="button" class="scalable" id="save_as_theme_cancel">
-                        <span><span><span><?php echo $this->__('Cancel'); ?></span></span></span>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-</div>
-<script type="text/javascript">
-//<![CDATA[
-document.body.appendChild($('save_as_input_block'));
-//]]>
-</script>
-</td></tr>
-
-<?php
-$colorFieldset  = $this->getColorFieldset();
-$id2observe     = array();
-?>
-<?php foreach ($colorFieldset as $set) : ?>
-<tr>
-    <td colspan="2">
-        <h4 class="color-block-heading">
-            <a href="javascript:void(0);" onclick="toggleBlock('<?php echo $set['id']; ?>', this);">
-                <?php echo $set['label']; ?>
-            </a>
-        </h4>
-    </td>
-</tr>
-    <?php foreach ($set['fields'] as $field) : ?>
-        <tr class="<?php echo $set['id']; ?>_cl">
-            <td class="label"><label for="<?php echo $field['id']; ?>"><?php echo $field['label'] ?></label></td>
-            <td class="value" style="clear:both;">
-                <label class="field_label" for="<?php echo $field['id']; ?>">
-                    <span id="box_<?php echo $field['id']; ?>" class="color" style="background:<?php echo $field['value'] ?>;display:block;width:20px;height:20px;">&nbsp;</span>
-                </label>
-                <input style="background:#fff !important;color:#000 !important;margin:2px 0 0 6px;width:75px;float:left;" autocomplete="off" id="<?php echo $field['id']; ?>" name="<?php echo $field['name'] ?>" value="<?php echo $field['value'] ?>" class=" color {required:false,hash:true} input-text" type="text">
-            </td>
-        </tr>
-        <?php $id2observe[] = $field['id']; ?>
-    <?php endforeach; ?>
-<?php endforeach; ?>
-
-<tr>
-    <td colspan="2">
-        <script type="text/javascript">
-        //<![CDATA[
-                Event.observe(document, 'dom:loaded', function() {
-
-                <?php foreach ($id2observe as $id) : ?>
-                    $('<?php echo $id; ?>').observe('change', function() {
-                        changeColorListener('<?php echo $id; ?>');
-                    });
-                <?php endforeach; ?>
-
-                    toggleButtonsView();
-                });
-
-                function toggleButtonsView() {
-                    var isDefaultThemeActive = false,
-                        delete_button = $('delete_theme'),
-                        reset_button  = $('reset_theme');
-
-                    for(i = 0; i < defaultThemes.length; i++) {
-                        if ($('theme_selector_id_value_flat').value == defaultThemes[i]) {
-                            isDefaultThemeActive = true;
-                        }
-                    }
-                    if (isDefaultThemeActive) {
-                        delete_button.addClassName('disabled');
-                        reset_button.removeClassName('disabled');
-                    } else {
-                        delete_button.removeClassName('disabled');
-                        reset_button.addClassName('disabled');
-                    }
-                }
-        //]]>
-        </script>
-        <div class="reset-theme">
-
-            <button id="reset_theme" type="button" class="scalable">
-                <span><span><span><?php echo $this->__('Reset theme to default'); ?></span></span></span>
-            </button>
-
-            <button id="delete_theme" type="button" class="scalable delete">
-                <span><span><span><?php echo $this->__('Delete theme'); ?></span></span></span>
-            </button>
-
-            <div id="reset_note" style="display:none;"><?php echo $this->__('Only default theme can be reset'); ?></div>
-            <div id="delete_note" style="display:none;"><?php echo $this->__('Only custom theme can be deleted'); ?></div>
-
-        </div>
-    </td>
-</tr>

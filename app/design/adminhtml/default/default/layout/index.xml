@@ -21,7 +21,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -42,4 +42,10 @@
             </block>
         </reference>
     </adminhtml_process_edit>
+
+    <adminhtml_process_list>
+        <reference name="content">
+            <block type="index/adminhtml_process" name="process" />
+        </reference>
+    </adminhtml_process_list>
 </layout>

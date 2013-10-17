@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -48,7 +48,7 @@ class Mage_Adminhtml_Block_Catalog_Helper_Form_Wysiwyg extends Varien_Data_Form_
                     'label'   => Mage::helper('catalog')->__('WYSIWYG Editor'),
                     'type'    => 'button',
                     'disabled' => $disabled,
-                    'class' => ($disabled) ? 'disabled btn-wysiwyg' : 'btn-wysiwyg',
+                    'class' => 'btn-wysiwyg',
                     'onclick' => 'catalogWysiwygEditor.open(\''.Mage::helper('adminhtml')->getUrl('*/*/wysiwyg').'\', \''.$this->getHtmlId().'\')'
                 ))->toHtml();
         }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -166,9 +166,10 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
                     'products' => $productIds
                 ));
 
-                $this->_getSession()->addNotice(
-                    $this->__('Please refresh "Catalog URL Rewrites" and "Product Attributes" in System -> <a href="%s">Index Management</a>', $this->getUrl('adminhtml/process/list'))
-                );
+                $notice = Mage::getConfig()->getNode('adminhtml/messages/website_chnaged_indexers/label');
+                if ($notice) {
+                    $this->_getSession()->addNotice($this->__((string)$notice, $this->getUrl('adminhtml/process/list')));
+                }
             }
 
             $this->_getSession()->addSuccess(

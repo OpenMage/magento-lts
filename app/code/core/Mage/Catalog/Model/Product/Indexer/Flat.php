@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_Abstract
@@ -58,6 +58,18 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
             Mage_Catalog_Model_Product_Flat_Indexer::EVENT_TYPE_REBUILD,
         ),
     );
+
+    /**
+     * Whether the indexer should be displayed on process/list page
+     *
+     * @return bool
+     */
+    public function isVisible()
+    {
+        /** @var $productFlatHelper Mage_Catalog_Helper_Product_Flat */
+        $productFlatHelper = Mage::helper('catalog/product_flat');
+        return $productFlatHelper->isEnabled() || !$productFlatHelper->isBuilt();
+    }
 
     /**
      * Retrieve Indexer name
@@ -99,7 +111,9 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
      */
     public function matchEvent(Mage_Index_Model_Event $event)
     {
-        if (!Mage::helper('catalog/product_flat')->isBuilt()) {
+        /** @var $productFlatHelper Mage_Catalog_Helper_Product_Flat */
+        $productFlatHelper = Mage::helper('catalog/product_flat');
+        if (!$productFlatHelper->isEnabled() || !$productFlatHelper->isBuilt()) {
             return false;
         }
 
@@ -112,7 +126,7 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
         if ($entity == Mage_Catalog_Model_Resource_Eav_Attribute::ENTITY) {
             /* @var $attribute Mage_Catalog_Model_Resource_Eav_Attribute */
             $attribute      = $event->getDataObject();
-            $addFilterable  = Mage::helper('catalog/product_flat')->isAddFilterableAttributes();
+            $addFilterable  = $productFlatHelper->isAddFilterableAttributes();
 
             $enableBefore   = $attribute && (($attribute->getOrigData('backend_type') == 'static')
                 || ($addFilterable && $attribute->getOrigData('is_filterable') > 0)

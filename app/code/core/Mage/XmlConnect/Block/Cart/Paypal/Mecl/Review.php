@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,15 +44,14 @@ class Mage_XmlConnect_Block_Cart_Paypal_Mecl_Review extends Mage_Paypal_Block_Ex
         $reviewXmlObj = Mage::getModel('xmlconnect/simplexml_element', '<mecl_cart_details></mecl_cart_details>');
 
         if ($this->getPaypalMessages()) {
-            $reviewXmlObj->addChild('paypal_message', implode(PHP_EOL, $this->getPaypalMessages()));
+            $reviewXmlObj->addChild('paypal_message', implode('\n', $this->getPaypalMessages()));
         }
 
         if ($this->getShippingAddress()) {
-            $reviewXmlObj->addCustomChild(
-                'shipping_address',
-                Mage::helper('xmlconnect')->trimLineBreaks($this->getShippingAddress()->format('text')),
-                array('label' => $this->__('Shipping Address'))
-            );
+            $shipping = Mage::helper('xmlconnect')->trimLineBreaks($this->getShippingAddress()->format('text'));
+            $reviewXmlObj->addCustomChild('shipping_address', $shipping, array(
+                'label' => $this->__('Shipping Address')
+            ));
         }
 
         if ($this->_quote->isVirtual()) {
@@ -78,16 +77,19 @@ class Mage_XmlConnect_Block_Cart_Paypal_Mecl_Review extends Mage_Paypal_Block_Ex
         $reviewXmlObj->addCustomChild('payment_method', $this->escapeHtml($this->getPaymentMethodTitle()), array(
             'label' => $this->__('Payment Method')
         ));
-
-        $reviewXmlObj->addCustomChild(
-            'billing_address',
-            Mage::helper('xmlconnect')->trimLineBreaks($this->getBillingAddress()->format('text')),
-            array(
-                'label'         => $this->__('Billing Address'),
-                'payer_email'   => $this->__('Payer Email: %s', $this->getBillingAddress()->getEmail())
+        $billing = Mage::helper('xmlconnect')->trimLineBreaks($this->getBillingAddress()->format('text'));
+        $reviewXmlObj->addCustomChild('billing_address', $billing, array(
+            'label' => $this->__('Billing Address'),
+            'payer_email' => $this->__('Payer Email: %s', $this->getBillingAddress()->getEmail())
         ));
 
         $this->getChild('details')->addDetailsToXmlObj($reviewXmlObj);
+
+        $agreements = $this->getChildHtml('agreements');
+        if ($agreements) {
+            $agreementsXmlObj = Mage::getModel('xmlconnect/simplexml_element', $agreements);
+            $reviewXmlObj->appendChild($agreementsXmlObj);
+        }
 
         return $reviewXmlObj->asNiceXml();
     }

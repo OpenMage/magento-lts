@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -201,13 +201,13 @@ class Mage_Sales_Model_Resource_Quote_Item_Collection extends Mage_Core_Model_Re
                 $optionProductIds   = array();
                 foreach ($item->getOptions() as $option) {
                     /**
-                     * Call type specified logic for product associated with quote item
+                     * Call type-specific logic for product associated with quote item
                      */
                     $product->getTypeInstance(true)->assignProductToOption(
-                            $productCollection->getItemById($option->getProductId()),
-                            $option,
-                            $product
-                        );
+                        $productCollection->getItemById($option->getProductId()),
+                        $option,
+                        $product
+                    );
 
                     if (is_object($option->getProduct()) && $option->getProduct()->getId() != $product->getId()) {
                         $optionProductIds[$option->getProduct()->getId()] = $option->getProduct()->getId();
@@ -222,9 +222,8 @@ class Mage_Sales_Model_Resource_Quote_Item_Collection extends Mage_Core_Model_Re
                         }
                     }
                 }
-                $item->setQtyOptions($qtyOptions);
 
-                $item->setProduct($product);
+                $item->setQtyOptions($qtyOptions)->setProduct($product);
             } else {
                 $item->isDeleted(true);
                 $recollectQuote = true;

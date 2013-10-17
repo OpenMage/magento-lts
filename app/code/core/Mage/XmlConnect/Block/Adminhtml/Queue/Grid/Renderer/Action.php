@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -58,14 +58,14 @@ class Mage_XmlConnect_Block_Adminhtml_Queue_Grid_Renderer_Action
             $actions[] = array(
                 'caption'   => $this->__('Cancel'),
                 'url'       => $this->getUrl('*/*/cancelQueue', array('id' => $row->getId())),
-                'confirm'   => $this->__('Are you sure you whant to cancel a message?')
+                'confirm'   => $this->__('Are you sure you want to cancel a message?')
             );
         }
 
         $actions[] = array(
             'caption'   => $this->__('Delete'),
             'url'       => $this->getUrl('*/*/deleteQueue', array('id' => $row->getId())),
-            'confirm'   => $this->__('Are you sure you whant to delete a message?')
+            'confirm'   => $this->__('Are you sure you want to delete a message?')
         );
 
         $this->getColumn()->setActions($actions);

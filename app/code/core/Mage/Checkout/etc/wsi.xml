@@ -300,15 +300,18 @@
                     <xsd:element name="cc_exp_month" type="xsd:string" minOccurs="0"/>
                 </xsd:sequence>
             </xsd:complexType>
-            <xsd:complexType name="shoppingCartPaymentMethodResponseEntityArray">
+            <xsd:complexType name="shoppingCartPaymentMethodResponseEntity">
                 <xsd:sequence>
                     <xsd:element name="code" type="xsd:string"/>
                     <xsd:element name="title" type="xsd:string"/>
                     <xsd:element name="cc_types" type="typens:associativeArray"/>
                 </xsd:sequence>
             </xsd:complexType>
-
-
+            <xsd:complexType name="shoppingCartPaymentMethodResponseEntityArray">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" maxOccurs="unbounded" name="complexObjectArray" type="typens:shoppingCartPaymentMethodResponseEntity"/>
+                </xsd:sequence>
+            </xsd:complexType>
             <xsd:element name="shoppingCartCreateRequestParam">
                 <xsd:complexType>
                     <xsd:sequence>

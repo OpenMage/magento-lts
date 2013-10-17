@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -86,9 +86,11 @@ class Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset
         foreach ($this->getAttributes() as $key => $val) {
             $xmlObj->addAttribute($key, $xmlObj->xmlAttribute($val));
         }
+
         foreach ($this->getChildrenXml(false) as $element) {
             $xmlObj->appendChild($element);
         }
+
         foreach ($this->getChildrenXml(true) as $fieldset) {
             $xmlObj->appendChild($fieldset);
         }

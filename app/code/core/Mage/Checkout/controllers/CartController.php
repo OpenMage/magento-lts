@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -70,6 +70,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
      * Set back redirect url to response
      *
      * @return Mage_Checkout_CartController
+     * @throws Mage_Exception
      */
     protected function _goBack()
     {
@@ -166,9 +167,16 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
     /**
      * Add product to shopping cart action
+     *
+     * @return Mage_Core_Controller_Varien_Action
+     * @throws Exception
      */
     public function addAction()
     {
+        if (!$this->_validateFormKey()) {
+            $this->_goBack();
+            return;
+        }
         $cart   = $this->_getCart();
         $params = $this->getRequest()->getParams();
         try {
@@ -207,7 +215,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             );
 
             if (!$this->_getSession()->getNoCartRedirect(true)) {
-                if (!$cart->getQuote()->getHasError()){
+                if (!$cart->getQuote()->getHasError()) {
                     $message = $this->__('%s was added to your shopping cart.', Mage::helper('core')->escapeHtml($product->getName()));
                     $this->_getSession()->addSuccess($message);
                 }
@@ -236,34 +244,41 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
         }
     }
 
+    /**
+     * Add products in group to shopping cart action
+     */
     public function addgroupAction()
     {
         $orderItemIds = $this->getRequest()->getParam('order_items', array());
-        if (is_array($orderItemIds)) {
-            $itemsCollection = Mage::getModel('sales/order_item')
-                ->getCollection()
-                ->addIdFilter($orderItemIds)
-                ->load();
-            /* @var $itemsCollection Mage_Sales_Model_Mysql4_Order_Item_Collection */
-            $cart = $this->_getCart();
-            foreach ($itemsCollection as $item) {
-                try {
-                    $cart->addOrderItem($item, 1);
-                } catch (Mage_Core_Exception $e) {
-                    if ($this->_getSession()->getUseNotice(true)) {
-                        $this->_getSession()->addNotice($e->getMessage());
-                    } else {
-                        $this->_getSession()->addError($e->getMessage());
-                    }
-                } catch (Exception $e) {
-                    $this->_getSession()->addException($e, $this->__('Cannot add the item to shopping cart.'));
-                    Mage::logException($e);
-                    $this->_goBack();
-                }
-            }
-            $cart->save();
-            $this->_getSession()->setCartWasUpdated(true);
+
+        if (!is_array($orderItemIds) || !$this->_validateFormKey()) {
+            $this->_goBack();
+            return;
         }
+
+        $itemsCollection = Mage::getModel('sales/order_item')
+            ->getCollection()
+            ->addIdFilter($orderItemIds)
+            ->load();
+        /* @var $itemsCollection Mage_Sales_Model_Mysql4_Order_Item_Collection */
+        $cart = $this->_getCart();
+        foreach ($itemsCollection as $item) {
+            try {
+                $cart->addOrderItem($item, 1);
+            } catch (Mage_Core_Exception $e) {
+                if ($this->_getSession()->getUseNotice(true)) {
+                    $this->_getSession()->addNotice($e->getMessage());
+                } else {
+                    $this->_getSession()->addError($e->getMessage());
+                }
+            } catch (Exception $e) {
+                $this->_getSession()->addException($e, $this->__('Cannot add the item to shopping cart.'));
+                Mage::logException($e);
+                $this->_goBack();
+            }
+        }
+        $cart->save();
+        $this->_getSession()->setCartWasUpdated(true);
         $this->_goBack();
     }
 
@@ -347,8 +362,8 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                 array('item' => $item, 'request' => $this->getRequest(), 'response' => $this->getResponse())
             );
             if (!$this->_getSession()->getNoCartRedirect(true)) {
-                if (!$cart->getQuote()->getHasError()){
-                    $message = $this->__('%s was updated in your shopping cart.', Mage::helper('core')->htmlEscape($item->getProduct()->getName()));
+                if (!$cart->getQuote()->getHasError()) {
+                    $message = $this->__('%s was updated in your shopping cart.', Mage::helper('core')->escapeHtml($item->getProduct()->getName()));
                     $this->_getSession()->addSuccess($message);
                 }
                 $this->_goBack();
@@ -487,6 +502,11 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
         $this->_goBack();
     }
 
+    /**
+     * Estimate update action
+     *
+     * @return null
+     */
     public function estimateUpdatePostAction()
     {
         $code = (string) $this->getRequest()->getParam('estimate_method');
@@ -521,20 +541,22 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
         }
 
         try {
+            $codeLength = strlen($couponCode);
+            $isCodeLengthValid = $codeLength && $codeLength <= Mage_Checkout_Helper_Cart::COUPON_CODE_MAX_LENGTH;
+
             $this->_getQuote()->getShippingAddress()->setCollectShippingRates(true);
-            $this->_getQuote()->setCouponCode(strlen($couponCode) ? $couponCode : '')
+            $this->_getQuote()->setCouponCode($isCodeLengthValid ? $couponCode : '')
                 ->collectTotals()
                 ->save();
 
-            if (strlen($couponCode)) {
-                if ($couponCode == $this->_getQuote()->getCouponCode()) {
+            if ($codeLength) {
+                if ($isCodeLengthValid && $couponCode == $this->_getQuote()->getCouponCode()) {
                     $this->_getSession()->addSuccess(
-                        $this->__('Coupon code "%s" was applied.', Mage::helper('core')->htmlEscape($couponCode))
+                        $this->__('Coupon code "%s" was applied.', Mage::helper('core')->escapeHtml($couponCode))
                     );
-                }
-                else {
+                } else {
                     $this->_getSession()->addError(
-                        $this->__('Coupon code "%s" is not valid.', Mage::helper('core')->htmlEscape($couponCode))
+                        $this->__('Coupon code "%s" is not valid.', Mage::helper('core')->escapeHtml($couponCode))
                     );
                 }
             } else {

@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -30,7 +30,7 @@
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 <p class="my-tag-edit">
     <a href="#" title="<?php echo $this->__('Delete') ?>" onclick="if(confirm('<?php echo $this->__('Are you sure you want to delete this tag?') ?>')) window.location='<?php echo $this->getTagInfo()->getRemoveTagUrl(); ?>'; return false;" class="button btn-remove"><span><?php echo $this->__('Delete') ?></span></a>
-    <?php echo $this->__('<strong>Tag Name:</strong> %s', $this->htmlEscape($this->getTagInfo()->getName())) ?>
+    <?php echo $this->__('<strong>Tag Name:</strong> %s', $this->escapeHtml($this->getTagInfo()->getName())) ?>
 </p>
 <div class="clearer"></div>
 <?php echo $this->getToolbarHtml() ?>
@@ -43,16 +43,18 @@
     <?php $iterator = 0 ?>
     <?php foreach($this->getMyProducts() as $_product): ?>
         <tr<?php if($iterator % 2 == 0): ?> class="odd"<?php $iterator++;endif; ?>>
-            <td><a href="<?php echo $_product->getProductUrl(); ?>" title="<?php echo $this->htmlEscape($_product->getName()) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(100, 100); ?>" width="100" height="100" alt="<?php echo $this->htmlEscape($_product->getName()) ?>" /></a></td>
+            <td><a href="<?php echo $_product->getProductUrl(); ?>" title="<?php echo $this->escapeHtml($_product->getName()) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(100, 100); ?>" width="100" height="100" alt="<?php echo $this->escapeHtml($_product->getName()) ?>" /></a></td>
             <td>
-                <h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->htmlEscape($_product->getName()) ?></a></h2>
+                <h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->escapeHtml($_product->getName()) ?></a></h2>
                 <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
                 <?php echo $this->getPriceHtml($_product) ?>
-                <?php echo $this->htmlEscape($_product->getDescription()) ?>
+                <?php echo $this->escapeHtml($_product->getDescription()) ?>
             </td>
             <td>
                 <?php if($_product->isSaleable()): ?>
-                    <button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getUrl('checkout/cart/add',array('product'=>$_product->getId())) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+                    <?php $params[Mage_Core_Model_Url::FORM_KEY] = Mage::getSingleton('core/session')->getFormKey() ?>
+                    <?php $params['product'] = $_product->getId(); ?>
+                    <button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getUrl('checkout/cart/add', $params) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
                 <?php endif; ?>
                 <?php if ($this->helper('wishlist')->isAllow()) : ?>
                 <ul class="add-to-links">
@@ -69,7 +71,7 @@
     <tbody>
         <tr>
             <td>
-                <?php echo $this->__("Unable to find any products tagged with '%s' in the current store", $this->htmlEscape($this->getTagInfo()->getName()) ) ?>
+                <?php echo $this->__("Unable to find any products tagged with '%s' in the current store", $this->escapeHtml($this->getTagInfo()->getName()) ) ?>
             </td>
         </tr>
     </tbody>

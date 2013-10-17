@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -60,9 +60,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Social
         /**
          * Twitter fieldset options
          */
-        $fieldsetTwitter = $form->addFieldset('twitter', array(
-            'legend' => $this->__('Twitter API')
-        ));
+        $fieldsetTwitter = $form->addFieldset('twitter', array('legend' => $this->__('Twitter API')));
 
         if (isset($data['conf[native][socialNetworking][twitter][isActive]'])) {
             $twitterStatus = (int)$data['conf[native][socialNetworking][twitter][isActive]'];
@@ -113,16 +111,11 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Social
             )
         );
 
-        $fieldsetTwitter->addField(
-            'twitterNote',
-            'note',
-            array(
-                'text'  => sprintf(
-                    $noteText,
-                    Mage::getStoreConfig(Mage_XmlConnect_Model_Application::XML_PATH_HOWTO_TWITTER_URL)
-                ),
-            )
-        );
+        $fieldsetTwitter->addField('twitterNote', 'note', array(
+            'text'  => sprintf(
+                $noteText,
+                Mage::getStoreConfig(Mage_XmlConnect_Model_Application::XML_PATH_HOWTO_TWITTER_URL)
+        )));
 
         /**
          * Facebook fieldset options
@@ -163,23 +156,15 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Social
             )
         );
 
-        $fieldsetFacebook->addField(
-            'facebookNote',
-            'note',
-            array(
-                'text'  => sprintf(
-                    $noteText,
-                    Mage::getStoreConfig(Mage_XmlConnect_Model_Application::XML_PATH_HOWTO_FACEBOOK_URL)
-                ),
-            )
-        );
+        $fieldsetFacebook->addField('facebookNote', 'note', array(
+            'text'  => sprintf(
+                $noteText, Mage::getStoreConfig(Mage_XmlConnect_Model_Application::XML_PATH_HOWTO_FACEBOOK_URL)
+        )));
 
         /**
          * LinkedIn fieldset options
          */
-        $fieldsetLinkedin = $form->addFieldset('linkedin', array(
-            'legend' => $this->__('LinkedIn API'),
-        ));
+        $fieldsetLinkedin = $form->addFieldset('linkedin', array('legend' => $this->__('LinkedIn API')));
 
         if (isset($data['conf[native][socialNetworking][linkedin][isActive]'])) {
             $linkedinStatus = (int)$data['conf[native][socialNetworking][linkedin][isActive]'];

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Usa
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,7 +32,7 @@
  * @author   Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Usa_Model_Shipping_Carrier_Dhl_International
-    extends Mage_Usa_Model_Shipping_Carrier_Abstract
+    extends Mage_Usa_Model_Shipping_Carrier_Dhl_Abstract
     implements Mage_Shipping_Model_Carrier_Interface
 {
     /**
@@ -786,12 +786,75 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
      */
     protected function _getQuotes()
     {
+        $responseBody = '';
+        try {
+            $debugData = array();
+            for ($offset = 0; $offset <= self::UNAVAILABLE_DATE_LOOK_FORWARD; $offset++) {
+                $debugData['try-' . $offset] = array();
+                $debugPoint = &$debugData['try-' . $offset];
+
+                $requestXml = $this->_buildQuotesRequestXml();
+                $date = date(self::REQUEST_DATE_FORMAT, strtotime($this->_getShipDate() . " +$offset days"));
+                $this->_setQuotesRequestXmlDate($requestXml, $date);
+
+                $request = $requestXml->asXML();
+                $debugPoint['request'] = $request;
+                $responseBody = $this->_getCachedQuotes($request);
+
+                if ($debugPoint['from_cache'] = ($responseBody === null)) {
+                    $responseBody = $this->_getQuotesFromServer($request);
+                }
+
+                $debugPoint['response'] = $responseBody;
+
+                $bodyXml = new SimpleXMLElement($responseBody);
+                $code = $bodyXml->xpath('//GetQuoteResponse/Note/Condition/ConditionCode');
+                if (isset($code[0]) && (int)$code[0] == self::CONDITION_CODE_SERVICE_DATE_UNAVAILABLE) {
+                    $debugPoint['info'] = sprintf(
+                        Mage::helper('usa')->__("DHL service is not available at %s date"),
+                        $date
+                    );
+                } else {
+                    break;
+                }
+
+                $this->_setCachedQuotes($request, $responseBody);
+            }
+            $this->_debug($debugData);
+        } catch (Exception $e) {
+            $this->_errors[$e->getCode()] = $e->getMessage();
+        }
+        return $this->_parseResponse($responseBody);
+    }
+
+    /**
+     * Get shipping quotes from DHL service
+     *
+     * @param string $request
+     * @return string
+     */
+    protected function _getQuotesFromServer($request)
+    {
+        $client = new Varien_Http_Client();
+        $client->setUri((string)$this->getConfigData('gateway_url'));
+        $client->setConfig(array('maxredirects' => 0, 'timeout' => 30));
+        $client->setRawData(utf8_encode($request));
+        return $client->request(Varien_Http_Client::POST)->getBody();
+    }
+
+    /**
+     * Build qoutes request XML object
+     *
+     * @return SimpleXMLElement
+     */
+    protected function _buildQuotesRequestXml()
+    {
         $rawRequest = $this->_rawRequest;
         $xmlStr = '<?xml version = "1.0" encoding = "UTF-8"?>'
-                . '<p:DCTRequest xmlns:p="http://www.dhl.com" xmlns:p1="http://www.dhl.com/datatypes" '
-                . 'xmlns:p2="http://www.dhl.com/DCTRequestdatatypes" '
-                . 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
-                . 'xsi:schemaLocation="http://www.dhl.com DCT-req.xsd "/>';
+            . '<p:DCTRequest xmlns:p="http://www.dhl.com" xmlns:p1="http://www.dhl.com/datatypes" '
+            . 'xmlns:p2="http://www.dhl.com/DCTRequestdatatypes" '
+            . 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
+            . 'xsi:schemaLocation="http://www.dhl.com DCT-req.xsd "/>';
         $xml = new SimpleXMLElement($xmlStr);
         $nodeGetQuote = $xml->addChild('GetQuote', '', '');
         $nodeRequest = $nodeGetQuote->addChild('Request');
@@ -807,7 +870,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
 
         $nodeBkgDetails = $nodeGetQuote->addChild('BkgDetails');
         $nodeBkgDetails->addChild('PaymentCountryCode', $rawRequest->getOrigCountryId());
-        $nodeBkgDetails->addChild('Date', Varien_Date::now(true));
+        $nodeBkgDetails->addChild('Date', $this->_getShipDate());
         $nodeBkgDetails->addChild('ReadyTime', 'PT' . (int)(string)$this->getConfigData('ready_time') . 'H00M');
 
         $nodeBkgDetails->addChild('DimensionUnit', $this->_getDimensionUnit());
@@ -832,28 +895,20 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
             $nodeDutiable->addChild('DeclaredCurrency', $baseCurrencyCode);
             $nodeDutiable->addChild('DeclaredValue', sprintf("%.2F", $rawRequest->getValue()));
         }
+        return $xml;
+    }
 
-        $request = $xml->asXML();
-        $request = utf8_encode($request);
-        $responseBody = $this->_getCachedQuotes($request);
-        if ($responseBody === null) {
-            $debugData = array('request' => $request);
-            try {
-                $client = new Varien_Http_Client();
-                $client->setUri((string)$this->getConfigData('gateway_url'));
-                $client->setConfig(array('maxredirects' => 0, 'timeout' => 30));
-                $client->setRawData($request);
-                $responseBody = $client->request(Varien_Http_Client::POST)->getBody();
-                $debugData['result'] = $responseBody;
-                $this->_setCachedQuotes($request, $responseBody);
-            } catch (Exception $e) {
-                $this->_errors[$e->getCode()] = $e->getMessage();
-                $responseBody = '';
-            }
-            $this->_debug($debugData);
-        }
-
-        return $this->_parseResponse($responseBody);
+    /**
+     * Set pick-up date in request XML object
+     *
+     * @param SimpleXMLElement $requestXml
+     * @param string $date
+     * @return SimpleXMLElement
+     */
+    protected function _setQuotesRequestXmlDate(SimpleXMLElement $requestXml, $date)
+    {
+        $requestXml->GetQuote->BkgDetails->Date = $date;
+        return $requestXml;
     }
 
     /**
@@ -908,12 +963,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
                             $result = new Varien_Object();
                             $result->setTrackingNumber((string)$xml->AirwayBillNumber);
                             try {
-                                /* @var $pdf Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf */
-                                $pdf = Mage::getModel(
-                                    'usa/shipping_carrier_dhl_label_pdf',
-                                    array('info' => $xml, 'request' => $this->_request)
-                                );
-                                $result->setShippingLabelContent($pdf->render());
+                                $labelContent = (string)$xml->LabelImage->OutputImage;
+                                $result->setShippingLabelContent(base64_decode($labelContent));
                             } catch (Exception $e) {
                                 Mage::throwException(Mage::helper('usa')->__($e->getMessage()));
                             }
@@ -1353,6 +1404,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
         $nodeContact->addChild('PersonName', substr($rawRequest->getShipperContactPersonName(), 0, 34));
         $nodeContact->addChild('PhoneNumber', substr($rawRequest->getShipperContactPhoneNumber(), 0, 24));
 
+        $xml->addChild('LabelImageFormat', 'PDF', '');
+
         $request = $xml->asXML();
         $request = utf8_encode($request);
 
@@ -1442,7 +1495,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
             $nodeShipmentDetails->addChild('GlobalProductCode', $rawRequest->getShippingMethod());
             $nodeShipmentDetails->addChild('LocalProductCode', $rawRequest->getShippingMethod());
 
-            $nodeShipmentDetails->addChild('Date', Mage::getModel('core/date')->date('Y-m-d'));
+            $nodeShipmentDetails->addChild('Date', Mage::getModel('core/date')->date(self::REQUEST_DATE_FORMAT));
             $nodeShipmentDetails->addChild('Contents', 'DHL Parcel');
             /*
              * The DoorTo Element defines the type of delivery service that applies to the shipment.
@@ -1480,7 +1533,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
              * Door non-compliant)
              */
             $nodeShipmentDetails->addChild('DoorTo', 'DD');
-            $nodeShipmentDetails->addChild('Date', Mage::getModel('core/date')->date('Y-m-d'));
+            $nodeShipmentDetails->addChild('Date', Mage::getModel('core/date')->date(self::REQUEST_DATE_FORMAT));
             $nodeShipmentDetails->addChild('Contents', 'DHL Parcel');
         }
     }

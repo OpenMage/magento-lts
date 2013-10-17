@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Index
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -68,6 +68,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      */
     const MODE_MANUAL              = 'manual';
     const MODE_REAL_TIME           = 'real_time';
+    const MODE_SCHEDULE            = 'schedule';
 
     /**
      * Indexer stategy object
@@ -222,6 +223,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
             throw $e;
         }
         Mage::dispatchEvent('after_reindex_process_' . $this->getIndexerCode());
+        return $this;
     }
 
     /**
@@ -242,6 +244,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
         $this->setForcePartialReindex(count($unprocessedEvents) > 0 && $this->getStatus() == self::STATUS_PENDING);
 
         if ($this->getDepends()) {
+            /** @var $indexer Mage_Index_Model_Indexer */
             $indexer = Mage::getSingleton('index/indexer');
             foreach ($this->getDepends() as $code) {
                 $process = $indexer->getProcessByCode($code);

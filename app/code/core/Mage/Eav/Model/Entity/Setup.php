@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -605,9 +605,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
             'default_value'   => $this->_getValue($attr, 'default'),
             'is_unique'       => $this->_getValue($attr, 'unique', 0),
             'note'            => $this->_getValue($attr, 'note'),
-            'is_global'       => $this->_getValue($attr, 'global',
-                                     Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL
-                                 ),
+            'is_global'       => $this->_getValue($attr, 'global', 1),
         );
 
         return $data;
@@ -1223,6 +1221,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                     'identity'  => true,
                     'nullable'  => false,
                     'primary'   => true,
+                    'unsigned'  => true,
                  ), 'Entity Id')
                 ->addColumn('entity_type_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
                     'unsigned'  => true,
@@ -1302,6 +1301,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                     'identity'  => true,
                     'nullable'  => false,
                     'primary'   => true,
+                    'unsigned'  => true,
                     ), 'Value Id')
                 ->addColumn('entity_type_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
                     'unsigned'  => true,
@@ -1356,14 +1356,13 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
             $tables[$this->getTable($eavTableName)] = $eavTable;
         }
 
-        $connection->beginTransaction();
+        // DDL operations are forbidden within transactions
+        // See Varien_Db_Adapter_Pdo_Mysql::_checkDdlTransaction()
         try {
             foreach ($tables as $tableName => $table) {
                 $connection->createTable($table);
             }
-            $connection->commit();
         } catch (Exception $e) {
-           $connection->rollBack();
            throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Can\'t create table: %s', $tableName));
         }
 

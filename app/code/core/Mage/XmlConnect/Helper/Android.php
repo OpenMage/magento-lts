@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,7 +31,7 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Helper_Android extends Mage_Core_Helper_Abstract
+class Mage_XmlConnect_Helper_Android extends Mage_XmlConnect_Helper_Device_Abstract
 {
     /**
      * Submission title length
@@ -44,12 +44,14 @@ class Mage_XmlConnect_Helper_Android extends Mage_Core_Helper_Abstract
     const SUBMISSION_DESCRIPTION_LENGTH = 4000;
 
     /**
-     * Android preview banner widht
+     * Android preview banner width
+     * @deprecated
      */
     const PREVIEW_BANNER_WIDTH = 320;
 
     /**
      * Android preview banner image height
+     * @deprecated
      */
     const PREVIEW_BANNER_HEIGHT = 258;
 
@@ -65,13 +67,25 @@ class Mage_XmlConnect_Helper_Android extends Mage_Core_Helper_Abstract
 
     /**
      * Country renderer for submission
+     *
+     * @deprecated
      */
     const SUBMISSION_COUNTRY_RENDERER = 'androidmarket';
 
     /**
      * Country columns for submission
+     *
+     * @deprecated
      */
     const SUBMISSION_COUNTRY_COLUMNS = 2;
+
+    /**
+     * Submission columns count
+     *
+     * @var int
+     */
+    protected $_countryColumnsCount = 2;
+
 
     /**
      * Submit images that are stored in "params" field of history table
@@ -81,14 +95,14 @@ class Mage_XmlConnect_Helper_Android extends Mage_Core_Helper_Abstract
     protected $_imageIds = array('icon', 'android_loader_image', 'android_logo', 'big_logo');
 
     /**
-     * Country field renderer
+     * Country renderer block
      *
-     * @var Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Renderer_Country_Androidmarket
+     * @var string
      */
-    protected $_countryRenderer = null;
+    protected $_countryRendererBlock = 'xmlconnect/adminhtml_mobile_submission_renderer_country_androidmarket';
 
     /**
-     * List of coutries that allowed in Ituens by Apple Store
+     * List of countries that allowed in Androidmarket by Google
      *
      * array(
      *      'country name' => 'country id at directory model'
@@ -129,13 +143,25 @@ class Mage_XmlConnect_Helper_Android extends Mage_Core_Helper_Abstract
     );
 
     /**
-     * Get submit images that are required for application submit
+     * Default images list
      *
      * @return array
      */
-    public function getSubmitImages()
+    public function getImagesTypesList()
     {
-        return $this->_imageIds;
+        return array(
+            Mage_XmlConnect_Model_Device_Android::IMAGE_TYPE_ICON => array(
+                'count' => Mage_XmlConnect_Model_Device_Android::IMAGE_TYPE_ICON_COUNT,
+                'label' => $this->__('Logo in Header'),
+                'sortable' => false,
+                'sizeTip' => $this->__('Recommended size %spx x %spx.', 35, 35)
+            ),
+            Mage_XmlConnect_Model_Device_Android::IMAGE_TYPE_PORTRAIT_BANNER => array(
+                'count' => Mage_XmlConnect_Model_Device_Android::IMAGE_TYPE_BANNER_COUNT,
+                'label' => $this->__('Banners on Home Screen'),
+                'sortable' => true,
+                'sizeTip' => $this->__('Recommended size %spx x %spx.', 320, 258) . $this->__('Note: Image size affects the performance of your app.') . $this->__('Keep your image size below %s KB for optimal performance.', 50)
+        ));
     }
 
     /**
@@ -480,25 +506,7 @@ class Mage_XmlConnect_Helper_Android extends Mage_Core_Helper_Abstract
             array(
                 'value' => 'STHeitiK-Light',
                 'label' => 'STHeitiK-Light',
-            ),
-        );
-    }
-
-    /**
-     * List of allowed font sizes for Android application
-     *
-     * @return array
-     */
-    public function getFontSizes()
-    {
-        $result = array();
-        for ($i = 6; $i < 32; $i++) {
-            $result[] = array(
-                'value' => $i,
-                'label' => $i . ' pt',
-            );
-        }
-        return $result;
+        ));
     }
 
     /**
@@ -576,6 +584,7 @@ class Mage_XmlConnect_Helper_Android extends Mage_Core_Helper_Abstract
     /**
      * Check config for valid values
      *
+     * @deprecated we don't use it since 1.11.1.0
      * @param array $native
      * @return array
      */
@@ -596,21 +605,6 @@ class Mage_XmlConnect_Helper_Android extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Get renderer for submission country
-     *
-     * @return Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Renderer_Country_Androidmarket
-     */
-    public function getCountryRenderer()
-    {
-        if (empty($this->_countryRenderer)) {
-            $renderer = 'xmlconnect/adminhtml_mobile_submission_renderer_country_'
-                . self::SUBMISSION_COUNTRY_RENDERER;
-            $this->_countryRenderer = Mage::app()->getLayout()->createBlock($renderer);
-        }
-        return $this->_countryRenderer;
-    }
-
-    /**
      * Get label for submission country
      *
      * @return string
@@ -618,16 +612,6 @@ class Mage_XmlConnect_Helper_Android extends Mage_Core_Helper_Abstract
     public function getCountryLabel()
     {
         return Mage::helper('xmlconnect')->__('Locations');
-    }
-
-    /**
-     * Get columns for submission country
-     *
-     * @return int
-     */
-    public function getCountryColumns()
-    {
-        return self::SUBMISSION_COUNTRY_COLUMNS;
     }
 
     /**
@@ -647,12 +631,14 @@ class Mage_XmlConnect_Helper_Android extends Mage_Core_Helper_Abstract
      */
     public function getCountryClass()
     {
-        return self::SUBMISSION_COUNTRY_RENDERER;
+        return 'androidmarket';
     }
 
     /**
      * Get list of countries that allowed by Magento Inc. for Android
      *
+     * @deprecated
+     * @see $this->getAllowedCountriesArray()
      * @return array
      */
     public function getAndroidMarketCountriesArray()
@@ -665,6 +651,7 @@ class Mage_XmlConnect_Helper_Android extends Mage_Core_Helper_Abstract
      *
      * We set empty value for image field if file was missed in some reason
      *
+     * @deprecated will delete in the next version
      * @param array $data
      * @return array
      */
@@ -689,6 +676,7 @@ class Mage_XmlConnect_Helper_Android extends Mage_Core_Helper_Abstract
     /**
      * Check required fields of a config for a front-end
      *
+     * @deprecated will delete in the next version
      * @throws Mage_Core_Exception
      * @param array $data
      * @return null
@@ -706,15 +694,5 @@ class Mage_XmlConnect_Helper_Android extends Mage_Core_Helper_Abstract
         if (isset($data['body']['bannerAndroidImage']) && empty($data['body']['bannerAndroidImage'])) {
             Mage::throwException(Mage::helper('xmlconnect')->__('Banner on Home Screen image missing.'));
         }
-    }
-
-    /**
-     * Check the notifications are allowed for current type of application
-     *
-     * @return bool
-     */
-    public function isNotificationsAllowed()
-    {
-        return true;
     }
 }

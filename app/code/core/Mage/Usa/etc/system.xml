@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Usa
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -360,7 +360,7 @@
                         <shipment_days translate="label">
                             <label>Domestic Shipment Days</label>
                             <frontend_type>multiselect</frontend_type>
-                            <source_model>adminhtml/system_config_source_locale_weekdays</source_model>
+                            <source_model>adminhtml/system_config_source_locale_weekdaycodes</source_model>
                             <sort_order>1390</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -371,7 +371,7 @@
                         <intl_shipment_days translate="label">
                             <label>International Shipment Days</label>
                             <frontend_type>multiselect</frontend_type>
-                            <source_model>adminhtml/system_config_source_locale_weekdays</source_model>
+                            <source_model>adminhtml/system_config_source_locale_weekdaycodes</source_model>
                             <sort_order>1400</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -487,6 +487,15 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </dropoff>
+                        <unit_of_measure translate="label">
+                            <label>Weight Unit</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>usa/shipping_carrier_fedex_source_unitofmeasure</source_model>
+                            <sort_order>95</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </unit_of_measure>
                         <max_package_weight translate="label">
                             <label>Maximum Package Weight (Please consult your shipping carrier for maximum supported shipping weight)</label>
                             <frontend_type>text</frontend_type>
@@ -738,11 +747,35 @@
                         <gateway_xml_url translate="label">
                             <label>Gateway XML URL</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>30</sort_order>
+                            <sort_order>22</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </gateway_xml_url>
+                        <tracking_xml_url translate="label">
+                            <label>Tracking XML URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>24</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </tracking_xml_url>
+                        <shipconfirm_xml_url translate="label">
+                            <label>Shipping Confirm XML URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>26</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </shipconfirm_xml_url>
+                        <shipaccept_xml_url translate="label">
+                            <label>Shipping Accept XML URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>28</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </shipaccept_xml_url>
                         <handling_type translate="label">
                             <label>Calculate Handling Fee</label>
                             <frontend_type>select</frontend_type>
@@ -822,7 +855,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                        0</sort_order>
+                        </sort_order>
                         <title translate="label">
                             <label>Title</label>
                             <frontend_type>text</frontend_type>
@@ -831,14 +864,6 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </title>
-                        <tracking_xml_url translate="label">
-                            <label>Tracking XML URL</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>60</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </tracking_xml_url>
                         <type translate="label">
                             <label>UPS Type</label>
                             <frontend_type>select</frontend_type>

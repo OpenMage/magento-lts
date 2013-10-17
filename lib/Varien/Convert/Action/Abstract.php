@@ -175,7 +175,7 @@ abstract class Varien_Convert_Action_Abstract implements Varien_Convert_Action_I
     public function run()
     {
         if ($method = $this->getParam('method')) {
-            if (!is_callable(array($this->getContainer(), $method))) {
+            if (!method_exists($this->getContainer(), $method)) {
                 $this->addException('Unable to run action method: '.$method, Varien_Convert_Exception::FATAL);
             }
 

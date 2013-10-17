@@ -20,12 +20,12 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Configuration pathes storage
+ * Configuration paths storage
  *
  * @category   Mage
  * @package    Mage_Tax
@@ -33,10 +33,22 @@
  */
 class Mage_Tax_Model_Config
 {
-    // tax classes
+    /**#@+
+     * Paths to tax notification configs
+     */
+    const XML_PATH_TAX_NOTIFICATION_DISCOUNT = 'tax/ignore_notification/discount';
+    const XML_PATH_TAX_NOTIFICATION_PRICE_DISPLAY = 'tax/ignore_notification/price_display';
+    const XML_PATH_TAX_NOTIFICATION_URL = 'tax/notification/url';
+    /**#@-*/
+
+    /**
+     * Tax classes
+     */
     const CONFIG_XML_PATH_SHIPPING_TAX_CLASS = 'tax/classes/shipping_tax_class';
 
-    // tax calculation
+    /**#@+
+     * Paths to tax calculation configs
+     */
     const CONFIG_XML_PATH_PRICE_INCLUDES_TAX = 'tax/calculation/price_includes_tax';
     const CONFIG_XML_PATH_SHIPPING_INCLUDES_TAX = 'tax/calculation/shipping_includes_tax';
     const CONFIG_XML_PATH_BASED_ON = 'tax/calculation/based_on';
@@ -44,19 +56,24 @@ class Mage_Tax_Model_Config
     const CONFIG_XML_PATH_APPLY_AFTER_DISCOUNT = 'tax/calculation/apply_after_discount';
     const CONFIG_XML_PATH_DISCOUNT_TAX = 'tax/calculation/discount_tax';
     const XML_PATH_ALGORITHM = 'tax/calculation/algorithm';
+    /**#@-*/
 
-    // tax defaults
+    /**#@+
+     * Paths to tax defaults configs
+     */
     const CONFIG_XML_PATH_DEFAULT_COUNTRY = 'tax/defaults/country';
     const CONFIG_XML_PATH_DEFAULT_REGION = 'tax/defaults/region';
     const CONFIG_XML_PATH_DEFAULT_POSTCODE = 'tax/defaults/postcode';
+    /**#@-*/
 
-    /**
+    /**#@+
      * Prices display settings
      */
     const CONFIG_XML_PATH_PRICE_DISPLAY_TYPE    = 'tax/display/type';
     const CONFIG_XML_PATH_DISPLAY_SHIPPING      = 'tax/display/shipping';
+    /**#@-*/
 
-    /**
+    /**#@+
      * Shopping cart display settings
      */
     const XML_PATH_DISPLAY_CART_PRICE       = 'tax/cart_display/price';
@@ -64,10 +81,11 @@ class Mage_Tax_Model_Config
     const XML_PATH_DISPLAY_CART_SHIPPING    = 'tax/cart_display/shipping';
     const XML_PATH_DISPLAY_CART_DISCOUNT    = 'tax/cart_display/discount';
     const XML_PATH_DISPLAY_CART_GRANDTOTAL  = 'tax/cart_display/grandtotal';
-    const XML_PATH_DISPLAY_CART_FULL_SUMMARY= 'tax/cart_display/full_summary';
+    const XML_PATH_DISPLAY_CART_FULL_SUMMARY = 'tax/cart_display/full_summary';
     const XML_PATH_DISPLAY_CART_ZERO_TAX    = 'tax/cart_display/zero_tax';
+    /**#@-*/
 
-    /**
+    /**#@+
      * Shopping cart display settings
      */
     const XML_PATH_DISPLAY_SALES_PRICE       = 'tax/sales_display/price';
@@ -75,16 +93,24 @@ class Mage_Tax_Model_Config
     const XML_PATH_DISPLAY_SALES_SHIPPING    = 'tax/sales_display/shipping';
     const XML_PATH_DISPLAY_SALES_DISCOUNT    = 'tax/sales_display/discount';
     const XML_PATH_DISPLAY_SALES_GRANDTOTAL  = 'tax/sales_display/grandtotal';
-    const XML_PATH_DISPLAY_SALES_FULL_SUMMARY= 'tax/sales_display/full_summary';
+    const XML_PATH_DISPLAY_SALES_FULL_SUMMARY = 'tax/sales_display/full_summary';
     const XML_PATH_DISPLAY_SALES_ZERO_TAX    = 'tax/sales_display/zero_tax';
+    /**#@-*/
 
+    /**
+     * String separator
+     */
     const CALCULATION_STRING_SEPARATOR = '|';
 
+    /**#@+
+     * Indexes for tax display types
+     */
     const DISPLAY_TYPE_EXCLUDING_TAX = 1;
     const DISPLAY_TYPE_INCLUDING_TAX = 2;
     const DISPLAY_TYPE_BOTH = 3;
+    /**#@-*/
 
-    /**
+    /**#@+
      * @deprecated
      */
     const CONFIG_XML_PATH_SHOW_IN_CATALOG = 'tax/display/show_in_catalog';
@@ -92,6 +118,7 @@ class Mage_Tax_Model_Config
     const CONFIG_XML_PATH_DISPLAY_TAX_COLUMN    = 'tax/display/column_in_summary';
     const CONFIG_XML_PATH_DISPLAY_FULL_SUMMARY  = 'tax/display/full_summary';
     const CONFIG_XML_PATH_DISPLAY_ZERO_TAX      = 'tax/display/zero_tax';
+    /**#@-*/
 
     /**
      * Flag which notify what we need use prices exclude tax for calculations
@@ -113,17 +140,29 @@ class Mage_Tax_Model_Config
     protected $_shippingPriceIncludeTax = null;
 
     /**
+     * Retrieve config value for store by path
+     *
+     * @param string $path
+     * @param mixed $store
+     * @return mixed
+     */
+    protected function _getStoreConfig($path, $store)
+    {
+        return Mage::getStoreConfig($path, $store);
+    }
+
+    /**
      * Check if product prices inputed include tax
      *
      * @param   mix $store
      * @return  bool
      */
-    public function priceIncludesTax($store=null)
+    public function priceIncludesTax($store = null)
     {
         if ($this->_needUsePriceExcludeTax) {
             return false;
         }
-        return (bool)Mage::getStoreConfig(self::CONFIG_XML_PATH_PRICE_INCLUDES_TAX, $store);
+        return (bool)$this->_getStoreConfig(self::CONFIG_XML_PATH_PRICE_INCLUDES_TAX, $store);
     }
 
     /**
@@ -132,9 +171,9 @@ class Mage_Tax_Model_Config
      * @param   mixed $store
      * @return  bool
      */
-    public function applyTaxAfterDiscount($store=null)
+    public function applyTaxAfterDiscount($store = null)
     {
-        return (bool)Mage::getStoreConfig(self::CONFIG_XML_PATH_APPLY_AFTER_DISCOUNT, $store);
+        return (bool)$this->_getStoreConfig(self::CONFIG_XML_PATH_APPLY_AFTER_DISCOUNT, $store);
     }
 
     /**
@@ -148,7 +187,7 @@ class Mage_Tax_Model_Config
      */
     public function getPriceDisplayType($store = null)
     {
-        return (int)Mage::getStoreConfig(self::CONFIG_XML_PATH_PRICE_DISPLAY_TYPE, $store);
+        return (int)$this->_getStoreConfig(self::CONFIG_XML_PATH_PRICE_DISPLAY_TYPE, $store);
     }
 
     /**
@@ -157,9 +196,9 @@ class Mage_Tax_Model_Config
      * @param   null|int $store
      * @return  0|1
      */
-    public function discountTax($store=null)
+    public function discountTax($store = null)
     {
-        return ((int)Mage::getStoreConfig(self::CONFIG_XML_PATH_DISCOUNT_TAX, $store) == 1);
+        return ((int)$this->_getStoreConfig(self::CONFIG_XML_PATH_DISCOUNT_TAX, $store) == 1);
     }
 
     /**
@@ -169,7 +208,7 @@ class Mage_Tax_Model_Config
      * @param   null|int|string|Mage_Core_Model_Store $store
      * @return  string
      */
-    public function getCalculationSequence($store=null)
+    public function getCalculationSequence($store = null)
     {
         if ($this->applyTaxAfterDiscount($store)) {
             if ($this->discountTax($store)) {
@@ -238,9 +277,9 @@ class Mage_Tax_Model_Config
      * @param   store $store
      * @return  string
      */
-    public function getAlgorithm($store=null)
+    public function getAlgorithm($store = null)
     {
-        return Mage::getStoreConfig(self::XML_PATH_ALGORITHM, $store);
+        return $this->_getStoreConfig(self::XML_PATH_ALGORITHM, $store);
     }
 
     /**
@@ -249,9 +288,9 @@ class Mage_Tax_Model_Config
      * @param   store $store
      * @return  int
      */
-    public function getShippingTaxClass($store=null)
+    public function getShippingTaxClass($store = null)
     {
-        return (int)Mage::getStoreConfig(self::CONFIG_XML_PATH_SHIPPING_TAX_CLASS, $store);
+        return (int)$this->_getStoreConfig(self::CONFIG_XML_PATH_SHIPPING_TAX_CLASS, $store);
     }
 
     /**
@@ -262,11 +301,11 @@ class Mage_Tax_Model_Config
      */
     public function getShippingPriceDisplayType($store = null)
     {
-        return (int)Mage::getStoreConfig(self::CONFIG_XML_PATH_DISPLAY_SHIPPING, $store);
+        return (int)$this->_getStoreConfig(self::CONFIG_XML_PATH_DISPLAY_SHIPPING, $store);
     }
 
     /**
-     * Check if shiping prices include tax
+     * Check if shipping prices include tax
      *
      * @param   store $store
      * @return  bool
@@ -274,7 +313,7 @@ class Mage_Tax_Model_Config
     public function shippingPriceIncludesTax($store = null)
     {
         if ($this->_shippingPriceIncludeTax === null) {
-            $this->_shippingPriceIncludeTax = (bool)Mage::getStoreConfig(
+            $this->_shippingPriceIncludeTax = (bool)$this->_getStoreConfig(
                 self::CONFIG_XML_PATH_SHIPPING_INCLUDES_TAX,
                 $store
             );
@@ -285,6 +324,7 @@ class Mage_Tax_Model_Config
     /**
      * Declare shipping prices type
      * @param bool $flag
+     * @return Mage_Tax_Model_Config
      */
     public function setShippingPriceIncludeTax($flag)
     {
@@ -326,161 +366,382 @@ class Mage_Tax_Model_Config
      */
     public function displayTaxColumn($store = null)
     {
-        return (bool)Mage::getStoreConfig(self::CONFIG_XML_PATH_DISPLAY_TAX_COLUMN, $store);
+        return (bool)$this->_getStoreConfig(self::CONFIG_XML_PATH_DISPLAY_TAX_COLUMN, $store);
     }
 
-
-
-
+    /**
+     * Check if display cart prices included tax
+     *
+     * @param mixed $store
+     * @return bool
+     */
     public function displayCartPricesInclTax($store = null)
     {
-        return Mage::getStoreConfig(self::XML_PATH_DISPLAY_CART_PRICE, $store) == self::DISPLAY_TYPE_INCLUDING_TAX;
+        return $this->_getStoreConfig(self::XML_PATH_DISPLAY_CART_PRICE, $store) == self::DISPLAY_TYPE_INCLUDING_TAX;
     }
 
+    /**
+     * Check if display cart prices excluded tax
+     *
+     * @param mixed $store
+     * @return bool
+     */
     public function displayCartPricesExclTax($store = null)
     {
-        return Mage::getStoreConfig(self::XML_PATH_DISPLAY_CART_PRICE, $store) == self::DISPLAY_TYPE_EXCLUDING_TAX;
+        return $this->_getStoreConfig(self::XML_PATH_DISPLAY_CART_PRICE, $store) == self::DISPLAY_TYPE_EXCLUDING_TAX;
     }
 
+    /**
+     * Check if display cart prices included and excluded tax
+     *
+     * @param mixed $store
+     * @return bool
+     */
     public function displayCartPricesBoth($store = null)
     {
-        return Mage::getStoreConfig(self::XML_PATH_DISPLAY_CART_PRICE, $store) == self::DISPLAY_TYPE_BOTH;
+        return $this->_getStoreConfig(self::XML_PATH_DISPLAY_CART_PRICE, $store) == self::DISPLAY_TYPE_BOTH;
     }
 
+    /**
+     * Check if display cart subtotal included tax
+     *
+     * @param mixed $store
+     * @return bool
+     */
     public function displayCartSubtotalInclTax($store = null)
     {
-        return Mage::getStoreConfig(self::XML_PATH_DISPLAY_CART_SUBTOTAL, $store) == self::DISPLAY_TYPE_INCLUDING_TAX;
+        return $this->_getStoreConfig(self::XML_PATH_DISPLAY_CART_SUBTOTAL, $store) == self::DISPLAY_TYPE_INCLUDING_TAX;
     }
 
+    /**
+     * Check if display cart subtotal excluded tax
+     *
+     * @param mixed $store
+     * @return bool
+     */
     public function displayCartSubtotalExclTax($store = null)
     {
-        return Mage::getStoreConfig(self::XML_PATH_DISPLAY_CART_SUBTOTAL, $store) == self::DISPLAY_TYPE_EXCLUDING_TAX;
+        return $this->_getStoreConfig(self::XML_PATH_DISPLAY_CART_SUBTOTAL, $store) == self::DISPLAY_TYPE_EXCLUDING_TAX;
     }
 
+    /**
+     * Check if display cart subtotal included and excluded tax
+     *
+     * @param mixed $store
+     * @return bool
+     */
     public function displayCartSubtotalBoth($store = null)
     {
-        return Mage::getStoreConfig(self::XML_PATH_DISPLAY_CART_SUBTOTAL, $store) == self::DISPLAY_TYPE_BOTH;
+        return $this->_getStoreConfig(self::XML_PATH_DISPLAY_CART_SUBTOTAL, $store) == self::DISPLAY_TYPE_BOTH;
     }
 
+    /**
+     * Check if display cart shipping included tax
+     *
+     * @param mixed $store
+     * @return bool
+     */
     public function displayCartShippingInclTax($store = null)
     {
-        return Mage::getStoreConfig(self::XML_PATH_DISPLAY_CART_SHIPPING, $store) == self::DISPLAY_TYPE_INCLUDING_TAX;
+        return $this->_getStoreConfig(self::XML_PATH_DISPLAY_CART_SHIPPING, $store) == self::DISPLAY_TYPE_INCLUDING_TAX;
     }
 
+    /**
+     * Check if display cart shipping excluded tax
+     *
+     * @param mixed $store
+     * @return bool
+     */
     public function displayCartShippingExclTax($store = null)
     {
-        return Mage::getStoreConfig(self::XML_PATH_DISPLAY_CART_SHIPPING, $store) == self::DISPLAY_TYPE_EXCLUDING_TAX;
+        return $this->_getStoreConfig(self::XML_PATH_DISPLAY_CART_SHIPPING, $store) == self::DISPLAY_TYPE_EXCLUDING_TAX;
     }
 
+    /**
+     * Check if display cart shipping included and excluded tax
+     *
+     * @param mixed $store
+     * @return bool
+     */
     public function displayCartShippingBoth($store = null)
     {
-        return Mage::getStoreConfig(self::XML_PATH_DISPLAY_CART_SHIPPING, $store) == self::DISPLAY_TYPE_BOTH;
+        return $this->_getStoreConfig(self::XML_PATH_DISPLAY_CART_SHIPPING, $store) == self::DISPLAY_TYPE_BOTH;
     }
 
+    /**
+     * Check if display cart discount included tax
+     *
+     * @param mixed $store
+     * @return bool
+     */
     public function displayCartDiscountInclTax($store = null)
     {
-        return Mage::getStoreConfig(self::XML_PATH_DISPLAY_CART_DISCOUNT, $store) == self::DISPLAY_TYPE_INCLUDING_TAX;
+        return $this->_getStoreConfig(self::XML_PATH_DISPLAY_CART_DISCOUNT, $store) == self::DISPLAY_TYPE_INCLUDING_TAX;
     }
 
+    /**
+     * Check if display cart discount excluded tax
+     *
+     * @param mixed $store
+     * @return bool
+     */
     public function displayCartDiscountExclTax($store = null)
     {
-        return Mage::getStoreConfig(self::XML_PATH_DISPLAY_CART_DISCOUNT, $store) == self::DISPLAY_TYPE_EXCLUDING_TAX;
+        return $this->_getStoreConfig(self::XML_PATH_DISPLAY_CART_DISCOUNT, $store) == self::DISPLAY_TYPE_EXCLUDING_TAX;
     }
 
+    /**
+     * Check if display cart discount included and excluded tax
+     *
+     * @param mixed $store
+     * @return bool
+     */
     public function displayCartDiscountBoth($store = null)
     {
-        return Mage::getStoreConfig(self::XML_PATH_DISPLAY_CART_DISCOUNT, $store) == self::DISPLAY_TYPE_BOTH;
+        return $this->_getStoreConfig(self::XML_PATH_DISPLAY_CART_DISCOUNT, $store) == self::DISPLAY_TYPE_BOTH;
     }
 
+    /**
+     * Get display cart tax with grand total
+     *
+     * @param mixed $store
+     * @return bool
+     */
     public function displayCartTaxWithGrandTotal($store = null)
     {
-        return (bool)Mage::getStoreConfig(self::XML_PATH_DISPLAY_CART_GRANDTOTAL, $store);
+        return (bool)$this->_getStoreConfig(self::XML_PATH_DISPLAY_CART_GRANDTOTAL, $store);
     }
 
+    /**
+     * Get display cart full summary
+     *
+     * @param mixed $store
+     * @return bool
+     */
     public function displayCartFullSummary($store = null)
     {
-        return (bool)Mage::getStoreConfig(self::XML_PATH_DISPLAY_CART_FULL_SUMMARY, $store);
+        return (bool)$this->_getStoreConfig(self::XML_PATH_DISPLAY_CART_FULL_SUMMARY, $store);
     }
 
+    /**
+     * Get display cart zero tax
+     *
+     * @param mixed $store
+     * @return bool
+     */
     public function displayCartZeroTax($store = null)
     {
-        return (bool)Mage::getStoreConfig(self::XML_PATH_DISPLAY_CART_ZERO_TAX, $store);
+        return (bool)$this->_getStoreConfig(self::XML_PATH_DISPLAY_CART_ZERO_TAX, $store);
     }
 
-
+    /**
+     * Check if display sales prices include tax
+     *
+     * @param mixed $store
+     * @return bool
+     */
     public function displaySalesPricesInclTax($store = null)
     {
-        return Mage::getStoreConfig(self::XML_PATH_DISPLAY_SALES_PRICE, $store) == self::DISPLAY_TYPE_INCLUDING_TAX;
+        return $this->_getStoreConfig(self::XML_PATH_DISPLAY_SALES_PRICE, $store) == self::DISPLAY_TYPE_INCLUDING_TAX;
     }
 
+    /**
+     * Check if display sales prices exclude tax
+     *
+     * @param mixed $store
+     * @return bool
+     */
     public function displaySalesPricesExclTax($store = null)
     {
-        return Mage::getStoreConfig(self::XML_PATH_DISPLAY_SALES_PRICE, $store) == self::DISPLAY_TYPE_EXCLUDING_TAX;
+        return $this->_getStoreConfig(self::XML_PATH_DISPLAY_SALES_PRICE, $store) == self::DISPLAY_TYPE_EXCLUDING_TAX;
     }
 
+    /**
+     * Check if display sales prices include and exclude tax
+     *
+     * @param mixed $store
+     * @return bool
+     */
     public function displaySalesPricesBoth($store = null)
     {
-        return Mage::getStoreConfig(self::XML_PATH_DISPLAY_SALES_PRICE, $store) == self::DISPLAY_TYPE_BOTH;
+        return $this->_getStoreConfig(self::XML_PATH_DISPLAY_SALES_PRICE, $store) == self::DISPLAY_TYPE_BOTH;
     }
 
+    /**
+     * Check if display sales subtotal include tax
+     *
+     * @param mixed $store
+     * @return bool
+     */
     public function displaySalesSubtotalInclTax($store = null)
     {
-        return Mage::getStoreConfig(self::XML_PATH_DISPLAY_SALES_SUBTOTAL, $store) == self::DISPLAY_TYPE_INCLUDING_TAX;
+        return $this->_getStoreConfig(self::XML_PATH_DISPLAY_SALES_SUBTOTAL, $store)
+            == self::DISPLAY_TYPE_INCLUDING_TAX;
     }
 
+    /**
+     * Check if display sales subtotal exclude tax
+     *
+     * @param mixed $store
+     * @return bool
+     */
     public function displaySalesSubtotalExclTax($store = null)
     {
-        return Mage::getStoreConfig(self::XML_PATH_DISPLAY_SALES_SUBTOTAL, $store) == self::DISPLAY_TYPE_EXCLUDING_TAX;
+        return $this->_getStoreConfig(self::XML_PATH_DISPLAY_SALES_SUBTOTAL, $store)
+            == self::DISPLAY_TYPE_EXCLUDING_TAX;
     }
 
+    /**
+     * Check if display sales subtotal include and exclude tax
+     *
+     * @param mixed $store
+     * @return bool
+     */
     public function displaySalesSubtotalBoth($store = null)
     {
-        return Mage::getStoreConfig(self::XML_PATH_DISPLAY_SALES_SUBTOTAL, $store) == self::DISPLAY_TYPE_BOTH;
+        return $this->_getStoreConfig(self::XML_PATH_DISPLAY_SALES_SUBTOTAL, $store) == self::DISPLAY_TYPE_BOTH;
     }
 
+    /**
+     * Check if display sales shipping include tax
+     *
+     * @param mixed $store
+     * @return bool
+     */
     public function displaySalesShippingInclTax($store = null)
     {
-        return Mage::getStoreConfig(self::XML_PATH_DISPLAY_SALES_SHIPPING, $store) == self::DISPLAY_TYPE_INCLUDING_TAX;
+        return $this->_getStoreConfig(self::XML_PATH_DISPLAY_SALES_SHIPPING, $store)
+            == self::DISPLAY_TYPE_INCLUDING_TAX;
     }
 
+    /**
+     * Check if display sales shipping exclude tax
+     *
+     * @param mixed $store
+     * @return bool
+     */
     public function displaySalesShippingExclTax($store = null)
     {
-        return Mage::getStoreConfig(self::XML_PATH_DISPLAY_SALES_SHIPPING, $store) == self::DISPLAY_TYPE_EXCLUDING_TAX;
+        return $this->_getStoreConfig(self::XML_PATH_DISPLAY_SALES_SHIPPING, $store)
+            == self::DISPLAY_TYPE_EXCLUDING_TAX;
     }
 
+    /**
+     * Check if display sales shipping include and exclude tax
+     *
+     * @param mixed $store
+     * @return bool
+     */
     public function displaySalesShippingBoth($store = null)
     {
-        return Mage::getStoreConfig(self::XML_PATH_DISPLAY_SALES_SHIPPING, $store) == self::DISPLAY_TYPE_BOTH;
+        return $this->_getStoreConfig(self::XML_PATH_DISPLAY_SALES_SHIPPING, $store) == self::DISPLAY_TYPE_BOTH;
     }
 
+    /**
+     * Check if display sales discount include tax
+     *
+     * @param mixed $store
+     * @return bool
+     */
     public function displaySalesDiscountInclTax($store = null)
     {
-        return Mage::getStoreConfig(self::XML_PATH_DISPLAY_SALES_DISCOUNT, $store) == self::DISPLAY_TYPE_INCLUDING_TAX;
+        return $this->_getStoreConfig(self::XML_PATH_DISPLAY_SALES_DISCOUNT, $store)
+            == self::DISPLAY_TYPE_INCLUDING_TAX;
     }
 
+    /**
+     * Check if display sales discount exclude tax
+     *
+     * @param mixed $store
+     * @return bool
+     */
     public function displaySalestDiscountExclTax($store = null)
     {
-        return Mage::getStoreConfig(self::XML_PATH_DISPLAY_SALES_DISCOUNT, $store) == self::DISPLAY_TYPE_EXCLUDING_TAX;
+        return $this->_getStoreConfig(self::XML_PATH_DISPLAY_SALES_DISCOUNT, $store)
+            == self::DISPLAY_TYPE_EXCLUDING_TAX;
     }
 
+    /**
+     * Check if display sales discount include and exclude tax
+     *
+     * @param mixed $store
+     * @return bool
+     */
     public function displaySalesDiscountBoth($store = null)
     {
-        return Mage::getStoreConfig(self::XML_PATH_DISPLAY_SALES_DISCOUNT, $store) == self::DISPLAY_TYPE_BOTH;
+        return $this->_getStoreConfig(self::XML_PATH_DISPLAY_SALES_DISCOUNT, $store) == self::DISPLAY_TYPE_BOTH;
     }
 
+    /**
+     * Get display sales tax with grand total
+     *
+     * @param mixed $store
+     * @return bool
+     */
     public function displaySalesTaxWithGrandTotal($store = null)
     {
-        return (bool)Mage::getStoreConfig(self::XML_PATH_DISPLAY_SALES_GRANDTOTAL, $store);
+        return (bool)$this->_getStoreConfig(self::XML_PATH_DISPLAY_SALES_GRANDTOTAL, $store);
     }
 
+    /**
+     * Get display sales full summary
+     *
+     * @param mixed $store
+     * @return bool
+     */
     public function displaySalesFullSummary($store = null)
     {
-        return (bool)Mage::getStoreConfig(self::XML_PATH_DISPLAY_SALES_FULL_SUMMARY, $store);
+        return (bool)$this->_getStoreConfig(self::XML_PATH_DISPLAY_SALES_FULL_SUMMARY, $store);
     }
 
+    /**
+     * Get display sales zero tax
+     *
+     * @param mixed $store
+     * @return bool
+     */
     public function displaySalesZeroTax($store = null)
     {
-        return (bool)Mage::getStoreConfig(self::XML_PATH_DISPLAY_SALES_ZERO_TAX, $store);
+        return (bool)$this->_getStoreConfig(self::XML_PATH_DISPLAY_SALES_ZERO_TAX, $store);
+    }
+
+    /**
+     * Check if tax calculation type and price display settings are compatible
+     *
+     * invalid settings if
+     *      Tax Calculation Method Based On 'Total' or 'Row'
+     *      and at least one Price Display Settings has 'Including and Excluding Tax' value
+     *
+     * @param mixed $store
+     * @return bool
+     */
+    public function checkDisplaySettings($store = null)
+    {
+        if ($this->getAlgorithm($store) == Mage_Tax_Model_Calculation::CALC_UNIT_BASE) {
+            return true;
+        }
+        return $this->getPriceDisplayType($store) != self::DISPLAY_TYPE_BOTH
+            && $this->getShippingPriceDisplayType($store) != self::DISPLAY_TYPE_BOTH
+            && !$this->displayCartPricesBoth($store)
+            && !$this->displayCartSubtotalBoth($store)
+            && !$this->displayCartShippingBoth($store)
+            && !$this->displaySalesPricesBoth($store)
+            && !$this->displaySalesSubtotalBoth($store)
+            && !$this->displaySalesShippingBoth($store);
+    }
+
+    /**
+     * Check if tax discount settings are compatible
+     *
+     * Matrix for invalid discount settings is as follows:
+     *      Before Discount / Excluding Tax
+     *      After Discount / Including Tax
+     *
+     * @param mixed $store
+     * @return bool
+     */
+    public function checkDiscountSettings($store = null)
+    {
+        return $this->applyTaxAfterDiscount($store) != $this->discountTax($store);
     }
 }
-

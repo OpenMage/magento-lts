@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,25 +37,17 @@ $installer = $this;
 
 $appTableName = $installer->getTable('xmlconnect/application');
 
-$configField = $installer
-    ->getConnection()
+$configField = $installer->getConnection()
     ->tableColumnExists($appTableName, 'configuration');
 
 if ($configField) {
     /** @var $appModel Mage_XmlConnect_Model_Application */
     $appModel = Mage::getModel('xmlconnect/application');
-    $select = $appModel->getResource()
-        ->getReadConnection()
-        ->select()
-        ->from(
-            $appTableName,
-            array('application_id', 'configuration')
+    $select = $appModel->getResource()->getReadConnection()->select()->from(
+        $appTableName, array('application_id', 'configuration')
     );
 
-    $result = $appModel
-        ->getResource()
-        ->getReadConnection()
-        ->fetchAll($select);
+    $result = $appModel->getResource()->getReadConnection()->fetchAll($select);
 
     foreach ($result as $rows) {
         if (empty($rows['configuration'])) {
@@ -69,10 +61,7 @@ if ($configField) {
         );
     }
 
-    $installer
-        ->getConnection()
-        ->dropColumn(
-            $installer->getTable('xmlconnect/application'),
-            'configuration'
+    $installer->getConnection()->dropColumn(
+        $installer->getTable('xmlconnect/application'), 'configuration'
     );
 }

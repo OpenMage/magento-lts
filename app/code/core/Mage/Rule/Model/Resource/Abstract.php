@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Rule
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -83,15 +83,49 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
     }
 
     /**
+     * Prepare select for condition
+     *
+     * @param int $storeId
+     * @param Mage_Rule_Model_Condition_Abstract $condition
+     * @return Varien_Db_Select
+     */
+    public function getProductFlatSelect($storeId, $condition)
+    {
+        $select = $this->_getReadAdapter()->select();
+        $select->from(
+                array('p' => $this->getTable('catalog/product')),
+                array(new Zend_Db_Expr('DISTINCT p.entity_id'))
+            )
+            ->joinInner(
+                array('cpf' => $this->getTable('catalog/product_flat') . '_' . $storeId),
+                'cpf.entity_id = p.entity_id',
+                array()
+            )->joinLeft(
+                array('ccp' => $this->getTable('catalog/category_product')),
+                'ccp.product_id = p.entity_id',
+                array()
+            );
+
+        $where = $condition->prepareConditionSql();
+        if (!empty($where)) {
+            $select->where($where);
+        }
+
+        return $select;
+    }
+
+    /**
      * Bind specified rules to entities
      *
      * @param array|int|string $ruleIds
      * @param array|int|string $entityIds
      * @param string $entityType
+     * @param bool $deleteOldResults
      *
+     * @throws Exception
      * @return Mage_Rule_Model_Resource_Abstract
      */
-    public function bindRuleToEntity($ruleIds, $entityIds, $entityType)
+    public function bindRuleToEntity($ruleIds, $entityIds, $entityType, $deleteOldResults = true)
     {
         if (empty($ruleIds) || empty($entityIds)) {
             return $this;
@@ -137,10 +171,12 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
                 );
             }
 
-            $adapter->delete($this->getTable($entityInfo['associations_table']),
-                $adapter->quoteInto($entityInfo['rule_id_field']   . ' IN (?) AND ', $ruleIds) .
-                $adapter->quoteInto($entityInfo['entity_id_field'] . ' NOT IN (?)',  $entityIds)
-            );
+            if ($deleteOldResults) {
+                $adapter->delete($this->getTable($entityInfo['associations_table']),
+                    $adapter->quoteInto($entityInfo['rule_id_field']   . ' IN (?) AND ', $ruleIds) .
+                    $adapter->quoteInto($entityInfo['entity_id_field'] . ' NOT IN (?)',  $entityIds)
+                );
+            }
         } catch (Exception $e) {
             $adapter->rollback();
             throw $e;
@@ -243,9 +279,7 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
 
         $e = Mage::exception(
             'Mage_Core',
-            Mage::helper('rule')->__(
-                'There is no information about associated entity type "%s".', $entityType
-            )
+            Mage::helper('rule')->__('There is no information about associated entity type "%s".', $entityType)
         );
         throw $e;
     }

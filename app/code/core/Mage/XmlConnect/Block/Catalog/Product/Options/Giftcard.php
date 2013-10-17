@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -160,7 +160,6 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Giftcard extends Mage_XmlCon
         /**
          * Render fixed amounts options
          */
-
         /** @var $fixedAmountsNode Mage_XmlConnect_Model_Simplexml_Element */
         $fixedAmountsNode = $optionsXmlObj->addChild('fixed_amounts');
         if ($this->isAmountAvailable($product)) {

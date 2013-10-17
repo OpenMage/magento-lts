@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -54,6 +54,25 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
      * @var integer
      */
     protected $_storeId        = null;
+
+    /**
+     * Catalog factory instance
+     *
+     * @var Mage_Catalog_Model_Factory
+     */
+    protected $_factory;
+
+    /**
+     * Initialize factory
+     *
+     * @param Mage_Core_Model_Resource_Abstract $resource
+     * @param array $args
+     */
+    public function __construct($resource = null, array $args = array())
+    {
+        parent::__construct($resource);
+        $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('catalog/factory');
+    }
 
     /**
      *  Collection initialization
@@ -304,22 +323,27 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     }
 
     /**
-     * Enter description here ...
+     * Join request_path column from url rewrite table
      *
      * @return Mage_Catalog_Model_Resource_Category_Flat_Collection
      */
     public function addUrlRewriteToResult()
     {
-        $storeId = Mage::app()->getStore()->getId();
-        $this->getSelect()->joinLeft(
-            array('url_rewrite' => $this->getTable('core/url_rewrite')),
-            'url_rewrite.category_id=main_table.entity_id AND url_rewrite.is_system=1 '.
-            'AND url_rewrite.product_id IS NULL'.
-            ' AND ' . $this->getConnection()->quoteInto('url_rewrite.store_id=?', $storeId).
-            ' AND ' . $this->getConnection()->quoteInto('url_rewrite.id_path LIKE ?','category/%'),
-            array('request_path')
-        );
+        /** @var $urlRewrite Mage_Catalog_Helper_Category_Url_Rewrite_Interface */
+        $urlRewrite = $this->_factory->getCategoryUrlRewriteHelper();
+        $urlRewrite->joinTableToCollection($this, $this->_getCurrentStoreId());
+
         return $this;
+    }
+
+    /**
+     * Retrieves store_id from current store
+     *
+     * @return int
+     */
+    protected function _getCurrentStoreId()
+    {
+        return (int)Mage::app()->getStore()->getId();
     }
 
     /**

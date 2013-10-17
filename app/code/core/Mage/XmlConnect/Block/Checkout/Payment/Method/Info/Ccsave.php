@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,8 +44,8 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_Info_Ccsave extends Mage_Pay
         $orderItemXmlObj->addAttribute('type', $this->getMethod()->getCode());
         $orderItemXmlObj->addAttribute('title', $orderItemXmlObj->xmlAttribute($this->getMethod()->getTitle()));
 
-        if ($_specificInfo = $this->getSpecificInformation()) {
-            foreach ($_specificInfo as $label => $value) {
+        if ($specificInfo = $this->getSpecificInformation()) {
+            foreach ($specificInfo as $label => $value) {
                 $orderItemXmlObj->addCustomChild('item', implode($this->getValueAsArray($value, true), '\n'), array(
                     'label' => $label
                 ));

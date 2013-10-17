@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Admin
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -60,17 +60,23 @@
  */
 class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
 {
-    /**
+    /**#@+
      * Configuration paths for email templates and identities
      */
     const XML_PATH_FORGOT_EMAIL_TEMPLATE    = 'admin/emails/forgot_email_template';
     const XML_PATH_FORGOT_EMAIL_IDENTITY    = 'admin/emails/forgot_email_identity';
     const XML_PATH_STARTUP_PAGE             = 'admin/startup/page';
+    /**#@-*/
 
     /**
      * Minimum length of admin password
      */
     const MIN_PASSWORD_LENGTH = 7;
+
+    /**
+     * Length of salt
+     */
+    const HASH_SALT_LENGTH = 32;
 
     /**
      * Model event prefix
@@ -116,11 +122,11 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
             'extra'     => serialize($this->getExtra())
         );
 
-        if($this->getId() > 0) {
+        if ($this->getId() > 0) {
             $data['user_id'] = $this->getId();
         }
 
-        if( $this->getUsername() ) {
+        if ($this->getUsername()) {
             $data['username'] = $this->getUsername();
         }
 
@@ -422,7 +428,18 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      */
     protected function _getEncodedPassword($password)
     {
-        return Mage::helper('core')->getHash($password, 2);
+        return $this->_getHelper('core')->getHash($password, self::HASH_SALT_LENGTH);
+    }
+
+    /**
+     * Returns helper instance
+     *
+     * @param string $helperName
+     * @return Mage_Core_Helper_Abstract
+     */
+    protected function _getHelper($helperName)
+    {
+        return Mage::helper($helperName);
     }
 
     /**
@@ -596,5 +613,4 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
 
         return false;
     }
-
 }

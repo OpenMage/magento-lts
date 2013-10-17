@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -61,8 +61,7 @@ class Mage_XmlConnect_Block_Customer_Order_Totals extends Mage_Sales_Block_Order
                 'action'    => array(
                     'method'    => 'setAfterTotal',
                     'value'     => 'grand_total'
-                )
-            ),
+            )),
             'giftwrapping'  => array(
                 'module'    => 'Enterprise_GiftWrapping',
                 'block'     => 'enterprise_giftwrapping/sales_totals'
@@ -71,11 +70,10 @@ class Mage_XmlConnect_Block_Customer_Order_Totals extends Mage_Sales_Block_Order
                 'module'    => 'Enterprise_GiftCardAccount',
                 'block'     => 'xmlconnect/customer_order_totals_giftcards',
                 'template'  => 'giftcardaccount/order/giftcards.phtml'
-            ),
-        );
+        ));
 
         foreach ($enterpriseBlocks as $name => $block) {
-            // create blocks only for Enterprise/Pro modules which is in system
+            // create blocks only for Enterprise/Pro modules which are in system
             if (is_object(Mage::getConfig()->getNode('modules/' . $block['module']))) {
                 $blockInstance = $this->getLayout()->createBlock($block['block'], $name);
                 $this->setChild($name, $blockInstance);
@@ -87,11 +85,16 @@ class Mage_XmlConnect_Block_Customer_Order_Totals extends Mage_Sales_Block_Order
         }
 
         $this->_beforeToHtml();
+        $totalsXml = $orderXmlObj->addCustomChild('totals');
 
-        $totalsXml = $orderXmlObj->addChild('totals');
+        if ($this->getNewApi()) {
+            $this->_prepareTotalsApi23($totalsXml);
+            return;
+        }
+
         foreach ($this->getTotals() as $total) {
             if ($total->getValue()) {
-                $total->setValue(strip_tags($total->getValue()));
+                $total->setValue($totalsXml->escapeXml($total->getValue()));
             }
             if ($total->getBlockName()) {
                 $block = $this->getLayout()->getBlock($total->getBlockName());
@@ -109,18 +112,65 @@ class Mage_XmlConnect_Block_Customer_Order_Totals extends Mage_Sales_Block_Order
     }
 
     /**
+     * Prepare totals using for response api version 23
+     *
+     * @param Mage_XmlConnect_Model_Simplexml_Element $totalsXml
+     * @return null
+     */
+    protected function _prepareTotalsApi23(Mage_XmlConnect_Model_Simplexml_Element $totalsXml)
+    {
+        $totalsXml = $totalsXml->addCustomChild('total', null, array('id' => 'totals_full_list'));
+        foreach ($this->getTotals() as $total) {
+            if ($total->getValue()) {
+                $total->setValue($totalsXml->escapeXml($total->getValue()));
+            }
+            if ($total->getBlockName()) {
+                $block = $this->getLayout()->getBlock($total->getBlockName());
+                if (is_object($block)) {
+                    if (method_exists($block, 'addToXmlObject')) {
+                        $block->setTotal($total)->setNewApi($this->getNewApi())->addToXmlObject($totalsXml);
+                    } else {
+                        $this->_addTotalToXmlApi23($total, $totalsXml);
+                    }
+                }
+            } else {
+                $this->_addTotalToXmlApi23($total, $totalsXml);
+            }
+        }
+    }
+
+    /**
      * Add total to totals XML
      *
      * @param Varien_Object $total
      * @param Mage_XmlConnect_Model_Simplexml_Element $totalsXml
      * @return null
      */
-    private function _addTotalToXml($total, Mage_XmlConnect_Model_Simplexml_Element $totalsXml)
+    protected function _addTotalToXml($total, Mage_XmlConnect_Model_Simplexml_Element $totalsXml)
     {
         if ($total instanceof Varien_Object && $total->getCode() && $total->getLabel() && $total->hasData('value')) {
-            $totalsXml->addCustomChild(preg_replace('@[\W]+@', '_', trim($total->getCode())),
-                $this->_formatPrice($total), array('label' => strip_tags($total->getLabel()))
+            $totalsXml->addCustomChild(
+                preg_replace('@[\W]+@', '_', trim($total->getCode())),
+                $this->_formatPrice($total),
+                array('label' => $totalsXml->escapeXml($total->getLabel()))
             );
+        }
+    }
+
+    /**
+     * Add total to totals XML. Api version 23.
+     *
+     * @param Varien_Object $total
+     * @param Mage_XmlConnect_Model_Simplexml_Element $totalsXml
+     * @return null
+     */
+    protected function _addTotalToXmlApi23($total, Mage_XmlConnect_Model_Simplexml_Element $totalsXml)
+    {
+        if ($total instanceof Varien_Object && $total->getCode() && $total->getLabel() && $total->hasData('value')) {
+            $totalsXml->addCustomChild('item', $this->_formatPrice($total), array(
+                 'id' => preg_replace('@[\W]+@', '_', trim($total->getCode())),
+                 'label' => $totalsXml->escapeXml($total->getLabel()),
+            ));
         }
     }
 

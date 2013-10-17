@@ -20,10 +20,9 @@
  *
  * @category    Mage
  * @package     Mage_Admin
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * ACL user resource
@@ -151,7 +150,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      */
     private function _encryptPassword($pwStr)
     {
-        return Mage::helper('core')->getHash($pwStr, 2);
+        return Mage::helper('core')->getHash($pwStr, Mage_Admin_Model_User::HASH_SALT_LENGTH);
     }
 
     /**
@@ -219,7 +218,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
         } catch (Mage_Core_Exception $e) {
             throw $e;
             return false;
-        } catch (Exception $e){
+        } catch (Exception $e) {
             $adapter->rollBack();
             return false;
         }
@@ -238,7 +237,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     {
         $rolesIds = $user->getRoleIds();
 
-        if( !is_array($rolesIds) || count($rolesIds) == 0 ) {
+        if (!is_array($rolesIds) || count($rolesIds) == 0) {
             return $user;
         }
 
@@ -275,7 +274,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
             $adapter->commit();
         } catch (Mage_Core_Exception $e) {
             throw $e;
-        } catch (Exception $e){
+        } catch (Exception $e) {
             $adapter->rollBack();
             throw $e;
         }
@@ -331,7 +330,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
 
         $aRoles = $this->hasAssigned2Role($user);
         if ( sizeof($aRoles) > 0 ) {
-            foreach($aRoles as $idx => $data){
+            foreach ($aRoles as $idx => $data) {
                 $conditions = array(
                     'role_id = ?' => $data['role_id'],
                 );

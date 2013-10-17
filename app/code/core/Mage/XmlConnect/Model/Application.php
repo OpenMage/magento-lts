@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -65,6 +65,8 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
 
     /**
      * Device screen size name
+     *
+     * @deprecated will delete in the next version
      */
     const APP_SCREEN_SIZE_DEFAULT   = '320x480';
 
@@ -246,13 +248,37 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
     const DEPRECATED_CONFIG_FLAG                    = 'deprecated';
 
     /**
+     * Pages config flag value
+     */
+    const STATIC_PAGE_CATEGORY                      = 'pages';
+
+    /**
      * Delete on update paths for config data
      *
      * @var array
      */
-    protected $_deleteOnUpdateConfig    = array(
-        self::DEPRECATED_CONFIG_FLAG => 'native/pages'
-    );
+    protected $_deleteOnUpdateConfig = array(self::STATIC_PAGE_CATEGORY => 'staticpage');
+
+    /**
+     * Current device model
+     *
+     * @var Mage_XmlConnect_Model_Device_Abstract
+     */
+    protected $_deviceModel;
+
+    /**
+     * Image limits model
+     *
+     * @var Mage_XmlConnect_Model_ImageLimits
+     */
+    protected $_imageLimitsModel;
+
+    /**
+     * Image action model
+     *
+     * @var Mage_XmlConnect_Model_ImageAction
+     */
+    protected $_imageActionModel;
 
     /**
      * Initialize application
@@ -285,21 +311,20 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
     public function getFormData()
     {
         $data = $this->getData();
-        $data = Mage::helper('xmlconnect')->getDeviceHelper()->checkImages($data);
         return $this->_flatArray($data);
     }
 
     /**
      * Load data (flat array) for Varien_Data_Form
      *
-     * @param array $subtree
+     * @param array $subTree
      * @param string $prefix
      * @return array
      */
-    protected function _flatArray($subtree, $prefix=null)
+    protected function _flatArray($subTree, $prefix=null)
     {
         $result = array();
-        foreach ($subtree as $key => $value) {
+        foreach ($subTree as $key => $value) {
             if (is_null($prefix)) {
                 $name = $key;
             } else {
@@ -428,26 +453,7 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
             }
         }
 
-        /** @var $helperImage Mage_XmlConnect_Helper_Image */
-        $helperImage = Mage::helper('xmlconnect/image');
-        $paths = $helperImage->getInterfaceImagesPathsConf();
-
-        foreach ($paths as $confPath => $dataPath) {
-            $imageNodeValue =& $helperImage->findPath($result, $dataPath);
-
-            if (!$helperImage->checkAndGetImagePath($imageNodeValue)) {
-                /**
-                 * We set empty string to get default image if original was missing in some reason
-                 */
-                $imageNodeValue = '';
-            } else {
-                /**
-                 * Creating file ending (some_inner/some_dir/filename.png) For url
-                 */
-                $imageNodeValue = $helperImage->getFileCustomDirSuffixAsUrl($confPath, $imageNodeValue);
-            }
-        }
-        $result = $this->_absPath($result);
+        Mage::getModel('xmlconnect/images')->loadOldImageNodes($result);
 
         /**
          * General configuration
@@ -457,42 +463,34 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
         $result['general']['currencyCode'] = Mage::app()->getStore($this->getStoreId())->getDefaultCurrencyCode();
         $result['general']['secureBaseUrl'] = $this->getSecureBaseUrl();
 
-        $maxRecipients  = 0;
-        $allowGuest     = 0;
+        $allowGuest = $maxRecipients = 0;
         if (Mage::getStoreConfig(Mage_Sendfriend_Helper_Data::XML_PATH_ENABLED)) {
-            $maxRecipients = Mage::getStoreConfig(Mage_Sendfriend_Helper_Data::XML_PATH_MAX_RECIPIENTS);
+            $maxRecipients = (int)Mage::getStoreConfig(Mage_Sendfriend_Helper_Data::XML_PATH_MAX_RECIPIENTS);
+            $maxRecipients = $maxRecipients > 0 ? $maxRecipients: 1;
             $allowGuest = Mage::getStoreConfig(Mage_Sendfriend_Helper_Data::XML_PATH_ALLOW_FOR_GUEST);
         }
         $result['general']['emailToFriendMaxRecepients'] = $maxRecipients;
         $result['general']['emailAllowGuest'] = $allowGuest;
-        $result['general']['primaryStoreLang'] = Mage::app()
-            ->getStore($this->getStoreId())->getConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE);
+        $result['general']['primaryStoreLang'] = Mage::app()->getStore($this->getStoreId())
+            ->getConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE);
         $result['general']['magentoVersion'] = Mage::getVersion();
-        $result['general']['copyright'] = Mage::getStoreConfig(
-            self::XML_PATH_DESIGN_FOOTER_COPYRIGHT, $this->getStoreId()
+        $result['general']['copyright'] = Mage::helper('core')->stripTags(
+            Mage::getStoreConfig(self::XML_PATH_DESIGN_FOOTER_COPYRIGHT, $this->getStoreId())
         );
         $result['general']['xmlconnectVersion'] = Mage::getConfig()->getNode(self::XML_PATH_MODULE_VERSION);
 
-        $result['general']['isAllowedGuestCheckout'] = (int)Mage::getSingleton('checkout/session')
-            ->getQuote()->isAllowedGuestCheckout();
+        $result['general']['isAllowedGuestCheckout'] = (int)Mage::getSingleton('checkout/session')->getQuote()
+            ->isAllowedGuestCheckout();
 
         /**
          * Check is guest can post product reviews
          */
-        if (Mage::helper('review')->getIsGuestAllowToWrite()) {
-            $result['general']['isAllowedGuestReview'] = '1';
-        } else {
-            $result['general']['isAllowedGuestReview'] = '0';
-        }
+        $result['general']['isAllowedGuestReview'] = Mage::helper('review')->getIsGuestAllowToWrite() ? '1' : '0';
 
         /**
         * Check is wishlist enabled in a config
         */
-        if (Mage::getStoreConfigFlag('wishlist/general/active')) {
-            $result['general']['wishlistEnable'] = '1';
-        } else {
-            $result['general']['wishlistEnable'] = '0';
-        }
+        $result['general']['wishlistEnable'] = Mage::getStoreConfigFlag('wishlist/general/active') ? '1' : '0';
 
         /**
          * "Use Secure URLs in Frontend" flag
@@ -500,17 +498,24 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
         $result['general']['useSecureURLInFrontend'] = $this->getUseSecureURLInFrontend();
 
         /**
+         * Set flag is allowed guest checkout if quote contain downloadable product(s)
+         */
+        if ($this->isGuestBuyDownloadableProduct()) {
+            $result['general']['isAllowedGuestCheckoutForDownloadableProducts'] = '0';
+        } else {
+            $result['general']['isAllowedGuestCheckoutForDownloadableProducts'] = '1';
+        }
+
+        /**
          * Is enabled Store credit functionality
          */
+        $isStoreCreditEnable = $canShowHistoryFlag = 0;
         if (is_object(Mage::getConfig()->getNode('modules/Enterprise_CustomerBalance'))) {
             $storeCreditFlag = Mage::getStoreConfig(Enterprise_CustomerBalance_Helper_Data::XML_PATH_ENABLED);
             $isStoreCreditEnable = (int)$storeCreditFlag;
-            $canShowHistoryFlag = (int) Mage::getStoreConfigFlag(
-                'customer/enterprise_customerbalance/show_history'
-            );
-        } else {
-            $isStoreCreditEnable = $canShowHistoryFlag = 0;
+            $canShowHistoryFlag = (int)Mage::getStoreConfigFlag('customer/enterprise_customerbalance/show_history');
         }
+
         $result['general']['isStoreCreditEnabled'] = $isStoreCreditEnable;
         $result['general']['isStoreCreditHistoryEnabled'] = $canShowHistoryFlag;
 
@@ -535,6 +540,15 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
         $result['paypal']['isActive'] = $isActive;
 
         $paypalMeclIsAvailable = Mage::getModel('xmlconnect/payment_method_paypal_mecl')->isAvailable(null);
+
+        /**
+         * Pages configuration
+         */
+        $pages = Mage::getSingleton('xmlconnect/configuration')->getDeviceStaticPages();
+
+        if (!empty($pages)) {
+            $result['pages'] = $pages;
+        }
 
         /**
          * PayPal Mobile Express Library Checkout
@@ -565,6 +579,18 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Check is allowed guest checkout if quote contain downloadable product(s)
+     *
+     * @return bool
+     */
+    public function isGuestBuyDownloadableProduct()
+    {
+        return (bool)Mage::getStoreConfigFlag(
+            Mage_Downloadable_Model_Observer::XML_PATH_DISABLE_GUEST_CHECKOUT, $this->getStoreId()
+        );
+    }
+
+    /**
      * Is forced front secure url
      *
      * @return int
@@ -582,21 +608,20 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
     public function getScreenSize()
     {
         if (!isset($this->_data['screen_size'])) {
-            $this->_data['screen_size'] = self::APP_SCREEN_SIZE_DEFAULT;
+            $this->_data['screen_size'] = $this->getDeviceModel()->getDefaultScreenSize();
         }
         return $this->_data['screen_size'];
     }
 
     /**
-     * Setter
-     * for current screen_size parameter
+     * Setter for current screen_size parameter
      *
      * @param string $screenSize
-     * @return this
+     * @return Mage_XmlConnect_Model_Application
      */
     public function setScreenSize($screenSize)
     {
-        $this->_data['screen_size'] = Mage::helper('xmlconnect/image')->filterScreenSize((string) $screenSize);
+        $this->_data['screen_size'] = $screenSize;
         return $this;
     }
 
@@ -616,21 +641,21 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
     /**
      * Change URLs to absolute
      *
-     * @param array $subtree
+     * @param array $subTree
      * @return array
      */
-    protected function _absPath($subtree)
+    protected function _absPath($subTree)
     {
-        foreach ($subtree as $key => $value) {
+        foreach ($subTree as $key => $value) {
             if (!empty($value)) {
                 if (is_array($value)) {
-                    $subtree[$key] = $this->_absPath($value);
+                    $subTree[$key] = $this->_absPath($value);
                 } elseif (strtolower(substr($key, -4)) == 'icon' || strtolower(substr($key, -5)) == 'image') {
-                    $subtree[$key] = Mage::getBaseUrl('media') . 'xmlconnect/' . $value;
+                    $subTree[$key] = Mage::getBaseUrl('media') . 'xmlconnect/' . $value;
                 }
             }
         }
-        return $subtree;
+        return $subTree;
     }
 
     /**
@@ -640,8 +665,8 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
      */
     public function getPages()
     {
-        if (isset($this->_data['conf']['native']['pages'])) {
-            return $this->_data['conf']['native']['pages'];
+        if (isset($this->_data['conf']['pages'])) {
+            return $this->_data['conf']['pages'];
         }
         return array();
     }
@@ -657,13 +682,24 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Set last updated datetime string
+     *
+     * @return Mage_XmlConnect_Model_Application
+     */
+    protected function _renewUpdatedAtTime()
+    {
+        $this->setUpdatedAt(Mage::getSingleton('core/date')->gmtDate());
+        return $this;
+    }
+
+    /**
      * Processing object before save data
      *
      * @return Mage_XmlConnect_Model_Application
      */
     protected function _beforeSave()
     {
-        $this->setUpdatedAt(Mage::getSingleton('core/date')->gmtDate());
+        $this->_renewUpdatedAtTime();
         return $this;
     }
 
@@ -761,7 +797,6 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
             'application_id' => $this->getId(),
             'category' => 'payment'
         ))->toOptionArray();
-
         $this->setData('config_data', $configuration);
         return $this;
     }
@@ -788,6 +823,7 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
      * Convert old config data array
      *
      * @deprecated  Serialized config storage has been removed
+     * @throws Mage_Core_Exception
      * @param  $config
      * @return array
      */
@@ -797,9 +833,7 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
         foreach ($config as $values) {
             foreach ($values as $path => $value) {
                 if (preg_match('@[^\w\/]@', $path)) {
-                    Mage::throwException(
-                        Mage::helper('xmlconnect')->__('Unsupported character in path: "%s"', $path)
-                    );
+                    Mage::throwException(Mage::helper('xmlconnect')->__('Unsupported character in path: "%s"', $path));
                 }
                 $keyArray = explode('/', $path);
                 $keys = '$result["' . implode('"]["', $keyArray) . '"]';
@@ -865,9 +899,7 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
     {
         $images = array();
         $params = $this->getLastParams();
-        $deviceImages = Mage::helper('xmlconnect')
-            ->getDeviceHelper()
-            ->getSubmitImages();
+        $deviceImages = Mage::helper('xmlconnect')->getDeviceHelper()->getSubmitImages();
 
         foreach ($deviceImages as $id) {
             $path = $this->getData('conf/submit/'.$id);
@@ -963,9 +995,9 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
      */
     protected function _validateConf()
     {
-        $conf   = $this->getConf();
-        $native = isset($conf['native']) && is_array($conf['native']) ? $conf['native'] : false;
-        $errors = Mage::helper('xmlconnect')->getDeviceHelper($this)->validateConfig($native);
+        $config   = $this->getConf();
+        $native = isset($config['native']) && is_array($config['native']) ? $config['native'] : false;
+        $errors = array();
 
         foreach ($this->_socialNetValidationArray as $networkKey) {
             if (isset($native['socialNetworking'][$networkKey]['isActive'])
@@ -1098,7 +1130,7 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
      */
     public function updateAllAppsUpdatedAtParameter()
     {
-        $this->_getResource()->updateAllAppsUpdatedAtParameter();
+        $this->_renewUpdatedAtTime()->_getResource()->updateUpdatedAtParameter($this);
         return $this;
     }
 
@@ -1182,6 +1214,92 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
     public function setDeleteOnUpdateConfig(array $pathsToDelete)
     {
         $this->_deleteOnUpdateConfig = array_merge($this->_deleteOnUpdateConfig, $pathsToDelete);
+        return $this;
+    }
+
+    /**
+     * Get current device model
+     *
+     * @return Mage_XmlConnect_Model_Device_Abstract
+     */
+    public function getDeviceModel()
+    {
+        if (null === $this->_deviceModel) {
+            $this->setDeviceModel();
+        }
+        return $this->_deviceModel;
+    }
+
+    /**
+     * Set current device model
+     *
+     * @throws Mage_Core_Exception
+     * @param Mage_XmlConnect_Model_Device_Abstract|null $deviceModel
+     * @return Mage_XmlConnect_Model_Application
+     */
+    public function setDeviceModel($deviceModel = null)
+    {
+        if ($deviceModel instanceof Mage_XmlConnect_Model_Device_Abstract) {
+            $this->_deviceModel = $deviceModel;
+        } elseif ($this->getType()) {
+            $this->_deviceModel = Mage::getModel('xmlconnect/device_' . $this->getType(), $this);
+        } else {
+            Mage::throwException(Mage::helper('xmlconnect')->__('Device doesn\'t recognized'));
+        }
+        return $this;
+    }
+
+    /**
+     * Get current image limit model
+     *
+     * @return Mage_XmlConnect_Model_ImageLimits
+     */
+    public function getImageLimitsModel()
+    {
+        if ($this->_imageLimitsModel === null) {
+            $this->setImageLimitsModel();
+        }
+        return $this->_imageLimitsModel;
+    }
+
+    /**
+     * Set current image limit model
+     *
+     * @param null|Mage_XmlConnect_Model_ImageLimits $imageLimitsModel
+     * @return Mage_XmlConnect_Model_Application
+     */
+    public function setImageLimitsModel($imageLimitsModel = null)
+    {
+        if (null === $imageLimitsModel) {
+            $this->_imageLimitsModel = Mage::getModel('xmlconnect/imageLimits', $this);
+        } else {
+            $this->_imageLimitsModel = $imageLimitsModel;
+        }
+        return $this;
+    }
+
+    /**
+     * Get image action model
+     *
+     * @return Mage_XmlConnect_Model_ImageAction
+     */
+    public function getImageActionModel()
+    {
+        if (null === $this->_imageActionModel) {
+            $this->_imageActionModel = Mage::getModel('xmlconnect/imageAction', $this);
+        }
+        return $this->_imageActionModel;
+    }
+
+    /**
+     * Set image action model
+     *
+     * @param Mage_XmlConnect_Model_ImageAction $imageActionModel
+     * @return Mage_XmlConnect_Model_Application
+     */
+    public function setImageActionModel($imageActionModel)
+    {
+        $this->_imageActionModel = $imageActionModel;
         return $this;
     }
 }

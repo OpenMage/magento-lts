@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -45,11 +45,9 @@ class Mage_XmlConnect_CheckoutController extends Mage_XmlConnect_Controller_Acti
             && !Mage::getSingleton('checkout/session')->getQuote()->isAllowedGuestCheckout()
         ) {
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
-            $this->_message(
-                $this->__('Customer not logged in.'),
-                self::MESSAGE_STATUS_ERROR,
-                array('logged_in' => '0')
-            );
+            $this->_message($this->__('Customer not logged in.'), self::MESSAGE_STATUS_ERROR, array(
+                'logged_in' => '0'
+            ));
             return ;
         }
     }
@@ -71,6 +69,9 @@ class Mage_XmlConnect_CheckoutController extends Mage_XmlConnect_Controller_Acti
      */
     public function indexAction()
     {
+        if ($this->_checkApiForward('addressmassaction', Mage_XmlConnect_Helper_Data::DEVICE_API_V_23)) {
+            return;
+        }
         if (!Mage::helper('checkout')->canOnepageCheckout()) {
             $this->_message($this->__('Onepage checkout is disabled.'), self::MESSAGE_STATUS_ERROR);
             return;
@@ -103,7 +104,7 @@ class Mage_XmlConnect_CheckoutController extends Mage_XmlConnect_Controller_Acti
     }
 
     /**
-     * Display customer new billing addrress form
+     * Display customer new billing address form
      *
      * @return null
      */
@@ -121,7 +122,7 @@ class Mage_XmlConnect_CheckoutController extends Mage_XmlConnect_Controller_Acti
     }
 
     /**
-     * Display customer new shipping addrress form
+     * Display customer new shipping address form
      *
      * @return null
      */
@@ -303,7 +304,27 @@ class Mage_XmlConnect_CheckoutController extends Mage_XmlConnect_Controller_Acti
     public function shippingMethodsAction()
     {
         try {
-            $result = array('error' => $this->__('Error.'));
+            $result = array('error' => $this->__('Error'));
+            $this->getOnepage()->getQuote()->getShippingAddress()->setCollectShippingRates(true);
+            $this->getOnepage()->getQuote()->collectTotals()->save();
+            $this->loadLayout(false);
+            $this->renderLayout();
+            return;
+        } catch (Mage_Core_Exception $e) {
+            $result['error'] = $e->getMessage();
+        }
+        $this->_message($result['error'], self::MESSAGE_STATUS_ERROR);
+    }
+
+    /**
+     * Get shipping methods for current quote API v23
+     *
+     * @return null
+     */
+    public function shippingMethodsListAction()
+    {
+        try {
+            $result = array('error' => $this->__('Error'));
             $this->getOnepage()->getQuote()->getShippingAddress()->setCollectShippingRates(true);
             $this->getOnepage()->getQuote()->collectTotals()->save();
             $this->loadLayout(false);
@@ -332,17 +353,21 @@ class Mage_XmlConnect_CheckoutController extends Mage_XmlConnect_Controller_Acti
         if (!$result) {
 
             Mage::dispatchEvent('checkout_controller_onepage_save_shipping_method', array(
-                'request' => $this->getRequest(), 'quote' => $this->getOnepage()->getQuote()
+                'request' => $this->getRequest(),
+                'quote' => $this->getOnepage()->getQuote()
             ));
             $this->getOnepage()->getQuote()->collectTotals()->save();
-
+            if ($this->_checkApiForward('paymentmethodlist', Mage_XmlConnect_Helper_Data::DEVICE_API_V_23)) {
+                return;
+            }
             $this->_message($this->__('Shipping method has been set.'), self::MESSAGE_STATUS_SUCCESS);
-        } elseif(isset($result['error'])) {
+        } elseif (isset($result['error'])) {
             if (!is_array($result['message'])) {
                 $result['message'] = array($result['message']);
             }
             Mage::dispatchEvent('checkout_controller_onepage_save_shipping_method', array(
-                'request' => $this->getRequest(), 'quote' => $this->getOnepage()->getQuote()
+                'request' => $this->getRequest(),
+                'quote' => $this->getOnepage()->getQuote()
             ));
             $this->getOnepage()->getQuote()->collectTotals()->save();
             $this->_message(implode('. ', $result['message']), self::MESSAGE_STATUS_ERROR);
@@ -372,20 +397,36 @@ class Mage_XmlConnect_CheckoutController extends Mage_XmlConnect_Controller_Acti
     }
 
     /**
+     * Get payment methods action API v23
+     *
+     * @return null
+     */
+    public function paymentMethodListAction()
+    {
+        try {
+            $this->loadLayout(false);
+            /** @var $paymentMethodsBlock Mage_XmlConnect_Block_Checkout_Payment_Method_List */
+            $paymentMethodsBlock = $this->getLayout()->getBlock('payment.methods');
+            $response = $paymentMethodsBlock->toHtml();
+            $this->getResponse()->setBody($response);
+            return;
+        } catch (Mage_Core_Exception $e) {
+            $result['error'] = $e->getMessage();
+        }
+        $this->_message($result['error'], self::MESSAGE_STATUS_ERROR);
+    }
+
+    /**
      * Get payment methods action
      *
      * @return null
      */
     public function paymentMethodsAction()
     {
-        try {
-            $this->loadLayout(false);
-            $this->renderLayout();
+        if ($this->_checkApiForward('paymentmethodlist', Mage_XmlConnect_Helper_Data::DEVICE_API_V_23)) {
             return;
-        } catch (Mage_Core_Exception $e) {
-            $result['error'] = $e->getMessage();
         }
-        $this->_message($result['error'], self::MESSAGE_STATUS_ERROR);
+        $this->paymentMethodListAction();
     }
 
     /**
@@ -399,17 +440,36 @@ class Mage_XmlConnect_CheckoutController extends Mage_XmlConnect_Controller_Acti
             $this->_message($this->__('Specified invalid data.'), self::MESSAGE_STATUS_ERROR);
             return;
         }
+        // set payment to quote
+        $result = array();
+        $data = $this->getRequest()->getPost('payment', array());
         try {
-            // set payment to quote
-            $result = array();
-            $data = $this->getRequest()->getPost('payment', array());
             $result = $this->getOnepage()->savePayment($data);
-            $this->_message($this->__('Payment method was successfully set.'), self::MESSAGE_STATUS_SUCCESS);
-            return;
+            if (empty($result['error'])) {
+                $method = Mage::getSingleton('checkout/session')->getQuote()->getPayment()->getMethodInstance();
+                $sentinelData = array();
+                if ($method->getIsCentinelValidationEnabled()) {
+                    $centinel = $method->getCentinelValidator();
+                    if ($centinel && $centinel->shouldAuthenticate()) {
+                        $sentinelData = array('sentinel_secure' => Mage::getUrl('*/cms/sentinelsecure'));
+                    }
+                }
+
+                if ($this->_checkApiForward('ordersummary', Mage_XmlConnect_Helper_Data::DEVICE_API_V_23)) {
+                    return;
+                }
+                $this->_message(
+                    $this->__('Payment method was successfully set.'), self::MESSAGE_STATUS_SUCCESS, $sentinelData
+                );
+                return;
+            }
+
         } catch (Mage_Payment_Exception $e) {
             $result['error'] = $e->getMessage();
+            Mage::logException($e);
         } catch (Mage_Core_Exception $e) {
             $result['error'] = $e->getMessage();
+            Mage::logException($e);
         } catch (Exception $e) {
             Mage::logException($e);
             $result['error'] = $e->getMessage();
@@ -418,11 +478,30 @@ class Mage_XmlConnect_CheckoutController extends Mage_XmlConnect_Controller_Acti
     }
 
     /**
-     * Order summary info action
+     * Order review action
      *
      * @return null
      */
     public function orderReviewAction()
+    {
+        $this->getOnepage()->getQuote()->collectTotals()->save();
+        try {
+            $this->loadLayout(false);
+            $this->renderLayout();
+        } catch (Mage_Core_Exception $e) {
+            $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
+        } catch (Exception $e) {
+            $this->_message($this->__('Unable to load order review.'), self::MESSAGE_STATUS_ERROR);
+            Mage::logException($e);
+        }
+    }
+
+    /**
+     * Checkout order summary info action
+     *
+     * @return null
+     */
+    public function orderSummaryAction()
     {
         $this->getOnepage()->getQuote()->collectTotals()->save();
         try {
@@ -449,7 +528,8 @@ class Mage_XmlConnect_CheckoutController extends Mage_XmlConnect_Controller_Acti
         }
 
         try {
-            if ($requiredAgreements = Mage::helper('checkout')->getRequiredAgreementIds()) {
+            $requiredAgreements = Mage::helper('checkout')->getRequiredAgreementIds();
+            if (!empty($requiredAgreements)) {
                 $postedAgreements = array_keys($this->getRequest()->getPost('agreement', array()));
                 if (array_diff($requiredAgreements, $postedAgreements)) {
                     $error = $this->__('Please agree to all the terms and conditions before placing the order.');
@@ -457,7 +537,8 @@ class Mage_XmlConnect_CheckoutController extends Mage_XmlConnect_Controller_Acti
                     return;
                 }
             }
-            if ($data = $this->getRequest()->getPost('payment', false)) {
+            $data = $this->getRequest()->getPost('payment', false);
+            if ($data) {
                 $this->getOnepage()->getQuote()->getPayment()->importData($data);
             }
             $this->getOnepage()->saveOrder();
@@ -491,5 +572,125 @@ class Mage_XmlConnect_CheckoutController extends Mage_XmlConnect_Controller_Acti
         }
         $this->getOnepage()->getQuote()->save();
         $this->_message($error, self::MESSAGE_STATUS_ERROR);
+    }
+
+    /**
+     * Action return address form and customer saved addresses
+     *
+     * @return null
+     */
+    public function addressMassactionAction()
+    {
+        if (!Mage::helper('checkout')->canOnepageCheckout()) {
+            $this->_message($this->__('Onepage checkout is disabled.'), self::MESSAGE_STATUS_ERROR);
+            return;
+        }
+        try {
+            /** @var $quote Mage_Sales_Model_Quote */
+            $quote = $this->getOnepage()->getQuote();
+            if ($quote->getHasError()) {
+                $this->_message($this->__('Cart has some errors.'), self::MESSAGE_STATUS_ERROR);
+                return;
+            } elseif (!$quote->hasItems()) {
+                $this->_message($this->__('Cart is empty.'), self::MESSAGE_STATUS_ERROR);
+                return;
+            } elseif (!$quote->validateMinimumAmount()) {
+                $error = Mage::getStoreConfig('sales/minimum_order/error_message');
+                $this->_message($error, self::MESSAGE_STATUS_ERROR);
+                return;
+            }
+            Mage::getSingleton('checkout/session')->setCartWasUpdated(false);
+            $this->getOnepage()->initCheckout();
+
+            $this->loadLayout(false);
+            $this->renderLayout();
+        } catch (Mage_Core_Exception $e) {
+            $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
+        } catch (Exception $e) {
+            $this->_message($this->__('Unable to load addresses.'), self::MESSAGE_STATUS_ERROR);
+            Mage::logException($e);
+        }
+    }
+
+    /**
+     * Action save customer addresses info
+     *
+     * @return null
+     */
+    public function saveAddressInfoAction()
+    {
+        if (!$this->getRequest()->isPost()) {
+            $this->_message($this->__('Specified invalid data.'), self::MESSAGE_STATUS_ERROR);
+            return;
+        }
+
+        /** Save billing address */
+        $useForShipping = false;
+        $isVirtual = Mage::helper('checkout/cart')->getIsVirtualQuote();
+        $billingAddressId = $this->getRequest()->getPost('billing_address_id', false);
+        $billingData = $this->getRequest()->getPost('billing', array());
+        if (isset($billingData['use_for_shipping']) && $billingData['use_for_shipping'] == 1) {
+            $useForShipping = true;
+        }
+        try {
+            if ($billingAddressId) {
+                $billingData = Mage::getModel('customer/address')->load($billingAddressId)->getData();
+            }
+            if (isset($billingData['email'])) {
+                $billingData['email'] = trim($billingData['email']);
+            }
+            $billingSaveResult = $this->getOnepage()->saveBilling($billingData, $billingAddressId);
+            if (isset($billingSaveResult['error'])) {
+                if (!is_array($billingSaveResult['message'])) {
+                    $billingSaveResult['message'] = array($billingSaveResult['message']);
+                }
+                $this->_message(implode('. ', $billingSaveResult['message']), self::MESSAGE_STATUS_ERROR);
+                return;
+            }
+
+            if (!$useForShipping && !$isVirtual) {
+                $shippingAddressId = $this->getRequest()->getPost('shipping_address_id', false);
+                if ($shippingAddressId) {
+                    $shippingData = Mage::getModel('customer/address')->load($shippingAddressId)->getData();
+                } else {
+                    $shippingData = $this->getRequest()->getPost('shipping', array());
+                }
+                $shippingSaveResult = $this->getOnepage()->saveShipping($shippingData, $shippingAddressId);
+                if (isset($shippingSaveResult['error'])) {
+                    if (!is_array($shippingSaveResult['message'])) {
+                        $shippingSaveResult['message'] = array($shippingSaveResult['message']);
+                    }
+                    $this->_message(implode('. ', $shippingSaveResult['message']), self::MESSAGE_STATUS_ERROR);
+                    return;
+                }
+            } else {
+                $result = $this->getOnepage()->saveShipping($billingData, $billingAddressId);
+                if (isset($result['error'])) {
+                    if (!is_array($result['message'])) {
+                        $result['message'] = array($result['message']);
+                    }
+                    $this->_message(implode('. ', $result['message']), self::MESSAGE_STATUS_ERROR);
+                    return;
+                }
+            }
+
+            if ($isVirtual) {
+                /** If quote is virtual - redirect to payment methods list */
+                $this->_forward('paymentmethods', null, null, array(
+                    Mage_XmlConnect_Helper_Data::API_VERSION_REQUEST_PARAM
+                        => Mage_XmlConnect_Helper_Data::DEVICE_API_V_23
+                ));
+            } else {
+                /** Redirect to shipping methods list */
+                $this->_forward('shippingMethodsList');
+            }
+            return;
+        } catch (Mage_Core_Exception $e) {
+            $this->_message($e->getMessage(), self::MESSAGE_STATUS_ERROR);
+            Mage::logException($e);
+        } catch (Exception $e) {
+            $this->_message($this->__('Unable to load addresses.'), self::MESSAGE_STATUS_ERROR);
+            Mage::logException($e);
+        }
     }
 }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -285,16 +285,20 @@ class Mage_Core_Model_Locale
     /**
      * Retrieve days of week option list
      *
+     * @param bool $preserveCodes
+     * @param bool $ucFirstCode
+     *
      * @return array
      */
-    public function getOptionWeekdays()
+    public function getOptionWeekdays($preserveCodes = false, $ucFirstCode = false)
     {
         $options= array();
         $days = $this->getTranslationList('days');
-        foreach (array_values($days['format']['wide']) as $code => $name) {
+        $days = $preserveCodes ? $days['format']['wide']  : array_values($days['format']['wide']);
+        foreach ($days as $code => $name) {
             $options[] = array(
                'label' => $name,
-               'value' => $code,
+               'value' => $ucFirstCode ? ucfirst($code) : $code,
             );
         }
         return $options;

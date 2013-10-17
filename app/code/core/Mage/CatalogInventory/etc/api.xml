@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogInventory
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -42,6 +42,10 @@
                         <title>Update product stock data</title>
                         <acl>cataloginventory/update</acl>
                     </update>
+                    <multiUpdate translate="title" module="cataloginventory">
+                        <title>Multi update product stock data</title>
+                        <acl>cataloginventory/update</acl>
+                    </multiUpdate>
                 </methods>
                 <faults module="cataloginventory">
                     <not_exists>
@@ -52,6 +56,10 @@
                         <code>102</code>
                         <message>Product inventory not updated. Details in error message.</message>
                     </not_updated>
+                    <multi_update_not_match>
+                        <code>103</code>
+                        <message>Quantity of product IDs and product data should match. Inventory was not updated.</message>
+                    </multi_update_not_match>
                 </faults>
             </cataloginventory_stock_item>
         </resources>

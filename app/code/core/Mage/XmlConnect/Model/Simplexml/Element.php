@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,7 +42,7 @@ class Mage_XmlConnect_Model_Simplexml_Element extends Varien_Simplexml_Element
     public function appendChild($source)
     {
         if (sizeof($source->children())) {
-            $name  = $source->getName();
+            $name = $source->getName();
             $child = $this->addChild($name);
         } else {
             $child = $this->addChild($source->getName(), $this->xmlentities($source));
@@ -97,7 +97,7 @@ class Mage_XmlConnect_Model_Simplexml_Element extends Varien_Simplexml_Element
      *
      * @param string $value
      * @param bool $stripTags
-     * @return string|this
+     * @return string|Mage_XmlConnect_Model_Simplexml_Element|null
      */
     public function xmlAttribute($value = null, $stripTags = true)
     {

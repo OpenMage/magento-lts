@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -56,6 +56,18 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
             Mage_Index_Model_Event::TYPE_SAVE
         ),
     );
+
+    /**
+     * Whether the indexer should be displayed on process/list page
+     *
+     * @return bool
+     */
+    public function isVisible()
+    {
+        /** @var $categoryFlatHelper Mage_Catalog_Helper_Category_Flat */
+        $categoryFlatHelper = Mage::helper('catalog/category_flat');
+        return $categoryFlatHelper->isEnabled() || !$categoryFlatHelper->isBuilt();
+    }
 
     /**
      * Retrieve Indexer name
@@ -97,7 +109,9 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
      */
     public function matchEvent(Mage_Index_Model_Event $event)
     {
-        if (!Mage::helper('catalog/category_flat')->isEnabled(true)) {
+        /** @var $categoryFlatHelper Mage_Catalog_Helper_Category_Flat */
+        $categoryFlatHelper = Mage::helper('catalog/category_flat');
+        if (!$categoryFlatHelper->isAccessible() || !$categoryFlatHelper->isBuilt()) {
             return false;
         }
 
@@ -213,7 +227,7 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
         return $this;
     }
 
-/**
+    /**
      * Process event
      *
      * @param Mage_Index_Model_Event $event

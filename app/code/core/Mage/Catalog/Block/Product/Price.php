@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,7 +31,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  */
-class Mage_Catalog_Block_Product_Price extends Mage_Core_Block_Template
+class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstract
 {
     protected $_priceDisplayType = null;
     protected $_idSuffix = '';
@@ -164,5 +164,28 @@ class Mage_Catalog_Block_Product_Price extends Mage_Core_Block_Template
     {
         $html = $this->hasRealPriceHtml() ? $this->getRealPriceHtml() : $product->getRealPriceHtml();
         return Mage::helper('core')->jsonEncode($html);
+    }
+
+    /**
+     * Retrieve block cache tags
+     *
+     * @return array
+     */
+    public function getCacheTags()
+    {
+        return array_merge(parent::getCacheTags(), $this->getProduct()->getCacheIdTags());
+    }
+
+    /**
+     * Retrieve attribute instance by name, id or config node
+     *
+     * If attribute is not found false is returned
+     *
+     * @param string|integer|Mage_Core_Model_Config_Element $attribute
+     * @return Mage_Eav_Model_Entity_Attribute_Abstract || false
+     */
+    public function getProductAttribute($attribute)
+    {
+        return $this->getProduct()->getResource()->getAttribute($attribute);
     }
 }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_ImportExport
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -154,10 +154,7 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
                             );
                         } elseif ($import->getErrorsCount() >= $import->getErrorsLimit()) {
                             $resultBlock->addNotice(
-                                $this->__(
-                                    'Errors limit (%d) reached. Please fix errors and re-upload file',
-                                    $import->getErrorsLimit()
-                                )
+                                $this->__('Errors limit (%d) reached. Please fix errors and re-upload file', $import->getErrorsLimit())
                             );
                         } else {
                             if ($import->isImportAllowed()) {
@@ -188,13 +185,7 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
                         }
                     }
                     $resultBlock->addNotice($import->getNotices());
-                    $resultBlock->addNotice(
-                        $this->__(
-                            'Checked rows: %d, checked entities: %d, invalid rows: %d, total errors: %d',
-                            $import->getProcessedRowsCount(), $import->getProcessedEntitiesCount(),
-                            $import->getInvalidRowsCount(), $import->getErrorsCount()
-                        )
-                    );
+                    $resultBlock->addNotice($this->__('Checked rows: %d, checked entities: %d, invalid rows: %d, total errors: %d', $import->getProcessedRowsCount(), $import->getProcessedEntitiesCount(), $import->getInvalidRowsCount(), $import->getErrorsCount()));
                 }
             } catch (Exception $e) {
                 $resultBlock->addNotice($this->__('Please fix errors and re-upload file'))

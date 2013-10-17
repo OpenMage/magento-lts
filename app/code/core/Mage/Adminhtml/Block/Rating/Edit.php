@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -57,7 +57,7 @@ class Mage_Adminhtml_Block_Rating_Edit extends Mage_Adminhtml_Block_Widget_Form_
     public function getHeaderText()
     {
         if( Mage::registry('rating_data') && Mage::registry('rating_data')->getId() ) {
-            return Mage::helper('rating')->__("Edit Rating", $this->htmlEscape(Mage::registry('rating_data')->getRatingCode()));
+            return Mage::helper('rating')->__("Edit Rating", $this->escapeHtml(Mage::registry('rating_data')->getRatingCode()));
         } else {
             return Mage::helper('rating')->__('New Rating');
         }
