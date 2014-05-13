@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_InfoCard
  * @subpackage Zend_InfoCard_Xml
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: XmlEnc.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: XmlEnc.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /**
@@ -31,7 +31,7 @@
  * @category   Zend
  * @package    Zend_InfoCard
  * @subpackage Zend_InfoCard_Xml
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_InfoCard_Xml_EncryptedData_XmlEnc extends Zend_InfoCard_Xml_EncryptedData_Abstract
@@ -52,7 +52,7 @@ class Zend_InfoCard_Xml_EncryptedData_XmlEnc extends Zend_InfoCard_Xml_Encrypted
         if(!($cipherdata instanceof Zend_InfoCard_Xml_Element)) {
             throw new Zend_InfoCard_Xml_Exception("Unable to find the enc:CipherData block");
         }
-
+        $cipherdata->registerXPathNamespace('enc', 'http://www.w3.org/2001/04/xmlenc#');
         list(,$ciphervalue) = $cipherdata->xpath("//enc:CipherValue");
 
         if(!($ciphervalue instanceof Zend_InfoCard_Xml_Element)) {

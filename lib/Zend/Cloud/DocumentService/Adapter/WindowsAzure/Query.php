@@ -13,7 +13,7 @@
  * @category   Zend
  * @package    Zend_Cloud
  * @subpackage DocumentService
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,14 +23,14 @@
 #require_once 'Zend/Cloud/DocumentService/QueryAdapter.php';
 
 /**
- * Class implementing Query adapter for working with Azure queries in a 
+ * Class implementing Query adapter for working with Azure queries in a
  * structured way
- * 
+ *
  * @todo       Look into preventing a query injection attack.
  * @category   Zend
  * @package    Zend_Cloud
  * @subpackage DocumentService
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Cloud_DocumentService_Adapter_WindowsAzure_Query
@@ -38,18 +38,18 @@ class Zend_Cloud_DocumentService_Adapter_WindowsAzure_Query
 {
     /**
      * Azure concrete query
-     * 
+     *
      * @var Zend_Service_WindowsAzure_Storage_TableEntityQuery
      */
     protected $_azureSelect;
-    
+
     /**
      * Constructor
-     * 
+     *
      * @param  null|Zend_Service_WindowsAzure_Storage_TableEntityQuery $select Table select object
      * @return void
      */
-    public function __construct($select = null) 
+    public function __construct($select = null)
     {
         if (!$select instanceof Zend_Service_WindowsAzure_Storage_TableEntityQuery) {
             #require_once 'Zend/Service/WindowsAzure/Storage/TableEntityQuery.php';
@@ -60,9 +60,9 @@ class Zend_Cloud_DocumentService_Adapter_WindowsAzure_Query
 
     /**
      * SELECT clause (fields to be selected)
-     * 
+     *
      * Does nothing for Azure.
-     * 
+     *
      * @param  string $select
      * @return Zend_Cloud_DocumentService_Adapter_WindowsAzure_Query
      */
@@ -70,10 +70,10 @@ class Zend_Cloud_DocumentService_Adapter_WindowsAzure_Query
     {
         return $this;
     }
-    
+
     /**
      * FROM clause (table name)
-     * 
+     *
      * @param string $from
      * @return Zend_Cloud_DocumentService_Adapter_WindowsAzure_Query
      */
@@ -82,10 +82,10 @@ class Zend_Cloud_DocumentService_Adapter_WindowsAzure_Query
         $this->_azureSelect->from($from);
         return $this;
     }
-    
+
     /**
      * WHERE clause (conditions to be used)
-     * 
+     *
      * @param string $where
      * @param mixed $value Value or array of values to be inserted instead of ?
      * @param string $op Operation to use to join where clauses (AND/OR)
@@ -100,13 +100,13 @@ class Zend_Cloud_DocumentService_Adapter_WindowsAzure_Query
         $this->_azureSelect->where($where, $value, $op);
         return $this;
     }
-    
+
     /**
      * WHERE clause for item ID
-     * 
+     *
      * This one should be used when fetching specific rows since some adapters
      * have special syntax for primary keys
-     * 
+     *
      * @param  array $value Row ID for the document (PartitionKey, RowKey)
      * @return Zend_Cloud_DocumentService_Adapter_WindowsAzure_Query
      */
@@ -119,10 +119,10 @@ class Zend_Cloud_DocumentService_Adapter_WindowsAzure_Query
         $this->_azureSelect->wherePartitionKey($value[0])->whereRowKey($value[1]);
         return $this;
     }
-    
+
     /**
      * LIMIT clause (how many rows to return)
-     * 
+     *
      * @param  int $limit
      * @return Zend_Cloud_DocumentService_Adapter_WindowsAzure_Query
      */
@@ -134,7 +134,7 @@ class Zend_Cloud_DocumentService_Adapter_WindowsAzure_Query
 
     /**
      * ORDER BY clause (sorting)
-     * 
+     *
      * @todo   Azure service doesn't seem to support this yet; emulate?
      * @param  string $sort Column to sort by
      * @param  string $direction Direction - asc/desc
@@ -146,10 +146,10 @@ class Zend_Cloud_DocumentService_Adapter_WindowsAzure_Query
         #require_once 'Zend/Cloud/OperationNotAvailableException.php';
         throw new Zend_Cloud_OperationNotAvailableException('No support for sorting for Azure yet');
     }
-    
+
     /**
      * Get Azure select query
-     * 
+     *
      * @return Zend_Service_WindowsAzure_Storage_TableEntityQuery
      */
     public function getAzureSelect()
@@ -161,7 +161,7 @@ class Zend_Cloud_DocumentService_Adapter_WindowsAzure_Query
      * Assemble query
      *
      * Simply return the WindowsAzure table entity query object
-     * 
+     *
      * @return Zend_Service_WindowsAzure_Storage_TableEntityQuery
      */
     public function assemble()

@@ -21,14 +21,14 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Paypal>
-            <version>1.6.0.4</version>
+            <version>1.6.0.5</version>
         </Mage_Paypal>
     </modules>
     <global>
@@ -131,6 +131,9 @@
                 <paypal>
                     <file>paypal.xml</file>
                 </paypal>
+                <bml>
+                    <file>bml.xml</file>
+                </bml>
             </updates>
         </layout>
         <secure_url>
@@ -178,6 +181,7 @@
     </adminhtml>
     <default>
         <paypal>
+            <bncode>Magento_Cart_Community</bncode>
             <style>
                 <logo>nowAccepting_150x60</logo>
             </style>
@@ -213,7 +217,13 @@
                 <order_valid_period>29</order_valid_period>
                 <child_authorization_number>1</child_authorization_number>
                 <verify_peer>1</verify_peer>
+                <skip_order_review_step>1</skip_order_review_step>
             </paypal_express>
+            <paypal_express_bml>
+                <model>paypal/bml</model>
+                <title>Bill Me Later</title>
+                <group>paypal</group>
+            </paypal_express_bml>
             <paypal_direct>
                 <model>paypal/direct</model>
                 <title>PayPal Payments Pro</title>

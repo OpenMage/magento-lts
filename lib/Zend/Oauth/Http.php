@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Oauth
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Http.php 22662 2010-07-24 17:37:36Z mabe $
+ * @version    $Id: Http.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /** Zend_Oauth_Http_Utility */
@@ -28,7 +28,7 @@
 /**
  * @category   Zend
  * @package    Zend_Oauth
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Oauth_Http
@@ -80,7 +80,7 @@ class Zend_Oauth_Http
      * @return void
      */
     public function __construct(
-        Zend_Oauth_Consumer $consumer, 
+        Zend_Oauth_Consumer $consumer,
         array $parameters = null,
         Zend_Oauth_Http_Utility $utility = null
     ) {
@@ -233,7 +233,7 @@ class Zend_Oauth_Http
                 #require_once 'Zend/Oauth/Exception.php';
                 throw new Zend_Oauth_Exception(
                     'Could not retrieve a valid Token response from Token URL:'
-                    . ($response !== null 
+                    . ($response !== null
                         ? PHP_EOL . $response->getBody()
                         : ' No body - check for headers')
                 );

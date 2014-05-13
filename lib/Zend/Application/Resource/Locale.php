@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Resource
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Locale.php 20814 2010-02-01 20:13:08Z freak $
+ * @version    $Id: Locale.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /**
@@ -33,7 +33,7 @@
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Resource
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Application_Resource_Locale
@@ -56,7 +56,6 @@ class Zend_Application_Resource_Locale
         return $this->getLocale();
     }
 
-
     /**
      * Retrieve locale object
      *
@@ -66,7 +65,8 @@ class Zend_Application_Resource_Locale
     {
         if (null === $this->_locale) {
             $options = $this->getOptions();
-            if(!isset($options['default'])) {
+
+            if (!isset($options['default'])) {
                 $this->_locale = new Zend_Locale();
             } elseif(!isset($options['force']) ||
                      (bool) $options['force'] == false)
@@ -85,5 +85,33 @@ class Zend_Application_Resource_Locale
         }
 
         return $this->_locale;
+    }
+
+    /**
+     * Set the cache
+     *
+     * @param string|Zend_Cache_Core $cache
+     * @return Zend_Application_Resource_Locale
+     */
+    public function setCache($cache)
+    {
+        if (is_string($cache)) {
+            $bootstrap = $this->getBootstrap();
+            if ($bootstrap instanceof Zend_Application_Bootstrap_ResourceBootstrapper
+                && $bootstrap->hasPluginResource('CacheManager')
+            ) {
+                $cacheManager = $bootstrap->bootstrap('CacheManager')
+                    ->getResource('CacheManager');
+                if (null !== $cacheManager && $cacheManager->hasCache($cache)) {
+                    $cache = $cacheManager->getCache($cache);
+                }
+            }
+        }
+
+        if ($cache instanceof Zend_Cache_Core) {
+            Zend_Locale::setCache($cache);
+        }
+
+        return $this;
     }
 }

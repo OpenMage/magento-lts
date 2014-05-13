@@ -1,0 +1,224 @@
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/* ============================================ *
+ * Header - Cart
+ * ============================================ */
+
+/* -------------------------------------------- *
+ * Skip Link - Cart
+ */
+
+.skip-cart {
+    &:not(.skip-active):hover {
+        .icon {
+            background-position: -50px (-100px + ($toolbar-icon-padding-offset/2) + 1px);
+        }
+    }
+
+    .icon {
+        @extend .icon-sprite;
+        background-position: -0px (-100px + ($toolbar-icon-padding-offset/2) + 1px);
+    }
+}
+
+// ---------------------------------------------
+
+@include bp(min-width, $bp-medium + 1) {
+
+    .skip-cart {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: auto;
+        padding: 0 10px;
+    }
+
+    .skip-cart:hover {
+    }
+
+    #header-cart.skip-active {
+        @include menu;
+        display: block;
+        position: absolute;
+        z-index: 200;
+        top: 40px;
+        right: 0;
+        width: 320px;
+        background: white;
+    }
+
+}
+
+/* -------------------------------------------- *
+ * Skip Cart Notifier
+ */
+
+.skip-cart .count {
+    @include border-radius(12px);
+    display: inline-block;
+    top: -6px;
+    position: relative;
+    z-index: 5;
+    width: 22px;
+    height: 22px;
+    background: rgba($c-action, 0.9);
+    color: #FFFFFF;
+    font-size: $f-size-xxs;
+    line-height: 22px;
+    text-align: center;
+    font-family: $f-stack-sans;
+}
+.skip-link.skip-active .count {
+    color: white;
+}
+
+// Using extra .skip-link selector to increase specificity
+.skip-link.skip-cart .count {
+}
+
+.skip-cart.no-count .count {
+    display: none;
+}
+
+@include bp(max-width, 499px) {
+    .skip-cart .count {
+        margin-left: -12px;
+    }
+}
+
+@include bp(min-width, $bp-medium + 1) {
+    .skip-cart {
+        color: $c-action;
+        text-transform: uppercase;
+
+        &:hover {
+            text-decoration: none;
+        }
+
+        .count {
+            @include border-radius(0px);
+            color: $c-action;
+            position: static;
+            background: none;
+            margin-left: 0px;
+            font-size: $f-size;
+
+            &:before {
+                content: '(';
+            }
+            &:after {
+                content: ')';
+            }
+        }
+    }
+}
+
+.skip-cart .count.empty {
+    display: none;
+}
+
+/* -------------------------------------------- *
+ * Mini Cart - Empty
+ */
+
+.cart-menu .empty {
+    padding: 20px;
+    text-align: center;
+}
+
+/* -------------------------------------------- *
+ * Mini Cart - Full
+ */
+
+/* Actions */
+
+.cart-menu .actions {
+    overflow: hidden;
+    padding: 15px;
+}
+
+.cart-menu .actions .button {
+    float: left;
+    width: 48%;
+}
+
+.cart-menu .actions .button + .button {
+    margin-left: 4%;
+}
+
+/* Subtotal */
+
+.cart-menu .subtotal {
+    padding: 0 15px 15px;
+    font-family: $f-stack-special;
+    font-size: 24px;
+    line-height: 1.2;
+}
+
+/* List */
+
+.mini-cart-list {
+    margin-bottom: 5px;
+}
+
+.mini-cart-list li {
+    position: relative;
+    min-height: (15px + 60px + 15px);
+    padding: 15px 15px 15px (15px + 60px + 15px);
+    border-top: 1px solid $c-module-border;
+    font-size: $f-size-s;
+    line-height: 1.35;
+}
+
+.mini-cart-list .product-name {
+    display: inline-block;
+}
+
+.mini-cart-list .product-image {
+    position: absolute;
+    left: 15px;
+    top: 15px;
+}
+
+.mini-cart-list .product-image img {
+    width: 60px;
+    height: 60px;
+}
+
+//.mini-cart-list .details { }
+
+.mini-cart-list .has-options {
+    margin-bottom: 0;
+    color: $c-text-gray;
+    font-size: $f-size-xs;
+}
+
+/* Too full - additional items will be shown in cart */
+.cart-menu .last-added {
+    padding: 10px 15px 15px;
+    border-top: 1px solid $c-module-border;
+    font-size: $f-size-s;
+}

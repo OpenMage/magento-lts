@@ -67,9 +67,9 @@ class Zend_View_Helper_Gravatar extends Zend_View_Helper_HtmlElement
      * @var array
      */
     protected $_options = array(
-        'img_size'    => 80, 
-        'default_img' => self::DEFAULT_MM, 
-        'rating'      => self::RATING_G, 
+        'img_size'    => 80,
+        'default_img' => self::DEFAULT_MM,
+        'rating'      => self::RATING_G,
         'secure'      => null,
     );
 
@@ -113,8 +113,8 @@ class Zend_View_Helper_Gravatar extends Zend_View_Helper_HtmlElement
 
     /**
      * Configure state
-     * 
-     * @param  array $options 
+     *
+     * @param  array $options
      * @return Zend_View_Helper_Gravatar
      */
     public function setOptions(array $options)
@@ -188,8 +188,8 @@ class Zend_View_Helper_Gravatar extends Zend_View_Helper_HtmlElement
     {
         switch ($rating) {
             case self::RATING_G:
-            case self::RATING_PG: 
-            case self::RATING_R: 
+            case self::RATING_PG:
+            case self::RATING_R:
             case self::RATING_X:
                 $this->_options['rating'] = $rating;
                 break;
@@ -244,7 +244,7 @@ class Zend_View_Helper_Gravatar extends Zend_View_Helper_HtmlElement
     public function setSecure($flag)
     {
         $this->_options['secure'] = ($flag === null) ? null : (bool) $flag;
-        return $this;  
+        return $this;
     }
 
     /**
@@ -264,8 +264,8 @@ class Zend_View_Helper_Gravatar extends Zend_View_Helper_HtmlElement
      * Get attribs of image
      *
      * Warning!
-     * If you set src attrib, you get it, but this value will be overwritten in 
-     * protected method _setSrcAttribForImg(). And finally your get other src 
+     * If you set src attrib, you get it, but this value will be overwritten in
+     * protected method _setSrcAttribForImg(). And finally your get other src
      * value!
      *
      * @return array
@@ -303,7 +303,7 @@ class Zend_View_Helper_Gravatar extends Zend_View_Helper_HtmlElement
 
     /**
      * Get avatar url (including size, rating and default image oprions)
-     * 
+     *
      * @return string
      */
     protected function _getAvatarUrl()
@@ -336,9 +336,9 @@ class Zend_View_Helper_Gravatar extends Zend_View_Helper_HtmlElement
     }
 
     /**
-     * Return valid image tag 
+     * Return valid image tag
      *
-     * @return string 
+     * @return string
      */
     public function getImgTag()
     {
@@ -349,7 +349,7 @@ class Zend_View_Helper_Gravatar extends Zend_View_Helper_HtmlElement
 
         return $html;
     }
-    
+
     /**
      * Return valid image tag
      *

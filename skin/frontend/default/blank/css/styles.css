@@ -19,7 +19,7 @@
  *
  * @category    design
  * @package     default_blank
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -601,6 +601,7 @@ tr.summary-details-excluded { font-style:italic; }
 /* Paypal */
 .sidebar .paypal-logo { display:block; margin:10px 0; text-align:center; }
 .sidebar .paypal-logo a { float:none; }
+.paypal-express-review .info-set.col2-set { padding-bottom: 15px; }
 /* ======================================================================================= */
 
 

@@ -1,0 +1,657 @@
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/* ================================================= *
+ * General Product List Styles (not module-specific)
+ * ================================================= */
+
+/* -------------------------------------------- *
+ * Product List General
+ */
+
+.category-title h1,
+body.catalogsearch-result-index .page-title h1 {
+    border-bottom: none;
+}
+
+.category-image {
+    margin-bottom: $b-margin-bottom;
+}
+
+/* -------------------------------------------- *
+ * Product Name
+ */
+
+h2.product-name,
+h3.product-name,
+h4.product-name,
+h5.product-name,
+p.product-name {
+    @include h2;
+    font-size: $f-size-s;
+    font-family: $f-stack-sans;
+    font-weight: normal;
+    line-height: 1.4;
+
+    a {
+        color: $c-text;
+        &:hover {
+            color: $c-action;
+            text-decoration: none;
+        }
+    }
+}
+
+.products-grid .product-name,
+.products-list .product-name {
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    font-size: $f-size;
+    font-family: $f-stack-special;
+
+    a {
+        font-weight: 500;
+    }
+}
+
+/* ============================================ *
+ * Product Grid
+ * ============================================ */
+
+$product-column-spacing: 20px;
+
+.products-grid {
+    position: relative;
+}
+
+.products-grid:after {
+    @include clearfix;
+}
+
+.products-grid > li {
+    position: relative;
+    margin-bottom: $product-column-spacing;
+    text-align: center;
+
+    &:after {
+        @include clearfix;
+    }
+}
+
+.products-grid .product-image {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.products-grid .product-image img {
+    width: 100%;
+    height: auto;
+
+    &:hidden {
+        display: none;
+    }
+}
+
+// If the height of the .product-info element changes, this value should be adjusted
+$productsGridActionHeight: 85px;
+
+.products-grid .product-info {
+    position: relative;
+    padding-bottom: $productsGridActionHeight + 10px;
+}
+
+.products-grid .actions {
+    padding-top: $box-spacing;
+    position: absolute;
+    bottom: 0px;
+    min-height: $productsGridActionHeight;
+    width: 100%;
+}
+
+.products-grid .ratings .rating-box {
+    margin: 0 auto;
+}
+
+.products-grid .ratings .amount {
+    display: none;
+}
+
+.products-grid .price-box {
+    color: $c-text-gray;
+    font-size: $f-size-s;
+    margin: 0 0 5px;
+}
+
+.products-grid .add-to-links {
+    margin-bottom: 0;
+}
+
+// ---------------------------------------------
+
+/* Config: Two columns + flexible gutter */
+
+// Container: 480 - (2 * 20 trim) = 440
+// Math: (440 - (20 gutter)) / 2 items = 210
+
+.products-grid > li {
+    float: left;
+    width: percentage(210 / 440);
+    margin-right: percentage(20 / 440);
+}
+
+.products-grid > li:nth-child(odd) {
+    clear: left;
+}
+
+.products-grid > li:nth-child(even) {
+    margin-right: 0;
+}
+
+.products-grid .product-image {
+    margin-bottom: 5px;
+
+    @include loadingOverlay();
+}
+
+// ---------------------------------------------
+
+@include bp(min-width, $bp-xsmall + 1) {
+    /* Config: Three columns + flexible gutter */
+    // Container: 600 - (2 * 30 trim wide) = 540
+    $column-count: 3;
+    $column-gutters: 2;
+    $container: 600 - (2 * $trim);
+
+    // Math: (540 - (2 * 30 gutter)) / 3 items = 160
+    $column-width: ($container - ($column-gutters * $product-column-spacing)) / $column-count;
+
+    .products-grid {
+        /* Undo two-column config */
+        > li:nth-child(odd) {
+            clear: none;
+        }
+        > li:nth-child(even) {
+            margin-right: percentage($product-column-spacing / $container);
+        }
+
+        /* Set three-column config */
+        > li {
+            width: percentage($column-width / $container);
+            margin-right: percentage($product-column-spacing / $container);
+        }
+        > li:nth-child(#{$column-count}n+1) {
+            clear: left;
+        }
+        > li:nth-child(#{$column-count}n) {
+            margin-right: 0;
+        }
+    }
+}
+
+// This mixin outputs the styles to allow for grids with more than 3 columns
+@mixin product-grid($column-count, $container-width) {
+    /* Config: Columns + flexible gutter */
+    $column-gutters: ($column-count) - 1;
+    $container: $container-width - (2 * $trim);
+    $column-width: ($container - ($column-gutters * $product-column-spacing)) / $column-count;
+
+    /* Undo three-column config */
+    .products-grid--max-#{$column-count}-col > li:nth-child(odd) {
+        clear: none;
+    }
+    .products-grid--max-#{$column-count}-col > li:nth-child(3n+1) {
+        clear: none;
+    }
+    .products-grid--max-#{$column-count}-col > li:nth-child(even),
+    .products-grid--max-#{$column-count}-col > li:nth-child(3n) {
+        margin-right: percentage($product-column-spacing / $container);
+    }
+
+    /* Set column config */
+    .products-grid--max-#{$column-count}-col > li {
+        margin-right: percentage($product-column-spacing / $container);
+    }
+    .products-grid--max-#{$column-count}-col > li {
+        width: percentage($column-width / $container);
+        margin-right: percentage($product-column-spacing / $container);
+    }
+    .products-grid--max-#{$column-count}-col > li:nth-child(#{$column-count}n+1) {
+        clear: left;
+    }
+    .products-grid--max-#{$column-count}-col > li:nth-child(#{$column-count}n) {
+        margin-right: 0;
+    }
+}
+
+// ---------------------------------------------
+
+@include bp(min-width, 960px) {
+    @include product-grid(4, 960);
+    @include product-grid(5, 960);
+    @include product-grid(6, 960);
+}
+
+/* ============================================ *
+ * Product List
+ * ============================================ */
+
+.products-list {
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    & > li {
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid $c-module-border-light;
+
+        &:after {
+            @include clearfix;
+        }
+        .product-image {
+            float: left;
+            width: percentage(1/3);
+
+            img {
+                width: 100%;
+                max-width: 100%;
+            }
+        }
+    }
+    & > li:last-child {
+        padding-bottom: 0;
+        border-bottom: none;
+    }
+}
+
+.products-list .product-shop {
+    float: right;
+    width: percentage(2/3);
+    padding-left: ($box-spacing * 2);
+
+    .product-name {
+        margin-bottom: 0;
+    }
+    .ratings {
+        margin: 0;
+
+        .rating-box,
+        .rating-links {
+            float: left;
+            margin-right: $element-spacing;
+        }
+        .rating-links {
+            margin-top: 4px;
+        }
+    }
+    .price-box {
+        margin-top: 0;
+    }
+    .price-box .price {
+        font-size: $f-size-xxl;
+    }
+    .action {
+        margin: $element-spacing 0;
+    }
+    .desc {
+        margin-top: $element-spacing;
+    }
+
+    .product-primary,
+    .desc {
+        float: left;
+        width: 75%;
+        overflow: hidden;
+    }
+    .product-secondary {
+        float: right;
+        width: 25%;
+        text-align: right;
+        clear: right;
+    }
+}
+
+@include bp(min-width, $bp-xsmall + 1) {
+    .products-list .product-name a {
+        font-size: $f-size-xxl;
+    }
+}
+
+@include bp(max-width, 1279px) {
+    .products-list .product-shop {
+        .product-primary,
+        .desc {
+            float: left;
+            width: 60%;
+            padding-right: 20px;
+        }
+        .product-secondary {
+            float: right;
+            width: 40%;
+        }
+    }
+}
+
+@include bp(max-width, 600px) {
+    .products-list .product-shop .price-box .special-price {
+        padding-left: 0;
+    }
+    .products-list .product-shop {
+        .product-primary,
+        .product-secondary,
+        .desc {
+            float: none;
+            width: 100%;
+            padding-right: 0;
+            text-align: left;
+        }
+    }
+}
+
+/* ============================================ *
+ * Mini Product List
+ * ============================================ */
+
+.mini-products-list {
+
+    .product-image {
+        float: left;
+        min-width: 50px;
+    }
+    .product-details {
+        margin-left: 60px;
+    }
+
+    // Vertically center product name
+    .product-details .product-name {
+        padding-top: 10px;
+    }
+
+    li {
+        margin-bottom: $gap;
+        clear: both;
+
+        &:after {
+            @include clearfix();
+        }
+    }
+}
+
+.mini-products-images-list {
+
+    &:after {
+        @include clearfix;
+    }
+
+    li.item {
+        float: left;
+        width: 50%;
+        margin: 0;
+        padding: 0 5px 10px 0;
+
+        &:nth-child(even) {
+            padding-right: 0;
+            padding-left: 5px;
+        }
+
+        .product-image {
+            display: block;
+
+            img {
+                width: 100%;
+                max-width: 100%;
+            }
+        }
+    }
+
+}
+
+
+
+/* ============================================ *
+ * Catalog - List
+ * ============================================ */
+
+.category-image {
+    border: 1px solid $c-module-border;
+    padding: 10px;
+
+    img {
+        width: 100%;
+        max-width: 100%;
+
+        &:hidden {
+            display: none;
+        }
+    }
+}
+
+/* ============================================ *
+ * Layered Navigation
+ * ============================================ */
+
+.block-layered-nav .block-subtitle--filter {
+    // Will be shown at smaller viewports
+    display: none;
+    @include accordionDtBase;
+    cursor: pointer;
+}
+
+.block-layered-nav .block-content {
+    // Accordions are fully expanded until a smaller resolution.
+    @include accordion;
+}
+
+.block-layered-nav dl dd {
+    margin-bottom: $box-spacing;
+    margin-top: $box-spacing;
+
+    ol > li > span, ol > li > a {
+        padding: 5px 15px;
+        display: block;
+    }
+    ol > li > a .count {
+        color: $c-text-gray;
+    }
+}
+
+@include bp(min-width, $bp-medium+1) {
+    .block-layered-nav .block-content > dl > dt {
+        padding-left: 10px;
+
+        &:after {
+            display: none;
+        }
+    }
+}
+
+@include bp(max-width, $bp-medium) {
+    .sidebar .block.block-layered-nav {
+        border-bottom: none;
+    }
+
+    // We don't want "Shop By" to show when there are no filters applied, as the "Filter" link will suffice
+    .block-layered-nav--no-filters .block-title {
+        display: none;
+    }
+
+    // Remove the top padding and re-add it as margin-top so that the margin will collapse with elements above it
+    .block-layered-nav .block-content {
+        padding-top: 0;
+        margin-top: 15px;
+        @include accordionCollapse;
+    }
+
+    .block-layered-nav .block-subtitle--filter {
+        background-color: $c-action;
+        border: 0;
+        margin-bottom: 0;
+        display: block;
+        color: #FFFFFF;
+
+        &:after {
+            @include triangle(right, 4px, #FFFFFF);
+            right: 10px;
+            top: 50%;
+            margin-top: -5px;
+        }
+
+        &:hover {
+            background-color: $c-button-hover;
+            color: #FFFFFF;
+        }
+
+        &.active:after {
+            @include triangle(down, 4px, #FFFFFF);
+            right: 10px;
+            top: 50%;
+            margin-top: -3px;
+        }
+    }
+
+    #narrow-by-list,
+    #narrow-by-list2 {
+        padding: $box-spacing;
+        border: 1px solid $c-module-border;
+        border-top: 0;
+    }
+
+    .block-layered-nav dl ol > li > a,
+    .block-layered-nav dl ol > li > span {
+        padding: 7px;
+        margin: 5px;
+    }
+
+    .block-layered-nav dl ol > li > a {
+        @include touch-button;
+
+        &:hover {
+            text-decoration: none;
+            background: shade($c-module-background, 5%);
+        }
+    }
+}
+
+.block-layered-nav .currently {
+    .block-subtitle {
+        display: block;
+        @include h4;
+    }
+
+    ol {
+        padding-left: $box-spacing;
+        margin-bottom: $box-spacing;
+    }
+    ol li {
+        margin-bottom: 5px;
+
+        .label {
+            font-weight: bold;
+        }
+
+        &:after {
+            @include clearfix;
+        }
+    }
+}
+
+.block-layered-nav .actions {
+    text-align: right;
+    margin-bottom: $element-spacing;
+}
+
+/* ============================================ *
+ * Catalog Event
+ * ============================================ */
+.event-container {
+    clear: both;
+    border: 1px solid $c-text-primary;
+    position: relative;
+    z-index: 2;
+    border-width: 1px 1px;
+    margin-top: 7px;
+    height: 59px;
+
+    &:after {
+        @include triangle(down, 10px, $c-text-primary);
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        margin-left: -10px;
+    }
+
+    .event {
+        padding-bottom: 18px;
+        margin-bottom: -18px;
+        padding-top: 5px;
+        height: 52px;
+        line-height: 50px;
+        text-align: center;
+        width: auto;
+        position: relative;
+        z-index: 2;
+        border-bottom: 0 !important;
+
+        .event-ticker {
+            display: inline;
+            font-size: 28px;
+            height: auto;
+
+            span {
+                line-height: 50px;
+                height: 50px;
+                padding: 0;
+            }
+        }
+    }
+
+    .container {
+        display: inline;
+        margin: 0;
+        padding: 0;
+        background: none;
+    }
+
+    .status {
+        display: inline;
+        margin: 0 10px 0 0;
+        background: none;
+        font-size: 22px;
+    }
+
+    .event-dates {
+        display: inline;
+        font-size: 22px;
+        height: auto;
+
+        div,
+        p {
+            display: inline;
+        }
+
+        .time-part {
+            font-size: 14px;
+        }
+    }
+}

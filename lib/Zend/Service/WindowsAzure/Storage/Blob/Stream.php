@@ -15,27 +15,16 @@
  * @category   Zend
  * @package    Zend_Service_WindowsAzure_Storage
  * @subpackage Blob
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://todo     name_todo
- * @version    $Id: Stream.php 23167 2010-10-19 17:53:31Z mabe $
+ * @version    $Id: Stream.php 24593 2012-01-05 20:35:02Z matthew $
  */
-
-/**
- * @see Zend_Service_WindowsAzure_Storage_Blob
- */
-#require_once 'Zend/Service/WindowsAzure/Storage/Blob.php';
-
-/**
- * @see Zend_Service_WindowsAzure_Exception
- */
-#require_once 'Zend/Service/WindowsAzure/Exception.php';
-
 
 /**
  * @category   Zend
  * @package    Zend_Service_WindowsAzure_Storage
  * @subpackage Blob
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Service_WindowsAzure_Storage_Blob_Stream
@@ -45,42 +34,42 @@ class Zend_Service_WindowsAzure_Storage_Blob_Stream
      * 
      * @var string
      */
-    private $_fileName = null;
+    protected $_fileName = null;
     
     /**
      * Temporary file name
      * 
      * @var string
      */
-    private $_temporaryFileName = null;
+    protected $_temporaryFileName = null;
     
     /**
      * Temporary file handle
      * 
      * @var resource
      */
-    private $_temporaryFileHandle = null;
+    protected $_temporaryFileHandle = null;
     
     /**
      * Blob storage client
      * 
      * @var Zend_Service_WindowsAzure_Storage_Blob
      */
-    private $_storageClient = null;
+    protected $_storageClient = null;
     
     /**
      * Write mode?
      * 
      * @var boolean
      */
-    private $_writeMode = false;
+    protected $_writeMode = false;
     
     /**
      * List of blobs
      * 
      * @var array
      */
-    private $_blobs = null;
+    protected $_blobs = null;
     
     /**
      * Retrieve storage client for this stream type
@@ -90,7 +79,7 @@ class Zend_Service_WindowsAzure_Storage_Blob_Stream
      */
     protected function _getStorageClient($path = '')
     {
-        if ($this->_storageClient === null) {
+        if (is_null($this->_storageClient)) {
             $url = explode(':', $path);
             if (!$url) {
                 throw new Zend_Service_WindowsAzure_Exception('Could not parse path "' . $path . '".');
@@ -150,7 +139,7 @@ class Zend_Service_WindowsAzure_Storage_Blob_Stream
      * @param  string  $opened_path
      * @return boolean
      */
-    public function stream_open($path, $mode, $options, $opened_path)
+    public function stream_open($path, $mode, $options, &$opened_path)
     {
         $this->_fileName = $path;
         $this->_temporaryFileName = tempnam(sys_get_temp_dir(), 'azure');
@@ -347,36 +336,7 @@ class Zend_Service_WindowsAzure_Storage_Blob_Stream
             return false;
         }
 
-        $stat = array();
-        $stat['dev'] = 0;
-        $stat['ino'] = 0;
-        $stat['mode'] = 0;
-        $stat['nlink'] = 0;
-        $stat['uid'] = 0;
-        $stat['gid'] = 0;
-        $stat['rdev'] = 0;
-        $stat['size'] = 0;
-        $stat['atime'] = 0;
-        $stat['mtime'] = 0;
-        $stat['ctime'] = 0;
-        $stat['blksize'] = 0;
-        $stat['blocks'] = 0;
-
-        $info = null;
-        try {
-            $info = $this->_getStorageClient($this->_fileName)->getBlobInstance(
-                        $this->_getContainerName($this->_fileName),
-                        $this->_getFileName($this->_fileName)
-                    );
-        } catch (Zend_Service_WindowsAzure_Exception $ex) {
-            // Unexisting file...
-        }
-        if ($info !== null) {
-            $stat['size']  = $info->Size;
-            $stat['atime'] = time();
-        }     
-        
-        return $stat;
+        return $this->url_stat($this->_fileName, 0);
     }
 
     /**
@@ -391,6 +351,10 @@ class Zend_Service_WindowsAzure_Storage_Blob_Stream
             $this->_getContainerName($path),
             $this->_getFileName($path)
         );
+
+        // Clear the stat cache for this path.
+        clearstatcache(true, $path);
+        return true;
     }
 
     /**
@@ -420,6 +384,10 @@ class Zend_Service_WindowsAzure_Storage_Blob_Stream
             $this->_getContainerName($path_from),
             $this->_getFileName($path_from)
         );
+
+        // Clear the stat cache for the affected paths.
+        clearstatcache(true, $path_from);
+        clearstatcache(true, $path_to);
         return true;
     }
     
@@ -453,15 +421,21 @@ class Zend_Service_WindowsAzure_Storage_Blob_Stream
                         $this->_getContainerName($path),
                         $this->_getFileName($path)
                     );
+            $stat['size']  = $info->Size;
+
+            // Set the modification time and last modified to the Last-Modified header.
+            $lastmodified = strtotime($info->LastModified);
+            $stat['mtime'] = $lastmodified;
+            $stat['ctime'] = $lastmodified;
+
+            // Entry is a regular file.
+            $stat['mode'] = 0100000;
+
+            return array_values($stat) + $stat;
         } catch (Zend_Service_WindowsAzure_Exception $ex) {
             // Unexisting file...
+            return false;
         }
-        if ($info !== null) {
-            $stat['size']  = $info->Size;
-            $stat['atime'] = time();
-        } 
-
-        return $stat;
     }
 
     /**
@@ -480,6 +454,7 @@ class Zend_Service_WindowsAzure_Storage_Blob_Stream
                 $this->_getStorageClient($path)->createContainer(
                     $this->_getContainerName($path)
                 );
+                return true;
             } catch (Zend_Service_WindowsAzure_Exception $ex) {
                 return false;
             }
@@ -498,11 +473,15 @@ class Zend_Service_WindowsAzure_Storage_Blob_Stream
     public function rmdir($path, $options)
     {
         if ($this->_getContainerName($path) == $this->_getFileName($path)) {
+            // Clear the stat cache so that affected paths are refreshed.
+            clearstatcache();
+
             // Delete container
             try {
                 $this->_getStorageClient($path)->deleteContainer(
                     $this->_getContainerName($path)
                 );
+                return true;
             } catch (Zend_Service_WindowsAzure_Exception $ex) {
                 return false;
             }

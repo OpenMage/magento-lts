@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Payment
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -105,6 +105,10 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
                 || ($this->OtherCcType($info->getCcType()) && $this->validateCcNumOther($ccNumber))) {
 
                 $ccType = 'OT';
+                $discoverNetworkRegexp = '/^(30[0-5]\d{13}|3095\d{12}|35(2[8-9]\d{12}|[3-8]\d{13})|36\d{12}'
+                    . '|3[8-9]\d{14}|6011(0\d{11}|[2-4]\d{11}|74\d{10}|7[7-9]\d{10}|8[6-9]\d{10}|9\d{11})'
+                    . '|62(2(12[6-9]\d{10}|1[3-9]\d{11}|[2-8]\d{12}|9[0-1]\d{11}|92[0-5]\d{10})|[4-6]\d{13}'
+                    . '|8[2-8]\d{12})|6(4[4-9]\d{13}|5\d{14}))$/';
                 $ccTypeRegExpList = array(
                     //Solo, Switch or Maestro. International safe
                     /*
@@ -115,32 +119,33 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
                     */
                     // Solo only
                     'SO' => '/(^(6334)[5-9](\d{11}$|\d{13,14}$))|(^(6767)(\d{12}$|\d{14,15}$))/',
-                    'SM' => '/(^(5[0678])\d{11,18}$)|(^(6[^05])\d{11,18}$)|(^(601)[^1]\d{9,16}$)|(^(6011)\d{9,11}$)'
-                            . '|(^(6011)\d{13,16}$)|(^(65)\d{11,13}$)|(^(65)\d{15,18}$)'
-                            . '|(^(49030)[2-9](\d{10}$|\d{12,13}$))|(^(49033)[5-9](\d{10}$|\d{12,13}$))'
-                            . '|(^(49110)[1-2](\d{10}$|\d{12,13}$))|(^(49117)[4-9](\d{10}$|\d{12,13}$))'
-                            . '|(^(49118)[0-2](\d{10}$|\d{12,13}$))|(^(4936)(\d{12}$|\d{14,15}$))/',
                     // Visa
                     'VI'  => '/^4[0-9]{12}([0-9]{3})?$/',
                     // Master Card
                     'MC'  => '/^5[1-5][0-9]{14}$/',
                     // American Express
                     'AE'  => '/^3[47][0-9]{13}$/',
-                    // Discovery
-                    'DI'  => '/^6011[0-9]{12}$/',
-                    // JCB
-                    'JCB' => '/^(3[0-9]{15}|(2131|1800)[0-9]{11})$/'
+                    // Discover Network
+                    'DI'  => $discoverNetworkRegexp,
+                    // Dinners Club (Belongs to Discover Network)
+                    'DICL' => $discoverNetworkRegexp,
+                    // JCB (Belongs to Discover Network)
+                    'JCB' => $discoverNetworkRegexp,
+
+                    // Maestro & Switch
+                    'SM' => '/(^(5[0678])\d{11,18}$)|(^(6[^05])\d{11,18}$)|(^(601)[^1]\d{9,16}$)|(^(6011)\d{9,11}$)'
+                    . '|(^(6011)\d{13,16}$)|(^(65)\d{11,13}$)|(^(65)\d{15,18}$)'
+                    . '|(^(49030)[2-9](\d{10}$|\d{12,13}$))|(^(49033)[5-9](\d{10}$|\d{12,13}$))'
+                    . '|(^(49110)[1-2](\d{10}$|\d{12,13}$))|(^(49117)[4-9](\d{10}$|\d{12,13}$))'
+                    . '|(^(49118)[0-2](\d{10}$|\d{12,13}$))|(^(4936)(\d{12}$|\d{14,15}$))/'
                 );
 
-                foreach ($ccTypeRegExpList as $ccTypeMatch=>$ccTypeRegExp) {
-                    if (preg_match($ccTypeRegExp, $ccNumber)) {
-                        $ccType = $ccTypeMatch;
-                        break;
+                $specifiedCCType = $info->getCcType();
+                if (array_key_exists($specifiedCCType, $ccTypeRegExpList)) {
+                    $ccTypeRegExp = $ccTypeRegExpList[$specifiedCCType];
+                    if (!preg_match($ccTypeRegExp, $ccNumber)) {
+                        $errorMsg = Mage::helper('payment')->__('Credit card number mismatch with credit card type.');
                     }
-                }
-
-                if (!$this->OtherCcType($info->getCcType()) && $ccType!=$info->getCcType()) {
-                    $errorMsg = Mage::helper('payment')->__('Credit card number mismatch with credit card type.');
                 }
             }
             else {

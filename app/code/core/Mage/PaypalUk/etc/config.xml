@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_PaypalUk
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -111,6 +111,11 @@
             <paypaluk_express>
                 <model>paypaluk/express</model>
             </paypaluk_express>
+            <paypaluk_express_bml>
+                <model>paypaluk/bml</model>
+                <title>Bill Me Later</title>
+                <group>paypal</group>
+            </paypaluk_express_bml>
             <paypaluk_direct>
                 <model>paypaluk/direct</model>
             </paypaluk_direct>

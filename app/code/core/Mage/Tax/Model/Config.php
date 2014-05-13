@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -57,6 +57,7 @@ class Mage_Tax_Model_Config
     const CONFIG_XML_PATH_APPLY_AFTER_DISCOUNT = 'tax/calculation/apply_after_discount';
     const CONFIG_XML_PATH_DISCOUNT_TAX = 'tax/calculation/discount_tax';
     const XML_PATH_ALGORITHM = 'tax/calculation/algorithm';
+    const CONFIG_XML_PATH_CROSS_BORDER_TRADE_ENABLED = 'tax/calculation/cross_border_trade_enabled';
     /**#@-*/
 
     /**#@+
@@ -752,5 +753,16 @@ class Mage_Tax_Model_Config
     public function checkDiscountSettings($store = null)
     {
         return $this->applyTaxAfterDiscount($store);
+    }
+
+    /**
+     * Return the config value for self::CONFIG_XML_PATH_CROSS_BORDER_TRADE_ENABLED
+     *
+     * @param int|null $store
+     * @return int
+     */
+    public function crossBorderTradeEnabled($store = null)
+    {
+        return $this->_getStoreConfig(self::CONFIG_XML_PATH_CROSS_BORDER_TRADE_ENABLED, $store);
     }
 }

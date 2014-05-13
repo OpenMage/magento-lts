@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -463,7 +463,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $result = array();
         $calc = Mage::getSingleton('tax/calculation');
-        $rates = $calc->getRatesForAllProductTaxClasses($calc->getRateOriginRequest($store));
+        $rates = $calc->getRatesForAllProductTaxClasses($calc->getDefaultRateRequest($store));
 
         foreach ($rates as $class => $rate) {
             $result["value_{$class}"] = $rate;
@@ -512,9 +512,13 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
             }
         }
         if ($taxClassId && $priceIncludesTax) {
-            $request = Mage::getSingleton('tax/calculation')->getRateRequest(false, false, false, $store);
-            $includingPercent = Mage::getSingleton('tax/calculation')
-                ->getRate($request->setProductClassId($taxClassId));
+            if ($this->isCrossBorderTradeEnabled($store)) {
+                $includingPercent = $percent;
+            } else {
+                $request = Mage::getSingleton('tax/calculation')->getRateOriginRequest($store);
+                $includingPercent = Mage::getSingleton('tax/calculation')
+                    ->getRate($request->setProductClassId($taxClassId));
+            }
         }
 
         if ($percent === false || is_null($percent)) {
@@ -644,11 +648,12 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if we have display in catalog prices including and excluding tax
      *
+     * @param int $store
      * @return bool
      */
-    public function displayBothPrices()
+    public function displayBothPrices($store = null)
     {
-        return $this->getPriceDisplayType() == Mage_Tax_Model_Config::DISPLAY_TYPE_BOTH;
+        return $this->getPriceDisplayType($store) == Mage_Tax_Model_Config::DISPLAY_TYPE_BOTH;
     }
 
     /**
@@ -812,7 +817,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
             return '';
         }
 
-        $request = Mage::getSingleton('tax/calculation')->getRateRequest(false, false, false);
+        $request = Mage::getSingleton('tax/calculation')->getDefaultRateRequest();
         $defaultTaxes = Mage::getSingleton('tax/calculation')->getRatesForAllProductTaxClasses($request);
 
         $request = Mage::getSingleton('tax/calculation')->getRateRequest();
@@ -1187,5 +1192,16 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return (bool) $this->_app->getStore()
             ->getConfig(Mage_Tax_Model_Config::XML_PATH_TAX_NOTIFICATION_FPT_CONFIGURATION);
+    }
+
+    /**
+     * Return whether cross border trade is enabled or not
+     *
+     * @param   null|int $store
+     * @return boolean
+     */
+    public function isCrossBorderTradeEnabled($store = null)
+    {
+        return (bool)$this->_config->crossBorderTradeEnabled($store);
     }
 }

@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: File.php 20901 2010-02-04 16:06:12Z ralph $
+ * @version    $Id: File.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /**
@@ -33,28 +33,28 @@
  *
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tool_Project_Context_Filesystem_File extends Zend_Tool_Project_Context_Filesystem_Abstract
 {
 
     protected $_fileOnlyContext = null;
-    
+
     protected $_filesystemName = null;
-    
+
     protected $_content = null;
-    
+
     /**
      * getName()
-     * 
+     *
      * @return string
      */
     public function getName()
     {
         return 'file';
     }
-    
+
     /**
      * init()
      *
@@ -65,12 +65,12 @@ class Zend_Tool_Project_Context_Filesystem_File extends Zend_Tool_Project_Contex
         if ($this->_resource->hasAttribute('filesystemName')) {
             $this->_filesystemName = $this->_resource->getAttribute('filesystemName');
         }
-        
-        // check to see if this file is 
+
+        // check to see if this file is
         if ($this->getName() == 'file') {
             $this->_initFileOnlyContext();
         }
-        
+
         // @potential-todo check to ensure that this 'file' resource has no children
         parent::init();
         return $this;
@@ -89,7 +89,7 @@ class Zend_Tool_Project_Context_Filesystem_File extends Zend_Tool_Project_Contex
         }
         return $returnAttrs;
     }
-    
+
     /**
      * setResource()
      *
@@ -101,10 +101,10 @@ class Zend_Tool_Project_Context_Filesystem_File extends Zend_Tool_Project_Contex
         $this->_resource->setAppendable(false);
         return $this;
     }
-    
+
     /**
      * getResource()
-     * 
+     *
      * @return Zend_Tool_Project_Profile_Resource
      */
     public function getResource()
@@ -170,5 +170,5 @@ class Zend_Tool_Project_Context_Filesystem_File extends Zend_Tool_Project_Contex
             $this->_filesystemName = 'file.txt';
         }
     }
-    
+
 }

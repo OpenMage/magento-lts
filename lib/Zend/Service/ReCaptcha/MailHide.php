@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage ReCaptcha
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -28,9 +28,9 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage ReCaptcha
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: MailHide.php 20108 2010-01-06 22:05:31Z matthew $
+ * @version    $Id: MailHide.php 24593 2012-01-05 20:35:02Z matthew $
  */
 class Zend_Service_ReCaptcha_MailHide extends Zend_Service_ReCaptcha
 {
@@ -312,18 +312,18 @@ class Zend_Service_ReCaptcha_MailHide extends Zend_Service_ReCaptcha
         $enc = $this->getOption('encoding');
 
         /* Genrate the HTML used to represent the email address */
-        $html = htmlentities($this->getEmailLocalPart(), ENT_COMPAT, $enc) 
-            . '<a href="' 
-                . htmlentities($url, ENT_COMPAT, $enc) 
-                . '" onclick="window.open(\'' 
-                    . htmlentities($url, ENT_COMPAT, $enc) 
+        $html = htmlentities($this->getEmailLocalPart(), ENT_COMPAT, $enc)
+            . '<a href="'
+                . htmlentities($url, ENT_COMPAT, $enc)
+                . '" onclick="window.open(\''
+                    . htmlentities($url, ENT_COMPAT, $enc)
                     . '\', \'\', \'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width='
-                    . $this->_options['popupWidth'] 
-                    . ',height=' 
-                    . $this->_options['popupHeight'] 
-                . '\'); return false;" title="' 
-                . $this->_options['linkTitle'] 
-                . '">' . $this->_options['linkHiddenText'] . '</a>@' 
+                    . $this->_options['popupWidth']
+                    . ',height='
+                    . $this->_options['popupHeight']
+                . '\'); return false;" title="'
+                . $this->_options['linkTitle']
+                . '">' . $this->_options['linkHiddenText'] . '</a>@'
                 . htmlentities($this->getEmailDomainPart(), ENT_COMPAT, $enc);
 
         return $html;

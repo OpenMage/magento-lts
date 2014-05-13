@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -1110,6 +1110,26 @@
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                         </session_cookie_lifetime>
+                        <domain_policy_backend translate="label">
+                            <label>Allow Magento Backend to run in frame</label>
+                            <frontend_type>select</frontend_type>
+                            <comment>Enabling ability to run Magento in a frame is not recommended for security reasons.</comment>
+                            <source_model>adminhtml/system_config_source_security_domainpolicy</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </domain_policy_backend>
+                        <domain_policy_frontend translate="label">
+                            <label>Allow Magento Frontend to run in frame</label>
+                            <comment>Enabling ability to run Magento in a frame is not recommended for security reasons.</comment>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>5</sort_order>
+                            <source_model>adminhtml/system_config_source_security_domainpolicy</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </domain_policy_frontend>
                     </fields>
                 </security>
                 <dashboard translate="label">

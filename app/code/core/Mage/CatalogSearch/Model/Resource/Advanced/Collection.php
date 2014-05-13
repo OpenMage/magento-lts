@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogSearch
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -53,8 +53,7 @@ class Mage_CatalogSearch_Model_Resource_Advanced_Collection extends Mage_Catalog
 
                     if (!is_numeric($attributeId)) {
                         $field = 't1.'.$attributeId;
-                    }
-                    else {
+                    } else {
                         $storeId = $this->getStoreId();
                         $onCondition = 't1.entity_id = t2.entity_id'
                                 . ' AND t1.attribute_id = t2.attribute_id'
@@ -72,31 +71,27 @@ class Mage_CatalogSearch_Model_Resource_Advanced_Collection extends Mage_Catalog
                             $select->where('t1.entity_id = price_index.entity_id');
                         }
 
-                        $field = $this->getConnection()->getCheckSql('t2.value_id>0', 't2.value', 't1.value');
-
+                        $field = $this->getConnection()->getIfNullSql('t2.value', 't1.value');
                     }
 
                     if (is_array($conditionValue)) {
-                        if (isset($conditionValue['in'])){
+                        if (isset($conditionValue['in'])) {
                             $conditionData[] = array('in' => $conditionValue['in']);
-                        }
-                        elseif (isset($conditionValue['in_set'])) {
+                        } elseif (isset($conditionValue['in_set'])) {
                             $conditionParts = array();
                             foreach ($conditionValue['in_set'] as $value) {
                                 $conditionParts[] = array('finset' => $value);
                             }
                             $conditionData[] = $conditionParts;
-                        }
-                        elseif (isset($conditionValue['like'])) {
+                        } elseif (isset($conditionValue['like'])) {
                             $conditionData[] = array ('like' => $conditionValue['like']);
-                        }
-                        elseif (isset($conditionValue['from']) && isset($conditionValue['to'])) {
+                        } elseif (isset($conditionValue['from']) && isset($conditionValue['to'])) {
                             $invalidDateMessage = Mage::helper('catalogsearch')->__('Specified date is invalid.');
                             if ($conditionValue['from']) {
                                 if (!Zend_Date::isDate($conditionValue['from'])) {
                                     Mage::throwException($invalidDateMessage);
                                 }
-                                if (!is_numeric($conditionValue['from'])){
+                                if (!is_numeric($conditionValue['from'])) {
                                     $conditionValue['from'] = Mage::getSingleton('core/date')
                                         ->gmtDate(null, $conditionValue['from']);
                                     if (!$conditionValue['from']) {
@@ -109,7 +104,7 @@ class Mage_CatalogSearch_Model_Resource_Advanced_Collection extends Mage_Catalog
                                 if (!Zend_Date::isDate($conditionValue['to'])) {
                                     Mage::throwException($invalidDateMessage);
                                 }
-                                if (!is_numeric($conditionValue['to'])){
+                                if (!is_numeric($conditionValue['to'])) {
                                     $conditionValue['to'] = Mage::getSingleton('core/date')
                                         ->gmtDate(null, $conditionValue['to']);
                                     if (!$conditionValue['to']) {
@@ -118,12 +113,10 @@ class Mage_CatalogSearch_Model_Resource_Advanced_Collection extends Mage_Catalog
                                 }
                                 $conditionData[] = array('lteq' => $conditionValue['to']);
                             }
-
                         }
                     } else {
                         $conditionData[] = array('eq' => $conditionValue);
                     }
-
 
                     foreach ($conditionData as $data) {
                         $select->where($conn->prepareSqlCondition($field, $data));

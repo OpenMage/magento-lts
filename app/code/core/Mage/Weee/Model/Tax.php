@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Weee
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -61,6 +61,13 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
     protected $_productDiscounts = array();
 
     /**
+     * Tax helper
+     *
+     * @var Mage_Tax_Helper_Data
+     */
+    protected $_taxHelper;
+
+    /**
      * Initialize resource
      */
     protected function _construct()
@@ -68,6 +75,17 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
         $this->_init('weee/tax', 'weee/tax');
     }
 
+
+    /**
+     * Initialize tax helper
+     *
+     * @param array $args
+     */
+    public function __construct(array $args = array())
+    {
+        parent::__construct();
+        $this->_taxHelper = !empty($args['helper']) ? $args['helper'] : Mage::helper('tax');
+    }
 
     /**
      * Calculate weee amount for a product
@@ -181,7 +199,6 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
                 $rateRequest->setProductClassId($product->getTaxClassId()));
         }
 
-        $defaultRateRequest = $calculator->getRateRequest(false, false, false, $store);
         $discountPercent = 0;
 
         if (!$ignoreDiscount && Mage::helper('weee')->isDiscounted($store)) {
@@ -213,16 +230,21 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
                     $taxAmount = 0;
                     $amount    = $value;
                     if ($calculateTax && Mage::helper('weee')->isTaxable($store)) {
-                        $defaultPercent = Mage::getModel('tax/calculation')
-                            ->getRate($defaultRateRequest
-                            ->setProductClassId($product->getTaxClassId()));
+                        if ($this->_taxHelper->isCrossBorderTradeEnabled($store)) {
+                            $defaultPercent = $currentPercent;
+                        } else {
+                            $defaultRateRequest = $calculator->getDefaultRateRequest($store);
+                            $defaultPercent = Mage::getModel('tax/calculation')
+                                ->getRate($defaultRateRequest
+                                ->setProductClassId($product->getTaxClassId()));
+                        }
 
                         if (Mage::helper('weee')->isTaxIncluded($store)) {
                             $taxAmount = Mage::app()->getStore()
                                     ->roundPrice($value / (100 + $defaultPercent) * $currentPercent);
                             $amount =  $amount - $taxAmount;
                         } else {
-                            $appliedRates = Mage::getModel('tax/calculation')->getAppliedRates($defaultRateRequest);
+                            $appliedRates = Mage::getModel('tax/calculation')->getAppliedRates($rateRequest);
                             if (count($appliedRates) > 1) {
                                 $taxAmount = 0;
                                 foreach ($appliedRates as $appliedRate) {
@@ -230,7 +252,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
                                     $taxAmount += Mage::app()->getStore()->roundPrice($value * $taxRate / 100);
                                 }
                             } else {
-                                $taxAmount = Mage::app()->getStore()->roundPrice($value * $defaultPercent / 100);
+                                $taxAmount = Mage::app()->getStore()->roundPrice($value * $currentPercent / 100);
                             }
                         }
                     }

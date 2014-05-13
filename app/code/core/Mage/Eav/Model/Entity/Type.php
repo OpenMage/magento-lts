@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -163,6 +163,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
      *
      * @param int $storeId
      * @return string
+     * @throws Exception
      */
     public function fetchNewIncrementId($storeId = null)
     {
@@ -180,35 +181,40 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
         // Start transaction to run SELECT ... FOR UPDATE
         $this->_getResource()->beginTransaction();
 
-        $entityStoreConfig = Mage::getModel('eav/entity_store')
-            ->loadByEntityStore($this->getId(), $storeId);
+        try {
+            $entityStoreConfig = Mage::getModel('eav/entity_store')
+                ->loadByEntityStore($this->getId(), $storeId);
 
-        if (!$entityStoreConfig->getId()) {
-            $entityStoreConfig
-                ->setEntityTypeId($this->getId())
-                ->setStoreId($storeId)
-                ->setIncrementPrefix($storeId)
-                ->save();
+            if (!$entityStoreConfig->getId()) {
+                $entityStoreConfig
+                    ->setEntityTypeId($this->getId())
+                    ->setStoreId($storeId)
+                    ->setIncrementPrefix($storeId)
+                    ->save();
+            }
+
+            $incrementInstance = Mage::getModel($this->getIncrementModel())
+                ->setPrefix($entityStoreConfig->getIncrementPrefix())
+                ->setPadLength($this->getIncrementPadLength())
+                ->setPadChar($this->getIncrementPadChar())
+                ->setLastId($entityStoreConfig->getIncrementLastId())
+                ->setEntityTypeId($entityStoreConfig->getEntityTypeId())
+                ->setStoreId($entityStoreConfig->getStoreId());
+
+            /**
+             * do read lock on eav/entity_store to solve potential timing issues
+             * (most probably already done by beginTransaction of entity save)
+             */
+            $incrementId = $incrementInstance->getNextId();
+            $entityStoreConfig->setIncrementLastId($incrementId);
+            $entityStoreConfig->save();
+
+            // Commit increment_last_id changes
+            $this->_getResource()->commit();
+        } catch (Exception $e) {
+            $this->_getResource()->rollBack();
+            throw $e;
         }
-
-        $incrementInstance = Mage::getModel($this->getIncrementModel())
-            ->setPrefix($entityStoreConfig->getIncrementPrefix())
-            ->setPadLength($this->getIncrementPadLength())
-            ->setPadChar($this->getIncrementPadChar())
-            ->setLastId($entityStoreConfig->getIncrementLastId())
-            ->setEntityTypeId($entityStoreConfig->getEntityTypeId())
-            ->setStoreId($entityStoreConfig->getStoreId());
-
-        /**
-         * do read lock on eav/entity_store to solve potential timing issues
-         * (most probably already done by beginTransaction of entity save)
-         */
-        $incrementId = $incrementInstance->getNextId();
-        $entityStoreConfig->setIncrementLastId($incrementId);
-        $entityStoreConfig->save();
-
-        // Commit increment_last_id changes
-        $this->_getResource()->commit();
 
         return $incrementId;
     }
@@ -263,7 +269,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
 
         return $tablePrefix;
     }
-    
+
     /**
      * Get default attribute set identifier for etity type
      *

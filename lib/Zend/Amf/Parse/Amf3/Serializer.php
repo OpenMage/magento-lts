@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Amf
  * @subpackage Parse_Amf3
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Serializer.php 22101 2010-05-04 20:07:13Z matthew $
+ * @version    $Id: Serializer.php 25179 2012-12-22 21:29:30Z rob $
  */
 
 /** Zend_Amf_Constants */
@@ -35,7 +35,7 @@
  *
  * @package    Zend_Amf
  * @subpackage Parse_Amf3
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Amf_Parse_Amf3_Serializer extends Zend_Amf_Parse_Serializer
@@ -45,7 +45,7 @@ class Zend_Amf_Parse_Amf3_Serializer extends Zend_Amf_Parse_Serializer
      * @var string
      */
     protected $_strEmpty = '';
-    
+
     /**
      * An array of reference objects per amf body
      * @var array
@@ -78,7 +78,7 @@ class Zend_Amf_Parse_Amf3_Serializer extends Zend_Amf_Parse_Serializer
      */
     public function writeTypeMarker(&$data, $markerType = null, $dataByVal = false)
     {
-        // Workaround for PHP5 with E_STRICT enabled complaining about "Only 
+        // Workaround for PHP5 with E_STRICT enabled complaining about "Only
         // variables should be passed by reference"
         if ((null === $data) && ($dataByVal !== false)) {
             $data = &$dataByVal;
@@ -215,7 +215,7 @@ class Zend_Amf_Parse_Amf3_Serializer extends Zend_Amf_Parse_Serializer
      * @return Zend_Amf_Parse_Amf3_Serializer
      */
     protected function writeBinaryString(&$string){
-        $ref = strlen($string) << 1 | 0x01;
+        $ref = ($this->_mbStringFunctionsOverloaded ? mb_strlen($string, '8bit') : strlen($string)) << 1 | 0x01;
         $this->writeInteger($ref);
         $this->_stream->writeBytes($string);
 
@@ -230,15 +230,17 @@ class Zend_Amf_Parse_Amf3_Serializer extends Zend_Amf_Parse_Serializer
      */
     public function writeString(&$string)
     {
-        $len = strlen($string);
+        $len = $this->_mbStringFunctionsOverloaded ? mb_strlen($string, '8bit') : strlen($string);
         if(!$len){
             $this->writeInteger(0x01);
             return $this;
         }
 
-        $ref = array_search($string, $this->_referenceStrings, true);
-        if($ref === false){
-            $this->_referenceStrings[] = $string;
+        $ref = array_key_exists($string, $this->_referenceStrings) 
+             ? $this->_referenceStrings[$string] 
+             : false;
+        if ($ref === false){
+            $this->_referenceStrings[$string] = count($this->_referenceStrings);
             $this->writeBinaryString($string);
         } else {
             $ref <<= 1;
@@ -380,13 +382,16 @@ class Zend_Amf_Parse_Amf3_Serializer extends Zend_Amf_Parse_Serializer
      */
     protected function writeObjectReference(&$object, $objectByVal = false)
     {
-        // Workaround for PHP5 with E_STRICT enabled complaining about "Only 
+        // Workaround for PHP5 with E_STRICT enabled complaining about "Only
         // variables should be passed by reference"
         if ((null === $object) && ($objectByVal !== false)) {
             $object = &$objectByVal;
         }
 
-        $ref = array_search($object, $this->_referenceObjects,true);
+        $hash = spl_object_hash($object);
+        $ref = array_key_exists($hash, $this->_referenceObjects) 
+             ? $this->_referenceObjects[$hash] 
+             : false;
 
         // quickly handle object references
         if ($ref !== false){
@@ -394,7 +399,7 @@ class Zend_Amf_Parse_Amf3_Serializer extends Zend_Amf_Parse_Serializer
             $this->writeInteger($ref);
             return true;
         }
-        $this->_referenceObjects[] = $object;
+        $this->_referenceObjects[$hash] = count($this->_referenceObjects);
         return false;
     }
 

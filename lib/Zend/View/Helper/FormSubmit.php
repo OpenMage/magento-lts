@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: FormSubmit.php 23403 2010-11-19 19:23:29Z bittarman $
+ * @version    $Id: FormSubmit.php 24750 2012-05-05 01:24:21Z adamlundrigan $
  */
 
 
@@ -33,7 +33,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_View_Helper_FormSubmit extends Zend_View_Helper_FormElement
@@ -67,12 +67,6 @@ class Zend_View_Helper_FormSubmit extends Zend_View_Helper_FormElement
             $id = ' id="' . $this->view->escape($id) . '"';
         }
 
-        // XHTML or HTML end tag?
-        $endTag = ' />';
-        if (($this->view instanceof Zend_View_Abstract) && !$this->view->doctype()->isXhtml()) {
-            $endTag= '>';
-        }
-
         // Render the button.
         $xhtml = '<input type="submit"'
                . ' name="' . $this->view->escape($name) . '"'
@@ -80,7 +74,7 @@ class Zend_View_Helper_FormSubmit extends Zend_View_Helper_FormElement
                . ' value="' . $this->view->escape($value) . '"'
                . $disabled
                . $this->_htmlAttribs($attribs)
-               . $endTag;
+               . $this->getClosingBracket();
 
         return $xhtml;
     }

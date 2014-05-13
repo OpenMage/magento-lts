@@ -1,0 +1,586 @@
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/* ============================================ *
+ * Checkout - One Page
+ * ============================================ */
+
+.checkout-onepage-index .col-right,
+.checkout-onepage-index .col-left {
+    display: none;
+}
+
+.checkout-onepage-index .col-main {
+    width: auto;
+    float: none;
+}
+
+@include bp(min-width, $bp-large+1) {
+    .checkout-onepage-index {
+        .col-main {
+            float: left;
+            width: percentage(660px/960px);
+            padding-right: 20px;
+        }
+
+        .col-right,
+        .col-left {
+            width: percentage(300px/960px);
+            display: block;
+        }
+
+        .col-right {
+            padding-left: 0;
+        }
+    }
+}
+
+.opc {
+    select {
+        width: (230px + 135px);
+    }
+}
+
+/* -------------------------------------------- *
+ * Section Styling - Default
+ */
+
+.opc .section .step-title {
+    width: 100%;
+    border-top: 1px solid $c-divider-border;
+    position: relative;
+    @include not-selectable;
+
+    &:after {
+        @include clearfix;
+    }
+}
+
+.opc .section.allow:not(.active) .step-title {
+    cursor: pointer;
+}
+
+/* Using .no-touch since touch devices emulate hover, thereby making steps look active that are not */
+.no-touch .opc .section.allow:not(.active) .step-title:hover {
+    background-color: $c-module-background;
+}
+
+.opc .section.active .step-title {
+    border-bottom: 1px solid $c-divider-border;
+}
+
+.opc .section .step-title a {
+    display: none;
+}
+
+.opc .section.allow:not(.active) .step-title a {
+    display: block;
+    float: right;
+    line-height: 40px;
+    height: 40px;
+    padding: 0px 10px;
+}
+
+.no-touch .opc .section .step-title a:hover {
+    text-decoration: none;
+}
+
+.opc .section .step-title .number,
+.opc .section.allow.active .step-title .number,
+.no-touch .opc .section.allow:hover .step-title .number {
+    width: 26px;
+    height: 26px;
+    text-align: center;
+    color: #FFFFFF;
+    line-height: 26px;
+    background-color: $c-action;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    margin-top: -13px;
+}
+
+.opc .section.allow .step-title .number {
+    background-color: tint($c-action, 50%);
+}
+
+.opc .section.allow .step-title h2 {
+    color: $c-text-gray;
+}
+
+.opc .section.allow .step-title:hover h2,
+.opc .section.active .step-title h2 {
+    color: $c-text-primary;
+}
+
+.opc .section .step-title h2 {
+    font-size: $f-size-xl;
+    font-weight: 400;
+    line-height: 40px;
+    height: 40px;
+    float: left;
+    margin: 0px 4px 0px 45px;
+}
+
+.opc .section .step {
+    padding: $box-spacing-large;
+
+    &:after {
+        @include clearfix;
+    }
+
+    @include bp(max-width, $bp-large) {
+        padding: $box-spacing;
+    }
+}
+
+.opc h3 {
+    font-weight: 500;
+}
+
+.opc .buttons-set {
+    text-align: left;
+
+    button.button {
+        float: left;
+        margin-left: 0;
+        margin-right: $gap;
+        margin-bottom: 0;
+    }
+    p.required {
+        float: right;
+        margin-left: 5px;
+        margin-bottom: 0;
+    }
+    .back-link {
+        float: right;
+        margin: 0;
+    }
+    a {
+        line-height: 20px;
+        display: inline-block;
+        padding: 5px 5px 5px 0;
+    }
+}
+
+@include bp(max-width, $bp-xsmall) {
+    .opc,
+    .paypal-express-review {
+        .buttons-set .button + .buttons-set .button {
+            margin-left: 0;
+        }
+    }
+}
+
+.opc #opc-login {
+    .step {
+        padding: 0px;
+    }
+
+    .buttons-set {
+        border-top: 0;
+        padding-top: 5px;
+    }
+}
+
+@include bp(max-width, $bp-medium) {
+    .opc #opc-login .description,
+    .opc #opc-login p.required {
+        display: none;
+    }
+}
+
+#opc-payment .note {
+    padding: $box-spacing;
+}
+
+/* -------------------------------------------- *
+ * This section hides everything but the "Checkout Method" step of the checkout process and fades in the content
+ * once the customer progresses to the next step. The purpose of this is to simplify what the customer has to focus on.
+ * It is limited to larger viewports since smaller devices are inherently going to be focused solely on the
+ * "Checkout Method" step.
+ */
+
+.opc.opc-firststep-login .section:not(#opc-login) .step-title,
+.opc-block-progress-step-login {
+    @include single-transition(opacity, 300ms);
+}
+
+.opc.opc-firststep-login .section#opc-login .step-title .number {
+    @include single-transition(width, 80ms);
+}
+
+.opc.opc-firststep-login .section#opc-login .step-title h2 {
+    @include single-transition(margin-left, 80ms);
+}
+
+/* When a user progresses from the "Checkout Method" to "Billing Information" for the first time, the              */
+/* "opc-has-progressed-from-login" class gets added to the body. Also, the .opc element will only have the         */
+/* "opc-firststep-login" class if the first step of the checkout is the "Checkout Method" (eg, not when logged in) */
+body:not(.opc-has-progressed-from-login) .opc.opc-firststep-login .section:not(#opc-login) .step-title,
+body:not(.opc-has-progressed-from-login) .opc-block-progress-step-login {
+    opacity: 0;
+}
+
+body:not(.opc-has-progressed-from-login) .opc.opc-firststep-login .section#opc-login .step-title .number {
+    width: 0px;
+    overflow: hidden;
+}
+
+body:not(.opc-has-progressed-from-login) .opc.opc-firststep-login .section#opc-login .step-title h2 {
+    margin-left: 0px;
+}
+
+/* -------------------------------------------- *
+ * Shipping and Payment methods
+ */
+
+.sp-methods {
+    margin: 0 0 8px;
+
+    dt {
+        margin: 13px 0 5px;
+        font-weight: bold;
+
+        &:first-child {
+            margin: 0 0 5px;
+        }
+    }
+    dd li {
+        margin: 5px 0;
+    }
+    label img { // This applies to the Paypal Express label
+        float: left;
+    }
+    label a { // This applies to the Paypal Express label
+        margin-top: 6px;
+        float: right;
+        margin-left: 10px;
+    }
+    .price {
+        font-weight: bold;
+    }
+    .form-list {
+        padding-left: 20px;
+
+        li {
+            margin: 0 0 8px;
+        }
+    }
+    select.month {
+        width: 120px;
+        margin-right: 10px;
+    }
+    select.year {
+        width: 96px;
+    }
+    input.cvv {
+        width: 4em !important;
+    }
+
+    .checkmo-list {
+        li {
+            margin: 0 0 5px;
+            @include clearfix;
+        }
+        label {
+            width: 165px;
+            padding-right: 15px;
+            text-align: right;
+            float: left;
+        }
+        address {
+            float: left;
+        }
+
+        @include bp(max-width, $bp-xsmall) {
+            padding-left: 0;
+
+            label {
+                width: 135px;
+            }
+        }
+    }
+
+    .release-amounts {
+        margin: 0.5em 0;
+    }
+    .release-amounts button {
+        float: left;
+        margin: 5px 10px 0 0;
+    }
+}
+
+/* One Page Checkout */
+.block-progress {
+    border: 0;
+    margin: 0;
+    border-left: 1px solid $c-module-border;
+    padding-left: 20px;
+
+    .block-content {
+        font-size: $f-size-s;
+    }
+    dt {
+        padding-top: 6px;
+        @include h4;
+        margin-bottom: 6px;
+        text-transform: uppercase;
+        font-weight: normal;
+        color: $c-text-gray;
+    }
+
+    dt.complete {
+        color: $c-h4;
+    }
+    dd {
+        padding-left: 15px;
+        margin-bottom: 10px;
+        font-family: $f-stack-serif;
+        font-style: italic;
+
+        address {
+            font-style: italic;
+        }
+    }
+
+    #payment-progress-opcheckout .subtitle {
+        margin-bottom: 3px;
+    }
+
+    .payment-info {
+
+        dt {
+            padding: 0;
+            margin: 0 0 3px 0;
+            color: $c-text;
+            font-family: $f-stack-serif;
+            text-transform: none;
+            font-style: italic;
+            float: left;
+            clear: both;
+            font-size: $f-size-s;
+
+            &:after {
+                content: ': ';
+            }
+        }
+
+        dd {
+            float: left;
+            margin-bottom: 3px;
+            font-size: $f-size-s;
+        }
+
+        &:after {
+            @include clearfix;
+        }
+
+    }
+}
+
+/* review step */
+#checkout-review-table {
+    .btn-remove {
+        img {
+            display: none;
+        }
+    }
+}
+
+/* show/hide "change" link for progress step depend on complete status
+ * should be placed in .css file */
+.opc-block-progress dt.complete a,
+.opc-block-progress dt.complete .separator {
+    display: inline;
+}
+
+.opc-block-progress dt a,
+.opc-block-progress dt .separator {
+    display: none;
+}
+
+/* On small screens, the progress review content will be moved to the review step via JS. Styled via this CSS: */
+#checkout-step-review .opc-block-progress {
+    border-left: none;
+    padding-left: 0;
+
+    .block-title {
+        display: none;
+    }
+    .block-content {
+        // Override the no-display
+        display: block !important;
+        padding: 0;
+
+        & > dl > div {
+            float: left;
+            width: 50%;
+        }
+
+        @include bp(max-width, $bp-xsmall) {
+            & > dl > div {
+                float: none;
+                width: auto;
+            }
+        }
+
+        .changelink {
+            display: none;
+        }
+    }
+}
+
+@include bp(max-width, $bp-xsmall) {
+    #checkout-review-table thead > tr > th {
+        display: none;
+
+        &:first-child {
+            display: block;
+        }
+    }
+    #checkout-review-table thead > tr > th:first-child {
+        display: block;
+    }
+}
+
+#checkout-step-review .centinel {
+    &> p {
+        margin-bottom: $box-spacing;
+    }
+
+    iframe {
+        width: 100%;
+        min-height: 400px;
+    }
+}
+
+/* Gift options */
+.gift-messages-form {
+    .item {
+        @include clearfix;
+        margin-top: $trim;
+
+        h5 {
+            font-weight: bold;
+        }
+
+        .product-img-box {
+            width: auto;
+            float: left;
+            padding-right: 15px;
+        }
+
+        .details {
+            float: left;
+        }
+    }
+}
+
+.gift-message-form {
+    .inner-box {
+        > div {
+            @include clearfix;
+            width: 100%;
+            margin-top: $trim-small;
+
+            &.extra-options-container {
+                p {
+                    margin-bottom: $trim-small;
+                }
+            }
+        }
+    }
+
+    .gift-wrapping-form {
+        label {
+            margin-right: $box-spacing;
+        }
+
+        img {
+            float: left;
+        }
+
+        .gift-wrapping-design {
+            height: 75px;
+
+            &:after {
+                @include clearfix;
+            }
+
+            .image-box {
+                margin-right: 5px;
+            }
+        }
+    }
+
+    .gift-item {
+        padding-bottom: $gap;
+        margin-bottom: $gap;
+        border-bottom: solid 1px $c-divider-border;
+
+        &:after {
+            @include clearfix;
+        }
+
+        .product-img-box {
+            width: 200px;
+
+            .product-image {
+                width: 75px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .product-name {
+                display: block;
+            }
+        }
+
+        .fieldset {
+            margin-left: 200px;
+        }
+    }
+}
+
+@include bp('max-width', $bp-medium) {
+    .gift-message-form {
+        .gift-item {
+            .product-img-box {
+                width: 100%;
+                float: none;
+            }
+
+            .fieldset {
+                margin-left: 0px;
+
+                textarea {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}

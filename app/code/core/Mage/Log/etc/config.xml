@@ -21,14 +21,14 @@
  *
  * @category    Mage
  * @package     Mage_Log
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Log>
-            <version>1.6.0.0</version>
+            <version>1.6.1.0</version>
         </Mage_Log>
     </modules>
     <global>

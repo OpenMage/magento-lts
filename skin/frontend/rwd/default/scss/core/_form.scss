@@ -1,0 +1,376 @@
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/* ============================================ *
+ * FORMS - COMMON
+ * ============================================ */
+
+/* -------------------------------------------- *
+ * Fieldsets
+ */
+
+.fieldset {
+
+    p {
+        margin-bottom: $element-spacing;
+    }
+
+    p.required {
+        margin-bottom: 5px;
+        float: right;
+        font-size: $f-size-xs;
+        margin-top: 0px;
+    }
+}
+
+.fieldset + .fieldset {
+    margin-top: ($gap / 2);
+}
+
+form .legend {
+    @include h3;
+    margin-bottom: 15px;
+    padding-bottom: 7px;
+    border-bottom: 1px solid $c-module-border-light;
+}
+
+/* -------------------------------------------- *
+ * Input Box
+ */
+
+.input-box {
+    padding-top: 2px;
+
+    &:after {
+        @include clearfix;
+    }
+}
+
+/* For adjacent select inputs. */
+/* Example: credit card expiration month and year. */
+.input-box .v-fix {
+    float: left;
+    margin-right: 5px;
+}
+
+/* -------------------------------------------- *
+ * Labels
+ */
+
+label {
+    display: inline-block;
+    font-size: $f-size-s;
+    font-family: $f-stack-special;
+    font-weight: 600;
+    @include not-selectable;
+}
+
+label.required:after,
+span.required:after {
+    content: ' *';
+    color: $c-danger;
+    font-weight: normal;
+    font-family: $f-stack-sans;
+    font-size: $f-size-xs;
+}
+
+label.required em,
+span.required em {
+    display: none;
+}
+
+/* -------------------------------------------- *
+ * Hints
+ */
+
+.input-hint {
+    color: $c-text-gray;
+    font-size: $f-size-xs;
+}
+
+/* -------------------------------------------- *
+ * Select
+ */
+
+select {
+    font-size: 14px;
+}
+
+select + select {
+    margin-left: 5px;
+}
+
+select[multiple] {
+    width: 270px;
+    border: 1px solid $c-input-border;
+    font-size: $f-size-l;
+    padding: 5px;
+}
+
+/* -------------------------------------------- *
+ * Textarea
+ */
+
+textarea {
+    @include box-sizing(border-box);
+    max-width: 100%;
+    width: 450px;
+    padding: 5px;
+}
+
+/* -------------------------------------------- *
+ * Inputs
+ */
+
+.input-text {
+    @include appearance(none);
+    @include border-radius(2px);
+    border: 1px solid $c-input-border;
+    background: #FFFFFF;
+    font-size: $f-size-l;
+
+    &:focus {
+        border: 1px solid $c-input-border-focus;
+    }
+}
+
+.input-text.validation-failed {
+    border-color: $c-danger;
+}
+
+// Color the outline for focused fields in Chrome, or else the default blue drowns out the 1px red border
+.input-text.validation-failed:focus {
+    outline-color: tint($c-danger, 50%);
+}
+
+input[type=email],
+input[type=search],
+input[type=number],
+input[type=password],
+input[type=tel],
+input[type=text] {
+    height: 30px;
+    padding: 0 8px;
+}
+
+input[type=email],
+input[type=search],
+input[type=number],
+input[type=password],
+input[type=tel],
+input[type=text] {
+    width: (230px + 135px);
+    max-width: 100%;
+}
+
+/* Only show on iPhones (not iPads or any other device) */
+@media only screen and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 0) {
+    input[type=email],
+    input[type=search],
+    input[type=number],
+    input[type=password],
+    input[type=tel],
+    input[type=text],
+    select {
+        font-size: 16px; /* Prevent from zooming on focus */
+    }
+}
+
+.ie8 .input-text {
+    max-width: none;
+}
+
+/* -------------------------------------------- *
+ * Inputs - Quantity
+ */
+
+input[type=number].qty,
+input[type=text].qty {
+    width: 3em;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* -------------------------------------------- *
+ * Placeholder
+ */
+
+::-webkit-input-placeholder {
+    color: $c-input-placeholder;
+}
+
+input:-moz-placeholder {
+    color: $c-input-placeholder;
+}
+
+/* -------------------------------------------- *
+ * Checkbox And Radio
+ */
+
+.checkbox,
+.radio {
+    position: relative;
+    top: -1px;
+    display: inline-block;
+}
+
+.checkbox + label,
+.radio + label {
+    width: auto;
+    max-width: 85%;
+    padding: 0 0 0 8px;
+    font-size: $f-size;
+    font-weight: normal;
+    vertical-align: top;
+}
+
+/* -------------------------------------------- *
+ * Validation
+ */
+
+p.required,
+.validation-advice {
+    margin: 5px 0 0;
+    color: $c-danger;
+    font-size: $f-size-s;
+}
+
+/* ============================================ *
+ * Form List
+ * ============================================ */
+
+.form-list {
+
+    & > li {
+        margin-bottom: $box-spacing;
+    }
+    select {
+        margin-top: 4px;
+        width: (230px + 135px);
+        max-width: 100%;
+    }
+
+    .input-range .input-text {
+        width: 74px;
+    }
+
+    .field,
+    .wide,
+    .control {
+        margin-bottom: $box-spacing;
+    }
+}
+
+/* Turn the label of controls (radio/checkbox) into a button style that wraps the input */
+.form-list .control,
+.sp-methods dt,
+#checkout-shipping-method-load .sp-methods dd,
+#co-shipping-method-form .sp-methods dd,
+.product-options ul.options-list {
+
+    div.input-box {
+        display: inline;
+        float: left;
+
+        &:after {
+            display: none;
+        }
+    }
+
+    input.radio,
+    input.checkbox {
+        float: left;
+        margin-right: -40px;
+        margin-top: 10px;
+        margin-left: 15px;
+    }
+
+    label {
+        @include touch-button;
+        display: inline-block;
+        width: auto;
+        max-width: none;
+        min-width: 250px;
+        float: none;
+        padding: 6px 10px 6px 40px;
+
+        &:hover {
+            background-color: shade($c-module-background, 5%);
+        }
+    }
+
+    /* When a label is next to an input that is set to not display, we should style the label in a non-clickable state */
+    .no-display + label {
+        padding-left: 10px;
+        background-color: transparent;
+
+        &:hover {
+            background-color: transparent;
+        }
+    }
+
+}
+
+.product-options ul.options-list label,
+.col2-set .form-list .control label {
+    min-width: inherit;
+    width: 250px;
+    max-width: 100%;
+}
+
+.form-list .control.remember-me-box {
+    label {
+        width: auto;
+        max-width: none;
+        min-width: inherit;
+    }
+}
+
+.form-list .control {
+    margin-top: 10px;
+
+    label {
+        float: none;
+    }
+    .radio,
+    .checkbox {
+        margin-right: 6px;
+    }
+    .input-box {
+        clear: none;
+        display: inline-block;
+        width: auto;
+        padding: 0;
+    }
+}
+
+form {
+    .form-instructions {
+        font-style: italic;
+        font-family: $f-stack-serif;
+        font-size: $f-size-s;
+        color: $c-text-gray;
+    }
+}

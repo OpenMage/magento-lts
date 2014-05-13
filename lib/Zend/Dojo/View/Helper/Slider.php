@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Slider.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Slider.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /** Zend_Dojo_View_Helper_Dijit */
@@ -29,7 +29,7 @@
  * @uses       Zend_Dojo_View_Helper_Dijit
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
   */
 abstract class Zend_Dojo_View_Helper_Slider extends Zend_Dojo_View_Helper_Dijit
@@ -77,7 +77,7 @@ abstract class Zend_Dojo_View_Helper_Slider extends Zend_Dojo_View_Helper_Dijit
         }
 
         $content = '';
-        $params['value'] = $value;
+        $attribs['value'] = $value;
 
         if (!array_key_exists('onChange', $attribs)) {
             $attribs['onChange'] = "dojo.byId('" . $id . "').value = arguments[0];";

@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Feed_Writer
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Feed.php 20518 2010-01-22 14:00:30Z padraic $
+ * @version    $Id: Feed.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /**
@@ -59,7 +59,7 @@
 /**
  * @category   Zend
  * @package    Zend_Feed_Writer
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Feed_Writer_Feed extends Zend_Feed_Writer_Feed_FeedAbstract
@@ -107,7 +107,7 @@ implements Iterator, Countable
     {
         $this->_entries[] = $deleted;
     }
-    
+
     /**
      * Creates a new Zend_Feed_Writer_Deleted data container for use. This is NOT
      * added to the current feed automatically, but is necessary to create a
@@ -205,7 +205,7 @@ implements Iterator, Countable
         return count($this->_entries);
     }
 
-	/**
+    /**
      * Return the current entry
      *
      * @return Zend_Feed_Reader_Entry_Interface
@@ -225,7 +225,7 @@ implements Iterator, Countable
         return $this->_entriesKey;
     }
 
-	/**
+    /**
      * Move the feed pointer forward
      *
      * @return void
@@ -258,7 +258,8 @@ implements Iterator, Countable
     /**
      * Attempt to build and return the feed resulting from the data set
      *
-     * @param $type The feed type "rss" or "atom" to export as
+     * @param string $type             The feed type "rss" or "atom" to export as
+		 * @param bool   $ignoreExceptions
      * @return string
      */
     public function export($type, $ignoreExceptions = false)

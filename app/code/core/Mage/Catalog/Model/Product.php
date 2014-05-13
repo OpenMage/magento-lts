@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -1940,7 +1940,12 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         /* add product custom options data */
         $customOptions = $buyRequest->getOptions();
         if (is_array($customOptions)) {
-            $options->setOptions(array_diff($buyRequest->getOptions(), array('')));
+            foreach ($customOptions as $key => $value) {
+                if ($value === '') {
+                    unset($customOptions[$key]);
+                }
+            }
+            $options->setOptions($customOptions);
         }
 
         /* add product type selected options data */

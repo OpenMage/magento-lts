@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -369,6 +369,145 @@
                                         <requires>express,payments_advanced</requires>
                                         <frontend_class>paypal-enabler</frontend_class>
                                     </enable_payflow_advanced>
+                                    <enable_express_checkout_bml extends="//paypal_payments/express_checkout//enable_express_checkout_bml">
+                                        <comment><![CDATA[PayPal Payments Advanced lets you give customers access to financing through Bill Me Later&#174; - at no additional cost to you.
+                                        You get paid up front, even though customers have more time to pay. A pre-integrated payment button lets customers pay quickly with Bill Me Later&#174;.
+                                        <a href="https://www.paypal.com/webapps/mpp/promotional-financing" target="_blank">Learn More</a>]]>
+                                        </comment>
+                                        <sort_order>31</sort_order>
+                                        <requires>required_settings_enable_payflow_advanced</requires>
+                                    </enable_express_checkout_bml>
+                                    <advanced_advertise_bml type="group" translate="label comment">
+                                        <label>Advertise Bill Me Later</label>
+                                        <comment>
+                                            <![CDATA[<a href="https://financing.paypal.com/ppfinportal/content/whyUseFinancing" target="_blank">Why Advertise Financing?</a><br/>
+                                            <strong>Give your sales a boost when you advertise financing.</strong><br/>PayPal helps turn browsers into buyers with financing
+                                            from Bill Me Later&#174;. Your customers have more time to pay, while you get paid up front – at no additional cost to you.
+                                            Use PayPal’s free banner ads that let you advertise Bill Me Later&#174; financing as a payment option when your customers check out with PayPal.
+                                            The PayPal Advertising Program has been shown to generate additional purchases as well as increase consumer's average purchase sizes by 15%
+                                            or more. <a href="https://financing.paypal.com/ppfinportal/content/forrester" target="_blank">See Details</a>.]]>
+                                        </comment>
+                                        <frontend_type>text</frontend_type>
+                                        <show_in_default>1</show_in_default>
+                                        <show_in_website>1</show_in_website>
+                                        <sort_order>32</sort_order>
+                                        <fields>
+                                            <bml_publisher_id extends="//paypal_payments/express_checkout//advertise_bml//bml_publisher_id" />
+                                            <bml_wizard extends="//paypal_payments/express_checkout//advertise_bml//bml_wizard" />
+                                            <advanced_settings_bml_homepage type="group" translate="label">
+                                                <label>Home Page</label>
+                                                <frontend_type>text</frontend_type>
+                                                <show_in_default>1</show_in_default>
+                                                <show_in_website>1</show_in_website>
+                                                <show_in_store>1</show_in_store>
+                                                <sort_order>20</sort_order>
+                                                <fields>
+                                                    <bml_homepage_display translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_homepage_display"/>
+                                                    <advanced_bml_homepage_position translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_homepage_position"/>
+                                                    <advanced_bml_homepage_size1 translate="label">
+                                                        <label>Size</label>
+                                                        <config_path>payment/paypal_express_bml/homepage_size</config_path>
+                                                        <frontend_type>select</frontend_type>
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeHPH</source_model>
+                                                        <show_in_default>1</show_in_default>
+                                                        <show_in_website>1</show_in_website>
+                                                        <sort_order>30</sort_order>
+                                                        <shared>1</shared>
+                                                        <depends><advanced_bml_homepage_position>0</advanced_bml_homepage_position></depends>
+                                                    </advanced_bml_homepage_size1>
+                                                    <advanced_bml_homepage_size2 extends="//paypal_payments/payflow_advanced//advanced_bml_homepage_size1">
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeHPS</source_model>
+                                                        <depends><advanced_bml_homepage_position>1</advanced_bml_homepage_position></depends>
+                                                    </advanced_bml_homepage_size2>
+                                                </fields>
+                                            </advanced_settings_bml_homepage>
+                                            <advanced_settings_bml_categorypage type="group" translate="label">
+                                                <label>Catalog Category Page</label>
+                                                <frontend_type>text</frontend_type>
+                                                <show_in_default>1</show_in_default>
+                                                <show_in_website>1</show_in_website>
+                                                <show_in_store>1</show_in_store>
+                                                <sort_order>30</sort_order>
+                                                <fields>
+                                                    <bml_categorypage_display translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_categorypage_display"/>
+                                                    <advanced_bml_categorypage_position translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_categorypage_position" />
+                                                    <advanced_bml_categorypage_size1 translate="label">
+                                                        <label>Size</label>
+                                                        <config_path>payment/paypal_express_bml/categorypage_size</config_path>
+                                                        <frontend_type>select</frontend_type>
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeCCPC</source_model>
+                                                        <show_in_default>1</show_in_default>
+                                                        <show_in_website>1</show_in_website>
+                                                        <sort_order>30</sort_order>
+                                                        <shared>1</shared>
+                                                        <depends><advanced_bml_categorypage_position>0</advanced_bml_categorypage_position></depends>
+                                                    </advanced_bml_categorypage_size1>
+                                                    <advanced_bml_categorypage_size2 extends="//paypal_payments/payflow_advanced//advanced_bml_categorypage_size1">
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeCCPS</source_model>
+                                                        <depends><advanced_bml_categorypage_position>1</advanced_bml_categorypage_position></depends>
+                                                    </advanced_bml_categorypage_size2>
+                                                </fields>
+
+                                            </advanced_settings_bml_categorypage>
+                                            <advanced_settings_bml_productpage type="group" translate="label">
+                                                <label>Catalog Product Page</label>
+                                                <frontend_type>text</frontend_type>
+                                                <show_in_default>1</show_in_default>
+                                                <show_in_website>1</show_in_website>
+                                                <show_in_store>1</show_in_store>
+                                                <sort_order>40</sort_order>
+                                                <fields>
+                                                    <bml_productpage_display translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_productpage_display" />
+                                                    <advanced_bml_productpage_position translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_productpage_position" />
+                                                    <advanced_bml_productpage_size1 translate="label">
+                                                        <label>Size</label>
+                                                        <config_path>payment/paypal_express_bml/productpage_size</config_path>
+                                                        <frontend_type>select</frontend_type>
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeCPPC</source_model>
+                                                        <show_in_default>1</show_in_default>
+                                                        <show_in_website>1</show_in_website>
+                                                        <sort_order>30</sort_order>
+                                                        <shared>1</shared>
+                                                        <depends><advanced_bml_productpage_position>0</advanced_bml_productpage_position></depends>
+                                                    </advanced_bml_productpage_size1>
+                                                    <advanced_bml_productpage_size2 extends="//paypal_payments/payflow_advanced//advanced_bml_productpage_size1">
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeCPPN</source_model>
+                                                        <depends><advanced_bml_productpage_position>1</advanced_bml_productpage_position></depends>
+                                                    </advanced_bml_productpage_size2>
+                                                </fields>
+
+                                            </advanced_settings_bml_productpage>
+                                            <advanced_settings_bml_checkout type="group" translate="label">
+                                                <label>Checkout Cart Page</label>
+                                                <frontend_type>text</frontend_type>
+                                                <show_in_default>1</show_in_default>
+                                                <show_in_website>1</show_in_website>
+                                                <show_in_store>1</show_in_store>
+                                                <sort_order>50</sort_order>
+                                                <fields>
+                                                    <bml_checkout_display translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_checkout_display" />
+                                                    <advanced_bml_checkout_position translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_checkout_position" />
+                                                    <advanced_bml_checkout_size1 translate="label">
+                                                        <label>Size</label>
+                                                        <config_path>payment/paypal_express_bml/checkout_size</config_path>
+                                                        <frontend_type>select</frontend_type>
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeCheckoutC</source_model>
+                                                        <show_in_default>1</show_in_default>
+                                                        <show_in_website>1</show_in_website>
+                                                        <sort_order>30</sort_order>
+                                                        <shared>1</shared>
+                                                        <depends><advanced_bml_checkout_position>0</advanced_bml_checkout_position></depends>
+                                                    </advanced_bml_checkout_size1>
+                                                    <advanced_bml_checkout_size2 extends="//paypal_payments/payflow_advanced//advanced_bml_checkout_size1">
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeCheckoutN</source_model>
+                                                        <shared>1</shared>
+                                                        <depends><advanced_bml_checkout_position>1</advanced_bml_checkout_position></depends>
+                                                    </advanced_bml_checkout_size2>
+                                                </fields>
+
+                                            </advanced_settings_bml_checkout>
+                                        </fields>
+                                    </advanced_advertise_bml>
                                 </fields>
                             </required_settings>
 
@@ -983,6 +1122,7 @@
                                                 <comment>Ability for buyer to purchase without PayPal account.</comment>
                                                 <config_path>payment/paypal_express/solution_type</config_path>
                                                 <frontend_type>select</frontend_type>
+                                                <frontend_model>paypal/adminhtml_system_config_field_solutionType</frontend_model>
                                                 <source_model>paypal/config::getExpressCheckoutSolutionTypes</source_model>
                                                 <sort_order>70</sort_order>
                                                 <show_in_default>1</show_in_default>
@@ -1012,6 +1152,16 @@
                                                 <show_in_website>1</show_in_website>
                                                 <shared>1</shared>
                                             </allow_ba_signup>
+                                            <skip_order_review_step translate="label comment">
+                                                <label>Skip Order Review Step</label>
+                                                <config_path>payment/paypal_express/skip_order_review_step</config_path>
+                                                <frontend_type>select</frontend_type>
+                                                <source_model>adminhtml/system_config_source_yesno</source_model>
+                                                <sort_order>95</sort_order>
+                                                <show_in_default>1</show_in_default>
+                                                <show_in_website>1</show_in_website>
+                                                <shared>1</shared>
+                                            </skip_order_review_step>
                                         </fields>
                                     </settings_express_checkout_advanced>
                                 </fields>
@@ -1105,6 +1255,145 @@
                                         <requires>wpp_and_express_checkout</requires>
                                         <frontend_class>paypal-enabler</frontend_class>
                                     </enable_wpp>
+                                    <enable_express_checkout_bml  extends="//paypal_payments/express_checkout//enable_express_checkout_bml">
+                                        <comment><![CDATA[Website Payments Pro lets you give customers access to financing through Bill Me Later&#174; - at no additional cost to you.
+                                        You get paid up front, even though customers have more time to pay. A pre-integrated payment button lets customers pay quickly with Bill Me Later&#174;.
+                                        <a href="https://www.paypal.com/webapps/mpp/promotional-financing" target="_blank">Learn More</a>]]>
+                                        </comment>
+                                        <sort_order>21</sort_order>
+                                        <requires>wpp_required_settings_enable_wpp</requires>
+                                    </enable_express_checkout_bml>
+                                    <wpp_advertise_bml type="group" translate="label comment">
+                                        <label>Advertise Bill Me Later</label>
+                                        <comment>
+                                            <![CDATA[<a href="https://financing.paypal.com/ppfinportal/content/whyUseFinancing" target="_blank">Why Advertise Financing?</a><br/>
+                                            <strong>Give your sales a boost when you advertise financing.</strong><br/>PayPal helps turn browsers into buyers with financing
+                                            from Bill Me Later&#174;. Your customers have more time to pay, while you get paid up front – at no additional cost to you.
+                                            Use PayPal’s free banner ads that let you advertise Bill Me Later&#174; financing as a payment option when your customers check out with PayPal.
+                                            The PayPal Advertising Program has been shown to generate additional purchases as well as increase consumer's average purchase sizes by 15%
+                                            or more. <a href="https://financing.paypal.com/ppfinportal/content/forrester" target="_blank">See Details</a>.]]>
+                                        </comment>
+                                        <frontend_type>text</frontend_type>
+                                        <show_in_default>1</show_in_default>
+                                        <show_in_website>1</show_in_website>
+                                        <sort_order>22</sort_order>
+                                        <fields>
+                                            <bml_publisher_id extends="//paypal_payments/express_checkout//advertise_bml//bml_publisher_id" />
+                                            <bml_wizard extends="//paypal_payments/express_checkout//advertise_bml//bml_wizard" />
+                                            <wpp_settings_bml_homepage type="group" translate="label">
+                                                <label>Home Page</label>
+                                                <frontend_type>text</frontend_type>
+                                                <show_in_default>1</show_in_default>
+                                                <show_in_website>1</show_in_website>
+                                                <show_in_store>1</show_in_store>
+                                                <sort_order>20</sort_order>
+                                                <fields>
+                                                    <bml_homepage_display translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_homepage_display"/>
+                                                    <wpp_bml_homepage_position translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_homepage_position"/>
+                                                    <wpp_bml_homepage_size1 translate="label">
+                                                        <label>Size</label>
+                                                        <config_path>payment/paypal_express_bml/homepage_size</config_path>
+                                                        <frontend_type>select</frontend_type>
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeHPH</source_model>
+                                                        <show_in_default>1</show_in_default>
+                                                        <show_in_website>1</show_in_website>
+                                                        <sort_order>30</sort_order>
+                                                        <shared>1</shared>
+                                                        <depends><wpp_bml_homepage_position>0</wpp_bml_homepage_position></depends>
+                                                    </wpp_bml_homepage_size1>
+                                                    <wpp_bml_homepage_size2 extends="//paypal_payments/wpp//wpp_bml_homepage_size1">
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeHPS</source_model>
+                                                        <depends><wpp_bml_homepage_position>1</wpp_bml_homepage_position></depends>
+                                                    </wpp_bml_homepage_size2>
+                                                </fields>
+                                            </wpp_settings_bml_homepage>
+                                            <wpp_settings_bml_categorypage type="group" translate="label">
+                                                <label>Catalog Category Page</label>
+                                                <frontend_type>text</frontend_type>
+                                                <show_in_default>1</show_in_default>
+                                                <show_in_website>1</show_in_website>
+                                                <show_in_store>1</show_in_store>
+                                                <sort_order>30</sort_order>
+                                                <fields>
+                                                    <bml_categorypage_display translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_categorypage_display"/>
+                                                    <wpp_bml_categorypage_position translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_categorypage_position" />
+                                                    <wpp_bml_categorypage_size1 translate="label">
+                                                        <label>Size</label>
+                                                        <config_path>payment/paypal_express_bml/categorypage_size</config_path>
+                                                        <frontend_type>select</frontend_type>
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeCCPC</source_model>
+                                                        <show_in_default>1</show_in_default>
+                                                        <show_in_website>1</show_in_website>
+                                                        <sort_order>30</sort_order>
+                                                        <shared>1</shared>
+                                                        <depends><wpp_bml_categorypage_position>0</wpp_bml_categorypage_position></depends>
+                                                    </wpp_bml_categorypage_size1>
+                                                    <wpp_bml_categorypage_size2 extends="//paypal_payments/wpp//wpp_bml_categorypage_size1">
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeCCPS</source_model>
+                                                        <depends><wpp_bml_categorypage_position>1</wpp_bml_categorypage_position></depends>
+                                                    </wpp_bml_categorypage_size2>
+                                                </fields>
+
+                                            </wpp_settings_bml_categorypage>
+                                            <wpp_settings_bml_productpage type="group" translate="label">
+                                                <label>Catalog Product Page</label>
+                                                <frontend_type>text</frontend_type>
+                                                <show_in_default>1</show_in_default>
+                                                <show_in_website>1</show_in_website>
+                                                <show_in_store>1</show_in_store>
+                                                <sort_order>40</sort_order>
+                                                <fields>
+                                                    <bml_productpage_display translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_productpage_display" />
+                                                    <wpp_bml_productpage_position translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_productpage_position" />
+                                                    <wpp_bml_productpage_size1 translate="label">
+                                                        <label>Size</label>
+                                                        <config_path>payment/paypal_express_bml/productpage_size</config_path>
+                                                        <frontend_type>select</frontend_type>
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeCPPC</source_model>
+                                                        <show_in_default>1</show_in_default>
+                                                        <show_in_website>1</show_in_website>
+                                                        <sort_order>30</sort_order>
+                                                        <shared>1</shared>
+                                                        <depends><wpp_bml_productpage_position>0</wpp_bml_productpage_position></depends>
+                                                    </wpp_bml_productpage_size1>
+                                                    <wpp_bml_productpage_size2 extends="//paypal_payments/wpp//wpp_bml_productpage_size1">
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeCPPN</source_model>
+                                                        <depends><wpp_bml_productpage_position>1</wpp_bml_productpage_position></depends>
+                                                    </wpp_bml_productpage_size2>
+                                                </fields>
+
+                                            </wpp_settings_bml_productpage>
+                                            <wpp_settings_bml_checkout type="group" translate="label">
+                                                <label>Checkout Cart Page</label>
+                                                <frontend_type>text</frontend_type>
+                                                <show_in_default>1</show_in_default>
+                                                <show_in_website>1</show_in_website>
+                                                <show_in_store>1</show_in_store>
+                                                <sort_order>50</sort_order>
+                                                <fields>
+                                                    <bml_checkout_display translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_checkout_display" />
+                                                    <wpp_bml_checkout_position translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_checkout_position" />
+                                                    <wpp_bml_checkout_size1 translate="label">
+                                                        <label>Size</label>
+                                                        <config_path>payment/paypal_express_bml/checkout_size</config_path>
+                                                        <frontend_type>select</frontend_type>
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeCheckoutC</source_model>
+                                                        <show_in_default>1</show_in_default>
+                                                        <show_in_website>1</show_in_website>
+                                                        <sort_order>30</sort_order>
+                                                        <shared>1</shared>
+                                                        <depends><wpp_bml_checkout_position>0</wpp_bml_checkout_position></depends>
+                                                    </wpp_bml_checkout_size1>
+                                                    <wpp_bml_checkout_size2 extends="//paypal_payments/wpp//wpp_bml_checkout_size1">
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeCheckoutN</source_model>
+                                                        <shared>1</shared>
+                                                        <depends><wpp_bml_checkout_position>1</wpp_bml_checkout_position></depends>
+                                                    </wpp_bml_checkout_size2>
+                                                </fields>
+
+                                            </wpp_settings_bml_checkout>
+                                        </fields>
+                                    </wpp_advertise_bml>
                                 </fields>
                             </wpp_required_settings>
 
@@ -1363,6 +1652,7 @@
                                             <solution_type extends="//paypal_payments/payflow_advanced//settings_express_checkout//solution_type" />
                                             <require_billing_address extends="//paypal_payments/payflow_advanced//settings_express_checkout//require_billing_address" />
                                             <allow_ba_signup extends="//paypal_payments/payflow_advanced//settings_express_checkout//allow_ba_signup" />
+                                            <skip_order_review_step extends="//paypal_payments/payflow_advanced//settings_express_checkout//skip_order_review_step" />
                                         </fields>
                                     </wpp_settings_express_checkout_advanced>
                                 </fields>
@@ -1407,6 +1697,10 @@
                                 <demo_link>http://www.youtube.com/watch?v=mdPjvziH_rk&amp;list=PLF18B1094ABCD7CE8&amp;index=6&amp;feature=plpp_video</demo_link>
                                 <comment>Accept credit cards, debit cards and PayPal payments securely.</comment>
                             </GB>
+                            <DE>
+                                <frontend_model>paypal/adminhtml_system_config_fieldset_deprecated</frontend_model>
+                                <was_enabled_path>payment/paypal_standard/was_active</was_enabled_path>
+                            </DE>
                         </backend_config>
                         <fields>
                             <wps_required_settings type="group" translate="label">
@@ -1880,6 +2174,154 @@
                                             <enable_paypal_payflow>
                                                 <frontend_class>paypal-enabler paypal-ec-pe</frontend_class>
                                             </enable_paypal_payflow>
+                                            <enable_express_checkout_bml_uk>
+                                                <label>Enable Bill Me Later</label>
+                                                <comment><![CDATA[PayPal Express Checkout Payflow Edition lets you give customers access to financing through Bill Me Later&#174; - at no additional cost to you.
+                                                You get paid up front, even though customers have more time to pay. A pre-integrated payment button lets customers pay quickly with Bill Me Later&#174;.
+                                                <a href="https://www.paypal.com/webapps/mpp/promotional-financing" target="_blank">Learn More</a>]]>
+                                                </comment>
+                                                <config_path>payment/paypaluk_express_bml/active</config_path>
+                                                <frontend_type>select</frontend_type>
+                                                <source_model>adminhtml/system_config_source_yesno</source_model>
+                                                <sort_order>21</sort_order>
+                                                <show_in_default>1</show_in_default>
+                                                <show_in_website>1</show_in_website>
+                                                <shared>1</shared>
+                                                <frontend_class>paypal-bml</frontend_class>
+                                                <requires>paypal_payflow_required_enable_paypal_payflow</requires>
+                                            </enable_express_checkout_bml_uk>
+                                            <paypal_payflow_advertise_bml type="group" translate="label comment">
+                                                <label>Advertise Bill Me Later</label>
+                                                <comment>
+                                                    <![CDATA[<a href="https://financing.paypal.com/ppfinportal/content/whyUseFinancing" target="_blank">Why Advertise Financing?</a><br/>
+                                                    <strong>Give your sales a boost when you advertise financing.</strong><br/>PayPal helps turn browsers into buyers with financing
+                                                    from Bill Me Later&#174;. Your customers have more time to pay, while you get paid up front – at no additional cost to you.
+                                                    Use PayPal’s free banner ads that let you advertise Bill Me Later&#174; financing as a payment option when your customers check out with PayPal.
+                                                    The PayPal Advertising Program has been shown to generate additional purchases as well as increase consumer's average purchase sizes by 15%
+                                                    or more. <a href="https://financing.paypal.com/ppfinportal/content/forrester" target="_blank">See Details</a>.]]>
+                                                </comment>
+                                                <frontend_type>text</frontend_type>
+                                                <show_in_default>1</show_in_default>
+                                                <show_in_website>1</show_in_website>
+                                                <sort_order>22</sort_order>
+                                                <fields>
+                                                    <bml_publisher_id extends="//paypal_payments/express_checkout//advertise_bml//bml_publisher_id" />
+                                                    <bml_wizard extends="//paypal_payments/express_checkout//advertise_bml//bml_wizard" />
+                                                    <paypal_payflow_settings_bml_homepage type="group" translate="label">
+                                                        <label>Home Page</label>
+                                                        <frontend_type>text</frontend_type>
+                                                        <show_in_default>1</show_in_default>
+                                                        <show_in_website>1</show_in_website>
+                                                        <show_in_store>1</show_in_store>
+                                                        <sort_order>20</sort_order>
+                                                        <fields>
+                                                            <bml_homepage_display translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_homepage_display"/>
+                                                            <paypal_payflow_bml_homepage_position translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_homepage_position"/>
+                                                            <paypal_payflow_bml_homepage_size1 translate="label">
+                                                                <label>Size</label>
+                                                                <config_path>payment/paypal_express_bml/homepage_size</config_path>
+                                                                <frontend_type>select</frontend_type>
+                                                                <source_model>paypal/system_config_source_bmlSize::getBmlSizeHPH</source_model>
+                                                                <show_in_default>1</show_in_default>
+                                                                <show_in_website>1</show_in_website>
+                                                                <sort_order>30</sort_order>
+                                                                <shared>1</shared>
+                                                                <depends><paypal_payflow_bml_homepage_position>0</paypal_payflow_bml_homepage_position></depends>
+                                                            </paypal_payflow_bml_homepage_size1>
+                                                            <paypal_payflow_bml_homepage_size2 extends="//paypal_payments/paypal_verisign_with_express_checkout//paypal_payflow_bml_homepage_size1">
+                                                                <source_model>paypal/system_config_source_bmlSize::getBmlSizeHPS</source_model>
+                                                                <depends><paypal_payflow_bml_homepage_position>1</paypal_payflow_bml_homepage_position></depends>
+                                                            </paypal_payflow_bml_homepage_size2>
+                                                        </fields>
+                                                    </paypal_payflow_settings_bml_homepage>
+                                                    <paypal_payflow_settings_bml_categorypage type="group" translate="label">
+                                                        <label>Catalog Category Page</label>
+                                                        <frontend_type>text</frontend_type>
+                                                        <show_in_default>1</show_in_default>
+                                                        <show_in_website>1</show_in_website>
+                                                        <show_in_store>1</show_in_store>
+                                                        <sort_order>30</sort_order>
+                                                        <fields>
+                                                            <bml_categorypage_display translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_categorypage_display"/>
+                                                            <paypal_payflow_bml_categorypage_position translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_categorypage_position" />
+                                                            <paypal_payflow_bml_categorypage_size1 translate="label">
+                                                                <label>Size</label>
+                                                                <config_path>payment/paypal_express_bml/categorypage_size</config_path>
+                                                                <frontend_type>select</frontend_type>
+                                                                <source_model>paypal/system_config_source_bmlSize::getBmlSizeCCPC</source_model>
+                                                                <show_in_default>1</show_in_default>
+                                                                <show_in_website>1</show_in_website>
+                                                                <sort_order>30</sort_order>
+                                                                <shared>1</shared>
+                                                                <depends><paypal_payflow_bml_categorypage_position>0</paypal_payflow_bml_categorypage_position></depends>
+                                                            </paypal_payflow_bml_categorypage_size1>
+                                                            <paypal_payflow_bml_categorypage_size2 extends="//paypal_payments/paypal_verisign_with_express_checkout//paypal_payflow_bml_categorypage_size1">
+                                                                <source_model>paypal/system_config_source_bmlSize::getBmlSizeCCPS</source_model>
+                                                                <depends><paypal_payflow_bml_categorypage_position>1</paypal_payflow_bml_categorypage_position></depends>
+                                                            </paypal_payflow_bml_categorypage_size2>
+                                                        </fields>
+
+                                                    </paypal_payflow_settings_bml_categorypage>
+                                                    <paypal_payflow_settings_bml_productpage type="group" translate="label">
+                                                        <label>Catalog Product Page</label>
+                                                        <frontend_type>text</frontend_type>
+                                                        <show_in_default>1</show_in_default>
+                                                        <show_in_website>1</show_in_website>
+                                                        <show_in_store>1</show_in_store>
+                                                        <sort_order>40</sort_order>
+                                                        <fields>
+                                                            <bml_productpage_display translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_productpage_display" />
+                                                            <paypal_payflow_bml_productpage_position translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_productpage_position" />
+                                                            <paypal_payflow_bml_productpage_size1 translate="label">
+                                                                <label>Size</label>
+                                                                <config_path>payment/paypal_express_bml/productpage_size</config_path>
+                                                                <frontend_type>select</frontend_type>
+                                                                <source_model>paypal/system_config_source_bmlSize::getBmlSizeCPPC</source_model>
+                                                                <show_in_default>1</show_in_default>
+                                                                <show_in_website>1</show_in_website>
+                                                                <sort_order>30</sort_order>
+                                                                <shared>1</shared>
+                                                                <depends><paypal_payflow_bml_productpage_position>0</paypal_payflow_bml_productpage_position></depends>
+                                                            </paypal_payflow_bml_productpage_size1>
+                                                            <paypal_payflow_bml_productpage_size2 extends="//paypal_payments/paypal_verisign_with_express_checkout//paypal_payflow_bml_productpage_size1">
+                                                                <source_model>paypal/system_config_source_bmlSize::getBmlSizeCPPN</source_model>
+                                                                <depends><paypal_payflow_bml_productpage_position>1</paypal_payflow_bml_productpage_position></depends>
+                                                            </paypal_payflow_bml_productpage_size2>
+                                                        </fields>
+
+                                                    </paypal_payflow_settings_bml_productpage>
+                                                    <paypal_payflow_settings_bml_checkout type="group" translate="label">
+                                                        <label>Checkout Cart Page</label>
+                                                        <frontend_type>text</frontend_type>
+                                                        <show_in_default>1</show_in_default>
+                                                        <show_in_website>1</show_in_website>
+                                                        <show_in_store>1</show_in_store>
+                                                        <sort_order>50</sort_order>
+                                                        <fields>
+                                                            <bml_checkout_display translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_checkout_display" />
+                                                            <paypal_payflow_bml_checkout_position translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_checkout_position" />
+                                                            <paypal_payflow_bml_checkout_size1 translate="label">
+                                                                <label>Size</label>
+                                                                <config_path>payment/paypal_express_bml/checkout_size</config_path>
+                                                                <frontend_type>select</frontend_type>
+                                                                <source_model>paypal/system_config_source_bmlSize::getBmlSizeCheckoutC</source_model>
+                                                                <show_in_default>1</show_in_default>
+                                                                <show_in_website>1</show_in_website>
+                                                                <sort_order>30</sort_order>
+                                                                <shared>1</shared>
+                                                                <depends><paypal_payflow_bml_checkout_position>0</paypal_payflow_bml_checkout_position></depends>
+                                                            </paypal_payflow_bml_checkout_size1>
+                                                            <paypal_payflow_bml_checkout_size2 extends="//paypal_payments/paypal_verisign_with_express_checkout//paypal_payflow_bml_checkout_size1">
+                                                                <source_model>paypal/system_config_source_bmlSize::getBmlSizeCheckoutN</source_model>
+                                                                <shared>1</shared>
+                                                                <depends><paypal_payflow_bml_checkout_position>1</paypal_payflow_bml_checkout_position></depends>
+                                                            </paypal_payflow_bml_checkout_size2>
+                                                        </fields>
+
+                                                    </paypal_payflow_settings_bml_checkout>
+                                                </fields>
+                                            </paypal_payflow_advertise_bml>
+
                                         </fields>
                                     </paypal_payflow_required>
                                 </fields>
@@ -2216,6 +2658,145 @@
                                         <requires>payflow_link_required_enable_payflow_link,payflow_link_express_checkout</requires>
                                         <frontend_class>paypal-enabler paypal-ec-enabler</frontend_class>
                                     </enable_express_checkout>
+                                    <enable_express_checkout_bml  extends="//paypal_payments/express_checkout//enable_express_checkout_bml">
+                                        <comment><![CDATA[Payflow Link lets you give customers access to financing through Bill Me Later&#174; - at no additional cost to you.
+                                        You get paid up front, even though customers have more time to pay. A pre-integrated payment button lets customers pay quickly with Bill Me Later&#174;.
+                                        <a href="https://www.paypal.com/webapps/mpp/promotional-financing" target="_blank">Learn More</a>]]>
+                                        </comment>
+                                        <sort_order>41</sort_order>
+                                        <requires>payflow_link_required_enable_express_checkout</requires>
+                                    </enable_express_checkout_bml>
+                                    <payflow_link_advertise_bml type="group" translate="label comment">
+                                        <label>Advertise Bill Me Later</label>
+                                        <comment>
+                                            <![CDATA[<a href="https://financing.paypal.com/ppfinportal/content/whyUseFinancing" target="_blank">Why Advertise Financing?</a><br/>
+                                            <strong>Give your sales a boost when you advertise financing.</strong><br/>PayPal helps turn browsers into buyers with financing
+                                            from Bill Me Later&#174;. Your customers have more time to pay, while you get paid up front – at no additional cost to you.
+                                            Use PayPal’s free banner ads that let you advertise Bill Me Later&#174; financing as a payment option when your customers check out with PayPal.
+                                            The PayPal Advertising Program has been shown to generate additional purchases as well as increase consumer's average purchase sizes by 15%
+                                            or more. <a href="https://financing.paypal.com/ppfinportal/content/forrester" target="_blank">See Details</a>.]]>
+                                        </comment>
+                                        <frontend_type>text</frontend_type>
+                                        <show_in_default>1</show_in_default>
+                                        <show_in_website>1</show_in_website>
+                                        <sort_order>42</sort_order>
+                                        <fields>
+                                            <bml_publisher_id extends="//paypal_payments/express_checkout//advertise_bml//bml_publisher_id" />
+                                            <bml_wizard extends="//paypal_payments/express_checkout//advertise_bml//bml_wizard" />
+                                            <payflow_link_settings_bml_homepage type="group" translate="label">
+                                                <label>Home Page</label>
+                                                <frontend_type>text</frontend_type>
+                                                <show_in_default>1</show_in_default>
+                                                <show_in_website>1</show_in_website>
+                                                <show_in_store>1</show_in_store>
+                                                <sort_order>20</sort_order>
+                                                <fields>
+                                                    <bml_homepage_display translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_homepage_display"/>
+                                                    <payflow_link_bml_homepage_position translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_homepage_position"/>
+                                                    <payflow_link_bml_homepage_size1 translate="label">
+                                                        <label>Size</label>
+                                                        <config_path>payment/paypal_express_bml/homepage_size</config_path>
+                                                        <frontend_type>select</frontend_type>
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeHPH</source_model>
+                                                        <show_in_default>1</show_in_default>
+                                                        <show_in_website>1</show_in_website>
+                                                        <sort_order>30</sort_order>
+                                                        <shared>1</shared>
+                                                        <depends><payflow_link_bml_homepage_position>0</payflow_link_bml_homepage_position></depends>
+                                                    </payflow_link_bml_homepage_size1>
+                                                    <payflow_link_bml_homepage_size2 extends="//paypal_payments/payflow_link//payflow_link_bml_homepage_size1">
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeHPS</source_model>
+                                                        <depends><payflow_link_bml_homepage_position>1</payflow_link_bml_homepage_position></depends>
+                                                    </payflow_link_bml_homepage_size2>
+                                                </fields>
+                                            </payflow_link_settings_bml_homepage>
+                                            <payflow_link_settings_bml_categorypage type="group" translate="label">
+                                                <label>Catalog Category Page</label>
+                                                <frontend_type>text</frontend_type>
+                                                <show_in_default>1</show_in_default>
+                                                <show_in_website>1</show_in_website>
+                                                <show_in_store>1</show_in_store>
+                                                <sort_order>30</sort_order>
+                                                <fields>
+                                                    <bml_categorypage_display translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_categorypage_display"/>
+                                                    <payflow_link_bml_categorypage_position translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_categorypage_position" />
+                                                    <payflow_link_bml_categorypage_size1 translate="label">
+                                                        <label>Size</label>
+                                                        <config_path>payment/paypal_express_bml/categorypage_size</config_path>
+                                                        <frontend_type>select</frontend_type>
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeCCPC</source_model>
+                                                        <show_in_default>1</show_in_default>
+                                                        <show_in_website>1</show_in_website>
+                                                        <sort_order>30</sort_order>
+                                                        <shared>1</shared>
+                                                        <depends><payflow_link_bml_categorypage_position>0</payflow_link_bml_categorypage_position></depends>
+                                                    </payflow_link_bml_categorypage_size1>
+                                                    <payflow_link_bml_categorypage_size2 extends="//paypal_payments/payflow_link//payflow_link_bml_categorypage_size1">
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeCCPS</source_model>
+                                                        <depends><payflow_link_bml_categorypage_position>1</payflow_link_bml_categorypage_position></depends>
+                                                    </payflow_link_bml_categorypage_size2>
+                                                </fields>
+
+                                            </payflow_link_settings_bml_categorypage>
+                                            <payflow_link_settings_bml_productpage type="group" translate="label">
+                                                <label>Catalog Product Page</label>
+                                                <frontend_type>text</frontend_type>
+                                                <show_in_default>1</show_in_default>
+                                                <show_in_website>1</show_in_website>
+                                                <show_in_store>1</show_in_store>
+                                                <sort_order>40</sort_order>
+                                                <fields>
+                                                    <bml_productpage_display translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_productpage_display" />
+                                                    <payflow_link_bml_productpage_position translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_productpage_position" />
+                                                    <payflow_link_bml_productpage_size1 translate="label">
+                                                        <label>Size</label>
+                                                        <config_path>payment/paypal_express_bml/productpage_size</config_path>
+                                                        <frontend_type>select</frontend_type>
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeCPPC</source_model>
+                                                        <show_in_default>1</show_in_default>
+                                                        <show_in_website>1</show_in_website>
+                                                        <sort_order>30</sort_order>
+                                                        <shared>1</shared>
+                                                        <depends><payflow_link_bml_productpage_position>0</payflow_link_bml_productpage_position></depends>
+                                                    </payflow_link_bml_productpage_size1>
+                                                    <payflow_link_bml_productpage_size2 extends="//paypal_payments/payflow_link//payflow_link_bml_productpage_size1">
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeCPPN</source_model>
+                                                        <depends><payflow_link_bml_productpage_position>1</payflow_link_bml_productpage_position></depends>
+                                                    </payflow_link_bml_productpage_size2>
+                                                </fields>
+
+                                            </payflow_link_settings_bml_productpage>
+                                            <payflow_link_settings_bml_checkout type="group" translate="label">
+                                                <label>Checkout Cart Page</label>
+                                                <frontend_type>text</frontend_type>
+                                                <show_in_default>1</show_in_default>
+                                                <show_in_website>1</show_in_website>
+                                                <show_in_store>1</show_in_store>
+                                                <sort_order>50</sort_order>
+                                                <fields>
+                                                    <bml_checkout_display translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_checkout_display" />
+                                                    <payflow_link_bml_checkout_position translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_checkout_position" />
+                                                    <payflow_link_bml_checkout_size1 translate="label">
+                                                        <label>Size</label>
+                                                        <config_path>payment/paypal_express_bml/checkout_size</config_path>
+                                                        <frontend_type>select</frontend_type>
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeCheckoutC</source_model>
+                                                        <show_in_default>1</show_in_default>
+                                                        <show_in_website>1</show_in_website>
+                                                        <sort_order>30</sort_order>
+                                                        <shared>1</shared>
+                                                        <depends><payflow_link_bml_checkout_position>0</payflow_link_bml_checkout_position></depends>
+                                                    </payflow_link_bml_checkout_size1>
+                                                    <payflow_link_bml_checkout_size2 extends="//paypal_payments/payflow_link//payflow_link_bml_checkout_size1">
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeCheckoutN</source_model>
+                                                        <shared>1</shared>
+                                                        <depends><payflow_link_bml_checkout_position>1</payflow_link_bml_checkout_position></depends>
+                                                    </payflow_link_bml_checkout_size2>
+                                                </fields>
+
+                                            </payflow_link_settings_bml_checkout>
+                                        </fields>
+                                    </payflow_link_advertise_bml>
                                 </fields>
                             </payflow_link_required>
                             <settings_payflow_link type="group" translate="label">
@@ -2416,6 +2997,7 @@
                                             <solution_type extends="//paypal_payments/payflow_advanced//settings_express_checkout//solution_type" />
                                             <require_billing_address extends="//paypal_payments/payflow_advanced//settings_express_checkout//require_billing_address" />
                                             <allow_ba_signup extends="//paypal_payments/payflow_advanced//settings_express_checkout//allow_ba_signup" />
+                                            <skip_order_review_step extends="//paypal_payments/payflow_advanced//settings_express_checkout//skip_order_review_step" />
 
                                             <payflow_link_billing_agreement type="group" translate="label">
                                                 <label>PayPal Billing Agreement Settings</label>
@@ -2451,7 +3033,8 @@
                         <sort_order>40</sort_order>
                         <group>paypal_group_all_in_one</group>
                         <frontend_class>pp-general-uk</frontend_class>
-                        <frontend_model>paypal/adminhtml_system_config_fieldset_payment</frontend_model>
+                        <frontend_model>paypal/adminhtml_system_config_fieldset_deprecated</frontend_model>
+                        <was_enabled_path>payment/paypaluk_direct/was_active</was_enabled_path>
                         <activity_path>payment/paypaluk_direct/active</activity_path>
                         <comment>Accept payments in your shopping cart. PayPal will process your card payments through the Payflow Gateway.</comment>
                         <backend_config>
@@ -2562,6 +3145,142 @@
                                         <requires>pp_pe_api_settings</requires>
                                         <frontend_class>paypal-enabler paypal-ec-pe</frontend_class>
                                     </enable_pp_pe>
+                                    <enable_express_checkout_bml_uk_pp_pe extends="//paypal_payments/paypal_verisign_with_express_checkout//enable_express_checkout_bml_uk" translate="label comment">
+                                        <requires>pp_pe_required_settings_enable_pp_pe</requires>
+                                    </enable_express_checkout_bml_uk_pp_pe>
+                                    <payments_pro_payflow_edition_advertise_bml type="group" translate="label comment">
+                                        <label>Advertise Bill Me Later</label>
+                                        <comment>
+                                            <![CDATA[<a href="https://financing.paypal.com/ppfinportal/content/whyUseFinancing" target="_blank">Why Advertise Financing?</a><br/>
+                                                    <strong>Give your sales a boost when you advertise financing.</strong><br/>PayPal helps turn browsers into buyers with financing
+                                                    from Bill Me Later&#174;. Your customers have more time to pay, while you get paid up front – at no additional cost to you.
+                                                    Use PayPal’s free banner ads that let you advertise Bill Me Later&#174; financing as a payment option when your customers check out with PayPal.
+                                                    The PayPal Advertising Program has been shown to generate additional purchases as well as increase consumer's average purchase sizes by 15%
+                                                    or more. <a href="https://financing.paypal.com/ppfinportal/content/forrester" target="_blank">See Details</a>.]]>
+                                        </comment>
+                                        <frontend_type>text</frontend_type>
+                                        <show_in_default>1</show_in_default>
+                                        <show_in_website>1</show_in_website>
+                                        <sort_order>22</sort_order>
+                                        <fields>
+                                            <bml_publisher_id extends="//paypal_payments/express_checkout//advertise_bml//bml_publisher_id" />
+                                            <bml_wizard extends="//paypal_payments/express_checkout//advertise_bml//bml_wizard" />
+                                            <payments_pro_payflow_edition_settings_bml_homepage type="group" translate="label">
+                                                <label>Home Page</label>
+                                                <frontend_type>text</frontend_type>
+                                                <show_in_default>1</show_in_default>
+                                                <show_in_website>1</show_in_website>
+                                                <show_in_store>1</show_in_store>
+                                                <sort_order>20</sort_order>
+                                                <fields>
+                                                    <bml_homepage_display translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_homepage_display"/>
+                                                    <payments_pro_payflow_edition_bml_homepage_position translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_homepage_position"/>
+                                                    <payments_pro_payflow_edition_bml_homepage_size1 translate="label">
+                                                        <label>Size</label>
+                                                        <config_path>payment/paypal_express_bml/homepage_size</config_path>
+                                                        <frontend_type>select</frontend_type>
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeHPH</source_model>
+                                                        <show_in_default>1</show_in_default>
+                                                        <show_in_website>1</show_in_website>
+                                                        <sort_order>30</sort_order>
+                                                        <shared>1</shared>
+                                                        <depends><payments_pro_payflow_edition_bml_homepage_position>0</payments_pro_payflow_edition_bml_homepage_position></depends>
+                                                    </payments_pro_payflow_edition_bml_homepage_size1>
+                                                    <payments_pro_payflow_edition_bml_homepage_size2 extends="//paypal_payments/payments_pro_payflow_edition//payments_pro_payflow_edition_bml_homepage_size1">
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeHPS</source_model>
+                                                        <depends><payments_pro_payflow_edition_bml_homepage_position>1</payments_pro_payflow_edition_bml_homepage_position></depends>
+                                                    </payments_pro_payflow_edition_bml_homepage_size2>
+                                                </fields>
+                                            </payments_pro_payflow_edition_settings_bml_homepage>
+                                            <payments_pro_payflow_edition_settings_bml_categorypage type="group" translate="label">
+                                                <label>Catalog Category Page</label>
+                                                <frontend_type>text</frontend_type>
+                                                <show_in_default>1</show_in_default>
+                                                <show_in_website>1</show_in_website>
+                                                <show_in_store>1</show_in_store>
+                                                <sort_order>30</sort_order>
+                                                <fields>
+                                                    <bml_categorypage_display translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_categorypage_display"/>
+                                                    <payments_pro_payflow_edition_bml_categorypage_position translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_categorypage_position" />
+                                                    <payments_pro_payflow_edition_bml_categorypage_size1 translate="label">
+                                                        <label>Size</label>
+                                                        <config_path>payment/paypal_express_bml/categorypage_size</config_path>
+                                                        <frontend_type>select</frontend_type>
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeCCPC</source_model>
+                                                        <show_in_default>1</show_in_default>
+                                                        <show_in_website>1</show_in_website>
+                                                        <sort_order>30</sort_order>
+                                                        <shared>1</shared>
+                                                        <depends><payments_pro_payflow_edition_bml_categorypage_position>0</payments_pro_payflow_edition_bml_categorypage_position></depends>
+                                                    </payments_pro_payflow_edition_bml_categorypage_size1>
+                                                    <payments_pro_payflow_edition_bml_categorypage_size2 extends="//paypal_payments/payments_pro_payflow_edition//payments_pro_payflow_edition_bml_categorypage_size1">
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeCCPS</source_model>
+                                                        <depends><payments_pro_payflow_edition_bml_categorypage_position>1</payments_pro_payflow_edition_bml_categorypage_position></depends>
+                                                    </payments_pro_payflow_edition_bml_categorypage_size2>
+                                                </fields>
+                                            </payments_pro_payflow_edition_settings_bml_categorypage>
+                                            <payments_pro_payflow_edition_settings_bml_productpage type="group" translate="label">
+                                                <label>Catalog Product Page</label>
+                                                <frontend_type>text</frontend_type>
+                                                <show_in_default>1</show_in_default>
+                                                <show_in_website>1</show_in_website>
+                                                <show_in_store>1</show_in_store>
+                                                <sort_order>40</sort_order>
+                                                <fields>
+                                                    <bml_productpage_display translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_productpage_display" />
+                                                    <payments_pro_payflow_edition_bml_productpage_position translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_productpage_position" />
+                                                    <payments_pro_payflow_edition_bml_productpage_size1 translate="label">
+                                                        <label>Size</label>
+                                                        <config_path>payment/paypal_express_bml/productpage_size</config_path>
+                                                        <frontend_type>select</frontend_type>
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeCPPC</source_model>
+                                                        <show_in_default>1</show_in_default>
+                                                        <show_in_website>1</show_in_website>
+                                                        <sort_order>30</sort_order>
+                                                        <shared>1</shared>
+                                                        <depends><payments_pro_payflow_edition_bml_productpage_position>0</payments_pro_payflow_edition_bml_productpage_position></depends>
+                                                    </payments_pro_payflow_edition_bml_productpage_size1>
+                                                    <payments_pro_payflow_edition_bml_productpage_size2 extends="//paypal_payments/payments_pro_payflow_edition//payments_pro_payflow_edition_bml_productpage_size1">
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeCPPN</source_model>
+                                                        <depends><payments_pro_payflow_edition_bml_productpage_position>1</payments_pro_payflow_edition_bml_productpage_position></depends>
+                                                    </payments_pro_payflow_edition_bml_productpage_size2>
+                                                </fields>
+                                            </payments_pro_payflow_edition_settings_bml_productpage>
+                                            <payments_pro_payflow_edition_settings_bml_checkout type="group" translate="label">
+                                                <label>Checkout Cart Page</label>
+                                                <frontend_type>text</frontend_type>
+                                                <show_in_default>1</show_in_default>
+                                                <show_in_website>1</show_in_website>
+                                                <show_in_store>1</show_in_store>
+                                                <sort_order>50</sort_order>
+                                                <fields>
+                                                    <bml_checkout_display translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_checkout_display" />
+                                                    <payments_pro_payflow_edition_bml_checkout_position translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_checkout_position" />
+                                                    <payments_pro_payflow_edition_bml_checkout_size1 translate="label">
+                                                        <label>Size</label>
+                                                        <config_path>payment/paypal_express_bml/checkout_size</config_path>
+                                                        <frontend_type>select</frontend_type>
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeCheckoutC</source_model>
+                                                        <show_in_default>1</show_in_default>
+                                                        <show_in_website>1</show_in_website>
+                                                        <sort_order>30</sort_order>
+                                                        <shared>1</shared>
+                                                        <depends><payments_pro_payflow_edition_bml_checkout_position>0</payments_pro_payflow_edition_bml_checkout_position></depends>
+                                                    </payments_pro_payflow_edition_bml_checkout_size1>
+                                                    <payments_pro_payflow_edition_bml_checkout_size2 extends="//paypal_payments/payments_pro_payflow_edition//payments_pro_payflow_edition_bml_checkout_size1">
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeCheckoutN</source_model>
+                                                        <shared>1</shared>
+                                                        <depends><payments_pro_payflow_edition_bml_checkout_position>1</payments_pro_payflow_edition_bml_checkout_position></depends>
+                                                    </payments_pro_payflow_edition_bml_checkout_size2>
+                                                </fields>
+                                            </payments_pro_payflow_edition_settings_bml_checkout>
+                                        </fields>
+                                    </payments_pro_payflow_edition_advertise_bml>
+
+
+
+
+
                                 </fields>
                             </pp_pe_required_settings>
                             <settings_pp_pe type="group" translate="label">
@@ -2903,6 +3622,145 @@
                                         <requires>pphs_required_settings_pphs</requires>
                                         <frontend_class>paypal-enabler paypal-ec-separate</frontend_class>
                                     </pphs_enable>
+                                    <enable_express_checkout_bml  extends="//paypal_payments/express_checkout//enable_express_checkout_bml">
+                                        <comment><![CDATA[Payments Pro Hosted Solution lets you give customers access to financing through Bill Me Later&#174; - at no additional cost to you.
+                                        You get paid up front, even though customers have more time to pay. A pre-integrated payment button lets customers pay quickly with Bill Me Later&#174;.
+                                        <a href="https://www.paypal.com/webapps/mpp/promotional-financing" target="_blank">Learn More</a>]]>
+                                        </comment>
+                                        <sort_order>21</sort_order>
+                                        <requires>pphs_required_settings_pphs_enable</requires>
+                                    </enable_express_checkout_bml>
+                                    <pphs_advertise_bml type="group" translate="label comment">
+                                        <label>Advertise Bill Me Later</label>
+                                        <comment>
+                                            <![CDATA[<a href="https://financing.paypal.com/ppfinportal/content/whyUseFinancing" target="_blank">Why Advertise Financing?</a><br/>
+                                            <strong>Give your sales a boost when you advertise financing.</strong><br/>PayPal helps turn browsers into buyers with financing
+                                            from Bill Me Later&#174;. Your customers have more time to pay, while you get paid up front – at no additional cost to you.
+                                            Use PayPal’s free banner ads that let you advertise Bill Me Later&#174; financing as a payment option when your customers check out with PayPal.
+                                            The PayPal Advertising Program has been shown to generate additional purchases as well as increase consumer's average purchase sizes by 15%
+                                            or more. <a href="https://financing.paypal.com/ppfinportal/content/forrester" target="_blank">See Details</a>.]]>
+                                        </comment>
+                                        <frontend_type>text</frontend_type>
+                                        <show_in_default>1</show_in_default>
+                                        <show_in_website>1</show_in_website>
+                                        <sort_order>22</sort_order>
+                                        <fields>
+                                            <bml_publisher_id extends="//paypal_payments/express_checkout//advertise_bml//bml_publisher_id" />
+                                            <bml_wizard extends="//paypal_payments/express_checkout//advertise_bml//bml_wizard" />
+                                            <pphs_settings_bml_homepage type="group" translate="label">
+                                                <label>Home Page</label>
+                                                <frontend_type>text</frontend_type>
+                                                <show_in_default>1</show_in_default>
+                                                <show_in_website>1</show_in_website>
+                                                <show_in_store>1</show_in_store>
+                                                <sort_order>20</sort_order>
+                                                <fields>
+                                                    <bml_homepage_display translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_homepage_display"/>
+                                                    <pphs_bml_homepage_position translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_homepage_position"/>
+                                                    <pphs_bml_homepage_size1 translate="label">
+                                                        <label>Size</label>
+                                                        <config_path>payment/paypal_express_bml/homepage_size</config_path>
+                                                        <frontend_type>select</frontend_type>
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeHPH</source_model>
+                                                        <show_in_default>1</show_in_default>
+                                                        <show_in_website>1</show_in_website>
+                                                        <sort_order>30</sort_order>
+                                                        <shared>1</shared>
+                                                        <depends><pphs_bml_homepage_position>0</pphs_bml_homepage_position></depends>
+                                                    </pphs_bml_homepage_size1>
+                                                    <pphs_bml_homepage_size2 extends="//paypal_payments/payments_pro_hosted_solution//pphs_bml_homepage_size1">
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeHPS</source_model>
+                                                        <depends><pphs_bml_homepage_position>1</pphs_bml_homepage_position></depends>
+                                                    </pphs_bml_homepage_size2>
+                                                </fields>
+                                            </pphs_settings_bml_homepage>
+                                            <pphs_settings_bml_categorypage type="group" translate="label">
+                                                <label>Catalog Category Page</label>
+                                                <frontend_type>text</frontend_type>
+                                                <show_in_default>1</show_in_default>
+                                                <show_in_website>1</show_in_website>
+                                                <show_in_store>1</show_in_store>
+                                                <sort_order>30</sort_order>
+                                                <fields>
+                                                    <bml_categorypage_display translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_categorypage_display"/>
+                                                    <pphs_bml_categorypage_position translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_categorypage_position" />
+                                                    <pphs_bml_categorypage_size1 translate="label">
+                                                        <label>Size</label>
+                                                        <config_path>payment/paypal_express_bml/categorypage_size</config_path>
+                                                        <frontend_type>select</frontend_type>
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeCCPC</source_model>
+                                                        <show_in_default>1</show_in_default>
+                                                        <show_in_website>1</show_in_website>
+                                                        <sort_order>30</sort_order>
+                                                        <shared>1</shared>
+                                                        <depends><pphs_bml_categorypage_position>0</pphs_bml_categorypage_position></depends>
+                                                    </pphs_bml_categorypage_size1>
+                                                    <pphs_bml_categorypage_size2 extends="//paypal_payments/payments_pro_hosted_solution//pphs_bml_categorypage_size1">
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeCCPS</source_model>
+                                                        <depends><pphs_bml_categorypage_position>1</pphs_bml_categorypage_position></depends>
+                                                    </pphs_bml_categorypage_size2>
+                                                </fields>
+
+                                            </pphs_settings_bml_categorypage>
+                                            <pphs_settings_bml_productpage type="group" translate="label">
+                                                <label>Catalog Product Page</label>
+                                                <frontend_type>text</frontend_type>
+                                                <show_in_default>1</show_in_default>
+                                                <show_in_website>1</show_in_website>
+                                                <show_in_store>1</show_in_store>
+                                                <sort_order>40</sort_order>
+                                                <fields>
+                                                    <bml_productpage_display translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_productpage_display" />
+                                                    <pphs_bml_productpage_position translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_productpage_position" />
+                                                    <pphs_bml_productpage_size1 translate="label">
+                                                        <label>Size</label>
+                                                        <config_path>payment/paypal_express_bml/productpage_size</config_path>
+                                                        <frontend_type>select</frontend_type>
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeCPPC</source_model>
+                                                        <show_in_default>1</show_in_default>
+                                                        <show_in_website>1</show_in_website>
+                                                        <sort_order>30</sort_order>
+                                                        <shared>1</shared>
+                                                        <depends><pphs_bml_productpage_position>0</pphs_bml_productpage_position></depends>
+                                                    </pphs_bml_productpage_size1>
+                                                    <pphs_bml_productpage_size2 extends="//paypal_payments/payments_pro_hosted_solution//pphs_bml_productpage_size1">
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeCPPN</source_model>
+                                                        <depends><pphs_bml_productpage_position>1</pphs_bml_productpage_position></depends>
+                                                    </pphs_bml_productpage_size2>
+                                                </fields>
+
+                                            </pphs_settings_bml_productpage>
+                                            <pphs_settings_bml_checkout type="group" translate="label">
+                                                <label>Checkout Cart Page</label>
+                                                <frontend_type>text</frontend_type>
+                                                <show_in_default>1</show_in_default>
+                                                <show_in_website>1</show_in_website>
+                                                <show_in_store>1</show_in_store>
+                                                <sort_order>50</sort_order>
+                                                <fields>
+                                                    <bml_checkout_display translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_checkout_display" />
+                                                    <pphs_bml_checkout_position translate="label" extends="//paypal_payments/express_checkout//advertise_bml//bml_checkout_position" />
+                                                    <pphs_bml_checkout_size1 translate="label">
+                                                        <label>Size</label>
+                                                        <config_path>payment/paypal_express_bml/checkout_size</config_path>
+                                                        <frontend_type>select</frontend_type>
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeCheckoutC</source_model>
+                                                        <show_in_default>1</show_in_default>
+                                                        <show_in_website>1</show_in_website>
+                                                        <sort_order>30</sort_order>
+                                                        <shared>1</shared>
+                                                        <depends><pphs_bml_checkout_position>0</pphs_bml_checkout_position></depends>
+                                                    </pphs_bml_checkout_size1>
+                                                    <pphs_bml_checkout_size2 extends="//paypal_payments/payments_pro_hosted_solution//pphs_bml_checkout_size1">
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeCheckoutN</source_model>
+                                                        <shared>1</shared>
+                                                        <depends><pphs_bml_checkout_position>1</pphs_bml_checkout_position></depends>
+                                                    </pphs_bml_checkout_size2>
+                                                </fields>
+
+                                            </pphs_settings_bml_checkout>
+                                        </fields>
+                                    </pphs_advertise_bml>
                                 </fields>
                             </pphs_required_settings>
                             <pphs_settings type="group" translate="label">
@@ -3151,6 +4009,7 @@
                                             <solution_type extends="//paypal_payments/payflow_advanced//settings_express_checkout//solution_type" />
                                             <require_billing_address extends="//paypal_payments/payflow_advanced//settings_express_checkout//require_billing_address" />
                                             <allow_ba_signup extends="//paypal_payments/payflow_advanced//settings_express_checkout//allow_ba_signup" />
+                                            <skip_order_review_step extends="//paypal_payments/payflow_advanced//settings_express_checkout//skip_order_review_step" />
                                         </fields>
                                     </pphs_settings_express_checkout_advanced>
                                 </fields>
@@ -3224,6 +4083,238 @@
                                         <requires>express_checkout_required_express_checkout</requires>
                                         <frontend_class>paypal-enabler paypal-ec-enabler</frontend_class>
                                     </enable_express_checkout>
+                                    <enable_express_checkout_bml translate="label comment">
+                                        <label>Enable Bill Me Later</label>
+                                        <comment><![CDATA[PayPal Express Checkout lets you give customers access to financing through Bill Me Later&#174; - at no additional cost to you.
+                                        You get paid up front, even though customers have more time to pay. A pre-integrated payment button lets customers pay quickly with Bill Me Later&#174;.
+                                        <a href="https://www.paypal.com/webapps/mpp/promotional-financing" target="_blank">Learn More</a>]]>
+                                        </comment>
+                                        <config_path>payment/paypal_express_bml/active</config_path>
+                                        <frontend_type>select</frontend_type>
+                                        <source_model>adminhtml/system_config_source_yesno</source_model>
+                                        <sort_order>21</sort_order>
+                                        <show_in_default>1</show_in_default>
+                                        <show_in_website>1</show_in_website>
+                                        <shared>1</shared>
+                                        <requires>express_checkout_required_enable_express_checkout</requires>
+                                        <frontend_class>paypal-bml</frontend_class>
+                                    </enable_express_checkout_bml>
+                                    <advertise_bml type="group" translate="label comment">
+                                        <label>Advertise Bill Me Later</label>
+                                        <comment>
+                                            <![CDATA[<a href="https://financing.paypal.com/ppfinportal/content/whyUseFinancing" target="_blank">Why Advertise Financing?</a><br/>
+                                            <strong>Give your sales a boost when you advertise financing.</strong><br/>PayPal helps turn browsers into buyers with financing
+                                            from Bill Me Later&#174;. Your customers have more time to pay, while you get paid up front – at no additional cost to you.
+                                            Use PayPal’s free banner ads that let you advertise Bill Me Later&#174; financing as a payment option when your customers check out with PayPal.
+                                            The PayPal Advertising Program has been shown to generate additional purchases as well as increase consumer's average purchase sizes by 15%
+                                            or more. <a href="https://financing.paypal.com/ppfinportal/content/forrester" target="_blank">See Details</a>.]]>
+                                        </comment>
+                                        <frontend_type>text</frontend_type>
+                                        <show_in_default>1</show_in_default>
+                                        <show_in_website>1</show_in_website>
+                                        <sort_order>30</sort_order>
+                                        <fields>
+                                            <bml_publisher_id translate="label comment tooltip">
+                                                <label>Publisher ID</label>
+                                                <comment><![CDATA[Required to display a banner]]></comment>
+                                                <config_path>payment/paypal_express_bml/publisher_id</config_path>
+                                                <show_in_default>1</show_in_default>
+                                                <show_in_website>1</show_in_website>
+                                                <sort_order>10</sort_order>
+                                                <shared>1</shared>
+                                            </bml_publisher_id>
+                                            <bml_wizard translate="button_label">
+                                                <label></label>
+                                                <button_label>Get Publisher ID from PayPal</button_label>
+                                                <button_url><![CDATA[https://financing.paypal.com/ppfinportal/cart/index?dcp=4eff8563b9cc505e0b9afaff3256705081553c79]]></button_url>
+                                                <frontend_model>paypal/adminhtml_system_config_bmlApiWizard</frontend_model>
+                                                <sort_order>15</sort_order>
+                                                <show_in_default>1</show_in_default>
+                                                <show_in_website>1</show_in_website>
+                                            </bml_wizard>
+                                            <settings_bml_homepage type="group" translate="label">
+                                                <label>Home Page</label>
+                                                <frontend_type>text</frontend_type>
+                                                <show_in_default>1</show_in_default>
+                                                <show_in_website>1</show_in_website>
+                                                <show_in_store>1</show_in_store>
+                                                <sort_order>20</sort_order>
+                                                <fields>
+                                                    <bml_homepage_display translate="label">
+                                                        <label>Display</label>
+                                                        <config_path>payment/paypal_express_bml/homepage_display</config_path>
+                                                        <frontend_type>select</frontend_type>
+                                                        <source_model>adminhtml/system_config_source_yesno</source_model>
+                                                        <show_in_default>1</show_in_default>
+                                                        <show_in_website>1</show_in_website>
+                                                        <sort_order>10</sort_order>
+                                                        <shared>1</shared>
+                                                    </bml_homepage_display>
+                                                    <bml_homepage_position translate="label">
+                                                        <label>Position</label>
+                                                        <config_path>payment/paypal_express_bml/homepage_position</config_path>
+                                                        <frontend_type>select</frontend_type>
+                                                        <source_model>paypal/system_config_source_bmlPosition::getBmlPositionsHP</source_model>
+                                                        <show_in_default>1</show_in_default>
+                                                        <show_in_website>1</show_in_website>
+                                                        <sort_order>20</sort_order>
+                                                        <shared>1</shared>
+                                                    </bml_homepage_position>
+                                                    <bml_homepage_size1 translate="label">
+                                                        <label>Size</label>
+                                                        <config_path>payment/paypal_express_bml/homepage_size</config_path>
+                                                        <frontend_type>select</frontend_type>
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeHPH</source_model>
+                                                        <show_in_default>1</show_in_default>
+                                                        <show_in_website>1</show_in_website>
+                                                        <sort_order>30</sort_order>
+                                                        <shared>1</shared>
+                                                        <depends><bml_homepage_position>0</bml_homepage_position></depends>
+                                                    </bml_homepage_size1>
+                                                    <bml_homepage_size2 extends="//paypal_payments/express_checkout//bml_homepage_size1">
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeHPS</source_model>
+                                                        <depends><bml_homepage_position>1</bml_homepage_position></depends>
+                                                    </bml_homepage_size2>
+                                                </fields>
+                                            </settings_bml_homepage>
+                                            <settings_bml_categorypage type="group" translate="label">
+                                                <label>Catalog Category Page</label>
+                                                <frontend_type>text</frontend_type>
+                                                <show_in_default>1</show_in_default>
+                                                <show_in_website>1</show_in_website>
+                                                <show_in_store>1</show_in_store>
+                                                <sort_order>30</sort_order>
+                                                <fields>
+                                                    <bml_categorypage_display translate="label">
+                                                        <label>Display</label>
+                                                        <config_path>payment/paypal_express_bml/categorypage_display</config_path>
+                                                        <frontend_type>select</frontend_type>
+                                                        <source_model>adminhtml/system_config_source_yesno</source_model>
+                                                        <show_in_default>1</show_in_default>
+                                                        <show_in_website>1</show_in_website>
+                                                        <sort_order>10</sort_order>
+                                                        <shared>1</shared>
+                                                    </bml_categorypage_display>
+                                                    <bml_categorypage_position translate="label">
+                                                        <label>Position</label>
+                                                        <config_path>payment/paypal_express_bml/categorypage_position</config_path>
+                                                        <frontend_type>select</frontend_type>
+                                                        <source_model>paypal/system_config_source_bmlPosition::getBmlPositionsCCP</source_model>
+                                                        <show_in_default>1</show_in_default>
+                                                        <show_in_website>1</show_in_website>
+                                                        <sort_order>20</sort_order>
+                                                        <shared>1</shared>
+                                                    </bml_categorypage_position>
+                                                    <bml_categorypage_size1 translate="label">
+                                                        <label>Size</label>
+                                                        <config_path>payment/paypal_express_bml/categorypage_size</config_path>
+                                                        <frontend_type>select</frontend_type>
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeCCPC</source_model>
+                                                        <show_in_default>1</show_in_default>
+                                                        <show_in_website>1</show_in_website>
+                                                        <sort_order>30</sort_order>
+                                                        <shared>1</shared>
+                                                        <depends><bml_categorypage_position>0</bml_categorypage_position></depends>
+                                                    </bml_categorypage_size1>
+                                                    <bml_categorypage_size2 extends="//paypal_payments/express_checkout//bml_categorypage_size1">
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeCCPS</source_model>
+                                                        <depends><bml_categorypage_position>1</bml_categorypage_position></depends>
+                                                    </bml_categorypage_size2>
+                                                </fields>
+                                            </settings_bml_categorypage>
+                                            <settings_bml_productpage type="group" translate="label">
+                                                <label>Catalog Product Page</label>
+                                                <frontend_type>text</frontend_type>
+                                                <show_in_default>1</show_in_default>
+                                                <show_in_website>1</show_in_website>
+                                                <show_in_store>1</show_in_store>
+                                                <sort_order>40</sort_order>
+                                                <fields>
+                                                    <bml_productpage_display translate="label">
+                                                        <label>Display</label>
+                                                        <config_path>payment/paypal_express_bml/productpage_display</config_path>
+                                                        <frontend_type>select</frontend_type>
+                                                        <source_model>adminhtml/system_config_source_yesno</source_model>
+                                                        <show_in_default>1</show_in_default>
+                                                        <show_in_website>1</show_in_website>
+                                                        <sort_order>10</sort_order>
+                                                        <shared>1</shared>
+                                                    </bml_productpage_display>
+                                                    <bml_productpage_position translate="label">
+                                                        <label>Position</label>
+                                                        <config_path>payment/paypal_express_bml/productpage_position</config_path>
+                                                        <frontend_type>select</frontend_type>
+                                                        <source_model>paypal/system_config_source_bmlPosition::getBmlPositionsCPP</source_model>
+                                                        <show_in_default>1</show_in_default>
+                                                        <show_in_website>1</show_in_website>
+                                                        <sort_order>20</sort_order>
+                                                        <shared>1</shared>
+                                                    </bml_productpage_position>
+                                                    <bml_productpage_size1 translate="label">
+                                                        <label>Size</label>
+                                                        <config_path>payment/paypal_express_bml/productpage_size</config_path>
+                                                        <frontend_type>select</frontend_type>
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeCPPC</source_model>
+                                                        <show_in_default>1</show_in_default>
+                                                        <show_in_website>1</show_in_website>
+                                                        <sort_order>30</sort_order>
+                                                        <shared>1</shared>
+                                                        <depends><bml_productpage_position>0</bml_productpage_position></depends>
+                                                    </bml_productpage_size1>
+                                                    <bml_productpage_size2 extends="//paypal_payments/express_checkout//bml_productpage_size1">
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeCPPN</source_model>
+                                                        <depends><bml_productpage_position>1</bml_productpage_position></depends>
+                                                    </bml_productpage_size2>
+                                                </fields>
+                                            </settings_bml_productpage>
+                                            <settings_bml_checkout type="group" translate="label">
+                                                <label>Checkout Cart Page</label>
+                                                <frontend_type>text</frontend_type>
+                                                <show_in_default>1</show_in_default>
+                                                <show_in_website>1</show_in_website>
+                                                <show_in_store>1</show_in_store>
+                                                <sort_order>50</sort_order>
+                                                <fields>
+                                                    <bml_checkout_display translate="label">
+                                                        <label>Display</label>
+                                                        <config_path>payment/paypal_express_bml/checkout_display</config_path>
+                                                        <frontend_type>select</frontend_type>
+                                                        <source_model>adminhtml/system_config_source_yesno</source_model>
+                                                        <show_in_default>1</show_in_default>
+                                                        <show_in_website>1</show_in_website>
+                                                        <sort_order>10</sort_order>
+                                                        <shared>1</shared>
+                                                    </bml_checkout_display>
+                                                    <bml_checkout_position translate="label">
+                                                        <label>Position</label>
+                                                        <config_path>payment/paypal_express_bml/checkout_position</config_path>
+                                                        <frontend_type>select</frontend_type>
+                                                        <source_model>paypal/system_config_source_bmlPosition::getBmlPositionsCheckout</source_model>
+                                                        <show_in_default>1</show_in_default>
+                                                        <show_in_website>1</show_in_website>
+                                                        <sort_order>20</sort_order>
+                                                        <shared>1</shared>
+                                                    </bml_checkout_position>
+                                                    <bml_checkout_size1 translate="label">
+                                                        <label>Size</label>
+                                                        <config_path>payment/paypal_express_bml/checkout_size</config_path>
+                                                        <frontend_type>select</frontend_type>
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeCheckoutC</source_model>
+                                                        <show_in_default>1</show_in_default>
+                                                        <show_in_website>1</show_in_website>
+                                                        <sort_order>30</sort_order>
+                                                        <shared>1</shared>
+                                                        <depends><bml_checkout_position>0</bml_checkout_position></depends>
+                                                    </bml_checkout_size1>
+                                                    <bml_checkout_size2 extends="//paypal_payments/express_checkout//bml_checkout_size1">
+                                                        <source_model>paypal/system_config_source_bmlSize::getBmlSizeCheckoutN</source_model>
+                                                        <shared>1</shared>
+                                                        <depends><bml_checkout_position>1</bml_checkout_position></depends>
+                                                    </bml_checkout_size2>
+                                                </fields>
+                                            </settings_bml_checkout>
+                                        </fields>
+                                    </advertise_bml>
                                 </fields>
                             </express_checkout_required>
                             <settings_ec type="group" translate="label">
@@ -3263,6 +4354,7 @@
                                             <solution_type extends="//paypal_payments/payflow_advanced//settings_express_checkout//solution_type" />
                                             <require_billing_address extends="//paypal_payments/payflow_advanced//settings_express_checkout//require_billing_address" />
                                             <allow_ba_signup extends="//paypal_payments/payflow_advanced//settings_express_checkout//allow_ba_signup" />
+                                            <skip_order_review_step extends="//paypal_payments/payflow_advanced//settings_express_checkout//skip_order_review_step" />
 
                                             <express_checkout_billing_agreement type="group" translate="label">
                                                 <label>PayPal Billing Agreement Settings</label>

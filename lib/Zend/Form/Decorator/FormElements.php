@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -35,9 +35,9 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: FormElements.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: FormElements.php 25093 2012-11-07 20:08:05Z rob $
  */
 class Zend_Form_Decorator_FormElements extends Zend_Form_Decorator_Abstract
 {
@@ -76,14 +76,29 @@ class Zend_Form_Decorator_FormElements extends Zend_Form_Decorator_Abstract
 
         $belongsTo      = ($form instanceof Zend_Form) ? $form->getElementsBelongTo() : null;
         $elementContent = '';
+        $displayGroups  = ($form instanceof Zend_Form) ? $form->getDisplayGroups() : array();
         $separator      = $this->getSeparator();
         $translator     = $form->getTranslator();
         $items          = array();
         $view           = $form->getView();
         foreach ($form as $item) {
-            $item->setView($view)
-                 ->setTranslator($translator);
+            $item->setView($view);
+
+            // Set translator
+            if (!$item->hasTranslator()) {
+                $item->setTranslator($translator);
+            }
+
             if ($item instanceof Zend_Form_Element) {
+                foreach ($displayGroups as $group) {
+                    $elementName = $item->getName();
+                    $element     = $group->getElement($elementName);
+                    if ($element) {
+                        // Element belongs to display group; only render in that
+                        // context.
+                        continue 2;
+                    }
+                }
                 $item->setBelongsTo($belongsTo);
             } elseif (!empty($belongsTo) && ($item instanceof Zend_Form)) {
                 if ($item->isArray()) {

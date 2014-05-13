@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Connect
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -771,11 +771,30 @@ final class Maged_Controller
     }
 
     /**
+     * Add domain policy header according to admin area settings
+     */
+    protected function _addDomainPolicyHeader()
+    {
+        if (class_exists('Mage') && Mage::isInstalled()) {
+            /** @var Mage_Core_Model_Domainpolicy $domainPolicy */
+            $domainPolicy = Mage::getModel('core/domainpolicy');
+            if ($domainPolicy) {
+                $policy = $domainPolicy->getBackendPolicy();
+                if ($policy) {
+                    header('X-Frame-Options: ' . $policy);
+                }
+            }
+        }
+    }
+
+    /**
      * Dispatch process
      */
     public function dispatch()
     {
         header('Content-type: text/html; charset=UTF-8');
+
+        $this->_addDomainPolicyHeader();
 
         $this->setAction();
 
@@ -996,8 +1015,8 @@ final class Maged_Controller
     {
         return array(
             'major'     => '1',
-            'minor'     => '8',
-            'revision'  => '1',
+            'minor'     => '9',
+            'revision'  => '0',
             'patch'     => '0',
             'stability' => '',
             'number'    => '',

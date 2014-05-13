@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Cloud
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -28,19 +28,19 @@
 /**
  * @category   Zend
  * @package    Zend_Cloud
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Cloud_Exception extends Zend_Exception
-{ 
+{
     /**
      * Exception for the underlying adapter
-     * 
+     *
      * @var Exception
      */
     protected $_clientException;
-    
-    public function __construct($message, $code = 0, $clientException = null) 
+
+    public function __construct($message, $code = 0, $clientException = null)
     {
         $this->_clientException = $clientException;
         parent::__construct($message, $code, $clientException);

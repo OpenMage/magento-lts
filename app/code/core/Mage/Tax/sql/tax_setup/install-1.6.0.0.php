@@ -20,11 +20,12 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 /** @var $installer Mage_Tax_Model_Resource_Setup */
 $installer = $this;
+$installer->startSetup();
 //
 /**
  * Create table 'tax/class'
@@ -65,8 +66,11 @@ $table = $installer->getConnection()
     ->addColumn('position', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
         'nullable'  => false,
         ), 'Position')
-    ->addIndex($installer->getIdxName('tax/tax_calculation_rule', array('priority', 'position', 'tax_calculation_rule_id')),
-        array('priority', 'position', 'tax_calculation_rule_id'))
+    ->addIndex(
+        $installer->getIdxName('tax/tax_calculation_rule',
+            array('priority', 'position', 'tax_calculation_rule_id')),
+            array('priority', 'position', 'tax_calculation_rule_id')
+    )
     ->addIndex($installer->getIdxName('tax/tax_calculation_rule', array('code')),
         array('code'))
     ->setComment('Tax Calculation Rule');
@@ -104,12 +108,18 @@ $table = $installer->getConnection()
     ->addColumn('zip_to', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
         'unsigned'  => true,
         ), 'Zip To')
-    ->addIndex($installer->getIdxName('tax/tax_calculation_rate', array('tax_country_id', 'tax_region_id', 'tax_postcode')),
-        array('tax_country_id', 'tax_region_id', 'tax_postcode'))
+    ->addIndex(
+        $installer->getIdxName('tax/tax_calculation_rate',
+        array('tax_country_id', 'tax_region_id', 'tax_postcode')),
+        array('tax_country_id', 'tax_region_id', 'tax_postcode')
+    )
     ->addIndex($installer->getIdxName('tax/tax_calculation_rate', array('code')),
         array('code'))
-    ->addIndex($installer->getIdxName('tax/tax_calculation_rate', array('tax_calculation_rate_id', 'tax_country_id', 'tax_region_id', 'zip_is_range', 'tax_postcode')),
-        array('tax_calculation_rate_id', 'tax_country_id', 'tax_region_id', 'zip_is_range', 'tax_postcode'))
+    ->addIndex(
+        $installer->getIdxName('tax/tax_calculation_rate',
+            array('tax_calculation_rate_id', 'tax_country_id', 'tax_region_id', 'zip_is_range', 'tax_postcode')),
+        array('tax_calculation_rate_id', 'tax_country_id', 'tax_region_id', 'zip_is_range', 'tax_postcode')
+    )
     ->setComment('Tax Calculation Rate');
 $installer->getConnection()->createTable($table);
 
@@ -143,7 +153,8 @@ $table = $installer->getConnection()
         array('customer_tax_class_id'))
     ->addIndex($installer->getIdxName('tax/tax_calculation', array('product_tax_class_id')),
         array('product_tax_class_id'))
-    ->addIndex($installer->getIdxName('tax/tax_calculation', array('tax_calculation_rate_id', 'customer_tax_class_id', 'product_tax_class_id')),
+    ->addIndex($installer->getIdxName('tax/tax_calculation',
+            array('tax_calculation_rate_id', 'customer_tax_class_id', 'product_tax_class_id')),
         array('tax_calculation_rate_id', 'customer_tax_class_id', 'product_tax_class_id'))
     ->addForeignKey($installer->getFkName('tax/tax_calculation', 'product_tax_class_id', 'tax/tax_class', 'class_id'),
         'product_tax_class_id', $installer->getTable('tax/tax_class'), 'class_id',
@@ -151,10 +162,12 @@ $table = $installer->getConnection()
     ->addForeignKey($installer->getFkName('tax/tax_calculation', 'customer_tax_class_id', 'tax/tax_class', 'class_id'),
         'customer_tax_class_id', $installer->getTable('tax/tax_class'), 'class_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->addForeignKey($installer->getFkName('tax/tax_calculation', 'tax_calculation_rate_id', 'tax/tax_calculation_rate', 'tax_calculation_rate_id'),
+    ->addForeignKey($installer->getFkName(
+            'tax/tax_calculation', 'tax_calculation_rate_id', 'tax/tax_calculation_rate', 'tax_calculation_rate_id'),
         'tax_calculation_rate_id', $installer->getTable('tax/tax_calculation_rate'), 'tax_calculation_rate_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->addForeignKey($installer->getFkName('tax/tax_calculation', 'tax_calculation_rule_id', 'tax/tax_calculation_rule', 'tax_calculation_rule_id'),
+    ->addForeignKey($installer->getFkName(
+            'tax/tax_calculation', 'tax_calculation_rule_id', 'tax/tax_calculation_rule', 'tax_calculation_rule_id'),
         'tax_calculation_rule_id', $installer->getTable('tax/tax_calculation_rule'), 'tax_calculation_rule_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
     ->setComment('Tax Calculation');
@@ -189,7 +202,10 @@ $table = $installer->getConnection()
     ->addForeignKey($installer->getFkName('tax/tax_calculation_rate_title', 'store_id', 'core/store', 'store_id'),
         'store_id', $installer->getTable('core/store'), 'store_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->addForeignKey($installer->getFkName('tax/tax_calculation_rate_title', 'tax_calculation_rate_id', 'tax/tax_calculation_rate', 'tax_calculation_rate_id'),
+    ->addForeignKey($installer->getFkName(
+            'tax/tax_calculation_rate_title', 'tax_calculation_rate_id',
+            'tax/tax_calculation_rate', 'tax_calculation_rate_id'
+        ),
         'tax_calculation_rate_id', $installer->getTable('tax/tax_calculation_rate'), 'tax_calculation_rate_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
     ->setComment('Tax Calculation Rate Title');
@@ -227,7 +243,10 @@ $table = $installer->getConnection()
         ), 'Orders Count')
     ->addColumn('tax_base_amount_sum', Varien_Db_Ddl_Table::TYPE_FLOAT, null, array(
         ), 'Tax Base Amount Sum')
-    ->addIndex($installer->getIdxName('tax/tax_order_aggregated_created', array('period', 'store_id', 'code', 'percent', 'order_status'), true),
+    ->addIndex($installer->getIdxName(
+            'tax/tax_order_aggregated_created',
+            array('period', 'store_id', 'code', 'percent', 'order_status'), true
+        ),
         array('period', 'store_id', 'code', 'percent', 'order_status'), array('type' => 'unique'))
     ->addIndex($installer->getIdxName('tax/tax_order_aggregated_created', array('store_id')),
         array('store_id'))

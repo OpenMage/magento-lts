@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Http
  * @subpackage UserAgent
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -27,15 +27,15 @@
  * @category   Zend
  * @package    Zend_Http
  * @subpackage UserAgent
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Http_UserAgent_Mobile extends Zend_Http_UserAgent_AbstractDevice
 {
 
-    const DEFAULT_FEATURES_ADAPTER_CLASSNAME = 'Zend_Http_UserAgent_Features_Adapter_WurflApi';
+    const DEFAULT_FEATURES_ADAPTER_CLASSNAME = 'Zend_Http_UserAgent_Features_Adapter_Browscap';
 
-    const DEFAULT_FEATURES_ADAPTER_PATH = 'Zend/Http/UserAgent/Features/Adapter/WurflApi.php';
+    const DEFAULT_FEATURES_ADAPTER_PATH = 'Zend/Http/UserAgent/Features/Adapter/Browscap.php';
 
     /**
      * User Agent Signatures
@@ -43,119 +43,118 @@ class Zend_Http_UserAgent_Mobile extends Zend_Http_UserAgent_AbstractDevice
      * @var array
      */
     protected static $_uaSignatures = array(
-        'iphone', 
-        'ipod', 
-        'ipad', 
-        'android', 
-        'blackberry', 
-        'opera mini', 
-        'opera mobi', 
-        'palm', 
-        'palmos', 
-        'elaine', 
-        'windows ce', 
-        ' ppc', 
-        '_mms', 
-        'ahong', 
-        'archos', 
-        'armv', 
-        'astel', 
-        'avantgo', 
-        'benq', 
-        'blazer', 
-        'brew', 
-        'com2', 
-        'compal', 
-        'danger', 
-        'pocket', 
-        'docomo', 
-        'epoc', 
-        'ericsson', 
-        'eudoraweb', 
-        'hiptop', 
-        'htc-', 
-        'htc_', 
-        'iemobile', 
-        'ipad', 
-        'iris', 
-        'j-phone', 
-        'kddi', 
-        'kindle', 
-        'lg ', 
-        'lg-', 
-        'lg/', 
-        'lg;lx', 
-        'lge vx', 
-        'lge', 
-        'lge-', 
-        'lge-cx', 
-        'lge-lx', 
-        'lge-mx', 
-        'linux armv', 
-        'maemo', 
-        'midp', 
-        'mini 9.5', 
-        'minimo', 
-        'mob-x', 
-        'mobi', 
-        'mobile', 
-        'mobilephone', 
-        'mot 24', 
-        'mot-', 
-        'motorola', 
-        'n410', 
-        'netfront', 
-        'nintendo wii', 
-        'nintendo', 
-        'nitro', 
-        'nokia', 
-        'novarra-vision', 
-        'nuvifone', 
-        'openweb', 
-        'opwv', 
-        'palmsource', 
-        'pdxgw', 
-        'phone', 
-        'playstation', 
-        'polaris', 
-        'portalmmm', 
-        'qt embedded', 
-        'reqwirelessweb', 
-        'sagem', 
-        'sam-r', 
-        'samsu', 
-        'samsung', 
-        'sec-', 
-        'sec-sgh', 
-        'semc-browser', 
-        'series60', 
-        'series70', 
-        'series80', 
-        'series90', 
-        'sharp', 
-        'sie-m', 
-        'sie-s', 
-        'smartphone', 
-        'sony cmd', 
-        'sonyericsson', 
-        'sprint', 
-        'spv', 
-        'symbian os', 
-        'symbian', 
-        'symbianos', 
-        'telco', 
-        'teleca', 
-        'treo', 
-        'up.browser', 
-        'up.link', 
-        'vodafone', 
-        'vodaphone', 
-        'webos', 
-        'webpro', 
-        'windows phone os 7', 
-        'wireless', 
-        'wm5 pie', 
-        'wms pie', 
+        'iphone',
+        'ipod',
+        'ipad',
+        'android',
+        'blackberry',
+        'opera mini',
+        'opera mobi',
+        'palm',
+        'palmos',
+        'elaine',
+        'windows ce',
+        'icab',
+        '_mms',
+        'ahong',
+        'archos',
+        'armv',
+        'astel',
+        'avantgo',
+        'benq',
+        'blazer',
+        'brew',
+        'com2',
+        'compal',
+        'danger',
+        'pocket',
+        'docomo',
+        'epoc',
+        'ericsson',
+        'eudoraweb',
+        'hiptop',
+        'htc-',
+        'htc_',
+        'iemobile',
+        'iris',
+        'j-phone',
+        'kddi',
+        'kindle',
+        'lg ',
+        'lg-',
+        'lg/',
+        'lg;lx',
+        'lge vx',
+        'lge',
+        'lge-',
+        'lge-cx',
+        'lge-lx',
+        'lge-mx',
+        'linux armv',
+        'maemo',
+        'midp',
+        'mini 9.5',
+        'minimo',
+        'mob-x',
+        'mobi',
+        'mobile',
+        'mobilephone',
+        'mot 24',
+        'mot-',
+        'motorola',
+        'n410',
+        'netfront',
+        'nintendo wii',
+        'nintendo',
+        'nitro',
+        'nokia',
+        'novarra-vision',
+        'nuvifone',
+        'openweb',
+        'opwv',
+        'palmsource',
+        'pdxgw',
+        'phone',
+        'playstation',
+        'polaris',
+        'portalmmm',
+        'qt embedded',
+        'reqwirelessweb',
+        'sagem',
+        'sam-r',
+        'samsu',
+        'samsung',
+        'sec-',
+        'sec-sgh',
+        'semc-browser',
+        'series60',
+        'series70',
+        'series80',
+        'series90',
+        'sharp',
+        'sie-m',
+        'sie-s',
+        'smartphone',
+        'sony cmd',
+        'sonyericsson',
+        'sprint',
+        'spv',
+        'symbian os',
+        'symbian',
+        'symbianos',
+        'telco',
+        'teleca',
+        'treo',
+        'up.browser',
+        'up.link',
+        'vodafone',
+        'vodaphone',
+        'webos',
+        'wml',
+        'windows phone os 7',
+        'wireless',
+        'wm5 pie',
+        'wms pie',
         'xiino',
         'wap',
         'up/',
@@ -169,103 +168,103 @@ class Zend_Http_UserAgent_Mobile extends Zend_Http_UserAgent_AbstractDevice
      * @var array
      */
     protected static $_haTerms = array(
-        'midp', 
-        'wml', 
-        'vnd.rim', 
+        'midp',
+        'wml',
+        'vnd.rim',
         'vnd.wap',
+        'j2me',
     );
 
     /**
      * first 4 letters of mobile User Agent chains
-     * 
+     *
      * @var array
      */
     protected static $_uaBegin = array(
-        'w3c ', 
-        'acs-', 
-        'alav', 
-        'alca', 
-        'amoi', 
-        'audi', 
-        'avan', 
-        'benq', 
-        'bird', 
-        'blac', 
-        'blaz', 
-        'brew', 
-        'cell', 
-        'cldc', 
-        'cmd-', 
-        'dang', 
-        'doco', 
-        'eric', 
-        'hipt', 
-        'inno', 
-        'ipaq', 
-        'java', 
-        'jigs', 
-        'kddi', 
-        'keji', 
-        'leno', 
-        'lg-c', 
-        'lg-d', 
-        'lg-g', 
-        'lge-', 
-        'maui', 
-        'maxo', 
-        'midp', 
-        'mits', 
-        'mmef', 
-        'mobi', 
-        'mot-', 
-        'moto', 
-        'mwbp', 
-        'nec-', 
-        'newt', 
-        'noki', 
-        'oper', 
-        'palm', 
-        'pana', 
-        'pant', 
-        'phil', 
-        'play', 
-        'port', 
-        'prox', 
-        'qwap', 
-        'sage', 
-        'sams', 
-        'sany', 
-        'sch-', 
-        'sec-', 
-        'send', 
-        'seri', 
-        'sgh-', 
-        'shar', 
-        'sie-', 
-        'siem', 
-        'smal', 
-        'smar', 
-        'sony', 
-        'sph-', 
-        'symb', 
-        't-mo', 
-        'teli', 
-        'tim-', 
-        'tosh', 
-        'tsm-', 
-        'upg1', 
-        'upsi', 
-        'vk-v', 
-        'voda', 
-        'wap-', 
-        'wapa', 
-        'wapi', 
-        'wapp', 
-        'wapr', 
-        'webc', 
-        'winw', 
-        'winw', 
-        'xda', 
+        'w3c ',
+        'acs-',
+        'alav',
+        'alca',
+        'amoi',
+        'audi',
+        'avan',
+        'benq',
+        'bird',
+        'blac',
+        'blaz',
+        'brew',
+        'cell',
+        'cldc',
+        'cmd-',
+        'dang',
+        'doco',
+        'eric',
+        'hipt',
+        'inno',
+        'ipaq',
+        'java',
+        'jigs',
+        'kddi',
+        'keji',
+        'leno',
+        'lg-c',
+        'lg-d',
+        'lg-g',
+        'lge-',
+        'maui',
+        'maxo',
+        'midp',
+        'mits',
+        'mmef',
+        'mobi',
+        'mot-',
+        'moto',
+        'mwbp',
+        'nec-',
+        'newt',
+        'noki',
+        'palm',
+        'pana',
+        'pant',
+        'phil',
+        'play',
+        'port',
+        'prox',
+        'qwap',
+        'sage',
+        'sams',
+        'sany',
+        'sch-',
+        'sec-',
+        'send',
+        'seri',
+        'sgh-',
+        'shar',
+        'sie-',
+        'siem',
+        'smal',
+        'smar',
+        'sony',
+        'sph-',
+        'symb',
+        't-mo',
+        'teli',
+        'tim-',
+        'tosh',
+        'tsm-',
+        'upg1',
+        'upsi',
+        'vk-v',
+        'voda',
+        'wap-',
+        'wapa',
+        'wapi',
+        'wapp',
+        'wapr',
+        'webc',
+        'winw',
+        'winw',
+        'xda',
         'xda-',
     );
 
@@ -285,12 +284,15 @@ class Zend_Http_UserAgent_Mobile extends Zend_Http_UserAgent_AbstractDevice
                 return true;
             }
         }
+
         if (isset($server['http_x_wap_profile']) || isset($server['http_profile'])) {
             return true;
         }
 
-        if (self::_matchAgentAgainstSignatures($userAgent, self::$_haTerms)) {
-            return true;
+        if (isset($server['http_accept'])) {
+            if (self::_matchAgentAgainstSignatures($server['http_accept'], self::$_haTerms)) {
+                return true;
+            }
         }
 
         if (self::userAgentStart($userAgent)) {
@@ -306,15 +308,15 @@ class Zend_Http_UserAgent_Mobile extends Zend_Http_UserAgent_AbstractDevice
 
     /**
      * Retrieve beginning clause of user agent
-     * 
+     *
      * @param  string $userAgent
      * @return string
      */
     public static function userAgentStart($userAgent)
     {
-        
+
         $mobile_ua = strtolower(substr($userAgent, 0, 4));
-        
+
         return (in_array($mobile_ua, self::$_uaBegin));
     }
 
@@ -351,9 +353,9 @@ class Zend_Http_UserAgent_Mobile extends Zend_Http_UserAgent_AbstractDevice
     protected function _defineFeatures()
     {
         $this->setFeature('is_wireless_device', false, 'product_info');
-        
+
         parent::_defineFeatures();
-        
+
         if (isset($this->_aFeatures["mobile_browser"])) {
             $this->setFeature("browser_name", $this->_aFeatures["mobile_browser"]);
             $this->_browser = $this->_aFeatures["mobile_browser"];
@@ -362,19 +364,19 @@ class Zend_Http_UserAgent_Mobile extends Zend_Http_UserAgent_AbstractDevice
             $this->setFeature("browser_version", $this->_aFeatures["mobile_browser_version"]);
             $this->_browserVersion = $this->_aFeatures["mobile_browser_version"];
         }
-        
+
         // markup
-        if ($this->getFeature('device_os') == 'iPhone OS' 
+        if ($this->getFeature('device_os') == 'iPhone OS'
             || $this->getFeature('device_os_token') == 'iPhone OS'
         ) {
             $this->setFeature('markup', 'iphone');
         } else {
             $this->setFeature('markup', $this->getMarkupLanguage($this->getFeature('preferred_markup')));
         }
-        
+
         // image format
         $this->_images = array();
-        
+
         if ($this->getFeature('png')) {
             $this->_images[] = 'png';
         }
@@ -387,7 +389,7 @@ class Zend_Http_UserAgent_Mobile extends Zend_Http_UserAgent_AbstractDevice
         if ($this->getFeature('wbmp')) {
             $this->_images[] = 'wbmp';
         }
-        
+
         return $this->_aFeatures;
     }
 

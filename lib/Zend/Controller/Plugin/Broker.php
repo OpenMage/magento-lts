@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Plugins
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Broker.php 20255 2010-01-13 13:23:36Z matthew $
+ * @version    $Id: Broker.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /** Zend_Controller_Plugin_Abstract */
@@ -27,7 +27,7 @@
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Plugins
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Controller_Plugin_Broker extends Zend_Controller_Plugin_Abstract
@@ -237,7 +237,7 @@ class Zend_Controller_Plugin_Broker extends Zend_Controller_Plugin_Abstract
                 $plugin->routeStartup($request);
             } catch (Exception $e) {
                 if (Zend_Controller_Front::getInstance()->throwExceptions()) {
-                    throw $e;
+                    throw new Zend_Controller_Exception($e->getMessage() . $e->getTraceAsString(), $e->getCode(), $e);
                 } else {
                     $this->getResponse()->setException($e);
                 }
@@ -260,7 +260,7 @@ class Zend_Controller_Plugin_Broker extends Zend_Controller_Plugin_Abstract
                 $plugin->routeShutdown($request);
             } catch (Exception $e) {
                 if (Zend_Controller_Front::getInstance()->throwExceptions()) {
-                    throw $e;
+                    throw new Zend_Controller_Exception($e->getMessage() . $e->getTraceAsString(), $e->getCode(), $e);
                 } else {
                     $this->getResponse()->setException($e);
                 }
@@ -287,7 +287,7 @@ class Zend_Controller_Plugin_Broker extends Zend_Controller_Plugin_Abstract
                 $plugin->dispatchLoopStartup($request);
             } catch (Exception $e) {
                 if (Zend_Controller_Front::getInstance()->throwExceptions()) {
-                    throw $e;
+                    throw new Zend_Controller_Exception($e->getMessage() . $e->getTraceAsString(), $e->getCode(), $e);
                 } else {
                     $this->getResponse()->setException($e);
                 }
@@ -309,9 +309,11 @@ class Zend_Controller_Plugin_Broker extends Zend_Controller_Plugin_Abstract
                 $plugin->preDispatch($request);
             } catch (Exception $e) {
                 if (Zend_Controller_Front::getInstance()->throwExceptions()) {
-                    throw $e;
+                    throw new Zend_Controller_Exception($e->getMessage() . $e->getTraceAsString(), $e->getCode(), $e);
                 } else {
                     $this->getResponse()->setException($e);
+					// skip rendering of normal dispatch give the error handler a try
+					$this->getRequest()->setDispatched(false);
                 }
             }
         }
@@ -331,7 +333,7 @@ class Zend_Controller_Plugin_Broker extends Zend_Controller_Plugin_Abstract
                 $plugin->postDispatch($request);
             } catch (Exception $e) {
                 if (Zend_Controller_Front::getInstance()->throwExceptions()) {
-                    throw $e;
+                    throw new Zend_Controller_Exception($e->getMessage() . $e->getTraceAsString(), $e->getCode(), $e);
                 } else {
                     $this->getResponse()->setException($e);
                 }
@@ -353,7 +355,7 @@ class Zend_Controller_Plugin_Broker extends Zend_Controller_Plugin_Abstract
                 $plugin->dispatchLoopShutdown();
             } catch (Exception $e) {
                 if (Zend_Controller_Front::getInstance()->throwExceptions()) {
-                    throw $e;
+                    throw new Zend_Controller_Exception($e->getMessage() . $e->getTraceAsString(), $e->getCode(), $e);
                 } else {
                     $this->getResponse()->setException($e);
                 }

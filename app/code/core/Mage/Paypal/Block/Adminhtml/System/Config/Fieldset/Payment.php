@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -50,9 +50,10 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Payment
      * Check whether current payment method is enabled
      *
      * @param Varien_Data_Form_Element_Abstract $element
+     * @param callback|null $configCallback
      * @return bool
      */
-    protected function _isPaymentEnabled($element)
+    protected function _isPaymentEnabled($element, $configCallback = null)
     {
         $groupConfig = $this->getGroup($element)->asArray();
         $activityPath = isset($groupConfig['activity_path']) ? $groupConfig['activity_path'] : '';
@@ -61,9 +62,27 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Payment
             return false;
         }
 
-        $isPaymentEnabled = (string)Mage::getSingleton('adminhtml/config_data')->getConfigDataValue($activityPath);
+        if ($configCallback && is_callable($configCallback)) {
+            $isPaymentEnabled = call_user_func($configCallback, $activityPath);
+        } else {
+            $isPaymentEnabled = (bool)(string)$this->_getConfigDataModel()->getConfigDataValue($activityPath);
+        }
 
         return (bool)$isPaymentEnabled;
+    }
+
+    /**
+     * Get config data model
+     *
+     * @return Mage_Adminhtml_Model_Config_Data
+     */
+    protected function _getConfigDataModel()
+    {
+        if (!$this->hasConfigDataModel()) {
+            $this->setConfigDataModel(Mage::getSingleton('adminhtml/config_data'));
+        }
+
+        return $this->getConfigDataModel();
     }
 
     /**

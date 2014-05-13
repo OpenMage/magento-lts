@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Service_Amazon
  * @subpackage Authentication
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,7 +23,7 @@
  * @category   Zend
  * @package    Zend_Service_Amazon
  * @subpackage Authentication
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Service_Amazon_Authentication
@@ -31,13 +31,13 @@ abstract class Zend_Service_Amazon_Authentication
     protected $_accessKey;
     protected $_secretKey;
     protected $_apiVersion;
-    
+
     /**
      * Constructor
-     * 
-     * @param  string $accessKey 
-     * @param  string $secretKey 
-     * @param  string $apiVersion 
+     *
+     * @param  string $accessKey
+     * @param  string $secretKey
+     * @param  string $apiVersion
      * @return void
      */
     public function __construct($accessKey, $secretKey, $apiVersion)
@@ -46,36 +46,36 @@ abstract class Zend_Service_Amazon_Authentication
         $this->setSecretKey($secretKey);
         $this->setApiVersion($apiVersion);
     }
-    
+
     /**
      * Set access key
-     * 
-     * @param  string $accessKey 
+     *
+     * @param  string $accessKey
      * @return void
      */
-    public function setAccessKey($accessKey) 
+    public function setAccessKey($accessKey)
     {
         $this->_accessKey = $accessKey;
     }
-    
+
     /**
      * Set secret key
-     * 
-     * @param  string $secretKey 
+     *
+     * @param  string $secretKey
      * @return void
      */
-    public function setSecretKey($secretKey) 
+    public function setSecretKey($secretKey)
     {
         $this->_secretKey = $secretKey;
     }
-    
+
     /**
      * Set API version
-     * 
-     * @param  string $apiVersion 
+     *
+     * @param  string $apiVersion
      * @return void
      */
-    public function setApiVersion($apiVersion) 
+    public function setApiVersion($apiVersion)
     {
         $this->_apiVersion = $apiVersion;
     }

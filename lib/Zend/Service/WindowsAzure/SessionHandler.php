@@ -15,62 +15,92 @@
  * @category   Zend
  * @package    Zend_Service_WindowsAzure
  * @subpackage Session
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: SessionHandler.php 20785 2010-01-31 09:43:03Z mikaelkael $
+ * @version    $Id: SessionHandler.php 24593 2012-01-05 20:35:02Z matthew $
  */
-
-/** Zend_Service_WindowsAzure_Storage_Table */
-#require_once 'Zend/Service/WindowsAzure/Storage/Table.php';
-
-/**
- * @see Zend_Service_WindowsAzure_Exception
- */
-#require_once 'Zend/Service/WindowsAzure/Exception.php';
 
 /**
  * @category   Zend
  * @package    Zend_Service_WindowsAzure
  * @subpackage Session
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Service_WindowsAzure_SessionHandler
 {
+	/**
+	 * Maximal property size in table storage.
+	 * 
+	 * @var int
+	 * @see http://msdn.microsoft.com/en-us/library/dd179338.aspx
+	 */
+	const MAX_TS_PROPERTY_SIZE = 65536;
+	
+	/** Storage backend type */
+	const STORAGE_TYPE_TABLE = 'table';
+	const STORAGE_TYPE_BLOB = 'blob';
+	
     /**
-     * Table storage
+     * Storage back-end
      * 
-     * @var Zend_Service_WindowsAzure_Storage_Table
+     * @var Zend_Service_WindowsAzure_Storage_Table|Zend_Service_WindowsAzure_Storage_Blob
      */
-    protected $_tableStorage;
+    protected $_storage;
     
     /**
-     * Session table name
+     * Storage backend type
      * 
      * @var string
      */
-    protected $_sessionTable;
+    protected $_storageType;
     
     /**
-     * Session table partition
+     * Session container name
      * 
      * @var string
      */
-    protected $_sessionTablePartition;
+    protected $_sessionContainer;
+    
+    /**
+     * Session container partition
+     * 
+     * @var string
+     */
+    protected $_sessionContainerPartition;
 	
     /**
      * Creates a new Zend_Service_WindowsAzure_SessionHandler instance
      * 
-     * @param Zend_Service_WindowsAzure_Storage_Table $tableStorage Table storage
-     * @param string $sessionTable Session table name
-     * @param string $sessionTablePartition Session table partition
+     * @param Zend_Service_WindowsAzure_Storage_Table|Zend_Service_WindowsAzure_Storage_Blob $storage Storage back-end, can be table storage and blob storage
+     * @param string $sessionContainer Session container name
+     * @param string $sessionContainerPartition Session container partition
      */
-    public function __construct(Zend_Service_WindowsAzure_Storage_Table $tableStorage, $sessionTable = 'phpsessions', $sessionTablePartition = 'sessions')
+    public function __construct(Zend_Service_WindowsAzure_Storage $storage, $sessionContainer = 'phpsessions', $sessionContainerPartition = 'sessions')
 	{
+		// Validate $storage
+		if (!($storage instanceof Zend_Service_WindowsAzure_Storage_Table || $storage instanceof Zend_Service_WindowsAzure_Storage_Blob)) {
+			#require_once 'Zend/Service/WindowsAzure/Exception.php';
+			throw new Zend_Service_WindowsAzure_Exception('Invalid storage back-end given. Storage back-end should be of type Zend_Service_WindowsAzure_Storage_Table or Zend_Service_WindowsAzure_Storage_Blob.');
+		}
+		
+		// Validate other parameters
+		if ($sessionContainer == '' || $sessionContainerPartition == '') {
+			#require_once 'Zend/Service/WindowsAzure/Exception.php';
+			throw new Zend_Service_WindowsAzure_Exception('Session container and session partition should be specified.');
+		}
+		
+		// Determine storage type
+		$storageType = self::STORAGE_TYPE_TABLE;
+		if ($storage instanceof Zend_Service_WindowsAzure_Storage_Blob) {
+			$storageType = self::STORAGE_TYPE_BLOB;
+		}
+		
 	    // Set properties
-		$this->_tableStorage = $tableStorage;
-		$this->_sessionTable = $sessionTable;
-		$this->_sessionTablePartition = $sessionTablePartition;
+		$this->_storage = $storage;
+		$this->_storageType = $storageType;
+		$this->_sessionContainer = $sessionContainer;
+		$this->_sessionContainerPartition = $sessionContainerPartition;
 	}
 	
 	/**
@@ -96,12 +126,13 @@ class Zend_Service_WindowsAzure_SessionHandler
      */
     public function open()
     {
-    	// Make sure table exists
-    	$tableExists = $this->_tableStorage->tableExists($this->_sessionTable);
-    	if (!$tableExists) {
-		    $this->_tableStorage->createTable($this->_sessionTable);
-		}
-		
+    	// Make sure storage container exists
+    	if ($this->_storageType == self::STORAGE_TYPE_TABLE) {
+    		$this->_storage->createTableIfNotExists($this->_sessionContainer);
+    	} else if ($this->_storageType == self::STORAGE_TYPE_BLOB) {
+    		$this->_storage->createContainerIfNotExists($this->_sessionContainer);
+    	}
+    	
 		// Ok!
 		return true;
     }
@@ -124,19 +155,37 @@ class Zend_Service_WindowsAzure_SessionHandler
      */
     public function read($id)
     {
-        try
-        {
-            $sessionRecord = $this->_tableStorage->retrieveEntityById(
-                $this->_sessionTable,
-                $this->_sessionTablePartition,
-                $id
-            );
-            return base64_decode($sessionRecord->serializedData);
-        }
-        catch (Zend_Service_WindowsAzure_Exception $ex)
-        {
-            return '';
-        }
+    	// Read data
+       	if ($this->_storageType == self::STORAGE_TYPE_TABLE) {
+    		// In table storage
+	        try
+	        {
+	            $sessionRecord = $this->_storage->retrieveEntityById(
+	                $this->_sessionContainer,
+	                $this->_sessionContainerPartition,
+	                $id
+	            );
+	            return unserialize(base64_decode($sessionRecord->serializedData));
+	        }
+	        catch (Zend_Service_WindowsAzure_Exception $ex)
+	        {
+	            return '';
+	        }
+       	} else if ($this->_storageType == self::STORAGE_TYPE_BLOB) {
+    		// In blob storage
+    	    try
+	        {
+    			$data = $this->_storage->getBlobData(
+    				$this->_sessionContainer,
+    				$this->_sessionContainerPartition . '/' . $id
+    			);
+	            return unserialize(base64_decode($data));
+	        }
+	        catch (Zend_Service_WindowsAzure_Exception $ex)
+	        {
+	            return false;
+	        }
+    	}
     }
     
     /**
@@ -144,23 +193,42 @@ class Zend_Service_WindowsAzure_SessionHandler
      * 
      * @param int $id Session Id
      * @param string $serializedData Serialized PHP object
+     * @throws Exception
      */
     public function write($id, $serializedData)
     {
-        $sessionRecord = new Zend_Service_WindowsAzure_Storage_DynamicTableEntity($this->_sessionTablePartition, $id);
-        $sessionRecord->sessionExpires = time();
-        $sessionRecord->serializedData = base64_encode($serializedData);
-        
-        $sessionRecord->setAzurePropertyType('sessionExpires', 'Edm.Int32');
-
-        try
-        {
-            $this->_tableStorage->updateEntity($this->_sessionTable, $sessionRecord);
-        }
-        catch (Zend_Service_WindowsAzure_Exception $unknownRecord)
-        {
-            $this->_tableStorage->insertEntity($this->_sessionTable, $sessionRecord);
-        }
+    	// Encode data
+    	$serializedData = base64_encode(serialize($serializedData));
+    	if (strlen($serializedData) >= self::MAX_TS_PROPERTY_SIZE && $this->_storageType == self::STORAGE_TYPE_TABLE) {
+    		throw new Zend_Service_WindowsAzure_Exception('Session data exceeds the maximum allowed size of ' . self::MAX_TS_PROPERTY_SIZE . ' bytes that can be stored using table storage. Consider switching to a blob storage back-end or try reducing session data size.');
+    	}
+    	
+    	// Store data
+       	if ($this->_storageType == self::STORAGE_TYPE_TABLE) {
+    		// In table storage
+       	    $sessionRecord = new Zend_Service_WindowsAzure_Storage_DynamicTableEntity($this->_sessionContainerPartition, $id);
+	        $sessionRecord->sessionExpires = time();
+	        $sessionRecord->serializedData = $serializedData;
+	        
+	        $sessionRecord->setAzurePropertyType('sessionExpires', 'Edm.Int32');
+	
+	        try
+	        {
+	            $this->_storage->updateEntity($this->_sessionContainer, $sessionRecord);
+	        }
+	        catch (Zend_Service_WindowsAzure_Exception $unknownRecord)
+	        {
+	            $this->_storage->insertEntity($this->_sessionContainer, $sessionRecord);
+	        }
+    	} else if ($this->_storageType == self::STORAGE_TYPE_BLOB) {
+    		// In blob storage
+    		$this->_storage->putBlobData(
+    			$this->_sessionContainer,
+    			$this->_sessionContainerPartition . '/' . $id,
+    			$serializedData,
+    			array('sessionexpires' => time())
+    		);
+    	}
     }
     
     /**
@@ -171,21 +239,40 @@ class Zend_Service_WindowsAzure_SessionHandler
      */
     public function destroy($id)
     {
-        try
-        {
-            $sessionRecord = $this->_tableStorage->retrieveEntityById(
-                $this->_sessionTable,
-                $this->_sessionTablePartition,
-                $id
-            );
-            $this->_tableStorage->deleteEntity($this->_sessionTable, $sessionRecord);
-            
-            return true;
-        }
-        catch (Zend_Service_WindowsAzure_Exception $ex)
-        {
-            return false;
-        }
+		// Destroy data
+       	if ($this->_storageType == self::STORAGE_TYPE_TABLE) {
+    		// In table storage
+       	    try
+	        {
+	            $sessionRecord = $this->_storage->retrieveEntityById(
+	                $this->_sessionContainer,
+	                $this->_sessionContainerPartition,
+	                $id
+	            );
+	            $this->_storage->deleteEntity($this->_sessionContainer, $sessionRecord);
+	            
+	            return true;
+	        }
+	        catch (Zend_Service_WindowsAzure_Exception $ex)
+	        {
+	            return false;
+	        }
+    	} else if ($this->_storageType == self::STORAGE_TYPE_BLOB) {
+    		// In blob storage
+    	    try
+	        {
+    			$this->_storage->deleteBlob(
+    				$this->_sessionContainer,
+    				$this->_sessionContainerPartition . '/' . $id
+    			);
+	            
+	            return true;
+	        }
+	        catch (Zend_Service_WindowsAzure_Exception $ex)
+	        {
+	            return false;
+	        }
+    	}
     }
     
     /**
@@ -200,18 +287,38 @@ class Zend_Service_WindowsAzure_SessionHandler
      */
     public function gc($lifeTime)
     {
-        try
-        {
-            $result = $this->_tableStorage->retrieveEntities($this->_sessionTable, 'PartitionKey eq \'' . $this->_sessionTablePartition . '\' and sessionExpires lt ' . (time() - $lifeTime));
-            foreach ($result as $sessionRecord)
-            {
-                $this->_tableStorage->deleteEntity($this->_sessionTable, $sessionRecord);
-            }
-            return true;
-        }
-        catch (Zend_Service_WindowsAzure_exception $ex)
-        {
-            return false;
-        }
+       	if ($this->_storageType == self::STORAGE_TYPE_TABLE) {
+    		// In table storage
+       	    try
+	        {
+	            $result = $this->_storage->retrieveEntities($this->_sessionContainer, 'PartitionKey eq \'' . $this->_sessionContainerPartition . '\' and sessionExpires lt ' . (time() - $lifeTime));
+	            foreach ($result as $sessionRecord)
+	            {
+	                $this->_storage->deleteEntity($this->_sessionContainer, $sessionRecord);
+	            }
+	            return true;
+	        }
+	        catch (Zend_Service_WindowsAzure_exception $ex)
+	        {
+	            return false;
+	        }
+    	} else if ($this->_storageType == self::STORAGE_TYPE_BLOB) {
+    		// In blob storage
+    	    try
+	        {
+	            $result = $this->_storage->listBlobs($this->_sessionContainer, $this->_sessionContainerPartition, '', null, null, 'metadata');
+	            foreach ($result as $sessionRecord)
+	            {
+	            	if ($sessionRecord->Metadata['sessionexpires'] < (time() - $lifeTime)) {
+	                	$this->_storage->deleteBlob($this->_sessionContainer, $sessionRecord->Name);
+	            	}
+	            }
+	            return true;
+	        }
+	        catch (Zend_Service_WindowsAzure_exception $ex)
+	        {
+	            return false;
+	        }
+    	}
     }
 }

@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Zend_Controller_Action_Helper
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php 20261 2010-01-13 18:55:25Z matthew $
+ * @version    $Id: Abstract.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /**
@@ -29,7 +29,7 @@
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Zend_Controller_Action_Helper
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Controller_Action_Helper_Abstract
@@ -142,13 +142,15 @@ abstract class Zend_Controller_Action_Helper_Abstract
      */
     public function getName()
     {
-        $full_class_name = get_class($this);
-
-        if (strpos($full_class_name, '_') !== false) {
-            $helper_name = strrchr($full_class_name, '_');
-            return ltrim($helper_name, '_');
+        $fullClassName = get_class($this);
+        if (strpos($fullClassName, '_') !== false) {
+            $helperName = strrchr($fullClassName, '_');
+            return ltrim($helperName, '_');
+        } elseif (strpos($fullClassName, '\\') !== false) {
+            $helperName = strrchr($fullClassName, '\\');
+            return ltrim($helperName, '\\');
         } else {
-            return $full_class_name;
+            return $fullClassName;
         }
     }
 }

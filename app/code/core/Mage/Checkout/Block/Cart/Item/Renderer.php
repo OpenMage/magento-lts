@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -229,6 +229,39 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
         );
     }
 
+    /**
+     * Get item ajax delete url
+     *
+     * @return string
+     */
+    public function getAjaxDeleteUrl()
+    {
+        return $this->getUrl(
+            'checkout/cart/ajaxDelete',
+            array(
+                'id'=>$this->getItem()->getId(),
+                Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->helper('core/url')->getEncodedUrl(),
+                '_secure' => $this->_getApp()->getStore()->isCurrentlySecure(),
+            )
+        );
+    }
+
+    /**
+     * Get item ajax update url
+     *
+     * @return string
+     */
+    public function getAjaxUpdateUrl()
+    {
+        return $this->getUrl(
+            'checkout/cart/ajaxUpdate',
+            array(
+                'id'=>$this->getItem()->getId(),
+                Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->helper('core/url')->getEncodedUrl(),
+                '_secure' => $this->_getApp()->getStore()->isCurrentlySecure(),
+            )
+        );
+    }
     /**
      * Get quote item qty
      *
@@ -446,5 +479,17 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
         $tags = is_array($tags) ? $tags : array();
 
         return array_merge(parent::getCacheTags(), $tags);
+    }
+
+    /**
+     * Returns true if user is going through checkout process now.
+     *
+     * @return bool
+     */
+    public function isOnCheckoutPage()
+    {
+        $module = $this->getRequest()->getModuleName();
+        $controller = $this->getRequest()->getControllerName();
+        return $module == 'checkout' && ($controller == 'onepage' || $controller == 'multishipping');
     }
 }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -512,12 +512,14 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
     protected function _buildBasicRequest(Varien_Object $payment)
     {
         $request = new Varien_Object();
+        $bnCode = Mage::getModel('paypal/config')->getBuildNotationCode();
         $request
             ->setUser($this->getConfigData('user'))
             ->setVendor($this->getConfigData('vendor'))
             ->setPartner($this->getConfigData('partner'))
             ->setPwd($this->getConfigData('pwd'))
             ->setVerbosity($this->getConfigData('verbosity'))
+            ->setData('BNCODE', $bnCode)
             ->setTender(self::TENDER_CC)
             ->setRequestId($this->_generateRequestId());
         return $request;

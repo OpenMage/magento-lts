@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Weee
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -50,6 +50,16 @@ class Mage_Weee_Model_Total_Invoice_Weee extends Mage_Sales_Model_Order_Invoice_
                 continue;
             }
 
+            $weeeRowDiscountAmount = $orderItem->getDiscountAppliedForWeeeTax();
+            $weeeDiscountAmount = $invoice->roundPrice(
+                $weeeRowDiscountAmount / $orderItemQty * $item->getQty(),
+                'regular', true
+            );
+            $baseWeeeRowDiscountAmount = $orderItem->getBaseDiscountAppliedForWeeeTax();
+            $baseWeeeDiscountAmount = $invoice->roundPrice(
+                $baseWeeeRowDiscountAmount / $orderItemQty * $item->getQty(),
+                'base', true
+            );
             $weeeTaxAmount = $item->getWeeeTaxAppliedAmount() * $item->getQty();
             $baseWeeeTaxAmount = $item->getBaseWeeeTaxAppliedAmount() * $item->getQty();
 
@@ -66,6 +76,9 @@ class Mage_Weee_Model_Total_Invoice_Weee extends Mage_Sales_Model_Order_Invoice_
                 $one['base_row_amount_incl_tax'] = $one['base_amount_incl_tax'] * $item->getQty();
                 $one['row_amount_incl_tax'] = $one['amount_incl_tax'] * $item->getQty();
 
+                $one['weee_discount'] = $weeeDiscountAmount;
+                $one['base_weee_discount'] = $baseWeeeDiscountAmount;
+
                 $newApplied[] = $one;
             }
             Mage::helper('weee')->setApplied($item, $newApplied);
@@ -73,8 +86,8 @@ class Mage_Weee_Model_Total_Invoice_Weee extends Mage_Sales_Model_Order_Invoice_
             $item->setWeeeTaxRowDisposition($item->getWeeeTaxDisposition() * $item->getQty());
             $item->setBaseWeeeTaxRowDisposition($item->getBaseWeeeTaxDisposition() * $item->getQty());
 
-            $totalTax += $weeeTaxAmount;
-            $baseTotalTax += $baseWeeeTaxAmount;
+            $totalTax += $weeeTaxAmount - $weeeDiscountAmount;
+            $baseTotalTax += $baseWeeeTaxAmount - $baseWeeeDiscountAmount;
 
             $weeeInclTax += $weeeTaxAmountInclTax;
             $baseWeeeInclTax += $baseWeeeTaxAmountInclTax;

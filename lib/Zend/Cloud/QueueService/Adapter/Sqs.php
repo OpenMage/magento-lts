@@ -13,7 +13,7 @@
  * @category   Zend
  * @package    Zend_Cloud
  * @subpackage QueueService
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -28,10 +28,10 @@
  * @category   Zend
  * @package    Zend_Cloud
  * @subpackage QueueService
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Cloud_QueueService_Adapter_Sqs 
+class Zend_Cloud_QueueService_Adapter_Sqs
     extends Zend_Cloud_QueueService_Adapter_AbstractAdapter
 {
     /*
@@ -53,11 +53,11 @@ class Zend_Cloud_QueueService_Adapter_Sqs
 
     /**
      * Constructor
-     * 
-     * @param  array|Zend_Config $options 
+     *
+     * @param  array|Zend_Config $options
      * @return void
      */
-    public function __construct($options = array()) 
+    public function __construct($options = array())
     {
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
@@ -85,7 +85,7 @@ class Zend_Cloud_QueueService_Adapter_Sqs
 
         if(isset($options[self::HTTP_ADAPTER])) {
             $this->_sqs->getHttpClient()->setAdapter($options[self::HTTP_ADAPTER]);
-        } 
+        }
     }
 
      /**
@@ -97,7 +97,7 @@ class Zend_Cloud_QueueService_Adapter_Sqs
      * @param  array  $options
      * @return string Queue ID (typically URL)
      */
-    public function createQueue($name, $options = null) 
+    public function createQueue($name, $options = null)
     {
         try {
             return $this->_sqs->create($name, $options[self::CREATE_TIMEOUT]);
@@ -113,7 +113,7 @@ class Zend_Cloud_QueueService_Adapter_Sqs
      * @param  array  $options
      * @return boolean true if successful, false otherwise
      */
-    public function deleteQueue($queueId, $options = null) 
+    public function deleteQueue($queueId, $options = null)
 {
         try {
             return $this->_sqs->delete($queueId);
@@ -128,7 +128,7 @@ class Zend_Cloud_QueueService_Adapter_Sqs
      * @param  array $options
      * @return array Queue IDs
      */
-    public function listQueues($options = null) 
+    public function listQueues($options = null)
     {
         try {
             return $this->_sqs->getQueues();
@@ -144,7 +144,7 @@ class Zend_Cloud_QueueService_Adapter_Sqs
      * @param  array  $options
      * @return array
      */
-    public function fetchQueueMetadata($queueId, $options = null) 
+    public function fetchQueueMetadata($queueId, $options = null)
     {
         try {
             // TODO: ZF-9050 Fix the SQS client library in trunk to return all attribute values
@@ -169,7 +169,7 @@ class Zend_Cloud_QueueService_Adapter_Sqs
      * @param  array  $options
      * @return void
      */
-    public function storeQueueMetadata($queueId, $metadata, $options = null) 
+    public function storeQueueMetadata($queueId, $metadata, $options = null)
     {
         // TODO Add support for SetQueueAttributes to client library
         #require_once 'Zend/Cloud/OperationNotAvailableException.php';
@@ -184,7 +184,7 @@ class Zend_Cloud_QueueService_Adapter_Sqs
      * @param  array  $options
      * @return string Message ID
      */
-    public function sendMessage($queueId, $message, $options = null) 
+    public function sendMessage($queueId, $message, $options = null)
     {
         try {
             return $this->_sqs->send($queueId, $message);
@@ -202,7 +202,7 @@ class Zend_Cloud_QueueService_Adapter_Sqs
      * @param  array  $options
      * @return array
      */
-    public function receiveMessages($queueId, $max = 1, $options = null) 
+    public function receiveMessages($queueId, $max = 1, $options = null)
     {
         try {
             return $this->_makeMessages($this->_sqs->receive($queueId, $max, $options[self::VISIBILITY_TIMEOUT]));
@@ -210,11 +210,11 @@ class Zend_Cloud_QueueService_Adapter_Sqs
             throw new Zend_Cloud_QueueService_Exception('Error on recieving messages: '.$e->getMessage(), $e->getCode(), $e);
         }
     }
-    
+
     /**
      * Create Zend_Cloud_QueueService_Message array for
      * Sqs messages.
-     *  
+     *
      * @param array $messages
      * @return Zend_Cloud_QueueService_Message[]
      */
@@ -237,7 +237,7 @@ class Zend_Cloud_QueueService_Adapter_Sqs
      * @param  array  $options
      * @return void
      */
-    public function deleteMessage($queueId, $message, $options = null) 
+    public function deleteMessage($queueId, $message, $options = null)
     {
         try {
             if($message instanceof Zend_Cloud_QueueService_Message) {
@@ -249,7 +249,7 @@ class Zend_Cloud_QueueService_Adapter_Sqs
             throw new Zend_Cloud_QueueService_Exception('Error on deleting a message: '.$e->getMessage(), $e->getCode(), $e);
         }
     }
-    
+
     /**
      * Peek at the messages from the specified queue without removing them.
      *
@@ -269,7 +269,7 @@ class Zend_Cloud_QueueService_Adapter_Sqs
 
     /**
      * Get SQS implementation
-     * @return Zend_Service_Amazon_Sqs 
+     * @return Zend_Service_Amazon_Sqs
      */
     public function getClient()
     {

@@ -13,7 +13,7 @@
  * @category   Zend
  * @package    Zend_Cloud
  * @subpackage StorageService
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -26,7 +26,7 @@
  * @category   Zend
  * @package    Zend_Cloud
  * @subpackage StorageService
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Cloud_StorageService_Adapter_FileSystem implements Zend_Cloud_StorageService_Adapter
@@ -45,11 +45,11 @@ class Zend_Cloud_StorageService_Adapter_FileSystem implements Zend_Cloud_Storage
 
     /**
      * Constructor
-     * 
-     * @param  array|Zend_Config $options 
+     *
+     * @param  array|Zend_Config $options
      * @return void
      */
-    public function __construct($options = array()) 
+    public function __construct($options = array())
     {
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
@@ -75,12 +75,12 @@ class Zend_Cloud_StorageService_Adapter_FileSystem implements Zend_Cloud_Storage
      * @param  array $options
      * @return false|string
      */
-    public function fetchItem($path, $options = array()) 
+    public function fetchItem($path, $options = array())
     {
         $filepath = $this->_getFullPath($path);
         $path     = realpath($filepath);
 
-        if (!$path) {
+        if (!$path || !file_exists($path)) {
             return false;
         }
 
@@ -100,7 +100,7 @@ class Zend_Cloud_StorageService_Adapter_FileSystem implements Zend_Cloud_Storage
      * @param  array $options
      * @return void
      */
-    public function storeItem($destinationPath, $data, $options = array()) 
+    public function storeItem($destinationPath, $data, $options = array())
     {
         $path = $this->_getFullPath($destinationPath);
         file_put_contents($path, $data);
@@ -114,7 +114,7 @@ class Zend_Cloud_StorageService_Adapter_FileSystem implements Zend_Cloud_Storage
      * @param  array $options
      * @return void
      */
-    public function deleteItem($path, $options = array()) 
+    public function deleteItem($path, $options = array())
     {
         if (!isset($path)) {
             return;
@@ -139,7 +139,7 @@ class Zend_Cloud_StorageService_Adapter_FileSystem implements Zend_Cloud_Storage
      * @param  array $options
      * @return void
      */
-    public function copyItem($sourcePath, $destinationPath, $options = array()) 
+    public function copyItem($sourcePath, $destinationPath, $options = array())
     {
         copy($this->_getFullPath($sourcePath), $this->_getFullPath($destinationPath));
     }
@@ -157,7 +157,7 @@ class Zend_Cloud_StorageService_Adapter_FileSystem implements Zend_Cloud_Storage
      * @param  array $options
      * @return void
      */
-    public function moveItem($sourcePath, $destinationPath, $options = array()) 
+    public function moveItem($sourcePath, $destinationPath, $options = array())
     {
         rename($this->_getFullPath($sourcePath), $this->_getFullPath($destinationPath));
     }
@@ -171,10 +171,10 @@ class Zend_Cloud_StorageService_Adapter_FileSystem implements Zend_Cloud_Storage
      * @param  array $options
      * @return void
      */
-    public function renameItem($path, $name, $options = null) 
+    public function renameItem($path, $name, $options = null)
     {
         rename(
-            $this->_getFullPath($path), 
+            $this->_getFullPath($path),
             dirname($this->_getFullPath($path)) . DIRECTORY_SEPARATOR . $name
         );
     }
@@ -189,7 +189,7 @@ class Zend_Cloud_StorageService_Adapter_FileSystem implements Zend_Cloud_Storage
      * @param  array $options
      * @return array A list of item names
      */
-    public function listItems($path, $options = null) 
+    public function listItems($path, $options = null)
     {
         $listing = scandir($this->_getFullPath($path));
 
@@ -206,7 +206,7 @@ class Zend_Cloud_StorageService_Adapter_FileSystem implements Zend_Cloud_Storage
      * @param  array $options
      * @return array
      */
-    public function fetchMetadata($path, $options = array()) 
+    public function fetchMetadata($path, $options = array())
     {
         $fullPath = $this->_getFullPath($path);
         $metadata = null;
@@ -226,7 +226,7 @@ class Zend_Cloud_StorageService_Adapter_FileSystem implements Zend_Cloud_Storage
      * @param  array $options
      * @return void
      */
-    public function storeMetadata($destinationPath, $metadata, $options = array()) 
+    public function storeMetadata($destinationPath, $metadata, $options = array())
     {
         #require_once 'Zend/Cloud/OperationNotAvailableException.php';
         throw new Zend_Cloud_OperationNotAvailableException('Storing metadata not implemented');
@@ -239,7 +239,7 @@ class Zend_Cloud_StorageService_Adapter_FileSystem implements Zend_Cloud_Storage
      * @param  array $options
      * @return void
      */
-    public function deleteMetadata($path) 
+    public function deleteMetadata($path)
     {
         #require_once 'Zend/Cloud/OperationNotAvailableException.php';
         throw new Zend_Cloud_OperationNotAvailableException('Deleting metadata not implemented');
@@ -247,11 +247,11 @@ class Zend_Cloud_StorageService_Adapter_FileSystem implements Zend_Cloud_Storage
 
     /**
      * Return the full path for the file.
-     * 
+     *
      * @param string $path
      * @return string
      */
-    private function _getFullPath($path) 
+    private function _getFullPath($path)
     {
         return $this->_directory . DIRECTORY_SEPARATOR . $path;
     }
@@ -262,6 +262,6 @@ class Zend_Cloud_StorageService_Adapter_FileSystem implements Zend_Cloud_Storage
      */
     public function getClient()
     {
-         return $this->_directory;       
+         return $this->_directory;
     }
 }

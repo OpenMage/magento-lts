@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -440,12 +440,14 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     {
         $request = Mage::getModel('paypal/payflow_request');
         $cscEditable = $this->getConfigData('csc_editable');
+        $bnCode = Mage::getModel('paypal/config')->getBuildNotationCode();
         $request
             ->setUser($this->getConfigData('user', $this->_getStoreId()))
             ->setVendor($this->getConfigData('vendor', $this->_getStoreId()))
             ->setPartner($this->getConfigData('partner', $this->_getStoreId()))
             ->setPwd($this->getConfigData('pwd', $this->_getStoreId()))
             ->setVerbosity($this->getConfigData('verbosity', $this->_getStoreId()))
+            ->setData('BNCODE', $bnCode)
             ->setTender(self::TENDER_CC)
             ->setCancelurl($this->_getCallbackUrl('cancelPayment'))
             ->setErrorurl($this->_getCallbackUrl('returnUrl'))

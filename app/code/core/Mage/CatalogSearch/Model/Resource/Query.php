@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogSearch
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -52,13 +52,25 @@ class Mage_CatalogSearch_Model_Resource_Query extends Mage_Core_Model_Resource_D
      */
     public function loadByQuery(Mage_Core_Model_Abstract $object, $value)
     {
-        $select = $this->_getReadAdapter()->select()
+        $readAdapter = $this->_getReadAdapter();
+        $select = $readAdapter->select();
+
+        $synonymSelect = clone $select;
+        $synonymSelect
             ->from($this->getMainTable())
-            ->where('synonym_for=? OR query_text=?', $value)
-            ->where('store_id=?', $object->getStoreId())
+            ->where('store_id = ?', $object->getStoreId());
+
+        $querySelect = clone $synonymSelect;
+        $querySelect->where('query_text = ?', $value);
+
+        $synonymSelect->where('synonym_for = ?', $value);
+
+        $select->union(array($querySelect, "($synonymSelect)"), Zend_Db_Select::SQL_UNION_ALL)
             ->order('synonym_for ASC')
             ->limit(1);
-        if ($data = $this->_getReadAdapter()->fetchRow($select)) {
+
+        $data = $readAdapter->fetchRow($select);
+        if ($data) {
             $object->setData($data);
             $this->_afterLoad($object);
         }

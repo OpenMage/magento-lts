@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -96,17 +96,22 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
             }
 
             if (!$errors) {
-                $toCookie = base64_encode($order->getProtectCode());
+                $toCookie = base64_encode($order->getProtectCode() . ':' . $incrementId);
                 Mage::getSingleton('core/cookie')->set($this->_cookieName, $toCookie, $this->_lifeTime, '/');
             }
         } elseif (Mage::getSingleton('core/cookie')->get($this->_cookieName)) {
-            $fromCookie     = Mage::getSingleton('core/cookie')->get($this->_cookieName);
-            $protectCode    = base64_decode($fromCookie);
+            $fromCookie = Mage::getSingleton('core/cookie')->get($this->_cookieName);
+            $cookieData = explode(':', base64_decode($fromCookie));
+            $protectCode = isset($cookieData[0]) ? $cookieData[0] : null;
+            $incrementId = isset($cookieData[1]) ? $cookieData[1] : null;
 
-            if (!empty($protectCode)) {
-                $order->loadByAttribute('protect_code', $protectCode);
-
-                Mage::getSingleton('core/cookie')->renew($this->_cookieName, $this->_lifeTime, '/');
+            if (!empty($protectCode) && !empty($incrementId)) {
+                $order->loadByIncrementId($incrementId);
+                if ($order->getProtectCode() == $protectCode) {
+                    Mage::getSingleton('core/cookie')->renew($this->_cookieName, $this->_lifeTime, '/');
+                } else {
+                    $errors = true;
+                }
             } else {
                 $errors = true;
             }

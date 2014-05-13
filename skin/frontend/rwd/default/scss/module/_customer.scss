@@ -1,0 +1,968 @@
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/* ============================================ *
+ * Customer
+ * ============================================ */
+
+.customer-account-login {
+    .scaffold-form {
+        label:first-child {
+            width: 115px;
+        }
+    }
+
+    .col2-set {
+        .buttons-set {
+            text-align: left;
+            border-top: 0;
+
+            button,
+            .button {
+                float: none;
+                min-width: 50%;
+                margin: 0;
+            }
+        }
+
+        .col-1 {
+            ul {
+                list-style: disc;
+                padding-left: 20px;
+                margin: $gap 0 $gap * 2 0;
+            }
+        }
+    }
+
+    @include bp(min-width, $bp-xsmall + 1) {
+        .col2-set {
+            .col-1,
+            .col-2 {
+                padding-top: 0;
+                margin-top: 20px;
+            }
+
+            .col-1 {
+                padding-right: 20px;
+            }
+
+            .col-2 {
+                padding-left: 20px;
+                border-left: 1px solid $c-module-border-light;
+            }
+        }
+    }
+
+    @include bp(min-width, $bp-medium) {
+        .col2-set {
+            .col-1 {
+                padding-right: 0;
+            }
+
+            .col-2 {
+                padding-left: $trim * 2;
+                border-left: 1px solid $c-module-border-light;
+            }
+        }
+    }
+
+    @include bp(max-width, $bp-xsmall) {
+        .col2-set {
+            .col-1 {
+                padding-bottom: $trim;
+            }
+
+            .col-2 {
+                padding-top: $trim;
+                border-top: 1px solid $c-module-border-light;
+            }
+        }
+    }
+
+    @include bp(max-width, $bp-medium) {
+        .col2-set p.required {
+            display: none;
+        }
+    }
+}
+
+.customer-account-create {
+    .scaffold-form {
+        label:first-child {
+            width: 140px;
+        }
+    }
+}
+
+.opc #opc-login p:not(.required) {
+    font-style: italic;
+    font-family: $f-stack-serif;
+    font-size: $f-size-s;
+    color: $c-text-gray;
+}
+
+.remember-me-box {
+    a.hide {
+        display: none;
+    }
+    .link-tip {
+        font-size: $f-size-s;
+        padding-left: $gap;
+    }
+}
+
+.remember-me-popup {
+    display: none;
+    border: 1px solid $c-module-border;
+    padding: $box-spacing;
+    position: relative;
+
+    &.show {
+        display: block;
+    }
+
+    p {
+        font-family: $f-stack-default;
+    }
+
+    .remember-me-popup-close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: $box-spacing;
+        font-size: $f-size-xs;
+    }
+
+    .remember-me-popup-close-button {
+        display: none;
+    }
+}
+
+.customer-account-create {
+    .buttons-set {
+        max-width: 455px;
+    }
+
+    .fieldset,
+    .buttons-set {
+        margin-left: $trim;
+
+        @include bp(max-width, $bp-xsmall) {
+            margin-left: 0;
+        }
+    }
+
+    .fieldset .hidden {
+        display: none;
+    }
+
+    #remember-me-popup {
+        max-width: 455px;
+    }
+}
+
+.customer-account-forgotpassword {
+    .fieldset,
+    .buttons-set {
+        margin-left: $trim;
+        max-width: 400px;
+
+        @include bp(max-width, $bp-xsmall) {
+            margin-left: 0;
+        }
+    }
+
+    .fieldset .input-box input.input-text {
+        width: 100%;
+    }
+}
+
+/* ============================================ *
+ * My Account Global Styles
+ * ============================================ */
+body.customer-account {
+    .my-account {
+        .page-title {
+            h1 {
+                border: 0;
+                text-align: left;
+            }
+        }
+
+        .title-buttons {
+            position: relative;
+            text-align: right;
+
+            h1 {
+                text-align: left;
+            }
+
+            .button {
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+
+            a,
+            span.separator {
+                position: relative;
+                top: -42px;
+            }
+        }
+
+        .fieldset h2,
+        .addresses-list h2,
+        .order-details h2 {
+            width: 100%;
+            display: inline-block;
+        }
+
+        .addresses-list h3 {
+            font-size: $f-size;
+            font-weight: 600;
+        }
+
+        .fieldset {
+            margin-top: $trim;
+            margin-bottom: $trim;
+        }
+    }
+
+    .data-table {
+        margin-top: 5px;
+
+        td {
+            a {
+                font-family: $f-stack-special;
+                text-transform: uppercase;
+                font-style: normal;
+                font-size: $f-size-s;
+            }
+        }
+    }
+
+    .sidebar {
+        .block {
+            ol#compare-items {
+                li {
+                    margin: $box-spacing 0;
+                }
+            }
+
+            .block-content {
+                p.block-subtitle {
+                    margin-bottom: $trim-small;
+                }
+
+                .actions {
+                    margin-top: $trim;
+                }
+            }
+        }
+
+        ol#cart-sidebar-reorder {
+            li {
+                margin-top: $box-spacing;
+                margin-bottom: 0;
+            }
+
+            p.product-name {
+                display: inline-block;
+                margin-bottom: 0;
+            }
+        }
+
+        .block-cart {
+            .summary {
+                margin-bottom: $trim-small;
+            }
+        }
+
+        .block-reorder {
+            ol#cart-sidebar-reorder {
+                li {
+                    margin-top: $box-spacing;
+                    margin-bottom: 0;
+
+                    input {
+                        margin-right: 10px;
+                    }
+                }
+
+                p.product-name {
+                    display: inline;
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+}
+
+.form-list {
+    .customer-dob {
+        .dob-month,
+        .dob-day {
+            width: 40px;
+            float: left;
+            margin-right: $box-spacing;
+        }
+
+        .dob-year {
+            width: 80px;
+            float: left;
+        }
+    }
+}
+
+/* ============================================ *
+ * Dashboard
+ * ============================================ */
+
+.dashboard {
+    .box-head {
+        margin-top: $trim;
+        border-bottom: 1px solid $c-module-border;
+        padding-bottom: 7px;
+
+        h2 {
+            font-size: $f-size-l;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 0;
+        }
+
+        a {
+            padding: $box-spacing;
+        }
+    }
+
+    .box-title,
+    .box-head {
+        a {
+            text-transform: uppercase;
+            font-size: $f-size-xs;
+        }
+    }
+
+    .box-account {
+        padding-bottom: 40px;
+        border-bottom: 1px solid $c-module-border;
+        margin-bottom: 45px;
+
+        p,
+        address {
+            font-family: $f-stack-serif;
+            font-style: italic;
+        }
+    }
+
+    .col2-set {
+        .col-1,
+        .col-2 {
+            padding-right: percentage(75/620);
+            padding-bottom: 0;
+
+            .box-title {
+                position: relative;
+                padding-bottom: 10px;
+
+                h2,
+                h3 {
+                    font-weight: 600;
+                    font-size: $f-size;
+                    margin-bottom: 0;
+                }
+
+                a {
+                    position: absolute;
+                    top: -#{$box-spacing};
+                    right: -#{$box-spacing};
+                    padding: $box-spacing;
+                    line-height: (1.4 * $f-size);
+                }
+            }
+        }
+    }
+
+    .box-reviews {
+        &.box-account {
+            padding-bottom: 0;
+        }
+
+        li {
+            padding: $box-spacing 0;
+            border-top: 1px solid $c-module-border-light;
+
+            &:first-child {
+                border-top: 0;
+            }
+
+            .number {
+                margin-right: -20px;
+                float: left;
+                line-height: 1.4;
+                font-size: $f-size-s;
+            }
+
+            .details {
+                margin-left: 20px;
+
+                .ratings {
+                    @include clearfix;
+                    margin-bottom: 0;
+
+                    strong {
+                        float: left;
+                        font-family: $f-stack-special;
+                        font-size: $f-size-s;
+                        margin-right: 5px;
+                    }
+
+                    .rating-box {
+                        float: left;
+                        margin: 3px 0 0 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* ============================================ *
+ * Address Book
+ * ============================================ */
+
+.my-account {
+    .addresses-list {
+        font-family: $f-stack-serif;
+
+        .col-1,
+        .col-2 {
+            padding-bottom: 0;
+        }
+
+        .item {
+            margin: 0 0 $trim 0;
+
+            p {
+                margin-top: $box-spacing;
+            }
+        }
+
+        @include bp(max-width, $bp-medium) {
+            .col-1,
+            .col-2 {
+                width: 100%;
+                padding-left: 0;
+                padding-right: 0;
+
+                li.empty {
+                    width: 100%;
+                }
+            }
+        }
+
+        @include bp(max-width, $bp-small) {
+            .addresses-additional {
+                p {
+                    a {
+                        white-space: nowrap;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* ============================================ *
+ * Order View
+ * ============================================ */
+
+.order-info {
+    padding-bottom: $box-spacing;
+    border-bottom: 1px solid $c-module-border-light;
+    width: 100%;
+    margin-bottom: $trim;
+
+    dt,
+    dd,
+    ul,
+    li {
+        display: inline;
+    }
+
+    dt {
+        margin-right: ($box-spacing*2);
+    }
+
+    li {
+        margin: 0 0 0 ($box-spacing*2);
+
+        &.current {
+            font-weight: 600;
+        }
+
+        &:first-child {
+            margin-left: 0;
+        }
+    }
+}
+
+.order-date {
+    font-family: $f-stack-special;
+    text-transform: uppercase;
+}
+
+.order-info-box {
+    margin-bottom: 40px;
+    margin-top: 20px;
+
+    + .order-info-box {
+        padding-bottom: 40px;
+        border-bottom: 1px solid $c-module-border-light;
+    }
+
+    .col-1 {
+        padding-right: 0;
+        width: 48%;
+    }
+
+    .col-2 {
+        width: 52%;
+    }
+
+    .col-1,
+    .col-2 {
+        overflow: hidden;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .box-title {
+        width: 150px;
+        padding-right: $box-spacing;
+        float: left;
+
+        h2 {
+            font-size: $f-size;
+            font-family: $f-stack-special;
+            font-weight: bold;
+            line-height: 1.5;
+
+            &:after {
+                content: ':';
+            }
+        }
+    }
+
+    .box-content {
+        float: left;
+        font-family: $f-stack-serif;
+
+        td,
+        th {
+            font-family: $f-stack-serif;
+            line-height: 1.3;
+        }
+
+        th {
+            padding-top: $box-spacing;
+        }
+
+        td {
+            padding-left: $trim-small;
+        }
+
+        strong {
+            font-family: $f-stack-special;
+            font-weight: normal;
+            text-transform: uppercase;
+        }
+    }
+}
+
+#my-orders-table {
+    .option-label {
+        margin-left: $box-spacing;
+        font-weight: 600;
+        font-style: italic;
+    }
+
+    .option-value {
+        margin-left: $box-spacing * 2;
+    }
+
+    tr.bundle:not(:last-child) td {
+        border-bottom: none;
+        border-top: none;
+    }
+}
+
+ol#cart-sidebar-reorder {
+    li {
+        margin-top: $box-spacing;
+        margin-bottom: 0;
+
+        input {
+            margin-right: 10px;
+        }
+    }
+
+    p.product-name {
+        display: inline;
+    }
+}
+
+@include bp(max-width, $bp-small) {
+    #my-orders-table {
+        .option-label {
+            margin-left: 20px;
+        }
+
+        .option-value {
+            margin-left: 35px;
+        }
+
+        td[data-rwd-label=Qty] .nobr {
+            br {
+                display: none;
+            }
+
+            strong {
+                margin-right: $box-spacing;
+            }
+        }
+
+        tr.bundle {
+            border-color: $c-module-border-light;
+        }
+
+        tr.bundle.child {
+            td[data-rwd-label] {
+                padding-left: 60px;
+            }
+        }
+
+        tbody:last-child tr:last-child {
+            td {
+                padding-bottom: 10px;
+                border-bottom: 0;
+
+                &:last-child {
+                    padding-bottom: $trim-small;
+                }
+            }
+        }
+
+        tfoot tr.shipping {
+            margin-top: 0;
+        }
+    }
+}
+
+.order-additional {
+    margin: 40px 0;
+}
+
+.order-gift-message {
+    dd {
+        margin-top: $box-spacing;
+    }
+}
+
+@include bp(max-width, $bp-xlarge) {
+    .dashboard {
+        .col2-set {
+            .col-1,
+            .col-2 {
+                padding-right: $trim;
+                padding-bottom: 0;
+            }
+        }
+    }
+}
+
+@include bp(max-width, $bp-large) {
+    body.customer-account {
+        .my-account {
+            .title-buttons {
+                text-align: left;
+
+                span.separator,
+                a {
+                    top: -12px;
+                }
+            }
+        }
+    }
+
+    .data-table {
+        span.nobr {
+            white-space: normal;
+
+            a {
+                white-space: nowrap;
+            }
+        }
+
+        .separator {
+            display: none;
+        }
+    }
+
+    .dashboard {
+        .col2-set {
+            .col-1,
+            .col-2 {
+                .box-title {
+                    a {
+                        position: static;
+                        padding: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@include bp(max-width, $bp-medium) {
+    body.customer-account {
+        .data-table {
+            &.orders th.ship,
+            &.orders td.ship {
+                display: none;
+            }
+        }
+    }
+
+    .order-info-box {
+        .box-content {
+            clear: left;
+        }
+    }
+
+    .addresses-list {
+        .item {
+            float: left;
+            width: 50%;
+            padding-right: $trim;
+        }
+    }
+
+    .order-info {
+        dt {
+            display: none;
+        }
+    }
+
+    .dashboard {
+        .page-title {
+            margin-top: 20px;
+
+            h1 {
+                margin-top: 0;
+            }
+        }
+
+        .welcome-msg {
+            font-family: $f-stack-serif;
+
+            .hello {
+                font-style: italic;
+            }
+        }
+
+        .box-account {
+            padding-bottom: $trim-small;
+            margin-bottom: $trim;
+        }
+
+        .col2-set {
+            .col-1,
+            .col-2 {
+                width: 48%;
+                padding-right: 0;
+                padding-left: 0;
+            }
+
+            .col-1 {
+                float: left;
+                margin-right: 4%;
+            }
+
+            .col-2 {
+                float: right;
+            }
+        }
+    }
+}
+
+@include bp(max-width, $bp-small) {
+    body.customer-account {
+        .my-account {
+            .form-list {
+                .control {
+                    padding-left: 0;
+                }
+            }
+        }
+    }
+}
+
+@include bp(max-width, 530px) {
+    .data-table {
+        &.orders {
+            td.status,
+            th.status {
+                display: none;
+            }
+        }
+    }
+}
+
+@include bp(max-width, $bp-xsmall) {
+    body.customer-account {
+        .my-account {
+            .page-title {
+                h1 {
+                    text-align: center;
+                }
+            }
+
+            .title-buttons {
+                text-align: center;
+
+                .button {
+                    width: 100%;
+                    position: static;
+                    margin-bottom: $trim-small;
+                }
+            }
+
+            .fieldset {
+                h2 {
+                    margin-bottom: $trim-small;
+                }
+            }
+
+            .order-details h2 {
+                margin-bottom: $trim-small;
+            }
+
+            .buttons-set {
+                border-top: 0;
+            }
+
+            .addresses-list {
+                .item {
+                    margin-bottom: $trim-small;
+                    padding-right: 0;
+                    float: none;
+                    width: auto;
+                }
+
+                h2 {
+                    margin-bottom: $trim-small;
+                }
+            }
+        }
+    }
+
+    .order-info {
+        margin-top: $trim-small;
+    }
+
+    .data-table {
+        &.orders {
+            .link-reorder,
+            .date {
+                display: none;
+            }
+
+            td.view {
+                text-align: right;
+            }
+        }
+    }
+
+    .dashboard {
+        .col2-set {
+            .col-1,
+            .col-2 {
+                width: 100%;
+                margin-top: $trim-small;
+
+                .box-title {
+                    a {
+                        position: absolute;
+                        padding: $box-spacing;
+                    }
+                }
+            }
+        }
+    }
+
+    .order-info-box {
+        margin: 0;
+
+        .col-1,
+        .col-2 {
+            width: 100%;
+            border-bottom: 1px solid $c-module-border-light;
+            padding: $trim-small 0;
+        }
+
+        + .order-info-box {
+            padding-bottom: 0;
+            border-bottom: 0;
+            margin-bottom: $trim;
+        }
+    }
+
+    #my-reviews-table {
+        .nobr {
+            white-space: normal;
+        }
+    }
+}
+
+/* ============================================ *
+ * Newsletter Subscriptions
+ * ============================================ */
+
+body.newsletter-manage-index .my-account {
+    .fieldset {
+        margin-bottom: 20px;
+    }
+
+    .fieldset h2 {
+        display: none;
+    }
+
+    .form-list {
+        border-top: 1px solid $c-fieldset-border-light;
+        padding-top: $gap;
+    }
+}

@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Feed_Reader
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Feed.php 23170 2010-10-19 18:29:24Z mabe $
+ * @version    $Id: Feed.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /**
@@ -42,7 +42,7 @@
 /**
  * @category   Zend
  * @package    Zend_Feed_Reader
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Feed_Reader_Extension_Atom_Feed
@@ -315,7 +315,7 @@ class Zend_Feed_Reader_Extension_Atom_Feed
 
         return $this->_data['image'];
     }
-    
+
     /**
      * Get the feed image
      *
@@ -420,7 +420,7 @@ class Zend_Feed_Reader_Extension_Atom_Feed
             return $this->_data['hubs'];
         }
         $hubs = array();
-        
+
         $list = $this->_xpath->query($this->getXpathPrefix()
             . '//atom:link[@rel="hub"]/@href');
 
@@ -458,7 +458,7 @@ class Zend_Feed_Reader_Extension_Atom_Feed
 
         return $this->_data['title'];
     }
-    
+
     /**
      * Get all categories
      *
@@ -513,7 +513,7 @@ class Zend_Feed_Reader_Extension_Atom_Feed
         $emailNode = $element->getElementsByTagName('email');
         $nameNode  = $element->getElementsByTagName('name');
         $uriNode   = $element->getElementsByTagName('uri');
-        
+
         if ($emailNode->length && strlen($emailNode->item(0)->nodeValue) > 0) {
             $author['email'] = $emailNode->item(0)->nodeValue;
         }

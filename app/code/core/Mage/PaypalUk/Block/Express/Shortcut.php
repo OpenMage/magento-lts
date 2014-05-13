@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_PaypalUk
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,7 +41,7 @@ class Mage_PaypalUk_Block_Express_Shortcut extends Mage_Paypal_Block_Express_Sho
      *
      * @var string
      */
-    protected $_startAction = 'paypaluk/express/start';
+    protected $_startAction = 'paypaluk/express/start/button/1';
 
     /**
      * Express checkout model factory name
@@ -49,4 +49,23 @@ class Mage_PaypalUk_Block_Express_Shortcut extends Mage_Paypal_Block_Express_Sho
      * @var string
      */
     protected $_checkoutType = 'paypaluk/express_checkout';
+
+    /**
+     * @param $quote
+     *
+     * @return Mage_Paypal_Block_Express_Shortcut
+     */
+    protected function _getBmlShortcut($quote)
+    {
+        $bml = Mage::helper('payment')->getMethodInstance(Mage_Paypal_Model_Config::METHOD_WPP_PE_BML);
+        $isBmlEnabled = $bml && $bml->isAvailable($quote);
+        $this->setBmlShortcutHtmlId($this->helper('core')->uniqHash('ec_shortcut_bml_'))
+            ->setBmlCheckoutUrl($this->getUrl('paypaluk/bml/start/button/1'))
+            ->setBmlImageUrl('https://www.paypalobjects.com/webstatic/en_US/btn/btn_bml_SM.png')
+            ->setMarketMessage('https://www.paypalobjects.com/webstatic/en_US/btn/btn_bml_text.png')
+            ->setMarketMessageUrl('https://www.securecheckout.billmelater.com/paycapture-content/'
+                . 'fetch?hash=AU826TU8&content=/bmlweb/ppwpsiw.html')
+            ->setIsBmlEnabled($isBmlEnabled);
+        return $this;
+    }
 }

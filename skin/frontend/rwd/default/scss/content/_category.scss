@@ -1,0 +1,177 @@
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/* ============================================ *
+ * Category Landing Pages
+ * ============================================ */
+
+.category-image {
+    position: relative;
+}
+
+.categorylandingMainblock {
+    border: 1px solid #E2E2E2;
+    padding: 7px;
+}
+
+.catblocks {
+    float: left;
+    padding: 0 0 20px 0;
+    width: 100%;
+}
+
+.catblocks li {
+    position: relative;
+    float: left !important;
+    width: 23% !important;
+    margin-right: percentage(8/300) !important;
+    margin-bottom: $box-spacing;
+    border: 1px solid $c-module-border;
+    padding: 10px;
+}
+
+.catblocks li:hover {
+    border-color: $c-module-border-highlight;
+}
+
+@include bp(max-width, $bp-medium) {
+    .catblocks li {
+        width: 49% !important;
+        margin-right: 2% !important;
+    }
+
+    .catblocks li:nth-child(even) {
+        margin-right: 0 !important;
+    }
+}
+
+@include bp(max-width, $bp-xsmall) {
+    .catblocks li {
+        width: 100% !important;
+        margin-right: 0 !important;
+        float: none;
+    }
+}
+
+.catblocks li:last-child {
+    margin-right: 0 !important;
+}
+
+.catblocks li img {
+    width: 100%;
+    max-width: 100%;
+}
+
+.catblocks li a span {
+    color: #FFFFFF;
+    position: absolute;
+    background-color: #7B7C7B;
+    font-family: raleway;
+    font-size: 17px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    padding: 5px 10px;
+    margin-right: 10px;
+}
+
+.catblocklinks a {
+    color: #FFFFFF;
+    text-decoration: none
+}
+
+.catlandingbottomPromoblock {
+    float: left;
+    width: 100%;
+    border: 1px solid #E2E2E2;
+    margin-bottom: 100px;
+}
+
+.catalog-category-view div.categoryland-caption {
+    display: block;
+    margin: 0;
+    position: absolute;
+    color: #000000;
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 36px;
+    text-align: center;
+}
+
+.catalog-category-view div.categoryland-caption span.blue-big-text {
+    color: #3399CC;
+    font-size: 50px;
+    font-weight: 800;
+    padding: 0 0 0 8px;
+}
+
+.catalog-category-view div.categoryland-caption span.blue-big-text {
+    padding: 0 !important
+}
+
+.catalog-category-view div.categoryland-caption span.three-dots {
+    background: url(../images/bg_threeDots.png) no-repeat center center;
+    display: block;
+    height: 20px;
+}
+
+.catalog-category-view div.categoryland-caption p.desc {
+    font: italic 18px/28px Georgia, "Times New Roman", Times, serif;
+    color: #656565;
+}
+
+.cms-home #homepage-main-slides div.slides_control div div.slideshow-caption a.link:hover,
+.cms-home #homepage-main-slides div.slides_control div div.slideshow-caption span.link:hover {
+    text-decoration: underline;
+    color: #1189C5;
+}
+
+.cms-home #homepage-main-slides div.slides_control div div.slideshow-caption span.blue-big-text,
+.catalog-category-view div.categoryland-caption span.blue-big-text {
+    color: #3399CC;
+    font-size: 50px;
+    font-weight: 800;
+    padding: 0 0 0 8px;
+}
+
+.catalog-category-view div.categoryland-caption span.blue-big-text {
+    padding: 0 !important
+}
+
+.cms-home #homepage-main-slides div.slides_control div div.slideshow-caption span.three-dots,
+.catalog-category-view div.categoryland-caption span.three-dots {
+    background: url(../images/bg_threeDots.png) no-repeat center center;
+    display: block;
+    height: 20px;
+}
+
+.cms-home #homepage-main-slides div.slides_control div div.slideshow-caption p.desc,
+.catalog-category-view div.categoryland-caption p.desc {
+    font: italic 18px/28px Georgia, "Times New Roman", Times, serif;
+    color: #656565;
+}

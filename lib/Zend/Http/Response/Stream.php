@@ -16,8 +16,8 @@
  * @category   Zend
  * @package    Zend_Http
  * @subpackage Response
- * @version    $Id: Stream.php 20785 2010-01-31 09:43:03Z mikaelkael $
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Stream.php 24593 2012-01-05 20:35:02Z matthew $
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -28,7 +28,7 @@
  *
  * @package    Zend_Http
  * @subpackage Response
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Http_Response_Stream extends Zend_Http_Response
@@ -90,7 +90,7 @@ class Zend_Http_Response_Stream extends Zend_Http_Response
     /**
      * Set the cleanup trigger
      *
-     * @param $cleanup Set cleanup trigger
+     * @param bool $cleanup Set cleanup trigger
      */
     public function setCleanup($cleanup = true) {
         $this->_cleanup = $cleanup;

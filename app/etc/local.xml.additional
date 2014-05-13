@@ -58,7 +58,7 @@ to app/etc/local.xml manually.
                 <compression><![CDATA[0]]></compression>
                 <cache_dir><![CDATA[]]></cache_dir>
                 <hashed_directory_level><![CDATA[]]></hashed_directory_level>
-                <hashed_directory_umask><![CDATA[]]></hashed_directory_umask>
+                <hashed_directory_perm><![CDATA[]]></hashed_directory_perm>
                 <file_name_prefix><![CDATA[]]></file_name_prefix>
             </memcached>
         </cache>
@@ -70,7 +70,7 @@ to app/etc/local.xml manually.
              </backend_options>
              <slow_backend_options>
                  <hashed_directory_level>1</hashed_directory_level>
-                 <hashed_directory_umask>0777</hashed_directory_umask>
+                 <hashed_directory_perm>0777</hashed_directory_perm>
                  <file_name_prefix>fpc</file_name_prefix>
                  <cache_dir><![CDATA[full_page_cache]]></cache_dir>
              </slow_backend_options>

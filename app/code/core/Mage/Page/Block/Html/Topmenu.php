@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Page
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -76,7 +76,12 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
         $this->_menu->setOutermostClass($outermostClass);
         $this->_menu->setChildrenWrapClass($childrenWrapClass);
 
-        $html = $this->_getHtml($this->_menu, $childrenWrapClass);
+        if ($renderer = $this->getChild('catalog.topnav.renderer')) {
+            $renderer->setMenuTree($this->_menu)->setChildrenWrapClass($childrenWrapClass);
+            $html = $renderer->toHtml();
+        } else {
+            $html = $this->_getHtml($this->_menu, $childrenWrapClass);
+        }
 
         Mage::dispatchEvent('page_block_html_topmenu_gethtml_after', array(
             'menu' => $this->_menu,
@@ -92,6 +97,7 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
      * @param Varien_Data_Tree_Node $menuTree
      * @param string $childrenWrapClass
      * @return string
+     * @deprecated since 1.8.2.0 use child block catalog.topnav.renderer instead
      */
     protected function _getHtml(Varien_Data_Tree_Node $menuTree, $childrenWrapClass)
     {

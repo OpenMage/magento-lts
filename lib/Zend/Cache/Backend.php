@@ -15,16 +15,16 @@
  * @category   Zend
  * @package    Zend_Cache
  * @subpackage Zend_Cache_Backend
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Backend.php 20880 2010-02-03 18:18:32Z matthew $
+ * @version    $Id: Backend.php 24989 2012-06-21 07:24:13Z mabe $
  */
 
 
 /**
  * @package    Zend_Cache
  * @subpackage Zend_Cache_Backend
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Cache_Backend
@@ -112,6 +112,28 @@ class Zend_Cache_Backend
     }
 
     /**
+     * Returns an option
+     *
+     * @param string $name Optional, the options name to return
+     * @throws Zend_Cache_Exceptions
+     * @return mixed
+     */
+    public function getOption($name)
+    {
+        $name = strtolower($name);
+
+        if (array_key_exists($name, $this->_options)) {
+            return $this->_options[$name];
+        }
+
+        if (array_key_exists($name, $this->_directives)) {
+            return $this->_directives[$name];
+        }
+
+        Zend_Cache::throwException("Incorrect option name : {$name}");
+    }
+
+    /**
      * Get the life time
      *
      * if $specificLifetime is not false, the given specific life time is used
@@ -154,7 +176,7 @@ class Zend_Cache_Backend
         $tmpdir = array();
         foreach (array($_ENV, $_SERVER) as $tab) {
             foreach (array('TMPDIR', 'TEMP', 'TMP', 'windir', 'SystemRoot') as $key) {
-                if (isset($tab[$key])) {
+                if (isset($tab[$key]) && is_string($tab[$key])) {
                     if (($key == 'windir') or ($key == 'SystemRoot')) {
                         $dir = realpath($tab[$key] . '\\temp');
                     } else {
@@ -200,7 +222,7 @@ class Zend_Cache_Backend
     /**
      * Verify if the given temporary directory is readable and writable
      *
-     * @param $dir temporary directory
+     * @param string $dir temporary directory
      * @return boolean true if the directory is ok
      */
     protected function _isGoodTmpDir($dir)
@@ -237,7 +259,9 @@ class Zend_Cache_Backend
         // Create a default logger to the standard output stream
         #require_once 'Zend/Log.php';
         #require_once 'Zend/Log/Writer/Stream.php';
+        #require_once 'Zend/Log/Filter/Priority.php';
         $logger = new Zend_Log(new Zend_Log_Writer_Stream('php://output'));
+        $logger->addFilter(new Zend_Log_Filter_Priority(Zend_Log::WARN, '<='));
         $this->_directives['logger'] = $logger;
     }
 

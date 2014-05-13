@@ -1,0 +1,440 @@
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/* ============================================ *
+ * Review - Customer
+ * ============================================ */
+
+#customer-reviews {
+    width: auto;
+    float: none;
+
+    .review-heading {
+        border-top: 1px solid $c-module-border;
+        border-bottom: 1px solid $c-module-border;
+        padding: $gap 0 5px;
+
+        &:after {
+            @include clearfix;
+        }
+
+        h2 {
+            float: left;
+            display: block;
+        }
+
+        .pager {
+            clear: none;
+            float: right;
+            width: auto;
+
+            .count-container {
+                .limiter {
+                    margin-bottom: 0;
+
+                    label {
+                        font-family: $f-stack-special;
+                        font-size: 10px;
+                        text-transform: uppercase;
+                    }
+                }
+            }
+
+            .amount {
+                display: none;
+            }
+        }
+    }
+
+    h2 {
+        color: $c-blue;
+        font-size: $f-size-xs;
+        text-transform: uppercase;
+
+        span {
+            color: $c-text;
+        }
+    }
+
+    h3 {
+        font-family: $f-stack-special;
+        font-size: $f-size-xs;
+        font-weight: normal;
+        text-transform: uppercase;
+
+        span {
+            color: $c-blue;
+        }
+    }
+
+    .fieldset {
+        padding-top: 25px;
+        width: 470px;
+
+        h4 {
+            border-bottom: 1px solid $c-module-border;
+            font-family: $f-stack-special;
+            font-size: $f-size-xs;
+            font-weight: normal;
+            padding-bottom: 5px;
+            text-transform: uppercase;
+
+            em {
+                display: none;
+            }
+        }
+
+        .form-list {
+            font-family: $f-stack-special;
+            font-size: $f-size-xs;
+            font-weight: normal;
+            margin: $gap 0;
+            text-transform: uppercase;
+            width: 470px;
+
+            .inline-label {
+                label {
+                }
+
+                .input-box {
+                }
+
+                &:after {
+                    @include clearfix;
+                }
+            }
+
+            label {
+                font-size: $f-size-xs;
+                font-weight: normal;
+            }
+
+            textarea {
+                border: 1px solid $c-module-border;
+                border-radius: 0;
+                min-width: 100%;
+                -webkit-appearance: none;
+            }
+
+            input {
+                border: 1px solid $c-module-border;
+                border-radius: 0;
+
+                &[type="text"] {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    .buttons-set {
+        border: none;
+        margin: 0;
+        width: 470px;
+    }
+
+    dl {
+        font-family: $f-stack-special;
+        font-size: $f-size-xs;
+        font-weight: normal;
+        margin-bottom: $gap;
+
+        dt {
+            margin: $gap 0;
+            text-transform: uppercase;
+        }
+
+        dd {
+            font-family: $f-stack-serif;
+            font-size: $f-size;
+            margin: $gap 0;
+
+            .ratings-table {
+                font-family: $f-stack-special;
+                font-size: $f-size-xs;
+                width: 100%;
+
+                tr {
+                    float: left;
+                    margin-right: 15px;
+                }
+            }
+
+            table {
+                margin: 15px 0;
+            }
+
+            .review-meta {
+                color: $c-blue;
+                font-family: $f-stack-special;
+                font-size: 10px;
+                font-weight: normal;
+                text-transform: uppercase;
+            }
+        }
+    }
+}
+
+.review-summary-table {
+    border-bottom: 1px solid $c-module-border;
+    margin: 0 0 $gap;
+
+    thead {
+        background: transparent;
+
+        th {
+            background: transparent;
+            border: none;
+            padding: 15px 7px 10px 8px;
+        }
+    }
+
+    tbody {
+        th {
+            background: #FFFFFF;
+            font-size: $f-size-xs;
+        }
+        td {
+            border: none;
+            text-align: center;
+            padding: 0;
+
+            label {
+                width: 100%;
+                display: block;
+                padding: 11px 0;
+            }
+        }
+    }
+
+    .rating-box {
+        .rating-number {
+            display: none;
+
+            &:after {
+                content: "";
+                display: inline-block;
+                @extend .icon-sprite;
+                background-position: 0px -599px;
+                width: 13px;
+                height: $f-size;
+                margin-left: 5px;
+                position: relative;
+                top: 2px;
+            }
+        }
+    }
+
+}
+
+/* ============================================ *
+ * Ratings - Global
+ * ============================================ */
+
+.ratings-table {
+    font-family: $f-stack-special;
+    font-size: $f-size-xs;
+    text-transform: uppercase;
+
+    th {
+        padding-right: 10px;
+    }
+
+    .rating-box {
+        @extend .icon-sprite;
+        background-position: 0 -615px;
+        background-repeat: repeat-x;
+        height: 13px;
+        overflow: hidden;
+        text-indent: -9999px;
+        width: 65px;
+
+        .rating {
+            @extend .icon-sprite;
+            background-position: 0 -600px;
+            background-repeat: repeat-x;
+            float: left;
+            height: 13px;
+            text-indent: -9999px;
+        }
+    }
+}
+
+// ---------------------------------------------
+
+@include bp(max-width, $bp-medium) {
+    body.review-product-list {
+        .product-view {
+            .product-shop {
+                .price-info {
+                    padding-left: 0;
+                }
+
+                .extra-info {
+                    padding: 0;
+                    min-width: 84%;
+
+                    .ratings-table {
+                        margin: $gap 0;
+                        width: 100%;
+
+                        tr {
+                            float: left;
+                            margin-right: 15px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// ---------------------------------------------
+
+@include bp(max-width, 535px) {
+    body.review-product-list {
+        .product-view {
+            .product-shop {
+                .extra-info {
+                    min-width: 0;
+
+                    .ratings-table {
+                        tr {
+                            float: none;
+                            margin-right: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// ---------------------------------------------
+
+@include bp(max-width, 520px) {
+    #customer-reviews {
+        .fieldset {
+            width: 100%;
+
+            .form-list {
+                width: 100%;
+
+                .inline-label {
+                    label,
+                    .input-box {
+                        float: none;
+                    }
+                }
+            }
+        }
+
+        .buttons-set {
+            width: 100%;
+        }
+
+        .review-summary-table {
+
+            thead {
+                th {
+                    padding-left: 0px;
+                    padding-right: 0px;
+                }
+            }
+
+            tbody {
+                th {
+                    padding-left: 0px;
+                    padding-right: 0px;
+                }
+
+                td {
+                    width: 20%;
+                    padding: 0px;
+                }
+            }
+
+            .rating-box {
+                text-indent: 0px;
+                text-align: center;
+                background: none;
+                height: $f-size * 1.4;
+                width: 100%;
+
+                .rating {
+                    display: none;
+                }
+                .rating-number {
+                    display: inline-block;
+                }
+            }
+        }
+
+    }
+}
+
+// ---------------------------------------------
+
+@include bp(max-width, 450px) {
+    #customer-reviews dl dd .ratings-table tr {
+        float: none;
+    }
+}
+
+/* ============================================ *
+ * Review View Page
+ * ============================================ */
+.review-product-view {
+    .product-review {
+        .product-details {
+            h2 {
+                border-bottom: none;
+            }
+        }
+
+        .product-img-box {
+            width: auto;
+            max-width: 50%;
+
+            > a {
+                width: 100%;
+            }
+
+            .product-image {
+                width: 100%;
+            }
+        }
+    }
+}
+
+@include bp('max-width', $bp-medium) {
+    .review-product-view {
+        .product-review {
+            .product-img-box {
+                max-width: 100%;
+            }
+        }
+    }
+}

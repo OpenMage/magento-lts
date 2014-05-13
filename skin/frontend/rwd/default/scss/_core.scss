@@ -1,0 +1,90 @@
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+// ==============================================
+// Core Application
+// ==============================================
+
+// ----------------------------------------------
+// Browser Resets
+
+@import "vendor/normalize";
+@import "core/reset";
+
+// ----------------------------------------------
+// Core
+
+@import "core/common";
+@import "core/form";
+@import "core/table";
+
+// ----------------------------------------------
+// Vendor
+
+// @import "vendor/abc";
+
+// ----------------------------------------------
+// Layout
+
+@import "layout/global";
+@import "layout/header";
+@import "layout/header-nav";
+@import "layout/header-search";
+@import "layout/header-account";
+@import "layout/header-cart";
+@import "layout/footer";
+
+// ----------------------------------------------
+// Modules
+
+// The sort order here is important for two reasons:
+//  1. The compiled CSS needs to be logically ordered/grouped (NOT alphabetically ordered)
+//  2. Selectors of equal weight get applied based on which appears last in the stylesheet,
+//     so we should try not to change this order once it is in place
+
+@import "module/product-list";
+@import "module/catalog-product";
+@import "module/catalog-msrp";
+@import "module/catalog-compare";
+@import "module/checkout-cart";
+@import "module/checkout-onepage";
+@import "module/checkout-success";
+@import "module/configurableswatches";
+@import "module/customer";
+@import "module/contacts";
+@import "module/paypal";
+@import "module/review";
+@import "module/slideshow";
+@import "module/wishlist";
+@import "module/checkout-cart-minicart";
+@import "module/search";
+@import "module/account-reviews";
+@import "module/cms";
+@import "module/pricing_conditions";
+@import "module/cookies";
+
+// ----------------------------------------------
+// Override
+@import "override/plugin";

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogRule
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -391,7 +391,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
                                 $priceRules ? $priceRules : $price
                             );
                         } else {
-                            $priceRules = $price;
+                            $priceRules = ($priceRules ? $priceRules : $price);
                         }
                         if ($ruleData['action_stop']) {
                             break;
@@ -459,7 +459,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
      *
      * @return string
      */
-    public function toString($format='')
+    public function toString($format = '')
     {
         return '';
     }

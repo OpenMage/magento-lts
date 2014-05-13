@@ -14,9 +14,9 @@
  *
  * @category  Zend
  * @package   Zend_Measure
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: Abstract.php 21329 2010-03-04 22:06:08Z thomas $
+ * @version   $Id: Abstract.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /**
@@ -40,7 +40,7 @@
  * @category   Zend
  * @package    Zend_Measure
  * @subpackage Zend_Measure_Abstract
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Measure_Abstract
@@ -74,9 +74,9 @@ abstract class Zend_Measure_Abstract
     /**
      * Zend_Measure_Abstract is an abstract class for the different measurement types
      *
-     * @param  $value  mixed  - Value as string, integer, real or float
-     * @param  $type   type   - OPTIONAL a measure type f.e. Zend_Measure_Length::METER
-     * @param  $locale locale - OPTIONAL a Zend_Locale Type
+     * @param  mixed       $value  Value as string, integer, real or float
+     * @param  int         $type   OPTIONAL a measure type f.e. Zend_Measure_Length::METER
+     * @param  Zend_Locale $locale OPTIONAL a Zend_Locale Type
      * @throws Zend_Measure_Exception
      */
     public function __construct($value, $type = null, $locale = null)

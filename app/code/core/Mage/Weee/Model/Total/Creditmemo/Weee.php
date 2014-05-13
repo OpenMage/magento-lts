@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Weee
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,20 +38,30 @@ class Mage_Weee_Model_Total_Creditmemo_Weee extends Mage_Sales_Model_Order_Credi
         $baseWeeeTaxAmount = 0;
 
         foreach ($creditmemo->getAllItems() as $item) {
-            if ($item->getOrderItem()->isDummy()) {
+            $orderItem = $item->getOrderItem();
+            if ($orderItem->isDummy()) {
                 continue;
             }
-            $orderItemQty = $item->getOrderItem()->getQtyOrdered();
+            $orderItemQty = $orderItem->getQtyOrdered();
+
+            $weeeRowDiscountAmount = $orderItem->getDiscountAppliedForWeeeTax();
+            $weeeDiscountAmount = $creditmemo->roundPrice(
+                $weeeRowDiscountAmount / $orderItemQty * $item->getQty(),
+                'regular', true
+            );
+            $baseWeeeRowDiscountAmount = $orderItem->getBaseDiscountAppliedForWeeeTax();
+            $baseWeeeDiscountAmount = $creditmemo->roundPrice(
+                $baseWeeeRowDiscountAmount / $orderItemQty * $item->getQty(),
+                'base', true
+            );
 
             $weeeAmountExclTax = (Mage::helper('weee')->getWeeeTaxInclTax($item)
-                - Mage::helper('weee')->getTotalTaxAppliedForWeeeTax($item)
-                - $item->getOrderItem()->getDiscountAppliedForWeeeTax()) * $item->getQty();
-            $totalTax += $weeeAmountExclTax;
+                - Mage::helper('weee')->getTotalTaxAppliedForWeeeTax($item)) * $item->getQty();
+            $totalTax += $weeeAmountExclTax - $weeeDiscountAmount;
 
             $baseWeeeAmountExclTax = (Mage::helper('weee')->getBaseWeeeTaxInclTax($item)
-                - Mage::helper('weee')->getBaseTotalTaxAppliedForWeeeTax($item)
-                - $item->getOrderItem()->getDiscountAppliedForWeeeTax()) * $item->getQty();
-            $baseTotalTax += $baseWeeeAmountExclTax;
+                - Mage::helper('weee')->getBaseTotalTaxAppliedForWeeeTax($item)) * $item->getQty();
+            $baseTotalTax += $baseWeeeAmountExclTax - $baseWeeeDiscountAmount;
 
             $item->setWeeeTaxAppliedRowAmount($weeeAmountExclTax);
             $item->setBaseWeeeTaxAppliedRowAmount($baseWeeeAmountExclTax);
@@ -66,6 +76,9 @@ class Mage_Weee_Model_Total_Creditmemo_Weee extends Mage_Sales_Model_Order_Credi
                 $one['row_amount'] = $one['amount'] * $item->getQty();
                 $one['base_row_amount_incl_tax'] = $one['base_amount_incl_tax'] * $item->getQty();
                 $one['row_amount_incl_tax'] = $one['amount_incl_tax'] * $item->getQty();
+
+                $one['weee_discount'] = $weeeDiscountAmount;
+                $one['base_weee_discount'] = $baseWeeeDiscountAmount;
 
                 $newApplied[] = $one;
             }

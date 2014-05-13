@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+-->
+<layout version="0.1.0">
+
+    <customer_account>
+        <!-- Mage_Review -->
+        <reference name="customer_account_navigation">
+            <action method="addLink" translate="label" module="review"><name>reviews</name><path>review/customer</path><label>My Product Reviews</label></action>
+        </reference>
+
+    </customer_account>
+
+<!--
+Customer account home dashboard layout
+-->
+
+    <customer_account_index>
+
+        <!-- Mage_Review -->
+        <reference name="customer_account_dashboard">
+            <block type="review/customer_recent" name="customer_account_dashboard_info1" as="info1" template="review/customer/recent.phtml"/>
+        </reference>
+
+    </customer_account_index>
+
+<!--
+Product view page
+-->
+
+    <catalog_product_view>
+        <reference name="product.info">
+            <block type="review/product_view_list" name="product.reviews" as="reviews" template="review/product/view/list.phtml" after="additional">
+                <action method="addToParentGroup"><group>detailed_info</group></action>
+                <action method="setTitle" translate="value"><value>Reviews</value></action>
+            </block>
+        </reference>
+    </catalog_product_view>
+
+<!--
+Product reviews page (?)
+-->
+
+    <reviews>
+        <!-- Mage_Review -->
+        <reference name="root">
+            <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+        </reference>
+    </reviews>
+
+<!--
+Product reviews page
+-->
+
+    <review_product_list translate="label">
+        <label>Catalog Product Reviews List</label>
+        <reference name="root">
+            <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
+        </reference>
+        <reference name="head">
+            <action method="addJs"><script>varien/product.js</script></action>
+            <action method="addJs"><script>varien/configurable.js</script></action>
+        </reference>
+        <reference name="content">
+            <block type="review/product_view" name="product.info" template="catalog/product/view.phtml">
+                <block type="catalog/product_view_media" name="product.info.media" as="media" template="catalog/product/view/media.phtml">
+                    <action method="disableGallery"/>
+                </block>
+                <block type="catalog/product_view" name="product.info.addto" as="addto" template="catalog/product/view/addto.phtml"/>
+                <block type="catalog/product_view" name="product.info.addtocart" as="addtocart" template="catalog/product/view/addtocart.phtml">
+                    <!-- workaround: a better place for this code is in paypal.xml -->
+                    <block type="page/html_wrapper" name="review.product.info.addtocart.paypal.wrapper" translate="label" module="paypal">
+                        <label>PayPal Express Checkout Shortcut Wrapper</label>
+                        <block type="paypal/express_shortcut" name="review.product.info.addtocart.paypal" template="paypal/express/product/shortcut.phtml">
+                            <action method="setIsInCatalogProduct"><value>1</value></action>
+                        </block>
+                    </block>
+                </block>
+                <block type="catalog/product_view" name="product.tierprices" as="tierprices" template="catalog/product/view/tierprices.phtml"/>
+                <block type="core/template" name="product.info.other" as="other" template="review/product/view/other.phtml"/>
+                <block type="page/html_pager" name="product_review_list.toolbar" />
+                <block type="core/template" name="product_review_list.count" template="review/product/view/count.phtml" />
+                <block type="review/product_view_list" name="product.info.product_additional_data" as="product_additional_data" template="review/product/view/list.phtml">
+                    <block type="review/form" name="product.review.form" as="review_form">
+                        <block type="page/html_wrapper" name="product.review.form.fields.before" as="form_fields_before" translate="label">
+                            <label>Review Form Fields Before</label>
+                            <action method="setMayBeInvisible"><value>1</value></action>
+                        </block>
+                    </block>
+                </block>
+            </block>
+        </reference>
+    </review_product_list>
+
+    <review_product_view translate="label">
+        <label>Catalog Product Review View</label>
+        <reference name="root">
+            <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="review/view" name="review_view"/>
+        </reference>
+    </review_product_view>
+
+    <review_customer_index translate="label">
+        <label>Customer My Account Product Reviews</label>
+        <update handle="customer_account"/>
+        <reference name="my.account.wrapper">
+            <block type="review/customer_list" name="review_customer_list" template="review/customer/list.phtml"/>
+        </reference>
+    </review_customer_index>
+
+    <review_customer_view translate="label">
+        <label>Customer My Account Review Details</label>
+        <update handle="customer_account"/>
+        <reference name="my.account.wrapper">
+            <block type="review/customer_view" name="customers_review"/>
+        </reference>
+    </review_customer_view>
+
+</layout>

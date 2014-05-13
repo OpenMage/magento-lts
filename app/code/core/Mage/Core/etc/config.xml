@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -152,6 +152,16 @@
         <request_rewrite>
             <model>core/url_rewrite_request</model>
         </request_rewrite>
+        <events>
+            <controller_action_predispatch>
+                <observers>
+                    <security_domain_policy>
+                        <class>Mage_Core_Model_Domainpolicy</class>
+                        <method>addDomainPolicyHeader</method>
+                    </security_domain_policy>
+                </observers>
+            </controller_action_predispatch>
+        </events>
     </global>
     <frontend>
         <routers>
@@ -241,7 +251,7 @@
             <package>
                 <area>frontend</area>
                 <default_theme>default</default_theme>
-                <name>default</name>
+                <name>rwd</name>
                 <theme>default</theme>
                 <translate>default</translate>
             </package>
@@ -288,6 +298,7 @@
                     <compiled_css_secure_folder>css_secure</compiled_css_secure_folder>
                     <compiled_js_folder>js</compiled_js_folder>
                 </allowed_resources>
+                <ignored_resources>.svn,.htaccess</ignored_resources>
             </media_storage_configuration>
         </system>
         <trans_email>
@@ -377,6 +388,8 @@
             </url>
             <security>
                 <use_form_key>1</use_form_key>
+                <domain_policy_backend>2</domain_policy_backend>
+                <domain_policy_frontend>2</domain_policy_frontend>
             </security>
         </admin>
         <general>

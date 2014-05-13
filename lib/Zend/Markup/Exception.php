@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Markup
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Exception.php 20277 2010-01-14 14:17:12Z kokx $
+ * @version    $Id: Exception.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /**
@@ -27,10 +27,10 @@
 /**
  * Exception class for Zend_Markup
  *
- * @category   Zend 
+ * @category   Zend
  * @uses       Zend_Exception
  * @package    Zend_Markup
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Markup_Exception extends Zend_Exception

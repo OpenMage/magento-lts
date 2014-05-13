@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Select
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Select.php 23254 2010-10-26 12:49:23Z matthew $
+ * @version    $Id: Select.php 24833 2012-05-30 13:29:41Z adamlundrigan $
  */
 
 
@@ -38,7 +38,7 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Select
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Db_Select
@@ -207,8 +207,8 @@ class Zend_Db_Select
      * The first parameter $name can be a simple string, in which case the
      * correlation name is generated automatically.  If you want to specify
      * the correlation name, the first parameter must be an associative
-     * array in which the key is the physical table name, and the value is
-     * the correlation name.  For example, array('table' => 'alias').
+     * array in which the key is the correlation name, and the value is
+     * the physical table name.  For example, array('alias' => 'table').
      * The correlation name is prepended to all columns fetched for this
      * table.
      *
@@ -219,8 +219,8 @@ class Zend_Db_Select
      * no correlation name is generated or prepended to the columns named
      * in the second parameter.
      *
-     * @param  array|string|Zend_Db_Expr $name The table name or an associative array relating table name to
-     *                                         correlation name.
+     * @param  array|string|Zend_Db_Expr $name The table name or an associative array
+     *                                         relating correlation name to table name.
      * @param  array|string|Zend_Db_Expr $cols The columns to select from this table.
      * @param  string $schema The schema name to specify, if any.
      * @return Zend_Db_Select This Zend_Db_Select object.
@@ -880,9 +880,13 @@ class Zend_Db_Select
         $join  = $this->_adapter->quoteIdentifier(key($this->_parts[self::FROM]), true);
         $from  = $this->_adapter->quoteIdentifier($this->_uniqueCorrelation($name), true);
 
-        $cond1 = $from . '.' . $cond;
-        $cond2 = $join . '.' . $cond;
-        $cond  = $cond1 . ' = ' . $cond2;
+        $joinCond = array();
+        foreach ((array)$cond as $fieldName) {
+            $cond1 = $from . '.' . $fieldName;
+            $cond2 = $join . '.' . $fieldName;
+            $joinCond[]  = $cond1 . ' = ' . $cond2;
+        }
+        $cond = implode(' '.self::SQL_AND.' ', $joinCond);
 
         return $this->_join($type, $name, $cond, $cols, $schema);
     }
@@ -896,7 +900,8 @@ class Zend_Db_Select
     private function _uniqueCorrelation($name)
     {
         if (is_array($name)) {
-            $c = end($name);
+            $k = key($name);
+            $c = is_string($k) ? $k : end($name);
         } else {
             // Extract just the last name of a qualified table name
             $dot = strrpos($name,'.');

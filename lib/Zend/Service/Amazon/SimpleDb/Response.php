@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Service_Amazon
  * @subpackage SimpleDb
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -28,10 +28,10 @@
  * @category   Zend
  * @package    Zend_Service_Amazon
  * @subpackage SimpleDb
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Service_Amazon_SimpleDb_Response 
+class Zend_Service_Amazon_SimpleDb_Response
 {
     /**
      * XML namespace used for SimpleDB responses.
@@ -120,20 +120,20 @@ class Zend_Service_Amazon_SimpleDb_Response
             $body = false;
         }
 
-       
+
         return simplexml_load_string($body);
     }
-    
+
     /**
      * Get HTTP response object
-     * 
+     *
      * @return Zend_Http_Response
      */
-    public function getHttpResponse() 
+    public function getHttpResponse()
     {
         return $this->_httpResponse;
     }
-    
+
     /**
      * Gets the document object for this response
      *
@@ -156,7 +156,7 @@ class Zend_Service_Amazon_SimpleDb_Response
                 if (!$this->_document->loadXML($body)) {
                     $this->_document = false;
                 }
-                
+
                 // reset libxml error handling
                 libxml_clear_errors();
                 libxml_use_internal_errors($errors);

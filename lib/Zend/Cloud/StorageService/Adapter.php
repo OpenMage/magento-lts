@@ -13,7 +13,7 @@
  * @category   Zend
  * @package    Zend_Cloud
  * @subpackage StorageService
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,7 +23,7 @@
  * @category   Zend
  * @package    Zend_Cloud
  * @subpackage StorageService
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 interface Zend_Cloud_StorageService_Adapter
@@ -39,10 +39,10 @@ interface Zend_Cloud_StorageService_Adapter
      * @return mixed
      */
     public function fetchItem($path, $options = null);
-    
+
     /**
      * Store an item in the storage service.
-     * WARNING: This operation overwrites any item that is located at 
+     * WARNING: This operation overwrites any item that is located at
      * $destinationPath.
      * @param string $destinationPath
      * @param mixed  $data
@@ -52,7 +52,7 @@ interface Zend_Cloud_StorageService_Adapter
     public function storeItem($destinationPath,
                               $data,
                               $options = null);
-    
+
     /**
      * Delete an item in the storage service.
      *
@@ -61,10 +61,10 @@ interface Zend_Cloud_StorageService_Adapter
      * @return void
      */
     public function deleteItem($path, $options = null);
-    
+
     /**
      * Copy an item in the storage service to a given path.
-     * 
+     *
      * The $destinationPath must be a directory.
      *
      * @param  string $sourcePath
@@ -73,10 +73,10 @@ interface Zend_Cloud_StorageService_Adapter
      * @return void
      */
     public function copyItem($sourcePath, $destinationPath, $options = null);
-    
+
     /**
      * Move an item in the storage service to a given path.
-     * 
+     *
      * The $destinationPath must be a directory.
      *
      * @param  string $sourcePath
@@ -85,7 +85,7 @@ interface Zend_Cloud_StorageService_Adapter
      * @return void
      */
     public function moveItem($sourcePath, $destinationPath, $options = null);
-    
+
     /**
      * Rename an item in the storage service to a given name.
      *
@@ -96,10 +96,10 @@ interface Zend_Cloud_StorageService_Adapter
      * @return void
      */
     public function renameItem($path, $name, $options = null);
-    
+
     /**
      * List items in the given directory in the storage service
-     * 
+     *
      * The $path must be a directory
      *
      *
@@ -108,7 +108,7 @@ interface Zend_Cloud_StorageService_Adapter
      * @return array A list of item names
      */
     public function listItems($path, $options = null);
-    
+
     /**
      * Get a key/value array of metadata for the given path.
      *
@@ -117,10 +117,10 @@ interface Zend_Cloud_StorageService_Adapter
      * @return array
      */
     public function fetchMetadata($path, $options = null);
-    
+
     /**
      * Store a key/value array of metadata at the given path.
-     * WARNING: This operation overwrites any metadata that is located at 
+     * WARNING: This operation overwrites any metadata that is located at
      * $destinationPath.
      *
      * @param  string $destinationPath
@@ -128,7 +128,7 @@ interface Zend_Cloud_StorageService_Adapter
      * @return void
      */
     public function storeMetadata($destinationPath, $metadata, $options = null);
-    
+
     /**
      * Delete a key/value array of metadata at the given path.
      *

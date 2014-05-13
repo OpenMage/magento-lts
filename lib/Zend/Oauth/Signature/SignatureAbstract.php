@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Oauth
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: SignatureAbstract.php 22662 2010-07-24 17:37:36Z mabe $
+ * @version    $Id: SignatureAbstract.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /** Zend_Oauth_Http_Utility */
@@ -28,7 +28,7 @@
 /**
  * @category   Zend
  * @package    Zend_Oauth
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Oauth_Signature_SignatureAbstract
@@ -59,10 +59,10 @@ abstract class Zend_Oauth_Signature_SignatureAbstract
 
     /**
      * Constructor
-     * 
-     * @param  string $consumerSecret 
-     * @param  null|string $tokenSecret 
-     * @param  null|string $hashAlgo 
+     *
+     * @param  string $consumerSecret
+     * @param  null|string $tokenSecret
+     * @param  null|string $hashAlgo
      * @return void
      */
     public function __construct($consumerSecret, $tokenSecret = null, $hashAlgo = null)
@@ -79,18 +79,18 @@ abstract class Zend_Oauth_Signature_SignatureAbstract
 
     /**
      * Sign a request
-     * 
-     * @param  array $params 
-     * @param  null|string $method 
-     * @param  null|string $url 
+     *
+     * @param  array $params
+     * @param  null|string $method
+     * @param  null|string $url
      * @return string
      */
     public abstract function sign(array $params, $method = null, $url = null);
 
     /**
      * Normalize the base signature URL
-     * 
-     * @param  string $url 
+     *
+     * @param  string $url
      * @return string
      */
     public function normaliseBaseSignatureUrl($url)
@@ -109,7 +109,7 @@ abstract class Zend_Oauth_Signature_SignatureAbstract
 
     /**
      * Assemble key from consumer and token secrets
-     * 
+     *
      * @return string
      */
     protected function _assembleKey()
@@ -126,17 +126,17 @@ abstract class Zend_Oauth_Signature_SignatureAbstract
 
     /**
      * Get base signature string
-     * 
-     * @param  array $params 
-     * @param  null|string $method 
-     * @param  null|string $url 
+     *
+     * @param  array $params
+     * @param  null|string $method
+     * @param  null|string $url
      * @return string
      */
     protected function _getBaseSignatureString(array $params, $method = null, $url = null)
     {
         $encodedParams = array();
         foreach ($params as $key => $value) {
-            $encodedParams[Zend_Oauth_Http_Utility::urlEncode($key)] = 
+            $encodedParams[Zend_Oauth_Http_Utility::urlEncode($key)] =
                 Zend_Oauth_Http_Utility::urlEncode($value);
         }
         $baseStrings = array();
@@ -160,8 +160,8 @@ abstract class Zend_Oauth_Signature_SignatureAbstract
 
     /**
      * Transform an array to a byte value ordered query string
-     * 
-     * @param  array $params 
+     *
+     * @param  array $params
      * @return string
      */
     protected function _toByteValueOrderedQueryString(array $params)

@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: EmailAddress.php 22668 2010-07-25 14:50:46Z thomas $
+ * @version    $Id: EmailAddress.php 25057 2012-11-02 20:35:40Z rob $
  */
 
 /**
@@ -32,7 +32,7 @@
 /**
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
@@ -52,28 +52,37 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
      */
     protected $_messageTemplates = array(
         self::INVALID            => "Invalid type given. String expected",
-        self::INVALID_FORMAT     => "'%value%' is no valid email address in the basic format local-part@hostname",
-        self::INVALID_HOSTNAME   => "'%hostname%' is no valid hostname for email address '%value%'",
+        self::INVALID_FORMAT     => "'%value%' is not a valid email address in the basic format local-part@hostname",
+        self::INVALID_HOSTNAME   => "'%hostname%' is not a valid hostname for email address '%value%'",
         self::INVALID_MX_RECORD  => "'%hostname%' does not appear to have a valid MX record for the email address '%value%'",
         self::INVALID_SEGMENT    => "'%hostname%' is not in a routable network segment. The email address '%value%' should not be resolved from public network",
         self::DOT_ATOM           => "'%localPart%' can not be matched against dot-atom format",
         self::QUOTED_STRING      => "'%localPart%' can not be matched against quoted-string format",
-        self::INVALID_LOCAL_PART => "'%localPart%' is no valid local part for email address '%value%'",
+        self::INVALID_LOCAL_PART => "'%localPart%' is not a valid local part for email address '%value%'",
         self::LENGTH_EXCEEDED    => "'%value%' exceeds the allowed length",
     );
 
     /**
+     * As of RFC5753 (JAN 2010), the following blocks are no logner reserved:
+     *   - 128.0.0.0/16
+     *   - 191.255.0.0/16
+     *   - 223.255.255.0/24
+     * @see http://tools.ietf.org/html/rfc5735#page-6
+     *
+     * As of RFC6598 (APR 2012), the following blocks are now reserved:
+     *   - 100.64.0.0/10
+     * @see http://tools.ietf.org/html/rfc6598#section-7
+     *
      * @see http://en.wikipedia.org/wiki/IPv4
      * @var array
      */
     protected $_invalidIp = array(
         '0'   => '0.0.0.0/8',
         '10'  => '10.0.0.0/8',
+        '100' => '100.64.0.0/10',
         '127' => '127.0.0.0/8',
-        '128' => '128.0.0.0/16',
         '169' => '169.254.0.0/16',
         '172' => '172.16.0.0/12',
-        '191' => '191.255.0.0/16',
         '192' => array(
             '192.0.0.0/24',
             '192.0.2.0/24',
@@ -81,7 +90,6 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
             '192.168.0.0/16'
         ),
         '198' => '198.18.0.0/15',
-        '223' => '223.255.255.0/24',
         '224' => '224.0.0.0/4',
         '240' => '240.0.0.0/4'
     );
@@ -177,6 +185,8 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
             } else {
                 $this->setHostnameValidator($options['hostname']);
             }
+        } elseif ($this->_options['hostname'] == null) {
+            $this->setHostnameValidator();
         }
 
         if (array_key_exists('mx', $options)) {
@@ -205,17 +215,17 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
      */
     public function setMessage($messageString, $messageKey = null)
     {
-        $messageKeys = $messageKey;
         if ($messageKey === null) {
-            $keys = array_keys($this->_messageTemplates);
-            $messageKeys = current($keys);
+            $this->_options['hostname']->setMessage($messageString);
+            parent::setMessage($messageString);
+            return $this;
         }
 
-        if (!isset($this->_messageTemplates[$messageKeys])) {
+        if (!isset($this->_messageTemplates[$messageKey])) {
             $this->_options['hostname']->setMessage($messageString, $messageKey);
         }
 
-        $this->_messageTemplates[$messageKeys] = $messageString;
+        $this->_messageTemplates[$messageKey] = $messageString;
         return $this;
     }
 

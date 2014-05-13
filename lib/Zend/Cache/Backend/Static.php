@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Cache
  * @subpackage Zend_Cache_Backend
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Static.php 22950 2010-09-16 19:33:00Z mabe $
+ * @version    $Id: Static.php 24989 2012-06-21 07:24:13Z mabe $
  */
 
 /**
@@ -33,7 +33,7 @@
 /**
  * @package    Zend_Cache
  * @subpackage Zend_Cache_Backend
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Cache_Backend_Static
@@ -99,17 +99,13 @@ class Zend_Cache_Backend_Static
      */
     public function getOption($name)
     {
+        $name = strtolower($name);
+
         if ($name == 'tag_cache') {
             return $this->getInnerCache();
-        } else {
-            if (in_array($name, $this->_options)) {
-                return $this->_options[$name];
-            }
-            if ($name == 'lifetime') {
-                return parent::getLifetime();
-            }
-            return null;
         }
+
+        return parent::getOption($name);
     }
 
     /**
@@ -123,7 +119,7 @@ class Zend_Cache_Backend_Static
      */
     public function load($id, $doNotTestCacheValidity = false)
     {
-        if (empty($id)) {
+        if (($id = (string)$id) === '') {
             $id = $this->_detectId();
         } else {
             $id = $this->_decodeId($id);
@@ -136,7 +132,7 @@ class Zend_Cache_Backend_Static
         }
 
         $fileName = basename($id);
-        if (empty($fileName)) {
+        if ($fileName === '') {
             $fileName = $this->_options['index_filename'];
         }
         $pathName = $this->_options['public_dir'] . dirname($id);
@@ -163,7 +159,7 @@ class Zend_Cache_Backend_Static
         }
 
         $fileName = basename($id);
-        if (empty($fileName)) {
+        if ($fileName === '') {
             $fileName = $this->_options['index_filename'];
         }
         if ($this->_tagged === null && $tagged = $this->getInnerCache()->load(self::INNER_CACHE_NAME)) {
@@ -211,14 +207,14 @@ class Zend_Cache_Backend_Static
         }
 
         clearstatcache();
-        if ($id === null || strlen($id) == 0) {
+        if (($id = (string)$id) === '') {
             $id = $this->_detectId();
         } else {
             $id = $this->_decodeId($id);
         }
 
         $fileName = basename($id);
-        if (empty($fileName)) {
+        if ($fileName === '') {
             $fileName = $this->_options['index_filename'];
         }
 
@@ -308,7 +304,7 @@ class Zend_Cache_Backend_Static
         } else {
             $extension = $this->_options['file_extension'];
         }
-        if (empty($fileName)) {
+        if ($fileName === '') {
             $fileName = $this->_options['index_filename'];
         }
         $pathName = $this->_options['public_dir'] . dirname($id);
@@ -333,7 +329,7 @@ class Zend_Cache_Backend_Static
             Zend_Cache::throwException('Invalid cache id: does not match expected public_dir path');
         }
         $fileName = basename($id);
-        if (empty($fileName)) {
+        if ($fileName === '') {
             $fileName = $this->_options['index_filename'];
         }
         $pathName  = $this->_options['public_dir'] . dirname($id);
@@ -343,14 +339,16 @@ class Zend_Cache_Backend_Static
             if (!is_writable($directory)) {
                 return false;
             }
-            foreach (new DirectoryIterator($directory) as $file) {
-                if (true === $file->isFile()) {
-                    if (false === unlink($file->getPathName())) {
-                        return false;
+            if (is_dir($directory)) {
+                foreach (new DirectoryIterator($directory) as $file) {
+                    if (true === $file->isFile()) {
+                        if (false === unlink($file->getPathName())) {
+                            return false;
+                        }
                     }
                 }
             }
-            rmdir(dirname($path));
+            rmdir($directory);
         }
         if (file_exists($file)) {
             if (!is_writable($file)) {
@@ -538,7 +536,7 @@ class Zend_Cache_Backend_Static
      * Detect an octal string and return its octal value for file permission ops
      * otherwise return the non-string (assumed octal or decimal int already)
      *
-     * @param $val The potential octal in need of conversion
+     * @param string $val The potential octal in need of conversion
      * @return int
      */
     protected function _octdec($val)
@@ -551,9 +549,12 @@ class Zend_Cache_Backend_Static
 
     /**
      * Decode a request URI from the provided ID
+     *
+     * @param string $id
+     * @return string
      */
     protected function _decodeId($id)
     {
-        return pack('H*', $id);;
+        return pack('H*', $id);
     }
 }

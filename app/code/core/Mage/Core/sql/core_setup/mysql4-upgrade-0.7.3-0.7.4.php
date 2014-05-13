@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,7 +29,16 @@ $installer = $this;
 
 $installer->startSetup();
 
-$rows = $installer->_conn->fetchAll("select * from {$this->getTable('core_config_data')} where path in ('paypal/wpp/api_password', 'paypal/wpp/api_signature', 'paypal/wpp/api_username', 'paypal/wps/business_account', 'paypal/wpuk/user', 'paypal/wpuk/pwd', 'carriers/dhl/id', 'carriers/dhl/password', 'carriers/dhl/shipping_key', 'carriers/dhl/shipping_intlkey', 'carriers/fedex/account', 'carriers/ups/account_license_number', 'carriers/ups/username', 'carriers/usps/userid', 'payment/authorizenet/login', 'payment/authorizenet/trans_key', 'payment/verisign/pwd', 'payment/verisign/user')");
+$rows = $installer->_conn->fetchAll(
+    "select * from {$this->getTable('core_config_data')} where
+    path in (
+    'paypal/wpp/api_password', 'paypal/wpp/api_signature', 'paypal/wpp/api_username',
+    'paypal/wps/business_account', 'paypal/wpuk/user', 'paypal/wpuk/pwd', 'carriers/dhl/id',
+    'carriers/dhl/password', 'carriers/dhl/shipping_key', 'carriers/dhl/shipping_intlkey',
+    'carriers/fedex/account', 'carriers/ups/account_license_number', 'carriers/ups/username',
+    'carriers/usps/userid', 'payment/authorizenet/login', 'payment/authorizenet/trans_key',
+    'payment/verisign/pwd', 'payment/verisign/user')"
+);
 
 $hlp = Mage::helper('core');
 foreach ($rows as $r) {
@@ -38,3 +47,4 @@ foreach ($rows as $r) {
         $installer->_conn->update($this->getTable('core_config_data'), $r, 'config_id='.$r['config_id']);
     }
 }
+$installer->endSetup();

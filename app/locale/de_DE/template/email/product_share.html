@@ -1,0 +1,13 @@
+<!--@subject Welcome, {{var name}} @-->
+<!--@vars
+{"htmlescape var=$name":"Recipient Name",
+"var email":"Recipient Email address",
+"var product_url":"Url for Product",
+"var product_name":"Product Name",
+"var product_image":"Url for product small image (75 px)",
+"var sender_name":"Sender name",
+"var sender_email":"Sender email",
+"var message":"Sender Message"}
+@-->
+
+Herzlich willkommen, {{htmlescape var=$name}}<br /><br />Bitte schauen&#8201;Sie sich <a href="{{var product_url}}">{{var product_name}}</a><br /><br />an: <br />{{var message}}<br /><br />

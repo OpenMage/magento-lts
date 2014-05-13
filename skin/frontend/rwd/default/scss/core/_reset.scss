@@ -1,0 +1,113 @@
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/* ============================================ *
+ * Reset
+ * ============================================ */
+
+*,
+*:before,
+*:after {
+    @include box-sizing(border-box);
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    -webkit-tap-highlight-color: black(0); /* Prevent tap highlight on iOS/Android */
+    -webkit-text-size-adjust: 100%; /* Prevent automatic scaling on iOS */
+}
+
+body {
+    background: #FFFFFF;
+    color: #000000;
+    line-height: 1;
+}
+
+html,
+body,
+img,
+fieldset,
+abbr,
+acronym {
+    border: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: 100%;
+    font-weight: normal;
+}
+
+th,
+code,
+cite,
+caption {
+    font-weight: normal;
+    font-style: normal;
+    text-align: left;
+}
+
+address {
+    font-style: normal;
+}
+
+fieldset {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+img {
+    display: block;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+q:before,
+q:after {
+    content: '';
+}
+
+// Standard outline-offset in Chrome and make the search input same as text input
+input:focus,
+input[type="search"]:focus {
+    outline-offset: -2px;
+}
+
+// Resetting Normalize so that search inputs behave the same as text inputs
+input[type="search"] {
+    -webkit-appearance: none; /* 1 */
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box; /* 2 */
+    box-sizing: border-box;
+}

@@ -15,8 +15,8 @@
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Router
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Route.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Route.php 24593 2012-01-05 20:35:02Z matthew $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -28,7 +28,7 @@
  *
  * @package    Zend_Controller
  * @subpackage Router
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @see        http://manuals.rubyonrails.com/read/chapter/65
  */
@@ -77,7 +77,7 @@ class Zend_Controller_Router_Route extends Zend_Controller_Router_Route_Abstract
     protected $_translatable = array();
 
     protected $_urlVariable = ':';
-    protected $_urlDelimiter = '/';
+    protected $_urlDelimiter = self::URI_DELIMITER;
     protected $_regexDelimiter = '#';
     protected $_defaultRegex = null;
 
@@ -294,6 +294,9 @@ class Zend_Controller_Router_Route extends Zend_Controller_Router_Route_Abstract
         foreach ($this->_variables as $var) {
             if (!array_key_exists($var, $return)) {
                 return false;
+            } elseif ($return[$var] == '' || $return[$var] === null) {
+                // Empty variable? Replace with the default value.
+                $return[$var] = $this->_defaults[$var];
             }
         }
 
@@ -344,7 +347,7 @@ class Zend_Controller_Router_Route extends Zend_Controller_Router_Route_Abstract
                     $value = $this->_values[$name];
                 } elseif (!$reset && !$useDefault && isset($this->_wildcardData[$name])) {
                     $value = $this->_wildcardData[$name];
-                } elseif (isset($this->_defaults[$name])) {
+                } elseif (array_key_exists($name, $this->_defaults)) {
                     $value = $this->_defaults[$name];
                 } else {
                     #require_once 'Zend/Controller/Router/Exception.php';

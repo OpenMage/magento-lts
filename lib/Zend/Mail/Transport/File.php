@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Mail
  * @subpackage Transport
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
@@ -34,7 +34,7 @@
  * @category   Zend
  * @package    Zend_Mail
  * @subpackage Transport
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Mail_Transport_File extends Zend_Mail_Transport_Abstract
@@ -86,7 +86,7 @@ class Zend_Mail_Transport_File extends Zend_Mail_Transport_Abstract
      */
     public function setOptions(array $options)
     {
-        if (isset($options['path'])&& is_dir($options['path'])) {
+        if (isset($options['path']) && is_dir($options['path'])) {
             $this->_path = $options['path'];
         }
         if (isset($options['callback']) && is_callable($options['callback'])) {
@@ -127,7 +127,7 @@ class Zend_Mail_Transport_File extends Zend_Mail_Transport_Abstract
      * @param Zend_Mail_Transport_File File transport instance
      * @return string
      */
-    public function defaultCallback($transport) 
+    public function defaultCallback($transport)
     {
         return 'ZendMail_' . $_SERVER['REQUEST_TIME'] . '_' . mt_rand() . '.tmp';
     }

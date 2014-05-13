@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Form
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -27,9 +27,9 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Element
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: File.php 22371 2010-06-04 20:09:44Z thomas $
+ * @version    $Id: File.php 25225 2013-01-17 15:59:16Z frosch $
  */
 class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
 {
@@ -71,7 +71,7 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
     /**
      * Load default decorators
      *
-     * @return void
+     * @return Zend_Form_Element_File
      */
     public function loadDefaultDecorators()
     {
@@ -150,7 +150,8 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
         }
 
         if (empty($type)) {
-            $pluginPrefix = rtrim($prefix, '_') . '_Transfer_Adapter';
+            $nsSeparator = (false !== strpos($prefix, '\\'))?'\\':'_';
+            $pluginPrefix = rtrim($prefix, $nsSeparator) . $nsSeparator . 'Transfer' . $nsSeparator . 'Adapter';
             $pluginPath   = rtrim($path, DIRECTORY_SEPARATOR) . '/Transfer/Adapter/';
             $loader       = $this->getPluginLoader(self::TRANSFER_ADAPTER);
             $loader->addPrefixPath($pluginPrefix, $pluginPath);
@@ -430,7 +431,7 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
         } else {
             $adapter->setOptions(array('ignoreNoFile' => false), $this->getName());
             if ($this->autoInsertNotEmptyValidator() && !$this->getValidator('NotEmpty')) {
-                $this->addValidator = array('validator' => 'NotEmpty', 'breakChainOnFailure' => true);
+                $this->addValidator('NotEmpty', true);
             }
         }
 

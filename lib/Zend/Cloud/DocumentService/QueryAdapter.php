@@ -13,13 +13,13 @@
  * @category   Zend
  * @package    Zend_Cloud
  * @subpackage DocumentService
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
 /**
  * This interface describes the API that concrete query adapter should implement
- * 
+ *
  * Common interface for document storage services in the cloud. This interface
  * supports most document services and provides some flexibility for
  * vendor-specific features and requirements via an optional $options array in
@@ -34,14 +34,14 @@
  * @category   Zend
  * @package    Zend_Cloud
  * @subpackage DocumentService
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 interface Zend_Cloud_DocumentService_QueryAdapter
 {
     /**
      * SELECT clause (fields to be selected)
-     * 
+     *
      * @param string $select
      * @return Zend_Cloud_DocumentService_QueryAdapter
      */
@@ -49,7 +49,7 @@ interface Zend_Cloud_DocumentService_QueryAdapter
 
     /**
      * FROM clause (table name)
-     * 
+     *
      * @param string $from
      * @return Zend_Cloud_DocumentService_QueryAdapter
      */
@@ -57,7 +57,7 @@ interface Zend_Cloud_DocumentService_QueryAdapter
 
     /**
      * WHERE clause (conditions to be used)
-     * 
+     *
      * @param string $where
      * @param mixed $value Value or array of values to be inserted instead of ?
      * @param string $op Operation to use to join where clauses (AND/OR)
@@ -67,10 +67,10 @@ interface Zend_Cloud_DocumentService_QueryAdapter
 
     /**
      * WHERE clause for item ID
-     * 
+     *
      * This one should be used when fetching specific rows since some adapters
      * have special syntax for primary keys
-     * 
+     *
      * @param mixed $value Row ID for the document
      * @return Zend_Cloud_DocumentService_QueryAdapter
      */
@@ -78,7 +78,7 @@ interface Zend_Cloud_DocumentService_QueryAdapter
 
     /**
      * LIMIT clause (how many rows ot return)
-     * 
+     *
      * @param int $limit
      * @return Zend_Cloud_DocumentService_QueryAdapter
      */
@@ -86,7 +86,7 @@ interface Zend_Cloud_DocumentService_QueryAdapter
 
     /**
      * ORDER BY clause (sorting)
-     * 
+     *
      * @param string $sort Column to sort by
      * @param string $direction Direction - asc/desc
      * @return Zend_Cloud_DocumentService_QueryAdapter
@@ -95,7 +95,7 @@ interface Zend_Cloud_DocumentService_QueryAdapter
 
     /**
      * Assemble the query into a format the adapter can utilize
-     * 
+     *
      * @return mixed
      */
     public function assemble();

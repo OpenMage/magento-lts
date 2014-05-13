@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: HtmlElement.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: HtmlElement.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /**
@@ -29,7 +29,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_View_Helper_HtmlElement extends Zend_View_Helper_Abstract
@@ -76,6 +76,17 @@ abstract class Zend_View_Helper_HtmlElement extends Zend_View_Helper_Abstract
     }
 
     /**
+     * Is doctype strict?
+     *
+     * @return boolean
+     */
+    protected function _isStrictDoctype()
+    {
+        $doctype = $this->view->doctype();
+        return $doctype->isStrict();
+    }
+    
+    /**
      * Converts an associative array to a string of tag attributes.
      *
      * @access public
@@ -98,7 +109,11 @@ abstract class Zend_View_Helper_HtmlElement extends Zend_View_Helper_Abstract
                     #require_once 'Zend/Json.php';
                     $val = Zend_Json::encode($val);
                 }
-                $val = preg_replace('/"([^"]*)":/', '$1:', $val);
+                // Escape single quotes inside event attribute values.
+                // This will create html, where the attribute value has
+                // single quotes around it, and escaped single quotes or
+                // non-escaped double quotes inside of it
+                $val = str_replace('\'', '&#39;', $val);
             } else {
                 if (is_array($val)) {
                     $val = implode(' ', $val);

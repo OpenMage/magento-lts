@@ -1,0 +1,108 @@
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/* ============================================ *
+ * Header - Account
+ * ============================================ */
+
+/* -------------------------------------------- *
+ * Skip Link - Account
+ */
+
+.skip-account {
+
+    &:not(.skip-active):hover {
+        .icon {
+            background-position: -50px+4px (-50px + ($toolbar-icon-padding-offset/2) + 2px);
+        }
+    }
+
+    .icon {
+        @extend .icon-sprite;
+        background-position: -0px+4px (-50px + ($toolbar-icon-padding-offset/2) + 2px);
+    }
+}
+
+// ---------------------------------------------
+
+@include bp(min-width, $bp-medium + 1) {
+
+    .skip-account {
+        position: absolute;
+        top: 0;
+        right: 115px;
+        width: auto;
+        padding: 0 10px;
+        text-transform: uppercase;
+    }
+
+    .skip-account:hover {
+    }
+
+    #header-account.skip-active {
+        @include menu;
+        display: block;
+        position: absolute;
+        z-index: 200;
+        top: 40px;
+        right: 115px;
+        width: 200px;
+    }
+
+    #header-account a {
+        display: block;
+        padding: 5px 10px;
+        color: $c-text;
+        line-height: 2;
+    }
+
+    #header-account a:hover {
+        color: $c-action;
+    }
+
+}
+
+/* -------------------------------------------- *
+ * Account Links
+ */
+
+#header-account {
+    padding: 5px 0;
+}
+
+//#header-account li { }
+
+#header-account a {
+    position: relative;
+    display: block;
+    padding: 0 10px;
+    line-height: 33px;
+    text-align: center;
+}
+
+#header-account a:hover {
+    color: $c-action;
+}
+

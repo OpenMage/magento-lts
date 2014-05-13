@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Http
  * @subpackage UserAgent
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -26,12 +26,12 @@
 
 /**
  * Features adapter build with the Tera Wurfl Api
- * See installation instruction here : http://www.tera-wurfl.com/wiki/index.php/Installation 
+ * See installation instruction here : http://www.tera-wurfl.com/wiki/index.php/Installation
  * Download : http://www.tera-wurfl.com/wiki/index.php/Downloads
  *
  * @package    Zend_Http
  * @subpackage UserAgent
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Http_UserAgent_Features_Adapter_TeraWurfl implements Zend_Http_UserAgent_Features_Adapter
@@ -45,7 +45,7 @@ class Zend_Http_UserAgent_Features_Adapter_TeraWurfl implements Zend_Http_UserAg
     public static function getFromRequest($request, array $config)
     {
         if (!class_exists('TeraWurfl')) {
-            // If TeraWurfl class not found, see if we can load it from 
+            // If TeraWurfl class not found, see if we can load it from
             // configuration
             //
             if (!isset($config['terawurfl'])) {
@@ -53,7 +53,7 @@ class Zend_Http_UserAgent_Features_Adapter_TeraWurfl implements Zend_Http_UserAg
                 #require_once 'Zend/Http/UserAgent/Features/Exception.php';
                 throw new Zend_Http_UserAgent_Features_Exception('"TeraWurfl" configuration is not defined');
             }
-            
+
             $config = $config['terawurfl'];
 
              if (empty($config['terawurfl_lib_dir'])) {
@@ -65,25 +65,25 @@ class Zend_Http_UserAgent_Features_Adapter_TeraWurfl implements Zend_Http_UserAg
             // Include the Tera-WURFL file
             #require_once ($config['terawurfl_lib_dir'] . '/TeraWurfl.php');
         }
-        
-        
+
+
         // instantiate the Tera-WURFL object
         $wurflObj = new TeraWurfl();
-        
+
         // Get the capabilities of the current client.
         $matched = $wurflObj->getDeviceCapabilitiesFromRequest(array_change_key_case($request, CASE_UPPER));
-        
+
         return self::getAllCapabilities($wurflObj);
     }
 
     /***
      * Builds an array with all capabilities
-     * 
+     *
      * @param TeraWurfl $wurflObj TeraWurfl object
      */
     public static function getAllCapabilities(TeraWurfl $wurflObj)
     {
-        
+
         foreach ($wurflObj->capabilities as $group) {
             if (!is_array($group)) {
                 continue;

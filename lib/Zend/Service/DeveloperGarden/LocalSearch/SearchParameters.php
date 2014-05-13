@@ -15,16 +15,16 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage DeveloperGarden
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: SearchParameters.php 22662 2010-07-24 17:37:36Z mabe $
+ * @version    $Id: SearchParameters.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /**
  * @category   Zend
  * @package    Zend_Service
  * @subpackage DeveloperGarden
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @author     Marco Kaiser
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -294,10 +294,10 @@ class Zend_Service_DeveloperGarden_LocalSearch_SearchParameters
      * rx = longitude right bottom
      * ry = latitude right bottom
      *
-     * @param $lx
-     * @param $ly
-     * @param $rx
-     * @param $ry
+     * @param float $lx
+     * @param float $ly
+     * @param float $rx
+     * @param float $ry
      * @return Zend_Service_DeveloperGarden_LocalSearch_SearchParameters
      */
     public function setRectangle($lx, $ly, $rx, $ry)
@@ -416,8 +416,8 @@ class Zend_Service_DeveloperGarden_LocalSearch_SearchParameters
      * sets a category filter
      *
      * @see http://www.suchen.de/kategorie-katalog
-     * @param $category
-     * @return unknown_type
+     * @param string $category
+     * @return Zend_Service_DeveloperGarden_LocalSearch_SearchParameters
      */
     public function setCategory($category = null)
     {

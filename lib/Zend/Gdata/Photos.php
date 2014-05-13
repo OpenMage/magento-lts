@@ -16,9 +16,9 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Photos
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Photos.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Photos.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /**
@@ -52,14 +52,14 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Photos
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Photos extends Zend_Gdata
 {
 
-    const PICASA_BASE_URI = 'http://picasaweb.google.com/data';
-    const PICASA_BASE_FEED_URI = 'http://picasaweb.google.com/data/feed';
+    const PICASA_BASE_URI = 'https://picasaweb.google.com/data';
+    const PICASA_BASE_FEED_URI = 'https://picasaweb.google.com/data/feed';
     const AUTH_SERVICE_NAME = 'lh2';
 
     /**

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Cms
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,12 +34,29 @@
 class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
 {
     /**
-     * Wysiwyg behaviour
+     * Wysiwyg behaviour: enabled
      */
     const WYSIWYG_ENABLED = 'enabled';
+
+    /**
+     * Wysiwyg behaviour: hidden
+     */
     const WYSIWYG_HIDDEN = 'hidden';
+
+    /**
+     * Wysiwyg behaviour: disabled
+     */
     const WYSIWYG_DISABLED = 'disabled';
+
+    /**
+     * constant for image directory
+     */
     const IMAGE_DIRECTORY = 'wysiwyg';
+
+    /**
+     * Path to skin image placeholder file
+     */
+    const WYSIWYG_SKIN_IMAGE_PLACEHOLDER_FILE = 'images/wysiwyg/skin_image.png';
 
     /**
      * Return Wysiwyg config as Varien_Object
@@ -54,7 +71,7 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
      * files_browser_*:         Files Browser (media, images) settings
      * encode_directives:       Encode template directives with JS or not
      *
-     * @param $data Varien_Object constructor params to override default config values
+     * @param $data array       constructor params to override default config values
      * @return Varien_Object
      */
     public function getConfig($data = array())
@@ -85,8 +102,10 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
             $config->addData(array(
                 'add_images'               => true,
                 'files_browser_window_url' => Mage::getSingleton('adminhtml/url')->getUrl('*/cms_wysiwyg_images/index'),
-                'files_browser_window_width' => (int) Mage::getConfig()->getNode('adminhtml/cms/browser/window_width'),
-                'files_browser_window_height'=> (int) Mage::getConfig()->getNode('adminhtml/cms/browser/window_height'),
+                'files_browser_window_width'
+                    => (int) Mage::getConfig()->getNode('adminhtml/cms/browser/window_width'),
+                'files_browser_window_height'
+                    => (int) Mage::getConfig()->getNode('adminhtml/cms/browser/window_height'),
             ));
         }
 
@@ -100,13 +119,24 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
     }
 
     /**
-     * Return URL for skin images placeholder
+     * Return the URL for skin image placeholder
      *
      * @return string
      */
     public function getSkinImagePlaceholderUrl()
     {
-        return Mage::getDesign()->getSkinUrl('images/wysiwyg/skin_image.png');
+        return Mage::getDesign()->getSkinUrl(self::WYSIWYG_SKIN_IMAGE_PLACEHOLDER_FILE);
+    }
+
+    /**
+     * Return the path to the skin image placeholder
+     *
+     * @return string
+     */
+    public function getSkinImagePlaceholderPath()
+    {
+        return Mage::getModel('core/design_package')->getSkinBaseDir(array('_area' => 'adminhtml')) . DS .
+            self::WYSIWYG_SKIN_IMAGE_PLACEHOLDER_FILE;
     }
 
     /**

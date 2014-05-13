@@ -13,7 +13,7 @@
  * @category   Zend
  * @package    Zend_Cloud
  * @subpackage QueueService
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -27,10 +27,10 @@
  * @category   Zend
  * @package    Zend_Cloud
  * @subpackage QueueService
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Cloud_QueueService_Adapter_WindowsAzure 
+class Zend_Cloud_QueueService_Adapter_WindowsAzure
     extends Zend_Cloud_QueueService_Adapter_AbstractAdapter
 {
     /**
@@ -49,20 +49,20 @@ class Zend_Cloud_QueueService_Adapter_WindowsAzure
 
     /** message options */
     const MESSAGE_TTL = 'ttl';
-    
+
     const DEFAULT_HOST = Zend_Service_WindowsAzure_Storage::URL_CLOUD_QUEUE;
 
     /**
      * Storage client
-     * 
+     *
      * @var Zend_Service_WindowsAzure_Storage_Queue
      */
     protected $_storageClient = null;
-    
+
     /**
      * Constructor
-     * 
-     * @param  array|Zend_Config $options 
+     *
+     * @param  array|Zend_Config $options
      * @return void
      */
     public function __construct($options = array())
@@ -112,9 +112,9 @@ class Zend_Cloud_QueueService_Adapter_WindowsAzure
         } catch(Zend_Service_WindowsAzure_Exception $e) {
             throw new Zend_Cloud_QueueService_Exception('Error on create: '.$e->getMessage(), $e->getCode(), $e);
         }
-            
+
     }
-    
+
     /**
      * Create a queue. Returns the ID of the created queue (typically the URL).
      * It may take some time to create the queue. Check your vendor's
@@ -133,7 +133,7 @@ class Zend_Cloud_QueueService_Adapter_WindowsAzure
             throw new Zend_Cloud_QueueService_Exception('Error on queue creation: '.$e->getMessage(), $e->getCode(), $e);
         }
     }
-    
+
     /**
      * Delete a queue. All messages in the queue will also be deleted.
      *
@@ -152,7 +152,7 @@ class Zend_Cloud_QueueService_Adapter_WindowsAzure
             throw new Zend_Cloud_QueueService_Exception('Error on queue deletion: '.$e->getMessage(), $e->getCode(), $e);
         }
     }
-    
+
     /**
      * List all queues.
      *
@@ -177,7 +177,7 @@ class Zend_Cloud_QueueService_Adapter_WindowsAzure
             throw new Zend_Cloud_QueueService_Exception('Error on listing queues: '.$e->getMessage(), $e->getCode(), $e);
         }
     }
-    
+
     /**
      * Get a key/value array of metadata for the given queue.
      *
@@ -196,12 +196,12 @@ class Zend_Cloud_QueueService_Adapter_WindowsAzure
             throw new Zend_Cloud_QueueService_Exception('Error on fetching queue metadata: '.$e->getMessage(), $e->getCode(), $e);
         }
     }
-    
+
     /**
      * Store a key/value array of metadata for the specified queue.
-     * WARNING: This operation overwrites any metadata that is located at 
+     * WARNING: This operation overwrites any metadata that is located at
      * $destinationPath. Some adapters may not support this method.
-     * 
+     *
      * @param  string $queueId
      * @param  array  $metadata
      * @param  array  $options
@@ -218,10 +218,10 @@ class Zend_Cloud_QueueService_Adapter_WindowsAzure
             throw new Zend_Cloud_QueueService_Exception('Error on setting queue metadata: '.$e->getMessage(), $e->getCode(), $e);
         }
     }
-    
+
     /**
      * Send a message to the specified queue.
-     * 
+     *
      * @param  string $queueId
      * @param  string $message
      * @param  array  $options
@@ -240,11 +240,11 @@ class Zend_Cloud_QueueService_Adapter_WindowsAzure
             throw new Zend_Cloud_QueueService_Exception('Error on sending message: '.$e->getMessage(), $e->getCode(), $e);
         }
     }
-    
+
     /**
      * Recieve at most $max messages from the specified queue and return the
      * message IDs for messages recieved.
-     * 
+     *
      * @param  string $queueId
      * @param  int    $max
      * @param  array  $options
@@ -266,11 +266,11 @@ class Zend_Cloud_QueueService_Adapter_WindowsAzure
             throw new Zend_Cloud_QueueService_Exception('Error on recieving messages: '.$e->getMessage(), $e->getCode(), $e);
         }
     }
-    
+
     /**
      * Create Zend_Cloud_QueueService_Message array for
      * Azure messages.
-     *  
+     *
      * @param array $messages
      * @return Zend_Cloud_QueueService_Message[]
      */
@@ -287,9 +287,9 @@ class Zend_Cloud_QueueService_Adapter_WindowsAzure
 
     /**
      * Delete the specified message from the specified queue.
-     * 
+     *
      * @param  string $queueId
-     * @param  Zend_Cloud_QueueService_Message $message Message ID or message 
+     * @param  Zend_Cloud_QueueService_Message $message Message ID or message
      * @param  array  $options
      * @return void
      */
@@ -331,10 +331,10 @@ class Zend_Cloud_QueueService_Adapter_WindowsAzure
             throw new Zend_Cloud_QueueService_Exception('Error on peeking messages: '.$e->getMessage(), $e->getCode(), $e);
         }
    }
-    
+
     /**
      * Get Azure implementation
-     * @return Zend_Service_Azure_Storage_Queue 
+     * @return Zend_Service_Azure_Storage_Queue
      */
     public function getClient()
     {

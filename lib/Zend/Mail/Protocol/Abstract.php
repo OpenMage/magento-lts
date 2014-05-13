@@ -16,9 +16,9 @@
  * @category   Zend
  * @package    Zend_Mail
  * @subpackage Protocol
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php 22602 2010-07-16 22:37:31Z freak $
+ * @version    $Id: Abstract.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 
@@ -42,9 +42,9 @@
  * @category   Zend
  * @package    Zend_Mail
  * @subpackage Protocol
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php 22602 2010-07-16 22:37:31Z freak $
+ * @version    $Id: Abstract.php 24593 2012-01-05 20:35:02Z matthew $
  * @todo Implement proxy settings
  */
 abstract class Zend_Mail_Protocol_Abstract
@@ -161,8 +161,8 @@ abstract class Zend_Mail_Protocol_Abstract
     }
 
     /**
-     * Set the maximum log size 
-     * 
+     * Set the maximum log size
+     *
      * @param integer $maximumLog Maximum log size
      * @return void
      */
@@ -170,18 +170,18 @@ abstract class Zend_Mail_Protocol_Abstract
     {
         $this->_maximumLog = (int) $maximumLog;
     }
-    
-    
+
+
     /**
-     * Get the maximum log size 
-     * 
+     * Get the maximum log size
+     *
      * @return int the maximum log size
      */
     public function getMaximumLog()
     {
         return $this->_maximumLog;
     }
-    
+
 
     /**
      * Create a connection to the remote host
@@ -277,7 +277,7 @@ abstract class Zend_Mail_Protocol_Abstract
             throw new Zend_Mail_Protocol_Exception($errorStr);
         }
 
-        if (($result = stream_set_timeout($this->_socket, self::TIMEOUT_CONNECTION)) === false) {
+        if (($result = $this->_setStreamTimeout(self::TIMEOUT_CONNECTION)) === false) {
             /**
              * @see Zend_Mail_Protocol_Exception
              */
@@ -357,7 +357,7 @@ abstract class Zend_Mail_Protocol_Abstract
 
         // Adapters may wish to supply per-commend timeouts according to appropriate RFC
         if ($timeout !== null) {
-           stream_set_timeout($this->_socket, $timeout);
+            $this->_setStreamTimeout($timeout);
         }
 
         // Retrieve response
@@ -428,9 +428,20 @@ abstract class Zend_Mail_Protocol_Abstract
              * @see Zend_Mail_Protocol_Exception
              */
             #require_once 'Zend/Mail/Protocol/Exception.php';
-            throw new Zend_Mail_Protocol_Exception($errMsg);
+            throw new Zend_Mail_Protocol_Exception($errMsg, $cmd);
         }
 
         return $msg;
+    }
+
+    /**
+     * Set stream timeout
+     *
+     * @param integer $timeout
+     * @return boolean
+     */
+    protected function _setStreamTimeout($timeout)
+    {
+       return stream_set_timeout($this->_socket, $timeout);
     }
 }

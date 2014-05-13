@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Directory
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,5 +39,7 @@ CREATE TABLE {$this->getTable('directory_country_format')} (
     UNIQUE KEY `country_type` (`country_id`,`type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Countries format';
 
-ALTER TABLE {$this->getTable('directory_country')}, DROP COLUMN `address_template_plain`, DROP COLUMN `address_template_html`;
+ALTER TABLE {$this->getTable('directory_country')},
+  DROP COLUMN `address_template_plain`, DROP COLUMN `address_template_html`;
 ");
+$installer->endSetup();

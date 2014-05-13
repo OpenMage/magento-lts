@@ -2,7 +2,7 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ] NOTE: Current Release Notes are maintained at:                                 [
 ]                                                                                [
-] http://www.magentocommerce.com/knowledge-base/entry/ce-18-later-release-notes  [
+] http://www.magentocommerce.com/knowledge-base/entry/ce-19-later-release-notes  [
 ]                                                                                [
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

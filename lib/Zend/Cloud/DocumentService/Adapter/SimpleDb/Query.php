@@ -13,7 +13,7 @@
  * @category   Zend
  * @package    Zend_Cloud
  * @subpackage DocumentService
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,13 +23,13 @@
 #require_once 'Zend/Cloud/DocumentService/Query.php';
 
 /**
- * Class implementing Query adapter for working with SimpleDb queries in a 
+ * Class implementing Query adapter for working with SimpleDb queries in a
  * structured way
  *
  * @category   Zend
  * @package    Zend_Cloud
  * @subpackage DocumentService
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Cloud_DocumentService_Adapter_SimpleDb_Query
@@ -42,8 +42,8 @@ class Zend_Cloud_DocumentService_Adapter_SimpleDb_Query
 
     /**
      * Constructor
-     * 
-     * @param  Zend_Cloud_DocumentService_Adapter_SimpleDb $adapter 
+     *
+     * @param  Zend_Cloud_DocumentService_Adapter_SimpleDb $adapter
      * @param  null|string $collectionName
      * @return void
      */
@@ -57,7 +57,7 @@ class Zend_Cloud_DocumentService_Adapter_SimpleDb_Query
 
     /**
      * Get adapter
-     * 
+     *
      * @return Zend_Cloud_DocumentService_Adapter_SimpleDb
      */
     public function getAdapter()
@@ -67,7 +67,7 @@ class Zend_Cloud_DocumentService_Adapter_SimpleDb_Query
 
     /**
      * Assemble the query into a format the adapter can utilize
-     * 
+     *
      * @var    string $collectionName Name of collection from which to select
      * @return string
      */
@@ -150,10 +150,10 @@ class Zend_Cloud_DocumentService_Adapter_SimpleDb_Query
 
     /**
      * Parse a where statement into service-specific language
-     * 
+     *
      * @todo   Ensure this fulfills the entire SimpleDB query specification for WHERE
-     * @param  string $where 
-     * @param  array $args 
+     * @param  string $where
+     * @param  array $args
      * @return string
      */
     protected function _parseWhere($where, $args)

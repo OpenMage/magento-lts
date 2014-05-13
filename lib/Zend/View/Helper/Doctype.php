@@ -15,8 +15,8 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Doctype.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Doctype.php 25101 2012-11-07 20:27:27Z rob $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -31,7 +31,7 @@
  *
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_View_Helper_Doctype extends Zend_View_Helper_Abstract
@@ -43,6 +43,8 @@ class Zend_View_Helper_Doctype extends Zend_View_Helper_Abstract
     const XHTML1_STRICT       = 'XHTML1_STRICT';
     const XHTML1_TRANSITIONAL = 'XHTML1_TRANSITIONAL';
     const XHTML1_FRAMESET     = 'XHTML1_FRAMESET';
+    const XHTML1_RDFA         = 'XHTML1_RDFA';
+    const XHTML1_RDFA11       = 'XHTML1_RDFA11';
     const XHTML_BASIC1        = 'XHTML_BASIC1';
     const XHTML5              = 'XHTML5';
     const HTML4_STRICT        = 'HTML4_STRICT';
@@ -87,6 +89,8 @@ class Zend_View_Helper_Doctype extends Zend_View_Helper_Abstract
                     self::XHTML1_STRICT       => '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">',
                     self::XHTML1_TRANSITIONAL => '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">',
                     self::XHTML1_FRAMESET     => '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">',
+                    self::XHTML1_RDFA         => '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">',
+                    self::XHTML1_RDFA11       => '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.1//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-2.dtd">',
                     self::XHTML_BASIC1        => '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML Basic 1.0//EN" "http://www.w3.org/TR/xhtml-basic/xhtml-basic10.dtd">',
                     self::XHTML5              => '<!DOCTYPE html>',
                     self::HTML4_STRICT        => '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">',
@@ -117,6 +121,8 @@ class Zend_View_Helper_Doctype extends Zend_View_Helper_Abstract
                 case self::XHTML1_TRANSITIONAL:
                 case self::XHTML1_FRAMESET:
                 case self::XHTML_BASIC1:
+                case self::XHTML1_RDFA:
+                case self::XHTML1_RDFA11:
                 case self::XHTML5:
                 case self::HTML4_STRICT:
                 case self::HTML4_LOOSE:
@@ -186,15 +192,42 @@ class Zend_View_Helper_Doctype extends Zend_View_Helper_Abstract
     {
         return (stristr($this->getDoctype(), 'xhtml') ? true : false);
     }
-	
-	/**
-	 * Is doctype HTML5? (HeadMeta uses this for validation)
-	 *
-	 * @return booleean
-	 */
-	public function isHtml5() {
-		return (stristr($this->doctype(), '<!DOCTYPE html>') ? true : false);
-	}
+
+    /**
+     * Is doctype strict?
+     *
+     * @return boolean
+     */
+    public function isStrict()
+    {
+        switch ( $this->getDoctype() )
+        {
+            case self::XHTML1_STRICT:
+            case self::XHTML11:
+            case self::HTML4_STRICT:
+                return true;
+            default: 
+                return false;
+        }
+    }
+    
+    /**
+     * Is doctype HTML5? (HeadMeta uses this for validation)
+     *
+     * @return booleean
+     */
+    public function isHtml5() {
+        return (stristr($this->doctype(), '<!DOCTYPE html>') ? true : false);
+    }
+    
+    /**
+     * Is doctype RDFa?
+     *
+     * @return booleean
+     */
+    public function isRdfa() {
+        return (stristr($this->getDoctype(), 'rdfa') ? true : false);
+    }
 
     /**
      * String representation of doctype

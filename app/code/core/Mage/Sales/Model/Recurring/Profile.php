@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -248,36 +248,6 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
     {
         return $this->getMethodInstance()->canGetRecurringProfileDetails();
     }
-//
-////    public function billOutstandingAmount($baseAmount, Varien_Object $info = null)
-////    {
-////
-////    }
-////
-////    public function canBillOutstandingAmount()
-////    {
-////        // check method instance?
-////    }
-//
-//    public function processSubmissionNotification(Varien_Object $info)
-//    {
-//        // confirmation that this profile was created on the gateway
-//    }
-//
-//    public function processPaymentNotification(Varien_Object $info)
-//    {
-//        // create new order basing on original order item and addresses
-//    }
-//
-//    public function processStateNotification(Varien_Object $info)
-//    {
-//        // update self state
-//    }
-//
-////    public function loadByInternalReferenceId($internalReferenceId)
-////    {
-////
-////    }
 
     /**
      * Initialize new order based on profile data

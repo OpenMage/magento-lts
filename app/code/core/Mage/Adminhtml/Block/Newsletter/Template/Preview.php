@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -49,7 +49,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Preview extends Mage_Adminhtml_Bl
 
         $storeId = (int)$this->getRequest()->getParam('store_id');
         if(!$storeId) {
-            $storeId = Mage::app()->getDefaultStoreView()->getId();
+            $storeId = Mage::app()->getAnyStoreView()->getId();
         }
 
         Varien_Profiler::start("newsletter_template_proccessing");

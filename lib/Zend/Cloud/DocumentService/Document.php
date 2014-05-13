@@ -13,7 +13,7 @@
  * @category   Zend
  * @package    Zend_Cloud
  * @subpackage DocumentService
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -26,10 +26,10 @@
  * @category   Zend
  * @package    Zend_Cloud
  * @subpackage DocumentService
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Cloud_DocumentService_Document 
+class Zend_Cloud_DocumentService_Document
     implements ArrayAccess, IteratorAggregate, Countable
 {
     /** key in document denoting identifier */
@@ -75,8 +75,8 @@ class Zend_Cloud_DocumentService_Document
 
     /**
      * Set document identifier
-     * 
-     * @param  mixed $id 
+     *
+     * @param  mixed $id
      * @return Zend_Cloud_DocumentService_Document
      */
     public function setId($id)
@@ -90,7 +90,7 @@ class Zend_Cloud_DocumentService_Document
      *
      * @return string
      */
-    public function getId() 
+    public function getId()
     {
         return $this->_id;
     }
@@ -100,7 +100,7 @@ class Zend_Cloud_DocumentService_Document
      *
      * @return array
      */
-    public function getFields() 
+    public function getFields()
     {
         return $this->_fields;
     }
@@ -118,7 +118,7 @@ class Zend_Cloud_DocumentService_Document
         }
         return null;
     }
-    
+
     /**
      * Set field by name.
      *
@@ -126,16 +126,16 @@ class Zend_Cloud_DocumentService_Document
      * @param  mixed $value
      * @return Zend_Cloud_DocumentService_Document
      */
-    public function setField($name, $value) 
+    public function setField($name, $value)
     {
         $this->_fields[$name] = $value;
         return $this;
     }
-    
+
     /**
      * Overloading: get value
-     * 
-     * @param  string $name 
+     *
+     * @param  string $name
      * @return mixed
      */
     public function __get($name)
@@ -145,54 +145,54 @@ class Zend_Cloud_DocumentService_Document
 
     /**
      * Overloading: set field
-     * 
-     * @param  string $name 
-     * @param  mixed $value 
+     *
+     * @param  string $name
+     * @param  mixed $value
      * @return void
      */
     public function __set($name, $value)
     {
         $this->setField($name, $value);
     }
-    
+
     /**
      * ArrayAccess: does field exist?
-     * 
-     * @param  string $name 
+     *
+     * @param  string $name
      * @return bool
      */
     public function offsetExists($name)
     {
         return isset($this->_fields[$name]);
     }
-    
+
     /**
      * ArrayAccess: get field by name
-     * 
-     * @param  string $name 
+     *
+     * @param  string $name
      * @return mixed
      */
     public function offsetGet($name)
     {
         return $this->getField($name);
     }
-    
+
     /**
      * ArrayAccess: set field to value
-     * 
-     * @param  string $name 
-     * @param  mixed $value 
+     *
+     * @param  string $name
+     * @param  mixed $value
      * @return void
      */
     public function offsetSet($name, $value)
     {
         $this->setField($name, $value);
     }
-    
+
     /**
      * ArrayAccess: remove field from document
-     * 
-     * @param  string $name 
+     *
+     * @param  string $name
      * @return void
      */
     public function offsetUnset($name)
@@ -201,12 +201,12 @@ class Zend_Cloud_DocumentService_Document
             unset($this->_fields[$name]);
         }
     }
-    
+
     /**
      * Overloading: retrieve and set fields by name
-     * 
-     * @param  string $name 
-     * @param  mixed $args 
+     *
+     * @param  string $name
+     * @param  mixed $args
      * @return mixed
      */
     public function __call($name, $args)
@@ -228,7 +228,7 @@ class Zend_Cloud_DocumentService_Document
 
     /**
      * Countable: return count of fields in document
-     * 
+     *
      * @return int
      */
     public function count()
@@ -238,7 +238,7 @@ class Zend_Cloud_DocumentService_Document
 
     /**
      * IteratorAggregate: return iterator for iterating over fields
-     * 
+     *
      * @return Iterator
      */
     public function getIterator()

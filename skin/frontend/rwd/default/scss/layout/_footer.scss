@@ -1,0 +1,248 @@
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/* ============================================ *
+ * Footer
+ * ============================================ */
+
+/* -------------------------------------------- *
+ * Footer
+ */
+
+.footer,
+.footer button {
+    font-family: $f-stack-special;
+}
+
+.footer {
+    clear: both;
+    width: 100%;
+    border-top: 1px solid $c-module-border;
+    padding-top: $trim;
+
+    @include bp(max-width, $bp-xsmall) {
+        padding-top: $trim-small;
+    }
+
+    .block-title {
+        border-bottom: 0;
+        padding: 3px 0;
+    }
+
+    .block-title strong {
+        font-weight: normal;
+    }
+
+    .block-title,
+    address {
+        color: $c-text-primary;
+    }
+
+    .links {
+        float: left;
+        width: 17%;
+        padding: 0 $trim 0 0;
+        margin-bottom: $trim;
+
+        li {
+            word-break: break-all;
+            line-height: 1.4;
+            padding: 4px 0;
+        }
+
+        a {
+            color: $c-text;
+            &:hover {
+                color: $c-action;
+            }
+        }
+    }
+
+    .block-subscribe {
+        float: right;
+        width: 320px;
+        margin-bottom: $trim;
+    }
+
+    .links,
+    .block-subscribe {
+        text-transform: uppercase;
+        font-size: $f-size-xs;
+    }
+
+    .form-subscribe-header {
+        display: none;
+    }
+
+    /* -------------------------------------------- *
+     * Social icons
+     */
+
+    .links.social-media em {
+        background-image: url(../images/social_icons.png);
+        background-repeat: no-repeat;
+        width: 13px;
+        vertical-align: middle;
+        display: inline-block;
+        margin-right: 7px;
+    }
+
+    @include if-min-resolution(2) {
+        .links.social-media em {
+            background-image: url(../images/social_icons@2x.png);
+            background-size: 50px 125px;
+        }
+    }
+
+    @mixin footer-social-icon($class, $y, $height: 13) {
+        .links.social-media em.#{$class} {
+            background-position: 0 -#{$y}px;
+            height: #{$height}px;
+        }
+
+        .links.social-media a:hover em.#{$class} {
+            background-position: -25px -#{$y}px;
+        }
+    }
+
+    @include footer-social-icon(facebook, 0);
+    @include footer-social-icon(twitter, 24);
+    @include footer-social-icon(youtube, 49);
+    @include footer-social-icon(pinterest, 74, 15);
+    @include footer-social-icon(rss, 99);
+
+    // ---------------------------------------------
+
+    .block-subscribe .input-box {
+        float: left;
+        width: percentage(210px/320px);
+        padding-top: 0;
+    }
+
+    .block-subscribe .input-text {
+        width: 100%;
+        border-right: 0;
+        @include border-radius(0);
+    }
+
+    .block-subscribe .block-content {
+        padding-top: 7px;
+
+        &:after {
+            @include clearfix;
+        }
+    }
+
+    .block-subscribe .actions {
+        float: left;
+        width: percentage(110px/320px);
+        margin: 0;
+    }
+
+    .block-subscribe .actions .button {
+        height: 30px;
+        line-height: 17px;
+        float: left;
+    }
+
+    .bugs,
+    address {
+        clear: both;
+    }
+
+    .bugs {
+        display: none;
+    }
+
+    .form-language,
+    .currency-switcher,
+    .store-switcher {
+        clear: both;
+        margin-bottom: $gap;
+    }
+
+    .form-language,
+    .currency-switcher {
+        display: none;
+    }
+
+    address {
+        border-top: 1px solid $c-module-border;
+        text-align: center;
+        width: 100%;
+        font-size: $f-size-xxs;
+        margin-top: $trim;
+        padding: $trim 0;
+    }
+
+    @include bp(max-width, $bp-xlarge) {
+        $links-trim: percentage(30px / 960px);
+        $links-width: (100 - ($links-trim * 3)) / 4;
+
+        .links {
+            width: $links-width;
+            padding-right: 0;
+            margin-right: $links-trim;
+        }
+
+        .links:nth-child(4) {
+            margin-right: 0;
+        }
+
+        .block-subscribe {
+            clear: both;
+            float: none;
+            margin: 0 auto $trim auto;
+        }
+    }
+
+    @include bp(max-width, $bp-medium) {
+        .form-language,
+        .currency-switcher {
+            display: block;
+        }
+    }
+
+    @include bp(max-width, $bp-small) {
+        $links-trim: percentage(15px / 480px);
+        $links-width: (100 - $links-trim) / 2;
+
+        .links {
+            width: $links-width;
+            margin-right: 0;
+        }
+
+        .links:nth-child(odd) {
+            margin-right: $links-trim;
+            clear: both;
+        }
+
+        .block-subscribe {
+            clear: both;
+            float: left;
+            width: 100%;
+        }
+    }
+}

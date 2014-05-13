@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -75,5 +75,24 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
             $config['disable_for_countries'] = explode(',', str_replace(' ', '', $config['disable_for_countries']));
         }
         return Mage::helper('core')->jsonEncode($config);
+    }
+
+    /**
+     * Get selected merchant country code in system configuration
+     *
+     * @return string
+     */
+    public function getConfigurationCountryCode()
+    {
+        $requestParam = Mage_Paypal_Block_Adminhtml_System_Config_Field_Country::REQUEST_PARAM_COUNTRY;
+        $countryCode  = Mage::app()->getRequest()->getParam($requestParam);
+        if (is_null($countryCode) || preg_match('/^[a-zA-Z]{2}$/', $countryCode) == 0) {
+            $countryCode = (string)Mage::getSingleton('adminhtml/config_data')
+                ->getConfigDataValue('paypal/general/merchant_country');
+        }
+        if (empty($countryCode)) {
+            $countryCode = Mage::helper('core')->getDefaultCountry();
+        }
+        return $countryCode;
     }
 }

@@ -1,0 +1,279 @@
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/* ============================================ *
+ * Nav - Skip Link
+ * ============================================ */
+
+.skip-nav {
+    width: 40%;
+
+    &:not(.skip-active):hover {
+        text-decoration: none;
+
+        .icon {
+            background-position: -50px+4px ($toolbar-icon-padding-offset/2);
+        }
+    }
+}
+
+.skip-nav .label {
+    display: inline;
+}
+
+.skip-nav .icon {
+    @extend .icon-sprite;
+    background-position: 0+4px ($toolbar-icon-padding-offset/2);
+}
+
+// ---------------------------------------------
+
+@include bp(min-width, 500px) {
+
+    .skip-nav {
+        width: 25%;
+    }
+
+}
+
+// ---------------------------------------------
+
+@include bp(min-width, $bp-medium + 1) {
+
+    .skip-nav {
+        display: none;
+    }
+
+}
+
+/* ============================================ *
+ * Nav - Skip Content
+ * ============================================ */
+
+@include bp(max-width, $bp-medium) {
+
+    #header-nav {
+        padding: 5px 0;
+    }
+
+}
+
+// ---------------------------------------------
+
+@include bp(min-width, $bp-medium + 1) {
+
+    #header-nav {
+        display: block; /* Force visibility */
+        border-bottom: 1px solid $c-module-border-light;
+    }
+
+}
+
+/* ============================================ *
+ * Nav Primary
+ * ============================================ */
+
+@include bp(min-width, $bp-medium + 1) {
+    .nav-primary {
+        display: block;
+        margin-top: 15px;
+    }
+
+}
+
+/* ============================================ *
+ * General Navigation Styles
+ * ============================================ */
+
+$nav-primary-height: 30px;
+
+.nav-primary {
+    a {
+        text-decoration: none;
+        position: relative;
+        display: block;
+        color: $c-text;
+        line-height: $nav-primary-height;
+        font-family: $f-stack-special;
+    }
+
+    li {
+        position: relative;
+    }
+
+    li.level1 a {
+        border-bottom: 1px solid $c-module-border;
+    }
+}
+
+// Show sub-menus when JS adds the appropriate classes
+.nav-primary .menu-active > ul.level0,
+.nav-primary li.level0 li.sub-menu-active > ul {
+    display: block;
+}
+
+.nav-primary li.level0 > a {
+    text-transform: uppercase;
+}
+
+/* ============================================ *
+ * Small Viewports - Accordion Style Menu
+ * ============================================ */
+
+@include bp(max-width, $bp-medium) {
+
+    .nav-primary {
+
+        // Increase clickable area of anchors for small viewports
+        a.level0,
+        a {
+            line-height: $nav-primary-height + 5px;
+        }
+
+        // Hide all sub-menus
+        li.level0 ul {
+            display: none;
+        }
+
+        // Indent sub-menus
+        li.level0 li {
+            padding: 0 0 0 25px;
+        }
+
+        li.level1 a {
+            padding: 0 15px 0 25px;
+        }
+
+        li.parent > a:after {
+            @include triangle(right, 5px, #ccc);
+            top: 50%;
+            left: 10px;
+            right: auto;
+            margin-top: -5px;
+        }
+
+        // Menu active states
+        li.parent.sub-menu-active > a:after,
+        li.parent.menu-active > a:after {
+            @include triangle(down, 5px, #ccc);
+            top: 50%;
+            left: 10px;
+            right: auto;
+            margin-top: -5px;
+        }
+
+        li.menu-active > a,
+        li.sub-menu-active > a {
+            color: $c-action;
+        }
+    }
+}
+
+/* ============================================ *
+ * Large Viewports - Dropdown Menu
+ * ============================================ */
+
+@include bp(min-width, $bp-medium + 1) {
+
+    .nav-primary {
+
+        a.level0 {
+            padding: 0 25px;
+        }
+
+        li.level0,
+        a.level0 {
+            display: inline-block;
+        }
+
+        li:last-child > a {
+            border-bottom: none;
+        }
+
+        a:hover,
+        li:hover > a {
+            color: $c-action;
+        }
+
+        .menu-active,
+        li.level0:hover {
+            z-index: 200;
+        }
+
+        /* Default styles for 1+ drop-down menus */
+        li.level0 ul {
+            @include menu;
+            position: absolute;
+            left: 0;
+            top: $nav-primary-height; /* Height of ".nav-primary a.level0" */
+            z-index: 10;
+            width: 250px;
+            padding-left: $box-spacing;
+            padding-right: $box-spacing;
+            display: none; /* Hide until displayed. */
+        }
+
+        /* Level 2+ */
+        li.level1 ul {
+            left: 60px;
+            top: 15px;
+        }
+
+        /* Styles that only show when the menu is visible */
+        li:hover > ul {
+            display: block; /* Force display */
+        }
+
+        /* Class for js to add briefly to evaluate element positioning. */
+        li.level0 ul.level0.position-test {
+            display: block;
+        }
+
+        /* Correct menus that will hang off the page (class added by js) */
+        li.level0 ul.level0.spill {
+            right: 0;
+            left: auto;
+
+            // Sub-menu drop down to the left
+            li.level1 ul {
+                left: auto;
+                right: 50px;
+                top: 20px;
+            }
+        }
+
+        /* Level 1+ */
+        li.level0 li.parent > a {
+            position: relative;
+
+            &:after {
+                @include triangle(right, 4px, #ccc);
+                right: 5px;
+                top: 50%;
+                margin-top: -3px;
+            }
+        }
+    }
+}

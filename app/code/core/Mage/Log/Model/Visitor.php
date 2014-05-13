@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Log
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -161,13 +161,31 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         $this->setData($this->_getSession()->getVisitorData());
         $this->initServerData();
 
-        if (!$this->getId()) {
+        $visitorId = $this->getId();
+        if (!$visitorId) {
             $this->setFirstVisitAt(now());
             $this->setIsNewVisitor(true);
             $this->save();
+        }
+        if (!$visitorId || $this->_isVisitorSessionNew()) {
             Mage::dispatchEvent('visitor_init', array('visitor' => $this));
         }
         return $this;
+    }
+
+    /**
+     * Check is session new
+     *
+     * @return bool
+     */
+    protected function _isVisitorSessionNew()
+    {
+        $visitorData = $this->_getSession()->getVisitorData();
+        $visitorSessionId = null;
+        if (is_array($visitorData) && isset($visitorData['session_id'])) {
+            $visitorSessionId = $visitorData['session_id'];
+        }
+        return $this->_getSession()->getSessionId() != $visitorSessionId;
     }
 
     /**

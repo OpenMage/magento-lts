@@ -14,9 +14,9 @@
  *
  * @category  Zend
  * @package   Zend_Config
- * @copyright Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: Yaml.php 23294 2010-11-05 00:27:34Z ramon $
+ * @version   $Id: Yaml.php 25169 2012-12-22 12:23:11Z rob $
  */
 
 /**
@@ -29,7 +29,7 @@
  *
  * @category  Zend
  * @package   Zend_Config
- * @copyright Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Config_Yaml extends Zend_Config
@@ -93,7 +93,7 @@ class Zend_Config_Yaml extends Zend_Config
     /**
      * Set callback for decoding YAML
      *
-     * @param  $yamlDecoder the decoder to set
+     * @param  callable $yamlDecoder the decoder to set
      * @return Zend_Config_Yaml
      */
     public function setYamlDecoder($yamlDecoder)
@@ -124,9 +124,9 @@ class Zend_Config_Yaml extends Zend_Config
      * - skip_extends: whether or not to skip processing of parent configuration
      * - yaml_decoder: a callback to use to decode the Yaml source
      *
-     * @param  string  $yaml     YAML file to process
-     * @param  mixed   $section Section to process
-     * @param  boolean $options Whether modifiacations are allowed at runtime
+     * @param  string        $yaml     YAML file to process
+     * @param  mixed         $section  Section to process
+     * @param  array|boolean $options
      */
     public function __construct($yaml, $section = null, $options = false)
     {
@@ -201,7 +201,10 @@ class Zend_Config_Yaml extends Zend_Config
             foreach ($section as $sectionName) {
                 if (!isset($config[$sectionName])) {
                     #require_once 'Zend/Config/Exception.php';
-                    throw new Zend_Config_Exception(sprintf('Section "%s" cannot be found', $section));
+                    throw new Zend_Config_Exception(sprintf(
+                        'Section "%s" cannot be found', 
+                        implode(' ', (array)$section)
+                    ));
                 }
 
                 $dataArray = array_merge($this->_processExtends($config, $sectionName), $dataArray);
@@ -210,7 +213,10 @@ class Zend_Config_Yaml extends Zend_Config
         } else {
             if (!isset($config[$section])) {
                 #require_once 'Zend/Config/Exception.php';
-                throw new Zend_Config_Exception(sprintf('Section "%s" cannot be found', $section));
+                throw new Zend_Config_Exception(sprintf(
+                    'Section "%s" cannot be found', 
+                    implode(' ', (array)$section)
+                ));
             }
 
             $dataArray = $this->_processExtends($config, $section);
@@ -284,14 +290,13 @@ class Zend_Config_Yaml extends Zend_Config
         $config   = array();
         $inIndent = false;
         while (list($n, $line) = each($lines)) {
-            $lineno = $n+1;
+            $lineno = $n + 1;
+
+            $line = rtrim(preg_replace("/#.*$/", "", $line));
             if (strlen($line) == 0) {
                 continue;
             }
-            if ($line[0] == '#') {
-                // comment
-                continue;
-            }
+
             $indent = strspn($line, " ");
 
             // line without the spaces
@@ -311,20 +316,12 @@ class Zend_Config_Yaml extends Zend_Config
                 $inIndent      = true;
             }
 
-            if (preg_match("/(\w+):\s*(.*)/", $line, $m)) {
+            if (preg_match("/(?!-)([\w\-]+):\s*(.*)/", $line, $m)) {
                 // key: value
-                if ($m[2]) {
+                if (strlen($m[2])) {
                     // simple key: value
-                    $value = $m[2];
-                    // Check for booleans and constants
-                    if (preg_match('/^(t(rue)?|on|y(es)?)$/i', $value)) {
-                        $value = true;
-                    } elseif (preg_match('/^(f(alse)?|off|n(o)?)$/i', $value)) {
-                        $value = false;
-                    } elseif (!self::$_ignoreConstants) {
-                        // test for constants
-                        $value = self::_replaceConstants($value);
-                    }
+                    $value = preg_replace("/#.*$/", "", $m[2]);
+                    $value = self::_parseValue($value);
                 } else {
                     // key: and then values on new lines
                     $value = self::_decodeYaml($currentIndent + 1, $lines);
@@ -337,7 +334,9 @@ class Zend_Config_Yaml extends Zend_Config
                 // item in the list:
                 // - FOO
                 if (strlen($line) > 2) {
-                    $config[] = substr($line, 2);
+                    $value = substr($line, 2);
+
+                    $config[] = self::_parseValue($value);
                 } else {
                     $config[] = self::_decodeYaml($currentIndent + 1, $lines);
                 }
@@ -350,6 +349,40 @@ class Zend_Config_Yaml extends Zend_Config
             }
         }
         return $config;
+    }
+
+    /**
+     * Parse values
+     *
+     * @param string $value
+     * @return string
+     */
+    protected static function _parseValue($value)
+    {
+        $value = trim($value);
+
+        // remove quotes from string.
+        if ('"' == $value['0']) {
+            if ('"' == $value[count($value) -1]) {
+                $value = substr($value, 1, -1);
+            }
+        } elseif ('\'' == $value['0'] && '\'' == $value[count($value) -1]) {
+            $value = strtr($value, array("''" => "'", "'" => ''));
+        }
+
+        // Check for booleans and constants
+        if (preg_match('/^(t(rue)?|on|y(es)?)$/i', $value)) {
+            $value = true;
+        } elseif (preg_match('/^(f(alse)?|off|n(o)?)$/i', $value)) {
+            $value = false;
+        } elseif (strcasecmp($value, 'null') === 0) {
+            $value = null;
+        } elseif (!self::$_ignoreConstants) {
+            // test for constants
+            $value = self::_replaceConstants($value);
+        }
+
+        return $value;
     }
 
     /**

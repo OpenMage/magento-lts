@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_View
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php 22446 2010-06-18 12:11:43Z matthew $
+ * @version    $Id: Abstract.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /** @see Zend_Loader */
@@ -33,7 +33,7 @@
  *
  * @category   Zend
  * @package    Zend_View
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_View_Abstract implements Zend_View_Interface
@@ -219,6 +219,14 @@ abstract class Zend_View_Abstract implements Zend_View_Interface
         // LFI protection flag
         if (array_key_exists('lfiProtectionOn', $config)) {
             $this->setLfiProtection($config['lfiProtectionOn']);
+        }
+
+        if (array_key_exists('assign', $config)
+            && is_array($config['assign'])
+        ) {
+            foreach ($config['assign'] as $key => $value) {
+                $this->assign($key, $value);
+            }
         }
 
         $this->init();
@@ -948,7 +956,7 @@ abstract class Zend_View_Abstract implements Zend_View_Interface
     /**
      * Finds a view script from the available directories.
      *
-     * @param $name string The base name of the script.
+     * @param string $name The base name of the script.
      * @return void
      */
     protected function _script($name)

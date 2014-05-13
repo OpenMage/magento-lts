@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php 23252 2010-10-26 12:48:32Z matthew $
+ * @version    $Id: Abstract.php 25229 2013-01-18 08:17:21Z frosch $
  */
 
 
@@ -37,7 +37,7 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Db_Adapter_Abstract
@@ -156,6 +156,7 @@ abstract class Zend_Db_Adapter_Abstract
      * persistent     => (boolean) Whether to use a persistent connection or not, defaults to false
      * protocol       => (string) The network protocol, defaults to TCPIP
      * caseFolding    => (int) style of case-alteration used for identifiers
+     * socket         => (string) The socket or named pipe that should be used
      *
      * @param  array|Zend_Config $config An array or instance of Zend_Config having configuration data
      * @throws Zend_Db_Adapter_Exception
@@ -531,6 +532,7 @@ abstract class Zend_Db_Adapter_Abstract
      * @param mixed $table The table to insert data into.
      * @param array $bind Column-value pairs.
      * @return int The number of affected rows.
+     * @throws Zend_Db_Adapter_Exception
      */
     public function insert($table, array $bind)
     {
@@ -583,6 +585,7 @@ abstract class Zend_Db_Adapter_Abstract
      * @param  array        $bind  Column-value pairs.
      * @param  mixed        $where UPDATE WHERE clause(s).
      * @return int          The number of affected rows.
+     * @throws Zend_Db_Adapter_Exception
      */
     public function update($table, array $bind, $where = '')
     {
@@ -743,7 +746,7 @@ abstract class Zend_Db_Adapter_Abstract
      * @param string|Zend_Db_Select $sql An SQL SELECT statement.
      * @param mixed $bind Data to bind into SELECT placeholders.
      * @param mixed                 $fetchMode Override current fetch mode.
-     * @return array
+     * @return mixed Array, object, or scalar depending on fetch mode.
      */
     public function fetchRow($sql, $bind = array(), $fetchMode = null)
     {

@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Log
  * @subpackage Filter
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Message.php 20981 2010-02-08 15:51:02Z matthew $
+ * @version    $Id: Message.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /** Zend_Log_Filter_Abstract */
@@ -27,9 +27,9 @@
  * @category   Zend
  * @package    Zend_Log
  * @subpackage Filter
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Message.php 20981 2010-02-08 15:51:02Z matthew $
+ * @version    $Id: Message.php 24593 2012-01-05 20:35:02Z matthew $
  */
 class Zend_Log_Filter_Message extends Zend_Log_Filter_Abstract
 {
@@ -42,6 +42,7 @@ class Zend_Log_Filter_Message extends Zend_Log_Filter_Abstract
      * Filter out any log messages not matching $regexp.
      *
      * @param  string  $regexp     Regular expression to test the log message
+     * @return void
      * @throws Zend_Log_Exception
      */
     public function __construct($regexp)
@@ -55,12 +56,11 @@ class Zend_Log_Filter_Message extends Zend_Log_Filter_Abstract
 
     /**
      * Create a new instance of Zend_Log_Filter_Message
-     * 
+     *
      * @param  array|Zend_Config $config
      * @return Zend_Log_Filter_Message
-     * @throws Zend_Log_Exception
      */
-    static public function factory($config) 
+    static public function factory($config)
     {
         $config = self::_parseConfig($config);
         $config = array_merge(array(

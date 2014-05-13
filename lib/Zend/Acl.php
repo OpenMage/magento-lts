@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Acl
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Acl.php 23358 2010-11-18 16:19:31Z ralph $
+ * @version    $Id: Acl.php 24771 2012-05-07 01:13:06Z adamlundrigan $
  */
 
 
@@ -53,7 +53,7 @@
 /**
  * @category   Zend
  * @package    Zend_Acl
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Acl
@@ -140,7 +140,7 @@ class Zend_Acl
      * will have the least priority, and the last parent added will have the
      * highest priority.
      *
-     * @param  Zend_Acl_Role_Interface              $role
+     * @param  Zend_Acl_Role_Interface|string       $role
      * @param  Zend_Acl_Role_Interface|string|array $parents
      * @uses   Zend_Acl_Role_Registry::add()
      * @return Zend_Acl Provides a fluent interface
@@ -655,7 +655,7 @@ class Zend_Acl
             }
             unset($rTarget);
         }
-        
+
         // normalize privileges to array
         if (null === $privileges) {
             $privileges = array();
@@ -726,7 +726,7 @@ class Zend_Acl
                                     }
                                     continue;
                                 }
-    
+
                                 if (isset($rules['allPrivileges']['type']) &&
                                     $type === $rules['allPrivileges']['type'])
                                 {
@@ -750,7 +750,7 @@ class Zend_Acl
                          * since null (all resources) was passed to this setRule() call, we need
                          * clean up all the rules for the global allResources, as well as the indivually
                          * set resources (per privilege as well)
-                         */ 
+                         */
                         foreach (array_merge(array(null), $allResources) as $resource) {
                             $rules =& $this->_getRules($resource, $role, true);
                             if (null === $rules) {
@@ -769,7 +769,7 @@ class Zend_Acl
                                     }
                                     continue;
                                 }
-    
+
                                 if (isset($rules['allPrivileges']['type']) && $type === $rules['allPrivileges']['type']) {
                                     unset($rules['allPrivileges']);
                                 }
@@ -1218,6 +1218,11 @@ class Zend_Acl
     }
 
     /**
+     * Returns an array of registered roles.
+     *
+     * Note that this method does not return instances of registered roles,
+     * but only the role identifiers.
+     *
      * @return array of registered roles
      */
     public function getRoles()
@@ -1232,6 +1237,6 @@ class Zend_Acl
     {
         return array_keys($this->_resources);
     }
-    
+
 }
-    
+

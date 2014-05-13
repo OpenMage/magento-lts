@@ -14,9 +14,9 @@
  *
  * @category  Zend
  * @package   Zend_Validate
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: Upload.php 22398 2010-06-09 19:05:46Z thomas $
+ * @version   $Id: Upload.php 24959 2012-06-15 13:51:04Z adamlundrigan $
  */
 
 /**
@@ -29,7 +29,7 @@
  *
  * @category  Zend
  * @package   Zend_Validate
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Validate_File_Upload extends Zend_Validate_Abstract
@@ -136,6 +136,11 @@ class Zend_Validate_File_Upload extends Zend_Validate_Abstract
             $this->_files = $files;
         }
 
+        // see ZF-10738
+        if (is_null($this->_files)) {
+            $this->_files = array();
+        }
+
         foreach($this->_files as $file => $content) {
             if (!isset($content['error'])) {
                 unset($this->_files[$file]);
@@ -180,40 +185,40 @@ class Zend_Validate_File_Upload extends Zend_Validate_Abstract
             switch($content['error']) {
                 case 0:
                     if (!is_uploaded_file($content['tmp_name'])) {
-                        $this->_throw($file, self::ATTACK);
+                        $this->_throw($content, self::ATTACK);
                     }
                     break;
 
                 case 1:
-                    $this->_throw($file, self::INI_SIZE);
+                    $this->_throw($content, self::INI_SIZE);
                     break;
 
                 case 2:
-                    $this->_throw($file, self::FORM_SIZE);
+                    $this->_throw($content, self::FORM_SIZE);
                     break;
 
                 case 3:
-                    $this->_throw($file, self::PARTIAL);
+                    $this->_throw($content, self::PARTIAL);
                     break;
 
                 case 4:
-                    $this->_throw($file, self::NO_FILE);
+                    $this->_throw($content, self::NO_FILE);
                     break;
 
                 case 6:
-                    $this->_throw($file, self::NO_TMP_DIR);
+                    $this->_throw($content, self::NO_TMP_DIR);
                     break;
 
                 case 7:
-                    $this->_throw($file, self::CANT_WRITE);
+                    $this->_throw($content, self::CANT_WRITE);
                     break;
 
                 case 8:
-                    $this->_throw($file, self::EXTENSION);
+                    $this->_throw($content, self::EXTENSION);
                     break;
 
                 default:
-                    $this->_throw($file, self::UNKNOWN);
+                    $this->_throw($content, self::UNKNOWN);
                     break;
             }
         }

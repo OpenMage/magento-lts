@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Service_ShortUrl
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: $
  */
@@ -29,7 +29,7 @@
  *
  * @category   Zend
  * @package    Zend_Service_ShortUrl
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Service_ShortUrl_JdemCz extends Zend_Service_ShortUrl_AbstractShortener
@@ -40,7 +40,7 @@ class Zend_Service_ShortUrl_JdemCz extends Zend_Service_ShortUrl_AbstractShorten
      * @var string
      */
     protected $_baseUri = 'http://jdem.cz';
-    
+
     /**
      * This function shortens long url
      *
@@ -51,14 +51,14 @@ class Zend_Service_ShortUrl_JdemCz extends Zend_Service_ShortUrl_AbstractShorten
     public function shorten($url)
     {
         $this->_validateUri($url);
-        
+
         $serviceUri = 'http://www.jdem.cz/get';
-        
+
         $this->getHttpClient()->setUri($serviceUri);
         $this->getHttpClient()->setParameterGet('url', $url);
-        
+
         $response = $this->getHttpClient()->request();
-        
+
         return $response->getBody();
     }
 
@@ -74,11 +74,11 @@ class Zend_Service_ShortUrl_JdemCz extends Zend_Service_ShortUrl_AbstractShorten
         $this->_validateUri($shortenedUrl);
 
         $this->_verifyBaseUri($shortenedUrl);
-        
+
         $this->getHttpClient()->setUri($shortenedUrl)->setParameterGet('kam', 1);
-        
+
         $response = $this->getHttpClient()->request();
-        
+
         return $response->getBody();
     }
 }

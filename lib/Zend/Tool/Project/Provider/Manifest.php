@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Manifest.php 22607 2010-07-17 08:39:49Z torio $
+ * @version    $Id: Manifest.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /**
@@ -28,7 +28,7 @@
 /**
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tool_Project_Provider_Manifest implements
@@ -43,33 +43,33 @@ class Zend_Tool_Project_Provider_Manifest implements
     public function getProviders()
     {
         // the order here will represent what the output will look like when iterating a manifest
-        
+
         return array(
             // top level project & profile providers
             'Zend_Tool_Project_Provider_Profile',
             'Zend_Tool_Project_Provider_Project',
-        
+
             // app layer provider
             'Zend_Tool_Project_Provider_Application',
-        
+
             // MVC layer providers
             'Zend_Tool_Project_Provider_Model',
             'Zend_Tool_Project_Provider_View',
             'Zend_Tool_Project_Provider_Controller',
             'Zend_Tool_Project_Provider_Action',
-            
+
             // hMVC provider
             'Zend_Tool_Project_Provider_Module',
-        
+
             // application problem providers
             'Zend_Tool_Project_Provider_Form',
             'Zend_Tool_Project_Provider_Layout',
             'Zend_Tool_Project_Provider_DbAdapter',
             'Zend_Tool_Project_Provider_DbTable',
-            
+
             // provider within project provider
             'Zend_Tool_Project_Provider_ProjectProvider',
-            
+
         );
     }
 }

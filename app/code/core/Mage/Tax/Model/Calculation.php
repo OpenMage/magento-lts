@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -111,11 +111,29 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     protected $_defaultCustomerTaxClass = null;
 
     /**
+     * Tax helper
+     *
+     * @var Mage_Tax_Helper_Data
+     */
+    protected $_taxHelper;
+
+    /**
      * Constructor
      */
     protected function _construct()
     {
         $this->_init('tax/calculation');
+    }
+
+    /**
+     * Initialize tax helper
+     *
+     * @param array $args
+     */
+    public function __construct(array $args = array())
+    {
+        parent::__construct();
+        $this->_taxHelper = !empty($args['helper']) ? $args['helper'] : Mage::helper('tax');
     }
 
     /**
@@ -336,6 +354,22 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Return the default rate request. It can be either based on store address or customer address
+     *
+     * @param type $store
+     * @return \Varien_Object
+     */
+    public function getDefaultRateRequest($store =null)
+    {
+        if ($this->_taxHelper->isCrossBorderTradeEnabled($store)) {
+            //If cross border trade is enabled, we will use customer tax rate as store tax rate
+            return $this->getRateRequest(null, null, null, $store);
+        } else {
+            return $this->getRateOriginRequest($store);
+        }
+    }
+
+    /**
      * Get request object with information necessary for getting tax rate
      * Request object contain:
      *  country_id (->getCountryId())
@@ -551,6 +585,17 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
             $this->_rateCalculationProcess[$cacheKey] = $this->_getResource()->getCalculationProcess($request);
         }
         return $this->_rateCalculationProcess[$cacheKey];
+    }
+
+    /**
+     * Get rate ids applicable for some address
+     *
+     * @param Varien_Object $request
+     * @return array
+     */
+    public function getApplicableRateIds($request)
+    {
+        return $this->_getResource()->getApplicableRateIds($request);
     }
 
     /**

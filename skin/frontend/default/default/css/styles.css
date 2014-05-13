@@ -19,7 +19,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -539,6 +539,7 @@ tr.summary-details-excluded { font-style:italic; }
 .header .links a { color:#ebbc58; }
 .header-container .top-container { clear:both; padding:5px 10px 0 12px; text-align:right; }
 .header-container .top-container a { font-size:11px; color:#ebbc58; }
+.top-container .paypal-logo {text-align: left; display: inline-table;}
 
 /********** < Navigation */
 .nav-container { background:#0a263d url(../images/bkg_nav0.jpg) 50% 0 repeat-y; }
@@ -970,9 +971,11 @@ tr.summary-details-excluded { font-style:italic; }
 .add-to-cart label { float:left; margin-right:5px; font-weight:bold; color:#666; }
 .add-to-cart .qty { float:left; margin-right:5px; }
 .add-to-cart button.button { float:left; }
-.add-to-cart .paypal-logo { clear:left; margin:0; text-align:right; }
-.add-to-cart .paypal-logo .paypal-or { clear:both; display:block; margin:5px 60px 5px 0; }
+.add-to-cart .paypal-logo { clear:left; margin:0; text-align:left; }
+.add-to-cart .paypal-logo .paypal-or { clear:both; display:block; margin:5px 60px 5px 60px; }
 .product-view .add-to-cart .paypal-logo { margin:0; }
+.bml-checkout-type { list-style: none; }
+.bml-checkout-type .bml_button  { width: 150px; display: inline-table; }
 
 /* Add to Links + Add to Cart */
 .add-to-box { margin:10px 0; }
@@ -1187,7 +1190,8 @@ tr.summary-details-excluded { font-style:italic; }
 .cart .page-title .checkout-types li { margin:0 0 5px; }
 .cart .title-buttons .checkout-types { float:right; }
 .cart .title-buttons .checkout-types li { float:left; margin:0 0 5px 5px; }
-.cart .checkout-types .paypal-or { margin:0 8px; line-height:2.3; }
+.cart .checkout-types .paypal-or { margin:0 8px; line-height:2.3; vertical-align: top;}
+.cart .checkout-types .bml_button {display:inline-table; width: 150px; margin: 0 0 5px;}
 .cart .totals .checkout-types .paypal-or { clear:both; display:block; padding:8px 55px 0 0; line-height:1.0; font-size:11px; }
 
 /* Shopping Cart Table */
@@ -1692,8 +1696,11 @@ tr.summary-details-excluded { font-style:italic; }
 .map-popup-close { background:url(../images/btn_window_close.gif) no-repeat; display:block; position:absolute; top:8px; right:10px; height:15px; width:15px; text-indent:-9999em; -moz-box-shadow:0 0 3px #999; -webkit-box-shadow:0 0 3px #999; box-shadow:0 0 3px #999; -moz-border-radius:2px; -webkit-border-radius:2px; border-radius:2px; }
 .map-popup-content { border-top:1px solid #eee; padding:10px; overflow:hidden; text-align:left; width:280px; }
 .map-popup-checkout { display:inline; float:right; text-align:right; }
-.map-popup-checkout span { display:block; padding-right:30px; }
+.map-popup-checkout span { display:block; }
+.map-popup-checkout .paypal-or { clear:both; display:block; }
 .map-popup-checkout .paypal-logo { margin:0 0 5px; }
+.map-popup-checkout li { list-style: none; }
+.map-popup-checkout { text-align: center; }
 .map-popup-price .price-box,
 .map-popup-price .price-box .special-price { margin:0; padding:0; }
 .map-popup-price { margin:5px 0 0; }

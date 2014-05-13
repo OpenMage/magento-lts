@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: BootstrapFile.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: BootstrapFile.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /**
@@ -28,7 +28,7 @@
  *
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tool_Project_Context_Zf_BootstrapFile extends Zend_Tool_Project_Context_Filesystem_File
@@ -43,12 +43,12 @@ class Zend_Tool_Project_Context_Zf_BootstrapFile extends Zend_Tool_Project_Conte
      * @var Zend_Tool_Project_Profile_Resource
      */
     protected $_applicationConfigFile = null;
-    
+
     /**
      * @var Zend_Tool_Project_Profile_Resource
      */
     protected $_applicationDirectory = null;
-    
+
     /**
      * @var Zend_Application
      */
@@ -98,7 +98,7 @@ class Zend_Tool_Project_Context_Zf_BootstrapFile extends Zend_Tool_Project_Conte
 
         return $codeGenFile->generate();
     }
-    
+
     public function getApplicationInstance()
     {
         if ($this->_applicationInstance == null) {
@@ -106,14 +106,14 @@ class Zend_Tool_Project_Context_Zf_BootstrapFile extends Zend_Tool_Project_Conte
                 define('APPLICATION_PATH', $this->_applicationDirectory->getPath());
                 $applicationOptions = array();
                 $applicationOptions['config'] = $this->_applicationConfigFile->getPath();
-    
+
                 $this->_applicationInstance = new Zend_Application(
                     'development',
                     $applicationOptions
                     );
             }
         }
-        
+
         return $this->_applicationInstance;
     }
 }

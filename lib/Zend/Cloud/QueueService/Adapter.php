@@ -13,7 +13,7 @@
  * @category   Zend
  * @package    Zend_Cloud
  * @subpackage QueueService
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -31,7 +31,7 @@
  * @category   Zend
  * @package    Zend_Cloud
  * @subpackage QueueService
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 interface Zend_Cloud_QueueService_Adapter
@@ -49,7 +49,7 @@ interface Zend_Cloud_QueueService_Adapter
      * Create a queue. Returns the ID of the created queue (typically the URL).
      * It may take some time to create the queue. Check your vendor's
      * documentation for details.
-     * 
+     *
      * Name constraints: Maximum 80 characters
      *                      Only alphanumeric characters, hyphens (-), and underscores (_)
      *
@@ -67,7 +67,7 @@ interface Zend_Cloud_QueueService_Adapter
      * @return boolean true if successful, false otherwise
      */
     public function deleteQueue($queueId, $options = null);
-    
+
     /**
      * List all queues.
      *
@@ -75,7 +75,7 @@ interface Zend_Cloud_QueueService_Adapter
      * @return array Queue IDs
      */
     public function listQueues($options = null);
-    
+
     /**
      * Get a key/value array of metadata for the given queue.
      *
@@ -84,40 +84,40 @@ interface Zend_Cloud_QueueService_Adapter
      * @return array
      */
     public function fetchQueueMetadata($queueId, $options = null);
-    
+
     /**
      * Store a key/value array of metadata for the specified queue.
-     * WARNING: This operation overwrites any metadata that is located at 
+     * WARNING: This operation overwrites any metadata that is located at
      * $destinationPath. Some adapters may not support this method.
-     * 
+     *
      * @param  string $queueId
      * @param  array  $metadata
      * @param  array  $options
      * @return void
      */
     public function storeQueueMetadata($queueId, $metadata,  $options = null);
-    
+
     /**
      * Send a message to the specified queue.
-     * 
+     *
      * @param  string $queueId
      * @param  string $message
      * @param  array  $options
      * @return string Message ID
      */
     public function sendMessage($queueId, $message,  $options = null);
-    
+
     /**
      * Recieve at most $max messages from the specified queue and return the
      * message IDs for messages recieved.
-     * 
+     *
      * @param  string $queueId
      * @param  int    $max
      * @param  array  $options
      * @return array[Zend_Cloud_QueueService_Message]  Array of messages
      */
     public function receiveMessages($queueId, $max = 1, $options = null);
-        
+
     /**
      * Peek at the messages from the specified queue without removing them.
      *
@@ -127,18 +127,18 @@ interface Zend_Cloud_QueueService_Adapter
      * @return array[Zend_Cloud_QueueService_Message]
      */
     public function peekMessages($queueId, $num = 1, $options = null);
-    
+
     /**
      * Delete the specified message from the specified queue.
-     * 
+     *
      * @param  string $queueId
-     * @param  Zend_Cloud_QueueService_Message $message Message to delete 
+     * @param  Zend_Cloud_QueueService_Message $message Message to delete
      * @param  array  $options
      * @return void
-     * 
+     *
      */
     public function deleteMessage($queueId, $message,  $options = null);
-    
+
     /**
      * Get the concrete adapter.
      */

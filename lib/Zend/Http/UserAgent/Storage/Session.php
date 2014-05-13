@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Http
  * @subpackage UserAgent
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -32,42 +32,42 @@
 /**
  * @package    Zend_Http
  * @subpackage UserAgent
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Http_UserAgent_Storage_Session implements Zend_Http_UserAgent_Storage 
+class Zend_Http_UserAgent_Storage_Session implements Zend_Http_UserAgent_Storage
 {
     /**
      * Default session namespace
      */
     const NAMESPACE_DEFAULT = 'Zend_Http_UserAgent';
-    
+
     /**
      * Default session object member name
      */
     const MEMBER_DEFAULT = 'storage';
-    
+
     /**
      * Object to proxy $_SESSION storage
      *
      * @var Zend_Session_Namespace
      */
     protected $_session;
-    
+
     /**
      * Session namespace
      *
      * @var mixed
      */
     protected $_namespace;
-    
+
     /**
      * Session object member
      *
      * @var mixed
      */
     protected $_member;
-    
+
     /**
      * Sets session storage options and initializes session namespace object
      *
@@ -79,7 +79,7 @@ class Zend_Http_UserAgent_Storage_Session implements Zend_Http_UserAgent_Storage
      * @return void
      * @throws Zend_Http_UserAgent_Storage_Exception on invalid $options argument
      */
-    public function __construct($options = null) 
+    public function __construct($options = null)
     {
         if (is_object($options) && method_exists($options, 'toArray')) {
             $options = $options->toArray();
@@ -95,71 +95,71 @@ class Zend_Http_UserAgent_Storage_Session implements Zend_Http_UserAgent_Storage
         }
 
         // add '.' to prevent the message ''Session namespace must not start with a number'
-        $this->_namespace = '.' 
-                          . (isset($options['browser_type']) 
-                             ? $options['browser_type'] 
+        $this->_namespace = '.'
+                          . (isset($options['browser_type'])
+                             ? $options['browser_type']
                              : self::NAMESPACE_DEFAULT);
         $this->_member    = isset($options['member']) ? $options['member'] : self::MEMBER_DEFAULT;
         $this->_session   = new Zend_Session_Namespace($this->_namespace);
     }
-    
+
     /**
      * Returns the session namespace name
      *
      * @return string
      */
-    public function getNamespace() 
+    public function getNamespace()
     {
         return $this->_namespace;
     }
-    
+
     /**
      * Returns the name of the session object member
      *
      * @return string
      */
-    public function getMember() 
+    public function getMember()
     {
         return $this->_member;
     }
-    
+
     /**
      * Defined by Zend_Http_UserAgent_Storage
      *
      * @return boolean
      */
-    public function isEmpty() 
+    public function isEmpty()
     {
         return empty($this->_session->{$this->_member});
     }
-    
+
     /**
      * Defined by Zend_Http_UserAgent_Storage
      *
      * @return mixed
      */
-    public function read() 
+    public function read()
     {
         return $this->_session->{$this->_member};
     }
-    
+
     /**
      * Defined by Zend_Http_UserAgent_Storage
      *
      * @param  mixed $contents
      * @return void
      */
-    public function write($content) 
+    public function write($content)
     {
         $this->_session->{$this->_member} = $content;
     }
-    
+
     /**
      * Defined by Zend_Http_UserAgent_Storage
      *
      * @return void
      */
-    public function clear() 
+    public function clear()
     {
         unset($this->_session->{$this->_member});
     }

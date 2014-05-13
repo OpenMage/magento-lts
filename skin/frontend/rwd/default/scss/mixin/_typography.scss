@@ -1,0 +1,117 @@
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+// =============================================
+// Mixin - Typography
+// =============================================
+
+@mixin h1 {
+    margin: 0;
+    margin-bottom: 0.7em;
+    color: $c-h1;
+    font-family: $f-stack-special;
+    font-size: 28px;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 1.2;
+    text-rendering: optimizeLegibility;
+    text-transform: uppercase;
+}
+
+@mixin h2 {
+    margin: 0;
+    margin-bottom: 0.5em;
+    color: $c-h2;
+    font-family: $f-stack-special;
+    font-size: 24px;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 1.2;
+    text-rendering: optimizeLegibility;
+    text-transform: uppercase;
+}
+
+@mixin h3 {
+    margin: 0;
+    margin-bottom: 10px;
+    color: $c-h3;
+    font-family: $f-stack-special;
+    font-size: 18px;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 1.4;
+    text-rendering: optimizeSpeed;
+    text-transform: uppercase;
+}
+
+@mixin h4 {
+    margin: 0;
+    margin-bottom: 10px;
+    color: $c-h4;
+    font-family: $f-stack-special;
+    font-size: 14px;
+    font-weight: bold;
+    font-style: normal;
+    line-height: 1.4;
+    text-rendering: optimizeSpeed;
+    text-transform: uppercase;
+}
+
+@mixin h5 {
+    margin: 0;
+    margin-bottom: 10px;
+    color: $c-h5;
+    font-family: $f-stack-sans;
+    font-size: 13px;
+    font-weight: bold;
+    font-style: normal;
+    line-height: 1.4;
+    text-rendering: optimizeSpeed;
+    text-transform: uppercase;
+}
+
+@mixin h6 {
+    margin: 0;
+    margin-bottom: 5px;
+    color: $c-h6;
+    font-family: $f-stack-sans;
+    font-size: 12px;
+    font-weight: bold;
+    font-style: normal;
+    line-height: 1.4;
+    text-rendering: optimizeSpeed;
+    text-transform: uppercase;
+}
+
+@mixin pageTitle() {
+    text-transform: uppercase;
+    font-size: 24px;
+    font-weight: 600;
+    color: $c-text;
+    border-bottom: 1px solid $c-module-border-light;
+    padding-bottom: 3px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}

@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: BasicLoader.php 20785 2010-01-31 09:43:03Z mikaelkael $
+ * @version    $Id: BasicLoader.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /**
@@ -40,10 +40,10 @@
 /**
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Tool_Framework_Loader_BasicLoader 
+class Zend_Tool_Framework_Loader_BasicLoader
     implements Zend_Tool_Framework_Loader_Interface, Zend_Tool_Framework_Registry_EnabledInterface
 {
     /**
@@ -55,14 +55,14 @@ class Zend_Tool_Framework_Loader_BasicLoader
      * @var array
      */
     protected $_classesToLoad = array();
-    
+
     public function __construct($options = array())
     {
         if ($options) {
             $this->setOptions($options);
         }
     }
-    
+
     public function setOptions(Array $options)
     {
         foreach ($options as $optionName => $optionValue) {
@@ -72,7 +72,7 @@ class Zend_Tool_Framework_Loader_BasicLoader
             }
         }
     }
-    
+
     /**
      * setRegistry() - required by the enabled interface to get an instance of
      * the registry
@@ -95,17 +95,17 @@ class Zend_Tool_Framework_Loader_BasicLoader
         $this->_classesToLoad = $classesToLoad;
         return $this;
     }
-    
+
     public function load()
     {
         $manifestRegistry = $this->_registry->getManifestRepository();
         $providerRegistry = $this->_registry->getProviderRepository();
-        
+
         $loadedClasses = array();
-        
+
         // loop through the loaded classes and ensure that
         foreach ($this->_classesToLoad as $class) {
-            
+
             if (!class_exists($class)) {
                 Zend_Loader::loadClass($class);
             }
@@ -153,5 +153,5 @@ class Zend_Tool_Framework_Loader_BasicLoader
                 && !$providerRegistry->hasProvider($reflectionClass->getName(), false)
         );
     }
-    
+
 }

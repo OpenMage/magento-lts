@@ -1,0 +1,195 @@
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/* ============================================ *
+ * Slideshow
+ * ============================================ */
+
+.slideshow-container {
+    position: relative;
+    display: block;
+    width: 100%;
+    margin: $gap 0;
+    border: 1px solid $c-module-border-light;
+
+    .slideshow {
+        width: 100%;
+        padding: 0;
+        position: relative;
+        margin: 0;
+        border: 10px solid #FFFFFF;
+        & > li {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 0;
+            display: block;
+            margin: 0;
+
+            // in case script does not load
+            &:first-child {
+                position: static;
+                z-index: 100;
+            }
+
+            img {
+                max-width: 100%;
+                width: 100%;
+            }
+        }
+    }
+}
+
+.slideshow-pager {
+    text-align: center;
+    width: 100%;
+    z-index: 115;
+    position: absolute;
+    bottom: 0px;
+    top: auto;
+    overflow: hidden;
+    @include not-selectable;
+
+    span {
+        font-family: arial;
+        width: 44px;
+        height: 44px;
+        display: inline-block;
+        color: #DDDDDD;
+        cursor: pointer;
+        $pager-size: 16px;
+
+        &:before {
+            content: '';
+            display: block;
+            width: $pager-size;
+            height: $pager-size;
+            left: 50%;
+            top: 50%;
+            margin-left: (-$pager-size/2);
+            margin-top: (-$pager-size/2);
+            border-radius: 1px;
+            background-color: #FFFFFF;
+            position: relative;
+        }
+
+        &:hover:before {
+            background-color: $c-button-hover;
+        }
+
+        &.cycle-pager-active:before {
+            background-color: $c-button-active;
+        }
+    }
+
+    & > * {
+        cursor: pointer;
+    }
+}
+
+.slideshow-prev,
+.slideshow-next {
+    position: absolute;
+    top: 0;
+    width: 15%;
+    max-width: 80px;
+    height: 100%;
+    opacity: 0.6;
+    z-index: 110;
+    cursor: pointer;
+    @include not-selectable();
+
+    &:before {
+        content: '';
+        width: 0;
+        height: 0;
+        font-size: 0;
+        position: absolute;
+        border-style: solid;
+        display: block;
+        top: 50%;
+        margin-top: -15px;
+    }
+
+    &:hover {
+        opacity: 1;
+    }
+
+    &.disabled {
+        @include opacity(0.5);
+        cursor: default;
+    }
+}
+
+.slideshow-prev {
+    left: 8px;
+
+    &:before {
+        border-width: 15px 15px 15px 0;
+        border-color: transparent #FFFFFF transparent transparent;
+        top: 50%;
+        left: 10px;
+    }
+
+    &:hover:before {
+        border-color: transparent $c-button-hover transparent transparent;
+    }
+}
+
+.slideshow-next {
+    right: 8px;
+
+    &:before {
+        border-width: 15px 0 15px 15px;
+        border-color: transparent transparent transparent #FFFFFF;
+        top: 50%;
+        right: 10px;
+    }
+
+    &:hover:before {
+        border-color: transparent transparent transparent $c-button-hover;
+    }
+}
+
+.cycle-caption {
+    position: absolute;
+    color: white;
+    bottom: 15px;
+    right: 15px;
+    z-index: 110;
+}
+
+.cycle-overlay {
+    font-family: tahoma, arial;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    z-index: 120;
+    background: black;
+    color: white;
+    padding: 15px;
+    opacity: .5;
+}

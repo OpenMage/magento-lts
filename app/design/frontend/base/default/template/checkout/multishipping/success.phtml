@@ -20,18 +20,18 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <div class="multiple-checkout">
     <div class="page-title">
-        <h1><?php echo $this->__('Order Success') ?></h1>
+        <h1 data-role="page-title"><?php echo $this->__('Order Success') ?></h1>
     </div>
     <h2 class="sub-title"><?php echo $this->__('Thank you for your purchase!') ?></h2>
     <p><?php echo $this->__('We are processing your order and you will soon receive an email with details of the order. Once the order has shipped you will receive another email with a link to track its progress.') ?></p>
     <?php if($_orderIds = $this->getOrderIds()): ?>
-    <p>
+    <p data-role="order-numbers">
         <?php $flag = false ?>
         <?php echo $this->__('Your order number is ') ?>
         <?php foreach ($_orderIds as $orderId=>$incrementId): ?>

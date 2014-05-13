@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Translate
  * @subpackage Zend_Translate_Adapter
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Adapter.php 22726 2010-07-30 10:52:07Z thomas $
+ * @version    $Id: Adapter.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /**
@@ -36,7 +36,7 @@
  * @category   Zend
  * @package    Zend_Translate
  * @subpackage Zend_Translate_Adapter
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Translate_Adapter {
@@ -212,6 +212,11 @@ abstract class Zend_Translate_Adapter {
         } else if (!is_array($options)) {
             $options = array('content' => $options);
         }
+        
+        if (!isset($options['content']) || empty($options['content'])) {
+            #require_once 'Zend/Translate/Exception.php';
+            throw new Zend_Translate_Exception("Required option 'content' is missing");
+        }
 
         $originate = null;
         if (!empty($options['locale'])) {
@@ -240,9 +245,15 @@ abstract class Zend_Translate_Adapter {
         if (is_string($options['content']) and is_dir($options['content'])) {
             $options['content'] = realpath($options['content']);
             $prev = '';
-            foreach (new RecursiveIteratorIterator(
-                     new RecursiveDirectoryIterator($options['content'], RecursiveDirectoryIterator::KEY_AS_PATHNAME),
-                     RecursiveIteratorIterator::SELF_FIRST) as $directory => $info) {
+            $iterator = new RecursiveIteratorIterator(
+                new RecursiveRegexIterator(
+                    new RecursiveDirectoryIterator($options['content'], RecursiveDirectoryIterator::KEY_AS_PATHNAME),
+                    '/^(?!.*(\.svn|\.cvs)).*$/', RecursiveRegexIterator::MATCH
+                ),
+                RecursiveIteratorIterator::SELF_FIRST
+            );
+            
+            foreach ($iterator as $directory => $info) {
                 $file = $info->getFilename();
                 if (is_array($options['ignore'])) {
                     foreach ($options['ignore'] as $key => $ignore) {
@@ -310,6 +321,8 @@ abstract class Zend_Translate_Adapter {
                     }
                 }
             }
+            
+            unset($iterator);
         } else {
             $this->_addTranslationData($options);
         }
@@ -464,7 +477,7 @@ abstract class Zend_Translate_Adapter {
     /**
      * Returns the available languages from this adapter
      *
-     * @return array
+     * @return array|null
      */
     public function getList()
     {

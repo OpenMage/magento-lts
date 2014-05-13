@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Feed_Writer
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: FeedAbstract.php 23090 2010-10-12 17:28:16Z padraic $
+ * @version    $Id: FeedAbstract.php 25160 2012-12-18 15:17:16Z matthew $
  */
 
 /**
@@ -55,7 +55,7 @@
 /**
  * @category   Zend
  * @package    Zend_Feed_Writer
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Feed_Writer_Feed_FeedAbstract
@@ -66,7 +66,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
      * @var array
      */
     protected $_data = array();
-    
+
     /**
      * Holds the value "atom" or "rss" depending on the feed type set when
      * when last exported.
@@ -74,7 +74,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
      * @var string
      */
     protected $_type = null;
-    
+
     /**
      * Constructor: Primarily triggers the registration of core extensions and
      * loads those appropriate to this data container.
@@ -117,7 +117,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
                 $author['uri'] = $name['uri'];
             }
         } else {
-            if (empty($name['name']) || !is_string($name['name'])) {
+            if (empty($name) || !is_string($name)) {
                 #require_once 'Zend/Feed/Exception.php';
                 throw new Zend_Feed_Exception('Invalid parameter: "name" must be a non-empty string value');
             }
@@ -176,10 +176,10 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         $zdate = null;
         if ($date === null) {
             $zdate = new Zend_Date;
-        } elseif (ctype_digit($date) && strlen($date) == 10) {
-            $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
         } elseif ($date instanceof Zend_Date) {
             $zdate = $date;
+        } elseif (ctype_digit((string)$date)) {
+            $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
         } else {
             #require_once 'Zend/Feed/Exception.php';
             throw new Zend_Feed_Exception('Invalid Zend_Date object or UNIX Timestamp passed as parameter');
@@ -197,10 +197,10 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         $zdate = null;
         if ($date === null) {
             $zdate = new Zend_Date;
-        } elseif (ctype_digit($date) && strlen($date) == 10) {
-            $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
         } elseif ($date instanceof Zend_Date) {
             $zdate = $date;
+        } elseif (ctype_digit((string)$date)) {
+            $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
         } else {
             #require_once 'Zend/Feed/Exception.php';
             throw new Zend_Feed_Exception('Invalid Zend_Date object or UNIX Timestamp passed as parameter');
@@ -218,10 +218,10 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         $zdate = null;
         if ($date === null) {
             $zdate = new Zend_Date;
-        } elseif (ctype_digit($date) && strlen($date) == 10) {
-            $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
         } elseif ($date instanceof Zend_Date) {
             $zdate = $date;
+        } elseif (ctype_digit((string)$date)) {
+            $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
         } else {
             #require_once 'Zend/Feed/Exception.php';
             throw new Zend_Feed_Exception('Invalid Zend_Date object or UNIX Timestamp passed as parameter');
@@ -310,7 +310,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         }
         $this->_data['id'] = $id;
     }
-    
+
     /**
      * Validate a URI using the tag scheme (RFC 4151)
      *
@@ -359,9 +359,9 @@ class Zend_Feed_Writer_Feed_FeedAbstract
             throw new Zend_Feed_Exception('Invalid parameter: parameter \'uri\''
             . ' must be a non-empty string and valid URI/IRI');
         }
-        $this->_data['image'] = $data;  
+        $this->_data['image'] = $data;
     }
-    
+
     /**
      * Set a feed icon (URI at minimum). Parameter is a single array with the
      * required key 'uri'. Only 'uri' is required and used for Atom rendering.
@@ -377,7 +377,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
             throw new Zend_Feed_Exception('Invalid parameter: parameter \'uri\''
             . ' must be a non-empty string and valid URI/IRI');
         }
-        $this->_data['icon'] = $data;  
+        $this->_data['icon'] = $data;
     }
 
     /**
@@ -453,7 +453,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         }
         $this->_data['encoding'] = $encoding;
     }
-    
+
     /**
      * Set the feed's base URL
      *
@@ -468,7 +468,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         }
         $this->_data['baseUrl'] = $url;
     }
-    
+
     /**
      * Add a Pubsubhubbub hub endpoint URL
      *
@@ -486,7 +486,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         }
         $this->_data['hubs'][] = $url;
     }
-    
+
     /**
      * Add Pubsubhubbub hub endpoint URLs
      *
@@ -498,12 +498,12 @@ class Zend_Feed_Writer_Feed_FeedAbstract
             $this->addHub($url);
         }
     }
-    
+
     /**
      * Add a feed category
      *
      * @param string $category
-     */ 
+     */
     public function addCategory(array $category)
     {
         if (!isset($category['term'])) {
@@ -513,7 +513,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
             . ' readable category name');
         }
         if (isset($category['scheme'])) {
-            if (empty($category['scheme']) 
+            if (empty($category['scheme'])
                 || !is_string($category['scheme'])
                 || !Zend_Uri::check($category['scheme'])
             ) {
@@ -527,7 +527,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         }
         $this->_data['categories'][] = $category;
     }
-    
+
     /**
      * Set an array of feed categories
      *
@@ -671,7 +671,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         }
         return $this->_data['image'];
     }
-    
+
     /**
      * Get the feed icon URI
      *
@@ -749,7 +749,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         }
         return $this->_data['encoding'];
     }
-    
+
     /**
      * Get the feed's base url
      *
@@ -762,7 +762,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         }
         return $this->_data['baseUrl'];
     }
-    
+
     /**
      * Get the URLs used as Pubsubhubbub hubs endpoints
      *
@@ -775,7 +775,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         }
         return $this->_data['hubs'];
     }
-    
+
     /**
      * Get the feed categories
      *
@@ -798,7 +798,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
     {
         $this->_data = array();
     }
-    
+
     /**
      * Set the current feed type being exported to "rss" or "atom". This allows
      * other objects to gracefully choose whether to execute or not, depending
@@ -810,7 +810,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
     {
         $this->_type = $type;
     }
-    
+
     /**
      * Retrieve the current or last feed type exported.
      *
@@ -820,7 +820,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
     {
         return $this->_type;
     }
-    
+
     /**
      * Unset a specific data point
      *
@@ -832,7 +832,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
             unset($this->_data[$name]);
         }
     }
-    
+
     /**
      * Method overloading: call given method on first extension implementing it
      *

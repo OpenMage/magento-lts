@@ -15,22 +15,16 @@
  * @category   Zend
  * @package    Zend_Service_WindowsAzure
  * @subpackage Storage
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
 
 /**
- * @see Zend_Service_WindowsAzure_Exception
- */
-#require_once 'Zend/Service/WindowsAzure/Exception.php';
-
-
-/**
  * @category   Zend
  * @package    Zend_Service_WindowsAzure
  * @subpackage Storage
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * 
  */
@@ -54,8 +48,8 @@ abstract class Zend_Service_WindowsAzure_Storage_StorageEntityAbstract
             $this->_data[strtolower($name)] = $value;
             return;
         }
-
-        throw new Exception("Unknown property: " . $name);
+		#require_once 'Zend/Service/WindowsAzure/Exception.php';
+        throw new Zend_Service_WindowsAzure_Exception("Unknown property: " . $name);
     }
 
     /**
@@ -67,7 +61,7 @@ abstract class Zend_Service_WindowsAzure_Storage_StorageEntityAbstract
         if (array_key_exists(strtolower($name), $this->_data)) {
             return $this->_data[strtolower($name)];
         }
-
-        throw new Exception("Unknown property: " . $name);
+		#require_once 'Zend/Service/WindowsAzure/Exception.php';
+        throw new Zend_Service_WindowsAzure_Exception("Unknown property: " . $name);
     }
 }

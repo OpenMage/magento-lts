@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Cron
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -350,16 +350,11 @@ class Mage_Cron_Model_Observer
         if ($schedule->getId() === null) {
             $ts = strftime('%Y-%m-%d %H:%M:00', time());
             $schedule->setJobCode($jobCode)
-                ->setStatus(Mage_Cron_Model_Schedule::STATUS_RUNNING)
                 ->setCreatedAt($ts)
-                ->setScheduledAt($ts)
-                ->save();
-            return $schedule;
-        } else if ($schedule->getStatus() != Mage_Cron_Model_Schedule::STATUS_RUNNING) {
-            $schedule->tryLockJob($schedule->getStatus());
-            return $schedule;
+                ->setScheduledAt($ts);
         }
+        $schedule->setStatus(Mage_Cron_Model_Schedule::STATUS_RUNNING)->save();
+        return $schedule;
 
-        return false;
     }
 }

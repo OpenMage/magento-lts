@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -40,6 +40,12 @@ class Mage_Core_Model_Resource_File_Storage_File
      * @var string
      */
     protected $_mediaBaseDirectory = null;
+
+    /**
+     * List of files/directories that should be ignored when cleaning and reading files from the filesystem
+     * @var array
+     */
+    protected $_ignoredFiles;
 
     /**
      * Files at storage
@@ -66,12 +72,13 @@ class Mage_Core_Model_Resource_File_Storage_File
         $files          = array();
         $directories    = array();
         $currentDir     = $this->getMediaBaseDirectory() . $dir;
+        $ignoredFiles = array_merge(array('.', '..'), $this->_getIgnoredFiles());
 
         if (is_dir($currentDir)) {
             $dh = opendir($currentDir);
             if ($dh) {
                 while (($file = readdir($dh)) !== false) {
-                    if ($file == '.' || $file == '..' || $file == '.svn' || $file == '.htaccess') {
+                    if (in_array($file, $ignoredFiles)) {
                         continue;
                     }
 
@@ -106,12 +113,13 @@ class Mage_Core_Model_Resource_File_Storage_File
     public function clear($dir = '')
     {
         $currentDir = $this->getMediaBaseDirectory() . $dir;
+        $ignoredFiles = array_merge(array('.', '..'), $this->_getIgnoredFiles());
 
         if (is_dir($currentDir)) {
             $dh = opendir($currentDir);
             if ($dh) {
                 while (($file = readdir($dh)) !== false) {
-                    if ($file == '.' || $file == '..') {
+                    if (in_array($file, $ignoredFiles)) {
                         continue;
                     }
 
@@ -128,6 +136,20 @@ class Mage_Core_Model_Resource_File_Storage_File
         }
 
         return $this;
+    }
+
+    /**
+     * Returns list of files/directories that should be ignored when cleaning and reading files from the filesystem
+     * @return array
+     */
+    protected function _getIgnoredFiles()
+    {
+        if (null === $this->_ignoredFiles) {
+            $ignored = (string)Mage::app()->getConfig()
+                ->getNode(Mage_Core_Model_File_Storage::XML_PATH_MEDIA_RESOURCE_IGNORED);
+            $this->_ignoredFiles = $ignored ? explode(',', $ignored) : array();
+        }
+        return $this->_ignoredFiles;
     }
 
     /**

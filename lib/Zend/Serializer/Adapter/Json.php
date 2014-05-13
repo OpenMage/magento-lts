@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Serializer
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Json.php 20574 2010-01-24 17:39:14Z mabe $
+ * @version    $Id: Json.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /** @see Zend_Serializer_Adapter_AdapterAbstract */
@@ -30,7 +30,7 @@
  * @category   Zend
  * @package    Zend_Serializer
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Serializer_Adapter_Json extends Zend_Serializer_Adapter_AdapterAbstract
@@ -46,9 +46,9 @@ class Zend_Serializer_Adapter_Json extends Zend_Serializer_Adapter_AdapterAbstra
 
     /**
      * Serialize PHP value to JSON
-     * 
-     * @param  mixed $value 
-     * @param  array $opts 
+     *
+     * @param  mixed $value
+     * @param  array $opts
      * @return string
      * @throws Zend_Serializer_Exception on JSON encoding exception
      */
@@ -66,9 +66,9 @@ class Zend_Serializer_Adapter_Json extends Zend_Serializer_Adapter_AdapterAbstra
 
     /**
      * Deserialize JSON to PHP value
-     * 
-     * @param  string $json 
-     * @param  array $opts 
+     *
+     * @param  string $json
+     * @param  array $opts
      * @return mixed
      */
     public function unserialize($json, array $opts = array())

@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Cloud
  * @subpackage QueueService
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -25,7 +25,7 @@
  * @category   Zend
  * @package    Zend_Cloud
  * @subpackage QueueService
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Cloud_QueueService_Factory extends Zend_Cloud_AbstractFactory
@@ -39,21 +39,21 @@ class Zend_Cloud_QueueService_Factory extends Zend_Cloud_AbstractFactory
 
     /**
      * Constructor
-     * 
+     *
      * @return void
      */
     private function __construct()
     {
         // private ctor - should not be used
     }
-    
+
     /**
      * Retrieve QueueService adapter
-     * 
-     * @param  array $options 
+     *
+     * @param  array $options
      * @return void
      */
-    public static function getAdapter($options = array()) 
+    public static function getAdapter($options = array())
     {
         $adapter = parent::_getAdapter(self::QUEUE_ADAPTER_KEY, $options);
         if (!$adapter) {

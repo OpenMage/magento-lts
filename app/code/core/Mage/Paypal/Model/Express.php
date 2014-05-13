@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -88,6 +88,28 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
             $this->_pro = Mage::getModel($this->_proType);
         }
         $this->_pro->setMethod($this->_code);
+        $this->_setApiProcessableErrors();
+    }
+
+    /**
+     * Set processable error codes to API model
+     *
+     * @return Mage_Paypal_Model_Api_Nvp
+     */
+    protected function _setApiProcessableErrors()
+    {
+        return $this->_pro->getApi()->setProcessableErrors(
+            array(
+                Mage_Paypal_Model_Api_ProcessableException::API_INTERNAL_ERROR,
+                Mage_Paypal_Model_Api_ProcessableException::API_UNABLE_PROCESS_PAYMENT_ERROR_CODE,
+                Mage_Paypal_Model_Api_ProcessableException::API_DO_EXPRESS_CHECKOUT_FAIL,
+                Mage_Paypal_Model_Api_ProcessableException::API_UNABLE_TRANSACTION_COMPLETE,
+                Mage_Paypal_Model_Api_ProcessableException::API_TRANSACTION_EXPIRED,
+                Mage_Paypal_Model_Api_ProcessableException::API_MAX_PAYMENT_ATTEMPTS_EXCEEDED,
+                Mage_Paypal_Model_Api_ProcessableException::API_COUNTRY_FILTER_DECLINE,
+                Mage_Paypal_Model_Api_ProcessableException::API_MAXIMUM_AMOUNT_FILTER_DECLINE,
+                Mage_Paypal_Model_Api_ProcessableException::API_OTHER_FILTER_DECLINE
+            ));
     }
 
     /**
@@ -177,7 +199,12 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
      */
     public function order(Varien_Object $payment, $amount)
     {
-        $this->_placeOrder($payment, $amount);
+        $paypalTransactionData = Mage::getSingleton('checkout/session')->getPaypalTransactionData();
+        if (!is_array($paypalTransactionData)) {
+            $this->_placeOrder($payment, $amount);
+        } else {
+            $this->_importToPayment($this->_pro->getApi()->setData($paypalTransactionData), $payment);
+        }
 
         $payment->setAdditionalInformation($this->_isOrderPaymentActionKey, true);
 
@@ -188,7 +215,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
         $order = $payment->getOrder();
         $orderTransactionId = $payment->getTransactionId();
 
-        $api = $this->_callDoAuthorize($amount, $payment, $payment->getTransactionId());
+        $api = $this->_callDoAuthorize($amount, $payment, $orderTransactionId);
 
         $state  = Mage_Sales_Model_Order::STATE_PROCESSING;
         $status = true;
@@ -548,14 +575,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
             ->setInvNum($order->getIncrementId())
             ->setCurrencyCode($order->getBaseCurrencyCode())
             ->setPaypalCart(Mage::getModel('paypal/cart', array($order)))
-            ->setIsLineItemsEnabled($this->_pro->getConfig()->lineItemsEnabled)
-        ;
-        if ($order->getIsVirtual()) {
-            $api->setAddress($order->getBillingAddress())->setSuppressShipping(true);
-        } else {
-            $api->setAddress($order->getShippingAddress());
-            $api->setBillingAddress($order->getBillingAddress());
-        }
+            ->setIsLineItemsEnabled($this->_pro->getConfig()->lineItemsEnabled);
 
         // call api and get details from it
         $api->callDoExpressCheckoutPayment();
@@ -651,10 +671,19 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
      * @param Varien_Object $payment
      * @param string $parentTransactionId
      * @return Mage_Paypal_Model_Api_Abstract
+     * @throws Mage_Paypal_Model_Api_ProcessableException
      */
     protected function _callDoAuthorize($amount, $payment, $parentTransactionId)
     {
-        $api = $this->_pro->resetApi()->getApi()
+        $apiData = $this->_pro->getApi()->getData();
+        foreach ($apiData as $k => $v) {
+            if (is_object($v)) {
+                unset($apiData[$k]);
+            }
+        }
+        Mage::getSingleton('checkout/session')->setPaypalTransactionData($apiData);
+        $this->_pro->resetApi();
+        $api = $this->_setApiProcessableErrors()
             ->setAmount($amount)
             ->setCurrencyCode($payment->getOrder()->getBaseCurrencyCode())
             ->setTransactionId($parentTransactionId)

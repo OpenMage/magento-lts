@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -82,7 +82,15 @@ class Mage_Core_Model_Design_Package
      */
     protected $_callbackFileDir;
 
+    /**
+     * @var Mage_Core_Model_Design_Config
+     */
     protected $_config = null;
+
+    /**
+     * @var Mage_Core_Model_Design_Fallback
+     */
+    protected $_fallback = null;
 
     /**
      * Whether theme/skin hierarchy should be checked via fallback mechanism
@@ -90,6 +98,18 @@ class Mage_Core_Model_Design_Package
      * @var bool
      */
     protected $_shouldFallback = true;
+
+    public function __construct()
+    {
+        if (is_null($this->_config)) {
+            $this->_config = Mage::getSingleton('core/design_config');
+        }
+        if (is_null($this->_fallback)) {
+            $this->_fallback = Mage::getSingleton('core/design_fallback', array(
+                'config' => $this->_config,
+            ));
+        }
+    }
 
     /**
      * Set store
@@ -99,6 +119,9 @@ class Mage_Core_Model_Design_Package
      */
     public function setStore($store)
     {
+        if ($this->_fallback) {
+            $this->_fallback->setStore($store);
+        }
         $this->_store = $store;
         return $this;
     }
@@ -418,22 +441,17 @@ class Mage_Core_Model_Design_Package
     {
         Varien_Profiler::start(__METHOD__);
         $this->updateParamDefaults($params);
-        $result = $this->_fallback($file, $params, array(
-            array(),
-            array('_theme' => $this->getFallbackTheme()),
-            array('_theme' => self::DEFAULT_THEME),
-        ));
+        $result = $this->_fallback(
+            $file,
+            $params,
+            $this->_fallback->getFallbackScheme(
+                $params['_area'],
+                $params['_package'],
+                $params['_theme']
+            )
+        );
         Varien_Profiler::stop(__METHOD__);
         return $result;
-    }
-
-    /**
-     * Default theme getter
-     * @return string
-     */
-    public function getFallbackTheme()
-    {
-        return Mage::getStoreConfig('design/theme/default', $this->getStore());
     }
 
     public function getLayoutFilename($file, array $params=array())
@@ -472,11 +490,15 @@ class Mage_Core_Model_Design_Package
         }
         $this->updateParamDefaults($params);
         if (!empty($file)) {
-            $result = $this->_fallback($file, $params, array(
-                array(),
-                array('_theme' => $this->getFallbackTheme()),
-                array('_theme' => self::DEFAULT_THEME),
-            ));
+            $result = $this->_fallback(
+                $file,
+                $params,
+                $this->_fallback->getFallbackScheme(
+                    $params['_area'],
+                    $params['_package'],
+                    $params['_theme']
+                )
+            );
         }
         $result = $this->getSkinBaseUrl($params) . (empty($file) ? '' : $file);
         Varien_Profiler::stop(__METHOD__);
@@ -854,5 +876,15 @@ class Mage_Core_Model_Design_Package
             $uri = $baseUrl.$fileDir.implode('/', $pathParts);
         }
         return $uri;
+    }
+
+    /**
+     * Default theme getter
+     * @return string
+     * @deprecated since 1.8.2.0
+     */
+    public function getFallbackTheme()
+    {
+        return Mage::getStoreConfig('design/theme/default', $this->getStore());
     }
 }

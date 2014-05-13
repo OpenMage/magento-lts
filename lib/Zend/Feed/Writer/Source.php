@@ -14,17 +14,17 @@
  *
  * @category   Zend
  * @package    Zend_Feed_Writer
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Source.php 20785 2010-01-31 09:43:03Z mikaelkael $
+ * @version    $Id: Source.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 #require_once 'Zend/Feed/Writer/Feed/FeedAbstract.php';
- 
+
  /**
  * @category   Zend
  * @package    Zend_Feed_Writer
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Feed_Writer_Source extends Zend_Feed_Writer_Feed_FeedAbstract

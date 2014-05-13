@@ -21,7 +21,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -133,6 +133,7 @@ Default layout, loads most of the pages
             <block type="core/text_list" name="js" as="js"/>
             <block type="adminhtml/page_footer" name="footer" as="footer">
                 <action method="setBugreportUrl"><url>http://www.magentocommerce.com/bug-tracking</url></action>
+                <action method="setConnectWithMagentoUrl"><url>http://magento.com/resources/technical</url></action>
             </block>
             <block type="core/profiler" name="profiler" as="profiler"/>
             <block type="core/text_list" name="before_body_end" as="before_body_end"/>

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -365,6 +365,29 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
 
         $this->implodeStreetAddress();
 
+        $this->_basicCheck();
+
+        if (!$this->_getErrors()) {
+            Mage::dispatchEvent('customer_address_validation_after', array('address' => $this));
+        }
+
+        $errors = $this->_getErrors();
+
+        $this->_resetErrors();
+
+        if (empty($errors) || $this->getShouldIgnoreValidation()) {
+            return true;
+        }
+        return $errors;
+    }
+
+    /**
+     * Perform basic validation
+     *
+     * @return void
+     */
+    protected function _basicCheck()
+    {
         if (!Zend_Validate::is($this->getFirstname(), 'NotEmpty')) {
             $this->addError(Mage::helper('customer')->__('Please enter the first name.'));
         }
@@ -397,22 +420,11 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
         }
 
         if ($this->getCountryModel()->getRegionCollection()->getSize()
-               && !Zend_Validate::is($this->getRegionId(), 'NotEmpty')
-               && Mage::helper('directory')->isRegionRequired($this->getCountryId())
+            && !Zend_Validate::is($this->getRegionId(), 'NotEmpty')
+            && Mage::helper('directory')->isRegionRequired($this->getCountryId())
         ) {
             $this->addError(Mage::helper('customer')->__('Please enter the state/province.'));
         }
-
-        Mage::dispatchEvent('customer_address_validation_after', array('address' => $this));
-
-        $errors = $this->_getErrors();
-
-        $this->_resetErrors();
-
-        if (empty($errors) || $this->getShouldIgnoreValidation()) {
-            return true;
-        }
-        return $errors;
     }
 
     /**

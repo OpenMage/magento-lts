@@ -1,3 +1,4 @@
+" or "," or "
 "'%value%' appears to be a DNS hostname but cannot extract TLD part","'%value%' appears to be a DNS hostname but cannot extract TLD part"
 "'%value%' appears to be a DNS hostname but cannot match TLD against known list","'%value%' appears to be a DNS hostname but cannot match TLD against known list"
 "'%value%' appears to be a DNS hostname but cannot match against hostname schema for TLD '%tld%'","'%value%' appears to be a DNS hostname but cannot match against hostname schema for TLD '%tld%'"
@@ -407,6 +408,7 @@
 "To show VAT number on frontend, set Show VAT Number on Frontend option to Yes.","To show VAT number on frontend, set Show VAT Number on Frontend option to Yes."
 "Total","Total"
 "Type","Type"
+"Unable to save the customer.","Unable to save the customer."
 "Unknown","Unknown"
 "Unsubscribe from Newsletter","Unsubscribe from Newsletter"
 "Update","Update"
@@ -463,3 +465,4 @@
 "Zip/Postal Code","Zip/Postal Code"
 "n/a","n/a"
 "or","or"
+"register","register"

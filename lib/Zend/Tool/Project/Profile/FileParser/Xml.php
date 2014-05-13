@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Xml.php 20851 2010-02-02 21:45:51Z ralph $
+ * @version    $Id: Xml.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 #require_once 'Zend/Tool/Project/Profile/FileParser/Interface.php';
@@ -28,7 +28,7 @@
 /**
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tool_Project_Profile_FileParser_Xml implements Zend_Tool_Project_Profile_FileParser_Interface
@@ -72,11 +72,11 @@ class Zend_Tool_Project_Profile_FileParser_Xml implements Zend_Tool_Project_Prof
         if ($profile->hasAttribute('type')) {
             $xmlElement->addAttribute('type', $profile->getAttribute('type'));
         }
-        
+
         if ($profile->hasAttribute('version')) {
             $xmlElement->addAttribute('version', $profile->getAttribute('version'));
         }
-        
+
         self::_serializeRecurser($profile, $xmlElement);
 
         $doc = new DOMDocument('1.0');
@@ -111,15 +111,15 @@ class Zend_Tool_Project_Profile_FileParser_Xml implements Zend_Tool_Project_Prof
         if ($xmlDataIterator->getName() != 'projectProfile') {
             throw new Exception('Profiles must start with a projectProfile node');
         }
-        
+
         if (isset($xmlDataIterator['type'])) {
             $this->_profile->setAttribute('type', (string) $xmlDataIterator['type']);
         }
-        
+
         if (isset($xmlDataIterator['version'])) {
             $this->_profile->setAttribute('version', (string) $xmlDataIterator['version']);
         }
-        
+
         // start un-serialization of the xml doc
         $this->_unserializeRecurser($xmlDataIterator);
 

@@ -19,7 +19,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 var varienForm = new Class.create();
@@ -500,6 +500,10 @@ FormElementDependenceController.prototype = {
      */
     trackChange : function(e, idTo, valuesFrom)
     {
+        if (!$(idTo)) {
+            return;
+        }
+
         // define whether the target should show up
         var shouldShowUp = true;
         for (var idFrom in valuesFrom) {

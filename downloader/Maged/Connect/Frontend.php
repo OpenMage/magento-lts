@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Connect
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -136,11 +136,12 @@ SCRIPT;
     }
 
     /**
-    * Retrieve output cache
-    *
-    * @return array
-    */
-    public function getOutput()
+     * Retrieve output cache
+     *
+     * @param bool $clearPrevious
+     * @return array|mixed
+     */
+    public function getOutput($clearPrevious = false)
     {
         return $this->_out;
     }

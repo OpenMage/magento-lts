@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ControllerFile.php 23204 2010-10-21 15:35:21Z ralph $
+ * @version    $Id: ControllerFile.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /**
@@ -28,7 +28,7 @@
  *
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tool_Project_Context_Zf_ControllerFile extends Zend_Tool_Project_Context_Filesystem_File
@@ -43,7 +43,7 @@ class Zend_Tool_Project_Context_Zf_ControllerFile extends Zend_Tool_Project_Cont
      * @var string
      */
     protected $_moduleName = null;
-    
+
     /**
      * @var string
      */
@@ -100,9 +100,11 @@ class Zend_Tool_Project_Context_Zf_ControllerFile extends Zend_Tool_Project_Cont
      */
     public function getContents()
     {
-        $className = ($this->_moduleName) ? ucfirst($this->_moduleName) . '_' : '';
-        $className .= ucfirst($this->_controllerName) . 'Controller';
+        $filter = new Zend_Filter_Word_DashToCamelCase();
         
+        $className = ($this->_moduleName) ? $filter->filter(ucfirst($this->_moduleName)) . '_' : '';
+        $className .= ucfirst($this->_controllerName) . 'Controller';
+
         $codeGenFile = new Zend_CodeGenerator_Php_File(array(
             'fileName' => $this->getPath(),
             'classes' => array(
@@ -134,7 +136,7 @@ class Zend_Tool_Project_Context_Zf_ControllerFile extends Zend_Tool_Project_Cont
                                 'body' => <<<EOS
 \$errors = \$this->_getParam('error_handler');
 
-if (!\$errors) {
+if (!\$errors || !\$errors instanceof ArrayObject) {
     \$this->view->message = 'You have reached the error page';
     return;
 }
@@ -143,21 +145,23 @@ switch (\$errors->type) {
     case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ROUTE:
     case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_CONTROLLER:
     case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ACTION:
-
         // 404 error -- controller or action not found
         \$this->getResponse()->setHttpResponseCode(404);
+        \$priority = Zend_Log::NOTICE;
         \$this->view->message = 'Page not found';
         break;
     default:
         // application error
         \$this->getResponse()->setHttpResponseCode(500);
+        \$priority = Zend_Log::CRIT;
         \$this->view->message = 'Application error';
         break;
 }
 
 // Log exception, if logger available
 if (\$log = \$this->getLog()) {
-    \$log->crit(\$this->view->message, \$errors->exception);
+    \$log->log(\$this->view->message, \$priority, \$errors->exception);
+    \$log->log('Request Parameters', \$priority, \$errors->request->getParams());
 }
 
 // conditionally display exceptions

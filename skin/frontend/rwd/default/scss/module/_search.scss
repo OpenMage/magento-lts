@@ -1,0 +1,104 @@
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/* ============================================ *
+ * Search - Auto Suggest
+ * ============================================ */
+
+.search-autocomplete {
+    left: 0 !important;
+    overflow: visible !important;
+    position: relative !important;
+    top: 15px !important;
+    width: 100% !important;
+    z-index: 200;
+
+    ul {
+        @include border-radius(2px);
+        background-color: #FFFFFF;
+        border: 1px solid $c-module-border-highlight;
+        left: 0;
+        padding-left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+
+        li {
+            border-bottom: 1px solid $c-module-background;
+            color: $c-link;
+            cursor: pointer;
+            font-size: $f-size-xs;
+            padding: 4px 6px;
+            text-align: left;
+
+            &:hover {
+                color: $c-link-hover;
+            }
+
+            &.selected {
+                background-color: $c-action;
+                color: white;
+            }
+
+            .amount {
+                float: right;
+                font-weight: bold;
+            }
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+    }
+
+    &:before {
+        @include triangle(up, 7px, $c-action);
+        left: 50%;
+        top: -7px;
+    }
+}
+
+/* ============================================ *
+ * Search - Advanced
+ * ============================================ */
+
+.advanced-search {
+    background: $c-module-background;
+    border: 1px solid $c-module-border-light;
+    padding: $trim;
+
+    select.multiselect {
+        option {
+            border-bottom: 1px solid $c-module-border-light;
+            padding: 2px 5px;
+        }
+    }
+}
+
+@include bp(max-width, $bp-xsmall) {
+    .advanced-search {
+        padding: $trim-small;
+    }
+}

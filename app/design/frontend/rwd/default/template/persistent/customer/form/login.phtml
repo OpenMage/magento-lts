@@ -1,0 +1,104 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Customer login form template
+ *
+ * @see app/design/frontend/base/default/template/customer/form/login.phtml
+ */
+/** @var $this Mage_Customer_Block_Form_Login */
+?>
+<div class="account-login<?php if (!$this->helper('customer')->isRegistrationAllowed()) echo ' login-only' ?>">
+    <div class="page-title">
+        <h1><?php if ($this->helper('customer')->isRegistrationAllowed()): ?>
+                <?php echo $this->__('Login or Create an Account') ?>
+            <?php else: ?>
+                <?php echo $this->__('Login'); ?>
+            <?php endif; ?></h1>
+    </div>
+    <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+    <form action="<?php echo $this->getPostActionUrl() ?>" method="post" id="login-form" class="scaffold-form">
+        <?php echo $this->getBlockHtml('formkey'); ?>
+        <div class="col2-set">
+            <?php if ($this->helper('customer')->isRegistrationAllowed()): ?>
+            <div class="col-1 new-users">
+                <div class="content">
+                    <h2><?php echo $this->__('New Here?') ?></h2>
+                    <p class="form-instructions"><?php echo $this->__('Registration is free and easy!') ?></p>
+                    <ul class="benefits">
+                        <li><?php echo $this->__('Faster checkout') ?></li>
+                        <li><?php echo $this->__('Save multiple shipping addresses') ?></li>
+                        <li><?php echo $this->__('View and track orders and more') ?></li>
+                    </ul>
+                </div>
+                <div class="buttons-set">
+                    <a title="<?php echo $this->__('Create an Account') ?>" class="button" href="<?php echo Mage::helper('persistent')->getCreateAccountUrl($this->getCreateAccountUrl()) ?>"><span><span><?php echo $this->__('Create an Account') ?></span></span></a>
+                </div>
+            </div>
+            <?php endif; ?>
+            <?php // This column should be col-1 if the registration column is not displayed ?>
+            <div class="<?php if ($this->helper('customer')->isRegistrationAllowed()): ?>col-2<?php else: ?>col-1<?php endif; ?> registered-users">
+                <div class="content fieldset">
+                    <h2><?php echo $this->__('Already registered?') ?></h2>
+                    <p class="form-instructions"><?php echo $this->__('If you have an account with us, please log in.') ?></p>
+                    <p class="required"><?php echo $this->__('* Required Fields') ?></p>
+                    <ul class="form-list">
+                        <li>
+                            <label for="email" class="required"><em>*</em><?php echo $this->__('Email Address') ?></label>
+                            <div class="input-box">
+                                <input type="email" autocapitalize="off" autocorrect="off" spellcheck="false" name="login[username]" value="<?php echo $this->escapeHtml($this->getUsername()) ?>" id="email" class="input-text required-entry validate-email" title="<?php echo $this->__('Email Address') ?>" />
+                            </div>
+                        </li>
+                        <li>
+                            <label for="pass" class="required"><em>*</em><?php echo $this->__('Password') ?></label>
+                            <div class="input-box">
+                                <input type="password" name="login[password]" class="input-text required-entry validate-password" id="pass" title="<?php echo $this->__('Password') ?>" />
+                            </div>
+                        </li>
+                        <?php echo $this->getChildHtml('form.additional.info'); ?>
+                        <li>
+                            <a href="<?php echo $this->getForgotPasswordUrl() ?>" class="f-left"><?php echo $this->__('Forgot Your Password?') ?></a>
+                        </li>
+                        <?php echo $this->getChildHtml('persistent.remember.me'); ?>
+                    </ul>
+                    <?php echo $this->getChildHtml('persistent.remember.me.tooltip'); ?>
+                </div>
+                <div class="buttons-set">
+                    <button type="submit" class="button" title="<?php echo $this->__('Login') ?>" name="send" id="send2"><span><span><?php echo $this->__('Login') ?></span></span></button>
+                </div>
+            </div>
+        </div>
+        <?php if (Mage::helper('checkout')->isContextCheckout()): ?>
+            <input name="context" type="hidden" value="checkout" />
+        <?php endif; ?>
+    </form>
+    <script type="text/javascript">
+    //<![CDATA[
+        var dataForm = new VarienForm('login-form', true);
+    //]]>
+    </script>
+</div>

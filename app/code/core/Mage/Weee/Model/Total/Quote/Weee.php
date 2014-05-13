@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Weee
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -417,7 +417,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
             $custTaxClassId,
             $store
         );
-        $defaultRateRequest = $taxCalculationModel->getRateRequest(false, false, false, $store);
+        $defaultRateRequest = $taxCalculationModel->getDefaultRateRequest($store);
 
         $attributes = $this->_helper->getProductWeeeAttributes(
             $item->getProduct(),

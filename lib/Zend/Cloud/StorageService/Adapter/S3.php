@@ -13,7 +13,7 @@
  * @category   Zend
  * @package    Zend_Cloud
  * @subpackage StorageService
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -27,10 +27,10 @@
  * @category   Zend
  * @package    Zend_Cloud
  * @subpackage StorageService
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Cloud_StorageService_Adapter_S3 
+class Zend_Cloud_StorageService_Adapter_S3
     implements Zend_Cloud_StorageService_Adapter
 {
     /*
@@ -40,7 +40,7 @@ class Zend_Cloud_StorageService_Adapter_S3
     const BUCKET_AS_DOMAIN = 'bucket_as_domain?';
     const FETCH_STREAM     = 'fetch_stream';
     const METADATA         = 'metadata';
-    
+
     /**
      * AWS constants
      */
@@ -57,11 +57,11 @@ class Zend_Cloud_StorageService_Adapter_S3
 
     /**
      * Constructor
-     * 
-     * @param  array|Zend_Config $options 
+     *
+     * @param  array|Zend_Config $options
      * @return void
      */
-    public function __construct($options = array()) 
+    public function __construct($options = array())
     {
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
@@ -78,13 +78,13 @@ class Zend_Cloud_StorageService_Adapter_S3
         try {
             $this->_s3 = new Zend_Service_Amazon_S3($options[self::AWS_ACCESS_KEY],
                                                 $options[self::AWS_SECRET_KEY]);
-        } catch (Zend_Service_Amazon_S3_Exception  $e) { 
+        } catch (Zend_Service_Amazon_S3_Exception  $e) {
             throw new Zend_Cloud_StorageService_Exception('Error on create: '.$e->getMessage(), $e->getCode(), $e);
         }
-                                                
+
         if (isset($options[self::HTTP_ADAPTER])) {
             $this->_s3->getHttpClient()->setAdapter($options[self::HTTP_ADAPTER]);
-        } 
+        }
 
         if (isset($options[self::BUCKET_NAME])) {
             $this->_defaultBucketName = $options[self::BUCKET_NAME];
@@ -104,7 +104,7 @@ class Zend_Cloud_StorageService_Adapter_S3
      * @param  array $options
      * @return string
      */
-    public function fetchItem($path, $options = array()) 
+    public function fetchItem($path, $options = array())
     {
         $fullPath = $this->_getFullPath($path, $options);
         try {
@@ -113,7 +113,7 @@ class Zend_Cloud_StorageService_Adapter_S3
             } else {
                 return $this->_s3->getObject($fullPath);
             }
-        } catch (Zend_Service_Amazon_S3_Exception  $e) { 
+        } catch (Zend_Service_Amazon_S3_Exception  $e) {
             throw new Zend_Cloud_StorageService_Exception('Error on fetch: '.$e->getMessage(), $e->getCode(), $e);
         }
     }
@@ -131,16 +131,16 @@ class Zend_Cloud_StorageService_Adapter_S3
      * @param  array $options
      * @return void
      */
-    public function storeItem($destinationPath, $data, $options = array()) 
+    public function storeItem($destinationPath, $data, $options = array())
     {
         try {
             $fullPath = $this->_getFullPath($destinationPath, $options);
             return $this->_s3->putObject(
-                $fullPath, 
-                $data, 
+                $fullPath,
+                $data,
                 empty($options[self::METADATA]) ? null : $options[self::METADATA]
             );
-        } catch (Zend_Service_Amazon_S3_Exception  $e) { 
+        } catch (Zend_Service_Amazon_S3_Exception  $e) {
             throw new Zend_Cloud_StorageService_Exception('Error on store: '.$e->getMessage(), $e->getCode(), $e);
         }
     }
@@ -152,11 +152,11 @@ class Zend_Cloud_StorageService_Adapter_S3
      * @param  array $options
      * @return void
      */
-    public function deleteItem($path, $options = array()) 
-    {    
+    public function deleteItem($path, $options = array())
+    {
         try {
             $this->_s3->removeObject($this->_getFullPath($path, $options));
-        } catch (Zend_Service_Amazon_S3_Exception  $e) { 
+        } catch (Zend_Service_Amazon_S3_Exception  $e) {
             throw new Zend_Cloud_StorageService_Exception('Error on delete: '.$e->getMessage(), $e->getCode(), $e);
         }
     }
@@ -174,13 +174,18 @@ class Zend_Cloud_StorageService_Adapter_S3
      * @param  array $options
      * @return void
      */
-    public function copyItem($sourcePath, $destinationPath, $options = array()) 
+    public function copyItem($sourcePath, $destinationPath, $options = array())
     {
         try {
-            // TODO We *really* need to add support for object copying in the S3 adapter
-            $item = $this->fetch($_getFullPath(sourcePath), $options);
-            $this->storeItem($item, $destinationPath, $options);
-        } catch (Zend_Service_Amazon_S3_Exception  $e) { 
+            $fullSourcePath = $this->_getFullPath($sourcePath, $options);
+            $fullDestPath   = $this->_getFullPath($destinationPath, $options);
+            return $this->_s3->copyObject(
+                $fullSourcePath,
+                $fullDestPath,
+                empty($options[self::METADATA]) ? null : $options[self::METADATA]
+            );
+
+        } catch (Zend_Service_Amazon_S3_Exception  $e) {
             throw new Zend_Cloud_StorageService_Exception('Error on copy: '.$e->getMessage(), $e->getCode(), $e);
         }
     }
@@ -195,7 +200,7 @@ class Zend_Cloud_StorageService_Adapter_S3
      * @param  array $options
      * @return void
      */
-    public function moveItem($sourcePath, $destinationPath, $options = array()) 
+    public function moveItem($sourcePath, $destinationPath, $options = array())
     {
         try {
             $fullSourcePath = $this->_getFullPath($sourcePath, $options);
@@ -205,7 +210,7 @@ class Zend_Cloud_StorageService_Adapter_S3
                 $fullDestPath,
                 empty($options[self::METADATA]) ? null : $options[self::METADATA]
             );
-        } catch (Zend_Service_Amazon_S3_Exception  $e) { 
+        } catch (Zend_Service_Amazon_S3_Exception  $e) {
             throw new Zend_Cloud_StorageService_Exception('Error on move: '.$e->getMessage(), $e->getCode(), $e);
         }
      }
@@ -219,7 +224,7 @@ class Zend_Cloud_StorageService_Adapter_S3
      * @param  array $options
      * @return void
      */
-    public function renameItem($path, $name, $options = null) 
+    public function renameItem($path, $name, $options = null)
     {
         #require_once 'Zend/Cloud/OperationNotAvailableException.php';
         throw new Zend_Cloud_OperationNotAvailableException('Rename not implemented');
@@ -235,12 +240,12 @@ class Zend_Cloud_StorageService_Adapter_S3
      * @param  array $options
      * @return array A list of item names
      */
-    public function listItems($path, $options = null) 
+    public function listItems($path, $options = null)
     {
         try {
             // TODO Support 'prefix' parameter for Zend_Service_Amazon_S3::getObjectsByBucket()
             return $this->_s3->getObjectsByBucket($this->_defaultBucketName);
-        } catch (Zend_Service_Amazon_S3_Exception  $e) { 
+        } catch (Zend_Service_Amazon_S3_Exception  $e) {
             throw new Zend_Cloud_StorageService_Exception('Error on list: '.$e->getMessage(), $e->getCode(), $e);
         }
     }
@@ -252,11 +257,11 @@ class Zend_Cloud_StorageService_Adapter_S3
      * @param  array $options
      * @return array
      */
-    public function fetchMetadata($path, $options = array()) 
+    public function fetchMetadata($path, $options = array())
     {
         try {
             return $this->_s3->getInfo($this->_getFullPath($path, $options));
-        } catch (Zend_Service_Amazon_S3_Exception  $e) { 
+        } catch (Zend_Service_Amazon_S3_Exception  $e) {
             throw new Zend_Cloud_StorageService_Exception('Error on fetch: '.$e->getMessage(), $e->getCode(), $e);
         }
     }
@@ -270,7 +275,7 @@ class Zend_Cloud_StorageService_Adapter_S3
      * @param  array $options
      * @return void
      */
-    public function storeMetadata($destinationPath, $metadata, $options = array()) 
+    public function storeMetadata($destinationPath, $metadata, $options = array())
     {
         #require_once 'Zend/Cloud/OperationNotAvailableException.php';
         throw new Zend_Cloud_OperationNotAvailableException('Storing separate metadata is not supported, use storeItem() with \'metadata\' option key');
@@ -283,7 +288,7 @@ class Zend_Cloud_StorageService_Adapter_S3
      * @param  array $options
      * @return void
      */
-    public function deleteMetadata($path) 
+    public function deleteMetadata($path)
     {
         #require_once 'Zend/Cloud/OperationNotAvailableException.php';
         throw new Zend_Cloud_OperationNotAvailableException('Deleting metadata not supported');
@@ -291,12 +296,12 @@ class Zend_Cloud_StorageService_Adapter_S3
 
     /**
      * Get full path, including bucket, for an object
-     * 
-     * @param  string $path 
-     * @param  array $options 
+     *
+     * @param  string $path
+     * @param  array $options
      * @return void
      */
-    protected function _getFullPath($path, $options) 
+    protected function _getFullPath($path, $options)
     {
         if (isset($options[self::BUCKET_NAME])) {
             $bucket = $options[self::BUCKET_NAME];
@@ -322,6 +327,6 @@ class Zend_Cloud_StorageService_Adapter_S3
      */
     public function getClient()
     {
-         return $this->_s3;       
+         return $this->_s3;
     }
 }

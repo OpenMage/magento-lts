@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Serializer
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Serializer.php 20574 2010-01-24 17:39:14Z mabe $
+ * @version    $Id: Serializer.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /** @see Zend_Loader_PluginLoader */
@@ -25,7 +25,7 @@
 /**
  * @category   Zend
  * @package    Zend_Serializer
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Serializer
@@ -51,7 +51,7 @@ class Zend_Serializer
      * @param array |Zend_Config $opts Serializer options
      * @return Zend_Serializer_Adapter_AdapterInterface
      */
-    public static function factory($adapterName, $opts = array()) 
+    public static function factory($adapterName, $opts = array())
     {
         if ($adapterName instanceof Zend_Serializer_Adapter_AdapterInterface) {
             return $adapterName; // $adapterName is already an adapter object
@@ -80,7 +80,7 @@ class Zend_Serializer
      *
      * @return Zend_Loader_PluginLoader
      */
-    public static function getAdapterLoader() 
+    public static function getAdapterLoader()
     {
         if (self::$_adapterLoader === null) {
             self::$_adapterLoader = self::_getDefaultAdapterLoader();
@@ -94,11 +94,11 @@ class Zend_Serializer
      * @param  Zend_Loader_PluginLoader $pluginLoader
      * @return void
      */
-    public static function setAdapterLoader(Zend_Loader_PluginLoader $pluginLoader) 
+    public static function setAdapterLoader(Zend_Loader_PluginLoader $pluginLoader)
     {
         self::$_adapterLoader = $pluginLoader;
     }
-    
+
     /**
      * Resets the internal adapter plugin loader
      *
@@ -109,7 +109,7 @@ class Zend_Serializer
         self::$_adapterLoader = self::_getDefaultAdapterLoader();
         return self::$_adapterLoader;
     }
-    
+
     /**
      * Returns a default adapter plugin loader
      *
@@ -128,7 +128,7 @@ class Zend_Serializer
      * @param string|Zend_Serializer_Adapter_AdapterInterface $adapter
      * @param array|Zend_Config $options
      */
-    public static function setDefaultAdapter($adapter, $options = array()) 
+    public static function setDefaultAdapter($adapter, $options = array())
     {
         self::$_defaultAdapter = self::factory($adapter, $options);
     }
@@ -138,7 +138,7 @@ class Zend_Serializer
      *
      * @return Zend_Serializer_Adapter_AdapterInterface
      */
-    public static function getDefaultAdapter() 
+    public static function getDefaultAdapter()
     {
         if (!self::$_defaultAdapter instanceof Zend_Serializer_Adapter_AdapterInterface) {
             self::setDefaultAdapter(self::$_defaultAdapter);
@@ -154,7 +154,7 @@ class Zend_Serializer
      * @return string
      * @throws Zend_Serializer_Exception
      */
-    public static function serialize($value, array $options = array()) 
+    public static function serialize($value, array $options = array())
     {
         if (isset($options['adapter'])) {
             $adapter = self::factory($options['adapter']);
@@ -174,7 +174,7 @@ class Zend_Serializer
      * @return mixed
      * @throws Zend_Serializer_Exception
      */
-    public static function unserialize($serialized, array $options = array()) 
+    public static function unserialize($serialized, array $options = array())
     {
         if (isset($options['adapter'])) {
             $adapter = self::factory($options['adapter']);

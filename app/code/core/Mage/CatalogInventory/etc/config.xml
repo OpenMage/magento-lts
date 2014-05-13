@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogInventory
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -230,6 +230,14 @@
                     </cataloginventory>
                 </observers>
             </end_process_event_cataloginventory_stock_item_save>
+            <prepare_product_children_id_list_select>
+                <observers>
+                    <cataloginventory>
+                        <class>cataloginventory/observer</class>
+                        <method>prepareCatalogProductIndexSelect</method>
+                    </cataloginventory>
+                </observers>
+            </prepare_product_children_id_list_select>
         </events>
         <catalog>
             <product>

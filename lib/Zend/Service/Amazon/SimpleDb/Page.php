@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Service_Amazon
  * @subpackage SimpleDb
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -30,7 +30,7 @@
  * @category   Zend
  * @package    Zend_Service_Amazon
  * @subpackage SimpleDb
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Service_Amazon_SimpleDb_Page
@@ -43,12 +43,12 @@ class Zend_Service_Amazon_SimpleDb_Page
 
     /**
      * Constructor
-     * 
-     * @param  string $data 
-     * @param  string|null $token 
+     *
+     * @param  string $data
+     * @param  string|null $token
      * @return void
      */
-    public function __construct($data, $token = null) 
+    public function __construct($data, $token = null)
     {
         $this->_data  = $data;
         $this->_token = $token;
@@ -56,42 +56,42 @@ class Zend_Service_Amazon_SimpleDb_Page
 
     /**
      * Retrieve page data
-     * 
+     *
      * @return string
      */
-    public function getData() 
+    public function getData()
     {
         return $this->_data;
     }
 
     /**
      * Retrieve token
-     * 
+     *
      * @return string|null
      */
-    public function getToken() 
+    public function getToken()
     {
         return $this->_token;
     }
 
     /**
      * Determine whether this is the last page of data
-     * 
+     *
      * @return void
      */
-    public function isLast() 
+    public function isLast()
     {
         return (null === $this->_token);
     }
 
     /**
      * Cast to string
-     * 
+     *
      * @return string
      */
-    public function __toString() 
+    public function __toString()
     {
-        return "Page with token: " . $this->_token 
+        return "Page with token: " . $this->_token
              . "\n and data: " . $this->_data;
     }
 }

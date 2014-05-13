@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Plugins
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -30,9 +30,9 @@
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Plugins
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ErrorHandler.php 20246 2010-01-12 21:36:08Z dasprid $
+ * @version    $Id: ErrorHandler.php 24593 2012-01-05 20:35:02Z matthew $
  */
 class Zend_Controller_Plugin_ErrorHandler extends Zend_Controller_Plugin_Abstract
 {
@@ -193,14 +193,25 @@ class Zend_Controller_Plugin_ErrorHandler extends Zend_Controller_Plugin_Abstrac
 
     /**
      * Route shutdown hook -- Ccheck for router exceptions
-     * 
-     * @param Zend_Controller_Request_Abstract $request 
+     *
+     * @param Zend_Controller_Request_Abstract $request
      */
     public function routeShutdown(Zend_Controller_Request_Abstract $request)
     {
         $this->_handleError($request);
     }
 
+    /**
+     * Pre dispatch hook -- check for exceptions and dispatch error handler if
+     * necessary
+     *
+     * @param Zend_Controller_Request_Abstract $request
+     */
+    public function preDispatch(Zend_Controller_Request_Abstract $request)
+    {
+        $this->_handleError($request);
+    }
+	
     /**
      * Post dispatch hook -- check for exceptions and dispatch error handler if
      * necessary

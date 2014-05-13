@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Dynamic.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Dynamic.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /**
@@ -33,10 +33,10 @@
 /**
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Tool_Framework_Metadata_Dynamic 
+class Zend_Tool_Framework_Metadata_Dynamic
     implements Zend_Tool_Framework_Metadata_Interface, Zend_Tool_Framework_Metadata_Attributable
 {
 
@@ -66,7 +66,7 @@ class Zend_Tool_Framework_Metadata_Dynamic
             $this->setOptions($options);
         }
     }
-    
+
     public function setOptions(Array $options = array())
     {
         foreach ($options as $optName => $optValue) {
@@ -74,11 +74,11 @@ class Zend_Tool_Framework_Metadata_Dynamic
             $this->{$methodName}($optValue);
         }
     }
-    
+
     /**
      * setType()
-     * 
-     * @param $type
+     *
+     * @param string $type
      * @return Zend_Tool_Framework_Metadata_Dynamic
      */
     public function setType($type)
@@ -86,7 +86,7 @@ class Zend_Tool_Framework_Metadata_Dynamic
         $this->_type = $type;
         return $this;
     }
-    
+
     /**
      * getType()
      *
@@ -101,8 +101,8 @@ class Zend_Tool_Framework_Metadata_Dynamic
 
     /**
      * setName()
-     * 
-     * @param $name
+     *
+     * @param string $name
      * @return Zend_Tool_Framework_Metadata_Dynamic
      */
     public function setName($name)
@@ -110,7 +110,7 @@ class Zend_Tool_Framework_Metadata_Dynamic
         $this->_name = $name;
         return $this;
     }
-    
+
     /**
      * getName()
      *
@@ -125,8 +125,8 @@ class Zend_Tool_Framework_Metadata_Dynamic
 
     /**
      * setValue()
-     * 
-     * @param $value
+     *
+     * @param mixed $value
      * @return Zend_Tool_Framework_Metadata_Dynamic
      */
     public function setValue($value)
@@ -134,7 +134,7 @@ class Zend_Tool_Framework_Metadata_Dynamic
         $this->_value = $value;
         return $this;
     }
-    
+
     /**
      * getValue()
      *

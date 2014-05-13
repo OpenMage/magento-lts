@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -130,33 +130,33 @@ class Mage_Paypal_Model_Ipn
      */
     protected function _postBack(Zend_Http_Client_Adapter_Interface $httpAdapter)
     {
-            $sReq = '';
-            foreach ($this->_request as $k => $v) {
-                $sReq .= '&'.$k.'='.urlencode($v);
-            }
-            $sReq .= "&cmd=_notify-validate";
-            $sReq = substr($sReq, 1);
-            $this->_debugData['postback'] = $sReq;
-            $this->_debugData['postback_to'] = $this->_config->getPaypalUrl();
+        $postbackQuery = http_build_query($this->_request) . '&cmd=_notify-validate';
+        $postbackUrl = $this->_config->getPaypalUrl();
+        $this->_debugData['postback_to'] = $postbackUrl;
 
-            $httpAdapter->setConfig(array('verifypeer' => $this->_config->verifyPeer));
-            $httpAdapter->write(Zend_Http_Client::POST, $this->_config->getPaypalUrl(), '1.1', array(
-                'Connection: close',
-            ), $sReq);
-            try {
-                $response = $httpAdapter->read();
-            } catch (Exception $e) {
-                $this->_debugData['http_error'] = array('error' => $e->getMessage(), 'code' => $e->getCode());
-                throw $e;
-            }
-            $this->_debugData['postback_result'] = $response;
+        $httpAdapter->setConfig(array('verifypeer' => $this->_config->verifyPeer));
+        $httpAdapter->write(
+            Zend_Http_Client::POST,
+            $postbackUrl,
+            '1.1',
+            array('Connection: close'),
+            $postbackQuery
+        );
 
-            $response = preg_split('/^\r?$/m', $response, 2);
-            $response = trim($response[1]);
-            if ($response != 'VERIFIED') {
-                throw new Exception('PayPal IPN postback failure. See ' . self::DEFAULT_LOG_FILE . ' for details.');
-            }
-            unset($this->_debugData['postback'], $this->_debugData['postback_result']);
+        try {
+            $postbackResult = $httpAdapter->read();
+        } catch (Exception $e) {
+            $this->_debugData['http_error'] = array('error' => $e->getMessage(), 'code' => $e->getCode());
+            throw $e;
+        }
+
+        $response = preg_split('/^\r?$/m', $postbackResult, 2);
+        $response = trim($response[1]);
+        if ($response != 'VERIFIED') {
+            $this->_debugData['postback'] = $postbackQuery;
+            $this->_debugData['postback_result'] = $postbackResult;
+            throw new Exception('PayPal IPN postback failure. See ' . self::DEFAULT_LOG_FILE . ' for details.');
+        }
     }
 
     /**
@@ -281,59 +281,6 @@ class Mage_Paypal_Model_Ipn
             $comment->save();
             throw $e;
         }
-
-//            switch ($paymentStatus) {
-//                // paid
-//                case Mage_Paypal_Model_Info::PAYMENTSTATUS_COMPLETED:
-//                    $this->_registerPaymentCapture();
-//                    break;
-//
-//                // the holded payment was denied on paypal side
-//                case Mage_Paypal_Model_Info::PAYMENTSTATUS_DENIED:
-//                    $this->_registerPaymentDenial();
-//                    break;
-//
-//                // customer attempted to pay via bank account, but failed
-//                case Mage_Paypal_Model_Info::PAYMENTSTATUS_FAILED:
-//                    // cancel order
-//                    $this->_registerPaymentFailure();
-//                    break;
-//
-//                // refund forced by PayPal
-//                case Mage_Paypal_Model_Info::PAYMENTSTATUS_REVERSED: // break is intentionally omitted
-//                case Mage_Paypal_Model_Info::PAYMENTSTATUS_UNREVERSED: // or returned back :)
-//                    $this->_registerPaymentReversal();
-//                    break;
-//
-//                // refund by merchant on PayPal side
-//                case Mage_Paypal_Model_Info::PAYMENTSTATUS_REFUNDED:
-//                    $this->_registerPaymentRefund();
-//                    break;
-//
-//                // payment was obtained, but money were not captured yet
-//                case Mage_Paypal_Model_Info::PAYMENTSTATUS_PENDING:
-//                    $this->_registerPaymentPending();
-//                    break;
-//
-//                // MassPayments success
-//                case Mage_Paypal_Model_Info::PAYMENTSTATUS_PROCESSED:
-//                    $this->_registerMasspaymentsSuccess();
-//                    break;
-//
-//                // authorization expire/void
-//                case Mage_Paypal_Model_Info::PAYMENTSTATUS_EXPIRED: // break is intentionally omitted
-//                case Mage_Paypal_Model_Info::PAYMENTSTATUS_VOIDED:
-//                    $this->_registerPaymentVoid();
-//                    break;
-//
-//                default:
-//                    throw new Exception("Cannot handle payment status '{$paymentStatus}'.");
-//            }
-//        } catch (Mage_Core_Exception $e) {
-//            $comment = $this->_createIpnComment(Mage::helper('paypal')->__('Note: %s', $e->getMessage()), true);
-//            $comment->save();
-//            throw $e;
-//        }
     }
 
     /**
@@ -481,6 +428,7 @@ class Mage_Paypal_Model_Ipn
 
         $payment = $order->getPayment();
         $payment->setTransactionId($this->getRequestData('txn_id'))
+            ->setCurrencyCode($this->getRequestData('mc_currency'))
             ->setPreparedMessage($this->_createIpnComment(''))
             ->setIsTransactionClosed(0);
         $order->save();
@@ -512,6 +460,7 @@ class Mage_Paypal_Model_Ipn
         $this->_importPaymentInformation();
         $payment = $this->_order->getPayment();
         $payment->setTransactionId($this->getRequestData('txn_id'))
+            ->setCurrencyCode($this->getRequestData('mc_currency'))
             ->setPreparedMessage($this->_createIpnComment(''))
             ->setParentTransactionId($parentTransactionId)
             ->setShouldCloseParentTransaction('Completed' === $this->getRequestData('auth_status'))
@@ -659,8 +608,10 @@ class Mage_Paypal_Model_Ipn
             ->setPreparedMessage($this->_createIpnComment(''))
             ->setTransactionId($this->getRequestData('txn_id'))
             ->setParentTransactionId($this->getRequestData('parent_txn_id'))
+            ->setCurrencyCode($this->getRequestData('mc_currency'))
             ->setIsTransactionClosed(0)
             ->registerAuthorizationNotification($this->getRequestData('mc_gross'));
+
         if (!$this->_order->getEmailSent()) {
             $this->_order->sendNewOrderEmail();
         }

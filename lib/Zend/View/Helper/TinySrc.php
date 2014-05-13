@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -25,31 +25,31 @@
 /**
  * Helper for generating urls and/or image tags for use with tinysrc.net
  *
- * tinysrc.net provides an API for generating scaled, browser device-specific 
+ * tinysrc.net provides an API for generating scaled, browser device-specific
  * images. In essence, you pass the API the URL to an image on your own server,
  * and tinysrc.net then provides the appropriate image based on the device that
  * accesses it.
  *
- * Additionally, tinysrc.net allows you to specify additional configuration via 
+ * Additionally, tinysrc.net allows you to specify additional configuration via
  * the API:
  *
  * - image size. You may define this as:
  *   - explicit size
  *   - subtractive size (size of screen minus specified number of pixels)
  *   - percentage size (percentage of screen size))
- * - image format. This will convert the image to the given format; allowed 
+ * - image format. This will convert the image to the given format; allowed
  *   values are "png" or "jpeg". By default, gif images are converted to png.
  *
  * This helper allows you to specify all configuration options, as well as:
  *
  * - whether or not to generate the full image tag (or just the URL)
- * - base url to images (which should include the protocol, server, and 
+ * - base url to images (which should include the protocol, server, and
  *   optionally port and base path)
  *
  * @see        http://tinysrc.net/
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_View_Helper_TinySrc extends Zend_View_Helper_HtmlElement
@@ -74,9 +74,9 @@ class Zend_View_Helper_TinySrc extends Zend_View_Helper_HtmlElement
     /**
      * Default options
      *
-     * Used when determining what options were passed, and needing to merge 
+     * Used when determining what options were passed, and needing to merge
      * them with default options.
-     * 
+     *
      * @var array
      */
     protected $_defaultOptions = array(
@@ -94,9 +94,9 @@ class Zend_View_Helper_TinySrc extends Zend_View_Helper_HtmlElement
 
     /**
      * Generate a link or image tag pointing to tinysrc.net
-     * 
-     * @param mixed $image 
-     * @param array $options 
+     *
+     * @param mixed $image
+     * @param array $options
      * @return void
      */
     public function tinySrc($image = null, array $options = array())
@@ -111,8 +111,8 @@ class Zend_View_Helper_TinySrc extends Zend_View_Helper_HtmlElement
 
         $url = '/' . $this->_mergeBaseUrl($options) . ltrim($image, '/');
 
-        $src = self::TINYSRC_BASE 
-             . $this->_mergeFormat($options) 
+        $src = self::TINYSRC_BASE
+             . $this->_mergeFormat($options)
              . $this->_mergeDimensions($options)
              . $url;
 
@@ -142,8 +142,8 @@ class Zend_View_Helper_TinySrc extends Zend_View_Helper_HtmlElement
 
     /**
      * Set base URL for images
-     * 
-     * @param  string $url 
+     *
+     * @param  string $url
      * @return Zend_View_Helper_TinySrc
      */
     public function setBaseUrl($url)
@@ -157,7 +157,7 @@ class Zend_View_Helper_TinySrc extends Zend_View_Helper_HtmlElement
      *
      * If none already set, uses the ServerUrl and BaseUrl view helpers to
      * determine the base URL to images.
-     * 
+     *
      * @return string
      */
     public function getBaseUrl()
@@ -172,8 +172,8 @@ class Zend_View_Helper_TinySrc extends Zend_View_Helper_HtmlElement
      * Set default image format
      *
      * If set, this will set the default format to use on all images.
-     * 
-     * @param  null|string $format 
+     *
+     * @param  null|string $format
      * @return Zend_View_Helper_TinySrc
      * @throws Zend_View_Exception
      */
@@ -196,12 +196,12 @@ class Zend_View_Helper_TinySrc extends Zend_View_Helper_HtmlElement
     /**
      * Set default dimensions
      *
-     * If null is specified for width, default dimensions will be cleared. If 
+     * If null is specified for width, default dimensions will be cleared. If
      * only width is specified, only width will be used. If either dimension
      * fails validation, an exception is raised.
-     * 
-     * @param  null|int|string $width 
-     * @param  null|int|string $height 
+     *
+     * @param  null|int|string $width
+     * @param  null|int|string $height
      * @return Zend_View_Helper_TinySrc
      * @throws Zend_View_Exception
      */
@@ -232,8 +232,8 @@ class Zend_View_Helper_TinySrc extends Zend_View_Helper_HtmlElement
 
     /**
      * Set state of "create tag" flag
-     * 
-     * @param  bool $flag 
+     *
+     * @param  bool $flag
      * @return Zend_View_Helper_TinySrc
      */
     public function setCreateTag($flag)
@@ -244,7 +244,7 @@ class Zend_View_Helper_TinySrc extends Zend_View_Helper_HtmlElement
 
     /**
      * Should the helper create an image tag?
-     * 
+     *
      * @return bool
      */
     public function createTag()
@@ -256,8 +256,8 @@ class Zend_View_Helper_TinySrc extends Zend_View_Helper_HtmlElement
      * Validate a dimension
      *
      * Dimensions may be integers, optionally preceded by '-' or 'x'.
-     * 
-     * @param  string $dim 
+     *
+     * @param  string $dim
      * @return bool
      */
     protected function _validateDimension($dim)
@@ -270,8 +270,8 @@ class Zend_View_Helper_TinySrc extends Zend_View_Helper_HtmlElement
 
     /**
      * Determine whether to use default base URL, or base URL from options
-     * 
-     * @param  array $options 
+     *
+     * @param  array $options
      * @return string
      */
     protected function _mergeBaseUrl(array $options)
@@ -284,11 +284,11 @@ class Zend_View_Helper_TinySrc extends Zend_View_Helper_HtmlElement
 
     /**
      * Determine whether to use default format or format provided in options.
-     * 
-     * @param  array $options 
+     *
+     * @param  array $options
      * @return string
      */
-    protected function _mergeFormat(array $options) 
+    protected function _mergeFormat(array $options)
     {
         if (in_array($options['format'], array('png', 'jpeg'))) {
             return '/' . $options['format'];
@@ -298,8 +298,8 @@ class Zend_View_Helper_TinySrc extends Zend_View_Helper_HtmlElement
 
     /**
      * Determine whether to use default dimensions, or those passed in options.
-     * 
-     * @param  array $options 
+     *
+     * @param  array $options
      * @return string
      */
     protected function _mergeDimensions(array $options)

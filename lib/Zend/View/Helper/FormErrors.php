@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: FormErrors.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: FormErrors.php 25207 2013-01-10 11:36:54Z frosch $
  */
 
 /**
@@ -32,7 +32,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_View_Helper_FormErrors extends Zend_View_Helper_FormElement
@@ -67,6 +67,16 @@ class Zend_View_Helper_FormErrors extends Zend_View_Helper_FormElement
 
         if (empty($options['class'])) {
             $options['class'] = 'errors';
+        }
+
+        if (isset($options['elementStart'])) {
+            $this->setElementStart($options['elementStart']);
+        }
+        if (isset($options['elementEnd'])) {
+            $this->setElementEnd($options['elementEnd']);
+        }
+        if (isset($options['elementSeparator'])) {
+            $this->setElementSeparator($options['elementSeparator']);
         }
 
         $start = $this->getElementStart();

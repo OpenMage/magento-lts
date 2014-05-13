@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Analysis
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: LowerCaseUtf8.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: LowerCaseUtf8.php 24832 2012-05-30 13:14:44Z adamlundrigan $
  */
 
 
@@ -31,7 +31,7 @@
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Analysis
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -57,14 +57,8 @@ class Zend_Search_Lucene_Analysis_TokenFilter_LowerCaseUtf8 extends Zend_Search_
      */
     public function normalize(Zend_Search_Lucene_Analysis_Token $srcToken)
     {
-        $newToken = new Zend_Search_Lucene_Analysis_Token(
-                                     mb_strtolower($srcToken->getTermText(), 'UTF-8'),
-                                     $srcToken->getStartOffset(),
-                                     $srcToken->getEndOffset());
-
-        $newToken->setPositionIncrement($srcToken->getPositionIncrement());
-
-        return $newToken;
+        $srcToken->setTermText(mb_strtolower($srcToken->getTermText(), 'UTF-8'));
+        return $srcToken;
     }
 }
 

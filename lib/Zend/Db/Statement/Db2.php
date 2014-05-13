@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Statement
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Db2.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Db2.php 24625 2012-02-22 21:53:40Z adamlundrigan $
  */
 
 /**
@@ -30,7 +30,7 @@
  *
  * @package    Zend_Db
  * @subpackage Statement
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Db_Statement_Db2 extends Zend_Db_Statement
@@ -96,7 +96,7 @@ class Zend_Db_Statement_Db2 extends Zend_Db_Statement
             $datatype = DB2_CHAR;
         }
 
-        if (!db2_bind_param($this->_stmt, $position, "variable", $type, $datatype)) {
+        if (!db2_bind_param($this->_stmt, $parameter, "variable", $type, $datatype)) {
             /**
              * @see Zend_Db_Statement_Db2_Exception
              */

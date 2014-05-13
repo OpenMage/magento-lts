@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -185,10 +185,14 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
         );
 
         if ($this->_config->priceIncludesTax($this->_store)) {
-            $this->_areTaxRequestsSimilar = $this->_calculator->compareRequests(
-                $this->_calculator->getRateOriginRequest($this->_store),
-                $request
-            );
+            if ($this->_helper->isCrossBorderTradeEnabled($this->_store)) {
+                $this->_areTaxRequestsSimilar = true;
+            } else {
+                $this->_areTaxRequestsSimilar = $this->_calculator->compareRequests(
+                    $this->_calculator->getRateOriginRequest($this->_store),
+                    $request
+                );
+            }
         }
 
         switch ($this->_config->getAlgorithm($this->_store)) {
@@ -550,7 +554,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
                 $baseDiscountAmount = $item->getBaseDiscountAmount() / $qty;
 
                 //We want to remove weee
-                if ($isWeeeEnabled) {
+                if ($isWeeeEnabled && $this->_weeeHelper->includeInSubtotal()) {
                     $discountAmount = $discountAmount - $item->getWeeeDiscount() / $qty;
                     $baseDiscountAmount = $baseDiscountAmount - $item->getBaseWeeeDiscount() / $qty;
                 }
@@ -794,7 +798,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
                 $discountAmount = $item->getDiscountAmount();
                 $baseDiscountAmount = $item->getBaseDiscountAmount();
 
-                if ($isWeeeEnabled) {
+                if ($isWeeeEnabled && $this->_weeeHelper->includeInSubtotal()) {
                     $discountAmount = $discountAmount - $item->getWeeeDiscount();
                     $baseDiscountAmount = $baseDiscountAmount - $item->getBaseWeeeDiscount();
                 }
@@ -1084,7 +1088,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
                 }
 
                 //We remove weee discount from discount if weee is not taxed
-                if ($isWeeeEnabled) {
+                if ($isWeeeEnabled && $this->_weeeHelper->includeInSubtotal()) {
                     $discount = $discount - $item->getWeeeDiscount();
                     $baseDiscount = $baseDiscount - $item->getBaseWeeeDiscount();
                 }
@@ -1352,7 +1356,9 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
     {
         $isWeeeTaxAlreadyIncluded = $this->_weeeHelper->isTaxIncluded($this->_store);
 
-        if ($rate == $this->_calculator->getStoreRateForItem($item) && $isWeeeTaxAlreadyIncluded) {
+        $sameRateAsStore = $this->_helper->isCrossBorderTradeEnabled($this->_store) ||
+                ($rate == $this->_calculator->getStoreRateForItem($item));
+        if ($sameRateAsStore && $isWeeeTaxAlreadyIncluded) {
             if (!$discountAmount || $discountAmount <= 0) {
                 //We want to skip the re calculation and return the difference
                 return max($weeeAmountIncludingTax - $weeeAmountExclTax, 0);

@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Feed_Reader
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Source.php 20785 2010-01-31 09:43:03Z mikaelkael $
+ * @version    $Id: Source.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /**
@@ -27,7 +27,7 @@
 /**
  * @category   Zend
  * @package    Zend_Feed_Reader
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Feed_Reader_Feed_Atom_Source extends Zend_Feed_Reader_Feed_Atom
@@ -49,7 +49,7 @@ class Zend_Feed_Reader_Feed_Atom_Source extends Zend_Feed_Reader_Feed_Atom
         $this->_data['type'] = $type;
         $this->_registerNamespaces();
         $this->_loadExtensions();
-        
+
         $atomClass = Zend_Feed_Reader::getPluginLoader()->getClassName('Atom_Feed');
         $this->_extensions['Atom_Feed'] = new $atomClass($this->_domDocument, $this->_data['type'], $this->_xpath);
         $atomClass = Zend_Feed_Reader::getPluginLoader()->getClassName('DublinCore_Feed');
@@ -58,12 +58,12 @@ class Zend_Feed_Reader_Feed_Atom_Source extends Zend_Feed_Reader_Feed_Atom
             $extension->setXpathPrefix(rtrim($xpathPrefix, '/') . '/atom:source');
         }
     }
-    
+
     /**
      * Since this is not an Entry carrier but a vehicle for Feed metadata, any
      * applicable Entry methods are stubbed out and do nothing.
      */
-     
+
     /**
      * @return void
      */
@@ -73,7 +73,7 @@ class Zend_Feed_Reader_Feed_Atom_Source extends Zend_Feed_Reader_Feed_Atom
      * @return void
      */
     public function current() {}
-    
+
     /**
      * @return void
      */
@@ -88,12 +88,12 @@ class Zend_Feed_Reader_Feed_Atom_Source extends Zend_Feed_Reader_Feed_Atom
      * @return void
      */
     public function rewind() {}
-    
+
     /**
      * @return void
      */
     public function valid() {}
-    
+
     /**
      * @return void
      */

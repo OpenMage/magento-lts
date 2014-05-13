@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Page
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -126,10 +126,11 @@
             <header translate="welcome" module="page">
                 <logo_src>images/logo.gif</logo_src>
                 <logo_alt>Magento Commerce</logo_alt>
+                <logo_src_small>images/logo.gif</logo_src_small>
                 <welcome>Default welcome msg!</welcome>
             </header>
             <footer translate="copyright" module="page">
-                <copyright>&amp;copy; 2013 Magento Demo Store. All Rights Reserved.</copyright>
+                <copyright>&amp;copy; 2014 Magento Demo Store. All Rights Reserved.</copyright>
             </footer>
         </design>
         <system>

@@ -20,12 +20,23 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Paypal expess checkout shortcut link
+ *
+ * @method string getShortcutHtmlId()
+ * @method string getImageUrl()
+ * @method string getCheckoutUrl()
+ * @method string getBmlShortcutHtmlId()
+ * @method string getBmlCheckoutUrl()
+ * @method string getBmlImageUrl()
+ * @method string getIsBmlEnabled()
+ * @method string getConfirmationUrl()
+ * @method string getIsInCatalogProduct()
+ * @method string getConfirmationMessage()
  */
 class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
 {
@@ -54,7 +65,7 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
      *
      * @var string
      */
-    protected $_startAction = 'paypal/express/start';
+    protected $_startAction = 'paypal/express/start/button/1';
 
     /**
      * Express checkout model factory name
@@ -63,6 +74,9 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
      */
     protected $_checkoutType = 'paypal/express_checkout';
 
+    /**
+     * @return Mage_Core_Block_Abstract
+     */
     protected function _beforeToHtml()
     {
         $result = parent::_beforeToHtml();
@@ -106,8 +120,9 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
 
         // set misc data
         $this->setShortcutHtmlId($this->helper('core')->uniqHash('ec_shortcut_'))
-            ->setCheckoutUrl($this->getUrl($this->_startAction))
-        ;
+            ->setCheckoutUrl($this->getUrl($this->_startAction));
+
+        $this->_getBmlShortcut($quote);
 
         // use static image if in catalog
         if ($isInCatalog || null === $quote) {
@@ -129,6 +144,25 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
         }
 
         return $result;
+    }
+
+    /**
+     * @param $quote
+     *
+     * @return Mage_Paypal_Block_Express_Shortcut
+     */
+    protected function _getBmlShortcut($quote)
+    {
+        $bml = Mage::helper('payment')->getMethodInstance(Mage_Paypal_Model_Config::METHOD_BML);
+        $isBmlEnabled = $bml && $bml->isAvailable($quote);
+        $this->setBmlShortcutHtmlId($this->helper('core')->uniqHash('ec_shortcut_bml_'))
+            ->setBmlCheckoutUrl($this->getUrl('paypal/bml/start/button/1'))
+            ->setBmlImageUrl('https://www.paypalobjects.com/webstatic/en_US/btn/btn_bml_SM.png')
+            ->setMarketMessage('https://www.paypalobjects.com/webstatic/en_US/btn/btn_bml_text.png')
+            ->setMarketMessageUrl('https://www.securecheckout.billmelater.com/paycapture-content/'
+                . 'fetch?hash=AU826TU8&content=/bmlweb/ppwpsiw.html')
+            ->setIsBmlEnabled($isBmlEnabled);
+        return $this;
     }
 
     /**

@@ -19,7 +19,7 @@
  *
  * @category    Varien
  * @package     js
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 if(typeof Product=='undefined') {
@@ -749,28 +749,58 @@ Product.OptionsPrice.prototype = {
             };
         }.bind(this));
 
-        for (var i = 0; i < this.tierPrices.length; i++) {
-            $$('.price.tier-' + i).each(function (el) {
-                var price = this.tierPrices[i] + parseFloat(optionPrices);
-                el.innerHTML = this.formatPrice(price);
-            }, this);
-            $$('.price.tier-' + i + '-incl-tax').each(function (el) {
-                var price = this.tierPricesInclTax[i] + parseFloat(optionPrices);
-                el.innerHTML = this.formatPrice(price);
-            }, this);
-            $$('.benefit').each(function (el) {
-                var parsePrice = function (html) {
-                    return parseFloat(/\d+\.?\d*/.exec(html));
-                };
-                var container = $(this.containers[3]) ? this.containers[3] : this.containers[0];
-                var price = parsePrice($(container).innerHTML);
-                var tierPrice = $$('.tier-price.tier-' + i+' .price');
-                tierPrice = tierPrice.length ? parsePrice(tierPrice[0].innerHTML, 10) : 0;
-                var $percent = Selector.findChildElements(el, ['.percent.tier-' + i]);
-                $percent.each(function (el) {
-                    el.innerHTML = Math.ceil(100 - ((100 / price) * tierPrice));
-                });
-            }, this);
+        if (typeof(skipTierPricePercentUpdate) === "undefined" && typeof(this.tierPrices) !== "undefined") {
+            for (var i = 0; i < this.tierPrices.length; i++) {
+                $$('.benefit').each(function(el) {
+                    var parsePrice = function(html) {
+                        var format = this.priceFormat;
+                        var decimalSymbol = format.decimalSymbol === undefined ? "," : format.decimalSymbol;
+                        var regexStr = '[^0-9-' + decimalSymbol + ']';
+                        //remove all characters except number and decimal symbol
+                        html = html.replace(new RegExp(regexStr, 'g'), '');
+                        html = html.replace(decimalSymbol, '.');
+                        return parseFloat(html);
+                    }.bind(this);
+
+                    var updateTierPriceInfo = function(priceEl, tierPriceDiff, tierPriceEl, benefitEl) {
+                        if (typeof(tierPriceEl) === "undefined") {
+                            //tierPrice is not shown, e.g., MAP, no need to update the tier price info
+                            return;
+                        }
+                        var price = parsePrice(priceEl.innerHTML);
+                        var tierPrice = price + tierPriceDiff;
+
+                        tierPriceEl.innerHTML = this.formatPrice(tierPrice);
+
+                        var $percent = Selector.findChildElements(benefitEl, ['.percent.tier-' + i]);
+                        $percent.each(function(el) {
+                            el.innerHTML = Math.ceil(100 - ((100 / price) * tierPrice));
+                        });
+                    }.bind(this);
+
+                    var tierPriceElArray = $$('.tier-price.tier-' + i + ' .price');
+                    if (this.showBothPrices) {
+                        var containerExclTax = $(this.containers[3]);
+                        var tierPriceExclTaxDiff = this.tierPrices[i];
+                        var tierPriceExclTaxEl = tierPriceElArray[0];
+                        updateTierPriceInfo(containerExclTax, tierPriceExclTaxDiff, tierPriceExclTaxEl, el);
+                        var containerInclTax = $(this.containers[2]);
+                        var tierPriceInclTaxDiff = this.tierPricesInclTax[i];
+                        var tierPriceInclTaxEl = tierPriceElArray[1];
+                        updateTierPriceInfo(containerInclTax, tierPriceInclTaxDiff, tierPriceInclTaxEl, el);
+                    } else if (this.showIncludeTax) {
+                        var container = $(this.containers[0]);
+                        var tierPriceInclTaxDiff = this.tierPricesInclTax[i];
+                        var tierPriceInclTaxEl = tierPriceElArray[0];
+                        updateTierPriceInfo(container, tierPriceInclTaxDiff, tierPriceInclTaxEl, el);
+                    } else {
+                        var container = $(this.containers[0]);
+                        var tierPriceExclTaxDiff = this.tierPrices[i];
+                        var tierPriceExclTaxEl = tierPriceElArray[0];
+                        updateTierPriceInfo(container, tierPriceExclTaxDiff, tierPriceExclTaxEl, el);
+                    }
+                }, this);
+            }
         }
 
     },

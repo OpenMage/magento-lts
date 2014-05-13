@@ -1,0 +1,904 @@
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/* ============================================ *
+ * Checkout - Layout
+ * ============================================ */
+
+.cart-table {
+    float: left;
+    width: 60%;
+}
+
+.cart-forms,
+.cart-totals-wrapper,
+.crosssell {
+    float: right;
+    clear: right;
+    width: 40%;
+    padding-left: $box-spacing-large;
+}
+
+.cart-totals,
+.cart-forms .discount,
+.cart-forms .giftcard,
+.cart-forms .shipping {
+    padding: $box-spacing;
+    background-color: $c-module-background;
+    border: 1px solid $c-module-border;
+}
+
+.cart-table,
+.cart-totals,
+.cart-forms .discount,
+.cart-forms .giftcard,
+.cart-forms .shipping {
+    margin-bottom: $box-spacing-large;
+}
+
+@mixin oneColumnCartItems {
+    .cart-table {
+        float: none;
+        width: 100%;
+    }
+
+    .cart-forms {
+        float: left;
+        padding-right: $box-spacing;
+        padding-left: 0;
+    }
+
+    .cart-totals-wrapper,
+    .crosssell {
+        padding-left: $box-spacing;
+    }
+
+    .cart-forms,
+    .cart-totals-wrapper,
+    .crosssell {
+        width: 50%;
+    }
+
+    .crosssell {
+        clear: right;
+        float: right;
+    }
+}
+
+.display-both-prices {
+    @include oneColumnCartItems;
+}
+
+@include bp(max-width, $bp-large) {
+    .display-single-price {
+        @include oneColumnCartItems;
+    }
+}
+
+@include bp(max-width, 599px) {
+    .product-cart-sku {
+        display: none;
+    }
+
+    .display-both-prices,
+    .display-single-price {
+        .cart-forms,
+        .cart-totals-wrapper,
+        .crosssell {
+            padding-top: 0;
+            padding-left: 0;
+            padding-right: 0;
+            float: none;
+            width: 100%;
+        }
+    }
+}
+
+/* ============================================ *
+ * Checkout - Cart
+ * ============================================ */
+
+.cart .page-title {
+    margin-bottom: 15px;
+    border-bottom: 1px solid $c-module-border-light;
+
+    &:after {
+        @include clearfix;
+    }
+    h1 {
+        float: left;
+        border-bottom: none;
+        margin-bottom: 6px;
+        margin-right: 10px;
+    }
+}
+
+.checkout-types {
+    float: right;
+    text-align: right;
+    max-width: 100%;
+
+    li {
+        &:after {
+            @include clearfix;
+        }
+        vertical-align: top;
+        margin: 0 0 5px 5px;
+
+        img {
+            display: inline;
+            vertical-align: top;
+        }
+    }
+    li:first-child {
+        margin-left: 0;
+    }
+    /* We always want this shipping method to display on its own line */
+    .method-checkout-cart-methods-multishipping {
+        display: block;
+    }
+
+    &.top {
+        li {
+            display: inline-block;
+        }
+
+        .bml_button {
+            display: inline-block;
+            vertical-align: top;
+
+            img {
+                display: block;
+            }
+        }
+    }
+
+    &.bottom,
+    &.minicart {
+        .paypal-logo {
+            a {
+                display: block;
+            }
+        }
+        .paypal-or {
+            margin: 0px;
+            width: 150px;
+            display: block;
+            text-align: center;
+            float: right;
+        }
+    }
+}
+
+.cart-totals .checkout-types .btn-checkout {
+    margin-bottom: 7px;
+}
+
+@include bp(max-width, 670px) {
+    .checkout-types {
+        float: none;
+        text-align: center;
+
+        &.bottom,
+        &.minicart {
+            .paypal-or {
+                width: auto;
+                float: none;
+            }
+        }
+    }
+
+    .checkout-types li {
+        float: none;
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .btn-checkout {
+        width: 100%;
+    }
+}
+
+.cart-table {
+    font-family: $f-stack-special;
+
+    th,
+    td,
+    tbody td {
+        // Adding tbody for extra selector weight
+        border-bottom: none;
+        vertical-align: top;
+    }
+
+    h2 {
+        color: $c-h2;
+        font-size: $f-size;
+        font-weight: 600;
+        margin-bottom: 0;
+    }
+
+    thead th,
+    tbody td {
+        background-color: transparent;
+        padding: 10px 5px;
+        font-family: $f-stack-special;
+    }
+
+    .product-cart-info,
+    .product-cart-actions {
+        padding-left: 15px;
+    }
+
+    tr {
+        border-bottom: 1px solid $c-table-border;
+    }
+
+    tfoot {
+        tr {
+            background: none;
+        }
+
+        tr > td:after {
+            @include clearfix;
+        }
+    }
+
+    span.or {
+        font-size: 9px;
+        padding: 0 5px;
+        text-transform: uppercase;
+        font-family: $f-stack-special;
+    }
+
+    .product-cart-image .cart-links,
+    .product-cart-info .btn-remove,
+    .product-cart-actions .button {
+        display: none;
+    }
+
+    .product-cart-image {
+        padding-left: 0;
+        padding-right: 0;
+
+        .product-image img {
+            max-width: 100%;
+            width: 100%;
+        }
+
+        a.cart-edit {
+            display: none;
+        }
+    }
+
+    .product-cart-sku {
+        font-family: $f-stack-serif;
+        font-style: italic;
+        font-size: $f-size-xs;
+        margin: 5px 0 12px;
+
+        .label {
+            font-weight: 600;
+        }
+    }
+
+    .btn-empty {
+        float: left;
+    }
+
+    .product-cart-total,
+    .product-cart-price {
+        text-align: center;
+    }
+
+    .cart-tax-total {
+        position: relative;
+        cursor: pointer;
+
+        &:after {
+            @include triangle(left, 6px, $c-text-primary);
+            position: absolute;
+            top: 3px;
+            right: -11px;
+        }
+
+        &.cart-tax-total-expanded {
+            &:after {
+                @include triangle(down, 6px, $c-text-primary);
+                right: -15px;
+                top: 6px;
+            }
+        }
+    }
+
+    .cart-links > li {
+        white-space: nowrap;
+        line-height: 1.3;
+        margin-bottom: 5px;
+        min-width: 65px;
+        font-size: $f-size-s;
+
+        > a {
+            display: block;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .product-cart-actions {
+        min-width: 60px;
+        text-align: center;
+
+        .qty {
+            height: 30px;
+            border-color: $c-input-border;
+            border-radius: 0;
+            margin-bottom: 10px;
+            text-align: center;
+            width: 3em;
+        }
+
+        .button {
+            margin-bottom: 5px;
+        }
+    }
+
+    .item-options {
+        padding-left: 15px;
+    }
+}
+
+@include bp(max-width, $bp-medium) {
+    .cart-table {
+
+        th {
+            font-size: $f-size-xs;
+        }
+
+        th,
+        td {
+            padding: 7px 6px;
+        }
+
+        .product-cart-actions > li {
+            white-space: inherit;
+        }
+    }
+}
+
+@include bp(max-width, 699px) {
+    .display-both-prices {
+        .cart-table {
+            thead th.cart-total-head,
+            td.product-cart-total {
+                display: none;
+            }
+        }
+    }
+}
+
+@include bp(max-width, 599px) {
+
+    .cart-table {
+        colgroup, thead {
+            display: none;
+        }
+
+        tr {
+            display: block;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+
+            &:after {
+                @include clearfix;
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        tfoot tr {
+            padding-bottom: 0;
+        }
+
+        td {
+            border: none;
+            display: block;
+
+            &[data-rwd-label] {
+                padding-left: 15px;
+                margin-bottom: 6px;
+
+                .price {
+                    font-weight: normal;
+                }
+
+                &:before {
+                    content: attr(data-rwd-label) ":";
+                    font-size: $f-size-xs;
+                    font-family: $f-stack-special;
+                    padding-right: 5px;
+                    text-transform: uppercase;
+                }
+            }
+
+            &.product-cart-price {
+                text-align: left;
+            }
+        }
+
+        h2 {
+            font-size: $f-size-xs;
+        }
+
+        .cart-links {
+            padding-top: 5px;
+            padding-right: 5px;
+
+            > li {
+                white-space: normal;
+                text-align: center;
+
+                > a {
+                    padding: 2px 0px;
+                }
+            }
+        }
+
+        .cart-tax-info {
+            font-style: italic;
+            padding-left: $trim-small;
+            font-size: $f-size-s;
+
+            .price {
+                font-size: $f-size-s;
+            }
+        }
+
+        .product-cart-image {
+            width: percentage(1/4);
+            float: left;
+            padding-bottom: 0;
+
+            a.cart-edit {
+                display: block;
+                font-size: $f-size-xl;
+                text-align: center;
+                text-transform: uppercase;
+            }
+        }
+
+        .product-cart-info,
+        td[data-rwd-label] {
+            float: right;
+            width: percentage(3/4);
+        }
+
+        .product-cart-actions,
+        .product-cart-price {
+            padding-bottom: 0;
+            padding-top: 0;
+            float: right;
+        }
+
+        .product-cart-remove,
+        .product-cart-total,
+        .product-cart-actions .cart-links {
+            display: none;
+        }
+
+        .product-cart-image .cart-links,
+        .product-cart-info .btn-remove {
+            display: block;
+        }
+
+        // This element will be displayed via JS once the related input is focused
+        .product-cart-actions .button {
+            display: none;
+        }
+
+        .product-cart-info {
+
+            .btn-remove {
+                float: right;
+                margin: -4px 0px 2px 7px;
+            }
+
+            .product-cart-sku {
+                margin-bottom: 5px;
+            }
+        }
+
+        .product-cart-actions {
+            text-align: left;
+
+            .qty {
+                margin-right: 7px;
+                margin-bottom: 7px;
+            }
+        }
+
+        .price,
+        .product-cart-price:before {
+            font-weight: 500;
+            font-size: $f-size-l;
+            font-family: $f-stack-sans;
+        }
+
+        .cart-footer-actions {
+            text-align: center;
+            width: 100%;
+
+            #empty_cart_button {
+                float: right;
+            }
+
+            .btn-continue {
+                float: left;
+            }
+
+            .btn-update,
+            span.or {
+                display: none;
+            }
+
+        }
+    }
+
+    .display-both-prices {
+        .cart-table {
+            td {
+                &[data-rwd-tax-label] {
+                    &:before {
+                        content: attr(data-rwd-tax-label) ":";
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* ============================================ *
+ * Checkout - Estimate Shipping and Tax
+ * ============================================ */
+
+.shipping {
+
+    h2 {
+        font-size: $f-size-xs;
+        font-weight: bold;
+        margin: 0 0 5px;
+    }
+
+    select {
+        max-width: 100%;
+        height: 30px;
+        display: block;
+        border: 1px solid $c-input-border;
+    }
+
+    select.validation-failed {
+        border-color: $c-danger;
+    }
+
+    .shipping-desc {
+        display: none;
+    }
+
+    .buttons-set {
+        border: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .form-list {
+        &:after {
+            @include clearfix;
+        }
+        li {
+            float: left;
+            margin: 5px 2% 10px 0;
+        }
+
+        .shipping-country {
+            width: 37%;
+        }
+
+        .shipping-region {
+            width: 41%;
+        }
+
+        .shipping-postcode {
+            margin-right: 0;
+            width: 18%;
+
+            input {
+                margin-top: 4px;
+            }
+        }
+
+        .input-box {
+            padding-top: 0;
+        }
+
+        input {
+            height: 30px;
+            margin-top: 4px;
+        }
+
+        label {
+            font-family: $f-stack-special;
+            font-size: $f-size-s;
+            font-weight: 400;
+            text-transform: uppercase;
+        }
+    }
+
+    .sp-methods {
+        padding: 10px 0 0;
+        text-align: left;
+
+        dd {
+            margin-bottom: 10px;
+        }
+
+        label {
+            font-family: $f-stack-serif;
+            font-size: $f-size-xs;
+            font-style: italic;
+            min-width: 100px;
+
+            span {
+                font-family: $f-stack-special;
+                font-weight: bold;
+                font-style: normal;
+            }
+        }
+    }
+
+    #co-shipping-method-form .buttons-set .button {
+        float: left;
+        margin-left: 0;
+    }
+    #co-shipping-method-form .sp-methods dd label {
+        border: 1px solid $c-module-border;
+        background-color: shade($c-module-background, 5%);
+        min-width: 220px;
+
+        &:hover {
+            background-color: shade($c-module-background, 10%)
+        }
+    }
+}
+
+@include bp(max-width, $bp-medium) {
+
+    .shipping .shipping-form .form-list > li {
+        width: 100%;
+        float: none;
+
+        label {
+            display: block;
+        }
+
+        input,
+        select {
+            width: 100%;
+        }
+    }
+}
+
+// =============================================
+// Totals
+// =============================================
+
+.cart .cart-totals {
+    text-align: right;
+
+    &:after {
+        @include clearfix;
+    }
+
+    table {
+        font-family: $f-stack-special;
+        font-size: $f-size-xs;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        width: 100%;
+
+        td {
+            padding: 2px 0px;
+        }
+        td:first-child {
+            padding-right: 10px;
+            min-width: 120px;
+        }
+
+        tbody tr:last-child td,
+        tbody tr:last-child th {
+            padding-bottom: 10px;
+        }
+
+        tfoot {
+            border-top: 1px solid #E6E6E6;
+            border-bottom: 1px solid #E6E6E6;
+            td {
+                font-size: 24px;
+                padding: 2px 5px;
+                vertical-align: top;
+            }
+
+            strong span,
+            span.price {
+                font-family: $f-stack-sans;
+
+            }
+
+            strong {
+                font-weight: 400;
+            }
+        }
+    }
+}
+
+@include bp(max-width, 600px) {
+
+    .cart-totals {
+        text-align: right;
+    }
+}
+
+@include bp(max-width, $bp-medium) {
+
+    .cart .cart-totals table tfoot td {
+        font-size: $f-size-xxl;
+    }
+}
+
+// =============================================
+// Discount codes and gift cards
+// =============================================
+
+.discount-form:after,
+#giftcard-form:after {
+    @include clearfix;
+}
+
+#discount-coupon-form,
+.cart .giftcard {
+    width: 100%;
+
+    h2 {
+        display: none;
+    }
+
+    label {
+        font-family: $f-stack-special;
+        font-size: $f-size-xs;
+        font-weight: 400;
+        text-align: left;
+        text-transform: uppercase;
+        min-width: 105px;
+        display: inline-block;
+        margin-right: 10px;
+    }
+
+    .field-wrapper {
+        display: inline-block;
+    }
+
+    .validation-advice {
+        display: inline;
+    }
+
+    .button-wrapper {
+        display: inline-block;
+        vertical-align: bottom;
+
+        > button {
+            float: left;
+        }
+    }
+
+    .input-text {
+        border-radius: 0;
+        height: 30px;
+        margin: 4px 10px 0 0;
+        width: 190px;
+    }
+}
+
+.cart .giftcard p {
+    margin-bottom: $element-spacing;
+}
+
+.cart .giftcard .check-gc-status {
+    float: left;
+    padding: 0px;
+
+    > span > span {
+        font-size: $f-size;
+        text-transform: none;
+    }
+}
+
+/* ============================================ *
+ * Checkout - Cart Cross sell
+ * ============================================ */
+
+.crosssell {
+    h2 {
+        color: $c-blue;
+    }
+
+    #crosssell-products-list .button,
+    #crosssell-products-list .add-to-links {
+        display: none;
+    }
+}
+
+/* Change the layout to 2 columns at a breakpoint that is higher than a 3 columns layout would normally break */
+@include bp(max-width, $bp-large) {
+    .crosssell {
+        .products-grid > li:nth-child(even),
+        .products-grid > li:nth-child(3n),
+        .products-grid > li {
+            width: percentage(210 / 440);
+            margin-right: percentage(20 / 440);
+        }
+
+        .products-grid > li:nth-child(odd) {
+            clear: left;
+        }
+
+        .products-grid > li:nth-child(even) {
+            margin-right: 0;
+        }
+
+        /* Undo three-column config */
+        .products-grid > li:nth-child(3n+1) {
+            clear: none;
+        }
+    }
+}
+
+@include bp(max-width, 320px) {
+    .crosssell {
+        ul {
+            .item {
+                padding: 0 0px 40px;
+            }
+
+            .product-details .crosssell-actions {
+                padding: 0 5px;
+            }
+        }
+    }
+}

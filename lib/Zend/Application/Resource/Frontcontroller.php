@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Resource
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Frontcontroller.php 23378 2010-11-18 21:48:27Z bittarman $
+ * @version    $Id: Frontcontroller.php 24798 2012-05-12 19:17:41Z adamlundrigan $
  */
 
 /**
@@ -32,7 +32,7 @@
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Resource
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Application_Resource_Frontcontroller extends Zend_Application_Resource_ResourceAbstract
@@ -101,9 +101,9 @@ class Zend_Application_Resource_Frontcontroller extends Zend_Application_Resourc
 
                 case 'plugins':
                     foreach ((array) $value as $pluginClass) {
-                    	$stackIndex = null;
-                    	if(is_array($pluginClass)) {
-                    	    $pluginClass = array_change_key_case($pluginClass, CASE_LOWER);
+                        $stackIndex = null;
+                        if(is_array($pluginClass)) {
+                            $pluginClass = array_change_key_case($pluginClass, CASE_LOWER);
                             if(isset($pluginClass['class']))
                             {
                                 if(isset($pluginClass['stackindex'])) {
@@ -135,6 +135,22 @@ class Zend_Application_Resource_Frontcontroller extends Zend_Application_Resourc
                     }
                     break;
 
+                case 'dispatcher':
+                    if(!isset($value['class'])) {
+                        #require_once 'Zend/Application/Exception.php';
+                        throw new Zend_Application_Exception('You must specify both ');
+                    }
+                    if (!isset($value['params'])) {
+                        $value['params'] = array();
+                    }
+                    
+                    $dispatchClass = $value['class'];
+                    if(!class_exists($dispatchClass)) {
+                        #require_once 'Zend/Application/Exception.php';
+                        throw new Zend_Application_Exception('Dispatcher class not found!');
+                    }
+                    $front->setDispatcher(new $dispatchClass((array)$value['params']));
+                    break;
                 default:
                     $front->setParam($key, $value);
                     break;

@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ApplicationConfigFile.php 20851 2010-02-02 21:45:51Z ralph $
+ * @version    $Id: ApplicationConfigFile.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /**
@@ -33,7 +33,7 @@
  *
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tool_Project_Context_Zf_ApplicationConfigFile extends Zend_Tool_Project_Context_Filesystem_File
@@ -48,7 +48,7 @@ class Zend_Tool_Project_Context_Zf_ApplicationConfigFile extends Zend_Tool_Proje
      * @var string
      */
     protected $_content = null;
-    
+
     /**
      * getName()
      *
@@ -94,9 +94,9 @@ class Zend_Tool_Project_Context_Zf_ApplicationConfigFile extends Zend_Tool_Proje
             } else {
                 $this->_content = $this->_getDefaultContents();
             }
-            
+
         }
-        
+
         return $this->_content;
     }
 
@@ -104,11 +104,11 @@ class Zend_Tool_Project_Context_Zf_ApplicationConfigFile extends Zend_Tool_Proje
     {
         return new Zend_Config_Ini($this->getPath(), $section);
     }
-    
+
     /**
      * addStringItem()
-     * 
-     * @param string $key 
+     *
+     * @param string $key
      * @param string $value
      * @param string $section
      * @param bool   $quoteValue
@@ -120,39 +120,41 @@ class Zend_Tool_Project_Context_Zf_ApplicationConfigFile extends Zend_Tool_Proje
         if ($quoteValue === null) {
             $quoteValue = preg_match('#[\"\']#', $value) ? false : true;
         }
-        
+
         if ($quoteValue == true) {
             $value = '"' . $value . '"';
         }
-        
+
         $contentLines = preg_split('#[\n\r]#', $this->getContents());
-        
+
         $newLines = array();
         $insideSection = false;
-        
+
         foreach ($contentLines as $contentLineIndex => $contentLine) {
-            
+
             if ($insideSection === false && preg_match('#^\[' . $section . '#', $contentLine)) {
                 $insideSection = true;
             }
-            
+
+            $newLines[] = $contentLine;
             if ($insideSection) {
                 // if its blank, or a section heading
-                if ((trim($contentLine) == null) || (isset($contentLines[$contentLineIndex + 1]{0}) && $contentLines[$contentLineIndex + 1]{0} == '[')) {
+                if (isset($contentLines[$contentLineIndex + 1]{0}) && $contentLines[$contentLineIndex + 1]{0} == '[') {
+                    $newLines[] = $key . ' = ' . $value;
+                    $insideSection = null;
+                } else if (!isset($contentLines[$contentLineIndex + 1])){
                     $newLines[] = $key . ' = ' . $value;
                     $insideSection = null;
                 }
             }
-            
-            $newLines[] = $contentLine;
         }
 
         $this->_content = implode("\n", $newLines);
         return $this;
     }
-    
+
     /**
-     * 
+     *
      * @param array $item
      * @param string $section
      * @param bool $quoteValue
@@ -163,18 +165,18 @@ class Zend_Tool_Project_Context_Zf_ApplicationConfigFile extends Zend_Tool_Proje
         $stringItems = array();
         $stringValues = array();
         $configKeyNames = array();
-        
+
         $rii = new RecursiveIteratorIterator(
             new RecursiveArrayIterator($item),
             RecursiveIteratorIterator::SELF_FIRST
             );
-        
+
         $lastDepth = 0;
-        
+
         // loop through array structure recursively to create proper keys
         foreach ($rii as $name => $value) {
             $lastDepth = $rii->getDepth();
-            
+
             if (is_array($value)) {
                 array_push($configKeyNames, $name);
             } else {
@@ -182,59 +184,59 @@ class Zend_Tool_Project_Context_Zf_ApplicationConfigFile extends Zend_Tool_Proje
                 $stringValues[] = $value;
             }
         }
-        
+
         foreach ($stringItems as $stringItemIndex => $stringItem) {
             $this->addStringItem($stringItem, $stringValues[$stringItemIndex], $section, $quoteValue);
         }
-        
+
         return $this;
     }
-    
+
     public function removeStringItem($key, $section = 'production')
     {
         $contentLines = file($this->getPath());
-        
+
         $newLines = array();
         $insideSection = false;
-        
+
         foreach ($contentLines as $contentLineIndex => $contentLine) {
-            
+
             if ($insideSection === false && preg_match('#^\[' . $section . '#', $contentLine)) {
                 $insideSection = true;
             }
-            
+
             if ($insideSection) {
                 // if its blank, or a section heading
                 if ((trim($contentLine) == null) || ($contentLines[$contentLineIndex + 1][0] == '[')) {
                     $insideSection = null;
                 }
             }
-            
-            if (!preg_match('#' . $key . '\s?=.*#', $contentLine)) { 
+
+            if (!preg_match('#' . $key . '\s?=.*#', $contentLine)) {
                 $newLines[] = $contentLine;
             }
         }
 
         $this->_content = implode('', $newLines);
     }
-    
+
     public function removeItem($item, $section = 'production')
     {
         $stringItems = array();
         $stringValues = array();
         $configKeyNames = array();
-        
+
         $rii = new RecursiveIteratorIterator(
             new RecursiveArrayIterator($item),
             RecursiveIteratorIterator::SELF_FIRST
             );
-        
+
         $lastDepth = 0;
-        
+
         // loop through array structure recursively to create proper keys
         foreach ($rii as $name => $value) {
             $lastDepth = $rii->getDepth();
-            
+
             if (is_array($value)) {
                 array_push($configKeyNames, $name);
             } else {
@@ -242,14 +244,14 @@ class Zend_Tool_Project_Context_Zf_ApplicationConfigFile extends Zend_Tool_Proje
                 $stringValues[] = $value;
             }
         }
-        
+
         foreach ($stringItems as $stringItemIndex => $stringItem) {
             $this->removeStringItem($stringItem, $section);
         }
-        
+
         return $this;
     }
-    
+
     protected function _getDefaultContents()
     {
 
@@ -279,5 +281,5 @@ EOS;
 
         return $contents;
     }
-    
+
 }

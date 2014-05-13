@@ -13,7 +13,7 @@
  * @category   Zend
  * @package    Zend_Cloud
  * @subpackage DocumentService
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -31,7 +31,7 @@
  * @category   Zend
  * @package    Zend_Cloud
  * @subpackage DocumentService
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 interface Zend_Cloud_DocumentService_Adapter
@@ -67,9 +67,9 @@ interface Zend_Cloud_DocumentService_Adapter
 
     /**
      * List all documents in a collection
-     * 
-     * @param  string $collectionName 
-     * @param  null|array $options 
+     *
+     * @param  string $collectionName
+     * @param  null|array $options
      * @return Zend_Cloud_DocumentService_DocumentSet
      */
     public function listDocuments($collectionName, array $options = null);
@@ -87,7 +87,7 @@ interface Zend_Cloud_DocumentService_Adapter
     /**
      * Replace document
      * The new document replaces the existing document with the same ID.
-     * 
+     *
      * @param string $collectionName Collection name
      * @param Zend_Cloud_DocumentService_Document $document
      * @param array $options
@@ -96,8 +96,8 @@ interface Zend_Cloud_DocumentService_Adapter
 
     /**
      * Update document
-     * The fields of the existing documents will be updated. 
-     * Fields not specified in the set will be left as-is. 
+     * The fields of the existing documents will be updated.
+     * Fields not specified in the set will be left as-is.
      *
      * @param  string $collectionName
      * @param  mixed|Zend_Cloud_DocumentService_Document $documentID Document ID, adapter-dependent, or document containing updates
@@ -106,7 +106,7 @@ interface Zend_Cloud_DocumentService_Adapter
      * @return boolean
      */
     public function updateDocument($collectionName, $documentID, $fieldset = null, $options = null);
-    
+
     /**
      * Delete document
      *
@@ -119,16 +119,16 @@ interface Zend_Cloud_DocumentService_Adapter
 
     /**
      * Fetch single document by ID
-     * 
+     *
      * Will return false if the document does not exist
-     * 
+     *
      * @param string $collectionName Collection name
      * @param mixed $documentID Document ID, adapter-dependent
      * @param array $options
      * @return Zend_Cloud_DocumentService_Document
      */
     public function fetchDocument($collectionName, $documentID, $options = null);
-    
+
     /**
      * Query for documents stored in the document service. If a string is passed in
      * $query, the query string will be passed directly to the service.
@@ -139,15 +139,15 @@ interface Zend_Cloud_DocumentService_Adapter
      * @return array Array of field sets
      */
     public function query($collectionName, $query, $options = null);
-    
+
     /**
      * Create query statement
-     * 
+     *
      * @param string $fields
      * @return Zend_Cloud_DocumentService_Query
      */
     public function select($fields = null);
-    
+
     /**
      * Get the concrete service client
      */

@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Feed_Reader
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Reader.php 22662 2010-07-24 17:37:36Z mabe $
+ * @version    $Id: Reader.php 25275 2013-03-06 09:55:33Z frosch $
  */
 
 /**
@@ -42,7 +42,7 @@
 /**
  * @category   Zend
  * @package    Zend_Feed_Reader
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Feed_Reader
@@ -240,7 +240,7 @@ class Zend_Feed_Reader
                     $etag = $cache->load($cacheId.'_etag');
                 }
                 if ($lastModified === null) {
-                    $lastModified = $cache->load($cacheId.'_lastmodified');;
+                    $lastModified = $cache->load($cacheId.'_lastmodified');
                 }
                 if ($etag) {
                     $client->setHeaders('If-None-Match', $etag);
@@ -266,6 +266,10 @@ class Zend_Feed_Reader
                     $cache->save($response->getHeader('Last-Modified'), $cacheId.'_lastmodified');
                 }
             }
+            if (empty($responseXml)) {
+                #require_once 'Zend/Feed/Exception.php';
+                throw new Zend_Feed_Exception('Feed failed to load, got empty response body');
+            }
             return self::importString($responseXml);
         } elseif ($cache) {
             $data = $cache->load($cacheId);
@@ -279,6 +283,10 @@ class Zend_Feed_Reader
             }
             $responseXml = $response->getBody();
             $cache->save($responseXml, $cacheId);
+            if (empty($responseXml)) {
+                #require_once 'Zend/Feed/Exception.php';
+                throw new Zend_Feed_Exception('Feed failed to load, got empty response body');
+            }
             return self::importString($responseXml);
         } else {
             $response = $client->request('GET');
@@ -286,7 +294,12 @@ class Zend_Feed_Reader
                 #require_once 'Zend/Feed/Exception.php';
                 throw new Zend_Feed_Exception('Feed failed to load, got response code ' . $response->getStatus());
             }
-            $reader = self::importString($response->getBody());
+            $responseXml = $response->getBody();
+            if (empty($responseXml)) {
+                #require_once 'Zend/Feed/Exception.php';
+                throw new Zend_Feed_Exception('Feed failed to load, got empty response body');
+            }
+            $reader = self::importString($responseXml);
             $reader->setOriginalSourceUri($uri);
             return $reader;
         }
@@ -321,8 +334,18 @@ class Zend_Feed_Reader
     public static function importString($string)
     {
         $libxml_errflag = libxml_use_internal_errors(true);
+        $oldValue = libxml_disable_entity_loader(true);
         $dom = new DOMDocument;
         $status = $dom->loadXML($string);
+        foreach ($dom->childNodes as $child) {
+            if ($child->nodeType === XML_DOCUMENT_TYPE_NODE) {
+                #require_once 'Zend/Feed/Exception.php';
+                throw new Zend_Feed_Exception(
+                    'Invalid XML: Detected use of illegal DOCTYPE'
+                );
+            }
+        }
+        libxml_disable_entity_loader($oldValue);
         libxml_use_internal_errors($libxml_errflag);
 
         if (!$status) {
@@ -393,8 +416,10 @@ class Zend_Feed_Reader
         }
         $responseHtml = $response->getBody();
         $libxml_errflag = libxml_use_internal_errors(true);
+        $oldValue = libxml_disable_entity_loader(true);
         $dom = new DOMDocument;
         $status = $dom->loadHTML($responseHtml);
+        libxml_disable_entity_loader($oldValue);
         libxml_use_internal_errors($libxml_errflag);
         if (!$status) {
             // Build error message
@@ -418,7 +443,9 @@ class Zend_Feed_Reader
      * Detect the feed type of the provided feed
      *
      * @param  Zend_Feed_Abstract|DOMDocument|string $feed
+     * @param  bool                                  $specOnly
      * @return string
+     * @throws Zend_Feed_Exception
      */
     public static function detectType($feed, $specOnly = false)
     {
@@ -428,8 +455,18 @@ class Zend_Feed_Reader
             $dom = $feed;
         } elseif(is_string($feed) && !empty($feed)) {
             @ini_set('track_errors', 1);
+            $oldValue = libxml_disable_entity_loader(true);
             $dom = new DOMDocument;
             $status = @$dom->loadXML($feed);
+            foreach ($dom->childNodes as $child) {
+                if ($child->nodeType === XML_DOCUMENT_TYPE_NODE) {
+                    #require_once 'Zend/Feed/Exception.php';
+                    throw new Zend_Feed_Exception(
+                        'Invalid XML: Detected use of illegal DOCTYPE'
+                    );
+                }
+            }
+            libxml_disable_entity_loader($oldValue);
             @ini_restore('track_errors');
             if (!$status) {
                 if (!isset($php_errormsg)) {
@@ -510,7 +547,7 @@ class Zend_Feed_Reader
         if ($xpath->query('//atom:feed')->length) {
             return self::TYPE_ATOM_10;
         }
-        
+
         if ($xpath->query('//atom:entry')->length) {
             if ($specOnly == true) {
                 return self::TYPE_ATOM_10;
@@ -698,7 +735,7 @@ class Zend_Feed_Reader
         self::registerExtension('Thread');
         self::registerExtension('Podcast');
     }
-    
+
     /**
      * Utility method to apply array_unique operation to a multidimensional
      * array.
@@ -717,5 +754,5 @@ class Zend_Feed_Reader
         }
         return $array;
     }
- 
+
 }

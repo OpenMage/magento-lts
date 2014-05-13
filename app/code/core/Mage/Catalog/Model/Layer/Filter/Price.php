@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -229,7 +229,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
             . '_ATTR_' . $this->getAttributeModel()->getAttributeCode()
             . '_LOC_'
             ;
-        $taxReq = Mage::getSingleton('tax/calculation')->getRateRequest(false, false, false);
+        $taxReq = Mage::getSingleton('tax/calculation')->getDefaultRateRequest();
         $key.= implode('_', $taxReq->getData());
 
         return $key;

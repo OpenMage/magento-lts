@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -66,7 +66,9 @@ CREATE TABLE {$this->getTable('sales_discount_coupon')} (
 
 /*Data for the table `sales_discount_coupon` */
 
-insert  into {$this->getTable('sales_discount_coupon')}(`coupon_id`,`coupon_code`,`discount_percent`,`discount_fixed`,`is_active`,`from_date`,`to_date`,`min_subtotal`,`limit_products`,`limit_categories`,`limit_attributes`) values (1,'test',10.0000,0.0000,1,'0000-00-00 00:00:00','0000-00-00 00:00:00',0.0000,'','','');
+insert  into {$this->getTable('sales_discount_coupon')}(`coupon_id`,`coupon_code`,`discount_percent`,`discount_fixed`,
+    `is_active`,`from_date`,`to_date`,`min_subtotal`,`limit_products`,`limit_categories`,`limit_attributes`)
+values (1,'test',10.0000,0.0000,1,'0000-00-00 00:00:00','0000-00-00 00:00:00',0.0000,'','','');
 
 /*Table structure for table `sales_invoice_entity` */
 
@@ -85,8 +87,10 @@ CREATE TABLE {$this->getTable('sales_invoice_entity')} (
   PRIMARY KEY  (`entity_id`),
   KEY `FK_sales_invoice_entity_type` (`entity_type_id`),
   KEY `FK_sales_invoice_entity_store` (`store_id`),
-  CONSTRAINT `FK_sales_invoice_entity_store` FOREIGN KEY (`store_id`) REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_invoice_entity_type` FOREIGN KEY (`entity_type_id`) REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_sales_invoice_entity_store` FOREIGN KEY (`store_id`)
+  REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_invoice_entity_type` FOREIGN KEY (`entity_type_id`)
+  REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `sales_invoice_entity` */
@@ -106,10 +110,14 @@ CREATE TABLE {$this->getTable('sales_invoice_entity_datetime')} (
   KEY `FK_sales_invoice_entity_datetime_attribute` (`attribute_id`),
   KEY `FK_sales_invoice_entity_datetime_store` (`store_id`),
   KEY `FK_sales_invoice_entity_datetime` (`entity_id`),
-  CONSTRAINT `FK_sales_invoice_entity_datetime` FOREIGN KEY (`entity_id`) REFERENCES {$this->getTable('sales_invoice_entity')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_invoice_entity_datetime_attribute` FOREIGN KEY (`attribute_id`) REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_invoice_entity_datetime_entity_type` FOREIGN KEY (`entity_type_id`) REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_invoice_entity_datetime_store` FOREIGN KEY (`store_id`) REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_sales_invoice_entity_datetime` FOREIGN KEY (`entity_id`)
+  REFERENCES {$this->getTable('sales_invoice_entity')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_invoice_entity_datetime_attribute` FOREIGN KEY (`attribute_id`)
+  REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_invoice_entity_datetime_entity_type` FOREIGN KEY (`entity_type_id`)
+  REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_invoice_entity_datetime_store` FOREIGN KEY (`store_id`)
+  REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `sales_invoice_entity_datetime` */
@@ -130,10 +138,14 @@ CREATE TABLE {$this->getTable('sales_invoice_entity_decimal')} (
   KEY `FK_sales_invoice_entity_decimal_attribute` (`attribute_id`),
   KEY `FK_sales_invoice_entity_decimal_store` (`store_id`),
   KEY `FK_sales_invoice_entity_decimal` (`entity_id`),
-  CONSTRAINT `FK_sales_invoice_entity_decimal` FOREIGN KEY (`entity_id`) REFERENCES {$this->getTable('sales_invoice_entity')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_invoice_entity_decimal_attribute` FOREIGN KEY (`attribute_id`) REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_invoice_entity_decimal_entity_type` FOREIGN KEY (`entity_type_id`) REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_invoice_entity_decimal_store` FOREIGN KEY (`store_id`) REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_sales_invoice_entity_decimal` FOREIGN KEY (`entity_id`)
+  REFERENCES {$this->getTable('sales_invoice_entity')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_invoice_entity_decimal_attribute` FOREIGN KEY (`attribute_id`)
+  REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_invoice_entity_decimal_entity_type` FOREIGN KEY (`entity_type_id`)
+  REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_invoice_entity_decimal_store` FOREIGN KEY (`store_id`)
+  REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `sales_invoice_entity_decimal` */
@@ -154,10 +166,14 @@ CREATE TABLE {$this->getTable('sales_invoice_entity_int')} (
   KEY `FK_sales_invoice_entity_int_attribute` (`attribute_id`),
   KEY `FK_sales_invoice_entity_int_store` (`store_id`),
   KEY `FK_sales_invoice_entity_int` (`entity_id`),
-  CONSTRAINT `FK_sales_invoice_entity_int` FOREIGN KEY (`entity_id`) REFERENCES {$this->getTable('sales_invoice_entity')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_invoice_entity_int_attribute` FOREIGN KEY (`attribute_id`) REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_invoice_entity_int_entity_type` FOREIGN KEY (`entity_type_id`) REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_invoice_entity_int_store` FOREIGN KEY (`store_id`) REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_sales_invoice_entity_int` FOREIGN KEY (`entity_id`)
+  REFERENCES {$this->getTable('sales_invoice_entity')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_invoice_entity_int_attribute` FOREIGN KEY (`attribute_id`)
+  REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_invoice_entity_int_entity_type` FOREIGN KEY (`entity_type_id`)
+  REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_invoice_entity_int_store` FOREIGN KEY (`store_id`)
+  REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `sales_invoice_entity_int` */
@@ -177,10 +193,14 @@ CREATE TABLE {$this->getTable('sales_invoice_entity_text')} (
   KEY `FK_sales_invoice_entity_text_attribute` (`attribute_id`),
   KEY `FK_sales_invoice_entity_text_store` (`store_id`),
   KEY `FK_sales_invoice_entity_text` (`entity_id`),
-  CONSTRAINT `FK_sales_invoice_entity_text` FOREIGN KEY (`entity_id`) REFERENCES {$this->getTable('sales_invoice_entity')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_invoice_entity_text_attribute` FOREIGN KEY (`attribute_id`) REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_invoice_entity_text_entity_type` FOREIGN KEY (`entity_type_id`) REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_invoice_entity_text_store` FOREIGN KEY (`store_id`) REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_sales_invoice_entity_text` FOREIGN KEY (`entity_id`)
+  REFERENCES {$this->getTable('sales_invoice_entity')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_invoice_entity_text_attribute` FOREIGN KEY (`attribute_id`)
+  REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_invoice_entity_text_entity_type` FOREIGN KEY (`entity_type_id`)
+  REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_invoice_entity_text_store` FOREIGN KEY (`store_id`)
+  REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `sales_invoice_entity_text` */
@@ -200,10 +220,14 @@ CREATE TABLE {$this->getTable('sales_invoice_entity_varchar')} (
   KEY `FK_sales_invoice_entity_varchar_attribute` (`attribute_id`),
   KEY `FK_sales_invoice_entity_varchar_store` (`store_id`),
   KEY `FK_sales_invoice_entity_varchar` (`entity_id`),
-  CONSTRAINT `FK_sales_invoice_entity_varchar` FOREIGN KEY (`entity_id`) REFERENCES {$this->getTable('sales_invoice_entity')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_invoice_entity_varchar_attribute` FOREIGN KEY (`attribute_id`) REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_invoice_entity_varchar_entity_type` FOREIGN KEY (`entity_type_id`) REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_invoice_entity_varchar_store` FOREIGN KEY (`store_id`) REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_sales_invoice_entity_varchar` FOREIGN KEY (`entity_id`)
+  REFERENCES {$this->getTable('sales_invoice_entity')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_invoice_entity_varchar_attribute` FOREIGN KEY (`attribute_id`)
+  REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_invoice_entity_varchar_entity_type` FOREIGN KEY (`entity_type_id`)
+  REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_invoice_entity_varchar_store` FOREIGN KEY (`store_id`)
+  REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `sales_invoice_entity_varchar` */
@@ -224,8 +248,10 @@ CREATE TABLE {$this->getTable('sales_order_entity')} (
   PRIMARY KEY  (`entity_id`),
   KEY `FK_sales_order_entity_type` (`entity_type_id`),
   KEY `FK_sales_order_entity_store` (`store_id`),
-  CONSTRAINT `FK_sales_order_entity_store` FOREIGN KEY (`store_id`) REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_order_entity_type` FOREIGN KEY (`entity_type_id`) REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_sales_order_entity_store` FOREIGN KEY (`store_id`)
+  REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_order_entity_type` FOREIGN KEY (`entity_type_id`)
+  REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 /*Data for the table `sales_order_entity` */
@@ -245,10 +271,14 @@ CREATE TABLE {$this->getTable('sales_order_entity_datetime')} (
   KEY `FK_sales_order_entity_datetime_attribute` (`attribute_id`),
   KEY `FK_sales_order_entity_datetime_store` (`store_id`),
   KEY `FK_sales_order_entity_datetime` (`entity_id`),
-  CONSTRAINT `FK_sales_order_entity_datetime` FOREIGN KEY (`entity_id`) REFERENCES {$this->getTable('sales_order_entity')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_order_entity_datetime_attribute` FOREIGN KEY (`attribute_id`) REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_order_entity_datetime_entity_type` FOREIGN KEY (`entity_type_id`) REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_order_entity_datetime_store` FOREIGN KEY (`store_id`) REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_sales_order_entity_datetime` FOREIGN KEY (`entity_id`)
+  REFERENCES {$this->getTable('sales_order_entity')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_order_entity_datetime_attribute` FOREIGN KEY (`attribute_id`)
+  REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_order_entity_datetime_entity_type` FOREIGN KEY (`entity_type_id`)
+  REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_order_entity_datetime_store` FOREIGN KEY (`store_id`)
+  REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `sales_order_entity_datetime` */
@@ -268,10 +298,14 @@ CREATE TABLE {$this->getTable('sales_order_entity_decimal')} (
   KEY `FK_sales_order_entity_decimal_attribute` (`attribute_id`),
   KEY `FK_sales_order_entity_decimal_store` (`store_id`),
   KEY `FK_sales_order_entity_decimal` (`entity_id`),
-  CONSTRAINT `FK_sales_order_entity_decimal` FOREIGN KEY (`entity_id`) REFERENCES {$this->getTable('sales_order_entity')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_order_entity_decimal_attribute` FOREIGN KEY (`attribute_id`) REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_order_entity_decimal_entity_type` FOREIGN KEY (`entity_type_id`) REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_order_entity_decimal_store` FOREIGN KEY (`store_id`) REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_sales_order_entity_decimal` FOREIGN KEY (`entity_id`)
+  REFERENCES {$this->getTable('sales_order_entity')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_order_entity_decimal_attribute` FOREIGN KEY (`attribute_id`)
+  REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_order_entity_decimal_entity_type` FOREIGN KEY (`entity_type_id`)
+  REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_order_entity_decimal_store` FOREIGN KEY (`store_id`)
+  REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `sales_order_entity_decimal` */
@@ -291,10 +325,14 @@ CREATE TABLE {$this->getTable('sales_order_entity_int')} (
   KEY `FK_sales_order_entity_int_attribute` (`attribute_id`),
   KEY `FK_sales_order_entity_int_store` (`store_id`),
   KEY `FK_sales_order_entity_int` (`entity_id`),
-  CONSTRAINT `FK_sales_order_entity_int` FOREIGN KEY (`entity_id`) REFERENCES {$this->getTable('sales_order_entity')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_order_entity_int_attribute` FOREIGN KEY (`attribute_id`) REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_order_entity_int_entity_type` FOREIGN KEY (`entity_type_id`) REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_order_entity_int_store` FOREIGN KEY (`store_id`) REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_sales_order_entity_int` FOREIGN KEY (`entity_id`)
+  REFERENCES {$this->getTable('sales_order_entity')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_order_entity_int_attribute` FOREIGN KEY (`attribute_id`)
+  REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_order_entity_int_entity_type` FOREIGN KEY (`entity_type_id`)
+  REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_order_entity_int_store` FOREIGN KEY (`store_id`)
+  REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `sales_order_entity_int` */
@@ -314,10 +352,14 @@ CREATE TABLE {$this->getTable('sales_order_entity_text')} (
   KEY `FK_sales_order_entity_text_attribute` (`attribute_id`),
   KEY `FK_sales_order_entity_text_store` (`store_id`),
   KEY `FK_sales_order_entity_text` (`entity_id`),
-  CONSTRAINT `FK_sales_order_entity_text` FOREIGN KEY (`entity_id`) REFERENCES {$this->getTable('sales_order_entity')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_order_entity_text_attribute` FOREIGN KEY (`attribute_id`) REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_order_entity_text_entity_type` FOREIGN KEY (`entity_type_id`) REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_order_entity_text_store` FOREIGN KEY (`store_id`) REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_sales_order_entity_text` FOREIGN KEY (`entity_id`)
+  REFERENCES {$this->getTable('sales_order_entity')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_order_entity_text_attribute` FOREIGN KEY (`attribute_id`)
+  REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_order_entity_text_entity_type` FOREIGN KEY (`entity_type_id`)
+  REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_order_entity_text_store` FOREIGN KEY (`store_id`)
+  REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `sales_order_entity_text` */
@@ -337,10 +379,14 @@ CREATE TABLE {$this->getTable('sales_order_entity_varchar')} (
   KEY `FK_sales_order_entity_varchar_attribute` (`attribute_id`),
   KEY `FK_sales_order_entity_varchar_store` (`store_id`),
   KEY `FK_sales_order_entity_varchar` (`entity_id`),
-  CONSTRAINT `FK_sales_order_entity_varchar` FOREIGN KEY (`entity_id`) REFERENCES {$this->getTable('sales_order_entity')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_order_entity_varchar_attribute` FOREIGN KEY (`attribute_id`) REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_order_entity_varchar_entity_type` FOREIGN KEY (`entity_type_id`) REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_order_entity_varchar_store` FOREIGN KEY (`store_id`) REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_sales_order_entity_varchar` FOREIGN KEY (`entity_id`)
+  REFERENCES {$this->getTable('sales_order_entity')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_order_entity_varchar_attribute` FOREIGN KEY (`attribute_id`)
+  REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_order_entity_varchar_entity_type` FOREIGN KEY (`entity_type_id`)
+  REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_order_entity_varchar_store` FOREIGN KEY (`store_id`)
+  REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `sales_order_entity_varchar` */
@@ -361,8 +407,10 @@ CREATE TABLE {$this->getTable('sales_quote_entity')} (
   PRIMARY KEY  (`entity_id`),
   KEY `FK_sales_quote_entity_type` (`entity_type_id`),
   KEY `FK_sales_quote_entity_store` (`store_id`),
-  CONSTRAINT `FK_sales_quote_entity_store` FOREIGN KEY (`store_id`) REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_quote_entity_type` FOREIGN KEY (`entity_type_id`) REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_sales_quote_entity_store` FOREIGN KEY (`store_id`)
+  REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_quote_entity_type` FOREIGN KEY (`entity_type_id`)
+  REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 /*Table structure for table `sales_quote_entity_datetime` */
@@ -380,10 +428,14 @@ CREATE TABLE {$this->getTable('sales_quote_entity_datetime')} (
   KEY `FK_sales_quote_entity_datetime_attribute` (`attribute_id`),
   KEY `FK_sales_quote_entity_datetime_store` (`store_id`),
   KEY `FK_sales_quote_entity_datetime` (`entity_id`),
-  CONSTRAINT `FK_sales_quote_entity_datetime` FOREIGN KEY (`entity_id`) REFERENCES {$this->getTable('sales_quote_entity')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_quote_entity_datetime_attribute` FOREIGN KEY (`attribute_id`) REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_quote_entity_datetime_entity_type` FOREIGN KEY (`entity_type_id`) REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_quote_entity_datetime_store` FOREIGN KEY (`store_id`) REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_sales_quote_entity_datetime` FOREIGN KEY (`entity_id`)
+  REFERENCES {$this->getTable('sales_quote_entity')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_quote_entity_datetime_attribute` FOREIGN KEY (`attribute_id`)
+  REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_quote_entity_datetime_entity_type` FOREIGN KEY (`entity_type_id`)
+  REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_quote_entity_datetime_store` FOREIGN KEY (`store_id`)
+  REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `sales_quote_entity_datetime` */
@@ -403,10 +455,14 @@ CREATE TABLE {$this->getTable('sales_quote_entity_decimal')} (
   KEY `FK_sales_quote_entity_decimal_attribute` (`attribute_id`),
   KEY `FK_sales_quote_entity_decimal_store` (`store_id`),
   KEY `FK_sales_quote_entity_decimal` (`entity_id`),
-  CONSTRAINT `FK_sales_quote_entity_decimal` FOREIGN KEY (`entity_id`) REFERENCES {$this->getTable('sales_quote_entity')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_quote_entity_decimal_attribute` FOREIGN KEY (`attribute_id`) REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_quote_entity_decimal_entity_type` FOREIGN KEY (`entity_type_id`) REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_quote_entity_decimal_store` FOREIGN KEY (`store_id`) REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_sales_quote_entity_decimal` FOREIGN KEY (`entity_id`)
+  REFERENCES {$this->getTable('sales_quote_entity')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_quote_entity_decimal_attribute` FOREIGN KEY (`attribute_id`)
+  REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_quote_entity_decimal_entity_type` FOREIGN KEY (`entity_type_id`)
+  REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_quote_entity_decimal_store` FOREIGN KEY (`store_id`)
+  REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -425,10 +481,14 @@ CREATE TABLE {$this->getTable('sales_quote_entity_int')} (
   KEY `FK_sales_quote_entity_int_attribute` (`attribute_id`),
   KEY `FK_sales_quote_entity_int_store` (`store_id`),
   KEY `FK_sales_quote_entity_int` (`entity_id`),
-  CONSTRAINT `FK_sales_quote_entity_int` FOREIGN KEY (`entity_id`) REFERENCES {$this->getTable('sales_quote_entity')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_quote_entity_int_attribute` FOREIGN KEY (`attribute_id`) REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_quote_entity_int_entity_type` FOREIGN KEY (`entity_type_id`) REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_quote_entity_int_store` FOREIGN KEY (`store_id`) REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_sales_quote_entity_int` FOREIGN KEY (`entity_id`)
+  REFERENCES {$this->getTable('sales_quote_entity')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_quote_entity_int_attribute` FOREIGN KEY (`attribute_id`)
+  REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_quote_entity_int_entity_type` FOREIGN KEY (`entity_type_id`)
+  REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_quote_entity_int_store` FOREIGN KEY (`store_id`)
+  REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -447,10 +507,14 @@ CREATE TABLE {$this->getTable('sales_quote_entity_text')} (
   KEY `FK_sales_quote_entity_text_attribute` (`attribute_id`),
   KEY `FK_sales_quote_entity_text_store` (`store_id`),
   KEY `FK_sales_quote_entity_text` (`entity_id`),
-  CONSTRAINT `FK_sales_quote_entity_text` FOREIGN KEY (`entity_id`) REFERENCES {$this->getTable('sales_quote_entity')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_quote_entity_text_attribute` FOREIGN KEY (`attribute_id`) REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_quote_entity_text_entity_type` FOREIGN KEY (`entity_type_id`) REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_quote_entity_text_store` FOREIGN KEY (`store_id`) REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_sales_quote_entity_text` FOREIGN KEY (`entity_id`)
+  REFERENCES {$this->getTable('sales_quote_entity')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_quote_entity_text_attribute` FOREIGN KEY (`attribute_id`)
+  REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_quote_entity_text_entity_type` FOREIGN KEY (`entity_type_id`)
+  REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_quote_entity_text_store` FOREIGN KEY (`store_id`)
+  REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `sales_quote_entity_text` */
@@ -470,10 +534,14 @@ CREATE TABLE {$this->getTable('sales_quote_entity_varchar')} (
   KEY `FK_sales_quote_entity_varchar_attribute` (`attribute_id`),
   KEY `FK_sales_quote_entity_varchar_store` (`store_id`),
   KEY `FK_sales_quote_entity_varchar` (`entity_id`),
-  CONSTRAINT `FK_sales_quote_entity_varchar` FOREIGN KEY (`entity_id`) REFERENCES {$this->getTable('sales_quote_entity')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_quote_entity_varchar_attribute` FOREIGN KEY (`attribute_id`) REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_quote_entity_varchar_entity_type` FOREIGN KEY (`entity_type_id`) REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_quote_entity_varchar_store` FOREIGN KEY (`store_id`) REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_sales_quote_entity_varchar` FOREIGN KEY (`entity_id`)
+  REFERENCES {$this->getTable('sales_quote_entity')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_quote_entity_varchar_attribute` FOREIGN KEY (`attribute_id`)
+  REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_quote_entity_varchar_entity_type` FOREIGN KEY (`entity_type_id`)
+  REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_quote_entity_varchar_store` FOREIGN KEY (`store_id`)
+  REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `sales_quote_rule` */
@@ -495,7 +563,8 @@ CREATE TABLE {$this->getTable('sales_quote_rule')} (
   `actions_serialized` text NOT NULL,
   PRIMARY KEY  (`quote_rule_id`),
   KEY `rule_name` (`name`),
-  KEY `is_active` (`is_active`,`start_at`,`expire_at`,`coupon_code`,`customer_registered`,`customer_new_buyer`,`show_in_catalog`,`sort_order`)
+  KEY `is_active` (`is_active`,`start_at`,`expire_at`,`coupon_code`,`customer_registered`,
+    `customer_new_buyer`,`show_in_catalog`,`sort_order`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `sales_quote_rule` */
@@ -516,8 +585,10 @@ CREATE TABLE {$this->getTable('sales_quote_temp')} (
   PRIMARY KEY  (`entity_id`),
   KEY `FK_sales_quote_temp_type` (`entity_type_id`),
   KEY `FK_sales_quote_temp_store` (`store_id`),
-  CONSTRAINT `FK_sales_quote_temp_store` FOREIGN KEY (`store_id`) REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_quote_temp_type` FOREIGN KEY (`entity_type_id`) REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_sales_quote_temp_store` FOREIGN KEY (`store_id`)
+  REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_quote_temp_type` FOREIGN KEY (`entity_type_id`)
+  REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 /*Data for the table `sales_quote_temp` */
@@ -537,10 +608,14 @@ CREATE TABLE {$this->getTable('sales_quote_temp_datetime')} (
   KEY `FK_sales_quote_temp_datetime_attribute` (`attribute_id`),
   KEY `FK_sales_quote_temp_datetime_store` (`store_id`),
   KEY `FK_sales_quote_temp_datetime` (`entity_id`),
-  CONSTRAINT `FK_sales_quote_temp_datetime` FOREIGN KEY (`entity_id`) REFERENCES {$this->getTable('sales_quote_temp')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_quote_temp_datetime_attribute` FOREIGN KEY (`attribute_id`) REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_quote_temp_datetime_entity_type` FOREIGN KEY (`entity_type_id`) REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_quote_temp_datetime_store` FOREIGN KEY (`store_id`) REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_sales_quote_temp_datetime` FOREIGN KEY (`entity_id`)
+  REFERENCES {$this->getTable('sales_quote_temp')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_quote_temp_datetime_attribute` FOREIGN KEY (`attribute_id`)
+  REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_quote_temp_datetime_entity_type` FOREIGN KEY (`entity_type_id`)
+  REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_quote_temp_datetime_store` FOREIGN KEY (`store_id`)
+  REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `sales_quote_temp_datetime` */
@@ -560,10 +635,14 @@ CREATE TABLE {$this->getTable('sales_quote_temp_decimal')} (
   KEY `FK_sales_quote_temp_decimal_attribute` (`attribute_id`),
   KEY `FK_sales_quote_temp_decimal_store` (`store_id`),
   KEY `FK_sales_quote_temp_decimal` (`entity_id`),
-  CONSTRAINT `FK_sales_quote_temp_decimal` FOREIGN KEY (`entity_id`) REFERENCES {$this->getTable('sales_quote_temp')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_quote_temp_decimal_attribute` FOREIGN KEY (`attribute_id`) REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_quote_temp_decimal_entity_type` FOREIGN KEY (`entity_type_id`) REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_quote_temp_decimal_store` FOREIGN KEY (`store_id`) REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_sales_quote_temp_decimal` FOREIGN KEY (`entity_id`)
+  REFERENCES {$this->getTable('sales_quote_temp')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_quote_temp_decimal_attribute` FOREIGN KEY (`attribute_id`)
+  REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_quote_temp_decimal_entity_type` FOREIGN KEY (`entity_type_id`)
+  REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_quote_temp_decimal_store` FOREIGN KEY (`store_id`)
+  REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `sales_quote_temp_decimal` */
@@ -583,10 +662,14 @@ CREATE TABLE {$this->getTable('sales_quote_temp_int')} (
   KEY `FK_sales_quote_temp_int_attribute` (`attribute_id`),
   KEY `FK_sales_quote_temp_int_store` (`store_id`),
   KEY `FK_sales_quote_temp_int` (`entity_id`),
-  CONSTRAINT `FK_sales_quote_temp_int` FOREIGN KEY (`entity_id`) REFERENCES {$this->getTable('sales_quote_temp')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_quote_temp_int_attribute` FOREIGN KEY (`attribute_id`) REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_quote_temp_int_entity_type` FOREIGN KEY (`entity_type_id`) REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_quote_temp_int_store` FOREIGN KEY (`store_id`) REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_sales_quote_temp_int` FOREIGN KEY (`entity_id`)
+  REFERENCES {$this->getTable('sales_quote_temp')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_quote_temp_int_attribute` FOREIGN KEY (`attribute_id`)
+  REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_quote_temp_int_entity_type` FOREIGN KEY (`entity_type_id`)
+  REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_quote_temp_int_store` FOREIGN KEY (`store_id`)
+  REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `sales_quote_temp_int` */
@@ -606,10 +689,14 @@ CREATE TABLE {$this->getTable('sales_quote_temp_text')} (
   KEY `FK_sales_quote_temp_text_attribute` (`attribute_id`),
   KEY `FK_sales_quote_temp_text_store` (`store_id`),
   KEY `FK_sales_quote_temp_text` (`entity_id`),
-  CONSTRAINT `FK_sales_quote_temp_text` FOREIGN KEY (`entity_id`) REFERENCES {$this->getTable('sales_quote_temp')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_quote_temp_text_attribute` FOREIGN KEY (`attribute_id`) REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_quote_temp_text_entity_type` FOREIGN KEY (`entity_type_id`) REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_quote_temp_text_store` FOREIGN KEY (`store_id`) REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_sales_quote_temp_text` FOREIGN KEY (`entity_id`)
+  REFERENCES {$this->getTable('sales_quote_temp')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_quote_temp_text_attribute` FOREIGN KEY (`attribute_id`)
+  REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_quote_temp_text_entity_type` FOREIGN KEY (`entity_type_id`)
+  REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_quote_temp_text_store` FOREIGN KEY (`store_id`)
+  REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `sales_quote_temp_text` */
@@ -629,16 +716,19 @@ CREATE TABLE {$this->getTable('sales_quote_temp_varchar')} (
   KEY `FK_sales_quote_temp_varchar_attribute` (`attribute_id`),
   KEY `FK_sales_quote_temp_varchar_store` (`store_id`),
   KEY `FK_sales_quote_temp_varchar` (`entity_id`),
-  CONSTRAINT `FK_sales_quote_temp_varchar` FOREIGN KEY (`entity_id`) REFERENCES {$this->getTable('sales_quote_temp')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_quote_temp_varchar_attribute` FOREIGN KEY (`attribute_id`) REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_quote_temp_varchar_entity_type` FOREIGN KEY (`entity_type_id`) REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_sales_quote_temp_varchar_store` FOREIGN KEY (`store_id`) REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_sales_quote_temp_varchar` FOREIGN KEY (`entity_id`)
+  REFERENCES {$this->getTable('sales_quote_temp')} (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_quote_temp_varchar_attribute` FOREIGN KEY (`attribute_id`)
+  REFERENCES {$this->getTable('eav_attribute')} (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_quote_temp_varchar_entity_type` FOREIGN KEY (`entity_type_id`)
+  REFERENCES {$this->getTable('eav_entity_type')} (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_sales_quote_temp_varchar_store` FOREIGN KEY (`store_id`)
+  REFERENCES {$this->getTable('core_store')} (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `sales_quote_temp_varchar` */
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
     ");
 
 $installer->installEntities();

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -165,9 +165,10 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable
                 array('le' => $this->getTable('catalog/product')),
                 'le.entity_id = l.product_id',
                 array())
-
             ->where('le.required_options=0')
             ->group(array('l.parent_id', 'i.customer_group_id', 'i.website_id', 'l.product_id'));
+        $this->_addWebsiteJoinToSelect($select, true);
+        $this->_addProductWebsiteJoinToSelect($select, 'cw.website_id', 'le.entity_id');
 
         $priceExpression = $write->getCheckSql('apw.value_id IS NOT NULL', 'apw.pricing_value', 'apd.pricing_value');
         $percentExpr = $write->getCheckSql('apw.value_id IS NOT NULL', 'apw.is_percent', 'apd.is_percent');
@@ -191,6 +192,9 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable
             'tier_price'  => $tierPriceColumn,
             'group_price' => $groupPriceColumn,
         ));
+
+        $statusCond = $write->quoteInto(' = ?', Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
+        $this->_addAttributeToSelect($select, 'status', 'le.entity_id', 'cs.store_id', $statusCond);
 
         $query = $select->insertFromSelect($coaTable);
         $write->query($query);
@@ -225,6 +229,22 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable
         ));
 
         $query = $select->crossUpdateFromSelect($table);
+        $write->query($query);
+
+        $select = $write->select()
+            ->from($table)
+            ->join(
+                array('e' => $this->getTable('catalog/product')),
+                'e.entity_id = i.entity_id',
+                array())
+            ->joinLeft(
+                array('coa' => $coaTable),
+                'coa.parent_id = i.entity_id',
+                array())
+            ->where('e.type_id = ?', $this->getTypeId())
+            ->where('coa.parent_id IS NULL');
+
+        $query = $select->deleteFromSelect('i');
         $write->query($query);
 
         $write->delete($coaTable);

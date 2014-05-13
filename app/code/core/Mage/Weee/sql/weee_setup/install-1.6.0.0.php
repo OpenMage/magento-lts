@@ -20,12 +20,13 @@
  *
  * @category    Mage
  * @package     Mage_Weee
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /** @var $installer Mage_Weee_Model_Resource_Setup */
 $installer = $this;
+$installer->startSetup();
 /**
  * Create table 'weee/tax'
  */
@@ -117,7 +118,8 @@ $table = $installer->getConnection()
         array('entity_id'))
     ->addIndex($installer->getIdxName('weee/discount', array('customer_group_id')),
         array('customer_group_id'))
-    ->addForeignKey($installer->getFkName('weee/discount', 'customer_group_id', 'customer/customer_group', 'customer_group_id'),
+    ->addForeignKey(
+        $installer->getFkName('weee/discount', 'customer_group_id', 'customer/customer_group', 'customer_group_id'),
         'customer_group_id', $installer->getTable('customer/customer_group'), 'customer_group_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
     ->addForeignKey($installer->getFkName('weee/discount', 'entity_id', 'catalog/product', 'entity_id'),

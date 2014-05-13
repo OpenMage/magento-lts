@@ -1,0 +1,103 @@
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/* ============================================ *
+ * SCAFFOLD FORM
+ * ============================================ */
+/* Scaffolding can not be applied globally to all forms, since some forms are best displayed in a stacked layout */
+.scaffold-form .form-list > li {
+  display: block;
+}
+.scaffold-form .form-list > li:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+.scaffold-form .fields {
+  margin: 0;
+  padding: 0;
+}
+.scaffold-form .fields:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+.scaffold-form .fields > .fields,
+.scaffold-form .field,
+.scaffold-form .wide,
+.scaffold-form .control {
+  margin-bottom: 7px;
+}
+.scaffold-form .fields > .fields:after,
+.scaffold-form .field:after,
+.scaffold-form .wide:after,
+.scaffold-form .control:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+.scaffold-form label:first-child {
+  float: left;
+  width: 135px;
+  padding: 7px 8px 0 0;
+}
+.scaffold-form select,
+.scaffold-form textarea,
+.scaffold-form input[type=email],
+.scaffold-form input[type=search],
+.scaffold-form input[type=number],
+.scaffold-form input[type=password],
+.scaffold-form input[type=tel],
+.scaffold-form input[type=text] {
+  width: 330px;
+  max-width: 100%;
+}
+.scaffold-form .input-box {
+  float: left;
+  max-width: 350px;
+}
+.scaffold-form .buttons-set {
+  padding-top: 5px;
+}
+
+@media only screen and (max-width: 599px) {
+  .scaffold-form label:first-child {
+    float: none;
+    width: auto;
+    padding: 0;
+  }
+  .scaffold-form .input-box {
+    float: none;
+    max-width: 100%;
+  }
+  .scaffold-form .control .input-box {
+    clear: none;
+    float: left;
+    display: inline;
+    width: auto;
+  }
+  .scaffold-form .control label:first-child {
+    float: left;
+  }
+}

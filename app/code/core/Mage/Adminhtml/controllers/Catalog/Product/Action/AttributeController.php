@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -120,6 +120,7 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
                 $stockItem = Mage::getModel('cataloginventory/stock_item');
                 $stockItem->setProcessIndexEvents(false);
                 $stockItemSaved = false;
+                $changedProductIds = array();
 
                 foreach ($this->_getHelper()->getProductIds() as $productId) {
                     $stockItem->setData(array());
@@ -136,6 +137,7 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
                     if ($stockDataChanged) {
                         $stockItem->save();
                         $stockItemSaved = true;
+                        $changedProductIds[] = $productId;
                     }
                 }
 
@@ -144,6 +146,10 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
                         Mage_CatalogInventory_Model_Stock_Item::ENTITY,
                         Mage_Index_Model_Event::TYPE_SAVE
                     );
+
+                    Mage::dispatchEvent('catalog_product_stock_item_mass_change', array(
+                        'products' => $changedProductIds,
+                    ));
                 }
             }
 
@@ -159,9 +165,6 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
                     $actionModel->updateWebsites($productIds, $websiteAddData, 'add');
                 }
 
-                /**
-                 * @deprecated since 1.3.2.2
-                 */
                 Mage::dispatchEvent('catalog_product_to_website_change', array(
                     'products' => $productIds
                 ));

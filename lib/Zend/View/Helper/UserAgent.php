@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -27,15 +27,22 @@
  *
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_View_Helper_UserAgent extends Zend_View_Helper_Abstract
 {
     /**
+     * UserAgent instance
+     *
+     * @var Zend_Http_UserAgent
+     */
+    protected $_userAgent = null;
+
+    /**
      * Helper method: retrieve or set UserAgent instance
-     * 
-     * @param  null|Zend_Http_UserAgent $userAgent 
+     *
+     * @param  null|Zend_Http_UserAgent $userAgent
      * @return Zend_Http_UserAgent
      */
     public function userAgent(Zend_Http_UserAgent $userAgent = null)
@@ -48,8 +55,8 @@ class Zend_View_Helper_UserAgent extends Zend_View_Helper_Abstract
 
     /**
      * Set UserAgent instance
-     * 
-     * @param  Zend_Http_UserAgent $userAgent 
+     *
+     * @param  Zend_Http_UserAgent $userAgent
      * @return Zend_View_Helper_UserAgent
      */
     public function setUserAgent(Zend_Http_UserAgent $userAgent)
@@ -62,7 +69,7 @@ class Zend_View_Helper_UserAgent extends Zend_View_Helper_Abstract
      * Retrieve UserAgent instance
      *
      * If none set, instantiates one using no configuration
-     * 
+     *
      * @return Zend_Http_UserAgent
      */
     public function getUserAgent()

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Page
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,6 +41,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     protected function _construct()
     {
         $this->setTemplate('page/html/head.phtml');
+        $this->setData('is_enterprise', Mage::getEdition() == Mage::EDITION_ENTERPRISE);
     }
 
     /**
@@ -191,11 +192,16 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
                 continue;
             }
             if (!empty($if)) {
-                $html .= '<!--[if '.$if.']>'."\n";
+                // open !IE conditional using raw value
+                if (strpos($if, "><!-->") !== false) {
+                    $html .= $if . "\n";
+                } else {
+                    $html .= '<!--[if '.$if.']>' . "\n";
+                }
             }
 
             // static and skin css
-            $html .= $this->_prepareStaticAndSkinElements('<link rel="stylesheet" type="text/css" href="%s"%s />' . "\n",
+            $html .= $this->_prepareStaticAndSkinElements('<link rel="stylesheet" type="text/css" href="%s"%s />'."\n",
                 empty($items['js_css']) ? array() : $items['js_css'],
                 empty($items['skin_css']) ? array() : $items['skin_css'],
                 $shouldMergeCss ? array(Mage::getDesign(), 'getMergedCssUrl') : null
@@ -214,7 +220,12 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
             }
 
             if (!empty($if)) {
-                $html .= '<![endif]-->'."\n";
+                // close !IE conditional comments correctly
+                if (strpos($if, "><!-->") !== false) {
+                    $html .= '<!--<![endif]-->' . "\n";
+                } else {
+                    $html .= '<![endif]-->' . "\n";
+                }
             }
         }
         return $html;
@@ -233,7 +244,8 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      * @param callback $mergeCallback
      * @return string
      */
-    protected function &_prepareStaticAndSkinElements($format, array $staticItems, array $skinItems, $mergeCallback = null)
+    protected function &_prepareStaticAndSkinElements($format, array $staticItems, array $skinItems,
+                                                      $mergeCallback = null)
     {
         $designPackage = Mage::getDesign();
         $baseJsUrl = Mage::getBaseUrl('js');

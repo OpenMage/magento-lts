@@ -14,9 +14,9 @@
  *
  * @category  Zend
  * @package   Zend_Config
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: Xml.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version   $Id: Xml.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /**
@@ -29,7 +29,7 @@
  *
  * @category  Zend
  * @package   Zend_Config
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Config_Xml extends Zend_Config
@@ -58,10 +58,20 @@ class Zend_Config_Xml extends Zend_Config
      *
      * Note that the keys in $section will override any keys of the same
      * name in the sections that have been included via "extends".
+     * 
+     * The $options parameter may be provided as either a boolean or an array.
+     * If provided as a boolean, this sets the $allowModifications option of
+     * Zend_Config. If provided as an array, there are two configuration
+     * directives that may be set. For example:
      *
-     * @param  string  $xml     XML file or string to process
-     * @param  mixed   $section Section to process
-     * @param  boolean $options Whether modifications are allowed at runtime
+     * $options = array(
+     *     'allowModifications' => false,
+     *     'skipExtends'        => false
+     *      );
+     *
+     * @param  string        $xml     XML file or string to process
+     * @param  mixed         $section Section to process
+     * @param  array|boolean $options 
      * @throws Zend_Config_Exception When xml is not set or cannot be loaded
      * @throws Zend_Config_Exception When section $sectionName cannot be found in $xml
      */

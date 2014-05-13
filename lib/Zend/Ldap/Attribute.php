@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Ldap
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Attribute.php 22996 2010-09-22 17:01:46Z sgehrig $
+ * @version    $Id: Attribute.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /**
@@ -29,7 +29,7 @@
  *
  * @category   Zend
  * @package    Zend_Ldap
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Ldap_Attribute
@@ -214,9 +214,9 @@ class Zend_Ldap_Attribute
     /**
      * Converts a PHP data type into its LDAP representation
      *
-     * @deprected	use Zend_Ldap_Converter instead
-     * @param  		mixed $value
-     * @return 		string|null - null if the PHP data type cannot be converted.
+     * @deprected    use Zend_Ldap_Converter instead
+     * @param          mixed $value
+     * @return         string|null - null if the PHP data type cannot be converted.
      */
     public static function convertToLdapValue($value)
     {
@@ -226,9 +226,9 @@ class Zend_Ldap_Attribute
     /**
      * Converts an LDAP value into its PHP data type
      *
-     * @deprected	use Zend_Ldap_Converter instead
-     * @param  		string $value
-     * @return 		mixed
+     * @deprected    use Zend_Ldap_Converter instead
+     * @param          string $value
+     * @return         mixed
      */
     public static function convertFromLdapValue($value)
     {
@@ -392,9 +392,9 @@ class Zend_Ldap_Attribute
             }
         }
         else {
-			$newVal = self::_valueFromLdapDateTime($values);
-			if ($newVal !== null) $values = $newVal;
-		}
+            $newVal = self::_valueFromLdapDateTime($values);
+            if ($newVal !== null) $values = $newVal;
+        }
         return $values;
     }
 

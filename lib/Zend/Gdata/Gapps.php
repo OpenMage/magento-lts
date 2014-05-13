@@ -16,9 +16,9 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Gapps
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Gapps.php 22511 2010-07-01 01:41:46Z tjohns $
+ * @version    $Id: Gapps.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /**
@@ -76,7 +76,7 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Gapps
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Gapps extends Zend_Gdata
@@ -1178,7 +1178,7 @@ class Zend_Gdata_Gapps extends Zend_Gdata
     {
         $i = 0;
         $group = $this->newGroupEntry();
-        
+
         $properties[$i] = $this->newProperty();
         $properties[$i]->name = 'groupId';
         $properties[$i]->value = $groupId;
@@ -1200,8 +1200,8 @@ class Zend_Gdata_Gapps extends Zend_Gdata
             $properties[$i]->name = 'emailPermission';
             $properties[$i]->value = $emailPermission;
             $i++;
-        }        
-        
+        }
+
         $group->property = $properties;
 
         return $this->insertGroup($group);
@@ -1240,7 +1240,7 @@ class Zend_Gdata_Gapps extends Zend_Gdata
      * @return Zend_Gdata_Gapps_GroupFeed Collection of Zend_Gdata_GroupEntry objects
      *              representing all groups apart of the domain.
      */
-    public function retrieveAllGroups() 
+    public function retrieveAllGroups()
     {
         return $this->retrieveAllEntriesForFeed($this->retrievePageOfGroups());
     }
@@ -1257,7 +1257,7 @@ class Zend_Gdata_Gapps extends Zend_Gdata
 
         $this->delete($uri);
     }
-    
+
     /**
      * Check to see if a member id or group id is a member of group
      *
@@ -1269,7 +1269,7 @@ class Zend_Gdata_Gapps extends Zend_Gdata
     {
         $uri  = self::APPS_BASE_FEED_URI . self::APPS_GROUP_PATH . '/';
         $uri .= $this->getDomain() . '/' . $groupId . '/member/' . $memberId;
-        
+
         //if the enitiy is not a member, an exception is thrown
         try {
             $results = $this->get($uri);
@@ -1353,7 +1353,7 @@ class Zend_Gdata_Gapps extends Zend_Gdata
 
         $uri  = self::APPS_BASE_FEED_URI . self::APPS_GROUP_PATH . '/';
         $uri .= $this->getDomain() . '/' . $groupId . '/owner';
-        
+
         return $this->insertOwner($owner, $uri);
     }
 
@@ -1383,9 +1383,9 @@ class Zend_Gdata_Gapps extends Zend_Gdata
     {
         $uri  = self::APPS_BASE_FEED_URI . self::APPS_GROUP_PATH . '/';
         $uri .= $this->getDomain() . '/' . $groupId . '/owner/' . $email;
-        
+
         //if the enitiy is not an owner of the group, an exception is thrown
-        try {            
+        try {
             $results = $this->get($uri);
         } catch (Exception $e) {
             $results = false;
@@ -1427,7 +1427,7 @@ class Zend_Gdata_Gapps extends Zend_Gdata
     {
         $i = 0;
         $group = $this->newGroupEntry();
-        
+
         $properties[$i] = $this->newProperty();
         $properties[$i]->name = 'groupId';
         $properties[$i]->value = $groupId;
@@ -1453,20 +1453,20 @@ class Zend_Gdata_Gapps extends Zend_Gdata
             $properties[$i]->value = $emailPermission;
             $i++;
         }
-        
+
         $group->property = $properties;
 
         $uri  = self::APPS_BASE_FEED_URI . self::APPS_GROUP_PATH . '/';
         $uri .= $this->getDomain() . '/' . $groupId;
 
-        return $this->updateEntry($group, $uri, 'Zend_Gdata_Gapps_GroupEntry');        
+        return $this->updateEntry($group, $uri, 'Zend_Gdata_Gapps_GroupEntry');
     }
 
     /**
      * Retrieve all of the groups that a user is a member of
      *
      * @param string $memberId Member username
-     * @param bool $directOnly (Optional) If true, members with direct association 
+     * @param bool $directOnly (Optional) If true, members with direct association
      *             only will be considered
      * @return Zend_Gdata_Gapps_GroupFeed Collection of Zend_Gdata_GroupEntry
      *              objects representing all groups member is apart of in the domain.

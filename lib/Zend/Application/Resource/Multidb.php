@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Resource
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Multidb.php 22546 2010-07-10 15:18:12Z freak $
+ * @version    $Id: Multidb.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 #require_once 'Zend/Application/Resource/ResourceAbstract.php';
@@ -51,7 +51,7 @@
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Resource
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Application_Resource_Multidb extends Zend_Application_Resource_ResourceAbstract
@@ -85,7 +85,7 @@ class Zend_Application_Resource_Multidb extends Zend_Application_Resource_Resour
         }
 
         foreach ($options as $id => $params) {
-        	$adapter = $params['adapter'];
+            $adapter = $params['adapter'];
             $default = (int) (
                 isset($params['isDefaultTableAdapter']) && $params['isDefaultTableAdapter']
                 || isset($params['default']) && $params['default']
@@ -178,7 +178,7 @@ class Zend_Application_Resource_Multidb extends Zend_Application_Resource_Resour
 
    /**
      * Set the default metadata cache
-     * 
+     *
      * @param string|Zend_Cache_Core $cache
      * @return Zend_Application_Resource_Multidb
      */

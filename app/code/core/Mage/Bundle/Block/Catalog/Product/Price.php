@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Bundle
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -36,7 +36,7 @@ class Mage_Bundle_Block_Catalog_Product_Price extends Mage_Catalog_Block_Product
 
     public function isRatesGraterThenZero()
     {
-        $_request = Mage::getSingleton('tax/calculation')->getRateRequest(false, false, false);
+        $_request = Mage::getSingleton('tax/calculation')->getDefaultRateRequest();
         $_request->setProductClassId($this->getProduct()->getTaxClassId());
         $defaultTax = Mage::getSingleton('tax/calculation')->getRate($_request);
 
@@ -60,7 +60,7 @@ class Mage_Bundle_Block_Catalog_Product_Price extends Mage_Catalog_Block_Product
             $product->getPriceModel()->getIsPricesCalculatedByIndex() !== false) {
             return false;
         }
-        return $this->helper('tax')->displayBothPrices();
+        return $this->helper('tax')->displayBothPrices(Mage::app()->getStore()->getId());
     }
 
     /**
