@@ -108,6 +108,7 @@ Default layout, loads most of the pages
 
             <block type="core/text_list" name="before_body_end" as="before_body_end" translate="label">
                 <label>Page Bottom</label>
+                <block type="page/html_cookieNotice" name="global_cookie_notice" as ="global_cookie_notice" template="page/html/cookienotice.phtml" before="-" />
             </block>
         </block>
 

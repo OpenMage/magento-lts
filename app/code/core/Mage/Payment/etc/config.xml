@@ -115,6 +115,14 @@
                     </payment_before_save>
                 </observers>
             </sales_order_payment_save_before>
+            <sales_order_status_unassign_before>
+                <observers>
+                    <payment_order_status_unassign_before>
+                        <class>payment/observer</class>
+                        <method>beforeSalesOrderStatusUnassign</method>
+                    </payment_order_status_unassign_before>
+                </observers>
+            </sales_order_status_unassign_before>
         </events>
     </global>
     <frontend>
@@ -128,14 +136,14 @@
             </modules>
         </translate>
         <events>
-            <catalog_product_type_prepare_cart_options>
+            <catalog_product_type_prepare_full_options>
                 <observers>
                     <payment_recurring_profile_prepare_options>
                         <class>payment/observer</class>
                         <method>prepareProductRecurringProfileOptions</method>
                     </payment_recurring_profile_prepare_options>
                 </observers>
-            </catalog_product_type_prepare_cart_options>
+            </catalog_product_type_prepare_full_options>
         </events>
         <layout>
             <updates>

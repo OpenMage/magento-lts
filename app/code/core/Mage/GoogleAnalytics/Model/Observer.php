@@ -34,12 +34,6 @@
 class Mage_GoogleAnalytics_Model_Observer
 {
     /**
-     * Whether the google checkout inclusion link was rendered by this observer instance
-     * @var bool
-     */
-    protected $_isGoogleCheckoutLinkAdded = false;
-
-    /**
      * Create Google Analytics block for success page view
      *
      * @deprecated after 1.3.2.3 Use setGoogleAnalyticsOnOrderSuccessPageView() method instead
@@ -65,38 +59,5 @@ class Mage_GoogleAnalytics_Model_Observer
         if ($block) {
             $block->setOrderIds($orderIds);
         }
-    }
-
-    /**
-     * Add google analytics tracking to google checkout shortcuts
-     *
-     * If there is at least one GC button on the page, there should be the script for GA/GC integration included
-     * a each shortcut should track submits to GA
-     * There should be no tracking if there is no GA available
-     * This method assumes that the observer instance is run as a "singleton" (through Mage::getSingleton())
-     *
-     * @param Varien_Event_Observer $observer
-     */
-    public function injectAnalyticsInGoogleCheckoutLink(Varien_Event_Observer $observer)
-    {
-        $block = $observer->getEvent()->getBlock();
-        if (!$block || !Mage::helper('googleanalytics')->isGoogleAnalyticsAvailable()) {
-            return;
-        }
-
-        // make sure to track google checkout "onsubmit"
-        $onsubmitJs = $block->getOnsubmitJs();
-        $block->setOnsubmitJs($onsubmitJs . ($onsubmitJs ? '; ' : '') . '_gaq.push(function() {var pageTracker = _gaq._getAsyncTracker(); setUrchinInputCode(pageTracker);});');
-
-        // add a link that includes google checkout/analytics script, to the first instance of the link block
-        if ($this->_isGoogleCheckoutLinkAdded) {
-            return;
-        }
-        $beforeHtml = $block->getBeforeHtml();
-        $protocol = Mage::app()->getStore()->isCurrentlySecure() ? 'https' : 'http';
-        $block->setBeforeHtml($beforeHtml . '<script src="' . $protocol
-            . '://checkout.google.com/files/digital/ga_post.js" type="text/javascript"></script>'
-        );
-        $this->_isGoogleCheckoutLinkAdded = true;
     }
 }

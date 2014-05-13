@@ -50,13 +50,20 @@ class Mage_Page_Block_Html_Breadcrumbs extends Mage_Core_Block_Template
      */
     protected $_crumbs = null;
 
-    function __construct()
+    /**
+     * Cache key info
+     *
+     * @var null|array
+     */
+    protected $_cacheKeyInfo = null;
+
+    public function __construct()
     {
         parent::__construct();
         $this->setTemplate('page/html/breadcrumbs.phtml');
     }
 
-    function addCrumb($crumbName, $crumbInfo, $after = false)
+    public function addCrumb($crumbName, $crumbInfo, $after = false)
     {
         $this->_prepareArray($crumbInfo, array('label', 'title', 'link', 'first', 'last', 'readonly'));
         if ((!isset($this->_crumbs[$crumbName])) || (!$this->_crumbs[$crumbName]['readonly'])) {
@@ -64,6 +71,24 @@ class Mage_Page_Block_Html_Breadcrumbs extends Mage_Core_Block_Template
         }
         return $this;
     }
+
+    /**
+     * Get cache key informative items
+     *
+     * @return array
+     */
+    public function getCacheKeyInfo()
+    {
+        if (null === $this->_cacheKeyInfo) {
+            $this->_cacheKeyInfo = parent::getCacheKeyInfo() + array(
+                'crumbs' => base64_encode(serialize($this->_crumbs)),
+                'name'   => $this->getNameInLayout(),
+            );
+        }
+
+        return $this->_cacheKeyInfo;
+    }
+
 
     protected function _toHtml()
     {

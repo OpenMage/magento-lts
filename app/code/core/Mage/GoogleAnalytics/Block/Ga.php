@@ -92,6 +92,7 @@ class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Template
         }
         return "
 _gaq.push(['_setAccount', '{$this->jsQuoteEscape($accountId)}']);
+" . $this->_getAnonymizationCode() . "
 _gaq.push(['_trackPageview'{$optPageURL}]);
 ";
     }
@@ -151,7 +152,19 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
         if (!Mage::helper('googleanalytics')->isGoogleAnalyticsAvailable()) {
             return '';
         }
-
         return parent::_toHtml();
+    }
+
+    /**
+     * Render IP anonymization code for page tracking javascript code
+     *
+     * @return string
+     */
+    protected function _getAnonymizationCode()
+    {
+        if (!Mage::helper('googleanalytics')->isIpAnonymizationEnabled()) {
+            return '';
+        }
+        return "_gaq.push (['_gat._anonymizeIp']);";
     }
 }

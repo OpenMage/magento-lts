@@ -690,8 +690,6 @@ class Mage_Oauth_Model_Server
             }
             if (self::ERR_PARAMETER_ABSENT == $eCode) {
                 $errorMsg .= '&oauth_parameters_absent=' . $eMsg;
-            } elseif (self::ERR_SIGNATURE_INVALID == $eCode) {
-                $errorMsg .= '&debug_sbs=' . $eMsg;
             } elseif ($eMsg) {
                 $errorMsg .= '&message=' . $eMsg;
             }

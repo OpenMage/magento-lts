@@ -347,15 +347,16 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     /**
      * Order flags
      */
-    const ACTION_FLAG_CANCEL    = 'cancel';
-    const ACTION_FLAG_HOLD      = 'hold';
-    const ACTION_FLAG_UNHOLD    = 'unhold';
-    const ACTION_FLAG_EDIT      = 'edit';
-    const ACTION_FLAG_CREDITMEMO= 'creditmemo';
-    const ACTION_FLAG_INVOICE   = 'invoice';
-    const ACTION_FLAG_REORDER   = 'reorder';
-    const ACTION_FLAG_SHIP      = 'ship';
-    const ACTION_FLAG_COMMENT   = 'comment';
+    const ACTION_FLAG_CANCEL                    = 'cancel';
+    const ACTION_FLAG_HOLD                      = 'hold';
+    const ACTION_FLAG_UNHOLD                    = 'unhold';
+    const ACTION_FLAG_EDIT                      = 'edit';
+    const ACTION_FLAG_CREDITMEMO                = 'creditmemo';
+    const ACTION_FLAG_INVOICE                   = 'invoice';
+    const ACTION_FLAG_REORDER                   = 'reorder';
+    const ACTION_FLAG_SHIP                      = 'ship';
+    const ACTION_FLAG_COMMENT                   = 'comment';
+    const ACTION_FLAG_PRODUCTS_PERMISSION_DENIED= 'product_permission_denied';
 
     /**
      * Report date types
@@ -789,6 +790,10 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             return false;
         }
 
+        if ($this->getActionFlag(self::ACTION_FLAG_REORDER) === false) {
+            return false;
+        }
+
         $products = array();
         foreach ($this->getItemsCollection() as $item) {
             $products[] = $item->getProductId();
@@ -816,18 +821,14 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             */
 
             foreach ($products as $productId) {
-                $product = Mage::getModel('catalog/product')
-                    ->setStoreId($this->getStoreId())
-                    ->load($productId);
+                    $product = Mage::getModel('catalog/product')
+                        ->setStoreId($this->getStoreId())
+                        ->load($productId);
+                }
                 if (!$product->getId() || (!$ignoreSalable && !$product->isSalable())) {
                     return false;
                 }
             }
-        }
-
-        if ($this->getActionFlag(self::ACTION_FLAG_REORDER) === false) {
-            return false;
-        }
 
         return true;
     }
@@ -1256,6 +1257,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Send email with order data
      *
      * @return Mage_Sales_Model_Order
+     * @throws Exception
      */
     public function sendNewOrderEmail()
     {
@@ -1264,6 +1266,13 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if (!Mage::helper('sales')->canSendNewOrderEmail($storeId)) {
             return $this;
         }
+
+        $emailSentAttributeValue = $this->load($this->getId())->getData('email_sent');
+        $this->setEmailSent((bool)$emailSentAttributeValue);
+        if ($this->getEmailSent()) {
+            return $this;
+        }
+
         // Get the destination email addresses to send copies to
         $copyTo = $this->_getEmails(self::XML_PATH_EMAIL_COPY_TO);
         $copyMethod = Mage::getStoreConfig(self::XML_PATH_EMAIL_COPY_METHOD, $storeId);

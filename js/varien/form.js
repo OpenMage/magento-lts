@@ -356,6 +356,7 @@ ZipUpdater.prototype = {
 
         // Ajax-request and normal content load compatibility
         if (this.zipElement != undefined) {
+            Validation.reset(this.zipElement)
             this._setPostcodeOptional();
         } else {
             Event.observe(window, "load", this._setPostcodeOptional.bind(this));

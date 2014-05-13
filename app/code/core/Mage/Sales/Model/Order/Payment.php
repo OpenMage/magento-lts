@@ -364,6 +364,12 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             $orderStatus = $methodInstance->getConfigData('order_status');
             if (!$orderStatus) {
                 $orderStatus = $order->getConfig()->getStateDefaultStatus($orderState);
+            } else {
+                // check if $orderStatus has assigned a state
+                $states = $order->getConfig()->getStatusStates($orderStatus);
+                if (count($states) == 0) {
+                    $orderStatus = $order->getConfig()->getStateDefaultStatus($orderState);
+                }
             }
         }
         $isCustomerNotified = (null !== $orderIsNotified) ? $orderIsNotified : $order->getCustomerNoteNotify();
@@ -761,7 +767,8 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         }
 
         if ($amount != $baseGrandTotal) {
-            $order->addStatusHistoryComment(Mage::helper('sales')->__('IPN "Refunded". Refund issued by merchant. Registered notification about refunded amount of %s. Transaction ID: "%s". Credit Memo has not been created. Please create offline Credit Memo.', $this->_formatPrice($notificationAmount), $this->getTransactionId()), false);
+            $order->addStatusHistoryComment(Mage::helper('sales')->__('IPN "Refunded". Refund issued by merchant. Registered notification about refunded amount of %s. Transaction ID: "%s". Credit Memo has not been created. Please create offline Credit Memo.',
+                $this->_formatPrice($notificationAmount), $this->getTransactionId()), false);
             return $this;
         }
 
@@ -977,7 +984,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
 
         // process payment in case of positive or negative result, or add a comment
         if (-1 === $result) { // switch won't work with such $result!
-            if ($order->getState() != Mage_Sales_Model_Order::STATE_PAYMENT_REVIEW) {
+            if ($order -> getState() != Mage_Sales_Model_Order::STATE_PAYMENT_REVIEW) {
                 $status = $this->getIsFraudDetected() ? Mage_Sales_Model_Order::STATUS_FRAUD : false;
                 $order->setState(Mage_Sales_Model_Order::STATE_PAYMENT_REVIEW, $status, $message);
                 if ($transactionId) {

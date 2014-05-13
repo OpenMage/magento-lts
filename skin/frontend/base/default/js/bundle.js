@@ -89,6 +89,7 @@ Product.Bundle.prototype = {
         var calculatedPrice = 0;
         var dispositionPrice = 0;
         var includeTaxPrice = 0;
+
         for (var option in this.config.selected) {
             if (this.config.options[option]) {
                 for (var i=0; i < this.config.selected[option].length; i++) {
@@ -98,6 +99,27 @@ Product.Bundle.prototype = {
                     includeTaxPrice += Number(prices[2]);
                 }
             }
+        }
+
+        //Tax is calculated in a different way for the the TOTAL BASED method
+        //We round the taxes at the end. Hence we do the same for consistency
+        //This variable is set in the bundle.phtml
+        if (taxCalcMethod == CACL_TOTAL_BASE) {
+            var calculatedPriceFormatted = calculatedPrice.toFixed(10);
+            var includeTaxPriceFormatted = includeTaxPrice.toFixed(10);
+            var tax = includeTaxPriceFormatted - calculatedPriceFormatted;
+            calculatedPrice = includeTaxPrice - Math.round(tax * 100) / 100;
+        }
+
+        //make sure that the prices are all rounded to two digits
+        //this is needed when tax calculation is based on total for dynamic
+        //price bundle product. For fixed price bundle product, the rounding
+        //needs to be done after option price is added to base price
+        if (this.config.priceType == '0') {
+            calculatedPrice = Math.round(calculatedPrice*100)/100;
+            dispositionPrice = Math.round(dispositionPrice*100)/100;
+            includeTaxPrice = Math.round(includeTaxPrice*100)/100;
+
         }
 
         var event = $(document).fire('bundle:reload-price', {
@@ -159,7 +181,6 @@ Product.Bundle.prototype = {
 
         if (this.config.specialPrice) {
             newPrice = (price*this.config.specialPrice)/100;
-            newPrice = (Math.round(newPrice*100)/100).toString();
             price = Math.min(newPrice, price);
         }
 
@@ -174,8 +195,23 @@ Product.Bundle.prototype = {
             priceInclTax = price;
         }
 
-        var result = new Array(price*qty, disposition*qty, priceInclTax*qty);
-        return result;
+        if (this.config.priceType == '1' || taxCalcMethod == CACL_TOTAL_BASE) {
+            var result = new Array(price*qty, disposition*qty, priceInclTax*qty);
+            return result;                        
+        }
+        else if (taxCalcMethod == CACL_UNIT_BASE) {
+            price = (Math.round(price*100)/100).toString();
+            disposition = (Math.round(disposition*100)/100).toString();
+            priceInclTax = (Math.round(priceInclTax*100)/100).toString();
+            var result = new Array(price*qty, disposition*qty, priceInclTax*qty);
+            return result;
+        } else { //taxCalcMethod == CACL_ROW_BASE) 
+            price = (Math.round(price*qty*100)/100).toString();
+            disposition = (Math.round(disposition*qty*100)/100).toString();
+            priceInclTax = (Math.round(priceInclTax*qty*100)/100).toString();
+            var result = new Array(price, disposition, priceInclTax);
+            return result;            
+        }
     },
 
     populateQty: function(optionId, selectionId){

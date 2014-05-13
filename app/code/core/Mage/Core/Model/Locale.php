@@ -411,13 +411,14 @@ class Mage_Core_Model_Locale
 
     /**
      * Retrieve ISO date format
+     * and filter for 2 digit year format, it must be 4 digits
      *
      * @param   string $type
      * @return  string
      */
     public function getDateFormat($type=null)
     {
-        return $this->getTranslation($type, 'date');
+        return preg_replace('/(?<!y)yy(?!y)/', 'yyyy', $this->getTranslation($type, 'date'));
     }
 
     /**
@@ -430,7 +431,6 @@ class Mage_Core_Model_Locale
         return preg_replace('/(?<!y)yy(?!y)/', 'yyyy',
             $this->getTranslation(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT, 'date'));
     }
-
 
     /**
      * Retrieve ISO time format
@@ -576,7 +576,15 @@ class Mage_Core_Model_Locale
             try {
                 $currencyObject = new Zend_Currency($currency, $this->getLocale());
             } catch (Exception $e) {
-                $currencyObject = new Zend_Currency($this->getCurrency(), $this->getLocale());
+                /**
+                 * catch specific exceptions like "Currency 'USD' not found"
+                 * - back end falls with specific locals as Malaysia and etc.
+                 *
+                 * as we can see from Zend framework ticket
+                 * http://framework.zend.com/issues/browse/ZF-10038
+                 * zend team is not going to change it behaviour in the near time
+                 */
+                $currencyObject = new Zend_Currency($currency);
                 $options['name'] = $currency;
                 $options['currency'] = $currency;
                 $options['symbol'] = $currency;
@@ -753,7 +761,18 @@ class Mage_Core_Model_Locale
         return $this->getLocale()->getTranslation($value, $path, $this->getLocale());
     }
 
-/**
+    /**
+     * Replace all yy date format to yyyy
+     *
+     * @param $currentFormat
+     * @return mixed
+     */
+    protected function _convertYearTwoDigitTo4($currentFormat)
+    {
+        return preg_replace('/(\byy\b)/', 'yyyy', $currentFormat);
+    }
+
+    /**
      * Returns the localized country name
      *
      * @param  string             $value  Name to get detailed information about

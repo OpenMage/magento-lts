@@ -70,7 +70,8 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
     protected function _getProductAttribute($attribute)
     {
         if (empty($this->_productAttributes[$attribute])) {
-            $this->_productAttributes[$attribute] = Mage::getSingleton('catalog/product')->getResource()->getAttribute($attribute);
+            $this->_productAttributes[$attribute] =
+                Mage::getSingleton('catalog/product')->getResource()->getAttribute($attribute);
         }
         return $this->_productAttributes[$attribute];
     }
@@ -129,12 +130,6 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
             ->where('store_id     = :store_id')
             ->where('entity_id    = :product_id');
 
-        $binds = array(
-            'attribute_id' => $statusAttributeId,
-            'store_id'     => $storeId,
-            'product_id'   => $productId
-        );
-
         $row = $adapter->fetchRow($select);
 
         if ($row) {
@@ -189,11 +184,12 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
             $select = $adapter->select()
                 ->from(
                     array('t1' => $attributeTable),
-                    array('value' => $valueCheckSql))
+                    array('entity_id' => 't1.entity_id', 'value' => $valueCheckSql))
                 ->joinLeft(
                     array('t2' => $attributeTable),
-                    't1.entity_id = t2.entity_id AND t1.attribute_id = t2.attribute_id AND t2.store_id = ' . (int)$storeId,
-                    array('t1.entity_id')
+                    't1.entity_id = t2.entity_id AND t1.attribute_id = t2.attribute_id AND t2.store_id = '
+                        . (int)$storeId,
+                    array('')
                 )
                 ->where('t1.store_id = ?', Mage_Core_Model_App::ADMIN_STORE_ID)
                 ->where('t1.attribute_id = ?', $attribute->getAttributeId())

@@ -60,7 +60,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      *
      * @var string
      */
-    protected $_tierPriceDefaultTemplate  = 'catalog/product/view/tierprices.phtml';
+    protected $_tierPriceDefaultTemplate = 'catalog/product/view/tierprices.phtml';
 
     /**
      * Price types
@@ -198,7 +198,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
         $stockItem = $product->getStockItem();
         if ($stockItem) {
             return ($stockItem->getMinSaleQty()
-                && $stockItem->getMinSaleQty() > 0 ? $stockItem->getMinSaleQty() * 1 : null);
+            && $stockItem->getMinSaleQty() > 0 ? $stockItem->getMinSaleQty() * 1 : null);
         }
         return null;
     }
@@ -377,13 +377,15 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
 
         return $this->getData('tier_price_template');
     }
+
     /**
      * Returns product tier price block html
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param null|Mage_Catalog_Model_Product $product
+     * @param null|Mage_Catalog_Model_Product $parent
      * @return string
      */
-    public function getTierPriceHtml($product = null)
+    public function getTierPriceHtml($product = null, $parent = null)
     {
         if (is_null($product)) {
             $product = $this->getProduct();
@@ -391,8 +393,22 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
         return $this->_getPriceBlock($product->getTypeId())
             ->setTemplate($this->getTierPriceTemplate())
             ->setProduct($product)
-            ->setInGrouped($this->getProduct()->isGrouped())
-            ->toHtml();
+            ->setInGrouped($product->isGrouped())
+            ->setParent($parent)
+            ->callParentToHtml();
+    }
+
+    /*
+     * Calls the object's to Html method.
+     * This method exists to make the code more testable.
+     * By having a protected wrapper for the final method toHtml, we can 'mock' out this method
+     * when unit testing
+     *
+     *  @return string
+     */
+    protected function callParentToHtml()
+    {
+        return $this->toHtml();
     }
 
     /**
@@ -406,7 +422,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
         if (is_null($product)) {
             $product = $this->getProduct();
         }
-        $prices  = $product->getFormatedTierPrice();
+        $prices = $product->getFormatedTierPrice();
 
         $res = array();
         if (is_array($prices)) {

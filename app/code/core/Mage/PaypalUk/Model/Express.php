@@ -39,7 +39,7 @@ class Mage_PaypalUk_Model_Express extends Mage_Paypal_Model_Express
      *
      * @var $_proType string
      */
-    protected $_proType = 'paypaluk/pro';
+    protected $_proType = 'paypaluk/express_pro';
 
     /**
      * Express Checkout payment method instance
@@ -60,7 +60,8 @@ class Mage_PaypalUk_Model_Express extends Mage_Paypal_Model_Express
             return false;
         }
         if (!$this->_ecInstance) {
-            $this->_ecInstance = Mage::helper('payment')->getMethodInstance(Mage_Paypal_Model_Config::METHOD_WPP_EXPRESS);
+            $this->_ecInstance = Mage::helper('payment')
+                ->getMethodInstance(Mage_Paypal_Model_Config::METHOD_WPP_EXPRESS);
         }
         if ($quote && $this->_ecInstance) {
             $this->_ecInstance->setStore($quote->getStoreId());

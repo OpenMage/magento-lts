@@ -367,7 +367,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Retrieve URL for adding item to shoping cart
+     * Retrieve URL for adding item to shopping cart
      *
      * @param string|Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $item
      * @return  string

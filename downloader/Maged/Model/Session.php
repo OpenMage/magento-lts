@@ -221,4 +221,17 @@ class Maged_Model_Session extends Maged_Model
         }
         return Mage::getSingleton('adminhtml/url')->getUrl('adminhtml');
     }
+
+    /**
+     * Retrieve Session Form Key
+     *
+     * @return string A 16 bit unique key for forms
+     */
+    public function getFormKey()
+    {
+        if (!$this->get('_form_key')) {
+            $this->set('_form_key', Mage::helper('core')->getRandomString(16));
+        }
+        return $this->get('_form_key');
+    }
 }

@@ -205,12 +205,19 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
         $this->_redirect('*/*/');
     }
 
+    /**
+     * Unassign the status from a specific state
+     */
     public function unassignAction()
     {
         $state  = $this->getRequest()->getParam('state');
         $status = $this->_initStatus();
         if ($status) {
             try {
+                Mage::dispatchEvent('sales_order_status_unassign_before', array(
+                    'status' => $status, // string {new,     ...}
+                    'state'  => $state   // Model  {Pending, ...}
+                ));
                 $status->unassignState($state);
                 $this->_getSession()->addSuccess(Mage::helper('sales')->__('The order status has been unassigned.'));
             } catch (Mage_Core_Exception $e) {

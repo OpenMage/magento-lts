@@ -37,6 +37,11 @@
                 <type>text</type>
             </title>
             <template>
+                <required>1</required>
+                <visible>1</visible>
+                <label>Template</label>
+                <type>select</type>
+                <value>sales/widget/guest/form.phtml</value>
                 <values>
                     <default_template translate="label">
                         <label>Default Template</label>

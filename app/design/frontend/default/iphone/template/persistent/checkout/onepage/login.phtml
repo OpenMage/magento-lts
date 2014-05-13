@@ -38,6 +38,7 @@
         <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
         <form id="login-form" action="<?php echo $this->getPostAction() ?>" method="post">
         <fieldset>
+            <?php echo $this->getBlockHtml('formkey'); ?>
             <p><?php echo $this->__('Already registered? Please log in below:') ?></p>
             <ul class="form-list">
                 <li>

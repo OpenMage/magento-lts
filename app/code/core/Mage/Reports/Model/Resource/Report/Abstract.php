@@ -408,10 +408,9 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
             $dtz = new DateTimeZone($timezone);
             $transitions = $dtz->getTransitions();
             $dateTimeObject = new Zend_Date('c');
-
             for ($i = count($transitions) - 1; $i >= 0; $i--) {
                 $tr = $transitions[$i];
-                if ($tr['ts'] > $to) {
+                if (!$this->_isValidTransition($tr, $to)) {
                     continue;
                 }
 
@@ -426,12 +425,43 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
                 $nextPeriod = $tr['time'];
             }
         } catch (Exception $e) {
-            Mage::logException($e);
+            $this->_logException($e);
         }
 
         return $tzTransitions;
     }
 
+    /**
+     * Logs the exceptions
+     *
+     * @param Exception $exception
+     */
+    protected function _logException($exception)
+    {
+        Mage::logException($exception);
+    }
+
+    /**
+     * Verifies the transition and the "to" timestamp
+     *
+     * @param array      $transition
+     * @param int|string $to
+     * @return bool
+     */
+    protected function _isValidTransition($transition, $to)
+    {
+        $result         = true;
+        $timeStamp      = $transition['ts'];
+        $transitionYear = date('Y', $timeStamp);
+
+        if ($transitionYear > 10000 || $transitionYear < -10000) {
+            $result = false;
+        } else if ($timeStamp > $to) {
+            $result = false;
+        }
+
+        return $result;
+    }
 
     /**
      * Retrieve store timezone offset from UTC in the form acceptable by SQL's CONVERT_TZ()

@@ -64,7 +64,7 @@
     <?php $weees = $this->getAllWeee(); ?>
     <?php foreach ($weees as $weeeTitle => $weeeAmount): ?>
     <tr class="summary-details-<?php echo $taxIter; ?> summary-details<?php if ($isTop): echo ' summary-details-first'; endif; ?>" style="display:none;">
-        <td class="a-right" style="<?php echo $_style ?>" colspan="1">
+        <td class="a-right" style="<?php echo $_style ?>" colspan="<?php echo $this->getColspan(); ?>">
             <?php echo $this->escapeHtml($weeeTitle); ?>
             <br />
         </td>

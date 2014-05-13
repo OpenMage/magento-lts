@@ -41,8 +41,24 @@
 abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abstract
     implements Mage_Catalog_Model_Product_Configuration_Item_Interface
 {
+    /**
+     * Parent item for sub items for bundle product, configurable product, etc.
+     *
+     * @var Mage_Sales_Model_Quote_Item_Abstract
+     */
     protected $_parentItem  = null;
+
+    /**
+     * Children items in bundle product, configurable product, etc.
+     *
+     * @var array
+     */
     protected $_children    = array();
+
+    /**
+     *
+     * @var array
+     */
     protected $_messages    = array();
 
     /**
@@ -250,10 +266,10 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
 
         try {
             $this->setQty($qty);
-        } catch (Mage_Core_Exception $e){
+        } catch (Mage_Core_Exception $e) {
             $this->setHasError(true);
             $this->setMessage($e->getMessage());
-        } catch (Exception $e){
+        } catch (Exception $e) {
             $this->setHasError(true);
             $this->setMessage(Mage::helper('sales')->__('Item qty declaration error.'));
         }
@@ -323,7 +339,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
         $qty        = $this->getTotalQty();
         // Round unit price before multiplying to prevent losing 1 cent on subtotal
         $total      = $this->getStore()->roundPrice($this->getCalculationPriceOriginal()) * $qty;
-        $baseTotal  = $this->getBaseCalculationPriceOriginal() * $qty;
+        $baseTotal  = $this->getStore()->roundPrice($this->getBaseCalculationPriceOriginal()) * $qty;
 
         $this->setRowTotal($this->getStore()->roundPrice($total));
         $this->setBaseRowTotal($this->getStore()->roundPrice($baseTotal));
@@ -647,8 +663,8 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
                 $totalTax = $this->getTaxAmount();
 
                 if ($totalTax && $totalBaseTax) {
-                    $totalTax -= $this->getDiscountAmount()*($this->getTaxPercent()/100);
-                    $totalBaseTax -= $this->getBaseDiscountAmount()*($this->getTaxPercent()/100);
+                    $totalTax -= $this->getDiscountAmount() * ($this->getTaxPercent() / 100);
+                    $totalBaseTax -= $this->getBaseDiscountAmount() * ($this->getTaxPercent() / 100);
 
                     $this->setBaseTaxAmount($store->roundPrice($totalBaseTax));
                     $this->setTaxAmount($store->roundPrice($totalTax));

@@ -931,4 +931,19 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     {
         return $this->getResourceCollection()->getFiltered($filter);
     }
+
+    /**
+     * Checking if the credit memo is last
+     *
+     * @return bool
+     */
+    public function isLast()
+    {
+        foreach ($this->getAllItems() as $item) {
+            if (!$item->isLast()) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

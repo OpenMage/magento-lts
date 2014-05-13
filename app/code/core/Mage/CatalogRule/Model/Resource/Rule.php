@@ -246,7 +246,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
                         ));
 
                     if (count($productIds) > 0) {
-                        $selectByStore->where('p.entity_id IN (?)', $productIds);
+                        $selectByStore->where('p.entity_id IN (?)', array_keys($productIds));
                     }
 
                     $selects = $write->selectsByRange('entity_id', $selectByStore, self::RANGE_PRODUCT_STEP);

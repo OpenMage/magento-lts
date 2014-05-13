@@ -397,6 +397,11 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
      */
     public function updatePostAction()
     {
+        if (!$this->_validateFormKey()) {
+            $this->_redirect('*/*/');
+            return;
+        }
+
         $updateAction = (string)$this->getRequest()->getParam('update_cart_action');
 
         switch ($updateAction) {

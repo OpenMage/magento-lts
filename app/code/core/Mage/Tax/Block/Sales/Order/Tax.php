@@ -132,14 +132,23 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
             $subtotalIncl   = (float) $this->_source->getSubtotalInclTax();
             $baseSubtotalIncl= (float) $this->_source->getBaseSubtotalInclTax();
 
-            if (!$subtotalIncl) {
-                $subtotalIncl = $subtotal+ $this->_source->getTaxAmount()
+            if (!$subtotalIncl || !$baseSubtotalIncl) {
+                //Calculate the subtotal if not set
+                $subtotalIncl = $subtotal + $this->_source->getTaxAmount()
                     - $this->_source->getShippingTaxAmount();
-            }
-            if (!$baseSubtotalIncl) {
                 $baseSubtotalIncl = $baseSubtotal + $this->_source->getBaseTaxAmount()
                     - $this->_source->getBaseShippingTaxAmount();
+
+                if ($this->_source instanceof Mage_Sales_Model_Order) {
+                    //Adjust the discount amounts for the base and well as the weee to display the right totals
+                    foreach ($this->_source->getAllItems() as $item) {
+                        $subtotalIncl += $item->getHiddenTaxAmount() + $item->getDiscountAppliedForWeeeTax();
+                        $baseSubtotalIncl += $item->getBaseHiddenTaxAmount() +
+                            $item->getBaseDiscountAppliedForWeeeTax();
+                    }
+                }
             }
+
             $subtotalIncl = max(0, $subtotalIncl);
             $baseSubtotalIncl = max(0, $baseSubtotalIncl);
             $totalExcl = new Varien_Object(array(

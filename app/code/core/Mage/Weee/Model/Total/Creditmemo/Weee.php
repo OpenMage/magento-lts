@@ -34,30 +34,50 @@ class Mage_Weee_Model_Total_Creditmemo_Weee extends Mage_Sales_Model_Order_Credi
         $totalTax              = 0;
         $baseTotalTax          = 0;
 
+        $weeeTaxAmount = 0;
+        $baseWeeeTaxAmount = 0;
+
         foreach ($creditmemo->getAllItems() as $item) {
             if ($item->getOrderItem()->isDummy()) {
                 continue;
             }
             $orderItemQty = $item->getOrderItem()->getQtyOrdered();
 
-            $totalTax += $item->getWeeeTaxAppliedAmount()*$item->getQty();
-            $baseTotalTax += $item->getBaseWeeeTaxAppliedAmount()*$item->getQty();
+            $weeeAmountExclTax = (Mage::helper('weee')->getWeeeTaxInclTax($item)
+                - Mage::helper('weee')->getTotalTaxAppliedForWeeeTax($item)
+                - $item->getOrderItem()->getDiscountAppliedForWeeeTax()) * $item->getQty();
+            $totalTax += $weeeAmountExclTax;
+
+            $baseWeeeAmountExclTax = (Mage::helper('weee')->getBaseWeeeTaxInclTax($item)
+                - Mage::helper('weee')->getBaseTotalTaxAppliedForWeeeTax($item)
+                - $item->getOrderItem()->getDiscountAppliedForWeeeTax()) * $item->getQty();
+            $baseTotalTax += $baseWeeeAmountExclTax;
+
+            $item->setWeeeTaxAppliedRowAmount($weeeAmountExclTax);
+            $item->setBaseWeeeTaxAppliedRowAmount($baseWeeeAmountExclTax);
+
+            $weeeTaxAmount += (Mage::helper('weee')->getWeeeTaxInclTax($item)) * $item->getQty();
+            $baseWeeeTaxAmount += (Mage::helper('weee')->getBaseWeeeTaxInclTax($item)) * $item->getQty();
 
             $newApplied = array();
             $applied = Mage::helper('weee')->getApplied($item);
             foreach ($applied as $one) {
-                $one['base_row_amount'] = $one['base_amount']*$item->getQty();
-                $one['row_amount'] = $one['amount']*$item->getQty();
-                $one['base_row_amount_incl_tax'] = $one['base_amount_incl_tax']*$item->getQty();
-                $one['row_amount_incl_tax'] = $one['amount_incl_tax']*$item->getQty();
+                $one['base_row_amount'] = $one['base_amount'] * $item->getQty();
+                $one['row_amount'] = $one['amount'] * $item->getQty();
+                $one['base_row_amount_incl_tax'] = $one['base_amount_incl_tax'] * $item->getQty();
+                $one['row_amount_incl_tax'] = $one['amount_incl_tax'] * $item->getQty();
 
                 $newApplied[] = $one;
             }
             Mage::helper('weee')->setApplied($item, $newApplied);
 
-            $item->setWeeeTaxRowDisposition($item->getWeeeTaxDisposition()*$item->getQty());
-            $item->setBaseWeeeTaxRowDisposition($item->getBaseWeeeTaxDisposition()*$item->getQty());
+            $item->setWeeeTaxRowDisposition($item->getWeeeTaxDisposition() * $item->getQty());
+            $item->setBaseWeeeTaxRowDisposition($item->getBaseWeeeTaxDisposition() * $item->getQty());
         }
+
+        /*
+         * please refer the description in weee - invoice section for reasoning
+         */
 
         if (Mage::helper('weee')->includeInSubtotal($store)) {
             $creditmemo->setSubtotal($creditmemo->getSubtotal() + $totalTax);
@@ -67,6 +87,11 @@ class Mage_Weee_Model_Total_Creditmemo_Weee extends Mage_Sales_Model_Order_Credi
             $creditmemo->setBaseTaxAmount($creditmemo->getBaseTaxAmount() + $baseTotalTax);
         }
 
+        //Increment the subtotal
+        $creditmemo->setSubtotalInclTax($creditmemo->getSubtotalInclTax() + $weeeTaxAmount);
+        $creditmemo->setBaseSubtotalInclTax($creditmemo->getBaseSubtotalInclTax() + $baseWeeeTaxAmount);
+
+        //Increment the grand total
         $creditmemo->setGrandTotal($creditmemo->getGrandTotal() + $totalTax);
         $creditmemo->setBaseGrandTotal($creditmemo->getBaseGrandTotal() + $baseTotalTax);
 

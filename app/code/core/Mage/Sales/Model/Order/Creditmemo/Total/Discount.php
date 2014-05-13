@@ -74,11 +74,11 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Discount extends Mage_Sales_Model_
                     );
                 }
 
+                $totalDiscountAmount += $discount;
+                $baseTotalDiscountAmount += $baseDiscount;
+
                 $item->setDiscountAmount($discount);
                 $item->setBaseDiscountAmount($baseDiscount);
-
-                $totalDiscountAmount += $discount;
-                $baseTotalDiscountAmount+= $baseDiscount;
             }
         }
 

@@ -155,6 +155,12 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
      */
     public function postAction()
     {
+        if (!$this->_validateFormKey()) {
+            // returns to the product item page
+            $this->_redirectReferer();
+            return;
+        }
+
         if ($data = Mage::getSingleton('review/session')->getFormData(true)) {
             $rating = array();
             if (isset($data['ratings']) && is_array($data['ratings'])) {

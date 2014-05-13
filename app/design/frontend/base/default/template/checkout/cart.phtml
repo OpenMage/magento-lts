@@ -47,6 +47,7 @@
     <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
     <?php echo $this->getChildHtml('form_before') ?>
     <form action="<?php echo $this->getUrl('checkout/cart/updatePost') ?>" method="post">
+        <?php echo $this->getBlockHtml('formkey'); ?>
         <fieldset>
             <table id="shopping-cart-table" class="data-table cart-table">
                 <col width="1" />

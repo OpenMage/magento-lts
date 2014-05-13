@@ -66,16 +66,19 @@ class Mage_Tax_Block_Checkout_Tax extends Mage_Checkout_Block_Total_Default
         $allWeee = array();
         $store = $this->getTotal()->getAddress()->getQuote()->getStore();
         $helper = $this->_factory->getHelper('weee');
+
         if (!$helper->includeInSubtotal($store)) {
             foreach ($this->getTotal()->getAddress()->getCachedItemsAll() as $item) {
                 foreach ($helper->getApplied($item) as $tax) {
                     $weeeDiscount = isset($tax['weee_discount']) ? $tax['weee_discount'] : 0;
                     $title = $tax['title'];
-                    $amount = isset($tax['row_amount']) ? $tax['row_amount'] : 0;
+                    $rowAmount = isset($tax['row_amount']) ? $tax['row_amount'] : 0;
+                    $rowAmountInclTax = isset($tax['row_amount_incl_tax']) ? $tax['row_amount_incl_tax'] : 0;
+                    $amountDisplayed = ($helper->isTaxIncluded()) ? $rowAmountInclTax : $rowAmount;
                     if (array_key_exists($title, $allWeee)) {
-                        $allWeee[$title] = $allWeee[$title] + $amount - $weeeDiscount;
+                        $allWeee[$title] = $allWeee[$title] + $amountDisplayed - $weeeDiscount;
                     } else {
-                        $allWeee[$title] = $amount - $weeeDiscount;
+                        $allWeee[$title] = $amountDisplayed - $weeeDiscount;
                     }
                 }
             }

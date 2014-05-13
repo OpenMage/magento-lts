@@ -40,8 +40,16 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
      */
     protected $_stateStatuses;
 
+    /**
+     * States array
+     *
+     * @var array
+     */
     private $_states;
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         parent::__construct(Mage::getConfig()->getNode('global/sales/order'));
@@ -66,7 +74,8 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
     public function getStateDefaultStatus($state)
     {
         $status = false;
-        if ($stateNode = $this->_getState($state)) {
+        $stateNode = $this->_getState($state);
+        if ($stateNode) {
             $status = Mage::getModel('sales/order_status')
                 ->loadDefaultByState($state);
             $status = $status->getStatus();
@@ -95,7 +104,8 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
      */
     public function getStateLabel($state)
     {
-        if ($stateNode = $this->_getState($state)) {
+        $stateNode = $this->_getState($state);
+        if ($stateNode) {
             $state = (string) $stateNode->label;
             return Mage::helper('sales')->__($state);
         }
@@ -155,7 +165,8 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
             $state = array($state);
         }
         foreach ($state as $_state) {
-            if ($stateNode = $this->_getState($_state)) {
+            $stateNode = $this->_getState($_state);
+            if ($stateNode) {
                 $collection = Mage::getResourceModel('sales/order_status_collection')
                     ->addStateFilter($_state)
                     ->orderByLabel();
@@ -171,6 +182,23 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
         }
         $this->_stateStatuses[$key] = $statuses;
         return $statuses;
+    }
+
+    /**
+     * Retrieve state available for status
+     * Get all assigned states for specified status
+     *
+     * @param string $status
+     * @return array
+     */
+    public function getStatusStates($status)
+    {
+        $states = array();
+        $collection = Mage::getResourceModel('sales/order_status_collection')->addStatusFilter($status);
+        foreach ($collection as $state) {
+            $states[] = $state;
+        }
+        return $states;
     }
 
     /**
@@ -195,6 +223,9 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
         return $this->_states['invisible'];
     }
 
+    /**
+     * If not yet initialized, loads the "_states" array object.
+     */
     private function _getStates()
     {
         if (null === $this->_states) {

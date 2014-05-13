@@ -106,6 +106,22 @@
                     </weee>
                 </observers>
             </bundle_product_view_config>
+            <create_order_session_quote_initialized>
+                <observers>
+                    <weee>
+                        <class>weee/observer</class>
+                        <method>setSessionQuoteStore</method>
+                    </weee>
+                </observers>
+            </create_order_session_quote_initialized>
+            <init_from_order_session_quote_initialized>
+                <observers>
+                    <weee>
+                        <class>weee/observer</class>
+                        <method>setSessionQuoteStore</method>
+                    </weee>
+                </observers>
+            </init_from_order_session_quote_initialized>
         </events>
         <fieldsets>
             <sales_convert_quote_item>
@@ -196,8 +212,7 @@
                 <totals>
                     <weee>
                         <class>weee/total_invoice_weee</class>
-                        <after>subtotal,tax,discount,grand_total,cost_total</after>
-                        <before>shipping</before>
+                        <after>subtotal,tax,discount,grand_total,cost_total,shipping</after>
                     </weee>
                 </totals>
             </order_invoice>
@@ -206,7 +221,7 @@
                     <weee>
                         <class>weee/total_creditmemo_weee</class>
                         <after>subtotal</after>
-                        <before>shipping,tax,discount,grand_total</before>
+                        <before>tax,discount,grand_total</before>
                     </weee>
                 </totals>
             </order_creditmemo>

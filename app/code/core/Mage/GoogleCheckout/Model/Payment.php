@@ -24,27 +24,15 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * @deprecated after 1.13.1.0
+ */
 class Mage_GoogleCheckout_Model_Payment extends Mage_Payment_Model_Method_Abstract
 {
-    const ACTION_AUTHORIZE = 0;
-    const ACTION_AUTHORIZE_CAPTURE = 1;
-
-    protected $_code  = 'googlecheckout';
-    protected $_formBlockType = 'googlecheckout/form';
-
     /**
-     * Availability options
+     * @var string
      */
-    protected $_isGateway               = false;
-    protected $_canAuthorize            = true;
-    protected $_canCapture              = true;
-    protected $_canCapturePartial       = true;
-    protected $_canRefund               = true;
-    protected $_canRefundInvoicePartial = true;
-    protected $_canVoid                 = true;
-    protected $_canUseInternal          = false;
-    protected $_canUseCheckout          = false;
-    protected $_canUseForMultishipping  = false;
+    protected $_code  = 'googlecheckout';
 
     /**
      * Can be edit order (renew order)
@@ -59,56 +47,36 @@ class Mage_GoogleCheckout_Model_Payment extends Mage_Payment_Model_Method_Abstra
     /**
      *  Return Order Place Redirect URL
      *
-     *  @return string Order Redirect URL
+     *  @return string
      */
     public function getOrderPlaceRedirectUrl()
     {
-        return Mage::getUrl('googlecheckout/redirect/redirect');
+        return '';
     }
 
     /**
      * Authorize
      *
-     * @param   Varien_Object $orderPayment
-     * @return  Mage_GoogleCheckout_Model_Payment
+     * @param Varien_Object $payment
+     * @param float $amount
+     * @return Mage_GoogleCheckout_Model_Payment
      */
     public function authorize(Varien_Object $payment, $amount)
     {
-        $api = Mage::getModel('googlecheckout/api')->setStoreId($payment->getOrder()->getStoreId());
-        $api->authorize($payment->getOrder()->getExtOrderId());
-
-        return $this;
+        Mage::throwException(Mage::helper('payment')->__('Google Checkout has been deprecated.'));
     }
 
     /**
      * Capture payment
      *
-     * @param   Varien_Object $orderPayment
-     * @return  Mage_GoogleCheckout_Model_Payment
+     * @param Varien_Object $payment
+     * @param float $amount
+     * @throws Exception
+     * @return void
      */
     public function capture(Varien_Object $payment, $amount)
     {
-        /*
-        try {
-            $this->authorize($payment, $amount);
-        } catch (Exception $e) {
-            // authorization is not expired yet
-        }
-        */
-
-        if ($payment->getOrder()->getPaymentAuthorizationExpiration() < Mage::getModel('core/date')->gmtTimestamp()) {
-            try {
-                $this->authorize($payment, $amount);
-            } catch (Exception $e) {
-                // authorization is not expired yet
-            }
-        }
-
-        $api = Mage::getModel('googlecheckout/api')->setStoreId($payment->getOrder()->getStoreId());
-        $api->charge($payment->getOrder()->getExtOrderId(), $amount);
-        $payment->setForcedState(Mage_Sales_Model_Order_Invoice::STATE_OPEN);
-
-        return $this;
+        Mage::throwException(Mage::helper('payment')->__('Google Checkout has been deprecated.'));
     }
 
     /**
@@ -116,45 +84,34 @@ class Mage_GoogleCheckout_Model_Payment extends Mage_Payment_Model_Method_Abstra
      *
      * @param Varien_Object $payment
      * @param float $amount
-     *
-     * @return  Mage_GoogleCheckout_Model_Payment
+     * @throws Exception
+     * @return void
      */
     public function refund(Varien_Object $payment, $amount)
     {
-        $reason = $this->getReason() ? $this->getReason() : Mage::helper('googlecheckout')->__('No Reason');
-        $comment = $this->getComment() ? $this->getComment() : Mage::helper('googlecheckout')->__('No Comment');
-
-        $api = Mage::getModel('googlecheckout/api')->setStoreId($payment->getOrder()->getStoreId());
-        $api->refund($payment->getOrder()->getExtOrderId(), $amount, $reason, $comment);
-
-        return $this;
+        Mage::throwException(Mage::helper('payment')->__('Google Checkout has been deprecated.'));
     }
 
+    /**
+     * @param Varien_Object $payment
+     * @throws Exception
+     * @return void
+     */
     public function void(Varien_Object $payment)
     {
-        $this->cancel($payment);
-
-        return $this;
+        Mage::throwException(Mage::helper('payment')->__('Google Checkout has been deprecated.'));
     }
 
     /**
      * Void payment
      *
      * @param Varien_Object $payment
-     *
-     * @return Mage_GoogleCheckout_Model_Payment
+     * @throws Exception
+     * @return void
      */
     public function cancel(Varien_Object $payment)
     {
-        if (!$payment->getOrder()->getBeingCanceledFromGoogleApi()) {
-            $reason = $this->getReason() ? $this->getReason() : Mage::helper('googlecheckout')->__('Unknown Reason');
-            $comment = $this->getComment() ? $this->getComment() : Mage::helper('googlecheckout')->__('No Comment');
-
-            $api = Mage::getModel('googlecheckout/api')->setStoreId($payment->getOrder()->getStoreId());
-            $api->cancel($payment->getOrder()->getExtOrderId(), $reason, $comment);
-        }
-
-        return $this;
+        Mage::throwException(Mage::helper('payment')->__('Google Checkout has been deprecated.'));
     }
 
     /**
@@ -163,16 +120,11 @@ class Mage_GoogleCheckout_Model_Payment extends Mage_Payment_Model_Method_Abstra
      * @param string $field
      * @param int|string|null|Mage_Core_Model_Store $storeId
      *
-     * @return  mixed
+     * @return  null
      */
     public function getConfigData($field, $storeId = null)
     {
-        if (null === $storeId) {
-            $storeId = $this->getStore();
-        }
-        $path = 'google/checkout/' . $field;
-
-        return Mage::getStoreConfig($path, $storeId);
+        return null;
     }
 
     /**
@@ -183,12 +135,6 @@ class Mage_GoogleCheckout_Model_Payment extends Mage_Payment_Model_Method_Abstra
      */
     public function canVoid(Varien_Object $payment)
     {
-        if ($payment instanceof Mage_Sales_Model_Order_Invoice
-            || $payment instanceof Mage_Sales_Model_Order_Creditmemo
-        ) {
-            return false;
-        }
-
-        return $this->_canVoid;
+        return false;
     }
 }

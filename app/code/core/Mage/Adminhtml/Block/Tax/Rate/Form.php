@@ -31,11 +31,18 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Tax_Rate_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+    /**
+     * Tax titles
+     *
+     * @var null|string
+     */
     protected $_titles = null;
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         parent::__construct();
@@ -43,6 +50,11 @@ class Mage_Adminhtml_Block_Tax_Rate_Form extends Mage_Adminhtml_Block_Widget_For
         $this->setTemplate('tax/rate/form.phtml');
     }
 
+    /**
+     * Prepare form before rendering HTML
+     *
+     * @return Mage_Adminhtml_Block_Widget_Form
+     */
     protected function _prepareForm()
     {
         $rateObject = new Varien_Object(Mage::getSingleton('tax/calculation_rate')->getData());
@@ -67,7 +79,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Form extends Mage_Adminhtml_Block_Widget_For
         if ($regions) {
             $regions[0]['label'] = '*';
         } else {
-            $regions = array(array('value' => '', 'label' => '*'));
+            $regions = array(array('value' => '0', 'label' => '*'));
         }
 
         $fieldset = $form->addFieldset('base_fieldset', array('legend' => Mage::helper('tax')->__('Tax Rate Information')));

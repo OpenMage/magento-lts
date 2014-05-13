@@ -48,12 +48,24 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      */
     const VALUE_ALL = 'all';
 
-    /**#@+
-     * Data row scopes.
+    /**
+     * Default Scope
      */
     const SCOPE_DEFAULT = 1;
+
+    /**
+     * Website Scope
+     */
     const SCOPE_WEBSITE = 2;
+
+    /**
+     * Store Scope
+     */
     const SCOPE_STORE   = 0;
+
+    /**
+     * Null Scope
+     */
     const SCOPE_NULL    = -1;
     /**#@-*/
 
@@ -64,10 +76,30 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * to avoid interference with same attribute name.
      */
     const COL_STORE    = '_store';
+
+    /**
+     * Col Attr Set
+     */
     const COL_ATTR_SET = '_attribute_set';
+
+    /**
+     * Col Type
+     */
     const COL_TYPE     = '_type';
+
+    /**
+     * Col Category
+     */
     const COL_CATEGORY = '_category';
+
+    /**
+     * Col Root Category
+     */
     const COL_ROOT_CATEGORY = '_root_category';
+
+    /**
+     * Col Sku
+     */
     const COL_SKU      = 'sku';
     /**#@-*/
 
@@ -75,29 +107,125 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Error codes.
      */
     const ERROR_INVALID_SCOPE                = 'invalidScope';
+
+    /**
+     * Error - invalid website
+     */
     const ERROR_INVALID_WEBSITE              = 'invalidWebsite';
+
+    /**
+     * Error - invalid store
+     */
     const ERROR_INVALID_STORE                = 'invalidStore';
+
+    /**
+     * Error - invalid attr set
+     */
     const ERROR_INVALID_ATTR_SET             = 'invalidAttrSet';
+
+    /**
+     * Error - invalid type
+     */
     const ERROR_INVALID_TYPE                 = 'invalidType';
+
+    /**
+     * Error - invalid category
+     */
     const ERROR_INVALID_CATEGORY             = 'invalidCategory';
+
+    /**
+     * Error - value is required
+     */
     const ERROR_VALUE_IS_REQUIRED            = 'isRequired';
+
+    /**
+     * Error - type changed
+     */
     const ERROR_TYPE_CHANGED                 = 'typeChanged';
+
+    /**
+     * Error - sku is empty
+     */
     const ERROR_SKU_IS_EMPTY                 = 'skuEmpty';
+
+    /**
+     * Error - no default row
+     */
     const ERROR_NO_DEFAULT_ROW               = 'noDefaultRow';
+
+    /**
+     * Error - change type
+     */
     const ERROR_CHANGE_TYPE                  = 'changeProductType';
+
+    /**
+     * Error - duplicate scope
+     */
     const ERROR_DUPLICATE_SCOPE              = 'duplicateScope';
+
+    /**
+     * Error - duplicate sku
+     */
     const ERROR_DUPLICATE_SKU                = 'duplicateSKU';
+
+    /**
+     * Error - change attr set
+     */
     const ERROR_CHANGE_ATTR_SET              = 'changeAttrSet';
+
+    /**
+     * Error - type unsupported
+     */
     const ERROR_TYPE_UNSUPPORTED             = 'productTypeUnsupported';
+
+    /**
+     * Error - row is orphan
+     */
     const ERROR_ROW_IS_ORPHAN                = 'rowIsOrphan';
+
+    /**
+     * Error - invalid tier price qty
+     */
     const ERROR_INVALID_TIER_PRICE_QTY       = 'invalidTierPriceOrQty';
+
+    /**
+     * Error - invalid tier price site
+     */
     const ERROR_INVALID_TIER_PRICE_SITE      = 'tierPriceWebsiteInvalid';
+
+    /**
+     * Error - invalid tier price group
+     */
     const ERROR_INVALID_TIER_PRICE_GROUP     = 'tierPriceGroupInvalid';
+
+    /**
+     * Error - tier data incomplete
+     */
     const ERROR_TIER_DATA_INCOMPLETE         = 'tierPriceDataIsIncomplete';
+
+    /**
+     * Error - invalid group price site
+     */
     const ERROR_INVALID_GROUP_PRICE_SITE     = 'groupPriceWebsiteInvalid';
+
+    /**
+     * Error - invalid group price group
+     */
     const ERROR_INVALID_GROUP_PRICE_GROUP    = 'groupPriceGroupInvalid';
+
+    /**
+     * Error - group price data incompelte
+     */
     const ERROR_GROUP_PRICE_DATA_INCOMPLETE  = 'groupPriceDataIsIncomplete';
+
+    /**
+     * Error - sku not found for delete
+     */
     const ERROR_SKU_NOT_FOUND_FOR_DELETE     = 'skuNotFoundToDelete';
+
+    /**
+     * Error - super products sku not found
+     */
     const ERROR_SUPER_PRODUCTS_SKU_NOT_FOUND = 'superProductsSkuNotFound';
     /**#@-*/
 
@@ -145,7 +273,6 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
         'status',
         'tax_class_id',
         'visibility',
-        'enable_googlecheckout',
         'gift_message_available',
         'custom_design'
     );
@@ -933,7 +1060,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
         $resource       = Mage::getResourceModel('catalog/product_link');
         $mainTable      = $resource->getMainTable();
         $positionAttrId = array();
-        $nextLinkId     = Mage::getResourceHelper('importexport')->getNextAutoincrement($mainTable);
+        /** @var Varien_Db_Adapter_Interface $adapter */
         $adapter = $this->_connection;
 
         // pre-load 'position' attributes ID for each link type once
@@ -950,6 +1077,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             );
             $positionAttrId[$linkId] = $adapter->fetchOne($select, $bind);
         }
+        $nextLinkId = Mage::getResourceHelper('importexport')->getNextAutoincrement($mainTable);
         while ($bunch = $this->_dataSourceModel->getNextBunch()) {
             $productIds   = array();
             $linkRows     = array();
@@ -1010,6 +1138,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                     $linkRows,
                     array('link_id')
                 );
+                $adapter->changeTableAutoIncrement($mainTable, $nextLinkId);
             }
             if ($positionRows) { // process linked product positions
                 $adapter->insertOnDuplicate(
@@ -1046,6 +1175,20 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                             'value'          => $storeValue
                         );
                     }
+
+                    /*
+                    If the store based values are not provided for a particular store,
+                    we default to the default scope values.
+                    In this case, remove all the existing store based values stored in the table.
+                    */
+                    $where = $this->_connection->quoteInto('store_id NOT IN (?)', array_keys($storeValues)) .
+                        $this->_connection->quoteInto(' AND attribute_id = ?', $attributeId) .
+                        $this->_connection->quoteInto(' AND entity_id = ?', $productId) .
+                        $this->_connection->quoteInto(' AND entity_type_id = ?', $this->_entityTypeId);
+
+                    $this->_connection->delete(
+                        $tableName, $where
+                    );
                 }
             }
             $this->_connection->insertOnDuplicate($tableName, $tableData, array('value'));
@@ -1274,6 +1417,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                     continue;
                 }
             }
+
             $this->_saveProductEntity($entityRowsIn, $entityRowsUp)
                 ->_saveProductWebsites($websites)
                 ->_saveProductCategories($categories)
@@ -1341,6 +1485,10 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
 
             if ('datetime' == $attribute->getBackendType() && strtotime($attrValue)) {
                 $attrValue = gmstrftime($this->_getStrftimeFormat(), strtotime($attrValue));
+            } elseif ('url_key' == $attribute->getAttributeCode()) {
+                if (empty($attrValue)) {
+                    $attrValue = $product->formatUrlKey($product->getName());
+                }
             } elseif ($backModel) {
                 $attribute->getBackend()->beforeSave($product);
                 $attrValue = $product->getData($attribute->getAttributeCode());
@@ -1748,6 +1896,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     protected function _filterRowData(&$rowData)
     {
         $rowData = array_filter($rowData, 'strlen');
+        // Exceptions - for sku - put them back in
         if (!isset($rowData[self::COL_SKU])) {
             $rowData[self::COL_SKU] = null;
         }
@@ -1930,8 +2079,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             $rowAttributesValid = $this->_productTypeModels[$this->_newSku[$sku]['type_id']]->isRowValid(
                 $rowData, $rowNum, !isset($this->_oldSku[$sku])
             );
-            if (!$rowAttributesValid && self::SCOPE_DEFAULT == $rowScope && !isset($this->_oldSku[$sku])) {
-                $sku = false; // mark SCOPE_DEFAULT row as invalid for future child rows if product not in DB already
+            if (!$rowAttributesValid && self::SCOPE_DEFAULT == $rowScope) {
+                $sku = false; // mark SCOPE_DEFAULT row as invalid for future child rows
             }
         }
         return !isset($this->_invalidRows[$rowNum]);

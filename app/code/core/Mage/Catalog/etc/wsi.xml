@@ -347,8 +347,8 @@
             </xsd:complexType>
             <xsd:complexType name="catalogProductAttributeFrontendLabelEntity">
                 <xsd:sequence>
-                    <element name="store_id" type="xsd:string" />
-                    <element name="label" type="xsd:string" />
+                    <xsd:element name="store_id" type="xsd:string"/>
+                    <xsd:element name="label" type="xsd:string"/>
                 </xsd:sequence>
             </xsd:complexType>
             <xsd:complexType name="catalogProductAttributeFrontendLabelArray">

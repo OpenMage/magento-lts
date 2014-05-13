@@ -284,6 +284,10 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
 
         $this->getSession()->setStoreId($order->getStoreId());
 
+        //Notify other modules about the session quote
+        Mage::dispatchEvent('init_from_order_session_quote_initialized',
+                array('session_quote' => $this->getSession()));
+
         /**
          * Initialize catalog rule data with new session values
          */

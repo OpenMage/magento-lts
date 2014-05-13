@@ -153,8 +153,15 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
 
         $_regularPrice = $product->getPrice();
         $_finalPrice = $product->getFinalPrice();
-        $_priceInclTax = Mage::helper('tax')->getPrice($product, $_finalPrice, true);
-        $_priceExclTax = Mage::helper('tax')->getPrice($product, $_finalPrice);
+        if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE) {
+            $_priceInclTax = Mage::helper('tax')->getPrice($product, $_finalPrice, true,
+                null, null, null, null, null, false);
+            $_priceExclTax = Mage::helper('tax')->getPrice($product, $_finalPrice, false,
+                null, null, null, null, null, false);
+        } else {
+            $_priceInclTax = Mage::helper('tax')->getPrice($product, $_finalPrice, true);
+            $_priceExclTax = Mage::helper('tax')->getPrice($product, $_finalPrice);
+        }
         $_tierPrices = array();
         $_tierPricesInclTax = array();
         foreach ($product->getTierPrice() as $tierPrice) {

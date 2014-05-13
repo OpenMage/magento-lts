@@ -31,7 +31,6 @@
  * @package     Mage_Checkout
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resource_Product
 {
     /**
@@ -51,7 +50,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
      * @param  $store
      * @return bool
      */
-    public function add($quoteId, $productsData, $store=null)
+    public function add($quoteId, $productsData, $store = null)
     {
         $quote = $this->_getQuote($quoteId, $store);
         if (empty($store)) {
@@ -91,7 +90,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
 
         try {
             $quote->collectTotals()->save();
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             $this->_fault("add_product_quote_save_fault", $e->getMessage());
         }
 
@@ -104,7 +103,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
      * @param  $store
      * @return bool
      */
-    public function update($quoteId, $productsData, $store=null)
+    public function update($quoteId, $productsData, $store = null)
     {
         $quote = $this->_getQuote($quoteId, $store);
         if (empty($store)) {
@@ -145,8 +144,8 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
         }
 
         try {
-            $quote->save();
-        } catch(Exception $e) {
+            $quote->collectTotals()->save();
+        } catch (Exception $e) {
             $this->_fault("update_product_quote_save_fault", $e->getMessage());
         }
 
@@ -159,7 +158,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
      * @param  $store
      * @return bool
      */
-    public function remove($quoteId, $productsData, $store=null)
+    public function remove($quoteId, $productsData, $store = null)
     {
         $quote = $this->_getQuote($quoteId, $store);
         if (empty($store)) {
@@ -201,8 +200,8 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
         }
 
         try {
-            $quote->save();
-        } catch(Exception $e) {
+            $quote->collectTotals()->save();
+        } catch (Exception $e) {
             $this->_fault("remove_product_quote_save_fault", $e->getMessage());
         }
 
@@ -249,7 +248,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
      * @param  $store
      * @return bool
      */
-    public function moveToCustomerQuote($quoteId, $productsData, $store=null)
+    public function moveToCustomerQuote($quoteId, $productsData, $store = null)
     {
         $quote = $this->_getQuote($quoteId, $store);
 
@@ -281,7 +280,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
         }
 
         $errors = array();
-        foreach($productsData as $key => $productItem){
+        foreach ($productsData as $key => $productItem) {
             if (isset($productItem['product_id'])) {
                 $productByItem = $this->_getProduct($productItem['product_id'], $store, "id");
             } else if (isset($productItem['sku'])) {
@@ -295,7 +294,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
                 /** @var $quoteItem Mage_Sales_Model_Quote_Item */
                 $quoteItem = $this->_getQuoteItemByProduct($quote, $productByItem,
                     $this->_getProductRequest($productItem));
-                if($quoteItem && $quoteItem->getId()){
+                if ($quoteItem && $quoteItem->getId()) {
                     $newQuoteItem = clone $quoteItem;
                     $newQuoteItem->setId(null);
                     $customerQuote->addItem($newQuoteItem);

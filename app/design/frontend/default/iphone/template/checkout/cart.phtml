@@ -45,6 +45,7 @@
         </ul>
     <?php endif; ?>
     <form action="<?php echo $this->getUrl('checkout/cart/updatePost') ?>" method="post">
+        <?php echo $this->getBlockHtml('formkey') ?>
         <fieldset>
             <table id="shopping-cart-table" class="data-table cart-table">
                 <tfoot>

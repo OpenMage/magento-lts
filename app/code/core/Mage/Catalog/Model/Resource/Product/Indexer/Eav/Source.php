@@ -211,7 +211,8 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source
                 'pvs.entity_id = pvd.entity_id AND pvs.attribute_id = pvd.attribute_id'
                     . ' AND pvs.store_id=cs.store_id',
                 array('value' => $productValueExpression))
-            ->where('pvd.store_id=?', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID)
+            ->where('pvd.store_id=?',
+                $adapter->getIfNullSql('pvs.store_id', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID))
             ->where('cs.store_id!=?', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID)
             ->where('pvd.attribute_id IN(?)', $attrIds);
 

@@ -31,7 +31,14 @@
  */
 class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    /**
+     * Query variable name
+     */
     const QUERY_VAR_NAME = 'q';
+
+    /*
+     * Maximum query length
+     */
     const MAX_QUERY_LEN  = 200;
 
     /**
@@ -166,7 +173,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return $this->_getUrl('catalogsearch/result', array(
             '_query' => array(self::QUERY_VAR_NAME => $query),
-            '_secure' => Mage::app()->getFrontController()->getRequest()->isSecure()
+            '_secure' => $this->_getApp()->getFrontController()->getRequest()->isSecure()
         ));
     }
 
@@ -178,8 +185,18 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
     public function getSuggestUrl()
     {
         return $this->_getUrl('catalogsearch/ajax/suggest', array(
-            '_secure' => Mage::app()->getFrontController()->getRequest()->isSecure()
+            '_secure' => $this->_getApp()->getStore()->isCurrentlySecure()
         ));
+    }
+
+    /**
+     * Get App
+     *
+     * @return Mage_Core_Model_App
+     */
+    protected function _getApp()
+    {
+        return Mage::app();
     }
 
     /**

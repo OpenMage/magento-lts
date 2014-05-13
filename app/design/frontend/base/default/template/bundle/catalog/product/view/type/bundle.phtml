@@ -27,18 +27,24 @@
 ?>
 <?php $_product = $this->getProduct() ?>
 
-<?php if($_product->isSaleable()): ?>
-<script type="text/javascript">
-//<![CDATA[
-    var bundle = new Product.Bundle(<?php echo $this->getJsonConfig() ?>);
-//]]>
-</script>
+<?php if ($_product->isSaleable()): ?>
+    <script type="text/javascript">
+        //<![CDATA[
+        var bundle = new Product.Bundle(<?php echo $this->getJsonConfig() ?>);
+        var taxCalcMethod = "<?php echo Mage::helper('tax')->getConfig()->getAlgorithm($_product->getStore()) ?>";
+        var CACL_UNIT_BASE = "<?php echo Mage_Tax_Model_Calculation::CALC_UNIT_BASE ?>";
+        var CACL_ROW_BASE = "<?php echo Mage_Tax_Model_Calculation::CALC_ROW_BASE ?>";
+        var CACL_TOTAL_BASE = "<?php echo Mage_Tax_Model_Calculation::CALC_TOTAL_BASE ?>";
+        //]]>
+    </script>
 <?php endif; ?>
 <?php if ($this->displayProductStockStatus()): ?>
     <?php if ($_product->isAvailable()): ?>
-        <p class="availability in-stock"><?php echo $this->helper('catalog')->__('Availability:') ?> <span><?php echo $this->helper('catalog')->__('In stock') ?></span></p>
+        <p class="availability in-stock"><?php echo $this->helper('catalog')->__('Availability:') ?>
+            <span><?php echo $this->helper('catalog')->__('In stock') ?></span></p>
     <?php else: ?>
-        <p class="availability out-of-stock"><?php echo $this->helper('catalog')->__('Availability:') ?> <span><?php echo $this->helper('catalog')->__('Out of stock') ?></span></p>
+        <p class="availability out-of-stock"><?php echo $this->helper('catalog')->__('Availability:') ?>
+            <span><?php echo $this->helper('catalog')->__('Out of stock') ?></span></p>
     <?php endif; ?>
 <?php endif; ?>
 <div class="price-box-bundle">

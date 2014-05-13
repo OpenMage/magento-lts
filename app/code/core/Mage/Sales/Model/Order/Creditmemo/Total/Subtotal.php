@@ -55,11 +55,12 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Subtotal extends Mage_Sales_Model_
 
         $creditmemo->setSubtotal($subtotal);
         $creditmemo->setBaseSubtotal($baseSubtotal);
-        $creditmemo->setSubtotalInclTax($subtotalInclTax);
+        $creditmemo->setSubtotalInclTax($subtotalInclTax );
         $creditmemo->setBaseSubtotalInclTax($baseSubtotalInclTax);
 
         $creditmemo->setGrandTotal($creditmemo->getGrandTotal() + $subtotal);
         $creditmemo->setBaseGrandTotal($creditmemo->getBaseGrandTotal() + $baseSubtotal);
+
         return $this;
     }
 }

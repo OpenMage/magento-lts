@@ -105,38 +105,48 @@ class Mage_Tax_Model_Sales_Total_Quote_Shipping extends Mage_Sales_Model_Quote_A
         $rate               = $calc->getRate($addressTaxRequest);
         if ($priceIncludesTax) {
             if ($this->_areTaxRequestsSimilar) {
-                $taxExact       = $calc->calcTaxAmount($shipping, $rate, true, false);
-                $baseTaxExact   = $calc->calcTaxAmount($baseShipping, $rate, true, false);
+                $tax            = $this->_round($calc->calcTaxAmount($shipping, $rate, true, false), $rate, true);
+                $baseTax        = $this->_round(
+                    $calc->calcTaxAmount($baseShipping, $rate, true, false), $rate, true, 'base');
                 $taxShipping    = $shipping;
                 $baseTaxShipping = $baseShipping;
-                $shippingExact  = $shipping - $taxExact;
-                $baseShippingExact = $baseShipping - $baseTaxExact;
+                $shipping       = $shipping - $tax;
+                $baseShipping   = $baseShipping - $baseTax;
                 $taxable        = $taxShipping;
                 $baseTaxable    = $baseTaxShipping;
                 $isPriceInclTax = true;
-                $address->setTotalAmount('shipping', $shippingExact);
-                $address->setBaseTotalAmount('shipping', $baseShippingExact);
+                $address->setTotalAmount('shipping', $shipping);
+                $address->setBaseTotalAmount('shipping', $baseShipping);
             } else {
                 $storeRate      = $calc->getStoreRate($addressTaxRequest, $store);
                 $storeTax       = $calc->calcTaxAmount($shipping, $storeRate, true, false);
                 $baseStoreTax   = $calc->calcTaxAmount($baseShipping, $storeRate, true, false);
                 $shipping       = $calc->round($shipping - $storeTax);
                 $baseShipping   = $calc->round($baseShipping - $baseStoreTax);
-                $tax            = $this->_round($calc->calcTaxAmount($shipping, $rate, false, false), $rate, false);
+                $tax            = $this->_round($calc->calcTaxAmount($shipping, $rate, false, false), $rate, true);
                 $baseTax        = $this->_round(
-                    $calc->calcTaxAmount($baseShipping, $rate, false, false), $rate, false, 'base');
+                    $calc->calcTaxAmount($baseShipping, $rate, false, false), $rate, true, 'base');
                 $taxShipping    = $shipping + $tax;
                 $baseTaxShipping = $baseShipping + $baseTax;
-                $taxable        = $shipping;
-                $baseTaxable    = $baseShipping;
-                $isPriceInclTax = false;
+                $taxable        = $taxShipping;
+                $baseTaxable    = $baseTaxShipping;
+                $isPriceInclTax = true;
                 $address->setTotalAmount('shipping', $shipping);
                 $address->setBaseTotalAmount('shipping', $baseShipping);
             }
         } else {
-            $tax            = $this->_round($calc->calcTaxAmount($shipping, $rate, false, false), $rate, false);
-            $baseTax        = $this->_round(
-                $calc->calcTaxAmount($baseShipping, $rate, false, false), $rate, false, 'base');
+            $appliedRates = $calc->getAppliedRates($addressTaxRequest);
+            $taxes = array();
+            $baseTaxes = array();
+            foreach ($appliedRates as $appliedRate) {
+                $taxRate = $appliedRate['percent'];
+                $taxId = $appliedRate['id'];
+                $taxes[] = $this->_round($calc->calcTaxAmount($shipping, $taxRate, false, false), $taxId, false);
+                $baseTaxes[] = $this->_round(
+                    $calc->calcTaxAmount($baseShipping, $taxRate, false, false), $taxId, false, 'base');
+            }
+            $tax            = array_sum($taxes);
+            $baseTax        = array_sum($baseTaxes);
             $taxShipping    = $shipping + $tax;
             $baseTaxShipping = $baseShipping + $baseTax;
             $taxable        = $shipping;

@@ -37,7 +37,6 @@
  * @method Mage_Sales_Model_Order_Shipment_Track setQty(float $value)
  * @method int getOrderId()
  * @method Mage_Sales_Model_Order_Shipment_Track setOrderId(int $value)
- * @method string getNumber()
  * @method Mage_Sales_Model_Order_Shipment_Track setNumber(string $value)
  * @method string getDescription()
  * @method Mage_Sales_Model_Order_Shipment_Track setDescription(string $value)
@@ -169,6 +168,16 @@ class Mage_Sales_Model_Order_Shipment_Track extends Mage_Sales_Model_Abstract
             return $this->getShipment()->getStore();
         }
         return Mage::app()->getStore();
+    }
+
+    /**
+     * Get store id
+     *
+     * @return int
+     */
+    public function getStoreId()
+    {
+        return $this->getStore()->getId();
     }
 
     /**

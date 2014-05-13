@@ -42,14 +42,53 @@
  */
 class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
 {
+    /**
+     * No references found in the project. Variable kept for backward compatibility
+     *
+     * @var null
+     */
     protected $_ctcs                = null;
+
+    /**
+     * No references found in the project. Variable kept for backward compatibility
+     *
+     * @var null
+     */
     protected $_ptcs                = null;
+
+    /**
+     * No references found in the project. Variable kept for backward compatibility
+     *
+     * @var null
+     */
     protected $_rates               = null;
 
+    /**
+     * No references found in the project. Variable kept for backward compatibility
+     *
+     * @var null
+     */
     protected $_ctcModel            = null;
+
+    /**
+     * No references found in the project. Variable kept for backward compatibility
+     *
+     * @var null
+     */
     protected $_ptcModel            = null;
+
+    /**
+     * No references found in the project. Variable kept for backward compatibility
+     *
+     * @var Mage_Tax_Model_Calculation_Rate
+     */
     protected $_rateModel           = null;
 
+    /**
+     * Holds the tax Calculation model
+     *
+     * @var Mage_Tax_Model_Calculation
+     */
     protected $_calculationModel    = null;
 
     /**
@@ -62,7 +101,7 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
 
     /**
      * After save rule
-     * Redeclared for populate rate calculations
+     * Re - declared for populate rate calculations
      *
      * @return Mage_Tax_Model_Calculation_Rule
      */
@@ -86,6 +125,9 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
         return parent::_afterDelete();
     }
 
+    /**
+     * Saves the Calculation Data
+     */
     public function saveCalculationData()
     {
         $ctc = $this->getData('tax_customer_class');
@@ -108,6 +150,9 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
         }
     }
 
+    /**
+     * @return Mage_Core_Model_Abstract|Mage_Tax_Model_Calculation|null
+     */
     public function getCalculationModel()
     {
         if (is_null($this->_calculationModel)) {
@@ -116,19 +161,43 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
         return $this->_calculationModel;
     }
 
+    /**
+     * @return mixed
+     */
     public function getRates()
     {
         return $this->getCalculationModel()->getRates($this->getId());
     }
 
+    /**
+     * @return mixed
+     */
     public function getCustomerTaxClasses()
     {
         return $this->getCalculationModel()->getCustomerTaxClasses($this->getId());
     }
 
+    /**
+     * @return mixed
+     */
     public function getProductTaxClasses()
     {
         return $this->getCalculationModel()->getProductTaxClasses($this->getId());
+    }
+
+
+    /**
+     * Fetches rules by rate, customer tax class and product tax class
+     * and product tax class combination
+     *
+     * @param array $rateId
+     * @param array $customerTaxClassId
+     * @param array $productTaxClassId
+     * @return array
+     */
+    public function fetchRuleCodes($rateId, $customerTaxClassId, $productTaxClassId)
+    {
+        return $this->getResource()->fetchRuleCodes($rateId, $customerTaxClassId, $productTaxClassId);
     }
 }
 

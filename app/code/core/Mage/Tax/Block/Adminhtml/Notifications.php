@@ -85,6 +85,41 @@ class Mage_Tax_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Templa
     }
 
     /**
+     * Return list of store names which have not compatible tax calculation type and price display settings.
+     * Return true if settings are wrong for default store.
+     *
+     * @return array
+     */
+    public function getStoresWithConflictingFptTaxConfigurationSettings()
+    {
+        $weeeTaxHelper = $this->_factory->getHelper('weee');
+
+        $storeNames = array();
+        $stores = $this->_app->getStores();
+        foreach ($stores as $store) {
+            if ($weeeTaxHelper->validateCatalogPricesAndFptConfiguration($store)) {
+                $website = $store->getWebsite();
+                $storeNames[] = $website->getName() . '(' . $store->getName() . ')';
+            }
+        }
+        return $storeNames;
+    }
+
+    /**
+     * Return boolean determining if FPT/ Catalog Price settings is conflicting or not.
+     *
+     * @return boolean
+     */
+    public function isDefaultStoreWithConflictingFptTaxConfigurationSettings()
+    {
+        $weeeTaxHelper = $this->_factory->getHelper('weee');
+        $defaultStoreId = Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID;
+
+        //check default store first
+        return $weeeTaxHelper->validateCatalogPricesAndFptConfiguration($defaultStoreId);
+    }
+
+    /**
      * Check if tax calculation type and price display settings are compatible
      *
      * @param mixed $store
@@ -163,3 +198,4 @@ class Mage_Tax_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Templa
         return '';
     }
 }
+

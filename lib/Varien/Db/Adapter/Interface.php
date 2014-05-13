@@ -456,6 +456,15 @@ interface Varien_Db_Adapter_Interface
     public function update($table, array $bind, $where = '');
 
     /**
+     * Inserts a table row with specified data.
+     *
+     * @param mixed $table The table to insert data into.
+     * @param array $bind Column-value pairs.
+     * @return int The number of affected rows.
+     */
+    public function insertIgnore($table, array $bind);
+
+    /**
      * Deletes table rows based on a WHERE clause.
      *
      * @param  mixed        $table The table to update.
@@ -1084,6 +1093,16 @@ interface Varien_Db_Adapter_Interface
      * @return mixed
      */
     public function fromUnixtime($timestamp);
+
+    /**
+     * Change table auto increment value
+     *
+     * @param string $tableName
+     * @param string $increment
+     * @param null|string $schemaName
+     * @return Zend_Db_Statement_Interface
+     */
+    public function changeTableAutoIncrement($tableName, $increment, $schemaName = null);
 
     /**
      * Create new table from provided select statement

@@ -111,7 +111,12 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
             foreach ($this->_messageTemplates as $errorCode => $message) {
                 $this->_entityModel->addMessageTemplate($errorCode, $message);
             }
-            $this->_initAttributes();
+
+            if (isset($params['attributes'])) {
+                $this->_attributes = $params['attributes'];
+            } else {
+                $this->_initAttributes();
+            }
         }
     }
 
@@ -238,10 +243,10 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
      *
      * @param array $rowData
      * @param int $rowNum
-     * @param boolean $checkRequiredAttributes OPTIONAL Flag which can disable validation required values.
+     * @param boolean $isNewProduct OPTIONAL.
      * @return boolean
      */
-    public function isRowValid(array $rowData, $rowNum, $checkRequiredAttributes = true)
+    public function isRowValid(array $rowData, $rowNum, $isNewProduct = true)
     {
         $error    = false;
         $rowScope = $this->_entityModel->getRowScope($rowData);
@@ -253,14 +258,17 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
                     $error |= !$this->_entityModel->isAttributeValid($attrCode, $attrParams, $rowData, $rowNum);
                 } elseif (
                     $this->_isAttributeRequiredCheckNeeded($attrCode)
-                    && $checkRequiredAttributes
-                    && Mage_ImportExport_Model_Import_Entity_Product::SCOPE_DEFAULT == $rowScope
-                    && $attrParams['is_required']
-                ) {
-                    $this->_entityModel->addRowError(
-                        Mage_ImportExport_Model_Import_Entity_Product::ERROR_VALUE_IS_REQUIRED, $rowNum, $attrCode
-                    );
-                    $error = true;
+                    && $attrParams['is_required']) {
+                        // For the default scope - if this is a new product or
+                        // for an old product, if the imported doc has the column present for the attrCode
+                        if (Mage_ImportExport_Model_Import_Entity_Product::SCOPE_DEFAULT == $rowScope &&
+                            ($isNewProduct || array_key_exists($attrCode, $rowData))) {
+                            $this->_entityModel->addRowError(
+                                Mage_ImportExport_Model_Import_Entity_Product::ERROR_VALUE_IS_REQUIRED,
+                                    $rowNum, $attrCode
+                            );
+                            $error = true;
+                        }
                 }
             }
         }
@@ -297,8 +305,6 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
                         ('select' == $attrParams['type'] || 'multiselect' == $attrParams['type'])
                         ? $attrParams['options'][strtolower($rowData[$attrCode])]
                         : $rowData[$attrCode];
-                } elseif (array_key_exists($attrCode, $rowData)) {
-                    $resultAttrs[$attrCode] = $rowData[$attrCode];
                 } elseif ($withDefaultValue && null !== $attrParams['default_value']) {
                     $resultAttrs[$attrCode] = $attrParams['default_value'];
                 }

@@ -208,12 +208,14 @@ class Mage_Api_Model_Server_Adapter_Soap
             ? $urlModel->getUrl('*/*/*', array('_current' => true, '_query' => $params))
             : $urlModel->getUrl('*/*/*');
 
-        if( $withAuth ) {
+        if ( $withAuth ) {
             $phpAuthUser = $this->getController()->getRequest()->getServer('PHP_AUTH_USER', false);
             $phpAuthPw = $this->getController()->getRequest()->getServer('PHP_AUTH_PW', false);
+            $scheme = $this->getController()->getRequest()->getScheme();
 
             if ($phpAuthUser && $phpAuthPw) {
-                $wsdlUrl = sprintf("http://%s:%s@%s", $phpAuthUser, $phpAuthPw, str_replace('http://', '', $wsdlUrl ));
+                $wsdlUrl = sprintf("%s://%s:%s@%s", $scheme, $phpAuthUser, $phpAuthPw,
+                    str_replace($scheme . '://', '', $wsdlUrl));
             }
         }
 

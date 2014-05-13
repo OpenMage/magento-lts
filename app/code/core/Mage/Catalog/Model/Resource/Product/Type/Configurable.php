@@ -220,7 +220,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable extends Mage_Core_Mo
                     array()
                 )->where('super_attribute.product_id = ?', $product->getId());
 
-            $attributesOptionsData[$superAttribute->getAttributeId()] = $this->_getReadAdapter()->fetchAssoc($select);
+            $attributesOptionsData[$superAttribute->getAttributeId()] = $this->_getReadAdapter()->fetchAll($select);
         }
         return $attributesOptionsData;
     }

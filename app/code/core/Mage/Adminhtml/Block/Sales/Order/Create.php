@@ -47,7 +47,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widge
         $customerId = $this->_getSession()->getCustomerId();
         $storeId    = $this->_getSession()->getStoreId();
 
-
         $this->_updateButton('save', 'label', Mage::helper('sales')->__('Submit Order'));
         $this->_updateButton('save', 'onclick', "order.submit()");
         $this->_updateButton('save', 'id', 'submit_order_top_button');
@@ -60,7 +59,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widge
 
         $this->_updateButton('reset', 'id', 'reset_order_top_button');
 
-        if (is_null($customerId)) {
+        if (!$this->_isCanCancel() || is_null($customerId)) {
             $this->_updateButton('reset', 'style', 'display:none');
         } else {
             $this->_updateButton('back', 'style', 'display:none');
@@ -70,6 +69,16 @@ class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widge
         $this->_updateButton('reset', 'label', Mage::helper('sales')->__('Cancel'));
         $this->_updateButton('reset', 'class', 'cancel');
         $this->_updateButton('reset', 'onclick', 'deleteConfirm(\''.$confirm.'\', \'' . $this->getCancelUrl() . '\')');
+    }
+
+    /**
+     * Check access for cancel action
+     *
+     * @return boolean
+     */
+    protected function _isCanCancel()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/cancel');
     }
 
     /**

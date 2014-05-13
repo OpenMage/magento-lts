@@ -43,6 +43,7 @@ class Mage_Paypal_IpnController extends Mage_Core_Controller_Front_Action
             Mage::getModel('paypal/ipn')->processIpnRequest($data, new Varien_Http_Adapter_Curl());
         } catch (Exception $e) {
             Mage::logException($e);
+            $this->getResponse()->setHttpResponseCode(500);
         }
     }
 }

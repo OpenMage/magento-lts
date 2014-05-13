@@ -52,38 +52,92 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * Configuration pathes
      */
     const XML_PATH_STORE_STORE_NAME       = 'general/store_information/name';
+    /**
+     *
+     */
     const XML_PATH_STORE_STORE_PHONE      = 'general/store_information/phone';
+    /**
+     *
+     */
     const XML_PATH_STORE_IN_URL           = 'web/url/use_store';
+    /**
+     *
+     */
     const XML_PATH_USE_REWRITES           = 'web/seo/use_rewrites';
+    /**
+     *
+     */
     const XML_PATH_UNSECURE_BASE_URL      = 'web/unsecure/base_url';
+    /**
+     *
+     */
     const XML_PATH_SECURE_BASE_URL        = 'web/secure/base_url';
+    /**
+     *
+     */
     const XML_PATH_SECURE_IN_FRONTEND     = 'web/secure/use_in_frontend';
+    /**
+     *
+     */
     const XML_PATH_SECURE_IN_ADMINHTML    = 'web/secure/use_in_adminhtml';
+    /**
+     *
+     */
     const XML_PATH_SECURE_BASE_LINK_URL   = 'web/secure/base_link_url';
+    /**
+     *
+     */
     const XML_PATH_UNSECURE_BASE_LINK_URL = 'web/unsecure/base_link_url';
+    /**
+     *
+     */
     const XML_PATH_OFFLOADER_HEADER       = 'web/secure/offloader_header';
+    /**
+     *
+     */
     const XML_PATH_PRICE_SCOPE            = 'catalog/price/scope';
 
     /**
      * Price scope constants
      */
     const PRICE_SCOPE_GLOBAL              = 0;
+    /**
+     *
+     */
     const PRICE_SCOPE_WEBSITE             = 1;
 
     /**
      * Possible URL types
      */
     const URL_TYPE_LINK                   = 'link';
+    /**
+     *
+     */
     const URL_TYPE_DIRECT_LINK            = 'direct_link';
+    /**
+     *
+     */
     const URL_TYPE_WEB                    = 'web';
+    /**
+     *
+     */
     const URL_TYPE_SKIN                   = 'skin';
+    /**
+     *
+     */
     const URL_TYPE_JS                     = 'js';
+    /**
+     *
+     */
     const URL_TYPE_MEDIA                  = 'media';
 
     /**
      * Code constants
      */
     const DEFAULT_CODE                    = 'default';
+    /**
+     *
+     */
     const ADMIN_CODE                      = 'admin';
 
     /**
@@ -259,7 +313,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * @param   string $field
      * @return  Mage_Core_Model_Store
      */
-    public function load($id, $field=null)
+    public function load($id, $field = null)
     {
         if (!is_numeric($id) && is_null($field)) {
             $this->_getResource()->load($this, $id, 'code');
@@ -964,13 +1018,11 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
                 $this->_priceFilter = $this->getCurrentCurrency()->getFilter();
                 $this->_priceFilter->setRate($this->getBaseCurrency()->getRate($this->getCurrentCurrency()));
             }
-            elseif($this->getDefaultCurrency()) {
+            } elseif ($this->getDefaultCurrency()) {
                 $this->_priceFilter = $this->getDefaultCurrency()->getFilter();
-            }
-            else {
+            } else {
                 $this->_priceFilter = new Varien_Filter_Sprintf('%s', 2);
             }
-        }
         return $this->_priceFilter;
     }
 

@@ -118,9 +118,58 @@ class Mage_Payment_Model_Observer
     {
         /** @var Mage_Sales_Model_Order_Payment $payment */
         $payment = $observer->getEvent()->getPayment();
-        if($payment->getMethod() === Mage_Payment_Model_Method_Banktransfer::PAYMENT_METHOD_BANKTRANSFER_CODE) {
+        if ($payment->getMethod() === Mage_Payment_Model_Method_Banktransfer::PAYMENT_METHOD_BANKTRANSFER_CODE) {
             $payment->setAdditionalInformation('instructions',
                 $payment->getMethodInstance()->getInstructions());
+        }
+    }
+
+    /**
+     * Will veto the unassignment of the order status if it is currently configured in any of the payment method
+     * configurations.
+     *
+     * @param Varien_Event_Observer $observer
+     * @throws Mage_Core_Exception
+     */
+    public function beforeSalesOrderStatusUnassign($observer)
+    {
+        $state = $observer->getEvent()->getState();
+        if ($state == Mage_Sales_Model_Order::STATE_NEW) {
+            $statusModel = $observer->getEvent()->getStatus();
+            $status      = $statusModel->getStatus();
+            $used        = 0;
+            $titles      = array();
+            foreach (Mage::app()->getWebsites(true) as $website) {
+                $store = current($website->getStores()); // just need one store from each website
+                if (!$store) {
+                    continue; // no store is associated with the website
+                }
+                foreach (Mage::helper('payment')->getPaymentMethods($store) as $value) {
+                    if (isset($value['order_status']) && $value['order_status'] == $status && $value['active']) {
+                        ++$used;
+
+                        // Remember the payment's information
+                        $title       = $value['title'];
+                        $websiteName = $website->getName();
+                        if (array_key_exists($title, $titles)) {
+                            $titles[$title][] = $websiteName;
+                        } else {
+                            $titles[$title]   = array($websiteName);
+                        }
+                    }
+                }
+            }
+            if ($used > 0) {
+                // build the error message, and throw it
+                $methods = '';
+                $spacer  = '';
+                foreach ($titles as $key => $values) {
+                    $methods = $methods . $spacer . $key . ' [' . join(', ', $values) . ']';
+                    $spacer = ', ';
+                }
+                throw new Mage_Core_Exception(Mage::helper('sales')->__('Status "%s" cannot be unassigned. It is in used in %d payment method configuration(s): %s',
+                    $statusModel->getLabel(), $used, $methods));
+            }
         }
     }
 }

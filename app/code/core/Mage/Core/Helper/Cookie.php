@@ -49,6 +49,11 @@ class Mage_Core_Helper_Cookie extends Mage_Core_Helper_Abstract
     const XML_PATH_COOKIE_RESTRICTION_LIFETIME = 'web/cookie/cookie_restriction_lifetime';
 
     /**
+     * Cookie restriction notice cms block identifier
+     */
+    const COOKIE_RESTRICTION_NOTICE_CMS_BLOCK_IDENTIFIER = 'cookie_restriction_notice_block';
+
+    /**
      * Store instance
      *
      * @var Mage_Core_Model_Store
@@ -141,5 +146,15 @@ class Mage_Core_Helper_Cookie extends Mage_Core_Helper_Abstract
     public function getCookieRestrictionLifetime()
     {
         return (int)$this->_currentStore->getConfig(self::XML_PATH_COOKIE_RESTRICTION_LIFETIME);
+    }
+
+    /**
+     * Get cookie restriction notice cms block identifier
+     *
+     * @return string
+     */
+    public function getCookieRestrictionNoticeCmsBlockIdentifier()
+    {
+        return self::COOKIE_RESTRICTION_NOTICE_CMS_BLOCK_IDENTIFIER;
     }
 }

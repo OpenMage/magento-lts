@@ -31,6 +31,7 @@
     </div>
     <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
     <form action="<?php echo $this->getPostActionUrl() ?>" method="post" onsubmit="return showLoader();">
+        <?php echo $this->getBlockHtml('formkey'); ?>
         <div class="col2-set">
             <h2 class="legend"><?php echo $this->__('Billing Information') ?></h2>
             <div class="col-1">

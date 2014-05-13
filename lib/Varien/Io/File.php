@@ -289,12 +289,8 @@ class Varien_Io_File extends Varien_Io_Abstract
      */
     public function open(array $args=array())
     {
-        if (!empty($args['path'])) {
-            if ($args['path']) {
-                if($this->_allowCreateFolders ) {
-                    $this->_createDestinationFolder($args['path']);
-                }
-            }
+        if (!empty($args['path']) && $this->_allowCreateFolders) {
+            $this->checkAndCreateFolder($args['path']);
         }
 
         $this->_iwd = getcwd();
@@ -450,40 +446,106 @@ class Varien_Io_File extends Varien_Io_Abstract
      *
      * @param string $filename
      * @param string|resource $src
+     * @param int $mode
+     *
      * @return int|boolean
      */
     public function write($filename, $src, $mode=null)
     {
-        if (is_string($src) && is_readable($src)) {
-            $src = realpath($src);
-            $srcIsFile = true;
-        } elseif (is_string($src) || is_resource($src)) {
-            $srcIsFile = false;
-        } else {
+        if (!$this->_IsValidSource($src) || !$this->_isFilenameWriteable($filename)) {
             return false;
         }
-        @chdir($this->_cwd);
 
-        if (file_exists($filename)) {
-            if (!is_writeable($filename)) {
-                printf('File %s don\'t writeable', $filename);
-                return false;
-            }
-        } else {
-            if (!is_writable(dirname($filename))) {
-                printf('Folder %s don\'t writeable', dirname($filename));
-                return false;
-            }
-        }
+        $srcIsFile = $this->_checkSrcIsFile($src);
         if ($srcIsFile) {
-            $result = @copy($src, $filename);
+            $src = realpath($src);
+            $result = $this->cp($src, $filename);
         } else {
-            $result = @file_put_contents($filename, $src);
+            $result = $this->filePutContent($filename, $src);
         }
-        if (!is_null($mode)) {
-            @chmod($filename, $mode);
+
+        if (!is_null($mode) && $result !== false) {
+            $this->chmod($filename, $mode);
         }
+
+        return $result;
+    }
+
+    /**
+     * Check source is valid
+     *
+     * @param string|resource $src
+     * @return bool
+     */
+    protected function _IsValidSource($src)
+    {
+        if (is_string($src) || is_resource($src)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Check filename is writeable
+     * If filename not exist check dirname writeable
+     *
+     * @param string $filename
+     * @throws Varien_Io_Exception
+     * @return bool
+     */
+    protected function _isFilenameWriteable($filename)
+    {
+        $error = false;
+        @chdir($this->_cwd);
+         if (file_exists($filename)) {
+            if (!is_writeable($filename)) {
+                $error = "File '{$filename}' isn't writeable";
+            }
+        } else {
+            $folder = dirname($filename);
+            if (!is_writable($folder)) {
+                $error = "Folder '{$folder}' isn't writeable";
+            }
+        }
+        @chdir($this->_iwd);
+
+        if ($error) {
+            throw new Varien_Io_Exception($error);
+        }
+        return true;
+    }
+
+    /**
+     * Check source is file
+     *
+     * @param string $src
+     * @return bool
+     */
+    protected function _checkSrcIsFile($src)
+    {
+        $result = false;
+        if (is_string($src) && is_readable($src) && is_file($src)) {
+            $result = true;
+        }
+
+        return $result;
+    }
+
+    /**
+     * File put content wrapper
+     *
+     * @param string $filename
+     * @param srting|resource $src
+     *
+     * @return int
+     */
+    public function filePutContent($filename, $src)
+    {
+        @chdir($this->_cwd);
+        $result = @file_put_contents($filename, $src);
         chdir($this->_iwd);
+
         return $result;
     }
 
@@ -526,7 +588,7 @@ class Varien_Io_File extends Varien_Io_Abstract
         if (!$this->_allowCreateFolders) {
             return false;
         }
-        return $this->_createDestinationFolder($this->getCleanPath($path));
+        return $this->checkAndCreateFolder($this->getCleanPath($path));
     }
 
     /**
@@ -534,6 +596,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      *
      * @param string $folder
      * @param int $mode
+     * @throws Exception
      * @return bool
      */
     public function checkAndCreateFolder($folder, $mode = 0777)
@@ -550,44 +613,6 @@ class Varien_Io_File extends Varien_Io_Abstract
         return true;
     }
 
-    private function _createDestinationFolder($destinationFolder)
-    {
-        return $this->checkAndCreateFolder($destinationFolder);
-
-        if( !$destinationFolder ) {
-            return $this;
-        }
-        if (!(@is_dir($destinationFolder) || $this->mkdir($destinationFolder, 0777, true))) {
-            throw new Exception("Unable to create directory '{$destinationFolder}'.");
-        }
-
-        $destinationFolder = str_replace('/', DIRECTORY_SEPARATOR, $destinationFolder);
-        $path = explode(DIRECTORY_SEPARATOR, $destinationFolder);
-        $newPath = null;
-        $oldPath = null;
-        foreach( $path as $key => $directory ) {
-            if (trim($directory)=='') {
-                continue;
-            }
-            if (strlen($directory)===2 && $directory{1}===':') {
-                $newPath = $directory;
-                continue;
-            }
-            $newPath.= ( $newPath != DIRECTORY_SEPARATOR ) ? DIRECTORY_SEPARATOR . $directory : $directory;
-            if( is_dir($newPath) ) {
-                $oldPath = $newPath;
-                continue;
-            } else {
-                if( is_writable($oldPath) ) {
-                    $this->mkdir($newPath, 0777);
-                } else {
-                    throw new Exception("Unable to create directory '{$newPath}'. Access forbidden.");
-                }
-            }
-            $oldPath = $newPath;
-        }
-        return $this;
-    }
     /**
      * Delete a file
      *
@@ -702,7 +727,10 @@ class Varien_Io_File extends Varien_Io_Abstract
                     $pathinfo = pathinfo($fullpath);
                     $list_item['size'] = filesize($fullpath);
                     $list_item['leaf'] = true;
-                    if( isset($pathinfo['extension']) && in_array(strtolower($pathinfo['extension']), Array('jpg', 'jpeg', 'gif', 'bmp', 'png')) && $list_item['size'] > 0 ) {
+                    if( isset($pathinfo['extension'])
+                        && in_array(strtolower($pathinfo['extension']), Array('jpg', 'jpeg', 'gif', 'bmp', 'png'))
+                        && $list_item['size'] > 0
+                    ) {
                         $list_item['is_image'] = true;
                         $list_item['filetype'] = $pathinfo['extension'];
                     } elseif( $list_item['size'] == 0 ) {

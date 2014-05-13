@@ -77,7 +77,7 @@ class Mage_Adminhtml_Block_Review_Edit extends Mage_Adminhtml_Block_Widget_Form_
                 'delete',
                 'onclick',
                 'deleteConfirm('
-                    . '\'' . Mage::helper('review')->__('Are you sure you want to do this?').'\' '
+                    . '\'' . Mage::helper('review')->__('Are you sure you want to do this?').'\', '
                     . '\'' . $this->getUrl(
                         '*/*/delete',
                         array(

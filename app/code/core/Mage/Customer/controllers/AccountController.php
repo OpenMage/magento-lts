@@ -136,6 +136,11 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      */
     public function loginPostAction()
     {
+        if (!$this->_validateFormKey()) {
+            $this->_redirect('*/*/');
+            return;
+        }
+
         if ($this->_getSession()->isLoggedIn()) {
             $this->_redirect('*/*/');
             return;
@@ -559,8 +564,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     {
         $session = $this->_getSession();
         if ($session->isLoggedIn()) {
-            $this->_redirect('*/*/');
-            return;
+            $this->_getSession()->logout()->regenerateSessionId();
         }
         try {
             $id      = $this->getRequest()->getParam('id', false);

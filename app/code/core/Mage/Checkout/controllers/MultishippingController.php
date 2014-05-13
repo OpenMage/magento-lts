@@ -267,6 +267,9 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
         }
     }
 
+    /**
+     * Multishipping checkout action to go back to addresses page
+     */
     public function backToAddressesAction()
     {
         $this->_getState()->setActiveStep(
@@ -292,6 +295,11 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
         $this->_redirect('*/*/addresses');
     }
 
+    /**
+     * Returns whether the minimum amount has been reached
+     *
+     * @return bool
+     */
     protected function _validateMinimumAmount()
     {
         if (!$this->_getCheckout()->validateMinimumAmount()) {
@@ -326,6 +334,9 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
         $this->renderLayout();
     }
 
+    /**
+     * Multishipping checkout action to go back to shipping
+     */
     public function backToShippingAction()
     {
         $this->_getState()->setActiveStep(
@@ -337,6 +348,9 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
         $this->_redirect('*/*/shipping');
     }
 
+    /**
+     * Multishipping checkout after the shipping page
+     */
     public function shippingPostAction()
     {
         $shippingMethods = $this->getRequest()->getPost('shipping_method');
@@ -354,7 +368,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
             );
             $this->_redirect('*/*/billing');
         }
-        catch (Exception $e){
+        catch (Exception $e) {
             $this->_getCheckoutSession()->addError($e->getMessage());
             $this->_redirect('*/*/shipping');
         }
@@ -402,6 +416,9 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
         return true;
     }
 
+    /**
+     * Multishipping checkout action to go back to billing
+     */
     public function backToBillingAction()
     {
         $this->_getState()->setActiveStep(
@@ -453,8 +470,16 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
         }
     }
 
+    /**
+     * Multishipping checkout after the overview page
+     */
     public function overviewPostAction()
     {
+        if (!$this->_validateFormKey()) {
+            $this->_forward('backToAddresses');
+            return;
+        }
+
         if (!$this->_validateMinimumAmount()) {
             return;
         }
@@ -489,7 +514,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
             $this->_redirect('*/*/success');
         } catch (Mage_Payment_Model_Info_Exception $e) {
             $message = $e->getMessage();
-            if( !empty($message) ) {
+            if ( !empty($message) ) {
                 $this->_getCheckoutSession()->addError($message);
             }
             $this->_redirect('*/*/billing');
@@ -500,12 +525,12 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
             $this->_getCheckoutSession()->addError($e->getMessage());
             $this->_redirect('*/cart');
         }
-        catch (Mage_Core_Exception $e){
+        catch (Mage_Core_Exception $e) {
             Mage::helper('checkout')
                 ->sendPaymentFailedEmail($this->_getCheckout()->getQuote(), $e->getMessage(), 'multi-shipping');
             $this->_getCheckoutSession()->addError($e->getMessage());
             $this->_redirect('*/*/billing');
-        } catch (Exception $e){
+        } catch (Exception $e) {
             Mage::logException($e);
             Mage::helper('checkout')
                 ->sendPaymentFailedEmail($this->_getCheckout()->getQuote(), $e->getMessage(), 'multi-shipping');
@@ -515,7 +540,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
     }
 
     /**
-     * Multishipping checkout succes page
+     * Multishipping checkout success page
      */
     public function successAction()
     {
@@ -533,7 +558,6 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
     /**
      * Redirect to login page
-     *
      */
     public function redirectLogin()
     {

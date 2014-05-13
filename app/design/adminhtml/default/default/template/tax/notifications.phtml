@@ -26,27 +26,49 @@
 /* @var $this Mage_Tax_Block_Adminhtml_Notifications */
 ?>
 <?php $messageDetails = $this->helper('tax')->__('Please see <a href="%s">source</a> for more details.', $this->getInfoUrl())
-        . $this->helper('tax')->__('Click here to go to <a href="%s">Tax configuration</a> and change your settings.', $this->getManageUrl());
+    . $this->helper('tax')->__('Click here to go to <a href="%s">Tax configuration</a> and change your settings.', $this->getManageUrl());
 ?>
-<?php $discountStores = $this->getWebsitesWithWrongDiscountSettings()?>
-<?php if(!Mage::helper('tax')->isWrongDiscountSettingsIgnored() && $discountStores):?>
+<?php $discountStores = $this->getWebsitesWithWrongDiscountSettings() ?>
+<?php if (!Mage::helper('tax')->isWrongDiscountSettingsIgnored() && $discountStores): ?>
 <div class="notification-global">
-    <strong><?php echo $this->helper('tax')->__('Warning tax discount configuration might result in different discounts than a customer might expect')?></strong>
-    <?php if(is_array($discountStores)):?><strong><?php echo $this->helper('tax')->__('for store(s)')?>: </strong><?php echo implode(', ', $discountStores)?><?php endif;?>.
+    <strong><?php echo $this->helper('tax')->__('Warning tax discount configuration might result in different discounts than a customer might expect') ?></strong>
+    <?php if (is_array($discountStores)): ?><strong><?php echo $this->helper('tax')->__('for store(s)') ?>
+    : </strong><?php echo implode(', ', $discountStores) ?><?php endif; ?>.
     <?php echo $messageDetails ?>
     <span class="f-right">
-        <a href="<?php echo $this->getIgnoreTaxNotificationUrl('discount') ?>"><?php echo $this->helper('tax')->__('Ignore this notification')?></a>
+        <a href="<?php echo $this->getIgnoreTaxNotificationUrl('discount') ?>"><?php echo $this->helper('tax')->__('Ignore this notification') ?></a>
     </span>
 </div>
-<?php endif;?>
+<?php endif; ?>
+
 <?php $priceDisplayStores = $this->getStoresWithWrongDisplaySettings() ?>
-<?php if(!Mage::helper('tax')->isWrongDisplaySettingsIgnored() && $priceDisplayStores):?>
+<?php if (!Mage::helper('tax')->isWrongDisplaySettingsIgnored() && $priceDisplayStores): ?>
 <div class="notification-global">
-    <strong><?php echo $this->helper('tax')->__('Warning tax configuration can result in rounding errors')?></strong>
-    <?php if(is_array($priceDisplayStores)):?><strong><?php echo $this->helper('tax')->__('for store(s)')?>: </strong><?php echo implode(', ', $priceDisplayStores)?><?php endif;?>.
+    <strong><?php echo $this->helper('tax')->__('Warning tax configuration can result in rounding errors') ?></strong>
+    <?php if (is_array($priceDisplayStores)): ?><strong><?php echo $this->helper('tax')->__('for store(s)') ?>
+    : </strong><?php echo implode(', ', $priceDisplayStores) ?><?php endif; ?>.
     <?php echo $messageDetails ?>
     <span class="f-right">
-        <a href="<?php echo $this->getIgnoreTaxNotificationUrl('price_display') ?>"><?php echo $this->helper('tax')->__('Ignore this notification')?></a>
+        <a href="<?php echo $this->getIgnoreTaxNotificationUrl('price_display') ?>"><?php echo $this->helper('tax')->__('Ignore this notification') ?></a>
     </span>
 </div>
-<?php endif;?>
+<?php endif; ?>
+
+<?php $storesWithConflictingFptTaxConfigurationSettings = $this->getStoresWithConflictingFptTaxConfigurationSettings() ?>
+<?php $isDefaultStoreConflictingFptTaxConfigurationSettings = $this->isDefaultStoreWithConflictingFptTaxConfigurationSettings() ?>
+
+<?php if (!Mage::helper('tax')->isConflictingFptTaxConfigurationSettingsIgnored() &&
+    ($isDefaultStoreConflictingFptTaxConfigurationSettings || $storesWithConflictingFptTaxConfigurationSettings)
+): ?>
+<div class="notification-global">
+    <strong><?php echo $this->helper('tax')->__('Warning tax configuration can result in unexpected FPT prices on applicable devices') ?></strong>
+    <!--        If the default store is fine, but the others aren't, list the ones that have conflicting settings-->
+    <?php if (empty($storesWithConflictingFptTaxConfigurationSettings) && !$isDefaultStoreConflictingFptTaxConfigurationSettings): ?>
+    <strong><?php echo $this->helper('tax')->__('for store(s)') ?>
+        : </strong><?php echo implode(', ', $storesWithConflictingFptTaxConfigurationSettings) ?><?php endif; ?>.
+        <span class="f-right">
+        <a href="<?php echo $this->getIgnoreTaxNotificationUrl('fpt_configuration') ?>"><?php echo $this->helper('tax')->__('Ignore this notification') ?></a>
+    </span>
+</div>
+<?php endif; ?>
+

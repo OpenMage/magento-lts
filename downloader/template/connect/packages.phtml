@@ -143,6 +143,7 @@ function connectPrepare(form) {
     <h4>Direct package file upload</h4>
 </div>
 <form action="<?php echo $this->url('connectInstallPackageUpload')?>" method="post" target="connect_iframe" onsubmit="onSubmit(this)" enctype="multipart/form-data">
+    <input name="form_key" type="hidden" value="<?php echo $this->getFormKey() ?>" />
     <ul class="bare-list">
         <li><span class="step-count">1</span> &nbsp; Download or build package file.</li>
         <li>

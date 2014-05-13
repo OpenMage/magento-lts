@@ -116,7 +116,7 @@ class Mage_Persistent_IndexController extends Mage_Core_Controller_Front_Action
 
     /**
      * Add appropriate session message and redirect to shopping cart
-     * used for google checkout and paypal express checkout
+     * used for paypal express checkout
      */
     public function expressCheckoutAction()
     {

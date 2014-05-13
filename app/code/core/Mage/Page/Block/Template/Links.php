@@ -98,9 +98,24 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
             'after_text'    => $afterText,
         ));
 
+        $this->_addIntoPosition($link, $position);
+
+        return $this;
+    }
+
+    /**
+     * Add link into collection
+     *
+     * @param Varien_Object $link
+     * @param int $position
+     * @return Mage_Page_Block_Template_Links
+     */
+    protected function _addIntoPosition($link, $position)
+    {
         $this->_links[$this->_getNewPosition($position)] = $link;
+
         if (intval($position) > 0) {
-             ksort($this->_links);
+            ksort($this->_links);
         }
 
         return $this;
@@ -116,7 +131,8 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
     {
         $block = $this->getLayout()->getBlock($blockName);
         if ($block) {
-            $this->_links[$this->_getNewPosition((int)$block->getPosition())] = $block;
+            $position = (int)$block->getPosition();
+            $this->_addIntoPosition($block, $position);
         }
         return $this;
     }
@@ -252,3 +268,4 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
         return parent::getCacheTags();
     }
 }
+

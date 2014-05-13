@@ -75,14 +75,6 @@
                     </googleanalytics_order_success>
                 </observers>
             </checkout_multishipping_controller_success_action>
-            <googlecheckout_block_link_html_before>
-                <observers>
-                    <googleanalytics_googlecheckout_integration>
-                        <class>googleanalytics/observer</class>
-                        <method>injectAnalyticsInGoogleCheckoutLink</method>
-                    </googleanalytics_googlecheckout_integration>
-                </observers>
-            </googlecheckout_block_link_html_before>
         </events>
         <layout>
             <updates>

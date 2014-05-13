@@ -147,6 +147,7 @@
 "Total","Total"
 "Unit Price","Unit Price"
 "Warning tax configuration can result in rounding errors","Warning tax configuration can result in rounding errors"
+"Warning tax configuration can result in unexpected FPT prices on applicable devices","Warning tax configuration can result in unexpected FPT prices on applicable devices"
 "Warning tax discount configuration might result in different discounts than a customer might expect","Warning tax discount configuration might result in different discounts than a customer might expect"
 "Whether catalog prices entered by admin include tax.","Whether catalog prices entered by admin include tax."
 "Whether shipping amounts entered by admin or obtained from gateways include tax.","Whether shipping amounts entered by admin or obtained from gateways include tax."

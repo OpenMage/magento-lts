@@ -113,6 +113,11 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
             $this->_getSession()->setCurrencyId((string) $currencyId);
             $this->_getOrderCreateModel()->setRecollect(true);
         }
+
+        //Notify other modules about the session quote
+        Mage::dispatchEvent('create_order_session_quote_initialized',
+                array('session_quote' => $this->_getSession()));
+
         return $this;
     }
 
@@ -527,7 +532,20 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
      */
     protected function _isAllowed()
     {
+        return Mage::getSingleton('admin/session')->isAllowed($this->_getAclResourse());
+    }
+
+    /**
+     * Get acl resource
+     *
+     * @return string
+     */
+    protected function _getAclResourse()
+    {
         $action = strtolower($this->getRequest()->getActionName());
+        if (in_array($action, array('index', 'save')) && $this->_getSession()->getReordered()) {
+            $action = 'reorder';
+        }
         switch ($action) {
             case 'index':
             case 'save':
@@ -543,7 +561,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
                 $aclResource = 'sales/order/actions';
                 break;
         }
-        return Mage::getSingleton('admin/session')->isAllowed($aclResource);
+        return $aclResource;
     }
 
     /*

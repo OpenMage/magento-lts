@@ -115,6 +115,12 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
         $ruleModel->setCalculateSubtotal($this->getRequest()->getParam('calculate_subtotal', 0));
 
         try {
+
+            //Check if the rule already exists
+            if (!$this->_isValidRuleRequest($ruleModel)) {
+                return $this->_redirectReferer();
+            }
+
             $ruleModel->save();
 
             $this->_getSingletonModel('adminhtml/session')
@@ -136,6 +142,31 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
 
         $this->_getSingletonModel('adminhtml/session')->setRuleData($postData);
         $this->_redirectReferer();
+    }
+
+
+    /**
+     * Check if this a duplicate rule creation request
+     *
+     * @param Mage_Tax_Model_Calculation_Rule $ruleModel
+     * @return bool
+     */
+    protected function _isValidRuleRequest($ruleModel)
+    {
+        $existingRules = $ruleModel->fetchRuleCodes($ruleModel->getTaxRate(),
+            $ruleModel->getTaxCustomerClass(), $ruleModel->getTaxProductClass());
+
+        //Remove the current one from the list
+        $existingRules = array_diff($existingRules, array($ruleModel->getCode()));
+
+        //Verify if a Rule already exists. If not throw an error
+        if (count($existingRules) > 0) {
+            $ruleCodes = implode(",", $existingRules);
+            $this->_getSingletonModel('adminhtml/session')->addError(
+                $this->_getHelperModel('tax')->__('Rules (%s) already exist for the specified Tax Rate, Customer Tax Class and Product Tax Class combinations', $ruleCodes));
+            return false;
+        }
+        return true;
     }
 
     /**

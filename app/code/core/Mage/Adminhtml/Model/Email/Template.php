@@ -113,4 +113,24 @@ class Mage_Adminhtml_Model_Email_Template extends Mage_Core_Model_Email_Template
 
         return $configData;
     }
+
+    /**
+     * Delete current usage
+     *
+     * @return Mage_Adminhtml_Model_Email_Template
+     */
+    protected function _afterDelete() {
+        $paths = $this->getSystemConfigPathsWhereUsedCurrently();
+        foreach ($paths as $path) {
+            $configDataCollection = Mage::getModel('core/config_data')
+                ->getCollection()
+                ->addFieldToFilter('scope', $path['scope'])
+                ->addFieldToFilter('scope_id', $path['scope_id'])
+                ->addFieldToFilter('path', $path['path']);
+            foreach ($configDataCollection as $configItem) {
+                $configItem->delete();
+            }
+        }
+        return parent::_afterDelete();
+    }
 }

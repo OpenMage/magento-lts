@@ -23,25 +23,30 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+
+/**
+ * @var $this Mage_ProductAlert_Block_Email_Stock
+ */
 ?>
-<?php if ($_products = $this->getProducts()): ?>
+<?php if ($products = $this->getProducts()): ?>
 <p><?php echo $this->__('You are receiving this notification because you subscribed to receive alerts when the following products are back in stock:') ?></p>
 <table>
-<?php foreach ($_products as $_product): ?>
+<?php foreach ($products as $product): ?>
     <tr>
-        <td><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->escapeHtml($_product->getName()) ?>"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'thumbnail')->resize(75, 75) ?>" border="0" align="left" height="75" width="75" alt="<?php echo $this->escapeHtml($_product->getName()) ?>" /></a></td>
+        <td><a href="<?php echo $product->getProductUrl() ?>" title="<?php echo $this->escapeHtml($product->getName()) ?>"><img src="<?php echo $this->helper('catalog/image')->init($product, 'thumbnail')->resize(75, 75) ?>" border="0" align="left" height="75" width="75" alt="<?php echo $this->escapeHtml($product->getName()) ?>" /></a></td>
         <td>
-            <p><a href="<?php echo $_product->getProductUrl() ?>"><strong><?php echo $this->escapeHtml($_product->getName()) ?></strong></a></p>
-            <?php if ($shortDescription = $this->escapeHtml($_product->getShortDescription())): ?>
-            <p><small><?php echo $shortDescription ?></small></p>
+            <p><a href="<?php echo $product->getProductUrl() ?>"><strong><?php echo $this->escapeHtml($product->getName()) ?></strong></a></p>
+            <?php $shortDescription = $this->_getFilteredProductShortDescription($product) ?>
+            <?php if ($shortDescription): ?>
+                <p><small><?php echo $shortDescription ?></small></p>
             <?php endif; ?>
-            <p><?php if ($_product->getPrice() != $_product->getFinalPrice()): ?>
-                <?php echo $this->__('Regular Price:') ?> <strong style="text-decoration:line-through;"><?php echo Mage::helper('core')->currency($_product->getPrice()) ?></strong><br />
-                <strong><?php echo $this->__('Special price:') ?> <span style="color:#FF0000;"><?php echo Mage::helper('core')->currency($_product->getFinalPrice()) ?></span></strong>
+            <p><?php if ($product->getPrice() != $product->getFinalPrice()): ?>
+                <?php echo $this->__('Regular Price:') ?> <strong style="text-decoration:line-through;"><?php echo Mage::helper('core')->currency($product->getPrice()) ?></strong><br />
+                <strong><?php echo $this->__('Special price:') ?> <span style="color:#FF0000;"><?php echo Mage::helper('core')->currency($product->getFinalPrice()) ?></span></strong>
             <?php else: ?>
-                <strong><?php echo $this->__('Price:') ?></strong> <?php echo Mage::helper('core')->currency($_product->getPrice()) ?>
+                <strong><?php echo $this->__('Price:') ?></strong> <?php echo Mage::helper('core')->currency($product->getPrice()) ?>
             <?php endif; ?></p>
-            <p><small><a href="<?php echo $this->getProductUnsubscribeUrl($_product->getId()) ?>"><?php echo $this->__('Click here not to receive alerts for this product') ?></a></small></p>
+            <p><small><a href="<?php echo $this->getProductUnsubscribeUrl($product->getId()) ?>"><?php echo $this->__('Click here not to receive alerts for this product') ?></a></small></p>
         </td>
     </tr>
 <?php endforeach; ?>

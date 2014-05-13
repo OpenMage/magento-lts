@@ -114,7 +114,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
         $x = $this->_x(0);
         $y = $this->_y(0);
 
-        $image = new Zend_Pdf_Resource_Image_Jpeg(Mage::getBaseDir('media')  . DS .  'dhl' . DS . 'logo.jpg');
+        $image = new Zend_Pdf_Resource_Image_Jpeg(Mage::getBaseDir('media') . DS . 'dhl' . DS . 'logo.jpg');
         $this->_page->drawImage($image, $x + 191, $this->_y(27), $x + 287, $this->_y(1));
 
         /* Vertical borders */
@@ -373,7 +373,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
         $phoneNumber = implode(' ', array_filter(array($consignee->Contact->PhoneNumber,
             $consignee->Contact->PhoneExtension))
         );
-        $this->_page->drawText($phoneNumber, $this->_x(283), $y, null,
+        $this->_page->drawText($phoneNumber, $this->_x(283), $y, 'UTF-8',
             Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page::ALIGN_RIGHT
         );
 
@@ -399,7 +399,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
         if (!strlen($code)) {
             throw new InvalidArgumentException(Mage::helper('usa')->__('Destination facility code is empty'));
         }
-        $this->_page->drawText($code, $this->_x(144), $this->_y(186), null,
+        $this->_page->drawText($code, $this->_x(144), $this->_y(186), 'UTF-8',
             Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page::ALIGN_CENTER
         );
 
@@ -550,7 +550,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
     {
         $this->_page->saveGS();
 
-        if(!strlen($number) || !strlen($barCode)) {
+        if (!strlen($number) || !strlen($barCode)) {
             throw new InvalidArgumentException(Mage::helper('usa')->__('Waybill barcode information is missing'));
         }
         $image = new Zend_Pdf_Resource_Image_Png("data://image/png;base64," . $barCode);
@@ -577,7 +577,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
     {
         $this->_page->saveGS();
 
-        if(!$barCode) {
+        if (!$barCode) {
             throw new InvalidArgumentException(Mage::helper('usa')->__('Routing barcode is missing'));
         }
 
@@ -614,7 +614,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
 
         $this->_page->setFont($this->_fontNormal, 9);
         $routingText = '(' . $dataIdentifier . ')' . $licensePlate;
-        $this->_page->drawText($routingText, $this->_x(144), $this->_y(563), '',
+        $this->_page->drawText($routingText, $this->_x(144), $this->_y(563), 'UTF-8',
             Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page::ALIGN_CENTER
         );
 

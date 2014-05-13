@@ -1,0 +1,99 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+
+<?php
+/* @var $this Mage_Adminhtml_Block_System_Store_Tree */
+?>
+
+<div class="grid">
+    <table class="data" cellspacing="0">
+        <thead>
+            <tr class="headings">
+                <th class="no-link"><span class="nobr"><a href="<?php echo $this->getUrl('*/*/newWebsite') ?>"><?php echo Mage::helper('core')->__('Website Name') ?></a></span></th>
+                <th class="no-link"><span class="nobr"><a href="<?php echo $this->getUrl('*/*/newGroup') ?>"><?php echo Mage::helper('core')->__('Store Name') ?></a></span></th>
+                <th class="no-link"><span class="nobr"><a href="<?php echo $this->getUrl('*/*/newStore') ?>"><?php echo Mage::helper('core')->__('Store View Name') ?></a></span></th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php $printedWebsite = false; ?>
+        <?php $printedStoreGroup = false; ?>
+        <?php foreach ($this->getTableData() as $webSiteId => $webSiteData): ?>
+
+            <?php if (count($webSiteData['storeGroups']) == 0): ?>
+
+                <tr>
+                    <?php if (!$printedWebsite): ?>
+                        <td class="a-left" rowspan="<?php echo $webSiteData['count'] ?>"><?php echo $this->renderWebsite($webSiteData['object']) ?></td>
+                    <?php endif ?>
+
+                    <td colspan="2" class="a-left last"><span class="not-available"></span></td>
+                </tr>
+
+                <?php $printedWebsite = false; ?>
+                <?php continue ?>
+            <?php endif ?>
+
+            <?php foreach ($webSiteData['storeGroups'] as $storeGroupId => $storeGroupData): ?>
+                <?php if (count($storeGroupData['stores']) == 0): ?>
+                    <tr>
+                        <?php if (!$printedWebsite): ?>
+                            <td class="a-left" rowspan="<?php echo $webSiteData['count'] ?>"><?php echo $this->renderWebsite($webSiteData['object']) ?></td>
+                            <?php $printedWebsite = true; ?>
+                        <?php endif ?>
+
+                        <?php if (!$printedStoreGroup): ?>
+                        <td class="a-left" rowspan="<?php echo $storeGroupData['count'] ?>"><?php echo $this->renderStoreGroup($storeGroupData['object']) ?></td>
+                        <?php endif ?>
+
+                        <td class="a-left last"><span class="not-available"></span></td>
+                    </tr>
+                    <?php $printedStoreGroup = false; ?>
+                    <?php continue ?>
+                <?php endif ?>
+
+                <?php foreach ($storeGroupData['stores'] as $storeId => $storeData): ?>
+                    <tr>
+                        <?php if (!$printedWebsite): ?>
+                            <td class="a-left" rowspan="<?php echo $webSiteData['count'] ?>"><?php echo $this->renderWebsite($webSiteData['object']) ?></td>
+                            <?php $printedWebsite = true; ?>
+                        <?php endif ?>
+
+                        <?php if (!$printedStoreGroup): ?>
+                        <td class="a-left" rowspan="<?php echo $storeGroupData['count'] ?>"><?php echo $this->renderStoreGroup($storeGroupData['object']) ?></td>
+                            <?php $printedStoreGroup = true; ?>
+                        <?php endif ?>
+
+                        <td class="a-left last"><?php echo $this->renderStore($storeData['object']); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+                <?php $printedStoreGroup = false; ?>
+            <?php endforeach; ?>
+            <?php $printedWebsite = false; ?>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>

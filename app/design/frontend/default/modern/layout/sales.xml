@@ -220,7 +220,9 @@ Customer account home dashboard layout
                 <block type="sales/order_invoice_totals" name="invoice_totals" template="sales/order/totals.phtml">
                     <action method="setLabelProperties"><value>colspan="4" class="a-right"</value></action>
                     <action method="setValueProperties"><value>class="last a-right"</value></action>
-                    <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml" />
+                    <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml">
+                        <action method="setIsPlaneMode"><value>1</value></action>
+                    </block>
                 </block>
             </block>
         </reference>
@@ -243,7 +245,9 @@ Customer account home dashboard layout
                 <block type="sales/order_creditmemo_totals" name="creditmemo_totals" template="sales/order/totals.phtml">
                     <action method="setLabelProperties"><value>colspan="6" class="a-right"</value></action>
                     <action method="setValueProperties"><value>class="a-right"</value></action>
-                    <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml"/>
+                    <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml">
+                        <action method="setIsPlaneMode"><value>1</value></action>
+                    </block>
                 </block>
             </block>
         </reference>
@@ -273,7 +277,9 @@ Email layouts section
             <block type="sales/order_invoice_totals" name="invoice_totals" template="sales/order/totals.phtml">
                 <action method="setLabelProperties"><value>colspan="3" align="right" style="padding:3px 9px"</value></action>
                 <action method="setValueProperties"><value>align="right" style="padding:3px 9px"</value></action>
-                <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml"/>
+                <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml">
+                    <action method="setIsPlaneMode"><value>1</value></action>
+                </block>
             </block>
         </block>
     </sales_email_order_invoice_items>
@@ -291,7 +297,9 @@ Email layouts section
             <block type="sales/order_creditmemo_totals" name="creditmemo_totals" template="sales/order/totals.phtml">
                 <action method="setLabelProperties"><value>colspan="3" align="right" style="padding:3px 9px"</value></action>
                 <action method="setValueProperties"><value>align="right" style="padding:3px 9px"</value></action>
-                <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml"/>
+                <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml">
+                    <action method="setIsPlaneMode"><value>1</value></action>
+                </block>
             </block>
         </block>
     </sales_email_order_creditmemo_items>
@@ -459,7 +467,9 @@ Guest
                 <block type="sales/order_invoice_totals" name="invoice_totals" template="sales/order/totals.phtml">
                     <action method="setLabelProperties"><value>colspan="4" class="a-right"</value></action>
                     <action method="setValueProperties"><value>class="last a-right"</value></action>
-                    <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml" />
+                    <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml">
+                        <action method="setIsPlaneMode"><value>1</value></action>
+                    </block>
                 </block>
             </block>
         </reference>
@@ -482,7 +492,9 @@ Guest
                 <block type="sales/order_creditmemo_totals" name="creditmemo_totals" template="sales/order/totals.phtml">
                     <action method="setLabelProperties"><value>colspan="6" class="a-right"</value></action>
                     <action method="setValueProperties"><value>class="a-right"</value></action>
-                    <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml"/>
+                    <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml">
+                        <action method="setIsPlaneMode"><value>1</value></action>
+                    </block>
                 </block>
             </block>
         </reference>

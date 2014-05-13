@@ -73,10 +73,15 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
      */
     public function allcartAction()
     {
+        if (!$this->_validateFormKey()) {
+            $this->_forward('noRoute');
+            return;
+        }
+
         $wishlist   = $this->_getWishlist();
         if (!$wishlist) {
             $this->_forward('noRoute');
-            return ;
+            return;
         }
         $isOwner    = $wishlist->isOwner(Mage::getSingleton('customer/session')->getCustomerId());
 
@@ -89,7 +94,9 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
         $collection = $wishlist->getItemCollection()
                 ->setVisibilityFilter();
 
-        $qtys = $this->getRequest()->getParam('qty');
+        $qtysString = $this->getRequest()->getParam('qty');
+        $qtys =  array_filter(json_decode($qtysString), 'strlen');
+
         foreach ($collection as $item) {
             /** @var Mage_Wishlist_Model_Item */
             try {
@@ -116,6 +123,11 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
                     $hasOptions[] = $item;
                 } else {
                     $messages[] = $this->__('%s for "%s".', trim($e->getMessage(), '.'), $item->getProduct()->getName());
+                }
+
+                $cartItem = $cart->getQuote()->getItemByProduct($item->getProduct());
+                if ($cartItem) {
+                    $cart->getQuote()->deleteItem($cartItem);
                 }
             } catch (Exception $e) {
                 Mage::logException($e);
@@ -187,9 +199,10 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
             Mage::getSingleton('checkout/session')->addSuccess(
                 Mage::helper('wishlist')->__('%d product(s) have been added to shopping cart: %s.', count($addedItems), join(', ', $products))
             );
+
+            // save cart and collect totals
+            $cart->save()->getQuote()->collectTotals();
         }
-        // save cart and collect totals
-        $cart->save()->getQuote()->collectTotals();
 
         Mage::helper('wishlist')->calculate();
 

@@ -39,6 +39,8 @@ class Mage_Weee_Model_Total_Invoice_Weee extends Mage_Sales_Model_Order_Invoice_
 
         $totalTax = 0;
         $baseTotalTax = 0;
+        $weeeInclTax = 0;
+        $baseWeeeInclTax = 0;
 
         foreach ($invoice->getAllItems() as $item) {
             $orderItem = $item->getOrderItem();
@@ -50,6 +52,9 @@ class Mage_Weee_Model_Total_Invoice_Weee extends Mage_Sales_Model_Order_Invoice_
 
             $weeeTaxAmount = $item->getWeeeTaxAppliedAmount() * $item->getQty();
             $baseWeeeTaxAmount = $item->getBaseWeeeTaxAppliedAmount() * $item->getQty();
+
+            $weeeTaxAmountInclTax = Mage::helper('weee')->getWeeeTaxInclTax($item) * $item->getQty();
+            $baseWeeeTaxAmountInclTax = Mage::helper('weee')->getBaseWeeeTaxInclTax($item) * $item->getQty();
 
             $item->setWeeeTaxAppliedRowAmount($weeeTaxAmount);
             $item->setBaseWeeeTaxAppliedRowAmount($baseWeeeTaxAmount);
@@ -70,6 +75,9 @@ class Mage_Weee_Model_Total_Invoice_Weee extends Mage_Sales_Model_Order_Invoice_
 
             $totalTax += $weeeTaxAmount;
             $baseTotalTax += $baseWeeeTaxAmount;
+
+            $weeeInclTax += $weeeTaxAmountInclTax;
+            $baseWeeeInclTax += $baseWeeeTaxAmountInclTax;
         }
 
         /*
@@ -98,6 +106,11 @@ class Mage_Weee_Model_Total_Invoice_Weee extends Mage_Sales_Model_Order_Invoice_
 
             $invoice->setTaxAmount($invoice->getTaxAmount() + $totalTax);
             $invoice->setBaseTaxAmount($invoice->getBaseTaxAmount() + $baseTotalTax);
+        }
+
+        if (!$invoice->isLast()) {
+            $invoice->setSubtotalInclTax($invoice->getSubtotalInclTax() + $weeeInclTax);
+            $invoice->setBaseSubtotalInclTax($invoice->getBaseSubtotalInclTax() + $baseWeeeInclTax);
         }
 
         $invoice->setGrandTotal($invoice->getGrandTotal() + $totalTax);

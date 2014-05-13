@@ -31,7 +31,7 @@
 
     <td class="<?php if ($this->isShipmentRegular()): ?>last<?php endif; ?> a-center">
         <?php if ($this->canShipPartiallyItem()): ?>
-            <input type="text" class="input-text" name="shipment[items][<?php echo $_item->getOrderItemId() ?>]" value="<?php echo $_item->getQty()*1 ?>" />
+            <input type="text" class="input-text qty-item" name="shipment[items][<?php echo $_item->getOrderItemId() ?>]" value="<?php echo $_item->getQty()*1 ?>" />
         <?php else: ?>
             <?php echo $_item->getQty()*1 ?>
         <?php endif; ?>

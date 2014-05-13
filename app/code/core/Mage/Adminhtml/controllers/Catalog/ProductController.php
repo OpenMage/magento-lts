@@ -728,17 +728,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
                 $product->save();
                 $productId = $product->getId();
 
-                /**
-                 * Do copying data to stores
-                 */
                 if (isset($data['copy_to_stores'])) {
-                    foreach ($data['copy_to_stores'] as $storeTo=>$storeFrom) {
-                        $newProduct = Mage::getModel('catalog/product')
-                            ->setStoreId($storeFrom)
-                            ->load($productId)
-                            ->setStoreId($storeTo)
-                            ->save();
-                    }
+                   $this->_copyAttributesBetweenStores($data['copy_to_stores'], $product);
                 }
 
                 $this->_getSession()->addSuccess($this->__('The product has been saved.'));
@@ -767,6 +758,28 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         } else {
             $this->_redirect('*/*/', array('store'=>$storeId));
         }
+    }
+
+    /**
+     * Duplicates product attributes between stores.
+     * @param array $stores list of store pairs: array(fromStore => toStore, fromStore => toStore,..)
+     * @param Mage_Catalog_Model_Product $product whose attributes should be copied
+     * @return $this
+     */
+    protected function _copyAttributesBetweenStores(array $stores, Mage_Catalog_Model_Product $product)
+    {
+        foreach ($stores as $storeTo => $storeFrom) {
+            $productInStore = Mage::getModel('catalog/product')
+                ->setStoreId($storeFrom)
+                ->load($product->getId());
+            Mage::dispatchEvent('product_duplicate_attributes', array(
+                'product' => $productInStore,
+                'storeTo' => $storeTo,
+                'storeFrom' => $storeFrom,
+            ));
+            $productInStore->setStoreId($storeTo)->save();
+        }
+        return $this;
     }
 
     /**

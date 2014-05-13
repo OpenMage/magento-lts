@@ -110,6 +110,10 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
 
         // transaction info
         'PPREF' => 'paypal_transaction_id', //We need to store paypal trx id for correct IPN working
+        'PAYMENTINFO_0_TRANSACTIONID' => 'paypal_transaction_id',
+        'TRANSACTIONID' => 'paypal_transaction_id',
+        'REFUNDTRANSACTIONID' => 'paypal_transaction_id',
+
         'PNREF' => 'transaction_id',
         'ORIGID' => 'authorization_id',
         'CAPTURECOMPLETE' => 'complete_type',
@@ -119,6 +123,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
 
         // payment/billing info
         'CURRENCY' => 'currency_code',
+        'PAYMENTSTATUS' => 'payment_status',
         'PENDINGREASON' => 'pending_reason',
         'PAYERID' => 'payer_id',
         'PAYERSTATUS' => 'payer_status',
@@ -328,7 +333,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      * @var array
      */
     protected $_requiredResponseParams = array(
-        self::DO_DIRECT_PAYMENT => array('RESULT', 'PNREF', 'PPREF')
+        self::DO_DIRECT_PAYMENT => array('RESULT', 'PNREF')
     );
 
     /**
@@ -585,5 +590,52 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
             $request['SHIPTOCOUNTRY'] = 'US';
             $request['SHIPTOSTATE']   = 'PR';
         }
+    }
+
+    /**
+     * Checking negative line items
+     *
+     * @param array $request
+     * @param int $i
+     * @return null|true
+     */
+    protected function _exportLineItems(array &$request, $i = 0)
+    {
+        $requestBefore = $request;
+        $result = parent::_exportLineItems($request, $i);
+        if ($this->getIsLineItemsEnabled() && $this->_cart->hasNegativeItemAmount()) {
+            $this->_lineItemTotalExportMap = array(
+                Mage_Paypal_Model_Cart::TOTAL_TAX       => 'TAXAMT',
+                Mage_Paypal_Model_Cart::TOTAL_SHIPPING  => 'FREIGHTAMT',
+                'amount'                                => 'PAYMENTREQUEST_0_ITEMAMT',
+            );
+            $this->_lineItemExportItemsFormat = array(
+                'name'   => 'L_PAYMENTREQUEST_0_NAME%d',
+                'qty'    => 'L_PAYMENTREQUEST_0_QTY%d',
+                'amount' => 'L_PAYMENTREQUEST_0_AMT%d',
+            );
+            $request = $requestBefore;
+            $result = parent::_exportLineItems($request, $i);
+            $paypalNvp = new Mage_Paypal_Model_Api_Nvp();
+            $this->_doCaptureResponse = $paypalNvp->_doCaptureResponse;
+            $this->_refundTransactionResponse = $paypalNvp->_refundTransactionResponse;
+            $this->_getTransactionDetailsResponse = $paypalNvp->_getTransactionDetailsResponse;
+            $this->_paymentInformationResponse = $paypalNvp->_paymentInformationResponse;
+            $this->_headers[] = 'PAYPAL-NVP: Y';
+            $this->_setSpecificForNegativeLineItems();
+        }
+        return $result;
+    }
+
+    /**
+     * Set specific data when negative line item case
+     */
+    protected function _setSpecificForNegativeLineItems()
+    {
+        $index = array_search('PPREF', $this->_doDirectPaymentResponse);
+        if (false !== $index) {
+            unset($this->_doDirectPaymentResponse[$index]);
+        }
+        $this->_doDirectPaymentResponse[] = 'TRANSACTIONID';
     }
 }

@@ -71,7 +71,7 @@ class Mage_Adminhtml_Block_Review_Rating_Detailed extends Mage_Adminhtml_Block_T
                 $ratingCollection = Mage::getModel('rating/rating')
                     ->getResourceCollection()
                     ->addEntityFilter('product')
-                    ->setStoreFilter(null)
+                    ->setStoreFilter(Mage::app()->getStore('default')->getId())
                     ->setPositionOrder()
                     ->load()
                     ->addOptionToItems();
@@ -79,7 +79,11 @@ class Mage_Adminhtml_Block_Review_Rating_Detailed extends Mage_Adminhtml_Block_T
                 $ratingCollection = Mage::getModel('rating/rating')
                     ->getResourceCollection()
                     ->addEntityFilter('product')
-                    ->setStoreFilter($this->getRequest()->getParam('select_stores') ? $this->getRequest()->getParam('select_stores') : $this->getRequest()->getParam('stores'))
+                    ->setStoreFilter(
+                        $this->getRequest()->getParam('select_stores')
+                            ? $this->getRequest()->getParam('select_stores')
+                            : $this->getRequest()->getParam('stores')
+                    )
                     ->setPositionOrder()
                     ->load()
                     ->addOptionToItems();

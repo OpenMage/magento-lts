@@ -74,6 +74,11 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
      */
     public function addAction()
     {
+        if (!$this->_validateFormKey()) {
+            $this->_redirectReferer();
+            return;
+        }
+
         $productId = (int) $this->getRequest()->getParam('product');
         if ($productId
             && (Mage::getSingleton('log/visitor')->getId() || Mage::getSingleton('customer/session')->isLoggedIn())

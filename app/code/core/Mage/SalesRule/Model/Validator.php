@@ -392,7 +392,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                             $baseDiscountAmount = min($baseItemPrice * $qty, $cartRules[$rule->getId()]);
                         } else {
                             $discountRate = $baseItemPrice * $qty /
-                                            $this->_rulesItemTotals[$rule->getId()]['base_items_price'];
+                                $this->_rulesItemTotals[$rule->getId()]['base_items_price'];
                             $maximumItemDiscount = $rule->getDiscountAmount() * $discountRate;
                             $quoteAmount = $quote->getStore()->convertPrice($maximumItemDiscount);
 
@@ -461,15 +461,15 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
             if ($percentKey) {
                 $delta      = isset($this->_roundingDeltas[$percentKey]) ? $this->_roundingDeltas[$percentKey] : 0;
                 $baseDelta  = isset($this->_baseRoundingDeltas[$percentKey])
-                        ? $this->_baseRoundingDeltas[$percentKey]
-                        : 0;
+                    ? $this->_baseRoundingDeltas[$percentKey]
+                    : 0;
                 $discountAmount += $delta;
                 $baseDiscountAmount += $baseDelta;
 
                 $this->_roundingDeltas[$percentKey]     = $discountAmount -
-                                                          $quote->getStore()->roundPrice($discountAmount);
+                    $quote->getStore()->roundPrice($discountAmount);
                 $this->_baseRoundingDeltas[$percentKey] = $baseDiscountAmount -
-                                                          $quote->getStore()->roundPrice($baseDiscountAmount);
+                    $quote->getStore()->roundPrice($baseDiscountAmount);
                 $discountAmount = $quote->getStore()->roundPrice($discountAmount);
                 $baseDiscountAmount = $quote->getStore()->roundPrice($baseDiscountAmount);
             } else {
@@ -551,81 +551,154 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                     $rulePercent = max(0, 100 - $rule->getDiscountAmount());
                 case Mage_SalesRule_Model_Rule::BY_PERCENT_ACTION:
                     foreach ($items as $item) {
-                        $weeeTaxAppliedRowAmount = $item->getWeeeTaxAppliedRowAmount();
-                        $baseWeeeTaxAppliedRowAmount = $item->getBaseWeeeTaxAppliedRowAmount();
-                        $request->setProductClassId($item->getProduct()->getTaxClassId());
-                        $rate = $calculator->getRate($request);
 
-                        /*
-                         * calculate weee discount
-                         */
-                        $weeeDiscount = 0;
-                        $baseWeeeDiscount = 0;
+                        $weeeTaxAppliedAmounts = $this->_getHelper('weee')->getApplied($item);
 
-                        if ($this->_getHelper('weee')->isTaxable()) {
-                            if ($applyTaxAfterDiscount) {
-                                if ($discountTax) {
-                                    $weeeTax = $weeeTaxAppliedRowAmount * $rate / 100;
-                                    $baseWeeeTax = $baseWeeeTaxAppliedRowAmount * $rate / 100;
-                                    $weeeDiscount = ($weeeTaxAppliedRowAmount + $weeeTax) * $rulePercent / 100;
-                                    $baseWeeeDiscount = ($baseWeeeTaxAppliedRowAmount + $baseWeeeTax)
-                                        * $rulePercent / 100;
+                        //Total weee discount for the item
+                        $totalWeeeDiscount = 0;
+                        $totalBaseWeeeDiscount = 0;
+
+                        foreach ($weeeTaxAppliedAmounts as $weeeTaxAppliedAmount) {
+
+                            /* we get the discount by row since we dont need to display the individual amounts */
+                            $weeeTaxAppliedRowAmount = $weeeTaxAppliedAmount['row_amount'];
+                            $baseWeeeTaxAppliedRowAmount = $weeeTaxAppliedAmount['base_row_amount'];
+                            $request->setProductClassId($item->getProduct()->getTaxClassId());
+                            $rate = $calculator->getRate($request);
+
+                            /*
+                             * calculate weee discount
+                             */
+                            $weeeDiscount = 0;
+                            $baseWeeeDiscount = 0;
+
+                            if ($this->_getHelper('weee')->isTaxable()) {
+                                if ($applyTaxAfterDiscount) {
+                                    if ($discountTax) {
+                                        $weeeTax = $weeeTaxAppliedRowAmount * $rate / 100;
+                                        $baseWeeeTax = $baseWeeeTaxAppliedRowAmount * $rate / 100;
+                                        $weeeDiscount = ($weeeTaxAppliedRowAmount + $weeeTax) * $rulePercent / 100;
+                                        $baseWeeeDiscount = ($baseWeeeTaxAppliedRowAmount + $baseWeeeTax)
+                                            * $rulePercent / 100;
+                                    } else {
+                                        $weeeDiscount = $weeeTaxAppliedRowAmount * $rulePercent / 100;
+                                        $baseWeeeDiscount = $baseWeeeTaxAppliedRowAmount * $rulePercent / 100;
+                                    }
                                 } else {
-                                    $weeeDiscount = $weeeTaxAppliedRowAmount * $rulePercent / 100;
-                                    $baseWeeeDiscount = $baseWeeeTaxAppliedRowAmount * $rulePercent / 100;
+                                    if ($discountTax) {
+                                        $weeeTax = $weeeTaxAppliedRowAmount * $rate / 100;
+                                        $baseWeeeTax = $baseWeeeTaxAppliedRowAmount * $rate / 100;
+                                        $weeeDiscount = ($weeeTaxAppliedRowAmount + $weeeTax) * $rulePercent / 100;
+                                        $baseWeeeDiscount = ($baseWeeeTaxAppliedRowAmount + $baseWeeeTax)
+                                            * $rulePercent / 100;
+                                    } else {
+                                        $weeeDiscount = $weeeTaxAppliedRowAmount * $rulePercent / 100;
+                                        $baseWeeeDiscount = $baseWeeeTaxAppliedRowAmount * $rulePercent / 100;
+                                    }
                                 }
                             } else {
-                                if ($discountTax) {
-                                    $weeeTax = $weeeTaxAppliedRowAmount * $rate / 100;
-                                    $baseWeeeTax = $baseWeeeTaxAppliedRowAmount * $rate / 100;
-                                    $weeeDiscount = ($weeeTaxAppliedRowAmount + $weeeTax) * $rulePercent / 100;
-                                    $baseWeeeDiscount = ($baseWeeeTaxAppliedRowAmount + $baseWeeeTax)
-                                        * $rulePercent / 100;
-                                } else {
-                                    $weeeDiscount = $weeeTaxAppliedRowAmount * $rulePercent / 100;
-                                    $baseWeeeDiscount = $baseWeeeTaxAppliedRowAmount * $rulePercent / 100;
-                                }
+                                // weee is not taxable
+                                $weeeDiscount = $weeeTaxAppliedRowAmount * $rulePercent / 100;
+                                $baseWeeeDiscount = $baseWeeeTaxAppliedRowAmount * $rulePercent / 100;
                             }
-                        } else {
-                            // weee is not taxable
-                            $weeeDiscount = $weeeTaxAppliedRowAmount * $rulePercent / 100;
-                            $baseWeeeDiscount = $baseWeeeTaxAppliedRowAmount * $rulePercent / 100;
+
+                            if (!$includeInSubtotal) {
+                                $this->_getHelper('weee')->setWeeeTaxesAppliedProperty(
+                                    $item, $weeeTaxAppliedAmount['title'], 'weee_discount', $weeeDiscount);
+                                $this->_getHelper('weee')->setWeeeTaxesAppliedProperty(
+                                    $item, $weeeTaxAppliedAmount['title'], 'base_weee_discount', $baseWeeeDiscount);
+                            }
+
+                            //Record the total weee discount
+                            $totalBaseWeeeDiscount += $baseWeeeDiscount;
+                            $totalWeeeDiscount += $weeeDiscount;
                         }
-                        $item->setWeeeDiscount($weeeDiscount);
-                        $item->setBaseWeeeDiscount($baseWeeeDiscount);
 
-                           // weee after discount can be displayed instead of original
-                        $applied = $this->_getHelper('weee')->getApplied($item);
-                        $applied[0]['weee_discount'] = $weeeDiscount;
-                        $this->_getHelper('weee')->setApplied($item, $applied);
+                        $discountPercentage = $item->getDiscountPercent();
 
-                        $item->setDiscountAmount($item->getDiscountAmount() + $weeeDiscount);
-                        $item->setBaseDiscountAmount($item->getBaseDiscountAmount() + $baseWeeeDiscount);
+                        $totalWeeeDiscount = $this->_roundWithDeltas($discountPercentage,
+                            $totalWeeeDiscount, $quote->getStore());
+                        $totalBaseWeeeDiscount = $this->_roundWithDeltasForBase($discountPercentage,
+                            $totalBaseWeeeDiscount, $quote->getStore());
+
+                        $item->setWeeeDiscount($totalWeeeDiscount);
+                        $item->setBaseWeeeDiscount($totalBaseWeeeDiscount);
+
+                        //Set the total discount replicated on all weee attributes.
+                        //we need to do this as the mage_sales_order_item does not store the weee discount
+                        //We need to store this as we want to keep the rounded amounts
+                        if (!$includeInSubtotal) {
+                            $this->_getHelper('weee')->setWeeeTaxesAppliedProperty(
+                                $item, null, 'total_base_weee_discount', $totalBaseWeeeDiscount);
+                            $this->_getHelper('weee')->setWeeeTaxesAppliedProperty(
+                                $item, null, 'total_weee_discount', $totalWeeeDiscount);
+                        }
+
+                        $item->setDiscountAmount($item->getDiscountAmount() + $totalWeeeDiscount);
+                        $item->setBaseDiscountAmount($item->getBaseDiscountAmount() + $totalBaseWeeeDiscount);
                         if ($includeInSubtotal) {
-                            $address->addTotalAmount('discount', -$weeeDiscount);
-                            $address->addBaseTotalAmount('discount', -$baseWeeeDiscount);
+                            $address->addTotalAmount('discount', -$totalWeeeDiscount);
+                            $address->addBaseTotalAmount('discount', -$totalBaseWeeeDiscount);
                         } else {
-                            if ($applyTaxAfterDiscount ) {
-                                $address->setExtraTaxAmount($address->getExtraTaxAmount() - $weeeDiscount);
-                                $address->setBaseExtraTaxAmount($address->getBaseExtraTaxAmount() - $baseWeeeDiscount);
-                                $address->setWeeeDiscount($address->getWeeeDiscount() + $weeeDiscount);
-                                $address->setBaseWeeeDiscount($address->getBaseWeeeDiscount() + $baseWeeeDiscount);
+                            if ($applyTaxAfterDiscount) {
+                                $address->setExtraTaxAmount($address->getExtraTaxAmount() - $totalWeeeDiscount);
+                                $address->setBaseExtraTaxAmount(
+                                    $address->getBaseExtraTaxAmount() - $totalBaseWeeeDiscount);
+                                $address->setWeeeDiscount($address->getWeeeDiscount() + $totalWeeeDiscount);
+                                $address->setBaseWeeeDiscount($address->getBaseWeeeDiscount() + $totalBaseWeeeDiscount);
                             } else {
                                 //tax has already been calculated, we need to remove weeeDiscount from total tax
-                                $address->setExtraTaxAmount($address->getExtraTaxAmount() - $weeeDiscount);
-                                $address->setBaseExtraTaxAmount($address->getBaseExtraTaxAmount() - $baseWeeeDiscount);
-                                $address->addTotalAmount('tax', -$weeeDiscount);
-                                $address->addBaseTotalAmount('tax', -$baseWeeeDiscount);
-                                $address->setWeeeDiscount($address->getWeeeDiscount() + $weeeDiscount);
-                                $address->setBaseWeeeDiscount($address->getBaseWeeeDiscount() + $baseWeeeDiscount);
+                                $address->setExtraTaxAmount($address->getExtraTaxAmount() - $totalWeeeDiscount);
+                                $address->setBaseExtraTaxAmount(
+                                    $address->getBaseExtraTaxAmount() - $totalBaseWeeeDiscount);
+                                $address->addTotalAmount('tax', -$totalWeeeDiscount);
+                                $address->addBaseTotalAmount('tax', -$totalBaseWeeeDiscount);
+                                $address->setWeeeDiscount($address->getWeeeDiscount() + $totalWeeeDiscount);
+                                $address->setBaseWeeeDiscount($address->getBaseWeeeDiscount() + $totalBaseWeeeDiscount);
                             }
                         }
+
+                        break;
                     }
-                    break;
             }
         }
         return $this;
     }
+
+    /**
+     * Round the amount with deltas collected
+     *
+     * @param string $key
+     * @param float $amount
+     * @param Mage_Core_Model_Store $store
+     * @return float
+     */
+    protected function _roundWithDeltas($key, $amount, $store)
+    {
+        $delta = isset($this->_roundingDeltas[$key]) ?
+            $this->_roundingDeltas[$key] : 0;
+        $this->_roundingDeltas[$key] = $store->roundPrice($amount + $delta)
+            - $amount;
+        return $store->roundPrice($amount + $delta);
+    }
+
+    /**
+     * Round the amount with deltas collected
+     *
+     * @param string $key
+     * @param float $amount
+     * @param Mage_Core_Model_Store $store
+     * @return float
+     */
+    protected function _roundWithDeltasForBase($key, $amount, $store)
+    {
+        $delta = isset($this->_baseRoundingDeltas[$key]) ?
+            $this->_roundingDeltas[$key] : 0;
+        $this->_baseRoundingDeltas[$key] = $store->roundPrice($amount + $delta)
+            - $amount;
+        return $store->roundPrice($amount + $delta);
+    }
+
     /**
      * Apply discounts to shipping amount
      *
@@ -658,7 +731,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                 case Mage_SalesRule_Model_Rule::BY_PERCENT_ACTION:
                     $discountAmount    = ($shippingAmount - $address->getShippingDiscountAmount()) * $rulePercent/100;
                     $baseDiscountAmount = ($baseShippingAmount -
-                                          $address->getBaseShippingDiscountAmount()) * $rulePercent/100;
+                        $address->getBaseShippingDiscountAmount()) * $rulePercent/100;
                     $discountPercent = min(100, $address->getShippingDiscountPercent()+$rulePercent);
                     $address->setShippingDiscountPercent($discountPercent);
                     break;
@@ -734,7 +807,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
         }
         $a = array_unique(array_merge($a1, $a2));
         if ($asString) {
-           $a = implode(',', $a);
+            $a = implode(',', $a);
         }
         return $a;
     }
@@ -959,7 +1032,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
      * wrap Mage::helper
      *
      * @param string $name
-     * @return mixed
+     * @return Mage_Weee_Helper_Data
      */
     protected function _getHelper($name) {
         return Mage::helper($name);

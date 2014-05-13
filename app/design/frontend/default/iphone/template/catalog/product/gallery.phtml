@@ -29,11 +29,11 @@
 <div class="product-gallery" id="product-gallery">
     <ul>
         <li>
-            <img src="<?php echo $this->helper('catalog/image')->init($_product, 'image')->resize(300) ?>" height="300" alt="<?php echo $this->escapeHtml($this->getImageLabel()) ?>" title="<?php echo $this->escapeHtml($this->getImageLabel()) ?>" />
+            <img src="<?php echo $this->helper('catalog/image')->init($_product, 'image')->resize(300) ?>" height="300" width="300" alt="<?php echo $this->escapeHtml($this->getImageLabel()) ?>" title="<?php echo $this->escapeHtml($this->getImageLabel()) ?>" />
         </li>
         <?php foreach ($this->getProduct()->getMediaGalleryImages() as $_image): ?>
         <li>
-            <img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(300); ?>" height="300" alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>" />
+            <img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(300); ?>" height="300" width="300" alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>" />
         </li>
         <?php endforeach; ?>
     </ul>

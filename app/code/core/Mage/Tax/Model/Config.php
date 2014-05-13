@@ -38,6 +38,7 @@ class Mage_Tax_Model_Config
      */
     const XML_PATH_TAX_NOTIFICATION_DISCOUNT = 'tax/ignore_notification/discount';
     const XML_PATH_TAX_NOTIFICATION_PRICE_DISPLAY = 'tax/ignore_notification/price_display';
+    const XML_PATH_TAX_NOTIFICATION_FPT_CONFIGURATION = 'tax/ignore_notification/fpt_configuration';
     const XML_PATH_TAX_NOTIFICATION_URL = 'tax/notification/url';
     /**#@-*/
 
@@ -69,32 +70,32 @@ class Mage_Tax_Model_Config
     /**#@+
      * Prices display settings
      */
-    const CONFIG_XML_PATH_PRICE_DISPLAY_TYPE    = 'tax/display/type';
-    const CONFIG_XML_PATH_DISPLAY_SHIPPING      = 'tax/display/shipping';
+    const CONFIG_XML_PATH_PRICE_DISPLAY_TYPE = 'tax/display/type';
+    const CONFIG_XML_PATH_DISPLAY_SHIPPING = 'tax/display/shipping';
     /**#@-*/
 
     /**#@+
      * Shopping cart display settings
      */
-    const XML_PATH_DISPLAY_CART_PRICE       = 'tax/cart_display/price';
-    const XML_PATH_DISPLAY_CART_SUBTOTAL    = 'tax/cart_display/subtotal';
-    const XML_PATH_DISPLAY_CART_SHIPPING    = 'tax/cart_display/shipping';
-    const XML_PATH_DISPLAY_CART_DISCOUNT    = 'tax/cart_display/discount';
-    const XML_PATH_DISPLAY_CART_GRANDTOTAL  = 'tax/cart_display/grandtotal';
+    const XML_PATH_DISPLAY_CART_PRICE = 'tax/cart_display/price';
+    const XML_PATH_DISPLAY_CART_SUBTOTAL = 'tax/cart_display/subtotal';
+    const XML_PATH_DISPLAY_CART_SHIPPING = 'tax/cart_display/shipping';
+    const XML_PATH_DISPLAY_CART_DISCOUNT = 'tax/cart_display/discount';
+    const XML_PATH_DISPLAY_CART_GRANDTOTAL = 'tax/cart_display/grandtotal';
     const XML_PATH_DISPLAY_CART_FULL_SUMMARY = 'tax/cart_display/full_summary';
-    const XML_PATH_DISPLAY_CART_ZERO_TAX    = 'tax/cart_display/zero_tax';
+    const XML_PATH_DISPLAY_CART_ZERO_TAX = 'tax/cart_display/zero_tax';
     /**#@-*/
 
     /**#@+
      * Shopping cart display settings
      */
-    const XML_PATH_DISPLAY_SALES_PRICE       = 'tax/sales_display/price';
-    const XML_PATH_DISPLAY_SALES_SUBTOTAL    = 'tax/sales_display/subtotal';
-    const XML_PATH_DISPLAY_SALES_SHIPPING    = 'tax/sales_display/shipping';
-    const XML_PATH_DISPLAY_SALES_DISCOUNT    = 'tax/sales_display/discount';
-    const XML_PATH_DISPLAY_SALES_GRANDTOTAL  = 'tax/sales_display/grandtotal';
+    const XML_PATH_DISPLAY_SALES_PRICE = 'tax/sales_display/price';
+    const XML_PATH_DISPLAY_SALES_SUBTOTAL = 'tax/sales_display/subtotal';
+    const XML_PATH_DISPLAY_SALES_SHIPPING = 'tax/sales_display/shipping';
+    const XML_PATH_DISPLAY_SALES_DISCOUNT = 'tax/sales_display/discount';
+    const XML_PATH_DISPLAY_SALES_GRANDTOTAL = 'tax/sales_display/grandtotal';
     const XML_PATH_DISPLAY_SALES_FULL_SUMMARY = 'tax/sales_display/full_summary';
-    const XML_PATH_DISPLAY_SALES_ZERO_TAX    = 'tax/sales_display/zero_tax';
+    const XML_PATH_DISPLAY_SALES_ZERO_TAX = 'tax/sales_display/zero_tax';
     /**#@-*/
 
     /**
@@ -111,13 +112,21 @@ class Mage_Tax_Model_Config
     /**#@-*/
 
     /**#@+
+     * Indexes for FPT Configuration Types
+     */
+    const FPT_NOT_TAXED = 0;
+    const FPT_TAXED = 1;
+    const FPT_LOADED_DISPLAY_WITH_TAX = 2;
+    /**#@-*/
+
+    /**#@+
      * @deprecated
      */
     const CONFIG_XML_PATH_SHOW_IN_CATALOG = 'tax/display/show_in_catalog';
     const CONFIG_XML_PATH_DEFAULT_PRODUCT_TAX_GROUP = 'catalog/product/default_tax_group';
-    const CONFIG_XML_PATH_DISPLAY_TAX_COLUMN    = 'tax/display/column_in_summary';
-    const CONFIG_XML_PATH_DISPLAY_FULL_SUMMARY  = 'tax/display/full_summary';
-    const CONFIG_XML_PATH_DISPLAY_ZERO_TAX      = 'tax/display/zero_tax';
+    const CONFIG_XML_PATH_DISPLAY_TAX_COLUMN = 'tax/display/column_in_summary';
+    const CONFIG_XML_PATH_DISPLAY_FULL_SUMMARY = 'tax/display/full_summary';
+    const CONFIG_XML_PATH_DISPLAY_ZERO_TAX = 'tax/display/zero_tax';
     /**#@-*/
 
     /**
@@ -735,13 +744,13 @@ class Mage_Tax_Model_Config
      *
      * Matrix for invalid discount settings is as follows:
      *      Before Discount / Excluding Tax
-     *      After Discount / Including Tax
+     *      Before Discount / Including Tax
      *
      * @param mixed $store
      * @return bool
      */
     public function checkDiscountSettings($store = null)
     {
-        return $this->applyTaxAfterDiscount($store) != $this->discountTax($store);
+        return $this->applyTaxAfterDiscount($store);
     }
 }

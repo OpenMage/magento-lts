@@ -39,6 +39,7 @@
     <?php /* Extensions placeholder */ ?>
     <?php echo $this->getChildHtml('customer.form.login.extra')?>
     <form action="<?php echo $this->getPostActionUrl() ?>" method="post" id="login-form">
+        <?php echo $this->getBlockHtml('formkey'); ?>
         <div class="col2-set">
             <div class="col-1 new-users">
                 <div class="content">

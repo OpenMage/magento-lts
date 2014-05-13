@@ -204,24 +204,38 @@ AdminOrder.prototype = {
         }
         data = data.toObject();
 
-        if( (type == 'billing' && this.shippingAsBilling)
-            || (type == 'shipping' && !this.shippingAsBilling) ) {
+        if( (type == 'billing' && this.shippingAsBilling && !this.isShippingMethodReseted)
+            || (type == 'shipping' && !this.shippingAsBilling && !this.isShippingMethodReseted) ) {
             data['reset_shipping'] = true;
         }
 
         data['order['+type+'_address][customer_address_id]'] = $('order-'+type+'_address_customer_address_id').value;
 
-        if (data['reset_shipping']) {
-            this.turnOffShippingFields();
-            this.resetShippingMethod(data);
+        if (type == 'billing' && this.shippingAsBilling) {
+            this.copyDataFromBillingToShipping(field);
         }
-        else {
+
+        if (data['reset_shipping']) {
+            this.resetShippingMethod(data);
+        } else {
             this.saveData(data);
-            if (name == 'country_id' || name == 'customer_address_id') {
+            if (!this.isShippingMethodReseted && (name == 'country_id' || name == 'customer_address_id')) {
                 this.loadArea(['shipping_method', 'billing_method', 'totals', 'items'], true, data);
             }
-            // added for reloading of default sender and default recipient for giftmessages
-            //this.loadArea(['giftmessage'], true, data);
+        }
+    },
+
+    copyDataFromBillingToShipping : function(field) {
+        var shippingId = $(field).identify().replace('-billing_', '-shipping_');
+        var inputField = $(shippingId);
+        if (inputField) {
+            inputField.setValue($(field).getValue());
+            if (inputField.changeUpdater) {
+                inputField.changeUpdater();
+            }
+            $(this.shippingAddressContainer).select('select').each(function(el){
+                el.disable();
+            });
         }
     },
 
@@ -325,7 +339,7 @@ AdminOrder.prototype = {
     resetShippingMethod : function(data){
         data['reset_shipping'] = 1;
         this.isShippingMethodReseted = true;
-        this.loadArea(['shipping_method', 'billing_method', 'shipping_address', 'totals', 'giftmessage', 'items'], true, data);
+        this.loadArea(['shipping_method', 'billing_method', 'totals', 'giftmessage', 'items'], true, data);
     },
 
     loadShippingRates : function(){

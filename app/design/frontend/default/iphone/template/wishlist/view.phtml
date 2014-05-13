@@ -48,21 +48,37 @@
             </fieldset>
         </form>
 
+        <form id="wishlist-allcart-form" action="<?php echo $this->getUrl('*/*/allcart') ?>" method="post">
+            <?php echo $this->getBlockHtml('formkey') ?>
+            <div class="no-display">
+                <input type="hidden" name="wishlist_id" id="wishlist_id" value="<?php echo $this->getWishlistInstance()->getId() ?>" />
+                <input type="hidden" name="qty" id="qty" value="" />
+            </div>
+        </form>
+
         <script type="text/javascript">
-        //<![CDATA[
-        var wishlistForm = new Validation($('wishlist-view-form'));
-        function addAllWItemsToCart() {
-            var url = '<?php echo $this->getUrl('*/*/allcart', array('wishlist_id' => $this->getWishlistInstance()->getId())) ?>';
-            var separator = (url.indexOf('?') >= 0) ? '&' : '?';
-            $$('#wishlist-view-form .qty').each(
-                function (input, index) {
-                    url += separator + input.name + '=' + encodeURIComponent(input.value);
-                    separator = '&';
-                }
-            );
-            setLocation(url);
-        }
-        //]]>
+            //<![CDATA[
+            var wishlistForm = new Validation($('wishlist-view-form'));
+            var wishlistAllCartForm = new Validation($('wishlist-allcart-form'));
+
+            function calculateQty() {
+                var itemQtys = new Array();
+                $$('#wishlist-view-form .qty').each(
+                    function (input, index) {
+                        var idxStr = input.name;
+                        var idx = idxStr.replace( /[^\d.]/g, '' );
+                        itemQtys[idx] = input.value;
+                    }
+                );
+
+                $$('#qty')[0].value = JSON.stringify(itemQtys);
+            }
+
+            function addAllWItemsToCart() {
+                calculateQty();
+                wishlistAllCartForm.form.submit();
+            }
+            //]]>
         </script>
     </div>
     <?php echo $this->getChildHtml('bottom'); ?>

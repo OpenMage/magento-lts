@@ -24,22 +24,49 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/*
+ * Class Mage_Shipping_Model_Carrier_Tablerate
+ */
 class Mage_Shipping_Model_Carrier_Tablerate
     extends Mage_Shipping_Model_Carrier_Abstract
     implements Mage_Shipping_Model_Carrier_Interface
 {
 
+    /**
+     * code name
+     *
+     * @var string
+     */
     protected $_code = 'tablerate';
+
+    /**
+     * boolean isFixed
+     *
+     * @var boolean
+     */
     protected $_isFixed = true;
+
+    /**
+     * Default condition name
+     *
+     * @var string
+     */
     protected $_default_condition_name = 'package_weight';
 
+    /**
+     * Condition names
+     *
+     * @var array
+     */
     protected $_conditionNames = array();
 
+    /*
+     * Constructor
+     */
     public function __construct()
     {
         parent::__construct();
-        foreach ($this->getCode('condition_name') as $k=>$v) {
+        foreach ($this->getCode('condition_name') as $k => $v) {
             $this->_conditionNames[] = $k;
         }
     }
@@ -108,21 +135,21 @@ class Mage_Shipping_Model_Carrier_Tablerate
             $request->setConditionName($conditionName ? $conditionName : $this->_default_condition_name);
         }
 
-         // Package weight and qty free shipping
+        // Package weight and qty free shipping
         $oldWeight = $request->getPackageWeight();
         $oldQty = $request->getPackageQty();
 
         $request->setPackageWeight($request->getFreeMethodWeight());
         $request->setPackageQty($oldQty - $freeQty);
 
-        $result = Mage::getModel('shipping/rate_result');
+        $result = $this->_getModel('shipping/rate_result');
         $rate = $this->getRate($request);
 
         $request->setPackageWeight($oldWeight);
         $request->setPackageQty($oldQty);
 
         if (!empty($rate) && $rate['price'] >= 0) {
-            $method = Mage::getModel('shipping/rate_result_method');
+            $method = $this->_getModel('shipping/rate_result_method');
 
             $method->setCarrier('tablerate');
             $method->setCarrierTitle($this->getConfigData('title'));
@@ -151,7 +178,7 @@ class Mage_Shipping_Model_Carrier_Tablerate
             $request->setPackageQty($freeQty);
             $rate = $this->getRate($request);
             if (!empty($rate) && $rate['price'] >= 0) {
-                $method = Mage::getModel('shipping/rate_result_method');
+                $method = $this->_getModel('shipping/rate_result_method');
 
                 $method->setCarrier('tablerate');
                 $method->setCarrierTitle($this->getConfigData('title'));
@@ -165,7 +192,7 @@ class Mage_Shipping_Model_Carrier_Tablerate
                 $result->append($method);
             }
         } else {
-            $error = Mage::getModel('shipping/rate_result_error');
+            $error = $this->_getModel('shipping/rate_result_error');
             $error->setCarrier('tablerate');
             $error->setCarrierTitle($this->getConfigData('title'));
             $error->setErrorMessage($this->getConfigData('specificerrmsg'));
@@ -175,25 +202,52 @@ class Mage_Shipping_Model_Carrier_Tablerate
         return $result;
     }
 
+    /**
+     * Get Model
+     *
+     * @param string $modelName
+     *
+     * @return Mage_Core_Model_Abstract
+     */
+    protected function _getModel($modelName)
+    {
+        return Mage::getModel($modelName);
+    }
+
+    /**
+     * Get Rate
+     *
+     * @param Mage_Shipping_Model_Rate_Request $request
+     *
+     * @return Mage_Core_Model_Abstract
+     */
     public function getRate(Mage_Shipping_Model_Rate_Request $request)
     {
         return Mage::getResourceModel('shipping/carrier_tablerate')->getRate($request);
     }
 
-    public function getCode($type, $code='')
+    /**
+     * Get code
+     *
+     * @param string $type
+     * @param string $code
+     *
+     * @return array
+     */
+    public function getCode($type, $code = '')
     {
         $codes = array(
 
-            'condition_name'=>array(
+            'condition_name' => array(
                 'package_weight' => Mage::helper('shipping')->__('Weight vs. Destination'),
-                'package_value'  => Mage::helper('shipping')->__('Price vs. Destination'),
-                'package_qty'    => Mage::helper('shipping')->__('# of Items vs. Destination'),
+                'package_value' => Mage::helper('shipping')->__('Price vs. Destination'),
+                'package_qty' => Mage::helper('shipping')->__('# of Items vs. Destination'),
             ),
 
-            'condition_name_short'=>array(
+            'condition_name_short' => array(
                 'package_weight' => Mage::helper('shipping')->__('Weight (and above)'),
-                'package_value'  => Mage::helper('shipping')->__('Order Subtotal (and above)'),
-                'package_qty'    => Mage::helper('shipping')->__('# of Items (and above)'),
+                'package_value' => Mage::helper('shipping')->__('Order Subtotal (and above)'),
+                'package_qty' => Mage::helper('shipping')->__('# of Items (and above)'),
             ),
 
         );
@@ -202,7 +256,7 @@ class Mage_Shipping_Model_Carrier_Tablerate
             throw Mage::exception('Mage_Shipping', Mage::helper('shipping')->__('Invalid Table Rate code type: %s', $type));
         }
 
-        if (''===$code) {
+        if ('' === $code) {
             return $codes[$type];
         }
 
@@ -220,7 +274,7 @@ class Mage_Shipping_Model_Carrier_Tablerate
      */
     public function getAllowedMethods()
     {
-        return array('bestway'=>$this->getConfigData('name'));
+        return array('bestway' => $this->getConfigData('name'));
     }
 
 }

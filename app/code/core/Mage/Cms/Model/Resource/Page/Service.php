@@ -43,7 +43,7 @@ class Mage_Cms_Model_Resource_Page_Service extends Mage_Core_Model_Resource_Db_A
     /**
      * Unlinks from $fromStoreId store pages that have same identifiers as pages in $byStoreId
      *
-     * Routine is intented to be used before linking pages of some store ($byStoreId) to other store ($fromStoreId)
+     * Routine is intended to be used before linking pages of some store ($byStoreId) to other store ($fromStoreId)
      * to prevent duplication of url keys
      *
      * Resolved $byLinkTable can be provided when restoring links from some backup table
@@ -81,6 +81,7 @@ class Mage_Cms_Model_Resource_Page_Service extends Mage_Core_Model_Resource_Db_A
                 $readAdapter->quoteInto('by_link.page_id = by_entity.page_id AND by_link.store_id = ?', $byStoreId),
                 array()
             );
+
         $pageIds = $readAdapter->fetchCol($select);
 
         // Unlink found pages
@@ -88,7 +89,7 @@ class Mage_Cms_Model_Resource_Page_Service extends Mage_Core_Model_Resource_Db_A
             $writeAdapter = $this->_getWriteAdapter();
             $where = array(
                 'page_id IN (?)'   => $pageIds,
-                'AND store_id = ?' => $fromStoreId
+                'store_id = ?' => $fromStoreId
             );
             $writeAdapter->delete($linkTable, $where);
         }

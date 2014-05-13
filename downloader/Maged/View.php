@@ -152,4 +152,14 @@ class Maged_View
         }
         return $params;
     }
+
+    /**
+     * Retrieve Session Form Key
+     *
+     * @return string
+     */
+    public function getFormKey()
+    {
+        return $this->controller()->getFormKey();
+    }
 }

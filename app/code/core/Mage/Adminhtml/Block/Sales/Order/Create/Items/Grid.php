@@ -204,17 +204,11 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
     {
         $address = $this->getQuoteAddress();
         if ($this->displayTotalsIncludeTax()) {
-            if ($this->getIsPriceInclTax()) {
-                return $address->getSubtotalInclTax() + $this->getDiscountAmount();
-            } else {
-                return $address->getSubtotal() + $address->getTaxAmount() + $this->getDiscountAmount();
-            }
+            $subtotalInclTax = $address->getSubtotal() + $address->getTaxAmount()
+                    + $address->getHiddenTaxAmount() + $this->getDiscountAmount();
+            return $subtotalInclTax;
         } else {
-            if ($this->getIsPriceInclTax()) {
-                return $address->getSubtotalInclTax() - $address->getTaxAmount() + $this->getDiscountAmount();
-            } else {
-                return $address->getSubtotal() + $this->getDiscountAmount();
-            }
+            return $address->getSubtotal() + $this->getDiscountAmount();
         }
     }
 

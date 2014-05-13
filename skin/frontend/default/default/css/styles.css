@@ -495,7 +495,7 @@ tr.summary-details-excluded { font-style:italic; }
 .global-site-notice .notice-inner .actions { padding-top:10px; }
 
 /* Cookie Notice */
-.notice-cookie { }
+.notice-cookie { position:fixed; z-index:9999; width:100%; bottom:0; left:0; margin:0 !important; opacity:0.95; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=95)"; /* IE8 */ }
 
 /* Noscript Notice */
 .noscript {}

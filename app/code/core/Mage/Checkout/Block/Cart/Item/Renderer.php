@@ -442,6 +442,9 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
      */
     public function getCacheTags()
     {
-        return array_merge(parent::getCacheTags(), $this->getProduct()->getCacheIdTags());
+        $tags = $this->getProduct()->getCacheIdTags();
+        $tags = is_array($tags) ? $tags : array();
+
+        return array_merge(parent::getCacheTags(), $tags);
     }
 }

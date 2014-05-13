@@ -752,10 +752,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
         $priceArr = array();
         $errorTitle = 'Unable to retrieve quotes';
 
-        $tr = get_html_translation_table(HTML_ENTITIES);
-        unset($tr['<'], $tr['>'], $tr['"']);
-        $response = str_replace(array_keys($tr), array_values($tr), $response);
-
         if (strlen(trim($response)) > 0) {
             if (strpos(trim($response), '<?xml') === 0) {
                 $xml = simplexml_load_string($response);

@@ -83,7 +83,6 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
         'status',
         'tax_class_id',
         'visibility',
-        'enable_googlecheckout',
         'gift_message_available',
         'custom_design'
     );

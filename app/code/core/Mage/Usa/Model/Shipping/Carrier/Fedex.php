@@ -1360,7 +1360,10 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
                         'PhoneNumber' => $request->getShipperContactPhoneNumber()
                     ),
                     'Address' => array(
-                        'StreetLines' => array($request->getShipperAddressStreet()),
+                        'StreetLines' => array(
+                            $request->getShipperAddressStreet1(),
+                            $request->getShipperAddressStreet2()
+                        ),
                         'City' => $request->getShipperAddressCity(),
                         'StateOrProvinceCode' => $request->getShipperAddressStateOrProvinceCode(),
                         'PostalCode' => $request->getShipperAddressPostalCode(),
@@ -1374,7 +1377,10 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
                         'PhoneNumber' => $request->getRecipientContactPhoneNumber()
                     ),
                     'Address' => array(
-                        'StreetLines' => array($request->getRecipientAddressStreet()),
+                        'StreetLines' => array(
+                            $request->getRecipientAddressStreet1(),
+                            $request->getRecipientAddressStreet2()
+                        ),
                         'City' => $request->getRecipientAddressCity(),
                         'StateOrProvinceCode' => $request->getRecipientAddressStateOrProvinceCode(),
                         'PostalCode' => $request->getRecipientAddressPostalCode(),

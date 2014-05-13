@@ -36,8 +36,9 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Config paths for using throughout the code
      */
-    const XML_PATH_ACTIVE  = 'google/analytics/active';
-    const XML_PATH_ACCOUNT = 'google/analytics/account';
+    const XML_PATH_ACTIVE        = 'google/analytics/active';
+    const XML_PATH_ACCOUNT       = 'google/analytics/account';
+    const XML_PATH_ANONYMIZATION = 'google/analytics/anonymization';
 
     /**
      * Whether GA is ready to use
@@ -49,5 +50,16 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $accountId = Mage::getStoreConfig(self::XML_PATH_ACCOUNT, $store);
         return $accountId && Mage::getStoreConfigFlag(self::XML_PATH_ACTIVE, $store);
+    }
+
+    /**
+     * Whether GA IP Anonymization is enabled
+     *
+     * @param null $store
+     * @return bool
+     */
+    public function isIpAnonymizationEnabled($store = null)
+    {
+        return Mage::getStoreConfigFlag(self::XML_PATH_ANONYMIZATION, $store);
     }
 }

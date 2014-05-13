@@ -505,4 +505,19 @@ class Mage_Paypal_Model_Cart
         $this->_totals[self::TOTAL_TAX] += (float)$salesEntity->getBaseHiddenTaxAmount();
         $this->_totals[self::TOTAL_TAX] += (float)$salesEntity->getBaseShippingHiddenTaxAmount();
     }
+
+    /**
+     * Check whether any item has negative amount
+     *
+     * @return bool
+     */
+    public function hasNegativeItemAmount()
+    {
+        foreach ($this->_items as $item) {
+            if ($item->getAmount() < 0) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

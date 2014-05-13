@@ -1025,7 +1025,8 @@ ul.item-options li { padding-left:.7em; }
 .x-tree-node { margin:0 !important; }
 .x-tree-node .leaf .x-tree-node-icon        { background-image:url(images/fam_leaf.png); }
 .x-tree-node .system-leaf .x-tree-node-icon { background-image:url(images/fam_application_form_delete.png); }
-.x-tree-node-ct { overflow:hidden; }
+
+.adminhtml-catalog-category-edit .x-tree-node-ct { overflow: visible; }
 
 /* Product - Websites */
 .website-name .checkbox                 { vertical-align:top; margin-top:2px; }
@@ -1601,6 +1602,7 @@ ul.super-product-attributes { padding-left:15px; }
 /* Font */
 .bold               { font-weight:bold !important; }
 .normal             { font-weight:normal !important; }
+.strike             { text-decoration: line-through; }
 
 /* Clear */ /* This keeps our HTML free of buncha clearing elements */
 .config-heading:after,

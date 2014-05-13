@@ -532,7 +532,6 @@ addressesModel.prototype = {
         if (data.length) {
             // Create visible selectbox 'region_id' and hidden 'region'
             var html = '<select name="' + regionIdHtmlName + '" id="' + regionIdHtmlId + '" class="required-entry select" title="' + this.regionElement.title + '">';
-            html+= '<option value=""></option>';
             for (var i in data){
                 if(data[i].label) {
                     html+= '<option value="'+data[i].value+'"';

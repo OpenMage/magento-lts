@@ -489,7 +489,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      * @var array
      */
     protected $_doReferenceTransactionRequest = array('REFERENCEID', 'PAYMENTACTION', 'AMT', 'ITEMAMT', 'SHIPPINGAMT',
-        'TAXAMT', 'INVNUM', 'NOTIFYURL'
+        'TAXAMT', 'INVNUM', 'NOTIFYURL', 'CURRENCYCODE',
     );
 
     protected $_doReferenceTransactionResponse = array('BILLINGAGREEMENTID', 'TRANSACTIONID');
@@ -541,6 +541,13 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      * @var bool
      */
     protected $_rawResponseNeeded = false;
+
+    /**
+     * API call HTTP headers
+     *
+     * @var array
+     */
+    protected $_headers = array();
 
     /**
      * API endpoint getter
@@ -952,7 +959,13 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
                 $config['ssl_cert'] = $this->getApiCertificate();
             }
             $http->setConfig($config);
-            $http->write(Zend_Http_Client::POST, $this->getApiEndpoint(), '1.1', array(), $this->_buildQuery($request));
+            $http->write(
+                Zend_Http_Client::POST,
+                $this->getApiEndpoint(),
+                '1.1',
+                $this->_headers,
+                $this->_buildQuery($request)
+            );
             $response = $http->read();
         } catch (Exception $e) {
             $debugData['http_error'] = array('error' => $e->getMessage(), 'code' => $e->getCode());
@@ -966,6 +979,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
 
         $debugData['response'] = $response;
         $this->_debug($debugData);
+        $response = $this->_postProcessResponse($response);
 
         // handle transport error
         if ($http->getErrno()) {
@@ -1461,5 +1475,32 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
                 unset($requestFields[$key]);
             }
         }
+    }
+
+    /**
+     * Additional response processing.
+     * Hack to cut off length from API type response params.
+     *
+     * @param  array $response
+     * @return array
+     */
+    protected function _postProcessResponse($response)
+    {
+        foreach ($response as $key => $value) {
+            $pos = strpos($key, '[');
+
+            if ($pos === false) {
+                continue;
+            }
+
+            unset($response[$key]);
+
+            if ($pos !== 0) {
+                $modifiedKey = substr($key, 0, $pos);
+                $response[$modifiedKey] = $value;
+            }
+        }
+
+        return $response;
     }
 }

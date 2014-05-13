@@ -102,7 +102,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page extends Zend_Pdf_Page
      * @throws Zend_Pdf_Exception
      * @return Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page
      */
-    public function drawText($text, $x, $y, $charEncoding = '', $align = self::ALIGN_LEFT)
+    public function drawText($text, $x, $y, $charEncoding = 'UTF-8', $align = self::ALIGN_LEFT)
     {
         $left = null;
         switch ($align) {
@@ -143,7 +143,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page extends Zend_Pdf_Page
                 $y = $this->drawLines(array_filter($subLines), $x, $y, $maxWidth, $align);
                 continue;
             }
-            $this->drawText($line, $x, $y, null, $align);
+            $this->drawText($line, $x, $y, 'UTF-8', $align);
             $y -= ceil($this->getFontSize());
         }
         return $y;

@@ -902,9 +902,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
     {
         $this->setTrackingRequest();
 
-       if (!is_array($trackingData)) {
-          $trackingData = array($trackingData);
-         }
+        if (!is_array($trackingData)) {
+            $trackingData = array($trackingData);
+        }
 
         $this->_getXMLTracking($trackingData);
 
@@ -1116,7 +1116,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
           'CF' => 'Central African Republic',
           'CG' => 'Congo, Republic of the',
           'CH' => 'Switzerland',
-          'CI' => 'Cote d Ivoire (Ivory Coast)',
+          'CI' => 'Ivory Coast (Cote d Ivoire)',
           'CK' => 'Cook Islands (New Zealand)',
           'CL' => 'Chile',
           'CM' => 'Cameroon',
@@ -1184,7 +1184,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
           'KH' => 'Cambodia',
           'KI' => 'Kiribati',
           'KM' => 'Comoros',
-          'KN' => 'Saint Kitts (St. Christopher and Nevis)',
+          'KN' => 'Saint Kitts (Saint Christopher and Nevis)',
           'KP' => 'North Korea (Korea, Democratic People\'s Republic of)',
           'KR' => 'South Korea (Korea, Republic of)',
           'KW' => 'Kuwait',
@@ -1271,8 +1271,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
           'TG' => 'Togo',
           'TH' => 'Thailand',
           'TJ' => 'Tajikistan',
-          'TK' => 'Tokelau (Union) Group (Western Samoa)',
-          'TL' => 'East Timor (Indonesia)',
+          'TK' => 'Tokelau (Union Group) (Western Samoa)',
+          'TL' => 'East Timor (Timor-Leste, Democratic Republic of)',
           'TM' => 'Turkmenistan',
           'TN' => 'Tunisia',
           'TO' => 'Tonga',

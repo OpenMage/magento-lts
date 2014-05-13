@@ -333,8 +333,6 @@
             <Mage_Eav_Model_Resource_Entity_Type/>
             <Mage_GiftMessage_Model_Entity_Attribute_Backend_Boolean_Config/>
             <Mage_GiftMessage_Model_Observer/>
-            <Mage_GoogleCheckout_Block_Link/>
-            <Mage_GoogleCheckout_Helper_Data/>
             <Mage_Reports_Model_Event_Observer/>
             <Mage_Rule_Helper_Data/>
             <Mage_Rule_Model_Condition_Abstract/>
