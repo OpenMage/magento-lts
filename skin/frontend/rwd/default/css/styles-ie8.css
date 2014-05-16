@@ -2941,10 +2941,6 @@ a.skip-link {
   left: 60px;
   top: 15px;
 }
-.nav-primary li:hover > ul {
-  display: block;
-  /* Force display */
-}
 .nav-primary li.level0 ul.level0.position-test {
   display: block;
 }
@@ -2973,6 +2969,10 @@ a.skip-link {
   right: 5px;
   top: 50%;
   margin-top: -3px;
+}
+.no-touch li:hover > ul {
+    display: block;
+    /* Force display */
 }
 
 /* ============================================ *

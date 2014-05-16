@@ -95,7 +95,12 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
                     ),
                     array('code')
                 );
-            $select->where('main_table.coupon_type = ? ', Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON);
+
+                $noCouponCondition = $connection->quoteInto(
+                    'main_table.coupon_type = ? ',
+                    Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON
+                );
+
                 $orWhereConditions = array(
                     $connection->quoteInto(
                         '(main_table.coupon_type = ? AND rule_coupons.type = 0)',
@@ -111,7 +116,9 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
                     ),
                 );
                 $orWhereCondition = implode(' OR ', $orWhereConditions);
-                $select->orWhere('(' . $orWhereCondition . ') AND rule_coupons.code = ?', $couponCode);
+                $select->where(
+                    $noCouponCondition . ' OR ((' . $orWhereCondition . ') AND rule_coupons.code = ?)', $couponCode
+                );
             } else {
                 $this->addFieldToFilter('main_table.coupon_type', Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON);
             }
@@ -120,7 +127,7 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
         }
 
         return $this;
-    }
+    }    
 
     /**
      * Filter collection by website(s), customer group(s) and date.

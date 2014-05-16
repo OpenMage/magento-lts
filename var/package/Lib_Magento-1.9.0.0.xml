@@ -10,8 +10,8 @@
     <description>Magento Library</description>
     <notes>1.9.0.0</notes>
     <authors><author><name>Magento Core Team</name><user>core</user><email>core@magentocommerce.com</email></author></authors>
-    <date>2014-05-07</date>
-    <time>14:07:16</time>
+    <date>2014-05-13</date>
+    <time>18:11:51</time>
     <contents><target name="magelib"><dir name="Magento"><dir name="Autoload"><file name="ClassMap.php" hash="43b76c0cb3d1f6d0b6af42619b477859"/><file name="IncludePath.php" hash="53b684ef8efc2fb3fcde42b007483a20"/><file name="Simple.php" hash="64b6b46890f438b14421a376ebba6b35"/></dir><file name="Crypt.php" hash="686f467400553f9e85fffc40e0b382b5"/><dir name="Db"><dir name="Adapter"><dir name="Pdo"><file name="Mysql.php" hash="7743e63b863f7ec4b8435d0b81bd5d36"/></dir></dir><dir name="Object"><file name="Interface.php" hash="4744aaa9e6658202b4ed583d497360b3"/><file name="Table.php" hash="066061a7831e96c4f52fc45979a285a3"/><file name="Trigger.php" hash="a6e8fb71036d457c10ecd5a5262aab52"/><file name="View.php" hash="1307f0f9440be3e5d324d23aad51dd09"/></dir><file name="Object.php" hash="f32b66a9bb8ad59ead05a53991238760"/><dir name="Sql"><file name="Select.php" hash="93aa3129c9490053e699aa1ac8738e34"/><file name="Trigger.php" hash="9dda722773e317e0baf6f2cd1f3b24bf"/></dir></dir><file name="Exception.php" hash="e1eca1f2328cac7721f66e2fcf046ad5"/><dir name="Profiler"><dir name="Output"><file name="Csvfile.php" hash="63bdcb0d949b0dd45b9812578f3d1bde"/><file name="Firebug.php" hash="9e9da1d00170b8fcdad6f6f370cd4bbc"/><file name="Html.php" hash="b6f3eeb3bd790cccb68a5b7405792e43"/></dir><file name="OutputAbstract.php" hash="8ec53d1c727280713bc24652a52a2ba7"/></dir><file name="Profiler.php" hash="fabf13093bbc9c7ef847363a61ebe74d"/></dir></target></contents>
     <compatible/>
     <dependencies><required><php><min>5.2.0</min><max>6.0.0</max></php></required></dependencies>

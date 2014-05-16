@@ -241,11 +241,6 @@ $nav-primary-height: 30px;
             top: 15px;
         }
 
-        /* Styles that only show when the menu is visible */
-        li:hover > ul {
-            display: block; /* Force display */
-        }
-
         /* Class for js to add briefly to evaluate element positioning. */
         li.level0 ul.level0.position-test {
             display: block;
@@ -275,5 +270,9 @@ $nav-primary-height: 30px;
                 margin-top: -3px;
             }
         }
+    }
+
+    .no-touch li:hover > ul {
+      display: block; /* Force display */
     }
 }
