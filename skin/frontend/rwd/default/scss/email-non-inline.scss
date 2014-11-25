@@ -1,0 +1,170 @@
+//
+// Magento
+//
+// NOTICE OF LICENSE
+//
+// This source file is subject to the Academic Free License (AFL 3.0)
+// that is bundled with this package in the file LICENSE_AFL.txt.
+// It is also available through the world-wide-web at this URL:
+// http://opensource.org/licenses/afl-3.0.php
+// If you did not receive a copy of the license and are unable to
+// obtain it through the world-wide-web, please send an email
+// to license@magento.com so we can send you a copy immediately.
+//
+// DISCLAIMER
+//
+// Do not edit or add to this file if you wish to upgrade Magento to newer
+// versions in the future. If you wish to customize Magento for your
+// needs please refer to http://www.magento.com for more information.
+//
+// @category    design
+// @package     rwd_default
+// @copyright   Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+// @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+//
+
+// ==============================================
+// Styles for transactional emails (e.g., media queries) that will be embedded directly inside a <style> tag, rather
+// than being "inlined" via the CSS inlining that happens when emails are sent. Inlining CSS is the most reliable way
+// to get styles to apply uniformly across all email clients, but since media queries can't be inlined, it is necessary
+// for them to be contained inside a <style> tag.
+// ==============================================
+
+@import "framework";
+
+/* Font Styles */
+@import url(http://fonts.googleapis.com/css?family=Raleway:400,500,700);
+
+/* Media Queries */
+/* Setting the Web Font inside a media query so that Outlook doesn't try to render the web font */
+@media screen {
+    .email-heading h1,
+    .store-info h4,
+    th.cell-name,
+    a.product-name,
+    p.product-name,
+    .address-details h6,
+    .method-info h6,
+    h5.closing-text,
+    .action-button,
+    .action-button a,
+    .action-button span,
+    .action-content h1 {
+        font-family: 'Raleway', Verdana, Arial !important;
+        font-weight: normal;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    body {
+        width: 94% !important;
+        padding: 0 3% !important;
+        display: block !important;
+    }
+    .container-table {
+        width: 100% !important;
+        max-width: 600px;
+        min-width: 300px;
+    }
+    td.store-info h4 {
+        margin-top: 8px !important;
+        margin-bottom: 0px !important;
+    }
+    td.store-info p {
+        margin: 5px 0 !important;
+    }
+    .wrapper {
+        width: 100% !important;
+        display: block;
+        padding: 5px 0 !important;
+    }
+    .cell-name,
+    .cell-content {
+        padding: 8px !important;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .email-heading,
+    .store-info {
+        float: left;
+        width: 98% !important;
+        display: block;
+        text-align: center;
+        padding: 10px 1% !important;
+        border-right: 0px !important;
+    }
+    .address-details, .method-info {
+        width: 85%;
+        display: block;
+    }
+    .store-info {
+        border-top: 1px dashed $c-email-border;
+    }
+    .method-info {
+        margin-bottom: 15px !important;
+    }
+}
+
+/* Remove link color on iOS */
+.no-link a {
+    color: $c-gray !important;
+    cursor: default !important;
+    text-decoration: none !important;
+}
+
+.method-info h6,
+.address-details h6,
+.closing-text {
+    color: $c-email-action !important;
+}
+td.order-details h3,
+td.store-info h4 {
+    color: $c-gray !important;
+}
+.method-info p,
+.method-info dl {
+    margin: 5px 0 !important;
+    font-size: 12px !important;
+}
+td.align-center {
+    text-align: center !important;
+}
+td.align-right {
+    text-align: right !important;
+}
+
+/* Newsletter styles */
+td.expander {
+    padding: 0 !important;
+}
+table.button td,
+table.social-button td {
+    width: 92% !important;
+}
+table.facebook:hover td {
+    background: #2d4473 !important;
+}
+table.twitter:hover td {
+    background: #0087bb !important;
+}
+table.google-plus:hover td {
+    background: #CC0000 !important;
+}
+
+/* ============================================ *
+ * Product Grid
+ * ============================================ */
+
+@media screen and (max-width: 600px) {
+    .products-grid tr td {
+        width: 50% !important;
+        display: block !important;
+        float: left !important;
+    }
+}
+
+.product-name a:hover {
+    color: $c-action !important;
+    text-decoration: none !important;
+}

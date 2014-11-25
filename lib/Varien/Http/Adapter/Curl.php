@@ -294,8 +294,8 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
 
         foreach ($urls as $key => $url) {
             $handles[$key] = curl_init();
-            curl_setopt($handles[$key], CURLOPT_URL, $url);
-            curl_setopt($handles[$key], CURLOPT_HEADER, 0);
+            curl_setopt($handles[$key], CURLOPT_URL,            $url);
+            curl_setopt($handles[$key], CURLOPT_HEADER,         0);
             curl_setopt($handles[$key], CURLOPT_RETURNTRANSFER, 1);
             if (!empty($options)) {
                 curl_setopt_array($handles[$key], $options);

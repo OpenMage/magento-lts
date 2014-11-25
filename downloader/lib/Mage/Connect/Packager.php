@@ -10,18 +10,18 @@
  * http://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
+ * to license@magento.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
  * Do not edit or add to this file if you wish to upgrade Magento to newer
  * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
+ * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Connect
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -215,7 +215,7 @@ class Mage_Connect_Packager
      *
      * @param Mage_Connect_Config $cache
      * @param Mage_Connect_Ftp $ftpObj
-     * @return void
+     * @throws RuntimeException
      */
     public function writeToRemoteConfig($cache, $ftpObj)
     {
@@ -240,8 +240,15 @@ class Mage_Connect_Packager
                 }
             }
         } else {
-            if (@rmdir($dir)) {
-                $this->removeEmptyDirectory(dirname($dir), $ftp);
+            $content = scandir($dir);
+            if ($content === false) return;
+
+            if (count(array_diff($content, array('.', '..'))) == 0) {
+                if (@rmdir($dir)) {
+                    $this->removeEmptyDirectory(dirname($dir), $ftp);
+                } else {
+                    throw new RuntimeException('Failed to delete dir ' . $dir . "\r\n Check permissions");
+                }
             }
         }
     }
@@ -253,7 +260,7 @@ class Mage_Connect_Packager
      * @param string $package
      * @param Mage_Connect_Singleconfig $cacheObj
      * @param Mage_Connect_Config $configObj
-     * @return void
+     * @throws RuntimeException
      */
     public function processUninstallPackage($chanName, $package, $cacheObj, $configObj)
     {
@@ -261,14 +268,21 @@ class Mage_Connect_Packager
         $contents = $package->getContents();
 
         $targetPath = rtrim($configObj->magento_root, "\\/");
+        $failedFiles = array();
         foreach ($contents as $file) {
             $fileName = basename($file);
             $filePath = dirname($file);
             $dest = $targetPath . DIRECTORY_SEPARATOR . $filePath . DIRECTORY_SEPARATOR . $fileName;
             if(@file_exists($dest)) {
-                @unlink($dest);
-                $this->removeEmptyDirectory(dirname($dest));
+                if (!@unlink($dest)) {
+                    $failedFiles[] = $dest;
+                }
             }
+            $this->removeEmptyDirectory(dirname($dest));
+        }
+        if (!empty($failedFiles)) {
+            $msg = sprintf("Failed to delete files: %s \r\n Check permissions", implode("\r\n", $failedFiles));
+            throw new RuntimeException($msg);
         }
 
         $destDir = $targetPath . DS . Mage_Connect_Package::PACKAGE_XML_DIR;
@@ -283,16 +297,25 @@ class Mage_Connect_Packager
      * @param $package
      * @param Mage_Connect_Singleconfig $cacheObj
      * @param Mage_Connect_Ftp $ftp
-     * @return void
+     * @throws RuntimeException
      */
     public function processUninstallPackageFtp($chanName, $package, $cacheObj, $ftp)
     {
         $ftpDir = $ftp->getcwd();
         $package = $cacheObj->getPackageObject($chanName, $package);
         $contents = $package->getContents();
+        $failedFiles = array();
         foreach ($contents as $file) {
             $ftp->delete($file);
+            if ($ftp->fileExists($file)) {
+                $failedFiles[] = $file;
+                continue;
+            }
             $this->removeEmptyDirectory(dirname($file), $ftp);
+        }
+        if (!empty($failedFiles)) {
+            $msg = sprintf("Failed to delete files: %s \r\n Check permissions", implode("\r\n", $failedFiles));
+            throw new RuntimeException($msg);
         }
         $remoteXml = Mage_Connect_Package::PACKAGE_XML_DIR . DS . $package->getReleaseFilename() . '.xml';
         $ftp->delete($remoteXml);
@@ -362,7 +385,7 @@ class Mage_Connect_Packager
      * @param string $file
      * @param Mage_Connect_Config $configObj
      * @param Mage_Connect_Ftp $ftp
-     * @return void
+     * @throws RuntimeException
      */
     public function processInstallPackageFtp($package, $file, $configObj, $ftp)
     {
@@ -370,10 +393,13 @@ class Mage_Connect_Packager
         $contents = $package->getContents();
         $arc = $this->getArchiver();
         $target = dirname($file) . DS . $package->getReleaseFilename();
-        @mkdir($target, 0777, true);
+        if (!@mkdir($target, 0777, true)) {
+            throw new RuntimeException("Can't create directory ". $target);
+        }
         $tar = $arc->unpack($file, $target);
         $modeFile = $this->_getFileMode($configObj);
         $modeDir = $this->_getDirMode($configObj);
+        $failedFiles = array();
         foreach ($contents as $file) {
             $source = $tar . DS . $file;
             if (file_exists($source) && is_file($source)) {
@@ -382,8 +408,15 @@ class Mage_Connect_Packager
                     $args[] = $modeDir;
                     $args[] = $modeFile;
                 }
-                call_user_func_array(array($ftp,'upload'), $args);
+                if (call_user_func_array(array($ftp,'upload'), $args) === false) {
+                    $failedFiles[] = $source;
+                }
             }
+        }
+
+        if (!empty($failedFiles)) {
+            $msg = sprintf("Failed to upload files: %s \r\n Check permissions", implode("\r\n", $failedFiles));
+            throw new RuntimeException($msg);
         }
 
         $localXml = $tar . Mage_Connect_Package_Reader::DEFAULT_NAME_PACKAGE;
@@ -414,11 +447,15 @@ class Mage_Connect_Packager
         $modeFile = $this->_getFileMode($configObj);
         $modeDir = $this->_getDirMode($configObj);
         $targetPath = rtrim($configObj->magento_root, "\\/");
+        $packageXmlDir = $targetPath . DS . Mage_Connect_Package::PACKAGE_XML_DIR;
+        if (!$this->isDirWritable($packageXmlDir)) {
+            throw new RuntimeException('Directory ' . $packageXmlDir . ' is not writable. Check permission');
+        }
+        $this->_makeDirectories($contents, $targetPath, $modeDir);
         foreach ($contents as $file) {
             $fileName = basename($file);
             $filePath = dirname($file);
             $source = $tar . DS . $file;
-            @mkdir($targetPath. DS . $filePath, $modeDir, true);
             $dest = $targetPath . DS . $filePath . DS . $fileName;
             if (is_file($source)) {
                 @copy($source, $dest);
@@ -441,6 +478,38 @@ class Mage_Connect_Packager
         }
 
         Mage_System_Dirs::rm(array("-r",$target));
+    }
+
+    /**
+     * Make directories
+     *
+     * @param array $content
+     * @param string $targetPath
+     * @param int $modeDir
+     * @throws RuntimeException
+     */
+    protected function _makeDirectories($content, $targetPath, $modeDir)
+    {
+        $failedDirs = array();
+        $createdDirs = array();
+        foreach ($content as $file) {
+            $dirPath = dirname($file);
+            if (is_dir($dirPath) && $this->isDirWritable($dirPath)) {
+                continue;
+            }
+            if (!mkdir($targetPath . DS . $dirPath, $modeDir, true)) {
+                $failedDirs[] = $targetPath . DS .  $dirPath;
+            } else {
+                $createdDirs[] = $targetPath . DS . $dirPath;
+            }
+        }
+        if (!empty($failedDirs)) {
+            foreach ($createdDirs as $createdDir) {
+                $this->removeEmptyDirectory($createdDir);
+            }
+            $msg = sprintf("Failed to create directory:\r\n%s\r\n Check permissions", implode("\r\n", $failedDirs));
+            throw new RuntimeException($msg);
+        }
     }
 
     /**
@@ -952,5 +1021,32 @@ class Mage_Connect_Packager
         }
         unset($graph, $nodes);
         return $out;
+    }
+
+    /**
+     * Check if directory writable
+     *
+     * @param string $dir
+     * @return boolean
+     */
+    protected function isDirWritable($dir)
+    {
+        if (is_dir($dir) && is_writable($dir)) {
+            if (stripos(PHP_OS, 'win') === 0) {
+                $dir    = ltrim($dir, DIRECTORY_SEPARATOR);
+                $file   = $dir . DIRECTORY_SEPARATOR . uniqid(mt_rand()).'.tmp';
+                $exist  = file_exists($file);
+                $fp     = @fopen($file, 'a');
+                if ($fp === false) {
+                    return false;
+                }
+                fclose($fp);
+                if (!$exist) {
+                    unlink($file);
+                }
+            }
+            return true;
+        }
+        return false;
     }
 }

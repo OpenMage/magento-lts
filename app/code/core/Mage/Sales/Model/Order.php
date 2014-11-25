@@ -10,18 +10,18 @@
  * http://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
+ * to license@magento.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
  * Do not edit or add to this file if you wish to upgrade Magento to newer
  * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
+ * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -309,7 +309,17 @@
  */
 class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 {
+    /**
+     * Identifier for history item
+     */
     const ENTITY                                = 'order';
+
+    /**
+     * Event type names for order emails
+     */
+    const EMAIL_EVENT_NAME_NEW_ORDER    = 'new_order';
+    const EMAIL_EVENT_NAME_UPDATE_ORDER = 'update_order';
+
     /**
      * XML configuration paths
      */
@@ -1254,24 +1264,18 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * Send email with order data
+     * Queue email with new order data
+     *
+     * @param bool $forceMode if true then email will be sent regardless of the fact that it was already sent previously
      *
      * @return Mage_Sales_Model_Order
      * @throws Exception
      */
-    public function sendNewOrderEmail()
+    public function queueNewOrderEmail($forceMode = false)
     {
         $storeId = $this->getStore()->getId();
 
         if (!Mage::helper('sales')->canSendNewOrderEmail($storeId)) {
-            return $this;
-        }
-
-        $emailSentAttributeValue = $this->hasEmailSent()
-            ? $this->getEmailSent()
-            : Mage::getModel('sales/order')->load($this->getId())->getData('email_sent');
-        $this->setEmailSent((bool)$emailSentAttributeValue);
-        if ($this->getEmailSent()) {
             return $this;
         }
 
@@ -1280,6 +1284,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $copyMethod = Mage::getStoreConfig(self::XML_PATH_EMAIL_COPY_METHOD, $storeId);
 
         // Start store emulation process
+        /** @var $appEmulation Mage_Core_Model_App_Emulation */
         $appEmulation = Mage::getSingleton('core/app_emulation');
         $initialEnvironmentInfo = $appEmulation->startEnvironmentEmulation($storeId);
 
@@ -1307,7 +1312,9 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             $customerName = $this->getCustomerName();
         }
 
+        /** @var $mailer Mage_Core_Model_Email_Template_Mailer */
         $mailer = Mage::getModel('core/email_template_mailer');
+        /** @var $emailInfo Mage_Core_Model_Email_Info */
         $emailInfo = Mage::getModel('core/email_info');
         $emailInfo->addTo($this->getCustomerEmail(), $customerName);
         if ($copyTo && $copyMethod == 'bcc') {
@@ -1332,12 +1339,19 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $mailer->setStoreId($storeId);
         $mailer->setTemplateId($templateId);
         $mailer->setTemplateParams(array(
-                'order'        => $this,
-                'billing'      => $this->getBillingAddress(),
-                'payment_html' => $paymentBlockHtml
-            )
-        );
-        $mailer->send();
+            'order'        => $this,
+            'billing'      => $this->getBillingAddress(),
+            'payment_html' => $paymentBlockHtml
+        ));
+
+        /** @var $emailQueue Mage_Core_Model_Email_Queue */
+        $emailQueue = Mage::getModel('core/email_queue');
+        $emailQueue->setEntityId($this->getId())
+            ->setEntityType(self::ENTITY)
+            ->setEventType(self::EMAIL_EVENT_NAME_NEW_ORDER)
+            ->setIsForceCheck(!$forceMode);
+
+        $mailer->setQueue($emailQueue)->send();
 
         $this->setEmailSent(true);
         $this->_getResource()->saveAttribute($this, 'email_sent');
@@ -1346,13 +1360,26 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * Send email with order update information
+     * Send email with order data
+     *
+     * @return Mage_Sales_Model_Order
+     */
+    public function sendNewOrderEmail()
+    {
+        $this->queueNewOrderEmail(true);
+        return $this;
+    }
+
+    /**
+     * Queue email with order update information
      *
      * @param boolean $notifyCustomer
      * @param string $comment
+     * @param bool $forceMode if true then email will be sent regardless of the fact that it was already sent previously
+     *
      * @return Mage_Sales_Model_Order
      */
-    public function sendOrderUpdateEmail($notifyCustomer = true, $comment = '')
+    public function queueOrderUpdateEmail($notifyCustomer = true, $comment = '', $forceMode = false)
     {
         $storeId = $this->getStore()->getId();
 
@@ -1362,7 +1389,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         // Get the destination email addresses to send copies to
         $copyTo = $this->_getEmails(self::XML_PATH_UPDATE_EMAIL_COPY_TO);
         $copyMethod = Mage::getStoreConfig(self::XML_PATH_UPDATE_EMAIL_COPY_METHOD, $storeId);
-        // Check if at least one recepient is found
+        // Check if at least one recipient is found
         if (!$notifyCustomer && !$copyTo) {
             return $this;
         }
@@ -1376,8 +1403,10 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             $customerName = $this->getCustomerName();
         }
 
+        /** @var $mailer Mage_Core_Model_Email_Template_Mailer */
         $mailer = Mage::getModel('core/email_template_mailer');
         if ($notifyCustomer) {
+            /** @var $emailInfo Mage_Core_Model_Email_Info */
             $emailInfo = Mage::getModel('core/email_info');
             $emailInfo->addTo($this->getCustomerEmail(), $customerName);
             if ($copyTo && $copyMethod == 'bcc') {
@@ -1409,10 +1438,31 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 'billing' => $this->getBillingAddress()
             )
         );
-        $mailer->send();
+
+        /** @var $emailQueue Mage_Core_Model_Email_Queue */
+        $emailQueue = Mage::getModel('core/email_queue');
+        $emailQueue->setEntityId($this->getId())
+            ->setEntityType(self::ENTITY)
+            ->setEventType(self::EMAIL_EVENT_NAME_UPDATE_ORDER)
+            ->setIsForceCheck(!$forceMode);
+        $mailer->setQueue($emailQueue)->send();
 
         return $this;
     }
+
+    /**
+     * Send email with order update information
+     *
+     * @param bool $notifyCustomer
+     * @param string $comment
+     *
+     * @return Mage_Sales_Model_Order
+     */
+    public function sendOrderUpdateEmail($notifyCustomer = true, $comment = '')
+    {
+        $this->queueOrderUpdateEmail($notifyCustomer, $comment, true);
+         return $this;
+     }
 
     protected function _getEmails($configPath)
     {

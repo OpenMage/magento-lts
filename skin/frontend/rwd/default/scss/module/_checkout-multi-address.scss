@@ -1,0 +1,252 @@
+//
+// Magento
+//
+// NOTICE OF LICENSE
+//
+// This source file is subject to the Academic Free License (AFL 3.0)
+// that is bundled with this package in the file LICENSE_AFL.txt.
+// It is also available through the world-wide-web at this URL:
+// http://opensource.org/licenses/afl-3.0.php
+// If you did not receive a copy of the license and are unable to
+// obtain it through the world-wide-web, please send an email
+// to license@magento.com so we can send you a copy immediately.
+//
+// DISCLAIMER
+//
+// Do not edit or add to this file if you wish to upgrade Magento to newer
+// versions in the future. If you wish to customize Magento for your
+// needs please refer to http://www.magento.com for more information.
+//
+// @category    design
+// @package     rwd_default
+// @copyright   Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+// @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+//
+
+/* ============================================ *
+ * Checkout - Multiple Addresses
+ * ============================================ */
+
+body[class*="checkout-multishipping-"] {
+    .checkout-progress {
+        width: 100%;
+        float: left;
+        margin-bottom: 25px;
+        > li {
+            float: left;
+            width: 20%;
+            text-align: center;
+            padding: 8px 1% 6px;
+            background: $c-module-background;
+            text-transform: uppercase;
+            border-bottom: 1px solid $c-module-border;
+            border-right: 1px solid $c-module-border;
+            margin-bottom: 10px;
+            font-family: $f-stack-special;
+            &.active {
+                background-color: $c-button-secondary;
+            }
+            &.last {
+                border-right: 0px;
+            }
+        }
+    }
+    .page-title {
+        float: left;
+        width: 100%;
+        margin-bottom: 15px;
+        h1 {
+            border: 0 none;
+            float: left;
+            margin-top: 2px;
+            margin-right: 2%;
+        }
+        .button {
+            float: right;
+        }
+    }
+    .multiple-checkout > h2 {
+        text-transform: none;
+        font-size: 17px;
+        margin-bottom: 15px;
+    }
+    .messages {
+        float: left;
+        width: 100%;
+    }
+    .col-2.col-wide {
+        width: 66%;
+    }
+    .col-1.col-narrow {
+        width: 30%;
+    }
+    .actions {
+        margin-bottom: 10px;
+    }
+
+    .grand-total {
+        text-align: right;
+        font-size: $f-size-xl;
+        font-weight: bold;
+    }
+
+    #checkout-review-submit {
+        float: right;
+    }
+
+    #review-buttons-container {
+        float: right;
+        text-align: right;
+    }
+}
+
+.checkout-multishipping-addresses {
+    .btn-remove2 {
+        text-indent: -5555px;
+        display: block;
+        width: 22px;
+        height: 22px;
+    }
+}
+
+.checkout-multishipping-shipping {
+    .gift-messages {
+        margin-top: 20px;
+    }
+    .gift-messages-form {
+        margin-top: 15px;
+        h4 {
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+        .form-list {
+            margin-top: 10px;
+            margin-bottom: 25px;
+        }
+        .item {
+            margin-top: 15px;
+        }
+    }
+}
+
+.checkout-multishipping-shipping,
+.checkout-multishipping-billing,
+.checkout-multishipping-overview {
+    .col-1, .col-2 {
+        .box-title {
+            h2, h3, h4 {
+                font-weight: normal;
+                width: 100%;
+                background: $c-module-background;
+                border-bottom: 1px solid $c-module-border;
+                padding: 10px;
+                font-size: 14px;
+            }
+        }
+        > h4 {
+            font-weight: normal;
+            width: 100%;
+            background: $c-module-background;
+            border-bottom: 1px solid $c-module-border;
+            padding: 10px;
+            font-size: 14px;
+        }
+        .box-content {
+            margin-bottom: 25px;
+            padding-left: 10px;
+            margin-top: 10px;
+        }
+    }
+}
+
+.checkout-multishipping-billing {
+    .sp-methods dt {
+        float: left;
+        width: 100%;
+    }
+}
+
+#multiship-addresses-table > tbody > tr > td.a-center.last > a {
+    background-image: none;
+}
+
+#review-order-form > div:nth-child(3) > div.divider {
+    width: 100%;
+    clear:both;
+}
+
+@include bp(max-width, $bp-large) {
+    body[class*="checkout-multishipping-"] {
+        .checkout-progress span {
+            word-spacing: 300px;
+        }
+    }
+    #review-order-form{
+        .col-1,
+        .col-2 {
+            float: none;
+            width: auto;
+            border: 0;
+            padding-right: 0;
+            padding-left: 0;
+        }
+    }
+}
+
+@include bp(max-width, $bp-medium) {
+    body[class*="checkout-multishipping-"] {
+        .checkout-progress span {
+            width: 12px;
+        }
+        .checkout-progress {
+            li {
+                width: 100%;
+                margin: 0;
+                text-align: left;
+                padding-left: 3%;
+                border-right: 0px;
+            }
+            span {
+                word-spacing: 1px;
+                width: 12px;
+            }
+        }
+        .box-title {
+            float: left;
+            width: 100%;
+        }
+        .page-title .button {
+            float: left;
+            margin-bottom: 10px;
+        }
+        .linearize-table {
+            tfoot td {
+                text-align: right;
+            }
+            select {
+                width: 100%;
+                min-width: 200px;
+            }
+        }
+        .col-1.col-narrow, .col-2.col-wide {
+            width: 100%;
+            padding: 0;
+        }
+    }
+}
+
+@include bp(max-width, $bp-small) {
+    .checkout-multishipping-addresses .linearize-table tbody td[data-rwd-label] {
+        text-align: left;
+        padding-left: 10px;
+        margin-top: 12px;
+    }
+}
+
+@include bp(max-width, $bp-xsmall) {
+    body[class*="checkout-multishipping-"] {
+        .buttons-set .back-link {
+            display: block;
+        }
+    }
+}

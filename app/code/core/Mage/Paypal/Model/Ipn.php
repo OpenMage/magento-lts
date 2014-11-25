@@ -10,18 +10,18 @@
  * http://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
+ * to license@magento.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
  * Do not edit or add to this file if you wish to upgrade Magento to newer
  * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
+ * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -36,12 +36,14 @@ class Mage_Paypal_Model_Ipn
      */
     const DEFAULT_LOG_FILE = 'paypal_unknown_ipn.log';
 
-    /*
-     * @param Mage_Sales_Model_Order
+    /**
+     * Store order instance
+     *
+     * @var Mage_Sales_Model_Order
      */
     protected $_order = null;
 
-    /*
+    /**
      * Recurring profile instance
      *
      * @var Mage_Sales_Model_Recurring_Profile
@@ -148,6 +150,20 @@ class Mage_Paypal_Model_Ipn
         } catch (Exception $e) {
             $this->_debugData['http_error'] = array('error' => $e->getMessage(), 'code' => $e->getCode());
             throw $e;
+        }
+
+        /*
+         * Handle errors on PayPal side.
+         */
+        $responseCode = Zend_Http_Response::extractCode($postbackResult);
+        if (empty($postbackResult) || in_array($responseCode, array('500', '502', '503'))) {
+            if (empty($postbackResult)) {
+                $reason = 'Empty response.';
+            } else {
+                $reason = 'Response code: ' . $responseCode . '.';
+            }
+            $this->_debugData['exception'] = 'PayPal IPN postback failure. ' . $reason;
+            throw new Mage_Paypal_UnavailableException($reason);
         }
 
         $response = preg_split('/^\r?$/m', $postbackResult, 2);
@@ -424,6 +440,7 @@ class Mage_Paypal_Model_Ipn
         $productItemInfo->setShippingAmount($this->getRequestData('shipping'));
         $productItemInfo->setPrice($price);
 
+        /** @var $order Mage_Sales_Model_Order */
         $order = $this->_recurringProfile->createOrder($productItemInfo);
 
         $payment = $order->getPayment();
@@ -440,7 +457,7 @@ class Mage_Paypal_Model_Ipn
         if ($invoice) {
             // notify customer
             $message = Mage::helper('paypal')->__('Notified customer about invoice #%s.', $invoice->getIncrementId());
-            $order->sendNewOrderEmail()->addStatusHistoryComment($message)
+            $order->queueNewOrderEmail()->addStatusHistoryComment($message)
                 ->setIsCustomerNotified(true)
                 ->save();
         }
@@ -474,7 +491,7 @@ class Mage_Paypal_Model_Ipn
         // notify customer
         $invoice = $payment->getCreatedInvoice();
         if ($invoice && !$this->_order->getEmailSent()) {
-            $this->_order->sendNewOrderEmail()->addStatusHistoryComment(
+            $this->_order->queueNewOrderEmail()->addStatusHistoryComment(
                 Mage::helper('paypal')->__('Notified customer about invoice #%s.', $invoice->getIncrementId())
             )
             ->setIsCustomerNotified(true)
@@ -488,11 +505,23 @@ class Mage_Paypal_Model_Ipn
     protected function _registerPaymentDenial()
     {
         $this->_importPaymentInformation();
-        $this->_order->getPayment()
-            ->setTransactionId($this->getRequestData('txn_id'))
+        /** @var Mage_Sales_Model_Order_Payment */
+        $payment = $this->_order->getPayment();
+
+        $payment->setTransactionId($this->getRequestData('txn_id'))
             ->setNotificationResult(true)
-            ->setIsTransactionClosed(true)
-            ->registerPaymentReviewAction(Mage_Sales_Model_Order_Payment::REVIEW_ACTION_DENY, false);
+            ->setIsTransactionClosed(true);
+        if (!$this->_order->isCanceled()) {
+            $payment->registerPaymentReviewAction(Mage_Sales_Model_Order_Payment::REVIEW_ACTION_DENY, false);
+        } else {
+            $transactionId = Mage::helper('paypal')->getHtmlTransactionId(
+                $payment->getMethodInstance()->getCode(),
+                $this->getRequestData('txn_id')
+            );
+            $comment = Mage::helper('paypal')->__('Transaction ID: "%s"', $transactionId);
+            $this->_order->addStatusHistoryComment($this->_createIpnComment($comment), false);
+        }
+
         $this->_order->save();
     }
 
@@ -515,12 +544,26 @@ class Mage_Paypal_Model_Ipn
         $this->_importPaymentInformation();
         $reason = $this->getRequestData('reason_code');
         $isRefundFinal = !$this->_info->isReversalDisputable($reason);
-        $payment = $this->_order->getPayment()
-            ->setPreparedMessage($this->_createIpnComment($this->_info->explainReasonCode($reason)))
+
+        /** @var Mage_Sales_Model_Order_Payment $payment */
+        $payment = $this->_order->getPayment();
+
+        $amount = $this->_order->getBaseCurrency()->formatTxt($payment->getBaseAmountRefundedOnline());
+
+        $transactionId = Mage::helper('paypal')->getHtmlTransactionId(
+            $payment->getMethodInstance()->getCode(),
+            $this->getRequestData('txn_id')
+        );
+        $comment = $this->_createIpnComment($this->_info->explainReasonCode($reason))
+            . ' '
+            . Mage::helper('paypal')->__('Refunded amount of %s. Transaction ID: "%s"', $amount, $transactionId);
+
+        $payment->setPreparedMessage($comment)
             ->setTransactionId($this->getRequestData('txn_id'))
             ->setParentTransactionId($this->getRequestData('parent_txn_id'))
             ->setIsTransactionClosed($isRefundFinal)
             ->registerRefundNotification(-1 * $this->getRequestData('mc_gross'));
+        $this->_order->addStatusHistoryComment($comment, false);
         $this->_order->save();
 
         // TODO: there is no way to close a capture right now
@@ -555,7 +598,11 @@ class Mage_Paypal_Model_Ipn
         /**
          * Change order status to PayPal Reversed/PayPal Cancelled Reversal if it is possible.
          */
-        $message = Mage::helper('paypal')->__('IPN "%s". %s Transaction amount %s. Transaction ID: "%s"', $this->_request['payment_status'], $reasonComment, $notificationAmount, $this->_request['txn_id']);
+        $transactionId = Mage::helper('paypal')->getHtmlTransactionId(
+            $this->_config->getMethodCode(),
+            $this->_request['txn_id']
+        );
+        $message = Mage::helper('paypal')->__('IPN "%s". %s Transaction amount %s. Transaction ID: "%s"', $this->_request['payment_status'], $reasonComment, $notificationAmount, $transactionId);
         $this->_order->setStatus($orderStatus);
         $this->_order->save();
         $this->_order->addStatusHistoryComment($message, $orderStatus)
@@ -613,7 +660,7 @@ class Mage_Paypal_Model_Ipn
             ->registerAuthorizationNotification($this->getRequestData('mc_gross'));
 
         if (!$this->_order->getEmailSent()) {
-            $this->_order->sendNewOrderEmail();
+            $this->_order->queueNewOrderEmail();
         }
         $this->_order->save();
     }

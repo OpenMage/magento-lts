@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<layout version="0.1.0">
+
+    <product_list>
+        <reference name="head">
+            <action method="addItem"><type>skin_js</type><name>js/configurableswatches/product-media.js</name></action>
+            <action method="addItem"><type>skin_js</type><name>js/configurableswatches/swatches-list.js</name></action>
+        </reference>
+        <reference name="product_list.name.after">
+            <block type="core/template" name="product_list.swatches" template="configurableswatches/catalog/product/list/swatches.phtml" />
+        </reference>
+        <reference name="product_list.after">
+            <block type="configurableswatches/catalog_media_js_list" name="configurableswatches.media.js.list" />
+        </reference>
+    </product_list>
+
+    <catalog_category_default>
+        <update handle="product_list"/>
+    </catalog_category_default>
+
+    <catalog_category_layered>
+        <update handle="product_list"/>
+    </catalog_category_layered>
+
+    <catalogsearch_result_index>
+        <update handle="product_list"/>
+    </catalogsearch_result_index>
+
+    <catalogsearch_advanced_result>
+        <update handle="product_list"/>
+    </catalogsearch_advanced_result>
+
+    <PRODUCT_TYPE_configurable>
+        <reference name="head">
+            <action method="addItem"><type>skin_js</type><name>js/configurableswatches/product-media.js</name></action>
+            <action method="addItem"><type>skin_js</type><name>js/configurableswatches/swatches-product.js</name></action>
+        </reference>
+        <reference name="product.info.media">
+            <action method="setGalleryFilterHelper"><helper>configurableswatches/productimg</helper></action>
+            <action method="setGalleryFilterMethod"><method>filterImageInGallery</method></action>
+        </reference>
+        <reference name="product.info.media.after">
+            <block type="configurableswatches/catalog_media_js_product" name="configurableswatches.media.js.product" />
+        </reference>
+        <reference name="product.info.options.configurable.renderers">
+            <block type="configurableswatches/catalog_product_view_type_configurable_swatches" template="configurableswatches/catalog/product/view/type/options/configurable/swatches.phtml" />
+        </reference>
+        <reference name="product.info.options.configurable.after">
+            <block type="core/template" template="configurableswatches/catalog/product/view/type/configurable/swatch-js.phtml" />
+        </reference>
+    </PRODUCT_TYPE_configurable>
+
+</layout>

@@ -1,27 +1,27 @@
-/**
- * Magento
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
- *
- * @category    design
- * @package     default_default
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
- */
+//
+// Magento
+//
+// NOTICE OF LICENSE
+//
+// This source file is subject to the Academic Free License (AFL 3.0)
+// that is bundled with this package in the file LICENSE_AFL.txt.
+// It is also available through the world-wide-web at this URL:
+// http://opensource.org/licenses/afl-3.0.php
+// If you did not receive a copy of the license and are unable to
+// obtain it through the world-wide-web, please send an email
+// to license@magento.com so we can send you a copy immediately.
+//
+// DISCLAIMER
+//
+// Do not edit or add to this file if you wish to upgrade Magento to newer
+// versions in the future. If you wish to customize Magento for your
+// needs please refer to http://www.magento.com for more information.
+//
+// @category    design
+// @package     rwd_default
+// @copyright   Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+// @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+//
 
 /* ================================================= *
  * General Product List Styles (not module-specific)
@@ -38,6 +38,12 @@ body.catalogsearch-result-index .page-title h1 {
 
 .category-image {
     margin-bottom: $b-margin-bottom;
+}
+
+// Prevent button overlapping when buttons have long text, such as non-English translations
+.products-list .action .button,
+.products-grid .actions .button {
+    white-space: normal;
 }
 
 /* -------------------------------------------- *
@@ -111,6 +117,14 @@ $product-column-spacing: 20px;
 
     &:hidden {
         display: none;
+    }
+}
+
+.widget-new-products {
+    .products-grid .product-image {
+        width: 75%;
+        margin-bottom: 15px;
+        margin-left: 10%;
     }
 }
 
@@ -211,36 +225,42 @@ $productsGridActionHeight: 85px;
 }
 
 // This mixin outputs the styles to allow for grids with more than 3 columns
-@mixin product-grid($column-count, $container-width) {
+@mixin product-grid($column-count, $container-width, $class-append:"") {
+
+    // Allow this mixin to be used for more specific purposes, such as grids contained within widgets
+    @if $class-append != "" {
+        $class-append: -#{$class-append};
+    }
+
     /* Config: Columns + flexible gutter */
     $column-gutters: ($column-count) - 1;
     $container: $container-width - (2 * $trim);
     $column-width: ($container - ($column-gutters * $product-column-spacing)) / $column-count;
 
     /* Undo three-column config */
-    .products-grid--max-#{$column-count}-col > li:nth-child(odd) {
+    .products-grid--max-#{$column-count}-col#{$class-append} > li:nth-child(odd) {
         clear: none;
     }
-    .products-grid--max-#{$column-count}-col > li:nth-child(3n+1) {
+    .products-grid--max-#{$column-count}-col#{$class-append} > li:nth-child(3n+1) {
         clear: none;
     }
-    .products-grid--max-#{$column-count}-col > li:nth-child(even),
-    .products-grid--max-#{$column-count}-col > li:nth-child(3n) {
+    .products-grid--max-#{$column-count}-col#{$class-append} > li:nth-child(even),
+    .products-grid--max-#{$column-count}-col#{$class-append} > li:nth-child(3n) {
         margin-right: percentage($product-column-spacing / $container);
     }
 
     /* Set column config */
-    .products-grid--max-#{$column-count}-col > li {
+    .products-grid--max-#{$column-count}-col#{$class-append} > li {
         margin-right: percentage($product-column-spacing / $container);
     }
-    .products-grid--max-#{$column-count}-col > li {
+    .products-grid--max-#{$column-count}-col#{$class-append} > li {
         width: percentage($column-width / $container);
         margin-right: percentage($product-column-spacing / $container);
     }
-    .products-grid--max-#{$column-count}-col > li:nth-child(#{$column-count}n+1) {
+    .products-grid--max-#{$column-count}-col#{$class-append} > li:nth-child(#{$column-count}n+1) {
         clear: left;
     }
-    .products-grid--max-#{$column-count}-col > li:nth-child(#{$column-count}n) {
+    .products-grid--max-#{$column-count}-col#{$class-append} > li:nth-child(#{$column-count}n) {
         margin-right: 0;
     }
 }
@@ -321,12 +341,12 @@ $productsGridActionHeight: 85px;
     .product-primary,
     .desc {
         float: left;
-        width: 75%;
+        width: 65%;
         overflow: hidden;
     }
     .product-secondary {
         float: right;
-        width: 25%;
+        width: 35%;
         text-align: right;
         clear: right;
     }
@@ -548,7 +568,7 @@ $productsGridActionHeight: 85px;
 
         &:hover {
             text-decoration: none;
-            background: shade($c-module-background, 5%);
+            background: $c-module-background-hover;
         }
     }
 }
@@ -579,79 +599,4 @@ $productsGridActionHeight: 85px;
 .block-layered-nav .actions {
     text-align: right;
     margin-bottom: $element-spacing;
-}
-
-/* ============================================ *
- * Catalog Event
- * ============================================ */
-.event-container {
-    clear: both;
-    border: 1px solid $c-text-primary;
-    position: relative;
-    z-index: 2;
-    border-width: 1px 1px;
-    margin-top: 7px;
-    height: 59px;
-
-    &:after {
-        @include triangle(down, 10px, $c-text-primary);
-        position: absolute;
-        bottom: -10px;
-        left: 50%;
-        margin-left: -10px;
-    }
-
-    .event {
-        padding-bottom: 18px;
-        margin-bottom: -18px;
-        padding-top: 5px;
-        height: 52px;
-        line-height: 50px;
-        text-align: center;
-        width: auto;
-        position: relative;
-        z-index: 2;
-        border-bottom: 0 !important;
-
-        .event-ticker {
-            display: inline;
-            font-size: 28px;
-            height: auto;
-
-            span {
-                line-height: 50px;
-                height: 50px;
-                padding: 0;
-            }
-        }
-    }
-
-    .container {
-        display: inline;
-        margin: 0;
-        padding: 0;
-        background: none;
-    }
-
-    .status {
-        display: inline;
-        margin: 0 10px 0 0;
-        background: none;
-        font-size: 22px;
-    }
-
-    .event-dates {
-        display: inline;
-        font-size: 22px;
-        height: auto;
-
-        div,
-        p {
-            display: inline;
-        }
-
-        .time-part {
-            font-size: 14px;
-        }
-    }
 }

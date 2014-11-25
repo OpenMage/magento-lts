@@ -11,27 +11,37 @@
  * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
+ * to license@magento.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
  * Do not edit or add to this file if you wish to upgrade Magento to newer
  * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
+ * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Paypal>
-            <version>1.6.0.5</version>
+            <version>1.6.0.6</version>
         </Mage_Paypal>
     </modules>
     <global>
+        <events>
+            <sales_html_txn_id>
+                <observers>
+                    <paypal_transaction_html>
+                        <class>paypal/observer</class>
+                        <method>observeHtmlTransactionId</method>
+                    </paypal_transaction_html>
+                </observers>
+            </sales_html_txn_id>
+        </events>
         <models>
             <paypal>
                 <class>Mage_Paypal_Model</class>
@@ -107,6 +117,7 @@
         <secure_url>
             <paypal_express>/paypal/express</paypal_express>
             <paypal_standard>/paypal/standard</paypal_standard>
+            <paypal_ipn>/paypal/ipn</paypal_ipn>
         </secure_url>
         <routers>
             <paypal>
@@ -221,7 +232,7 @@
             </paypal_express>
             <paypal_express_bml>
                 <model>paypal/bml</model>
-                <title>Bill Me Later</title>
+                <title>Paypal Credit</title>
                 <group>paypal</group>
             </paypal_express_bml>
             <paypal_direct>
@@ -291,6 +302,7 @@
                 <url_method>GET</url_method>
                 <email_confirmation>0</email_confirmation>
                 <verify_peer>1</verify_peer>
+                <mobile_optimized>0</mobile_optimized>
             </payflow_link>
             <payflow_advanced>
                 <model>paypal/payflowadvanced</model>
@@ -307,6 +319,7 @@
                 <url_method>GET</url_method>
                 <email_confirmation>0</email_confirmation>
                 <verify_peer>1</verify_peer>
+                <mobile_optimized>0</mobile_optimized>
             </payflow_advanced>
             <hosted_pro>
                 <model>paypal/hostedpro</model>
@@ -315,6 +328,7 @@
                 <group>paypal</group>
                 <display_ec>0</display_ec>
                 <verify_peer>1</verify_peer>
+                <mobile_optimized>0</mobile_optimized>
             </hosted_pro>
         </payment>
     </default>

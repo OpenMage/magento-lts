@@ -10,18 +10,18 @@
  * http://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
+ * to license@magento.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
  * Do not edit or add to this file if you wish to upgrade Magento to newer
  * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
+ * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -35,6 +35,11 @@ class Mage_Paypal_Model_Config
      * @var string
      */
     const METHOD_WPS         = 'paypal_standard';
+
+    /**
+     * US locale
+     */
+    const LOCALE_US = 'en_US';
 
     /**
      * PayPal Website Payments Pro - Express Checkout
@@ -264,8 +269,8 @@ class Mage_Paypal_Model_Config
      * @var array
      * @link https://cms.paypal.com/us/cgi-bin/?cmd=_render-content&content_ID=developer/e_howto_api_ECButtonIntegration#id089QD0O0TX4__id08AH904I0YK
      */
-    protected $_supportedImageLocales = array('de_DE', 'en_AU', 'en_GB', 'en_US', 'es_ES', 'es_XC', 'fr_FR',
-        'fr_XC', 'it_IT', 'ja_JP', 'nl_NL', 'pl_PL', 'zh_CN', 'zh_XC',
+    protected $_supportedImageLocales = array('de_DE', 'en_AU', 'en_GB', self::LOCALE_US,
+        'es_ES', 'es_XC', 'fr_FR', 'fr_XC', 'it_IT', 'ja_JP', 'nl_NL', 'pl_PL', 'zh_CN', 'zh_XC',
     );
 
     /**
@@ -515,7 +520,6 @@ class Mage_Paypal_Model_Config
             'other' => array(
                 self::METHOD_WPS,
                 self::METHOD_WPP_EXPRESS,
-                self::METHOD_BML,
                 self::METHOD_BILLING_AGREEMENT,
             ),
             'US' => array(
@@ -536,7 +540,6 @@ class Mage_Paypal_Model_Config
                 self::METHOD_PAYFLOWPRO,
                 self::METHOD_PAYFLOWLINK,
                 self::METHOD_WPP_EXPRESS,
-                self::METHOD_BML,
                 self::METHOD_BILLING_AGREEMENT,
             ),
             'GB' => array(
@@ -545,59 +548,50 @@ class Mage_Paypal_Model_Config
                 self::METHOD_WPP_PE_DIRECT,
                 self::METHOD_HOSTEDPRO,
                 self::METHOD_WPP_EXPRESS,
-                self::METHOD_BML,
                 self::METHOD_BILLING_AGREEMENT,
                 self::METHOD_WPP_PE_EXPRESS,
-                self::METHOD_WPP_PE_BML,
             ),
             'AU' => array(
                 self::METHOD_WPS,
                 self::METHOD_PAYFLOWPRO,
                 self::METHOD_HOSTEDPRO,
                 self::METHOD_WPP_EXPRESS,
-                self::METHOD_BML,
                 self::METHOD_BILLING_AGREEMENT,
             ),
             'NZ' => array(
                 self::METHOD_WPS,
                 self::METHOD_PAYFLOWPRO,
                 self::METHOD_WPP_EXPRESS,
-                self::METHOD_BML,
                 self::METHOD_BILLING_AGREEMENT,
             ),
             'JP' => array(
                 self::METHOD_WPS,
                 self::METHOD_HOSTEDPRO,
                 self::METHOD_WPP_EXPRESS,
-                self::METHOD_BML,
                 self::METHOD_BILLING_AGREEMENT,
             ),
             'FR' => array(
                 self::METHOD_WPS,
                 self::METHOD_HOSTEDPRO,
                 self::METHOD_WPP_EXPRESS,
-                self::METHOD_BML,
                 self::METHOD_BILLING_AGREEMENT,
             ),
             'IT' => array(
                 self::METHOD_WPS,
                 self::METHOD_HOSTEDPRO,
                 self::METHOD_WPP_EXPRESS,
-                self::METHOD_BML,
                 self::METHOD_BILLING_AGREEMENT,
             ),
             'ES' => array(
                 self::METHOD_WPS,
                 self::METHOD_HOSTEDPRO,
                 self::METHOD_WPP_EXPRESS,
-                self::METHOD_BML,
                 self::METHOD_BILLING_AGREEMENT,
             ),
             'HK' => array(
                 self::METHOD_WPS,
                 self::METHOD_HOSTEDPRO,
                 self::METHOD_WPP_EXPRESS,
-                self::METHOD_BML,
                 self::METHOD_BILLING_AGREEMENT,
             ),
         );
@@ -744,6 +738,12 @@ class Mage_Paypal_Model_Config
      */
     public function getExpressCheckoutShortcutImageUrl($localeCode, $orderTotal = null, $pal = null)
     {
+        $country = Mage::getStoreConfig(Mage_Paypal_Helper_Data::MERCHANT_COUNTRY_CONFIG_PATH);
+        if ($country == Mage_Paypal_Helper_Data::US_COUNTRY
+            && ($this->areButtonsDynamic() || $this->buttonType != self::EC_BUTTON_TYPE_MARK)
+        ) {
+            return 'https://www.paypalobjects.com/webstatic/en_US/i/buttons/checkout-logo-medium.png';
+        }
         if ($this->areButtonsDynamic()) {
             return $this->_getDynamicImageUrl(self::EC_BUTTON_TYPE_SHORTCUT, $localeCode, $orderTotal, $pal);
         }
@@ -766,6 +766,10 @@ class Mage_Paypal_Model_Config
      */
     public function getPaymentMarkImageUrl($localeCode, $orderTotal = null, $pal = null, $staticSize = null)
     {
+        $country = Mage::getStoreConfig(Mage_Paypal_Helper_Data::MERCHANT_COUNTRY_CONFIG_PATH);
+        if ($country == Mage_Paypal_Helper_Data::US_COUNTRY) {
+            return 'https://www.paypalobjects.com/webstatic/en_US/i/buttons/pp-acceptance-medium.png';
+        }
         if ($this->areButtonsDynamic()) {
             return $this->_getDynamicImageUrl(self::EC_BUTTON_TYPE_MARK, $localeCode, $orderTotal, $pal);
         }
@@ -851,7 +855,7 @@ class Mage_Paypal_Model_Config
             case 'fr_FR':
                 $imageName = 'bnr_horizontal_solution_PP_327wx80h';
                 $imageType = 'bnr';
-                $locale = 'en_US';
+                $locale = self::LOCALE_US;
                 $domain = 'paypalobjects.com';
                 break;
             case 'it_IT':
@@ -1201,7 +1205,7 @@ class Mage_Paypal_Model_Config
     protected function _getSupportedLocaleCode($localeCode = null)
     {
         if (!$localeCode || !in_array($localeCode, $this->_supportedImageLocales)) {
-            return 'en_US';
+            return self::LOCALE_US;
         }
         return $localeCode;
     }
@@ -1504,6 +1508,7 @@ class Mage_Paypal_Model_Config
             case 'sort_order':
             case 'debug':
             case 'verify_peer':
+            case 'mobile_optimized':
                 return "payment/{$this->_methodCode}/{$fieldName}";
             default:
                 return null;

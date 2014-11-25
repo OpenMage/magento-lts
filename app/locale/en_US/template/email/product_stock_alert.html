@@ -3,6 +3,17 @@
 {"var customerName":"Customer Name",
 "var alertGrid":"Alert Data Grid"}
 @-->
-Hello {{var customerName}},
+{{template config_path="design/email/header"}}
+{{inlinecss file="email-inline.css"}}
 
-{{var alertGrid}}
+<table cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td class="action-content">
+            <h1>{{var customerName}},</h1>
+
+            {{var alertGrid}}
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer"}}

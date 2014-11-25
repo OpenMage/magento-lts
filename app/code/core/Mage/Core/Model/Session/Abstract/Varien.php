@@ -10,18 +10,18 @@
  * http://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
+ * to license@magento.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
  * Do not edit or add to this file if you wish to upgrade Magento to newer
  * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
+ * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -32,6 +32,14 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     const VALIDATOR_HTTP_X_FORVARDED_FOR_KEY    = 'http_x_forwarded_for';
     const VALIDATOR_HTTP_VIA_KEY                = 'http_via';
     const VALIDATOR_REMOTE_ADDR_KEY             = 'remote_addr';
+    const SECURE_COOKIE_CHECK_KEY               = '_secure_cookie_check';
+
+    /**
+     * Map of session enabled hosts
+     * @example array('host.name' => true)
+     * @var array
+     */
+    protected $_sessionHosts = array();
 
     /**
      * Configure and start session
@@ -124,6 +132,30 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
 
         session_start();
 
+        if (Mage::app()->getFrontController()->getRequest()->isSecure() && empty($cookieParams['secure'])) {
+            // secure cookie check to prevent MITM attack
+            $secureCookieName = $sessionName . '_cid';
+            if (isset($_SESSION[self::SECURE_COOKIE_CHECK_KEY])
+                && $_SESSION[self::SECURE_COOKIE_CHECK_KEY] !== md5($cookie->get($secureCookieName))
+            ) {
+                session_regenerate_id(false);
+                $sessionHosts = $this->getSessionHosts();
+                $currentCookieDomain = $cookie->getDomain();
+                foreach (array_keys($sessionHosts) as $host) {
+                    // Delete cookies with the same name for parent domains
+                    if (strpos($currentCookieDomain, $host) > 0) {
+                        $cookie->delete($this->getSessionName(), null, $host);
+                    }
+                }
+                $_SESSION = array();
+            }
+            if (!isset($_SESSION[self::SECURE_COOKIE_CHECK_KEY])) {
+                $checkId = Mage::helper('core')->getRandomString(16);
+                $cookie->set($secureCookieName, $checkId, null, null, null, true);
+                $_SESSION[self::SECURE_COOKIE_CHECK_KEY] = md5($checkId);
+            }
+        }
+
         /**
         * Renew cookie expiration time if session id did not change
         */
@@ -132,6 +164,28 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         }
         Varien_Profiler::stop(__METHOD__.'/start');
 
+        return $this;
+    }
+
+    /**
+     * Get session hosts
+     *
+     * @return array
+     */
+    public function getSessionHosts()
+    {
+        return $this->_sessionHosts;
+    }
+
+    /**
+     * Set session hosts
+     *
+     * @param array $hosts
+     * @return Mage_Core_Model_Session_Abstract_Varien
+     */
+    public function setSessionHosts(array $hosts)
+    {
+        $this->_sessionHosts = $hosts;
         return $this;
     }
 

@@ -1,0 +1,82 @@
+//
+// Magento
+//
+// NOTICE OF LICENSE
+//
+// This source file is subject to the Academic Free License (AFL 3.0)
+// that is bundled with this package in the file LICENSE_AFL.txt.
+// It is also available through the world-wide-web at this URL:
+// http://opensource.org/licenses/afl-3.0.php
+// If you did not receive a copy of the license and are unable to
+// obtain it through the world-wide-web, please send an email
+// to license@magento.com so we can send you a copy immediately.
+//
+// DISCLAIMER
+//
+// Do not edit or add to this file if you wish to upgrade Magento to newer
+// versions in the future. If you wish to customize Magento for your
+// needs please refer to http://www.magento.com for more information.
+//
+// @category    design
+// @package     rwd_default
+// @copyright   Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+// @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+//
+
+/* ============================================ *
+ * Captcha
+ * ============================================ */
+.captcha-note {
+    clear: left;
+    padding-top: 5px;
+}
+.captcha-image {
+    float: left;
+    display: inline;
+    max-width: 100%;
+    position: relative;
+    width: 258px;
+    margin-bottom: 10px;
+}
+.captcha-image .captcha-img {
+    border: 1px solid #b6b6b6;
+    vertical-align: bottom;
+    width: 100%;
+}
+.registered-users .captcha-image { margin: 0 }
+.captcha-reload {
+    cursor: pointer;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+}
+.captcha-reload.refreshing {
+    animation: rotate 1.5s infinite linear;
+    -webkit-animation: rotate 1.5s infinite linear;
+    -moz-animation: rotate 1.5s infinite linear;
+}
+.customer-account-create .scaffold-form .captcha-input-container label:first-child { width: 100% }
+.captcha-reload {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+}
+.captcha-img { border: 20px solid #bbb }
+.captcha-input-container { margin-bottom: 10px }
+.control.newsletter-box, .captcha-input-container, .captcha-img-container {
+    float: none;
+    clear: both;
+
+    &:after{
+        content:'';
+        @include clearfix;
+    }
+}
+/* ============================================ *
+ * Checkout Billing Fix to place the Captcha properly
+ * ============================================ */
+#co-billing-form ul.form-list > .control {
+    float: left;
+    margin: 0 0 5px;
+    width: 100%;
+}

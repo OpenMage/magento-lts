@@ -53,6 +53,13 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     protected $_templateVars = array();
 
     /**
+     * Template processor
+     *
+     * @var array|string|null
+     */
+    protected $_templateProcessor = null;
+
+    /**
      * Include processor
      *
      * @var array|string|null
@@ -70,6 +77,28 @@ class Varien_Filter_Template implements Zend_Filter_Interface
             $this->_templateVars[$name] = $value;
         }
         return $this;
+    }
+
+    /**
+     * Sets the proccessor of templates. Templates are directives that include email templates based on system
+     * configuration path.
+     *
+     * @param array $callback it must return string
+     */
+    public function setTemplateProcessor(array $callback)
+    {
+        $this->_templateProcessor = $callback;
+        return $this;
+    }
+
+    /**
+     * Sets the proccessor of templates.
+     *
+     * @return array|null
+     */
+    public function getTemplateProcessor()
+    {
+        return is_callable($this->_templateProcessor) ? $this->_templateProcessor : null;
     }
 
     /**
@@ -166,6 +195,32 @@ class Varien_Filter_Template implements Zend_Filter_Interface
             unset($includeParameters['template']);
             $includeParameters = array_merge_recursive($includeParameters, $this->_templateVars);
             $replacedValue = call_user_func($this->getIncludeProcessor(), $templateCode, $includeParameters);
+        }
+        return $replacedValue;
+    }
+
+    /**
+     * This directive allows email templates to be included inside other email templates using the following syntax:
+     * {{template config_path="<PATH>"}}, where <PATH> equals the XPATH to the system configuration value that contains
+     * the value of the email template. For example "sales_email/order/template", which is stored in the
+     * Mage_Sales_Model_Order::sales_email/order/template. This directive is useful to include things like a global
+     * header/footer.
+     *
+     * @param $construction
+     * @return mixed|string
+     */
+    public function templateDirective($construction)
+    {
+        // Processing of {template config_path=... [...]} statement
+        $templateParameters = $this->_getIncludeParameters($construction[2]);
+        if (!isset($templateParameters['config_path']) or !$this->getTemplateProcessor()) {
+            $replacedValue = '{Error in template processing}';
+        } else {
+            // Including of template
+            $configPath = $templateParameters['config_path'];
+            unset($templateParameters['config_path']);
+            $templateParameters = array_merge_recursive($templateParameters, $this->_templateVars);
+            $replacedValue = call_user_func($this->getTemplateProcessor(), $configPath, $templateParameters);
         }
         return $replacedValue;
     }

@@ -10,18 +10,18 @@
  * http://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
+ * to license@magento.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
  * Do not edit or add to this file if you wish to upgrade Magento to newer
  * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
+ * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Connect
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 final class Mage_Connect_Command_Install extends Mage_Connect_Command
 {
@@ -90,15 +90,15 @@ final class Mage_Connect_Command_Install extends Mage_Connect_Command
                 @mkdir($config->magento_root . $dirTmp,0777,true);
                 @mkdir($config->magento_root . $dirMedia,0777,true);
                 $isWritable = is_writable($config->magento_root)
-                              && is_writable($config->magento_root . DIRECTORY_SEPARATOR . $config->downloader_path)
-                              && is_writable($config->magento_root . $dirCache)
-                              && is_writable($config->magento_root . $dirTmp)
-                              && is_writable($config->magento_root . $dirMedia);
+                    && is_writable($config->magento_root . DIRECTORY_SEPARATOR . $config->downloader_path)
+                    && is_writable($config->magento_root . $dirCache)
+                    && is_writable($config->magento_root . $dirTmp)
+                    && is_writable($config->magento_root . $dirMedia);
                 $err = "Please check for sufficient write file permissions.";
             }
             $isWritable = $isWritable && is_writable($config->magento_root . $dirMedia)
-                          && is_writable($config->magento_root . $dirCache)
-                          && is_writable($config->magento_root . $dirTmp);
+                && is_writable($config->magento_root . $dirCache)
+                && is_writable($config->magento_root . $dirTmp);
             if (!$isWritable) {
                 $this->doError($command, $err);
                 throw new Exception(
@@ -316,7 +316,7 @@ final class Mage_Connect_Command_Install extends Mage_Connect_Command
                     if ($ftp) {
                         $cwd=$ftpObj->getcwd();
                         $dir=$cwd . DIRECTORY_SEPARATOR .$config->downloader_path . DIRECTORY_SEPARATOR
-                             . Mage_Connect_Config::DEFAULT_CACHE_PATH . DIRECTORY_SEPARATOR . trim( $pChan, "\\/");
+                            . Mage_Connect_Config::DEFAULT_CACHE_PATH . DIRECTORY_SEPARATOR . trim( $pChan, "\\/");
                         $ftpObj->mkdirRecursive($dir,0777);
                         $ftpObj->chdir($cwd);
                     } else {
@@ -346,10 +346,32 @@ final class Mage_Connect_Command_Install extends Mage_Connect_Command
 
                     $package = new Mage_Connect_Package($file);
                     if ($clearInstallMode && $pInstallState != 'upgrade' && !$installAll) {
-                        $this->validator()->validateContents($package->getContents(), $config);
+                        $contents = $package->getContents();
+                        $this->backup()->setFileTypes(array('csv', 'html'));
+                        $typesToBackup = $this->backup()->getFileTypes();
+                        $this->validator()->validateContents($contents, $config, $typesToBackup);
                         $errors = $this->validator()->getErrors();
                         if (count($errors)) {
                             throw new Exception("Package '{$pName}' is invalid\n" . implode("\n", $errors));
+                        }
+
+                        $targetPath = rtrim($config->magento_root, "\\/");
+                        foreach ($contents as $filePath) {
+                            $this->backup()->addFile($filePath, $targetPath);
+                        }
+
+                        if ($this->backup()->getFilesCount() > 0) {
+                            $this->ui()->output('<br/>');
+                            $this->ui()->output('Backup of following files will be created :');
+                            $this->ui()->output('<br/>');
+                            $this->backup()->run();
+                            $this->ui()->output(implode('<br/>', $this->backup()->getAllFiles()));
+                            $this->ui()->output('<br/>');
+                            $this->ui()->output(
+                                $this->backup()->getFilesCount() . ' files was overwritten by installed extension.'
+                            );
+                            $this->ui()->output('<br/>');
+                            $this->backup()->unsetAllFiles();
                         }
                     }
 

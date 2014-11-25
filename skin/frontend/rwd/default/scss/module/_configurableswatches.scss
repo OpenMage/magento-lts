@@ -1,79 +1,295 @@
-/**
- * Magento
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
- *
- * @category    design
- * @package     default_default
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
- */
-/**
- * @category   Mage
- * @package    ConfigurableSwatches
- */
+//
+// Magento
+//
+// NOTICE OF LICENSE
+//
+// This source file is subject to the Academic Free License (AFL 3.0)
+// that is bundled with this package in the file LICENSE_AFL.txt.
+// It is also available through the world-wide-web at this URL:
+// http://opensource.org/licenses/afl-3.0.php
+// If you did not receive a copy of the license and are unable to
+// obtain it through the world-wide-web, please send an email
+// to license@magento.com so we can send you a copy immediately.
+//
+// DISCLAIMER
+//
+// Do not edit or add to this file if you wish to upgrade Magento to newer
+// versions in the future. If you wish to customize Magento for your
+// needs please refer to http://www.magento.com for more information.
+//
+// @category    design
+// @package     rwd_default
+// @copyright   Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+// @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+//
+
+/* ============================================ *
+ * Configurable Swatches
+ * ============================================ */
 
 /* Clears */
-.clearfix:after,
-.configurable-swatch-list:after,
-.product-view .product-options .swatch-attr:after { display:block; content:"."; clear:both; font-size:0; line-height:0; height:0; overflow:hidden; }
-
-.product-view .product-options .swatch-attr { float: none; display: block; clear: both; border: 0; }
-.product-view .product-options dt.swatch-attr label { display: block; line-height: 1.3; }
+.clearfix,
+.configurable-swatch-list,
+.product-view .product-options .swatch-attr {
+    &:after {
+        @include clearfix;
+    }
+}
 
 /* General Swatch Styling */
-.configurable-swatch-list { margin-left: -3px; zoom:1; clear: both; }
-.configurable-swatch-list li { float:left; zoom:1; margin:0 0 0 3px; }
-#narrow-by-list dd .configurable-swatch-list li { margin:0 0 0 3px; width:47%; }
-.swatch-link img { border-radius: 3px; }
 .swatch-link,
-.swatch-label { display: block; border-radius: 3px; font-size: 14px; text-align: center; color: #666666; text-decoration: none; box-sizing:content-box; }
-.swatch-link { border: 1px solid #bbbbbb; margin:0 0 3px; }
-#narrow-by-list dd .swatch-link { float:left; margin-right:2px; padding:0; }
-.currently .swatch-link { display:inline-block; margin:0 0 0 10px; }
-.swatch-label { border: 1px solid #fff; margin:0; white-space: nowrap; background: #efefef; }
-.swatch-link:hover { cursor: pointer; }
-.currently .swatch-link:hover { cursor: default; }
-.swatch-link .x { display: none; text-indent:-999em; position: absolute; left:0; right:0; top:0; bottom:0; background: url(../images/bg_x.png) center no-repeat transparent;  z-index: 10; }
-.configurable-swatch-list .not-available .x { display: block; }
-.configurable-swatch-list .not-available .swatch-link { border-color:#e6e6e6; position: relative; }
-.configurable-swatch-list .not-available .swatch-label { color: #aaa; background: #fff; }
+.swatch-label {
+    display: block;
+    border-radius: $default-border-radius - 2;
+    font-size: $f-size;
+    text-align: center;
+    color: $c-h4;
+    text-decoration: none;
+    box-sizing: content-box;
+}
 
-/* Image Swatches */
-.swatch-link.has-image .swatch-label { position: relative; }
-.swatch-link.has-image img { position: absolute; top:0; left:0; }
-.configurable-swatch-list .not-available .swatch-link.has-image img { opacity: 0.4; filter:alpha(opacity=40);}
+.swatch-link {
+    border: 1px solid $c-module-border;
+    margin: 0 0 3px;
+
+    img {
+        border-radius: $default-border-radius - 3;
+    }
+
+    &:hover {
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .x {
+        display: none;
+        text-indent: -999em;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background: url(../images/bg_x.png) center no-repeat transparent;
+        z-index: 10;
+    }
+
+    &.has-image {
+        .swatch-label {
+            position: relative;
+        }
+
+        img {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    }
+}
+
+.swatch-label {
+    border: 1px solid #fff;
+    margin: 0;
+    white-space: nowrap;
+    background: $c-module-background;
+}
+
+.configurable-swatch-list {
+    margin-left: -3px;
+    zoom: 1;
+    clear: both;
+    -webkit-transform: translateZ(0px);
+
+    li {
+        float: left;
+        zoom: 1;
+        margin: 0 0 0 3px;
+    }
+
+    .products-grid & li {
+        display: inline-block;
+        float: none;
+        margin: 0;
+        vertical-align: top;
+    }
+
+    .not-available {
+        .x {
+            display: block;
+        }
+
+        .swatch-link {
+            border-color: $c-module-border-light;
+            position: relative;
+
+            &.has-image img {
+                opacity: 0.4;
+                filter: alpha(opacity=40);
+            }
+        }
+
+        .swatch-label {
+            color: #aaa;
+            background: #fff;
+        }
+    }
+
+    .wide-swatch .swatch-label {
+        padding: 0 6px;
+    }
+
+    .not-available a:focus {
+        outline: 0;
+    }
+}
+
+#narrow-by-list dd {
+    .configurable-swatch-list li {
+        margin: 0 0 0 3px;
+        width: 47%;
+    }
+
+    .swatch-link {
+        border: none;
+        line-height: $f-size + 11px;
+        margin-right: 2px;
+        text-align: left;
+
+        &.has-image {
+            line-height: inherit;
+        }
+
+        &:hover .swatch-label {
+            border-color: $c-module-border-highlight;
+        }
+    }
+
+    .swatch-label {
+        background: $c-module-background;
+        border: 1px solid $c-module-border;
+        border-radius: $default-border-radius - 2;
+        display: block;
+        float: left;
+        line-height: 1.5em;
+        margin: 0 5px 0 0;
+        padding: 1px 5px;
+        white-space: nowrap;
+
+        img {
+            border: 1px solid #fff;
+            border-radius: $default-border-radius - 2px;
+            box-sizing: content-box;
+        }
+    }
+
+    .has-image .swatch-label {
+        padding: 0;
+    }
+}
+
+@include bp(max-width, $bp-medium) {
+    // Prevent odd wrapping issue when swatches have both text and images
+    #narrow-by-list dd .configurable-swatch-list li:nth-child(odd) {
+        clear: left;
+    }
+}
+
+.currently {
+    .swatch-current {
+        position: relative;
+
+        .btn-remove {
+            margin-top: -10px;
+            position: absolute;
+            right: 0;
+            top: 50%;
+        }
+
+        span {
+            display: block;
+            float: left;
+        }
+    }
+
+    .swatch-link {
+        display: inline-block;
+        margin: 0 0 0 3px;
+
+        &:hover {
+            border-color: $c-module-border;
+            cursor: default;
+        }
+    }
+}
 
 /* Other Swatch States */
 .configurable-swatch-list .hover .swatch-link,
 .configurable-swatch-list .selected .swatch-link,
-.swatch-link:hover { border-color:#44f; }
-.currently .swatch-link:hover { border-color:#bbbbbb; }
-.configurable-swatch-list .wide-swatch .swatch-label { padding:0 6px; }
+.swatch-link:hover {
+    border-color: $c-module-border-highlight;
+}
 
-.configurable-swatch-box { background: none !important; }
-.configurable-swatch-box select.swatch-select { display: none; }
-.configurable-swatch-box .validation-advice { margin: 0 0 5px; background: #D91A00; padding: 2px 5px !important; font-weight: bold; color: #fff !important; float: left; display: block; border-radius: 3px;  }
+.configurable-swatch-box {
+    background: none !important;
+
+    select.swatch-select {
+        display: none;
+    }
+
+    .validation-advice {
+        margin: 0 0 5px;
+        background: $c-danger;
+        padding: 2px 5px !important;
+        font-weight: bold;
+        color: #fff !important;
+        float: left;
+        display: block;
+        border-radius: $default-border-radius - 2;
+    }
+}
 
 /* CUSTOM */
-.availability.out-of-stock span { color: #333; }
-.product-view .add-to-cart button.out-of-stock { background-position: -80px -362px; cursor: default;}
-.product-view .product-options dd .input-box { width:auto; height: auto; }
-.product-options .select-label { display: none; }
-.product-options dt.swatch-attr label,
-.product-options dt.swatch-attr .select-label { font-size: 12px; }
-.product-options dt.swatch-attr .select-label { display: inline; font-weight: normal; color: #00acb1; padding-left: 5px; }
+.availability.out-of-stock span {
+    color: $c-text-gray;
+}
+
+.product-view {
+    .product-options {
+        .swatch-attr {
+            float: none;
+            display: block;
+            clear: both;
+            border: 0;
+
+            label,
+            .select-label {
+                font-size: $f-size-xs;
+            }
+
+            label {
+                display: block;
+                line-height: 1.3;
+            }
+
+            .select-label {
+                display: inline;
+                font-weight: normal;
+                color: $c-text-primary;
+                padding-left: 5px;
+            }
+        }
+
+        dd .input-box {
+            width: auto;
+            height: auto;
+        }
+
+        .select-label {
+            display: none;
+        }
+    }
+
+    .add-to-cart button.out-of-stock {
+        background-position: -80px -362px;
+        cursor: default;
+    }
+}

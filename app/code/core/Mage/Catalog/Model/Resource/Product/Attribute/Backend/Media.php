@@ -10,18 +10,18 @@
  * http://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
+ * to license@magento.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
  * Do not edit or add to this file if you wish to upgrade Magento to newer
  * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
+ * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -38,6 +38,10 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
     const GALLERY_VALUE_TABLE = 'catalog/product_attribute_media_gallery_value';
     const GALLERY_IMAGE_TABLE = 'catalog/product_attribute_media_gallery_image';
 
+    protected $_eventPrefix = 'catalog_product_attribute_backend_media';
+
+    private $_attributeId = null;
+
     /**
      * Resource initialization
      */
@@ -47,7 +51,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
     }
 
     /**
-     * Load gallery images for product
+     * Load gallery images for product using reusable select method
      *
      * @param Mage_Catalog_Model_Product $product
      * @param Mage_Catalog_Model_Product_Attribute_Backend_Media $object
@@ -55,34 +59,26 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
      */
     public function loadGallery($product, $object)
     {
+        $eventObjectWrapper = new Varien_Object(
+            array(
+                'product' => $product,
+                'backend_attribute' => $object
+            )
+        );
+        Mage::dispatchEvent(
+            $this->_eventPrefix . '_load_gallery_before',
+            array('event_object_wrapper' => $eventObjectWrapper)
+        );
+
+        if ($eventObjectWrapper->hasProductIdsOverride()) {
+            $productIds = $eventObjectWrapper->getProductIdsOverride();
+        } else {
+            $productIds = array($product->getId());
+        }
+
+        $select = $this->_getLoadGallerySelect($productIds, $product->getStoreId(), $object->getAttribute()->getId());
+
         $adapter = $this->_getReadAdapter();
-
-        $positionCheckSql = $adapter->getCheckSql('value.position IS NULL', 'default_value.position', 'value.position');
-
-        // Select gallery images for product
-        $select = $adapter->select()
-            ->from(
-                array('main'=>$this->getMainTable()),
-                array('value_id', 'value AS file')
-            )
-            ->joinLeft(
-                array('value' => $this->getTable(self::GALLERY_VALUE_TABLE)),
-                $adapter->quoteInto('main.value_id = value.value_id AND value.store_id = ?', (int)$product->getStoreId()),
-                array('label','position','disabled')
-            )
-            ->joinLeft( // Joining default values
-                array('default_value' => $this->getTable(self::GALLERY_VALUE_TABLE)),
-                'main.value_id = default_value.value_id AND default_value.store_id = 0',
-                array(
-                    'label_default' => 'label',
-                    'position_default' => 'position',
-                    'disabled_default' => 'disabled'
-                )
-            )
-            ->where('main.attribute_id = ?', $object->getAttribute()->getId())
-            ->where('main.entity_id = ?', $product->getId())
-            ->order($positionCheckSql . ' ' . Varien_Db_Select::SQL_ASC);
-
         $result = $adapter->fetchAll($select);
         $this->_removeDuplicates($result);
         return $result;
@@ -224,5 +220,77 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
         }
 
         return $this;
+    }
+
+    /**
+     * Get select to retrieve media gallery images
+     * for given product IDs.
+     *
+     * @param array $productIds
+     * @param $storeId
+     * @param int $attributeId
+     * @return Varien_Db_Select
+     */
+    protected function _getLoadGallerySelect(array $productIds, $storeId, $attributeId) {
+        $adapter = $this->_getReadAdapter();
+
+        $positionCheckSql = $adapter->getCheckSql('value.position IS NULL', 'default_value.position', 'value.position');
+
+        // Select gallery images for product
+        $select = $adapter->select()
+            ->from(
+                array('main'=>$this->getMainTable()),
+                array('value_id', 'value AS file', 'product_id' => 'entity_id')
+            )
+            ->joinLeft(
+                array('value' => $this->getTable(self::GALLERY_VALUE_TABLE)),
+                $adapter->quoteInto('main.value_id = value.value_id AND value.store_id = ?', (int)$storeId),
+                array('label','position','disabled')
+            )
+            ->joinLeft( // Joining default values
+                array('default_value' => $this->getTable(self::GALLERY_VALUE_TABLE)),
+                'main.value_id = default_value.value_id AND default_value.store_id = 0',
+                array(
+                    'label_default' => 'label',
+                    'position_default' => 'position',
+                    'disabled_default' => 'disabled'
+                )
+            )
+            ->where('main.attribute_id = ?', $attributeId)
+            ->where('main.entity_id in (?)', $productIds)
+            ->order($positionCheckSql . ' ' . Varien_Db_Select::SQL_ASC);
+
+        return $select;
+    }
+
+    /**
+     * Get attribute ID
+     *
+     * @return int
+     */
+    protected function _getAttributeId() {
+        if(is_null($this->_attributeId)) {
+            $attribute = Mage::getModel('eav/entity_attribute')
+                ->loadByCode(Mage_Catalog_Model_Product::ENTITY, 'media_gallery');
+
+            $this->_attributeId = $attribute->getId();
+        }
+        return $this->_attributeId;
+    }
+
+    /**
+     * Get media gallery set for given product IDs
+     *
+     * @param array $productIds
+     * @param $storeId
+     * @return array
+     */
+    public function loadGallerySet(array $productIds, $storeId) {
+        $select = $this->_getLoadGallerySelect($productIds, $storeId, $this->_getAttributeId());
+
+        $adapter = $this->_getReadAdapter();
+        $result = $adapter->fetchAll($select);
+        $this->_removeDuplicates($result);
+        return $result;
     }
 }

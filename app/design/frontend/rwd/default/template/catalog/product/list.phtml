@@ -10,17 +10,17 @@
  * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
+ * to license@magento.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
  * Do not edit or add to this file if you wish to upgrade Magento to newer
  * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
+ * needs please refer to http://www.magento.com for more information.
  *
  * @category    design
  * @package     rwd_default
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -69,23 +69,26 @@
                         <?php if($_product->getRatingSummary()): ?>
                         <?php echo $this->getReviewsSummaryHtml($_product) ?>
                         <?php endif; ?>
-
                         <?php
+                        // Provides extra blocks on which to hang some features for products in the list
+                        // Features providing UI elements targeting this block will display directly below the product name
+                        if ($this->getChild('name.after')) {
                             $_nameAfterChildren = $this->getChild('name.after')->getSortedChildren();
-                            foreach($_nameAfterChildren as $_nameAfterChildName):
+                            foreach ($_nameAfterChildren as $_nameAfterChildName) {
                                 $_nameAfterChild = $this->getChild('name.after')->getChild($_nameAfterChildName);
                                 $_nameAfterChild->setProduct($_product);
+                                echo $_nameAfterChild->toHtml();
+                            }
+                        }
                         ?>
-                            <?php echo $_nameAfterChild->toHtml(); ?>
-                        <?php endforeach; ?>
                     </div>
                     <div class="product-secondary">
                         <?php echo $this->getPriceHtml($_product, true) ?>
                     </div>
                     <div class="product-secondary">
-                        <?php if($_product->isSaleable() && !$_product->canConfigure()): ?>
+                        <?php if(!$_product->canConfigure() && $_product->isSaleable()): ?>
                             <p class="action"><button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button></p>
-                        <?php elseif($_product->isSaleable()): ?>
+                        <?php elseif($_product->getStockItem() && $_product->getStockItem()->getIsInStock()): ?>
                             <p class="action"><a title="<?php echo $this->__('View Details') ?>" class="button" href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->__('View Details') ?></a></p>
                         <?php else: ?>
                             <p class="action availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
@@ -129,24 +132,26 @@
                 </a>
                 <div class="product-info">
                     <h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a></h2>
-
                     <?php
+                    // Provides extra blocks on which to hang some features for products in the list
+                    // Features providing UI elements targeting this block will display directly below the product name
+                    if ($this->getChild('name.after')) {
                         $_nameAfterChildren = $this->getChild('name.after')->getSortedChildren();
-                        foreach($_nameAfterChildren as $_nameAfterChildName):
+                        foreach ($_nameAfterChildren as $_nameAfterChildName) {
                             $_nameAfterChild = $this->getChild('name.after')->getChild($_nameAfterChildName);
                             $_nameAfterChild->setProduct($_product);
+                            echo $_nameAfterChild->toHtml();
+                        }
+                    }
                     ?>
-                        <?php echo $_nameAfterChild->toHtml(); ?>
-                    <?php endforeach; ?>
-
                     <?php echo $this->getPriceHtml($_product, true) ?>
                     <?php if($_product->getRatingSummary()): ?>
                     <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
                     <?php endif; ?>
                     <div class="actions">
-                        <?php if($_product->isSaleable() && !$_product->canConfigure()): ?>
+                        <?php if(!$_product->canConfigure() && $_product->isSaleable()): ?>
                             <button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
-                        <?php elseif($_product->isSaleable()): ?>
+                        <?php elseif($_product->getStockItem() && $_product->getStockItem()->getIsInStock()): ?>
                             <a title="<?php echo $this->__('View Details') ?>" class="button" href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->__('View Details') ?></a>
                         <?php else: ?>
                             <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
@@ -174,13 +179,15 @@
     </div>
 </div>
 <?php endif; ?>
-
 <?php
-    //set product collection on after blocks
+// Provides a block where additional page components may be attached, primarily good for in-page JavaScript
+if ($this->getChild('after')) {
     $_afterChildren = $this->getChild('after')->getSortedChildren();
-    foreach($_afterChildren as $_afterChildName):
+    foreach ($_afterChildren as $_afterChildName) {
         $_afterChild = $this->getChild('after')->getChild($_afterChildName);
+        //set product collection on after blocks
         $_afterChild->setProductCollection($_productCollection);
-    ?>
-    <?php echo $_afterChild->toHtml(); ?>
-<?php endforeach; ?>
+        echo $_afterChild->toHtml();
+    }
+}
+?>

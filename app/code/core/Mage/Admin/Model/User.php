@@ -10,18 +10,18 @@
  * http://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
+ * to license@magento.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
  * Do not edit or add to this file if you wish to upgrade Magento to newer
  * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
+ * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Admin
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -118,7 +118,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
             'firstname' => $this->getFirstname(),
             'lastname'  => $this->getLastname(),
             'email'     => $this->getEmail(),
-            'modified'  => now(),
+            'modified'  => $this->_getDateNow(),
             'extra'     => serialize($this->getExtra())
         );
 
@@ -137,6 +137,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
             // New user password
             $data['password'] = $this->_getEncodedPassword($this->getPassword());
         }
+
+        $this->cleanPasswordsValidationData();
 
         if (!is_null($this->getIsActive())) {
             $data['is_active'] = intval($this->getIsActive());
@@ -564,6 +566,28 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Validate password against current user password
+     * Returns true or array of errors.
+     *
+     * @return mixed
+     */
+    public function validateCurrentPassword($password)
+    {
+        $result = array();
+
+        if (!Zend_Validate::is($password, 'NotEmpty')) {
+            $result[] = $this->_getHelper('adminhtml')->__('Current password field cannot be empty.');
+        } elseif (is_null($this->getId()) || !$this->_getHelper('core')->validateHash($password, $this->getPassword())){
+            $result[] = $this->_getHelper('adminhtml')->__('Invalid current password.');
+        }
+
+        if (empty($result)) {
+            $result = true;
+        }
+        return $result;
+    }
+
+    /**
      * Change reset password link token
      *
      * Stores new reset password link token and its creation time
@@ -612,5 +636,29 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         }
 
         return false;
+    }
+
+    /**
+     * Clean password's validation data (password, new_password, password_confirmation)
+     *
+     * @return Mage_Admin_Model_User
+     */
+    public function cleanPasswordsValidationData()
+    {
+        $this->setData('current_password', null);
+        $this->setData('new_password', null);
+        $this->setData('password_confirmation', null);
+        return $this;
+    }
+
+    /**
+     * Simple sql format date
+     *
+     * @param string $format
+     * @return string
+     */
+    protected function _getDateNow($dayOnly = false)
+    {
+        return now($dayOnly);
     }
 }

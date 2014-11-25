@@ -11,41 +11,37 @@
 "var store.getFrontendName()":"Store Name"}
 @-->
 <!--@styles
-body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
 @-->
 
-<body style="background:#F6F6F6; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
-<div style="background:#F6F6F6; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
-<table cellspacing="0" cellpadding="0" border="0" height="100%" width="100%">
-<tr>
-    <td align="center" valign="top" style="padding:20px 0 20px 0">
-        <!-- [ header starts here] -->
-        <table bgcolor="#FFFFFF" cellspacing="0" cellpadding="10" border="0" width="650" style="border:1px solid #E0E0E0;">
-            <tr>
-                <td valign="top"><a href="{{store url=""}}"><img src="{{var logo_url}}" alt="{{var logo_alt}}" style="margin-bottom:10px;" border="0"/></a></td>
-            </tr>
-            <!-- [ middle starts here] -->
-            <tr>
-                <td valign="top">
-                    <h1 style="font-size:22px; font-weight:normal; line-height:22px; margin:0 0 11px 0;">Dear {{htmlescape var=$billing.getName()}},</h1>
-                    <p style="font-size:12px; line-height:16px; margin:0 0 10px 0;">
-                        Your order # {{var order.increment_id}} has been <br/>
-                        <strong>{{var order.getStatusLabel()}}</strong>.
-                    </p>
-                    <p style="font-size:12px; line-height:16px; margin:0 0 10px 0;">{{var comment}}</p>
-                    <p style="font-size:12px; line-height:16px; margin:0;">
-                        If you have any questions, please feel free to contact us at
-                        <a href="mailto:{{config path='trans_email/ident_support/email'}}" style="color:#1E7EC8;">{{config path='trans_email/ident_support/email'}}</a>
-                        or by phone at {{config path='general/store_information/phone'}}.
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td bgcolor="#EAEAEA" align="center" style="background:#EAEAEA; text-align:center;"><center><p style="font-size:12px; margin:0;">Thank you again, <strong>{{var store.getFrontendName()}}</strong></p></center></td>
-            </tr>
-        </table>
-    </td>
-</tr>
+{{template config_path="design/email/header"}}
+{{inlinecss file="email-inline.css"}}
+
+<table cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td>
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td class="action-content">
+                        <h1>{{htmlescape var=$billing.getName()}},</h1>
+                        <p>Your order <span class="no-link">#{{var order.increment_id}}</span> has been updated to: <strong>{{var order.getStatusLabel()}}</strong></p>
+                        {{if comment}}
+                        <table cellspacing="0" cellpadding="0" class="message-container">
+                            <tr>
+                                <td>{{var comment}}</td>
+                            </tr>
+                        </table>
+                        {{/if}}
+                        <p>You can check the status of your order by <a href="{{store url="customer/account/"}}">logging into your account</a>.</p>
+                        <p>
+                            If you have any questions, please feel free to contact us at
+                            <a href="mailto:{{var store_email}}">{{var store_email}}</a>
+                            {{depend store_phone}} or by phone at <a href="tel:{{var phone}}">{{var store_phone}}</a>{{/depend}}.
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
 </table>
-</div>
-</body>
+
+{{template config_path="design/email/footer"}}

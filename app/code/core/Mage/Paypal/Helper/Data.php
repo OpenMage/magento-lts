@@ -10,18 +10,18 @@
  * http://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
+ * to license@magento.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
  * Do not edit or add to this file if you wish to upgrade Magento to newer
  * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
+ * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,6 +29,16 @@
  */
 class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    /**
+     * US country code
+     */
+    const US_COUNTRY = 'US';
+
+    /**
+     * Config path for merchant country
+     */
+    const MERCHANT_COUNTRY_CONFIG_PATH = 'paypal/general/merchant_country';
+
     /**
      * Cache for shouldAskToCreateBillingAgreement()
      *
@@ -88,11 +98,35 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
         $countryCode  = Mage::app()->getRequest()->getParam($requestParam);
         if (is_null($countryCode) || preg_match('/^[a-zA-Z]{2}$/', $countryCode) == 0) {
             $countryCode = (string)Mage::getSingleton('adminhtml/config_data')
-                ->getConfigDataValue('paypal/general/merchant_country');
+                ->getConfigDataValue(self::MERCHANT_COUNTRY_CONFIG_PATH);
         }
         if (empty($countryCode)) {
             $countryCode = Mage::helper('core')->getDefaultCountry();
         }
         return $countryCode;
+    }
+
+    /**
+     * Get HTML representation of transaction id
+     *
+     * @param string $methodCode
+     * @param string $txnId
+     * @return string
+     */
+    public function getHtmlTransactionId($methodCode, $txnId)
+    {
+        if (in_array($methodCode, array(
+            Mage_Paypal_Model_Config::METHOD_WPP_DIRECT,
+            Mage_Paypal_Model_Config::METHOD_WPP_EXPRESS,
+            Mage_Paypal_Model_Config::METHOD_HOSTEDPRO,
+            Mage_Paypal_Model_Config::METHOD_WPS,
+        ))) {
+            /** @var Mage_Paypal_Model_Config $config */
+            $config = Mage::getModel('paypal/config')->setMethod($methodCode);
+            $url = 'https://www.' . ($config->sandboxFlag ? 'sandbox.' : '')
+                . 'paypal.com/cgi-bin/webscr?cmd=_view-a-trans&id=' . $txnId;
+            return '<a target="_blank" href="' . $url . '">' . $txnId . '</a>';
+        }
+        return $txnId;
     }
 }

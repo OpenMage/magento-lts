@@ -10,17 +10,17 @@
  * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
+ * to license@magento.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
  * Do not edit or add to this file if you wish to upgrade Magento to newer
  * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
+ * needs please refer to http://www.magento.com for more information.
  *
  * @category    design
  * @package     rwd_default
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -58,6 +58,7 @@ if(empty($_cartQty)) {
             </ul>
         </div>
         <script type="text/javascript">
+            truncateOptions();
             decorateList('cart-sidebar', 'none-recursive');
             $j('document').ready(function() {
                 var minicartOptions  = {
@@ -85,11 +86,8 @@ if(empty($_cartQty)) {
         </div>
 
 
-        <?php if($_cartQty && $this->isPossibleOnepageCheckout()): ?>
-            <div class="minicart-actions">
-                <a class="cart-link" href="<?php echo $this->getUrl('checkout/cart'); ?>">
-                    <?php echo $this->__('View Shopping Cart'); ?>
-                </a>
+        <div class="minicart-actions">
+            <?php if($_cartQty && $this->isPossibleOnepageCheckout()): ?>
                 <ul class="checkout-types minicart">
                     <?php echo $this->getChildHtml('extra_actions') ?>
                     <li>
@@ -98,8 +96,11 @@ if(empty($_cartQty)) {
                         </a>
                     </li>
                 </ul>
-            </div>
-        <?php endif ?>
+            <?php endif ?>
+            <a class="cart-link" href="<?php echo $this->getUrl('checkout/cart'); ?>">
+                <?php echo $this->__('View Shopping Cart'); ?>
+            </a>
+        </div>
 
     <?php else: ?>
         <p class="empty"><?php echo $this->__('You have no items in your shopping cart.') ?></p>
