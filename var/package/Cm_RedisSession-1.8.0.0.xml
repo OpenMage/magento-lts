@@ -10,8 +10,8 @@
     <description>Redis seesion</description>
     <notes>1.8.0.0</notes>
     <authors><author><name>Colin Mollenhour</name><user>core</user><email>colin@mollenhour.com</email></author></authors>
-    <date>2013-09-23</date>
-    <time>18:30:54</time>
+    <date>2013-09-24</date>
+    <time>09:09:39</time>
     <contents><target name="magecommunity"><dir name="Cm"><dir name="RedisSession"><dir name="etc"><file name="config.xml" hash="4173754174f995f9f7a141747f417abc"/></dir><dir name="Model"><file name="Session.php" hash="fd4d16e73989a8b93582f8c11f8fdc40"/></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Cm_RedisSession.xml" hash="f36278d589fa562d20d5182c8864a3dd"/></dir></target></contents>
     <compatible/>
     <dependencies><required><php><min>5.2.0</min><max>6.0.0</max></php><package><name>Lib_Credis</name><channel>community</channel><min>1.8.0.0</min><max>1.9.0.0</max></package></required></dependencies>

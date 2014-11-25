@@ -10,18 +10,18 @@
  * http://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
+ * to license@magento.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
  * Do not edit or add to this file if you wish to upgrade Magento to newer
  * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
+ * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_CatalogRule
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -208,9 +208,19 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
         $write = $this->_getWriteAdapter();
 
         $customerGroupIds = $rule->getCustomerGroupIds();
+
         $fromTime = (int) strtotime($rule->getFromDate());
         $toTime = (int) strtotime($rule->getToDate());
         $toTime = $toTime ? ($toTime + self::SECONDS_IN_DAY - 1) : 0;
+
+        /** @var Mage_Core_Model_Date $coreDate */
+        $coreDate  = $this->_factory->getModel('core/date');
+        $timestamp = $coreDate->gmtTimestamp('Today');
+        if ($fromTime > $timestamp
+            || ($toTime && $toTime < $timestamp)
+        ) {
+            return;
+        }
         $sortOrder = (int) $rule->getSortOrder();
         $actionOperator = $rule->getSimpleAction();
         $actionAmount = (float) $rule->getDiscountAmount();
@@ -771,26 +781,52 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
         $write = $this->_getWriteAdapter();
         $write->beginTransaction();
 
-        $this->cleanProductData($ruleId, array($productId));
-
-        if (!$this->validateProduct($rule, $product, $websiteIds)) {
+        if ($this->_isProductMatchedRule($ruleId, $product)) {
+            $this->cleanProductData($ruleId, array($productId));
+        }
+        if ($this->validateProduct($rule, $product, $websiteIds)) {
+            try {
+                $this->insertRuleData($rule, $websiteIds, array(
+                    $productId => array_combine(array_values($websiteIds), array_values($websiteIds)))
+                );
+            } catch (Exception $e) {
+                $write->rollback();
+                throw $e;
+            }
+        } else {
             $write->delete($this->getTable('catalogrule/rule_product_price'), array(
                 $write->quoteInto('product_id = ?', $productId),
             ));
-            $write->commit();
-            return $this;
-        }
-
-        try {
-            $this->insertRuleData($rule, $websiteIds, array(
-                $productId => array_combine(array_values($websiteIds), array_values($websiteIds))));
-        } catch (Exception $e) {
-            $write->rollback();
-            throw $e;
         }
 
         $write->commit();
-
         return $this;
+    }
+
+    /**
+     * Get ids of matched rules for specific product
+     *
+     * @param int $productId
+     * @return array
+     */
+    public function getProductRuleIds($productId)
+    {
+        $read = $this->_getReadAdapter();
+        $select = $read->select()->from($this->getTable('catalogrule/rule_product'), 'rule_id');
+        $select->where('product_id = ?', $productId);
+        return array_flip($read->fetchCol($select));
+    }
+
+    /**
+     * Is product has been matched the rule
+     *
+     * @param int $ruleId
+     * @param Mage_Catalog_Model_Product $product
+     * @return bool
+     */
+    protected function _isProductMatchedRule($ruleId, $product)
+    {
+        $rules = $product->getMatchedRules();
+        return isset($rules[$ruleId]);
     }
 }

@@ -10,18 +10,18 @@
  * http://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
+ * to license@magento.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
  * Do not edit or add to this file if you wish to upgrade Magento to newer
  * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
+ * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -62,12 +62,15 @@
  * @method Mage_Core_Model_Email_Template setOrigTemplateCode(string $value)
  * @method string getOrigTemplateVariables()
  * @method Mage_Core_Model_Email_Template setOrigTemplateVariables(string $value)
+ * @method Mage_Core_Model_Email_Template setQueue(Mage_Core_Model_Abstract $value)
+ * @method Mage_Core_Model_Email_Queue getQueue()
+ * @method int hasQueue()
  *
  * @category    Mage
  * @package     Mage_Core
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Core_Model_Email_Template extends Mage_Core_Model_Template
+class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abstract
 {
     /**
      * Configuration path for default email templates
@@ -75,12 +78,11 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Template
     const XML_PATH_TEMPLATE_EMAIL               = 'global/template/email';
     const XML_PATH_SENDING_SET_RETURN_PATH      = 'system/smtp/set_return_path';
     const XML_PATH_SENDING_RETURN_PATH_EMAIL    = 'system/smtp/return_path_email';
-    const XML_PATH_DESIGN_EMAIL_LOGO            = 'design/email/logo';
-    const XML_PATH_DESIGN_EMAIL_LOGO_ALT        = 'design/email/logo_alt';
 
     protected $_templateFilter;
     protected $_preprocessFlag = false;
     protected $_mail;
+    protected $_bccEmails = array();
 
     static protected $_defaultTemplates;
 
@@ -91,43 +93,6 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Template
     protected function _construct()
     {
         $this->_init('core/email_template');
-    }
-
-    /**
-     * Return logo URL for emails
-     * Take logo from skin if custom logo is undefined
-     *
-     * @param  Mage_Core_Model_Store|int|string $store
-     * @return string
-     */
-    protected function _getLogoUrl($store)
-    {
-        $store = Mage::app()->getStore($store);
-        $fileName = $store->getConfig(self::XML_PATH_DESIGN_EMAIL_LOGO);
-        if ($fileName) {
-            $uploadDir = Mage_Adminhtml_Model_System_Config_Backend_Email_Logo::UPLOAD_DIR;
-            $fullFileName = Mage::getBaseDir('media') . DS . $uploadDir . DS . $fileName;
-            if (file_exists($fullFileName)) {
-                return Mage::getBaseUrl('media') . $uploadDir . '/' . $fileName;
-            }
-        }
-        return Mage::getDesign()->getSkinUrl('images/logo_email.gif');
-    }
-
-    /**
-     * Return logo alt for emails
-     *
-     * @param  Mage_Core_Model_Store|int|string $store
-     * @return string
-     */
-    protected function _getLogoAlt($store)
-    {
-        $store = Mage::app()->getStore($store);
-        $alt = $store->getConfig(self::XML_PATH_DESIGN_EMAIL_LOGO_ALT);
-        if ($alt) {
-            return $alt;
-        }
-        return $store->getFrontendName();
     }
 
     /**
@@ -330,19 +295,24 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Template
             $processor->setStoreId($variables['subscriber']->getStoreId());
         }
 
-        if (!isset($variables['logo_url'])) {
-            $variables['logo_url'] = $this->_getLogoUrl($processor->getStoreId());
-        }
-        if (!isset($variables['logo_alt'])) {
-            $variables['logo_alt'] = $this->_getLogoAlt($processor->getStoreId());
-        }
+        // Apply design config so that all subsequent code will run within the context of the correct store
+        $this->_applyDesignConfig();
 
-        $processor->setIncludeProcessor(array($this, 'getInclude'))
+        // Populate the variables array with store, store info, logo, etc. variables
+        $variables = $this->_addEmailVariables($variables, $processor->getStoreId());
+
+        $processor
+            ->setTemplateProcessor(array($this, 'getTemplateByConfigPath'))
+            ->setIncludeProcessor(array($this, 'getInclude'))
             ->setVariables($variables);
 
-        $this->_applyDesignConfig();
         try {
-            $processedResult = $processor->filter($this->getPreparedTemplateText());
+            // Filter the template text so that all HTML content will be present
+            $result = $processor->filter($this->getTemplateText());
+            // If the {{inlinecss file=""}} directive was included in the template, grab filename to use for inlining
+            $this->setInlineCssFile($processor->getInlineCssFile());
+            // Now that all HTML has been assembled, run email through CSS inlining process
+            $processedResult = $this->getPreparedTemplateText($result);
         }
         catch (Exception $e)   {
             $this->_cancelDesignConfig();
@@ -357,14 +327,20 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Template
      *
      * @return string
      */
-    public function getPreparedTemplateText()
+    /**
+     * @param null $html
+     * @return null|string
+     */
+    public function getPreparedTemplateText($html = null)
     {
-        if ($this->isPlain() || !$this->getTemplateStyles()) {
+
+        if ($this->isPlain() && $html) {
+            return $html;
+        } elseif ($this->isPlain()) {
             return $this->getTemplateText();
         }
-        // wrap styles into style tag
-        $html = "<style type=\"text/css\">\n%s\n</style>\n%s";
-        return sprintf($html, $this->getTemplateStyles(), $this->getTemplateText());
+
+        return $this->_applyInlineCss($html);
     }
 
     /**
@@ -411,10 +387,9 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Template
         $variables['email'] = reset($emails);
         $variables['name'] = reset($names);
 
-        ini_set('SMTP', Mage::getStoreConfig('system/smtp/host'));
-        ini_set('smtp_port', Mage::getStoreConfig('system/smtp/port'));
-
-        $mail = $this->getMail();
+        $this->setUseAbsoluteLinks(true);
+        $text = $this->getProcessedTemplate($variables, true);
+        $subject = $this->getProcessedTemplateSubject($variables);
 
         $setReturnPath = Mage::getStoreConfig(self::XML_PATH_SENDING_SET_RETURN_PATH);
         switch ($setReturnPath) {
@@ -429,6 +404,31 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Template
                 break;
         }
 
+        if ($this->hasQueue() && $this->getQueue() instanceof Mage_Core_Model_Email_Queue) {
+            /** @var $emailQueue Mage_Core_Model_Email_Queue */
+            $emailQueue = $this->getQueue();
+            $emailQueue->setMessageBody($text);
+            $emailQueue->setMessageParameters(array(
+                    'subject'           => $subject,
+                    'return_path_email' => $returnPathEmail,
+                    'is_plain'          => $this->isPlain(),
+                    'from_email'        => $this->getSenderEmail(),
+                    'from_name'         => $this->getSenderName(),
+                    'reply_to'          => $this->getMail()->getReplyTo(),
+                    'return_to'         => $this->getMail()->getReturnPath(),
+                ))
+                ->addRecipients($emails, $names, Mage_Core_Model_Email_Queue::EMAIL_TYPE_TO)
+                ->addRecipients($this->_bccEmails, array(), Mage_Core_Model_Email_Queue::EMAIL_TYPE_BCC);
+            $emailQueue->addMessageToQueue();
+
+            return true;
+        }
+
+        ini_set('SMTP', Mage::getStoreConfig('system/smtp/host'));
+        ini_set('smtp_port', Mage::getStoreConfig('system/smtp/port'));
+
+        $mail = $this->getMail();
+
         if ($returnPathEmail !== null) {
             $mailTransport = new Zend_Mail_Transport_Sendmail("-f".$returnPathEmail);
             Zend_Mail::setDefaultTransport($mailTransport);
@@ -438,16 +438,13 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Template
             $mail->addTo($email, '=?utf-8?B?' . base64_encode($names[$key]) . '?=');
         }
 
-        $this->setUseAbsoluteLinks(true);
-        $text = $this->getProcessedTemplate($variables, true);
-
-        if($this->isPlain()) {
+        if ($this->isPlain()) {
             $mail->setBodyText($text);
         } else {
             $mail->setBodyHTML($text);
         }
 
-        $mail->setSubject('=?utf-8?B?' . base64_encode($this->getProcessedTemplateSubject($variables)) . '?=');
+        $mail->setSubject('=?utf-8?B?' . base64_encode($subject) . '?=');
         $mail->setFrom($this->getSenderEmail(), $this->getSenderName());
 
         try {
@@ -467,11 +464,14 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Template
      * Send transactional email to recipient
      *
      * @param   int $templateId
-     * @param   string|array $sender sneder informatio, can be declared as part of config path
+     * @param   string|array $sender sender information, can be declared as part of config path
      * @param   string $email recipient email
      * @param   string $name recipient name
-     * @param   array $vars varianles which can be used in template
+     * @param   array $vars variables which can be used in template
      * @param   int|null $storeId
+     *
+     * @throws Mage_Core_Exception
+     *
      * @return  Mage_Core_Model_Email_Template
      */
     public function sendTransactional($templateId, $sender, $email, $name, $vars=array(), $storeId=null)
@@ -482,7 +482,9 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Template
         }
 
         if (is_numeric($templateId)) {
+            $queue = $this->getQueue();
             $this->load($templateId);
+            $this->setQueue($queue);
         } else {
             $localeCode = Mage::getStoreConfig('general/locale/code', $storeId);
             $this->loadDefault($templateId, $localeCode);
@@ -539,10 +541,12 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Template
     {
         if (is_array($bcc)) {
             foreach ($bcc as $email) {
+                $this->_bccEmails[] = $email;
                 $this->getMail()->addBcc($email);
             }
         }
         elseif ($bcc) {
+            $this->_bccEmails[] = $bcc;
             $this->getMail()->addBcc($bcc);
         }
         return $this;

@@ -10,18 +10,18 @@
  * http://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
+ * to license@magento.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
  * Do not edit or add to this file if you wish to upgrade Magento to newer
  * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
+ * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Connect
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -448,14 +448,13 @@ class Mage_Connect_Packager
         $modeDir = $this->_getDirMode($configObj);
         $targetPath = rtrim($configObj->magento_root, "\\/");
         $packageXmlDir = $targetPath . DS . Mage_Connect_Package::PACKAGE_XML_DIR;
-        if (!is_dir_writeable($packageXmlDir)) {
+        if (!$this->isDirWritable($packageXmlDir)) {
             throw new RuntimeException('Directory ' . $packageXmlDir . ' is not writable. Check permission');
         }
         $this->_makeDirectories($contents, $targetPath, $modeDir);
         foreach ($contents as $file) {
             $fileName = basename($file);
             $filePath = dirname($file);
-            $source = $tar . DS . $file;
             $source = $tar . DS . $file;
             $dest = $targetPath . DS . $filePath . DS . $fileName;
             if (is_file($source)) {
@@ -482,6 +481,8 @@ class Mage_Connect_Packager
     }
 
     /**
+     * Make directories
+     *
      * @param array $content
      * @param string $targetPath
      * @param int $modeDir
@@ -493,7 +494,7 @@ class Mage_Connect_Packager
         $createdDirs = array();
         foreach ($content as $file) {
             $dirPath = dirname($file);
-            if (is_dir($dirPath) && is_dir_writeable($dirPath)) {
+            if (is_dir($dirPath) && $this->isDirWritable($dirPath)) {
                 continue;
             }
             if (!mkdir($targetPath . DS . $dirPath, $modeDir, true)) {
@@ -1020,5 +1021,32 @@ class Mage_Connect_Packager
         }
         unset($graph, $nodes);
         return $out;
+    }
+
+    /**
+     * Check if directory writable
+     *
+     * @param string $dir
+     * @return boolean
+     */
+    protected function isDirWritable($dir)
+    {
+        if (is_dir($dir) && is_writable($dir)) {
+            if (stripos(PHP_OS, 'win') === 0) {
+                $dir    = ltrim($dir, DIRECTORY_SEPARATOR);
+                $file   = $dir . DIRECTORY_SEPARATOR . uniqid(mt_rand()).'.tmp';
+                $exist  = file_exists($file);
+                $fp     = @fopen($file, 'a');
+                if ($fp === false) {
+                    return false;
+                }
+                fclose($fp);
+                if (!$exist) {
+                    unlink($file);
+                }
+            }
+            return true;
+        }
+        return false;
     }
 }

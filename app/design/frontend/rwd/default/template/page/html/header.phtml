@@ -10,17 +10,17 @@
  * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
+ * to license@magento.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
  * Do not edit or add to this file if you wish to upgrade Magento to newer
  * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
+ * needs please refer to http://www.magento.com for more information.
  *
  * @category    design
  * @package     rwd_default
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /**
@@ -64,15 +64,17 @@
                 <span class="label"><?php echo $this->__('Search'); ?></span>
             </a>
 
-            <a href="#header-account" class="skip-link skip-account">
-                <span class="icon"></span>
-                <span class="label"><?php echo $this->__('Account'); ?></span>
-            </a>
+            <div class="account-cart-wrapper">
+                <a href="<?php echo $this->helper('customer')->getAccountUrl(); ?>" data-target-element="#header-account" class="skip-link skip-account">
+                    <span class="icon"></span>
+                    <span class="label"><?php echo $this->__('Account'); ?></span>
+                </a>
 
-            <!-- Cart -->
+                <!-- Cart -->
 
-            <div class="header-minicart">
-                <?php echo $this->getChildHtml('minicart_head'); ?>
+                <div class="header-minicart">
+                    <?php echo $this->getChildHtml('minicart_head'); ?>
+                </div>
             </div>
 
 
@@ -95,18 +97,6 @@
         <div id="header-account" class="skip-content">
             <?php echo $this->getChildHtml('topLinks') ?>
         </div>
-
-        <!-- Cart -->
-
-        <!-- <div id="header-cart" class="skip-content">
-            <div class="mini-cart">
-                <div class="menu-wrapper">
-                    <div class="menu cart-menu">
-                        <div class="empty">Your cart is empty.</div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
     </div>
 </header>
 

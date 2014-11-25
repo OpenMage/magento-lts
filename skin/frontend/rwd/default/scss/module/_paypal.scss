@@ -1,27 +1,27 @@
-/**
- * Magento
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
- *
- * @category    design
- * @package     default_default
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
- */
+//
+// Magento
+//
+// NOTICE OF LICENSE
+//
+// This source file is subject to the Academic Free License (AFL 3.0)
+// that is bundled with this package in the file LICENSE_AFL.txt.
+// It is also available through the world-wide-web at this URL:
+// http://opensource.org/licenses/afl-3.0.php
+// If you did not receive a copy of the license and are unable to
+// obtain it through the world-wide-web, please send an email
+// to license@magento.com so we can send you a copy immediately.
+//
+// DISCLAIMER
+//
+// Do not edit or add to this file if you wish to upgrade Magento to newer
+// versions in the future. If you wish to customize Magento for your
+// needs please refer to http://www.magento.com for more information.
+//
+// @category    design
+// @package     rwd_default
+// @copyright   Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+// @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+//
 
 /* ============================================ *
  * PayPal
@@ -66,24 +66,56 @@
     }
 }
 
-.bml-ad {
-    display: none;
 
-    &.small {
-        img {
-            margin: auto;
-            max-width: 100%;
+.top-container .bml-ad {
+    margin-top: $element-spacing;
+    margin-bottom: $element-spacing;
+    text-align: center;
+
+    span {
+        display: inline-block;
+
+        a {
+            display: block;
         }
     }
 }
 
-@include bp(max-width, 799px) {
+.bml-ad {
+    display: none;
+    text-align: center;
+    margin-bottom: 5px;
+
+    span {
+        display: block;
+        line-height: 0;
+    }
+    a {
+        display: inline-block;
+        max-width: 100%;
+    }
+    a:hover {
+        opacity: 0.7;
+    }
+    img {
+        height: auto !important; // Override inline style
+        max-width: 100%;
+    }
+}
+
+// Prevent small 2px space on right side of image
+.cart-totals-wrapper .bml-ad.large img {
+    display: block;
+    margin: 0;
+}
+
+@include bp(max-width, $bp-medium) {
     .bml-ad.small {
         display: block;
     }
 }
 
-@include bp(min-width, 800px) {
+@include bp(min-width, $bp-medium + 1) {
     .bml-ad.large {
         display: block;
     }
@@ -121,4 +153,30 @@ div.paypal-logo {
 
 .bml-checkout-type {
     list-style-type: none;
+}
+
+.sidebar {
+    .paypal-logo {
+        text-align: center;
+        line-height: 0;
+
+        > a {
+            display: inline-block;
+            max-width: 100%;
+
+            &:hover {
+                opacity: 0.8;
+            }
+            img {
+                display: block;
+            }
+        }
+        .label {
+            margin-top: 4px;
+            a {
+                font-size: $f-size-xs;
+                line-height: 1.5;
+            }
+        }
+    }
 }

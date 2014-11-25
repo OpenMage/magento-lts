@@ -10,18 +10,18 @@
  * http://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
+ * to license@magento.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
  * Do not edit or add to this file if you wish to upgrade Magento to newer
  * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
+ * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -48,6 +48,20 @@ abstract class Mage_Catalog_Helper_Flat_Abstract extends Mage_Core_Helper_Abstra
     protected $_process = null;
 
     /**
+     * Flag for accessibility
+     *
+     * @var bool
+     */
+    protected $_isAccessible = null;
+
+    /**
+     * Flag for availability
+     *
+     * @var bool
+     */
+    protected $_isAvailable = null;
+
+    /**
      * Check if Catalog Flat Data has been initialized
      *
      * @param null|bool|int|Mage_Core_Model_Store $store Store(id) for which the value is checked
@@ -72,7 +86,11 @@ abstract class Mage_Catalog_Helper_Flat_Abstract extends Mage_Core_Helper_Abstra
      */
     public function isAccessible()
     {
-        return $this->isEnabled() && $this->getProcess()->getStatus() != Mage_Index_Model_Process::STATUS_RUNNING;
+        if (is_null($this->_isAccessible)) {
+            $this->_isAccessible = $this->isEnabled()
+                && $this->getProcess()->getStatus() != Mage_Index_Model_Process::STATUS_RUNNING;
+        }
+        return $this->_isAccessible;
     }
 
     /**
@@ -82,7 +100,10 @@ abstract class Mage_Catalog_Helper_Flat_Abstract extends Mage_Core_Helper_Abstra
      */
     public function isAvailable()
     {
-        return $this->isAccessible() && !$this->getProcess()->isLocked();
+        if (is_null($this->_isAvailable)) {
+            $this->_isAvailable = $this->isAccessible() && !$this->getProcess()->isLocked();
+        }
+        return $this->_isAvailable;
     }
 
     /**

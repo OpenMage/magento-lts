@@ -1,0 +1,750 @@
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/* ============================================ *
+ * General Styles
+ * ============================================ */
+body, table.body, th, h1, h2, h3, h4, h5, h6, td, p, strong {
+  font-family: Verdana, Arial;
+  font-weight: normal;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  color: #333333;
+  background-color: #ebebeb;
+}
+
+body {
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+table {
+  mso-table-lspace: 0pt;
+  mso-table-rspace: 0pt;
+}
+
+img {
+  -ms-interpolation-mode: bicubic;
+}
+
+body {
+  background: #ebebeb;
+  font-size: 12px;
+  margin: 0;
+  padding: 0;
+}
+
+table,
+table td {
+  border-collapse: collapse;
+}
+
+table td {
+  vertical-align: top;
+}
+
+a {
+  color: #3696c2;
+}
+
+.cell-content.product-info,
+.bundle-item,
+.bundle-item-parent.product-info,
+.bill-ship-to,
+.method-information {
+  text-align: left;
+}
+
+html,
+#background-table {
+  background-color: #ebebeb;
+}
+
+#background-table {
+  font-size: 12px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.container-td {
+  width: 100%;
+}
+
+.container-table {
+  width: 600px;
+  margin: 0 auto;
+}
+
+/* ============================================ *
+ * Header Styles
+ * ============================================ */
+.top-content {
+  border: 1px solid #ebebeb;
+  background: #FFF;
+  padding: 5px;
+}
+
+table.logo-container {
+  width: 100%;
+}
+
+td.logo {
+  padding: 15px 0px 10px 5px;
+}
+
+td.logo a {
+  float: left;
+  display: block;
+}
+
+td.logo img {
+  outline: none;
+  text-decoration: none;
+}
+
+td.email-heading {
+  padding: 0 1%;
+  background: #e1f0f8;
+  border-right: 1px dashed #c3ced4;
+  text-align: center;
+  width: 58%;
+}
+
+td.email-heading h1 {
+  font-weight: 700;
+  font-size: 16px;
+  margin: 1em 0;
+  line-height: 20px;
+  text-transform: uppercase;
+}
+
+td.email-heading p {
+  line-height: 20px;
+  margin: 1em 0;
+}
+
+td.store-info {
+  padding: 2%;
+  background: #e1f0f8;
+  width: 40%;
+}
+
+td.store-info h4 {
+  margin-bottom: 5px;
+  font-size: 11px;
+}
+
+td.store-info p {
+  font-size: 11px;
+  line-height: 17px;
+  margin: 1em 0;
+}
+
+td.store-info a {
+  text-decoration: underline;
+  color: #3696c2;
+}
+
+/* ============================================ *
+ * Content - Styles
+ * ============================================ */
+td.order-details {
+  padding: 5px 15px;
+  text-align: center;
+}
+
+td.order-details h3 {
+  font-size: 17px;
+  margin-bottom: 10px;
+  margin-top: 15px;
+  font-weight: normal;
+}
+
+td.order-details p {
+  font-size: 11px;
+  margin: 1em 0 15px;
+}
+
+.items {
+  width: 100%;
+  padding: 10px 15px;
+}
+
+.cell-name {
+  padding: 10px 15px;
+  background: #f1f1f1;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: left;
+  font-size: 11px;
+}
+
+.cell-name.align-center {
+  text-align: center;
+}
+
+.cell-name.align-right {
+  text-align: right;
+}
+
+.method-info,
+.method-info h6,
+.method-info p,
+.method-info strong {
+  text-align: left;
+}
+
+.cell-content {
+  padding: 10px 15px;
+  border-top: 1px solid #ebebeb;
+  font-family: Verdana, Arial;
+}
+
+.product-info a.product-name {
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #3696c2;
+  text-decoration: none;
+  vertical-align: middle;
+  float: left;
+  width: 100%;
+  display: block;
+}
+
+.table-totals {
+  width: 100%;
+  background: #e1f0f8;
+}
+
+.padding-totals {
+  padding: 20px 15px;
+  text-align: right;
+  line-height: 20px;
+}
+
+.padding-totals .last {
+  width: 1px;
+  white-space: nowrap;
+}
+
+.table-totals table {
+  width: 100%;
+}
+
+.shipping {
+  padding-bottom: 5px;
+}
+
+.grand-total {
+  border-top: 1px solid #c3ced4;
+  padding-top: 5px;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.shipping-information td {
+  padding: 0 15px;
+}
+
+.shipping-information > td > table {
+  width: 100%;
+}
+
+.address-details {
+  padding-top: 10px;
+}
+
+.address-details,
+.method-info {
+  text-align: left;
+  padding: 10px 15px 0;
+}
+
+.address-details h6,
+.method-info h6 {
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 0px;
+  margin-top: 5px;
+  text-transform: uppercase;
+}
+
+.address-details p {
+  font-size: 12px;
+  line-height: 18px;
+  margin-bottom: 15px;
+  margin-top: 2px;
+}
+
+.method-info {
+  padding-bottom: 10px;
+}
+
+.method-info p {
+  font-size: 12px;
+  margin-top: 2px;
+  margin-bottom: 30px;
+  line-height: 18px;
+}
+
+.closing-text {
+  text-align: center;
+  font-size: 22px;
+  line-height: 32px;
+  font-weight: normal;
+  margin-bottom: 75px;
+  margin-top: 30px;
+}
+
+.product-info > p,
+.product-info > dl {
+  float: left;
+  width: 100%;
+  display: block;
+}
+
+.product-info > dl {
+  line-height: 20px;
+}
+
+.action-content {
+  padding: 10px 20px 15px;
+  line-height: 18px;
+}
+
+.action-content h1 {
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 25px;
+  margin-top: 5px;
+  line-height: 28px;
+}
+
+.line-separator {
+  height: 5px;
+}
+
+.method-info p, .method-info dl {
+  padding: 0;
+}
+
+/* ============================================ *
+ * Comments and Messages - Styles
+ * ============================================ */
+.message-container {
+  margin: 15px 0;
+  width: 100%;
+  background-color: #fffdd9;
+  border: 1px solid #fff74c;
+}
+
+.message-container,
+.order-information > td > table,
+.top-content > table {
+  width: 100%;
+}
+
+.message-container td {
+  padding: 10px 15px;
+  margin: 0;
+}
+
+.highlighted-text {
+  border: 1px solid #c3ced4;
+  padding: 13px 18px;
+  background: #f1f1f1;
+}
+
+/* ============================================ *
+ * Bundle Products - Styles
+ * ============================================ */
+.bundle-item {
+  padding: 0px 15px;
+  text-align: left;
+}
+
+.bundle-item-parent {
+  border-top: 1px solid #ebebeb;
+  padding: 10px 15px;
+}
+
+.bundle-item-parent.product-info {
+  text-align: left;
+}
+
+.bundle-item > div,
+.bundle-item > strong {
+  float: left;
+  width: 100%;
+  display: block;
+}
+
+.bundle-item.bundle-details > div {
+  margin-bottom: 15px;
+}
+
+/* ============================================ *
+ * Buttons - Styles
+ * ============================================ */
+.action-button {
+  width: 220px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.action-button td {
+  background-color: #3696c2;
+  color: #FFF;
+  width: 100%;
+  height: 40px;
+  display: block;
+  border: 0 none;
+  text-align: center;
+  text-transform: uppercase;
+  vertical-align: middle;
+  white-space: nowrap;
+  margin: 0 auto;
+}
+
+.action-button a {
+  width: 100%;
+  height: 100%;
+  line-height: 40px;
+  font-size: 15px;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.action-button a span {
+  color: #FFF;
+}
+
+/* ============================================ *
+ * Newsletter - Default Template Styles
+ * ============================================ */
+hr {
+  background-color: #D9D9D9;
+  border: medium none;
+  color: #D9D9D9;
+  height: 1px;
+  margin-left: 3%;
+  width: 94%;
+}
+
+td.email-heading h1 {
+  margin-top: 25px;
+}
+
+td.store-info h4 {
+  font-size: 12px;
+  margin-top: 13px;
+  font-weight: bold;
+}
+
+table, table td {
+  padding: 0;
+  margin: 0;
+}
+
+table.columns.heading {
+  margin-bottom: 3px;
+}
+
+.main-image {
+  width: 100%;
+  margin-bottom: 3px;
+  margin-top: 5px;
+}
+
+table.row {
+  padding: 0px;
+  width: 100%;
+  position: relative;
+}
+
+table.container table.row {
+  display: block;
+  margin: 5px;
+}
+
+td.wrapper {
+  padding: 10px 0 0;
+  position: relative;
+}
+
+.full {
+  width: 100%;
+}
+
+.half {
+  width: 50%;
+}
+
+.half.left {
+  padding-right: 5px;
+  padding-left: 10px;
+}
+
+.half.right {
+  padding-left: 5px;
+}
+
+.columns {
+  width: 100%;
+}
+
+td.expander {
+  visibility: hidden;
+  width: 0px;
+  padding: 0;
+}
+
+table.button {
+  width: 100%;
+  overflow: hidden;
+}
+
+table.button td,
+table.social-button td {
+  display: block;
+  width: auto;
+  text-align: center;
+  color: #FFF;
+  padding: 8px 4%;
+  cursor: pointer;
+}
+
+.social-button {
+  width: 94%;
+  margin: 5px 3%;
+}
+
+table.button td {
+  background: #3696c2;
+}
+
+table.social-button td {
+  padding: 5px 4%;
+}
+
+table.button td a,
+table.social-button td a {
+  color: #FFF;
+  font-size: 16px;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+table.social-button td a {
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.panel {
+  background-color: #F2F2F2;
+  border: 1px solid #D9D9D9;
+}
+
+.panel p {
+  margin: 10px;
+}
+
+.panel h6 {
+  font-size: 20px;
+  margin: 15px 10px;
+}
+
+.panel a {
+  color: #3696c2;
+  text-decoration: none;
+}
+
+.sidebar-links table {
+  width: 100%;
+}
+
+.sidebar-links td {
+  width: 100%;
+}
+
+.sidebar-links a {
+  margin: 8px 0;
+  float: left;
+  width: 100%;
+  text-align: left;
+}
+
+.sidebar-links table p {
+  margin: 0 10px;
+}
+
+.sidebar-links a span {
+  margin-left: 3%;
+}
+
+table.facebook td,
+table.twitter td,
+table.google-plus td,
+table.facebook td a,
+table.twitter td a,
+table.google-plus td a {
+  text-align: center;
+  height: 17px;
+}
+
+table.facebook td {
+  background: #3B5998;
+}
+
+table.twitter td {
+  background: #00ACEE;
+}
+
+table.google-plus td {
+  background: #DB4A39;
+}
+
+/* ============================================ *
+ * Product Grid
+ * ============================================ */
+h2.products {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.products-grid > tr > td {
+  width: 25%;
+}
+
+.products-grid > tr > td img {
+  width: 100%;
+  height: auto;
+}
+
+.products-grid .product-wrapper {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.product-name {
+  margin: 0 0 5px 0;
+  color: #636363;
+  font-style: normal;
+  text-rendering: optimizeLegibility;
+  text-transform: uppercase;
+  line-height: 1.4;
+  font-size: 14px;
+}
+
+p.product-name {
+  font-weight: bold;
+}
+
+p.sku {
+  margin: 0 0 5px;
+}
+
+/* ============================================ *
+ * Product Grid - Price Styles
+ * The price styles are copied directly from the _common.scss file
+ * ============================================ */
+.price-box {
+  margin: 7px 0;
+  font-family: "Helvetica Neue", Verdana, Arial, sans-serif;
+}
+
+.price-box p {
+  margin-bottom: 0;
+}
+
+.price-notice {
+  color: #a0a0a0;
+}
+
+.price-box .price {
+  color: #3399cc;
+  font-size: 16px;
+}
+
+.price-box .price,
+.price {
+  font-family: "Helvetica Neue", Verdana, Arial, sans-serif;
+}
+
+.price-box .price-label {
+  color: #a0a0a0;
+  white-space: nowrap;
+  font-family: "Raleway", "Helvetica Neue", Verdana, Arial, sans-serif;
+}
+
+.price-box .minimal-price-link {
+  padding-left: 1em;
+  color: #3399cc;
+  display: block;
+  /* We want this to show on its own line, otherwise the layout looks funky */
+}
+.price-box .minimal-price-link .label {
+  color: #a0a0a0;
+}
+
+/* -------------------------------------------- *
+ * Price Box - Special
+ */
+.price-box .old-price,
+.price-box .special-price {
+  display: inline-block;
+}
+.price-box .old-price .price-label,
+.price-box .special-price .price-label {
+  display: none;
+}
+.price-box .old-price .price,
+.price-box .special-price .price {
+  display: inline-block;
+}
+
+.price-box .old-price .price {
+  color: #a0a0a0;
+  text-decoration: line-through;
+}
+
+.price-box .special-price {
+  color: #3399cc;
+  padding-left: 1em;
+}
+.price-box .special-price .price-label {
+  color: #D84D3C;
+}
+
+/* -------------------------------------------- *
+ * Price Box - Taxes
+ */
+.price-box .price-excluding-tax,
+.price-box .price-including-tax {
+  display: block;
+}

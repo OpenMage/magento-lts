@@ -11,17 +11,17 @@
  * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
+ * to license@magento.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
  * Do not edit or add to this file if you wish to upgrade Magento to newer
  * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
+ * needs please refer to http://www.magento.com for more information.
  *
  * @category    design
  * @package     rwd_default
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -30,54 +30,20 @@
 <!--
 Default layout, loads most of the pages
 -->
-    <catalog_category_default>
-        <update handle="MAP_popup" />
-    </catalog_category_default>
-    <catalog_category_layered>
-        <update handle="MAP_popup" />
-    </catalog_category_layered>
-    <catalog_product_compare_index>
-        <update handle="MAP_popup" />
-    </catalog_product_compare_index>
     <catalog_product_view>
-        <update handle="MAP_popup" />
         <update handle="MAP_price_msrp_item" />
     </catalog_product_view>
-    <checkout_cart_index>
-        <update handle="MAP_popup" />
-    </checkout_cart_index>
-    <checkout_onepage_success>
-        <update handle="MAP_popup" />
-    </checkout_onepage_success>
-    <checkout_onepage_failure>
-        <update handle="MAP_popup" />
-    </checkout_onepage_failure>
     <wishlist_index_index>
-        <update handle="MAP_popup" />
         <update handle="MAP_price_msrp_wishlist_item" />
     </wishlist_index_index>
     <wishlist_shared_index>
-        <update handle="MAP_popup" />
         <update handle="MAP_price_msrp_wishlist_item" />
     </wishlist_shared_index>
     <review_product_list>
-        <update handle="MAP_popup" />
         <update handle="MAP_price_msrp_item" />
     </review_product_list>
-    <catalogsearch_result_index>
-        <update handle="MAP_popup" />
-    </catalogsearch_result_index>
-    <catalogsearch_advanced_result>
-        <update handle="MAP_popup" />
-    </catalogsearch_advanced_result>
-    <tag_product_list>
-        <update handle="MAP_popup" />
-    </tag_product_list>
-    <tag_customer_view>
-        <update handle="MAP_popup" />
-    </tag_customer_view>
 
-    <MAP_popup>
+    <default>
         <reference name="head">
             <action method="addItem" ifconfig="sales/msrp/enabled"><type>skin_js</type><name>js/msrp.js</name></action>
             <action method="addItem" ifconfig="sales/msrp/enabled"><type>skin_js</type><name>js/msrp_rwd.js</name></action>
@@ -85,7 +51,7 @@ Default layout, loads most of the pages
         <reference name="content">
             <block type="core/template" template="catalog/msrp/popup.phtml" name="product.tooltip"></block>
         </reference>
-    </MAP_popup>
+    </default>
     <MAP_price_msrp_item>
         <reference name="catalog_product_price_template">
             <action method="addPriceBlockType"><type>msrp</type><block>catalog/product_price</block><template>catalog/product/price_msrp_item.phtml</template></action>

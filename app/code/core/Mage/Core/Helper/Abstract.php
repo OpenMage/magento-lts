@@ -10,18 +10,18 @@
  * http://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
+ * to license@magento.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
  * Do not edit or add to this file if you wish to upgrade Magento to newer
  * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
+ * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -235,7 +235,13 @@ abstract class Mage_Core_Helper_Abstract
      */
     public function removeTags($html)
     {
-        $html = preg_replace("# <(?![/a-z]) | (?<=\s)>(?![a-z]) #exi", "htmlentities('$0')", $html);
+        $html = preg_replace_callback(
+            "# <(?![/a-z]) | (?<=\s)>(?![a-z]) #xi",
+            function ($matches) {
+                return htmlentities($matches[0]);
+            },
+            $html
+        );
         $html =  strip_tags($html);
         return htmlspecialchars_decode($html);
     }
@@ -364,6 +370,21 @@ abstract class Mage_Core_Helper_Abstract
     {
         $url = base64_decode(strtr($url, '-_,', '+/='));
         return Mage::getSingleton('core/url')->sessionUrlVar($url);
+    }
+
+    /**
+     *  base64_decode() and escape quotes in url
+     *
+     *  @param    string $url
+     *  @return   string
+     */
+    public function urlDecodeAndEscape($url)
+    {
+        $url = $this->urlDecode($url);
+        $quote = array ('\'', '"');
+        $replace = array('%27', '%22');
+        $url = str_replace($quote, $replace, $url);
+        return $url;
     }
 
     /**

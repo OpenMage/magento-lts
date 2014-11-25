@@ -1,27 +1,27 @@
-/**
- * Magento
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
- *
- * @category    design
- * @package     default_default
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
- */
+//
+// Magento
+//
+// NOTICE OF LICENSE
+//
+// This source file is subject to the Academic Free License (AFL 3.0)
+// that is bundled with this package in the file LICENSE_AFL.txt.
+// It is also available through the world-wide-web at this URL:
+// http://opensource.org/licenses/afl-3.0.php
+// If you did not receive a copy of the license and are unable to
+// obtain it through the world-wide-web, please send an email
+// to license@magento.com so we can send you a copy immediately.
+//
+// DISCLAIMER
+//
+// Do not edit or add to this file if you wish to upgrade Magento to newer
+// versions in the future. If you wish to customize Magento for your
+// needs please refer to http://www.magento.com for more information.
+//
+// @category    design
+// @package     rwd_default
+// @copyright   Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+// @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+//
 
 /* ============================================ *
  * Checkout - Layout
@@ -30,6 +30,10 @@
 .cart-table {
     float: left;
     width: 60%;
+}
+
+.cart .button {
+    white-space: normal;
 }
 
 .cart-forms,
@@ -56,6 +60,12 @@
 .cart-forms .giftcard,
 .cart-forms .shipping {
     margin-bottom: $box-spacing-large;
+}
+
+.checkout-cart-index {
+    #postcode {
+        width: 100%;
+    }
 }
 
 @mixin oneColumnCartItems {
@@ -116,6 +126,11 @@
     }
 }
 
+.display-single-price {
+    &:after {
+        @include clearfix;
+    }
+}
 /* ============================================ *
  * Checkout - Cart
  * ============================================ */
@@ -173,6 +188,10 @@
                 display: block;
             }
         }
+
+        .paypal-logo .paypal-or {
+            margin-top: 5px;
+        }
     }
 
     &.bottom,
@@ -184,10 +203,17 @@
         }
         .paypal-or {
             margin: 0px;
-            width: 150px;
             display: block;
             text-align: center;
-            float: right;
+        }
+    }
+}
+
+@include bp(min-width, 741px) {
+    .checkout-types.bottom {
+        .paypal-or {
+            text-align: right;
+            padding-right: 70px;
         }
     }
 }
@@ -196,7 +222,7 @@
     margin-bottom: 7px;
 }
 
-@include bp(max-width, 670px) {
+@include bp(max-width, 740px) {
     .checkout-types {
         float: none;
         text-align: center;
@@ -215,7 +241,9 @@
         width: 100%;
         margin-left: 0;
     }
+}
 
+@include bp(max-width, $bp-small) {
     .btn-checkout {
         width: 100%;
     }
@@ -358,7 +386,7 @@
             border-radius: 0;
             margin-bottom: 10px;
             text-align: center;
-            width: 3em;
+            width: 3.2em;
         }
 
         .button {
@@ -411,7 +439,6 @@
             display: block;
             margin-bottom: 10px;
             padding-bottom: 10px;
-            overflow: hidden;
             position: relative;
             width: 100%;
 
@@ -658,6 +685,7 @@
             font-size: $f-size-s;
             font-weight: 400;
             text-transform: uppercase;
+            white-space: nowrap;
         }
     }
 
@@ -689,7 +717,7 @@
     }
     #co-shipping-method-form .sp-methods dd label {
         border: 1px solid $c-module-border;
-        background-color: shade($c-module-background, 5%);
+        background-color: $c-module-background-hover;
         min-width: 220px;
 
         &:hover {
@@ -858,9 +886,9 @@
         color: $c-blue;
     }
 
-    #crosssell-products-list .button,
-    #crosssell-products-list .add-to-links {
-        display: none;
+    .item a.product-image {
+        width: auto;
+        float: left;
     }
 }
 
@@ -885,6 +913,21 @@
         /* Undo three-column config */
         .products-grid > li:nth-child(3n+1) {
             clear: none;
+        }
+    }
+}
+
+@include bp(max-width, $bp-small) {
+    .cart-table {
+        .cart-tax-total {
+            &:after {
+                right: -9px;
+            }
+            &.cart-tax-total-expanded {
+                &:after {
+                    right: -13px;
+                }
+            }
         }
     }
 }

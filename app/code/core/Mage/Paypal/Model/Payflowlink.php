@@ -10,18 +10,18 @@
  * http://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
+ * to license@magento.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
  * Do not edit or add to this file if you wish to upgrade Magento to newer
  * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
+ * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -38,6 +38,11 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * Default layout template
      */
     const LAYOUT_TEMPLATE = 'minLayout';
+
+    /**
+     * Mobile layout template
+     */
+    const MOBILE_LAYOUT_TEMPLATE = 'mobile';
 
     /**
      * Controller for callback urls
@@ -139,6 +144,20 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
             return true;
         }
         return false;
+    }
+
+    /**
+     * Return iframe template value depending on config
+     *
+     * @return string
+     */
+    public function getTemplate()
+    {
+        if ($this->getConfigData('mobile_optimized')) {
+            return self::MOBILE_LAYOUT_TEMPLATE;
+        } else {
+            return self::LAYOUT_TEMPLATE;
+        }
     }
 
     /**
@@ -285,7 +304,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
 
         try {
             if ($canSendNewOrderEmail) {
-                $order->sendNewOrderEmail();
+                $order->queueNewOrderEmail();
             }
             Mage::getModel('sales/quote')
                 ->load($order->getQuoteId())
@@ -454,7 +473,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
             ->setSilentpost('TRUE')
             ->setSilentposturl($this->_getCallbackUrl('silentPost'))
             ->setReturnurl($this->_getCallbackUrl('returnUrl'))
-            ->setTemplate(self::LAYOUT_TEMPLATE)
+            ->setTemplate($this->getTemplate())
             ->setDisablereceipt('TRUE')
             ->setCscrequired($cscEditable && $this->getConfigData('csc_required') ? 'TRUE' : 'FALSE')
             ->setCscedit($cscEditable ? 'TRUE' : 'FALSE')

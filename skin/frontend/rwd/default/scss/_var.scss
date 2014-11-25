@@ -1,27 +1,27 @@
-/**
- * Magento
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
- *
- * @category    design
- * @package     default_default
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
- */
+//
+// Magento
+//
+// NOTICE OF LICENSE
+//
+// This source file is subject to the Academic Free License (AFL 3.0)
+// that is bundled with this package in the file LICENSE_AFL.txt.
+// It is also available through the world-wide-web at this URL:
+// http://opensource.org/licenses/afl-3.0.php
+// If you did not receive a copy of the license and are unable to
+// obtain it through the world-wide-web, please send an email
+// to license@magento.com so we can send you a copy immediately.
+//
+// DISCLAIMER
+//
+// Do not edit or add to this file if you wish to upgrade Magento to newer
+// versions in the future. If you wish to customize Magento for your
+// needs please refer to http://www.magento.com for more information.
+//
+// @category    design
+// @package     rwd_default
+// @copyright   Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+// @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+//
 
 // =============================================
 // Compass Defaults
@@ -93,6 +93,7 @@ $c-orange: #F3793B;
 $c-red: #CF5050;
 $c-yellow: #FFDD15;
 $c-black: #000000;
+$c-gray: #333333;
 
 // =============================================
 // Base Colors
@@ -115,9 +116,15 @@ $c-subtle: #A0A0A0;
 
 // Notifications
 
-$c-danger: #FF0000;
+$c-danger: #DF280A;
+$c-danger-background: #FAEBE7;
+
 $c-success: $c-green;
+$c-success-background: #EFF5EA;
+
 $c-warn: #E26703;
+$c-warn-background: #F9EBE6;
+
 $c-dark: #676157;
 
 // Global Elements
@@ -171,11 +178,16 @@ $c-link-active: darken($c-action, (5% / 2));
 // Module (generic)
 
 $c-module-background: #F4F4F4;
+$c-module-background-hover: shade($c-module-background, 3%);
+$c-module-background-secondary: #EAF8FF;
+$c-module-background-dark: #AAAAAA;
 // This should be applied whenever the border is surrounding a white element and/or is directly showing on white.
 $c-module-border: #CCCCCC;
 // This should be applied whenever the border is wrapping an element with $c-module-background
 $c-module-border-light: #EDEDED;
+$c-module-border-dark: #777777;
 $c-module-border-highlight: $c-blue;
+
 
 // Table
 
@@ -188,6 +200,15 @@ $c-table-zebra-even: #EEEDED;
 // Tabs
 
 $c-tabs-background: #F0F0F0;
+
+// Email
+$c-email-background: #EBEBEB;
+$c-email-background-secondary: #E1F0F8;
+$c-email-border: #C3CED4;
+$c-email-action: #3696C2;
+$c-email-cell: #F1F1F1;
+$c-email-highlighted-background: #FFFDD9;
+$c-email-highlighted-border: #FFF74C;
 
 // =============================================
 // Typography

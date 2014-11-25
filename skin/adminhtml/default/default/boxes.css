@@ -956,7 +956,7 @@ ul.item-options li { padding-left:.7em; }
 .pp-method-express > .config-heading .heading strong,
 .pp-method-general > .config-heading .heading strong { padding-left:56px; background:url(images/paypal/logo-paypal.png) no-repeat 0 2px; }
 .pp-method-general > .config-heading .button-container { padding:8px 0 0 180px; background:url(images/paypal/pp-allinone.png) no-repeat 0 0; height:26px; }
-.pp-method-express > .config-heading .button-container { padding:0 0 0 160px; background:url(images/paypal/pp-alt.png) no-repeat 0 0; height:29px; }
+.pp-method-express > .config-heading .button-container { padding:0 0 0 174px; background:url(images/paypal/pp-alt.png) no-repeat 0 0; height:29px; }
 .pp-method-payflow > .config-heading .button-container { padding:0px 0 0 99px; background:url(images/paypal/pp-gateways.png) no-repeat 1px 0; height:36px; }
 .pp-general-uk > .config-heading .button-container { padding:9px 0 0 201px; background:url(images/paypal/pp-uk.png) no-repeat 0 0; height:27px; }
 .payflow-settings-notice {padding-bottom: 1em;max-width: 660px;}

@@ -28,8 +28,10 @@ class Phoenix_Moneybookers_Model_Event
     const MONEYBOOKERS_STATUS_PENDING = 0;
     const MONEYBOOKERS_STATUS_SUCCESS = 2;
 
-    /*
-     * @param Mage_Sales_Model_Order
+    /**
+     * Store order instance
+     *
+     * @var Mage_Sales_Model_Order
      */
     protected $_order = null;
 
@@ -151,6 +153,8 @@ class Phoenix_Moneybookers_Model_Event
     /**
      * Processes payment confirmation, creates invoice if necessary, updates order status,
      * sends order confirmation to customer
+     *
+     * @param string $status
      * @param string $msg Order history message
      */
     protected function _processSale($status, $msg)
@@ -162,7 +166,7 @@ class Phoenix_Moneybookers_Model_Event
                 // save transaction ID
                 $this->_order->getPayment()->setLastTransId($this->getEventData('mb_transaction_id'));
                 // send new order email
-                $this->_order->sendNewOrderEmail();
+                $this->_order->queueNewOrderEmail();
                 $this->_order->setEmailSent(true);
                 break;
             case self::MONEYBOOKERS_STATUS_PENDING:

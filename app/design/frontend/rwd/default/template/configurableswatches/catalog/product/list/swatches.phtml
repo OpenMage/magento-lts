@@ -1,0 +1,77 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+$_product = $this->getProduct();
+
+if (Mage::helper('configurableswatches')->isEnabled() && $_product && $_product->getId()
+    && ($_attrValues = $_product->getListSwatchAttrValues()) && count($_attrValues) > 0):
+
+    $_swatchAttribute = Mage::helper('configurableswatches/productlist')->getSwatchAttribute();
+
+    $_dimHelper = Mage::helper('configurableswatches/swatchdimensions');
+    $_swatchInnerWidth = $_dimHelper->getInnerWidth(Mage_ConfigurableSwatches_Helper_Swatchdimensions::AREA_LISTING);
+    $_swatchInnerHeight = $_dimHelper->getInnerHeight(Mage_ConfigurableSwatches_Helper_Swatchdimensions::AREA_LISTING);
+    $_swatchOuterWidth = $_dimHelper->getOuterWidth(Mage_ConfigurableSwatches_Helper_Swatchdimensions::AREA_LISTING);
+    $_swatchOuterHeight = $_dimHelper->getOuterHeight(Mage_ConfigurableSwatches_Helper_Swatchdimensions::AREA_LISTING);
+?>
+<ul class="configurable-swatch-list configurable-swatch-<?php echo $_swatchAttribute->getAttributeCode() ?> clearfix">
+    <?php foreach ($_attrValues as $_optionValue => $_optionLabel): ?>
+        <?php
+        $_optionCode = Mage::helper('configurableswatches')->getHyphenatedString($_optionLabel);
+        $_swatchUrl = Mage::helper('configurableswatches/productimg')->getSwatchUrl($_product, $_optionLabel, $_swatchInnerWidth, $_swatchInnerHeight, $_swatchType);
+        $_hasImage = !empty($_swatchUrl);
+        $_liClasses = array();
+        $_aClass = 'swatch-link swatch-link-' . $_swatchAttribute->getId();
+        if ($_hasImage) {
+            if ($_swatchType == 'media') {
+                $_liClasses[] = 'is-media';
+            }
+            $_aClass .= ' has-image';
+        } elseif (strlen($_optionLabel) > 3) {
+            $_liClasses[] = 'wide-swatch';
+        }
+        if (Mage::helper('configurableswatches/productlist')->swatchMatchesFilter($_optionValue)) {
+            $_liClasses[] = 'filter-match';
+        }
+        $_liClass = (!empty($_liClasses)) ? ' ' . implode(' ', $_liClasses) : '';
+        ?>
+    <li class="option-<?php echo $_optionCode; ?><?php echo $_liClass; ?>" data-product-id="<?php echo $_product->getId() ?>" data-option-label="<?php echo $_optionLabel ?>">
+        <a href="javascript:void(0)" name="<?php echo $_optionCode; ?>" class="<?php echo $_aClass ?>" title="<?php echo $_optionLabel; ?>"
+               style="height: <?php echo $_swatchOuterHeight ?>px; <?php if (!$_hasImage): ?>min-<?php endif; ?>width: <?php echo $_swatchOuterWidth ?>px;">
+            <span class="swatch-label" style="height: <?php echo $_swatchInnerHeight ?>px; <?php if (!$_hasImage): ?>min-<?php endif; ?>width: <?php echo $_swatchInnerWidth ?>px; line-height: <?php echo $_swatchInnerHeight ?>px;">
+            <?php if ($_hasImage): ?>
+                <img src="<?php echo $_swatchUrl; ?>" alt="<?php echo $_optionLabel; ?>" width="<?php echo $_swatchInnerWidth ?>" height="<?php echo $_swatchInnerHeight ?>" />
+            <?php else: ?>
+                <?php echo $_optionLabel; ?>
+            <?php endif; ?>
+             </span>
+        </a>
+    </li>
+    <?php endforeach; ?>
+</ul>
+<?php
+endif;

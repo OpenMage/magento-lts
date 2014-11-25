@@ -10,18 +10,18 @@
  * http://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
+ * to license@magento.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
  * Do not edit or add to this file if you wish to upgrade Magento to newer
  * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
+ * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -199,7 +199,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                     if ($referer) {
                         // Rebuild referer URL to handle the case when SID was changed
                         $referer = $this->_getModel('core/url')
-                            ->getRebuiltUrl( $this->_getHelper('core')->urlDecode($referer));
+                            ->getRebuiltUrl( $this->_getHelper('core')->urlDecodeAndEscape($referer));
                         if ($this->_isUrlInternal($referer)) {
                             $session->setBeforeAuthUrl($referer);
                         }
@@ -282,6 +282,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             $errors = $this->_getCustomerErrors($customer);
 
             if (empty($errors)) {
+                $customer->cleanPasswordsValidationData();
                 $customer->save();
                 $this->_dispatchRegisterSuccess($customer);
                 $this->_successProcessRegistration($customer);
@@ -399,7 +400,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         } else {
             $customerForm->compactData($customerData);
             $customer->setPassword($request->getPost('password'));
-            $customer->setConfirmation($request->getPost('confirmation'));
+            $customer->setPasswordConfirmation($request->getPost('confirmation'));
             $customerErrors = $customer->validate();
             if (is_array($customerErrors)) {
                 $errors = array_merge($customerErrors, $errors);
@@ -783,7 +784,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         $customer = $this->_getModel('customer/customer')->load($customerId);
 
         $customer->setPassword($password);
-        $customer->setConfirmation($passwordConfirmation);
+        $customer->setPasswordConfirmation($passwordConfirmation);
         $validationErrorMessages = $customer->validate();
         if (is_array($validationErrorMessages)) {
             $errorMessages = array_merge($errorMessages, $validationErrorMessages);
@@ -805,7 +806,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             // Empty current reset password token i.e. invalidate it
             $customer->setRpToken(null);
             $customer->setRpTokenCreatedAt(null);
-            $customer->setConfirmation(null);
+            $customer->cleanPasswordsValidationData();
             $customer->save();
             $this->_getSession()->addSuccess( $this->_getHelper('customer')->__('Your password has been updated.'));
             $this->_redirect('*/*/login');
@@ -924,7 +925,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                              * will be validated later to match each other and be of right length
                              */
                             $customer->setPassword($newPass);
-                            $customer->setConfirmation($confPass);
+                            $customer->setPasswordConfirmation($confPass);
                         } else {
                             $errors[] = $this->__('New password field cannot be empty.');
                         }
@@ -950,7 +951,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             }
 
             try {
-                $customer->setConfirmation(null);
+                $customer->cleanPasswordsValidationData();
                 $customer->save();
                 $this->_getSession()->setCustomer($customer)
                     ->addSuccess($this->__('The account information has been saved.'));

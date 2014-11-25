@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Pdf.php 24593 2012-01-05 20:35:02Z matthew $
+ * @version    $Id$
  */
 
 
@@ -78,7 +78,7 @@
  *
  * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf
@@ -94,8 +94,6 @@ class Zend_Pdf
      * PDF file header.
      */
     const PDF_HEADER  = "%PDF-1.4\n%\xE2\xE3\xCF\xD3\n";
-
-
 
     /**
      * Pages collection
@@ -299,12 +297,12 @@ class Zend_Pdf
      *
      * If $source is a string and $load is true, then it loads document
      * from a file.
-
      * $revision used to roll back document to specified version
      * (0 - current version, 1 - previous version, 2 - ...)
      *
      * @param string  $source - PDF file to load
      * @param integer $revision
+     * @param bool    $load
      * @throws Zend_Pdf_Exception
      * @return Zend_Pdf
      */
@@ -442,12 +440,12 @@ class Zend_Pdf
         $this->_loadPages($this->_trailer->Root->Pages);
     }
 
-
     /**
      * Load pages recursively
      *
      * @param Zend_Pdf_Element_Reference $pages
-     * @param array|null $attributes
+     * @param array|null                 $attributes
+     * @throws Zend_Pdf_Exception
      */
     protected function _loadPages(Zend_Pdf_Element_Reference $pages, $attributes = array())
     {
@@ -536,6 +534,7 @@ class Zend_Pdf
      * Load outlines recursively
      *
      * @param Zend_Pdf_Element_Reference $root Document catalog entry
+     * @throws Zend_Pdf_Exception
      */
     protected function _loadOutlines(Zend_Pdf_Element_Reference $root)
     {
@@ -916,8 +915,9 @@ class Zend_Pdf
     /**
      * Set specified named destination
      *
-     * @param string $name
-     * @param Zend_Pdf_Destination_Explicit|Zend_Pdf_Action_GoTo $target
+     * @param string                                             $name
+     * @param Zend_Pdf_Destination_Explicit|Zend_Pdf_Action_GoTo $destination
+     * @throws Zend_Pdf_Exception
      */
     public function setNamedDestination($name, $destination = null)
     {
@@ -975,8 +975,8 @@ class Zend_Pdf
      *
      * Returns Zend_Pdf_Page page object or null if destination is not found within PDF document.
      *
-     * @param Zend_Pdf_Destination $destination  Destination to resolve
-     * @param boolean $refreshPagesHash  Refresh page collection hashes before processing
+     * @param Zend_Pdf_Destination $destination Destination to resolve
+     * @param bool $refreshPageCollectionHashes Refresh page collection hashes before processing
      * @return Zend_Pdf_Page|null
      * @throws Zend_Pdf_Exception
      */
@@ -1034,7 +1034,7 @@ class Zend_Pdf
      * @todo Give appropriate name and make method public
      *
      * @param Zend_Pdf_Action $action
-     * @param boolean $refreshPagesHash  Refresh page collection hashes before processing
+     * @param bool $refreshPageCollectionHashes Refresh page collection hashes before processing
      * @return Zend_Pdf_Action|null
      */
     protected function _cleanUpAction(Zend_Pdf_Action $action, $refreshPageCollectionHashes = true)
@@ -1129,6 +1129,7 @@ class Zend_Pdf
      *
      * $fontName should be specified in UTF-8 encoding
      *
+     * @param string $fontName
      * @return Zend_Pdf_Resource_Font_Extracted|null
      * @throws Zend_Pdf_Exception
      */

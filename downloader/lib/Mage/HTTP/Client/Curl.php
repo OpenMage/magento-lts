@@ -10,18 +10,18 @@
  * http://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
+ * to license@magento.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
  * Do not edit or add to this file if you wish to upgrade Magento to newer
  * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
+ * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_HTTP
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -366,10 +366,11 @@ implements Mage_HTTP_IClient
      * @param string $uri
      * @param array $params
      * @param boolean $isAuthorizationRequired
+     * @param boolean $https
      */
-    protected function makeRequest($method, $uri, $params = array(), $isAuthorizationRequired = true)
+    protected function makeRequest($method, $uri, $params = array(), $isAuthorizationRequired = false, $https = true)
     {
-        $uriModified = $this->getSecureRequest($uri, $isAuthorizationRequired);
+        $uriModified = $this->getModifiedUri($uri, $https);
         $this->_ch = curl_init();
         $this->curlOption(CURLOPT_URL, $uriModified);
         $this->curlOption(CURLOPT_SSL_VERIFYPEER, false);
@@ -424,8 +425,10 @@ implements Mage_HTTP_IClient
         curl_close($this->_ch);
 
         if (403 == $this->getStatus()) {
-            if ($isAuthorizationRequired) {
-                $this->makeRequest($method, $uri, $params, false);
+            if (!$isAuthorizationRequired && $https) {
+                $this->makeRequest('POST', $uri, $params, true, false);
+            } else if ($isAuthorizationRequired && !$https) {
+                $this->makeRequest('POST', $uri, $params, true, true);
             } else {
                 $this->doError(sprintf('Access denied for %s@%s', $_SESSION['auth']['login'], $uriModified));
                 return;
@@ -441,7 +444,9 @@ implements Mage_HTTP_IClient
      */
     public function isAuthorizationRequired()
     {
-        if (isset($_SESSION['auth']['username']) && isset($_SESSION['auth']['password']) && !empty($_SESSION['auth']['username'])) {
+        if (isset($_SESSION['auth']['username']) && isset($_SESSION['auth']['password'])
+            && !empty($_SESSION['auth']['username']))
+        {
             return true;
         }
         return false;
@@ -515,7 +520,7 @@ implements Mage_HTTP_IClient
     }
 
     /**
-     * Set CURL options ovverides array	 *
+     * Set CURL options ovverides array
      */
     public function setOptions($arr)
     {
@@ -531,16 +536,17 @@ implements Mage_HTTP_IClient
     }
 
     /**
-     * @param $uri
-     * @param $isAuthorizationRequired
+     * Build secure url
+     *
+     * @param string $uri
+     * @param boolean $https
      * @return string
      */
-    protected function getSecureRequest($uri, $isAuthorizationRequired = true)
+    protected function getModifiedUri($uri, $https = true)
     {
-        if ($isAuthorizationRequired && strpos($uri, 'https://') !== 0) {
+        if ($https && strpos($uri, 'https://') !== 0) {
             $uri = str_replace('http://', '', $uri);
             $uri = 'https://' . $uri;
-            return $uri;
         }
         return $uri;
     }
@@ -552,7 +558,7 @@ implements Mage_HTTP_IClient
      */
     protected function getCurlMethodSettings($method, $params, $isAuthorizationRequired)
     {
-        if ($method == 'POST') {
+        if ($method == 'POST' || $isAuthorizationRequired) {
             $this->curlOption(CURLOPT_POST, 1);
             $postFields = is_array($params) ? $params : array();
             if ($isAuthorizationRequired) {
@@ -560,9 +566,7 @@ implements Mage_HTTP_IClient
                 $this->curlOption(CURLOPT_COOKIEFILE, self::COOKIE_FILE);
                 $postFields = array_merge($postFields, $this->_auth);
             }
-            if (!empty($postFields)) {
-                $this->curlOption(CURLOPT_POSTFIELDS, $postFields);
-            }
+            $this->curlOption(CURLOPT_POSTFIELDS, $postFields);
         } elseif ($method == "GET") {
             $this->curlOption(CURLOPT_HTTPGET, 1);
         } else {

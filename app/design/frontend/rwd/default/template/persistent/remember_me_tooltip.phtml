@@ -10,17 +10,17 @@
  * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
+ * to license@magento.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
  * Do not edit or add to this file if you wish to upgrade Magento to newer
  * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
+ * needs please refer to http://www.magento.com for more information.
  *
  * @category    design
  * @package     rwd_default
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -33,11 +33,11 @@
 ?>
 <div class="remember-me-popup">
     <div class="remember-me-popup-head">
-        <h3>What's this?</h3>
+        <h3><?php echo $this->__("What's this?"); ?></h3>
         <a href="#" class="remember-me-popup-close" title="<?php echo $this->__('Close') ?>"><?php echo $this->__('Close') ?></a>
     </div>
     <div class="remember-me-popup-body">
-        <p>Checking &quot;Remember Me&quot; will let you access your shopping cart on this computer when you are logged out</p>
+        <p><?php echo $this->__('Checking &quot;Remember Me&quot; will let you access your shopping cart on this computer when you are logged out'); ?></p>
         <div class="remember-me-popup-close-button a-right">
             <a href="#" class="remember-me-popup-close button" title="<?php echo $this->__('Close') ?>"><span><?php echo $this->__('Close') ?></span></a>
         </div>

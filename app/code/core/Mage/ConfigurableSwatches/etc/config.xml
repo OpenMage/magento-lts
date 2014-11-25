@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    Mage
+ * @package     Mage_ConfigurableSwatches
+ * @copyright   Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Mage_ConfigurableSwatches>
+            <version>1.3.1</version>
+        </Mage_ConfigurableSwatches>
+    </modules>
+
+    <global>
+        <blocks>
+            <configurableswatches>
+                <class>Mage_ConfigurableSwatches_Block</class>
+            </configurableswatches>
+        </blocks>
+        <models>
+            <configurableswatches>
+                <class>Mage_ConfigurableSwatches_Model</class>
+                <resourceModel>configurableswatches_resource</resourceModel>
+            </configurableswatches>
+            <configurableswatches_resource>
+                <class>Mage_ConfigurableSwatches_Model_Resource</class>
+            </configurableswatches_resource>
+        </models>
+        <helpers>
+            <configurableswatches>
+                <class>Mage_ConfigurableSwatches_Helper</class>
+            </configurableswatches>
+        </helpers>
+    </global>
+
+    <frontend>
+        <layout>
+            <updates>
+                <configurableswatches module="Mage_ConfigurableSwatches">
+                    <file>configurableswatches.xml</file>
+                </configurableswatches>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Mage_ConfigurableSwatches>
+                    <files>
+                        <default>Mage_ConfigurableSwatches.csv</default>
+                    </files>
+                </Mage_ConfigurableSwatches>
+            </modules>
+        </translate>
+        <events>
+            <catalog_product_load_after>
+                <observers>
+                    <configurableswatches>
+                        <class>configurableswatches/observer</class>
+                        <method>productLoadAfter</method>
+                    </configurableswatches>
+                </observers>
+            </catalog_product_load_after>
+            <catalog_block_product_list_collection>
+                <observers>
+                    <configurableswatches>
+                        <class>configurableswatches/observer</class>
+                        <method>productListCollectionLoadAfter</method>
+                    </configurableswatches>
+                </observers>
+            </catalog_block_product_list_collection>
+            <catalog_product_attribute_backend_media_load_gallery_before>
+                <observers>
+                    <configurableswatches>
+                        <class>configurableswatches/observer</class>
+                        <method>loadChildProductImagesOnMediaLoad</method>
+                    </configurableswatches>
+                </observers>
+            </catalog_product_attribute_backend_media_load_gallery_before>
+            <controller_action_layout_generate_blocks_after>
+                <observers>
+                    <configurableswatches>
+                        <class>configurableswatches/observer</class>
+                        <method>convertLayerBlock</method>
+                    </configurableswatches>
+                </observers>
+            </controller_action_layout_generate_blocks_after>
+        </events>
+        <product>
+            <configurable>
+                <child>
+                    <attributes>
+                        <image/>
+                        <small_image/>
+                        <image_label/>
+                        <small_image_label/>
+                    </attributes>
+                </child>
+            </configurable>
+        </product>
+    </frontend>
+
+    <adminhtml>
+        <translate>
+            <modules>
+                <Mage_ConfigurableSwatches>
+                    <files>
+                        <default>Mage_ConfigurableSwatches.csv</default>
+                    </files>
+                </Mage_ConfigurableSwatches>
+            </modules>
+        </translate>
+    </adminhtml>
+
+    <default>
+        <configswatches>
+            <general>
+                <enabled>0</enabled>
+            </general>
+            <product_detail_dimensions>
+                <width>21</width>
+                <height>21</height>
+            </product_detail_dimensions>
+            <product_listing_dimensions>
+                <width>15</width>
+                <height>15</height>
+            </product_listing_dimensions>
+            <layered_nav_dimensions>
+                <width>15</width>
+                <height>15</height>
+            </layered_nav_dimensions>
+        </configswatches>
+    </default>
+</config>

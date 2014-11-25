@@ -10,18 +10,18 @@
  * http://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
+ * to license@magento.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
  * Do not edit or add to this file if you wish to upgrade Magento to newer
  * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
+ * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Newsletter
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -54,7 +54,7 @@
  * @package     Mage_Newsletter
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Newsletter_Model_Template extends Mage_Core_Model_Template
+class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abstract
 {
     /**
      * Template Text Preprocessed flag
@@ -206,17 +206,29 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Template
             $processor->setStoreId(Mage::app()->getStore());
         } else {
             $processor->setStoreId(Mage::app()->getRequest()->getParam('store_id'));
-        } 
+        }
+
+        // Populate the variables array with store, store info, logo, etc. variables
+        $variables = $this->_addEmailVariables($variables, $processor->getStoreId());
 
         $processor
+            ->setTemplateProcessor(array($this, 'getTemplateByConfigPath'))
             ->setIncludeProcessor(array($this, 'getInclude'))
             ->setVariables($variables);
 
+        // Filter the template text so that all HTML content will be present
+        $result = $processor->filter($this->getTemplateText());
+        // If the {{inlinecss file=""}} directive was included in the template, grab filename to use for inlining
+        $this->setInlineCssFile($processor->getInlineCssFile());
+
+        // Now that all HTML has been assembled, run email through CSS inlining process
         if ($usePreprocess && $this->isPreprocessed()) {
-            return $processor->filter($this->getPreparedTemplateText(true));
+            $processedResult = $this->getPreparedTemplateText(true, $result);
+        } else {
+            $processedResult = $this->getPreparedTemplateText(false, $result);
         }
 
-        return $processor->filter($this->getPreparedTemplateText());
+        return $processedResult;
     }
 
     /**
@@ -225,16 +237,21 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Template
      * @param bool $usePreprocess Use Preprocessed text or original text
      * @return string
      */
-    public function getPreparedTemplateText($usePreprocess = false)
+    public function getPreparedTemplateText($usePreprocess = false, $html = null)
     {
-        $text = $usePreprocess ? $this->getTemplateTextPreprocessed() : $this->getTemplateText();
+        if ($usePreprocess) {
+            $text = $this->getTemplateTextPreprocessed();
+        } elseif ($html) {
+            $text = $html;
+        } else {
+            $text = $this->getTemplateText();
+        }
 
-        if ($this->_preprocessFlag || $this->isPlain() || !$this->getTemplateStyles()) {
+        if ($this->_preprocessFlag || $this->isPlain()) {
             return $text;
         }
-        // wrap styles into style tag
-        $html = "<style type=\"text/css\">\n%s\n</style>\n%s";
-        return sprintf($html, $this->getTemplateStyles(), $text);
+
+        return $this->_applyInlineCss($text);
     }
 
     /**

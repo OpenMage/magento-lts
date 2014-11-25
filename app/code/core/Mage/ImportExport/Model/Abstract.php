@@ -10,18 +10,18 @@
  * http://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
+ * to license@magento.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
  * Do not edit or add to this file if you wish to upgrade Magento to newer
  * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
+ * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_ImportExport
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -33,6 +33,12 @@
  */
 abstract class Mage_ImportExport_Model_Abstract extends Varien_Object
 {
+    /**
+     * Log directory
+     *
+     */
+    const LOG_DIRECTORY = 'log/import_export/';
+
     /**
      * Enable loging
      *
@@ -86,12 +92,12 @@ abstract class Mage_ImportExport_Model_Abstract extends Varien_Object
                 $this->getOperationType(),
                 $this->getEntity()
             ));
-            $dirPath = Mage::getBaseDir('var') . DS . Mage_ImportExport_Model_Scheduled_Operation::LOG_DIRECTORY
+            $dirPath = Mage::getBaseDir('var') . DS . self::LOG_DIRECTORY
                 . $dirName;
             if (!is_dir($dirPath)) {
                 mkdir($dirPath, 0777, true);
             }
-            $fileName = substr(strstr(Mage_ImportExport_Model_Scheduled_Operation::LOG_DIRECTORY, DS), 1)
+            $fileName = substr(strstr(self::LOG_DIRECTORY, DS), 1)
                 . $dirName . $fileName . '.log';
             $this->_logInstance = Mage::getModel('core/log_adapter', $fileName)
                 ->setFilterDataKeys($this->_debugReplacePrivateDataKeys);
@@ -113,5 +119,17 @@ abstract class Mage_ImportExport_Model_Abstract extends Varien_Object
             $trace .= $lineNumber++ . ': ' . $info . "\n";
         }
         return $trace;
+    }
+
+    /**
+     * Sets debug mode
+     *
+     * @param bool $mode
+     * @return Mage_ImportExport_Model_Abstract
+     */
+    public function setDebugMode($mode = true)
+    {
+        $this->_debugMode = (bool)$mode;
+        return $this;
     }
 }
