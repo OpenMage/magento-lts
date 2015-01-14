@@ -80,7 +80,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
      * Retrieve framed javascript
      *
      * @param   string $script
-     * @return  script
+     * @return  string script
      */
     public function getScript($script)
     {
