@@ -1,0 +1,5 @@
+2015-04-30 22:08:21 UTC | SUPEE-2747 | EE_1.13.1.0 | v1 | 5b7ff40ed56add4988dbf03f661f844f47ab140f | Tue Jan 14 18:36:41 2014 +0200 | v1.13.1.0..HEAD
+patching file app/code/core/Mage/Cms/Helper/Wysiwyg/Images.php
+patching file app/code/core/Mage/Cms/Model/Wysiwyg/Images/Storage.php
+
+
