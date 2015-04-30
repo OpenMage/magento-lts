@@ -20,3 +20,11 @@ patching file app/code/core/Mage/Adminhtml/Block/Dashboard/Graph.php
 patching file app/code/core/Mage/Adminhtml/controllers/DashboardController.php
 
 
+2015-04-30 22:45:24 UTC | SUPEE-5344 | EE_1.14.1.0 | v1 | a5c9abcb6a387aabd6b33ebcb79f6b7a97bbde77 | Thu Feb 5 19:14:49 2015 +0200 | v1.14.1.0..HEAD
+patching file app/code/core/Mage/Admin/Model/Observer.php
+patching file app/code/core/Mage/Core/Controller/Request/Http.php
+patching file app/code/core/Mage/Oauth/controllers/Adminhtml/Oauth/AuthorizeController.php
+patching file app/code/core/Mage/XmlConnect/Model/Observer.php
+patching file lib/Varien/Db/Adapter/Pdo/Mysql.php
+
+

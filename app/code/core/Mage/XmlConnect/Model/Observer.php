@@ -143,7 +143,7 @@ class Mage_XmlConnect_Model_Observer
         /** @var $request Mage_Core_Controller_Request_Http */
         $request = Mage::app()->getRequest();
         if (true === $this->_checkAdminController($request, $event->getControllerAction())) {
-            $request->setParam('forwarded', true)->setDispatched(true);
+            $request->setInternallyForwarded()->setDispatched(true);
         }
     }
 
@@ -160,7 +160,7 @@ class Mage_XmlConnect_Model_Observer
         if (false === $this->_checkAdminController($request, $event->getControllerAction())
             && !Mage::getSingleton('admin/session')->isLoggedIn()
         ) {
-            $request->setParam('forwarded', true)->setRouteName('adminhtml')->setControllerName('connect_user')
+            $request->setInternallyForwarded()->setRouteName('adminhtml')->setControllerName('connect_user')
                 ->setActionName('loginform')->setDispatched(false);
         }
     }
