@@ -64,6 +64,13 @@ class Mage_Connect_Command
     protected static $_validator = null;
 
     /**
+     * Backup instance
+     *
+     * @var Mage_Connect_Backup
+     */
+    protected static $_backup = null;
+
+    /**
      * Rest instance
      *
      * @var Mage_Connect_Rest
@@ -249,6 +256,19 @@ class Mage_Connect_Command
     }
 
     /**
+     * Get backup object
+     *
+     * @return Mage_Connect_Backup
+     */
+    public function backup()
+    {
+        if(is_null(self::$_backup)) {
+            self::$_backup = new Mage_Connect_Backup();
+        }
+        return self::$_backup;
+    }
+
+    /**
      * Get rest object
      *
      * @return Mage_Connect_Rest
@@ -422,8 +442,8 @@ class Mage_Connect_Command
             return;
         }
         if(preg_match("@([a-zA-Z0-9_]+)/([a-zA-Z0-9_]+)@ims", $params[0], $subs)) {
-           $params[0] = $subs[2];
-           array_unshift($params, $subs[1]);
+            $params[0] = $subs[2];
+            array_unshift($params, $subs[1]);
         }
     }
 
