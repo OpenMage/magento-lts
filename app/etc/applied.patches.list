@@ -11,3 +11,7 @@ patching file downloader/lib/Mage/HTTP/Client/Curl.php
 patching file downloader/template/settings.phtml
 
 
+2015-04-30 22:38:17 UTC | SUPEE-4291 | EE_1.14.0.1 | v1 | 1fdfe63a44cde9ad7f7b9a6afe228e55d579a499 | Tue Sep 2 17:58:21 2014 +0300 | v1.14.0.1..HEAD
+patching file app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php
+
+

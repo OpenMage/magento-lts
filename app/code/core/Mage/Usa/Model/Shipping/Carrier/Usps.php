@@ -340,6 +340,10 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
             if ($r->getService() == 'FIRST CLASS' || $r->getService() == 'FIRST CLASS HFP COMMERCIAL') {
                 $package->addChild('FirstClassMailType', 'PARCEL');
             }
+            if ($r->getService() == 'FIRST CLASS COMMERCIAL') {
+                $package->addChild('FirstClassMailType', 'PACKAGE SERVICE');
+            }
+
             $package->addChild('ZipOrigination', $r->getOrigPostal());
             //only 5 chars available
             $package->addChild('ZipDestination', substr($r->getDestPostal(), 0, 5));
@@ -535,8 +539,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
                  '2'      => Mage::helper('usa')->__('Priority Mail Express Hold For Pickup'),
                  '3'      => Mage::helper('usa')->__('Priority Mail Express'),
                  '4'      => Mage::helper('usa')->__('Standard Post'),
-                 '6'      => Mage::helper('usa')->__('Media Mail'),
-                 '7'      => Mage::helper('usa')->__('Library Mail'),
+                 '6'      => Mage::helper('usa')->__('Media Mail Parcel'),
+                 '7'      => Mage::helper('usa')->__('Library Mail Parcel'),
                  '13'     => Mage::helper('usa')->__('Priority Mail Express Flat Rate Envelope'),
                  '15'     => Mage::helper('usa')->__('First-Class Mail Large Postcards'),
                  '16'     => Mage::helper('usa')->__('Priority Mail Flat Rate Envelope'),
