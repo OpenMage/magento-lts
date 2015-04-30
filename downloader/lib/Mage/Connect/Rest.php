@@ -82,17 +82,14 @@ class Mage_Connect_Rest
      *
      * @param string $protocol
      */
-    public function __construct($protocol="http")
+    public function __construct($protocol="https")
     {
         switch ($protocol) {
-            case 'ftp':
-                $this->_protocol = 'ftp';
-                break;
             case 'http':
                 $this->_protocol = 'http';
                 break;
             default:
-                $this->_protocol = 'http';
+                $this->_protocol = 'https';
                 break;
         }
     }
