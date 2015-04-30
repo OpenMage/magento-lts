@@ -3,3 +3,9 @@ patching file app/code/core/Mage/Cms/Helper/Wysiwyg/Images.php
 patching file app/code/core/Mage/Cms/Model/Wysiwyg/Images/Storage.php
 
 
+2015-04-30 22:20:11 UTC | SUPEE-2619 | EE_1.13.1.0 | v1 | d0a215a139aa5e75d60e42efa1b2661d84fef2be | Tue Dec 10 17:41:31 2013 +0200 | v1.13.1.0..HEAD
+patching file app/code/core/Mage/Catalog/Model/Product.php
+patching file app/code/core/Mage/Core/Controller/Varien/Router/Standard.php
+patching file app/code/core/Zend/Pdf/FileParserDataSource.php
+
+
