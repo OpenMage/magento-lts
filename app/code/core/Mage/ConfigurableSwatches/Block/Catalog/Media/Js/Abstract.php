@@ -35,6 +35,13 @@ abstract class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract extends
     abstract public function getProducts();
 
     /**
+     * A list of blocks that contain products. Used to get the current display mode (grid/list).
+     *
+     * @var array
+     */
+    protected $_productListBlocks = array('product_list', 'search_result_list');
+
+    /**
      * json encode image fallback array
      *
      * @param array $imageFallback
@@ -69,11 +76,13 @@ abstract class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract extends
         $products = $this->getProducts();
 
         if ($keepFrame === null) {
-            $listBlock = $this->getLayout()->getBlock('product_list');
-            if ($listBlock && $listBlock->getMode() == 'grid') {
-                $keepFrame = true;
-            } else {
-                $keepFrame = false;
+            $keepFrame = false;
+            foreach ($this->_productListBlocks as $blockName) {
+                $listBlock = $this->getLayout()->getBlock($blockName);
+                if ($listBlock && $listBlock->getMode() == 'grid') {
+                    $keepFrame = true;
+                    break;
+                }
             }
         }
 

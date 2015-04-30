@@ -1,0 +1,4 @@
+2015-04-30 22:43:55 UTC | SUPEE-4829 | EE_1.14.1.0 | v1 | 83c162e03b0ff8e34bb7eab884cbc034c1546dd5 | Tue Nov 18 13:45:28 2014 +0200 | v1.14.1.0..HEAD
+patching file app/code/core/Mage/ConfigurableSwatches/Block/Catalog/Media/Js/Abstract.php
+
+
