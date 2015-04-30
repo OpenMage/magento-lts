@@ -459,9 +459,10 @@ class Mage_Connect_Validator
      *
      * @param array $contents
      * @param Mage_Connect_Config $config
+     * @param array $typesToBackup
      * @return bool
      */
-    public function validateContents(array $contents, $config)
+    public function validateContents(array $contents, $config, $typesToBackup = array())
     {
         if (!count($contents)) {
             $this->addError('Empty package contents section');
@@ -471,7 +472,8 @@ class Mage_Connect_Validator
         $targetPath = rtrim($config->magento_root, "\\/");
         foreach ($contents as $file) {
             $dest = $targetPath . DS . $file;
-            if (file_exists($dest)) {
+            $type = pathinfo($file, PATHINFO_EXTENSION);
+            if (file_exists($dest) && !in_array($type, $typesToBackup)) {
                 $this->addError("'{$file}' already exists");
                 return false;
             }
