@@ -1,6 +1,6 @@
 # Magento - Long Term Support
 
-This repository aims to be a dependably patched source of the Magento CE core releases.  These sources will stay as close to the sources released by Magento as possible, while still accepting bug fixes and security patches from the communtily, and also as-close-to-automatically-as-possible applying security patches available from Magento.
+This repository aims to be a dependably patched archive of the Magento CE core releases. These sources should stay as close to the sources released by Magento as possible (no new features).  **However, pull requests with unofficial bug fixes and security patches from the community are definitely encouraged.** It's our goal to apply patches available from Magento as quickly as possible, but these do not always cover all known issues.
 
 Though Magento does not follow [Semantic Versioning](http://semver.org/) we aim to provide a workable system for dependancy definition.  A release version might look something like "1.9.1.0", but there may have been some functionality added since the "1.9.0.0" release.  There might also have been some patches released with no update to the currently available sources or version number.  
 
