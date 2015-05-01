@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Magento-lts : An archive of Magento + community driven bug fixes">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Magento-lts</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/OpenMage/magento-lts">View on GitHub</a>
+
+          <h1 id="project_title">Magento-lts</h1>
+          <h2 id="project_tagline">An archive of Magento + community driven bug fixes</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/OpenMage/magento-lts/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/OpenMage/magento-lts/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="magento---long-term-support" class="anchor" href="#magento---long-term-support" aria-hidden="true"><span class="octicon octicon-link"></span></a>Magento - Long Term Support</h1>
+
+<p>This repository aims to be a dependably patched archive of the Magento CE core releases. These sources should stay as close to the sources released by Magento as possible (no new features).  <strong>However, pull requests with unofficial bug fixes and security patches from the community are definitely encouraged.</strong> It's our goal to apply patches available from Magento as quickly as possible, but these do not always cover all known issues.</p>
+
+<p>Though Magento does not follow <a href="http://semver.org/">Semantic Versioning</a> we aim to provide a workable system for dependancy definition.  A release version might look something like "1.9.1.0", but there may have been some functionality added since the "1.9.0.0" release.  There might also have been some patches released with no update to the currently available sources or version number.  </p>
+
+<p>Because of this, we must define a slightly different system to define each decimal place.</p>
+
+<h2>
+<a id="magever" class="anchor" href="#magever" aria-hidden="true"><span class="octicon octicon-link"></span></a>#MageVer</h2>
+
+<h5>
+<a id="1---uber-version" class="anchor" href="#1---uber-version" aria-hidden="true"><span class="octicon octicon-link"></span></a>1 - UBER VERSION</h5>
+
+<h6>
+<a id="" class="anchor" href="#" aria-hidden="true"><span class="octicon octicon-link"></span></a>.</h6>
+
+<h5>
+<a id="9---magento-major-version" class="anchor" href="#9---magento-major-version" aria-hidden="true"><span class="octicon octicon-link"></span></a>9 - Magento Major Version</h5>
+
+<h6>
+<a id="-1" class="anchor" href="#-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>.</h6>
+
+<h5>
+<a id="1---magento-minor-version" class="anchor" href="#1---magento-minor-version" aria-hidden="true"><span class="octicon octicon-link"></span></a>1 - Magento Minor Version</h5>
+
+<h6>
+<a id="-2" class="anchor" href="#-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>.</h6>
+
+<h5>
+<a id="0----maybe-some-patches" class="anchor" href="#0----maybe-some-patches" aria-hidden="true"><span class="octicon octicon-link"></span></a>0 - ? (maybe some patches)</h5>
+
+<p>Each Magento Minor Version release will get its own branch that will be independently maintained with patches and backported bug fixes.</p>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>This allows you to define your version dependencies safely in composer.json:</p>
+
+<pre><code>"openmage/magento-lts": "1.9.1.*"
+</code></pre>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p><a href="http://opensource.org/licenses/OSL-3.0">OSL v3.0</a></p>
+
+<h2>
+<a id="maintainers" class="anchor" href="#maintainers" aria-hidden="true"><span class="octicon octicon-link"></span></a>Maintainers</h2>
+
+<ul>
+<li><a href="https://github.com/LeeSaferite">Lee Saferite</a></li>
+<li><a href="https://github.com/drobinson">David Robinson</a></li>
+<li>Pull requests are welcome</li>
+</ul>
+
+<h2>
+<a id="todo" class="anchor" href="#todo" aria-hidden="true"><span class="octicon octicon-link"></span></a>TODO</h2>
+
+<ul>
+<li>Travis CI tests to check for newly availble patches for each version</li>
+</ul>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Magento-lts maintained by <a href="https://github.com/OpenMage">OpenMage</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
