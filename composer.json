@@ -1,5 +1,6 @@
 {
   "name": "openmage/magento-lts",
+  "replace": "magento/ce",
   "license": "OSL-3.0",
   "type": "magento-source",
   "require": {
