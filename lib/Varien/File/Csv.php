@@ -10,20 +10,20 @@
  * http://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
+ * to license@magento.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
  * Do not edit or add to this file if you wish to upgrade Magento to newer
  * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
+ * needs please refer to http://www.magento.com for more information.
  *
- * @category   Varien
- * @package    Varien_File
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @category    Varien
+ * @package     Varien_File
+ * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
- 
+
 /**
  * Csv parse
  *
@@ -34,12 +34,12 @@ class Varien_File_Csv
     protected $_lineLength= 0;
     protected $_delimiter = ',';
     protected $_enclosure = '"';
-    
-    public function __construct() 
+
+    public function __construct()
     {
-        
+
     }
-    
+
     /**
      * Set max file line length
      *
@@ -51,7 +51,7 @@ class Varien_File_Csv
         $this->_lineLength = $length;
         return $this;
     }
-    
+
     /**
      * Set CSV column delimiter
      *
@@ -63,7 +63,7 @@ class Varien_File_Csv
         $this->_delimiter = $delimiter;
         return $this;
     }
-    
+
     /**
      * Set CSV column value enclosure
      *
@@ -75,7 +75,7 @@ class Varien_File_Csv
         $this->_enclosure = $enclosure;
         return $this;
     }
-    
+
     /**
      * Retrieve CSV file data as array
      *
@@ -88,7 +88,7 @@ class Varien_File_Csv
         if (!file_exists($file)) {
             throw new Exception('File "'.$file.'" do not exists');
         }
-        
+
         $fh = fopen($file, 'r');
         while ($rowData = fgetcsv($fh, $this->_lineLength, $this->_delimiter, $this->_enclosure)) {
             $data[] = $rowData;
@@ -96,7 +96,7 @@ class Varien_File_Csv
         fclose($fh);
         return $data;
     }
-    
+
     /**
      * Retrieve CSV file data as pairs
      *
@@ -110,13 +110,13 @@ class Varien_File_Csv
         $data = array();
         $csvData = $this->getData($file);
         foreach ($csvData as $rowData) {
-        	if (isset($rowData[$keyIndex])) {
-        	    $data[$rowData[$keyIndex]] = isset($rowData[$valueIndex]) ? $rowData[$valueIndex] : null;
-        	}
+            if (isset($rowData[$keyIndex])) {
+                $data[$rowData[$keyIndex]] = isset($rowData[$valueIndex]) ? $rowData[$valueIndex] : null;
+            }
         }
         return $data;
     }
-    
+
     /**
      * Saving data row array into file
      *
@@ -133,7 +133,7 @@ class Varien_File_Csv
         fclose($fh);
         return $this;
     }
-    
+
     public function fputcsv(&$handle, $fields = array(), $delimiter = ',', $enclosure = '"') {
         $str = '';
         $escape_char = '\\';
@@ -167,5 +167,5 @@ class Varien_File_Csv
         $str .= "\n";
         return fwrite($handle, $str);
     }
-    
+
 }
