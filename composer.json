@@ -1,0 +1,92 @@
+{
+    "name": "magento/core",
+    "license": "OSL-3.0",
+    "type": "magento-core",
+    "description": "Magento Core",
+    "homepage": "http://www.magentocommerce.com",
+    "require": {},
+    "extra": {
+        "map": [
+            [
+                "app",
+                "app"
+            ],
+            [
+                "downloader",
+                "downloader"
+            ],
+            [
+                "errors",
+                "errors"
+            ],
+            [
+                "includes",
+                "includes"
+            ],
+            [
+                "js",
+                "js"
+            ],
+            [
+                "lib",
+                "lib"
+            ],
+            [
+                "media",
+                "media"
+            ],
+            [
+                "pkginfo",
+                "pkginfo"
+            ],
+            [
+                "shell",
+                "shell"
+            ],
+            [
+                "skin",
+                "skin"
+            ],
+            [
+                "var",
+                "var"
+            ],
+            [
+                ".htaccess",
+                ".htaccess"
+            ],
+            [
+                "api.php",
+                "api.php"
+            ],
+            [
+                "cron.php",
+                "cron.php"
+            ],
+            [
+                "cron.sh",
+                "cron.sh"
+            ],
+            [
+                "favicon.ico",
+                "favicon.ico"
+            ],
+            [
+                "get.php",
+                "get.php"
+            ],
+            [
+                "index.php",
+                "index.php"
+            ],
+            [
+                "install.php",
+                "install.php"
+            ],
+            [
+                "mage",
+                "mage"
+            ]
+        ]
+    }
+}
