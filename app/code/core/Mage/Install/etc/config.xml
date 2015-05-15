@@ -48,13 +48,35 @@
             </install>
         </blocks>
     </global>
+    <default>
+        <web>
+            <routers>
+                <install>
+                    <area>frontend</area>
+                    <class>Mage_Install_Controller_Router_Install</class>
+                </install>
+            </routers>
+        </web>
+    </default>
+    <stores>
+        <default>
+            <web>
+                <routers>
+                    <install>
+                        <area>frontend</area>
+                        <class>Mage_Install_Controller_Router_Install</class>
+                    </install>
+                </routers>
+            </web>
+        </default>
+    </stores>
     <frontend>
         <secure_url>
             <install>/install/wizard/checkSecureHost</install>
         </secure_url>
         <routers>
             <install>
-                <use>standard</use>
+                <use>install</use>
                 <args>
                     <module>Mage_Install</module>
                     <frontName>install</frontName>
