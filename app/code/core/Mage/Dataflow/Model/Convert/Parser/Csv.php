@@ -266,6 +266,10 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
         $str = '';
 
         foreach ($fields as $value) {
+            if (substr($value, 0, 1) === '=') {
+                $value = ' ' . $value;
+            }
+
             if (strpos($value, $delimiter) !== false ||
                 empty($enclosure) ||
                 strpos($value, $enclosure) !== false ||
