@@ -30,7 +30,7 @@
     <li>
         <ul class="<?php echo $type ?>-msg">
         <?php foreach ($msgs as $msg): ?>
-            <li><?php echo $msg ?></li>
+            <li><?php echo $this->escapeHtml($msg) ?></li>
         <?php endforeach; ?>
         </ul>
     </li>
