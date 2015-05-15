@@ -74,6 +74,13 @@
 <pre><code>"openmage/magento-lts": "1.9.1.*"
 </code></pre>
 
+<p>Running <code>$ composer.phar update</code> will install the latest 1.9.1.* core sources under the htdocs directory.  This means that any time there are new patches available from Magento, and they've been imported into magento-lts, <strong>all you have to do to patch your sources is run <code>$ composer.phar update</code> again.</strong> If your build process already includes this step, then all you need to do is build and deploy, and you're patched!</p>
+
+<h2>
+<a id="why-yet-another-magento-fork" class="anchor" href="#why-yet-another-magento-fork" aria-hidden="true"><span class="octicon octicon-link"></span></a>Why (Yet Another) Magento Fork?</h2>
+
+<p>This is only <em>technically</em> a fork. We are still aiming to run in parallel with the official Magento sources.  Any time there's a new release version, we'll create a new branch.  Any time there's a patch, we'll apply it.  The only difference is we're accepting bug fixes from the community.  This allows us to work off of stable sources without having to wait for official patches from Magento.  This also means that if you're running an older version of Magento, you'll still get all patches that apply to your version.</p>
+
 <h2>
 <a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
 
