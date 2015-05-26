@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default
- * @copyright   Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -30,7 +30,7 @@
     <li>
         <ul class="<?php echo $type ?>-msg">
         <?php foreach ($msgs as $msg): ?>
-            <li><?php echo $msg ?></li>
+            <li><?php echo $this->escapeHtml($msg) ?></li>
         <?php endforeach; ?>
         </ul>
     </li>

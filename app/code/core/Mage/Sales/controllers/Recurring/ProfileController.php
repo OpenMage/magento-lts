@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -190,8 +190,9 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
      */
     protected function _initProfile()
     {
+        /** @var Mage_Sales_Model_Recurring_Profile $profile */
         $profile = Mage::getModel('sales/recurring_profile')->load($this->getRequest()->getParam('profile'));
-        if (!$profile->getId()) {
+        if (!$profile->getId() || $this->_session->getCustomerId() != $profile->getCustomerId()) {
             Mage::throwException($this->__('Specified profile does not exist.'));
         }
         Mage::register('current_recurring_profile', $profile);

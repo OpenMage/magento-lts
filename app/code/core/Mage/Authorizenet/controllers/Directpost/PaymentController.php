@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Authorizenet
- * @copyright  Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -68,6 +68,8 @@ class Mage_Authorizenet_Directpost_PaymentController extends Mage_Core_Controlle
     public function responseAction()
     {
         $data = $this->getRequest()->getPost();
+        unset($data['redirect_parent']);
+        unset($data['redirect']);
         /* @var $paymentMethod Mage_Authorizenet_Model_DirectPost */
         $paymentMethod = Mage::getModel('authorizenet/directpost');
 
@@ -113,6 +115,8 @@ class Mage_Authorizenet_Directpost_PaymentController extends Mage_Core_Controlle
     public function redirectAction()
     {
         $redirectParams = $this->getRequest()->getParams();
+        unset($redirectParams['redirect_parent']);
+        unset($redirectParams['redirect']);
         $params = array();
         if (!empty($redirectParams['success'])
             && isset($redirectParams['x_invoice_num'])

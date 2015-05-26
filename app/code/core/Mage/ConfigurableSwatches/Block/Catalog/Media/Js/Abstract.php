@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_ConfigurableSwatches
- * @copyright  Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 abstract class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract extends Mage_Core_Block_Template
@@ -33,6 +33,13 @@ abstract class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract extends
      * @return array
      */
     abstract public function getProducts();
+
+    /**
+     * A list of blocks that contain products. Used to get the current display mode (grid/list).
+     *
+     * @var array
+     */
+    protected $_productListBlocks = array('product_list', 'search_result_list');
 
     /**
      * json encode image fallback array
@@ -69,11 +76,13 @@ abstract class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract extends
         $products = $this->getProducts();
 
         if ($keepFrame === null) {
-            $listBlock = $this->getLayout()->getBlock('product_list');
-            if ($listBlock && $listBlock->getMode() == 'grid') {
-                $keepFrame = true;
-            } else {
-                $keepFrame = false;
+            $keepFrame = false;
+            foreach ($this->_productListBlocks as $blockName) {
+                $listBlock = $this->getLayout()->getBlock($blockName);
+                if ($listBlock && $listBlock->getMode() == 'grid') {
+                    $keepFrame = true;
+                    break;
+                }
             }
         }
 

@@ -89,4 +89,24 @@
             ]
         ]
     }
+=======
+  "name": "openmage/magento-lts",
+  "license": "OSL-3.0",
+  "type": "magento-source",
+  "require": {
+    "php": ">=5.2.13",
+    "magento-hackathon/magento-composer-installer": "*"
+  },
+  "authors": [
+    {
+      "name": "Lee Saferite",
+      "email": "lee.saferite@aoe.com",
+      "role": "Maintainer"
+    },
+    {
+      "name": "David Robinson",
+      "email": "david.robinson@aoe.com",
+      "role": "Maintainer"
+    }
+  ]
 }
