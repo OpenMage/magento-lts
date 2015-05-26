@@ -121,6 +121,7 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
     public function escapeHtmlWithLinks($data, $allowedTags = null)
     {
         if (is_string($data) && is_array($allowedTags) && in_array('a', $allowedTags)) {
+            $data = str_replace('%', '%%', $data);
             $links = array();
             $i = 1;
             $regexp = '@(<a[^>]*>(?:[^<]|<[^/]|</[^a]|</a[^>])*</a>)@';
