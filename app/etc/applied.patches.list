@@ -48,3 +48,9 @@ patching file lib/PEAR/PEAR/PEAR5.php
 patching file lib/Varien/Io/File.php
 
 
+2014-08-12 23:00:46 UTC | SUPEE-3762 | EE_1.14.0.1 | v1 | 3608d69d73a826b371f9893b49ddcb347c9b3f37 | Thu Jun 12 11:08:43 2014 -0700 | v1.14.0.1..HEAD
+patching file lib/Zend/Soap/Server.php
+patching file lib/Zend/Xml/Exception.php
+patching file lib/Zend/Xml/Security.php
+
+
