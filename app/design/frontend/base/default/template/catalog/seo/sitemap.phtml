@@ -33,6 +33,7 @@
 <?php if($_items->getSize()): ?>
     <ul class="sitemap">
         <?php foreach ($_items as $_item): ?>
+            <?php if(!$_item->getIsActive()) {continue;} ?>
             <li><a href="<?php echo $this->getItemUrl($_item) ?>"><?php echo $this->escapeHtml($_item->name) ?></a></li>
         <?php endforeach; ?>
     </ul>
