@@ -83,7 +83,8 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
     {
         return Mage::getUrl('tag/index/save', array(
             'product' => $this->getProductId(),
-            Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => Mage::helper('core/url')->getEncodedUrl()
+            Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => Mage::helper('core/url')->getEncodedUrl(),
+            '_secure' => $this->_isSecure()
         ));
     }
 

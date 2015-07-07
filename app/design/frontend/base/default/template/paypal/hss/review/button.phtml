@@ -24,4 +24,4 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<button type="submit" title="<?php echo $this->__('Continue') ?>" class="button btn-checkout" onclick="review.save();"><span><span><?php echo $this->__('Continue') ?></span></span></button>
+<button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Continue')) ?>" class="button btn-checkout" onclick="review.save();"><span><span><?php echo $this->__('Continue') ?></span></span></button>

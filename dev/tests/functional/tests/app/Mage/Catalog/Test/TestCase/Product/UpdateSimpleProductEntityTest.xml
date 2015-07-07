@@ -1,0 +1,169 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    Tests
+ * @package     Tests_Functional
+ * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/etc/variations.xsd">
+    <testCase name="Mage\Catalog\Test\TestCase\Product\UpdateSimpleProductEntityTest">
+        <variation name="UpdateSimpleProductEntityTestVariation1" method="test">
+            <data name="description" xsi:type="string">Default update</data>
+            <data name="product/data/category_ids/presets" xsi:type="string">-</data>
+            <data name="product/data/name" xsi:type="string">Test simple product %isolation%</data>
+            <data name="product/data/sku" xsi:type="string">test_simple_product_%isolation%</data>
+            <data name="product/data/price/value" xsi:type="string">245.00</data>
+            <data name="product/data/stock_data/qty" xsi:type="string">200</data>
+            <data name="product/data/stock_data/is_in_stock" xsi:type="string">-</data>
+            <data name="product/data/url_key" xsi:type="string">test-simple-product-%isolation%</data>
+            <data name="product/data/weight" xsi:type="string">120</data>
+            <data name="product/data/visibility" xsi:type="string">Catalog, Search</data>
+            <data name="product/data/status" xsi:type="string">-</data>
+            <data name="product/data/description" xsi:type="string">Description for update simple product %isolation%</data>
+            <data name="product/data/short_description" xsi:type="string">Short description for update simple product %isolation%</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductForm"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductInStock"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductVisibleInCategory"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductPage"/>
+        </variation>
+        <variation name="UpdateSimpleProductEntityTestVariation2" method="test">
+            <data name="description" xsi:type="string">Update visibility to Not Visible Individually</data>
+            <data name="product/data/category_ids/presets" xsi:type="string">-</data>
+            <data name="product/data/name" xsi:type="string">Test simple product %isolation%</data>
+            <data name="product/data/sku" xsi:type="string">test_simple_product_%isolation%</data>
+            <data name="product/data/price/value" xsi:type="string">325.00</data>
+            <data name="product/data/stock_data/qty" xsi:type="string">123</data>
+            <data name="product/data/stock_data/is_in_stock" xsi:type="string">-</data>
+            <data name="product/data/url_key" xsi:type="string">test-simple-product-%isolation%</data>
+            <data name="product/data/weight" xsi:type="string">129</data>
+            <data name="product/data/visibility" xsi:type="string">Not Visible Individually</data>
+            <data name="product/data/status" xsi:type="string">-</data>
+            <data name="product/data/description" xsi:type="string">Description for update simple product %isolation%</data>
+            <data name="product/data/short_description" xsi:type="string">Short description for update simple product %isolation%</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductForm"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductIsNotDisplayingOnFrontend"/>
+        </variation>
+        <variation name="UpdateSimpleProductEntityTestVariation3" method="test">
+            <data name="description" xsi:type="string">Update to only catalog searchable</data>
+            <data name="product/data/category_ids/presets" xsi:type="string">-</data>
+            <data name="product/data/name" xsi:type="string">Test simple product %isolation%</data>
+            <data name="product/data/sku" xsi:type="string">test_simple_product_%isolation%</data>
+            <data name="product/data/price/value" xsi:type="string">325.01</data>
+            <data name="product/data/stock_data/qty" xsi:type="string">125</data>
+            <data name="product/data/stock_data/is_in_stock" xsi:type="string">-</data>
+            <data name="product/data/url_key" xsi:type="string">test-simple-product-%isolation%</data>
+            <data name="product/data/weight" xsi:type="string">25</data>
+            <data name="product/data/visibility" xsi:type="string">Catalog</data>
+            <data name="product/data/status" xsi:type="string">-</data>
+            <data name="product/data/description" xsi:type="string">Description for update simple product %isolation%</data>
+            <data name="product/data/short_description" xsi:type="string">Short description for update simple product %isolation%</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductInStock"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductForm"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductSearchable"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductVisibleInCategory"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductPage"/>
+        </variation>
+        <variation name="UpdateSimpleProductEntityTestVariation4" method="test">
+            <data name="description" xsi:type="string">Update to only search searchable</data>
+            <data name="product/data/category_ids/presets" xsi:type="string">-</data>
+            <data name="product/data/name" xsi:type="string">Test simple product %isolation%</data>
+            <data name="product/data/sku" xsi:type="string">test_simple_product_%isolation%</data>
+            <data name="product/data/price/value" xsi:type="string">325.02</data>
+            <data name="product/data/stock_data/qty" xsi:type="string">89</data>
+            <data name="product/data/stock_data/is_in_stock" xsi:type="string">-</data>
+            <data name="product/data/url_key" xsi:type="string">test-simple-product-%isolation%</data>
+            <data name="product/data/weight" xsi:type="string">89</data>
+            <data name="product/data/visibility" xsi:type="string">Search</data>
+            <data name="product/data/status" xsi:type="string">-</data>
+            <data name="product/data/description" xsi:type="string">Description for update simple product %isolation%</data>
+            <data name="product/data/short_description" xsi:type="string">Short description for update simple product %isolation%</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductInStock"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductForm"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductVisibleInCategory"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductPage"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductSearchable"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductPage"/>
+        </variation>
+        <variation name="UpdateSimpleProductEntityTestVariation5" method="test">
+            <data name="description" xsi:type="string">Update to Out of Stock</data>
+            <data name="product/data/category_ids/presets" xsi:type="string">-</data>
+            <data name="product/data/name" xsi:type="string">Test simple product %isolation%</data>
+            <data name="product/data/sku" xsi:type="string">test_simple_product_%isolation%</data>
+            <data name="product/data/price/value" xsi:type="string">325.03</data>
+            <data name="product/data/stock_data/qty" xsi:type="string">25</data>
+            <data name="product/data/stock_data/is_in_stock" xsi:type="string">Out of Stock</data>
+            <data name="product/data/url_key" xsi:type="string">test-simple-product-%isolation%</data>
+            <data name="product/data/weight" xsi:type="string">125</data>
+            <data name="product/data/visibility" xsi:type="string">-</data>
+            <data name="product/data/status" xsi:type="string">-</data>
+            <data name="product/data/description" xsi:type="string">Description for update simple product %isolation%</data>
+            <data name="product/data/short_description" xsi:type="string">Short description for update simple product %isolation%</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductForm"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductOutOfStock"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductPage"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductVisibleInCategory"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductSearchable"/>
+        </variation>
+        <variation name="UpdateSimpleProductEntityTestVariation6" method="test">
+            <data name="description" xsi:type="string">Update to status Disabled</data>
+            <data name="product/data/category_ids/presets" xsi:type="string">-</data>
+            <data name="product/data/name" xsi:type="string">Test simple product %isolation%</data>
+            <data name="product/data/sku" xsi:type="string">test_simple_product_%isolation%</data>
+            <data name="product/data/price/value" xsi:type="string">74.00</data>
+            <data name="product/data/stock_data/qty" xsi:type="string">87</data>
+            <data name="product/data/stock_data/is_in_stock" xsi:type="string">-</data>
+            <data name="product/data/url_key" xsi:type="string">test-simple-product-%isolation%</data>
+            <data name="product/data/weight" xsi:type="string">333</data>
+            <data name="product/data/visibility" xsi:type="string">-</data>
+            <data name="product/data/status" xsi:type="string">Disabled</data>
+            <data name="product/data/description" xsi:type="string">Description for update simple product %isolation%</data>
+            <data name="product/data/short_description" xsi:type="string">Short description for update simple product %isolation%</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductForm"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductIsNotDisplayingOnFrontend"/>
+        </variation>
+        <variation name="UpdateSimpleProductEntityTestVariation7" method="test">
+            <data name="description" xsi:type="string">Update category</data>
+            <data name="product/data/category_ids/presets" xsi:type="string">default_subcategory</data>
+            <data name="product/data/name" xsi:type="string">Test simple product %isolation%</data>
+            <data name="product/data/sku" xsi:type="string">test_simple_product_%isolation%</data>
+            <data name="product/data/price/value" xsi:type="string">74.00</data>
+            <data name="product/data/stock_data/qty" xsi:type="string">87</data>
+            <data name="product/data/stock_data/is_in_stock" xsi:type="string">-</data>
+            <data name="product/data/url_key" xsi:type="string">test-simple-product-%isolation%</data>
+            <data name="product/data/weight" xsi:type="string">333</data>
+            <data name="product/data/visibility" xsi:type="string">-</data>
+            <data name="product/data/status" xsi:type="string">-</data>
+            <data name="product/data/description" xsi:type="string">Description for update simple product %isolation%</data>
+            <data name="product/data/short_description" xsi:type="string">Short description for update simple product %isolation%</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductForm"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductVisibleInCategory"/>
+        </variation>
+    </testCase>
+</config>

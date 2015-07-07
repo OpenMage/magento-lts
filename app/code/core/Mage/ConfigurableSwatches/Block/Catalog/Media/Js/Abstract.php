@@ -28,6 +28,13 @@ abstract class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract extends
     protected $_template = 'configurableswatches/catalog/media/js.phtml';
 
     /**
+     * A list of blocks that contain products. Used to get the current display mode (grid/list).
+     *
+     * @var array
+     */
+    protected $_productListBlocks = array('product_list', 'search_result_list');
+
+    /**
      * Get target product IDs
      *
      * @return array
@@ -58,6 +65,7 @@ abstract class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract extends
      * Get image fallbacks by product as
      * array(product ID => array( product => product, image_fallback => image fallback ) )
      *
+     * @param null $keepFrame
      * @return array
      */
     public function getProductImageFallbacks($keepFrame = null) {
@@ -69,12 +77,7 @@ abstract class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract extends
         $products = $this->getProducts();
 
         if ($keepFrame === null) {
-            $listBlock = $this->getLayout()->getBlock('product_list');
-            if ($listBlock && $listBlock->getMode() == 'grid') {
-                $keepFrame = true;
-            } else {
-                $keepFrame = false;
-            }
+            $keepFrame = $this->isKeepFrame();
         }
 
         /* @var $product Mage_Catalog_Model_Product */
@@ -88,6 +91,25 @@ abstract class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract extends
         }
 
         return $fallbacks;
+    }
+
+    /**
+     * Is need keep frame
+     *
+     * @return bool
+     */
+    public function isKeepFrame()
+    {
+        $keepFrame = false;
+        foreach ($this->_productListBlocks as $blockName) {
+            $listBlock = $this->getLayout()->getBlock($blockName);
+
+            if ($listBlock && $listBlock->getMode() == 'grid') {
+                $keepFrame = true;
+                break;
+            }
+        }
+        return $keepFrame;
     }
 
     /**

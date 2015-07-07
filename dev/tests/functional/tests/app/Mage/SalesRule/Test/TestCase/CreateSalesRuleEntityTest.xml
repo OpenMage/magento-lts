@@ -1,0 +1,304 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    Tests
+ * @package     Tests_Functional
+ * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
+    <testCase name="Mage\SalesRule\Test\TestCase\CreateSalesRuleEntityTest">
+        <variation name="CreateSalesRuleEntityTestVariation1" firstConstraint="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage" method="test">
+            <data name="description" xsi:type="string">Sales rule with discount 50%.</data>
+            <data name="isLoggedIn" xsi:type="string">0</data>
+            <data name="productQuantity/productForSalesRule1" xsi:type="string">1</data>
+            <data name="productQuantity/productForSalesRule2" xsi:type="string">0</data>
+            <data name="salesRule/data/name" xsi:type="string">Shopping Cart Price Rule1 %isolation%</data>
+            <data name="salesRule/data/description" xsi:type="string">Shopping Cart Price Rule Description %isolation%</data>
+            <data name="salesRule/data/is_active" xsi:type="string">Active</data>
+            <data name="salesRule/data/customer_group_ids/0" xsi:type="string">NOT LOGGED IN</data>
+            <data name="salesRule/data/coupon_type" xsi:type="string">No Coupon</data>
+            <data name="salesRule/data/simple_action" xsi:type="string">Percent of product price discount</data>
+            <data name="salesRule/data/discount_amount" xsi:type="string">50</data>
+            <data name="salesRule/data/apply_to_shipping" xsi:type="string">No</data>
+            <data name="salesRule/data/simple_free_shipping" xsi:type="string">No</data>
+            <data name="salesRule/data/store_labels/0" xsi:type="string">Sales Cart Rule labels</data>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage" next="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm"/>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm" next="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleConditionIsApplied" prev="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage"/>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleConditionIsApplied" prev="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm"/>
+        </variation>
+        <variation name="CreateSalesRuleEntityTestVariation2" firstConstraint="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage" method="test">
+            <data name="description" xsi:type="string">Sales rule with coupon code and fixed amount discount.</data>
+            <data name="isLoggedIn" xsi:type="string">0</data>
+            <data name="productQuantity/productForSalesRule1" xsi:type="string">2</data>
+            <data name="productQuantity/productForSalesRule2" xsi:type="string">0</data>
+            <data name="salesRule/data/name" xsi:type="string">Shopping Cart Price Rule2 %isolation%</data>
+            <data name="salesRule/data/description" xsi:type="string">Shopping Cart Price Rule Description %isolation%</data>
+            <data name="salesRule/data/is_active" xsi:type="string">Active</data>
+            <data name="salesRule/data/customer_group_ids/0" xsi:type="string">NOT LOGGED IN</data>
+            <data name="salesRule/data/coupon_type" xsi:type="string">Specific Coupon</data>
+            <data name="salesRule/data/coupon_code" xsi:type="string">1A2B3C-456-zxc-%isolation%</data>
+            <data name="salesRule/data/simple_action" xsi:type="string">Fixed amount discount</data>
+            <data name="salesRule/data/discount_amount" xsi:type="string">35</data>
+            <data name="salesRule/data/apply_to_shipping" xsi:type="string">No</data>
+            <data name="salesRule/data/simple_free_shipping" xsi:type="string">No</data>
+            <data name="salesRule/data/store_labels/0" xsi:type="string">Coupon code+fixed amount discount</data>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage" next="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm"/>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm" next="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleConditionIsApplied" prev="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage"/>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleConditionIsApplied" prev="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm"/>
+        </variation>
+        <variation name="CreateSalesRuleEntityTestVariation3" firstConstraint="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage" method="test">
+            <data name="description" xsi:type="string">Sales rule with coupon code and fixed amount discount for whole cart.</data>
+            <data name="isLoggedIn" xsi:type="string">0</data>
+            <data name="productQuantity/productForSalesRule1" xsi:type="string">3</data>
+            <data name="productQuantity/productForSalesRule2" xsi:type="string">0</data>
+            <data name="salesRule/data/name" xsi:type="string">Shopping Cart Price Rule3 %isolation%</data>
+            <data name="salesRule/data/description" xsi:type="string">Shopping Cart Price Rule Description %isolation%</data>
+            <data name="salesRule/data/is_active" xsi:type="string">Active</data>
+            <data name="salesRule/data/customer_group_ids/0" xsi:type="string">NOT LOGGED IN</data>
+            <data name="salesRule/data/coupon_type" xsi:type="string">Specific Coupon</data>
+            <data name="salesRule/data/coupon_code" xsi:type="string">Lorem ipsum dolor sit amet, consectetur adipiscing elit - %isolation%</data>
+            <data name="salesRule/data/simple_action" xsi:type="string">Fixed amount discount for whole cart</data>
+            <data name="salesRule/data/discount_amount" xsi:type="string">60</data>
+            <data name="salesRule/data/apply_to_shipping" xsi:type="string">No</data>
+            <data name="salesRule/data/simple_free_shipping" xsi:type="string">No</data>
+            <data name="salesRule/data/store_labels/0" xsi:type="string">Coupon code+Fixed amount discount for whole cart</data>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage" next="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm"/>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm" next="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleConditionIsApplied" prev="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage"/>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleConditionIsApplied" prev="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm"/>
+        </variation>
+        <variation name="CreateSalesRuleEntityTestVariation4" firstConstraint="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage" method="test">
+            <data name="description" xsi:type="string">Sales rule with buy X get Y free.</data>
+            <data name="isLoggedIn" xsi:type="string">0</data>
+            <data name="productQuantity/productForSalesRule1" xsi:type="string">4</data>
+            <data name="productQuantity/productForSalesRule2" xsi:type="string">0</data>
+            <data name="salesRule/data/name" xsi:type="string">Shopping Cart Price Rule4 %isolation%</data>
+            <data name="salesRule/data/description" xsi:type="string">Shopping Cart Price Rule Description %isolation%</data>
+            <data name="salesRule/data/is_active" xsi:type="string">Active</data>
+            <data name="salesRule/data/customer_group_ids/0" xsi:type="string">NOT LOGGED IN</data>
+            <data name="salesRule/data/coupon_type" xsi:type="string">Specific Coupon</data>
+            <data name="salesRule/data/coupon_code" xsi:type="string">1A2B3C-456-zxc-%isolation%</data>
+            <data name="salesRule/data/simple_action" xsi:type="string">Buy X get Y free (discount amount is Y)</data>
+            <data name="salesRule/data/discount_amount" xsi:type="string">1</data>
+            <data name="salesRule/data/discount_step" xsi:type="string">3</data>
+            <data name="salesRule/data/apply_to_shipping" xsi:type="string">No</data>
+            <data name="salesRule/data/simple_free_shipping" xsi:type="string">No</data>
+            <data name="salesRule/data/store_labels/0" xsi:type="string">Buy X get Y free</data>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage" next="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm"/>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm" next="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleConditionIsApplied" prev="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage"/>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleConditionIsApplied" prev="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm"/>
+        </variation>
+        <variation name="CreateSalesRuleEntityTestVariation5" firstConstraint="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage" method="test">
+            <data name="description" xsi:type="string">Sales rule with discount quantity and logged user.</data>
+            <data name="isLoggedIn" xsi:type="string">1</data>
+            <data name="productQuantity/productForSalesRule1" xsi:type="string">3</data>
+            <data name="productQuantity/productForSalesRule2" xsi:type="string">0</data>
+            <data name="salesRule/data/name" xsi:type="string">Shopping Cart Price Rule5 %isolation%</data>
+            <data name="salesRule/data/description" xsi:type="string">Shopping Cart Price Rule Description %isolation%</data>
+            <data name="salesRule/data/is_active" xsi:type="string">Active</data>
+            <data name="salesRule/data/customer_group_ids/0" xsi:type="string">General</data>
+            <data name="salesRule/data/coupon_type" xsi:type="string">No Coupon</data>
+            <data name="salesRule/data/simple_action" xsi:type="string">Percent of product price discount</data>
+            <data name="salesRule/data/discount_amount" xsi:type="string">50</data>
+            <data name="salesRule/data/discount_qty" xsi:type="string">2</data>
+            <data name="salesRule/data/apply_to_shipping" xsi:type="string">No</data>
+            <data name="salesRule/data/simple_free_shipping" xsi:type="string">No</data>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage" next="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm"/>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm" next="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleConditionIsApplied" prev="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage"/>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleConditionIsApplied" prev="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm"/>
+        </variation>
+        <variation name="CreateSalesRuleEntityTestVariation6" firstConstraint="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage" method="test">
+            <data name="description" xsi:type="string">Sales rule with applying discount to shipping amount.</data>
+            <data name="address/data/country_id" xsi:type="string">United States</data>
+            <data name="address/data/region_id" xsi:type="string">California</data>
+            <data name="address/data/postcode" xsi:type="string">95814</data>
+            <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
+            <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
+            <data name="isLoggedIn" xsi:type="string">0</data>
+            <data name="productQuantity/productForSalesRule1" xsi:type="string">1</data>
+            <data name="productQuantity/productForSalesRule2" xsi:type="string">1</data>
+            <data name="salesRule/data/name" xsi:type="string">Shopping Cart Price Rule6 %isolation%</data>
+            <data name="salesRule/data/description" xsi:type="string">Shopping Cart Price Rule Description %isolation%</data>
+            <data name="salesRule/data/is_active" xsi:type="string">Active</data>
+            <data name="salesRule/data/customer_group_ids/0" xsi:type="string">NOT LOGGED IN</data>
+            <data name="salesRule/data/coupon_type" xsi:type="string">No Coupon</data>
+            <data name="salesRule/data/simple_action" xsi:type="string">Percent of product price discount</data>
+            <data name="salesRule/data/discount_amount" xsi:type="string">50</data>
+            <data name="salesRule/data/apply_to_shipping" xsi:type="string">Yes</data>
+            <data name="salesRule/data/simple_free_shipping" xsi:type="string">No</data>
+            <data name="salesRule/data/store_labels/0" xsi:type="string">Apply discount to Shipping Amount</data>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage" next="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm"/>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm" next="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleIsAppliedToShipping" prev="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage"/>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleIsAppliedToShipping" prev="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm"/>
+        </variation>
+        <variation name="CreateSalesRuleEntityTestVariation7" firstConstraint="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage" method="test">
+            <data name="description" xsi:type="string">Sales rule with free shipping.</data>
+            <data name="address/data/country_id" xsi:type="string">United States</data>
+            <data name="address/data/region_id" xsi:type="string">California</data>
+            <data name="address/data/postcode" xsi:type="string">95814</data>
+            <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
+            <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
+            <data name="isLoggedIn" xsi:type="string">0</data>
+            <data name="productQuantity/productForSalesRule1" xsi:type="string">1</data>
+            <data name="productQuantity/productForSalesRule2" xsi:type="string">1</data>
+            <data name="salesRule/data/name" xsi:type="string">Shopping Cart Price Rule7 %isolation%</data>
+            <data name="salesRule/data/description" xsi:type="string">Shopping Cart Price Rule Description %isolation%</data>
+            <data name="salesRule/data/is_active" xsi:type="string">Active</data>
+            <data name="salesRule/data/customer_group_ids/0" xsi:type="string">NOT LOGGED IN</data>
+            <data name="salesRule/data/coupon_type" xsi:type="string">No Coupon</data>
+            <data name="salesRule/data/simple_action" xsi:type="string">Percent of product price discount</data>
+            <data name="salesRule/data/discount_amount" xsi:type="string">50</data>
+            <data name="salesRule/data/apply_to_shipping" xsi:type="string">No</data>
+            <data name="salesRule/data/simple_free_shipping" xsi:type="string">For matching items only</data>
+            <data name="salesRule/data/store_labels/0" xsi:type="string">Free Shipping in conditions</data>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage" next="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm"/>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm" next="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleConditionIsApplied" prev="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage"/>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleConditionIsApplied" next="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleFreeShippingIsApplied" prev="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm"/>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleFreeShippingIsApplied" prev="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleConditionIsApplied"/>
+        </variation>
+        <variation name="CreateSalesRuleEntityTestVariation8" firstConstraint="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage" method="test">
+            <data name="description" xsi:type="string">Sales rule with condition: [Subtotal|is|150].</data>
+            <data name="isLoggedIn" xsi:type="string">0</data>
+            <data name="productQuantity/productForSalesRule1" xsi:type="string">1</data>
+            <data name="productQuantity/productForSalesRule2" xsi:type="string">1</data>
+            <data name="salesRule/data/name" xsi:type="string">Shopping Cart Price Rule8 %isolation%</data>
+            <data name="salesRule/data/description" xsi:type="string">Shopping Cart Price Rule Description %isolation%</data>
+            <data name="salesRule/data/is_active" xsi:type="string">Active</data>
+            <data name="salesRule/data/customer_group_ids/0" xsi:type="string">NOT LOGGED IN</data>
+            <data name="salesRule/data/coupon_type" xsi:type="string">No Coupon</data>
+            <data name="salesRule/data/conditions_serialized" xsi:type="string">[Subtotal|is|150]</data>
+            <data name="salesRule/data/simple_action" xsi:type="string">Percent of product price discount</data>
+            <data name="salesRule/data/discount_amount" xsi:type="string">50</data>
+            <data name="salesRule/data/apply_to_shipping" xsi:type="string">No</data>
+            <data name="salesRule/data/simple_free_shipping" xsi:type="string">No</data>
+            <data name="salesRule/data/store_labels/0" xsi:type="string">Sales Cart Rule labels</data>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage" next="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm"/>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm" next="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleConditionIsApplied" prev="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage"/>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleConditionIsApplied" prev="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm"/>
+        </variation>
+        <variation name="CreateSalesRuleEntityTestVariation9" firstConstraint="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage" method="test">
+            <data name="description" xsi:type="string">Sales rule with wrong condition.</data>
+            <data name="isLoggedIn" xsi:type="string">0</data>
+            <data name="productQuantity/productForSalesRule1" xsi:type="string">2</data>
+            <data name="productQuantity/productForSalesRule2" xsi:type="string">0</data>
+            <data name="salesRule/data/name" xsi:type="string">Shopping Cart Price Rule9 %isolation%</data>
+            <data name="salesRule/data/description" xsi:type="string">Shopping Cart Price Rule Description %isolation%</data>
+            <data name="salesRule/data/is_active" xsi:type="string">Active</data>
+            <data name="salesRule/data/customer_group_ids/0" xsi:type="string">NOT LOGGED IN</data>
+            <data name="salesRule/data/coupon_type" xsi:type="string">No Coupon</data>
+            <data name="salesRule/data/conditions_serialized" xsi:type="string">[Subtotal|is|150]</data>
+            <data name="salesRule/data/simple_action" xsi:type="string">Percent of product price discount</data>
+            <data name="salesRule/data/discount_amount" xsi:type="string">50</data>
+            <data name="salesRule/data/apply_to_shipping" xsi:type="string">No</data>
+            <data name="salesRule/data/simple_free_shipping" xsi:type="string">No</data>
+            <data name="salesRule/data/store_labels/0" xsi:type="string">Subtotal Action-Condition test</data>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage" next="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm"/>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm" next="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleConditionIsNotApplied" prev="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage"/>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleConditionIsNotApplied" prev="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm"/>
+        </variation>
+        <variation name="CreateSalesRuleEntityTestVariation10" firstConstraint="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage" method="test">
+            <data name="description" xsi:type="string">Sales rule with condition: [Total Items Quantity|is|2].</data>
+            <data name="isLoggedIn" xsi:type="string">0</data>
+            <data name="productQuantity/productForSalesRule1" xsi:type="string">2</data>
+            <data name="productQuantity/productForSalesRule2" xsi:type="string">0</data>
+            <data name="salesRule/data/name" xsi:type="string">Shopping Cart Price Rule10 %isolation%</data>
+            <data name="salesRule/data/description" xsi:type="string">Shopping Cart Price Rule Description %isolation%</data>
+            <data name="salesRule/data/is_active" xsi:type="string">Active</data>
+            <data name="salesRule/data/customer_group_ids/0" xsi:type="string">NOT LOGGED IN</data>
+            <data name="salesRule/data/coupon_type" xsi:type="string">No Coupon</data>
+            <data name="salesRule/data/conditions_serialized" xsi:type="string">[Total Items Quantity|is|2]</data>
+            <data name="salesRule/data/simple_action" xsi:type="string">Percent of product price discount</data>
+            <data name="salesRule/data/discount_amount" xsi:type="string">50</data>
+            <data name="salesRule/data/apply_to_shipping" xsi:type="string">No</data>
+            <data name="salesRule/data/simple_free_shipping" xsi:type="string">No</data>
+            <data name="salesRule/data/store_labels/0" xsi:type="string">Total Items Quantity is 2</data>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage" next="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm"/>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm" next="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleConditionIsApplied" prev="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage"/>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleConditionIsApplied" prev="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm"/>
+        </variation>
+        <variation name="CreateSalesRuleEntityTestVariation11" firstConstraint="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage" method="test">
+            <data name="description" xsi:type="string">Sales rule with condition: [Total Weight|is|150].</data>
+            <data name="isLoggedIn" xsi:type="string">0</data>
+            <data name="productQuantity/productForSalesRule1" xsi:type="string">1</data>
+            <data name="productQuantity/productForSalesRule2" xsi:type="string">1</data>
+            <data name="salesRule/data/name" xsi:type="string">Shopping Cart Price Rule11 %isolation%</data>
+            <data name="salesRule/data/description" xsi:type="string">Shopping Cart Price Rule Description %isolation%</data>
+            <data name="salesRule/data/is_active" xsi:type="string">Active</data>
+            <data name="salesRule/data/customer_group_ids/0" xsi:type="string">NOT LOGGED IN</data>
+            <data name="salesRule/data/coupon_type" xsi:type="string">No Coupon</data>
+            <data name="salesRule/data/conditions_serialized" xsi:type="string">[Total Weight|is|150]</data>
+            <data name="salesRule/data/simple_action" xsi:type="string">Percent of product price discount</data>
+            <data name="salesRule/data/discount_amount" xsi:type="string">50</data>
+            <data name="salesRule/data/apply_to_shipping" xsi:type="string">No</data>
+            <data name="salesRule/data/simple_free_shipping" xsi:type="string">No</data>
+            <data name="salesRule/data/store_labels/0" xsi:type="string">Total Weight is 150</data>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage" next="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm"/>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm" next="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleConditionIsApplied" prev="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage"/>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleConditionIsApplied" prev="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm"/>
+        </variation>
+        <variation name="CreateSalesRuleEntityTestVariation12" firstConstraint="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage" method="test">
+            <data name="description" xsi:type="string">Sales rule with conditions combination.</data>
+            <data name="address/data/country_id" xsi:type="string">United States</data>
+            <data name="address/data/region_id" xsi:type="string">California</data>
+            <data name="address/data/postcode" xsi:type="string">95814</data>
+            <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
+            <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
+            <data name="isLoggedIn" xsi:type="string">0</data>
+            <data name="productQuantity/productForSalesRule1" xsi:type="string">1</data>
+            <data name="productQuantity/productForSalesRule2" xsi:type="string">1</data>
+            <data name="salesRule/data/name" xsi:type="string">Shopping Cart Price Rule12 %isolation%</data>
+            <data name="salesRule/data/description" xsi:type="string">Shopping Cart Price Rule Description %isolation%</data>
+            <data name="salesRule/data/is_active" xsi:type="string">Active</data>
+            <data name="salesRule/data/customer_group_ids/0" xsi:type="string">NOT LOGGED IN</data>
+            <data name="salesRule/data/coupon_type" xsi:type="string">No Coupon</data>
+            <data name="salesRule/data/conditions_serialized" xsi:type="string">{Conditions combination:[[Shipping Postcode|is|95814][Shipping State/Province|is|California][Shipping Country|is|United States]]}</data>
+            <data name="salesRule/data/simple_action" xsi:type="string">Percent of product price discount</data>
+            <data name="salesRule/data/discount_amount" xsi:type="string">50</data>
+            <data name="salesRule/data/apply_to_shipping" xsi:type="string">No</data>
+            <data name="salesRule/data/simple_free_shipping" xsi:type="string">No</data>
+            <data name="salesRule/data/store_labels/0" xsi:type="string">Rule applied conditions combination</data>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage" next="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm"/>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm" next="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleConditionIsApplied" prev="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage"/>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleConditionIsApplied" prev="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm"/>
+        </variation>
+        <variation name="CreateSalesRuleEntityTestVariation13" firstConstraint="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage" method="test">
+            <data name="description" xsi:type="string">Sales rule with condition: {Product attribute combination:[Attribute Set|is|Default]}.</data>
+            <data name="isLoggedIn" xsi:type="string">0</data>
+            <data name="productQuantity/productForSalesRule1" xsi:type="string">1</data>
+            <data name="productQuantity/productForSalesRule2" xsi:type="string">0</data>
+            <data name="salesRule/data/name" xsi:type="string">Shopping Cart Price Rule13 %isolation%</data>
+            <data name="salesRule/data/description" xsi:type="string">Shopping Cart Price Rule Description %isolation%</data>
+            <data name="salesRule/data/is_active" xsi:type="string">Active</data>
+            <data name="salesRule/data/customer_group_ids/0" xsi:type="string">NOT LOGGED IN</data>
+            <data name="salesRule/data/coupon_type" xsi:type="string">No Coupon</data>
+            <data name="salesRule/data/conditions_serialized" xsi:type="string">{Product attribute combination:[Attribute Set|is|Default]}</data>
+            <data name="salesRule/data/simple_action" xsi:type="string">Percent of product price discount</data>
+            <data name="salesRule/data/discount_amount" xsi:type="string">50</data>
+            <data name="salesRule/data/apply_to_shipping" xsi:type="string">No</data>
+            <data name="salesRule/data/simple_free_shipping" xsi:type="string">No</data>
+            <data name="salesRule/data/store_labels/0" xsi:type="string">Product attribute discount</data>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage" next="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm"/>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm" next="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleConditionIsApplied" prev="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleSuccessSaveMessage"/>
+            <constraint name="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleConditionIsApplied" prev="Mage\SalesRule\Test\Constraint\AssertCartPriceRuleForm"/>
+        </variation>
+    </testCase>
+</config>

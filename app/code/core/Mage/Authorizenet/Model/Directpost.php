@@ -51,6 +51,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     protected $_canUseForMultishipping  = false;
     protected $_canSaveCc               = false;
     protected $_isInitializeNeeded      = true;
+    protected $_canFetchTransactionInfo = false;
 
     /**
      * Do not validate payment form using server methods

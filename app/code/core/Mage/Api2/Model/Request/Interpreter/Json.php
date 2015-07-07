@@ -46,7 +46,12 @@ class Mage_Api2_Model_Request_Interpreter_Json implements Mage_Api2_Model_Reques
             throw new Exception(sprintf('Invalid data type "%s". String expected.', gettype($body)));
         }
 
-        $decoded = Zend_Json::decode($body);
+        try {
+            $decoded = Zend_Json::decode($body);
+        } catch (Zend_Json_Exception $e)         {
+            throw new Mage_Api2_Exception('Decoding error.', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
+        }
+
 
         if ($body != 'null' && $decoded === null) {
             throw new Mage_Api2_Exception('Decoding error.', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);

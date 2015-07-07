@@ -27,6 +27,7 @@
 // Change current directory to the directory of current script
 chdir(dirname(__FILE__));
 
+require 'app/bootstrap.php';
 require 'app/Mage.php';
 
 if (!Mage::isInstalled()) {

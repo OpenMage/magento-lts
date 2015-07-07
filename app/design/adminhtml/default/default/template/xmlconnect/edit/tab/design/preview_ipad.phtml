@@ -93,7 +93,7 @@ function changeOrientation() {
 }
 function updatePreview(someAction) {
     var loadingClassName = previewIframe.className + '-loading';
-    previewIframe.update('<?php echo $this->__('Loading Preview...'); ?>').addClassName(loadingClassName);
+    previewIframe.update('<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Loading Preview...')); ?>').addClassName(loadingClassName);
     new Ajax.Request(mmPreviewPage + (someAction ? someAction : '') + mmPreviewPagePrefix, {
         parameters: $('edit_form').serialize(true),
         onSuccess : function(transport) {

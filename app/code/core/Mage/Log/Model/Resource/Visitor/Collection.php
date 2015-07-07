@@ -93,7 +93,7 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
 
     /**
      * Online filter used flag
-     * 
+     *
      * @var bool
      */
     protected $_isOnlineFilterUsed = false;
@@ -104,11 +104,12 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
      * @var array
      */
     protected $_fieldMap = array(
-        'customer_firstname' => 'customer_firstname_table.value',
-        'customer_lastname'  => 'customer_lastname_table.value',
-        'customer_email'     => 'customer_email_table.email',
-        'customer_id'        => 'customer_table.customer_id',
-        'url'                => 'url_info_table.url'
+        'customer_firstname'  => 'customer_firstname_table.value',
+        'customer_middlename' => 'customer_middlename_table.value',
+        'customer_lastname'   => 'customer_lastname_table.value',
+        'customer_email'      => 'customer_email_table.email',
+        'customer_id'         => 'customer_table.customer_id',
+        'url'                 => 'url_info_table.url'
     );
 
     /**
@@ -138,7 +139,7 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
         $this->getSelect()
             ->where('customer_table.customer_id > 0')
             ->group('customer_table.customer_id');
-        
+
         return $this;
     }
 

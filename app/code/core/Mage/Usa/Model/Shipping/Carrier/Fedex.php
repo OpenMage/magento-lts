@@ -430,21 +430,47 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
     protected function _getQuotes()
     {
         $this->_result = Mage::getModel('shipping/rate_result');
-        // make separate request for Smart Post method
         $allowedMethods = explode(',', $this->getConfigData('allowed_methods'));
         if (in_array(self::RATE_REQUEST_SMARTPOST, $allowedMethods)) {
             $response = $this->_doRatesRequest(self::RATE_REQUEST_SMARTPOST);
             $preparedSmartpost = $this->_prepareRateResponse($response);
-            if (!$preparedSmartpost->getError()) {
-                $this->_result->append($preparedSmartpost);
-            }
+            $this->_result->append($preparedSmartpost);
         }
-        // make general request for all methods
         $response = $this->_doRatesRequest(self::RATE_REQUEST_GENERAL);
         $preparedGeneral = $this->_prepareRateResponse($response);
-        if (!$preparedGeneral->getError() || ($this->_result->getError() && $preparedGeneral->getError())) {
-            $this->_result->append($preparedGeneral);
+        if ($this->_result->getError() && $preparedGeneral->getError()) {
+            return $this->_result->getError();
         }
+        $this->_result->append($preparedGeneral);
+        $this->_removeErrorsIfRateExist();
+
+        return $this->_result;
+    }
+
+    /**
+     * Remove Errors in Case When Rate Exist
+     *
+     * @return Mage_Shipping_Model_Rate_Result
+     */
+    protected function _removeErrorsIfRateExist()
+    {
+        $rateResultExist = false;
+        $rates           = array();
+        foreach ($this->_result->getAllRates() as $rate) {
+            if (!($rate instanceof Mage_Shipping_Model_Rate_Result_Error)) {
+                $rateResultExist = true;
+                $rates[] = $rate;
+            }
+        }
+
+        if ($rateResultExist) {
+            $this->_result->reset();
+            $this->_result->setError(false);
+            foreach ($rates as $rate) {
+                $this->_result->append($rate);
+            }
+        }
+
         return $this->_result;
     }
 

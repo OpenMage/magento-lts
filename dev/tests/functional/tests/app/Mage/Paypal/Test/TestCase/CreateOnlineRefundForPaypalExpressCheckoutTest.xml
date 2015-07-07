@@ -1,0 +1,231 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    Tests
+ * @package     Tests_Functional
+ * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
+    <testCase name="Mage\Paypal\Test\TestCase\CreateOnlineRefundForPaypalExpressCheckoutTest">
+        <variation name="CreateOnlineRefundForPaypalExpressCheckoutTestVariation1" method="test">
+            <data name="description" xsi:type="string">Create full refund for paypal express checkout with line items mark require billing address</data>
+            <data name="products" xsi:type="string">catalogProductSimple::default</data>
+            <data name="configData" xsi:type="string">paypal_express_order_line_items_mark_require_billing_address</data>
+            <data name="shippingMethod" xsi:type="string">Flat Rate/Fixed</data>
+            <data name="data/refund/0/form_data/comment_text" xsi:type="string">comments for credit memo</data>
+            <data name="verifyData/grandTotal/refunds/0/from" xsi:type="string">315.00</data>
+            <data name="verifyData/grandTotal/refunds/0/to" xsi:type="string">315.00</data>
+            <data name="verifyData/items_data/0/item_price" xsi:type="string">100.00</data>
+            <data name="verifyData/items_data/0/item_subtotal" xsi:type="string">300.00</data>
+            <data name="verifyData/items_data/0/item_row_total" xsi:type="string">300.00</data>
+            <data name="status" xsi:type="string">Closed</data>
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoSuccessCreateMessage" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosGrid" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosTab" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertNoCreditMemoButton" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoItems" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoItemsOnFrontend" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect" />
+        </variation>
+        <variation name="CreateOnlineRefundForPaypalExpressCheckoutTestVariation2" method="test">
+            <data name="description" xsi:type="string">Create partial credit memo for payflow express authorization line items</data>
+            <data name="products" xsi:type="string">catalogProductSimple::default</data>
+            <data name="configData" xsi:type="string">payflow_express_authorization_line_items</data>
+            <data name="shippingMethod" xsi:type="string">Flat Rate/Fixed</data>
+            <data name="data/refund/0/items_data/0/qty" xsi:type="string">1</data>
+            <data name="data/refund/0/form_data/comment_text" xsi:type="string">comments for credit memo</data>
+            <data name="verifyData/grandTotal/refunds/0/from" xsi:type="string">115.00</data>
+            <data name="verifyData/grandTotal/refunds/0/to" xsi:type="string">115.00</data>
+            <data name="verifyData/items_data/0/qty" xsi:type="string">1</data>
+            <data name="verifyData/items_data/0/item_price" xsi:type="string">100.00</data>
+            <data name="verifyData/items_data/0/item_subtotal" xsi:type="string">100.00</data>
+            <data name="verifyData/items_data/0/item_row_total" xsi:type="string">100.00</data>
+            <data name="status" xsi:type="string">Complete</data>
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoSuccessCreateMessage" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosGrid" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosTab" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoItems" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoItemsOnFrontend" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect" />
+        </variation>
+        <variation name="CreateOnlineRefundForPaypalExpressCheckoutTestVariation3" method="test">
+            <data name="description" xsi:type="string">Create full credit memo with partial invoice for payflow express authorization specific country us</data>
+            <data name="products" xsi:type="string">catalogProductSimple::default</data>
+            <data name="configData" xsi:type="string">payflow_express_authorization_specificcountry_us</data>
+            <data name="shippingMethod" xsi:type="string">Flat Rate/Fixed</data>
+            <data name="data/refund/0/form_data/comment_text" xsi:type="string">comments for credit memo</data>
+            <data name="data/invoice/0/items_data/0/qty" xsi:type="string">2</data>
+            <data name="verifyData/grandTotal/refunds/0/from" xsi:type="string">215.00</data>
+            <data name="verifyData/grandTotal/refunds/0/to" xsi:type="string">215.00</data>
+            <data name="verifyData/items_data/0/qty" xsi:type="string">2</data>
+            <data name="verifyData/items_data/0/item_price" xsi:type="string">100.00</data>
+            <data name="verifyData/items_data/0/item_subtotal" xsi:type="string">200.00</data>
+            <data name="verifyData/items_data/0/item_row_total" xsi:type="string">200.00</data>
+            <data name="status" xsi:type="string">Processing</data>
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoSuccessCreateMessage" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosGrid" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosTab" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertNoCreditMemoButton" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoItems" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoItemsOnFrontend" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect" />
+        </variation>
+        <variation name="CreateOnlineRefundForPaypalExpressCheckoutTestVariation4" method="test">
+            <data name="description" xsi:type="string">Create partial credit memo with partial invoice for payflow express authorization specific country us</data>
+            <data name="products" xsi:type="string">catalogProductSimple::default</data>
+            <data name="configData" xsi:type="string">payflow_express_authorization_specificcountry_us</data>
+            <data name="shippingMethod" xsi:type="string">Flat Rate/Fixed</data>
+            <data name="data/refund/0/form_data/comment_text" xsi:type="string">comments for credit memo</data>
+            <data name="data/invoice/0/items_data/0/qty" xsi:type="string">2</data>
+            <data name="data/refund/0/items_data/0/qty" xsi:type="string">1</data>
+            <data name="verifyData/grandTotal/refunds/0/from" xsi:type="string">115.00</data>
+            <data name="verifyData/grandTotal/refunds/0/to" xsi:type="string">115.00</data>
+            <data name="verifyData/items_data/0/qty" xsi:type="string">1</data>
+            <data name="verifyData/items_data/0/item_price" xsi:type="string">100.00</data>
+            <data name="verifyData/items_data/0/item_subtotal" xsi:type="string">100.00</data>
+            <data name="verifyData/items_data/0/item_row_total" xsi:type="string">100.00</data>
+            <data name="status" xsi:type="string">Processing</data>
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoSuccessCreateMessage" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosGrid" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosTab" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoItems" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoItemsOnFrontend" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect" />
+        </variation>
+        <variation name="CreateOnlineRefundForPaypalExpressCheckoutTestVariation5" method="test">
+            <data name="description" xsi:type="string">Create full credit memo for payflow express sale</data>
+            <data name="products" xsi:type="string">catalogProductSimple::default</data>
+            <data name="configData" xsi:type="string">payflow_express_sale</data>
+            <data name="shippingMethod" xsi:type="string">Flat Rate/Fixed</data>
+            <data name="data/refund/0/form_data/comment_text" xsi:type="string">comments for credit memo</data>
+            <data name="data/refund/form_data/adjustment_negative" xsi:type="string">5</data>
+            <data name="action/invoice/0" xsi:type="boolean">false</data>
+            <data name="verifyData/grandTotal/refunds/0/from" xsi:type="string">315.00</data>
+            <data name="verifyData/grandTotal/refunds/0/to" xsi:type="string">315.00</data>
+            <data name="verifyData/items_data/0/qty" xsi:type="string">3</data>
+            <data name="verifyData/items_data/0/item_price" xsi:type="string">100.00</data>
+            <data name="verifyData/items_data/0/item_subtotal" xsi:type="string">300.00</data>
+            <data name="verifyData/items_data/0/item_row_total" xsi:type="string">300.00</data>
+            <data name="status" xsi:type="string">Closed</data>
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoSuccessCreateMessage" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosGrid" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosTab" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertNoCreditMemoButton" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoItems" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoItemsOnFrontend" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect" />
+        </variation>
+        <variation name="CreateOnlineRefundForPaypalExpressCheckoutTestVariation6" method="test">
+            <data name="description" xsi:type="string">Create full credit memo for payflow express sale specific country gb line items</data>
+            <data name="products" xsi:type="string">catalogProductSimple::default</data>
+            <data name="configData" xsi:type="string">payflow_express_sale_specificcountry_gb_line_items</data>
+            <data name="shippingMethod" xsi:type="string">Flat Rate/Fixed</data>
+            <data name="data/refund/form_data/comment_text" xsi:type="string">comments for credit memo</data>
+            <data name="data/refund/form_data/shipping_amount" xsi:type="string">5</data>
+            <data name="verifyData/grandTotal/refunds/0/from" xsi:type="string">315.00</data>
+            <data name="verifyData/grandTotal/refunds/0/to" xsi:type="string">315.00</data>
+            <data name="verifyData/items_data/0/qty" xsi:type="string">3</data>
+            <data name="verifyData/items_data/0/item_price" xsi:type="string">100.00</data>
+            <data name="verifyData/items_data/0/item_subtotal" xsi:type="string">300.00</data>
+            <data name="verifyData/items_data/0/item_row_total" xsi:type="string">300.00</data>
+            <data name="status" xsi:type="string">Closed</data>
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoSuccessCreateMessage" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosGrid" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosTab" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertNoCreditMemoButton" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoItems" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoItemsOnFrontend" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect" />
+        </variation>
+        <variation name="CreateOnlineRefundForPaypalExpressCheckoutTestVariation7" method="test">
+            <data name="description" xsi:type="string">Create full credit memo for paypal express sale specific country us shipping options mark</data>
+            <data name="products" xsi:type="string">catalogProductSimple::default</data>
+            <data name="configData" xsi:type="string">paypal_express_sale_specificcountry_us_shipping_options_mark</data>
+            <data name="shippingMethod" xsi:type="string">Flat Rate/Fixed</data>
+            <data name="data/refund/form_data/comment_text" xsi:type="string">comments for credit memo</data>
+            <data name="data/refund/form_data/adjustment_positive" xsi:type="string">5</data>
+            <data name="verifyData/grandTotal/refunds/0/from" xsi:type="string">315.00</data>
+            <data name="verifyData/grandTotal/refunds/0/to" xsi:type="string">315.00</data>
+            <data name="verifyData/items_data/0/qty" xsi:type="string">3</data>
+            <data name="verifyData/items_data/0/item_price" xsi:type="string">100.00</data>
+            <data name="verifyData/items_data/0/item_subtotal" xsi:type="string">300.00</data>
+            <data name="verifyData/items_data/0/item_row_total" xsi:type="string">300.00</data>
+            <data name="status" xsi:type="string">Closed</data>
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoSuccessCreateMessage" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosGrid" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosTab" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertNoCreditMemoButton" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoItems" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoItemsOnFrontend" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect" />
+        </variation>
+        <variation name="CreateOnlineRefundForPaypalExpressCheckoutTestVariation80" method="test">
+            <data name="description" xsi:type="string">Create full credit memo for paypal express sale specific country us shipping options mark with two products and taxes</data>
+            <data name="products" xsi:type="string">catalogProductSimple::default,catalogProductSimple::default</data>
+            <data name="taxRule" xsi:type="string">default</data>
+            <data name="configData" xsi:type="string">paypal_express_sale_specificcountry_us_shipping_options_mark, tax_calculation_base_on_shipping_origin</data>
+            <data name="shippingMethod" xsi:type="string">Flat Rate/Fixed</data>
+            <data name="data/refund/form_data/comment_text" xsi:type="string">comments for credit memo</data>
+            <data name="data/refund/form_data/adjustment_positive" xsi:type="string">6</data>
+            <data name="verifyData/grandTotal/refunds/0/from" xsi:type="string">679.50</data>
+            <data name="verifyData/grandTotal/refunds/0/to" xsi:type="string">679.50</data>
+            <data name="verifyData/items_data/0/item_price" xsi:type="string">100.00</data>
+            <data name="verifyData/items_data/0/item_subtotal" xsi:type="string">300.00</data>
+            <data name="verifyData/items_data/0/item_tax" xsi:type="string">24.75</data>
+            <data name="verifyData/items_data/0/item_row_total" xsi:type="string">324.75</data>
+            <data name="verifyData/items_data/1/item_price" xsi:type="string">100.00</data>
+            <data name="verifyData/items_data/1/item_subtotal" xsi:type="string">300.00</data>
+            <data name="verifyData/items_data/1/item_tax" xsi:type="string">24.75</data>
+            <data name="verifyData/items_data/1/item_row_total" xsi:type="string">324.75</data>
+            <data name="status" xsi:type="string">Closed</data>
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoSuccessCreateMessage" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosGrid" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosTab" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertNoCreditMemoButton" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoItems" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoItemsOnFrontend" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect" />
+        </variation>
+        <variation name="CreateOnlineRefundForPaypalExpressCheckoutTestVariation81" method="test">
+            <data name="description" xsi:type="string">Create full credit memo for paypal express sale specific country us shipping options mark with configurable product</data>
+            <data name="products" xsi:type="string">configurableProduct::default</data>
+            <data name="configData" xsi:type="string">paypal_express_sale_specificcountry_us_shipping_options_mark</data>
+            <data name="shippingMethod" xsi:type="string">Flat Rate/Fixed</data>
+            <data name="data/refund/form_data/comment_text" xsi:type="string">comments for credit memo</data>
+            <data name="data/refund/form_data/adjustment_positive" xsi:type="string">2</data>
+            <data name="verifyData/grandTotal/refunds/0/from" xsi:type="string">330.00</data>
+            <data name="verifyData/grandTotal/refunds/0/to" xsi:type="string">330.00</data>
+            <data name="verifyData/items_data/0/item_price" xsi:type="string">160.00</data>
+            <data name="verifyData/items_data/0/item_subtotal" xsi:type="string">320.00</data>
+            <data name="verifyData/items_data/0/item_row_total" xsi:type="string">320.00</data>
+            <data name="status" xsi:type="string">Closed</data>
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoSuccessCreateMessage" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosGrid" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosTab" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertNoCreditMemoButton" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoConfigurableItems" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoConfigurableItemsOnFrontend" />
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect" />
+        </variation>
+    </testCase>
+</config>

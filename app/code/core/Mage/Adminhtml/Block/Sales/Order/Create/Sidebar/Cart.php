@@ -104,7 +104,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Cart
      */
     protected function _prepareLayout()
     {
-        $deleteAllConfirmString = Mage::helper('sales')->__('Are you sure you want to delete all items from shopping cart?');
+        $deleteAllConfirmString = Mage::helper('core')->jsQuoteEscape(
+            Mage::helper('sales')->__('Are you sure you want to delete all items from shopping cart?')
+        );
         $button = $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
             'label' => Mage::helper('sales')->__('Clear Shopping Cart'),
             'onclick' => 'order.clearShoppingCart(\'' . $deleteAllConfirmString . '\')',

@@ -127,7 +127,12 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
 
         // processing WHERE part
         $wherePart = $select->getPart(Zend_Db_Select::WHERE);
+        $excludedWherePart = Mage_Catalog_Model_Resource_Product_Collection::MAIN_TABLE_ALIAS . '.status';
         foreach ($wherePart as $key => $wherePartItem) {
+            if (strpos($wherePartItem, $excludedWherePart) !== false) {
+                $wherePart[$key] = new Zend_Db_Expr('1=1');
+                continue;
+            }
             $wherePart[$key] = $this->_replaceTableAlias($wherePartItem);
         }
         $select->setPart(Zend_Db_Select::WHERE, $wherePart);
@@ -225,9 +230,11 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
     {
         $currencyRate = $filter->getLayer()->getProductCollection()->getCurrencyRate();
         if ($decrease) {
-            return ($price - (self::MIN_POSSIBLE_PRICE / 2)) / $currencyRate;
+            $result = ($price - (self::MIN_POSSIBLE_PRICE / 2)) / $currencyRate;
+        } else {
+            $result = ($price + (self::MIN_POSSIBLE_PRICE / 2)) / $currencyRate;
         }
-        return ($price + (self::MIN_POSSIBLE_PRICE / 2)) / $currencyRate;
+        return sprintf('%F', $result);
     }
 
     /**

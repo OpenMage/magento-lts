@@ -38,7 +38,12 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement
      *
      * @var array
      */
-    protected $_columnsToRemove = array('customer_email', 'customer_firstname', 'customer_lastname');
+    protected $_columnsToRemove = array(
+        'customer_email',
+        'customer_firstname',
+        'customer_middlename',
+        'customer_lastname'
+    );
 
     /**
      * Disable filters and paging

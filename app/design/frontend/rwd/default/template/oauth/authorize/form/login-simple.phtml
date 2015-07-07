@@ -39,6 +39,7 @@
             <?php echo $this->getMessagesBlock()->toHtml() ?>
             <?php if (!$this->getHasException()) : ?>
             <form method="post" action="<?php echo $this->getPostActionUrl() ?>" id="loginForm">
+                <?php echo $this->getBlockHtml('formkey'); ?>
                 <div class="fieldset" class="fieldset">
                     <h2 class="legend"><?php echo $this->getFormTitle() ?></h2>
                     <p class="description"><?php echo $this->__('Log in to use <strong>%s</strong>', $this->getConsumer()->getName()) ?></p>
@@ -60,9 +61,9 @@
                             <div class="clear"></div>
                             <div class="form-buttons">
                                 <button type="submit" class="form-button"
-                                       title="<?php echo $this->__('Login') ?>"/><?php echo $this->__('Login') ?></button>
+                                       title="<?php echo $this->quoteEscape($this->__('Login')) ?>"/><?php echo $this->__('Login') ?></button>
                                 <button type="button" onclick="document.location.href='<?php echo $this->getRejectUrl(); ?>';"
-                                        title="<?php echo $this->__('Reject') ?>"><?php echo $this->__('Reject') ?></button>
+                                        title="<?php echo $this->quoteEscape($this->__('Reject')) ?>"><?php echo $this->__('Reject') ?></button>
                                 <p class="required"><?php echo $this->__('* Required Fields') ?></p>
                             </div>
                         </div>

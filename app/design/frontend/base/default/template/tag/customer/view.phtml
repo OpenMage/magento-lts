@@ -29,7 +29,7 @@
 </div>
 <?php echo $this->getMessagesBlock()->toHtml() ?>
 <p class="my-tag-edit">
-    <a href="#" title="<?php echo $this->__('Delete') ?>" onclick="if(confirm('<?php echo $this->__('Are you sure you want to delete this tag?') ?>')) window.location='<?php echo $this->getTagInfo()->getRemoveTagUrl(); ?>'; return false;" class="button btn-remove"><span><?php echo $this->__('Delete') ?></span></a>
+    <a href="#" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Delete')) ?>" onclick="if(confirm('<?php echo Mage::helper('core')->quoteEscape($this->__('Are you sure you want to delete this tag?'), true) ?>')) window.location='<?php echo $this->getTagInfo()->getRemoveTagUrl(); ?>'; return false;" class="button btn-remove"><span><?php echo $this->__('Delete') ?></span></a>
     <?php echo $this->__('<strong>Tag Name:</strong> %s', $this->escapeHtml($this->getTagInfo()->getName())) ?>
 </p>
 <div class="clearer"></div>
@@ -54,7 +54,7 @@
                 <?php if($_product->isSaleable()): ?>
                     <?php $params[Mage_Core_Model_Url::FORM_KEY] = Mage::getSingleton('core/session')->getFormKey() ?>
                     <?php $params['product'] = $_product->getId(); ?>
-                    <button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getUrl('checkout/cart/add', $params) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+                    <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add to Cart')) ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getUrl('checkout/cart/add', $params) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
                 <?php endif; ?>
                 <?php if ($this->helper('wishlist')->isAllow()) : ?>
                 <ul class="add-to-links">

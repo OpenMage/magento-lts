@@ -62,7 +62,7 @@
     </table>
     <div class="buttons-set">
         <a href="<?php echo Mage::getBaseUrl() ?>">&laquo; <?php echo $this->__('Continue Shopping') ?></a>
-        <input type="submit" value="<?php echo $this->__('Update') ?>" class="input-button" name="do" />
+        <input type="submit" value="<?php echo Mage::helper('core')->quoteEscape($this->__('Update')) ?>" class="input-button" name="do" />
     </div>
 </form>
 <?php else: ?>

@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    Tests
+ * @package     Tests_Functional
+ * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/Magento/Mtf/TestCase/etc/testcase.xsd">
+    <scenario name="TaxCalculationTest" firstStep="setupConfiguration">
+        <step name="setupConfiguration" module="Mage_Core" next="createSalesRule" />
+        <step name="createSalesRule" module="Mage_SalesRule" next="createTaxRule" />
+        <step name="createTaxRule" module="Mage_Tax" next="createProduct" />
+        <step name="createProduct" module="Mage_Catalog" next="createCustomer" />
+        <step name="createCustomer" module="Mage_Customer" next="loginCustomerOnFrontend" />
+        <step name="loginCustomerOnFrontend" module="Mage_Customer" />
+    </scenario>
+
+    <scenario name="TestCreationForExpressCheckoutWithinPayPalButtonTest">
+        <step name="createTaxRule" module="Mage_Tax" next="createProducts" />
+    </scenario>
+
+    <scenario name="CreateInvoiceForPaypalExpressCheckoutTest" firstStep="setupConfiguration">
+        <step name="createTaxRule" module="Mage_Tax" next="createProducts" />
+    </scenario>
+
+    <scenario name="CreateShipmentForPaypalExpressCheckoutTest" firstStep="setupConfiguration">
+        <step name="createTaxRule" module="Mage_Tax" next="createProducts" />
+    </scenario>
+
+    <scenario name="CreateOnlineRefundForPaypalExpressCheckoutTest" firstStep="setupConfiguration">
+        <step name="createTaxRule" module="Mage_Tax" next="createProducts" />
+    </scenario>
+
+    <scenario name="CreateOnlineRefundForOnlinePaymentsMethodsWithIFrameTest" firstStep="setupConfiguration">
+        <step name="createTaxRule" module="Mage_Tax" next="createProducts" />
+    </scenario>
+
+    <scenario name="AutomaticTaxApplyingBasedOnVatIdTest" firstStep="deleteAllTaxRules">
+        <step name="deleteAllTaxRules" module="Mage_Tax" next="setupConfiguration" />
+        <step name="setupConfiguration" module="Mage_Core" next="createTaxRule" />
+        <step name="createTaxRule" module="Mage_Tax" next="createProducts" />
+        <step name="createProducts" module="Mage_Catalog" next="createCustomer" />
+        <step name="createCustomer" module="Mage_Customer" next="loginCustomerOnFrontend" />
+        <step name="loginCustomerOnFrontend" module="Mage_Customer" next="addProductsToTheCart" prev="createCustomer" />
+        <step name="addProductsToTheCart" module="Mage_Checkout" next="proceedToCheckout" />
+        <step name="proceedToCheckout" module="Mage_Checkout" next="fillBillingInformation" />
+        <step name="fillBillingInformation" module="Mage_Checkout" next="fillShippingMethod" />
+        <step name="fillShippingMethod" module="Mage_Checkout" next="selectPaymentMethod" />
+        <step name="selectPaymentMethod" module="Mage_Checkout" next="placeOrder" />
+        <step name="placeOrder" module="Mage_Checkout" />
+    </scenario>
+</config>

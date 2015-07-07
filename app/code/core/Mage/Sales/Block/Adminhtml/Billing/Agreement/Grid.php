@@ -104,6 +104,13 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid extends Mage_Adminhtml_B
             'escape'            => true
         ));
 
+        $this->addColumn('customer_middlename', array(
+            'header'            => Mage::helper('sales')->__('Customer Middle Name'),
+            'index'             => 'customer_middlename',
+            'type'              => 'text',
+            'escape'            => true
+        ));
+
         $this->addColumn('customer_lastname', array(
             'header'            => Mage::helper('sales')->__('Customer Last Name'),
             'index'             => 'customer_lastname',

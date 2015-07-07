@@ -32,7 +32,7 @@ TranslateInline.prototype = {
         this.trigTimer = null;
         this.trigContentEl = null;
         if (Prototype.Browser.IE) {
-            $$('*[translate]').each(this.initializeElement.bind(this));
+            $$('*[data-translate]').each(this.initializeElement.bind(this));
             var scope = this;
             Ajax.Responders.register({ onComplete: function() {
                 window.setTimeout(scope.reinitElements.bind(scope), 50)
@@ -42,7 +42,7 @@ TranslateInline.prototype = {
             var ElementUpdate = ElementNode.prototype.update;
             ElementNode.prototype.update = function() {
                 ElementUpdate.apply(this, arguments);
-                $(this).select('*[translate]').each(scope.initializeElement.bind(scope));
+                $(this).select('*[data-translate]').each(scope.initializeElement.bind(scope));
             }
         }
         this.trigEl = $(trigEl);
@@ -50,11 +50,11 @@ TranslateInline.prototype = {
 
         Event.observe(document.body, 'mousemove', function(e) {
             var target = Event.element(e);
-            if (!$(target).match('*[translate]')) {
-                target = target.up('*[translate]');
+            if (!$(target).match('*[data-translate]')) {
+                target = target.up('*[data-translate]');
             }
 
-            if (target && $(target).match('*[translate]')) {
+            if (target && $(target).match('*[data-translate]')) {
                 this.trigShow(target, e);
             } else {
                 if (Event.element(e).match('#' + trigEl)) {
@@ -76,7 +76,7 @@ TranslateInline.prototype = {
     },
 
     reinitElements: function(el) {
-        $$('*[translate]').each(this.initializeElement.bind(this));
+        $$('*[data-translate]').each(this.initializeElement.bind(this));
     },
 
     trigShow: function(el, event) {
@@ -120,7 +120,7 @@ TranslateInline.prototype = {
             return;
         }
         this.trigHideClear();
-        eval('var data = ' + el.getAttribute('translate'));
+        eval('var data = ' + el.getAttribute('data-translate'));
 
         var content = '<form id="translate-inline-form">';
         var t = new Template(

@@ -64,11 +64,11 @@ class Mage_Bundle_Model_Selection extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Processing object before save data
+     * Processing object after save data
      *
      * @return Mage_Bundle_Model_Selection
      */
-    protected function _beforeSave()
+    protected function _afterSave()
     {
         $storeId = Mage::registry('product')->getStoreId();
         if (!Mage::helper('catalog')->isPriceGlobal() && $storeId) {
@@ -80,6 +80,6 @@ class Mage_Bundle_Model_Selection extends Mage_Core_Model_Abstract
                 $this->unsSelectionPriceType();
             }
         }
-        parent::_beforeSave();
+        parent::_afterSave();
     }
 }

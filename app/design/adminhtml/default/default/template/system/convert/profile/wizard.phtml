@@ -122,8 +122,8 @@ function exportUrlField()
 
 function changeEntityType()
 {
-    //toggleSelectOption('remove', 'profile_entity_type', 'profile_direction', 'customer', 'import', '<?php echo $this->__('Import') ?>');
-    //toggleSelectOption('remove', 'profile_entity_type', 'profile_store_id', 'customer', '0', '<?php echo $this->__('Default Values') ?>');
+    //toggleSelectOption('remove', 'profile_entity_type', 'profile_direction', 'customer', 'import', '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Import')) ?>');
+    //toggleSelectOption('remove', 'profile_entity_type', 'profile_store_id', 'customer', '0', '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Default Values')) ?>');
     //showOption('profile_direction');
     changeDirection();
 }
@@ -131,7 +131,7 @@ function changeEntityType()
 
 function changeDirection()
 {
-    toggleSelectOption('remove', 'profile_direction', 'profile_data_transfer', 'export', 'interactive', '<?php echo $this->__('Interactive') ?>');
+    toggleSelectOption('remove', 'profile_direction', 'profile_data_transfer', 'export', 'interactive', '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Interactive')) ?>');
     //showOption('profile_data_transfer');
     if ($('profile_direction').value == 'import') {
         profileImportOnly.each(function(id){if ($(id))$(id).up(1).show();});
@@ -199,7 +199,7 @@ Event.observe(window, 'load', function(){
                                 <?php if ($_group->getId() != $_store->getGroupId()) continue; ?>
                                 <?php if (!$_websiteShow): ?>
                                     <?php $_websiteShow=true; ?>
-                                    <optgroup label="<?php echo $_website->getName() ?>"></optgroup>
+                                    <optgroup label="<?php echo Mage::helper('core')->quoteEscape($_website->getName()) ?>"></optgroup>
                                 <?php endif; ?>
                                 <?php if (!$_groupShow): ?>
                                     <?php $_groupShow=true; ?>
@@ -528,10 +528,10 @@ Event.observe(window, 'load', function(){
                 <span class="field-row">
                     <label for="customer_filter_created_at_from"><?php echo $this->__("Customer Since:") ?></label>
                     <input class="input-text" style="width:5em" id="customer_filter_created_at_from" name="gui_data[customer][filter][created_at][from]" value="<?php echo $this->getValue('gui_data/customer/filter/created_at/from') ?>"/>
-                    <img src="<?php echo $this->getSkinUrl('images/grid-cal.gif') ?>" alt="" class="v-middle" id="customer_filter_created_at_from_trig" title="<?php echo $this->__('Date selector') ?>" />
+                    <img src="<?php echo $this->getSkinUrl('images/grid-cal.gif') ?>" alt="" class="v-middle" id="customer_filter_created_at_from_trig" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Date selector')) ?>" />
                      <?php echo $this->__('to') ?>
                     <input class="input-text" style="width:5em" id="customer_filter_created_at_to" name="gui_data[customer][filter][created_at][to]" value="<?php echo $this->getValue('gui_data/customer/filter/created_at/to') ?>"/>
-                    <img src="<?php echo $this->getSkinUrl('images/grid-cal.gif') ?>" alt="" class="v-middle" id="customer_filter_created_at_to_trig" title="<?php echo $this->__('Date selector') ?>" />
+                    <img src="<?php echo $this->getSkinUrl('images/grid-cal.gif') ?>" alt="" class="v-middle" id="customer_filter_created_at_to_trig" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Date selector')) ?>" />
 <script type="text/javascript">
     Calendar.setup({
         inputField : "customer_filter_created_at_from",

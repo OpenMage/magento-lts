@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Log>
-            <version>1.6.1.0</version>
+            <version>1.6.1.1</version>
         </Mage_Log>
     </modules>
     <global>
@@ -44,6 +44,11 @@
             <google2>Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)</google2>
             <google3>Googlebot/2.1 (+http://www.googlebot.com/bot.html)</google3>
         </ignore_user_agents>
+        <helpers>
+            <log>
+                <class>Mage_Log_Helper</class>
+            </log>
+        </helpers>
         <models>
             <log>
                 <class>Mage_Log_Model</class>
@@ -171,8 +176,9 @@
         </log>
         <system>
             <log>
+                <enable_log>2</enable_log>
                 <clean_after_day>180</clean_after_day>
-                <enabled>0</enabled>
+                <enabled>1</enabled>
                 <time/>
                 <frequency>D</frequency>
                 <error_email/>

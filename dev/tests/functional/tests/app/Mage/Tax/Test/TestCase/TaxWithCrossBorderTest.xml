@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    Tests
+ * @package     Tests_Functional
+ * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
+  <testCase name="Mage\Tax\Test\TestCase\TaxWithCrossBorderTest">
+    <variation name="TaxWithCrossBorderTestVariation1" firstConstraint="Mage\Tax\Test\Constraint\AssertTaxWithCrossBorderApplied" method="test">
+      <data name="descriptions" xsi:type="string">Cross border include tax</data>
+      <data name="product/dataSet" xsi:type="string">product_with_special_price_and_category</data>
+      <data name="catalogRule" xsi:type="string">-</data>
+      <data name="salesRule" xsi:type="string">-</data>
+      <data name="config" xsi:type="string">cross_border_enabled_price_incl_tax, display_excluding_including_tax</data>
+      <constraint name="Mage\Tax\Test\Constraint\AssertTaxWithCrossBorderApplied"/>
+    </variation>
+    <variation name="TaxWithCrossBorderTestVariation2" firstConstraint="Mage\Tax\Test\Constraint\AssertTaxWithCrossBorderApplied" method="test">
+      <data name="descriptions" xsi:type="string">Cross border include tax and with Catalog rule</data>
+      <data name="product/dataSet" xsi:type="string">product_with_category</data>
+      <data name="catalogRule" xsi:type="string">catalog_price_rule_priority_0</data>
+      <data name="salesRule" xsi:type="string">-</data>
+      <data name="config" xsi:type="string">cross_border_enabled_price_incl_tax, display_excluding_including_tax</data>
+      <constraint name="Mage\Tax\Test\Constraint\AssertTaxWithCrossBorderApplied"/>
+    </variation>
+    <variation name="TaxWithCrossBorderTestVariation3" firstConstraint="Mage\Tax\Test\Constraint\AssertTaxWithCrossBorderApplied" method="test">
+      <data name="descriptions" xsi:type="string">Cross border include tax and with Sales rule</data>
+      <data name="product/dataSet" xsi:type="string">product_with_category</data>
+      <data name="catalogRule" xsi:type="string">-</data>
+      <data name="salesRule" xsi:type="string">cart_rule</data>
+      <data name="config" xsi:type="string">cross_border_enabled_price_incl_tax, display_excluding_including_tax</data>
+      <constraint name="Mage\Tax\Test\Constraint\AssertTaxWithCrossBorderApplied"/>
+    </variation>
+    <variation name="TaxWithCrossBorderTestVariation4" firstConstraint="Mage\Tax\Test\Constraint\AssertTaxWithCrossBorderApplied" method="test">
+      <data name="descriptions" xsi:type="string">Cross border include tax and product with custom options</data>
+      <data name="product/dataSet" xsi:type="string">with_one_custom_option_and_category</data>
+      <data name="catalogRule" xsi:type="string">-</data>
+      <data name="salesRule" xsi:type="string">-</data>
+      <data name="config" xsi:type="string">cross_border_enabled_price_incl_tax, display_excluding_including_tax</data>
+      <constraint name="Mage\Tax\Test\Constraint\AssertTaxWithCrossBorderApplied"/>
+    </variation>
+    <variation name="TaxWithCrossBorderTestVariation5" firstConstraint="Mage\Tax\Test\Constraint\AssertTaxWithCrossBorderNotApplied" method="test">
+      <data name="descriptions" xsi:type="string">Cross border exclude tax</data>
+      <data name="product/dataSet" xsi:type="string">product_with_category</data>
+      <data name="catalogRule" xsi:type="string">-</data>
+      <data name="salesRule" xsi:type="string">-</data>
+      <data name="config" xsi:type="string">cross_border_enabled_price_excl_tax, display_excluding_including_tax</data>
+      <constraint name="Mage\Tax\Test\Constraint\AssertTaxWithCrossBorderNotApplied"/>
+    </variation>
+  </testCase>
+</config>

@@ -45,7 +45,7 @@ function getActiveRestRole() {
 function restRolesRowClick(grid, event) {
     var newRestRole = getActiveRestRole();
     if (newRestRole.value !== activeRestRole.value) {
-        if (!confirm("Warning!\r\nThis action will remove this user from already assigned role\r\nAre you sure?") ) {
+        if (!confirm("<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Warning!\r\nThis action will remove this user from already assigned role\r\nAre you sure?')) ?>")) {
             newRestRole.checked = !newRestRole.checked;
             activeRestRole.checked = true;
         } else {

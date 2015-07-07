@@ -174,20 +174,24 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
      */
     public function addCustomerData($filter = null)
     {
-        $customerEntity         = Mage::getResourceSingleton('customer/customer');
-        $attrFirstname          = $customerEntity->getAttribute('firstname');
-        $attrFirstnameId        = (int) $attrFirstname->getAttributeId();
-        $attrFirstnameTableName = $attrFirstname->getBackend()->getTable();
+        $customerEntity          = Mage::getResourceSingleton('customer/customer');
+        $attrFirstname           = $customerEntity->getAttribute('firstname');
+        $attrFirstnameId         = (int) $attrFirstname->getAttributeId();
+        $attrFirstnameTableName  = $attrFirstname->getBackend()->getTable();
 
-        $attrLastname           = $customerEntity->getAttribute('lastname');
-        $attrLastnameId         = (int) $attrLastname->getAttributeId();
-        $attrLastnameTableName  = $attrLastname->getBackend()->getTable();
+        $attrLastname            = $customerEntity->getAttribute('lastname');
+        $attrLastnameId          = (int) $attrLastname->getAttributeId();
+        $attrLastnameTableName   = $attrLastname->getBackend()->getTable();
+
+        $attrMiddlename          = $customerEntity->getAttribute('middlename');
+        $attrMiddlenameId        = (int) $attrMiddlename->getAttributeId();
+        $attrMiddlenameTableName = $attrMiddlename->getBackend()->getTable();
 
         $attrEmail       = $customerEntity->getAttribute('email');
         $attrEmailTableName = $attrEmail->getBackend()->getTable();
 
         $adapter = $this->getSelect()->getAdapter();
-        $customerName = $adapter->getConcatSql(array('cust_fname.value', 'cust_lname.value'), ' ');
+        $customerName = $adapter->getConcatSql(array('cust_fname.value', 'cust_mname.value', 'cust_lname.value',), ' ');
         $this->getSelect()
             ->joinInner(
                 array('cust_email' => $attrEmailTableName),
@@ -198,15 +202,23 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
                 array('cust_fname' => $attrFirstnameTableName),
                 implode(' AND ', array(
                     'cust_fname.entity_id = main_table.customer_id',
-                    $adapter->quoteInto('cust_fname.attribute_id = ?', (int)$attrFirstnameId),
+                    $adapter->quoteInto('cust_fname.attribute_id = ?', (int) $attrFirstnameId),
                 )),
                 array('firstname' => 'cust_fname.value')
+            )
+            ->joinInner(
+                array('cust_mname' => $attrMiddlenameTableName),
+                implode(' AND ', array(
+                    'cust_mname.entity_id = main_table.customer_id',
+                    $adapter->quoteInto('cust_mname.attribute_id = ?', (int) $attrMiddlenameId),
+                )),
+                array('middlename' => 'cust_mname.value')
             )
             ->joinInner(
                 array('cust_lname' => $attrLastnameTableName),
                 implode(' AND ', array(
                     'cust_lname.entity_id = main_table.customer_id',
-                     $adapter->quoteInto('cust_lname.attribute_id = ?', (int)$attrLastnameId)
+                     $adapter->quoteInto('cust_lname.attribute_id = ?', (int) $attrLastnameId)
                 )),
                 array(
                     'lastname'      => 'cust_lname.value',

@@ -53,7 +53,7 @@
 
             <div class="sort-by">
                 <label><?php echo $this->__('Sort By') ?></label>
-                <select onchange="setLocation(this.value)" title="<?php echo $this->__('Sort By') ?>">
+                <select onchange="setLocation(this.value)" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Sort By')) ?>">
                     <?php foreach($this->getAvailableOrders() as $_key=>$_order): ?>
                         <option value="<?php echo $this->getOrderUrl($_key, 'asc') ?>"<?php if($this->isOrderCurrent($_key)): ?> selected="selected"<?php endif; ?>>
                             <?php echo $this->__($_order) ?>
@@ -61,9 +61,9 @@
                     <?php endforeach; ?>
                 </select>
                 <?php if($this->getCurrentDirection() == 'desc'): ?>
-                    <a href="<?php echo $this->getOrderUrl(null, 'asc') ?>" class="sort-by-switcher sort-by-switcher--desc" title="<?php echo $this->__('Set Ascending Direction') ?>"><?php echo $this->__('Set Ascending Direction') ?></a>
+                    <a href="<?php echo $this->getOrderUrl(null, 'asc') ?>" class="sort-by-switcher sort-by-switcher--desc" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Set Ascending Direction')) ?>"><?php echo $this->__('Set Ascending Direction') ?></a>
                 <?php else: ?>
-                    <a href="<?php echo $this->getOrderUrl(null, 'desc') ?>" class="sort-by-switcher sort-by-switcher--asc" title="<?php echo $this->__('Set Descending Direction') ?>"><?php echo $this->__('Set Descending Direction') ?></a>
+                    <a href="<?php echo $this->getOrderUrl(null, 'desc') ?>" class="sort-by-switcher sort-by-switcher--asc" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Set Descending Direction')) ?>"><?php echo $this->__('Set Descending Direction') ?></a>
                 <?php endif; ?>
             </div>
         </div>
@@ -82,7 +82,7 @@
 
             <div class="limiter">
                 <label><?php echo $this->__('Show') ?></label>
-                <select onchange="setLocation(this.value)" title="<?php echo $this->__('Results per page'); ?>">
+                <select onchange="setLocation(this.value)" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Results per page')); ?>">
                 <?php foreach ($this->getAvailableLimit() as  $_key=>$_limit): ?>
                     <option value="<?php echo $this->getLimitUrl($_key) ?>"<?php if($this->isLimitCurrent($_key)): ?> selected="selected"<?php endif ?>>
                         <?php echo $_limit ?>

@@ -81,8 +81,8 @@ var attributesSelectTemplate = '<div id="<?php echo $this->getFieldId() ?>_{{ind
     '<table class="option-header" cellpadding="0" cellspacing="0">' +
         '<thead>' +
             '<tr>' +
-                '<th class="opt-type"><?php echo Mage::helper('googlebase')->__('Attribute') ?></th>' +
-                '<th class="opt-req"><?php echo Mage::helper('googlebase')->__('Google Base Attribute') ?></th>' +
+                '<th class="opt-type"><?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('googlebase')->__('Attribute')) ?></th>' +
+                '<th class="opt-req"><?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('googlebase')->__('Google Base Attribute')) ?></th>' +
                 '<th>&nbsp;</th>' +
             '</tr>' +
         '</thead>' +

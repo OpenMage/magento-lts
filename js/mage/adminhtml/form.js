@@ -275,7 +275,7 @@ RegionUpdater.prototype = {
 //                Element.insert(this.regionTextEl, {after : this.tpl.evaluate(this._regionSelectEl)});
 //                this.regionSelectEl = $(this._regionSelectEl.id);
 //            }
-            if (this.lastCountryId!=this.countryEl.value) {
+            if (this.lastCountryId != this.countryEl.value) {
                 var i, option, region, def;
 
                 def = this.regionSelectEl.getAttribute('defaultValue');
@@ -301,20 +301,20 @@ RegionUpdater.prototype = {
                         this.regionSelectEl.appendChild(option);
                     }
 
-                    if (regionId==def || region.name.toLowerCase()==def || region.code.toLowerCase()==def) {
+                    if (regionId == def || region.name.toLowerCase() == def || region.code.toLowerCase() == def) {
                         this.regionSelectEl.value = regionId;
                     }
                 }
             }
-
-            if (this.disableAction=='hide') {
+            this.sortSelect();
+            if (this.disableAction == 'hide') {
                 if (this.regionTextEl) {
                     this.regionTextEl.style.display = 'none';
                     this.regionTextEl.style.disabled = true;
                 }
                 this.regionSelectEl.style.display = '';
                 this.regionSelectEl.disabled = false;
-            } else if (this.disableAction=='disable') {
+            } else if (this.disableAction == 'disable') {
                 if (this.regionTextEl) {
                     this.regionTextEl.disabled = true;
                 }
@@ -324,14 +324,15 @@ RegionUpdater.prototype = {
 
             this.lastCountryId = this.countryEl.value;
         } else {
-            if (this.disableAction=='hide') {
+            this.sortSelect();
+            if (this.disableAction == 'hide') {
                 if (this.regionTextEl) {
                     this.regionTextEl.style.display = '';
                     this.regionTextEl.style.disabled = false;
                 }
                 this.regionSelectEl.style.display = 'none';
                 this.regionSelectEl.disabled = true;
-            } else if (this.disableAction=='disable') {
+            } else if (this.disableAction == 'disable') {
                 if (this.regionTextEl) {
                     this.regionTextEl.disabled = false;
                 }
@@ -339,7 +340,7 @@ RegionUpdater.prototype = {
                 if (this.clearRegionValueOnDisable) {
                     this.regionSelectEl.value = '';
                 }
-            } else if (this.disableAction=='nullify') {
+            } else if (this.disableAction == 'nullify') {
                 this.regionSelectEl.options.length = 1;
                 this.regionSelectEl.value = '';
                 this.regionSelectEl.selectedIndex = 0;
@@ -366,6 +367,26 @@ RegionUpdater.prototype = {
                 display ? marks[0].show() : marks[0].hide();
             }
         }
+    },
+    sortSelect : function () {
+        var elem = this.regionSelectEl;
+        var tmpArray = new Array();
+        var currentVal = $(elem).value;
+        for (var i = 0; i < $(elem).options.length; i++) {
+            if (i == 0) {
+                continue;
+            }
+            tmpArray[i-1] = new Array();
+            tmpArray[i-1][0] = $(elem).options[i].text;
+            tmpArray[i-1][1] = $(elem).options[i].value;
+        }
+        tmpArray.sort();
+        for (var i = 1; i <= tmpArray.length; i++) {
+            var op = new Option(tmpArray[i-1][0], tmpArray[i-1][1]);
+            $(elem).options[i] = op;
+        }
+        $(elem).value = currentVal;
+        return;
     }
 }
 

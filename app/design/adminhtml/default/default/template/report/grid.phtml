@@ -60,12 +60,12 @@ $numColumns = sizeof($this->getColumns());
         <?php if($this->getDateFilterVisibility()): ?>
             <td class="a-left filter">
                 <div class="f-left">
-                    <div><?php echo $this->__('From') ?>:&nbsp;<input class="input-text no-changes required-entry" type="text" id="period_date_from" name="report_from" value="<?php echo $this->getFilter('report_from') ?>" style="width:5em" /> <img src="<?php echo $this->getSkinUrl('images/grid-cal.gif') ?>" title="<?php echo $this->__('Select Date') ?>" id="period_date_from_trig" alt="<?php echo $this->__('Select Date') ?>" class="v-middle"/>&nbsp;&nbsp;</div>
+                    <div><?php echo $this->__('From') ?>:&nbsp;<input class="input-text no-changes required-entry" type="text" id="period_date_from" name="report_from" value="<?php echo $this->getFilter('report_from') ?>" style="width:5em" /> <img src="<?php echo $this->getSkinUrl('images/grid-cal.gif') ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Select Date')) ?>" id="period_date_from_trig" alt="<?php echo Mage::helper('core')->quoteEscape($this->__('Select Date')) ?>" class="v-middle"/>&nbsp;&nbsp;</div>
                     <div id="period_date_from_advaice"></div>
                 </div>
 
                 <div class="f-left">
-                    <div><?php echo $this->__('To') ?>:&nbsp;<input  class="input-text no-changes required-entry" type="text" id="period_date_to" name="report_to"  value="<?php echo $this->getFilter('report_to') ?>" style="width:5em" /> <img src="<?php echo $this->getSkinUrl('images/grid-cal.gif') ?>" class="v-middle" title="<?php echo $this->__('Select Date') ?>"id="period_date_to_trig" alt="<?php echo $this->__('Select Date') ?>"/>&nbsp;&nbsp;</div>
+                    <div><?php echo $this->__('To') ?>:&nbsp;<input  class="input-text no-changes required-entry" type="text" id="period_date_to" name="report_to"  value="<?php echo $this->getFilter('report_to') ?>" style="width:5em" /> <img src="<?php echo $this->getSkinUrl('images/grid-cal.gif') ?>" class="v-middle" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Select Date')) ?>"id="period_date_to_trig" alt="<?php echo Mage::helper('core')->quoteEscape($this->__('Select Date')) ?>"/>&nbsp;&nbsp;</div>
                     <div id="period_date_to_advaice"></div>
                 </div>
 

@@ -124,20 +124,25 @@ class Mage_Sales_Model_Service_Order
             $item = $this->_convertor->itemToInvoiceItem($orderItem);
             if ($orderItem->isDummy()) {
                 $qty = $orderItem->getQtyOrdered() ? $orderItem->getQtyOrdered() : 1;
-            } else if (!empty($qtys)) {
+            } else {
                 if (isset($qtys[$orderItem->getId()])) {
                     $qty = (float) $qtys[$orderItem->getId()];
+                } elseif (!count($qtys)) {
+                    $qty = $orderItem->getQtyToInvoice();
+                } else {
+                    $qty = 0;
                 }
-            } else {
-                $qty = $orderItem->getQtyToInvoice();
             }
+
             $totalQty += $qty;
             $item->setQty($qty);
             $invoice->addItem($item);
         }
+
         $invoice->setTotalQty($totalQty);
         $invoice->collectTotals();
         $this->_order->getInvoiceCollection()->addItem($invoice);
+
         return $invoice;
     }
 

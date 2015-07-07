@@ -63,11 +63,12 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
         }
 
         if ($this->_isAllowedAction('emails')) {
+            $confirmationMessage = Mage::helper('core')->jsQuoteEscape(
+                Mage::helper('sales')->__('Are you sure you want to send Invoice email to customer?')
+            );
             $this->addButton('send_notification', array(
                 'label'     => Mage::helper('sales')->__('Send Email'),
-                'onclick'   => 'confirmSetLocation(\''
-                . Mage::helper('sales')->__('Are you sure you want to send Invoice email to customer?')
-                . '\', \'' . $this->getEmailUrl() . '\')'
+                'onclick'   => 'confirmSetLocation(\'' . $confirmationMessage . '\', \'' . $this->getEmailUrl() . '\')'
             ));
         }
 
@@ -188,7 +189,8 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
     {
         if ($flag) {
             if ($this->getInvoice()->getBackUrl()) {
-                return $this->_updateButton('back', 'onclick', 'setLocation(\'' . $this->getInvoice()->getBackUrl() . '\')');
+                return $this->_updateButton('back', 'onclick', 'setLocation(\'' . $this->getInvoice()->getBackUrl()
+                    . '\')');
             }
             return $this->_updateButton('back', 'onclick', 'setLocation(\'' . $this->getUrl('*/sales_invoice/') . '\')');
         }

@@ -29,7 +29,7 @@
 
 <script type="text/javascript">
 //<![CDATA[
-    Validation.add('required-synchronize', '<?php echo $this->__('Synchronization is required.') ?>', function(){
+    Validation.add('required-synchronize', '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Synchronization is required.')) ?>', function(){
         storage = getConnectionName(
             $('system_media_storage_configuration_media_storage').value,
             $('system_media_storage_configuration_media_database').value

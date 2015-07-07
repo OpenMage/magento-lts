@@ -64,8 +64,13 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
             $this->_addButton('delete', array(
                 'label'     => Mage::helper('adminhtml')->__('Delete'),
                 'class'     => 'delete',
-                'onclick'   => 'deleteConfirm(\''. Mage::helper('adminhtml')->__('Are you sure you want to do this?')
-                    .'\', \'' . $this->getDeleteUrl() . '\')',
+                'onclick'   => 'deleteConfirm(\''
+                    . Mage::helper('core')->jsQuoteEscape(
+                        Mage::helper('adminhtml')->__('Are you sure you want to do this?')
+                    )
+                    .'\', \''
+                    . $this->getDeleteUrl()
+                    . '\')',
             ));
         }
 
@@ -79,7 +84,14 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
     protected function _prepareLayout()
     {
         if ($this->_blockGroup && $this->_controller && $this->_mode) {
-            $this->setChild('form', $this->getLayout()->createBlock($this->_blockGroup . '/' . $this->_controller . '_' . $this->_mode . '_form'));
+            $this->setChild('form', $this->getLayout()->createBlock($this->_blockGroup
+                . '/'
+                . $this->_controller
+                . '_'
+                . $this->_mode
+                . '_form'
+                )
+            );
         }
         return parent::_prepareLayout();
     }

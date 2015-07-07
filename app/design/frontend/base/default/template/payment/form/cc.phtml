@@ -49,7 +49,7 @@
     <li>
         <label for="<?php echo $_code ?>_cc_number" class="required"><em>*</em><?php echo $this->__('Credit Card Number') ?></label>
         <div class="input-box">
-            <input type="text" id="<?php echo $_code ?>_cc_number" name="payment[cc_number]" title="<?php echo $this->__('Credit Card Number') ?>" class="input-text validate-cc-number validate-cc-type" value="" />
+            <input type="text" id="<?php echo $_code ?>_cc_number" name="payment[cc_number]" title="<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Credit Card Number')) ?>" class="input-text validate-cc-number validate-cc-type" value="" />
         </div>
     </li>
     <li id="<?php echo $_code ?>_cc_type_exp_div">
@@ -79,7 +79,7 @@
         <label for="<?php echo $_code ?>_cc_cid" class="required"><em>*</em><?php echo $this->__('Card Verification Number') ?></label>
         <div class="input-box">
             <div class="v-fix">
-                <input type="text" title="<?php echo $this->__('Card Verification Number') ?>" class="input-text cvv required-entry validate-cc-cvn" id="<?php echo $_code ?>_cc_cid" name="payment[cc_cid]" value="" />
+                <input type="text" title="<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Card Verification Number')) ?>" class="input-text cvv required-entry validate-cc-cvn" id="<?php echo $_code ?>_cc_cid" name="payment[cc_cid]" value="" />
             </div>
             <a href="#" class="cvv-what-is-this"><?php echo $this->__('What is this?') ?></a>
         </div>
@@ -93,7 +93,7 @@
             <li>
                 <label for="<?php echo $_code ?>_cc_issue"><?php echo $this->__('Issue Number') ?>:</label>
                 <span class="input-box">
-                    <input type="text" title="<?php echo $this->__('Issue Number') ?>" class="input-text validate-cc-ukss cvv" id="<?php echo $_code ?>_cc_issue" name="payment[cc_ss_issue]" value="" />
+                    <input type="text" title="<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Issue Number')) ?>" class="input-text validate-cc-ukss cvv" id="<?php echo $_code ?>_cc_issue" name="payment[cc_ss_issue]" value="" />
                 </span>
             </li>
 

@@ -42,7 +42,7 @@
                 <div class="additional-addtocart-box">
                     <?php echo $this->getChildHtml(); ?>
                 </div>
-                <button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" id="map-popup-button"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+                <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add to Cart')) ?>" class="button btn-cart" id="map-popup-button"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
             </form>
         </div>
         <div class="map-popup-msrp" id="map-popup-msrp-box"><strong><?php echo $this->__('Price'); ?>:</strong> <span style="text-decoration:line-through;" id="map-popup-msrp"></span></div>

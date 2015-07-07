@@ -54,10 +54,10 @@
             <tr class="border<?php echo ($_index++ > $_count ?' last':'') ?>" id="order-item-gift-message-<?php echo $_item->getId() ?>" style="display:none;">
                 <?php $_giftMessage=$this->helper('giftmessage/message')->getGiftMessageForEntity($_item); ?>
                 <td class="gift-message-row" colspan="7">
-                    <a href="#" title="<?php echo $this->__('Close') ?>" onclick="return giftMessageToogle('<?php echo $_item->getId() ?>');" class="btn-close"><?php echo $this->__('Close') ?></a>
+                    <a href="#" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Close')) ?>" onclick="return giftMessageToogle('<?php echo $_item->getId() ?>');" class="btn-close"><?php echo $this->__('Close') ?></a>
                     <dl class="gift-message">
-                        <dt><strong><?php echo $this->__('From:') ?></strong> <?php echo $this->escapeHtml($_giftMessage->getRecipient()) ?></dt>
-                        <dt><strong><?php echo $this->__('To:') ?></strong> <?php echo $this->escapeHtml($_giftMessage->getSender()) ?></dt>
+                        <dt><strong><?php echo $this->__('From:') ?></strong> <?php echo $this->escapeHtml($_giftMessage->getSender()) ?></dt>
+                        <dt><strong><?php echo $this->__('To:') ?></strong> <?php echo $this->escapeHtml($_giftMessage->getRecipient()) ?></dt>
                         <dd><?php echo $this->helper('giftmessage/message')->getEscapedGiftMessage($_item) ?></dd>
                     </dl>
                 </td>

@@ -42,14 +42,13 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
     protected $_countCacheKey;
 
     /**
-     * Prepare customer/visitor, store data before save
+     * Save object data
      *
+     * @see Mage_Core_Model_Abstract::save()
      * @return Mage_Reports_Model_Product_Index_Abstract
      */
-    protected function _beforeSave()
+    public function save()
     {
-        parent::_beforeSave();
-
         if (!$this->hasVisitorId()) {
             $this->setVisitorId($this->getVisitorId());
         }
@@ -61,6 +60,12 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
         }
         if (!$this->hasAddedAt()) {
             $this->setAddedAt(now());
+        }
+
+        // Thanks to new performance tweaks it is possible to switch off visitor logging
+        // This check is needed to make sure report record has either visitor id or customer id
+        if ($this->hasVisitorId() || $this->hasCustomerId()) {
+            parent::save();
         }
 
         return $this;

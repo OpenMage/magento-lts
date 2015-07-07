@@ -35,12 +35,13 @@ $start = microtime(true);
 /**
  * Error reporting
  */
-error_reporting(E_ALL | E_STRICT);
-ini_set('display_errors', 1);
+ini_set('display_errors', 0);
 
 $ds = DIRECTORY_SEPARATOR;
 $ps = PATH_SEPARATOR;
 $bp = dirname(__FILE__);
+
+require $bp . '/app/bootstrap.php';
 
 /**
  * Set include path

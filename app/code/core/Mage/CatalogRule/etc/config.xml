@@ -106,6 +106,14 @@
     </global>
     <frontend>
         <events>
+            <sales_quote_collect_totals_before>
+                <observers>
+                    <preload_price_rules>
+                        <class>catalogrule/observer</class>
+                        <method>preloadPriceRules</method>
+                    </preload_price_rules>
+                </observers>
+            </sales_quote_collect_totals_before>
             <catalog_product_get_final_price>
                 <observers>
                     <catalogrule>

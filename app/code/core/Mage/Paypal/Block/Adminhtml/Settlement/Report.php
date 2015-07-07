@@ -43,10 +43,13 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Report extends Mage_Adminhtml_Block
         $this->_headerText = Mage::helper('paypal')->__('PayPal Settlement Reports');
         parent::__construct();
         $this->_removeButton('add');
-        $message = Mage::helper('paypal')->__('Connecting to PayPal SFTP server to fetch new reports. Are you sure you want to proceed?');
+        $confirmationMessage = Mage::helper('core')->jsQuoteEscape(
+            Mage::helper('paypal')
+                ->__('Connecting to PayPal SFTP server to fetch new reports. Are you sure you want to proceed?')
+        );
         $this->_addButton('fetch', array(
             'label'   => Mage::helper('paypal')->__('Fetch Updates'),
-            'onclick' => "confirmSetLocation('{$message}', '{$this->getUrl('*/*/fetch')}')",
+            'onclick' => "confirmSetLocation('{$confirmationMessage}', '{$this->getUrl('*/*/fetch')}')",
             'class'   => 'task'
         ));
     }

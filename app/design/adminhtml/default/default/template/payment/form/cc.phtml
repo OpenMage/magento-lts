@@ -41,7 +41,7 @@
     <li>
         <div class="input-box">
             <label for="<?php echo $_code ?>_cc_number"><?php echo Mage::helper('payment')->__('Credit Card Number') ?> <span class="required">*</span></label><br/>
-            <input type="text" id="<?php echo $_code ?>_cc_number" name="payment[cc_number]" title="<?php echo Mage::helper('payment')->__('Credit Card Number') ?>" class="input-text validate-cc-number" value="<?php echo $this->getInfoData('cc_number')?>"/>
+            <input type="text" id="<?php echo $_code ?>_cc_number" name="payment[cc_number]" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('payment')->__('Credit Card Number')) ?>" class="input-text validate-cc-number" value="<?php echo $this->getInfoData('cc_number')?>"/>
         </div>
     </li>
     <li>
@@ -65,7 +65,7 @@
     <li>
         <div class="input-box">
             <label for="<?php echo $_code ?>_cc_cid"><?php echo Mage::helper('payment')->__('Card Verification Number') ?> <span class="required">*</span></label><br/>
-            <input type="text" title="<?php echo Mage::helper('payment')->__('Card Verification Number') ?>" class="required-entry input-text validate-cc-cvn" id="<?php echo $_code ?>_cc_cid" name="payment[cc_cid]" style="width:3em;" value="<?php echo $this->getInfoData('cc_cid')?>"/>
+            <input type="text" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('payment')->__('Card Verification Number')) ?>" class="required-entry input-text validate-cc-cvn" id="<?php echo $_code ?>_cc_cid" name="payment[cc_cid]" style="width:3em;" value="<?php echo $this->getInfoData('cc_cid')?>"/>
         </div>
     </li>
     <?php endif; ?>
@@ -77,7 +77,7 @@
             <li>
                 <label for="<?php echo $_code ?>_cc_issue"><?php echo $this->__('Issue Number') ?>:</label>
                 <span class="input-box">
-                    <input type="text" title="<?php echo $this->__('Issue Number') ?>" class="input-text validate-cc-ukss cvv" id="<?php echo $_code ?>_cc_issue" name="payment[cc_ss_issue]" value="" />
+                    <input type="text" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Issue Number')) ?>" class="input-text validate-cc-ukss cvv" id="<?php echo $_code ?>_cc_issue" name="payment[cc_ss_issue]" value="" />
                 </span>
             </li>
 

@@ -1,0 +1,200 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    Tests
+ * @package     Tests_Functional
+ * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/etc/variations.xsd">
+    <testCase name="Mage\Catalog\Test\TestCase\Product\UpdateConfigurableProductEntityTest">
+        <variation name="UpdateConfigurableProductEntityTestVariation1">
+            <data name="description" xsi:type="string">Delete one option and update one options.</data>
+            <data name="checkoutData" xsi:type="array">
+                <item name="options" xsi:type="array">
+                    <item name="configurable_options" xsi:type="array">
+                        <item name="0" xsi:type="array">
+                            <item name="title" xsi:type="string">attribute_key_0</item>
+                            <item name="value" xsi:type="string">option_key_1</item>
+                        </item>
+                        <item name="1" xsi:type="array">
+                            <item name="title" xsi:type="string">attribute_key_1</item>
+                            <item name="value" xsi:type="string">option_key_1</item>
+                        </item>
+                    </item>
+                </item>
+                <item name="qty" xsi:type="number">2</item>
+                <item name="cartItem" xsi:type="array">
+                    <item name="price" xsi:type="string">166</item>
+                </item>
+            </data>
+            <data name="configurableOptionsEditData" xsi:type="array">
+                <item name="deleteOptions" xsi:type="array">
+                    <item name="0" xsi:type="number">1</item>
+                </item>
+                <item name="updateOptions" xsi:type="array">
+                    <item name="0" xsi:type="array">
+                        <item name="attributeIndex" xsi:type="number">0</item>
+                        <item name="optionIndex" xsi:type="number">0</item>
+                        <item name="value" xsi:type="array">
+                            <item name="price" xsi:type="string">123</item>
+                            <item name="price_type" xsi:type="string">Fixed</item>
+                        </item>
+                    </item>
+                </item>
+            </data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductInGrid" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertConfigurableProductForm" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertConfigurableProductPage" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertConfigurableProductInCart" />
+        </variation>
+        <variation name="UpdateConfigurableProductEntityTestVariation2">
+            <data name="description" xsi:type="string">Add two options.</data>
+            <data name="checkoutData" xsi:type="array">
+                <item name="options" xsi:type="array">
+                    <item name="configurable_options" xsi:type="array">
+                        <item name="0" xsi:type="array">
+                            <item name="title" xsi:type="string">attribute_key_0</item>
+                            <item name="value" xsi:type="string">option_key_1</item>
+                        </item>
+                        <item name="1" xsi:type="array">
+                            <item name="title" xsi:type="string">attribute_key_1</item>
+                            <item name="value" xsi:type="string">option_key_1</item>
+                        </item>
+                    </item>
+                </item>
+                <item name="qty" xsi:type="number">2</item>
+                <item name="cartItem" xsi:type="array">
+                    <item name="price" xsi:type="string">209</item>
+                </item>
+            </data>
+            <data name="configurableOptionsEditData" xsi:type="array">
+                <item name="deleteOptions" xsi:type="array">
+                    <item name="0" xsi:type="number">1</item>
+                    <item name="1" xsi:type="number">2</item>
+                </item>
+                <item name="addOptions" xsi:type="array">
+                    <item name="0" xsi:type="array">
+                        <item name="optionIndex" xsi:type="number">1</item>
+                        <item name="data" xsi:type="array">
+                            <item name="attribute_key_0" xsi:type="array">
+                                <item name="value" xsi:type="array">
+                                    <item name="price" xsi:type="string">11</item>
+                                    <item name="price_type" xsi:type="string">Fixed</item>
+                                </item>
+                            </item>
+                            <item name="attribute_key_1" xsi:type="array">
+                                <item name="value" xsi:type="array">
+                                    <item name="price" xsi:type="string">98</item>
+                                    <item name="price_type" xsi:type="string">Fixed</item>
+                                </item>
+                            </item>
+                        </item>
+                        <item name="product" xsi:type="string">catalogProductSimple::default</item>
+                    </item>
+                    <item name="1" xsi:type="array">
+                        <item name="optionIndex" xsi:type="number">2</item>
+                        <item name="data" xsi:type="array">
+                            <item name="attribute_key_0" xsi:type="array">
+                                <item name="value" xsi:type="array">
+                                    <item name="price" xsi:type="string">22</item>
+                                    <item name="price_type" xsi:type="string">Percentage</item>
+                                </item>
+                            </item>
+                            <item name="attribute_key_1" xsi:type="array">
+                                <item name="value" xsi:type="array">
+                                    <item name="price" xsi:type="string">31</item>
+                                    <item name="price_type" xsi:type="string">Percentage</item>
+                                </item>
+                            </item>
+                        </item>
+                        <item name="product" xsi:type="string">catalogProductSimple::default</item>
+                    </item>
+                </item>
+            </data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductInGrid" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertConfigurableProductForm" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertConfigurableProductPage" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertConfigurableProductInCart" />
+        </variation>
+        <variation name="UpdateConfigurableProductEntityTestVariation3">
+            <data name="description" xsi:type="string">Create new products(all types).</data>
+            <data name="checkoutData" xsi:type="array">
+                <item name="options" xsi:type="array">
+                    <item name="configurable_options" xsi:type="array">
+                        <item name="0" xsi:type="array">
+                            <item name="title" xsi:type="string">attribute_key_0</item>
+                            <item name="value" xsi:type="string">option_key_0</item>
+                        </item>
+                        <item name="1" xsi:type="array">
+                            <item name="title" xsi:type="string">attribute_key_1</item>
+                            <item name="value" xsi:type="string">option_key_0</item>
+                        </item>
+                    </item>
+                </item>
+                <item name="qty" xsi:type="number">2</item>
+                <item name="cartItem" xsi:type="array">
+                    <item name="price" xsi:type="string">633</item>
+                </item>
+            </data>
+            <data name="configurableOptionsEditData" xsi:type="array">
+                <item name="deleteOptions" xsi:type="array">
+                    <item name="0" xsi:type="number">0</item>
+                    <item name="1" xsi:type="number">1</item>
+                    <item name="2" xsi:type="number">2</item>
+                </item>
+                <item name="createProduct" xsi:type="array">
+                    <item name="quickCreation" xsi:type="array">
+                        <item name="preset" xsi:type="string">quickCreation</item>
+                    </item>
+                    <item name="createEmpty" xsi:type="array">
+                        <item name="preset" xsi:type="string">createEmpty</item>
+                    </item>
+                    <item name="copyFromConfigurable" xsi:type="array">
+                        <item name="preset" xsi:type="string">copyFromConfigurable</item>
+                    </item>
+                </item>
+            </data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductInGrid" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertConfigurableProductForm" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertConfigurableProductPage" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertConfigurableProductInCart" />
+        </variation>
+        <variation name="UpdateConfigurableProductEntityTestVariation4">
+            <data name="description" xsi:type="string">Delete all option.</data>
+            <data name="configurableOptionsEditData" xsi:type="array">
+                <item name="deleteOptions" xsi:type="array">
+                    <item name="0" xsi:type="number">0</item>
+                    <item name="1" xsi:type="number">1</item>
+                    <item name="2" xsi:type="number">2</item>
+                </item>
+            </data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductInGrid"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertConfigurableProductForm"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductOutOfStock"/>
+        </variation>
+    </testCase>
+</config>

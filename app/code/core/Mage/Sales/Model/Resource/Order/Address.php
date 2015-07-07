@@ -63,11 +63,12 @@ class Mage_Sales_Model_Resource_Order_Address extends Mage_Sales_Model_Resource_
             'country_id' => Mage::helper('sales')->__('Country'),
             'email'      => Mage::helper('sales')->__('Email'),
             'firstname'  => Mage::helper('sales')->__('First Name'),
+            'middlename' => Mage::helper('sales')->__('Middle Name'),
             'lastname'   => Mage::helper('sales')->__('Last Name'),
             'region_id'  => Mage::helper('sales')->__('State/Province'),
             'street'     => Mage::helper('sales')->__('Street Address'),
             'telephone'  => Mage::helper('sales')->__('Telephone'),
-            'postcode'   => Mage::helper('sales')->__('Zip/Postal Code')
+            'postcode'   => Mage::helper('sales')->__('Zip/Postal Code'),
         );
         asort($attributes);
         return $attributes;

@@ -47,7 +47,8 @@ function Minicart(options) {
 }
 
 Minicart.prototype = {
-
+    initAfterEvents : {},
+    removeItemAfterEvents : {},
     init: function() {
         var cart = this;
 
@@ -74,6 +75,13 @@ Minicart.prototype = {
             .bind('click.quantity', function() {
                 cart.processUpdateQuantity(this);
         });
+
+        for (var i in this.initAfterEvents) {
+            if (this.initAfterEvents.hasOwnProperty(i) && typeof(this.initAfterEvents[i]) === "function") {
+                this.initAfterEvents[i]();
+            }
+        }
+
     },
 
     removeItem: function(el) {
@@ -98,6 +106,11 @@ Minicart.prototype = {
                 cart.hideOverlay();
                 cart.showError(cart.defaultErrorMessage);
             });
+        }
+        for (var i in this.removeItemAfterEvents) {
+            if (this.removeItemAfterEvents.hasOwnProperty(i) && typeof(this.removeItemAfterEvents[i]) === "function") {
+                this.removeItemAfterEvents[i]();
+            }
         }
     },
 

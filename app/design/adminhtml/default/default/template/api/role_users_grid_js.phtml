@@ -52,7 +52,7 @@
             if(checkbox[0]){
                 var checked = isInput ? checkbox[0].checked : !checkbox[0].checked;
                 if (warning && checkBoxes.size() > 0) {
-                    if ( !confirm("<?php echo $this->__('Warning!\r\nThis action will remove this user from already assigned role\r\nAre you sure?') ?>") ) {
+                    if ( !confirm("<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Warning!\r\nThis action will remove this user from already assigned role\r\nAre you sure?')) ?>") ) {
                         checkbox[0].checked = false;
                         checkBoxes.each(function(elem) {
                             if (elem.value.status == 1) {
@@ -78,7 +78,7 @@
     function myhandler(obj)
     {
         if (checkBoxes.size() > 0) {
-            if ( !confirm("<?php echo $this->__('Warning!\r\nThis action will remove those users from already assigned roles\r\nAre you sure?') ?>") ) {
+            if ( !confirm("<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Warning!\r\nThis action will remove those users from already assigned roles\r\nAre you sure?')) ?>") ) {
                 obj.checked = false;
                 checkBoxes.each(function(elem) {
                     if (elem.value.status == 1) {

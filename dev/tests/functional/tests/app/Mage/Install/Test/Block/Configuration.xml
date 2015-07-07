@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    Tests
+ * @package     Tests_Functional
+ * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<mapping strict="0">
+    <fields>
+        <db_model>
+            <selector>[name="config[db_model]"]</selector>
+            <input>select</input>
+        </db_model>
+        <db_host>
+            <selector>[name="connection[mysql4][db_host]"]</selector>
+        </db_host>
+        <db_name>
+            <selector>[name="connection[mysql4][db_name]"]</selector>
+        </db_name>
+        <db_user>
+            <selector>[name="connection[mysql4][db_user]"]</selector>
+        </db_user>
+        <db_pass>
+            <selector>[name="connection[mysql4][db_pass]"]</selector>
+        </db_pass>
+        <db_prefix>
+            <selector>[name="connection[mysql4][db_prefix]"]</selector>
+        </db_prefix>
+        <unsecure_base_url>
+            <selector>[name="config[unsecure_base_url]"]</selector>
+        </unsecure_base_url>
+        <admin_frontname>
+            <selector>[name="config[admin_frontname]"]</selector>
+        </admin_frontname>
+        <enable_charts>
+            <selector>[name="config[enable_charts]"]</selector>
+            <input>checkbox</input>
+        </enable_charts>
+        <skip_base_url_validation>
+            <selector>[name="skip_base_url_validation"]</selector>
+            <input>checkbox</input>
+        </skip_base_url_validation>
+        <use_rewrites>
+            <selector>[name="config[use_rewrites]"]</selector>
+            <input>checkbox</input>
+        </use_rewrites>
+        <use_secure>
+            <selector>[name="config[use_secure]"]</selector>
+            <input>checkbox</input>
+        </use_secure>
+        <secure_base_url>
+            <selector>[name="config[secure_base_url]"]</selector>
+        </secure_base_url>
+        <use_secure_admin>
+            <selector>[name="config[use_secure_admin]"]</selector>
+            <input>checkbox</input>
+        </use_secure_admin>
+        <skip_url_validation>
+            <selector>[name="skip_url_validation"]</selector>
+            <input>checkbox</input>
+        </skip_url_validation>
+        <session_save>
+            <selector>[name="config[session_save]"]</selector>
+            <input>select</input>
+        </session_save>
+    </fields>
+</mapping>

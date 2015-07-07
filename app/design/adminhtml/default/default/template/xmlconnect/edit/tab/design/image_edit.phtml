@@ -57,7 +57,7 @@
 
             <div id="action_selector_product" class="action" style="display: none;">
                 <span id="xmlconnect_product_search_indicator" class="autocomplete-indicator" style="display: none">
-                    <img src="<?php echo $this->getSkinUrl('images/ajax-loader.gif') ?>" alt="<?php echo $this->__('Loading...') ?>" class="v-middle"/>
+                    <img src="<?php echo $this->getSkinUrl('images/ajax-loader.gif') ?>" alt="<?php echo Mage::helper('core')->quoteEscape($this->__('Loading...')) ?>" class="v-middle"/>
                 </span>
                 <?php $defProductSearch = $this->__('2. Type Product Name') ?>
                 <input id="xmlconnect_product_search" name="query" type="text" class="input-text" value="<?php echo $defProductSearch ?>" onfocus="if(this.value=='<?php echo $defProductSearch ?>')this.value=''; " onblur="if(this.value=='')this.value='<?php echo $defProductSearch ?>';" />
@@ -66,7 +66,7 @@
 
             <div id="action_selector_category" class="action">
                 <span id="xmlconnect_category_search_indicator" class="autocomplete-indicator" style="display: none">
-                    <img src="<?php echo $this->getSkinUrl('images/ajax-loader.gif') ?>" alt="<?php echo $this->__('Loading...') ?>" class="v-middle"/>
+                    <img src="<?php echo $this->getSkinUrl('images/ajax-loader.gif') ?>" alt="<?php echo Mage::helper('core')->quoteEscape($this->__('Loading...')) ?>" class="v-middle"/>
                 </span>
                 <?php $defCategorySearch = $this->__('2. Type Category Name') ?>
                 <input id="xmlconnect_category_search" name="query" type="text" class="input-text" value="<?php echo $defCategorySearch ?>" onfocus="if(this.value=='<?php echo $defCategorySearch ?>')this.value=''; " onblur="if(this.value=='')this.value='<?php echo $defCategorySearch ?>';" />
@@ -227,7 +227,7 @@
             $('action_save_button').addClassName('disabled');
             if (actionConfig !== null) {
                 if (actionConfig.image_action_data !== undefined) {
-                    $('image_edit_popup_head').update('<?php echo $this->__('Edit Action') ?>');
+                    $('image_edit_popup_head').update('<?php echo $this->jsQuoteEscape($this->__('Edit Action')) ?>');
                     $('action_delete_button').show();
                     actionConfig = actionConfig.image_action_data;
                     actionHelper.setActionSelectorValue(actionConfig.action_type);
@@ -252,7 +252,7 @@
                             return;
                     }
                 } else {
-                    $('image_edit_popup_head').update('<?php echo $this->__('Add Action') ?>');
+                    $('image_edit_popup_head').update('<?php echo $this->jsQuoteEscape($this->__('Add Action')) ?>');
                     $('action_delete_button').hide();
                 }
             } else {

@@ -38,6 +38,7 @@ class Mage_Adminhtml_Block_Tag_Grid_Customers extends Mage_Adminhtml_Block_Widge
         //TODO: add full name logic
         $collection = Mage::getResourceModel('tag_customer/collection')
             ->addAttributeToSelect('firstname')
+            ->addAttributeToSelect('middlename')
             ->addAttributeToSelect('lastname')
 //            ->addAttributeToSelect('email')
 //            ->addAttributeToSelect('created_at')
@@ -45,7 +46,8 @@ class Mage_Adminhtml_Block_Tag_Grid_Customers extends Mage_Adminhtml_Block_Widge
 //            ->joinAttribute('billing_city', 'customer_address/city', 'default_billing')
 //            ->joinAttribute('billing_telephone', 'customer_address/telephone', 'default_billing')
 //            ->joinAttribute('billing_country_id', 'customer_address/country_id', 'default_billing')
-//            ->joinField('billing_country_name', 'directory/country_name', 'name', 'country_id=billing_country_id', array('language_code'=>'en'))
+//            ->joinField('billing_country_name', 'directory/country_name', 'name',
+//                'country_id=billing_country_id', array('language_code'=>'en'))
         ;
 
         if ($productId = $this->getRequest()->getParam('product_id')) {
@@ -63,19 +65,23 @@ class Mage_Adminhtml_Block_Tag_Grid_Customers extends Mage_Adminhtml_Block_Widge
     protected function _prepareColumns()
     {
         $this->addColumn('entity_id', array(
-            'header'    =>Mage::helper('tag')->__('ID'),
-            'width'     => '40px',
-            'align'     =>'center',
-            'sortable'  =>true,
-            'index'     =>'entity_id'
+            'header'   => Mage::helper('tag')->__('ID'),
+            'width'    => '40px',
+            'align'    => 'center',
+            'sortable' => true,
+            'index'    => 'entity_id',
         ));
         $this->addColumn('firstname', array(
-            'header'    =>Mage::helper('tag')->__('First Name'),
-            'index'     =>'firstname'
+            'header' => Mage::helper('tag')->__('First Name'),
+            'index'  => 'firstname',
+        ));
+        $this->addColumn('middlename', array(
+            'header' => Mage::helper('tag')->__('Middle Name'),
+            'index'  => 'middlename',
         ));
         $this->addColumn('lastname', array(
-            'header'    =>Mage::helper('tag')->__('Last Name'),
-            'index'     =>'lastname'
+            'header' => Mage::helper('tag')->__('Last Name'),
+            'index'  => 'lastname',
         ));
 //        $this->addColumn('email', array(
 //            'header'    =>Mage::helper('tag')->__('Email'),
@@ -104,25 +110,26 @@ class Mage_Adminhtml_Block_Tag_Grid_Customers extends Mage_Adminhtml_Block_Widge
 //            'index'     =>'created_at',
 //        ));
         $this->addColumn('tags', array(
-            'header'    => Mage::helper('tag')->__('Tags'),
-            'index'     => 'tags',
-            'sortable'  => false,
-            'filter'    => false,
-            'renderer'  => 'adminhtml/tag_grid_column_renderer_tags'
+            'header'   => Mage::helper('tag')->__('Tags'),
+            'index'    => 'tags',
+            'sortable' => false,
+            'filter'   => false,
+            'renderer' => 'adminhtml/tag_grid_column_renderer_tags',
         ));
         $this->addColumn('action', array(
-            'header'    =>Mage::helper('tag')->__('Action'),
-            'align'     =>'center',
+            'header'    => Mage::helper('tag')->__('Action'),
+            'align'     => 'center',
             'width'     => '120px',
-            'format'    =>'<a href="'.$this->getUrl('*/*/products/customer_id/$entity_id').'">'.Mage::helper('tag')->__('View Products').'</a>',
-            'filter'    =>false,
-            'sortable'  =>false,
-            'is_system' =>true
+            'format'    => '<a href="' . $this->getUrl('*/*/products/customer_id/$entity_id') . '">' . Mage::helper('tag')->__('View Products') . '</a>',
+            'filter'    => false,
+            'sortable'  => false,
+            'is_system' => true,
         ));
 
         $this->setColumnFilter('entity_id')
             ->setColumnFilter('email')
             ->setColumnFilter('firstname')
+            ->setColumnFilter('middlename')
             ->setColumnFilter('lastname');
 
 //        $this->addExportType('*/*/exportCsv', Mage::helper('tag')->__('CSV'));

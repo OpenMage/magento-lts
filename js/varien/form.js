@@ -268,20 +268,20 @@ RegionUpdater.prototype = {
                     this.regionSelectEl.appendChild(option);
                 }
 
-                if (regionId==def || (region.name && region.name.toLowerCase()==def) ||
-                    (region.name && region.code.toLowerCase()==def)
+                if (regionId == def || (region.name && region.name.toLowerCase() == def)
+                    || (region.name && region.code.toLowerCase() == def)
                 ) {
                     this.regionSelectEl.value = regionId;
                 }
             }
-
-            if (this.disableAction=='hide') {
+            this.sortSelect();
+            if (this.disableAction == 'hide') {
                 if (this.regionTextEl) {
                     this.regionTextEl.style.display = 'none';
                 }
 
                 this.regionSelectEl.style.display = '';
-            } else if (this.disableAction=='disable') {
+            } else if (this.disableAction == 'disable') {
                 if (this.regionTextEl) {
                     this.regionTextEl.disabled = true;
                 }
@@ -290,18 +290,19 @@ RegionUpdater.prototype = {
             this.setMarkDisplay(this.regionSelectEl, true);
         } else {
             this.regionSelectEl.options.length = 1;
-            if (this.disableAction=='hide') {
+            this.sortSelect();
+            if (this.disableAction == 'hide') {
                 if (this.regionTextEl) {
                     this.regionTextEl.style.display = '';
                 }
                 this.regionSelectEl.style.display = 'none';
                 Validation.reset(this.regionSelectEl);
-            } else if (this.disableAction=='disable') {
+            } else if (this.disableAction == 'disable') {
                 if (this.regionTextEl) {
                     this.regionTextEl.disabled = false;
                 }
                 this.regionSelectEl.disabled = true;
-            } else if (this.disableAction=='nullify') {
+            } else if (this.disableAction == 'nullify') {
                 this.regionSelectEl.options.length = 1;
                 this.regionSelectEl.value = '';
                 this.regionSelectEl.selectedIndex = 0;
@@ -336,6 +337,26 @@ RegionUpdater.prototype = {
                 }
             }
         }
+    },
+    sortSelect : function () {
+        var elem = this.regionSelectEl;
+        var tmpArray = new Array();
+        var currentVal = $(elem).value;
+        for (var i = 0; i < $(elem).options.length; i++) {
+            if (i == 0) {
+                continue;
+            }
+            tmpArray[i-1] = new Array();
+            tmpArray[i-1][0] = $(elem).options[i].text;
+            tmpArray[i-1][1] = $(elem).options[i].value;
+        }
+        tmpArray.sort();
+        for (var i = 1; i <= tmpArray.length; i++) {
+            var op = new Option(tmpArray[i-1][0], tmpArray[i-1][1]);
+            $(elem).options[i] = op;
+        }
+        $(elem).value = currentVal;
+        return;
     }
 }
 

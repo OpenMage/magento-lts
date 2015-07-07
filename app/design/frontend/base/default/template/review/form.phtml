@@ -96,7 +96,7 @@
         var dataForm = new VarienForm('review-form');
         Validation.addAllThese(
         [
-               ['validate-rating', '<?php echo $this->__('Please select one of each of the ratings above') ?>', function(v) {
+               ['validate-rating', '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Please select one of each of the ratings above')) ?>', function(v) {
                     var trs = $('product-review-table').select('tr');
                     var inputs;
                     var error = 1;

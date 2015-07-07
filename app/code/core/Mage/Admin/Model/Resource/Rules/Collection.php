@@ -68,4 +68,18 @@ class Mage_Admin_Model_Resource_Rules_Collection extends Mage_Core_Model_Resourc
 
         return $this;
     }
+
+    /**
+     * Generate and retrieve a resource - permissions map
+     * @return array
+     */
+    public function getResourcesPermissionsArray()
+    {
+        $resourcesPermissionsArray = array();
+        foreach ($this as $item) {
+            $resourcesPermissionsArray[$item->getResourceId()] = $item->getPermission();
+        }
+
+        return $resourcesPermissionsArray;
+    }
 }

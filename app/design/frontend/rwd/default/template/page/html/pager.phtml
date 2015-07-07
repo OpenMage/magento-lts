@@ -54,7 +54,7 @@
         <?php if($this->getShowPerPage()): ?>
         <div class="limiter">
             <label><?php echo $this->__('Show') ?></label>
-            <select onchange="setLocation(this.value)" title="<?php echo $this->__('Results per page'); ?>">
+            <select onchange="setLocation(this.value)" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Results per page')); ?>">
             <?php foreach ($this->getAvailableLimit() as  $_key=>$_limit): ?>
                 <option value="<?php echo $this->getLimitUrl($_key) ?>"<?php if($this->isLimitCurrent($_key)): ?> selected="selected"<?php endif ?>>
                     <?php echo $_limit ?>
@@ -72,7 +72,7 @@
         <ol>
         <?php if (!$this->isFirstPage()): ?>
             <li>
-                <a class="previous<?php if(!$this->getAnchorTextForPrevious()): ?> i-previous<?php endif;?>" href="<?php echo $this->getPreviousPageUrl() ?>" title="<?php echo $this->__('Previous') ?>">
+                <a class="previous<?php if(!$this->getAnchorTextForPrevious()): ?> i-previous<?php endif;?>" href="<?php echo $this->getPreviousPageUrl() ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Previous')) ?>">
                     <?php if(!$this->getAnchorTextForPrevious()): ?>
                         <?php echo $this->__('Previous') ?>
                     <?php else: ?>
@@ -109,7 +109,7 @@
 
         <?php if (!$this->isLastPage()): ?>
             <li>
-                <a class="next<?php if(!$this->getAnchorTextForNext()): ?> i-next<?php endif; ?>" href="<?php echo $this->getNextPageUrl() ?>" title="<?php echo $this->__('Next') ?>">
+                <a class="next<?php if(!$this->getAnchorTextForNext()): ?> i-next<?php endif; ?>" href="<?php echo $this->getNextPageUrl() ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Next')) ?>">
                     <?php if(!$this->getAnchorTextForNext()): ?>
                         <?php echo $this->__('Next') ?>
                     <?php else: ?>

@@ -44,7 +44,7 @@ function startInstall(state)
 
 function installSuccess()
 {
-    alert("<?php echo $this->__("All packages were installed, click 'OK' to continue with installation.") ?>");
+    alert('<?php echo Mage::helper('core')->jsQuoteEscape($this->__("All packages were installed, click 'OK' to continue with installation.")) ?>');
     location.href = "<?php echo $this->getNextUrl() ?>";
     $$('button').each(function(el) {
         el.disabled = true;
@@ -54,7 +54,7 @@ function installSuccess()
 
 function installFailure()
 {
-    alert("<?php echo $this->__("There was a problem installing Magento packages. Please read the log, correct errors and try again.") ?>\n<?php echo $this->__("Alternatively you could try the 'Manual Downloads and Upgrades' method.") ?>");
+    alert('<?php echo Mage::helper('core')->jsQuoteEscape($this->__("There was a problem installing Magento packages. Please read the log, correct errors and try again.")) ?>\n<?php echo Mage::helper('core')->jsQuoteEscape($this->__("Alternatively you could try the 'Manual Downloads and Upgrades' method.")) ?>');
     $$('button').each(function(el) {
         el.disabled = true;
         el.removeClassName('disabled');

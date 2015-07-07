@@ -284,7 +284,7 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
      */
     public function getSearchPostUrl()
     {
-        return $this->getUrl('*/*/result');
+        return $this->getUrl('*/*/result', array('_secure' => $this->_isSecure()));
     }
 
     /**

@@ -39,8 +39,8 @@
     <validate-payment-methods-not-available translate="message" module="checkout">
         <message>Your order cannot be completed at this time as there is no payment methods available for it.</message>
     </validate-payment-methods-not-available>
-    <validate-shipping-methods-required translate="message" module="checkout">
+    <validate-payment-methods-required translate="message" module="checkout">
         <message>Please specify payment method.</message>
-    </validate-shipping-methods-required>
+    </validate-payment-methods-required>
     <!-- end opcheckout.js -->
 </jstranslator>

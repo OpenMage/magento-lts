@@ -86,7 +86,7 @@
 </div>
 <script type="text/javascript">
     function deleteAddress(addressId) {
-        if(confirm('<?php echo $this->__('Are you sure you want to delete this address?') ?>')) {
+        if(confirm('<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Are you sure you want to delete this address?')) ?>')) {
             window.location='<?php echo $this->getUrl("customer/address/delete") ?>address/'+addressId;
         }
         return false;

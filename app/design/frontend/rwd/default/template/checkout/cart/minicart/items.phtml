@@ -44,7 +44,7 @@ if(empty($_cartQty)) {
 
     <p class="block-subtitle">
         <?php echo $this->__('Recently added item(s)') ?>
-        <a class="close skip-link-close" href="#" title="<?php echo $this->__('Close'); ?>">&times;</a>
+        <a class="close skip-link-close" href="#" title="<?php echo $this->quoteEscape($this->__('Close')); ?>">&times;</a>
     </p>
 
     <?php $_items = $this->getRecentItems() ?>
@@ -91,7 +91,7 @@ if(empty($_cartQty)) {
                 <ul class="checkout-types minicart">
                     <?php echo $this->getChildHtml('extra_actions') ?>
                     <li>
-                        <a title="<?php echo $this->__('Checkout') ?>" class="button checkout-button" href="<?php echo $this->getCheckoutUrl() ?>">
+                        <a title="<?php echo $this->quoteEscape($this->__('Checkout')) ?>" class="button checkout-button" href="<?php echo $this->getCheckoutUrl() ?>">
                             <?php echo $this->__('Checkout') ?>
                         </a>
                     </li>
