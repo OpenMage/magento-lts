@@ -697,6 +697,10 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
             $condition = $condition || $this->getIsFilterable();
         }
 
+        if ($this->getAttributeCode() == 'status') {
+            $condition = true;
+        }
+
         if ($condition) {
             if ($this->usesSource() && $this->getBackendType() != self::TYPE_STATIC) {
                 return $this->getSource()->getFlatIndexes();

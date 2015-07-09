@@ -1,0 +1,207 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    Tests
+ * @package     Tests_Functional
+ * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<tabs>
+    <settings>
+        <class>\Mage\Adminhtml\Test\Block\Catalog\Product\Edit\Tab\ProductSettings</class>
+        <selector>#product_info_tabs_set</selector>
+        <fields>
+            <attribute_set_id>
+                <selector>#attribute_set_id</selector>
+                <input>select</input>
+            </attribute_set_id>
+            <product_type>
+                <selector>[name="type"]</selector>
+                <input>select</input>
+            </product_type>
+        </fields>
+    </settings>
+    <general>
+        <class>\Mage\Adminhtml\Test\Block\Widget\Tab</class>
+        <selector>//ul[@id="product_info_tabs"]/li[1]/a</selector>
+        <strategy>xpath</strategy>
+        <wrapper>product</wrapper>
+        <fields>
+            <name />
+            <description />
+            <short_description />
+            <sku />
+            <weight />
+            <status>
+                <input>select</input>
+            </status>
+            <url_key />
+            <visibility>
+                <input>select</input>
+            </visibility>
+        </fields>
+    </general>
+    <prices>
+        <class>\Mage\Adminhtml\Test\Block\Catalog\Product\Edit\Tab\Prices</class>
+        <selector>//ul[@id="product_info_tabs"]/li[2]/a</selector>
+        <strategy>xpath</strategy>
+        <wrapper>product</wrapper>
+        <fields>
+            <price />
+            <tax_class_id>
+                <input>select</input>
+            </tax_class_id>
+            <tier_price />
+            <group_price />
+            <special_price />
+        </fields>
+    </prices>
+    <inventory>
+        <class>\Mage\Adminhtml\Test\Block\Widget\Tab</class>
+        <selector>#product_info_tabs_inventory</selector>
+        <wrapper>product</wrapper>
+        <fields>
+            <stock_data composite="1">
+                <qty>
+                    <selector>[name="product[stock_data][qty]"]</selector>
+                </qty>
+                <is_in_stock>
+                    <selector>[name="product[stock_data][is_in_stock]"]</selector>
+                    <input>select</input>
+                </is_in_stock>
+                <use_config_manage_stock>
+                    <selector>[name="product[stock_data][use_config_manage_stock]"]</selector>
+                    <input>checkbox</input>
+                </use_config_manage_stock>
+                <manage_stock>
+                    <selector>[name="product[stock_data][manage_stock]"]</selector>
+                    <input>select</input>
+                </manage_stock>
+                <use_config_min_qty>
+                    <selector>[name='product[stock_data][use_config_min_qty]']</selector>
+                    <input>checkbox</input>
+                </use_config_min_qty>
+                <min_qty>
+                    <selector>[name='product[stock_data][min_qty]']</selector>
+                </min_qty>
+            </stock_data>
+        </fields>
+    </inventory>
+    <categories>
+        <class>\Mage\Adminhtml\Test\Block\Catalog\Product\Edit\Tab\Categories</class>
+        <selector>#product_info_tabs_categories</selector>
+        <wrapper>product</wrapper>
+        <fields>
+            <category_ids>
+                <selector>#product-categories</selector>
+            </category_ids>
+        </fields>
+    </categories>
+    <custom-options>
+        <class>\Mage\Adminhtml\Test\Block\Catalog\Product\Edit\Tab\CustomOptions</class>
+        <selector>#product_info_tabs_customer_options</selector>
+        <strategy>css selector</strategy>
+        <fields>
+            <title>
+                <selector>input[id$='_title']</selector>
+                <strategy>css selector</strategy>
+            </title>
+            <is_require>
+                <selector>select[id$='_is_require']</selector>
+                <strategy>css selector</strategy>
+                <input>select</input>
+            </is_require>
+            <type>
+                <selector>select[id$='_type']</selector>
+                <strategy>css selector</strategy>
+                <input>optgroupselect</input>
+            </type>
+        </fields>
+    </custom-options>
+    <super-settings>
+        <class>\Mage\Adminhtml\Test\Block\Catalog\Product\Edit\Tab\SuperSettings</class>
+        <selector>#product_info_tabs_super_settings</selector>
+        <strategy>css selector</strategy>
+        <fields>
+            <attribute>
+                <selector>//tr[td[@class="label" and label[text()="%s"]]]//td[@class="value"]/input</selector>
+                <input>checkbox</input>
+                <strategy>xpath</strategy>
+            </attribute>
+        </fields>
+    </super-settings>
+    <configurable>
+        <class>\Mage\Adminhtml\Test\Block\Catalog\Product\Edit\Tab\Configurable</class>
+        <selector>#product_info_tabs_configurable</selector>
+        <strategy>css selector</strategy>
+    </configurable>
+    <related-products>
+        <class>\Mage\Adminhtml\Test\Block\Catalog\Product\Edit\Tab\Related</class>
+        <selector>#product_info_tabs_related</selector>
+        <strategy>css selector</strategy>
+    </related-products>
+    <crosssells>
+        <class>\Mage\Adminhtml\Test\Block\Catalog\Product\Edit\Tab\Crosssell</class>
+        <selector>#product_info_tabs_crosssell</selector>
+        <strategy>css selector</strategy>
+    </crosssells>
+    <up-sells>
+        <class>\Mage\Adminhtml\Test\Block\Catalog\Product\Edit\Tab\Upsell</class>
+        <selector>#product_info_tabs_upsell</selector>
+        <strategy>css selector</strategy>
+    </up-sells>
+    <gift-options>
+        <class>\Mage\Adminhtml\Test\Block\Widget\Tab</class>
+        <selector>#product_info_tabs_group_17</selector>
+        <strategy>css selector</strategy>
+        <wrapper>product</wrapper>
+        <fields>
+            <use_config_gift_message_available>
+                <input>checkbox</input>
+            </use_config_gift_message_available>
+            <gift_message_available>
+                <input>select</input>
+            </gift_message_available>
+            <gift_wrapping_available>
+                <input>select</input>
+            </gift_wrapping_available>
+            <gift_wrapping_price />
+        </fields>
+    </gift-options>
+    <websites>
+        <class>\Mage\Adminhtml\Test\Block\Catalog\Product\Edit\Tab\Websites</class>
+        <selector>#product_info_tabs_websites</selector>
+        <strategy>css selector</strategy>
+        <fields>
+            <website>
+                <selector>//*[@class="website-name" and .//label[text()="%s"]]/input</selector>
+                <input>checkbox</input>
+                <strategy>xpath</strategy>
+            </website>
+        </fields>
+    </websites>
+    <associated>
+        <class>\Mage\Adminhtml\Test\Block\Catalog\Product\Edit\Tab\AssociatedProducts</class>
+        <selector>#product_info_tabs_super</selector>
+        <strategy>css selector</strategy>
+    </associated>
+</tabs>

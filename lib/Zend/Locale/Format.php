@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Locale
  * @subpackage Format
- * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @version    $Id$
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -29,7 +29,7 @@
  * @category   Zend
  * @package    Zend_Locale
  * @subpackage Format
- * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Locale_Format
@@ -42,7 +42,7 @@ class Zend_Locale_Format
                                      'fix_date'      => false,
                                      'locale'        => null,
                                      'cache'         => null,
-                                     'disableCache'  => false,
+                                     'disableCache'  => null,
                                      'precision'     => null);
 
     /**
@@ -152,7 +152,9 @@ class Zend_Locale_Format
                     break;
 
                 case 'disablecache' :
-                    Zend_Locale_Data::disableCache($value);
+                    if (null !== $value) {
+                        Zend_Locale_Data::disableCache($value);
+                    }
                     break;
 
                 case 'precision' :
@@ -256,10 +258,8 @@ class Zend_Locale_Format
         // Get correct signs for this locale
         $symbols = Zend_Locale_Data::getList($options['locale'],'symbols');
         // Change locale input to be default number
-        if ((strpos($input, $symbols['minus']) !== false) ||
-            (strpos($input, '-') !== false)) {
-            $input = strtr($input, array($symbols['minus'] => '', '-' => ''));
-            $input = '-' . $input;
+        if (($input[0] == $symbols['minus']) && ('-' != $input[0])) {
+            $input = '-' . substr($input, 1);
         }
 
         $input = str_replace($symbols['group'],'', $input);
@@ -749,21 +749,54 @@ class Zend_Locale_Format
             return null;
         }
 
-        $convert = array('d' => 'dd'  , 'D' => 'EE'  , 'j' => 'd'   , 'l' => 'EEEE', 'N' => 'eee' , 'S' => 'SS'  ,
-                         'w' => 'e'   , 'z' => 'D'   , 'W' => 'ww'  , 'F' => 'MMMM', 'm' => 'MM'  , 'M' => 'MMM' ,
-                         'n' => 'M'   , 't' => 'ddd' , 'L' => 'l'   , 'o' => 'YYYY', 'Y' => 'yyyy', 'y' => 'yy'  ,
-                         'a' => 'a'   , 'A' => 'a'   , 'B' => 'B'   , 'g' => 'h'   , 'G' => 'H'   , 'h' => 'hh'  ,
-                         'H' => 'HH'  , 'i' => 'mm'  , 's' => 'ss'  , 'e' => 'zzzz', 'I' => 'I'   , 'O' => 'Z'   ,
-                         'P' => 'ZZZZ', 'T' => 'z'   , 'Z' => 'X'   , 'c' => 'yyyy-MM-ddTHH:mm:ssZZZZ',
-                         'r' => 'r'   , 'U' => 'U');
-        $values = str_split($format);
-        foreach ($values as $key => $value) {
-            if (isset($convert[$value]) === true) {
-                $values[$key] = $convert[$value];
+        $convert = array(
+            'd' => 'dd'  , 'D' => 'EE'  , 'j' => 'd'   , 'l' => 'EEEE',
+            'N' => 'eee' , 'S' => 'SS'  , 'w' => 'e'   , 'z' => 'D'   ,
+            'W' => 'ww'  , 'F' => 'MMMM', 'm' => 'MM'  , 'M' => 'MMM' ,
+            'n' => 'M'   , 't' => 'ddd' , 'L' => 'l'   , 'o' => 'YYYY',
+            'Y' => 'yyyy', 'y' => 'yy'  , 'a' => 'a'   , 'A' => 'a'   ,
+            'B' => 'B'   , 'g' => 'h'   , 'G' => 'H'   , 'h' => 'hh'  ,
+            'H' => 'HH'  , 'i' => 'mm'  , 's' => 'ss'  , 'e' => 'zzzz',
+            'I' => 'I'   , 'O' => 'Z'   , 'P' => 'ZZZZ', 'T' => 'z'   ,
+            'Z' => 'X'   , 'c' => 'yyyy-MM-ddTHH:mm:ssZZZZ', 'r' => 'r',
+            'U' => 'U',
+        );
+        $escaped = false;
+        $inEscapedString = false;
+        $converted = array();
+        foreach (str_split($format) as $char) {
+            if (!$escaped && $char == '\\') {
+                // Next char will be escaped: let's remember it
+                $escaped = true;
+            } elseif ($escaped) {
+                if (!$inEscapedString) {
+                    // First escaped string: start the quoted chunk
+                    $converted[] = "'";
+                    $inEscapedString = true;
+                }
+                // Since the previous char was a \ and we are in the quoted
+                // chunk, let's simply add $char as it is
+                $converted[] = $char;
+                $escaped = false;
+            } elseif ($char == "'") {
+                // Single quotes need to be escaped like this
+                $converted[] = "''";
+            } else {
+                if ($inEscapedString) {
+                    // Close the single-quoted chunk
+                    $converted[] = "'";
+                    $inEscapedString = false;
+                }
+                // Convert the unescaped char if needed
+                if (isset($convert[$char])) {
+                    $converted[] = $convert[$char];
+                } else {
+                    $converted[] = $char;
+                }
             }
         }
 
-        return implode($values);
+        return implode($converted);
     }
 
     /**
@@ -1288,20 +1321,22 @@ class Zend_Locale_Format
             ? iconv_get_encoding('internal_encoding')
             : ini_get('default_charset');
 
+        return $oenc;
     }
 
     /**
      * Internal method to set the encoding via the ini setting
      * default_charset for PHP >= 5.6 or iconv_set_encoding otherwise.
      *
+     * @param string $encoding
      * @return void
      */
-    protected static function _setEncoding($enc)
+    protected static function _setEncoding($encoding)
     {
         if (PHP_VERSION_ID < 50600) {
-            iconv_set_encoding('internal_encoding', $enc);
+            iconv_set_encoding('internal_encoding', $encoding);
         } else {
-            ini_set('default_charset', $enc);
+            ini_set('default_charset', $encoding);
         }
     }
 }

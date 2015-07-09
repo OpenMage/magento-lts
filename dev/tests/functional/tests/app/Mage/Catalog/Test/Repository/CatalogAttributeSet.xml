@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    Tests
+ * @package     Tests_Functional
+ * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/Magento/Mtf/Repository/etc/repository.xsd">
+    <repository class="Mage\Catalog\Test\Repository\CatalogAttributeSet">
+        <dataset name="default">
+            <field name="attribute_set_name" xsi:type="string">Default</field>
+            <field name="attribute_set_id" xsi:type="string">4</field>
+        </dataset>
+
+        <dataset name="custom_attribute_set">
+            <field name="attribute_set_name" xsi:type="string">Custom_attribute_set%isolation%</field>
+            <field name="skeleton_set" xsi:type="array">
+                <item name="dataSet" xsi:type="string">default</item>
+            </field>
+            <field name="assigned_attributes" xsi:type="array">
+                <item name="presets" xsi:type="string">attribute_type_dropdown,attribute_type_dropdown</item>
+            </field>
+        </dataset>
+
+        <dataset name="custom_attribute_set_without_attributes">
+            <field name="attribute_set_name" xsi:type="string">Custom_attribute_set%isolation%</field>
+            <field name="skeleton_set" xsi:type="array">
+                <item name="dataSet" xsi:type="string">default</item>
+            </field>
+        </dataset>
+
+        <dataset name="with_filterable_options">
+            <field name="attribute_set_name" xsi:type="string">Filterable_attribute_set%isolation%</field>
+            <field name="skeleton_set" xsi:type="array">
+                <item name="dataSet" xsi:type="string">default</item>
+            </field>
+            <field name="assigned_attributes" xsi:type="array">
+                <item name="presets" xsi:type="string">filterable_attribute,filterable_attribute</item>
+            </field>
+        </dataset>
+
+        <dataset name="custom_attribute_set_with_fpt">
+            <field name="attribute_set_name" xsi:type="string">Custom_attribute_set%isolation%</field>
+            <field name="skeleton_set" xsi:type="array">
+                <item name="dataSet" xsi:type="string">default</item>
+            </field>
+            <field name="assigned_attributes" xsi:type="array">
+                <item name="presets" xsi:type="string">attribute_type_fpt</item>
+            </field>
+        </dataset>
+    </repository>
+</config>

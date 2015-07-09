@@ -32,5 +32,14 @@ class Mage_Checkout_Block_Cart_Coupon extends Mage_Checkout_Block_Cart_Abstract
         return $this->getQuote()->getCouponCode();
     }
 
+    /**
+     * Return "discount" form action url
+     *
+     * @return string
+     */
+    public function getFormActionUrl()
+    {
+        return $this->getUrl('checkout/cart/couponPost', array('_secure' => $this->_isSecure()));
+    }
 
 }

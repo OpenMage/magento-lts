@@ -30,14 +30,14 @@
             <label for="newsletter"><?php echo $this->__('Newsletter Sign-up:') ?></label>
         </div>
         <div class="input-box">
-           <input type="text" name="email" id="newsletter" title="<?php echo $this->__('Sign up for our newsletter') ?>" class="input-text required-entry validate-email" />
+           <input type="text" name="email" id="newsletter" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Sign up for our newsletter')) ?>" class="input-text required-entry validate-email" />
         </div>
-        <button type="submit" title="<?php echo $this->__('Submit') ?>" class="button"><span><span><?php echo $this->__('Submit') ?></span></span></button>
+        <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Submit')) ?>" class="button"><span><span><?php echo $this->__('Submit') ?></span></span></button>
     </div>
 </form>
 <script type="text/javascript">
 //<![CDATA[
     var newsletterSubscriberFormDetail = new VarienForm('newsletter-validate-detail');
-    new Varien.searchForm('newsletter-validate-detail', 'newsletter', '<?php echo $this->helper('newsletter')->__('Enter your email address') ?>');
+    new Varien.searchForm('newsletter-validate-detail', 'newsletter', '<?php echo Mage::helper('core')->jsQuoteEscape($this->helper('newsletter')->__('Enter your email address')) ?>');
 //]]>
 </script>

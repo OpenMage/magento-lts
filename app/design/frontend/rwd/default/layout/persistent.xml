@@ -27,6 +27,12 @@
 
 -->
 <layout version="0.1.0">
+    <default>
+        <reference name="header">
+            <block type="page/template_links" name="account.links" as="accountLinks" template="persistent/header/links.phtml"/>
+        </reference>
+    </default>
+
     <customer_account_login>
         <reference name="customer_form_login">
             <action method="setTemplate"><template>persistent/customer/form/login.phtml</template></action>

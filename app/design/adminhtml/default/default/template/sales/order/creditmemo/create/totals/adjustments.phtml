@@ -50,7 +50,7 @@
     <script type="text/javascript">
     //<![CDATA[
     Validation.addAllThese([
-        ['not-negative-amount', '<?php echo $this->helper('sales')->__('Please enter positive number in this field.') ?>', function(v) {
+        ['not-negative-amount', '<?php echo Mage::helper('core')->jsQuoteEscape($this->helper('sales')->__('Please enter positive number in this field.')) ?>', function(v) {
             if(v.length)
                 return /^\s*\d+([,.]\d+)*\s*%?\s*$/.test(v);
             else

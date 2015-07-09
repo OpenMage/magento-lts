@@ -564,7 +564,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
             $alias = $table;
         }
 
-        if (!isset($this->_joinedTables[$table])) {
+        if (!isset($this->_joinedTables[$alias])) {
             $this->getSelect()->join(
                 array($alias => $this->getTable($table)),
                 $cond,

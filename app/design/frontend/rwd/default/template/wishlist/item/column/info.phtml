@@ -42,7 +42,7 @@ $product = $item->getProduct();
 <!--     </div>
 </div> -->
 
-<textarea name="description[<?php echo $item->getWishlistItemId() ?>]" rows="3" cols="5" title="<?php echo $this->__('Comment') ?>" placeholder="<?php echo $this->helper('wishlist')->defaultCommentString(); ?>"><?php echo ($this->escapeHtml($item->getDescription() ? $item->getDescription() : '')) ?></textarea>
+<textarea name="description[<?php echo $item->getWishlistItemId() ?>]" rows="3" cols="5" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Comment')) ?>" placeholder="<?php echo $this->helper('wishlist')->defaultCommentString(); ?>"><?php echo ($this->escapeHtml($item->getDescription() ? $item->getDescription() : '')) ?></textarea>
 
 <?php if($this->getSortedChildren()): ?>
     <div class="item-manage">

@@ -120,6 +120,16 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
         return $this->getUrl('checkout/onepage', array('_secure'=>true));
     }
 
+    /**
+     * Return "cart" form action url
+     *
+     * @return string
+     */
+    public function getFormActionUrl()
+    {
+        return $this->getUrl('checkout/cart/updatePost', array('_secure' => $this->_isSecure()));
+    }
+
     public function getContinueShoppingUrl()
     {
         $url = $this->getData('continue_shopping_url');

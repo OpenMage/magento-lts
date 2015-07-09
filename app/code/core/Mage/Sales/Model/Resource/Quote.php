@@ -177,27 +177,49 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
     /**
      * Mark quotes - that depend on catalog price rules - to be recollected on demand
      *
+     *  @param  array|null $productIdList
+     *
+     * @return Mage_Sales_Model_Resource_Quote
+     */
+    public function markQuotesRecollectByAffectedProduct($productIdList = null)
+    {
+        $writeAdapter = $this->_getWriteAdapter();
+        $select = $writeAdapter->select();
+        $subSelect = clone $select;
+
+        $subSelect
+            ->distinct()
+            ->from(
+                   array('qi' => $this->getTable('sales/quote_item')),
+                   array('entity_id' => 'quote_id'))
+            ->join(
+                   array('pp' => $this->getTable('catalogrule/rule_product_price')),
+                   'qi.product_id = pp.product_id',
+                   array());
+        if ($productIdList !== null) {
+           $subSelect->where('qi.product_id IN (?)', $productIdList);
+        }
+
+        $select
+             ->join(
+                    array('tmp' => $subSelect),
+                    'q.entity_id = tmp.entity_id',
+                    array('trigger_recollect' => new Zend_Db_Expr(1)))
+             ->where('q.is_active = ?', 1);
+        $sql = $writeAdapter->updateFromSelect($select, array('q' => $this->getTable('sales/quote')));
+        $writeAdapter->query($sql);
+
+        return $this;
+    }
+
+    /**
+     * Mark quotes - that depend on catalog price rules - to be recollected on demand
+     *
      * @return Mage_Sales_Model_Resource_Quote
      */
     public function markQuotesRecollectOnCatalogRules()
     {
-        $quoteItemTable = $this->getTable('sales/quote_item');
-        $productPriceTable = $this->getTable('catalogrule/rule_product_price');
-
-        $select = $this->_getReadAdapter()
-          ->select()
-          ->distinct()
-          ->from(array('t2' => $quoteItemTable), array('entity_id' => 'quote_id'))
-          ->join(array('t3' => $productPriceTable), 't2.product_id = t3.product_id', array());
-
-        $entityIds = $this->_getReadAdapter()->fetchCol($select);
-
-        if (count($entityIds) > 0) {
-            $where = $this->_getWriteAdapter()->quoteInto('entity_id IN (?)', $entityIds);
-            $this->_getWriteAdapter()->update($this->getTable('sales/quote'), array('trigger_recollect' => 1), $where);
-        }
-
-        return $this;
+        return $this->markQuotesRecollectByAffectedProduct();
     }
 
     /**
@@ -220,6 +242,7 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
                 $adapter->quoteIdentifier('q.items_qty') . ' - ' . $adapter->quoteIdentifier('qi.qty')),
             'items_count' => new Zend_Db_Expr($adapter->quoteIdentifier('q.items_count') . ' - 1')
         ))
+        ->where('q.items_count > 0')
         ->join(
             array('qi' => $this->getTable('sales/quote_item')),
             implode(' AND ', array(
@@ -250,7 +273,7 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
         $subSelect = $this->_getReadAdapter()
             ->select()
             ->from($tableItem, array('entity_id' => 'quote_id'))
-            ->where('product_id IN ( ? )', $productIds)
+            ->where('product_id IN (?)', $productIds)
             ->group('quote_id');
 
         $select = $this->_getReadAdapter()->select()->join(

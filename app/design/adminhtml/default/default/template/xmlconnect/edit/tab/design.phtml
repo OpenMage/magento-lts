@@ -124,9 +124,9 @@ var imageItems = {
             var edit_button_state_id = 'edit_link_state' + config.image_id;
             var editButton = '';
             if (config.image_action_data !== undefined && config.image_action_data.entity_name !== undefined) {
-                editButton += '<strong><?php echo $this->__('Action'); ?>:</strong> <a id="' + edit_button_id + '" href="#" class="edit-btn">' + (config.image_action_data.action_type + ', ' + config.image_action_data.entity_name).truncate(this.imageActionTruncateLenght) + '</a>';
+                editButton += '<strong><?php echo $this->jsQuoteEscape($this->__('Action')); ?>:</strong> <a id="' + edit_button_id + '" href="#" class="edit-btn">' + (config.image_action_data.action_type + ', ' + config.image_action_data.entity_name).truncate(this.imageActionTruncateLenght) + '</a>';
             } else {
-                editButton += '<strong><?php echo $this->__('Action'); ?>:</strong> <a id="' + edit_button_id + '" href="#" class="edit-btn"><?php echo $this->__('not set'); ?></a>';
+                editButton += '<strong><?php echo $this->jsQuoteEscape($this->__('Action')); ?>:</strong> <a id="' + edit_button_id + '" href="#" class="edit-btn"><?php echo $this->jsQuoteEscape($this->__('not set')); ?></a>';
             }
             Element.insert(container, { 'bottom' : editButton});
             imageItems.bindEditButton(edit_button_id, config);
@@ -137,7 +137,7 @@ var imageItems = {
         if (config.image_action_data !== undefined) {
             $(edit_button_state_id).update((config.image_action_data.action_type + ', ' + config.image_action_data.entity_name).truncate(this.imageActionTruncateLenght))
         } else {
-            $(edit_button_state_id).update('<?php echo $this->__('not set'); ?>')
+            $(edit_button_state_id).update('<?php echo $this->jsQuoteEscape($this->__('not set')); ?>')
         }
     },
     bindEditButton : function(edit_button_id, config) {
@@ -157,7 +157,7 @@ var imageItems = {
             image_id = config.image_id;
         }
 
-        var deleteButton = '<a href="#" onclick="imageItems.remove(' + image_id + '); return false;" id="' + delete_button_id + '" class="item-remove"><?php echo $this->__('Remove'); ?></a>';
+        var deleteButton = '<a href="#" onclick="imageItems.remove(' + image_id + '); return false;" id="' + delete_button_id + '" class="item-remove"><?php echo $this->jsQuoteEscape($this->__('Remove')); ?></a>';
         Element.insert(container, {'bottom' : deleteButton});
     },
     remove : function(image_id) {
@@ -437,7 +437,7 @@ Downloadable.FileList.prototype = {
     },
     handleContainerHideBefore: function(container) {
         if (container && Element.descendantOf(this.uploader.container, container) && !this.uploader.checkAllComplete()) {
-            if (!confirm('<?php echo $this->__('There are files that were selected but not uploaded yet. After switching to another tab your selections may be lost. Do you wish to continue ?');?>')) {
+            if (!confirm('<?php echo $this->jsQuoteEscape($this->__('There are files that were selected but not uploaded yet. After switching to another tab your selections may be lost. Do you wish to continue ?')) ;?>')) {
                 return 'cannotchange';
             } else {
                 return 'change';

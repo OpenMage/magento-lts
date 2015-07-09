@@ -37,7 +37,7 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Cost extends Mage_Sales_Model_Orde
     {
         $baseRefundTotalCost = 0;
         foreach ($creditmemo->getAllItems() as $item) {
-            if (!$item->getHasChildren()){
+            if (!$item->getOrderItem()->getHasChildren()){
                 $baseRefundTotalCost += $item->getBaseCost()*$item->getQty();
             }
         }

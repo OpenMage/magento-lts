@@ -283,7 +283,7 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Escape quotes in java script
      *
-     * @param moxed $data
+     * @param mixed $data
      * @param string $quote
      * @return mixed
      */

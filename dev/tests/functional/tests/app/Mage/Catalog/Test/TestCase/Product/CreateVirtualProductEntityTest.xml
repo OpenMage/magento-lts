@@ -1,0 +1,214 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    Tests
+ * @package     Tests_Functional
+ * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/etc/variations.xsd">
+  <testCase name="Mage\Catalog\Test\TestCase\Product\CreateVirtualProductEntityTest">
+    <variation name="CreateVirtualProductEntityTestVariation1" firstConstraint="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" method="test">
+      <data name="description" xsi:type="string">Create default virtual product</data>
+      <data name="product/data/name" xsi:type="string">VirtualProduct %isolation%</data>
+      <data name="product/data/sku" xsi:type="string">virtual_sku_%isolation%</data>
+      <data name="product/data/url_key" xsi:type="string">virtual-sku-%isolation%</data>
+      <data name="product/data/status" xsi:type="string">Enabled</data>
+      <data name="product/data/description" xsi:type="string">Description for Default virtual product</data>
+      <data name="product/data/short_description" xsi:type="string">Short description for Default virtual product</data>
+      <data name="product/data/price/value" xsi:type="string">10</data>
+      <data name="product/data/price/preset" xsi:type="string">-</data>
+      <data name="product/data/tax_class_id/dataSet" xsi:type="string">Taxable Goods</data>
+      <data name="product/data/group_price/preset" xsi:type="string">-</data>
+      <data name="product/data/tier_price/preset" xsi:type="string">-</data>
+      <data name="product/data/special_price" xsi:type="string">-</data>
+      <data name="product/data/stock_data/use_config_manage_stock" xsi:type="string">-</data>
+      <data name="product/data/stock_data/manage_stock" xsi:type="string">-</data>
+      <data name="product/data/stock_data/qty" xsi:type="string">12</data>
+      <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
+      <data name="product/data/custom_options/preset" xsi:type="string">-</data>
+      <data name="product/data/visibility" xsi:type="string">-</data>
+      <data name="product/data/checkout_data/preset" xsi:type="string">default</data>
+      <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" next="Mage\Catalog\Test\Constraint\AssertProductInGrid"/>
+      <constraint name="Mage\Catalog\Test\Constraint\AssertProductInGrid" next="Mage\Catalog\Test\Constraint\AssertProductInCart" prev="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
+      <constraint name="Mage\Catalog\Test\Constraint\AssertProductInCart" next="Mage\Catalog\Test\Constraint\AssertProductInStock" prev="Mage\Catalog\Test\Constraint\AssertProductInGrid"/>
+      <constraint name="Mage\Catalog\Test\Constraint\AssertProductInStock" prev="Mage\Catalog\Test\Constraint\AssertProductInCart"/>
+    </variation>
+    <variation name="CreateVirtualProductEntityTestVariation2" firstConstraint="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" method="test">
+      <data name="description" xsi:type="string">Create virtual product with none tax class</data>
+      <data name="product/data/name" xsi:type="string">VirtualProduct %isolation%</data>
+      <data name="product/data/sku" xsi:type="string">virtual_sku_%isolation%</data>
+      <data name="product/data/url_key" xsi:type="string">virtual-sku-%isolation%</data>
+      <data name="product/data/status" xsi:type="string">Enabled</data>
+      <data name="product/data/description" xsi:type="string">Description for virtual product with none tax class</data>
+      <data name="product/data/short_description" xsi:type="string">Short description for virtual product with none tax class</data>
+      <data name="product/data/price/value" xsi:type="string">10</data>
+      <data name="product/data/price/preset" xsi:type="string">-</data>
+      <data name="product/data/tax_class_id/dataSet" xsi:type="string">None</data>
+      <data name="product/data/group_price/preset" xsi:type="string">-</data>
+      <data name="product/data/tier_price/preset" xsi:type="string">-</data>
+      <data name="product/data/special_price" xsi:type="string">-</data>
+      <data name="product/data/stock_data/use_config_manage_stock" xsi:type="string">Yes</data>
+      <data name="product/data/stock_data/manage_stock" xsi:type="string">Yes</data>
+      <data name="product/data/stock_data/qty" xsi:type="string">999</data>
+      <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
+      <data name="product/data/custom_options/preset" xsi:type="string">-</data>
+      <data name="product/data/visibility" xsi:type="string">Catalog, Search</data>
+      <data name="product/data/checkout_data/preset" xsi:type="string">-</data>
+      <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" next="Mage\Catalog\Test\Constraint\AssertProductVisibleInCategory"/>
+      <constraint name="Mage\Catalog\Test\Constraint\AssertProductVisibleInCategory" next="Mage\Catalog\Test\Constraint\AssertProductForm" prev="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
+      <constraint name="Mage\Catalog\Test\Constraint\AssertProductForm" next="Mage\Catalog\Test\Constraint\AssertProductSearchable" prev="Mage\Catalog\Test\Constraint\AssertProductVisibleInCategory"/>
+      <constraint name="Mage\Catalog\Test\Constraint\AssertProductSearchable" prev="Mage\Catalog\Test\Constraint\AssertProductForm"/>
+    </variation>
+    <variation name="CreateVirtualProductEntityTestVariation3" firstConstraint="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" method="test">
+      <data name="description" xsi:type="string">Create out of stock virtual product</data>
+      <data name="product/data/name" xsi:type="string">VirtualProduct %isolation%</data>
+      <data name="product/data/sku" xsi:type="string">virtual_sku_%isolation%</data>
+      <data name="product/data/url_key" xsi:type="string">virtual-sku-%isolation%</data>
+      <data name="product/data/status" xsi:type="string">Enabled</data>
+      <data name="product/data/description" xsi:type="string">Description for out of stock virtual product</data>
+      <data name="product/data/short_description" xsi:type="string">Short description for out of stock virtual product</data>
+      <data name="product/data/price/value" xsi:type="string">10</data>
+      <data name="product/data/price/preset" xsi:type="string">default</data>
+      <data name="product/data/tax_class_id/dataSet" xsi:type="string">Taxable Goods</data>
+      <data name="product/data/group_price/preset" xsi:type="string">-</data>
+      <data name="product/data/tier_price/preset" xsi:type="string">-</data>
+      <data name="product/data/special_price" xsi:type="string">-</data>
+      <data name="product/data/stock_data/use_config_manage_stock" xsi:type="string">-</data>
+      <data name="product/data/stock_data/manage_stock" xsi:type="string">-</data>
+      <data name="product/data/stock_data/qty" xsi:type="string">999</data>
+      <data name="product/data/stock_data/is_in_stock" xsi:type="string">Out of Stock</data>
+      <data name="product/data/custom_options/preset" xsi:type="string">-</data>
+      <data name="product/data/visibility" xsi:type="string">Search</data>
+      <data name="product/data/checkout_data/preset" xsi:type="string">-</data>
+      <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" next="Mage\Catalog\Test\Constraint\AssertProductForm"/>
+      <constraint name="Mage\Catalog\Test\Constraint\AssertProductForm" next="Mage\Catalog\Test\Constraint\AssertProductSearchable" prev="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
+      <constraint name="Mage\Catalog\Test\Constraint\AssertProductSearchable" prev="Mage\Catalog\Test\Constraint\AssertProductForm"/>
+    </variation>
+    <variation name="CreateVirtualProductEntityTestVariation4" firstConstraint="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" method="test">
+      <data name="description" xsi:type="string">Create virtual product with grouped price</data>
+      <data name="product/data/name" xsi:type="string">VirtualProduct %isolation%</data>
+      <data name="product/data/sku" xsi:type="string">virtual_sku_%isolation%</data>
+      <data name="product/data/url_key" xsi:type="string">virtual-sku-%isolation%</data>
+      <data name="product/data/status" xsi:type="string">Enabled</data>
+      <data name="product/data/description" xsi:type="string">Description for virtual product with grouped price</data>
+      <data name="product/data/short_description" xsi:type="string">Short description for virtual product with grouped price</data>
+      <data name="product/data/price/value" xsi:type="string">100</data>
+      <data name="product/data/price/preset" xsi:type="string">-</data>
+      <data name="product/data/tax_class_id/dataSet" xsi:type="string">Taxable Goods</data>
+      <data name="product/data/group_price/preset" xsi:type="string">for_not_logged_users</data>
+      <data name="product/data/tier_price/preset" xsi:type="string">-</data>
+      <data name="product/data/special_price" xsi:type="string">-</data>
+      <data name="product/data/stock_data/use_config_manage_stock" xsi:type="string">-</data>
+      <data name="product/data/stock_data/manage_stock" xsi:type="string">-</data>
+      <data name="product/data/stock_data/qty" xsi:type="string">123</data>
+      <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
+      <data name="product/data/custom_options/preset" xsi:type="string">-</data>
+      <data name="product/data/visibility" xsi:type="string">Catalog</data>
+      <data name="product/data/checkout_data/preset" xsi:type="string">with_grouped_price</data>
+      <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" next="Mage\Catalog\Test\Constraint\AssertProductForm"/>
+      <constraint name="Mage\Catalog\Test\Constraint\AssertProductForm" next="Mage\Catalog\Test\Constraint\AssertProductVisibleInCategory" prev="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
+      <constraint name="Mage\Catalog\Test\Constraint\AssertProductVisibleInCategory" next="Mage\Catalog\Test\Constraint\AssertProductGroupedPriceOnProductPage" prev="Mage\Catalog\Test\Constraint\AssertProductForm"/>
+      <constraint name="Mage\Catalog\Test\Constraint\AssertProductGroupedPriceOnProductPage" next="Mage\Catalog\Test\Constraint\AssertProductInCart" prev="Mage\Catalog\Test\Constraint\AssertProductVisibleInCategory"/>
+      <constraint name="Mage\Catalog\Test\Constraint\AssertProductInCart" prev="Mage\Catalog\Test\Constraint\AssertProductGroupedPriceOnProductPage"/>
+    </variation>
+    <variation name="CreateVirtualProductEntityTestVariation5" firstConstraint="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" method="test">
+      <data name="description" xsi:type="string">Create virtual product with custom options</data>
+      <data name="product/data/name" xsi:type="string">VirtualProduct %isolation%</data>
+      <data name="product/data/sku" xsi:type="string">virtual_sku_%isolation%</data>
+      <data name="product/data/url_key" xsi:type="string">virtual-sku-%isolation%</data>
+      <data name="product/data/status" xsi:type="string">Enabled</data>
+      <data name="product/data/description" xsi:type="string">Description for virtual product with custom options</data>
+      <data name="product/data/short_description" xsi:type="string">Short description for virtual product with custom options</data>
+      <data name="product/data/price/value" xsi:type="string">9000</data>
+      <data name="product/data/price/preset" xsi:type="string">-</data>
+      <data name="product/data/tax_class_id/dataSet" xsi:type="string">Taxable Goods</data>
+      <data name="product/data/group_price/preset" xsi:type="string">-</data>
+      <data name="product/data/tier_price/preset" xsi:type="string">-</data>
+      <data name="product/data/special_price" xsi:type="string">-</data>
+      <data name="product/data/stock_data/use_config_manage_stock" xsi:type="string">-</data>
+      <data name="product/data/stock_data/manage_stock" xsi:type="string">-</data>
+      <data name="product/data/stock_data/qty" xsi:type="string">123</data>
+      <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
+      <data name="product/data/custom_options/preset" xsi:type="string">drop_down_with_two_options</data>
+      <data name="product/data/visibility" xsi:type="string">-</data>
+      <data name="product/data/checkout_data/preset" xsi:type="string">with_one_custom_options</data>
+      <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" next="Mage\Catalog\Test\Constraint\AssertProductSearchable"/>
+      <constraint name="Mage\Catalog\Test\Constraint\AssertProductSearchable" next="Mage\Catalog\Test\Constraint\AssertProductPage" prev="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
+      <constraint name="Mage\Catalog\Test\Constraint\AssertProductPage" next="Mage\Catalog\Test\Constraint\AssertProductCustomOptionsOnProductPage" prev="Mage\Catalog\Test\Constraint\AssertProductSearchable"/>
+      <constraint name="Mage\Catalog\Test\Constraint\AssertProductCustomOptionsOnProductPage" next="Mage\Catalog\Test\Constraint\AssertProductInCart" prev="Mage\Catalog\Test\Constraint\AssertProductPage"/>
+      <constraint name="Mage\Catalog\Test\Constraint\AssertProductInCart" prev="Mage\Catalog\Test\Constraint\AssertProductCustomOptionsOnProductPage"/>
+    </variation>
+    <variation name="CreateVirtualProductEntityTestVariation6" firstConstraint="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" method="test">
+      <data name="description" xsi:type="string">Create virtual product with special perice</data>
+      <data name="product/data/name" xsi:type="string">VirtualProduct %isolation%</data>
+      <data name="product/data/sku" xsi:type="string">virtual_sku_%isolation%</data>
+      <data name="product/data/url_key" xsi:type="string">virtual-sku-%isolation%</data>
+      <data name="product/data/status" xsi:type="string">Enabled</data>
+      <data name="product/data/description" xsi:type="string">Description for virtual product with special perice</data>
+      <data name="product/data/short_description" xsi:type="string">Short description for virtual product with special perice</data>
+      <data name="product/data/price/value" xsi:type="string">1000</data>
+      <data name="product/data/price/preset" xsi:type="string">default</data>
+      <data name="product/data/tax_class_id/dataSet" xsi:type="string">Taxable Goods</data>
+      <data name="product/data/group_price/preset" xsi:type="string">-</data>
+      <data name="product/data/tier_price/preset" xsi:type="string">-</data>
+      <data name="product/data/special_price" xsi:type="string">10</data>
+      <data name="product/data/stock_data/use_config_manage_stock" xsi:type="string">Yes</data>
+      <data name="product/data/stock_data/manage_stock" xsi:type="string">No</data>
+      <data name="product/data/stock_data/qty" xsi:type="string">999</data>
+      <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
+      <data name="product/data/custom_options/preset" xsi:type="string">-</data>
+      <data name="product/data/visibility" xsi:type="string">-</data>
+      <data name="product/data/checkout_data/preset" xsi:type="string">with_special_price</data>
+      <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" next="Mage\Catalog\Test\Constraint\AssertProductPage"/>
+      <constraint name="Mage\Catalog\Test\Constraint\AssertProductPage" next="Mage\Catalog\Test\Constraint\AssertProductSpecialPriceOnProductPage" prev="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
+      <constraint name="Mage\Catalog\Test\Constraint\AssertProductSpecialPriceOnProductPage" next="Mage\Catalog\Test\Constraint\AssertProductInCart" prev="Mage\Catalog\Test\Constraint\AssertProductPage"/>
+      <constraint name="Mage\Catalog\Test\Constraint\AssertProductInCart" prev="Mage\Catalog\Test\Constraint\AssertProductSpecialPriceOnProductPage"/>
+    </variation>
+    <variation name="CreateVirtualProductEntityTestVariation7" firstConstraint="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" method="test">
+      <data name="description" xsi:type="string">Create virtual product with tier perice</data>
+      <data name="product/data/name" xsi:type="string">VirtualProduct %isolation%</data>
+      <data name="product/data/sku" xsi:type="string">virtual_sku_%isolation%</data>
+      <data name="product/data/url_key" xsi:type="string">virtual-sku-%isolation%</data>
+      <data name="product/data/status" xsi:type="string">Enabled</data>
+      <data name="product/data/description" xsi:type="string">Description for virtual product with tier perice</data>
+      <data name="product/data/short_description" xsi:type="string">Short description for virtual product with tier perice</data>
+      <data name="product/data/price/value" xsi:type="string">100</data>
+      <data name="product/data/price/preset" xsi:type="string">with_tier_price</data>
+      <data name="product/data/tax_class_id/dataSet" xsi:type="string">Taxable Goods</data>
+      <data name="product/data/group_price/preset" xsi:type="string">-</data>
+      <data name="product/data/tier_price/preset" xsi:type="string">for_all_groups</data>
+      <data name="product/data/special_price" xsi:type="string">-</data>
+      <data name="product/data/stock_data/use_config_manage_stock" xsi:type="string">-</data>
+      <data name="product/data/stock_data/manage_stock" xsi:type="string">-</data>
+      <data name="product/data/stock_data/qty" xsi:type="string">999</data>
+      <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
+      <data name="product/data/custom_options/preset" xsi:type="string">-</data>
+      <data name="product/data/visibility" xsi:type="string">-</data>
+      <data name="product/data/checkout_data/preset" xsi:type="string">with_tier_price</data>
+      <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" next="Mage\Catalog\Test\Constraint\AssertProductPage"/>
+      <constraint name="Mage\Catalog\Test\Constraint\AssertProductPage" next="Mage\Catalog\Test\Constraint\AssertProductTierPriceOnProductPage" prev="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
+      <constraint name="Mage\Catalog\Test\Constraint\AssertProductTierPriceOnProductPage" next="Mage\Catalog\Test\Constraint\AssertProductInCart" prev="Mage\Catalog\Test\Constraint\AssertProductPage"/>
+      <constraint name="Mage\Catalog\Test\Constraint\AssertProductInCart" prev="Mage\Catalog\Test\Constraint\AssertProductTierPriceOnProductPage"/>
+    </variation>
+  </testCase>
+</config>

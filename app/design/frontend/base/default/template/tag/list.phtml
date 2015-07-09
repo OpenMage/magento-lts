@@ -42,7 +42,7 @@
             <div class="input-box">
                 <input type="text" class="input-text required-entry" name="productTagName" id="productTagName" />
             </div>
-            <button type="button" title="<?php echo $this->__('Add Tags') ?>" class="button" onclick="submitTagForm()">
+            <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add Tags')) ?>" class="button" onclick="submitTagForm()">
                 <span>
                     <span><?php echo $this->__('Add Tags') ?></span>
                 </span>

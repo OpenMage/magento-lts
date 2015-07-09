@@ -1,0 +1,236 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    Tests
+ * @package     Tests_Functional
+ * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
+  <fixture name="bundleProduct" module="Mage_Bundle" type="eav" entity_type="catalog_product" product_type="bundle" collection="Mage\Catalog\Model\Resource\Product\Collection" identifier="sku" repository_class="Mage\Bundle\Test\Repository\BundleProduct" handler_interface="Mage\Bundle\Test\Handler\BundleProductInterface" class="Mage\Bundle\Test\Fixture\BundleProduct">
+    <dataset name="default">
+        <field name="name" xsi:type="string">BundleProduct %isolation%</field>
+        <field name="sku_type" xsi:type="string">Dynamic</field>
+        <field name="price_type" xsi:type="string">Dynamic</field>
+        <field name="weight_type" xsi:type="string">Dynamic</field>
+        <field name="description" xsi:type="string">Bundle product %isolation%</field>
+        <field name="short_description" xsi:type="string">Short description bundle product %isolation%</field>
+        <field name="status" xsi:type="string">Enabled</field>
+        <field name="visibility" xsi:type="string">Catalog, Search</field>
+        <field name="url_key" xsi:type="string">bundleproduct-%isolation%</field>
+    </dataset>
+    <data_config>
+        <item name="type_id" xsi:type="string">bundle</item>
+        <item name="create_url_params" xsi:type="array">
+            <item name="type" xsi:type="string">bundle</item>
+            <item name="set" xsi:type="string">4</item>
+        </item>
+        <item name="input_prefix" xsi:type="string">product</item>
+    </data_config>
+    <field name="category_ids" is_required="0" group="categories" source="Mage\Catalog\Test\Fixture\CatalogProductSimple\CategoryIds">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="country_of_manufacture" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="created_at" is_required="1">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="custom_design" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="custom_design_from" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="custom_design_to" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="custom_layout_update" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="description" is_required="1" group="general">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="gallery" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="gift_message_available" is_required="0" group="gift-options">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="use_config_gift_message_available" is_required="0" group="gift-options">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="gift_wrapping_available" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="gift_wrapping_price" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="group_price" is_required="0" source="Mage\Catalog\Test\Fixture\CatalogProductSimple\GroupPriceOptions" group="prices">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="has_options" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="image" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="image_label" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="is_returnable" is_required="0">
+      <default_value xsi:type="string">2</default_value>
+    </field>
+    <field name="media_gallery" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="meta_description" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="meta_keyword" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="meta_title" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="minimal_price" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="msrp" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="msrp_display_actual_price_type" is_required="0">
+      <default_value xsi:type="string">4</default_value>
+    </field>
+    <field name="msrp_enabled" is_required="0">
+      <default_value xsi:type="string">2</default_value>
+    </field>
+    <field name="name" is_required="1" group="general">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="news_from_date" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="news_to_date" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="old_id" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="options_container" is_required="0">
+      <default_value xsi:type="string">container1</default_value>
+    </field>
+    <field name="page_layout" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="price" is_required="1" source="Mage\Bundle\Test\Fixture\BundleProduct\Price" group="prices">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="price_type" is_required="1" group="prices">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="price_view" is_required="1" group="prices">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="related_tgtr_position_behavior" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="related_tgtr_position_limit" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="required_options" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="shipment_type" is_required="1" group="bundle-items">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="short_description" is_required="1" group="general">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="sku" is_required="1" group="general">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="sku_type" is_required="1" group="general">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="small_image" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="small_image_label" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="special_from_date" is_required="0" source="Mage\Core\Test\Fixture\Date" group="prices">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="special_price" is_required="0" group="prices">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="special_to_date" is_required="0" source="Mage\Core\Test\Fixture\Date" group="prices">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="status" is_required="1" group="general">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="tax_class_id" is_required="1" source="Mage\Catalog\Test\Fixture\CatalogProductSimple\TaxClass" group="prices">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="thumbnail" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="thumbnail_label" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="tier_price" is_required="0" source="Mage\Catalog\Test\Fixture\CatalogProductSimple\TierPriceOptions" group="prices">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="updated_at" is_required="1">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="upsell_tgtr_position_behavior" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="upsell_tgtr_position_limit" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="url_key" is_required="0" group="general">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="url_path" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="visibility" is_required="1" group="general">
+      <default_value xsi:type="string">4</default_value>
+    </field>
+    <field name="weight" is_required="1" group="general">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="weight_type" is_required="1" group="general">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="id"/>
+    <field name="bundle_selections" is_required="1" group="bundle-items" source="Mage\Bundle\Test\Fixture\BundleProduct\BundleSelections"/>
+    <field name="checkout_data" is_required="1" group="null" source="Mage\Bundle\Test\Fixture\BundleProduct\CheckoutData"/>
+    <field name="custom_options" source="Mage\Catalog\Test\Fixture\CatalogProductSimple\CustomOptions" group="custom-options"/>
+    <field name="stock_data" group="inventory"/>
+    <field name="website_ids" group="null" source="Mage\Catalog\Test\Fixture\CatalogProductSimple\WebsiteIds"/>
+  </fixture>
+</config>

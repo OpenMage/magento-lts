@@ -330,7 +330,7 @@ Event.observe(document, 'dom:loaded', function() {
         if (disabled) {
             return false;
         } else {
-            if (confirm('<?php echo $this->__('Are you sure you want to delete this theme? This change will affect all applications.'); ?>')) {
+            if (confirm('<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Are you sure you want to delete this theme? This change will affect all applications.')); ?>')) {
                 deleteTheme();
             };
         };
@@ -501,10 +501,10 @@ function resetThemeChanges() {
                     } else {
                         mmColorThemes = response;
                         mmSetTheme(currentTheme);
-                        message = '<?php echo $this->__('Theme configurations are successfully reset.');?>';
+                        message = '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Theme configurations are successfully reset.'));?>';
                     }
                 } else {
-                    message = '<?php echo $this->__('Unknown Error'); ?>';
+                    message = '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Unknown Error')); ?>';
                 }
                 showAdviceMessage(message);
             } catch(e) {
@@ -570,7 +570,7 @@ function saveThemeChanges() {
                         message = response.message;
                     }
                 } else {
-                    message = '<?php echo $this->__('Unknown Error.'); ?>';
+                    message = '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Unknown Error.')); ?>';
                 }
                 showAdviceMessage(message);
             } catch(e) {
@@ -604,7 +604,7 @@ function deleteTheme() {
                         message = response.message;
                     }
                 } else {
-                    message = '<?php echo $this->__('Unknown Error.'); ?>';
+                    message = '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Unknown Error.')); ?>';
                 }
                 showAdviceMessage(message);
             } catch(e) {

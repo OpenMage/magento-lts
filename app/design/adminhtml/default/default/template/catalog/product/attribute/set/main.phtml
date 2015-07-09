@@ -110,7 +110,7 @@
 
                         this.ge = new Ext.tree.TreeEditor(tree, {
                             allowBlank:false,
-                            blankText:'<?php echo Mage::helper('catalog')->__('A name is required') ?>',
+                            blankText:'<?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('catalog')->__('A name is required')) ?>',
                             selectOnFocus:true,
                             cls:'folder'
                         });
@@ -283,7 +283,7 @@
                     },
 
                     addGroup : function() {
-                        var group_name = prompt("<?php echo Mage::helper('catalog')->__('Please enter a new group name') ?>","");
+                        var group_name = prompt("<?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('catalog')->__('Please enter a new group name')) ?>","");
                         group_name = group_name.strip();
                         if( group_name == '' ) {
                             this.addGroup();
@@ -325,7 +325,7 @@
                         }
                         for (var i=0; i < TreePanels.root.childNodes.length; i++) {
                             if (TreePanels.root.childNodes[i].text.toLowerCase() == name.toLowerCase() && TreePanels.root.childNodes[i].id != exceptNodeId) {
-                                errorText = "<?php echo Mage::helper('catalog')->__('Attribute group with the \"/name/\" name already exists') ?>";
+                                errorText = "<?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('catalog')->__('Attribute group with the \"/name/\" name already exists')) ?>";
                                 alert(errorText.replace("/name/",name));
                                 return false;
                             }
@@ -424,7 +424,7 @@
                     rightRemove : function(tree, nodeThis, node) {
                         if( nodeThis.firstChild == null && node.id != 'empty' ) {
                             var newNode = new Ext.tree.TreeNode({
-                                    text : '<?php echo Mage::helper('catalog')->__('Empty') ?>',
+                                    text : '<?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('catalog')->__('Empty')) ?>',
                                     id : 'empty',
                                     cls : 'folder',
                                     is_user_defined : 1,

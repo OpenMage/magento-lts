@@ -75,7 +75,7 @@
                     <?php if ($_product->isSaleable() || $_skipSaleableCheck): ?>
                     <td class="a-center">
                     <?php if ($_item->isSaleable() || $_skipSaleableCheck) : ?>
-                        <input type="text" name="super_group[<?php echo $_item->getId() ?>]" id="super_group[<?php echo $_item->getId() ?>]" maxlength="12" value="<?php echo $_item->getQty()*1 ?>" title="<?php echo Mage::helper('catalog')->__('Qty') ?>" class="input-text qty" />
+                        <input type="text" name="super_group[<?php echo $_item->getId() ?>]" id="super_group[<?php echo $_item->getId() ?>]" maxlength="12" value="<?php echo $_item->getQty()*1 ?>" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('catalog')->__('Qty')) ?>" class="input-text qty" />
                         <input type="hidden" value="1" price="<?php echo $this->getCurrencyPrice($_item->getPrice()) ?>" qtyId="super_group[<?php echo $_item->getId() ?>]" />
                     <?php else: ?>
                         <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>

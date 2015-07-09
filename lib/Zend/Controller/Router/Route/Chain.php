@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Router
- * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @version    $Id$
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -28,12 +28,24 @@
  *
  * @package    Zend_Controller
  * @subpackage Router
- * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Controller_Router_Route_Chain extends Zend_Controller_Router_Route_Abstract
 {
+
+    /**
+     * Routes
+     *
+     * @var array
+     */
     protected $_routes = array();
+
+    /**
+     * Separators
+     *
+     * @var array
+     */
     protected $_separators = array();
 
     /**
@@ -45,6 +57,7 @@ class Zend_Controller_Router_Route_Chain extends Zend_Controller_Router_Route_Ab
     public static function getInstance(Zend_Config $config)
     {
         $defs = ($config->defaults instanceof Zend_Config) ? $config->defaults->toArray() : array();
+
         return new self($config->route, $defs);
     }
 
@@ -61,7 +74,6 @@ class Zend_Controller_Router_Route_Chain extends Zend_Controller_Router_Route_Ab
         $this->_separators[] = $separator;
 
         return $this;
-
     }
 
     /**
@@ -111,8 +123,8 @@ class Zend_Controller_Router_Route_Chain extends Zend_Controller_Router_Route_Ab
             $matchedPath = $route->getMatchedPath();
 
             if ($matchedPath !== null) {
-                $subPath     = substr($subPath, strlen($matchedPath));
-                $separator   = substr($subPath, 0, strlen($this->_separators[$key]));
+                $subPath   = substr($subPath, strlen($matchedPath));
+                $separator = substr($subPath, 0, strlen($this->_separators[$key]));
             }
 
             $values = $res + $values;
@@ -175,7 +187,7 @@ class Zend_Controller_Router_Route_Chain extends Zend_Controller_Router_Route_Ab
             }
         }
     }
-    
+
     /**
      * Return a single parameter of route's defaults
      *

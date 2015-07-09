@@ -482,19 +482,56 @@ class Mage_Catalog_Model_Convert_Parser_Product
                 }
             }
 
+            $productMediaGallery = $product->getMediaGallery();
+            $product->reset();
+
+            $processedImageList = array();
             foreach ($this->_imageFields as $field) {
-                if (isset($row[$field]) && $row[$field] == 'no_selection') {
-                    $row[$field] = null;
+                if (isset($row[$field])) {
+                    if ($row[$field] == 'no_selection') {
+                        $row[$field] = null;
+                    } else {
+                        $processedImageList[] = $row[$field];
+                    }
                 }
             }
+            $processedImageList = array_unique($processedImageList);
 
-            $batchExport = $this->getBatchExportModel()
+            $batchModelId = $this->getBatchModel()->getId();
+            $this->getBatchExportModel()
                 ->setId(null)
-                ->setBatchId($this->getBatchModel()->getId())
+                ->setBatchId($batchModelId)
                 ->setBatchData($row)
                 ->setStatus(1)
                 ->save();
-            $product->reset();
+
+            $baseRowData = array(
+                'store'     => $row['store'],
+                'website'   => $row['website'],
+                'sku'       => $row['sku']
+            );
+            unset($row);
+
+            foreach ($productMediaGallery['images'] as $image) {
+                if (in_array($image['file'], $processedImageList)) {
+                    continue;
+                }
+
+                $rowMediaGallery = array(
+                    '_media_image'          => $image['file'],
+                    '_media_lable'          => $image['label'],
+                    '_media_position'       => $image['position'],
+                    '_media_is_disabled'    => $image['disabled']
+                );
+                $rowMediaGallery = array_merge($baseRowData, $rowMediaGallery);
+
+                $this->getBatchExportModel()
+                    ->setId(null)
+                    ->setBatchId($batchModelId)
+                    ->setBatchData($rowMediaGallery)
+                    ->setStatus(1)
+                    ->save();
+            }
         }
 
         return $this;

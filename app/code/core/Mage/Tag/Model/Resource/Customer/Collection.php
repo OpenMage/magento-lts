@@ -243,6 +243,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
 
         //TODO: add full name logic
         $this->addAttributeToSelect('firstname')
+            ->addAttributeToSelect('middlename')
             ->addAttributeToSelect('lastname')
             ->addAttributeToSelect('email');
 

@@ -102,6 +102,7 @@ class Mage_ProductAlert_Model_Observer
     protected function _processPrice(Mage_ProductAlert_Model_Email $email)
     {
         $email->setType('price');
+        $originalStore = Mage::app()->getStore();
         foreach ($this->_getWebsites() as $website) {
             /* @var $website Mage_Core_Model_Website */
 
@@ -127,6 +128,7 @@ class Mage_ProductAlert_Model_Observer
 
             $previousCustomer = null;
             $email->setWebsite($website);
+            Mage::app()->setCurrentStore($website->getDefaultGroup()->getDefaultStore());
             foreach ($collection as $alert) {
                 try {
                     if (!$previousCustomer || $previousCustomer->getId() != $alert->getCustomerId()) {
@@ -178,6 +180,7 @@ class Mage_ProductAlert_Model_Observer
                 }
             }
         }
+        Mage::app()->setCurrentStore($originalStore);
         return $this;
     }
 
@@ -190,6 +193,7 @@ class Mage_ProductAlert_Model_Observer
     protected function _processStock(Mage_ProductAlert_Model_Email $email)
     {
         $email->setType('stock');
+        $originalStore = Mage::app()->getStore();
 
         foreach ($this->_getWebsites() as $website) {
             /* @var $website Mage_Core_Model_Website */
@@ -217,6 +221,7 @@ class Mage_ProductAlert_Model_Observer
 
             $previousCustomer = null;
             $email->setWebsite($website);
+            Mage::app()->setCurrentStore($website->getDefaultGroup()->getDefaultStore());
             foreach ($collection as $alert) {
                 try {
                     if (!$previousCustomer || $previousCustomer->getId() != $alert->getCustomerId()) {
@@ -268,6 +273,7 @@ class Mage_ProductAlert_Model_Observer
                 }
             }
         }
+        Mage::app()->setCurrentStore($originalStore);
 
         return $this;
     }

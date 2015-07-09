@@ -773,10 +773,10 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
             if (!$secureBaseUrl) {
                 return false;
             }
-
-            $uri = Zend_Uri::factory($secureBaseUrl);
-            $port = $uri->getPort();
-            $isSecure = ($uri->getScheme() == 'https')
+            $urlParts = parse_url($secureBaseUrl);
+            $scheme   = isset($urlParts['scheme']) ? ':' . $urlParts['scheme'] : '';
+            $port     = isset($urlParts['port']) ? ':' . $urlParts['port'] : '';
+            $isSecure = ($scheme == 'https')
                 && isset($_SERVER['SERVER_PORT'])
                 && ($port == $_SERVER['SERVER_PORT']);
             return $isSecure;

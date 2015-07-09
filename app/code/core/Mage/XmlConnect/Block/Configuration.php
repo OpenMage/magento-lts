@@ -34,27 +34,27 @@
 class Mage_XmlConnect_Block_Configuration extends Mage_Core_Block_Abstract
 {
     /**
-     * Current application model
+     * XmlConnect application model
      *
      * @var Mage_XmlConnect_Model_Application
      */
-    protected $_app;
+    protected $_connectApp;
 
     /**
-     * Init current application
+     * Retrieve initialized instance of XmlConnect application model
      *
-     * @return Mage_XmlConnect_Block_Configuration
+     * @return Mage_XmlConnect_Model_Application
      */
-    protected function _beforeToHtml()
+    protected function _getConnectApp()
     {
-        $app = Mage::helper('xmlconnect')->getApplication();
-        if ($app) {
-            $this->_app = $app;
-        } else {
-            $this->_app = Mage::getModel('xmlconnect/application');
-            $this->_app->loadDefaultConfiguration();
+        if (!$this->_connectApp) {
+            $this->_connectApp = Mage::helper('xmlconnect')->getApplication();
+            if (!$this->_connectApp) {
+                $this->_connectApp = Mage::getModel('xmlconnect/application');
+                $this->_connectApp->loadDefaultConfiguration();
+            }
         }
-        return $this;
+        return $this->_connectApp;
     }
 
     /**
@@ -115,7 +115,8 @@ class Mage_XmlConnect_Block_Configuration extends Mage_Core_Block_Abstract
     {
         /** @var $xml Mage_XmlConnect_Model_Simplexml_Element */
         $xml = Mage::getModel('xmlconnect/simplexml_element', '<configuration></configuration>');
-        $this->_buildRecursive($xml, Mage::helper('xmlconnect')->excludeXmlConfigKeys($this->_app->getRenderConf()))
+        $conf = $this->_getConnectApp()->getRenderConf();
+        $this->_buildRecursive($xml, Mage::helper('xmlconnect')->excludeXmlConfigKeys($conf))
             ->_addLocalization($xml);
         return $xml->asNiceXml();
     }

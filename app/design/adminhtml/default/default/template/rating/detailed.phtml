@@ -59,7 +59,7 @@
 //<![CDATA[
     Validation.addAllThese(
     [
-           ['validate-rating', '<?php echo Mage::helper('rating')->__('Please select one of each ratings above') ?>', function(v) {
+           ['validate-rating', '<?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('rating')->__('Please select one of each ratings above')) ?>', function(v) {
                 var trs = $('product-review-table').getElementsBySelector('tr');
                 var inputs;
                 var error = 1;

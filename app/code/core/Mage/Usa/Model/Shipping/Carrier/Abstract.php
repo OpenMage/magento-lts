@@ -442,6 +442,17 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     }
 
     /**
+     * Check is Canada
+     *
+     * @param string $countryId
+     * @return boolean
+     */
+    protected function _isCanada($countryId)
+    {
+        return $countryId == 'CA';
+    }
+
+    /**
      * Check whether girth is allowed for the carrier
      *
      * @param null|string $countyDest

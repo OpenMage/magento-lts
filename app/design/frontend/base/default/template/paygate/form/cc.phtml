@@ -48,7 +48,7 @@
         Event.observe(cancelButton, 'click', cancelPaymentAuthorizations);
 
         function cancelPaymentAuthorizations(event, hideConfirm){
-            if (!hideConfirm && !confirm('<?php echo $this->getCancelConfirmationMessage() ?>')) {
+            if (!hideConfirm && !confirm('<?php echo Mage::helper('core')->jsQuoteEscape($this->getCancelConfirmationMessage()) ?>')) {
                 return;
             }
             $('cancel-please-wait').show();
@@ -77,7 +77,7 @@
         }
 
         <?php if ($_message=$this->getPartialAuthorizationConfirmationMessage()): ?>
-            if (!confirm('<?php echo $_message ?>')) {
+            if (!confirm('<?php echo Mage::helper('core')->jsQuoteEscape($_message) ?>')) {
                 cancelPaymentAuthorizations(true, true);
             }
         <?php endif;?>

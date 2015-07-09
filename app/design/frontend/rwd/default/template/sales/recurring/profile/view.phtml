@@ -34,16 +34,16 @@
 </div>
 <div class="title-buttons recurring-profiles-title-buttons">
     <?php if ($this->getCanCancel()): ?>
-        <button type="button" title="<?php echo $this->__('Cancel') ?>" class="button" onclick="if( confirm('<?php echo $this->getConfirmationMessage() ?>') ) { window.location.href = '<?php echo $this->getCancelUrl() ?>'; } return false;"><span><span><?php echo $this->__('Cancel') ?></span></span></button>
+        <button type="button" title="<?php echo $this->quoteEscape($this->__('Cancel')) ?>" class="button" onclick="if( confirm('<?php echo $this->getConfirmationMessage() ?>') ) { window.location.href = '<?php echo $this->getCancelUrl() ?>'; } return false;"><span><span><?php echo $this->__('Cancel') ?></span></span></button>
     <?php endif; ?>
     <?php if ($this->getCanSuspend()): ?>
-        <button type="button" title="<?php echo $this->__('Suspend') ?>" class="button" onclick="if( confirm('<?php echo $this->getConfirmationMessage() ?>') ) { window.location.href = '<?php echo $this->getSuspendUrl() ?>'; } return false;"><span><span><?php echo $this->__('Suspend') ?></span></span></button>
+        <button type="button" title="<?php echo $this->quoteEscape($this->__('Suspend')) ?>" class="button" onclick="if( confirm('<?php echo $this->getConfirmationMessage() ?>') ) { window.location.href = '<?php echo $this->getSuspendUrl() ?>'; } return false;"><span><span><?php echo $this->__('Suspend') ?></span></span></button>
     <?php endif; ?>
     <?php if ($this->getCanActivate()): ?>
-        <button type="button" title="<?php echo $this->__('Activate') ?>" class="button" onclick="if( confirm('<?php echo $this->getConfirmationMessage() ?>') ) { window.location.href = '<?php echo $this->getActivateUrl() ?>'; } return false;"><span><span><?php echo $this->__('Activate') ?></span></span></button>
+        <button type="button" title="<?php echo $this->quoteEscape($this->__('Activate')) ?>" class="button" onclick="if( confirm('<?php echo $this->getConfirmationMessage() ?>') ) { window.location.href = '<?php echo $this->getActivateUrl() ?>'; } return false;"><span><span><?php echo $this->__('Activate') ?></span></span></button>
     <?php endif; ?>
     <?php if ($this->getCanUpdate()):?>
-        <button type="button" title="<?php echo $this->__('Get Update') ?>" class="button" onclick="if( confirm('<?php echo $this->getConfirmationMessage() ?>') ) { window.location.href = '<?php echo $this->getUpdateUrl() ?>'; } return false;"><span><span><?php echo $this->__('Get Update') ?></span></span></button>
+        <button type="button" title="<?php echo $this->quoteEscape($this->__('Get Update')) ?>" class="button" onclick="if( confirm('<?php echo $this->getConfirmationMessage() ?>') ) { window.location.href = '<?php echo $this->getUpdateUrl() ?>'; } return false;"><span><span><?php echo $this->__('Get Update') ?></span></span></button>
     <?php endif;?>
 </div>
 

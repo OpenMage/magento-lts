@@ -29,11 +29,11 @@
 OptionTemplateText = '<table class="border" cellpadding="0" cellspacing="0">'+
         '<tr class="headings">'+
             <?php if ($this->getCanReadPrice() !== false) : ?>
-            '<th class="type-price"><?php echo Mage::helper('catalog')->__('Price') ?></th>' +
-            '<th class="type-type"><?php echo Mage::helper('catalog')->__('Price Type') ?></th>' +
+            '<th class="type-price"><?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('catalog')->__('Price')) ?></th>' +
+            '<th class="type-type"><?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('catalog')->__('Price Type')) ?></th>' +
             <?php endif; ?>
-            '<th class="type-sku"><?php echo Mage::helper('catalog')->__('SKU') ?></th>'+
-            '<th class="type-last last"><?php echo Mage::helper('catalog')->__('Max Characters') ?> </th>'+
+            '<th class="type-sku"><?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('catalog')->__('SKU')) ?></th>'+
+            '<th class="type-last last"><?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('catalog')->__('Max Characters')) ?> </th>'+
         '</tr>'+
         '<tr>'+
             <?php if ($this->getCanReadPrice() !== false) : ?>

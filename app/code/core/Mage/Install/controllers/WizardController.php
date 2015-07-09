@@ -314,6 +314,8 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
 
         if ($config && $connectionConfig && isset($connectionConfig[$config['db_model']])) {
 
+            $config['unsecure_base_url'] = Mage::helper('core/url')->encodePunycode($config['unsecure_base_url']);
+            $config['secure_base_url'] = Mage::helper('core/url')->encodePunycode($config['unsecure_base_url']);
             $data = array_merge($config, $connectionConfig[$config['db_model']]);
 
             Mage::getSingleton('install/session')

@@ -131,11 +131,16 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         }
 
         if ($this->getNewPassword()) {
-            // Change password
+            // Change user password
             $data['password'] = $this->_getEncodedPassword($this->getNewPassword());
+            $data['new_password'] = $data['password'];
         } elseif ($this->getPassword() && $this->getPassword() != $this->getOrigData('password')) {
             // New user password
             $data['password'] = $this->_getEncodedPassword($this->getPassword());
+        } elseif (!$this->getPassword() && $this->getOrigData('password') // Change user data
+            || $this->getPassword() == $this->getOrigData('password')     // Retrieve user password
+        ) {
+            $data['password'] = $this->getOrigData('password');
         }
 
         $this->cleanPasswordsValidationData();
@@ -639,12 +644,13 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Clean password's validation data (password, new_password, password_confirmation)
+     * Clean password's validation data (password, current_password, new_password, password_confirmation)
      *
      * @return Mage_Admin_Model_User
      */
     public function cleanPasswordsValidationData()
     {
+        $this->setData('password', null);
         $this->setData('current_password', null);
         $this->setData('new_password', null);
         $this->setData('password_confirmation', null);

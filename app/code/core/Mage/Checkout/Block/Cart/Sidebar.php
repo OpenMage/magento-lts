@@ -307,4 +307,25 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
     {
         return Mage::getSingleton('core/session')->getFormKey();
     }
+
+    /**
+     * Processing block html after rendering
+     *
+     * @param   string $html
+     * @return  string
+     */
+    protected function _afterToHtml($html)
+    {
+        $html = parent::_afterToHtml($html);
+        $transport = new Varien_Object();
+        $transport->setHtml($html);
+        Mage::dispatchEvent(
+            'checkout_block_cart_sidebar_aftertohtml',
+            array(
+                'block' => $this,
+                'transport' => $transport,
+            )
+        );
+        return $transport->getHtml();
+    }
 }

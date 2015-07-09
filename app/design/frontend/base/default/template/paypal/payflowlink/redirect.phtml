@@ -57,7 +57,7 @@
     window_top.document.getElementById('checkout-review-submit').show();
     window_top.document.getElementById('iframe-warning').hide();
     <?php if ($this->getErrorMsg()): ?>
-        alert('<?php echo $this->getErrorMsg() ?>');
+        alert('<?php echo $this->jsQuoteEscape($this->getErrorMsg()) ?>');
     <?php endif; ?>
 <?php elseif ($this->getGotoSuccessPage()) : ?>
     window_top.location="<?php echo $this->getUrl('checkout/onepage/success') ?>";

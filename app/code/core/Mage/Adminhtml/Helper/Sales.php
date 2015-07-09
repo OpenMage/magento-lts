@@ -123,6 +123,7 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
         if (is_string($data) && is_array($allowedTags) && in_array('a', $allowedTags)) {
             $links = array();
             $i = 1;
+            $data = str_replace('%', '%%', $data);
             $regexp = '@(<a[^>]*>(?:[^<]|<[^/]|</[^a]|</a[^>])*</a>)@';
             while (preg_match($regexp, $data, $matches)) {
                 $links[] = $matches[1];

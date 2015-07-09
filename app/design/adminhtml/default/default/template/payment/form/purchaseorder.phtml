@@ -28,7 +28,7 @@
     <li>
         <div class="input-box">
             <label for="po_number"><?php echo Mage::helper('payment')->__('Purchase Order Number') ?> <span class="required">*</span></label><br/>
-            <input type="text" id="po_number" name="payment[po_number]" title="<?php echo Mage::helper('payment')->__("Purchase Order Number") ?>" class="required-entry input-text" value="<?php echo $this->getInfoData('po_number') ?>"/>
+            <input type="text" id="po_number" name="payment[po_number]" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('payment')->__('Purchase Order Number')) ?>" class="required-entry input-text" value="<?php echo $this->getInfoData('po_number') ?>"/>
         </div>
     </li>
 </ul>

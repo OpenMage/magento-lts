@@ -27,7 +27,7 @@
 <div class="multiple-checkout">
     <div class="page-title title-buttons">
         <h1><?php echo $this->__('Change Billing Address') ?></h1>
-        <button type="button" title="<?php echo $this->__('Add New Address') ?>" class="button" onclick="setLocation('<?php echo $this->getAddNewUrl() ?>')"><span><span><?php echo $this->__('Add New Address') ?></span></span></button>
+        <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add New Address')) ?>" class="button" onclick="setLocation('<?php echo $this->getAddNewUrl() ?>')"><span><span><?php echo $this->__('Add New Address') ?></span></span></button>
     </div>
     <?php echo $this->getMessagesBlock()->toHtml() ?>
     <?php $_index=0 ?>

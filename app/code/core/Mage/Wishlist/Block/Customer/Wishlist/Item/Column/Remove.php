@@ -42,7 +42,11 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Column_Remove extends Mage_Wish
     {
         return parent::getJs() . "
         function confirmRemoveWishlistItem() {
-            return confirm('" . $this->__('Are you sure you want to remove this product from your wishlist?') . "');
+            return confirm('"
+            . Mage::helper('core')->jsQuoteEscape(
+                $this->__('Are you sure you want to remove this product from your wishlist?')
+            )
+            . "');
         }
         ";
     }

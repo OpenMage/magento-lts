@@ -28,10 +28,16 @@
 <config>
     <instances>
         <blocks>
+            <header>
+                <name_in_layout>header</name_in_layout>
+                <class>persistent/observer</class>
+                <method>emulateWelcomeBlock</method>
+                <block_type>Mage_Page_Block_Html_Header</block_type>
+            </header>
             <welcome>
                 <name_in_layout>welcome</name_in_layout>
                 <class>persistent/observer</class>
-                <method>emulateWelcomeBlock</method>
+                <method>emulateWelcomeMessageBlock</method>
                 <block_type>Mage_Page_Block_Html_Welcome</block_type>
             </welcome>
             <account_links>

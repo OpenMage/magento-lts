@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
@@ -27,7 +27,7 @@
 /**
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Validate_StringLength extends Zend_Validate_Abstract
@@ -79,8 +79,7 @@ class Zend_Validate_StringLength extends Zend_Validate_Abstract
     /**
      * Sets validator options
      *
-     * @param  integer|array|Zend_Config $options
-     * @return void
+     * @param integer|array|Zend_Config $options
      */
     public function __construct($options = array())
     {
@@ -194,6 +193,7 @@ class Zend_Validate_StringLength extends Zend_Validate_Abstract
      * Sets a new encoding to use
      *
      * @param string $encoding
+     * @throws Zend_Validate_Exception
      * @return Zend_Validate_StringLength
      */
     public function setEncoding($encoding = null)

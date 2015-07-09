@@ -30,15 +30,15 @@
 var bundleTemplateBox = '<table class="border" cellpadding="0" cellspacing="0">' +
     '    <thead>' +
     '        <tr class="headings">' +
-    '            <th><?php echo Mage::helper('catalog')->__('Name') ?></th>' +
+    '            <th><?php echo $this->jsQuoteEscape(Mage::helper('catalog')->__('Name')) ?></th>' +
     <?php if ($this->getCanReadPrice() !== false) : ?>
-    '            <th class="type-price price-type-box"><?php echo Mage::helper('catalog')->__('Price') ?></th>' +
-    '            <th class="type-type price-type-box"><?php echo Mage::helper('bundle')->__('Price Type') ?></th>' +
+    '            <th class="type-price price-type-box"><?php echo $this->jsQuoteEscape(Mage::helper('catalog')->__('Price')) ?></th>' +
+    '            <th class="type-type price-type-box"><?php echo $this->jsQuoteEscape(Mage::helper('bundle')->__('Price Type')) ?></th>' +
     <?php endif; ?>
-    '            <th class="type-price"><?php echo Mage::helper('bundle')->__('Default Qty') ?></th>' +
-    '            <th class="type-uqty qty-box"><?php echo$this->jsQuoteEscape(Mage::helper('bundle')->__('User Defined Qty')) ?></th>' +
-    '            <th class="type-order"><?php echo Mage::helper('bundle')->__('Position') ?></th>' +
-    '            <th style="width:1px"><?php echo Mage::helper('bundle')->__('Default') ?></th>' +
+    '            <th class="type-price"><?php echo $this->jsQuoteEscape(Mage::helper('bundle')->__('Default Qty')) ?></th>' +
+    '            <th class="type-uqty qty-box"><?php echo $this->jsQuoteEscape(Mage::helper('bundle')->__('User Defined Qty')) ?></th>' +
+    '            <th class="type-order"><?php echo $this->jsQuoteEscape(Mage::helper('bundle')->__('Position')) ?></th>' +
+    '            <th style="width:1px"><?php echo $this->jsQuoteEscape(Mage::helper('bundle')->__('Default')) ?></th>' +
     '            <th class="last">&nbsp;</th>' +
     '        </tr>' +
     '    </thead> ' +

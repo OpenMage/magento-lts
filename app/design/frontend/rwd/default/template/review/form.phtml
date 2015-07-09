@@ -120,7 +120,7 @@
                 </ul>
             </div>
             <div class="buttons-set">
-                <button type="submit" title="<?php echo $this->__('Submit Review') ?>" class="button"><span><span><?php echo $this->__('Submit Review') ?></span></span></button>
+                <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Submit Review')) ?>" class="button"><span><span><?php echo $this->__('Submit Review') ?></span></span></button>
             </div>
     </form>
     <script type="text/javascript">
@@ -128,7 +128,7 @@
         var dataForm = new VarienForm('review-form');
         Validation.addAllThese(
         [
-               ['validate-rating', '<?php echo $this->__('Please select one of each of the ratings above') ?>', function(v) {
+               ['validate-rating', '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Please select one of each of the ratings above')) ?>', function(v) {
                     var trs = $('product-review-table').select('tr');
                     var inputs;
                     var error = 1;

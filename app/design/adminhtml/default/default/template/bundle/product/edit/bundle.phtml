@@ -71,7 +71,7 @@ $('product_bundle_container').select('input', 'select', 'textarea', 'button').ea
     }
 });
 <?php endif; ?>
-Validation.add('validate-greater-zero-based-on-option', '<?php echo $this->__('Please enter a number greater 0 in this field.') ?>', function(v, el) {
+Validation.add('validate-greater-zero-based-on-option', '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Please enter a number greater 0 in this field.')) ?>', function(v, el) {
     var optionType = $(el).up('div.grid').previous('table.option-header').select('select.select-product-option-type')[0],
         v = Number(v) || 0;
 

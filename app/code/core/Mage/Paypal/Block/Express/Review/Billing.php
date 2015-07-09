@@ -46,6 +46,9 @@ class Mage_Paypal_Block_Express_Review_Billing extends Mage_Checkout_Block_Onepa
                 if (!$this->_address->getFirstname()) {
                     $this->_address->setFirstname($this->getQuote()->getCustomer()->getFirstname());
                 }
+                if (!$this->_address->getMiddlename()) {
+                    $this->_address->setMiddlename($this->getQuote()->getCustomer()->getMiddlename());
+                }
                 if (!$this->_address->getLastname()) {
                     $this->_address->setLastname($this->getQuote()->getCustomer()->getLastname());
                 }

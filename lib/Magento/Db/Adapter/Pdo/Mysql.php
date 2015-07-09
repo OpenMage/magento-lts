@@ -101,4 +101,69 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
 
         return $bunches;
     }
+
+    /**
+     * Quote a raw string.
+     *
+     * @param string $value     Raw string
+     * @return string           Quoted string
+     */
+    protected function _quote($value)
+    {
+        if (is_float($value)) {
+            $value = $this->_convertFloat($value);
+            return $value;
+        }
+
+        return parent::_quote($value);
+    }
+
+    /**
+     * Safely quotes a value for an SQL statement.
+     *
+     * If an array is passed as the value, the array values are quote
+     * and then returned as a comma-separated string.
+     *
+     * @param mixed $value The value to quote.
+     * @param null $type OPTIONAL the SQL datatype name, or constant, or null.
+     * @return mixed|string An SQL-safe quoted value (or string of separated values).
+     */
+    public function quote($value, $type = null)
+    {
+        $this->_connect();
+
+        if ($type !== null &&
+            array_key_exists($type = strtoupper($type), $this->_numericDataTypes) &&
+            $this->_numericDataTypes[$type] == Zend_Db::FLOAT_TYPE) {
+                $value = $this->_convertFloat($value);
+                $quoteValue = sprintf('%F', $value);
+                return $quoteValue;
+        } elseif (is_float($value)) {
+            return $this->_quote($value);
+        }
+
+        return parent::quote($value, $type);
+    }
+
+    /**
+     * Convert float values that are not supported by MySQL to alternative representation value.
+     * Value 99999999.9999 is a maximum value that may be stored in Magento decimal columns in DB.
+     *
+     * @param float $value
+     * @return float
+     */
+    protected function _convertFloat($value)
+    {
+        $value = (float) $value;
+
+        if (is_infinite($value)) {
+            $value = ($value > 0)
+                ? 99999999.9999
+                : -99999999.9999;
+        } elseif (is_nan($value)) {
+            $value = 0.0;
+        }
+
+        return $value;
+    }
 }

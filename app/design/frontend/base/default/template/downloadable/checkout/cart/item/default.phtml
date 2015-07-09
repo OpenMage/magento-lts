@@ -76,7 +76,7 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
 </td>
 <td class="a-center">
     <a href="<?php echo $this->getConfigureUrl() ?>"
-       title="<?php echo $this->__('Edit item parameters') ?>"><?php echo $this->__('Edit') ?></a>
+       title="<?php echo Mage::helper('core')->quoteEscape($this->__('Edit item parameters')) ?>"><?php echo $this->__('Edit') ?></a>
 </td>
 <?php if ($this->helper('wishlist')->isAllowInCart()) : ?>
     <td class="a-center">
@@ -92,7 +92,7 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
             <a id="<?php echo $helpLinkId ?>" href="#"
                class="map-help-link"><?php echo $this->__("What's this?"); ?></a>
             <script type="text/javascript">
-                Catalog.Map.addHelpLink($('<?php echo $helpLinkId ?>'), "<?php echo $this->__("What's this?") ?>");
+                Catalog.Map.addHelpLink($('<?php echo $helpLinkId ?>'), "<?php echo Mage::helper('core')->jsQuoteEscape($this->__("What's this?")) ?>");
             </script>
         </span>
     </td>
@@ -201,7 +201,8 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
 <?php endif; ?>
 <td class="a-center">
     <input name="cart[<?php echo $_item->getId() ?>][qty]" value="<?php echo $this->getQty() ?>" size="4"
-           title="<?php echo $this->__('Qty') ?>" class="input-text qty" maxlength="12"/>
+           title="<?php echo Mage::helper('core')->quoteEscape($this->__('Qty')) ?>" class="input-text qty"
+           data-cart-item-id="<?php echo $this->jsQuoteEscape($_item->getSku()) ?>" maxlength="12"/>
 </td>
 <?php if (($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()) && !$_item->getNoSubtotal()): ?>
     <td class="a-right">
@@ -310,6 +311,6 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
             <?php endif; ?>
     </td>
 <?php endif; ?>
-<td class="a-center"><a href="<?php echo $this->getDeleteUrl() ?>" title="<?php echo $this->__('Remove Item') ?>"
+<td class="a-center"><a href="<?php echo $this->getDeleteUrl() ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Remove Item')) ?>"
                         class="btn-remove btn-remove2"><?php echo $this->__('Remove Item') ?></a></td>
 </tr>

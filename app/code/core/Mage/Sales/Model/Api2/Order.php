@@ -103,6 +103,7 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
                 'main_table.entity_id = order_tax.order_id',
                 $taxInfoFields
             );
+            $collection->getSelect()->group('main_table.entity_id');
         }
         return $this;
     }

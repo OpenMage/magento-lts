@@ -53,11 +53,15 @@ class Mage_Adminhtml_Block_System_Design_Edit extends Mage_Adminhtml_Block_Widge
                 ))
         );
 
+        $confirmationMessage = Mage::helper('core')->jsQuoteEscape(
+            Mage::helper('core')->__('Are you sure?')
+        );
         $this->setChild('delete_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
                     'label'     => Mage::helper('core')->__('Delete'),
-                    'onclick'   => 'confirmSetLocation(\''.Mage::helper('core')->__('Are you sure?').'\', \''.$this->getDeleteUrl().'\')',
+                    'onclick'   => 'confirmSetLocation(\'' . $confirmationMessage . '\', \'' . $this->getDeleteUrl()
+                        . '\')',
                     'class'  => 'delete'
                 ))
         );

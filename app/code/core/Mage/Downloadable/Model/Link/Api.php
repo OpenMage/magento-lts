@@ -155,6 +155,7 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
 
         $linkArr = array();
         $links = $product->getTypeInstance(true)->getLinks($product);
+        $downloadHelper = Mage::helper('downloadable');
         foreach ($links as $item) {
             $tmpLinkItem = array(
                 'link_id' => $item->getId(),
@@ -205,7 +206,7 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
             if ($product->getStoreId() && $item->getStoreTitle()) {
                 $tmpLinkItem['store_title'] = $item->getStoreTitle();
             }
-            if ($product->getStoreId() && Mage::helper('downloadable')->getIsPriceWebsiteScope()) {
+            if ($product->getStoreId() && $downloadHelper->getIsPriceWebsiteScope()) {
                 $tmpLinkItem['website_price'] = $item->getWebsitePrice();
             }
             $linkArr[] = $tmpLinkItem;

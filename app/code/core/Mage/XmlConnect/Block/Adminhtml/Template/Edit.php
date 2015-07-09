@@ -43,8 +43,11 @@ class Mage_XmlConnect_Block_Adminhtml_Template_Edit extends Mage_Adminhtml_Block
         $this->_blockGroup  = 'xmlconnect';
         parent::__construct();
 
-        $this->_updateButton('delete', 'onclick', 'deleteConfirm(\'' . $this->__('Warning: All related AirMail messages will be deleted!')
-            . '\n' . $this->__('Are you sure you want to do this?') .'\', \'' . $this->getDeleteUrl() . '\')'
+        $this->_updateButton('delete', 'onclick', 'deleteConfirm(\''
+            . Mage::helper('core')->quoteEscape(
+                $this->__('Warning: All related AirMail messages will be deleted!'), true)
+            . '\n' . Mage::helper('core')->quoteEscape($this->__('Are you sure you want to do this?'), true)
+            . '\', \'' . $this->getDeleteUrl() . '\')'
         );
         $this->_updateButton('save', 'label', $this->__('Save'));
         $this->_updateButton('save', 'onclick', 'if (editForm.submit()) {disableElements(\'save\')}');

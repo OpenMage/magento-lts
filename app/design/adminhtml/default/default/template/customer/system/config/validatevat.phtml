@@ -42,11 +42,11 @@
         new Ajax.Request('<?php echo $this->getAjaxUrl() ?>', {
             parameters: params,
             onSuccess: function(response) {
-                result = '<?php echo $this->__('VAT Number is Invalid') ?>';
+                result = '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('VAT Number is Invalid')) ?>';
                 try {
                     response = response.responseText;
                     if (response == 1) {
-                        result = '<?php echo $this->__('VAT Number is Valid') ?>';
+                        result = '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('VAT Number is Valid')) ?>';
                         elem.removeClassName('fail').addClassName('success')
                     } else {
                         elem.removeClassName('success').addClassName('fail')

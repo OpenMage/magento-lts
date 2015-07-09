@@ -28,7 +28,6 @@
 /**
  * Enter description here ...
  *
- * @method Mage_Log_Model_Resource_Visitor _getResource()
  * @method Mage_Log_Model_Resource_Visitor getResource()
  * @method string getSessionId()
  * @method Mage_Log_Model_Visitor setSessionId(string $value)
@@ -52,18 +51,52 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     protected $_skipRequestLogging = false;
 
     /**
-     * Onject initialization
+     * @var Mage_Log_Helper_Data
+     */
+    protected $_logCondition;
+
+    /**
+     * @var Mage_Core_Helper_Http
+     */
+    protected $_httpHelper;
+
+    /**
+     * @var Mage_Core_Model_Config
+     */
+    protected $_config;
+
+    /**
+     * @var Mage_Core_Model_Session
+     */
+    protected $_session;
+
+    public function __construct(array $data = array())
+    {
+        $this->_httpHelper = !empty($data['http_helper']) ? $data['http_helper'] : Mage::helper('core/http');
+        $this->_config = !empty($data['config']) ? $data['config'] : Mage::getConfig();
+        $this->_logCondition = !empty($data['log_condition']) ?
+            $data['log_condition'] : Mage::helper('log');
+        $this->_session = !empty($data['session']) ? $data['session'] : Mage::getSingleton('core/session');
+        parent::__construct($data);
+    }
+
+
+    /**
+     * Object initialization
      */
     protected function _construct()
     {
         $this->_init('log/visitor');
-        $userAgent = Mage::helper('core/http')->getHttpUserAgent();
-        $ignoreAgents = Mage::getConfig()->getNode('global/ignore_user_agents');
+        $userAgent = $this->_httpHelper->getHttpUserAgent();
+        $ignoreAgents = $this->_config->getNode('global/ignore_user_agents');
         if ($ignoreAgents) {
             $ignoreAgents = $ignoreAgents->asArray();
             if (in_array($userAgent, $ignoreAgents)) {
                 $this->_skipRequestLogging = true;
             }
+        }
+        if ($this->_logCondition->isLogDisabled()) {
+            $this->_skipRequestLogging = true;
         }
     }
 
@@ -74,7 +107,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
      */
     protected function _getSession()
     {
-        return Mage::getSingleton('core/session');
+        return $this->_session;
     }
 
     /**
@@ -84,20 +117,17 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
      */
     public function initServerData()
     {
-        /* @var $helper Mage_Core_Helper_Http */
-        $helper = Mage::helper('core/http');
-
         $this->addData(array(
-            'server_addr'           => $helper->getServerAddr(true),
-            'remote_addr'           => $helper->getRemoteAddr(true),
+            'server_addr'           => $this->_httpHelper->getServerAddr(true),
+            'remote_addr'           => $this->_httpHelper->getRemoteAddr(true),
             'http_secure'           => Mage::app()->getStore()->isCurrentlySecure(),
-            'http_host'             => $helper->getHttpHost(true),
-            'http_user_agent'       => $helper->getHttpUserAgent(true),
-            'http_accept_language'  => $helper->getHttpAcceptLanguage(true),
-            'http_accept_charset'   => $helper->getHttpAcceptCharset(true),
-            'request_uri'           => $helper->getRequestUri(true),
-            'session_id'            => $this->_getSession()->getSessionId(),
-            'http_referer'          => $helper->getHttpReferer(true),
+            'http_host'             => $this->_httpHelper->getHttpHost(true),
+            'http_user_agent'       => $this->_httpHelper->getHttpUserAgent(true),
+            'http_accept_language'  => $this->_httpHelper->getHttpAcceptLanguage(true),
+            'http_accept_charset'   => $this->_httpHelper->getHttpAcceptCharset(true),
+            'request_uri'           => $this->_httpHelper->getRequestUri(true),
+            'session_id'            => $this->_session->getSessionId(),
+            'http_referer'          => $this->_httpHelper->getHttpReferer(true),
         ));
 
         return $this;
@@ -158,11 +188,11 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
             return $this;
         }
 
-        $this->setData($this->_getSession()->getVisitorData());
-        $this->initServerData();
+        $this->setData($this->_session->getVisitorData());
 
         $visitorId = $this->getId();
         if (!$visitorId) {
+            $this->initServerData();
             $this->setFirstVisitAt(now());
             $this->setIsNewVisitor(true);
             $this->save();
@@ -180,12 +210,12 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
      */
     protected function _isVisitorSessionNew()
     {
-        $visitorData = $this->_getSession()->getVisitorData();
+        $visitorData = $this->_session->getVisitorData();
         $visitorSessionId = null;
         if (is_array($visitorData) && isset($visitorData['session_id'])) {
             $visitorSessionId = $visitorData['session_id'];
         }
-        return $this->_getSession()->getSessionId() != $visitorSessionId;
+        return $this->_session->getSessionId() != $visitorSessionId;
     }
 
     /**
@@ -205,7 +235,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         try {
             $this->setLastVisitAt(now());
             $this->save();
-            $this->_getSession()->setVisitorData($this->getData());
+            $this->_session->setVisitorData($this->getData());
         } catch (Exception $e) {
             Mage::logException($e);
         }
@@ -302,7 +332,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
 
     public function isModuleIgnored($observer)
     {
-        $ignores = Mage::getConfig()->getNode('global/ignoredModules/entities')->asArray();
+        $ignores = $this->_config->getNode('global/ignoredModules/entities')->asArray();
 
         if( is_array($ignores) && $observer) {
             $curModule = $observer->getEvent()->getControllerAction()->getRequest()->getRouteName();

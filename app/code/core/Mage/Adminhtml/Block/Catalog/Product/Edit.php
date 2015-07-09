@@ -104,12 +104,16 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                 );
             }
             if ($this->getProduct()->isDeleteable()) {
+
+                $confirmationMessage = Mage::helper('core')->jsQuoteEscape(
+                    Mage::helper('catalog')->__('Are you sure?')
+                );
                 $this->setChild('delete_button',
-                $this->getLayout()->createBlock('adminhtml/widget_button')
+                    $this->getLayout()->createBlock('adminhtml/widget_button')
                         ->setData(array(
                             'label'     => Mage::helper('catalog')->__('Delete'),
-                            'onclick'   => 'confirmSetLocation(\''
-                                . Mage::helper('catalog')->__('Are you sure?').'\', \''.$this->getDeleteUrl().'\')',
+                            'onclick'   => 'confirmSetLocation(\'' . $confirmationMessage
+                                . '\', \'' . $this->getDeleteUrl() . '\')',
                             'class'  => 'delete'
                         ))
                 );

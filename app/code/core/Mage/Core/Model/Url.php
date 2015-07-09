@@ -1141,8 +1141,12 @@ class Mage_Core_Model_Url extends Varien_Object
      */
     public function sessionUrlVar($html)
     {
-        return preg_replace_callback('#(\?|&amp;|&)___SID=([SU])(&amp;|&)?#',
-            array($this, "sessionVarCallback"), $html);
+        if (strpos($html, '__SID') === false) {
+            return $html;
+        } else {
+            return preg_replace_callback('#(\?|&amp;|&)___SID=([SU])(&amp;|&)?#',
+                array($this, "sessionVarCallback"), $html);
+        }
     }
 
     /**

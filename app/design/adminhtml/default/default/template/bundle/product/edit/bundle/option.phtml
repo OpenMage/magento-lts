@@ -27,7 +27,7 @@
 <script type="text/javascript">
 optionTemplate = '<div id="<?php echo $this->getFieldId() ?>_{{index}}"  class="option-box"> ' +
 '<div class="option-title"> ' +
-    '<label for="<?php echo $this->getFieldName() ?>[{{index}}][title]"><?php echo Mage::helper('bundle')->__('Default Title') ?> <span class="required">*</span></label>' +
+    '<label for="<?php echo $this->getFieldName() ?>[{{index}}][title]"><?php echo $this->jsQuoteEscape(Mage::helper('bundle')->__('Default Title')) ?> <span class="required">*</span></label>' +
     <?php if ($this->isDefaultStore()): ?>
     '<input class="input-text required-entry" type="text" name="<?php echo $this->getFieldName() ?>[{{index}}][title]" id="id_<?php echo $this->getFieldName() ?>_{{index}}_title" value="{{title}}">' +
     <?php else: ?>
@@ -39,11 +39,11 @@ optionTemplate = '<div id="<?php echo $this->getFieldId() ?>_{{index}}"  class="
         '<thead>' +
             '<tr>' +
                 <?php if (!$this->isDefaultStore()): ?>
-                '<th class="opt-title"><?php echo Mage::helper('bundle')->__('Store View Title') ?>  <span class="required">*</span></th>' +
+                '<th class="opt-title"><?php echo $this->jsQuoteEscape(Mage::helper('bundle')->__('Store View Title')) ?>  <span class="required">*</span></th>' +
                 <?php endif; ?>
-                '<th class="opt-type"><?php echo Mage::helper('bundle')->__('Input Type') ?></th>' +
+                '<th class="opt-type"><?php echo $this->jsQuoteEscape(Mage::helper('bundle')->__('Input Type')) ?></th>' +
                 '<th class="opt-req"><?php echo $this->jsQuoteEscape(Mage::helper('bundle')->__('Is Required')) ?></th>' +
-                '<th class="opt-order"><?php echo Mage::helper('bundle')->__('Position') ?></th>' +
+                '<th class="opt-order"><?php echo $this->jsQuoteEscape(Mage::helper('bundle')->__('Position')) ?></th>' +
                 '<th>&nbsp;</th>' +
             '</tr>' +
         '</thead>' +

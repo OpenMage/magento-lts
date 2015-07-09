@@ -97,9 +97,10 @@ abstract class Mage_Rule_Model_Condition_Abstract
                 'string'      => array('==', '!=', '>=', '>', '<=', '<', '{}', '!{}', '()', '!()'),
                 'numeric'     => array('==', '!=', '>=', '>', '<=', '<', '()', '!()'),
                 'date'        => array('==', '>=', '<='),
+                'datetime'    => array('==', '>=', '<='),
                 'select'      => array('==', '!='),
                 'boolean'     => array('==', '!='),
-                'multiselect' => array('{}', '!{}', '()', '!()'),
+                'multiselect' => array('[]', '![]', '()', '!()'),
                 'grid'        => array('()', '!()'),
             );
             $this->_arrayInputTypes = array('multiselect', 'grid');
@@ -125,6 +126,8 @@ abstract class Mage_Rule_Model_Condition_Abstract
                 '<'   => Mage::helper('rule')->__('less than'),
                 '{}'  => Mage::helper('rule')->__('contains'),
                 '!{}' => Mage::helper('rule')->__('does not contain'),
+                '[]'  => Mage::helper('rule')->__('contains'),
+                '![]' => Mage::helper('rule')->__('does not contain'),
                 '()'  => Mage::helper('rule')->__('is one of'),
                 '!()' => Mage::helper('rule')->__('is not one of')
             );
@@ -140,21 +143,21 @@ abstract class Mage_Rule_Model_Condition_Abstract
     public function asArray(array $arrAttributes = array())
     {
         $out = array(
-            'type'=>$this->getType(),
-            'attribute'=>$this->getAttribute(),
-            'operator'=>$this->getOperator(),
-            'value'=>$this->getValue(),
-            'is_value_processed'=>$this->getIsValueParsed(),
+            'type'               => $this->getType(),
+            'attribute'          => $this->getAttribute(),
+            'operator'           => $this->getOperator(),
+            'value'              => $this->getValue(),
+            'is_value_processed' => $this->getIsValueParsed(),
         );
         return $out;
     }
 
     public function asXml()
     {
-        $xml = "<type>".$this->getType()."</type>"
-            ."<attribute>".$this->getAttribute()."</attribute>"
-            ."<operator>".$this->getOperator()."</operator>"
-            ."<value>".$this->getValue()."</value>";
+        $xml = '<type>' . $this->getType() . '</type>'
+            . '<attribute>' . $this->getAttribute() . '</attribute>'
+            . '<operator>' . $this->getOperator() . '</operator>'
+            . '<value>' . $this->getValue() . '</value>';
         return $xml;
     }
 
@@ -195,8 +198,8 @@ abstract class Mage_Rule_Model_Condition_Abstract
     public function getAttributeSelectOptions()
     {
         $opt = array();
-        foreach ($this->getAttributeOption() as $k=>$v) {
-            $opt[] = array('value'=>$k, 'label'=>$v);
+        foreach ($this->getAttributeOption() as $k => $v) {
+            $opt[] = array('value' => $k, 'label' => $v);
         }
         return $opt;
     }
@@ -300,13 +303,26 @@ abstract class Mage_Rule_Model_Condition_Abstract
 
     public function getValue()
     {
-        if ($this->getInputType()=='date' && !$this->getIsValueParsed()) {
+        if (!$this->getIsValueParsed()) {
             // date format intentionally hard-coded
-            $this->setValue(
-                Mage::app()->getLocale()->date($this->getData('value'),
-                Varien_Date::DATE_INTERNAL_FORMAT, null, false)->toString(Varien_Date::DATE_INTERNAL_FORMAT)
-            );
-            $this->setIsValueParsed(true);
+            $format = null;
+            switch ($this->getInputType()) {
+                case 'date':
+                    $format = Varien_Date::DATE_INTERNAL_FORMAT;
+                    break;
+
+                case 'datetime':
+                    $format = Varien_Date::DATETIME_INTERNAL_FORMAT;
+                    break;
+            }
+
+            if ($format !== null) {
+                $this->setValue(
+                    Mage::app()->getLocale()->date($this->getData('value'),
+                        $format, null, false)->toString($format)
+                );
+                $this->setIsValueParsed(true);
+            }
         }
         return $this->getData('value');
     }
@@ -354,7 +370,7 @@ abstract class Mage_Rule_Model_Condition_Abstract
     public function getNewChildSelectOptions()
     {
         return array(
-            array('value'=>'', 'label'=>Mage::helper('rule')->__('Please choose a condition to add...')),
+            array('value' => '', 'label' => Mage::helper('rule')->__('Please choose a condition to add...')),
         );
     }
 
@@ -403,11 +419,11 @@ abstract class Mage_Rule_Model_Condition_Abstract
                 break;
             }
         }
-        return $this->getForm()->addField($this->getPrefix().'__'.$this->getId().'__attribute', 'select', array(
-            'name'=>'rule['.$this->getPrefix().']['.$this->getId().'][attribute]',
-            'values'=>$this->getAttributeSelectOptions(),
-            'value'=>$this->getAttribute(),
-            'value_name'=>$this->getAttributeName(),
+        return $this->getForm()->addField($this->getPrefix() . '__' . $this->getId() . '__attribute', 'select', array(
+            'name'       => 'rule[' . $this->getPrefix() . '][' . $this->getId() . '][attribute]',
+            'values'     => $this->getAttributeSelectOptions(),
+            'value'      => $this->getAttribute(),
+            'value_name' => $this->getAttributeName(),
         ))->setRenderer(Mage::getBlockSingleton('rule/editable'));
     }
 
@@ -472,19 +488,28 @@ abstract class Mage_Rule_Model_Condition_Abstract
     public function getValueElement()
     {
         $elementParams = array(
-            'name'               => 'rule['.$this->getPrefix().']['.$this->getId().'][value]',
+            'name'               => 'rule[' . $this->getPrefix() . '][' . $this->getId() . '][value]',
             'value'              => $this->getValue(),
             'values'             => $this->getValueSelectOptions(),
             'value_name'         => $this->getValueName(),
             'after_element_html' => $this->getValueAfterElementHtml(),
             'explicit_apply'     => $this->getExplicitApply(),
         );
-        if ($this->getInputType()=='date') {
-            // date format intentionally hard-coded
-            $elementParams['input_format'] = Varien_Date::DATE_INTERNAL_FORMAT;
-            $elementParams['format']       = Varien_Date::DATE_INTERNAL_FORMAT;
+
+        switch ($this->getInputType()) {
+            case 'date':
+                $elementParams['input_format'] = Varien_Date::DATE_INTERNAL_FORMAT;
+                $elementParams['format']       = Varien_Date::DATE_INTERNAL_FORMAT;
+                break;
+
+            case 'datetime':
+                $elementParams['input_format'] = Varien_Date::DATETIME_INTERNAL_FORMAT;
+                $elementParams['format']       = Varien_Date::DATETIME_INTERNAL_FORMAT;
+                $elementParams['time']         = true;
+                break;
         }
-        return $this->getForm()->addField($this->getPrefix().'__'.$this->getId().'__value',
+
+        return $this->getForm()->addField($this->getPrefix() . '__' . $this->getId() . '__value',
             $this->getValueElementType(),
             $elementParams
         )->setRenderer($this->getValueElementRenderer());
@@ -498,14 +523,18 @@ abstract class Mage_Rule_Model_Condition_Abstract
     public function getAddLinkHtml()
     {
         $src = Mage::getDesign()->getSkinUrl('images/rule_component_add.gif');
-        $html = '<img src="' . $src . '" class="rule-param-add v-middle" alt="" title="' . Mage::helper('rule')->__('Add') . '"/>';
+        $html = '<img src="' . $src . '" class="rule-param-add v-middle" alt="" title="'
+            . Mage::helper('core')->quoteEscape(Mage::helper('rule')->__('Add'))
+            . '"/>';
         return $html;
     }
 
     public function getRemoveLinkHtml()
     {
         $src = Mage::getDesign()->getSkinUrl('images/rule_component_remove.gif');
-        $html = ' <span class="rule-param"><a href="javascript:void(0)" class="rule-param-remove" title="' . Mage::helper('rule')->__('Remove') . '"><img src="' . $src . '"  alt="" class="v-middle" /></a></span>';
+        $html = ' <span class="rule-param"><a href="javascript:void(0)" class="rule-param-remove" title="'
+            . Mage::helper('core')->quoteEscape(Mage::helper('rule')->__('Remove'))
+            . '"><img src="' . $src . '"  alt="" class="v-middle" /></a></span>';
         return $html;
     }
 
@@ -618,9 +647,16 @@ abstract class Mage_Rule_Model_Condition_Abstract
                 }
                 break;
 
-            case '()': case '!()':
+            case '()': case '!()': case '[]': case '![]':
                 if (is_array($validatedValue)) {
-                    $result = count(array_intersect($validatedValue, (array)$value))>0;
+                    $value = (array)$value;
+                    $match = count(array_intersect($validatedValue, $value));
+
+                    if (in_array($op, array('[]', '![]'))) {
+                        $result = $match == count($value);
+                    } else {
+                        $result = $match > 0;
+                    }
                 } else {
                     $value = (array)$value;
                     foreach ($value as $item) {
@@ -633,7 +669,7 @@ abstract class Mage_Rule_Model_Condition_Abstract
                 break;
         }
 
-        if ('!=' == $op || '>' == $op || '<' == $op || '!{}' == $op || '!()' == $op) {
+        if ('!=' == $op || '>' == $op || '<' == $op || '!{}' == $op || '!()' == $op || '![]' == $op) {
             $result = !$result;
         }
 

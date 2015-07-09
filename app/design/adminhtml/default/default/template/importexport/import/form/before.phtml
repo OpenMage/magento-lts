@@ -96,7 +96,7 @@
     varienForm.prototype.postToFrameProcessResponse = function(response)
     {
         if ('object' != typeof(response)) {
-            return alert('Invalid response');
+            return alert('<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Invalid response')) ?>');
         }
         $H(response).each(function(pair) {
             switch (pair.key) {

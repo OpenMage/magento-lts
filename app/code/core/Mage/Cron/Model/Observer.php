@@ -103,6 +103,7 @@ class Mage_Cron_Model_Observer
         if (!$this->_pendingSchedules) {
             $this->_pendingSchedules = Mage::getModel('cron/schedule')->getCollection()
                 ->addFieldToFilter('status', Mage_Cron_Model_Schedule::STATUS_PENDING)
+                ->orderByScheduledAt()
                 ->load();
         }
         return $this->_pendingSchedules;

@@ -367,9 +367,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
 
         $this->_basicCheck();
 
-        if (!$this->_getErrors()) {
-            Mage::dispatchEvent('customer_address_validation_after', array('address' => $this));
-        }
+        Mage::dispatchEvent('customer_address_validation_after', array('address' => $this));
 
         $errors = $this->_getErrors();
 

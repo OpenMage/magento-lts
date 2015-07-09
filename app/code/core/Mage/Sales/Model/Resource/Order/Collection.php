@@ -87,6 +87,7 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
         /* @var $countSelect Varien_Db_Select */
         $countSelect = parent::getSelectCountSql();
         $countSelect->resetJoinLeft();
+        $countSelect->reset(Zend_Db_Select::GROUP);
         return $countSelect;
     }
 
@@ -118,11 +119,13 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
 
         $this
             ->addFilterToMap('billing_firstname', $billingAliasName . '.firstname')
+            ->addFilterToMap('billing_middlename', $billingAliasName . '.middlename')
             ->addFilterToMap('billing_lastname', $billingAliasName . '.lastname')
             ->addFilterToMap('billing_telephone', $billingAliasName . '.telephone')
             ->addFilterToMap('billing_postcode', $billingAliasName . '.postcode')
 
             ->addFilterToMap('shipping_firstname', $shippingAliasName . '.firstname')
+            ->addFilterToMap('shipping_middlename', $shippingAliasName . '.middlename')
             ->addFilterToMap('shipping_lastname', $shippingAliasName . '.lastname')
             ->addFilterToMap('shipping_telephone', $shippingAliasName . '.telephone')
             ->addFilterToMap('shipping_postcode', $shippingAliasName . '.postcode');
@@ -135,6 +138,7 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
                     . " AND {$billingAliasName}.address_type = 'billing')",
                 array(
                     $billingAliasName . '.firstname',
+                    $billingAliasName . '.middlename',
                     $billingAliasName . '.lastname',
                     $billingAliasName . '.telephone',
                     $billingAliasName . '.postcode'
@@ -146,6 +150,7 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
                     . " AND {$shippingAliasName}.address_type = 'shipping')",
                 array(
                     $shippingAliasName . '.firstname',
+                    $shippingAliasName . '.middlename',
                     $shippingAliasName . '.lastname',
                     $shippingAliasName . '.telephone',
                     $shippingAliasName . '.postcode'

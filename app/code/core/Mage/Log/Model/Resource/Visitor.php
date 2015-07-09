@@ -35,6 +35,20 @@
 class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
+     * Store condition object that know should we log something or not
+     *
+     * @var Mage_Log_Helper_Data
+     */
+    protected $_urlLoggingCondition;
+
+    public function __construct(array $data = array())
+    {
+        parent::__construct();
+        $this->_urlLoggingCondition = isset($data['log_condition'])
+            ? $data['log_condition'] : Mage::helper('log');
+    }
+
+    /**
      * Define main table
      *
      */
@@ -90,6 +104,9 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $visitor)
     {
+        if (!$this->_urlLoggingCondition->isLogEnabled()) {
+            return $this;
+        }
         if (!$visitor->getIsNewVisitor()) {
             $this->_saveUrlInfo($visitor);
         }
@@ -104,16 +121,25 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
      */
     protected function _afterSave(Mage_Core_Model_Abstract $visitor)
     {
+        if ($this->_urlLoggingCondition->isLogDisabled()) {
+            return $this;
+        }
         if ($visitor->getIsNewVisitor()) {
-            $this->_saveVisitorInfo($visitor);
-            $visitor->setIsNewVisitor(false);
-        } else {
-            $this->_saveVisitorUrl($visitor);
-            if ($visitor->getDoCustomerLogin() || $visitor->getDoCustomerLogout()) {
-                $this->_saveCustomerInfo($visitor);
+            if ($this->_urlLoggingCondition->isLogEnabled()) {
+                $this->_saveVisitorInfo($visitor);
+                $visitor->setIsNewVisitor(false);
             }
-            if ($visitor->getDoQuoteCreate() || $visitor->getDoQuoteDestroy()) {
-                $this->_saveQuoteInfo($visitor);
+        } else {
+            if ($this->_urlLoggingCondition->isLogEnabled()) {
+                $this->_saveVisitorUrl($visitor);
+                if ($visitor->getDoCustomerLogin() || $visitor->getDoCustomerLogout()) {
+                    $this->_saveCustomerInfo($visitor);
+                }
+            }
+            if ($this->_urlLoggingCondition->isVisitorLogEnabled()) {
+                if ($visitor->getDoQuoteCreate() || $visitor->getDoQuoteDestroy()) {
+                    $this->_saveQuoteInfo($visitor);
+                }
             }
         }
         return $this;
@@ -122,12 +148,15 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Perform actions after object load
      *
-     * @param Varien_Object $object
+     * @param Mage_Core_Model_Abstract $object
      * @return Mage_Core_Model_Resource_Db_Abstract
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
         parent::_afterLoad($object);
+        if ($this->_urlLoggingCondition->isLogDisabled()) {
+            return $this;
+        }
         // Add information about quote to visitor
         $adapter = $this->_getReadAdapter();
         $select = $adapter->select()->from($this->getTable('log/quote_table'), 'quote_id')

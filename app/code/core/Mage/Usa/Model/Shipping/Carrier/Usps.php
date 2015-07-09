@@ -392,7 +392,10 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
             $package->addChild('Height', $height);
             $package->addChild('Girth', $girth);
 
-
+            if ($this->_isCanada($r->getDestCountryId())) {
+                //only 5 chars available
+                $package->addChild('OriginZip', substr($r->getOrigPostal(), 0, 5));
+            }
             $api = 'IntlRateV2';
         }
         $request = $xml->asXML();
@@ -477,6 +480,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
                      else {
                         if (is_object($xml->Package) && is_object($xml->Package->Service)) {
                             foreach ($xml->Package->Service as $service) {
+                                if ($service->ServiceErrors->count()) {
+                                    continue;
+                                }
                                 $serviceName = $this->_filterServiceName((string)$service->SvcDescription);
                                 $serviceCode = 'INT_' . (string)$service->attributes()->ID;
                                 $serviceCodeToActualNameMap[$serviceCode] = $serviceName;

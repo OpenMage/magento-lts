@@ -35,7 +35,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     /*
      * Transaction Details gateway url
      */
-    const CGI_URL_TD = 'https://apitest.authorize.net/xml/v1/request.api';
+    const CGI_URL_TD = 'https://api.authorize.net/xml/v1/request.api';
 
     const REQUEST_METHOD_CC     = 'CC';
     const REQUEST_METHOD_ECHECK = 'ECHECK';
@@ -1028,27 +1028,42 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      */
     public function fetchTransactionInfo(Mage_Payment_Model_Info $payment, $transactionId)
     {
+        $data = parent::fetchTransactionInfo($payment, $transactionId);
         $cardsStorage = $this->getCardsStorage($payment);
+
         if ($cardsStorage->getCardsCount() != 1) {
-            return parent::fetchTransactionInfo($payment, $transactionId);
+            return $data;
         }
         $cards = $cardsStorage->getCards();
         $card = array_shift($cards);
-        $transactionId = $card->getLastTransId();
-        $transaction = $payment->getTransaction($transactionId);
 
-        if (!$transaction->getAdditionalInformation($this->_isTransactionFraud)) {
-            return parent::fetchTransactionInfo($payment, $transactionId);
+        /*
+         * We need try to get transaction from Mage::registry,
+         * because in cases when fetch calling from Mage_Adminhtml_Sales_TransactionsController::fetchAction()
+         * this line "$transaction = $payment->getTransaction($transactionId)" loads a fetching transaction into a new object,
+         * so some changes (for ex. $transaction->setAdditionalInformation($this->_isTransactionFraud, false) ) will not saved,
+         * because controller have another object for this transaction and Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS isn't includes _isTransactionFraud flag.
+         */
+        $transaction = Mage::registry('current_transaction');
+        if (is_null($transaction)) {
+            //this is for payment info update:
+            $transactionId = $card->getLastTransId();
+            $transaction = $payment->getTransaction($transactionId);
         }
-
+        //because in child transaction, the txn_id spoils by added additional word (@see $this->_preauthorizeCaptureCardTransaction()):
+        if (empty($transactionId) || $transaction->getParentId()) {
+            $transactionId = $transaction->getAdditionalInformation($this->_realTransactionIdKey);
+        }
         $response = $this->_getTransactionDetails($transactionId);
+        $data = array_merge($data, $response->getData());
+
         if ($response->getResponseCode() == self::RESPONSE_CODE_APPROVED) {
             $transaction->setAdditionalInformation($this->_isTransactionFraud, false);
             $payment->setIsTransactionApproved(true);
         } elseif ($response->getResponseReasonCode() == self::RESPONSE_REASON_CODE_PENDING_REVIEW_DECLINED) {
             $payment->setIsTransactionDenied(true);
         }
-        return parent::fetchTransactionInfo($payment, $transactionId);
+        return $data;
     }
 
     /**
@@ -1526,31 +1541,59 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
 
         $client = new Varien_Http_Client();
         $uri = $this->getConfigData('cgi_url_td');
-        $client->setUri($uri ? $uri : self::CGI_URL_TD);
+        $uri = $uri ? $uri : self::CGI_URL_TD;
+        $client->setUri($uri);
         $client->setConfig(array('timeout'=>45));
         $client->setHeaders(array('Content-Type: text/xml'));
         $client->setMethod(Zend_Http_Client::POST);
         $client->setRawData($requestBody);
 
-        $debugData = array('request' => $requestBody);
+        $debugData = array(
+            'url' => $uri,
+            'request' => $requestBody
+        );
 
         try {
             $responseBody = $client->request()->getBody();
             $debugData['result'] = $responseBody;
-            $this->_debug($debugData);
             libxml_use_internal_errors(true);
             $responseXmlDocument = new Varien_Simplexml_Element($responseBody);
             libxml_use_internal_errors(false);
         } catch (Exception $e) {
+            $debugData['exception'] = $e->getMessage();
+            $this->_debug($debugData);
             Mage::throwException(Mage::helper('paygate')->__('Payment updating error.'));
         }
 
+        $this->_debug($debugData);
+
+        return $this->_parseTransactionDetailsXmlResponseToVarienObject($responseXmlDocument);
+    }
+
+    /**
+     * Parses xml response object with full transaction details to Varien_Object
+     *
+     * @param Varien_Simplexml_Element $responseXmlDocument - xml object with full transaction details for a specified transaction ID
+     * @return Varien_Object
+     */
+    protected function _parseTransactionDetailsXmlResponseToVarienObject(Varien_Simplexml_Element $responseXmlDocument)
+    {
         $response = new Varien_Object;
+        $responseTransactionXmlDocument = $responseXmlDocument->transaction;
+        //main fields for generating order status:
         $response
-            ->setResponseCode((string)$responseXmlDocument->transaction->responseCode)
-            ->setResponseReasonCode((string)$responseXmlDocument->transaction->responseReasonCode)
-            ->setTransactionStatus((string)$responseXmlDocument->transaction->transactionStatus)
+            ->setResponseCode((string)$responseTransactionXmlDocument->responseCode)
+            ->setResponseReasonCode((string)$responseTransactionXmlDocument->responseReasonCode)
+            ->setTransactionStatus((string)$responseTransactionXmlDocument->transactionStatus)
         ;
+        //some additional fields:
+        isset($responseTransactionXmlDocument->responseReasonDescription) && $response->setResponseReasonDescription((string)$responseTransactionXmlDocument->responseReasonDescription);
+        isset($responseTransactionXmlDocument->FDSFilterAction)           && $response->setFdsFilterAction((string)$responseTransactionXmlDocument->FDSFilterAction);
+        isset($responseTransactionXmlDocument->FDSFilters)                && $response->setFdsFilters(serialize($responseTransactionXmlDocument->FDSFilters->asArray()));
+        isset($responseTransactionXmlDocument->transactionType)           && $response->setTransactionType((string)$responseTransactionXmlDocument->transactionType);
+        isset($responseTransactionXmlDocument->submitTimeUTC)             && $response->setSubmitTimeUtc((string)$responseTransactionXmlDocument->submitTimeUTC);
+        isset($responseTransactionXmlDocument->submitTimeLocal)           && $response->setSubmitTimeLocal((string)$responseTransactionXmlDocument->submitTimeLocal);
+
         return $response;
     }
 }
