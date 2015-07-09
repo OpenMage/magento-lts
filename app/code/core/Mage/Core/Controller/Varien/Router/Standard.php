@@ -277,7 +277,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
 
     /**
      * Check if current controller instance is allowed in current router.
-     * 
+     *
      * @param Mage_Core_Controller_Varien_Action $controllerInstance
      * @return boolean
      */

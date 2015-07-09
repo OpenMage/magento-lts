@@ -146,7 +146,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
             return false;
         }
 
-        return $ipToLong ? ip2long($this->_remoteAddr) : $this->_remoteAddr;
+        return $ipToLong ? inet_pton($this->_remoteAddr) : $this->_remoteAddr;
     }
 
     /**
@@ -161,7 +161,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
         if (!$address) {
             return false;
         }
-        return $ipToLong ? ip2long($address) : $address;
+        return $ipToLong ? inet_pton($address) : $address;
     }
 
     /**

@@ -79,7 +79,7 @@
         },
 
         stripTags: function () {
-            if(!window.confirm("<?php echo Mage::helper('newsletter')->__('Are you sure that you want to strip all tags?') ?>")) {
+            if(!window.confirm("<?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('newsletter')->__('Are you sure that you want to strip all tags?')) ?>")) {
                 return false;
             }
             if(this.isEditor()) {
@@ -125,7 +125,7 @@
             }
 
             if($F('code').blank() || $F('code')==templateControl.templateName) {
-               value = prompt('<?php echo Mage::helper('newsletter')->__('Please enter new template name') ?>', templateControl.templateName + '<?php echo Mage::helper('newsletter')->__(' Copy') ?>');
+               value = prompt('<?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('newsletter')->__('Please enter new template name')) ?>', templateControl.templateName + '<?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('newsletter')->__(' Copy')) ?>');
                if(!value) {
                    if(value !== null) {
                        $('code').value = '';
@@ -170,7 +170,7 @@
         },
 
         deleteTemplate: function() {
-            if(window.confirm("<?php echo Mage::helper('newsletter')->__('Are you sure that you want to delete this template?') ?>")) {
+            if(window.confirm("<?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('newsletter')->__('Are you sure that you want to delete this template?')) ?>")) {
                    window.location.href = '<?php echo $this->getDeleteUrl() ?>';
             }
         },

@@ -36,7 +36,7 @@
     <div class="multiple-checkout">
         <div class="page-title title-buttons">
             <h1><?php echo $this->__('Ship to Multiple Addresses') ?></h1>
-            <button data-action="add-new-customer-address" type="button" title="<?php echo $this->__('Enter a New Address') ?>" class="button" onclick="$('add_new_address_flag').value=1; $('checkout_multishipping_form').submit();"><span><span><?php echo $this->__('Enter a New Address') ?></span></span></button>
+            <button data-action="add-new-customer-address" type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Enter a New Address')) ?>" class="button" onclick="$('add_new_address_flag').value=1; $('checkout_multishipping_form').submit();"><span><span><?php echo $this->__('Enter a New Address') ?></span></span></button>
         </div>
         <input type="hidden" name="continue" value="0" id="can_continue_flag" />
         <input type="hidden" name="new_address" value="0" id="add_new_address_flag" />
@@ -56,7 +56,13 @@
             </thead>
             <tfoot>
                 <tr>
-                    <td colspan="100" class="a-right"><button type="submit" title="<?php echo $this->__('Update Qty &amp; Addresses') ?>" class="button" onclick="$('can_continue_flag').value=0"><span><span><?php echo $this->__('Update Qty &amp; Addresses') ?></span></span></button></td>
+                    <td colspan="100" class="a-right"><button type="submit"
+                          data-multiship-item-update
+                          title="<?php echo Mage::helper('core')->quoteEscape($this->__('Update Qty &amp; Addresses')) ?>"
+                          class="button" onclick="$('can_continue_flag').value=0">
+                            <span><span><?php echo $this->__('Update Qty &amp; Addresses') ?></span></span>
+                        </button>
+                    </td>
                 </tr>
             </tfoot>
             <tbody>
@@ -64,9 +70,9 @@
                 <?php if ($_item->getQuoteItem()) :?>
                 <tr>
                     <td><?php echo $this->getItemHtml($_item->getQuoteItem())?></td>
-                    <td><input type="text" name="ship[<?php echo $_index ?>][<?php echo $_item->getQuoteItemId() ?>][qty]" value="<?php echo $this->escapeHtml($_item->getQty()) ?>" size="2" class="input-text qty" /></td>
+                    <td><input type="text" data-multiship-item-id="<?php echo $this->jsQuoteEscape($_item->getSku()) ?>" name="ship[<?php echo $_index ?>][<?php echo $_item->getQuoteItemId() ?>][qty]" value="<?php echo $this->escapeHtml($_item->getQty()) ?>" size="2" class="input-text qty" /></td>
                     <td><?php if ($_item->getProduct()->getIsVirtual()): echo $this->__('Shipping selection is not applicable.'); else: echo $this->getAddressesHtmlSelect($_item, $_index); endif; ?></td>
-                    <td class="a-center"><a href="<?php echo $this->getItemDeleteUrl($_item) ?>" title="<?php echo $this->__('Remove Item') ?>" class="btn-remove2"><?php echo $this->__('Remove Item') ?></a></td>
+                    <td class="a-center"><a href="<?php echo $this->getItemDeleteUrl($_item) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Remove Item')) ?>" class="btn-remove2"><?php echo $this->__('Remove Item') ?></a></td>
                 </tr>
                 <?php endif; ?>
             <?php endforeach; ?>
@@ -75,7 +81,7 @@
         <script type="text/javascript">decorateTable('multiship-addresses-table')</script>
         <div class="buttons-set">
             <p class="back-link"><a href="<?php echo $this->getBackUrl() ?>"><small>&laquo; </small><?php echo $this->__('Back to Shopping Cart') ?></a></p>
-            <button type="submit" data-action="checkout-continue-shipping" title="<?php echo $this->__('Continue to Shipping Information') ?>" class="button<?php if ($this->isContinueDisabled()):?> disabled<?php endif; ?>" onclick="$('can_continue_flag').value=1"<?php if ($this->isContinueDisabled()):?> disabled="disabled"<?php endif; ?>><span><span><?php echo $this->__('Continue to Shipping Information') ?></span></span></button>
+            <button type="submit" data-action="checkout-continue-shipping" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Continue to Shipping Information')) ?>" class="button<?php if ($this->isContinueDisabled()):?> disabled<?php endif; ?>" onclick="$('can_continue_flag').value=1"<?php if ($this->isContinueDisabled()):?> disabled="disabled"<?php endif; ?>><span><span><?php echo $this->__('Continue to Shipping Information') ?></span></span></button>
         </div>
     </div>
 </form>

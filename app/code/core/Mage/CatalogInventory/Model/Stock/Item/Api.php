@@ -116,6 +116,10 @@ class Mage_CatalogInventory_Model_Stock_Item_Api extends Mage_Catalog_Model_Api_
             $stockData['backorders'] = $data['backorders'];
         }
 
+        if (isset($data['min_sale_qty'])) {
+            $stockData['min_sale_qty'] = $data['min_sale_qty'];
+        }
+
         $product->setStockData($stockData);
 
         try {

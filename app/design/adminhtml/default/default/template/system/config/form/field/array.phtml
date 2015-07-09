@@ -74,13 +74,13 @@ var arrayRow<?php echo $_htmlId ?> = {
         '<tr id="#{_id}">'
 <?php foreach ($this->_columns as $columnName => $column):?>
             +'<td>'
-                +'<?php echo $this->_renderCellTemplate($columnName)?>'
+                +'<?php echo Mage::helper('core')->jsQuoteEscape($this->_renderCellTemplate($columnName)) ?>'
             +'<\/td>'
 <?php endforeach;?>
 <?php if ($this->_addAfter):?>
-            +'<td><button onclick="" class="scalable add" type="button" id="addAfterBtn#{_id}"><span><span><span><?php echo Mage::helper('adminhtml')->__('Add after') ?><\/span><\/span><\/span><\/button><\/td>'
+            +'<td><button onclick="" class="scalable add" type="button" id="addAfterBtn#{_id}"><span><span><span><?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('adminhtml')->__('Add after')) ?><\/span><\/span><\/span><\/button><\/td>'
 <?php endif;?>
-            +'<td><button onclick="arrayRow<?php echo $_htmlId ?>.del(\'#{_id}\')" class="scalable delete" type="button"><span><span><span><?php echo Mage::helper('adminhtml')->__('Delete') ?><\/span><\/span><\/span><\/button><\/td>'
+            +'<td><button onclick="arrayRow<?php echo $_htmlId ?>.del(\'#{_id}\')" class="scalable delete" type="button"><span><span><span><?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('adminhtml')->__('Delete')) ?><\/span><\/span><\/span><\/button><\/td>'
         +'<\/tr>'
     ),
 

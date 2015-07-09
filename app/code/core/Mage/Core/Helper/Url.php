@@ -168,4 +168,64 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
     {
         return Mage::getSingleton($name, $arguments);
     }
+
+    /**
+     * Retrieve encoding domain name in punycode
+     *
+     * @param string $url encode url to Punycode
+     * @return string
+     */
+    public function encodePunycode($url)
+    {
+        $parsedUrl = parse_url($url);
+        if (!$this->_isPunycode($parsedUrl['host'])) {
+            if (function_exists('idn_to_ascii')) {
+                $host = idn_to_ascii($parsedUrl['host']);
+            } else {
+                $idn = new Net_IDNA2();
+                $host = $idn->encode($parsedUrl['host']);
+            }
+            return str_replace($parsedUrl['host'], $host, $url);
+        } else {
+            return $url;
+        }
+    }
+
+    /**
+     * Retrieve decoding domain name from punycode
+     *
+     * @param string $url decode url from Punycode
+     * @return string
+     */
+    public function decodePunycode($url)
+    {
+        $parsedUrl = parse_url($url);
+        if ($this->_isPunycode($parsedUrl['host'])) {
+            if (function_exists('idn_to_utf8')) {
+                $host = idn_to_utf8($parsedUrl['host']);
+            } else {
+                $idn = new Net_IDNA2();
+                $host = $idn->decode($parsedUrl['host']);
+            }
+            return str_replace($parsedUrl['host'], $host, $url);
+        } else {
+            return $url;
+        }
+    }
+
+    /**
+     * Check domain name for IDN using ACE prefix http://tools.ietf.org/html/rfc3490#section-5
+     *
+     * @param string $host domain name
+     * @return boolean
+     */
+    private function _isPunycode($host)
+    {
+        if (strpos($host, 'xn--') === 0 || strpos($host, '.xn--') !== false
+            || strpos($host, 'XN--') === 0 || strpos($host, '.XN--') !== false
+        ) {
+            return true;
+        }
+        return false;
+    }
 }

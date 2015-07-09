@@ -100,6 +100,13 @@ class Mage_Catalog_Model_Convert_Adapter_Product
     protected $_toNumber = array();
 
     /**
+     * Gallery backend model
+     *
+     * @var Mage_Catalog_Model_Product_Attribute_Backend_Media
+     */
+    protected $_galleryBackendModel;
+
+    /**
      * Retrieve event prefix for adapter
      *
      * @return string
@@ -424,6 +431,8 @@ class Mage_Catalog_Model_Convert_Adapter_Product
         if (!Mage::registry('Object_Cache_StockItem')) {
             $this->setStockItem(Mage::getModel('cataloginventory/stock_item'));
         }
+
+        $this->_galleryBackendModel = $this->getAttribute('media_gallery')->getBackend();
     }
 
     /**
@@ -575,6 +584,38 @@ class Mage_Catalog_Model_Convert_Adapter_Product
     }
 
     /**
+     * Save data row with gallery image info only
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @param array $importData
+     *
+     * @return Mage_Catalog_Model_Convert_Adapter_Product
+     */
+    public function saveImageDataRow($product, $importData)
+    {
+        $imageData = array(
+            'label'         => $importData['_media_lable'],
+            'position'      => $importData['_media_position'],
+            'disabled'      => $importData['_media_is_disabled']
+        );
+
+        $imageFile = trim($importData['_media_image']);
+        $imageFile = ltrim($imageFile, DS);
+        $imageFilePath = Mage::getBaseDir('media') . DS . 'import' . DS . $imageFile;
+
+        $updatedFileName = $this->_galleryBackendModel->addImage($product, $imageFilePath, null, false,
+            (bool) $importData['_media_is_disabled']);
+        $this->_galleryBackendModel->updateImage($product, $updatedFileName, $imageData);
+
+        $this->_addAffectedEntityIds($product->getId());
+        $product->setIsMassupdate(true)
+            ->setExcludeUrlRewrite(true)
+            ->save();
+
+        return $this;
+    }
+
+    /**
      * Save product (import)
      *
      * @param  array $importData
@@ -641,6 +682,12 @@ class Mage_Catalog_Model_Convert_Adapter_Product
                     Mage::throwException($message);
                 }
             }
+        }
+
+        // process row with media data only
+        if (isset($importData['_media_image']) && strlen($importData['_media_image'])) {
+            $this->saveImageDataRow($product, $importData);
+            return true;
         }
 
         $this->setProductTypeInstance($product);
@@ -757,20 +804,18 @@ class Mage_Catalog_Model_Convert_Adapter_Product
         }
         $product->setStockData($stockData);
 
-        $mediaGalleryBackendModel = $this->getAttribute('media_gallery')->getBackend();
-
         $arrayToMassAdd = array();
 
         foreach ($product->getMediaAttributes() as $mediaAttributeCode => $mediaAttribute) {
             if (isset($importData[$mediaAttributeCode])) {
                 $file = trim($importData[$mediaAttributeCode]);
-                if (!empty($file) && !$mediaGalleryBackendModel->getImage($product, $file)) {
+                if (!empty($file) && !$this->_galleryBackendModel->getImage($product, $file)) {
                     $arrayToMassAdd[] = array('file' => trim($file), 'mediaAttribute' => $mediaAttributeCode);
                 }
             }
         }
 
-        $addedFilesCorrespondence = $mediaGalleryBackendModel->addImagesWithDifferentMediaAttributes(
+        $addedFilesCorrespondence = $this->_galleryBackendModel->addImagesWithDifferentMediaAttributes(
             $product,
             $arrayToMassAdd, Mage::getBaseDir('media') . DS . 'import',
             false,
@@ -793,7 +838,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product
                     $addedFile = $product->getData($mediaAttributeCode);
                 }
                 if ($fileLabel && $addedFile) {
-                    $mediaGalleryBackendModel->updateImage($product, $addedFile, array('label' => $fileLabel));
+                    $this->_galleryBackendModel->updateImage($product, $addedFile, array('label' => $fileLabel));
                 }
             }
         }

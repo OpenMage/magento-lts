@@ -86,7 +86,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
             return $this;
         }
 
-        $action = $this->getRequest()->getActionName();
+        $action = strtolower($this->getRequest()->getActionName());
 
         $checkoutSessionQuote = $this->_getCheckoutSession()->getQuote();
         /**
@@ -379,6 +379,29 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
      */
     public function billingAction()
     {
+        $collectTotals = false;
+        $quote = $this->_getCheckoutSession()->getQuote();
+
+        /**
+         *  Reset customer balance
+         */
+        if ($quote->getUseCustomerBalance()) {
+            $quote->setUseCustomerBalance(false);
+            $collectTotals = true;
+        }
+
+        /**
+         *  Reset reward points
+         */
+        if ($quote->getUseRewardPoints()) {
+            $quote->setUseRewardPoints(false);
+            $collectTotals = true;
+        }
+
+        if ($collectTotals) {
+            $quote->collectTotals()->save();
+        }
+
         if (!$this->_validateBilling()) {
             return;
         }

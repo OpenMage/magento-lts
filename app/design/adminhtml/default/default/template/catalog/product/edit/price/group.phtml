@@ -77,8 +77,8 @@ var groupPriceRowTemplate = '<tr>'
     + '</select></td>'
     + '<td><input class="<?php echo $_htmlClass; ?> required-entry <?php echo $_priceValueValidation; ?>" type="text" name="<?php echo $_htmlName; ?>[{{index}}][price]" value="{{price}}" id="group_price_row_{{index}}_price" /></td>'
     + '<td class="last"><input type="hidden" name="<?php echo $_htmlName; ?>[{{index}}][delete]" class="delete" value="" id="group_price_row_{{index}}_delete" />'
-    + '<button title="<?php echo Mage::helper('catalog')->__('Delete Group Price'); ?>" type="button" class="scalable delete icon-btn delete-product-option" id="group_price_row_{{index}}_delete_button" onclick="return groupPriceControl.deleteItem(event);">'
-    + '<span><?php echo Mage::helper('catalog')->__('Delete'); ?></span></button></td>'
+    + '<button title="<?php echo $this->jsQuoteEscape(Mage::helper('catalog')->__('Delete Group Price')); ?>" type="button" class="scalable delete icon-btn delete-product-option" id="group_price_row_{{index}}_delete_button" onclick="return groupPriceControl.deleteItem(event);">'
+    + '<span><?php echo $this->jsQuoteEscape(Mage::helper('catalog')->__('Delete')); ?></span></button></td>'
     + '</tr>';
 
 var groupPriceControl = {

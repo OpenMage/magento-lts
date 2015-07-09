@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Table
- * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
@@ -41,7 +41,7 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Table
- * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Db_Table_Abstract
@@ -1191,7 +1191,9 @@ abstract class Zend_Db_Table_Abstract
                      */
                     foreach ($depTables as $tableClass) {
                         $t = self::getTableFromString($tableClass, $this);
-                        $t->_cascadeDelete($tableClass, $row->getPrimaryKey());
+                        $t->_cascadeDelete(
+                            get_class($this), $row->getPrimaryKey()
+                        );
                     }
                 }
             }
@@ -1577,6 +1579,14 @@ abstract class Zend_Db_Table_Abstract
         return $data;
     }
 
+    /**
+     * Get table gateway object from string
+     *
+     * @param  string                 $tableName
+     * @param  Zend_Db_Table_Abstract $referenceTable
+     * @throws Zend_Db_Table_Row_Exception
+     * @return Zend_Db_Table_Abstract
+     */
     public static function getTableFromString($tableName, Zend_Db_Table_Abstract $referenceTable = null)
     {
         if ($referenceTable instanceof Zend_Db_Table_Abstract) {

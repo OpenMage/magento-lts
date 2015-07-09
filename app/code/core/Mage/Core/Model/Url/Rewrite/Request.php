@@ -182,7 +182,12 @@ class Mage_Core_Model_Url_Rewrite_Request
      */
     protected function _setStoreCodeCookie($storeCode)
     {
-        $this->_app->getCookie()->set(Mage_Core_Model_Store::COOKIE_NAME, $storeCode, true);
+        $store = $this->_app->getStore($storeCode);
+        if ($store->getWebsite()->getDefaultStore()->getId() == $store->getId()) {
+            $this->_app->getCookie()->delete(Mage_Core_Model_Store::COOKIE_NAME);
+        } else {
+            $this->_app->getCookie()->set(Mage_Core_Model_Store::COOKIE_NAME, $storeCode, true);
+        }
     }
 
     /**

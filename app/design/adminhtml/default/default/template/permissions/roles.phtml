@@ -29,6 +29,7 @@
         <tr>
             <td style="width:50%;"><h3 class="icon-head head-permissions-role"><?php echo $this->__('Roles') ?></h3></td>
             <td class="form-buttons">
+            <button class="scalable" onclick="window.location='<?php echo $this->getRefreshRolesUrl() ?>'"><span><span><span><?php echo $this->__('Refresh Roles') ?></span></span></span></button>
             <button class="scalable add" onclick="window.location='<?php echo $this->getAddNewUrl() ?>'"><span><span><span><?php echo $this->__('Add New Role') ?></span></span></span></button>
             </td>
         </tr>

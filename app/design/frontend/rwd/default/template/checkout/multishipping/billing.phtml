@@ -57,12 +57,12 @@
                     </div>
                     <div class="box-content">
                         <div class="tool-tip" id="payment-tool-tip" style="display:none;">
-                            <div class="btn-close"><a href="#" id="payment-tool-tip-close" title="<?php echo $this->__('Close') ?>"><?php echo $this->__('Close') ?></a></div>
-                            <div class="tool-tip-content"><img src="<?php echo $this->getSkinUrl('images/cvv.gif') ?>" alt="<?php echo $this->__('Card Verification Number Visual Reference') ?>" title="<?php echo $this->__('Card Verification Number Visual Reference') ?>" /></div>
+                            <div class="btn-close"><a href="#" id="payment-tool-tip-close" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Close')) ?>"><?php echo $this->__('Close') ?></a></div>
+                            <div class="tool-tip-content"><img src="<?php echo $this->getSkinUrl('images/cvv.gif') ?>" alt="<?php echo Mage::helper('core')->quoteEscape($this->__('Card Verification Number Visual Reference')) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Card Verification Number Visual Reference')) ?>" /></div>
                         </div>
                         <?php echo $this->getChildHtml('payment_methods_before') ?>
                         <!-- Payment methods forms list -->
-                        <dl class="sp-methods">
+                        <dl id="payment-methods" class="sp-methods">
                         <?php
                             $_methods       = $this->getMethods();
                             $_methodsCount  = count($_methods);
@@ -91,12 +91,13 @@
         </div>
         <div class="buttons-set">
             <p class="back-link"><a href="<?php echo $this->getBackUrl() ?>"><small>&laquo; </small><?php echo $this->__('Back to Shipping Information') ?></a></p>
-            <button id="payment-continue" type="submit" title="<?php echo $this->__('Continue to Review Your Order') ?>" class="button"><span><span><?php echo $this->__('Continue to Review Your Order') ?></span></span></button>
+            <button id="payment-continue" type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Continue to Review Your Order')) ?>" class="button"><span><span><?php echo $this->__('Continue to Review Your Order') ?></span></span></button>
         </div>
     </form>
     <script type="text/javascript">
     //<![CDATA[
         var payment = new paymentForm('multishipping-billing-form');
+        var quoteBaseGrandTotal = <?php echo (float)$this->getQuoteBaseGrandTotal(); ?>;
         function toggleToolTip(event){
             if($('payment-tool-tip')){
                 /*$('payment-tool-tip').setStyle({

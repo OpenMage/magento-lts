@@ -53,10 +53,17 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form
 
         if( $this->getRequest()->getParam('ret', false) == 'pending' ) {
             $this->_updateButton('back', 'onclick', 'setLocation(\'' . $this->getUrl('*/*/pending') .'\')' );
-            $this->_updateButton('delete', 'onclick', 'deleteConfirm(\'' . Mage::helper('tag')->__('Are you sure you want to do this?') . '\', \'' . $this->getUrl('*/*/delete', array(
-                $this->_objectId => $this->getRequest()->getParam($this->_objectId),
-                'ret'           => 'pending',
-            )) .'\')' );
+            $this->_updateButton('delete', 'onclick', 'deleteConfirm(\''
+                . Mage::helper('core')->jsQuoteEscape(
+                    Mage::helper('tag')->__('Are you sure you want to do this?')
+                )
+                . '\', \''
+                . $this->getUrl('*/*/delete',
+                    array($this->_objectId => $this->getRequest()->getParam($this->_objectId), 'ret' => 'pending',
+                    )
+                )
+                .'\')'
+            );
             Mage::register('ret', 'pending');
         }
 

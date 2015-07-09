@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    Tests
+ * @package     Tests_Functional
+ * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
+  <fixture name="taxRule" module="Mage_Tax" type="flat" entity_type="tax_calculation_rule" collection="Mage\Tax\Model\Resource\Calculation\Rule\Collection" identifier="code" repository_class="Mage\Tax\Test\Repository\TaxRule" handler_interface="Mage\Tax\Test\Handler\TaxRule\TaxRuleInterface" class="Mage\Tax\Test\Fixture\TaxRule">
+    <dataset name="default">
+        <field name="code" xsi:type="string">DefaultTaxRule%isolation%</field>
+        <field name="tax_rate" xsi:type="array">
+            <item name="dataSet" xsi:type="array">
+                <item name="0" xsi:type="string">US-CA-*-Rate 1</item>
+                <item name="1" xsi:type="string">US-NY-*-Rate 1</item>
+            </item>
+        </field>
+    </dataset>
+    <field name="tax_calculation_rule_id" is_required="1">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="code" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="priority" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="position" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="calculate_subtotal" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="tax_rate" source="Mage\Tax\Test\Fixture\TaxRule\TaxRate"/>
+    <field name="tax_customer_class" source="Mage\Tax\Test\Fixture\TaxRule\TaxClass"/>
+    <field name="tax_product_class" source="Mage\Tax\Test\Fixture\TaxRule\TaxClass"/>
+  </fixture>
+</config>

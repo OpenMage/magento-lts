@@ -34,6 +34,19 @@
 class Mage_Api_Model_Server_V2_Adapter_Soap extends Mage_Api_Model_Server_Adapter_Soap
 {
     /**
+     * Get wsdl config
+     *
+     * @return Mage_Api_Model_Wsdl_Config
+     */
+    protected function _getWsdlConfig()
+    {
+        $wsdlConfig = Mage::getModel('api/wsdl_config');
+        $wsdlConfig->setHandler($this->getHandler())
+            ->init();
+        return $wsdlConfig;
+    }
+
+    /**
      * Run webservice
      *
      * @param Mage_Api_Controller_Action $controller
@@ -44,9 +57,6 @@ class Mage_Api_Model_Server_V2_Adapter_Soap extends Mage_Api_Model_Server_Adapte
         $apiConfigCharset = Mage::getStoreConfig("api/config/charset");
 
         if ($this->getController()->getRequest()->getParam('wsdl') !== null) {
-            $wsdlConfig = Mage::getModel('api/wsdl_config');
-            $wsdlConfig->setHandler($this->getHandler())
-                ->init();
             $this->getController()->getResponse()
                 ->clearHeaders()
                 ->setHeader('Content-Type','text/xml; charset='.$apiConfigCharset)
@@ -54,7 +64,7 @@ class Mage_Api_Model_Server_V2_Adapter_Soap extends Mage_Api_Model_Server_Adapte
                       preg_replace(
                         '/<\?xml version="([^\"]+)"([^\>]+)>/i',
                         '<?xml version="$1" encoding="'.$apiConfigCharset.'"?>',
-                        $wsdlConfig->getWsdlContent()
+                        $this->wsdlConfig->getWsdlContent()
                     )
                 );
         } else {

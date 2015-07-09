@@ -932,6 +932,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             $this->_validateMassStatus($productIds, $status);
             Mage::getSingleton('catalog/product_action')
                 ->updateAttributes($productIds, array('status' => $status), $storeId);
+            Mage::dispatchEvent('catalog_controller_product_mass_status', array('product_ids' => $productIds));
 
             $this->_getSession()->addSuccess(
                 $this->__('Total of %d record(s) have been updated.', count($productIds))

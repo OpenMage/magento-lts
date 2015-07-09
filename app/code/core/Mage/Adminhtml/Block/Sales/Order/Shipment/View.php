@@ -46,10 +46,11 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
         $this->_removeButton('delete');
         if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/emails')) {
             $this->_updateButton('save', 'label', Mage::helper('sales')->__('Send Tracking Information'));
+            $confirmationMessage = Mage::helper('core')->jsQuoteEscape(
+                Mage::helper('sales')->__('Are you sure you want to send Shipment email to customer?')
+            );
             $this->_updateButton('save',
-                'onclick', "deleteConfirm('"
-                . Mage::helper('sales')->__('Are you sure you want to send Shipment email to customer?')
-                . "', '" . $this->getEmailUrl() . "')"
+                'onclick', "deleteConfirm('" . $confirmationMessage . "', '" . $this->getEmailUrl() . "')"
             );
         }
 
@@ -110,7 +111,8 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
     {
         if ($flag) {
             if ($this->getShipment()->getBackUrl()) {
-                return $this->_updateButton('back', 'onclick', 'setLocation(\'' . $this->getShipment()->getBackUrl() . '\')');
+                return $this->_updateButton('back', 'onclick', 'setLocation(\'' . $this->getShipment()->getBackUrl()
+                    . '\')');
             }
             return $this->_updateButton('back', 'onclick', 'setLocation(\'' . $this->getUrl('*/sales_shipment/') . '\')');
         }

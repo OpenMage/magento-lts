@@ -214,7 +214,7 @@ class Mage_Catalog_Model_Observer
         $block = $observer->getEvent()->getBlock();
         $block->addCacheTag(Mage_Catalog_Model_Category::CACHE_TAG);
         $this->_addCategoriesToMenu(
-            Mage::helper('catalog/category')->getStoreCategories(), $observer->getMenu(), $block, true
+            Mage::helper('catalog/category')->getStoreCategories(), $observer->getMenu(), $block
         );
     }
 

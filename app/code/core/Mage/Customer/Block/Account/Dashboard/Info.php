@@ -52,7 +52,9 @@ class Mage_Customer_Block_Account_Dashboard_Info extends Mage_Core_Block_Templat
     public function getSubscriptionObject()
     {
         if(is_null($this->_subscription)) {
-            $this->_subscription = Mage::getModel('newsletter/subscriber')->loadByCustomer(Mage::getSingleton('customer/session')->getCustomer());
+            $this->_subscription = Mage::getModel('newsletter/subscriber')->loadByCustomer(
+                Mage::getSingleton('customer/session')->getCustomer()
+            );
         }
 
         return $this->_subscription;
@@ -71,7 +73,7 @@ class Mage_Customer_Block_Account_Dashboard_Info extends Mage_Core_Block_Templat
     /**
      *  Newsletter module availability
      *
-     *  @return	  boolean
+     *  @return boolean
      */
     public function isNewsletterEnabled()
     {

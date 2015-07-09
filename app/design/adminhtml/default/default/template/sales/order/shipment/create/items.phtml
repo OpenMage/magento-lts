@@ -139,7 +139,7 @@ function submitShipment(btn) {
 
 function validQtyItems() {
     var valid = true;
-    var errorMessage = '<?php echo $this->helper('sales')->__('Invalid value(s) for Qty to Ship') ?>';
+    var errorMessage = '<?php echo Mage::helper('core')->jsQuoteEscape($this->helper('sales')->__('Invalid value(s) for Qty to Ship')) ?>';
     $$('.qty-item').each(function(item) {
         var val = parseFloat(item.value);
         if (isNaN(val) || val < 0) {

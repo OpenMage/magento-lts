@@ -645,7 +645,11 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
      */
     public function joinCustomerName($alias = 'name')
     {
-        $fields      = array('main_table.customer_firstname', 'main_table.customer_lastname');
+        $fields  = array(
+            'main_table.customer_firstname',
+            'main_table.customer_middlename',
+            'main_table.customer_lastname'
+        );
         $fieldConcat = $this->getConnection()->getConcatSql($fields, ' ');
         $this->getSelect()->columns(array($alias => $fieldConcat));
         return $this;

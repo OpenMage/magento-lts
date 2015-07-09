@@ -199,7 +199,7 @@ function reRenderTree(event, switcher)
             storeParam += obj.switchParams;
         }
         if (switcher.useConfirm) {
-            if (!confirm("<?php echo $this->__('Please confirm site switching. All data that hasn\'t been saved will be lost.') ?>")){
+            if (!confirm('<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Please confirm site switching. All data that hasn\'t been saved will be lost.')) ?>')){
                 obj.value = '<?php echo (int) $this->getStoreId() ?>';
                 return false;
             }
@@ -372,7 +372,7 @@ Ext.onReady(function()
 
     defaultLoadTreeParams = {
         parameters : {
-            text        : '<?php echo htmlentities($this->getRoot()->getName()) ?>',
+            text        : '<?php echo Mage::helper('core')->jsQuoteEscape(htmlentities($this->getRoot()->getName())) ?>',
             draggable   : false,
             allowDrop   : <?php if ($this->getRoot()->getIsVisible()): ?>true<?php else : ?>false<?php endif; ?>,
             id          : <?php echo (int) $this->getRoot()->getId() ?>,

@@ -371,11 +371,11 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                         'code'           => $v[0],
                         'tax_country_id' => $v[1],
                         'tax_region_id'  => ($regions[$v[1]][$v[2]] == '*') ? 0 : $regions[$v[1]][$v[2]],
-                        'tax_postcode'   => (empty($v[3]) || $v[3]=='*') ? null : $v[3],
+                        'tax_postcode'   => empty($v[3]) ? null : $v[3],
                         'rate'           => $v[4],
                         'zip_is_range'   => $v[5],
                         'zip_from'       => $v[6],
-                        'zip_to'         => $v[7]
+                        'zip_to'         => $v[7],
                     );
 
                     $rateModel = Mage::getModel('tax/calculation_rate')->loadByCode($rateData['code']);
@@ -466,8 +466,9 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
     protected function _isAllowed()
     {
 
-        switch ($this->getRequest()->getActionName()) {
-            case 'importExport':
+        $action = strtolower($this->getRequest()->getActionName());
+        switch ($action) {
+            case 'importexport':
                 return Mage::getSingleton('admin/session')->isAllowed('sales/tax/import_export');
                 break;
             case 'index':

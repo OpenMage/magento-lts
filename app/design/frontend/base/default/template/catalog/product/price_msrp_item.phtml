@@ -101,7 +101,7 @@
         <script type="text/javascript">
             Catalog.Map.addHelpLink(
                 $('<?php echo $helpLinkId ?>'),
-                "<?php echo $this->__("What's this?"); ?>"
+                '<?php echo Mage::helper('core')->jsQuoteEscape($this->__("What's this?")); ?>'
             );
         </script>
     </div>

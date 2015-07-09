@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    Tests
+ * @package     Tests_Functional
+ * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
+  <testCase name="Mage\CurrencySymbol\Test\TestCase\EditCurrencySymbolEntityTest">
+    <variation name="EditCurrencySymbolEntityTestVariation1" firstConstraint="Mage\CurrencySymbol\Test\Constraint\AssertCurrencySymbolSuccessSaveMessage" method="test">
+      <data name="currencySymbol/data/code" xsi:type="string">UAH</data>
+      <data name="currencySymbol/data/inherit_custom_currency_symbol" xsi:type="string">No</data>
+      <data name="currencySymbol/data/custom_currency_symbol" xsi:type="string">custom</data>
+      <constraint name="Mage\CurrencySymbol\Test\Constraint\AssertCurrencySymbolSuccessSaveMessage" next="Mage\CurrencySymbol\Test\Constraint\AssertCurrencySymbolOnProductPage"/>
+      <constraint name="Mage\CurrencySymbol\Test\Constraint\AssertCurrencySymbolOnProductPage" next="Mage\CurrencySymbol\Test\Constraint\AssertCurrencySymbolOnCatalogPage" prev="Mage\CurrencySymbol\Test\Constraint\AssertCurrencySymbolSuccessSaveMessage"/>
+      <constraint name="Mage\CurrencySymbol\Test\Constraint\AssertCurrencySymbolOnCatalogPage" prev="Mage\CurrencySymbol\Test\Constraint\AssertCurrencySymbolOnProductPage"/>
+    </variation>
+    <variation name="EditCurrencySymbolEntityTestVariation2" firstConstraint="Mage\CurrencySymbol\Test\Constraint\AssertCurrencySymbolSuccessSaveMessage" method="test">
+      <data name="currencySymbol/data/code" xsi:type="string">UAH</data>
+      <data name="currencySymbol/data/inherit_custom_currency_symbol" xsi:type="string">No</data>
+      <data name="currencySymbol/data/custom_currency_symbol" xsi:type="string">&amp;</data>
+      <constraint name="Mage\CurrencySymbol\Test\Constraint\AssertCurrencySymbolSuccessSaveMessage" next="Mage\CurrencySymbol\Test\Constraint\AssertCurrencySymbolOnProductPage"/>
+      <constraint name="Mage\CurrencySymbol\Test\Constraint\AssertCurrencySymbolOnProductPage" next="Mage\CurrencySymbol\Test\Constraint\AssertCurrencySymbolOnCatalogPage" prev="Mage\CurrencySymbol\Test\Constraint\AssertCurrencySymbolSuccessSaveMessage"/>
+      <constraint name="Mage\CurrencySymbol\Test\Constraint\AssertCurrencySymbolOnCatalogPage" prev="Mage\CurrencySymbol\Test\Constraint\AssertCurrencySymbolOnProductPage"/>
+    </variation>
+    <variation name="EditCurrencySymbolEntityTestVariation3" firstConstraint="Mage\CurrencySymbol\Test\Constraint\AssertCurrencySymbolSuccessSaveMessage" method="test">
+      <data name="currencySymbol/data/code" xsi:type="string">UAH</data>
+      <data name="currencySymbol/data/inherit_custom_currency_symbol" xsi:type="string">No</data>
+      <data name="currencySymbol/data/custom_currency_symbol" xsi:type="string">%</data>
+      <constraint name="Mage\CurrencySymbol\Test\Constraint\AssertCurrencySymbolSuccessSaveMessage" next="Mage\CurrencySymbol\Test\Constraint\AssertCurrencySymbolOnProductPage"/>
+      <constraint name="Mage\CurrencySymbol\Test\Constraint\AssertCurrencySymbolOnProductPage" next="Mage\CurrencySymbol\Test\Constraint\AssertCurrencySymbolOnCatalogPage" prev="Mage\CurrencySymbol\Test\Constraint\AssertCurrencySymbolSuccessSaveMessage"/>
+      <constraint name="Mage\CurrencySymbol\Test\Constraint\AssertCurrencySymbolOnCatalogPage" prev="Mage\CurrencySymbol\Test\Constraint\AssertCurrencySymbolOnProductPage"/>
+    </variation>
+  </testCase>
+</config>

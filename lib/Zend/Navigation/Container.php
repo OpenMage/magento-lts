@@ -14,7 +14,7 @@
  *
  * @category  Zend
  * @package   Zend_Navigation
- * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
@@ -26,7 +26,7 @@
  *
  * @category  Zend
  * @package   Zend_Navigation
- * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Navigation_Container implements RecursiveIterator, Countable
@@ -34,7 +34,7 @@ abstract class Zend_Navigation_Container implements RecursiveIterator, Countable
     /**
      * Contains sub pages
      *
-     * @var array
+     * @var Zend_Navigation_Page[]
      */
     protected $_pages = array();
 
@@ -143,7 +143,7 @@ abstract class Zend_Navigation_Container implements RecursiveIterator, Countable
     /**
      * Adds several pages at once
      *
-     * @param  array|Zend_Config|Zend_Navigation_Container  $pages  pages to add
+     * @param  Zend_Navigation_Page[]|Zend_Config|Zend_Navigation_Container  $pages  pages to add
      * @return Zend_Navigation_Container                    fluent interface,
      *                                                      returns self
      * @throws Zend_Navigation_Exception                    if $pages is not 
@@ -178,7 +178,7 @@ abstract class Zend_Navigation_Container implements RecursiveIterator, Countable
     /**
      * Sets pages this container should have, removing existing pages
      *
-     * @param  array $pages               pages to set
+     * @param  Zend_Navigation_Page[] $pages               pages to set
      * @return Zend_Navigation_Container  fluent interface, returns self
      */
     public function setPages(array $pages)
@@ -190,7 +190,7 @@ abstract class Zend_Navigation_Container implements RecursiveIterator, Countable
     /**
      * Returns pages in the container
      *
-     * @return array  array of Zend_Navigation_Page instances
+     * @return Zend_Navigation_Page[]  array of Zend_Navigation_Page instances
      */
     public function getPages()
     {
@@ -359,7 +359,7 @@ abstract class Zend_Navigation_Container implements RecursiveIterator, Countable
      * @param  mixed  $value     value to match property against
      * @param  bool   $useRegex  [optional] if true PHP's preg_match is used.
      *                           Default is false.
-     * @return array             array containing only Zend_Navigation_Page
+     * @return Zend_Navigation_Page[] array containing only Zend_Navigation_Page
      *                           instances
      */
     public function findAllBy($property, $value, $useRegex = false)
@@ -484,7 +484,7 @@ abstract class Zend_Navigation_Container implements RecursiveIterator, Countable
     /**
      * Returns an array representation of all pages in container
      *
-     * @return array
+     * @return Zend_Navigation_Page[]
      */
     public function toArray()
     {

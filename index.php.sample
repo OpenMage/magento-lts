@@ -29,10 +29,7 @@ if (version_compare(phpversion(), '5.2.0', '<')===true) {
     exit;
 }
 
-/**
- * Error reporting
- */
-error_reporting(E_ALL | E_STRICT);
+require 'app/bootstrap.php';
 
 /**
  * Compilation includes configuration file

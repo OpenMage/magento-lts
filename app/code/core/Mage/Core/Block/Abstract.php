@@ -1471,4 +1471,14 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         }
         return $tags;
     }
+
+    /**
+     * Checks is request Url is secure
+     *
+     * @return bool
+     */
+    protected function _isSecure()
+    {
+        return $this->_getApp()->getFrontController()->getRequest()->isSecure();
+    }
 }

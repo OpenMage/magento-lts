@@ -185,7 +185,7 @@ var linkTemplate = '<tr>'+
     '</td>'+
     '<td class="a-center"><input type="text" name="downloadable[link][{{id}}][sort_order]" value="{{sort_order}}" class="input-text sort" /></td>'+
     '<td>'+
-        '<button id="downloadable_link_{{id}}_delete_button" type="button" class="scalable delete icon-btn delete-link-item"><span><span><span><?php echo Mage::helper('downloadable')->__('Delete'); ?></span></span></span></button>'+
+    '<button id="downloadable_link_{{id}}_delete_button" type="button" class="scalable delete icon-btn delete-link-item"><span><span><span><?php echo $this->jsQuoteEscape(Mage::helper('downloadable')->__('Delete')); ?></span></span></span></button>'+
     '</td>'+
 '</tr>';
 

@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    Tests
+ * @package     Tests_Functional
+ * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/etc/variations.xsd">
+    <testCase name="Mage\Catalog\Test\TestCase\Product\CreateConfigurableProductEntityTest">
+        <variation name="CreateConfigurableProductEntityTestVariation1" method="test">
+            <data name="description" xsi:type="string">Create Simplified configurable product</data>
+            <data name="product/data/checkout_data/preset" xsi:type="string">default</data>
+            <data name="product/data/status" xsi:type="string">Enabled</data>
+            <data name="product/data/name" xsi:type="string">Configurable Product %isolation%</data>
+            <data name="product/data/sku" xsi:type="string">configurable_sku_%isolation%</data>
+            <data name="product/data/url_key" xsi:type="string">configurable-product-%isolation%</data>
+            <data name="product/data/tax_class_id" xsi:type="string">Taxable Goods</data>
+            <data name="product/data/price/value" xsi:type="string">100</data>
+            <data name="product/data/short_description" xsi:type="string">Default configurable product</data>
+            <data name="product/data/description" xsi:type="string">Simplified configurable product</data>
+            <data name="product/data/weight" xsi:type="string">2</data>
+            <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
+            <data name="product/data/configurable_options/preset" xsi:type="string">default</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductInGrid"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertConfigurableProductForm"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertConfigurableProductPage"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertConfigurableProductInCart"/>
+        </variation>
+        <variation name="CreateConfigurableProductEntityTestVariation2" method="test">
+            <data name="description" xsi:type="string">Create configurable product with special price</data>
+            <data name="product/data/checkout_data/preset" xsi:type="string">default</data>
+            <data name="product/data/checkout_data/cartItem/price" xsi:type="string">52</data>
+            <data name="product/data/checkout_data/cartItem/subtotal" xsi:type="string">104</data>
+            <data name="product/data/status" xsi:type="string">Enabled</data>
+            <data name="product/data/name" xsi:type="string">Configurable Product %isolation%</data>
+            <data name="product/data/sku" xsi:type="string">configurable_sku_%isolation%</data>
+            <data name="product/data/url_key" xsi:type="string">configurable-product-%isolation%</data>
+            <data name="product/data/tax_class_id" xsi:type="string">Taxable Goods</data>
+            <data name="product/data/price/value" xsi:type="string">101</data>
+            <data name="product/data/short_description" xsi:type="string">Configurable product with special price</data>
+            <data name="product/data/description" xsi:type="string">Configurable product with special price</data>
+            <data name="product/data/weight" xsi:type="string">3</data>
+            <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
+            <data name="product/data/configurable_options/preset" xsi:type="string">default</data>
+            <data name="product/data/special_price" xsi:type="string">10</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductInGrid"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertConfigurableProductForm"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductSpecialPriceOnProductPage"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertConfigurableProductInCart"/>
+        </variation>
+        <variation name="CreateConfigurableProductEntityTestVariation3" method="test">
+            <data name="description" xsi:type="string">Create configurable product with group price</data>
+            <data name="product/data/checkout_data/preset" xsi:type="string">default</data>
+            <data name="product/data/checkout_data/cartItem/price" xsi:type="string">148</data>
+            <data name="product/data/checkout_data/cartItem/subtotal" xsi:type="string">296</data>
+            <data name="product/data/status" xsi:type="string">Enabled</data>
+            <data name="product/data/name" xsi:type="string">Configurable Product %isolation%</data>
+            <data name="product/data/sku" xsi:type="string">configurable_sku_%isolation%</data>
+            <data name="product/data/url_key" xsi:type="string">configurable-product-%isolation%</data>
+            <data name="product/data/tax_class_id" xsi:type="string">Taxable Goods</data>
+            <data name="product/data/price/value" xsi:type="string">102</data>
+            <data name="product/data/short_description" xsi:type="string">Configurable product with group price</data>
+            <data name="product/data/description" xsi:type="string">Configurable product with group price</data>
+            <data name="product/data/weight" xsi:type="string">4</data>
+            <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
+            <data name="product/data/configurable_options/preset" xsi:type="string">default</data>
+            <data name="product/data/group_price/preset" xsi:type="string">for_not_logged_users</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductInGrid"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertConfigurableProductForm"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductGroupedPriceOnProductPage"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertConfigurableProductInCart"/>
+        </variation>
+        <variation name="CreateConfigurableProductEntityTestVariation4" method="test">
+            <data name="description" xsi:type="string">Create configurable product with tier price</data>
+            <data name="product/data/checkout_data/preset" xsi:type="string">default</data>
+            <data name="product/data/checkout_data/cartItem/price" xsi:type="string">58</data>
+            <data name="product/data/checkout_data/cartItem/subtotal" xsi:type="string">232</data>
+            <data name="product/data/checkout_data/qty" xsi:type="string">4</data>
+            <data name="product/data/status" xsi:type="string">Enabled</data>
+            <data name="product/data/name" xsi:type="string">Configurable Product %isolation%</data>
+            <data name="product/data/sku" xsi:type="string">configurable_sku_%isolation%</data>
+            <data name="product/data/url_key" xsi:type="string">configurable-product-%isolation%</data>
+            <data name="product/data/tax_class_id" xsi:type="string">Taxable Goods</data>
+            <data name="product/data/price/value" xsi:type="string">103</data>
+            <data name="product/data/short_description" xsi:type="string">Configurable product with tier price</data>
+            <data name="product/data/description" xsi:type="string">Configurable product with tier price</data>
+            <data name="product/data/weight" xsi:type="string">5</data>
+            <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
+            <data name="product/data/configurable_options/preset" xsi:type="string">default</data>
+            <data name="product/data/tier_price/preset" xsi:type="string">for_all_groups</data>
+            <data name="product/data/price/preset" xsi:type="string">with_tier_price</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductInGrid"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertConfigurableProductForm"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductTierPriceOnProductPage"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertConfigurableProductInCart"/>
+        </variation>
+        <variation name="CreateConfigurableProductEntityTestVariation5" method="test">
+            <data name="description" xsi:type="string">Create configurable product with custom options</data>
+            <data name="product/data/checkout_data/preset" xsi:type="string">with_custom_options</data>
+            <data name="product/data/status" xsi:type="string">Enabled</data>
+            <data name="product/data/name" xsi:type="string">Configurable Product %isolation%</data>
+            <data name="product/data/sku" xsi:type="string">configurable_sku_%isolation%</data>
+            <data name="product/data/url_key" xsi:type="string">configurable-product-%isolation%</data>
+            <data name="product/data/tax_class_id" xsi:type="string">Taxable Goods</data>
+            <data name="product/data/price/value" xsi:type="string">104</data>
+            <data name="product/data/short_description" xsi:type="string">Configurable product with custom options</data>
+            <data name="product/data/description" xsi:type="string">Configurable product with custom options</data>
+            <data name="product/data/weight" xsi:type="string">6</data>
+            <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
+            <data name="product/data/configurable_options/preset" xsi:type="string">default</data>
+            <data name="product/data/custom_options/preset" xsi:type="string">drop_down_with_two_options</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductInGrid"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertConfigurableProductForm"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductCustomOptionsOnProductPage"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertConfigurableProductInCart"/>
+        </variation>
+    </testCase>
+</config>

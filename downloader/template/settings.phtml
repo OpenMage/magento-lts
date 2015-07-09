@@ -50,6 +50,7 @@ function changeDeploymentType (element)
 <div class="settings-page">
     <h2 class="page-head">Settings</h2>
     <form action="<?php echo $this->url('settingsPost') ?>" method="post">
+        <input name="form_key" type="hidden" value="<?php echo $this->getFormKey() ?>" />
         <fieldset>
             <p>Magento Extensions are available in three different versions.</p>
             <ul class="disc">

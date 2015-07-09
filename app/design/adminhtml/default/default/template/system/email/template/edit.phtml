@@ -132,7 +132,7 @@
             this.renderPaths(<?php echo $this->getUsedCurrentlyForPaths(); ?>, 'used_currently_for');
         },
         stripTags: function () {
-            if(!window.confirm("<?php echo $this->__('Are you sure that you want to strip tags?') ?>")) {
+            if(!window.confirm("<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Are you sure that you want to strip tags?')) ?>")) {
                 return false;
             }
             this.unconvertedText = $('template_text').value;
@@ -181,7 +181,7 @@
         },
 
         deleteTemplate: function() {
-            if(window.confirm("<?php echo $this->__('Are you sure that you want to delete this template?') ?>")) {
+            if(window.confirm("<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Are you sure that you want to delete this template?')) ?>")) {
                    window.location.href = '<?php echo $this->getDeleteUrl() ?>';
             }
         },

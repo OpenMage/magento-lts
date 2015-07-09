@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    Tests
+ * @package     Tests_Functional
+ * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
+    <testCase name="Mage\Adminhtml\Test\TestCase\CreateStoreEntityTest">
+        <variation name="CreateStoreEntityTestVariation1" method="test">
+            <data name="store/data/group_id/dataSet" xsi:type="string">default</data>
+            <data name="store/data/name" xsi:type="string">store_name_%isolation%</data>
+            <data name="store/data/code" xsi:type="string">storecode_%isolation%</data>
+            <data name="store/data/is_active" xsi:type="string">Aktiviert</data>
+            <data name="config/dataSet" xsi:type="string">store_view_local_germany</data>
+            <data name="savedMessage" xsi:type="string">Die Store-Ansicht wurde gespeichert</data>
+            <constraint name="Mage\Adminhtml\Test\Constraint\AssertStoreSuccessSaveMessage" />
+            <constraint name="Mage\Adminhtml\Test\Constraint\AssertStoreInGrid" />
+            <constraint name="Mage\Adminhtml\Test\Constraint\AssertStoreForm" />
+            <constraint name="Mage\Adminhtml\Test\Constraint\AssertStoreBackend" />
+            <constraint name="Mage\Adminhtml\Test\Constraint\AssertStoreFrontend" />
+            <constraint name="Mage\Adminhtml\Test\Constraint\AssertStoreLocalized" />
+        </variation>
+        <variation name="CreateStoreEntityTestVariation2" method="test">
+            <data name="store/data/group_id/dataSet" xsi:type="string">default</data>
+            <data name="store/data/name" xsi:type="string">store_name_%isolation%</data>
+            <data name="store/data/code" xsi:type="string">storecode_%isolation%</data>
+            <data name="store/data/is_active" xsi:type="string">Disabled</data>
+            <data name="config/dataSet" xsi:type="string">-</data>
+            <constraint name="Mage\Adminhtml\Test\Constraint\AssertStoreSuccessSaveMessage" />
+            <constraint name="Mage\Adminhtml\Test\Constraint\AssertStoreInGrid" />
+            <constraint name="Mage\Adminhtml\Test\Constraint\AssertStoreForm" />
+            <constraint name="Mage\Adminhtml\Test\Constraint\AssertStoreBackend" />
+            <constraint name="Mage\Adminhtml\Test\Constraint\AssertStoreNotOnFrontend" />
+        </variation>
+        <variation name="CreateStoreEntityTestVariation3" method="test">
+            <data name="store/data/group_id/dataSet" xsi:type="string">custom</data>
+            <data name="store/data/name" xsi:type="string">store_name_%isolation%</data>
+            <data name="store/data/code" xsi:type="string">storecode_%isolation%</data>
+            <data name="store/data/is_active" xsi:type="string">Aktiviert</data>
+            <data name="config/dataSet" xsi:type="string">store_view_local_germany</data>
+            <data name="savedMessage" xsi:type="string">Die Store-Ansicht wurde gespeichert</data>
+            <constraint name="Mage\Adminhtml\Test\Constraint\AssertStoreSuccessSaveMessage" />
+            <constraint name="Mage\Adminhtml\Test\Constraint\AssertStoreInGrid" />
+            <constraint name="Mage\Adminhtml\Test\Constraint\AssertStoreForm" />
+            <constraint name="Mage\Adminhtml\Test\Constraint\AssertStoreBackend" />
+            <constraint name="Mage\Adminhtml\Test\Constraint\AssertStoreFrontend" />
+            <constraint name="Mage\Adminhtml\Test\Constraint\AssertStoreLocalized" />
+        </variation>
+    </testCase>
+</config>

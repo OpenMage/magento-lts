@@ -63,13 +63,59 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     protected $_customerId = null;
 
     /**
+     * @var Mage_Log_Helper_Data
+     */
+    protected $_logCondition;
+
+    /**
+     * @var Mage_Catalog_Model_Session
+     */
+    protected $_catalogSession;
+
+    /**
+     * @var Mage_Customer_Model_Session
+     */
+    protected $_customerSession;
+
+    /**
+     * @var Mage_Core_Model_Session
+     */
+    protected $_coreSession;
+
+    /**
+     * @var Mage_Log_Model_Visitor
+     */
+    protected $_logVisitor;
+
+    /**
+     * @var Mage_Catalog_Model_Product_Visibility
+     */
+    protected $_productVisibility;
+
+    public function __construct(array $data = array())
+    {
+        $this->_logCondition = isset($data['log_condition'])
+            ? $data['log_condition'] : Mage::helper('log');
+        $this->_catalogSession = isset($data['catalog_session'])
+            ? $data['catalog_session'] : Mage::getSingleton('catalog/session');
+        $this->_customerSession = isset($data['customer_session'])
+            ? $data['customer_session'] : Mage::getSingleton('customer/session');
+        $this->_coreSession = isset($data['core_session'])
+            ? $data['core_session'] :  Mage::getSingleton('core/session');
+        $this->_productVisibility = isset($data['product_visibility'])
+            ? $data['product_visibility'] : Mage::getSingleton('catalog/product_visibility');
+        $this->_logVisitor = isset($data['log_visitor'])
+            ? $data['log_visitor'] : Mage::getSingleton('log/visitor');
+    }
+
+    /**
      * Retrieve Catalog Session instance
      *
      * @return Mage_Catalog_Model_Session
      */
     protected function _getSession()
     {
-        return Mage::getSingleton('catalog/session');
+        return $this->_catalogSession;
     }
 
     /**
@@ -103,7 +149,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
         return array(
             'product' => $product->getId(),
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->getEncodedUrl(),
-            Mage_Core_Model_Url::FORM_KEY => $this->_getSingletonModel('core/session')->getFormKey()
+            Mage_Core_Model_Url::FORM_KEY => $this->_coreSession->getFormKey()
         );
     }
 
@@ -115,7 +161,10 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
      */
     public function getAddUrl($product)
     {
-        return $this->_getUrl('catalog/product_compare/add', $this->_getUrlParams($product));
+        if ($this->_logCondition->isVisitorLogEnabled()) {
+            return $this->_getUrl('catalog/product_compare/add', $this->_getUrlParams($product));
+        }
+        return '';
     }
 
     /**
@@ -126,11 +175,11 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
      */
     public function getAddToWishlistUrl($product)
     {
-        $beforeCompareUrl = Mage::getSingleton('catalog/session')->getBeforeCompareUrl();
+        $beforeCompareUrl = $this->_catalogSession->getBeforeCompareUrl();
 
         $params = array(
             'product' => $product->getId(),
-            Mage_Core_Model_Url::FORM_KEY => $this->_getSingletonModel('core/session')->getFormKey(),
+            Mage_Core_Model_Url::FORM_KEY => $this->_coreSession->getFormKey(),
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->getEncodedUrl($beforeCompareUrl)
         );
 
@@ -145,11 +194,11 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
      */
     public function getAddToCartUrl($product)
     {
-        $beforeCompareUrl = $this->_getSingletonModel('catalog/session')->getBeforeCompareUrl();
+        $beforeCompareUrl = $this->_catalogSession->getBeforeCompareUrl();
         $params = array(
             'product' => $product->getId(),
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->getEncodedUrl($beforeCompareUrl),
-            Mage_Core_Model_Url::FORM_KEY => $this->_getSingletonModel('core/session')->getFormKey()
+            Mage_Core_Model_Url::FORM_KEY => $this->_coreSession->getFormKey()
         );
 
         return $this->_getUrl('checkout/cart/add', $params);
@@ -191,20 +240,20 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     public function getItemCollection()
     {
         if (!$this->_itemCollection) {
+            /** @var Mage_Catalog_Model_Resource_Product_Compare_Item_Collection _itemCollection */
             $this->_itemCollection = Mage::getResourceModel('catalog/product_compare_item_collection')
                 ->useProductItem(true)
                 ->setStoreId(Mage::app()->getStore()->getId());
 
-            if (Mage::getSingleton('customer/session')->isLoggedIn()) {
-                $this->_itemCollection->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId());
+            if ($this->_customerSession->isLoggedIn()) {
+                $this->_itemCollection->setCustomerId($this->_customerSession->getCustomerId());
             } elseif ($this->_customerId) {
                 $this->_itemCollection->setCustomerId($this->_customerId);
             } else {
-                $this->_itemCollection->setVisitorId(Mage::getSingleton('log/visitor')->getId());
+                $this->_itemCollection->setVisitorId($this->_logVisitor->getId());
             }
 
-            Mage::getSingleton('catalog/product_visibility')
-                ->addVisibleInSiteFilterToCollection($this->_itemCollection);
+            $this->_productVisibility->addVisibleInSiteFilterToCollection($this->_itemCollection);
 
             /* Price data is added to consider item stock status using price index */
             $this->_itemCollection->addPriceData();
@@ -214,7 +263,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
                 ->load();
 
             /* update compare items count */
-            $this->_getSession()->setCatalogCompareItemsCount(count($this->_itemCollection));
+            $this->_catalogSession->setCatalogCompareItemsCount(count($this->_itemCollection));
         }
 
         return $this->_itemCollection;
@@ -229,30 +278,29 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     public function calculate($logout = false)
     {
         // first visit
-        if (!$this->_getSession()->hasCatalogCompareItemsCount() && !$this->_customerId) {
+        if (!$this->_catalogSession->hasCatalogCompareItemsCount() && !$this->_customerId) {
             $count = 0;
         } else {
             /** @var $collection Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection */
             $collection = Mage::getResourceModel('catalog/product_compare_item_collection')
                 ->useProductItem(true);
-            if (!$logout && Mage::getSingleton('customer/session')->isLoggedIn()) {
-                $collection->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId());
+            if (!$logout && $this->_customerSession->isLoggedIn()) {
+                $collection->setCustomerId($this->_customerSession->getCustomerId());
             } elseif ($this->_customerId) {
                 $collection->setCustomerId($this->_customerId);
             } else {
-                $collection->setVisitorId(Mage::getSingleton('log/visitor')->getId());
+                $collection->setVisitorId($this->_logVisitor->getId());
             }
 
             /* Price data is added to consider item stock status using price index */
             $collection->addPriceData();
 
-            Mage::getSingleton('catalog/product_visibility')
-                ->addVisibleInSiteFilterToCollection($collection);
+            $this->_productVisibility->addVisibleInSiteFilterToCollection($collection);
 
             $count = $collection->getSize();
         }
 
-        $this->_getSession()->setCatalogCompareItemsCount($count);
+        $this->_catalogSession->setCatalogCompareItemsCount($count);
 
         return $this;
     }
@@ -264,11 +312,11 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
      */
     public function getItemCount()
     {
-        if (!$this->_getSession()->hasCatalogCompareItemsCount()) {
+        if (!$this->_catalogSession->hasCatalogCompareItemsCount()) {
             $this->calculate();
         }
 
-        return $this->_getSession()->getCatalogCompareItemsCount();
+        return $this->_catalogSession->getCatalogCompareItemsCount();
     }
 
     /**

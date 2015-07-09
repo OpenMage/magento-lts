@@ -31,7 +31,8 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Price extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract
+class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Price
+    extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract
 {
     protected $_currencyList = null;
     protected $_currencyModel = null;
@@ -84,7 +85,8 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Price extends Mage_Adminhtm
         $html  = '';
         $html .= '<select name="'.$this->_getHtmlName().'[currency]" id="'.$this->_getHtmlId().'_currency">';
         foreach ($this->_getCurrencyList() as $currency) {
-            $html .= '<option value="' . $currency . '" '.($currency == $value ? 'selected="selected"' : '').'>' . $currency . '</option>';
+            $html .= '<option value="' . $currency . '" '.($currency == $value ? 'selected="selected"' : '').'>'
+                . $currency . '</option>';
         }
         $html .= '</select>';
         return $html;
@@ -104,7 +106,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Price extends Mage_Adminhtm
             return $this->getData('value', $index);
         }
         $value = $this->getData('value');
-        if ((isset($value['from']) && strlen($value['from']) > 0) || (isset($value['to']) && strlen($value['to']) > 0)) {
+        if ((isset($value['from']) && strlen($value['from']) > 0)
+            || (isset($value['to']) && strlen($value['to']) > 0)
+        ) {
             return $value;
         }
         return null;
@@ -122,11 +126,15 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Price extends Mage_Adminhtm
         }
         $rate = $this->_getRate($displayCurrency, $this->getColumn()->getCurrencyCode());
 
-        if (isset($value['from']))
-            $value['from'] *= $rate;
+        if (isset($value['from'])) {
+            $from = $value['from'] * $rate;
+            $value['from'] = sprintf('%F', $from);
+        }
 
-        if (isset($value['to']))
-            $value['to'] *= $rate;
+        if (isset($value['to'])) {
+            $to = $value['to'] * $rate;
+            $value['to'] = sprintf('%F', $to);
+        }
 
         $this->prepareRates($displayCurrency);
         return $value;

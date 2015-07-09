@@ -60,7 +60,7 @@
         <div class="header-top-container">
             <div class="header-top">
                 <h1 id="logo">
-                    <a href="<?php echo $this->getUrl('') ?>"><img src="<?php echo $this->getSkinUrl('images/logo.gif') ?>" title="<?php echo Mage::helper('install')->__('Magento') ?>" alt="<?php echo Mage::helper('install')->__('Magento') ?>" /></a>
+                    <a href="<?php echo $this->getUrl('') ?>"><img src="<?php echo $this->getSkinUrl('images/logo.gif') ?>" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('install')->__('Magento')) ?>" alt="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('install')->__('Magento')) ?>" /></a>
                 </h1>
 
                 <?php echo $this->getChildHtml('topSearch') ?>

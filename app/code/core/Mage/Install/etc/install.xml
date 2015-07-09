@@ -86,6 +86,8 @@
                 <iconv/>
                 <ctype/>
                 <gd/>
+                <soap/>
+                <mbstring/>
             </extensions>
         </php>
     </check>

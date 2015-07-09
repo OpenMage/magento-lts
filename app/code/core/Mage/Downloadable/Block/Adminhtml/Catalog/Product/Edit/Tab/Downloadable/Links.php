@@ -135,15 +135,12 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     /**
      * Return true if price in website scope
      *
+     * @deprecated since 1.14.2.0
      * @return bool
      */
     public function getIsPriceWebsiteScope()
     {
-        $scope =  (int) Mage::app()->getStore()->getConfig(Mage_Core_Model_Store::XML_PATH_PRICE_SCOPE);
-        if ($scope == Mage_Core_Model_Store::PRICE_SCOPE_WEBSITE) {
-            return true;
-        }
-        return false;
+        return Mage::helper('downloadable')->getIsPriceWebsiteScope();
     }
 
     /**
@@ -155,7 +152,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     {
         $linkArr = array();
         $links = $this->getProduct()->getTypeInstance(true)->getLinks($this->getProduct());
-        $priceWebsiteScope = $this->getIsPriceWebsiteScope();
+        $priceWebsiteScope = Mage::helper('downloadable')->getIsPriceWebsiteScope();
         foreach ($links as $item) {
             $tmpLinkItem = array(
                 'link_id' => $item->getId(),

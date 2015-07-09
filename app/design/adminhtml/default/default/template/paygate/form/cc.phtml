@@ -62,7 +62,7 @@
                         });
                     }
                     <?php if ($_message = $this->getPartialAuthorizationConfirmationMessage()): ?>
-                    if (!confirm('<?php echo $_message ?>')) {
+                    if (!confirm('<?php echo Mage::helper('core')->jsQuoteEscape($_message) ?>')) {
                         cancelPaymentAuthorizations();
                     }
                     <?php endif;?>

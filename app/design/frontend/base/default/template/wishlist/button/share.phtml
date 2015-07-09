@@ -26,5 +26,5 @@
 ?>
 
 <?php if($this->getWishlist()->getItemsCount()): ?>
-    <button type="submit" name="save_and_share" title="<?php echo $this->__('Share Wishlist') ?>" class="button btn-share"><span><span><?php echo $this->__('Share Wishlist') ?></span></span></button>
+    <button type="submit" name="save_and_share" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Share Wishlist')) ?>" class="button btn-share"><span><span><?php echo $this->__('Share Wishlist') ?></span></span></button>
 <?php endif;?>

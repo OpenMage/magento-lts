@@ -30,5 +30,5 @@
  */
 ?>
 <div class="paypal-logo">
-    <a href="#" title="<?php echo Mage::helper('paypal')->__('Additional Options') ?>" onclick="javascript:window.open('<?php echo $this->getAboutPaypalPageUrl() ?>','paypal','width=600,height=350,left=0,top=0,location=no,status=yes,scrollbars=yes,resizable=yes'); return false;"><img src="<?php echo $this->escapeHtml($this->getLogoImageUrl()) ?>" alt="<?php echo Mage::helper('paypal')->__('Additional Options') ?>" title="<?php echo Mage::helper('paypal')->__('Additional Options') ?>" /></a>
+    <a href="#" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('paypal')->__('Additional Options')) ?>" onclick="javascript:window.open('<?php echo $this->getAboutPaypalPageUrl() ?>','paypal','width=600,height=350,left=0,top=0,location=no,status=yes,scrollbars=yes,resizable=yes'); return false;"><img src="<?php echo $this->escapeHtml($this->getLogoImageUrl()) ?>" alt="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('paypal')->__('Additional Options')) ?>" title="<?php echo Mage::helper('paypal')->__('Additional Options') ?>" /></a>
 </div>

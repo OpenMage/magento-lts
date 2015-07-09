@@ -47,7 +47,7 @@
                 <li class="item">
                     <?php if ($this->isItemAvailableForReorder($_item)): ?>
                         <?php $_showAddButtonFlag = true ?>
-                        <input type="checkbox" name="order_items[]" id="reorder-item-<?php echo $_item->getId() ?>" value="<?php echo $_item->getId() ?>" title="<?php echo $this->__('Add to Cart') ?>" class="checkbox validate-one-required-by-name" />
+                        <input type="checkbox" name="order_items[]" id="reorder-item-<?php echo $_item->getId() ?>" value="<?php echo $_item->getId() ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add to Cart')) ?>" class="checkbox validate-one-required-by-name" />
                         <script type="text/javascript">
                         //<![CDATA[
                             $('reorder-item-<?php echo $_item->getId() ?>').advaiceContainer = 'cart-sidebar-reorder-advice-container';
@@ -62,7 +62,7 @@
             <div id="cart-sidebar-reorder-advice-container"></div>
             <div class="actions">
                 <?php if ($_showAddButtonFlag): ?>
-                    <button type="submit" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+                    <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add to Cart')) ?>" class="button btn-cart"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
                 <?php endif; ?>
                 <a href="<?php echo $this->getUrl('customer/account') ?>"><?php echo $this->__('View All'); ?></a>
             </div>

@@ -42,4 +42,16 @@ class Mage_Cron_Model_Resource_Schedule_Collection extends Mage_Core_Model_Resou
     {
         $this->_init('cron/schedule');
     }
+
+    /**
+     * Sort order by scheduled_at time
+     *
+     * @param string $dir
+     * @return Mage_Cron_Model_Resource_Schedule_Collection
+     */
+    public function orderByScheduledAt($dir = self::SORT_ORDER_ASC)
+    {
+        $this->getSelect()->order('scheduled_at', $dir);
+        return $this;
+    }
 }

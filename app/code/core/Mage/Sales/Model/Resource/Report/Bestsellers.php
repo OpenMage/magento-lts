@@ -102,17 +102,11 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
                     )
                 ),
                 'product_price'          => new Zend_Db_Expr(
-                        sprintf('%s * %s',
+                    sprintf('%s',
                             $helper->prepareColumn(
                                 sprintf('MIN(%s)',
                                     $adapter->getIfNullSql(
-                                        $adapter->getIfNullSql('product_price.value','product_default_price.value'),0)
-                                ),
-                                $select->getPart(Zend_Db_Select::GROUP)
-                            ),
-                            $helper->prepareColumn(
-                                sprintf('MIN(%s)',
-                                    $adapter->getIfNullSql('source_table.base_to_global_rate', '0')
+                                        $adapter->getIfNullSql('product_price.value','product_default_price.value'), 0)
                                 ),
                                 $select->getPart(Zend_Db_Select::GROUP)
                         )
@@ -224,31 +218,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
             $adapter->query($insertQuery);
 
 
-            $columns = array(
-                'period'                         => 'period',
-                'store_id'                       => new Zend_Db_Expr(Mage_Core_Model_App::ADMIN_STORE_ID),
-                'product_id'                     => 'product_id',
-                'product_name'                   => new Zend_Db_Expr('MIN(product_name)'),
-                'product_price'                  => new Zend_Db_Expr('MIN(product_price)'),
-                'qty_ordered'                    => new Zend_Db_Expr('SUM(qty_ordered)'),
-            );
-
-            $select->reset();
-            $select->from($this->getMainTable(), $columns)
-                ->where('store_id <> ?', 0);
-
-            if ($subSelect !== null) {
-                $select->where($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
-            }
-
-            $select->group(array(
-                'period',
-                'product_id'
-            ));
-
-            $insertQuery = $helper->getInsertFromSelectUsingAnalytic($select, $this->getMainTable(),
-                array_keys($columns));
-            $adapter->query($insertQuery);
+            $this->_aggregateDefault($subSelect);
 
             // update rating
             $this->_updateRatingPos(self::AGGREGATION_DAILY);
@@ -263,6 +233,70 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
         }
 
         //$this->_getWriteAdapter()->commit();
+        return $this;
+    }
+
+    /**
+     * Aggregate Orders data for default store
+     *
+     * @param object Varien_Db_Select|null $subSelect
+     * @return Mage_Sales_Model_Resource_Report_Bestsellers
+     */
+    protected function _aggregateDefault($subSelect = null)
+    {
+        $adapter    = $this->_getWriteAdapter();
+        $select     = $adapter->select();
+        /** @var Mage_Catalog_Model_Resource_Product $product */
+        $product    = Mage::getResourceSingleton('catalog/product');
+        $attr       = $product->getAttribute('price');
+        $helper     = Mage::getResourceHelper('core');
+
+        $columns = array(
+            'period'            => 'period',
+            'store_id'          => new Zend_Db_Expr(Mage_Core_Model_App::ADMIN_STORE_ID),
+            'product_id'        => 'product_id',
+            'product_name'      => new Zend_Db_Expr('MIN(product_name)'),
+            'product_price'     => new Zend_Db_Expr(
+                sprintf('%s',
+                    $helper->prepareColumn(
+                        sprintf('MIN(%s)',
+                            $adapter->getIfNullSql('product_default_price.value', 0)
+                        ),
+                        $select->getPart(Zend_Db_Select::GROUP)
+                    )
+                )
+            ),
+            'qty_ordered'       => new Zend_Db_Expr('SUM(qty_ordered)'),
+        );
+
+        $select->from($this->getMainTable(), $columns)
+            ->where($this->getMainTable() . '.store_id <> ?', 0);
+        $joinExprProductDefPrice = array(
+            'product_default_price.entity_id = ' . $this->getMainTable() . '.product_id',
+            'product_default_price.store_id = 0',
+            $adapter->quoteInto('product_default_price.entity_type_id = ?', $product->getTypeId()),
+            $adapter->quoteInto('product_default_price.attribute_id = ?', $attr->getAttributeId())
+        );
+        $joinExprProductDefPrice = implode(' AND ', $joinExprProductDefPrice);
+        $select->joinLeft(
+            array('product_default_price' => $attr->getBackend()->getTable()),
+            $joinExprProductDefPrice,
+            array()
+        );
+
+        if ($subSelect !== null) {
+            $select->where($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
+        }
+
+        $select->group(array(
+            'period',
+            'product_id'
+        ));
+
+        $insertQuery = $helper->getInsertFromSelectUsingAnalytic($select, $this->getMainTable(),
+            array_keys($columns));
+        $adapter->query($insertQuery);
+
         return $this;
     }
 

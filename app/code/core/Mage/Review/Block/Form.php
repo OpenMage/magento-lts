@@ -50,7 +50,11 @@ class Mage_Review_Block_Form extends Mage_Core_Block_Template
             }
         }
 
-        $this->setAllowWriteReviewFlag($customerSession->isLoggedIn() || Mage::helper('review')->getIsGuestAllowToWrite());
+        $this->setAllowWriteReviewFlag(
+            $customerSession->isLoggedIn() ||
+            Mage::helper('review')->getIsGuestAllowToWrite()
+        );
+
         if (!$this->getAllowWriteReviewFlag) {
             $this->setLoginLink(
                 Mage::getUrl('customer/account/login/', array(
@@ -76,7 +80,7 @@ class Mage_Review_Block_Form extends Mage_Core_Block_Template
     public function getAction()
     {
         $productId = Mage::app()->getRequest()->getParam('id', false);
-        return Mage::getUrl('review/product/post', array('id' => $productId));
+        return Mage::getUrl('review/product/post', array('id' => $productId, '_secure' => $this->_isSecure()));
     }
 
     public function getRatings()

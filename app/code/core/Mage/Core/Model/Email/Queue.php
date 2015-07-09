@@ -44,8 +44,6 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
- * @license     http://www.magentocommerce.com/license/enterprise-edition
  */
 class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
 {

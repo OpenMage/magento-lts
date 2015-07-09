@@ -123,20 +123,20 @@ billing.onSave = function(evt){
                             <div class="field">
                                 <label for="gift-message-whole-from"><?php echo $this->__('From') ?></label>
                                 <div class="input-box">
-                                    <input type="text" name="giftmessage[<?php echo $this->getEntity()->getId() ?>][from]" id="gift-message-whole-from" title="<?php echo $this->__('From') ?>"  value="<?php echo $this->getEscaped($this->getMessage()->getSender(), $this->getDefaultFrom()) ?>" class="input-text validation-passed" />
+                                    <input type="text" name="giftmessage[<?php echo $this->getEntity()->getId() ?>][from]" id="gift-message-whole-from" title="<?php echo Mage::helper('core')->quoteEscape($this->__('From')) ?>"  value="<?php echo $this->getEscaped($this->getMessage()->getSender(), $this->getDefaultFrom()) ?>" class="input-text validation-passed" />
                                 </div>
                             </div>
                             <div class="field">
                                 <label for="gift-message-whole-to"><?php echo $this->__('To') ?></label>
                                 <div class="input-box">
-                                    <input type="text" name="giftmessage[<?php echo $this->getEntity()->getId() ?>][to]" id="gift-message-whole-to" title="<?php echo $this->__('To') ?>" value="<?php echo $this->getEscaped($this->getMessage()->getRecipient(), $this->getDefaultTo()) ?>" class="input-text validation-passed" />
+                                    <input type="text" name="giftmessage[<?php echo $this->getEntity()->getId() ?>][to]" id="gift-message-whole-to" title="<?php echo Mage::helper('core')->quoteEscape($this->__('To')) ?>" value="<?php echo $this->getEscaped($this->getMessage()->getRecipient(), $this->getDefaultTo()) ?>" class="input-text validation-passed" />
                                 </div>
                             </div>
                         </li>
                         <li class="wide">
                             <label for="gift-message-whole-message"><?php echo $this->__('Message') ?></label>
                             <div class="input-box">
-                                <textarea id="gift-message-whole-message" onchange="toogleRequired('gift-message-whole-message', ['gift-message-whole-from','gift-message-whole-to'])" class="input-text validation-passed giftmessage-area" name="giftmessage[<?php echo $this->getEntity()->getId() ?>][message]" title="<?php echo $this->__('Message') ?>" rows="5" cols="10"><?php echo $this->getEscaped($this->getMessage()->getMessage()) ?></textarea>
+                                <textarea id="gift-message-whole-message" onchange="toogleRequired('gift-message-whole-message', ['gift-message-whole-from','gift-message-whole-to'])" class="input-text validation-passed giftmessage-area" name="giftmessage[<?php echo $this->getEntity()->getId() ?>][message]" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Message')) ?>" rows="5" cols="10"><?php echo $this->getEscaped($this->getMessage()->getMessage()) ?></textarea>
                             </div>
                         </li>
                     </ul>
@@ -174,20 +174,20 @@ billing.onSave = function(evt){
                                      <div class="field">
                                          <label for="gift-message-<?php echo $_item->getId() ?>-from"><?php echo $this->__('From') ?></label>
                                          <div class="input-box">
-                                             <input type="text" name="giftmessage[<?php echo $_item->getId() ?>][from]" id="gift-message-<?php echo $_item->getId() ?>-from" title="<?php echo $this->__('From') ?>" value="<?php echo $this->getEscaped($this->getMessage($_item)->getSender(), $this->getDefaultFrom()) ?>" class="input-text validation-passed" />
+                                             <input type="text" name="giftmessage[<?php echo $_item->getId() ?>][from]" id="gift-message-<?php echo $_item->getId() ?>-from" title="<?php echo Mage::helper('core')->quoteEscape($this->__('From')) ?>" value="<?php echo $this->getEscaped($this->getMessage($_item)->getSender(), $this->getDefaultFrom()) ?>" class="input-text validation-passed" />
                                          </div>
                                      </div>
                                      <div class="field">
                                          <label for="gift-message-<?php echo $_item->getId() ?>-to"><?php echo $this->__('To') ?></label>
                                          <div class="input-box">
-                                             <input type="text" name="giftmessage[<?php echo $_item->getId() ?>][to]" id="gift-message-<?php echo $_item->getId() ?>-to" title="<?php echo $this->__('To') ?>" value="<?php echo $this->getEscaped($this->getMessage($_item)->getRecipient(), $this->getDefaultTo()) ?>" class="input-text validation-passed" />
+                                             <input type="text" name="giftmessage[<?php echo $_item->getId() ?>][to]" id="gift-message-<?php echo $_item->getId() ?>-to" title="<?php echo Mage::helper('core')->quoteEscape($this->__('To')) ?>" value="<?php echo $this->getEscaped($this->getMessage($_item)->getRecipient(), $this->getDefaultTo()) ?>" class="input-text validation-passed" />
                                          </div>
                                      </div>
                                  </li>
                                  <li class="wide">
                                      <label for="gift-message-<?php echo $_item->getId() ?>-message"><?php echo $this->__('Message') ?></label>
                                      <div class="input-box">
-                                         <textarea id="gift-message-<?php echo $_item->getId() ?>-message" onchange="toogleRequired('gift-message-<?php echo $_item->getId() ?>-message', ['gift-message-<?php echo $_item->getId() ?>-from','gift-message-<?php echo $_item->getId() ?>-to'])" class="input-text validation-passed giftmessage-area" name="giftmessage[<?php echo $_item->getId() ?>][message]" title="<?php echo $this->__('Message') ?>" rows="5" cols="40"><?php echo $this->getEscaped($this->getMessage($_item)->getMessage()) ?></textarea>
+                                         <textarea id="gift-message-<?php echo $_item->getId() ?>-message" onchange="toogleRequired('gift-message-<?php echo $_item->getId() ?>-message', ['gift-message-<?php echo $_item->getId() ?>-from','gift-message-<?php echo $_item->getId() ?>-to'])" class="input-text validation-passed giftmessage-area" name="giftmessage[<?php echo $_item->getId() ?>][message]" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Message')) ?>" rows="5" cols="40"><?php echo $this->getEscaped($this->getMessage($_item)->getMessage()) ?></textarea>
                                      </div>
                                  </li>
                              </ul>
@@ -240,20 +240,20 @@ billing.onSave = function(evt){
                         <div class="field">
                             <label for="gift-message-<?php echo $this->getEntity()->getId() ?>-from"><?php echo $this->__('From') ?></label>
                             <div class="input-box">
-                                <input type="text" name="giftmessage[<?php echo $this->getEntity()->getId() ?>][from]" id="gift-message-<?php echo $this->getEntity()->getId() ?>-from" title="<?php echo $this->__('From') ?>" value="<?php echo $this->getEscaped($this->getMessage()->getSender(), $this->getDefaultFrom()) ?>" class="input-text validation-passed" />
+                                <input type="text" name="giftmessage[<?php echo $this->getEntity()->getId() ?>][from]" id="gift-message-<?php echo $this->getEntity()->getId() ?>-from" title="<?php echo Mage::helper('core')->quoteEscape($this->__('From')) ?>" value="<?php echo $this->getEscaped($this->getMessage()->getSender(), $this->getDefaultFrom()) ?>" class="input-text validation-passed" />
                             </div>
                         </div>
                         <div class="field">
                             <label for="gift-message-<?php echo $this->getEntity()->getId() ?>-to"><?php echo $this->__('To') ?></label>
                             <div class="input-box">
-                                <input type="text" name="giftmessage[<?php echo $this->getEntity()->getId() ?>][to]" id="gift-message-<?php echo $this->getEntity()->getId() ?>-to" title="<?php echo $this->__('To') ?>" value="<?php echo $this->getEscaped($this->getMessage()->getRecipient(), $this->getDefaultTo()) ?>" class="input-text validation-passed" />
+                                <input type="text" name="giftmessage[<?php echo $this->getEntity()->getId() ?>][to]" id="gift-message-<?php echo $this->getEntity()->getId() ?>-to" title="<?php echo Mage::helper('core')->quoteEscape($this->__('To')) ?>" value="<?php echo $this->getEscaped($this->getMessage()->getRecipient(), $this->getDefaultTo()) ?>" class="input-text validation-passed" />
                             </div>
                         </div>
                     </li>
                     <li class="wide">
                         <label for="gift-message-<?php echo $this->getEntity()->getId() ?>-message"><?php echo $this->__('Message') ?></label>
                         <div class="input-box">
-                            <textarea id="gift-message-<?php echo $this->getEntity()->getId() ?>-message" onchange="toogleRequired('gift-message-<?php echo $this->getEntity()->getId() ?>-message', ['gift-message-<?php echo $this->getEntity()->getId() ?>-from','gift-message-<?php echo $this->getEntity()->getId() ?>-to'])" class="input-text validation-passed giftmessage-area" name="giftmessage[<?php echo $this->getEntity()->getId() ?>][message]" title="<?php echo $this->__('Message') ?>" rows="5" cols="40"><?php echo $this->getEscaped($this->getMessage()->getMessage()) ?></textarea>
+                            <textarea id="gift-message-<?php echo $this->getEntity()->getId() ?>-message" onchange="toogleRequired('gift-message-<?php echo $this->getEntity()->getId() ?>-message', ['gift-message-<?php echo $this->getEntity()->getId() ?>-from','gift-message-<?php echo $this->getEntity()->getId() ?>-to'])" class="input-text validation-passed giftmessage-area" name="giftmessage[<?php echo $this->getEntity()->getId() ?>][message]" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Message')) ?>" rows="5" cols="40"><?php echo $this->getEscaped($this->getMessage()->getMessage()) ?></textarea>
                         </div>
                     </li>
                 </ul>
@@ -291,20 +291,20 @@ billing.onSave = function(evt){
                                      <div class="field">
                                          <label for="gift-message-<?php echo $_item->getId() ?>-from"><?php echo $this->__('From') ?></label>
                                          <div class="input-box">
-                                             <input type="text" name="giftmessage[<?php echo $_item->getId() ?>][from]" id="gift-message-<?php echo $_item->getId() ?>-from" title="<?php echo $this->__('From') ?>"  value="<?php echo $this->getEscaped($this->getMessage($_item)->getSender(), $this->getDefaultFrom()) ?>" class="input-text validation-passed" />
+                                             <input type="text" name="giftmessage[<?php echo $_item->getId() ?>][from]" id="gift-message-<?php echo $_item->getId() ?>-from" title="<?php echo Mage::helper('core')->quoteEscape($this->__('From')) ?>"  value="<?php echo $this->getEscaped($this->getMessage($_item)->getSender(), $this->getDefaultFrom()) ?>" class="input-text validation-passed" />
                                          </div>
                                      </div>
                                      <div class="field">
                                          <label for="gift-message-<?php echo $_item->getId() ?>-to"><?php echo $this->__('To') ?></label>
                                          <div class="input-box">
-                                             <input type="text" name="giftmessage[<?php echo $_item->getId() ?>][to]" id="gift-message-<?php echo $_item->getId() ?>-to" title="<?php echo $this->__('To') ?>" value="<?php echo $this->getEscaped($this->getMessage($_item)->getRecipient(), $this->getDefaultTo()) ?>" class="input-text validation-passed" />
+                                             <input type="text" name="giftmessage[<?php echo $_item->getId() ?>][to]" id="gift-message-<?php echo $_item->getId() ?>-to" title="<?php echo Mage::helper('core')->quoteEscape($this->__('To')) ?>" value="<?php echo $this->getEscaped($this->getMessage($_item)->getRecipient(), $this->getDefaultTo()) ?>" class="input-text validation-passed" />
                                          </div>
                                      </div>
                                  </li>
                                  <li class="wide">
                                      <label for="gift-message-<?php echo $_item->getId() ?>-message"><?php echo $this->__('Message') ?></label>
                                      <div class="input-box">
-                                         <textarea id="gift-message-<?php echo $_item->getId() ?>-message" onchange="toogleRequired('gift-message-<?php echo $_item->getId() ?>-message', ['gift-message-<?php echo $_item->getId() ?>-from','gift-message-<?php echo $_item->getId() ?>-to'])" class="input-text validation-passed  giftmessage-area" name="giftmessage[<?php echo $_item->getId() ?>][message]" title="<?php echo $this->__('Message') ?>" rows="5" cols="10"><?php echo $this->getEscaped($this->getMessage($_item)->getMessage()) ?></textarea>
+                                         <textarea id="gift-message-<?php echo $_item->getId() ?>-message" onchange="toogleRequired('gift-message-<?php echo $_item->getId() ?>-message', ['gift-message-<?php echo $_item->getId() ?>-from','gift-message-<?php echo $_item->getId() ?>-to'])" class="input-text validation-passed  giftmessage-area" name="giftmessage[<?php echo $_item->getId() ?>][message]" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Message')) ?>" rows="5" cols="10"><?php echo $this->getEscaped($this->getMessage($_item)->getMessage()) ?></textarea>
                                      </div>
                                  </li>
                              </ul>

@@ -89,7 +89,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         foreach ($collection as $key => $value) {
             $rootChildParts = explode(DIRECTORY_SEPARATOR, substr($value->getFilename(), $storageRootLength));
 
-            if (array_key_exists($rootChildParts[0], $conditions['plain'])
+            if (array_key_exists(end($rootChildParts), $conditions['plain'])
                 || ($regExp && preg_match($regExp, $value->getFilename()))) {
                 $collection->removeItemByKey($key);
             }
@@ -336,11 +336,14 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         $mediaRootDir = $this->getHelper()->getStorageRoot();
 
         if (strpos($filePath, $mediaRootDir) === 0) {
-            $thumbSuffix = self::THUMBS_DIRECTORY_NAME . DS . substr($filePath, strlen($mediaRootDir));
+            $thumbSuffix = self::THUMBS_DIRECTORY_NAME . DS . Mage_Cms_Model_Wysiwyg_Config::IMAGE_DIRECTORY
+                . DS . substr($filePath, strlen($mediaRootDir));
 
             if (! $checkFile || is_readable($mediaRootDir . $thumbSuffix)) {
                 $randomIndex = '?rand=' . time();
-                return str_replace('\\', '/', $this->getHelper()->getBaseUrl() . $thumbSuffix) . $randomIndex;
+                $thumbUrl = $this->getHelper()->getBaseUrl() . Mage_Cms_Model_Wysiwyg_Config::IMAGE_DIRECTORY
+                    . DS . $thumbSuffix;
+                return str_replace('\\', '/', $thumbUrl) . $randomIndex;
             }
         }
 

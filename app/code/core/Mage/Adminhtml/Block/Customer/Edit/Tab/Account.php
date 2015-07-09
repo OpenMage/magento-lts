@@ -98,7 +98,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
                 var {$prefix}_websites = " . Mage::helper('core')->jsonEncode($websites) .";
                 Validation.add(
                     'validate-website-has-store',
-                    '" . Mage::helper('customer')->__('Please select a website which contains store view') . "',
+                    '" . Mage::helper('core')->jsQuoteEscape(
+                        Mage::helper('customer')->__('Please select a website which contains store view')
+                    ) . "',
                     function(v, elem){
                         return {$prefix}_websites[elem.value] == true;
                     }

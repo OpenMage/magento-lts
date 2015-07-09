@@ -130,6 +130,7 @@
                             id="qinput-<?php echo $_item->getId(); ?>"
                             data-link="<?php echo $this->getAjaxUpdateUrl() ?>"
                             data-item-id="<?php echo $_item->getId(); ?>"
+                            data-cart-item-id="<?php echo $_item->getSku(); ?>"
                             class="qty cart-item-quantity input-text" name=""
                             value="<?php echo $this->getQty()?>"
                             <?php if ($this->isOnCheckoutPage()) echo 'disabled'; ?>
@@ -139,6 +140,7 @@
                                 data-item-id="<?php echo $_item->getId(); ?>"
                                 disabled="disabled"
                                 data-update
+                                data-cart-item-update
                                 class="button quantity-button">
                             <?php echo $this->__('ok'); ?>
                         </button>
@@ -148,12 +150,12 @@
         </table>
 
         <?php if ($isVisibleProduct): ?>
-        <a href="<?php echo $this->getConfigureUrl() ?>" title="<?php echo $this->__('Edit item') ?>" class="btn-edit">
+        <a href="<?php echo $this->getConfigureUrl() ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Edit item')) ?>" class="btn-edit">
             <?php echo $this->__('Edit item')?>
         </a>
             |
             <?php if (!$this->isOnCheckoutPage()): ?>
-                <a href="<?php echo $this->getAjaxDeleteUrl() ?>" title="<?php echo $this->__('Remove This Item') ?>"
+                <a href="<?php echo $this->getAjaxDeleteUrl() ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Remove This Item')) ?>"
                    data-confirm="<?php echo $this->__('Are you sure you would like to remove this item from the shopping cart?') ?>"
                    class="remove">
                     <?php echo $this->__('Remove Item') ?>

@@ -55,6 +55,10 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
     const DEFAULT_CONNECT_TIMEOUT = 2.5;
     const DEFAULT_CONNECT_RETRIES = 1;
 
+    const LUA_SAVE_SH1 = '1617c9fb2bda7d790bb1aaa320c1099d81825e64';
+    const LUA_CLEAN_SH1 = '42ab2fe548aee5ff540123687a2c39a38b54e4a2';
+    const LUA_GC_SH1 = 'c00416b970f1aa6363b44965d4cf60ee99a6f065';
+
     /** @var Credis_Client */
     protected $_redis;
 
@@ -76,6 +80,19 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
     /** @var string */
     protected $_compressionLib;
 
+    /** @var bool */
+    protected $_useLua = false;
+
+    /**
+     * Lua's unpack() has a limit on the size of the table imposed by
+     * the number of Lua stack slots that a C function can use.
+     * This value is defined by LUAI_MAXCSTACK in luaconf.h and for Redis it is set to 8000.
+     *
+     * @see https://github.com/antirez/redis/blob/b903145/deps/lua/src/luaconf.h#L439
+     * @var int
+     */
+    protected $_luaMaxCStack = 5000;
+
     /**
      * Contruct Zend_Cache Redis backend
      * @param array $options
@@ -91,9 +108,10 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
             Zend_Cache::throwException('Redis \'port\' not specified.');
         }
 
+        $port = isset($options['port']) ? $options['port'] : NULL;
         $timeout = isset($options['timeout']) ? $options['timeout'] : self::DEFAULT_CONNECT_TIMEOUT;
         $persistent = isset($options['persistent']) ? $options['persistent'] : '';
-        $this->_redis = new Credis_Client($options['server'], $options['port'], $timeout, $persistent);
+        $this->_redis = new Credis_Client($options['server'], $port, $timeout, $persistent);
 
         if ( isset($options['force_standalone']) && $options['force_standalone']) {
             $this->_redis->forceStandalone();
@@ -143,10 +161,13 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
         }
 
         if ( isset($options['compression_lib']) ) {
-            $this->_compressionLib = $options['compression_lib'];
+            $this->_compressionLib = (string) $options['compression_lib'];
         }
         else if ( function_exists('snappy_compress') ) {
             $this->_compressionLib = 'snappy';
+        }
+        else if ( function_exists('lz4_compress')) {
+            $this->_compressionLib = 'l4z';
         }
         else if ( function_exists('lzf_compress') ) {
             $this->_compressionLib = 'lzf';
@@ -155,6 +176,14 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
             $this->_compressionLib = 'gzip';
         }
         $this->_compressPrefix = substr($this->_compressionLib,0,2).self::COMPRESS_PREFIX;
+
+        if (isset($options['use_lua'])) {
+            $this->_useLua = (bool) $options['use_lua'];
+        }
+
+        if (isset($options['lua_max_c_stack'])) {
+            $this->_luaMaxCStack = (int) $options['lua_max_c_stack'];
+        }
     }
 
     /**
@@ -200,9 +229,72 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
      */
     public function save($data, $id, $tags = array(), $specificLifetime = false)
     {
-        if ( ! is_array($tags)) $tags = $tags ? array($tags) : array();
+        if(!is_array($tags))
+            $tags = $tags ? array($tags) : array();
+        else
+            $tags = array_flip(array_flip($tags));
 
         $lifetime = $this->getLifetime($specificLifetime);
+
+        if ($this->_useLua) {
+            $sArgs = array(
+                self::PREFIX_KEY,
+                self::FIELD_DATA,
+                self::FIELD_TAGS,
+                self::FIELD_MTIME,
+                self::FIELD_INF,
+                self::SET_TAGS,
+                self::PREFIX_TAG_IDS,
+                self::SET_IDS,
+                $id,
+                $this->_encodeData($data, $this->_compressData),
+                $this->_encodeData(implode(',',$tags), $this->_compressTags),
+                time(),
+                $lifetime ? 0 : 1,
+                min($lifetime, self::MAX_LIFETIME),
+                $this->_notMatchingTags ? 1 : 0
+            );
+
+            $res = $this->_redis->evalSha(self::LUA_SAVE_SH1, $tags, $sArgs);
+            if (is_null($res)) {
+                $script =
+                    "local oldTags = redis.call('HGET', ARGV[1]..ARGV[9], ARGV[3]) ".
+                    "redis.call('HMSET', ARGV[1]..ARGV[9], ARGV[2], ARGV[10], ARGV[3], ARGV[11], ARGV[4], ARGV[12], ARGV[5], ARGV[13]) ".
+                    "if (ARGV[13] == '0') then ".
+                        "redis.call('EXPIRE', ARGV[1]..ARGV[9], ARGV[14]) ".
+                    "end ".
+                    "if next(KEYS) ~= nil then ".
+                        "redis.call('SADD', ARGV[6], unpack(KEYS)) ".
+                        "for _, tagname in ipairs(KEYS) do ".
+                            "redis.call('SADD', ARGV[7]..tagname, ARGV[9]) ".
+                        "end ".
+                    "end ".
+                    "if (ARGV[15] == '1') then ".
+                        "redis.call('SADD', ARGV[8], ARGV[9]) ".
+                    "end ".
+                    "if (oldTags ~= false) then ".
+                        "return oldTags ".
+                    "else ".
+                        "return '' ".
+                    "end";
+                $res = $this->_redis->eval($script, $tags, $sArgs);
+            }
+
+            // Process removed tags if cache entry already existed
+            if ($res) {
+                $oldTags = explode(',', $this->_decodeData($res));
+                if ($remTags = ($oldTags ? array_diff($oldTags, $tags) : FALSE))
+                {
+                    // Update the id list for each tag
+                    foreach($remTags as $tag)
+                    {
+                        $this->_redis->sRem(self::PREFIX_TAG_IDS . $tag, $id);
+                    }
+                }
+            }
+
+            return TRUE;
+        }
 
         // Get list of tags previously assigned
         $oldTags = $this->_decodeData($this->_redis->hGet(self::PREFIX_KEY.$id, self::FIELD_TAGS));
@@ -212,10 +304,10 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
 
         // Set the data
         $result = $this->_redis->hMSet(self::PREFIX_KEY.$id, array(
-            self::FIELD_DATA => $this->_encodeData($data, $this->_compressData),
-            self::FIELD_TAGS => $this->_encodeData(implode(',',$tags), $this->_compressTags),
-            self::FIELD_MTIME => time(),
-            self::FIELD_INF => $lifetime ? 0 : 1,
+          self::FIELD_DATA => $this->_encodeData($data, $this->_compressData),
+          self::FIELD_TAGS => $this->_encodeData(implode(',',$tags), $this->_compressTags),
+          self::FIELD_MTIME => time(),
+          self::FIELD_INF => $lifetime ? 0 : 1,
         ));
         if( ! $result) {
             throw new CredisException("Could not set cache key $id");
@@ -223,7 +315,7 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
 
         // Set expiration if specified
         if ($lifetime) {
-            $this->_redis->expire(self::PREFIX_KEY.$id, min($lifetime, self::MAX_LIFETIME));
+          $this->_redis->expire(self::PREFIX_KEY.$id, min($lifetime, self::MAX_LIFETIME));
         }
 
         // Process added tags
@@ -339,6 +431,28 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
      */
     protected function _removeByMatchingAnyTags($tags)
     {
+        if ($this->_useLua) {
+            $pTags = $this->_preprocessTagIds($tags);
+            $sArgs = array(self::PREFIX_KEY, self::SET_TAGS, self::SET_IDS, ($this->_notMatchingTags ? 1 : 0), (int) $this->_luaMaxCStack);
+            if ( ! $this->_redis->evalSha(self::LUA_CLEAN_SH1, $pTags, $sArgs)) {
+                $script =
+                    "for i = 1, #KEYS, ARGV[5] do ".
+                        "local keysToDel = redis.call('SUNION', unpack(KEYS, i, math.min(#KEYS, i + ARGV[5] - 1))) ".
+                        "for _, keyname in ipairs(keysToDel) do ".
+                            "redis.call('DEL', ARGV[1]..keyname) ".
+                            "if (ARGV[4] == '1') then ".
+                                "redis.call('SREM', ARGV[3], keyname) ".
+                            "end ".
+                        "end ".
+                        "redis.call('DEL', unpack(KEYS, i, math.min(#KEYS, i + ARGV[5] - 1))) ".
+                        "redis.call('SREM', ARGV[2], unpack(KEYS, i, math.min(#KEYS, i + ARGV[5] - 1))) ".
+                    "end ".
+                    "return true";
+                $this->_redis->eval($script, $pTags, $sArgs);
+            }
+            return;
+        }
+
         $ids = $this->getIdsMatchingAnyTags($tags);
 
         $this->_redis->pipeline()->multi();
@@ -369,6 +483,67 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
     protected function _collectGarbage()
     {
         // Clean up expired keys from tag id set and global id set
+
+        if ($this->_useLua) {
+            $sArgs = array(self::PREFIX_KEY, self::SET_TAGS, self::SET_IDS, self::PREFIX_TAG_IDS, ($this->_notMatchingTags ? 1 : 0));
+            $allTags = (array) $this->_redis->sMembers(self::SET_TAGS);
+            $tagsCount = count($allTags);
+            $counter = 0;
+            $tagsBatch = array();
+            foreach ($allTags as $tag) {
+                $tagsBatch[] = $tag;
+                $counter++;
+                if (count($tagsBatch) == 10 || $counter == $tagsCount ) {
+                    if ( ! $this->_redis->evalSha(self::LUA_GC_SH1, $tagsBatch, $sArgs)) {
+                        $script =
+                            "local tagKeys = {} ".
+                            "local expired = {} ".
+                            "local expiredCount = 0 ".
+                            "local notExpiredCount = 0 ".
+                            "for _, tagName in ipairs(KEYS) do ".
+                                "tagKeys = redis.call('SMEMBERS', ARGV[4]..tagName) ".
+                                "for __, keyName in ipairs(tagKeys) do ".
+                                    "if (redis.call('EXISTS', ARGV[1]..keyName) == 0) then ".
+                                        "expiredCount = expiredCount + 1 ".
+                                        "expired[expiredCount] = keyName ".
+                                        /* Redis Lua scripts have a hard limit of 8000 parameters per command */
+                                        "if (expiredCount == 7990) then ".
+                                            "redis.call('SREM', ARGV[4]..tagName, unpack(expired)) ".
+                                            "if (ARGV[5] == '1') then ".
+                                                "redis.call('SREM', ARGV[3], unpack(expired)) ".
+                                            "end ".
+                                            "expiredCount = 0 ".
+                                            "expired = {} ".
+                                        "end ".
+                                    "else ".
+                                        "notExpiredCount = notExpiredCount + 1 ".
+                                    "end ".
+                                "end ".
+                                "if (expiredCount > 0) then ".
+                                    "redis.call('SREM', ARGV[4]..tagName, unpack(expired)) ".
+                                    "if (ARGV[5] == '1') then ".
+                                        "redis.call('SREM', ARGV[3], unpack(expired)) ".
+                                    "end ".
+                                "end ".
+                                "if (notExpiredCount == 0) then ".
+                                    "redis.call ('DEL', ARGV[4]..tagName) ".
+                                    "redis.call ('SREM', ARGV[2], tagName) ".
+                                "end ".
+                                "expired = {} ".
+                                "expiredCount = 0 ".
+                                "notExpiredCount = 0 ".
+                            "end ".
+                            "return true";
+                        $this->_redis->eval($script, $tagsBatch, $sArgs);
+                    }
+                    $tagsBatch = array();
+                    /* Give Redis some time to handle other requests */
+                    usleep(20000);
+                }
+            }
+            return;
+        }
+
         $exists = array();
         $tags = (array) $this->_redis->sMembers(self::SET_TAGS);
         foreach($tags as $tag)
@@ -445,42 +620,41 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
             $tags = array($tags);
         }
 
-        if($mode == Zend_Cache::CLEANING_MODE_ALL) {
-            return $this->_redis->flushDb();
+        try {
+            if ($mode == Zend_Cache::CLEANING_MODE_ALL) {
+                return $this->_redis->flushDb();
+            }
+            if ($mode == Zend_Cache::CLEANING_MODE_OLD) {
+                $this->_collectGarbage();
+                return TRUE;
+            }
+            if ( ! count($tags)) {
+                return TRUE;
+            }
+            switch ($mode)
+            {
+                case Zend_Cache::CLEANING_MODE_MATCHING_TAG:
+
+                    $this->_removeByMatchingTags($tags);
+                    break;
+
+                case Zend_Cache::CLEANING_MODE_NOT_MATCHING_TAG:
+
+                    $this->_removeByNotMatchingTags($tags);
+                    break;
+
+                case Zend_Cache::CLEANING_MODE_MATCHING_ANY_TAG:
+
+                    $this->_removeByMatchingAnyTags($tags);
+                    break;
+
+                default:
+                    Zend_Cache::throwException('Invalid mode for clean() method: '.$mode);
+            }
+        } catch (CredisException $e) {
+            Zend_Cache::throwException('Error cleaning cache by mode '.$mode.': '.$e->getMessage(), $e);
         }
-
-        if($mode == Zend_Cache::CLEANING_MODE_OLD) {
-            $this->_collectGarbage();
-            return TRUE;
-        }
-
-        if( ! count($tags)) {
-            return TRUE;
-        }
-
-        $result = TRUE;
-
-        switch ($mode)
-        {
-            case Zend_Cache::CLEANING_MODE_MATCHING_TAG:
-
-                $this->_removeByMatchingTags($tags);
-                break;
-
-            case Zend_Cache::CLEANING_MODE_NOT_MATCHING_TAG:
-
-                $this->_removeByNotMatchingTags($tags);
-                break;
-
-            case Zend_Cache::CLEANING_MODE_MATCHING_ANY_TAG:
-
-                $this->_removeByMatchingAnyTags($tags);
-                break;
-
-            default:
-                Zend_Cache::throwException('Invalid mode for clean() method: '.$mode);
-        }
-        return (bool) $result;
+        return TRUE;
     }
 
     /**
@@ -597,7 +771,16 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
      */
     public function getFillingPercentage()
     {
-        return 0;
+        $maxMem = $this->_redis->config('GET','maxmemory');
+        if (0 == (int) $maxMem['maxmemory']) {
+            return 1;
+        }
+        $info = $this->_redis->info();
+        return round(
+            ($info['used_memory']/$maxMem['maxmemory']*100)
+            ,0
+            ,PHP_ROUND_HALF_UP
+        );
     }
 
     /**
@@ -615,7 +798,7 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
     {
         list($tags, $mtime, $inf) = $this->_redis->hMGet(self::PREFIX_KEY.$id, array(self::FIELD_TAGS, self::FIELD_MTIME, self::FIELD_INF));
         if( ! $mtime) {
-            return FALSE;
+          return FALSE;
         }
         $tags = explode(',', $this->_decodeData($tags));
         $expire = $inf === '1' ? FALSE : time() + $this->_redis->ttl(self::PREFIX_KEY.$id);
@@ -678,11 +861,13 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
      */
     protected function _encodeData($data, $level)
     {
-        if ($level && strlen($data) >= $this->_compressThreshold) {
+        if ($this->_compressionLib && $level && strlen($data) >= $this->_compressThreshold) {
             switch($this->_compressionLib) {
                 case 'snappy': $data = snappy_compress($data); break;
                 case 'lzf':    $data = lzf_compress($data); break;
+                case 'l4z':    $data = lz4_compress($data,($level > 1 ? true : false)); break;
                 case 'gzip':   $data = gzcompress($data, $level); break;
+                default:       throw new CredisException("Unrecognized 'compression_lib'.");
             }
             if( ! $data) {
                 throw new CredisException("Could not compress cache data.");
@@ -702,6 +887,7 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
             switch(substr($data,0,2)) {
                 case 'sn': return snappy_uncompress(substr($data,5));
                 case 'lz': return lzf_decompress(substr($data,5));
+                case 'l4': return lz4_uncompress(substr($data,5));
                 case 'gz': case 'zc': return gzuncompress(substr($data,5));
             }
         }

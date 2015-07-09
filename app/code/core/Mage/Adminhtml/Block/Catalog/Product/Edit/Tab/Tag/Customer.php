@@ -69,6 +69,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Tag_Customer extends Mage_Ad
             'index'     => 'firstname',
         ));
 
+        $this->addColumn('middlename', array(
+            'header'        => Mage::helper('catalog')->__('Middle Name'),
+            'index'         => 'middlename',
+        ));
+
         $this->addColumn('lastname', array(
             'header'        => Mage::helper('catalog')->__('Last Name'),
             'index'         => 'lastname',

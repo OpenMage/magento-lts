@@ -30,7 +30,7 @@
 ?>
 <?php $_item = $this->getItem() ?>
 <tr>
-    <td class="a-center"><a href="<?php echo $this->getItemDeleteUrl($_item) ?>" title="<?php echo $this->__('Remove Item')?>" class="btn-remove2"><?php echo $this->__('Remove Item')?></a></td>
+    <td class="a-center"><a href="<?php echo $this->getItemDeleteUrl($_item) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Remove Item')) ?>" class="btn-remove2"><?php echo $this->__('Remove Item')?></a></td>
     <td><a href="<?php echo $this->getItemUrl($_item) ?>" title="<?php echo $this->escapeHtml($this->getItemName($_item)) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($this->getItemProductForThumbnail($_item), 'thumbnail')->resize(75); ?>" width="75" height="75" alt="<?php echo $this->escapeHtml($this->getItemName($_item)) ?>" /></a></td>
     <td>
         <h3 class="product-name"><a href="<?php echo $this->getItemUrl($_item) ?>"><?php echo $this->getItemName($_item) ?></a></h3>
@@ -55,7 +55,9 @@
     </td>
     <?php endif; ?>
     <td class="a-center">
-        <input type="text" pattern="\d*" name="cart[<?php echo $_item->getId() ?>][qty]" value="<?php echo $this->getItemQty($_item) ?>" size="4" class="input-text qty" maxlength="12" />
+        <input type="text" pattern="\d*" name="cart[<?php echo $_item->getId() ?>][qty]"
+               data-cart-item-id="<?php echo $this->jsQuoteEscape($_item->getSku()) ?>"
+               value="<?php echo $this->getItemQty($_item) ?>" size="4" class="input-text qty" maxlength="12" />
     </td>
     <?php if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
     <td class="a-right">

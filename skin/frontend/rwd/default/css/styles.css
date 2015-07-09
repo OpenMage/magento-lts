@@ -10515,6 +10515,10 @@ body[class*="checkout-multishipping-"] #review-buttons-container {
   width: 100%;
 }
 
+.checkout-multishipping-payment-customerbalance input.checkbox {
+  margin-left: 15px;
+}
+
 #multiship-addresses-table > tbody > tr > td.a-center.last > a {
   background-image: none;
 }
