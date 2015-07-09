@@ -103,6 +103,13 @@ class Maged_Model_Session extends Maged_Model
         }
 
         try {
+            if (isset($_POST['username']) && !$this->validateFormKey()) {
+                $this->controller()
+                    ->redirect(
+                        $this->controller()->url(),
+                        true
+                    );
+            }
             if ( (isset($_POST['username']) && empty($_POST['username']))
                 || (isset($_POST['password']) && empty($_POST['password']))) {
                 $this->addMessage('error', 'Invalid user name or password');
@@ -233,5 +240,18 @@ class Maged_Model_Session extends Maged_Model
             $this->set('_form_key', Mage::helper('core')->getRandomString(16));
         }
         return $this->get('_form_key');
+    }
+
+    /**
+     * Validate Form Key
+     *
+     * @return bool
+     */
+    public function validateFormKey()
+    {
+        if (!($formKey = $_REQUEST['form_key']) || $formKey != $this->getFormKey()) {
+            return false;
+        }
+        return true;
     }
 }
