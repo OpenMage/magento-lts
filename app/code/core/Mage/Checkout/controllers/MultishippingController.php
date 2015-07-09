@@ -86,7 +86,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
             return $this;
         }
 
-        $action = $this->getRequest()->getActionName();
+        $action = strtolower($this->getRequest()->getActionName());
 
         $checkoutSessionQuote = $this->_getCheckoutSession()->getQuote();
         /**

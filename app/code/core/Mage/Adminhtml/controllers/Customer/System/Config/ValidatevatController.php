@@ -88,4 +88,14 @@ class Mage_Adminhtml_Customer_System_Config_ValidatevatController extends Mage_A
         ));
         $this->getResponse()->setBody($body);
     }
+
+    /**
+     * Check is allowed access to action
+     *
+     * @return bool
+     */
+    protected function _isAllowed()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('system/config');
+    }
 }
