@@ -89,7 +89,7 @@ abstract class Mage_ImportExport_Model_Abstract extends Varien_Object
             $dirPath = Mage::getBaseDir('var') . DS . Mage_ImportExport_Model_Scheduled_Operation::LOG_DIRECTORY
                 . $dirName;
             if (!is_dir($dirPath)) {
-                mkdir($dirPath, 0777, true);
+                mkdir($dirPath, 0750, true);
             }
             $fileName = substr(strstr(Mage_ImportExport_Model_Scheduled_Operation::LOG_DIRECTORY, DS), 1)
                 . $dirName . $fileName . '.log';

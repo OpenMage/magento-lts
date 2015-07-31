@@ -50,4 +50,14 @@ class Mage_Adminhtml_TaxController extends Mage_Adminhtml_Controller_Action
         }
         $this->_redirectReferer();
     }
+
+    /**
+     * Check is allowed access to action
+     *
+     * @return bool
+     */
+    protected function _isAllowed()
+    {
+        return true;
+    }
 }

@@ -298,4 +298,14 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
     {
         $this->_initRejectPage();
     }
+
+    /**
+     * Check admin permissions for this controller
+     *
+     * @return boolean
+     */
+    protected function _isAllowed()
+    {
+        return true;
+    }
 }

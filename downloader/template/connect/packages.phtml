@@ -85,7 +85,7 @@ Event.observe(window, 'load', changeAvailableArchiveStatus);
 function connectPrepare(form) {
     new Ajax.Request(form.action, {
       method:'post',
-      parameters: {install_package_id: form.install_package_id.value},
+      parameters: {install_package_id: form.install_package_id.value, form_key: form.form_key.value},
       onCreate: function() {
           $('prepare_package_result').update(
                 '<div class="loading-mask" id="loading_mask_loader">'+
@@ -122,6 +122,7 @@ function connectPrepare(form) {
 //-->
 </script>
 <form action="<?php echo $this->url('connectPreparePackagePost')?>" method="post" onsubmit="return connectPrepare(this)">
+    <input name="form_key" type="hidden" value="<?php echo $this->getFormKey() ?>" />
     <ul class="bare-list">
         <li>
             <span class="step-count">1</span> &nbsp; Search for modules via <a href="http://connect.magentocommerce.com/" target="Magento_Connect">Magento Connect</a>.
@@ -176,6 +177,7 @@ function connectPrepare(form) {
 <?php foreach ($packages as $channel=>$pkgs): ?>
 
 <form id="connect_packages_<?php echo $i ?>" class="connect-packages" action="<?php echo $this->url('connectPackagesPost')?>" method="post" target="connect_iframe">
+    <input name="form_key" type="hidden" value="<?php echo $this->getFormKey() ?>" />
     <div class="no-display">
         <input type="hidden" id="ignore_local_modification" name="ignore_local_modification" value=""/>
         <input type="hidden" name="form_id" value="connect_packages_<?php echo $i ?>"/>

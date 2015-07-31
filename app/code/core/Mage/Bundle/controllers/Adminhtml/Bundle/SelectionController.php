@@ -59,5 +59,13 @@ class Mage_Bundle_Adminhtml_Bundle_SelectionController extends Mage_Adminhtml_Co
                 ->toHtml()
            );
     }
-
+    /**
+     * Check for is allowed
+     *
+     * @return boolean
+     */
+    protected function _isAllowed()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('catalog/products');
+    }
 }
