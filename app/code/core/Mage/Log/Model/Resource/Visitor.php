@@ -125,7 +125,7 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
             return $this;
         }
         if ($visitor->getIsNewVisitor()) {
-            if ($this->_urlLoggingCondition->isLogEnabled()) {
+            if ($this->_urlLoggingCondition->isVisitorLogEnabled()) {
                 $this->_saveVisitorInfo($visitor);
                 $visitor->setIsNewVisitor(false);
             }

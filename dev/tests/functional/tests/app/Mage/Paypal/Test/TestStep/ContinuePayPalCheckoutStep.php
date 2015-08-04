@@ -29,7 +29,6 @@ namespace Mage\Paypal\Test\TestStep;
 use Mage\Checkout\Test\Page\CheckoutOnepageSuccess;
 use Mage\Paypal\Test\Fixture\PaypalCustomer;
 use Mage\Paypal\Test\Page\Paypal;
-use Mage\Paypal\Test\Page\PaypalExpressReview;
 use Magento\Mtf\TestStep\TestStepInterface;
 use Mage\Paypal\Test\Block\AbstractReview;
 
@@ -53,13 +52,6 @@ class ContinuePayPalCheckoutStep implements TestStepInterface
     protected $checkoutOnepageSuccess;
 
     /**
-     * Pay Pal express review page.
-     *
-     * @var PaypalExpressReview
-     */
-    protected $paypalExpressReview;
-
-    /**
      * PayPal customer.
      *
      * @var PaypalCustomer
@@ -77,17 +69,14 @@ class ContinuePayPalCheckoutStep implements TestStepInterface
      * @constructor
      * @param Paypal $paypalPage
      * @param CheckoutOnepageSuccess $checkoutOnepageSuccess
-     * @param PaypalExpressReview $paypalExpressReview
      * @param PaypalCustomer $paypalCustomer
      */
     public function __construct(
         Paypal $paypalPage,
         CheckoutOnepageSuccess $checkoutOnepageSuccess,
-        PaypalExpressReview $paypalExpressReview,
         PaypalCustomer $paypalCustomer
     ) {
         $this->paypalPage = $paypalPage;
-        $this->paypalExpressReview = $paypalExpressReview;
         $this->checkoutOnepageSuccess = $checkoutOnepageSuccess;
         $this->customer = $paypalCustomer;
     }
@@ -104,12 +93,9 @@ class ContinuePayPalCheckoutStep implements TestStepInterface
             : $this->paypalPage->getOldReviewBlock();
         $this->selectCustomerAddress($this->customer);
         $this->reviewBlock->continueCheckout();
-        $this->paypalExpressReview->getReviewBlock()->isPlaceOrderVisible();
-        $orderId = $this->paypalExpressReview->getReviewBlock()->isPlaceOrderVisible()
-            ? null
-            : $this->checkoutOnepageSuccess->getSuccessBlock()->getGuestOrderId();
+        $successBlock = $this->checkoutOnepageSuccess->getSuccessBlock();
 
-        return ['orderId' => $orderId];
+        return ['orderId' => $successBlock->isVisible() ? $successBlock->getGuestOrderId() : null];
     }
 
     /**

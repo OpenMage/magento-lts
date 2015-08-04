@@ -430,15 +430,17 @@ class Mage_Paypal_Model_Express_Checkout
         if (!$quote->getIsVirtual()) {
             $shippingAddress = $quote->getShippingAddress();
             if ($shippingAddress) {
-                if ($exportedShippingAddress
-                    && $quote->getPayment()->getAdditionalInformation(self::PAYMENT_INFO_BUTTON) == 1
-                ) {
+                if ($exportedShippingAddress) {
                     $this->_setExportedAddressData($shippingAddress, $exportedShippingAddress);
-                    // PayPal doesn't provide detailed shipping info: prefix, middlename, lastname, suffix
-                    $shippingAddress->setPrefix(null);
-                    $shippingAddress->setMiddlename(null);
-                    $shippingAddress->setLastname(null);
-                    $shippingAddress->setSuffix(null);
+
+                    if ($quote->getPayment()->getAdditionalInformation(self::PAYMENT_INFO_BUTTON) == 1) {
+                        // PayPal doesn't provide detailed shipping info: prefix, middlename, lastname, suffix
+                        $shippingAddress->setPrefix(null);
+                        $shippingAddress->setMiddlename(null);
+                        $shippingAddress->setLastname(null);
+                        $shippingAddress->setSuffix(null);
+                    }
+
                     $shippingAddress->setCollectShippingRates(true);
                     $shippingAddress->setSameAsBilling(0);
                 }

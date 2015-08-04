@@ -80,14 +80,4 @@ class Review extends Block
         $this->_rootElement->find($this->shippingMethod, Locator::SELECTOR_CSS, 'optgroupselect')
             ->setValue($service . "/" . $method);
     }
-
-    /**
-     * Check if 'Place Order' button is visible.
-     *
-     * @return bool
-     */
-    public function isPlaceOrderVisible()
-    {
-        return $this->_rootElement->find($this->placeOrder)->isVisible();
-    }
 }

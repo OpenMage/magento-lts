@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    Tests
+ * @package     Tests_Functional
+ * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
+    <testCase name="Enterprise\Rma\Test\TestCase\CreateRmaEntityOnBackendTest">
+        <variation name="CreateRmaEntityOnBackendTestVariation3">
+            <data name="rma/data/order_id/dataSet" xsi:type="string">bundle_fixed</data>
+            <data name="rma/data/items/data/0/qty_requested" xsi:type="string">1</data>
+            <data name="rma/data/items/data/0/reason" xsi:type="string">Out of Service</data>
+            <data name="rma/data/items/data/0/condition" xsi:type="string">Unopened</data>
+            <data name="rma/data/items/data/0/resolution" xsi:type="string">Store Credit</data>
+            <data name="rma/data/contact_email" xsi:type="string">test%isolation%@example.com</data>
+            <data name="rma/data/comment/comment" xsi:type="string">comments %isolation%</data>
+            <data name="rma/data/comment/is_visible_on_front" xsi:type="string">Yes</data>
+            <data name="rma/data/status" xsi:type="string">Pending</data>
+            <constraint name="Enterprise\Rma\Test\Constraint\AssertRmaInGrid" />
+            <constraint name="Enterprise\Rma\Test\Constraint\AssertRmaBundleOnFrontendForCustomer" />
+        </variation>
+    </testCase>
+</config>
