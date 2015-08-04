@@ -121,3 +121,9 @@ patching file downloader/template/settings.phtml
 patching file errors/processor.php
 
 
+2015-08-04 20:29:53 UTC | SUPEE-6482 | CE_1.9.2.0 | v1 |  | Tue Jul 14 14:17:04 2015 +0300 |
+patching file app/code/core/Mage/Api/Model/Server/Adapter/Soap.php
+Hunk #1 succeeded at 209 (offset -24 lines).
+patching file app/code/core/Mage/Catalog/Model/Product/Api/V2.php
+
+
