@@ -33,7 +33,6 @@
 Extension dependencies
 <form action="<?php
     echo $this->url('connectInstallPackagePost')?>" method="post" target="connect_iframe" onsubmit="onSubmit(this)">
-    <input type="hidden" name="install_package_id" value="<?php echo $this->get('package_id'); ?>">
     <input name="form_key" type="hidden" value="<?php echo $this->getFormKey() ?>" />
     <input type="hidden" name="install_package_id" value="<?php echo $this->escapeHtml($this->get('package_id')); ?>">
     <table cellspacing="0" cellpadding="0" width="100%">

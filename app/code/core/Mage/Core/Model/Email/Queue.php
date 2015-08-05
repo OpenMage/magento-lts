@@ -41,9 +41,6 @@
  * @method Mage_Core_Model_Email_Queue setMessageParameters(array $value)
  * @method Mage_Core_Model_Email_Queue setProcessedAt(string $value)
  * @method array getMessageParameters()
- *
- * @category    Mage
- * @package     Mage_Core
  */
 class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
 {

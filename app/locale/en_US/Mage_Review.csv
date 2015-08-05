@@ -10,6 +10,7 @@
 "4 stars","4 stars"
 "5 star","5 star"
 "5 stars","5 stars"
+"<a href=""%1$s"" onclick=""this.target=\'blank\'"">%2$s %3$s</a> <a href=""mailto:%4$s"">(%4$s)</a>","<a href=""%1$s"" onclick=""this.target=\'blank\'"">%2$s %3$s</a> <a href=""mailto:%4$s"">(%4$s)</a>"
 "<a href=""%1$s"" onclick=""this.target=\'blank\'"">%2$s</a> <a href=""mailto:%3$s"">(%3$s)</a>","<a href=""%1$s"" onclick=""this.target=\'blank\'"">%2$s</a> <a href=""mailto:%3$s"">(%3$s)</a>"
 "Add New Review","Add New Review"
 "Add Your Review","Add Your Review"

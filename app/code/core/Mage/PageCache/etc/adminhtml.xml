@@ -30,7 +30,7 @@
         <resources>
             <admin>
                 <children>
-                    <page_cache translate="title" module="pageCache">
+                    <page_cache translate="title" module="pagecache">
                         <title>External Page Cache</title>
                         <sort_order>0</sort_order>
                     </page_cache>
