@@ -163,7 +163,7 @@
                         <title>Update product</title>
                         <acl>catalog/product/update</acl>
                     </update>
-                    <multiUpdate translate="title" module="Mage_Catalog">
+                    <multiUpdate translate="title" module="catalog">
                         <title>Multi update product</title>
                         <acl>catalog/product/update</acl>
                     </multiUpdate>

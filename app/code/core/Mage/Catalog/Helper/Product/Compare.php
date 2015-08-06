@@ -161,7 +161,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
      */
     public function getAddUrl($product)
     {
-        if ($this->_logCondition->isVisitorLogEnabled()) {
+        if ($this->_logCondition->isVisitorLogEnabled() || $this->_customerSession->isLoggedIn()) {
             return $this->_getUrl('catalog/product_compare/add', $this->_getUrlParams($product));
         }
         return '';

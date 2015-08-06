@@ -90,7 +90,6 @@ abstract class AbstractReview extends Block
     public function continueCheckout()
     {
         $this->_rootElement->find($this->continue)->click();
-        $this->waitLoader();
     }
 
     /**
