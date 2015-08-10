@@ -32,7 +32,7 @@
             <data name="salesRule" xsi:type="string">active_sales_rule_for_all_groups</data>
             <data name="configData" xsi:type="string">paypal_express_order_line_items_mark_require_billing_address</data>
             <data name="shippingMethod" xsi:type="string">Flat Rate/Fixed</data>
-            <data name="grandTotal" xsi:type="string">215</data>
+            <data name="grandTotal" xsi:type="string">115</data>
             <data name="status" xsi:type="string">Processing</data>
             <data name="transactionType" xsi:type="string">Authorization</data>
             <data name="ipn" xsi:type="string">-</data>
@@ -68,7 +68,7 @@
             <data name="salesRule" xsi:type="string">active_sales_rule_for_all_groups</data>
             <data name="configData" xsi:type="string">payflow_express_authorization_specificcountry_us</data>
             <data name="shippingMethod" xsi:type="string">-</data>
-            <data name="grandTotal" xsi:type="string">500</data>
+            <data name="grandTotal" xsi:type="string">400</data>
             <data name="status" xsi:type="string">Processing</data>
             <data name="transactionType" xsi:type="string">Authorization</data>
             <data name="ipn" xsi:type="string">-</data>
@@ -106,7 +106,7 @@
             <data name="salesRule" xsi:type="string">-</data>
             <data name="configData" xsi:type="string">payflow_express_sale_specificcountry_gb_line_items</data>
             <data name="shippingMethod" xsi:type="string">Flat Rate/Fixed</data>
-            <data name="grandTotal" xsi:type="string">205</data>
+            <data name="grandTotal" xsi:type="string">105</data>
             <data name="status" xsi:type="string">Processing</data>
             <data name="transactionType" xsi:type="string">Authorization</data>
             <data name="ipn" xsi:type="string">Completed</data>
@@ -124,7 +124,7 @@
             <data name="salesRule" xsi:type="string">-</data>
             <data name="configData" xsi:type="string">paypal_express_sale_specificcountry_us_shipping_options_mark</data>
             <data name="shippingMethod" xsi:type="string">Flat Rate/Fixed</data>
-            <data name="grandTotal" xsi:type="string">315</data>
+            <data name="grandTotal" xsi:type="string">215</data>
             <data name="status" xsi:type="string">Processing</data>
             <data name="transactionType" xsi:type="string">Authorization</data>
             <data name="ipn" xsi:type="string">Completed</data>
@@ -142,7 +142,7 @@
             <data name="salesRule" xsi:type="string">active_sales_rule_for_all_groups</data>
             <data name="configData" xsi:type="string">paypal_express_sale_specificcountry_us_shipping_options_mark</data>
             <data name="shippingMethod" xsi:type="string">-</data>
-            <data name="grandTotal" xsi:type="string">500</data>
+            <data name="grandTotal" xsi:type="string">400</data>
             <data name="status" xsi:type="string">Processing</data>
             <data name="transactionType" xsi:type="string">Authorization</data>
             <data name="ipn" xsi:type="string">Completed</data>

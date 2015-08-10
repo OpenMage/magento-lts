@@ -1,9 +1,0 @@
-THIS IS A METAPACKAGE FOR CORE MAGENTO INSTALLATION
-
-IT DEPENDS ON FOLLOWING PACKAGES:
-
-* Mage_Core_Modules
-* Mage_Core_Adminhtml
-* Interface_Adminhtml_Default
-* Interface_Frontend_Default
-* Interface_Install_Default

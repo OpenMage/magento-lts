@@ -72,4 +72,24 @@ class Mage_Cms_Block_Block extends Mage_Core_Block_Abstract
         }
         return $html;
     }
+
+    /**
+     * Retrieve values of properties that unambiguously identify unique content
+     *
+     * @return array
+     */
+    public function getCacheKeyInfo()
+    {
+        $blockId = $this->getBlockId();
+        if ($blockId) {
+            $result = array(
+                'CMS_BLOCK',
+                $blockId,
+                Mage::app()->getStore()->getCode(),
+            );
+        } else {
+            $result = parent::getCacheKeyInfo();
+        }
+        return $result;
+    }
 }

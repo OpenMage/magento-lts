@@ -82,10 +82,26 @@ class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Ma
                 $helper = Mage::helper('cms');
                 $processor = $helper->getBlockTemplateProcessor();
                 $this->setText($processor->filter($block->getContent()));
+                $this->addModelTags($block);
             }
         }
 
         unset(self::$_widgetUsageMap[$blockHash]);
         return $this;
+    }
+
+    /**
+     * Retrieve values of properties that unambiguously identify unique content
+     *
+     * @return array
+     */
+    public function getCacheKeyInfo()
+    {
+        $result = parent::getCacheKeyInfo();
+        $blockId = $this->getBlockId();
+        if ($blockId) {
+            $result[] = $blockId;
+        }
+        return $result;
     }
 }

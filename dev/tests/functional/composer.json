@@ -20,6 +20,7 @@
         "psr-4": {
             "Magento\\": ["lib/Magento/", "vendor/magento/mtf/Magento/", "testsuites/Magento/"],
             "Mage\\": ["generated/Mage/", "tests/app/Mage/"],
+            "Enterprise\\": ["generated/Enterprise/", "tests/app/Enterprise/"],
             "Test\\": "generated/Test/"
         }
     }
