@@ -85,8 +85,9 @@ class Varien_Image
      * @return void
      */
     public function close() {
-        if ($this->_fileName) {
-            $this->_getAdapter()->destruct();
+        $adapter = $this->_getAdapter();
+        if ($this->_fileName && method_exists($adapter, 'destruct')) {
+            $adapter->destruct();
         }
     }
 
