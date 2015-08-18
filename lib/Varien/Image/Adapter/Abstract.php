@@ -65,6 +65,8 @@ abstract class Varien_Image_Adapter_Abstract
 
     abstract public function open($fileName);
 
+    abstract public function destruct();
+
     abstract public function save($destination=null, $newName=null);
 
     abstract public function display();
