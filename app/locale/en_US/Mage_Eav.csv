@@ -42,7 +42,7 @@
 "Attribute object is undefined","Attribute object is undefined"
 "Attribute set with the ""%s"" name already exists.","Attribute set with the ""%s"" name already exists."
 "Attribute with the same code","Attribute with the same code"
-"Can\'t create table: %s","Can\'t create table: %s"
+"Can't create table: %s","Can't create table: %s"
 "Catalog Input Type for Store Owner","Catalog Input Type for Store Owner"
 "Current module EAV entity is undefined","Current module EAV entity is undefined"
 "Current module pathname is undefined","Current module pathname is undefined"

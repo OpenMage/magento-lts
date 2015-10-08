@@ -26,7 +26,7 @@
 "Payment authorization error.","Payment authorization error."
 "Payment authorization error. Transacion id is empty.","Payment authorization error. Transacion id is empty."
 "Payment error. Order was not found.","Payment error. Order was not found."
-"Payment error. Paid amount doesn\'t match the order amount.","Payment error. Paid amount doesn\'t match the order amount."
+"Payment error. Paid amount doesn't match the order amount.","Payment error. Paid amount doesn't match the order amount."
 "Payment from Applicable Countries","Payment from Applicable Countries"
 "Payment from Specific Countries","Payment from Specific Countries"
 "Please, choose payment method","Please, choose payment method"
