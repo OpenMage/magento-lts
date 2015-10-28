@@ -90,9 +90,9 @@ Checkout.prototype = {
 
     _disableEnableAll: function(element, isDisabled) {
         var descendants = element.descendants();
-        for (var k in descendants) {
-            descendants[k].disabled = isDisabled;
-        }
+        descendants.each(function(descendant) {
+            descendant.disabled = isDisabled;
+        });
         element.disabled = isDisabled;
     },
 
