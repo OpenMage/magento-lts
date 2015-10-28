@@ -216,7 +216,9 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection
     public function addSystemHiddenFilter()
     {
         $field = '(CASE WHEN additional_table.is_system = 1 AND additional_table.is_visible = 0 THEN 1 ELSE 0 END)';
-        return $this->addFieldToFilter($field, 0);
+        $resultCondition = $this->_getConditionSql($field, 0);
+        $this->_select->where($resultCondition);
+        return $this;
     }
 
     /**
@@ -228,7 +230,8 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection
     {
         $field = '(CASE WHEN additional_table.is_system = 1 AND additional_table.is_visible = 0
             AND main_table.attribute_code != "' . self::EAV_CODE_PASSWORD_HASH . '" THEN 1 ELSE 0 END)';
-        $this->addFieldToFilter($field, 0);
+        $resultCondition = $this->_getConditionSql($field, 0);
+        $this->_select->where($resultCondition);
         return $this;
     }
 
