@@ -377,6 +377,7 @@
             </url>
             <security>
                 <use_form_key>1</use_form_key>
+                <extensions_compatibility_mode>1</extensions_compatibility_mode>
             </security>
         </admin>
         <general>
