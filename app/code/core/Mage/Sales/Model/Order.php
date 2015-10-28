@@ -833,14 +833,14 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             */
 
             foreach ($products as $productId) {
-                    $product = Mage::getModel('catalog/product')
-                        ->setStoreId($this->getStoreId())
-                        ->load($productId);
-                }
+                $product = Mage::getModel('catalog/product')
+                    ->setStoreId($this->getStoreId())
+                    ->load($productId);
                 if (!$product->getId() || (!$ignoreSalable && !$product->isSalable())) {
                     return false;
                 }
             }
+        }
 
         return true;
     }
