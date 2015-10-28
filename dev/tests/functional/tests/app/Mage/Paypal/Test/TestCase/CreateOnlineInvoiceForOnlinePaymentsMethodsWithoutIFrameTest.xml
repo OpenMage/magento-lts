@@ -48,6 +48,8 @@
             <data name="verifyData/items_data/0/item_subtotal" xsi:type="string">300.00</data>
             <data name="verifyData/items_data/0/item_row_total" xsi:type="string">300.00</data>
             <data name="status" xsi:type="string">Complete</data>
+            <data name="tag" xsi:type="string">payment_method:paypal</data>
+            <data name="tag" xsi:type="string">paypal:payments_pro</data>
             <constraint name="Mage\Sales\Test\Constraint\AssertInvoiceWithShipmentSuccessMessage" />
             <constraint name="Mage\Sales\Test\Constraint\AssertInvoiceInInvoicesGrid" />
             <constraint name="Mage\Sales\Test\Constraint\AssertInvoiceInInvoicesTab" />
@@ -77,6 +79,8 @@
             <data name="verifyData/items_data/0/item_subtotal" xsi:type="string">15.00</data>
             <data name="verifyData/items_data/0/item_row_total" xsi:type="string">15.00</data>
             <data name="status" xsi:type="string">Complete</data>
+            <data name="tag" xsi:type="string">payment_method:paypal</data>
+            <data name="tag" xsi:type="string">paypal:payflow_pro</data>
             <constraint name="Mage\Sales\Test\Constraint\AssertInvoiceWithShipmentSuccessMessage" />
             <constraint name="Mage\Sales\Test\Constraint\AssertInvoiceInInvoicesGrid" />
             <constraint name="Mage\Sales\Test\Constraint\AssertInvoiceInInvoicesTab" />

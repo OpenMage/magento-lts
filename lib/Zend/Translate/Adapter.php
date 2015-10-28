@@ -119,7 +119,9 @@ abstract class Zend_Translate_Adapter {
     /**
      * Generates the adapter
      *
-     * @param  array|Zend_Config $options Translation options for this adapter
+     * @param  string|array|Zend_Config $options Translation options for this adapter
+     * @param  string|array [$content]
+     * @param  string|Zend_Locale [$locale]
      * @throws Zend_Translate_Exception
      * @return void
      */

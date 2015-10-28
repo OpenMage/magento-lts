@@ -28,8 +28,10 @@
 <mapping strict="1">
     <fields>
         <email>
-            <selector>[name='username']</selector>
+            <selector>[type="email"]</selector>
         </email>
-        <password />
+        <password>
+            <selector>[type="password"]</selector>
+        </password>
     </fields>
 </mapping>

@@ -93,9 +93,6 @@ class Curl extends Conditions implements SalesRuleInterface
             'aggregator' => 'all',
             'value' => '1',
         ],
-        'Customer Segment' => [
-            'type' => 'enterprise_customersegment/segment_condition_segment',
-        ],
         'Category' => [
             'type' => 'salesrule/rule_condition_product',
             'attribute' => 'category_ids',

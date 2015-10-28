@@ -41,19 +41,6 @@ class Page extends AbstractGenerate
     protected $configData;
 
     /**
-     * @constructor
-     * @param \Magento\Mtf\ObjectManagerInterface $objectManager
-     * @param \Magento\Mtf\Config\DataInterface $configData
-     */
-    public function __construct(
-        \Magento\Mtf\ObjectManagerInterface $objectManager,
-        \Magento\Mtf\Config\DataInterface $configData
-    ) {
-        parent::__construct($objectManager);
-        $this->configData = $configData;
-    }
-
-    /**
      * Launch generation of all page classes.
      *
      * @return void

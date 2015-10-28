@@ -39,6 +39,7 @@
             <data name="payment/cc" xsi:type="string">visa_3d_secure_positive</data>
             <data name="grandTotal" xsi:type="string">105.00</data>
             <data name="positiveCase" xsi:type="boolean">true</data>
+            <data name="tag" xsi:type="string">payment_method:authorize_net</data>
             <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" />
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid" />
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" />
@@ -55,6 +56,7 @@
             <data name="payment/cc" xsi:type="string">visa_3d_secure_negative</data>
             <data name="grandTotal" xsi:type="string">105.00</data>
             <data name="positiveCase" xsi:type="boolean">false</data>
+            <data name="tag" xsi:type="string">payment_method:authorize_net</data>
             <constraint name="Mage\Payment\Test\Constraint\Assert3DSecureVerificationFailed" />
         </variation>
     </testCase>

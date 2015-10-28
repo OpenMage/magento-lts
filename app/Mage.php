@@ -171,7 +171,7 @@ final class Mage
             'major'     => '1',
             'minor'     => '9',
             'revision'  => '2',
-            'patch'     => '1',
+            'patch'     => '2',
             'stability' => '',
             'number'    => '',
         );

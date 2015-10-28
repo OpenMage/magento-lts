@@ -40,8 +40,8 @@
             <data name="payment/method" xsi:type="string">payflow_link</data>
             <data name="payment/cc" xsi:type="string">for_iframe</data>
             <data name="payment/iframe" xsi:type="string">yes</data>
-            <data name="data/invoice/0/form_data/comment_text" xsi:type="string">comments for invoice</data>
             <data name="data/invoice/0/form_data/do_shipment" xsi:type="string">Yes</data>
+            <data name="data/invoice/0/form_data/comment_text" xsi:type="string">comments for invoice</data>
             <data name="data/invoice/0/form_data/capture_case" xsi:type="string">Capture Offline</data>
             <data name="verifyData/grandTotal/invoices/0/from" xsi:type="string">315.00</data>
             <data name="verifyData/grandTotal/invoices/0/to" xsi:type="string">315.00</data>
@@ -50,7 +50,8 @@
             <data name="verifyData/item_subtotal" xsi:type="string">300.00</data>
             <data name="verifyData/item_row_total" xsi:type="string">300.00</data>
             <data name="status" xsi:type="string">Complete</data>
-            <data name="issue" xsi:type="string">Unskip after done TOOL-4060</data>
+            <data name="tag" xsi:type="string">payment_method:paypal</data>
+            <data name="tag" xsi:type="string">paypal:payflow_link</data>
             <constraint name="Mage\Sales\Test\Constraint\AssertInvoiceWithShipmentSuccessMessage" />
             <constraint name="Mage\Sales\Test\Constraint\AssertInvoiceInInvoicesGrid" />
             <constraint name="Mage\Sales\Test\Constraint\AssertInvoiceInInvoicesTab" />
@@ -82,11 +83,11 @@
             <data name="verifyData/item_subtotal" xsi:type="string">100.00</data>
             <data name="verifyData/item_row_total" xsi:type="string">100.00</data>
             <data name="status" xsi:type="string">Processing</data>
-            <data name="issue" xsi:type="string">Unskip after done TOOL-4060</data>
+            <data name="tag" xsi:type="string">payment_method:paypal</data>
+            <data name="tag" xsi:type="string">paypal:advanced</data>
             <constraint name="Mage\Sales\Test\Constraint\AssertInvoiceSuccessCreateMessage" />
             <constraint name="Mage\Sales\Test\Constraint\AssertInvoiceInInvoicesGrid" />
             <constraint name="Mage\Sales\Test\Constraint\AssertInvoiceInInvoicesTab" />
-            <constraint name="Mage\Sales\Test\Constraint\AssertNoInvoiceButton" />
             <constraint name="Mage\Sales\Test\Constraint\AssertInvoiceItems" />
             <constraint name="Mage\Sales\Test\Constraint\AssertInvoiceItemsOnFrontend" />
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect" />
@@ -104,6 +105,7 @@
             <data name="payment/method" xsi:type="string">payflow_advanced</data>
             <data name="payment/cc" xsi:type="string">for_iframe</data>
             <data name="payment/iframe" xsi:type="string">yes</data>
+            <data name="action/invoice/0" xsi:type="boolean">false</data>
             <data name="data/invoice/0/form_data/comment_text" xsi:type="string">comments for invoice</data>
             <data name="data/invoice/0/form_data/capture_case" xsi:type="string">Capture Offline</data>
             <data name="verifyData/grandTotal/invoices/0/from" xsi:type="string">315.00</data>
@@ -111,9 +113,9 @@
             <data name="verifyData/item_price" xsi:type="string">100.00</data>
             <data name="verifyData/item_subtotal" xsi:type="string">300.00</data>
             <data name="verifyData/item_row_total" xsi:type="string">300.00</data>
-            <data name="status" xsi:type="string">Complete</data>
-            <data name="issue" xsi:type="string">Unskip after done TOOL-4060</data>
-            <constraint name="Mage\Sales\Test\Constraint\AssertInvoiceSuccessCreateMessage" />
+            <data name="status" xsi:type="string">Processing</data>
+            <data name="tag" xsi:type="string">payment_method:paypal</data>
+            <data name="tag" xsi:type="string">paypal:advanced</data>
             <constraint name="Mage\Sales\Test\Constraint\AssertInvoiceInInvoicesGrid" />
             <constraint name="Mage\Sales\Test\Constraint\AssertInvoiceInInvoicesTab" />
             <constraint name="Mage\Sales\Test\Constraint\AssertNoInvoiceButton" />
@@ -135,15 +137,18 @@
             <data name="payment/cc" xsi:type="string">hosted_pro</data>
             <data name="payment/iframe" xsi:type="string">yes</data>
             <data name="data/invoice/0/form_data/comment_text" xsi:type="string">comments for invoice</data>
+            <data name="data/invoice/0/form_data/do_shipment" xsi:type="string">Yes</data>
             <data name="data/invoice/0/form_data/capture_case" xsi:type="string">Capture Offline</data>
             <data name="verifyData/grandTotal/invoices/0/from" xsi:type="string">315.00</data>
             <data name="verifyData/grandTotal/invoices/0/to" xsi:type="string">315.00</data>
+            <data name="verifyData/item_status" xsi:type="string">Shipped</data>
             <data name="verifyData/item_price" xsi:type="string">100.00</data>
             <data name="verifyData/item_subtotal" xsi:type="string">300.00</data>
             <data name="verifyData/item_row_total" xsi:type="string">300.00</data>
             <data name="status" xsi:type="string">Complete</data>
-            <data name="issue" xsi:type="string">Unskip after done TOOL-4060</data>
-            <constraint name="Mage\Sales\Test\Constraint\AssertInvoiceSuccessCreateMessage" />
+            <data name="tag" xsi:type="string">payment_method:paypal</data>
+            <data name="tag" xsi:type="string">paypal:hosted_solution</data>
+            <constraint name="Mage\Sales\Test\Constraint\AssertInvoiceWithShipmentSuccessMessage" />
             <constraint name="Mage\Sales\Test\Constraint\AssertInvoiceInInvoicesGrid" />
             <constraint name="Mage\Sales\Test\Constraint\AssertInvoiceInInvoicesTab" />
             <constraint name="Mage\Sales\Test\Constraint\AssertNoInvoiceButton" />
@@ -164,6 +169,7 @@
             <data name="payment/method" xsi:type="string">hosted_pro</data>
             <data name="payment/cc" xsi:type="string">hosted_pro</data>
             <data name="payment/iframe" xsi:type="string">yes</data>
+            <data name="action/invoice/0" xsi:type="boolean">false</data>
             <data name="data/invoice/0/form_data/comment_text" xsi:type="string">comments for invoice</data>
             <data name="data/invoice/0/form_data/capture_case" xsi:type="string">Capture Offline</data>
             <data name="verifyData/grandTotal/invoices/0/from" xsi:type="string">315.00</data>
@@ -171,9 +177,9 @@
             <data name="verifyData/item_price" xsi:type="string">100.00</data>
             <data name="verifyData/item_subtotal" xsi:type="string">300.00</data>
             <data name="verifyData/item_row_total" xsi:type="string">300.00</data>
-            <data name="status" xsi:type="string">Complete</data>
-            <data name="issue" xsi:type="string">Unskip after done TOOL-4060</data>
-            <constraint name="Mage\Sales\Test\Constraint\AssertInvoiceSuccessCreateMessage" />
+            <data name="status" xsi:type="string">Processing</data>
+            <data name="tag" xsi:type="string">payment_method:paypal</data>
+            <data name="tag" xsi:type="string">paypal:hosted_solution</data>
             <constraint name="Mage\Sales\Test\Constraint\AssertInvoiceInInvoicesGrid" />
             <constraint name="Mage\Sales\Test\Constraint\AssertInvoiceInInvoicesTab" />
             <constraint name="Mage\Sales\Test\Constraint\AssertNoInvoiceButton" />

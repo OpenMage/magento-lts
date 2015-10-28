@@ -26,197 +26,203 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/Magento/Mtf/Repository/etc/repository.xsd">
-    <repository class="Mage\Core\Test\Repository\ConfigData">
-        <dataset name="payflow_express_authorization_line_items">
-            <field name="payment/payflow_link_payflow_link/partner" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string">PayPal</item>
-            </field>
-            <field name="payment/payflow_link_payflow_link/user" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/payflow_link_payflow_link/pwd" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/payflow_link_payflow_link/vendor" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/payflow_link_payflow_link/sandbox_flag" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/payflow_link_required/enable_payflow_link" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/payflow_link_express_checkout/business_account" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/payflow_link_express_checkout/api_username" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/payflow_link_express_checkout/api_password" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/payflow_link_express_checkout/api_signature" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/payflow_link_express_checkout/sandbox_flag" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/payflow_link_required/enable_express_checkout" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/settings_payflow_link_express_checkout_advanced/line_items_enabled" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/settings_payflow_link_express_checkout_advanced/verify_peer" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-        </dataset>
-        <dataset name="payflow_express_authorization_line_items_rollback">
-            <field name="payment/payflow_link_required/enable_payflow_link" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/payflow_link_required/enable_express_checkout" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/settings_payflow_link_express_checkout_advanced/line_items_enabled" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-        </dataset>
-        <dataset name="payflow_express_authorization_specificcountry_us">
-            <field name="payment/payflow_link_payflow_link/partner" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string">PayPal</item>
-            </field>
-            <field name="payment/payflow_link_payflow_link/user" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/payflow_link_payflow_link/pwd" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/payflow_link_payflow_link/vendor" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/payflow_link_payflow_link/sandbox_flag" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/payflow_link_required/enable_payflow_link" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/payflow_link_express_checkout/business_account" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/payflow_link_express_checkout/api_username" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/payflow_link_express_checkout/api_password" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/payflow_link_express_checkout/api_signature" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/payflow_link_express_checkout/sandbox_flag" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/payflow_link_required/enable_express_checkout" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/settings_payflow_link_express_checkout_advanced/allowspecific" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Specific Countries</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/settings_payflow_link_express_checkout_advanced/specificcountry" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="array">
+	<repository class="Mage\Core\Test\Repository\ConfigData">
+		<dataset name="payflow_express_authorization_line_items">
+			<field name="payment/payflow_link_payflow_link/partner" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string">PayPal</item>
+			</field>
+			<field name="payment/payflow_link_payflow_link/user" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/payflow_link_payflow_link/pwd" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/payflow_link_payflow_link/vendor" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/payflow_link_payflow_link/sandbox_flag" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/payflow_link_required/enable_payflow_link" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/payflow_link_express_checkout/business_account" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/payflow_link_express_checkout/api_username" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/payflow_link_express_checkout/api_password" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/payflow_link_express_checkout/api_signature" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/payflow_link_express_checkout/sandbox_flag" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/payflow_link_required/enable_express_checkout" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/settings_payflow_link_express_checkout_advanced/line_items_enabled" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/settings_payflow_link_express_checkout_advanced/transfer_shipping_options" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string">0</item>
+			</field>
+			<field name="payment/settings_payflow_link_express_checkout_advanced/verify_peer" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+		</dataset>
+		<dataset name="payflow_express_authorization_line_items_rollback">
+			<field name="payment/payflow_link_required/enable_payflow_link" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/payflow_link_required/enable_express_checkout" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/settings_payflow_link_express_checkout_advanced/line_items_enabled" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+		</dataset>
+		<dataset name="payflow_express_authorization_specificcountry_us">
+			<field name="payment/payflow_link_payflow_link/partner" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string">PayPal</item>
+			</field>
+			<field name="payment/payflow_link_payflow_link/user" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/payflow_link_payflow_link/pwd" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/payflow_link_payflow_link/vendor" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/payflow_link_payflow_link/sandbox_flag" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/payflow_link_required/enable_payflow_link" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/payflow_link_express_checkout/business_account" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/payflow_link_express_checkout/api_username" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/payflow_link_express_checkout/api_password" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/payflow_link_express_checkout/api_signature" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/payflow_link_express_checkout/sandbox_flag" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/payflow_link_required/enable_express_checkout" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/settings_payflow_link_express_checkout_advanced/allowspecific" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Specific Countries</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/settings_payflow_link_express_checkout_advanced/specificcountry" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="array">
                     <item name="United States" xsi:type="string">US</item>
                 </item>
             </field>
@@ -529,1307 +535,1319 @@
                 <item name="value" xsi:type="array">
                     <item name="United States" xsi:type="string">US</item>
                 </item>
-            </field>
-            <field name="payment/settings_ec_advanced/transfer_shipping_options" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/settings_ec_advanced/solution_type" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string">Mark</item>
-            </field>
-            <field name="payment/settings_ec_advanced/verify_peer" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-        </dataset>
-        <dataset name="paypal_express_sale_specificcountry_us_shipping_options_mark_rollback">
-            <field name="payment/express_checkout_required/enable_express_checkout" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/settings_ec_advanced/allowspecific" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">All Allowed Countries</item>
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/settings_ec_advanced/transfer_shipping_options" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/settings_ec_advanced/solution_type" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string">Mark</item>
-            </field>
-        </dataset>
-        <dataset name="paypal_express_order_line_items_mark_require_billing_address">
-            <field name="payment/express_checkout_required_express_checkout/business_account" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/express_checkout_required_express_checkout/api_authentication" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">API Signature</item>
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/express_checkout_required_express_checkout/api_username" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/express_checkout_required_express_checkout/api_password" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/express_checkout_required_express_checkout/api_signature" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/express_checkout_required_express_checkout/sandbox_flag" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/express_checkout_required_express_checkout/use_proxy" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/express_checkout_required/enable_express_checkout" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/settings_ec_advanced/line_items_enabled" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/settings_ec_advanced/require_billing_address" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/settings_ec_advanced/verify_peer" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-        </dataset>
-        <dataset name="paypal_express_order_line_items_mark_require_billing_address_rollback">
-            <field name="payment/express_checkout_required/enable_express_checkout" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/settings_ec_advanced/line_items_enabled" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/settings_ec_advanced/require_billing_address" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-        </dataset>
-        <dataset name="paypal_standard">
-            <field name="payment/wps_express_checkout_required_express_checkout/business_account" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/wps_express_checkout_required_express_checkout/api_username" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/wps_express_checkout_required_express_checkout/api_password" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/wps_express_checkout_required_express_checkout/api_signature" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/wps_express_checkout_required_express_checkout/sandbox_flag" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/wps_express_checkout_required/enable_wps_express_checkout" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/settings_wps_express_advanced/debug" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/settings_wps_express_advanced/verify_peer" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/express_checkout_required/enable_express_checkout" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-        </dataset>
-        <dataset name="paypal_standard_rollback">
-            <field name="payment/wps_express_checkout_required/enable_wps_express_checkout" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/express_checkout_required/enable_express_checkout" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string" />
-            </field>
-        </dataset>
-        <dataset name="paypal_payments_pro">
-            <field name="payment/wpp_and_express_checkout/business_account" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/wpp_and_express_checkout/api_username" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/wpp_and_express_checkout/api_password" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/wpp_and_express_checkout/api_signature" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/wpp_and_express_checkout/sandbox_flag" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/wpp_required_settings/enable_wpp" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/wpp_required_settings/enable_express_checkout_bml" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/wpp_settings/payment_action" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Authorization</item>
-                <item name="value" xsi:type="string">Authorization</item>
-            </field>
-            <field name="payment/wpp_settings_advanced/debug" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/wpp_settings_advanced/verify_peer" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-        </dataset>
-        <dataset name="paypal_payments_pro_rollback">
-            <field name="payment/wpp_required_settings/enable_wpp" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/wpp_required_settings/enable_express_checkout_bml" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-        </dataset>
-        <dataset name="paypal_payments_pro_action_sale">
-            <field name="payment/wpp_and_express_checkout/business_account" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/wpp_and_express_checkout/api_username" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/wpp_and_express_checkout/api_password" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/wpp_and_express_checkout/api_signature" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/wpp_and_express_checkout/sandbox_flag" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/wpp_required_settings/enable_wpp" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/wpp_required_settings/enable_express_checkout_bml" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/wpp_settings/payment_action" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Sale</item>
-                <item name="value" xsi:type="string">Sale</item>
-            </field>
-            <field name="payment/wpp_settings_advanced/debug" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/wpp_settings_advanced/verify_peer" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-        </dataset>
-        <dataset name="paypal_payments_pro_action_sale_rollback">
-            <field name="payment/wpp_required_settings/enable_wpp" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/wpp_required_settings/enable_express_checkout_bml" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-        </dataset>
-        <dataset name="paypal_payflow_pro">
-            <field name="payment/paypal_payflow_api_settings/business_account" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/paypal_payflow_api_settings/partner" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string">PayPal</item>
-            </field>
-            <field name="payment/paypal_payflow_api_settings/user" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/paypal_payflow_api_settings/vendor" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/paypal_payflow_api_settings/pwd" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/paypal_payflow_api_settings/sandbox_flag" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/paypal_payflow_api_settings/use_proxy" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/paypal_payflow_required/enable_paypal_payflow" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/paypal_payflow_required/enable_express_checkout_bml_uk" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/settings_paypal_payflow/payment_action" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Authorization</item>
-                <item name="value" xsi:type="string">Authorization</item>
-            </field>
-            <field name="payment/settings_paypal_payflow_advanced/allowspecific" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">All Allowed Countries</item>
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/settings_paypal_payflow_advanced/debug" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/settings_paypal_payflow_advanced/verify_peer" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-        </dataset>
-        <dataset name="paypal_payflow_pro_rollback">
-            <field name="payment/paypal_payflow_required/enable_paypal_payflow" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/paypal_payflow_required/enable_express_checkout_bml_uk" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-        </dataset>
-        <dataset name="paypal_payflow_pro_action_sale">
-            <field name="payment/paypal_payflow_api_settings/business_account" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/paypal_payflow_api_settings/partner" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string">PayPal</item>
-            </field>
-            <field name="payment/paypal_payflow_api_settings/user" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/paypal_payflow_api_settings/vendor" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/paypal_payflow_api_settings/pwd" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/paypal_payflow_api_settings/sandbox_flag" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/paypal_payflow_required/enable_paypal_payflow" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/paypal_payflow_required/enable_express_checkout_bml_uk" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/settings_paypal_payflow/payment_action" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Sale</item>
-                <item name="value" xsi:type="string">Sale</item>
-            </field>
-            <field name="payment/settings_paypal_payflow_advanced/debug" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/settings_paypal_payflow_advanced/verify_peer" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-        </dataset>
-        <dataset name="paypal_payflow_pro_action_sale_rollback">
-            <field name="payment/paypal_payflow_required/enable_paypal_payflow" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/paypal_payflow_required/enable_express_checkout_bml_uk" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-        </dataset>
-        <dataset name="paypal_payflow_link">
-            <field name="payment/payflow_link_payflow_link/partner" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string">PayPal</item>
-            </field>
-            <field name="payment/payflow_link_payflow_link/user" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/payflow_link_payflow_link/pwd" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/payflow_link_payflow_link/vendor" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/payflow_link_payflow_link/sandbox_flag" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/payflow_link_required/enable_payflow_link" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/settings_payflow_link/payment_action" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Authorization</item>
-                <item name="value" xsi:type="string">Authorization</item>
-            </field>
-            <field name="payment/settings_payflow_link_advanced/debug" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/settings_payflow_link_advanced/verify_peer" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-        </dataset>
-        <dataset name="paypal_payflow_link_rollback">
-            <field name="payment/payflow_link_required/enable_payflow_link" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-        </dataset>
-        <dataset name="paypal_payflow_link_action_sale">
-            <field name="payment/payflow_link_payflow_link/partner" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string">PayPal</item>
-            </field>
-            <field name="payment/payflow_link_payflow_link/user" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/payflow_link_payflow_link/pwd" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/payflow_link_payflow_link/vendor" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/payflow_link_payflow_link/sandbox_flag" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/payflow_link_required/enable_payflow_link" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/settings_payflow_link/payment_action" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Sale</item>
-                <item name="value" xsi:type="string">Sale</item>
-            </field>
-            <field name="payment/settings_payflow_link_advanced/debug" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/settings_payflow_link_advanced/verify_peer" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-        </dataset>
-        <dataset name="paypal_payflow_link_action_sale_rollback">
-            <field name="payment/payflow_link_required/enable_payflow_link" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-        </dataset>
-        <dataset name="paypal_advanced">
-            <field name="payment/payments_advanced/partner" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string">PayPal</item>
-            </field>
-            <field name="payment/payments_advanced/vendor" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/payments_advanced/user" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/payments_advanced/pwd" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/payments_advanced/sandbox_flag" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/express/business_account" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/express/api_username" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/express/api_password" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/express/api_signature" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/express/sandbox_flag" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/required_settings/enable_payflow_advanced" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/required_settings/enable_express_checkout_bml" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/settings_payments_advanced/title" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string">Credit Card (PayPal Advanced)</item>
-            </field>
-            <field name="payment/settings_payments_advanced/payment_action" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Authorization</item>
-                <item name="value" xsi:type="string">Authorization</item>
-            </field>
-            <field name="payment/settings_payments_advanced_advanced/debug" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/settings_payments_advanced_advanced/verify_peer" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/settings_express_checkout/payment_action" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Authorization</item>
-                <item name="value" xsi:type="string">Authorization</item>
-            </field>
-            <field name="payment/settings_express_checkout_advanced/debug" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/settings_express_checkout_advanced/verify_peer" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-        </dataset>
-        <dataset name="paypal_advanced_rollback">
-            <field name="payment/required_settings/enable_payflow_advanced" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/required_settings/enable_express_checkout_bml" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-        </dataset>
-        <dataset name="paypal_advanced_action_sale">
-            <field name="payment/payments_advanced/partner" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string">PayPal</item>
-            </field>
-            <field name="payment/payments_advanced/vendor" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/payments_advanced/user" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/payments_advanced/pwd" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/payments_advanced/sandbox_flag" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/express/business_account" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/express/api_username" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/express/api_password" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/express/api_signature" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/express/sandbox_flag" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/required_settings/enable_payflow_advanced" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/required_settings/enable_express_checkout_bml" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/settings_payments_advanced/title" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string">Credit Card (PayPal Advanced)</item>
-            </field>
-            <field name="payment/settings_payments_advanced/payment_action" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Sale</item>
-                <item name="value" xsi:type="string">Sale</item>
-            </field>
-            <field name="payment/settings_payments_advanced_advanced/debug" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/settings_payments_advanced_advanced/verify_peer" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/settings_express_checkout/payment_action" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Authorization</item>
-                <item name="value" xsi:type="string">Authorization</item>
-            </field>
-            <field name="payment/settings_express_checkout_advanced/debug" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/settings_express_checkout_advanced/verify_peer" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-        </dataset>
-        <dataset name="paypal_advanced_action_sale_rollback">
-            <field name="payment/required_settings/enable_payflow_advanced" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/required_settings/enable_express_checkout_bml" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-        </dataset>
-        <dataset name="paypal_hosted_solution">
-            <field name="payment/account/merchant_country" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">United Kingdom</item>
-                <item name="value" xsi:type="string">GB</item>
-            </field>
-            <field name="payment/pphs_required_settings_pphs/business_account" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/pphs_required_settings_pphs/api_username" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/pphs_required_settings_pphs/api_password" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/pphs_required_settings_pphs/api_signature" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/pphs_required_settings_pphs/sandbox_flag" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/pphs_required_settings/pphs_enable" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/pphs_settings/payment_action" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Authorization</item>
-                <item name="value" xsi:type="string">Authorization</item>
-            </field>
-            <field name="payment/pphs_settings_advanced/debug" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/pphs_settings_advanced/verify_peer" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-        </dataset>
-        <dataset name="paypal_hosted_solution_rollback">
-            <field name="payment/account/merchant_country" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">United States</item>
-                <item name="value" xsi:type="string">US</item>
-            </field>
-            <field name="payment/pphs_required_settings/pphs_enable" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-        </dataset>
-        <dataset name="paypal_hosted_solution_action_sale">
-            <field name="payment/account/merchant_country" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">United Kingdom</item>
-                <item name="value" xsi:type="string">GB</item>
-            </field>
-            <field name="payment/pphs_required_settings_pphs/business_account" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/pphs_required_settings_pphs/api_username" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/pphs_required_settings_pphs/api_password" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/pphs_required_settings_pphs/api_signature" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/pphs_required_settings_pphs/sandbox_flag" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/pphs_required_settings/pphs_enable" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/pphs_settings/payment_action" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Sale</item>
-                <item name="value" xsi:type="string">Sale</item>
-            </field>
-            <field name="payment/pphs_settings_advanced/debug" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/pphs_settings_advanced/verify_peer" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-        </dataset>
-        <dataset name="paypal_hosted_solution_action_sale_rollback">
-            <field name="payment/account/merchant_country" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">United States</item>
-                <item name="value" xsi:type="string">US</item>
-            </field>
-            <field name="payment/pphs_required_settings/pphs_enable" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-        </dataset>
-        <dataset name="paypal_payments_pro_3d_secure">
-            <field name="payment/wpp_and_express_checkout/business_account" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/wpp_and_express_checkout/api_username" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/wpp_and_express_checkout/api_password" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/wpp_and_express_checkout/api_signature" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/wpp_and_express_checkout/sandbox_flag" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/wpp_required_settings/enable_wpp" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/wpp_required_settings/enable_express_checkout_bml" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/wpp_settings/payment_action" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Authorization</item>
-                <item name="value" xsi:type="string">Authorization</item>
-            </field>
-            <field name="payment/wpp_settings_advanced/debug" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/wpp_settings_advanced/verify_peer" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/wpp_settings_advanced/useccv" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/wpp_settings_advanced/centinel" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/express_checkout_required/enable_express_checkout" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/wpp_settings_express_checkout_advanced/verify_peer" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-        </dataset>
-        <dataset name="paypal_payments_pro_3d_secure_rollback">
-            <field name="payment/wpp_required_settings/enable_wpp" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/wpp_required_settings/enable_express_checkout_bml" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/wpp_settings_advanced/centinel" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/express_checkout_required/enable_express_checkout" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/wpp_settings_advanced/useccv" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-        </dataset>
-        <dataset name="paypal_payflow_pro_3d_secure">
-            <field name="payment/paypal_payflow_api_settings/business_account" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/paypal_payflow_api_settings/partner" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string">PayPal</item>
-            </field>
-            <field name="payment/paypal_payflow_api_settings/user" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/paypal_payflow_api_settings/vendor" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/paypal_payflow_api_settings/pwd" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string" />
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/paypal_payflow_api_settings/sandbox_flag" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/paypal_payflow_api_settings/use_proxy" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/paypal_payflow_required/enable_paypal_payflow" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/paypal_payflow_required/enable_express_checkout_bml_uk" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/settings_paypal_payflow/payment_action" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Authorization</item>
-                <item name="value" xsi:type="string">Authorization</item>
-            </field>
-            <field name="payment/settings_paypal_payflow_advanced/allowspecific" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">All Allowed Countries</item>
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/settings_paypal_payflow_advanced/debug" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/settings_paypal_payflow_advanced/verify_peer" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/settings_paypal_payflow_advanced/centinel" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/settings_paypal_payflow_advanced/useccv" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-        </dataset>
-        <dataset name="paypal_payflow_pro_3d_secure_rollback">
-            <field name="payment/paypal_payflow_required/enable_paypal_payflow" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/paypal_payflow_required/enable_express_checkout_bml_uk" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-            <field name="payment/settings_paypal_payflow_advanced/centinel" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string" />
-            </field>
-        </dataset>
-    </repository>
+			</field>
+			<field name="payment/settings_ec_advanced/transfer_shipping_options" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/settings_ec_advanced/solution_type" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string">Mark</item>
+			</field>
+			<field name="payment/settings_ec_advanced/verify_peer" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+		</dataset>
+		<dataset name="paypal_express_sale_specificcountry_us_shipping_options_mark_rollback">
+			<field name="payment/express_checkout_required/enable_express_checkout" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/settings_ec_advanced/allowspecific" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">All Allowed Countries</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/settings_ec_advanced/transfer_shipping_options" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/settings_ec_advanced/solution_type" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string">Mark</item>
+			</field>
+		</dataset>
+		<dataset name="paypal_express_order_line_items_mark_require_billing_address">
+			<field name="payment/express_checkout_required_express_checkout/business_account" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/express_checkout_required_express_checkout/api_authentication" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">API Signature</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/express_checkout_required_express_checkout/api_username" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/express_checkout_required_express_checkout/api_password" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/express_checkout_required_express_checkout/api_signature" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/express_checkout_required_express_checkout/sandbox_flag" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/express_checkout_required_express_checkout/use_proxy" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/express_checkout_required/enable_express_checkout" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/settings_ec_advanced/line_items_enabled" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/settings_ec_advanced/require_billing_address" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/settings_ec_advanced/verify_peer" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/settings_ec/payment_action" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Authorization</item>
+				<item name="value" xsi:type="string">Authorization</item>
+			</field>
+			<field name="payment/settings_payflow_link_express_checkout_advanced/transfer_shipping_options" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string">0</item>
+			</field>
+		</dataset>
+		<dataset name="paypal_express_order_line_items_mark_require_billing_address_rollback">
+			<field name="payment/express_checkout_required/enable_express_checkout" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/settings_ec_advanced/line_items_enabled" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/settings_ec_advanced/require_billing_address" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+		</dataset>
+		<dataset name="paypal_standard">
+			<field name="payment/wps_express_checkout_required_express_checkout/business_account" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/wps_express_checkout_required_express_checkout/api_username" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/wps_express_checkout_required_express_checkout/api_password" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/wps_express_checkout_required_express_checkout/api_signature" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/wps_express_checkout_required_express_checkout/sandbox_flag" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/wps_express_checkout_required/enable_wps_express_checkout" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/settings_wps_express_advanced/debug" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/settings_wps_express_advanced/verify_peer" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/express_checkout_required/enable_express_checkout" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+		</dataset>
+		<dataset name="paypal_standard_rollback">
+			<field name="payment/wps_express_checkout_required/enable_wps_express_checkout" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/express_checkout_required/enable_express_checkout" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string" />
+			</field>
+		</dataset>
+		<dataset name="paypal_payments_pro">
+			<field name="payment/wpp_and_express_checkout/business_account" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/wpp_and_express_checkout/api_username" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/wpp_and_express_checkout/api_password" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/wpp_and_express_checkout/api_signature" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/wpp_and_express_checkout/sandbox_flag" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/wpp_required_settings/enable_wpp" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/wpp_required_settings/enable_express_checkout_bml" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/wpp_settings/payment_action" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Authorization</item>
+				<item name="value" xsi:type="string">Authorization</item>
+			</field>
+			<field name="payment/wpp_settings_advanced/debug" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/wpp_settings_advanced/verify_peer" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+		</dataset>
+		<dataset name="paypal_payments_pro_rollback">
+			<field name="payment/wpp_required_settings/enable_wpp" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/wpp_required_settings/enable_express_checkout_bml" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+		</dataset>
+		<dataset name="paypal_payments_pro_action_sale">
+			<field name="payment/wpp_and_express_checkout/business_account" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/wpp_and_express_checkout/api_username" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/wpp_and_express_checkout/api_password" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/wpp_and_express_checkout/api_signature" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/wpp_and_express_checkout/sandbox_flag" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/wpp_required_settings/enable_wpp" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/wpp_required_settings/enable_express_checkout_bml" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/wpp_settings/payment_action" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Sale</item>
+				<item name="value" xsi:type="string">Sale</item>
+			</field>
+			<field name="payment/wpp_settings_advanced/debug" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/wpp_settings_advanced/verify_peer" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+		</dataset>
+		<dataset name="paypal_payments_pro_action_sale_rollback">
+			<field name="payment/wpp_required_settings/enable_wpp" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/wpp_required_settings/enable_express_checkout_bml" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+		</dataset>
+		<dataset name="paypal_payflow_pro">
+			<field name="payment/paypal_payflow_api_settings/business_account" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/paypal_payflow_api_settings/partner" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string">PayPal</item>
+			</field>
+			<field name="payment/paypal_payflow_api_settings/user" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/paypal_payflow_api_settings/vendor" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/paypal_payflow_api_settings/pwd" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/paypal_payflow_api_settings/sandbox_flag" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/paypal_payflow_api_settings/use_proxy" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/paypal_payflow_required/enable_paypal_payflow" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/paypal_payflow_required/enable_express_checkout_bml_uk" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/settings_paypal_payflow/payment_action" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Authorization</item>
+				<item name="value" xsi:type="string">Authorization</item>
+			</field>
+			<field name="payment/settings_paypal_payflow_advanced/allowspecific" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">All Allowed Countries</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/settings_paypal_payflow_advanced/debug" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/settings_paypal_payflow_advanced/verify_peer" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+		</dataset>
+		<dataset name="paypal_payflow_pro_rollback">
+			<field name="payment/paypal_payflow_required/enable_paypal_payflow" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/paypal_payflow_required/enable_express_checkout_bml_uk" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+		</dataset>
+		<dataset name="paypal_payflow_pro_action_sale">
+			<field name="payment/paypal_payflow_api_settings/business_account" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/paypal_payflow_api_settings/partner" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string">PayPal</item>
+			</field>
+			<field name="payment/paypal_payflow_api_settings/user" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/paypal_payflow_api_settings/vendor" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/paypal_payflow_api_settings/pwd" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/paypal_payflow_api_settings/sandbox_flag" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/paypal_payflow_required/enable_paypal_payflow" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/paypal_payflow_required/enable_express_checkout_bml_uk" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/settings_paypal_payflow/payment_action" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Sale</item>
+				<item name="value" xsi:type="string">Sale</item>
+			</field>
+			<field name="payment/settings_paypal_payflow_advanced/debug" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/settings_paypal_payflow_advanced/verify_peer" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+		</dataset>
+		<dataset name="paypal_payflow_pro_action_sale_rollback">
+			<field name="payment/paypal_payflow_required/enable_paypal_payflow" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/paypal_payflow_required/enable_express_checkout_bml_uk" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+		</dataset>
+		<dataset name="paypal_payflow_link">
+			<field name="payment/payflow_link_payflow_link/partner" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string">PayPal</item>
+			</field>
+			<field name="payment/payflow_link_payflow_link/user" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/payflow_link_payflow_link/pwd" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/payflow_link_payflow_link/vendor" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/payflow_link_payflow_link/sandbox_flag" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/payflow_link_required/enable_payflow_link" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/settings_payflow_link/payment_action" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Authorization</item>
+				<item name="value" xsi:type="string">Authorization</item>
+			</field>
+			<field name="payment/settings_payflow_link_advanced/debug" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/settings_payflow_link_advanced/verify_peer" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+		</dataset>
+		<dataset name="paypal_payflow_link_rollback">
+			<field name="payment/payflow_link_required/enable_payflow_link" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+		</dataset>
+		<dataset name="paypal_payflow_link_action_sale">
+			<field name="payment/payflow_link_payflow_link/partner" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string">PayPal</item>
+			</field>
+			<field name="payment/payflow_link_payflow_link/user" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/payflow_link_payflow_link/pwd" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/payflow_link_payflow_link/vendor" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/payflow_link_payflow_link/sandbox_flag" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/payflow_link_required/enable_payflow_link" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/settings_payflow_link/payment_action" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Sale</item>
+				<item name="value" xsi:type="string">Sale</item>
+			</field>
+			<field name="payment/settings_payflow_link_advanced/debug" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/settings_payflow_link_advanced/verify_peer" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+		</dataset>
+		<dataset name="paypal_payflow_link_action_sale_rollback">
+			<field name="payment/payflow_link_required/enable_payflow_link" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+		</dataset>
+		<dataset name="paypal_advanced">
+			<field name="payment/payments_advanced/partner" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string">PayPal</item>
+			</field>
+			<field name="payment/payments_advanced/vendor" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/payments_advanced/user" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/payments_advanced/pwd" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/payments_advanced/sandbox_flag" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/express/business_account" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/express/api_username" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/express/api_password" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/express/api_signature" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/express/sandbox_flag" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/required_settings/enable_payflow_advanced" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/required_settings/enable_express_checkout_bml" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/settings_payments_advanced/title" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string">Credit Card (PayPal Advanced)</item>
+			</field>
+			<field name="payment/settings_payments_advanced/payment_action" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Authorization</item>
+				<item name="value" xsi:type="string">Authorization</item>
+			</field>
+			<field name="payment/settings_payments_advanced_advanced/debug" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/settings_payments_advanced_advanced/verify_peer" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/settings_express_checkout/payment_action" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Authorization</item>
+				<item name="value" xsi:type="string">Authorization</item>
+			</field>
+			<field name="payment/settings_express_checkout_advanced/debug" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/settings_express_checkout_advanced/verify_peer" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+		</dataset>
+		<dataset name="paypal_advanced_rollback">
+			<field name="payment/required_settings/enable_payflow_advanced" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/required_settings/enable_express_checkout_bml" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+		</dataset>
+		<dataset name="paypal_advanced_action_sale">
+			<field name="payment/payments_advanced/partner" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string">PayPal</item>
+			</field>
+			<field name="payment/payments_advanced/vendor" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/payments_advanced/user" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/payments_advanced/pwd" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/payments_advanced/sandbox_flag" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/express/business_account" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/express/api_username" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/express/api_password" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/express/api_signature" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/express/sandbox_flag" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/required_settings/enable_payflow_advanced" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/required_settings/enable_express_checkout_bml" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/settings_payments_advanced/title" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string">Credit Card (PayPal Advanced)</item>
+			</field>
+			<field name="payment/settings_payments_advanced/payment_action" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Sale</item>
+				<item name="value" xsi:type="string">Sale</item>
+			</field>
+			<field name="payment/settings_payments_advanced_advanced/debug" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/settings_payments_advanced_advanced/verify_peer" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/settings_express_checkout/payment_action" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Authorization</item>
+				<item name="value" xsi:type="string">Authorization</item>
+			</field>
+			<field name="payment/settings_express_checkout_advanced/debug" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/settings_express_checkout_advanced/verify_peer" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+		</dataset>
+		<dataset name="paypal_advanced_action_sale_rollback">
+			<field name="payment/required_settings/enable_payflow_advanced" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/required_settings/enable_express_checkout_bml" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+		</dataset>
+		<dataset name="paypal_hosted_solution">
+			<field name="payment/account/merchant_country" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">United Kingdom</item>
+				<item name="value" xsi:type="string">GB</item>
+			</field>
+			<field name="payment/pphs_required_settings_pphs/business_account" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/pphs_required_settings_pphs/api_username" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/pphs_required_settings_pphs/api_password" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/pphs_required_settings_pphs/api_signature" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/pphs_required_settings_pphs/sandbox_flag" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/pphs_required_settings/pphs_enable" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/pphs_settings/payment_action" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Authorization</item>
+				<item name="value" xsi:type="string">Authorization</item>
+			</field>
+			<field name="payment/pphs_settings_advanced/debug" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/pphs_settings_advanced/verify_peer" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+		</dataset>
+		<dataset name="paypal_hosted_solution_rollback">
+			<field name="payment/account/merchant_country" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">United States</item>
+				<item name="value" xsi:type="string">US</item>
+			</field>
+			<field name="payment/pphs_required_settings/pphs_enable" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+		</dataset>
+		<dataset name="paypal_hosted_solution_action_sale">
+			<field name="payment/account/merchant_country" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">United Kingdom</item>
+				<item name="value" xsi:type="string">GB</item>
+			</field>
+			<field name="payment/pphs_required_settings_pphs/business_account" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/pphs_required_settings_pphs/api_username" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/pphs_required_settings_pphs/api_password" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/pphs_required_settings_pphs/api_signature" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/pphs_required_settings_pphs/sandbox_flag" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/pphs_required_settings/pphs_enable" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/pphs_settings/payment_action" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Sale</item>
+				<item name="value" xsi:type="string">Sale</item>
+			</field>
+			<field name="payment/pphs_settings_advanced/debug" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/pphs_settings_advanced/verify_peer" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+		</dataset>
+		<dataset name="paypal_hosted_solution_action_sale_rollback">
+			<field name="payment/account/merchant_country" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">United States</item>
+				<item name="value" xsi:type="string">US</item>
+			</field>
+			<field name="payment/pphs_required_settings/pphs_enable" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+		</dataset>
+		<dataset name="paypal_payments_pro_3d_secure">
+			<field name="payment/wpp_and_express_checkout/business_account" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/wpp_and_express_checkout/api_username" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/wpp_and_express_checkout/api_password" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/wpp_and_express_checkout/api_signature" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/wpp_and_express_checkout/sandbox_flag" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/wpp_required_settings/enable_wpp" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/wpp_required_settings/enable_express_checkout_bml" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/wpp_settings/payment_action" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Authorization</item>
+				<item name="value" xsi:type="string">Authorization</item>
+			</field>
+			<field name="payment/wpp_settings_advanced/debug" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/wpp_settings_advanced/verify_peer" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/wpp_settings_advanced/useccv" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/wpp_settings_advanced/centinel" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/express_checkout_required/enable_express_checkout" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/wpp_settings_express_checkout_advanced/verify_peer" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+		</dataset>
+		<dataset name="paypal_payments_pro_3d_secure_rollback">
+			<field name="payment/wpp_required_settings/enable_wpp" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/wpp_required_settings/enable_express_checkout_bml" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/wpp_settings_advanced/centinel" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/express_checkout_required/enable_express_checkout" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/wpp_settings_advanced/useccv" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+		</dataset>
+		<dataset name="paypal_payflow_pro_3d_secure">
+			<field name="payment/paypal_payflow_api_settings/business_account" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/paypal_payflow_api_settings/partner" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string">PayPal</item>
+			</field>
+			<field name="payment/paypal_payflow_api_settings/user" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/paypal_payflow_api_settings/vendor" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/paypal_payflow_api_settings/pwd" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/paypal_payflow_api_settings/sandbox_flag" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/paypal_payflow_api_settings/use_proxy" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/paypal_payflow_required/enable_paypal_payflow" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/paypal_payflow_required/enable_express_checkout_bml_uk" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/settings_paypal_payflow/payment_action" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Authorization</item>
+				<item name="value" xsi:type="string">Authorization</item>
+			</field>
+			<field name="payment/settings_paypal_payflow_advanced/allowspecific" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">All Allowed Countries</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/settings_paypal_payflow_advanced/debug" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/settings_paypal_payflow_advanced/verify_peer" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/settings_paypal_payflow_advanced/centinel" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/settings_paypal_payflow_advanced/useccv" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+		</dataset>
+		<dataset name="paypal_payflow_pro_3d_secure_rollback">
+			<field name="payment/paypal_payflow_required/enable_paypal_payflow" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/paypal_payflow_required/enable_express_checkout_bml_uk" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/settings_paypal_payflow_advanced/centinel" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+		</dataset>
+	</repository>
 </config>

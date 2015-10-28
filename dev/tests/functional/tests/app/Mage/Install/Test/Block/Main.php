@@ -41,6 +41,13 @@ class Main extends Block
     protected $title = '.page-head';
 
     /**
+     * Title text.
+     *
+     * @var string
+     */
+    protected $deployStatus = '#status';
+
+    /**
      * Get license text.
      *
      * @return string
@@ -48,5 +55,15 @@ class Main extends Block
     public function getTitle()
     {
         return $this->_rootElement->find($this->title)->getText();
+    }
+
+    /**
+     * Get license text.
+     *
+     * @return string
+     */
+    public function getDeployStatus()
+    {
+        return $this->_rootElement->find($this->deployStatus)->getText();
     }
 }

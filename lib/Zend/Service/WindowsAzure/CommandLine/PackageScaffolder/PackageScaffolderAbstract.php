@@ -119,13 +119,13 @@ abstract class Zend_Service_WindowsAzure_CommandLine_PackageScaffolder_PackageSc
         }
         
         if (is_dir($path) ) {
-            @chmod($path, '0777');
+            @chmod($path, '0775');
             if (!self::deleteDirectory($path) ) {
                 throw new RuntimeException("Failed to delete \"{$path}\".");
             }
         }
             
-        if (!mkdir($path, '0777', $recursive) || !is_dir($path)) {
+        if (!mkdir($path, '0775', $recursive) || !is_dir($path)) {
             throw new RuntimeException( "Failed to create directory \"{$path}\"." );
         }
 
@@ -142,7 +142,9 @@ abstract class Zend_Service_WindowsAzure_CommandLine_PackageScaffolder_PackageSc
      * 
      * @return boolean
      */
-    protected function copyDirectory($sourcePath, $destinationPath, $abortIfExists = true, $mode = '0777') {
+    protected function copyDirectory($sourcePath, $destinationPath, $abortIfExists = true, $mode = '0775') {
+        $mode = $mode & ~0002;
+
         if (is_null($sourcePath) || !is_string($sourcePath) || empty($sourcePath)) {
             throw new InvalidArgumentException("Undefined \"sourcePath\"");
         }
@@ -217,7 +219,7 @@ abstract class Zend_Service_WindowsAzure_CommandLine_PackageScaffolder_PackageSc
         if (!$handleDir) {
             return false;
         }
-        @chmod($path, 0777);
+        @chmod($path, 0775);
         while ($file = readdir($handleDir)) {
             if ($file == '.' || $file == '..') {
                 continue;
@@ -240,7 +242,7 @@ abstract class Zend_Service_WindowsAzure_CommandLine_PackageScaffolder_PackageSc
             );
         }
         
-        @chmod($path, 0777);        
+        @chmod($path, 0775);        
         closedir($handleDir);
         @rmdir($path);
                      

@@ -952,7 +952,7 @@ abstract class Zend_View_Helper_Navigation_HelperAbstract
      * Sets default ACL role(s) to use when iterating pages if not explicitly
      * set later with {@link setRole()}
      *
-     * @param  midex $role               [optional] role to set. Expects null,
+     * @param  mixed $role               [optional] role to set. Expects null,
      *                                   string, or an instance of
      *                                   {@link Zend_Acl_Role_Interface}.
      *                                   Default is null, which sets no default

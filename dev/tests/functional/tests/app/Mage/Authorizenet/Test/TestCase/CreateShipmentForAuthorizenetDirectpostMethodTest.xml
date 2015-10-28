@@ -32,7 +32,7 @@
             <data name="products" xsi:type="string">catalogProductSimple::default</data>
             <data name="configData" xsi:type="string">authorizenet_directpost</data>
             <data name="customer/dataSet" xsi:type="string">default</data>
-            <data name="checkoutMethod" xsi:type="string">guest</data>
+            <data name="checkoutMethod" xsi:type="string">register</data>
             <data name="customerPersist" xsi:type="string">no</data>
             <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
@@ -44,7 +44,7 @@
             <data name="verifyData/totalQtyOrdered/shipments/0/total_qty_from" xsi:type="string">3</data>
             <data name="verifyData/totalQtyOrdered/shipments/0/total_qty_to" xsi:type="string">3</data>
             <data name="status" xsi:type="string">Processing</data>
-            <data name="issue" xsi:type="string">Unskip after done TOOL-4060</data>
+            <data name="tag" xsi:type="string">payment_method:authorize_net_dp</data>
             <constraint name="Mage\Shipping\Test\Constraint\AssertShipmentSuccessCreateMessage" />
             <constraint name="Mage\Shipping\Test\Constraint\AssertShipmentInShipmentsTab" />
             <constraint name="Mage\Shipping\Test\Constraint\AssertShipmentInShipmentsGrid" />

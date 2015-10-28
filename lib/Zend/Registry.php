@@ -136,7 +136,7 @@ class Zend_Registry extends ArrayObject
      *
      * @param string $index - get the value associated with $index
      * @return mixed
-     * @throws Zend_Exception if no entry is registerd for $index.
+     * @throws Zend_Exception if no entry is registered for $index.
      */
     public static function get($index)
     {

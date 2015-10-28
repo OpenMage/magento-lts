@@ -50,7 +50,7 @@ class OldReview extends AbstractReview
      *
      * @var string
      */
-    protected $addresses = '#chooseAddressForm';
+    protected $addresses = '#innerSlider';
 
     /**
      * Get old addresses block.

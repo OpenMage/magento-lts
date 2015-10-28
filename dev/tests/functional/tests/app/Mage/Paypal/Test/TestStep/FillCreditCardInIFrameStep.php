@@ -112,6 +112,7 @@ class FillCreditCardInIFrameStep implements TestStepInterface
         $element = $this->browser->find('body');
         $form->fill($this->payment['cc'], $element);
         $form->clickPayNow($element);
+        $this->browser->switchToFrame();
 
         return ['orderId' => $this->checkoutOnepageSuccess->getSuccessBlock()->getGuestOrderId()];
     }

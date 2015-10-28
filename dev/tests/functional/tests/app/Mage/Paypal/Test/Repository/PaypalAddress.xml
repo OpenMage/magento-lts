@@ -36,6 +36,7 @@
             <field name="region_id" xsi:type="string">California</field>
             <field name="postcode" xsi:type="string">90230</field>
             <field name="country_id" xsi:type="string">United States</field>
+            <field name="telephone" xsi:type="string">T: 408-618-6006</field>
         </dataset>
     </repository>
 </config>

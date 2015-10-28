@@ -37,7 +37,7 @@ class AssertAgreementTextPresent extends AbstractConstraint
     /**
      * Part of license agreement text.
      */
-    const LICENSE_AGREEMENT_TEXT = 'EDITION AGREEMENT';
+    const LICENSE_AGREEMENT_TEXT = 'Open Software License';
 
     /**
      * Assert that part of license agreement text is present on Terms & Agreement page.

@@ -26,8 +26,9 @@
 
 namespace Mage\Authorizenet\Test\TestCase;
 
-use Mage\Customer\Test\Page\CustomerAccountLogout;
 use Magento\Mtf\TestCase\Scenario;
+use Mage\Customer\Test\Page\CustomerAccountLogout;
+
 
 /**
  * Preconditions:

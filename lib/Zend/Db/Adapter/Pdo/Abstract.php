@@ -292,6 +292,8 @@ abstract class Zend_Db_Adapter_Pdo_Abstract extends Zend_Db_Adapter_Abstract
         if (is_int($value) || is_float($value)) {
             return $value;
         }
+        // Fix for null-byte injection
+        $value = addcslashes($value, "\000\032");
         $this->_connect();
         return $this->_connection->quote($value);
     }
@@ -398,4 +400,3 @@ abstract class Zend_Db_Adapter_Pdo_Abstract extends Zend_Db_Adapter_Abstract
         }
     }
 }
-

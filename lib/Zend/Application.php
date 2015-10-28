@@ -70,15 +70,17 @@ class Zend_Application
      *
      * @param  string                   $environment
      * @param  string|array|Zend_Config $options String path to configuration file, or array/Zend_Config of configuration options
+     * @param bool $suppressNotFoundWarnings Should warnings be suppressed when a file is not found during autoloading?
      * @throws Zend_Application_Exception When invalid options are provided
      * @return void
      */
-    public function __construct($environment, $options = null)
+    public function __construct($environment, $options = null, $suppressNotFoundWarnings = null)
     {
         $this->_environment = (string) $environment;
 
-        require_once 'Zend/Loader/Autoloader.php';
+        #require_once 'Zend/Loader/Autoloader.php';
         $this->_autoloader = Zend_Loader_Autoloader::getInstance();
+        $this->_autoloader->suppressNotFoundWarnings($suppressNotFoundWarnings);
 
         if (null !== $options) {
             if (is_string($options)) {

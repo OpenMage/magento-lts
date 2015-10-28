@@ -22,6 +22,11 @@
  */
 
 /**
+ * @see Zend_Http_Header_HeaderValue
+ */
+#require_once 'Zend/Http/Header/HeaderValue.php';
+
+/**
  * Zend_Http_Response represents an HTTP 1.0 / 1.1 response message. It
  * includes easy access to all the response's different elemts, as well as some
  * convenience methods for parsing and validating HTTP responses.
@@ -394,7 +399,7 @@ class Zend_Http_Response
      * @param string $br Line breaks (eg. "\n", "\r\n", "<br />")
      * @return string
      */
-    public function asString($br = "\n")
+    public function asString($br = "\r\n")
     {
         return $this->getHeadersAsString(true, $br) . $br . $this->getRawBody();
     }
@@ -496,44 +501,75 @@ class Zend_Http_Response
     {
         $headers = array();
 
-        // First, split body and headers
-        $parts = preg_split('|(?:\r?\n){2}|m', $response_str, 2);
-        if (! $parts[0]) return $headers;
+        // First, split body and headers. Headers are separated from the
+        // message at exactly the sequence "\r\n\r\n"
+        $parts = preg_split('|(?:\r\n){2}|m', $response_str, 2);
+        if (! $parts[0]) {
+            return $headers;
+        }
 
-        // Split headers part to lines
-        $lines = explode("\n", $parts[0]);
+        // Split headers part to lines; "\r\n" is the only valid line separator.
+        $lines = explode("\r\n", $parts[0]);
         unset($parts);
         $last_header = null;
 
-        foreach($lines as $line) {
-            $line = trim($line, "\r\n");
-            if ($line == "") break;
+        foreach($lines as $index => $line) {
+            if ($index === 0 && preg_match('#^HTTP/\d+(?:\.\d+) [1-5]\d+#', $line)) {
+                // Status line; ignore
+                continue;
+            }
+
+            if ($line == "") {
+                // Done processing headers
+                break;
+            }
 
             // Locate headers like 'Location: ...' and 'Location:...' (note the missing space)
-            if (preg_match("|^([\w-]+):\s*(.+)|", $line, $m)) {
+            if (preg_match("|^([a-zA-Z0-9\'`#$%&*+.^_\|\~!-]+):\s*(.*)|s", $line, $m)) {
                 unset($last_header);
-                $h_name = strtolower($m[1]);
+                $h_name  = strtolower($m[1]);
                 $h_value = $m[2];
+                Zend_Http_Header_HeaderValue::assertValid($h_value);
 
                 if (isset($headers[$h_name])) {
                     if (! is_array($headers[$h_name])) {
                         $headers[$h_name] = array($headers[$h_name]);
                     }
 
-                    $headers[$h_name][] = $h_value;
-                } else {
-                    $headers[$h_name] = $h_value;
+                    $headers[$h_name][] = ltrim($h_value);
+                    $last_header = $h_name;
+                    continue;
                 }
+
+                $headers[$h_name] = ltrim($h_value);
                 $last_header = $h_name;
-            } elseif (preg_match("|^\s+(.+)$|", $line, $m) && $last_header !== null) {
+                continue;
+            }
+
+            // Identify header continuations
+            if (preg_match("|^[ \t](.+)$|s", $line, $m) && $last_header !== null) {
+                $h_value = trim($m[1]);
                 if (is_array($headers[$last_header])) {
                     end($headers[$last_header]);
                     $last_header_key = key($headers[$last_header]);
-                    $headers[$last_header][$last_header_key] .= $m[1];
-                } else {
-                    $headers[$last_header] .= $m[1];
+
+                    $h_value = $headers[$last_header][$last_header_key] . $h_value;
+                    Zend_Http_Header_HeaderValue::assertValid($h_value);
+
+                    $headers[$last_header][$last_header_key] = $h_value;
+                    continue;
                 }
+
+                $h_value = $headers[$last_header] . $h_value;
+                Zend_Http_Header_HeaderValue::assertValid($h_value);
+
+                $headers[$last_header] = $h_value;
+                continue;
             }
+
+            // Anything else is an error condition
+            #require_once 'Zend/Http/Exception.php';
+            throw new Zend_Http_Exception('Invalid header line detected');
         }
 
         return $headers;
@@ -547,7 +583,7 @@ class Zend_Http_Response
      */
     public static function extractBody($response_str)
     {
-        $parts = preg_split('|(?:\r?\n){2}|m', $response_str, 2);
+        $parts = preg_split('|(?:\r\n){2}|m', $response_str, 2);
         if (isset($parts[1])) {
             return $parts[1];
         }

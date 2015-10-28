@@ -69,6 +69,7 @@ class Zend_Mail_Message extends Zend_Mail_Part implements Zend_Mail_Message_Inte
             } else {
                 $params['raw'] = stream_get_contents($params['file']);
             }
+            $params['raw'] = preg_replace("/(?<!\r)\n/", "\r\n", $params['raw']);
         }
 
         if (!empty($params['flags'])) {

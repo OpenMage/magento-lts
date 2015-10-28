@@ -26,130 +26,136 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-  <testCase name="Mage\Paypal\Test\TestCase\CreateOrderWithOnlinePaymentsMethodsWithIFrameTest">
-    <variation name="CreateOrderWithOnlinePaymentsMethodsWithIFrameTestVariation1" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
-      <data name="configData" xsi:type="string">paypal_payflow_link</data>
-      <data name="products" xsi:type="string">catalogProductSimple::order_default</data>
-      <data name="customer/dataSet" xsi:type="string">default</data>
-      <data name="checkoutMethod" xsi:type="string">register</data>
-      <data name="customerPersist" xsi:type="string">no</data>
-      <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
-      <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
-      <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
-      <data name="payment/method" xsi:type="string">payflow_link</data>
-      <data name="payment/cc" xsi:type="string">for_iframe</data>
-      <data name="payment/iframe" xsi:type="string">yes</data>
-      <data name="transactionType" xsi:type="string">Authorization</data>
-      <data name="paymentAction" xsi:type="string">Authorized</data>
-      <data name="grandTotal" xsi:type="string">105</data>
-      <data name="issue" xsi:type="string">Unskip after done TOOL-4060</data>
-      <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" next="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>
-      <constraint name="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid" next="Mage\Paypal\Test\Constraint\AssertTransaction" prev="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
-      <constraint name="Mage\Paypal\Test\Constraint\AssertTransaction" next="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>
-      <constraint name="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Paypal\Test\Constraint\AssertTransaction"/>
-    </variation>
-    <variation name="CreateOrderWithOnlinePaymentsMethodsWithIFrameTestVariation2" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
-      <data name="configData" xsi:type="string">paypal_payflow_link_action_sale</data>
-      <data name="products" xsi:type="string">catalogProductSimple::order_default</data>
-      <data name="customer/dataSet" xsi:type="string">default</data>
-      <data name="checkoutMethod" xsi:type="string">login</data>
-      <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
-      <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
-      <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
-      <data name="payment/method" xsi:type="string">payflow_link</data>
-      <data name="payment/cc" xsi:type="string">for_iframe</data>
-      <data name="payment/iframe" xsi:type="string">yes</data>
-      <data name="transactionType" xsi:type="string">Capture</data>
-      <data name="paymentAction" xsi:type="string">captured</data>
-      <data name="grandTotal" xsi:type="string">105</data>
-      <data name="issue" xsi:type="string">Unskip after done TOOL-4060</data>
-      <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" next="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>
-      <constraint name="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid" next="Mage\Paypal\Test\Constraint\AssertTransaction" prev="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
-      <constraint name="Mage\Paypal\Test\Constraint\AssertTransaction" next="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>
-      <constraint name="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Paypal\Test\Constraint\AssertTransaction"/>
-    </variation>
-    <variation name="CreateOrderWithOnlinePaymentsMethodsWithIFrameTestVariation3" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
-      <data name="configData" xsi:type="string">paypal_advanced</data>
-      <data name="products" xsi:type="string">catalogProductSimple::order_default</data>
-      <data name="customer/dataSet" xsi:type="string">default</data>
-      <data name="checkoutMethod" xsi:type="string">guest</data>
-      <data name="customerPersist" xsi:type="string">no</data>
-      <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
-      <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
-      <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
-      <data name="payment/method" xsi:type="string">payflow_advanced</data>
-      <data name="payment/cc" xsi:type="string">for_iframe</data>
-      <data name="payment/iframe" xsi:type="string">yes</data>
-      <data name="transactionType" xsi:type="string">Authorization</data>
-      <data name="paymentAction" xsi:type="string">Authorized</data>
-      <data name="grandTotal" xsi:type="string">105</data>
-      <data name="issue" xsi:type="string">Unskip after done TOOL-4060</data>
-      <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" next="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>
-      <constraint name="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid" next="Mage\Paypal\Test\Constraint\AssertTransaction" prev="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
-      <constraint name="Mage\Paypal\Test\Constraint\AssertTransaction" next="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>
-      <constraint name="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Paypal\Test\Constraint\AssertTransaction"/>
-    </variation>
-    <variation name="CreateOrderWithOnlinePaymentsMethodsWithIFrameTestVariation4" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
-      <data name="configData" xsi:type="string">paypal_advanced_action_sale</data>
-      <data name="products" xsi:type="string">catalogProductSimple::order_default</data>
-      <data name="customer/dataSet" xsi:type="string">default</data>
-      <data name="checkoutMethod" xsi:type="string">register</data>
-      <data name="customerPersist" xsi:type="string">no</data>
-      <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
-      <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
-      <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
-      <data name="payment/method" xsi:type="string">payflow_advanced</data>
-      <data name="payment/cc" xsi:type="string">for_iframe</data>
-      <data name="payment/iframe" xsi:type="string">yes</data>
-      <data name="transactionType" xsi:type="string">Capture</data>
-      <data name="paymentAction" xsi:type="string">captured</data>
-      <data name="grandTotal" xsi:type="string">105</data>
-      <data name="issue" xsi:type="string">Unskip after done TOOL-4060</data>
-      <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" next="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>
-      <constraint name="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid" next="Mage\Paypal\Test\Constraint\AssertTransaction" prev="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
-      <constraint name="Mage\Paypal\Test\Constraint\AssertTransaction" next="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>
-      <constraint name="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Paypal\Test\Constraint\AssertTransaction"/>
-    </variation>
-    <variation name="CreateOrderWithOnlinePaymentsMethodsWithoutIFrameTestVariation5" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
-      <data name="configData" xsi:type="string">paypal_hosted_solution</data>
-      <data name="products" xsi:type="string">catalogProductSimple::order_default</data>
-      <data name="customer/dataSet" xsi:type="string">default</data>
-      <data name="checkoutMethod" xsi:type="string">login</data>
-      <data name="billingAddress/dataSet" xsi:type="string">customer_UK</data>
-      <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
-      <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
-      <data name="payment/method" xsi:type="string">hosted_pro</data>
-      <data name="payment/cc" xsi:type="string">hosted_pro</data>
-      <data name="payment/iframe" xsi:type="string">yes</data>
-      <data name="transactionType" xsi:type="string">Authorization</data>
-      <data name="paymentAction" xsi:type="string">Authorized</data>
-      <data name="grandTotal" xsi:type="string">105</data>
-      <data name="issue" xsi:type="string">Unskip after done TOOL-4060</data>
-      <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" next="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>
-      <constraint name="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid" next="Mage\Paypal\Test\Constraint\AssertTransaction" prev="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
-      <constraint name="Mage\Paypal\Test\Constraint\AssertTransaction" next="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>
-      <constraint name="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Paypal\Test\Constraint\AssertTransaction"/>
-    </variation>
-    <variation name="CreateOrderWithOnlinePaymentsMethodsWithoutIFrameTestVariation6" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
-      <data name="configData" xsi:type="string">paypal_hosted_solution_action_sale</data>
-      <data name="products" xsi:type="string">catalogProductSimple::order_default</data>
-      <data name="customer/dataSet" xsi:type="string">default</data>
-      <data name="checkoutMethod" xsi:type="string">guest</data>
-      <data name="customerPersist" xsi:type="string">no</data>
-      <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
-      <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
-      <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
-      <data name="payment/method" xsi:type="string">hosted_pro</data>
-      <data name="payment/cc" xsi:type="string">hosted_pro_action_sale</data>
-      <data name="payment/iframe" xsi:type="string">yes</data>
-      <data name="transactionType" xsi:type="string">Capture</data>
-      <data name="paymentAction" xsi:type="string">Capturing</data>
-      <data name="grandTotal" xsi:type="string">105</data>
-      <data name="issue" xsi:type="string">Unskip after done TOOL-4060</data>
-      <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" next="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>
-      <constraint name="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid" next="Mage\Paypal\Test\Constraint\AssertTransaction" prev="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
-      <constraint name="Mage\Paypal\Test\Constraint\AssertTransaction" next="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>
-      <constraint name="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Paypal\Test\Constraint\AssertTransaction"/>
-    </variation>
-  </testCase>
+    <testCase name="Mage\Paypal\Test\TestCase\CreateOrderWithOnlinePaymentsMethodsWithIFrameTest">
+        <variation name="CreateOrderWithOnlinePaymentsMethodsWithIFrameTestVariation1" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
+            <data name="configData" xsi:type="string">paypal_payflow_link</data>
+            <data name="products" xsi:type="string">catalogProductSimple::order_default</data>
+            <data name="customer/dataSet" xsi:type="string">default</data>
+            <data name="checkoutMethod" xsi:type="string">register</data>
+            <data name="customerPersist" xsi:type="string">no</data>
+            <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
+            <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
+            <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
+            <data name="payment/method" xsi:type="string">payflow_link</data>
+            <data name="payment/cc" xsi:type="string">for_iframe</data>
+            <data name="payment/iframe" xsi:type="string">yes</data>
+            <data name="transactionType" xsi:type="string">Authorization</data>
+            <data name="paymentAction" xsi:type="string">Authorized</data>
+            <data name="grandTotal" xsi:type="string">105</data>
+            <data name="tag" xsi:type="string">payment_method:paypal_direct</data>
+            <data name="tag" xsi:type="string">paypal:payflow_link</data>
+            <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" next="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid" next="Mage\Paypal\Test\Constraint\AssertTransaction" prev="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
+            <constraint name="Mage\Paypal\Test\Constraint\AssertTransaction" next="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Paypal\Test\Constraint\AssertTransaction"/>
+        </variation>
+        <variation name="CreateOrderWithOnlinePaymentsMethodsWithIFrameTestVariation2" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
+            <data name="configData" xsi:type="string">paypal_payflow_link_action_sale</data>
+            <data name="products" xsi:type="string">catalogProductSimple::order_default</data>
+            <data name="customer/dataSet" xsi:type="string">default</data>
+            <data name="checkoutMethod" xsi:type="string">login</data>
+            <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
+            <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
+            <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
+            <data name="payment/method" xsi:type="string">payflow_link</data>
+            <data name="payment/cc" xsi:type="string">for_iframe</data>
+            <data name="payment/iframe" xsi:type="string">yes</data>
+            <data name="transactionType" xsi:type="string">Capture</data>
+            <data name="paymentAction" xsi:type="string">captured</data>
+            <data name="grandTotal" xsi:type="string">105</data>
+            <data name="tag" xsi:type="string">payment_method:paypal_direct</data>
+            <data name="tag" xsi:type="string">paypal:payflow_link</data>
+            <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" next="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid" next="Mage\Paypal\Test\Constraint\AssertTransaction" prev="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
+            <constraint name="Mage\Paypal\Test\Constraint\AssertTransaction" next="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Paypal\Test\Constraint\AssertTransaction"/>
+        </variation>
+        <variation name="CreateOrderWithOnlinePaymentsMethodsWithIFrameTestVariation3" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
+            <data name="configData" xsi:type="string">paypal_advanced</data>
+            <data name="products" xsi:type="string">catalogProductSimple::order_default</data>
+            <data name="customer/dataSet" xsi:type="string">default</data>
+            <data name="checkoutMethod" xsi:type="string">guest</data>
+            <data name="customerPersist" xsi:type="string">no</data>
+            <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
+            <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
+            <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
+            <data name="payment/method" xsi:type="string">payflow_advanced</data>
+            <data name="payment/cc" xsi:type="string">for_iframe</data>
+            <data name="payment/iframe" xsi:type="string">yes</data>
+            <data name="transactionType" xsi:type="string">Authorization</data>
+            <data name="paymentAction" xsi:type="string">Authorized</data>
+            <data name="grandTotal" xsi:type="string">105</data>
+            <data name="tag" xsi:type="string">payment_method:paypal_direct</data>
+            <data name="tag" xsi:type="string">paypal:advanced</data>
+            <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" next="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid" next="Mage\Paypal\Test\Constraint\AssertTransaction" prev="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
+            <constraint name="Mage\Paypal\Test\Constraint\AssertTransaction" next="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Paypal\Test\Constraint\AssertTransaction"/>
+        </variation>
+        <variation name="CreateOrderWithOnlinePaymentsMethodsWithIFrameTestVariation4" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
+            <data name="configData" xsi:type="string">paypal_advanced_action_sale</data>
+            <data name="products" xsi:type="string">catalogProductSimple::order_default</data>
+            <data name="customer/dataSet" xsi:type="string">default</data>
+            <data name="checkoutMethod" xsi:type="string">register</data>
+            <data name="customerPersist" xsi:type="string">no</data>
+            <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
+            <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
+            <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
+            <data name="payment/method" xsi:type="string">payflow_advanced</data>
+            <data name="payment/cc" xsi:type="string">for_iframe</data>
+            <data name="payment/iframe" xsi:type="string">yes</data>
+            <data name="transactionType" xsi:type="string">Capture</data>
+            <data name="paymentAction" xsi:type="string">captured</data>
+            <data name="grandTotal" xsi:type="string">105</data>
+            <data name="tag" xsi:type="string">payment_method:paypal_direct</data>
+            <data name="tag" xsi:type="string">paypal:advanced</data>
+            <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" next="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid" next="Mage\Paypal\Test\Constraint\AssertTransaction" prev="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
+            <constraint name="Mage\Paypal\Test\Constraint\AssertTransaction" next="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Paypal\Test\Constraint\AssertTransaction"/>
+        </variation>
+        <variation name="CreateOrderWithOnlinePaymentsMethodsWithoutIFrameTestVariation5" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
+            <data name="configData" xsi:type="string">paypal_hosted_solution</data>
+            <data name="products" xsi:type="string">catalogProductSimple::order_default</data>
+            <data name="customer/dataSet" xsi:type="string">default</data>
+            <data name="checkoutMethod" xsi:type="string">login</data>
+            <data name="billingAddress/dataSet" xsi:type="string">customer_UK</data>
+            <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
+            <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
+            <data name="payment/method" xsi:type="string">hosted_pro</data>
+            <data name="payment/cc" xsi:type="string">hosted_pro</data>
+            <data name="payment/iframe" xsi:type="string">yes</data>
+            <data name="transactionType" xsi:type="string">Authorization</data>
+            <data name="paymentAction" xsi:type="string">Authorized</data>
+            <data name="grandTotal" xsi:type="string">105</data>
+            <data name="tag" xsi:type="string">payment_method:paypal_direct</data>
+            <data name="tag" xsi:type="string">paypal:hosted_solution</data>
+            <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" next="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid" next="Mage\Paypal\Test\Constraint\AssertTransaction" prev="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
+            <constraint name="Mage\Paypal\Test\Constraint\AssertTransaction" next="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Paypal\Test\Constraint\AssertTransaction"/>
+        </variation>
+        <variation name="CreateOrderWithOnlinePaymentsMethodsWithoutIFrameTestVariation6" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
+            <data name="configData" xsi:type="string">paypal_hosted_solution_action_sale</data>
+            <data name="products" xsi:type="string">catalogProductSimple::order_default</data>
+            <data name="customer/dataSet" xsi:type="string">default</data>
+            <data name="checkoutMethod" xsi:type="string">guest</data>
+            <data name="customerPersist" xsi:type="string">no</data>
+            <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
+            <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
+            <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
+            <data name="payment/method" xsi:type="string">hosted_pro</data>
+            <data name="payment/cc" xsi:type="string">hosted_pro_action_sale</data>
+            <data name="payment/iframe" xsi:type="string">yes</data>
+            <data name="transactionType" xsi:type="string">Capture</data>
+            <data name="paymentAction" xsi:type="string">captured</data>
+            <data name="grandTotal" xsi:type="string">105</data>
+            <data name="tag" xsi:type="string">payment_method:paypal_direct</data>
+            <data name="tag" xsi:type="string">paypal:hosted_solution</data>
+            <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" next="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid" next="Mage\Paypal\Test\Constraint\AssertTransaction" prev="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
+            <constraint name="Mage\Paypal\Test\Constraint\AssertTransaction" next="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Paypal\Test\Constraint\AssertTransaction"/>
+        </variation>
+      </testCase>
 </config>

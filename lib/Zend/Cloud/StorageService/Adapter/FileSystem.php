@@ -104,7 +104,7 @@ class Zend_Cloud_StorageService_Adapter_FileSystem implements Zend_Cloud_Storage
     {
         $path = $this->_getFullPath($destinationPath);
         file_put_contents($path, $data);
-        chmod($path, 0777);
+        chmod($path, 0775);
     }
 
     /**

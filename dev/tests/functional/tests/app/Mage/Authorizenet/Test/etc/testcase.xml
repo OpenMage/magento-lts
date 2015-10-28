@@ -85,7 +85,7 @@
         <step name="createInvoice" module="Mage_Sales"/>
     </scenario>
 
-    <scenario name="CreateOnlineRefundForAuthorizenetDirectpostMethodTest" firstStep="setupConfiguration">
+    <scenario name="CreateOfflineRefundForAuthorizenetDirectpostMethodTest" firstStep="setupConfiguration">
         <step name="setupConfiguration" module="Mage_Core" next="createProducts"/>
         <step name="createProducts" module="Mage_Catalog" next="addProductsToTheCart"/>
         <step name="addProductsToTheCart" module="Mage_Checkout" next="proceedToCheckout"/>
