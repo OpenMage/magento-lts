@@ -2,7 +2,7 @@
 
 | Patch | Commit |
 | ----- | ------ |
-| - | - |
+| SUPEE-6788 | [8635d49](https://github.com/OpenMage/magento-lts/commit/8635d49fb43261a97310fffc647618a34972afd6) |
 
 
 # Magento - Long Term Support
