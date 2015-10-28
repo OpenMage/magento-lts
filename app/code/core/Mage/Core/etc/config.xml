@@ -415,6 +415,7 @@
                 <use_form_key>1</use_form_key>
                 <domain_policy_backend>2</domain_policy_backend>
                 <domain_policy_frontend>2</domain_policy_frontend>
+                <extensions_compatibility_mode>1</extensions_compatibility_mode>
             </security>
         </admin>
         <general>
