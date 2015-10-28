@@ -410,7 +410,7 @@ class Zend_Db_Adapter_Pdo_Mssql extends Zend_Db_Adapter_Pdo_Abstract
     public function getServerVersion()
     {
         try {
-            $stmt = $this->query("SELECT SERVERPROPERTY('productversion')");
+            $stmt = $this->query("SELECT CAST(SERVERPROPERTY('productversion') AS VARCHAR)");
             $result = $stmt->fetchAll(Zend_Db::FETCH_NUM);
             if (count($result)) {
                 return $result[0][0];

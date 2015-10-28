@@ -38,6 +38,7 @@
             <data name="ipn" xsi:type="string">-</data>
             <data name="orderButtonsAvailable" xsi:type="string">Back, Edit, Cancel, Send Email, Void, Hold, Invoice, Ship</data>
             <data name="paymentAction" xsi:type="string">Authorized</data>
+            <data name="tag" xsi:type="string">payment_method:paypal</data>
             <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" />
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect" />
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable" />
@@ -56,6 +57,7 @@
             <data name="ipn" xsi:type="string">-</data>
             <data name="orderButtonsAvailable" xsi:type="string">Back, Edit, Cancel, Send Email, Void, Hold, Invoice, Ship</data>
             <data name="paymentAction" xsi:type="string">Authorized</data>
+            <data name="tag" xsi:type="string">payment_method:paypal</data>
             <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" />
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect" />
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable" />
@@ -74,6 +76,7 @@
             <data name="ipn" xsi:type="string">-</data>
             <data name="orderButtonsAvailable" xsi:type="string">Back, Edit, Cancel, Send Email, Void, Hold, Invoice</data>
             <data name="paymentAction" xsi:type="string">Authorized</data>
+            <data name="tag" xsi:type="string">payment_method:paypal</data>
             <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" />
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect" />
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable" />
@@ -93,6 +96,7 @@
             <data name="paymentAction" xsi:type="string">Captured</data>
             <data name="verifyData/grandTotal/invoices/0/from" xsi:type="string">105</data>
             <data name="verifyData/grandTotal/invoices/0/to" xsi:type="string">105</data>
+            <data name="tag" xsi:type="string">payment_method:paypal</data>
             <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" />
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect" />
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable" />
@@ -112,6 +116,7 @@
             <data name="ipn" xsi:type="string">Completed</data>
             <data name="orderButtonsAvailable" xsi:type="string">Back, Edit, Cancel, Send Email, Void, Hold, Invoice, Ship</data>
             <data name="paymentAction" xsi:type="string">Authorized</data>
+            <data name="tag" xsi:type="string">payment_method:paypal</data>
             <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" />
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect" />
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable" />
@@ -130,6 +135,7 @@
             <data name="ipn" xsi:type="string">Completed</data>
             <data name="orderButtonsAvailable" xsi:type="string">Back, Edit, Cancel, Send Email, Void, Hold, Invoice, Ship</data>
             <data name="paymentAction" xsi:type="string">Authorized</data>
+            <data name="tag" xsi:type="string">payment_method:paypal</data>
             <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" />
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect" />
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable" />
@@ -148,6 +154,7 @@
             <data name="ipn" xsi:type="string">Completed</data>
             <data name="orderButtonsAvailable" xsi:type="string">Back, Edit, Cancel, Send Email, Void, Hold, Invoice</data>
             <data name="paymentAction" xsi:type="string">Authorized</data>
+            <data name="tag" xsi:type="string">payment_method:paypal</data>
             <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" />
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect" />
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable" />
@@ -166,6 +173,7 @@
             <data name="ipn" xsi:type="string">Completed</data>
             <data name="orderButtonsAvailable" xsi:type="string">Back, Edit, Cancel, Send Email, Void, Hold, Invoice, Ship</data>
             <data name="paymentAction" xsi:type="string">Authorized</data>
+            <data name="tag" xsi:type="string">payment_method:paypal</data>
             <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" />
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect" />
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable" />

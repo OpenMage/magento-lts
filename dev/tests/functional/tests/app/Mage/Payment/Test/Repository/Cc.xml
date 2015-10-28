@@ -74,7 +74,7 @@
             <field name="cc_cid" xsi:type="string">123</field>
         </dataset>
         <dataset name="hosted_pro_action_sale">
-            <field name="cc_type" xsi:type="string">Visa/Delta/Electron</field>
+            <field name="cc_type" xsi:type="string">Visa</field>
             <field name="cc_number" xsi:type="string">%CC_VISA_2%</field>
             <field name="cc_exp_month" xsi:type="string">01</field>
             <field name="cc_exp_year" xsi:type="string">16</field>

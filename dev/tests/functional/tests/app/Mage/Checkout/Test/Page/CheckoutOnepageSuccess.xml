@@ -27,7 +27,7 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/pages.xsd">
   <page name="CheckoutOnepageSuccess" mca="checkout/onepage/success" module="Mage_Checkout">
-    <block name="successBlock" class="Mage\Checkout\Test\Block\Onepage\Success" locator=".main-container" strategy="css selector"/>
-    <block name="titleBlock" class="Mage\Theme\Test\Block\Title" locator=".page-title" strategy="css selector"/>
+    <block name="successBlock" class="Mage\Checkout\Test\Block\Onepage\Success" locator=".checkout-onepage-success .main-container" strategy="css selector"/>
+    <block name="titleBlock" class="Mage\Theme\Test\Block\Title" locator=".checkout-onepage-success .main-container .page-title" strategy="css selector"/>
   </page>
 </config>

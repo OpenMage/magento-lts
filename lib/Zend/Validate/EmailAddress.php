@@ -63,7 +63,7 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
     );
 
     /**
-     * As of RFC5753 (JAN 2010), the following blocks are no logner reserved:
+     * As of RFC5753 (JAN 2010), the following blocks are no longer reserved:
      *   - 128.0.0.0/16
      *   - 191.255.0.0/16
      *   - 223.255.255.0/24

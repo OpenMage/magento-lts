@@ -65,6 +65,7 @@ class Zend_Translate_Plural
         }
 
         switch($locale) {
+            case 'az':
             case 'bo':
             case 'dz':
             case 'id':
@@ -83,7 +84,6 @@ class Zend_Translate_Plural
                 break;
 
             case 'af':
-            case 'az':
             case 'bn':
             case 'bg':
             case 'ca':

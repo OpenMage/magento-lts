@@ -39,7 +39,7 @@ class License extends Block
      *
      * @var string
      */
-    protected $license = '.license-text';
+    protected $license = 'h4';
 
     /**
      * License agreements checkbox selector.

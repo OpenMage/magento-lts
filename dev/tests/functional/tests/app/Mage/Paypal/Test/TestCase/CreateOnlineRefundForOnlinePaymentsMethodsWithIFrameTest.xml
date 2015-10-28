@@ -40,9 +40,9 @@
             <data name="payment/method" xsi:type="string">payflow_advanced</data>
             <data name="payment/cc" xsi:type="string">for_iframe</data>
             <data name="payment/iframe" xsi:type="string">yes</data>
-            <data name="data/refund/0/form_data/comment_text" xsi:type="string">comments for refund</data>
-            <data name="verifyData/grandTotal/invoices/0/from" xsi:type="string">615.00</data>
-            <data name="verifyData/grandTotal/invoices/0/to" xsi:type="string">615.00</data>
+            <data name="data/refund/0/form_data/comment_text" xsi:type="string">comments for credit memo</data>
+            <data name="verifyData/grandTotal/refunds/0/from" xsi:type="string">630.00</data>
+            <data name="verifyData/grandTotal/refunds/0/to" xsi:type="string">630.00</data>
             <data name="verifyData/items_data/0/item_price" xsi:type="string">100.00</data>
             <data name="verifyData/items_data/0/item_subtotal" xsi:type="string">300.00</data>
             <data name="verifyData/items_data/0/item_row_total" xsi:type="string">300.00</data>
@@ -50,7 +50,8 @@
             <data name="verifyData/items_data/1/item_subtotal" xsi:type="string">300.00</data>
             <data name="verifyData/items_data/1/item_row_total" xsi:type="string">300.00</data>
             <data name="status" xsi:type="string">Closed</data>
-            <data name="issue" xsi:type="string">Unskip after done TOOL-4060</data>
+            <data name="tag" xsi:type="string">payment_method:paypal_direct</data>
+            <data name="tag" xsi:type="string">paypal:advanced</data>
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoSuccessCreateMessage" />
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosGrid" />
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosTab" />
@@ -72,16 +73,18 @@
             <data name="payment/method" xsi:type="string">payflow_advanced</data>
             <data name="payment/cc" xsi:type="string">for_iframe</data>
             <data name="payment/iframe" xsi:type="string">yes</data>
-            <data name="data/refund/0/form_data/comment_text" xsi:type="string">comments for refund</data>
+            <data name="data/refund/0/form_data/comment_text" xsi:type="string">comments for credit memo</data>
             <data name="data/invoice/0/items_data/0/qty" xsi:type="string">2</data>
             <data name="data/refund/0/items_data/0/qty" xsi:type="string">1</data>
-            <data name="verifyData/grandTotal/invoices/0/from" xsi:type="string">115.00</data>
-            <data name="verifyData/grandTotal/invoices/0/to" xsi:type="string">115.00</data>
+            <data name="verifyData/items_data/0/qty" xsi:type="string">1</data>
+            <data name="verifyData/grandTotal/refunds/0/from" xsi:type="string">115.00</data>
+            <data name="verifyData/grandTotal/refunds/0/to" xsi:type="string">115.00</data>
             <data name="verifyData/items_data/0/item_price" xsi:type="string">100.00</data>
             <data name="verifyData/items_data/0/item_subtotal" xsi:type="string">100.00</data>
             <data name="verifyData/items_data/0/item_row_total" xsi:type="string">100.00</data>
-            <data name="status" xsi:type="string">Closed</data>
-            <data name="issue" xsi:type="string">Unskip after done TOOL-4060</data>
+            <data name="status" xsi:type="string">Processing</data>
+            <data name="tag" xsi:type="string">payment_method:paypal_direct</data>
+            <data name="tag" xsi:type="string">paypal:advanced</data>
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoSuccessCreateMessage" />
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosGrid" />
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosTab" />
@@ -103,15 +106,18 @@
             <data name="payment/method" xsi:type="string">payflow_link</data>
             <data name="payment/cc" xsi:type="string">for_iframe</data>
             <data name="payment/iframe" xsi:type="string">yes</data>
-            <data name="data/refund/0/form_data/comment_text" xsi:type="string">comments for refund</data>
+            <data name="data/refund/0/form_data/comment_text" xsi:type="string">comments for credit memo</data>
             <data name="data/invoice/0/items_data/0/qty" xsi:type="string">2</data>
-            <data name="verifyData/grandTotal/invoices/0/from" xsi:type="string">215.00</data>
-            <data name="verifyData/grandTotal/invoices/0/to" xsi:type="string">215.00</data>
+            <data name="data/refund/0/items_data/0/qty" xsi:type="string">2</data>
+            <data name="verifyData/items_data/0/qty" xsi:type="string">2</data>
+            <data name="verifyData/grandTotal/refunds/0/from" xsi:type="string">215.00</data>
+            <data name="verifyData/grandTotal/refunds/0/to" xsi:type="string">215.00</data>
             <data name="verifyData/items_data/0/item_price" xsi:type="string">100.00</data>
             <data name="verifyData/items_data/0/item_subtotal" xsi:type="string">200.00</data>
             <data name="verifyData/items_data/0/item_row_total" xsi:type="string">200.00</data>
-            <data name="status" xsi:type="string">Closed</data>
-            <data name="issue" xsi:type="string">Unskip after done TOOL-4060</data>
+            <data name="status" xsi:type="string">Processing</data>
+            <data name="tag" xsi:type="string">payment_method:paypal_direct</data>
+            <data name="tag" xsi:type="string">paypal:payflow_link</data>
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoSuccessCreateMessage" />
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosGrid" />
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosTab" />
@@ -134,16 +140,17 @@
             <data name="payment/method" xsi:type="string">payflow_link</data>
             <data name="payment/cc" xsi:type="string">for_iframe</data>
             <data name="payment/iframe" xsi:type="string">yes</data>
-            <data name="data/refund/0/form_data/comment_text" xsi:type="string">comments for refund</data>
+            <data name="data/refund/0/form_data/comment_text" xsi:type="string">comments for credit memo</data>
             <data name="action/invoice/0" xsi:type="boolean">false</data>
-            <data name="verifyData/grandTotal/invoices/0/from" xsi:type="string">324.75</data>
-            <data name="verifyData/grandTotal/invoices/0/to" xsi:type="string">324.75</data>
+            <data name="verifyData/grandTotal/refunds/0/from" xsi:type="string">339.75</data>
+            <data name="verifyData/grandTotal/refunds/0/to" xsi:type="string">339.75</data>
             <data name="verifyData/items_data/0/item_price" xsi:type="string">100.00</data>
             <data name="verifyData/items_data/0/item_subtotal" xsi:type="string">300.00</data>
             <data name="verifyData/items_data/0/item_tax" xsi:type="string">24.75</data>
             <data name="verifyData/items_data/0/item_row_total" xsi:type="string">324.75</data>
             <data name="status" xsi:type="string">Closed</data>
-            <data name="issue" xsi:type="string">Unskip after done TOOL-4060</data>
+            <data name="tag" xsi:type="string">payment_method:paypal_direct</data>
+            <data name="tag" xsi:type="string">paypal:payflow_link</data>
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoSuccessCreateMessage" />
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosGrid" />
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosTab" />
@@ -174,7 +181,8 @@
             <data name="verifyData/items_data/0/item_subtotal" xsi:type="string">320.00</data>
             <data name="verifyData/items_data/0/item_row_total" xsi:type="string">320.00</data>
             <data name="status" xsi:type="string">Closed</data>
-            <data name="issue" xsi:type="string">Bug: Unskip after done TOOL-4060</data>
+            <data name="tag" xsi:type="string">payment_method:paypal_direct</data>
+            <data name="tag" xsi:type="string">paypal:advanced</data>
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoSuccessCreateMessage" />
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosGrid" />
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosTab" />

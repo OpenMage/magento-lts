@@ -47,7 +47,7 @@
             <data name="verifyData/item_subtotal" xsi:type="string">300.00</data>
             <data name="verifyData/item_row_total" xsi:type="string">300.00</data>
             <data name="status" xsi:type="string">Processing</data>
-            <data name="issue" xsi:type="string">Unskip after done TOOL-4060</data>
+            <data name="tag" xsi:type="string">payment_method:authorize_net_dp</data>
             <constraint name="Mage\Sales\Test\Constraint\AssertInvoiceSuccessCreateMessage" />
             <constraint name="Mage\Sales\Test\Constraint\AssertInvoiceInInvoicesGrid" />
             <constraint name="Mage\Sales\Test\Constraint\AssertInvoiceInInvoicesTab" />

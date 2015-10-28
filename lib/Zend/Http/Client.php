@@ -40,6 +40,12 @@
 
 
 /**
+ * @see Zend_Http_Header_HeaderValue
+ */
+#require_once 'Zend/Http/Header/HeaderValue.php';
+
+
+/**
  * @see Zend_Http_Response
  */
 #require_once 'Zend/Http/Response.php';
@@ -431,38 +437,40 @@ class Zend_Http_Client
             foreach ($name as $k => $v) {
                 if (is_string($k)) {
                     $this->setHeaders($k, $v);
-                } else {
-                    $this->setHeaders($v, null);
+                    continue;
                 }
+                $this->setHeaders($v, null);
             }
-        } else {
-            // Check if $name needs to be split
-            if ($value === null && (strpos($name, ':') > 0)) {
-                list($name, $value) = explode(':', $name, 2);
-            }
-
-            // Make sure the name is valid if we are in strict mode
-            if ($this->config['strict'] && (! preg_match('/^[a-zA-Z0-9-]+$/', $name))) {
-                /** @see Zend_Http_Client_Exception */
-                #require_once 'Zend/Http/Client/Exception.php';
-                throw new Zend_Http_Client_Exception("{$name} is not a valid HTTP header name");
-            }
-
-            $normalized_name = strtolower($name);
-
-            // If $value is null or false, unset the header
-            if ($value === null || $value === false) {
-                unset($this->headers[$normalized_name]);
-
-            // Else, set the header
-            } else {
-                // Header names are stored lowercase internally.
-                if (is_string($value)) {
-                    $value = trim($value);
-                }
-                $this->headers[$normalized_name] = array($name, $value);
-            }
+            return $this;
         }
+
+        // Check if $name needs to be split
+        if ($value === null && (strpos($name, ':') > 0)) {
+            list($name, $value) = explode(':', $name, 2);
+        }
+
+        // Make sure the name is valid if we are in strict mode
+        if ($this->config['strict'] && (! preg_match('/^[a-zA-Z0-9-]+$/', $name))) {
+            #require_once 'Zend/Http/Client/Exception.php';
+            throw new Zend_Http_Client_Exception("{$name} is not a valid HTTP header name");
+        }
+
+        $normalized_name = strtolower($name);
+
+        // If $value is null or false, unset the header
+        if ($value === null || $value === false) {
+            unset($this->headers[$normalized_name]);
+            return $this;
+        }
+
+        // Validate value
+        $this->_validateHeaderValue($value);
+
+        // Header names are stored lowercase internally.
+        if (is_string($value)) {
+            $value = trim($value);
+        }
+        $this->headers[$normalized_name] = array($name, $value);
 
         return $this;
     }
@@ -1568,4 +1576,32 @@ class Zend_Http_Client
         return $parameters;
     }
 
+    /**
+     * Ensure a header value is valid per RFC 7230.
+     *
+     * @see http://tools.ietf.org/html/rfc7230#section-3.2
+     * @param string|object|array $value
+     * @param bool $recurse
+     */
+    protected function _validateHeaderValue($value, $recurse = true)
+    {
+        if (is_array($value) && $recurse) {
+            foreach ($value as $v) {
+                $this->_validateHeaderValue($v, false);
+            }
+            return;
+        }
+
+        // Cast integers and floats to strings for purposes of header representation.
+        if (is_int($value) || is_float($value)) {
+            $value = (string) $value;
+        }
+
+        if (! is_string($value) && (! is_object($value) || ! method_exists($value, '__toString'))) {
+            #require_once 'Zend/Http/Exception.php';
+            throw new Zend_Http_Exception('Invalid header value detected');
+        }
+
+        Zend_Http_Header_HeaderValue::assertValid($value);
+    }
 }

@@ -1,8 +1,0 @@
-/composer.lock
-/vendor
-/generated
-/var
-/config/*
-!/config/*.dist
-phpunit.xml
-credentials.xml

@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "magento/mtf": "1.0.0-rc25",
+        "magento/mtf": "1.0.0-rc26",
         "php": ">=5.4.0",
         "phpunit/phpunit": "4.1.0",
         "phpunit/phpunit-selenium": ">=1.2",
@@ -20,7 +20,6 @@
         "psr-4": {
             "Magento\\": ["lib/Magento/", "vendor/magento/mtf/Magento/", "testsuites/Magento/"],
             "Mage\\": ["generated/Mage/", "tests/app/Mage/"],
-            "Enterprise\\": ["generated/Enterprise/", "tests/app/Enterprise/"],
             "Test\\": "generated/Test/"
         }
     }

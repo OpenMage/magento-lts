@@ -173,14 +173,14 @@ class Zend_Console_Getopt
     );
 
     /**
-     * Stores the command-line arguments for the calling applicaion.
+     * Stores the command-line arguments for the calling application.
      *
      * @var array
      */
     protected $_argv = array();
 
     /**
-     * Stores the name of the calling applicaion.
+     * Stores the name of the calling application.
      *
      * @var string
      */
@@ -550,7 +550,7 @@ class Zend_Console_Getopt
      * current application invocation.
      *
      * This function returns true, or the parameter value to the option, if any.
-     * If the option was not given, this function returns false.
+     * If the option was not given, this function returns null.
      *
      * @param  string $flag
      * @return mixed

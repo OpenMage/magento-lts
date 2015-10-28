@@ -241,6 +241,14 @@ class Zend_Locale_Data
         // 3. -> zh
         // 4. -> root
         if (($locale != 'root') && ($result)) {
+            // Search for parent locale
+            if (false !== strpos($locale, '_')) {
+                $parentLocale = self::getContent($locale, 'parentlocale');
+                if ($parentLocale) {
+                    $temp = self::_getFile($parentLocale, $path, $attribute, $value, $temp);
+                }
+            }
+
             $locale = substr($locale, 0, -strlen(strrchr($locale, '_')));
             if (!empty($locale)) {
                 $temp = self::_getFile($locale, $path, $attribute, $value, $temp);
@@ -1472,6 +1480,13 @@ class Zend_Locale_Data
 
             case 'unit':
                 $temp = self::_getFile($locale, '/ldml/units/unitLength/unit[@type=\'' . $value[0] . '\']/unitPattern[@count=\'' . $value[1] . '\']', '');
+                break;
+
+            case 'parentlocale':
+                if (false === $value) {
+                    $value = $locale;
+                }
+                $temp = self::_getFile('supplementalData', "/supplementalData/parentLocales/parentLocale[contains(@locales, '" . $value . "')]", 'parent', 'parent');
                 break;
 
             default :

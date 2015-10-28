@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    Tests
+ * @package     Tests_Functional
+ * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../vendor/magento/mtf/Magento/Mtf/TestRunner/etc/testRunner.xsd">
+    <rule scope="testsuite">
+        <allow>
+            <class value="Mage\Catalog\Test\TestCase\Category\CreateCategoryEntityTest" />
+            <class value="Mage\Catalog\Test\TestCase\Category\DeleteCategoryEntityTest" />
+            <class value="Mage\Catalog\Test\TestCase\Category\UpdateCategoryEntityTest" />
+            <class value="Mage\Catalog\Test\TestCase\Layer\FilterProductListTest" />
+            <class value="Mage\Catalog\Test\TestCase\Product\AddCrossSellProductsEntityTest" />
+            <class value="Mage\Catalog\Test\TestCase\Product\AddProductsToCompareTest" />
+            <class value="Mage\Catalog\Test\TestCase\Product\AddRelatedProductsEntityTest" />
+            <class value="Mage\Catalog\Test\TestCase\Product\AddUpSellProductsEntityTest" />
+            <class value="Mage\Catalog\Test\TestCase\Product\ApplyMapTest" />
+            <class value="Mage\Catalog\Test\TestCase\Product\ClearAllCompareProductsTest" />
+
+            <class value="Mage\Catalog\Test\TestCase\Product\DuplicateProductEntityTest" />
+            <class value="Mage\Catalog\Test\TestCase\Product\PromoteProductsAsCrossSellsTest" />
+            <class value="Mage\Catalog\Test\TestCase\Product\PromoteProductsAsRelatedTest" />
+            <class value="Mage\Catalog\Test\TestCase\Product\PromoteProductsAsUpSellsTest" />
+            <class value="Mage\Catalog\Test\TestCase\ProductAttribute\CreateAttributeSetEntityTest" />
+            <class value="Mage\Catalog\Test\TestCase\ProductAttribute\CreateProductAttributeEntityTest" />
+            <class value="Mage\CatalogRule\Test\TestCase\ApplySeveralCatalogPriceRuleEntityTest" />
+            <class value="Mage\CatalogRule\Test\TestCase\CreateCatalogPriceRuleEntityTest" />
+            <class value="Mage\CatalogRule\Test\TestCase\DeleteCatalogPriceRuleEntityTest" />
+            <class value="Mage\CatalogSearch\Test\TestCase\CreateSearchTermEntityTest" />
+
+            <class value="Mage\CatalogSearch\Test\TestCase\SuggestSearchingResultEntityTest" />
+            <class value="Mage\Checkout\Test\TestCase\AddProductsToShoppingCartEntityTest" />
+            <class value="Mage\Checkout\Test\TestCase\CheckoutWithMultishippingTest" />
+            <class value="Mage\Checkout\Test\TestCase\CreateTermEntityTest" />
+            <class value="Mage\Checkout\Test\TestCase\DeleteProductsFromShoppingCartTest" />
+            <class value="Mage\Checkout\Test\TestCase\UpdateShoppingCartTest" />
+            <class value="Mage\Cms\Test\TestCase\CreateCmsBlockEntityTest" />
+            <class value="Mage\Cms\Test\TestCase\CreateCmsPageEntityTest" />
+            <class value="Mage\Cms\Test\TestCase\DeleteCmsPageEntityTest" />
+            <class value="Mage\Cms\Test\TestCase\UpdateCmsPageEntityTest" />
+
+            <class value="Mage\CurrencySymbol\Test\TestCase\EditCurrencySymbolEntityTest" />
+            <class value="Mage\Customer\Test\TestCase\ChangeCustomerPasswordTest" />
+            <class value="Mage\Customer\Test\TestCase\CreateCustomerFromBackendTest" />
+            <class value="Mage\Customer\Test\TestCase\CreateCustomerGroupEntityTest" />
+            <class value="Mage\Customer\Test\TestCase\CreateExistingCustomerFrontendEntity" />
+            <class value="Mage\Customer\Test\TestCase\DeleteCustomerAddressEntityTest" />
+            <class value="Mage\Customer\Test\TestCase\RegisterCustomerFrontendEntityTest" />
+            <class value="Mage\GiftMessage\Test\TestCase\CheckoutWithGiftMessagesTest" />
+            <class value="Mage\Review\Test\TestCase\CreateProductReviewFrontendEntityTest" />
+            <class value="Mage\Sales\Test\TestCase\CancelCreatedOrderTest" />
+
+            <class value="Mage\Sales\Test\TestCase\CreateOrderFromBackendCustomerPageTest" />
+            <class value="Mage\Sales\Test\TestCase\MoveShoppingCartProductsOnOrderPageTest" />
+            <class value="Mage\Sales\Test\TestCase\PrintOrderFrontendGuestTest" />
+            <class value="Mage\Sales\Test\TestCase\ReorderOrderEntityTest" />
+            <class value="Mage\SalesRule\Test\TestCase\DeleteSalesRuleEntityTest" />
+            <class value="Mage\Sitemap\Test\TestCase\CreateSitemapEntityTest" />
+            <class value="Mage\Sitemap\Test\TestCase\GenerateSitemapEntityTest" />
+            <class value="Mage\Tax\Test\TestCase\AutomaticTaxApplyingBasedOnVatIdTest" />
+            <class value="Mage\Tax\Test\TestCase\CreateTaxRateEntityTest" />
+            <class value="Mage\Tax\Test\TestCase\CreateTaxRuleEntityTest" />
+
+            <class value="Mage\Tax\Test\TestCase\DeleteTaxRateEntityTest" />
+        </allow>
+    </rule>
+</config>

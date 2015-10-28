@@ -45,6 +45,8 @@
             <data name="verifyData/items_data/0/item_subtotal" xsi:type="string">300.00</data>
             <data name="verifyData/items_data/0/item_row_total" xsi:type="string">300.00</data>
             <data name="status" xsi:type="string">Closed</data>
+            <data name="tag" xsi:type="string">payment_method:paypal</data>
+            <data name="tag" xsi:type="string">paypal:payments_pro</data>
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoSuccessCreateMessage" />
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosGrid" />
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosTab" />
@@ -75,6 +77,8 @@
             <data name="verifyData/items_data/0/item_subtotal" xsi:type="string">100.00</data>
             <data name="verifyData/items_data/0/item_row_total" xsi:type="string">100.00</data>
             <data name="status" xsi:type="string">Complete</data>
+            <data name="tag" xsi:type="string">payment_method:paypal</data>
+            <data name="tag" xsi:type="string">paypal:payments_pro</data>
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoSuccessCreateMessage" />
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosGrid" />
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosTab" />
@@ -103,6 +107,8 @@
             <data name="verifyData/items_data/0/item_subtotal" xsi:type="string">10.00</data>
             <data name="verifyData/items_data/0/item_row_total" xsi:type="string">10.00</data>
             <data name="status" xsi:type="string">Processing</data>
+            <data name="tag" xsi:type="string">payment_method:paypal</data>
+            <data name="tag" xsi:type="string">paypal:payflow_pro</data>
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoSuccessCreateMessage" />
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosGrid" />
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosTab" />
@@ -133,6 +139,8 @@
             <data name="verifyData/items_data/0/item_subtotal" xsi:type="string">5.00</data>
             <data name="verifyData/items_data/0/item_row_total" xsi:type="string">5.00</data>
             <data name="status" xsi:type="string">Processing</data>
+            <data name="tag" xsi:type="string">payment_method:paypal</data>
+            <data name="tag" xsi:type="string">paypal:payflow_pro</data>
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoSuccessCreateMessage" />
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosGrid" />
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosTab" />
@@ -163,6 +171,8 @@
             <data name="verifyData/items_data/0/item_subtotal" xsi:type="string">5.00</data>
             <data name="verifyData/items_data/0/item_row_total" xsi:type="string">5.00</data>
             <data name="status" xsi:type="string">Complete</data>
+            <data name="tag" xsi:type="string">payment_method:paypal</data>
+            <data name="tag" xsi:type="string">paypal:payflow_pro</data>
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoSuccessCreateMessage" />
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosGrid" />
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosTab" />

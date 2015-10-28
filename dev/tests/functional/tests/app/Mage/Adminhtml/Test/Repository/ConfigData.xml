@@ -26,16 +26,16 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/Magento/Mtf/Repository/etc/repository.xsd">
-    <repository class="Mage\Core\Test\Repository\ConfigData">
-        <dataset name="store_view_local_germany">
-            <field name="general/locale/code" xsi:type="array">
-                <item name="scope" xsi:type="string">general/website/base/store</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">German (Germany)</item>
-                <item name="value" xsi:type="string">de_DE</item>
-            </field>
-        </dataset>
-        <dataset name="store_view_local_rollback">
+	<repository class="Mage\Core\Test\Repository\ConfigData">
+		<dataset name="store_view_local_germany">
+			<field name="general/locale/code" xsi:type="array">
+				<item name="scope" xsi:type="string">general/website/base/store</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">German (Germany)</item>
+				<item name="value" xsi:type="string">de_DE</item>
+			</field>
+		</dataset>
+        <dataset name="store_view_local_us">
             <field name="general/locale/code" xsi:type="array">
                 <item name="scope" xsi:type="string">general/website/base/store</item>
                 <item name="scope_id" xsi:type="number">1</item>
@@ -43,5 +43,13 @@
                 <item name="value" xsi:type="string">en_US</item>
             </field>
         </dataset>
-    </repository>
+		<dataset name="store_view_local_rollback">
+			<field name="general/locale/code" xsi:type="array">
+				<item name="scope" xsi:type="string">general/website/base/store</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">English (United States)</item>
+				<item name="value" xsi:type="string">en_US</item>
+			</field>
+		</dataset>
+	</repository>
 </config>

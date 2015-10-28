@@ -27,27 +27,6 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
   <fixture name="widget" module="Mage_Widget" type="flat" entity_type="widget_instance" collection="Mage\Widget\Model\Resource\Widget\Instance\Collection" identifier="parameters" repository_class="Mage\Widget\Test\Repository\Widget" handler_interface="Mage\Widget\Test\Handler\Widget\WidgetInterface" class="Mage\Widget\Test\Fixture\Widget">
-    <dataset name="default">
-        <field name="type" xsi:type="string">Banner Rotator</field>
-        <field name="package_theme" xsi:type="string">rwd / enterprise</field>
-        <field name="title" xsi:type="string">Test Frontend App</field>
-        <field name="widget_instance" xsi:type="array">
-            <item name="0" xsi:type="array">
-                <item name="page_group" xsi:type="string">all_pages</item>
-                <item name="all_pages" xsi:type="array">
-                    <item name="layout_handle" xsi:type="string">default</item>
-                    <item name="for" xsi:type="string">all</item>
-                    <item name="block" xsi:type="string">content</item>
-                    <item name="template" xsi:type="string">widget/block.phtml</item>
-                </item>
-            </item>
-        </field>
-        <field name="widgetOptions" xsi:type="array">
-            <item name="0" xsi:type="array">
-                <item name="type_id" xsi:type="string">bannerRotator</item>
-            </item>
-        </field>
-    </dataset>
     <field name="instance_id" is_required="1">
       <default_value xsi:type="null" />
     </field>

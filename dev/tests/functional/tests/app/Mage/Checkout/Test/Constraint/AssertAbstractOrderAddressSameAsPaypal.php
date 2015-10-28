@@ -54,7 +54,8 @@ abstract class AssertAbstractOrderAddressSameAsPaypal extends AbstractConstraint
         ['suffix', 'firstname', 'middlename', 'lastname', 'prefix'],
         ['street'],
         'implode_with_comma' => ['city', 'region', 'region_id', 'postcode'],
-        ['country_id']
+        ['country_id'],
+        ['telephone']
     ];
 
     /**
@@ -77,19 +78,20 @@ abstract class AssertAbstractOrderAddressSameAsPaypal extends AbstractConstraint
         $salesOrderIndex->open()->getSalesOrderGrid()->searchAndOpen(['id' => $orderId]);
         /** @var Info $informationTab */
         $informationTab = $salesOrderView->getOrderForm()->getTabElement('information');
-        $orderBillingAddress = $informationTab->$addressBlock()->getAddress();
-        $payPalShippingAddress = $this->prepareCustomerAddress($paypalCustomer);
+        $orderAddress = $informationTab->$addressBlock()->getAddress();
+        $payPalShippingAddress = $this->prepareCustomerAddress($paypalCustomer, $orderAddress);
 
-        \PHPUnit_Framework_Assert::assertEquals($payPalShippingAddress, $orderBillingAddress);
+        \PHPUnit_Framework_Assert::assertEquals($payPalShippingAddress, $orderAddress);
     }
 
     /**
      * Prepare customer address for assert.
      *
      * @param PaypalCustomer $customer
+     * @param $orderAddress
      * @return string
      */
-    protected function prepareCustomerAddress(PaypalCustomer $customer)
+    protected function prepareCustomerAddress(PaypalCustomer $customer, $orderAddress)
     {
         /** @var PaypalAddress $customerAddress */
         $customerAddress = $customer->getDataFieldConfig('address')['source']->getAddresses()[0];
@@ -106,8 +108,27 @@ abstract class AssertAbstractOrderAddressSameAsPaypal extends AbstractConstraint
                 : implode(' ', $availableFields[$key]);
 
         }
+        $availableFields = $this->prepareCustomerPhone($availableFields, $orderAddress);
         $availableFields = implode("\n", $availableFields);
 
+        return $availableFields;
+    }
+
+    /**
+     * Remove customer telephone number, if telephone number isn't sent from PayPal side
+     *
+     * @param $availableFields
+     * @param $orderAddress
+     * @return mixed
+     * @internal param $customerPhone
+     * @internal param $orderBillingAddress
+     * @internal param $payPalShippingAddress
+     */
+    protected function prepareCustomerPhone($availableFields, $orderAddress)
+    {
+        if (strpos($orderAddress, $availableFields[3]) == false) {
+            unset($availableFields[3]);
+        }
         return $availableFields;
     }
 }

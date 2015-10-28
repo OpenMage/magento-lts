@@ -103,6 +103,7 @@ class LoginToPayPalStep implements TestStepInterface
             : $this->paypalPage->getOldLoginBlock();
         $payPalLoginBlock->fill($this->customer);
         $payPalLoginBlock->submit();
+        $payPalLoginBlock->switchOffPayPalFrame();
         $reviewBlock->waitLoader();
     }
 }

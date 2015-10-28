@@ -12,6 +12,7 @@
 "Admin","Admin"
 "Admin Base URL","Admin Base URL"
 "Admin User Emails","Admin User Emails"
+"Admin routing compatibility mode for extensions","Admin routing compatibility mode for extensions"
 "Advanced","Advanced"
 "After selecting a new media storage location, press the Synchronize button
                                 to transfer all media to that location. Media will not be available in the new
@@ -126,6 +127,8 @@
 "Enabled","Enabled"
 "Enabled for Admin","Enabled for Admin"
 "Enabled for Frontend","Enabled for Frontend"
+"Enabling ability to run Magento in a frame is not recommended for security reasons.","Enabling ability to run Magento in a frame is not recommended for security reasons."
+"Enabling this setting increases risk of automated attacks against admin functionality.","Enabling this setting increases risk of automated attacks against admin functionality."
 "Environment Update Time","Environment Update Time"
 "Error in file: ""%s"" - %s","Error in file: ""%s"" - %s"
 "European Union Countries","European Union Countries"

@@ -1043,7 +1043,7 @@ class Zend_Validate_Hostname extends Zend_Validate_Abstract
         'CL'  => array(1 => '/^[\x{002d}0-9a-záéíñóúü]{1,63}$/iu'),
         'CN'  => 'Zend/Validate/Hostname/Cn.php',
         'COM' => 'Zend/Validate/Hostname/Com.php',
-        'DE'  => array(1 => '/^[\x{002d}0-9a-zà-öø-ÿăąāćĉčċďđĕěėęēğĝġģĥħĭĩįīıĵķĺľļłńňņŋŏőōœĸŕřŗśŝšşťţŧŭůűũųūŵŷźžż]{1,63}$/iu'),
+        'DE'  => array(1 => '/^[\x{002d}0-9a-zà-öø-ÿăąāćĉčċďđĕěėęēğĝġģĥħĭĩįīıĵķĺľļłńňņŋŏőōœĸŕřŗśŝšşťßţŧŭůűũųūŵŷźžż]{1,63}$/iu'),
         'DK'  => array(1 => '/^[\x{002d}0-9a-zäéöüæøå]{1,63}$/iu'),
         'ES'  => array(1 => '/^[\x{002d}0-9a-zàáçèéíïñòóúü·]{1,63}$/iu'),
         'EU'  => array(1 => '/^[\x{002d}0-9a-zà-öø-ÿ]{1,63}$/iu',
@@ -1459,7 +1459,7 @@ class Zend_Validate_Hostname extends Zend_Validate_Abstract
                     $check = 0;
                     foreach ($domainParts as $domainPart) {
                         // If some domain part is empty (i.e. zend..com), it's invalid
-                        if (empty($domainPart)) {
+                        if (empty($domainPart) && $domainPart !== '0') {
                             $this->_error(self::INVALID_HOSTNAME);
                             return false;
                         }

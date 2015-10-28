@@ -30,7 +30,6 @@
         <variation name="UseAclRoleWithRestrictedGwsScopeTestVariation1" method="test">
             <constraint name="Mage\Admin\Test\Constraint\AssertUserSuccessLogin" />
             <constraint name="Mage\Admin\Test\Constraint\AssertUserWithRestrictedResources" />
-            <constraint name="Mage\Adminhtml\Test\Constraint\AssertStoreGroupInPurchasePointDropdown" />
         </variation>
     </testCase>
 </config>

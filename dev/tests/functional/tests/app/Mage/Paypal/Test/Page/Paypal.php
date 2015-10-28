@@ -51,7 +51,7 @@ class Paypal extends Page
     protected $blocks = [
         'loginBlock' => [
             'class' => 'Mage\Paypal\Test\Block\Login',
-            'locator' => 'xo-login-page',
+            'locator' => '#contents',
             'strategy' => 'css selector',
         ],
         'oldLoginBlock' => [

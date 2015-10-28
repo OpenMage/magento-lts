@@ -1,3 +1,13 @@
+==== 1.9.2.2 ====
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+] NOTE: Current Release Notes are maintained at:                                                                              [
+]                                                                                                                             [
+] http://merch.docs.magento.com/ce/user_guide/Magento_Community_Edition_User_Guide.html#magento/release-notes-ce-1.9.2.2.html [
+]                                                                                                                             [
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ==== 1.9.2.1 ====
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -31,7 +41,7 @@
 ==== 1.7.0.2 ====
 
 === Fixes ===
-Fixed: Security vulnerability in Zend_XmlRpc - http://framework.zend.com/security/advisory/ZF2012-01 
+Fixed: Security vulnerability in Zend_XmlRpc - http://framework.zend.com/security/advisory/ZF2012-01
 Fixed: PayPal Standard does not display on frontend during checkout with some merchant countries
 
 
@@ -651,7 +661,7 @@ Added captcha functionality
 Implemented different base prices for customer groups
 Added auto generation of coupon codes
 Backup and Rollback functionality
-VAT ID Validation added 
+VAT ID Validation added
 Implemented DHL for Europe
 Added REST API
 
@@ -662,7 +672,7 @@ Mobile theme was redesigned
 Added ability to translate action array parameter nodes via layout.xml
 Added support for using custom currency symbols
 Added functionality to cleaning old cache files by cron task
-Refactored rules-based modules 
+Refactored rules-based modules
 Improved customer address handling using PayPal Express checkout
 Refactored escaping functionality used with translations
 Added ability to customize logo in emails from the admin
@@ -678,7 +688,7 @@ Library js/scriptaculous/dragdrop.js is upgraded to version 1.9.0
 Image file of "jpg" type are allowed for favicon
 Added ability to extend list of attributes to select for categories loaded via Mage_Catalog_Model_Resource_Category_Flat::_loadNodes()
 Added changes to lib/Varien/Http/Adapter/Curl.php to provide interface for setting different cURL options
-Displaying State or Province can be optional for any country 
+Displaying State or Province can be optional for any country
 Added ability to get Magento type from Mage.php
 
 === Fixes ===
@@ -911,13 +921,13 @@ Fixed Maintenance flag isn't deleted if rollback fails with not enough permissio
 Fixed Customer's group isn't changed if his billing address modified within back-end
 Added Add a message and the link in the mini shopping cart, when the cart is empty
 Fixed On Edit Shipping Address page button "Validate VAT Number" should be hidden
-Fixed Fatal error when try to ship order with Flat Rate shipping method 
+Fixed Fatal error when try to ship order with Flat Rate shipping method
 - fixed potentially problematic chaining involved getShippingCarrier method
 Fixed No ability to open PDF file with Label
 Fixed Incorrect final price for configurable products if several custom options used
 Fixed "Length", "Width" and "Height" fields on "Create Packages" pop up are active, when "Documents" type is selected in IE7 and IE9
 Fixed HTTP 500 error on front-end for bundle fixed with percent options enabled for sub-products
-Fixed Shipment created on Magento side doesn't send to Google side for Merchant Calculated shipping 
+Fixed Shipment created on Magento side doesn't send to Google side for Merchant Calculated shipping
 - added check for process only Google Checkout internal methods
 Fixed PDF files for invoices and credit memos are not displaying Including Tax Price
 Fixed Default value that was specified in system settings doesn't presented in Code Format drop-down on Manage Coupon Codes tab
@@ -950,7 +960,7 @@ Fixed "Same As Billing Address" check-box doesn't work
 Fixed Impossible to enter zero in the base price field for customer groups
 Fixed Group Price attribute position on the Prices tab is incorrect
 Fixed Add new column to the grid with number of used coupons
-Fixed Custom options are not stored when downloadable product is duplicated 
+Fixed Custom options are not stored when downloadable product is duplicated
 Fixed Broken logic for "Zero Subtotal Checkout" order statuses
 Fixed Coupon codes generation fails when trying to generate large amount of codes
 Fixed PayFlow Link: Using "Pay with PayPal" and selected shipping method that is greater than 0 doesn't process order
@@ -1215,7 +1225,7 @@ Fixed Unnecessary comments in "Share Wishlist" email
 Added ability to translate action array parameter nodes via layout.xml
 Added support for using custom currency symbols
 Added functionality to cleaning old cache files by cron task
-Refactored rules-based modules 
+Refactored rules-based modules
 Improved customer address handling using PayPal Express checkout
 Refactored escaping functionality used with translations
 Added ability to customize logo in emails from the admin
@@ -1230,7 +1240,7 @@ Library js/scriptaculous/dragdrop.js is upgraded to version 1.9.0
 Image file of "jpg" type are allowed for favicon
 Added ability to extend list of attributes to select for categories loaded via Mage_Catalog_Model_Resource_Category_Flat::_loadNodes()
 Added changes to lib/Varien/Http/Adapter/Curl.php to provide interface for setting different cURL options
-Displaying State or Province can be optional for any country 
+Displaying State or Province can be optional for any country
 Added ability to get Magento type from Mage.php
 
 
@@ -1415,13 +1425,13 @@ Fixed Maintenance flag isn't deleted if rollback fails with not enough permissio
 Fixed Customer's group isn't changed if his billing address modified within back-end
 Added Add a message and the link in the mini shopping cart, when the cart is empty
 Fixed On Edit Shipping Address page button "Validate VAT Number" should be hidden
-Fixed Fatal error when try to ship order with Flat Rate shipping method 
+Fixed Fatal error when try to ship order with Flat Rate shipping method
 - fixed potentially problematic chaining involved getShippingCarrier method
 Fixed No ability to open PDF file with Label
 Fixed Incorrect final price for configurable products if several custom options used
 Fixed "Length", "Width" and "Height" fields on "Create Packages" pop up are active, when "Documents" type is selected in IE7 and IE9
 Fixed HTTP 500 error on front-end for bundle fixed with percent options enabled for sub-products
-Fixed Shipment created on Magento side doesn't send to Google side for Merchant Calculated shipping 
+Fixed Shipment created on Magento side doesn't send to Google side for Merchant Calculated shipping
 - added check for process only Google Checkout internal methods
 Fixed PDF files for invoices and credit memos are not displaying Including Tax Price
 Fixed Default value that was specified in system settings doesn't presented in Code Format drop-down on Manage Coupon Codes tab
@@ -1455,7 +1465,7 @@ Fixed "Same As Billing Address" check-box doesn't work
 Fixed Impossible to enter zero in the base price field for customer groups
 Fixed Group Price attribute position on the Prices tab is incorrect
 Fixed Add new column to the grid with number of used coupons
-Fixed Custom options are not stored when downloadable product is duplicated 
+Fixed Custom options are not stored when downloadable product is duplicated
 Fixed Broken logic for "Zero Subtotal Checkout" order statuses
 Fixed Coupon codes generation fails when trying to generate large amount of codes
 Fixed PayFlow Link: Using "Pay with PayPal" and selected shipping method that is greater than 0 doesn't process order
@@ -1473,7 +1483,7 @@ Fixed Export of Group Price data doesn't work
 
 === Improvements ===
 Refactored indexing process:
-- Changed logic around reindexing to prevent conflicts between partial and full reindexing 
+- Changed logic around reindexing to prevent conflicts between partial and full reindexing
 - Prevented situations where concurrent indexing processes run at the same time and overwrite each other's data
 
 === Changes ===
@@ -1509,7 +1519,7 @@ Added captcha functionality
 Implemented different base prices for customer groups
 Added auto generation of coupon codes
 Backup and Rollback functionality
-VAT ID Validation added 
+VAT ID Validation added
 Implemented DHL for Europe
 
 === Improvements ===
@@ -2242,7 +2252,7 @@ Fixed Catalog price rules for composite products changes
 Fixed Moving modules to the correct place
 Fixed Wishlist shows items per store scope, not website
 Fixed Products in Wishlist disappears, when Store View is changed
-Fixed Wrong Comments History in notification of order creation/cancellation 
+Fixed Wrong Comments History in notification of order creation/cancellation
 Fixed In AJAX popup fields "From" and "To" have behavior as mandatory fields
 Fixed Filter by Allow Countries not working for Customer Address Form in the Backend
 Fixed Product price lower than 0 (after catalog price rule applying)
@@ -2418,7 +2428,7 @@ Fixed Catalog price rules for composite products changes
 Fixed Moving modules to the correct place
 Fixed Wishlist shows items per store scope, not website
 Fixed Products in Wishlist disappears, when Store View is changed
-Fixed Wrong Comments History in notification of order creation/cancellation 
+Fixed Wrong Comments History in notification of order creation/cancellation
 Fixed In AJAX popup fields "From" and "To" have behavior as mandatory fields
 Fixed Filter by Allow Countries not working for Customer Address Form in the Backend
 Fixed Product price lower than 0 (after catalog price rule applying)
@@ -2519,7 +2529,7 @@ Updated PayflowLink HSS user interface in checkout
 === Changes ===
 TheFind integration was removed
 Google Optimizer was removed (it will be supported as a core extension)
-Improved how discounts are applied to sub products 
+Improved how discounts are applied to sub products
 
 === Fixes ===
 Fixed Saved CC form is not displayed, when there are no other available payment methods except Saved CC
@@ -2562,7 +2572,7 @@ Fixed Catalog price rules for composite products changes
 Fixed Moving modules to the correct place
 Fixed Wishlist shows items per store scope, not website
 Fixed Products in Wishlist disappears, when Store View is changed
-Fixed Wrong Comments History in notification of order creation/cancellation 
+Fixed Wrong Comments History in notification of order creation/cancellation
 Fixed In AJAX popup fields "From" and "To" have behavior as mandatory fields
 Fixed Filter by Allow Countries not working for Customer Address Form in the Backend
 Fixed Product price lower than 0 (after catalog price rule applying)
@@ -2664,7 +2674,7 @@ Updated PayflowLink HSS user interface in checkout
 === Changes ===
 TheFind integration was removed
 Google Optimizer was removed (it will be supported as a core extension)
-Improved how discounts are applied to sub products 
+Improved how discounts are applied to sub products
 
 === Fixes ===
 Fixed When using direct Export, the _super_product_sku and _super_product_option on the configurable product does not match
@@ -2690,7 +2700,7 @@ Fixed Catalog price rules for composite products changes
 Fixed Moving modules to the correct place
 Fixed Wishlist shows items per store scope, not website
 Fixed Products in Wishlist disappears, when Store View is changed
-Fixed Wrong Comments History in notification of order creation/cancellation 
+Fixed Wrong Comments History in notification of order creation/cancellation
 Fixed In AJAX popup fields "From" and "To" have behavior as mandatory fields
 Fixed Filter by Allow Countries not working for Customer Address Form in the Backend
 Fixed Product price lower than 0 (after catalog price rule applying)
@@ -2781,7 +2791,7 @@ Fixed After upgrading  dashboard "Top 5 Search Terms" grid doesn't show search t
 ==== 1.6.x-devel-119961 ====
 
 === Fixes ===
-Fixed Wrong Comments History in notification of order creation/cancellation 
+Fixed Wrong Comments History in notification of order creation/cancellation
 Fixed In AJAX popup fields "From" and "To" have behavior as mandatory fields
 Fixed Filter by Allow Countries not working for Customer Address Form in the Backend
 Fixed Product price lower than 0 (after catalog price rule applying)
@@ -3349,7 +3359,7 @@ Fixed Error is presented by saving address, creating order with created attribut
 === Major Highlights ===
 Minimum Advertised Price
 Persistent Shopping Cart
-Known issues: if you see the Service Temporarily Unavailable page after refreshing the frontend, open the Magento installation 
+Known issues: if you see the Service Temporarily Unavailable page after refreshing the frontend, open the Magento installation
 directory on the server and remove the maintenance.flag file. Then go to Magento var directory and remove the cache directory.
 
 === Improvements ===
@@ -4276,8 +4286,8 @@ Fixed Tax/VAT number not displayed
 Fixed HTML typo in Transactional mail "account_new_confirmation.html"
 Fixed Varien_Db_Adapter_Mysqli::raw_query() should throw an Exception after 10 tries
 
-==== 1.5.1.0 ====                                                                     
-                                             
+==== 1.5.1.0 ====
+
 === Improvements ===
 Alternative image storage feature enabled with fixed get.php file.
 Magento Mobile updated to release v20
@@ -4301,7 +4311,7 @@ Replaced usage of Varien_File_Uploader with Mage_Core_Model_File_Uploader
 === Fixes ===
 Fixed PayPal Standard: order has two invoice and two refund
 Fixed Adjustment Fee, Adjustment Refund and Refund Shipping fields must be disabled on credit memo for Payflow Pro and PayFlowLink payment methods
-- Actualized API params mapping 
+- Actualized API params mapping
 - Added parameter Amount into refund request
 Fixed Broken mysql4-data-upgrade-1.4.0.0.13-1.4.0.0.14.php file
 Fixed XMLConnect - edited parameter cannot be saved
@@ -4310,7 +4320,7 @@ Fixed Media storage - problem with image in the CMS pages
 Fixed Unable to place order using PayPal Billing agreement through Checkout with multiple addresses
 - Added additional multi shipping checkout exceptions logging.
 Fixed No AmericanExpress support in Website Payments Pro Payflow Edition
-- Added to Direct payment 
+- Added to Direct payment
 Fixed Incorrect Subtotal(Incl. Tax) in Shopping Cart, when catalog prices entered by admin include tax
 Fixed Function "Apply Tax On - Original price only" does not correct calculate product tax
 Fixed No ability to save Product Attribute with type Media Image
@@ -4338,7 +4348,7 @@ Fixed Custom URL Rewrite creation broken
 - skip filtering for store select if no product or category specified in case of custom rewrite
 Fixed Shopping Cart Price Rule->Conditions->Shipping Country is not correctly controlled on multiple checkout.
 - Added checking: if address object is a new object rules validation cache will not working because we can not save validation results for address without id
-Fixed Resources names are not translated on Role Resources page at backend 
+Fixed Resources names are not translated on Role Resources page at backend
 Fixed Multiselect and Dropdown Attribute values set to "0" are not exported correctly
 Fixed WYSIWYG Editor - Unable to Create a Folder when Inserting a File
 Fixed Wrong cache key for websites
@@ -4522,7 +4532,7 @@ Magento Mobile updated to release v20
 === Fixes ===
 Fixed PayPal Standard: order has two invoice and two refund
 Fixed Adjustmen Fee, Adjustment Refund and Refund Shipping fields must be disabled on credit memo for Payflow Pro and PayFlowLink payment methods
-- Actualized API params mapping 
+- Actualized API params mapping
 - Added parameter Amount into refund request
 Fixed Broken mysql4-data-upgrade-1.4.0.0.13-1.4.0.0.14.php file
 Fixed XMLConnect - edited parameter cannot be saved
@@ -4531,7 +4541,7 @@ Fixed Media storage - problem with image in the CMS pages
 Fixed Unable to place order using PayPal Billing agreement through Checkout with multiple addresses
 - Added additional multi shipping checkout exceptions logging.
 Fixed No AmericanExpress support in Website Payments Pro Payflow Edition
-- Added to Direct payment 
+- Added to Direct payment
 Fixed Incorrect Subtotal(Incl. Tax) in Shopping Cart, when catalog prices entered by admin include tax
 Fixed Function "Apply Tax On - Original price only" does not correct calculate product tax
 Fixed No ability to save Product Attribute with type Media Image
@@ -4570,7 +4580,7 @@ Fixed Custom URL Rewrite creation broken
 - skip filtering for store select if no product or category specified in case of custom rewrite
 Fixed Shopping Cart Price Rule->Conditions->Shipping Country is not correctly controlled on multiple checkout.
 - Added checking: if address object is a new object rules validation cache will not working because we can not save validation results for address without id
-Fixed Resources names are not translated on Role Resources page at backend 
+Fixed Resources names are not translated on Role Resources page at backend
 Fixed Multiselect and Dropdown Attribute values set to "0" are not exported correctly
 Fixed WYSIWYG Editor - Unable to Create a Folder when Inserting a File
 Fixed Wrong cache key for websites
@@ -4826,10 +4836,10 @@ Fixed Google Base Synchronize
 - Fixed fatal error on very first Publish and then Synchronizing if in GB products already were
 - Fixed potential fatal when on mass Publish action we will not retrieve any item id: expected array, but null or empty string given
 Fixed Rounding issues in shipping methods and in sales payment
-Fixed Usage of non-mb-supported strlen() in custom option validation 
+Fixed Usage of non-mb-supported strlen() in custom option validation
 - fixed length calculation routine to work with multi-byte characters
 - changed order of evaluation, so that length is calculated only if length constraint is set for custom option
-Fixed Unused class Mage_Reports_Model_Mysql4_Shopcart_Product_Collection did not marked like deprecated 
+Fixed Unused class Mage_Reports_Model_Mysql4_Shopcart_Product_Collection did not marked like deprecated
 - mark class as deprecated after 1.5.0.1
 
 
@@ -4982,7 +4992,7 @@ Fixed Free shipping does not transfer to Google Checkout when it is enabled in a
 - Re factored and optimized code
 - Improved performance
 - Fixed typos
-- Added dependency for GoogleCheckout module from Usa module 
+- Added dependency for GoogleCheckout module from Usa module
 - Added fedex and usps free methods supporting
 
 
@@ -4994,7 +5004,7 @@ Due to a design flaw we are removing alternative image storage feature from this
 ==== 1.5.0.0 =====
 
 === Major Highlights ===
-Added Payflow Link using HSS (Hosted Sole Solution) 
+Added Payflow Link using HSS (Hosted Sole Solution)
 Balance Response, Partial Authorization Transactions, Authorization Reversals Support for MasterCard and Discover with Authorize.net
 3D Secure Authentication for Authorize.net payment method
 Authorize.Net SIM payment method
@@ -5324,12 +5334,12 @@ Fixed Incorrect items number in "MY WISHLIST" after updated quantity in the Wish
 - Added new configuration option "Display Wishlist Summary" in System -> Configuration -> Customers -> Wishlist section
 - Removed quantity information from wishlist frontend page
 Fixed Update compare list after delete one item
-Fixed No hint for disabled "Configure" button  
+Fixed No hint for disabled "Configure" button
 Fixed In Bundle product's page "Availability" string is not placed well
 Fixed Non-correct headers uses for email return-path.
 Fixed Numerous issued with displaying tax on front-end for bundled items
 Fixed Impossible save empty values for store view scope
-Fixed Non-correct headers uses for email return-path.  
+Fixed Non-correct headers uses for email return-path.
 - Added "-f" parameter to transport instance at Mage_Core_Model_Email_Template::send() like PHP mail() needs
 Fixed Do not hide ajax loader on 'Place order' step on onepage checkout when customer selected PayflowLink payment method until PayPal iframe will be loaded
 Fixed Order can be placed with non-configured composite product in Ordered Items
@@ -5466,7 +5476,7 @@ Fixed CSS Merger Cache Ignores Hostname and HTTPS
 - removed "beta" mark on CSS merger feature in system configuration, because known issue with different host names for different store views is solved
 - split merged CSS storage into 2 parts: "css" and "css_secure"
 - included "port" and "base host name" parameters into merger hash generation algorithm as parameters
-Fixed: Default country setting not affect country select field default value on frontend 
+Fixed: Default country setting not affect country select field default value on frontend
 Fixed Credit card data Iframe for PayflowLink is displayed on Order Review step for all payment methods
 Fixed The Wrong / not exist  Url should be redirect to 404 page
 - Added section availability in preDispatch
@@ -6018,12 +6028,12 @@ Fixed Incorrect items number in "MY WISHLIST" after updated quantity in the Wish
 - Added new configuration option "Display Wishlist Summary" in System -> Configuration -> Customers -> Wishlist section
 - Removed quantity information from wishlist frontend page
 Fixed Update compare list after delete one item
-Fixed No hint for disabled "Configure" button  
+Fixed No hint for disabled "Configure" button
 Fixed In Bundle product's page "Availability" string is not placed well
 Fixed Non-correct headers uses for email return-path.
 Fixed Numerous issued with displaying tax on front-end for bundled items
 Fixed Impossible save empty values for store view scope
-Fixed Non-correct headers uses for email return-path.  
+Fixed Non-correct headers uses for email return-path.
 - Added "-f" parameter to transport instance at Mage_Core_Model_Email_Template::send() like PHP mail() needs
 Fixed Do not hide ajax loader on 'Place order' step on onepage checkout when customer selected PayflowLink payment method until PayPal iframe will be loaded
 Fixed Order can be placed with non-configured composite product in Ordered Items
@@ -6043,12 +6053,12 @@ Fixed Incorrect items number in "MY WISHLIST" after updated quantity in the Wish
 - Added new configuration option "Display Wishlist Summary" in System -> Configuration -> Customers -> Wishlist section
 - Removed quantity information from wishlist frontend page
 Fixed Update compare list after delete one item
-Fixed No hint for disabled "Configure" button  
+Fixed No hint for disabled "Configure" button
 Fixed In Bundle product's page "Availability" string is not placed well
 Fixed Non-correct headers uses for email return-path.
 Fixed Numerous issued with displaying tax on front-end for bundled items
 Fixed Impossible save empty values for store view scope
-Fixed Non-correct headers uses for email return-path.  
+Fixed Non-correct headers uses for email return-path.
 - Added "-f" parameter to transport instance at Mage_Core_Model_Email_Template::send() like PHP mail() needs
 Fixed Do not hide ajax loader on 'Place order' step on onepage checkout when customer selected PayflowLink payment method until PayPal iframe will be loaded
 Fixed Order can be placed with non-configured composite product in Ordered Items
@@ -6222,7 +6232,7 @@ Fixed CSS Merger Cache Ignores Hostname and HTTPS
 - removed "beta" mark on CSS merger feature in system configuration, because known issue with different host names for different store views is solved
 - split merged CSS storage into 2 parts: "css" and "css_secure"
 - included "port" and "base host name" parameters into merger hash generation algorithm as parameters
-Fixed: Default country setting not affect country select field default value on frontend 
+Fixed: Default country setting not affect country select field default value on frontend
 Fixed Credit card data Iframe for PayflowLink is displayed on Order Review step for all payment methods
 Fixed The Wrong / not exist  Url should be redirect to 404 page
 - Added section availability in preDispatch
@@ -6489,7 +6499,7 @@ Fixed CSS Merger Cache Ignores Hostname and HTTPS
 - removed "beta" mark on CSS merger feature in system configuration, because known issue with different host names for different store views is solved
 - split merged CSS storage into 2 parts: "css" and "css_secure"
 - included "port" and "base host name" parameters into merger hash generation algorithm as parameters
-Fixed: Default country setting not affect country select field default value on frontend 
+Fixed: Default country setting not affect country select field default value on frontend
 Fixed Credit card data Iframe for PayflowLink is displayed on Order Review step for all payment methods
 Fixed The Wrong / not exist  Url should be redirect to 404 page
 - Added section availability in preDispatch
@@ -6635,7 +6645,7 @@ Fixed UPS XML Shipping method doesn't work, if country of shipping origin is not
 ** Implemented new download process and dependencies rules
 ** Added correct behavior during extension reinstall, so dependencies will not reinstall automatically
 * Optimized rewrite selection from DB, added url rewrite and suffix validation at admin backend
-* Added verification of access level for app/etc/local.xml. 
+* Added verification of access level for app/etc/local.xml.
 ** Now if server configuration has issue and this file accessible from browser admin user gets notification in backend.
 * Upgraded Zend Framework to version 1.10.8
 * Added the Recurring Profiles tab in customer management
@@ -6763,7 +6773,7 @@ Fixed UPS XML Shipping method doesn't work, if country of shipping origin is not
 * Fixed wrong shipping price in case of sales rule with fixed cart discount and 1 item in cart
 * Fixed the label for the configurable product attribute does not reflect correctly on the frontend
 * Fixed sales rule with fixed discount for whole cart doesn't work
-* Fixed "Slash for category or product urls causes error 404" 
+* Fixed "Slash for category or product urls causes error 404"
 * Fixed Shared shopping cart on the stores with different domains
 ** check origin url in all store urls
 ** prevent to getting SID param from current query
@@ -6788,7 +6798,7 @@ Fixed UPS XML Shipping method doesn't work, if country of shipping origin is not
 * Fixed Image browser in WYSIWYG editor doesn't fill mouse over/out fields
 * Fixed Added rounding to "Refund Shipping" field on credit memo creation page.
 * Fixed Added additional error messages to customer address validation on PHP side while creating.
-* Fixed "No server side check for password length when customer edits his account information" 
+* Fixed "No server side check for password length when customer edits his account information"
 ** Also added proper processing for password == '0', earlier it was considered as non-set password
 * Fixed WYSIWYG editor breaks directives that are not in src attribute
 * fixed directives decoding for a case when the secret key is present in URLs
@@ -6855,7 +6865,7 @@ Fixed UPS XML Shipping method doesn't work, if country of shipping origin is not
 * Fixed Quick Search Autocomplete does not work via ajax http protocol for https page
 * Fixed Inventory->Qty Increments - unable to add
 * Fixed Loading search query performance issue
-* Fixed Changed labels in checkout and payment information blocs for credit cards Solo Maestro Switch 
+* Fixed Changed labels in checkout and payment information blocs for credit cards Solo Maestro Switch
 * Fixed Product q-ty doesnt decrease after google checkout
 ** added same 'checkout_submit_all_after' event to  AmazonPayments
 ** removed 'TODO' notice from Multishipping Checkout, because current scheme is better and will not be influenced by any Multishipping refactoring
@@ -6880,7 +6890,7 @@ Fixed UPS XML Shipping method doesn't work, if country of shipping origin is not
 * Fixed Unable to refund Credit Memo because of Shipping Rounding
 * Fixed Added custom option info to recurring profile info page on frontend and backend.
 * Fixed Product Visibility and Status disappear when in search
-* Fixed Removed validation of new customer shipping address on backend for orders with virtual products only 
+* Fixed Removed validation of new customer shipping address on backend for orders with virtual products only
 * Fixed ability to buy Product which have status "Out of Stock" through a direct link on button "Checkout with PayPal"
 * Fixed All free shipping methods in absent in Transfer Shipping Options menu on PayPal side
 * Fixed Payment methods titles for the PDF prints through admin gets from default config instead of the storeview config
@@ -6934,13 +6944,13 @@ Fixed UPS XML Shipping method doesn't work, if country of shipping origin is not
 * Fixed Incorrect work of "Recently Compared Products" functional on category's page
 * Fixed behavior when having single store, javascript raises exception and all followed code is not executed
 * Fixed that Special price for dynamic bundle applies twice
-* Fixed #21960: Labels in page/html_wrapper and core/text_list in layout 
+* Fixed #21960: Labels in page/html_wrapper and core/text_list in layout
 * Fixed GUI bugs on Recurrent Profile frontend part
 * Fixed Magento Connect -> Message about invalid URL is duplicated
 * Fixed that suspend Recurring Profile from front side leads to error
 * Fixed Missing pager for tagged product list
 * Fixed Wrong profiler output for getUrl in Category
-* Fixed Saving of billing agreement relation with order - added force billing agreement re-saving and fixed isValid method in agreement detection.  
+* Fixed Saving of billing agreement relation with order - added force billing agreement re-saving and fixed isValid method in agreement detection.
 * Fixed Incorrect sort order reliable on mysql internal order during eav attribute load
 ** move prepare select to separate method
 * Fixed passing additional totals to PayPal when cart line items are disabled:
@@ -6966,7 +6976,7 @@ Fixed UPS XML Shipping method doesn't work, if country of shipping origin is not
 * Fixed bug with 'Use Flat Catalog Category'
 * Fixed #13770, #16300, #21040 : Product Media Api Broken, product_media.create API overwrites image itself each upload, product_media.update API does not upgrade the image itself
 * Fixed #16306: Webservice with htaccess (changes in code style)
-* Fixed #22536: Light-weight email templates 
+* Fixed #22536: Light-weight email templates
 * Fixed #18935: Soap api v2 multiple complexFilters with the same key
 * Fixed incorrect Window titles on frontend
 * Fixed Eliminated display currency usage (instead of the base website currency) in shopping cart price rule conditions
@@ -7005,47 +7015,47 @@ Fixed UPS XML Shipping method doesn't work, if country of shipping origin is not
 * Fixed #20481: Access Control List not retrieved for API user for resources() and resourceFaults() operations
 * Fixed #18367: FCGI Error on WSDL Url with Apache and mod_fastcgi
 * Fixed #22053: use HTTP 301 code instead of 302 in case of web/url/redirect_to_base
-* Fixed #20654: Admin order creation->Move mouse cursor isn't changed into hand while move it on some product for adding 
+* Fixed #20654: Admin order creation->Move mouse cursor isn't changed into hand while move it on some product for adding
 * Fixed #21590: Attribute 'Date': testing for uniqueness fields not working
 * Fixed #21566: Type of attribute 'Price': Possible to add text value for field 'default value'
 * Fixed #22053: added optional behavior (301 or 302)
 * Fixed #21570: Review from not logged in user is saved in list of All Reviews when "Allow guests to write reviews = No"
 * Fixed #22090: Different values of Qty Increments during create and after duplicate products
-* Fixed #22489: Eliminate difference between bundle.js in different skins 
+* Fixed #22489: Eliminate difference between bundle.js in different skins
 * Fixed #22419: Set default stock_data if not exist in create/update product
 * Fixed #20227: "Review(x)" link should be added to the compare page.
 * Fixed #21570: Review from not logged in user is saved in list of All Reviews when "Allow guests to write reviews = No"
-* Fixed #20959: Locale problem in shipping tracking popup raises exception 
+* Fixed #20959: Locale problem in shipping tracking popup raises exception
 * Fixed #21955: Layout cache ignores product column count update
 * Fixed #20011: After using filter "Color" or "Manufacture" in Configurable Product meaning from column is disappear
 * Fixed #21908: Incorrect attribute ordering in "Compare products" page.
-* Fixed #22222: Edit review-> if browse stores in the "Visible In " drop-down, rating values reseted 
+* Fixed #22222: Edit review-> if browse stores in the "Visible In " drop-down, rating values reseted
 * Fixed #22075: Product Attribute title specified for StoreView isn't showing on the configurable product's page
 * Fixed #22605: catalog_category.level return root categories when website or store are null
-* Fixed #21806: Different values display on the shopping cart in front-end and back-end 
-* Fixed #20113: Shipping address display as default on the front-end and as not default on admin for one customer 
+* Fixed #21806: Different values display on the shopping cart in front-end and back-end
+* Fixed #20113: Shipping address display as default on the front-end and as not default on admin for one customer
 * Fixed #22575: Trace error during using filter "Products" on Tags page
 ** added 'filter_index' to array parameter in addColumn() method call
-* Fixed #14591: Incorrect SKU for Configurable Product with Custom Options 
+* Fixed #14591: Incorrect SKU for Configurable Product with Custom Options
 * Fixed #22476: Blank Column in Related Products Grid
 ** deleted duplicate <col> output for editable columns
 * Fixed #22575: Trace error during using filter "Products" on Tags page
 ** apply filter_index field values to index
-* Fixed #22644: A discrepancy between GT(Base) and GT(Purchased) 
-* Fixed #22645: Incorrect original price when using custom price in order. 
+* Fixed #22644: A discrepancy between GT(Base) and GT(Purchased)
+* Fixed #22645: Incorrect original price when using custom price in order.
 * Fixed #22653: Missed checking for file existence in JS/CSS merger
 ** checking in source file exists. If not - do not check last modification and force to merge target file again
-* Fixed #22594: Unable to place orders through checkout with multiple addresses with PayPal direct + zero subtotal for one order 
-* Fixed #21185: Newsletter confirmed automatically BEFORE account email is confirmed. 
-* Fixed #22167: "Add new row" button in downloadable product 
-* Fixed #21952: BUG - Category / Url Model (UYN-886991) 
+* Fixed #22594: Unable to place orders through checkout with multiple addresses with PayPal direct + zero subtotal for one order
+* Fixed #21185: Newsletter confirmed automatically BEFORE account email is confirmed.
+* Fixed #22167: "Add new row" button in downloadable product
+* Fixed #21952: BUG - Category / Url Model (UYN-886991)
 * Fixed #15334, #17794
 ** API category did not pass validation process due to available_sort_by must be ArrayOfString
 ** Added category validation for backend (missed)
 ** Creating separate validation for available_sort_by and default_sort_by attributes
 * Fixed #22599 Upgrade from 1.1.8 to 1.8.0.0 database compatibility issues (PARTIAL)
-* Fixed #22661: 1 cent bug 
-* Fixed #22434: 100% discount of products -> the amounts of Tax and Grand Totals are or negative or not corectly 
+* Fixed #22661: 1 cent bug
+* Fixed #22434: 100% discount of products -> the amounts of Tax and Grand Totals are or negative or not corectly
 * Fixed #10073: Unnecessary option for downloadable products
 * Fixed #20014: Qty use decimals for downloadable
 * Fixed #22164: Incorrect message for maximum shipping amount
@@ -7062,20 +7072,20 @@ Fixed UPS XML Shipping method doesn't work, if country of shipping origin is not
 * Fixed #22266: HEADERS ALREADY SENT Error during dataflow import
 ** Additionally: moveing layout update in separate layout file of dataflow module.
 * Fixed #21412: The "Save Attribute" and "Save and Continue Edit" buttons become disabled after saving attribute with attribute code that exists
-* Fixed #22844: After login to admin got 404 instead Startup Page 
-* Fixed #22852: shopping cart price rule - search by ID - error page 
+* Fixed #22844: After login to admin got 404 instead Startup Page
+* Fixed #22852: shopping cart price rule - search by ID - error page
 * Fixed #15897: Unsubscription Email Sender in the Newsletters Subscription Options is not working correctly
 * Fixed #15899: Newsletters subscription confirmation in not working
 * Fixed #22908: Grid Serializer doesn't handle dropdowns as edit columns
 * Fixed #22946: 'Products Tagged by Administrators' grid contains information about product that is assigned by the customer
-* Fixed #22935: Issue with Google AdWords and DSMM Code 
-* Fixed #22910: view of system/design table with no records under IE 8 
+* Fixed #22935: Issue with Google AdWords and DSMM Code
+* Fixed #22910: view of system/design table with no records under IE 8
 * Fixed #22914: view of URL rewrite table with no records under IE 8
-* Fixed #22935: Issue with Google AdWords and DSMM Code 
-* Fixed #22536: Light-weight email templates 
+* Fixed #22935: Issue with Google AdWords and DSMM Code
+* Fixed #22536: Light-weight email templates
 * Fixed #23017: Memcache session fallback does not work
-* Fixed #22992: Trace appears during create reorder from front-end 
-* Fixed #22991: Cannot add items to shopping cart after active 'Use Flat Catalog Product' 
+* Fixed #22992: Trace appears during create reorder from front-end
+* Fixed #22991: Cannot add items to shopping cart after active 'Use Flat Catalog Product'
 * Fixed #22813: Google base Undefined Offset when Managing attribute mapping
 * Fixed #23138: URL rewrite error on product creation
 * Added Regions for baltic states and Finland
@@ -7194,14 +7204,14 @@ Fixed UPS XML Shipping method doesn't work, if country of shipping origin is not
 
 == Improvements ==
 * Optimized rewrite selection from DB, added url rewrite and suffix validation at admin backend
-* Added verification of access level for app/etc/local.xml. 
+* Added verification of access level for app/etc/local.xml.
 ** Now if server configuration has issue and this file accessible from browser admin user gets notification in backend.
 
 == Changes ==
 * Compilation scope for some EAV models which was causing blank page after enabling compilation
 
 == Fixes ==
-* Fixed "Slash for category or product urls causes error 404" 
+* Fixed "Slash for category or product urls causes error 404"
 * Fixed Shared shopping cart on the stores with different domains
 ** check origin url in all store urls
 ** prevent to getting SID param from current query
@@ -7238,7 +7248,7 @@ Fixed UPS XML Shipping method doesn't work, if country of shipping origin is not
 * Fixed Image browser in WYSIWYG editor doesn't fill mouse over/out fields
 * Fixed Added rounding to "Refund Shipping" field on credit memo creation page.
 * Fixed Added additional error messages to customer address validation on PHP side while creating.
-* Fixed "No server side check for password length when customer edits his account information" 
+* Fixed "No server side check for password length when customer edits his account information"
 ** Also added proper processing for password == '0', earlier it was considered as non-set password
 * Fixed WYSIWYG editor breaks directives that are not in src attribute
 * fixed directives decoding for a case when the secret key is present in URLs
@@ -7316,7 +7326,7 @@ Fixed UPS XML Shipping method doesn't work, if country of shipping origin is not
 * Fixed Quick Search Autocomplete does not work via ajax http protocol for https page
 * Fixed Inventory->Qty Increments - unable to add
 * Fixed Loading search query performance issue
-* Fixed Changed labels in checkout and payment information blocs for credit cards Solo Maestro Switch 
+* Fixed Changed labels in checkout and payment information blocs for credit cards Solo Maestro Switch
 * Fixed Product q-ty doesnt decrease after google checkout
 ** added same 'checkout_submit_all_after' event to  AmazonPayments
 ** removed 'TODO' notice from Multishipping Checkout, because current scheme is better and will not be influenced by any Multishipping refactoring
@@ -7341,7 +7351,7 @@ Fixed UPS XML Shipping method doesn't work, if country of shipping origin is not
 * Fixed Unable to refund Credit Memo because of Shipping Rounding
 * Fixed Added custom option info to recurring profile info page on frontend and backend.
 * Fixed Product Visibility and Status disappear when in search
-* Fixed Removed validation of new customer shipping address on backend for orders with virtual products only 
+* Fixed Removed validation of new customer shipping address on backend for orders with virtual products only
 
 
 ==== 1.4.x-devel-78617 ====
@@ -7434,13 +7444,13 @@ Fixed UPS XML Shipping method doesn't work, if country of shipping origin is not
 * Fixed Incorrect work of "Recently Compared Products" functional on category's page
 * Fixed behavior when having single store, javascript raises exception and all followed code is not executed
 * Fixed that Special price for dynamic bundle applies twice
-* Fixed #21960: Labels in page/html_wrapper and core/text_list in layout 
+* Fixed #21960: Labels in page/html_wrapper and core/text_list in layout
 * Fixed GUI bugs on Recurrent Profile frontend part
 * Fixed Magento Connect -> Message about invalid URL is duplicated
 * Fixed that suspend Recurring Profile from front side leads to error
 * Fixed Missing pager for tagged product list
 * Fixed Wrong profiler output for getUrl in Category
-* Fixed Saving of billing agreement relation with order - added force billing agreement re-saving and fixed isValid method in agreement detection.  
+* Fixed Saving of billing agreement relation with order - added force billing agreement re-saving and fixed isValid method in agreement detection.
 * Fixed Incorrect sort order reliable on mysql internal order during eav attribute load
 ** move prepare select to separate method
 * Fixed passing additional totals to PayPal when cart line items are disabled:
@@ -7486,7 +7496,7 @@ Fixed UPS XML Shipping method doesn't work, if country of shipping origin is not
 * Fixed bug with 'Use Flat Catalog Category'
 * Fixed #13770, #16300, #21040 : Product Media Api Broken, product_media.create API overwrites image itself each upload, product_media.update API does not upgrade the image itself
 * Fixed #16306: Webservice with htaccess (changes in code style)
-* Fixed #22536: Light-weight email templates 
+* Fixed #22536: Light-weight email templates
 * Fixed #18935: Soap api v2 multiple complexFilters with the same key
 * Fixed incorrect Window titles on frontend
 * Fixed Eliminated display currency usage (instead of the base website currency) in shopping cart price rule conditions
@@ -7533,47 +7543,47 @@ Fixed UPS XML Shipping method doesn't work, if country of shipping origin is not
 * Fixed #20481: Access Control List not retrieved for API user for resources() and resourceFaults() operations
 * Fixed #18367: FCGI Error on WSDL Url with Apache and mod_fastcgi
 * Fixed #22053: use HTTP 301 code instead of 302 in case of web/url/redirect_to_base
-* Fixed #20654: Admin order creation->Move mouse cursor isn't changed into hand while move it on some product for adding 
+* Fixed #20654: Admin order creation->Move mouse cursor isn't changed into hand while move it on some product for adding
 * Fixed #21590: Attribute 'Date': testing for uniqueness fields not working
 * Fixed #21566: Type of attribute 'Price': Possible to add text value for field 'default value'
 * Fixed #22053: added optional behavior (301 or 302)
 * Fixed #21570: Review from not logged in user is saved in list of All Reviews when "Allow guests to write reviews = No"
 * Fixed #22090: Different values of Qty Increments during create and after duplicate products
-* Fixed #22489: Eliminate difference between bundle.js in different skins 
+* Fixed #22489: Eliminate difference between bundle.js in different skins
 * Fixed #22419: Set default stock_data if not exist in create/update product
 * Fixed #20227: "Review(x)" link should be added to the compare page.
 * Fixed #21570: Review from not logged in user is saved in list of All Reviews when "Allow guests to write reviews = No"
-* Fixed #20959: Locale problem in shipping tracking popup raises exception 
+* Fixed #20959: Locale problem in shipping tracking popup raises exception
 * Fixed #21955: Layout cache ignores product column count update
 * Fixed #20011: After using filter "Color" or "Manufacture" in Configurable Product meaning from column is disappear
 * Fixed #21908: Incorrect attribute ordering in "Compare products" page.
-* Fixed #22222: Edit review-> if browse stores in the "Visible In " drop-down, rating values reseted 
+* Fixed #22222: Edit review-> if browse stores in the "Visible In " drop-down, rating values reseted
 * Fixed #22075: Product Attribute title specified for StoreView isn't showing on the configurable product's page
 * Fixed #22605: catalog_category.level return root categories when website or store are null
-* Fixed #21806: Different values display on the shopping cart in front-end and back-end 
-* Fixed #20113: Shipping address display as default on the front-end and as not default on admin for one customer 
+* Fixed #21806: Different values display on the shopping cart in front-end and back-end
+* Fixed #20113: Shipping address display as default on the front-end and as not default on admin for one customer
 * Fixed #22575: Trace error during using filter "Products" on Tags page
 ** added 'filter_index' to array parameter in addColumn() method call
-* Fixed #14591: Incorrect SKU for Configurable Product with Custom Options 
+* Fixed #14591: Incorrect SKU for Configurable Product with Custom Options
 * Fixed #22476: Blank Column in Related Products Grid
 ** deleted duplicate <col> output for editable columns
 * Fixed #22575: Trace error during using filter "Products" on Tags page
 ** apply filter_index field values to index
-* Fixed #22644: A discrepancy between GT(Base) and GT(Purchased) 
-* Fixed #22645: Incorrect original price when using custom price in order. 
+* Fixed #22644: A discrepancy between GT(Base) and GT(Purchased)
+* Fixed #22645: Incorrect original price when using custom price in order.
 * Fixed #22653: Missed checking for file existents in JS/CSS merger
 ** cheking in source file exists. If not - do not check last modification and force to merge target file again
-* Fixed #22594: Unable to place orders through checkout with multiple addresses with PayPal direct + zero subtotal for one order 
-* Fixed #21185: Newsletter confirmed automatically BEFORE account email is confirmed. 
-* Fixed #22167: "Add new row" button in downloadable product 
-* Fixed #21952: BUG - Category / Url Model (UYN-886991) 
+* Fixed #22594: Unable to place orders through checkout with multiple addresses with PayPal direct + zero subtotal for one order
+* Fixed #21185: Newsletter confirmed automatically BEFORE account email is confirmed.
+* Fixed #22167: "Add new row" button in downloadable product
+* Fixed #21952: BUG - Category / Url Model (UYN-886991)
 * Fixed #15334, #17794
 ** API category did not pass validation process due to available_sort_by must be ArrayOfString
 ** Added category validation for backend (missed)
 ** Creating separate validation for available_sort_by and default_sort_by attributes
 * Fixed #22599 Upgrade from 1.1.8 to 1.8.0.0 database compatibility issues (PARTIAL)
-* Fixed #22661: 1 cent bug 
-* Fixed #22434: 100% discount of products -> the amounts of Tax and Grand Totals are or negative or not corectly 
+* Fixed #22661: 1 cent bug
+* Fixed #22434: 100% discount of products -> the amounts of Tax and Grand Totals are or negative or not corectly
 * Fixed #10073: Unnecessary option for downloadable products
 * Fixed #20014: Qty use decimals for downloadable
 * Fixed #22164: Incorrect message for maximum shipping amount
@@ -7590,20 +7600,20 @@ Fixed UPS XML Shipping method doesn't work, if country of shipping origin is not
 * Fixed #22266: HEADERS ALREADY SENT Error during dataflow import
 ** Additionally: moveing layout update in separate layout file of dataflow module.
 * Fixed #21412: The "Save Attribute" and "Save and Continue Edit" buttons become disabled after saving attribute with attribute code that exists
-* Fixed #22844: After login to admin got 404 instead Startup Page 
-* Fixed #22852: shopping cart price rule - search by ID - error page 
+* Fixed #22844: After login to admin got 404 instead Startup Page
+* Fixed #22852: shopping cart price rule - search by ID - error page
 * Fixed #15897: Unsubscription Email Sender in the Newsletters Subscription Options is not working correctly
 * Fixed #15899: Newsletters subscription confirmation in not working
 * Fixed #22908: Grid Serializer doesn't handle dropdowns as edit columns
 * Fixed #22946: 'Products Tagged by Administrators' grid contains information about product that is assigned by the customer
-* Fixed #22935: Issue with Google AdWords and DSMM Code 
-* Fixed #22910: view of system/design table with no records under IE 8 
+* Fixed #22935: Issue with Google AdWords and DSMM Code
+* Fixed #22910: view of system/design table with no records under IE 8
 * Fixed #22914: view of URL rewrite table with no records under IE 8
-* Fixed #22935: Issue with Google AdWords and DSMM Code 
-* Fixed #22536: Light-weight email templates 
+* Fixed #22935: Issue with Google AdWords and DSMM Code
+* Fixed #22536: Light-weight email templates
 * Fixed #23017: Memcache session fallback does not work
-* Fixed #22992: Trace appears during create reorder from front-end 
-* Fixed #22991: Cannot add items to shopping cart after active 'Use Flat Catalog Product' 
+* Fixed #22992: Trace appears during create reorder from front-end
+* Fixed #22991: Cannot add items to shopping cart after active 'Use Flat Catalog Product'
 * Fixed #22813: Google base Undefined Offset when Managing attribute mapping
 * Fixed #23138: URL rewrite error on product creation
 * Added Regions for baltic states and Finland
@@ -7613,7 +7623,7 @@ Fixed UPS XML Shipping method doesn't work, if country of shipping origin is not
 * Fixed #16294: WSDL missing attributes for customerCustomerEntity
 * Fixed #22851: Used wrong resource model for api/user
 * Fixed #18207: SOAP-ERROR: Parsing Schema: can't import schema from 'http://schemas.xmlsoap.org/soap/encoding/'
-* Fixed Fatal error: Call to undefined function eaccelerator_fetch() 
+* Fixed Fatal error: Call to undefined function eaccelerator_fetch()
 
 
 
@@ -7626,7 +7636,7 @@ Fixed UPS XML Shipping method doesn't work, if country of shipping origin is not
 
 === Changes ===
 * Checkout: added dispatching event 'checkout_submit_all_after' into all checkout models
-* Centinel: changed event for resetting validation state 
+* Centinel: changed event for resetting validation state
 * Added check for Order ID before try to lookup transactions by Transaction Id
 * Added cvv field for Mastero/Switch/Solo cards. Also fixed html formatting.
 * Re-factored saving relation of billing agreement with order.

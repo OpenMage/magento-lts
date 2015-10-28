@@ -26,139 +26,146 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-  <testCase name="Mage\Paypal\Test\TestCase\TestCreationForExpressCheckoutWithinPayPalButtonFromProductPageTest">
-    <variation name="TestCreationForExpressCheckoutWithinPayPalButtonFromProductPageTestVariation1" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
-      <data name="description" xsi:type="string">Paypal express order line items mark require billing address</data>
-      <data name="products" xsi:type="string">catalogProductSimple::default</data>
-      <data name="salesRule" xsi:type="string">active_sales_rule_for_all_groups</data>
-      <data name="configData" xsi:type="string">paypal_express_order_line_items_mark_require_billing_address</data>
-      <data name="shippingMethod" xsi:type="string">Flat Rate/Fixed</data>
-      <data name="grandTotal" xsi:type="string">315</data>
-      <data name="status" xsi:type="string">Processing</data>
-      <data name="transactionType" xsi:type="string">Authorization</data>
-      <data name="ipn" xsi:type="string">-</data>
-      <data name="orderButtonsAvailable" xsi:type="string">Back, Edit, Cancel, Send Email, Void, Hold, Invoice, Ship</data>
-      <data name="paymentAction" xsi:type="string">Authorized</data>
-      <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" next="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect"/>
-      <constraint name="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect" next="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable" prev="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
-      <constraint name="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable" next="Mage\Paypal\Test\Constraint\AssertTransaction" prev="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect"/>
-      <constraint name="Mage\Paypal\Test\Constraint\AssertTransaction" next="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable"/>
-      <constraint name="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" next="Mage\Checkout\Test\Constraint\AssertOrderShippingAddressSameAsPaypalBilling" prev="Mage\Paypal\Test\Constraint\AssertTransaction"/>
-      <constraint name="Mage\Checkout\Test\Constraint\AssertOrderShippingAddressSameAsPaypalBilling" prev="Mage\Sales\Test\Constraint\AssertOrderGrandTotal"/>
-    </variation>
-    <variation name="TestCreationForExpressCheckoutWithinPayPalButtonFromProductPageTestVariation2" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
-      <data name="description" xsi:type="string">Payflow express authorization line items</data>
-      <data name="products" xsi:type="string">catalogProductVirtual::order_default</data>
-      <data name="salesRule" xsi:type="string">active_sales_rule_for_all_groups</data>
-      <data name="configData" xsi:type="string">payflow_express_authorization_line_items</data>
-      <data name="shippingMethod" xsi:type="string">-</data>
-      <data name="grandTotal" xsi:type="string">100</data>
-      <data name="status" xsi:type="string">Processing</data>
-      <data name="transactionType" xsi:type="string">Authorization</data>
-      <data name="ipn" xsi:type="string">-</data>
-      <data name="orderButtonsAvailable" xsi:type="string">Back, Edit, Cancel, Send Email, Void, Hold, Invoice</data>
-      <data name="paymentAction" xsi:type="string">Authorized</data>
-      <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" next="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect"/>
-      <constraint name="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect" next="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable" prev="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
-      <constraint name="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable" next="Mage\Paypal\Test\Constraint\AssertTransaction" prev="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect"/>
-      <constraint name="Mage\Paypal\Test\Constraint\AssertTransaction" next="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable"/>
-      <constraint name="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Paypal\Test\Constraint\AssertTransaction"/>
-    </variation>
-    <variation name="TestCreationForExpressCheckoutWithinPayPalButtonFromProductPageTestVariation3" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
-      <data name="description" xsi:type="string">Payflow express authorization specificcountry us</data>
-      <data name="products" xsi:type="string">catalogProductVirtual::order_default_expensive</data>
-      <data name="salesRule" xsi:type="string">active_sales_rule_for_all_groups</data>
-      <data name="configData" xsi:type="string">payflow_express_authorization_specificcountry_us</data>
-      <data name="shippingMethod" xsi:type="string">-</data>
-      <data name="grandTotal" xsi:type="string">1000</data>
-      <data name="status" xsi:type="string">Processing</data>
-      <data name="transactionType" xsi:type="string">Authorization</data>
-      <data name="ipn" xsi:type="string">-</data>
-      <data name="orderButtonsAvailable" xsi:type="string">Back, Edit, Cancel, Send Email, Void, Hold, Invoice</data>
-      <data name="paymentAction" xsi:type="string">Authorized</data>
-      <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" next="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect"/>
-      <constraint name="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect" next="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable" prev="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
-      <constraint name="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable" next="Mage\Paypal\Test\Constraint\AssertTransaction" prev="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect"/>
-      <constraint name="Mage\Paypal\Test\Constraint\AssertTransaction" next="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable"/>
-      <constraint name="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Paypal\Test\Constraint\AssertTransaction"/>
-    </variation>
-    <variation name="TestCreationForExpressCheckoutWithinPayPalButtonFromProductPageTestVariation4" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
-      <data name="description" xsi:type="string">Payflow express sale</data>
-      <data name="products" xsi:type="string">catalogProductSimple::order_default</data>
-      <data name="salesRule" xsi:type="string">-</data>
-      <data name="configData" xsi:type="string">payflow_express_sale</data>
-      <data name="shippingMethod" xsi:type="string">Flat Rate/Fixed</data>
-      <data name="grandTotal" xsi:type="string">105</data>
-      <data name="status" xsi:type="string">Processing</data>
-      <data name="transactionType" xsi:type="string">Capture</data>
-      <data name="ipn" xsi:type="string">Completed</data>
-      <data name="orderButtonsAvailable" xsi:type="string">Back, Edit, Send Email, Hold, Ship</data>
-      <data name="paymentAction" xsi:type="string">Captured</data>
-      <data name="verifyData/grandTotal/invoices/0/from" xsi:type="string">105</data>
-      <data name="verifyData/grandTotal/invoices/0/to" xsi:type="string">105</data>
-      <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" next="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect"/>
-      <constraint name="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect" next="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable" prev="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
-      <constraint name="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable" next="Mage\Paypal\Test\Constraint\AssertTransaction" prev="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect"/>
-      <constraint name="Mage\Paypal\Test\Constraint\AssertTransaction" next="Mage\Sales\Test\Constraint\AssertInvoiceInInvoicesTab" prev="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable"/>
-      <constraint name="Mage\Sales\Test\Constraint\AssertInvoiceInInvoicesTab" next="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Paypal\Test\Constraint\AssertTransaction"/>
-      <constraint name="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" next="Mage\Checkout\Test\Constraint\AssertOrderBillingAddressSameAsPaypalShipping" prev="Mage\Sales\Test\Constraint\AssertInvoiceInInvoicesTab"/>
-      <constraint name="Mage\Checkout\Test\Constraint\AssertOrderBillingAddressSameAsPaypalShipping" prev="Mage\Sales\Test\Constraint\AssertOrderGrandTotal"/>
-    </variation>
-    <variation name="TestCreationForExpressCheckoutWithinPayPalButtonFromProductPageTestVariation5" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
-      <data name="description" xsi:type="string">Payflow express sale specificcountry gb line items</data>
-      <data name="products" xsi:type="string">catalogProductSimple::order_default</data>
-      <data name="salesRule" xsi:type="string">-</data>
-      <data name="configData" xsi:type="string">payflow_express_sale_specificcountry_gb_line_items</data>
-      <data name="shippingMethod" xsi:type="string">Flat Rate/Fixed</data>
-      <data name="grandTotal" xsi:type="string">105</data>
-      <data name="status" xsi:type="string">Processing</data>
-      <data name="transactionType" xsi:type="string">Authorization</data>
-      <data name="ipn" xsi:type="string">Completed</data>
-      <data name="orderButtonsAvailable" xsi:type="string">Back, Edit, Cancel, Send Email, Void, Hold, Invoice, Ship</data>
-      <data name="paymentAction" xsi:type="string">Authorized</data>
-      <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" next="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect"/>
-      <constraint name="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect" next="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable" prev="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
-      <constraint name="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable" next="Mage\Paypal\Test\Constraint\AssertTransaction" prev="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect"/>
-      <constraint name="Mage\Paypal\Test\Constraint\AssertTransaction" next="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable"/>
-      <constraint name="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" next="Mage\Checkout\Test\Constraint\AssertOrderBillingAddressSameAsPaypalShipping" prev="Mage\Paypal\Test\Constraint\AssertTransaction"/>
-      <constraint name="Mage\Checkout\Test\Constraint\AssertOrderBillingAddressSameAsPaypalShipping" prev="Mage\Sales\Test\Constraint\AssertOrderGrandTotal"/>
-    </variation>
-    <variation name="TestCreationForExpressCheckoutWithinPayPalButtonFromProductPageTestVariation6" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
-      <data name="description" xsi:type="string">Paypal express sale specificcountry us shipping options mark for simple product and without sales rule</data>
-      <data name="products" xsi:type="string">catalogProductSimple::default</data>
-      <data name="salesRule" xsi:type="string">-</data>
-      <data name="configData" xsi:type="string">paypal_express_sale_specificcountry_us_shipping_options_mark</data>
-      <data name="shippingMethod" xsi:type="string">Flat Rate/Fixed</data>
-      <data name="grandTotal" xsi:type="string">315</data>
-      <data name="status" xsi:type="string">Processing</data>
-      <data name="transactionType" xsi:type="string">Authorization</data>
-      <data name="ipn" xsi:type="string">Completed</data>
-      <data name="orderButtonsAvailable" xsi:type="string">Back, Edit, Cancel, Send Email, Void, Hold, Invoice, Ship</data>
-      <data name="paymentAction" xsi:type="string">Authorized</data>
-      <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" next="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect"/>
-      <constraint name="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect" next="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable" prev="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
-      <constraint name="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable" next="Mage\Paypal\Test\Constraint\AssertTransaction" prev="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect"/>
-      <constraint name="Mage\Paypal\Test\Constraint\AssertTransaction" next="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable"/>
-      <constraint name="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" next="Mage\Checkout\Test\Constraint\AssertOrderBillingAddressSameAsPaypalShipping" prev="Mage\Paypal\Test\Constraint\AssertTransaction"/>
-      <constraint name="Mage\Checkout\Test\Constraint\AssertOrderBillingAddressSameAsPaypalShipping" prev="Mage\Sales\Test\Constraint\AssertOrderGrandTotal"/>
-    </variation>
-    <variation name="TestCreationForExpressCheckoutWithinPayPalButtonFromProductPageTestVariation7" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
-      <data name="description" xsi:type="string">Paypal express sale specificcountry us shipping options mark for virtual product and with sales rule</data>
-      <data name="products" xsi:type="string">catalogProductVirtual::order_default_expensive</data>
-      <data name="salesRule" xsi:type="string">active_sales_rule_for_all_groups</data>
-      <data name="configData" xsi:type="string">paypal_express_sale_specificcountry_us_shipping_options_mark</data>
-      <data name="shippingMethod" xsi:type="string">-</data>
-      <data name="grandTotal" xsi:type="string">1000</data>
-      <data name="status" xsi:type="string">Processing</data>
-      <data name="transactionType" xsi:type="string">Authorization</data>
-      <data name="ipn" xsi:type="string">Completed</data>
-      <data name="orderButtonsAvailable" xsi:type="string">Back, Edit, Cancel, Send Email, Void, Hold, Invoice</data>
-      <data name="paymentAction" xsi:type="string">Authorized</data>
-      <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" next="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect"/>
-      <constraint name="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect" next="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable" prev="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
-      <constraint name="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable" next="Mage\Paypal\Test\Constraint\AssertTransaction" prev="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect"/>
-      <constraint name="Mage\Paypal\Test\Constraint\AssertTransaction" next="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable"/>
-      <constraint name="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Paypal\Test\Constraint\AssertTransaction"/>
-    </variation>
-  </testCase>
+    <testCase name="Mage\Paypal\Test\TestCase\TestCreationForExpressCheckoutWithinPayPalButtonFromProductPageTest">
+        <variation name="TestCreationForExpressCheckoutWithinPayPalButtonFromProductPageTestVariation1" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
+            <data name="description" xsi:type="string">Paypal express order line items mark require billing address</data>
+            <data name="products" xsi:type="string">catalogProductSimple::default</data>
+            <data name="salesRule" xsi:type="string">active_sales_rule_for_all_groups</data>
+            <data name="configData" xsi:type="string">paypal_express_order_line_items_mark_require_billing_address</data>
+            <data name="shippingMethod" xsi:type="string">Flat Rate/Fixed</data>
+            <data name="grandTotal" xsi:type="string">315</data>
+            <data name="status" xsi:type="string">Processing</data>
+            <data name="transactionType" xsi:type="string">Authorization</data>
+            <data name="ipn" xsi:type="string">-</data>
+            <data name="orderButtonsAvailable" xsi:type="string">Back, Edit, Cancel, Send Email, Void, Hold, Invoice, Ship</data>
+            <data name="paymentAction" xsi:type="string">Authorized</data>
+            <data name="tag" xsi:type="string">payment_method:paypal</data>
+            <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" next="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect"/>
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect" next="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable" prev="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable" next="Mage\Paypal\Test\Constraint\AssertTransaction" prev="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect"/>
+            <constraint name="Mage\Paypal\Test\Constraint\AssertTransaction" next="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable"/>
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" next="Mage\Checkout\Test\Constraint\AssertOrderShippingAddressSameAsPaypalBilling" prev="Mage\Paypal\Test\Constraint\AssertTransaction"/>
+            <constraint name="Mage\Checkout\Test\Constraint\AssertOrderShippingAddressSameAsPaypalBilling" prev="Mage\Sales\Test\Constraint\AssertOrderGrandTotal"/>
+        </variation>
+        <variation name="TestCreationForExpressCheckoutWithinPayPalButtonFromProductPageTestVariation2" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
+           <data name="description" xsi:type="string">Payflow express authorization line items</data>
+            <data name="products" xsi:type="string">catalogProductVirtual::order_default</data>
+            <data name="salesRule" xsi:type="string">active_sales_rule_for_all_groups</data>
+            <data name="configData" xsi:type="string">payflow_express_authorization_line_items</data>
+            <data name="shippingMethod" xsi:type="string">-</data>
+            <data name="grandTotal" xsi:type="string">100</data>
+            <data name="status" xsi:type="string">Processing</data>
+            <data name="transactionType" xsi:type="string">Authorization</data>
+            <data name="ipn" xsi:type="string">-</data>
+            <data name="orderButtonsAvailable" xsi:type="string">Back, Edit, Cancel, Send Email, Void, Hold, Invoice</data>
+            <data name="paymentAction" xsi:type="string">Authorized</data>
+            <data name="tag" xsi:type="string">payment_method:paypal</data>
+            <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" next="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect"/>
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect" next="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable" prev="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable" next="Mage\Paypal\Test\Constraint\AssertTransaction" prev="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect"/>
+            <constraint name="Mage\Paypal\Test\Constraint\AssertTransaction" next="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable"/>
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Paypal\Test\Constraint\AssertTransaction"/>
+        </variation>
+        <variation name="TestCreationForExpressCheckoutWithinPayPalButtonFromProductPageTestVariation3" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
+            <data name="description" xsi:type="string">Payflow express authorization specificcountry us</data>
+            <data name="products" xsi:type="string">catalogProductVirtual::order_default_expensive</data>
+            <data name="salesRule" xsi:type="string">active_sales_rule_for_all_groups</data>
+            <data name="configData" xsi:type="string">payflow_express_authorization_specificcountry_us</data>
+            <data name="shippingMethod" xsi:type="string">-</data>
+            <data name="grandTotal" xsi:type="string">1000</data>
+            <data name="status" xsi:type="string">Processing</data>
+            <data name="transactionType" xsi:type="string">Authorization</data>
+            <data name="ipn" xsi:type="string">-</data>
+            <data name="orderButtonsAvailable" xsi:type="string">Back, Edit, Cancel, Send Email, Void, Hold, Invoice</data>
+            <data name="paymentAction" xsi:type="string">Authorized</data>
+            <data name="tag" xsi:type="string">payment_method:paypal</data>
+            <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" next="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect"/>
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect" next="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable" prev="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable" next="Mage\Paypal\Test\Constraint\AssertTransaction" prev="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect"/>
+            <constraint name="Mage\Paypal\Test\Constraint\AssertTransaction" next="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable"/>
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Paypal\Test\Constraint\AssertTransaction"/>
+        </variation>
+        <variation name="TestCreationForExpressCheckoutWithinPayPalButtonFromProductPageTestVariation4" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
+            <data name="description" xsi:type="string">Payflow express sale</data>
+            <data name="products" xsi:type="string">catalogProductSimple::order_default</data>
+            <data name="salesRule" xsi:type="string">-</data>
+            <data name="configData" xsi:type="string">payflow_express_sale</data>
+            <data name="shippingMethod" xsi:type="string">Flat Rate/Fixed</data>
+            <data name="grandTotal" xsi:type="string">105</data>
+            <data name="status" xsi:type="string">Processing</data>
+            <data name="transactionType" xsi:type="string">Capture</data>
+            <data name="ipn" xsi:type="string">Completed</data>
+            <data name="orderButtonsAvailable" xsi:type="string">Back, Edit, Send Email, Hold, Ship</data>
+            <data name="paymentAction" xsi:type="string">Captured</data>
+            <data name="verifyData/grandTotal/invoices/0/from" xsi:type="string">105</data>
+            <data name="verifyData/grandTotal/invoices/0/to" xsi:type="string">105</data>
+            <data name="tag" xsi:type="string">payment_method:paypal</data>
+            <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" next="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect"/>
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect" next="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable" prev="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable" next="Mage\Paypal\Test\Constraint\AssertTransaction" prev="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect"/>
+            <constraint name="Mage\Paypal\Test\Constraint\AssertTransaction" next="Mage\Sales\Test\Constraint\AssertInvoiceInInvoicesTab" prev="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable"/>
+            <constraint name="Mage\Sales\Test\Constraint\AssertInvoiceInInvoicesTab" next="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Paypal\Test\Constraint\AssertTransaction"/>
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" next="Mage\Checkout\Test\Constraint\AssertOrderBillingAddressSameAsPaypalShipping" prev="Mage\Sales\Test\Constraint\AssertInvoiceInInvoicesTab"/>
+            <constraint name="Mage\Checkout\Test\Constraint\AssertOrderBillingAddressSameAsPaypalShipping" prev="Mage\Sales\Test\Constraint\AssertOrderGrandTotal"/>
+        </variation>
+        <variation name="TestCreationForExpressCheckoutWithinPayPalButtonFromProductPageTestVariation5" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
+            <data name="description" xsi:type="string">Payflow express sale specificcountry gb line items</data>
+            <data name="products" xsi:type="string">catalogProductSimple::order_default</data>
+            <data name="salesRule" xsi:type="string">-</data>
+            <data name="configData" xsi:type="string">payflow_express_sale_specificcountry_gb_line_items</data>
+            <data name="shippingMethod" xsi:type="string">Flat Rate/Fixed</data>
+            <data name="grandTotal" xsi:type="string">105</data>
+            <data name="status" xsi:type="string">Processing</data>
+            <data name="transactionType" xsi:type="string">Authorization</data>
+            <data name="ipn" xsi:type="string">Completed</data>
+            <data name="orderButtonsAvailable" xsi:type="string">Back, Edit, Cancel, Send Email, Void, Hold, Invoice, Ship</data>
+            <data name="paymentAction" xsi:type="string">Authorized</data>
+            <data name="tag" xsi:type="string">payment_method:paypal</data>
+            <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" next="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect"/>
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect" next="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable" prev="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable" next="Mage\Paypal\Test\Constraint\AssertTransaction" prev="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect"/>
+            <constraint name="Mage\Paypal\Test\Constraint\AssertTransaction" next="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable"/>
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" next="Mage\Checkout\Test\Constraint\AssertOrderBillingAddressSameAsPaypalShipping" prev="Mage\Paypal\Test\Constraint\AssertTransaction"/>
+            <constraint name="Mage\Checkout\Test\Constraint\AssertOrderBillingAddressSameAsPaypalShipping" prev="Mage\Sales\Test\Constraint\AssertOrderGrandTotal"/>
+        </variation>
+        <variation name="TestCreationForExpressCheckoutWithinPayPalButtonFromProductPageTestVariation6" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
+            <data name="description" xsi:type="string">Paypal express sale specificcountry us shipping options mark for simple product and without sales rule</data>
+            <data name="products" xsi:type="string">catalogProductSimple::default</data>
+            <data name="salesRule" xsi:type="string">-</data>
+            <data name="configData" xsi:type="string">paypal_express_sale_specificcountry_us_shipping_options_mark</data>
+            <data name="shippingMethod" xsi:type="string">Flat Rate/Fixed</data>
+            <data name="grandTotal" xsi:type="string">315</data>
+            <data name="status" xsi:type="string">Processing</data>
+            <data name="transactionType" xsi:type="string">Authorization</data>
+            <data name="ipn" xsi:type="string">Completed</data>
+            <data name="orderButtonsAvailable" xsi:type="string">Back, Edit, Cancel, Send Email, Void, Hold, Invoice, Ship</data>
+            <data name="paymentAction" xsi:type="string">Authorized</data>
+            <data name="tag" xsi:type="string">payment_method:paypal</data>
+            <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" next="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect"/>
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect" next="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable" prev="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable" next="Mage\Paypal\Test\Constraint\AssertTransaction" prev="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect"/>
+            <constraint name="Mage\Paypal\Test\Constraint\AssertTransaction" next="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable"/>
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" next="Mage\Checkout\Test\Constraint\AssertOrderBillingAddressSameAsPaypalShipping" prev="Mage\Paypal\Test\Constraint\AssertTransaction"/>
+            <constraint name="Mage\Checkout\Test\Constraint\AssertOrderBillingAddressSameAsPaypalShipping" prev="Mage\Sales\Test\Constraint\AssertOrderGrandTotal"/>
+        </variation>
+        <variation name="TestCreationForExpressCheckoutWithinPayPalButtonFromProductPageTestVariation7" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
+            <data name="description" xsi:type="string">Paypal express sale specificcountry us shipping options mark for virtual product and with sales rule</data>
+            <data name="products" xsi:type="string">catalogProductVirtual::order_default_expensive</data>
+            <data name="salesRule" xsi:type="string">active_sales_rule_for_all_groups</data>
+            <data name="configData" xsi:type="string">paypal_express_sale_specificcountry_us_shipping_options_mark</data>
+            <data name="shippingMethod" xsi:type="string">-</data>
+            <data name="grandTotal" xsi:type="string">1000</data>
+            <data name="status" xsi:type="string">Processing</data>
+            <data name="transactionType" xsi:type="string">Authorization</data>
+            <data name="ipn" xsi:type="string">Completed</data>
+            <data name="orderButtonsAvailable" xsi:type="string">Back, Edit, Cancel, Send Email, Void, Hold, Invoice</data>
+            <data name="paymentAction" xsi:type="string">Authorized</data>
+            <data name="tag" xsi:type="string">payment_method:paypal</data>
+            <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" next="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect"/>
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect" next="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable" prev="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable" next="Mage\Paypal\Test\Constraint\AssertTransaction" prev="Mage\Sales\Test\Constraint\AssertOrderStatusIsCorrect"/>
+            <constraint name="Mage\Paypal\Test\Constraint\AssertTransaction" next="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Sales\Test\Constraint\AssertOrderButtonsAvailable"/>
+            <constraint name="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Paypal\Test\Constraint\AssertTransaction"/>
+        </variation>
+    </testCase>
 </config>

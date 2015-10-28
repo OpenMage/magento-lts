@@ -44,7 +44,8 @@
             <data name="verifyData/totalQtyOrdered/shipments/0/total_qty_from" xsi:type="string">3</data>
             <data name="verifyData/totalQtyOrdered/shipments/0/total_qty_to" xsi:type="string">3</data>
             <data name="status" xsi:type="string">Processing</data>
-            <data name="issue" xsi:type="string">Unskip after done TOOL-4060</data>
+            <data name="tag" xsi:type="string">payment_method:paypal_direct</data>
+            <data name="tag" xsi:type="string">paypal:payflow_link</data>
             <constraint name="Mage\Shipping\Test\Constraint\AssertShipmentSuccessCreateMessage" />
             <constraint name="Mage\Shipping\Test\Constraint\AssertShipmentInShipmentsTab" />
             <constraint name="Mage\Shipping\Test\Constraint\AssertShipmentInShipmentsGrid" />
@@ -69,8 +70,9 @@
             <data name="data/shipment/0/form_data/comment_text" xsi:type="string">comments for shipment</data>
             <data name="verifyData/totalQtyOrdered/shipments/0/total_qty_from" xsi:type="string">3</data>
             <data name="verifyData/totalQtyOrdered/shipments/0/total_qty_to" xsi:type="string">3</data>
-            <data name="status" xsi:type="string">Complete</data>
-            <data name="issue" xsi:type="string">Unskip after done TOOL-4060</data>
+            <data name="status" xsi:type="string">Processing</data>
+            <data name="tag" xsi:type="string">payment_method:paypal_direct</data>
+            <data name="tag" xsi:type="string">paypal:advanced</data>
             <constraint name="Mage\Shipping\Test\Constraint\AssertShipmentSuccessCreateMessage" />
             <constraint name="Mage\Shipping\Test\Constraint\AssertShipmentInShipmentsTab" />
             <constraint name="Mage\Shipping\Test\Constraint\AssertShipmentInShipmentsGrid" />

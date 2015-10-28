@@ -767,9 +767,9 @@ class Zend_Amf_Server implements Zend_Server_Interface
             throw new Zend_Amf_Server_Exception('Invalid method or class; must be a classname or object');
         }
 
-        $argv = null;
+        $args = null;
         if (2 < func_num_args()) {
-            $argv = array_slice(func_get_args(), 2);
+            $args = array_slice(func_get_args(), 2);
         }
 
         // Use the class name as the name space by default.
@@ -780,7 +780,7 @@ class Zend_Amf_Server implements Zend_Server_Interface
 
         $this->_classAllowed[is_object($class) ? get_class($class) : $class] = true;
 
-        $this->_methods[] = Zend_Server_Reflection::reflectClass($class, $argv, $namespace);
+        $this->_methods[] = Zend_Server_Reflection::reflectClass($class, $args, $namespace);
         $this->_buildDispatchTable();
 
         return $this;
