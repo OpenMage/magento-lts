@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Admin>
-            <version>1.6.1.1</version>
+            <version>1.6.1.2</version>
         </Mage_Admin>
     </modules>
     <global>
@@ -50,6 +50,12 @@
                     <rule>
                         <table>admin_rule</table>
                     </rule>
+                    <permission_variable>
+                        <table>permission_variable</table>
+                    </permission_variable>
+                    <permission_block>
+                        <table>permission_block</table>
+                    </permission_block>
                     <assert>
                         <table>admin_assert</table>
                     </assert>

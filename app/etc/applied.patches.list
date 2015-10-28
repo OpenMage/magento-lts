@@ -94,3 +94,66 @@ Hunk #1 succeeded at 209 (offset -24 lines).
 patching file app/code/core/Mage/Catalog/Model/Product/Api/V2.php
 
 
+2015-10-28 17:23:41 UTC | SUPEE-6788 | CE_1.9.1.1 | v1 | 2349a68440e870cd68dfa81fb982f3b7a42cd099 | Fri Oct 23 14:49:16 2015 +0300 | b240663
+patching file .htaccess
+patching file .htaccess.sample
+patching file app/code/core/Mage/Admin/Model/Block.php
+patching file app/code/core/Mage/Admin/Model/Resource/Block.php
+patching file app/code/core/Mage/Admin/Model/Resource/Block/Collection.php
+patching file app/code/core/Mage/Admin/Model/Resource/Variable.php
+patching file app/code/core/Mage/Admin/Model/Resource/Variable/Collection.php
+patching file app/code/core/Mage/Admin/Model/Variable.php
+patching file app/code/core/Mage/Admin/etc/config.xml
+patching file app/code/core/Mage/Admin/sql/admin_setup/upgrade-1.6.1.1-1.6.1.2.php
+patching file app/code/core/Mage/Adminhtml/Block/Permissions/Block.php
+patching file app/code/core/Mage/Adminhtml/Block/Permissions/Block/Edit.php
+patching file app/code/core/Mage/Adminhtml/Block/Permissions/Block/Edit/Form.php
+patching file app/code/core/Mage/Adminhtml/Block/Permissions/Block/Grid.php
+patching file app/code/core/Mage/Adminhtml/Block/Permissions/Variable.php
+patching file app/code/core/Mage/Adminhtml/Block/Permissions/Variable/Edit.php
+patching file app/code/core/Mage/Adminhtml/Block/Permissions/Variable/Edit/Form.php
+patching file app/code/core/Mage/Adminhtml/Block/Permissions/Variable/Grid.php
+patching file app/code/core/Mage/Adminhtml/controllers/Permissions/BlockController.php
+patching file app/code/core/Mage/Adminhtml/controllers/Permissions/VariableController.php
+patching file app/code/core/Mage/Adminhtml/etc/adminhtml.xml
+patching file app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php
+patching file app/code/core/Mage/Core/Controller/Request/Http.php
+patching file app/code/core/Mage/Core/Controller/Varien/Router/Admin.php
+patching file app/code/core/Mage/Core/Helper/UnserializeArray.php
+patching file app/code/core/Mage/Core/Model/Email/Template/Filter.php
+patching file app/code/core/Mage/Core/Model/Resource/Setup.php
+patching file app/code/core/Mage/Core/etc/config.xml
+patching file app/code/core/Mage/Core/etc/system.xml
+patching file app/code/core/Mage/Customer/Block/Account/Changeforgotten.php
+patching file app/code/core/Mage/Customer/Block/Account/Resetpassword.php
+patching file app/code/core/Mage/Customer/controllers/AccountController.php
+patching file app/code/core/Mage/Downloadable/Model/Product/Type.php
+patching file app/code/core/Mage/Eav/Model/Resource/Attribute/Collection.php
+patching file app/code/core/Mage/Sales/Model/Resource/Order/Item/Collection.php
+patching file app/code/core/Mage/Sales/controllers/DownloadController.php
+patching file app/code/core/Mage/SalesRule/Model/Resource/Coupon/Collection.php
+patching file app/design/adminhtml/default/default/layout/admin.xml
+patching file app/design/frontend/base/default/layout/customer.xml
+patching file app/design/frontend/base/default/template/customer/form/register.phtml
+patching file app/design/frontend/base/default/template/customer/form/resetforgottenpassword.phtml
+patching file app/design/frontend/base/default/template/page/js/cookie.phtml
+patching file app/design/frontend/base/default/template/persistent/customer/form/register.phtml
+patching file app/design/frontend/default/iphone/layout/customer.xml
+patching file app/design/frontend/default/modern/layout/customer.xml
+patching file app/design/frontend/rwd/default/layout/customer.xml
+patching file app/design/frontend/rwd/default/template/customer/form/resetforgottenpassword.phtml
+patching file app/design/frontend/rwd/default/template/persistent/customer/form/register.phtml
+patching file cron.php
+patching file errors/processor.php
+patching file lib/Unserialize/Parser.php
+patching file lib/Unserialize/Reader/Arr.php
+patching file lib/Unserialize/Reader/ArrKey.php
+patching file lib/Unserialize/Reader/ArrValue.php
+patching file lib/Unserialize/Reader/Bool.php
+patching file lib/Unserialize/Reader/Dbl.php
+patching file lib/Unserialize/Reader/Int.php
+patching file lib/Unserialize/Reader/Str.php
+patching file lib/Varien/Data/Collection/Db.php
+patching file lib/Zend/Xml/Security.php
+
+
