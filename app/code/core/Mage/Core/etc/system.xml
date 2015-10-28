@@ -1188,7 +1188,7 @@
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                         </session_cookie_lifetime>
-                        <domain_policy_backend translate="label">
+                        <domain_policy_backend translate="label comment">
                             <label>Allow Magento Backend to run in frame</label>
                             <frontend_type>select</frontend_type>
                             <comment>Enabling ability to run Magento in a frame is not recommended for security reasons.</comment>
@@ -1198,7 +1198,7 @@
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                         </domain_policy_backend>
-                        <domain_policy_frontend translate="label">
+                        <domain_policy_frontend translate="label comment">
                             <label>Allow Magento Frontend to run in frame</label>
                             <comment>Enabling ability to run Magento in a frame is not recommended for security reasons.</comment>
                             <frontend_type>select</frontend_type>
@@ -1208,6 +1208,16 @@
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                         </domain_policy_frontend>
+                        <extensions_compatibility_mode translate="label comment">
+                            <label>Admin routing compatibility mode for extensions</label>
+                            <comment>Enabling this setting increases risk of automated attacks against admin functionality.</comment>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>6</sort_order>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </extensions_compatibility_mode>
                     </fields>
                 </security>
                 <dashboard translate="label">
