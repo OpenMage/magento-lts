@@ -42,6 +42,7 @@ class Mage_Sales_Model_Resource_Billing_Agreement_Collection extends Mage_Core_M
     protected $_map = array('fields' => array(
         'customer_email'       => 'ce.email',
         'customer_firstname'   => 'firstname.value',
+        'customer_middlename'  => 'middlename.value',
         'customer_lastname'    => 'lastname.value',
         'agreement_created_at' => 'main_table.created_at',
         'agreement_updated_at' => 'main_table.updated_at',
@@ -74,12 +75,24 @@ class Mage_Sales_Model_Resource_Billing_Agreement_Collection extends Mage_Core_M
         $attr     = $customer->getAttribute('firstname');
         $joinExpr = 'firstname.entity_id = main_table.customer_id AND '
             . $adapter->quoteInto('firstname.entity_type_id = ?', $customer->getTypeId()) . ' AND '
-            . $adapter->quoteInto('firstname.attribute_id = ?', $attr->getAttributeId());
+            . $adapter->quoteInto('firstname.attribute_id = ?', $attr->getAttributeId()
+        );
 
         $select->joinLeft(
             array('firstname' => $attr->getBackend()->getTable()),
             $joinExpr,
             array('customer_firstname' => 'value')
+        );
+
+        $attr     = $customer->getAttribute('middlename');
+        $joinExpr = 'middlename.entity_id = main_table.customer_id AND '
+            . $adapter->quoteInto('middlename.entity_type_id = ?', $customer->getTypeId()) . ' AND '
+            . $adapter->quoteInto('middlename.attribute_id = ?', $attr->getAttributeId());
+
+        $select->joinLeft(
+            array('middlename' => $attr->getBackend()->getTable()),
+            $joinExpr,
+            array('customer_middlename' => 'value')
         );
 
         $attr = $customer->getAttribute('lastname');

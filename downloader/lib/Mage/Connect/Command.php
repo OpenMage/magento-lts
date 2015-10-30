@@ -276,7 +276,7 @@ class Mage_Connect_Command
     public function rest()
     {
         if(is_null(self::$_rest)) {
-            self::$_rest = new Mage_Connect_Rest(self::config()->protocol);
+            self::$_rest = Mage_Connect_Rest_Builder::getAdapter(self::config()->protocol);
         }
         return self::$_rest;
     }

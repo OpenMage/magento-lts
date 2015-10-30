@@ -59,7 +59,7 @@ function getTdValueInnerHtml() {
  */
 function getTdButtonInnerHtml(id) {
     return '<button  id="'+id+'" class=" scalable save onclick_button" value="&minus;">'
-    +'<span><?php echo $this->__('Delete'); ?></span></button>';
+    +'<span><?php echo Mage::helper('core')->jsQuoteEscape($this->__('Delete')); ?></span></button>';
 }
 
 /**

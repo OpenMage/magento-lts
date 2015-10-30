@@ -48,7 +48,7 @@
             <?php if($this->helper('wishlist')->isRssAllow()): ?>
             <li class="control">
                 <div class="input-box">
-                    <input type="checkbox" name="rss_url" id="rss_url" value="1" title="<?php echo $this->__('Check this checkbox if you want to add a link to an rss feed to your wishlist.') ?>" class="checkbox" />
+                    <input type="checkbox" name="rss_url" id="rss_url" value="1" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Check this checkbox if you want to add a link to an rss feed to your wishlist.')) ?>" class="checkbox" />
                 </div>
                 <label for="rss_url"><?php echo $this->__('Check this checkbox if you want to add a link to an rss feed to your wishlist.') ?></label>
             </li>
@@ -58,13 +58,13 @@
     <div class="buttons-set form-buttons">
         <p class="required"><?php echo $this->__('* Required Fields') ?></p>
         <p class="back-link"><a href="<?php echo $this->getBackUrl(); ?>"><small>&laquo; </small><?php echo $this->__('Back')?></a></p>
-        <button type="submit" title="<?php echo $this->__('Share Wishlist') ?>" class="button"><span><span><?php echo $this->__('Share Wishlist') ?></span></span></button>
+        <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Share Wishlist')) ?>" class="button"><span><span><?php echo $this->__('Share Wishlist') ?></span></span></button>
     </div>
 </form>
 <script type="text/javascript">
 //<![CDATA[
 Validation.addAllThese([
-    ['validate-emails', '<?php echo $this->__('Please enter a valid email addresses, separated by commas. For example johndoe@domain.com, johnsmith@domain.com.') ?>', function (v) {
+    ['validate-emails', '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Please enter a valid email addresses, separated by commas. For example johndoe@domain.com, johnsmith@domain.com.')) ?>', function (v) {
     if(Validation.get('IsEmpty').test(v)) {
         return true;
     }

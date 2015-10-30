@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    Tests
+ * @package     Tests_Functional
+ * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
+  <fixture name="catalogRule" module="Mage_CatalogRule" type="flat" entity_type="catalogrule" collection="Mage\CatalogRule\Model\Resource\Rule\Product\Price\Collection" repository_class="Mage\CatalogRule\Test\Repository\CatalogRule" handler_interface="Mage\CatalogRule\Test\Handler\CatalogRule\CatalogRuleInterface" class="Mage\CatalogRule\Test\Fixture\CatalogRule">
+    <dataset name="default">
+        <field name="name" xsi:type="string">CatalogPriceRule %isolation%</field>
+        <field name="description" xsi:type="string">Catalog Price Rule Description</field>
+        <field name="website_ids" xsi:type="array">
+            <item name="dataSets" xsi:type="array">
+                <item name="0" xsi:type="string">main_website</item>
+            </item>
+        </field>        <field name="customer_group_ids" xsi:type="array">
+            <item name="0" xsi:type="string">NOT LOGGED IN</item>
+        </field>
+        <field name="simple_action" xsi:type="string">By Percentage of the Original Price</field>
+        <field name="discount_amount" xsi:type="string">50</field>
+    </dataset>
+    <field name="rule_id" is_required="1">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="name" is_required="0" group="rule_information">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="description" is_required="0" group="rule_information">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="from_date" is_required="0" group="rule_information">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="to_date" is_required="0" group="rule_information">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="is_active" is_required="0">
+      <default_value xsi:type="string">0</default_value>
+    </field>
+    <field name="conditions_serialized" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="actions_serialized" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="stop_rules_processing" is_required="0" group="rule_information">
+      <default_value xsi:type="string">1</default_value>
+    </field>
+    <field name="sort_order" is_required="0" group="rule_information">
+      <default_value xsi:type="string">0</default_value>
+    </field>
+    <field name="simple_action" is_required="0" group="actions">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="discount_amount" is_required="0" group="actions">
+      <default_value xsi:type="string">0.0000</default_value>
+    </field>
+    <field name="sub_is_enable" is_required="0">
+      <default_value xsi:type="string">0</default_value>
+    </field>
+    <field name="sub_simple_action" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="sub_discount_amount" is_required="0">
+      <default_value xsi:type="string">0.0000</default_value>
+    </field>
+    <field name="website_ids" source="Mage\Catalog\Test\Fixture\CatalogProductSimple\WebsiteIds"/>
+    <field name="customer_group_ids" group="rule_information"/>
+    <field name="sub_discount_amount" group="rule_information"/>
+    <field name="condition_type" group="conditions"/>
+    <field name="condition_value" group="conditions"/>
+    <field name="rule" group="conditions"/>
+    <field name="conditions" group="conditions"/>
+    <field name="id"/>
+  </fixture>
+</config>

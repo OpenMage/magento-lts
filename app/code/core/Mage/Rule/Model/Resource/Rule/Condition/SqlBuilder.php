@@ -69,19 +69,20 @@ class Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder
                     $selectOperator = ' IN (?)';
                 } else {
                     $selectOperator = ' LIKE ?';
-                    $value          = '%' . $value . '%';
                 }
                 if (substr($operator, 0, 1) == '!') {
                     $selectOperator = ' NOT' . $selectOperator;
                 }
                 break;
 
+            case '[]':
+            case '![]':
             case '()':
-                $selectOperator = ' IN(?)';
-                break;
-
             case '!()':
-                $selectOperator = ' NOT IN(?)';
+                $selectOperator = 'FIND_IN_SET(?,' . $this->_adapter->quoteIdentifier($field) . ')';
+                if (substr($operator, 0, 1) == '!') {
+                    $selectOperator = 'NOT ' . $selectOperator;
+                }
                 break;
 
             default:
@@ -90,12 +91,22 @@ class Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder
         }
         $field = $this->_adapter->quoteIdentifier($field);
 
-        if (is_array($value) && in_array($operator, array('==', '!=', '>=', '<=', '>', '<'))) {
+        if (is_array($value) && in_array($operator, array('==', '!=', '>=', '<=', '>', '<', '{}', '!{}'))) {
             $results = array();
             foreach ($value as $v) {
                 $results[] = $this->_adapter->quoteInto("{$field}{$selectOperator}", $v);
             }
             $result = implode(' AND ', $results);
+        } elseif (in_array($operator, array('()', '!()', '[]', '![]'))) {
+            if (!is_array($value)) {
+                $value = array($value);
+            }
+
+            $results = array();
+            foreach ($value as $v) {
+                $results[] = $this->_adapter->quoteInto("{$selectOperator}", $v);
+            }
+            $result = implode(in_array($operator, array('()', '!()')) ? ' OR ' : ' AND ', $results);
         } else {
             $result = $this->_adapter->quoteInto("{$field}{$selectOperator}", $value);
         }

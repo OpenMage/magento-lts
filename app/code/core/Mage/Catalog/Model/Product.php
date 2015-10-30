@@ -615,7 +615,9 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function cleanCache()
     {
-        Mage::app()->cleanCache('catalog_product_'.$this->getId());
+        if ($this->getId()) {
+            Mage::app()->cleanCache('catalog_product_'.$this->getId());
+        }
         return $this;
     }
 
@@ -1889,17 +1891,28 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      *
      * @return array
      */
-    public function getCacheIdTags()
+    public function getCacheIdTagsWithCategories()
     {
-        $tags = parent::getCacheIdTags();
-        $affectedCategoryIds = $this->getAffectedCategoryIds();
-        if (!$affectedCategoryIds) {
-            $affectedCategoryIds = $this->getCategoryIds();
-        }
+        $tags = $this->getCacheTags();
+        $affectedCategoryIds = $this->_getResource()->getCategoryIdsWithAnchors($this);
         foreach ($affectedCategoryIds as $categoryId) {
             $tags[] = Mage_Catalog_Model_Category::CACHE_TAG.'_'.$categoryId;
         }
         return $tags;
+    }
+
+    /**
+     * Remove model onject related cache
+     *
+     * @return Mage_Core_Model_Abstract
+     */
+    public function cleanModelCache()
+    {
+        $tags = $this->getCacheIdTagsWithCategories();
+        if ($tags !== false) {
+            Mage::app()->cleanCache($tags);
+        }
+        return $this;
     }
 
     /**

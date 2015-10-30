@@ -688,7 +688,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function sendPasswordResetConfirmationEmail()
     {
-        $storeId = $this->getStoreId();
+        $storeId = Mage::app()->getStore()->getId();
         if (!$storeId) {
             $storeId = $this->_getWebsiteStoreId();
         }

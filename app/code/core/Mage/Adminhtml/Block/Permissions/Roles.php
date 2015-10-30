@@ -44,6 +44,16 @@ class Mage_Adminhtml_Block_Permissions_Roles extends Mage_Adminhtml_Block_Templa
     }
 
     /**
+     * Get URL for refreshing role-rule relations
+     *
+     * @return string
+     */
+    public function getRefreshRolesUrl()
+    {
+        return $this->getUrl('*/*/refreshroles');
+    }
+
+    /**
      * Get grid HTML
      *
      * @return unknown

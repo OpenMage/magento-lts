@@ -47,7 +47,7 @@ previewIframe = $('XmlconnectThemePreview');
 mmPreviewPagePrefix = '';
 mmPreviewPage = '<?php echo $this->getPreviewActionUrl('home'); ?>';
 function updatePreview(someAction) {
-    previewIframe.update('<?php echo $this->__('Loading Preview...'); ?>').addClassName('preview-loading');
+    previewIframe.update('<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Loading Preview...')); ?>').addClassName('preview-loading');
     new Ajax.Request(mmPreviewPage + (someAction ? someAction : '') + mmPreviewPagePrefix, {
         parameters: $('edit_form').serialize(true),
         onSuccess : function(transport) {

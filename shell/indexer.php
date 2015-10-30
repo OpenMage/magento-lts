@@ -84,6 +84,7 @@ class Mage_Shell_Compiler extends Mage_Shell_Abstract
      */
     public function run()
     {
+        $_SESSION = array();
         if ($this->getArg('info')) {
             $processes = $this->_parseIndexerString('all');
             foreach ($processes as $process) {

@@ -29,5 +29,47 @@
  */
 class Mage_Log_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    const XML_PATH_LOG_ENABLED = 'system/log/enable_log';
 
+    /**
+     * @var Mage_Log_Helper_Data
+     */
+    protected $_logLevel;
+
+    public function __construct(array $data = array())
+    {
+        $this->_logLevel = isset($data['log_level']) ? $data['log_level']
+            : intval(Mage::getStoreConfig(self::XML_PATH_LOG_ENABLED));
+    }
+
+    /**
+     * Are visitor should be logged
+     *
+     * @return bool
+     */
+    public function isVisitorLogEnabled()
+    {
+        return $this->_logLevel == Mage_Log_Model_Adminhtml_System_Config_Source_Loglevel::LOG_LEVEL_VISITORS
+        || $this->isLogEnabled();
+    }
+
+    /**
+     * Are all events should be logged
+     *
+     * @return bool
+     */
+    public function isLogEnabled()
+    {
+        return $this->_logLevel == Mage_Log_Model_Adminhtml_System_Config_Source_Loglevel::LOG_LEVEL_ALL;
+    }
+
+    /**
+     * Are all events should be disabled
+     *
+     * @return bool
+     */
+    public function isLogDisabled()
+    {
+        return $this->_logLevel == Mage_Log_Model_Adminhtml_System_Config_Source_Loglevel::LOG_LEVEL_NONE;
+    }
 }

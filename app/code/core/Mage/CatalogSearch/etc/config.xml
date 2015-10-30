@@ -138,6 +138,7 @@
                 <max_query_words>10</max_query_words>
                 <search_type>1</search_type>
                 <use_layered_navigation_count>2000</use_layered_navigation_count>
+                <show_autocomplete_results_count>1</show_autocomplete_results_count>
             </search>
         </catalog>
     </default>

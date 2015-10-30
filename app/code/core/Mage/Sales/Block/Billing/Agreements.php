@@ -145,7 +145,7 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
      */
     protected function _toHtml()
     {
-        $this->setCreateUrl($this->getUrl('*/billing_agreement/startWizard'));
+        $this->setCreateUrl($this->getUrl('*/billing_agreement/startWizard', array('_secure' => $this->_isSecure())));
         return parent::_toHtml();
     }
 }

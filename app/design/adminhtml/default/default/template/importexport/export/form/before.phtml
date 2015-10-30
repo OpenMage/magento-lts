@@ -66,7 +66,7 @@
             form.submit();
             form.action   = oldAction;
         } else {
-            alert('Invalid data');
+            alert('<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Invalid data')) ?>');
         }
     }
 //]]>

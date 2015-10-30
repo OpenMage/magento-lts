@@ -1,0 +1,235 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    Tests
+ * @package     Tests_Functional
+ * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
+    <testCase name="Mage\Weee\Test\TestCase\CreateTaxWithFptTest">
+        <variation name="CreateTaxWithFptTestVariation1" method="test">
+            <data name="description" xsi:type="string">Check with next configuration "not taxed FPT display set to Excluding, Description and Including FPT on product with custom option catalog price Excluding Tax"</data>
+            <data name="configData" xsi:type="string">shipping_tax_class_taxable_goods,tax_with_fpt_cat_excl_disc_on_excl</data>
+            <data name="product" xsi:type="string">catalogProductSimple::with_custom_option_and_fpt</data>
+            <data name="prices/category/price" xsi:type="string">70.00</data>
+            <data name="prices/category/fpt_price" xsi:type="string">10.00</data>
+            <data name="prices/category/final_price" xsi:type="string">80.00</data>
+            <data name="prices/product/price" xsi:type="string">100.00</data>
+            <data name="prices/product/fpt_price" xsi:type="string">10.00</data>
+            <data name="prices/product/final_price" xsi:type="string">110.00</data>
+            <data name="prices/cartItem/cart_item_price" xsi:type="string">100</data>
+            <data name="prices/cartItem/price_fpt_total" xsi:type="string">110</data>
+            <data name="prices/cartItem/price_fpt" xsi:type="string">10.00</data>
+            <data name="prices/cartItem/cart_item_subtotal" xsi:type="string">100</data>
+            <data name="prices/cartItem/subtotal_fpt_total" xsi:type="string">110</data>
+            <data name="prices/cartItem/subtotal_fpt" xsi:type="string">10.00</data>
+            <data name="prices/total/grand_total" xsi:type="string">118.25</data>
+            <data name="issue" xsi:type="string">Bug: MPERF-7520: [FPT] Final price of Simple Product isn't recalculated after selecting options on product page</data>
+            <constraint name="Mage\Weee\Test\Constraint\AssertFptApplied" />
+        </variation>
+        <variation name="CreateTaxWithFptTestVariation2" method="test">
+            <data name="description" xsi:type="string">Check with next configuration "not taxed FPT display set to Including FPT and Description on product with custom option catalog price Excluding Tax"</data>
+            <data name="configData" xsi:type="string">shipping_tax_class_taxable_goods,tax_with_fpt_cat_excl_disc_on_incl, display_including_tax</data>
+            <data name="product" xsi:type="string">catalogProductSimple::with_custom_option_and_fpt</data>
+            <data name="prices/category/price" xsi:type="string">75.78</data>
+            <data name="prices/category/fpt_price" xsi:type="string">10.00</data>
+            <data name="prices/category/final_price" xsi:type="string">85.78</data>
+            <data name="prices/product/price" xsi:type="string">118.25</data>
+            <data name="prices/product/fpt_price" xsi:type="string">10.00</data>
+            <data name="prices/cartItem/cart_item_price" xsi:type="string">108.25</data>
+            <data name="prices/cartItem/price_fpt_total" xsi:type="string">118.25</data>
+            <data name="prices/cartItem/price_fpt" xsi:type="string">10.00</data>
+            <data name="prices/cartItem/cart_item_subtotal" xsi:type="string">108.25</data>
+            <data name="prices/cartItem/subtotal_fpt_total" xsi:type="string">118.25</data>
+            <data name="prices/cartItem/subtotal_fpt" xsi:type="string">10.00</data>
+            <data name="prices/total/grand_total_incl_tax" xsi:type="string">118.25</data>
+            <data name="prices/total/grand_total_excl_tax" xsi:type="string">110</data>
+            <data name="issue" xsi:type="string">Bug: MPERF-7520: [FPT] Final price of Simple Product isn't recalculated after selecting options on product page</data>
+            <constraint name="Mage\Weee\Test\Constraint\AssertFptApplied" />
+        </variation>
+        <variation name="CreateTaxWithFptTestVariation3" method="test">
+            <data name="description" xsi:type="string">Check with next configuration "not taxed FPT display set to Excluding, Description and Including FPT on product with special price catalog price Excluding Tax"</data>
+            <data name="configData" xsi:type="string">shipping_tax_class_taxable_goods,tax_with_fpt_cat_excl_disc_on_incl, display_including_tax</data>
+            <data name="product" xsi:type="string">catalogProductSimple::with_special_price_and_fpt</data>
+            <data name="prices/category/category_price_incl_tax" xsi:type="string">118.25</data>
+            <data name="prices/category/category_price_excl_tax" xsi:type="string">108.25</data>
+            <data name="prices/category/fpt_price" xsi:type="string">10.00</data>
+            <data name="prices/product/product_view_price_incl_tax" xsi:type="string">118.25</data>
+            <data name="prices/product/product_view_price_excl_tax" xsi:type="string">108.25</data>
+            <data name="prices/product/fpt_price" xsi:type="string">10.00</data>
+            <data name="prices/cartItem/cart_item_price" xsi:type="string">108.25</data>
+            <data name="prices/cartItem/price_fpt_total" xsi:type="string">118.25</data>
+            <data name="prices/cartItem/price_fpt" xsi:type="string">10.00</data>
+            <data name="prices/cartItem/cart_item_subtotal" xsi:type="string">108.25</data>
+            <data name="prices/cartItem/subtotal_fpt_total" xsi:type="string">118.25</data>
+            <data name="prices/cartItem/subtotal_fpt" xsi:type="string">10.00</data>
+            <data name="prices/total/grand_total_incl_tax" xsi:type="string">118.25</data>
+            <constraint name="Mage\Weee\Test\Constraint\AssertFptApplied" />
+        </variation>
+        <variation name="CreateTaxWithFptTestVariation4" method="test">
+            <data name="description" xsi:type="string">Check with next configuration "not taxed FPT display set to Including FPT and Description on product with special price catalog price Excluding Tax"</data>
+            <data name="configData" xsi:type="string">shipping_tax_class_taxable_goods,tax_with_fpt_cat_excl_disc_on_excl</data>
+            <data name="product" xsi:type="string">catalogProductSimple::with_special_price_and_fpt</data>
+            <data name="prices/category/category_price_incl_tax" xsi:type="string">110</data>
+            <data name="prices/category/category_price_excl_tax" xsi:type="string">100</data>
+            <data name="prices/category/fpt_price" xsi:type="string">10.00</data>
+            <data name="prices/product/product_view_price_incl_tax" xsi:type="string">110</data>
+            <data name="prices/product/product_view_price_excl_tax" xsi:type="string">100</data>
+            <data name="prices/product/fpt_price" xsi:type="string">10.00</data>
+            <data name="prices/cartItem/cart_item_price" xsi:type="string">100</data>
+            <data name="prices/cartItem/price_fpt_total" xsi:type="string">110</data>
+            <data name="prices/cartItem/price_fpt" xsi:type="string">10.00</data>
+            <data name="prices/cartItem/cart_item_subtotal" xsi:type="string">100</data>
+            <data name="prices/cartItem/subtotal_fpt_total" xsi:type="string">110</data>
+            <data name="prices/cartItem/subtotal_fpt" xsi:type="string">10.00</data>
+            <data name="prices/total/grand_total" xsi:type="string">118.25</data>
+            <constraint name="Mage\Weee\Test\Constraint\AssertFptApplied" />
+        </variation>
+        <variation name="CreateTaxWithFptTestVariation5" method="test">
+            <data name="description" xsi:type="string">Check with next configuration "taxed FPT display set to Excluding, Description and Including FPT on product with with custom option catalog price Excluding Tax"</data>
+            <data name="configData" xsi:type="string">shipping_tax_class_taxable_goods,tax_with_fpt_taxed_cat_excl_disc_on_excl</data>
+            <data name="product" xsi:type="string">catalogProductSimple::with_custom_option_and_fpt</data>
+            <data name="prices/category/price" xsi:type="string">70.00</data>
+            <data name="prices/category/fpt_price" xsi:type="string">10.00</data>
+            <data name="prices/category/final_price" xsi:type="string">80.00</data>
+            <data name="prices/product/price" xsi:type="string">100.00</data>
+            <data name="prices/product/fpt_price" xsi:type="string">10.00</data>
+            <data name="prices/product/final_price" xsi:type="string">110.00</data>
+            <data name="prices/cartItem/cart_item_price" xsi:type="string">100</data>
+            <data name="prices/cartItem/price_fpt_total" xsi:type="string">110</data>
+            <data name="prices/cartItem/price_fpt" xsi:type="string">10.00</data>
+            <data name="prices/cartItem/cart_item_subtotal" xsi:type="string">100</data>
+            <data name="prices/cartItem/subtotal_fpt_total" xsi:type="string">110</data>
+            <data name="prices/cartItem/subtotal_fpt" xsi:type="string">10.00</data>
+            <data name="prices/total/grand_total" xsi:type="string">119.08</data>
+            <data name="issue" xsi:type="string">Bug: MPERF-7520: [FPT] Final price of Simple Product isn't recalculated after selecting options on product page</data>
+            <constraint name="Mage\Weee\Test\Constraint\AssertFptApplied" />
+        </variation>
+        <variation name="CreateTaxWithFptTestVariation6" method="test">
+            <data name="description" xsi:type="string">Check with next configuration "taxed FPT display set to Including FPT and Description on product with with custom option catalog price Excluding Tax"</data>
+            <data name="configData" xsi:type="string">shipping_tax_class_taxable_goods,tax_with_fpt_taxed_cat_excl_disc_on_incl, display_including_tax</data>
+            <data name="product" xsi:type="string">catalogProductSimple::with_custom_option_and_fpt</data>
+            <data name="prices/category/price" xsi:type="string">86.61</data>
+            <data name="prices/category/fpt_price" xsi:type="string">10.83</data>
+            <data name="prices/product/price" xsi:type="string">119.08</data>
+            <data name="prices/product/fpt_price" xsi:type="string">10.83</data>
+            <data name="prices/cartItem/cart_item_price_incl_tax" xsi:type="string">119.08</data>
+            <data name="prices/cartItem/price_fpt" xsi:type="string">10.83</data>
+            <data name="prices/cartItem/cart_item_subtotal_incl_tax" xsi:type="string">119.08</data>
+            <data name="prices/cartItem/subtotal_fpt" xsi:type="string">10.83</data>
+            <data name="prices/total/grand_total_excl_tax" xsi:type="string">110</data>
+            <data name="prices/total/grand_total_incl_tax" xsi:type="string">119.08</data>
+            <constraint name="Mage\Weee\Test\Constraint\AssertFptApplied" />
+        </variation>
+        <variation name="CreateTaxWithFptTestVariation7" method="test">
+            <data name="description" xsi:type="string">Check with next configuration "taxed FPT display set to Excluding, Description and Including FPT on product with special price catalog price Excluding Tax"</data>
+            <data name="configData" xsi:type="string">shipping_tax_class_taxable_goods,tax_with_fpt_taxed_cat_excl_disc_on_incl, display_including_tax</data>
+            <data name="product" xsi:type="string">catalogProductSimple::with_special_price_and_fpt</data>
+            <data name="prices/category/special_price" xsi:type="string">119.08</data>
+            <data name="prices/category/fpt_price" xsi:type="string">10</data>
+            <data name="prices/product/special_price" xsi:type="string">119.08</data>
+            <data name="prices/product/fpt_price" xsi:type="string">10</data>
+            <data name="prices/cartItem/cart_item_price_incl_tax" xsi:type="string">119.08</data>
+            <data name="prices/cartItem/price_fpt" xsi:type="string">10.83</data>
+            <data name="prices/cartItem/cart_item_subtotal_incl_tax" xsi:type="string">119.08</data>
+            <data name="prices/cartItem/subtotal_fpt" xsi:type="string">10.83</data>
+            <data name="prices/total/grand_total_excl_tax" xsi:type="string">110</data>
+            <data name="prices/total/grand_total_incl_tax" xsi:type="string">119.08</data>
+            <constraint name="Mage\Weee\Test\Constraint\AssertFptApplied" />
+        </variation>
+        <variation name="CreateTaxWithFptTestVariation8" method="test">
+            <data name="description" xsi:type="string">Check with next configuration "taxed FPT display set to Including FPT and Description on product with special price catalog price Excluding Tax"</data>
+            <data name="configData" xsi:type="string">shipping_tax_class_taxable_goods,tax_with_fpt_taxed_cat_excl_disc_on_excl</data>
+            <data name="product" xsi:type="string">catalogProductSimple::with_special_price_and_fpt</data>
+            <data name="prices/category/category_price_incl_tax" xsi:type="string">110.83</data>
+            <data name="prices/category/category_price_excl_tax" xsi:type="string">100</data>
+            <data name="prices/category/fpt_price" xsi:type="string">10.00</data>
+            <data name="prices/product/product_view_price_incl_tax" xsi:type="string">110.83</data>
+            <data name="prices/product/product_view_price_excl_tax" xsi:type="string">100</data>
+            <data name="prices/product/fpt_price" xsi:type="string">10.00</data>
+            <data name="prices/cartItem/cart_item_price" xsi:type="string">100</data>
+            <data name="prices/cartItem/price_fpt_total" xsi:type="string">110</data>
+            <data name="prices/cartItem/price_fpt" xsi:type="string">10.00</data>
+            <data name="prices/cartItem/cart_item_subtotal" xsi:type="string">100</data>
+            <data name="prices/cartItem/subtotal_fpt_total" xsi:type="string">110</data>
+            <data name="prices/cartItem/subtotal_fpt" xsi:type="string">10.00</data>
+            <data name="prices/total/grand_total" xsi:type="string">119.08</data>
+            <constraint name="Mage\Weee\Test\Constraint\AssertFptApplied" />
+        </variation>
+        <variation name="CreateTaxWithFptTestVariation9" method="test">
+            <data name="description" xsi:type="string">Check with next configuration "taxed FPT display set to Excluding, Description and Including FPT on product with with special price and catalog price Including Tax"</data>
+            <data name="configData" xsi:type="string">shipping_tax_class_taxable_goods,tax_with_fpt_taxed_cat_incl_disc_on_excl</data>
+            <data name="product" xsi:type="string">catalogProductSimple::with_special_price_and_fpt</data>
+            <data name="prices/category/category_price_incl_tax" xsi:type="string">110.83</data>
+            <data name="prices/category/category_price_excl_tax" xsi:type="string">92.38</data>
+            <data name="prices/category/fpt_price" xsi:type="string">10.00</data>
+            <data name="prices/product/product_view_price_incl_tax" xsi:type="string">110.83</data>
+            <data name="prices/product/product_view_price_excl_tax" xsi:type="string">92.38</data>
+            <data name="prices/product/fpt_price" xsi:type="string">10.00</data>
+            <data name="prices/cartItem/cart_item_price" xsi:type="string">92.38</data>
+            <data name="prices/cartItem/price_fpt_total" xsi:type="string">102.38</data>
+            <data name="prices/cartItem/price_fpt" xsi:type="string">10.00</data>
+            <data name="prices/cartItem/cart_item_subtotal" xsi:type="string">92.38</data>
+            <data name="prices/cartItem/subtotal_fpt_total" xsi:type="string">102.38</data>
+            <data name="prices/cartItem/subtotal_fpt" xsi:type="string">10.00</data>
+            <data name="prices/total/grand_total" xsi:type="string">110.83</data>
+            <constraint name="Mage\Weee\Test\Constraint\AssertFptApplied" />
+        </variation>
+        <variation name="CreateTaxWithFptTestVariation10" method="test">
+            <data name="description" xsi:type="string">Check with next configuration "taxed FPT display set to Including FPT and Description on product with with special price and catalog price Including Tax"</data>
+            <data name="configData" xsi:type="string">shipping_tax_class_taxable_goods,tax_with_fpt_taxed_cat_incl_disc_on_incl, display_including_tax</data>
+            <data name="product" xsi:type="string">catalogProductSimple::with_special_price_and_fpt</data>
+            <data name="prices/category/special_price" xsi:type="string">110.83</data>
+            <data name="prices/category/fpt_price" xsi:type="string">10</data>
+            <data name="prices/product/special_price" xsi:type="string">110.83</data>
+            <data name="prices/product/fpt_price" xsi:type="string">10</data>
+            <data name="prices/cartItem/cart_item_price_incl_tax" xsi:type="string">110.83</data>
+            <data name="prices/cartItem/price_fpt" xsi:type="string">10.83</data>
+            <data name="prices/cartItem/cart_item_subtotal_incl_tax" xsi:type="string">110.83</data>
+            <data name="prices/cartItem/subtotal_fpt" xsi:type="string">10.83</data>
+            <data name="prices/total/grand_total_excl_tax" xsi:type="string">102.38</data>
+            <data name="prices/total/grand_total_incl_tax" xsi:type="string">110.83</data>
+            <constraint name="Mage\Weee\Test\Constraint\AssertFptApplied" />
+        </variation>
+        <variation name="CreateTaxWithFptTestVariation11" method="test">
+            <data name="description" xsi:type="string">Check with next configuration "taxed FPT display set to Excluding, Description and Including FPT on product with with custom option and catalog price Including Tax"</data>
+            <data name="configData" xsi:type="string">shipping_tax_class_taxable_goods,tax_with_fpt_taxed_cat_incl_disc_on_excl</data>
+            <data name="product" xsi:type="string">catalogProductSimple::with_custom_option_and_fpt</data>
+            <data name="prices/category/price" xsi:type="string">64.67</data>
+            <data name="prices/category/fpt_price" xsi:type="string">10.00</data>
+            <data name="prices/category/final_price" xsi:type="string">74.67</data>
+            <data name="prices/product/price" xsi:type="string">92.38</data>
+            <data name="prices/product/fpt_price" xsi:type="string">10.00</data>
+            <data name="prices/product/final_price" xsi:type="string">102.38</data>
+            <data name="prices/cartItem/cart_item_price" xsi:type="string">92.38</data>
+            <data name="prices/cartItem/price_fpt_total" xsi:type="string">102.38</data>
+            <data name="prices/cartItem/price_fpt" xsi:type="string">10.00</data>
+            <data name="prices/cartItem/cart_item_subtotal" xsi:type="string">92.38</data>
+            <data name="prices/cartItem/subtotal_fpt_total" xsi:type="string">102.38</data>
+            <data name="prices/cartItem/subtotal_fpt" xsi:type="string">10.00</data>
+            <data name="prices/total/grand_total" xsi:type="string">110.83</data>
+            <data name="issue" xsi:type="string">Bug: MPERF-7520: [FPT] Final price of Simple Product isn't recalculated after selecting options on product page</data>
+            <constraint name="Mage\Weee\Test\Constraint\AssertFptApplied" />
+        </variation>
+    </testCase>
+</config>

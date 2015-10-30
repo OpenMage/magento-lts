@@ -235,6 +235,10 @@
                     <xsd:element name="custom_layout_update" type="xsd:string" minOccurs="0" />
                     <xsd:element name="default_sort_by" type="xsd:string" minOccurs="0" />
                     <xsd:element name="landing_page" type="xsd:int" minOccurs="0" />
+                    <xsd:element name="include_in_menu" type="xsd:int" minOccurs="0" />
+                    <xsd:element name="custom_use_parent_settings" type="xsd:int" minOccurs="0" />
+                    <xsd:element name="custom_apply_to_products" type="xsd:int" minOccurs="0" />
+                    <xsd:element name="filter_price_range" type="xsd:string" minOccurs="0" />
                 </xsd:sequence>
             </xsd:complexType>
             <xsd:complexType name="catalogAssignedProduct">

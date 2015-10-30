@@ -792,7 +792,7 @@ final class Maged_Controller
      */
     protected function _addDomainPolicyHeader()
     {
-        if (class_exists('Mage') && Mage::isInstalled()) {
+        if ($this->isInstalled()) {
             /** @var Mage_Core_Model_Domainpolicy $domainPolicy */
             $domainPolicy = Mage::getModel('core/domainpolicy');
             if ($domainPolicy) {
@@ -1033,8 +1033,8 @@ final class Maged_Controller
         return array(
             'major'     => '1',
             'minor'     => '9',
-            'revision'  => '1',
-            'patch'     => '1',
+            'revision'  => '2',
+            'patch'     => '2',
             'stability' => '',
             'number'    => '',
         );

@@ -1,0 +1,229 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    Tests
+ * @package     Tests_Functional
+ * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
+  <fixture name="configurableProduct" module="Mage_Catalog" type="eav" entity_type="catalog_product" product_type="configurable" identifier="sku" repository_class="Mage\Catalog\Test\Repository\ConfigurableProduct" handler_interface="Mage\Catalog\Test\Handler\ConfigurableProduct\ConfigurableProductInterface" class="Mage\Catalog\Test\Fixture\ConfigurableProduct">
+    <dataset name="default">
+        <field name="name" xsi:type="string">Configurable Product %isolation%</field>
+        <field name="sku" xsi:type="string">sku_configurable_product_%isolation%</field>
+        <field name="type_id" xsi:type="string">configurable</field>
+        <field name="url_key" xsi:type="string">configurable-product-%isolation%</field>
+        <field name="tax_class_id" xsi:type="array">
+            <item name="dataSet" xsi:type="string">Taxable Goods</item>
+        </field>
+        <field name="configurable_options" xsi:type="array">
+            <item name="preset" xsi:type="string">default</item>
+        </field>
+        <field name="price" xsi:type="array">
+            <item name="value" xsi:type="string">100.00</item>
+        </field>
+        <field name="weight" xsi:type="string">12.0000</field>
+        <field name="stock_data" xsi:type="array">
+            <item name="qty" xsi:type="string">10.0000</item>
+            <item name="is_in_stock" xsi:type="string">In Stock</item>
+        </field>
+        <field name="status" xsi:type="string">Enabled</field>
+        <field name="url_key" xsi:type="string">configurable-product-%isolation%</field>
+    </dataset>
+    <data_config>
+        <item name="type_id" xsi:type="string">configurable</item>
+        <item name="create_url_params" xsi:type="array">
+            <item name="type" xsi:type="string">configurable</item>
+            <item name="set" xsi:type="string">4</item>
+        </item>
+        <item name="input_prefix" xsi:type="string">product</item>
+    </data_config>
+    <field name="category_ids" is_required="0" group="categories" source="Mage\Catalog\Test\Fixture\CatalogProductSimple\CategoryIds">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="country_of_manufacture" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="created_at" is_required="1">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="custom_design" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="custom_design_from" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="custom_design_to" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="custom_layout_update" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="description" is_required="1" group="general">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="gallery" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="gift_message_available" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="gift_wrapping_available" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="gift_wrapping_price" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="group_price" is_required="0" group="prices" source="Mage\Catalog\Test\Fixture\CatalogProductSimple\GroupPriceOptions">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="has_options" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="image" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="image_label" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="is_returnable" is_required="0">
+      <default_value xsi:type="string">2</default_value>
+    </field>
+    <field name="media_gallery" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="meta_description" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="meta_keyword" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="meta_title" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="minimal_price" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="msrp" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="msrp_display_actual_price_type" is_required="0">
+      <default_value xsi:type="string">4</default_value>
+    </field>
+    <field name="msrp_enabled" is_required="0">
+      <default_value xsi:type="string">2</default_value>
+    </field>
+    <field name="name" is_required="1" group="general">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="news_from_date" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="news_to_date" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="old_id" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="options_container" is_required="0">
+      <default_value xsi:type="string">container1</default_value>
+    </field>
+    <field name="page_layout" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="price" is_required="1" group="prices" source="Mage\Catalog\Test\Fixture\ConfigurableProduct\Price">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="related_tgtr_position_behavior" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="related_tgtr_position_limit" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="required_options" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="short_description" is_required="1" group="general">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="sku" is_required="1" group="general">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="small_image" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="small_image_label" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="special_from_date" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="special_price" is_required="0" group="prices">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="special_to_date" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="status" is_required="1" group="general">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="tax_class_id" is_required="1" group="prices" source="Mage\Catalog\Test\Fixture\CatalogProductSimple\TaxClass">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="thumbnail" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="thumbnail_label" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="tier_price" is_required="0" group="prices" source="Mage\Catalog\Test\Fixture\CatalogProductSimple\TierPriceOptions">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="updated_at" is_required="1">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="upsell_tgtr_position_behavior" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="upsell_tgtr_position_limit" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="url_key" is_required="0" group="general">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="url_path" is_required="0">
+      <default_value xsi:type="null" />
+    </field>
+    <field name="visibility" is_required="1" group="general">
+      <default_value xsi:type="string">4</default_value>
+    </field>
+    <field name="stock_data" group="inventory"/>
+    <field name="id"/>
+    <field name="type_id" group="null"/>
+    <field name="attribute_set_id" group="null" source="Mage\Catalog\Test\Fixture\CatalogProductSimple\AttributeSetId"/>
+    <field name="configurable_options" is_required="0" group="configurable" source="Mage\Catalog\Test\Fixture\ConfigurableProduct\ConfigurableOptions"/>
+    <field name="custom_options" source="Mage\Catalog\Test\Fixture\CatalogProductSimple\CustomOptions" group="custom-options"/>
+    <field name="checkout_data" source="Mage\Catalog\Test\Fixture\ConfigurableProduct\CheckoutData" group="null"/>
+    <field name="up_sell_products" group="up-sells" source="Mage\Catalog\Test\Fixture\CatalogProductSimple\UpSellProducts"/>
+    <field name="website_ids" group="null" source="Mage\Catalog\Test\Fixture\CatalogProductSimple\WebsiteIds"/>
+  </fixture>
+</config>

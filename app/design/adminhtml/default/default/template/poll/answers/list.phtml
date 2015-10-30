@@ -57,7 +57,7 @@
     var answer = function() {
         return {
             del : function(obj) {
-                if( confirm('<?php echo Mage::helper('poll')->__('Are you sure you want to delete it?') ?>') ) {
+                if( confirm('<?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('poll')->__('Are you sure you want to delete it?')) ?>') ) {
                     fieldSet = obj.up('div.fieldset');
                     if( $('id_' + fieldSet.id) ) {
                         var itemId = $('id_' + fieldSet.id).value;
@@ -82,13 +82,13 @@
                 return  '<div class="fieldset fieldset-wide" id="poll_answer_fieldset_' + id + '">'
                        +'<table cellspacing="0" class="form-list">'
                        +'<tr>'
-                       +    '<td class="label"><label for="answer_' + id + '"><?php echo Mage::helper('poll')->__('Answer Title:') ?> <span class="required">*</span></label><\/td>'
+                       +    '<td class="label"><label for="answer_' + id + '"><?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('poll')->__('Answer Title:')) ?> <span class="required">*</span></label><\/td>'
                        +    '<td class="value"><input type="text" id="answer_' + id + '" name="answer[' + id + '][title]" value="" class="input-text required-entry" /><\/td>'
                        +'<\/tr>'
                        +'<tr>'
-                       +    '<td class="label"><label for="answer_votes_' + id + '"><?php echo Mage::helper('poll')->__('Votes Count:') ?> <span class="required">*</span></label><\/td>'
+                       +    '<td class="label"><label for="answer_votes_' + id + '"><?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('poll')->__('Votes Count:')) ?> <span class="required">*</span></label><\/td>'
                        +    '<td class="value"><input type="text" id="answer_votes_' + id + '" name="answer[' + id + '][votes]" value="0" class="input-text required-entry validate-not-negative-number" />'
-                       +        '<p class="a-left" style="margin:7px 0 0;"><?php echo $this->getDeleteButtonHtml() ?></p>'
+                       +        '<p class="a-left" style="margin:7px 0 0;"><?php echo Mage::helper('core')->quoteEscape($this->getDeleteButtonHtml()) ?></p>'
                        +'<\/td>'
                        +'<\/tr>'
                        +'<\/table>'

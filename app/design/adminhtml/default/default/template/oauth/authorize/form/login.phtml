@@ -38,6 +38,7 @@
             <?php echo $this->getMessagesBlock()->toHtml() ?>
             <?php if (!$this->getHasException()): ?>
                 <form method="post" action="<?php echo $this->getPostActionUrl() ?>" id="loginForm">
+                    <?php echo $this->getBlockHtml('formkey'); ?>
                     <fieldset>
                         <input name="form_key" type="hidden" value="<?php echo $this->getFormKey() ?>" />
                         <h2><?php echo $this->__('Log in to Admin Panel'); ?></h2>
@@ -48,8 +49,8 @@
                             <input type="password" id="login" name="login[password]" class="required-entry input-text" value="" /></div>
                         <div class="clear"></div>
                         <div class="form-buttons">
-                            <button type="submit" class="form-button" title="<?php echo $this->__('Login') ?>" ><?php echo $this->__('Login') ?></button>
-                            <button onclick="document.location.href='<?php echo $this->getRejectUrl() ?>'; return false;" title="<?php echo $this->__('Reject') ?>"><?php echo $this->__('Reject') ?></button>
+                            <button type="submit" class="form-button" title="<?php echo $this->quoteEscape($this->__('Login')) ?>" ><?php echo $this->__('Login') ?></button>
+                            <button onclick="document.location.href='<?php echo $this->getRejectUrl() ?>'; return false;" title="<?php echo $this->quoteEscape($this->__('Reject')) ?>"><?php echo $this->__('Reject') ?></button>
                         </div>
                         <input type="hidden" name="oauth_token" value="<?php echo $this->escapeHtml($this->getToken()) ?>"/>
                     </fieldset>

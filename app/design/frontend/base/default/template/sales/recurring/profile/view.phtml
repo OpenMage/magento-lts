@@ -32,16 +32,16 @@
 <div class="page-title title-buttons">
     <h1><?php echo $this->__('Recurring Profile # %s', $this->escapeHtml($this->getReferenceId())) ?></h1>
     <?php if ($this->getCanCancel()): ?>
-        <button type="button" title="<?php echo $this->__('Cancel') ?>" class="button" onclick="if( confirm('<?php echo $this->getConfirmationMessage() ?>') ) { window.location.href = '<?php echo $this->getCancelUrl() ?>'; } return false;"><span><span><?php echo $this->__('Cancel') ?></span></span></button>
+        <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Cancel')) ?>" class="button" onclick="if( confirm('<?php echo Mage::helper('core')->quoteEscape($this->getConfirmationMessage(),true) ?>') ) { window.location.href = '<?php echo $this->getCancelUrl() ?>'; } return false;"><span><span><?php echo $this->__('Cancel') ?></span></span></button>
     <?php endif; ?>
     <?php if ($this->getCanSuspend()): ?>
-        <button type="button" title="<?php echo $this->__('Suspend') ?>" class="button" onclick="if( confirm('<?php echo $this->getConfirmationMessage() ?>') ) { window.location.href = '<?php echo $this->getSuspendUrl() ?>'; } return false;"><span><span><?php echo $this->__('Suspend') ?></span></span></button>
+        <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Suspend')) ?>" class="button" onclick="if( confirm('<?php echo Mage::helper('core')->quoteEscape($this->getConfirmationMessage(), true) ?>') ) { window.location.href = '<?php echo $this->getSuspendUrl() ?>'; } return false;"><span><span><?php echo $this->__('Suspend') ?></span></span></button>
     <?php endif; ?>
     <?php if ($this->getCanActivate()): ?>
-        <button type="button" title="<?php echo $this->__('Activate') ?>" class="button" onclick="if( confirm('<?php echo $this->getConfirmationMessage() ?>') ) { window.location.href = '<?php echo $this->getActivateUrl() ?>'; } return false;"><span><span><?php echo $this->__('Activate') ?></span></span></button>
+        <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Activate')) ?>" class="button" onclick="if( confirm('<?php echo Mage::helper('core')->quoteEscape($this->getConfirmationMessage(),true) ?>') ) { window.location.href = '<?php echo $this->getActivateUrl() ?>'; } return false;"><span><span><?php echo $this->__('Activate') ?></span></span></button>
     <?php endif; ?>
     <?php if ($this->getCanUpdate()):?>
-        <button type="button" title="<?php echo $this->__('Get Update') ?>" class="button" onclick="if( confirm('<?php echo $this->getConfirmationMessage() ?>') ) { window.location.href = '<?php echo $this->getUpdateUrl() ?>'; } return false;"><span><span><?php echo $this->__('Get Update') ?></span></span></button>
+        <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Get Update')) ?>" class="button" onclick="if( confirm('<?php echo Mage::helper('core')->quoteEscape($this->getConfirmationMessage(), true) ?>') ) { window.location.href = '<?php echo $this->getUpdateUrl() ?>'; } return false;"><span><span><?php echo $this->__('Get Update') ?></span></span></button>
     <?php endif;?>
 </div>
 

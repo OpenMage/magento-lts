@@ -1,0 +1,339 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    Tests
+ * @package     Tests_Functional
+ * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/Magento/Mtf/Repository/etc/repository.xsd">
+	<repository class="Mage\Core\Test\Repository\ConfigData">
+		<dataset name="authorizenet_without_3d_secure">
+			<field name="payment/authorizenet/active" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/authorizenet/using_pbridge" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/authorizenet/payment_action" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Authorize Only</item>
+				<item name="value" xsi:type="string">authorize</item>
+			</field>
+			<field name="payment/authorizenet/login" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">authorize</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/authorizenet/trans_key" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/authorizenet/cgi_url" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/authorizenet/test" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/authorizenet/debug" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+		</dataset>
+		<dataset name="authorizenet_without_3d_secure_rollback">
+			<field name="payment/authorizenet/active" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+		</dataset>
+		<dataset name="authorizenet_without_3d_secure_action_capture">
+			<field name="payment/authorizenet/active" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/authorizenet/using_pbridge" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/authorizenet/payment_action" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Authorize and Capture</item>
+				<item name="value" xsi:type="string">authorize_capture</item>
+			</field>
+			<field name="payment/authorizenet/login" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">authorize</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/authorizenet/trans_key" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/authorizenet/cgi_url" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/authorizenet/test" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/authorizenet/debug" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+		</dataset>
+		<dataset name="authorizenet_without_3d_secure_action_capture_rollback">
+			<field name="payment/authorizenet/active" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+		</dataset>
+		<dataset name="authorizenet_directpost">
+			<field name="payment/authorizenet_directpost/active" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/authorizenet_directpost/payment_action" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Authorize Only</item>
+				<item name="value" xsi:type="string">authorize</item>
+			</field>
+			<field name="payment/authorizenet_directpost/login" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/authorizenet_directpost/trans_key" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/authorizenet_directpost/trans_md5" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/authorizenet_directpost/cgi_url" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/authorizenet_directpost/test" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">0</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/authorizenet_directpost/debug" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/authorizenet_directpost/useccv" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+		</dataset>
+		<dataset name="authorizenet_directpost_rollback">
+			<field name="payment/authorizenet_directpost/active" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+		</dataset>
+		<dataset name="authorizenet_directpost_capture">
+			<field name="payment/authorizenet_directpost/active" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/authorizenet_directpost/payment_action" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Authorize and Capture</item>
+				<item name="value" xsi:type="string">authorize_capture</item>
+			</field>
+			<field name="payment/authorizenet_directpost/login" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/authorizenet_directpost/trans_key" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/authorizenet_directpost/trans_md5" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/authorizenet_directpost/cgi_url" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/authorizenet_directpost/test" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/authorizenet_directpost/debug" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/authorizenet_directpost/useccv" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+		</dataset>
+		<dataset name="authorizenet_directpost_capture_rollback">
+			<field name="payment/authorizenet_directpost/active" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+		</dataset>
+		<dataset name="authorizenet_with_3d_secure_action_authorized">
+			<field name="payment/authorizenet/active" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/authorizenet/using_pbridge" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/authorizenet/payment_action" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Authorize Only</item>
+				<item name="value" xsi:type="string">authorize</item>
+			</field>
+			<field name="payment/authorizenet/login" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">authorize</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/authorizenet/trans_key" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/authorizenet/cgi_url" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string" />
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/authorizenet/test" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+			<field name="payment/authorizenet/debug" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+			<field name="payment/authorizenet/centinel" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">Yes</item>
+				<item name="value" xsi:type="string">1</item>
+			</field>
+		</dataset>
+		<dataset name="authorizenet_with_3d_secure_action_authorized_rollback">
+			<field name="payment/authorizenet/active" xsi:type="array">
+				<item name="scope" xsi:type="string">payment</item>
+				<item name="scope_id" xsi:type="number">1</item>
+				<item name="label" xsi:type="string">No</item>
+				<item name="value" xsi:type="string" />
+			</field>
+		</dataset>
+	</repository>
+</config>

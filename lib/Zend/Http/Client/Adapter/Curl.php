@@ -17,7 +17,7 @@
  * @package    Zend_Http
  * @subpackage Client_Adapter
  * @version    $Id$
- * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -42,7 +42,7 @@
  * @category   Zend
  * @package    Zend_Http
  * @subpackage Client_Adapter
- * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Http_Client_Adapter_Curl implements Zend_Http_Client_Adapter_Interface, Zend_Http_Client_Adapter_Stream
@@ -221,8 +221,25 @@ class Zend_Http_Client_Adapter_Curl implements Zend_Http_Client_Adapter_Interfac
             curl_setopt($this->_curl, CURLOPT_PORT, intval($port));
         }
 
-        // Set timeout
-        curl_setopt($this->_curl, CURLOPT_CONNECTTIMEOUT, $this->_config['timeout']);
+        // Set connection timeout
+        $connectTimeout  = $this->_config['timeout'];
+        $constant        = CURLOPT_CONNECTTIMEOUT;
+        if (defined('CURLOPT_CONNECTTIMEOUT_MS')) {
+            $connectTimeout *= 1000;
+            $constant = constant('CURLOPT_CONNECTTIMEOUT_MS');
+        }
+        curl_setopt($this->_curl, $constant, $connectTimeout);
+
+        // Set request timeout (once connection is established)
+        if (array_key_exists('request_timeout', $this->_config)) {
+            $requestTimeout  = $this->_config['request_timeout'];
+            $constant        = CURLOPT_TIMEOUT;
+            if (defined('CURLOPT_TIMEOUT_MS')) {
+                $requestTimeout *= 1000;
+                $constant = constant('CURLOPT_TIMEOUT_MS');
+            }
+            curl_setopt($this->_curl, $constant, $requestTimeout);
+        }
 
         // Set Max redirects
         curl_setopt($this->_curl, CURLOPT_MAXREDIRS, $this->_config['maxredirects']);
@@ -320,6 +337,11 @@ class Zend_Http_Client_Adapter_Curl implements Zend_Http_Client_Adapter_Interfac
                 }
                 break;
 
+            case Zend_Http_Client::PATCH:
+                $curlMethod = CURLOPT_CUSTOMREQUEST;
+                $curlValue = "PATCH";
+                break;
+
             case Zend_Http_Client::DELETE:
                 $curlMethod = CURLOPT_CUSTOMREQUEST;
                 $curlValue = "DELETE";
@@ -355,7 +377,7 @@ class Zend_Http_Client_Adapter_Curl implements Zend_Http_Client_Adapter_Interfac
         $curlHttp = ($httpVersion == 1.1) ? CURL_HTTP_VERSION_1_1 : CURL_HTTP_VERSION_1_0;
 
         // mark as HTTP request and set HTTP method
-        curl_setopt($this->_curl, $curlHttp, true);
+        curl_setopt($this->_curl, CURLOPT_HTTP_VERSION, $curlHttp);
         curl_setopt($this->_curl, $curlMethod, $curlValue);
 
         if($this->out_stream) {
@@ -367,6 +389,7 @@ class Zend_Http_Client_Adapter_Curl implements Zend_Http_Client_Adapter_Interfac
         } else {
             // ensure headers are also returned
             curl_setopt($this->_curl, CURLOPT_HEADER, true);
+            curl_setopt($this->_curl, CURLINFO_HEADER_OUT, true);
 
             // ensure actual response is returned
             curl_setopt($this->_curl, CURLOPT_RETURNTRANSFER, true);
@@ -393,8 +416,14 @@ class Zend_Http_Client_Adapter_Curl implements Zend_Http_Client_Adapter_Interfac
         } elseif ($method == Zend_Http_Client::PUT) {
             // This is a PUT by a setRawData string, not by file-handle
             curl_setopt($this->_curl, CURLOPT_POSTFIELDS, $body);
+        } elseif ($method == Zend_Http_Client::PATCH) {
+            // This is a PATCH by a setRawData string
+            curl_setopt($this->_curl, CURLOPT_POSTFIELDS, $body);
         } elseif ($method == Zend_Http_Client::DELETE) {
             // This is a DELETE by a setRawData string
+            curl_setopt($this->_curl, CURLOPT_POSTFIELDS, $body);
+        } elseif ($method == Zend_Http_Client::OPTIONS) {
+            // This is an OPTIONS by a setRawData string
             curl_setopt($this->_curl, CURLOPT_POSTFIELDS, $body);
         }
 

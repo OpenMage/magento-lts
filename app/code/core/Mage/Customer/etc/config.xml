@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Customer>
-            <version>1.6.2.0.3</version>
+            <version>1.6.2.0.4</version>
         </Mage_Customer>
     </modules>
     <admin>
@@ -526,7 +526,7 @@
                 <street_lines>2</street_lines>
                 <prefix_show/>
                 <prefix_options/>
-                <middlename_show/>
+                <middlename_show>1</middlename_show>
                 <suffix_show/>
                 <suffix_options/>
                 <dob_show/>

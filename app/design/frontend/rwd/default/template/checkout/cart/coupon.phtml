@@ -24,7 +24,7 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<form id="discount-coupon-form" action="<?php echo $this->getUrl('checkout/cart/couponPost') ?>" method="post">
+<form id="discount-coupon-form" action="<?php echo $this->getFormActionUrl() ?>" method="post">
     <div class="discount">
         <h2><?php echo $this->__('Discount Codes') ?></h2>
         <div class="discount-form">
@@ -33,9 +33,9 @@
             <div class="field-wrapper">
                 <input class="input-text" type="text" id="coupon_code" name="coupon_code" value="<?php echo $this->escapeHtml($this->getCouponCode()) ?>" />
                 <div class="button-wrapper">
-                    <button type="button" title="<?php echo $this->__('Apply') ?>" class="button2" onclick="discountForm.submit(false)" value="<?php echo $this->__('Apply') ?>"><span><span><?php echo $this->__('Apply') ?></span></span></button>
+                    <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Apply')) ?>" class="button2" onclick="discountForm.submit(false)" value="<?php echo $this->__('Apply') ?>"><span><span><?php echo $this->__('Apply') ?></span></span></button>
                     <?php if(strlen($this->getCouponCode())): ?>
-                        <button type="button" title="<?php echo $this->__('Cancel') ?>" class="button2 cancel-coupon" onclick="discountForm.submit(true)" value="<?php echo $this->__('Cancel') ?>"><span><span><?php echo $this->__('Cancel') ?></span></span>
+                        <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Cancel')) ?>" class="button2 cancel-coupon" onclick="discountForm.submit(true)" value="<?php echo $this->__('Cancel') ?>"><span><span><?php echo $this->__('Cancel') ?></span></span>
                         </button>
                     <?php endif;?>
                 </div>

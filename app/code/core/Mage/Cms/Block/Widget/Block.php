@@ -35,6 +35,21 @@
 class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Mage_Widget_Block_Interface
 {
     /**
+     * Initialize cache
+     *
+     * @return null
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+        /*
+        * setting cache to save the cms block
+        */
+        $this->setCacheTags(array(Mage_Cms_Model_Block::CACHE_TAG));
+        $this->setCacheLifetime(false);
+    }
+
+    /**
      * Storage for used widgets
      *
      * @var array
@@ -67,10 +82,26 @@ class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Ma
                 $helper = Mage::helper('cms');
                 $processor = $helper->getBlockTemplateProcessor();
                 $this->setText($processor->filter($block->getContent()));
+                $this->addModelTags($block);
             }
         }
 
         unset(self::$_widgetUsageMap[$blockHash]);
         return $this;
+    }
+
+    /**
+     * Retrieve values of properties that unambiguously identify unique content
+     *
+     * @return array
+     */
+    public function getCacheKeyInfo()
+    {
+        $result = parent::getCacheKeyInfo();
+        $blockId = $this->getBlockId();
+        if ($blockId) {
+            $result[] = $blockId;
+        }
+        return $result;
     }
 }

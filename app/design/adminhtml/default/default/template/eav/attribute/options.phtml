@@ -119,7 +119,7 @@ var templateText =
             '<td class="a-left" id="delete_button_container_{{id}}">'+
                 '<input type="hidden" class="delete-flag" name="option[delete][{{id}}]" value="" />'+
                 <?php if (!$this->getReadOnly()):?>
-                    '<?php echo $this->getDeleteButtonHtml() ?>'+
+                    '<?php echo Mage::helper('core')->jsQuoteEscape($this->getDeleteButtonHtml()) ?>'+
                 <?php endif;?>
             '<\/td>'+
         '<\/tr>';
@@ -210,11 +210,11 @@ if($('add_new_option_button')){
     Event.observe('add_new_option_button', 'click', attributeOption.add.bind(attributeOption));
 }
 Validation.addAllThese([
-    ['required-option', '<?php echo $this->__('Failed') ?>', function(v) {
+    ['required-option', '<?php echo $this->jsQuoteEscape($this->__('Failed')) ?>', function(v) {
         return !Validation.get('IsEmpty').test(v);
 }]]);
 Validation.addAllThese([
-    ['required-options-count', '<?php echo $this->__('Options is required') ?>', function(v) {
+    ['required-options-count', '<?php echo $this->jsQuoteEscape($this->__('Options is required')) ?>', function(v) {
         return !Validation.get('IsEmpty').test(v);
 }]]);
 <?php foreach ($this->getOptionValues() as $_value): ?>

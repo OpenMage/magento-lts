@@ -55,7 +55,7 @@ Ext.onReady(function(){
 
     // set the root node
     var root = new Tree.AsyncTreeNode({
-        text: '<?php echo $this->getRootNodeName() ?>',
+        text: '<?php echo Mage::helper('core')->jsQuoteEscape($this->getRootNodeName()) ?>',
         draggable:false,
         id:'root'
     });

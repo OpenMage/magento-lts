@@ -71,7 +71,7 @@ class Mage_Adminhtml_Block_Review_Rating_Detailed extends Mage_Adminhtml_Block_T
                 $ratingCollection = Mage::getModel('rating/rating')
                     ->getResourceCollection()
                     ->addEntityFilter('product')
-                    ->setStoreFilter(Mage::app()->getStore('default')->getId())
+                    ->setStoreFilter(Mage::app()->getDefaultStoreView()->getId())
                     ->setPositionOrder()
                     ->load()
                     ->addOptionToItems();

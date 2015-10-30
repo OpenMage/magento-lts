@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    Tests
+ * @package     Tests_Functional
+ * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
+  <testCase name="Mage\Cms\Test\TestCase\CreateCmsBlockEntityTest">
+    <variation name="CreateCmsBlockEntityTestVariation1">
+      <data name="cmsBlock/data/title" xsi:type="string">block_%isolation%</data>
+      <data name="cmsBlock/data/identifier" xsi:type="string">identifier_%isolation%</data>
+      <data name="cmsBlock/data/stores/dataSets" xsi:type="string">default</data>
+      <data name="cmsBlock/data/is_active" xsi:type="string">Enabled</data>
+      <data name="cmsBlock/data/content" xsi:type="string">description_%isolation%</data>
+      <constraint name="Mage\Cms\Test\Constraint\AssertCmsBlockSuccessSaveMessage" />
+      <constraint name="Mage\Cms\Test\Constraint\AssertCmsBlockInGrid" />
+      <constraint name="Mage\Cms\Test\Constraint\AssertCmsBlockOnCategoryPage" />
+    </variation>
+    <variation name="CreateCmsBlockEntityTestVariation2">
+      <data name="cmsBlock/data/title" xsi:type="string">block_%isolation%</data>
+      <data name="cmsBlock/data/identifier" xsi:type="string">identifier_%isolation%</data>
+      <data name="cmsBlock/data/stores/dataSets" xsi:type="string">default</data>
+      <data name="cmsBlock/data/is_active" xsi:type="string">Disabled</data>
+      <data name="cmsBlock/data/content" xsi:type="string">description_%isolation%</data>
+      <constraint name="Mage\Cms\Test\Constraint\AssertCmsBlockSuccessSaveMessage" />
+      <constraint name="Mage\Cms\Test\Constraint\AssertCmsBlockInGrid" />
+      <constraint name="Mage\Cms\Test\Constraint\AssertCmsBlockNotOnCategoryPage" />
+    </variation>
+  </testCase>
+</config>

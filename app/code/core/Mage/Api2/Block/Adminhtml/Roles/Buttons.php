@@ -125,7 +125,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Buttons extends Mage_Adminhtml_Block_Templ
         }
 
         $this->getChild('deleteButton')->setData('onclick', sprintf("deleteConfirm('%s', '%s')",
-            Mage::helper('adminhtml')->__('Are you sure you want to do this?'),
+            Mage::helper('core')->jsQuoteEscape(Mage::helper('adminhtml')->__('Are you sure you want to do this?')),
             $this->getUrl('*/*/delete', array('id' => $this->getRole()->getId()))
         ));
 

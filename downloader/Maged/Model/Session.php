@@ -48,7 +48,7 @@ class Maged_Model_Session extends Maged_Model
      */
     public function start()
     {
-        if (class_exists('Mage') && Mage::isInstalled()) {
+        if ($this->controller()->isInstalled()) {
             // initialize Magento Config
             Mage::app();
             $this->_session = Mage::getSingleton('admin/session');

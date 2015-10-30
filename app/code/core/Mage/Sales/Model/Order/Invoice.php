@@ -178,7 +178,16 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      */
     protected $_wasPayCalled = false;
 
-    public function __destruct()
+    public function __construct()
+    {
+        register_shutdown_function(array($this, 'destruct'));
+        parent::__construct();
+    }
+
+    /**
+     * Uploader clean on shutdown
+     */
+    public function destruct()
     {
         if ($this->_saveBeforeDestruct) {
             $this->save();
@@ -192,6 +201,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     {
         $this->_init('sales/order_invoice');
     }
+
 
     /**
      * Init mapping array of short fields to its full names

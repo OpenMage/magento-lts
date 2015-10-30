@@ -72,9 +72,10 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
         'read_control'           => false,   // Use a checksum to detect corrupt data
         'read_control_type'      => 'crc32', // If read_control is enabled, which checksum algorithm to use
         'hashed_directory_level' => 2,       // How many characters should be used to create sub-directories
-        'hashed_directory_perm'  => 0770,    // Filesystem permissions for created directories
+        'use_chmod' => FALSE,              // Do not use chmod on files and directories (should use umask() to control permissions)
+        'file_mode' => 0660,               // Filesystem permissions for created files (requires use_chmod)
+        'directory_mode' => 0770,          // Filesystem permissions for created directories (requires use_chmod)
         'file_name_prefix'       => 'mage',  // Prefix for cache directories created
-        'cache_file_perm'        => 0660,    // Filesystem permissions for created files
     );
 
     /**
@@ -91,10 +92,15 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     {
         // Backwards compatibility ZF 1.11 and ZF 1.12
         if (isset($options['hashed_directory_umask'])) {
-            $options['hashed_directory_perm'] = $options['hashed_directory_umask'];
+            $options['directory_mode'] = $options['hashed_directory_umask'];
         }
         if (isset($options['cache_file_umask'])) {
-            $options['cache_file_perm'] = $options['cache_file_umask'];
+            $options['file_mode'] = $options['cache_file_umask'];
+        }
+
+        // Auto-enable chmod if modes are specified.
+        if (isset($options['directory_mode']) || isset($options['file_mode'])) {
+            $options['use_chmod'] = TRUE;
         }
 
         // Don't use parent constructor
@@ -117,14 +123,14 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
         }
 
         // See #ZF-4422
-        if (is_string($this->_options['hashed_directory_perm'])) {
-            $this->_options['hashed_directory_perm'] = octdec($this->_options['hashed_directory_perm']);
+        if (is_string($this->_options['directory_mode'])) {
+            $this->_options['directory_mode'] = octdec($this->_options['directory_mode']);
         }
-        if (is_string($this->_options['cache_file_perm'])) {
-            $this->_options['cache_file_perm'] = octdec($this->_options['cache_file_perm']);
+        if (is_string($this->_options['file_mode'])) {
+            $this->_options['file_mode'] = octdec($this->_options['file_mode']);
         }
-        $this->_options['hashed_directory_umask'] = $this->_options['hashed_directory_perm'];
-        $this->_options['cache_file_umask']       = $this->_options['cache_file_perm'];
+        $this->_options['hashed_directory_umask'] = $this->_options['directory_mode'];
+        $this->_options['cache_file_umask']       = $this->_options['file_mode'];
     }
 
     /**
@@ -444,7 +450,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * @param  string  $id    Cache id
      * @param  boolean $parts If true, returns array of directory parts instead of single string
      *
-     * @return string Complete directory path
+     * @return string|array Complete directory path
      */
     protected function _path($id, $parts = false)
     {
@@ -452,9 +458,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
         $root   = $this->_options['cache_dir'];
         $prefix = $this->_options['file_name_prefix'];
         if ($this->_options['hashed_directory_level'] > 0) {
-            $hash         = hash('adler32', $id);
-            $root         = $root . $prefix . '--' . substr($hash, -$this->_options['hashed_directory_level'])
-                                . DIRECTORY_SEPARATOR;
+            $root .= $prefix . '--' . substr(md5($id), -$this->_options['hashed_directory_level']) . DIRECTORY_SEPARATOR;
             $partsArray[] = $root;
         }
         if ($parts) {
@@ -495,10 +499,9 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
         }
         foreach ($glob as $file) {
             if (is_file($file)) {
-                switch ($mode) {
-                    case Zend_Cache::CLEANING_MODE_ALL:
-                        $result = @unlink($file) && $result;
-                        continue;
+                if ($mode == Zend_Cache::CLEANING_MODE_ALL) {
+                    $result = @unlink($file) && $result;
+                    continue;
                 }
 
                 $id    = $this->_fileNameToId(basename($file));
@@ -512,20 +515,14 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
                     @unlink($file);
                     continue;
                 }
-                switch ($mode) {
-                    case Zend_Cache::CLEANING_MODE_OLD:
-                        if (time() > $metadatas['expire']) {
-                            $result = $this->_remove($file) && $result;
-                            $result = $this->_updateIdsTags(
-                                          array($id),
-                                          explode(',', $metadatas['tags']),
-                                          'diff'
-                                      ) && $result;
-                        }
-                        continue;
-                    default:
-                        Zend_Cache::throwException('Invalid mode for clean() method');
-                        break;
+                if ($mode == Zend_Cache::CLEANING_MODE_OLD) {
+                    if (time() > $metadatas['expire']) {
+                        $result = $this->_remove($file) && $result;
+                        $result = $this->_updateIdsTags(array($id), explode(',', $metadatas['tags']), 'diff') && $result;
+                    }
+                    continue;
+                } else {
+                    Zend_Cache::throwException('Invalid mode for clean() method.');
                 }
             }
             if (is_dir($file) && $this->_options['hashed_directory_level'] > 0) {
@@ -572,7 +569,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
         foreach ($ids as $id) {
             $idFile = $this->_file($id);
             if (is_file($idFile)) {
-                $result = $result && $this->_remove($idFile);
+                $result = $this->_remove($idFile) && $result;
             }
         }
         switch ($mode) {
@@ -580,7 +577,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
                 foreach ($tags as $tag) {
                     $tagFile = $this->_tagFile($tag);
                     if (is_file($tagFile)) {
-                        $result = $result && $this->_remove($tagFile);
+                        $result = $this->_remove($tagFile) && $result;
                     }
                 }
                 break;
@@ -631,7 +628,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
                 break;
             case Zend_Cache::CLEANING_MODE_MATCHING_ANY_TAG:
                 foreach ($tags as $tag) {
-                    $ids = $ids + $this->_getTagIds($tag);
+                    $ids = array_merge($ids,$this->_getTagIds($tag));
                 }
                 $ids = array_unique($ids);
                 break;
@@ -659,12 +656,13 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      */
     protected function _tagPath()
     {
-        $path = $this->_options['cache_dir'] . DIRECTORY_SEPARATOR . $this->_options['file_name_prefix'] . '--tags'
+        $path = $this->_options['cache_dir'] . DIRECTORY_SEPARATOR . $this->_options['file_name_prefix'] . '-tags'
                     . DIRECTORY_SEPARATOR;
         if (!$this->_isTagDirChecked) {
             if (!is_dir($path)) {
-                @mkdir($path, $this->_options['hashed_directory_perm']);
-                @chmod($path, $this->_options['hashed_directory_perm']);
+                if (@mkdir($path, $this->_options['use_chmod'] ? $this->_options['directory_mode'] : 0777) && $this->_options['use_chmod']) {
+                    @chmod($path, $this->_options['directory_mode']); // see #ZF-320 (this line is required in some configurations)
+                }
             }
             $this->_isTagDirChecked = true;
         }
@@ -683,15 +681,16 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     {
         if (is_resource($tag)) {
             $ids = stream_get_contents($tag);
-        } else {
+        } elseif(file_exists($this->_tagFile($tag))) {
             $ids = @file_get_contents($this->_tagFile($tag));
+        } else {
+            $ids = false;
         }
-        if (!$ids) {
+        if( ! $ids) {
             return array();
         }
-        $ids = substr($ids, 0, strrpos($ids, "\n"));
-
-        return explode("\n", $ids);
+        $ids = trim(substr($ids, 0, strrpos($ids, "\n")));
+        return $ids ? explode("\n", $ids) : array();
     }
 
     /**
@@ -706,47 +705,37 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     protected function _updateIdsTags($ids, $tags, $mode)
     {
         $result = true;
-        foreach ($tags as $tag) {
+        if (empty($ids)) {
+            return $result;
+        }
+        foreach($tags as $tag) {
             $file = $this->_tagFile($tag);
             if (file_exists($file)) {
-                if (!$ids && $mode == 'diff') {
-                    $result = $this->_remove($file);
-                } else {
-                    if ($mode == 'diff' || (rand(1, 100) == 1 && filesize($file) > 4096)) {
-                        $file = $this->_tagFile($tag);
-                        if (!($fd = fopen($file, 'rb+'))) {
-                            $result = false;
-                            continue;
-                        }
-                        if ($this->_options['file_locking']) {
-                            flock($fd, LOCK_EX);
-                        }
-                        if ($mode == 'diff') {
-                            $_ids = array_diff($this->_getTagIds($fd), $ids);
-                        } else { // if ($mode == 'merge')
-                            $_ids = $this->_getTagIds($fd) + $ids;
-                        }
-                        fseek($fd, 0);
-                        ftruncate($fd, 0);
-                        $result = fwrite($fd, implode("\n", array_unique($_ids)) . "\n") && $result;
-                        if ($this->_options['file_locking']) {
-                            flock($fd, LOCK_UN);
-                        }
-                        fclose($fd);
-                    } else {
-                        $string = implode("\n", $ids) . "\n";
-                        $flags  = FILE_APPEND | ($this->_options['file_locking'] ? LOCK_EX : 0);
-
-                        $result = file_put_contents($file, $string, $flags) && $result;
+                if ($mode == 'diff' || (rand(1,100) == 1 && filesize($file) > 4096)) {
+                    $file = $this->_tagFile($tag);
+                    if ( ! ($fd = fopen($file, 'rb+'))) {
+                        $result = false;
+                        continue;
                     }
+                    if ($this->_options['file_locking']) flock($fd, LOCK_EX);
+                    if ($mode == 'diff') {
+                        $_ids = array_diff($this->_getTagIds($fd), $ids);
+                    } else {
+                        $_ids = array_merge($this->_getTagIds($fd), $ids);
+                    }
+                    fseek($fd, 0);
+                    ftruncate($fd, 0);
+                    $result = fwrite($fd, implode("\n", array_unique($_ids))."\n") && $result;
+                    if ($this->_options['file_locking']) flock($fd, LOCK_UN);
+                    fclose($fd);
                 }
-            } else {
-                if ($mode == 'merge') {
-                    $result = $this->_filePutContents($file, implode("\n", $ids) . "\n") && $result;
+                else {
+                    $result = file_put_contents($file, implode("\n", $ids)."\n", FILE_APPEND | ($this->_options['file_locking'] ? LOCK_EX : 0)) && $result;
                 }
+            } else if ($mode == 'merge') {
+                $result = $this->_filePutContents($file, implode("\n", $ids)."\n") && $result;
             }
         }
-
         return $result;
     }
 
@@ -761,9 +750,34 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     protected function _filePutContents($file, $string)
     {
         $result = @file_put_contents($file, $string, $this->_options['file_locking'] ? LOCK_EX : 0);
-        $result && chmod($file, $this->_options['cache_file_perm']);
+        if ($result && $this->_options['use_chmod']) {
+            @chmod($file, $this->_options['file_mode']);
+        }
 
         return $result;
+    }
+
+    /**
+     * Make the directory structure for the given id
+     *
+     * @param string $id cache id
+     * @return boolean true
+     */
+    protected function _recursiveMkdirAndChmod($id)
+    {
+        if ($this->_options['hashed_directory_level'] <=0) {
+            return true;
+        }
+        $partsArray = $this->_path($id, true);
+        foreach ($partsArray as $part) {
+            if (!is_dir($part)) {
+                @mkdir($part, $this->_options['use_chmod'] ? $this->_options['directory_mode'] : 0777);
+                if ($this->_options['use_chmod']) {
+                    @chmod($part, $this->_options['directory_mode']); // see #ZF-320 (this line is required in some configurations)
+                }
+            }
+        }
+        return true;
     }
 
     /**

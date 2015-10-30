@@ -95,6 +95,6 @@ class Mage_Sales_Block_Widget_Guest_Form
      */
     public function getActionUrl()
     {
-        return $this->getUrl('sales/guest/view');
+        return $this->getUrl('sales/guest/view', array('_secure' => $this->_isSecure()));
     }
 }

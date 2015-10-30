@@ -276,13 +276,23 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
     }
 
     /**
+     * Is ga available
+     *
+     * @return bool
+     */
+    protected function _isAvailable()
+    {
+        return Mage::helper('googleanalytics')->isGoogleAnalyticsAvailable();
+    }
+
+    /**
      * Render GA tracking scripts
      *
      * @return string
      */
     protected function _toHtml()
     {
-        if (!Mage::helper('googleanalytics')->isGoogleAnalyticsAvailable()) {
+        if (!$this->_isAvailable()) {
             return '';
         }
         return parent::_toHtml();

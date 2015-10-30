@@ -39,22 +39,31 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
      */
     const XML_PATH_RSS_ACTIVE = 'rss/config/active';
 
+    protected $_rssSession;
+
+    protected $_adminSession;
+
+    public function __construct(array $params = array())
+    {
+        $this->_rssSession = isset($params['rss_session']) ? $params['rss_session'] : Mage::getSingleton('rss/session');
+        $this->_adminSession = isset($params['admin_session'])
+            ? $params['admin_session'] : Mage::getSingleton('admin/session');
+    }
+
     /**
      * Authenticate customer on frontend
      *
      */
     public function authFrontend()
     {
-        $session = Mage::getSingleton('rss/session');
-        if ($session->isCustomerLoggedIn()) {
-            return;
-        }
-        list($username, $password) = $this->authValidate();
-        $customer = Mage::getModel('customer/customer')->authenticate($username, $password);
-        if ($customer && $customer->getId()) {
-            Mage::getSingleton('rss/session')->settCustomer($customer);
-        } else {
-            $this->authFailed();
+        if (!$this->_rssSession->isCustomerLoggedIn()) {
+            list($username, $password) = $this->authValidate();
+            $customer = Mage::getModel('customer/customer')->authenticate($username, $password);
+            if ($customer && $customer->getId()) {
+                $this->_rssSession->settCustomer($customer);
+            } else {
+                $this->authFailed();
+            }
         }
     }
 
@@ -65,17 +74,15 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function authAdmin($path)
     {
-        $session = Mage::getSingleton('rss/session');
-        if ($session->isAdminLoggedIn()) {
-            return;
+        if (!$this->_rssSession->isAdminLoggedIn()) {
+            list($username, $password) = $this->authValidate();
+            Mage::getSingleton('adminhtml/url')->setNoSecret(true);
+            $user = $this->_adminSession->login($username, $password);
+        } else {
+            $user = $this->_rssSession->getAdmin();
         }
-        list($username, $password) = $this->authValidate();
-        Mage::getSingleton('adminhtml/url')->setNoSecret(true);
-        $adminSession = Mage::getSingleton('admin/session');
-        $user = $adminSession->login($username, $password);
-        //$user = Mage::getModel('admin/user')->login($username, $password);
-        if ($user && $user->getId() && $user->getIsActive() == '1' && $adminSession->isAllowed($path)) {
-            $session->setAdmin($user);
+        if ($user && $user->getId() && $user->getIsActive() == '1' && $this->_adminSession->isAllowed($path)) {
+            $this->_rssSession->setAdmin($user);
         } else {
             $this->authFailed();
         }

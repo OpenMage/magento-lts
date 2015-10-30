@@ -1,0 +1,210 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    Tests
+ * @package     Tests_Functional
+ * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<fixture>
+    <catalogProductSimple module="Mage_Catalog">
+        <type>eav</type>
+        <entity_type>catalog_product</entity_type>
+        <product_type>simple</product_type>
+        <collection>Mage\Catalog\Model\Resource\Product\Collection</collection>
+        <identifier>sku</identifier>
+        <fields>
+            <id>
+                <attribute_code>id</attribute_code>
+                <backend_type>virtual</backend_type>
+            </id>
+            <type_id>
+                <attribute_code>type_id</attribute_code>
+                <backend_type>virtual</backend_type>
+            </type_id>
+            <attribute_set_id>
+                <attribute_code>attribute_set_id</attribute_code>
+                <backend_type>virtual</backend_type>
+                <source>Mage\Catalog\Test\Fixture\CatalogProductSimple\AttributeSetId</source>
+            </attribute_set_id>
+            <custom_options>
+                <attribute_code>custom_options</attribute_code>
+                <backend_type>virtual</backend_type>
+                <source>Mage\Catalog\Test\Fixture\CatalogProductSimple\CustomOptions</source>
+            </custom_options>
+            <checkout_data>
+                <attribute_code>custom_options</attribute_code>
+                <backend_type>virtual</backend_type>
+                <source>Mage\Catalog\Test\Fixture\CatalogProductSimple\CheckoutData</source>
+            </checkout_data>
+            <attributes>
+                <attribute_code>attributes</attribute_code>
+                <backend_type>virtual</backend_type>
+            </attributes>
+        </fields>
+    </catalogProductSimple>
+    <catalogCategory module="Mage_Catalog">
+        <type>eav</type>
+        <entity_type>catalog_category</entity_type>
+        <collection>Mage\Catalog\Model\Resource\Category\Collection</collection>
+    </catalogCategory>
+    <configurableProduct module="Mage_Catalog">
+        <type>eav</type>
+        <entity_type>catalog_product</entity_type>
+        <product_type>configurable</product_type>
+        <identifier>sku</identifier>
+        <fields>
+            <stock_data>
+                <attribute_code>stock_data</attribute_code>
+                <backend_type>virtual</backend_type>
+                <group>inventory</group>
+            </stock_data>
+            <id>
+                <attribute_code>id</attribute_code>
+                <backend_type>virtual</backend_type>
+            </id>
+            <type_id>
+                <attribute_code>type_id</attribute_code>
+                <backend_type>virtual</backend_type>
+            </type_id>
+            <attribute_set_id>
+                <attribute_code>attribute_set_id</attribute_code>
+                <backend_type>virtual</backend_type>
+                <group>null</group>
+                <source>Mage\Catalog\Test\Fixture\CatalogProductSimple\AttributeSetId</source>
+                <group>null</group>
+            </attribute_set_id>
+            <configurable_options>
+                <attribute_code>configurable_options</attribute_code>
+                <backend_type>virtual</backend_type>
+                <is_required>0</is_required>
+                <group>configurable</group>
+                <source>Mage\Catalog\Test\Fixture\ConfigurableProduct\ConfigurableOptions</source>
+            </configurable_options>
+        </fields>
+    </configurableProduct>
+    <catalogProductAttribute module="Mage_Catalog">
+        <type>composite</type>
+        <entities>
+            <eav_attribute>eav_attribute</eav_attribute>
+            <catalog_eav_attribute>catalog_eav_attribute</catalog_eav_attribute>
+        </entities>
+        <options>
+            <attribute_code>options</attribute_code>
+            <backend_type>smallint</backend_type>
+            <source>Mage\Catalog\Test\Fixture\CatalogProductAttribute\Options</source>
+        </options>
+    </catalogProductAttribute>
+    <catalogAttributeSet module="Mage_Catalog">
+        <type>flat</type>
+        <entity_type>eav_attribute_set</entity_type>
+        <fields>
+            <skeleton_set>
+                <attribute_code>skeleton_set</attribute_code>
+                <backend_type>virtual</backend_type>
+            </skeleton_set>
+            <assigned_attributes>
+                <attribute_code>assigned_attributes</attribute_code>
+                <backend_type>virtual</backend_type>
+                <source>Mage\Catalog\Test\Fixture\CatalogAttributeSet\AssignedAttributes</source>
+            </assigned_attributes>
+        </fields>
+    </catalogAttributeSet>
+    <catalogProductVirtual module="Mage_Catalog">
+        <type>eav</type>
+        <entity_type>catalog_product</entity_type>
+        <product_type>virtual</product_type>
+        <collection>Mage\Catalog\Model\Resource\Product\Collection</collection>
+        <identifier>sku</identifier>
+        <fields>
+            <id>
+                <attribute_code>id</attribute_code>
+                <backend_type>virtual</backend_type>
+            </id>
+            <type_id>
+                <attribute_code>type_id</attribute_code>
+                <backend_type>virtual</backend_type>
+            </type_id>
+            <attribute_set_id>
+                <attribute_code>attribute_set_id</attribute_code>
+                <backend_type>virtual</backend_type>
+                <group>null</group>
+                <source>Mage\Catalog\Test\Fixture\CatalogProductSimple\AttributeSetId</source>
+            </attribute_set_id>
+            <custom_options>
+                <attribute_code>custom_options</attribute_code>
+                <backend_type>virtual</backend_type>
+                <group>custom-options</group>
+                <source>Mage\Catalog\Test\Fixture\CatalogProductSimple\CustomOptions</source>
+            </custom_options>
+            <checkout_data>
+                <attribute_code>custom_options</attribute_code>
+                <backend_type>virtual</backend_type>
+                <source>Mage\Catalog\Test\Fixture\CatalogProductVirtual\CheckoutData</source>
+            </checkout_data>
+            <price>
+                <attribute_code>price</attribute_code>
+                <group>prices</group>
+                <source>Mage\Catalog\Test\Fixture\CatalogProductSimple\Price</source>
+            </price>
+        </fields>
+    </catalogProductVirtual>
+    <groupedProduct module="Mage_Catalog">
+        <type>eav</type>
+        <entity_type>catalog_product</entity_type>
+        <product_type>grouped</product_type>
+        <collection>Mage\Catalog\Model\Resource\Product\Collection</collection>
+        <identifier>sku</identifier>
+        <fields>
+            <id>
+                <attribute_code>id</attribute_code>
+                <backend_type>virtual</backend_type>
+            </id>
+            <type_id>
+                <attribute_code>type_id</attribute_code>
+                <backend_type>virtual</backend_type>
+            </type_id>
+            <attribute_set_id>
+                <attribute_code>attribute_set_id</attribute_code>
+                <backend_type>virtual</backend_type>
+                <group>null</group>
+                <source>Mage\Catalog\Test\Fixture\CatalogProductSimple\AttributeSetId</source>
+            </attribute_set_id>
+            <custom_options>
+                <attribute_code>custom_options</attribute_code>
+                <backend_type>virtual</backend_type>
+                <group>custom-options</group>
+                <source>Mage\Catalog\Test\Fixture\CatalogProductSimple\CustomOptions</source>
+            </custom_options>
+            <checkout_data>
+                <attribute_code>custom_options</attribute_code>
+                <backend_type>virtual</backend_type>
+                <source>Mage\Catalog\Test\Fixture\CatalogProductVirtual\CheckoutData</source>
+            </checkout_data>
+            <associated>
+                <attribute_code>associated</attribute_code>
+                <group>associated</group>
+                <source>Mage\Catalog\Test\Fixture\GroupedProduct\Associated</source>
+            </associated>
+        </fields>
+    </groupedProduct>
+</fixture>

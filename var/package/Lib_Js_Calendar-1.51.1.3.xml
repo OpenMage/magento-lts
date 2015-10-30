@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+    <name>Lib_Js_Calendar</name>
+    <version>1.51.1.3</version>
+    <stability>stable</stability>
+    <license>Mixed</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Javascript Calendar for Magento</summary>
+    <description>Javascript Calendar for Magento</description>
+    <notes>1.51.1.3</notes>
+    <authors><author><name>Magento Core Team</name><user>core</user><email>core@magentocommerce.com</email></author></authors>
+    <date>2015-10-27</date>
+    <time>13:46:54</time>
+    <contents><target name="mageweb"><dir name="js"><dir name="calendar"><file name="calendar-blue.css" hash="b8bb29e3c1573d0d2917cd3112b5052d"/><file name="calendar-blue2.css" hash="654dfacebcdd70c75ccaf2b4aee2d059"/><file name="calendar-brown.css" hash="f326a6a84037e549a9cd71a92346f210"/><file name="calendar-green.css" hash="b44e2c25ff56efaa6e37d84df202e5d5"/><file name="calendar-setup.js" hash="0c21b9e48ecfad87b4c4885cfb1aca8d"/><file name="calendar-system.css" hash="9b446e2ee0e9e4420fce20922405cec7"/><file name="calendar-tas.css" hash="fa3baa9367504954ef03c1f05d44f1a6"/><file name="calendar-win2k-1.css" hash="e3c61212e6abc28844005381d8fe9690"/><file name="calendar-win2k-2.css" hash="332d8bc7dab6acd575dba49a15b62947"/><file name="calendar-win2k-cold-1.css" hash="b0810ce949e6c954c54053c52b21e74a"/><file name="calendar-win2k-cold-2.css" hash="3487ec4e054141057673d794ce6d1032"/><file name="calendar.js" hash="97705cd3aa011e9671c4441643cc704a"/><file name="img.gif" hash="c1e5255bd358fcd5a0779a0cc310a2fe"/><file name="menuarrow.gif" hash="b5a91d7a2755198b2eb729541ad3288c"/><file name="menuarrow2.gif" hash="1f8c673c8f76832febaeeac88a5f4353"/><dir name="skins"><dir name="aqua"><file name="active-bg.gif" hash="f8fb9f2b7428c94b41320aa1bc9cf601"/><file name="dark-bg.gif" hash="949f6a11667cbdfbb96f8986464ba81b"/><file name="hover-bg.gif" hash="803ac4dbc56c05739f515d6ac6a66163"/><file name="menuarrow.gif" hash="1f8c673c8f76832febaeeac88a5f4353"/><file name="normal-bg.gif" hash="851134e42206fd3b173a3db654981bb6"/><file name="rowhover-bg.gif" hash="c097de7289bcf68723e89c248b9a2749"/><file name="status-bg.gif" hash="123882ca533030f07ee55c3818fc46b9"/><file name="theme.css" hash="ec69465f70d45213258fe1f89c52eceb"/><file name="title-bg.gif" hash="8d652fc5b683706fcbbf1103131c6ac2"/><file name="today-bg.gif" hash="9befc7d912cad22ddf2ec3fc21188bfd"/></dir></dir></dir></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.2.0</min><max>6.0.0</max></php></required></dependencies>
+</package>

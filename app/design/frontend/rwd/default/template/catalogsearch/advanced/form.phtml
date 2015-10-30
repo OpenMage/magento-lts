@@ -86,7 +86,7 @@
         <script type="text/javascript">decorateList('advanced-search-list')</script>
     </div>
     <div class="buttons-set">
-        <button type="submit" title="<?php echo $this->__('Search') ?>" class="button"><span><span><?php echo $this->__('Search') ?></span></span></button>
+        <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Search')) ?>" class="button"><span><span><?php echo $this->__('Search') ?></span></span></button>
     </div>
 </form>
 <script type="text/javascript">

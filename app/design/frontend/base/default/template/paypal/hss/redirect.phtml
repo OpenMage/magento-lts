@@ -48,7 +48,7 @@ if (window.top == window.self) {
     window.top.document.getElementById('checkout-review-submit').show();
     window.top.document.getElementById('iframe-warning').hide();
     <?php if ($this->getErrorMsg()): ?>
-        alert('<?php echo $this->getErrorMsg() ?>');
+        alert('<?php echo Mage::helper('core')->jsQuoteEscape($this->getErrorMsg()) ?>');
     <?php endif; ?>
 <?php elseif ($this->getGotoSuccessPage()) : ?>
     window.top.location="<?php echo $this->getUrl('checkout/onepage/success') ?>";

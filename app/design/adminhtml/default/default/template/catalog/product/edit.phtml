@@ -126,7 +126,7 @@ Event.observe(window, 'load', function() {
 });
 
 Validation.addAllThese([
-    ['validate-super-product-attributes', '<?php echo Mage::helper('catalog')->__('Please select one or more attributes.') ?>', function(v) {
+    ['validate-super-product-attributes', '<?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('catalog')->__('Please select one or more attributes.')) ?>', function(v) {
                 return (v != "no-attributes");
             }]]);
 //]]>

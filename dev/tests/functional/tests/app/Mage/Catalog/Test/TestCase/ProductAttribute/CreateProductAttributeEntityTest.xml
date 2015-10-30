@@ -1,0 +1,218 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    Tests
+ * @package     Tests_Functional
+ * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/etc/variations.xsd">
+    <testCase name="Mage\Catalog\Test\TestCase\ProductAttribute\CreateProductAttributeEntityTest">
+        <variation name="CreateProductAttributeEntityTestVariation0">
+            <data name="productTemplate/dataSet" xsi:type="string">custom_attribute_set_without_attributes</data>
+            <data name="product" xsi:type="string">catalogProductSimple::product_with_anchor_category</data>
+            <data name="productAttribute/data/frontend_label" xsi:type="string">attr_dropdown_%isolation%</data>
+            <data name="productAttribute/data/frontend_input" xsi:type="string">Dropdown</data>
+            <data name="productAttribute/data/options/preset" xsi:type="string">default</data>
+            <data name="productAttribute/data/is_required" xsi:type="string">Yes</data>
+            <data name="productAttribute/data/attribute_code" xsi:type="string">attr_dropdown_%isolation%</data>
+            <data name="productAttribute/data/is_global" xsi:type="string">Global</data>
+            <data name="productAttribute/data/is_unique" xsi:type="string">No</data>
+            <data name="productAttribute/data/is_searchable" xsi:type="string">Yes</data>
+            <data name="productAttribute/data/is_visible_in_advanced_search" xsi:type="string">Yes</data>
+            <data name="productAttribute/data/is_comparable" xsi:type="string">Yes</data>
+            <data name="productAttribute/data/is_filterable" xsi:type="string">Filterable (with results)</data>
+            <data name="productAttribute/data/is_filterable_in_search" xsi:type="string">Yes</data>
+            <data name="productAttribute/data/is_html_allowed_on_front" xsi:type="string">Yes</data>
+            <data name="productAttribute/data/is_visible_on_front" xsi:type="string">Yes</data>
+            <data name="productAttribute/data/used_in_product_listing" xsi:type="string">Yes</data>
+            <data name="productAttribute/data/used_for_sort_by" xsi:type="string">Yes</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductAttributeInGrid" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertAttributeForm" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertAddedProductAttributeOnProductForm"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductAttributeIsRequired"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductAttributeIsGlobal"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductAttributeDisplayingOnSearchForm"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductAttributeSearchableByLabel"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductAttributeIsUsedInSortOnFrontend"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductAttributeIsFilterable"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductAttributeIsFilterableInSearch"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertAttributeOptionsOnProductForm"/>
+        </variation>
+        <variation name="CreateProductAttributeEntityTestVariation1">
+            <data name="tag" xsi:type="string">to_maintain:yes</data>
+            <data name="productTemplate/dataSet" xsi:type="string">custom_attribute_set_without_attributes</data>
+            <data name="product" xsi:type="string">catalogProductSimple::product_with_anchor_category</data>
+            <data name="productAttribute/data/frontend_label" xsi:type="string">Text_Field_Admin_%isolation%</data>
+            <data name="productAttribute/data/frontend_input" xsi:type="string">Text Field</data>
+            <data name="productAttribute/data/is_required" xsi:type="string">No</data>
+            <data name="productAttribute/data/attribute_code" xsi:type="string">attr_textfield_%isolation%</data>
+            <data name="productAttribute/data/default_value_text" xsi:type="string">default_value_text%isolation%</data>
+            <data name="productAttribute/data/is_global" xsi:type="string">Global</data>
+            <data name="productAttribute/data/is_unique" xsi:type="string">No</data>
+            <data name="productAttribute/data/is_searchable" xsi:type="string">Yes</data>
+            <data name="productAttribute/data/is_visible_in_advanced_search" xsi:type="string">Yes</data>
+            <data name="productAttribute/data/is_comparable" xsi:type="string">Yes</data>
+            <data name="productAttribute/data/is_html_allowed_on_front" xsi:type="string">Yes</data>
+            <data name="productAttribute/data/is_visible_on_front" xsi:type="string">Yes</data>
+            <data name="productAttribute/data/used_in_product_listing" xsi:type="string">Yes</data>
+            <data name="productAttribute/data/used_for_sort_by" xsi:type="string">Yes</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductAttributeInGrid" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertAttributeForm" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertAddedProductAttributeOnProductForm" />
+        </variation>
+        <variation name="CreateProductAttributeEntityTestVariation2">
+            <data name="productTemplate/dataSet" xsi:type="string">custom_attribute_set_without_attributes</data>
+            <data name="product" xsi:type="string">catalogProductSimple::product_with_anchor_category</data>
+            <data name="productAttribute/data/frontend_label" xsi:type="string">attr_textarea_%isolation%</data>
+            <data name="productAttribute/data/frontend_input" xsi:type="string">Text Area</data>
+            <data name="productAttribute/data/is_required" xsi:type="string">Yes</data>
+            <data name="productAttribute/data/attribute_code" xsi:type="string">attr_textarea_%isolation%</data>
+            <data name="productAttribute/data/is_global" xsi:type="string">Store View</data>
+            <data name="productAttribute/data/default_value_text" xsi:type="string">-</data>
+            <data name="productAttribute/data/default_value_textarea" xsi:type="string">default_value_textarea%isolation%</data>
+            <data name="productAttribute/data/is_unique" xsi:type="string">No</data>
+            <data name="productAttribute/data/manage_frontend_label" xsi:type="string">Area_Field%isolation%</data>
+            <data name="productAttribute/data/is_searchable" xsi:type="string">Yes</data>
+            <data name="productAttribute/data/is_visible_in_advanced_search" xsi:type="string">Yes</data>
+            <data name="productAttribute/data/is_comparable" xsi:type="string">Yes</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductAttributeInGrid" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertAttributeForm" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertAddedProductAttributeOnProductForm" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductAttributeIsRequired" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductAttributeDisplayingOnSearchForm" />
+        </variation>
+        <variation name="CreateProductAttributeEntityTestVariation3">
+            <data name="productTemplate/dataSet" xsi:type="string">custom_attribute_set_without_attributes</data>
+            <data name="product" xsi:type="string">catalogProductSimple::product_with_anchor_category</data>
+            <data name="productAttribute/data/frontend_label" xsi:type="string">Date_Admin_%isolation%</data>
+            <data name="productAttribute/data/frontend_input" xsi:type="string">Date</data>
+            <data name="productAttribute/data/is_required" xsi:type="string">No</data>
+            <data name="productAttribute/data/attribute_code" xsi:type="string">attr_date_%isolation%</data>
+            <data name="productAttribute/data/default_value_date/pattern" xsi:type="string">n/j/y</data>
+            <data name="productAttribute/data/is_unique" xsi:type="string">No</data>
+            <data name="productAttribute/data/manage_frontend_label" xsi:type="string">Date_Store_View</data>
+            <data name="productAttribute/data/is_searchable" xsi:type="string">Yes</data>
+            <data name="productAttribute/data/is_visible_in_advanced_search" xsi:type="string">Yes</data>
+            <data name="productAttribute/data/is_comparable" xsi:type="string">No</data>
+            <data name="productAttribute/data/is_visible_on_front" xsi:type="string">Yes</data>
+            <data name="productAttribute/data/used_in_product_listing" xsi:type="string">Yes</data>
+            <data name="productAttribute/data/used_for_sort_by" xsi:type="string">Yes</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductAttributeInGrid" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertAttributeForm" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertAddedProductAttributeOnProductForm" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductAttributeIsUsedInSortOnFrontend" />
+        </variation>
+        <variation name="CreateProductAttributeEntityTestVariation4">
+            <data name="productTemplate/dataSet" xsi:type="string">custom_attribute_set_without_attributes</data>
+            <data name="product" xsi:type="string">catalogProductSimple::product_with_anchor_category</data>
+            <data name="productAttribute/data/frontend_label" xsi:type="string">Yes/No_Admin_%isolation%</data>
+            <data name="productAttribute/data/frontend_input" xsi:type="string">Yes/No</data>
+            <data name="productAttribute/data/is_required" xsi:type="string">Yes</data>
+            <data name="productAttribute/data/attribute_code" xsi:type="string">attr_yesno_%isolation%</data>
+            <data name="productAttribute/data/is_global" xsi:type="string">Global</data>
+            <data name="productAttribute/data/default_value_yesno" xsi:type="string">No</data>
+            <data name="productAttribute/data/manage_frontend_label" xsi:type="string">Yes/No_Global</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductAttributeInGrid" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertAttributeForm" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertAddedProductAttributeOnProductForm" />
+        </variation>
+        <variation name="CreateProductAttributeEntityTestVariation5">
+            <data name="productTemplate/dataSet" xsi:type="string">custom_attribute_set_without_attributes</data>
+            <data name="product" xsi:type="string">catalogProductSimple::product_with_anchor_category</data>
+            <data name="productAttribute/data/frontend_label" xsi:type="string">attr_multiselect_%isolation%</data>
+            <data name="productAttribute/data/frontend_input" xsi:type="string">Multiple Select</data>
+            <data name="productAttribute/data/options/preset" xsi:type="string">default</data>
+            <data name="productAttribute/data/is_required" xsi:type="string">No</data>
+            <data name="productAttribute/data/attribute_code" xsi:type="string">attr_multiselect_%isolation%</data>
+            <data name="productAttribute/data/is_global" xsi:type="string">Website</data>
+            <data name="productAttribute/data/is_unique" xsi:type="string">Yes</data>
+            <data name="productAttribute/data/is_searchable" xsi:type="string">Yes</data>
+            <data name="productAttribute/data/is_visible_in_advanced_search" xsi:type="string">Yes</data>
+            <data name="productAttribute/data/is_comparable" xsi:type="string">Yes</data>
+            <data name="productAttribute/data/is_filterable" xsi:type="string">Filterable (with results)</data>
+            <data name="productAttribute/data/is_filterable_in_search" xsi:type="string">Yes</data>
+            <data name="productAttribute/data/is_html_allowed_on_front" xsi:type="string">Yes</data>
+            <data name="productAttribute/data/is_visible_on_front" xsi:type="string">Yes</data>
+            <data name="productAttribute/data/used_in_product_listing" xsi:type="string">Yes</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductAttributeInGrid" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertAttributeForm" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertAddedProductAttributeOnProductForm" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductAttributeDisplayingOnSearchForm" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductAttributeIsFilterable" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductAttributeIsFilterableInSearch" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductAttributeSearchableByLabel" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertAttributeOptionsOnProductForm" />
+        </variation>
+        <variation name="CreateProductAttributeEntityTestVariation7">
+            <data name="productTemplate/dataSet" xsi:type="string">custom_attribute_set_without_attributes</data>
+            <data name="product" xsi:type="string">catalogProductSimple::product_with_anchor_category</data>
+            <data name="productAttribute/data/frontend_label" xsi:type="string">attr_price_%isolation%</data>
+            <data name="productAttribute/data/frontend_input" xsi:type="string">Price</data>
+            <data name="productAttribute/data/is_required" xsi:type="string">No</data>
+            <data name="productAttribute/data/attribute_code" xsi:type="string">attr_price_%isolation%</data>
+            <data name="productAttribute/data/default_value_text" xsi:type="string">1000</data>
+            <data name="productAttribute/data/is_unique" xsi:type="string">No</data>
+            <data name="productAttribute/data/manage_frontend_label" xsi:type="string">Price</data>
+            <data name="productAttribute/data/is_searchable" xsi:type="string">Yes</data>
+            <data name="productAttribute/data/is_visible_in_advanced_search" xsi:type="string">Yes</data>
+            <data name="productAttribute/data/is_comparable" xsi:type="string">No</data>
+            <data name="productAttribute/data/is_filterable" xsi:type="string">Filterable (with results)</data>
+            <data name="productAttribute/data/is_filterable_in_search" xsi:type="string">Yes</data>
+            <data name="productAttribute/data/is_visible_on_front" xsi:type="string">Yes</data>
+            <data name="productAttribute/data/used_in_product_listing" xsi:type="string">Yes</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductAttributeInGrid" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertAttributeForm" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertAddedProductAttributeOnProductForm" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductAttributeDisplayingOnSearchForm" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductAttributeIsFilterable" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductAttributeIsFilterableInSearch" />
+        </variation>
+        <variation name="CreateProductAttributeEntityTestVariation8">
+            <data name="productTemplate/dataSet" xsi:type="string">custom_attribute_set_without_attributes</data>
+            <data name="product" xsi:type="string">catalogProductSimple::product_with_anchor_category</data>
+            <data name="productAttribute/data/frontend_label" xsi:type="string">attr_fpt_code_%isolation%</data>
+            <data name="productAttribute/data/frontend_input" xsi:type="string">Fixed Product Tax</data>
+            <data name="productAttribute/data/attribute_code" xsi:type="string">attr_fpt_code_%isolation%</data>
+            <data name="productAttribute/data/manage_frontend_label" xsi:type="string">Fixed_Product_Tax_Storeview</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductAttributeInGrid" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertAttributeForm" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertAddedProductAttributeOnProductForm" />
+        </variation>
+        <variation name="CreateProductAttributeEntityTestVariation9">
+            <data name="productTemplate/dataSet" xsi:type="string">custom_attribute_set_without_attributes</data>
+            <data name="product" xsi:type="string">catalogProductSimple::product_with_anchor_category</data>
+            <data name="productAttribute/data/frontend_label" xsi:type="string">Text_Field_Admin_%isolation%</data>
+            <data name="productAttribute/data/frontend_input" xsi:type="string">Text Field</data>
+            <data name="productAttribute/data/is_required" xsi:type="string">Yes</data>
+            <data name="productAttribute/data/attribute_code" xsi:type="string">attr_textfield_%isolation%</data>
+            <data name="productAttribute/data/is_global" xsi:type="string">Store View</data>
+            <data name="productAttribute/data/default_value_text" xsi:type="string">default_value_text%isolation%</data>
+            <data name="productAttribute/data/is_unique" xsi:type="string">Yes</data>
+            <data name="productAttribute/data/manage_frontend_label" xsi:type="string">Text_Field%isolation%</data>
+            <data name="productAttribute/data/is_searchable" xsi:type="string">Yes</data>
+            <data name="productAttribute/data/is_visible_in_advanced_search" xsi:type="string">Yes</data>
+            <data name="productAttribute/data/is_comparable" xsi:type="string">Yes</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductAttributeIsUnique" />
+        </variation>
+    </testCase>
+</config>

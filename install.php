@@ -122,6 +122,7 @@ if (version_compare(phpversion(), '5.2.0', '<')===true) {
     die('ERROR: Whoops, it looks like you have an invalid PHP version. Magento supports PHP 5.2.0 or newer.');
 }
 set_include_path(dirname(__FILE__) . PATH_SEPARATOR . get_include_path());
+require 'app/bootstrap.php';
 require 'app/Mage.php';
 
 try {

@@ -1,0 +1,154 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    Tests
+ * @package     Tests_Functional
+ * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
+    <fixture name="catalogProductAttribute" module="Mage_Catalog" type="composite" repository_class="Mage\Catalog\Test\Repository\CatalogProductAttribute" handler_interface="Mage\Catalog\Test\Handler\CatalogProductAttribute\CatalogProductAttributeInterface" class="Mage\Catalog\Test\Fixture\CatalogProductAttribute">
+        <dataset name="default">
+            <field name="attribute_code" xsi:type="string">attribute_label%isolation%</field>
+            <field name="frontend_label" xsi:type="string">attribute_label%isolation%</field>
+            <field name="frontend_input" xsi:type="string">Text Field</field>
+            <field name="is_required" xsi:type="string">No</field>
+        </dataset>
+        <field name="attribute_id" is_required="1" group="null">
+            <default_value xsi:type="null" />
+        </field>
+        <field name="entity_type_id" is_required="0">
+            <default_value xsi:type="null" />
+        </field>
+        <field name="default_value_text" is_required="0" group="attribute-properties">
+            <default_value xsi:type="null" />
+        </field>
+        <field name="attribute_code" is_required="0" group="attribute-properties">
+            <default_value xsi:type="null" />
+        </field>
+        <field name="attribute_model" is_required="0">
+            <default_value xsi:type="null" />
+        </field>
+        <field name="backend_model" is_required="0">
+            <default_value xsi:type="null" />
+        </field>
+        <field name="backend_type" is_required="0">
+            <default_value xsi:type="string">static</default_value>
+        </field>
+        <field name="backend_table" is_required="0">
+            <default_value xsi:type="null" />
+        </field>
+        <field name="frontend_model" is_required="0">
+            <default_value xsi:type="null" />
+        </field>
+        <field name="frontend_input" is_required="0" group="attribute-properties">
+            <default_value xsi:type="null" />
+        </field>
+        <field name="frontend_label" is_required="0" group="manage-titles">
+            <default_value xsi:type="null" />
+        </field>
+        <field name="frontend_class" is_required="0" group="attribute-properties">
+            <default_value xsi:type="null" />
+        </field>
+        <field name="source_model" is_required="0">
+            <default_value xsi:type="null" />
+        </field>
+        <field name="is_required" is_required="0" group="attribute-properties">
+            <default_value xsi:type="string">No</default_value>
+        </field>
+        <field name="is_user_defined" is_required="0">
+            <default_value xsi:type="string">No</default_value>
+        </field>
+        <field name="default_value" is_required="0">
+            <default_value xsi:type="null" />
+        </field>
+        <field name="is_unique" is_required="0" group="attribute-properties">
+            <default_value xsi:type="string">No</default_value>
+        </field>
+        <field name="note" is_required="0">
+            <default_value xsi:type="null" />
+        </field>
+        <field name="frontend_input_renderer" is_required="0" group="attribute-properties">
+            <default_value xsi:type="null" />
+        </field>
+        <field name="is_global" is_required="0" group="attribute-properties">
+            <default_value xsi:type="string">Yes</default_value>
+        </field>
+        <field name="is_visible" is_required="0">
+            <default_value xsi:type="string">Yes</default_value>
+        </field>
+        <field name="is_searchable" is_required="0" group="frontend-properties">
+            <default_value xsi:type="string">No</default_value>
+        </field>
+        <field name="is_filterable" is_required="0" group="frontend-properties">
+            <default_value xsi:type="string">No</default_value>
+        </field>
+        <field name="is_comparable" is_required="0" group="frontend-properties">
+            <default_value xsi:type="string">No</default_value>
+        </field>
+        <field name="is_visible_on_front" is_required="0" group="frontend-properties">
+            <default_value xsi:type="string">No</default_value>
+        </field>
+        <field name="is_html_allowed_on_front" is_required="0" group="frontend-properties">
+            <default_value xsi:type="string">No</default_value>
+        </field>
+        <field name="is_used_for_price_rules" is_required="0">
+            <default_value xsi:type="string">No</default_value>
+        </field>
+        <field name="is_filterable_in_search" is_required="0" group="frontend-properties">
+            <default_value xsi:type="string">No</default_value>
+        </field>
+        <field name="used_in_product_listing" is_required="0" group="frontend-properties">
+            <default_value xsi:type="string">No</default_value>
+        </field>
+        <field name="used_for_sort_by" is_required="0" group="frontend-properties">
+            <default_value xsi:type="string">No</default_value>
+        </field>
+        <field name="is_configurable" is_required="0">
+            <default_value xsi:type="string">Yes</default_value>
+        </field>
+        <field name="apply_to" is_required="0">
+            <default_value xsi:type="null" />
+        </field>
+        <field name="is_visible_in_advanced_search" is_required="0" group="frontend-properties">
+            <default_value xsi:type="string">No</default_value>
+        </field>
+        <field name="position" is_required="0">
+            <default_value xsi:type="string">No</default_value>
+        </field>
+        <field name="is_wysiwyg_enabled" is_required="0">
+            <default_value xsi:type="string">No</default_value>
+        </field>
+        <field name="is_used_for_promo_rules" is_required="0" group="frontend-properties">
+            <default_value xsi:type="string">No</default_value>
+        </field>
+        <field name="search_weight" is_required="0">
+            <default_value xsi:type="string">Yes</default_value>
+        </field>
+        <field name="options" is_required="0" source="Mage\Catalog\Test\Fixture\CatalogProductAttribute\Options" group="manage-options">
+            <default_value xsi:type="string">Yes</default_value>
+        </field>
+        <field name="manage_frontend_label" is_required="0" group="manage-titles">
+            <default_value xsi:type="null" />
+        </field>
+    </fixture>
+</config>

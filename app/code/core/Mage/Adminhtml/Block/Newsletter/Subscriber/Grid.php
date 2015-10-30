@@ -99,6 +99,12 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
             'default'   =>    '----'
         ));
 
+        $this->addColumn('middlename', array(
+            'header'    => Mage::helper('newsletter')->__('Customer Middle Name'),
+            'index'     => 'customer_middlename',
+            'default'   =>    '----'
+        ));
+
         $this->addColumn('lastname', array(
             'header'    => Mage::helper('newsletter')->__('Customer Last Name'),
             'index'     => 'customer_lastname',

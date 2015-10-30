@@ -56,7 +56,7 @@
 maxUploadFileSizeInBytes = <?php echo $this->getDataMaxSizeInBytes() ?>;
 maxUploadFileSize = '<?php echo $this->getDataMaxSize() ?>';
 
-<?php echo $this->getJsObjectName() ?> = new Flex.Uploader('<?php echo $this->getHtmlId() ?>', '<?php echo $this->getSkinUrl('media/uploader.swf') ?>', <?php echo $this->getConfigJson() ?>);
+<?php echo $this->getJsObjectName() ?> = new Flex.Uploader('<?php echo $this->getHtmlId() ?>', '<?php echo $this->getUploaderUrl('media/uploader.swf') ?>', <?php echo $this->getConfigJson() ?>);
 <?php echo $this->getJsObjectName() ?>.onFilesComplete = function(completedFiles){
     completedFiles.each(function(file){
         <?php echo $this->getJsObjectName() ?>.removeFile(file.id);

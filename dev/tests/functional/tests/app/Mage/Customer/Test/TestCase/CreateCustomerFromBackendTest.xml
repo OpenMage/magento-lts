@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    Tests
+ * @package     Tests_Functional
+ * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
+  <testCase name="Mage\Customer\Test\TestCase\CreateCustomerFromBackendTest">
+    <variation name="CreateCustomerFromBackendTestVariation1" firstConstraint="Mage\Customer\Test\Constraint\AssertCustomerSuccessSaveMessage" method="test">
+      <data name="customer/data/website_id" xsi:type="string">Main Website</data>
+      <data name="customer/data/group_id/dataSet" xsi:type="string">General</data>
+      <data name="customer/data/firstname" xsi:type="string">John%isolation%</data>
+      <data name="customer/data/lastname" xsi:type="string">Doe%isolation%</data>
+      <data name="customer/data/email" xsi:type="string">JohnDoe%isolation%@example.com</data>
+      <data name="customer/data/taxvat" xsi:type="string">-</data>
+      <data name="customer/data/password" xsi:type="string">123123q</data>
+      <data name="address/data/firstname" xsi:type="string">-</data>
+      <data name="address/data/lastname" xsi:type="string">-</data>
+      <data name="address/data/street" xsi:type="string">-</data>
+      <data name="address/data/city" xsi:type="string">-</data>
+      <data name="address/data/country_id" xsi:type="string">-</data>
+      <data name="address/data/region_id" xsi:type="string">-</data>
+      <data name="address/data/postcode" xsi:type="string">-</data>
+      <data name="address/data/telephone" xsi:type="string">-</data>
+      <constraint name="Mage\Customer\Test\Constraint\AssertCustomerSuccessSaveMessage" next="Mage\Customer\Test\Constraint\AssertCustomerInGrid"/>
+      <constraint name="Mage\Customer\Test\Constraint\AssertCustomerInGrid" next="Mage\Customer\Test\Constraint\AssertCustomerForm" prev="Mage\Customer\Test\Constraint\AssertCustomerSuccessSaveMessage"/>
+      <constraint name="Mage\Customer\Test\Constraint\AssertCustomerForm" prev="Mage\Customer\Test\Constraint\AssertCustomerInGrid"/>
+    </variation>
+    <variation name="CreateCustomerFromBackendTestVariation2" firstConstraint="Mage\Customer\Test\Constraint\AssertCustomerSuccessSaveMessage" method="test">
+      <data name="customer/data/website_id" xsi:type="string">Main Website</data>
+      <data name="customer/data/group_id/dataSet" xsi:type="string">General</data>
+      <data name="customer/data/firstname" xsi:type="string">John%isolation%</data>
+      <data name="customer/data/lastname" xsi:type="string">Doe%isolation%</data>
+      <data name="customer/data/email" xsi:type="string">JohnDoe%isolation%@example.com</data>
+      <data name="customer/data/taxvat" xsi:type="string">-</data>
+      <data name="customer/data/password" xsi:type="string">123123q</data>
+      <data name="address/data/firstname" xsi:type="string">Joe</data>
+      <data name="address/data/lastname" xsi:type="string">Doe</data>
+      <data name="address/data/street" xsi:type="string">1 Main Street</data>
+      <data name="address/data/city" xsi:type="string">Culver City</data>
+      <data name="address/data/country_id" xsi:type="string">United States</data>
+      <data name="address/data/region_id" xsi:type="string">California</data>
+      <data name="address/data/postcode" xsi:type="string">90230</data>
+      <data name="address/data/telephone" xsi:type="string">3109450345</data>
+      <constraint name="Mage\Customer\Test\Constraint\AssertCustomerSuccessSaveMessage" next="Mage\Customer\Test\Constraint\AssertCustomerInGrid"/>
+      <constraint name="Mage\Customer\Test\Constraint\AssertCustomerInGrid" next="Mage\Customer\Test\Constraint\AssertCustomerForm" prev="Mage\Customer\Test\Constraint\AssertCustomerSuccessSaveMessage"/>
+      <constraint name="Mage\Customer\Test\Constraint\AssertCustomerForm" prev="Mage\Customer\Test\Constraint\AssertCustomerInGrid"/>
+    </variation>
+    <variation name="CreateCustomerFromBackendTestVariation3" firstConstraint="Mage\Customer\Test\Constraint\AssertCustomerInvalidEmail" method="test">
+      <data name="customer/data/website_id" xsi:type="string">Main Website</data>
+      <data name="customer/data/group_id/dataSet" xsi:type="string">Retailer</data>
+      <data name="customer/data/firstname" xsi:type="string">John%isolation%</data>
+      <data name="customer/data/lastname" xsi:type="string">Doe%isolation%</data>
+      <data name="customer/data/email" xsi:type="string">JohnDoe%isolation%@example.ccc</data>
+      <data name="customer/data/taxvat" xsi:type="string">-</data>
+      <data name="customer/data/password" xsi:type="string">123123q</data>
+      <data name="address/data/firstname" xsi:type="string">-</data>
+      <data name="address/data/lastname" xsi:type="string">-</data>
+      <data name="address/data/street" xsi:type="string">-</data>
+      <data name="address/data/city" xsi:type="string">-</data>
+      <data name="address/data/country_id" xsi:type="string">-</data>
+      <data name="address/data/region_id" xsi:type="string">-</data>
+      <data name="address/data/postcode" xsi:type="string">-</data>
+      <data name="address/data/telephone" xsi:type="string">-</data>
+      <constraint name="Mage\Customer\Test\Constraint\AssertCustomerInvalidEmail"/>
+    </variation>
+    <variation name="CreateCustomerFromBackendTestVariation4" firstConstraint="Mage\Customer\Test\Constraint\AssertCustomerSuccessSaveMessage" method="test">
+      <data name="customer/data/website_id" xsi:type="string">Main Website</data>
+      <data name="customer/data/group_id/dataSet" xsi:type="string">General</data>
+      <data name="customer/data/firstname" xsi:type="string">Thomas%isolation%</data>
+      <data name="customer/data/lastname" xsi:type="string">Oster%isolation%</data>
+      <data name="customer/data/email" xsi:type="string">Thomas%isolation%@example.com</data>
+      <data name="customer/data/taxvat" xsi:type="string">5250008057</data>
+      <data name="customer/data/password" xsi:type="string">123123q</data>
+      <data name="address/data/firstname" xsi:type="string">Thomas</data>
+      <data name="address/data/lastname" xsi:type="string">Oster</data>
+      <data name="address/data/street" xsi:type="string">Chmielna 113</data>
+      <data name="address/data/city" xsi:type="string">Bielsko-Biala</data>
+      <data name="address/data/country_id" xsi:type="string">Poland</data>
+      <data name="address/data/region_id" xsi:type="string">-</data>
+      <data name="address/data/postcode" xsi:type="string">43-310 </data>
+      <data name="address/data/telephone" xsi:type="string">799885616</data>
+      <constraint name="Mage\Customer\Test\Constraint\AssertCustomerSuccessSaveMessage" next="Mage\Customer\Test\Constraint\AssertCustomerInGrid"/>
+      <constraint name="Mage\Customer\Test\Constraint\AssertCustomerInGrid" next="Mage\Customer\Test\Constraint\AssertCustomerForm" prev="Mage\Customer\Test\Constraint\AssertCustomerSuccessSaveMessage"/>
+      <constraint name="Mage\Customer\Test\Constraint\AssertCustomerForm" prev="Mage\Customer\Test\Constraint\AssertCustomerInGrid"/>
+    </variation>
+  </testCase>
+</config>

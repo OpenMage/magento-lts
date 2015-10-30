@@ -79,10 +79,17 @@ class Mage_Sales_Model_Resource_Order_Creditmemo extends Mage_Sales_Model_Resour
     protected function _initVirtualGridColumns()
     {
         parent::_initVirtualGridColumns();
-        $adapter          = $this->getReadConnection();
-        $checkedFirstname = $adapter->getIfNullSql('{{table}}.firstname', $adapter->quote(''));
-        $checkedLastname  = $adapter->getIfNullSql('{{table}}.lastname', $adapter->quote(''));
-        $concatName       = $adapter->getConcatSql(array($checkedFirstname, $adapter->quote(' '), $checkedLastname));
+        $adapter           = $this->getReadConnection();
+        $checkedFirstname  = $adapter->getIfNullSql('{{table}}.firstname', $adapter->quote(''));
+        $checkedMiddlename = $adapter->getIfNullSql('{{table}}.middlename', $adapter->quote(''));
+        $checkedLastname   = $adapter->getIfNullSql('{{table}}.lastname', $adapter->quote(''));
+        $concatName        = $adapter->getConcatSql(array(
+            $checkedFirstname,
+            $adapter->quote(' '),
+            $checkedMiddlename,
+            $adapter->quote(' '),
+            $checkedLastname
+        ));
 
         $this->addVirtualGridColumn(
             'billing_name',

@@ -241,6 +241,13 @@ class Mage_Core_Model_App
     protected $_isCacheLocked = null;
 
     /**
+     * Flag for Magento installation status
+     *
+     * @var null|bool
+     */
+    protected $_isInstalled = null;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -270,7 +277,11 @@ class Mage_Core_Model_App
         $this->_config->init($options);
         Varien_Profiler::stop('mage::app::init::config');
 
-        if (Mage::isInstalled($options)) {
+        if ($this->_isInstalled === null) {
+            $this->_isInstalled = Mage::isInstalled($options);
+        }
+
+        if ($this->_isInstalled) {
             $this->_initCurrentStore($code, $type);
             $this->_initRequest();
         }
@@ -684,7 +695,11 @@ class Mage_Core_Model_App
      */
     public function isSingleStoreMode()
     {
-        if (!Mage::isInstalled()) {
+        if ($this->_isInstalled === null) {
+            $this->_isInstalled = Mage::isInstalled();
+        }
+
+        if (!$this->_isInstalled) {
             return false;
         }
         return $this->_isSingleStore;
@@ -811,7 +826,11 @@ class Mage_Core_Model_App
      */
     public function getStore($id = null)
     {
-        if (!Mage::isInstalled() || $this->getUpdateMode()) {
+        if ($this->_isInstalled === null) {
+            $this->_isInstalled = Mage::isInstalled();
+        }
+
+        if (!$this->_isInstalled || $this->getUpdateMode()) {
             return $this->_getDefaultStore();
         }
 
@@ -1457,9 +1476,6 @@ class Mage_Core_Model_App
 
         return $groups;
     }
-
-
-
 
     /**
      * Retrieve application installation flag

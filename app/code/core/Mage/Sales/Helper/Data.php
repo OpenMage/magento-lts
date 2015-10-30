@@ -39,6 +39,11 @@ class Mage_Sales_Helper_Data extends Mage_Core_Helper_Data
     const MAXIMUM_AVAILABLE_NUMBER = 99999999;
 
     /**
+     * Default precision for price calculations
+     */
+    const PRECISION_VALUE = 0.0001;
+
+    /**
      * Check quote amount
      *
      * @param Mage_Sales_Model_Quote $quote

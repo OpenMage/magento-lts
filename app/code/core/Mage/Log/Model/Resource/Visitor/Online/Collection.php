@@ -60,9 +60,10 @@ class Mage_Log_Model_Resource_Visitor_Online_Collection extends Mage_Core_Model_
         $customer   = Mage::getModel('customer/customer');
         // alias => attribute_code
         $attributes = array(
-            'customer_lastname'     => 'lastname',
-            'customer_firstname'    => 'firstname',
-            'customer_email'        => 'email'
+            'customer_lastname'   => 'lastname',
+            'customer_middlename' => 'middlename',
+            'customer_firstname'  => 'firstname',
+            'customer_email'      => 'email'
         );
 
         foreach ($attributes as $alias => $attributeCode) {

@@ -61,7 +61,7 @@
                     <td class="a-center">
                     <?php if ($product->isSaleable()): ?>
                         <?php if ($isVisibleProduct): ?>
-                            <button type="button" title="<?php echo $this->__('Add to Cart') ?>" onclick="setLocation('<?php echo $this->getSharedItemAddToCartUrl($item) ?>')" class="button btn-cart"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+                            <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add to Cart')) ?>" onclick="setLocation('<?php echo $this->getSharedItemAddToCartUrl($item) ?>')" class="button btn-cart"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
                         <?php endif ?>
                     <?php endif; ?>
                         <p><a href="<?php echo $this->getAddToWishlistUrl($item) ?>" onclick="setLocation(this.href); return false;" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a></p>
@@ -75,7 +75,7 @@
         <div class="buttons-set">
             <p class="back-link"><a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
             <?php if($this->isSaleable()):?>
-                <button type="button" title="<?php echo $this->__('Add All to Cart') ?>" onclick="setLocation('<?php echo $this->getUrl('*/*/allcart', array('_current'=>true)) ?>')" class="button"><span><span><?php echo $this->__('Add All to Cart') ?></span></span></button>
+                <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add All to Cart')) ?>" onclick="setLocation('<?php echo $this->getUrl('*/*/allcart', array('_current'=>true)) ?>')" class="button"><span><span><?php echo $this->__('Add All to Cart') ?></span></span></button>
             <?php endif;?>
         </div>
     </form>

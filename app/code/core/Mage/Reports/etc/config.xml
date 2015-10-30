@@ -203,6 +203,9 @@
             </recently_products>
         </catalog>
         <reports>
+            <general>
+                <enabled>1</enabled>
+            </general>
             <dashboard>
                 <ytd_start>1,1</ytd_start>
                 <mtd_start>1</mtd_start>

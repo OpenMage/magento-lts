@@ -110,15 +110,10 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
 
     public function getFormData()
     {
-        $uri = Zend_Uri::factory(Mage::getBaseUrl('web'));
-
-        $baseUrl = $uri->getUri();
-        if ($uri->getScheme() !== 'https') {
-            $uri->setPort(null);
-            $baseSecureUrl = str_replace('http://', 'https://', $uri->getUri());
-        } else {
-            $baseSecureUrl = $uri->getUri();
-        }
+        $baseUrl = Mage::helper('core/url')->decodePunycode(Mage::getBaseUrl('web'));
+        $uri    = explode(':', $baseUrl, 2);
+        $scheme = strtolower($uri[0]);
+        $baseSecureUrl = ($scheme !== 'https') ? str_replace('http://', 'https://', $baseUrl) : $baseUrl;
 
         $connectDefault = Mage::getConfig()
                 ->getResourceConnectionConfig(Mage_Core_Model_Resource::DEFAULT_SETUP_RESOURCE);

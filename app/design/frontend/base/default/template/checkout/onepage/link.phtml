@@ -25,5 +25,5 @@
  */
 ?>
 <?php if ($this->isPossibleOnepageCheckout()):?>
-    <button type="button" title="<?php echo $this->__('Proceed to Checkout') ?>" class="button btn-proceed-checkout btn-checkout<?php if ($this->isDisabled()):?> no-checkout<?php endif; ?>"<?php if ($this->isDisabled()):?> disabled="disabled"<?php endif; ?> onclick="window.location='<?php echo $this->getCheckoutUrl() ?>';"><span><span><?php echo $this->__('Proceed to Checkout') ?></span></span></button>
+    <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Proceed to Checkout')) ?>" class="button btn-proceed-checkout btn-checkout<?php if ($this->isDisabled()):?> no-checkout<?php endif; ?>"<?php if ($this->isDisabled()):?> disabled="disabled"<?php endif; ?> onclick="window.location='<?php echo $this->getCheckoutUrl() ?>';"><span><span><?php echo $this->__('Proceed to Checkout') ?></span></span></button>
 <?php endif?>

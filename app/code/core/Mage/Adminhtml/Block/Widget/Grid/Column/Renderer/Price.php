@@ -56,7 +56,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Price
             }
 
             $data = floatval($data) * $this->_getRate($row);
-            $data = sprintf("%f", $data);
+            $data = sprintf("%F", $data);
             $data = Mage::app()->getLocale()->currency($currency_code)->toCurrency($data);
             return $data;
         }

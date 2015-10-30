@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    Tests
+ * @package     Tests_Functional
+ * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<fixture>
+    <bundleProduct module="Mage_Bundle">
+        <type>eav</type>
+        <entity_type>catalog_product</entity_type>
+        <product_type>bundle</product_type>
+        <collection>Mage\Bundle\Model\Resource\Product\Collection</collection>
+        <identifier>sku</identifier>
+        <fields>
+            <id>
+                <attribute_code>id</attribute_code>
+                <backend_type>virtual</backend_type>
+            </id>
+            <bundle_selections>
+                <attribute_code>bundle_selections</attribute_code>
+                <backend_type>virtual</backend_type>
+                <is_required>1</is_required>
+                <group>bundle</group>
+                <fixture>Mage\Bundle\Test\Fixture\BundleProduct\BundleSelections</fixture>
+            </bundle_selections>
+            <stock_data>
+                <attribute_code>stock_data</attribute_code>
+                <backend_type>virtual</backend_type>
+                <group>inventory</group>
+            </stock_data>
+            <checkout_data>
+                <attribute_code>checkout_data</attribute_code>
+                <backend_type>virtual</backend_type>
+                <is_required>1</is_required>
+                <source>Mage\Bundle\Test\Fixture\BundleProduct\CheckoutData</source>
+            </checkout_data>
+            <custom_options>
+                <attribute_code>custom_options</attribute_code>
+                <backend_type>virtual</backend_type>
+                <is_required>0</is_required>
+                <group>custom-options</group>
+                <source>Mage\Catalog\Test\Fixture\CatalogProductSimple\CustomOptions</source>
+            </custom_options>
+        </fields>
+        <data_config>
+            <create_url_params>
+                <type>bundle</type>
+                <set>4</set>
+            </create_url_params>
+            <input_prefix>product</input_prefix>
+        </data_config>
+    </bundleProduct>
+</fixture>

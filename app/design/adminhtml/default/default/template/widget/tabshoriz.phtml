@@ -32,7 +32,7 @@
 <?php foreach ($tabs as $_tab): ?>
     <li>
         <a href="<?php echo $this->getTabUrl($_tab)?>" id="<?php echo $this->getTabId($_tab) ?>" title="<?php echo $this->getTabTitle($_tab) ?>" class="tab-item-link <?php echo $this->getTabClass($_tab) ?><?php if (preg_match('/\s?ajax\s?/', $this->getTabClass($_tab))) {?> notloaded<?php }?>">
-            <span><span class="changed" title="<?php echo $this->__('The information in this tab has been changed.') ?>"></span><span class="error" title="<?php echo $this->__('This tab contains invalid data. Please solve the problem before saving.') ?>"></span><?php echo $this->getTabLabel($_tab) ?></span>
+            <span><span class="changed" title="<?php echo Mage::helper('core')->quoteEscape($this->__('The information in this tab has been changed.')) ?>"></span><span class="error" title="<?php echo Mage::helper('core')->quoteEscape($this->__('This tab contains invalid data. Please solve the problem before saving.')) ?>"></span><?php echo $this->getTabLabel($_tab) ?></span>
         </a>
         <div id="<?php echo $this->getTabId($_tab) ?>_content" style="display:none"><?php echo $this->getTabContent($_tab) ?></div>
     </li>

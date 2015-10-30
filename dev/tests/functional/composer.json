@@ -1,0 +1,26 @@
+{
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/magento/mtf.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/giorgiosironi/phpunit-selenium.git"
+        }
+    ],
+    "require": {
+        "magento/mtf": "1.0.0-rc26",
+        "php": ">=5.4.0",
+        "phpunit/phpunit": "4.1.0",
+        "phpunit/phpunit-selenium": ">=1.2",
+        "netwing/selenium-server-standalone": ">=2.35"
+    },
+    "autoload": {
+        "psr-4": {
+            "Magento\\": ["lib/Magento/", "vendor/magento/mtf/Magento/", "testsuites/Magento/"],
+            "Mage\\": ["generated/Mage/", "tests/app/Mage/"],
+            "Test\\": "generated/Test/"
+        }
+    }
+}

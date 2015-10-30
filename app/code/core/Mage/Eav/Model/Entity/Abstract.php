@@ -1306,6 +1306,9 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      */
     protected function _processSaveData($saveData)
     {
+        $this->_attributeValuesToSave   = array();
+        $this->_attributeValuesToDelete = array();
+
         extract($saveData);
         /**
          * Import variables into the current symbol table from save data array
@@ -1458,18 +1461,24 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      */
     protected function _processAttributeValues()
     {
-        $adapter = $this->_getWriteAdapter();
-        foreach ($this->_attributeValuesToSave as $table => $data) {
-            $adapter->insertOnDuplicate($table, $data, array('value'));
-        }
+        try {
+            $adapter = $this->_getWriteAdapter();
+            foreach ($this->_attributeValuesToSave as $table => $data) {
+                $adapter->insertOnDuplicate($table, $data, array('value'));
+            }
 
-        foreach ($this->_attributeValuesToDelete as $table => $valueIds) {
-            $adapter->delete($table, array('value_id IN (?)' => $valueIds));
-        }
+            foreach ($this->_attributeValuesToDelete as $table => $valueIds) {
+                $adapter->delete($table, array('value_id IN (?)' => $valueIds));
+            }
 
-        // reset data arrays
-        $this->_attributeValuesToSave   = array();
-        $this->_attributeValuesToDelete = array();
+            // reset data arrays
+            $this->_attributeValuesToSave   = array();
+            $this->_attributeValuesToDelete = array();
+        } catch (Exception $e) {
+            $this->_attributeValuesToSave   = array();
+            $this->_attributeValuesToDelete = array();
+            throw $e;
+        }
 
         return $this;
     }
@@ -1532,6 +1541,9 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      */
     public function saveAttribute(Varien_Object $object, $attributeCode)
     {
+        $this->_attributeValuesToSave   = array();
+        $this->_attributeValuesToDelete = array();
+
         $attribute      = $this->getAttribute($attributeCode);
         $backend        = $attribute->getBackend();
         $table          = $backend->getTable();

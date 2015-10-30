@@ -137,12 +137,40 @@ class Mage_Checkout_Model_Type_Onepage
             }
         }
 
+        $quoteSave = false;
+        $collectTotals = false;
+
         /**
          * Reset multishipping flag before any manipulations with quote address
          * addAddress method for quote object related on this flag
          */
         if ($this->getQuote()->getIsMultiShipping()) {
             $this->getQuote()->setIsMultiShipping(false);
+            $quoteSave = true;
+        }
+
+        /**
+         *  Reset customer balance
+         */
+        if ($this->getQuote()->getUseCustomerBalance()) {
+            $this->getQuote()->setUseCustomerBalance(false);
+            $quoteSave = true;
+            $collectTotals = true;
+        }
+        /**
+         *  Reset reward points
+         */
+        if ($this->getQuote()->getUseRewardPoints()) {
+            $this->getQuote()->setUseRewardPoints(false);
+            $quoteSave = true;
+            $collectTotals = true;
+        }
+
+        if ($collectTotals) {
+            $this->getQuote()->collectTotals();
+        }
+
+        if ($quoteSave) {
             $this->getQuote()->save();
         }
 

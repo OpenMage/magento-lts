@@ -616,6 +616,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
                 $result['success'] = 1;
                 $result['message'] = $this->__('Item was removed successfully.');
+                Mage::dispatchEvent('ajax_cart_remove_item_success', array('id' => $id));
             } catch (Exception $e) {
                 $result['success'] = 0;
                 $result['error'] = $this->__('Can not remove the item.');

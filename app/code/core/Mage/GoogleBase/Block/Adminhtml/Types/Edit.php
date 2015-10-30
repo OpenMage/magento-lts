@@ -63,7 +63,7 @@ class Mage_GoogleBase_Block_Adminhtml_Types_Edit extends Mage_Adminhtml_Block_Wi
                                 $("select_target_country")
                             ].flatten();
                             $(\'save_button\').disabled = true;
-                            new Ajax.Updater("attributes_details", "'.$this->getUrl('*/*/loadAttributes').'",
+                            new Ajax.Updater("attributes_details", "' . $this->getUrl('*/*/loadAttributes') . '",
                                 {
                                     parameters:Form.serializeElements(elements),
                                     evalScripts:true,
@@ -81,7 +81,7 @@ class Mage_GoogleBase_Block_Adminhtml_Types_Edit extends Mage_Adminhtml_Block_Wi
                                 $("select_itemtype"),
                                 $("select_target_country")
                             ].flatten();
-                            new Ajax.Updater("gbase_itemtype_select", "'.$this->getUrl('*/*/loadItemTypes').'",
+                            new Ajax.Updater("gbase_itemtype_select", "' . $this->getUrl('*/*/loadItemTypes') . '",
                                 {
                                     parameters:Form.serializeElements(elements),
                                     evalScripts:true,
@@ -92,7 +92,7 @@ class Mage_GoogleBase_Block_Adminhtml_Types_Edit extends Mage_Adminhtml_Block_Wi
                                 }
                             );
 
-                            new Ajax.Updater("attribute_set_select", "'.$this->getUrl('*/*/loadAttributeSets').'",
+                            new Ajax.Updater("attribute_set_select", "' . $this->getUrl('*/*/loadAttributeSets') . '",
                                 {
                                     parameters:Form.serializeElements(elements),
                                     evalScripts:true,
@@ -102,14 +102,14 @@ class Mage_GoogleBase_Block_Adminhtml_Types_Edit extends Mage_Adminhtml_Block_Wi
                                     }
                                 }
                             );
-                            $("attributes_details").innerHTML = "' . $this->__('Please, select Attribute Set and Google Item Type to load attributes') . '";
+                            $("attributes_details").innerHTML = "' . Mage::helper('core')->jsQuoteEscape($this->__('Please, select Attribute Set and Google Item Type to load attributes')) . '";
                         }
                     },
 
                     confirmChanges: function() {
                         var blocksCount = Element.select($("attributes_details"), "div[id^=gbase_attribute_]").length;
                         if (blocksCount > 0
-                            && confirm("'.$this->__('Current Mapping will be reloaded. Continue?').'")
+                            && confirm(\'' . Mage::helper('core')->jsQuoteEscape($this->__('Current Mapping will be reloaded. Continue?')) .'\')
                             || blocksCount == 0
                         ) {
                             return true;

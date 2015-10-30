@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    Tests
+ * @package     Tests_Functional
+ * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
+    <testCase name="Mage\Admin\Test\TestCase\CreateAdminUserEntityTest">
+        <variation name="CreateAdminUserEntityTestVariation1" firstConstraint="Mage\Admin\Test\Constraint\AssertUserSuccessSaveMessage" method="test">
+            <data name="user/data/username" xsi:type="string">AdminUser%isolation%</data>
+            <data name="user/data/firstname" xsi:type="string">FirstName%isolation%</data>
+            <data name="user/data/lastname" xsi:type="string">LastName%isolation%</data>
+            <data name="user/data/email" xsi:type="string">email%isolation%@example.com</data>
+            <data name="user/data/password" xsi:type="string">123123q</data>
+            <data name="user/data/password_confirmation" xsi:type="string">123123q</data>
+            <data name="user/data/is_active" xsi:type="string">Active</data>
+            <data name="user/data/role_id/dataSet" xsi:type="string">administrators</data>
+            <data name="user/data/current_password" xsi:type="string">123123q</data>
+            <constraint name="Mage\Admin\Test\Constraint\AssertUserSuccessSaveMessage" next="Mage\Admin\Test\Constraint\AssertUserInGrid" />
+            <constraint name="Mage\Admin\Test\Constraint\AssertUserInGrid" next="Mage\Admin\Test\Constraint\AssertUserSuccessLogOut" prev="Mage\Admin\Test\Constraint\AssertUserSuccessSaveMessage" />
+            <constraint name="Mage\Admin\Test\Constraint\AssertUserSuccessLogOut" next="Mage\Admin\Test\Constraint\AssertUserSuccessLogin" prev="Mage\Admin\Test\Constraint\AssertUserInGrid" />
+            <constraint name="Mage\Admin\Test\Constraint\AssertUserSuccessLogin" prev="Mage\Admin\Test\Constraint\AssertUserSuccessLogOut" />
+        </variation>
+        <variation name="CreateAdminUserEntityTestVariation2" firstConstraint="Mage\Admin\Test\Constraint\AssertUserSuccessSaveMessage" method="test">
+            <data name="user/data/username" xsi:type="string">AdminUser%isolation%</data>
+            <data name="user/data/firstname" xsi:type="string">FirstName%isolation%</data>
+            <data name="user/data/lastname" xsi:type="string">LastName%isolation%</data>
+            <data name="user/data/email" xsi:type="string">email%isolation%@example.com</data>
+            <data name="user/data/password" xsi:type="string">123123q</data>
+            <data name="user/data/password_confirmation" xsi:type="string">123123q</data>
+            <data name="user/data/is_active" xsi:type="string">Inactive</data>
+            <data name="user/data/role_id/dataSet" xsi:type="string">administrators</data>
+            <data name="user/data/current_password" xsi:type="string">123123q</data>
+            <constraint name="Mage\Admin\Test\Constraint\AssertUserSuccessSaveMessage" next="Mage\Admin\Test\Constraint\AssertUserInGrid" />
+            <constraint name="Mage\Admin\Test\Constraint\AssertUserInGrid" next="Mage\Admin\Test\Constraint\AssertUserSuccessLogOut" prev="Mage\Admin\Test\Constraint\AssertUserSuccessSaveMessage" />
+            <constraint name="Mage\Admin\Test\Constraint\AssertUserSuccessLogOut" next="Mage\Admin\Test\Constraint\AssertUserWrongCredentialsMessage" prev="Mage\Admin\Test\Constraint\AssertUserInGrid" />
+            <constraint name="Mage\Admin\Test\Constraint\AssertUserWrongCredentialsMessage" prev="Mage\Admin\Test\Constraint\AssertUserSuccessLogOut" />
+        </variation>
+        <variation name="CreateAdminUserEntityTestVariation3" firstConstraint="Mage\Admin\Test\Constraint\AssertUserDuplicateMessage" method="test">
+            <data name="user/data/username" xsi:type="string">-</data>
+            <data name="user/data/firstname" xsi:type="string">FirstName%isolation%</data>
+            <data name="user/data/lastname" xsi:type="string">LastName%isolation%</data>
+            <data name="user/data/email" xsi:type="string">email%isolation%@example.com</data>
+            <data name="user/data/password" xsi:type="string">123123q</data>
+            <data name="user/data/password_confirmation" xsi:type="string">123123q</data>
+            <data name="user/data/is_active" xsi:type="string">Active</data>
+            <data name="user/data/role_id/dataSet" xsi:type="string">administrators</data>
+            <data name="duplicatedParam" xsi:type="string">username</data>
+            <data name="user/data/current_password" xsi:type="string">123123q</data>
+            <data name="issue" xsi:type="string">Bug: MPERF-6585: Typo mistake in User already exists error message.</data>
+            <constraint name="Mage\Admin\Test\Constraint\AssertUserDuplicateMessage" />
+        </variation>
+        <variation name="CreateAdminUserEntityTestVariation4" firstConstraint="Mage\Admin\Test\Constraint\AssertUserDuplicateMessage" method="test">
+            <data name="user/data/username" xsi:type="string">AdminUser%isolation%</data>
+            <data name="user/data/firstname" xsi:type="string">FirstName%isolation%</data>
+            <data name="user/data/lastname" xsi:type="string">LastName%isolation%</data>
+            <data name="user/data/email" xsi:type="string">-</data>
+            <data name="user/data/password" xsi:type="string">123123q</data>
+            <data name="user/data/password_confirmation" xsi:type="string">123123q</data>
+            <data name="user/data/is_active" xsi:type="string">Active</data>
+            <data name="user/data/role_id/dataSet" xsi:type="string">administrators</data>
+            <data name="duplicatedParam" xsi:type="string">email</data>
+            <data name="user/data/current_password" xsi:type="string">123123q</data>
+            <data name="issue" xsi:type="string">Bug: MPERF-6585: Typo mistake in User already exists error message.</data>
+            <constraint name="Mage\Admin\Test\Constraint\AssertUserDuplicateMessage" />
+        </variation>
+        <variation name="CreateAdminUserEntityTestVariation5" firstConstraint="Mage\Admin\Test\Constraint\AssertUserSuccessSaveMessage" method="test">
+            <data name="user/data/username" xsi:type="string">AdminUser%isolation%</data>
+            <data name="user/data/firstname" xsi:type="string">FirstName%isolation%</data>
+            <data name="user/data/lastname" xsi:type="string">LastName%isolation%</data>
+            <data name="user/data/email" xsi:type="string">email%isolation%@example.com</data>
+            <data name="user/data/password" xsi:type="string">123123q</data>
+            <data name="user/data/password_confirmation" xsi:type="string">123123q</data>
+            <data name="user/data/is_active" xsi:type="string">Active</data>
+            <data name="user/data/role_id/dataSet" xsi:type="string">-</data>
+            <data name="user/data/current_password" xsi:type="string">123123q</data>
+            <constraint name="Mage\Admin\Test\Constraint\AssertUserSuccessSaveMessage" next="Mage\Admin\Test\Constraint\AssertUserInGrid" />
+            <constraint name="Mage\Admin\Test\Constraint\AssertUserInGrid" next="Mage\Admin\Test\Constraint\AssertUserSuccessLogOut" prev="Mage\Admin\Test\Constraint\AssertUserSuccessSaveMessage" />
+            <constraint name="Mage\Admin\Test\Constraint\AssertUserSuccessLogOut" next="Mage\Admin\Test\Constraint\AssertUserWrongCredentialsMessage" prev="Mage\Admin\Test\Constraint\AssertUserInGrid" />
+            <constraint name="Mage\Admin\Test\Constraint\AssertUserWrongCredentialsMessage" prev="Mage\Admin\Test\Constraint\AssertUserSuccessLogOut" />
+        </variation>
+        <variation name="CreateAdminUserEntityTestVariation6" firstConstraint="Mage\Admin\Test\Constraint\AssertUserInvalidEmailMessage" method="test">
+            <data name="user/data/username" xsi:type="string">AdminUser%isolation%</data>
+            <data name="user/data/firstname" xsi:type="string">FirstName%isolation%</data>
+            <data name="user/data/lastname" xsi:type="string">LastName%isolation%</data>
+            <data name="user/data/email" xsi:type="string">email%isolation%@example.cim</data>
+            <data name="user/data/password" xsi:type="string">123123q</data>
+            <data name="user/data/password_confirmation" xsi:type="string">123123q</data>
+            <data name="user/data/is_active" xsi:type="string">Active</data>
+            <data name="user/data/role_id/dataSet" xsi:type="string">-</data>
+            <data name="user/data/current_password" xsi:type="string">123123q</data>
+            <constraint name="Mage\Admin\Test\Constraint\AssertUserInvalidEmailMessage" />
+        </variation>
+        <variation name="CreateAdminUserEntityTestVariation7" firstConstraint="Mage\Admin\Test\Constraint\AssertUserWithCustomRole" method="test">
+            <data name="user/data/username" xsi:type="string">CustomUser%isolation%</data>
+            <data name="user/data/firstname" xsi:type="string">FirstName%isolation%</data>
+            <data name="user/data/lastname" xsi:type="string">LastName%isolation%</data>
+            <data name="user/data/email" xsi:type="string">email%isolation%@example.com</data>
+            <data name="user/data/password" xsi:type="string">123123q</data>
+            <data name="user/data/password_confirmation" xsi:type="string">123123q</data>
+            <data name="user/data/is_active" xsi:type="string">Active</data>
+            <data name="user/data/role_id/dataSet" xsi:type="string">custom</data>
+            <data name="isCustomRole" xsi:type="boolean">true</data>
+            <data name="user/data/current_password" xsi:type="string">123123q</data>
+            <constraint name="Mage\Admin\Test\Constraint\AssertUserWithCustomRole"/>
+        </variation>
+    </testCase>
+</config>

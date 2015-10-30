@@ -1,0 +1,279 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    Tests
+ * @package     Tests_Functional
+ * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
+    <testCase name="Mage\Bundle\Test\TestCase\CreateBundleProductEntityTest">
+        <variation name="CreateBundleProductEntityTestVariation1" method="test">
+            <data name="description" xsi:type="string">Create default dynamic bundle product</data>
+            <data name="product/data/name" xsi:type="string">Bundle Dynamic %isolation%</data>
+            <data name="product/data/sku_type" xsi:type="string">Dynamic</data>
+            <data name="product/data/sku" xsi:type="string">sku_bundle_dynamic_%isolation%</data>
+            <data name="product/data/url_key" xsi:type="string">bundle-product-%isolation%</data>
+            <data name="product/data/status" xsi:type="string">Enabled</data>
+            <data name="product/data/price_type" xsi:type="string">Dynamic</data>
+            <data name="product/data/price/preset" xsi:type="string">default_dynamic</data>
+            <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
+            <data name="product/data/description" xsi:type="string">Bundle Product Description %isolation%</data>
+            <data name="product/data/short_description" xsi:type="string">Bundle product short description %isolation%</data>
+            <data name="product/data/price_view" xsi:type="string">Price Range</data>
+            <data name="product/data/bundle_selections/preset" xsi:type="string">default_dynamic</data>
+            <data name="product/data/checkout_data/preset" xsi:type="string">default_dynamic</data>
+            <data name="product/data/visibility" xsi:type="string">Catalog, Search</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductInGrid" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundleProductForm" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundleProductPage" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundleItemsOnProductPage" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundlePriceView" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundlePriceType" />
+        </variation>
+        <variation name="CreateBundleProductEntityTestVariation2" method="test">
+            <data name="description" xsi:type="string">Create default fixed bundle product</data>
+            <data name="product/data/name" xsi:type="string">Bundle Fixed %isolation%</data>
+            <data name="product/data/sku_type" xsi:type="string">Fixed</data>
+            <data name="product/data/sku" xsi:type="string">sku_bundle_fixed_%isolation%</data>
+            <data name="product/data/url_key" xsi:type="string">bundle-product-%isolation%</data>
+            <data name="product/data/status" xsi:type="string">Enabled</data>
+            <data name="product/data/price_type" xsi:type="string">Fixed</data>
+            <data name="product/data/price/value" xsi:type="string">750</data>
+            <data name="product/data/price/preset" xsi:type="string">default_fixed</data>
+            <data name="product/data/tax_class_id/dataSet" xsi:type="string">Taxable Goods</data>
+            <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
+            <data name="product/data/weight_type" xsi:type="string">Fixed</data>
+            <data name="product/data/weight" xsi:type="string">10</data>
+            <data name="product/data/description" xsi:type="string">Bundle Product Description %isolation%</data>
+            <data name="product/data/short_description" xsi:type="string">Bundle product short description %isolation%</data>
+            <data name="product/data/price_view" xsi:type="string">Price Range</data>
+            <data name="product/data/shipment_type" xsi:type="string">Separately</data>
+            <data name="product/data/bundle_selections/preset" xsi:type="string">default_fixed</data>
+            <data name="product/data/checkout_data/preset" xsi:type="string">default_fixed</data>
+            <data name="product/data/visibility" xsi:type="string">Catalog, Search</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductInGrid" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundleProductForm" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundleProductPage" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundleItemsOnProductPage" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundlePriceView" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundlePriceType" />
+        </variation>
+        <variation name="CreateBundleProductEntityTestVariation3" method="test">
+            <data name="description" xsi:type="string">Create out of stock fixed bundle product</data>
+            <data name="product/data/name" xsi:type="string">BundleProduct %isolation%</data>
+            <data name="product/data/sku_type" xsi:type="string">Fixed</data>
+            <data name="product/data/sku" xsi:type="string">bundle_sku_%isolation%</data>
+            <data name="product/data/url_key" xsi:type="string">bundle-product-%isolation%</data>
+            <data name="product/data/status" xsi:type="string">Enabled</data>
+            <data name="product/data/price_type" xsi:type="string">Fixed</data>
+            <data name="product/data/price/value" xsi:type="string">10</data>
+            <data name="product/data/tax_class_id/dataSet" xsi:type="string">Taxable Goods</data>
+            <data name="product/data/stock_data/is_in_stock" xsi:type="string">Out of Stock</data>
+            <data name="product/data/weight_type" xsi:type="string">Fixed</data>
+            <data name="product/data/weight" xsi:type="string">10</data>
+            <data name="product/data/description" xsi:type="string">Bundle Product Description %isolation%</data>
+            <data name="product/data/short_description" xsi:type="string">Bundle product short description %isolation%</data>
+            <data name="product/data/price_view" xsi:type="string">Price Range</data>
+            <data name="product/data/bundle_selections/preset" xsi:type="string">default_fixed</data>
+            <data name="product/data/visibility" xsi:type="string">Catalog</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductInGrid" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundleProductForm" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductVisibleInCategory" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductNotSearchableBySku" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductOutOfStock" />
+        </variation>
+        <variation name="CreateBundleProductEntityTestVariation4" method="test">
+            <data name="description" xsi:type="string">Create dynamic bundle product with tier price and visible in search</data>
+            <data name="product/data/name" xsi:type="string">BundleProduct %isolation%</data>
+            <data name="product/data/sku_type" xsi:type="string">Dynamic</data>
+            <data name="product/data/sku" xsi:type="string">bundle_sku_%isolation%</data>
+            <data name="product/data/url_key" xsi:type="string">bundle-product-%isolation%</data>
+            <data name="product/data/status" xsi:type="string">Enabled</data>
+            <data name="product/data/price_type" xsi:type="string">Dynamic</data>
+            <data name="product/data/price/preset" xsi:type="string">dynamic_with_tier_price</data>
+            <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
+            <data name="product/data/weight_type" xsi:type="string">Fixed</data>
+            <data name="product/data/weight" xsi:type="string">10</data>
+            <data name="product/data/description" xsi:type="string">Bundle Product Description %isolation%</data>
+            <data name="product/data/short_description" xsi:type="string">Bundle product short description %isolation%</data>
+            <data name="product/data/tier_price/preset" xsi:type="string">for_all_groups</data>
+            <data name="product/data/price_view" xsi:type="string">Price Range</data>
+            <data name="product/data/shipment_type" xsi:type="string">Together</data>
+            <data name="product/data/bundle_selections/preset" xsi:type="string">default_dynamic</data>
+            <data name="product/data/checkout_data/preset" xsi:type="string">dynamic_with_tier_price</data>
+            <data name="product/data/visibility" xsi:type="string">Search</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductInGrid" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundleProductForm" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundleProductPage" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundleItemsOnProductPage" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundlePriceView" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductVisibleInCategory" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertProductTierPriceOnBundleProductPage" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundlePriceType" />
+        </variation>
+        <variation name="CreateBundleProductEntityTestVariation5" method="test">
+            <data name="description" xsi:type="string">Create dynamic bundle product with grouped price and visible in catalog only</data>
+            <data name="product/data/name" xsi:type="string">BundleProduct %isolation%</data>
+            <data name="product/data/sku_type" xsi:type="string">Dynamic</data>
+            <data name="product/data/sku" xsi:type="string">bundle_sku_%isolation%</data>
+            <data name="product/data/url_key" xsi:type="string">bundle-product-%isolation%</data>
+            <data name="product/data/status" xsi:type="string">Enabled</data>
+            <data name="product/data/price_type" xsi:type="string">Dynamic</data>
+            <data name="product/data/price/preset" xsi:type="string">dynamic_with_group_price</data>
+            <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
+            <data name="product/data/weight_type" xsi:type="string">Fixed</data>
+            <data name="product/data/weight" xsi:type="string">10</data>
+            <data name="product/data/description" xsi:type="string">Bundle Product Description %isolation%</data>
+            <data name="product/data/short_description" xsi:type="string">Bundle product short description %isolation%</data>
+            <data name="product/data/group_price/preset" xsi:type="string">for_not_logged_users</data>
+            <data name="product/data/price_view" xsi:type="string">Price Range</data>
+            <data name="product/data/shipment_type" xsi:type="string">Together</data>
+            <data name="product/data/bundle_selections/preset" xsi:type="string">default_dynamic</data>
+            <data name="product/data/checkout_data/preset" xsi:type="string">dynamic_with_group_price</data>
+            <data name="product/data/visibility" xsi:type="string">Catalog</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductInGrid" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundleProductForm" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundleProductPage" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundleItemsOnProductPage" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundlePriceView" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductVisibleInCategory" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductNotSearchableBySku" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundlePriceType" />
+        </variation>
+        <variation name="CreateBundleProductEntityTestVariation6" method="test">
+            <data name="description" xsi:type="string">Create fixed bundle product with special price</data>
+            <data name="product/data/name" xsi:type="string">BundleProduct %isolation%</data>
+            <data name="product/data/sku_type" xsi:type="string">Fixed</data>
+            <data name="product/data/sku" xsi:type="string">bundle_sku_%isolation%</data>
+            <data name="product/data/url_key" xsi:type="string">bundle-product-%isolation%</data>
+            <data name="product/data/status" xsi:type="string">Enabled</data>
+            <data name="product/data/price_type" xsi:type="string">Fixed</data>
+            <data name="product/data/price/value" xsi:type="string">100</data>
+            <data name="product/data/price/preset" xsi:type="string">fixed_with_special_price</data>
+            <data name="product/data/tax_class_id/dataSet" xsi:type="string">Taxable Goods</data>
+            <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
+            <data name="product/data/weight_type" xsi:type="string">Fixed</data>
+            <data name="product/data/weight" xsi:type="string">10</data>
+            <data name="product/data/description" xsi:type="string">Bundle Product Description %isolation%</data>
+            <data name="product/data/short_description" xsi:type="string">Bundle product short description %isolation%</data>
+            <data name="product/data/special_price" xsi:type="string">10</data>
+            <data name="product/data/price_view" xsi:type="string">Price Range</data>
+            <data name="product/data/shipment_type" xsi:type="string">Together</data>
+            <data name="product/data/bundle_selections/preset" xsi:type="string">default_fixed</data>
+            <data name="product/data/checkout_data/preset" xsi:type="string">fixed_with_special_price</data>
+            <data name="product/data/visibility" xsi:type="string">Catalog, Search</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductInGrid" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundleProductForm" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundleProductPage" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundlePriceType" />
+        </variation>
+        <variation name="CreateBundleProductEntityTestVariation7" method="test">
+            <data name="description" xsi:type="string">Create default dynamic bundle product with as low as price view</data>
+            <data name="product/data/name" xsi:type="string">Bundle Dynamic %isolation%</data>
+            <data name="product/data/sku_type" xsi:type="string">Dynamic</data>
+            <data name="product/data/sku" xsi:type="string">sku_bundle_dynamic_%isolation%</data>
+            <data name="product/data/url_key" xsi:type="string">bundle-product-%isolation%</data>
+            <data name="product/data/status" xsi:type="string">Enabled</data>
+            <data name="product/data/price_type" xsi:type="string">Dynamic</data>
+            <data name="product/data/price/preset" xsi:type="string">dynamic_as_low_as_price</data>
+            <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
+            <data name="product/data/description" xsi:type="string">Bundle Product Description %isolation%</data>
+            <data name="product/data/short_description" xsi:type="string">Bundle product short description %isolation%</data>
+            <data name="product/data/price_view" xsi:type="string">As Low as</data>
+            <data name="product/data/bundle_selections/preset" xsi:type="string">default_dynamic</data>
+            <data name="product/data/checkout_data/preset" xsi:type="string">dynamic_as_low_as_price</data>
+            <data name="product/data/visibility" xsi:type="string">Catalog, Search</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductInGrid" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundleProductForm" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundleProductPage" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundleItemsOnProductPage" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundlePriceView" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundlePriceType" />
+        </variation>
+        <variation name="CreateBundleProductEntityTestVariation8" method="test">
+            <data name="description" xsi:type="string">Create default fixed bundle product with as low as price view</data>
+            <data name="product/data/name" xsi:type="string">Bundle Fixed %isolation%</data>
+            <data name="product/data/sku_type" xsi:type="string">Fixed</data>
+            <data name="product/data/sku" xsi:type="string">sku_bundle_fixed_%isolation%</data>
+            <data name="product/data/url_key" xsi:type="string">bundle-product-%isolation%</data>
+            <data name="product/data/status" xsi:type="string">Enabled</data>
+            <data name="product/data/price_type" xsi:type="string">Fixed</data>
+            <data name="product/data/price/value" xsi:type="string">100</data>
+            <data name="product/data/price/preset" xsi:type="string">fixed_as_low_as_price</data>
+            <data name="product/data/tax_class_id/dataSet" xsi:type="string">Taxable Goods</data>
+            <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
+            <data name="product/data/description" xsi:type="string">Bundle Product Description %isolation%</data>
+            <data name="product/data/short_description" xsi:type="string">Bundle product short description %isolation%</data>
+            <data name="product/data/price_view" xsi:type="string">As Low as</data>
+            <data name="product/data/bundle_selections/preset" xsi:type="string">default_fixed</data>
+            <data name="product/data/checkout_data/preset" xsi:type="string">fixed_as_low_as_price</data>
+            <data name="product/data/visibility" xsi:type="string">Catalog, Search</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductInGrid" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundleProductForm" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundleProductPage" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundleItemsOnProductPage" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundlePriceView" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundlePriceType" />
+        </variation>
+        <variation name="CreateBundleProductEntityTestVariation9" method="test">
+            <data name="description" xsi:type="string">Create fixed bundle product with custom options</data>
+            <data name="product/data/name" xsi:type="string">BundleProduct %isolation%</data>
+            <data name="product/data/sku_type" xsi:type="string">Fixed</data>
+            <data name="product/data/sku" xsi:type="string">bundle_sku_%isolation%</data>
+            <data name="product/data/url_key" xsi:type="string">bundle-product-%isolation%</data>
+            <data name="product/data/status" xsi:type="string">Enabled</data>
+            <data name="product/data/price_type" xsi:type="string">Fixed</data>
+            <data name="product/data/price/value" xsi:type="string">100</data>
+            <data name="product/data/price/preset" xsi:type="string">all_types_bundle_fixed_and_custom_options</data>
+            <data name="product/data/tax_class_id/dataSet" xsi:type="string">Taxable Goods</data>
+            <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
+            <data name="product/data/weight_type" xsi:type="string">Fixed</data>
+            <data name="product/data/weight" xsi:type="string">10</data>
+            <data name="product/data/description" xsi:type="string">Bundle Product Description %isolation%</data>
+            <data name="product/data/short_description" xsi:type="string">Bundle product short description %isolation%</data>
+            <data name="product/data/price_view" xsi:type="string">Price Range</data>
+            <data name="product/data/shipment_type" xsi:type="string">Together</data>
+            <data name="product/data/bundle_selections/preset" xsi:type="string">all_types_fixed</data>
+            <data name="product/data/checkout_data/preset" xsi:type="string">all_types_bundle_fixed_and_custom_options</data>
+            <data name="product/data/custom_options/preset" xsi:type="string">all_types</data>
+            <data name="product/data/visibility" xsi:type="string">Catalog, Search</data>
+            <data name="issue" xsi:type="string">Bug: MTA-1562</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductInGrid" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundleProductForm" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundleProductPage" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundleItemsOnProductPage" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundlePriceView" />
+            <constraint name="Mage\Bundle\Test\Constraint\AssertBundlePriceType" />
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductCustomOptionsOnProductPage" />
+        </variation>
+    </testCase>
+</config>

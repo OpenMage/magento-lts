@@ -95,7 +95,7 @@ Ext.onReady(function()
                 // Add empty node to reset category filter
                 if(!emptyNodeAdded) {
                     var empty = Object.clone(_node);
-                    empty.text = '<?php echo $this->__('None') ?>';
+                    empty.text = '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('None')) ?>';
                     empty.children = [];
                     empty.id = 'none';
                     empty.path = '1/none';

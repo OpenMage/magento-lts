@@ -49,6 +49,11 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
      */
     protected $_storeId = null;
 
+    /**
+     * Image Storage root directory
+     * @var string
+     */
+    protected $_storageRoot;
 
     /**
      * Set a specified store ID value
@@ -68,8 +73,16 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
      */
     public function getStorageRoot()
     {
-        return Mage::getConfig()->getOptions()->getMediaDir() . DS . Mage_Cms_Model_Wysiwyg_Config::IMAGE_DIRECTORY
-            . DS;
+        if (!$this->_storageRoot) {
+            $path = Mage::getConfig()->getOptions()->getMediaDir()
+                . DS . Mage_Cms_Model_Wysiwyg_Config::IMAGE_DIRECTORY;
+            $this->_storageRoot = realpath($path);
+            if (!$this->_storageRoot) {
+                $this->_storageRoot = $path;
+            }
+            $this->_storageRoot .= DS;
+        }
+        return $this->_storageRoot;
     }
 
     /**
@@ -79,7 +92,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
      */
     public function getBaseUrl()
     {
-        return Mage::getBaseUrl('media') . '/';
+        return Mage::getBaseUrl('media');
     }
 
     /**
@@ -199,7 +212,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
     public function getCurrentPath()
     {
         if (!$this->_currentPath) {
-            $currentPath = realpath($this->getStorageRoot());
+            $currentPath = $this->getStorageRoot();
             $node = $this->_getRequest()->getParam($this->getTreeNodeName());
             if ($node) {
                 $path = realpath($this->convertIdToPath($node));

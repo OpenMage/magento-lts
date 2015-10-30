@@ -34,12 +34,12 @@
 <div class="remember-me-popup">
     <div class="remember-me-popup-head">
         <h3><?php echo $this->__("What's this?"); ?></h3>
-        <a href="#" class="remember-me-popup-close" title="<?php echo $this->__('Close') ?>"><?php echo $this->__('Close') ?></a>
+        <a href="#" class="remember-me-popup-close" title="<?php echo $this->quoteEscape($this->__('Close')) ?>"><?php echo $this->__('Close') ?></a>
     </div>
     <div class="remember-me-popup-body">
         <p><?php echo $this->__('Checking &quot;Remember Me&quot; will let you access your shopping cart on this computer when you are logged out'); ?></p>
         <div class="remember-me-popup-close-button a-right">
-            <a href="#" class="remember-me-popup-close button" title="<?php echo $this->__('Close') ?>"><span><?php echo $this->__('Close') ?></span></a>
+            <a href="#" class="remember-me-popup-close button" title="<?php echo $this->quoteEscape($this->__('Close')) ?>"><span><?php echo $this->__('Close') ?></span></a>
         </div>
     </div>
 </div>

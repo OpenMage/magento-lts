@@ -274,7 +274,7 @@ class Mage_Connect_Singleconfig
 
         if ($uri && !$this->isChannel($uri)) {
             if (!isset($rest)) {
-                $rest = new Mage_Connect_Rest($config->protocol);
+                $rest = Mage_Connect_Rest_Builder::getAdapter($config->protocol);
             }
             $rest->setChannel($uri);
             $data = $rest->getChannelInfo();

@@ -1,3 +1,10 @@
+#Applied Patches
+
+| Patch | Commit |
+| ----- | ------ |
+| - | - |
+
+
 # Magento - Long Term Support
 
 This repository aims to be a dependably patched archive of the Magento CE core releases. These sources should stay as close to the sources released by Magento as possible (no new features).  **However, pull requests with unofficial bug fixes and security patches from the community are definitely encouraged.** It's our goal to apply patches available from Magento as quickly as possible, but these do not always cover all known issues.
@@ -17,14 +24,14 @@ Because of this, we must define a slightly different system to define each decim
 #####0 - ? (maybe some patches)
 
 
-Each Magento Minor Version release will get its own branch that will be independently maintained with patches and backported bug fixes.
+Each Magento Version release will get its own branch that will be independently maintained with patches and backported bug fixes.
 
 
 ## Installation
 This allows you to define your version dependencies safely in composer.json:
 
-```
-"openmage/magento-lts": "1.9.1.*"
+```json
+"openmage/magento-lts": "1.9.2.1-dev"
 ```
 
 

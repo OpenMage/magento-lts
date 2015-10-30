@@ -38,7 +38,7 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
     <ul class="cart-links">
         <?php if ($isVisibleProduct): ?>
             <li>
-                <a href="<?php echo $this->getConfigureUrl() ?>" title="<?php echo $this->__('Edit item parameters') ?>"><?php echo $this->__('Edit') ?></a>
+                <a href="<?php echo $this->getConfigureUrl() ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Edit item parameters')) ?>"><?php echo $this->__('Edit') ?></a>
             </li>
         <?php endif ?>
 
@@ -50,7 +50,7 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
     </ul>
 </td>
 <td class="product-cart-info">
-    <a href="<?php echo $this->getDeleteUrl() ?>" title="<?php echo $this->__('Remove Item') ?>" class="btn-remove btn-remove2"><?php echo $this->__('Remove Item') ?></a>
+    <a href="<?php echo $this->getDeleteUrl() ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Remove Item')) ?>" class="btn-remove btn-remove2"><?php echo $this->__('Remove Item') ?></a>
     <h2 class="product-name"><a
             href="<?php echo $this->getProductUrl() ?>"><?php echo $this->escapeHtml($this->getProductName()) ?></a>
     </h2>
@@ -104,7 +104,7 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
             <a id="<?php echo $helpLinkId ?>" href="#"
                class="map-help-link"><?php echo $this->__("What's this?"); ?></a>
             <script type="text/javascript">
-                Catalog.Map.addHelpLink($('<?php echo $helpLinkId ?>'), "<?php echo $this->__("What's this?") ?>");
+                Catalog.Map.addHelpLink($('<?php echo $helpLinkId ?>'), "<?php echo Mage::helper('core')->jsQuoteEscape($this->__("What's this?")) ?>");
             </script>
         </span>
     </td>
@@ -212,15 +212,17 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
     <?php endif; ?>
 <?php endif; ?>
 <td class="product-cart-actions" data-rwd-label="<?php echo $this->__('Qty'); ?>">
-    <input type="text" pattern="\d*" name="cart[<?php echo $_item->getId() ?>][qty]" value="<?php echo $this->getQty() ?>" size="4" title="<?php echo $this->__('Qty') ?>" class="input-text qty" maxlength="12" />
+    <input type="text" pattern="\d*" name="cart[<?php echo $_item->getId() ?>][qty]" value="<?php echo $this->getQty() ?>"
+           data-cart-item-id="<?php echo $this->jsQuoteEscape($_item->getSku()) ?>"
+           size="4" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Qty')) ?>" class="input-text qty" maxlength="12" />
 
-    <button type="submit" name="update_cart_action" value="update_qty" title="<?php echo $this->__('Update'); ?>" class="button btn-update"><span><span><?php echo $this->__('Update'); ?></span></span>
+    <button type="submit" data-cart-item-update name="update_cart_action" value="update_qty" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Update')); ?>" class="button btn-update"><span><span><?php echo $this->__('Update'); ?></span></span>
     </button>
 
     <ul class="cart-links">
         <?php if ($isVisibleProduct): ?>
             <li>
-                <a href="<?php echo $this->getConfigureUrl() ?>" title="<?php echo $this->__('Edit item parameters') ?>"><?php echo $this->__('Edit') ?></a>
+                <a href="<?php echo $this->getConfigureUrl() ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Edit item parameters')) ?>"><?php echo $this->__('Edit') ?></a>
             </li>
         <?php endif ?>
 
@@ -339,6 +341,6 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
             <?php endif; ?>
     </td>
 <?php endif; ?>
-<td class="a-center product-cart-remove"><a href="<?php echo $this->getDeleteUrl() ?>" title="<?php echo $this->__('Remove Item') ?>"
+<td class="a-center product-cart-remove"><a href="<?php echo $this->getDeleteUrl() ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Remove Item')) ?>"
                         class="btn-remove btn-remove2"><?php echo $this->__('Remove Item') ?></a></td>
 </tr>
