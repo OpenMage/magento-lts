@@ -46,4 +46,4 @@ This allows you to define your version dependencies safely in composer.json:
 
 
 ## TODO
-* Travis CI tests to check for newly availble patches for each version
+* Travis CI tests to check for newly available patches for each version
