@@ -45,6 +45,8 @@ class Mage_Catalog_Block_Seo_Sitemap_Category extends Mage_Catalog_Block_Seo_Sit
         $helper = Mage::helper('catalog/category');
         /* @var $helper Mage_Catalog_Helper_Category */
         $collection = $helper->getStoreCategories('name', true, false);
+        // SNH 25-11-2015 Fixes multistore problem where categories are not active in every storeview
+        $collection->addIsActiveFilter();
         $this->setCollection($collection);
         return $this;
     }
