@@ -21,7 +21,7 @@
  *
  * @category    Tests
  * @package     Tests_Functional
- * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 -->
@@ -34,6 +34,7 @@
       <data name="customer/data/is_subscribed" xsi:type="string">No</data>
       <data name="customer/data/password" xsi:type="string">123123q</data>
       <data name="customer/data/password_confirmation" xsi:type="string">123123q</data>
+      <data name="tag" xsi:type="string">main:ce</data>
       <constraint name="Mage\Customer\Test\Constraint\AssertCustomerSuccessRegisterMessage" next="Mage\Customer\Test\Constraint\AssertCustomerInGrid"/>
       <constraint name="Mage\Customer\Test\Constraint\AssertCustomerInGrid" prev="Mage\Customer\Test\Constraint\AssertCustomerSuccessRegisterMessage"/>
     </variation>

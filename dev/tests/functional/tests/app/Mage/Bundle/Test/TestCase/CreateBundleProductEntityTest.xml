@@ -21,7 +21,7 @@
  *
  * @category    Tests
  * @package     Tests_Functional
- * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 -->
@@ -43,6 +43,7 @@
             <data name="product/data/bundle_selections/preset" xsi:type="string">default_dynamic</data>
             <data name="product/data/checkout_data/preset" xsi:type="string">default_dynamic</data>
             <data name="product/data/visibility" xsi:type="string">Catalog, Search</data>
+            <data name="tag" xsi:type="string">main:ce</data>
             <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" />
             <constraint name="Mage\Catalog\Test\Constraint\AssertProductInGrid" />
             <constraint name="Mage\Bundle\Test\Constraint\AssertBundleProductForm" />
@@ -265,14 +266,12 @@
             <data name="product/data/checkout_data/preset" xsi:type="string">all_types_bundle_fixed_and_custom_options</data>
             <data name="product/data/custom_options/preset" xsi:type="string">all_types</data>
             <data name="product/data/visibility" xsi:type="string">Catalog, Search</data>
-            <data name="issue" xsi:type="string">Bug: MTA-1562</data>
             <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" />
             <constraint name="Mage\Catalog\Test\Constraint\AssertProductInGrid" />
             <constraint name="Mage\Bundle\Test\Constraint\AssertBundleProductForm" />
             <constraint name="Mage\Bundle\Test\Constraint\AssertBundleProductPage" />
             <constraint name="Mage\Bundle\Test\Constraint\AssertBundleItemsOnProductPage" />
             <constraint name="Mage\Bundle\Test\Constraint\AssertBundlePriceView" />
-            <constraint name="Mage\Bundle\Test\Constraint\AssertBundlePriceType" />
             <constraint name="Mage\Catalog\Test\Constraint\AssertProductCustomOptionsOnProductPage" />
         </variation>
     </testCase>

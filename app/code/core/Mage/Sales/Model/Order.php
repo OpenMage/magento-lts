@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -233,8 +233,6 @@
  * @method Mage_Sales_Model_Order setCustomerMiddlename(string $value)
  * @method string getCustomerLastname()
  * @method Mage_Sales_Model_Order setCustomerLastname(string $value)
- * @method string getCustomerMiddlename()
- * @method Mage_Sales_Model_Order setCustomerMiddlename(string $value)
  * @method string getCustomerPrefix()
  * @method Mage_Sales_Model_Order setCustomerPrefix(string $value)
  * @method string getCustomerSuffix()

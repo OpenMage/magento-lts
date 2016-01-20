@@ -20,7 +20,7 @@
  *
  * @category    Tests
  * @package     Tests_Functional
- * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -64,6 +64,8 @@ class BackendDecorator implements CurlInterface
     {
         $this->_transport = $transport;
         $this->_configuration = $configuration;
+        $this->_transport->write(CurlInterface::GET, $_ENV['app_backend_url'], '1.0');
+        $this->read();
         $this->_authorize();
     }
 
@@ -78,7 +80,8 @@ class BackendDecorator implements CurlInterface
         $url = $_ENV['app_backend_url'];
         $data = [
             'login[username]' => $this->_configuration->get('application/0/backendLogin/0/value'),
-            'login[password]' => $this->_configuration->get('application/0/backendPassword/0/value')
+            'login[password]' => $this->_configuration->get('application/0/backendPassword/0/value'),
+            'form_key' => $this->_formKey,
         ];
         $this->_transport->write(CurlInterface::POST, $url, '1.0', [], $data);
         $response = $this->read();
@@ -95,8 +98,14 @@ class BackendDecorator implements CurlInterface
     protected function _initFormKey()
     {
         preg_match('!var FORM_KEY = \'(\w+)\';!', $this->_response, $matches);
+
         if (!empty($matches[1])) {
             $this->_formKey = $matches[1];
+        } else {
+            preg_match('!input name="form_key" type="hidden" value="(\w+)"!', $this->_response, $matches);
+            if (!empty($matches[1])) {
+                $this->_formKey = $matches[1];
+            }
         }
     }
 

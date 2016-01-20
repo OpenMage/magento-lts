@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -120,19 +120,38 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
      */
     public function escapeHtmlWithLinks($data, $allowedTags = null)
     {
-        if (is_string($data) && is_array($allowedTags) && in_array('a', $allowedTags)) {
-            $links = array();
+        if (!empty($data) && is_array($allowedTags) && in_array('a', $allowedTags)) {
+            $links = [];
             $i = 1;
             $data = str_replace('%', '%%', $data);
-            $regexp = '@(<a[^>]*>(?:[^<]|<[^/]|</[^a]|</a[^>])*</a>)@';
+            $regexp = "/<a\s[^>]*href\s*?=\s*?([\"\']??)([^\" >]*?)\\1[^>]*>(.*)<\/a>/siU";
             while (preg_match($regexp, $data, $matches)) {
-                $links[] = $matches[1];
-                $data = str_replace($matches[1], '%' . $i . '$s', $data);
+                //Revert the sprintf escaping
+                $url = str_replace('%%', '%', $matches[2]);
+                $text = str_replace('%%', '%', $matches[3]);
+                //Check for an valid url
+                if ($url) {
+                    $urlScheme = strtolower(parse_url($url, PHP_URL_SCHEME));
+                    if ($urlScheme !== 'http' && $urlScheme !== 'https') {
+                        $url = null;
+                    }
+                }
+                //Use hash tag as fallback
+                if (!$url) {
+                    $url = '#';
+                }
+                //Recreate a minimalistic secure a tag
+                $links[] = sprintf(
+                    '<a href="%s">%s</a>',
+                    htmlspecialchars($url, ENT_QUOTES, 'UTF-8', false),
+                    parent::escapeHtml($text)
+                );
+                $data = str_replace($matches[0], '%' . $i . '$s', $data);
                 ++$i;
             }
-            $data = Mage::helper('core')->escapeHtml($data, $allowedTags);
+            $data = parent::escapeHtml($data, $allowedTags);
             return vsprintf($data, $links);
         }
-        return Mage::helper('core')->escapeHtml($data, $allowedTags);
+        return parent::escapeHtml($data, $allowedTags);
     }
 }

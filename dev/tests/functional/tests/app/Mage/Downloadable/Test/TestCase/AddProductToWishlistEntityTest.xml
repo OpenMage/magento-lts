@@ -21,16 +21,17 @@
  *
  * @category    Tests
  * @package     Tests_Functional
- * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
--->
+ -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
     <testCase name="Mage\Wishlist\Test\TestCase\AddProductToWishlistEntityTest">
         <variation name="AddProductToWishlistEntityTestVariation3" method="test">
             <data name="descriptions" xsi:type="string">Add Downloadable product to Wishlist</data>
             <data name="product" xsi:type="string">downloadableProduct::with_two_separately_links</data>
             <data name="configure" xsi:type="string">false</data>
+            <data name="tag" xsi:type="string">main:ce</data>
             <constraint name="Mage\Wishlist\Test\Constraint\AssertAddProductToWishlistSuccessMessage" />
             <constraint name="Mage\Wishlist\Test\Constraint\AssertProductIsPresentInWishlist" />
             <constraint name="Mage\Wishlist\Test\Constraint\AssertProductIsPresentInCustomerBackendWishlist" />

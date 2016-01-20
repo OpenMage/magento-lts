@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -239,19 +239,13 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
 
                 try {
                     $mailer->send();
-                    unset($mailer);
-                    $message->setProcessedAt(Varien_Date::formatDate(true));
-                    $message->save();
-                }
-                catch (Exception $e) {
-                    unset($mailer);
-                    $oldDevMode = Mage::getIsDeveloperMode();
-                    Mage::setIsDeveloperMode(true);
+                } catch (Exception $e) {
                     Mage::logException($e);
-                    Mage::setIsDeveloperMode($oldDevMode);
-
-                    return false;
                 }
+
+                unset($mailer);
+                $message->setProcessedAt(Varien_Date::formatDate(true));
+                $message->save();
             }
         }
 

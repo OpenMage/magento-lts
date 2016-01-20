@@ -21,7 +21,7 @@
  *
  * @category    Tests
  * @package     Tests_Functional
- * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 -->
@@ -34,6 +34,16 @@
             <data name="searchTerm/data/display_in_terms" xsi:type="string">No</data>
             <data name="issue" xsi:type="string">Bug: MPERF-7592: Absent success message on create Search Term page</data>
             <constraint name="Mage\CatalogSearch\Test\Constraint\AssertSearchTermSuccessSaveMessage" />
+            <constraint name="Mage\CatalogSearch\Test\Constraint\AssertSearchTermInGrid" />
+            <constraint name="Mage\CatalogSearch\Test\Constraint\AssertSearchTermForm" />
+            <constraint name="Mage\CatalogSearch\Test\Constraint\AssertSearchTermOnFrontend" />
+            <constraint name="Mage\CatalogSearch\Test\Constraint\AssertSearchTermSynonymOnFrontend" />
+        </variation>
+        <variation name="CreateSearchTermEntityTestVariation2">
+            <data name="searchTerm/data/query_text/value" xsi:type="string">catalogProductSimple::sku</data>
+            <data name="searchTerm/data/synonym_for" xsi:type="string">Search Term Synonym %isolation%</data>
+            <data name="searchTerm/data/redirect" xsi:type="string">http://example.com/</data>
+            <data name="searchTerm/data/display_in_terms" xsi:type="string">No</data>
             <constraint name="Mage\CatalogSearch\Test\Constraint\AssertSearchTermInGrid" />
             <constraint name="Mage\CatalogSearch\Test\Constraint\AssertSearchTermForm" />
             <constraint name="Mage\CatalogSearch\Test\Constraint\AssertSearchTermOnFrontend" />

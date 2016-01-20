@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Persistent
- * @copyright   Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -111,14 +111,14 @@
                     </persistent>
                 </observers>
             </controller_action_layout_load_before>
-            <controller_action_predispatch_customer_account_loginPost>
+            <controller_action_predispatch_customer_account_loginpost>
                 <observers>
                     <persistent>
                         <class>persistent/observer_session</class>
                         <method>setRememberMeCheckedStatus</method>
                     </persistent>
                 </observers>
-            </controller_action_predispatch_customer_account_loginPost>
+            </controller_action_predispatch_customer_account_loginpost>
             <controller_action_predispatch_customer_account_createpost>
                 <observers>
                     <persistent>
@@ -175,22 +175,22 @@
                     </persistent>
                 </observers>
             </customer_customer_authenticated>
-            <controller_action_predispatch_persistent_index_unsetCookie>
+            <controller_action_predispatch_persistent_index_unsetcookie>
                 <observers>
                     <persistent>
                         <class>persistent/observer</class>
                         <method>preventClearCheckoutSession</method>
                     </persistent>
                 </observers>
-            </controller_action_predispatch_persistent_index_unsetCookie>
-            <controller_action_postdispatch_persistent_index_unsetCookie>
+            </controller_action_predispatch_persistent_index_unsetcookie>
+            <controller_action_postdispatch_persistent_index_unsetcookie>
                 <observers>
                     <persistent>
                         <class>persistent/observer</class>
                         <method>makePersistentQuoteGuest</method>
                     </persistent>
                 </observers>
-            </controller_action_postdispatch_persistent_index_unsetCookie>
+            </controller_action_postdispatch_persistent_index_unsetcookie>
             <sales_quote_save_before>
                 <observers>
                     <persistent>
@@ -207,14 +207,14 @@
                     </persistent>
                 </observers>
             </custom_quote_process>
-            <controller_action_postdispatch_checkout_onepage_saveBilling>
+            <controller_action_postdispatch_checkout_onepage_savebilling>
                 <observers>
                     <persistent>
                         <class>persistent/observer_session</class>
                         <method>setRememberMeCheckedStatus</method>
                     </persistent>
                 </observers>
-            </controller_action_postdispatch_checkout_onepage_saveBilling>
+            </controller_action_postdispatch_checkout_onepage_savebilling>
             <customer_register_success>
                 <observers>
                     <persistent>

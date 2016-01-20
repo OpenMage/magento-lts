@@ -21,7 +21,7 @@
  *
  * @category    Tests
  * @package     Tests_Functional
- * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 -->
@@ -30,7 +30,6 @@
         <variation name="AddProductsToShoppingCartEntityTestVariation1" firstConstraint="Mage\Checkout\Test\Constraint\AssertPriceInShoppingCart" method="test">
             <data name="products" xsi:type="string">configurableProduct::default</data>
             <data name="cart/data/grand_total" xsi:type="string">320</data>
-            <data name="issue" xsi:type="string">Bugs: MPERF-6530: Configurable Product Attributes Sorting, MPERF-5910: "Position" value for some custom attributes not updating</data>
             <constraint name="Mage\Checkout\Test\Constraint\AssertPriceInShoppingCart"/>
             <constraint name="Mage\Checkout\Test\Constraint\AssertProductQtyInShoppingCart"/>
             <constraint name="Mage\Checkout\Test\Constraint\AssertSubtotalInShoppingCart"/>

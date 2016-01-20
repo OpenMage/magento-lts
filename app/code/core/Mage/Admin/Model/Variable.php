@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Admin
- * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -66,15 +66,11 @@ class Mage_Admin_Model_Variable extends Mage_Core_Model_Abstract
     /**
      * Check is config directive with given path can be parsed via configDirective method
      *
-     * @param $path string
-     * @return int
+     * @param string $path
+     * @return bool
      */
     public function isPathAllowed($path)
     {
-        /** @var Mage_Admin_Model_Resource_Variable_Collection $collection */
-        $collection = Mage::getResourceModel('admin/variable_collection');
-        $collection->addFieldToFilter('variable_name', array('eq' => $path))
-            ->addFieldToFilter('is_allowed', array('eq' => 1));
-        return $collection->load()->count();
+        return Mage::helper('admin/variable')->isPathAllowed($path);
     }
 }

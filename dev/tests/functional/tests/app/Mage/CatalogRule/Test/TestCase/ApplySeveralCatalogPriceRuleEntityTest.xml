@@ -21,7 +21,7 @@
  *
  * @category    Tests
  * @package     Tests_Functional
- * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 -->
@@ -36,6 +36,7 @@
       <data name="prices/discount_amount" xsi:type="string">60</data>
       <data name="prices/special" xsi:type="string">40</data>
       <data name="prices/regular" xsi:type="string">100</data>
+      <data name="tag" xsi:type="string">main:ce</data>
       <constraint name="Mage\CatalogRule\Test\Constraint\AssertCatalogPriceRuleAppliedInCatalogPage" next="Mage\CatalogRule\Test\Constraint\AssertCatalogPriceRuleAppliedInProductPage"/>
       <constraint name="Mage\CatalogRule\Test\Constraint\AssertCatalogPriceRuleAppliedInProductPage" next="Mage\CatalogRule\Test\Constraint\AssertCatalogPriceRuleAppliedInShoppingCart" prev="Mage\CatalogRule\Test\Constraint\AssertCatalogPriceRuleAppliedInCatalogPage"/>
       <constraint name="Mage\CatalogRule\Test\Constraint\AssertCatalogPriceRuleAppliedInShoppingCart" prev="Mage\CatalogRule\Test\Constraint\AssertCatalogPriceRuleAppliedInProductPage"/>

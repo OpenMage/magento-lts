@@ -21,7 +21,7 @@
  *
  * @category    Tests
  * @package     Tests_Functional
- * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 -->
@@ -38,7 +38,6 @@
     <variation name="AddUpSellProductsEntityTestVariation2" firstConstraint="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" method="test">
       <data name="productData" xsi:type="string">catalogProductSimple::default</data>
       <data name="upSellProductsData" xsi:type="string">catalogProductSimple::default, configurableProduct::default</data>
-      <data name="issue" xsi:type="string">Bug: MPERF-6836: Abnormal wait during saving new attribute set (Environment issue)</data>
       <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" next="Mage\Catalog\Test\Constraint\AssertProductInGrid"/>
       <constraint name="Mage\Catalog\Test\Constraint\AssertProductInGrid" next="Mage\Catalog\Test\Constraint\AssertProductForm" prev="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
       <constraint name="Mage\Catalog\Test\Constraint\AssertProductForm" next="Mage\Catalog\Test\Constraint\AssertUpSellProductsSection" prev="Mage\Catalog\Test\Constraint\AssertProductInGrid"/>
@@ -47,7 +46,6 @@
     <variation name="AddUpSellProductsEntityTestVariation3" firstConstraint="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" method="test">
       <data name="productData" xsi:type="string">configurableProduct::default</data>
       <data name="upSellProductsData" xsi:type="string">catalogProductSimple::default, configurableProduct::default</data>
-      <data name="issue" xsi:type="string">Bug: MPERF-6836: Abnormal wait during saving new attribute set (Environment issue)</data>
       <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" next="Mage\Catalog\Test\Constraint\AssertProductInGrid"/>
       <constraint name="Mage\Catalog\Test\Constraint\AssertProductInGrid" next="Mage\Catalog\Test\Constraint\AssertConfigurableProductForm" prev="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
       <constraint name="Mage\Catalog\Test\Constraint\AssertConfigurableProductForm" next="Mage\Catalog\Test\Constraint\AssertUpSellProductsSection" prev="Mage\Catalog\Test\Constraint\AssertProductInGrid"/>

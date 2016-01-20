@@ -21,7 +21,7 @@
  *
  * @category    Tests
  * @package     Tests_Functional
- * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 -->
@@ -29,7 +29,6 @@
     <testCase name="Mage\Catalog\Test\TestCase\Product\ClearAllCompareProductsTest">
         <variation name="ClearAllCompareProductsTestVariation1">
             <data name="config/dataSet" xsi:type="string">compare_products</data>
-            <data name="issue" xsi:type="string">Bug: MPERF-6836: Abnormal wait during saving new attribute set (Environment issue)</data>
             <data name="products" xsi:type="string">catalogProductSimple::simple_for_composite_products,catalogProductVirtual::order_default,downloadableProduct::default,groupedProduct::grouped_product_with_price,configurableProduct::default,bundleProduct::bundle_dynamic_product,bundleProduct::bundle_fixed_product</data>
             <constraint name="Mage\Catalog\Test\Constraint\AssertProductCompareSuccessRemoveAllProductsMessage" />
             <constraint name="Mage\Catalog\Test\Constraint\AssertProductCompareItemsLinkIsAbsent" />

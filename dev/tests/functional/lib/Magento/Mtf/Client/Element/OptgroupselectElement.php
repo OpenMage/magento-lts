@@ -20,7 +20,7 @@
  *
  * @category    Tests
  * @package     Tests_Functional
- * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -52,7 +52,14 @@ class OptgroupselectElement extends SelectElement
      *
      * @var string
      */
-    protected $optionGroupValue = ".//optgroup[contains(@label, '%s')]/option[contains(text(), '%s')]";
+    protected $optionGroupValue = ".//optgroup[contains(@label, '%s')]/option[contains(text(),'%s')]";
+
+    /**
+     * Option group locator when exact value should be used
+     *
+     * @var string
+     */
+    protected $optionGroupExactValue = ".//optgroup[contains(@label, '%s')]/option[text() = '%s']";
 
     /**
      * Get the value of form element.
@@ -93,7 +100,9 @@ class OptgroupselectElement extends SelectElement
     {
         $this->eventManager->dispatchEvent(['set_value'], [__METHOD__, $this->getAbsoluteSelector()]);
         list($group, $option) = explode('/', $value);
-        $xpath = sprintf($this->optionGroupValue, $group, $option);
+        $xpath = (($option != 'Time')
+            ? (sprintf($this->optionGroupValue, $group, $option))
+            : (sprintf($this->optionGroupExactValue, $group, $option)));
         $option = $this->find($xpath, Locator::SELECTOR_XPATH);
         $option->click();
     }

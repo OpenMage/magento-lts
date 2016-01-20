@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Usa
- * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -544,7 +544,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
                  '1'      => Mage::helper('usa')->__('Priority Mail'),
                  '2'      => Mage::helper('usa')->__('Priority Mail Express Hold For Pickup'),
                  '3'      => Mage::helper('usa')->__('Priority Mail Express'),
-                 '4'      => Mage::helper('usa')->__('Standard Post'),
+                 '4'      => Mage::helper('usa')->__('Retail Ground'),
                  '6'      => Mage::helper('usa')->__('Media Mail Parcel'),
                  '7'      => Mage::helper('usa')->__('Library Mail Parcel'),
                  '13'     => Mage::helper('usa')->__('Priority Mail Express Flat Rate Envelope'),
@@ -579,8 +579,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
                  '49'     => Mage::helper('usa')->__('Priority Mail Regional Rate Box B'),
                  '50'     => Mage::helper('usa')->__('Priority Mail Regional Rate Box B Hold For Pickup'),
                  '53'     => Mage::helper('usa')->__('First-Class Package Service Hold For Pickup'),
-                 '55'     => Mage::helper('usa')->__('Priority Mail Express Flat Rate Boxes'),
-                 '56'     => Mage::helper('usa')->__('Priority Mail Express Flat Rate Boxes Hold For Pickup'),
                  '57'     => Mage::helper('usa')->__('Priority Mail Express Sunday/Holiday Delivery Flat Rate Boxes'),
                  '58'     => Mage::helper('usa')->__('Priority Mail Regional Rate Box C'),
                  '59'     => Mage::helper('usa')->__('Priority Mail Regional Rate Box C Hold For Pickup'),
@@ -612,7 +610,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
                  'INT_23' => Mage::helper('usa')->__('Priority Mail International Padded Flat Rate Envelope'),
                  'INT_24' => Mage::helper('usa')->__('Priority Mail International DVD Flat Rate priced box'),
                  'INT_25' => Mage::helper('usa')->__('Priority Mail International Large Video Flat Rate priced box'),
-                 'INT_26' => Mage::helper('usa')->__('Priority Mail Express International Flat Rate Boxes'),
                  'INT_27' => Mage::helper('usa')->__('Priority Mail Express International Padded Flat Rate Envelope'),
              ),
 
@@ -624,7 +621,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
                  '1'      => 'Priority',
                  '2'      => 'Priority Express',
                  '3'      => 'Priority Express',
-                 '4'      => 'Standard Post',
+                 '4'      => 'Retail Ground',
                  '6'      => 'Media',
                  '7'      => 'Library',
                  '13'     => 'Priority Express',
@@ -659,8 +656,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
                  '49'     => 'Priority',
                  '50'     => 'Priority',
                  '53'     => 'First Class',
-                 '55'     => 'Priority Express',
-                 '56'     => 'Priority Express',
                  '57'     => 'Priority Express',
                  '58'     => 'Priority',
                  '59'     => 'Priority',
@@ -692,7 +687,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
                  'INT_23' => 'Priority',
                  'INT_24' => 'Priority',
                  'INT_25' => 'Priority',
-                 'INT_26' => 'Priority Express',
                  'INT_27' => 'Priority Express',
              ),
 
@@ -742,7 +736,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
                                 'First-Class Package Service Hold For Pickup',
                                 'Priority Mail Express Flat Rate Boxes',
                                 'Priority Mail Express Flat Rate Boxes Hold For Pickup',
-                                'Standard Post',
+                                'Retail Ground',
                                 'Media Mail',
                                 'First-Class Mail Large Envelope',
                                 'Priority Mail Express Sunday/Holiday Delivery',
@@ -781,8 +775,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
                                 'Priority Mail International Large Flat Rate Box',
                                 'Priority Mail International Medium Flat Rate Box',
                                 'Priority Mail International Small Flat Rate Box',
-                                'Priority Mail Express Sunday/Holiday Delivery Flat Rate Boxes',
-
                             )
                         ),
                         'from_us' => array(
@@ -834,7 +826,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
                             'method' => array(
                                 'Priority Mail Express',
                                 'Priority Mail',
-                                'Standard Post',
+                                'Retail Ground',
                                 'Media Mail',
                                 'Library Mail',
                                 'First-Class Package Service'
@@ -857,7 +849,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
                             'method' => array(
                                 'Priority Mail Express',
                                 'Priority Mail',
-                                'Standard Post',
+                                'Retail Ground',
                                 'Media Mail',
                                 'Library Mail',
                                 'First-Class Package Service'
@@ -1423,7 +1415,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
                 break;
             case 'STANDARD':
             case 'Standard Post':
-                $serviceType = 'Standard Post';
+            case 'Retail Ground':
+                $serviceType = 'Retail Ground';
                 break;
             case 'MEDIA':
             case 'Media':

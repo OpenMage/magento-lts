@@ -20,7 +20,7 @@
  *
  * @category    Tests
  * @package     Tests_Functional
- * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -110,6 +110,7 @@ class AssertTransaction extends AbstractConstraint
      */
     protected function prepareSearchedText($grandTotal, $currency = '$')
     {
-        return "amount of " . $currency . number_format($grandTotal, 2);
+        $amount = number_format(is_array($grandTotal) ? array_sum($grandTotal) : $grandTotal, 2);
+        return "amount of " . $currency . $amount;
     }
 }

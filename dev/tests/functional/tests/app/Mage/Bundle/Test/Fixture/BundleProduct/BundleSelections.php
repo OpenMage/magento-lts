@@ -20,7 +20,7 @@
  *
  * @category    Tests
  * @package     Tests_Functional
- * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -185,6 +185,7 @@ class BundleSelections implements FixtureInterface
                         'title' => 'Drop-down Option',
                         'type' => 'Drop-down',
                         'required' => 'Yes',
+                        'position' => '1',
                         'assigned_products' => [
                             [
                                 'sku' => '%product_sku%',
@@ -212,6 +213,7 @@ class BundleSelections implements FixtureInterface
                         'title' => 'Drop-down Option',
                         'type' => 'Drop-down',
                         'required' => 'Yes',
+                        'position' => '0',
                         'assigned_products' => [
                             [
                                 'sku' => '%product_sku%',
@@ -243,6 +245,7 @@ class BundleSelections implements FixtureInterface
                         'title' => 'Drop-down Option',
                         'type' => 'Drop-down',
                         'required' => 'Yes',
+                        'position' => '1',
                         'assigned_products' => [
                             [
                                 'sku' => '%product_sku%',
@@ -264,6 +267,7 @@ class BundleSelections implements FixtureInterface
                         'title' => 'Radio Button Option',
                         'type' => 'Radio Buttons',
                         'required' => 'Yes',
+                        'position' => '2',
                         'assigned_products' => [
                             [
                                 'sku' => '%product_sku%',
@@ -286,20 +290,19 @@ class BundleSelections implements FixtureInterface
                         'title' => 'Checkbox Option',
                         'type' => 'Checkbox',
                         'required' => 'Yes',
+                        'position' => '3',
                         'assigned_products' => [
                             [
                                 'sku' => '%product_sku%',
                                 'selection_price_value' => 5.00,
                                 'selection_price_type' => 'Fixed',
                                 'selection_qty' => 2,
-                                'selection_can_change_qty' => 'Yes'
                             ],
                             [
                                 'sku' => '%product_sku%',
                                 'selection_price_value' => 6.00,
                                 'selection_price_type' => 'Fixed',
                                 'selection_qty' => 3,
-                                'selection_can_change_qty' => 'Yes'
                             ]
                         ]
                     ],
@@ -307,20 +310,19 @@ class BundleSelections implements FixtureInterface
                         'title' => 'Multiple Select Option',
                         'type' => 'Multiple Select',
                         'required' => 'Yes',
+                        'position' => '4',
                         'assigned_products' => [
                             [
                                 'sku' => '%product_sku%',
                                 'selection_price_value' => 5.00,
                                 'selection_price_type' => 'Fixed',
                                 'selection_qty' => 2,
-                                'selection_can_change_qty' => 'Yes'
                             ],
                             [
                                 'sku' => '%product_sku%',
                                 'selection_price_value' => 6.00,
                                 'selection_price_type' => 'Fixed',
                                 'selection_qty' => 3,
-                                'selection_can_change_qty' => 'Yes'
                             ]
                         ]
                     ]
@@ -350,6 +352,7 @@ class BundleSelections implements FixtureInterface
                         'title' => 'Drop-down Option',
                         'type' => 'Drop-down',
                         'required' => 'Yes',
+                        'position' => '1',
                         'assigned_products' => [
                             [
                                 'sku' => '%product_sku%',
@@ -367,6 +370,7 @@ class BundleSelections implements FixtureInterface
                         'title' => 'Radio Button Option',
                         'type' => 'Radio Buttons',
                         'required' => 'Yes',
+                        'position' => '2',
                         'assigned_products' => [
                             [
                                 'sku' => '%product_sku%',
@@ -384,16 +388,15 @@ class BundleSelections implements FixtureInterface
                         'title' => 'Checkbox Option',
                         'type' => 'Checkbox',
                         'required' => 'Yes',
+                        'position' => '3',
                         'assigned_products' => [
                             [
                                 'sku' => '%product_sku%',
                                 'selection_qty' => 2,
-                                'selection_can_change_qty' => 'Yes'
                             ],
                             [
                                 'sku' => '%product_sku%',
                                 'selection_qty' => 3,
-                                'selection_can_change_qty' => 'Yes'
                             ]
                         ]
                     ],
@@ -401,16 +404,15 @@ class BundleSelections implements FixtureInterface
                         'title' => 'Multiple Select Option',
                         'type' => 'Multiple Select',
                         'required' => 'Yes',
+                        'position' => '4',
                         'assigned_products' => [
                             [
                                 'sku' => '%product_sku%',
                                 'selection_qty' => 2,
-                                'selection_can_change_qty' => 'Yes'
                             ],
                             [
                                 'sku' => '%product_sku%',
                                 'selection_qty' => 3,
-                                'selection_can_change_qty' => 'Yes'
                             ]
                         ]
                     ]
@@ -440,6 +442,7 @@ class BundleSelections implements FixtureInterface
                         'title' => 'Drop-down Option',
                         'type' => 'Drop-down',
                         'required' => 'No',
+                        'position' => '0',
                         'assigned_products' => [
                             [
                                 'sku' => '%product_sku%',
@@ -461,6 +464,7 @@ class BundleSelections implements FixtureInterface
                         'title' => 'Radio Button Option',
                         'type' => 'Radio Buttons',
                         'required' => 'No',
+                        'position' => '0',
                         'assigned_products' => [
                             [
                                 'sku' => '%product_sku%',

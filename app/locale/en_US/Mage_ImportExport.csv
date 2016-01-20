@@ -36,6 +36,7 @@
 "Error in data structure: behaviors are mixed","Error in data structure: behaviors are mixed"
 "Error in data structure: entity codes are mixed","Error in data structure: entity codes are mixed"
 "Errors limit (%d) reached. Please fix errors and re-upload file","Errors limit (%d) reached. Please fix errors and re-upload file"
+"Escape CSV fields","Escape CSV fields"
 "Export","Export"
 "Export File Format","Export File Format"
 "Export Settings","Export Settings"

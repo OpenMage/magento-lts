@@ -20,7 +20,7 @@
  *
  * @category    Tests
  * @package     Tests_Functional
- * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -64,6 +64,13 @@ class Inline extends Form
      * @var string
      */
     protected $giftMessageOrderButton = '#allow-gift-options-for-order-container a';
+
+    /**
+     * Selector for checkbox for 'Add gift options for Individual Items'.
+     *
+     * @var string
+     */
+    protected $allowGiftMessagesForItems = '#allow_gift_messages_for_items';
 
     /**
      * Gift options form css selector.
@@ -117,7 +124,11 @@ class Inline extends Form
      */
     protected function fillGiftMessageForOrder(GiftMessage $giftMessage)
     {
-        $this->_rootElement->find($this->giftMessageOrderButton)->click();
+        if ($this->_rootElement->find($this->giftMessageOrderButton)->isVisible()) {
+            $this->_rootElement->find($this->giftMessageOrderButton)->click();
+        } else {
+            $this->_rootElement->find($this->allowGiftMessagesForItems)->click();
+        }
         $this->getGiftMessageOrderForm()->fill($giftMessage);
     }
 

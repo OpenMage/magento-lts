@@ -21,7 +21,7 @@
  *
  * @category    Tests
  * @package     Tests_Functional
- * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 -->
@@ -42,6 +42,7 @@
             <data name="paymentAction" xsi:type="string">Authorized</data>
             <data name="grandTotal" xsi:type="string">105</data>
             <data name="tag" xsi:type="string">payment_method:authorize_net</data>
+            <data name="tag" xsi:type="string">main:ce</data>
             <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" next="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid" next="Mage\Paypal\Test\Constraint\AssertTransaction" prev="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
             <constraint name="Mage\Paypal\Test\Constraint\AssertTransaction" next="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>

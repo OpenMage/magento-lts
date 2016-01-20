@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Admin
- * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,10 +34,65 @@
 class Mage_Admin_Model_Resource_Variable extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
+     * Cache id
+     */
+    const CACHE_ID = 'permission_variable';
+
+    /**
      * Define main table
      */
     protected function _construct()
     {
         $this->_init('admin/permission_variable', 'variable_id');
+    }
+
+    /**
+     * Regenerate cache
+     */
+    protected function _generateCache()
+    {
+        /** @var Mage_Admin_Model_Resource_Variable_Collection $collection */
+        $collection = Mage::getResourceModel('admin/variable_collection');
+        $collection->addFieldToFilter('is_allowed', array('eq' => 1));
+        $data = $collection->getColumnValues('variable_name');
+        $data = array_flip($data);
+        Mage::app()->saveCache(
+            Mage::helper('core')->jsonEncode($data),
+            self::CACHE_ID,
+            array(Mage_Core_Model_App::CACHE_TAG)
+        );
+    }
+
+    /**
+     * Get allowed types
+     */
+    public function getAllowedPaths()
+    {
+        $data = Mage::app()->getCacheInstance()->load(self::CACHE_ID);
+        if ($data === false) {
+            $this->_generateCache();
+            $data = Mage::app()->getCacheInstance()->load(self::CACHE_ID);
+        }
+        return Mage::helper('core')->jsonDecode($data);
+    }
+
+    /**
+     * @param Mage_Core_Model_Abstract $object
+     * @return $this
+     */
+    protected function _afterSave(Mage_Core_Model_Abstract $object)
+    {
+        $this->_generateCache();
+        return parent::_afterSave($object);
+    }
+
+    /**
+     * @param Mage_Core_Model_Abstract $object
+     * @return $this
+     */
+    protected function _afterDelete(Mage_Core_Model_Abstract $object)
+    {
+        $this->_generateCache();
+        return parent::_afterDelete($object);
     }
 }
