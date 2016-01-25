@@ -30,7 +30,6 @@
         <variation name="AddProductsToShoppingCartEntityTestVariation1" firstConstraint="Mage\Checkout\Test\Constraint\AssertPriceInShoppingCart" method="test">
             <data name="products" xsi:type="string">configurableProduct::default</data>
             <data name="cart/data/grand_total" xsi:type="string">320</data>
-            <data name="issue" xsi:type="string">Bugs: MPERF-6530: Configurable Product Attributes Sorting, MPERF-5910: "Position" value for some custom attributes not updating</data>
             <constraint name="Mage\Checkout\Test\Constraint\AssertPriceInShoppingCart"/>
             <constraint name="Mage\Checkout\Test\Constraint\AssertProductQtyInShoppingCart"/>
             <constraint name="Mage\Checkout\Test\Constraint\AssertSubtotalInShoppingCart"/>

@@ -135,6 +135,11 @@
         </layout>
     </adminhtml>
     <default>
+        <system>
+            <export_csv>
+                <escaping>1</escaping>
+            </export_csv>
+        </system>
         <general>
             <file>
                 <importexport_local_valid_paths>

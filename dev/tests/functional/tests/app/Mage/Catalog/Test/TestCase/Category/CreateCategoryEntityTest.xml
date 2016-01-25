@@ -46,6 +46,7 @@
       <data name="category/data/default_product_listing_config" xsi:type="string">-</data>
       <data name="category/data/default_sort_by" xsi:type="string">-</data>
       <data name="category/data/category_products/dataSet" xsi:type="string">-</data>
+      <data name="tag" xsi:type="string">main:ce</data>
       <constraint name="Mage\Catalog\Test\Constraint\AssertCategorySaveMessage" next="Mage\Catalog\Test\Constraint\AssertCategoryForm"/>
       <constraint name="Mage\Catalog\Test\Constraint\AssertCategoryForm" prev="Mage\Catalog\Test\Constraint\AssertCategorySaveMessage"/>
     </variation>

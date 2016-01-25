@@ -37,6 +37,7 @@
       <data name="payment/method" xsi:type="string">checkmo</data>
       <data name="configData" xsi:type="string">ups, shipping_origin</data>
       <data name="currencySymbols" xsi:type="string">-</data>
+      <data name="tag" xsi:type="string">main:ce</data>
       <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
     </variation>
     <variation name="OnePageCheckoutWithinOnlineShippingMethodsVariation2" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">

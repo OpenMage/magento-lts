@@ -55,7 +55,6 @@
       <data name="description" xsi:type="string">Apply MAP on gesture in config. Products use config.</data>
       <data name="products" xsi:type="string">catalogProductSimple::product_with_map_use_config, configurableProduct::default_with_map_use_config</data>
       <data name="configData" xsi:type="string">enable_map_on_gesture</data>
-      <data name="issue" xsi:type="string">Bug: MPERF-6836: Abnormal wait during saving new attribute set (Environment issue)</data>
       <constraint name="Mage\Catalog\Test\Constraint\AssertProductMapAppliedOnGesture"/>
     </variation>
   </testCase>

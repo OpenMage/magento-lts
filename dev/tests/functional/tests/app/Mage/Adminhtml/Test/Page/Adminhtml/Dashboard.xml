@@ -29,5 +29,6 @@
     <page name="Dashboard" area="Adminhtml" mca="dashboard" module="Mage_Adminhtml">
         <block name="adminPanelHeader" class="Mage\Adminhtml\Test\Block\Page\Header" locator=".header" strategy="css selector" />
         <block name="mainBlock" class="Mage\Adminhtml\Test\Block\Page\Main" locator=".wrapper" strategy="css selector" />
+        <block name="footer" class="Mage\Adminhtml\Test\Block\Page\Footer" locator=".footer" strategy="css selector" />
     </page>
 </config>

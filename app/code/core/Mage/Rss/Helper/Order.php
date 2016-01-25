@@ -89,11 +89,16 @@ class Mage_Rss_Helper_Order extends Mage_Core_Helper_Abstract
             return null;
         }
 
+        $orderId = intval($data['order_id']);
+        $incrementId = intval($data['increment_id']);
+        $customerId = intval($data['customer_id']);
+
         /** @var $order Mage_Sales_Model_Order */
-        $order = Mage::getModel('sales/order')->load($data['order_id']);
-        if ($order->getId()
-            && $order->getIncrementId() == $data['increment_id']
-            && $order->getCustomerId() == $data['customer_id']
+        $order = Mage::getModel('sales/order')->load($orderId);
+
+        if (!is_null($order->getId())
+            && intval($order->getIncrementId()) === $incrementId
+            && intval($order->getCustomerId()) === $customerId
         ) {
             return $order;
         }

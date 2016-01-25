@@ -42,6 +42,7 @@
             <data name="paymentAction" xsi:type="string">Authorized</data>
             <data name="grandTotal" xsi:type="string">105</data>
             <data name="tag" xsi:type="string">payment_method:authorize_net</data>
+            <data name="tag" xsi:type="string">main:ce</data>
             <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" next="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid" next="Mage\Paypal\Test\Constraint\AssertTransaction" prev="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
             <constraint name="Mage\Paypal\Test\Constraint\AssertTransaction" next="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>

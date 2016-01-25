@@ -42,7 +42,6 @@
             <data name="giftMessage/data/sender" xsi:type="string">John Doe</data>
             <data name="giftMessage/data/recipient" xsi:type="string">Jane Doe</data>
             <data name="giftMessage/data/message" xsi:type="string">text_gift_message%isolation%</data>
-            <data name="issue" xsi:type="string">Bug: MPERF-7250: Gift message is not displayed in order details.</data>
             <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" />
             <constraint name="Mage\GiftMessage\Test\Constraint\AssertGiftMessageInFrontendOrder" />
         </variation>

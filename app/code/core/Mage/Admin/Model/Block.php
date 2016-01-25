@@ -68,17 +68,13 @@ class Mage_Admin_Model_Block extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Check is block with such type allowed for parsinf via blockDirective method
+     * Check is block with such type allowed for parsing via blockDirective method
      *
-     * @param $type
-     * @return int
+     * @param string $type
+     * @return bool
      */
     public function isTypeAllowed($type)
     {
-        /** @var Mage_Admin_Model_Resource_Block_Collection $collection */
-        $collection = Mage::getResourceModel('admin/block_collection');
-        $collection->addFieldToFilter('block_name', array('eq' => $type))
-            ->addFieldToFilter('is_allowed', array('eq' => 1));
-        return $collection->load()->count();
+        return Mage::helper('admin/block')->isTypeAllowed($type);
     }
 }

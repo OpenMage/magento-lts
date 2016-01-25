@@ -110,6 +110,7 @@ class AssertTransaction extends AbstractConstraint
      */
     protected function prepareSearchedText($grandTotal, $currency = '$')
     {
-        return "amount of " . $currency . number_format($grandTotal, 2);
+        $amount = number_format(is_array($grandTotal) ? array_sum($grandTotal) : $grandTotal, 2);
+        return "amount of " . $currency . $amount;
     }
 }

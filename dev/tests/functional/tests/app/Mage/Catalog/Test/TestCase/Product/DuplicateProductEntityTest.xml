@@ -29,6 +29,7 @@
     <testCase name="Mage\Catalog\Test\TestCase\Product\DuplicateProductEntityTest">
         <variation name="DuplicateProductEntityTestVariation1">
             <data name="productType" xsi:type="string">catalogProductSimple::default</data>
+            <data name="tag" xsi:type="string">main:ce</data>
             <constraint name="Mage\Catalog\Test\Constraint\AssertProductDuplicateMessage" />
             <constraint name="Mage\Catalog\Test\Constraint\AssertProductDuplicateForm" />
             <constraint name="Mage\Catalog\Test\Constraint\AssertProductDuplicatedInGrid" />

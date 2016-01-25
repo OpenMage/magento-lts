@@ -32,6 +32,7 @@
             <data name="products" xsi:type="string">downloadableProduct::with_two_separately_links,catalogProductSimple::50_dollar_product,catalogProductVirtual::order_default</data>
             <data name="filterLink" xsi:type="string">$20.00</data>
             <data name="searchProductsIndexes" xsi:type="string">0</data>
+            <data name="tag" xsi:type="string">main:ce</data>
             <constraint name="Mage\Catalog\Test\Constraint\AssertProductsVisibleOnCategoryPageShopByPrice" />
         </variation>
         <variation name="FilterProductListTestVariation2" method="test">

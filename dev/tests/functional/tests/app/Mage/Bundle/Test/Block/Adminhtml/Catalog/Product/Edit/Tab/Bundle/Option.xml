@@ -41,5 +41,9 @@
             <strategy>css selector</strategy>
             <input>select</input>
         </required>
+        <position>
+            <selector>[name$='[position]']</selector>
+            <strategy>css selector</strategy>
+        </position>
     </fields>
 </mapping>

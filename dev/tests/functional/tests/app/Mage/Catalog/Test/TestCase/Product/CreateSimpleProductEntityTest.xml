@@ -43,6 +43,7 @@
             <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
             <data name="product/data/visibility" xsi:type="string">Catalog, Search</data>
             <data name="configData" xsi:type="string">-</data>
+            <data name="tag" xsi:type="string">main:ce</data>
             <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" next="Mage\Catalog\Test\Constraint\AssertProductInGrid" />
             <constraint name="Mage\Catalog\Test\Constraint\AssertProductInGrid" next="Mage\Catalog\Test\Constraint\AssertProductForm" prev="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" />
             <constraint name="Mage\Catalog\Test\Constraint\AssertProductForm" next="Mage\Catalog\Test\Constraint\AssertProductInStock" prev="Mage\Catalog\Test\Constraint\AssertProductInGrid" />

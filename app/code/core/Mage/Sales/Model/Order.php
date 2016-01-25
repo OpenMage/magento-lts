@@ -233,8 +233,6 @@
  * @method Mage_Sales_Model_Order setCustomerMiddlename(string $value)
  * @method string getCustomerLastname()
  * @method Mage_Sales_Model_Order setCustomerLastname(string $value)
- * @method string getCustomerMiddlename()
- * @method Mage_Sales_Model_Order setCustomerMiddlename(string $value)
  * @method string getCustomerPrefix()
  * @method Mage_Sales_Model_Order setCustomerPrefix(string $value)
  * @method string getCustomerSuffix()

@@ -26,7 +26,7 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/pages.xsd">
-    <page name="Downloader" mca="" module="Mage_Install">
+    <page name="Downloader" mca="downloader/" module="Mage_Install">
         <block name="continueDownloadBlock" class="Mage\Install\Test\Block\ContinueDownloadBlock" locator="#main" strategy="css selector" />
         <block name="messagesBlock" class="Mage\Core\Test\Block\Messages" locator="#connect_iframe_success .msgs" strategy="css selector"/>
     </page>

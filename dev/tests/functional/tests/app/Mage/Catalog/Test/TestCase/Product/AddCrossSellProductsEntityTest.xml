@@ -38,7 +38,6 @@
     <variation name="AddCrossSellProductsEntityTestVariation2" firstConstraint="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" method="test">
       <data name="productData" xsi:type="string">catalogProductSimple::default</data>
       <data name="crossSellProductsData" xsi:type="string">catalogProductSimple::default, configurableProduct::default</data>
-      <data name="issue" xsi:type="string">Bug: MPERF-6836: Abnormal wait during saving new attribute set (Environment issue)</data>
       <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" next="Mage\Catalog\Test\Constraint\AssertProductInGrid"/>
       <constraint name="Mage\Catalog\Test\Constraint\AssertProductInGrid" next="Mage\Catalog\Test\Constraint\AssertProductForm" prev="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
       <constraint name="Mage\Catalog\Test\Constraint\AssertProductForm" next="Mage\Catalog\Test\Constraint\AssertCrossSellProductsSection" prev="Mage\Catalog\Test\Constraint\AssertProductInGrid"/>

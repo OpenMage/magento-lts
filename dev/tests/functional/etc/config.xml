@@ -46,4 +46,5 @@
             </desiredCapabilities>
         </item>
     </server>
+    <version></version>
 </config>

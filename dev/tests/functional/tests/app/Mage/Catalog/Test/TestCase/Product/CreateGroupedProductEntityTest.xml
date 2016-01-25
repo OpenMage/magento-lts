@@ -38,6 +38,7 @@
       <data name="product/data/description" xsi:type="string">This is description for grouped product</data>
       <data name="product/data/associated/preset" xsi:type="string">defaultSimpleProducts</data>
       <data name="product/data/short_description" xsi:type="string">This is short description for grouped product</data>
+      <data name="tag" xsi:type="string">main:ce</data>
       <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" next="Mage\Catalog\Test\Constraint\AssertGroupedProductsDefaultQty"/>
       <constraint name="Mage\Catalog\Test\Constraint\AssertGroupedProductsDefaultQty" next="Mage\Catalog\Test\Constraint\AssertProductPage" prev="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
       <constraint name="Mage\Catalog\Test\Constraint\AssertProductPage" prev="Mage\Catalog\Test\Constraint\AssertGroupedProductsDefaultQty"/>
