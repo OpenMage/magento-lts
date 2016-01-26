@@ -2,7 +2,8 @@
 
 | Patch | Commit |
 | ----- | ------ |
-| - | - |
+| SUPEE-7616 | [d1eb626](https://github.com/OpenMage/magento-lts/commit/d1eb626) |
+| SUPEE-7405 | [3feb090](https://github.com/OpenMage/magento-lts/commit/3feb090) |
 
 
 # Magento - Long Term Support
