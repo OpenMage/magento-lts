@@ -64,7 +64,6 @@ class Mage_Adminhtml_Cms_WysiwygController extends Mage_Adminhtml_Controller_Act
             */
         }
         $this->getResponse()->setHeader('Content-type', $image->getMimeType(), true);
-        $this->getResponse()->setBody(ob_get_contents());
-        ob_get_clean();
+        $this->getResponse()->setBody(ob_get_clean());
     }
 }
