@@ -157,3 +157,18 @@ patching file lib/Varien/Data/Collection/Db.php
 patching file lib/Zend/Xml/Security.php
 
 
+2016-01-26 17:47:01 UTC | SUPEE-7616 | CE_1.9.2.2-CE_1.8.0.0 | v1 | 1609c0d0be86473d357346fa51f93c12b365d7a1 | Tue Dec 8 12:53:31 2015 +0200 | e1fc3c59c9587427b8a9c88655715f27afbfe970..1609c0d0be86473d357346fa51f93c12b365d7a1
+patching file app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php
+Hunk #1 succeeded at 538 (offset -6 lines).
+Hunk #2 succeeded at 573 (offset -6 lines).
+Hunk #3 succeeded at 604 (offset -6 lines).
+Hunk #4 succeeded at 615 (offset -6 lines).
+Hunk #5 succeeded at 650 (offset -6 lines).
+Hunk #6 succeeded at 681 (offset -6 lines).
+Hunk #7 succeeded at 730 (offset -6 lines).
+Hunk #8 succeeded at 769 (offset -6 lines).
+Hunk #9 succeeded at 820 (offset -6 lines).
+Hunk #10 succeeded at 843 (offset -6 lines).
+Hunk #11 succeeded at 1409 (offset -6 lines).
+
+
