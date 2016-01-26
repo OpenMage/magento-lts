@@ -57,17 +57,24 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Image
             $uploader->setAllowedExtensions(array('jpg', 'jpeg', 'gif', 'png'));
             $uploader->setAllowRenameFiles(true);
             $uploader->setFilesDispersion(true);
-        } catch (Exception $e){
+            $uploader->addValidateCallback(
+                Mage_Core_Model_File_Validator_Image::NAME,
+                new Mage_Core_Model_File_Validator_Image(),
+                "validate"
+            );
+            $uploader->save(Mage::getBaseDir('media') . '/catalog/product');
+
+            $fileName = $uploader->getUploadedFileName();
+            if ($fileName) {
+                $object->setData($this->getAttribute()->getName(), $fileName);
+                $this->getAttribute()->getEntity()
+                    ->saveAttribute($object, $this->getAttribute()->getName());
+            }
+
+        } catch (Exception $e) {
             return $this;
         }
-        $uploader->save(Mage::getBaseDir('media') . '/catalog/product');
 
-        $fileName = $uploader->getUploadedFileName();
-        if ($fileName) {
-            $object->setData($this->getAttribute()->getName(), $fileName);
-            $this->getAttribute()->getEntity()
-                 ->saveAttribute($object, $this->getAttribute()->getName());
-        }
         return $this;
     }
 }
