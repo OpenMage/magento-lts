@@ -54,14 +54,14 @@
             </captcha_resource>
         </models>
         <events>
-            <controller_action_predispatch_customer_account_loginPost>
+            <controller_action_predispatch_customer_account_loginpost>
                 <observers>
                     <captcha>
                         <class>captcha/observer</class>
                         <method>checkUserLogin</method>
                     </captcha>
                 </observers>
-            </controller_action_predispatch_customer_account_loginPost>
+            </controller_action_predispatch_customer_account_loginpost>
             <controller_action_predispatch_customer_account_forgotpasswordpost>
                 <observers>
                     <captcha>
@@ -94,7 +94,7 @@
                     </captcha>
                 </observers>
             </admin_user_authenticate_before>
-            <controller_action_predispatch_checkout_onepage_saveBilling>
+            <controller_action_predispatch_checkout_onepage_savebilling>
                 <observers>
                     <captcha_guest>
                         <class>captcha/observer</class>
@@ -105,7 +105,7 @@
                         <method>checkRegisterCheckout</method>
                     </captcha_register>
                 </observers>
-            </controller_action_predispatch_checkout_onepage_saveBilling>
+            </controller_action_predispatch_checkout_onepage_savebilling>
             <customer_customer_authenticated>
                 <observers>
                     <captcha_reset_attempt>
