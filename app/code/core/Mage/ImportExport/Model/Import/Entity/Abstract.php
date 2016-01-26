@@ -274,6 +274,9 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
         $maxDataSize = Mage::getResourceHelper('importexport')->getMaxDataSize();
         $bunchSize = Mage::helper('importexport')->getBunchSize();
 
+        /** @var Mage_Core_Helper_Data $coreHelper */
+        $coreHelper = Mage::helper("core");
+
         $source->rewind();
         $this->_dataSourceModel->cleanBunches();
 
@@ -290,7 +293,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
                 if ($this->_errorsCount >= $this->_errorsLimit) { // errors limit check
                     return;
                 }
-                $rowData = $source->current();
+                $rowData = $coreHelper->unEscapeCSVData($source->current());
 
                 $this->_processedRowsCount++;
 
