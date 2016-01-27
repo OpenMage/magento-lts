@@ -54,6 +54,19 @@ class Varien_Image
     }
 
     /**
+     * Destructor
+     */
+    public function __destruct()
+    {
+        if (
+            $this->_adapter instanceof Varien_Image_Adapter_Abstract
+            && method_exists($this->_adapter, 'destruct')
+        ) {
+            $this->_adapter->destruct();
+        }
+    }
+
+    /**
      * Opens an image and creates image handle
      *
      * @access public
