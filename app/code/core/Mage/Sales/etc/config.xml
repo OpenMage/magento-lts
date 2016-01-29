@@ -1218,7 +1218,7 @@
                     </subtotal>
                     <shipping>
                         <class>sales/quote_address_total_shipping</class>
-                        <after>subtotal,freeshipping,tax_subtotal</after>
+                        <after>subtotal,freeshipping,tax_subtotal,msrp</after>
                         <before>grand_total</before>
                     </shipping>
                     <grand_total>
@@ -1227,6 +1227,7 @@
                     </grand_total>
                     <msrp>
                         <class>sales/quote_address_total_msrp</class>
+                        <before>grand_total</before>
                     </msrp>
                 </totals>
                 <nominal_totals>

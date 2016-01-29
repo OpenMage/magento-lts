@@ -132,7 +132,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
         //run validate callbacks
         foreach ($this->_validateCallbacks as $params) {
             if (is_object($params['object']) && method_exists($params['object'], $params['method'])) {
-                $params['object']->$params['method']($filePath);
+                $params['object']->{$params['method']}($filePath);
             }
         }
     }
