@@ -136,6 +136,8 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     {
         if ($order = $this->_initOrder()) {
             try {
+                // FIX. Enable re-sending again - http://magento.stackexchange.com/a/37690/78
+				$order->setEmailSent(false);
                 $order->sendNewOrderEmail();
                 $historyItem = Mage::getResourceModel('sales/order_status_history_collection')
                     ->getUnnotifiedForInstance($order, Mage_Sales_Model_Order::HISTORY_ENTITY_NAME);
