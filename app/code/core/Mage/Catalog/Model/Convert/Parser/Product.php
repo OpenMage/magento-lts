@@ -127,7 +127,7 @@ class Mage_Catalog_Model_Convert_Parser_Product
     {
         if (is_null($this->_productTypes)) {
             $this->_productTypes = Mage::getSingleton('catalog/product_type')
-                ->getOptionArray();
+                ->toOptionArray();
         }
         return $this->_productTypes;
     }

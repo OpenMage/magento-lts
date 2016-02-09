@@ -133,7 +133,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      *
      * @return array
      */
-    static public function getOptionArray()
+    static public function toOptionArray()
     {
         return array(
             self::VISIBILITY_NOT_VISIBLE=> Mage::helper('catalog')->__('Not Visible Individually'),
@@ -150,7 +150,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      */
     static public function getAllOption()
     {
-        $options = self::getOptionArray();
+        $options = self::toOptionArray();
         array_unshift($options, array('value'=>'', 'label'=>''));
         return $options;
     }
@@ -164,7 +164,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
     {
         $res = array();
         $res[] = array('value'=>'', 'label'=> Mage::helper('catalog')->__('-- Please Select --'));
-        foreach (self::getOptionArray() as $index => $value) {
+        foreach (self::toOptionArray() as $index => $value) {
             $res[] = array(
                'value' => $index,
                'label' => $value
@@ -181,7 +181,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      */
     static public function getOptionText($optionId)
     {
-        $options = self::getOptionArray();
+        $options = self::toOptionArray();
         return isset($options[$optionId]) ? $options[$optionId] : null;
     }
 
