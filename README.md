@@ -2,7 +2,7 @@
 
 | Patch | Commit |
 | ----- | ------ |
-| - | - |
+| SUPEE-7405 v1.1 | [43dd9bc](https://github.com/OpenMage/magento-lts/commit/43dd9bc) |
 
 
 # Magento - Long Term Support
