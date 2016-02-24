@@ -57,7 +57,8 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
         'maxredirects'  => CURLOPT_MAXREDIRS,
         'proxy'         => CURLOPT_PROXY,
         'ssl_cert'      => CURLOPT_SSLCERT,
-        'userpwd'       => CURLOPT_USERPWD
+        'userpwd'       => CURLOPT_USERPWD,
+        'ssl_version'   => CURLOPT_SSLVERSION,
     );
 
     /**
