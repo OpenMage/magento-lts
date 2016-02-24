@@ -6,6 +6,7 @@
 | SUPEE-6788 | [284d4d2](https://github.com/OpenMage/magento-lts/commit/284d4d2caa15f40f24a840cd619bb4c31c6321e0) |
 | SUPEE-7616 | [6925cc2](https://github.com/OpenMage/magento-lts/commit/6925cc2) |
 | SUPEE-7405 | [9c88b3e](https://github.com/OpenMage/magento-lts/commit/9c88b3e) |
+| SUPEE-7405 v1.1 | [7035a95](https://github.com/OpenMage/magento-lts/commit/7035a95) |
 
 # Magento - Long Term Support
 
