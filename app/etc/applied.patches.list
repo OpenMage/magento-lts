@@ -150,3 +150,10 @@ patching file lib/Varien/File/Uploader.php
 patching file lib/Varien/Io/File.php
 
 
+2016-02-24 18:42:06 UTC | SUPEE-7405 | CE_1.9.2.0 | v1.1 | 6f0af734aa2abc30aaa06094708c36837f57ed31 | Fri Feb 5 13:29:05 2016 +0200 | bd429ded7ca8bed10ba4338d5edc251e56906621..6f0af734aa2abc30aaa06094708c36837f57ed31
+patching file app/code/core/Mage/Adminhtml/Helper/Sales.php
+patching file app/code/core/Mage/Core/Model/Config.php
+patching file app/code/core/Mage/Sales/Model/Quote/Item.php
+patching file lib/Varien/File/Uploader.php
+
+
