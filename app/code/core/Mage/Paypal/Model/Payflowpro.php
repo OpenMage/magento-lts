@@ -389,6 +389,7 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
             'verifypeer' => $this->getConfigData('verify_peer')
         );
 
+        //checking proxy
         $_isProxy = $this->getConfigData('use_proxy', false);
         if ($_isProxy) {
             $_config['proxy'] = $this->getConfigData('proxy_host')
