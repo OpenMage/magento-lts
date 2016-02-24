@@ -79,3 +79,10 @@ patching file lib/Varien/File/Uploader.php
 patching file lib/Varien/Io/File.php
 
 
+2016-02-24 18:36:08 UTC | SUPEE-7405 | CE_1.9.2.2 | v1.1 | 078b1a16b85f3d060359f4ad66f369b09d60adb6 | Fri Feb 5 13:29:52 2016 +0200 | 4d945a4014f384b275cad0d00729478c7fd2266d..078b1a16b85f3d060359f4ad66f369b09d60adb6
+patching file app/code/core/Mage/Adminhtml/Helper/Sales.php
+patching file app/code/core/Mage/Core/Model/Config.php
+patching file app/code/core/Mage/Sales/Model/Quote/Item.php
+patching file lib/Varien/File/Uploader.php
+
+
