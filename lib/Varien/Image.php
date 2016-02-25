@@ -54,6 +54,15 @@ class Varien_Image
     }
 
     /**
+     * Class destructor
+     * @return void
+     */
+    function __destruct()
+    {
+        $this->close();
+    }
+
+    /**
      * Opens an image and creates image handle
      *
      * @access public
@@ -68,6 +77,18 @@ class Varien_Image
         }
 
         $this->_getAdapter()->open($this->_fileName);
+    }
+
+    /**
+     * Free resources
+     *
+     * @return void
+     */
+    public function close() {
+        $adapter = $this->_getAdapter();
+        if ($this->_fileName && method_exists($adapter, 'destruct')) {
+            $adapter->destruct();
+        }
     }
 
     /**

@@ -639,7 +639,13 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
         }
 
         $_processor = new Varien_Image($filePath);
-        return $_processor->getMimeType() !== null;
+        $result = $_processor->getMimeType() !== null;
+
+        // free resources to prevent memory leaks
+        $_processor->close();
+        unset($_processor);
+
+        return $result;
     }
 
 }
