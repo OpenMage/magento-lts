@@ -957,14 +957,6 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                 if ($this->getShippingMethod() == $rate->getCode()) {
                     if ($item) {
                         $item->setBaseShippingAmount($rate->getPrice());
-                    } else {
-                        /**
-                         * possible bug: this should be setBaseShippingAmount(),
-                         * see Mage_Sales_Model_Quote_Address_Total_Shipping::collect()
-                         * where this value is set again from the current specified rate price
-                         * (looks like a workaround for this bug)
-                         */
-                        $this->setShippingAmount($rate->getPrice());
                     }
 
                     $found = true;
