@@ -302,6 +302,28 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
                 }
             }
 
+            /**
+            * Mage 1.9+ fix for configurable attribute options not sorting to position
+            **/
+            $sortOrder = 1;
+            foreach ($this->_items as $item) {
+               $productAttribute = $item->getProductAttribute();
+               if (!($productAttribute instanceof Mage_Eav_Model_Entity_Attribute_Abstract)) {
+                   continue;
+               }
+               $options = $productAttribute->getFrontend()->getSelectOptions();
+               foreach ($options as $option) {
+                   if (!$option['value']) continue;
+                   if (isset($values[$item->getId() . ':' . $option['value']])) {
+                       $values[$item->getId() . ':' . $option['value']]['order'] = $sortOrder++;
+                   }
+               }
+            }
+            usort($values, function($a, $b) {
+               return $a['order'] - $b['order'];
+            });
+
+
             foreach ($values as $data) {
                 $this->getItemById($data['product_super_attribute_id'])->addPrice($data);
             }
