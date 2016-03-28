@@ -244,8 +244,9 @@ abstract class Varien_Image_Adapter_Abstract
                     return;
                 }
             }
+            $this->_backgroundColor = $value;
         }
-        $this->_backgroundColor = $value;
+        
         return $this->_backgroundColor;
     }
 
