@@ -176,6 +176,14 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     protected $_canUseLocalModules = null;
 
     /**
+     * Flag which is used to prevent cache corruption 
+     * Coding suggestion comes from: https://github.com/convenient/magento-ce-ee-config-corruption-bug/blob/master/IMPROVEMENTS.md
+     *
+     * @var bool
+     */
+    protected $allowSaveCache = false;
+
+    /**
      * Active modules array per namespace
      * @var array
      */
@@ -346,10 +354,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      *
      * @return Mage_Core_Model_Config
      */
-    
-    // Added cache check referenced here https://github.com/convenient/magento-ce-ee-config-corruption-bug/blob/master/IMPROVEMENTS.md
-    protected $allowSaveCache = false;
-    
     public function loadDb()
     {
         if ($this->_isLocalConfigLoaded && Mage::isInstalled()) {
@@ -450,7 +454,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     public function saveCache($tags=array())
     {
-        // Added cache check referenced here https://github.com/convenient/magento-ce-ee-config-corruption-bug/blob/master/IMPROVEMENTS.md
         if (!$this->allowSaveCache) {
             return $this;
         }
@@ -484,8 +487,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         }
         unset($this->_cachePartsForSave);
         $this->_removeCache($cacheLockId);
-        // change referenced here: https://github.com/convenient/magento-ce-ee-config-corruption-bug/blob/master/IMPROVEMENTS.md
-        $this->_allowCacheForInit = true; // 
+        $this->_allowCacheForInit = true; 
         return $this;
     }
 
