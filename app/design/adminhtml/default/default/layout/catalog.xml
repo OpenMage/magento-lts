@@ -28,9 +28,9 @@
 
 <layout>
     <adminhtml_catalog_product_index>
-        <referense name="head">
+        <reference name="head">
             <action method="setTitle" translate="title"><title>Catalog</title></action>
-        </referense>
+        </reference>
         <reference name="menu">
             <action method="setActive"><menupath>catalog/products</menupath></action>
         </reference>
