@@ -317,6 +317,7 @@ class Mage_Cron_Model_Observer
                 though running status is set in tryLockJob we must set it here because the object
                 was loaded with a pending status and will set it back to pending if we don't set it here
                  */
+                 $schedule->setStatus(Mage_Cron_Model_Schedule::STATUS_RUNNING);
             }
 
             $schedule
