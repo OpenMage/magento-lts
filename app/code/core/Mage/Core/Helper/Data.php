@@ -656,6 +656,14 @@ XML;
      */
     public function jsonDecode($encodedValue, $objectDecodeType = Zend_Json::TYPE_ARRAY)
     {
+        switch (true) {
+            case (null === $encodedValue)  : $encodedValue = 'null'; break;
+            case (true === $encodedValue)  : $encodedValue = 'true'; break;
+            case (false === $encodedValue) : $encodedValue = 'false'; break;
+            case ('' === $encodedValue)    : $encodedValue = '""'; break;
+            default    : // do nothing
+        }
+        
         return Zend_Json::decode($encodedValue, $objectDecodeType);
     }
 
