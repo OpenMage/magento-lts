@@ -144,6 +144,16 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Retrieve option array
+     *
+     * @return array
+     */
+    static public function toOptionArray()
+    {
+        return self::getOptionArray();
+    }
+
+    /**
      * Retrieve option array with empty value
      *
      * @return array

@@ -144,6 +144,16 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
     }
 
     /**
+     * Retrieve option array
+     *
+     * @return array
+     */
+    static public function toOptionArray()
+    {
+        return self::getOptionArray();
+    }
+
+     /**
      * Retrieve all options
      *
      * @return array
