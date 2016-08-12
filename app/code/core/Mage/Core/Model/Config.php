@@ -256,6 +256,11 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         if ($cacheLoad) {
             return $this;
         }
+        
+        //100 Router Fix Start
+		$this->_useCache = false;
+		//100 Router Fix End
+        
         $this->loadModules();
         $this->loadDb();
         $this->saveCache();
