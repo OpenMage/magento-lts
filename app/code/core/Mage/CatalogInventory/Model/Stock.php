@@ -162,7 +162,6 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
         Mage::dispatchEvent(self::EVENT_CORRECT_STOCK_ITEMS_QTY_AFTER, array(
         'stock'          => $this,
         'items'          => $items,
-        'fullsave_items' => $result,
         'operator'       => '+'
         ));
         
@@ -185,7 +184,6 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
         Mage::dispatchEvent(self::EVENT_CORRECT_STOCK_ITEMS_QTY_BEFORE, array(
         'stock'          => $this,
         'items'          => $items,
-        'fullsave_items' => $result,
         'operator'       => '-'
         ));
         return $this;
