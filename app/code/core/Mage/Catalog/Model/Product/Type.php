@@ -115,6 +115,16 @@ class Mage_Catalog_Model_Product_Type
         return $options;
     }
 
+    /**
+     * Retrieve option array
+     *
+     * @return array
+     */
+    static public function toOptionArray()
+    {
+        return self::getOptionArray();
+    }
+
     static public function getAllOption()
     {
         $options = self::getOptionArray();
