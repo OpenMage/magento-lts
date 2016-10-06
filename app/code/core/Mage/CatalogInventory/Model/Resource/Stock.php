@@ -131,11 +131,24 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
         $productTable = $this->getTable('catalog/product');
         $select = $this->_getWriteAdapter()->select()
             ->from(array('si' => $itemTable))
-            ->join(array('p' => $productTable), 'p.entity_id=si.product_id', array('type_id'))
             ->where('stock_id=?', $stock->getId())
             ->where('product_id IN(?)', $productIds)
             ->forUpdate($lockRows);
-        return $this->_getWriteAdapter()->fetchAll($select);
+        $rows = $this->_getWriteAdapter()->fetchAll($select);
+
+        // Add type_id to result using separate select without FOR UPDATE instead
+        // of a join which causes only an S lock on catalog_product_entity rather
+        // than an X lock. An X lock on a table causes an S lock on all foreign keys
+        // so using a separate query here significantly reduces the number of
+        // unnecessarily locked rows in other tables, thereby avoiding deadlocks.
+        $select = $this->_getWriteAdapter()->select()
+            ->from($productTable, ['entity_id', 'type_id'])
+            ->where('entity_id IN(?)', $productIds);
+        $typeIds = $this->_getWriteAdapter()->fetchPairs($select);
+        foreach ($rows as $row) {
+            $row['type_id'] = $typeIds[$row['product_id']];
+        }
+        return $rows;
     }
 
     /**
