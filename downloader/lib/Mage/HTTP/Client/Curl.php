@@ -374,7 +374,7 @@ implements Mage_HTTP_IClient
         $this->_ch = curl_init();
         $this->curlOption(CURLOPT_URL, $uriModified);
         $this->curlOption(CURLOPT_SSL_VERIFYPEER, false);
-        $this->curlOption(CURLOPT_SSL_CIPHER_LIST, 'TLSv1');
+        $this->curlOption(CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1);
         $this->getCurlMethodSettings($method, $params, $isAuthorizationRequired);
 
         if(count($this->_headers)) {
