@@ -186,9 +186,12 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
         $file = Mage::helper('cms/wysiwyg_images')->idDecode($file);
         $thumb = $this->getStorage()->resizeOnTheFly($file);
         if ($thumb !== false) {
+            ob_start();
             $image = Varien_Image_Adapter::factory('GD2');
             $image->open($thumb);
             $image->display();
+            $this->getResponse()->setHeader('Content-type', $image->getMimeType(), true);
+            $this->getResponse()->setBody(ob_get_clean());
         } else {
             // todo: genearte some placeholder
         }
