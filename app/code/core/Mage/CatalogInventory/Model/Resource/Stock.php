@@ -142,7 +142,7 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
         // so using a separate query here significantly reduces the number of
         // unnecessarily locked rows in other tables, thereby avoiding deadlocks.
         $select = $this->_getWriteAdapter()->select()
-            ->from($productTable, ['entity_id', 'type_id'])
+            ->from($productTable, array('entity_id', 'type_id'))
             ->where('entity_id IN(?)', $productIds);
         $typeIds = $this->_getWriteAdapter()->fetchPairs($select);
         foreach ($rows as &$row) {
