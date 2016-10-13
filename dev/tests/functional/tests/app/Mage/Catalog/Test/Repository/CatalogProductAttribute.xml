@@ -27,13 +27,20 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/Magento/Mtf/Repository/etc/repository.xsd">
     <repository class="Mage\Catalog\Test\Repository\CatalogProductAttribute">
+        <dataset name="default">
+            <field name="attribute_code" xsi:type="string">attribute_label%isolation%</field>
+            <field name="frontend_label" xsi:type="string">attribute_label%isolation%</field>
+            <field name="frontend_input" xsi:type="string">Text Field</field>
+            <field name="is_required" xsi:type="string">No</field>
+        </dataset>
+
         <dataset name="attribute_type_dropdown">
             <field name="frontend_label" xsi:type="string">attribute_dropdown%isolation%</field>
             <field name="attribute_code" xsi:type="string">attribute_dropdown%isolation%</field>
             <field name="frontend_input" xsi:type="string">Select/Dropdown</field>
             <field name="is_configurable" xsi:type="string">Yes</field>
             <field name="options" xsi:type="array">
-                <item name="preset" xsi:type="string">with_three_options</item>
+                <item name="dataset" xsi:type="string">with_three_options</item>
             </field>
         </dataset>
 
@@ -44,7 +51,7 @@
             <field name="is_configurable" xsi:type="string">Yes</field>
             <field name="is_filterable" xsi:type="string">Filterable (with results)</field>
             <field name="options" xsi:type="array">
-                <item name="preset" xsi:type="string">with_three_options</item>
+                <item name="dataset" xsi:type="string">with_three_options</item>
             </field>
         </dataset>
 

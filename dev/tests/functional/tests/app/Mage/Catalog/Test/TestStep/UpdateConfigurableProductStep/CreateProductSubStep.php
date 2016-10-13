@@ -129,7 +129,7 @@ class CreateProductSubStep extends AbstractSubStep
     protected function getCreationData($creationType)
     {
         return [
-            'preset' => $this->configurableOptionsEditData['createProduct'][$creationType]['preset'],
+            'dataset' => $this->configurableOptionsEditData['createProduct'][$creationType]['dataset'],
             'data' => [
                 'attributes_data' => [
                     'attributes' => $this->currentAttributes,
@@ -160,7 +160,15 @@ class CreateProductSubStep extends AbstractSubStep
     {
         return $this->objectManager->create(
             'Mage\Catalog\Test\Fixture\ConfigurableProduct\ConfigurableOptions',
-            ['data' => $data]
+            [
+                'data' => $data,
+                'params' => [
+                    'is_required' => '0',
+                    'group' => 'configurable',
+                    'source' => 'Mage\Catalog\Test\Fixture\ConfigurableProduct\ConfigurableOptions',
+                    'repository' => 'Mage\Catalog\Test\Repository\CatalogProductConfigurable\ConfigurableOptions'
+                ]
+            ]
         );
     }
 }

@@ -26,7 +26,7 @@
  */
  -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/etc/pages.xsd">
-  <page name="SalesShipment" area="Adminhtml" mca="sales_shipment" module="Mage_Shipping">
-    <block name="grid" class="Mage\Adminhtml\Test\Block\Shipping\Grid" locator="#sales_shipment_grid" strategy="css selector"/>
-  </page>
+    <page name="SalesShipment" area="Adminhtml" mca="sales_shipment" module="Mage_Shipping">
+        <block name="grid" class="Mage\Adminhtml\Test\Block\Shipping\Grid" locator="#sales_shipment_grid" strategy="css selector"/>
+    </page>
 </config>

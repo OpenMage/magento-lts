@@ -31,7 +31,7 @@ Checkout.prototype = {
         this.saveMethodUrl = urls.saveMethod;
         this.failureUrl = urls.failure;
         this.billingForm = false;
-        this.shippingForm= false;
+        this.shippingForm = false;
         this.syncBillingShipping = false;
         this.method = '';
         this.payment = '';
@@ -53,7 +53,7 @@ Checkout.prototype = {
      * @param event
      */
     _onSectionClick: function(event) {
-        var section = $(Event.element(event).up().up());
+        var section = $(Event.element(event).up('.section'));
         if (section.hasClassName('allow')) {
             Event.stop(event);
             this.gotoSection(section.readAttribute('id').replace('opc-', ''), false);
@@ -62,7 +62,7 @@ Checkout.prototype = {
     },
 
     ajaxFailure: function(){
-        location.href = this.failureUrl;
+        location.href = encodeURI(this.failureUrl);
     },
 
     reloadProgressBlock: function(toStep) {
@@ -85,7 +85,7 @@ Checkout.prototype = {
     },
 
     reloadReviewBlock: function(){
-        var updater = new Ajax.Updater('checkout-review-load', this.reviewUrl, {method: 'get', onFailure: this.ajaxFailure.bind(this)});
+        new Ajax.Updater('checkout-review-load', this.reviewUrl, {method: 'get', onFailure: this.ajaxFailure.bind(this)});
     },
 
     _disableEnableAll: function(element, isDisabled) {
@@ -97,18 +97,19 @@ Checkout.prototype = {
     },
 
     setLoadWaiting: function(step, keepDisabled) {
+        var container;
         if (step) {
             if (this.loadWaiting) {
                 this.setLoadWaiting(false);
             }
-            var container = $(step+'-buttons-container');
+            container = $(step+'-buttons-container');
             container.addClassName('disabled');
             container.setStyle({opacity:.5});
             this._disableEnableAll(container, true);
             Element.show(step+'-please-wait');
         } else {
             if (this.loadWaiting) {
-                var container = $(this.loadWaiting+'-buttons-container');
+                container = $(this.loadWaiting+'-buttons-container');
                 var isDisabled = (keepDisabled ? true : false);
                 if (!isDisabled) {
                     container.removeClassName('disabled');
@@ -144,16 +145,10 @@ Checkout.prototype = {
             var progressDiv = nextStep + '-progress-opcheckout';
             if ($(progressDiv)) {
                 //Remove the link
-                $(progressDiv).select('.changelink').each(function (item) {
-                    item.remove();
-                });
-                $(progressDiv).select('dt').each(function (item) {
-                    item.removeClassName('complete');
-                });
+                $(progressDiv).select('.changelink').invoke('remove');
+                $(progressDiv).select('dt').invoke('removeClassName','complete');
                 //Remove the content
-                $(progressDiv).select('dd.complete').each(function (item) {
-                    item.remove();
-                });
+                $(progressDiv).select('dd.complete').invoke('remove');
             }
         }
     },
@@ -166,7 +161,7 @@ Checkout.prototype = {
     setMethod: function(){
         if ($('login:guest') && $('login:guest').checked) {
             this.method = 'guest';
-            var request = new Ajax.Request(
+            new Ajax.Request(
                 this.saveMethodUrl,
                 {method: 'post', onFailure: this.ajaxFailure.bind(this), parameters: {method:'guest'}}
             );
@@ -175,7 +170,7 @@ Checkout.prototype = {
         }
         else if($('login:register') && ($('login:register').checked || $('login:register').type == 'hidden')) {
             this.method = 'register';
-            var request = new Ajax.Request(
+            new Ajax.Request(
                 this.saveMethodUrl,
                 {method: 'post', onFailure: this.ajaxFailure.bind(this), parameters: {method:'register'}}
             );
@@ -279,12 +274,12 @@ Checkout.prototype = {
             return true;
         }
         if (response.redirect) {
-            location.href = response.redirect;
+            location.href = encodeURI(response.redirect);
             return true;
         }
         return false;
     }
-}
+};
 
 // billing
 var Billing = Class.create();
@@ -303,7 +298,7 @@ Billing.prototype = {
 
     setAddress: function(addressId){
         if (addressId) {
-            request = new Ajax.Request(
+            new Ajax.Request(
                 this.addressUrl+addressId,
                 {method:'get', onSuccess: this.onAddressLoad, onFailure: checkout.ajaxFailure.bind(checkout)}
             );
@@ -323,32 +318,26 @@ Billing.prototype = {
     },
 
     resetSelectedAddress: function(){
-        var selectElement = $('billing-address-select')
+        var selectElement = $('billing-address-select');
         if (selectElement) {
             selectElement.value='';
         }
     },
 
     fillForm: function(transport){
-        var elementValues = {};
-        if (transport && transport.responseText){
-            try{
-                elementValues = eval('(' + transport.responseText + ')');
-            }
-            catch (e) {
-                elementValues = {};
-            }
-        }
-        else{
+        var elementValues = transport.responseJSON || transport.responseText.evalJSON(true) || {};
+        if (!transport && !Object.keys(elementValues).length){
             this.resetSelectedAddress();
         }
-        arrElements = Form.getElements(this.form);
+        var arrElements = Form.getElements(this.form);
         for (var elemIndex in arrElements) {
-            if (arrElements[elemIndex].id) {
-                var fieldName = arrElements[elemIndex].id.replace(/^billing:/, '');
-                arrElements[elemIndex].value = elementValues[fieldName] ? elementValues[fieldName] : '';
-                if (fieldName == 'country_id' && billingForm){
-                    billingForm.elementChildLoad(arrElements[elemIndex]);
+            if(arrElements.hasOwnProperty(elemIndex)) {
+                if (arrElements[elemIndex].id) {
+                    var fieldName = arrElements[elemIndex].id.replace(/^billing:/, '');
+                    arrElements[elemIndex].value = elementValues[fieldName] ? elementValues[fieldName] : '';
+                    if (fieldName == 'country_id' && billingForm){
+                        billingForm.elementChildLoad(arrElements[elemIndex]);
+                    }
                 }
             }
         }
@@ -369,7 +358,7 @@ Billing.prototype = {
 //                $('billing:use_for_shipping').value=1;
 //            }
 
-            var request = new Ajax.Request(
+            new Ajax.Request(
                 this.saveUrl,
                 {
                     method: 'post',
@@ -392,37 +381,36 @@ Billing.prototype = {
      There are 3 options: error, redirect or html with shipping options.
      */
     nextStep: function(transport){
-        if (transport && transport.responseText){
-            try{
-                response = eval('(' + transport.responseText + ')');
-            }
-            catch (e) {
-                response = {};
-            }
-        }
+        var response = transport.responseJSON || transport.responseText.evalJSON(true) || {};
 
         if (response.error){
-            if ((typeof response.message) == 'string') {
-                alert(response.message);
+            if (Object.isString(response.message)) {
+                alert(response.message.stripTags().toString());
             } else {
                 if (window.billingRegionUpdater) {
                     billingRegionUpdater.update();
                 }
 
-                alert(response.message.join("\n"));
+                var msg = response.message;
+                if(Object.isArray(msg)) {
+                    alert(msg.join("\n"));
+                }
+                alert(msg.stripTags().toString());
             }
 
             return false;
         }
 
         checkout.setStepResponse(response);
-        payment.initWhatIsCvvListeners();
+        if(payment) {
+            payment.initWhatIsCvvListeners();
+        }
         // DELETE
         //alert('error: ' + response.error + ' / redirect: ' + response.redirect + ' / shipping_methods_html: ' + response.shipping_methods_html);
         // This moves the accordion panels of one page checkout and updates the checkout progress
         //checkout.setBilling();
     }
-}
+};
 
 // shipping
 var Shipping = Class.create();
@@ -442,7 +430,7 @@ Shipping.prototype = {
 
     setAddress: function(addressId){
         if (addressId) {
-            request = new Ajax.Request(
+            new Ajax.Request(
                 this.addressUrl+addressId,
                 {method:'get', onSuccess: this.onAddressLoad, onFailure: checkout.ajaxFailure.bind(checkout)}
             );
@@ -463,32 +451,26 @@ Shipping.prototype = {
     },
 
     resetSelectedAddress: function(){
-        var selectElement = $('shipping-address-select')
+        var selectElement = $('shipping-address-select');
         if (selectElement) {
             selectElement.value='';
         }
     },
 
     fillForm: function(transport){
-        var elementValues = {};
-        if (transport && transport.responseText){
-            try{
-                elementValues = eval('(' + transport.responseText + ')');
-            }
-            catch (e) {
-                elementValues = {};
-            }
-        }
-        else{
+        var elementValues = transport.responseJSON || transport.responseText.evalJSON(true) || {};
+        if (!transport && !Object.keys(elementValues).length) {
             this.resetSelectedAddress();
         }
-        arrElements = Form.getElements(this.form);
+        var arrElements = Form.getElements(this.form);
         for (var elemIndex in arrElements) {
-            if (arrElements[elemIndex].id) {
-                var fieldName = arrElements[elemIndex].id.replace(/^shipping:/, '');
-                arrElements[elemIndex].value = elementValues[fieldName] ? elementValues[fieldName] : '';
-                if (fieldName == 'country_id' && shippingForm){
-                    shippingForm.elementChildLoad(arrElements[elemIndex]);
+            if(arrElements.hasOwnProperty(elemIndex)) {
+                if (arrElements[elemIndex].id) {
+                    var fieldName = arrElements[elemIndex].id.replace(/^shipping:/, '');
+                    arrElements[elemIndex].value = elementValues[fieldName] ? elementValues[fieldName] : '';
+                    if (fieldName == 'country_id' && shippingForm){
+                        shippingForm.elementChildLoad(arrElements[elemIndex]);
+                    }
                 }
             }
         }
@@ -535,7 +517,7 @@ Shipping.prototype = {
         var validator = new Validation(this.form);
         if (validator.validate()) {
             checkout.setLoadWaiting('shipping');
-            var request = new Ajax.Request(
+            new Ajax.Request(
                 this.saveUrl,
                 {
                     method:'post',
@@ -548,27 +530,25 @@ Shipping.prototype = {
         }
     },
 
-    resetLoadWaiting: function(transport){
+    resetLoadWaiting: function(){
         checkout.setLoadWaiting(false);
     },
 
     nextStep: function(transport){
-        if (transport && transport.responseText){
-            try{
-                response = eval('(' + transport.responseText + ')');
-            }
-            catch (e) {
-                response = {};
-            }
-        }
+        var response = transport.responseJSON || transport.responseText.evalJSON(true) || {};
+
         if (response.error){
-            if ((typeof response.message) == 'string') {
-                alert(response.message);
+            if (Object.isString(response.message)) {
+                alert(response.message.stripTags().toString());
             } else {
                 if (window.shippingRegionUpdater) {
                     shippingRegionUpdater.update();
                 }
-                alert(response.message.join("\n"));
+                var msg = response.message;
+                if(Object.isArray(msg)) {
+                    alert(msg.join("\n"));
+                }
+                alert(msg.stripTags().toString());
             }
 
             return false;
@@ -585,7 +565,7 @@ Shipping.prototype = {
          */
         //checkout.setShipping();
     }
-}
+};
 
 // shipping method
 var ShippingMethod = Class.create();
@@ -626,7 +606,7 @@ ShippingMethod.prototype = {
         if (checkout.loadWaiting!=false) return;
         if (this.validate()) {
             checkout.setLoadWaiting('shipping-method');
-            var request = new Ajax.Request(
+            new Ajax.Request(
                 this.saveUrl,
                 {
                     method:'post',
@@ -644,17 +624,10 @@ ShippingMethod.prototype = {
     },
 
     nextStep: function(transport){
-        if (transport && transport.responseText){
-            try{
-                response = eval('(' + transport.responseText + ')');
-            }
-            catch (e) {
-                response = {};
-            }
-        }
+        var response = transport.responseJSON || transport.responseText.evalJSON(true) || {};
 
         if (response.error) {
-            alert(response.message);
+            alert(response.message.stripTags().toString());
             return false;
         }
 
@@ -676,7 +649,7 @@ ShippingMethod.prototype = {
 
         checkout.setShippingMethod();
     }
-}
+};
 
 
 // payment
@@ -845,7 +818,7 @@ Payment.prototype = {
         var validator = new Validation(this.form);
         if (this.validate() && validator.validate()) {
             checkout.setLoadWaiting('payment');
-            var request = new Ajax.Request(
+            new Ajax.Request(
                 this.saveUrl,
                 {
                     method:'post',
@@ -863,14 +836,8 @@ Payment.prototype = {
     },
 
     nextStep: function(transport){
-        if (transport && transport.responseText){
-            try{
-                response = eval('(' + transport.responseText + ')');
-            }
-            catch (e) {
-                response = {};
-            }
-        }
+        var response = transport.responseJSON || transport.responseText.evalJSON(true) || {};
+
         /*
          * if there is an error in payment, need to show error message
          */
@@ -885,10 +852,10 @@ Payment.prototype = {
                 }
                 return;
             }
-            if (typeof(response.message) == 'string') {
-                alert(response.message);
+            if (Object.isString(response.message)) {
+                alert(response.message.stripTags().toString());
             } else {
-                alert(response.error);
+                alert(response.error.stripTags().toString());
             }
             return;
         }
@@ -903,7 +870,7 @@ Payment.prototype = {
             Event.observe(element, 'click', toggleToolTip);
         });
     }
-}
+};
 
 var Review = Class.create();
 Review.prototype = {
@@ -923,7 +890,7 @@ Review.prototype = {
             params += '&'+Form.serialize(this.agreementsForm);
         }
         params.save = true;
-        var request = new Ajax.Request(
+        new Ajax.Request(
             this.saveUrl,
             {
                 method:'post',
@@ -940,26 +907,22 @@ Review.prototype = {
     },
 
     nextStep: function(transport){
-        if (transport && transport.responseText) {
-            try{
-                response = eval('(' + transport.responseText + ')');
-            }
-            catch (e) {
-                response = {};
-            }
+        if (transport) {
+            var response = transport.responseJSON || transport.responseText.evalJSON(true) || {};
+
             if (response.redirect) {
                 this.isSuccess = true;
-                location.href = response.redirect;
+                location.href = encodeURI(response.redirect);
                 return;
             }
             if (response.success) {
                 this.isSuccess = true;
-                window.location=this.successUrl;
+                location.href = encodeURI(this.successUrl);
             }
             else{
                 var msg = response.error_messages;
-                if (typeof(msg)=='object') {
-                    msg = msg.join("\n");
+                if (Object.isArray(msg)) {
+                    msg = msg.join("\n").stripTags().toString();
                 }
                 if (msg) {
                     alert(msg);
@@ -977,4 +940,4 @@ Review.prototype = {
     },
 
     isSuccess: false
-}
+};

@@ -30,6 +30,7 @@
         <allow>
             <class value="Mage\Checkout\Test\TestCase\OnePageCheckoutTest" />
             <class value="Mage\Checkout\Test\TestCase\OnePageCheckoutWithinOnlineShippingMethods" />
+            <class value="Mage\Checkout\Test\TestCase\OnePageCheckoutWithinDhlShippingMethod" />
             <class value="Mage\Downloadable\Test\TestCase\CreateDownloadableProductEntityTest" />
             <class value="Mage\Downloadable\Test\TestCase\TaxCalculationForDownloadableProductTest" />
             <class value="Mage\SalesRule\Test\TestCase\CreateSalesRuleEntityTest" />

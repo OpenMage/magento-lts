@@ -220,12 +220,12 @@ function reRenderTree(event, switcher)
 
         // load from cache
         // load from ajax
-        new Ajax.Request(url + (url.match(new RegExp('\\?')) ? '&isAjax=true' : '?isAjax=true' ), {
-            parameters : {store: newStoreId, form_key: FORM_KEY},
+        new Ajax.Request(url, {
+            parameters : {store: newStoreId, form_key: FORM_KEY, isAjax: 1},
             method     : 'post',
             onComplete : function(transport) {
-                var response = eval('(' + transport.responseText + ')');
-                if (!response['parameters']) {
+                var response = transport.responseJSON || transport.responseText.evalJSON(true) || {};
+                if (!response.parameters) {
                     return false;
                 }
 
@@ -242,7 +242,7 @@ function reRenderTree(event, switcher)
 function _renderNewTree(config, storeParam)
 {
     if (!config) {
-        var config = defaultLoadTreeParams;
+        config = defaultLoadTreeParams;
     }
     if (tree) {
         tree.purgeListeners();
@@ -442,7 +442,7 @@ function categoryMove(obj)
                 if(o.responseText==='SUCCESS'){
                     categoryForm.refreshPath();
                 } else {
-                    alert(o.responseText);
+                    alert(o.responseText.stripTags().toString());
                     location.reload();
                 }
             }

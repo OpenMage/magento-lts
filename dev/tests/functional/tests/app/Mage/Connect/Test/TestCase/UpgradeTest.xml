@@ -26,7 +26,7 @@
  */
  -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Connect\Test\TestCase\UpgradeTest">
+    <testCase name="Mage\Connect\Test\TestCase\UpgradeTest" summary="UpgradeTest">
         <variation name="UpgradeTestVariation1">
             <data name="description" xsi:type="string">Upgrade</data>
             <data name="tag" xsi:type="string">test_type:upgrade</data>

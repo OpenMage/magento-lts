@@ -26,7 +26,7 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/etc/pages.xsd">
-  <page name="DeleteWebsite" area="Adminhtml" mca="system_store/deleteWebsite" module="Mage_Adminhtml">
-    <block name="form" class="Mage\Adminhtml\Test\Block\System\Store\Delete\Website" locator="[id='page:main-container']" strategy="css selector"/>
-  </page>
+    <page name="DeleteWebsite" area="Adminhtml" mca="system_store/deleteWebsite" module="Mage_Adminhtml">
+        <block name="form" class="Mage\Adminhtml\Test\Block\System\Store\Delete\Website" locator="[id='page:main-container']" strategy="css selector"/>
+    </page>
 </config>

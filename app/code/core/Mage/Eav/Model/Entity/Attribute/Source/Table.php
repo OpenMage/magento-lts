@@ -152,7 +152,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
 
         if (Mage::helper('core')->useDbCompatibleMode()) {
             $columns[$attributeCode] = array(
-                'type'      => $isMulti ? 'varchar(255)' : 'int',
+                'type'      => $isMulti ? 'text' : 'int',
                 'unsigned'  => false,
                 'is_null'   => true,
                 'default'   => null,
@@ -171,7 +171,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
             $type = ($isMulti) ? Varien_Db_Ddl_Table::TYPE_TEXT : Varien_Db_Ddl_Table::TYPE_INTEGER;
             $columns[$attributeCode] = array(
                 'type'      => $type,
-                'length'    => $isMulti ? '255' : null,
+                'length'    => $isMulti ? '65535' : null,
                 'unsigned'  => false,
                 'nullable'   => true,
                 'default'   => null,

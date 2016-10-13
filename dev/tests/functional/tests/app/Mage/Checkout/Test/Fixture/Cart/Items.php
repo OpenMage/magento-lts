@@ -26,6 +26,7 @@
 
 namespace Mage\Checkout\Test\Fixture\Cart;
 
+use Magento\Mtf\Fixture\DataSource;
 use Magento\Mtf\Fixture\FixtureInterface;
 use Magento\Mtf\ObjectManager;
 
@@ -35,7 +36,7 @@ use Magento\Mtf\ObjectManager;
  * Data keys:
  *  - product (fixture data for verify)
  */
-class Items implements FixtureInterface
+class Items extends DataSource
 {
     /**
      * Item render.
@@ -50,20 +51,6 @@ class Items implements FixtureInterface
         'grouped' => 'Mage\Catalog\Test\Fixture\GroupedProduct\Cart\Item',
         'bundle' => 'Mage\Bundle\Test\Fixture\Cart\Item'
     ];
-
-    /**
-     * Data set configuration settings.
-     *
-     * @var array
-     */
-    protected $params;
-
-    /**
-     * Prepared dataSet data.
-     *
-     * @var array
-     */
-    protected $data = [];
 
     /**
      * List fixture products.
@@ -96,39 +83,6 @@ class Items implements FixtureInterface
     {
         $typeId = $product->getDataConfig()['type_id'];
         return ObjectManager::getInstance()->create($this->itemRender[$typeId], ['product' => $product]);
-    }
-
-    /**
-     * Persist fixture.
-     *
-     * @return void
-     */
-    public function persist()
-    {
-        //
-    }
-
-    /**
-     * Return prepared data set.
-     *
-     * @param string $key [optional]
-     * @return mixed
-     *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    public function getData($key = null)
-    {
-        return $this->data;
-    }
-
-    /**
-     * Return data set configuration settings.
-     *
-     * @return string
-     */
-    public function getDataConfig()
-    {
-        return $this->params;
     }
 
     /**

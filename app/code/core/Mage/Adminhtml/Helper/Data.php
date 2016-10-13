@@ -31,7 +31,7 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Helper_Data extends Mage_Core_Helper_Abstract
+class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
 {
     const XML_PATH_ADMINHTML_ROUTER_FRONTNAME   = 'admin/routers/adminhtml/args/frontName';
     const XML_PATH_USE_CUSTOM_ADMIN_URL         = 'default/admin/url/use_custom';
@@ -40,15 +40,29 @@ class Mage_Adminhtml_Helper_Data extends Mage_Core_Helper_Abstract
 
     protected $_pageHelpUrl;
 
-    public function getPageHelpUrl()
+    /**
+     * Get mapped help pages url
+     *
+     * @param null|string $url
+     * @param null|string $suffix
+     * @return mixed
+     */
+    public function getPageHelpUrl($url = null, $suffix = null)
     {
         if (!$this->_pageHelpUrl) {
-            $this->setPageHelpUrl();
+            $this->setPageHelpUrl($url, $suffix);
         }
         return $this->_pageHelpUrl;
     }
 
-    public function setPageHelpUrl($url=null)
+    /**
+     * Set help page url
+     *
+     * @param null|string $url
+     * @param null|string $suffix
+     * @return $this
+     */
+    public function setPageHelpUrl($url = null, $suffix = null)
     {
         if (is_null($url)) {
             $request = Mage::app()->getRequest();
@@ -62,11 +76,17 @@ class Mage_Adminhtml_Helper_Data extends Mage_Core_Helper_Abstract
                     $frontModule = $frontModule[0];
                 }
             }
-            $url = 'http://www.magentocommerce.com/gethelp/';
-            $url.= Mage::app()->getLocale()->getLocaleCode().'/';
-            $url.= $frontModule.'/';
-            $url.= $request->getControllerName().'/';
-            $url.= $request->getActionName().'/';
+            $url = "http://merch.docs.magento.com/{$this->getHelpTargetVersion()}/user_guide/";
+
+            $moduleName = $frontModule;
+            $controllerName = $request->getControllerName();
+            $actionName = $request->getActionName() . (!is_null($suffix) ? $suffix : '');
+
+            if ($mappingUrl = $this->findInMapping($moduleName, $controllerName, $actionName)) {
+                $url .= $mappingUrl;
+            } else {
+                $url = 'http://magento.com/help/documentation';
+            }
 
             $this->_pageHelpUrl = $url;
         }
@@ -75,9 +95,15 @@ class Mage_Adminhtml_Helper_Data extends Mage_Core_Helper_Abstract
         return $this;
     }
 
+    /**
+     * Add suffix for help page url
+     *
+     * @param string $suffix
+     * @return $this
+     */
     public function addPageHelpUrl($suffix)
     {
-        $this->_pageHelpUrl = $this->getPageHelpUrl().$suffix;
+        $this->_pageHelpUrl = $this->getPageHelpUrl(null, $suffix);
         return $this;
     }
 

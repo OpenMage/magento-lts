@@ -1255,7 +1255,11 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if (!$asObject) {
             return $shippingMethod;
         } else {
-            list($carrierCode, $method) = explode('_', $shippingMethod, 2);
+            $segments = explode('_', $shippingMethod, 2);
+            if (!isset($segments[1])) {
+                $segments[1] = $segments[0];
+            }
+            list($carrierCode, $method) = $segments;
             return new Varien_Object(array(
                 'carrier_code' => $carrierCode,
                 'method'       => $method
@@ -2021,7 +2025,12 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function hasShipments()
     {
-        return $this->getShipmentsCollection()->count();
+        $result = false;
+        $shipmentsCollection = $this->getShipmentsCollection();
+        if ($shipmentsCollection) {
+            $result = (bool)$shipmentsCollection->count();
+        }
+        return $result;
     }
 
     /**
@@ -2031,7 +2040,12 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function hasCreditmemos()
     {
-        return $this->getCreditmemosCollection()->count();
+        $result = false;
+        $creditmemosCollection = $this->getCreditmemosCollection();
+        if ($creditmemosCollection) {
+            $result = (bool)$creditmemosCollection->count();
+        }
+        return $result;
     }
 
 

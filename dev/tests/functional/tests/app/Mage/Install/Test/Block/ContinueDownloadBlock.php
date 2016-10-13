@@ -62,6 +62,13 @@ class ContinueDownloadBlock extends Block
     protected $startDownload = '#install_all button[type="submit"]';
 
     /**
+     * Continue Magento installaltion button selector.
+     *
+     * @var string
+     */
+    protected $continueMagentoInstallation = '#connect_iframe_success button[type="button"]';
+
+    /**
      * Continue installation.
      *
      * @return void
@@ -100,5 +107,16 @@ class ContinueDownloadBlock extends Block
     public function startDownload()
     {
         $this->_rootElement->find($this->startDownload)->click();
+    }
+
+    /**
+     * Continue installation.
+     *
+     * @return void
+     */
+    public function continueMagentoInstallation()
+    {
+        $this->waitForElementVisible($this->continueMagentoInstallation);
+        $this->_rootElement->find($this->continueMagentoInstallation)->click();
     }
 }

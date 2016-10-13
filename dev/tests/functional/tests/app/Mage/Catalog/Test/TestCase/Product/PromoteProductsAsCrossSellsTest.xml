@@ -26,7 +26,7 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Catalog\Test\TestCase\Product\PromoteProductsAsCrossSellsTest">
+    <testCase name="Mage\Catalog\Test\TestCase\Product\PromoteProductsAsCrossSellsTest" summary="PromoteProductsAsCrossSellsTest">
         <variation name="PromoteProductsAsCrossSellsTestVariation0">
             <data name="crossSellProductsData" xsi:type="array">
                 <item name="firstProduct" xsi:type="array">

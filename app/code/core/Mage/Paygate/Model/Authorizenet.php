@@ -1273,8 +1273,10 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
         $uri = $this->getConfigData('cgi_url');
         $client->setUri($uri ? $uri : self::CGI_URL);
         $client->setConfig(array(
-            'maxredirects'=>0,
-            'timeout'=>30,
+            'maxredirects' => 0,
+            'timeout' => 30,
+            'verifyhost' => 2,
+            'verifypeer' => true,
             //'ssltransport' => 'tcp',
         ));
         foreach ($request->getData() as $key => $value) {
@@ -1543,7 +1545,11 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
         $uri = $this->getConfigData('cgi_url_td');
         $uri = $uri ? $uri : self::CGI_URL_TD;
         $client->setUri($uri);
-        $client->setConfig(array('timeout'=>45));
+        $client->setConfig(array(
+            'timeout' => 45,
+            'verifyhost' => 2,
+            'verifypeer' => true,
+        ));
         $client->setHeaders(array('Content-Type: text/xml'));
         $client->setMethod(Zend_Http_Client::POST);
         $client->setRawData($requestBody);

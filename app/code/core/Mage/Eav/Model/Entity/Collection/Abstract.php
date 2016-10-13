@@ -918,6 +918,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Retrive all ids sql
      *
+     * @deprecated
      * @return array
      */
     public function getAllIdsSql()
@@ -1409,6 +1410,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             foreach ($attribute as $attr) {
                 parent::setOrder($attr, $dir);
             }
+            return $this;
         }
         return parent::setOrder($attribute, $dir);
     }

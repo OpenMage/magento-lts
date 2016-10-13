@@ -27,22 +27,10 @@
  -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
     <fixture name="rating" module="Mage_Rating" type="flat" entity_type="rating" collection="Mage\Rating\Model\Resource\Rating\Collection" identifier="rating_code" repository_class="Mage\Rating\Test\Repository\Rating" handler_interface="Mage\Rating\Test\Handler\RatingInterface" class="Mage\Rating\Test\Fixture\Rating">
-        <dataset name="default">
-            <field name="rating_code" xsi:type="string">Rating %isolation%</field>
-            <field name="stores" xsi:type="string">Main Website/Main Website Store/Default Store View</field>
-        </dataset>
-        <field name="rating_id" is_required="1">
-            <default_value xsi:type="null"/>
-        </field>
-        <field name="entity_id" is_required="0">
-            <default_value xsi:type="number">0</default_value>
-        </field>
-        <field name="rating_code" is_required="0" group="rating_information">
-            <default_value xsi:type="string">Rating %isolation%</default_value>
-        </field>
-        <field name="position" is_required="0" group="rating_information">
-            <default_value xsi:type="number">0</default_value>
-        </field>
+        <field name="rating_id" is_required="1"/>
+        <field name="entity_id" is_required="0"/>
+        <field name="rating_code" is_required="0" group="rating_information"/>
+        <field name="position" is_required="0" group="rating_information"/>
         <field name="stores" group="rating_information" source="Mage\Rating\Test\Fixture\Rating\Stores" />
         <field name="options" group="rating_information"/>
     </fixture>

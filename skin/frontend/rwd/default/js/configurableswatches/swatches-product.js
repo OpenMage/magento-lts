@@ -46,7 +46,7 @@ Product.Config.prototype.initialize = function(config)
     this.origInitialize(config);
     this.configureObservers = [];
     this.loadOptions();
-}
+};
 
 Product.Config.prototype.handleSelectChange = function(element) {
     this.configureElement(element);
@@ -207,7 +207,7 @@ Product.ConfigurableSwatches.prototype = {
                             this.selectOption(opt);
                             throw $break2;
                         };
-                    }.bind(this))
+                    }.bind(this));
                 } catch(e) {};
             }.bind(this));
             this._F.presetValuesSelected = true;
@@ -506,9 +506,8 @@ Product.ConfigurableSwatches.prototype = {
         // run setAvailable before previewAvailable and reset last label if
         // 1) the timeout has not been run (which means lastOpt != false) and
         // 2) the last hover swatch's attribute is different than this hover swatch's
+        this.setAvailableOptions();
         if(lastOpt && lastOpt.attr.id != opt.attr.id) {
-            this.setAvailableOptions();
-
             // reset last hover swatch's attribute
             lastOpt.attr._e.attrLabel.innerHTML = lastOpt.attr._e.selectedOption ? this.getOptionLabel(lastOpt.attr._e.selectedOption) : '';
         }
@@ -800,4 +799,4 @@ Product.ConfigurableSwatches.prototype = {
             return result;
         }
     }
-}
+};

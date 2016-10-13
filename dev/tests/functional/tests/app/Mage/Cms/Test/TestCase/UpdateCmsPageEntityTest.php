@@ -27,6 +27,7 @@
 namespace Mage\Cms\Test\TestCase;
 
 use Mage\Cms\Test\Fixture\CmsPage;
+use Mage\Cms\Test\Fixture\CmsPageMultiStore;
 use Mage\Cms\Test\Page\Adminhtml\CmsPageEdit;
 use Mage\Cms\Test\Page\Adminhtml\CmsPageIndex;
 use Magento\Mtf\Fixture\FixtureFactory;
@@ -75,14 +76,14 @@ class UpdateCmsPageEntityTest extends Injectable
      *
      * @param CmsPageIndex $cmsIndex
      * @param CmsPageEdit $cmsEdit
-     * @param CmsPage $cmsOriginal
+     * @param CmsPageMultiStore $cmsOriginal
      * @param FixtureFactory $factory
      * @return array
      */
     public function __inject(
         CmsPageIndex $cmsIndex,
         CmsPageEdit $cmsEdit,
-        CmsPage $cmsOriginal,
+        CmsPageMultiStore $cmsOriginal,
         FixtureFactory $factory
     ) {
         $cmsOriginal->persist();
@@ -96,11 +97,11 @@ class UpdateCmsPageEntityTest extends Injectable
     /**
      * Update CMS Page test.
      *
-     * @param CmsPage $cms
-     * @param CmsPage $cmsOriginal
+     * @param CmsPageMultiStore $cms
+     * @param CmsPageMultiStore $cmsOriginal
      * @return array
      */
-    public function test(CmsPage $cms, CmsPage $cmsOriginal)
+    public function test(CmsPageMultiStore $cms, CmsPageMultiStore $cmsOriginal)
     {
         // Steps
         $this->cmsIndex->open();

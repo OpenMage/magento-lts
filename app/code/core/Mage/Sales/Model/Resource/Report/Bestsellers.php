@@ -96,6 +96,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
                 'period'                 => $periodExpr,
                 'store_id'               => 'source_table.store_id',
                 'product_id'             => 'order_item.product_id',
+                'product_type_id'        => 'product.type_id',
                 'product_name'           => new Zend_Db_Expr(
                     sprintf('MIN(%s)',
                         $adapter->getIfNullSql('product_name.value','product_default_name.value')
@@ -132,16 +133,9 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
             /** @var Mage_Catalog_Model_Resource_Product $product */
             $product  = Mage::getResourceSingleton('catalog/product');
 
-            $productTypes = array(
-                Mage_Catalog_Model_Product_Type::TYPE_GROUPED,
-                Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE,
-                Mage_Catalog_Model_Product_Type::TYPE_BUNDLE,
-            );
-
             $joinExpr = array(
                 'product.entity_id = order_item.product_id',
-                $adapter->quoteInto('product.entity_type_id = ?', $product->getTypeId()),
-                $adapter->quoteInto('product.type_id NOT IN(?)', $productTypes)
+                $adapter->quoteInto('product.entity_type_id = ?', $product->getTypeId())
             );
 
             $joinExpr = implode(' AND ', $joinExpr);
@@ -255,6 +249,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
             'period'            => 'period',
             'store_id'          => new Zend_Db_Expr(Mage_Core_Model_App::ADMIN_STORE_ID),
             'product_id'        => 'product_id',
+            'product_type_id'   => 'product_type_id',
             'product_name'      => new Zend_Db_Expr('MIN(product_name)'),
             'product_price'     => new Zend_Db_Expr(
                 sprintf('%s',

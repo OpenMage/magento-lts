@@ -26,7 +26,7 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Paypal\Test\TestCase\TestCreationForExpressCheckoutWithinPayPalButtonFromProductPageTest">
+    <testCase name="Mage\Paypal\Test\TestCase\TestCreationForExpressCheckoutWithinPayPalButtonFromProductPageTest" summary="TestCreationForExpressCheckoutWithinPayPalButtonFromProductPageTest">
         <variation name="TestCreationForExpressCheckoutWithinPayPalButtonFromProductPageTestVariation1" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
             <data name="description" xsi:type="string">Paypal express order line items mark require billing address</data>
             <data name="products" xsi:type="string">catalogProductSimple::default</data>

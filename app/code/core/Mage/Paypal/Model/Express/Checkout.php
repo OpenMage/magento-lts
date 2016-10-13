@@ -947,7 +947,7 @@ class Mage_Paypal_Model_Express_Checkout
         $shipping   = $quote->isVirtual() ? null : $quote->getShippingAddress();
 
         $customerId = $this->_lookupCustomerId();
-        if ($customerId) {
+        if ($customerId && !$this->_customerEmailExists($quote->getCustomerEmail())) {
             $this->getCustomerSession()->loginById($customerId);
             return $this->_prepareCustomerQuote();
         }
@@ -1062,5 +1062,27 @@ class Mage_Paypal_Model_Express_Checkout
     public function getCustomerSession()
     {
         return $this->_customerSession;
+    }
+
+    /**
+     * Check if customer email exists
+     *
+     * @param string $email
+     * @return bool
+     */
+    protected function _customerEmailExists($email)
+    {
+        $result    = false;
+        $customer  = Mage::getModel('customer/customer');
+        $websiteId = Mage::app()->getStore()->getWebsiteId();
+        if (!is_null($websiteId)) {
+            $customer->setWebsiteId($websiteId);
+        }
+        $customer->loadByEmail($email);
+        if (!is_null($customer->getId())) {
+            $result = true;
+        }
+
+        return $result;
     }
 }

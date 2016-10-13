@@ -127,6 +127,21 @@
 
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
+<IfModule mod_setenvif.c>
+    <IfModule mod_headers.c>
+
+        ############################################
+        # X-Content-Type-Options: nosniff disable content-type sniffing on some browsers.
+        Header set X-Content-Type-Options: nosniff
+
+        ############################################
+        # This header forces to enables the Cross-site scripting (XSS) filter in browsers (if disabled)
+        BrowserMatch \bMSIE\s8 ie8
+        Header set X-XSS-Protection: "1; mode=block" env=!ie8
+
+    </IfModule>
+</IfModule>
+
 ############################################
 ## always send 404 on missing files in these folders
 

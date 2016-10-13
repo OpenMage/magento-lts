@@ -640,8 +640,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
             return true;
         }
 
-        $dayDifference = floor(($currentTimestamp - $tokenTimestamp) / (24 * 60 * 60));
-        if ($dayDifference >= $tokenExpirationPeriod) {
+        $hoursDifference = floor(($currentTimestamp - $tokenTimestamp) / (60 * 60));
+        if ($hoursDifference >= $tokenExpirationPeriod) {
             return true;
         }
 
@@ -665,7 +665,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Simple sql format date
      *
-     * @param string $format
+     * @param string | boolean $dayOnly
      * @return string
      */
     protected function _getDateNow($dayOnly = false)

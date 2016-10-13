@@ -102,7 +102,9 @@ varienEvents.prototype = {
                         if (this.arrEvents[evtName][i].asynch) {
                             var eventArgs = arguments[1];
                             var method = this.arrEvents[evtName][i].method.bind(this);
-                            setTimeout(function() { method(eventArgs) }.bind(this), 10);
+                            setTimeout(function() {
+                                method(eventArgs);
+                            }.bind(this), 10);
                         }
                         else{
                             result = this.arrEvents[evtName][i].method(arguments[1]);

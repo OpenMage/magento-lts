@@ -50,7 +50,9 @@ class Register extends Form
      */
     public function registerCustomer(FixtureInterface $fixture)
     {
-        $this->fill($fixture);
+        $mapping = $this->dataMapping($fixture->getData());
+        unset($mapping['id']);
+        $this->_fill($mapping);
         $this->_rootElement->find($this->submit, Locator::SELECTOR_CSS)->click();
     }
 }

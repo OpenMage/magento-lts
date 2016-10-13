@@ -29,8 +29,17 @@ class Mage_Adminhtml_Model_System_Config_Backend_Serialized extends Mage_Core_Mo
     protected function _afterLoad()
     {
         if (!is_array($this->getValue())) {
-            $value = $this->getValue();
-            $this->setValue(empty($value) ? false : unserialize($value));
+            $serializedValue = $this->getValue();
+            $unserializedValue = false;
+            if (!empty($serializedValue)) {
+                try {
+                    $unserializedValue = Mage::helper('core/unserializeArray')
+                        ->unserialize($serializedValue);
+                } catch (Exception $e) {
+                    Mage::logException($e);
+                }
+            }
+            $this->setValue($unserializedValue);
         }
     }
 

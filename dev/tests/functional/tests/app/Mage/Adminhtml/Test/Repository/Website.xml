@@ -28,12 +28,19 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/Magento/Mtf/Repository/etc/repository.xsd">
     <repository class="Mage\Adminhtml\Test\Repository\Website">
+        <dataset name="default">
+            <field name="name" xsi:type="string">Main Website</field>
+            <field name="code" xsi:type="string">base</field>
+            <field name="website_id" xsi:type="string">1</field>
+        </dataset>
+
         <dataset name="main_website">
             <field name="name" xsi:type="string">Main Website</field>
             <field name="code" xsi:type="string">base</field>
             <field name="sort_order" xsi:type="string">0</field>
             <field name="website_id" xsi:type="string">1</field>
         </dataset>
+
         <dataset name="custom_website">
             <field name="name" xsi:type="string">Web_Site_%isolation%</field>
             <field name="code" xsi:type="string">code_%isolation%</field>

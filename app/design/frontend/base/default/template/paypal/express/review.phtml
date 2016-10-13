@@ -133,11 +133,7 @@
             new Ajax.Request(this.form.action, {
                 parameters: {isAjax: 1, method: 'POST'},
                 onSuccess: function(transport) {
-                    try{
-                        response = eval('(' + transport.responseText + ')');
-                    } catch (e) {
-                        response = {};
-                    }
+                    var response = transport.responseJSON || transport.responseText.evalJSON(true) || {};
                     if (response.redirect) {
                         setLocation(response.redirect);
                         return;
@@ -147,12 +143,12 @@
                         return;
                     } else {
                         var msg = response.error_messages;
-                        if (typeof(msg)=='object') {
-                            msg = msg.join("\n");
+                        if (Object.isArray(msg)) {
+                            msg = msg.join("\n").stripTags().toString();
                         }
                         if (msg) {
                             $('review-please-wait').hide();
-                            alert(msg);
+                            alert(msg.stripTags().toString());
                             return;
                         }
                     }

@@ -32,7 +32,7 @@ use Magento\Mtf\TestCase\Scenario;
 
 /**
  * Preconditions:
- * 1. Create product according to dataSet.
+ * 1. Create product according to dataset.
  * 2. Apply configuration for test.
  * 3. Create tax rule for us customers.
  *
@@ -66,7 +66,7 @@ class CreateOrderWithPayPalStandardTest extends Scenario
         $this->objectManager->create('Mage\Tax\Test\TestStep\DeleteAllTaxRulesStep')->run();
 
         // Create US tax rule
-        $taxRule = $fixtureFactory->createByCode('taxRule', ['dataSet' => 'us_tax_rule']);
+        $taxRule = $fixtureFactory->createByCode('taxRule', ['dataset' => 'us_tax_rule']);
         $taxRule->persist();
     }
 

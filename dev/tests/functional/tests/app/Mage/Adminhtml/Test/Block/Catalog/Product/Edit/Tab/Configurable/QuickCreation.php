@@ -67,6 +67,7 @@ class QuickCreation extends Form
     {
         $this->fillDefaultField($product);
         $mapping = $this->dataMapping($product->getData());
+        unset($mapping['isPersist']);
         $this->_fill($mapping);
         $this->_rootElement->find($this->create)->click();
         $this->getTemplateBlock()->waitLoader();

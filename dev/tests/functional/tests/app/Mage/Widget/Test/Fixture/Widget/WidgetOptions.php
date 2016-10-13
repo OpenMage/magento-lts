@@ -26,45 +26,33 @@
 
 namespace Mage\Widget\Test\Fixture\Widget;
 
+use Magento\Mtf\Fixture\DataSource;
 use Magento\Mtf\Fixture\FixtureFactory;
-use Magento\Mtf\Fixture\FixtureInterface;
+use Magento\Mtf\Repository\RepositoryFactory;
 
 /**
  * Prepare Widget options for widget.
  */
-class WidgetOptions implements FixtureInterface
+class WidgetOptions extends DataSource
 {
     /**
-     * Prepared dataSet data.
-     *
-     * @var array
-     */
-    protected $data;
-
-    /**
-     * Data set configuration settings.
-     *
-     * @var array
-     */
-    protected $params;
-
-    /**
      * @constructor
+     * @param RepositoryFactory $repositoryFactory
      * @param FixtureFactory $fixtureFactory
      * @param array $params
      * @param array $data [optional]
      */
-    public function __construct(FixtureFactory $fixtureFactory, array $params, array $data = [])
+    public function __construct(RepositoryFactory $repositoryFactory, FixtureFactory $fixtureFactory, array $params, array $data = [])
     {
         $this->params = $params;
-        if (isset($data['preset'])) {
-            $this->data = $this->getPreset($data['preset']);
+        if (isset($data['dataset']) && isset($this->params['repository'])) {
+            $this->data = $repositoryFactory->get($this->params['repository'])->get($data['dataset']);
             foreach ($this->data as $key => $value) {
-                $this->data['type_id'] = $data['preset'];
+                $this->data['type_id'] = $data['dataset'];
                 if (isset($value['entities'])) {
                     foreach ($value['entities'] as $index => $entity) {
                         $explodeValue = explode('::', $entity);
-                        $fixture = $fixtureFactory->createByCode($explodeValue[0], ['dataSet' => $explodeValue[1]]);
+                        $fixture = $fixtureFactory->createByCode($explodeValue[0], ['dataset' => $explodeValue[1]]);
                         $fixture->persist();
                         $this->data[$key]['entities'][$index] = $fixture;
                     }
@@ -73,55 +61,5 @@ class WidgetOptions implements FixtureInterface
         } else {
             $this->data = $data;
         }
-    }
-
-    /**
-     * Persist Widget Options.
-     *
-     * @return void
-     */
-    public function persist()
-    {
-        //
-    }
-
-    /**
-     * Return prepared data set.
-     *
-     * @param string|null $key [optional]
-     * @return mixed
-     *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    public function getData($key = null)
-    {
-        return $this->data;
-    }
-
-    /**
-     * Return data set configuration settings.
-     *
-     * @return array
-     */
-    public function getDataConfig()
-    {
-        return $this->params;
-    }
-
-    /**
-     * Preset for Widget options.
-     *
-     * @param string $name
-     * @return array|null
-     */
-    protected function getPreset($name)
-    {
-        $presets = [];
-
-        if (!isset($presets[$name])) {
-            return null;
-        }
-
-        return $presets[$name];
     }
 }

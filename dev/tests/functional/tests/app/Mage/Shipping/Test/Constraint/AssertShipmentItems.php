@@ -30,6 +30,7 @@ use Mage\Sales\Test\Constraint\AbstractAssertItems;
 use Mage\Shipping\Test\Page\Adminhtml\SalesShipmentView;
 use Mage\Shipping\Test\Page\Adminhtml\SalesShipment;
 use Magento\Mtf\ObjectManager;
+use Magento\Mtf\System\Event\EventManagerInterface;
 
 /**
  * Assert shipment items on shipment view page.
@@ -50,15 +51,17 @@ class AssertShipmentItems extends AbstractAssertItems
     /**
      * @constructor
      * @param ObjectManager $objectManager
+     * @param EventManagerInterface $eventManager
      * @param SalesShipment $shipmentIndex
      * @param SalesShipmentView $orderShipmentView
      */
     public function __construct(
         ObjectManager $objectManager,
+        EventManagerInterface $eventManager,
         SalesShipment $shipmentIndex,
         SalesShipmentView $orderShipmentView
     ) {
-        parent::__construct($objectManager);
+        parent::__construct($objectManager, $eventManager);
         $this->salesTypePage = $shipmentIndex;
         $this->salesTypeViewPage = $orderShipmentView;
     }

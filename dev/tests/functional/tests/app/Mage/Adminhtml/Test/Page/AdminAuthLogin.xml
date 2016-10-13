@@ -26,8 +26,8 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/pages.xsd">
-  <page name="AdminAuthLogin" mca="admin" module="Mage_Adminhtml">
-    <block name="loginBlock" class="Mage\Adminhtml\Test\Block\Admin\Login" locator="#loginForm" strategy="css selector"/>
-    <block name="messagesBlock" class="Mage\Core\Test\Block\Messages" locator="#messages" strategy="css selector"/>
-  </page>
+    <page name="AdminAuthLogin" mca="admin" module="Mage_Adminhtml">
+        <block name="loginBlock" class="Mage\Adminhtml\Test\Block\Admin\Login" locator="#loginForm" strategy="css selector"/>
+        <block name="messagesBlock" class="Mage\Core\Test\Block\Messages" locator="#messages" strategy="css selector"/>
+    </page>
 </config>

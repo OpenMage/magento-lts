@@ -61,7 +61,7 @@ class FilterProductListTest extends Injectable
      */
     public function __inject(FixtureFactory $fixtureFactory)
     {
-        $this->category = $fixtureFactory->createByCode('catalogCategory', ['dataSet' => 'anchor_category']);
+        $this->category = $fixtureFactory->createByCode('catalogCategory', ['dataset' => 'anchor_category']);
         $this->category->persist();
 
         return ['category' => $this->category];

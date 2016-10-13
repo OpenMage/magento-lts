@@ -26,7 +26,7 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/pages.xsd">
-    <page name="DownloaderWelcome" mca="" module="Mage_Install">
+    <page name="DownloaderWelcome" mca="downloader.php" module="Mage_Install">
         <block name="welcomeBlock" class="Mage\Install\Test\Block\Welcome" locator=".col-main" strategy="css selector" />
         <block name="continueDownloadBlock" class="Mage\Install\Test\Block\ContinueDownloadBlock" locator=".button-set" strategy="css selector" />
     </page>

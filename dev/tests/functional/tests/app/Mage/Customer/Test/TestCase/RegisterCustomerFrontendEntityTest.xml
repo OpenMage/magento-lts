@@ -26,29 +26,29 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-  <testCase name="Mage\Customer\Test\TestCase\RegisterCustomerFrontendEntityTest">
-    <variation name="RegisterCustomerFrontendEntityTestVariation1" firstConstraint="Mage\Customer\Test\Constraint\AssertCustomerSuccessRegisterMessage" method="test">
-      <data name="customer/data/firstname" xsi:type="string">john</data>
-      <data name="customer/data/lastname" xsi:type="string">doe</data>
-      <data name="customer/data/email" xsi:type="string">johndoe%isolation%@example.com</data>
-      <data name="customer/data/is_subscribed" xsi:type="string">No</data>
-      <data name="customer/data/password" xsi:type="string">123123q</data>
-      <data name="customer/data/password_confirmation" xsi:type="string">123123q</data>
-      <data name="tag" xsi:type="string">main:ce</data>
-      <constraint name="Mage\Customer\Test\Constraint\AssertCustomerSuccessRegisterMessage" next="Mage\Customer\Test\Constraint\AssertCustomerInGrid"/>
-      <constraint name="Mage\Customer\Test\Constraint\AssertCustomerInGrid" prev="Mage\Customer\Test\Constraint\AssertCustomerSuccessRegisterMessage"/>
-    </variation>
-    <variation name="RegisterCustomerFrontendEntityTestVariation2" firstConstraint="Mage\Customer\Test\Constraint\AssertCustomerSuccessRegisterMessage" method="test">
-      <data name="customer/data/firstname" xsi:type="string">john</data>
-      <data name="customer/data/lastname" xsi:type="string">doe</data>
-      <data name="customer/data/email" xsi:type="string">johndoe%isolation%@example.com</data>
-      <data name="customer/data/is_subscribed" xsi:type="string">Yes</data>
-      <data name="customer/data/password" xsi:type="string">123123q</data>
-      <data name="customer/data/password_confirmation" xsi:type="string">123123q</data>
-      <constraint name="Mage\Customer\Test\Constraint\AssertCustomerSuccessRegisterMessage" next="Mage\Customer\Test\Constraint\AssertCustomerInGrid"/>
-      <constraint name="Mage\Customer\Test\Constraint\AssertCustomerInGrid" next="Mage\Customer\Test\Constraint\AssertCustomerForm" prev="Mage\Customer\Test\Constraint\AssertCustomerSuccessRegisterMessage"/>
-      <constraint name="Mage\Customer\Test\Constraint\AssertCustomerForm" next="Mage\Newsletter\Test\Constraint\AssertCustomerIsSubscribedToNewsletter" prev="Mage\Customer\Test\Constraint\AssertCustomerInGrid"/>
-      <constraint name="Mage\Newsletter\Test\Constraint\AssertCustomerIsSubscribedToNewsletter" prev="Mage\Customer\Test\Constraint\AssertCustomerForm"/>
-    </variation>
-  </testCase>
+    <testCase name="Mage\Customer\Test\TestCase\RegisterCustomerFrontendEntityTest" summary="RegisterCustomerFrontendEntityTest">
+        <variation name="RegisterCustomerFrontendEntityTestVariation1" firstConstraint="Mage\Customer\Test\Constraint\AssertCustomerSuccessRegisterMessage" method="test">
+            <data name="customer/data/firstname" xsi:type="string">john</data>
+            <data name="customer/data/lastname" xsi:type="string">doe</data>
+            <data name="customer/data/email" xsi:type="string">johndoe%isolation%@example.com</data>
+            <data name="customer/data/is_subscribed" xsi:type="string">No</data>
+            <data name="customer/data/password" xsi:type="string">123123q</data>
+            <data name="customer/data/password_confirmation" xsi:type="string">123123q</data>
+            <data name="tag" xsi:type="string">main:ce</data>
+            <constraint name="Mage\Customer\Test\Constraint\AssertCustomerSuccessRegisterMessage" next="Mage\Customer\Test\Constraint\AssertCustomerInGrid"/>
+            <constraint name="Mage\Customer\Test\Constraint\AssertCustomerInGrid" prev="Mage\Customer\Test\Constraint\AssertCustomerSuccessRegisterMessage"/>
+        </variation>
+        <variation name="RegisterCustomerFrontendEntityTestVariation2" firstConstraint="Mage\Customer\Test\Constraint\AssertCustomerSuccessRegisterMessage" method="test">
+            <data name="customer/data/firstname" xsi:type="string">john</data>
+            <data name="customer/data/lastname" xsi:type="string">doe</data>
+            <data name="customer/data/email" xsi:type="string">johndoe%isolation%@example.com</data>
+            <data name="customer/data/is_subscribed" xsi:type="string">Yes</data>
+            <data name="customer/data/password" xsi:type="string">123123q</data>
+            <data name="customer/data/password_confirmation" xsi:type="string">123123q</data>
+            <constraint name="Mage\Customer\Test\Constraint\AssertCustomerSuccessRegisterMessage" next="Mage\Customer\Test\Constraint\AssertCustomerInGrid"/>
+            <constraint name="Mage\Customer\Test\Constraint\AssertCustomerInGrid" next="Mage\Customer\Test\Constraint\AssertCustomerForm" prev="Mage\Customer\Test\Constraint\AssertCustomerSuccessRegisterMessage"/>
+            <constraint name="Mage\Customer\Test\Constraint\AssertCustomerForm" next="Mage\Newsletter\Test\Constraint\AssertCustomerIsSubscribedToNewsletter" prev="Mage\Customer\Test\Constraint\AssertCustomerInGrid"/>
+            <constraint name="Mage\Newsletter\Test\Constraint\AssertCustomerIsSubscribedToNewsletter" prev="Mage\Customer\Test\Constraint\AssertCustomerForm"/>
+        </variation>
+    </testCase>
 </config>

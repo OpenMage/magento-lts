@@ -26,7 +26,6 @@
 
 namespace Mage\Install\Test\TestCase;
 
-use Mage\Admin\Test\Fixture\User;
 use Mage\Install\Test\Constraint\AssertWelcomeWizardTextPresent;
 use Mage\Install\Test\Constraint\AssertAgreementTextPresent;
 use Mage\Install\Test\Constraint\AssertSuccessDeploy;
@@ -35,26 +34,16 @@ use Mage\Install\Test\Page\DownloaderValidation;
 use Mage\Install\Test\Page\DownloaderDeploy;
 use Mage\Install\Test\Page\DownloaderDeployEnd;
 use Mage\Install\Test\Page\Downloader;
-use Mage\Install\Test\Fixture\Install;
 use Magento\Mtf\Fixture\FixtureFactory;
-use Magento\Mtf\ObjectManagerFactory;
 
 /**
  * PLEASE ADD NECESSARY INFO BEFORE RUNNING TEST TO ../dev/tests/functional/etc/config.xml
  *
- * Preconditions:
- * 1. Uninstall Magento.
- *
  * Steps:
- * 1. Open Magento install page.
- * 2. Check license agreement text.
- * 3. Accept license and click continue button.
- * 4. Fill DB configuration settings according to dataSet and click continue button.
- * 5. Fill admin user info and click continue button.
- * 6. Perform assertions.
+ * 1. Open downloader.php page.
+ * 2. Download downloader files
  *
  * @group Installer_and_Upgrade/Downgrade_(PS)
- * @ZephyrId MPERF-7483
  */
 class DownloaderTest extends InstallTest
 {
@@ -107,13 +96,6 @@ class DownloaderTest extends InstallTest
     /**
      * Fixture factory.
      *
-     * @var AssertAgreementTextPresent
-     */
-    protected $assertLicense;
-
-    /**
-     * Fixture factory.
-     *
      * @var AssertSuccessDeploy
      */
     protected $assertSuccessDeploy;
@@ -125,19 +107,14 @@ class DownloaderTest extends InstallTest
      * @param DownloaderValidation $downloaderValidation
      * @param DownloaderDeploy $downloaderDeploy
      * @param Downloader $downloaderDownloader
-     * @param AssertAgreementTextPresent $assertLicense
      * @param AssertSuccessDeploy $assertSuccessDeploy
      * @param DownloaderDeployEnd $downloaderDeployEnd
-     * @internal param InstallWizardLocale $installWizardLocale
-     * @internal param InstallWizardConfig $installWizardConfig
-     * @internal param InstallWizardAdministrator $installWizardAdministrator
      */
     public function __inject(
         DownloaderWelcome $downloaderWelcome,
         DownloaderValidation $downloaderValidation,
         DownloaderDeploy $downloaderDeploy,
         Downloader $downloaderDownloader,
-        AssertAgreementTextPresent $assertLicense,
         AssertSuccessDeploy $assertSuccessDeploy,
         DownloaderDeployEnd $downloaderDeployEnd
     ) {
@@ -145,7 +122,6 @@ class DownloaderTest extends InstallTest
         $this->downloaderValidation = $downloaderValidation;
         $this->downloaderDeploy = $downloaderDeploy;
         $this->downloaderDownloader = $downloaderDownloader;
-        $this->assertLicense = $assertLicense;
         $this->assertSuccessDeploy = $assertSuccessDeploy;
         $this->downloaderDeployEnd = $downloaderDeployEnd;
     }
@@ -168,26 +144,6 @@ class DownloaderTest extends InstallTest
         $this->downloaderDeploy->getContinueDownloadBlock()->continueDeploy();
         $this->assertSuccessDeploy->processAssert($this->downloaderDeployEnd);
         $this->downloaderDeploy->getContinueDownloadBlock()->continueDownload();
-        $this->downloaderDownloader->getContinueDownloadBlock()->startDownload();
-        $this->downloaderDownloader->getMessagesBlock()->getSuccessMessages();
-        parent::test($this->assertLicense, $configData);
-    }
 
-    /**
-     * Prepare install fixture for test.
-     *
-     * @param array $configData
-     * @param array $install
-     * @return Install
-     */
-    protected function prepareInstallFixture(array $configData, array $install)
-    {
-        $dataConfig = array_merge($install, $configData);
-        $dataConfig['unsecure_base_url'] = str_replace('index.php/', '', $dataConfig['unsecure_base_url']);
-        $dataConfig['unsecure_base_url'] = isset($dataConfig['use_secure'])
-            ? str_replace('http', 'https', $dataConfig['unsecure_base_url'])
-            : $dataConfig['unsecure_base_url'];
-
-        return $this->fixtureFactory->createByCode('install', ['data' => $dataConfig]);
     }
 }

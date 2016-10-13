@@ -25,40 +25,18 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
  -->
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
     <fixture name="catalogSearchQuery" module="Mage_CatalogSearch" type="flat" entity_type="search_query" collection="Mage\CatalogSearch\Model\Resource\Query\Collection" repository_class="Mage\CatalogSearch\Test\Repository\CatalogSearchQuery" handler_interface="Mage\CatalogSearch\Test\Handler\CatalogSearchQuery\CatalogSearchQueryInterface" class="Mage\CatalogSearch\Test\Fixture\CatalogSearchQuery">
-        <field name="query_id" is_required="1">
-            <default_value xsi:type="null" />
-        </field>
-        <field name="query_text"  source="Mage\CatalogSearch\Test\Fixture\CatalogSearchQuery\QueryText">
-            <default_value xsi:type="null" />
-        </field>
-        <field name="num_results">
-            <default_value xsi:type="number">0</default_value>
-        </field>
-        <field name="popularity">
-            <default_value xsi:type="number">0</default_value>
-        </field>
-        <field name="redirect">
-            <default_value xsi:type="null" />
-        </field>
-        <field name="synonym_for">
-            <default_value xsi:type="null" />
-        </field>
-        <field name="store_id">
-            <default_value xsi:type="number">0</default_value>
-        </field>
-        <field name="display_in_terms">
-            <default_value xsi:type="null" />
-        </field>
-        <field name="is_active">
-            <default_value xsi:type="null" />
-        </field>
-        <field name="is_processed">
-            <default_value xsi:type="number">0</default_value>
-        </field>
-        <field name="updated_at">
-            <default_value xsi:type="null" />
-        </field>
+        <field name="query_id" is_required="1"/>
+        <field name="query_text"  source="Mage\CatalogSearch\Test\Fixture\CatalogSearchQuery\QueryText"/>
+        <field name="num_results"/>
+        <field name="popularity"/>
+        <field name="redirect"/>
+        <field name="synonym_for"/>
+        <field name="store_id"/>
+        <field name="display_in_terms"/>
+        <field name="is_active"/>
+        <field name="is_processed"/>
+        <field name="updated_at"/>
     </fixture>
 </config>

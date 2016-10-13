@@ -26,10 +26,10 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Catalog\Test\TestCase\Product\UpdateSimpleProductEntityTest">
+    <testCase name="Mage\Catalog\Test\TestCase\Product\UpdateSimpleProductEntityTest" summary="UpdateSimpleProductEntityTest">
         <variation name="UpdateSimpleProductEntityTestVariation1" method="test">
             <data name="description" xsi:type="string">Default update</data>
-            <data name="product/data/category_ids/presets" xsi:type="string">-</data>
+            <data name="product/data/category_ids/dataset" xsi:type="string">-</data>
             <data name="product/data/name" xsi:type="string">Test simple product %isolation%</data>
             <data name="product/data/sku" xsi:type="string">test_simple_product_%isolation%</data>
             <data name="product/data/price/value" xsi:type="string">245.00</data>
@@ -49,7 +49,7 @@
         </variation>
         <variation name="UpdateSimpleProductEntityTestVariation2" method="test">
             <data name="description" xsi:type="string">Update visibility to Not Visible Individually</data>
-            <data name="product/data/category_ids/presets" xsi:type="string">-</data>
+            <data name="product/data/category_ids/dataset" xsi:type="string">-</data>
             <data name="product/data/name" xsi:type="string">Test simple product %isolation%</data>
             <data name="product/data/sku" xsi:type="string">test_simple_product_%isolation%</data>
             <data name="product/data/price/value" xsi:type="string">325.00</data>
@@ -67,7 +67,7 @@
         </variation>
         <variation name="UpdateSimpleProductEntityTestVariation3" method="test">
             <data name="description" xsi:type="string">Update to only catalog searchable</data>
-            <data name="product/data/category_ids/presets" xsi:type="string">-</data>
+            <data name="product/data/category_ids/dataset" xsi:type="string">-</data>
             <data name="product/data/name" xsi:type="string">Test simple product %isolation%</data>
             <data name="product/data/sku" xsi:type="string">test_simple_product_%isolation%</data>
             <data name="product/data/price/value" xsi:type="string">325.01</data>
@@ -88,7 +88,7 @@
         </variation>
         <variation name="UpdateSimpleProductEntityTestVariation4" method="test">
             <data name="description" xsi:type="string">Update to only search searchable</data>
-            <data name="product/data/category_ids/presets" xsi:type="string">-</data>
+            <data name="product/data/category_ids/dataset" xsi:type="string">-</data>
             <data name="product/data/name" xsi:type="string">Test simple product %isolation%</data>
             <data name="product/data/sku" xsi:type="string">test_simple_product_%isolation%</data>
             <data name="product/data/price/value" xsi:type="string">325.02</data>
@@ -110,7 +110,7 @@
         </variation>
         <variation name="UpdateSimpleProductEntityTestVariation5" method="test">
             <data name="description" xsi:type="string">Update to Out of Stock</data>
-            <data name="product/data/category_ids/presets" xsi:type="string">-</data>
+            <data name="product/data/category_ids/dataset" xsi:type="string">-</data>
             <data name="product/data/name" xsi:type="string">Test simple product %isolation%</data>
             <data name="product/data/sku" xsi:type="string">test_simple_product_%isolation%</data>
             <data name="product/data/price/value" xsi:type="string">325.03</data>
@@ -131,7 +131,7 @@
         </variation>
         <variation name="UpdateSimpleProductEntityTestVariation6" method="test">
             <data name="description" xsi:type="string">Update to status Disabled</data>
-            <data name="product/data/category_ids/presets" xsi:type="string">-</data>
+            <data name="product/data/category_ids/dataset" xsi:type="string">-</data>
             <data name="product/data/name" xsi:type="string">Test simple product %isolation%</data>
             <data name="product/data/sku" xsi:type="string">test_simple_product_%isolation%</data>
             <data name="product/data/price/value" xsi:type="string">74.00</data>
@@ -149,7 +149,7 @@
         </variation>
         <variation name="UpdateSimpleProductEntityTestVariation7" method="test">
             <data name="description" xsi:type="string">Update category</data>
-            <data name="product/data/category_ids/presets" xsi:type="string">default_subcategory</data>
+            <data name="product/data/category_ids/dataset" xsi:type="string">default_subcategory</data>
             <data name="product/data/name" xsi:type="string">Test simple product %isolation%</data>
             <data name="product/data/sku" xsi:type="string">test_simple_product_%isolation%</data>
             <data name="product/data/price/value" xsi:type="string">74.00</data>

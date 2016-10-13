@@ -76,20 +76,6 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
     protected $_permanentAttributes = array(self::COL_EMAIL, self::COL_WEBSITE, self::COL_STORE);
 
     /**
-     * Array of pairs store ID to its code.
-     *
-     * @var array
-     */
-    protected $_storeIdToCode = array();
-
-    /**
-     * Website ID-to-code.
-     *
-     * @var array
-     */
-    protected $_websiteIdToCode = array();
-
-    /**
      * Constructor.
      *
      * @return void
@@ -132,51 +118,97 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
     }
 
     /**
-     * Export process.
+     * Export process and return contents of temporary file
+     *
+     * @deprecated after ver 1.9.2.4 use $this->exportFile() instead
      *
      * @return string
      */
     public function export()
     {
-        $collection     = $this->_prepareEntityCollection(Mage::getResourceModel('customer/customer_collection'));
+        $this->_prepareExport();
+
+        return $this->getWriter()->getContents();
+    }
+
+    /**
+     * Export process and return temporary file through array
+     *
+     * This method will return following array:
+     *
+     * array(
+     *     'rows'  => count of written rows,
+     *     'value' => path to created file
+     * )
+     *
+     * @return array
+     */
+    public function exportFile()
+    {
+        $this->_prepareExport();
+
+        $writer = $this->getWriter();
+
+        return array(
+            'rows'  => $writer->getRowsCount(),
+            'value' => $writer->getDestination()
+        );
+    }
+
+    /**
+     * Prepare data for export and write its to temporary file through writer.
+     *
+     * @return void
+     */
+    protected function _prepareExport()
+    {
+        $collection = $this->_prepareEntityCollection(Mage::getResourceModel('customer/customer_collection'));
         $validAttrCodes = $this->_getExportAttrCodes();
         $writer         = $this->getWriter();
         $defaultAddrMap = Mage_ImportExport_Model_Import_Entity_Customer_Address::getDefaultAddressAttrMapping();
 
         // prepare address data
-        $addrAttributes = array();
-        $addrColNames   = array();
-        $customerAddrs  = array();
+        $allAddressAttributeOptions   = array();
+        $addrColNames                 = array();
+        $customerAddrs                = array();
+        $addressAttributeCollection   = Mage::getResourceModel('customer/address_attribute_collection')
+            ->addSystemHiddenFilter()
+            ->addExcludeHiddenFrontendFilter();
+        $addressAttributes            = array();
+        $addrAttributeMultiSelect     = array();
+        $customerAttributeMultiSelect = array();
 
-        foreach (Mage::getResourceModel('customer/address_attribute_collection')
-                    ->addSystemHiddenFilter()
-                    ->addExcludeHiddenFrontendFilter() as $attribute) {
-            $options  = array();
+        foreach ($addressAttributeCollection as $attribute) {
             $attrCode = $attribute->getAttributeCode();
-
-            if ($attribute->usesSource() && 'country_id' != $attrCode) {
-                foreach ($attribute->getSource()->getAllOptions(false) as $option) {
-                    foreach (is_array($option['value']) ? $option['value'] : array($option) as $innerOption) {
-                        if (strlen($innerOption['value'])) { // skip ' -- Please Select -- ' option
-                            $options[$innerOption['value']] = $innerOption['label'];
-                        }
-                    }
-                }
-            }
-            $addrAttributes[$attrCode] = $options;
+            $allAddressAttributeOptions[$attrCode] = $this->_getAddressAttributeOptions($attribute);
             $addrColNames[] = Mage_ImportExport_Model_Import_Entity_Customer_Address::getColNameForAttrCode($attrCode);
         }
         foreach (Mage::getResourceModel('customer/address_collection')->addAttributeToSelect('*') as $address) {
             $addrRow = array();
 
-            foreach ($addrAttributes as $attrCode => $attrValues) {
+            if (empty($addressAttributes)) {
+                $addressAttributes = $address->getAttributes();
+            }
+            foreach ($allAddressAttributeOptions as $attrCode => $attrValues) {
+                $column = Mage_ImportExport_Model_Import_Entity_Customer_Address::getColNameForAttrCode($attrCode);
                 if (null !== $address->getData($attrCode)) {
-                    $value = $address->getData($attrCode);
+                    if (!isset($addressAttributes[$attrCode])) {
+                        $addressAttributes = array_merge($addressAttributes, $address->getAttributes());
+                    }
+                    $addressAttribute = $addressAttributes[$attrCode];
+                    $value            = $address->getData($attrCode);
 
-                    if ($attrValues) {
+                    if ($addressAttribute->getFrontendInput() == 'multiselect') {
+                        $optionIds   = explode(',', $value);
+                        $optionTexts = array();
+                        foreach ($optionIds as $optionId) {
+                            $optionText             = $addressAttribute->getSource()->getOptionText($optionId);
+                            $optionTexts[$optionId] = $optionText;
+                        }
+                        $addrAttributeMultiSelect[$address['parent_id']][$address->getId()][$column] = $optionTexts;
+                    } elseif ($attrValues) {
                         $value = $attrValues[$value];
                     }
-                    $column = Mage_ImportExport_Model_Import_Entity_Customer_Address::getColNameForAttrCode($attrCode);
                     $addrRow[$column] = $value;
                 }
             }
@@ -189,49 +221,108 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
             array('password'), $addrColNames,
             array_keys($defaultAddrMap)
         ));
-        foreach ($collection as $itemId => $item) { // go through all customers
-            $row = array();
-
-            // go through all valid attribute codes
-            foreach ($validAttrCodes as $attrCode) {
-                $attrValue = $item->getData($attrCode);
-
-                if (isset($this->_attributeValues[$attrCode])
-                    && isset($this->_attributeValues[$attrCode][$attrValue])
-                ) {
-                    $attrValue = $this->_attributeValues[$attrCode][$attrValue];
-                }
-                if (null !== $attrValue) {
-                    $row[$attrCode] = $attrValue;
-                }
+        foreach ($collection as $customerId => $customer) {
+            $customerAddress = array();
+            if (isset($customerAddrs[$customerId])) {
+                $customerAddress = $customerAddrs[$customerId];
             }
-            $row[self::COL_WEBSITE] = $this->_websiteIdToCode[$item['website_id']];
-            $row[self::COL_STORE]   = $this->_storeIdToCode[$item['store_id']];
-
-            // addresses injection
-            $defaultAddrs = array();
-
-            foreach ($defaultAddrMap as $colName => $addrAttrCode) {
-                if (!empty($item[$addrAttrCode])) {
-                    $defaultAddrs[$item[$addrAttrCode]][] = $colName;
-                }
+            $addressMultiselect= array();
+            if (isset($addrAttributeMultiSelect[$customerId])) {
+                $addressMultiselect = $addrAttributeMultiSelect[$customerId];
             }
-            if (isset($customerAddrs[$itemId])) {
-                while (($addrRow = each($customerAddrs[$itemId]))) {
-                    if (isset($defaultAddrs[$addrRow['key']])) {
-                        foreach ($defaultAddrs[$addrRow['key']] as $colName) {
-                            $row[$colName] = 1;
-                        }
+
+            $row          = $this->_prepareExportRow($customer, $customerAttributeMultiSelect);
+            $defaultAddrs = $this->_prepareDefaultAddress($customer);
+
+            $addrRow          = array();
+            $currentAddressId = 0;
+            if (isset($customerAddrs[$customerId])) {
+                list($addressId, $addrRow) = $this->_getNextAddressRow($customerAddress);
+                $row              = $this->_addDefaultAddressFields($defaultAddrs, $addressId, $row);
+                $addrRow          = $this->_addNextAddressOptions($addressMultiselect, $addressId, $addrRow);
+                $currentAddressId = $addressId;
+            }
+            foreach ($customerAttributeMultiSelect as $column => &$multiSelectOptions) {
+                $row[$column] = array_shift($multiSelectOptions);
+            }
+            $writeRow = array_merge($row, $addrRow);
+            $writer->writeRow($writeRow);
+
+            $additionalRowsCount = $this->_getAdditionalRowsCount($customerAddress,
+                $addressMultiselect, $customerAttributeMultiSelect);
+            if ($additionalRowsCount) {
+                for ($i = 0; $i < $additionalRowsCount; $i++) {
+                    $writeRow = array();
+
+                    foreach ($customerAttributeMultiSelect as $column => &$multiSelectOptions) {
+                        $writeRow[$column] = array_shift($multiSelectOptions);
                     }
-                    $writer->writeRow(array_merge($row, $addrRow['value']));
+                    if (!$this->_isExistMultiSelectOptions($addressMultiselect, $currentAddressId)) {
+                        list($addressId, $addrRow) = $this->_getNextAddressRow($customerAddress);
+                        $currentAddressId = $addressId;
+                        $addrRow = $this->_addNextAddressOptions($addressMultiselect, $currentAddressId, $addrRow);
+                    } else {
+                        $addrRow = array();
+                        $addrRow = $this->_addNextAddressOptions($addressMultiselect, $currentAddressId, $addrRow);
+                    }
 
-                    $row = array();
+                    if ($addrRow) {
+                        $writeRow = array_merge($writeRow, $addrRow);
+                    }
+                    $writer->writeRow($writeRow);
                 }
-            } else {
-                $writer->writeRow($row);
             }
         }
-        return $writer->getContents();
+    }
+
+    /**
+     * Get Additional Rows Count
+     *
+     * @param array $customerAddress
+     * @param array $addrMultiSelect
+     * @param array $customerMultiSelect
+     * @return int
+     */
+    protected function _getAdditionalRowsCount($customerAddress, $addrMultiSelect, $customerMultiSelect)
+    {
+        $additionalRowsCount = count($customerAddress);
+        $addressRowCount     = 0;
+        $allAddressRowCount  = array();
+
+        foreach ($addrMultiSelect as $addressId => $addressAttributeOptions) {
+            foreach ($addressAttributeOptions as $options) {
+                $addressRowCount                = max(count($options), $addressRowCount);
+                $allAddressRowCount[$addressId] = $addressRowCount;
+            }
+            $addressRowCount = 0;
+        }
+
+        $additionalRowsCount = max(array_sum($allAddressRowCount), $additionalRowsCount);
+
+        foreach ($customerMultiSelect as $options) {
+            $additionalRowsCount = max(count($options), $additionalRowsCount);
+        }
+
+        return $additionalRowsCount;
+    }
+
+    /**
+     * Get Next Address Row
+     *
+     * @param array $customerAddress
+     * @return array
+     */
+    protected function _getNextAddressRow(&$customerAddress)
+    {
+        if (!empty($customerAddress)) {
+            reset($customerAddress);
+            $addressId  = key($customerAddress);
+            $addressRow = current($customerAddress);
+            unset($customerAddress[$addressId]);
+
+            return array($addressId, $addressRow);
+        }
+        return array(null, null);
     }
 
     /**
@@ -247,7 +338,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
                 $data = $this->_attributeOverrides[$attribute->getAttributeCode()];
 
                 if (isset($data['options_method']) && method_exists($this, $data['options_method'])) {
-                    $data['filter_options'] = $this->$data['options_method']();
+                    $data['filter_options'] = $this->{$data['options_method']}();
                 }
                 $attribute->addData($data);
             }
@@ -273,5 +364,153 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
     public function getEntityTypeCode()
     {
         return 'customer';
+    }
+
+    /**
+     * Get Address Attributes
+     *
+     * @param $attribute
+     * @return array
+     */
+    protected function _getAddressAttributeOptions($attribute)
+    {
+        $options  = array();
+        $attrCode = $attribute->getAttributeCode();
+
+        if ($attribute->usesSource() && 'country_id' != $attrCode) {
+            foreach ($attribute->getSource()->getAllOptions(false) as $option) {
+                $innerOptions = is_array($option['value']) ? $option['value'] : array($option);
+                foreach ($innerOptions as $innerOption) {
+                    // skip ' -- Please Select -- ' option
+                    if (strlen($innerOption['value'])) {
+                        $options[$innerOption['value']] = $innerOption['label'];
+                    }
+                }
+            }
+        }
+        return $options;
+    }
+
+    /**
+     * Prepare Export Row
+     *
+     * @param Mage_Customer_Model_Customer $customer
+     * @param array $attributeMultiSelect
+     * @return array
+     */
+    protected function _prepareExportRow($customer, &$attributeMultiSelect)
+    {
+        $row            = array();
+        $validAttrCodes = $this->_getExportAttrCodes();
+
+        // go through all valid attribute codes
+        foreach ($validAttrCodes as $attrCode) {
+            $attribute = $customer->getAttribute($attrCode);
+            $attrValue = $customer->getData($attrCode);
+
+            if ($attribute && $attribute->getFrontendInput() == 'multiselect') {
+                $optionText = (array)$attribute->getSource()->getOptionText($attrValue);
+                if ($optionText) {
+                    $attributeMultiSelect[$attrCode] = $optionText;
+                    $attrValue                       = null;
+                }
+            } elseif (isset($this->_attributeValues[$attrCode])
+                && isset($this->_attributeValues[$attrCode][$attrValue])
+            ) {
+                $attrValue = $this->_attributeValues[$attrCode][$attrValue];
+            }
+            if (null !== $attrValue) {
+                $row[$attrCode] = $attrValue;
+            }
+        }
+        $row[self::COL_WEBSITE] = $this->_websiteIdToCode[$customer['website_id']];
+        $row[self::COL_STORE]   = $this->_storeIdToCode[$customer['store_id']];
+
+        return $row;
+    }
+
+    /**
+     * Prepare Default Address
+     *
+     * @param Mage_Customer_Model_Customer $customer
+     * @return array
+     */
+    protected function _prepareDefaultAddress($customer)
+    {
+        $defaultAddrMap = Mage_ImportExport_Model_Import_Entity_Customer_Address::getDefaultAddressAttrMapping();
+        $defaultAddrs   = array();
+
+        foreach ($defaultAddrMap as $colName => $addrAttrCode) {
+            if (!empty($customer[$addrAttrCode])) {
+                $defaultAddrs[$customer[$addrAttrCode]][] = $colName;
+            }
+        }
+        return $defaultAddrs;
+    }
+
+    /**
+     * Add default fields to row
+     *
+     * @param $defaultAddrs
+     * @param $addressId
+     * @param $row
+     * @return mixed
+     */
+    protected function _addDefaultAddressFields($defaultAddrs, $addressId, $row)
+    {
+        if (isset($defaultAddrs[$addressId])) {
+            foreach ($defaultAddrs[$addressId] as $colName) {
+                $row[$colName] = 1;
+            }
+            return $row;
+        }
+        return $row;
+    }
+
+    /**
+     * Get Next Address MultiSelect option
+     *
+     * @param array $addrAttributeMultiSelect
+     * @param int $addressId
+     * @param array $addrRow
+     * @return array
+     */
+    protected function _addNextAddressOptions(&$addrAttributeMultiSelect, $addressId, $addrRow)
+    {
+        if (!isset($addrAttributeMultiSelect[$addressId])) {
+            return $addrRow;
+        }
+        $addrMultiSelectOption = &$addrAttributeMultiSelect[$addressId];
+        if (is_array($addrMultiSelectOption)) {
+            foreach ($addrMultiSelectOption as $column => &$options) {
+                $addrRow[$column] = array_shift($options);
+            }
+        }
+        return $addrRow;
+    }
+
+    /**
+     * Check if exist MultiSelect Options
+     *
+     * @param array $addrAttributeMultiSelect
+     * @param int $addressId
+     * @return bool
+     */
+    protected function _isExistMultiSelectOptions($addrAttributeMultiSelect, $addressId)
+    {
+        $result = false;
+        if (!isset($addrAttributeMultiSelect[$addressId])) {
+            return $result;
+        }
+        $addrMultiSelectOption = $addrAttributeMultiSelect[$addressId];
+        if (is_array($addrMultiSelectOption)) {
+            foreach ($addrMultiSelectOption as $option) {
+                if (!empty($option)) {
+                    $result = true;
+                    break;
+                }
+            }
+        }
+        return $result;
     }
 }

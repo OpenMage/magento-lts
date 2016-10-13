@@ -30,6 +30,7 @@
         <reopenBrowser>testCase</reopenBrowser>
         <backendLogin>admin</backendLogin>
         <backendPassword>123123q</backendPassword>
+        <backendLoginUrl/>
     </application>
     <install>
         <host>127.0.0.1</host>
@@ -39,12 +40,22 @@
         <baseUrl>http://127.0.0.1/magento1/</baseUrl>
         <backendName>admin</backendName>
     </install>
+    <isolation>
+        <resetUrlPath>dev/tests/mtf/isolation.php</resetUrlPath>
+        <testSuite>before</testSuite>
+        <testCase>none</testCase>
+        <test>none</test>
+    </isolation>
     <server>
-        <item name="selenium" type="default" browser="Mozilla Firefox" browserName="firefox" host="localhost" port="4444" seleniumServerRequestsTimeout="120" sessionStrategy="shared">
+        <item name="selenium" type="default" browser="Mozilla Firefox" browserName="firefox" host="localhost" port="4444" seleniumServerRequestsTimeout="90" sessionStrategy="shared">
             <desiredCapabilities>
                 <platform>ANY</platform>
             </desiredCapabilities>
         </item>
     </server>
-    <version></version>
+    <handler>
+        <curl priority="0" />
+        <ui priority="1" />
+    </handler>
+    <version/>
 </config>

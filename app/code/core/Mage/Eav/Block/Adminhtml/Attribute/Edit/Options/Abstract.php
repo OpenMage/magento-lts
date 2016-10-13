@@ -170,12 +170,11 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
     public function getLabelValues()
     {
         $values = array();
-        $values[0] = $this->getAttributeObject()->getFrontend()->getLabel();
-        // it can be array and cause bug
         $frontendLabel = $this->getAttributeObject()->getFrontend()->getLabel();
         if (is_array($frontendLabel)) {
-            $frontendLabel = array_shift($frontendLabel);
+            return $frontendLabel;
         }
+        $values[0] = $frontendLabel;
         $storeLabels = $this->getAttributeObject()->getStoreLabels();
         foreach ($this->getStores() as $store) {
             if ($store->getId() != 0) {

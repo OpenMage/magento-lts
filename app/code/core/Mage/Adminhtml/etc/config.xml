@@ -191,13 +191,18 @@
             <dashboard>
                 <enable_charts>1</enable_charts>
             </dashboard>
+            <catalog>
+                <frontend>
+                    <allowed_html_tags_list>a,abbr,acronym,address,applet,area,base,basefont,bdo,big,blockquote,br,button,caption,center,cite,code,col,colgroup,dd,del,dfn,dir,div,dl,dt,em,i,fieldset,font,form,frame,frameset,h1,h2,h3,h4,h5,h6,hr,img,input,ins,kbd,label,legend,li,map,menu,meta,noscript,ol,optgroup,option,p,param,pre,q,s,samp,select,small,span,strike,strong,b,sub,sup,table,tbody,td,textarea,tfoot,th,thead,title,tr,tt,u,ul,var</allowed_html_tags_list>
+                </frontend>
+            </catalog>
         </system>
         <general>
             <file>
                 <sitemap_generate_valid_paths>
                     <!-- This data should be merged with public_files_valid_paths -->
                     <available>
-                        <any_path>/*/sitemap.xml</any_path>
+                        <any_path>/*/*.xml</any_path>
                     </available>
                 </sitemap_generate_valid_paths>
             </file>
@@ -211,10 +216,13 @@
         </general>
         <hints>
             <store_switcher>
-                <url><![CDATA[http://www.magentocommerce.com/knowledge-base/entry/understanding-store-scopes]]></url>
+                <url><![CDATA[http://merch.docs.magento.com/ce/user_guide/configuration/scope.html]]></url>
                 <enabled>1</enabled>
             </store_switcher>
         </hints>
+        <help>
+            <target_version>ce</target_version>
+        </help>
     </default>
     <stores>
         <admin>

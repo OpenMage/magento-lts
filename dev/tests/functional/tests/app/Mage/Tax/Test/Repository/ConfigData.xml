@@ -35,6 +35,7 @@
                 <item name="value" xsi:type="string">2</item>
             </field>
         </dataset>
+
         <dataset name="shipping_tax_class_taxable_goods_rollback">
             <field name="tax/classes/shipping_tax_class" xsi:type="array">
                 <item name="scope" xsi:type="string">tax</item>
@@ -43,6 +44,7 @@
                 <item name="value" xsi:type="string" />
             </field>
         </dataset>
+
         <dataset name="tax_calculation_base_on_shipping_origin">
             <field name="tax/calculation/based_on" xsi:type="array">
                 <item name="scope" xsi:type="string">tax</item>
@@ -51,6 +53,7 @@
                 <item name="value" xsi:type="string">origin</item>
             </field>
         </dataset>
+
         <dataset name="tax_calculation_base_on_shipping_origin_rollback">
             <field name="tax/calculation/based_on" xsi:type="array">
                 <item name="scope" xsi:type="string">tax</item>
@@ -59,6 +62,7 @@
                 <item name="value" xsi:type="string">shipping</item>
             </field>
         </dataset>
+
         <dataset name="cross_border_enabled_price_incl_tax">
             <field name="tax/calculation/algorithm" xsi:type="array">
                 <item name="scope" xsi:type="string">tax</item>
@@ -175,6 +179,7 @@
                 <item name="value" xsi:type="string" />
             </field>
         </dataset>
+
         <dataset name="cross_border_enabled_price_excl_tax">
             <field name="tax/calculation/algorithm" xsi:type="array">
                 <item name="scope" xsi:type="string">tax</item>
@@ -291,6 +296,7 @@
                 <item name="value" xsi:type="string" />
             </field>
         </dataset>
+
         <dataset name="default_tax_configuration">
             <field name="tax/calculation/algorithm" xsi:type="array">
                 <item name="scope" xsi:type="string">tax</item>
@@ -455,6 +461,7 @@
                 <item name="value" xsi:type="string" />
             </field>
         </dataset>
+
         <dataset name="display_including_tax">
             <field name="tax/display/type" xsi:type="array">
                 <item name="scope" xsi:type="string">tax</item>
@@ -523,6 +530,7 @@
                 <item name="value" xsi:type="string">1</item>
             </field>
         </dataset>
+
         <dataset name="display_excluding_including_tax">
             <field name="tax/display/type" xsi:type="array">
                 <item name="scope" xsi:type="string">tax</item>
@@ -591,6 +599,7 @@
                 <item name="value" xsi:type="string">1</item>
             </field>
         </dataset>
+
         <dataset name="row_cat_incl_ship_excl_after_disc_on_excl">
             <field name="tax/calculation/algorithm" xsi:type="array">
                 <item name="scope" xsi:type="string">tax</item>
@@ -629,6 +638,7 @@
                 <item name="value" xsi:type="string" />
             </field>
         </dataset>
+
         <dataset name="row_cat_excl_ship_incl_before_disc_on_incl">
             <field name="tax/calculation/algorithm" xsi:type="array">
                 <item name="scope" xsi:type="string">tax</item>
@@ -667,6 +677,7 @@
                 <item name="value" xsi:type="string" />
             </field>
         </dataset>
+
         <dataset name="total_cat_excl_ship_incl_after_disc_on_excl">
             <field name="tax/calculation/algorithm" xsi:type="array">
                 <item name="scope" xsi:type="string">tax</item>
@@ -705,6 +716,7 @@
                 <item name="value" xsi:type="string" />
             </field>
         </dataset>
+
         <dataset name="row_cat_incl_ship_excl_before_disc_on_incl">
             <field name="tax/calculation/algorithm" xsi:type="array">
                 <item name="scope" xsi:type="string">tax</item>
@@ -743,6 +755,7 @@
                 <item name="value" xsi:type="string" />
             </field>
         </dataset>
+
         <dataset name="unit_cat_incl_ship_incl_before_disc_on_incl">
             <field name="tax/calculation/algorithm" xsi:type="array">
                 <item name="scope" xsi:type="string">tax</item>
@@ -781,6 +794,7 @@
                 <item name="value" xsi:type="string" />
             </field>
         </dataset>
+
         <dataset name="total_cat_excl_ship_incl_before_disc_on_incl">
             <field name="tax/calculation/algorithm" xsi:type="array">
                 <item name="scope" xsi:type="string">tax</item>
@@ -819,6 +833,7 @@
                 <item name="value" xsi:type="string" />
             </field>
         </dataset>
+
         <dataset name="unit_cat_excl_ship_excl_after_disc_on_excl">
             <field name="tax/calculation/algorithm" xsi:type="array">
                 <item name="scope" xsi:type="string">tax</item>
@@ -857,6 +872,7 @@
                 <item name="value" xsi:type="string" />
             </field>
         </dataset>
+
         <dataset name="total_cat_incl_ship_excl_before_disc_on_excl">
             <field name="tax/calculation/algorithm" xsi:type="array">
                 <item name="scope" xsi:type="string">tax</item>
@@ -895,6 +911,7 @@
                 <item name="value" xsi:type="string" />
             </field>
         </dataset>
+
         <dataset name="total_cat_excl_ship_incl_after_disc_on_incl">
             <field name="tax/calculation/algorithm" xsi:type="array">
                 <item name="scope" xsi:type="string">tax</item>
@@ -933,6 +950,7 @@
                 <item name="value" xsi:type="string" />
             </field>
         </dataset>
+
         <dataset name="unit_cat_excl_ship_incl_after_disc_on_excl">
             <field name="tax/calculation/algorithm" xsi:type="array">
                 <item name="scope" xsi:type="string">tax</item>

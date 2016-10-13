@@ -77,7 +77,7 @@ class CreateSalesRuleStep implements TestStepInterface
      */
     protected function createSalesRule()
     {
-        $salesRule = $this->fixtureFactory->createByCode('salesRule', ['dataSet' => $this->salesRule]);
+        $salesRule = $this->fixtureFactory->createByCode('salesRule', ['dataset' => $this->salesRule]);
         $salesRule->persist();
         return $salesRule;
     }

@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Customer>
-            <version>1.6.2.0.4</version>
+            <version>1.6.2.0.5</version>
         </Mage_Customer>
     </modules>
     <admin>
@@ -378,6 +378,9 @@
                     <form_attribute>
                         <table>customer_form_attribute</table>
                     </form_attribute>
+                    <flowpassword>
+                        <table>customer_flowpassword</table>
+                    </flowpassword>
                 </entities>
             </customer_resource>
         </models>
@@ -416,6 +419,11 @@
                     <file>password_new.html</file>
                     <type>html</type>
                 </customer_password_remind_email_template>
+                <customer_changed_account_password_or_email_template translate="label" module="customer">
+                    <label>Changed Password or Email</label>
+                    <file>password_or_email_changed.html</file>
+                    <type>html</type>
+                </customer_changed_account_password_or_email_template>
             </email>
         </template>
         <events>
@@ -512,6 +520,10 @@
                 <email_confirmed_template>customer_create_account_email_confirmed_template</email_confirmed_template>
                 <vat_frontend_visibility>0</vat_frontend_visibility>
             </create_account>
+            <changed_account>
+                <password_or_email_identity>general</password_or_email_identity>
+                <password_or_email_template>customer_changed_account_password_or_email_template</password_or_email_template>
+            </changed_account>
             <default>
                 <group>1</group>
             </default>
@@ -519,7 +531,7 @@
                 <forgot_email_identity>support</forgot_email_identity>
                 <forgot_email_template>customer_password_forgot_email_template</forgot_email_template>
                 <remind_email_template>customer_password_remind_email_template</remind_email_template>
-                <reset_link_expiration_period>1</reset_link_expiration_period>
+                <reset_link_expiration_period>2</reset_link_expiration_period>
                 <require_admin_user_to_change_user_password>1</require_admin_user_to_change_user_password>
             </password>
             <address>
@@ -576,5 +588,24 @@ T: {{var telephone}}
                 <js_template><![CDATA[#{prefix} #{firstname} #{middlename} #{lastname} #{suffix}<br/>#{company}<br/>#{street0}<br/>#{street1}<br/>#{street2}<br/>#{street3}<br/>#{city}, #{region}, #{postcode}<br/>#{country_id}<br/>T: #{telephone}<br/>F: #{fax}<br/>VAT: #{vat_id}]]></js_template>
             </address_templates>
         </customer>
+        <admin>
+            <security>
+                <forgot_password_flow_secure>1</forgot_password_flow_secure>
+                <forgot_password_email_times>5</forgot_password_email_times>
+                <forgot_password_ip_times>5</forgot_password_ip_times>
+            </security>
+        </admin>
     </default>
+    <crontab>
+        <jobs>
+            <customer_flowpassword>
+                <schedule>
+                    <cron_expr>0 0 1 * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>mage_customer/observer::deleteCustomerFlowPassword</model>
+                </run>
+            </customer_flowpassword>
+        </jobs>
+    </crontab>
 </config>

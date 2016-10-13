@@ -25,7 +25,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
  -->
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
     <fixture name="connect" module="Mage_Connect" type="virtual" entity_type="connect" class="Mage\Connect\Test\Fixture\Connect" repository_class="Mage\Connect\Test\Repository\Connect">
         <field name="Mage_All_Latest" />
     </fixture>

@@ -308,6 +308,9 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
                 if (!$quoteAddress = $this->getQuote()->getShippingAddressByCustomerAddressId($address->getId())) {
                     $quoteAddress = Mage::getModel('sales/quote_address')->importCustomerAddress($address);
                     $this->getQuote()->addShippingAddress($quoteAddress);
+                    if ($couponCode = $this->getCheckoutSession()->getCartCouponCode()) {
+                        $this->getQuote()->setCouponCode($couponCode);
+                    }
                 }
 
                 $quoteAddress = $this->getQuote()->getShippingAddressByCustomerAddressId($address->getId());

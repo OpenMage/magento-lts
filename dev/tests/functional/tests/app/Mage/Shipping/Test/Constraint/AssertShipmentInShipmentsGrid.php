@@ -29,6 +29,7 @@ namespace Mage\Shipping\Test\Constraint;
 use Mage\Sales\Test\Constraint\AbstractAssertSalesEntityInSalesEntityGrid;
 use Mage\Shipping\Test\Page\Adminhtml\SalesShipment;
 use Magento\Mtf\ObjectManager;
+use Magento\Mtf\System\Event\EventManagerInterface;
 
 /**
  * Assert shipment with corresponding shipment/order ID is present in 'Shipments' with correct 'Total Quantity' field.
@@ -68,11 +69,16 @@ class AssertShipmentInShipmentsGrid extends AbstractAssertSalesEntityInSalesEnti
     /**
      * @constructor
      * @param ObjectManager $objectManager
+     * @param EventManagerInterface $eventManager
      * @param SalesShipment $salesShipment
      */
-    public function __construct(ObjectManager $objectManager, SalesShipment $salesShipment)
+    public function __construct(
+        ObjectManager $objectManager,
+        EventManagerInterface $eventManager,
+        SalesShipment $salesShipment
+    )
     {
-        parent::__construct($objectManager);
+        parent::__construct($objectManager, $eventManager);
         $this->salesEntityIndexPage = $salesShipment;
     }
 

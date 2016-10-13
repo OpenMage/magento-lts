@@ -93,4 +93,13 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group
         return parent::_prepareLayout();
     }
 
+    /**
+     *  Get is percent flag
+     *
+     * @return int
+     */
+    public function getIsPercent() {
+        return $this->getData('is_percent') ? $this->getData('is_percent') : 0;
+    }
+
 }

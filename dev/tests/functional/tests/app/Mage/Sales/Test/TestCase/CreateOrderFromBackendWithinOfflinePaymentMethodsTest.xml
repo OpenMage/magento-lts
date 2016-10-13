@@ -26,19 +26,19 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Sales\Test\TestCase\CreateOrderFromBackendWithinOfflinePaymentMethodsTest">
+    <testCase name="Mage\Sales\Test\TestCase\CreateOrderFromBackendWithinOfflinePaymentMethodsTest" summary="CreateOrderFromBackendWithinOfflinePaymentMethodsTest">
         <variation name="CreateOrderFromBackendWithinOfflinePaymentMethodsTestVariation1" method="test">
             <data name="description" xsi:type="string">Create backend order with simple product for existing customer.</data>
             <data name="products" xsi:type="string">catalogProductSimple::default</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
-            <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
+            <data name="customer/dataset" xsi:type="string">default</data>
+            <data name="billingAddress/dataset" xsi:type="string">US_address_without_email</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
             <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
             <data name="grandTotal" xsi:type="string">315.00</data>
             <data name="payment/method" xsi:type="string">checkmo</data>
             <data name="status" xsi:type="string">Pending</data>
             <data name="configData" xsi:type="string">-</data>
-            <data name="customer/dataSet" xsi:type="string">johndoe_unique</data>
+            <data name="customer/dataset" xsi:type="string">johndoe_unique</data>
             <data name="salesRule" xsi:type="string">-</data>
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderCreateSuccessMessage" />
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid" />
@@ -49,15 +49,15 @@
         <variation name="CreateOrderFromBackendWithinOfflinePaymentMethodsTestVariation2" method="test">
             <data name="description" xsi:type="string">Create backend order with simple product for existing customer.</data>
             <data name="products" xsi:type="string">catalogProductSimple::default</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
-            <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
+            <data name="customer/dataset" xsi:type="string">default</data>
+            <data name="billingAddress/dataset" xsi:type="string">US_address_without_email</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
             <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
             <data name="grandTotal/base" xsi:type="string">315.00</data>
             <data name="payment/method" xsi:type="string">checkmo</data>
             <data name="status" xsi:type="string">Pending</data>
             <data name="configData" xsi:type="string">-</data>
-            <data name="customer/dataSet" xsi:type="string">johndoe_unique</data>
+            <data name="customer/dataset" xsi:type="string">johndoe_unique</data>
             <data name="salesRule" xsi:type="string">-</data>
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderCreateSuccessMessage" />
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid" />
@@ -68,15 +68,15 @@
         <variation name="CreateOrderFromBackendWithinOfflinePaymentMethodsTestVariation3" method="test">
             <data name="description" xsi:type="string">Create backend order with simple product for existing customer and discount coupon.</data>
             <data name="products" xsi:type="string">catalogProductSimple::default</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
-            <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
+            <data name="customer/dataset" xsi:type="string">default</data>
+            <data name="billingAddress/dataset" xsi:type="string">US_address_without_email</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
             <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
             <data name="grandTotal/base" xsi:type="string">165.00</data>
             <data name="payment/method" xsi:type="string">checkmo</data>
             <data name="status" xsi:type="string">Pending</data>
             <data name="configData" xsi:type="string">-</data>
-            <data name="customer/dataSet" xsi:type="string">johndoe_unique</data>
+            <data name="customer/dataset" xsi:type="string">johndoe_unique</data>
             <data name="salesRule" xsi:type="string">active_sales_rule_for_all_groups</data>
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderCreateSuccessMessage" />
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid" />
@@ -87,15 +87,15 @@
         <variation name="CreateOrderFromBackendWithinOfflinePaymentMethodsTestVariation4" method="test">
             <data name="description" xsi:type="string">Create backend order with simple product for existing customer and apply discount coupon.</data>
             <data name="products" xsi:type="string">catalogProductSimple::default</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
-            <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
+            <data name="customer/dataset" xsi:type="string">default</data>
+            <data name="billingAddress/dataset" xsi:type="string">US_address_without_email</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
             <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
             <data name="grandTotal/base" xsi:type="string">165.00</data>
             <data name="payment/method" xsi:type="string">checkmo</data>
             <data name="status" xsi:type="string">Pending</data>
             <data name="configData" xsi:type="string">-</data>
-            <data name="customer/dataSet" xsi:type="string">johndoe_unique</data>
+            <data name="customer/dataset" xsi:type="string">johndoe_unique</data>
             <data name="salesRule" xsi:type="string">active_sales_rule_for_all_groups</data>
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderCreateSuccessMessage" />
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid" />

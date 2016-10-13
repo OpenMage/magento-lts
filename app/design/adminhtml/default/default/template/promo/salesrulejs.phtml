@@ -91,10 +91,8 @@ function generateCouponCodes(idPrefix, generateUrl, grid) {
         parameters :params,
         method :'post',
         onComplete : function (transport, param){
-            var response = false;
-            if (transport && transport.responseText) {
-                response = eval('(' + transport.responseText + ')');
-            }
+            var response = transport.responseJSON || transport.responseText.evalJSON(true) || {};
+
             if (couponCodesGrid) {
                 couponCodesGrid.reload();
             }
@@ -102,7 +100,7 @@ function generateCouponCodes(idPrefix, generateUrl, grid) {
                 $('messages').update(response.messages);
             }
             if (response && response.error) {
-                alert(response.error);
+                alert(response.error.stripTags().toString());
             }
         }
     });

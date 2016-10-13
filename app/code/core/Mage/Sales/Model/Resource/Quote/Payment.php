@@ -51,4 +51,24 @@ class Mage_Sales_Model_Resource_Quote_Payment extends Mage_Sales_Model_Resource_
     {
         $this->_init('sales/quote_payment', 'payment_id');
     }
+
+    /**
+     * @see Mage_Core_Model_Resource_Abstract::_unserializeField()
+     */
+    protected function _unserializeField(Varien_Object $object, $field, $defaultValue = null)
+    {
+        $value = $object->getData($field);
+        if (empty($value)) {
+            $object->setData($field, $defaultValue);
+        } elseif (!is_array($value) && !is_object($value)) {
+            $unserializedValue = false;
+            try {
+                $unserializedValue = Mage::helper('core/unserializeArray')
+                    ->unserialize($value);
+            } catch (Exception $e) {
+                Mage::logException($e);
+            }
+            $object->setData($field, $unserializedValue);
+        }
+    }
 }

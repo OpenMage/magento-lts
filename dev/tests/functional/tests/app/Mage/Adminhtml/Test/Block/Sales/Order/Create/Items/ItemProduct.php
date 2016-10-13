@@ -66,6 +66,13 @@ class ItemProduct extends Form
      */
    public function fillProductOptions(array $options)
    {
+       if (isset($options['cartItem'])) {
+           unset($options['cartItem']);
+       }
+       if (isset($options['options'])) {
+           unset($options['options']);
+       }
+
        $mapping = $this->dataMapping($options);
        $this->_fill($mapping);
    }

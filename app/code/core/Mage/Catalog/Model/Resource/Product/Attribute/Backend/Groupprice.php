@@ -43,4 +43,17 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice
     {
         $this->_init('catalog/product_attribute_group_price', 'value_id');
     }
+
+    /**
+     * Add is_percent column
+     *
+     * @param array $columns
+     * @return array
+     */
+    protected function _loadPriceDataColumns($columns)
+    {
+        $columns               = parent::_loadPriceDataColumns($columns);
+        $columns['is_percent'] = 'is_percent';
+        return $columns;
+    }
 }

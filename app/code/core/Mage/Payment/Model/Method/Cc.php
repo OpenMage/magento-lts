@@ -122,7 +122,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
                     // Visa
                     'VI'  => '/^4[0-9]{12}([0-9]{3})?$/',
                     // Master Card
-                    'MC'  => '/^5[1-5][0-9]{14}$/',
+                    'MC'  => '/^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$/',
                     // American Express
                     'AE'  => '/^3[47][0-9]{13}$/',
                     // Discover Network

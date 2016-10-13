@@ -342,8 +342,9 @@ class Varien_Db_Ddl_Table
             case self::TYPE_DECIMAL:
             case self::TYPE_NUMERIC:
                 $match      = array();
-                $scale      = 10;
-                $precision  = 0;
+                //For decimal(M,D), M must be >= D
+                $precision  = 10;
+                $scale      = 0;
                 // parse size value
                 if (is_array($size)) {
                     if (count($size) == 2) {

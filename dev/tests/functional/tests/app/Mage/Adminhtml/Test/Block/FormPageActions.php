@@ -93,6 +93,7 @@ class FormPageActions extends PageActions
      */
     public function delete()
     {
+        $this->browser->find($this->topPage)->hover();
         $this->_rootElement->find($this->deleteButton)->click();
     }
 

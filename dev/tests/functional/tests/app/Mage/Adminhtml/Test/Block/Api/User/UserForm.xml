@@ -35,8 +35,12 @@
             <firstname />
             <lastname />
             <email />
-            <password />
-            <password_confirmation />
+            <password>
+                <selector>#user_password</selector>
+            </password>
+            <password_confirmation>
+                <selector>#user_confirmation</selector>
+            </password_confirmation>
             <current_password />
             <is_active>
                 <input>select</input>

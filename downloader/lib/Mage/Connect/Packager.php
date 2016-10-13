@@ -247,7 +247,8 @@ class Mage_Connect_Packager
                 if (@rmdir($dir)) {
                     $this->removeEmptyDirectory(dirname($dir), $ftp);
                 } else {
-                    throw new RuntimeException('Failed to delete dir ' . $dir . "\r\n Check permissions");
+                    throw new RuntimeException('Failed to delete dir ' . Mage_System_Dirs::getFilteredPath($dir)
+                        . "\r\n Check permissions");
                 }
             }
         }
@@ -275,7 +276,7 @@ class Mage_Connect_Packager
             $dest = $targetPath . DIRECTORY_SEPARATOR . $filePath . DIRECTORY_SEPARATOR . $fileName;
             if(@file_exists($dest)) {
                 if (!@unlink($dest)) {
-                    $failedFiles[] = $dest;
+                    $failedFiles[] = Mage_System_Dirs::getFilteredPath($dest);
                 }
             }
             $this->removeEmptyDirectory(dirname($dest));
@@ -308,7 +309,7 @@ class Mage_Connect_Packager
         foreach ($contents as $file) {
             $ftp->delete($file);
             if ($ftp->fileExists($file)) {
-                $failedFiles[] = $file;
+                $failedFiles[] = Mage_System_Dirs::getFilteredPath($file);
                 continue;
             }
             $this->removeEmptyDirectory(dirname($file), $ftp);
@@ -402,14 +403,14 @@ class Mage_Connect_Packager
         $failedFiles = array();
         foreach ($contents as $file) {
             $source = $tar . DS . $file;
-            if (file_exists($source) && is_file($source)) {
+            if (file_exists($source) && is_file($source) && $file != '.htaccess') {
                 $args = array(ltrim($file,"/"), $source);
                 if($modeDir||$modeFile) {
                     $args[] = $modeDir;
                     $args[] = $modeFile;
                 }
                 if (call_user_func_array(array($ftp,'upload'), $args) === false) {
-                    $failedFiles[] = $source;
+                    $failedFiles[] = Mage_System_Dirs::getFilteredPath($source);
                 }
             }
         }
@@ -457,7 +458,7 @@ class Mage_Connect_Packager
             $filePath = dirname($file);
             $source = $tar . DS . $file;
             $dest = $targetPath . DS . $filePath . DS . $fileName;
-            if (is_file($source)) {
+            if (is_file($source) && ($fileName != '.htaccess' || !is_file($dest))) {
                 @copy($source, $dest);
                 if($modeFile) {
                     @chmod($dest, $modeFile);
@@ -498,7 +499,7 @@ class Mage_Connect_Packager
                 continue;
             }
             if (!mkdir($targetPath . DS . $dirPath, $modeDir, true)) {
-                $failedDirs[] = $targetPath . DS .  $dirPath;
+                $failedDirs[] = Mage_System_Dirs::getFilteredPath($targetPath . DS .  $dirPath);
             } else {
                 $createdDirs[] = $targetPath . DS . $dirPath;
             }

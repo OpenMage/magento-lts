@@ -26,7 +26,7 @@
  */
  -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Wishlist\Test\TestCase\AddProductsToCartFromCustomerWishlistOnFrontendTest">
+    <testCase name="Mage\Wishlist\Test\TestCase\AddProductsToCartFromCustomerWishlistOnFrontendTest" summary="AddProductsToCartFromCustomerWishlistOnFrontendTest">
         <variation name="AddProductsToCartFromCustomerWishlistOnFrontendTestVariation5" method="test">
             <data name="products" xsi:type="string">downloadableProduct::with_two_separately_links</data>
             <constraint name="Mage\Checkout\Test\Constraint\AssertProductQtyInShoppingCart" />

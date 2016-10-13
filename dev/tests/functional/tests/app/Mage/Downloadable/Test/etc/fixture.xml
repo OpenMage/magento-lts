@@ -65,7 +65,7 @@
             <checkout_data>
                 <attribute_code>checkout_data</attribute_code>
                 <backend_type>virtual</backend_type>
-                <source>Mage\Downloadable\Test\Fixture\DownloadableProduct\CheckoutData</source>
+                <repository>Mage\Downloadable\Test\Repository\DownloadableProduct\CheckoutData</repository>
             </checkout_data>
             <stock_data>
                 <attribute_code>stock_data</attribute_code>

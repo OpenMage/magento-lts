@@ -207,14 +207,15 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
 
 
         $this->addColumn('position', array(
-            'header'            => Mage::helper('catalog')->__('Position'),
-            'name'              => 'position',
-            'width'             => 60,
-            'type'              => 'number',
-            'validate_class'    => 'validate-number',
-            'index'             => 'position',
-            'editable'          => !$this->isReadonly(),
-            'edit_only'         => !$this->_getProduct()->getId()
+            'header'                    => Mage::helper('catalog')->__('Position'),
+            'name'                      => 'position',
+            'width'                     => 60,
+            'type'                      => 'number',
+            'validate_class'            => 'validate-number',
+            'index'                     => 'position',
+            'editable'                  => !$this->isReadonly(),
+            'edit_only'                 => !$this->_getProduct()->getId(),
+            'filter_condition_callback' => array($this, '_addLinkModelFilterCallback')
         ));
 
         return parent::_prepareColumns();

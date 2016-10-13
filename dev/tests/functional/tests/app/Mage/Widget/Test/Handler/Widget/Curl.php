@@ -102,7 +102,7 @@ class Curl extends AbstractCurl
         unset($data['type']);
         unset($data['package_theme']);
         $curl = new BackendDecorator(new CurlTransport(), $this->_configuration);
-        $curl->write(CurlInterface::POST, $url, '1.1', [], $data);
+        $curl->write($url, $data);
         $response = $curl->read();
         $curl->close();
 

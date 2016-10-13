@@ -26,37 +26,23 @@
 
 namespace Mage\Tax\Test\Fixture\TaxRule;
 
+use Magento\Mtf\Fixture\DataSource;
 use Magento\Mtf\Fixture\FixtureFactory;
-use Magento\Mtf\Fixture\FixtureInterface;
 
 /**
  * Tax class source for TaxRule fixture.
  *
  * Data keys:
- *  - dataSet
+ *  - dataset
  */
-class TaxClass implements FixtureInterface
+class TaxClass extends DataSource
 {
-    /**
-     * Array with tax class names.
-     *
-     * @var array
-     */
-    protected $data;
-
     /**
      * Array with tax class fixtures.
      *
      * @var array
      */
     protected $fixtures;
-
-    /**
-     * Source parameters.
-     *
-     * @var array
-     */
-    protected $params;
 
     /**
      * @constructor
@@ -67,11 +53,11 @@ class TaxClass implements FixtureInterface
     public function __construct(FixtureFactory $fixtureFactory, array $params, array $data = [])
     {
         $this->params = $params;
-        if (isset($data['dataSet'])) {
-            foreach ($data['dataSet'] as $dataSet) {
-                if ($dataSet !== '-') {
+        if (isset($data['dataset'])) {
+            foreach ($data['dataset'] as $dataset) {
+                if ($dataset !== '-') {
                     /** @var \Mage\Tax\Test\Fixture\TaxClass $taxClass */
-                    $taxClass = $fixtureFactory->createByCode('taxClass', ['dataSet' => $dataSet]);
+                    $taxClass = $fixtureFactory->createByCode('taxClass', ['dataset' => $dataset]);
                     if (!$taxClass->hasData('id')) {
                         $taxClass->persist();
                     }
@@ -80,39 +66,6 @@ class TaxClass implements FixtureInterface
                 }
             }
         }
-    }
-
-    /**
-     * Persist custom selections tax classes
-     *
-     * @return void
-     */
-    public function persist()
-    {
-        //
-    }
-
-    /**
-     * Return prepared data set
-     *
-     * @param $key [optional]
-     * @return mixed
-     *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    public function getData($key = null)
-    {
-        return $this->data;
-    }
-
-    /**
-     * Return data set configuration settings
-     *
-     * @return string
-     */
-    public function getDataConfig()
-    {
-        return $this->params;
     }
 
     /**

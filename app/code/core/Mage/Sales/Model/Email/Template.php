@@ -33,7 +33,7 @@ class Mage_Sales_Model_Email_Template extends Mage_Core_Model_Email_Template
         if (!$filename) {
             return '';
         }
-        extract($variables);
+        extract($variables, EXTR_SKIP);
         ob_start();
         include $filename;
         return ob_get_clean();

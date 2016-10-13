@@ -384,6 +384,7 @@ class Mage_CatalogInventory_Model_Observer
                 $stockItem = $option->getProduct()->getStockItem();
 
                 if ($quoteItem->getProductType() == Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE) {
+                    $stockItem->setParentItem($quoteItem);
                     $stockItem->setProductName($quoteItem->getName());
                 }
 

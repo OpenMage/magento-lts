@@ -149,8 +149,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
     protected function _addEmailVariables($variables, $storeId)
     {
         if (!isset($variables['store'])) {
-            $store = Mage::app()->getStore($storeId);
-            $variables['store'] = $store;
+            $variables['store'] = Mage::app()->getStore($storeId);
         }
         if (!isset($variables['logo_url'])) {
             $variables['logo_url'] = $this->_getLogoUrl($storeId);
@@ -158,35 +157,20 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
         if (!isset($variables['logo_alt'])) {
             $variables['logo_alt'] = $this->_getLogoAlt($storeId);
         }
-        if (!isset($variables['logo_width'])) {
-            $variables['logo_width'] = Mage::getStoreConfig(
-                self::XML_PATH_DESIGN_EMAIL_LOGO_WIDTH,
-                $storeId
-            );
-        }
-        if (!isset($variables['logo_height'])) {
-            $variables['logo_height'] = Mage::getStoreConfig(
-                self::XML_PATH_DESIGN_EMAIL_LOGO_HEIGHT,
-                $storeId
-            );
-        }
-        if (!isset($variables['store_phone'])) {
-            $variables['store_phone'] = Mage::getStoreConfig(
-                Mage_Core_Model_Store::XML_PATH_STORE_STORE_PHONE,
-                $storeId
-            );
-        }
-        if (!isset($variables['store_hours'])) {
-            $variables['store_hours'] = Mage::getStoreConfig(
-                Mage_Core_Model_Store::XML_PATH_STORE_STORE_HOURS,
-                $storeId
-            );
-        }
-        if (!isset($variables['store_email'])) {
-            $variables['store_email'] = Mage::getStoreConfig(
-                Mage_Customer_Helper_Data::XML_PATH_SUPPORT_EMAIL,
-                $storeId
-            );
+
+        $defaultValuesMap = array(
+            "logo_width" => self::XML_PATH_DESIGN_EMAIL_LOGO_WIDTH,
+            "logo_height" => self::XML_PATH_DESIGN_EMAIL_LOGO_HEIGHT,
+            "phone" => Mage_Core_Model_Store::XML_PATH_STORE_STORE_PHONE,
+            "store_phone" => Mage_Core_Model_Store::XML_PATH_STORE_STORE_PHONE,
+            "store_hours" => Mage_Core_Model_Store::XML_PATH_STORE_STORE_HOURS,
+            "store_email" => Mage_Customer_Helper_Data::XML_PATH_SUPPORT_EMAIL,
+        );
+
+        foreach ($defaultValuesMap as $variableName => $configValue) {
+            if (!isset($variables[$variableName])) {
+                $variables[$variableName] = Mage::getStoreConfig($configValue, $storeId);
+            }
         }
         // If template is text mode, don't include styles
         if (!$this->isPlain()) {

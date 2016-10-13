@@ -27,10 +27,20 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/Magento/Mtf/Repository/etc/repository.xsd">
     <repository class="Mage\Tax\Test\Repository\TaxRule">
+        <dataset name="default">
+            <field name="code" xsi:type="string">DefaultTaxRule%isolation%</field>
+            <field name="tax_rate" xsi:type="array">
+                <item name="dataset" xsi:type="array">
+                    <item name="0" xsi:type="string">US-CA-*-Rate 1</item>
+                    <item name="1" xsi:type="string">US-NY-*-Rate 1</item>
+                </item>
+            </field>
+        </dataset>
+
         <dataset name="for_all_states">
             <field name="code" xsi:type="string">TaxIdentifier%isolation%</field>
             <field name="tax_rate" xsi:type="array">
-                <item name="dataSet" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">for_all_states</item>
                 </item>
             </field>
@@ -40,7 +50,7 @@
         <dataset name="cross_border_tax_rule">
             <field name="code" xsi:type="string">TaxIdentifier%isolation%</field>
             <field name="tax_rate" xsi:type="array">
-                <item name="dataSet" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">tx_rate_10</item>
                     <item name="1" xsi:type="string">ny_rate_20</item>
                     <item name="2" xsi:type="string">ca_rate_30</item>
@@ -53,7 +63,7 @@
         <dataset name="customer_equals_store_rate">
             <field name="code" xsi:type="string">TaxIdentifier%isolation%</field>
             <field name="tax_rate" xsi:type="array">
-                <item name="dataSet" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">us_ca_rate_8_25_no_zip</item>
                     <item name="1" xsi:type="string">us_ny_rate_8_25</item>
                 </item>
@@ -65,7 +75,7 @@
         <dataset name="customer_greater_store_rate">
             <field name="code" xsi:type="string">TaxIdentifier%isolation%</field>
             <field name="tax_rate" xsi:type="array">
-                <item name="dataSet" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">us_ca_rate_8_25_no_zip</item>
                     <item name="1" xsi:type="string">us_ny_rate_8_375</item>
                 </item>
@@ -77,7 +87,7 @@
         <dataset name="customer_less_store_rate">
             <field name="code" xsi:type="string">TaxIdentifier%isolation%</field>
             <field name="tax_rate" xsi:type="array">
-                <item name="dataSet" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">us_ca_rate_8_375</item>
                     <item name="1" xsi:type="string">us_ny_rate_8_25</item>
                 </item>
@@ -89,7 +99,7 @@
         <dataset name="us_tax_rule">
             <field name="code" xsi:type="string">TaxIdentifier%isolation%</field>
             <field name="tax_rate" xsi:type="array">
-                <item name="dataSet" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">us_ca_rate_8_25</item>
                     <item name="1" xsi:type="string">us_ny_rate_8_375</item>
                 </item>
@@ -101,17 +111,17 @@
         <dataset name="tax_rule_default">
             <field name="code" xsi:type="string">TaxIdentifier%isolation%</field>
             <field name="tax_rate" xsi:type="array">
-                <item name="dataSet" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">US-CA-Rate_1</item>
                 </item>
             </field>
             <field name="tax_customer_class" xsi:type="array">
-                <item name="dataSet" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">Retail Customer</item>
                 </item>
             </field>
             <field name="tax_product_class" xsi:type="array">
-                <item name="dataSet" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">Taxable Goods</item>
                 </item>
             </field>
@@ -122,7 +132,7 @@
         <dataset name="uk_tax_rule">
             <field name="code" xsi:type="string">TaxIdentifier%isolation%</field>
             <field name="tax_rate" xsi:type="array">
-                <item name="dataSet" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">uk-full-tax</item>
                 </item>
             </field>

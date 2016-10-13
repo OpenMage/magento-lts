@@ -26,7 +26,7 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Wishlist\Test\TestCase\AddProductToWishlistEntityTest">
+    <testCase name="Mage\Wishlist\Test\TestCase\AddProductToWishlistEntityTest" summary="AddProductToWishlistEntityTest">
         <variation name="AddProductToWishlistEntityTestVariation6" method="test">
             <data name="descriptions" xsi:type="string">Add Bundle dynamic product to Wishlist</data>
             <data name="product" xsi:type="string">bundleProduct::bundle_dynamic_product</data>

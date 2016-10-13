@@ -30,6 +30,7 @@ use Magento\Mtf\ObjectManager;
 use Mage\Adminhtml\Test\Block\Widget\Grid;
 use Mage\Sales\Test\Fixture\Order;
 use Mage\Sales\Test\Page\Adminhtml\SalesInvoice;
+use Magento\Mtf\System\Event\EventManagerInterface;
 
 /**
  * Assert that invoice with corresponding order ID is present in the invoices grid with corresponding amount.
@@ -69,11 +70,15 @@ class AssertInvoiceInInvoicesGrid extends AbstractAssertSalesEntityInSalesEntity
     /**
      * @constructor
      * @param ObjectManager $objectManager
+     * @param EventManagerInterface $eventManager
      * @param SalesInvoice $salesInvoice
      */
-    public function __construct(ObjectManager $objectManager, SalesInvoice $salesInvoice)
+    public function __construct(
+        ObjectManager $objectManager,
+        EventManagerInterface $eventManager,
+        SalesInvoice $salesInvoice)
     {
-        parent::__construct($objectManager);
+        parent::__construct($objectManager, $eventManager);
         $this->salesEntityIndexPage = $salesInvoice;
     }
 

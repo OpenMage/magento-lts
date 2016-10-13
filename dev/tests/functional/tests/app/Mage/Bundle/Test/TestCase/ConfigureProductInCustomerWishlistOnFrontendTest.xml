@@ -26,7 +26,7 @@
  */
  -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Wishlist\Test\TestCase\ConfigureProductInCustomerWishlistOnFrontendTest">
+    <testCase name="Mage\Wishlist\Test\TestCase\ConfigureProductInCustomerWishlistOnFrontendTest" summary="ConfigureProductInCustomerWishlistOnFrontendTest">
         <variation name="ConfigureProductInCustomerWishlistOnFrontendTestVariation3">
             <data name="product" xsi:type="string">bundleProduct::bundle_dynamic_product</data>
             <constraint name="Mage\Wishlist\Test\Constraint\AssertProductIsPresentInWishlist" />

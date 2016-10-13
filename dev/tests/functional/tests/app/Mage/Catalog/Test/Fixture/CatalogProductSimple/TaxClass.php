@@ -38,7 +38,7 @@ use Mage\Tax\Test\Fixture\TaxClass as FixtureTaxClass;
  * Tax class preset.
  *
  * Data keys:
- *  - dataSet
+ *  - dataset
  *  - tax_product_class
  */
 class TaxClass implements FixtureInterface
@@ -82,13 +82,13 @@ class TaxClass implements FixtureInterface
     {
         $this->params = $params;
         $this->configuration = $configuration;
-        if ((!isset($data['dataSet']) && !isset($data['tax_product_class']))) {
+        if ((!isset($data['dataset']) && !isset($data['tax_product_class']))) {
             $this->data = $data;
             return;
         }
 
-        if (isset($data['dataSet'])) {
-            $this->taxClass = $fixtureFactory->createByCode('taxClass', ['dataSet' => $data['dataSet']]);
+        if (isset($data['dataset'])) {
+            $this->taxClass = $fixtureFactory->createByCode('taxClass', ['dataset' => $data['dataset']]);
             $this->data = $this->taxClass->getClassName();
             if (!$this->taxClass->hasData('id')) {
                 $this->taxClass->persist();
@@ -119,7 +119,7 @@ class TaxClass implements FixtureInterface
         $url = $_ENV['app_backend_url'] . 'tax/rule/new/';
         $curl = new BackendDecorator(new CurlTransport(), $this->configuration);
         $curl->addOption(CURLOPT_HEADER, 1);
-        $curl->write(CurlInterface::POST, $url, '1.0', [], []);
+        $curl->write($url);
         $response = $curl->read();
         $curl->close();
 

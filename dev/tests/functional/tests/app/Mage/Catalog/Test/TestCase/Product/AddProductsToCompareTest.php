@@ -37,7 +37,7 @@ use Mage\Customer\Test\Fixture\Customer;
  *
  * Steps:
  * 1. Navigate to front-end.
- * 2. Login as customer according to dataSet.
+ * 2. Login as customer according to dataset.
  * 3. Open product page of test product(s) and click "Add to Compare" button.
  * 4. Assert success message is present on page.
  * 5. Navigate to compare page.

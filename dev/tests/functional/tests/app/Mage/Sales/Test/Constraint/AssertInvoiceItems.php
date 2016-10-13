@@ -29,6 +29,7 @@ namespace Mage\Sales\Test\Constraint;
 use Mage\Sales\Test\Page\Adminhtml\SalesInvoiceView;
 use Mage\Sales\Test\Page\Adminhtml\SalesInvoice;
 use Magento\Mtf\ObjectManager;
+use Magento\Mtf\System\Event\EventManagerInterface;
 
 /**
  * Assert invoice items on invoice view page.
@@ -62,15 +63,17 @@ class AssertInvoiceItems extends AbstractAssertItems
     /**
      * @constructor
      * @param ObjectManager $objectManager
+     * @param EventManagerInterface $eventManager
      * @param SalesInvoice $invoiceIndex
      * @param SalesInvoiceView $orderInvoiceView
      */
     public function __construct(
         ObjectManager $objectManager,
+        EventManagerInterface $eventManager,
         SalesInvoice $invoiceIndex,
         SalesInvoiceView $orderInvoiceView
     ) {
-        parent::__construct($objectManager);
+        parent::__construct($objectManager, $eventManager);
         $this->salesTypePage = $invoiceIndex;
         $this->salesTypeViewPage = $orderInvoiceView;
     }

@@ -154,6 +154,27 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     protected $_writer;
 
     /**
+     * Array of pairs store ID to its code.
+     *
+     * @var array
+     */
+    protected $_storeIdToCode = array();
+
+    /**
+     * Store Id-to-website
+     *
+     * @var array
+     */
+    protected $_storeIdToWebsiteId = array();
+
+    /**
+     * Website ID-to-code.
+     *
+     * @var array
+     */
+    protected $_websiteIdToCode = array();
+
+    /**
      * Constructor.
      *
      * @return void
@@ -166,6 +187,20 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     }
 
     /**
+    * Initialize website values.
+    *
+    * @return Mage_ImportExport_Model_Export_Entity_Customer
+    */
+    protected function _initWebsites()
+    {
+        /** @var $website Mage_Core_Model_Website */
+        foreach (Mage::app()->getWebsites(true) as $website) {
+            $this->_websiteIdToCode[$website->getId()] = $website->getCode();
+        }
+        return $this;
+    }
+
+    /**
      * Initialize stores hash.
      *
      * @return Mage_ImportExport_Model_Export_Entity_Abstract
@@ -173,9 +208,11 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     protected function _initStores()
     {
         foreach (Mage::app()->getStores(true) as $store) {
-            $this->_storeIdToCode[$store->getId()] = $store->getCode();
+            $this->_storeIdToCode[$store->getId()]      = $store->getCode();
+            $this->_storeIdToWebsiteId[$store->getId()] = $store->getWebsiteId();
         }
         ksort($this->_storeIdToCode); // to ensure that 'admin' store (ID is zero) goes first
+        sort($this->_storeIdToWebsiteId);
 
         return $this;
     }
@@ -319,9 +356,27 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Export process.
      *
+     * @deprecated after ver 1.9.2.4 use $this->exportFile() instead
+     *
      * @return string
      */
     abstract public function export();
+
+    /**
+     * Export data and return temporary file through array.
+     *
+     * This method will return following array:
+     *
+     * array(
+     *     'rows'  => count of written rows,
+     *     'value' => path to created file,
+     *     'type'  => 'file'
+     * )
+     *
+     * @throws Mage_Core_Exception
+     * @return array
+     */
+    abstract function exportFile();
 
     /**
      * Clean up attribute collection.
@@ -367,7 +422,8 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
 
             try {
                 foreach ($attribute->getSource()->getAllOptions(false) as $option) {
-                    foreach (is_array($option['value']) ? $option['value'] : array($option) as $innerOption) {
+                    $innerOptions = is_array($option['value']) ? $option['value'] : array($option);
+                    foreach ($innerOptions as $innerOption) {
                         if (strlen($innerOption['value'])) { // skip ' -- Please Select -- ' option
                             $options[$innerOption['value']] = $innerOption[$index];
                         }

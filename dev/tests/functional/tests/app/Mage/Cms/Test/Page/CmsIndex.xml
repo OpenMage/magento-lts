@@ -26,15 +26,15 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/pages.xsd">
-  <page name="CmsIndex" mca="cms/index" module="Mage_Cms">
-    <block name="topmenu" class="Mage\Page\Test\Block\Html\Topmenu" locator="#nav" strategy="css selector"/>
-    <block name="searchBlock" class="Mage\Catalog\Test\Block\Search" locator="#search_mini_form" strategy="css selector"/>
-    <block name="linksBlock" class="Mage\Theme\Test\Block\Links" locator="#header-account .links" strategy="css selector"/>
-    <block name="topLinksBlock" class="Mage\Theme\Test\Block\TopLinks" locator=".account-cart-wrapper" strategy="css selector"/>
-    <block name="footerBlock" class="Mage\Page\Test\Block\Html\Footer" locator=".footer" strategy="css selector"/>
-    <block name="headerBlock" class="Mage\Page\Test\Block\Html\Header" locator=".header-language-background" strategy="css selector"/>
-    <block name="currencyBlock" class="Mage\Directory\Test\Block\Currency\Switcher" locator=".currency-switcher" strategy="css selector"/>
-    <block name="cmsPageBlock" class="Mage\Cms\Test\Block\Page" locator=".main-container" strategy="css selector"/>
-    <block name="compareBlock" class="Mage\Catalog\Test\Block\Product\ProductList\Compare" locator=".block-compare" strategy="css selector"/>
-  </page>
+    <page name="CmsIndex" mca="cms/index" module="Mage_Cms">
+        <block name="topmenu" class="Mage\Page\Test\Block\Html\Topmenu" locator="#nav" strategy="css selector"/>
+        <block name="searchBlock" class="Mage\Catalog\Test\Block\Search" locator="#search_mini_form" strategy="css selector"/>
+        <block name="linksBlock" class="Mage\Theme\Test\Block\Links" locator="#header-account .links" strategy="css selector"/>
+        <block name="topLinksBlock" class="Mage\Theme\Test\Block\TopLinks" locator=".account-cart-wrapper" strategy="css selector"/>
+        <block name="footerBlock" class="Mage\Page\Test\Block\Html\Footer" locator=".footer" strategy="css selector"/>
+        <block name="headerBlock" class="Mage\Page\Test\Block\Html\Header" locator=".header-language-background" strategy="css selector"/>
+        <block name="currencyBlock" class="Mage\Directory\Test\Block\Currency\Switcher" locator=".currency-switcher" strategy="css selector"/>
+        <block name="cmsPageBlock" class="Mage\Cms\Test\Block\Page" locator=".main-container" strategy="css selector"/>
+        <block name="compareBlock" class="Mage\Catalog\Test\Block\Product\ProductList\Compare" locator=".block-compare" strategy="css selector"/>
+    </page>
 </config>

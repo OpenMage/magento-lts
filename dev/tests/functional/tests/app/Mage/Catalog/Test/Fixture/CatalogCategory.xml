@@ -25,121 +25,45 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 -->
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
-  <fixture name="catalogCategory" module="Mage_Catalog" type="eav" entity_type="catalog_category" collection="Mage\Catalog\Model\Resource\Category\Collection" repository_class="Mage\Catalog\Test\Repository\CatalogCategory" handler_interface="Mage\Catalog\Test\Handler\CatalogCategory\CatalogCategoryInterface" class="Mage\Catalog\Test\Fixture\CatalogCategory">
-    <dataset name="default">
-        <field name="name" xsi:type="string">Category%isolation%</field>
-        <field name="path" xsi:type="string">Default Category</field>
-        <field name="url_key" xsi:type="string">category%isolation%</field>
-        <field name="is_active" xsi:type="string">Yes</field>
-        <field name="include_in_menu" xsi:type="string">Yes</field>
-        <field name="parent_id" xsi:type="string">2</field>
-    </dataset>
-    <field name="all_children" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="available_sort_by" is_required="1" group="display_setting">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="available_product_listing_config" is_required="1" group="display_setting">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="default_product_listing_config" is_required="1" group="display_setting">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="default_sort_by" is_required="1" group="display_setting">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="children" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="children_count" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="custom_apply_to_products" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="custom_design" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="custom_design_from" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="custom_design_to" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="custom_layout_update" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="custom_use_parent_settings" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="parent_id" is_required="0" group="null" source="Mage\Catalog\Test\Fixture\CatalogCategory\ParentId">
-      <default_value xsi:type="number">2</default_value>
-    </field>
-    <field name="default_sort_by" is_required="1" group="display_setting">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="description" is_required="0" group="general_information">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="display_mode" is_required="0" group="display_setting">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="filter_price_range" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="image" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="include_in_menu" is_required="1" group="general_information">
-      <default_value xsi:type="string">1</default_value>
-    </field>
-    <field name="is_active" is_required="1" group="general_information">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="is_anchor" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="landing_page" is_required="0" group="display_setting">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="level" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="meta_description" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="meta_keywords" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="meta_title" is_required="0" group="general_information">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="name" is_required="1" group="general_information">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="page_layout" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="path" is_required="0" group="null">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="path_in_store" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="position" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="url_key" is_required="0" group="general_information">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="url_path" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="id" group="null"/>
-    <field name="is_active" group="general_information"/>
-    <field name="is_anchor" group="display_setting"/>
-    <field name="category_products" group="category_products" source="Mage\Catalog\Test\Fixture\CatalogCategory\CategoryProducts"/>
-  </fixture>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
+    <fixture name="catalogCategory" module="Mage_Catalog" type="eav" entity_type="catalog_category" collection="Mage\Catalog\Model\Resource\Category\Collection" repository_class="Mage\Catalog\Test\Repository\CatalogCategory" handler_interface="Mage\Catalog\Test\Handler\CatalogCategory\CatalogCategoryInterface" class="Mage\Catalog\Test\Fixture\CatalogCategory">
+        <field name="all_children" is_required="0"/>
+        <field name="available_sort_by" is_required="1" group="display_setting"/>
+        <field name="available_product_listing_config" is_required="1" group="display_setting"/>
+        <field name="default_product_listing_config" is_required="1" group="display_setting"/>
+        <field name="default_sort_by" is_required="1" group="display_setting"/>
+        <field name="children" is_required="0"/>
+        <field name="children_count" is_required="0"/>
+        <field name="custom_apply_to_products" is_required="0"/>
+        <field name="custom_design" is_required="0"/>
+        <field name="custom_design_from" is_required="0"/>
+        <field name="custom_design_to" is_required="0"/>
+        <field name="custom_layout_update" is_required="0"/>
+        <field name="custom_use_parent_settings" is_required="0"/>
+        <field name="parent_id" is_required="0" group="null" source="Mage\Catalog\Test\Fixture\CatalogCategory\ParentId"/>
+        <field name="default_sort_by" is_required="1" group="display_setting"/>
+        <field name="description" is_required="0" group="general_information"/>
+        <field name="display_mode" is_required="0" group="display_setting"/>
+        <field name="filter_price_range" is_required="0"/>
+        <field name="image" is_required="0"/>
+        <field name="include_in_menu" is_required="1" group="general_information"/>
+        <field name="is_active" is_required="1" group="general_information"/>
+        <field name="is_anchor" is_required="0"/>
+        <field name="landing_page" is_required="0" group="display_setting"/>
+        <field name="level" is_required="0"/>
+        <field name="meta_description" is_required="0"/>
+        <field name="meta_keywords" is_required="0"/>
+        <field name="meta_title" is_required="0" group="general_information"/>
+        <field name="name" is_required="1" group="general_information"/>
+        <field name="page_layout" is_required="0"/>
+        <field name="path" is_required="0"/>
+        <field name="path_in_store" is_required="0"/>
+        <field name="position" is_required="0"/>
+        <field name="url_key" is_required="0" group="general_information"/>
+        <field name="url_path" is_required="0"/>
+        <field name="id" group="null"/>
+        <field name="is_active" group="general_information"/>
+        <field name="is_anchor" group="display_setting"/>
+        <field name="category_products" group="category_products" source="Mage\Catalog\Test\Fixture\CatalogCategory\CategoryProducts"/>
+    </fixture>
 </config>

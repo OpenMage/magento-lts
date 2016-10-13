@@ -26,13 +26,13 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\GiftMessage\Test\TestCase\CheckoutWithGiftMessagesTest">
+    <testCase name="Mage\GiftMessage\Test\TestCase\CheckoutWithGiftMessagesTest" summary="CheckoutWithGiftMessagesTest">
         <variation name="CheckoutWithGiftMessagesTestVariation1" method="test">
             <data name="configData" xsi:type="string">cashondelivery, enableGiftMessages</data>
             <data name="description" xsi:type="string">Create gift message for order</data>
             <data name="products" xsi:type="string">catalogProductSimple::default</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
-            <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
+            <data name="customer/dataset" xsi:type="string">default</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_US_login</data>
             <data name="checkoutMethod" xsi:type="string">login</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
             <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
@@ -42,6 +42,7 @@
             <data name="giftMessage/data/sender" xsi:type="string">John Doe</data>
             <data name="giftMessage/data/recipient" xsi:type="string">Jane Doe</data>
             <data name="giftMessage/data/message" xsi:type="string">text_gift_message%isolation%</data>
+            <data name="issue" xsi:type="string">Bug: MPERF-7250: Gift message is not displayed in order details.</data>
             <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" />
             <constraint name="Mage\GiftMessage\Test\Constraint\AssertGiftMessageInFrontendOrder" />
         </variation>
@@ -49,15 +50,15 @@
             <data name="configData" xsi:type="string">cashondelivery, enableGiftMessages</data>
             <data name="description" xsi:type="string">Create gift message for items</data>
             <data name="products" xsi:type="string">catalogProductSimple::default, catalogProductSimple::default</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
-            <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
+            <data name="customer/dataset" xsi:type="string">default</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_US_login</data>
             <data name="checkoutMethod" xsi:type="string">login</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
             <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
             <data name="payment/method" xsi:type="string">cashondelivery</data>
             <data name="giftMessage/data/allow_gift_options" xsi:type="string">Yes</data>
             <data name="giftMessage/data/allow_gift_options_for_items" xsi:type="string">Yes</data>
-            <data name="giftMessage/data/items/dataSets" xsi:type="string">default,default</data>
+            <data name="giftMessage/data/items/datasets" xsi:type="string">default,default</data>
             <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" />
             <constraint name="Mage\GiftMessage\Test\Constraint\AssertGiftMessageInFrontendOrderItems" />
         </variation>

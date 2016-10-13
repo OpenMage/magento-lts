@@ -26,7 +26,7 @@
  */
  -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Wishlist\Test\TestCase\AddProductsToCartFromCustomerWishlistOnFrontendTest">
+    <testCase name="Mage\Wishlist\Test\TestCase\AddProductsToCartFromCustomerWishlistOnFrontendTest" summary="AddProductsToCartFromCustomerWishlistOnFrontendTest">
         <variation name="AddProductsToCartFromCustomerWishlistOnFrontendTestVariation1" method="test">
             <data name="products" xsi:type="string">catalogProductSimple::default</data>
             <data name="qty" xsi:type="string">2</data>

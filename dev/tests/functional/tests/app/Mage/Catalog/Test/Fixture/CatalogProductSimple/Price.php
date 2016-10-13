@@ -26,7 +26,8 @@
 
 namespace Mage\Catalog\Test\Fixture\CatalogProductSimple;
 
-use Magento\Mtf\Fixture\FixtureInterface;
+use Magento\Mtf\Fixture\DataSource;
+use Magento\Mtf\Repository\RepositoryFactory;
 
 /**
  * Preset for price.
@@ -36,94 +37,42 @@ use Magento\Mtf\Fixture\FixtureInterface;
  *  - value (Price value)
  *
  */
-class Price implements FixtureInterface
+class Price extends DataSource
 {
-    /**
-     * Prepared dataSet data.
-     *
-     * @var array
-     */
-    protected $data;
-
-    /**
-     * Data set configuration settings.
-     *
-     * @var array
-     */
-    protected $params;
-
     /**
      * Current preset.
      *
      * @var string
      */
-    protected $currentPreset;
+    protected $priceData;
 
     /**
      * @constructor
+     * @param RepositoryFactory $repositoryFactory
      * @param array $params
      * @param array $data
      */
-    public function __construct(array $params, $data = [])
+    public function __construct(RepositoryFactory $repositoryFactory, array $params, $data = [])
     {
         $this->params = $params;
-        $this->data = isset($data['value']) ? $data['value'] : null;
-        $this->currentPreset = isset($data['preset']) ? $data['preset'] : null;
+        $this->data = (!isset($data['dataset']) && !isset($data['value'])) ? $data : null;
+
+        if (isset($data['value'])) {
+            $this->data = $data['value'];
+        }
+
+        if (isset($data['dataset']) && isset($this->params['repository'])) {
+            $this->priceData = $repositoryFactory->get($this->params['repository'])->get($data['dataset']);
+        }
     }
 
     /**
-     * Persist custom selections products.
-     *
-     * @return void
-     */
-    public function persist()
-    {
-        //
-    }
-
-    /**
-     * Return prepared data set.
-     *
-     * @param $key [optional]
-     * @return mixed
-     *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    public function getData($key = null)
-    {
-        return $this->data;
-    }
-
-    /**
-     * Return data set configuration settings.
-     *
-     * @return string
-     */
-    public function getDataConfig()
-    {
-        return $this->params;
-    }
-
-    /**
-     * Get preset.
+     * Get price data for different pages.
      *
      * @return array|null
      */
-    public function getPreset()
+    public function getPriceData()
     {
-        $presets = [
-            'with_tier_price' => [
-                [
-                    'percent' => 95
-                ],
-                [
-                    'percent' => 92
-                ]
-            ]
-        ];
-        if (!isset($presets[$this->currentPreset])) {
-            return null;
-        }
-        return $presets[$this->currentPreset];
+        return $this->priceData;
     }
 }

@@ -69,7 +69,9 @@ class Billing extends AbstractOnepage
             $this->fill($billingAddress);
         }
         if ($customer) {
-            $this->fill($customer);
+            if($this->browser->find('[id=\'billing:email\']')->isVisible() && ($customer->getData('email') != null)) {
+                $this->fill($customer);
+            }
         }
         if ($isShippingAddress) {
             $this->_rootElement->find($this->useForShipping)->click();

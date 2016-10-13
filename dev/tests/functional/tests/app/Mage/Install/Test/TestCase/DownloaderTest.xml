@@ -26,13 +26,11 @@
  */
  -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Install\Test\TestCase\DownloaderTest">
-        <variation name="InstallTestVariation1">
+    <testCase name="Mage\Install\Test\TestCase\DownloaderTest" summary="DownloaderTest">
+        <variation name="DownloaderTestVariation1">
             <data name="description" xsi:type="string">Install with default values</data>
             <data name="successInstallMessage" xsi:type="string">Welcome to Magento Downloader!</data>
             <data name="tag" xsi:type="string">test_type:install</data>
-            <constraint name="Mage\Install\Test\Constraint\AssertSuccessInstall" />
-            <constraint name="Mage\Admin\Test\Constraint\AssertUserSuccessLogin" />
         </variation>
     </testCase>
 </config>

@@ -30,7 +30,7 @@
         <dataset name="default">
             <field name="title" xsi:type="string">Test Frontend App</field>
             <field name="store_ids" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="widget_instance" xsi:type="array">
                 <item name="0" xsi:type="array">
@@ -48,11 +48,12 @@
             </field>
             <field name="theme_id" xsi:type="string">2</field>
         </dataset>
+
         <dataset name="cms_page_link">
             <field name="code" xsi:type="string">CMS Page Link</field>
             <field name="title" xsi:type="string">Cms Page Link %isolation%</field>
             <field name="store_ids" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="widget_instance" xsi:type="array">
                 <item name="0" xsi:type="array">
@@ -69,7 +70,7 @@
                 <item name="title" xsi:type="string">anchor title</item>
             </field>
             <field name="page_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="theme_id" xsi:type="string">Magento Blank</field>
             <field name="widgetOptions" xsi:type="array">

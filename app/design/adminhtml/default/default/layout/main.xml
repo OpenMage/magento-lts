@@ -171,9 +171,10 @@ Layout for editor element
             <action method="setCanLoadExtJs"><flag>1</flag></action>
             <action method="addJs"><script>mage/adminhtml/variables.js</script></action>
             <action method="addJs"><script>mage/adminhtml/wysiwyg/widget.js</script></action>
-            <action method="addJs"><script>lib/flex.js</script></action>
-            <action method="addJs"><script>lib/FABridge.js</script></action>
-            <action method="addJs"><script>mage/adminhtml/flexuploader.js</script></action>
+            <action method="addJs"><name>lib/uploader/flow.min.js</name></action>
+            <action method="addJs"><name>lib/uploader/fusty-flow.js</name></action>
+            <action method="addJs"><name>lib/uploader/fusty-flow-factory.js</name></action>
+            <action method="addJs"><name>mage/adminhtml/uploader/instance.js</name></action>
             <action method="addJs"><script>mage/adminhtml/browser.js</script></action>
             <action method="addJs"><script>prototype/window.js</script></action>
             <action method="addItem"><type>js_css</type><name>prototype/windows/themes/default.css</name></action>

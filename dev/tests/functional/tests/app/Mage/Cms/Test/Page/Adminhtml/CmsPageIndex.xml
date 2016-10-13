@@ -26,9 +26,9 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/etc/pages.xsd">
-  <page name="CmsPageIndex" area="Adminhtml" mca="cms_page/index" module="Mage_Cms">
-    <block name="pageActionsBlock" class="Mage\Adminhtml\Test\Block\GridPageActions" locator=".form-buttons" strategy="css selector"/>
-    <block name="cmsPageGridBlock" class="Mage\Adminhtml\Test\Block\Cms\Page\Grid" locator="#cmsPageGrid" strategy="css selector"/>
-    <block name="messagesBlock" class="Mage\Core\Test\Block\Messages" locator="#messages" strategy="css selector"/>
-  </page>
+    <page name="CmsPageIndex" area="Adminhtml" mca="cms_page/index" module="Mage_Cms">
+        <block name="pageActionsBlock" class="Mage\Adminhtml\Test\Block\GridPageActions" locator=".form-buttons" strategy="css selector"/>
+        <block name="cmsPageGridBlock" class="Mage\Adminhtml\Test\Block\Cms\Page\Grid" locator="#cmsPageGrid" strategy="css selector"/>
+        <block name="messagesBlock" class="Mage\Core\Test\Block\Messages" locator="#messages" strategy="css selector"/>
+    </page>
 </config>

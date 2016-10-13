@@ -89,7 +89,7 @@ class Inline extends Form
     public function fillGiftMessage(GiftMessage $giftMessage, array $products = [])
     {
         $this->waitForElementVisible($this->giftOptionsForm);
-        $this->fill($giftMessage);
+        $this->addGiftMessage($giftMessage);
 
         if ($giftMessage->getAllowGiftMessagesForOrder() === 'Yes') {
             $this->fillGiftMessageForOrder($giftMessage);
@@ -98,6 +98,23 @@ class Inline extends Form
         if ($giftMessage->getAllowGiftOptionsForItems() === 'Yes') {
             $this->fillGiftGiftOptionsForItems($giftMessage, $products);
         }
+    }
+
+    /**
+     * @param $giftMessage
+     * @throws \Exception
+     */
+    protected function addGiftMessage($giftMessage)
+    {
+        $giftMessageData = $giftMessage->getData();
+        unset(
+            $giftMessageData['sender'],
+            $giftMessageData['recipient'],
+            $giftMessageData['message'],
+            $giftMessageData['items']
+        );
+        $mapping = $this->dataMapping($giftMessageData);
+        $this->_fill($mapping);
     }
 
     /**
@@ -129,7 +146,10 @@ class Inline extends Form
         } else {
             $this->_rootElement->find($this->allowGiftMessagesForItems)->click();
         }
-        $this->getGiftMessageOrderForm()->fill($giftMessage);
+        $messageData = $giftMessage->getData();
+        unset($messageData['allow_gift_options'], $messageData['allow_gift_messages_for_order']);
+        $mapping = $this->getGiftMessageOrderForm()->dataMapping($messageData);
+        $this->getGiftMessageOrderForm()->_fill($mapping);
     }
 
     /**

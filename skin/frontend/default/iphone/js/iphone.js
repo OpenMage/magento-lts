@@ -101,7 +101,7 @@ document.observe("dom:loaded", function() {
             $$('.c-list')[0],
             $$('.next-page')[0],
             '.c-list > li'
-        )
+        );
     }
 
     if ( $$('.downloadable-products-history .list')[0] && $$('.next-page')[0]  ) {
@@ -109,7 +109,7 @@ document.observe("dom:loaded", function() {
             $$('.downloadable-products-history .list')[0],
             $$('.next-page')[0],
             '.downloadable-products-history .list > li'
-        )
+        );
     }
 
     if ( $$('.review-history .list')[0] && $$('.next-page')[0]  ) {
@@ -117,7 +117,7 @@ document.observe("dom:loaded", function() {
             $$('.review-history .list')[0],
             $$('.next-page')[0],
             '.review-history .list > li'
-        )
+        );
     }
 
     if ( $$('.recent-orders .data-table')[0] && $$('.next-page')[0]  ) {
@@ -125,7 +125,7 @@ document.observe("dom:loaded", function() {
             $$('.recent-orders .data-table')[0],
             $$('.next-page')[0],
             '.recent-orders .data-table tbody > tr'
-        )
+        );
     }
 
     //-----------------------------//
@@ -164,7 +164,7 @@ document.observe("dom:loaded", function() {
         var div = document.createElement('div'),
             supports = div.style['webkitTouchCallout'] !== undefined || div.style['touchCallout'] !== undefined;
 
-        return supports
+        return supports;
     }
 
     $$('input[name=qty], input[name*=super_group], input[name*=qty]').each(function (el) {
@@ -219,7 +219,7 @@ document.observe("dom:loaded", function() {
             selected = [];
             select.select('option').each(function (option) {
                 if (option.selected) {
-                    selected.push(option.text)
+                    selected.push(option.text);
                 }
             });
 
@@ -230,7 +230,7 @@ document.observe("dom:loaded", function() {
                 select.previous().update('Choose options...').removeClassName('filled');
             }
             document.stopObserving('click', closeSelect);
-        }
+        };
 
         select_options.select('.select-close')[0].observe('click', closeSelect );
 
@@ -238,7 +238,7 @@ document.observe("dom:loaded", function() {
             var option = select.select('option[value=' + elem.readAttribute('data-option-value') + ']')[0];
             elem.toggleClassName('active');
             if (option.selected) {
-                option.selected = false
+                option.selected = false;
             } else {
                 option.selected = true;
             }
@@ -252,7 +252,7 @@ document.observe("dom:loaded", function() {
                         e.stopPropagation();
                     });
                     setTimeout(function() {
-                        document.observe('click', closeSelect)
+                        document.observe('click', closeSelect);
                     }, 1);
                 })
         });
@@ -329,16 +329,16 @@ document.observe("dom:loaded", function() {
             sliderLink.observe('click', function(e) {
 
                 e.preventDefault();
-                var transformValue = {}
+                var transformValue = {};
 
                 //homeLink.hasClassName('disabled') ? homeLink.removeClassName('disabled') : '';
 
                 if (last) {
-                    diff = e.timeStamp - last
+                    diff = e.timeStamp - last;
                 }
                 last = e.timeStamp;
                 if (diff && diff < 200) {
-                    return
+                    return;
                 }
                 if (!this.clonedSubmenuList.firstDescendant().hasClassName('subcategory-header')) {
                     var subcategoryHeader = new Element('li', {'class': 'subcategory-header'});
@@ -353,11 +353,11 @@ document.observe("dom:loaded", function() {
 
                     this.clonedSubmenuList.firstDescendant().firstDescendant().observe('click', function(e) {
                         if (last) {
-                            diff = e.timeStamp - last
+                            diff = e.timeStamp - last;
                         }
                         last = e.timeStamp;
                         if (diff && diff < 200) {
-                            return
+                            return;
                         }
                         if ( Modernizr.csstransforms3d ) {
                             transformValue[transformPref] = "translate3d(" + (document.body.offsetWidth + sliderPosition) + "px, 0, 0)";
@@ -366,7 +366,10 @@ document.observe("dom:loaded", function() {
                         }
                         $("nav-container").setStyle(transformValue);
                         sliderPosition = sliderPosition + document.body.offsetWidth;
-                        setTimeout(function() { $$("#nav-container > ul:last-child")[0].remove(); $("nav-container").setStyle({'height' : 'auto'})  }, 250)
+                        setTimeout(function() {
+                            $$("#nav-container > ul:last-child")[0].remove();
+                            $("nav-container").setStyle({'height' : 'auto'});
+                        }, 250);
                     });
                     new NoClickDelay(this.clonedSubmenuList);
                 };
@@ -402,7 +405,7 @@ document.observe("dom:loaded", function() {
 
     function NoClickDelay(el) {
         if ( getSupportedProp(['OTransform']) ) {
-            return
+            return;
         }
         this.element = typeof el == 'object' ? el : document.getElementById(el);
         if( window.Touch ) this.element.addEventListener('touchstart', this, false);
@@ -722,7 +725,7 @@ document.observe("dom:loaded", function() {
         },
         touchEnd: function (e) {
             if ( e.preventSwipe ) {
-                return
+                return;
             }
 
             if (!this.isScrolling) {
@@ -1031,10 +1034,10 @@ document.observe("dom:loaded", function() {
         },
         gestureChange : function (e) {
             e.preventDefault();
-            var $this = e.target
+            var $this = e.target;
 
             if ( (e.scale * this.scale) > 2 )
-                return
+                return;
 
             $this.setStyle({
                 'webkitTransition' : '',
@@ -1068,7 +1071,7 @@ document.observe("dom:loaded", function() {
             this.isScrolling = undefined;
 
             if (e.targetTouches.length != 1) {
-                return false
+                return false;
             }
 
             this.t1 = Date.now();
@@ -1094,7 +1097,7 @@ document.observe("dom:loaded", function() {
             }
 
             if (e.targetTouches.length != 1 || this.scale === 1.0 || this.gestureStart) {
-                return false
+                return false;
             }
 
             e.preventDefault();

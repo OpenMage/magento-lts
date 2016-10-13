@@ -26,9 +26,9 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/etc/pages.xsd">
-  <page name="UserIndex" area="Adminhtml" mca="permissions_user/index" module="Mage_Admin">
-    <block name="pageActionsBlock" class="Mage\Adminhtml\Test\Block\GridPageActions" locator=".content-header" strategy="css selector"/>
-    <block name="messagesBlock" class="Mage\Core\Test\Block\Messages" locator="#messages" strategy="css selector"/>
-    <block name="userGrid" class="Mage\Adminhtml\Test\Block\Permissions\User\Grid" locator="#permissionsUserGrid" strategy="css selector"/>
-  </page>
+    <page name="UserIndex" area="Adminhtml" mca="permissions_user/index" module="Mage_Admin">
+        <block name="pageActionsBlock" class="Mage\Adminhtml\Test\Block\GridPageActions" locator=".content-header" strategy="css selector"/>
+        <block name="messagesBlock" class="Mage\Core\Test\Block\Messages" locator="#messages" strategy="css selector"/>
+        <block name="userGrid" class="Mage\Adminhtml\Test\Block\Permissions\User\Grid" locator="#permissionsUserGrid" strategy="css selector"/>
+    </page>
 </config>

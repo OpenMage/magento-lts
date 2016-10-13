@@ -25,14 +25,8 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 -->
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
   <fixture name="paypalCustomer" module="Mage_Paypal" type="flat" repository_class="Mage\Paypal\Test\Repository\PaypalCustomer" class="Mage\Paypal\Test\Fixture\PaypalCustomer" extends="\Mage\Customer\Test\Fixture\Customer">
-    <dataset name="default">
-        <field name="firstname" xsi:type="string">Dmytro</field>
-        <field name="lastname" xsi:type="string">Aponasenko</field>
-        <field name="email" xsi:type="string">%PAYPAL_EMAIL%</field>
-        <field name="password" xsi:type="string">%PAYPAL_PASSWORD%</field>
-    </dataset>
       <field name="address" source="Mage\Paypal\Test\Fixture\PaypalCustomer\Address" group="addresses"/>
   </fixture>
 </config>

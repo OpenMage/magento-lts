@@ -26,14 +26,15 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Authorizenet\Test\TestCase\CreateOfflineRefundForAuthorizenetDirectpostMethodTest">
+    <testCase name="Mage\Authorizenet\Test\TestCase\CreateOfflineRefundForAuthorizenetDirectpostMethodTest" summary="CreateOfflineRefundForAuthorizenetDirectpostMethodTest">
         <variation name="CreateOfflineRefundForAuthorizenetDirectpostMethodTestVariation1" method="test">
             <data name="description" xsi:type="string">Create full refund for Authorize.net direct post</data>
             <data name="products" xsi:type="string">catalogProductSimple::default</data>
             <data name="configData" xsi:type="string">authorizenet_directpost</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend_new</data>
             <data name="checkoutMethod" xsi:type="string">login</data>
             <data name="customerPersist" xsi:type="string">yes</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_US_login</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
             <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
             <data name="payment/method" xsi:type="string">authorizenet_directpost</data>
@@ -59,10 +60,10 @@
             <data name="description" xsi:type="string">Create partial credit memo for Authorize.net direct post</data>
             <data name="products" xsi:type="string">catalogProductSimple::default</data>
             <data name="configData" xsi:type="string">authorizenet_directpost</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend_new</data>
             <data name="checkoutMethod" xsi:type="string">login</data>
             <data name="customerPersist" xsi:type="string">yes</data>
-            <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_US_login</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
             <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
             <data name="payment/method" xsi:type="string">authorizenet_directpost</data>

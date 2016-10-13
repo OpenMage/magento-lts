@@ -26,7 +26,7 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Catalog\Test\TestCase\Product\AddProductsToCompareTest">
+    <testCase name="Mage\Catalog\Test\TestCase\Product\AddProductsToCompareTest" summary="AddProductsToCompareTest">
         <variation name="AddProductsToCompareTestVariation1" method="test">
             <data name="products" xsi:type="string">catalogProductSimple::simple_for_composite_products</data>
             <data name="isCustomerLoggedIn" xsi:type="string">No</data>

@@ -54,10 +54,10 @@ Captcha.prototype = {
 document.observe('billing-request:completed', function(event) {
     if (typeof window.checkout != 'undefined') {
         if (window.checkout.method == 'guest' && $('guest_checkout')){
-            $('guest_checkout').captcha.refresh()
+            $('guest_checkout').captcha.refresh();
         }
         if (window.checkout.method == 'register' && $('register_during_checkout')){
-            $('register_during_checkout').captcha.refresh()
+            $('register_during_checkout').captcha.refresh();
         }
     }
 });

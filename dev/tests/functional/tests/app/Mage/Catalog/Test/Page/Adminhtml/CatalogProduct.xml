@@ -26,9 +26,9 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/etc/pages.xsd">
-  <page name="CatalogProduct" area="Adminhtml" mca="catalog_product" module="Mage_Catalog">
-    <block name="productGrid" class="Mage\Adminhtml\Test\Block\Catalog\Product\Grid" locator="#productGrid" strategy="css selector"/>
-    <block name="messagesBlock" class="Mage\Core\Test\Block\Messages" locator="#messages .messages" strategy="css selector"/>
-    <block name="gridPageActionBlock" class="Mage\Adminhtml\Test\Block\GridPageActions" locator=".content-header" strategy="css selector"/>
-  </page>
+    <page name="CatalogProduct" area="Adminhtml" mca="catalog_product" module="Mage_Catalog">
+        <block name="productGrid" class="Mage\Adminhtml\Test\Block\Catalog\Product\Grid" locator="#productGrid" strategy="css selector"/>
+        <block name="messagesBlock" class="Mage\Core\Test\Block\Messages" locator="#messages .messages" strategy="css selector"/>
+        <block name="gridPageActionBlock" class="Mage\Adminhtml\Test\Block\GridPageActions" locator=".content-header" strategy="css selector"/>
+    </page>
 </config>

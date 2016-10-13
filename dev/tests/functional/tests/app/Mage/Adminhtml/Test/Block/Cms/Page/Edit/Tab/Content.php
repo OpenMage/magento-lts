@@ -165,4 +165,13 @@ class Content extends Tab
             ['element' => $this->_rootElement->find($this->widgetBlock, Locator::SELECTOR_XPATH)]
         );
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDataFormTab($fields = null, Element $element = null)
+    {
+        $this->hideEditor();
+        return parent::getDataFormTab($fields, $element);
+    }
 }

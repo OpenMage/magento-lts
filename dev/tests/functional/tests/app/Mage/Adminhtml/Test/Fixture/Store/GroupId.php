@@ -36,7 +36,7 @@ use Mage\Adminhtml\Test\Fixture\StoreGroup;
 class GroupId implements FixtureInterface
 {
     /**
-     * Prepared dataSet data.
+     * Prepared dataset data.
      *
      * @var array
      */
@@ -68,8 +68,8 @@ class GroupId implements FixtureInterface
         if (isset($data['store_group'])) {
             $this->storeGroup = $data['store_group'];
             $this->data = $data['store_group']->getWebsiteId() . "/" . $data['store_group']->getName();
-        } elseif (isset($data['dataSet'])) {
-            $storeGroup = $fixtureFactory->createByCode('storeGroup', ['dataSet' => $data['dataSet']]);
+        } elseif (isset($data['dataset'])) {
+            $storeGroup = $fixtureFactory->createByCode('storeGroup', ['dataset' => $data['dataset']]);
             /** @var StoreGroup $storeGroup */
             if (!$storeGroup->getGroupId()) {
                 $storeGroup->persist();

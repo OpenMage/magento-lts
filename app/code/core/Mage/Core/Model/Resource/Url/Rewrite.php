@@ -134,12 +134,12 @@ class Mage_Core_Model_Resource_Url_Rewrite extends Mage_Core_Model_Resource_Db_A
     public function loadByRequestPath(Mage_Core_Model_Url_Rewrite $object, $path)
     {
         if (!is_array($path)) {
-            $path = array($path);
+            $path = array(strtolower($path));
         }
 
         $pathBind = array();
         foreach ($path as $key => $url) {
-            $pathBind['path' . $key] = $url;
+            $pathBind['path' . $key] = strtolower($url);
         }
         // Form select
         $adapter = $this->_getReadAdapter();
@@ -151,7 +151,7 @@ class Mage_Core_Model_Resource_Url_Rewrite extends Mage_Core_Model_Resource_Db_A
         $items = $adapter->fetchAll($select, $pathBind);
 
         // Go through all found records and choose one with lowest penalty - earlier path in array, concrete store
-        $mapPenalty = array_flip(array_values($path)); // we got mapping array(path => index), lower index - better
+        $mapPenalty = array_change_key_case(array_flip(array_values($path))); // we got mapping array(path => index), lower index - better
         $currentPenalty = null;
         $foundItem = null;
         foreach ($items as $item) {

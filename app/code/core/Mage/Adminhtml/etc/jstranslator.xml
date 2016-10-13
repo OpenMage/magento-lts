@@ -26,6 +26,10 @@
  */
 -->
 <jstranslator>
+    <!-- validation.js -->
+    <validate-special-price translate="message" module="adminhtml">
+        <message>The Special Price is active only when lower than the Actual Price.</message>
+    </validate-special-price>
     <!-- flexuploader.js -->
     <flexuploader-complete translate="message" module="adminhtml">
         <message>Complete</message>

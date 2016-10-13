@@ -60,7 +60,7 @@ class TestCreationForExpressCheckoutWithinPayPalButtonTest extends Scenario
     public function __prepare(FixtureFactory $fixtureFactory)
     {
         $this->objectManager->create('Mage\Tax\Test\TestStep\DeleteAllTaxRulesStep')->run();
-        $paypalCustomer = $fixtureFactory->create('Mage\Paypal\Test\Fixture\PaypalCustomer', ['dataSet' => 'default']);
+        $paypalCustomer = $fixtureFactory->create('Mage\Paypal\Test\Fixture\PaypalCustomer', ['dataset' => 'default']);
 
         return ['paypalCustomer' => $paypalCustomer];
     }

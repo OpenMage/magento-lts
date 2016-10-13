@@ -227,17 +227,18 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         $rootCmp = rtrim($this->getHelper()->getStorageRoot(), DS);
         $pathCmp = rtrim($path, DS);
 
-        if ($rootCmp == $pathCmp) {
-            Mage::throwException(Mage::helper('cms')->__('Cannot delete root directory %s.', $path));
-        }
-
         $io = new Varien_Io_File();
+
+        if ($rootCmp == $pathCmp) {
+            Mage::throwException(Mage::helper('cms')->__('Cannot delete root directory %s.',
+                $io->getFilteredPath($path)));
+        }
 
         if (Mage::helper('core/file_storage_database')->checkDbUsage()) {
             Mage::getModel('core/file_storage_directory_database')->deleteDirectory($path);
         }
         if (!$io->rmdir($path, true)) {
-            Mage::throwException(Mage::helper('cms')->__('Cannot delete directory %s.', $path));
+            Mage::throwException(Mage::helper('cms')->__('Cannot delete directory %s.', $io->getFilteredPath($path)));
         }
 
         if (strpos($pathCmp, $rootCmp) === 0) {

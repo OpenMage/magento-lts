@@ -133,7 +133,7 @@ class EditCurrencySymbolEntityTest extends Injectable
     {
         $config = $this->fixtureFactory->createByCode(
             'configData',
-            ['dataSet' => 'config_currency_symbols_usd_and_uah']
+            ['dataset' => 'config_currency_symbols_usd_and_uah']
         );
         $config->persist();
     }
@@ -146,7 +146,7 @@ class EditCurrencySymbolEntityTest extends Injectable
     protected function createSimpleProductWithCategory()
     {
         /**@var CatalogProductSimple $catalogProductSimple */
-        $product = $this->fixtureFactory->createByCode('catalogProductSimple', ['dataSet' => 'product_with_category']);
+        $product = $this->fixtureFactory->createByCode('catalogProductSimple', ['dataset' => 'product_with_category']);
         $product->persist();
         return $product;
     }
@@ -170,7 +170,7 @@ class EditCurrencySymbolEntityTest extends Injectable
      */
     public function tearDown()
     {
-        $config = $this->fixtureFactory->createByCode('configData', ['dataSet' => 'config_currency_symbols_usd']);
+        $config = $this->fixtureFactory->createByCode('configData', ['dataset' => 'config_currency_symbols_usd']);
         /** @var InjectableFixture $config */
         $config->persist();
     }

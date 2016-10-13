@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Sales>
-            <version>1.6.0.9</version>
+            <version>1.6.0.10</version>
         </Mage_Sales>
     </modules>
     <global>
@@ -1227,6 +1227,7 @@
                     </grand_total>
                     <msrp>
                         <class>sales/quote_address_total_msrp</class>
+                        <before>weee,freeshipping</before>
                     </msrp>
                 </totals>
                 <nominal_totals>

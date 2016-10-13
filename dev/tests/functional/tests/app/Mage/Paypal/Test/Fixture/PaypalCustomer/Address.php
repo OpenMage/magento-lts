@@ -72,7 +72,7 @@ class Address implements FixtureInterface
                 /** @var AddressFixture $fixture */
                 $addresses = $fixtureFactory->create(
                     'Mage\Paypal\Test\Fixture\PaypalAddress',
-                    ['dataSet' => $value]
+                    ['dataset' => $value]
                 );
                 $this->data[] = $addresses->getData();
                 $this->addressesFixture[] = $addresses;

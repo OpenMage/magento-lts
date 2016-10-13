@@ -35,7 +35,7 @@ use Magento\Mtf\Fixture\InjectableFixture;
  * Possible templates:
  * - {value}
  * - {product}::{product_property_to_search}
- * - {product}::{product_dataSet}::{product_property_to_search}
+ * - {product}::{product_dataset}::{product_property_to_search}
  */
 class QueryText implements FixtureInterface
 {
@@ -65,9 +65,9 @@ class QueryText implements FixtureInterface
         $explodeValue = explode('::', $data['value']);
         if (!empty($explodeValue) && count($explodeValue) > 1) {
             $fixtureCode = $explodeValue[0];
-            $dataSet = isset($explodeValue[2]) ? $explodeValue[1] : '';
+            $dataset = isset($explodeValue[2]) ? $explodeValue[1] : '';
             $searchValue = isset($explodeValue[2]) ? $explodeValue[2] : $explodeValue[1];
-            $this->product = $fixtureFactory->createByCode($fixtureCode, ['dataSet' => $dataSet]);
+            $this->product = $fixtureFactory->createByCode($fixtureCode, ['dataset' => $dataset]);
             if (!$this->product->hasData('id')) {
                 $this->product->persist();
             }

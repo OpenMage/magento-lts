@@ -26,7 +26,7 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\CatalogSearch\Test\TestCase\CreateSearchTermEntityTest">
+    <testCase name="Mage\CatalogSearch\Test\TestCase\CreateSearchTermEntityTest" summary="CreateSearchTermEntityTest">
         <variation name="CreateSearchTermEntityTestVariation1">
             <data name="searchTerm/data/query_text/value" xsi:type="string">catalogProductSimple::sku</data>
             <data name="searchTerm/data/synonym_for" xsi:type="string">Search Term Synonym %isolation%</data>

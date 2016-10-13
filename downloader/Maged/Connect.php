@@ -459,12 +459,9 @@ function clear_cache(callbacks)
         onSuccess: function(transport, json) {
             var result = true;
             try{
-                var response = eval('(' + transport.responseText + ')');
-                if (typeof response.result != 'undefined') {
-                    result = response.result;
-                } else {
-                    result = false;
-                }
+                var response = transport.responseJSON || transport.responseText.evalJSON(true) || {};
+                result = response.result || false;
+
                 if (typeof response.message != 'undefined') {
                     if (response.message.length > 0) {
                         message = response.message;

@@ -26,7 +26,7 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/etc/pages.xsd">
-  <page name="SubscriberIndex" area="Adminhtml" mca="newsletter_subscriber/index" module="Mage_Newsletter">
-    <block name="subscriberGrid" class="Mage\Adminhtml\Test\Block\Newsletter\Grid" locator="#subscriberGrid" strategy="css selector"/>
-  </page>
+    <page name="SubscriberIndex" area="Adminhtml" mca="newsletter_subscriber/index" module="Mage_Newsletter">
+        <block name="subscriberGrid" class="Mage\Adminhtml\Test\Block\Newsletter\Grid" locator="#subscriberGrid" strategy="css selector"/>
+    </page>
 </config>

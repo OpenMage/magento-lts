@@ -60,13 +60,13 @@ class CreateTaxWithFptTest extends Scenario
             'Mage\Core\Test\TestStep\SetupConfigurationStep',
             ['configData' => 'default_tax_configuration']
         )->run();
-        $customer = $fixtureFactory->createByCode('customer', ['dataSet' => 'johndoe_with_addresses']);
+        $customer = $fixtureFactory->createByCode('customer', ['dataset' => 'johndoe_with_addresses']);
         $customer->persist();
-        $taxRule = $fixtureFactory->createByCode('taxRule', ['dataSet' => 'tax_rule_default']);
+        $taxRule = $fixtureFactory->createByCode('taxRule', ['dataset' => 'tax_rule_default']);
         $taxRule->persist();
         $productTemplate = $fixtureFactory->createByCode(
             'catalogAttributeSet',
-            ['dataSet' => 'custom_attribute_set_with_fpt']
+            ['dataset' => 'custom_attribute_set_with_fpt']
         );
         $productTemplate->persist();
 

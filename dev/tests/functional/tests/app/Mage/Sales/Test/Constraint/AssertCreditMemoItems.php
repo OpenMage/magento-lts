@@ -29,6 +29,7 @@ namespace Mage\Sales\Test\Constraint;
 use Mage\Sales\Test\Page\Adminhtml\SalesCreditMemoView;
 use Mage\Sales\Test\Page\Adminhtml\SalesCreditMemo;
 use Magento\Mtf\ObjectManager;
+use Magento\Mtf\System\Event\EventManagerInterface;
 
 /**
  * Assert credit memo items on credit memo view page.
@@ -62,15 +63,17 @@ class AssertCreditMemoItems extends AbstractAssertItems
     /**
      * @constructor
      * @param ObjectManager $objectManager
+     * @param EventManagerInterface $eventManager
      * @param SalesCreditMemo $creditMemoIndex
      * @param SalesCreditMemoView $orderCreditMemoView
      */
     public function __construct(
         ObjectManager $objectManager,
+        EventManagerInterface $eventManager,
         SalesCreditMemo $creditMemoIndex,
         SalesCreditMemoView $orderCreditMemoView
     ) {
-        parent::__construct($objectManager);
+        parent::__construct($objectManager, $eventManager);
         $this->salesTypePage = $creditMemoIndex;
         $this->salesTypeViewPage = $orderCreditMemoView;
     }

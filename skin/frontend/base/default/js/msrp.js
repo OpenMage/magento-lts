@@ -322,7 +322,7 @@ Event.observe(window, 'resize', function(event) {
     if (Catalog.Map.active) {
         Catalog.Map.showHelp(event);
     }
-})
+});
 
 $(document).observe('bundle:reload-price', function (event) { //reload price
     var data = event.memo, bundle = data.bundle;

@@ -172,6 +172,13 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         // trim
         if ($trim) {
             $str = trim(preg_replace('/\s{2,}/siu', ' ', $str));
+            /**
+             * In cases like:
+             * Mage::helper('core/string')->str_split('0 1 2   ', 2, false, true);
+             * the result array have elements with boolean "false" value.
+             * So it fixed by
+             */
+            $strlen = $this->strlen($str);
         }
         // do a usual str_split, but safe for our encoding
         if ((!$keepWords) || ($length < 2)) {
@@ -194,7 +201,14 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
                     $space    = ' ';
                     $spaceLen = 1;
                 }
-                if (empty($result[$i])) {
+                /**
+                 * The empty($result[$i]) is not appropriate, because in case with empty("0") expression returns "true",
+                 * so in cases when string have "0" symbol, the "0" will lost.
+                 * Try Mage::helper('core/string')->str_split("0 aa", 2, true);
+                 * Therefore the empty($result[$i]) expression
+                 * replaced by !isset($result[$i]) || isset($result[$i]) && $result[$i] === ''
+                 */
+                if (!isset($result[$i]) || isset($result[$i]) && $result[$i] === '') {
                     $currentLength = 0;
                     $result[$i]    = '';
                     $space         = '';
@@ -476,4 +490,30 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         return $this->_arrayHelper;
     }
 
+    /**
+     * Unicode compatible ord() method
+     *
+     * @param  string $c char to get value from
+     * @return integer
+     */
+    public function uniOrd($c)
+    {
+        $ord = 0;
+        $h   = ord($c[0]);
+
+        if ($h <= 0x7F) {
+            $ord = $h;
+        } else if ($h < 0xC2) {
+            $ord = 0;
+        } else if ($h <= 0xDF) {
+            $ord = (($h & 0x1F) << 6 | (ord($c[1]) & 0x3F));
+        } else if ($h <= 0xEF) {
+            $ord = (($h & 0x0F) << 12 | (ord($c[1]) & 0x3F) << 6 | (ord($c[2]) & 0x3F));
+        } else if ($h <= 0xF4) {
+            $ord = (($h & 0x0F) << 18 | (ord($c[1]) & 0x3F) << 12 |
+                (ord($c[2]) & 0x3F) << 6 | (ord($c[3]) & 0x3F));
+        }
+
+        return $ord;
+    }
 }

@@ -241,7 +241,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
             }
 
             $values = array();
-
+            $sortOrder = 1;
             foreach ($this->_items as $item) {
                 $productAttribute = $item->getProductAttribute();
                 if (!($productAttribute instanceof Mage_Eav_Model_Entity_Attribute_Abstract)) {
@@ -251,7 +251,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
 
                 $optionsByValue = array();
                 foreach ($options as $option) {
-                    $optionsByValue[$option['value']] = $option['label'];
+                    $optionsByValue[$option['value']] = array('label' => $option['label'], 'order' => $sortOrder++);
                 }
 
                 foreach ($this->getProduct()->getTypeInstance(true)
@@ -267,17 +267,22 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
                             $values[$item->getId() . ':' . $optionValue] = array(
                                 'product_super_attribute_id' => $item->getId(),
                                 'value_index'                => $optionValue,
-                                'label'                      => $optionsByValue[$optionValue],
-                                'default_label'              => $optionsByValue[$optionValue],
-                                'store_label'                => $optionsByValue[$optionValue],
+                                'label'                      => $optionsByValue[$optionValue]['label'],
+                                'default_label'              => $optionsByValue[$optionValue]['label'],
+                                'store_label'                => $optionsByValue[$optionValue]['label'],
                                 'is_percent'                 => 0,
                                 'pricing_value'              => null,
-                                'use_default_value'          => true
+                                'use_default_value'          => true,
+                                'order'                      => $optionsByValue[$optionValue]['order']
                             );
                         }
                     }
                 }
             }
+
+            uasort($values, function($a, $b) {
+                return $a['order'] - $b['order'];
+            });
 
             foreach ($pricings[0] as $pricing) {
                 // Addding pricing to options

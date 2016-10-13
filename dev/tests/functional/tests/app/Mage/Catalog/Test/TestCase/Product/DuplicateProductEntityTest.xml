@@ -26,7 +26,7 @@
  */
  -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Catalog\Test\TestCase\Product\DuplicateProductEntityTest">
+    <testCase name="Mage\Catalog\Test\TestCase\Product\DuplicateProductEntityTest" summary="DuplicateProductEntityTest">
         <variation name="DuplicateProductEntityTestVariation1">
             <data name="productType" xsi:type="string">catalogProductSimple::default</data>
             <data name="tag" xsi:type="string">main:ce</data>

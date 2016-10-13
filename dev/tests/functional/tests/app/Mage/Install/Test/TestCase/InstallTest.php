@@ -142,21 +142,33 @@ class InstallTest extends Injectable
      * @param AssertAgreementTextPresent $assertLicense
      * @param array $configData
      * @param array $install [optional]
+     * @param array $installLocale [optional]
      * @return array
      */
-    public function test(AssertAgreementTextPresent $assertLicense, array $configData, array $install = [])
+    public function test(
+        AssertAgreementTextPresent $assertLicense,
+        array $configData,
+        array $install = [],
+        array $installLocale = []
+    )
     {
         // Preconditions:
         $installConfig = $this->prepareInstallFixture($configData, $install);
-        $user = $this->fixtureFactory->createByCode('user', ['dataSet' => 'default']);
-
+        if (isset($install['use_rewrites'])) {
+            $user = $this->fixtureFactory->createByCode('user', ['dataset' => 'admin_install_admin']);
+        } else {
+            $user = $this->fixtureFactory->createByCode('user', ['dataset' => 'admin_for_installation']);
+        }
         // Steps:
         $this->installPage->open();
         $this->installPage->getLicenseBlock()->acceptLicenseAgreement();
         // Verify license agreement.
         $assertLicense->processAssert($this->installPage);
         $this->installPage->getContinueBlock()->continueInstallation();
-        $this->installWizardLocale->getLocalizationForm()->fill($installConfig);
+        if (!empty($installLocale)) {
+            $locale = $this->prepareInstallLocaleFixture($installLocale);
+            $this->installWizardLocale->getLocalizationForm()->fill($locale);
+        }
         $this->installWizardLocale->getContinueBlock()->continueInstallation();
         $this->installWizardConfig->getConfigurationForm()->fill($installConfig);
         $this->installWizardConfig->getContinueBlock()->continueInstallation();
@@ -167,10 +179,20 @@ class InstallTest extends Injectable
     }
 
     /**
+     * Prepare install locale fixture for test.
+     *
+     * @param array $install
+     * @return Install
+     */
+    protected function prepareInstallLocaleFixture(array $install)
+    {
+        return $this->fixtureFactory->createByCode('installLocale', ['data' => $install]);
+    }
+
+    /**
      * Prepare install fixture for test.
      *
      * @param array $configData
-     * @param array $install
      * @return Install
      */
     protected function prepareInstallFixture(array $configData, array $install)
@@ -180,7 +202,7 @@ class InstallTest extends Injectable
         $dataConfig['unsecure_base_url'] = isset($dataConfig['use_secure'])
             ? str_replace('http', 'https', $dataConfig['unsecure_base_url'])
             : $dataConfig['unsecure_base_url'];
-
         return $this->fixtureFactory->createByCode('install', ['data' => $dataConfig]);
     }
+
 }

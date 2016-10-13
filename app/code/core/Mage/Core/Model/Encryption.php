@@ -98,9 +98,9 @@ class Mage_Core_Model_Encryption
         $hashArr = explode(':', $hash);
         switch (count($hashArr)) {
             case 1:
-                return $this->hash($password) === $hash;
+                return hash_equals($this->hash($password), $hash);
             case 2:
-                return $this->hash($hashArr[1] . $password) === $hashArr[0];
+                return hash_equals($this->hash($hashArr[1] . $password),  $hashArr[0]);
         }
         Mage::throwException('Invalid hash.');
     }

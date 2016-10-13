@@ -93,7 +93,7 @@ class FillCreditCardInIFrameStep implements TestStepInterface
         $this->checkoutOnepageSuccess = $checkoutOnepageSuccess;
         $this->browser = $browser;
         if (isset($payment['cc']) && !($payment['cc'] instanceof Cc)) {
-            $payment['cc'] = $fixtureFactory->create('Mage\Payment\Test\Fixture\Cc', ['dataSet' => $payment['cc']]);
+            $payment['cc'] = $fixtureFactory->create('Mage\Payment\Test\Fixture\Cc', ['dataset' => $payment['cc']]);
         }
         $this->payment = $payment;
     }

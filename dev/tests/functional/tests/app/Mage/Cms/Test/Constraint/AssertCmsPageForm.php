@@ -27,9 +27,11 @@
 namespace Mage\Cms\Test\Constraint;
 
 use Mage\Cms\Test\Fixture\CmsPage;
+use Mage\Cms\Test\Page\Adminhtml\CmsPageEdit;
 use Magento\Mtf\Constraint\AbstractAssertForm;
 use Mage\Cms\Test\Page\Adminhtml\CmsPageIndex;
 use Mage\Cms\Test\Page\Adminhtml\CmsPageNew;
+use Mage\Adminhtml\Test\Block\Cms\Page\Edit\Tab\Content;
 
 /**
  * Assert that displayed CMS page data on edit page equals passed from fixture.

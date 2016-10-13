@@ -25,34 +25,19 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 -->
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
-  <fixture name="taxRule" module="Mage_Tax" type="flat" entity_type="tax_calculation_rule" collection="Mage\Tax\Model\Resource\Calculation\Rule\Collection" identifier="code" repository_class="Mage\Tax\Test\Repository\TaxRule" handler_interface="Mage\Tax\Test\Handler\TaxRule\TaxRuleInterface" class="Mage\Tax\Test\Fixture\TaxRule">
-    <dataset name="default">
-        <field name="code" xsi:type="string">DefaultTaxRule%isolation%</field>
-        <field name="tax_rate" xsi:type="array">
-            <item name="dataSet" xsi:type="array">
-                <item name="0" xsi:type="string">US-CA-*-Rate 1</item>
-                <item name="1" xsi:type="string">US-NY-*-Rate 1</item>
-            </item>
-        </field>
-    </dataset>
-    <field name="tax_calculation_rule_id" is_required="1">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="code" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="priority" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="position" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="calculate_subtotal" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="tax_rate" source="Mage\Tax\Test\Fixture\TaxRule\TaxRate"/>
-    <field name="tax_customer_class" source="Mage\Tax\Test\Fixture\TaxRule\TaxClass"/>
-    <field name="tax_product_class" source="Mage\Tax\Test\Fixture\TaxRule\TaxClass"/>
-  </fixture>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
+    <fixture name="taxRule" module="Mage_Tax" type="flat" entity_type="tax_calculation_rule"
+             collection="Mage\Tax\Model\Resource\Calculation\Rule\Collection" identifier="code"
+             repository_class="Mage\Tax\Test\Repository\TaxRule"
+             handler_interface="Mage\Tax\Test\Handler\TaxRule\TaxRuleInterface" class="Mage\Tax\Test\Fixture\TaxRule">
+        <field name="tax_calculation_rule_id" is_required="1"/>
+        <field name="code" is_required="0"/>
+        <field name="priority" is_required="0"/>
+        <field name="position" is_required="0"/>
+        <field name="calculate_subtotal" is_required="0"/>
+        <field name="tax_rate" source="Mage\Tax\Test\Fixture\TaxRule\TaxRate" repository="Mage\Tax\Test\Repository\TaxRate"/>
+        <field name="tax_customer_class" source="Mage\Tax\Test\Fixture\TaxRule\TaxClass" repository="Mage\Tax\Test\Repository\TaxClass"/>
+        <field name="tax_product_class" source="Mage\Tax\Test\Fixture\TaxRule\TaxClass" repository="Mage\Tax\Test\Repository\TaxClass"/>
+    </fixture>
 </config>

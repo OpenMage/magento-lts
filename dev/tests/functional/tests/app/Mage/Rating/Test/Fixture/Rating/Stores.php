@@ -66,11 +66,11 @@ class Stores extends InjectableFixture
     public function __construct(FixtureFactory $fixtureFactory, array $params, array $data = [])
     {
         $this->params = $params;
-        if (isset($data['dataSets'])) {
-            $dataSets = explode(',', $data['dataSets']);
-            foreach ($dataSets as $dataSet) {
+        if (isset($data['datasets'])) {
+            $datasets = explode(',', $data['datasets']);
+            foreach ($datasets as $dataset) {
                 /** @var Store $store */
-                $store = $fixtureFactory->createByCode('store', ['dataSet' => $dataSet]);
+                $store = $fixtureFactory->createByCode('store', ['dataset' => $dataset]);
                 if (!$store->hasData('store_id')) {
                     $store->persist();
                 }

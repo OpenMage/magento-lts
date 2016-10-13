@@ -217,6 +217,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
                 ->isTotals(true);
 
             $this->_addOrderStatusFilter($totalsCollection, $filterData);
+            $this->_addCustomFilter($totalsCollection, $filterData);
 
             if (count($totalsCollection->getItems()) < 1 || !$filterData->getData('from')) {
                 $this->setTotals(new Varien_Object());

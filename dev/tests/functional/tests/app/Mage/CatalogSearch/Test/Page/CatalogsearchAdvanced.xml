@@ -26,8 +26,8 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/pages.xsd">
-  <page name="CatalogsearchAdvanced" mca="catalogsearch/advanced" module="Mage_CatalogSearch">
-      <block name="form" class="Mage\CatalogSearch\Test\Block\Advanced\Form" locator=".advanced-search" strategy="css selector"/>
-      <block name="widgetView" class="Mage\Widget\Test\Block\WidgetView" locator=".widget" strategy="css selector"/>
-  </page>
+    <page name="CatalogsearchAdvanced" mca="catalogsearch/advanced" module="Mage_CatalogSearch">
+        <block name="form" class="Mage\CatalogSearch\Test\Block\Advanced\Form" locator=".advanced-search" strategy="css selector"/>
+        <block name="widgetView" class="Mage\Widget\Test\Block\WidgetView" locator=".widget" strategy="css selector"/>
+    </page>
 </config>

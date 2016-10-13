@@ -125,6 +125,8 @@ class Mage_ImportExport_Model_Export_Adapter_Csv extends Mage_ImportExport_Model
             $this->_enclosure
         );
 
+        $this->_rowsCount++;
+
         return $this;
     }
 

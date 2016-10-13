@@ -25,8 +25,44 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 -->
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/Magento/Mtf/Repository/etc/repository.xsd">
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/Magento/Mtf/Repository/etc/repository.xsd">
     <repository class="Mage\Downloadable\Test\Repository\DownloadableProduct">
+        <dataset name="default">
+            <field name="name" xsi:type="string">DownloadableProduct_%isolation%</field>
+            <field name="sku" xsi:type="string">DownloadableProduct_%isolation%</field>
+            <field name="visibility" xsi:type="string">Catalog, Search</field>
+            <field name="status" xsi:type="string">Enabled</field>
+            <field name="url_key" xsi:type="string">downloadable-product-%isolation%</field>
+            <field name="price" xsi:type="array">
+                <item name="value" xsi:type="string">100.00</item>
+            </field>
+            <field name="tax_class_id" xsi:type="array">
+                <item name="dataset" xsi:type="string">Taxable Goods</item>
+            </field>
+            <field name="description" xsi:type="string">This is description for downloadable product.</field>
+            <field name="short_description" xsi:type="string">This is short description for downloadable product.</field>
+            <field name="stock_data" xsi:type="array">
+                <item name="qty" xsi:type="string">1.0000</item>
+                <item name="is_in_stock" xsi:type="string">In Stock</item>
+            </field>
+            <field name="is_virtual" xsi:type="string">Yes</field>
+            <field name="downloadable_links" xsi:type="array">
+                <item name="dataset" xsi:type="string">default</item>
+            </field>
+            <field name="downloadable_sample" xsi:type="array">
+                <item name="dataset" xsi:type="string">default</item>
+            </field>
+            <field name="category_ids" xsi:type="array">
+                <item name="dataset" xsi:type="string">default_subcategory</item>
+            </field>
+            <field name="website_ids" xsi:type="array">
+                <item name="datasets" xsi:type="array">
+                    <item name="0" xsi:type="string">main_website</item>
+                </item>
+            </field>
+        </dataset>
+        
         <dataset name="with_two_separately_links">
             <field name="name" xsi:type="string">Downloadable product %isolation%</field>
             <field name="sku" xsi:type="string">downloadable_product_%isolation%</field>
@@ -37,27 +73,35 @@
                 <item name="value" xsi:type="string">20</item>
             </field>
             <field name="tax_class_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">Taxable Goods</item>
+                <item name="dataset" xsi:type="string">Taxable Goods</item>
             </field>
-            <field name="description" xsi:type="string">This is description for downloadable product with two separately links</field>
-            <field name="short_description" xsi:type="string">This is short description for downloadable product with two separately links</field>
+            <field name="description" xsi:type="string">This is description for downloadable product with two separately
+                links
+            </field>
+            <field name="short_description" xsi:type="string">This is short description for downloadable product with
+                two separately links
+            </field>
             <field name="stock_data" xsi:type="array">
                 <item name="qty" xsi:type="string">111</item>
                 <item name="is_in_stock" xsi:type="string">In Stock</item>
             </field>
             <field name="is_virtual" xsi:type="string">Yes</field>
             <field name="downloadable_links" xsi:type="array">
-                <item name="preset" xsi:type="string">with_two_separately_links</item>
+                <item name="dataset" xsi:type="string">with_two_separately_links</item>
+            </field>
+            <field name="downloadable_sample" xsi:type="array">
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="checkout_data" xsi:type="array">
-                <item name="preset" xsi:type="string">with_two_separately_links</item>
+                <item name="dataset" xsi:type="string">with_two_separately_links</item>
             </field>
             <field name="website_ids" xsi:type="array">
-                <item name="dataSets" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">main_website</item>
                 </item>
             </field>
         </dataset>
+
         <dataset name="with_two_separately_links_special_price_and_category">
             <field name="name" xsi:type="string">Downloadable product %isolation%</field>
             <field name="sku" xsi:type="string">downloadable_product_%isolation%</field>
@@ -67,32 +111,37 @@
             </field>
             <field name="special_price" xsi:type="string">20</field>
             <field name="tax_class_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">Taxable Goods</item>
+                <item name="dataset" xsi:type="string">Taxable Goods</item>
             </field>
             <field name="stock_data" xsi:type="array">
                 <item name="qty" xsi:type="string">1111</item>
                 <item name="is_in_stock" xsi:type="string">In Stock</item>
             </field>
-            <field name="description" xsi:type="string">This is description for downloadable product with special price</field>
-            <field name="short_description" xsi:type="string">This is short description for downloadable product with special price</field>
+            <field name="description" xsi:type="string">This is description for downloadable product with special
+                price
+            </field>
+            <field name="short_description" xsi:type="string">This is short description for downloadable product with
+                special price
+            </field>
             <field name="status" xsi:type="string">Enabled</field>
             <field name="category_ids" xsi:type="array">
-                <item name="presets" xsi:type="string">default_subcategory</item>
+                <item name="dataset" xsi:type="string">default_subcategory</item>
             </field>
             <field name="visibility" xsi:type="string">Catalog, Search</field>
             <field name="is_virtual" xsi:type="string">Yes</field>
             <field name="website_ids" xsi:type="array">
-                <item name="dataSets" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">main_website</item>
                 </item>
             </field>
             <field name="downloadable_links" xsi:type="array">
-                <item name="preset" xsi:type="string">with_two_separately_links</item>
+                <item name="dataset" xsi:type="string">with_two_separately_links</item>
             </field>
             <field name="checkout_data" xsi:type="array">
-                <item name="preset" xsi:type="string">with_two_bought_links</item>
+                <item name="dataset" xsi:type="string">with_two_bought_links</item>
             </field>
         </dataset>
+
         <dataset name="with_two_separately_links_group_price_and_category">
             <field name="name" xsi:type="string">Downloadable product %isolation%</field>
             <field name="sku" xsi:type="string">downloadable_product_%isolation%</field>
@@ -101,35 +150,39 @@
                 <item name="value" xsi:type="string">30</item>
             </field>
             <field name="group_price" xsi:type="array">
-                <item name="preset" xsi:type="string">downloadable_with_tax</item>
+                <item name="dataset" xsi:type="string">downloadable_with_tax</item>
             </field>
             <field name="tax_class_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">Taxable Goods</item>
+                <item name="dataset" xsi:type="string">Taxable Goods</item>
             </field>
             <field name="stock_data" xsi:type="array">
                 <item name="qty" xsi:type="string">1111</item>
                 <item name="is_in_stock" xsi:type="string">In Stock</item>
             </field>
-            <field name="description" xsi:type="string">This is description for downloadable product with group price</field>
-            <field name="short_description" xsi:type="string">This is short description for downloadable product with group price</field>
+            <field name="description" xsi:type="string">This is description for downloadable product with group price
+            </field>
+            <field name="short_description" xsi:type="string">This is short description for downloadable product with
+                group price
+            </field>
             <field name="status" xsi:type="string">Enabled</field>
             <field name="category_ids" xsi:type="array">
-                <item name="presets" xsi:type="string">default_subcategory</item>
+                <item name="dataset" xsi:type="string">default_subcategory</item>
             </field>
             <field name="visibility" xsi:type="string">Catalog, Search</field>
             <field name="is_virtual" xsi:type="string">Yes</field>
             <field name="website_ids" xsi:type="array">
-                <item name="dataSets" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">main_website</item>
                 </item>
             </field>
             <field name="downloadable_links" xsi:type="array">
-                <item name="preset" xsi:type="string">with_two_separately_links</item>
+                <item name="dataset" xsi:type="string">with_two_separately_links</item>
             </field>
             <field name="checkout_data" xsi:type="array">
-                <item name="preset" xsi:type="string">with_two_bought_links</item>
+                <item name="dataset" xsi:type="string">with_two_bought_links</item>
             </field>
         </dataset>
+
         <dataset name="with_two_separately_links_custom_options_and_category">
             <field name="name" xsi:type="string">Downloadable product %isolation%</field>
             <field name="sku" xsi:type="string">downloadable_product_%isolation%</field>
@@ -138,33 +191,37 @@
                 <item name="value" xsi:type="string">20</item>
             </field>
             <field name="tax_class_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">Taxable Goods</item>
+                <item name="dataset" xsi:type="string">Taxable Goods</item>
             </field>
             <field name="stock_data" xsi:type="array">
                 <item name="qty" xsi:type="string">1111</item>
                 <item name="is_in_stock" xsi:type="string">In Stock</item>
             </field>
-            <field name="description" xsi:type="string">This is description for downloadable product with custom options</field>
-            <field name="short_description" xsi:type="string">This is short description for downloadable product with custom options</field>
+            <field name="description" xsi:type="string">This is description for downloadable product with custom
+                options
+            </field>
+            <field name="short_description" xsi:type="string">This is short description for downloadable product with
+                custom options
+            </field>
             <field name="status" xsi:type="string">Enabled</field>
             <field name="category_ids" xsi:type="array">
-                <item name="presets" xsi:type="string">default_subcategory</item>
+                <item name="dataset" xsi:type="string">default_subcategory</item>
             </field>
             <field name="visibility" xsi:type="string">Catalog, Search</field>
             <field name="is_virtual" xsi:type="string">Yes</field>
             <field name="website_ids" xsi:type="array">
-                <item name="dataSets" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">main_website</item>
                 </item>
             </field>
             <field name="downloadable_links" xsi:type="array">
-                <item name="preset" xsi:type="string">with_two_separately_links</item>
+                <item name="dataset" xsi:type="string">with_two_separately_links</item>
             </field>
             <field name="custom_options" xsi:type="array">
-                <item name="preset" xsi:type="string">drop_down_with_one_option_percent_price</item>
+                <item name="dataset" xsi:type="string">drop_down_with_one_option_percent_price</item>
             </field>
             <field name="checkout_data" xsi:type="array">
-                <item name="preset" xsi:type="string">one_custom_option_and_downloadable_link</item>
+                <item name="dataset" xsi:type="string">one_custom_option_and_downloadable_link</item>
             </field>
         </dataset>
     </repository>

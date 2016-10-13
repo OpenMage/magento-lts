@@ -77,7 +77,7 @@ class Curl extends AbstractCurl implements WebsiteInterface
         $data = $this->prepareData($fixture);
         $url = $_ENV['app_backend_url'] . 'system_store/save';
         $curl = new BackendDecorator(new CurlTransport(), $this->_configuration);
-        $curl->write(CurlInterface::POST, $url, '1.1', [], $data);
+        $curl->write($url, $data);
         $response = $curl->read();
         $curl->close();
         if (!strpos($response, 'success-msg"')) {
@@ -105,7 +105,7 @@ class Curl extends AbstractCurl implements WebsiteInterface
         $website = $this->prepareWebsite($website, $websiteId);
         $storeGroup = $this->fixtureFactory->createByCode(
             'storeGroup',
-            ['dataSet' => $groupId['dataSet'], 'data' => ['website_id' => ['website' => $website]]]
+            ['dataset' => $groupId['dataset'], 'data' => ['website_id' => ['website' => $website]]]
         );
         $storeGroup->persist();
     }
@@ -139,7 +139,7 @@ class Curl extends AbstractCurl implements WebsiteInterface
         $url = $_ENV['app_backend_url'] . 'system_store/index/sort/group_title/dir/asc/limit/2000';
         $curl = new BackendDecorator(new CurlTransport(), $this->_configuration);
         $curl->addOption(CURLOPT_HEADER, 1);
-        $curl->write(CurlInterface::POST, $url, '1.0');
+        $curl->write($url);
         $response = $curl->read();
 
         $expectedUrl = '/admin/system_store/editWebsite/website_id/';

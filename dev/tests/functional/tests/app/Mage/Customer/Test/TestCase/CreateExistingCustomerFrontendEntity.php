@@ -30,6 +30,7 @@ use Mage\Cms\Test\Page\CmsIndex;
 use Mage\Customer\Test\Fixture\Customer;
 use Mage\Customer\Test\Page\CustomerAccountCreate;
 use Mage\Customer\Test\Page\CustomerAccountLogout;
+use Magento\Mtf\Fixture\FixtureFactory;
 use Magento\Mtf\TestCase\Injectable;
 
 /**
@@ -72,11 +73,12 @@ class CreateExistingCustomerFrontendEntity extends Injectable
     /**
      * Prepare customer.
      *
-     * @param Customer $customer
+     * @param FixtureFactory $fixtureFactory
      * @return array
      */
-    public function __prepare(Customer $customer)
+    public function __prepare(FixtureFactory $fixtureFactory)
     {
+        $customer = $fixtureFactory->createByCode('customer', ['dataset' => 'default_frontend_new']);
         $customer->persist();
 
         return ['customer' => $customer];

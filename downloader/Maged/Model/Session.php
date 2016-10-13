@@ -83,8 +83,10 @@ class Maged_Model_Session extends Maged_Model
 
     /**
      * Authentication to downloader
+     * @param Maged_BruteForce_Validator $bruteForceValidator
+     * @return $this
      */
-    public function authenticate()
+    public function authenticate(Maged_BruteForce_Validator $bruteForceValidator )
     {
         if (!$this->_session) {
             return $this;
@@ -121,7 +123,10 @@ class Maged_Model_Session extends Maged_Model
             $user = $this->_session->login($_POST['username'], $_POST['password']);
             $this->_session->refreshAcl();
             if ($this->_checkUserAccess($user)) {
+                $bruteForceValidator->doGoodLogin();
                 return $this;
+            } else {
+                $bruteForceValidator->doBadLogin();
             }
         } catch (Exception $e) {
             $this->addMessage('error', $e->getMessage());

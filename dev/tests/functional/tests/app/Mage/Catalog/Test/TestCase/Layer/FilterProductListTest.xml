@@ -26,7 +26,7 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Catalog\Test\TestCase\Layer\FilterProductListTest">
+    <testCase name="Mage\Catalog\Test\TestCase\Layer\FilterProductListTest" summary="FilterProductListTest">
         <variation name="FilterProductListTestVariation1" method="test">
             <data name="description" xsi:type="string">Filter by price</data>
             <data name="products" xsi:type="string">downloadableProduct::with_two_separately_links,catalogProductSimple::50_dollar_product,catalogProductVirtual::order_default</data>

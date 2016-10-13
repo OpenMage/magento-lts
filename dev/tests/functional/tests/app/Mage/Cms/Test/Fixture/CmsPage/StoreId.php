@@ -27,28 +27,15 @@
 namespace Mage\Cms\Test\Fixture\CmsPage;
 
 use Mage\Adminhtml\Test\Fixture\Store;
+use Magento\Mtf\Fixture\DataSource;
 use Magento\Mtf\Fixture\FixtureFactory;
 use Magento\Mtf\Fixture\FixtureInterface;
 
 /**
  * Prepare StoreId for Cms Page.
  */
-class StoreId implements FixtureInterface
+class StoreId extends DataSource
 {
-    /**
-     * Prepared dataSet data.
-     *
-     * @var array
-     */
-    protected $data;
-
-    /**
-     * Data set configuration settings.
-     *
-     * @var array
-     */
-    protected $params;
-
     /**
      * Store fixture.
      *
@@ -65,9 +52,9 @@ class StoreId implements FixtureInterface
     public function __construct(FixtureFactory $fixtureFactory, array $data, array $params = [])
     {
         $this->params = $params;
-        if (isset($data['dataSet'])) {
-            foreach ($data['dataSet'] as $dataSet) {
-                $store = $fixtureFactory->createByCode('store', ['dataSet' => $dataSet]);
+        if (isset($data['dataset'])) {
+            foreach ($data['dataset'] as $dataset) {
+                $store = $fixtureFactory->createByCode('store', ['dataset' => $dataset]);
                 /** @var Store $store */
                 if (!$store->getStoreId()) {
                     $store->persist();
@@ -76,39 +63,6 @@ class StoreId implements FixtureInterface
                 $this->data[] = $store->getGroupId() . '/' . $store->getName();
             }
         }
-    }
-
-    /**
-     * Persist fixture.
-     *
-     * @return void
-     */
-    public function persist()
-    {
-        //
-    }
-
-    /**
-     * Return prepared data set.
-     *
-     * @param string|null $key [optional]
-     * @return mixed
-     *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    public function getData($key = null)
-    {
-        return $this->data;
-    }
-
-    /**
-     * Return data set configuration settings.
-     *
-     * @return array
-     */
-    public function getDataConfig()
-    {
-        return $this->params;
     }
 
     /**

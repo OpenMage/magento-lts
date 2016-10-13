@@ -44,7 +44,7 @@ Mage::app('admin')->setUseSessionInUrl(false);
 
 umask(0);
 
-$disabledFuncs = explode(',', ini_get('disable_functions'));
+$disabledFuncs = array_map('trim', explode(',', strtolower(ini_get('disable_functions'))));
 $isShellDisabled = is_array($disabledFuncs) ? in_array('shell_exec', $disabledFuncs) : true;
 $isShellDisabled = (stripos(PHP_OS, 'win') === false) ? $isShellDisabled : true;
 

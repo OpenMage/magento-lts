@@ -26,7 +26,7 @@
  */
  -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/pages.xsd">
-  <page name="ShipmentView" mca="sales/order/shipment" module="Mage_Shipping">
-    <block name="entitiesBlock" class="Mage\Shipping\Test\Block\Sales\Order\Shipments" locator=".order-items.order-details" strategy="css selector"/>
-  </page>
+    <page name="ShipmentView" mca="sales/order/shipment" module="Mage_Shipping">
+        <block name="entitiesBlock" class="Mage\Shipping\Test\Block\Sales\Order\Shipments" locator=".order-items.order-details" strategy="css selector"/>
+    </page>
 </config>

@@ -25,7 +25,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
  -->
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
     <fixture name="install" module="Mage_Install" type="virtual" entity_type="install" repository_class="Mage\Install\Test\Repository\Install" handler_interface="Mage\Install\Test\Handler\Install\InstallInterface" class="Mage\Install\Test\Fixture\Install">
         <field name="locale" />
         <field name="timezone" />

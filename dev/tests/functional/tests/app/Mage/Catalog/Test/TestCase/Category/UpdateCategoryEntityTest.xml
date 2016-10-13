@@ -26,9 +26,10 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Catalog\Test\TestCase\Category\UpdateCategoryEntityTest">
+    <testCase name="Mage\Catalog\Test\TestCase\Category\UpdateCategoryEntityTest" summary="UpdateCategoryEntityTest">
         <variation name="UpdateCategoryEntityTestVariation1" method="test">
             <data name="description" xsi:type="string">Update category name, url_key, include_in_menu fields.</data>
+            <data name="initialCategory/dataset" xsi:type="string">subcategory_with_assigned_products</data>
             <data name="category/data/name" xsi:type="string">Name%isolation%</data>
             <data name="category/data/is_active" xsi:type="string">Yes</data>
             <data name="category/data/url_key" xsi:type="string">updated-url-key%isolation%</data>
@@ -43,6 +44,7 @@
         </variation>
         <variation name="UpdateCategoryEntityTestVariation2" method="test">
             <data name="description" xsi:type="string">Update category description, name, url_key, available_product_listing_config, available_sort_by fields.</data>
+            <data name="initialCategory/dataset" xsi:type="string">subcategory_with_assigned_products</data>
             <data name="category/data/name" xsi:type="string">Name%isolation%</data>
             <data name="category/data/is_active" xsi:type="string">Yes</data>
             <data name="category/data/url_key" xsi:type="string">updated-url-key%isolation%</data>
@@ -68,7 +70,7 @@
         </variation>
         <variation name="UpdateCategoryEntityTestVariation4" method="test">
             <data name="description" xsi:type="string">Unasigned products from category.</data>
-            <data name="initialCategory/dataSet" xsi:type="string">subcategory_with_assigned_products</data>
+            <data name="initialCategory/dataset" xsi:type="string">subcategory_with_assigned_products</data>
             <data name="category/data/name" xsi:type="string">Name%isolation%</data>
             <data name="unassignedProductsKeys" xsi:type="string">0,2</data>
             <constraint name="Mage\Catalog\Test\Constraint\AssertCategorySaveMessage" />

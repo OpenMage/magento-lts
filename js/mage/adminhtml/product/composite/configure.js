@@ -430,13 +430,13 @@ ProductConfigure.prototype = {
                 var states = new Array;
                 var selects = this.blockForm.getElementsByTagName("select");
                 for(var i=0; i<selects.length; i++){
-                    states[i] = selects[i].style.visibility
+                    states[i] = selects[i].style.visibility;
                 }
             }
             toggleSelectsUnderBlock(this.blockMask, flag);
             if (this.blockForm) {
                 for(i=0; i<selects.length; i++){
-                    selects[i].style.visibility = states[i]
+                    selects[i].style.visibility = states[i];
                 }
             }
         }
@@ -584,7 +584,7 @@ ProductConfigure.prototype = {
             var pattern         = null;
             var patternFlat     = null;
             var replacement     = null;
-            var replacementFlat = null
+            var replacementFlat = null;
             var scopeArr        = blockItem.id.match(/.*\[\w+\]\[([^\]]+)\]$/);
             var itemId          = scopeArr[1];
             if (method == 'current_confirmed_to_form') {

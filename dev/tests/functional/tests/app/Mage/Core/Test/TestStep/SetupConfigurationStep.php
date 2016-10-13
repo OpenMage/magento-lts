@@ -85,8 +85,8 @@ class SetupConfigurationStep implements TestStepInterface
         $configData = array_map('trim', explode(',', $this->configData));
         $result = [];
 
-        foreach ($configData as $configDataSet) {
-            $config = $this->fixtureFactory->createByCode('configData', ['dataSet' => $configDataSet . $prefix]);
+        foreach ($configData as $configdataset) {
+            $config = $this->fixtureFactory->createByCode('configData', ['dataset' => $configdataset . $prefix]);
             if ($config->hasData('section')) {
                 $config->persist();
                 $result[] = $config;

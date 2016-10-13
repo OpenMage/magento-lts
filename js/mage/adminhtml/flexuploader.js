@@ -303,9 +303,9 @@ if(!window.Flex) {
             this.files.each(function(file){
                 if (file.size > maxUploadFileSizeInBytes) {
                     hasTooBigFiles = true;
-                    this.uploader.removeFile(file.id)
+                    this.uploader.removeFile(file.id);
                 } else {
-                    newFiles.push(file)
+                    newFiles.push(file);
                 }
             }.bind(this));
             this.files = newFiles;
@@ -363,10 +363,10 @@ if(!window.Flex) {
         checkAllComplete: function() {
             if (this.files) {
                 return !this.files.any(function(file) {
-                    return (file.status !== 'full_complete')
+                    return (file.status !== 'full_complete');
                 });
             }
             return true;
         }
-    }
+    };
 }

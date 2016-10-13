@@ -30,7 +30,7 @@
         <dataset name="visibleOnDefaultWebsite">
             <field name="rating_code" xsi:type="string">rating_%isolation%</field>
             <field name="stores" xsi:type="array">
-                <item name="dataSets" xsi:type="string">default</item>
+                <item name="datasets" xsi:type="string">default</item>
             </field>
             <field name="is_active" xsi:type="string">Yes</field>
         </dataset>

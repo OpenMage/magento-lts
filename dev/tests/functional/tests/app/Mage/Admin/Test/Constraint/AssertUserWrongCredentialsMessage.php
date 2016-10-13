@@ -51,18 +51,18 @@ class AssertUserWrongCredentialsMessage extends AbstractConstraint
      * Verify incorrect credentials message while login to admin.
      *
      * @param AdminAuthLogin $adminAuth
-     * @param User $customAdmin
+     * @param User $user
      * @return void
      */
-    public function processAssert(AdminAuthLogin $adminAuth, User $customAdmin)
+    public function processAssert(AdminAuthLogin $adminAuth, User $user)
     {
         $adminAuth->open();
-        $adminAuth->getLoginBlock()->loginToAdminPanel($customAdmin->getData());
+        $adminAuth->getLoginBlock()->loginToAdminPanel($user->getData());
 
         \PHPUnit_Framework_Assert::assertEquals(
-            self::INVALID_CREDENTIALS_MESSAGE,
+            static::INVALID_CREDENTIALS_MESSAGE,
             $adminAuth->getMessagesBlock()->getErrorMessages(),
-            'Message "' . self::INVALID_CREDENTIALS_MESSAGE . '" is not visible.'
+            'Message "' . static::INVALID_CREDENTIALS_MESSAGE . '" is not visible.'
         );
     }
 

@@ -26,21 +26,15 @@
 
 namespace Mage\Core\Test\Fixture;
 
+use Magento\Mtf\Fixture\DataSource;
 use Magento\Mtf\Fixture\FixtureInterface;
 
 /**
  * Data keys:
  *  - pattern (Format a local time/date with delta, e.g. 'm-d-Y -3 days' = current day - 3 days)
  */
-class Date implements FixtureInterface
+class Date extends DataSource
 {
-    /**
-     * Date for fill on form.
-     *
-     * @var string
-     */
-    protected $data;
-
     /**
      * @constructor
      * @param array $params
@@ -66,38 +60,5 @@ class Date implements FixtureInterface
             }
             $this->data = trim($date);
         }
-    }
-
-    /**
-     * Persists prepared data into application.
-     *
-     * @return void
-     */
-    public function persist()
-    {
-        //
-    }
-
-    /**
-     * Return prepared data set.
-     *
-     * @param $key [optional]
-     * @return mixed
-     *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    public function getData($key = null)
-    {
-        return $this->data;
-    }
-
-    /**
-     * Return data set configuration settings.
-     *
-     * @return string
-     */
-    public function getDataConfig()
-    {
-        return $this->params;
     }
 }

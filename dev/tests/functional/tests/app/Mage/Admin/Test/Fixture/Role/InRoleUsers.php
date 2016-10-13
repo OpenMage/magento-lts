@@ -35,7 +35,7 @@ use Mage\Admin\Test\Fixture\User;
  * In role users data source.
  *
  * Data keys:
- *  - dataSet
+ *  - dataset
  */
 class InRoleUsers implements FixtureInterface
 {
@@ -69,10 +69,10 @@ class InRoleUsers implements FixtureInterface
     public function __construct(FixtureFactory $fixtureFactory, array $params, array $data = [])
     {
         $this->params = $params;
-        if (isset($data['dataSet']) && $data['dataSet'] !== '-') {
-            $dataSets = explode(',', $data['dataSet']);
-            foreach ($dataSets as $dataSet) {
-                $adminUser = $fixtureFactory->createByCode('user', ['dataSet' => trim($dataSet)]);
+        if (isset($data['dataset']) && $data['dataset'] !== '-') {
+            $datasets = explode(',', $data['dataset']);
+            foreach ($datasets as $dataset) {
+                $adminUser = $fixtureFactory->createByCode('user', ['dataset' => trim($dataset)]);
                 if (!$adminUser->hasData('user_id')) {
                     $adminUser->persist();
                 }

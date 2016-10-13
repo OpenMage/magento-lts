@@ -26,7 +26,7 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Paypal\Test\TestCase\CreateShipmentForPaypalExpressCheckoutTest">
+    <testCase name="Mage\Paypal\Test\TestCase\CreateShipmentForPaypalExpressCheckoutTest" summary="CreateShipmentForPaypalExpressCheckoutTest">
         <variation name="CreateShipmentForPaypalExpressCheckoutTestVariation1" method="test">
             <data name="description" xsi:type="string">Create full shipment for paypal express checkout with line items mark require billing address</data>
             <data name="products" xsi:type="string">catalogProductSimple::default</data>

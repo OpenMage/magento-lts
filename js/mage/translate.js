@@ -47,4 +47,4 @@ Translate.prototype = {
             }.bind(this));
         }
     }
-}
+};

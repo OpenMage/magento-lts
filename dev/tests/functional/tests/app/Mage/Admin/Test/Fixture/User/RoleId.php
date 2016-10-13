@@ -35,7 +35,7 @@ use Mage\Admin\Test\Fixture\Role;
  * Role id field data source.
  *
  * Data keys:
- *  - dataSet
+ *  - dataset
  *  - role
  */
 class RoleId implements FixtureInterface
@@ -63,8 +63,8 @@ class RoleId implements FixtureInterface
     public function __construct(FixtureFactory $fixtureFactory, array $params, array $data = [])
     {
         $this->params = $params;
-        if (isset($data['dataSet'])) {
-            $this->role = $fixtureFactory->createByCode('role', ['dataSet' => $data['dataSet']]);
+        if (isset($data['dataset'])) {
+            $this->role = $fixtureFactory->createByCode('role', ['dataset' => $data['dataset']]);
             if (!$this->role->hasData('role_id')) {
                 $this->role->persist();
             }

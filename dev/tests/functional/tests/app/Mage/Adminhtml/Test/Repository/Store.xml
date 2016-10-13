@@ -30,7 +30,7 @@
     <repository class="Mage\Adminhtml\Test\Repository\Store">
         <dataset name="default">
             <field name="group_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="name" xsi:type="string">Default Store View</field>
             <field name="code" xsi:type="string">base</field>
@@ -39,7 +39,7 @@
         </dataset>
         <dataset name="custom">
             <field name="group_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="name" xsi:type="string">Custom_Store_%isolation%</field>
             <field name="code" xsi:type="string">code_%isolation%</field>
@@ -47,7 +47,7 @@
         </dataset>
         <dataset name="custom_with_custom_store_group">
             <field name="group_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">custom_with_custom_web_site</item>
+                <item name="dataset" xsi:type="string">custom_with_custom_web_site</item>
             </field>
             <field name="name" xsi:type="string">Custom_Store_%isolation%</field>
             <field name="code" xsi:type="string">code_%isolation%</field>

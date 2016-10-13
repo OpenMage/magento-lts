@@ -37,7 +37,7 @@ var bp = {
     medium: 770,
     large: 979,
     xlarge: 1199
-}
+};
 
 // ==============================================
 // Search
@@ -57,7 +57,7 @@ Varien.searchForm.prototype.initialize = function (form, field, emptyText) {
     Event.observe(this.field, 'focus', this.focus.bind(this));
     Event.observe(this.field, 'blur', this.blur.bind(this));
     this.blur();
-}
+};
 
 Varien.searchForm.prototype.submit = function (event) {
     if (this.field.value == this.emptyText || this.field.value == ''){
@@ -67,7 +67,7 @@ Varien.searchForm.prototype.submit = function (event) {
         return false;
     }
     return true;
-}
+};
 
 Varien.searchForm.prototype.change = function (event) {
     if (
@@ -77,13 +77,13 @@ Varien.searchForm.prototype.change = function (event) {
     ) {
         this.field.removeClassName('validation-failed');
     }
-}
+};
 
 Varien.searchForm.prototype.blur = function (event) {
     if (this.field.hasClassName('validation-failed')) {
         this.field.removeClassName('validation-failed');
     }
-}
+};
 
 // ==============================================
 // Pointer abstraction
@@ -684,7 +684,7 @@ $j(document).ready(function () {
 
     $j(".change").click(function (e) {
         $j( this ).toggleClass('active');
-        e.stopPropagation()
+        e.stopPropagation();
     });
 
     $j(document).click(function (e) {
@@ -867,7 +867,7 @@ $j(document).ready(function () {
             }
 
         });
-    }
+    };
 
     // ==============================================
     // UI Pattern - Toggle Content (tabs and accordions in one setup)
@@ -951,14 +951,14 @@ $j(document).ready(function () {
     // While it would make more sense to just move the .block-layered-nav block rather than .col-left-first
     // (since other blocks can be inserted into left_first), it creates simpler code to move the entire
     // .col-left-first block, so that is the approach we're taking
-    if ($j('.col-left-first > .block').length && $j('.category-products').length) {
+    if ($j('.col-left-first > .block').length && $j('div.category-products').length) {
         enquire.register('screen and (max-width: ' + bp.medium + 'px)', {
             match: function () {
-                $j('.col-left-first').insertBefore($j('.category-products'))
+                $j('.col-left-first').insertBefore($j('div.category-products'));
             },
             unmatch: function () {
                 // Move layered nav back to left column
-                $j('.col-left-first').insertBefore($j('.col-main'))
+                $j('.col-left-first').insertBefore($j('.col-main'));
             }
         });
     }
@@ -1044,12 +1044,12 @@ $j(document).ready(function () {
             match: function () {
                 $j('.gift-info').each(function() {
                   $j(this).next('td').children('textarea').appendTo(this).children();
-                })
+                });
             },
             unmatch: function () {
                 $j('.left-note').each(function() {
                     $j(this).prev('td').children('textarea').appendTo(this).children();
-                })
+                });
             }
         });
     }
@@ -1122,7 +1122,7 @@ $j(document).ready(function () {
                     });
                 });
             });
-        }
+        };
         alignProductGridActions();
 
         // Since the height of each cell and the number of columns per page may change when the page is resized, we are

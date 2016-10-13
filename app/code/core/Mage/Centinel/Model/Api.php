@@ -25,11 +25,6 @@
  */
 
 /**
- * 3D Secure Validation Library for Payment
- */
-include_once '3Dsecure/CentinelClient.php';
-
-/**
  * 3D Secure Validation Api
  */
 class Mage_Centinel_Model_Api extends Varien_Object
@@ -73,19 +68,19 @@ class Mage_Centinel_Model_Api extends Varien_Object
     /**
      * Centinel validation client
      *
-     * @var CentinelClient
+     * @var Mage_Centinel_Model_Api_Client
      */
     protected $_clientInstance = null;
 
     /**
      * Return Centinel thin client object
      *
-     * @return CentinelClient
+     * @return Mage_Centinel_Model_Api_Client
      */
     protected function _getClientInstance()
     {
         if (empty($this->_clientInstance)) {
-            $this->_clientInstance = new CentinelClient();
+            $this->_clientInstance = new Mage_Centinel_Model_Api_Client();
         }
         return $this->_clientInstance;
     }
@@ -136,7 +131,7 @@ class Mage_Centinel_Model_Api extends Varien_Object
      * @param $method string
      * @param $data array
      *
-     * @return CentinelClient
+     * @return Mage_Centinel_Model_Api_Client
      */
     protected function _call($method, $data)
     {

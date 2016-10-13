@@ -36,7 +36,7 @@ use Mage\Catalog\Test\Fixture\CatalogCategory;
 class CategoryId implements FixtureInterface
 {
     /**
-     * Prepared dataSet data.
+     * Prepared dataset data.
      *
      * @var array
      */
@@ -68,8 +68,8 @@ class CategoryId implements FixtureInterface
         if (isset($data['category'])) {
             $this->category = $data['category'];
             $this->data = $data['category']->getName();
-        } elseif (isset($data['dataSet'])) {
-            $category = $fixtureFactory->createByCode('catalogCategory', ['dataSet' => $data['dataSet']]);
+        } elseif (isset($data['dataset'])) {
+            $category = $fixtureFactory->createByCode('catalogCategory', ['dataset' => $data['dataset']]);
             /** @var CatalogCategory $category */
             if (!$category->getId()) {
                 $category->persist();

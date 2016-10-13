@@ -59,8 +59,8 @@
                     <?php if ($_product->isSaleable()): ?>
                     <div class="qty-wrapper">
                         <?php if ($_item->isSaleable()) : ?>
-                            <input id="super_group_<?php echo $_item->getId(); ?>" type="text" pattern="\d*" name="super_group[<?php echo $_item->getId() ?>]" maxlength="12" value="<?php echo $_item->getQty()*1 ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Qty')) ?>" class="input-text qty" />
-                            <label for="super_group_<?php echo $_item->getId(); ?>" class="qty-label">
+                            <input id="super_group_<?php echo $_item->getId() ?>" type="text" pattern="\d*(\.\d+)?" name="super_group[<?php echo $_item->getId() ?>]" maxlength="12" value="<?php echo $_item->getQty() * 1 ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Qty')) ?>" class="input-text qty" />
+                            <label for="super_group_<?php echo $_item->getId() ?>" class="qty-label">
                                 <?php echo $this->__('Quantity'); ?>
                             </label>
                         <?php else: ?>

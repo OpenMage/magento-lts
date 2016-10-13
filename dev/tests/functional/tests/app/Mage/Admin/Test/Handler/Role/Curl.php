@@ -66,7 +66,7 @@ class Curl extends AbstractCurl implements RoleInterface
         $data = $this->prepareData($fixture);
         $url = $_ENV['app_backend_url'] . 'permissions_role/saverole/';
         $curl = new BackendDecorator(new CurlTransport(), $this->_configuration);
-        $curl->write(CurlInterface::POST, $url, '1.1', [], $data);
+        $curl->write($url, $data);
         $response = $curl->read();
         $curl->close();
 

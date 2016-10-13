@@ -41,13 +41,6 @@ class Welcome extends Block
      */
     protected $wizardTitle = '.page-head>h3';
 
-//    /**
-//     * License agreements checkbox selector.
-//     *
-//     * @var string
-//     */
-//    protected $agree = '#agree';
-
     /**
      * Get wizard text.
      *
@@ -57,14 +50,4 @@ class Welcome extends Block
     {
         return $this->_rootElement->find($this->wizardTitle)->getText();
     }
-
-//    /**
-//     * Accept license agreements.
-//     *
-//     * @return void
-//     */
-//    public function acceptLicenseAgreement()
-//    {
-//        $this->_rootElement->find($this->agree, Locator::SELECTOR_CSS, 'checkbox')->setValue('Yes');
-//    }
 }

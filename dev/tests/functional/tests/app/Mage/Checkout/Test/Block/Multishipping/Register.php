@@ -50,7 +50,10 @@ class Register extends Form
      */
     public function registerCustomer(Customer $customer)
     {
-        $this->fill($customer);
+        $customerData = $customer->getData();
+        unset($customerData['address']);
+        $mapping = $this->dataMapping($customerData);
+        $this->_fill($mapping);
         $address = $customer->getDataFieldConfig('address')['source']->getAddresses()[0];
         $this->fillAddress($address);
         $this->_rootElement->find($this->submit)->click();

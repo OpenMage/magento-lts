@@ -34,6 +34,12 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends Mage_Adminhtml_Block_Widget
 {
+    /**
+     * Type of uploader block
+     *
+     * @var string
+     */
+    protected $_uploaderType = 'uploader/multiple';
 
     public function __construct()
     {
@@ -44,17 +50,17 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
     protected function _prepareLayout()
     {
         $this->setChild('uploader',
-            $this->getLayout()->createBlock('adminhtml/media_uploader')
+            $this->getLayout()->createBlock($this->_uploaderType)
         );
 
-        $this->getUploader()->getConfig()
-            ->setUrl(Mage::getModel('adminhtml/url')->addSessionParam()->getUrl('*/catalog_product_gallery/upload'))
-            ->setFileField('image')
-            ->setFilters(array(
-                'images' => array(
-                    'label' => Mage::helper('adminhtml')->__('Images (.gif, .jpg, .png)'),
-                    'files' => array('*.gif', '*.jpg','*.jpeg', '*.png')
-                )
+        $this->getUploader()->getUploaderConfig()
+            ->setFileParameterName('image')
+            ->setTarget(Mage::getModel('adminhtml/url')->addSessionParam()->getUrl('*/catalog_product_gallery/upload'));
+
+        $browseConfig = $this->getUploader()->getButtonConfig();
+        $browseConfig
+            ->setAttributes(array(
+                'accept' => $browseConfig->getMimeTypesByExtensions('gif, png, jpeg, jpg')
             ));
 
         Mage::dispatchEvent('catalog_product_gallery_prepare_layout', array('block' => $this));
@@ -65,7 +71,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
     /**
      * Retrive uploader block
      *
-     * @return Mage_Adminhtml_Block_Media_Uploader
+     * @return Mage_Uploader_Block_Multiple
      */
     public function getUploader()
     {

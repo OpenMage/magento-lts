@@ -56,7 +56,6 @@
                         </active>
                     </fields>
                 </config>
-
                 <wishlist translate="label">
                     <label>Wishlist</label>
                     <frontend_type>text</frontend_type>
@@ -76,7 +75,6 @@
                         </active>
                     </fields>
                 </wishlist>
-
                 <catalog translate="label">
                     <label>Catalog</label>
                     <frontend_type>text</frontend_type>
@@ -130,10 +128,27 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </category>
+                        <notifystock translate="label">
+                            <label>Stock Notification</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </notifystock>
+                        <review translate="label">
+                            <label>Review Notification</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <sort_order>16</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </review>
                     </fields>
                 </catalog>
-
-                <order>
+                <order translate="label">
                     <label>Order</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>4</sort_order>
@@ -150,9 +165,73 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </status_notified>
+                        <new translate="label">
+                            <label>New Order Notification</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </new>
+                        <customer translate="label">
+                            <label>Customer Order Notification</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </customer>
                     </fields>
                 </order>
-
+                <admin_catalog translate="label">
+                    <label>Admin Catalog</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>5</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <review translate="label">
+                            <label>Review Notification</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </review>
+                        <notifystock translate="label">
+                            <label>Stock Notification</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </notifystock>
+                    </fields>
+                </admin_catalog>
+                <admin_order translate="label">
+                    <label>Admin Order</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>6</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                         <new translate="label">
+                            <label>New Order Notification</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </new>
+                    </fields>
+                </admin_order>
             </groups>
         </rss>
     </sections>

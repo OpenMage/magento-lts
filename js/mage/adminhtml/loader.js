@@ -137,7 +137,7 @@ varienLoader.prototype = {
 
     getCache : function(url){
         if(this.cache.get(url)){
-            return this.cache.get(url)
+            return this.cache.get(url);
         }
         return false;
     },
@@ -183,7 +183,7 @@ varienLoader.prototype = {
             this.callback(transport.responseText);
         }
     }
-}
+};
 
 if (!window.varienLoaderHandler)
     var varienLoaderHandler = new Object();
@@ -197,7 +197,7 @@ varienLoaderHandler.handler = {
         request.options.loaderArea = $$('#html-body .wrapper')[0]; // Blocks all page
 
         if(request && request.options.loaderArea){
-            Element.clonePosition($('loading-mask'), $(request.options.loaderArea), {offsetLeft:-2})
+            Element.clonePosition($('loading-mask'), $(request.options.loaderArea), {offsetLeft:-2});
             toggleSelectsUnderBlock($('loading-mask'), false);
             Element.show('loading-mask');
             setLoaderPosition();

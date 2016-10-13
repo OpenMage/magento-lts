@@ -29,7 +29,7 @@ $_product = $this->getProduct();
 
 if (Mage::helper('configurableswatches')->isEnabled() && $_product && $_product->getId()
     && ($_attrValues = $_product->getListSwatchAttrValues()) && count($_attrValues) > 0):
-
+    $_attrStockValues = $_product->getListSwatchAttrStockValues();
     $_swatchAttribute = Mage::helper('configurableswatches/productlist')->getSwatchAttribute();
 
     $_dimHelper = Mage::helper('configurableswatches/swatchdimensions');
@@ -69,6 +69,9 @@ if (Mage::helper('configurableswatches')->isEnabled() && $_product && $_product-
                 <?php echo $_optionLabel; ?>
             <?php endif; ?>
              </span>
+            <?php if (isset($_attrStockValues[$_optionValue]) && !$_attrStockValues[$_optionValue]): ?>
+                <span class="x" style="display: none"></span>
+            <?php endif; ?>
         </a>
     </li>
     <?php endforeach; ?>

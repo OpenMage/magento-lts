@@ -26,9 +26,9 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/pages.xsd">
-  <page name="CheckoutOnepage" mca="checkout/onepage" module="Mage_Checkout">
-    <block name="reviewBlock">
-      <render name="downloadable" class="Mage\Downloadable\Test\Block\Checkout\Onepage\Review"/>
-    </block>
-  </page>
+    <page name="CheckoutOnepage" mca="checkout/onepage" module="Mage_Checkout">
+        <block name="reviewBlock">
+        <render name="downloadable" class="Mage\Downloadable\Test\Block\Checkout\Onepage\Review"/>
+        </block>
+    </page>
 </config>

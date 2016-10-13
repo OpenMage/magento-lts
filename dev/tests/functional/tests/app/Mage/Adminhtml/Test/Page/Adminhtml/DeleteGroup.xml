@@ -26,7 +26,7 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/etc/pages.xsd">
-  <page name="DeleteGroup" area="Adminhtml" mca="system_store/deleteGroup" module="Mage_Adminhtml">
-    <block name="formPageActions" class="Mage\Adminhtml\Test\Block\FormPageActions" locator=".content-footer" strategy="css selector"/>
-  </page>
+    <page name="DeleteGroup" area="Adminhtml" mca="system_store/deleteGroup" module="Mage_Adminhtml">
+        <block name="formPageActions" class="Mage\Adminhtml\Test\Block\FormPageActions" locator=".content-footer" strategy="css selector"/>
+    </page>
 </config>

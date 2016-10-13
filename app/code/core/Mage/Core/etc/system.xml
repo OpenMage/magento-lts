@@ -1068,7 +1068,7 @@
                             <show_in_store>0</show_in_store>
                         </forgot_email_identity>
                         <password_reset_link_expiration_period translate="label comment">
-                            <label>Recovery Link Expiration Period (days)</label>
+                            <label>Recovery Link Expiration Period (hours)</label>
                             <comment>Please enter a number 1 or greater in this field.</comment>
                             <frontend_type>text</frontend_type>
                             <validate>required-entry validate-digits validate-digits-range digits-range-1-</validate>

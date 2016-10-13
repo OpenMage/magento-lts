@@ -26,7 +26,7 @@
  */
  -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\CatalogSearch\Test\TestCase\SuggestSearchingResultEntityTest">
+    <testCase name="Mage\CatalogSearch\Test\TestCase\SuggestSearchingResultEntityTest" summary="SuggestSearchingResultEntityTest">
         <variation name="SuggestSearchingResultEntityTestVariation1">
             <data name="catalogSearch/data/query_text/value" xsi:type="string">catalogProductSimple::name</data>
             <data name="tag" xsi:type="string">main:ce</data>

@@ -77,11 +77,12 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection
                 $this->_selectedColumns = $this->getAggregatedColumns();
             } else {
                 $this->_selectedColumns = array(
-                    'period'         =>  sprintf('MAX(%s)', $adapter->getDateFormatSql('period', '%Y-%m-%d')),
-                    'qty_ordered'    => 'SUM(qty_ordered)',
-                    'product_id'     => 'product_id',
-                    'product_name'   => 'MAX(product_name)',
-                    'product_price'  => 'MAX(product_price)',
+                    'period'          =>  sprintf('MAX(%s)', $adapter->getDateFormatSql('period', '%Y-%m-%d')),
+                    'qty_ordered'     => 'SUM(qty_ordered)',
+                    'product_id'      => 'product_id',
+                    'product_name'    => 'MAX(product_name)',
+                    'product_price'   => 'MAX(product_price)',
+                    'product_type_id' => 'product_type_id'
                 );
                 if ('year' == $this->_period) {
                     $this->_selectedColumns['period'] = $adapter->getDateFormatSql('period', '%Y');
@@ -113,6 +114,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection
             ->order('qty_ordered DESC')
             ->limit($this->_ratingLimit);
 
+        $this->_applyProductTypeFilter($sel);
         $this->_applyStoresFilterToSelect($sel);
 
         return $sel;
@@ -220,7 +222,6 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection
         $this->_applyStoresFilter();
 
         if ($this->_period) {
-            //
             $selectUnions = array();
 
             // apply date boundaries (before calling $this->_applyDateRangeFilter())
@@ -342,6 +343,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection
             }
 
             $this->_applyDateRangeFilter();
+            $this->_applyProductTypeFilter($this->getSelect());
 
             // add unions to select
             if ($selectUnions) {
@@ -366,6 +368,17 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection
             }
         }
 
+        return $this;
+    }
+
+    /**
+     * Apply filter to exclude certain product types from the collection
+     *
+     * @return Mage_Sales_Model_Resource_Report_Collection_Abstract
+     */
+    protected function _applyProductTypeFilter(Zend_Db_Select $select)
+    {
+        $select->where('product_type_id NOT IN (?)', Mage_Catalog_Model_Product_Type::getCompositeTypes());
         return $this;
     }
 }

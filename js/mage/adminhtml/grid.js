@@ -178,7 +178,7 @@ varienGrid.prototype = {
                         var responseText = transport.responseText.replace(/>\s+</g, '><');
 
                         if (transport.responseText.isJSON()) {
-                            var response = transport.responseText.evalJSON()
+                            var response = transport.responseText.evalJSON();
                             if (response.error) {
                                 alert(response.message);
                             }
@@ -898,7 +898,7 @@ serializerController.prototype = {
 
     //Stuff methods
     getGridDataHash: function (_object){
-        return $H(this.multidimensionalMode ? _object : this.convertArrayToObject(_object))
+        return $H(this.multidimensionalMode ? _object : this.convertArrayToObject(_object));
     },
     getDataForReloadParam: function(){
         return this.multidimensionalMode ? this.gridData.keys() : this.gridData.values();

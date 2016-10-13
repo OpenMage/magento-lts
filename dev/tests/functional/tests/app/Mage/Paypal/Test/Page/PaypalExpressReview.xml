@@ -26,7 +26,7 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/pages.xsd">
-  <page name="PaypalExpressReview" mca="paypal/express/review" module="Mage_Paypal">
-    <block name="reviewBlock" class="Mage\Paypal\Test\Block\Express\Review" locator=".paypal-express-review .col-main" strategy="css selector"/>
-  </page>
+    <page name="PaypalExpressReview" mca="paypal/express/review" module="Mage_Paypal">
+        <block name="reviewBlock" class="Mage\Paypal\Test\Block\Express\Review" locator=".paypal-express-review .col-main" strategy="css selector"/>
+    </page>
 </config>

@@ -91,7 +91,7 @@ abstract class AbstractAddAppurtenantProductsEntityTest extends Injectable
      */
     protected function getProductByData($productData, array $relatedProductsData)
     {
-        list($fixtureName, $dataSet) = explode('::', $productData);
+        list($fixtureName, $dataset) = explode('::', $productData);
         $relatedProductsPresets = [];
         foreach ($relatedProductsData as $type => $presets) {
             $relatedProductsPresets[$type]['presets'] = $presets;
@@ -100,7 +100,7 @@ abstract class AbstractAddAppurtenantProductsEntityTest extends Injectable
         return $this->fixtureFactory->createByCode(
             $fixtureName,
             [
-                'dataSet' => $dataSet,
+                'dataset' => $dataset,
                 'data' => $relatedProductsPresets
             ]
         );

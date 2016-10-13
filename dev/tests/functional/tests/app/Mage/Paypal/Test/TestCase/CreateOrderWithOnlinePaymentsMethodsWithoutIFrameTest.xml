@@ -26,14 +26,14 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Paypal\Test\TestCase\CreateOrderWithOnlinePaymentsMethodsWithoutIFrameTest">
+    <testCase name="Mage\Paypal\Test\TestCase\CreateOrderWithOnlinePaymentsMethodsWithoutIFrameTest" summary="CreateOrderWithOnlinePaymentsMethodsWithoutIFrameTest">
         <variation name="CreateOrderWithOnlinePaymentsMethodsWithoutIFrameTestVariation1" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
             <data name="configData" xsi:type="string">paypal_payments_pro</data>
             <data name="products" xsi:type="string">catalogProductSimple::order_default</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend</data>
             <data name="checkoutMethod" xsi:type="string">guest</data>
             <data name="customerPersist" xsi:type="string">no</data>
-            <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_US</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
             <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
             <data name="payment/method" xsi:type="string">paypal_direct</data>
@@ -41,8 +41,7 @@
             <data name="transactionType" xsi:type="string">Authorization</data>
             <data name="paymentAction" xsi:type="string">Authorized</data>
             <data name="grandTotal" xsi:type="string">105</data>
-            <data name="tag" xsi:type="string">payment_method:paypal</data>
-            <data name="tag" xsi:type="string">paypal:payments_pro</data>
+            <data name="tag" xsi:type="string">payment_method:paypal, paypal:payments_pro</data>
             <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" next="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid" next="Mage\Paypal\Test\Constraint\AssertTransaction" prev="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
             <constraint name="Mage\Paypal\Test\Constraint\AssertTransaction" next="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>
@@ -51,9 +50,9 @@
         <variation name="CreateOrderWithOnlinePaymentsMethodsWithoutIFrameTestVariation2" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
             <data name="configData" xsi:type="string">paypal_payments_pro</data>
             <data name="products" xsi:type="string">catalogProductSimple::order_default</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend_new</data>
             <data name="checkoutMethod" xsi:type="string">login</data>
-            <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_US_login</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
             <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
             <data name="payment/method" xsi:type="string">paypal_direct</data>
@@ -61,8 +60,7 @@
             <data name="transactionType" xsi:type="string">Authorization</data>
             <data name="paymentAction" xsi:type="string">Authorized</data>
             <data name="grandTotal" xsi:type="string">105</data>
-            <data name="tag" xsi:type="string">payment_method:paypal</data>
-            <data name="tag" xsi:type="string">paypal:payments_pro</data>
+            <data name="tag" xsi:type="string">payment_method:paypal, paypal:payments_pro</data>
             <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" next="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid" next="Mage\Paypal\Test\Constraint\AssertTransaction" prev="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
             <constraint name="Mage\Paypal\Test\Constraint\AssertTransaction" next="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>
@@ -71,10 +69,10 @@
         <variation name="CreateOrderWithOnlinePaymentsMethodsWithoutIFrameTestVariation3" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
             <data name="configData" xsi:type="string">paypal_payments_pro_action_sale</data>
             <data name="products" xsi:type="string">catalogProductSimple::order_default</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend_new</data>
             <data name="checkoutMethod" xsi:type="string">register</data>
             <data name="customerPersist" xsi:type="string">no</data>
-            <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_US</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
             <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
             <data name="payment/method" xsi:type="string">paypal_direct</data>
@@ -82,8 +80,7 @@
             <data name="transactionType" xsi:type="string">Capture</data>
             <data name="paymentAction" xsi:type="string">Captured</data>
             <data name="grandTotal" xsi:type="string">105</data>
-            <data name="tag" xsi:type="string">payment_method:paypal</data>
-            <data name="tag" xsi:type="string">paypal:payments_pro</data>
+            <data name="tag" xsi:type="string">payment_method:paypal, paypal:payments_pro</data>
             <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" next="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid" next="Mage\Paypal\Test\Constraint\AssertTransaction" prev="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
             <constraint name="Mage\Paypal\Test\Constraint\AssertTransaction" next="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>
@@ -92,10 +89,10 @@
         <variation name="CreateOrderWithOnlinePaymentsMethodsWithoutIFrameTestVariation4" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
             <data name="configData" xsi:type="string">paypal_payflow_pro</data>
             <data name="products" xsi:type="string">catalogProductSimple::order_default</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend</data>
             <data name="checkoutMethod" xsi:type="string">guest</data>
             <data name="customerPersist" xsi:type="string">no</data>
-            <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_US</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
             <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
             <data name="payment/method" xsi:type="string">verisign</data>
@@ -103,8 +100,7 @@
             <data name="transactionType" xsi:type="string">Authorization</data>
             <data name="paymentAction" xsi:type="string">Authoriz</data>
             <data name="grandTotal" xsi:type="string">105</data>
-            <data name="tag" xsi:type="string">payment_method:paypal</data>
-            <data name="tag" xsi:type="string">paypal:payflow_pro</data>
+            <data name="tag" xsi:type="string">payment_method:paypal, paypal:payflow_pro</data>
             <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" next="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid" next="Mage\Paypal\Test\Constraint\AssertTransaction" prev="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
             <constraint name="Mage\Paypal\Test\Constraint\AssertTransaction" next="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>
@@ -113,9 +109,9 @@
         <variation name="CreateOrderWithOnlinePaymentsMethodsWithoutIFrameTestVariation5" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
             <data name="configData" xsi:type="string">paypal_payflow_pro</data>
             <data name="products" xsi:type="string">catalogProductSimple::order_default</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend_new</data>
             <data name="checkoutMethod" xsi:type="string">login</data>
-            <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_US_login</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
             <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
             <data name="payment/method" xsi:type="string">verisign</data>
@@ -123,8 +119,7 @@
             <data name="transactionType" xsi:type="string">Authorization</data>
             <data name="paymentAction" xsi:type="string">Authoriz</data>
             <data name="grandTotal" xsi:type="string">105</data>
-            <data name="tag" xsi:type="string">payment_method:paypal</data>
-            <data name="tag" xsi:type="string">paypal:payflow_pro</data>
+            <data name="tag" xsi:type="string">payment_method:paypal, paypal:payflow_pro</data>
             <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" next="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid" next="Mage\Paypal\Test\Constraint\AssertTransaction" prev="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
             <constraint name="Mage\Paypal\Test\Constraint\AssertTransaction" next="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>
@@ -133,10 +128,10 @@
         <variation name="CreateOrderWithOnlinePaymentsMethodsWithoutIFrameTestVariation6" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
             <data name="configData" xsi:type="string">paypal_payflow_pro_action_sale</data>
             <data name="products" xsi:type="string">catalogProductSimple::order_default</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend_new</data>
             <data name="checkoutMethod" xsi:type="string">register</data>
             <data name="customerPersist" xsi:type="string">no</data>
-            <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_US</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
             <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
             <data name="payment/method" xsi:type="string">verisign</data>
@@ -144,12 +139,11 @@
             <data name="transactionType" xsi:type="string">Capture</data>
             <data name="paymentAction" xsi:type="string">Captur</data>
             <data name="grandTotal" xsi:type="string">105</data>
-            <data name="tag" xsi:type="string">payment_method:paypal</data>
-            <data name="tag" xsi:type="string">paypal:payflow_pro</data>
+            <data name="tag" xsi:type="string">payment_method:paypal, paypal:payflow_pro</data>
             <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" next="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid" next="Mage\Paypal\Test\Constraint\AssertTransaction" prev="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
             <constraint name="Mage\Paypal\Test\Constraint\AssertTransaction" next="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid"/>
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Paypal\Test\Constraint\AssertTransaction"/>
         </variation>
-  </testCase>
+    </testCase>
 </config>

@@ -26,14 +26,15 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Paypal\Test\TestCase\CreateOrderWithPayPalStandardTest">
+    <testCase name="Mage\Paypal\Test\TestCase\CreateOrderWithPayPalStandardTest" summary="CreateOrderWithPayPalStandardTest">
         <variation name="CreateOrderWithPayPalStandardTestVariation1" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
             <data name="description" xsi:type="string">Simple product one page checkout within Pay Pal standard payment method</data>
             <data name="products" xsi:type="string">catalogProductSimple::order_default</data>
             <data name="configData" xsi:type="string">paypal_standard</data>
             <data name="checkoutMethod" xsi:type="string">guest</data>
-            <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_US</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend</data>
+            <data name="customerPersist" xsi:type="string">no</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
             <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
             <data name="payment/method" xsi:type="string">paypal_express</data>
@@ -48,14 +49,14 @@
             <data name="products" xsi:type="string">bundleProduct::bundle_fixed_product</data>
             <data name="configData" xsi:type="string">paypal_standard</data>
             <data name="checkoutMethod" xsi:type="string">guest</data>
-            <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_US</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend</data>
+            <data name="customerPersist" xsi:type="string">no</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
             <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
             <data name="payment/method" xsi:type="string">paypal_express</data>
             <data name="grandTotal" xsi:type="string">836.36</data>
-            <data name="tag" xsi:type="string">payment_method:paypal</data>
-            <data name="tag" xsi:type="string">paypal:standard</data>
+            <data name="tag" xsi:type="string">payment_method:paypal, paypal:standard</data>
             <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" next="Mage\Sales\Test\Constraint\AssertOrderGrandTotal"/>
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
         </variation>
@@ -64,16 +65,16 @@
             <data name="products" xsi:type="string">groupedProduct::three_simple_products_without_category</data>
             <data name="configData" xsi:type="string">paypal_standard</data>
             <data name="checkoutMethod" xsi:type="string">guest</data>
-            <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_US</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend</data>
+            <data name="customerPersist" xsi:type="string">no</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
             <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
             <data name="payment/method" xsi:type="string">paypal_express</data>
             <data name="grandTotal" xsi:type="string">663.00</data>
-            <data name="tag" xsi:type="string">payment_method:paypal</data>
-            <data name="tag" xsi:type="string">paypal:standard</data>
+            <data name="tag" xsi:type="string">payment_method:paypal, paypal:standard</data>
             <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" next="Mage\Sales\Test\Constraint\AssertOrderGrandTotal"/>
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderGrandTotal" prev="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
         </variation>
-  </testCase>
+    </testCase>
 </config>

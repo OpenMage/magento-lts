@@ -68,4 +68,4 @@ centinelValidator.prototype = {
         return $(this.containerId);
     }
 
-}
+};

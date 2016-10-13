@@ -26,17 +26,19 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Paypal\Test\TestCase\CreateOrderWithOnlinePaymentsMethodsWith3DSecureTest">
+    <testCase name="Mage\Paypal\Test\TestCase\CreateOrderWithOnlinePaymentsMethodsWith3DSecureTest" summary="CreateOrderWithOnlinePaymentsMethodsWith3DSecureTest">
         <variation name="CreateOrderWithOnlinePaymentsMethodsWith3DSecureTestVariation1" method="test">
             <data name="configData" xsi:type="string">authorizenet_with_3d_secure_action_authorized, enable_3d_secure</data>
             <data name="products" xsi:type="string">catalogProductSimple::order_default</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend</data>
             <data name="checkoutMethod" xsi:type="string">guest</data>
-            <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_US</data>
+            <data name="customerPersist" xsi:type="string">no</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
             <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
             <data name="payment/method" xsi:type="string">authorizenet</data>
-            <data name="payment/cc" xsi:type="string">visa_3d_secure_positive</data>
+            <data name="payment/cc" xsi:type="string">visa_3d_secure_positive_without_pass</data>
+            <data name="validationPassword/dataset" xsi:type="string">visa_3d_secure_positive</data>
             <data name="grandTotal" xsi:type="string">105.00</data>
             <data name="positiveCase" xsi:type="boolean">true</data>
             <data name="tag" xsi:type="string">payment_method:authorize_net</data>
@@ -47,13 +49,15 @@
         <variation name="CreateOrderWithOnlinePaymentsMethodsWith3DSecureTestVariation2" method="test">
             <data name="configData" xsi:type="string">authorizenet_with_3d_secure_action_authorized, enable_3d_secure</data>
             <data name="products" xsi:type="string">catalogProductSimple::order_default</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend</data>
             <data name="checkoutMethod" xsi:type="string">guest</data>
-            <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_US</data>
+            <data name="customerPersist" xsi:type="string">no</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
             <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
             <data name="payment/method" xsi:type="string">authorizenet</data>
-            <data name="payment/cc" xsi:type="string">visa_3d_secure_negative</data>
+            <data name="payment/cc" xsi:type="string">visa_3d_secure_negative_without_pass</data>
+            <data name="validationPassword/dataset" xsi:type="string">visa_3d_secure_negative</data>
             <data name="grandTotal" xsi:type="string">105.00</data>
             <data name="positiveCase" xsi:type="boolean">false</data>
             <data name="tag" xsi:type="string">payment_method:authorize_net</data>

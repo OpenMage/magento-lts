@@ -82,7 +82,7 @@ class AssertProductAttributeSearchableByLabel extends AbstractConstraint
         $filter = '';
         $attributesFillData = $product->getAttributes();
         $attributeOptions = $attribute->getOptions();
-        foreach ($attributesFillData['preset'] as $optionsFillData) {
+        foreach ($attributesFillData['dataset'] as $optionsFillData) {
             foreach ($optionsFillData as $optionKey) {
                 $optionKey = str_replace('option_key_', '', $optionKey);
                 $filter .= isset($attributeOptions[$optionKey]['view'])

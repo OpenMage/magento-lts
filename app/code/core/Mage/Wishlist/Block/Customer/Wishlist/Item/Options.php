@@ -114,9 +114,12 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Options extends Mage_Wishlist_B
         }
 
         $item = $this->getItem();
-        $data = $this->getOptionsRenderCfg($item->getProduct()->getTypeId());
-        if (empty($data['template'])) {
-            $data = $this->getOptionsRenderCfg('default');
+
+        if ($item instanceof Mage_Wishlist_Model_Item) {
+            $data = $this->getOptionsRenderCfg($item->getProduct()->getTypeId());
+            if (empty($data['template'])) {
+                $data = $this->getOptionsRenderCfg('default');
+            }
         }
 
         return empty($data['template']) ? '' : $data['template'];

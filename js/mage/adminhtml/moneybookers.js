@@ -209,4 +209,4 @@ Moneybookers.prototype = {
     isStoreView: function() {
         return $("moneybookers_settings_moneybookers_email_inherit") != undefined;
     }
-}
+};

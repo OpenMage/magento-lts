@@ -41,6 +41,7 @@ class GroupedItemForm extends Form
      */
     public function fillOption(array $option)
     {
+        unset($option['name']);
         $mapping = $this->dataMapping($option);
         $this->_fill($mapping);
     }

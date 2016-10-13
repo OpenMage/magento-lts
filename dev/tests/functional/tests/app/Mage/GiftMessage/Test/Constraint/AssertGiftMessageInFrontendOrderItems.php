@@ -33,7 +33,7 @@ use Mage\Sales\Test\Page\OrderHistory;
 use Mage\Sales\Test\Page\OrderView;
 
 /**
- * Assert that message from dataSet is displayed for each items on order view page on frontend.
+ * Assert that message from dataset is displayed for each items on order view page on frontend.
  */
 class AssertGiftMessageInFrontendOrderItems extends AbstractAssertGiftMessageOnFrontend
 {
@@ -42,7 +42,7 @@ class AssertGiftMessageInFrontendOrderItems extends AbstractAssertGiftMessageOnF
     /* end tags */
 
     /**
-     * Assert that message from dataSet is displayed for each items on order view page on frontend.
+     * Assert that message from dataset is displayed for each items on order view page on frontend.
      *
      * @param GiftMessage $giftMessage
      * @param Customer $customer

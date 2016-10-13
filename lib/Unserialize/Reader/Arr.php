@@ -101,7 +101,10 @@ class Unserialize_Reader_Arr
         if ($this->_status == self::READING_VALUE) {
             $value = $this->_reader->read($char, $prevChar);
             if (!is_null($value)) {
-                $this->_result[$this->_reader->key] = $value;
+                $this->_result[$this->_reader->key] =
+                    ($value == Unserialize_Reader_Null::NULL_VALUE && $prevChar == Unserialize_Parser::TYPE_NULL)
+                        ? null
+                        : $value;
                 if (count($this->_result) < $this->_length) {
                     $this->_reader = new Unserialize_Reader_ArrKey();
                     $this->_status = self::READING_KEY;

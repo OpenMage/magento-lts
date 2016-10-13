@@ -73,6 +73,7 @@ Product reviews page
         </reference>
         <reference name="head">
             <action method="addJs"><script>varien/product.js</script></action>
+            <action method="addJs"><script>varien/product_options.js</script></action>
             <action method="addJs"><script>varien/configurable.js</script></action>
         </reference>
         <reference name="content">

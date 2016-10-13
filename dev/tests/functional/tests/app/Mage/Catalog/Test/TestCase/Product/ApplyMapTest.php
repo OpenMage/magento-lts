@@ -34,8 +34,8 @@ use Magento\Mtf\TestCase\Injectable;
 /**
 * Preconditions:
  * 1. Create category.
- * 2. Create products according to dataSet for with category created before.
- * 3. Apply configuration specified in dataSet.
+ * 2. Create products according to dataset for with category created before.
+ * 3. Apply configuration specified in dataset.
  *
  * Steps:
  * 1. Perform assertions.
@@ -53,7 +53,7 @@ class ApplyMapTest extends Injectable
      */
     public function __prepare(FixtureFactory $fixtureFactory)
     {
-        $category = $fixtureFactory->createByCode('catalogCategory', ['dataSet' => 'default_subcategory']);
+        $category = $fixtureFactory->createByCode('catalogCategory', ['dataset' => 'default_subcategory']);
         $category->persist();
 
         return ['category' => $category];

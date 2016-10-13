@@ -33,6 +33,6 @@
         <block name="topToolbar" class="Mage\Catalog\Test\Block\Product\ProductList\TopToolbar" locator=".//*[contains(@class,'toolbar')][2]" strategy="xpath" />
         <block name="viewBlock" class="Mage\Catalog\Test\Block\Category\View" locator=".col-main" strategy="css selector" />
         <block name="layeredNavigationBlock" class="Mage\Catalog\Test\Block\Layer\View" locator=".block-layered-nav" strategy="css selector" />
-      <block name="widgetView" class="Mage\Widget\Test\Block\WidgetView" locator=".widget" strategy="css selector" />
+        <block name="widgetView" class="Mage\Widget\Test\Block\WidgetView" locator=".widget" strategy="css selector" />
     </page>
 </config>

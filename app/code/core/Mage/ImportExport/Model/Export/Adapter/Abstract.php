@@ -48,6 +48,13 @@ abstract class Mage_ImportExport_Model_Export_Adapter_Abstract
     protected $_headerCols = null;
 
     /**
+     * Count of rows
+     *
+     * @var int
+     */
+    protected $_rowsCount = 0;
+
+    /**
      * Adapter object constructor.
      *
      * @param string $destination OPTIONAL Destination file path.
@@ -122,6 +129,16 @@ abstract class Mage_ImportExport_Model_Export_Adapter_Abstract
     public function getFileExtension()
     {
         return '';
+    }
+
+    /**
+     * Get count of wrote lines
+     *
+     * @return int
+     */
+    public function getRowsCount()
+    {
+        return $this->_rowsCount;
     }
 
     /**

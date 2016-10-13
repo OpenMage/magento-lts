@@ -44,8 +44,20 @@
         <step name="applyCurrencyInConfig" module="Mage_CurrencySymbol" next="importCurrencyRates"/>
         <step name="importCurrencyRates" module="Mage_CurrencySymbol" next="addProductsToTheCart"/>
         <step name="addProductsToTheCart" module="Mage_Checkout" next="proceedToCheckout"/>
-        <step name="proceedToCheckout" module="Mage_Checkout" next="createCustomer"/>
-        <step name="createCustomer" module="Mage_Customer" next="selectCheckoutMethod"/>
+        <step name="proceedToCheckout" module="Mage_Checkout" next="selectCheckoutMethod"/>
+        <step name="selectCheckoutMethod" module="Mage_Checkout" next="fillBillingInformation"/>
+        <step name="fillBillingInformation" module="Mage_Checkout" next="fillShippingMethod"/>
+        <step name="fillShippingMethod" module="Mage_Checkout" next="selectPaymentMethod"/>
+        <step name="selectPaymentMethod" module="Mage_Checkout" next="placeOrder"/>
+        <step name="placeOrder" module="Mage_Checkout"/>
+    </scenario>
+
+    <scenario name="OnePageCheckoutWithinDhlShippingMethod" firstStep="setupConfiguration">
+        <step name="setupConfiguration" module="Mage_Core" next="applyCurrencyInConfig"/>
+        <step name="applyCurrencyInConfig" module="Mage_CurrencySymbol" next="setupCurrencyRates"/>
+        <step name="setupCurrencyRates" module="Mage_CurrencySymbol" next="addProductsToTheCart"/>
+        <step name="addProductsToTheCart" module="Mage_Checkout" next="proceedToCheckout"/>
+        <step name="proceedToCheckout" module="Mage_Checkout" next="selectCheckoutMethod"/>
         <step name="selectCheckoutMethod" module="Mage_Checkout" next="fillBillingInformation"/>
         <step name="fillBillingInformation" module="Mage_Checkout" next="fillShippingMethod"/>
         <step name="fillShippingMethod" module="Mage_Checkout" next="selectPaymentMethod"/>

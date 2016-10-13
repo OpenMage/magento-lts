@@ -26,8 +26,8 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/etc/pages.xsd">
-  <page name="PromoQuoteNew" area="Adminhtml" mca="promo_quote/new" module="Mage_SalesRule">
-    <block name="formPageActions" class="Mage\Adminhtml\Test\Block\FormPageActions" locator=".form-buttons" strategy="css selector"/>
-    <block name="salesRuleForm" class="Mage\Adminhtml\Test\Block\Promo\Quote\Edit\PromoQuoteForm" locator="[id='page:main-container']" strategy="css selector"/>
-  </page>
+    <page name="PromoQuoteNew" area="Adminhtml" mca="promo_quote/new" module="Mage_SalesRule">
+        <block name="formPageActions" class="Mage\Adminhtml\Test\Block\FormPageActions" locator=".form-buttons" strategy="css selector"/>
+        <block name="salesRuleForm" class="Mage\Adminhtml\Test\Block\Promo\Quote\Edit\PromoQuoteForm" locator="[id='page:main-container']" strategy="css selector"/>
+    </page>
 </config>

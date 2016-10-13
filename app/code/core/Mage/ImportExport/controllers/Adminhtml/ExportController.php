@@ -81,9 +81,12 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
                 $model = Mage::getModel('importexport/export');
                 $model->setData($this->getRequest()->getParams());
 
+                $result         = $model->exportFile();
+                $result['type'] = 'filename';
+
                 return $this->_prepareDownloadResponse(
                     $model->getFileName(),
-                    $model->export(),
+                    $result,
                     $model->getContentType()
                 );
             } catch (Mage_Core_Exception $e) {

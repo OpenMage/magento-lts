@@ -25,45 +25,19 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 -->
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
     <fixture name="role" module="Mage_Admin" type="flat" entity_type="admin_role" collection="Mage\Admin\Model\Resource\Role\Collection" repository_class="Mage\Admin\Test\Repository\Role" handler_interface="Mage\Admin\Test\Handler\Role\RoleInterface" class="Mage\Admin\Test\Fixture\Role">
-        <dataset name="default">
-            <field name="rolename" xsi:type="string">AdminRole%isolation%</field>
-            <field name="resource_access" xsi:type="string">All</field>
-        </dataset>
-        <field name="role_id" is_required="1">
-            <default_value xsi:type="null" />
-        </field>
-        <field name="parent_id" is_required="0">
-            <default_value xsi:type="string">0</default_value>
-        </field>
-        <field name="tree_level" is_required="0">
-            <default_value xsi:type="string">0</default_value>
-        </field>
-        <field name="sort_order" is_required="0">
-            <default_value xsi:type="string">0</default_value>
-        </field>
-        <field name="role_type" is_required="0">
-            <default_value xsi:type="string">0</default_value>
-        </field>
-        <field name="user_id" is_required="0">
-            <default_value xsi:type="string">0</default_value>
-        </field>
-        <field name="rolename" is_required="0" group="role-info">
-            <default_value xsi:type="null" />
-        </field>
-        <field name="gws_is_all" is_required="0">
-            <default_value xsi:type="string">1</default_value>
-        </field>
-        <field name="gws_websites" is_required="0">
-            <default_value xsi:type="null" />
-        </field>
-        <field name="current_password" is_required="0" group="role-info">
-            <default_value xsi:type="null" />
-        </field>
-        <field name="gws_store_groups" is_required="0" source="Mage\Admin\Test\Fixture\Role\GwsStoreGroups">
-            <default_value xsi:type="null" />
-        </field>
+        <field name="role_id" is_required="1" />
+        <field name="parent_id" is_required="0" />
+        <field name="tree_level" is_required="0" />
+        <field name="sort_order" is_required="0" />
+        <field name="role_type" is_required="0" />
+        <field name="user_id" is_required="0" />
+        <field name="rolename" is_required="0" group="role-info" />
+        <field name="gws_is_all" is_required="0" />
+        <field name="gws_websites" is_required="0" />
+        <field name="current_password" is_required="0" group="role-info" />
+        <field name="gws_store_groups" is_required="0" source="Mage\Admin\Test\Fixture\Role\GwsStoreGroups" />
         <field name="all" group="role-resources" />
         <field name="roles_resources" group="role-resources" source="Mage\Admin\Test\Fixture\Role\RolesResources" />
         <field name="resource_access" group="role-resources" />

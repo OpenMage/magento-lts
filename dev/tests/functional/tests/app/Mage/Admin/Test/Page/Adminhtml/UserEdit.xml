@@ -26,9 +26,9 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/etc/pages.xsd">
-  <page name="UserEdit" area="Adminhtml" mca="permissions_user/edit" module="Mage_Admin">
-    <block name="userForm" class="Mage\Adminhtml\Test\Block\Api\User\UserForm" locator="[id='page:main-container']" strategy="css selector"/>
-    <block name="formPageActions" class="Mage\Adminhtml\Test\Block\FormPageActions" locator=".content-header" strategy="css selector"/>
-    <block name="messagesBlock" class="Mage\Core\Test\Block\Messages" locator="#messages" strategy="css selector"/>
-  </page>
+    <page name="UserEdit" area="Adminhtml" mca="permissions_user/edit" module="Mage_Admin">
+        <block name="userForm" class="Mage\Adminhtml\Test\Block\Api\User\UserForm" locator="[id='page:main-container']" strategy="css selector"/>
+        <block name="formPageActions" class="Mage\Adminhtml\Test\Block\FormPageActions" locator=".content-header" strategy="css selector"/>
+        <block name="messagesBlock" class="Mage\Core\Test\Block\Messages" locator="#messages" strategy="css selector"/>
+    </page>
 </config>

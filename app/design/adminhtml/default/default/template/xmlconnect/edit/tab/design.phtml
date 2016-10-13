@@ -24,19 +24,22 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+<?php
+/**
+ * @var $this Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design
+ */
+?>
 <script type="text/javascript">
 // <![CDATA[
 var imageTemplate = '<input type="hidden" name="{{file_field}}[image][{{id}}][image_id]" value="{{image_id}}" />'+
         '<div class="banner-image">'+
-            '<div class="row">'+
-                '<div id="{{file_field}}_{{id}}_file" class="uploader">'+
+            '<div class="row a-right">' +
+                '<div class="flex">' +
+                '<?php echo $this->getBrowseButtonHtml() ?>'+
+                '</div>' +
+                '<div id="{{file_field}}_{{id}}_file" class="uploader a-left">'+
                     '<div id="{{file_field}}_{{id}}_file-old" class="file-row-info"><div id="{{file_field}}_preview_{{id}}" style="background:url({{thumbnail}}) no-repeat center;" class="image-placeholder"></div></div>'+
                     '<div id="{{file_field}}_{{id}}_file-new" class="file-row-info new-file"></div>'+
-                    '<div class="buttons">'+
-                        '<div id="{{file_field}}_{{id}}_file-install-flash" style="display:none">'+
-                            '<?php echo $this->jsQuoteEscape(Mage::helper('media')->__('This content requires last version of Adobe Flash Player. <a href="%s">Get Flash</a>', 'http://www.adobe.com/go/getflash/')) ?>'+
-                        '</div>'+
-                    '</div>'+
                     '<div class="clear"></div>'+
                 '</div>'+
             '</div>'+
@@ -66,6 +69,16 @@ var imageItems = {
     imageActionTruncateLenght: 35,
     add : function(config) {
         try {
+            if(Object.isString(config)) {
+                config = config.evalJSON();
+            }
+            config.file_field = config.uploaderConfig.fileParameterName;
+            config.file_save = config.miscConfig.file_save;
+            config.thumbnail = config.miscConfig.thumbnail;
+            config.image_id = config.miscConfig.image_id;
+            config.image_action_data = config.miscConfig.image_action_data;
+            config.image_count = config.miscConfig.image_count;
+
             var isUploadedImage = true, uploaderClass = '';
             this.template = new Template(this.templateText, this.templateSyntax);
 
@@ -89,7 +102,11 @@ var imageItems = {
             Element.insert(this.ulImages.down('li', config.id), {'bottom' : this.template.evaluate(config)});
             var container = $(config.file_field + '_' + config.id + '_file').up('li');
 
-            if (config.show_uploader == 1) {
+            if (config.image_id != 'uploader') {
+                container.down('.flex').remove();
+                imageItems.addEditButton(container, config);
+                imageItems.addDeleteButton(container, config);
+            } else {
                 config.file_save = [];
 
                 new Downloadable.FileUploader(
@@ -101,11 +118,6 @@ var imageItems = {
                     config.file_field + '_' + config.id + '_file',
                     config
                 );
-            }
-
-            if (config.image_id != 'uploader') {
-                imageItems.addEditButton(container, config);
-                imageItems.addDeleteButton(container, config);
             }
         } catch (e) {
             alert(e.message);
@@ -209,7 +221,10 @@ var imageItems = {
     },
     reloadImages : function(image_list) {
         try {
-            var imageType = image_list[0].file_field;
+            image_list = image_list.map(function (item) {
+                return Object.isString(item) ? item.evalJSON(): item;
+            });
+            var imageType = image_list[0].uploaderConfig.fileParameterName;
             Downloadable.unsetUploaderByType(imageType);
             var currentContainerId = imageType;
             var currentContainer = $(currentContainerId);
@@ -283,28 +298,18 @@ var imageItems = {
 
 jscolor.dir = '<?php echo $this->getJsUrl(); ?>jscolor/';
 
-var maxUploadFileSizeInBytes = <?php echo $this->getChild('media_uploader')->getDataMaxSizeInBytes() ?>;
-var maxUploadFileSize = '<?php echo $this->getChild('media_uploader')->getDataMaxSize() ?>';
-
 var uploaderTemplate = '<div class="no-display" id="[[idName]]-template">' +
-                            '<div id="{{id}}" class="file-row file-row-narrow">' +
+                            '<div id="{{id}}-container" class="file-row file-row-narrow">' +
                                 '<span class="file-info">' +
                                     '<span class="file-info-name">{{name}}</span>' + ' ' +
-                                    '<span class="file-info-size">({{size}})</span>' +
+                                    '<span class="file-info-size">{{size}}</span>' +
                                 '</span>' +
                                 '<span class="progress-text"></span>' +
                                 '<div class="clear"></div>' +
                             '</div>' +
-                        '</div>' +
-                        '<div class="no-display" id="[[idName]]-template-progress">' +
-                            '{{percent}}% {{uploaded}} / {{total}}' +
                         '</div>';
 
-var fileListTemplate = '<div style="background:url({{file}}) no-repeat center;" class="image-placeholder"></div>' +
-                        '<span class="file-info">' +
-                            '<span class="file-info-name">{{name}}</span>' + ' ' +
-                            '<span class="file-info-size">({{size}})</span>' +
-                        '</span>';
+var fileListTemplate = '<div style="background:url({{file}}) no-repeat center;" class="image-placeholder"></div>';
 
 var Downloadable = {
     uploaderObj : $H({}),
@@ -401,13 +406,17 @@ Downloadable.FileUploader.prototype = {
         if ($(this.idName + '_save')) {
             $(this.idName + '_save').value = this.fileValue.toJSON ? this.fileValue.toJSON() : Object.toJSON(this.fileValue);
         }
+
+        this.config = Object.toJSON(this.config).replace(
+            new RegExp(config.elementIds.idToReplace, 'g'),
+            config.file_field + '_'+ config.id + '_file').evalJSON();
+
         Downloadable.setUploaderObj(
             this.type,
             this.key,
-            new Flex.Uploader(this.idName, '<?php echo $this->getSkinUrl('media/uploaderSingle.swf') ?>', this.config)
+            new Uploader(this.config)
         );
         new Downloadable.FileList(this.idName, Downloadable.getUploaderObj(type, key), this.config);
-
         if (varienGlobalEvents) {
             varienGlobalEvents.attachEventHandler('tabChangeBefore', Downloadable.getUploaderObj(type, key).onContainerHideBefore);
         }
@@ -427,35 +436,34 @@ Downloadable.FileList.prototype = {
         this.containerId  = containerId,
         this.container = $(this.containerId);
         this.uploader = uploader;
-        this.uploader.onFilesComplete = this.handleUploadComplete.bind(this);
+        this.uploader.uploader.on('filesSubmitted', this.handleFileSelect.bind(this));
+        document.on('uploader:fileSuccess', function(event) {
+            var memo = event.memo;
+            if(this._checkCurrentContainer(memo.containerId)) {
+                this.handleUploadComplete([{response: memo.response}]);
+            }
+        }.bind(this));
         this.file = this.getElement('save').value.evalJSON();
         this.listTemplate = new Template(this.fileListTemplate, this.templatePattern);
         this.updateFiles();
-        this.uploader.handleSelect = this.handleFileSelect.bind(this);
-        this.uploader.onContainerHideBefore = this.handleContainerHideBefore.bind(this);
         this.uploader.config = config;
-    },
-    handleContainerHideBefore: function(container) {
-        if (container && Element.descendantOf(this.uploader.container, container) && !this.uploader.checkAllComplete()) {
-            if (!confirm('<?php echo $this->jsQuoteEscape($this->__('There are files that were selected but not uploaded yet. After switching to another tab your selections may be lost. Do you wish to continue ?')) ;?>')) {
-                return 'cannotchange';
-            } else {
+        this.onContainerHideBefore = this.uploader.onContainerHideBefore.bind(
+            this.uploader,
+            function () {
                 return 'change';
-            }
-        }
+            });
+    },
+    _checkCurrentContainer: function (child) {
+        return $(this.containerId).down('#' + child);
     },
     handleFileSelect: function(event) {
         try {
-            this.uploader.files = event.getData().files;
-            this.uploader.checkFileSize();
-            this.updateFiles();
-            if (!hasTooBigFiles) {
-                var uploaderList = $(this.uploader.flexContainerId);
-                for (i = 0; i < uploaderList.length; i++) {
-                    uploaderList[i].setStyle({visibility: 'hidden'});
-                }
-                Downloadable.massUploadByType(this.uploader.config.file_field);
+            if(this.uploader.uploader.files.length) {
+                $(this.containerId + '-old').hide();
+                this.uploader.elements.browse.invoke('setStyle', {'visibility': 'hidden'});
             }
+            this.updateFiles();
+            Downloadable.massUploadByType(this.uploader.config.file_field);
         } catch (e) {
             alert(e.message);
         }
@@ -485,7 +493,6 @@ Downloadable.FileList.prototype = {
                 newFile.size = response.size;
                 newFile.status = 'new';
                 this.file[0] = newFile;
-                this.uploader.removeFile(item.id);
                 imageItems.reloadImages(response.image_list);
             }.bind(this));
             this.updateFiles();

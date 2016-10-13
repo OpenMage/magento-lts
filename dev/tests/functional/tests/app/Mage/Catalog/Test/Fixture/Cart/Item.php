@@ -27,6 +27,7 @@
 namespace Mage\Catalog\Test\Fixture\Cart;
 
 use Mage\Catalog\Test\Fixture\CatalogProductSimple;
+use Magento\Mtf\Fixture\DataSource;
 use Magento\Mtf\Fixture\FixtureInterface;
 
 /**
@@ -37,15 +38,8 @@ use Magento\Mtf\Fixture\FixtureInterface;
  *
  * @SuppressWarnings(PHPMD.NPathComplexity)
  */
-class Item implements FixtureInterface
+class Item extends DataSource
 {
-    /**
-     * Prepared dataSet data.
-     *
-     * @var array
-     */
-    protected $data = [];
-
     /**
      * @constructor
      * @param FixtureInterface $product
@@ -80,38 +74,5 @@ class Item implements FixtureInterface
             : 1;
 
         $this->data = $cartItem;
-    }
-
-    /**
-     * Persist fixture.
-     *
-     * @return void
-     */
-    public function persist()
-    {
-        //
-    }
-
-    /**
-     * Return prepared data set.
-     *
-     * @param string $key [optional]
-     * @return mixed
-     *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    public function getData($key = null)
-    {
-        return $this->data;
-    }
-
-    /**
-     * Return data set configuration settings.
-     *
-     * @return string
-     */
-    public function getDataConfig()
-    {
-        //
     }
 }

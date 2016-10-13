@@ -27,6 +27,7 @@
 namespace Mage\Cms\Test\TestCase;
 
 use Mage\Cms\Test\Fixture\CmsPage;
+use Mage\Cms\Test\Fixture\CmsPageMultiStore;
 use Mage\Cms\Test\Page\Adminhtml\CmsPageIndex;
 use Mage\Cms\Test\Page\Adminhtml\CmsPageEdit;
 use Magento\Mtf\TestCase\Injectable;
@@ -77,10 +78,10 @@ class DeleteCmsPageEntityTest extends Injectable
     /**
      * Delete CMS Page.
      *
-     * @param CmsPage $cmsPage
+     * @param CmsPageMultiStore $cmsPage
      * @return void
      */
-    public function test(CmsPage $cmsPage)
+    public function test(CmsPageMultiStore $cmsPage)
     {
         // Preconditions
         $cmsPage->persist();

@@ -77,7 +77,7 @@ class Curl extends AbstractCurl implements TaxRateInterface
 
         $url = $_ENV['app_backend_url'] . 'tax_rate/save';
         $curl = new BackendDecorator(new CurlTransport(), $this->_configuration);
-        $curl->write(CurlInterface::POST, $url, '1.1', [], $data);
+        $curl->write($url, $data);
         $response = $curl->read();
         $curl->close();
 
@@ -87,7 +87,7 @@ class Curl extends AbstractCurl implements TaxRateInterface
 
         $url = $_ENV['app_backend_url'] . 'tax_rate/index/limit/200';
         $curl = new BackendDecorator(new CurlTransport(), $this->_configuration);
-        $curl->write(CurlInterface::POST, $url, '1.0', [], $data);
+        $curl->write($url, $data);
         $response = $curl->read();
         $curl->close();
 

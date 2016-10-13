@@ -26,7 +26,7 @@
  */
  -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Catalog\Test\TestCase\Product\UpdateConfigurableProductEntityTest">
+    <testCase name="Mage\Catalog\Test\TestCase\Product\UpdateConfigurableProductEntityTest" summary="UpdateConfigurableProductEntityTest">
         <variation name="UpdateConfigurableProductEntityTestVariation1">
             <data name="description" xsi:type="string">Delete one option and update one options.</data>
             <data name="checkoutData" xsi:type="array">
@@ -166,13 +166,13 @@
                 </item>
                 <item name="createProduct" xsi:type="array">
                     <item name="quickCreation" xsi:type="array">
-                        <item name="preset" xsi:type="string">quickCreation</item>
+                        <item name="dataset" xsi:type="string">quickCreation</item>
                     </item>
                     <item name="createEmpty" xsi:type="array">
-                        <item name="preset" xsi:type="string">createEmpty</item>
+                        <item name="dataset" xsi:type="string">createEmpty</item>
                     </item>
                     <item name="copyFromConfigurable" xsi:type="array">
-                        <item name="preset" xsi:type="string">copyFromConfigurable</item>
+                        <item name="dataset" xsi:type="string">copyFromConfigurable</item>
                     </item>
                 </item>
             </data>

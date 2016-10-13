@@ -25,20 +25,15 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 -->
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
-  <fixture name="taxClass" module="Mage_Tax" type="flat" entity_type="tax_class" collection="Mage\Tax\Model\Resource\Class\Collection" repository_class="Mage\Tax\Test\Repository\TaxClass" handler_interface="Mage\Tax\Test\Handler\TaxClass\TaxClassInterface" class="Mage\Tax\Test\Fixture\TaxClass">
-    <dataset name="default">
-        <field name="class_name" xsi:type="string">Tax Class %isolation%</field>
-    </dataset>
-    <field name="class_id" is_required="1">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="class_name" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="class_type" is_required="0">
-      <default_value xsi:type="string">CUSTOMER</default_value>
-    </field>
-    <field name="id"/>
-  </fixture>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
+    <fixture name="taxClass" module="Mage_Tax" type="flat" entity_type="tax_class"
+             collection="Mage\Tax\Model\Resource\Class\Collection" repository_class="Mage\Tax\Test\Repository\TaxClass"
+             handler_interface="Mage\Tax\Test\Handler\TaxClass\TaxClassInterface"
+             class="Mage\Tax\Test\Fixture\TaxClass">
+        <field name="class_id" is_required="1"/>
+        <field name="class_name" is_required="0"/>
+        <field name="class_type" is_required="0"/>
+        <field name="id"/>
+    </fixture>
 </config>

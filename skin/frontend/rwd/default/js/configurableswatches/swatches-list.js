@@ -43,15 +43,26 @@ var ConfigurableSwatchesList = {
         var that = this;
         var $swatch = $j(swatch);
         var productId;
+        $j($swatch).hover(function() {
+            /**
+             *
+             * - Preview the stock status
+             **/
+            var swatchUl = $swatch.parent();
+            swatchUl.find('.x').each(function(){
+                $j(this).show();
+                $j(this).closest('li').addClass('not-available');
+            });
+        });
         if (productId = $swatch.data('product-id')) {
             if (typeof(this.swatchesByProduct[productId]) == 'undefined') {
                 this.swatchesByProduct[productId] = [];
             }
             this.swatchesByProduct[productId].push($swatch);
 
-            $swatch.find('a').on('click', function() {
+            $swatch.find('a').on('click', function(e) {
+                e.preventDefault();
                 that.handleSwatchSelect($swatch);
-                return false;
             });
         }
     },
@@ -70,7 +81,7 @@ var ConfigurableSwatchesList = {
 
         $swatch.addClass('selected');
     }
-}
+};
 
 $j(document).on('configurable-media-images-init', function(){
     ConfigurableSwatchesList.init();

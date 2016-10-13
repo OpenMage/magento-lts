@@ -25,87 +25,33 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 -->
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
-    <fixture name="cmsPage" module="Mage_Cms" type="flat" entity_type="cms_page" repository_class="Mage\Cms\Test\Repository\CmsPage" handler_interface="Mage\Cms\Test\Handler\CmsPage\CmsPageInterface" class="Mage\Cms\Test\Fixture\CmsPage">
-        <dataset name="default">
-            <field name="title" xsi:type="string">CMS Page%isolation%</field>
-            <field name="identifier" xsi:type="string">identifier%isolation%</field>
-            <field name="store_id" xsi:type="array">
-                <item name="dataSet" xsi:type="array">
-                    <item name="0" xsi:type="string">default</item>
-                </item>
-            </field>
-            <field name="content" xsi:type="array">
-                <item name="content" xsi:type="string">text content</item>
-            </field>
-            <field name="content_heading" xsi:type="string">Test-%isolation%</field>
-            <field name="page_layout" xsi:type="string">1 column</field>
-        </dataset>
-        <field name="page_id" is_required="1">
-            <default_value xsi:type="null" />
-        </field>
-        <field name="title" is_required="0" group="page_information">
-            <default_value xsi:type="null" />
-        </field>
-        <field name="root_template" is_required="0">
-            <default_value xsi:type="null" />
-        </field>
-        <field name="meta_keywords" is_required="0">
-            <default_value xsi:type="null" />
-        </field>
-        <field name="meta_description" is_required="0">
-            <default_value xsi:type="null" />
-        </field>
-        <field name="identifier" is_required="0" group="page_information">
-            <default_value xsi:type="null" />
-        </field>
-        <field name="content_heading" is_required="0" group="content">
-            <default_value xsi:type="null" />
-        </field>
-        <field name="content" is_required="0" group="content" source="Mage\Cms\Test\Fixture\CmsPage\Content">
-            <default_value xsi:type="null" />
-        </field>
-        <field name="creation_time" is_required="0">
-            <default_value xsi:type="null" />
-        </field>
-        <field name="update_time" is_required="0">
-            <default_value xsi:type="null" />
-        </field>
-        <field name="is_active" is_required="0" group="page_information">
-            <default_value xsi:type="string">1</default_value>
-        </field>
-        <field name="sort_order" is_required="0">
-            <default_value xsi:type="string">0</default_value>
-        </field>
-        <field name="layout_update_xml" is_required="0">
-            <default_value xsi:type="null" />
-        </field>
-        <field name="custom_theme" is_required="0">
-            <default_value xsi:type="null" />
-        </field>
-        <field name="custom_root_template" is_required="0">
-            <default_value xsi:type="null" />
-        </field>
-        <field name="custom_layout_update_xml" is_required="0">
-            <default_value xsi:type="null" />
-        </field>
-        <field name="custom_theme_from" is_required="0">
-            <default_value xsi:type="null" />
-        </field>
-        <field name="custom_theme_to" is_required="0">
-            <default_value xsi:type="null" />
-        </field>
-        <field name="published_revision_id" is_required="0">
-            <default_value xsi:type="string">0</default_value>
-        </field>
-        <field name="website_root" is_required="0">
-            <default_value xsi:type="string">1</default_value>
-        </field>
-        <field name="under_version_control" is_required="0" group="page_information">
-            <default_value xsi:type="string">0</default_value>
-        </field>
-        <field name="store_id" is_required="1" group="page_information" source="Mage\Cms\Test\Fixture\CmsPage\StoreId">
-            <default_value xsi:type="string">0</default_value>
-        </field>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
+    <fixture name="cmsPage" module="Mage_Cms" type="flat" entity_type="cms_page"
+             repository_class="Mage\Cms\Test\Repository\CmsPage"
+             handler_interface="Mage\Cms\Test\Handler\CmsPage\CmsPageInterface"
+             class="Mage\Cms\Test\Fixture\CmsPage">
+        <field name="page_id" is_required="1"/>
+        <field name="title" is_required="0" group="page_information"/>
+        <field name="root_template" is_required="0"/>
+        <field name="meta_keywords" is_required="0"/>
+        <field name="meta_description" is_required="0"/>
+        <field name="identifier" is_required="0" group="page_information"/>
+        <field name="content_heading" is_required="0" group="content"/>
+        <field name="content" is_required="0" group="content" source="Mage\Cms\Test\Fixture\CmsPage\Content"/>
+        <field name="creation_time" is_required="0"/>
+        <field name="update_time" is_required="0"/>
+        <field name="is_active" is_required="0" group="page_information"/>
+        <field name="sort_order" is_required="0"/>
+        <field name="layout_update_xml" is_required="0"/>
+        <field name="custom_theme" is_required="0"/>
+        <field name="custom_root_template" is_required="0"/>
+        <field name="custom_layout_update_xml" is_required="0"/>
+        <field name="custom_theme_from" is_required="0"/>
+        <field name="custom_theme_to" is_required="0"/>
+        <field name="published_revision_id" is_required="0"/>
+        <field name="website_root" is_required="0"/>
+        <field name="under_version_control" is_required="0" group="page_information"/>
+        <field name="store_id" is_required="1" group="page_information" source="Mage\Cms\Test\Fixture\CmsPage\StoreId"/>
     </fixture>
 </config>
