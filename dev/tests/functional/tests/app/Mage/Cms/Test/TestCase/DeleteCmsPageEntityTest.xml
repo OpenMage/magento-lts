@@ -26,9 +26,9 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Cms\Test\TestCase\DeleteCmsPageEntityTest">
+    <testCase name="Mage\Cms\Test\TestCase\DeleteCmsPageEntityTest" summary="DeleteCmsPageEntityTest">
         <variation name="DeleteCmsPageEntityTestVariation1">
-            <data name="cmsPage/dataSet" xsi:type="string">default</data>
+            <data name="cmsPage/dataset" xsi:type="string">default</data>
             <constraint name="Mage\Cms\Test\Constraint\AssertCmsPageDeleteMessage" />
             <constraint name="Mage\Cms\Test\Constraint\AssertCmsPageNotInGrid" />
         </variation>

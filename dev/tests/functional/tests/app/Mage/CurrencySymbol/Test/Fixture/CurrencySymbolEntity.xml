@@ -25,26 +25,13 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 -->
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
   <fixture name="currencySymbolEntity" module="Mage_CurrencySymbol" type="flat" entity_type="core_config_data" repository_class="Mage\CurrencySymbol\Test\Repository\CurrencySymbolEntity" handler_interface="Mage\CurrencySymbol\Test\Handler\CurrencySymbolEntity\CurrencySymbolEntityInterface" class="Mage\CurrencySymbol\Test\Fixture\CurrencySymbolEntity">
-    <dataset name="default">
-        <field name="inherit_custom_currency_symbol" xsi:type="string">Yes</field>
-    </dataset>
-    <field name="config_id" is_required="1">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="scope" is_required="0">
-      <default_value xsi:type="string">default</default_value>
-    </field>
-    <field name="scope_id" is_required="0">
-      <default_value xsi:type="string">0</default_value>
-    </field>
-    <field name="path" is_required="0">
-      <default_value xsi:type="string">general</default_value>
-    </field>
-    <field name="value" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
+    <field name="config_id" is_required="1"/>
+    <field name="scope" is_required="0"/>
+    <field name="scope_id" is_required="0"/>
+    <field name="path" is_required="0"/>
+    <field name="value" is_required="0"/>
     <field name="inherit_custom_currency_symbol"/>
     <field name="custom_currency_symbol"/>
     <field name="code"/>

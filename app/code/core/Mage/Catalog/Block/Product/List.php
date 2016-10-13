@@ -62,16 +62,13 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
                 $this->setCategoryId(Mage::app()->getStore()->getRootCategoryId());
             }
 
-            // if this is a product view page
             if (Mage::registry('product')) {
-                // get collection of categories this product is associated with
+                /** @var Mage_Catalog_Model_Resource_Category_Collection $categories */
                 $categories = Mage::registry('product')->getCategoryCollection()
                     ->setPage(1, 1)
                     ->load();
-                // if the product is associated with any category
                 if ($categories->count()) {
-                    // show products from this category
-                    $this->setCategoryId(current($categories->getIterator()));
+                    $this->setCategoryId($categories->getFirstItem()->getId());
                 }
             }
 

@@ -65,9 +65,9 @@ class GroupId implements FixtureInterface
     public function __construct(FixtureFactory $fixtureFactory, array $params, array $data = [])
     {
         $this->params = $params;
-        if (isset($data['dataSet'])) {
+        if (isset($data['dataset'])) {
             /** @var CustomerGroup $customerGroup */
-            $customerGroup = $fixtureFactory->createByCode('customerGroup', ['dataSet' => $data['dataSet']]);
+            $customerGroup = $fixtureFactory->createByCode('customerGroup', ['dataset' => $data['dataset']]);
             if (!$customerGroup->hasData('customer_group_id')) {
                 $customerGroup->persist();
             }

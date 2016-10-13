@@ -355,7 +355,7 @@ OrderReviewController.prototype = {
      * @param input
      */
     _bindElementChange : function(input){
-        Event.observe(input, 'change', this._onElementChange.bindAsEventListener(this))
+        Event.observe(input, 'change', this._onElementChange.bindAsEventListener(this));
     },
 
     /**

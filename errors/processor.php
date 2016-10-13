@@ -232,9 +232,12 @@ class Error_Processor
         }
 
         $isSecure = (!empty($_SERVER['HTTPS'])) && ($_SERVER['HTTPS'] != 'off');
-        $url = ($isSecure ? 'https://' : 'http://') . $host;
+        $url = ($isSecure ? 'https://' : 'http://') . htmlspecialchars($host, ENT_COMPAT | ENT_HTML401, 'UTF-8');
 
-        if (!empty($_SERVER['SERVER_PORT']) && !in_array($_SERVER['SERVER_PORT'], array(80, 433))) {
+        if (!empty($_SERVER['SERVER_PORT'])
+            && preg_match('/\d+/', $_SERVER['SERVER_PORT'])
+            && !in_array($_SERVER['SERVER_PORT'], array(80, 433))
+        ) {
             $url .= ':' . $_SERVER['SERVER_PORT'];
         }
         return  $url;
@@ -439,10 +442,11 @@ class Error_Processor
             $this->reportData['url'] = '';
         }
         else {
-            $this->reportData['url'] = $this->getHostUrl() . $reportData['url'];
+            $this->reportData['url'] = $this->getHostUrl()
+                                    . htmlspecialchars($reportData['url'], ENT_COMPAT | ENT_HTML401, 'UTF-8');
         }
 
-        if ($this->reportData['script_name']) {
+        if (isset($this->reportData['script_name'])) {
             $this->_scriptName = $this->reportData['script_name'];
         }
     }
@@ -474,7 +478,7 @@ class Error_Processor
 
         if (headers_sent()) {
             print '<script type="text/javascript">';
-            print "window.location.href = '{$this->reportUrl}';";
+            print "window.location.href = encodeURI('{$this->reportUrl}');";
             print '</script>';
             exit;
         }
@@ -487,6 +491,7 @@ class Error_Processor
      */
     public function loadReport($reportId)
     {
+        $reportData = false;
         $this->reportId = $reportId;
         $this->_reportFile = $this->_reportDir . '/' . $reportId;
 
@@ -494,7 +499,14 @@ class Error_Processor
             header("Location: " . $this->getBaseUrl());
             die();
         }
-        $this->_setReportData(unserialize(file_get_contents($this->_reportFile)));
+
+        $reportContent = file_get_contents($this->_reportFile);
+        if (!preg_match('/[oc]:[+\-]?\d+:"/i', $reportContent )) {
+            $reportData = unserialize($reportContent );
+        }
+        if (is_array($reportData)) {
+            $this->_setReportData($reportData);
+        }
     }
 
     /**
@@ -510,11 +522,11 @@ class Error_Processor
         $this->postData['email']     = (isset($_POST['email'])) ? trim(htmlspecialchars($_POST['email'])) : '';
         $this->postData['telephone'] = (isset($_POST['telephone'])) ? trim(htmlspecialchars($_POST['telephone'])) : '';
         $this->postData['comment']   = (isset($_POST['comment'])) ? trim(htmlspecialchars($_POST['comment'])) : '';
+        $url = htmlspecialchars($this->reportData['url'], ENT_COMPAT | ENT_HTML401);
 
         if (isset($_POST['submit'])) {
             if ($this->_validate()) {
-
-                $msg  = "URL: {$this->reportData['url']}\n"
+                $msg  = "URL: {$url}\n"
                     . "IP Address: {$this->_getClientIp()}\n"
                     . "First Name: {$this->postData['firstName']}\n"
                     . "Last Name: {$this->postData['lastName']}\n"
@@ -537,7 +549,7 @@ class Error_Processor
         } else {
             $time = gmdate('Y-m-d H:i:s \G\M\T');
 
-            $msg = "URL: {$this->reportData['url']}\n"
+            $msg = "URL: {$url}\n"
                 . "IP Address: {$this->_getClientIp()}\n"
                 . "Time: {$time}\n"
                 . "Error:\n{$this->reportData[0]}\n\n"

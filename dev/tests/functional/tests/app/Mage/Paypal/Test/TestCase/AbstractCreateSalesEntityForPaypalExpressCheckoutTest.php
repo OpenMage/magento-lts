@@ -43,7 +43,7 @@ abstract class AbstractCreateSalesEntityForPaypalExpressCheckoutTest
     public function __prepare(FixtureFactory $fixtureFactory)
     {
         $magentoCustomer = parent::__prepare($fixtureFactory);
-        $paypalCustomer = $fixtureFactory->create('Mage\Paypal\Test\Fixture\PaypalCustomer', ['dataSet' => 'default']);
+        $paypalCustomer = $fixtureFactory->create('Mage\Paypal\Test\Fixture\PaypalCustomer', ['dataset' => 'default']);
 
         return ['paypalCustomer' => $paypalCustomer, 'customer' => $magentoCustomer['customer']];
     }

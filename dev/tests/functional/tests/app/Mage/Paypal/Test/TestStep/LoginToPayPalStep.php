@@ -84,14 +84,15 @@ class LoginToPayPalStep implements TestStepInterface
      */
     public function run()
     {
-        $browser = $this->browser;
-        $selector = $this->loader;
-        $browser->waitUntil(
-            function () use ($browser, $selector) {
-                $element = $browser->find($selector);
-                return $element->isVisible() == false ? true : null;
-            }
-        );
+        $reviewBlockIsPresent = false;
+        $sleepingTime = 0;
+        while (!$reviewBlockIsPresent and $sleepingTime <= 60)
+        {
+            sleep(1);
+            $reviewBlockIsPresent = $this->paypalPage->getReviewBlock()->isVisible()
+            or $this->paypalPage->getOldReviewBlock()->isVisible();
+            $sleepingTime++;
+        }
         /** Log out from previous session. */
         $reviewBlock = $this->paypalPage->getReviewBlock()->isVisible()
             ? $this->paypalPage->getReviewBlock()

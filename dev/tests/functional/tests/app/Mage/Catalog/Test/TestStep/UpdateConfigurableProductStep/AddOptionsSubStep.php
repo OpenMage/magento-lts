@@ -96,9 +96,9 @@ class AddOptionsSubStep extends AbstractSubStep
      */
     protected function createNewProduct(array $data)
     {
-        list($fixtureClass, $dataSet) = explode('::', $data['product']);
+        list($fixtureClass, $dataset) = explode('::', $data['product']);
         $productData = $this->prepareProductCreateData($data);
-        $product = $this->fixtureFactory->createByCode($fixtureClass, ['dataSet' => $dataSet, 'data' => $productData]);
+        $product = $this->fixtureFactory->createByCode($fixtureClass, ['dataset' => $dataset, 'data' => $productData]);
         $product->persist();
 
         return $product;

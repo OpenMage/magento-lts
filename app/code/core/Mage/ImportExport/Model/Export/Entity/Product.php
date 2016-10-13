@@ -102,24 +102,18 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
     protected $_productTypeModels = array();
 
     /**
-     * Array of pairs store ID to its code.
-     *
-     * @var array
-     */
-    protected $_storeIdToCode = array();
-
-    /**
-     * Website ID-to-code.
-     *
-     * @var array
-     */
-    protected $_websiteIdToCode = array();
-
-    /**
      * Attribute types
+     *
      * @var array
      */
     protected $_attributeTypes = array();
+
+    /**
+     * Attribute scopes
+     *
+     * @var array
+     */
+    protected $_attributeScopes = array();
 
     /**
      * Constructor.
@@ -546,11 +540,49 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
     }
 
     /**
-     * Export process.
+     * Export process and return contents of temporary file.
+     *
+     * @deprecated after ver 1.9.2.4 use $this->exportFile() instead
      *
      * @return string
      */
     public function export()
+    {
+        $this->_prepareExport();
+
+        return $this->getWriter()->getContents();
+    }
+
+    /**
+     * Export process and return temporary file through array.
+     *
+     * This method will return following array:
+     *
+     * array(
+     *     'rows'  => count of written rows,
+     *     'value' => path to created file
+     * )
+     *
+     * @return array
+     */
+    public function exportFile()
+    {
+        $this->_prepareExport();
+
+        $writer = $this->getWriter();
+
+        return array(
+            'rows'  => $writer->getRowsCount(),
+            'value' => $writer->getDestination()
+        );
+    }
+
+    /**
+     * Prepare data for export.
+     *
+     * @return void
+     */
+    protected function _prepareExport()
     {
         //Execution time may be very long
         set_time_limit(0);
@@ -637,7 +669,41 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                                     $this->_attributeValues[$attrCode],
                                     array_flip($attrValue)
                                 );
-                                $rowMultiselects[$itemId][$attrCode] = $attrValue;
+
+                                switch ($this->_attributeScopes[$attrCode]) {
+                                    case Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE:
+                                        if (isset($rowMultiselects[$itemId][0][$attrCode])
+                                            && $attrValue == $rowMultiselects[$itemId][0][$attrCode]
+                                        ) {
+                                            $attrValue = null;
+                                        }
+                                        break;
+
+                                    case Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL:
+                                        if ($storeId != $defaultStoreId) {
+                                            $attrValue = null;
+                                        }
+                                        break;
+
+                                    case Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE:
+                                        $websiteId      = $this->_storeIdToWebsiteId[$storeId];
+                                        $websiteStoreId = array_search($websiteId, $this->_storeIdToWebsiteId);
+                                        if ((isset($rowMultiselects[$itemId][$websiteStoreId][$attrCode])
+                                            && $attrValue == $rowMultiselects[$itemId][$websiteStoreId][$attrCode])
+                                            || $attrValue == $rowMultiselects[$itemId][0][$attrCode]
+                                        ) {
+                                            $attrValue = null;
+                                        }
+                                        break;
+
+                                    default:
+                                        break;
+                                }
+
+                                if ($attrValue) {
+                                    $rowMultiselects[$itemId][$storeId][$attrCode] = $attrValue;
+                                    $rowIsEmpty = false;
+                                }
                             } else if (isset($this->_attributeValues[$attrCode][$attrValue])) {
                                 $attrValue = $this->_attributeValues[$attrCode][$attrValue];
                             } else {
@@ -737,6 +803,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
             );
 
             foreach ($this->_storeIdToCode as $storeId => &$storeCode) {
+                $skip = false;
                 $options = Mage::getResourceModel('catalog/product_option_collection')
                     ->reset()
                     ->addTitleToResult($storeId)
@@ -769,7 +836,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                     }
                     $values = $option->getValues();
                     if ($values) {
-                        $firstValue = array_shift($values);
+                        $firstValue = reset($values);
                         $priceType  = $firstValue['price_type'] == 'percent' ? '%' : '';
 
                         if ($defaultStoreId == $storeId) {
@@ -788,8 +855,14 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                             $row['_custom_option_store'] = $this->_storeIdToCode[$storeId];
                         }
                         $customOptionsDataPre[$productId][$optionId][] = $row;
+                        $skip = true;
                     }
                     foreach ($values as $value) {
+                        if ($skip) {
+                            $skip = false;
+                            continue;
+                        }
+
                         $row = array();
                         $valuePriceType = $value['price_type'] == 'percent' ? '%' : '';
 
@@ -798,7 +871,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                             $row['_custom_option_row_price'] = $value['price'] . $valuePriceType;
                             $row['_custom_option_row_sku']   = $value['sku'];
                             $row['_custom_option_row_sort']  = $value['sort_order'];
-                        } elseif ($value['title'] != $customOptions[0]['_custom_option_row_title']) {
+                        } else {
                             $row['_custom_option_row_title'] = $value['title'];
                         }
                         if ($row) {
@@ -905,94 +978,93 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                     if (!empty($configurableData[$productId])) {
                         $dataRow = array_merge($dataRow, array_shift($configurableData[$productId]));
                     }
-                    if(!empty($rowMultiselects[$productId])) {
-                        foreach ($rowMultiselects[$productId] as $attrKey => $attrVal) {
-                            if (!empty($rowMultiselects[$productId][$attrKey])) {
-                                $dataRow[$attrKey] = array_shift($rowMultiselects[$productId][$attrKey]);
+                    if(!empty($rowMultiselects[$productId][$storeId])) {
+                        foreach ($rowMultiselects[$productId][$storeId] as $attrKey => $attrVal) {
+                            if (isset($rowMultiselects[$productId][$storeId][$attrKey])) {
+                                $dataRow[$attrKey] = array_shift($rowMultiselects[$productId][$storeId][$attrKey]);
                             }
                         }
                     }
 
                     $writer->writeRow($dataRow);
-                }
-                // calculate largest links block
-                $largestLinks = 0;
+                    // calculate largest links block
+                    $largestLinks = 0;
 
-                if (isset($linksRows[$productId])) {
-                    $linksRowsKeys = array_keys($linksRows[$productId]);
-                    foreach ($linksRowsKeys as $linksRowsKey) {
-                        $largestLinks = max($largestLinks, count($linksRows[$productId][$linksRowsKey]));
+                    if (isset($linksRows[$productId])) {
+                        $linksRowsKeys = array_keys($linksRows[$productId]);
+                        foreach ($linksRowsKeys as $linksRowsKey) {
+                            $largestLinks = max($largestLinks, count($linksRows[$productId][$linksRowsKey]));
+                        }
                     }
-                }
-                $additionalRowsCount = max(
-                    count($rowCategories[$productId]),
-                    count($rowWebsites[$productId]),
-                    $largestLinks
-                );
-                if (!empty($rowTierPrices[$productId])) {
-                    $additionalRowsCount = max($additionalRowsCount, count($rowTierPrices[$productId]));
-                }
-                if (!empty($rowGroupPrices[$productId])) {
-                    $additionalRowsCount = max($additionalRowsCount, count($rowGroupPrices[$productId]));
-                }
-                if (!empty($mediaGalery[$productId])) {
-                    $additionalRowsCount = max($additionalRowsCount, count($mediaGalery[$productId]));
-                }
-                if (!empty($customOptionsData[$productId])) {
-                    $additionalRowsCount = max($additionalRowsCount, count($customOptionsData[$productId]));
-                }
-                if (!empty($configurableData[$productId])) {
-                    $additionalRowsCount = max($additionalRowsCount, count($configurableData[$productId]));
-                }
-                if (!empty($rowMultiselects[$productId])) {
-                    foreach($rowMultiselects[$productId] as $attributes) {
-                        $additionalRowsCount = max($additionalRowsCount, count($attributes));
+                    $additionalRowsCount = max(
+                        count($rowCategories[$productId]),
+                        count($rowWebsites[$productId]),
+                        $largestLinks
+                    );
+                    if (!empty($rowTierPrices[$productId])) {
+                        $additionalRowsCount = max($additionalRowsCount, count($rowTierPrices[$productId]));
                     }
-                }
+                    if (!empty($rowGroupPrices[$productId])) {
+                        $additionalRowsCount = max($additionalRowsCount, count($rowGroupPrices[$productId]));
+                    }
+                    if (!empty($mediaGalery[$productId])) {
+                        $additionalRowsCount = max($additionalRowsCount, count($mediaGalery[$productId]));
+                    }
+                    if (!empty($customOptionsData[$productId])) {
+                        $additionalRowsCount = max($additionalRowsCount, count($customOptionsData[$productId]));
+                    }
+                    if (!empty($configurableData[$productId])) {
+                        $additionalRowsCount = max($additionalRowsCount, count($configurableData[$productId]));
+                    }
+                    if (!empty($rowMultiselects[$productId][$storeId])) {
+                        foreach($rowMultiselects[$productId][$storeId] as $attributes) {
+                            $additionalRowsCount = max($additionalRowsCount, count($attributes));
+                        }
+                    }
+                    if ($additionalRowsCount) {
+                        for ($i = 0; $i < $additionalRowsCount; $i++) {
+                            $dataRow = array();
 
-                if ($additionalRowsCount) {
-                    for ($i = 0; $i < $additionalRowsCount; $i++) {
-                        $dataRow = array();
+                            $this->_updateDataWithCategoryColumns($dataRow, $rowCategories, $productId);
+                            if ($rowWebsites[$productId]) {
+                                $dataRow['_product_websites'] = $this
+                                    ->_websiteIdToCode[array_shift($rowWebsites[$productId])];
+                            }
+                            if (!empty($rowTierPrices[$productId])) {
+                                $dataRow = array_merge($dataRow, array_shift($rowTierPrices[$productId]));
+                            }
+                            if (!empty($rowGroupPrices[$productId])) {
+                                $dataRow = array_merge($dataRow, array_shift($rowGroupPrices[$productId]));
+                            }
+                            if (!empty($mediaGalery[$productId])) {
+                                $dataRow = array_merge($dataRow, array_shift($mediaGalery[$productId]));
+                            }
+                            foreach ($linkIdColPrefix as $linkId => &$colPrefix) {
+                                if (!empty($linksRows[$productId][$linkId])) {
+                                    $linkData = array_shift($linksRows[$productId][$linkId]);
+                                    $dataRow[$colPrefix . 'position'] = $linkData['position'];
+                                    $dataRow[$colPrefix . 'sku']      = $linkData['sku'];
 
-                        $this->_updateDataWithCategoryColumns($dataRow, $rowCategories, $productId);
-                        if ($rowWebsites[$productId]) {
-                            $dataRow['_product_websites'] = $this
-                                ->_websiteIdToCode[array_shift($rowWebsites[$productId])];
-                        }
-                        if (!empty($rowTierPrices[$productId])) {
-                            $dataRow = array_merge($dataRow, array_shift($rowTierPrices[$productId]));
-                        }
-                        if (!empty($rowGroupPrices[$productId])) {
-                            $dataRow = array_merge($dataRow, array_shift($rowGroupPrices[$productId]));
-                        }
-                        if (!empty($mediaGalery[$productId])) {
-                            $dataRow = array_merge($dataRow, array_shift($mediaGalery[$productId]));
-                        }
-                        foreach ($linkIdColPrefix as $linkId => &$colPrefix) {
-                            if (!empty($linksRows[$productId][$linkId])) {
-                                $linkData = array_shift($linksRows[$productId][$linkId]);
-                                $dataRow[$colPrefix . 'position'] = $linkData['position'];
-                                $dataRow[$colPrefix . 'sku'] = $linkData['sku'];
-
-                                if (null !== $linkData['default_qty']) {
-                                    $dataRow[$colPrefix . 'default_qty'] = $linkData['default_qty'];
+                                    if (null !== $linkData['default_qty']) {
+                                        $dataRow[$colPrefix . 'default_qty'] = $linkData['default_qty'];
+                                    }
                                 }
                             }
-                        }
-                        if (!empty($customOptionsData[$productId])) {
-                            $dataRow = array_merge($dataRow, array_shift($customOptionsData[$productId]));
-                        }
-                        if (!empty($configurableData[$productId])) {
-                            $dataRow = array_merge($dataRow, array_shift($configurableData[$productId]));
-                        }
-                        if(!empty($rowMultiselects[$productId])) {
-                            foreach($rowMultiselects[$productId] as $attrKey=>$attrVal) {
-                                if(!empty($rowMultiselects[$productId][$attrKey])) {
-                                    $dataRow[$attrKey] = array_shift($rowMultiselects[$productId][$attrKey]);
+                            if (!empty($customOptionsData[$productId])) {
+                                $dataRow = array_merge($dataRow, array_shift($customOptionsData[$productId]));
+                            }
+                            if (!empty($configurableData[$productId])) {
+                                $dataRow = array_merge($dataRow, array_shift($configurableData[$productId]));
+                            }
+                            if(!empty($rowMultiselects[$productId][$storeId])) {
+                                foreach($rowMultiselects[$productId][$storeId] as $attrKey=>$attrVal) {
+                                    if(isset($rowMultiselects[$productId][$storeId][$attrKey])) {
+                                        $dataRow[$attrKey] = array_shift($rowMultiselects[$productId][$storeId][$attrKey]);
+                                    }
                                 }
                             }
+                            $writer->writeRow($dataRow);
                         }
-                        $writer->writeRow($dataRow);
                     }
                 }
             }
@@ -1058,6 +1130,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
             $this->_attributeValues[$attribute->getAttributeCode()] = $this->getAttributeOptions($attribute);
             $this->_attributeTypes[$attribute->getAttributeCode()] =
                 Mage_ImportExport_Model_Import::getAttributeType($attribute);
+            $this->_attributeScopes[$attribute->getAttributeCode()] = $attribute->getIsGlobal();
         }
         return $this;
     }

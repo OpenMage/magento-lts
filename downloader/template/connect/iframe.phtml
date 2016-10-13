@@ -67,7 +67,7 @@ function onSuccess()
 {
     var div = top.$('connect_iframe_success');
     if (div) {
-        top.location.href = top.location.href.replace(/#.*$/, '')+'#connect_iframe_result';
+        top.location.hash = 'connect_iframe_result';
         div.style.display = '';
     }
 }
@@ -76,7 +76,7 @@ function onFailure()
 {
     var div = top.$('connect_iframe_failure');
     if (div) {
-        top.location.href = top.location.href.replace(/#.*$/, '')+'#connect_iframe_result';
+        top.location.hash = 'connect_iframe_result';
         div.style.display = '';
     }
 }

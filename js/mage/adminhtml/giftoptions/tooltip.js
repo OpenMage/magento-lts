@@ -149,7 +149,7 @@ GiftOptionsTooltip.prototype = {
                 tooltipContent = this._tooltipContentLoaderFunction(itemId);
             }
             if (tooltipContent != '') {
-                this._updateTooltipWindowContent(tooltipContent)
+                this._updateTooltipWindowContent(tooltipContent);
                 this._moveTooltip(event);
                 new Element.show(this._tooltipWindow);
                 return true;
@@ -206,6 +206,6 @@ GiftOptionsTooltip.prototype = {
     {
         this._tooltipWindowContent.update(content);
     }
-}
+};
 
 giftOptionsTooltip = new GiftOptionsTooltip();

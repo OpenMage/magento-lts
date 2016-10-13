@@ -26,14 +26,14 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Authorizenet\Test\TestCase\CreateOrderWithAuthorizenetDirectpostMethodTest">
+    <testCase name="Mage\Authorizenet\Test\TestCase\CreateOrderWithAuthorizenetDirectpostMethodTest" summary="CreateOrderWithAuthorizenetDirectpostMethodTest">
         <variation name="CreateOrderWithAuthorizenetDirectpostMethodTestVariation1" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
             <data name="configData" xsi:type="string">authorizenet_directpost</data>
             <data name="products" xsi:type="string">catalogProductSimple::order_default</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend</data>
             <data name="checkoutMethod" xsi:type="string">guest</data>
             <data name="customerPersist" xsi:type="string">no</data>
-            <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_US</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
             <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
             <data name="payment/method" xsi:type="string">authorizenet_directpost</data>
@@ -51,9 +51,9 @@
         <variation name="CreateOrderWithAuthorizenetDirectpostMethodTestVariation2" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
             <data name="configData" xsi:type="string">authorizenet_directpost</data>
             <data name="products" xsi:type="string">catalogProductSimple::order_default</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend_new</data>
             <data name="checkoutMethod" xsi:type="string">login</data>
-            <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_US_login</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
             <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
             <data name="payment/method" xsi:type="string">authorizenet_directpost</data>
@@ -71,10 +71,10 @@
         <variation name="CreateOrderWithAuthorizenetDirectpostMethodTestVariation3" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
             <data name="configData" xsi:type="string">authorizenet_directpost_capture</data>
             <data name="products" xsi:type="string">catalogProductSimple::order_default</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend_new</data>
             <data name="checkoutMethod" xsi:type="string">register</data>
             <data name="customerPersist" xsi:type="string">no</data>
-            <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_US_login</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
             <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
             <data name="payment/method" xsi:type="string">authorizenet_directpost</data>

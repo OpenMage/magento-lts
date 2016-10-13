@@ -61,7 +61,7 @@ Accordion.prototype = {
                 var pastCurrentSection = false;
                 for (var i=0; i<this.sections.length; i++) {
                     if (pastCurrentSection) {
-                        Element.removeClassName(this.sections[i], 'allow')
+                        Element.removeClassName(this.sections[i], 'allow');
                     }
                     if (this.sections[i].id==section.id) {
                         pastCurrentSection = true;
@@ -83,7 +83,7 @@ Accordion.prototype = {
             var nextIndex = parseInt(section)+1;
             if (this.sections[section].id == this.currentSection && this.sections[nextIndex]){
                 if (setAllow) {
-                    Element.addClassName(this.sections[nextIndex], 'allow')
+                    Element.addClassName(this.sections[nextIndex], 'allow');
                 }
                 this.openSection(this.sections[nextIndex]);
                 return;
@@ -96,7 +96,7 @@ Accordion.prototype = {
             var prevIndex = parseInt(section)-1;
             if (this.sections[section].id == this.currentSection && this.sections[prevIndex]){
                 if (setAllow) {
-                    Element.addClassName(this.sections[prevIndex], 'allow')
+                    Element.addClassName(this.sections[prevIndex], 'allow');
                 }
                 this.openSection(this.sections[prevIndex]);
                 return;
@@ -109,4 +109,4 @@ Accordion.prototype = {
             this.closeSection(this.currentSection);
         }
     }
-}
+};

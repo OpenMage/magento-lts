@@ -26,9 +26,9 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/etc/pages.xsd">
-  <page name="CatalogProductSetEdit" area="Adminhtml" mca="catalog_product_set/edit" module="Mage_Catalog">
-    <block name="pageActions" class="Mage\Adminhtml\Test\Block\Catalog\Product\FormPageActions" locator=".content-header" strategy="css selector"/>
-    <block name="attributeSetEditBlock" class="Mage\Adminhtml\Test\Block\Catalog\Product\Attribute\Set\Main" locator="[id='page:main-container']&gt;table" strategy="css selector"/>
-    <block name="attributeSetEditForm" class="Mage\Adminhtml\Test\Block\Catalog\Product\Attribute\Set\Main\EditForm" locator="#set_name" strategy="css selector"/>
-  </page>
+    <page name="CatalogProductSetEdit" area="Adminhtml" mca="catalog_product_set/edit" module="Mage_Catalog">
+        <block name="pageActions" class="Mage\Adminhtml\Test\Block\Catalog\Product\FormPageActions" locator=".content-header" strategy="css selector"/>
+        <block name="attributeSetEditBlock" class="Mage\Adminhtml\Test\Block\Catalog\Product\Attribute\Set\Main" locator="[id='page:main-container']&gt;table" strategy="css selector"/>
+        <block name="attributeSetEditForm" class="Mage\Adminhtml\Test\Block\Catalog\Product\Attribute\Set\Main\EditForm" locator="#set_name" strategy="css selector"/>
+    </page>
 </config>

@@ -36,7 +36,7 @@ use Magento\Mtf\TestCase\Scenario;
  * Steps:
  * 1. Open on backend Sales > Terms and conditions.
  * 2. Click "Add New Condition".
- * 3. Fill data from dataSet.
+ * 3. Fill data from dataset.
  * 4. Click "Save Condition".
  * 5. Perform all assertions.
  *

@@ -26,6 +26,7 @@
 
 namespace Mage\Cms\Test\Fixture\CmsBlock;
 
+use Magento\Mtf\Fixture\DataSource;
 use Magento\Mtf\Fixture\FixtureFactory;
 use Magento\Mtf\Fixture\InjectableFixture;
 use Mage\Adminhtml\Test\Fixture\Store;
@@ -33,23 +34,8 @@ use Mage\Adminhtml\Test\Fixture\Store;
 /**
  * Source stores for Cms Block.
  */
-class Stores extends InjectableFixture
+class Stores extends DataSource
 {
-    /**
-     * Configuration settings.
-     *
-     * @var array
-     */
-    protected $params;
-
-    /**
-     * Stores data.
-     * For example: ['0' => 'Main Website/Main Website Store/Default Store View']
-     *
-     * @var array
-     */
-    protected $data = [];
-
     /**
      * The created stores.
      *
@@ -66,11 +52,11 @@ class Stores extends InjectableFixture
     public function __construct(FixtureFactory $fixtureFactory, array $params, array $data = [])
     {
         $this->params = $params;
-        if (isset($data['dataSets'])) {
-            $dataSets = explode(',', $data['dataSets']);
-            foreach ($dataSets as $dataSet) {
+        if (isset($data['datasets'])) {
+            $datasets = explode(',', $data['datasets']);
+            foreach ($datasets as $dataset) {
                 /** @var Store $store */
-                $store = $fixtureFactory->createByCode('store', ['dataSet' => $dataSet]);
+                $store = $fixtureFactory->createByCode('store', ['dataset' => $dataset]);
                 if (!$store->hasData('store_id')) {
                     $store->persist();
                 }
@@ -81,37 +67,6 @@ class Stores extends InjectableFixture
     }
 
     /**
-     * Persist data.
-     *
-     * @return void
-     */
-    public function persist()
-    {
-        //
-    }
-
-    /**
-     * Return id of the created entity.
-     *
-     * @param string|null $key [optional]
-     * @return array
-     */
-    public function getData($key = null)
-    {
-        return $this->data;
-    }
-
-    /**
-     * Return data set configuration settings.
-     *
-     * @return array
-     */
-    public function getDataConfig()
-    {
-        return $this->params;
-    }
-
-    /**
      * Get stores.
      *
      * @return Store[]
@@ -119,5 +74,13 @@ class Stores extends InjectableFixture
     public function getStores()
     {
         return $this->stores;
+    }
+
+    public function setData($data) {
+        $this->data = $data;
+    }
+
+    public function setStores($stores) {
+        $this->stores = $stores;
     }
 }

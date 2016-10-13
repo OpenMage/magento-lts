@@ -27,6 +27,7 @@
 <?php
 /**
  * @see Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Samples
+ * @var $this Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Samples
  */
 ?>
 
@@ -89,17 +90,14 @@ var sampleTemplate = '<tr>'+
                         '</td>'+
                         '<td>'+
                             '<div class="files-wide">'+
-                                '<div class="row">'+
-                                    '<label for="downloadable_sample_{{id}}_file_type"><input type="radio" class="radio validate-one-required-by-name" id="downloadable_sample_{{id}}_file_type" name="downloadable[sample][{{id}}][type]" value="file"{{file_checked}} /> File:</label>'+
+                                '<div class="row a-right">'+
+                                    '<label for="downloadable_sample_{{id}}_file_type" class="a-left"><input type="radio" class="radio validate-one-required-by-name" id="downloadable_sample_{{id}}_file_type" name="downloadable[sample][{{id}}][type]" value="file"{{file_checked}} /> File:</label>'+
                                     '<input type="hidden" class="validate-downloadable-file" id="downloadable_sample_{{id}}_file_save" name="downloadable[sample][{{id}}][file]" value="{{file_save}}" />'+
-                                    '<div id="downloadable_sample_{{id}}_file" class="uploader">'+
+                                    '<?php echo $this->getBrowseButtonHtml(); ?>'+
+                                    '<?php echo $this->getDeleteButtonHtml(); ?>'+
+                                    '<div id="downloadable_sample_{{id}}_file" class="uploader a-left">' +
                                         '<div id="downloadable_sample_{{id}}_file-old" class="file-row-info"></div>'+
                                         '<div id="downloadable_sample_{{id}}_file-new" class="file-row-info new-file"></div>'+
-                                        '<div class="buttons">'+
-                                            '<div id="downloadable_sample_{{id}}_file-install-flash" style="display:none">'+
-                                                '<?php echo $this->jsQuoteEscape(Mage::helper('media')->__('This content requires last version of Adobe Flash Player. <a href="%s">Get Flash</a>', 'http://www.adobe.com/go/getflash/')) ?>'+
-                                            '</div>'+
-                                        '</div>'+
                                         '<div class="clear"></div>'+
                                     '</div>'+
                                 '</div>'+
@@ -161,6 +159,10 @@ var sampleItems = {
 
         sampleUrl = $('downloadable_sample_'+data.id+'_url_type');
 
+        var UploaderConfig = <?php echo $this->getConfigJson() ?>.replace(
+            new RegExp('<?php echo $this->getId(); ?>', 'g'),
+            'downloadable_sample_'+data.id+'_file');
+
         if (!data.file_save) {
             data.file_save = [];
         }
@@ -171,7 +173,7 @@ var sampleItems = {
             'downloadable[sample]['+data.id+']',
             data.file_save,
             'downloadable_sample_'+data.id+'_file',
-            <?php echo $this->getConfigJson() ?>
+            UploaderConfig
         );
         sampleUrl.advaiceContainer = 'downloadable_sample_'+data.id+'_container';
         sampleFile = $('downloadable_sample_'+data.id+'_file_type');

@@ -25,6 +25,7 @@
  */
 
 namespace Mage\Downloadable\Test\TestCase;
+use Mage\Tax\Test\TestCase\TaxCalculationTest;
 
 /**
  * Steps:
@@ -45,7 +46,7 @@ namespace Mage\Downloadable\Test\TestCase;
  * @group Tax_(CS)
  * @ZephyrId MPERF-7057
  */
-class TaxCalculationForDownloadableProductTest extends \Mage\Tax\Test\TestCase\TaxCalculationTest
+class TaxCalculationForDownloadableProductTest extends TaxCalculationTest
 {
     //
 }

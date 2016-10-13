@@ -26,9 +26,9 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/etc/pages.xsd">
-  <page name="PromoQuoteIndex" area="Adminhtml" mca="promo_quote/index" module="Mage_SalesRule">
-    <block name="messagesBlock" class="Mage\Core\Test\Block\Messages" locator="#messages" strategy="css selector"/>
-    <block name="gridPageActions" class="Mage\Adminhtml\Test\Block\GridPageActions" locator=".form-buttons" strategy="css selector"/>
-    <block name="promoQuoteGrid" class="Mage\Adminhtml\Test\Block\Promo\Grid" locator="#promo_quote_grid" strategy="css selector"/>
-  </page>
+    <page name="PromoQuoteIndex" area="Adminhtml" mca="promo_quote/index" module="Mage_SalesRule">
+        <block name="messagesBlock" class="Mage\Core\Test\Block\Messages" locator="#messages" strategy="css selector"/>
+        <block name="gridPageActions" class="Mage\Adminhtml\Test\Block\GridPageActions" locator=".form-buttons" strategy="css selector"/>
+        <block name="promoQuoteGrid" class="Mage\Adminhtml\Test\Block\Promo\Grid" locator="#promo_quote_grid" strategy="css selector"/>
+    </page>
 </config>

@@ -36,7 +36,7 @@ use Mage\Adminhtml\Test\Fixture\Website;
 class WebsiteId implements FixtureInterface
 {
     /**
-     * Prepared dataSet data.
+     * Prepared dataset data.
      *
      * @var array
      */
@@ -68,8 +68,8 @@ class WebsiteId implements FixtureInterface
         if (isset($data['website'])) {
             $this->website = $data['website'];
             $this->data = $data['website']->getName();
-        } elseif (isset($data['dataSet'])) {
-            $website = $fixtureFactory->createByCode('website', ['dataSet' => $data['dataSet']]);
+        } elseif (isset($data['dataset'])) {
+            $website = $fixtureFactory->createByCode('website', ['dataset' => $data['dataset']]);
             /** @var Website $website */
             if (!$website->getWebsiteId()) {
                 $website->persist();

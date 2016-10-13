@@ -116,7 +116,7 @@ class Curl extends AbstractCurl implements CustomerInterface
         }
 
         $curl = new CurlTransport();
-        $curl->write(CurlInterface::POST, $url, '1.0', [], $data);
+        $curl->write($url, $data);
         $response = $curl->read();
         $curl->close();
         if (!strpos($response, 'class="success-msg"')) {
@@ -161,7 +161,7 @@ class Curl extends AbstractCurl implements CustomerInterface
         $url = $_ENV['app_backend_url'] . 'customer/index/grid/filter/' . $this->encodeFilter(['email' => $email]);
         $curl = new BackendDecorator(new CurlTransport(), $this->_configuration);
 
-        $curl->write(CurlInterface::GET, $url, '1.0');
+        $curl->write($url, [], CurlInterface::GET);
         $response = $curl->read();
         $curl->close();
 
@@ -207,7 +207,7 @@ class Curl extends AbstractCurl implements CustomerInterface
         $curlData = $this->prepareAddressData($curlData);
 
         $curl = new BackendDecorator(new CurlTransport(), $this->_configuration);
-        $curl->write(CurlInterface::POST, $url, '1.0', [], $curlData);
+        $curl->write($url, $curlData);
         $response = $curl->read();
         $curl->close();
 

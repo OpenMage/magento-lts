@@ -37,8 +37,11 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
             return; // exit without loading swatch functionality
         }
 
-        /* @var $helper Mage_ConfigurableSwatches_Helper_Mediafallback */
-        $helper = Mage::helper('configurableswatches/mediafallback');
+        /* @var $mediaHelper Mage_ConfigurableSwatches_Helper_Mediafallback */
+        $mediaHelper = Mage::helper('configurableswatches/mediafallback');
+
+        /** @var $priceHelper Mage_ConfigurableSwatches_Helper_List_Price */
+        $priceHelper = Mage::helper('configurableswatches/list_price');
 
         /* @var $collection Mage_Catalog_Model_Resource_Product_Collection */
         $collection = $observer->getCollection();
@@ -51,15 +54,19 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
 
         $products = $collection->getItems();
 
-        $helper->attachChildrenProducts($products, $collection->getStoreId());
+        $mediaHelper->attachChildrenProducts($products, $collection->getStoreId());
 
-        $helper->attachConfigurableProductChildrenAttributeMapping($products, $collection->getStoreId());
+        $mediaHelper->attachProductChildrenAttributeMapping($products, $collection->getStoreId());
 
-        $helper->attachGallerySetToCollection($products, $collection->getStoreId());
+        if ($priceHelper->isEnabled()) {
+            $priceHelper->attachConfigurableProductChildrenPricesMapping($products, $collection->getStoreId());
+        }
+
+        $mediaHelper->attachGallerySetToCollection($products, $collection->getStoreId());
 
         /* @var $product Mage_Catalog_Model_Product */
         foreach ($products as $product) {
-            $helper->groupMediaGalleryImages($product);
+            $mediaHelper->groupMediaGalleryImages($product);
             Mage::helper('configurableswatches/productimg')
                 ->indexProductImages($product, $product->getListSwatchAttrValues());
         }
@@ -90,7 +97,7 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
 
         $helper->groupMediaGalleryImages($product);
 
-        $helper->attachConfigurableProductChildrenAttributeMapping(array($product), $product->getStoreId());
+        $helper->attachProductChildrenAttributeMapping(array($product), $product->getStoreId(), false);
     }
 
     /**

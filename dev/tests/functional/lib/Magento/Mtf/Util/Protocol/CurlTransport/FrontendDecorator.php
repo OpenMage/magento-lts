@@ -84,7 +84,7 @@ class FrontendDecorator implements CurlInterface
     protected function authorize(Customer $customer)
     {
         $url = $_ENV['app_frontend_url'] . 'customer/account/login/';
-        $this->transport->write(CurlInterface::POST, $url);
+        $this->transport->write($url);
         $this->read();
         $url = $_ENV['app_frontend_url'] . 'customer/account/loginPost/';
         $data = [
@@ -92,7 +92,7 @@ class FrontendDecorator implements CurlInterface
             'login[password]' => $customer->getPassword(),
             'form_key' => $this->formKey,
         ];
-        $this->transport->write(CurlInterface::POST, $url, '1.1', ['Set-Cookie:' . $this->cookies], $data);
+        $this->transport->write($url, $data, CurlInterface::POST, ['Set-Cookie:' . $this->cookies]);
         $response = $this->read();
         if (strpos($response, 'customer/account/login')) {
             throw new \Exception($customer->getFirstname() . ', cannot be logged in by curl handler!');
@@ -129,16 +129,18 @@ class FrontendDecorator implements CurlInterface
     /**
      * Send request to the remote server.
      *
-     * @param string $method
      * @param string $url
-     * @param string $httpVer
-     * @param array $headers
      * @param array $params
-     * @return void
+     * @param string $method
+     * @param array $headers
+     * @throws \Exception
      */
-    public function write($method, $url, $httpVer = '1.1', $headers = [], $params = [])
+    public function write($url, $params = [], $method = CurlInterface::POST, $headers = [])
     {
-        $this->transport->write($method, $url, $httpVer, ['Set-Cookie:' . $this->cookies], http_build_query($params));
+        if ($this->formKey) {
+            $params['form_key'] = $this->formKey;
+        }
+        $this->transport->write($url, http_build_query($params), $method, ['Set-Cookie:' . $this->cookies]);
     }
 
     /**

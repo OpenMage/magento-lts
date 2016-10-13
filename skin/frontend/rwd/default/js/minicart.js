@@ -64,7 +64,7 @@ Minicart.prototype = {
             .unbind('focus.minicart')
             .bind('focus.minicart', function() {
                 cart.previousVal = $j(this).val();
-                cart.displayQuantityButton($j(this))
+                cart.displayQuantityButton($j(this));
             })
             .bind('blur.minicart', function() {
                 cart.revertInvalidValue(this);
@@ -143,7 +143,14 @@ Minicart.prototype = {
     updateItem: function(el) {
         var cart = this;
         var input = $j(this.selectors.quantityInputPrefix + $j(el).data('item-id'));
-        var quantity = parseInt(input.val(), 10);
+
+        if (!$j.isNumeric(input.val())) {
+            cart.hideOverlay();
+            cart.showError(cart.defaultErrorMessage);
+            return false;
+        }
+
+        var quantity = input.val();
         cart.hideMessage();
         cart.showOverlay();
         $j.ajax({

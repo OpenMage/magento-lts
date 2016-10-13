@@ -319,8 +319,16 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
             );
             $priceColumn = $this->_connection->getIfNullSql(
                 $this->_connection->getIfNullSql(
-                    'pg.value',
-                    'pgd.value'
+                    $this->_connection->getCheckSql(
+                        'pg.is_percent = 1',
+                        'p.price * (100 - pg.value)/100',
+                        'pg.value'
+                    ),
+                    $this->_connection->getCheckSql(
+                        'pgd.is_percent = 1',
+                        'p.price * (100 - pgd.value)/100',
+                        'pgd.value'
+                    )
                 ),
                 'p.price'
             );
@@ -343,8 +351,22 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
                 );
             $priceColumn = $this->_connection->getIfNullSql(
                 $this->_connection->getIfNullSql(
-                    'pg.value',
-                    'pgd.value'
+                    $this->_connection->getCheckSql(
+                        'pg.is_percent = 1',
+                        $this->_connection->getIfNullSql(
+                            'p.value',
+                            'pd.value'
+                        ) . ' * (100 - pg.value)/100',
+                        'pg.value'
+                    ),
+                    $this->_connection->getCheckSql(
+                        'pgd.is_percent = 1',
+                        $this->_connection->getIfNullSql(
+                            'p.value',
+                            'pd.value'
+                        ) . ' * (100 - pgd.value)/100',
+                        'pgd.value'
+                    )
                 ),
                 $this->_connection->getIfNullSql(
                     'p.value',

@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Catalog>
-            <version>1.6.0.0.19.1.2</version>
+            <version>1.6.0.0.19.1.5</version>
         </Mage_Catalog>
     </modules>
     <admin>
@@ -807,6 +807,7 @@
             <product_image>
                 <base_width>1800</base_width>
                 <small_width>210</small_width>
+                <max_dimension>5000</max_dimension>
             </product_image>
             <seo>
                 <product_url_suffix>.html</product_url_suffix>

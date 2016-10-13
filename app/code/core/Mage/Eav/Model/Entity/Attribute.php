@@ -225,12 +225,12 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
             case 'text':
             case 'gallery':
             case 'media_image':
-            case 'multiselect':
                 $field = 'varchar';
                 break;
 
             case 'image':
             case 'textarea':
+            case 'multiselect':
                 $field = 'text';
                 break;
 
@@ -272,6 +272,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
             case 'text':
             case 'price':
             case 'image':
+            case 'weight':
                 $field = 'default_value_text';
                 break;
 

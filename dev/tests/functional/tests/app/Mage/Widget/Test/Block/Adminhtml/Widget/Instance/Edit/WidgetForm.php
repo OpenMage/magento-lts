@@ -85,10 +85,14 @@ class WidgetForm extends FormTabs
     public function getData(FixtureInterface $fixture = null, Element $element = null)
     {
         $widgetType = $fixture->getWidgetOptions()['type_id'];
-        if ($this->hasRender($widgetType)) {
+        if ($this->hasRender($widgetType) && $widgetType != 'bannerRotator') {
             return $this->callRender($widgetType, 'getData', ['InjectableFixture' => $fixture, 'Element' => $element]);
-        } else {
-            return parent::getData($fixture, $element);
+        } elseif ($widgetType == 'bannerRotator') {
+            $fixtureData = $fixture->getData();
+            unset($fixtureData['widgetOptions'][0]['entities']);
+            return $fixtureData;
+        }    else {
+                return parent::getData($fixture, $element);
         }
     }
 }

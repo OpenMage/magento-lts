@@ -26,7 +26,7 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/pages.xsd">
-  <page name="CustomerAccountLogin" mca="customer/account/login" module="Mage_Customer">
-    <block name="loginBlock" class="Mage\Customer\Test\Block\Form\Login" locator="#login-form" strategy="css selector"/>
-  </page>
+    <page name="CustomerAccountLogin" mca="customer/account/login" module="Mage_Customer">
+        <block name="loginBlock" class="Mage\Customer\Test\Block\Form\Login" locator="#login-form" strategy="css selector"/>
+    </page>
 </config>

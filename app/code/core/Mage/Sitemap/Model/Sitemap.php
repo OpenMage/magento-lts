@@ -155,7 +155,8 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
         $categories = new Varien_Object();
         $categories->setItems($collection);
         Mage::dispatchEvent('sitemap_categories_generating_before', array(
-            'collection' => $categories
+            'collection' => $categories,
+            'store_id' => $storeId
         ));
         foreach ($categories->getItems() as $item) {
             $xml = sprintf(
@@ -178,7 +179,8 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
         $products = new Varien_Object();
         $products->setItems($collection);
         Mage::dispatchEvent('sitemap_products_generating_before', array(
-            'collection' => $products
+            'collection' => $products,
+            'store_id' => $storeId
         ));
         foreach ($products->getItems() as $item) {
             $xml = sprintf(

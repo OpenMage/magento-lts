@@ -283,6 +283,19 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
     }
 
     /**
+     * Get table alias for link model attribute
+     *
+     * @param string $attributeCode
+     * @param string $attributeType
+     *
+     * @return string
+     */
+    protected function _getLinkAttributeTableAlias($attributeCode, $attributeType)
+    {
+        return sprintf('link_attribute_%s_%s', $attributeCode, $attributeType);
+    }
+
+    /**
      * Join attributes
      *
      * @return Mage_Catalog_Model_Resource_Product_Link_Product_Collection
@@ -294,10 +307,9 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
         }
         $attributes = $this->getLinkModel()->getAttributes();
 
-        $attributesByType = array();
         foreach ($attributes as $attribute) {
             $table = $this->getLinkModel()->getAttributeTypeTable($attribute['type']);
-            $alias = sprintf('link_attribute_%s_%s', $attribute['code'], $attribute['type']);
+            $alias = $this->_getLinkAttributeTableAlias($attribute['code'], $attribute['type']);
 
             $joinCondiotion = array(
                 "{$alias}.link_id = links.link_id",
@@ -330,5 +342,39 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
             return $this->setAttributeSetIdOrder($dir);
         }
         return parent::setOrder($attribute, $dir);
+    }
+
+    /**
+     * Add specific link model attribute to collection filter
+     *
+     * @param string $attributeCode
+     * @param array|null $condition
+     *
+     * @return Mage_Catalog_Model_Resource_Product_Link_Product_Collection
+     */
+    public function addLinkModelFieldToFilter($attributeCode, $condition = null)
+    {
+        if (!$this->getProduct() || !$this->getProduct()->getId()) {
+            return $this;
+        }
+
+        $attribute = null;
+        foreach ($this->getLinkModel()->getAttributes() as $attributeData) {
+            if ($attributeData['code'] == $attributeCode) {
+                $attribute = $attributeData;
+                break;
+            }
+        }
+
+        if (!$attribute) {
+            return $this;
+        }
+
+        $this->_hasLinkFilter = true;
+
+        $field = $this->_getLinkAttributeTableAlias($attribute['code'], $attribute['type']) . '.value';
+        $this->getSelect()->where($this->_getConditionSql($field, $condition));
+
+        return $this;
     }
 }

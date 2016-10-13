@@ -84,6 +84,10 @@ class TaxCalculationTest extends Scenario
         $this->objectManager->create('\Mage\Tax\Test\TestStep\DeleteAllTaxRulesStep')->run();
         $this->objectManager->create('\Mage\SalesRule\Test\TestStep\DeleteAllSalesRuleStep')->run();
         $this->objectManager->create('\Mage\CatalogRule\Test\TestStep\DeleteAllCatalogRulesStep')->run();
+        $this->objectManager->create(
+            'Mage\Core\Test\TestStep\SetupConfigurationStep',
+            ['configData' => 'default_tax_configuration']
+        )->run();
     }
 
     /**

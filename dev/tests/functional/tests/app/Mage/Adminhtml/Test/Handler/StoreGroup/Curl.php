@@ -77,7 +77,7 @@ class Curl extends AbstractCurl implements StoreGroupInterface
         $data = $this->prepareData($fixture);
         $url = $_ENV['app_backend_url'] . 'system_store/save/';
         $curl = new BackendDecorator(new CurlTransport(), $this->_configuration);
-        $curl->write(CurlInterface::POST, $url, '1.1', [], $data);
+        $curl->write($url, $data);
         $response = $curl->read();
         $curl->close();
         if (!strpos($response, 'success-msg')) {
@@ -105,7 +105,7 @@ class Curl extends AbstractCurl implements StoreGroupInterface
         $storeGroup = $this->prepareStoreGroup($storeGroup, $groupId);
         $store = $this->fixtureFactory->createByCode(
             'store',
-            ['dataSet' => $storeId['dataSet'], 'data' => ['group_id' => ['store_group' => $storeGroup]]]
+            ['dataset' => $storeId['dataset'], 'data' => ['group_id' => ['store_group' => $storeGroup]]]
         );
         $store->persist();
     }
@@ -147,7 +147,7 @@ class Curl extends AbstractCurl implements StoreGroupInterface
         $url = $_ENV['app_backend_url'] . 'system_store/index/sort/group_title/dir/asc/limit/2000';
         $curl = new BackendDecorator(new CurlTransport(), $this->_configuration);
         $curl->addOption(CURLOPT_HEADER, 1);
-        $curl->write(CurlInterface::POST, $url, '1.0');
+        $curl->write($url);
         $response = $curl->read();
         preg_match('@.*group_id/(\d+).*' . $storeName . '@siu', $response, $matches);
 

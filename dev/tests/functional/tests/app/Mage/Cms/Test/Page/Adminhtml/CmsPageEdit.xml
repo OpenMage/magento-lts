@@ -26,8 +26,8 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/etc/pages.xsd">
-  <page name="CmsPageEdit" area="Adminhtml" mca="cms_page/edit" module="Mage_Cms">
-    <block name="pageForm" class="Mage\Adminhtml\Test\Block\Cms\Page\Edit\PageForm" locator="[id='page:main-container']" strategy="css selector"/>
-    <block name="pageMainActions" class="Mage\Adminhtml\Test\Block\Cms\Page\Edit\FormPageActions" locator=".form-buttons" strategy="css selector"/>
-  </page>
+    <page name="CmsPageEdit" area="Adminhtml" mca="cms_page/edit" module="Mage_Cms">
+        <block name="pageForm" class="Mage\Adminhtml\Test\Block\Cms\Page\Edit\PageForm" locator="[id='page:main-container']" strategy="css selector"/>
+        <block name="pageMainActions" class="Mage\Adminhtml\Test\Block\Cms\Page\Edit\FormPageActions" locator=".form-buttons" strategy="css selector"/>
+    </page>
 </config>

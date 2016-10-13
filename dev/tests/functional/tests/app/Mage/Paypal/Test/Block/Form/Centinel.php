@@ -26,7 +26,7 @@
 
 namespace Mage\Paypal\Test\Block\Form;
 
-use Mage\Payment\Test\Fixture\Cc;
+use Mage\Payment\Test\Fixture\ValidationPassword;
 use Magento\Mtf\Block\Form;
 use Magento\Mtf\Client\ElementInterface;
 use Magento\Mtf\Client\Locator;
@@ -77,15 +77,14 @@ class Centinel extends Form
     /**
      * Fill credit card.
      *
-     * @param Cc $creditCard
-     * @return void
+     * @param ValidationPassword $pass
      */
-    public function fillCc(Cc $creditCard)
+    public function fillPass(ValidationPassword $pass)
     {
         $this->waitForElementVisible($this->centinel);
         $this->browser->switchToFrame(new Locator($this->centinel));
         $element = $this->getRootElement();
-        parent::fill($creditCard, $element);
+        parent::fill($pass, $element);
     }
 
     /**

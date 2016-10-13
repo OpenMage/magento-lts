@@ -26,9 +26,9 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/etc/pages.xsd">
-  <page name="CatalogRuleIndex" area="Adminhtml" mca="promo_catalog/index" module="Mage_CatalogRule">
-    <block name="messagesBlock" class="Mage\Core\Test\Block\Messages" locator="#messages" strategy="css selector"/>
-    <block name="gridPageActions" class="Mage\Adminhtml\Test\Block\CatalogRule\Promo\GridPageActions" locator=".form-buttons" strategy="css selector"/>
-    <block name="catalogRuleGrid" class="Mage\Adminhtml\Test\Block\CatalogRule\Promo\Catalog" locator="#promo_catalog_grid" strategy="css selector"/>
-  </page>
+    <page name="CatalogRuleIndex" area="Adminhtml" mca="promo_catalog/index" module="Mage_CatalogRule">
+        <block name="messagesBlock" class="Mage\Core\Test\Block\Messages" locator="#messages" strategy="css selector"/>
+        <block name="gridPageActions" class="Mage\Adminhtml\Test\Block\CatalogRule\Promo\GridPageActions" locator=".form-buttons" strategy="css selector"/>
+        <block name="catalogRuleGrid" class="Mage\Adminhtml\Test\Block\CatalogRule\Promo\Catalog" locator="#promo_catalog_grid" strategy="css selector"/>
+    </page>
 </config>

@@ -26,9 +26,9 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/etc/pages.xsd">
-  <page name="StoreNew" area="Adminhtml" mca="system_store/newStore" module="Mage_Adminhtml">
-    <block name="formPageActions" class="Mage\Adminhtml\Test\Block\FormPageActions" locator=".form-buttons" strategy="css selector"/>
-    <block name="storeForm" class="Mage\Adminhtml\Test\Block\System\Store\Edit\Form\StoreForm" locator="[id='page:main-container']" strategy="css selector"/>
-    <block name="messagesBlock" class="Mage\Core\Test\Block\Messages" locator="#messages" strategy="css selector"/>
-  </page>
+    <page name="StoreNew" area="Adminhtml" mca="system_store/newStore" module="Mage_Adminhtml">
+        <block name="formPageActions" class="Mage\Adminhtml\Test\Block\FormPageActions" locator=".form-buttons" strategy="css selector"/>
+        <block name="storeForm" class="Mage\Adminhtml\Test\Block\System\Store\Edit\Form\StoreForm" locator="[id='page:main-container']" strategy="css selector"/>
+        <block name="messagesBlock" class="Mage\Core\Test\Block\Messages" locator="#messages" strategy="css selector"/>
+    </page>
 </config>

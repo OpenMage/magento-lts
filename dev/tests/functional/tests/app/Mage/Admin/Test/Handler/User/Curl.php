@@ -65,7 +65,7 @@ class Curl extends AbstractCurl implements UserInterface
         $url = $_ENV['app_backend_url'] . 'permissions_user/save/';
         $curl = new BackendDecorator(new CurlTransport(), $this->_configuration);
         $curl->addOption(CURLOPT_HEADER, 1);
-        $curl->write(CurlInterface::POST, $url, '1.1', [], $data);
+        $curl->write($url, $data);
         $response = $curl->read();
         $curl->close();
 
@@ -86,7 +86,7 @@ class Curl extends AbstractCurl implements UserInterface
         $url = $_ENV['app_backend_url'] . 'permissions_user/roleGrid/sort/user_id/dir/desc/';
         $curl = new BackendDecorator(new CurlTransport(), $this->_configuration);
         $curl->addOption(CURLOPT_HEADER, 1);
-        $curl->write(CurlInterface::POST, $url, '1.0');
+        $curl->write($url);
         $response = $curl->read();
         $curl->close();
 

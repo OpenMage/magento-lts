@@ -134,8 +134,8 @@
                 <totals>
                     <freeshipping>
                         <class>salesrule/quote_freeshipping</class>
-                        <after>subtotal</after>
-                        <before>tax_subtotal,shipping</before>
+                        <after>subtotal,tax_subtotal</after>
+                        <before>shipping</before>
                     </freeshipping>
                     <discount>
                         <class>salesrule/quote_discount</class>

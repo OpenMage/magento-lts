@@ -144,6 +144,7 @@ class CustomOptions extends Tab
         foreach ($fields['custom_options']['value'] as $key => $field) {
             $element = $this->getOptionsBlock(($key + 1), $context);
             $data = $this->dataMapping($field);
+            unset($data['options']);
             $result['custom_options'][$key] = $this->_getData($data, $element);
             $result['custom_options'][$key]['options'] = $this->getSubOptions($element);
         }

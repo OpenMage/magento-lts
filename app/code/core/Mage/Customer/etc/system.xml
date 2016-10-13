@@ -250,6 +250,34 @@
                         </generate_human_friendly_id>
                     </fields>
                 </create_account>
+                <changed_account translate="label">
+                    <label>Change Account Data</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>25</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <password_or_email_identity translate="label">
+                            <label>Email Sender</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_identity</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </password_or_email_identity>
+                        <password_or_email_template translate="label">
+                            <label>Changed Email or Password Email Template</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </password_or_email_template>
+                    </fields>
+                </changed_account>
                 <password translate="label">
                     <label>Password Options</label>
                     <frontend_type>text</frontend_type>
@@ -286,7 +314,7 @@
                             <show_in_store>1</show_in_store>
                         </forgot_email_identity>
                         <reset_link_expiration_period translate="label comment">
-                            <label>Recovery Link Expiration Period (days)</label>
+                            <label>Recovery Link Expiration Period (hours)</label>
                             <comment>Please enter a number 1 or greater in this field.</comment>
                             <frontend_type>text</frontend_type>
                             <validate>required-entry validate-digits validate-digits-range digits-range-1-</validate>
@@ -492,5 +520,40 @@
                 </store_information>
             </groups>
         </general>
+        <admin>
+            <groups>
+                <security>
+                    <fields>
+                        <forgot_password_flow_secure translate="label">
+                            <label>Forgot password flow secure</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_customer_forgotpassword</source_model>
+                            <sort_order>140</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </forgot_password_flow_secure>
+                        <forgot_password_ip_times translate="label comment">
+                            <label>Forgot password requests to times per hour from 1 IP</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>150</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><forgot_password_flow_secure separator=",">1,2</forgot_password_flow_secure></depends>
+                        </forgot_password_ip_times>
+                        <forgot_password_email_times translate="label">
+                            <label>Forgot password requests to times per 24 hours from 1 e-mail</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>160</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><forgot_password_flow_secure separator=",">1,3</forgot_password_flow_secure></depends>
+                        </forgot_password_email_times>
+                    </fields>
+                </security>
+            </groups>
+        </admin>
     </sections>
 </config>

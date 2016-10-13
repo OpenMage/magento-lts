@@ -26,13 +26,13 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Checkout\Test\TestCase\CheckoutWithMultishippingTest">
+    <testCase name="Mage\Checkout\Test\TestCase\CheckoutWithMultishippingTest" summary="CheckoutWithMultishippingTest">
         <variation name="CheckoutWithMultishippingTestVariation1" method="test">
-            <data name="configData" xsi:type="string">enable_multishipping</data>
+            <data name="configData" xsi:type="string">enable_multishipping, default_tax_configuration</data>
             <data name="products" xsi:type="string">catalogProductSimple::order_default,catalogProductSimple::order_default</data>
-            <data name="customer/dataSet" xsi:type="string">johndoe_unique</data>
+            <data name="customer/dataset" xsi:type="string">johndoe_unique</data>
             <data name="checkoutMethod" xsi:type="string">login</data>
-            <data name="newAddresses" xsi:type="string">customer_US</data>
+            <data name="newAddresses" xsi:type="string">customer_US_login</data>
             <data name="fillItemsData" xsi:type="array">
                 <item name="0" xsi:type="array">
                     <item name="productIndex" xsi:type="string">0</item>
@@ -68,10 +68,10 @@
         <variation name="CheckoutWithMultishippingTestVariation2" method="test">
             <data name="configData" xsi:type="string">enable_multishipping</data>
             <data name="products" xsi:type="string">catalogProductSimple::order_default,catalogProductSimple::order_default</data>
-            <data name="customer/dataSet" xsi:type="string">johndoe_unique</data>
+            <data name="customer/dataset" xsi:type="string">frontend_register_multiship_address</data>
             <data name="customerPersist" xsi:type="string">No</data>
             <data name="checkoutMethod" xsi:type="string">register</data>
-            <data name="newAddresses" xsi:type="string">customer_US</data>
+            <data name="newAddresses" xsi:type="string">customer_US_login</data>
             <data name="fillItemsData" xsi:type="array">
                 <item name="0" xsi:type="array">
                     <item name="productIndex" xsi:type="string">0</item>
@@ -105,7 +105,7 @@
         <variation name="CheckoutWithMultishippingTestVariation3" method="test">
             <data name="configData" xsi:type="string">enable_multishipping</data>
             <data name="products" xsi:type="string">catalogProductSimple::default</data>
-            <data name="customer/dataSet" xsi:type="string">johndoe_unique</data>
+            <data name="customer/dataset" xsi:type="string">johndoe_unique</data>
             <data name="checkoutMethod" xsi:type="string">login</data>
             <data name="shippingData" xsi:type="array">
                 <item name="0" xsi:type="array">

@@ -32,15 +32,15 @@
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 
-class Mage_Adminhtml_Rss_OrderController extends Mage_Adminhtml_Controller_Action
+class Mage_Adminhtml_Rss_OrderController extends Mage_Adminhtml_Controller_Rss_Abstract
 {
 
     public function newAction()
     {
-        Mage::helper('rss')->authAdmin('sales/order');
-        $this->getResponse()->setHeader('Content-type', 'text/xml; charset=UTF-8');
-        $this->loadLayout(false);
-        $this->renderLayout();
+        if ($this->checkFeedEnable('order/new')) {
+            $this->loadLayout(false);
+            $this->renderLayout();
+        }
     }
 
     /**

@@ -87,5 +87,5 @@ if(!window.Flex) {
         getImage: function() {
             this.getInnerElement('b64').value = this.flex.getBridge().getBase64Image();
         }
-    }
+    };
 }

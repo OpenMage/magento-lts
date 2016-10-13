@@ -27,21 +27,14 @@
 namespace Mage\Catalog\Test\Fixture\CatalogProductSimple;
 
 use Mage\Catalog\Test\Fixture\CatalogCategory;
+use Magento\Mtf\Fixture\DataSource;
 use Magento\Mtf\Fixture\FixtureFactory;
-use Magento\Mtf\Fixture\FixtureInterface;
 
 /**
  * Create and return Category.
  */
-class CategoryIds implements FixtureInterface
+class CategoryIds extends DataSource
 {
-    /**
-     * Names and Ids of the created categories.
-     *
-     * @var array
-     */
-    protected $data;
-
     /**
      * Fixtures of category.
      *
@@ -69,7 +62,7 @@ class CategoryIds implements FixtureInterface
     ) {
         $this->params = $params;
 
-        if (!empty($data['category']) && empty($data['presets'])) {
+        if (!empty($data['category']) && empty($data['dataset'])) {
             /** @var CatalogCategory $category */
             $category = $data['category'];
             if (!$category->hasData('id')) {
@@ -77,10 +70,10 @@ class CategoryIds implements FixtureInterface
             }
             $this->data[] = $category->getName();
             $this->categories[] = $category;
-        } elseif (isset($data['presets'])) {
-            $presets = explode(',', $data['presets']);
-            foreach ($presets as $preset) {
-                $category = $fixtureFactory->createByCode('catalogCategory', ['dataSet' => $preset]);
+        } elseif (isset($data['dataset'])) {
+            $dataset = explode(',', $data['dataset']);
+            foreach ($dataset as $preset) {
+                $category = $fixtureFactory->createByCode('catalogCategory', ['dataset' => $preset]);
                 $category->persist();
 
                 /** @var CatalogCategory $category */
@@ -92,39 +85,6 @@ class CategoryIds implements FixtureInterface
         if (!empty($this->categories) && count($this->categories) == 1) {
             $this->productCategory = $this->categories[0];
         }
-    }
-
-    /**
-     * Persist custom selections products.
-     *
-     * @return void
-     */
-    public function persist()
-    {
-        //
-    }
-
-    /**
-     * Return prepared data set.
-     *
-     * @param string|null $key
-     * @return array
-     *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    public function getData($key = null)
-    {
-        return $this->data;
-    }
-
-    /**
-     * Return data set configuration settings.
-     *
-     * @return array
-     */
-    public function getDataConfig()
-    {
-        return $this->params;
     }
 
     /**

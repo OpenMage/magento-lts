@@ -26,29 +26,15 @@
 
 namespace Mage\Review\Test\Fixture\Review;
 
+use Magento\Mtf\Fixture\DataSource;
 use Magento\Mtf\Fixture\FixtureFactory;
-use Magento\Mtf\Fixture\FixtureInterface;
 use Mage\Rating\Test\Fixture\Rating;
 
 /**
  * Source for product ratings fixture.
  */
-class Ratings implements FixtureInterface
+class Ratings extends DataSource
 {
-    /**
-     * Configuration settings of fixture.
-     *
-     * @var array
-     */
-    protected $params;
-
-    /**
-     * Data of the created ratings.
-     *
-     * @var array
-     */
-    protected $data = [];
-
     /**
      * List of the created ratings.
      *
@@ -68,8 +54,8 @@ class Ratings implements FixtureInterface
         /** @var Rating $fixtureRating */
         $fixtureRating = null;
         foreach ($data as $rating) {
-            if (isset($rating['dataSet'])) {
-                $fixtureRating = $fixtureFactory->createByCode('rating', ['dataSet' => $rating['dataSet']]);
+            if (isset($rating['dataset'])) {
+                $fixtureRating = $fixtureFactory->createByCode('rating', ['dataset' => $rating['dataset']]);
                 if (!$fixtureRating->hasData('rating_id')) {
                     $fixtureRating->persist();
                 }
@@ -84,37 +70,6 @@ class Ratings implements FixtureInterface
                 ];
             }
         }
-    }
-
-    /**
-     * Persist data.
-     *
-     * @return void
-     */
-    public function persist()
-    {
-        //
-    }
-
-    /**
-     * Return prepared data set.
-     *
-     * @param string|null $key [optional]
-     * @return array
-     */
-    public function getData($key = null)
-    {
-        return $this->data;
-    }
-
-    /**
-     * Return data set configuration settings.
-     *
-     * @return array
-     */
-    public function getDataConfig()
-    {
-        return $this->params;
     }
 
     /**

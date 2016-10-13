@@ -26,44 +26,32 @@
 
 namespace Mage\Widget\Test\Fixture\Widget;
 
+use Magento\Mtf\Fixture\DataSource;
 use Magento\Mtf\Fixture\FixtureFactory;
-use Magento\Mtf\Fixture\FixtureInterface;
+use Magento\Mtf\Repository\RepositoryFactory;
 
 /**
  * Prepare Layout Updates for widget.
  */
-class LayoutUpdates implements FixtureInterface
+class LayoutUpdates extends DataSource
 {
     /**
-     * Prepared dataSet data.
-     *
-     * @var array
-     */
-    protected $data;
-
-    /**
-     * Data set configuration settings.
-     *
-     * @var array
-     */
-    protected $params;
-
-    /**
      * @constructor
+     * @param RepositoryFactory $repositoryFactory
      * @param FixtureFactory $fixtureFactory
      * @param array $params
      * @param array $data [optional]
      */
-    public function __construct(FixtureFactory $fixtureFactory, array $params, array $data = [])
+    public function __construct(RepositoryFactory $repositoryFactory, FixtureFactory $fixtureFactory, array $params, array $data = [])
     {
         $this->params = $params;
-        if (isset($data['preset'])) {
-            $this->data = $this->getPreset($data['preset']);
+        if (isset($data['dataset']) && isset($this->params['repository'])) {
+            $this->data = $repositoryFactory->get($this->params['repository'])->get($data['dataset']);
             foreach ($this->data as $index => $layouts) {
                 if (isset($layouts['entities'])) {
                     foreach ($layouts['entities'] as $key => $layout) {
                         $explodeValue = explode('::', $layout);
-                        $fixture = $fixtureFactory->createByCode($explodeValue[0], ['dataSet' => $explodeValue[1]]);
+                        $fixture = $fixtureFactory->createByCode($explodeValue[0], ['dataset' => $explodeValue[1]]);
                         $fixture->persist();
                         $this->data[$index]['entities'][$key] = $fixture->getData();
                     }
@@ -72,62 +60,5 @@ class LayoutUpdates implements FixtureInterface
         } else {
             $this->data = $data;
         }
-    }
-
-    /**
-     * Persist Layout Updates.
-     *
-     * @return void
-     */
-    public function persist()
-    {
-        //
-    }
-
-    /**
-     * Return prepared data set.
-     *
-     * @param string|null $key [optional]
-     * @return mixed
-     *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    public function getData($key = null)
-    {
-        return $this->data;
-    }
-
-    /**
-     * Return data set configuration settings.
-     *
-     * @return array
-     */
-    public function getDataConfig()
-    {
-        return $this->params;
-    }
-
-    /**
-     * Preset for Layout Updates.
-     *
-     * @param string $name
-     * @return array|null
-     */
-    protected function getPreset($name)
-    {
-        $presets = [
-            'all_pages' => [
-                [
-                    'page_group' => 'Generic Pages/All Pages',
-                    'block' => 'Main Content Area'
-                ]
-            ]
-        ];
-
-        if (!isset($presets[$name])) {
-            return null;
-        }
-
-        return $presets[$name];
     }
 }

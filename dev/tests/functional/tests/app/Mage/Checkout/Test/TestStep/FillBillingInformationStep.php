@@ -63,7 +63,7 @@ class FillBillingInformationStep implements TestStepInterface
      * @param Address $billingAddress
      * @param Customer $customer [optional]
      */
-    public function __construct(CheckoutOnepage $checkoutOnepage, Address $billingAddress, Customer $customer = null)
+    public function __construct(CheckoutOnepage $checkoutOnepage, Address $billingAddress = null, Customer $customer = null)
     {
         $this->checkoutOnepage = $checkoutOnepage;
         $this->billingAddress = $billingAddress;

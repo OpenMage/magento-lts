@@ -338,12 +338,12 @@ class Curl extends AbstractCurl implements OrderInterface
                 continue;
             }
             $url = $_ENV['app_backend_url'] . 'sales_order_create/loadBlock/block/' . $step . '?isAjax=true';
-            $curl->write(CurlInterface::POST, $url, '1.1', [], $data[$key]);
+            $curl->write($url, $data[$key]);
             $curl->read();
         }
         $url = $_ENV['app_backend_url'] . 'sales_order_create/save';
         $curl->addOption(CURLOPT_HEADER, 1);
-        $curl->write(CurlInterface::POST, $url, '1.1', [], $data['order_data']);
+        $curl->write($url, $data['order_data']);
         $response = $curl->read();
         $curl->close();
 

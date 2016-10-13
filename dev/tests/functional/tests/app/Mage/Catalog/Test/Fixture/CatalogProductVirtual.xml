@@ -25,194 +25,74 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 -->
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
-  <fixture name="catalogProductVirtual" module="Mage_Catalog" type="eav" entity_type="catalog_product" product_type="virtual" collection="Mage\Catalog\Model\Resource\Product\Collection" identifier="sku" repository_class="Mage\Catalog\Test\Repository\CatalogProductVirtual" handler_interface="Mage\Catalog\Test\Handler\CatalogProductVirtual\CatalogProductVirtualInterface" class="Mage\Catalog\Test\Fixture\CatalogProductVirtual">
-    <dataset name="default">
-        <field name="name" xsi:type="string">Test virtual product %isolation%</field>
-        <field name="sku" xsi:type="string">test_virtual_sku_%isolation%</field>
-        <field name="price" xsi:type="array">
-            <item name="value" xsi:type="string">100.00</item>
-        </field>
-        <field name="stock_data" xsi:type="array">
-            <item name="qty" xsi:type="string">10.0000</item>
-            <item name="is_in_stock" xsi:type="string">In Stock</item>
-        </field>
-        <field name="is_virtual" xsi:type="string">Yes</field>
-        <field name="url_key" xsi:type="string">test-virtual-product-%isolation%</field>
-      <field name="website_ids" xsi:type="array">
-        <item name="dataSets" xsi:type="array">
-          <item name="0" xsi:type="string">main_website</item>
-        </item>
-      </field>
-    </dataset>
-    <data_config>
-        <item name="type_id" xsi:type="string">virtual</item>
-        <item name="create_url_params" xsi:type="array">
-            <item name="type" xsi:type="string">virtual</item>
-            <item name="set" xsi:type="string">4</item>
-        </item>
-        <item name="input_prefix" xsi:type="string">product</item>
-    </data_config>
-    <field name="category_ids" is_required="0" source="Mage\Catalog\Test\Fixture\CatalogProductSimple\CategoryIds" group="categories">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="cost" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="created_at" is_required="1">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="custom_design" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="custom_design_from" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="custom_design_to" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="custom_layout_update" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="description" is_required="1" group="general">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="gallery" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="gift_message_available" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="group_price" is_required="0" source="Mage\Catalog\Test\Fixture\CatalogProductSimple\GroupPriceOptions" group="prices">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="has_options" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="image" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="image_label" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="is_recurring" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="media_gallery" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="meta_description" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="meta_keyword" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="meta_title" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="minimal_price" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="msrp" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="msrp_display_actual_price_type" is_required="0">
-      <default_value xsi:type="string">4</default_value>
-    </field>
-    <field name="msrp_enabled" is_required="0">
-      <default_value xsi:type="string">2</default_value>
-    </field>
-    <field name="name" is_required="1" group="general">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="news_from_date" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="news_to_date" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="old_id" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="options_container" is_required="0">
-      <default_value xsi:type="string">container1</default_value>
-    </field>
-    <field name="page_layout" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="price" group="prices" source="Mage\Catalog\Test\Fixture\CatalogProductVirtual\Price"/>
-    <field name="recurring_profile" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="related_tgtr_position_behavior" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="related_tgtr_position_limit" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="required_options" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="short_description" is_required="1" group="general">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="sku" is_required="1" group="general">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="small_image" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="small_image_label" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="special_from_date" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="special_price" is_required="0" group="prices">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="special_to_date" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="status" is_required="1" group="general">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="tax_class_id" is_required="1" group="prices" source="Mage\Catalog\Test\Fixture\CatalogProductSimple\TaxClass">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="thumbnail" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="thumbnail_label" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="tier_price" is_required="0" group="prices" source="Mage\Catalog\Test\Fixture\CatalogProductSimple\TierPriceOptions">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="updated_at" is_required="1">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="upsell_tgtr_position_behavior" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="upsell_tgtr_position_limit" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="url_key" is_required="0" group="general">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="url_path" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="visibility" is_required="1" group="general">
-      <default_value xsi:type="string">4</default_value>
-    </field>
-    <field name="id"/>
-    <field name="type_id"/>
-    <field name="attribute_set_id" group="null" source="Mage\Catalog\Test\Fixture\CatalogProductSimple\AttributeSetId"/>
-    <field name="custom_options" group="custom-options" source="Mage\Catalog\Test\Fixture\CatalogProductSimple\CustomOptions"/>
-    <field name="checkout_data" group="null" source="Mage\Catalog\Test\Fixture\CatalogProductVirtual\CheckoutData"/>
-    <field name="stock_data" group="inventory"/>
-    <field name="website_ids" group="null" source="Mage\Catalog\Test\Fixture\CatalogProductSimple\WebsiteIds"/>
-  </fixture>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
+    <fixture name="catalogProductVirtual" module="Mage_Catalog" type="eav" entity_type="catalog_product" product_type="virtual" collection="Mage\Catalog\Model\Resource\Product\Collection" identifier="sku" repository_class="Mage\Catalog\Test\Repository\CatalogProductVirtual" handler_interface="Mage\Catalog\Test\Handler\CatalogProductVirtual\CatalogProductVirtualInterface" class="Mage\Catalog\Test\Fixture\CatalogProductVirtual">
+        <data_config>
+            <item name="type_id" xsi:type="string">virtual</item>
+            <item name="create_url_params" xsi:type="array">
+                <item name="type" xsi:type="string">virtual</item>
+                <item name="set" xsi:type="string">4</item>
+            </item>
+            <item name="input_prefix" xsi:type="string">product</item>
+        </data_config>
+        <field name="category_ids" is_required="0" source="Mage\Catalog\Test\Fixture\CatalogProductSimple\CategoryIds" group="categories"/>
+        <field name="cost" is_required="0"/>
+        <field name="created_at" is_required="1"/>
+        <field name="custom_design" is_required="0"/>
+        <field name="custom_design_from" is_required="0"/>
+        <field name="custom_design_to" is_required="0"/>
+        <field name="custom_layout_update" is_required="0"/>
+        <field name="description" is_required="1" group="general"/>
+        <field name="gallery" is_required="0"/>
+        <field name="gift_message_available" is_required="0"/>
+        <field name="group_price" is_required="0" group="prices" repository="Mage\Catalog\Test\Repository\CatalogProductSimple\GroupPriceOptions"/>
+        <field name="has_options" is_required="0"/>
+        <field name="image" is_required="0"/>
+        <field name="image_label" is_required="0"/>
+        <field name="is_recurring" is_required="0"/>
+        <field name="media_gallery" is_required="0"/>
+        <field name="meta_description" is_required="0"/>
+        <field name="meta_keyword" is_required="0"/>
+        <field name="meta_title" is_required="0"/>
+        <field name="minimal_price" is_required="0"/>
+        <field name="msrp" is_required="0"/>
+        <field name="msrp_display_actual_price_type" is_required="0"/>
+        <field name="msrp_enabled" is_required="0"/>
+        <field name="name" is_required="1" group="general"/>
+        <field name="news_from_date" is_required="0"/>
+        <field name="news_to_date" is_required="0"/>
+        <field name="old_id" is_required="0"/>
+        <field name="options_container" is_required="0"/>
+        <field name="page_layout" is_required="0"/>
+        <field name="price" group="prices" source="Mage\Catalog\Test\Fixture\CatalogProductSimple\Price" repository="Mage\Catalog\Test\Repository\CatalogProductVirtual\Price"/>
+        <field name="recurring_profile" is_required="0"/>
+        <field name="related_tgtr_position_behavior" is_required="0"/>
+        <field name="related_tgtr_position_limit" is_required="0"/>
+        <field name="required_options" is_required="0"/>
+        <field name="short_description" is_required="1" group="general"/>
+        <field name="sku" is_required="1" group="general"/>
+        <field name="small_image" is_required="0"/>
+        <field name="small_image_label" is_required="0"/>
+        <field name="special_from_date" is_required="0"/>
+        <field name="special_price" is_required="0" group="prices"/>
+        <field name="special_to_date" is_required="0"/>
+        <field name="status" is_required="1" group="general"/>
+        <field name="tax_class_id" is_required="1" group="prices" source="Mage\Catalog\Test\Fixture\CatalogProductSimple\TaxClass"/>
+        <field name="thumbnail" is_required="0"/>
+        <field name="thumbnail_label" is_required="0"/>
+        <field name="tier_price" is_required="0" group="prices" repository="Mage\Catalog\Test\Repository\CatalogProductSimple\TierPriceOptions"/>
+        <field name="updated_at" is_required="1"/>
+        <field name="upsell_tgtr_position_behavior" is_required="0"/>
+        <field name="upsell_tgtr_position_limit" is_required="0"/>
+        <field name="url_key" is_required="0" group="general"/>
+        <field name="url_path" is_required="0"/>
+        <field name="visibility" is_required="1" group="general"/>
+        <field name="id"/>
+        <field name="type_id"/>
+        <field name="attribute_set_id" group="null" source="Mage\Catalog\Test\Fixture\CatalogProductSimple\AttributeSetId"/>
+        <field name="custom_options" group="custom-options" repository="Mage\Catalog\Test\Repository\CatalogProductSimple\CustomOptions"/>
+        <field name="checkout_data" group="null" repository="Mage\Catalog\Test\Repository\CatalogProductVirtual\CheckoutData"/>
+        <field name="stock_data" group="inventory"/>
+        <field name="website_ids" group="null" source="Mage\Catalog\Test\Fixture\CatalogProductSimple\WebsiteIds"/>
+    </fixture>
 </config>

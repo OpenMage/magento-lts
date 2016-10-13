@@ -26,8 +26,8 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/etc/pages.xsd">
-  <page name="CatalogRuleEdit" area="Adminhtml" mca="promo_catalog/new" module="Mage_CatalogRule">
-    <block name="formPageActions" class="Mage\Adminhtml\Test\Block\CatalogRule\FormPageActions" locator=".form-buttons" strategy="css selector"/>
-    <block name="editForm" class="Mage\Adminhtml\Test\Block\CatalogRule\Promo\Catalog\Edit\Form" locator="[id='page:main-container']" strategy="css selector"/>
-  </page>
+    <page name="CatalogRuleEdit" area="Adminhtml" mca="promo_catalog/new" module="Mage_CatalogRule">
+        <block name="formPageActions" class="Mage\Adminhtml\Test\Block\CatalogRule\FormPageActions" locator=".form-buttons" strategy="css selector"/>
+        <block name="editForm" class="Mage\Adminhtml\Test\Block\CatalogRule\Promo\Catalog\Edit\Form" locator="[id='page:main-container']" strategy="css selector"/>
+    </page>
 </config>

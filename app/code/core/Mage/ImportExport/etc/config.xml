@@ -139,6 +139,9 @@
             <export_csv>
                 <escaping>1</escaping>
             </export_csv>
+            <import_csv>
+                <configurable_page_size>1000</configurable_page_size>
+            </import_csv>
         </system>
         <general>
             <file>

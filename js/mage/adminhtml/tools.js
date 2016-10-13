@@ -23,7 +23,7 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 function setLocation(url){
-    window.location.href = url;
+    window.location.href = encodeURI(url);
 }
 
 function confirmSetLocation(message, url){
@@ -94,7 +94,7 @@ function imagePreview(element){
         win.document.close();
         Event.observe(win, 'load', function(){
             var img = win.document.getElementById('image_preview');
-            win.resizeTo(img.width+40, img.height+80)
+            win.resizeTo(img.width+40, img.height+80);
         });
     }
 }
@@ -167,7 +167,7 @@ function submitAndReloadArea(area, url) {
             onSuccess: function(transport) {
                 try {
                     if (transport.responseText.isJSON()) {
-                        var response = transport.responseText.evalJSON()
+                        var response = transport.responseText.evalJSON();
                         if (response.error) {
                             alert(response.message);
                         }
@@ -204,7 +204,7 @@ Event.observe(window, 'load', function() {
 });
 */
 function syncOnchangeValue(baseElem, distElem){
-    var compare = {baseElem:baseElem, distElem:distElem}
+    var compare = {baseElem:baseElem, distElem:distElem};
     Event.observe(baseElem, 'change', function(){
         if($(this.baseElem) && $(this.distElem)){
             $(this.distElem).value = $(this.baseElem).value;
@@ -311,7 +311,7 @@ var toolbarToggle = {
         // Create copy of header, that will serve as floating toolbar docked to top of window
         this.headerCopy = $(document.createElement('div'));
         this.headerCopy.appendChild(this.header.cloneNode(true));
-        document.body.insertBefore(this.headerCopy, document.body.lastChild)
+        document.body.insertBefore(this.headerCopy, document.body.lastChild);
         this.headerCopy.addClassName('content-header-floating');
 
         // Remove duplicated buttons and their container
@@ -393,7 +393,7 @@ var toolbarToggle = {
             if (buttons.oldParent == buttons.parentNode) {
                 // Make static dimensions for placeholder, so it's not collapsed when buttons are removed
                 if (buttons.placeholder) {
-                    var dimensions = buttons.placeholder.getDimensions()
+                    var dimensions = buttons.placeholder.getDimensions();
                     buttons.placeholder.style.width = dimensions.width + 'px';
                     buttons.placeholder.style.height = dimensions.height + 'px';
                 }
@@ -476,7 +476,7 @@ var toolbarToggle = {
 
         this.eventsAdded = false;
     }
-}
+};
 
 // Deprecated since 1.4.2.0-beta1 - use toolbarToggle.reset() instead
 function updateTopButtonToolbarToggle()

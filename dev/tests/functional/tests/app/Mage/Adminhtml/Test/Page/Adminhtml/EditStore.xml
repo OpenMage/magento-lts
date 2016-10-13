@@ -26,7 +26,7 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/etc/pages.xsd">
-  <page name="EditStore" area="Adminhtml" mca="system_store/editStore" module="Mage_Adminhtml">
-    <block name="formPageActions" class="Mage\Adminhtml\Test\Block\FormPageActions" locator=".form-buttons" strategy="css selector"/>
-  </page>
+    <page name="EditStore" area="Adminhtml" mca="system_store/editStore" module="Mage_Adminhtml">
+        <block name="formPageActions" class="Mage\Adminhtml\Test\Block\FormPageActions" locator=".form-buttons" strategy="css selector"/>
+    </page>
 </config>

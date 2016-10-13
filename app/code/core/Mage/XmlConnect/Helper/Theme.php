@@ -332,7 +332,8 @@ EOT;
             }
 
             if (!$ioFile->cp($src, $dst)) {
-                Mage::throwException(Mage::helper('xmlconnect')->__('Can\'t copy file "%s" to "%s".', $src, $dst));
+                Mage::throwException(Mage::helper('xmlconnect')->__('Can\'t copy file "%s" to "%s".',
+                    $ioFile->getFilteredPath($src), $ioFile->getFilteredPath($dst)));
             } else {
                 $ioFile->chmod($dst, 0755);
             }

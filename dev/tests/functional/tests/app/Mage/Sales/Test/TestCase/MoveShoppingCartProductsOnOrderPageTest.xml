@@ -26,16 +26,16 @@
  */
  -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Sales\Test\TestCase\MoveShoppingCartProductsOnOrderPageTest">
+    <testCase name="Mage\Sales\Test\TestCase\MoveShoppingCartProductsOnOrderPageTest" summary="MoveShoppingCartProductsOnOrderPageTest">
         <variation name="MoveShoppingCartProductsOnOrderPageTestVariation1">
             <data name="products" xsi:type="string">catalogProductSimple::default</data>
-            <data name="customer/dataSet" xsi:type="string">johndoe_unique</data>
+            <data name="customer/dataset" xsi:type="string">johndoe_unique</data>
             <data name="data/0/checkout_data/cartItem/price" xsi:type="string">100.00</data>
             <constraint name="Mage\Sales\Test\Constraint\AssertProductInItemsOrderedGrid"/>
         </variation>
         <variation name="MoveShoppingCartProductsOnOrderPageTestVariation2" method="test">
             <data name="products" xsi:type="string">configurableProduct::default</data>
-            <data name="customer/dataSet" xsi:type="string">johndoe_unique</data>
+            <data name="customer/dataset" xsi:type="string">johndoe_unique</data>
             <constraint name="Mage\Sales\Test\Constraint\AssertConfigurableProductInItemsOrderedGrid"/>
         </variation>
     </testCase>

@@ -26,12 +26,12 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Checkout\Test\TestCase\OnePageCheckoutTest">
+    <testCase name="Mage\Checkout\Test\TestCase\OnePageCheckoutTest" summary="OnePageCheckoutTest">
         <variation name="OnePageCheckoutTestVariation1" method="test">
             <data name="products" xsi:type="string">catalogProductVirtual::order_default</data>
             <data name="salesRule" xsi:type="string">active_sales_rule_for_not_logged_users</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
-            <data name="billingAddress/dataSet" xsi:type="string">customer_UK</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_UK</data>
             <data name="checkoutMethod" xsi:type="string">guest</data>
             <data name="customerPersist" xsi:type="string">no</data>
             <data name="shipping/shipping_service" xsi:type="string">-</data>
@@ -49,9 +49,9 @@
         <variation name="OnePageCheckoutTestVariation2" method="test">
             <data name="products" xsi:type="string">catalogProductSimple::order_default</data>
             <data name="salesRule" xsi:type="string">-</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend_new</data>
             <data name="customerPersist" xsi:type="string">no</data>
-            <data name="billingAddress/dataSet" xsi:type="string">customer_UK</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_UK</data>
             <data name="checkoutMethod" xsi:type="string">register</data>
             <data name="customerPersist" xsi:type="string">no</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
@@ -70,8 +70,8 @@
         <variation name="OnePageCheckoutTestVariation3" method="test">
             <data name="products" xsi:type="string">catalogProductVirtual::order_default</data>
             <data name="salesRule" xsi:type="string">active_sales_rule_for_not_logged_users</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
-            <data name="billingAddress/dataSet" xsi:type="string">customer_UK</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_UK</data>
             <data name="checkoutMethod" xsi:type="string">guest</data>
             <data name="customerPersist" xsi:type="string">no</data>
             <data name="shipping/shipping_service" xsi:type="string">-</data>
@@ -90,8 +90,8 @@
         <variation name="OnePageCheckoutTestVariation4" method="test">
             <data name="products" xsi:type="string">catalogProductSimple::order_default</data>
             <data name="salesRule" xsi:type="string">active_sales_rule_for_all_groups</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
-            <data name="billingAddress/dataSet" xsi:type="string">customer_UK</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend_new</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_UK</data>
             <data name="checkoutMethod" xsi:type="string">register</data>
             <data name="customerPersist" xsi:type="string">no</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
@@ -109,8 +109,8 @@
         <variation name="OnePageCheckoutTestVariation5" method="test">
             <data name="products" xsi:type="string">catalogProductVirtual::order_default</data>
             <data name="salesRule" xsi:type="string">-</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
-            <data name="billingAddress/dataSet" xsi:type="string">customer_UK</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_UK</data>
             <data name="checkoutMethod" xsi:type="string">guest</data>
             <data name="customerPersist" xsi:type="string">no</data>
             <data name="shipping/shipping_service" xsi:type="string">-</data>
@@ -129,8 +129,8 @@
         <variation name="OnePageCheckoutTestVariation6" method="test">
             <data name="products" xsi:type="string">catalogProductSimple::order_default</data>
             <data name="salesRule" xsi:type="string">active_sales_rule_for_all_groups</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
-            <data name="billingAddress/dataSet" xsi:type="string">customer_UK</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend_new</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_UK</data>
             <data name="checkoutMethod" xsi:type="string">register</data>
             <data name="customerPersist" xsi:type="string">no</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
@@ -149,8 +149,8 @@
         <variation name="OnePageCheckoutTestVariation7" method="test">
             <data name="products" xsi:type="string">catalogProductVirtual::order_default</data>
             <data name="salesRule" xsi:type="string">active_sales_rule_for_not_logged_users</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
-            <data name="billingAddress/dataSet" xsi:type="string">customer_UK</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_UK</data>
             <data name="checkoutMethod" xsi:type="string">guest</data>
             <data name="customerPersist" xsi:type="string">no</data>
             <data name="shipping/shipping_service" xsi:type="string">-</data>
@@ -169,8 +169,8 @@
         <variation name="OnePageCheckoutTestVariation8" method="test">
             <data name="products" xsi:type="string">catalogProductSimple::order_default</data>
             <data name="salesRule" xsi:type="string">-</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
-            <data name="billingAddress/dataSet" xsi:type="string">customer_UK</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend_new</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_UK</data>
             <data name="checkoutMethod" xsi:type="string">register</data>
             <data name="customerPersist" xsi:type="string">no</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
@@ -189,8 +189,8 @@
         <variation name="OnePageCheckoutTestVariation9">
             <data name="products" xsi:type="string">catalogProductSimple::order_default</data>
             <data name="salesRule" xsi:type="string">active_sales_rule_for_all_groups</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
-            <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend_new</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_US_login</data>
             <data name="checkoutMethod" xsi:type="string">login</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
             <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
@@ -208,8 +208,8 @@
             <data name="description" xsi:type="string">Checkout by configurable product with special price.</data>
             <data name="products" xsi:type="string">configurableProduct::default_with_special_price</data>
             <data name="salesRule" xsi:type="string">active_sales_rule_for_all_groups</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
-            <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend_new</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_US_login</data>
             <data name="checkoutMethod" xsi:type="string">login</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
             <data name="shipping/shipping_method" xsi:type="string">Fixed</data>

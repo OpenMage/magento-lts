@@ -53,7 +53,7 @@
                 <item name="preset" xsi:type="string">sales</item>
             </field>
             <field name="gws_store_groups" xsi:type="array">
-                <item name="dataSets" xsi:type="string">custom</item>
+                <item name="datasets" xsi:type="string">custom</item>
             </field>
         </dataset>
     </repository>

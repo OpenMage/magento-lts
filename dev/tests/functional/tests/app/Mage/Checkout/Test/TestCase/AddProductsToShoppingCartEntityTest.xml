@@ -26,7 +26,7 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Checkout\Test\TestCase\AddProductsToShoppingCartEntityTest">
+    <testCase name="Mage\Checkout\Test\TestCase\AddProductsToShoppingCartEntityTest" summary="AddProductsToShoppingCartEntityTest">
         <variation name="AddProductsToShoppingCartEntityTestVariation1" firstConstraint="Mage\Checkout\Test\Constraint\AssertPriceInShoppingCart" method="test">
             <data name="products" xsi:type="string">configurableProduct::default</data>
             <data name="cart/data/grand_total" xsi:type="string">320</data>

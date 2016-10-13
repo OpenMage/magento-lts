@@ -212,7 +212,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
 
         // EXTR_SKIP protects from overriding
         // already defined variables
-        extract ($this->_viewVars, EXTR_SKIP);
+        extract($this->_viewVars, EXTR_SKIP);
         $do = $this->getDirectOutput();
 
         if (!$do) {

@@ -93,7 +93,7 @@ class Curl extends AbstractCurl implements CatalogProductAttributeInterface
 
         $url = $_ENV['app_backend_url'] . 'catalog_product_attribute/save/back/edit';
         $curl = new BackendDecorator(new CurlTransport(), $this->_configuration);
-        $curl->write(CurlInterface::POST, $url, '1.1', [], $data);
+        $curl->write($url, $data);
         $response = $curl->read();
         $curl->close();
 

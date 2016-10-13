@@ -26,9 +26,9 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/etc/pages.xsd">
-  <page name="WidgetInstanceIndex" area="Adminhtml" mca="widget_instance/index" module="Mage_Widget">
-    <block name="pageActionsBlock" class="Mage\Adminhtml\Test\Block\GridPageActions" locator=".form-buttons" strategy="css selector"/>
-    <block name="widgetGrid" class="Mage\Widget\Test\Block\Adminhtml\Widget\WidgetGrid" locator="#widgetInstanceGrid" strategy="css selector"/>
-    <block name="messagesBlock" class="Mage\Core\Test\Block\Messages" locator="#messages" strategy="css selector"/>
-  </page>
+    <page name="WidgetInstanceIndex" area="Adminhtml" mca="widget_instance/index" module="Mage_Widget">
+        <block name="pageActionsBlock" class="Mage\Adminhtml\Test\Block\GridPageActions" locator=".form-buttons" strategy="css selector"/>
+        <block name="widgetGrid" class="Mage\Widget\Test\Block\Adminhtml\Widget\WidgetGrid" locator="#widgetInstanceGrid" strategy="css selector"/>
+        <block name="messagesBlock" class="Mage\Core\Test\Block\Messages" locator="#messages" strategy="css selector"/>
+    </page>
 </config>

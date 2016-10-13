@@ -35,7 +35,7 @@ use Magento\Mtf\Fixture\FixtureInterface;
 class EntityId implements FixtureInterface
 {
     /**
-     * Prepared dataSet data.
+     * Prepared dataset data.
      *
      * @var array
      */
@@ -63,8 +63,8 @@ class EntityId implements FixtureInterface
         if (is_string($data['products'])) {
             $products = explode(',', $data['products']);
             foreach ($products as $product) {
-                list($fixture, $dataSet) = explode('::', $product);
-                $product = $fixtureFactory->createByCode($fixture, ['dataSet' => $dataSet]);
+                list($fixture, $dataset) = explode('::', $product);
+                $product = $fixtureFactory->createByCode($fixture, ['dataset' => $dataset]);
                 $product->persist();
                 $this->data['products'][] = $product;
             }

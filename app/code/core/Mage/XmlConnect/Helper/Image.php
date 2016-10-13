@@ -111,8 +111,12 @@ class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
                 Mage::throwException(Mage::helper('xmlconnect')->__('File can\'t be uploaded.'));
             } elseif ($e->getMessage() == 'Disallowed file type.') {
                 $filename = $_FILES[$field]['name'];
+                $io = new Varien_Io_File();
                 Mage::throwException(
-                    Mage::helper('xmlconnect')->__('Error while uploading file "%s". Disallowed file type. Only "jpg", "jpeg", "gif", "png" are allowed.', $filename)
+                    Mage::helper('xmlconnect')->__(
+                        'Error while uploading file "%s".' .
+                        ' Disallowed file type. Only "jpg", "jpeg", "gif", "png" are allowed.',
+                        $io->getFilteredPath($filename))
                 );
             } else {
                 Mage::logException($e);
@@ -158,16 +162,19 @@ class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
          */
         if (!file_exists($originalSizeFileName)) {
             $oldFileName = $this->getOldUploadDir() . DS . $fileName;
+            $io = new Varien_Io_File();
             if (file_exists($oldFileName)) {
                 if (!(copy($oldFileName, $originalSizeFileName) && (is_readable($customSizeFileName)
                     || chmod($customSizeFileName, 0644))
                 )) {
                     Mage::throwException(
-                        Mage::helper('xmlconnect')->__('Error while processing file "%s".', $fileName)
+                        Mage::helper('xmlconnect')->__('Error while processing file "%s".',
+                            $io->getFilteredPath($fileName))
                     );
                 }
             } else {
-                Mage::throwException(Mage::helper('xmlconnect')->__('No such file "%s".', $fileName));
+                Mage::throwException(Mage::helper('xmlconnect')->__('No such file "%s".',
+                    $io->getFilteredPath($fileName)));
             }
         }
 
@@ -180,7 +187,9 @@ class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
             if (isset($_FILES[$fieldPath]) && is_array($_FILES[$fieldPath]) && isset($_FILES[$fieldPath]['name'])) {
                 $fileName = $_FILES[$fieldPath]['name'];
             }
-            Mage::throwException(Mage::helper('xmlconnect')->__('Error while uploading file "%s".', $fileName));
+            $io = new Varien_Io_File();
+            Mage::throwException(Mage::helper('xmlconnect')->__('Error while uploading file "%s".',
+                $io->getFilteredPath($fileName)));
         }
         return $customSizeFileName;
     }

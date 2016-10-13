@@ -26,15 +26,15 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Paypal\Test\TestCase\CreateOfflineInvoiceForOnlinePaymentsMethodsWithoutIFrameTest">
+    <testCase name="Mage\Paypal\Test\TestCase\CreateOfflineInvoiceForOnlinePaymentsMethodsWithoutIFrameTest" summary="CreateOfflineInvoiceForOnlinePaymentsMethodsWithoutIFrameTest">
         <variation name="CreateOfflineInvoiceForOnlinePaymentsMethodsWithoutIFrameTestVariation1" method="test">
             <data name="description" xsi:type="string">Create full invoice with shipment for paypal payments pro.</data>
             <data name="configData" xsi:type="string">paypal_payments_pro</data>
             <data name="products" xsi:type="string">catalogProductSimple::default</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend_new</data>
             <data name="checkoutMethod" xsi:type="string">login</data>
             <data name="customerPersist" xsi:type="string">yes</data>
-            <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_US_login</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
             <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
             <data name="payment/method" xsi:type="string">paypal_direct</data>
@@ -49,8 +49,7 @@
             <data name="verifyData/item_subtotal" xsi:type="string">300.00</data>
             <data name="verifyData/item_row_total" xsi:type="string">300.00</data>
             <data name="status" xsi:type="string">Complete</data>
-            <data name="tag" xsi:type="string">payment_method:paypal</data>
-            <data name="tag" xsi:type="string">paypal:payments_pro</data>
+            <data name="tag" xsi:type="string">payment_method:paypal, paypal:payments_pro</data>
             <constraint name="Mage\Sales\Test\Constraint\AssertInvoiceWithShipmentSuccessMessage" />
             <constraint name="Mage\Sales\Test\Constraint\AssertInvoiceInInvoicesGrid" />
             <constraint name="Mage\Sales\Test\Constraint\AssertInvoiceInInvoicesTab" />
@@ -63,10 +62,10 @@
             <data name="description" xsi:type="string">Create full invoice with shipment for paypal payments pro.</data>
             <data name="configData" xsi:type="string">paypal_payflow_pro</data>
             <data name="products" xsi:type="string">catalogProductSimple::5_dollar_product_for_payments</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend_new</data>
             <data name="checkoutMethod" xsi:type="string">login</data>
             <data name="customerPersist" xsi:type="string">yes</data>
-            <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_US_login</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
             <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
             <data name="payment/method" xsi:type="string">verisign</data>
@@ -81,8 +80,7 @@
             <data name="verifyData/item_subtotal" xsi:type="string">15.00</data>
             <data name="verifyData/item_row_total" xsi:type="string">15.00</data>
             <data name="status" xsi:type="string">Complete</data>
-            <data name="tag" xsi:type="string">payment_method:paypal</data>
-            <data name="tag" xsi:type="string">paypal:payflow_pro</data>
+            <data name="tag" xsi:type="string">payment_method:paypal, paypal:payflow_pro</data>
             <constraint name="Mage\Sales\Test\Constraint\AssertInvoiceWithShipmentSuccessMessage" />
             <constraint name="Mage\Sales\Test\Constraint\AssertInvoiceInInvoicesGrid" />
             <constraint name="Mage\Sales\Test\Constraint\AssertInvoiceInInvoicesTab" />

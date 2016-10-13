@@ -71,7 +71,7 @@ class Curl extends AbstractCurl implements StoreInterface
         $data = $this->prepareData($fixture);
         $url = $_ENV['app_backend_url'] . $this->saveUrl;
         $curl = new BackendDecorator(new CurlTransport(), $this->_configuration);
-        $curl->write(CurlInterface::POST, $url, '1.1', [], $data);
+        $curl->write($url, $data);
         $response = $curl->read();
         $curl->close();
         if (!strpos($response, 'class="success-msg"')) {
@@ -113,7 +113,7 @@ class Curl extends AbstractCurl implements StoreInterface
         $url = $_ENV['app_backend_url'] . 'system_store/index/sort/store_title/dir/asc/limit/2000';
         $curl = new BackendDecorator(new CurlTransport(), $this->_configuration);
         $curl->addOption(CURLOPT_HEADER, 1);
-        $curl->write(CurlInterface::POST, $url, '1.0');
+        $curl->write($url);
         $response = $curl->read();
         preg_match('@.*store_id/(\d+).*' . $name . '@siu', $response, $matches);
         if (empty($matches)) {

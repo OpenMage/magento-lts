@@ -61,7 +61,7 @@ class Curl extends AbstractCurl implements TaxRuleInterface
         $url = $_ENV['app_backend_url'] . 'tax_rule/save/?back=1';
         $curl = new BackendDecorator(new CurlTransport(), $this->_configuration);
         $curl->addOption(CURLOPT_HEADER, 1);
-        $curl->write(CurlInterface::POST, $url, '1.1', [], $data);
+        $curl->write($url, $data);
         $response = $curl->read();
         $curl->close();
 

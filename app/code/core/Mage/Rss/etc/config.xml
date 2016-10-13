@@ -47,10 +47,14 @@
                 <class>Mage_Rss_Block</class>
             </rss>
         </blocks>
+        <resources>
+            <rss_setup>
+                <setup>
+                    <module>Mage_Rss</module>
+                </setup>
+            </rss_setup>
+        </resources>
     </global>
-    <admin>
-
-    </admin>
     <adminhtml>
         <translate>
             <modules>

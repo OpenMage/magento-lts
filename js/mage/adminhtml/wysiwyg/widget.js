@@ -31,7 +31,7 @@ var widgetTools = {
 
     onAjaxSuccess: function(transport) {
         if (transport.responseText.isJSON()) {
-            var response = transport.responseText.evalJSON()
+            var response = transport.responseText.evalJSON();
             if (response.error) {
                 throw response;
             } else if (response.ajaxExpired && response.ajaxRedirect) {
@@ -74,7 +74,7 @@ var widgetTools = {
             window.close();
         }
     }
-}
+};
 
 var WysiwygWidget = {};
 WysiwygWidget.Widget = Class.create();
@@ -272,7 +272,7 @@ WysiwygWidget.Widget.prototype = {
     getWysiwygNode: function() {
         return tinyMCE.activeEditor.selection.getNode();
     }
-}
+};
 
 WysiwygWidget.chooser = Class.create();
 WysiwygWidget.chooser.prototype = {
@@ -404,4 +404,4 @@ WysiwygWidget.chooser.prototype = {
     setElementLabel: function(value) {
         this.getElementLabel().innerHTML = value;
     }
-}
+};

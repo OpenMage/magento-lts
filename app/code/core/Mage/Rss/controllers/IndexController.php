@@ -30,7 +30,7 @@
  * @file        IndexController.php
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Rss_IndexController extends Mage_Core_Controller_Front_Action
+class Mage_Rss_IndexController extends Mage_Rss_Controller_Abstract
 {
     /**
      * Current wishlist
@@ -80,9 +80,7 @@ class Mage_Rss_IndexController extends Mage_Core_Controller_Front_Action
      */
     public function wishlistAction()
     {
-        if (!Mage::getStoreConfig('rss/wishlist/active')) {
-            $this->getResponse()->setHeader('HTTP/1.1','404 Not Found');
-            $this->getResponse()->setHeader('Status','404 File not found');
+        if (!$this->isFeedEnable('wishlist/active')) {
             $this->_forward('nofeed','index','rss');
             return;
         }
@@ -155,16 +153,5 @@ class Mage_Rss_IndexController extends Mage_Core_Controller_Front_Action
         }
 
         return $this->_customer;
-    }
-
-    /**
-     * Retrieve helper instance
-     *
-     * @param string $name
-     * @return Mage_Core_Helper_Abstract
-     */
-    protected function _getHelper($name)
-    {
-        return Mage::helper($name);
     }
 }

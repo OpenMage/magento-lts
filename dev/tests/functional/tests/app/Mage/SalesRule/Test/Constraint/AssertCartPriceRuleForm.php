@@ -62,7 +62,7 @@ class AssertCartPriceRuleForm extends AbstractAssertForm
     ) {
         $promoQuoteIndex->open();
         $promoQuoteIndex->getPromoQuoteGrid()->searchAndOpen(['name' => $salesRule->getName()]);
-        $formData = $promoQuoteEdit->getSalesRuleForm()->getData();
+        $formData = $promoQuoteEdit->getSalesRuleForm()->getData($salesRule);
         $errors = $this->verifyData($salesRule->getData(), $formData);
         \PHPUnit_Framework_Assert::assertEmpty($errors, $errors);
     }

@@ -25,33 +25,16 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 -->
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
-  <fixture name="giftMessage" module="Mage_GiftMessage" type="flat" entity_type="gift_message" collection="Mage\GiftMessage\Model\Resource\Message\Collection" identifier="gift_message_id" repository_class="Mage\GiftMessage\Test\Repository\GiftMessage" handler_interface="Mage\GiftMessage\Test\Handler\GiftMessage\GiftMessageInterface" class="Mage\GiftMessage\Test\Fixture\GiftMessage">
-    <dataset name="default">
-        <field name="allow_gift_options" xsi:type="string">Yes</field>
-        <field name="allow_gift_messages_for_order" xsi:type="string">Yes</field>
-        <field name="sender" xsi:type="string">John Doe</field>
-        <field name="recipient" xsi:type="string">John Doe</field>
-        <field name="message" xsi:type="string">text_%isolation%</field>
-    </dataset>
-    <field name="gift_message_id" is_required="1">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="customer_id" is_required="0">
-      <default_value xsi:type="string">0</default_value>
-    </field>
-    <field name="sender" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="recipient" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="message" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="allow_gift_options"/>
-    <field name="allow_gift_messages_for_order"/>
-    <field name="allow_gift_options_for_items"/>
-    <field name="items" source="Mage\GiftMessage\Test\Fixture\GiftMessage\Items"/>
-  </fixture>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
+    <fixture name="giftMessage" module="Mage_GiftMessage" type="flat" entity_type="gift_message" collection="Mage\GiftMessage\Model\Resource\Message\Collection" identifier="gift_message_id" repository_class="Mage\GiftMessage\Test\Repository\GiftMessage" handler_interface="Mage\GiftMessage\Test\Handler\GiftMessage\GiftMessageInterface" class="Mage\GiftMessage\Test\Fixture\GiftMessage">
+        <field name="gift_message_id" is_required="1"/>
+        <field name="customer_id" is_required="0"/>
+        <field name="sender" is_required="0"/>
+        <field name="recipient" is_required="0"/>
+        <field name="message" is_required="0"/>
+        <field name="allow_gift_options"/>
+        <field name="allow_gift_messages_for_order"/>
+        <field name="allow_gift_options_for_items"/>
+        <field name="items" source="Mage\GiftMessage\Test\Fixture\GiftMessage\Items" repository="Mage\GiftMessage\Test\Repository\GiftMessage"/>
+    </fixture>
 </config>

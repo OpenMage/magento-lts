@@ -26,7 +26,7 @@
  */
  -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Checkout\Test\TestCase\DeleteProductsFromShoppingCartTest">
+    <testCase name="Mage\Checkout\Test\TestCase\DeleteProductsFromShoppingCartTest" summary="DeleteProductsFromShoppingCartTest">
         <variation name="DeleteProductsFromShoppingCartTestVariation1">
             <data name="productsData" xsi:type="string">bundleProduct::bundle_dynamic_product</data>
             <data name="tag" xsi:type="string">main:ce</data>

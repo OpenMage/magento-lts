@@ -28,6 +28,7 @@
 //<![CDATA[
     var quoteBaseGrandTotal = <?php echo (float)$this->getQuoteBaseGrandTotal(); ?>;
     var checkQuoteBaseGrandTotal = quoteBaseGrandTotal;
+    var quoteGrandTotalClean = quoteBaseGrandTotal;
     var payment = new Payment('co-payment-form', '<?php echo $this->getUrl('checkout/onepage/savePayment') ?>');
     var lastPrice;
 //]]>

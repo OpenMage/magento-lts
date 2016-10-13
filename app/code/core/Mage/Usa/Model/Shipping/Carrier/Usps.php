@@ -539,6 +539,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
              'method' => array(
                  '0_FCLE' => Mage::helper('usa')->__('First-Class Mail Large Envelope'),
                  '0_FCL'  => Mage::helper('usa')->__('First-Class Mail Letter'),
+                 '0_FCSL' => Mage::helper('usa')->__('First-Class Mail Stamped Letter'),
                  '0_FCP'  => Mage::helper('usa')->__('First-Class Mail Parcel'),
                  '0_FCPC' => Mage::helper('usa')->__('First-Class Mail Postcards'),
                  '1'      => Mage::helper('usa')->__('Priority Mail'),
@@ -586,6 +587,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
                  '62'     => Mage::helper('usa')->__('Priority Mail Express Padded Flat Rate Envelope'),
                  '63'     => Mage::helper('usa')->__('Priority Mail Express Padded Flat Rate Envelope Hold For Pickup'),
                  '64'     => Mage::helper('usa')->__('Priority Mail Express Sunday/Holiday Delivery Padded Flat Rate Envelope'),
+                 '72'     => Mage::helper('usa')->__('First-Class Mail Metered Letter'),
                  'INT_1'  => Mage::helper('usa')->__('Priority Mail Express International'),
                  'INT_2'  => Mage::helper('usa')->__('Priority Mail International'),
                  'INT_4'  => Mage::helper('usa')->__('Global Express Guaranteed (GXG)'),
@@ -616,6 +618,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
            'service_to_code' => array(
                  '0_FCLE' => 'First Class',
                  '0_FCL'  => 'First Class',
+                 '0_FCSL' => 'First Class',
                  '0_FCP'  => 'First Class',
                  '0_FCPC' => 'First Class',
                  '1'      => 'Priority',
@@ -663,6 +666,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
                  '62'     => 'Priority Express',
                  '63'     => 'Priority Express',
                  '64'     => 'Priority Express',
+                 '72'     => 'First Class',
                  'INT_1'  => 'Priority Express',
                  'INT_2'  => 'Priority',
                  'INT_4'  => 'Priority Express',
@@ -694,6 +698,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
              'method_to_code' => array(
                  'First-Class Mail Large Envelope' => '0_FCLE',
                  'First-Class Mail Letter'         => '0_FCL',
+                 'First-Class Mail Stamped Letter' => '0_FCSL',
+                 'First-Class Mail Metered Letter' => '72',
                  'First-Class Mail Parcel'         => '0_FCP',
              ),
 

@@ -84,7 +84,7 @@ class Extractor
         $url = $_ENV['app_backend_url'] . $this->url;
         $curl = new BackendDecorator(new CurlTransport(), $config);
         $curl->addOption(CURLOPT_HEADER, 1);
-        $curl->write(CurlInterface::POST, $url, '1.1');
+        $curl->write($url);
         $response = $curl->read();
         $curl->close();
         if ($this->isAll) {

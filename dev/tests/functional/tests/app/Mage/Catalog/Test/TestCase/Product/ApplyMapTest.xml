@@ -26,36 +26,38 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/etc/variations.xsd">
-  <testCase name="Mage\Catalog\Test\TestCase\Product\ApplyMapTest">
-    <variation name="ApplyMapTestVariation1" firstConstraint="Mage\Catalog\Test\Constraint\AssertProductMapAppliedOnGesture" method="test">
-      <data name="description" xsi:type="string">Apply MAP on gesture in config. Products use config.</data>
-      <data name="products" xsi:type="string">catalogProductSimple::product_with_map_use_config</data>
-      <data name="configData" xsi:type="string">enable_map_on_gesture</data>
-      <constraint name="Mage\Catalog\Test\Constraint\AssertProductMapAppliedOnGesture"/>
-    </variation>
-    <variation name="ApplyMapTestVariation2" firstConstraint="Mage\Catalog\Test\Constraint\AssertProductMapAppliedInCart" method="test">
-      <data name="description" xsi:type="string">Apply MAP in cart in config. Products use config.</data>
-      <data name="products" xsi:type="string">catalogProductSimple::product_with_map_use_config</data>
-      <data name="configData" xsi:type="string">enable_map_in_cart</data>
-      <constraint name="Mage\Catalog\Test\Constraint\AssertProductMapAppliedInCart"/>
-    </variation>
-    <variation name="ApplyMapTestVariation3" firstConstraint="Mage\Catalog\Test\Constraint\AssertProductMapAppliedBeforeCheckout" method="test">
-      <data name="description" xsi:type="string">Apply MAP before order in config. Products use config.</data>
-      <data name="products" xsi:type="string">catalogProductSimple::product_with_map_use_config</data>
-      <data name="configData" xsi:type="string">enable_map_before_order</data>
-      <constraint name="Mage\Catalog\Test\Constraint\AssertProductMapAppliedBeforeCheckout"/>
-    </variation>
-    <variation name="ApplyMapTestVariation4" firstConstraint="Mage\Catalog\Test\Constraint\AssertProductMapAppliedInCart" method="test">
-      <data name="description" xsi:type="string">Apply MAP on gesture in config. Products use MAP in cart.</data>
-      <data name="products" xsi:type="string">catalogProductSimple::product_with_map_in_cart</data>
-      <data name="configData" xsi:type="string">enable_map_on_gesture</data>
-      <constraint name="Mage\Catalog\Test\Constraint\AssertProductMapAppliedInCart"/>
-    </variation>
-    <variation name="ApplyMapTestVariation5" firstConstraint="Mage\Catalog\Test\Constraint\AssertProductMapAppliedOnGesture" method="test">
-      <data name="description" xsi:type="string">Apply MAP on gesture in config. Products use config.</data>
-      <data name="products" xsi:type="string">catalogProductSimple::product_with_map_use_config, configurableProduct::default_with_map_use_config</data>
-      <data name="configData" xsi:type="string">enable_map_on_gesture</data>
-      <constraint name="Mage\Catalog\Test\Constraint\AssertProductMapAppliedOnGesture"/>
-    </variation>
-  </testCase>
+    <testCase name="Mage\Catalog\Test\TestCase\Product\ApplyMapTest" summary="ApplyMapTest">
+        <variation name="ApplyMapTestVariation1" firstConstraint="Mage\Catalog\Test\Constraint\AssertProductMapAppliedOnGesture" method="test">
+            <data name="description" xsi:type="string">Apply MAP on gesture in config. Products use config.</data>
+            <data name="products" xsi:type="string">catalogProductSimple::product_with_map_use_config</data>
+            <data name="configData" xsi:type="string">enable_map_on_gesture</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductMapAppliedOnGesture"/>
+        </variation>
+        <variation name="ApplyMapTestVariation2" firstConstraint="Mage\Catalog\Test\Constraint\AssertProductMapAppliedInCart" method="test">
+            <data name="description" xsi:type="string">Apply MAP in cart in config. Products use config.</data>
+            <data name="products" xsi:type="string">catalogProductSimple::product_with_map_use_config</data>
+            <data name="configData" xsi:type="string">enable_map_in_cart</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductMapAppliedInCart"/>
+        </variation>
+        <variation name="ApplyMapTestVariation3" firstConstraint="Mage\Catalog\Test\Constraint\AssertProductMapAppliedBeforeCheckout" method="test">
+            <data name="description" xsi:type="string">Apply MAP before order in config. Products use config.</data>
+            <data name="products" xsi:type="string">catalogProductSimple::product_with_map_use_config</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend</data>
+            <data name="address/dataset" xsi:type="string">customer_US</data>
+            <data name="configData" xsi:type="string">enable_map_before_order</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductMapAppliedBeforeCheckout"/>
+        </variation>
+        <variation name="ApplyMapTestVariation4" firstConstraint="Mage\Catalog\Test\Constraint\AssertProductMapAppliedInCart" method="test">
+            <data name="description" xsi:type="string">Apply MAP on gesture in config. Products use MAP in cart.</data>
+            <data name="products" xsi:type="string">catalogProductSimple::product_with_map_in_cart</data>
+            <data name="configData" xsi:type="string">enable_map_on_gesture</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductMapAppliedInCart"/>
+        </variation>
+        <variation name="ApplyMapTestVariation5" firstConstraint="Mage\Catalog\Test\Constraint\AssertProductMapAppliedOnGesture" method="test">
+            <data name="description" xsi:type="string">Apply MAP on gesture in config. Products use config.</data>
+            <data name="products" xsi:type="string">catalogProductSimple::product_with_map_use_config, configurableProduct::default_with_map_use_config</data>
+            <data name="configData" xsi:type="string">enable_map_on_gesture</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductMapAppliedOnGesture"/>
+        </variation>
+    </testCase>
 </config>

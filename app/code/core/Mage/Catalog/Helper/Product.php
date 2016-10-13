@@ -35,6 +35,8 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     const XML_PATH_PRODUCT_URL_USE_CATEGORY     = 'catalog/seo/product_use_categories';
     const XML_PATH_USE_PRODUCT_CANONICAL_TAG    = 'catalog/seo/product_canonical_tag';
 
+    const DEFAULT_QTY                           = 1;
+
     /**
      * Flag that shows if Magento has to check product to be saleable (enabled and/or inStock)
      *
@@ -484,5 +486,43 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     public function getSkipSaleableCheck()
     {
         return $this->_skipSaleableCheck;
+    }
+
+    /**
+     * Gets minimal sales quantity
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return int|null
+     */
+    public function getMinimalQty($product)
+    {
+        $stockItem = $product->getStockItem();
+        if ($stockItem && $stockItem->getMinSaleQty()) {
+            return $stockItem->getMinSaleQty() * 1;
+        }
+        return null;
+    }
+
+    /**
+     * Get default qty - either as preconfigured, or as 1.
+     * Also restricts it by minimal qty.
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return int|float
+     */
+    public function getDefaultQty($product)
+    {
+        $qty = $this->getMinimalQty($product);
+        $configQty = $product->getPreconfiguredValues()->getQty();
+
+        if ($product->isConfigurable() || $configQty > $qty) {
+            $qty = $configQty;
+        }
+
+        if (is_null($qty)) {
+            $qty = self::DEFAULT_QTY;
+        }
+
+        return $qty;
     }
 }

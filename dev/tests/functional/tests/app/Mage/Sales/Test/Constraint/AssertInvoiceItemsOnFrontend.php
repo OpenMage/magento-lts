@@ -28,6 +28,7 @@ namespace Mage\Sales\Test\Constraint;
 
 use Mage\Sales\Test\Page\InvoiceView;
 use Magento\Mtf\ObjectManager;
+use Magento\Mtf\System\Event\EventManagerInterface;
 use Magento\Mtf\Fixture\InjectableFixture;
 
 /**
@@ -59,11 +60,15 @@ class AssertInvoiceItemsOnFrontend extends AbstractAssertSalesEntityItemsOnFront
     /**
      * @constructor
      * @param ObjectManager $objectManager
+     * @param EventManagerInterface $eventManager
      * @param InvoiceView $invoiceView
      */
-    public function __construct(ObjectManager $objectManager, InvoiceView $invoiceView)
+    public function __construct(
+        ObjectManager $objectManager,
+        EventManagerInterface $eventManager,
+        InvoiceView $invoiceView)
     {
-        parent::__construct($objectManager);
+        parent::__construct($objectManager, $eventManager);
         $this->salesTypeViewPage = $invoiceView;
     }
 

@@ -25,31 +25,12 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 -->
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
   <fixture name="storeGroup" module="Mage_Adminhtml" type="flat" entity_type="core_store_group" collection="Magento\Store\Model\Resource\Group\Collection" repository_class="Mage\Adminhtml\Test\Repository\StoreGroup" handler_interface="Mage\Adminhtml\Test\Handler\StoreGroup\StoreGroupInterface" class="Mage\Adminhtml\Test\Fixture\StoreGroup">
-    <dataset name="default">
-        <field name="website_id" xsi:type="array">
-            <item name="dataSet" xsi:type="string">main_website</item>
-        </field>
-        <field name="name" xsi:type="string">StoreGroup%isolation%</field>
-        <field name="root_category_id" xsi:type="array">
-            <item name="dataSet" xsi:type="string">default_category</item>
-        </field>
-    </dataset>
-    <field name="group_id" is_required="1">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="website_id" is_required="0" source="Mage\Adminhtml\Test\Fixture\StoreGroup\WebsiteId">
-      <default_value xsi:type="string">0</default_value>
-    </field>
-    <field name="name" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="root_category_id" is_required="0" source="Mage\Adminhtml\Test\Fixture\StoreGroup\CategoryId">
-      <default_value xsi:type="string">0</default_value>
-    </field>
-    <field name="default_store_id" is_required="0">
-      <default_value xsi:type="string">0</default_value>
-    </field>
+    <field name="group_id" is_required="1" />
+    <field name="website_id" is_required="0" source="Mage\Adminhtml\Test\Fixture\StoreGroup\WebsiteId" />
+    <field name="name" is_required="0" />
+    <field name="root_category_id" is_required="0" source="Mage\Adminhtml\Test\Fixture\StoreGroup\CategoryId" />
+    <field name="default_store_id" is_required="0" />
   </fixture>
 </config>

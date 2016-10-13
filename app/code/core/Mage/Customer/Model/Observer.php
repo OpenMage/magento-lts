@@ -141,7 +141,8 @@ class Mage_Customer_Model_Observer
         $customerAddress = $observer->getCustomerAddress();
         $customer = $customerAddress->getCustomer();
 
-        if (!Mage::helper('customer/address')->isVatValidationEnabled($customer->getStore())
+        $store = Mage::app()->getStore()->isAdmin() ? $customer->getStore() : null;
+        if (!Mage::helper('customer/address')->isVatValidationEnabled($store)
             || Mage::registry(self::VIV_PROCESSED_FLAG)
             || !$this->_canProcessAddress($customerAddress)
         ) {
@@ -217,5 +218,16 @@ class Mage_Customer_Model_Observer
             $customer->getOrigData('group_id')
         );
         $customer->save();
+    }
+
+    /**
+     * Clear customer flow password table
+     *
+     */
+    public function deleteCustomerFlowPassword()
+    {
+        $connection = Mage::getSingleton('core/resource')->getConnection('write');
+        $condition  = array('requested_date < ?' => Mage::getModel('core/date')->date(null, '-1 day'));
+        $connection->delete($connection->getTableName('customer_flowpassword'), $condition);
     }
 }

@@ -40,7 +40,7 @@ namespace Mage\Paypal\Test\TestCase;
  * 6. Go to Sales > Orders.
  * 7. Select created order in the grid and open it.
  * 8. Click 'Invoice' button.
- * 9. Fill data according to dataSet.
+ * 9. Fill data according to dataset.
  * 10. Click 'Submit Invoice' button.
  * 11. Perform asserts.
  *

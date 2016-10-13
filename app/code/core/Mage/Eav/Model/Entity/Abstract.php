@@ -808,13 +808,13 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      *
      * @see Mage_Eav_Model_Entity_Abstract::getAttribute for $attribute format
      * @param integer|string|Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+     *
      * @return boolean
      */
     public function isAttributeStatic($attribute)
     {
-        $attrInstance       = $this->getAttribute($attribute);
-        $attrBackendStatic  = $attrInstance->getBackend()->isStatic();
-        return $attrInstance && $attrBackendStatic;
+        $attrInstance = $this->getAttribute($attribute);
+        return $attrInstance && $attrInstance->getBackend()->isStatic();
     }
 
     /**
@@ -1309,9 +1309,8 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
         $this->_attributeValuesToSave   = array();
         $this->_attributeValuesToDelete = array();
 
-        extract($saveData);
         /**
-         * Import variables into the current symbol table from save data array
+         * Import variables from save data array
          *
          * @see Mage_Eav_Model_Entity_Attribute_Abstract::_collectSaveData()
          *
@@ -1321,6 +1320,12 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
          * @var array $update
          * @var array $delete
          */
+        $newObject = $saveData['newObject'];
+        $entityRow = $saveData['entityRow'];
+        $insert    = $saveData['insert'];
+        $update    = $saveData['update'];
+        $delete    = $saveData['delete'];
+
         $adapter        = $this->_getWriteAdapter();
         $insertEntity   = true;
         $entityTable    = $this->getEntityTable();

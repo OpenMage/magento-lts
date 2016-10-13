@@ -42,7 +42,7 @@ class AssertBundleProductPage extends AssertProductPage
     protected function verifyPrice()
     {
         $errors = [];
-        $priceData = $this->product->getDataFieldConfig('price')['source']->getPreset();
+        $priceData = $this->product->getDataFieldConfig('price')['source']->getPriceData();
         $priceBlock = $this->catalogProductView->getBundleViewBlock()->getPriceBlock();
         $priceLow = ($this->product->getPriceView() == 'Price Range')
             ? $priceBlock->getPriceFrom()

@@ -65,4 +65,4 @@ paymentForm.prototype = {
             this.currentMethod = method;
         }
     }
-}
+};

@@ -30,11 +30,11 @@
     <repository class="Mage\Sales\Test\Repository\Order">
         <dataset name="default">
             <field name="customer_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="base_currency_code" xsi:type="string">false</field>
             <field name="store_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="order_currency_code" xsi:type="string">USD</field>
             <field name="shipping_method" xsi:type="string">flatrate_flatrate</field>
@@ -45,7 +45,7 @@
                 <item name="method" xsi:type="string">free</item>
             </field>
             <field name="billing_address_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">US_address</item>
+                <item name="dataset" xsi:type="string">US_address</item>
             </field>
             <field name="entity_id" xsi:type="array">
                 <item name="products" xsi:type="string">catalogProductSimple::default</item>
@@ -53,11 +53,11 @@
         </dataset>
         <dataset name="configurable">
             <field name="customer_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="base_currency_code" xsi:type="string">false</field>
             <field name="store_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="order_currency_code" xsi:type="string">USD</field>
             <field name="shipping_method" xsi:type="string">flatrate_flatrate</field>
@@ -68,7 +68,7 @@
                 <item name="method" xsi:type="string">free</item>
             </field>
             <field name="billing_address_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">US_address</item>
+                <item name="dataset" xsi:type="string">US_address</item>
             </field>
             <field name="entity_id" xsi:type="array">
                 <item name="products" xsi:type="string">configurableProduct::default</item>
@@ -76,11 +76,11 @@
         </dataset>
         <dataset name="bundle_fixed">
             <field name="customer_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="base_currency_code" xsi:type="string">false</field>
             <field name="store_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="order_currency_code" xsi:type="string">USD</field>
             <field name="shipping_method" xsi:type="string">flatrate_flatrate</field>
@@ -91,7 +91,7 @@
                 <item name="method" xsi:type="string">free</item>
             </field>
             <field name="billing_address_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">US_address</item>
+                <item name="dataset" xsi:type="string">US_address</item>
             </field>
             <field name="entity_id" xsi:type="array">
                 <item name="products" xsi:type="string">bundleProduct::bundle_fixed_product</item>
@@ -99,11 +99,11 @@
         </dataset>
         <dataset name="with_simple_qty_3">
             <field name="customer_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="base_currency_code" xsi:type="string">false</field>
             <field name="store_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="order_currency_code" xsi:type="string">USD</field>
             <field name="shipping_method" xsi:type="string">flatrate_flatrate</field>
@@ -114,7 +114,7 @@
                 <item name="method" xsi:type="string">free</item>
             </field>
             <field name="billing_address_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">US_address</item>
+                <item name="dataset" xsi:type="string">US_address</item>
             </field>
             <field name="entity_id" xsi:type="array">
                 <item name="products" xsi:type="string">catalogProductSimple::wit_qty_3</item>
@@ -122,11 +122,11 @@
         </dataset>
         <dataset name="order_with_configurable_and_bundle">
             <field name="customer_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="base_currency_code" xsi:type="string">false</field>
             <field name="store_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="order_currency_code" xsi:type="string">USD</field>
             <field name="shipping_method" xsi:type="string">flatrate_flatrate</field>
@@ -137,7 +137,7 @@
                 <item name="method" xsi:type="string">free</item>
             </field>
             <field name="billing_address_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">US_address</item>
+                <item name="dataset" xsi:type="string">US_address</item>
             </field>
             <field name="entity_id" xsi:type="array">
                 <item name="products" xsi:type="string">bundleProduct::bundle_fixed_product,configurableProduct::default</item>

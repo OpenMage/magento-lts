@@ -65,11 +65,11 @@ class StoreIds implements FixtureInterface
     public function __construct(FixtureFactory $fixtureFactory, array $params, array $data = [])
     {
         $this->params = $params;
-        if (isset($data['dataSet'])) {
-            $dataSet = explode(',', $data['dataSet']);
-            foreach ($dataSet as $store) {
+        if (isset($data['dataset'])) {
+            $dataset = explode(',', $data['dataset']);
+            foreach ($dataset as $store) {
                 /** @var Store $store */
-                $store = $fixtureFactory->createByCode('store', ['dataSet' => $store]);
+                $store = $fixtureFactory->createByCode('store', ['dataset' => $store]);
                 if (!$store->hasData('store_id')) {
                     $store->persist();
                 }

@@ -26,15 +26,17 @@
 
 namespace Mage\Catalog\Test\Fixture\ConfigurableProduct;
 
+use Magento\Mtf\Fixture\DataSource;
 use Magento\Mtf\Fixture\FixtureFactory;
-use Magento\Mtf\Fixture\FixtureInterface;
+use Magento\Mtf\Fixture\InjectableFixture;
 use Mage\Catalog\Test\Fixture\CatalogAttributeSet;
 use Mage\Catalog\Test\Fixture\CatalogProductSimple;
+use Magento\Mtf\Repository\RepositoryFactory;
 
 /**
  * Source configurable options of the configurable products.
  */
-class ConfigurableOptions implements FixtureInterface
+class ConfigurableOptions extends DataSource
 {
     /**
      * Fixture factory.
@@ -42,20 +44,6 @@ class ConfigurableOptions implements FixtureInterface
      * @var FixtureFactory
      */
     protected $fixtureFactory;
-
-    /**
-     * Data set configuration settings.
-     *
-     * @var array
-     */
-    protected $params;
-
-    /**
-     * Prepared dataSet data.
-     *
-     * @var array
-     */
-    protected $data = [];
 
     /**
      * Prepared products.
@@ -72,224 +60,34 @@ class ConfigurableOptions implements FixtureInterface
     protected $attributesData = [];
 
     /**
-     * Presets data.
+     * Prepared attributes.
      *
      * @var array
      */
-    protected $presets = [
-        'default' => [
-            'attributeSet' => ['dataSet' => 'custom_attribute_set'],
-            'attributes_data' => [
-                'attribute_key_0' => [
-                    'options' => [
-                        'option_key_0' => [
-                            'price' => 12,
-                            'price_type' => 'Percentage'
-                        ],
-                        'option_key_1' => [
-                            'price' => 20,
-                            'price_type' => 'Percentage'
-                        ],
-                        'option_key_2' => [
-                            'price' => 18,
-                            'price_type' => 'Percentage'
-                        ],
-                    ]
-                ],
-                'attribute_key_1' => [
-                    'options' => [
-                        'option_key_0' => [
-                            'price' => 42.00,
-                            'price_type' => 'Fixed'
-                        ],
-                        'option_key_1' => [
-                            'price' => 40.00,
-                            'price_type' => 'Fixed'
-                        ],
-                        'option_key_2' => [
-                            'price' => 48.00,
-                            'price_type' => 'Fixed'
-                        ],
-                    ]
-                ]
-            ],
-            'products' => [
-                'attribute_key_0:option_key_0 attribute_key_1:option_key_0' => 'catalogProductSimple::default',
-                'attribute_key_0:option_key_1 attribute_key_1:option_key_1' => 'catalogProductSimple::default',
-                'attribute_key_0:option_key_2 attribute_key_1:option_key_2' => 'catalogProductSimple::default',
-            ]
-        ],
-        'with_filterable_options' => [
-            'attributeSet' => ['dataSet' => 'with_filterable_options'],
-            'attributes_data' => [
-                'attribute_key_0' => [
-                    'options' => [
-                        'option_key_0' => [
-                            'price' => 12,
-                            'price_type' => 'Percentage'
-                        ],
-                        'option_key_1' => [
-                            'price' => 20,
-                            'price_type' => 'Percentage'
-                        ],
-                        'option_key_2' => [
-                            'price' => 18,
-                            'price_type' => 'Percentage'
-                        ],
-                    ]
-                ],
-                'attribute_key_1' => [
-                    'options' => [
-                        'option_key_0' => [
-                            'price' => 42.00,
-                            'price_type' => 'Fixed'
-                        ],
-                        'option_key_1' => [
-                            'price' => 40.00,
-                            'price_type' => 'Fixed'
-                        ],
-                        'option_key_2' => [
-                            'price' => 48.00,
-                            'price_type' => 'Fixed'
-                        ],
-                    ]
-                ]
-            ],
-            'products' => [
-                'attribute_key_0:option_key_0 attribute_key_1:option_key_0' => 'catalogProductSimple::default',
-                'attribute_key_0:option_key_1 attribute_key_1:option_key_1' => 'catalogProductSimple::default',
-                'attribute_key_0:option_key_2 attribute_key_1:option_key_2' => 'catalogProductSimple::default',
-            ]
-        ],
-        'quickCreation' => [
-            'attributes_data' => [
-                'attribute_key_0' => [
-                    'options' => [
-                        'option_key_0' => [
-                            'price' => 121,
-                            'price_type' => 'Percentage'
-                        ]
-                    ]
-                ],
-                'attribute_key_1' => [
-                    'options' => [
-                        'option_key_0' => [
-                            'price' => 412.00,
-                            'price_type' => 'Fixed'
-                        ]
-                    ]
-                ]
-            ],
-            'products' => [
-                'attribute_key_0:option_key_0 attribute_key_1:option_key_0' => 'catalogProductSimple::quickCreation'
-            ]
-        ],
-        'createEmpty' => [
-            'attributes_data' => [
-                'attribute_key_0' => [
-                    'options' => [
-                        'option_key_1' => [
-                            'price' => 11,
-                            'price_type' => 'Percentage'
-                        ]
-                    ]
-                ],
-                'attribute_key_1' => [
-                    'options' => [
-                        'option_key_1' => [
-                            'price' => 76.00,
-                            'price_type' => 'Fixed'
-                        ]
-                    ]
-                ]
-            ],
-            'products' => [
-                'attribute_key_0:option_key_1 attribute_key_1:option_key_1' => 'catalogProductSimple::withoutPersist'
-            ]
-        ],
-        'copyFromConfigurable' => [
-            'attributes_data' => [
-                'attribute_key_0' => [
-                    'options' => [
-                        'option_key_2' => [
-                            'price' => 33,
-                            'price_type' => 'Percentage'
-                        ]
-                    ]
-                ],
-                'attribute_key_1' => [
-                    'options' => [
-                        'option_key_2' => [
-                            'price' => 62.00,
-                            'price_type' => 'Fixed'
-                        ]
-                    ]
-                ]
-            ],
-            'products' => [
-                'attribute_key_0:option_key_2 attribute_key_1:option_key_2' => 'catalogProductSimple::withoutPersist'
-            ]
-        ],
-        'with_out_of_stock_items' => [
-            'attributeSet' => ['dataSet' => 'custom_attribute_set'],
-            'attributes_data' => [
-                'attribute_key_0' => [
-                    'options' => [
-                        'option_key_0' => [
-                            'price' => 12,
-                            'price_type' => 'Percentage'
-                        ],
-                        'option_key_1' => [
-                            'price' => 20,
-                            'price_type' => 'Percentage'
-                        ],
-                        'option_key_2' => [
-                            'price' => 18,
-                            'price_type' => 'Percentage'
-                        ],
-                    ]
-                ],
-                'attribute_key_1' => [
-                    'options' => [
-                        'option_key_0' => [
-                            'price' => 42.00,
-                            'price_type' => 'Fixed'
-                        ],
-                        'option_key_1' => [
-                            'price' => 40.00,
-                            'price_type' => 'Fixed'
-                        ],
-                        'option_key_2' => [
-                            'price' => 48.00,
-                            'price_type' => 'Fixed'
-                        ],
-                    ]
-                ]
-            ],
-            'products' => [
-                'attribute_key_0:option_key_0 attribute_key_1:option_key_0' => 'catalogProductSimple::out_of_stock',
-                'attribute_key_0:option_key_1 attribute_key_1:option_key_1' => 'catalogProductSimple::out_of_stock',
-                'attribute_key_0:option_key_2 attribute_key_1:option_key_2' => 'catalogProductSimple::out_of_stock',
-            ]
-        ]
-    ];
+    protected $attributes = [];
 
     /**
      * @constructor
+     * @param RepositoryFactory $repositoryFactory
      * @param FixtureFactory $fixtureFactory
      * @param array $data
      * @param array $params [optional]
      */
-    public function __construct(FixtureFactory $fixtureFactory, array $data, array $params = [])
+    public function __construct(
+        RepositoryFactory $repositoryFactory,
+        FixtureFactory $fixtureFactory,
+        array $data,
+        array $params = [])
     {
         $this->fixtureFactory = $fixtureFactory;
         $this->params = $params;
-        $preset = [];
+        $dataset = [];
         $isSetData = false;
-        if (isset($data['preset'])) {
-            $preset = $this->getPreset($data['preset']);
-            unset($data['preset']);
+        if (isset($data['dataset']) && isset($this->params['repository'])) {
+            $dataset = $repositoryFactory->get($this->params['repository'])->get($data['dataset']);
+            unset($data['dataset']);
         }
+
         if (isset($data['data'])) {
             $this->setData($data['data']);
             if (isset($data['data']['data'])) {
@@ -298,7 +96,7 @@ class ConfigurableOptions implements FixtureInterface
             }
             unset($data['data']);
         }
-        $this->data = array_replace_recursive($data, $preset);
+        $this->data = array_replace_recursive($data, $dataset);
         if (!empty($this->data)) {
             $this->prepareProducts($this->data);
             if (!$isSetData) {
@@ -320,17 +118,6 @@ class ConfigurableOptions implements FixtureInterface
             ? $data['attributes_data']
             : [];
     }
-
-    /**
-     * Persist configurable attribute data.
-     *
-     * @return void
-     */
-    public function persist()
-    {
-        //
-    }
-
     /**
      * Prepare products.
      *
@@ -343,11 +130,11 @@ class ConfigurableOptions implements FixtureInterface
             $attributeSetData = $this->prepareAttributesData($data);
             foreach ($data['products'] as $key => $product) {
                 if (is_string($product)) {
-                    list($fixture, $dataSet) = explode('::', $product);
+                    list($fixture, $dataset) = explode('::', $product);
                     $attributeData = ['attributes' => $this->getProductAttributeData($key)];
                     $product = $this->fixtureFactory->createByCode(
                         $fixture,
-                        ['dataSet' => $dataSet, 'data' => array_merge($attributeSetData, $attributeData)]
+                        ['dataset' => $dataset, 'data' => array_merge($attributeSetData, $attributeData)]
                     );
                 }
                 if (!$product->hasData('id') && $product->getData('isPersist') !== 'No') {
@@ -506,27 +293,6 @@ class ConfigurableOptions implements FixtureInterface
     }
 
     /**
-     * Return data set configuration settings.
-     *
-     * @return array
-     */
-    public function getDataConfig()
-    {
-        return $this->params;
-    }
-
-    /**
-     * Return prepared data set.
-     *
-     * @param string|null $key
-     * @return array
-     */
-    public function getData($key = null)
-    {
-        return isset($this->data[$key]) ? $this->data[$key] : $this->data;
-    }
-
-    /**
      * Get prepared products.
      *
      * @return array
@@ -537,6 +303,21 @@ class ConfigurableOptions implements FixtureInterface
     }
 
     /**
+     * Get data by key.
+     *
+     * @param null $key
+     * @return array
+     */
+    public function getData($key = null)
+    {
+        if ($key === null) {
+            return $this->data;
+        } else {
+            return $this->data[$key];
+        }
+    }
+
+    /**
      * Get attribute set.
      *
      * @return CatalogAttributeSet
@@ -544,17 +325,6 @@ class ConfigurableOptions implements FixtureInterface
     public function getAttributeSet()
     {
         return $this->attributesData['attributeSet'];
-    }
-
-    /**
-     * Preset array.
-     *
-     * @param string $name
-     * @return mixed|null
-     */
-    protected function getPreset($name)
-    {
-        return isset($this->presets[$name]) ? $this->presets[$name] : null;
     }
 
     /**

@@ -45,13 +45,8 @@ Review.prototype.save = function() {
             method:'post',
             parameters:params,
             onComplete: function(transport) {
-                if (transport && transport.responseText) {
-                    try{
-                        response = eval('(' + transport.responseText + ')');
-                    }
-                    catch (e) {
-                        response = {};
-                    }
+                if (transport) {
+                    var response = transport.responseJSON || transport.responseText.evalJSON(true) || {};
                     if (response.error_messages) {
                         checkout.setLoadWaiting(false);
                     }

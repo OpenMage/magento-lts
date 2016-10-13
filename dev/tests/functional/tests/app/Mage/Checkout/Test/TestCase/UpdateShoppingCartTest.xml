@@ -26,10 +26,10 @@
  */
  -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Checkout\Test\TestCase\UpdateShoppingCartTest">
+    <testCase name="Mage\Checkout\Test\TestCase\UpdateShoppingCartTest" summary="UpdateShoppingCartTest">
         <variation name="UpdateShoppingCartTestVariation1" method="test">
             <data name="qty" xsi:type="number">1</data>
-            <data name="product/dataSet" xsi:type="string">default</data>
+            <data name="product/dataset" xsi:type="string">default</data>
             <data name="product/data/checkout_data/cartItem/price" xsi:type="string">100</data>
             <data name="product/data/checkout_data/cartItem/subtotal" xsi:type="string">300</data>
             <constraint name="Mage\Checkout\Test\Constraint\AssertPriceInShoppingCart" />
@@ -39,7 +39,7 @@
         </variation>
         <variation name="UpdateShoppingCartTestVariation2" firstConstraint="assertPriceInShoppingCart" method="test">
             <data name="qty" xsi:type="number">3</data>
-            <data name="product/dataSet" xsi:type="string">with_two_custom_option</data>
+            <data name="product/dataset" xsi:type="string">with_two_custom_option</data>
             <constraint name="Mage\Checkout\Test\Constraint\AssertPriceInShoppingCart" />
             <constraint name="Mage\Checkout\Test\Constraint\AssertProductQtyInShoppingCart" />
             <constraint name="Mage\Checkout\Test\Constraint\AssertSubtotalInShoppingCart" />

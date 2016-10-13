@@ -25,22 +25,10 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 -->
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
     <fixture name="customerGroup" module="Mage_Customer" type="flat" entity_type="customer_group" collection="Mage\Customer\Model\Resource\Group\Collection" repository_class="Mage\Customer\Test\Repository\CustomerGroup" handler_interface="Mage\Customer\Test\Handler\CustomerGroup\CustomerGroupInterface" class="Mage\Customer\Test\Fixture\CustomerGroup">
-        <dataset name="default">
-            <field name="customer_group_code" xsi:type="string">customer_code_%isolation%</field>
-            <field name="tax_class_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">customer_tax_class</item>
-            </field>
-        </dataset>
         <field name="customer_group_id" />
-        <field name="customer_group_code" is_required="0">
-            <default_value xsi:type="null" />
-        </field>
-        <field name="tax_class_id" is_required="1" source="Mage\Customer\Test\Fixture\CustomerGroup\TaxClassIds">
-            <default_value xsi:type="array">
-                <item name="dataSet" xsi:type="string">customer_tax_class</item>
-            </default_value>
-        </field>
+        <field name="customer_group_code" is_required="0" />
+        <field name="tax_class_id" is_required="1" source="Mage\Customer\Test\Fixture\CustomerGroup\TaxClassIds" />
     </fixture>
 </config>

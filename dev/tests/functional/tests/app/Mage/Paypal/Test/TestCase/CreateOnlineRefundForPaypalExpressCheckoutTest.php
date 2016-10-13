@@ -40,13 +40,13 @@ namespace Mage\Paypal\Test\TestCase;
  * 6. Go to Sales > Orders.
  * 7. Select created order in the grid and open it.
  * 8. Click 'Ship' button.
- * 9. Fill data according to dataSet.
+ * 9. Fill data according to dataset.
  * 10. Click 'Submit Ship' button.
  * 11. Click 'Invoice' button.
- * 12. Fill data according to dataSet.
+ * 12. Fill data according to dataset.
  * 13. Click 'Submit Invoice' button.
  * 14. Click 'Credit memo' button.
- * 15. Fill data according to dataSet.
+ * 15. Fill data according to dataset.
  * 16. Click 'Submit credit memo' button.
  * 17. Perform asserts.
  *

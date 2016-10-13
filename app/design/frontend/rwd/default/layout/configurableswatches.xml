@@ -29,6 +29,12 @@
 
     <product_list>
         <reference name="head">
+            <action method="addJs" ifconfig="configswatches/general/product_list_price_change">
+                <name>varien/product_options.js</name>
+            </action>
+            <action method="addItem" ifconfig="configswatches/general/product_list_price_change">
+                <type>skin_js</type><name>js/configurableswatches/configurable-swatch-prices.js</name>
+            </action>
             <action method="addItem"><type>skin_js</type><name>js/configurableswatches/product-media.js</name></action>
             <action method="addItem"><type>skin_js</type><name>js/configurableswatches/swatches-list.js</name></action>
         </reference>
@@ -37,6 +43,7 @@
         </reference>
         <reference name="product_list.after">
             <block type="configurableswatches/catalog_media_js_list" name="configurableswatches.media.js.list" />
+            <block type="configurableswatches/catalog_product_list_price" name="configurableswatches.price.js.list" />
         </reference>
     </product_list>
 
@@ -59,7 +66,7 @@
     <PRODUCT_TYPE_configurable>
         <reference name="head">
             <action method="addItem"><type>skin_js</type><name>js/configurableswatches/product-media.js</name></action>
-            <action method="addItem"><type>skin_js</type><name>js/configurableswatches/swatches-product.js</name></action>
+            <action method="addItem"><type>skin_js</type><name helper="configurableswatches/getSwatchesProductJs"></name></action>
         </reference>
         <reference name="product.info.media">
             <action method="setGalleryFilterHelper"><helper>configurableswatches/productimg</helper></action>

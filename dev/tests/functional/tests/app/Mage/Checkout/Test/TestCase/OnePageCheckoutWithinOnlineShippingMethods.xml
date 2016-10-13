@@ -26,103 +26,79 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-  <testCase name="Mage\Checkout\Test\TestCase\OnePageCheckoutWithinOnlineShippingMethods">
-    <variation name="OnePageCheckoutWithinOnlineShippingMethodsVariation1" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
-      <data name="description" xsi:type="string">UPS shipping from US to US</data>
-      <data name="customer/dataSet" xsi:type="string">default</data>
-      <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
-      <data name="checkoutMethod" xsi:type="string">guest</data>
-      <data name="shipping/shipping_service" xsi:type="string">United Parcel Service</data>
-      <data name="shipping/shipping_method" xsi:type="string">UPS Ground</data>
-      <data name="payment/method" xsi:type="string">checkmo</data>
-      <data name="configData" xsi:type="string">ups, shipping_origin</data>
-      <data name="currencySymbols" xsi:type="string">-</data>
-      <data name="tag" xsi:type="string">main:ce</data>
-      <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
-    </variation>
-    <variation name="OnePageCheckoutWithinOnlineShippingMethodsVariation2" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
-      <data name="description" xsi:type="string">UPS shipping from US to UK</data>
-      <data name="customer/dataSet" xsi:type="string">default</data>
-      <data name="billingAddress/dataSet" xsi:type="string">customer_UK</data>
-      <data name="checkoutMethod" xsi:type="string">guest</data>
-      <data name="shipping/shipping_service" xsi:type="string">United Parcel Service</data>
-      <data name="shipping/shipping_method" xsi:type="string">UPS Worldwide Expedited</data>
-      <data name="payment/method" xsi:type="string">checkmo</data>
-      <data name="configData" xsi:type="string">ups, shipping_origin</data>
-      <data name="currencySymbols" xsi:type="string">-</data>
-      <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
-    </variation>
-    <variation name="OnePageCheckoutWithinOnlineShippingMethodsVariation3" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
-      <data name="description" xsi:type="string">USPS shipping from US to US</data>
-      <data name="customer/dataSet" xsi:type="string">default</data>
-      <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
-      <data name="checkoutMethod" xsi:type="string">guest</data>
-      <data name="shipping/shipping_service" xsi:type="string">United States Postal Service</data>
-      <data name="shipping/shipping_method" xsi:type="string">Priority Mail 1-Day</data>
-      <data name="payment/method" xsi:type="string">checkmo</data>
-      <data name="configData" xsi:type="string">usps, shipping_origin</data>
-      <data name="currencySymbols" xsi:type="string">-</data>
-      <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
-    </variation>
-    <variation name="OnePageCheckoutWithinOnlineShippingMethodsVariation4" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
-      <data name="description" xsi:type="string">USPS shipping from US to UK</data>
-      <data name="customer/dataSet" xsi:type="string">default</data>
-      <data name="billingAddress/dataSet" xsi:type="string">customer_UK</data>
-      <data name="checkoutMethod" xsi:type="string">guest</data>
-      <data name="shipping/shipping_service" xsi:type="string">United States Postal Service</data>
-      <data name="shipping/shipping_method" xsi:type="string">Priority Mail International</data>
-      <data name="payment/method" xsi:type="string">checkmo</data>
-      <data name="configData" xsi:type="string">usps, shipping_origin</data>
-      <data name="currencySymbols" xsi:type="string">-</data>
-      <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
-    </variation>
-    <variation name="OnePageCheckoutWithinOnlineShippingMethodsVariation5" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
-      <data name="description" xsi:type="string">FedEx shipping from US to US</data>
-      <data name="customer/dataSet" xsi:type="string">default</data>
-      <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
-      <data name="checkoutMethod" xsi:type="string">guest</data>
-      <data name="shipping/shipping_service" xsi:type="string">Federal Express</data>
-      <data name="shipping/shipping_method" xsi:type="string">Ground</data>
-      <data name="payment/method" xsi:type="string">checkmo</data>
-      <data name="configData" xsi:type="string">fedex, shipping_origin</data>
-      <data name="currencySymbols" xsi:type="string">-</data>
-      <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
-    </variation>
-    <variation name="OnePageCheckoutWithinOnlineShippingMethodsVariation6" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
-      <data name="description" xsi:type="string">FedEx shipping from US to UK</data>
-      <data name="customer/dataSet" xsi:type="string">default</data>
-      <data name="billingAddress/dataSet" xsi:type="string">customer_UK</data>
-      <data name="checkoutMethod" xsi:type="string">guest</data>
-      <data name="shipping/shipping_service" xsi:type="string">Federal Express</data>
-      <data name="shipping/shipping_method" xsi:type="string">International Economy</data>
-      <data name="payment/method" xsi:type="string">checkmo</data>
-      <data name="configData" xsi:type="string">fedex, shipping_origin</data>
-      <data name="currencySymbols" xsi:type="string">-</data>
-      <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
-    </variation>
-    <variation name="OnePageCheckoutWithinOnlineShippingMethodsVariation7" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
-      <data name="description" xsi:type="string">DHL shipping from UK to US</data>
-      <data name="customer/dataSet" xsi:type="string">default</data>
-      <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
-      <data name="checkoutMethod" xsi:type="string">guest</data>
-      <data name="shipping/shipping_service" xsi:type="string">DHL</data>
-      <data name="shipping/shipping_method" xsi:type="string">Express worldwide</data>
-      <data name="payment/method" xsi:type="string">checkmo</data>
-      <data name="configData" xsi:type="string">dhl_eu, shipping_origin_gb</data>
-      <data name="currencySymbols" xsi:type="string">usd, gbp</data>
-      <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
-    </variation>
-    <variation name="OnePageCheckoutWithinOnlineShippingMethodsVariation8" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
-      <data name="description" xsi:type="string">DHL shipping from UK to UK</data>
-      <data name="customer/dataSet" xsi:type="string">default</data>
-      <data name="billingAddress/dataSet" xsi:type="string">customer_UK</data>
-      <data name="checkoutMethod" xsi:type="string">guest</data>
-      <data name="shipping/shipping_service" xsi:type="string">DHL</data>
-      <data name="shipping/shipping_method" xsi:type="string">Domestic express</data>
-      <data name="payment/method" xsi:type="string">checkmo</data>
-      <data name="configData" xsi:type="string">dhl_eu, shipping_origin_gb</data>
-      <data name="currencySymbols" xsi:type="string">usd, gbp</data>
-      <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
-    </variation>
-  </testCase>
+    <testCase name="Mage\Checkout\Test\TestCase\OnePageCheckoutWithinOnlineShippingMethods" summary="OnePageCheckoutWithinOnlineShippingMethods">
+        <variation name="OnePageCheckoutWithinOnlineShippingMethodsVariation1" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
+            <data name="description" xsi:type="string">UPS shipping from US to US</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_US</data>
+            <data name="checkoutMethod" xsi:type="string">guest</data>
+            <data name="shipping/shipping_service" xsi:type="string">United Parcel Service</data>
+            <data name="shipping/shipping_method" xsi:type="string">UPS Ground</data>
+            <data name="payment/method" xsi:type="string">checkmo</data>
+            <data name="configData" xsi:type="string">ups, shipping_origin</data>
+            <data name="currencySymbols" xsi:type="string">-</data>
+            <data name="tag" xsi:type="string">main:ce</data>
+            <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
+        </variation>
+        <variation name="OnePageCheckoutWithinOnlineShippingMethodsVariation2" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
+            <data name="description" xsi:type="string">UPS shipping from US to UK</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_UK</data>
+            <data name="checkoutMethod" xsi:type="string">guest</data>
+            <data name="shipping/shipping_service" xsi:type="string">United Parcel Service</data>
+            <data name="shipping/shipping_method" xsi:type="string">UPS Worldwide Expedited</data>
+            <data name="payment/method" xsi:type="string">checkmo</data>
+            <data name="configData" xsi:type="string">ups, shipping_origin</data>
+            <data name="currencySymbols" xsi:type="string">-</data>
+            <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
+        </variation>
+        <variation name="OnePageCheckoutWithinOnlineShippingMethodsVariation3" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
+            <data name="description" xsi:type="string">USPS shipping from US to US</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_US</data>
+            <data name="checkoutMethod" xsi:type="string">guest</data>
+            <data name="shipping/shipping_service" xsi:type="string">United States Postal Service</data>
+            <data name="shipping/shipping_method" xsi:type="string">Priority Mail 1-Day</data>
+            <data name="payment/method" xsi:type="string">checkmo</data>
+            <data name="configData" xsi:type="string">usps, shipping_origin</data>
+            <data name="currencySymbols" xsi:type="string">-</data>
+            <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
+        </variation>
+        <variation name="OnePageCheckoutWithinOnlineShippingMethodsVariation4" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
+            <data name="description" xsi:type="string">USPS shipping from US to UK</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_UK</data>
+            <data name="checkoutMethod" xsi:type="string">guest</data>
+            <data name="shipping/shipping_service" xsi:type="string">United States Postal Service</data>
+            <data name="shipping/shipping_method" xsi:type="string">Priority Mail International</data>
+            <data name="payment/method" xsi:type="string">checkmo</data>
+            <data name="configData" xsi:type="string">usps, shipping_origin</data>
+            <data name="currencySymbols" xsi:type="string">-</data>
+            <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
+        </variation>
+        <variation name="OnePageCheckoutWithinOnlineShippingMethodsVariation5" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
+            <data name="description" xsi:type="string">FedEx shipping from US to US</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_US</data>
+            <data name="checkoutMethod" xsi:type="string">guest</data>
+            <data name="shipping/shipping_service" xsi:type="string">Federal Express</data>
+            <data name="shipping/shipping_method" xsi:type="string">Ground</data>
+            <data name="payment/method" xsi:type="string">checkmo</data>
+            <data name="configData" xsi:type="string">fedex, shipping_origin</data>
+            <data name="currencySymbols" xsi:type="string">-</data>
+            <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
+        </variation>
+        <variation name="OnePageCheckoutWithinOnlineShippingMethodsVariation6" firstConstraint="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage" method="test">
+            <data name="description" xsi:type="string">FedEx shipping from US to UK</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_UK</data>
+            <data name="checkoutMethod" xsi:type="string">guest</data>
+            <data name="shipping/shipping_service" xsi:type="string">Federal Express</data>
+            <data name="shipping/shipping_method" xsi:type="string">International Economy</data>
+            <data name="payment/method" xsi:type="string">checkmo</data>
+            <data name="configData" xsi:type="string">fedex, shipping_origin</data>
+            <data name="currencySymbols" xsi:type="string">-</data>
+            <constraint name="Mage\Checkout\Test\Constraint\AssertOrderSuccessPlacedMessage"/>
+        </variation>
+    </testCase>
 </config>

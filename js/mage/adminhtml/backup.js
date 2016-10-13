@@ -189,4 +189,4 @@ AdminBackup.prototype = {
         $$('.backup-dialog').each(Element.hide);
         $('popup-window-mask').hide();
     }
-}
+};

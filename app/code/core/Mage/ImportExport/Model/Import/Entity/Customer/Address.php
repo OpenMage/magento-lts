@@ -175,6 +175,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
         $regionIdTable  = $regionIdAttr->getBackend()->getTable();
         $regionIdAttrId = $regionIdAttr->getId();
         $isAppendMode   = Mage_ImportExport_Model_Import::BEHAVIOR_APPEND == $this->_customer->getBehavior();
+        $multiSelect    = array();
 
         while ($bunch = $this->_dataSourceModel->getNextBunch()) {
             $entityRows = array();
@@ -182,15 +183,17 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
             $defaults   = array(); // customer default addresses (billing/shipping) data
 
             foreach ($bunch as $rowNum => $rowData) {
-                if (!empty($rowData[Mage_ImportExport_Model_Import_Entity_Customer::COL_EMAIL])
-                        && !empty($rowData[Mage_ImportExport_Model_Import_Entity_Customer::COL_WEBSITE])
-                ) {
+                $rowScope = $this->_getRowScope($rowData);
+                if ($rowScope == Mage_ImportExport_Model_Import_Entity_Customer::SCOPE_DEFAULT) {
                     $customerId = $this->_customer->getCustomerId(
                         $rowData[Mage_ImportExport_Model_Import_Entity_Customer::COL_EMAIL],
                         $rowData[Mage_ImportExport_Model_Import_Entity_Customer::COL_WEBSITE]
                     );
                 }
-                if (!$customerId || !$this->_isRowWithAddress($rowData) || !$this->validateRow($rowData, $rowNum)) {
+                if ($rowScope != Mage_ImportExport_Model_Import_Entity_Customer::SCOPE_OPTIONS) {
+                    $multiSelect = array();
+                }
+                if (!$customerId) {
                     continue;
                 }
 
@@ -205,6 +208,9 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
                             $value = $attrParams['options'][strtolower($rowData[$attrAlias])];
                         } elseif ('datetime' == $attrParams['type']) {
                             $value = gmstrftime($strftimeFormat, strtotime($rowData[$attrAlias]));
+                        } elseif ('multiselect' == $attrParams['type']) {
+                            $value = $attrParams['options'][strtolower($rowData[$attrAlias])];
+                            $multiSelect[$attrParams['id']][] = $value;
                         } else {
                             $value = $rowData[$attrAlias];
                         }
@@ -220,40 +226,56 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
 
                 $entityId = $nextEntityId++;
 
-                // entity table data
-                $entityRows[] = array(
-                    'entity_id'      => $entityId,
-                    'entity_type_id' => $this->_entityTypeId,
-                    'parent_id'      => $customerId,
-                    'created_at'     => now(),
-                    'updated_at'     => now()
-                );
-                // attribute values
-                foreach ($this->_attributes as $attrAlias => $attrParams) {
-                    if (isset($addressAttributes[$attrParams['id']])) {
-                        $attributes[$attrParams['table']][$entityId][$attrParams['id']]
-                            = $addressAttributes[$attrParams['id']];
+                if ($rowScope == Mage_ImportExport_Model_Import_Entity_Customer::SCOPE_DEFAULT
+                    || $rowScope == Mage_ImportExport_Model_Import_Entity_Customer::SCOPE_ADDRESS
+                ) {
+                    // entity table data
+                    $entityRows[] = array(
+                        'entity_id'      => $entityId,
+                        'entity_type_id' => $this->_entityTypeId,
+                        'parent_id'      => $customerId,
+                        'created_at'     => now(),
+                        'updated_at'     => now()
+                    );
+                    // attribute values
+                    foreach ($this->_attributes as $attrAlias => $attrParams) {
+                        if (isset($addressAttributes[$attrParams['id']])) {
+                            $attributes[$attrParams['table']][$entityId][$attrParams['id']]
+                                = $addressAttributes[$attrParams['id']];
+                        }
                     }
-                }
-                // customer default addresses
-                foreach (self::getDefaultAddressAttrMapping() as $colName => $customerAttrCode) {
-                    if (!empty($rowData[$colName])) {
-                        $attribute = $customer->getAttribute($customerAttrCode);
-                        $defaults[$attribute->getBackend()->getTable()][$customerId][$attribute->getId()] = $entityId;
+                    // customer default addresses
+                    foreach (self::getDefaultAddressAttrMapping() as $colName => $customerAttrCode) {
+                        if (!empty($rowData[$colName])) {
+                            $attribute    = $customer->getAttribute($customerAttrCode);
+                            $backendTable = $attribute->getBackend()->getTable();
+                            $defaults[$backendTable][$customerId][$attribute->getId()] = $entityId;
+                        }
                     }
-                }
-                // let's try to find region ID
-                if (!empty($rowData[$regionColName])) {
-                    $countryNormalized = strtolower($rowData[$countryColName]);
-                    $regionNormalized  = strtolower($rowData[$regionColName]);
+                    // let's try to find region ID
+                    if (!empty($rowData[$regionColName])) {
+                        $countryNormalized = strtolower($rowData[$countryColName]);
+                        $regionNormalized  = strtolower($rowData[$regionColName]);
 
-                    if (isset($this->_countryRegions[$countryNormalized][$regionNormalized])) {
-                        $regionId = $this->_countryRegions[$countryNormalized][$regionNormalized];
-                        $attributes[$regionIdTable][$entityId][$regionIdAttrId] = $regionId;
-                        // set 'region' attribute value as default name
-                        $tbl = $this->_attributes[$regionColName]['table'];
-                        $regionColNameId = $this->_attributes[$regionColName]['id'];
-                        $attributes[$tbl][$entityId][$regionColNameId] = $this->_regions[$regionId];
+                        if (isset($this->_countryRegions[$countryNormalized][$regionNormalized])) {
+                            $regionId = $this->_countryRegions[$countryNormalized][$regionNormalized];
+                            $attributes[$regionIdTable][$entityId][$regionIdAttrId] = $regionId;
+                            // set 'region' attribute value as default name
+                            $tbl             = $this->_attributes[$regionColName]['table'];
+                            $regionColNameId = $this->_attributes[$regionColName]['id'];
+                            $attributes[$tbl][$entityId][$regionColNameId] = $this->_regions[$regionId];
+                        }
+                    }
+                } else {
+                    foreach (array_intersect_key($rowData, $this->_attributes) as $attrCode => $value) {
+                        $attrParams = $this->_attributes[$attrCode];
+                        if ($attrParams['type'] == 'multiselect') {
+                            $value = '';
+                            if (isset($multiSelect[$attrParams['id']])) {
+                                $value = implode(',', $multiSelect[$attrParams['id']]);
+                            }
+                            $attributes[$this->_attributes[$attrCode]['table']][$entityId][$attrParams['id']] = $value;
+                        }
                     }
                 }
             }
@@ -485,5 +507,23 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
             }
         }
         return $rowIsValid;
+    }
+
+    /**
+     * Get current scope
+     *
+     * @param $rowData
+     * @return int
+     */
+    protected function _getRowScope($rowData)
+    {
+        if (strlen(trim($rowData[Mage_ImportExport_Model_Import_Entity_Customer::COL_EMAIL]))) {
+            $scope = Mage_ImportExport_Model_Import_Entity_Customer::SCOPE_DEFAULT;
+        } elseif (strlen(trim($rowData[Mage_ImportExport_Model_Import_Entity_Customer::COL_POSTCODE]))) {
+            $scope = Mage_ImportExport_Model_Import_Entity_Customer::SCOPE_ADDRESS;
+        } else {
+            $scope = Mage_ImportExport_Model_Import_Entity_Customer::SCOPE_OPTIONS;
+        }
+        return $scope;
     }
 }

@@ -61,7 +61,7 @@ class SelectPaymentMethodStep implements TestStepInterface
     {
         $this->checkoutOnepage = $checkoutOnepage;
         if (isset($payment['cc']) && !($payment['cc'] instanceof Cc)) {
-            $payment['cc'] = $fixtureFactory->create('Mage\Payment\Test\Fixture\Cc', ['dataSet' => $payment['cc']]);
+            $payment['cc'] = $fixtureFactory->create('Mage\Payment\Test\Fixture\Cc', ['dataset' => $payment['cc']]);
         }
         $this->payment = $payment;
     }

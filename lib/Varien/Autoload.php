@@ -105,7 +105,7 @@ class Varien_Autoload
     {
         self::$_scope = $code;
         if (defined('COMPILER_INCLUDE_PATH')) {
-            @include COMPILER_INCLUDE_PATH . DIRECTORY_SEPARATOR . self::SCOPE_FILE_PREFIX.$code.'.php';
+            @include_once COMPILER_INCLUDE_PATH . DIRECTORY_SEPARATOR . self::SCOPE_FILE_PREFIX.$code.'.php';
         }
     }
 

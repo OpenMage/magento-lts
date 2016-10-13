@@ -130,7 +130,7 @@ class Curl extends Conditions implements SalesRuleInterface
         }
 
         $curl = new BackendDecorator(new CurlTransport(), $this->_configuration);
-        $curl->write(CurlInterface::POST, $url, '1.0', [], $data);
+        $curl->write($url, $data);
         $response = $curl->read();
         $curl->close();
         if (!strpos($response, 'class="messages"')) {

@@ -71,6 +71,15 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </product_list_attribute>
+                        <product_list_price_change translate="label" module="configurableswatches">
+                            <label>Dynamic Price Change for Swatches in Product Listing</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </product_list_price_change>
                     </fields>
                 </general>
                 <product_detail_dimensions translate="label comment" module="configurableswatches">

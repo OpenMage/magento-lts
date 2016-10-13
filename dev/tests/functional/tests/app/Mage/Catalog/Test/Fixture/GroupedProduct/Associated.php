@@ -26,27 +26,15 @@
 
 namespace Mage\Catalog\Test\Fixture\GroupedProduct;
 
-use Magento\Mtf\Fixture\FixtureInterface;
+use Magento\Mtf\Fixture\DataSource;
 use Magento\Mtf\ObjectManager;
+use Magento\Mtf\Repository\RepositoryFactory;
 
 /**
  * Grouped associated products preset.
  */
-class Associated implements FixtureInterface
+class Associated extends DataSource
 {
-    /**
-     * Prepared dataSet data.
-     *
-     * @var array
-     */
-    protected $data;
-
-    /**
-     * Data set configuration settings.
-     *
-     * @var array
-     */
-    protected $params;
 
     /**
      * Object manager.
@@ -56,26 +44,33 @@ class Associated implements FixtureInterface
     protected $objectManager;
 
     /**
+     * Associated products data
+     */
+    protected $products;
+
+    /**
      * @constructor
+     * @param RepositoryFactory $repositoryFactory
      * @param ObjectManager $objectManager
      * @param array $data
      * @param array $params [optional]
-     *
-     * @SuppressWarnings(PHPMD.NPathComplexity)
+     ** @SuppressWarnings(PHPMD.NPathComplexity)
      */
-    public function __construct(ObjectManager $objectManager, array $data, array $params = [])
+    public function __construct(RepositoryFactory $repositoryFactory, ObjectManager $objectManager, array $data, array $params = [])
     {
         $this->objectManager = $objectManager;
         $this->params = $params;
-        $preset = $this->getPreset($data['preset']);
-        if ($preset) {
-            $this->products = $this->createProducts($preset['products'])['products'];
+        $associatedData = isset($data['dataset'])
+            ? $repositoryFactory->get($this->params['repository'])->get($data['dataset'])
+            : $data;
+        if ($associatedData) {
+            $this->products = $this->createProducts($associatedData['products'])['products'];
             foreach ($this->products as $key => $product) {
                 $this->data[] =
                     [
                         'id' => $product->getId(),
                         'name' => $product->getName(),
-                        'qty' => $preset['assigned_products'][$key]['qty'],
+                        'qty' => $associatedData['assigned_products'][$key]['qty'],
                         'position' => $key + 1
                     ];
             }
@@ -95,29 +90,6 @@ class Associated implements FixtureInterface
     }
 
     /**
-     * Persists associated products preset.
-     *
-     * @return void
-     */
-    public function persist()
-    {
-        //
-    }
-
-    /**
-     * Return prepared data set.
-     *
-     * @param string|null $key
-     * @return array|null
-     *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    public function getData($key = null)
-    {
-        return $this->data;
-    }
-
-    /**
      * Return products' fixtures.
      *
      * @return array
@@ -125,104 +97,5 @@ class Associated implements FixtureInterface
     public function getProducts()
     {
         return $this->products;
-    }
-
-    /**
-     * Return data set configuration settings.
-     *
-     * @return array
-     */
-    public function getDataConfig()
-    {
-        return $this->params;
-    }
-
-    /**
-     * Preset array.
-     *
-     * @param string $name
-     * @return array|null
-     */
-    protected function getPreset($name)
-    {
-        $presets = [
-            'defaultSimpleProducts' => [
-                'assigned_products' => [
-                    [
-                        'qty' => 3
-                    ],
-                    [
-                        'qty' => 2
-                    ]
-                ],
-                'products' => 'catalogProductSimple::default, catalogProductSimple::100_dollar_product',
-            ],
-            'defaultSimpleProduct_with_specialPrice' => [
-                'assigned_products' => [
-                    [
-                        'qty' => 2
-                    ],
-                    [
-                        'qty' => 4
-                    ]
-                ],
-                'products' => 'catalogProductSimple::product_with_special_price_and_category,'
-                    . 'catalogProductSimple::product_with_special_price_and_category',
-            ],
-            'defaultSimpleProduct_with_groupPrice' => [
-                'assigned_products' => [
-                    [
-                        'qty' => 3
-                    ],
-                    [
-                        'qty' => 4
-                    ]
-                ],
-                'products' =>
-                    'catalogProductSimple::simple_with_group_price, catalogProductSimple::simple_with_group_price',
-            ],
-            'defaultSimpleProduct_with_tierPrice' => [
-                'assigned_products' => [
-                    [
-                        'qty' => 4
-                    ],
-                    [
-                        'qty' => 3
-                    ]
-                ],
-                'products' =>
-                    'catalogProductSimple::simple_with_tier_price, catalogProductSimple::simple_with_tier_price',
-            ],
-            'defaultVirtualProducts' => [
-                'assigned_products' => [
-                    [
-                        'qty' => 4
-                    ],
-                    [
-                        'qty' => 2
-                    ]
-                ],
-                'products' => 'catalogProductVirtual::order_default, catalogProductVirtual::order_default',
-            ],
-            'three_simple_products' => [
-                'assigned_products' => [
-                    [
-                        'qty' => 17
-                    ],
-                    [
-                        'qty' => 36
-                    ],
-                    [
-                        'qty' => 20
-                    ],
-                ],
-                'products' => 'catalogProductSimple::default, catalogProductSimple::default,'
-                    . 'catalogProductSimple::100_dollar_product',
-            ],
-        ];
-        if (!isset($presets[$name])) {
-            return null;
-        }
-        return $presets[$name];
     }
 }

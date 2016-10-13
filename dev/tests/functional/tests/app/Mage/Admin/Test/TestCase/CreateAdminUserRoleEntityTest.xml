@@ -26,7 +26,7 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Admin\Test\TestCase\CreateAdminUserRoleEntityTest">
+    <testCase name="Mage\Admin\Test\TestCase\CreateAdminUserRoleEntityTest" summary="CreateAdminUserRoleEntityTest">
         <variation name="CreateAdminUserRoleEntityTestVariation1">
             <data name="role/data/rolename" xsi:type="string">AdminRole%isolation%</data>
             <data name="role/data/current_password" xsi:type="string">123123q</data>

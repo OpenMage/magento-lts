@@ -26,10 +26,10 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Catalog\Test\TestCase\ProductAttribute\CreateAttributeSetEntityTest">
+    <testCase name="Mage\Catalog\Test\TestCase\ProductAttribute\CreateAttributeSetEntityTest" summary="CreateAttributeSetEntityTest">
         <variation name="CreateAttributeSetEntityTestVariation1" firstConstraint="Mage\Catalog\Test\Constraint\AssertProductTemplateSuccessSaveMessage" method="test">
             <data name="attributeSet/data/attribute_set_name" xsi:type="string">ProductTemplate%isolation%</data>
-            <data name="attributeSet/data/skeleton_set/dataSet" xsi:type="string">default</data>
+            <data name="attributeSet/data/skeleton_set/dataset" xsi:type="string">default</data>
             <constraint name="Mage\Catalog\Test\Constraint\AssertProductTemplateSuccessSaveMessage" next="Mage\Catalog\Test\Constraint\AssertProductTemplateForm" />
             <constraint name="Mage\Catalog\Test\Constraint\AssertProductTemplateForm" next="Mage\Catalog\Test\Constraint\AssertProductTemplateInGrid" prev="Mage\Catalog\Test\Constraint\AssertProductTemplateSuccessSaveMessage" />
             <constraint name="Mage\Catalog\Test\Constraint\AssertProductTemplateInGrid" next="Mage\Catalog\Test\Constraint\AssertProductTemplateOnProductForm" prev="Mage\Catalog\Test\Constraint\AssertProductTemplateForm" />

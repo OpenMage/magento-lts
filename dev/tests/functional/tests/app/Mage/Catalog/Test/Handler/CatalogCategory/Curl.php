@@ -97,7 +97,7 @@ class Curl extends AbstractCurl implements CatalogCategoryInterface
         $parentCategoryId = $data['general']['parent_id'];
         $url = $_ENV['app_backend_url'] . 'catalog_category/save/store/0/parent/' . $parentCategoryId . '/?isAjax=true';
         $curl = new BackendDecorator(new CurlTransport(), $this->_configuration);
-        $curl->write(CurlInterface::POST, $url, '1.1', [], $data);
+        $curl->write($url, $data);
         $response = $curl->read();
         $curl->close();
 
@@ -134,7 +134,7 @@ class Curl extends AbstractCurl implements CatalogCategoryInterface
     {
         $url = $_ENV['app_backend_url'] . 'catalog_category';
         $curl = new BackendDecorator(new CurlTransport(), $this->_configuration);
-        $curl->write(CurlInterface::POST, $url);
+        $curl->write($url, [], CurlInterface::POST);
         $response = $curl->read();
         $curl->close();
         preg_match('~<option.*value="(\d+)".*>' . preg_quote($landingName) . '</option>~', $response, $matches);

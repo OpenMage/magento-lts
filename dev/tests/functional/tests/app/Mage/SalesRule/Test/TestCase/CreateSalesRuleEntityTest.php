@@ -146,14 +146,14 @@ class CreateSalesRuleEntityTest extends Injectable
     /**
      * Create products.
      *
-     * @param array $productsDataSets
+     * @param array $productsdatasets
      * @return array
      */
-    protected function createProducts(array $productsDataSets)
+    protected function createProducts(array $productsdatasets)
     {
         $products = [];
-        foreach ($productsDataSets as $dataSet){
-            $product = $this->fixtureFactory->createByCode('catalogProductSimple', ['dataSet' => $dataSet]);
+        foreach ($productsdatasets as $dataset){
+            $product = $this->fixtureFactory->createByCode('catalogProductSimple', ['dataset' => $dataset]);
             $product->persist();
             $products[] = $product;
         }

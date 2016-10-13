@@ -150,20 +150,17 @@ directPost.prototype = {
             $(this.iframeId).hide();
             this.resetLoadWaiting();
         }
-        alert(msg);
+        alert(msg.stripTags().toString());
     },
 
     returnQuote : function() {
         var url = this.orderSaveUrl.replace('place', 'returnQuote');
         new Ajax.Request(url, {
             onSuccess : function(transport) {
-                try {
-                    response = eval('(' + transport.responseText + ')');
-                } catch (e) {
-                    response = {};
-                }
+                var response = transport.responseJSON || transport.responseText.evalJSON(true) || {};
+
                 if (response.error_message) {
-                    alert(response.error_message);
+                    alert(response.error_message.stripTags().toString());
                 }
                 $(this.iframeId).show();
                 switch (this.controller) {
@@ -221,27 +218,25 @@ directPost.prototype = {
         if (transport.status == 403) {
             checkout.ajaxFailure();
         }
-        try {
-            response = eval('(' + transport.responseText + ')');
-        } catch (e) {
-            response = {};
-        }
+        var response = transport.responseJSON || transport.responseText.evalJSON(true) || {};
 
         if (response.success && response.directpost) {
             this.orderIncrementId = response.directpost.fields.x_invoice_num;
             var paymentData = {};
             for ( var key in response.directpost.fields) {
-                paymentData[key] = response.directpost.fields[key];
+                if(response.directpost.fields.hasOwnProperty(key)) {
+                    paymentData[key] = response.directpost.fields[key];
+                }
             }
             var preparedData = this.preparePaymentRequest(paymentData);
             this.sendPaymentRequest(preparedData);
         } else {
             var msg = response.error_messages;
-            if (typeof (msg) == 'object') {
+            if (Object.isArray(msg)) {
                 msg = msg.join("\n");
             }
             if (msg) {
-                alert(msg);
+                alert(msg.stripTags().toString());
             }
 
             if (response.update_section) {
@@ -312,17 +307,15 @@ directPost.prototype = {
     },
 
     saveAdminOrderSuccess : function(data) {
-        try {
-            response = eval('(' + data + ')');
-        } catch (e) {
-            response = {};
-        }
+        var response = transport.responseJSON || transport.responseText.evalJSON(true) || {};
 
         if (response.directpost) {
             this.orderIncrementId = response.directpost.fields.x_invoice_num;
             var paymentData = {};
             for ( var key in response.directpost.fields) {
-                paymentData[key] = response.directpost.fields[key];
+                if(response.directpost.fields.hasOwnProperty(key)) {
+                    paymentData[key] = response.directpost.fields[key];
+                }
             }
             var preparedData = this.preparePaymentRequest(paymentData);
             this.sendPaymentRequest(preparedData);
@@ -332,11 +325,11 @@ directPost.prototype = {
             }
             if (response.error_messages) {
                 var msg = response.error_messages;
-                if (typeof (msg) == 'object') {
+                if (Object.isArray(msg)) {
                     msg = msg.join("\n");
                 }
                 if (msg) {
-                    alert(msg);
+                    alert(msg.stripTags().toString());
                 }
             }
         }

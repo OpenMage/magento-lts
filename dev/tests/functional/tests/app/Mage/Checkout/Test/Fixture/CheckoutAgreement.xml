@@ -25,45 +25,15 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
  -->
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
-    <fixture name="checkoutAgreement" module="Mage_Checkout" type="flat" entity_type="checkout_agreement" collection="Mage\Checkout\Model\Resource\Agreement\Collection" class="Mage\Checkout\Test\Fixture\CheckoutAgreement">
-        <dataset name="default">
-            <field name="name" xsi:type="string">DefaultName%isolation%</field>
-            <field name="is_active" xsi:type="string">Enabled</field>
-            <field name="is_html" xsi:type="string">Text</field>
-            <field name="stores" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
-            </field>
-            <field name="checkbox_text" xsi:type="string">test_checkbox%isolation%</field>
-            <field name="content" xsi:type="string">TestMessage%isolation%</field>
-        </dataset>
-        <field name="agreement_id" is_required="1">
-            <default_value xsi:type="null" />
-        </field>
-        <field name="name" is_required="">
-            <default_value xsi:type="string">DefaultName%isolation%</default_value>
-        </field>
-        <field name="content" is_required="">
-            <default_value xsi:type="string">TestMessage%isolation%</default_value>
-        </field>
-        <field name="content_height" is_required="">
-            <default_value xsi:type="null" />
-        </field>
-        <field name="checkbox_text" is_required="">
-            <default_value xsi:type="string">test_checkbox%isolation%</default_value>
-        </field>
-        <field name="is_active" is_required="">
-            <default_value xsi:type="string">Enabled</default_value>
-        </field>
-        <field name="is_html" is_required="">
-            <default_value xsi:type="string">Text</default_value>
-        </field>
-        <field name="stores" source="Mage\Checkout\Test\Fixture\CheckoutAgreement\Stores">
-            <default_value xsi:type="array">
-                <item name="dataSets" xsi:type="array">
-                    <item name="0" xsi:type="string">default</item>
-                </item>
-            </default_value>
-        </field>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
+    <fixture name="checkoutAgreement" module="Mage_Checkout" type="flat" entity_type="checkout_agreement" collection="Mage\Checkout\Model\Resource\Agreement\Collection" repository_class="Mage\Checkout\Test\Repository\CheckoutAgreement" class="Mage\Checkout\Test\Fixture\CheckoutAgreement">
+        <field name="agreement_id" is_required="1"/>
+        <field name="name" is_required=""/>
+        <field name="content" is_required=""/>
+        <field name="content_height" is_required=""/>
+        <field name="checkbox_text" is_required=""/>
+        <field name="is_active" is_required=""/>
+        <field name="is_html" is_required=""/>
+        <field name="stores" source="Mage\Checkout\Test\Fixture\CheckoutAgreement\Stores"/>
     </fixture>
 </config>

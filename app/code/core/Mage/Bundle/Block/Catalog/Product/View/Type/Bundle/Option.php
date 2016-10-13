@@ -85,8 +85,13 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
             $_canChangeQty = $_default->getSelectionCanChangeQty();
         } elseif (!$inPreConfigured && $selectedOptions && is_numeric($selectedOptions)) {
             $selectedSelection = $_option->getSelectionById($selectedOptions);
-            $_defaultQty = $selectedSelection->getSelectionQty() * 1;
-            $_canChangeQty = $selectedSelection->getSelectionCanChangeQty();
+            if ($selectedSelection) {
+                $_defaultQty = $selectedSelection->getSelectionQty() * 1;
+                $_canChangeQty = $selectedSelection->getSelectionCanChangeQty();
+            } else {
+                $_defaultQty = $_selections[0]->getSelectionQty() * 1;
+                $_canChangeQty = $_selections[0]->getSelectionCanChangeQty();
+            }
         } elseif (!$this->_showSingle() || $inPreConfigured) {
             $_defaultQty = $this->_getSelectedQty();
             $_canChangeQty = (bool)$_defaultQty;

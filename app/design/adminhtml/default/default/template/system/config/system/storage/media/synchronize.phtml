@@ -120,7 +120,7 @@
     $('system_media_storage_configuration_media_database').observe('change', checkButtonState);
 
     function checkStatus() {
-        u = new Ajax.PeriodicalUpdater('', '<?php echo $this->getAjaxStatusUpdateUrl() ?>', {
+        var u = new Ajax.PeriodicalUpdater('', '<?php echo $this->getAjaxStatusUpdateUrl() ?>', {
             method:     'get',
             frequency:  5,
             loaderArea: false,
@@ -129,7 +129,7 @@
                 var response;
 
                 try {
-                    response = eval('(' + transport.responseText + ')');
+                    response = transport.responseJSON || transport.responseText.evalJSON(true) || {};
                     if (response.state == '<?php echo Mage_Core_Model_File_Storage_Flag::STATE_RUNNING ?>'
                         && response.message
                     ) {

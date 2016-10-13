@@ -32,7 +32,7 @@
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 
-class Mage_Adminhtml_Rss_CatalogController extends Mage_Adminhtml_Controller_Action
+class Mage_Adminhtml_Rss_CatalogController extends Mage_Adminhtml_Controller_Rss_Abstract
 {
     /**
      * Check is allowed access to action
@@ -53,15 +53,17 @@ class Mage_Adminhtml_Rss_CatalogController extends Mage_Adminhtml_Controller_Act
 
     public function notifystockAction()
     {
-        $this->getResponse()->setHeader('Content-type', 'text/xml; charset=UTF-8');
-        $this->loadLayout(false);
-        $this->renderLayout();
+        if ($this->checkFeedEnable('admin_catalog/notifystock')) {
+            $this->loadLayout(false);
+            $this->renderLayout();
+        }
     }
 
     public function reviewAction()
     {
-        $this->getResponse()->setHeader('Content-type', 'text/xml; charset=UTF-8');
-        $this->loadLayout(false);
-        $this->renderLayout();
+        if ($this->checkFeedEnable('admin_catalog/review')) {
+            $this->loadLayout(false);
+            $this->renderLayout();
+        }
     }
 }

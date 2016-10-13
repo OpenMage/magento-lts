@@ -36,7 +36,7 @@ use Mage\Customer\Test\Fixture\Customer;
  * Steps:
  * 1. Login as a customer.
  * 2. Navigate to catalog page.
- * 3. Add created product to Wishlist according to dataSet.
+ * 3. Add created product to Wishlist according to dataset.
  * 4. Perform all assertions.
  *
  * @group Wishlist_(CS)

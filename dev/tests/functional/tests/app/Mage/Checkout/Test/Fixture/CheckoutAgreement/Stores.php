@@ -27,28 +27,14 @@
 namespace Mage\Checkout\Test\Fixture\CheckoutAgreement;
 
 use Mage\Adminhtml\Test\Fixture\Store;
+use Magento\Mtf\Fixture\DataSource;
 use Magento\Mtf\Fixture\FixtureFactory;
-use Magento\Mtf\Fixture\FixtureInterface;
 
 /**
  * Prepare Stores preset.
  */
-class Stores implements FixtureInterface
+class Stores extends DataSource
 {
-    /**
-     * Prepared dataSet data.
-     *
-     * @var array
-     */
-    protected $data;
-
-    /**
-     * Data set configuration settings.
-     *
-     * @var array
-     */
-    protected $params;
-
     /**
      * Array of stores fixtures.
      *
@@ -65,9 +51,9 @@ class Stores implements FixtureInterface
     public function __construct(FixtureFactory $fixtureFactory, array $data, array $params = [])
     {
         $this->params = $params;
-        if (isset($data['dataSets'])) {
-            foreach ($data['dataSets'] as $store) {
-                $store = $fixtureFactory->createByCode('store', ['dataSet' => $store]);
+        if (isset($data['datasets'])) {
+            foreach ($data['datasets'] as $store) {
+                $store = $fixtureFactory->createByCode('store', ['dataset' => $store]);
                 /** @var Store $store */
                 if (!$store->getStoreId()) {
                     $store->persist();
@@ -76,37 +62,6 @@ class Stores implements FixtureInterface
                 $this->data[] = $store->getGroupId() . '/' . $store->getName();
             }
         }
-    }
-
-    /**
-     * Persist stores.
-     *
-     * @return void
-     */
-    public function persist()
-    {
-        //
-    }
-
-    /**
-     * Return prepared data set.
-     *
-     * @param string|null $key [optional]
-     * @return mixed
-     */
-    public function getData($key = null)
-    {
-        return $this->data;
-    }
-
-    /**
-     * Return data set configuration settings.
-     *
-     * @return array
-     */
-    public function getDataConfig()
-    {
-        return $this->params;
     }
 
     /**

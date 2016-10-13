@@ -26,9 +26,9 @@
  */
  -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Sales\Test\TestCase\PrintOrderFrontendGuestTest">
+    <testCase name="Mage\Sales\Test\TestCase\PrintOrderFrontendGuestTest" summary="PrintOrderFrontendGuestTest">
         <variation name="PrintOrderFrontendGuestTestVariation1" method="test">
-            <data name="orderDataSet" xsi:type="string">order_with_configurable_and_bundle</data>
+            <data name="orderdataset" xsi:type="string">order_with_configurable_and_bundle</data>
             <data name="grandTotal" xsi:type="string">1103.00</data>
             <data name="paymentMethod" xsi:type="string">Check / Money order</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>

@@ -26,93 +26,28 @@
 
 namespace Mage\Catalog\Test\Fixture\CatalogProductSimple;
 
-use Magento\Mtf\Fixture\FixtureInterface;
+use Magento\Mtf\Fixture\DataSource;
+use Magento\Mtf\Repository\RepositoryFactory;
 
 /**
  * Preset for attributes.
  */
-class Attributes implements FixtureInterface
+class Attributes extends DataSource
 {
     /**
-     * Prepared dataSet data.
-     *
-     * @var array
-     */
-    protected $data;
-
-    /**
-     * Data set configuration settings.
-     *
-     * @var array
-     */
-    protected $params;
-
-    /**
      * @constructor
+     * @param RepositoryFactory $repositoryFactory
      * @param array $params
      * @param array $data [optional]
      */
-    public function __construct(array $params, array $data = [])
+    public function __construct(RepositoryFactory $repositoryFactory, array $params, array $data = [])
     {
         $this->params = $params;
-        if (isset($data['preset'])) {
-            $this->data['preset'] = $this->getPreset($data['preset']);
+        if (isset($data['dataset'])) {
+            $this->data['dataset'] = $repositoryFactory->get($this->params['repository'])->get($data['dataset']);
         }
         if (isset($data['value'])) {
             $this->data['value'] = $data['value'];
         }
-    }
-
-    /**
-     * Persist custom selections products.
-     *
-     * @return void
-     */
-    public function persist()
-    {
-        //
-    }
-
-    /**
-     * Return prepared data set.
-     *
-     * @param $key [optional]
-     * @return mixed
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    public function getData($key = null)
-    {
-        return $this->data;
-    }
-
-    /**
-     * Return data set configuration settings.
-     *
-     * @return string
-     */
-    public function getDataConfig()
-    {
-        return $this->params;
-    }
-
-    /**
-     * Get preset.
-     *
-     * @param string $name
-     * @return array|null
-     */
-    protected function getPreset($name)
-    {
-        $presets = [
-            'with_one_attribute' => [
-                'attribute_key_0' => [
-                    'option_key_0'
-                ]
-            ]
-        ];
-        if (!isset($presets[$name])) {
-            return null;
-        }
-        return $presets[$name];
     }
 }

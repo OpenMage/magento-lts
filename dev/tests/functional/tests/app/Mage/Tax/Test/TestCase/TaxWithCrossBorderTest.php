@@ -135,7 +135,7 @@ class TaxWithCrossBorderTest extends Injectable
         $this->catalogRuleEdit = $catalogRuleEdit;
         $this->fixtureFactory = $fixtureFactory;
 
-        $taxRule = $fixtureFactory->createByCode('taxRule', ['dataSet' => 'cross_border_tax_rule']);
+        $taxRule = $fixtureFactory->createByCode('taxRule', ['dataset' => 'cross_border_tax_rule']);
         $taxRule->persist();
 
         return ['customers' => $this->createCustomers()];
@@ -151,7 +151,7 @@ class TaxWithCrossBorderTest extends Injectable
         $customersData = ['johndoe_unique_TX', 'johndoe_unique'];
         $customers = [];
         foreach ($customersData as $customerData) {
-            $customer = $this->fixtureFactory->createByCode('customer', ['dataSet' => $customerData]);
+            $customer = $this->fixtureFactory->createByCode('customer', ['dataset' => $customerData]);
             $customer->persist();
             $customers[] = $customer;
         }
@@ -172,12 +172,12 @@ class TaxWithCrossBorderTest extends Injectable
     {
         // Steps:
         if ($salesRule !== "-") {
-            $salesRule = $this->fixtureFactory->createByCode('salesRule', ['dataSet' => $salesRule]);
+            $salesRule = $this->fixtureFactory->createByCode('salesRule', ['dataset' => $salesRule]);
             $salesRule->persist();
             $this->salesRule = $salesRule;
         }
         if ($catalogRule !== "-") {
-            $catalogRule = $this->fixtureFactory->createByCode('catalogRule', ['dataSet' => $catalogRule]);
+            $catalogRule = $this->fixtureFactory->createByCode('catalogRule', ['dataset' => $catalogRule]);
             $catalogRule->persist();
             $this->catalogRule = $catalogRule;
         }

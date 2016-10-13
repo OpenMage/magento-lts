@@ -61,7 +61,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source
             ->where($this->_getIndexableAttributesCondition());
 
         if ($multiSelect == true) {
-            $select->where('ea.backend_type = ?', 'varchar')
+            $select->where('ea.backend_type = ?', 'text')
                 ->where('ea.frontend_input = ?', 'multiselect');
         } else {
             $select->where('ea.backend_type = ?', 'int')
@@ -203,14 +203,14 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source
         $productValueExpression = $adapter->getCheckSql('pvs.value_id > 0', 'pvs.value', 'pvd.value');
         $select = $adapter->select()
             ->from(
-                array('pvd' => $this->getValueTable('catalog/product', 'varchar')),
+                array('pvd' => $this->getValueTable('catalog/product', 'text')),
                 array('entity_id', 'attribute_id'))
             ->join(
                 array('cs' => $this->getTable('core/store')),
                 '',
                 array('store_id'))
             ->joinLeft(
-                array('pvs' => $this->getValueTable('catalog/product', 'varchar')),
+                array('pvs' => $this->getValueTable('catalog/product', 'text')),
                 'pvs.entity_id = pvd.entity_id AND pvs.attribute_id = pvd.attribute_id'
                     . ' AND pvs.store_id=cs.store_id',
                 array('value' => $productValueExpression))

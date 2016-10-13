@@ -26,22 +26,22 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/etc/variations.xsd">
-  <testCase name="Mage\Catalog\Test\TestCase\Product\AddRelatedProductsEntityTest">
-    <variation name="AddRelatedProductsEntityTestVariation1" firstConstraint="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" method="test">
-      <data name="productData" xsi:type="string">catalogProductSimple::default</data>
-      <data name="relatedProductsData" xsi:type="string">catalogProductSimple::default, catalogProductSimple::default</data>
-      <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" next="Mage\Catalog\Test\Constraint\AssertProductInGrid"/>
-      <constraint name="Mage\Catalog\Test\Constraint\AssertProductInGrid" next="Mage\Catalog\Test\Constraint\AssertProductForm" prev="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
-      <constraint name="Mage\Catalog\Test\Constraint\AssertProductForm" next="Mage\Catalog\Test\Constraint\AssertRelatedProductsSection" prev="Mage\Catalog\Test\Constraint\AssertProductInGrid"/>
-      <constraint name="Mage\Catalog\Test\Constraint\AssertRelatedProductsSection" prev="Mage\Catalog\Test\Constraint\AssertProductForm"/>
-    </variation>
-    <variation name="AddRelatedProductsEntityTestVariation2" firstConstraint="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" method="test">
-      <data name="productData" xsi:type="string">catalogProductSimple::default</data>
-      <data name="relatedProductsData" xsi:type="string">catalogProductSimple::default, configurableProduct::default</data>
-      <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" next="Mage\Catalog\Test\Constraint\AssertProductInGrid"/>
-      <constraint name="Mage\Catalog\Test\Constraint\AssertProductInGrid" next="Mage\Catalog\Test\Constraint\AssertProductForm" prev="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
-      <constraint name="Mage\Catalog\Test\Constraint\AssertProductForm" next="Mage\Catalog\Test\Constraint\AssertRelatedProductsSection" prev="Mage\Catalog\Test\Constraint\AssertProductInGrid"/>
-      <constraint name="Mage\Catalog\Test\Constraint\AssertRelatedProductsSection" prev="Mage\Catalog\Test\Constraint\AssertProductForm"/>
-    </variation>
-  </testCase>
+    <testCase name="Mage\Catalog\Test\TestCase\Product\AddRelatedProductsEntityTest" summary="AddRelatedProductsEntityTest">
+        <variation name="AddRelatedProductsEntityTestVariation1" firstConstraint="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" method="test">
+            <data name="productData" xsi:type="string">catalogProductSimple::default</data>
+            <data name="relatedProductsData" xsi:type="string">catalogProductSimple::default, catalogProductSimple::default</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" next="Mage\Catalog\Test\Constraint\AssertProductInGrid"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductInGrid" next="Mage\Catalog\Test\Constraint\AssertProductForm" prev="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductForm" next="Mage\Catalog\Test\Constraint\AssertRelatedProductsSection" prev="Mage\Catalog\Test\Constraint\AssertProductInGrid"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertRelatedProductsSection" prev="Mage\Catalog\Test\Constraint\AssertProductForm"/>
+        </variation>
+        <variation name="AddRelatedProductsEntityTestVariation2" firstConstraint="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" method="test">
+            <data name="productData" xsi:type="string">catalogProductSimple::default</data>
+            <data name="relatedProductsData" xsi:type="string">catalogProductSimple::default, configurableProduct::default</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" next="Mage\Catalog\Test\Constraint\AssertProductInGrid"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductInGrid" next="Mage\Catalog\Test\Constraint\AssertProductForm" prev="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductForm" next="Mage\Catalog\Test\Constraint\AssertRelatedProductsSection" prev="Mage\Catalog\Test\Constraint\AssertProductInGrid"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertRelatedProductsSection" prev="Mage\Catalog\Test\Constraint\AssertProductForm"/>
+        </variation>
+    </testCase>
 </config>

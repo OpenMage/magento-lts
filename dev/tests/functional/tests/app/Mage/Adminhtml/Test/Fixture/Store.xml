@@ -25,37 +25,14 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 -->
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
   <fixture name="store" module="Mage_Adminhtml" type="flat" entity_type="core_store" collection="Magento\Store\Model\Resource\Store\Collection" identifier="code" repository_class="Mage\Adminhtml\Test\Repository\Store" handler_interface="Mage\Adminhtml\Test\Handler\Store\StoreInterface" class="Mage\Adminhtml\Test\Fixture\Store">
-    <dataset name="default">
-        <field name="group_id" xsi:type="array">
-            <item name="dataSet" xsi:type="string">default</item>
-        </field>
-        <field name="name" xsi:type="string">Default Store View</field>
-        <field name="code" xsi:type="string">default</field>
-        <field name="is_active" xsi:type="string">Enabled</field>
-        <field name="store_id" xsi:type="string">1</field>
-    </dataset>
-    <field name="store_id" is_required="1">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="code" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="website_id" is_required="0">
-      <default_value xsi:type="string">0</default_value>
-    </field>
-    <field name="group_id" is_required="0" source="Mage\Adminhtml\Test\Fixture\Store\GroupId">
-      <default_value xsi:type="string">0</default_value>
-    </field>
-    <field name="name" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="sort_order" is_required="0">
-      <default_value xsi:type="string">0</default_value>
-    </field>
-    <field name="is_active" is_required="0">
-      <default_value xsi:type="string">0</default_value>
-    </field>
+    <field name="store_id" is_required="1" />
+    <field name="code" is_required="0" />
+    <field name="website_id" is_required="0" />
+    <field name="group_id" is_required="0" source="Mage\Adminhtml\Test\Fixture\Store\GroupId" />
+    <field name="name" is_required="0" />
+    <field name="sort_order" is_required="0" />
+    <field name="is_active" is_required="0" />
   </fixture>
 </config>

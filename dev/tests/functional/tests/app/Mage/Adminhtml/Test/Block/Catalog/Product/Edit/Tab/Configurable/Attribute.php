@@ -50,9 +50,11 @@ class Attribute extends Form
      */
     public function fillAttribute(array $attribute)
     {
+        $attributeMapping = [];
+        $attributeMapping['frontend_label'] = $attribute['frontend_label'];
         $options = $attribute['options'];
-        unset($attribute['options']);
-        $mapping = $this->dataMapping($attribute);
+//        unset($attribute['options']);
+        $mapping = $this->dataMapping($attributeMapping);
         $this->_fill($mapping);
         $this->fillOptions($options);
     }
@@ -65,9 +67,11 @@ class Attribute extends Form
      */
     public function getAttribute(array $attribute)
     {
+        $attributeMapping = [];
+        $attributeMapping['frontend_label'] = $attribute['frontend_label'];
         $options = $attribute['options'];
-        unset($attribute['options']);
-        $mapping = $this->dataMapping($attribute);
+//        unset($attribute['options']);
+        $mapping = $this->dataMapping($attributeMapping);
 
         return array_merge($this->_getData($mapping), ['options' => $this->getOptions($options)]);
     }
@@ -87,7 +91,9 @@ class Attribute extends Form
         ];
         foreach ($options as $option) {
             $option = array_intersect_key($option, array_flip($optionFields));
-            $this->getItemOption($option['admin'])->fillOption($option);
+            $optionName = $option['admin'];
+            unset($option['admin']);
+            $this->getItemOption($optionName)->fillOption($option);
         }
     }
 
@@ -107,9 +113,11 @@ class Attribute extends Form
         ];
         foreach ($options as $key => $option) {
             $option = array_intersect_key($option, array_flip($optionFields));
+            $optionName = $option['admin'];
+            unset($option['admin']);
             $result[$key] = array_merge(
-                $this->getItemOption($option['admin'])->getOption($option),
-                ['admin' => $option['admin']]
+                $this->getItemOption($optionName)->getOption($option),
+                ['admin' => $optionName]
             );
         }
 

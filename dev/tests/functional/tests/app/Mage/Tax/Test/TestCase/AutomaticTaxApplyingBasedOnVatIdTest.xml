@@ -26,10 +26,10 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Tax\Test\TestCase\AutomaticTaxApplyingBasedOnVatIdTest">
+    <testCase name="Mage\Tax\Test\TestCase\AutomaticTaxApplyingBasedOnVatIdTest" summary="AutomaticTaxApplyingBasedOnVatIdTest">
         <variation name="AutomaticTaxApplyingBasedOnVatIdTestVariation1" method="test">
             <data name="configData" xsi:type="string">enable_vat</data>
-            <data name="customer/dataSet" xsi:type="string">uk_with_vat</data>
+            <data name="customer/dataset" xsi:type="string">uk_with_vat</data>
             <data name="taxRule" xsi:type="string">uk_tax_rule</data>
             <data name="products" xsi:type="string">catalogProductSimple::order_default</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>

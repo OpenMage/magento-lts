@@ -26,11 +26,11 @@
  */
  -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Adminhtml\Test\TestCase\CreateWebsiteEntityTest">
+    <testCase name="Mage\Adminhtml\Test\TestCase\CreateWebsiteEntityTest" summary="CreateWebsiteEntityTest">
         <variation name="CreateWebsiteEntityTestVariation1" method="test">
-            <data name="website/dataSet" xsi:type="string">custom_website</data>
-            <data name="store/dataSet" xsi:type="string">custom</data>
-            <data name="storeView/dataSet" xsi:type="string">custom</data>
+            <data name="website/dataset" xsi:type="string">custom_website</data>
+            <data name="store/dataset" xsi:type="string">custom</data>
+            <data name="storeView/dataset" xsi:type="string">custom</data>
             <data name="tag" xsi:type="string">main:ce</data>
             <constraint name="Mage\Adminhtml\Test\Constraint\AssertProductIsPresentOnCustomWebsite"/>
         </variation>

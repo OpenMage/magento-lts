@@ -26,27 +26,14 @@
 
 namespace Mage\Catalog\Test\Fixture\CatalogProductAttribute;
 
-use Magento\Mtf\Fixture\FixtureInterface;
+use Magento\Mtf\Fixture\DataSource;
+use Magento\Mtf\Repository\RepositoryFactory;
 
 /**
  * Prepare Manage Options for attribute.
  */
-class Options implements FixtureInterface
+class Options extends DataSource
 {
-    /**
-     * Prepared dataSet data.
-     *
-     * @var array
-     */
-    protected $data;
-
-    /**
-     * Data set configuration settings.
-     *
-     * @var array
-     */
-    protected $params;
-
     /**
      * Options ids.
      *
@@ -56,14 +43,15 @@ class Options implements FixtureInterface
 
     /**
      * @constructor
+     * @param RepositoryFactory $repositoryFactory
      * @param array $params
      * @param array $data [optional]
      */
-    public function __construct(array $params, array $data = [])
+    public function __construct(RepositoryFactory $repositoryFactory, array $params, array $data = [])
     {
         $this->params = $params;
-        if (isset($data['preset'])) {
-            $this->data = $this->getPreset($data['preset']);
+        if (isset($data['dataset']) && isset($this->params['repository'])) {
+            $this->data = $repositoryFactory->get($this->params['repository'])->get($data['dataset']);
         } elseif (isset($data['value'])) {
             $this->data = $data['value'];
         }
@@ -79,84 +67,5 @@ class Options implements FixtureInterface
     public function getOptionsIds()
     {
         return $this->optionsIds;
-    }
-
-    /**
-     * Persist attribute options.
-     *
-     * @return void
-     */
-    public function persist()
-    {
-        //
-    }
-
-    /**
-     * Return prepared data set.
-     *
-     * @param string|null $key [optional]
-     * @return mixed
-     *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    public function getData($key = null)
-    {
-        return $this->data;
-    }
-
-    /**
-     * Return data set configuration settings.
-     *
-     * @return array
-     */
-    public function getDataConfig()
-    {
-        return $this->params;
-    }
-
-    /**
-     * Preset for Attribute manage options.
-     *
-     * @param string $name
-     * @return array|null
-     */
-    protected function getPreset($name)
-    {
-        $presets = [
-            'default' => [
-                [
-                    'is_default' => 'Yes',
-                    'admin' => 'blue',
-                    'view' => 'blue'
-                ],
-                [
-                    'admin' => 'black',
-                    'view' => 'black'
-                ]
-            ],
-            'with_three_options' => [
-                [
-                    'is_default' => 'Yes',
-                    'admin' => 'black',
-                    'view' => 'option_0_%isolation%'
-                ],
-                [
-                    'is_default' => 'No',
-                    'admin' => 'white',
-                    'view' => 'option_1_%isolation%'
-                ],
-                [
-                    'is_default' => 'No',
-                    'admin' => 'green',
-                    'view' => 'option_2_%isolation%'
-                ]
-            ],
-        ];
-
-        if (!isset($presets[$name])) {
-            return null;
-        }
-
-        return $presets[$name];
     }
 }

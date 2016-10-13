@@ -141,6 +141,7 @@ class UpdateCategoryEntityTest extends Injectable
             $categoryData['category_products'] = $this->prepareCategoryProducts($initialCategory, $category);
         }
         $categoryData['parent_id'] = $this->prepareParentCategory($initialCategory, $category);
+        unset($categoryData['path']);
 
         return $categoryData;
     }

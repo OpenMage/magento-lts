@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    Tests
+ * @package     Tests_Functional
+ * @copyright  Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/Magento/Mtf/Repository/etc/repository.xsd">
+	<repository class="Mage\Catalog\Test\Repository\CatalogProductAttribute\Options">
+		<dataset name="default">
+			<field name="0" xsi:type="array">
+				<item name="is_default" xsi:type="string">Yes</item>
+				<item name="admin" xsi:type="string">blue</item>
+				<item name="view" xsi:type="string">blue</item>
+			</field>
+			<field name="1" xsi:type="array">
+				<item name="admin" xsi:type="string">black</item>
+				<item name="view" xsi:type="string">black</item>
+			</field>
+		</dataset>
+
+		<dataset name="with_three_options">
+			<field name="0" xsi:type="array">
+				<item name="is_default" xsi:type="string">Yes</item>
+				<item name="admin" xsi:type="string">black</item>
+				<item name="view" xsi:type="string">option_0_%isolation%</item>
+			</field>
+			<field name="1" xsi:type="array">
+				<item name="is_default" xsi:type="string">No</item>
+				<item name="admin" xsi:type="string">white</item>
+				<item name="view" xsi:type="string">option_1_%isolation%</item>
+			</field>
+			<field name="2" xsi:type="array">
+				<item name="is_default" xsi:type="string">No</item>
+				<item name="admin" xsi:type="string">green</item>
+				<item name="view" xsi:type="string">option_2_%isolation%</item>
+			</field>
+		</dataset>
+	</repository>
+</config>

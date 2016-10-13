@@ -26,7 +26,7 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Cms\Test\TestCase\CreateCmsPageEntityTest">
+    <testCase name="Mage\Cms\Test\TestCase\CreateCmsPageEntityTest" summary="CreateCmsPageEntityTest">
         <variation name="CreateCmsPageEntityTestVariation1" method="test">
             <data name="cms/data/title" xsi:type="string">NewCmsPage%isolation%</data>
             <data name="cms/data/identifier" xsi:type="string">new_cms_page%isolation%</data>
@@ -51,7 +51,7 @@
         <variation name="CreateCmsPageEntityTestVariation3" method="test">
             <data name="cms/data/title" xsi:type="string">NewCmsPage%isolation%</data>
             <data name="cms/data/identifier" xsi:type="string">new_cms_page%isolation%</data>
-            <data name="cms/data/store_id/dataSet/0" xsi:type="string">custom</data>
+            <data name="cms/data/store_id/dataset/0" xsi:type="string">custom</data>
             <data name="cms/data/content_heading" xsi:type="string">cms_page_text_content_heading%isolation%</data>
             <data name="cms/data/content/content" xsi:type="string">cms_page_text_content%isolation%</data>
             <constraint name="Mage\Cms\Test\Constraint\AssertCmsPageSuccessSaveMessage" />

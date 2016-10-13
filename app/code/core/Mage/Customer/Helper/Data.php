@@ -86,6 +86,13 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
         = 'customer/password/require_admin_user_to_change_user_password';
 
     /**
+     * Configuration path to password forgotten flow change
+     */
+    const XML_PATH_CUSTOMER_FORGOT_PASSWORD_FLOW_SECURE = 'admin/security/forgot_password_flow_secure';
+    const XML_PATH_CUSTOMER_FORGOT_PASSWORD_EMAIL_TIMES = 'admin/security/forgot_password_email_times';
+    const XML_PATH_CUSTOMER_FORGOT_PASSWORD_IP_TIMES    = 'admin/security/forgot_password_ip_times';
+
+    /**
      * VAT class constants
      */
     const VAT_CLASS_DOMESTIC    = 'domestic';
@@ -481,6 +488,36 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     public function getDefaultCustomerGroupId($store = null)
     {
         return (int)Mage::getStoreConfig(Mage_Customer_Model_Group::XML_PATH_DEFAULT_ID, $store);
+    }
+
+    /**
+     * Retrieve forgot password flow secure type
+     *
+     * @return int
+     */
+    public function getCustomerForgotPasswordFlowSecure()
+    {
+        return (int)Mage::getStoreConfig(self::XML_PATH_CUSTOMER_FORGOT_PASSWORD_FLOW_SECURE);
+    }
+
+    /**
+     * Retrieve forgot password requests to times per 24 hours from 1 e-mail
+     *
+     * @return int
+     */
+    public function getCustomerForgotPasswordEmailTimes()
+    {
+        return (int)Mage::getStoreConfig(self::XML_PATH_CUSTOMER_FORGOT_PASSWORD_EMAIL_TIMES);
+    }
+
+    /**
+     * Retrieve forgot password requests to times per hour from 1 IP
+     *
+     * @return int
+     */
+    public function getCustomerForgotPasswordIpTimes()
+    {
+        return (int)Mage::getStoreConfig(self::XML_PATH_CUSTOMER_FORGOT_PASSWORD_IP_TIMES);
     }
 
     /**

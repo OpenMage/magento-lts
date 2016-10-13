@@ -49,6 +49,16 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
     protected $_resPrices   = array();
 
     /**
+     * Get helper for calculation purposes
+     *
+     * @return Mage_Catalog_Helper_Product_Type_Composite
+     */
+    protected function _getHelper()
+    {
+        return $this->helper('catalog/product_type_composite');
+    }
+
+    /**
      * Get allowed attributes
      *
      * @return array
@@ -91,7 +101,10 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
             $allProducts = $this->getProduct()->getTypeInstance(true)
                 ->getUsedProducts(null, $this->getProduct());
             foreach ($allProducts as $product) {
-                if ($product->isSaleable() || $skipSaleableCheck) {
+                if ($product->isSaleable()
+                    || $skipSaleableCheck
+                    || (!$product->getStockItem()->getIsInStock()
+                        && Mage::helper('cataloginventory')->isShowOutOfStock())) {
                     $products[] = $product;
                 }
             }
@@ -103,11 +116,12 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
     /**
      * retrieve current store
      *
+     * @deprecated
      * @return Mage_Core_Model_Store
      */
     public function getCurrentStore()
     {
-        return Mage::app()->getStore();
+        return $this->_getHelper()->getCurrentStore();
     }
 
     /**
@@ -138,10 +152,10 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
             $preconfiguredValues = $currentProduct->getPreconfiguredValues();
             $defaultValues       = array();
         }
-
+        $productStock = array();
         foreach ($this->getAllowProducts() as $product) {
             $productId  = $product->getId();
-
+            $productStock[$productId] = $product->getStockItem()->getIsInStock();
             foreach ($this->getAllowAttributes() as $attribute) {
                 $productAttribute   = $attribute->getProductAttribute();
                 $productAttributeId = $productAttribute->getId();
@@ -189,7 +203,13 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
                     $configurablePrice = $currentProduct->getConfigurablePrice();
 
                     if (isset($options[$attributeId][$value['value_index']])) {
-                        $productsIndex = $options[$attributeId][$value['value_index']];
+                        $productsIndexOptions = $options[$attributeId][$value['value_index']];
+                        $productsIndex = array();
+                        foreach ($productsIndexOptions as $productIndex) {
+                            if ($productStock[$productIndex]) {
+                                $productsIndex[] = $productIndex;
+                            }
+                        }
                     } else {
                         $productsIndex = array();
                     }
@@ -300,64 +320,51 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
     /**
      * Calculation real price
      *
+     * @deprecated
      * @param float $price
      * @param bool $isPercent
      * @return mixed
      */
     protected function _preparePrice($price, $isPercent = false)
     {
-        if ($isPercent && !empty($price)) {
-            $price = $this->getProduct()->getFinalPrice() * $price / 100;
-        }
-
-        return $this->_registerJsPrice($this->_convertPrice($price, true));
+        return $this->_getHelper()->preparePrice($this->getProduct(), $price, $isPercent);
     }
 
     /**
      * Calculation price before special price
      *
+     * @deprecated
      * @param float $price
      * @param bool $isPercent
      * @return mixed
      */
     protected function _prepareOldPrice($price, $isPercent = false)
     {
-        if ($isPercent && !empty($price)) {
-            $price = $this->getProduct()->getPrice() * $price / 100;
-        }
-
-        return $this->_registerJsPrice($this->_convertPrice($price, true));
+        return $this->_getHelper()->prepareOldPrice($this->getProduct(), $price, $isPercent);
     }
 
     /**
      * Replace ',' on '.' for js
      *
+     * @deprecated
      * @param float $price
      * @return string
      */
     protected function _registerJsPrice($price)
     {
-        return str_replace(',', '.', $price);
+        return $this->_getHelper()->registerJsPrice($price);
     }
 
     /**
      * Convert price from default currency to current currency
      *
+     * @deprecated
      * @param float $price
      * @param boolean $round
      * @return float
      */
     protected function _convertPrice($price, $round = false)
     {
-        if (empty($price)) {
-            return 0;
-        }
-
-        $price = $this->getCurrentStore()->convertPrice($price);
-        if ($round) {
-            $price = $this->getCurrentStore()->roundPrice($price);
-        }
-
-        return $price;
+        return $this->_getHelper()->convertPrice($price, $round);
     }
 }

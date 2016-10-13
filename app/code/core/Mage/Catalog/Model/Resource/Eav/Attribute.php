@@ -359,7 +359,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
 
         if ($backendType == 'int' && $frontendInput == 'select') {
             return true;
-        } else if ($backendType == 'varchar' && $frontendInput == 'multiselect') {
+        } else if (($backendType == 'varchar' || $backendType == 'text') && $frontendInput == 'multiselect') {
             return true;
         } else if ($backendType == 'decimal') {
             return true;

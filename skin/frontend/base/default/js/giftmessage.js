@@ -118,7 +118,7 @@ GiftMessageWindow.prototype = {
     },
     updateParent: function (url, buttonUrl) {
         if(this.parentObject) {
-            this.parentObject.url = url
+            this.parentObject.url = url;
             this.parentObject.reloadContainer(buttonUrl);
         }
         setTimeout(function(){

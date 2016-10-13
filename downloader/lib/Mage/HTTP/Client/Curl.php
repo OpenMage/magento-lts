@@ -373,8 +373,14 @@ implements Mage_HTTP_IClient
         $uriModified = $this->getModifiedUri($uri, $https);
         $this->_ch = curl_init();
         $this->curlOption(CURLOPT_URL, $uriModified);
-        $this->curlOption(CURLOPT_SSL_VERIFYPEER, false);
-        $this->curlOption(CURLOPT_SSL_CIPHER_LIST, 'TLSv1');
+        $this->curlOption(CURLOPT_SSL_VERIFYPEER, true);
+        /**
+         * Use value from CURL_SSLVERSION_TLSv1 (available since PHP 5.5)
+         *
+         * @link http://php.net/manual/ru/function.curl-setopt.php
+         */
+
+        $this->curlOption(CURLOPT_SSLVERSION, 1);
         $this->getCurlMethodSettings($method, $params, $isAuthorizationRequired);
 
         if(count($this->_headers)) {

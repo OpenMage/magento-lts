@@ -97,7 +97,7 @@ class AssertProductIsPresentOnCustomWebsite extends AbstractConstraint
 
         $product = $fixtureFactory->createByCode(
             'catalogProductSimple',
-            ['dataSet' => 'default', 'data' => ['website_ids' => ['websites' => [$this->website]]]]
+            ['dataset' => 'default', 'data' => ['website_ids' => ['websites' => [$this->website]]]]
         );
         $product->persist();
 

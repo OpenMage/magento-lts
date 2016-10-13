@@ -28,35 +28,35 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/Magento/Mtf/Repository/etc/repository.xsd">
     <repository class="Mage\Catalog\Test\Repository\CatalogProductSimple">
         <dataset name="default">
-            <field name="name" xsi:type="string">simple product %isolation%</field>
-            <field name="description" xsi:type="string">Description for default Simple product with category</field>
-            <field name="short_description" xsi:type="string">Short description for default Simple product with category</field>
+            <field name="name" xsi:type="string">Test simple product %isolation%</field>
+            <field name="description" xsi:type="string">Simple product description %isolation%</field>
+            <field name="short_description" xsi:type="string">Simple product short description %isolation%</field>
+            <field name="sku" xsi:type="string">test_simple_sku_%isolation%</field>
+            <field name="weight" xsi:type="string">12.0000</field>
             <field name="status" xsi:type="string">Enabled</field>
+            <field name="url_key" xsi:type="string">test-simple-product-%isolation%</field>
             <field name="visibility" xsi:type="string">Catalog, Search</field>
-            <field name="sku" xsi:type="string">sku_simple_product_%isolation%</field>
-            <field name="tax_class_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">Taxable Goods</item>
-            </field>
             <field name="price" xsi:type="array">
-                <item name="value" xsi:type="string">100</item>
+                <item name="value" xsi:type="string">100.00</item>
             </field>
-            <field name="weight" xsi:type="string">12</field>
+            <field name="tax_class_id" xsi:type="array">
+                <item name="dataset" xsi:type="string">Taxable Goods</item>
+            </field>
             <field name="stock_data" xsi:type="array">
-                <item name="qty" xsi:type="string">100</item>
+                <item name="qty" xsi:type="string">1000</item>
                 <item name="is_in_stock" xsi:type="string">In Stock</item>
             </field>
-            <field name="attribute_set_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
-            </field>
-            <field name="checkout_data" xsi:type="array">
-                <item name="preset" xsi:type="string">default</item>
+            <field name="category_ids" xsi:type="array">
+                <item name="dataset" xsi:type="string">default_subcategory</item>
             </field>
             <field name="website_ids" xsi:type="array">
-                <item name="dataSets" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">main_website</item>
                 </item>
             </field>
-            <field name="url_key" xsi:type="string">simple-product-%isolation%</field>
+            <field name="checkout_data" xsi:type="array">
+                <item name="dataset" xsi:type="string">default</item>
+            </field>
         </dataset>
 
         <dataset name="order_default">
@@ -67,7 +67,7 @@
             <field name="visibility" xsi:type="string">Catalog, Search</field>
             <field name="sku" xsi:type="string">sku_simple_product_%isolation%</field>
             <field name="tax_class_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">Taxable Goods</item>
+                <item name="dataset" xsi:type="string">Taxable Goods</item>
             </field>
             <field name="price" xsi:type="array">
                 <item name="value" xsi:type="string">100</item>
@@ -78,13 +78,13 @@
                 <item name="is_in_stock" xsi:type="string">In Stock</item>
             </field>
             <field name="attribute_set_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="checkout_data" xsi:type="array">
-                <item name="preset" xsi:type="string">order_default</item>
+                <item name="dataset" xsi:type="string">order_default</item>
             </field>
             <field name="website_ids" xsi:type="array">
-                <item name="dataSets" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">main_website</item>
                 </item>
             </field>
@@ -99,7 +99,7 @@
             <field name="visibility" xsi:type="string">Catalog, Search</field>
             <field name="sku" xsi:type="string">test_simple_sku_%isolation%</field>
             <field name="tax_class_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">Taxable Goods</item>
+                <item name="dataset" xsi:type="string">Taxable Goods</item>
             </field>
             <field name="price" xsi:type="array">
                 <item name="value" xsi:type="string">100</item>
@@ -110,10 +110,10 @@
                 <item name="is_in_stock" xsi:type="string">In Stock</item>
             </field>
             <field name="category_ids" xsi:type="array">
-                <item name="presets" xsi:type="string">default_subcategory</item>
+                <item name="dataset" xsi:type="string">default_subcategory</item>
             </field>
             <field name="website_ids" xsi:type="array">
-                <item name="dataSets" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">main_website</item>
                 </item>
             </field>
@@ -126,7 +126,7 @@
             <field name="short_description" xsi:type="string">Short description for Simple product for sales rule 1.</field>
             <field name="sku" xsi:type="string">sku_simple_product_%isolation%</field>
             <field name="attribute_set_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="status" xsi:type="string">Enabled</field>
             <field name="type_id" xsi:type="string">simple</field>
@@ -139,10 +139,10 @@
             </field>
             <field name="weight" xsi:type="string">100</field>
             <field name="category_ids" xsi:type="array">
-                <item name="presets" xsi:type="string">default_subcategory</item>
+                <item name="dataset" xsi:type="string">default_subcategory</item>
             </field>
             <field name="website_ids" xsi:type="array">
-                <item name="dataSets" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">main_website</item>
                 </item>
             </field>
@@ -155,7 +155,7 @@
             <field name="short_description" xsi:type="string">Short description for Simple product for sales rule 2.</field>
             <field name="sku" xsi:type="string">sku_simple_product_%isolation%</field>
             <field name="attribute_set_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="status" xsi:type="string">Enabled</field>
             <field name="type_id" xsi:type="string">simple</field>
@@ -168,10 +168,10 @@
             </field>
             <field name="weight" xsi:type="string">50</field>
             <field name="category_ids" xsi:type="array">
-                <item name="presets" xsi:type="string">default_subcategory</item>
+                <item name="dataset" xsi:type="string">default_subcategory</item>
             </field>
             <field name="website_ids" xsi:type="array">
-                <item name="dataSets" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">main_website</item>
                 </item>
             </field>
@@ -190,14 +190,14 @@
             </field>
             <field name="weight" xsi:type="string">1</field>
             <field name="attribute_set_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="status" xsi:type="string">Enabled</field>
             <field name="price" xsi:type="array">
                 <item name="value" xsi:type="string">100</item>
             </field>
             <field name="website_ids" xsi:type="array">
-                <item name="dataSets" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">main_website</item>
                 </item>
             </field>
@@ -212,10 +212,10 @@
             <field name="visibility" xsi:type="string">Catalog, Search</field>
             <field name="sku" xsi:type="string">simple_product_with_special_price_and_category%isolation%</field>
             <field name="tax_class_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">Taxable Goods</item>
+                <item name="dataset" xsi:type="string">Taxable Goods</item>
             </field>
             <field name="attribute_set_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="price" xsi:type="array">
                 <item name="value" xsi:type="string">100</item>
@@ -227,10 +227,10 @@
             </field>
             <field name="weight" xsi:type="string">1</field>
             <field name="category_ids" xsi:type="array">
-                <item name="presets" xsi:type="string">default_subcategory</item>
+                <item name="dataset" xsi:type="string">default_subcategory</item>
             </field>
             <field name="website_ids" xsi:type="array">
-                <item name="dataSets" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">main_website</item>
                 </item>
             </field>
@@ -248,10 +248,10 @@
             <field name="visibility" xsi:type="string">Catalog, Search</field>
             <field name="sku" xsi:type="string">sku_simple_product_%isolation%</field>
             <field name="tax_class_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">Taxable Goods</item>
+                <item name="dataset" xsi:type="string">Taxable Goods</item>
             </field>
             <field name="attribute_set_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="price" xsi:type="array">
                 <item name="value" xsi:type="string">300</item>
@@ -262,16 +262,16 @@
             </field>
             <field name="weight" xsi:type="string">1</field>
             <field name="custom_options" xsi:type="array">
-                <item name="preset" xsi:type="string">drop_down_with_one_option_percent_price</item>
+                <item name="dataset" xsi:type="string">drop_down_with_one_option_percent_price</item>
             </field>
             <field name="checkout_data" xsi:type="array">
-                <item name="preset" xsi:type="string">drop_down_with_one_option_percent_price</item>
+                <item name="dataset" xsi:type="string">drop_down_with_one_option_percent_price</item>
             </field>
             <field name="category_ids" xsi:type="array">
-                <item name="presets" xsi:type="string">default_subcategory</item>
+                <item name="dataset" xsi:type="string">default_subcategory</item>
             </field>
             <field name="website_ids" xsi:type="array">
-                <item name="dataSets" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">main_website</item>
                 </item>
             </field>
@@ -286,7 +286,7 @@
             <field name="visibility" xsi:type="string">Catalog, Search</field>
             <field name="sku" xsi:type="string">sku_simple_product_%isolation%</field>
             <field name="tax_class_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">Taxable Goods</item>
+                <item name="dataset" xsi:type="string">Taxable Goods</item>
             </field>
             <field name="price" xsi:type="array">
                 <item name="value" xsi:type="string">100</item>
@@ -297,13 +297,13 @@
                 <item name="is_in_stock" xsi:type="string">In Stock</item>
             </field>
             <field name="attribute_set_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="checkout_data" xsi:type="array">
-                <item name="preset" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="website_ids" xsi:type="array">
-                <item name="dataSets" xsi:type="array">
+                <item name="datasets" xsi:type="array">
                     <item name="0" xsi:type="string">main_website</item>
                 </item>
             </field>
@@ -322,14 +322,14 @@
             </field>
             <field name="weight" xsi:type="string">1</field>
             <field name="attribute_set_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="status" xsi:type="string">Enabled</field>
             <field name="price" xsi:type="array">
                 <item name="value" xsi:type="string">50</item>
             </field>
             <field name="website_ids" xsi:type="array">
-                <item name="dataSets" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">main_website</item>
                 </item>
             </field>
@@ -343,13 +343,13 @@
             <field name="status" xsi:type="string">Enabled</field>
             <field name="visibility" xsi:type="string">Catalog, Search</field>
             <field name="website_ids" xsi:type="array">
-                <item name="dataSets" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">main_website</item>
                 </item>
             </field>
             <field name="sku" xsi:type="string">test_simple_sku_%isolation%</field>
             <field name="tax_class_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">Taxable Goods</item>
+                <item name="dataset" xsi:type="string">Taxable Goods</item>
             </field>
             <field name="price" xsi:type="array">
                 <item name="value" xsi:type="string">100</item>
@@ -371,13 +371,13 @@
             <field name="status" xsi:type="string">Enabled</field>
             <field name="visibility" xsi:type="string">Catalog, Search</field>
             <field name="website_ids" xsi:type="array">
-                <item name="dataSets" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">main_website</item>
                 </item>
             </field>
             <field name="sku" xsi:type="string">test_simple_sku_%isolation%</field>
             <field name="tax_class_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">Taxable Goods</item>
+                <item name="dataset" xsi:type="string">Taxable Goods</item>
             </field>
             <field name="price" xsi:type="array">
                 <item name="value" xsi:type="string">100</item>
@@ -400,10 +400,10 @@
             <field name="visibility" xsi:type="string">Catalog, Search</field>
             <field name="sku" xsi:type="string">simple_product_with_group_price_and_category%isolation%</field>
             <field name="tax_class_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">Taxable Goods</item>
+                <item name="dataset" xsi:type="string">Taxable Goods</item>
             </field>
             <field name="attribute_set_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="price" xsi:type="array">
                 <item name="value" xsi:type="string">100</item>
@@ -414,15 +414,15 @@
             </field>
             <field name="weight" xsi:type="string">1</field>
             <field name="category_ids" xsi:type="array">
-                <item name="presets" xsi:type="string">default_subcategory</item>
+                <item name="dataset" xsi:type="string">default_subcategory</item>
             </field>
             <field name="website_ids" xsi:type="array">
-                <item name="dataSets" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">main_website</item>
                 </item>
             </field>
             <field name="group_price" xsi:type="array">
-                <item name="preset" xsi:type="string">for_not_logged_users</item>
+                <item name="dataset" xsi:type="string">for_not_logged_users</item>
             </field>
             <field name="url_key" xsi:type="string">test-simple-product-%isolation%</field>
             <field name="checkout_data" xsi:type="array">
@@ -438,10 +438,10 @@
             <field name="visibility" xsi:type="string">Catalog, Search</field>
             <field name="sku" xsi:type="string">simple_product_with_group_price_and_category%isolation%</field>
             <field name="tax_class_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">Taxable Goods</item>
+                <item name="dataset" xsi:type="string">Taxable Goods</item>
             </field>
             <field name="attribute_set_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="price" xsi:type="array">
                 <item name="value" xsi:type="string">100</item>
@@ -452,15 +452,15 @@
             </field>
             <field name="weight" xsi:type="string">1</field>
             <field name="category_ids" xsi:type="array">
-                <item name="presets" xsi:type="string">default_subcategory</item>
+                <item name="dataset" xsi:type="string">default_subcategory</item>
             </field>
             <field name="website_ids" xsi:type="array">
-                <item name="dataSets" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">main_website</item>
                 </item>
             </field>
             <field name="group_price" xsi:type="array">
-                <item name="preset" xsi:type="string">tax_calculation</item>
+                <item name="dataset" xsi:type="string">tax_calculation</item>
             </field>
             <field name="url_key" xsi:type="string">test-simple-product-%isolation%</field>
             <field name="checkout_data" xsi:type="array">
@@ -476,14 +476,14 @@
             <field name="visibility" xsi:type="string">Catalog, Search</field>
             <field name="sku" xsi:type="string">simple_product_with_tier_price_and_category%isolation%</field>
             <field name="tax_class_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">Taxable Goods</item>
+                <item name="dataset" xsi:type="string">Taxable Goods</item>
             </field>
             <field name="attribute_set_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="price" xsi:type="array">
                 <item name="value" xsi:type="string">300</item>
-                <item name="preset" xsi:type="string">with_tier_price</item>
+                <item name="dataset" xsi:type="string">with_tier_price</item>
             </field>
             <field name="stock_data" xsi:type="array">
                 <item name="qty" xsi:type="string">10</item>
@@ -491,15 +491,15 @@
             </field>
             <field name="weight" xsi:type="string">1</field>
             <field name="category_ids" xsi:type="array">
-                <item name="presets" xsi:type="string">default_subcategory</item>
+                <item name="dataset" xsi:type="string">default_subcategory</item>
             </field>
             <field name="website_ids" xsi:type="array">
-                <item name="dataSets" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">main_website</item>
                 </item>
             </field>
             <field name="tier_price" xsi:type="array">
-                <item name="preset" xsi:type="string">for_all_groups</item>
+                <item name="dataset" xsi:type="string">for_all_groups</item>
             </field>
             <field name="url_key" xsi:type="string">test-simple-product-%isolation%</field>
             <field name="checkout_data" xsi:type="array">
@@ -516,17 +516,17 @@
             <field name="sku" xsi:type="string">simple_for_composite_products%isolation%</field>
             <field name="price" xsi:type="array">
                 <item name="value" xsi:type="string">560</item>
-                <item name="preset" xsi:type="string">-</item>
+                <item name="dataset" xsi:type="string">-</item>
             </field>
             <field name="attribute_set_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="tax_class_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">Taxable Goods</item>
+                <item name="dataset" xsi:type="string">Taxable Goods</item>
             </field>
             <field name="weight" xsi:type="string">1</field>
             <field name="website_ids" xsi:type="array">
-                <item name="dataSets" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">main_website</item>
                 </item>
             </field>
@@ -545,7 +545,7 @@
             <field name="visibility" xsi:type="string">Catalog, Search</field>
             <field name="sku" xsi:type="string">sku_simple_product_%isolation%</field>
             <field name="tax_class_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">Taxable Goods</item>
+                <item name="dataset" xsi:type="string">Taxable Goods</item>
             </field>
             <field name="price" xsi:type="array">
                 <item name="value" xsi:type="string">5</item>
@@ -556,13 +556,13 @@
                 <item name="is_in_stock" xsi:type="string">In Stock</item>
             </field>
             <field name="attribute_set_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="checkout_data" xsi:type="array">
-                <item name="preset" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="website_ids" xsi:type="array">
-                <item name="dataSets" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">main_website</item>
                 </item>
             </field>
@@ -579,7 +579,7 @@
             <field name="sku" xsi:type="string">sku_simple_product_%isolation%</field>
             <field name="visibility" xsi:type="string">Catalog, Search</field>
             <field name="attribute_set_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="price" xsi:type="array">
                 <item name="value" xsi:type="string">300</item>
@@ -590,15 +590,15 @@
             </field>
             <field name="weight" xsi:type="string">1</field>
             <field name="website_ids" xsi:type="array">
-                <item name="dataSets" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">main_website</item>
                 </item>
             </field>
             <field name="custom_options" xsi:type="array">
-                <item name="preset" xsi:type="string">two_options</item>
+                <item name="dataset" xsi:type="string">two_options</item>
             </field>
             <field name="checkout_data" xsi:type="array">
-                <item name="preset" xsi:type="string">with_two_custom_option</item>
+                <item name="dataset" xsi:type="string">with_two_custom_option</item>
             </field>
         </dataset>
 
@@ -620,18 +620,18 @@
                 <item name="value" xsi:type="string">100</item>
             </field>
             <field name="category_ids" xsi:type="array">
-                <item name="presets" xsi:type="string">anchor_category</item>
+                <item name="dataset" xsi:type="string">anchor_category</item>
             </field>
             <field name="website_ids" xsi:type="array">
-                <item name="dataSets" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">main_website</item>
                 </item>
             </field>
             <field name="tax_class_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">Taxable Goods</item>
+                <item name="dataset" xsi:type="string">Taxable Goods</item>
             </field>
             <field name="attributes" xsi:type="array">
-                <item name="preset" xsi:type="string">with_one_attribute</item>
+                <item name="dataset" xsi:type="string">with_one_attribute</item>
             </field>
         </dataset>
 
@@ -643,7 +643,7 @@
             <field name="visibility" xsi:type="string">Catalog, Search</field>
             <field name="sku" xsi:type="string">sku_simple_product_%isolation%</field>
             <field name="tax_class_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">Taxable Goods</item>
+                <item name="dataset" xsi:type="string">Taxable Goods</item>
             </field>
             <field name="price" xsi:type="array">
                 <item name="value" xsi:type="string">100</item>
@@ -654,13 +654,13 @@
                 <item name="is_in_stock" xsi:type="string">In Stock</item>
             </field>
             <field name="attribute_set_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="checkout_data" xsi:type="array">
-                <item name="preset" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="website_ids" xsi:type="array">
-                <item name="dataSets" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">main_website</item>
                 </item>
             </field>
@@ -688,7 +688,7 @@
             <field name="visibility" xsi:type="string">Catalog, Search</field>
             <field name="sku" xsi:type="string">sku_simple_product_%isolation%</field>
             <field name="tax_class_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">Taxable Goods</item>
+                <item name="dataset" xsi:type="string">Taxable Goods</item>
             </field>
             <field name="price" xsi:type="array">
                 <item name="value" xsi:type="string">100</item>
@@ -699,13 +699,13 @@
                 <item name="is_in_stock" xsi:type="string">In Stock</item>
             </field>
             <field name="attribute_set_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="checkout_data" xsi:type="array">
-                <item name="preset" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="website_ids" xsi:type="array">
-                <item name="dataSets" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">main_website</item>
                 </item>
             </field>
@@ -721,7 +721,7 @@
             <field name="visibility" xsi:type="string">Catalog, Search</field>
             <field name="sku" xsi:type="string">sku_simple_product_%isolation%</field>
             <field name="tax_class_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">Taxable Goods</item>
+                <item name="dataset" xsi:type="string">Taxable Goods</item>
             </field>
             <field name="price" xsi:type="array">
                 <item name="value" xsi:type="string">100</item>
@@ -732,13 +732,13 @@
                 <item name="is_in_stock" xsi:type="string">Out of Stock</item>
             </field>
             <field name="attribute_set_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="checkout_data" xsi:type="array">
-                <item name="preset" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="website_ids" xsi:type="array">
-                <item name="dataSets" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">main_website</item>
                 </item>
             </field>
@@ -753,7 +753,7 @@
             <field name="visibility" xsi:type="string">Catalog, Search</field>
             <field name="sku" xsi:type="string">sku_simple_product_%isolation%</field>
             <field name="tax_class_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">Taxable Goods</item>
+                <item name="dataset" xsi:type="string">Taxable Goods</item>
             </field>
             <field name="price" xsi:type="array">
                 <item name="value" xsi:type="string">100</item>
@@ -764,13 +764,13 @@
                 <item name="is_in_stock" xsi:type="string">In Stock</item>
             </field>
             <field name="attribute_set_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="checkout_data" xsi:type="array">
-                <item name="preset" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="website_ids" xsi:type="array">
-                <item name="dataSets" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">main_website</item>
                 </item>
             </field>
@@ -785,7 +785,7 @@
             <field name="visibility" xsi:type="string">Not Visible Individually</field>
             <field name="sku" xsi:type="string">sku_not_visible_simple_product_%isolation%</field>
             <field name="tax_class_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">Taxable Goods</item>
+                <item name="dataset" xsi:type="string">Taxable Goods</item>
             </field>
             <field name="price" xsi:type="array">
                 <item name="value" xsi:type="string">100</item>
@@ -796,13 +796,13 @@
                 <item name="is_in_stock" xsi:type="string">In Stock</item>
             </field>
             <field name="attribute_set_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="checkout_data" xsi:type="array">
-                <item name="preset" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="website_ids" xsi:type="array">
-                <item name="dataSets" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">main_website</item>
                 </item>
             </field>
@@ -817,7 +817,7 @@
             <field name="visibility" xsi:type="string">Catalog, Search</field>
             <field name="sku" xsi:type="string">sku_simple_product_%isolation%</field>
             <field name="tax_class_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">Taxable Goods</item>
+                <item name="dataset" xsi:type="string">Taxable Goods</item>
             </field>
             <field name="price" xsi:type="array">
                 <item name="value" xsi:type="string">100</item>
@@ -828,13 +828,13 @@
                 <item name="max_sale_qty" xsi:type="string">5</item>
             </field>
             <field name="attribute_set_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="checkout_data" xsi:type="array">
-                <item name="preset" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="website_ids" xsi:type="array">
-                <item name="dataSets" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">main_website</item>
                 </item>
             </field>
@@ -849,7 +849,7 @@
             <field name="visibility" xsi:type="string">Catalog, Search</field>
             <field name="sku" xsi:type="string">sku_simple_product_with_qty_increments_%isolation%</field>
             <field name="tax_class_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">Taxable Goods</item>
+                <item name="dataset" xsi:type="string">Taxable Goods</item>
             </field>
             <field name="price" xsi:type="array">
                 <item name="value" xsi:type="string">100</item>
@@ -860,13 +860,13 @@
                 <item name="qty_increments" xsi:type="string">2</item>
             </field>
             <field name="attribute_set_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="checkout_data" xsi:type="array">
-                <item name="preset" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="website_ids" xsi:type="array">
-                <item name="dataSets" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">main_website</item>
                 </item>
             </field>
@@ -880,13 +880,13 @@
             <field name="status" xsi:type="string">Enabled</field>
             <field name="visibility" xsi:type="string">Catalog, Search</field>
             <field name="website_ids" xsi:type="array">
-                <item name="dataSets" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">main_website</item>
                 </item>
             </field>
             <field name="sku" xsi:type="string">test_simple_sku_%isolation%</field>
             <field name="tax_class_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">Taxable Goods</item>
+                <item name="dataset" xsi:type="string">Taxable Goods</item>
             </field>
             <field name="price" xsi:type="array">
                 <item name="value" xsi:type="string">100</item>
@@ -903,13 +903,13 @@
 
         <dataset name="with_custom_option_and_fpt">
             <field name="attribute_set_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="category_ids" xsi:type="array">
-                <item name="presets" xsi:type="string">default_subcategory</item>
+                <item name="dataset" xsi:type="string">default_subcategory</item>
             </field>
             <field name="website_ids" xsi:type="array">
-                <item name="dataSets" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">main_website</item>
                 </item>
             </field>
@@ -927,29 +927,29 @@
             </field>
             <field name="weight" xsi:type="string">1</field>
             <field name="custom_options" xsi:type="array">
-                <item name="preset" xsi:type="string">drop_down_with_one_option_fixed_price</item>
+                <item name="dataset" xsi:type="string">drop_down_with_one_option_fixed_price</item>
             </field>
             <field name="checkout_data" xsi:type="array">
-                <item name="preset" xsi:type="string">drop_down_with_one_option_fixed_price</item>
+                <item name="dataset" xsi:type="string">drop_down_with_one_option_fixed_price</item>
             </field>
             <field name="url_key" xsi:type="string">simple-product-%isolation%</field>
             <field name="fpt" xsi:type="array">
-                <item name="preset" xsi:type="string">one_fpt_for_all_states</item>
+                <item name="dataset" xsi:type="string">one_fpt_for_all_states</item>
             </field>
             <field name="tax_class_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">Taxable Goods</item>
+                <item name="dataset" xsi:type="string">Taxable Goods</item>
             </field>
         </dataset>
 
         <dataset name="with_special_price_and_fpt">
             <field name="attribute_set_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">default</item>
+                <item name="dataset" xsi:type="string">default</item>
             </field>
             <field name="category_ids" xsi:type="array">
-                <item name="presets" xsi:type="string">default_subcategory</item>
+                <item name="dataset" xsi:type="string">default_subcategory</item>
             </field>
             <field name="website_ids" xsi:type="array">
-                <item name="dataSets" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">main_website</item>
                 </item>
             </field>
@@ -969,11 +969,43 @@
             <field name="weight" xsi:type="string">1</field>
             <field name="url_key" xsi:type="string">simple-product-%isolation%</field>
             <field name="fpt" xsi:type="array">
-                <item name="preset" xsi:type="string">one_fpt_for_all_states</item>
+                <item name="dataset" xsi:type="string">one_fpt_for_all_states</item>
             </field>
             <field name="tax_class_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">Taxable Goods</item>
+                <item name="dataset" xsi:type="string">Taxable Goods</item>
             </field>
+        </dataset>
+
+        <dataset name="grouped_default">
+            <field name="name" xsi:type="string">simple product %isolation%</field>
+            <field name="description" xsi:type="string">Description for default Simple product with category</field>
+            <field name="short_description" xsi:type="string">Short description for default Simple product with category</field>
+            <field name="status" xsi:type="string">Enabled</field>
+            <field name="visibility" xsi:type="string">Catalog, Search</field>
+            <field name="sku" xsi:type="string">sku_simple_product_%isolation%</field>
+            <field name="tax_class_id" xsi:type="array">
+                <item name="dataset" xsi:type="string">Taxable Goods</item>
+            </field>
+            <field name="price" xsi:type="array">
+                <item name="value" xsi:type="string">100</item>
+            </field>
+            <field name="weight" xsi:type="string">12</field>
+            <field name="stock_data" xsi:type="array">
+                <item name="qty" xsi:type="string">10</item>
+                <item name="is_in_stock" xsi:type="string">In Stock</item>
+            </field>
+            <field name="attribute_set_id" xsi:type="array">
+                <item name="dataset" xsi:type="string">default</item>
+            </field>
+            <field name="checkout_data" xsi:type="array">
+                <item name="dataset" xsi:type="string">order_default</item>
+            </field>
+            <field name="website_ids" xsi:type="array">
+                <item name="dataset" xsi:type="array">
+                    <item name="0" xsi:type="string">main_website</item>
+                </item>
+            </field>
+            <field name="url_key" xsi:type="string">simple-product-%isolation%</field>
         </dataset>
     </repository>
 </config>

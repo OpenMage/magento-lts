@@ -105,8 +105,8 @@ class AssertProductComparePage extends AbstractConstraint
                 ? ($product->hasData($attribute)
                     ? $product->getData($attribute)
                     : 'N/A')
-                : ($product->getDataFieldConfig('price')['source']->getPreset() !== null
-                    ? $product->getDataFieldConfig('price')['source']->getPreset()
+                : ($product->getDataFieldConfig('price')['source']->getPriceData() !== null
+                    ? $product->getDataFieldConfig('price')['source']->getPriceData()
                     : number_format($product->getPrice(), 2));
 
             $data['attributeValues'][$attribute] = !is_array($attributeValue) ? strtolower(

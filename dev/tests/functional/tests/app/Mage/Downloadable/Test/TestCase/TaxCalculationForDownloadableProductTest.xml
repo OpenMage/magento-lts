@@ -26,145 +26,144 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-  <testCase name="Mage\Downloadable\Test\TestCase\TaxCalculationForDownloadableProductTest">
-    <variation name="TaxCalculationForDownloadableProductTestVariation1" firstConstraint="Mage\Downloadable\Test\Constraint\AssertTaxRuleIsAppliedToAllPricesDownloadableExcludingIncludingTax" method="test">
-      <data name="description" xsi:type="string">Downloadable product with sales rule, customer tax equals store tax and catalog price excluding tax</data>
-      <data name="configData" xsi:type="string">shipping_tax_class_taxable_goods, total_cat_excl_ship_incl_after_disc_on_incl, display_excluding_including_tax</data>
-      <data name="product" xsi:type="string">downloadableProduct::with_two_separately_links_special_price_and_category</data>
-      <data name="salesRule" xsi:type="string">active_sales_rule_for_all_groups_no_coupon</data>
-      <data name="catalogRule" xsi:type="string">-</data>
-      <data name="taxRule" xsi:type="string">customer_equals_store_rate</data>
-      <data name="customer/dataSet" xsi:type="string">johndoe_unique</data>
-      <data name="prices/category_price_excl_tax" xsi:type="string">20.00</data>
-      <data name="prices/category_price_incl_tax" xsi:type="string">21.65</data>
-      <data name="prices/product_view_price_excl_tax" xsi:type="string">25.43</data>
-      <data name="prices/product_view_price_incl_tax" xsi:type="string">27.53</data>
-      <data name="prices/cart_item_price_excl_tax" xsi:type="string">25.43</data>
-      <data name="prices/cart_item_price_incl_tax" xsi:type="string">27.53</data>
-      <data name="prices/cart_item_subtotal_excl_tax" xsi:type="string">25.43</data>
-      <data name="prices/cart_item_subtotal_incl_tax" xsi:type="string">27.53</data>
-      <data name="prices/subtotal_excl_tax" xsi:type="string">25.43</data>
-      <data name="prices/subtotal_incl_tax" xsi:type="string">27.53</data>
-      <data name="prices/discount" xsi:type="string">13.77</data>
-      <data name="prices/tax" xsi:type="string">0.96</data>
-      <data name="prices/grand_total_excl_tax" xsi:type="string">11.66</data>
-      <data name="prices/grand_total_incl_tax" xsi:type="string">12.62</data>
-      <data name="arguments/payment/method" xsi:type="string">checkmo</data>
-      <data name="issue" xsi:type="string">Bug: MPERF-7035: Subtotal Including Tax on invoice is discounted</data>
-      <constraint name="Mage\Downloadable\Test\Constraint\AssertTaxRuleIsAppliedToAllPricesDownloadableExcludingIncludingTax" next="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableExcludingIncludingTax"/>
-      <constraint name="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableExcludingIncludingTax" next="Mage\Downloadable\Test\Constraint\AssertOrderTaxOnBackendDownloadableExcludingIncludingTax" prev="Mage\Downloadable\Test\Constraint\AssertTaxRuleIsAppliedToAllPricesDownloadableExcludingIncludingTax"/>
-      <constraint name="Mage\Downloadable\Test\Constraint\AssertOrderTaxOnBackendDownloadableExcludingIncludingTax" prev="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableExcludingIncludingTax"/>
-    </variation>
-    <variation name="TaxCalculationForDownloadableProductTestVariation2" firstConstraint="Mage\Downloadable\Test\Constraint\AssertTaxRuleIsAppliedToAllPricesDownloadableIncludingTax" method="test">
-      <data name="description" xsi:type="string">Downloadable product with catalog rule, customer tax greater than store tax and catalog price excluding tax</data>
-      <data name="configData" xsi:type="string">shipping_tax_class_taxable_goods, total_cat_excl_ship_incl_after_disc_on_incl, display_including_tax</data>
-      <data name="product" xsi:type="string">downloadableProduct::with_two_separately_links_special_price_and_category</data>
-      <data name="salesRule" xsi:type="string">-</data>
-      <data name="catalogRule" xsi:type="string">catalog_price_rule_all_groups</data>
-      <data name="taxRule" xsi:type="string">customer_greater_store_rate</data>
-      <data name="customer/dataSet" xsi:type="string">johndoe_unique</data>
-      <data name="prices/tax" xsi:type="string">2.13</data>
-      <data name="prices/grand_total_excl_tax" xsi:type="string">25.43</data>
-      <data name="prices/grand_total_incl_tax" xsi:type="string">27.56</data>
-      <data name="prices/category_price" xsi:type="string">21.68</data>
-      <data name="prices/product_view_price" xsi:type="string">27.56</data>
-      <data name="prices/cart_item_price" xsi:type="string">27.56</data>
-      <data name="prices/cart_item_subtotal" xsi:type="string">27.56</data>
-      <data name="prices/subtotal" xsi:type="string">27.56</data>
-      <data name="arguments/payment/method" xsi:type="string">checkmo</data>
-      <constraint name="Mage\Downloadable\Test\Constraint\AssertTaxRuleIsAppliedToAllPricesDownloadableIncludingTax" next="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableIncludingTax"/>
-      <constraint name="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableIncludingTax" next="Mage\Downloadable\Test\Constraint\AssertOrderTaxOnBackendDownloadableIncludingTax" prev="Mage\Downloadable\Test\Constraint\AssertTaxRuleIsAppliedToAllPricesDownloadableIncludingTax"/>
-      <constraint name="Mage\Downloadable\Test\Constraint\AssertOrderTaxOnBackendDownloadableIncludingTax" prev="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableIncludingTax"/>
-    </variation>
-    <variation name="TaxCalculationForDownloadableProductTestVariation3" firstConstraint="Mage\Downloadable\Test\Constraint\AssertTaxRuleIsAppliedToAllPricesDownloadableExcludingTax" method="test">
-      <data name="description" xsi:type="string">Downloadable product with sales rule, customer tax less than store tax and catalog price excluding tax</data>
-      <data name="configData" xsi:type="string">shipping_tax_class_taxable_goods, total_cat_excl_ship_incl_after_disc_on_incl</data>
-      <data name="product" xsi:type="string">downloadableProduct::with_two_separately_links_group_price_and_category</data>
-      <data name="salesRule" xsi:type="string">active_sales_rule_for_all_groups_no_coupon</data>
-      <data name="catalogRule" xsi:type="string">-</data>
-      <data name="taxRule" xsi:type="string">customer_less_store_rate</data>
-      <data name="customer/dataSet" xsi:type="string">johndoe_unique</data>
-      <data name="prices/discount" xsi:type="string">13.77</data>
-      <data name="prices/tax" xsi:type="string">0.96</data>
-      <data name="prices/category_price" xsi:type="string">20.00</data>
-      <data name="prices/product_view_price" xsi:type="string">25.43</data>
-      <data name="prices/cart_item_price" xsi:type="string">25.43</data>
-      <data name="prices/cart_item_subtotal" xsi:type="string">25.43</data>
-      <data name="prices/subtotal" xsi:type="string">25.43</data>
-      <data name="prices/grand_total" xsi:type="string">12.62</data>
-      <data name="arguments/payment/method" xsi:type="string">checkmo</data>
-      <constraint name="Mage\Downloadable\Test\Constraint\AssertTaxRuleIsAppliedToAllPricesDownloadableExcludingTax" next="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableExcludingTax"/>
-      <constraint name="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableExcludingTax" next="Mage\Downloadable\Test\Constraint\AssertOrderTaxOnBackendDownloadableExcludingTax" prev="Mage\Downloadable\Test\Constraint\AssertTaxRuleIsAppliedToAllPricesDownloadableExcludingTax"/>
-      <constraint name="Mage\Downloadable\Test\Constraint\AssertOrderTaxOnBackendDownloadableExcludingTax" prev="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableExcludingTax"/>
-    </variation>
-    <variation name="TaxCalculationForDownloadableProductTestVariation4" firstConstraint="Mage\Downloadable\Test\Constraint\AssertTaxRuleIsAppliedToAllPricesDownloadableExcludingIncludingTax" method="test">
-      <data name="description" xsi:type="string">Downloadable product with catalog rule, customer tax greater than store tax and catalog price including tax</data>
-      <data name="configData" xsi:type="string">shipping_tax_class_taxable_goods, total_cat_incl_ship_excl_before_disc_on_excl, display_excluding_including_tax</data>
-      <data name="product" xsi:type="string">downloadableProduct::with_two_separately_links_custom_options_and_category</data>
-      <data name="salesRule" xsi:type="string">-</data>
-      <data name="catalogRule" xsi:type="string">catalog_price_rule_all_groups</data>
-      <data name="taxRule" xsi:type="string">customer_greater_store_rate</data>
-      <data name="customer/dataSet" xsi:type="string">johndoe_unique</data>
-      <data name="prices/category_price_excl_tax" xsi:type="string">18.48</data>
-      <data name="prices/category_price_incl_tax" xsi:type="string">20.03</data>
-      <data name="prices/product_view_price_excl_tax" xsi:type="string">28.11</data>
-      <data name="prices/product_view_price_incl_tax" xsi:type="string">30.47</data>
-      <data name="prices/cart_item_price_excl_tax" xsi:type="string">28.12</data>
-      <data name="prices/cart_item_price_incl_tax" xsi:type="string">30.47</data>
-      <data name="prices/cart_item_subtotal_excl_tax" xsi:type="string">28.12</data>
-      <data name="prices/cart_item_subtotal_incl_tax" xsi:type="string">30.47</data>
-      <data name="prices/subtotal_excl_tax" xsi:type="string">28.12</data>
-      <data name="prices/subtotal_incl_tax" xsi:type="string">30.47</data>
-      <data name="prices/tax" xsi:type="string">2.35</data>
-      <data name="prices/grand_total_excl_tax" xsi:type="string">28.12</data>
-      <data name="prices/grand_total_incl_tax" xsi:type="string">30.47</data>
-      <data name="arguments/payment/method" xsi:type="string">checkmo</data>
-      <data name="issue" xsi:type="string">Bug: MPERF-7121: Wrong tax calculation on category page (One cent)</data>
-      <constraint name="Mage\Downloadable\Test\Constraint\AssertTaxRuleIsAppliedToAllPricesDownloadableExcludingIncludingTax" next="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableExcludingIncludingTax"/>
-      <constraint name="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableExcludingIncludingTax" next="Mage\Downloadable\Test\Constraint\AssertOrderTaxOnBackendDownloadableExcludingIncludingTax" prev="Mage\Downloadable\Test\Constraint\AssertTaxRuleIsAppliedToAllPricesDownloadableExcludingIncludingTax"/>
-      <constraint name="Mage\Downloadable\Test\Constraint\AssertOrderTaxOnBackendDownloadableExcludingIncludingTax" prev="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableExcludingIncludingTax"/>
-    </variation>
-    <variation name="TaxCalculationForDownloadableProductTestVariation5" firstConstraint="Mage\Downloadable\Test\Constraint\AssertTaxRuleIsAppliedToAllPricesDownloadableIncludingTax" method="test">
-      <data name="description" xsi:type="string">Downloadable product with sales rule, customer tax less than store tax and catalog price including tax</data>
-      <data name="configData" xsi:type="string">shipping_tax_class_taxable_goods, total_cat_incl_ship_excl_before_disc_on_excl, display_including_tax</data>
-      <data name="product" xsi:type="string">downloadableProduct::with_two_separately_links_group_price_and_category</data>
-      <data name="salesRule" xsi:type="string">active_sales_rule_for_all_groups_no_coupon</data>
-      <data name="catalogRule" xsi:type="string">-</data>
-      <data name="taxRule" xsi:type="string">customer_less_store_rate</data>
-      <data name="customer/dataSet" xsi:type="string">johndoe_unique</data>
-      <data name="prices/discount" xsi:type="string">11.73</data>
-      <data name="prices/tax" xsi:type="string">1.94</data>
-      <data name="prices/grand_total_excl_tax" xsi:type="string">11.73</data>
-      <data name="prices/grand_total_incl_tax" xsi:type="string">13.67</data>
-      <data name="prices/category_price" xsi:type="string">19.98</data>
-      <data name="prices/product_view_price" xsi:type="string">25.40</data>
-      <data name="prices/cart_item_price" xsi:type="string">25.40</data>
-      <data name="prices/cart_item_subtotal" xsi:type="string">25.40</data>
-      <data name="prices/subtotal" xsi:type="string">25.40</data>
-      <data name="arguments/payment/method" xsi:type="string">checkmo</data>
-      <constraint name="Mage\Downloadable\Test\Constraint\AssertTaxRuleIsAppliedToAllPricesDownloadableIncludingTax" next="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableIncludingTax"/>
-      <constraint name="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableIncludingTax" next="Mage\Downloadable\Test\Constraint\AssertOrderTaxOnBackendDownloadableIncludingTax" prev="Mage\Downloadable\Test\Constraint\AssertTaxRuleIsAppliedToAllPricesDownloadableIncludingTax"/>
-      <constraint name="Mage\Downloadable\Test\Constraint\AssertOrderTaxOnBackendDownloadableIncludingTax" prev="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableIncludingTax"/>
-    </variation>
-    <variation name="TaxCalculationForDownloadableProductTestVariation6" firstConstraint="Mage\Downloadable\Test\Constraint\AssertTaxRuleIsAppliedToAllPricesDownloadableExcludingTax" method="test">
-      <data name="description" xsi:type="string">Downloadable product with catalog rule, customer tax equals store tax and catalog price including tax</data>
-      <data name="configData" xsi:type="string">shipping_tax_class_taxable_goods, total_cat_incl_ship_excl_before_disc_on_excl</data>
-      <data name="product" xsi:type="string">downloadableProduct::with_two_separately_links_custom_options_and_category</data>
-      <data name="salesRule" xsi:type="string">-</data>
-      <data name="catalogRule" xsi:type="string">catalog_price_rule_all_groups</data>
-      <data name="taxRule" xsi:type="string">customer_equals_store_rate</data>
-      <data name="customer/dataSet" xsi:type="string">johndoe_unique</data>
-      <data name="prices/tax" xsi:type="string">2.32</data>
-      <data name="prices/grand_total" xsi:type="string">30.43</data>
-      <data name="prices/category_price" xsi:type="string">18.48</data>
-      <data name="prices/product_view_price" xsi:type="string">28.11</data>
-      <data name="prices/cart_item_price" xsi:type="string">28.11</data>
-      <data name="prices/cart_item_subtotal" xsi:type="string">28.11</data>
-      <data name="prices/subtotal" xsi:type="string">28.11</data>
-      <data name="arguments/payment/method" xsi:type="string">checkmo</data>
-      <constraint name="Mage\Downloadable\Test\Constraint\AssertTaxRuleIsAppliedToAllPricesDownloadableExcludingTax" next="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableExcludingTax"/>
-      <constraint name="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableExcludingTax" next="Mage\Downloadable\Test\Constraint\AssertOrderTaxOnBackendDownloadableExcludingTax" prev="Mage\Downloadable\Test\Constraint\AssertTaxRuleIsAppliedToAllPricesDownloadableExcludingTax"/>
-      <constraint name="Mage\Downloadable\Test\Constraint\AssertOrderTaxOnBackendDownloadableExcludingTax" prev="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableExcludingTax"/>
-    </variation>
-  </testCase>
+    <testCase name="Mage\Downloadable\Test\TestCase\TaxCalculationForDownloadableProductTest" summary="TaxCalculationForDownloadableProductTest">
+        <variation name="TaxCalculationForDownloadableProductTestVariation1" firstConstraint="Mage\Downloadable\Test\Constraint\AssertTaxRuleIsAppliedToAllPricesDownloadableExcludingIncludingTax" method="test">
+            <data name="description" xsi:type="string">Downloadable product with sales rule, customer tax equals store tax and catalog price excluding tax</data>
+            <data name="configData" xsi:type="string">shipping_tax_class_taxable_goods, total_cat_excl_ship_incl_after_disc_on_incl, display_excluding_including_tax</data>
+            <data name="product" xsi:type="string">downloadableProduct::with_two_separately_links_special_price_and_category</data>
+            <data name="salesRule" xsi:type="string">active_sales_rule_for_all_groups_no_coupon</data>
+            <data name="catalogRule" xsi:type="string">-</data>
+            <data name="taxRule" xsi:type="string">customer_equals_store_rate</data>
+            <data name="customer/dataset" xsi:type="string">johndoe_unique</data>
+            <data name="prices/category_price_excl_tax" xsi:type="string">20.00</data>
+            <data name="prices/category_price_incl_tax" xsi:type="string">21.65</data>
+            <data name="prices/product_view_price_excl_tax" xsi:type="string">25.43</data>
+            <data name="prices/product_view_price_incl_tax" xsi:type="string">27.53</data>
+            <data name="prices/cart_item_price_excl_tax" xsi:type="string">25.43</data>
+            <data name="prices/cart_item_price_incl_tax" xsi:type="string">27.53</data>
+            <data name="prices/cart_item_subtotal_excl_tax" xsi:type="string">25.43</data>
+            <data name="prices/cart_item_subtotal_incl_tax" xsi:type="string">27.53</data>
+            <data name="prices/subtotal_excl_tax" xsi:type="string">25.43</data>
+            <data name="prices/subtotal_incl_tax" xsi:type="string">27.53</data>
+            <data name="prices/discount" xsi:type="string">13.77</data>
+            <data name="prices/tax" xsi:type="string">0.96</data>
+            <data name="prices/grand_total_excl_tax" xsi:type="string">11.66</data>
+            <data name="prices/grand_total_incl_tax" xsi:type="string">12.62</data>
+            <data name="arguments/payment/method" xsi:type="string">checkmo</data>
+            <constraint name="Mage\Downloadable\Test\Constraint\AssertTaxRuleIsAppliedToAllPricesDownloadableExcludingIncludingTax" next="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableExcludingIncludingTax"/>
+            <constraint name="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableExcludingIncludingTax" next="Mage\Downloadable\Test\Constraint\AssertOrderTaxOnBackendDownloadableExcludingIncludingTax" prev="Mage\Downloadable\Test\Constraint\AssertTaxRuleIsAppliedToAllPricesDownloadableExcludingIncludingTax"/>
+            <constraint name="Mage\Downloadable\Test\Constraint\AssertOrderTaxOnBackendDownloadableExcludingIncludingTax" prev="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableExcludingIncludingTax"/>
+        </variation>
+        <variation name="TaxCalculationForDownloadableProductTestVariation2" firstConstraint="Mage\Downloadable\Test\Constraint\AssertTaxRuleIsAppliedToAllPricesDownloadableIncludingTax" method="test">
+            <data name="description" xsi:type="string">Downloadable product with catalog rule, customer tax greater than store tax and catalog price excluding tax</data>
+            <data name="configData" xsi:type="string">shipping_tax_class_taxable_goods, total_cat_excl_ship_incl_after_disc_on_incl, display_including_tax</data>
+            <data name="product" xsi:type="string">downloadableProduct::with_two_separately_links_special_price_and_category</data>
+            <data name="salesRule" xsi:type="string">-</data>
+            <data name="catalogRule" xsi:type="string">default</data>
+            <data name="taxRule" xsi:type="string">customer_greater_store_rate</data>
+            <data name="customer/dataset" xsi:type="string">johndoe_unique</data>
+            <data name="prices/tax" xsi:type="string">2.13</data>
+            <data name="prices/grand_total_excl_tax" xsi:type="string">25.43</data>
+            <data name="prices/grand_total_incl_tax" xsi:type="string">27.56</data>
+            <data name="prices/category_price" xsi:type="string">21.68</data>
+            <data name="prices/product_view_price" xsi:type="string">27.56</data>
+            <data name="prices/cart_item_price" xsi:type="string">27.56</data>
+            <data name="prices/cart_item_subtotal" xsi:type="string">27.56</data>
+            <data name="prices/subtotal" xsi:type="string">27.56</data>
+            <data name="arguments/payment/method" xsi:type="string">checkmo</data>
+            <constraint name="Mage\Downloadable\Test\Constraint\AssertTaxRuleIsAppliedToAllPricesDownloadableIncludingTax" next="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableIncludingTax"/>
+            <constraint name="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableIncludingTax" next="Mage\Downloadable\Test\Constraint\AssertOrderTaxOnBackendDownloadableIncludingTax" prev="Mage\Downloadable\Test\Constraint\AssertTaxRuleIsAppliedToAllPricesDownloadableIncludingTax"/>
+            <constraint name="Mage\Downloadable\Test\Constraint\AssertOrderTaxOnBackendDownloadableIncludingTax" prev="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableIncludingTax"/>
+        </variation>
+        <variation name="TaxCalculationForDownloadableProductTestVariation3" firstConstraint="Mage\Downloadable\Test\Constraint\AssertTaxRuleIsAppliedToAllPricesDownloadableExcludingTax" method="test">
+            <data name="description" xsi:type="string">Downloadable product with sales rule, customer tax less than store tax and catalog price excluding tax</data>
+            <data name="configData" xsi:type="string">shipping_tax_class_taxable_goods, total_cat_excl_ship_incl_after_disc_on_incl</data>
+            <data name="product" xsi:type="string">downloadableProduct::with_two_separately_links_group_price_and_category</data>
+            <data name="salesRule" xsi:type="string">active_sales_rule_for_all_groups_no_coupon</data>
+            <data name="catalogRule" xsi:type="string">-</data>
+            <data name="taxRule" xsi:type="string">customer_less_store_rate</data>
+            <data name="customer/dataset" xsi:type="string">johndoe_unique</data>
+            <data name="prices/discount" xsi:type="string">13.77</data>
+            <data name="prices/tax" xsi:type="string">0.96</data>
+            <data name="prices/category_price" xsi:type="string">20.00</data>
+            <data name="prices/product_view_price" xsi:type="string">25.43</data>
+            <data name="prices/cart_item_price" xsi:type="string">25.43</data>
+            <data name="prices/cart_item_subtotal" xsi:type="string">25.43</data>
+            <data name="prices/subtotal" xsi:type="string">25.43</data>
+            <data name="prices/grand_total" xsi:type="string">12.62</data>
+            <data name="arguments/payment/method" xsi:type="string">checkmo</data>
+            <constraint name="Mage\Downloadable\Test\Constraint\AssertTaxRuleIsAppliedToAllPricesDownloadableExcludingTax" next="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableExcludingTax"/>
+            <constraint name="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableExcludingTax" next="Mage\Downloadable\Test\Constraint\AssertOrderTaxOnBackendDownloadableExcludingTax" prev="Mage\Downloadable\Test\Constraint\AssertTaxRuleIsAppliedToAllPricesDownloadableExcludingTax"/>
+            <constraint name="Mage\Downloadable\Test\Constraint\AssertOrderTaxOnBackendDownloadableExcludingTax" prev="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableExcludingTax"/>
+        </variation>
+        <variation name="TaxCalculationForDownloadableProductTestVariation4" firstConstraint="Mage\Downloadable\Test\Constraint\AssertTaxRuleIsAppliedToAllPricesDownloadableExcludingIncludingTax" method="test">
+            <data name="description" xsi:type="string">Downloadable product with catalog rule, customer tax greater than store tax and catalog price including tax</data>
+            <data name="configData" xsi:type="string">shipping_tax_class_taxable_goods, total_cat_incl_ship_excl_before_disc_on_excl, display_excluding_including_tax</data>
+            <data name="product" xsi:type="string">downloadableProduct::with_two_separately_links_custom_options_and_category</data>
+            <data name="salesRule" xsi:type="string">-</data>
+            <data name="catalogRule" xsi:type="string">default</data>
+            <data name="taxRule" xsi:type="string">customer_greater_store_rate</data>
+            <data name="customer/dataset" xsi:type="string">johndoe_unique</data>
+            <data name="prices/category_price_excl_tax" xsi:type="string">18.48</data>
+            <data name="prices/category_price_incl_tax" xsi:type="string">20.03</data>
+            <data name="prices/product_view_price_excl_tax" xsi:type="string">28.11</data>
+            <data name="prices/product_view_price_incl_tax" xsi:type="string">30.47</data>
+            <data name="prices/cart_item_price_excl_tax" xsi:type="string">28.12</data>
+            <data name="prices/cart_item_price_incl_tax" xsi:type="string">30.47</data>
+            <data name="prices/cart_item_subtotal_excl_tax" xsi:type="string">28.12</data>
+            <data name="prices/cart_item_subtotal_incl_tax" xsi:type="string">30.47</data>
+            <data name="prices/subtotal_excl_tax" xsi:type="string">28.12</data>
+            <data name="prices/subtotal_incl_tax" xsi:type="string">30.47</data>
+            <data name="prices/tax" xsi:type="string">2.35</data>
+            <data name="prices/grand_total_excl_tax" xsi:type="string">28.12</data>
+            <data name="prices/grand_total_incl_tax" xsi:type="string">30.47</data>
+            <data name="arguments/payment/method" xsi:type="string">checkmo</data>
+            <data name="issue" xsi:type="string">Bug: MPERF-7121: Wrong tax calculation on category page (One cent)</data>
+            <constraint name="Mage\Downloadable\Test\Constraint\AssertTaxRuleIsAppliedToAllPricesDownloadableExcludingIncludingTax" next="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableExcludingIncludingTax"/>
+            <constraint name="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableExcludingIncludingTax" next="Mage\Downloadable\Test\Constraint\AssertOrderTaxOnBackendDownloadableExcludingIncludingTax" prev="Mage\Downloadable\Test\Constraint\AssertTaxRuleIsAppliedToAllPricesDownloadableExcludingIncludingTax"/>
+            <constraint name="Mage\Downloadable\Test\Constraint\AssertOrderTaxOnBackendDownloadableExcludingIncludingTax" prev="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableExcludingIncludingTax"/>
+        </variation>
+        <variation name="TaxCalculationForDownloadableProductTestVariation5" firstConstraint="Mage\Downloadable\Test\Constraint\AssertTaxRuleIsAppliedToAllPricesDownloadableIncludingTax" method="test">
+            <data name="description" xsi:type="string">Downloadable product with sales rule, customer tax less than store tax and catalog price including tax</data>
+            <data name="configData" xsi:type="string">shipping_tax_class_taxable_goods, total_cat_incl_ship_excl_before_disc_on_excl, display_including_tax</data>
+            <data name="product" xsi:type="string">downloadableProduct::with_two_separately_links_group_price_and_category</data>
+            <data name="salesRule" xsi:type="string">active_sales_rule_for_all_groups_no_coupon</data>
+            <data name="catalogRule" xsi:type="string">-</data>
+            <data name="taxRule" xsi:type="string">customer_less_store_rate</data>
+            <data name="customer/dataset" xsi:type="string">johndoe_unique</data>
+            <data name="prices/discount" xsi:type="string">11.73</data>
+            <data name="prices/tax" xsi:type="string">1.94</data>
+            <data name="prices/grand_total_excl_tax" xsi:type="string">11.73</data>
+            <data name="prices/grand_total_incl_tax" xsi:type="string">13.67</data>
+            <data name="prices/category_price" xsi:type="string">19.98</data>
+            <data name="prices/product_view_price" xsi:type="string">25.40</data>
+            <data name="prices/cart_item_price" xsi:type="string">25.40</data>
+            <data name="prices/cart_item_subtotal" xsi:type="string">25.40</data>
+            <data name="prices/subtotal" xsi:type="string">25.40</data>
+            <data name="arguments/payment/method" xsi:type="string">checkmo</data>
+            <constraint name="Mage\Downloadable\Test\Constraint\AssertTaxRuleIsAppliedToAllPricesDownloadableIncludingTax" next="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableIncludingTax"/>
+            <constraint name="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableIncludingTax" next="Mage\Downloadable\Test\Constraint\AssertOrderTaxOnBackendDownloadableIncludingTax" prev="Mage\Downloadable\Test\Constraint\AssertTaxRuleIsAppliedToAllPricesDownloadableIncludingTax"/>
+            <constraint name="Mage\Downloadable\Test\Constraint\AssertOrderTaxOnBackendDownloadableIncludingTax" prev="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableIncludingTax"/>
+        </variation>
+        <variation name="TaxCalculationForDownloadableProductTestVariation6" firstConstraint="Mage\Downloadable\Test\Constraint\AssertTaxRuleIsAppliedToAllPricesDownloadableExcludingTax" method="test">
+            <data name="description" xsi:type="string">Downloadable product with catalog rule, customer tax equals store tax and catalog price including tax</data>
+            <data name="configData" xsi:type="string">shipping_tax_class_taxable_goods, total_cat_incl_ship_excl_before_disc_on_excl</data>
+            <data name="product" xsi:type="string">downloadableProduct::with_two_separately_links_custom_options_and_category</data>
+            <data name="salesRule" xsi:type="string">-</data>
+            <data name="catalogRule" xsi:type="string">default</data>
+            <data name="taxRule" xsi:type="string">customer_equals_store_rate</data>
+            <data name="customer/dataset" xsi:type="string">johndoe_unique</data>
+            <data name="prices/tax" xsi:type="string">2.32</data>
+            <data name="prices/grand_total" xsi:type="string">30.43</data>
+            <data name="prices/category_price" xsi:type="string">18.48</data>
+            <data name="prices/product_view_price" xsi:type="string">28.11</data>
+            <data name="prices/cart_item_price" xsi:type="string">28.11</data>
+            <data name="prices/cart_item_subtotal" xsi:type="string">28.11</data>
+            <data name="prices/subtotal" xsi:type="string">28.11</data>
+            <data name="arguments/payment/method" xsi:type="string">checkmo</data>
+            <constraint name="Mage\Downloadable\Test\Constraint\AssertTaxRuleIsAppliedToAllPricesDownloadableExcludingTax" next="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableExcludingTax"/>
+            <constraint name="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableExcludingTax" next="Mage\Downloadable\Test\Constraint\AssertOrderTaxOnBackendDownloadableExcludingTax" prev="Mage\Downloadable\Test\Constraint\AssertTaxRuleIsAppliedToAllPricesDownloadableExcludingTax"/>
+            <constraint name="Mage\Downloadable\Test\Constraint\AssertOrderTaxOnBackendDownloadableExcludingTax" prev="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableExcludingTax"/>
+        </variation>
+    </testCase>
 </config>

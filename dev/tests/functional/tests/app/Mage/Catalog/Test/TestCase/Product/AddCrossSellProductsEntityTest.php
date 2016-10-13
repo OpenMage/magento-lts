@@ -34,7 +34,7 @@ namespace Mage\Catalog\Test\TestCase\Product;
  * 1. Open Backend.
  * 2. Go to Products -> Catalog.
  * 3. Click Add new product.
- * 4. Fill data from dataSet.
+ * 4. Fill data from dataset.
  * 5. Save product.
  * 6. Perform all assertions.
  *

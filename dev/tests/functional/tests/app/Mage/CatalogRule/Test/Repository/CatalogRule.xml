@@ -28,12 +28,27 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/Magento/Mtf/Repository/etc/repository.xsd">
     <repository class="Mage\CatalogRule\Test\Repository\CatalogRule">
+        <dataset name="default">
+            <field name="name" xsi:type="string">CatalogPriceRule %isolation%</field>
+            <field name="description" xsi:type="string">Catalog Price Rule Description</field>
+            <field name="website_ids" xsi:type="array">
+                <item name="dataSets" xsi:type="array">
+                    <item name="0" xsi:type="string">main_website</item>
+                </item>
+            </field>
+            <field name="customer_group_ids" xsi:type="array">
+                <item name="0" xsi:type="string">NOT LOGGED IN</item>
+            </field>
+            <field name="simple_action" xsi:type="string">By Percentage of the Original Price</field>
+            <field name="discount_amount" xsi:type="string">50</field>
+        </dataset>
+
         <dataset name="catalog_price_rule_priority_0">
             <field name="name" xsi:type="string">catalog_price_rule_priority_0 %isolation%</field>
             <field name="description" xsi:type="string">-50% of price, Priority = 0</field>
             <field name="is_active" xsi:type="string">Active</field>
             <field name="website_ids" xsi:type="array">
-                <item name="dataSets" xsi:type="array">
+                <item name="datasets" xsi:type="array">
                     <item name="0" xsi:type="string">main_website</item>
                 </item>
             </field>
@@ -44,12 +59,13 @@
             <field name="simple_action" xsi:type="string">By Percentage of the Original Price</field>
             <field name="discount_amount" xsi:type="string">50</field>
         </dataset>
+
         <dataset name="catalog_price_rule_priority_1_stop_further_rules">
             <field name="name" xsi:type="string">catalog_price_rule_priority_1_stop_further_rules %isolation%</field>
             <field name="description" xsi:type="string">Priority 1, -5 By fixed amount</field>
             <field name="is_active" xsi:type="string">Active</field>
             <field name="website_ids" xsi:type="array">
-                <item name="dataSets" xsi:type="array">
+                <item name="datasets" xsi:type="array">
                     <item name="0" xsi:type="string">main_website</item>
                 </item>
             </field>
@@ -61,12 +77,13 @@
             <field name="discount_amount" xsi:type="string">5</field>
             <field name="stop_rules_processing" xsi:type="string">Yes</field>
         </dataset>
+
         <dataset name="catalog_price_rule_priority_2">
             <field name="name" xsi:type="string">catalog_price_rule_priority_2 %isolation%</field>
             <field name="description" xsi:type="string">Priority 2, -10 By fixed amount</field>
             <field name="is_active" xsi:type="string">Active</field>
             <field name="website_ids" xsi:type="array">
-                <item name="dataSets" xsi:type="array">
+                <item name="datasets" xsi:type="array">
                     <item name="0" xsi:type="string">main_website</item>
                 </item>
             </field>
@@ -77,12 +94,13 @@
             <field name="simple_action" xsi:type="string">By Fixed Amount</field>
             <field name="discount_amount" xsi:type="string">10</field>
         </dataset>
+
         <dataset name="active_catalog_price_rule_with_conditions">
             <field name="name" xsi:type="string">Active Catalog Rule with conditions %isolation%</field>
             <field name="description" xsi:type="string">Rule Description</field>
             <field name="is_active" xsi:type="string">Active</field>
             <field name="website_ids" xsi:type="array">
-                <item name="dataSets" xsi:type="array">
+                <item name="datasets" xsi:type="array">
                     <item name="0" xsi:type="string">main_website</item>
                 </item>
             </field>

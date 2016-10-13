@@ -28,16 +28,19 @@ function popWin(url,win,para) {
 }
 
 function setLocation(url){
-    window.location.href = url;
+    window.location.href = encodeURI(url);
 }
 
 function setPLocation(url, setFocus){
     if( setFocus ) {
         window.opener.focus();
     }
-    window.opener.location.href = url;
+    window.opener.location.href = encodeURI(url);
 }
 
+/**
+ * @deprecated
+ */
 function setLanguageCode(code, fromCode){
     //TODO: javascript cookies have different domain and path than php cookies
     var href = window.location.href;
@@ -173,7 +176,7 @@ function decorateTable(table, options) {
 function decorateList(list, nonRecursive) {
     if ($(list)) {
         if (typeof(nonRecursive) == 'undefined') {
-            var items = $(list).select('li')
+            var items = $(list).select('li');
         }
         else {
             var items = $(list).childElements();
@@ -251,7 +254,7 @@ function formatCurrency(price, format, showPlus){
      * when Math.abs(0).toFixed() executed on "0" number.
      * Result is "0.-0" :(
      */
-    var r = (j ? i.substr(0, j) + groupSymbol : "") + i.substr(j).replace(re, "$1" + groupSymbol) + (precision ? decimalSymbol + Math.abs(price - i).toFixed(precision).replace(/-/, 0).slice(2) : "")
+    var r = (j ? i.substr(0, j) + groupSymbol : "") + i.substr(j).replace(re, "$1" + groupSymbol) + (precision ? decimalSymbol + Math.abs(price - i).toFixed(precision).replace(/-/, 0).slice(2) : "");
     var pattern = '';
     if (format.pattern.indexOf('{sign}') == -1) {
         pattern = s + format.pattern;
@@ -264,11 +267,15 @@ function formatCurrency(price, format, showPlus){
 
 function expandDetails(el, childClass) {
     if (Element.hasClassName(el,'show-details')) {
-        $$(childClass).each(function(item){item.hide()});
+        $$(childClass).each(function(item){
+            item.hide();
+        });
         Element.removeClassName(el,'show-details');
     }
     else {
-        $$(childClass).each(function(item){item.show()});
+        $$(childClass).each(function(item){
+            item.show();
+        });
         Element.addClassName(el,'show-details');
     }
 }
@@ -282,11 +289,11 @@ if (!window.Varien)
 Varien.showLoading = function(){
     var loader = $('loading-process');
     loader && loader.show();
-}
+};
 Varien.hideLoading = function(){
     var loader = $('loading-process');
     loader && loader.hide();
-}
+};
 Varien.GlobalHandlers = {
     onCreate: function() {
         Varien.showLoading();
@@ -369,7 +376,7 @@ Varien.searchForm.prototype = {
         }
         this.form.submit();
     }
-}
+};
 
 Varien.Tabs = Class.create();
 Varien.Tabs.prototype = {
@@ -399,7 +406,7 @@ Varien.Tabs.prototype = {
       }
     });
   }
-}
+};
 
 Varien.DateElement = Class.create();
 Varien.DateElement.prototype = {
@@ -436,6 +443,9 @@ Varien.DateElement.prototype = {
         this.year.setAttribute('autocomplete','off');
 
         this.advice.hide();
+
+        var date = new Date;
+        this.curyear = date.getFullYear();
     },
     validate: function() {
         var error = false,
@@ -452,12 +462,13 @@ Varien.DateElement.prototype = {
                 this.full.value = '';
             }
         } else if (!day || !month || !year) {
-            error = 'Please enter a valid full date.';
+            error = 'Please enter a valid full date';
         } else {
             var date = new Date, countDaysInMonth = 0, errorType = null;
             date.setYear(year);date.setMonth(month-1);date.setDate(32);
             countDaysInMonth = 32 - date.getDate();
             if(!countDaysInMonth || countDaysInMonth>31) countDaysInMonth = 31;
+            if(year < 1900) error = this.errorTextModifier(this.validateDataErrorText);
 
             if (day<1 || day>countDaysInMonth) {
                 errorType = 'day';
@@ -509,13 +520,12 @@ Varien.DateElement.prototype = {
     },
     validateData: function() {
         var year = this.fullDate.getFullYear();
-        var date = new Date;
-        this.curyear = date.getFullYear();
         return (year>=1900 && year<=this.curyear);
     },
     validateDataErrorType: 'year',
     validateDataErrorText: 'Please enter a valid year (1900-%d).',
     errorTextModifier: function(text) {
+        text = Translator.translate(text);
         return text.replace('%d', this.curyear);
     },
     setDateRange: function(minDate, maxDate) {
@@ -553,15 +563,15 @@ Varien.dateRangeDate.prototype = Object.extend(new Varien.DateElement(), {
                 if (isNaN(this.minDate)) {
                     this.minDate = new Date('1/1/1900');
                 }
-                validate = validate && (this.fullDate >= this.minDate)
+                validate = validate && (this.fullDate >= this.minDate);
             }
             if (this.maxDate) {
-                this.maxDate = new Date(this.maxDate)
+                this.maxDate = new Date(this.maxDate);
                 this.minDate.setHours(0);
                 if (isNaN(this.maxDate)) {
                     this.maxDate = new Date();
                 }
-                validate = validate && (this.fullDate <= this.maxDate)
+                validate = validate && (this.fullDate <= this.maxDate);
             }
             if (this.maxDate && this.minDate) {
                 this.validateDataErrorText = 'Please enter a valid date between %s and %s';
@@ -613,12 +623,12 @@ function truncateOptions() {
     $$('.truncated').each(function(element){
         Event.observe(element, 'mouseover', function(){
             if (element.down('div.truncated_full_value')) {
-                element.down('div.truncated_full_value').addClassName('show')
+                element.down('div.truncated_full_value').addClassName('show');
             }
         });
         Event.observe(element, 'mouseout', function(){
             if (element.down('div.truncated_full_value')) {
-                element.down('div.truncated_full_value').removeClassName('show')
+                element.down('div.truncated_full_value').removeClassName('show');
             }
         });
 
@@ -633,7 +643,7 @@ Element.addMethods({
     {
         element = $(element);
         if(element.innerText && !Prototype.Browser.Opera) {
-            return element.innerText
+            return element.innerText;
         }
         return element.innerHTML.stripScripts().unescapeHTML().replace(/[\n\r\s]+/g, ' ').strip();
     }
@@ -668,7 +678,7 @@ function fireEvent(element, event) {
     } else {
         // dispatch for IE before version 9
         var evt = document.createEventObject();
-        return element.fireEvent('on' + event, evt)
+        return element.fireEvent('on' + event, evt);
     }
 }
 

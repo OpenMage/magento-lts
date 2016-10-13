@@ -163,7 +163,7 @@ class AssertProductTierPriceOnProductPage extends AbstractConstraint implements 
     protected function prepareTierPrices(InjectableFixture $product)
     {
         $tierPrices = $product->getTierPrice();
-        $percents = $product->getDataFieldConfig('price')['source']->getPreset();
+        $percents = $product->getDataFieldConfig('price')['source']->getPriceData();
         foreach ($tierPrices as $key => $tierPrice) {
             $tierPrices[$key]['price'] = number_format($tierPrices[$key]['price'], $this->priceFormat);
             $tierPrices[$key]['percent'] = $percents[$key]['percent'];

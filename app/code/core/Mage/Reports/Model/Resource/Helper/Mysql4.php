@@ -77,22 +77,44 @@ class Mage_Reports_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource
         }
 
         $columns = array(
-            'period'        => 't.period',
-            'store_id'      => 't.store_id',
-            'product_id'    => 't.product_id',
-            'product_name'  => 't.product_name',
-            'product_price' => 't.product_price',
+            'period'          => 't.period',
+            'store_id'        => 't.store_id',
+            'product_id'      => 't.product_id',
+            'product_name'    => 't.product_name',
+            'product_price'   => 't.product_price',
         );
 
         if ($type == 'day') {
             $columns['id'] = 't.id';  // to speed-up insert on duplicate key update
         }
 
+        if ($column == 'qty_ordered')
+        {
+            $columns['product_type_id'] = 't.product_type_id';
+        }
+
         $cols = array_keys($columns);
         $cols['total_qty'] = new Zend_Db_Expr('SUM(t.' . $column . ')');
+
         $periodSubSelect->from(array('t' => $mainTable), $cols)
-            ->group(array('t.store_id', $periodCol, 't.product_id'))
-            ->order(array('t.store_id', $periodCol, 'total_qty DESC'));
+            ->group(array('t.store_id', $periodCol, 't.product_id'));
+
+        if ($column == 'qty_ordered') {
+            $productTypesInExpr = $adapter->quoteInto(
+                't.product_type_id IN (?)',
+                Mage_Catalog_Model_Product_Type::getCompositeTypes()
+            );
+            $periodSubSelect->order(
+                array(
+                    't.store_id',
+                    $periodCol,
+                    $adapter->getCheckSql($productTypesInExpr, 1, 0),
+                    'total_qty DESC'
+                )
+            );
+        } else {
+            $periodSubSelect->order(array('t.store_id', $periodCol, 'total_qty DESC'));
+        }
 
         $cols = $columns;
         $cols[$column] = 't.total_qty';

@@ -52,6 +52,7 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
      * Prepare Terms
      *
      * @param string $str The source string
+     * @param int $maxWordLength
      * @return array(0=>words, 1=>terms)
      */
     function prepareTerms($str, $maxWordLength = 0)
@@ -112,10 +113,24 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
      *
      * @param mixed $table The table to insert data into.
      * @param array $data Column-value pairs or array of column-value pairs.
-     * @param arrat $fields update fields pairs or values
+     * @param array $fields update fields pairs or values
      * @return int The number of affected rows.
      */
     public function insertOnDuplicate($table, array $data, array $fields = array()) {
         return $this->_getWriteAdapter()->insertOnDuplicate($table, $data, $fields);
+    }
+
+    /**
+     * Get field expression for order by
+     *
+     * @param string $fieldName
+     * @param array $orderedIds
+     *
+     * @return string
+     */
+    public function getFieldOrderExpression($fieldName, array $orderedIds)
+    {
+        $fieldName = $this->_getWriteAdapter()->quoteIdentifier($fieldName);
+        return "FIELD({$fieldName}, {$this->_getReadAdapter()->quote($orderedIds)})";
     }
 }

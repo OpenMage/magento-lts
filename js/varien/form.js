@@ -42,7 +42,7 @@ VarienForm.prototype = {
         this.bindElements();
         if(this.firstFieldFocus){
             try{
-                Form.Element.focus(Form.findFirstElement(this.form))
+                Form.Element.focus(Form.findFirstElement(this.form));
             }
             catch(e){}
         }
@@ -117,7 +117,7 @@ VarienForm.prototype = {
     },
 
     reloadChildren: function(transport){
-        var data = eval('(' + transport.responseText + ')');
+        var data = transport.responseJSON || transport.responseText.evalJSON(true) || {};
         this.cache[this.currLoader]['data'][this.currDataIndex] = data;
         this.setDataToChild(data);
     },
@@ -158,7 +158,7 @@ VarienForm.prototype = {
             this.callback();
         }
     }
-}
+};
 
 RegionUpdater = Class.create();
 RegionUpdater.prototype = {
@@ -215,7 +215,7 @@ RegionUpdater.prototype = {
                 } else if (regionRequired) {
                     wildCard.show();
                     if (!label.hasClassName('required')) {
-                        label.addClassName('required')
+                        label.addClassName('required');
                     }
                 }
             }
@@ -358,7 +358,7 @@ RegionUpdater.prototype = {
         $(elem).value = currentVal;
         return;
     }
-}
+};
 
 ZipUpdater = Class.create();
 ZipUpdater.prototype = {
@@ -377,7 +377,7 @@ ZipUpdater.prototype = {
 
         // Ajax-request and normal content load compatibility
         if (this.zipElement != undefined) {
-            Validation.reset(this.zipElement)
+            Validation.reset(this.zipElement);
             this._setPostcodeOptional();
         } else {
             Event.observe(window, "load", this._setPostcodeOptional.bind(this));
@@ -412,4 +412,4 @@ ZipUpdater.prototype = {
             }
         }
     }
-}
+};

@@ -204,7 +204,7 @@ class Curl extends \Mage\Catalog\Test\Handler\CatalogProductSimple\Curl implemen
     {
         $url = $_ENV['app_backend_url'] . "bundle_product_edit/form/id/{$id}/back/edit/tab/product_info_tabs_group_7/";
         $curl = new BackendDecorator(new CurlTransport(), $this->_configuration);
-        $curl->write(CurlInterface::POST, $url, '1.1');
+        $curl->write($url);
         $response = $curl->read();
         $curl->close();
 

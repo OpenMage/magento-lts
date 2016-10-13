@@ -26,7 +26,7 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/pages.xsd">
-  <page name="CheckoutOnepage" mca="checkout/onepage">
-    <block name="giftMessagesBlock" class="Mage\GiftMessage\Test\Block\Message\Inline" locator="#onepage-checkout-shipping-method-additional-load" strategy="css selector"/>
-  </page>
+    <page name="CheckoutOnepage" mca="checkout/onepage">
+        <block name="giftMessagesBlock" class="Mage\GiftMessage\Test\Block\Message\Inline" locator="#onepage-checkout-shipping-method-additional-load" strategy="css selector"/>
+    </page>
 </config>

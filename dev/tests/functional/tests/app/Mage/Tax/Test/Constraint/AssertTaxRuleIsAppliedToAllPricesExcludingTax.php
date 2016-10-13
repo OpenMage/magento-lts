@@ -107,6 +107,6 @@ class AssertTaxRuleIsAppliedToAllPricesExcludingTax extends AbstractAssertTaxRul
      */
     public function toString()
     {
-        return 'Prices excl tax on category, product and cart pages are equal to specified in dataSet.';
+        return 'Prices excl tax on category, product and cart pages are equal to specified in dataset.';
     }
 }

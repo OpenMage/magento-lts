@@ -26,10 +26,10 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Sales\Test\TestCase\CancelCreatedOrderTest">
+    <testCase name="Mage\Sales\Test\TestCase\CancelCreatedOrderTest" summary="CancelCreatedOrderTest">
         <variation name="CancelCreatedOrderTestVariation1">
             <data name="description" xsi:type="string">Cancel order and check status on the frontend.</data>
-            <data name="order/dataSet" xsi:type="string">with_simple_qty_3</data>
+            <data name="order/dataset" xsi:type="string">with_simple_qty_3</data>
             <data name="status" xsi:type="string">Canceled</data>
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderCancelSuccessMessage" />
             <constraint name="Mage\Sales\Test\Constraint\AssertOrderInOrdersGrid" />

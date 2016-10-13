@@ -135,7 +135,7 @@ class Curl extends ProductCurl implements ConfigurableProductInterface
         $config = $this->prepareConfigDataForNew($product);
         $url = $this->getUrl($config, 'new');
         $curl = new BackendDecorator(new CurlTransport(), $this->_configuration);
-        $curl->write(CurlInterface::GET, $url);
+        $curl->write($url, [], CurlInterface::GET);
         $response = $curl->read();
         $curl->close();
 

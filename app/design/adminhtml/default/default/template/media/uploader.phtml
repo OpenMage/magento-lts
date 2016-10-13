@@ -26,48 +26,30 @@
 ?>
 <?php
 /**
- * @see Mage_Adminhtml_Block_Media_Uploader
+ * @var $this Mage_Uploader_Block_Multiple|Mage_Uploader_Block_Single
  */
 ?>
-
-<?php echo $this->helper('adminhtml/js')->includeScript('lib/flex.js') ?>
-<?php echo $this->helper('adminhtml/js')->includeScript('mage/adminhtml/flexuploader.js') ?>
-<?php echo $this->helper('adminhtml/js')->includeScript('lib/FABridge.js') ?>
-
 <div id="<?php echo $this->getHtmlId() ?>" class="uploader">
-    <div class="buttons">
-        <?php /* buttons included in flex object */ ?>
-        <?php  /*echo $this->getBrowseButtonHtml()*/  ?>
-        <?php  /*echo $this->getUploadButtonHtml()*/  ?>
-        <div id="<?php echo $this->getHtmlId() ?>-install-flash" style="display:none">
-            <?php echo Mage::helper('media')->__('This content requires last version of Adobe Flash Player. <a href="%s">Get Flash</a>', 'http://www.adobe.com/go/getflash/') ?>
-        </div>
+    <div class="buttons a-right">
+        <?php echo $this->getBrowseButtonHtml(); ?>
+        <?php echo $this->getUploadButtonHtml(); ?>
     </div>
-    <div class="clear"></div>
-    <div class="no-display" id="<?php echo $this->getHtmlId() ?>-template">
-        <div id="{{id}}" class="file-row">
-        <span class="file-info">{{name}} ({{size}})</span>
+</div>
+<div class="no-display" id="<?php echo $this->getElementId('template') ?>">
+    <div id="{{id}}-container" class="file-row">
+        <span class="file-info">{{name}} {{size}}</span>
         <span class="delete-button"><?php echo $this->getDeleteButtonHtml() ?></span>
         <span class="progress-text"></span>
         <div class="clear"></div>
-        </div>
-    </div>
-    <div class="no-display" id="<?php echo $this->getHtmlId() ?>-template-progress">
-        {{percent}}% {{uploaded}} / {{total}}
     </div>
 </div>
-
 <script type="text/javascript">
-//<![CDATA[
+    (function() {
+        var uploader = new Uploader(<?php echo $this->getJsonConfig(); ?>);
 
-var maxUploadFileSizeInBytes = <?php echo $this->getDataMaxSizeInBytes() ?>;
-var maxUploadFileSize = '<?php echo $this->getDataMaxSize() ?>';
-
-<?php echo $this->getJsObjectName() ?> = new Flex.Uploader('<?php echo $this->getHtmlId() ?>', '<?php echo $this->getUploaderUrl('media/uploader.swf') ?>', <?php echo $this->getConfigJson() ?>);
-
-if (varienGlobalEvents) {
-    varienGlobalEvents.attachEventHandler('tabChangeBefore', <?php echo $this->getJsObjectName() ?>.onContainerHideBefore);
-}
-
-//]]>
+        if (varienGlobalEvents) {
+            varienGlobalEvents.attachEventHandler('tabChangeBefore', uploader.onContainerHideBefore);
+        }
+    })();
 </script>
+<?php echo $this->getChildHtml('additional_scripts'); ?>

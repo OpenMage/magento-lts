@@ -44,10 +44,10 @@ function showHideFiles(button, selector, filesClass)
 
 function loadPackage()
 {
-    var package = prompt('Please enter package name');
-    if (!package) return false;
+    var packageName = prompt('Please enter package name');
+    if (!packageName) return false;
     var url = '<?php echo $this->getUrl('*/*/load') ?>';
-    location.href = url+(url.indexOf('?')==-1 ? '?':'&')+'id='+package;
+    location.href = encodeURI(url + ((url.indexOf('?') == -1) ? '?':'&') + 'id=' + packageName);
 }
 
 function saveAsPackage()

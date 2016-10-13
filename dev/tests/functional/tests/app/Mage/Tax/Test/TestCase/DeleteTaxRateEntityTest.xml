@@ -26,9 +26,9 @@
  */
  -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Tax\Test\TestCase\DeleteTaxRateEntityTest">
+    <testCase name="Mage\Tax\Test\TestCase\DeleteTaxRateEntityTest" summary="DeleteTaxRateEntityTest">
         <variation name="DeleteTaxRateEntityTestVariation1">
-            <data name="taxRate/dataSet" xsi:type="string">default</data>
+            <data name="taxRate/dataset" xsi:type="string">default</data>
             <constraint name="Mage\Tax\Test\Constraint\AssertTaxRateSuccessDeleteMessage"/>
             <constraint name="Mage\Tax\Test\Constraint\AssertTaxRateNotInGrid"/>
             <constraint name="Mage\Tax\Test\Constraint\AssertTaxRateNotInTaxRule"/>

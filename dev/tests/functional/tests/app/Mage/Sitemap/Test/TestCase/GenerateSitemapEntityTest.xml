@@ -26,7 +26,7 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Sitemap\Test\TestCase\GenerateSitemapEntityTest">
+    <testCase name="Mage\Sitemap\Test\TestCase\GenerateSitemapEntityTest" summary="GenerateSitemapEntityTest">
         <variation name="GenerateSitemapEntityTestVariation1">
             <data name="sitemap/data/sitemap_filename" xsi:type="string">sitemap.xml</data>
             <data name="sitemap/data/sitemap_path" xsi:type="string">/</data>

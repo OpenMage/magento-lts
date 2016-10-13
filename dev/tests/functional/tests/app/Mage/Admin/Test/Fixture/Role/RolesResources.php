@@ -35,7 +35,7 @@ use Mage\Admin\Test\Fixture\User;
 class RolesResources implements FixtureInterface
 {
     /**
-     * Prepared dataSet data.
+     * Prepared dataset data.
      *
      * @var array
      */

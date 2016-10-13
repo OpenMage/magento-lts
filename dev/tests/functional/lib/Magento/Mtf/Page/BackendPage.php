@@ -58,9 +58,9 @@ class BackendPage extends Page
      *
      * @return void
      */
-    protected function _init()
+    protected function initUrl()
     {
-        $this->_url = $_ENV['app_backend_url'] . static::MCA;
+        $this->url = $_ENV['app_backend_url'] . static::MCA;
     }
 
     /**

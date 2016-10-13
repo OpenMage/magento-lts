@@ -217,7 +217,7 @@ GiftOptionsPopup.prototype = {
         this.giftOptionsWindowMask.style.display = 'none';
         this.giftOptionsWindow.style.display = 'none';
     }
-}
+};
 
 
 /********************* GIFT OPTIONS SET ***********************/
@@ -241,7 +241,7 @@ GiftMessageSet.prototype = {
         if ($('gift-message-form-data-' + this.id)) {
             this.fields.each(function(el) {
                 if ($(this.sourcePrefix + this.id + '_' + el) && $(this.destPrefix + el)) {
-                    $(this.destPrefix + el).value = $(this.sourcePrefix + this.id + '_' + el).value
+                    $(this.destPrefix + el).value = $(this.sourcePrefix + this.id + '_' + el).value;
                 }
             }, this);
             $('gift_options_giftmessage').show();
@@ -268,4 +268,4 @@ GiftMessageSet.prototype = {
             order.loadArea(['items'], true, data.toObject());
         }
     }
-}
+};

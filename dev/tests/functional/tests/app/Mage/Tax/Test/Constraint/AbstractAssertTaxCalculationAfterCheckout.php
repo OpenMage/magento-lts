@@ -31,6 +31,7 @@ use Mage\Checkout\Test\Page\CheckoutOnepageSuccess;
 use Mage\Customer\Test\Fixture\Customer;
 use Mage\Sales\Test\Page\OrderView;
 use Magento\Mtf\Fixture\InjectableFixture;
+use Magento\Mtf\System\Event\EventManagerInterface;
 use Magento\Mtf\ObjectManager;
 
 /**
@@ -44,6 +45,13 @@ abstract class AbstractAssertTaxCalculationAfterCheckout extends AbstractAssertT
      * @var CheckoutOnepage
      */
     protected $checkoutOnepage;
+
+    /**
+     * Checkout page.
+     *
+     * @var CheckoutOnepageSuccess
+     */
+    protected $checkoutOnepageSuccess;
 
     /**
      * Order view page.
@@ -75,17 +83,19 @@ abstract class AbstractAssertTaxCalculationAfterCheckout extends AbstractAssertT
     /**
      * @constructor
      * @param ObjectManager $objectManager
+     * @param EventManagerInterface $eventManager
      * @param CheckoutOnepage $checkoutOnepage
      * @param CheckoutOnepageSuccess $checkoutOnepageSuccess
      * @param OrderView $orderView
      */
     public function __construct(
         ObjectManager $objectManager,
+        EventManagerInterface $eventManager,
         CheckoutOnepage $checkoutOnepage,
         CheckoutOnepageSuccess $checkoutOnepageSuccess,
         OrderView $orderView
     ) {
-        parent::__construct($objectManager);
+        parent::__construct($objectManager, $eventManager);
         $this->checkoutOnepage = $checkoutOnepage;
         $this->checkoutOnepageSuccess = $checkoutOnepageSuccess;
         $this->orderView = $orderView;

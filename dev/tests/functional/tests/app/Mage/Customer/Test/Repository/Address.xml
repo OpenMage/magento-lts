@@ -41,6 +41,31 @@
             <field name="fax" xsi:type="string">555-55-555-55</field>
         </dataset>
 
+        <dataset name="customer_US_login">
+            <field name="firstname" xsi:type="string">John</field>
+            <field name="lastname" xsi:type="string">Doe</field>
+            <field name="company" xsi:type="string">Magento %isolation%</field>
+            <field name="city" xsi:type="string">Culver City</field>
+            <field name="street" xsi:type="string">6161 West Centinela Avenue</field>
+            <field name="postcode" xsi:type="string">90230</field>
+            <field name="country_id" xsi:type="string">United States</field>
+            <field name="region_id" xsi:type="string">California</field>
+            <field name="telephone" xsi:type="string">555-55-555-55</field>
+            <field name="fax" xsi:type="string">555-55-555-55</field>
+        </dataset>
+
+        <dataset name="customer_US_login_miltiship">
+            <field name="firstname" xsi:type="string">John</field>
+            <field name="lastname" xsi:type="string">Doe</field>
+            <field name="company" xsi:type="string">Magento %isolation%</field>
+            <field name="street" xsi:type="string">3222 Cliffside Drive</field>
+            <field name="city" xsi:type="string">Binghamton</field>
+            <field name="region_id" xsi:type="string">New York</field>
+            <field name="postcode" xsi:type="string">13901</field>
+            <field name="country_id" xsi:type="string">United States</field>
+            <field name="telephone" xsi:type="string">607-481-7802</field>
+        </dataset>
+
         <dataset name="US_address_NY">
             <field name="firstname" xsi:type="string">John</field>
             <field name="lastname" xsi:type="string">Doe</field>
@@ -54,6 +79,12 @@
             <field name="telephone" xsi:type="string">607-481-7802</field>
             <field name="default_billing" xsi:type="string">Yes</field>
             <field name="default_shipping" xsi:type="string">Yes</field>
+        </dataset>
+
+        <dataset name="Estimate_US_address_NY">
+            <field name="region_id" xsi:type="string">New York</field>
+            <field name="postcode" xsi:type="string">13901</field>
+            <field name="country_id" xsi:type="string">United States</field>
         </dataset>
 
         <dataset name="US_address_TX">
@@ -92,7 +123,6 @@
             <field name="street" xsi:type="string">172, Westminster Bridge Rd</field>
             <field name="postcode" xsi:type="string">SE1 7RW</field>
             <field name="country_id" xsi:type="string">United Kingdom</field>
-            <field name="region_id" xsi:type="string">London</field>
             <field name="telephone" xsi:type="string">444-44-444-44</field>
         </dataset>
 
@@ -104,7 +134,6 @@
             <field name="street" xsi:type="string">172, Westminster Bridge Rd</field>
             <field name="postcode" xsi:type="string">SE1 7RW</field>
             <field name="country_id" xsi:type="string">United Kingdom</field>
-            <field name="region_id" xsi:type="string">London</field>
             <field name="telephone" xsi:type="string">444-44-444-44</field>
             <field name="vat_id" xsi:type="string">584451913</field>
             <field name="default_billing" xsi:type="string">Yes</field>
@@ -135,6 +164,44 @@
             <field name="telephone" xsi:type="string">555-55-555-55</field>
             <field name="default_billing" xsi:type="string">Yes</field>
             <field name="default_shipping" xsi:type="string">Yes</field>
+        </dataset>
+
+        <dataset name="US_address_for_checkout">
+            <field name="firstname" xsi:type="string">John</field>
+            <field name="lastname" xsi:type="string">Doe</field>
+            <field name="email" xsi:type="string">John.Doe%isolation%@example.com</field>
+            <field name="company" xsi:type="string">Magento %isolation%</field>
+            <field name="street" xsi:type="string">6161 West Centinela Avenue</field>
+            <field name="city" xsi:type="string">Culver City</field>
+            <field name="region_id" xsi:type="string">California</field>
+            <field name="postcode" xsi:type="string">90230</field>
+            <field name="country_id" xsi:type="string">United States</field>
+            <field name="telephone" xsi:type="string">555-55-555-55</field>
+        </dataset>
+
+        <dataset name="US_address_without_email">
+            <field name="firstname" xsi:type="string">John</field>
+            <field name="lastname" xsi:type="string">Doe</field>
+            <field name="company" xsi:type="string">Magento %isolation%</field>
+            <field name="street" xsi:type="string">6161 West Centinela Avenue</field>
+            <field name="city" xsi:type="string">Culver City</field>
+            <field name="region_id" xsi:type="string">California</field>
+            <field name="postcode" xsi:type="string">90230</field>
+            <field name="country_id" xsi:type="string">United States</field>
+            <field name="telephone" xsi:type="string">555-55-555-55</field>
+        </dataset>
+
+        <dataset name="customer_US_for_checkout">
+            <field name="firstname" xsi:type="string">John</field>
+            <field name="lastname" xsi:type="string">Doe</field>
+            <field name="company" xsi:type="string">Magento %isolation%</field>
+            <field name="city" xsi:type="string">Culver City</field>
+            <field name="street" xsi:type="string">6161 West Centinela Avenue</field>
+            <field name="postcode" xsi:type="string">90230</field>
+            <field name="country_id" xsi:type="string">United States</field>
+            <field name="region_id" xsi:type="string">California</field>
+            <field name="telephone" xsi:type="string">555-55-555-55</field>
+            <field name="fax" xsi:type="string">555-55-555-55</field>
         </dataset>
     </repository>
 </config>

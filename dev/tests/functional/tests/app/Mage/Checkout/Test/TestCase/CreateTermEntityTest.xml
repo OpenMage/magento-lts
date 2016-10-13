@@ -26,18 +26,18 @@
  */
  -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Checkout\Test\TestCase\CreateTermEntityTest">
+    <testCase name="Mage\Checkout\Test\TestCase\CreateTermEntityTest" summary="CreateTermEntityTest">
         <variation name="CreateTermEntityTestVariation1" method="test">
             <data name="description" xsi:type="string">Create enabled term entity with text value</data>
             <data name="configData" xsi:type="string">checkout_term_condition</data>
+            <data name="initialCheckoutAgreement/dataset" xsi:type="string">default</data>
             <data name="agreement/data/name" xsi:type="string">name%isolation%</data>
             <data name="agreement/data/is_active" xsi:type="string">Enabled</data>
             <data name="agreement/data/is_html" xsi:type="string">Text</data>
-            <data name="agreement/data/stores/dataSets/0" xsi:type="string">default</data>
             <data name="agreement/data/checkbox_text" xsi:type="string">test_checkbox%isolation%</data>
             <data name="agreement/data/content" xsi:type="string">TestMessage%isolation%</data>
             <data name="products" xsi:type="string">catalogProductSimple::default</data>
-            <data name="billingAddress/dataSet" xsi:type="string">US_address</data>
+            <data name="billingAddress/dataset" xsi:type="string">US_address_for_checkout</data>
             <data name="checkoutMethod" xsi:type="string">guest</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
             <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
@@ -52,11 +52,10 @@
             <data name="agreement/data/name" xsi:type="string">name%isolation%</data>
             <data name="agreement/data/is_active" xsi:type="string">Enabled</data>
             <data name="agreement/data/is_html" xsi:type="string">HTML</data>
-            <data name="agreement/data/stores/dataSets/0" xsi:type="string">default</data>
             <data name="agreement/data/checkbox_text" xsi:type="string">test_checkbox%isolation%</data>
-            <data name="agreement/data/content" xsi:type="string">&lt;html&gt;</data>
+            <data name="agreement/data/content" xsi:type="string">html</data>
             <data name="products" xsi:type="string">catalogProductSimple::default</data>
-            <data name="billingAddress/dataSet" xsi:type="string">US_address</data>
+            <data name="billingAddress/dataset" xsi:type="string">US_address_for_checkout</data>
             <data name="checkoutMethod" xsi:type="string">guest</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
             <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
@@ -71,11 +70,10 @@
             <data name="agreement/data/name" xsi:type="string">name%isolation%</data>
             <data name="agreement/data/is_active" xsi:type="string">Enabled</data>
             <data name="agreement/data/is_html" xsi:type="string">Text</data>
-            <data name="agreement/data/stores/dataSets/0" xsi:type="string">default</data>
             <data name="agreement/data/checkbox_text" xsi:type="string">test_checkbox%isolation%</data>
             <data name="agreement/data/content" xsi:type="string">TestMessage%isolation%</data>
             <data name="products" xsi:type="string">catalogProductSimple::default</data>
-            <data name="billingAddress/dataSet" xsi:type="string">US_address</data>
+            <data name="billingAddress/dataset" xsi:type="string">US_address_for_checkout</data>
             <data name="checkoutMethod" xsi:type="string">guest</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
             <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
@@ -90,11 +88,10 @@
             <data name="agreement/data/name" xsi:type="string">name%isolation%</data>
             <data name="agreement/data/is_active" xsi:type="string">Disabled</data>
             <data name="agreement/data/is_html" xsi:type="string">Text</data>
-            <data name="agreement/data/stores/dataSets/0" xsi:type="string">default</data>
             <data name="agreement/data/checkbox_text" xsi:type="string">test_checkbox%isolation%</data>
             <data name="agreement/data/content" xsi:type="string">TestMessage%isolation%</data>
             <data name="products" xsi:type="string">catalogProductSimple::default</data>
-            <data name="billingAddress/dataSet" xsi:type="string">US_address</data>
+            <data name="billingAddress/dataset" xsi:type="string">US_address_for_checkout</data>
             <data name="checkoutMethod" xsi:type="string">guest</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
             <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
@@ -109,12 +106,11 @@
             <data name="agreement/data/name" xsi:type="string">name%isolation%</data>
             <data name="agreement/data/is_active" xsi:type="string">Enabled</data>
             <data name="agreement/data/is_html" xsi:type="string">Text</data>
-            <data name="agreement/data/stores/dataSets/0" xsi:type="string">default</data>
             <data name="agreement/data/checkbox_text" xsi:type="string">test_checkbox%isolation%</data>
             <data name="agreement/data/content" xsi:type="string">TestMessage%isolation%</data>
             <data name="products" xsi:type="string">catalogProductSimple::default</data>
-            <data name="customer/dataSet" xsi:type="string">johndoe_unique</data>
-            <data name="newAddresses" xsi:type="string">customer_US</data>
+            <data name="customer/dataset" xsi:type="string">johndoe_unique</data>
+            <data name="newAddresses" xsi:type="string">customer_US_for_checkout</data>
             <data name="fillItemsData" xsi:type="array">
                 <item name="0" xsi:type="array">
                     <item name="productIndex" xsi:type="string">0</item>

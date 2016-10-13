@@ -89,7 +89,10 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
         ) {
             $this->getResponse()->setRedirect($backUrl);
         } else {
-            if ((strtolower($this->getRequest()->getActionName()) == 'add') && !$this->getRequest()->getParam('in_cart')) {
+            if (
+                (strtolower($this->getRequest()->getActionName()) == 'add')
+                && !$this->getRequest()->getParam('in_cart')
+            ) {
                 $this->_getSession()->setContinueShoppingUrl($this->_getRefererUrl());
             }
             $this->_redirect('checkout/cart');
@@ -141,6 +144,20 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
         $cart = $this->_getCart();
         if ($cart->getQuote()->getItemsCount()) {
             $cart->init();
+            if (
+                $cart->getQuote()->getShippingAddress()
+                && $this->_getSession()->getEstimatedShippingAddressData()
+                && $couponCode = $this->_getSession()->getCartCouponCode()
+            ) {
+                $estimatedSessionAddressData = $this->_getSession()->getEstimatedShippingAddressData();
+                $cart->getQuote()->getShippingAddress()
+                    ->setCountryId($estimatedSessionAddressData['country_id'])
+                    ->setCity($estimatedSessionAddressData['city'])
+                    ->setPostcode($estimatedSessionAddressData['postcode'])
+                    ->setRegionId($estimatedSessionAddressData['region_id'])
+                    ->setRegion($estimatedSessionAddressData['region']);
+                $cart->getQuote()->setCouponCode($couponCode);
+            }
             $cart->save();
 
             if (!$this->_getQuote()->validateMinimumAmount()) {
@@ -526,6 +543,13 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             ->setRegion($region)
             ->setCollectShippingRates(true);
         $this->_getQuote()->save();
+        $this->_getSession()->setEstimatedShippingAddressData(array(
+            'country_id' => $country,
+            'postcode'   => $postcode,
+            'city'       => $city,
+            'region_id'  => $regionId,
+            'region'     => $region
+        ));
         $this->_goBack();
     }
 
@@ -581,6 +605,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                     $this->_getSession()->addSuccess(
                         $this->__('Coupon code "%s" was applied.', Mage::helper('core')->escapeHtml($couponCode))
                     );
+                    $this->_getSession()->setCartCouponCode($couponCode);
                 } else {
                     $this->_getSession()->addError(
                         $this->__('Coupon code "%s" is not valid.', Mage::helper('core')->escapeHtml($couponCode))

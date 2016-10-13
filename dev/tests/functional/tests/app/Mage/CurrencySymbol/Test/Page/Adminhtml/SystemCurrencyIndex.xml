@@ -26,7 +26,8 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/etc/pages.xsd">
-  <page name="SystemCurrencyIndex" area="Adminhtml" mca="system_currency/index" module="Mage_CurrencySymbol">
-    <block name="gridPageActions" class="Mage\Adminhtml\Test\Block\System\Currency\GridPageActions" locator=".form-buttons" strategy="css selector"/>
-  </page>
+    <page name="SystemCurrencyIndex" area="Adminhtml" mca="system_currency/index" module="Mage_CurrencySymbol">
+        <block name="gridPageActions" class="Mage\Adminhtml\Test\Block\System\Currency\GridPageActions" locator=".form-buttons" strategy="css selector"/>
+        <block name="currencyGrid" class="Mage\Adminhtml\Test\Block\System\Currency\CurrencyGrid" locator="#rateForm" strategy="css selector"/>
+    </page>
 </config>

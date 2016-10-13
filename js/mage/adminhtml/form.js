@@ -107,7 +107,7 @@ varienForm.prototype = {
         }
         $form.submit();
     }
-}
+};
 
 /**
  * redeclare Validation.isVisible function
@@ -124,7 +124,7 @@ Validation.isVisible = function(elm){
         elm = elm.parentNode;
     }
     return true;
-}
+};
 
 /**
  *  Additional elements methods
@@ -135,7 +135,7 @@ var varienElementMethods = {
         var elm = element;
         while(elm && elm.tagName != 'BODY') {
             if(elm.statusBar)
-                Element.addClassName($(elm.statusBar), 'changed')
+                Element.addClassName($(elm.statusBar), 'changed');
             elm = elm.parentNode;
         }
     },
@@ -154,14 +154,14 @@ var varienElementMethods = {
                     form.errorSections.set(elm.statusBar.id, flag);
                 }
                 else if(!form.errorSections.get(elm.statusBar.id)){
-                    Element.removeClassName($(elm.statusBar), 'error')
+                    Element.removeClassName($(elm.statusBar), 'error');
                 }
             }
             elm = elm.parentNode;
         }
         this.canShowElement = false;
     }
-}
+};
 
 Element.addMethods(varienElementMethods);
 
@@ -388,7 +388,7 @@ RegionUpdater.prototype = {
         $(elem).value = currentVal;
         return;
     }
-}
+};
 
 regionUpdater = RegionUpdater;
 
@@ -402,7 +402,7 @@ Event.pointerX = function(event){
     catch(e){
 
     }
-}
+};
 Event.pointerY = function(event){
     try{
         return event.pageY || (event.clientY +(document.documentElement.scrollTop || document.body.scrollTop));
@@ -410,7 +410,7 @@ Event.pointerY = function(event){
     catch(e){
 
     }
-}
+};
 
 SelectUpdater = Class.create();
 SelectUpdater.prototype = {
@@ -465,7 +465,7 @@ SelectUpdater.prototype = {
             select.appendChild(option);
         }
     }
-}
+};
 
 
 /**
@@ -561,4 +561,4 @@ FormElementDependenceController.prototype = {
             $(idTo).up(this._config.levels_up).hide();
         }
     }
-}
+};

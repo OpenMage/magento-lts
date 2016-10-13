@@ -288,13 +288,15 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             }
 
             if (method_exists($model, $method)) {
+                $result = array();
                 if (isset($methodInfo->arguments) && ((string)$methodInfo->arguments) == 'array') {
-                    return $model->$method((is_array($args) ? $args : array($args)));
+                    $result = $model->$method((is_array($args) ? $args : array($args)));
                 } elseif (!is_array($args)) {
-                    return $model->$method($args);
+                    $result = $model->$method($args);
                 } else {
-                    return call_user_func_array(array(&$model, $method), $args);
+                    $result = call_user_func_array(array(&$model, $method), $args);
                 }
+                return $this->processingMethodResult($result);
             } else {
                 throw new Mage_Api_Exception('resource_path_not_callable');
             }
@@ -401,13 +403,15 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
                 }
 
                 if (method_exists($model, $method)) {
+                    $callResult = array();
                     if (isset($methodInfo->arguments) && ((string)$methodInfo->arguments) == 'array') {
-                        $result[] = $model->$method((is_array($args) ? $args : array($args)));
+                        $callResult = $model->$method((is_array($args) ? $args : array($args)));
                     } elseif (!is_array($args)) {
-                        $result[] = $model->$method($args);
+                        $callResult = $model->$method($args);
                     } else {
-                        $result[] = call_user_func_array(array(&$model, $method), $args);
+                        $callResult = call_user_func_array(array(&$model, $method), $args);
                     }
+                    $result[] = $this->processingMethodResult($callResult);
                 } else {
                     throw new Mage_Api_Exception('resource_path_not_callable');
                 }
@@ -542,5 +546,42 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     {
         $this->_startSession($sessionId);
         return array_values($this->_getConfig()->getFaults());
+    }
+
+    /**
+     * Prepare Api data for XML exporting
+     * See allowed characters in XML:
+     * @link http://www.w3.org/TR/2000/REC-xml-20001006#NT-Char
+     *
+     * @param array $result
+     * @return mixed
+     */
+    public function processingMethodResult(array $result)
+    {
+        foreach ($result as &$row) {
+            if (!is_null($row) && !is_bool($row) && !is_numeric($row)) {
+                $row = $this->processingRow($row);
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * Prepare Api row data for XML exporting
+     * Convert not allowed symbol to numeric character reference
+     *
+     * @param $row
+     * @return mixed
+     */
+    public function processingRow($row)
+    {
+        $row = preg_replace_callback(
+            '/[^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}\x{10000}-\x{10FFFF}]/u',
+            function ($matches) {
+                return '&#' . Mage::helper('core/string')->uniOrd($matches[0]) . ';';
+            },
+            $row
+        );
+        return $row;
     }
 } // Class Mage_Api_Model_Server_Handler_Abstract End

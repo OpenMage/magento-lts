@@ -25,42 +25,21 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 -->
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
-  <fixture name="taxRate" module="Mage_Tax" type="flat" entity_type="tax_calculation_rate" collection="Mage\Tax\Model\Resource\Calculation\Rate\Collection" identifier="code" repository_class="Mage\Tax\Test\Repository\TaxRate" handler_interface="Mage\Tax\Test\Handler\TaxRate\TaxRateInterface" class="Mage\Tax\Test\Fixture\TaxRate">
-    <dataset name="default">
-        <field name="code" xsi:type="string">Tax Rate %isolation%</field>
-        <field name="rate" xsi:type="string">10</field>
-        <field name="tax_country_id" xsi:type="string">United States</field>
-        <field name="tax_postcode" xsi:type="string">*</field>
-        <field name="tax_region_id" xsi:type="string">California</field>
-    </dataset>
-    <field name="tax_calculation_rate_id" is_required="1">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="tax_country_id" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="tax_region_id" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="tax_postcode" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="code" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="rate" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="zip_is_range" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="zip_from" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="zip_to" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="id"/>
-  </fixture>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
+    <fixture name="taxRate" module="Mage_Tax" type="flat" entity_type="tax_calculation_rate"
+             collection="Mage\Tax\Model\Resource\Calculation\Rate\Collection" identifier="code"
+             repository_class="Mage\Tax\Test\Repository\TaxRate"
+             handler_interface="Mage\Tax\Test\Handler\TaxRate\TaxRateInterface" class="Mage\Tax\Test\Fixture\TaxRate">
+        <field name="tax_calculation_rate_id" is_required="1"/>
+        <field name="tax_country_id" is_required="0"/>
+        <field name="tax_region_id" is_required="0"/>
+        <field name="tax_postcode" is_required="0"/>
+        <field name="code" is_required="0"/>
+        <field name="rate" is_required="0"/>
+        <field name="zip_is_range" is_required="0"/>
+        <field name="zip_from" is_required="0"/>
+        <field name="zip_to" is_required="0"/>
+        <field name="id"/>
+    </fixture>
 </config>

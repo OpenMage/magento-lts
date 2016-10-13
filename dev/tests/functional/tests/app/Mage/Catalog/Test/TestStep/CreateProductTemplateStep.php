@@ -79,7 +79,7 @@ class CreateProductTemplateStep implements TestStepInterface
         $attributeSet = $this->fixtureFactory->createByCode(
             'catalogAttributeSet',
             [
-                'dataSet' => $this->productTemplate['dataSet'],
+                'dataset' => $this->productTemplate['dataset'],
                 'data' => ['assigned_attributes' => $this->templatesData]
             ]
         );

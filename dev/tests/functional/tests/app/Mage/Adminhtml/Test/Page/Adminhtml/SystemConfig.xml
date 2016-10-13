@@ -26,7 +26,7 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/etc/pages.xsd">
-  <page name="SystemConfig" area="Adminhtml" mca="system_config" module="Mage_Adminhtml">
-    <block name="storesSwitcher" class="Mage\Adminhtml\Test\Block\System\Config\Switcher" locator=".switcher" strategy="css selector"/>
-  </page>
+    <page name="SystemConfig" area="Adminhtml" mca="system_config" module="Mage_Adminhtml">
+        <block name="storesSwitcher" class="Mage\Adminhtml\Test\Block\System\Config\Switcher" locator=".switcher" strategy="css selector"/>
+    </page>
 </config>

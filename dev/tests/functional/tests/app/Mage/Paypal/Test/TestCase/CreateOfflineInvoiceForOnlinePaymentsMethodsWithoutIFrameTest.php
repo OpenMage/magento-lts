@@ -38,15 +38,15 @@ use Mage\Customer\Test\Page\CustomerAccountLogout;
  * 1. Go to Frontend.
  * 2. Add products to the cart.
  * 3. Click the 'Proceed to Checkout' button.
- * 4. Select checkout method according to dataSet.
+ * 4. Select checkout method according to dataset.
  * 5. Fill billing information and select the 'Ship to this address' option.
- * 6. Select shipping method according to dataSet.
- * 7. Select payment method according to dataSet.
+ * 6. Select shipping method according to dataset.
+ * 7. Select payment method according to dataset.
  * 8. Place order.
  * 9. Go to Sales > Orders.
  * 10. Select created order in the grid and open it.
  * 11. Click 'Invoice' button.
- * 12. Fill data according to dataSet.
+ * 12. Fill data according to dataset.
  * 13. Click 'Submit Invoice' button.
  * 14. Perform assertions.
  *
@@ -74,8 +74,8 @@ class CreateOfflineInvoiceForOnlinePaymentsMethodsWithoutIFrameTest extends Scen
      */
     public function __prepare(CustomerAccountLogout $customerAccountLogout)
     {
-        $this->objectManager->create('Mage\Tax\Test\TestStep\DeleteAllTaxRulesStep')->run();
         $this->customerAccountLogout = $customerAccountLogout;
+        $this->objectManager->create('Mage\Tax\Test\TestStep\DeleteAllTaxRulesStep')->run();
     }
 
     /**

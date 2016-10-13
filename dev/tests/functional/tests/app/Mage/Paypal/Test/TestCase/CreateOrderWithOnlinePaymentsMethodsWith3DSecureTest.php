@@ -27,6 +27,7 @@
 namespace Mage\Paypal\Test\TestCase;
 
 use Magento\Mtf\TestCase\Scenario;
+use Mage\Customer\Test\Page\CustomerAccountLogout;
 
 /**
  * Preconditions:
@@ -37,7 +38,7 @@ use Magento\Mtf\TestCase\Scenario;
  * 1. Go to Frontend.
  * 2. Add product to the cart.
  * 3. Click the 'Proceed to Checkout' button.
- * 4. Select checkout method according to dataSet.
+ * 4. Select checkout method according to dataset.
  * 5. Fill billing information and select the 'Ship to this address' option.
  * 6. Select shipping method.
  * 7. Select payment method.
@@ -55,12 +56,20 @@ class CreateOrderWithOnlinePaymentsMethodsWith3DSecureTest extends Scenario
     /* end tags */
 
     /**
+     * Customer logout page.
+     *
+     * @var CustomerAccountLogout
+     */
+    protected $customerAccountLogout;
+
+    /**
      * Delete all tax rules before test run.
      *
-     * @return void
+     * @param CustomerAccountLogout $customerAccountLogout
      */
-    public function __prepare()
+    public function __prepare(CustomerAccountLogout $customerAccountLogout)
     {
+        $this->customerAccountLogout = $customerAccountLogout;
         $this->objectManager->create('Mage\Tax\Test\TestStep\DeleteAllTaxRulesStep')->run();
     }
 

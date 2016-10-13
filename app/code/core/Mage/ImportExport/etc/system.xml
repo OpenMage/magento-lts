@@ -48,6 +48,25 @@
                         </escaping>
                     </fields>
                 </export_csv>
+                <import_csv translate="label">
+                    <label>Import CSV</label>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <sort_order>500</sort_order>
+                    <fields>
+                        <configurable_page_size translate="label,comment">
+                            <label>Page size for import configurable products</label>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-number</validate>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>This option will be ignore if it set less than 1.</comment>
+                        </configurable_page_size>
+                    </fields>
+                </import_csv>
             </groups>
         </system>
     </sections>

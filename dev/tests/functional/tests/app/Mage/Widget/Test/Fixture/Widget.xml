@@ -25,32 +25,24 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 -->
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
-  <fixture name="widget" module="Mage_Widget" type="flat" entity_type="widget_instance" collection="Mage\Widget\Model\Resource\Widget\Instance\Collection" identifier="parameters" repository_class="Mage\Widget\Test\Repository\Widget" handler_interface="Mage\Widget\Test\Handler\Widget\WidgetInterface" class="Mage\Widget\Test\Fixture\Widget">
-    <field name="instance_id" is_required="1">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="instance_type" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="package_theme" is_required="0" group="settings">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="title" is_required="0" group="frontend_properties">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="store_ids" source="Mage\Widget\Test\Fixture\Widget\StoreIds"/>
-    <field name="parameters" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="sort_order" is_required="0">
-      <default_value xsi:type="string">0</default_value>
-    </field>
-    <field name="type" group="settings"/>
-    <field name="widget_instance"/>
-    <field name="id"/>
-    <field name="page_id"/>
-    <field name="layout" group="layout_updates" source="Mage\Widget\Test\Fixture\Widget\LayoutUpdates"/>
-    <field name="widgetOptions" group="widget_options" source="Mage\Widget\Test\Fixture\Widget\WidgetOptions"/>
-  </fixture>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
+    <fixture name="widget" module="Mage_Widget" type="flat" entity_type="widget_instance"
+             collection="Mage\Widget\Model\Resource\Widget\Instance\Collection" identifier="parameters"
+             repository_class="Mage\Widget\Test\Repository\Widget"
+             handler_interface="Mage\Widget\Test\Handler\Widget\WidgetInterface"
+             class="Mage\Widget\Test\Fixture\Widget">
+        <field name="instance_id" is_required="1"/>
+        <field name="instance_type" is_required="0"/>
+        <field name="package_theme" is_required="0" group="settings"/>
+        <field name="title" is_required="0" group="frontend_properties"/>
+        <field name="store_ids" source="Mage\Widget\Test\Fixture\Widget\StoreIds"/>
+        <field name="parameters" is_required="0"/>
+        <field name="sort_order" is_required="0"/>
+        <field name="type" group="settings"/>
+        <field name="widget_instance"/>
+        <field name="id"/>
+        <field name="page_id"/>
+        <field name="layout" group="layout_updates" source="Mage\Widget\Test\Fixture\Widget\LayoutUpdates" repository="Mage\Widget\Test\Repository\Widget\LayoutUpdates"/>
+        <field name="widgetOptions" group="widget_options" source="Mage\Widget\Test\Fixture\Widget\WidgetOptions" repository="Mage\Widget\Test\Repository\Widget"/>
+    </fixture>
 </config>

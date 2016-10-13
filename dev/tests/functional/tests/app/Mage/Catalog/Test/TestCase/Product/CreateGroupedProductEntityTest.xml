@@ -26,124 +26,124 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/etc/variations.xsd">
-  <testCase name="Mage\Catalog\Test\TestCase\Product\CreateGroupedProductEntityTest">
-    <variation name="CreateGroupedProductEntityTestVariation1" firstConstraint="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" method="test">
-      <data name="description" xsi:type="string">Create default grouped product with assigned simple products</data>
-      <data name="product/data/name" xsi:type="string">GroupedProduct %isolation%</data>
-      <data name="product/data/sku" xsi:type="string">GroupedProduct_sku%isolation%</data>
-      <data name="product/data/url_key" xsi:type="string">grouped-product%isolation%</data>
-      <data name="product/data/status" xsi:type="string">Enabled</data>
-      <data name="product/data/visibility" xsi:type="string">-</data>
-      <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
-      <data name="product/data/description" xsi:type="string">This is description for grouped product</data>
-      <data name="product/data/associated/preset" xsi:type="string">defaultSimpleProducts</data>
-      <data name="product/data/short_description" xsi:type="string">This is short description for grouped product</data>
-      <data name="tag" xsi:type="string">main:ce</data>
-      <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" next="Mage\Catalog\Test\Constraint\AssertGroupedProductsDefaultQty"/>
-      <constraint name="Mage\Catalog\Test\Constraint\AssertGroupedProductsDefaultQty" next="Mage\Catalog\Test\Constraint\AssertProductPage" prev="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
-      <constraint name="Mage\Catalog\Test\Constraint\AssertProductPage" prev="Mage\Catalog\Test\Constraint\AssertGroupedProductsDefaultQty"/>
-    </variation>
-    <variation name="CreateGroupedProductEntityTestVariation2" firstConstraint="Mage\Catalog\Test\Constraint\AssertProductOutOfStock" method="test">
-      <data name="description" xsi:type="string">Create out of stock grouped product</data>
-      <data name="product/data/name" xsi:type="string">GroupedProduct %isolation%</data>
-      <data name="product/data/sku" xsi:type="string">GroupedProduct_sku%isolation%</data>
-      <data name="product/data/url_key" xsi:type="string">grouped-product%isolation%</data>
-      <data name="product/data/status" xsi:type="string">Enabled</data>
-      <data name="product/data/visibility" xsi:type="string">-</data>
-      <data name="product/data/stock_data/is_in_stock" xsi:type="string">Out of Stock</data>
-      <data name="product/data/description" xsi:type="string">This is description for grouped product</data>
-      <data name="product/data/associated/preset" xsi:type="string">defaultSimpleProducts</data>
-      <data name="product/data/short_description" xsi:type="string">This is short description for grouped product</data>
-      <constraint name="Mage\Catalog\Test\Constraint\AssertProductOutOfStock"/>
-    </variation>
-    <variation name="CreateGroupedProductEntityTestVariation3" firstConstraint="Mage\Catalog\Test\Constraint\AssertSpecialPriceOnGroupedProductPage" method="test">
-      <data name="description" xsi:type="string">Create grouped product with assigned product special price)</data>
-      <data name="product/data/name" xsi:type="string">GroupedProduct %isolation%</data>
-      <data name="product/data/sku" xsi:type="string">GroupedProduct_sku%isolation%</data>
-      <data name="product/data/url_key" xsi:type="string">grouped-product%isolation%</data>
-      <data name="product/data/status" xsi:type="string">Enabled</data>
-      <data name="product/data/visibility" xsi:type="string">-</data>
-      <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
-      <data name="product/data/description" xsi:type="string">This is description for grouped product</data>
-      <data name="product/data/associated/preset" xsi:type="string">defaultSimpleProduct_with_specialPrice</data>
-      <data name="product/data/short_description" xsi:type="string">This is short description for grouped product</data>
-      <constraint name="Mage\Catalog\Test\Constraint\AssertSpecialPriceOnGroupedProductPage" next="Mage\Catalog\Test\Constraint\AssertProductForm"/>
-      <constraint name="Mage\Catalog\Test\Constraint\AssertProductForm" next="Mage\Catalog\Test\Constraint\AssertProductPage" prev="Mage\Catalog\Test\Constraint\AssertSpecialPriceOnGroupedProductPage"/>
-      <constraint name="Mage\Catalog\Test\Constraint\AssertProductPage" prev="Mage\Catalog\Test\Constraint\AssertProductForm"/>
-    </variation>
-    <variation name="CreateGroupedProductEntityTestVariation4" firstConstraint="Mage\Catalog\Test\Constraint\AssertGroupedPriceOnGroupedProductPage" method="test">
-      <data name="description" xsi:type="string">Create grouped product with assigned product group price)</data>
-      <data name="product/data/name" xsi:type="string">GroupedProduct %isolation%</data>
-      <data name="product/data/sku" xsi:type="string">GroupedProduct_sku%isolation%</data>
-      <data name="product/data/url_key" xsi:type="string">grouped-product%isolation%</data>
-      <data name="product/data/status" xsi:type="string">Enabled</data>
-      <data name="product/data/visibility" xsi:type="string">-</data>
-      <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
-      <data name="product/data/description" xsi:type="string">This is description for grouped product</data>
-      <data name="product/data/associated/preset" xsi:type="string">defaultSimpleProduct_with_groupPrice</data>
-      <data name="product/data/short_description" xsi:type="string">This is short description for grouped product</data>
-      <constraint name="Mage\Catalog\Test\Constraint\AssertGroupedPriceOnGroupedProductPage" next="Mage\Catalog\Test\Constraint\AssertProductForm"/>
-      <constraint name="Mage\Catalog\Test\Constraint\AssertProductForm" next="Mage\Catalog\Test\Constraint\AssertProductPage" prev="Mage\Catalog\Test\Constraint\AssertGroupedPriceOnGroupedProductPage"/>
-      <constraint name="Mage\Catalog\Test\Constraint\AssertProductPage" prev="Mage\Catalog\Test\Constraint\AssertProductForm"/>
-    </variation>
-    <variation name="CreateGroupedProductEntityTestVariation5" firstConstraint="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" method="test">
-      <data name="description" xsi:type="string">Create default grouped product with assigned virtual products</data>
-      <data name="product/data/name" xsi:type="string">GroupedProduct %isolation%</data>
-      <data name="product/data/sku" xsi:type="string">GroupedProduct_sku%isolation%</data>
-      <data name="product/data/url_key" xsi:type="string">grouped-product%isolation%</data>
-      <data name="product/data/status" xsi:type="string">Enabled</data>
-      <data name="product/data/visibility" xsi:type="string">-</data>
-      <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
-      <data name="product/data/description" xsi:type="string">This is description for grouped product</data>
-      <data name="product/data/associated/preset" xsi:type="string">defaultVirtualProducts</data>
-      <data name="product/data/short_description" xsi:type="string">This is short description for grouped product</data>
-      <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" next="Mage\Catalog\Test\Constraint\AssertGroupedProductsDefaultQty"/>
-      <constraint name="Mage\Catalog\Test\Constraint\AssertGroupedProductsDefaultQty" prev="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
-    </variation>
-    <variation name="CreateGroupedProductEntityTestVariation6" firstConstraint="Mage\Catalog\Test\Constraint\AssertTierPriceOnGroupedProductPage" method="test">
-      <data name="description" xsi:type="string">Create grouped product with assigned product (tier price)</data>
-      <data name="product/data/name" xsi:type="string">GroupedProduct %isolation%</data>
-      <data name="product/data/sku" xsi:type="string">GroupedProduct_sku%isolation%</data>
-      <data name="product/data/url_key" xsi:type="string">grouped-product%isolation%</data>
-      <data name="product/data/status" xsi:type="string">Enabled</data>
-      <data name="product/data/visibility" xsi:type="string">-</data>
-      <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
-      <data name="product/data/description" xsi:type="string">This is description for grouped product</data>
-      <data name="product/data/associated/preset" xsi:type="string">defaultSimpleProduct_with_tierPrice</data>
-      <data name="product/data/short_description" xsi:type="string">This is short description for grouped product</data>
-      <constraint name="Mage\Catalog\Test\Constraint\AssertTierPriceOnGroupedProductPage" next="Mage\Catalog\Test\Constraint\AssertProductForm"/>
-      <constraint name="Mage\Catalog\Test\Constraint\AssertProductForm" next="Mage\Catalog\Test\Constraint\AssertProductPage" prev="Mage\Catalog\Test\Constraint\AssertTierPriceOnGroupedProductPage"/>
-      <constraint name="Mage\Catalog\Test\Constraint\AssertProductPage" prev="Mage\Catalog\Test\Constraint\AssertProductForm"/>
-    </variation>
-    <variation name="CreateGroupedProductEntityTestVariation7" firstConstraint="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" method="test">
-      <data name="description" xsi:type="string">Create grouped product visible in catalog only</data>
-      <data name="product/data/name" xsi:type="string">GroupedProduct %isolation%</data>
-      <data name="product/data/sku" xsi:type="string">GroupedProduct_sku%isolation%</data>
-      <data name="product/data/url_key" xsi:type="string">grouped-product%isolation%</data>
-      <data name="product/data/status" xsi:type="string">Enabled</data>
-      <data name="product/data/visibility" xsi:type="string">Catalog</data>
-      <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
-      <data name="product/data/description" xsi:type="string">This is description for grouped product</data>
-      <data name="product/data/associated/preset" xsi:type="string">defaultSimpleProducts</data>
-      <data name="product/data/short_description" xsi:type="string">This is short description for grouped product</data>
-      <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" next="Mage\Catalog\Test\Constraint\AssertProductVisibleInCategory"/>
-      <constraint name="Mage\Catalog\Test\Constraint\AssertProductVisibleInCategory" next="Mage\Catalog\Test\Constraint\AssertProductNotSearchableBySku" prev="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
-      <constraint name="Mage\Catalog\Test\Constraint\AssertProductNotSearchableBySku" prev="Mage\Catalog\Test\Constraint\AssertProductVisibleInCategory"/>
-    </variation>
-    <variation name="CreateGroupedProductEntityTestVariation8" firstConstraint="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" method="test">
-      <data name="description" xsi:type="string">Create grouped product visible in search only</data>
-      <data name="product/data/name" xsi:type="string">GroupedProduct %isolation%</data>
-      <data name="product/data/sku" xsi:type="string">GroupedProduct_sku%isolation%</data>
-      <data name="product/data/url_key" xsi:type="string">grouped-product%isolation%</data>
-      <data name="product/data/status" xsi:type="string">Enabled</data>
-      <data name="product/data/visibility" xsi:type="string">Search</data>
-      <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
-      <data name="product/data/description" xsi:type="string">This is description for grouped product</data>
-      <data name="product/data/associated/preset" xsi:type="string">defaultSimpleProducts</data>
-      <data name="product/data/short_description" xsi:type="string">This is short description for grouped product</data>
-      <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" next="Mage\Catalog\Test\Constraint\AssertProductVisibleInCategory"/>
-      <constraint name="Mage\Catalog\Test\Constraint\AssertProductVisibleInCategory" next="Mage\Catalog\Test\Constraint\AssertProductSearchable" prev="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
-      <constraint name="Mage\Catalog\Test\Constraint\AssertProductSearchable" prev="Mage\Catalog\Test\Constraint\AssertProductVisibleInCategory"/>
-    </variation>
-  </testCase>
+    <testCase name="Mage\Catalog\Test\TestCase\Product\CreateGroupedProductEntityTest" summary="CreateGroupedProductEntityTest">
+        <variation name="CreateGroupedProductEntityTestVariation1" firstConstraint="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" method="test">
+            <data name="description" xsi:type="string">Create default grouped product with assigned simple products</data>
+            <data name="product/data/name" xsi:type="string">GroupedProduct %isolation%</data>
+            <data name="product/data/sku" xsi:type="string">GroupedProduct_sku%isolation%</data>
+            <data name="product/data/url_key" xsi:type="string">grouped-product%isolation%</data>
+            <data name="product/data/status" xsi:type="string">Enabled</data>
+            <data name="product/data/visibility" xsi:type="string">-</data>
+            <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
+            <data name="product/data/description" xsi:type="string">This is description for grouped product</data>
+            <data name="product/data/associated/dataset" xsi:type="string">defaultSimpleProducts</data>
+            <data name="product/data/short_description" xsi:type="string">This is short description for grouped product</data>
+            <data name="tag" xsi:type="string">main:ce</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" next="Mage\Catalog\Test\Constraint\AssertGroupedProductsDefaultQty"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertGroupedProductsDefaultQty" next="Mage\Catalog\Test\Constraint\AssertProductPage" prev="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductPage" prev="Mage\Catalog\Test\Constraint\AssertGroupedProductsDefaultQty"/>
+        </variation>
+        <variation name="CreateGroupedProductEntityTestVariation2" firstConstraint="Mage\Catalog\Test\Constraint\AssertProductOutOfStock" method="test">
+            <data name="description" xsi:type="string">Create out of stock grouped product</data>
+            <data name="product/data/name" xsi:type="string">GroupedProduct %isolation%</data>
+            <data name="product/data/sku" xsi:type="string">GroupedProduct_sku%isolation%</data>
+            <data name="product/data/url_key" xsi:type="string">grouped-product%isolation%</data>
+            <data name="product/data/status" xsi:type="string">Enabled</data>
+            <data name="product/data/visibility" xsi:type="string">-</data>
+            <data name="product/data/stock_data/is_in_stock" xsi:type="string">Out of Stock</data>
+            <data name="product/data/description" xsi:type="string">This is description for grouped product</data>
+            <data name="product/data/associated/dataset" xsi:type="string">defaultSimpleProducts</data>
+            <data name="product/data/short_description" xsi:type="string">This is short description for grouped product</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductOutOfStock"/>
+        </variation>
+        <variation name="CreateGroupedProductEntityTestVariation3" firstConstraint="Mage\Catalog\Test\Constraint\AssertSpecialPriceOnGroupedProductPage" method="test">
+            <data name="description" xsi:type="string">Create grouped product with assigned product special price)</data>
+            <data name="product/data/name" xsi:type="string">GroupedProduct %isolation%</data>
+            <data name="product/data/sku" xsi:type="string">GroupedProduct_sku%isolation%</data>
+            <data name="product/data/url_key" xsi:type="string">grouped-product%isolation%</data>
+            <data name="product/data/status" xsi:type="string">Enabled</data>
+            <data name="product/data/visibility" xsi:type="string">-</data>
+            <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
+            <data name="product/data/description" xsi:type="string">This is description for grouped product</data>
+            <data name="product/data/associated/dataset" xsi:type="string">defaultSimpleProduct_with_specialPrice</data>
+            <data name="product/data/short_description" xsi:type="string">This is short description for grouped product</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertSpecialPriceOnGroupedProductPage" next="Mage\Catalog\Test\Constraint\AssertProductForm"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductForm" next="Mage\Catalog\Test\Constraint\AssertProductPage" prev="Mage\Catalog\Test\Constraint\AssertSpecialPriceOnGroupedProductPage"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductPage" prev="Mage\Catalog\Test\Constraint\AssertProductForm"/>
+        </variation>
+        <variation name="CreateGroupedProductEntityTestVariation4" firstConstraint="Mage\Catalog\Test\Constraint\AssertGroupedPriceOnGroupedProductPage" method="test">
+            <data name="description" xsi:type="string">Create grouped product with assigned product group price)</data>
+            <data name="product/data/name" xsi:type="string">GroupedProduct %isolation%</data>
+            <data name="product/data/sku" xsi:type="string">GroupedProduct_sku%isolation%</data>
+            <data name="product/data/url_key" xsi:type="string">grouped-product%isolation%</data>
+            <data name="product/data/status" xsi:type="string">Enabled</data>
+            <data name="product/data/visibility" xsi:type="string">-</data>
+            <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
+            <data name="product/data/description" xsi:type="string">This is description for grouped product</data>
+            <data name="product/data/associated/dataset" xsi:type="string">defaultSimpleProduct_with_groupPrice</data>
+            <data name="product/data/short_description" xsi:type="string">This is short description for grouped product</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertGroupedPriceOnGroupedProductPage" next="Mage\Catalog\Test\Constraint\AssertProductForm"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductForm" next="Mage\Catalog\Test\Constraint\AssertProductPage" prev="Mage\Catalog\Test\Constraint\AssertGroupedPriceOnGroupedProductPage"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductPage" prev="Mage\Catalog\Test\Constraint\AssertProductForm"/>
+        </variation>
+        <variation name="CreateGroupedProductEntityTestVariation5" firstConstraint="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" method="test">
+            <data name="description" xsi:type="string">Create default grouped product with assigned virtual products</data>
+            <data name="product/data/name" xsi:type="string">GroupedProduct %isolation%</data>
+            <data name="product/data/sku" xsi:type="string">GroupedProduct_sku%isolation%</data>
+            <data name="product/data/url_key" xsi:type="string">grouped-product%isolation%</data>
+            <data name="product/data/status" xsi:type="string">Enabled</data>
+            <data name="product/data/visibility" xsi:type="string">-</data>
+            <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
+            <data name="product/data/description" xsi:type="string">This is description for grouped product</data>
+            <data name="product/data/associated/dataset" xsi:type="string">defaultVirtualProducts</data>
+            <data name="product/data/short_description" xsi:type="string">This is short description for grouped product</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" next="Mage\Catalog\Test\Constraint\AssertGroupedProductsDefaultQty"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertGroupedProductsDefaultQty" prev="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
+        </variation>
+        <variation name="CreateGroupedProductEntityTestVariation6" firstConstraint="Mage\Catalog\Test\Constraint\AssertTierPriceOnGroupedProductPage" method="test">
+            <data name="description" xsi:type="string">Create grouped product with assigned product (tier price)</data>
+            <data name="product/data/name" xsi:type="string">GroupedProduct %isolation%</data>
+            <data name="product/data/sku" xsi:type="string">GroupedProduct_sku%isolation%</data>
+            <data name="product/data/url_key" xsi:type="string">grouped-product%isolation%</data>
+            <data name="product/data/status" xsi:type="string">Enabled</data>
+            <data name="product/data/visibility" xsi:type="string">-</data>
+            <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
+            <data name="product/data/description" xsi:type="string">This is description for grouped product</data>
+            <data name="product/data/associated/dataset" xsi:type="string">defaultSimpleProduct_with_tierPrice</data>
+            <data name="product/data/short_description" xsi:type="string">This is short description for grouped product</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertTierPriceOnGroupedProductPage" next="Mage\Catalog\Test\Constraint\AssertProductForm"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductForm" next="Mage\Catalog\Test\Constraint\AssertProductPage" prev="Mage\Catalog\Test\Constraint\AssertTierPriceOnGroupedProductPage"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductPage" prev="Mage\Catalog\Test\Constraint\AssertProductForm"/>
+        </variation>
+        <variation name="CreateGroupedProductEntityTestVariation7" firstConstraint="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" method="test">
+            <data name="description" xsi:type="string">Create grouped product visible in catalog only</data>
+            <data name="product/data/name" xsi:type="string">GroupedProduct %isolation%</data>
+            <data name="product/data/sku" xsi:type="string">GroupedProduct_sku%isolation%</data>
+            <data name="product/data/url_key" xsi:type="string">grouped-product%isolation%</data>
+            <data name="product/data/status" xsi:type="string">Enabled</data>
+            <data name="product/data/visibility" xsi:type="string">Catalog</data>
+            <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
+            <data name="product/data/description" xsi:type="string">This is description for grouped product</data>
+            <data name="product/data/associated/dataset" xsi:type="string">defaultSimpleProducts</data>
+            <data name="product/data/short_description" xsi:type="string">This is short description for grouped product</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" next="Mage\Catalog\Test\Constraint\AssertProductVisibleInCategory"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductVisibleInCategory" next="Mage\Catalog\Test\Constraint\AssertProductNotSearchableBySku" prev="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductNotSearchableBySku" prev="Mage\Catalog\Test\Constraint\AssertProductVisibleInCategory"/>
+        </variation>
+        <variation name="CreateGroupedProductEntityTestVariation8" firstConstraint="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" method="test">
+            <data name="description" xsi:type="string">Create grouped product visible in search only</data>
+            <data name="product/data/name" xsi:type="string">GroupedProduct %isolation%</data>
+            <data name="product/data/sku" xsi:type="string">GroupedProduct_sku%isolation%</data>
+            <data name="product/data/url_key" xsi:type="string">grouped-product%isolation%</data>
+            <data name="product/data/status" xsi:type="string">Enabled</data>
+            <data name="product/data/visibility" xsi:type="string">Search</data>
+            <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
+            <data name="product/data/description" xsi:type="string">This is description for grouped product</data>
+            <data name="product/data/associated/dataset" xsi:type="string">defaultSimpleProducts</data>
+            <data name="product/data/short_description" xsi:type="string">This is short description for grouped product</data>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" next="Mage\Catalog\Test\Constraint\AssertProductVisibleInCategory"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductVisibleInCategory" next="Mage\Catalog\Test\Constraint\AssertProductSearchable" prev="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
+            <constraint name="Mage\Catalog\Test\Constraint\AssertProductSearchable" prev="Mage\Catalog\Test\Constraint\AssertProductVisibleInCategory"/>
+        </variation>
+    </testCase>
 </config>

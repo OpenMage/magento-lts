@@ -26,7 +26,7 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Paypal\Test\TestCase\TestCreationForExpressCheckoutWithinPayPalButtonTest">
+    <testCase name="Mage\Paypal\Test\TestCase\TestCreationForExpressCheckoutWithinPayPalButtonTest" summary="TestCreationForExpressCheckoutWithinPayPalButtonTest">
         <variation name="TestCreationForExpressCheckoutWithinPayPalButtonTestVariation1" method="test">
             <data name="products" xsi:type="string">catalogProductVirtual::order_default,catalogProductSimple::default</data>
             <data name="salesRule" xsi:type="string">active_sales_rule_for_all_groups</data>

@@ -78,7 +78,7 @@
     z-index:501;
     }
 #loading-mask {
-    background:background:url(../images/blank.gif) repeat;
+    background:url(images/blank.gif) repeat;
     position:absolute;
     color:#d85909;
     font-size:1.1em;
@@ -1396,8 +1396,6 @@ ul.super-product-attributes { padding-left:15px; }
 .uploader .file-row-info .file-info-name  { font-weight:bold; }
 .uploader .file-row .progress-text { float:right; font-weight:bold; }
 .uploader .file-row .delete-button { float:right; }
-.uploader .buttons { float:left; }
-.uploader .flex { float:right; }
 .uploader .progress { border:1px solid #f0e6b7; background-color:#feffcc; }
 .uploader .error { border:1px solid #aa1717; background-color:#ffe6de; }
 .uploader .error .progress-text { padding-right:10px; }

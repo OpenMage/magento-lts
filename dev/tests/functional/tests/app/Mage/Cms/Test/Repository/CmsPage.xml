@@ -31,7 +31,7 @@
             <field name="title" xsi:type="string">test-%isolation%</field>
             <field name="identifier" xsi:type="string">test-%isolation%</field>
             <field name="store_id" xsi:type="array">
-                <item name="dataSet" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">default</item>
                 </item>
             </field>
@@ -46,7 +46,7 @@
             <field name="title" xsi:type="string">page-compare-%isolation%</field>
             <field name="identifier" xsi:type="string">page-compare-%isolation%</field>
             <field name="store_id" xsi:type="array">
-                <item name="dataSet" xsi:type="array">
+                <item name="dataset" xsi:type="array">
                     <item name="0" xsi:type="string">default</item>
                 </item>
             </field>

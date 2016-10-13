@@ -32,23 +32,25 @@
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 
-class Mage_Rss_OrderController extends Mage_Core_Controller_Front_Action
+class Mage_Rss_OrderController extends Mage_Rss_Controller_Abstract
 {
     public function newAction()
     {
-        $this->getResponse()->setHeader('Content-type', 'text/xml; charset=UTF-8');
-        $this->loadLayout(false);
-        $this->renderLayout();
+        if ($this->checkFeedEnable('order/new')) {
+            $this->loadLayout(false);
+            $this->renderLayout();
+        }
     }
 
     public function customerAction()
     {
-        if (Mage::app()->getStore()->isCurrentlySecure()) {
-            $this->getResponse()->setHeader('Content-type', 'text/xml; charset=UTF-8');
-            Mage::helper('rss')->authFrontend();
-        } else {
-            $this->_redirect('rss/order/customer', array('_secure'=>true));
-            return $this;
+        if ($this->checkFeedEnable('order/customer')) {
+            if (Mage::app()->getStore()->isCurrentlySecure()) {
+                Mage::helper('rss')->authFrontend();
+            } else {
+                $this->_redirect('rss/order/customer', array('_secure'=>true));
+                return $this;
+            }
         }
     }
 
@@ -57,13 +59,15 @@ class Mage_Rss_OrderController extends Mage_Core_Controller_Front_Action
      */
     public function statusAction()
     {
-        $order = Mage::helper('rss/order')->getOrderByStatusUrlKey((string)$this->getRequest()->getParam('data'));
-        if (!is_null($order)) {
-            Mage::register('current_order', $order);
-            $this->getResponse()->setHeader('Content-type', 'text/xml; charset=UTF-8');
-            $this->loadLayout(false);
-            $this->renderLayout();
-            return;
+        if ($this->isFeedEnable('order/status_notified')) {
+            $order = Mage::helper('rss/order')->getOrderByStatusUrlKey((string)$this->getRequest()->getParam('data'));
+            if (!is_null($order)) {
+                Mage::register('current_order', $order);
+                $this->getResponse()->setHeader('Content-type', 'text/xml; charset=UTF-8');
+                $this->loadLayout(false);
+                $this->renderLayout();
+                return;
+            }
         }
         $this->_forward('nofeed', 'index', 'rss');
     }
@@ -76,7 +80,7 @@ class Mage_Rss_OrderController extends Mage_Core_Controller_Front_Action
     public function preDispatch()
     {
         $action = strtolower($this->getRequest()->getActionName());
-        if ($action == 'new') {
+        if ($action == 'new' && $this->isFeedEnable('order/new')) {
             $this->_currentArea = 'adminhtml';
             Mage::helper('rss')->authAdmin('sales/order');
         }

@@ -117,10 +117,12 @@ class Maged_Connect_Frontend extends Mage_Connect_Frontend
     */
     public function confirm($string)
     {
-        $formId = $_POST['form_id'];
+        $confirmString = htmlentities($string, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+        $formId = htmlspecialchars($_POST['form_id'], ENT_COMPAT | ENT_HTML401, 'UTF-8');
+
         echo <<<SCRIPT
         <script type="text/javascript">
-            if (confirm("{$string}")) {
+            if (confirm("{$confirmString}")) {
                 parent.document.getElementById('ignore_local_modification').value=1;
                 parent.onSuccess();
                 if (parent && parent.disableInputs) {

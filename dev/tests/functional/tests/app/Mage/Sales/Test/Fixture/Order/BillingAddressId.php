@@ -36,7 +36,7 @@ use Magento\Mtf\Fixture\FixtureInterface;
 class BillingAddressId implements FixtureInterface
 {
     /**
-     * Prepared dataSet data.
+     * Prepared dataset data.
      *
      * @var array
      */
@@ -57,8 +57,8 @@ class BillingAddressId implements FixtureInterface
     public function __construct(FixtureFactory $fixtureFactory, array $data, array $params = [])
     {
         $this->params = $params;
-        if (isset($data['dataSet'])) {
-            $addresses = $fixtureFactory->createByCode('address', ['dataSet' => $data['dataSet']]);
+        if (isset($data['dataset'])) {
+            $addresses = $fixtureFactory->createByCode('address', ['dataset' => $data['dataset']]);
             $this->data = $addresses->getData();
             $this->data['street'] = [$this->data['street']];
         }

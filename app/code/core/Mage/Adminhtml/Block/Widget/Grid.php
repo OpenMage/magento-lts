@@ -477,6 +477,23 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
+     * Add link model filter from grid column to collection
+     *
+     * @param Mage_Catalog_Model_Resource_Product_Link_Product_Collection $collection
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     *
+     * @return Mage_Adminhtml_Block_Widget_Grid
+     */
+    protected function _addLinkModelFilterCallback($collection, $column)
+    {
+        $field = ($column->getFilterIndex()) ? $column->getFilterIndex() : $column->getIndex();
+        $condition = $column->getFilter()->getCondition();
+        $collection->addLinkModelFieldToFilter($field, $condition);
+
+        return $this;
+    }
+
+    /**
      * Sets sorting order by some column
      *
      * @param Mage_Adminhtml_Block_Widget_Grid_Column $column

@@ -153,6 +153,7 @@ class Tree extends Block
      */
     protected function expandAllCategories()
     {
+        $this->browser->find($this->addRootCategory)->hover();
         $this->_rootElement->find($this->expandAll)->click();
     }
 

@@ -26,10 +26,10 @@
  */
  -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Catalog\Test\TestCase\Product\CreateConfigurableProductEntityTest">
+    <testCase name="Mage\Catalog\Test\TestCase\Product\CreateConfigurableProductEntityTest" summary="CreateConfigurableProductEntityTest">
         <variation name="CreateConfigurableProductEntityTestVariation1" method="test">
             <data name="description" xsi:type="string">Create Simplified configurable product</data>
-            <data name="product/data/checkout_data/preset" xsi:type="string">default</data>
+            <data name="product/data/checkout_data/dataset" xsi:type="string">default</data>
             <data name="product/data/status" xsi:type="string">Enabled</data>
             <data name="product/data/name" xsi:type="string">Configurable Product %isolation%</data>
             <data name="product/data/sku" xsi:type="string">configurable_sku_%isolation%</data>
@@ -40,7 +40,7 @@
             <data name="product/data/description" xsi:type="string">Simplified configurable product</data>
             <data name="product/data/weight" xsi:type="string">2</data>
             <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
-            <data name="product/data/configurable_options/preset" xsi:type="string">default</data>
+            <data name="product/data/configurable_options/dataset" xsi:type="string">default</data>
             <data name="tag" xsi:type="string">main:ce</data>
             <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
             <constraint name="Mage\Catalog\Test\Constraint\AssertProductInGrid"/>
@@ -50,7 +50,7 @@
         </variation>
         <variation name="CreateConfigurableProductEntityTestVariation2" method="test">
             <data name="description" xsi:type="string">Create configurable product with special price</data>
-            <data name="product/data/checkout_data/preset" xsi:type="string">default</data>
+            <data name="product/data/checkout_data/dataset" xsi:type="string">default</data>
             <data name="product/data/checkout_data/cartItem/price" xsi:type="string">52</data>
             <data name="product/data/checkout_data/cartItem/subtotal" xsi:type="string">104</data>
             <data name="product/data/status" xsi:type="string">Enabled</data>
@@ -63,7 +63,7 @@
             <data name="product/data/description" xsi:type="string">Configurable product with special price</data>
             <data name="product/data/weight" xsi:type="string">3</data>
             <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
-            <data name="product/data/configurable_options/preset" xsi:type="string">default</data>
+            <data name="product/data/configurable_options/dataset" xsi:type="string">default</data>
             <data name="product/data/special_price" xsi:type="string">10</data>
             <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
             <constraint name="Mage\Catalog\Test\Constraint\AssertProductInGrid"/>
@@ -73,7 +73,7 @@
         </variation>
         <variation name="CreateConfigurableProductEntityTestVariation3" method="test">
             <data name="description" xsi:type="string">Create configurable product with group price</data>
-            <data name="product/data/checkout_data/preset" xsi:type="string">default</data>
+            <data name="product/data/checkout_data/dataset" xsi:type="string">default</data>
             <data name="product/data/checkout_data/cartItem/price" xsi:type="string">148</data>
             <data name="product/data/checkout_data/cartItem/subtotal" xsi:type="string">296</data>
             <data name="product/data/status" xsi:type="string">Enabled</data>
@@ -86,8 +86,8 @@
             <data name="product/data/description" xsi:type="string">Configurable product with group price</data>
             <data name="product/data/weight" xsi:type="string">4</data>
             <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
-            <data name="product/data/configurable_options/preset" xsi:type="string">default</data>
-            <data name="product/data/group_price/preset" xsi:type="string">for_not_logged_users</data>
+            <data name="product/data/configurable_options/dataset" xsi:type="string">default</data>
+            <data name="product/data/group_price/dataset" xsi:type="string">for_not_logged_users</data>
             <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
             <constraint name="Mage\Catalog\Test\Constraint\AssertProductInGrid"/>
             <constraint name="Mage\Catalog\Test\Constraint\AssertConfigurableProductForm"/>
@@ -96,7 +96,7 @@
         </variation>
         <variation name="CreateConfigurableProductEntityTestVariation4" method="test">
             <data name="description" xsi:type="string">Create configurable product with tier price</data>
-            <data name="product/data/checkout_data/preset" xsi:type="string">default</data>
+            <data name="product/data/checkout_data/dataset" xsi:type="string">default</data>
             <data name="product/data/checkout_data/cartItem/price" xsi:type="string">58</data>
             <data name="product/data/checkout_data/cartItem/subtotal" xsi:type="string">232</data>
             <data name="product/data/checkout_data/qty" xsi:type="string">4</data>
@@ -110,9 +110,9 @@
             <data name="product/data/description" xsi:type="string">Configurable product with tier price</data>
             <data name="product/data/weight" xsi:type="string">5</data>
             <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
-            <data name="product/data/configurable_options/preset" xsi:type="string">default</data>
-            <data name="product/data/tier_price/preset" xsi:type="string">for_all_groups</data>
-            <data name="product/data/price/preset" xsi:type="string">with_tier_price</data>
+            <data name="product/data/configurable_options/dataset" xsi:type="string">default</data>
+            <data name="product/data/tier_price/dataset" xsi:type="string">for_all_groups</data>
+            <data name="product/data/price/dataset" xsi:type="string">with_tier_price</data>
             <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
             <constraint name="Mage\Catalog\Test\Constraint\AssertProductInGrid"/>
             <constraint name="Mage\Catalog\Test\Constraint\AssertConfigurableProductForm"/>
@@ -121,7 +121,7 @@
         </variation>
         <variation name="CreateConfigurableProductEntityTestVariation5" method="test">
             <data name="description" xsi:type="string">Create configurable product with custom options</data>
-            <data name="product/data/checkout_data/preset" xsi:type="string">with_custom_options</data>
+            <data name="product/data/checkout_data/dataset" xsi:type="string">with_custom_options</data>
             <data name="product/data/status" xsi:type="string">Enabled</data>
             <data name="product/data/name" xsi:type="string">Configurable Product %isolation%</data>
             <data name="product/data/sku" xsi:type="string">configurable_sku_%isolation%</data>
@@ -132,8 +132,8 @@
             <data name="product/data/description" xsi:type="string">Configurable product with custom options</data>
             <data name="product/data/weight" xsi:type="string">6</data>
             <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
-            <data name="product/data/configurable_options/preset" xsi:type="string">default</data>
-            <data name="product/data/custom_options/preset" xsi:type="string">drop_down_with_two_options</data>
+            <data name="product/data/configurable_options/dataset" xsi:type="string">default</data>
+            <data name="product/data/custom_options/dataset" xsi:type="string">drop_down_with_two_options</data>
             <constraint name="Mage\Catalog\Test\Constraint\AssertProductSaveMessage"/>
             <constraint name="Mage\Catalog\Test\Constraint\AssertProductInGrid"/>
             <constraint name="Mage\Catalog\Test\Constraint\AssertConfigurableProductForm"/>

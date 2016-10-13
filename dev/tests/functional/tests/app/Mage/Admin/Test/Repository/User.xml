@@ -28,16 +28,15 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/Magento/Mtf/Repository/etc/repository.xsd">
     <repository class="Mage\Admin\Test\Repository\User">
         <dataset name="default">
-            <field name="username" xsi:type="string">admin</field>
+            <field name="username" xsi:type="string">AdminUser%isolation%</field>
             <field name="firstname" xsi:type="string">FirstName%isolation%</field>
             <field name="lastname" xsi:type="string">LastName%isolation%</field>
             <field name="email" xsi:type="string">email%isolation%@example.com</field>
             <field name="password" xsi:type="string">123123q</field>
             <field name="password_confirmation" xsi:type="string">123123q</field>
-            <field name="user_id" xsi:type="string">1</field>
+            <field name="is_active" xsi:type="string">Active</field>
             <field name="current_password" xsi:type="string">123123q</field>
         </dataset>
-
         <dataset name="custom_admin">
             <field name="username" xsi:type="string">AdminUser%isolation%</field>
             <field name="firstname" xsi:type="string">FirstName%isolation%</field>
@@ -48,10 +47,9 @@
             <field name="current_password" xsi:type="string">123123q</field>
             <field name="is_active" xsi:type="string">Active</field>
             <field name="role_id" xsi:type="array">
-                <item name="dataSet" xsi:type="string">administrators</item>
+                <item name="dataset" xsi:type="string">administrators</item>
             </field>
         </dataset>
-
         <dataset name="admin_without_role">
             <field name="username" xsi:type="string">AdminUser%isolation%</field>
             <field name="firstname" xsi:type="string">FirstName%isolation%</field>
@@ -61,6 +59,22 @@
             <field name="password_confirmation" xsi:type="string">123123q</field>
             <field name="current_password" xsi:type="string">123123q</field>
             <field name="is_active" xsi:type="string">Active</field>
+        </dataset>
+        <dataset name="admin_for_installation">
+            <field name="username" xsi:type="string">AdminUserInstall%isolation%</field>
+            <field name="firstname" xsi:type="string">FirstName%isolation%</field>
+            <field name="lastname" xsi:type="string">LastName%isolation%</field>
+            <field name="email" xsi:type="string">email%isolation%@example.com</field>
+            <field name="password" xsi:type="string">123123q</field>
+            <field name="password_confirmation" xsi:type="string">123123q</field>
+        </dataset>
+        <dataset name="admin_install_admin">
+            <field name="username" xsi:type="string">admin</field>
+            <field name="firstname" xsi:type="string">FirstName%isolation%</field>
+            <field name="lastname" xsi:type="string">LastName%isolation%</field>
+            <field name="email" xsi:type="string">email%isolation%@example.com</field>
+            <field name="password" xsi:type="string">123123q</field>
+            <field name="password_confirmation" xsi:type="string">123123q</field>
         </dataset>
     </repository>
 </config>

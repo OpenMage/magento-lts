@@ -26,8 +26,9 @@
 
 namespace Mage\Catalog\Test\Fixture\CatalogProductSimple;
 
+use Magento\Mtf\Fixture\DataSource;
 use Magento\Mtf\Fixture\FixtureFactory;
-use Magento\Mtf\Fixture\FixtureInterface;
+use Magento\Mtf\Repository\RepositoryFactory;
 
 /**
  * Preset for custom options.
@@ -36,37 +37,31 @@ use Magento\Mtf\Fixture\FixtureInterface;
  *  - preset (Custom options preset name)
  *  - import_products (comma separated data set name)
  */
-class CustomOptions implements FixtureInterface
+class CustomOptions extends DataSource
 {
     /**
-     * Prepared dataSet data.
+     * Custom options data.
      *
      * @var array
      */
-    protected $data;
-
-    /**
-     * Data set configuration settings.
-     *
-     * @var array
-     */
-    protected $params;
+    protected $customOptions;
 
     /**
      * @constructor
+     * @param RepositoryFactory $repositoryFactory
      * @param array $params
      * @param array $data
      * @param FixtureFactory|null $fixtureFactory
      */
-    public function __construct(array $params, array $data, FixtureFactory $fixtureFactory)
+    public function __construct(RepositoryFactory $repositoryFactory, array $params, array $data, FixtureFactory $fixtureFactory)
     {
         $this->params = $params;
-        $preset = [];
-        if (isset($data['preset'])) {
-            $preset = $this->replaceData($this->getPreset($data['preset']), mt_rand());
-            unset($data['preset']);
+        if (isset($data['dataset']) && isset($this->params['repository'])) {
+            $this->data = $repositoryFactory->get($this->params['repository'])->get($data['dataset']);
+            $this->customOptions = $this->data;
+            unset($data['dataset']);
         }
-        $this->data = array_merge_recursive($data, $preset);
+        $this->data = array_merge_recursive($data, $this->data);
     }
 
     /**
@@ -89,298 +84,14 @@ class CustomOptions implements FixtureInterface
         return $result;
     }
 
-    /**
-     * Persist custom selections products.
-     *
-     * @return void
-     */
-    public function persist()
-    {
-        //
-    }
 
     /**
-     * Return prepared data set.
+     * Return all custom options.
      *
-     * @param string $key [optional]
-     * @return mixed
-     *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * @return array
      */
-    public function getData($key = null)
+    public function getCustomOptions()
     {
-        return $this->data;
-    }
-
-    /**
-     * Return data set configuration settings.
-     *
-     * @return string
-     */
-    public function getDataConfig()
-    {
-        return $this->params;
-    }
-
-    /**
-     * Get preset.
-     *
-     * @param string $name
-     * @return array|null
-     *
-     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
-     */
-    protected function getPreset($name)
-    {
-        $presets = [
-            'drop_down_with_two_options' => [
-                [
-                    'title' => 'custom option Drop-down %isolation%',
-                    'is_require' => 'Yes',
-                    'type' => 'Select/Drop-down',
-                    'options' => [
-                        [
-                            'title' => '30 bucks',
-                            'price' => 30,
-                            'price_type' => 'Fixed',
-                            'sku' => 'sku_drop_down_row_1'
-                        ],
-                        [
-                            'title' => '40 bucks',
-                            'price' => 40,
-                            'price_type' => 'Percent',
-                            'sku' => 'sku_drop_down_row_2'
-                        ]
-                    ]
-                ]
-            ],
-            'drop_down_with_one_option_percent_price' => [
-                [
-                    'title' => 'custom option Drop-down %isolation%',
-                    'is_require' => 'Yes',
-                    'type' => 'Select/Drop-down',
-                    'options' => [
-                        [
-                            'title' => '40 bucks',
-                            'price' => 40,
-                            'price_type' => 'Percent',
-                            'sku' => 'sku_drop_down_row_1'
-                        ]
-                    ]
-                ]
-            ],
-            'default' => [
-                [
-                    'title' => 'custom option Drop-down %isolation%',
-                    'is_require' => 'Yes',
-                    'type' => 'Select/Drop-down',
-                    'options' => [
-                        [
-                            'title' => '10 percent',
-                            'price' => 10,
-                            'price_type' => 'Percent',
-                            'sku' => 'sku_drop_down_row_1',
-                        ],
-                    ],
-                ],
-                [
-                    'title' => 'custom option Drop-down2 %isolation%',
-                    'is_require' => 'Yes',
-                    'type' => 'Select/Drop-down',
-                    'options' => [
-                        [
-                            'title' => '20 percent',
-                            'price' => 20,
-                            'price_type' => 'Percent',
-                            'sku' => 'sku_drop_down_row_2',
-                        ],
-                    ]
-                ],
-            ],
-            'all_types' => [
-                [
-                    'title' => 'custom option Field %isolation%',
-                    'type' => 'Text/Field',
-                    'is_require' => 'Yes',
-                    'options' => [
-                        'price' => 10,
-                        'price_type' => 'Fixed',
-                        'sku' => 'sku_field_option_%isolation%',
-                        'max_characters' => 1024,
-                    ],
-                ],
-                [
-                    'title' => 'custom option Area %isolation%',
-                    'is_require' => 'Yes',
-                    'type' => 'Text/Area',
-                    'options' => [
-                        'price' => 10,
-                        'price_type' => 'Fixed',
-                        'sku' => 'sku_area_row_%isolation%',
-                        'max_characters' => '10',
-                    ]
-                ],
-                [
-                    'title' => 'custom option File %isolation%',
-                    'is_require' => 'No',
-                    'type' => 'File/File',
-                    'options' => [
-                        'price' => 10,
-                        'price_type' => 'Fixed',
-                        'sku' => 'sku_file_row_%isolation%',
-                        'file_extension' => 'jpg',
-                        'image_size_x' => '100',
-                        'image_size_y' => '100',
-                    ]
-                ],
-                [
-                    'title' => 'custom option Drop-down %isolation%',
-                    'is_require' => 'Yes',
-                    'type' => 'Select/Drop-down',
-                    'options' => [
-                        [
-                            'title' => '10 percent',
-                            'price' => 10,
-                            'price_type' => 'Percent',
-                            'sku' => 'sku_drop_down_row_1_%isolation%',
-                        ],
-                        [
-                            'title' => '20 percent',
-                            'price' => 20,
-                            'price_type' => 'Percent',
-                            'sku' => 'sku_drop_down_row_2_%isolation%'
-                        ],
-                        [
-                            'title' => '30 fixed',
-                            'price' => 30,
-                            'price_type' => 'Fixed',
-                            'sku' => 'sku_drop_down_row_3_%isolation%'
-                        ],
-                    ]
-                ],
-                [
-                    'title' => 'custom option Radio Buttons %isolation%',
-                    'is_require' => 'Yes',
-                    'type' => 'Select/Radio Buttons',
-                    'options' => [
-                        [
-                            'title' => '20 fixed',
-                            'price' => 20,
-                            'price_type' => 'Fixed',
-                            'sku' => 'sku_radio_buttons_row%isolation%',
-                        ],
-                    ]
-                ],
-                [
-                    'title' => 'custom option Checkbox %isolation%',
-                    'is_require' => 'Yes',
-                    'type' => 'Select/Checkbox',
-                    'options' => [
-                        [
-                            'title' => '20 fixed',
-                            'price' => 20,
-                            'price_type' => 'Fixed',
-                            'sku' => 'sku_checkbox_row%isolation%',
-                        ],
-                    ]
-                ],
-                [
-                    'title' => 'custom option Multiple Select %isolation%',
-                    'is_require' => 'Yes',
-                    'type' => 'Select/Multiple Select',
-                    'options' => [
-                        [
-                            'title' => '20 fixed',
-                            'price' => 20,
-                            'price_type' => 'Fixed',
-                            'sku' => 'sku_multiple_select_row%isolation%',
-                        ],
-                    ]
-                ],
-                [
-                    'title' => 'custom option Date %isolation%',
-                    'is_require' => 'Yes',
-                    'type' => 'Date/Date',
-                    'options' => [
-                        'price' => 20,
-                        'price_type' => 'Fixed',
-                        'sku' => 'sku_date_row%isolation%',
-                    ]
-                ],
-                [
-                    'title' => 'custom option Date & Time %isolation%',
-                    'is_require' => 'Yes',
-                    'type' => 'Date/Date & Time',
-                    'options' => [
-                        'price' => 20,
-                        'price_type' => 'Fixed',
-                        'sku' => 'sku_date_and_time_row%isolation%',
-                    ]
-                ],
-                [
-                    'title' => 'custom option Time %isolation%',
-                    'is_require' => 'Yes',
-                    'type' => 'Date/Time',
-                    'options' => [
-                        'price' => 20,
-                        'price_type' => 'Fixed',
-                        'sku' => 'sku_time_row%isolation%',
-                    ]
-                ],
-            ],
-            'two_options' => [
-                [
-                    'title' => 'custom option drop down %isolation%',
-                    'is_require' => 'Yes',
-                    'type' => 'Select/Drop-down',
-                    'options' => [
-                        [
-                            'title' => '10 percent',
-                            'price' => 10,
-                            'price_type' => 'Percent',
-                            'sku' => 'sku_drop_down_row_1',
-                        ],
-                        [
-                            'title' => '20 percent',
-                            'price' => 20,
-                            'price_type' => 'Percent',
-                            'sku' => 'sku_drop_down_row_2'
-                        ],
-                    ],
-                ],
-                [
-                    'title' => 'custom option field %isolation%',
-                    'is_require' => 'Yes',
-                    'type' => 'Text/Field',
-                    'options' => [
-                        [
-                            'price' => 10,
-                            'price_type' => 'Fixed',
-                            'sku' => 'sku_field_option_%isolation%',
-                            'max_characters' => 1024,
-                        ],
-                    ]
-                ],
-            ],
-            'drop_down_with_one_option_fixed_price' => [
-                [
-                    'title' => 'custom option drop down %isolation%',
-                    'is_require' => 'Yes',
-                    'type' => 'Select/Drop-down',
-                    'options' => [
-                        [
-                            'title' => '30 bucks',
-                            'price' => 30,
-                            'price_type' => 'Fixed',
-                            'sku' => 'sku_drop_down_row_1',
-                        ],
-                    ],
-                ],
-            ],
-        ];
-        if (!isset($presets[$name])) {
-            return null;
-        }
-        return $presets[$name];
+        return $this->customOptions;
     }
 }

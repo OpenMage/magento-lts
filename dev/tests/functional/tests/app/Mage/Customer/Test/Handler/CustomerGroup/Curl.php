@@ -57,7 +57,7 @@ class Curl extends AbstractCurl implements CustomerGroupInterface
         $data = $this->prepareData($fixture);
         $url = $_ENV['app_backend_url'] . $this->saveUrl . "?" . http_build_query($data);
         $curl = new BackendDecorator(new CurlTransport(), $this->_configuration);
-        $curl->write(CurlInterface::GET, $url, '1.1', []);
+        $curl->write($url, [], CurlInterface::GET);
         $response = $curl->read();
         $curl->close();
 
@@ -82,7 +82,7 @@ class Curl extends AbstractCurl implements CustomerGroupInterface
 
         $url = $_ENV['app_backend_url'] . 'customer_group/index/sort/time/dir/desc/';
         $curl = new BackendDecorator(new CurlTransport(), $this->_configuration);
-        $curl->write(CurlInterface::GET, $url, '1.1');
+        $curl->write($url, [], CurlInterface::GET);
         $response = $curl->read();
         $curl->close();
         preg_match($regExp, $response, $matches);

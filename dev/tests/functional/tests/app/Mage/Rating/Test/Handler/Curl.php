@@ -72,7 +72,7 @@ class Curl extends AbstractCurl implements RatingInterface
         $url = $_ENV['app_backend_url'] . 'rating/save';
         $curl = new BackendDecorator(new CurlTransport(), $this->_configuration);
         $data = $this->replaceMappingData($this->prepareData($rating->getData()));
-        $curl->write(CurlInterface::POST, $url, '1.1', [], $data);
+        $curl->write($url, $data);
         $response = $curl->read();
         $curl->close();
         if (!strpos($response, 'class="success-msg"')) {

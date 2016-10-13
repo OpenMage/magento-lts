@@ -203,14 +203,15 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Upsell extends Mage_Adminhtm
         ));
 
         $this->addColumn('position', array(
-            'header'            => Mage::helper('catalog')->__('Position'),
-            'name'              => 'position',
-            'type'              => 'number',
-            'width'             => 60,
-            'validate_class'    => 'validate-number',
-            'index'             => 'position',
-            'editable'          => !$this->_getProduct()->getUpsellReadonly(),
-            'edit_only'         => !$this->_getProduct()->getId()
+            'header'                    => Mage::helper('catalog')->__('Position'),
+            'name'                      => 'position',
+            'type'                      => 'number',
+            'width'                     => 60,
+            'validate_class'            => 'validate-number',
+            'index'                     => 'position',
+            'editable'                  => !$this->_getProduct()->getUpsellReadonly(),
+            'edit_only'                 => !$this->_getProduct()->getId(),
+            'filter_condition_callback' => array($this, '_addLinkModelFilterCallback')
         ));
 
         return parent::_prepareColumns();

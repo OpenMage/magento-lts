@@ -28,8 +28,8 @@ ieHover = function() {
     items = $$('#nav ul', '#nav div', '.truncated_full_value .item-options', '.tool-tip');
     $$('#checkout-step-payment', '.tool-tip').each(function(el) {
         el.show();
-        el.setStyle({'visibility':'hidden'})
-    })
+        el.setStyle({'visibility':'hidden'});
+    });
     for (var j=0; j<items.length; j++) {
         iframe = document.createElement('IFRAME');
         iframe.src = BLANK_URL;
@@ -42,7 +42,7 @@ ieHover = function() {
     }
     $$('.tool-tip', '#checkout-step-payment').each(function(el) {
         el.hide();
-        el.setStyle({'visibility':'visible'})
-    })
-}
+        el.setStyle({'visibility':'visible'});
+    });
+};
 Event.observe(window, 'load', ieHover);

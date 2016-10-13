@@ -69,10 +69,10 @@ class AbstractRelatedProducts implements FixtureInterface
         if (isset($data['presets'])) {
             $presets = array_map('trim', explode(',', $data['presets']));
             foreach ($presets as $preset) {
-                list($fixtureCode, $dataSet) = explode('::', $preset);
+                list($fixtureCode, $dataset) = explode('::', $preset);
 
                 /** @var InjectableFixture $product */
-                $product = $fixtureFactory->createByCode($fixtureCode, ['dataSet' => $dataSet]);
+                $product = $fixtureFactory->createByCode($fixtureCode, ['dataset' => $dataset]);
                 if (!$product->hasData('id')) {
                     $product->persist();
                 }

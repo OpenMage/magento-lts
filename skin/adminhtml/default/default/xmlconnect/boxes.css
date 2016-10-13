@@ -90,6 +90,7 @@
 .image-item-upload .uploader .progress,
 .image-item-upload .uploader .complete,
 .image-item-upload .uploader .error { display:block; height:100px; text-align:center; }
+.image-item-upload .uploader .progress,
 .image-item-upload .uploader .complete { text-align:center; line-height:95px; }
 .image-item-upload .uploader .file-row-info img { vertical-align:bottom; }
 .image-item-upload .uploader .file-row-narrow { margin:0; width:140px; }

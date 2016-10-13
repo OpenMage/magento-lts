@@ -72,7 +72,7 @@ Product.Config.prototype = {
 
         // Put events to check select reloads
         this.settings.each(function(element){
-            Event.observe(element, 'change', this.configure.bind(this))
+            Event.observe(element, 'change', this.configure.bind(this));
         }.bind(this));
 
         // fill state
@@ -83,7 +83,7 @@ Product.Config.prototype = {
                 element.attributeId = attributeId;
                 this.state[attributeId] = false;
             }
-        }.bind(this))
+        }.bind(this));
 
         // Init settings dropdown
         var childSettings = [];
@@ -91,7 +91,7 @@ Product.Config.prototype = {
             var prevSetting = this.settings[i-1] ? this.settings[i-1] : false;
             var nextSetting = this.settings[i+1] ? this.settings[i+1] : false;
             if (i == 0){
-                this.fillSelect(this.settings[i])
+                this.fillSelect(this.settings[i]);
             } else {
                 this.settings[i].disabled = true;
             }
@@ -140,7 +140,7 @@ Product.Config.prototype = {
     reloadOptionLabels: function(element){
         var selectedPrice;
         if(element.options[element.selectedIndex].config && !this.config.stablePrices){
-            selectedPrice = parseFloat(element.options[element.selectedIndex].config.price)
+            selectedPrice = parseFloat(element.options[element.selectedIndex].config.price);
         }
         else{
             selectedPrice = 0;
@@ -317,4 +317,4 @@ Product.Config.prototype = {
 
         }
     }
-}
+};

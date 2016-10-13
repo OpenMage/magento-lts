@@ -33,6 +33,7 @@ use Magento\Mtf\Block\BlockFactory;
 use Magento\Mtf\Block\Mapper;
 use Magento\Mtf\Client\BrowserInterface;
 use Mage\Adminhtml\Test\Page\Adminhtml\Dashboard;
+use Magento\Mtf\Util\ModuleResolver\SequenceSorterInterface;
 
 /**
  * Login form for backend user.
@@ -59,6 +60,7 @@ class Login extends Form
      * @param BlockFactory $blockFactory
      * @param Mapper $mapper
      * @param BrowserInterface $browser
+     * @param SequenceSorterInterface $sequenceSorter
      * @param array $config [optional]
      * @param Dashboard $dashboard
      */
@@ -67,10 +69,11 @@ class Login extends Form
         BlockFactory $blockFactory,
         Mapper $mapper,
         BrowserInterface $browser,
+        SequenceSorterInterface $sequenceSorter,
         array $config = [],
         Dashboard $dashboard
     ) {
-        parent::__construct($element, $blockFactory, $mapper, $browser, $config);
+        parent::__construct($element, $blockFactory, $mapper, $browser, $sequenceSorter, $config);
         $this->dashboard = $dashboard;
     }
 

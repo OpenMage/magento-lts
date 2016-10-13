@@ -71,9 +71,9 @@ class CreateNewAddressesFixturesStep implements TestStepInterface
             return [];
         }
         $newAddressesFixtures = [];
-        $dataSets = explode(',', $this->newAddresses);
-        foreach ($dataSets as $dataSet) {
-            $newAddressesFixtures[] = $this->fixtureFactory->createByCode('address', ['dataSet' => $dataSet]);
+        $datasets = explode(',', $this->newAddresses);
+        foreach ($datasets as $dataset) {
+            $newAddressesFixtures[] = $this->fixtureFactory->createByCode('address', ['dataset' => $dataset]);
         }
 
         return ['newAddresses' => $newAddressesFixtures];

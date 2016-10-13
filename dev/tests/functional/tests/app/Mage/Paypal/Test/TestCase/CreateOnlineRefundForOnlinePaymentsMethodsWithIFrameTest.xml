@@ -26,15 +26,15 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Paypal\Test\TestCase\CreateOnlineRefundForOnlinePaymentsMethodsWithIFrameTest">
+    <testCase name="Mage\Paypal\Test\TestCase\CreateOnlineRefundForOnlinePaymentsMethodsWithIFrameTest" summary="CreateOnlineRefundForOnlinePaymentsMethodsWithIFrameTest">
         <variation name="CreateOnlineRefundForOnlinePaymentsMethodsWithIFrameTestVariation1" method="test">
             <data name="description" xsi:type="string">Create full refund with two products for paypal advanced</data>
             <data name="configData" xsi:type="string">paypal_advanced</data>
             <data name="products" xsi:type="string">catalogProductSimple::default, catalogProductSimple::default</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend_new</data>
             <data name="checkoutMethod" xsi:type="string">login</data>
             <data name="customerPersist" xsi:type="string">yes</data>
-            <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_US_login</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
             <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
             <data name="payment/method" xsi:type="string">payflow_advanced</data>
@@ -50,8 +50,7 @@
             <data name="verifyData/items_data/1/item_subtotal" xsi:type="string">300.00</data>
             <data name="verifyData/items_data/1/item_row_total" xsi:type="string">300.00</data>
             <data name="status" xsi:type="string">Closed</data>
-            <data name="tag" xsi:type="string">payment_method:paypal_direct</data>
-            <data name="tag" xsi:type="string">paypal:advanced</data>
+            <data name="tag" xsi:type="string">payment_method:paypal_direct, paypal:advanced</data>
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoSuccessCreateMessage" />
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosGrid" />
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosTab" />
@@ -64,10 +63,10 @@
             <data name="description" xsi:type="string">Create partial refund with partial invoice for paypal advanced</data>
             <data name="configData" xsi:type="string">paypal_advanced</data>
             <data name="products" xsi:type="string">catalogProductSimple::default</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend_new</data>
             <data name="checkoutMethod" xsi:type="string">login</data>
             <data name="customerPersist" xsi:type="string">yes</data>
-            <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_US_login</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
             <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
             <data name="payment/method" xsi:type="string">payflow_advanced</data>
@@ -83,8 +82,7 @@
             <data name="verifyData/items_data/0/item_subtotal" xsi:type="string">100.00</data>
             <data name="verifyData/items_data/0/item_row_total" xsi:type="string">100.00</data>
             <data name="status" xsi:type="string">Processing</data>
-            <data name="tag" xsi:type="string">payment_method:paypal_direct</data>
-            <data name="tag" xsi:type="string">paypal:advanced</data>
+            <data name="tag" xsi:type="string">payment_method:paypal_direct, paypal:advanced</data>
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoSuccessCreateMessage" />
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosGrid" />
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosTab" />
@@ -97,10 +95,10 @@
             <data name="description" xsi:type="string">Create full refund with partial invoice for paypal payflow link</data>
             <data name="configData" xsi:type="string">paypal_payflow_link</data>
             <data name="products" xsi:type="string">catalogProductSimple::default</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend_new</data>
             <data name="checkoutMethod" xsi:type="string">login</data>
             <data name="customerPersist" xsi:type="string">yes</data>
-            <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_US_login</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
             <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
             <data name="payment/method" xsi:type="string">payflow_link</data>
@@ -116,8 +114,7 @@
             <data name="verifyData/items_data/0/item_subtotal" xsi:type="string">200.00</data>
             <data name="verifyData/items_data/0/item_row_total" xsi:type="string">200.00</data>
             <data name="status" xsi:type="string">Processing</data>
-            <data name="tag" xsi:type="string">payment_method:paypal_direct</data>
-            <data name="tag" xsi:type="string">paypal:payflow_link</data>
+            <data name="tag" xsi:type="string">payment_method:paypal_direct, paypal:payflow_link</data>
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoSuccessCreateMessage" />
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosGrid" />
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosTab" />
@@ -131,10 +128,10 @@
             <data name="configData" xsi:type="string">paypal_payflow_link_action_sale</data>
             <data name="products" xsi:type="string">catalogProductSimple::default</data>
             <data name="taxRule" xsi:type="string">default</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend_new</data>
             <data name="checkoutMethod" xsi:type="string">login</data>
             <data name="customerPersist" xsi:type="string">yes</data>
-            <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_US_login</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
             <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
             <data name="payment/method" xsi:type="string">payflow_link</data>
@@ -149,8 +146,7 @@
             <data name="verifyData/items_data/0/item_tax" xsi:type="string">24.75</data>
             <data name="verifyData/items_data/0/item_row_total" xsi:type="string">324.75</data>
             <data name="status" xsi:type="string">Closed</data>
-            <data name="tag" xsi:type="string">payment_method:paypal_direct</data>
-            <data name="tag" xsi:type="string">paypal:payflow_link</data>
+            <data name="tag" xsi:type="string">payment_method:paypal_direct, paypal:payflow_link</data>
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoSuccessCreateMessage" />
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosGrid" />
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosTab" />
@@ -163,10 +159,10 @@
             <data name="description" xsi:type="string">Create full refund with two products for paypal advanced action sale</data>
             <data name="configData" xsi:type="string">paypal_advanced_action_sale</data>
             <data name="products" xsi:type="string">configurableProduct::default</data>
-            <data name="customer/dataSet" xsi:type="string">default</data>
+            <data name="customer/dataset" xsi:type="string">default_frontend_new</data>
             <data name="checkoutMethod" xsi:type="string">login</data>
             <data name="customerPersist" xsi:type="string">yes</data>
-            <data name="billingAddress/dataSet" xsi:type="string">customer_US</data>
+            <data name="billingAddress/dataset" xsi:type="string">customer_US_login</data>
             <data name="shipping/shipping_service" xsi:type="string">Flat Rate</data>
             <data name="shipping/shipping_method" xsi:type="string">Fixed</data>
             <data name="payment/method" xsi:type="string">payflow_advanced</data>
@@ -181,8 +177,7 @@
             <data name="verifyData/items_data/0/item_subtotal" xsi:type="string">320.00</data>
             <data name="verifyData/items_data/0/item_row_total" xsi:type="string">320.00</data>
             <data name="status" xsi:type="string">Closed</data>
-            <data name="tag" xsi:type="string">payment_method:paypal_direct</data>
-            <data name="tag" xsi:type="string">paypal:advanced</data>
+            <data name="tag" xsi:type="string">payment_method:paypal_direct, paypal:advanced</data>
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoSuccessCreateMessage" />
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosGrid" />
             <constraint name="Mage\Sales\Test\Constraint\AssertCreditMemoInCreditMemosTab" />

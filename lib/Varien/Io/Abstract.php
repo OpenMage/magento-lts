@@ -115,4 +115,20 @@ abstract class Varien_Io_Abstract implements Varien_Io_Interface
     {
         return strpos($this->getCleanPath($haystackPath), $this->getCleanPath($needlePath)) === 0;
     }
+
+    /**
+     * Replace full path to relative
+     *
+     * @param $path
+     * @return string
+     */
+    public function getFilteredPath($path)
+    {
+        $dir = pathinfo($_SERVER['SCRIPT_FILENAME'], PATHINFO_DIRNAME);
+        $position = strpos($path, $dir);
+        if ($position !== false && $position < 1) {
+            $path = substr_replace($path, '.', 0, strlen($dir));
+        }
+        return $path;
+    }
 }

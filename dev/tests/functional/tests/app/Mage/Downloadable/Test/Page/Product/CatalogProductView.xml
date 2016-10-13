@@ -26,9 +26,9 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/etc/pages.xsd">
-  <page name="CatalogProductView" area="Product" mca="catalog/product/view">
-    <block name="viewBlock" class="Mage\Catalog\Test\Block\Product\View" locator=".product-view" strategy="css selector">
-      <render name="downloadable" class="Mage\Downloadable\Test\Block\Catalog\Product\View"/>
-    </block>
-  </page>
+    <page name="CatalogProductView" area="Product" mca="catalog/product/view">
+        <block name="viewBlock" class="Mage\Catalog\Test\Block\Product\View" locator=".product-view" strategy="css selector">
+            <render name="downloadable" class="Mage\Downloadable\Test\Block\Catalog\Product\View"/>
+        </block>
+    </page>
 </config>

@@ -25,244 +25,89 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 -->
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
-  <fixture name="cart" module="Mage_Checkout" type="flat" entity_type="sales_flat_quote" collection="Mage\Checkout\Model\Resource\Cart" repository_class="Mage\Checkout\Test\Repository\Cart" handler_interface="Mage\Checkout\Test\Handler\Cart\CartInterface" class="Mage\Checkout\Test\Fixture\Cart">
-    <field name="entity_id" is_required="1">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="store_id" is_required="0">
-      <default_value xsi:type="string">0</default_value>
-    </field>
-    <field name="created_at" is_required="0">
-      <default_value xsi:type="string">0000-00-00 00:00:00</default_value>
-    </field>
-    <field name="updated_at" is_required="0">
-      <default_value xsi:type="string">0000-00-00 00:00:00</default_value>
-    </field>
-    <field name="converted_at" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="is_active" is_required="0">
-      <default_value xsi:type="string">1</default_value>
-    </field>
-    <field name="is_virtual" is_required="0">
-      <default_value xsi:type="string">0</default_value>
-    </field>
-    <field name="is_multi_shipping" is_required="0">
-      <default_value xsi:type="string">0</default_value>
-    </field>
-    <field name="items_count" is_required="0">
-      <default_value xsi:type="string">0</default_value>
-    </field>
-    <field name="items_qty" is_required="0">
-      <default_value xsi:type="string">0.0000</default_value>
-    </field>
-    <field name="orig_order_id" is_required="0">
-      <default_value xsi:type="string">0</default_value>
-    </field>
-    <field name="store_to_base_rate" is_required="0">
-      <default_value xsi:type="string">0.0000</default_value>
-    </field>
-    <field name="store_to_quote_rate" is_required="0">
-      <default_value xsi:type="string">0.0000</default_value>
-    </field>
-    <field name="base_currency_code" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="store_currency_code" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="quote_currency_code" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="grand_total" is_required="0">
-      <default_value xsi:type="string">0.0000</default_value>
-    </field>
-    <field name="base_grand_total" is_required="0">
-      <default_value xsi:type="string">0.0000</default_value>
-    </field>
-    <field name="checkout_method" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="customer_id" is_required="0">
-      <default_value xsi:type="string">0</default_value>
-    </field>
-    <field name="customer_tax_class_id" is_required="0">
-      <default_value xsi:type="string">0</default_value>
-    </field>
-    <field name="customer_group_id" is_required="0">
-      <default_value xsi:type="string">0</default_value>
-    </field>
-    <field name="customer_email" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="customer_prefix" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="customer_firstname" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="customer_middlename" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="customer_lastname" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="customer_suffix" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="customer_dob" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="customer_note" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="customer_note_notify" is_required="0">
-      <default_value xsi:type="string">1</default_value>
-    </field>
-    <field name="customer_is_guest" is_required="0">
-      <default_value xsi:type="string">0</default_value>
-    </field>
-    <field name="remote_ip" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="applied_rule_ids" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="reserved_order_id" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="password_hash" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="coupon_code" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="global_currency_code" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="base_to_global_rate" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="base_to_quote_rate" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="customer_taxvat" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="customer_gender" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="subtotal" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="base_subtotal" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="subtotal_with_discount" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="base_subtotal_with_discount" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="is_changed" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="trigger_recollect" is_required="0">
-      <default_value xsi:type="string">0</default_value>
-    </field>
-    <field name="ext_shipping_info" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="gift_message_id" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="is_persistent" is_required="0">
-      <default_value xsi:type="string">0</default_value>
-    </field>
-    <field name="customer_balance_amount_used" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="base_customer_bal_amount_used" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="use_customer_balance" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="gift_cards" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="gift_cards_amount" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="base_gift_cards_amount" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="gift_cards_amount_used" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="base_gift_cards_amount_used" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="gw_id" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="gw_allow_gift_receipt" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="gw_add_card" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="gw_base_price" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="gw_price" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="gw_items_base_price" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="gw_items_price" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="gw_card_base_price" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="gw_card_price" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="gw_base_tax_amount" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="gw_tax_amount" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="gw_items_base_tax_amount" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="gw_items_tax_amount" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="gw_card_base_tax_amount" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="gw_card_tax_amount" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="use_reward_points" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="reward_points_balance" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="base_reward_currency_amount" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="reward_currency_amount" is_required="0">
-      <default_value xsi:type="null" />
-    </field>
-    <field name="items" is_required="0" source="Mage\Checkout\Test\Fixture\Cart\Items">
-      <default_value xsi:type="null" />
-    </field>
-  </fixture>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/fixture.xsd">
+    <fixture name="cart" module="Mage_Checkout" type="flat" entity_type="sales_flat_quote"
+             collection="Mage\Checkout\Model\Resource\Cart" repository_class="Mage\Checkout\Test\Repository\Cart"
+             handler_interface="Mage\Checkout\Test\Handler\Cart\CartInterface" class="Mage\Checkout\Test\Fixture\Cart">
+        <field name="entity_id" is_required="1"/>
+        <field name="store_id" is_required="0"/>
+        <field name="created_at" is_required="0"/>
+        <field name="updated_at" is_required="0"/>
+        <field name="converted_at" is_required="0"/>
+        <field name="is_active" is_required="0"/>
+        <field name="is_virtual" is_required="0"/>
+        <field name="is_multi_shipping" is_required="0"/>
+        <field name="items_count" is_required="0"/>
+        <field name="items_qty" is_required="0"/>
+        <field name="orig_order_id" is_required="0"/>
+        <field name="store_to_base_rate" is_required="0"/>
+        <field name="store_to_quote_rate" is_required="0"/>
+        <field name="base_currency_code" is_required="0"/>
+        <field name="store_currency_code" is_required="0"/>
+        <field name="quote_currency_code" is_required="0"/>
+        <field name="grand_total" is_required="0"/>
+        <field name="base_grand_total" is_required="0"/>
+        <field name="checkout_method" is_required="0"/>
+        <field name="customer_id" is_required="0"/>
+        <field name="customer_tax_class_id" is_required="0"/>
+        <field name="customer_group_id" is_required="0"/>
+        <field name="customer_email" is_required="0"/>
+        <field name="customer_prefix" is_required="0"/>
+        <field name="customer_firstname" is_required="0"/>
+        <field name="customer_middlename" is_required="0"/>
+        <field name="customer_lastname" is_required="0"/>
+        <field name="customer_suffix" is_required="0"/>
+        <field name="customer_dob" is_required="0"/>
+        <field name="customer_note" is_required="0"/>
+        <field name="customer_note_notify" is_required="0"/>
+        <field name="customer_is_guest" is_required="0"/>
+        <field name="remote_ip" is_required="0"/>
+        <field name="applied_rule_ids" is_required="0"/>
+        <field name="reserved_order_id" is_required="0"/>
+        <field name="password_hash" is_required="0"/>
+        <field name="coupon_code" is_required="0"/>
+        <field name="global_currency_code" is_required="0"/>
+        <field name="base_to_global_rate" is_required="0"/>
+        <field name="base_to_quote_rate" is_required="0"/>
+        <field name="customer_taxvat" is_required="0"/>
+        <field name="customer_gender" is_required="0"/>
+        <field name="subtotal" is_required="0"/>
+        <field name="base_subtotal" is_required="0"/>
+        <field name="subtotal_with_discount" is_required="0"/>
+        <field name="base_subtotal_with_discount" is_required="0"/>
+        <field name="is_changed" is_required="0"/>
+        <field name="trigger_recollect" is_required="0"/>
+        <field name="ext_shipping_info" is_required="0"/>
+        <field name="gift_message_id" is_required="0"/>
+        <field name="is_persistent" is_required="0"/>
+        <field name="customer_balance_amount_used" is_required="0"/>
+        <field name="base_customer_bal_amount_used" is_required="0"/>
+        <field name="use_customer_balance" is_required="0"/>
+        <field name="gift_cards" is_required="0"/>
+        <field name="gift_cards_amount" is_required="0"/>
+        <field name="base_gift_cards_amount" is_required="0"/>
+        <field name="gift_cards_amount_used" is_required="0"/>
+        <field name="base_gift_cards_amount_used" is_required="0"/>
+        <field name="gw_id" is_required="0"/>
+        <field name="gw_allow_gift_receipt" is_required="0"/>
+        <field name="gw_add_card" is_required="0"/>
+        <field name="gw_base_price" is_required="0"/>
+        <field name="gw_price" is_required="0"/>
+        <field name="gw_items_base_price" is_required="0"/>
+        <field name="gw_items_price" is_required="0"/>
+        <field name="gw_card_base_price" is_required="0"/>
+        <field name="gw_card_price" is_required="0"/>
+        <field name="gw_base_tax_amount" is_required="0"/>
+        <field name="gw_tax_amount" is_required="0"/>
+        <field name="gw_items_base_tax_amount" is_required="0"/>
+        <field name="gw_items_tax_amount" is_required="0"/>
+        <field name="gw_card_base_tax_amount" is_required="0"/>
+        <field name="gw_card_tax_amount" is_required="0"/>
+        <field name="use_reward_points" is_required="0"/>
+        <field name="reward_points_balance" is_required="0"/>
+        <field name="base_reward_currency_amount" is_required="0"/>
+        <field name="reward_currency_amount" is_required="0"/>
+        <field name="items" is_required="0" source="Mage\Checkout\Test\Fixture\Cart\Items"/>
+    </fixture>
 </config>

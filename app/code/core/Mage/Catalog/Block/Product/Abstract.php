@@ -105,6 +105,16 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     protected $_mapRenderer = 'msrp';
 
     /**
+     * Get catalog product helper
+     *
+     * @return Mage_Catalog_Helper_Product
+     */
+    public function getProductHelper()
+    {
+        return Mage::helper('catalog/product');
+    }
+
+    /**
      * Retrieve url for add product to cart
      * Will return product view page URL if product has required options
      *
@@ -195,12 +205,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      */
     public function getMinimalQty($product)
     {
-        $stockItem = $product->getStockItem();
-        if ($stockItem) {
-            return ($stockItem->getMinSaleQty()
-            && $stockItem->getMinSaleQty() > 0 ? $stockItem->getMinSaleQty() * 1 : null);
-        }
-        return null;
+        return $this->getProductHelper()->getMinimalQty($product);
     }
 
     /**

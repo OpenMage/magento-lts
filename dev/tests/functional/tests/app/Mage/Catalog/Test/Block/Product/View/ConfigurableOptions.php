@@ -80,23 +80,49 @@ class ConfigurableOptions extends CustomOptions
             }
 
             /** @var Element $optionElement */
-            $optionElement = $listOptions[$title];
-            $type = $option['frontend_input'];
-            $option['frontend_input'] = explode('/', $option['frontend_input'])[1];
-            $typeMethod = preg_replace('/[^a-zA-Z]/', '', $option['frontend_input']);
-            $getTypeData = 'get' . ucfirst(strtolower($typeMethod)) . 'Data';
+            $result[$title] = $this->getOptionsData($listOptions, $option, $title);
 
-            $optionData = $this->$getTypeData($optionElement);
-            $optionData['title'] = $title;
-            $optionData['type'] = $type;
-            $isRequire = $this->_rootElement->find(sprintf($this->required, $title), Locator::SELECTOR_XPATH)
-                ->isVisible();
-            $optionData['is_require'] = $isRequire ? 'Yes' : 'No';
-
-            $result[$title] = $optionData;
+            if (!empty($result) && $this->_rootElement->find('#attribute' . $option['attribute_id'])->isDisabled()) {
+                $availableOptionData = current($result);
+                foreach($availableOptionData['options'] as $optionKey => $value) {
+                    $availableOptionData['type'] = 'dropdown';
+                    $availableOptionData['value'] = $availableOptionData['options'][$optionKey]['title'];
+                    $fillOption[0] = $availableOptionData;
+                    unset($fillOption[0]['options'], $fillOption[0]['is_require']);
+                    $this->fillOptions($fillOption);
+                    $disableOptionData[$optionKey] = $this->getOptionsData($listOptions, $option, $title);
+                    $result[$title]['options'][$optionKey] = $disableOptionData[$optionKey]['options'][0];
+                }
+            }
         }
 
         return $result;
+    }
+
+    /**
+     * Get options data.
+     *
+     * @param $listOptions
+     * @param $option
+     * @param $title
+     * @return Element
+     */
+    protected function getOptionsData($listOptions, $option, $title)
+    {
+        $optionElement = $listOptions[$title];
+        $type = $option['frontend_input'];
+        $option['frontend_input'] = explode('/', $option['frontend_input'])[1];
+        $typeMethod = preg_replace('/[^a-zA-Z]/', '', $option['frontend_input']);
+        $getTypeData = 'get' . ucfirst(strtolower($typeMethod)) . 'Data';
+
+        $optionData = $this->$getTypeData($optionElement);
+        $optionData['title'] = $title;
+        $optionData['type'] = $type;
+        $isRequire = $this->_rootElement->find(sprintf($this->required, $title), Locator::SELECTOR_XPATH)
+            ->isVisible();
+        $optionData['is_require'] = $isRequire ? 'Yes' : 'No';
+
+        return $optionData;
     }
 
     /**

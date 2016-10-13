@@ -43,6 +43,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
      */
     const SCOPE_DEFAULT = 1;
     const SCOPE_ADDRESS = -1;
+    const SCOPE_OPTIONS = 2;
 
     /**
      * Permanent column names.
@@ -50,9 +51,10 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
      * Names that begins with underscore is not an attribute. This name convention is for
      * to avoid interference with same attribute name.
      */
-    const COL_EMAIL   = 'email';
-    const COL_WEBSITE = '_website';
-    const COL_STORE   = '_store';
+    const COL_EMAIL    = 'email';
+    const COL_WEBSITE  = '_website';
+    const COL_STORE    = '_store';
+    const COL_POSTCODE = '_address_postcode';
 
     /**
      * Error codes.
@@ -94,6 +96,13 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
      * @var array
      */
     protected $_attributes = array();
+
+    /**
+     * MultiSelect Attributes
+     *
+     * @var array
+     */
+    protected $_multiSelectAttributes = array();
 
     /**
      * Customer account sharing. TRUE - is global, FALSE - is per website.
@@ -276,7 +285,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
     {
         $collection = Mage::getResourceModel('customer/attribute_collection')->addSystemHiddenFilterWithPasswordHash();
         foreach ($collection as $attribute) {
-            $this->_attributes[$attribute->getAttributeCode()] = array(
+            $attributeArray = array(
                 'id'          => $attribute->getId(),
                 'is_required' => $attribute->getIsRequired(),
                 'is_static'   => $attribute->isStatic(),
@@ -284,6 +293,10 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                 'type'        => Mage_ImportExport_Model_Import::getAttributeType($attribute),
                 'options'     => $this->getAttributeOptions($attribute)
             );
+            $this->_attributes[$attribute->getAttributeCode()] = $attributeArray;
+            if (Mage_ImportExport_Model_Import::getAttributeType($attribute) == 'multiselect') {
+                $this->_multiSelectAttributes[$attribute->getAttributeCode()] = $attributeArray;
+            }
         }
         return $this;
     }
@@ -363,6 +376,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
         $nextEntityId   = Mage::getResourceHelper('importexport')->getNextAutoincrement($table);
         $passId         = $resource->getAttribute('password_hash')->getId();
         $passTable      = $resource->getAttribute('password_hash')->getBackend()->getTable();
+        $multiSelect    = array();
 
         while ($bunch = $this->_dataSourceModel->getNextBunch()) {
             $entityRowsIn = array();
@@ -415,6 +429,11 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                                 $value = $attrParams['options'][strtolower($value)];
                             } elseif ('datetime' == $attrParams['type']) {
                                 $value = gmstrftime($strftimeFormat, strtotime($value));
+                            } elseif ('multiselect' == $attrParams['type']) {
+                                $value = (array)$attrParams['options'][strtolower($value)];
+                                $attribute->getBackend()->beforeSave($resource->setData($attrCode, $value));
+                                $value = $resource->getData($attrCode);
+                                $multiSelect[$entityId][] = $value;
                             } elseif ($backModel) {
                                 $attribute->getBackend()->beforeSave($resource->setData($attrCode, $value));
                                 $value = $resource->getData($attrCode);
@@ -428,6 +447,24 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                     // password change/set
                     if (isset($rowData['password']) && strlen($rowData['password'])) {
                         $attributes[$passTable][$entityId][$passId] = $resource->hashPassword($rowData['password']);
+                    }
+                } elseif (self::SCOPE_OPTIONS == $this->getRowScope($rowData)) {
+                    foreach (array_intersect_key($rowData, $this->_attributes) as $attrCode => $value) {
+                        $attribute  = $resource->getAttribute($attrCode);
+                        $attrParams = $this->_attributes[$attrCode];
+                        if ($attrParams['type'] == 'multiselect') {
+                            if (!isset($attrParams['options'][strtolower($value)])) {
+                                continue;
+                            }
+                            $value = $attrParams['options'][strtolower($value)];
+                            if (isset($multiSelect[$entityId])) {
+                                $multiSelect[$entityId][] = $value;
+                                $value = $multiSelect[$entityId];
+                            }
+                            $attribute->getBackend()->beforeSave($resource->setData($attrCode, $value));
+                            $value = $resource->getData($attrCode);
+                            $attributes[$attribute->getBackend()->getTable()][$entityId][$attrParams['id']] = $value;
+                        }
                     }
                 }
             }
@@ -521,7 +558,22 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
      */
     public function getRowScope(array $rowData)
     {
-        return strlen(trim($rowData[self::COL_EMAIL])) ? self::SCOPE_DEFAULT : self::SCOPE_ADDRESS;
+        $foundOptions = false;
+        foreach ($this->_multiSelectAttributes as $attrCode => $attribute) {
+            if ($rowData[$attrCode]) {
+                $foundOptions = true;
+            }
+        }
+
+        $scope = self::SCOPE_OPTIONS;
+        if (strlen(trim($rowData[self::COL_EMAIL]))) {
+            $scope = self::SCOPE_DEFAULT;
+        } elseif ($foundOptions) {
+            $scope = self::SCOPE_OPTIONS;
+        } elseif (strlen(trim($rowData[self::COL_POSTCODE]))) {
+            $scope = self::SCOPE_ADDRESS;
+        }
+        return $scope;
     }
 
     /**
@@ -607,15 +659,17 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
             if (isset($this->_invalidRows[$rowNum])) {
                 $email = false; // mark row as invalid for next address rows
             }
-        } else {
+        } elseif (self::SCOPE_OPTIONS != $rowScope) {
             if (null === $email) { // first row is not SCOPE_DEFAULT
                 $this->addRowError(self::ERROR_EMAIL_IS_EMPTY, $rowNum);
             } elseif (false === $email) { // SCOPE_DEFAULT row is invalid
                 $this->addRowError(self::ERROR_ROW_IS_ORPHAN, $rowNum);
             }
         }
-        // validate row data by address entity
-        $this->_addressEntity->validateRow($rowData, $rowNum);
+
+        if ($rowScope != self::SCOPE_OPTIONS) {
+            $this->_addressEntity->validateRow($rowData, $rowNum);
+        }
 
         return !isset($this->_invalidRows[$rowNum]);
     }

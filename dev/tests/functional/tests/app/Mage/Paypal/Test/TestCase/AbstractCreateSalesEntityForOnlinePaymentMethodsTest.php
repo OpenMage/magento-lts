@@ -43,7 +43,7 @@ abstract class AbstractCreateSalesEntityForOnlinePaymentMethodsTest extends Scen
     public function __prepare(FixtureFactory $fixtureFactory)
     {
         $this->objectManager->create('Mage\Tax\Test\TestStep\DeleteAllTaxRulesStep')->run();
-        $magentoCustomer = $fixtureFactory->create('Mage\Customer\Test\Fixture\Customer', ['dataSet' => 'default']);
+        $magentoCustomer = $fixtureFactory->create('Mage\Customer\Test\Fixture\Customer', ['dataset' => 'default']);
         $magentoCustomer->persist();
 
         return ['customer' => $magentoCustomer];

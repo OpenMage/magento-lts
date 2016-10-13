@@ -596,6 +596,9 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                         if (is_string($cartItem)) {
                             Mage::throwException($cartItem);
                         }
+                        if ($cartItem->getParentItem()) {
+                            $cartItem = $cartItem->getParentItem();
+                        }
                         $cartItem->setPrice($item->getProduct()->getPrice());
                         $this->_needCollectCart = true;
                         $removeItem = true;

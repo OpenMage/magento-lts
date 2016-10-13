@@ -26,7 +26,7 @@
  */
  -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
-    <testCase name="Mage\Sales\Test\TestCase\ReorderOrderEntityTest">
+    <testCase name="Mage\Sales\Test\TestCase\ReorderOrderEntityTest" summary="ReorderOrderEntityTest">
         <variation name="ReorderOrderEntityTestVariation1">
             <data name="salesRule" xsi:type="string">active_sales_rule_for_all_groups</data>
             <data name="grandTotal/salesRule" xsi:type="string">-150.00</data>

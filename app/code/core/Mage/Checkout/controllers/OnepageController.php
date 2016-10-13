@@ -334,8 +334,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             $address = $this->getOnepage()->getAddress($addressId);
 
             if (Mage::getSingleton('customer/session')->getCustomer()->getId() == $address->getCustomerId()) {
-                $this->getResponse()->setHeader('Content-type', 'application/x-json');
-                $this->getResponse()->setBody($address->toJson());
+                $this->_prepareDataJSON($address->toArray());
             } else {
                 $this->getResponse()->setHeader('HTTP/1.1','403 Forbidden');
             }
@@ -353,7 +352,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         if ($this->getRequest()->isPost()) {
             $method = $this->getRequest()->getPost('method');
             $result = $this->getOnepage()->saveCheckoutMethod($method);
-            $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
+            $this->_prepareDataJSON($result);
         }
     }
 
@@ -395,7 +394,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                 }
             }
 
-            $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
+            $this->_prepareDataJSON($result);
         }
     }
 
@@ -419,7 +418,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                     'html' => $this->_getShippingMethodsHtml()
                 );
             }
-            $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
+            $this->_prepareDataJSON($result);
         }
     }
 
@@ -442,7 +441,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                           'request' => $this->getRequest(),
                           'quote'   => $this->getOnepage()->getQuote()));
                 $this->getOnepage()->getQuote()->collectTotals();
-                $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
+                $this->_prepareDataJSON($result);
 
                 $result['goto_section'] = 'payment';
                 $result['update_section'] = array(
@@ -451,7 +450,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                 );
             }
             $this->getOnepage()->getQuote()->collectTotals()->save();
-            $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
+            $this->_prepareDataJSON($result);
         }
     }
 
@@ -498,7 +497,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             Mage::logException($e);
             $result['error'] = $this->__('Unable to set Payment Method.');
         }
-        $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
+        $this->_prepareDataJSON($result);
     }
 
     /**
@@ -561,7 +560,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                     $result['success'] = false;
                     $result['error'] = true;
                     $result['error_messages'] = $this->__('Please agree to all the terms and conditions before placing the order.');
-                    $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
+                    $this->_prepareDataJSON($result);
                     return;
                 }
             }
@@ -630,7 +629,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             $result['redirect'] = $redirectUrl;
         }
 
-        $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
+        $this->_prepareDataJSON($result);
     }
 
     /**
@@ -657,4 +656,17 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             || Mage::helper('checkout')->isAllowedGuestCheckout($this->getOnepage()->getQuote())
             || !Mage::helper('checkout')->isCustomerMustBeLogged();
     }
+
+    /**
+     * Prepare JSON formatted data for response to client
+     *
+     * @param $response
+     * @return Zend_Controller_Response_Abstract
+     */
+    protected function _prepareDataJSON($response)
+    {
+        $this->getResponse()->setHeader('Content-type', 'application/json', true);
+        return $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($response));
+    }
+
 }

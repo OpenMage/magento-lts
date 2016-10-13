@@ -26,28 +26,15 @@
 
 namespace Mage\Cms\Test\Fixture\CmsPage;
 
+use Magento\Mtf\Fixture\DataSource;
 use Magento\Mtf\Fixture\FixtureFactory;
 use Magento\Mtf\Fixture\FixtureInterface;
 
 /**
  * Prepare content for cms page.
  */
-class Content implements FixtureInterface
+class Content extends DataSource
 {
-    /**
-     * Content data.
-     *
-     * @var array
-     */
-    protected $data = [];
-
-    /**
-     * Fixture params.
-     *
-     * @var array
-     */
-    protected $params;
-
     /**
      * Fixture factory.
      *
@@ -69,39 +56,6 @@ class Content implements FixtureInterface
         if (isset($data['widget']['preset'])) {
             $this->data['widget']['preset'] = $this->getPreset($data['widget']['preset']);
         }
-    }
-
-    /**
-     * Persist cms page content.
-     *
-     * @return void
-     */
-    public function persist()
-    {
-        //
-    }
-
-    /**
-     * Return prepared data set.
-     *
-     * @param string|null $key
-     * @return mixed
-     *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    public function getData($key = null)
-    {
-        return $this->data;
-    }
-
-    /**
-     * Return data set configuration settings.
-     *
-     * @return array
-     */
-    public function getDataConfig()
-    {
-        return $this->params;
     }
 
     /**

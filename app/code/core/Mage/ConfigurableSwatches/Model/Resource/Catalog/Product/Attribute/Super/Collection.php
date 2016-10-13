@@ -99,40 +99,59 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Attribute_Super_C
      */
     protected function _loadOptionLabels()
     {
-        if ($this->count()) {
-            $select = $this->getConnection()->select()
-                ->from(
-                    array('attr' => $this->getTable('catalog/product_super_attribute')),
-                    array(
-                        'product_super_attribute_id' => 'attr.product_super_attribute_id',
-                    ))
-                ->join(
-                    array('opt' => $this->getTable('eav/attribute_option')),
-                    'opt.attribute_id = attr.attribute_id',
-                    array(
-                        'attribute_id' => 'opt.attribute_id',
-                        'option_id' => 'opt.option_id',
-                    ))
-                ->join(
-                    array('lab' => $this->getTable('eav/attribute_option_value')),
-                    'lab.option_id = opt.option_id',
-                    array(
-                        'label' => 'lab.value',
-                        'store_id' => 'lab.store_id',
-                    ))
-                ->where('attr.product_super_attribute_id IN (?)', array_keys($this->_items))
-            ;
-
-            $result = $this->getConnection()->fetchAll($select);
-            foreach ($result as $data) {
-                $item = $this->getItemById($data['product_super_attribute_id']);
-                if (!is_array($labels = $item->getOptionLabels())) {
-                    $labels = array();
-                }
-                $labels[$data['option_id']][$data['store_id']] = $data['label'];
-                $item->setOptionLabels($labels);
-            }
+        $labels = $this->_getOptionLabels();
+        foreach ($this->getItems() as $item) {
+            $item->setOptionLabels($labels);
         }
         return $this;
+    }
+
+    /**
+     * Get Option Labels
+     *
+     * @return array
+     */
+    protected function _getOptionLabels()
+    {
+        $attributeIds = $this->_getAttributeIds();
+
+        $select = $this->getConnection()->select();
+        $select->from(array('options' => $this->getTable('eav/attribute_option')))
+            ->join(
+                array('labels' => $this->getTable('eav/attribute_option_value')),
+                'labels.option_id = options.option_id',
+                array(
+                    'label' => 'labels.value',
+                    'store_id' => 'labels.store_id',
+                )
+            )
+            ->where('options.attribute_id IN (?)', $attributeIds)
+            ->where(
+                'labels.store_id IN (?)',
+                array(Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID, $this->getStoreId())
+            );
+
+        $resultSet = $this->getConnection()->query($select);
+        $labels = array();
+        while ($option = $resultSet->fetch()) {
+            $labels[$option['option_id']][$option['store_id']] = $option['label'];
+        }
+        return $labels;
+    }
+
+    /**
+     * Get Attribute IDs
+     *
+     * @return array
+     */
+    protected function _getAttributeIds()
+    {
+        $attributeIds = array();
+        foreach ($this->getItems() as $item) {
+            $attributeIds[] = $item->getAttributeId();
+        }
+        $attributeIds = array_unique($attributeIds);
+
+        return $attributeIds;
     }
 }

@@ -26,8 +26,8 @@
 
 namespace Mage\Cms\Test\TestCase;
 
-use Magento\Mtf\TestCase\Injectable;
 use Mage\Cms\Test\Fixture\CmsPage;
+use Magento\Mtf\TestCase\Injectable;
 use Mage\Cms\Test\Page\Adminhtml\CmsPageIndex;
 use Mage\Cms\Test\Page\Adminhtml\CmsPageNew;
 use Mage\Adminhtml\Test\Page\Adminhtml\StoreIndex;
@@ -138,7 +138,7 @@ class CreateCmsPageEntityTest extends Injectable
      */
     public function tearDown()
     {
-        if (!$this->cms instanceof CmsPage) {
+        if (!$this->cms->hasData('store_id')) {
             return;
         }
         $stores = $this->cms->getStoreId();
