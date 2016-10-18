@@ -556,11 +556,21 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      * @param array $result
      * @return mixed
      */
-    public function processingMethodResult(array $result)
+    public function processingMethodResult($result)
     {
-        foreach ($result as &$row) {
-            if (!is_null($row) && !is_bool($row) && !is_numeric($row)) {
-                $row = $this->processingRow($row);
+        if (is_array($result)) {
+            foreach ($result as &$row) {
+                if (!is_null($row) && !is_bool($row) && !is_numeric($row)) {
+                    if (is_array($row)) {
+                        $row = $this->processingMethodResult($row);
+                    } else {
+                        $row = $this->processingRow($row);
+                    }
+                }
+            }
+        } else {
+            if (!is_null($result) && !is_bool($result) && !is_numeric($result)) {
+                $result = $this->processingRow($result);
             }
         }
         return $result;
