@@ -95,4 +95,21 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design
     {
         return true;
     }
+
+    /**
+     * Create browse button template
+     *
+     * @return string
+     */
+    public function getBrowseButtonHtml()
+    {
+        return $this->getLayout()->createBlock('adminhtml/widget_button')
+            ->addData(array(
+                'before_html'   => '<div style="display:inline-block; " id="{{file_field}}_{{id}}_file-browse">',
+                'after_html'    => '</div>',
+                'id'            => '{{file_field}}_{{id}}_file-browse_button',
+                'label'         => Mage::helper('uploader')->__('...'),
+                'type'          => 'button',
+            ))->toHtml();
+    }
 }

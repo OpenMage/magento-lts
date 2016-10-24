@@ -31,29 +31,24 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
 */
-class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Content_Uploader extends Mage_Adminhtml_Block_Media_Uploader
+class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Content_Uploader extends Mage_Uploader_Block_Multiple
 {
+    /**
+     * Uploader block constructor
+     */
     public function __construct()
     {
         parent::__construct();
-        $params = $this->getConfig()->getParams();
         $type = $this->_getMediaType();
         $allowed = Mage::getSingleton('cms/wysiwyg_images_storage')->getAllowedExtensions($type);
-        $labels = array();
-        $files = array();
-        foreach ($allowed as $ext) {
-            $labels[] = '.' . $ext;
-            $files[] = '*.' . $ext;
-        }
-        $this->getConfig()
-            ->setUrl(Mage::getModel('adminhtml/url')->addSessionParam()->getUrl('*/*/upload', array('type' => $type)))
-            ->setParams($params)
-            ->setFileField('image')
-            ->setFilters(array(
-                'images' => array(
-                    'label' => $this->helper('cms')->__('Images (%s)', implode(', ', $labels)),
-                    'files' => $files
-                )
+        $this->getUploaderConfig()
+            ->setFileParameterName('image')
+            ->setTarget(
+                Mage::getModel('adminhtml/url')->addSessionParam()->getUrl('*/*/upload', array('type' => $type))
+            );
+        $this->getButtonConfig()
+            ->setAttributes(array(
+                'accept' => $this->getButtonConfig()->getMimeTypesByExtensions($allowed)
             ));
     }
 

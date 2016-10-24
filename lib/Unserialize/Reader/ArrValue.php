@@ -84,6 +84,10 @@ class Unserialize_Reader_ArrValue
                     $this->_reader = new Unserialize_Reader_Dbl();
                     $this->_status = self::READING_VALUE;
                     break;
+                case Unserialize_Parser::TYPE_NULL:
+                    $this->_reader = new Unserialize_Reader_Null();
+                    $this->_status = self::READING_VALUE;
+                    break;
                 default:
                     throw new Exception('Unsupported data type ' . $char);
             }

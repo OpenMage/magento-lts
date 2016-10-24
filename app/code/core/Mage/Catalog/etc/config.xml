@@ -807,6 +807,7 @@
             <product_image>
                 <base_width>1800</base_width>
                 <small_width>210</small_width>
+                <max_dimension>5000</max_dimension>
             </product_image>
             <seo>
                 <product_url_suffix>.html</product_url_suffix>
