@@ -51,6 +51,7 @@ class Mage_Core_Model_Resource_File_Storage_File
      * Files at storage
      *
      * @var array
+     * @return string
      */
     public function getMediaBaseDirectory()
     {
@@ -193,19 +194,12 @@ class Mage_Core_Model_Resource_File_Storage_File
         $filename = basename($filePath);
         $path = $this->getMediaBaseDirectory() . DS . str_replace('/', DS ,dirname($filePath));
 
-        if (!file_exists($path) || !is_dir($path)) {
+        if (!is_dir($path)) {
             @mkdir($path, 0777, true);
         }
 
-        $ioFile = new Varien_Io_File();
-        $ioFile->cd($path);
-
-        if (!$ioFile->fileExists($filename) || ($overwrite && $ioFile->rm($filename))) {
-            $ioFile->streamOpen($filename);
-            $ioFile->streamLock(true);
-            $result = $ioFile->streamWrite($content);
-            $ioFile->streamUnlock();
-            $ioFile->streamClose();
+        if ( ! file_exists($path . DS . $filename) || $overwrite) {
+            $result = @file_put_contents($path . DS . $filename, $content, LOCK_EX);
 
             if ($result !== false) {
                 return true;
@@ -214,6 +208,6 @@ class Mage_Core_Model_Resource_File_Storage_File
             Mage::throwException(Mage::helper('core')->__('Unable to save file: %s', $filePath));
         }
 
-        return false;
+        return true;
     }
 }
