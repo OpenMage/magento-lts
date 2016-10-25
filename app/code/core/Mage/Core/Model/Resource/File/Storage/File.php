@@ -200,7 +200,7 @@ class Mage_Core_Model_Resource_File_Storage_File
         }
 
         $fullPath = $path . DS . $filename;
-        if (!file_exists($fullPath)) {
+        if (!file_exists($fullPath) || $overwrite) {
             // If overwrite is not required then return if file could not be locked (assume it is being written by another process)
             // Exception is only thrown if file was opened but could not be written.
             if (!$overwrite) {
@@ -219,6 +219,6 @@ class Mage_Core_Model_Resource_File_Storage_File
             Mage::throwException(Mage::helper('core')->__('Unable to save file: %s', $filePath));
         }
 
-        return true;
+        return false;
     }
 }
