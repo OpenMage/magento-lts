@@ -187,7 +187,8 @@ class Mage_Core_Model_Resource_File_Storage_File
      * @param  string $filePath
      * @param  string $content
      * @param  bool $overwrite
-     * @return bool
+     * @return bool true if file written, otherwise false
+     * @throws Mage_Core_Exception
      */
     public function saveFile($filePath, $content, $overwrite = false)
     {
@@ -198,10 +199,20 @@ class Mage_Core_Model_Resource_File_Storage_File
             @mkdir($path, 0777, true);
         }
 
-        if ( ! file_exists($path . DS . $filename) || $overwrite) {
-            $result = @file_put_contents($path . DS . $filename, $content, LOCK_EX);
-
-            if ($result !== false) {
+        $fullPath = $path . DS . $filename;
+        if (!file_exists($fullPath)) {
+            // If overwrite is not required then return if file could not be locked (assume it is being written by another process)
+            // Exception is only thrown if file was opened but could not be written.
+            if (!$overwrite) {
+                if (!($fp = @fopen($fullPath, 'x'))) {
+                    return false;
+                }
+                if (@fwrite($fp, $content) !== false && @fclose($fp)) {
+                    return true;
+                }
+            }
+            // If overwrite is required, throw exception on failure to write file
+            else if (@file_put_contents($fullPath, $content, LOCK_EX) !== false) {
                 return true;
             }
 
