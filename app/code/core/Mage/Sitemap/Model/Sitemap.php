@@ -201,7 +201,7 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
         $collection = Mage::getResourceModel('sitemap/cms_page')->getCollection($storeId);
         foreach ($collection as $item) {
             $url = $item->getUrl();
-			if ( $url == $homepage) { $url = ''; $priority = 1; }
+            if ( $url == $homepage) { $url = ''; $priority = 1; }
             $xml = sprintf(
                 '<url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%.1f</priority></url>',
                 htmlspecialchars($baseUrl . $url),
