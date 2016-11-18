@@ -385,7 +385,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      */
     public function useValidateSessionExpire()
     {
-        return true;
+        return $this->getCookie()->getLifetime() > 0;
     }
 
     /**
@@ -458,6 +458,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         }
 
         if ($this->useValidateSessionExpire()
+            && isset($sessionData[self::VALIDATOR_SESSION_EXPIRE_TIMESTAMP])
             && $sessionData[self::VALIDATOR_SESSION_EXPIRE_TIMESTAMP] < time() ) {
             return false;
         } else {

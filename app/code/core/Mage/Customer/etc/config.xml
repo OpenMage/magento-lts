@@ -603,7 +603,7 @@ T: {{var telephone}}
                     <cron_expr>0 0 1 * *</cron_expr>
                 </schedule>
                 <run>
-                    <model>mage_customer/observer::deleteCustomerFlowPassword</model>
+                    <model>customer/observer::deleteCustomerFlowPassword</model>
                 </run>
             </customer_flowpassword>
         </jobs>

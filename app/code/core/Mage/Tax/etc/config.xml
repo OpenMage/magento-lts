@@ -162,8 +162,8 @@
                 <totals>
                     <tax_subtotal>
                         <class>tax/sales_total_quote_subtotal</class>
-                        <after>subtotal</after>
-                        <before>tax,discount,msrp</before>
+                        <after>freeshipping</after>
+                        <before>tax,discount</before>
                     </tax_subtotal>
                     <tax_shipping>
                         <class>tax/sales_total_quote_shipping</class>

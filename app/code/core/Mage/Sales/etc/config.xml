@@ -1227,7 +1227,6 @@
                     </grand_total>
                     <msrp>
                         <class>sales/quote_address_total_msrp</class>
-                        <before>weee,freeshipping</before>
                     </msrp>
                 </totals>
                 <nominal_totals>

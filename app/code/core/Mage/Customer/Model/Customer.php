@@ -596,7 +596,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * @throws Mage_Core_Exception
      * @return Mage_Customer_Model_Customer
      */
-    public function sendNewAccountEmail($type = 'registered', $backUrl = '', $storeId = '0', $password = '')
+    public function sendNewAccountEmail($type = 'registered', $backUrl = '', $storeId = '0', $password = null)
     {
         $types = array(
             'registered'   => self::XML_PATH_REGISTER_EMAIL_TEMPLATE, // welcome email, when confirmation is disabled
@@ -611,7 +611,10 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             $storeId = $this->_getWebsiteStoreId($this->getSendemailStoreId());
         }
 
-        $this->setPassword($password);
+        if (!is_null($password)) {
+            $this->setPassword($password);
+        }
+
         $this->_sendEmailTemplate($types[$type], self::XML_PATH_REGISTER_EMAIL_IDENTITY,
             array('customer' => $this, 'back_url' => $backUrl), $storeId);
         $this->cleanPasswordsValidationData();

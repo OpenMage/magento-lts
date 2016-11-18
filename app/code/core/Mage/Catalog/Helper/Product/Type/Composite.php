@@ -127,7 +127,7 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
             'includeTax'        => Mage::helper('tax')->priceIncludesTax() ? 'true' : 'false',
             'showIncludeTax'    => Mage::helper('tax')->displayPriceIncludingTax(),
             'showBothPrices'    => Mage::helper('tax')->displayBothPrices(),
-            'idSuffix'            => '',
+            'idSuffix'            => '_clone',
             'oldPlusDisposition'  => 0,
             'plusDisposition'     => 0,
             'plusDispositionTax'  => 0,
