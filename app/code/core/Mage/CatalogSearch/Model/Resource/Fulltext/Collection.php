@@ -127,7 +127,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
         if (!empty($foundIds)) {
             $this->addIdFilter($foundIds);
         } else {
-            $this->getSelect()->orWhere('FALSE');
+            $this->getSelect()->where('FALSE');
         }
         $this->_isSearchFiltersApplied = true;
 

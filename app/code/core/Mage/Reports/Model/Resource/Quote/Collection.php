@@ -215,6 +215,14 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
                 array('middlename' => 'cust_mname.value')
             )
             ->joinInner(
+                array('cust_mname' => $attrMiddlenameTableName),
+                implode(' AND ', array(
+                    'cust_mname.entity_id = main_table.customer_id',
+                    $adapter->quoteInto('cust_mname.attribute_id = ?', (int) $attrMiddlenameId),
+                )),
+                array('middlename' => 'cust_mname.value')
+            )
+            ->joinInner(
                 array('cust_lname' => $attrLastnameTableName),
                 implode(' AND ', array(
                     'cust_lname.entity_id = main_table.customer_id',

@@ -553,16 +553,21 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      * See allowed characters in XML:
      * @link http://www.w3.org/TR/2000/REC-xml-20001006#NT-Char
      *
-     * @param array $result
+     * @param mixed $result
      * @return mixed
      */
-    public function processingMethodResult(array $result)
+    public function processingMethodResult($result)
     {
-        foreach ($result as &$row) {
-            if (!is_null($row) && !is_bool($row) && !is_numeric($row)) {
-                $row = $this->processingRow($row);
+        if (is_null($result) || is_bool($result) || is_numeric($result) || is_object($result)) {
+            return $result;
+        } elseif (is_array($result)) {
+            foreach ($result as $key => $value) {
+                $result[$key] = $this->processingMethodResult($value);
             }
+        } else {
+            $result = $this->processingRow($result);
         }
+
         return $result;
     }
 
