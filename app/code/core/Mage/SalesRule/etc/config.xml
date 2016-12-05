@@ -139,7 +139,7 @@
                     </freeshipping>
                     <discount>
                         <class>salesrule/quote_discount</class>
-                        <after>subtotal,shipping</after>
+                        <after>subtotal,tax_subtotal,shipping</after>
                         <before>grand_total</before>
                     </discount>
                 </totals>
