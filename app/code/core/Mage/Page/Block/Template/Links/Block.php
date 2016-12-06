@@ -75,14 +75,14 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
      *
      * @var string
      */
-    protected $_liPparams = null;
+    protected $_liParams = null;
 
     /**
      * A elemnt params
      *
      * @var string
      */
-    protected $_aPparams = null;
+    protected $_aParams = null;
 
     /**
      * Message before link text
@@ -196,6 +196,46 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
     public function getLinkUrl()
     {
         return $this->_url;
+    }
+    
+    /**
+     * Prepare tag attributes
+     *
+     * @param string|array $params
+     * @return string
+     */
+    protected function _prepareParams($params)
+    {
+        if (is_string($params)) {
+            return $params;
+        } elseif (is_array($params)) {
+            $result = '';
+            foreach ($params as $key=>$value) {
+                $result .= ' ' . $key . '="' . addslashes($value) . '"';
+            }
+            return $result;
+        }
+        return '';
+    }
+    
+     /**
+     * Return Li Params
+     *
+     * @return string
+     */
+    public function getLiParams()
+    {
+        return $this->_prepareParams($this->_liParams);
+    }
+    
+     /**
+     * Return Link Tag Params
+     *
+     * @return string
+     */
+    public function getAParams()
+    {
+        return $this->_prepareParams($this->_aParams);
     }
 
 }
