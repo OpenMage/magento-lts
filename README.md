@@ -44,6 +44,7 @@ PHP 7 support was added as as from version 1.9.2.3. based on the Inchoo article 
 ## Maintainers
 * [Lee Saferite](https://github.com/LeeSaferite)
 * [David Robinson](https://github.com/drobinson)
+* [Daniel Fahlke aka Flyingmana](https://github.com/Flyingmana)
 * Pull requests are welcome
 
 
