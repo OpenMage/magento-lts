@@ -200,7 +200,13 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
         $changefreq = (string)Mage::getStoreConfig('sitemap/page/changefreq', $storeId);
         $priority   = (string)Mage::getStoreConfig('sitemap/page/priority', $storeId);
         $collection = Mage::getResourceModel('sitemap/cms_page')->getCollection($storeId);
-        foreach ($collection as $item) {
+        $pages = new Varien_Object();
+        $pages->setItems($collection);
+        Mage::dispatchEvent('sitemap_cms_pages_generating_before', array(
+            'collection' => $pages,
+            'store_id' => $storeId
+        ));
+        foreach ($pages->getItems() as $item) {
             $xml = sprintf(
                 '<url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%.1f</priority></url>',
                 htmlspecialchars($baseUrl . $item->getUrl()),
