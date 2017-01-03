@@ -101,7 +101,7 @@ class Mage_GoogleBase_Block_Adminhtml_Items_Product extends Mage_Adminhtml_Block
                 'width' => '60px',
                 'index' => 'type_id',
                 'type'  => 'options',
-                'options' => Mage::getSingleton('catalog/product_type')->getOptionArray(),
+                'options' => Mage::getSingleton('catalog/product_type')->toOptionArray(),
         ));
 
         $this->addColumn('set_name',

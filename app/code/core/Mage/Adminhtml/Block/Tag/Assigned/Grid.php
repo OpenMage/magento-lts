@@ -185,7 +185,7 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
                 'width'     => 100,
                 'index'     => 'type_id',
                 'type'      => 'options',
-                'options'   => Mage::getSingleton('catalog/product_type')->getOptionArray(),
+                'options'   => Mage::getSingleton('catalog/product_type')->toOptionArray(),
         ));
 
         $sets = Mage::getResourceModel('eav/entity_attribute_set_collection')
@@ -224,7 +224,7 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
                 'width'     => 100,
                 'index'     => 'visibility',
                 'type'      => 'options',
-                'options'   => Mage::getModel('catalog/product_visibility')->getOptionArray(),
+                'options'   => Mage::getModel('catalog/product_visibility')->toOptionArray(),
         ));
 
         $this->addColumn('status',
@@ -233,7 +233,7 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
                 'width'     => 70,
                 'index'     => 'status',
                 'type'      => 'options',
-                'options'   => Mage::getSingleton('catalog/product_status')->getOptionArray(),
+                'options'   => Mage::getSingleton('catalog/product_status')->toOptionArray(),
         ));
 
         return parent::_prepareColumns();

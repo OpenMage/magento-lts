@@ -125,7 +125,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
 
     public function getProductTypeFilterOptions()
     {
-        $options = Mage::getSingleton('catalog/product_type')->getOptionArray();
+        $options = Mage::getSingleton('catalog/product_type')->toOptionArray();
         array_splice($options, 0, 0, array(''=>$this->__('Any Type')));
         return $options;
     }
@@ -148,7 +148,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
 
     public function getProductVisibilityFilterOptions()
     {
-        $options = Mage::getSingleton('catalog/product_visibility')->getOptionArray();
+        $options = Mage::getSingleton('catalog/product_visibility')->toOptionArray();
 
         array_splice($options, 0, 0, array(''=>$this->__('Any Visibility')));
         return $options;
@@ -156,7 +156,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
 
     public function getProductStatusFilterOptions()
     {
-        $options = Mage::getSingleton('catalog/product_status')->getOptionArray();
+        $options = Mage::getSingleton('catalog/product_status')->toOptionArray();
 
         array_splice($options, 0, 0, array(''=>$this->__('Any Status')));
         return $options;

@@ -172,7 +172,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
                 'width' => '60px',
                 'index' => 'type_id',
                 'type'  => 'options',
-                'options' => Mage::getSingleton('catalog/product_type')->getOptionArray(),
+                'options' => Mage::getSingleton('catalog/product_type')->toOptionArray(),
         ));
 
         $sets = Mage::getResourceModel('eav/entity_attribute_set_collection')
@@ -221,7 +221,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
                 'width' => '70px',
                 'index' => 'visibility',
                 'type'  => 'options',
-                'options' => Mage::getModel('catalog/product_visibility')->getOptionArray(),
+                'options' => Mage::getModel('catalog/product_visibility')->toOptionArray(),
         ));
 
         $this->addColumn('status',
@@ -230,7 +230,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
                 'width' => '70px',
                 'index' => 'status',
                 'type'  => 'options',
-                'options' => Mage::getSingleton('catalog/product_status')->getOptionArray(),
+                'options' => Mage::getSingleton('catalog/product_status')->toOptionArray(),
         ));
 
         if (!Mage::app()->isSingleStoreMode()) {
@@ -284,7 +284,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
              'confirm' => Mage::helper('catalog')->__('Are you sure?')
         ));
 
-        $statuses = Mage::getSingleton('catalog/product_status')->getOptionArray();
+        $statuses = Mage::getSingleton('catalog/product_status')->toOptionArray();
 
         array_unshift($statuses, array('label'=>'', 'value'=>''));
         $this->getMassactionBlock()->addItem('status', array(

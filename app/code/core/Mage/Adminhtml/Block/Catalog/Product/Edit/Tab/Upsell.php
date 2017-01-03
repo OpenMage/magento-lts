@@ -157,7 +157,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Upsell extends Mage_Adminhtm
             'width'     => 100,
             'index'     => 'type_id',
             'type'      => 'options',
-            'options'   => Mage::getSingleton('catalog/product_type')->getOptionArray(),
+            'options'   => Mage::getSingleton('catalog/product_type')->toOptionArray(),
         ));
 
         $sets = Mage::getResourceModel('eav/entity_attribute_set_collection')
@@ -178,7 +178,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Upsell extends Mage_Adminhtm
             'width'     => 90,
             'index'     => 'status',
             'type'      => 'options',
-            'options'   => Mage::getSingleton('catalog/product_status')->getOptionArray(),
+            'options'   => Mage::getSingleton('catalog/product_status')->toOptionArray(),
         ));
 
         $this->addColumn('visibility', array(
@@ -186,7 +186,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Upsell extends Mage_Adminhtm
             'width'     => 90,
             'index'     => 'visibility',
             'type'      => 'options',
-            'options'   => Mage::getSingleton('catalog/product_visibility')->getOptionArray(),
+            'options'   => Mage::getSingleton('catalog/product_visibility')->toOptionArray(),
         ));
 
         $this->addColumn('sku', array(
