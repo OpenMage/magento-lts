@@ -265,14 +265,19 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      */
     public function getFirstItem()
     {
+        $prevPageSize = $this->getPageSize();
+        $this->setPageSize(1);
         $this->load();
 
         if (count($this->_items)) {
             reset($this->_items);
-            return current($this->_items);
+            $result = current($this->_items);
+        } else {
+            $result = new $this->_itemObjectClass();
         }
 
-        return new $this->_itemObjectClass();
+        $this->setPageSize($prevPageSize);
+        return $result;
     }
 
     /**
