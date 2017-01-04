@@ -76,7 +76,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Checkbox
 
         $this->setDisabled($disabled);
 
-        if ($this->getNoObjectId() || $this->getColumn()->getUseIndex()){
+        if ($this->getColumn()->getUseIndex()){
             $v = $value;
         } else {
             $v = ($row->getId() != "") ? $row->getId():$value;
