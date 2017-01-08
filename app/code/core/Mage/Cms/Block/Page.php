@@ -64,6 +64,7 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
     {
         $page = $this->getPage();
         $breadcrumbsArray = array();
+        $breadcrumbs = null;
 
         // show breadcrumbs
         if (Mage::getStoreConfig('web/default/show_cms_breadcrumbs')
@@ -104,8 +105,10 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
 
         Mage::dispatchEvent('cms_generate_breadcrumbs', array('breadcrumbs' => $breadcrumbsObject));
 
-        foreach ($breadcrumbsObject->getCrumbs() as $breadcrumbsItem) {
-            $breadcrumbs->addCrumb($breadcrumbsItem['crumbName'], $breadcrumbsItem['crumbInfo']);
+        if ($breadcrumbs instanceof Mage_Page_Block_Html_Breadcrumbs) {
+            foreach ($breadcrumbsObject->getCrumbs() as $breadcrumbsItem) {
+               $breadcrumbs->addCrumb($breadcrumbsItem['crumbName'], $breadcrumbsItem['crumbInfo']);
+            }
         }
         return parent::_prepareLayout();
     }
