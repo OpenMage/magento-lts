@@ -195,13 +195,16 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
         /**
          * Generate cms pages sitemap
          */
+        $homepage = (string)Mage::getStoreConfig('web/default/cms_home_page', $storeId);
         $changefreq = (string)Mage::getStoreConfig('sitemap/page/changefreq', $storeId);
         $priority   = (string)Mage::getStoreConfig('sitemap/page/priority', $storeId);
         $collection = Mage::getResourceModel('sitemap/cms_page')->getCollection($storeId);
         foreach ($collection as $item) {
+            $url = $item->getUrl();
+			if ( $url == $homepage) { $url = ''; $priority = 1; }
             $xml = sprintf(
                 '<url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%.1f</priority></url>',
-                htmlspecialchars($baseUrl . $item->getUrl()),
+                htmlspecialchars($baseUrl . $url),
                 $date,
                 $changefreq,
                 $priority
