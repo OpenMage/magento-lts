@@ -783,7 +783,7 @@ class Mage_CatalogInventory_Model_Observer
         }
 
         // price indexer is responsible for hiding out of stock products
-        if ($stockStatusProductIds) {
+        if ($stockStatusProductIds && !Mage::helper('cataloginventory')->isShowOutOfStock()) {
             $priceIndexProcess = Mage::getModel('index/process')->load('catalog_product_price', 'indexer_code');
             if ($priceIndexProcess->getMode() === Mage_Index_Model_Process::MODE_REAL_TIME) {
                 $priceIndexProcess->lock();
