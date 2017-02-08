@@ -2,7 +2,7 @@
 
 | Patch | Commit |
 | ----- | ------ |
-| - | - |
+| SUPEE-8788 | [bec7623](https://github.com/OpenMage/magento-lts/commit/bec7623) |
 
 
 # Magento - Long Term Support

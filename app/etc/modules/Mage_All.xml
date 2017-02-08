@@ -275,7 +275,7 @@
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Core/>
+                <Mage_Uploader/>
             </depends>
         </Mage_Cms>
         <Mage_Reports>
@@ -397,5 +397,12 @@
                 <Mage_Core/>
             </depends>
         </Mage_Index>
+        <Mage_Uploader>
+            <active>true</active>
+            <codePool>core</codePool>
+            <depends>
+                <Mage_Core/>
+            </depends>
+        </Mage_Uploader>
     </modules>
 </config>

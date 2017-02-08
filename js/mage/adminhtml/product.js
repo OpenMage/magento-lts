@@ -34,18 +34,18 @@ Product.Gallery.prototype = {
     idIncrement :1,
     containerId :'',
     container :null,
-    uploader :null,
     imageTypes : {},
-    initialize : function(containerId, uploader, imageTypes) {
+    initialize : function(containerId, imageTypes) {
         this.containerId = containerId, this.container = $(this.containerId);
-        this.uploader = uploader;
         this.imageTypes = imageTypes;
-        if (this.uploader) {
-            this.uploader.onFilesComplete = this.handleUploadComplete
-                    .bind(this);
-        }
-        // this.uploader.onFileProgress = this.handleUploadProgress.bind(this);
-        // this.uploader.onFileError = this.handleUploadError.bind(this);
+
+        document.on('uploader:fileSuccess', function(event) {
+            var memo = event.memo;
+            if(memo && this._checkCurrentContainer(memo.containerId)) {
+                this.handleUploadComplete([{response: memo.response}]);
+            }
+        }.bind(this));
+
         this.images = this.getElement('save').value.evalJSON();
         this.imagesValues = this.getElement('save_image').value.evalJSON();
         this.template = new Template('<tr id="__id__" class="preview">' + this
@@ -55,6 +55,9 @@ Product.Gallery.prototype = {
         this.updateImages();
         varienGlobalEvents.attachEventHandler('moveTab', this.onImageTabMove
                 .bind(this));
+    },
+    _checkCurrentContainer: function(child) {
+        return $(this.containerId).down('#' + child);
     },
     onImageTabMove : function(event) {
         var imagesTab = false;
@@ -113,7 +116,6 @@ Product.Gallery.prototype = {
             newImage.disabled = 0;
             newImage.removed = 0;
             this.images.push(newImage);
-            this.uploader.removeFile(item.id);
         }.bind(this));
         this.container.setHasChanges();
         this.updateImages();
