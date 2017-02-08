@@ -50,6 +50,9 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
     const STOCK_IN_STOCK            = 1;
 
     const DEFAULT_STOCK_ID          = 1;
+    
+    const EVENT_CORRECT_STOCK_ITEMS_QTY_BEFORE = 'cataloginventory_stock_item_correct_qty_before';
+    const EVENT_CORRECT_STOCK_ITEMS_QTY_AFTER = 'cataloginventory_stock_item_correct_qty_after';
 
     protected function _construct()
     {
@@ -132,6 +135,11 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
      */
     public function registerProductsSale($items)
     {
+        Mage::dispatchEvent(self::EVENT_CORRECT_STOCK_ITEMS_QTY_BEFORE, array(
+        'stock'     => $this,
+        'items_obj' => (object)array('items' => &$items),
+        'operator'  => '+'
+        ));
         $qtys = $this->_prepareProductQtys($items);
         $item = Mage::getModel('cataloginventory/stock_item');
         $this->_getResource()->beginTransaction();
@@ -150,6 +158,13 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
         }
         $this->_getResource()->correctItemsQty($this, $qtys, '-');
         $this->_getResource()->commit();
+        
+        Mage::dispatchEvent(self::EVENT_CORRECT_STOCK_ITEMS_QTY_AFTER, array(
+        'stock'          => $this,
+        'items'          => $items,
+        'operator'       => '+'
+        ));
+        
         return $fullSaveItems;
     }
 
@@ -159,8 +174,18 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
      */
     public function revertProductsSale($items)
     {
+        Mage::dispatchEvent(self::EVENT_CORRECT_STOCK_ITEMS_QTY_BEFORE, array(
+        'stock'     => $this,
+        'items_obj' => (object)array('items' => &$items),
+        'operator'  => '-'
+        ));
         $qtys = $this->_prepareProductQtys($items);
         $this->_getResource()->correctItemsQty($this, $qtys, '+');
+        Mage::dispatchEvent(self::EVENT_CORRECT_STOCK_ITEMS_QTY_BEFORE, array(
+        'stock'          => $this,
+        'items'          => $items,
+        'operator'       => '-'
+        ));
         return $this;
     }
 
