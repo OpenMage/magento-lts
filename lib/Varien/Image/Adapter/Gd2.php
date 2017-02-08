@@ -194,6 +194,12 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             $functionParameters[] = $this->quality();
         }
 
+		// make jpegs progressive and improve product file size (when resizing without changing the library)
+		$interlaceIt = 0;
+		if ($this->_fileType == IMAGETYPE_JPEG) {
+			$interlaceIt = imageinterlace($this->_imageHandler, 1);
+		}
+
         // set quality param for PNG file type
         if (!is_null($this->quality()) && $this->_fileType == IMAGETYPE_PNG)
         {
