@@ -272,11 +272,16 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
                                 'store_label'                => $optionsByValue[$optionValue],
                                 'is_percent'                 => 0,
                                 'pricing_value'              => null,
-                                'use_default_value'          => true
+                                'use_default_value'          => true,
+                                'order'                      => array_search($optionValue, array_keys($optionsByValue))
                             );
                         }
                     }
                 }
+
+                uasort($values, function($a, $b) {
+                   return $a['order'] - $b['order'];
+                });
             }
 
             foreach ($pricings[0] as $pricing) {
