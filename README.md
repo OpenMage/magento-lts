@@ -2,7 +2,7 @@
 
 | Patch | Commit |
 | ----- | ------ |
-| - | - |
+| SUPEE-9652 | [03835f8](https://github.com/OpenMage/magento-lts/commit/03835f8) |
 
 
 # Magento - Long Term Support
