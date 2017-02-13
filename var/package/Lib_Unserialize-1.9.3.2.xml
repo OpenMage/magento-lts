@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+    <name>Lib_Unserialize</name>
+    <version>1.9.3.2</version>
+    <stability>stable</stability>
+    <license uri="http://opensource.org/licenses/osl-3.0.php">Magento Core Edition</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Magento Library</summary>
+    <description>Magento Library</description>
+    <notes>1.9.3.2</notes>
+    <authors><author><name>Magento Core Team</name><user>core</user><email>core@magentocommerce.com</email></author></authors>
+    <date>2017-02-01</date>
+    <time>17:29:23</time>
+    <contents><target name="magelib"><dir name="Unserialize"><file name="Parser.php" hash="138109b88949f9765eadea83b4a3ff53"/><dir name="Reader"><file name="Arr.php" hash="af23f23e3b9140449f9ef7cfad1511ba"/><file name="ArrKey.php" hash="f2e3ede344fa4e841a0fb0f05c8a52eb"/><file name="ArrValue.php" hash="c2896c4568bd5a0c7d89d86d575a9feb"/><file name="Bool.php" hash="6fc8ceabcc2e3530a5b3142f2be7fbd1"/><file name="Dbl.php" hash="1ab0409a8cdeb5068ab96e8403ebef13"/><file name="Int.php" hash="14cd1e7ee3f8324fa6b2d2b98c14c8b6"/><file name="Null.php" hash="241e1089b3be47faaeb593303e30ee1e"/><file name="Str.php" hash="7c51a65f34ed6aacd491897ce0067e3a"/></dir></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.2.0</min><max>6.0.0</max></php></required></dependencies>
+</package>
