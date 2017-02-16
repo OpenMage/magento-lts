@@ -143,11 +143,11 @@ if (0 !== stripos($pathInfo, $mediaDirectory . '/')) {
 }
 
 try {
-    $databaseFileSotrage = Mage::getModel('core/file_storage_database');
-    $databaseFileSotrage->loadByFilename($relativeFilename);
+    $databaseFileStorage = Mage::getModel('core/file_storage_database');
+    $databaseFileStorage->loadByFilename($relativeFilename);
 } catch (Exception $e) {
 }
-if ($databaseFileSotrage->getId()) {
+if ($databaseFileStorage->getId()) {
     $directory = dirname($filePath);
     if (!is_dir($directory)) {
         mkdir($directory, 0777, true);
@@ -156,7 +156,7 @@ if ($databaseFileSotrage->getId()) {
     $fp = fopen($filePath, 'w');
     if (flock($fp, LOCK_EX | LOCK_NB)) {
         ftruncate($fp, 0);
-        fwrite($fp, $databaseFileSotrage->getContent());
+        fwrite($fp, $databaseFileStorage->getContent());
     }
     flock($fp, LOCK_UN);
     fclose($fp);
