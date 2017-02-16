@@ -240,7 +240,8 @@ HTML;
             if ($includeFilePath != '' && (strpos($includeFilePath, realpath($this->_viewDir)) === 0 || $this->_getAllowSymlinks())) {
                 include $includeFilePath;
             } else {
-                Mage::log('Not valid template file:'.$fileName, Zend_Log::CRIT, null, true);
+                $thisClass = get_class($this);
+                Mage::log('Not valid template file:' . $fileName . ' class: ' . $thisClass, Zend_Log::CRIT, null, true);
             }
 
         } catch (Exception $e) {
