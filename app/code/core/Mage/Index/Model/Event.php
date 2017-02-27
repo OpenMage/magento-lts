@@ -216,7 +216,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
 
         $newData = $this->getNewData(false);
         foreach ($processIds as $processId => $processStatus) {
-            if ($processStatus == Mage_Index_Model_Process::EVENT_STATUS_DONE) {
+            if (is_null($processStatus) || $processStatus == Mage_Index_Model_Process::EVENT_STATUS_DONE) {
                 $process = Mage::getSingleton('index/indexer')->getProcessById($processId);
                 if ($process) {
                     $namespace = get_class($process->getIndexer());
