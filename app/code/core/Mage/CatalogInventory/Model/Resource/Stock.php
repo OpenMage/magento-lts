@@ -245,7 +245,7 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
      * Set items out of stock basing on their quantities and config settings
      *
      */
-    public function updateSetOutOfStock()
+    public function updateSetOutOfStock($productIds = array())
     {
         $this->_initConfig();
         $adapter = $this->_getWriteAdapter();
@@ -254,9 +254,14 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
             'stock_status_changed_auto'    => 1
         );
 
-        $select = $adapter->select()
-            ->from($this->getTable('catalog/product'), 'entity_id')
-            ->where('type_id IN(?)', $this->_configTypeIds);
+        if ($productIds) {
+            $productIdsCondition = implode(', ', array_map('intval', $productIds));
+        } else {
+            $productIdsCondition = $adapter->select()
+                ->from($this->getTable('catalog/product'), 'entity_id')
+                ->where('type_id IN(?)', $this->_configTypeIds)
+                ->assemble();
+        }
 
         $where = sprintf('stock_id = %1$d'
             . ' AND is_in_stock = 1'
@@ -269,7 +274,7 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
             Mage_CatalogInventory_Model_Stock::BACKORDERS_NO,
             $this->_isConfigBackorders,
             $this->_configMinQty,
-            $select->assemble()
+            $productIdsCondition
         );
 
         $adapter->update($this->getTable('cataloginventory/stock_item'), $values, $where);
@@ -279,7 +284,7 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
      * Set items in stock basing on their quantities and config settings
      *
      */
-    public function updateSetInStock()
+    public function updateSetInStock($productIds = array())
     {
         $this->_initConfig();
         $adapter = $this->_getWriteAdapter();
@@ -287,9 +292,14 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
             'is_in_stock'   => 1,
         );
 
-        $select = $adapter->select()
-            ->from($this->getTable('catalog/product'), 'entity_id')
-            ->where('type_id IN(?)', $this->_configTypeIds);
+        if ($productIds) {
+            $productIdsCondition = implode(', ', array_map('intval', $productIds));
+        } else {
+            $productIdsCondition = $adapter->select()
+                ->from($this->getTable('catalog/product'), 'entity_id')
+                ->where('type_id IN(?)', $this->_configTypeIds)
+                ->assemble();
+        }
 
         $where = sprintf('stock_id = %1$d'
             . ' AND is_in_stock = 0'
@@ -300,7 +310,7 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
             $this->_stock->getId(),
             $this->_isConfigManageStock,
             $this->_configMinQty,
-            $select->assemble()
+            $productIdsCondition
         );
 
         $adapter->update($this->getTable('cataloginventory/stock_item'), $values, $where);
@@ -310,7 +320,7 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
      * Update items low stock date basing on their quantities and config settings
      *
      */
-    public function updateLowStockDate()
+    public function updateLowStockDate($productIds = array())
     {
         $this->_initConfig();
 
@@ -324,16 +334,21 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
             'low_stock_date' => new Zend_Db_Expr($conditionalDate),
         );
 
-        $select = $adapter->select()
-            ->from($this->getTable('catalog/product'), 'entity_id')
-            ->where('type_id IN(?)', $this->_configTypeIds);
+        if ($productIds) {
+            $productIdsCondition = implode(', ', array_map('intval', $productIds));
+        } else {
+            $productIdsCondition = $adapter->select()
+                ->from($this->getTable('catalog/product'), 'entity_id')
+                ->where('type_id IN(?)', $this->_configTypeIds)
+                ->assemble();
+        }
 
         $where = sprintf('stock_id = %1$d'
             . ' AND ((use_config_manage_stock = 1 AND 1 = %2$d) OR (use_config_manage_stock = 0 AND manage_stock = 1))'
             . ' AND product_id IN (%3$s)',
             $this->_stock->getId(),
             $this->_isConfigManageStock,
-            $select->assemble()
+            $productIdsCondition
         );
 
         $adapter->update($this->getTable('cataloginventory/stock_item'), $value, $where);
