@@ -63,8 +63,8 @@ try {
             $fileName = escapeshellarg(basename(__FILE__));
             $cronPath = escapeshellarg(dirname(__FILE__) . '/cron.sh');
 
-            shell_exec(escapeshellcmd("/bin/sh $cronPath $fileName -mdefault 1 > /dev/null 2>&1 &"));
-            shell_exec(escapeshellcmd("/bin/sh $cronPath $fileName -malways 1 > /dev/null 2>&1 &"));
+            shell_exec(escapeshellcmd("/bin/sh $cronPath $fileName -mdefault 1") . ' > /dev/null 2>&1 &');
+            shell_exec(escapeshellcmd("/bin/sh $cronPath $fileName -malways 1") . ' > /dev/null 2>&1 &');
             exit;
         }
     }
