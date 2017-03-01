@@ -226,8 +226,9 @@ class Mage_Customer_Model_Observer
      */
     public function deleteCustomerFlowPassword()
     {
-        $connection = Mage::getSingleton('core/resource')->getConnection('write');
+        $resource   = Mage::getSingleton('core/resource');
+        $connection = $resource->getConnection('write');
         $condition  = array('requested_date < ?' => Mage::getModel('core/date')->date(null, '-1 day'));
-        $connection->delete($connection->getTableName('customer_flowpassword'), $condition);
+        $connection->delete($resource->getTableName('customer_flowpassword'), $condition);
     }
 }
