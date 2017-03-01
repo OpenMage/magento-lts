@@ -208,6 +208,10 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
                 }
             } else {
                 //Update existing events since we'll do reindexAll
+                foreach ($eventsCollection->getItemsByColumnValue('type', Mage_Index_Model_Event::TYPE_MASS_ACTION) as $event) {
+                    $event->addProcessId($this->getId(), self::EVENT_STATUS_DONE)
+                        ->save();
+                }
                 $eventResource->updateProcessEvents($this);
                 $this->getIndexer()->reindexAll();
             }
