@@ -51,6 +51,7 @@ class Mage_Core_Model_Resource_File_Storage_File
      * Files at storage
      *
      * @var array
+     * @return string
      */
     public function getMediaBaseDirectory()
     {
@@ -186,28 +187,32 @@ class Mage_Core_Model_Resource_File_Storage_File
      * @param  string $filePath
      * @param  string $content
      * @param  bool $overwrite
-     * @return bool
+     * @return bool true if file written, otherwise false
+     * @throws Mage_Core_Exception
      */
     public function saveFile($filePath, $content, $overwrite = false)
     {
         $filename = basename($filePath);
         $path = $this->getMediaBaseDirectory() . DS . str_replace('/', DS ,dirname($filePath));
 
-        if (!file_exists($path) || !is_dir($path)) {
+        if (!is_dir($path)) {
             @mkdir($path, 0777, true);
         }
 
-        $ioFile = new Varien_Io_File();
-        $ioFile->cd($path);
-
-        if (!$ioFile->fileExists($filename) || ($overwrite && $ioFile->rm($filename))) {
-            $ioFile->streamOpen($filename);
-            $ioFile->streamLock(true);
-            $result = $ioFile->streamWrite($content);
-            $ioFile->streamUnlock();
-            $ioFile->streamClose();
-
-            if ($result !== false) {
+        $fullPath = $path . DS . $filename;
+        if (!file_exists($fullPath) || $overwrite) {
+            // If overwrite is not required then return if file could not be locked (assume it is being written by another process)
+            // Exception is only thrown if file was opened but could not be written.
+            if (!$overwrite) {
+                if (!($fp = @fopen($fullPath, 'x'))) {
+                    return false;
+                }
+                if (@fwrite($fp, $content) !== false && @fclose($fp)) {
+                    return true;
+                }
+            }
+            // If overwrite is required, throw exception on failure to write file
+            else if (@file_put_contents($fullPath, $content, LOCK_EX) !== false) {
                 return true;
             }
 

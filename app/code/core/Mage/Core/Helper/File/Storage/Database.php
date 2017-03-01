@@ -197,7 +197,8 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
      * @param string $filename
      * @return bool|int
      */
-    public function saveFileToFilesystem($filename) {
+    public function saveFileToFilesystem($filename)
+    {
         if ($this->checkDbUsage()) {
             /** @var $file Mage_Core_Model_File_Storage_Database */
             $file = Mage::getModel('core/file_storage_database')
@@ -208,6 +209,8 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
 
             return $this->getStorageFileModel()->saveFile($file, true);
         }
+
+        return false;
     }
 
     /**
