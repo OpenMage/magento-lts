@@ -132,13 +132,14 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     public function register(Mage_Index_Model_Event $event)
     {
         if ($this->matchEvent($event)) {
+            if ($this->getMode() == self::MODE_MANUAL) {
+                $this->_getResource()->updateStatus($this, self::STATUS_REQUIRE_REINDEX);
+                return $this;
+            }
             $this->_setEventNamespace($event);
             $this->getIndexer()->register($event);
             $event->addProcessId($this->getId());
             $this->_resetEventNamespace($event);
-            if ($this->getMode() == self::MODE_MANUAL) {
-                $this->_getResource()->updateStatus($this, self::STATUS_REQUIRE_REINDEX);
-            }
         }
         return $this;
     }
