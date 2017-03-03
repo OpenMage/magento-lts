@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogSearch
- * @copyright  Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -350,38 +350,38 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
             if ($like) {
                 $likeCond = '(' . join(' OR ', $like) . ')';
             }
-
-            $mainTableAlias = 's';
-            $fields = array('product_id');
-
-            $select = $adapter->select()
-                ->from(array($mainTableAlias => $this->getMainTable()), $fields)
-                ->joinInner(array('e' => $this->getTable('catalog/product')),
-                    'e.entity_id = s.product_id',
-                    array())
-                ->where($mainTableAlias . '.store_id = ?', (int)$query->getStoreId());
-
-            $where = "";
-            if ($searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_FULLTEXT
-                || $searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_COMBINE
-            ) {
-                $bind[':query'] = implode(' ', $preparedTerms[0]);
-                $where = Mage::getResourceHelper('catalogsearch')
-                    ->chooseFulltext($this->getMainTable(), $mainTableAlias, $select);
-            }
-            if ($likeCond != '' && $searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_COMBINE) {
-                $where .= ($where ? ' OR ' : '') . $likeCond;
-            } elseif ($likeCond != '' && $searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_LIKE) {
-                $select->columns(array('relevance' => new Zend_Db_Expr(0)));
-                $where = $likeCond;
-            }
-
-            if ($where != '') {
-                $select->where($where);
-            }
-
-            $this->_foundData = $adapter->fetchPairs($select, $bind);
         }
+
+        $mainTableAlias = 's';
+        $fields = array('product_id');
+
+        $select = $adapter->select()
+            ->from(array($mainTableAlias => $this->getMainTable()), $fields)
+            ->joinInner(array('e' => $this->getTable('catalog/product')),
+                'e.entity_id = s.product_id',
+                array())
+            ->where($mainTableAlias . '.store_id = ?', (int)$query->getStoreId());
+
+        $where = "";
+        if ($searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_FULLTEXT
+            || $searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_COMBINE
+        ) {
+            $bind[':query'] = implode(' ', $preparedTerms[0]);
+            $where = Mage::getResourceHelper('catalogsearch')
+                ->chooseFulltext($this->getMainTable(), $mainTableAlias, $select);
+        }
+        if ($likeCond != '' && $searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_COMBINE) {
+            $where .= ($where ? ' OR ' : '') . $likeCond;
+        } elseif ($likeCond != '' && $searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_LIKE) {
+            $select->columns(array('relevance' => new Zend_Db_Expr(0)));
+            $where = $likeCond;
+        }
+
+        if ($where != '') {
+            $select->where($where);
+        }
+
+        $this->_foundData = $adapter->fetchPairs($select, $bind);
 
         return $this;
     }

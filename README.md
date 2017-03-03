@@ -2,7 +2,7 @@
 
 | Patch | Commit |
 | ----- | ------ |
-| - | - |
+| SUPEE-9652 | [03835f8](https://github.com/OpenMage/magento-lts/commit/03835f8) |
 
 
 # Magento - Long Term Support
@@ -44,6 +44,7 @@ PHP 7 support was added as as from version 1.9.2.3. based on the Inchoo article 
 ## Maintainers
 * [Lee Saferite](https://github.com/LeeSaferite)
 * [David Robinson](https://github.com/drobinson)
+* [Daniel Fahlke aka Flyingmana](https://github.com/Flyingmana)
 * Pull requests are welcome
 
 

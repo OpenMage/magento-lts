@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright  Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -207,6 +207,14 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
                 array('firstname' => 'cust_fname.value')
             )
             ->joinLeft(
+                array('cust_mname' => $attrMiddlenameTableName),
+                implode(' AND ', array(
+                    'cust_mname.entity_id = main_table.customer_id',
+                    $adapter->quoteInto('cust_mname.attribute_id = ?', (int) $attrMiddlenameId),
+                )),
+                array('middlename' => 'cust_mname.value')
+            )
+            ->joinInner(
                 array('cust_mname' => $attrMiddlenameTableName),
                 implode(' AND ', array(
                     'cust_mname.entity_id = main_table.customer_id',

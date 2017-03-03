@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -385,7 +385,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      */
     public function useValidateSessionExpire()
     {
-        return true;
+        return $this->getCookie()->getLifetime() > 0;
     }
 
     /**
@@ -458,6 +458,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         }
 
         if ($this->useValidateSessionExpire()
+            && isset($sessionData[self::VALIDATOR_SESSION_EXPIRE_TIMESTAMP])
             && $sessionData[self::VALIDATOR_SESSION_EXPIRE_TIMESTAMP] < time() ) {
             return false;
         } else {

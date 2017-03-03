@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_ImportExport
- * @copyright  Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -1436,11 +1436,11 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                 }
                 if (!empty($rowData['_media_image'])) {
                     $mediaGallery[$rowSku][] = array(
-                        'attribute_id'      => $rowData['_media_attribute_id'],
-                        'label'             => $rowData['_media_lable'],
-                        'position'          => $rowData['_media_position'],
-                        'disabled'          => $rowData['_media_is_disabled'],
-                        'value'             => $rowData['_media_image']
+                        'attribute_id' => isset($rowData['_media_attribute_id']) ? $rowData['_media_attribute_id'] : '',
+                        'label'        => isset($rowData['_media_lable']) ? $rowData['_media_lable'] : '',
+                        'position'     => isset($rowData['_media_position']) ? $rowData['_media_position'] : '',
+                        'disabled'     => isset($rowData['_media_is_disabled']) ? $rowData['_media_is_disabled'] : '',
+                        'value'        => $rowData['_media_image']
                     );
                 }
                 // 6. Attributes phase

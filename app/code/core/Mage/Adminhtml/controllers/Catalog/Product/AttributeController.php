@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -178,18 +178,13 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
             }
 
             if (!empty($data['option']) && !empty($data['option']['value']) && is_array($data['option']['value'])) {
+                $allowableTags = isset($data['is_html_allowed_on_front']) && $data['is_html_allowed_on_front']
+                    ? sprintf('<%s>', implode('><', $this->_getAllowedTags())) : null;
                 foreach ($data['option']['value'] as $key => $values) {
-                    $isHtmlAllowedOnFrontend = isset($data['is_html_allowed_on_front'])
-                        && $data['is_html_allowed_on_front'];
-                    $data['option']['value'][$key] = array_map(
-                        array($helperCatalog, 'stripTags'),
-                        $values,
-                        array_fill(
-                            0,
-                            count($values),
-                            $isHtmlAllowedOnFrontend ? sprintf('<%s>', implode('><', $this->_getAllowedTags())): null
-                        )
-                    );
+                    foreach ($values as $storeId => $storeLabel) {
+                        $data['option']['value'][$key][$storeId]
+                            = $helperCatalog->stripTags($storeLabel, $allowableTags);
+                    }
                 }
             }
         }

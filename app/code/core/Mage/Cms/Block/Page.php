@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Cms
- * @copyright  Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -86,6 +86,14 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
                     'title' => $page->getTitle()
                 )
             );
+            $breadcrumbsObject = new Varien_Object();
+            $breadcrumbsObject->setCrumbs($breadcrumbsArray);
+
+            Mage::dispatchEvent('cms_generate_breadcrumbs', array('breadcrumbs' => $breadcrumbsObject));
+
+            foreach ($breadcrumbsObject->getCrumbs() as $breadcrumbsItem) {
+                $breadcrumbs->addCrumb($breadcrumbsItem['crumbName'], $breadcrumbsItem['crumbInfo']);
+            }
         }
 
         $root = $this->getLayout()->getBlock('root');

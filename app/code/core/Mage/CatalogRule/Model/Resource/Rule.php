@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogRule
- * @copyright  Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -733,7 +733,8 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
             ->where('customer_group_id = ?', $customerGroupId)
             ->where('product_id = ?', $productId)
             ->where('from_time = 0 or from_time < ?', $date)
-            ->where('to_time = 0 or to_time > ?', $date);
+            ->where('to_time = 0 or to_time > ?', $date)
+            ->order('sort_order');
 
         return $adapter->fetchAll($select);
     }
