@@ -28,6 +28,9 @@
 /**
  * File storage database model class
  *
+ * @method Mage_Core_Model_Resource_File_Storage_Database _getResource()
+ * @method Mage_Core_Model_Resource_File_Storage_Database getResource()
+ *
  * @category    Mage
  * @package     Mage_Core
  * @author      Magento Core Team <core@magentocommerce.com>

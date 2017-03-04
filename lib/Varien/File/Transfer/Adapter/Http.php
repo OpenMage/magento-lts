@@ -80,7 +80,7 @@ class Varien_File_Transfer_Adapter_Http
      * Send the file to the client (Download)
      *
      * @param  string|array $options Options for the file(s) to send
-     * @return void
+     * @throws Exception
      */
     public function send($options = null)
     {
@@ -105,16 +105,7 @@ class Varien_File_Transfer_Adapter_Http
 
         $response->sendHeaders();
 
-        $handle = fopen($filepath, 'r');
-        if ($handle) {
-            while (($buffer = fgets($handle, 4096)) !== false) {
-                echo $buffer;
-            }
-            if (!feof($handle)) {
-                throw new Exception("Error: unexpected fgets() fail.");
-            }
-            fclose($handle);
-        }
+        readfile($filepath);
     }
 
     /**

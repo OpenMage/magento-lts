@@ -142,27 +142,26 @@ if (0 !== stripos($pathInfo, $mediaDirectory . '/')) {
     sendNotFoundPage();
 }
 
+$databaseFileStorage = Mage::getModel('core/file_storage_database');
 try {
-    $databaseFileStorage = Mage::getModel('core/file_storage_database');
     $databaseFileStorage->loadByFilename($relativeFilename);
 } catch (Exception $e) {
 }
 if ($databaseFileStorage->getId()) {
-    $directory = dirname($filePath);
-    if (!is_dir($directory)) {
-        mkdir($directory, 0777, true);
+    try {
+        if (Mage::getModel('core/file_storage_file')->saveFile($databaseFileStorage, false) === false) {
+            // False return value means file was not overwritten. However, it may not be ready
+            // to be read yet so wait for shared lock to ensure file is not partially read.
+            if ($fp = fopen($filePath, 'r')) {
+                flock($fp, LOCK_SH) && flock($fp, LOCK_UN) && fclose($fp);
+            }
+        }
+        sendFile($filePath);
+    } catch (Exception $e) {
+        Mage::logException($e);
     }
-
-    $fp = fopen($filePath, 'w');
-    if (flock($fp, LOCK_EX | LOCK_NB)) {
-        ftruncate($fp, 0);
-        fwrite($fp, $databaseFileStorage->getContent());
-    }
-    flock($fp, LOCK_UN);
-    fclose($fp);
 }
 
-sendFile($filePath);
 sendNotFoundPage();
 
 /**
@@ -193,6 +192,7 @@ function checkResource($resource, array $allowedResources)
         sendNotFoundPage();
     }
 }
+
 /**
  * Send file to browser
  *

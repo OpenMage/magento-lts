@@ -126,7 +126,7 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
      * @param  Mage_Core_Model_File_Storage_Database $object
      * @param  string $filename
      * @param  string $path
-     * @return Mage_Core_Model_Mysql4_File_Storage_Database
+     * @return Mage_Core_Model_Resource_File_Storage_Database
      */
     public function loadByFilename(Mage_Core_Model_File_Storage_Database $object, $filename, $path)
     {
@@ -150,7 +150,7 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
     /**
      * Clear files in storage
      *
-     * @return Mage_Core_Model_Mysql4_File_Storage_Database
+     * @return Mage_Core_Model_Resource_File_Storage_Database
      */
     public function clearFiles()
     {
@@ -186,8 +186,8 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
     /**
      * Save file to storage
      *
-     * @param  Mage_Core_Model_File_Storage_Database|array $object
-     * @return Mage_Core_Model_Mysql4_File_Storage_Database
+     * @param array|Mage_Core_Model_File_Storage_Database $file
+     * @return Mage_Core_Model_Resource_File_Storage_Database
      */
     public function saveFile($file)
     {
@@ -215,7 +215,7 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
      * @param  string $oldPath
      * @param  string $newFilename
      * @param  string $newPath
-     * @return Mage_Core_Model_Mysql4_File_Storage_Database
+     * @return Mage_Core_Model_Resource_File_Storage_Database
      */
     public function renameFile($oldFilename, $oldPath, $newFilename, $newPath)
     {
@@ -237,7 +237,7 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
      * @param  string $oldPath
      * @param  string $newFilename
      * @param  string $newPath
-     * @return Mage_Core_Model_Mysql4_File_Storage_Database
+     * @return Mage_Core_Model_Resource_File_Storage_Database
      */
     public function copyFile($oldFilename, $oldPath, $newFilename, $newPath)
     {
@@ -277,7 +277,7 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
         $adapter = $this->_getReadAdapter();
 
         $select = $adapter->select()
-            ->from(array('e' => $this->getMainTable()))
+            ->from(array('e' => $this->getMainTable()), 'file_id')
             ->where('filename = ?', $filename)
             ->where($adapter->prepareSqlCondition('directory', array('seq' => $path)))
             ->limit(1);
