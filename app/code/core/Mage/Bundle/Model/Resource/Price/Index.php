@@ -253,9 +253,14 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
     {
         $adapter = $this->_getWriteAdapter();
         $adapter->beginTransaction();
-        $bind = array($productId, $websiteId, $groupId, $minPrice, $maxPrice);
-        $adapter->insertOnDuplicate($this->getMainTable(), $bind, array('min_price', 'max_price'));
-        $adapter->commit();
+        try {
+            $bind = array($productId, $websiteId, $groupId, $minPrice, $maxPrice);
+            $adapter->insertOnDuplicate($this->getMainTable(), $bind, array('min_price', 'max_price'));
+            $adapter->commit();
+        } catch (Exception $e) {
+            $adapter->rollBack();
+            throw $e;
+        }
 
         return $this;
     }

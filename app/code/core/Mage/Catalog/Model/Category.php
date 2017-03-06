@@ -245,12 +245,13 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
 
             Mage::dispatchEvent($this->_eventPrefix.'_move_after', $eventParams);
             Mage::dispatchEvent('catalog_category_tree_move_after', $eventParams);
-            $this->_getResource()->commit();
 
             // Set data for indexer
             $this->setAffectedCategoryIds(array($this->getId(), $this->getParentId(), $parentId));
 
             $moveComplete = true;
+
+            $this->_getResource()->commit();
         } catch (Exception $e) {
             $this->_getResource()->rollBack();
             throw $e;

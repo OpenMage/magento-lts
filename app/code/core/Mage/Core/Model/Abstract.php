@@ -481,12 +481,12 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
             $this->_afterDelete();
 
             $this->_getResource()->commit();
-            $this->_afterDeleteCommit();
         }
         catch (Exception $e){
             $this->_getResource()->rollBack();
             throw $e;
         }
+        $this->_afterDeleteCommit();
         return $this;
     }
 

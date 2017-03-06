@@ -115,11 +115,11 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
                     $indexer->reindexEntity($byType[$indexer->getTypeId()]);
                 }
             }
+            $adapter->commit();
         } catch (Exception $e) {
             $adapter->rollback();
             throw $e;
         }
-        $adapter->commit();
 
         return $this;
     }
@@ -149,12 +149,11 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
             foreach ($parentIds as $parentType => $entityIds) {
                 $this->_getIndexer($parentType)->reindexEntity($entityIds);
             }
+            $adapter->commit();
         } catch (Exception $e) {
             $adapter->rollback();
             throw $e;
         }
-
-        $adapter->commit();
 
         return $this;
     }
@@ -223,11 +222,11 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
                     $indexer->reindexEntity($byType[$indexer->getTypeId()]);
                 }
             }
+            $adapter->commit();
         } catch (Exception $e) {
             $adapter->rollback();
             throw $e;
         }
-        $adapter->commit();
 
         return $this;
     }

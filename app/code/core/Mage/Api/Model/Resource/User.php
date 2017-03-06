@@ -245,14 +245,14 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
         try {
             $dbh->delete($this->getTable('api/user'), array('user_id = ?' => $uid));
             $dbh->delete($this->getTable('api/role'), array('user_id = ?' => $uid));
+            $dbh->commit();
         } catch (Mage_Core_Exception $e) {
+            $dbh->rollBack();
             throw $e;
-            return false;
         } catch (Exception $e) {
             $dbh->rollBack();
             return false;
         }
-        $dbh->commit();
         return true;
     }
 
@@ -298,6 +298,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
             }
             $adapter->commit();
         } catch (Mage_Core_Exception $e) {
+            $adapter->rollBack();
             throw $e;
         } catch (Exception $e) {
             $adapter->rollBack();

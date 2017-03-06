@@ -63,8 +63,8 @@ class Mage_Paypal_Model_Resource_Report_Settlement extends Mage_Core_Model_Resou
         if (is_array($rows)) {
             $adapter  = $this->_getWriteAdapter();
             $reportId = (int)$object->getId();
+            $adapter->beginTransaction();
             try {
-                $adapter->beginTransaction();
                 if ($reportId) {
                     $adapter->delete($this->_rowsTable, array('report_id = ?' => $reportId));
                 }
