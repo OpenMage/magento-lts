@@ -592,13 +592,18 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
         }
 
         $write->beginTransaction();
-        $table = $this->_getWebsiteDateTable();
-        $write->delete($table);
+        try {
+            $table = $this->_getWebsiteDateTable();
+            $write->delete($table);
 
-        if ($data) {
-            $write->insertMultiple($table, $data);
+            if ($data) {
+                $write->insertMultiple($table, $data);
+            }
+            $write->commit();
+        } catch (Exception $e) {
+            $write->rollBack();
+            throw $e;
         }
-        $write->commit();
 
         return $this;
     }

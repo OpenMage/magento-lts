@@ -112,52 +112,54 @@ class Mage_Backup_Model_Db
         $backup->open(true);
 
         $this->getResource()->beginTransaction();
+        try {
+            $tables = $this->getResource()->getTables();
 
-        $tables = $this->getResource()->getTables();
+            $backup->write($this->getResource()->getHeader());
 
-        $backup->write($this->getResource()->getHeader());
+            $ignoreDataTablesList = $this->getIgnoreDataTablesList();
 
-        $ignoreDataTablesList = $this->getIgnoreDataTablesList();
+            foreach ($tables as $table) {
+                $backup->write($this->getResource()->getTableHeader($table)
+                    . $this->getResource()->getTableDropSql($table) . "\n");
+                $backup->write($this->getResource()->getTableCreateSql($table, false) . "\n");
 
-        foreach ($tables as $table) {
-            $backup->write($this->getResource()->getTableHeader($table)
-                . $this->getResource()->getTableDropSql($table) . "\n");
-            $backup->write($this->getResource()->getTableCreateSql($table, false) . "\n");
+                $tableStatus = $this->getResource()->getTableStatus($table);
 
-            $tableStatus = $this->getResource()->getTableStatus($table);
+                if ($tableStatus->getRows() && !in_array($table, $ignoreDataTablesList)) {
+                    $backup->write($this->getResource()->getTableDataBeforeSql($table));
 
-            if ($tableStatus->getRows() && !in_array($table, $ignoreDataTablesList)) {
-                $backup->write($this->getResource()->getTableDataBeforeSql($table));
-
-                if ($tableStatus->getDataLength() > self::BUFFER_LENGTH) {
-                    if ($tableStatus->getAvgRowLength() > 0 && $tableStatus->getAvgRowLength() < self::BUFFER_LENGTH) {
-                        // Process rows in batches
-                        $limit = floor(self::BUFFER_LENGTH / $tableStatus->getAvgRowLength());
-                        $multiRowsLength = ceil($tableStatus->getRows() / $limit);
+                    if ($tableStatus->getDataLength() > self::BUFFER_LENGTH) {
+                        if ($tableStatus->getAvgRowLength() > 0 && $tableStatus->getAvgRowLength() < self::BUFFER_LENGTH) {
+                            // Process rows in batches
+                            $limit = floor(self::BUFFER_LENGTH / $tableStatus->getAvgRowLength());
+                            $multiRowsLength = ceil($tableStatus->getRows() / $limit);
+                        } else {
+                            // Process rows one by one
+                            $limit = 1;
+                            $multiRowsLength = $tableStatus->getRows();
+                        }
+                    } else {
+                        // Process all rows at once
+                        $limit = $tableStatus->getRows();
+                        $multiRowsLength = 1;
                     }
-                    else {
-                        // Process rows one by one
-                        $limit = 1;
-                        $multiRowsLength = $tableStatus->getRows();
+
+                    for ($i = 0; $i < $multiRowsLength; $i++) {
+                        $backup->write($this->getResource()->getTableDataSql($table, $limit, $i * $limit));
                     }
-                }
-                else {
-                    // Process all rows at once
-                    $limit = $tableStatus->getRows();
-                    $multiRowsLength = 1;
-                }
 
-                for ($i = 0; $i < $multiRowsLength; $i ++) {
-                    $backup->write($this->getResource()->getTableDataSql($table, $limit, $i*$limit));
+                    $backup->write($this->getResource()->getTableDataAfterSql($table));
                 }
-
-                $backup->write($this->getResource()->getTableDataAfterSql($table));
             }
-        }
-        $backup->write($this->getResource()->getTableForeignKeysSql());
-        $backup->write($this->getResource()->getFooter());
+            $backup->write($this->getResource()->getTableForeignKeysSql());
+            $backup->write($this->getResource()->getFooter());
 
-        $this->getResource()->commitTransaction();
+            $this->getResource()->commitTransaction();
+        } catch (Exception $e) {
+            $this->getResource()->rollBackTransaction();
+            throw $e;
+        }
 
         $backup->close();
 

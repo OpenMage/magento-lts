@@ -196,12 +196,12 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
                     'store_id IN (?)' => $deleteByStoreIds
                 ));
             }
+            $adapter->commit();
         } catch (Exception $e) {
             $adapter->rollback();
             throw $e;
 
         }
-        $adapter->commit();
 
         return $this;
     }

@@ -76,8 +76,8 @@ class Mage_XmlConnect_Model_Resource_ConfigData extends Mage_Core_Model_Mysql4_A
      */
     public function deleteConfig($applicationId, $category = '', $path = '', $pathLike = true)
     {
+        $this->_getWriteAdapter()->beginTransaction();
         try {
-            $this->_getWriteAdapter()->beginTransaction();
             $writeAdapter = $this->_getWriteAdapter();
             $deleteWhere[] = $writeAdapter->quoteInto('application_id=?', $applicationId);
             if ($category) {
