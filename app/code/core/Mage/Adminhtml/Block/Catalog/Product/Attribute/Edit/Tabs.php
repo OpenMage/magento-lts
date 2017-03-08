@@ -58,6 +58,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tabs extends Mage_Admi
             'title'     => Mage::helper('catalog')->__('Manage Label / Options'),
             'content'   => $this->getLayout()->createBlock('adminhtml/catalog_product_attribute_edit_tab_options')->toHtml(),
         ));
+
+        if ($this->_isAllowed()) {
+            $this->addTab('system_section', array(
+                'label'     => Mage::helper('catalog')->__('System'),
+                'title'     => Mage::helper('catalog')->__('System'),
+                'content'   => $this->getLayout()->createBlock('adminhtml/catalog_product_attribute_edit_tab_system')->toHtml(),
+            ));
+        }
         
         /*if ('select' == $model->getFrontendInput()) {
             $this->addTab('options_section', array(
@@ -70,4 +78,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tabs extends Mage_Admi
         return parent::_beforeToHtml();
     }
 
+    /**
+     * Check admin permissions.
+     * This allows a user to change the attribute system settings if they are allowed to.
+     *
+     * @return bool
+     */
+    protected function _isAllowed()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('catalog/attributes/system_attributes');
+    }
 }

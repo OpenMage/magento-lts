@@ -232,6 +232,61 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
                 }
             }
 
+            //validate attribute model
+            if (isset($data['attribute_model']) && !empty($data['attribute_model'])) {
+                $class = Mage::getSingleton($data['attribute_model']);
+                if (!is_callable(array($class, '_init'))) {
+                    $session->addError(
+                        Mage::helper('catalog')->__('%s is no valid attribute model', $data['attribute_model']));
+                    $this->_redirect('*/*/edit', array('attribute_id' => $id, '_current' => true));
+                    return;
+                }
+            }
+
+            //validate frontend model
+            if (isset($data['frontend_model']) && !empty($data['frontend_model'])) {
+                $class = Mage::getSingleton($data['frontend_model']);
+                if (!is_callable(array($class, 'getValue'))) {
+                    $session->addError(
+                        Mage::helper('catalog')->__('%s is no valid frontend model', $data['frontend_model']));
+                    $this->_redirect('*/*/edit', array('attribute_id' => $id, '_current' => true));
+                    return;
+                }
+            }
+
+            //validate frontend input renderer
+            if (isset($data['frontend_input_renderer']) && !empty($data['frontend_input_renderer'])) {
+                $class = Mage::getBlockSingleton($data['frontend_input_renderer']);
+                if (!is_callable(array($class, 'getElementHtml'))) {
+                    $session->addError(
+                        Mage::helper('catalog')->__('%s is no valid frontend input renderer', $data['frontend_input_renderer']));
+                    $this->_redirect('*/*/edit', array('attribute_id' => $id, '_current' => true));
+                    return;
+                }
+            }
+
+            //validate backend model
+            if (isset($data['backend_model']) && !empty($data['backend_model'])) {
+                $class = Mage::getSingleton($data['backend_model']);
+                if (!is_callable(array($class, 'getAllOptions'))) {
+                    $session->addError(
+                        Mage::helper('catalog')->__('%s is no valid backend model', $data['backend_model']));
+                    $this->_redirect('*/*/edit', array('attribute_id' => $id, '_current' => true));
+                    return;
+                }
+            }
+
+            //validate source model
+            if (isset($data['source_model']) && !empty($data['source_model'])) {
+                $class = Mage::getSingleton($data['source_model']);
+                if (!is_callable(array($class, 'getAllOptions'))) {
+                    $session->addError(
+                        Mage::helper('catalog')->__('%s is no valid source model', $data['attribute_model']));
+                    $this->_redirect('*/*/edit', array('attribute_id' => $id, '_current' => true));
+                    return;
+                }
+            }
+
             if ($id) {
                 $model->load($id);
 
