@@ -30,6 +30,13 @@
 class Mage_Admin_Model_Variable extends Mage_Core_Model_Abstract
 {
     /**
+     * Model event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'admin_variable';
+
+    /**
      * Initialize variable model
      */
     protected function _construct()

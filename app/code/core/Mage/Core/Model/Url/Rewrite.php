@@ -66,6 +66,13 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
      */
     protected $_cacheTag = false;
 
+    /**
+     * Model event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'core_url_rewrite';
+
     protected function _construct()
     {
         $this->_init('core/url_rewrite');

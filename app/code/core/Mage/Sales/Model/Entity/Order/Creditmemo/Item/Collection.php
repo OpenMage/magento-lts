@@ -35,6 +35,13 @@
 
 class Mage_Sales_Model_Entity_Order_Creditmemo_Item_Collection extends Mage_Eav_Model_Entity_Collection_Abstract
 {
+    /**
+     * Model event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'eav_sales_order_creditmemo_item_collection';
+
     protected function _construct()
     {
         $this->_init('sales/order_creditmemo_item');

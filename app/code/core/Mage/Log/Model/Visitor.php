@@ -70,6 +70,13 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
      */
     protected $_session;
 
+    /**
+     * Model event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'log_visitor';
+
     public function __construct(array $data = array())
     {
         $this->_httpHelper = !empty($data['http_helper']) ? $data['http_helper'] : Mage::helper('core/http');

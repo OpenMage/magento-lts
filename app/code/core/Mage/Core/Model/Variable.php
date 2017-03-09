@@ -46,6 +46,13 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
     protected $_storeId = 0;
 
     /**
+     * Model event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'core_variable';
+
+    /**
      * Internal Constructor
      */
     protected function _construct()

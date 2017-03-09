@@ -27,6 +27,13 @@
 class Mage_Eav_Model_Entity_Collection extends Mage_Eav_Model_Entity_Collection_Abstract
 {
     /**
+     * Model event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'eav_entity_collection';
+
+    /**
      * Initialize resource
      */
     public function __construct()

@@ -94,6 +94,13 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     protected $_allowTableChanges = true;
 
     /**
+     * Model event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'index_process';
+
+    /**
      * Initialize resource
      */
     protected function _construct()

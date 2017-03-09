@@ -44,6 +44,13 @@ class Mage_Reports_Model_Flag extends Mage_Core_Model_Flag
     const REPORT_PRODUCT_VIEWED_FLAG_CODE = 'report_product_viewed_aggregated';
 
     /**
+     * Model event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'reports_flag';
+
+    /**
      * Setter for flag code
      *
      * @param string $code

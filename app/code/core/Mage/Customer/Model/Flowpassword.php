@@ -34,6 +34,13 @@
  */
 class Mage_Customer_Model_Flowpassword extends Mage_Core_Model_Abstract
 {
+    /**
+     * Model event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'customer_flowpassword';
+
     protected function _construct()
     {
         $this->_init('customer/flowpassword');

@@ -44,6 +44,13 @@
 class Mage_Catalog_Model_Product_Type_Configurable_Attribute extends Mage_Core_Model_Abstract
 {
     /**
+     * Model event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'catalog_product_type_configurable_attribute';
+
+    /**
      * Initialize resource model
      *
      */

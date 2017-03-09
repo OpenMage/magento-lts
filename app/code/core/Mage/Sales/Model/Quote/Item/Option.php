@@ -49,6 +49,13 @@ class Mage_Sales_Model_Quote_Item_Option extends Mage_Core_Model_Abstract
     protected $_product;
 
     /**
+     * Model event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'sales_quote_item_option';
+
+    /**
      * Initialize resource model
      */
     protected function _construct()

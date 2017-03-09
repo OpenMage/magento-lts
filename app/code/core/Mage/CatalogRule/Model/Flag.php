@@ -39,4 +39,11 @@ class Mage_CatalogRule_Model_Flag extends Mage_Core_Model_Flag
      * @var string
      */
     protected $_flagCode = 'catalog_rules_dirty';
+
+    /**
+     * Model event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'catalogrule_flag';
 }

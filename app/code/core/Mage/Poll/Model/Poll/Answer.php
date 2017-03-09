@@ -45,6 +45,13 @@
 
 class Mage_Poll_Model_Poll_Answer extends Mage_Core_Model_Abstract
 {
+    /**
+     * Model event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'poll_poll_answer';
+
     protected function _construct()
     {
         $this->_init('poll/poll_answer');

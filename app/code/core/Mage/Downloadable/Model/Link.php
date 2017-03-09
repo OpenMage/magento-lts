@@ -66,6 +66,13 @@ class Mage_Downloadable_Model_Link extends Mage_Core_Model_Abstract
     const LINK_SHAREABLE_CONFIG = 2;
 
     /**
+     * Model event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'downloadable_link';
+
+    /**
      * Initialize resource model
      *
      */

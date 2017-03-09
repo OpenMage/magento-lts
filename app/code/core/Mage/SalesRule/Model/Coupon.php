@@ -60,6 +60,13 @@ class Mage_SalesRule_Model_Coupon extends Mage_Core_Model_Abstract
      */
     protected $_rule;
 
+    /**
+     * Model event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'salesrule_coupon';
+
     protected function _construct()
     {
         parent::_construct();

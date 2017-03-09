@@ -51,6 +51,13 @@ class Mage_Core_Model_Flag extends Mage_Core_Model_Abstract
     protected $_flagCode = null;
 
     /**
+     * Model event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'core_flag';
+
+    /**
      * Init resource model
      * Set flag_code if it is specified in arguments
      *

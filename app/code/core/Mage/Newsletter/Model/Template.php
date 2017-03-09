@@ -71,6 +71,13 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
     protected $_mail;
 
     /**
+     * Model event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'newsletter_template';
+
+    /**
      * Initialize resource model
      *
      */

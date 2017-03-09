@@ -72,6 +72,13 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     protected $_process = null;
 
     /**
+     * Model event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'index_event';
+
+    /**
      * Initialize resource
      */
     protected function _construct()

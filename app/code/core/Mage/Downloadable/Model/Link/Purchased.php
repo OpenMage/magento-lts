@@ -55,7 +55,14 @@
 class Mage_Downloadable_Model_Link_Purchased extends Mage_Core_Model_Abstract
 {
     /**
-     * Enter description here...
+     * Model event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'downloadable_link_purchased';
+
+    /**
+     * Initialize resource model
      *
      */
     protected function _construct()

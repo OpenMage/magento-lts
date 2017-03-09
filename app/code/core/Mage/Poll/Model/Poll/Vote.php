@@ -46,6 +46,13 @@
  */
 class Mage_Poll_Model_Poll_Vote extends Mage_Core_Model_Abstract
 {
+    /**
+     * Model event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'poll_poll_vote';
+
     protected function _construct()
     {
         $this->_init('poll/poll_vote');
