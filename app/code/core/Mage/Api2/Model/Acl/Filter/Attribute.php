@@ -53,6 +53,13 @@ class Mage_Api2_Model_Acl_Filter_Attribute extends Mage_Core_Model_Abstract
     protected $_permissionModel;
 
     /**
+     * Model event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'api2_acl_filter_attribute';
+
+    /**
      * Initialize resource model
      *
      * @return void

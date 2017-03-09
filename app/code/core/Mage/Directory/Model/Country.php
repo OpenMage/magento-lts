@@ -44,6 +44,13 @@ class Mage_Directory_Model_Country extends Mage_Core_Model_Abstract
 {
     static public $_format = array();
 
+    /**
+     * Model event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'directory_country';
+
     protected function _construct()
     {
         $this->_init('directory/country');

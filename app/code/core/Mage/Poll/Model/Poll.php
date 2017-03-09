@@ -58,6 +58,13 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
     protected $_answersCollection   = array();
     protected $_storeCollection     = array();
 
+    /**
+     * Model event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'poll_poll';
+
     protected function _construct()
     {
         $this->_init('poll/poll');
