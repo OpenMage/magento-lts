@@ -88,7 +88,7 @@
                        +'<tr>'
                        +    '<td class="label"><label for="answer_votes_' + id + '"><?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('poll')->__('Votes Count:')) ?> <span class="required">*</span></label><\/td>'
                        +    '<td class="value"><input type="text" id="answer_votes_' + id + '" name="answer[' + id + '][votes]" value="0" class="input-text required-entry validate-not-negative-number" />'
-                       +        '<p class="a-left" style="margin:7px 0 0;"><?php echo Mage::helper('core')->quoteEscape($this->getDeleteButtonHtml()) ?></p>'
+                       +        '<p class="a-left" style="margin:7px 0 0;"><?php echo Mage::helper('core')->jsQuoteEscape($this->getDeleteButtonHtml()) ?></p>'
                        +'<\/td>'
                        +'<\/tr>'
                        +'<\/table>'
