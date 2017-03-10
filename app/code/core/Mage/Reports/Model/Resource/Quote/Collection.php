@@ -206,7 +206,7 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
                 )),
                 array('firstname' => 'cust_fname.value')
             )
-            ->joinLeft(
+            ->joinInner(
                 array('cust_mname' => $attrMiddlenameTableName),
                 implode(' AND ', array(
                     'cust_mname.entity_id = main_table.customer_id',
