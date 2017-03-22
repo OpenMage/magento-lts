@@ -281,7 +281,7 @@ AdminOrder.prototype = {
             }
 
             if (fields[i].changeUpdater) fields[i].changeUpdater();
-            if (name == 'region' && data['region_id'] && !data['region']){
+            if (name == 'region' && data['region_id'] > 0 && !data['region']){
                 fields[i].value = data['region_id'];
             }
         }
