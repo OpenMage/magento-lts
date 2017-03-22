@@ -48,7 +48,7 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
      *
      * @var bool
      */
-    protected $_isDisableKeys = true;
+    protected $_isDisableKeys = false;
 
     /**
      * Whether table changes are allowed
