@@ -614,54 +614,6 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
             $i++;
         }
 
-        // Paypal Tax Rounding Issue
-        $lineAmt = 0;
-        $discount = 0;
-        $line = 0;
-        $discountIndex = 0;
-
-        while(isset($request["L_AMT{$line}"])) {
-            if($request["L_NAME{$line}"] == 'Discount') {
-                $discount += $request["L_AMT{$line}"];
-                $discountIndex = $line;
-            }
-            else {
-                $lineAmt += $request["L_AMT{$line}"] * $request["L_QTY{$line}"];
-            }
-            $line++;
-        }
-
-        //Hack to correct Tax rounding on shipping and shipping method chosen
-        if($request['L_SHIPPINGOPTIONISDEFAULT0'] == 'true'){
-            $request['SHIPPINGAMT'] = $request['L_SHIPPINGOPTIONAMOUNT0'];
-        }
-        if($request['L_SHIPPINGOPTIONISDEFAULT1'] == 'true'){
-            $request['SHIPPINGAMT'] = $request['L_SHIPPINGOPTIONAMOUNT1'];
-        }
-        if($request['L_SHIPPINGOPTIONISDEFAULT2'] == 'true'){
-            $request['SHIPPINGAMT'] = $request['L_SHIPPINGOPTIONAMOUNT2'];
-        }
-
-        // Add the lineitem correction into the discount if there's one
-        if($discount) {
-            if($discount + $lineAmt != $request['ITEMAMT']) {
-                // Do correction
-                $request["L_AMT{$discountIndex}"] = ($request['ITEMAMT'] - $lineAmt);
-            }
-        // Correct subtotal if it doesn't match item totals
-        } elseif($lineAmt != $request['ITEMAMT']){
-                $request['ITEMAMT'] = $lineAmt;
-        }
-	    
-        // Correct tax if grandtotal, item amount, shipping amount don't match 
-        $correctTaxAmt = number_format(round($request['AMT'] - $request['ITEMAMT'] - $request['SHIPPINGAMT'], 2),2);
-        if($correctTaxAmt != $request['TAXAMT'] && $correctTaxAmt >= 0) {
-            $request['TAXAMT'] = $correctTaxAmt;
-        } elseif ($correctTaxAmt < 0) {
-	    //Adjust the shipping instead of tax for overseas orders
-            $request['SHIPPINGAMT'] = $request['SHIPPINGAMT'] + $correctTaxAmt;
-	}
-
         $response = $this->call(self::SET_EXPRESS_CHECKOUT, $request);
         $this->_importFromResponse($this->_setExpressCheckoutResponse, $response);
     }
@@ -688,52 +640,6 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         $this->_prepareExpressCheckoutCallRequest($this->_doExpressCheckoutPaymentRequest);
         $request = $this->_exportToRequest($this->_doExpressCheckoutPaymentRequest);
         $this->_exportLineItems($request);
-
-        // Paypal Tax Rounding Issue
-        $lineAmt = 0;
-        $discount = 0;
-        $line = 0;
-        $discountIndex = 0;
-        while(isset($request["L_AMT{$line}"])) {
-            if($request["L_NAME{$line}"] == 'Discount') {
-                $discount += $request["L_AMT{$line}"];
-                $discountIndex = $line;
-            }
-            else {
-                $lineAmt += $request["L_AMT{$line}"] * $request["L_QTY{$line}"];
-            }
-            $line++;
-        }
-
-        #Hack to correct Tax rounding on shipping and shipping method chosen
-        if($request['L_SHIPPINGOPTIONISDEFAULT0'] == 'true'){
-            $request['SHIPPINGAMT'] = $request['L_SHIPPINGOPTIONAMOUNT0'];
-        }
-        if($request['L_SHIPPINGOPTIONISDEFAULT1'] == 'true'){
-            $request['SHIPPINGAMT'] = $request['L_SHIPPINGOPTIONAMOUNT1'];
-        }
-        if($request['L_SHIPPINGOPTIONISDEFAULT2'] == 'true'){
-            $request['SHIPPINGAMT'] = $request['L_SHIPPINGOPTIONAMOUNT2'];
-        }
-
-        // Add the lineitem correction into the discount if there's one
-        if($discount) {
-            if($discount + $lineAmt != $request['ITEMAMT']) {
-                // Do correction
-                $request["L_AMT{$discountIndex}"] = ($request['ITEMAMT'] - $lineAmt);
-            }
-        // Correct subtotal if it doesn't match item totals
-        } elseif($lineAmt != $request['ITEMAMT']){
-                $request['ITEMAMT'] = $lineAmt;
-        }
-	    
-        // Correct tax if grandtotal, item amount, shipping amount don't match 
-        $correctTaxAmt = number_format(round($request['AMT'] - $request['ITEMAMT'] - $request['SHIPPINGAMT'], 2),2);
-        if($correctTaxAmt != $request['TAXAMT'] && $correctTaxAmt >= 0) {
-            $request['TAXAMT'] = $correctTaxAmt;
-        } elseif ($correctTaxAmt < 0) {
-            $request['SHIPPINGAMT'] = $request['SHIPPINGAMT'] + $correctTaxAmt;
-	    }
 
         $response = $this->call(self::DO_EXPRESS_CHECKOUT_PAYMENT, $request);
         $this->_importFromResponse($this->_paymentInformationResponse, $response);
