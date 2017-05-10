@@ -702,7 +702,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
         if (!is_array($categoryIds)) {
             $categoryIds = array($categoryIds);
         }
-        $isActiveExpr = $adapter->getCheckSql('c.value_id > 0', 'c.value', 'c.value');
+        $isActiveExpr = $adapter->getCheckSql('c.value_id > 0', 'c.value', 'd.value');
         $select = $adapter->select()
             ->from(array('main_table' => $this->getTable('catalog/category')), array(
                 'main_table.entity_id',
