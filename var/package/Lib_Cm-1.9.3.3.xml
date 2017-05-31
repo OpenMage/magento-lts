@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+    <name>Lib_Cm</name>
+    <version>1.9.3.3</version>
+    <stability>stable</stability>
+    <license uri="http://framework.zend.com/license/new-bsd">New BSD</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Redis adapter for Zend_Cache</summary>
+    <description>Redis adapter for Zend_Cache</description>
+    <notes>1.9.3.3</notes>
+    <authors><author><name>Colin Mollenhour</name><user>core</user><email>colin@mollenhour.com</email></author></authors>
+    <date>2017-05-12</date>
+    <time>13:02:58</time>
+    <contents><target name="magelib"><dir name="Cm"><dir name="Cache"><dir name="Backend"><file name="Redis.php" hash="1c137eef42b9c034fa0b6d5258092c00"/></dir></dir></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.2.0</min><max>6.0.0</max></php><package><name>Lib_Credis</name><channel>community</channel><min>1.9.3.3</min><max>1.9.3.3</max></package></required></dependencies>
+</package>
