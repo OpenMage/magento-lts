@@ -38,7 +38,7 @@ class AssertUserWrongCredentialsMessage extends AbstractConstraint
     /**
      * Credentials error message.
      */
-    const INVALID_CREDENTIALS_MESSAGE = 'Invalid User Name or Password.';
+    const INVALID_CREDENTIALS_MESSAGE = 'You did not sign in correctly or your account is temporarily disabled.';
 
     /**
      * Constraint severeness.
