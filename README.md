@@ -35,7 +35,7 @@ This allows you to define your version dependencies safely in composer.json:
 ```
 
 ## Important to note
-PHP 7 support was added as as from version 1.9.2.3. based on the Inchoo article and [described here](https://github.com/OpenMage/magento-lts/pull/62).
+PHP 7 support was added as of version 1.9.2.3. based on the Inchoo article and [described here](https://github.com/OpenMage/magento-lts/pull/62).
 
 ## License
 [OSL v3.0](http://opensource.org/licenses/OSL-3.0)
