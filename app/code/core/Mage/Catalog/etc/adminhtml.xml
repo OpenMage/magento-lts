@@ -92,6 +92,9 @@
                                     <attributes translate="title">
                                         <title>Manage Attributes</title>
                                     </attributes>
+                                    <system_attributes translate="title">
+                                        <title>Manage System Attributes</title>
+                                    </system_attributes>
                                     <sets translate="title">
                                         <title>Manage Attribute Sets</title>
                                     </sets>

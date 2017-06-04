@@ -58,7 +58,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_System extends Mag
                 'label' => Mage::helper('catalog')->__('Yes')
             ));
 
-        /*$fieldset->addField('attribute_model', 'text', array(
+        $fieldset->addField('attribute_model', 'text', array(
             'name' => 'attribute_model',
             'label' => Mage::helper('catalog')->__('Attribute Model'),
             'title' => Mage::helper('catalog')->__('Attribute Model'),
@@ -68,7 +68,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_System extends Mag
             'name' => 'backend_model',
             'label' => Mage::helper('catalog')->__('Backend Model'),
             'title' => Mage::helper('catalog')->__('Backend Model'),
-        ));*/
+        ));
 
         $fieldset->addField('backend_type', 'select', array(
             'name' => 'backend_type',
@@ -84,7 +84,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_System extends Mag
             ),
         ));
 
-        /*$fieldset->addField('backend_table', 'text', array(
+        $fieldset->addField('backend_table', 'text', array(
             'name' => 'backend_table',
             'label' => Mage::helper('catalog')->__('Backend Table'),
             'title' => Mage::helper('catalog')->__('Backend Table Title'),
@@ -94,20 +94,40 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_System extends Mag
             'name' => 'frontend_model',
             'label' => Mage::helper('catalog')->__('Frontend Model'),
             'title' => Mage::helper('catalog')->__('Frontend Model'),
-        ));*/
+        ));
 
-        /*$fieldset->addField('is_visible', 'select', array(
+        $fieldset->addField('frontend_class', 'text', array(
+            'name' => 'frontend_class',
+            'label' => Mage::helper('catalog')->__('Frontend Class'),
+            'title' => Mage::helper('catalog')->__('Frontend Class'),
+        ));
+
+        $fieldset->addField('frontend_input_renderer', 'text', array(
+            'name' => 'frontend_input_renderer',
+            'label' => Mage::helper('catalog')->__('Frontend Renderer'),
+            'title' => Mage::helper('catalog')->__('Frontend Renderer'),
+        ));
+
+        $fieldset->addField('note', 'text', array(
+            'name' => 'note',
+            'label' => Mage::helper('catalog')->__('Note'),
+            'title' => Mage::helper('catalog')->__('Note'),
+        ));
+
+        $fieldset->addField('is_visible', 'select', array(
             'name' => 'is_visible',
             'label' => Mage::helper('catalog')->__('Visible'),
             'title' => Mage::helper('catalog')->__('Visible'),
             'values' => $yesno,
-        ));*/
+        ));
 
-        /*$fieldset->addField('source_model', 'text', array(
-            'name' => 'source_model',
-            'label' => Mage::helper('catalog')->__('Source Model'),
-            'title' => Mage::helper('catalog')->__('Source Model'),
-        ));*/
+        if (in_array($model->getFrontendInput(), array('select', 'multiselect', 'boolean'))) {
+            $fieldset->addField('source_model', 'text', array(
+                'name' => 'source_model',
+                'label' => Mage::helper('catalog')->__('Source Model'),
+                'title' => Mage::helper('catalog')->__('Source Model'),
+            ));
+        }
 
         $fieldset->addField('is_global', 'select', array(
             'name'  => 'is_global',
