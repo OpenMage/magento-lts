@@ -1,7 +1,7 @@
 {
   "name": "openmage/magento-lts",
   "license": "OSL-3.0",
-  "type": "magento-source",
+  "type": "magento-core",
   "require": {
     "php": ">=5.2.13",
     "magento-hackathon/magento-composer-installer": "*"
