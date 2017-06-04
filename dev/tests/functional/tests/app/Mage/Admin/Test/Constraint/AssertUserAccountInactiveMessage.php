@@ -36,5 +36,5 @@ class AssertUserAccountInactiveMessage extends AssertUserWrongCredentialsMessage
     /**
      * Credentials error message.
      */
-    const INVALID_CREDENTIALS_MESSAGE = 'This account is inactive.';
+    const INVALID_CREDENTIALS_MESSAGE = 'You did not sign in correctly or your account is temporarily disabled.';
 }
