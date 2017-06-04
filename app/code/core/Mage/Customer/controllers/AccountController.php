@@ -964,10 +964,6 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 $customerForm->compactData($customerData);
                 $errors = array();
 
-                if (!$customer->validatePassword($this->getRequest()->getPost('current_password'))) {
-                    $errors[] = $this->__('Invalid current password');
-                }
-
                 // If email change was requested then set flag
                 $isChangeEmail = ($customer->getOldEmail() != $customer->getEmail()) ? true : false;
                 $customer->setIsChangeEmail($isChangeEmail);
@@ -976,6 +972,10 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 $customer->setIsChangePassword($this->getRequest()->getParam('change_password'));
 
                 if ($customer->getIsChangePassword()) {
+                    if (!$customer->validatePassword($this->getRequest()->getPost('current_password'))) {
+                        $errors[] = $this->__('Invalid current password');
+                    }
+
                     $newPass    = $this->getRequest()->getPost('password');
                     $confPass   = $this->getRequest()->getPost('confirmation');
 
