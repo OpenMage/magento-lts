@@ -33,7 +33,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         IMAGETYPE_JPEG => array('output' => 'imagejpeg', 'create' => 'imagecreatefromjpeg'),
         IMAGETYPE_PNG  => array('output' => 'imagepng',  'create' => 'imagecreatefrompng'),
         IMAGETYPE_XBM  => array('output' => 'imagexbm',  'create' => 'imagecreatefromxbm'),
-        IMAGETYPE_WBMP => array('output' => 'imagewbmp', 'create' => 'imagecreatefromxbm'),
+        IMAGETYPE_WBMP => array('output' => 'imagewbmp', 'create' => 'imagecreatefromwbmp'),
     );
 
     /**
