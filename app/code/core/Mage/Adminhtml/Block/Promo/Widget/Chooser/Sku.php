@@ -92,7 +92,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
     {
         $collection = Mage::getResourceModel('catalog/product_collection')
             ->setStoreId(0)
-            ->addAttributeToSelect('name', 'type_id', 'attribute_set_id');
+            ->addAttributeToSelect(array('name', 'type_id', 'attribute_set_id'));
 
         $this->setCollection($collection);
 
