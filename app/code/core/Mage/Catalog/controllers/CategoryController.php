@@ -38,7 +38,7 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
      *
      * @return Mage_Catalog_Model_Category
      */
-    protected function _initCatagory()
+    protected function _initCategory()
     {
         Mage::dispatchEvent('catalog_controller_category_init_before', array('controller_action' => $this));
         $categoryId = (int) $this->getRequest()->getParam('id', false);
@@ -113,7 +113,7 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
      */
     public function viewAction()
     {
-        if ($category = $this->_initCatagory()) {
+        if ($category = $this->_initCategory()) {
             $design = Mage::getSingleton('catalog/design');
             $settings = $design->getDesignSettings($category);
 
