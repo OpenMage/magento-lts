@@ -74,6 +74,18 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
     }
 
     /**
+     * Initialize requested category object
+     *
+     * @deprecated use method _initCategory
+     *
+     * @return Mage_Catalog_Model_Category
+     */
+    protected function _initCatagory()
+    {
+        return $this->_initCategory();
+    }
+
+    /**
      * Recursively apply custom design settings to category if it's option
      * custom_use_parent_settings is setted to 1 while parent option is not
      *
