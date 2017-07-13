@@ -1128,7 +1128,7 @@ END;
         $validateMap = array(
            'name' => array('method' => 'getName',
                            'v_method' => 'validatePackageName',
-                           'error'=>"Invalid package name, allowed: [a-zA-Z0-9_-] chars"),
+                           'error'=>"Invalid package name, allowed: [a-zA-Z0-9_+] chars"),
            'version' => array('method' => 'getVersion',
                            'v_method' => 'validateVersion',
                            'error'=>"Invalid version, should be like: x.x.x"),

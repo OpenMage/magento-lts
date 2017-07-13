@@ -406,7 +406,9 @@ body { margin:0px;
     color:#2EC029;
     font:normal 11px Lucida Console, Courier New, serif;
     }
-</style></head><body>
+</style>
+<script type="text/javascript" src="js/prototype.js"></script>
+</head><body>
 <script type="text/javascript">
 if (parent && parent.disableInputs) {
     parent.disableInputs(true);
