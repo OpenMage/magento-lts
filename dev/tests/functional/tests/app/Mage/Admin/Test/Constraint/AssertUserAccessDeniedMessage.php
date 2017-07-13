@@ -36,5 +36,5 @@ class AssertUserAccessDeniedMessage extends AssertUserWrongCredentialsMessage
     /**
      * Credentials error message.
      */
-    const INVALID_CREDENTIALS_MESSAGE = 'Access denied.';
+    const INVALID_CREDENTIALS_MESSAGE = 'You did not sign in correctly or your account is temporarily disabled.';
 }

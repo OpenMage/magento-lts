@@ -169,6 +169,7 @@
 "Invalid block: %s","Invalid block: %s"
 "Invalid connection","Invalid connection"
 "Invalid date","Invalid date"
+"Invalid image.","Invalid image."
 "Invalid layout update handle","Invalid layout update handle"
 "Invalid messages storage ""%s"" for layout messages initialization","Invalid messages storage ""%s"" for layout messages initialization"
 "Invalid query","Invalid query"
