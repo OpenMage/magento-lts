@@ -95,9 +95,26 @@ class Mage_Core_Model_File_Validator_Image
                 $image = imagecreatefromstring(file_get_contents($filePath));
                 if ($image !== false) {
                     $img = imagecreatetruecolor($imageWidth, $imageHeight);
+                    imagealphablending($img, false);
                     imagecopyresampled($img, $image, 0, 0, 0, 0, $imageWidth, $imageHeight, $imageWidth, $imageHeight);
+                    imagesavealpha($img, true);
+
                     switch ($fileType) {
                         case IMAGETYPE_GIF:
+                            $transparencyIndex = imagecolortransparent($image);
+                            if ($transparencyIndex >= 0) {
+                                imagecolortransparent($img, $transparencyIndex);
+                                for ($y = 0; $y < $imageHeight; ++$y) {
+                                    for ($x = 0; $x < $imageWidth; ++$x) {
+                                        if (((imagecolorat($img, $x, $y) >> 24) & 0x7F)) {
+                                            imagesetpixel($img, $x, $y, $transparencyIndex);
+                                        }
+                                    }
+                                }
+                            }
+                            if (!imageistruecolor($image)) {
+                                imagetruecolortopalette($img, false, imagecolorstotal($image));
+                            }
                             imagegif($img, $filePath);
                             break;
                         case IMAGETYPE_JPEG:
@@ -107,8 +124,9 @@ class Mage_Core_Model_File_Validator_Image
                             imagepng($img, $filePath);
                             break;
                         default:
-                            return;
+                            break;
                     }
+
                     imagedestroy($img);
                     imagedestroy($image);
                     return null;
