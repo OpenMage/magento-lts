@@ -33,6 +33,13 @@
  */
 class Mage_Adminhtml_Block_Page_Header extends Mage_Adminhtml_Block_Template
 {
+    /**
+     * Model event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'adminhtml_page_header';
+
     public function __construct()
     {
         parent::__construct();
