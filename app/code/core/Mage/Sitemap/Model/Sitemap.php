@@ -55,6 +55,13 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
     protected $_filePath;
 
     /**
+     * Model event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'sitemap_sitemap';
+
+    /**
      * Init model
      */
     protected function _construct()

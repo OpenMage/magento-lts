@@ -44,6 +44,13 @@ class Mage_Tax_Model_Class extends Mage_Core_Model_Abstract
     const TAX_CLASS_TYPE_CUSTOMER   = 'CUSTOMER';
     const TAX_CLASS_TYPE_PRODUCT    = 'PRODUCT';
 
+    /**
+     * Model event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'tax_class';
+
     public function _construct()
     {
         $this->_init('tax/class');

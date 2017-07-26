@@ -44,6 +44,13 @@
  */
 class Mage_Dataflow_Model_Profile_History extends Mage_Core_Model_Abstract
 {
+    /**
+     * Model event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'dataflow_profile_history';
+
     protected function _construct()
     {
         $this->_init('dataflow/profile_history');

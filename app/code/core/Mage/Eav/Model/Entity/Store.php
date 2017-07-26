@@ -46,6 +46,13 @@
 class Mage_Eav_Model_Entity_Store extends Mage_Core_Model_Abstract
 {
     /**
+     * Model event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'eav_entity_store';
+
+    /**
      * Resource initialization
      */
     protected function _construct()

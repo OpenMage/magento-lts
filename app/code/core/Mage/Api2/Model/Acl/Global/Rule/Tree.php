@@ -114,6 +114,13 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
     protected $_hasEntityOnlyAttributes = false;
 
     /**
+     * Model event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'api2_acl_global_rule_tree';
+
+    /**
      * Constructor
      *
      * In the constructor should be set tree type: attributes or privileges.

@@ -52,6 +52,13 @@ class Mage_Reports_Model_Product_Index_Viewed extends Mage_Reports_Model_Product
     protected $_countCacheKey   = 'product_index_viewed_count';
 
     /**
+     * Model event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'reports_product_index_viewed';
+
+    /**
      * Initialize resource model
      *
      */

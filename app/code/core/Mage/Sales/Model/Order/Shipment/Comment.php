@@ -55,6 +55,13 @@ class Mage_Sales_Model_Order_Shipment_Comment extends Mage_Sales_Model_Abstract
     protected $_shipment;
 
     /**
+     * Model event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'sales_order_shipment_comment';
+
+    /**
      * Initialize resource model
      */
     protected function _construct()

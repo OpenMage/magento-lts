@@ -56,6 +56,13 @@ class Mage_Reports_Model_Event extends Mage_Core_Model_Abstract
     const EVENT_WISHLIST_SHARE  = 6;
 
     /**
+     * Model event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'reports_event';
+
+    /**
      * Initialize resource
      *
      */

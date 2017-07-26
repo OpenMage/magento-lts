@@ -60,6 +60,13 @@ class Mage_GiftMessage_Model_Message extends Mage_Core_Model_Abstract
         'quote_address_item' => 'sales/quote_address_item'
     );
 
+    /**
+     * Model event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'giftmessage_message';
+
     protected function _construct()
     {
         $this->_init('giftmessage/message');

@@ -47,6 +47,13 @@
 class Mage_Log_Model_Customer extends Mage_Core_Model_Abstract
 {
     /**
+     * Model event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'log_customer';
+
+    /**
      * Define resource model
      *
      */

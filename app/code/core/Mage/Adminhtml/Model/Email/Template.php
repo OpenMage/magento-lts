@@ -41,6 +41,13 @@ class Mage_Adminhtml_Model_Email_Template extends Mage_Core_Model_Email_Template
     const XML_PATH_TEMPLATE_EMAIL = '//sections/*/groups/*/fields/*[source_model="adminhtml/system_config_source_email_template"]';
 
     /**
+     * Model event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'adminhtml_email_template';
+
+    /**
      * Collect all system config pathes where current template is used as default
      *
      * @return array

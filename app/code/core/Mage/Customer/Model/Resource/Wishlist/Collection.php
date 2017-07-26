@@ -35,6 +35,13 @@
 class Mage_Customer_Model_Resource_Wishlist_Collection extends Mage_Eav_Model_Entity_Collection_Abstract
 {
     /**
+     * Model event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'eav_customer_wishlist_collection';
+
+    /**
      * Set entity
      */
     protected function _construct()

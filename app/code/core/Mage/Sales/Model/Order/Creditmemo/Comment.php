@@ -55,6 +55,13 @@ class Mage_Sales_Model_Order_Creditmemo_Comment extends Mage_Sales_Model_Abstrac
     protected $_creditmemo;
 
     /**
+     * Model event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'sales_order_creditmemo_comment';
+
+    /**
      * Initialize resource model
      */
     protected function _construct()
