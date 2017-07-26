@@ -511,6 +511,19 @@ FormElementDependenceController.prototype = {
         levels_up : 1 // how many levels up to travel when toggling element
     },
 
+    getSelectValues : function(select) {
+        var result = [];
+        var options = select && select.options;
+        var opt;
+        for (var i = 0, iLen = options.length; i < iLen; i++) {
+            opt = options[i];
+            if (opt.selected) {
+                result.push(opt.value);
+            }
+        }
+        return result;
+    }
+
     /**
      * Define whether target element should be toggled and show/hide its row
      *
@@ -529,13 +542,20 @@ FormElementDependenceController.prototype = {
         var shouldShowUp = true;
         for (var idFrom in valuesFrom) {
             var from = $(idFrom);
-            if (valuesFrom[idFrom] instanceof Array) {
-                if (!from || valuesFrom[idFrom].indexOf(from.value) == -1) {
+            if (from.tagName === 'SELECT' && from.className.indexOf('multiselect') > -1) {
+                var elementValues = this.getSelectValues(from);
+                if (!from || elementValues.indexOf(valuesFrom[idFrom]) <= -1) {
                     shouldShowUp = false;
                 }
             } else {
-                if (!from || from.value != valuesFrom[idFrom]) {
-                    shouldShowUp = false;
+                if (valuesFrom[idFrom] instanceof Array) {
+                    if (!from || valuesFrom[idFrom].indexOf(from.value) == -1) {
+                        shouldShowUp = false;
+                    }
+                } else {
+                    if (!from || from.value != valuesFrom[idFrom]) {
+                        shouldShowUp = false;
+                    }
                 }
             }
         }
