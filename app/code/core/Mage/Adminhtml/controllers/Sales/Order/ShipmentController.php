@@ -185,13 +185,16 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
             Mage::getSingleton('adminhtml/session')->setCommentText($data['comment_text']);
         }
 
-        try {
-            $shipment = $this->_initShipment();
-            if (!$shipment) {
-                $this->_forward('noRoute');
-                return;
-            }
+        $shipment = $this->_initShipment();
+        if (!$shipment) {
+            $this->_forward('noRoute');
+            return;
+        }
 
+        $responseAjax = new Varien_Object();
+        $isNeedCreateLabel = isset($data['create_shipping_label']) && $data['create_shipping_label'];
+
+        try {
             $shipment->register();
             $comment = '';
             if (!empty($data['comment_text'])) {
@@ -210,8 +213,6 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
             }
 
             $shipment->getOrder()->setCustomerNoteNotify(!empty($data['send_email']));
-            $responseAjax = new Varien_Object();
-            $isNeedCreateLabel = isset($data['create_shipping_label']) && $data['create_shipping_label'];
 
             if ($isNeedCreateLabel && $this->_createShippingLabel($shipment)) {
                 $responseAjax->setOk(true);
@@ -245,7 +246,6 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
                 $this->_getSession()->addError($this->__('Cannot save shipment.'));
                 $this->_redirect('*/*/new', array('order_id' => $this->getRequest()->getParam('order_id')));
             }
-
         }
         if ($isNeedCreateLabel) {
             $this->getResponse()->setBody($responseAjax->toJson());
