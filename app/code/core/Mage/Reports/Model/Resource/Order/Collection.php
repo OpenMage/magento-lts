@@ -174,7 +174,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
                 Mage_Sales_Model_Order::STATE_PENDING_PAYMENT,
                 Mage_Sales_Model_Order::STATE_NEW)
             )
-            ->order('range', Zend_Db_Select::SQL_ASC)
+            ->order('range ' . Zend_Db_Select::SQL_ASC)
             ->group($tzRangeOffsetExpression);
 
         $this->addFieldToFilter('created_at', $dateRange);
