@@ -507,7 +507,7 @@ class Mage_Catalog_Model_Convert_Parser_Product
 
             $baseRowData = array(
                 'store'     => $row['store'],
-                'website'   => $row['website'],
+                'website'   => $row['websites'],
                 'sku'       => $row['sku']
             );
             unset($row);
