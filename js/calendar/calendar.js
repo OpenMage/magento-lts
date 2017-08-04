@@ -1246,6 +1246,8 @@ Calendar.prototype._init = function (firstDayOfWeek, date) {
                 }
                 if (weekend.indexOf(wday.toString()) != -1)
                     cell.className += cell.otherMonth ? " oweekend" : " weekend";
+            } else {
+                this.currentDateEl = cell;
             }
         }
         if (!(hasdays || this.showsOtherMonths))
