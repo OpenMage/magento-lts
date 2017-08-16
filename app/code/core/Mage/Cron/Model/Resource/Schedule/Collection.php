@@ -51,7 +51,7 @@ class Mage_Cron_Model_Resource_Schedule_Collection extends Mage_Core_Model_Resou
      */
     public function orderByScheduledAt($dir = self::SORT_ORDER_ASC)
     {
-        $this->getSelect()->order('scheduled_at', $dir);
+        $this->getSelect()->order('scheduled_at ' . $dir);
         return $this;
     }
 }
