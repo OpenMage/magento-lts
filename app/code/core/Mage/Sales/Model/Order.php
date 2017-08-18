@@ -1083,6 +1083,12 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         } else {
             $this->setStatus($status);
         }
+        
+         //get username and append
+        $session = Mage::getSingleton('admin/session');
+        $username = $session->getUser()->getUsername();
+        $comment .= ($username) ? " ({$username})" : ' (system)';       
+        
         $history = Mage::getModel('sales/order_status_history')
             ->setStatus($status)
             ->setComment($comment)
