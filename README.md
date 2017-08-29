@@ -9,22 +9,10 @@
 
 This repository aims to be a dependably patched archive of the Magento CE core releases. These sources should stay as close to the sources released by Magento as possible (no new features).  **However, pull requests with unofficial bug fixes and security patches from the community are definitely encouraged.** It's our goal to apply patches available from Magento as quickly as possible, but these do not always cover all known issues.
 
-Though Magento does not follow [Semantic Versioning](http://semver.org/) we aim to provide a workable system for dependancy definition.  A release version might look something like "1.9.1.0", but there may have been some functionality added since the "1.9.0.0" release.  There might also have been some patches released with no update to the currently available sources or version number.  
+Though Magento does not follow [Semantic Versioning](http://semver.org/) we aim to provide a workable system for dependancy definition.  
+Each Magento `1.<minor>.<revision>` release will get its own branch (named `1.<minor>.<revision>.x`) that will be independently maintained (for as long as it makes sense to do so) with upstream patches and community bug fixes. For example, Magento version `1.9.3.4` was merged into the `1.9.3.x` branch.
 
-Because of this, we must define a slightly different system to define each decimal place.
-
-
-##\#MageVer
-#####1 - UBER VERSION
-######.
-#####9 - Magento Major Version
-######.
-#####1 - Magento Minor Version
-######.
-#####0 - ? (maybe some patches)
-
-
-Each Magento Version release will get its own branch that will be independently maintained with patches and backported bug fixes.
+Note, the branches older than `1.9.3.x` that were created before this strategy came into practice are not maintained.
 
 
 ## Installation
