@@ -244,7 +244,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
         $product = $this->_getProduct($productInfo);
         $request = $this->_getProductRequest($requestInfo);
 
-        Mage::dispatchEvent('checkout_cart_product_add_before', array('request' => $request', product' => $product));
+        Mage::dispatchEvent('checkout_cart_product_add_before', array('request' => $request, 'product' => $product));
 
         /** @var Mage_Catalog_Helper_Product $helper */
         $helper  = Mage::helper('catalog/product');
