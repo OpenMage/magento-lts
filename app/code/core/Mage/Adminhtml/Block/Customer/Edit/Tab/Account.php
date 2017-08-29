@@ -34,6 +34,13 @@
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Block_Widget_Form
 {
     /**
+     * Block event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'adminhtml_customer_edit_tab_account';
+
+    /**
      * Initialize block
      */
     public function __construct()

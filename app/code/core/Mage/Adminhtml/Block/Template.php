@@ -38,7 +38,7 @@ class Mage_Adminhtml_Block_Template extends Mage_Core_Block_Template
      *
      * @var string
      */
-    $_eventPrefix = 'adminhtml';
+    protected $_eventPrefix = 'adminhtml_template';
 
     /**
      * Enter description here...

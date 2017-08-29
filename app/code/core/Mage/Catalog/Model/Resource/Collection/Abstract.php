@@ -40,7 +40,7 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
      *
      * @var string
      */
-    protected $_eventPrefix = 'eav_catalog_collection_abstract';
+    protected $_eventPrefix = 'catalog_resource_collection_abstract';
 
     /**
      * Current scope (store Id)
