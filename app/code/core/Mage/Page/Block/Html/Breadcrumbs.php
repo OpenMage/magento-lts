@@ -67,7 +67,12 @@ class Mage_Page_Block_Html_Breadcrumbs extends Mage_Core_Block_Template
     {
         $this->_prepareArray($crumbInfo, array('label', 'title', 'link', 'first', 'last', 'readonly'));
         if ((!isset($this->_crumbs[$crumbName])) || (!$this->_crumbs[$crumbName]['readonly'])) {
-           $this->_crumbs[$crumbName] = $crumbInfo;
+            if ($after && isset($this->_crumbs[$after])) {
+                $offset = array_search($after, array_keys($this->_crumbs)) + 1;
+                $this->_crumbs = array_slice($this->_crumbs, 0, $offset, true) + array($crumbName => $crumbInfo) + array_slice($this->_crumbs, $offset, null, true);
+            } else {
+                $this->_crumbs[$crumbName] = $crumbInfo;
+            }
         }
         return $this;
     }
