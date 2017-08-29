@@ -34,7 +34,7 @@
             <sort_order>305</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
-            <show_in_store>0</show_in_store>
+            <show_in_store>1</show_in_store>
             <groups>
                 <options translate="label">
                     <label>Checkout Options</label>
@@ -42,7 +42,7 @@
                     <sort_order>1</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
-                    <show_in_store>0</show_in_store>
+                    <show_in_store>1</show_in_store>
                     <fields>
                         <onepage_checkout_enabled translate="label">
                             <label>Enable Onepage Checkout</label>
