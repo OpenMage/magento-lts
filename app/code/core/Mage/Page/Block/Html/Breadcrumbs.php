@@ -77,6 +77,30 @@ class Mage_Page_Block_Html_Breadcrumbs extends Mage_Core_Block_Template
         return $this;
     }
 
+    public function addCrumbBefore($crumbName, $crumbInfo, $before = false)
+    {
+        if ($before && isset($this->_crumbs[$before])) {
+            $keys = array_keys($this->_crumbs);
+            $offset = array_search($before, $keys);
+            # add before first
+            if (!$offset) {
+                $this->_prepareArray($crumbInfo, array('label', 'title', 'link', 'first', 'last', 'readonly'));
+                $this->_crumbs = array($crumbName => $crumbInfo) + $this->_crumbs;
+            } else {
+                $this->addCrumb($crumbName, $crumbInfo, $keys[$offset-1]);
+            }
+        } else {
+            $this->addCrumb($crumbName, $crumbInfo);
+        }
+    }
+
+    public function removeCrumb($crumbName)
+    {
+        if (isset($this->_crumbs[$crumbName])) {
+            unset($this->_crumbs[$crumbName]);
+        }
+    }
+
     /**
      * Get cache key informative items
      *
