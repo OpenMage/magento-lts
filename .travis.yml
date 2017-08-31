@@ -11,7 +11,7 @@ matrix:
     - php: 7.2
 
 before_script:
-  - '! find . -type f -name "*.php" -exec php -d error_reporting=32767 -l {} \; 2>&1 >&- | grep "^"'
-  - '! find . -type f -name "*.phtml" -exec php -d error_reporting=32767 -l {} \; 2>&1 >&- | grep "^"'
+  - '! find . -type f -not \( -path lib/PEAR -prune \) -not \( -path lib/phpseclib -prune \) -name "*.php" -exec php -d error_reporting=32767 -l {} \; 2>&1 >&- | grep "^"'
+  - '! find app/design -type f -name "*.phtml" -exec php -d error_reporting=32767 -l {} \; 2>&1 >&- | grep "^"'
 
 script: exit 0
