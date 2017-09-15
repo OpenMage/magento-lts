@@ -103,8 +103,8 @@ class Mage_Shipping_Model_Carrier_Tablerate
 
         // Free shipping by qty
         $freeQty = 0;
+        $freePackageValue = 0;
         if ($request->getAllItems()) {
-            $freePackageValue = 0;
             foreach ($request->getAllItems() as $item) {
                 if ($item->getProduct()->isVirtual() || $item->getParentItem()) {
                     continue;

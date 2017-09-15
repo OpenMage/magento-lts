@@ -494,6 +494,7 @@
 "Invalid password reset token.","Invalid password reset token."
 "Invalid response","Invalid response"
 "Invalid sender name ""%s"". Please use only visible characters and spaces.","Invalid sender name ""%s"". Please use only visible characters and spaces."
+"Invalid template path used in layout update.","Invalid template path used in layout update."
 "Invalid timezone","Invalid timezone"
 "Invalidated","Invalidated"
 "Inventory Stock Status","Inventory Stock Status"

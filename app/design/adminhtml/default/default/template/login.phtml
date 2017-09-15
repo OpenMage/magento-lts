@@ -58,8 +58,8 @@
                         <input type="text" id="username" name="login[username]" value="" class="required-entry input-text" /></div>
                     <div class="input-box input-right"><label for="login"><?php echo Mage::helper('adminhtml')->__('Password:') ?></label><br />
                         <!-- This is a dummy hidden field to trick firefox from auto filling the password -->
-                        <input type="text" class="input-text no-display" name="dummy" id="dummy" />
-                        <input type="password" id="login" name="login[password]" class="required-entry input-text" value="" autocomplete="off" /></div>
+                        <input type="password" class="input-text no-display" name="dummy" id="dummy" />
+                        <input type="password" id="login" name="login[password]" class="required-entry input-text" value="" autocomplete="new-password" /></div>
                     <?php echo $this->getChildHtml('form.additional.info'); ?>
                     <div class="clear"></div>
                     <div class="form-buttons">
