@@ -1,0 +1,19 @@
+***************
+*** 103,110 ****
+  
+          // Free shipping by qty
+          $freeQty = 0;
+          if ($request->getAllItems()) {
+-             $freePackageValue = 0;
+              foreach ($request->getAllItems() as $item) {
+                  if ($item->getProduct()->isVirtual() || $item->getParentItem()) {
+                      continue;
+--- 103,110 ----
+  
+          // Free shipping by qty
+          $freeQty = 0;
++         $freePackageValue = 0;
+          if ($request->getAllItems()) {
+              foreach ($request->getAllItems() as $item) {
+                  if ($item->getProduct()->isVirtual() || $item->getParentItem()) {
+                      continue;
