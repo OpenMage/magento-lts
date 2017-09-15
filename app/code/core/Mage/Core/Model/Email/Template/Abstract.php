@@ -235,8 +235,11 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
                 '_theme' => $theme,
             )
         );
+        $filePath = realpath($filePath);
+        $positionSkinDirectory = strpos($filePath, Mage::getBaseDir('skin'));
+        $validator = new Zend_Validate_File_Extension('css');
 
-        if (is_readable($filePath)) {
+        if ($validator->isValid($filePath) && $positionSkinDirectory !== false && is_readable($filePath)) {
             return (string) file_get_contents($filePath);
         }
 

@@ -467,6 +467,9 @@
                     </protected>
                 </public_files_valid_paths>
             </file>
+            <reprocess_images>
+                <active>1</active>
+            </reprocess_images>
         </general>
     </default>
     <stores>
