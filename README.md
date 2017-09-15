@@ -3,7 +3,7 @@
 | Patch | Commit |
 | ----- | ------ |
 | SUPEE-9652 | [03835f8](https://github.com/OpenMage/magento-lts/commit/03835f8) |
-
+| SUPEE-10266 | [40720ca](https://github.com/OpenMage/magento-lts/commit/40720ca) |
 
 # Magento - Long Term Support
 
