@@ -727,8 +727,8 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
                 'c.attribute_id = :attribute_id AND c.store_id = :store_id AND c.entity_id = m.entity_id',
                 array()
             )
-            ->where($checkSql . ' = :scope');
-        $select->order("m.position ASC");
+            ->where($checkSql . ' = :scope')
+            ->order("m.position ASC");
 
         return $adapter->fetchCol($select, $bind);
     }
