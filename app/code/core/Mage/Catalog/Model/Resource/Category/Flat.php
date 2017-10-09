@@ -1320,6 +1320,8 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         if ($isActive) {
             $select->where('is_active = ?', '1');
         }
+        $maintable = $this->getMainStoreTable($category->getStoreId());
+        $select->order($maintable.".position ASC");
         $_categories = $this->_getReadAdapter()->fetchAll($select);
         $categoriesIds = array();
         foreach ($_categories as $_category) {

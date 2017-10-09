@@ -728,6 +728,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
                 array()
             )
             ->where($checkSql . ' = :scope');
+        $select->order("m.position ASC");
 
         return $adapter->fetchCol($select, $bind);
     }
