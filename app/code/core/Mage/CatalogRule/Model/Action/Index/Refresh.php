@@ -459,7 +459,7 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
                     )
                 )
             ),
-            '@price := @price'
+            '@price'
         );
     }
 
