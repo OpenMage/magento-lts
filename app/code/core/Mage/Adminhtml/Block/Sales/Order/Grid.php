@@ -57,6 +57,7 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel($this->_getCollectionClass());
+        $collection->getSelect()->joinLeft(array('sot' => 'sales_order_tax'),'sot.order_id=main_table.entity_id',array('sot.amount' => 'amount'));        
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
@@ -112,6 +113,15 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
             'currency' => 'order_currency_code',
         ));
 
+        /** OPTIONAL 
+        $this->addColumn('tax_amount', array(
+            'header' => Mage::helper('sales')->__('Tax Amount'),
+            'index' => 'sot.amount',
+            'type'  => 'currency',
+            'currency' => 'order_currency_code',
+        ));        
+        */
+           
         $this->addColumn('status', array(
             'header' => Mage::helper('sales')->__('Status'),
             'index' => 'status',
