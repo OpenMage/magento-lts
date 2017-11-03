@@ -728,11 +728,12 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Before save prepare process
+     * Perform automatic data process on stock item
+     * Logic moved from _beforeSave()
      *
-     * @return Mage_CatalogInventory_Model_Stock_Item
+     * @return $this
      */
-    protected function _beforeSave()
+    public function processStockData()
     {
         // see if quantity is defined for this item type
         $typeId = $this->getTypeId();
@@ -763,6 +764,18 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
         } else {
             $this->setQty(0);
         }
+
+        return $this;
+    }
+
+    /**
+     * Before save prepare process
+     *
+     * @return Mage_CatalogInventory_Model_Stock_Item
+     */
+    protected function _beforeSave()
+    {
+        $this->processStockData();
 
         return $this;
     }
