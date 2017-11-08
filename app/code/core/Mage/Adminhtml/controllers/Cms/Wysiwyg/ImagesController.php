@@ -218,9 +218,11 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
      */
     protected function _saveSessionCurrentPath()
     {
-        $this->getStorage()
-            ->getSession()
-            ->setCurrentPath(Mage::helper('cms/wysiwyg_images')->getCurrentPath());
+        if ($this->getRequest()->isPost()) {
+            $this->getStorage()
+                ->getSession()
+                ->setCurrentPath(Mage::helper('cms/wysiwyg_images')->getCurrentPath());
+        }
         return $this;
     }
 
