@@ -522,7 +522,7 @@ FormElementDependenceController.prototype = {
             }
         }
         return result;
-    }
+    },
 
     /**
      * Define whether target element should be toggled and show/hide its row
