@@ -743,13 +743,87 @@ class Mage_CatalogInventory_Model_Observer
 
         // Reindex previously remembered items
         $productIds = array();
+        $arrChangedFields = array(
+            'is_in_stock' => array(),
+            'low_stock_date' => array()
+        );
         foreach ($this->_itemsForReindex as $item) {
-            $item->save();
+            $this->_simulateItemBeforeSave($item, $arrChangedFields);
             $productIds[] = $item->getProductId();
         }
+
+        $this->_simulateItemSave($this->_itemsForReindex, $arrChangedFields);
+
         Mage::getResourceSingleton('catalog/product_indexer_price')->reindexProductIds($productIds);
 
         $this->_itemsForReindex = array(); // Clear list of remembered items - we don't need it anymore
+
+        return $this;
+    }
+
+    /**
+     * @param Mage_CatalogInventory_Model_Stock_Item $item
+     * @param array $arrChangedFields
+     *
+     * @return $this
+     */
+    private function _simulateItemBeforeSave(Mage_CatalogInventory_Model_Stock_Item $item, &$arrChangedFields)
+    {
+        // Ensuring Original Data is set, not set when created
+        $item->setOrigData();
+
+        // Simulate what would happen in _beforeSave()
+        $item->processStockData();
+
+        // Checking if IsInStock has changed
+        if ($item->dataHasChangedFor('is_in_stock')) {
+            $arrChangedFields['is_in_stock'][] = $item->getProductId();
+        }
+
+        // Checking if LowStockDate has changed
+        if ($item->dataHasChangedFor('low_stock_date')) {
+            $arrChangedFields['low_stock_date'][] = $item->getProductId();
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Mage_CatalogInventory_Model_Stock_Item[] $arrItems
+     * @param array $arrChangedFields
+     *
+     * @return $this
+     */
+    private function _simulateItemSave($arrItems, $arrChangedFields)
+    {
+        try {
+
+            /** @var Mage_CatalogInventory_Model_Resource_Stock $stockResource */
+            $stockResource = Mage::getResourceSingleton('cataloginventory/stock');
+
+            if (!empty($arrChangedFields['is_in_stock']) ) {
+                $stockResource->updateSetOutOfStock($arrChangedFields['is_in_stock']);
+            }
+
+            if (!empty($arrChangedFields['low_stock_date'])) {
+                $stockResource->updateLowStockDate($arrChangedFields['low_stock_date']);
+            }
+
+            // Ensuring that all records are updated in the DB before running
+            // the save after event
+            foreach ($arrItems as $item) {
+                Mage::dispatchEvent(
+                    'cataloginventory_stock_item_save_after',
+                    array(
+                        'item' => $item,
+                        'data_object' => $item,
+                    )
+                );
+            }
+
+        } catch (Exception $e) {
+            Mage::logException($e);
+        }
 
         return $this;
     }
