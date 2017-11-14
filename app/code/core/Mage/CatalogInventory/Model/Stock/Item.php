@@ -392,7 +392,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
         return $this->_qtyIncrements;
     }
 
-     /**
+    /**
      * Retrieve Default Quantity Increments data wrapper
      *
      * @deprecated since 1.7.0.0
@@ -556,8 +556,8 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
             $qty = intval($qty);
 
             /**
-              * Adding stock data to quote item
-              */
+             * Adding stock data to quote item
+             */
             $result->setItemQty($qty);
 
             if (!is_numeric($qty)) {
@@ -762,6 +762,41 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
             }
         } else {
             $this->setQty(0);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Update Stock Status and low stock date as if $this->save() has been
+     * called, keeping the update query very light, by only touching those
+     * fields of interest
+     *
+     * @return $this
+     */
+    public function updateStockStatus()
+    {
+        $this->setOrigData()->setDataChanges(false);
+        $this->_beforeSave();
+
+        if ($this->hasDataChanges()) {
+
+            $updatedFields = array(
+                'is_in_stock' => $this->getIsInStock(),
+                'stock_status_changed_auto' => $this->getStockStatusChangedAutomatically(),
+                'low_stock_date' => $this->getLowStockDate()
+            );
+
+            $this->getResource()
+                ->updateRecord($this->getId(), $updatedFields);
+
+            Mage::dispatchEvent(
+                'cataloginventory_stock_item_save_after',
+                array(
+                    'item' => $this,
+                    'data_object' => $this,
+                )
+            );
         }
 
         return $this;
