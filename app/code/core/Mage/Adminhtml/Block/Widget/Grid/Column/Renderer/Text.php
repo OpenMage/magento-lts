@@ -62,7 +62,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Text
             // Parsing of format string
             $formattedString = $format;
             foreach ($matches[0] as $matchIndex=>$match) {
-                $value = $row->getData($matches[1][$matchIndex]);
+                $value = $this->escapeHtml($row->getData($matches[1][$matchIndex]));
                 $formattedString = str_replace($match, $value, $formattedString);
             }
             return $formattedString;
