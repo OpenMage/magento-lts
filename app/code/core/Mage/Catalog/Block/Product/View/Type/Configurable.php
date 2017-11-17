@@ -206,7 +206,8 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
                         $productsIndexOptions = $options[$attributeId][$value['value_index']];
                         $productsIndex = array();
                         foreach ($productsIndexOptions as $productIndex) {
-                            if ($productStock[$productIndex]) {
+                            $skipSaleableCheck = Mage::helper('catalog/product')->getSkipSaleableCheck();
+                            if ($productStock[$productIndex] || $skipSaleableCheck) {
                                 $productsIndex[] = $productIndex;
                             }
                         }
