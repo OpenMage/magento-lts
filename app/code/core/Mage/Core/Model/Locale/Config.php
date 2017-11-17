@@ -59,6 +59,7 @@ class Mage_Core_Model_Locale_Config
         'vi_VN' /*Vietnamese (Vietnam)*/,       'zh_CN' /*Chinese (China)*/,        'zh_HK' /*Chinese (Hong Kong SAR)*/,
         'zh_TW' /*Chinese (Taiwan)*/,           'es_CL' /*Spanich (Chile)*/,        'lo_LA' /*Laotian*/,
         'es_VE' /*Spanish (Venezuela)*/,        'en_IE' /*English (Ireland)*/,
+        'fr_CH' /*French (Switzerland)*/,
     );
 
     /**
