@@ -401,7 +401,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     protected function _getLoadSelect($field, $value, $object)
     {
         $fields = $this->_getReadAdapter()->describeTable($this->getMainTable());
-        if(isset($fields[$field]) && isset($fields[$field]['DATA_TYPE']))   {
+        if(isset($fields[$field]['DATA_TYPE']))   {
             $value  = $this->_getReadAdapter()->prepareColumnValue($fields[$field], $value);
         }
         $field  = $this->_getReadAdapter()->quoteIdentifier(sprintf('%s.%s', $this->getMainTable(), $field));
