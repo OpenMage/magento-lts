@@ -161,6 +161,10 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
      */
     public function isOrderIncrementIdUsed($orderIncrementId)
     {
+        $fields = $this->_getReadAdapter()->describeTable($this->getTable('sales/order'));
+        if(isset($fields['increment_id']['DATA_TYPE']))   {
+            $orderIncrementId  = $this->_getReadAdapter()->prepareColumnValue($fields['increment_id'], $orderIncrementId);
+        }
         $adapter   = $this->_getReadAdapter();
         $bind      = array(':increment_id' => $orderIncrementId);
         $select    = $adapter->select();
