@@ -156,22 +156,20 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
     /**
      * Check is order increment id use in sales/order table
      *
-     * @param string $orderIncrementId
+     * @param string|integer $orderIncrementId
+     *
      * @return boolean
      */
     public function isOrderIncrementIdUsed($orderIncrementId)
     {
-        $fields = $this->_getReadAdapter()->describeTable($this->getTable('sales/order'));
-        if(isset($fields['increment_id']['DATA_TYPE']))   {
-            $orderIncrementId  = $this->_getReadAdapter()->prepareColumnValue($fields['increment_id'], $orderIncrementId);
-        }
-        $adapter   = $this->_getReadAdapter();
-        $bind      = array(':increment_id' => $orderIncrementId);
-        $select    = $adapter->select();
-        $select->from($this->getTable('sales/order'), 'entity_id')
+
+        $adapter = $this->_getReadAdapter();
+        $fields = $adapter->describeTable($this->getTable('sales/order'));
+        $orderIncrementId = $adapter->prepareColumnValue($fields['increment_id'], $orderIncrementId);
+        $select = $adapter->select()
+            ->from($this->getTable('sales/order'), 'entity_id')
             ->where('increment_id = :increment_id');
-        $entity_id = $adapter->fetchOne($select, $bind);
-        if ($entity_id > 0) {
+        if ($adapter->fetchOne($select, array(':increment_id' => $orderIncrementId)) > 0) {
             return true;
         }
 
