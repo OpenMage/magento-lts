@@ -107,7 +107,7 @@
         init : function() {
             $('content_pages').update('');
             <?php foreach($this->getPages() as $page): ?>
-                this.pageOptions += '<option value="<?php echo $helper->jsQuoteEscape($page['value']) ?>"><?php echo $helper->jsQuoteEscape($page['label']) ?></option>';
+                this.pageOptions += '<option value="<?php echo $helper->jsQuoteEscape($page['value']) ?>"><?php echo $helper->quoteEscape($page['label']) ?></option>';
             <?php endforeach; ?>
         },
         showPage : function(node, label, idValue) {

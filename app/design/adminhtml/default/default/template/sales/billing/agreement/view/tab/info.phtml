@@ -41,7 +41,7 @@
                     <th><?php echo $this->__('Customer'); ?></th>
                     <td>
                         <a href="<?php echo $this->getCustomerUrl(); ?>">
-                            <?php echo $this->getCustomerEmail() ?>
+                            <?php echo $this->escapeHtml($this->getCustomerEmail()) ?>
                         </a>
                     </td>
                 </tr>

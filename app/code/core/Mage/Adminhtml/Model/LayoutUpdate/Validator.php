@@ -142,7 +142,7 @@ class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Zend_Validate_Abstract
     protected function _validateTemplatePath(array $templatePaths)
     {
         foreach ($templatePaths as $path) {
-            if (strpos($path, '../') !== false) {
+            if (strpos($path, '..' . DS) !== false) {
                 throw new Exception();
             }
         }
