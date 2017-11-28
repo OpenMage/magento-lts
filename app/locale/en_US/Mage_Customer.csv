@@ -278,6 +278,7 @@
 "Per Website","Per Website"
 "Personal Information","Personal Information"
 "Please enter a number 1 or greater in this field.","Please enter a number 1 or greater in this field."
+"Please enter a password with at most %s characters.","Please enter a password with at most %s characters."
 "Please enter a valid date between %s and %s at %s.","Please enter a valid date between %s and %s at %s."
 "Please enter a valid date equal to or greater than %s at %s.","Please enter a valid date equal to or greater than %s at %s."
 "Please enter a valid date less than or equal to %s at %s.","Please enter a valid date less than or equal to %s at %s."

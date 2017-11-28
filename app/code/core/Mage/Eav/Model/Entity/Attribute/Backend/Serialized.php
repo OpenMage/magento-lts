@@ -83,7 +83,8 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Serialized extends Mage_Eav_Model_
         $attrCode = $this->getAttribute()->getAttributeCode();
         if ($object->getData($attrCode)) {
             try {
-                $unserialized = unserialize($object->getData($attrCode));
+                $unserialized = Mage::helper('core/string')
+                    ->unserialize($object->getData($attrCode));
                 $object->setData($attrCode, $unserialized);
             } catch (Exception $e) {
                 $object->unsetData($attrCode);

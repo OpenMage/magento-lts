@@ -94,7 +94,8 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid extends Mage_Adminhtml_B
         $this->addColumn('customer_email', array(
             'header'            => Mage::helper('sales')->__('Customer Email'),
             'index'             => 'customer_email',
-            'type'              => 'text'
+            'type'              => 'text',
+            'escape'            => true
         ));
 
         $this->addColumn('customer_firstname', array(

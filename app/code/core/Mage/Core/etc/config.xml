@@ -467,6 +467,7 @@
                     </protected>
                 </public_files_valid_paths>
             </file>
+            <!-- NOTE: If you turn off images reprocessing, then your upload images process may cause security risks. -->
             <reprocess_images>
                 <active>1</active>
             </reprocess_images>

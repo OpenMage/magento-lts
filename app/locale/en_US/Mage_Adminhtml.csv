@@ -487,6 +487,7 @@
 "Invalid directory: %s","Invalid directory: %s"
 "Invalid email address ""%s"".","Invalid email address ""%s""."
 "Invalid email address.","Invalid email address."
+"Invalid file extension used for log file. Allowed file extensions: log, txt, html, csv","Invalid file extension used for log file. Allowed file extensions: log, txt, html, csv"
 "Invalid file: %s","Invalid file: %s"
 "Invalid input data for %s => %s rate","Invalid input data for %s => %s rate"
 "Invalid parent block for this block","Invalid parent block for this block"
