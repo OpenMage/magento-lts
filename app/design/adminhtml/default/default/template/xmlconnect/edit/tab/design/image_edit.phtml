@@ -50,7 +50,7 @@
                         <option value=""><?php echo $this->__('CMS Pages haven\'t been found.'); ?></option>
                     <?php endif;?>
                     <?php foreach ($pages as $page):?>
-                        <option value="<?php echo $page['value']; ?>"><?php echo $page['label']; ?></option>
+                        <option value="<?php echo $page['value']; ?>"><?php echo Mage::helper('core')->quoteEscape($page['label']); ?></option>
                     <?php endforeach;?>
                 </select>
             </div>
