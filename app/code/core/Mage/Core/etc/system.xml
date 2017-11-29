@@ -674,7 +674,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Logging from Mage::log(). File is located in {{base_dir}}/var/log</comment>
+                            <comment>Logging from Mage::log(). File is located in {{base_dir}}/var/log. Allowed file extensions: log, txt, html, csv</comment>
                         </file>
                         <exception_file translate="label comment">
                             <label>Exceptions Log File Name</label>
@@ -684,7 +684,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Logging from Mage::logException(). File is located in {{base_dir}}/var/log</comment>
+                            <comment>Logging from Mage::logException(). File is located in {{base_dir}}/var/log. Allowed file extensions: log, txt, html, csv</comment>
                         </exception_file>
                     </fields>
                 </log>

@@ -36,6 +36,11 @@ class Mage_Log_Helper_Data extends Mage_Core_Helper_Abstract
      */
     protected $_logLevel;
 
+    /**
+     * Allowed extensions that can be used to create a log file
+     */
+    private $_allowedFileExtensions = array('log', 'txt', 'html', 'csv');
+
     public function __construct(array $data = array())
     {
         $this->_logLevel = isset($data['log_level']) ? $data['log_level']
@@ -71,5 +76,22 @@ class Mage_Log_Helper_Data extends Mage_Core_Helper_Abstract
     public function isLogDisabled()
     {
         return $this->_logLevel == Mage_Log_Model_Adminhtml_System_Config_Source_Loglevel::LOG_LEVEL_NONE;
+    }
+
+    /**
+     * Checking if file extensions is allowed. If passed then return true.
+     *
+     * @param $file
+     * @return bool
+     */
+    public function isLogFileExtensionValid($file)
+    {
+        $result = false;
+        $validatedFileExtension = pathinfo($file, PATHINFO_EXTENSION);
+        if ($validatedFileExtension && in_array($validatedFileExtension, $this->_allowedFileExtensions)) {
+            $result = true;
+        }
+
+        return $result;
     }
 }
