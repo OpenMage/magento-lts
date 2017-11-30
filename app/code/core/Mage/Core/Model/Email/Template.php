@@ -442,7 +442,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
         if ($this->isPlain()) {
             $mail->setBodyText($text);
         } else {
-            $mail->setBodyHTML($text);
+            $mail->setBodyHtml($text);
         }
 
         $mail->setSubject('=?utf-8?B?' . base64_encode($subject) . '?=');

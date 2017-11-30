@@ -302,7 +302,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
             $response->setError(1);
             $response->setMessage(Mage::helper('catalog')->__('Unable to get the product ID.'));
         }
-        $this->getResponse()->setBody($response->toJSON());
+        $this->getResponse()->setBody($response->toJson());
     }
 
     public function postAction()

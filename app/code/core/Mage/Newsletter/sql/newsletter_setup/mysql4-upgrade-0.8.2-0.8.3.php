@@ -83,6 +83,6 @@ try {
 
     $conn->commit();
 } catch (Exception $e) {
-    $conn->rollback();
+    $conn->rollBack();
     throw $e;
 }
