@@ -109,7 +109,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
             $this->_errors['period_unit'][] = Mage::helper('payment')->__('Billing period unit is not defined or wrong.');
         }
         if ($this->getPeriodFrequency() && !$this->_validatePeriodFrequency('period_unit', 'period_frequency')) {
-            $this->_errors['period_frequency'][] = Mage::helper('payment')->__('Period frequency is wrong.');;
+            $this->_errors['period_frequency'][] = Mage::helper('payment')->__('Period frequency is wrong.');
         }
 
         // trial period unit, trial frequency, trial period max cycles, trial billing amount
