@@ -99,7 +99,7 @@ class Mage_Cms_IndexController extends Mage_Core_Controller_Front_Action
     {
         $pageId = Mage::getStoreConfig(Mage_Cms_Helper_Page::XML_PATH_NO_COOKIES_PAGE);
         if (!Mage::helper('cms/page')->renderPage($this, $pageId)) {
-            $this->_forward('defaultNoCookies');;
+            $this->_forward('defaultNoCookies');
         }
     }
 
