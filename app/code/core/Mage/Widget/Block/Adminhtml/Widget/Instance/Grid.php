@@ -127,7 +127,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Grid extends Mage_Adminhtml_Bl
     {
         $packageThemeArray = array();
         $packageThemeOptions = Mage::getModel('core/design_source_design')
-            ->setIsFulllabel(true)->getAllOptions(false);
+            ->setIsFullLabel(true)->getAllOptions(false);
         foreach ($packageThemeOptions as $item) {
             if (is_array($item['value'])) {
                 foreach ($item['value'] as $valueItem) {
