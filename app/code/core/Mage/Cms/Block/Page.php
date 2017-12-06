@@ -91,8 +91,10 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
 
             Mage::dispatchEvent('cms_generate_breadcrumbs', array('breadcrumbs' => $breadcrumbsObject));
 
-            foreach ($breadcrumbsObject->getCrumbs() as $breadcrumbsItem) {
-                $breadcrumbs->addCrumb($breadcrumbsItem['crumbName'], $breadcrumbsItem['crumbInfo']);
+            if ($breadcrumbs instanceof Mage_Page_Block_Html_Breadcrumbs) {
+                foreach ($breadcrumbsObject->getCrumbs() as $breadcrumbsItem) {
+                    $breadcrumbs->addCrumb($breadcrumbsItem['crumbName'], $breadcrumbsItem['crumbInfo']);
+                }
             }
         }
 
@@ -108,16 +110,6 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
             $head->setDescription($page->getMetaDescription());
         }
 
-        $breadcrumbsObject = new Varien_Object();
-        $breadcrumbsObject->setCrumbs($breadcrumbsArray);
-
-        Mage::dispatchEvent('cms_generate_breadcrumbs', array('breadcrumbs' => $breadcrumbsObject));
-
-        if ($breadcrumbs instanceof Mage_Page_Block_Html_Breadcrumbs) {
-            foreach ($breadcrumbsObject->getCrumbs() as $breadcrumbsItem) {
-               $breadcrumbs->addCrumb($breadcrumbsItem['crumbName'], $breadcrumbsItem['crumbInfo']);
-            }
-        }
         return parent::_prepareLayout();
     }
 
