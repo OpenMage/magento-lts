@@ -512,9 +512,9 @@ implements Mage_HTTP_IClient
 
     /**
      * Set curl options array directly
-     * @param array $array
+     * @param array $arr
      */
-    protected function curlOptions($array)
+    protected function curlOptions($arr)
     {
         curl_setopt_array($this->_ch, $arr);
     }
