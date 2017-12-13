@@ -409,9 +409,6 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
             case 'coupons':
                 return $this->_getSession()->isAllowed('report/salesroot/coupons');
                 break;
-            case 'shipping':
-                return $this->_getSession()->isAllowed('report/salesroot/shipping');
-                break;
             case 'bestsellers':
                 return $this->_getSession()->isAllowed('report/products/bestsellers');
                 break;
