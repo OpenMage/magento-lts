@@ -1159,8 +1159,6 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                         $attr['backend'] = $backendPrefix;
                     } elseif ('_' === $attr['backend']{0}) {
                         $attr['backend'] = $backendPrefix.$attr['backend'];
-                    } else {
-                        $attr['backend'] = $attr['backend'];
                     }
                 }
                 if (!empty($attr['frontend'])) {
@@ -1168,8 +1166,6 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                         $attr['frontend'] = $frontendPrefix;
                     } elseif ('_' === $attr['frontend']{0}) {
                         $attr['frontend'] = $frontendPrefix.$attr['frontend'];
-                    } else {
-                        $attr['frontend'] = $attr['frontend'];
                     }
                 }
                 if (!empty($attr['source'])) {
@@ -1177,8 +1173,6 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                         $attr['source'] = $sourcePrefix;
                     } elseif ('_' === $attr['source']{0}) {
                         $attr['source'] = $sourcePrefix . $attr['source'];
-                    } else {
-                        $attr['source'] = $attr['source'];
                     }
                 }
 
