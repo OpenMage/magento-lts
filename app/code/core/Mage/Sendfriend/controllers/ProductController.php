@@ -202,6 +202,6 @@ class Mage_Sendfriend_ProductController extends Mage_Core_Controller_Front_Actio
         // save form data
         Mage::getSingleton('catalog/session')->setSendfriendFormData($data);
 
-        $this->_redirectError(Mage::getURL('*/*/send', array('_current' => true)));
+        $this->_redirectError(Mage::getUrl('*/*/send', array('_current' => true)));
     }
 }

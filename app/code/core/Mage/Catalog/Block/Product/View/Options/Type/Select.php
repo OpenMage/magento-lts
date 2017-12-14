@@ -56,10 +56,10 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select
                     'class' => $require.' product-custom-option'
                 ));
             if ($_option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_DROP_DOWN) {
-                $select->setName('options['.$_option->getid().']')
+                $select->setName('options['.$_option->getId().']')
                     ->addOption('', $this->__('-- Please Select --'));
             } else {
-                $select->setName('options['.$_option->getid().'][]');
+                $select->setName('options['.$_option->getId().'][]');
                 $select->setClass('multiselect'.$require.' product-custom-option');
             }
             foreach ($_option->getValues() as $_value) {

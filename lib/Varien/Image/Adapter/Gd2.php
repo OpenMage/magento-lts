@@ -462,7 +462,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             imagecolortransparent($newWatermark, $col);
             imagefilledrectangle($newWatermark, 0, 0, $this->getWatermarkWidth(), $this->getWatermarkHeigth(), $col);
             imagealphablending($newWatermark, true);
-            imageSaveAlpha($newWatermark, true);
+            imagesavealpha($newWatermark, true);
             imagecopyresampled(
                 $newWatermark,
                 $watermark,
@@ -483,7 +483,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             imagecolortransparent($newWatermark, $col);
             imagefilledrectangle($newWatermark, 0, 0, $this->_imageSrcWidth, $this->_imageSrcHeight, $col);
             imagealphablending($newWatermark, true);
-            imageSaveAlpha($newWatermark, true);
+            imagesavealpha($newWatermark, true);
             imagecopyresampled(
                 $newWatermark,
                 $watermark,
@@ -628,7 +628,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
     private function _saveAlpha($imageHandler)
     {
         $background = imagecolorallocate($imageHandler, 0, 0, 0);
-        ImageColorTransparent($imageHandler, $background);
+        imagecolortransparent($imageHandler, $background);
         imagealphablending($imageHandler, false);
         imagesavealpha($imageHandler, true);
     }

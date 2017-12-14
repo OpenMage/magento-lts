@@ -295,7 +295,7 @@ class Mage_Core_Model_Layout_Update
                 $storeId
             );
             if (Mage::app()->useCache('layout')) {
-                Mage::app()->saveCache($this->_packageLayout->asXml(), $cacheKey, $cacheTags, null);
+                Mage::app()->saveCache($this->_packageLayout->asXML(), $cacheKey, $cacheTags, null);
             }
         }
 

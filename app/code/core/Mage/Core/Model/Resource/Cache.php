@@ -91,7 +91,7 @@ class Mage_Core_Model_Resource_Cache extends Mage_Core_Model_Resource_Db_Abstrac
             }
             $adapter->commit();
         } catch (Exception $e) {
-            $adapter->rollback();
+            $adapter->rollBack();
             throw $e;
         }
 

@@ -36,7 +36,7 @@ class Mage_Core_Model_Design_Source_Design extends Mage_Eav_Model_Entity_Attribu
      * @param boolean $isFullLabel
      * @return Mage_Core_Model_Design_Source_Design
      */
-    public function setIsFulllabel($isFullLabel)
+    public function setIsFullLabel($isFullLabel)
     {
         $this->_isFullLabel = $isFullLabel;
         return $this;

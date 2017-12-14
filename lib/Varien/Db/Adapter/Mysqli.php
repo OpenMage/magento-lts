@@ -159,7 +159,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
                 throw new Zend_Db_Adapter_Mysqli_Exception('multi_query: '.$this->getConnection()->error);
             }
         } catch (Exception $e) {
-            $this->rollback();
+            $this->rollBack();
             throw $e;
         }
 
