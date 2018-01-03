@@ -453,10 +453,8 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
             return false;
         }
 
-        $sessionValidateHttpXForwardedForKey = $sessionData[self::VALIDATOR_HTTP_X_FORVARDED_FOR_KEY];
-        $validatorValidateHttpXForwardedForKey = $validatorData[self::VALIDATOR_HTTP_X_FORVARDED_FOR_KEY];
         if ($this->useValidateHttpXForwardedFor()
-            && $sessionValidateHttpXForwardedForKey != $validatorValidateHttpXForwardedForKey ) {
+                && $sessionData[self::VALIDATOR_HTTP_X_FORVARDED_FOR_KEY] != $validatorData[self::VALIDATOR_HTTP_X_FORVARDED_FOR_KEY]) {
             return false;
         }
         if ($this->useValidateHttpUserAgent()
