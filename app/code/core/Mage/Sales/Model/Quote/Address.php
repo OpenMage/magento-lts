@@ -1032,7 +1032,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Add total data or model
      *
-     * @param Mage_Sales_Model_Quote_Total|array $total
+     * @param Mage_Sales_Model_Quote_Address_Total|array $total
      * @return Mage_Sales_Model_Quote_Address
      */
     public function addTotal($total)
@@ -1040,7 +1040,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         if (is_array($total)) {
             $totalInstance = Mage::getModel('sales/quote_address_total')
                 ->setData($total);
-        } elseif ($total instanceof Mage_Sales_Model_Quote_Total) {
+        } elseif ($total instanceof Mage_Sales_Model_Quote_Address_Total) {
             $totalInstance = $total;
         }
         $totalInstance->setAddress($this);
