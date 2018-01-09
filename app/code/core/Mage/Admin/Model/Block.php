@@ -34,6 +34,14 @@
 class Mage_Admin_Model_Block extends Mage_Core_Model_Abstract
 {
     /**
+     * Model event prefix
+     *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
+     * @var string
+     */
+    protected $_eventPrefix = 'admin_block';
+
+    /**
      * Initialize variable model
      */
     protected function _construct()

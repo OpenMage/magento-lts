@@ -35,6 +35,22 @@
 class Mage_Tag_Model_Resource_Popular_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
+     * Event object prefix
+     *
+     * @see Mage_Core_Model_Resource_Store_Collection::$_eventPrefix
+     * @var string
+     */
+    protected $_eventPrefix = 'tag_popular_collection';
+
+    /**
+     * Event object prefix
+     *
+     * @see Mage_Core_Model_Resource_Store_Collection::$_eventObject
+     * @var string
+     */
+    protected $_eventObject = 'popular_collection';
+
+    /**
      * Defines resource model and model
      *
      */

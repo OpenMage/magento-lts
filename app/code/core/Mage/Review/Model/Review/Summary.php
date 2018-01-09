@@ -34,6 +34,13 @@
 
 class Mage_Review_Model_Review_Summary extends Mage_Core_Model_Abstract
 {
+    /**
+     * Model event prefix
+     *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
+     * @var string
+     */
+    protected $_eventPrefix = 'review_review_summary';
 
     public function __construct()
     {

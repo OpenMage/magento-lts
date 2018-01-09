@@ -62,6 +62,14 @@ class Mage_Oauth_Model_Consumer extends Mage_Core_Model_Abstract
     const SECRET_LENGTH = 32;
 
     /**
+     * Model event prefix
+     *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
+     * @var string
+     */
+    protected $_eventPrefix = 'oauth_consumer';
+
+    /**
      * Initialize resource model
      *
      * @return void

@@ -45,6 +45,14 @@
  */
 class Mage_Core_Model_Design extends Mage_Core_Model_Abstract
 {
+    /**
+     * Model event prefix
+     *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
+     * @var string
+     */
+    protected $_eventPrefix = 'core_design';
+
     protected function _construct()
     {
         $this->_init('core/design');

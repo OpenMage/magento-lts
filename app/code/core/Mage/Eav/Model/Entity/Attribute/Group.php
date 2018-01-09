@@ -46,6 +46,14 @@
 class Mage_Eav_Model_Entity_Attribute_Group extends Mage_Core_Model_Abstract
 {
     /**
+     * Model event prefix
+     *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
+     * @var string
+     */
+    protected $_eventPrefix = 'eav_entity_attribute_group';
+
+    /**
      * Resource initialization
      */
     protected function _construct()
