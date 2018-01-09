@@ -55,6 +55,14 @@
 class Mage_Bundle_Model_Selection extends Mage_Core_Model_Abstract
 {
     /**
+     * Model event prefix
+     *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
+     * @var string
+     */
+    protected $_eventPrefix = 'bundle_selection';
+
+    /**
      * Initialize resource model
      */
     protected function _construct()

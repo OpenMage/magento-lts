@@ -64,6 +64,14 @@ class Mage_Core_Model_File_Storage_Flag extends Mage_Core_Model_Flag
     protected $_flagCode    = 'synchronize';
 
     /**
+     * Model event prefix
+     *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
+     * @var string
+     */
+    protected $_eventPrefix = 'core_file_storage_flag';
+
+    /**
      * Pass error to flag
      *
      * @param Exception $e

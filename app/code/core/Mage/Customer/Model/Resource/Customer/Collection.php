@@ -35,6 +35,14 @@
 class Mage_Customer_Model_Resource_Customer_Collection extends Mage_Eav_Model_Entity_Collection_Abstract
 {
     /**
+     * Model event prefix
+     *
+     * @see Mage_Eav_Model_Entity_Collection_Abstract::$_eventPrefix
+     * @var string
+     */
+    protected $_eventPrefix = 'customer_resource_customer_collection';
+
+    /**
      * Resource initialization
      */
     protected function _construct()

@@ -43,6 +43,22 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
     protected $_loadDefault    = false;
 
     /**
+     * Event object prefix
+     *
+     * @see Mage_Core_Model_Resource_Store_Collection::$_eventPrefix
+     * @var string
+     */
+    protected $_eventPrefix = 'core_store_collection';
+
+    /**
+     * Event object prefix
+     *
+     * @see Mage_Core_Model_Resource_Store_Collection::$_eventObject
+     * @var string
+     */
+    protected $_eventObject = 'store_collection';
+
+    /**
      *  Define resource model
      *
      */

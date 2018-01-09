@@ -153,6 +153,14 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     protected $_values = array();
 
     /**
+     * Model event prefix
+     *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
+     * @var string
+     */
+    protected $_eventPrefix = 'catalog_product_option';
+
+    /**
      * Constructor
      */
     protected function _construct()

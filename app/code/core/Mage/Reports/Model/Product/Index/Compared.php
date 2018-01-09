@@ -52,6 +52,14 @@ class Mage_Reports_Model_Product_Index_Compared extends Mage_Reports_Model_Produ
     protected $_countCacheKey   = 'product_index_compared_count';
 
     /**
+     * Model event prefix
+     *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
+     * @var string
+     */
+    protected $_eventPrefix = 'reports_product_index_compared';
+
+    /**
      * Initialize resource model
      *
      */

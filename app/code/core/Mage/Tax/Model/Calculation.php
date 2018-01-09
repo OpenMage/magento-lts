@@ -118,6 +118,14 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     protected $_taxHelper;
 
     /**
+     * Model event prefix
+     *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
+     * @var string
+     */
+    protected $_eventPrefix = 'tax_calculation';
+
+    /**
      * Constructor
      */
     protected function _construct()

@@ -54,6 +54,14 @@ class Mage_Api2_Model_Acl_Global_Rule extends Mage_Core_Model_Abstract
     const RESOURCE_ALL = 'all';
 
     /**
+     * Model event prefix
+     *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
+     * @var string
+     */
+    protected $_eventPrefix = 'api2_acl_global_rule';
+
+    /**
      * Initialize resource model
      *
      * @return void

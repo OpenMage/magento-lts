@@ -66,6 +66,14 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
     protected $_permissionModel;
 
     /**
+     * Model event prefix
+     *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
+     * @var string
+     */
+    protected $_eventPrefix = 'api2_acl_global_role';
+
+    /**
      * Initialize resource model
      *
      * @return void

@@ -34,6 +34,14 @@
 class Mage_Adminhtml_Block_Template extends Mage_Core_Block_Template
 {
     /**
+     * Block event prefix
+     *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
+     * @var string
+     */
+    protected $_eventPrefix = 'adminhtml';
+
+    /**
      * Enter description here...
      *
      * @return string
