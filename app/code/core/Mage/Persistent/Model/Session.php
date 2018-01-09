@@ -52,6 +52,14 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
     protected $_loadExpired = false;
 
     /**
+     * Model event prefix
+     *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
+     * @var string
+     */
+    protected $_eventPrefix = 'persistent_session';
+
+    /**
      * Define resource model
      */
     protected function _construct()

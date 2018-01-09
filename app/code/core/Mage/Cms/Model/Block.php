@@ -55,6 +55,7 @@ class Mage_Cms_Model_Block extends Mage_Core_Model_Abstract
     /**
      * Model event prefix
      *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
      * @var string
      */
     protected $_eventPrefix = 'cms_block';

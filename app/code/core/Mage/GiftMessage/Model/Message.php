@@ -63,6 +63,7 @@ class Mage_GiftMessage_Model_Message extends Mage_Core_Model_Abstract
     /**
      * Model event prefix
      *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
      * @var string
      */
     protected $_eventPrefix = 'giftmessage_message';

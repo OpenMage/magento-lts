@@ -51,6 +51,7 @@ class Mage_Api_Model_Rules extends Mage_Core_Model_Abstract
     /**
      * Prefix of model events names
      *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
      * @var string
      */
     protected $_eventPrefix = 'api_rules';

@@ -74,6 +74,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Model event prefix
      *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
      * @var string
      */
     protected $_eventPrefix = 'index_event';

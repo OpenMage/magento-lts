@@ -68,6 +68,7 @@ class Mage_Downloadable_Model_Link extends Mage_Core_Model_Abstract
     /**
      * Model event prefix
      *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
      * @var string
      */
     protected $_eventPrefix = 'downloadable_link';

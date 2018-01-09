@@ -73,6 +73,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     /**
      * Model event prefix
      *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
      * @var string
      */
     protected $_eventPrefix = 'log_visitor';

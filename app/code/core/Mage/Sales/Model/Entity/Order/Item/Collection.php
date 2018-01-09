@@ -36,9 +36,10 @@ class Mage_Sales_Model_Entity_Order_Item_Collection extends Mage_Eav_Model_Entit
     /**
      * Model event prefix
      *
+     * @see Mage_Eav_Model_Entity_Collection_Abstract::$_eventPrefix
      * @var string
      */
-    protected $_eventPrefix = 'eav_sales_order_item_collection';
+    protected $_eventPrefix = 'sales_entity_order_item_collection';
 
     public function _construct()
     {

@@ -54,6 +54,7 @@ class Mage_Reports_Model_Product_Index_Viewed extends Mage_Reports_Model_Product
     /**
      * Model event prefix
      *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
      * @var string
      */
     protected $_eventPrefix = 'reports_product_index_viewed';

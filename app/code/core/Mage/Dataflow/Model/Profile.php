@@ -60,6 +60,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
     /**
      * Prefix of model events names
      *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
      * @var string
      */
     protected $_eventPrefix = 'dataflow_profile';

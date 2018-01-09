@@ -43,6 +43,7 @@ class Mage_Adminhtml_Model_Email_Template extends Mage_Core_Model_Email_Template
     /**
      * Model event prefix
      *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
      * @var string
      */
     protected $_eventPrefix = 'adminhtml_email_template';

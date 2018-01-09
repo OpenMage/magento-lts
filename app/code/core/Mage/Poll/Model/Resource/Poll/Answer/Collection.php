@@ -35,6 +35,22 @@
 class Mage_Poll_Model_Resource_Poll_Answer_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
+     * Event object prefix
+     *
+     * @see Mage_Core_Model_Resource_Store_Collection::$_eventPrefix
+     * @var string
+     */
+    protected $_eventPrefix = 'poll_poll_answer_collection';
+
+    /**
+     * Event object prefix
+     *
+     * @see Mage_Core_Model_Resource_Store_Collection::$_eventObject
+     * @var string
+     */
+    protected $_eventObject = 'poll_answer_collection';
+
+    /**
      * Initialize collection
      *
      */

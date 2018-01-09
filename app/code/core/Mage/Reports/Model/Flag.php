@@ -46,6 +46,7 @@ class Mage_Reports_Model_Flag extends Mage_Core_Model_Flag
     /**
      * Model event prefix
      *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
      * @var string
      */
     protected $_eventPrefix = 'reports_flag';

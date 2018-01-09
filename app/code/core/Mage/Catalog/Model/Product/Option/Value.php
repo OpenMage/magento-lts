@@ -51,6 +51,7 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
     /**
      * Model event prefix
      *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
      * @var string
      */
     protected $_eventPrefix = 'catalog_product_option_value';

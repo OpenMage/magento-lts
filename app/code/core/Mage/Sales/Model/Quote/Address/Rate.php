@@ -64,6 +64,7 @@ class Mage_Sales_Model_Quote_Address_Rate extends Mage_Shipping_Model_Rate_Abstr
     /**
      * Model event prefix
      *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
      * @var string
      */
     protected $_eventPrefix = 'sales_quote_address_rate';

@@ -116,6 +116,10 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Model event prefix
      *
+     * This fits default event prefix and is
+     * just to prevent to fire events two time
+     *
+     * @see load()
      * @var string
      */
     protected $_eventPrefix = 'eav_collection_abstract';

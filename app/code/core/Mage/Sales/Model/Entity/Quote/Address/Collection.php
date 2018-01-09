@@ -38,9 +38,10 @@ class Mage_Sales_Model_Entity_Quote_Address_Collection extends Mage_Eav_Model_En
     /**
      * Model event prefix
      *
+     * @see Mage_Eav_Model_Entity_Collection_Abstract::$_eventPrefix
      * @var string
      */
-    protected $_eventPrefix = 'eav_sales_quote_address_collection';
+    protected $_eventPrefix = 'sales_entity_quote_address_collection';
 
     protected function _construct()
     {

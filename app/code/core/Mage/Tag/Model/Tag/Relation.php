@@ -64,6 +64,7 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
     /**
      * Model event prefix
      *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
      * @var string
      */
     protected $_eventPrefix = 'tag_tag_relation';

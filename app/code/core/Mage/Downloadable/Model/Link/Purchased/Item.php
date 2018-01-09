@@ -77,6 +77,7 @@ class Mage_Downloadable_Model_Link_Purchased_Item extends Mage_Core_Model_Abstra
     /**
      * Model event prefix
      *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
      * @var string
      */
     protected $_eventPrefix = 'downloadable_link_purchased_item';

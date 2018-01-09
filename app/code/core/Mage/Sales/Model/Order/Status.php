@@ -30,11 +30,12 @@ class Mage_Sales_Model_Order_Status extends Mage_Core_Model_Abstract
     /**
      * Model event prefix
      *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
      * @var string
      */
     protected $_eventPrefix = 'sales_order_status';
 
-     protected function _construct()
+    protected function _construct()
     {
         $this->_init('sales/order_status');
     }

@@ -40,6 +40,7 @@ class Mage_Wishlist_Model_Item_Option extends Mage_Core_Model_Abstract
     /**
      * Model event prefix
      *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
      * @var string
      */
     protected $_eventPrefix = 'wishlist_item_option';

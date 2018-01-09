@@ -59,6 +59,7 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
     /**
      * Model event prefix
      *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
      * @var string
      */
     protected $_eventPrefix = 'adminnotification_inbox';

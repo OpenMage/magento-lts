@@ -34,13 +34,6 @@
 class Mage_Adminhtml_Block_Page_Notices extends Mage_Adminhtml_Block_Template
 {
     /**
-     * Block event prefix
-     *
-     * @var string
-     */
-    protected $_eventPrefix = 'adminhtml_page_notices';
-
-    /**
      * Check if noscript notice should be displayed
      *
      * @return boolean

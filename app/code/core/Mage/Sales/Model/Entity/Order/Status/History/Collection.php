@@ -37,9 +37,10 @@ class Mage_Sales_Model_Entity_Order_Status_History_Collection extends Mage_Eav_M
     /**
      * Model event prefix
      *
+     * @see Mage_Eav_Model_Entity_Collection_Abstract::$_eventPrefix
      * @var string
      */
-    protected $_eventPrefix = 'eav_sales_order_status_history_collection';
+    protected $_eventPrefix = 'sales_entity_order_status_history_collection';
 
     protected function _construct()
     {

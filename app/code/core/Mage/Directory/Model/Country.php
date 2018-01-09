@@ -47,6 +47,7 @@ class Mage_Directory_Model_Country extends Mage_Core_Model_Abstract
     /**
      * Model event prefix
      *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
      * @var string
      */
     protected $_eventPrefix = 'directory_country';

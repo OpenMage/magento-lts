@@ -36,9 +36,10 @@ class Mage_Adminhtml_Block_Template extends Mage_Core_Block_Template
     /**
      * Block event prefix
      *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
      * @var string
      */
-    protected $_eventPrefix = 'adminhtml_template';
+    protected $_eventPrefix = 'adminhtml';
 
     /**
      * Enter description here...
@@ -85,9 +86,6 @@ class Mage_Adminhtml_Block_Template extends Mage_Core_Block_Template
     protected function _toHtml()
     {
         Mage::dispatchEvent('adminhtml_block_html_before', array('block' => $this));
-        if ($this->_eventPrefix !== 'adminhtml') {
-            Mage::dispatchEvent($this->_eventPrefix . '_block_html_before', array('block' => $this));
-        }
         return parent::_toHtml();
     }
 }

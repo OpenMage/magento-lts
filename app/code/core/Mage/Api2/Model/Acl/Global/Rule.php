@@ -56,6 +56,7 @@ class Mage_Api2_Model_Acl_Global_Rule extends Mage_Core_Model_Abstract
     /**
      * Model event prefix
      *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
      * @var string
      */
     protected $_eventPrefix = 'api2_acl_global_rule';

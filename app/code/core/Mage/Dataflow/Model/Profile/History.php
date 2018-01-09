@@ -47,6 +47,7 @@ class Mage_Dataflow_Model_Profile_History extends Mage_Core_Model_Abstract
     /**
      * Model event prefix
      *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
      * @var string
      */
     protected $_eventPrefix = 'dataflow_profile_history';
