@@ -50,7 +50,6 @@ class Mage_Sales_Model_Order_Shipment_Comment extends Mage_Sales_Model_Abstract
     /**
      * Shipment instance
      *
-     * @see Mage_Core_Model_Abstract::$_eventPrefix
      * @var Mage_Sales_Model_Order_Shipment
      */
     protected $_shipment;
@@ -58,6 +57,7 @@ class Mage_Sales_Model_Order_Shipment_Comment extends Mage_Sales_Model_Abstract
     /**
      * Model event prefix
      *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
      * @var string
      */
     protected $_eventPrefix = 'sales_order_shipment_comment';
