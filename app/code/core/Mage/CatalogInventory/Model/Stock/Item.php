@@ -764,6 +764,10 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
             $this->setQty(0);
         }
 
+        if (!$this->hasData('stock_id')) {
+            $this->setStockId($this->getStockId());
+        }
+
         return $this;
     }
 
