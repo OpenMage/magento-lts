@@ -1307,9 +1307,10 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      * @param Mage_Catalog_Model_Category $category
      * @param bool $recursive
      * @param bool $isActive
+     * @param bool $sortByPosition
      * @return array
      */
-    public function getChildren($category, $recursive = true, $isActive = true)
+    public function getChildren($category, $recursive = true, $isActive = true, $sortByPosition = false)
     {
         $select = $this->_getReadAdapter()->select()
             ->from($this->getMainStoreTable($category->getStoreId()), 'entity_id')
@@ -1319,6 +1320,9 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         }
         if ($isActive) {
             $select->where('is_active = ?', '1');
+        }
+        if ($sortByPosition) {
+            $select->order('position ASC');
         }
         $_categories = $this->_getReadAdapter()->fetchAll($select);
         $categoriesIds = array();
