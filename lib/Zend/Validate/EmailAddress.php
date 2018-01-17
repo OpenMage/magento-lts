@@ -423,19 +423,6 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
         $atext = 'a-zA-Z0-9\x21\x23\x24\x25\x26\x27\x2a\x2b\x2d\x2f\x3d\x3f\x5e\x5f\x60\x7b\x7c\x7d\x7e';
         if (preg_match('/^[' . $atext . ']+(\x2e+[' . $atext . ']+)*$/', $this->_localPart)) {
             $result = true;
-        } else {
-            // Try quoted string format (RFC 5321 Chapter 4.1.2)
-
-            // Quoted-string characters are: DQUOTE *(qtext/quoted-pair) DQUOTE
-            $qtext      = '\x20-\x21\x23-\x5b\x5d-\x7e'; // %d32-33 / %d35-91 / %d93-126
-            $quotedPair = '\x20-\x7e'; // %d92 %d32-126
-            if (preg_match('/^"(['. $qtext .']|\x5c[' . $quotedPair . '])*"$/', $this->localPart)) {
-                $result = true;
-            } else {
-                $this->_error(self::DOT_ATOM);
-                $this->_error(self::QUOTED_STRING);
-                $this->_error(self::INVALID_LOCAL_PART);
-            }
         }
 
         return $result;
