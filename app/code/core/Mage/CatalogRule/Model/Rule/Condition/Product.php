@@ -115,7 +115,10 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
     {
         $attribute = $object->getResource()->getAttribute($this->getAttribute());
         if ($attribute && $attribute->getBackendType() == 'datetime') {
-            $value = strtotime($value);
+            $this->setValue(strtotime($this->getValue()));
+            if (is_scalar($value)) {
+                $value = strtotime($value);
+            }
         }
         return $value;
     }
