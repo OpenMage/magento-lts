@@ -324,9 +324,25 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
      *
      * @return Mage_Sales_Model_Order_Creditmemo
      */
-    public function collectTotals()
+     public function collectTotals()
     {
-        foreach ($this->getConfig()->getTotalModels() as $model) {
+        $models = $this->getConfig()->getTotalModels();
+        $res = array();
+        $i=0;
+        $discount = 0;
+        foreach ($models as $name =>$model) {
+            if ($name=='discount') $discount = $i;
+            if ($name=='tax') {
+                //array_splice( $res, $discount, 0, array($models[$name]) );
+            } else {
+                $res[] = $model;
+            }
+
+            $i++;
+        }
+
+
+        foreach ($res as $model) {
             $model->collect($this);
         }
         return $this;
