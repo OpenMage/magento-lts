@@ -277,7 +277,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
                 }
             } else {
                 foreach ($this->_children as $child) {
-                    if ($child->getTxnId() === $tnxId) {
+                    if ($child->getTxnId() === $txnId) {
                         $transaction = $child;
                         break;
                     }
