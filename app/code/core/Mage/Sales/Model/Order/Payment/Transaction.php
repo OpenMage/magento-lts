@@ -284,7 +284,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
                 }
             }
             // return transaction only if type matches
-            if (!$transaction || $types && !in_array($transaction->getType(), $types, true)) {
+            if (!$transaction || $types && !in_array($transaction->getTxnType(), $types, true)) {
                 return;
             }
             return $transaction;
@@ -293,7 +293,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
         // filter transactions by types
         $result = array();
         foreach ($this->_children as $child) {
-            if (in_array($child->getType(), $types, true)) {
+            if (in_array($child->getTxnType(), $types, true)) {
                 $result[$child->getId()] = $child;
             }
         }
