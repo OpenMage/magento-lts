@@ -455,7 +455,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     }
 
     /**
-     * Deprecated since 1.2
+     * @deprecated since 1.2
      *
      */
     public function bundlesAction()

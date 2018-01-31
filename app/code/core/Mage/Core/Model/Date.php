@@ -213,7 +213,7 @@ class Mage_Core_Model_Date
     }
 
     /**
-     * Deprecated since 1.1.7
+     * @deprecated since 1.1.7
      */
     public function checkDateTime($year, $month, $day, $hour = 0, $minute = 0, $second = 0)
     {
@@ -230,7 +230,7 @@ class Mage_Core_Model_Date
     }
 
     /**
-     * Deprecated since 1.1.7
+     * @deprecated since 1.1.7
      */
     public function parseDateTime($dateTimeString, $dateTimeFormat)
     {

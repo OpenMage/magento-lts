@@ -522,7 +522,7 @@ final class Mage
     }
 
     /**
-     * Deprecated, use self::helper()
+     * @deprecated, use self::helper()
      *
      * @param string $type
      * @return object

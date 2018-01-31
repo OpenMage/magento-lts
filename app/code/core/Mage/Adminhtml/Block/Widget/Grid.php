@@ -1307,7 +1307,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Deprecated since 1.1.7
+     * @deprecated since 1.1.7
      *
      * @return string
      */
