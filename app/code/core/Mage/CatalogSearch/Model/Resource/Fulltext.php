@@ -848,7 +848,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
     /**
      * Update category products indexes
      *
-     * deprecated after 1.6.2.0
+     * @deprecated after 1.6.2.0
      *
      * @param array $productIds
      * @param array $categoryIds

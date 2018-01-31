@@ -42,7 +42,7 @@ class Mage_Install_Block_Begin extends Mage_Install_Block_Abstract
     }
 
     /**
-     * Deprecated
+     * @deprecated
      */
     public function getLanguages()
     {

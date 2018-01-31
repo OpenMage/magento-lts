@@ -60,7 +60,7 @@ class Mage_Adminhtml_Block_Catalog_Product extends Mage_Adminhtml_Block_Widget_C
     }
 
     /**
-     * Deprecated since 1.3.2
+     * @deprecated since 1.3.2
      *
      * @return string
      */
