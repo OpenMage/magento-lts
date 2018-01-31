@@ -1,10 +1,3 @@
-#Applied Patches
-
-| Patch | Commit |
-| ----- | ------ |
-| SUPEE-9652 | [03835f8](https://github.com/OpenMage/magento-lts/commit/03835f8) |
-| SUPEE-10266 | [40720ca](https://github.com/OpenMage/magento-lts/commit/40720ca) |
-
 # Magento - Long Term Support
 
 This repository aims to be a dependably patched archive of the Magento CE core releases. These sources should stay as close to the sources released by Magento as possible (no new features).  **However, pull requests with unofficial bug fixes and security patches from the community are definitely encouraged.** It's our goal to apply patches available from Magento as quickly as possible, but these do not always cover all known issues.
@@ -19,11 +12,17 @@ Note, the branches older than `1.9.3.x` that were created before this strategy c
 This allows you to define your version dependencies safely in composer.json:
 
 ```json
-"openmage/magento-lts": "1.9.2.1-dev"
+"openmage/magento-lts": "1.9.3.x-dev"
 ```
 
-## Important to note
-PHP 7 support was added as of version 1.9.2.3. based on the Inchoo article and [described here](https://github.com/OpenMage/magento-lts/pull/62).
+## Important to notes
+
+### PHP7
+PHP7 support was added as of version 1.9.2.3. based on the Inchoo article and [described here](https://github.com/OpenMage/magento-lts/pull/62).
+
+### Translations
+There are some new or changed tranlations, if you want add them to your locale packe please check:
+- `app/locale/en_US/Mage_Sales_LTS.csv`
 
 ## License
 [OSL v3.0](http://opensource.org/licenses/OSL-3.0)
