@@ -66,7 +66,7 @@ class Mage_Adminhtml_Block_Permissions_Buttons extends Mage_Adminhtml_Block_Temp
                 ->setData(array(
                     'label'     => Mage::helper('adminhtml')->__('Delete Role'),
                     'onclick'   => 'deleteConfirm(\''
-                        . MAge::helper('core')->jsQuoteEscape(
+                        . Mage::helper('core')->jsQuoteEscape(
                             Mage::helper('adminhtml')->__('Are you sure you want to do this?')
                         )
                         . '\', \''

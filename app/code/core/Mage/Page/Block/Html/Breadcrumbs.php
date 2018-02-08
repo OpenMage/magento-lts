@@ -67,9 +67,38 @@ class Mage_Page_Block_Html_Breadcrumbs extends Mage_Core_Block_Template
     {
         $this->_prepareArray($crumbInfo, array('label', 'title', 'link', 'first', 'last', 'readonly'));
         if ((!isset($this->_crumbs[$crumbName])) || (!$this->_crumbs[$crumbName]['readonly'])) {
-           $this->_crumbs[$crumbName] = $crumbInfo;
+            if ($after && isset($this->_crumbs[$after])) {
+                $offset = array_search($after, array_keys($this->_crumbs)) + 1;
+                $this->_crumbs = array_slice($this->_crumbs, 0, $offset, true) + array($crumbName => $crumbInfo) + array_slice($this->_crumbs, $offset, null, true);
+            } else {
+                $this->_crumbs[$crumbName] = $crumbInfo;
+            }
         }
         return $this;
+    }
+
+    public function addCrumbBefore($crumbName, $crumbInfo, $before = false)
+    {
+        if ($before && isset($this->_crumbs[$before])) {
+            $keys = array_keys($this->_crumbs);
+            $offset = array_search($before, $keys);
+            # add before first
+            if (!$offset) {
+                $this->_prepareArray($crumbInfo, array('label', 'title', 'link', 'first', 'last', 'readonly'));
+                $this->_crumbs = array($crumbName => $crumbInfo) + $this->_crumbs;
+            } else {
+                $this->addCrumb($crumbName, $crumbInfo, $keys[$offset-1]);
+            }
+        } else {
+            $this->addCrumb($crumbName, $crumbInfo);
+        }
+    }
+
+    public function removeCrumb($crumbName)
+    {
+        if (isset($this->_crumbs[$crumbName])) {
+            unset($this->_crumbs[$crumbName]);
+        }
     }
 
     /**

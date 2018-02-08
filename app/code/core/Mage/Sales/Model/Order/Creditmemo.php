@@ -791,8 +791,11 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
             )
         );
         $mailer->send();
-        $this->setEmailSent(true);
-        $this->_getResource()->saveAttribute($this, 'email_sent');
+
+        if ($notifyCustomer) {
+            $this->setEmailSent(true);
+            $this->_getResource()->saveAttribute($this, 'email_sent');
+        }
 
         return $this;
     }

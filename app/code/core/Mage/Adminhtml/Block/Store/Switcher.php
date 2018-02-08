@@ -72,7 +72,7 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
     }
 
     /**
-     * Deprecated
+     * @deprecated
      */
     public function getWebsiteCollection()
     {
@@ -105,7 +105,7 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
     }
 
     /**
-     * Deprecated
+     * @deprecated
      */
     public function getGroupCollection($website)
     {
@@ -130,7 +130,7 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
     }
 
     /**
-     * Deprecated
+     * @deprecated
      */
     public function getStoreCollection($group)
     {

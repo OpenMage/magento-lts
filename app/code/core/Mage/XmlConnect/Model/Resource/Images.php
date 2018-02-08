@@ -54,7 +54,7 @@ class Mage_XmlConnect_Model_Resource_Images extends Mage_Core_Model_Resource_Db_
 
         $select = $this->_getWriteAdapter()->select()->from($this->getMainTable(), array('image_id'))
             ->where('application_id=:application_id AND image_type=:image_type')
-            ->order('order', Varien_Data_Collection::SORT_ORDER_ASC);
+            ->order('order ' . Varien_Data_Collection::SORT_ORDER_ASC);
 
         $result = $this->_getWriteAdapter()->fetchCol($select, $bind);
         $imageModel = Mage::getModel('xmlconnect/images');

@@ -120,8 +120,7 @@ class Login extends Form
      */
     public function fill(FixtureInterface $customer, Element $element = null)
     {
-        $element = $this->switchOnPayPalFrame($element);
         $this->waitForElementNotVisible($this->loader);
-        return parent::fill($customer, $element);
+        return parent::fill($customer, $this->switchOnPayPalFrame($element));
     }
 }

@@ -220,6 +220,14 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </max_dimension>
+                        <progressive_threshold translate="label comment">
+                            <label>Enable Progressive Images Threshold</label>
+                            <comment>Minimum size in megapixel for progressive JPEG resize</comment>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-number</validate>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </progressive_threshold>
                     </fields>
                 </product_image>
                 <placeholder translate="label">

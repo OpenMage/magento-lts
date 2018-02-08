@@ -1560,7 +1560,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             $customer->setCreatedAt($order->getCreatedAt());
             $customer
                 ->save()
-                ->sendNewAccountEmail('registered', '', $quote->getStoreId());;
+                ->sendNewAccountEmail('registered', '', $quote->getStoreId());
         }
         if ($oldOrder->getId()) {
             $oldOrder->setRelationChildId($order->getId());

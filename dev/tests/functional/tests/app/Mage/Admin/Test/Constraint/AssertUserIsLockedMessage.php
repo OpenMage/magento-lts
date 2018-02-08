@@ -41,7 +41,7 @@ class AssertUserIsLockedMessage extends AbstractConstraint
     /**
      * Text for verify.
      */
-    const ERROR_MESSAGE = 'This account is locked.';
+    const ERROR_MESSAGE = 'You did not sign in correctly or your account is temporarily disabled.';
 
     /**
      * Assert that error message "This account is locked." is present in log in to backend page.

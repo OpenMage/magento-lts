@@ -55,4 +55,3 @@ class Mage_Adminhtml_Block_Sales_Items_Column_Name_Grouped extends Mage_Adminhtm
         return parent::_toHtml();
     }
 }
-?>

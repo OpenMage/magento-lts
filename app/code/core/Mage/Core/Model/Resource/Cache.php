@@ -89,11 +89,11 @@ class Mage_Core_Model_Resource_Cache extends Mage_Core_Model_Resource_Db_Abstrac
             if ($data) {
                 $this->_getWriteAdapter()->insertArray($this->getMainTable(), array('code', 'value'), $data);
             }
+            $adapter->commit();
         } catch (Exception $e) {
-            $adapter->rollback();
+            $adapter->rollBack();
             throw $e;
         }
-        $adapter->commit();
 
         return $this;
     }

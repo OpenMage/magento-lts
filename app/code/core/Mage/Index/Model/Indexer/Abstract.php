@@ -191,7 +191,6 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
 
         $resourceModel = $this->getResource();
         if ($resourceModel instanceof Mage_Index_Model_Resource_Abstract) {
-            $resourceModel->useDisableKeys(true);
             $resourceModel->disableTableKeys();
         }
 
@@ -211,7 +210,6 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
 
         $resourceModel = $this->getResource();
         if ($resourceModel instanceof Mage_Index_Model_Resource_Abstract) {
-            $resourceModel->useDisableKeys(true);
             $resourceModel->enableTableKeys();
         }
 

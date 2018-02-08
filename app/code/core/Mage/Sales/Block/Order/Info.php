@@ -78,6 +78,21 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
         return $this;
     }
 
+
+    /**
+     * Remove a link
+     *
+     * @param $name Name of the link
+     * @return Mage_Sales_Block_Order_Info
+     */
+    public function removeLink($name)
+    {
+        if (isset($this->_links[$name])) {
+            unset($this->_links[$name]);
+        }
+        return $this;
+    }
+
     public function getLinks()
     {
         $this->checkLinks();

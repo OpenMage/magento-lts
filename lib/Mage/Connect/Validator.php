@@ -318,7 +318,7 @@ class Mage_Connect_Validator
      */
     public function validatePackageName($name)
     {
-        return preg_match("/^[a-zA-Z0-9_-]+$/i", $name);
+        return preg_match("/^[a-zA-Z0-9_+]+$/i", $name);
     }
 
     /**

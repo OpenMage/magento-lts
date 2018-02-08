@@ -53,4 +53,3 @@ class Mage_Downloadable_Block_Adminhtml_Sales_Items_Column_Downloadable_Name ext
         return Mage::getStoreConfig(Mage_Downloadable_Model_Link::XML_PATH_LINKS_TITLE);
     }
 }
-?>

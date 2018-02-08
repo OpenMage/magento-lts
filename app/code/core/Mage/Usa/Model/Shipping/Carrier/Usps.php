@@ -914,7 +914,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
             $trackingData = array($trackingData);
         }
 
-        $this->_getXMLTracking($trackingData);
+        $this->_getXmlTracking($trackingData);
 
         return $this->_result;
     }

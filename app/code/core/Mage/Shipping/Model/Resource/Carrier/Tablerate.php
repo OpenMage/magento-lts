@@ -253,18 +253,17 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
             }
             $this->_saveImportData($importData);
             $io->streamClose();
+            $adapter->commit();
         } catch (Mage_Core_Exception $e) {
-            $adapter->rollback();
+            $adapter->rollBack();
             $io->streamClose();
             Mage::throwException($e->getMessage());
         } catch (Exception $e) {
-            $adapter->rollback();
+            $adapter->rollBack();
             $io->streamClose();
             Mage::logException($e);
             Mage::throwException(Mage::helper('shipping')->__('An error occurred while import table rates.'));
         }
-
-        $adapter->commit();
 
         if ($this->_importErrors) {
             $error = Mage::helper('shipping')->__('File has not been imported. See the following list of errors: %s', implode(" \n", $this->_importErrors));

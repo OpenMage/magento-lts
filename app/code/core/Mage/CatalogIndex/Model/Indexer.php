@@ -497,34 +497,44 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
 
         for ($i=0;$i<$productCount/self::STEP_SIZE;$i++) {
             $this->_getResource()->beginTransaction();
+            try {
+                $deleteKill = false;
 
-            $stepData = $collection->getAllIds(self::STEP_SIZE, $i*self::STEP_SIZE);
+                $stepData = $collection->getAllIds(self::STEP_SIZE, $i*self::STEP_SIZE);
 
-            /**
-             * Reindex EAV attributes if required
-             */
-            if (count($attributes)) {
-                $this->_getResource()->reindexAttributes($stepData, $attributes, $store);
-            }
+                /**
+                 * Reindex EAV attributes if required
+                 */
+                if (count($attributes)) {
+                    $this->_getResource()->reindexAttributes($stepData, $attributes, $store);
+                }
 
-            /**
-             * Reindex prices if required
-             */
-            if (count($prices)) {
-                $this->_getResource()->reindexPrices($stepData, $prices, $store);
-                $this->_getResource()->reindexTiers($stepData, $store);
-                $this->_getResource()->reindexMinimalPrices($stepData, $store);
-                $this->_getResource()->reindexFinalPrices($stepData, $store);
-            }
+                /**
+                 * Reindex prices if required
+                 */
+                if (count($prices)) {
+                    $this->_getResource()->reindexPrices($stepData, $prices, $store);
+                    $this->_getResource()->reindexTiers($stepData, $store);
+                    $this->_getResource()->reindexMinimalPrices($stepData, $store);
+                    $this->_getResource()->reindexFinalPrices($stepData, $store);
+                }
 
-            Mage::getResourceSingleton('catalog/product')->refreshEnabledIndex($store, $stepData);
+                Mage::getResourceSingleton('catalog/product')->refreshEnabledIndex($store, $stepData);
 
-            $kill = Mage::getModel('catalogindex/catalog_index_kill_flag')->loadSelf();
-            if ($kill->checkIsThisProcess()) {
+                $kill = Mage::getModel('catalogindex/catalog_index_kill_flag')->loadSelf();
+                if ($kill->checkIsThisProcess()) {
+                    $this->_getResource()->rollBack();
+                    $deleteKill = true;
+                } else {
+                    $this->_getResource()->commit();
+                }
+            } catch (Exception $e) {
                 $this->_getResource()->rollBack();
+                throw $e;
+            }
+
+            if ($deleteKill && isset($kill)) {
                 $kill->delete();
-            } else {
-                $this->_getResource()->commit();
             }
         }
         return $this;

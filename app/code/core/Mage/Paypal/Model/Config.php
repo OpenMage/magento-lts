@@ -718,6 +718,16 @@ class Mage_Paypal_Model_Config
     }
 
     /**
+     * Get postback endpoint URL.
+     *
+     * @return string
+     */
+    public function getPostbackUrl()
+    {
+        return sprintf('https://ipnpb.%spaypal.com/cgi-bin/webscr', $this->sandboxFlag ? 'sandbox.' : '');
+    }
+
+    /**
      * Whether Express Checkout button should be rendered dynamically
      *
      * @return bool
@@ -1588,4 +1598,3 @@ class Mage_Paypal_Model_Config
         return Mage::getStoreConfig('payment/paypal_express_bml/'.$section.'_size', $this->_storeId);
     }
 }
-

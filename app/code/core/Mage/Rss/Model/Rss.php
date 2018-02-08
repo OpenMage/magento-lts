@@ -63,7 +63,7 @@ class Mage_Rss_Model_Rss
     {
         try {
             $rssFeedFromArray = Zend_Feed::importArray($this->getFeedArray(), 'rss');
-            return $rssFeedFromArray->saveXML();
+            return $rssFeedFromArray->saveXml();
         } catch (Exception $e) {
             return Mage::helper('rss')->__('Error in processing xml. %s',$e->getMessage());
         }

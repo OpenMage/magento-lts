@@ -119,7 +119,7 @@ class Mage_Paygate_Block_Authorizenet_Form_Cc extends Mage_Payment_Block_Form
             $this->getMethod()->unsetPartialAuthorizationLastActionState();
             return Mage::helper('paygate')->__('Your credit card has been declined. Click OK to specify another credit card to complete your purchase. Click Cancel to release the amount on hold and select another payment method.');
         }
-        return false;;
+        return false;
     }
 
     /**

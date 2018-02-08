@@ -79,6 +79,7 @@ class Mage_Eav_Model_Attribute_Data_Multiselect extends Mage_Eav_Model_Attribute
             case Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_JSON:
             case Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_ARRAY:
                 $output = $values;
+                break;
             default:
                 $output = array();
                 foreach ($values as $value) {

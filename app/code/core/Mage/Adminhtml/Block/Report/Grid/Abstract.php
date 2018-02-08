@@ -146,7 +146,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
             return parent::_prepareCollection();
         }
 
-        $storeIds = $this->_getStoreIds();;
+        $storeIds = $this->_getStoreIds();
 
         $orderStatuses = $filterData->getData('order_statuses');
         if (is_array($orderStatuses)) {

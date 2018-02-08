@@ -79,7 +79,6 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Grid extends Mage_Adminhtml_Block_
 
         $this->addColumn('store_id', array(
             'header'    => Mage::helper('adminhtml')->__('Store'),
-            'type'      => 'options',
             'align'     => 'center',
             'index'     => 'store_id',
             'type'      => 'store',

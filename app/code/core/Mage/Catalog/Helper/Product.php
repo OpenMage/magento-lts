@@ -114,6 +114,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     /**
      * Retrieve base image url
      *
+     * @param  Mage_Catalog_Model_Product $product
      * @return string
      */
     public function getImageUrl($product)
@@ -131,7 +132,8 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     /**
      * Retrieve small image url
      *
-     * @return unknown
+     * @param  Mage_Catalog_Model_Product $product
+     * @return string
      */
     public function getSmallImageUrl($product)
     {
@@ -148,11 +150,19 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     /**
      * Retrieve thumbnail image url
      *
-     * @return unknown
+     * @param  Mage_Catalog_Model_Product $product
+     * @return string
      */
     public function getThumbnailUrl($product)
     {
-        return '';
+        $url = false;
+        if (!$product->getThumbnail()) {
+            $url = Mage::getDesign()->getSkinUrl('images/no_image.jpg');
+        }
+        elseif ($attribute = $product->getResource()->getAttribute('thumbnail')) {
+            $url = $attribute->getFrontend()->getUrl($product);
+        }
+        return $url;
     }
 
     public function getEmailToFriendUrl($product)
