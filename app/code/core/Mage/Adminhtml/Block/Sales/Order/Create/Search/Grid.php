@@ -101,6 +101,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
             ->setStore($this->getStore())
             ->addAttributeToSelect($attributes)
             ->addAttributeToSelect('sku')
+            ->addAttributeToSelect('visibility')            
             ->addStoreFilter()
             ->addAttributeToFilter('type_id', array_keys(
                 Mage::getConfig()->getNode('adminhtml/sales/order/create/available_product_types')->asArray()
@@ -108,7 +109,16 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
             ->addAttributeToSelect('gift_message_available');
 
         Mage::getSingleton('catalog/product_status')->addSaleableFilterToCollection($collection);
-
+        
+        if (Mage::helper('catalog')->isModuleEnabled('Mage_CatalogInventory')) {
+        $collection->joinField('inv_qty',
+            'cataloginventory/stock_item',
+            'qty',
+            'product_id=entity_id',
+            '{{table}}.stock_id=1',
+            'left');
+        }
+        
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
@@ -136,6 +146,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
             'width'     => '80',
             'index'     => 'sku'
         ));
+        
         $this->addColumn('price', array(
             'header'    => Mage::helper('sales')->__('Price'),
             'column_css_class' => 'price',
