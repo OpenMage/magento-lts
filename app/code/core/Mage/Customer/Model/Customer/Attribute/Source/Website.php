@@ -33,7 +33,7 @@
  */
 class Mage_Customer_Model_Customer_Attribute_Source_Website extends Mage_Eav_Model_Entity_Attribute_Source_Table
 {
-    public function getAllOptions()
+    public function getAllOptions($withEmpty = true, $defaultValues = false)
     {
         if (!$this->_options) {
             $this->_options = Mage::getSingleton('adminhtml/system_store')->getWebsiteValuesForForm(true, true);

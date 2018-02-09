@@ -56,7 +56,7 @@ class Mage_Customer_Model_Entity_Address_Attribute_Source_Country
      *
      * @return array
      */
-    public function getAllOptions()
+    public function getAllOptions($withEmpty = true, $defaultValues = false)
     {
         if (!$this->_options) {
             $this->_options = $this->_factory->getResourceModel('directory/country_collection')
