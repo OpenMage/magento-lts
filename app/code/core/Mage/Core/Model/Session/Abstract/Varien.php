@@ -439,6 +439,11 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
                 // throw core session exception
                 throw new Mage_Core_Model_Session_Exception('');
             }
+
+            // Refresh expire timestamp
+            if ($this->useValidateSessionExpire()) {
+                $_SESSION[self::VALIDATOR_KEY][self::VALIDATOR_SESSION_EXPIRE_TIMESTAMP] = time() + $this->getCookie()->getLifetime();
+            }
         }
 
         return $this;
@@ -484,9 +489,6 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
             && isset($sessionData[self::VALIDATOR_SESSION_EXPIRE_TIMESTAMP])
             && $sessionData[self::VALIDATOR_SESSION_EXPIRE_TIMESTAMP] < time() ) {
             return false;
-        } else {
-            $this->_data[self::VALIDATOR_KEY][self::VALIDATOR_SESSION_EXPIRE_TIMESTAMP]
-                = $validatorData[self::VALIDATOR_SESSION_EXPIRE_TIMESTAMP];
         }
         if ($this->useValidateSessionPasswordTimestamp()
             && isset($validatorData[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP])
