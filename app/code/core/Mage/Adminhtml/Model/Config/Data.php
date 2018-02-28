@@ -117,6 +117,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
             }
 
             foreach ($groupData['fields'] as $field => $fieldData) {
+                $field = ltrim($field, '/');
                 $fieldConfig = $sections->descend($section . '/groups/' . $group . '/fields/' . $field);
                 if (!$fieldConfig && $clonedFields && isset($mappedFields[$field])) {
                     $fieldConfig = $sections->descend($section . '/groups/' . $group . '/fields/'
