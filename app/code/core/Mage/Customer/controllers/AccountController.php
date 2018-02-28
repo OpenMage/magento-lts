@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -298,6 +298,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
             if (empty($errors)) {
                 $customer->cleanPasswordsValidationData();
+                $customer->setPasswordCreatedAt(time());
                 $customer->save();
                 $this->_dispatchRegisterSuccess($customer);
                 $this->_successProcessRegistration($customer);
@@ -865,6 +866,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             $customer->setRpToken(null);
             $customer->setRpTokenCreatedAt(null);
             $customer->cleanPasswordsValidationData();
+            $customer->setPasswordCreatedAt(time());
             $customer->save();
 
             $this->_getSession()->unsetData(self::TOKEN_SESSION_NAME);
@@ -1009,6 +1011,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
             try {
                 $customer->cleanPasswordsValidationData();
+                $customer->setPasswordCreatedAt(time());
 
                 // Reset all password reset tokens if all data was sufficient and correct on email change
                 if ($customer->getIsChangeEmail()) {
