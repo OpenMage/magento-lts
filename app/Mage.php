@@ -171,7 +171,7 @@ final class Mage
             'major'     => '1',
             'minor'     => '9',
             'revision'  => '3',
-            'patch'     => '4',
+            'patch'     => '7',
             'stability' => '',
             'number'    => '',
         );
@@ -473,7 +473,7 @@ final class Mage
     public static function getSingleton($modelClass='', array $arguments=array())
     {
         $registryKey = '_singleton/'.$modelClass;
-        if (!self::registry($registryKey)) {
+        if (!isset(self::$_registry[$registryKey])) {
             self::register($registryKey, self::getModel($modelClass, $arguments));
         }
         return self::registry($registryKey);
@@ -515,14 +515,14 @@ final class Mage
     public static function getResourceSingleton($modelClass = '', array $arguments = array())
     {
         $registryKey = '_resource_singleton/'.$modelClass;
-        if (!self::registry($registryKey)) {
+        if (!isset(self::$_registry[$registryKey])) {
             self::register($registryKey, self::getResourceModel($modelClass, $arguments));
         }
         return self::registry($registryKey);
     }
 
     /**
-     * Deprecated, use self::helper()
+     * @deprecated, use self::helper()
      *
      * @param string $type
      * @return object
@@ -542,7 +542,7 @@ final class Mage
     public static function helper($name)
     {
         $registryKey = '_helper/' . $name;
-        if (!self::registry($registryKey)) {
+        if (!isset(self::$_registry[$registryKey])) {
             $helperClass = self::getConfig()->getHelperClassName($name);
             self::register($registryKey, new $helperClass);
         }
@@ -558,7 +558,7 @@ final class Mage
     public static function getResourceHelper($moduleName)
     {
         $registryKey = '_resource_helper/' . $moduleName;
-        if (!self::registry($registryKey)) {
+        if (!isset(self::$_registry[$registryKey])) {
             $helperClass = self::getConfig()->getResourceHelper($moduleName);
             self::register($registryKey, $helperClass);
         }
@@ -805,7 +805,12 @@ final class Mage
         static $loggers = array();
 
         $level  = is_null($level) ? Zend_Log::DEBUG : $level;
-        $file = empty($file) ? 'system.log' : $file;
+        $file = empty($file) ? 'system.log' : basename($file);
+
+        // Validate file extension before save. Allowed file extensions: log, txt, html, csv
+        if (!self::helper('log')->isLogFileExtensionValid($file)) {
+            return;
+        }
 
         try {
             if (!isset($loggers[$file])) {

@@ -102,6 +102,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
         // 3. Set entered data if was error when we do save
         $data = Mage::getSingleton('adminhtml/session')->getFormData(true);
         if (! empty($data)) {
+            $data['store_id'] = $data['stores'];
             $model->setData($data);
         }
 

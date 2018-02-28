@@ -223,7 +223,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
                 if ($parameters->getIsPlain()) {
                     $mailer->setBodyText($message->getMessageBody());
                 } else {
-                    $mailer->setBodyHTML($message->getMessageBody());
+                    $mailer->setBodyHtml($message->getMessageBody());
                 }
 
                 $mailer->setSubject('=?utf-8?B?' . base64_encode($parameters->getSubject()) . '?=');

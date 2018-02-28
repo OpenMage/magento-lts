@@ -147,14 +147,14 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
                 Mage::helper('adminhtml')->__('The JavaScript/CSS cache has been cleaned.')
             );
         }
+        catch (Mage_Core_Exception $e) {
+            $this->_getSession()->addError($e->getMessage());
+        }
         catch (Exception $e) {
             $this->_getSession()->addException(
                 $e,
                 Mage::helper('adminhtml')->__('An error occurred while clearing the JavaScript/CSS cache.')
             );
-        }
-        catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
         }
         $this->_redirect('*/*');
     }

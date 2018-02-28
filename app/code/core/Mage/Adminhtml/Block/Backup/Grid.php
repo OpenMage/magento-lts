@@ -125,7 +125,6 @@ class Mage_Adminhtml_Block_Backup_Grid extends Mage_Adminhtml_Block_Widget_Grid
                     'type'     => 'action',
                     'width'    => '80px',
                     'filter'   => false,
-                    'sortable' => false,
                     'actions'  => array(array(
                         'url'     => '#',
                         'caption' => Mage::helper('backup')->__('Rollback'),

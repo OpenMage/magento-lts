@@ -143,7 +143,7 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
     public function getValueName()
     {
         $value = $this->getValue();
-        return !empty($value) || 0===$value ? $value : '...';;
+        return !empty($value) || 0===$value ? $value : '...';
     }
 
     public function getNewChildSelectOptions()

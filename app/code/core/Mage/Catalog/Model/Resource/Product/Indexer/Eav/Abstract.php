@@ -248,7 +248,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
             $adapter->delete($this->getMainTable(), $where);
             $adapter->commit();
         } catch (Exception $e) {
-            $adapter->rollback();
+            $adapter->rollBack();
             throw $e;
         }
 
@@ -276,7 +276,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
 
             $adapter->commit();
         } catch (Exception $e) {
-            $adapter->rollback();
+            $adapter->rollBack();
             throw $e;
         }
 

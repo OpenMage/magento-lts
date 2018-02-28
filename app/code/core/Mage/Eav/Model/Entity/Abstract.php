@@ -1067,20 +1067,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Initialize attribute value for object
      *
-     * @deprecated after 1.5.1.0 - mistake in method name
-     *
-     * @param   Varien_Object $object
-     * @param   array $valueRow
-     * @return  Mage_Eav_Model_Entity_Abstract
-     */
-    protected function _setAttribteValue($object, $valueRow)
-    {
-        return _setAttributeValue($object, $valueRow);
-    }
-
-    /**
-     * Initialize attribute value for object
-     *
      * @param   Varien_Object $object
      * @param   array $valueRow
      * @return  Mage_Eav_Model_Entity_Abstract
@@ -1591,7 +1577,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
             $this->_processAttributeValues();
             $adapter->commit();
         } catch (Exception $e) {
-            $adapter->rollback();
+            $adapter->rollBack();
             throw $e;
         }
 

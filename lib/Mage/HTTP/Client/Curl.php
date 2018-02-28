@@ -477,7 +477,7 @@ implements Mage_HTTP_IClient
      */
     protected function curlOptions($array)
     {
-        curl_setopt_array($this->_ch, $arr);
+        curl_setopt_array($this->_ch, $array);
     }
 
     /**

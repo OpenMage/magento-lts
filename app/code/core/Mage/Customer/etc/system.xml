@@ -368,7 +368,7 @@
                             <comment><![CDATA[Semicolon (;) separated values.<br/>Put semicolon in the beginning for empty first option.<br/>Leave empty for open text field.]]></comment>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </prefix_options>
                         <middlename_show translate="label comment">
                             <label>Show Middle Name (initial)</label>
@@ -398,7 +398,7 @@
                             <comment><![CDATA[Semicolon (;) separated values.<br/>Put semicolon in the beginning for empty first option.<br/>Leave empty for open text field.]]></comment>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </suffix_options>
                         <dob_show translate="label">
                             <label>Show Date of Birth</label>

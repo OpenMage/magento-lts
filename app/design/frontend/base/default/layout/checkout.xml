@@ -487,5 +487,4 @@ One page checkout order review block
             <block type="checkout/onepage_failure" name="checkout.failure" template="checkout/onepage/failure.phtml"/>
         </reference>
     </checkout_onepage_failure>
-    <block type="core/list" name="additional.product.info"/>
 </layout>

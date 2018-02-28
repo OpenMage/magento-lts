@@ -53,7 +53,7 @@ if ($data) {
 
         $connection->commit();
     } catch (Exception $e) {
-        $installer->getConnection()->rollback();
+        $installer->getConnection()->rollBack();
         throw $e;
     }
 }

@@ -149,7 +149,7 @@ class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
         if (!$this->getAddress()->getId()) {
             return $this->getCustomerAddressCount();
         }
-        return !$this->isDefaultShipping();;
+        return !$this->isDefaultShipping();
     }
 
     public function isDefaultBilling()

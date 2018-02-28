@@ -390,7 +390,7 @@ class Mage_Core_Model_Design_Package
                 break;
 
             case 'locale':
-                $dir = $this->getLocaleBasedir($params);
+                $dir = $this->getLocaleBaseDir($params);
                 break;
 
             default:

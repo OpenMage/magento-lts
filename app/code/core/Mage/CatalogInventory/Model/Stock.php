@@ -42,7 +42,7 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
     const BACKORDERS_YES_NONOTIFY   = 1;
     const BACKORDERS_YES_NOTIFY     = 2;
 
-    /* deprecated */
+    /* @deprecated */
     const BACKORDERS_BELOW          = 1;
     const BACKORDERS_YES            = 2;
 
