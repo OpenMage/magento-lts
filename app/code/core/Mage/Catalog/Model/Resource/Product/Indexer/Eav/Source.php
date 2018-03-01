@@ -199,6 +199,23 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source
             $options[$row['attribute_id']][$row['option_id']] = true;
         }
 
+        foreach ($attrIds as $attId) {
+            $attribute = Mage::getResourceSingleton('catalog/product')->getAttribute($attId);
+
+            // if custom source model
+            if ($attribute->getSourceModel() != 'eav/entity_attribute_source_table') {
+                unset($options[$attId]);
+                $sourceOptions = $attribute->getSource()->getAllOptions();
+                if ($sourceOptions) {
+                    foreach ($sourceOptions as $sourceOption) {
+                        if (isset($sourceOption['value'])) {
+                            $options[$attId][$sourceOption['value']] = true;
+                        }
+                    }
+                }
+            }
+        }
+
         // prepare get multiselect values query
         $productValueExpression = $adapter->getCheckSql('pvs.value_id > 0', 'pvs.value', 'pvd.value');
         $select = $adapter->select()
