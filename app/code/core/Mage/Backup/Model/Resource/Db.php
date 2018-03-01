@@ -197,7 +197,7 @@ class Mage_Backup_Model_Resource_Db
      */
     public function getTableCreateScript($tableName, $addDropIfExists = false)
     {
-        return Mage::getResourceHelper('backup')->getTableCreateScript($tableName, $addDropIfExists);;
+        return Mage::getResourceHelper('backup')->getTableCreateScript($tableName, $addDropIfExists);
     }
 
     /**

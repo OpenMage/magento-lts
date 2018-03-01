@@ -340,7 +340,7 @@ class Varien_Db_Tree
                         '.$this->_right.' > '.$info[$this->_right];
                 $this->_db->query($sql);
                 $this->_db->commit();
-                return new Varien_Db_Tree_Node($info, $this->getKeys());;
+                return new Varien_Db_Tree_Node($info, $this->getKeys());
             } catch (Exception $e) {
                 $this->_db->rollBack();
                 echo $e->getMessage();

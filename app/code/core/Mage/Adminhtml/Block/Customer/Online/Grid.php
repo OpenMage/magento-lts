@@ -139,7 +139,6 @@ class Mage_Adminhtml_Block_Customer_Online_Grid extends Mage_Adminhtml_Block_Wid
 
         $this->addColumn('type', array(
             'header'    => Mage::helper('customer')->__('Type'),
-            'index'     => 'type',
             'type'      => 'options',
             'options'   => $typeOptions,
 //            'renderer'  => 'adminhtml/customer_online_grid_renderer_type',

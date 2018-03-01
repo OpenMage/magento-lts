@@ -97,7 +97,8 @@ AdminBackup.prototype = {
 
         $$('#ftp-credentials-container input').each(function(item) {
             if (item.name == 'ftp_path') return;
-            $('use_ftp').checked ? item.addClassName('required-entry') : item.removeClassName('required-entry');
+            $('use_ftp').checked && item.name != 'dummy' ?
+                item.addClassName('required-entry') : item.removeClassName('required-entry');
         });
 
         $(divId).show().setStyle({

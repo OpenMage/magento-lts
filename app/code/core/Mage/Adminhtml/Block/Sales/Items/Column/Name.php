@@ -52,4 +52,3 @@ class Mage_Adminhtml_Block_Sales_Items_Column_Name extends Mage_Adminhtml_Block_
         return $result;
     }
 }
-?>

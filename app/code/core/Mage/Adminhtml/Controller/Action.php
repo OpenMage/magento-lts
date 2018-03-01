@@ -186,7 +186,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
                     'message' => $_keyErrorMsg
                 )));
             } else {
-                if ($_keyErrorMsg != ''){
+                if (!$_isValidFormKey){
                     Mage::getSingleton('adminhtml/session')->addError($_keyErrorMsg);
                 }
                 $this->_redirect( Mage::getSingleton('admin/session')->getUser()->getStartupPageUrl() );

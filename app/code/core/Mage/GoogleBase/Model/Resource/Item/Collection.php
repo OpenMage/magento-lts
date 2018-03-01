@@ -57,7 +57,7 @@ class Mage_GoogleBase_Model_Resource_Item_Collection extends Mage_Core_Model_Res
     }
 
     /**
-     * Deprecated
+     * @deprecated
      *
      * @param int $storeId
      * @return Mage_GoogleBase_Model_Resource_Item_Collection

@@ -117,7 +117,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
             }
             $adapter->commit();
         } catch (Exception $e) {
-            $adapter->rollback();
+            $adapter->rollBack();
             throw $e;
         }
 
@@ -151,7 +151,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
             }
             $adapter->commit();
         } catch (Exception $e) {
-            $adapter->rollback();
+            $adapter->rollBack();
             throw $e;
         }
 
@@ -224,7 +224,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
             }
             $adapter->commit();
         } catch (Exception $e) {
-            $adapter->rollback();
+            $adapter->rollBack();
             throw $e;
         }
 

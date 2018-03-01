@@ -122,7 +122,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         }
         //Since tax amount contains weee tax
         $tax = $item->getTaxAmount() + $item->getDiscountTaxCompensation()
-            - $this->_getWeeeHelper()->getTotalRowTaxAppliedForWeeeTax($item);;
+            - $this->_getWeeeHelper()->getTotalRowTaxAppliedForWeeeTax($item);
 
         return $item->getRowTotal() + $tax;
     }

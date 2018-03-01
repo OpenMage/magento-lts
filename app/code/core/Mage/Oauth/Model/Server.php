@@ -417,7 +417,7 @@ class Mage_Oauth_Model_Server
         if (self::REQUEST_INITIATE == $this->_requestType) {
             if (self::CALLBACK_ESTABLISHED == $this->_protocolParams['oauth_callback']
                 && $this->_consumer->getCallBackUrl()) {
-                $callbackUrl = $this->_consumer->getCallBackUrl();
+                $callbackUrl = $this->_consumer->getCallbackUrl();
             } else {
                 $callbackUrl = $this->_protocolParams['oauth_callback'];
             }

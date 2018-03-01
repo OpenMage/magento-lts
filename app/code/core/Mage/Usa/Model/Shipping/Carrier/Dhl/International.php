@@ -679,11 +679,11 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
                 }
                 unset($items[$key]);
                 $sumWeight = $weight;
-                foreach ($items as $key => $weight) {
-                    if (($sumWeight + $weight) < $maxWeight) {
-                        unset($items[$key]);
-                        $sumWeight += $weight;
-                    } elseif (($sumWeight + $weight) > $maxWeight) {
+                foreach ($items as $keyItem => $weightItem) {
+                    if (($sumWeight + $weightItem) < $maxWeight) {
+                        unset($items[$keyItem]);
+                        $sumWeight += $weightItem;
+                    } elseif (($sumWeight + $weightItem) > $maxWeight) {
                         $numberOfPieces++;
                         $nodePiece = $nodePieces->addChild('Piece', '', '');
                         $nodePiece->addChild('PieceID', $numberOfPieces);
@@ -691,9 +691,9 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
                         $nodePiece->addChild('Weight', $sumWeight);
                         break;
                     } else {
-                        unset($items[$key]);
+                        unset($items[$keyItem]);
                         $numberOfPieces++;
-                        $sumWeight += $weight;
+                        $sumWeight += $weightItem;
                         $nodePiece = $nodePieces->addChild('Piece', '', '');
                         $nodePiece->addChild('PieceID', $numberOfPieces);
                         $this->_addDimension($nodePiece);

@@ -330,7 +330,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
             return ;
         }
 
-        $this->_addDeletionNotice('store view');;
+        $this->_addDeletionNotice('store view');
 
         $this->_initAction()
             ->_addBreadcrumb(Mage::helper('core')->__('Delete Store View'), Mage::helper('core')->__('Delete Store View'))

@@ -521,7 +521,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      */
     protected function _prepareOptions(Varien_Object $buyRequest, $product, $processMode)
     {
-        $transport = new StdClass;
+        $transport = new stdClass;
         $transport->options = array();
         foreach ($this->getProduct($product)->getOptions() as $_option) {
             /* @var $_option Mage_Catalog_Model_Product_Option */

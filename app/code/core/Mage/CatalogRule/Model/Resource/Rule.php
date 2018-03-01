@@ -362,7 +362,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
             $this->insertRuleData($rule, $websiteIds);
             $write->commit();
         } catch (Exception $e) {
-            $write->rollback();
+            $write->rollBack();
             throw $e;
         }
 
@@ -660,7 +660,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
             $adapter->insertOnDuplicate($this->getTable('catalogrule/rule_product_price'), $arrData);
             $adapter->commit();
         } catch (Exception $e) {
-            $adapter->rollback();
+            $adapter->rollBack();
             throw $e;
 
         }
@@ -797,7 +797,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
 
             $write->commit();
         } catch (Exception $e) {
-            $write->rollback();
+            $write->rollBack();
             throw $e;
         }
         return $this;

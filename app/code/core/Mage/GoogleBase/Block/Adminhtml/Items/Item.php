@@ -110,7 +110,6 @@ class Mage_GoogleBase_Block_Adminhtml_Items_Item extends Mage_Adminhtml_Block_Wi
         $this->addColumn('active',
             array(
                 'header'    => $this->__('Active'),
-                'width'     => '150px',
                 'type'      => 'options',
                 'width'     => '70px',
                 'options'   => Mage::getSingleton('googlebase/source_statuses')->getStatuses(),

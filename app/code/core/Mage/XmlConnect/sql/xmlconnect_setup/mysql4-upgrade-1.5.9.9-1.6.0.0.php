@@ -384,12 +384,6 @@ $tables = array(
                 'nullable'  => false,
                 'comment'   => 'Template Id'
             ),
-            'push_title' => array(
-                'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
-                'length'    => 140,
-                'nullable'  => false,
-                'comment'   => 'Push Notification Title'
-            ),
             'message_title' => array(
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,

@@ -171,7 +171,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
 
         $removeTags = is_array($tags) ? $tags : explode(',', $tags);
 
-        foreach ($removeTags as $t) {
+        foreach ($removeTags as $k=>$t) {
             if (!is_numeric($k)) {
                 $t = $k.'='.$t;
             }

@@ -1548,7 +1548,7 @@ XMLAuth;
                 ->addChild('Code', 'GIF');
 
         $this->setXMLAccessRequest();
-        $xmlRequest = $this->_xmlAccessRequest . $xmlRequest->asXml();
+        $xmlRequest = $this->_xmlAccessRequest . $xmlRequest->asXML();
         return $xmlRequest;
     }
 
