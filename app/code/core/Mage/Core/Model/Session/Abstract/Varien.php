@@ -156,12 +156,12 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
                     /**
                      * Renew secure cookie expiration time if secure id did not change
                      */
-                    $cookie->renew($secureCookieName, null, null, null, true, null);
+                    $cookie->renew($secureCookieName, null, null, null, true, true);
                 }
             }
             if (!isset($_SESSION[self::SECURE_COOKIE_CHECK_KEY])) {
                 $checkId = Mage::helper('core')->getRandomString(16);
-                $cookie->set($secureCookieName, $checkId, null, null, null, true);
+                $cookie->set($secureCookieName, $checkId, null, null, null, true, true);
                 $_SESSION[self::SECURE_COOKIE_CHECK_KEY] = md5($checkId);
             }
         }
