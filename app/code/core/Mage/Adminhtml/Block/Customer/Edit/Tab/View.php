@@ -78,8 +78,12 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View
      */
     public function getCreateDate()
     {
-        return $this->_getCoreHelper()->formatDate($this->getCustomer()->getCreatedAt(),
-            Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true);
+        $date = Mage::app()->getLocale()->storeDate(
+        $this->getCustomer()->getStoreId(),
+        $this->getCustomer()->getCreatedAtTimestamp(),
+        true
+    );
+    return $this->formatDate($date, Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true);
     }
 
     public function getStoreCreateDate()
