@@ -213,7 +213,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
         $toTime = (int) Mage::getModel('core/date')->gmtTimestamp(strtotime($rule->getToDate()));
         $toTime = $toTime ? ($toTime + self::SECONDS_IN_DAY - 1) : 0;
 
-        $timestamp = Mage::app()->getLocale()->date(null, null, null, true)->get(Zend_Date::TIMESTAMP);
+        $timestamp = time();
         if ($fromTime > $timestamp
             || ($toTime && $toTime < $timestamp)
         ) {
