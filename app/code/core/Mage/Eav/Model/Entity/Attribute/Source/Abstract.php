@@ -94,10 +94,18 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract
 
     public function getOptionId($value)
     {
+        $bc_warning = false;
         foreach ($this->getAllOptions() as $option) {
-            if (strcasecmp($option['label'], $value)==0 || $option['value'] == $value) {
+            if (strcasecmp($option['label'], $value)==0) {
                 return $option['value'];
             }
+            if ($option['value'] == $value) {
+                $bc_warning = true;
+            }
+        }
+        if ($bc_warning) {
+            Mage::log('Mage_Eav_Model_Entity_Attribute_Source_Abstract::getOptionId() no longer accepts option_id as param',
+                      Zend_Log::WARN);
         }
         return null;
     }
