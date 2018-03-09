@@ -350,6 +350,7 @@ AdminOrder.prototype = {
     setShippingMethod : function(method){
         var data = {};
         data['order[shipping_method]'] = method;
+        data['shipping_as_billing'] = this.shippingAsBilling ? 1 : 0;
         this.loadArea(['shipping_method', 'totals', 'billing_method'], true, data);
     },
 
