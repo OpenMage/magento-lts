@@ -39,6 +39,13 @@ class Mage_Admin_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstra
     const CACHE_ID = 'permission_block';
 
     /**
+     * Disallowed names for block
+     *
+     * @var array
+     */
+    protected $disallowedBlockNames = array('install/end');
+
+    /**
      * Define main table
      *
      */
@@ -70,6 +77,10 @@ class Mage_Admin_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstra
         /** @var Mage_Admin_Model_Resource_Block_Collection $collection */
         $collection = Mage::getResourceModel('admin/block_collection');
         $collection->addFieldToFilter('is_allowed', array('eq' => 1));
+        $disallowedBlockNames = $this->getDisallowedBlockNames();
+        if (is_array($disallowedBlockNames) && count($disallowedBlockNames) > 0) {
+            $collection->addFieldToFilter('block_name', array('nin' => $disallowedBlockNames));
+        }
         $data = $collection->getColumnValues('block_name');
         $data = array_flip($data);
         Mage::app()->saveCache(
@@ -97,5 +108,15 @@ class Mage_Admin_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstra
     {
         $this->_generateCache();
         return parent::_afterDelete($object);
+    }
+
+    /**
+     *  Get disallowed names for block
+     *
+     * @return array
+     */
+    public function getDisallowedBlockNames()
+    {
+        return $this->disallowedBlockNames;
     }
 }

@@ -19,51 +19,18 @@
  * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
- * @package     Mage_Admin
+ * @package     Mage_Downloadable
  * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-/**
- * Admin Block Helper
- *
- * @category    Mage
- * @package     Mage_Admin
- * @author      Magento Core Team <core@magentocommerce.com>
- */
-class Mage_Admin_Helper_Block
-{
-    /**
-     * Types cache
-     *
-     * @var array
-     */
-    protected $_allowedTypes;
-
-    /**
-     * Construct
-     */
-    public function __construct()
-    {
-        $this->_allowedTypes = Mage::getResourceModel('admin/block')->getAllowedTypes();
-    }
-
-    /**
-     * @param string $type
-     * @return bool
-     */
-    public function isTypeAllowed($type)
-    {
-        return isset($this->_allowedTypes[$type]);
-    }
-
-    /**
-     *  Get disallowed names for block
-     *
-     * @return bool
-     */
-    public function getDisallowedBlockNames()
-    {
-        return Mage::getResourceModel('admin/block')->getDisallowedBlockNames();
-    }
-}
+/* @var $installer Mage_Core_Model_Resource_Setup */
+$installer = $this;
+$installer->startSetup();
+$connection = $installer->getConnection();
+$connection->delete(
+    $this->getTable('core_config_data'),
+    $connection->prepareSqlCondition('path', array(
+        'like' => 'catalog/downloadable/content_disposition'
+    ))
+);
+$installer->endSetup();
