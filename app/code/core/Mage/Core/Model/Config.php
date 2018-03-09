@@ -10,18 +10,18 @@
  * http://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * to license@magentocommerce.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
  * Do not edit or add to this file if you wish to upgrade Magento to newer
  * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
+ * needs please refer to http://www.magentocommerce.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -37,7 +37,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     const CACHE_TAG         = 'CONFIG';
 
     /**
-     * Flag which allow use cache logic
+     * Flag which allow use cache logic 
      *
      * @var bool
      */
@@ -256,9 +256,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         if ($cacheLoad) {
             return $this;
         }
-
-        $this->_useCache = false;
-
         $this->loadModules();
         $this->loadDb();
         $this->saveCache();
@@ -304,6 +301,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                 }
             }
         }
+
         return false;
     }
 
@@ -414,8 +412,18 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     protected function _canUseCacheForInit()
     {
-        return Mage::app()->useCache('config') && $this->_allowCacheForInit
-            && !$this->_loadCache($this->_getCacheLockId());
+        if (Mage::app()->useCache('config') && $this->_allowCacheForInit) {
+            $retries = 10;
+            do {
+                if ($this->_loadCache($this->_getCacheLockId())) {
+                    if ($retries) usleep(500000); // 0.5 seconds
+                } else {
+                    return TRUE;
+                }
+            } while ($retries--);
+        }
+
+        return FALSE;
     }
 
     /**
@@ -457,6 +465,8 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             return $this;
         }
 
+        $this->_saveCache(time(), $cacheLockId, array(), 60);
+
         if (!empty($this->_cacheSections)) {
             $xml = clone $this->_xml;
             foreach ($this->_cacheSections as $sectionName => $level) {
@@ -465,16 +475,17 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             }
             $this->_cachePartsForSave[$this->getCacheId()] = $xml->asNiceXml('', false);
         } else {
-            return parent::saveCache($tags);
+            parent::saveCache($tags);
+            $this->_removeCache($cacheLockId);
+            return $this;
         }
 
-        $this->_saveCache(time(), $cacheLockId, array(), 60);
-        $this->removeCache();
         foreach ($this->_cachePartsForSave as $cacheId => $cacheData) {
             $this->_saveCache($cacheData, $cacheId, $tags, $this->getCacheLifetime());
         }
         unset($this->_cachePartsForSave);
         $this->_removeCache($cacheLockId);
+
         return $this;
     }
 
@@ -1645,7 +1656,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Makes all events to lower-case
      *
      * @param string $area
-     * @param Varien_Simplexml_Config $mergeModel
+     * @param Mage_Core_Model_Config_Base $mergeModel
      */
     protected function _makeEventsLowerCase($area, Varien_Simplexml_Config $mergeModel)
     {
