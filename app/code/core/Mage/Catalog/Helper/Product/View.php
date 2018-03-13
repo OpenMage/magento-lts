@@ -58,6 +58,11 @@ class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
 
         $update->addHandle('PRODUCT_TYPE_' . $product->getTypeId());
         $update->addHandle('PRODUCT_' . $product->getId());
+
+        if ($settings->getPageLayout()) {
+            $update->addHandle($settings->getPageLayout());
+        }
+
         $controller->loadLayoutUpdates();
 
         // Apply custom layout update once layout is loaded
