@@ -121,9 +121,6 @@ class Mage_Core_Model_File_Validator_Image
                             }
                             imagegif($img, $filePath);
                             break;
-                        case IMAGETYPE_JPEG:
-                            imagejpeg($img, $filePath, 100);
-                            break;
                         case IMAGETYPE_PNG:
                             imagepng($img, $filePath);
                             break;
