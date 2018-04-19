@@ -839,11 +839,13 @@ class Mage_Core_Model_App
         }
 
         if (!isset($id) || ''===$id || $id === true) {
-            $id = $this->_currentStore ? $this->_currentStore : "default";
+            $id = ($this->_currentStore) ? $this->_currentStore : $this->_getDefaultStore();
         }
+        
         if ($id instanceof Mage_Core_Model_Store) {
             return $id;
         }
+        
         if (!isset($id)) {
             $this->throwStoreException();
         }
