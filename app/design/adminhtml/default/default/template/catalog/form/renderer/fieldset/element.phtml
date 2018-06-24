@@ -46,7 +46,7 @@
     <td class="value">
         <?php echo trim($this->getElementHtml()) ?>
         <?php if ($_element->getNote()) : ?>
-            <p class="note"><?php echo $_element->getNote() ?></p>
+            <p class="note"><?php echo $this->__($_element->getNote()); ?></p>
         <?php endif; ?>
     </td>
     <td class="scope-label"><span class="nobr"><?php echo $this->getScopeLabel() ?></span></td>
