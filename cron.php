@@ -40,7 +40,12 @@ if (!Mage::isInstalled()) {
 $_SERVER['SCRIPT_NAME'] = str_replace(basename(__FILE__), 'index.php', $_SERVER['SCRIPT_NAME']);
 $_SERVER['SCRIPT_FILENAME'] = str_replace(basename(__FILE__), 'index.php', $_SERVER['SCRIPT_FILENAME']);
 
-Mage::app('admin')->setUseSessionInUrl(false);
+try {
+    Mage::app('admin')->setUseSessionInUrl(false);
+} catch (Exception $e) {
+    Mage::printException($e);
+    exit;
+}
 
 umask(0);
 
@@ -63,8 +68,8 @@ try {
             $fileName = escapeshellarg(basename(__FILE__));
             $cronPath = escapeshellarg(dirname(__FILE__) . '/cron.sh');
 
-            shell_exec(escapeshellcmd("/bin/sh $cronPath $fileName -mdefault 1 > /dev/null 2>&1 &"));
-            shell_exec(escapeshellcmd("/bin/sh $cronPath $fileName -malways 1 > /dev/null 2>&1 &"));
+            shell_exec(escapeshellcmd("/bin/sh $cronPath $fileName -mdefault 1") . " > /dev/null 2>&1 &");
+            shell_exec(escapeshellcmd("/bin/sh $cronPath $fileName -malways 1") . " > /dev/null 2>&1 &");
             exit;
         }
     }
