@@ -52,6 +52,15 @@ if (!$storeCode && $websiteCode) {
     $storedFreeShipment   = Mage::getStoreConfig('carriers/ups/free_method');
     $storedUpsType        = Mage::getStoreConfig('carriers/ups/type');
 }
+if (!in_array($storedOriginShipment, array_keys($orShipArr))) {
+    $storedOriginShipment = '';
+}
+if ($storedFreeShipment != '' && !in_array($storedFreeShipment, array_keys($defShipArr))) {
+    $storedFreeShipment = '';
+}
+if (!Mage::helper('usa')->validateUpsType($storedUpsType)) {
+    $storedUpsType = '';
+}
 ?>
 <script type="text/javascript">
 //<![CDATA[

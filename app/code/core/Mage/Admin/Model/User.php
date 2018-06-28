@@ -134,6 +134,10 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
             // Change user password
             $data['password'] = $this->_getEncodedPassword($this->getNewPassword());
             $data['new_password'] = $data['password'];
+            $sessionUser = $this->getSession()->getUser();
+            if ($sessionUser && $sessionUser->getId() == $this->getId()) {
+                $this->getSession()->setUserPasswordChanged(true);
+            }
         } elseif ($this->getPassword() && $this->getPassword() != $this->getOrigData('password')) {
             // New user password
             $data['password'] = $this->_getEncodedPassword($this->getPassword());
@@ -152,6 +156,14 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         $this->addData($data);
 
         return parent::_beforeSave();
+    }
+
+    /**
+     * @return Mage_Admin_Model_Session
+     */
+    protected function getSession()
+    {
+        return  Mage::getSingleton('admin/session');
     }
 
     /**
@@ -400,8 +412,15 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     public function reload()
     {
         $id = $this->getId();
+        $oldPassword = $this->getPassword();
         $this->setId(null);
         $this->load($id);
+        $isUserPasswordChanged = $this->getSession()->getUserPasswordChanged();
+        if ($this->getPassword() !== $oldPassword && !$isUserPasswordChanged) {
+            $this->setId(null);
+        } elseif ($isUserPasswordChanged) {
+            $this->getSession()->setUserPasswordChanged(false);
+        }
         return $this;
     }
 
