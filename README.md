@@ -28,6 +28,8 @@ PHP 7 support was added as of version 1.9.2.3. based on the Inchoo article and [
 ## License
 [OSL v3.0](http://opensource.org/licenses/OSL-3.0)
 
+## Public Communication and online Community places
+* [Discord](https://discord.gg/EV8aNbU) (maintained by Flyingmana)
 
 ## Maintainers
 * [Lee Saferite](https://github.com/LeeSaferite)
