@@ -50,7 +50,7 @@
             <?php endif;?>
             <?php if ($links = $this->getLinks()): ?>
             <dl class="item-options">
-                <dt><?php echo $this->getLinksTitle() ?></dt>
+                <dt><?php echo $this->escapeHtml($this->getLinksTitle()); ?></dt>
                 <?php foreach ($links as $link): ?>
                     <dd><?php echo $this->escapeHtml($link->getTitle()); ?></dd>
                 <?php endforeach; ?>

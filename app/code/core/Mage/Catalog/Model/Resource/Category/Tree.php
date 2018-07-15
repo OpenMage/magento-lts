@@ -482,6 +482,9 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
         $where = array($levelField . '=0' => true);
 
         foreach ($this->_conn->fetchAll($select) as $item) {
+            if (!preg_match("#^[0-9\/]+$#", $item['path'])) {
+                $item['path'] = '';
+            }
             $pathIds  = explode('/', $item['path']);
             $level = (int)$item['level'];
             while ($level > 0) {

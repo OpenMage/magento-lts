@@ -359,6 +359,7 @@
 "Invalid block: %s.","Invalid block: %s."
 "Invalid category IDs.","Invalid category IDs."
 "Invalid category.","Invalid category."
+"Invalid custom option(s).","Invalid custom option(s)."
 "Invalid image file type.","Invalid image file type."
 "Invalid image type.","Invalid image type."
 "Invalid option ID specified for %s (%s), skipping the record.","Invalid option ID specified for %s (%s), skipping the record."
