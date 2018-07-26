@@ -168,7 +168,8 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                 if (is_object($fieldConfig)) {
                     $configPath = (string)$fieldConfig->config_path;
                     if (!empty($configPath) && strrpos($configPath, '/') > 0) {
-                        if (!Mage::getSingleton('admin/session')->isAllowed($configPath)) {
+                        $parts = explode('/', $configPath);
+                        if (!$this->_isSectionAllowed($parts[0])) {
                             Mage::throwException('Access denied.');
                         }
                         // Extend old data with specified section group
@@ -242,6 +243,30 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
             return $oldConfig + $extended;
         }
         return $extended;
+    }
+
+    /**
+     * Check if specified section allowed in ACL
+     *
+     * Taken from Mage_Adminhtml_System_ConfigController::_isSectionAllowed
+     *
+     * @param string $section
+     * @return bool
+     */
+    protected function _isSectionAllowed($section)
+    {
+        try {
+            $session = Mage::getSingleton('admin/session');
+            $resourceLookup = "admin/system/config/{$section}";
+            if ($session->getData('acl') instanceof Mage_Admin_Model_Acl) {
+                return $session->isAllowed(
+                    $session->getData('acl')->get($resourceLookup)->getResourceId()
+                );
+            }
+        } catch (Exception $e) {
+            return false;
+        }
+        return false;
     }
 
     /**
