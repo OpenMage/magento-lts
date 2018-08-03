@@ -772,7 +772,7 @@ class Mage_CatalogInventory_Model_Observer
         // Reindex previously remembered items
         $productIds = array();
         foreach ($this->_itemsForReindex as $item) {
-            $item->save();
+            $item->updateStockStatus();
             $productIds[] = $item->getProductId();
         }
         Mage::getResourceSingleton('catalog/product_indexer_price')->reindexProductIds($productIds);

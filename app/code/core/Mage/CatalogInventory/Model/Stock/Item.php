@@ -417,7 +417,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
         return $this->_qtyIncrements;
     }
 
-     /**
+    /**
      * Retrieve Default Quantity Increments data wrapper
      *
      * @deprecated since 1.7.0.0
@@ -582,8 +582,8 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
             $qty = intval($qty);
 
             /**
-              * Adding stock data to quote item
-              */
+             * Adding stock data to quote item
+             */
             $result->setItemQty($qty);
 
             if (!is_numeric($qty)) {
@@ -796,6 +796,46 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
             $this->setStockId($this->getStockId());
         }
 
+        return $this;
+    }
+
+    /**
+     * Update Stock Status and low stock date as if $this->save() has been
+     * called, keeping the update query very light, by only touching those
+     * fields of interest
+     *
+     * @return $this
+     * @throws Exception
+     */
+    public function updateStockStatus()
+    {
+        if (!$this->_hasModelChanged()) {
+            return $this;
+        }
+        $this->_getResource()->beginTransaction();
+        $dataCommited = false;
+        try {
+            $this->_beforeSave();
+            $updatedFields = array(
+                'is_in_stock' => $this->getIsInStock(),
+                'stock_status_changed_auto' => $this->getStockStatusChangedAutomatically(),
+                'low_stock_date' => $this->getLowStockDate()
+            );
+            $this->getResource()
+                ->updateRecord($this->getId(), $updatedFields);
+            $this->_afterSave();
+            $this->_getResource()->addCommitCallback(array($this, 'afterCommitCallback'))
+                ->commit();
+            $this->_hasDataChanges = false;
+            $dataCommited = true;
+        } catch (Exception $e) {
+            $this->_getResource()->rollBack();
+            $this->_hasDataChanges = true;
+            throw $e;
+        }
+        if ($dataCommited) {
+            $this->_afterSaveCommit();
+        }
         return $this;
     }
 
