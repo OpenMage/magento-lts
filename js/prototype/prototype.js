@@ -609,7 +609,7 @@ Object.extend(String.prototype, (function() {
   }
 
   function evalScripts() {
-    return this.extractScripts().map(function(script) { return eval(script) });
+	return this.extractScripts().map(function(script) { with(this){ return eval(script);} });
   }
 
   function escapeHTML() {
