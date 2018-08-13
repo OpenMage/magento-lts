@@ -186,8 +186,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
             $this->setAcl(Mage::getResourceModel('admin/acl')->loadAcl());
         }
         if ($user->getReloadAclFlag()) {
-            $user->unsetData('password');
-            $user->setReloadAclFlag('0')->save();
+            $user->getResource()->save($user->setReloadAclFlag('0'));
         }
         return $this;
     }
