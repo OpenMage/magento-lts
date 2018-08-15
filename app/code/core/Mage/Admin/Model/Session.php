@@ -31,6 +31,11 @@
  * @category    Mage
  * @package     Mage_Admin
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Admin_Model_User getUser()
+ * @method $this setUser(Mage_Admin_Model_User $user)
+ * @method Mage_Admin_Model_Acl getAcl()
+ * @method $this setAcl(Mage_Admin_Model_Acl $acl)
  */
 class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
 {
@@ -186,7 +191,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
             $this->setAcl(Mage::getResourceModel('admin/acl')->loadAcl());
         }
         if ($user->getReloadAclFlag()) {
-            $user->getResource()->save($user->setReloadAclFlag('0'));
+            $user->getResource()->saveReloadAclFlag($user, 0);
         }
         return $this;
     }
