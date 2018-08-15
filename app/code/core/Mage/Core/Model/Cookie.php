@@ -186,6 +186,10 @@ class Mage_Core_Model_Cookie
         if ($this->getStore()->isAdmin()) {
             return $this->_getRequest()->isSecure();
         }
+        // Use secure cookie if unsecure base url is actually secure
+        if (preg_match('/^https:/', $this->getStore()->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK, false))) {
+            return true;
+        }
         return false;
     }
 
