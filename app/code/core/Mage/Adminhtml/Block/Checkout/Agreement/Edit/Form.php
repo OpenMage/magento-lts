@@ -144,6 +144,8 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Edit_Form extends Mage_Adminhtml_B
             'class'     => 'validate-css-length',
         ));
 
+        Mage::dispatchEvent('adminhtml_checkout_agreement_edit_form', array('form' => $form));
+
         $form->setValues($model->getData());
         $form->setUseContainer(true);
         $this->setForm($form);
