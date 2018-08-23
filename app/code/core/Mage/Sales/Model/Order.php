@@ -775,7 +775,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function canReorder()
     {
-        return $this->_canReorder(false);
+        return $this->_canReorder(true);
     }
 
     /**
@@ -796,7 +796,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     protected function _canReorder($ignoreSalable = false)
     {
-        if ($this->canUnhold() || $this->isPaymentReview() || !$this->getCustomerId()) {
+        if ($this->canUnhold() || $this->isPaymentReview()) {
             return false;
         }
 
