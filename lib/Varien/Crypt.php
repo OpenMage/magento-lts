@@ -39,9 +39,19 @@ class Varien_Crypt
      *
      * @param string $method
      * @return Varien_Crypt_Abstract
+     * @throws Exception
      */
-    static public function factory($method='mcrypt')
+    static public function factory($method = NULL)
     {
+        if ($method == NULL) {
+            if (function_exists('openssl_encrypt')) {
+                $method = 'openssl';
+            } else if (function_exists('mcrypt_module_open')) {
+                $method = 'mcrypt'; // Not supported after PHP 7.2
+            } else {
+                throw new Exception('No supported encryption library is available. Install Openssl (recommended) or Mcrypt extension.');
+            }
+        }
         $uc = str_replace(' ','_',ucwords(str_replace('_',' ',$method)));
         $className = 'Varien_Crypt_'.$uc;
         return new $className;

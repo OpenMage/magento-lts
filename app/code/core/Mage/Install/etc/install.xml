@@ -80,7 +80,8 @@
                 <spl/>
                 <dom/>
                 <simplexml/>
-                <mcrypt/>
+                <openssl/>
+                <!--<mcrypt/> No longer supported, use Openssl instead -->
                 <hash/>
                 <curl/>
                 <iconv/>
