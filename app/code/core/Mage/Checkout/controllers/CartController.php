@@ -620,6 +620,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                 }
             } else {
                 $this->_getSession()->addSuccess($this->__('Coupon code was canceled.'));
+                $this->_getSession()->setCartCouponCode($couponCode);
             }
 
         } catch (Mage_Core_Exception $e) {
