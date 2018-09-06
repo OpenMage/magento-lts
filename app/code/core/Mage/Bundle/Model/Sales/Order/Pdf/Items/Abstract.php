@@ -229,19 +229,12 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
     /**
      * Retrieve Order Item
      *
-     * @return Mage_Sales_Order_Item
+     * @return Mage_Sales_Model_Order_Item
+     * @throws Mage_Core_Exception
      */
     public function getOrderItem()
     {
-        if ($this->getItem() instanceof Mage_Sales_Model_Order_Invoice_Item) {
-            return $this->getItem();
-        } else if ($this->getItem() instanceof Mage_Sales_Model_Order_Shipment_Item) {
-            return $this->getItem();
-        } else if ($this->getItem() instanceof Mage_Sales_Model_Order_Creditmemo_Item) {
-            return $this->getItem();
-        } else {
-            return $this->getItem()->getOrderItem();
-        }
+        return $this->getItem()->getOrderItem();
     }
 
     /**
