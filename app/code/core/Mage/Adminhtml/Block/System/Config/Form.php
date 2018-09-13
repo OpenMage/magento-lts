@@ -193,7 +193,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
             $helperName = $this->_configFields->getAttributeModule($section, $group);
             $fieldsetConfig = array('legend' => Mage::helper($helperName)->__((string)$group->label));
             if (!empty($group->comment)) {
-                $fieldsetConfig['comment'] = Mage::helper($helperName)->__((string)$group->comment);
+                $fieldsetConfig['comment'] = $this->_prepareGroupComment($group, $helperName);
             }
             if (!empty($group->expanded)) {
                 $fieldsetConfig['expanded'] = (bool)$group->expanded;
@@ -523,6 +523,18 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
             }
         }
         return $comment;
+    }
+
+    /**
+     * Support models "getCommentText" method for group note generation
+     *
+     * @param Mage_Core_Model_Config_Element $element
+     * @param string $helper
+     * @return string
+     */
+    protected function _prepareGroupComment($element, $helper)
+    {
+        return $this->_prepareFieldComment($element, $helper, null);
     }
 
     /**
