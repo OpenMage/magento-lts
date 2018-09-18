@@ -1212,6 +1212,9 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Add minimal price data to result
      *
+     * @deprecated use addPriceData
+     * @see Mage_Catalog_Model_Resource_Product_Collection::addPriceData
+     *
      * @return Mage_Catalog_Model_Resource_Product_Collection
      */
     public function addMinimalPrice()
@@ -1234,6 +1237,9 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
     /**
      * Add price data for calculate final price
+     *
+     * @deprecated use addPriceData
+     * @see Mage_Catalog_Model_Resource_Product_Collection::addPriceData
      *
      * @return Mage_Catalog_Model_Resource_Product_Collection
      */
