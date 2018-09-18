@@ -31,7 +31,7 @@ class Mage_CatalogSearch_Model_Layer extends Mage_Catalog_Model_Layer
     /**
      * Get current layer product collection
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Resource_Product_Collection
+     * @return Mage_CatalogSearch_Model_Resource_Fulltext_Collection
      */
     public function getProductCollection()
     {
@@ -48,7 +48,7 @@ class Mage_CatalogSearch_Model_Layer extends Mage_Catalog_Model_Layer
     /**
      * Prepare product collection
      *
-     * @param Mage_Catalog_Model_Resource_Eav_Resource_Product_Collection $collection
+     * @param Mage_CatalogSearch_Model_Resource_Fulltext_Collection $collection
      * @return Mage_Catalog_Model_Layer
      */
     public function prepareProductCollection($collection)
@@ -99,8 +99,8 @@ class Mage_CatalogSearch_Model_Layer extends Mage_Catalog_Model_Layer
     /**
      * Add filters to attribute collection
      *
-     * @param   Mage_Catalog_Model_Resource_Eav_Resource_Product_Attribute_Collection $collection
-     * @return  Mage_Catalog_Model_Resource_Eav_Resource_Product_Attribute_Collection
+     * @param   Mage_Catalog_Model_Resource_Product_Attribute_Collection $collection
+     * @return  Mage_Catalog_Model_Resource_Product_Attribute_Collection
      */
     protected function _prepareAttributeCollection($collection)
     {
