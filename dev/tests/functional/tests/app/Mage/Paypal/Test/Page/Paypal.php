@@ -51,7 +51,7 @@ class Paypal extends Page
     protected $blocks = [
         'loginBlock' => [
             'class' => 'Mage\Paypal\Test\Block\Login',
-            'locator' => '#contents',
+            'locator' => '#login', // previous locator = #contents
             'strategy' => 'css selector',
         ],
         'oldLoginBlock' => [
@@ -67,6 +67,11 @@ class Paypal extends Page
         'oldReviewBlock' => [
             'class' => 'Mage\Paypal\Test\Block\OldReview',
             'locator' => '#content',
+            'strategy' => 'css selector',
+        ],
+        'newLoginBlock' => [
+            'class' => 'Mage\Paypal\Test\Block\NewLogin',
+            'locator' => '#fullSignup',
             'strategy' => 'css selector',
         ],
     ];
@@ -111,5 +116,13 @@ class Paypal extends Page
     public function getOldReviewBlock()
     {
         return $this->getBlockInstance('oldReviewBlock');
+    }
+
+    /**
+     * @return NewLogin
+     */
+    public function getNewLoginBlock()
+    {
+        return $this->getBlockInstance('newLoginBlock');
     }
 }
