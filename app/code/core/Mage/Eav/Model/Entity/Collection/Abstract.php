@@ -1117,9 +1117,6 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             }
             unset($values);
             unset($storeValues);
-            #foreach ($values as $value) {
-            #    $this->_setItemAttributeValue($value);
-            #}
         }
 
         return $this;
