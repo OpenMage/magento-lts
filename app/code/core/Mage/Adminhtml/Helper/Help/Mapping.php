@@ -195,9 +195,6 @@ abstract class Mage_Adminhtml_Helper_Help_Mapping extends Mage_Core_Helper_Abstr
         'Mage_Paypal_Adminhtml' => array(
             'paypal_reports' => 'store-operations/reports-available.html',
         ),
-        'Mage_Compiler_Adminhtml' => array(
-            'compiler_process' => 'system-operations/system-tools-compilation.html',
-        ),
         'Mage_Api2_Adminhtml' => array(
             'api2_attribute' => 'system-operations/web-services.html',
         ),
