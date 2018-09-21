@@ -36,11 +36,13 @@ class Mage_Core_Block_Text_List extends Mage_Core_Block_Text
     {
         $this->setText('');
         foreach ($this->getSortedChildren() as $name) {
+            Varien_Profiler::start('getSortedChildren: ' . $name);
             $block = $this->getLayout()->getBlock($name);
             if (!$block) {
                 Mage::throwException(Mage::helper('core')->__('Invalid block: %s', $name));
             }
             $this->addText($block->toHtml());
+            Varien_Profiler::stop('getSortedChildren: ' . $name);
         }
         return parent::_toHtml();
     }
