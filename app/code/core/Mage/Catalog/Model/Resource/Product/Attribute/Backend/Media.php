@@ -270,8 +270,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
      */
     protected function _getAttributeId() {
         if(is_null($this->_attributeId)) {
-            $attribute = Mage::getModel('eav/entity_attribute')
-                ->loadByCode(Mage_Catalog_Model_Product::ENTITY, 'media_gallery');
+            $attribute = Mage::getSingleton('eav/config')->getAttribute(Mage_Catalog_Model_Product::ENTITY, 'media_gallery');
 
             $this->_attributeId = $attribute->getId();
         }

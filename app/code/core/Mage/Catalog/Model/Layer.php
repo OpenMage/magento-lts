@@ -214,24 +214,19 @@ class Mage_Catalog_Model_Layer extends Varien_Object
      */
     public function getFilterableAttributes()
     {
-//        $entity = Mage::getSingleton('eav/config')
-//            ->getEntityType('catalog_product');
-
         $setIds = $this->_getSetIds();
-        if (!$setIds) {
+        if (false === is_array($setIds) || count($setIds) === 0) {
             return array();
         }
-        /** @var $collection Mage_Catalog_Model_Resource_Product_Attribute_Collection */
-        $collection = Mage::getResourceModel('catalog/product_attribute_collection');
-        $collection
-            ->setItemObjectClass('catalog/resource_eav_attribute')
-            ->setAttributeSetFilter($setIds)
-            ->addStoreLabel(Mage::app()->getStore()->getId())
-            ->setOrder('position', 'ASC');
-        $collection = $this->_prepareAttributeCollection($collection);
-        $collection->load();
-
-        return $collection;
+        /** @var Mage_Eav_Model_Config $eavConfig */
+        $attributes = Mage::getSingleton('eav/config')->getFilterableProductAttributesUsedInSets($setIds);
+        usort($attributes, function ($attributeA, $attributeB){
+            if ((int)$attributeA->getPosition() == (int)$attributeB->getPosition()) {
+                return 0;
+            }
+            return ((int)$attributeA->getPosition() < (int)$attributeB->getPosition()) ? -1 : 1;
+        });
+        return $attributes;
     }
 
     /**

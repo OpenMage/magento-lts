@@ -310,7 +310,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
      */
     public function getStoreLabels()
     {
-        if (!$this->getData('store_labels')) {
+        if (false === is_array($this->getData('store_labels'))) {
             $storeLabel = $this->getResource()->getStoreLabelsByAttributeId($this->getId());
             $this->setData('store_labels', $storeLabel);
         }

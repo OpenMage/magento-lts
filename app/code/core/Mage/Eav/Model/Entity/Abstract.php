@@ -35,6 +35,14 @@
 abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_Abstract
     implements Mage_Eav_Model_Entity_Interface
 {
+
+    /**
+     * sorted attributes by attribute Set Id (static cache)
+     *
+     * @var array
+     */
+    protected static $_sortedAttributesByAttributeSetId = array();
+
     /**
      * Read connection
      *
@@ -540,6 +548,9 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      */
     public function getSortedAttributes($setId = null)
     {
+        if (null !== $setId && true === isset(self::$_sortedAttributesByAttributeSetId[$setId])) {
+            return self::$_sortedAttributesByAttributeSetId[$setId];
+        }
         $attributes = $this->getAttributesByCode();
         if ($setId === null) {
             $setId = $this->getEntityType()->getDefaultAttributeSetId();
@@ -558,6 +569,9 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
 
         $this->_sortingSetId = $setId;
         uasort($attributes, array($this, 'attributesCompare'));
+        if (null !== $setId) {
+            self::$_sortedAttributesByAttributeSetId[$setId] = $attributes;
+        }
         return $attributes;
     }
 

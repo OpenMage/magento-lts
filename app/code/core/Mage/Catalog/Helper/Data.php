@@ -422,8 +422,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     {
         if($this->_mapApplyToProductType === null) {
             /** @var $attribute Mage_Catalog_Model_Resource_Eav_Attribute */
-            $attribute = Mage::getModel('catalog/resource_eav_attribute')
-                ->loadByCode(Mage_Catalog_Model_Product::ENTITY, 'msrp_enabled');
+            $attribute = Mage::getSingleton('eav/config')->getAttribute(Mage_Catalog_Model_Product::ENTITY,'msrp_enabled');
             $this->_mapApplyToProductType = $attribute->getApplyTo();
         }
         return empty($this->_mapApplyToProductType) || in_array($product->getTypeId(), $this->_mapApplyToProductType);

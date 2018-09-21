@@ -256,8 +256,8 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
      */
     public function getProductAttributes()
     {
-        if (is_null($this->_productAttributes)) {
-            $this->_productAttributes = array_keys($this->getAttributesUsedInProductListing());
+        if (null === $this->_usedInProductListing) {
+            $this->_usedInProductListing = Mage::getSingleton('eav/config')->getAttributesUsedInProductListing();
         }
         return $this->_productAttributes;
     }
