@@ -982,27 +982,78 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
 
         Varien_Profiler::start('__EAV_LOAD_MODEL_ATTRIBUTES__');
 
-        $selects = array();
-        foreach (array_keys($this->getAttributesByTable()) as $table) {
-            $attribute = current($this->_attributesByTable[$table]);
-            $eavType = $attribute->getBackendType();
-            $select = $this->_getLoadAttributesSelect($object, $table);
-            $selects[$eavType][] = $this->_addLoadAttributesSelectFields($select, $table, $eavType);
-        }
-        $selectGroups = Mage::getResourceHelper('eav')->getLoadAttributesSelectGroups($selects);
-        foreach ($selectGroups as $selects) {
-            if (!empty($selects)) {
-                $select = $this->_prepareLoadSelect($selects);
-                $values = $this->_getReadAdapter()->fetchAll($select);
-                foreach ($values as $valueRow) {
-                    $this->_setAttributeValue($object, $valueRow);
+        $tableAttributes = array();
+        $attributeTypes  = array();
+
+        foreach ($this->getAttributesById() as $attributeId => $attribute){
+            /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
+            if ($attribute instanceof  Mage_Catalog_Model_Resource_Eav_Attribute && !$attribute->isStatic()) {
+                $tableAttributes[$attribute->getBackendTable()][] = $attributeId;
+                if (!isset($attributeTypes[$attribute->getBackendTable()])) {
+                    $attributeTypes[$attribute->getBackendTable()] = $attribute->getBackendType();
                 }
             }
+        }
+
+        // get eav select skeleton
+        $select = $this->_getLoadAttributesSelectSkeleton($object);
+        foreach ($tableAttributes as $table=>$attributes) {
+            try {
+                /** @var Varien_Db_Select $select */
+                $select->reset(Varien_Db_Select::FROM);
+                $select->from(array('eav_value' => $table), null);
+                $values = $this->getReadConnection()->fetchAll($select);
+            } catch (Exception $e) {
+                throw $e;
+            }
+
+            $storeValues = [];
+            foreach ($values as $valueRow) {
+                if ($valueRow['store_id'] == 0) {
+                    $this->_setAttributeValue($object, $valueRow);
+                } else {
+                    $storeValues[] = $valueRow;
+                }
+            }
+            foreach ($storeValues as $valueRow) {
+                $this->_setAttributeValue($object, $valueRow);
+            }
+            unset($values);
+            unset($storeValues);
         }
 
         Varien_Profiler::stop('__EAV_LOAD_MODEL_ATTRIBUTES__');
 
         return $this;
+    }
+
+    /**
+     * load attribute select skeleton query
+     *
+     * @param   Mage_Eav_Model_Entity_Attribute
+     * @return  Varien_Db_Select
+     */
+    protected function _getLoadAttributesSelectSkeleton($object)
+    {
+        $entityIdField = $this->getEntityIdField();
+        $select = $this->_getReadAdapter()->select()
+            ->from('eav_value')
+            ->where('entity_type_id = ?', (int)$this->getTypeId())
+            ->where("$entityIdField = ?", (int)$object->getId())
+            ->where('attribute_id IN (?)', array_map('intval', array_keys($this->getAttributesById())))
+            ->order(new Zend_Db_Expr('NULL'));
+        if (false === method_exists($object, 'getStoreId')) {
+            return $select;
+        }
+
+        $storeId = $object->getStoreId();
+        if ((int)$storeId > 0 && true === method_exists($this, 'getDefaultStoreId')) {
+            $select->where('store_id IN(?)', array((int)$storeId, (int)Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID));
+        } else if (false === method_exists($this, 'getDefaultStoreId') || $storeId == 0) {
+            $select->where('store_id = ?', (int)$storeId);
+        }
+
+        return $select;
     }
 
     /**

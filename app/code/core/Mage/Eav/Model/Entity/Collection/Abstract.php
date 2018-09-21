@@ -1092,35 +1092,65 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
                 }
             }
         }
-
-        $selects = array();
+        // get eav select skeleton
+        $select = $this->_getLoadAttributesSelectSkeleton();
         foreach ($tableAttributes as $table=>$attributes) {
-            $select = $this->_getLoadAttributesSelect($table, $attributes);
-            $selects[$attributeTypes[$table]][] = $this->_addLoadAttributesSelectValues(
-                $select,
-                $table,
-                $attributeTypes[$table]
-            );
-        }
-        $selectGroups = Mage::getResourceHelper('eav')->getLoadAttributesSelectGroups($selects);
-        foreach ($selectGroups as $selects) {
-            if (!empty($selects)) {
-                try {
-                    $select = implode(' UNION ALL ', $selects);
-                    $values = $this->getConnection()->fetchAll($select);
-                } catch (Exception $e) {
-                    Mage::printException($e, $select);
-                    $this->printLogQuery(true, true, $select);
-                    throw $e;
-                }
+            try {
+                /** @var Varien_Db_Select $select */
+                $select->reset(Varien_Db_Select::FROM);
+                $select->from(array('eav_value' => $table), null);
+                $values = $this->getConnection()->fetchAll($select);
+            } catch (Exception $e) {
+                throw $e;
+            }
 
-                foreach ($values as $value) {
-                    $this->_setItemAttributeValue($value);
+            $storeValues = [];
+            foreach ($values as $valueRow) {
+                if ($valueRow['store_id'] == 0) {
+                    $this->_setItemAttributeValue($valueRow);
+                } else {
+                    $storeValues[] = $valueRow;
                 }
             }
+            foreach ($storeValues as $valueRow) {
+                $this->_setItemAttributeValue($valueRow);
+            }
+            unset($values);
+            unset($storeValues);
+            #foreach ($values as $value) {
+            #    $this->_setItemAttributeValue($value);
+            #}
         }
 
         return $this;
+    }
+
+    /**
+     * load attribute select skeleton query
+     *
+     * @param   string $table
+     * @return  Varien_Db_Select
+     */
+    protected function _getLoadAttributesSelectSkeleton()
+    {
+        $entityIdField = $this->getEntity()->getEntityIdField();
+        $select = $this->getConnection()->select()
+            ->from('eav_value')
+            ->where('entity_type_id =?', (int)$this->getEntity()->getTypeId())
+            ->where("$entityIdField IN (?)", array_map('intval', array_keys($this->_itemsById)))
+            ->where('attribute_id IN (?)', array_map('intval', $this->_selectAttributes))
+            ->order(new Zend_Db_Expr('NULL'));
+        if (false === method_exists($this, 'getStoreId')) {
+            return $select;
+        }
+        $storeId = $this->getStoreId();
+        if (true === method_exists($this, 'getDefaultStoreId') && (int)$storeId > 0) {
+            $select->where('store_id IN(?)', array((int)$storeId, (int)$this->getDefaultStoreId()));
+        } else if (false === method_exists($this, 'getDefaultStoreId') || $storeId == 0) {
+            $select->where('store_id = ?', (int)$storeId);
+        }
+
+        return $select;
     }
 
     /**
