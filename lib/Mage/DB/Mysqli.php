@@ -471,7 +471,7 @@ class Mage_DB_Mysqli
             return $this->escapeFieldValue(strval($ids));
         }
         $out = array();
-        foreach ($values as $id) {
+        foreach ($ids as $id) {
             $out .= $this->escapeFieldValue($id);
         }
         return implode(",", $out);
