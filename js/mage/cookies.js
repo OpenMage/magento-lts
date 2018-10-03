@@ -39,7 +39,7 @@ Mage.Cookies.set = function(name, value){
      var domain = (argc > 4) ? argv[4] : Mage.Cookies.domain;
      var secure = (argc > 5) ? argv[5] : Mage.Cookies.secure;
      document.cookie = name + "=" + escape (value) +
-       ((expires == null) ? "" : ("; expires=" + expires.toGMTString())) +
+       ((expires == null) ? "" : ("; expires=" + expires.toUTCString())) +
        ((path == null) ? "" : ("; path=" + path)) +
        ((domain == null) ? "" : ("; domain=" + domain)) +
        ((secure == true) ? "; secure" : "");

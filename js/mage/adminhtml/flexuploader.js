@@ -213,7 +213,7 @@ if(!window.Flex) {
 
                         document.cookie = escape(response.cookie.name) + "="
                             + escape(response.cookie.value)
-                            + "; expires=" + date.toGMTString()
+                            + "; expires=" + date.toUTCString()
                             + (response.cookie.path.blank() ? "" : "; path=" + response.cookie.path)
                             + (response.cookie.domain.blank() ? "" : "; domain=" + response.cookie.domain);
                     }
