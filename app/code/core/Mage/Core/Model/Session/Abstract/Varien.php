@@ -32,7 +32,8 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     const VALIDATOR_HTTP_X_FORVARDED_FOR_KEY    = 'http_x_forwarded_for';
     const VALIDATOR_HTTP_VIA_KEY                = 'http_via';
     const VALIDATOR_REMOTE_ADDR_KEY             = 'remote_addr';
-    const VALIDATOR_SESSION_EXPIRE_TIMESTAMP    = 'session_expire_timestamp';
+    const VALIDATOR_SESSION_RENEW_TIMESTAMP     = 'session_renew_timestamp';
+    const VALIDATOR_SESSION_LIFETIME            = 'session_lifetime';
     const VALIDATOR_PASSWORD_CREATE_TIMESTAMP   = 'password_create_timestamp';
     const SECURE_COOKIE_CHECK_KEY               = '_secure_cookie_check';
 
@@ -136,32 +137,33 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
 
         session_start();
 
+        Mage::dispatchEvent('session_before_renew_cookie', ['cookie' => $cookie]);
+
         if (Mage::app()->getFrontController()->getRequest()->isSecure() && empty($cookieParams['secure'])) {
             // secure cookie check to prevent MITM attack
-            $secureCookieName = $sessionName . '_cid';
-            if (isset($_SESSION[self::SECURE_COOKIE_CHECK_KEY])) {
-                if ($_SESSION[self::SECURE_COOKIE_CHECK_KEY] !== md5($cookie->get($secureCookieName))) {
-                    session_regenerate_id(false);
-                    $sessionHosts = $this->getSessionHosts();
-                    $currentCookieDomain = $cookie->getDomain();
-                    foreach (array_keys($sessionHosts) as $host) {
-                        // Delete cookies with the same name for parent domains
-                        if (strpos($currentCookieDomain, $host) > 0) {
-                            $cookie->delete($this->getSessionName(), null, $host);
-                        }
+            $secureCookieName = session_name() . '_cid';
+            if (isset($_SESSION[self::SECURE_COOKIE_CHECK_KEY])
+                && $_SESSION[self::SECURE_COOKIE_CHECK_KEY] !== md5($cookie->get($secureCookieName))
+            ) {
+                session_regenerate_id(false);
+                $sessionHosts = $this->getSessionHosts();
+                $currentCookieDomain = $cookie->getDomain();
+                foreach (array_keys($sessionHosts) as $host) {
+                    // Delete cookies with the same name for parent domains
+                    if (strpos($currentCookieDomain, $host) > 0) {
+                        $cookie->delete($this->getSessionName(), null, $host);
                     }
-                    $_SESSION = array();
-                } else {
-                    /**
-                     * Renew secure cookie expiration time if secure id did not change
-                     */
-                    $cookie->renew($secureCookieName, null, null, null, true, true);
                 }
+                $_SESSION = array();
             }
             if (!isset($_SESSION[self::SECURE_COOKIE_CHECK_KEY])) {
                 $checkId = Mage::helper('core')->getRandomString(16);
                 $cookie->set($secureCookieName, $checkId, null, null, null, true, true);
                 $_SESSION[self::SECURE_COOKIE_CHECK_KEY] = md5($checkId);
+            }
+            // renew secure cookie
+            else if ($cookie->get($secureCookieName)) {
+                $cookie->renew($secureCookieName, null, null, null, true, true);
             }
         }
 
@@ -441,7 +443,8 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
 
             // Refresh expire timestamp
             if ($this->useValidateSessionExpire()) {
-                $_SESSION[self::VALIDATOR_KEY][self::VALIDATOR_SESSION_EXPIRE_TIMESTAMP] = time() + $this->getCookie()->getLifetime();
+                $_SESSION[self::VALIDATOR_KEY][self::VALIDATOR_SESSION_RENEW_TIMESTAMP] = time();
+                $_SESSION[self::VALIDATOR_KEY][self::VALIDATOR_SESSION_LIFETIME] = $this->getCookie()->getLifetime();
             }
         }
 
@@ -485,15 +488,16 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         }
 
         if ($this->useValidateSessionExpire()
-            && isset($sessionData[self::VALIDATOR_SESSION_EXPIRE_TIMESTAMP])
-            && $sessionData[self::VALIDATOR_SESSION_EXPIRE_TIMESTAMP] < time() ) {
+            && isset($sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP])
+            && isset($sessionData[self::VALIDATOR_SESSION_LIFETIME])
+            && $sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP] + $sessionData[self::VALIDATOR_SESSION_LIFETIME] < time() ) {
             return false;
         }
         if ($this->useValidateSessionPasswordTimestamp()
             && isset($validatorData[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP])
-            && isset($sessionData[self::VALIDATOR_SESSION_EXPIRE_TIMESTAMP])
+            && isset($sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP])
             && $validatorData[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP]
-            > $sessionData[self::VALIDATOR_SESSION_EXPIRE_TIMESTAMP] - $this->getCookie()->getLifetime()
+            > $sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP]
         ) {
             return false;
         }
@@ -530,8 +534,6 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         if (isset($_SERVER['HTTP_USER_AGENT'])) {
             $parts[self::VALIDATOR_HTTP_USER_AGENT_KEY] = (string)$_SERVER['HTTP_USER_AGENT'];
         }
-
-        $parts[self::VALIDATOR_SESSION_EXPIRE_TIMESTAMP] = time() + $this->getCookie()->getLifetime();
 
         if (isset($this->_data['visitor_data']['customer_id'])) {
             $parts[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP] =
