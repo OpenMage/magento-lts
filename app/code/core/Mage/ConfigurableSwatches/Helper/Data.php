@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_ConfigurableSwatches
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
@@ -118,7 +118,7 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get swatches product javascript
      *
-     * @return string
+     * @return string | null
      */
     public function getSwatchesProductJs()
     {
@@ -135,6 +135,6 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
                 }
             }
         }
-        return '';
+        return null;
     }
 }

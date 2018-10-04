@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Shipping
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -417,7 +417,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      */
     public function getFinalPriceWithHandlingFee($cost)
     {
-        $handlingFee = $this->getConfigData('handling_fee');
+        $handlingFee = (float) $this->getConfigData('handling_fee');
         $handlingType = $this->getConfigData('handling_type');
         if (!$handlingType) {
             $handlingType = self::HANDLING_TYPE_FIXED;

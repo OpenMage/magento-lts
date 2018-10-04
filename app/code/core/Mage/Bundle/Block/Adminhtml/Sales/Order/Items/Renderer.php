@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Bundle
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -179,7 +179,11 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_Items_Renderer extends Mage_Adminh
 
     public function getOrderItem()
     {
-        if ($this->getItem() instanceof Mage_Sales_Order_Item) {
+        if ($this->getItem() instanceof Mage_Sales_Model_Order_Invoice_Item) {
+            return $this->getItem();
+        } else if ($this->getItem() instanceof Mage_Sales_Model_Order_Shipment_Item) {
+            return $this->getItem();
+        } else if ($this->getItem() instanceof Mage_Sales_Model_Order_Creditmemo_Item) {
             return $this->getItem();
         } else {
             return $this->getItem()->getOrderItem();

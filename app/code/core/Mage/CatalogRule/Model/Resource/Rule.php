@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogRule
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -209,13 +209,11 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
 
         $customerGroupIds = $rule->getCustomerGroupIds();
 
-        $fromTime = (int) strtotime($rule->getFromDate());
-        $toTime = (int) strtotime($rule->getToDate());
+        $fromTime = (int) Mage::getModel('core/date')->gmtTimestamp(strtotime($rule->getFromDate()));
+        $toTime = (int) Mage::getModel('core/date')->gmtTimestamp(strtotime($rule->getToDate()));
         $toTime = $toTime ? ($toTime + self::SECONDS_IN_DAY - 1) : 0;
 
-        /** @var Mage_Core_Model_Date $coreDate */
-        $coreDate  = $this->_factory->getModel('core/date');
-        $timestamp = $coreDate->gmtTimestamp('Today');
+        $timestamp = time();
         if ($fromTime > $timestamp
             || ($toTime && $toTime < $timestamp)
         ) {

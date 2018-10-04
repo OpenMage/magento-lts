@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Shell
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -152,7 +152,7 @@ class Mage_Shell_Compiler extends Mage_Shell_Abstract
                     echo $e . "\n";
                 }
             }
-        } else if ($this->getArg('reindex') || $this->getArg('reindexall')) {
+        } else if ($this->getArg('reindex') || $this->getArg('reindexall') || $this->getArg('reindexallrequired')) {
             if ($this->getArg('reindex')) {
                 $processes = $this->_parseIndexerString($this->getArg('reindex'));
             } else {
@@ -162,6 +162,10 @@ class Mage_Shell_Compiler extends Mage_Shell_Abstract
             try {
                 Mage::dispatchEvent('shell_reindex_init_process');
                 foreach ($processes as $process) {
+                    //reindex only if required
+                    if( $this->getArg('reindexallrequired') && $process->getStatus() == Mage_Index_Model_Process::STATUS_PENDING ) {
+                        continue;
+                    }
                     /* @var $process Mage_Index_Model_Process */
                     try {
                         $startTime = microtime(true);
@@ -204,6 +208,7 @@ Usage:  php -f indexer.php -- [options]
   --reindex <indexer>           Reindex Data
   info                          Show allowed indexers
   reindexall                    Reindex Data by all indexers
+  reindexallrequired            Reindex Data only if required by all indexers
   help                          This help
 
   <indexer>     Comma separated indexer codes or value "all" for all indexers

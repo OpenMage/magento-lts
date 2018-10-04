@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -57,6 +57,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Options extends Ma
      */
     public function getOptionHtml(Mage_Catalog_Model_Product_Option $option)
     {
+        if (!empty($option['file_extension'])) {
+            $option['file_extension'] = $this->escapeHtml($option['file_extension']);
+        }
         $renderer = $this->getOptionRender(
             $this->getGroupOfOption($option->getType())
         );

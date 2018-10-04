@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Shipping
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -335,16 +335,16 @@ class Mage_Shipping_Model_Shipping
                 }
                 unset($items[$key]);
                 $sumWeight = $weight;
-                foreach ($items as $key => $weight) {
-                    if (($sumWeight + $weight) < $maxWeight) {
-                        unset($items[$key]);
-                        $sumWeight += $weight;
-                    } elseif (($sumWeight + $weight) > $maxWeight) {
+                foreach ($items as $keyItem => $weightItem) {
+                    if (($sumWeight + $weightItem) < $maxWeight) {
+                        unset($items[$keyItem]);
+                        $sumWeight += $weightItem;
+                    } elseif (($sumWeight + $weightItem) > $maxWeight) {
                         $pieces[] = (string)(float)$sumWeight;
                         break;
                     } else {
-                        unset($items[$key]);
-                        $pieces[] = (string)(float)($sumWeight + $weight);
+                        unset($items[$keyItem]);
+                        $pieces[] = (string)(float)($sumWeight + $weightItem);
                         $sumWeight = 0;
                         break;
                     }

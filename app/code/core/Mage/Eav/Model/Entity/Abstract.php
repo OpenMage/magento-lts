@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -1062,20 +1062,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
             Mage::getResourceHelper('eav')->attributeSelectFields($table, $type)
         );
         return $select;
-    }
-
-    /**
-     * Initialize attribute value for object
-     *
-     * @deprecated after 1.5.1.0 - mistake in method name
-     *
-     * @param   Varien_Object $object
-     * @param   array $valueRow
-     * @return  Mage_Eav_Model_Entity_Abstract
-     */
-    protected function _setAttribteValue($object, $valueRow)
-    {
-        return _setAttributeValue($object, $valueRow);
     }
 
     /**

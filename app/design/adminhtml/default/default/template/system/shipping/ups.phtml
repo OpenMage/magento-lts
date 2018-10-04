@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -51,6 +51,15 @@ if (!$storeCode && $websiteCode) {
     $storedOriginShipment = Mage::getStoreConfig('carriers/ups/origin_shipment');
     $storedFreeShipment   = Mage::getStoreConfig('carriers/ups/free_method');
     $storedUpsType        = Mage::getStoreConfig('carriers/ups/type');
+}
+if (!in_array($storedOriginShipment, array_keys($orShipArr))) {
+    $storedOriginShipment = '';
+}
+if ($storedFreeShipment != '' && !in_array($storedFreeShipment, array_keys($defShipArr))) {
+    $storedFreeShipment = '';
+}
+if (!Mage::helper('usa')->validateUpsType($storedUpsType)) {
+    $storedUpsType = '';
 }
 ?>
 <script type="text/javascript">

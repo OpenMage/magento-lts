@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -646,7 +646,12 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
         }
 
         $_processor = new Varien_Image($filePath);
-        return $_processor->getMimeType() !== null;
+        $mimeType = $_processor->getMimeType();
+
+        // Force garbage collection since image handler resource uses memory without counting toward memory limit
+        unset($_processor);
+
+        return $mimeType !== null;
     }
 
 }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -1032,7 +1032,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Add total data or model
      *
-     * @param Mage_Sales_Model_Quote_Total|array $total
+     * @param Mage_Sales_Model_Quote_Address_Total|array $total
      * @return Mage_Sales_Model_Quote_Address
      */
     public function addTotal($total)
@@ -1040,7 +1040,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         if (is_array($total)) {
             $totalInstance = Mage::getModel('sales/quote_address_total')
                 ->setData($total);
-        } elseif ($total instanceof Mage_Sales_Model_Quote_Total) {
+        } elseif ($total instanceof Mage_Sales_Model_Quote_Address_Total) {
             $totalInstance = $total;
         }
         $totalInstance->setAddress($this);
