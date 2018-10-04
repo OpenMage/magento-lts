@@ -26,6 +26,10 @@ Download the latest archive and extract it, clone the repo, or add a composer de
 - PHP 5.6+ (PHP 7.1 and OpenSSL extension strongly recommended)
 - MySQL 5.6+
 
+## Translations
+There are some new or changed tranlations, if you want add them to your locale pack please check:
+- `app/locale/en_US/*_LTS.csv`
+
 ## License
 
 [OSL v3.0](http://opensource.org/licenses/OSL-3.0)
