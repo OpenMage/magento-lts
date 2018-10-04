@@ -1311,15 +1311,18 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      */
     public function getChildren($category, $recursive = true, $isActive = true)
     {
+        $maintable = $this->getMainStoreTable($category->getStoreId());
         $select = $this->_getReadAdapter()->select()
-            ->from($this->getMainStoreTable($category->getStoreId()), 'entity_id')
-            ->where('path LIKE ?', "{$category->getPath()}/%");
+            ->from($maintable, 'entity_id')
+            ->where('path LIKE ?', "{$category->getPath()}/%")
+            ->order($maintable.".position ASC");
         if (!$recursive) {
             $select->where('level <= ?', $category->getLevel() + 1);
         }
         if ($isActive) {
             $select->where('is_active = ?', '1');
         }
+
         $_categories = $this->_getReadAdapter()->fetchAll($select);
         $categoriesIds = array();
         foreach ($_categories as $_category) {
