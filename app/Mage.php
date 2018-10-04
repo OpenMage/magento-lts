@@ -894,8 +894,8 @@ final class Mage
      */
     public static function printException(Exception $e, $extra = '')
     {
-        if (self::$_isDeveloperMode) {
-            print '<pre>';
+        if (self::$_isDeveloperMode || PHP_SAPI == "cli") {
+            PHP_SAPI == "cli" or print '<pre>';
 
             if (!empty($extra)) {
                 print $extra . "\n\n";
@@ -903,7 +903,7 @@ final class Mage
 
             print $e->getMessage() . "\n\n";
             print $e->getTraceAsString();
-            print '</pre>';
+            PHP_SAPI == "cli" or print '</pre>';
         } else {
 
             $reportData = array(
