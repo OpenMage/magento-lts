@@ -142,7 +142,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
 
         $profileHistory = Mage::getModel('dataflow/profile_history');
 
-        $adminUserId = $this->getAdminUserId();
+        $adminUserId = Mage::getSingleton('admin/session')->getUser()->getId();
         if($adminUserId) {
             $profileHistory->setUserId($adminUserId);
         }
@@ -192,6 +192,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         Mage::getModel('dataflow/profile_history')
             ->setProfileId($this->getId())
             ->setActionCode('run')
+            ->setUserId(Mage::getSingleton('admin/session')->getUser()->getId())
             ->save();
 
         /**
