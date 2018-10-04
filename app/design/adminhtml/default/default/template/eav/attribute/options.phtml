@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -51,14 +51,14 @@
             <table class="dynamic-grid" cellspacing="0" id="attribute-labels-table">
                 <tr>
                 <?php foreach ($this->getStores() as $_store): ?>
-                    <th><?php echo $_store->getName() ?></th>
+                    <th><?php echo $this->escapeHtml($_store->getName()); ?></th>
                 <?php endforeach; ?>
                 </tr>
                 <tr>
                     <?php $_labels = $this->getLabelValues() ?>
                     <?php foreach ($this->getStores() as $_store): ?>
                     <td>
-                        <input class="input-text<?php if($_store->getId()==0): ?> required-option<?php endif; ?>" type="text" name="frontend_label[<?php echo $_store->getId() ?>]" value="<?php echo $this->htmlEscape($_labels[$_store->getId()]) ?>"<?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif;?>/>
+                        <input class="input-text<?php if($_store->getId()==0): ?> required-option<?php endif; ?>" type="text" name="frontend_label[<?php echo $_store->getId() ?>]" value="<?php echo $this->escapeHtml($_labels[$_store->getId()]); ?>"<?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif;?>/>
                     </td>
                     <?php endforeach; ?>
                 </tr>
@@ -76,7 +76,7 @@
             <table class="dynamic-grid" cellspacing="0"  cellpadding="0">
                 <tr id="attribute-options-table">
                     <?php foreach ($this->getStores() as $_store): ?>
-                        <th><?php echo $_store->getName() ?></th>
+                        <th><?php echo $this->escapeHtml($_store->getName()); ?></th>
                     <?php endforeach; ?>
                         <th><?php echo $this->__('Position') ?></th>
                         <th class="nobr a-center"><?php echo $this->__('Is Default') ?></th>

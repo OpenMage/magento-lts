@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -67,7 +67,7 @@ class Mage_Core_Controller_Varien_Exception extends Exception
     public function prepareRedirect($path, $arguments = array())
     {
         $this->_resultCallback = self::RESULT_REDIRECT;
-        $this->_resultCallbackParams($path, $arguments);
+        $this->_resultCallbackParams = array($path, $arguments);
         return $this;
     }
 

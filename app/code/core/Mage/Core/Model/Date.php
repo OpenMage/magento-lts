@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -213,7 +213,7 @@ class Mage_Core_Model_Date
     }
 
     /**
-     * Deprecated since 1.1.7
+     * @deprecated since 1.1.7
      */
     public function checkDateTime($year, $month, $day, $hour = 0, $minute = 0, $second = 0)
     {
@@ -230,7 +230,7 @@ class Mage_Core_Model_Date
     }
 
     /**
-     * Deprecated since 1.1.7
+     * @deprecated since 1.1.7
      */
     public function parseDateTime($dateTimeString, $dateTimeFormat)
     {

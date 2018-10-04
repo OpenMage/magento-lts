@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -284,7 +284,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
                 }
             }
             // return transaction only if type matches
-            if (!$transaction || $types && !in_array($transaction->getType(), $types, true)) {
+            if (!$transaction || $types && !in_array($transaction->getTxnType(), $types, true)) {
                 return;
             }
             return $transaction;
@@ -293,7 +293,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
         // filter transactions by types
         $result = array();
         foreach ($this->_children as $child) {
-            if (in_array($child->getType(), $types, true)) {
+            if (in_array($child->getTxnType(), $types, true)) {
                 $result[$child->getId()] = $child;
             }
         }

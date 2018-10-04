@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogInventory
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,7 +42,7 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
     const BACKORDERS_YES_NONOTIFY   = 1;
     const BACKORDERS_YES_NOTIFY     = 2;
 
-    /* deprecated */
+    /* @deprecated */
     const BACKORDERS_BELOW          = 1;
     const BACKORDERS_YES            = 2;
 
