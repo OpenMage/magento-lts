@@ -340,6 +340,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      */
     public function afterCommitCallback()
     {
+        $this->cleanModelCache();
         Mage::dispatchEvent('model_save_commit_after', array('object'=>$this));
         Mage::dispatchEvent($this->_eventPrefix.'_save_commit_after', $this->_getEventData());
         return $this;
@@ -461,7 +462,6 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      */
     protected function _afterSave()
     {
-        $this->cleanModelCache();
         Mage::dispatchEvent('model_save_after', array('object'=>$this));
         Mage::dispatchEvent($this->_eventPrefix.'_save_after', $this->_getEventData());
         return $this;
