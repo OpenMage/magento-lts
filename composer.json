@@ -3,7 +3,7 @@
   "license": "OSL-3.0",
   "type": "magento-source",
   "require": {
-    "php": ">=5.6 <=7.1",
+    "php": ">=5.6 <7.2",
     "magento-hackathon/magento-composer-installer": "*"
   },
   "authors": [
