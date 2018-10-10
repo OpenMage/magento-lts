@@ -992,6 +992,7 @@ class Mage_Paypal_Model_Express_Checkout
         $customer->setPasswordHash($customer->hashPassword($customer->getPassword()));
         $customer->save();
         $quote->setCustomer($customer);
+        $quote->setPasswordHash('');
 
         return $this;
     }

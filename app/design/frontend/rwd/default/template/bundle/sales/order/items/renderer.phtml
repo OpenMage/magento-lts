@@ -43,7 +43,7 @@
     <?php $attributes = $this->getSelectionAttributes($_item) ?>
     <?php if ($_prevOptionId != $attributes['option_id']): ?>
     <tr class="bundle label<?php if($_item->getLastRow()): ?> last<?php endif; ?>">
-        <td><div class="option-label"><?php echo $attributes['option_label'] ?></div></td>
+        <td><div class="option-label"><?php echo $this->escapeHtml($attributes['option_label']); ?></div></td>
         <td data-rwd-label="SKU" class="lin-hide">&nbsp;</td>
         <td data-rwd-label="Price" class="lin-hide">&nbsp;</td>
         <td data-rwd-label="Qty" class="lin-hide">&nbsp;</td>
