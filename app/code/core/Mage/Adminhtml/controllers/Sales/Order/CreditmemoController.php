@@ -301,7 +301,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
                     $email = (string)$order->getBillingAddress()->getEmail();
                     if (!$email) $email = $order->getCustomerEmail();
                     if (Mage::getModel('newsletter/subscriber')->loadByEmail($email)->unsubscribe()) {
-                        $succesubscribemsg = $this->__(' Newsletter unsubscribe success (%s).', $email);
+                        $this->_getSession()->addSuccess($this->__('Newsletter unsubscription success'));
                     }
                 }                
                 
@@ -320,7 +320,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
                 $creditmemo->getOrder()->setCustomerNoteNotify(!empty($data['send_email']));
                 $this->_saveCreditmemo($creditmemo);
                 $creditmemo->sendEmail(!empty($data['send_email']), $comment);
-                $this->_getSession()->addSuccess($this->__('The credit memo has been created.') . $succesubscribemsg);
+                $this->_getSession()->addSuccess($this->__('The credit memo has been created.'));
                 Mage::getSingleton('adminhtml/session')->getCommentText(true);
                 $this->_redirect('*/sales_order/view', array('order_id' => $creditmemo->getOrderId()));
                 return;
