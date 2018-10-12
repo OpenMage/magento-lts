@@ -283,7 +283,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                 $username = $session->getUser()->getUsername();
                 
                 if (!$notify && !$visible) {
-        	        $comment .= (!issempty($username)) ? " ({$username})" : ' (system)';
+        	        $comment .= isset($username) ? " ({$username})" : ' (system)';
                 }
                 
                 $order->addStatusHistoryComment($comment, $data['status'])
