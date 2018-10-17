@@ -98,7 +98,7 @@
                 <li class="wide">
                     <label for="billing:street<?php echo $_i ?>"><?php echo $this->__('Street Address %s', $_i) ?></label>
                     <div class="input-box">
-                        <input type="text" name="street[]" value="<?php echo $this->escapeHtml($this->getFormData()->getStreet($_i-1)) ?>" title="<?php echo $this->quoteEscape($this->__('Street Address %s', $_i)) ?>" id="street_<?php echo $_i ?>" class="input-text <?php echo $_streetValidationClass ?>" />
+                        <input type="text" name="street[]" value="<?php echo $this->escapeHtml($this->getFormData()->getStreet($_i - 1)) ?>" title="<?php echo $this->quoteEscape($this->__('Street Address %s', $_i)) ?>" id="street_<?php echo $_i ?>" class="input-text <?php echo $_streetValidationClass ?>" />
                     </div>
                 </li>
             <?php endfor; ?>
