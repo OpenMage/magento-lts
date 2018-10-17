@@ -124,7 +124,7 @@ class Mage_SalesRule_Model_Resource_Report_Rule_Createdat extends Mage_Reports_M
 
                 'total_amount_actual'     =>
                     $adapter->getIfNullSql('SUM((base_subtotal_invoiced - ' .
-                        $adapter->getIfNullSql('base_subtotal_refunded', 0) . ' - ' .
+                        $adapter->getIfNullSql('base_subtotal_refunded', 0) . ' + ' .
                         $adapter->getIfNullSql('base_discount_invoiced - ' .
                         $adapter->getIfNullSql('base_discount_refunded', 0), 0) .
                         ') * base_to_global_rate)', 0),
