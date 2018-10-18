@@ -827,7 +827,7 @@ final class Mage
                     chmod($logFile, 0640);
                 }
 
-                $format = '%timestamp% %priorityName% (%priority%): %message%' . PHP_EOL;
+                $format = '%timestamp% %priorityName% (%priority%) [%uri%]: %message%' . PHP_EOL;
                 $formatter = new Zend_Log_Formatter_Simple($format);
                 $writerModel = (string)self::getConfig()->getNode('global/log/core/writer_model');
                 if (!self::$_app || !$writerModel) {
@@ -838,6 +838,7 @@ final class Mage
                 }
                 $writer->setFormatter($formatter);
                 $loggers[$file] = new Zend_Log($writer);
+                $loggers[$file]->setEventItem('uri', $_SERVER["REQUEST_URI"]);
             }
 
             if (is_array($message) || is_object($message)) {
