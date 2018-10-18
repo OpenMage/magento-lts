@@ -102,14 +102,14 @@
                 <li class="wide">
                     <label for="street_1" class="required"><em>*</em><?php echo $this->__('Street Address') ?></label>
                     <div class="input-box">
-                        <input type="text" name="street[]" value="<?php echo $this->escapeHtml($this->getFormData()->getStreet(1)) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Street Address')) ?>" id="street_1" class="input-text <?php echo $_streetValidationClass ?>" />
+                        <input type="text" name="street[]" value="<?php echo $this->escapeHtml($this->getFormData()->getStreet(0)) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Street Address')) ?>" id="street_1" class="input-text <?php echo $_streetValidationClass ?>" />
                     </div>
                 </li>
             <?php $_streetValidationClass = trim(str_replace('required-entry', '', $_streetValidationClass)); ?>
             <?php for ($_i = 2, $_n = $this->helper('customer/address')->getStreetLines(); $_i <= $_n; $_i++): ?>
                 <li class="wide">
                     <div class="input-box">
-                        <input type="text" name="street[]" value="<?php echo $this->escapeHtml($this->getFormData()->getStreet($_i)) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Street Address %s', $_i)) ?>" id="street_<?php echo $_i ?>" class="input-text <?php echo $_streetValidationClass ?>" />
+                        <input type="text" name="street[]" value="<?php echo $this->escapeHtml($this->getFormData()->getStreet($_i-1)) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Street Address %s', $_i)) ?>" id="street_<?php echo $_i ?>" class="input-text <?php echo $_streetValidationClass ?>" />
                     </div>
                 </li>
             <?php endfor; ?>
