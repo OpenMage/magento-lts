@@ -838,7 +838,7 @@ final class Mage
                 }
                 $writer->setFormatter($formatter);
                 $loggers[$file] = new Zend_Log($writer);
-                $loggers[$file]->setEventItem('uri', $_SERVER["REQUEST_URI"]);
+                $loggers[$file]->setEventItem('uri', isset($_SERVER["REQUEST_URI"]) ? $_SERVER["REQUEST_URI"] : 'No URI');
             }
 
             if (is_array($message) || is_object($message)) {
