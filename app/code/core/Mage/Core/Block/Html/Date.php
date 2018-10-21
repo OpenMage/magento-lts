@@ -51,7 +51,7 @@ class Mage_Core_Block_Html_Date extends Mage_Core_Block_Template
             var calendarSetupObject = {
                 inputField  : "' . $this->getId() . '",
                 ifFormat    : "' . $displayFormat . '",
-                showsTime   : "' . ($this->getTime() ? 'true' : 'false') . '",
+                showsTime   : ' . ($this->getTime() ? 'true' : 'false') . ',
                 button      : "' . $this->getId() . '_trig",
                 align       : "Bl",
                 singleClick : true
