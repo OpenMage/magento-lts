@@ -21,6 +21,8 @@ Download the latest archive and extract it, clone the repo, or add a composer de
 "openmage/magento-lts": "1.9.3.x"
 ```
 
+[More Information](http://openmage.github.io/magento-lts/install.html)
+
 ## Requirements
 
 - PHP 5.6+ (PHP 7.1 and OpenSSL extension strongly recommended)
