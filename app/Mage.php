@@ -56,6 +56,11 @@ Varien_Autoload::register();
 include_once "phpseclib/bootstrap.php";
 include_once "mcrypt_compat/mcrypt.php";
 
+/* Support additional includes, such as composer's vendor/autoload.php files */
+foreach (glob(BP . DS . 'app' . DS . 'etc' . DS . 'includes' . DS . '*.php') as $path) {
+    include_once $path;
+}
+
 /**
  * Main Mage hub class
  *
