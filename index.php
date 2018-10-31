@@ -39,11 +39,6 @@ Whoops, it looks like you have an invalid PHP version.</h3></div><p>Magento supp
  */
 define('MAGENTO_ROOT', getcwd());
 
-$compilerConfig = MAGENTO_ROOT . '/includes/config.php';
-if (file_exists($compilerConfig)) {
-    include $compilerConfig;
-}
-
 $mageFilename = MAGENTO_ROOT . '/app/Mage.php';
 $maintenanceFile = 'maintenance.flag';
 
