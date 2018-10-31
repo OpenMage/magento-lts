@@ -47,6 +47,8 @@
  * @method Mage_Dataflow_Model_Profile setStoreId(int $value)
  * @method string getDataTransfer()
  * @method Mage_Dataflow_Model_Profile setDataTransfer(string $value)
+ * @method int getAdminUserId()
+ * @method Mage_Dataflow_Model_Profile setAdminUserId(int $value)
  *
  * @category    Mage
  * @package     Mage_Dataflow
@@ -192,6 +194,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         Mage::getModel('dataflow/profile_history')
             ->setProfileId($this->getId())
             ->setActionCode('run')
+            ->setUserId($this->getAdminUserId())
             ->save();
 
         /**

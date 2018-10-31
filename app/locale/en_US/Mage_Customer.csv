@@ -192,6 +192,7 @@
 "Invalid email address ""%s"".","Invalid email address ""%s""."
 "Invalid email address.","Invalid email address."
 "Invalid login or password.","Invalid login or password."
+"Invalid password reset customer Id.","Invalid password reset customer Id."
 "Invalid password reset token.","Invalid password reset token."
 "Invalid shipping address for (%s)","Invalid shipping address for (%s)"
 "Invalid store specified, skipping the record.","Invalid store specified, skipping the record."

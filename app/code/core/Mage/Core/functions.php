@@ -51,18 +51,6 @@ if (get_magic_quotes_gpc()) {
 }
 
 /**
- * Class autoload
- *
- * @todo change to spl_autoload_register
- * @deprecated
- * @param string $class
- */
-function __autoload($class)
-{
-    return include(uc_words($class, DIRECTORY_SEPARATOR) . '.php');
-}
-
-/**
  * Object destructor
  *
  * @param mixed $object
@@ -166,6 +154,11 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline){
     }
     if (!defined('E_DEPRECATED')) {
         define('E_DEPRECATED', 8192);
+    }
+
+    // Suppress deprecation warnings on PHP 7.x
+    if ($errno == E_DEPRECATED && version_compare(PHP_VERSION, '7.0.0', '>=')) {
+        return true;
     }
 
     // PEAR specific message handling

@@ -44,7 +44,7 @@
         <?php if ($_prevOptionId != $attributes['option_id']): ?>
             <tr<?php if ($_item->getLastRow()) echo 'class="last"'; ?>>
                 <td colspan="2" class="option-name">
-                    <div class="option-label"><?php echo $attributes['option_label'] ?></div>
+                    <div class="option-label"><?php echo $this->escapeHtml($attributes['option_label']); ?></div>
                 </td>
             </tr>
             <?php $_prevOptionId = $attributes['option_id'] ?>

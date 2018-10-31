@@ -459,6 +459,26 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     }
 
     /**
+     * Set reload ACL flag
+     *
+     * @param Mage_Core_Model_Abstract $object
+     * @param int $flag
+     * @return Mage_Admin_Model_Resource_User
+     */
+    public function saveReloadAclFlag($object, $flag)
+    {
+        if ($object->getId()) {
+            $this->_getWriteAdapter()->update(
+                $this->getMainTable(),
+                array('reload_acl_flag' => $flag),
+                array('user_id = ?' => (int) $object->getId())
+            );
+        }
+
+        return $this;
+    }
+
+    /**
      * Unserializes user extra data
      *
      * @param Mage_Core_Model_Abstract $user
