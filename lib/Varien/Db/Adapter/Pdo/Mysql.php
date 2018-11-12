@@ -250,7 +250,9 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             parent::commit();
             $this->_debugStat(self::DEBUG_TRANSACTION, 'COMMIT');
         }
-        --$this->_transactionLevel;
+        if ($this->_transactionLevel > 0) {
+            --$this->_transactionLevel;
+        }
         return $this;
     }
 
@@ -266,7 +268,9 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             parent::rollBack();
             $this->_debugStat(self::DEBUG_TRANSACTION, 'ROLLBACK');
         }
-        --$this->_transactionLevel;
+        if ($this->_transactionLevel > 0) {
+            --$this->_transactionLevel;
+        }
         return $this;
     }
 
@@ -504,6 +508,19 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             $result = parent::query($sql, $bind);
         } catch (Exception $e) {
             $this->_debugStat(self::DEBUG_QUERY, $sql, $bind);
+
+            // Detect implicit rollback - MySQL SQLSTATE: ER_LOCK_WAIT_TIMEOUT or ER_LOCK_DEADLOCK
+            if( $this->_transactionLevel > 0
+                && $e->getPrevious() && isset($e->getPrevious()->errorInfo[1])
+                && in_array($e->getPrevious()->errorInfo[1], [1205, 1213])
+            ) {
+                if ($this->_debug) {
+                    $this->_debugWriteToFile('IMPLICIT ROLLBACK AFTER SQLSTATE: '.$e->getPrevious()->errorInfo[1]);
+                }
+                $this->_transactionLevel = 1; // Deadlock rolls back entire transaction
+                $this->rollBack();
+            }
+
             $this->_debugException($e);
         }
         $this->_debugStat(self::DEBUG_QUERY, $sql, $bind, $result);
