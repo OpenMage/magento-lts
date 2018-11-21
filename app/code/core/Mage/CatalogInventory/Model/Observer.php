@@ -737,6 +737,21 @@ class Mage_CatalogInventory_Model_Observer
             }
         }
 
+        /**
+         * ref: https://github.com/OpenMage/magento-lts/issues/152
+         *
+         * get product stock setup.
+         * We only want to re-index products that actually have stock management setup.
+         * This limits the number of stock re-indexing that takes place,
+         * especially in stores where stock is not managed
+         **/
+        $productIds = array_map('intval', $productIds);
+        $stockCollection = Mage::getModel('cataloginventory/stock_item')->getCollection()
+            ->addFieldToFilter('product_id', array('in' => $productIds))
+            ->addFieldToFilter('manage_stock', array('eq' => 1));
+        $stockCollection->getSelect()->reset(Zend_Db_Select::COLUMNS)->columns(['product_id']);
+        $productIds = $stockCollection->getColumnValues('product_id');
+
         if (count($productIds)) {
             Mage::getResourceSingleton('cataloginventory/indexer_stock')->reindexProducts($productIds);
         }
