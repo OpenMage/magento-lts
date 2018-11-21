@@ -64,7 +64,7 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Tax extends Mage_Sales_Model_Order
                  */
 
                 $tax            = $orderItemTax - $orderItem->getTaxRefunded();
-                $baseTax        = $baseOrderItemTax - $orderItem->getTaxRefunded();
+                $baseTax        = $baseOrderItemTax - $orderItem->getBaseTaxRefunded();
                 $hiddenTax      = $orderItemHiddenTax - $orderItem->getHiddenTaxRefunded();
                 $baseHiddenTax  = $baseOrderItemHiddenTax - $orderItem->getBaseHiddenTaxRefunded();
                 if (!$item->isLast()) {
