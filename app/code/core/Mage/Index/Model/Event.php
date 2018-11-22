@@ -171,6 +171,8 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
                 }
             } elseif (!array_key_exists($key, $current) || is_null($current[$key])) {
                 $current[$key] = $previous[$key];
+            } elseif (array_key_exists($key, $current) && array_key_exists($key, $previous) && ($previous[$key] == $current[$key])) {
+                return $current;
             } elseif (!is_array($previous[$key]) && !is_string($key)) {
                 $current[] = $previous[$key];
             }
