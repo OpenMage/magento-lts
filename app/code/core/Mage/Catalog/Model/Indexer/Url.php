@@ -237,9 +237,12 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
                  $urlModel->refreshProductRewrite($productId);
             }
         }
-        if (isset($data['rewrite_category_ids'])) {
+
+        $rewriteCategoryIds = $data['rewrite_category_ids'] ?? null;
+        if ($rewriteCategoryIds) {
+            $rewriteCategoryIds = array_unique($rewriteCategoryIds);
             $urlModel->clearStoreInvalidRewrites(); // Maybe some categories were moved
-            foreach ($data['rewrite_category_ids'] as $categoryId) {
+            foreach ($rewriteCategoryIds as $categoryId) {
                 $urlModel->refreshCategoryRewrite($categoryId);
             }
         }
