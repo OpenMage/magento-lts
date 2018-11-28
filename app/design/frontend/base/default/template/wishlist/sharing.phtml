@@ -34,7 +34,7 @@
         <h2 class="legend"><?php echo $this->__('Sharing Information') ?></h2>
         <ul class="form-list">
             <li class="wide">
-                <label for="email_address" class="required"><em>*</em><?php echo $this->__('Email addresses, separated by commas') ?></label>
+                <label for="email_address" class="required"><em>*</em><?php echo $this->__('Up to 5 email addresses, separated by commas') ?></label>
                 <div class="input-box">
                     <textarea name="emails" cols="60" rows="5" id="email_address" class="validate-emails required-entry"><?php echo $this->getEnteredData('emails') ?></textarea>
                 </div>
@@ -42,7 +42,7 @@
             <li class="wide">
                 <label for="message"><?php echo $this->__('Message') ?></label>
                 <div class="input-box">
-                    <textarea id="message" name="message" cols="60" rows="5"><?php echo $this->getEnteredData('message') ?></textarea>
+                    <textarea id="message" name="message" cols="60" rows="3"><?php echo $this->getEnteredData('message') ?></textarea>
                 </div>
             </li>
             <?php if($this->helper('wishlist')->isRssAllow()): ?>
@@ -53,6 +53,7 @@
                 <label for="rss_url"><?php echo $this->__('Check this checkbox if you want to add a link to an rss feed to your wishlist.') ?></label>
             </li>
             <?php endif; ?>
+            <?php echo $this->getChildHtml('wishlist.sharing.form.additional.info'); ?>
         </ul>
     </div>
     <div class="buttons-set form-buttons">

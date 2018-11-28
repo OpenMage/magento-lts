@@ -58,8 +58,10 @@ class Payment extends Block
     public function selectPaymentMethod(array $paymentCode)
     {
         $paymentInput = $this->_rootElement->find(sprintf($this->paymentMethod, $paymentCode['method']));
-        if ($paymentInput->isVisible()) {
-            $paymentInput->click();
+        if ($paymentInput->isPresent()) {
+            if ($paymentInput->isVisible()) {
+                $paymentInput->click();
+            }
             $this->getTemplateBlock()->waitLoader();
         } else {
             throw new \Exception("{$paymentCode['method']} method is not visible.");

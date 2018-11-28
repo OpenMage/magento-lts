@@ -88,6 +88,10 @@
                 <gd/>
                 <soap/>
                 <mbstring/>
+                <mcrypt>
+                    <openssl/>
+                    <mcrypt/>
+                </mcrypt>
             </extensions>
         </php>
     </check>

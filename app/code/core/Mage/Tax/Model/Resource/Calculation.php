@@ -164,14 +164,15 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
             }
             $row['rates'][] = $oneRate;
 
+            $ruleId = null;
             if (isset($rates[$i + 1]['tax_calculation_rule_id'])) {
-                $rule = $rate['tax_calculation_rule_id'];
+                $ruleId = $rate['tax_calculation_rule_id'];
             }
             $priority = $rate['priority'];
             $ids[] = $rate['code'];
 
             if (isset($rates[$i + 1]['tax_calculation_rule_id'])) {
-                while (isset($rates[$i + 1]) && $rates[$i + 1]['tax_calculation_rule_id'] == $rule) {
+                while (isset($rates[$i + 1]) && $rates[$i + 1]['tax_calculation_rule_id'] == $ruleId) {
                     $i++;
                 }
             }
@@ -188,7 +189,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
                     $row['percent'] = $this->_collectPercent($totalPercent, $currentRate);
                     $totalPercent += $row['percent'];
                 }
-                $row['id'] = implode($ids);
+                $row['id'] = implode('', $ids);
                 $result[] = $row;
                 $row = array();
                 $ids = array();
@@ -251,7 +252,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
         $customerClassId = $request->getCustomerClassId();
         $countryId = $request->getCountryId();
         $regionId = $request->getRegionId();
-        $postcode = $request->getPostcode();
+        $postcode = trim($request->getPostcode());
 
         // Process productClassId as it can be array or usual value. Form best key for cache.
         $productClassId = $request->getProductClassId();
@@ -311,10 +312,15 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
                 ->where('rate.tax_country_id = ?', $countryId)
                 ->where("rate.tax_region_id IN(?)", array(0, (int)$regionId));
             $postcodeIsNumeric = is_numeric($postcode);
-            $postcodeIsRange = is_string($postcode) && preg_match('/^(.+)-(.+)$/', $postcode, $matches);
-            if ($postcodeIsRange) {
-                $zipFrom = $matches[1];
-                $zipTo = $matches[2];
+            $postcodeIsRange = false;
+            if (is_string($postcode) && preg_match('/^(.+)-(.+)$/', $postcode, $matches)) {
+                if (is_numeric($matches[2]) && strlen($matches[2]) < 5) {
+                    $postcodeIsNumeric = true;
+                } else {
+                    $postcodeIsRange = true;
+                    $zipFrom = $matches[1];
+                    $zipTo = $matches[2];
+                }
             }
 
             if ($postcodeIsNumeric || $postcodeIsRange) {

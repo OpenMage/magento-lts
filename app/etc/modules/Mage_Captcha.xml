@@ -33,6 +33,8 @@
             <depends>
                 <Mage_Customer />
                 <Mage_Adminhtml />
+                <Mage_Wishlist />
+                <Mage_Sendfriend />
             </depends>
         </Mage_Captcha>
     </modules>

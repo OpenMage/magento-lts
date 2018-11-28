@@ -330,7 +330,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     public function isEnabledFlat()
     {
         // Flat Data can be used only on frontend
-        if (Mage::app()->getStore()->isAdmin()) {
+        if (Mage::app()->getStore()->isAdmin() || $this->getFlatHelper()->isFlatCollectionDisabled()) {
             return false;
         }
         $storeId = $this->getStoreId();

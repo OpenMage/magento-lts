@@ -39,7 +39,7 @@ class Mage_Customer_Model_Resource_Address_Attribute_Source_Region extends Mage_
      *
      * @return array
      */
-    public function getAllOptions()
+    public function getAllOptions($withEmpty = true, $defaultValues = false)
     {
         if (!$this->_options) {
             $this->_options = Mage::getResourceModel('directory/region_collection')->load()->toOptionArray();

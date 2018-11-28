@@ -482,6 +482,9 @@ Validation.addAllThese([
     ['validate-code', 'Please use only letters (a-z), numbers (0-9) or underscore(_) in this field, first character should be a letter.', function (v) {
                 return Validation.get('IsEmpty').test(v) ||  /^[a-z]+[a-z0-9_]+$/.test(v)
             }],
+    ['validate-code-event', 'Please do not use "event" for an attribute code.', function (v) {
+        return Validation.get('IsEmpty').test(v) || !/^(event)$/.test(v)
+            }],
     ['validate-alphanum', 'Please use only letters (a-z or A-Z) or numbers (0-9) only in this field. No spaces or other characters are allowed.', function(v) {
                 return Validation.get('IsEmpty').test(v) || /^[a-zA-Z0-9]+$/.test(v)
             }],

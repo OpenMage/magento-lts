@@ -141,12 +141,12 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
                 $swatchLabel = $label . self::SWATCH_LABEL_SUFFIX;
 
                 $imageKeys[$label] = array_search($label, $imageHaystack);
-                if ($imageKeys[$label] === false) {
+                if ($imageKeys[$label] === false && isset($mapping[$label]['default_label'])) {
                     $imageKeys[$label] = array_search($mapping[$label]['default_label'], $imageHaystack);
                 }
 
                 $imageKeys[$swatchLabel] = array_search($swatchLabel, $imageHaystack);
-                if ($imageKeys[$swatchLabel] === false) {
+                if ($imageKeys[$swatchLabel] === false && isset($mapping[$label]['default_label'])) {
                     $imageKeys[$swatchLabel] = array_search(
                         $mapping[$label]['default_label'] . self::SWATCH_LABEL_SUFFIX, $imageHaystack
                     );
