@@ -82,12 +82,13 @@ class Mage_Sales_Model_Resource_Order_Shipment extends Mage_Sales_Model_Resource
         $adapter           = $this->getReadConnection();
         $checkedFirstname  = $adapter->getIfNullSql('{{table}}.firstname', $adapter->quote(''));
         $checkedMidllename = $adapter->getIfNullSql('{{table}}.middlename', $adapter->quote(''));
+        $middelnameEnd     = $adapter->getCheckSql('{{table}}.middlename IS NULL OR {{table}}.middlename="" OR {{table}}.middlename=" "', '""', '" "');
         $checkedLastname   = $adapter->getIfNullSql('{{table}}.lastname', $adapter->quote(''));
         $concatName        = $adapter->getConcatSql(array(
             $checkedFirstname,
             $adapter->quote(' '),
             $checkedMidllename,
-            $adapter->quote(' '),
+            $middelnameEnd,
             $checkedLastname
         ));
 

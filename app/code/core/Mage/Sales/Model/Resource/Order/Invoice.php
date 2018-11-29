@@ -82,6 +82,7 @@ class Mage_Sales_Model_Resource_Order_Invoice extends Mage_Sales_Model_Resource_
         $adapter           = $this->_getReadAdapter();
         $checkedFirstname  = $adapter->getIfNullSql('{{table}}.firstname', $adapter->quote(''));
         $checkedMiddlename = $adapter->getIfNullSql('{{table}}.middlename', $adapter->quote(''));
+        $middelnameEnd     = $adapter->getCheckSql('{{table}}.middlename IS NULL OR {{table}}.middlename="" OR {{table}}.middlename=" "', '""', '" "');
         $checkedLastname   = $adapter->getIfNullSql('{{table}}.lastname', $adapter->quote(''));
 
         $this->addVirtualGridColumn(
@@ -92,7 +93,7 @@ class Mage_Sales_Model_Resource_Order_Invoice extends Mage_Sales_Model_Resource_
                 $checkedFirstname,
                 $adapter->quote(' '),
                 $checkedMiddlename,
-                $adapter->quote(' '),
+                $middelnameEnd,
                 $checkedLastname
             ))
         )
