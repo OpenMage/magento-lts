@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Core>
-            <version>1.6.0.7</version>
+            <version>1.6.0.8</version>
         </Mage_Core>
     </modules>
     <global>
@@ -428,8 +428,13 @@
             </locale>
             <file>
                 <protected_extensions>
-                    <!-- PHP script file extension -->
+                    <!-- BOF PHP script file extensions -->
                     <php>php</php>
+                    <php3>php3</php3>
+                    <php4>php4</php4>
+                    <php5>php5</php5>
+                    <php7>php7</php7>
+                    <!-- EOF PHP script file extensions -->
                     <!-- File extension of configuration of an Apache Web server -->
                     <htaccess>htaccess</htaccess>
                     <!-- Java script file extension -->
@@ -447,6 +452,7 @@
                     <!-- BOF HTML file extensions -->
                     <htm>htm</htm>
                     <html>html</html>
+                    <pht>pht</pht>
                     <phtml>phtml</phtml>
                     <shtml>shtml</shtml>
                     <!-- EOF HTML file extensions -->

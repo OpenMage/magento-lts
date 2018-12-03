@@ -49,6 +49,18 @@ class Mage_Adminhtml_Block_Customer_Group_Edit extends Mage_Adminhtml_Block_Widg
         }
     }
 
+    public function getDeleteUrl()
+    {
+        if (!Mage::getSingleton('adminhtml/url')->useSecretKey()) {
+            return $this->getUrl('*/*/delete', array(
+                $this->_objectId => $this->getRequest()->getParam($this->_objectId),
+                'form_key' => Mage::getSingleton('core/session')->getFormKey()
+            ));
+        } else {
+            parent::getDeleteUrl();
+        }
+    }
+
     public function getHeaderText()
     {
         if(!is_null(Mage::registry('current_group')->getId())) {

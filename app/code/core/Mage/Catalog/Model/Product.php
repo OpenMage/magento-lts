@@ -2096,4 +2096,19 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
 
         return $this;
     }
+
+    /**
+     *  Checks event attribute for initialization as an event object
+     *
+     * @return bool | Enterprise_CatalogEvent_Model_Event
+     */
+    public function getEvent()
+    {
+        $event = parent::getEvent();
+        if (is_string($event)) {
+            $event = false;
+        }
+
+        return $event;
+    }
 }

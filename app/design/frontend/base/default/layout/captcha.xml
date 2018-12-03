@@ -103,4 +103,32 @@
             </block>
         </reference>
     </checkout_onepage_index>
+    <wishlist_index_share>
+        <reference name="wishlist.sharing">
+            <block type="core/text_list" name="wishlist.sharing.form.additional.info">
+                <block type="captcha/captcha" name="captcha">
+                    <reference name="head">
+                        <action method="addJs"><file>mage/captcha.js</file></action>
+                    </reference>
+                    <action method="setFormId"><formId>wishlist_sharing</formId></action>
+                    <action method="setImgWidth"><width>230</width></action>
+                    <action method="setImgHeight"><width>50</width></action>
+                </block>
+            </block>
+        </reference>
+    </wishlist_index_share>
+    <sendfriend_product_send>
+            <reference name="sendfriend.send">
+            <block type="core/text_list" name="sendfriend.send.form.additional.info">
+                <block type="captcha/captcha" name="captcha">
+                    <reference name="head">
+                        <action method="addJs"><file>mage/captcha.js</file></action>
+                    </reference>
+                    <action method="setFormId"><formId>sendfriend_send</formId></action>
+                    <action method="setImgWidth"><width>230</width></action>
+                    <action method="setImgHeight"><width>50</width></action>
+                </block>
+            </block>
+        </reference>
+    </sendfriend_product_send>
 </layout>

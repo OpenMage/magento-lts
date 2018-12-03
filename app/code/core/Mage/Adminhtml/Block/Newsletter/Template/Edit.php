@@ -275,7 +275,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
      */
     public function getJsTemplateName()
     {
-        return addcslashes($this->getModel()->getTemplateCode(), "\"\r\n\\");
+        return addcslashes($this->escapeHtml($this->getModel()->getTemplateCode()), "\"\r\n\\");
     }
 
     /**

@@ -40,7 +40,7 @@ $_height = $this->getImagesHeight();
     <div class="filecnt" id="<?php echo $this->getFileId($file) ?>">
         <p class="nm" style="height:<?php echo $_height ?>px;width:<?php echo $_width ?>px;">
         <?php if($this->getFileThumbUrl($file)):?>
-            <img src="<?php echo $this->getFileThumbUrl($file) ?>" alt="<?php echo $this->getFileName($file) ?>"/>
+            <img src="<?php echo $this->getFileThumbUrl($file) ?>" alt="<?php echo $this->escapeHtml($this->getFileName($file)) ?>"/>
         <?php endif; ?>
         </p>
         <?php if($this->getFileWidth($file)): ?>

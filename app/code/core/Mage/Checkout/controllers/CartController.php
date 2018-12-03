@@ -127,6 +127,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
     public function preDispatch()
     {
         parent::preDispatch();
+        Mage::helper('catalog/product_flat')->disableFlatCollection(true);
 
         $cart = $this->_getCart();
         if ($cart->getQuote()->getIsMultiShipping()) {

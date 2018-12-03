@@ -34,6 +34,17 @@
 class Mage_Adminhtml_SitemapController extends  Mage_Adminhtml_Controller_Action
 {
     /**
+     * Controller predispatch method
+     *
+     * @return Mage_Adminhtml_Controller_Action
+     */
+    public function preDispatch()
+    {
+        $this->_setForcedFormKeyActions('delete');
+        return parent::preDispatch();
+    }
+
+    /**
      * Init actions
      *
      * @return Mage_Adminhtml_SitemapController
