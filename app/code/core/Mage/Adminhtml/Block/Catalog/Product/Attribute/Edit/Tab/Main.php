@@ -32,7 +32,8 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract
+class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main
+    extends Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract
 {
     /**
      * Adding product form elements for editing attribute
@@ -47,6 +48,17 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
         $form = $this->getForm();
         /* @var $fieldset Varien_Data_Form_Element_Fieldset */
         $fieldset = $form->getElement('base_fieldset');
+
+        $fieldset->getElements()
+            ->searchById('attribute_code')
+            ->setData(
+                'class',
+                'validate-code-event ' . $fieldset->getElements()->searchById('attribute_code')->getData('class')
+            )->setData(
+                'note',
+                $fieldset->getElements()->searchById('attribute_code')->getData('note')
+                . Mage::helper('eav')->__('. Do not use "event" for an attribute code, it is a reserved keyword.')
+            );
 
         $frontendInputElm = $form->getElement('frontend_input');
         $additionalTypes = array(
@@ -94,7 +106,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
             Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL =>Mage::helper('catalog')->__('Global'),
         );
 
-        if ($attributeObject->getAttributeCode() == 'status' || $attributeObject->getAttributeCode() == 'tax_class_id') {
+        if (
+            $attributeObject->getAttributeCode() == 'status'
+            || $attributeObject->getAttributeCode() == 'tax_class_id'
+        ) {
             unset($scopes[Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE]);
         }
 

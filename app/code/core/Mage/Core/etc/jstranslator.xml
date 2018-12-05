@@ -54,6 +54,9 @@
     <validate-code translate="message" module="core">
         <message>Please use only letters (a-z), numbers (0-9) or underscore(_) in this field, first character should be a letter.</message>
     </validate-code>
+    <validate-code-event translate="message" module="core">
+        <message>Please do not use "event" for an attribute code.</message>
+    </validate-code-event>
     <validate-alphanum translate="message" module="core">
         <message>Please use only letters (a-z or A-Z) or numbers (0-9) only in this field. No spaces or other characters are allowed.</message>
     </validate-alphanum>

@@ -67,10 +67,12 @@ class NewLogin extends Login
         $this->clickToElement($this->startLoginButton);
         $this->_rootElement = $this->browser->find('.main');
         parent::fill($customer, $this->switchOnPayPalFrame($element));
-        $this->clickToElement($this->nextButton);
 
         $path = glob(MTF_TESTS_PATH . preg_replace('/^\w+\/\w+/', '*/*', str_replace('\\', '/', get_class($this))) . 'Password.xml');
         $this->mapping = $this->mapper->read(reset($path))['fields'];
+        if (!$this->browser->find($this->mapping['password']['selector'])->isVisible()) {
+            $this->clickToElement($this->nextButton);
+        }
         parent::fill($customer, $this->switchOnPayPalFrame($element));
 
         return $this;

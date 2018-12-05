@@ -171,8 +171,8 @@ final class Mage
         return array(
             'major'     => '1',
             'minor'     => '9',
-            'revision'  => '3',
-            'patch'     => '10',
+            'revision'  => '4',
+            'patch'     => '0',
             'stability' => '',
             'number'    => '',
         );

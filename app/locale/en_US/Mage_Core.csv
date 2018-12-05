@@ -223,6 +223,8 @@
 "Path ""%value%"" is protected and cannot be used.","Path ""%value%"" is protected and cannot be used."
 "Path ""%value%"" may not include parent directory traversal (""../"", ""..\\).""","Path ""%value%"" may not include parent directory traversal (""../"", ""..\\)."""
 "Please define flag code.","Please define flag code."
+"Please do not use ""event"" for an attribute code.","Please do not use ""event"" for an attribute code."
+"Please do not use event"" for an attribute code.""","Please do not use event"" for an attribute code."""
 "Please enter 6 or more characters without leading or trailing spaces.","Please enter 6 or more characters without leading or trailing spaces."
 "Please enter 7 or more characters. Password should contain both numeric and alphabetic characters.","Please enter 7 or more characters. Password should contain both numeric and alphabetic characters."
 "Please enter a number 0 or greater in this field.","Please enter a number 0 or greater in this field."

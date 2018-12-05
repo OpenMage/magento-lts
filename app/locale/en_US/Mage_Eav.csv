@@ -29,6 +29,8 @@
 "'%value%' does not appear to be a valid URI hostname","'%value%' does not appear to be a valid URI hostname"
 "'%value%' does not appear to be a valid local network name","'%value%' does not appear to be a valid local network name"
 "'%value%' does not match the expected structure for a DNS hostname","'%value%' does not match the expected structure for a DNS hostname"
+". Do not use ""event"" for an attribute code, it is a reserved keyword.",". Do not use ""event"" for an attribute code, it is a reserved keyword."
+". Do not use event"" for an attribute code"," it is a reserved keyword."""
 "A joint field with this alias (%s) is already declared","A joint field with this alias (%s) is already declared"
 "Add Option","Add Option"
 "An error occurred while loading a record, aborting. Error: %s","An error occurred while loading a record, aborting. Error: %s"

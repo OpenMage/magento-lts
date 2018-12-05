@@ -234,7 +234,7 @@
             </depends>
         </Mage_Log>
         <Mage_Backup>
-            <active>true</active>
+            <active>false</active>
             <codePool>core</codePool>
             <depends>
                 <Mage_Core/>

@@ -78,6 +78,14 @@
                     </captcha>
                 </observers>
             </controller_action_predispatch_customer_account_createpost>
+            <controller_action_predispatch_wishlist_index_send>
+                <observers>
+                    <captcha>
+                        <class>captcha/observer</class>
+                        <method>checkWishlistSharing</method>
+                    </captcha>
+                </observers>
+            </controller_action_predispatch_wishlist_index_send>
             <controller_action_predispatch_adminhtml_index_forgotpassword>
                 <observers>
                     <captcha>
@@ -122,6 +130,14 @@
                     </captcha_reset_attempt>
                 </observers>
             </admin_session_user_login_success>
+            <controller_action_predispatch_sendfriend_product_sendmail>
+                <observers>
+                    <captcha>
+                        <class>captcha/observer</class>
+                        <method>checkSendfriendSend</method>
+                    </captcha>
+                </observers>
+            </controller_action_predispatch_sendfriend_product_sendmail>
         </events>
     </global>
     <frontend>
@@ -206,6 +222,8 @@
                     <user_forgotpassword>1</user_forgotpassword>
                     <guest_checkout>1</guest_checkout>
                     <register_during_checkout>1</register_during_checkout>
+                    <wishlist_sharing>1</wishlist_sharing>
+                    <sendfriend_send>1</sendfriend_send>
                 </always_for>
             </captcha>
         </customer>
@@ -233,6 +251,12 @@
                     <register_during_checkout>
                         <label>Register during Checkout</label>
                     </register_during_checkout>
+                    <wishlist_sharing>
+                        <label>Share Wishlist</label>
+                    </wishlist_sharing>
+                    <sendfriend_send>
+                        <label>Email Product to a Friend</label>
+                    </sendfriend_send>
                 </areas>
             </frontend>
             <backend>

@@ -30,11 +30,20 @@
  * @see Mage_Sendfriend_Block_Send
  */
 ?>
+<?php $recipientsCount = $this->getRecipientsCount(); ?>
 <script type="text/javascript">
 //<![CDATA[
-    i=0;
-    var recipCount  = 1;
-    var maxRecip    = <?php echo $this->getMaxRecipients() ?>;
+    var recipCount = <?php echo $recipientsCount ? $recipientsCount : 1; ?>;
+    var maxRecip   = <?php echo $this->getMaxRecipients(); ?>;
+    i = recipCount - 1;
+
+    function process_recipients_list_increase() {
+        if (recipCount >= maxRecip && maxRecip != 0) {
+            $('add_recipient_button').hide();
+            $('max_recipient_message').show();
+        }
+    }
+
     function remove_recipient(i){
         $('recipients_name'+i).up(2).remove();
         recipCount--;
@@ -54,13 +63,14 @@
         li_mail.innerHTML += '<div class="field"><label for="recipients_email'+i+'" class="required"><em>*<\/em><?php echo $this->jsQuoteEscape($this->__('Email Address:')) ?><\/label><div class="input-box"><input name="recipients[email][]" value="" title="<?php echo $this->jsQuoteEscape($this->__('Email Address')) ?>" id="recipients_email'+i+'" type="text" class="input-text required-entry validate-email" /><\/div><\/div>';
         i++;
         recipCount++;
-        if(recipCount>=maxRecip && maxRecip != 0) {
-            $('add_recipient_button').hide();
-            $('max_recipient_message').show();
-        }
+        process_recipients_list_increase();
 
-        ul.appendChild(li_mail);
+        ul.getElementsBySelector('.fields:last')[0].insert({
+            after: li_mail
+        });
     }
+
+    window.addEventListener("load", process_recipients_list_increase);
 //]]>
 </script>
 
@@ -103,16 +113,72 @@
                     <div class="field">
                         <label for="recipients_name" class="required"><em>*</em><?php echo $this->__('Name:') ?></label>
                         <div class="input-box">
-                            <input name="recipients[name][]" type="text" class="input-text required-entry" id="recipients_name" />
+                            <input name="recipients[name][]"
+                                   value="<?php echo $this->quoteEscape($this->getFormData()->getData('recipients/name/0')); ?>"
+                                   type="text"
+                                   class="input-text required-entry"
+                                   id="recipients_name" />
                         </div>
                     </div>
                     <div class="field">
                         <label for="recipients_email" class="required"><em>*</em><?php echo $this->__('Email Address:') ?></label>
                         <div class="input-box">
-                            <input name="recipients[email][]" value="" title="<?php echo $this->quoteEscape($this->__('Email Address')) ?>" id="recipients_email" type="email" autocapitalize="off" autocorrect="off" spellcheck="false" class="input-text required-entry validate-email" />
+                            <input name="recipients[email][]"
+                                   value="<?php echo $this->quoteEscape($this->getFormData()->getData('recipients/email/0')); ?>"
+                                   title="<?php echo $this->quoteEscape($this->__('Email Address')); ?>"
+                                   id="recipients_email"
+                                   type="email"
+                                   class="input-text required-entry validate-email"
+                                   autocapitalize="off"
+                                   autocorrect="off"
+                                   spellcheck="false" />
                         </div>
                     </div>
                 </li>
+                <?php if ($recipientsCount): ?>
+                    <?php for ($i = 0; $i < $recipientsCount - 1; $i++): ?>
+                        <?php $recepientId = $i + 1; ?>
+                        <li class="fields additional-row">
+                            <p>
+                                <a href="delete_email"
+                                   title="<?php echo $this->__('Remove Email'); ?>"
+                                   onclick="remove_recipient(<?php echo $i; ?>); return false;"
+                                   class="btn-remove">
+                                    <?php echo $this->__('Remove Email'); ?>
+                                </a>
+                            </p>
+                            <div class="field">
+                                <label for="recipients_name<?php echo $i; ?>" class="required">
+                                    <em>*</em><?php echo $this->__('Name:'); ?>
+                                </label>
+                                <div class="input-box">
+                                    <input name="recipients[name][]"
+                                           value="<?php echo $this->quoteEscape($this->getFormData()->getData('recipients/name/' . $recepientId)); ?>"
+                                           type="text"
+                                           class="input-text required-entry"
+                                           id="recipients_name<?php echo $i; ?>" />
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label for="recipients_email<?php echo $i; ?>" class="required">
+                                    <em>*</em><?php echo $this->__('Email Address:'); ?>
+                                </label>
+                                <div class="input-box">
+                                    <input name="recipients[email][]"
+                                           value="<?php echo $this->quoteEscape($this->getFormData()->getData('recipients/email/' . $recepientId)); ?>"
+                                           title="<?php echo $this->__('Email Address'); ?>"
+                                           id="recipients_email<?php echo $i; ?>"
+                                           type="email"
+                                           class="input-text required-entry validate-email"
+                                           autocapitalize="off"
+                                           autocorrect="off"
+                                           spellcheck="false" />
+                                </div>
+                            </div>
+                        </li>
+                    <?php endfor; ?>
+                <?php endif; ?>
+                <?php echo $this->getChildHtml('sendfriend.send.form.additional.info'); ?>
             </ul>
         </div>
         <div class="buttons-set">

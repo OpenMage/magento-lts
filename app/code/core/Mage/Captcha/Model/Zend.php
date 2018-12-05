@@ -116,7 +116,11 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      */
     public function isRequired($login = null)
     {
-        if ($this->_isUserAuth() || !$this->_isEnabled() || !in_array($this->_formId, $this->_getTargetForms())) {
+        $nonAuthForms = array('wishlist_sharing', 'sendfriend_send');
+
+        if ((!in_array($this->_formId, $nonAuthForms) && $this->_isUserAuth())
+            || !$this->_isEnabled() || !in_array($this->_formId, $this->_getTargetForms())
+        ) {
             return false;
         }
 

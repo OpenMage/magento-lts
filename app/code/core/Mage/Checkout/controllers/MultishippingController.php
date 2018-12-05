@@ -86,6 +86,9 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
             return $this;
         }
 
+        // Disable flat for product collection
+        Mage::helper('catalog/product_flat')->disableFlatCollection(true);
+
         $action = strtolower($this->getRequest()->getActionName());
 
         $checkoutSessionQuote = $this->_getCheckoutSession()->getQuote();

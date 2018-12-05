@@ -674,7 +674,7 @@ XML;
             default:
                 // do nothing
         }
-        
+
         return Zend_Json::decode($encodedValue, $objectDecodeType);
     }
 
