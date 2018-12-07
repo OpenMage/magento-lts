@@ -231,15 +231,20 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
             $urlModel->setShouldSaveRewritesHistory($dataObject->getData('save_rewrites_history'));
         }
 
-        if(isset($data['rewrite_product_ids'])) {
+        $rewriteProductIds = (isset($data['rewrite_product_ids']) ? $data['rewrite_product_ids'] : null);
+        if($rewriteProductIds) {
+            $rewriteProductIds = array_unique($rewriteProductIds);
             $urlModel->clearStoreInvalidRewrites(); // Maybe some products were moved or removed from website
-            foreach ($data['rewrite_product_ids'] as $productId) {
+            foreach ($rewriteProductIds as $productId) {
                  $urlModel->refreshProductRewrite($productId);
             }
         }
-        if (isset($data['rewrite_category_ids'])) {
+
+        $rewriteCategoryIds = (isset($data['rewrite_category_ids']) ? $data['rewrite_category_ids'] : null);
+        if ($rewriteCategoryIds) {
+            $rewriteCategoryIds = array_unique($rewriteCategoryIds);
             $urlModel->clearStoreInvalidRewrites(); // Maybe some categories were moved
-            foreach ($data['rewrite_category_ids'] as $categoryId) {
+            foreach ($rewriteCategoryIds as $categoryId) {
                 $urlModel->refreshCategoryRewrite($categoryId);
             }
         }
