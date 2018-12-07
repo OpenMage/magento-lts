@@ -308,6 +308,38 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
         $this->_redirect('*/*');
     }
 
+     /**
+     * Duplicate catalog rule and edit
+     */
+    public function duplicateAction()
+    {
+        $errorMessage = Mage::helper('catalogrule')->__('Cannot copy rule ');
+        $params = $this->getRequest()->getParams();
+        try {
+            if($model = Mage::getModel('catalogrule/rule')->load($params['id'])) {
+                $_currentrule = $model->getData();
+                $_newrule = Mage::getModel('catalogrule/rule');
+                $_newrule->setData($_currentrule);
+                unset($_newrule['rule_id']);
+                $_newrule['is_active'] = 0;
+                $_newrule['name'] = $_currentrule['name'] . " (Copy)";
+                $_newrule['identifier'] = $_currentrule['identifier'] . "-copy";
+                unset($_currentrule);
+                $_newrule->save();
+                $this->_getSession()->addSuccess(Mage::helper('catalogrule')->__('The rule has been duplicated. Create a new Rule Name and Save to apply changes.'));
+                $this->_redirect('*/*/edit', array('id' => $_newrule->getId(), '_current' => true));
+                return;
+            }
+
+        } catch (Mage_Core_Exception $e) {
+            $this->_getSession()->addError($errorMessage . ' ' . $e->getMessage());
+        } catch (Exception $e) {
+            $this->_getSession()->addError($errorMessage);
+            Mage::logException($e);
+        }
+        $this->_redirect('*/*');
+    }
+    
     /**
      * @deprecated since 1.5.0.0
      */
