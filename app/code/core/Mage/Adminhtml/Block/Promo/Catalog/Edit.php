@@ -54,6 +54,13 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit extends Mage_Adminhtml_Block_Widge
             'label'   => Mage::helper('catalogrule')->__('Save and Continue Edit'),
             'onclick' => 'editForm.submit($(\'edit_form\').action + \'back/edit/\')',
         ), 10);
+        
+        $this->_addButton('duplicate_rule', array(
+            'class'   => 'add',
+            'label'   => Mage::helper('adminhtml')->__('Duplicate'),
+            'onclick' => 'editForm.submit($(\'edit_form\').action + \'back/edit/\')',
+            'onclick'   => 'window.location = \''.$this->getUrl('*/*/duplicate', array('_current'  => true)).'\'',
+        ), -10);        
     }
 
     /**
