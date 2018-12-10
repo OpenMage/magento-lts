@@ -89,15 +89,14 @@ class Mage_Sales_Model_Resource_Order extends Mage_Sales_Model_Resource_Order_Ab
         $adapter       = $this->getReadConnection();
         $ifnullFirst   = $adapter->getIfNullSql('{{table}}.firstname', $adapter->quote(''));
         $ifnullMiddle  = $adapter->getIfNullSql('{{table}}.middlename', $adapter->quote(''));
-        $middelnameEnd = $adapter->getCheckSql('{{table}}.middlename IS NULL OR {{table}}.middlename="" OR {{table}}.middlename=" "', '""', '" "');
         $ifnullLast    = $adapter->getIfNullSql('{{table}}.lastname', $adapter->quote(''));
-        $concatAddress = $adapter->getConcatSql(array(
+        $concatAddress = trim(replace($adapter->getConcatSql(array(
             $ifnullFirst,
             $adapter->quote(' '),
             $ifnullMiddle,
-            $middelnameEnd,
+            $adapter->quote(' '),
             $ifnullLast
-        ));
+        )),'  ', ' '));
         $this->addVirtualGridColumn(
                 'billing_name',
                 'sales/order_address',

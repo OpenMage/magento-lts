@@ -82,20 +82,19 @@ class Mage_Sales_Model_Resource_Order_Invoice extends Mage_Sales_Model_Resource_
         $adapter           = $this->_getReadAdapter();
         $checkedFirstname  = $adapter->getIfNullSql('{{table}}.firstname', $adapter->quote(''));
         $checkedMiddlename = $adapter->getIfNullSql('{{table}}.middlename', $adapter->quote(''));
-        $middelnameEnd     = $adapter->getCheckSql('{{table}}.middlename IS NULL OR {{table}}.middlename="" OR {{table}}.middlename=" "', '""', '" "');
         $checkedLastname   = $adapter->getIfNullSql('{{table}}.lastname', $adapter->quote(''));
 
         $this->addVirtualGridColumn(
             'billing_name',
             'sales/order_address',
             array('billing_address_id' => 'entity_id'),
-            $adapter->getConcatSql(array(
+            trim(replace($adapter->getConcatSql(array(
                 $checkedFirstname,
                 $adapter->quote(' '),
                 $checkedMiddlename,
-                $middelnameEnd,
+                $adapter->quote(' '),
                 $checkedLastname
-            ))
+            )),'  ', ' '))
         )
         ->addVirtualGridColumn(
             'order_increment_id',
