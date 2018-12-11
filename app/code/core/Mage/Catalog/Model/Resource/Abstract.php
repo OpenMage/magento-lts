@@ -678,10 +678,10 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
 
         if (sizeof($attributesData) == 1) {
             $_data = each($attributesData);
-            $attributesData = $_data[1];
+            return $_data[1];
         }
 
-        return ($attributesData || $attributesData == '0') ? $attributesData : false;
+        return $attributesData ? $attributesData : false;
     }
 
     /**
