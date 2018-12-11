@@ -35,14 +35,14 @@
     </tr>
     <tr>
         <td class="label"><?php echo $this->helper('sales')->__('Adjustment Refund') ?></td>
-        <td><input type="text" name="creditmemo[adjustment_positive]" value="<?php echo $_source->getBaseAdjustmentFeePositive()*1 ?>" class="input-text not-negative-amount" style="width:60px;text-align:right" id="adjustment_positive" /></td>
+        <td><input type="text" name="creditmemo[adjustment_positive]" value="<?php echo $_source->getBaseAdjustmentPositive()*1 ?>" class="input-text not-negative-amount" style="width:60px;text-align:right" id="adjustment_positive" /></td>
     </tr>
     <tr>
         <td colspan="2"><div id="adjustment_positive_adv"></div></td>
     </tr>
     <tr>
         <td class="label"><?php echo $this->helper('sales')->__('Adjustment Fee') ?></td>
-        <td><input type="text" name="creditmemo[adjustment_negative]" value="<?php echo $_source->getBaseAdjustmentFeeNegative()*1 ?>" class="input-text not-negative-amount" style="width:60px;text-align:right" id="adjustment_negative"/></td>
+        <td><input type="text" name="creditmemo[adjustment_negative]" value="<?php echo $_source->getBaseAdjustmentNegative()*1 ?>" class="input-text not-negative-amount" style="width:60px;text-align:right" id="adjustment_negative"/></td>
     </tr>
     <tr>
         <td colspan="2"><div id="adjustment_negative_adv"></div></td>
