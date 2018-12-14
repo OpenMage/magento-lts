@@ -90,6 +90,7 @@ class Mage_Sales_Model_Resource_Order_Shipment extends Mage_Sales_Model_Resource
             $adapter->quote(' '),
             $checkedLastname
         )),'  ', ' '));
+        $concatName = new Zend_Db_Expr("TRIM(REPLACE($concatName,'  ', ' '))");
 
         $this->addVirtualGridColumn(
             'shipping_name',

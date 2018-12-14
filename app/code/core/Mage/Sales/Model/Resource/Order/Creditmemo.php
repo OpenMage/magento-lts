@@ -83,13 +83,14 @@ class Mage_Sales_Model_Resource_Order_Creditmemo extends Mage_Sales_Model_Resour
         $checkedFirstname  = $adapter->getIfNullSql('{{table}}.firstname', $adapter->quote(''));
         $checkedMiddlename = $adapter->getIfNullSql('{{table}}.middlename', $adapter->quote(''));
         $checkedLastname   = $adapter->getIfNullSql('{{table}}.lastname', $adapter->quote(''));
-        $concatName        = trim(replace($adapter->getConcatSql(array(
+        $concatName        = $adapter->getConcatSql(array(
             $checkedFirstname,
             $adapter->quote(' '),
             $checkedMiddlename,
             $adapter->quote(' '),
             $checkedLastname
-        )),'  ', ' '));
+        ));
+        $concatName = new Zend_Db_Expr("TRIM(REPLACE($concatName,'  ', ' '))");
 
         $this->addVirtualGridColumn(
             'billing_name',
