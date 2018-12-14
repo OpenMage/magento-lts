@@ -83,13 +83,13 @@ class Mage_Sales_Model_Resource_Order_Shipment extends Mage_Sales_Model_Resource
         $checkedFirstname  = $adapter->getIfNullSql('{{table}}.firstname', $adapter->quote(''));
         $checkedMidllename = $adapter->getIfNullSql('{{table}}.middlename', $adapter->quote(''));
         $checkedLastname   = $adapter->getIfNullSql('{{table}}.lastname', $adapter->quote(''));
-        $concatName        = trim(replace($adapter->getConcatSql(array(
+        $concatName        = $adapter->getConcatSql(array(
             $checkedFirstname,
             $adapter->quote(' '),
             $checkedMidllename,
             $adapter->quote(' '),
             $checkedLastname
-        )),'  ', ' '));
+        ));
         $concatName = new Zend_Db_Expr("TRIM(REPLACE($concatName,'  ', ' '))");
 
         $this->addVirtualGridColumn(
