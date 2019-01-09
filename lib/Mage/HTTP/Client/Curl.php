@@ -91,8 +91,8 @@ implements Mage_HTTP_IClient
 
 
     /**
-     * Request timeout
-     * @var intunknown_type
+     * Request timeout in seconds
+     * @var int
      */
     protected $_timeout = 300;
 
@@ -126,7 +126,7 @@ implements Mage_HTTP_IClient
     protected $_headerCount = 0;
 
     /**
-     * Set request timeout, msec
+     * Set request timeout in seconds
      *
      * @param int $value
      */
