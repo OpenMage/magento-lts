@@ -32,3 +32,8 @@
 if (function_exists('libxml_disable_entity_loader')) {
     libxml_disable_entity_loader(false);
 }
+
+/* For data consistency between displaying (printing) and serialization a float number */
+/* Added to fix issues with json_encode() and floats after upgrading to PHP 7.1 */
+ini_set('precision', 14);
+ini_set('serialize_precision', 14);
