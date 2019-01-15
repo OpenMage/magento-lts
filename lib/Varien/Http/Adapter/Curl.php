@@ -180,7 +180,8 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
         $options = array(
             CURLOPT_URL                     => $url,
             CURLOPT_RETURNTRANSFER          => true,
-            CURLOPT_HEADER                  => $header
+            CURLOPT_HEADER                  => $header,
+            CURLOPT_HTTP_VERSION            => CURL_HTTP_VERSION_1_1
         );
         if ($method == Zend_Http_Client::POST) {
             $options[CURLOPT_POST]          = true;
