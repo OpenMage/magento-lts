@@ -81,6 +81,11 @@ abstract class Mage_Shell_Abstract
      */
     public function __construct()
     {
+        /* For data consistency between displaying (printing) and serialization a float number */
+        /* Added to fix issues with json_encode() and floats after upgrading to PHP 7.1 */
+        ini_set('precision', 14);
+        ini_set('serialize_precision', 14);
+
         if ($this->_includeMage) {
             require_once $this->_getRootPath() . 'app' . DIRECTORY_SEPARATOR . 'Mage.php';
             Mage::app($this->_appCode, $this->_appType);
