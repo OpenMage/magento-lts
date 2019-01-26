@@ -127,31 +127,6 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     }
 
     /**
-     * Before collection load
-     *
-     * @return Mage_Catalog_Model_Resource_Category_Flat_Collection
-     */
-    protected function _beforeLoad()
-    {
-        Mage::dispatchEvent($this->_eventPrefix . '_load_before',
-                            array($this->_eventObject => $this));
-        return parent::_beforeLoad();
-    }
-
-    /**
-     * After collection load
-     *
-     * @return Mage_Catalog_Model_Resource_Category_Flat_Collection
-     */
-    protected function _afterLoad()
-    {
-        Mage::dispatchEvent($this->_eventPrefix . '_load_after',
-                            array($this->_eventObject => $this));
-
-        return parent::_afterLoad();
-    }
-
-    /**
      * Set store id
      *
      * @param integer $storeId
