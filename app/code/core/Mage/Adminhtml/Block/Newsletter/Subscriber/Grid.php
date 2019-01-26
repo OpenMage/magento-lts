@@ -198,6 +198,7 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
     {
         $this->setMassactionIdField('subscriber_id');
         $this->getMassactionBlock()->setFormFieldName('subscriber');
+        $this->getMassactionBlock()->setUseSelectAll(false);
 
         $this->getMassactionBlock()->addItem('unsubscribe', array(
              'label'        => Mage::helper('newsletter')->__('Unsubscribe'),
