@@ -684,7 +684,7 @@ class Mage_Core_Model_Resource_Setup
 
                     // In array must be 2 elements: 0 => version from, 1 => version to
                     if (count($versionInfo)!=2) {
-                        break;
+                        continue;
                     }
                     $infoFrom = $versionInfo[0];
                     $infoTo   = $versionInfo[1];
