@@ -47,6 +47,9 @@
  */
 class Mage_Sales_Model_Order_Invoice_Comment extends Mage_Sales_Model_Abstract
 {
+    protected $_eventPrefix = 'sales_invoice_comment';
+    protected $_eventObject = 'invoice_comment';
+
     /**
      * Invoice instance
      *

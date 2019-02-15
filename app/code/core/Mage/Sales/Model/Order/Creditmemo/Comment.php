@@ -47,6 +47,9 @@
  */
 class Mage_Sales_Model_Order_Creditmemo_Comment extends Mage_Sales_Model_Abstract
 {
+    protected $_eventPrefix = 'sales_creditmemo_comment';
+    protected $_eventObject = 'creditmemo_comment';
+
     /**
      * Creditmemo instance
      *

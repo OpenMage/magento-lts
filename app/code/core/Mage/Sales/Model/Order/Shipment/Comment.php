@@ -47,6 +47,9 @@
  */
 class Mage_Sales_Model_Order_Shipment_Comment extends Mage_Sales_Model_Abstract
 {
+    protected $_eventPrefix = 'sales_shipment_comment';
+    protected $_eventObject = 'shipment_comment';
+
     /**
      * Shipment instance
      *
