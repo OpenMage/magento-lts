@@ -31,7 +31,7 @@
  * @package     Varien_Data
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggregate
+class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggregate, Countable
 {
 
     /**
