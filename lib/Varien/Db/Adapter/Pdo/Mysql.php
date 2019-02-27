@@ -373,7 +373,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         }
 
 
-        $hostInfo = $this->_getHostInfo($this->_config['host']);
+        $hostInfo = $this->_getHostInfo(isset($this->_config['host']) ? $this->_config['host'] : isset($this->_config['unix_socket']) ? $this->_config['unix_socket'] : NULL);
 
         switch ($hostInfo->getAddressType()) {
             case self::ADDRESS_TYPE_UNIX_SOCKET:
