@@ -51,7 +51,7 @@
  * @method Mage_Admin_Model_User setReloadAclFlag(int $value)
  * @method int getIsActive()
  * @method Mage_Admin_Model_User setIsActive(int $value)
- * @method string getExtra()
+ * @method array getExtra()
  * @method Mage_Admin_Model_User setExtra(string $value)
  *
  * @category    Mage
