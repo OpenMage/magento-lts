@@ -28,7 +28,6 @@
 /**
  * Eav Form Element Model
  *
- * @method Mage_Eav_Model_Resource_Form_Element _getResource()
  * @method Mage_Eav_Model_Resource_Form_Element getResource()
  * @method int getTypeId()
  * @method Mage_Eav_Model_Form_Element setTypeId(int $value)

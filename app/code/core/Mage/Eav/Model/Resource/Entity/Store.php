@@ -45,7 +45,7 @@ class Mage_Eav_Model_Resource_Entity_Store extends Mage_Core_Model_Resource_Db_A
     /**
      * Load an object by entity type and store
      *
-     * @param Varien_Object $object
+     * @param Mage_Core_Model_Abstract $object
      * @param int $entityTypeId
      * @param int $storeId
      * @return boolean

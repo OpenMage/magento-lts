@@ -244,8 +244,8 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
     /**
      * Imports quote items for gift messages from products data
      *
-     * @param unknown_type $products
-     * @return unknown
+     * @param array $products
+     * @return Mage_Adminhtml_Model_Giftmessage_Save
      */
     public function importAllowQuoteItemsFromProducts($products)
     {

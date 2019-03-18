@@ -385,7 +385,7 @@ class Mage_Core_Model_Cache
      * @param string $data
      * @param string $id
      * @param array $tags
-     * @param int $lifeTime
+     * @param null|false|int $lifeTime
      * @return bool
      */
     public function save($data, $id, $tags = array(), $lifeTime = null)
@@ -512,7 +512,7 @@ class Mage_Core_Model_Cache
      * Check if cache can be used for specific data type
      *
      * @param string $typeCode
-     * @return bool
+     * @return bool|array
      */
     public function canUse($typeCode)
     {

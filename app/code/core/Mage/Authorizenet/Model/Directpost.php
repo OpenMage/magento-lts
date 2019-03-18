@@ -67,7 +67,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      * Send authorize request to gateway
      *
      * @param  Varien_Object $payment
-     * @param  decimal $amount
+     * @param  float $amount
      * @return Mage_Paygate_Model_Authorizenet
      * @throws Mage_Core_Exception
      */
@@ -80,7 +80,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      * Send capture request to gateway
      *
      * @param Varien_Object $payment
-     * @param decimal $amount
+     * @param float $amount
      * @return Mage_Authorizenet_Model_Directpost
      * @throws Mage_Core_Exception
      */
@@ -211,7 +211,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      * Need to decode Last 4 digits for request.
      *
      * @param Varien_Object $payment
-     * @param decimal $amount
+     * @param float $amount
      * @return Mage_Authorizenet_Model_Directpost
      * @throws Mage_Core_Exception
      */

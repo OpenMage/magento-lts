@@ -84,6 +84,7 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
     /**
      * Save aggregation data to cache
      *
+     * @param array $data
      * @param   string $key
      * @param   array $tags
      * @param   null|int|string|Mage_Core_Model_Store $store

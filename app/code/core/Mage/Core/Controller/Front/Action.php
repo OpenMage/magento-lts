@@ -105,7 +105,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
      *                              that case
      * @param string $contentType
      * @param int $contentLength    explicit content length, if strlen($content) isn't applicable
-     * @return Mage_Adminhtml_Controller_Action
+     * @return Mage_Core_Controller_Front_Action
      */
     protected function _prepareDownloadResponse($fileName, $content, $contentType = 'application/octet-stream',
         $contentLength = null

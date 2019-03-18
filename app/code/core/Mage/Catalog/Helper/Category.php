@@ -148,7 +148,7 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
     /**
      * Retrieve clear url for category as parrent
      *
-     * @param string $url
+     * @param string $urlPath
      * @param bool $slash
      * @param int $storeId
      *

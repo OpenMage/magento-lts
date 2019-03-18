@@ -198,7 +198,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     /**
      * Subtract quote item quantity
      *
-     * @param   decimal $qty
+     * @param   float $qty
      * @return  Mage_CatalogInventory_Model_Stock_Item
      */
     public function subtractQty($qty)
@@ -444,7 +444,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     /**
      * Check quantity
      *
-     * @param   decimal $qty
+     * @param   float $qty
      * @exception Mage_Core_Exception
      * @return  bool
      */

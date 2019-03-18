@@ -63,6 +63,7 @@ class Mage_Checkout_Block_Multishipping_Addresses extends Mage_Sales_Block_Items
      * Retrieve HTML for addresses dropdown
      *
      * @param  $item
+     * @param $index
      * @return string
      */
     public function getAddressesHtmlSelect($item, $index)

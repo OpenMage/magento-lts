@@ -27,7 +27,6 @@
 /**
  * Catalog advanced search model
  *
- * @method Mage_CatalogSearch_Model_Resource_Advanced _getResource()
  * @method Mage_CatalogSearch_Model_Resource_Advanced getResource()
  * @method int getEntityTypeId()
  * @method Mage_CatalogSearch_Model_Advanced setEntityTypeId(int $value)
@@ -113,7 +112,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
      */
     public function getAttributes()
     {
-        /* @var $attributes Mage_Catalog_Model_Resource_Eav_Resource_Product_Attribute_Collection */
+        /* @var $attributes Mage_Catalog_Model_Resource_Product_Attribute_Collection */
         $attributes = $this->getData('attributes');
         if (is_null($attributes)) {
             $product = Mage::getModel('catalog/product');

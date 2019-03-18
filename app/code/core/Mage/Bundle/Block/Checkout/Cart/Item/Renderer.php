@@ -50,7 +50,7 @@ class Mage_Bundle_Block_Checkout_Cart_Item_Renderer extends Mage_Checkout_Block_
      * Obtain final price of selection in a bundle product
      *
      * @param Mage_Catalog_Model_Product $selectionProduct
-     * @return decimal
+     * @return float
      */
     protected function _getSelectionFinalPrice($selectionProduct)
     {
@@ -63,7 +63,7 @@ class Mage_Bundle_Block_Checkout_Cart_Item_Renderer extends Mage_Checkout_Block_
      * Get selection quantity
      *
      * @param int $selectionId
-     * @return decimal
+     * @return float
      */
     protected function _getSelectionQty($selectionId)
     {

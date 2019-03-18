@@ -78,7 +78,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
     /**
      * Load/Reload Website collection
      *
-     * @return array
+     * @return Mage_Adminhtml_Model_System_Store
      */
     protected function _loadWebsiteCollection()
     {
@@ -89,7 +89,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
     /**
      * Load/Reload Group collection
      *
-     * @return array
+     * @return Mage_Adminhtml_Model_System_Store
      */
     protected function _loadGroupCollection()
     {
@@ -105,7 +105,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
     /**
      * Load/Reload Store collection
      *
-     * @return array
+     * @return Mage_Adminhtml_Model_System_Store
      */
     protected function _loadStoreCollection()
     {

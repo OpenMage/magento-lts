@@ -33,7 +33,7 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
     /**
      * Retrieve resource model
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Attribute_Backend_Weee
+     * @return Mage_Weee_Model_Resource_Attribute_Backend_Weee_Tax
      */
     protected function _getResource()
     {
@@ -44,7 +44,7 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
      * Validate data
      *
      * @param   Mage_Catalog_Model_Product $object
-     * @return  this
+     * @return  Mage_Weee_Model_Attribute_Backend_Weee_Tax
      */
     public function validate($object)
     {
@@ -76,7 +76,7 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
      * Assign WEEE taxes to product data
      *
      * @param   Mage_Catalog_Model_Product $object
-     * @return  Mage_Catalog_Model_Product_Attribute_Backend_Weee
+     * @return  Mage_Weee_Model_Attribute_Backend_Weee_Tax
      */
     public function afterLoad($object)
     {

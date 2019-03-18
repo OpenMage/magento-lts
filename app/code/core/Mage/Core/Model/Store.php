@@ -393,7 +393,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      *
      * Method provide cache configuration data without loading store config XML
      *
-     * @return Mage_Core_Model_Config
+     * @return Mage_Core_Model_Store
      */
     public function initConfigCache()
     {
@@ -717,7 +717,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Check if store is admin store
      *
-     * @return unknown
+     * @return bool
      */
     public function isAdmin()
     {

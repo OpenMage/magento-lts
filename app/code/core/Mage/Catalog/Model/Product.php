@@ -202,9 +202,9 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * Get product price throught type instance
+     * Get product price through type instance
      *
-     * @return unknown
+     * @return float
      */
     public function getPrice()
     {
@@ -574,7 +574,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Init indexing process after product delete commit
      *
-     * @return Mage_Catalog_Model_Product
      */
     protected function _afterDeleteCommit()
     {

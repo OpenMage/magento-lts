@@ -71,8 +71,8 @@ class Mage_Install_Model_Wizard
     /**
      * Get wizard step by request
      *
-     * @param   Mage_Core_Controller_Zend_Request $request
-     * @return  Varien_Object || false
+     * @param   Zend_Controller_Request_Abstract $request
+     * @return  Varien_Object | false
      */
     public function getStepByRequest(Zend_Controller_Request_Abstract $request)
     {

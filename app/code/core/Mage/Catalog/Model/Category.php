@@ -831,7 +831,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * Retuen children categories of current category
+     * Return children categories of current category
      *
      * @return array
      */

@@ -116,7 +116,7 @@ abstract class Mage_Sales_Model_Resource_Collection_Abstract extends Mage_Core_M
      *
      * @param int $limit
      * @param int $offset
-     * @return Mage_Eav_Model_Entity_Collection_Abstract
+     * @return Varien_Db_Select
      */
     protected function _getAllIdsSelect($limit = null, $offset = null)
     {

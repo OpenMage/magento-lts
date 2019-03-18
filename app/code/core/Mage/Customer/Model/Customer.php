@@ -696,8 +696,8 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Send corresponding email template
      *
-     * @param string $emailTemplate configuration path of email template
-     * @param string $emailSender configuration path of email identity
+     * @param string $template configuration path of email template
+     * @param string $sender configuration path of email identity
      * @param array $templateParams
      * @param int|null $storeId
      * @param string|null $customerEmail
@@ -1125,7 +1125,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Clean all addresses
      *
-     * @return Mage_Customer_Model_Customer
      */
     function cleanAllAddresses() {
         $this->_addressesCollection = null;

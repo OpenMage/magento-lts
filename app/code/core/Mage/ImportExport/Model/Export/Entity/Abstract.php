@@ -328,7 +328,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
      *
      * @param string $errorCode Error code or simply column name
      * @param int $errorRowNum Row number.
-     * @return Mage_ImportExport_Model_Import_Adapter_Abstract
+     * @return Mage_ImportExport_Model_Export_Entity_Abstract
      */
     public function addRowError($errorCode, $errorRowNum)
     {
@@ -344,7 +344,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
      *
      * @param string $errorCode Error code
      * @param string $message Message template
-     * @return Mage_ImportExport_Model_Import_Entity_Abstract
+     * @return Mage_ImportExport_Model_Export_Entity_Abstract
      */
     public function addMessageTemplate($errorCode, $message)
     {

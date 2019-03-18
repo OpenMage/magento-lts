@@ -415,7 +415,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      *  return converted percent to price
      *
      * @param bool $flag
-     * @return decimal
+     * @return float
      */
     public function getPrice($flag = false)
     {

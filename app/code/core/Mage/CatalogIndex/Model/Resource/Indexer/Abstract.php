@@ -117,8 +117,8 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
     /**
      * Enter description here ...
      *
-     * @param unknown_type $conditions
-     * @return unknown
+     * @param array|string $conditions
+     * @return array
      */
     public function loadAttributeCodesByCondition($conditions)
     {

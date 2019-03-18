@@ -58,7 +58,7 @@ class Mage_Sales_Block_Items_Abstract extends Mage_Core_Block_Template
      * @param   string $type
      * @param   string $block
      * @param   string $template
-     * @return  Mage_Checkout_Block_Cart_Abstract
+     * @return  Mage_Sales_Block_Items_Abstract
      */
     public function addItemRender($type, $block, $template)
     {

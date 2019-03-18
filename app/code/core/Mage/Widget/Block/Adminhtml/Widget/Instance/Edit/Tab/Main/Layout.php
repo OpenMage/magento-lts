@@ -63,7 +63,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout
      * Setter
      *
      * @param Varien_Data_Form_Element_Abstract $element
-     * @return
+     * @return Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout
      */
     public function setElement(Varien_Data_Form_Element_Abstract $element)
     {

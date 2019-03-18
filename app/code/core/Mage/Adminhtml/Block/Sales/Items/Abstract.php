@@ -510,7 +510,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
     /**
      * Retrieve invoice model instance
      *
-     * @return Mage_Sales_Model_Invoice
+     * @return Mage_Sales_Model_Order_Invoice
      */
     public function getInvoice()
     {

@@ -153,8 +153,8 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     /**
      * set address street informa
      *
-     * @param unknown_type $street
-     * @return unknown
+     * @param array|string $street
+     * @return Mage_Customer_Model_Address_Abstract
      */
     public function setStreet($street)
     {

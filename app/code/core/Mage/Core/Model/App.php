@@ -138,7 +138,7 @@ class Mage_Core_Model_App
     /**
      * Cache object
      *
-     * @var Zend_Cache_Core
+     * @var Mage_Core_Model_Cache
      */
     protected $_cache;
 
@@ -469,7 +469,7 @@ class Mage_Core_Model_App
      *
      * @param string $scopeCode code of default scope (website/store_group/store code)
      * @param string $scopeType type of default scope (website/group/store)
-     * @return unknown_type
+     * @return Mage_Core_Model_App
      */
     protected function _initCurrentStore($scopeCode, $scopeType)
     {
@@ -517,7 +517,9 @@ class Mage_Core_Model_App
     /**
      * Check get store
      *
+     * @param string $type
      * @return Mage_Core_Model_App
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _checkGetStore($type)
     {
@@ -949,6 +951,7 @@ class Mage_Core_Model_App
     /**
      * Retrieve application website object
      *
+     * @param null|Mage_Core_Model_Website|true|int|string $id
      * @return Mage_Core_Model_Website
      */
     public function getWebsite($id=null)
@@ -1004,6 +1007,7 @@ class Mage_Core_Model_App
     /**
      * Retrieve application store group object
      *
+     * @param null|Mage_Core_Model_Store_Group|int|string $id
      * @return Mage_Core_Model_Store_Group
      */
     public function getGroup($id=null)
@@ -1159,6 +1163,7 @@ class Mage_Core_Model_App
      * @param   mixed $data
      * @param   string $id
      * @param   array $tags
+     * @param null|false|int $lifeTime
      * @return  Mage_Core_Model_App
      */
     public function saveCache($data, $id, $tags=array(), $lifeTime=false)
@@ -1193,10 +1198,11 @@ class Mage_Core_Model_App
     }
 
     /**
-    * Check whether to use cache for specific component
-    *
-    * @return boolean
-    */
+     * Check whether to use cache for specific component
+     *
+     * @param null|string $type
+     * @return bool|array
+     */
     public function useCache($type=null)
     {
         return $this->_cache->canUse($type);

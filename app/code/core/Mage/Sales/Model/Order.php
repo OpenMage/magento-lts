@@ -1094,7 +1094,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     /**
      * Overrides entity id, which will be saved to comments history status
      *
-     * @param string $status
+     * @param string $entityName
      * @return Mage_Sales_Model_Order
      */
     public function setHistoryEntityName( $entityName )
@@ -1789,7 +1789,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * See the entity_id attribute backend model.
      * Or the history record can be saved standalone after this.
      *
-     * @param Mage_Sales_Model_Order_Status_History $status
+     * @param Mage_Sales_Model_Order_Status_History $history
      * @return Mage_Sales_Model_Order
      */
     public function addStatusHistory(Mage_Sales_Model_Order_Status_History $history)

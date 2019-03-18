@@ -28,7 +28,6 @@
 /**
  * Bundle Product Price Index
  *
- * @method Mage_Bundle_Model_Resource_Price_Index _getResource()
  * @method Mage_Bundle_Model_Resource_Price_Index getResource()
  * @method Mage_Bundle_Model_Price_Index setEntityId(int $value)
  * @method int getWebsiteId()

@@ -129,7 +129,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
      * Load review model with data by passed id.
      * Return false if review was not loaded or review is not approved.
      *
-     * @param int $productId
+     * @param int $reviewId
      * @return bool|Mage_Review_Model_Review
      */
     protected function _loadReview($reviewId)
@@ -282,7 +282,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
     /**
      * Load specific layout handles by product type id
-     *
+     * @param Mage_Catalog_Model_Product $product
      */
     protected function _initProductLayout($product)
     {

@@ -167,7 +167,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer
      * Retrieve region id by country code and region name (if exists)
      *
      * @param string $country
-     * @param string $region
+     * @param string $regionName
      * @return int
      */
     public function getRegionId($country, $regionName)

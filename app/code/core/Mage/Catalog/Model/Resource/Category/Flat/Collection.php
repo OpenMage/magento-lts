@@ -51,7 +51,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     /**
      * Store id of application
      *
-     * @var integer
+     * @var integer|null
      */
     protected $_storeId        = null;
 
@@ -192,7 +192,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     }
 
     /**
-     * Enter description here ...
+     * Add active category filter
      *
      * @return Mage_Catalog_Model_Resource_Category_Flat_Collection
      */
@@ -330,9 +330,9 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     }
 
     /**
-     * Enter description here ...
+     * Add category path filter
      *
-     * @param unknown_type $paths
+     * @param array|string $paths
      * @return Mage_Catalog_Model_Resource_Category_Flat_Collection
      */
     public function addPathsFilter($paths)
@@ -354,9 +354,9 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     }
 
     /**
-     * Enter description here ...
+     * Add category level filter
      *
-     * @param unknown_type $level
+     * @param int $level
      * @return Mage_Catalog_Model_Resource_Category_Flat_Collection
      */
     public function addLevelFilter($level)
@@ -366,9 +366,9 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     }
 
     /**
-     * Enter description here ...
+     * Add order field
      *
-     * @param unknown_type $field
+     * @param string $field
      * @return Mage_Catalog_Model_Resource_Category_Flat_Collection
      */
     public function addOrderField($field)

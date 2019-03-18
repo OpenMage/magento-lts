@@ -215,7 +215,6 @@ class Mage_Sales_Model_Service_Quote
     /**
      * Submit nominal items
      *
-     * @return array
      */
     public function submitNominalItems()
     {

@@ -101,7 +101,7 @@ abstract class Mage_XmlConnect_Model_Preview_Abstract extends Varien_Object
      * Set active tab
      *
      * @param string $tab
-     * @return Mage_XmlConnect_Block_Adminhtml_Mobile_Preview_Tabitems
+     * @return Mage_XmlConnect_Model_Preview_Abstract
      */
     public function setActiveTab($tab)
     {

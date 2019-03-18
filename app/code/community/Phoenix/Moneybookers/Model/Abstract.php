@@ -73,7 +73,7 @@ abstract class Phoenix_Moneybookers_Model_Abstract extends Mage_Payment_Model_Me
      * Capture payment through Moneybookers api
      *
      * @param Varien_Object $payment
-     * @param decimal $amount
+     * @param float $amount
      * @return Phoenix_Moneybookers_Model_Abstract
      */
     public function capture(Varien_Object $payment, $amount)

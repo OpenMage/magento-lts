@@ -28,7 +28,6 @@
 /**
  * Catalog Product Website Model
  *
- * @method Mage_Catalog_Model_Resource_Product_Website _getResource()
  * @method Mage_Catalog_Model_Resource_Product_Website getResource()
  * @method int getWebsiteId()
  * @method Mage_Catalog_Model_Product_Website setWebsiteId(int $value)

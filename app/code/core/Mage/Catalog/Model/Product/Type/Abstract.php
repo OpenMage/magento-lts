@@ -707,7 +707,6 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     /**
      * Check if product qty is fractional number
      *
-     * @param Mage_Catalog_Model_Product $product
      * @return bool
      */
     public function canUseQtyDecimals()
@@ -773,7 +772,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Default action to get weight of product
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return decimal
+     * @return float
      */
     public function getWeight($product = null)
     {
@@ -843,7 +842,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Set store filter for associated products
      *
      * @param $store int|Mage_Core_Model_Store
-     * @return Mage_Catalog_Model_Product_Type_Configurable
+     * @return Mage_Catalog_Model_Product_Type_Abstract
      */
     public function setStoreFilter($store=null, $product = null)
     {

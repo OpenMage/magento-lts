@@ -279,7 +279,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     /**
      * Retrive real html id for field
      *
-     * @param string $name
+     * @param string $id
      * @return string
      */
     protected  function _getFieldId($id)
@@ -290,7 +290,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     /**
      * Retrive field html id prefix
      *
-     * @return unknown
+     * @return string
      */
     protected  function _getFieldIdPrefix()
     {

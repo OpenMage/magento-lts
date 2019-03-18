@@ -165,7 +165,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      * Return product weight based on weight_type attribute
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return decimal
+     * @return float
      */
     public function getWeight($product = null)
     {

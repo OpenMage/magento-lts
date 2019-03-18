@@ -216,10 +216,10 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     }
 
     /**
-     * Return formated price with two digits after decimal point
+     * Return formatted price with two digits after decimal point
      *
-     * @param decimal $value
-     * @return decimal
+     * @param float $value
+     * @return string
      */
     public function getPriceValue($value)
     {

@@ -28,7 +28,6 @@
 /**
  * Eav Form Fieldset Model
  *
- * @method Mage_Eav_Model_Resource_Form_Fieldset _getResource()
  * @method Mage_Eav_Model_Resource_Form_Fieldset getResource()
  * @method int getTypeId()
  * @method Mage_Eav_Model_Form_Fieldset setTypeId(int $value)

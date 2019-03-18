@@ -125,7 +125,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Wishlist extends Mage_Adminhtm
     /**
      * Get row url
      *
-     * @param Mage_Wishlist_Model_Item $item
+     * @param Mage_Wishlist_Model_Item $row
      * @return string
      */
     public function getRowUrl($row)

@@ -66,7 +66,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Attributes array by attribute name
      *
-     * @var unknown_type
+     * @var array
      */
     protected $_attributesByCode            = array();
 
@@ -504,7 +504,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Retrieve configuration for all attributes
      *
-     * @return Mage_Eav_Model_Entity_Attribute_Abstract
+     * @return Mage_Eav_Model_Entity_Abstract
      */
     public function loadAllAttributes($object=null)
     {
@@ -1501,7 +1501,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * @param   Varien_Object $object
      * @param   string $table
      * @param   array $info
-     * @return  Varien_Object
+     * @return  Mage_Eav_Model_Entity_Abstract
      */
     protected function _deleteAttributes($object, $table, $info)
     {

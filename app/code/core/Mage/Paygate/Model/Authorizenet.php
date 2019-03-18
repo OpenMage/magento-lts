@@ -314,7 +314,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      * Send authorize request to gateway
      *
      * @param  Mage_Payment_Model_Info $payment
-     * @param  decimal $amount
+     * @param  float $amount
      * @return Mage_Paygate_Model_Authorizenet
      */
     public function authorize(Varien_Object $payment, $amount)
@@ -340,7 +340,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      * Send capture request to gateway
      *
      * @param Mage_Payment_Model_Info $payment
-     * @param decimal $amount
+     * @param float $amount
      * @return Mage_Paygate_Model_Authorizenet
      */
     public function capture(Varien_Object $payment, $amount)
@@ -409,7 +409,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      * Refund the amount with transaction id
      *
      * @param Mage_Payment_Model_Info $payment
-     * @param decimal $amount
+     * @param float $amount
      * @return Mage_Paygate_Model_Authorizenet
      * @throws Mage_Core_Exception
      */
@@ -497,7 +497,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      * Send request with new payment to gateway
      *
      * @param Mage_Payment_Model_Info $payment
-     * @param decimal $amount
+     * @param float $amount
      * @param string $requestType
      * @return Mage_Paygate_Model_Authorizenet
      * @throws Mage_Core_Exception
@@ -587,7 +587,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      * Send request with new payment to gateway during partial authorization process
      *
      * @param Mage_Payment_Model_Info $payment
-     * @param decimal $amount
+     * @param float $amount
      * @param string $requestType
      * @return Mage_Paygate_Model_Authorizenet
      */
@@ -679,7 +679,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      * Send capture request to gateway for capture authorized transactions
      *
      * @param Mage_Payment_Model_Info $payment
-     * @param decimal $amount
+     * @param float $amount
      * @return Mage_Paygate_Model_Authorizenet
      */
     protected function _preauthorizeCapture($payment, $requestedAmount)
@@ -734,7 +734,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      * Send capture request to gateway for capture authorized transactions of card
      *
      * @param Mage_Payment_Model_Info $payment
-     * @param decimal $amount
+     * @param float $amount
      * @param Varien_Object $card
      * @return Mage_Sales_Model_Order_Payment_Transaction
      */

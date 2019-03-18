@@ -76,7 +76,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract_Backend_Abstract extends
      * Check for presence in array with allow value.
      *
      * @throws Mage_Core_Exception
-     * @return Mage_Usa_Model_Shipping_Carrier_Ups_Backend_FreeShipment
+     * @return Mage_Usa_Model_Shipping_Carrier_Abstract_Backend_Abstract
      */
     protected function _beforeSave()
     {
