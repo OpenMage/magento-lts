@@ -47,7 +47,7 @@ class Mage_Adminhtml_SitemapController extends  Mage_Adminhtml_Controller_Action
     /**
      * Init actions
      *
-     * @return Mage_Adminhtml_SitemapController
+     * @return $this
      */
     protected function _initAction()
     {

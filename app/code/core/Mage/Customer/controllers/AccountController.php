@@ -327,7 +327,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      * Success Registration
      *
      * @param Mage_Customer_Model_Customer $customer
-     * @return Mage_Customer_AccountController
+     * @return $this
      */
     protected function _successProcessRegistration(Mage_Customer_Model_Customer $customer)
     {

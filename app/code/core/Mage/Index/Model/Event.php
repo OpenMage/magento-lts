@@ -112,7 +112,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Reset old and new data arrays
      *
-     * @return Mage_Index_Model_Event
+     * @return $this
      */
     public function resetData()
     {
@@ -184,7 +184,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
      * Used for events duplicated protection
      *
      * @param array $data
-     * @return Mage_Index_Model_Event
+     * @return $this
      */
     public function mergePreviousData($data)
     {
@@ -205,7 +205,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Clean new data, unset data for done processes
      *
-     * @return Mage_Index_Model_Event
+     * @return $this
      */
     public function cleanNewData()
     {
@@ -269,7 +269,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
      * @deprecated since 1.6.2.0
      * @param array | string $data
      * @param null | mixed $value
-     * @return Mage_Index_Model_Event
+     * @return $this
      */
     public function addOldData($key, $value=null)
     {
@@ -281,7 +281,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
      *
      * @param array | string $data
      * @param null | mixed $value
-     * @return Mage_Index_Model_Event
+     * @return $this
      */
     public function addNewData($key, $value=null)
     {
@@ -326,7 +326,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Serelaize old and new data arrays before saving
      *
-     * @return Mage_Index_Model_Event
+     * @return $this
      */
     protected function _beforeSave()
     {

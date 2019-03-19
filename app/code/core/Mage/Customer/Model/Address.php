@@ -54,7 +54,7 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
      * Declare address customer identifier
      *
      * @param integer $id
-     * @return Mage_Customer_Model_Address
+     * @return $this
      */
     public function setCustomerId($id)
     {
@@ -95,7 +95,7 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
     /**
      * Delete customer address
      *
-     * @return Mage_Customer_Model_Address
+     * @return $this
      */
     public function delete()
     {
@@ -165,7 +165,7 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
      * Set Region ID. $regionId is automatically converted to integer
      *
      * @param int $regionId
-     * @return Mage_Customer_Model_Address
+     * @return $this
      */
     public function setRegionId($regionId)
     {

@@ -132,7 +132,7 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
     /**
      * Filter for customers only
      *
-     * @return Mage_Log_Model_Resource_Visitor_Collection
+     * @return $this
      */
     public function showCustomersOnly()
     {
@@ -196,7 +196,7 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
      *
      * @param string $fieldName
      * @param array $condition
-     * @return Mage_Log_Model_Resource_Visitor_Collection
+     * @return $this
      */
     public function addFieldToFilter($fieldName, $condition = null)
     {

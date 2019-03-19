@@ -47,7 +47,7 @@ class Mage_Tax_Model_Resource_Report_Tax extends Mage_Reports_Model_Resource_Rep
      *
      * @param mixed $from
      * @param mixed $to
-     * @return Mage_Tax_Model_Resource_Report_Tax
+     * @return $this
      */
     public function aggregate($from = null, $to = null)
     {

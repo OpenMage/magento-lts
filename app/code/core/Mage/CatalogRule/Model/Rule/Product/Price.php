@@ -70,7 +70,7 @@ class Mage_CatalogRule_Model_Rule_Product_Price extends Mage_Core_Model_Abstract
      * @param string $websiteId
      * @param array $updateFields       the array fields for compare with rule price and update
      * @param string $websiteDate
-     * @return Mage_CatalogRule_Model_Rule_Product_Price
+     * @return $this
      */
     public function applyPriceRuleToIndexTable(Varien_Db_Select $select, $indexTable, $entityId, $customerGroupId,
         $websiteId, $updateFields, $websiteDate)

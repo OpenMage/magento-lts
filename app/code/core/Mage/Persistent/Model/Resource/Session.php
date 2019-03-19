@@ -74,7 +74,7 @@ class Mage_Persistent_Model_Resource_Session extends Mage_Core_Model_Resource_Db
      * Delete customer persistent session by customer id
      *
      * @param int $customerId
-     * @return Mage_Persistent_Model_Resource_Session
+     * @return $this
      */
     public function deleteByCustomerId($customerId)
     {
@@ -100,7 +100,7 @@ class Mage_Persistent_Model_Resource_Session extends Mage_Core_Model_Resource_Db
      *
      * @param  $websiteId
      * @param  $expiredBefore
-     * @return Mage_Persistent_Model_Resource_Session
+     * @return $this
      */
     public function deleteExpired($websiteId, $expiredBefore)
     {

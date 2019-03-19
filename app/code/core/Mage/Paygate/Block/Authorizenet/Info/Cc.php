@@ -71,7 +71,7 @@ class Mage_Paygate_Block_Authorizenet_Info_Cc extends Mage_Payment_Block_Info_Cc
      * in Previously used card information block
      *
      * @param bool $flag
-     * @return Mage_Paygate_Block_Authorizenet_Info_Cc
+     * @return $this
      */
     public function setCheckoutProgressBlock($flag)
     {

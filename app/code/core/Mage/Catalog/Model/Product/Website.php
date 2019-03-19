@@ -63,7 +63,7 @@ class Mage_Catalog_Model_Product_Website extends Mage_Core_Model_Abstract
      *
      * @param array $websiteIds
      * @param array $productIds
-     * @return Mage_Catalog_Model_Product_Website
+     * @return $this
      */
     public function removeProducts($websiteIds, $productIds)
     {
@@ -83,7 +83,7 @@ class Mage_Catalog_Model_Product_Website extends Mage_Core_Model_Abstract
      *
      * @param array $websiteIds
      * @param array $productIds
-     * @return Mage_Catalog_Model_Product_Website
+     * @return $this
      */
     public function addProducts($websiteIds, $productIds)
     {

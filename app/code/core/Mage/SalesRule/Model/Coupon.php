@@ -83,7 +83,7 @@ class Mage_SalesRule_Model_Coupon extends Mage_Core_Model_Abstract
      * Set rule instance
      *
      * @param  Mage_SalesRule_Model_Rule
-     * @return Mage_SalesRule_Model_Coupon
+     * @return $this
      */
     public function setRule(Mage_SalesRule_Model_Rule $rule)
     {
@@ -95,7 +95,7 @@ class Mage_SalesRule_Model_Coupon extends Mage_Core_Model_Abstract
      * Load primary coupon for specified rule
      *
      * @param Mage_SalesRule_Model_Rule|int $rule
-     * @return Mage_SalesRule_Model_Coupon
+     * @return $this
      */
     public function loadPrimaryByRule($rule)
     {
@@ -107,7 +107,7 @@ class Mage_SalesRule_Model_Coupon extends Mage_Core_Model_Abstract
      * Load Shopping Cart Price Rule by coupon code
      *
      * @param string $couponCode
-     * @return Mage_SalesRule_Model_Coupon
+     * @return $this
      */
     public function loadByCode($couponCode)
     {

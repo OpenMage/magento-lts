@@ -77,7 +77,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group
      *
      * Add "Add Group Price" button to layout
      *
-     * @return Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group
+     * @return $this
      */
     protected function _prepareLayout()
     {

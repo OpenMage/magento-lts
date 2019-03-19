@@ -47,7 +47,7 @@ class Mage_Reports_Model_Resource_Review_Collection extends Mage_Review_Model_Re
      * add product filter
      *
      * @param unknown_type $productId
-     * @return Mage_Reports_Model_Resource_Review_Collection
+     * @return $this
      */
     public function addProductFilter($productId)
     {
@@ -59,7 +59,7 @@ class Mage_Reports_Model_Resource_Review_Collection extends Mage_Review_Model_Re
     /**
      * Reset select
      *
-     * @return Mage_Reports_Model_Resource_Review_Collection
+     * @return $this
      */
     public function resetSelect()
     {
@@ -90,7 +90,7 @@ class Mage_Reports_Model_Resource_Review_Collection extends Mage_Review_Model_Re
      *
      * @param string $attribute
      * @param string $dir
-     * @return Mage_Reports_Model_Resource_Review_Collection
+     * @return $this
      */
     public function setOrder($attribute, $dir = self::SORT_ORDER_DESC)
     {

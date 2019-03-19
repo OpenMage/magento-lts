@@ -64,7 +64,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
      * Perform operations before object save
      *
      * @param Mage_Cms_Model_Block $object
-     * @return Mage_Cms_Model_Resource_Block
+     * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
@@ -83,7 +83,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
      * Perform operations after object save
      *
      * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Cms_Model_Resource_Block
+     * @return $this
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -126,7 +126,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
      * @param Mage_Core_Model_Abstract $object
      * @param mixed $value
      * @param string $field
-     * @return Mage_Cms_Model_Resource_Block
+     * @return $this
      */
     public function load(Mage_Core_Model_Abstract $object, $value, $field = null)
     {
@@ -141,7 +141,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
      * Perform operations after object load
      *
      * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Cms_Model_Resource_Block
+     * @return $this
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {

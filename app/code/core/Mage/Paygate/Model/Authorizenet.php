@@ -281,7 +281,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      * Set partial authorization last action state into session
      *
      * @param string $message
-     * @return Mage_Paygate_Model_Authorizenet
+     * @return $this
      */
     public function setPartialAuthorizationLastActionState($state)
     {
@@ -302,7 +302,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     /**
      * Unset partial authorization last action state in session
      *
-     * @return Mage_Paygate_Model_Authorizenet
+     * @return $this
      */
     public function unsetPartialAuthorizationLastActionState()
     {
@@ -315,7 +315,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      *
      * @param  Mage_Payment_Model_Info $payment
      * @param  decimal $amount
-     * @return Mage_Paygate_Model_Authorizenet
+     * @return $this
      */
     public function authorize(Varien_Object $payment, $amount)
     {
@@ -341,7 +341,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      *
      * @param Mage_Payment_Model_Info $payment
      * @param decimal $amount
-     * @return Mage_Paygate_Model_Authorizenet
+     * @return $this
      */
     public function capture(Varien_Object $payment, $amount)
     {
@@ -364,7 +364,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      * Void the payment through gateway
      *
      * @param  Mage_Payment_Model_Info $payment
-     * @return Mage_Paygate_Model_Authorizenet
+     * @return $this
      */
     public function void(Varien_Object $payment)
     {
@@ -398,7 +398,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      * Cancel the payment through gateway
      *
      * @param  Mage_Payment_Model_Info $payment
-     * @return Mage_Paygate_Model_Authorizenet
+     * @return $this
      */
     public function cancel(Varien_Object $payment)
     {
@@ -410,7 +410,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      *
      * @param Mage_Payment_Model_Info $payment
      * @param decimal $amount
-     * @return Mage_Paygate_Model_Authorizenet
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function refund(Varien_Object $payment, $requestedAmount)
@@ -499,7 +499,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      * @param Mage_Payment_Model_Info $payment
      * @param decimal $amount
      * @param string $requestType
-     * @return Mage_Paygate_Model_Authorizenet
+     * @return $this
      * @throws Mage_Core_Exception
      */
     protected function _place($payment, $amount, $requestType)
@@ -589,7 +589,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      * @param Mage_Payment_Model_Info $payment
      * @param decimal $amount
      * @param string $requestType
-     * @return Mage_Paygate_Model_Authorizenet
+     * @return $this
      */
     protected function _partialAuthorization($payment, $amount, $requestType)
     {
@@ -680,7 +680,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      *
      * @param Mage_Payment_Model_Info $payment
      * @param decimal $amount
-     * @return Mage_Paygate_Model_Authorizenet
+     * @return $this
      */
     protected function _preauthorizeCapture($payment, $requestedAmount)
     {
@@ -1398,7 +1398,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      * Reset assigned data in payment info model
      *
      * @param Mage_Payment_Model_Info
-     * @return Mage_Paygate_Model_Authorizenet
+     * @return $this
      */
     private function _clearAssignedData($payment)
     {

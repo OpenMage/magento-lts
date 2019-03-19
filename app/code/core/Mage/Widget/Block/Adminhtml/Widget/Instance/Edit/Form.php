@@ -36,7 +36,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Form extends Mage_Adminht
     /**
      * Prepare form before rendering HTML
      *
-     * @return Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Form
+     * @return $this
      */
     protected function _prepareForm()
     {

@@ -36,7 +36,7 @@ class Mage_Payment_Block_Info_Container extends Mage_Core_Block_Template
     /**
      * Add payment info block to layout
      *
-     * @return Mage_Payment_Block_Info_Container
+     * @return $this
      */
     protected function _prepareLayout()
     {

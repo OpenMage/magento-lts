@@ -38,7 +38,7 @@ class Mage_ImportExport_Model_Product_Attribute_Backend_Urlkey
      * No need to validate url_key during import
      *
      * @param Mage_Catalog_Model_Product $object
-     * @return Mage_ImportExport_Model_Product_Attribute_Backend_Urlkey
+     * @return $this
      */
     protected function _validateUrlKey($object)
     {

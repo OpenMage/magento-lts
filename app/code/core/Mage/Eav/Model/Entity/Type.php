@@ -93,7 +93,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
      * Load type by code
      *
      * @param string $code
-     * @return Mage_Eav_Model_Entity_Type
+     * @return $this
      */
     public function loadByCode($code)
     {

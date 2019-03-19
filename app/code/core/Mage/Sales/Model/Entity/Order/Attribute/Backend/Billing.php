@@ -38,7 +38,7 @@ class Mage_Sales_Model_Entity_Order_Attribute_Backend_Billing extends Mage_Eav_M
      * Before save order billing address process
      *
      * @param Mage_Sales_Model_Order $object
-     * @return Mage_Sales_Model_Entity_Order_Attribute_Backend_Billing
+     * @return $this
      */
     public function beforeSave($object)
     {
@@ -53,7 +53,7 @@ class Mage_Sales_Model_Entity_Order_Attribute_Backend_Billing extends Mage_Eav_M
      * After save order billing address process
      *
      * @param Mage_Sales_Model_Order $object
-     * @return Mage_Sales_Model_Entity_Order_Attribute_Backend_Billing
+     * @return $this
      */
     public function afterSave($object)
     {

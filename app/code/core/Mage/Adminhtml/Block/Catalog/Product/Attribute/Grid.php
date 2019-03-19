@@ -36,7 +36,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Grid extends Mage_Eav_Block
     /**
      * Prepare product attributes grid collection object
      *
-     * @return Mage_Adminhtml_Block_Catalog_Product_Attribute_Grid
+     * @return $this
      */
     protected function _prepareCollection()
     {
@@ -50,7 +50,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Grid extends Mage_Eav_Block
     /**
      * Prepare product attributes grid columns
      *
-     * @return Mage_Adminhtml_Block_Catalog_Product_Attribute_Grid
+     * @return $this
      */
     protected function _prepareColumns()
     {

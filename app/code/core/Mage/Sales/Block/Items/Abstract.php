@@ -96,7 +96,7 @@ class Mage_Sales_Block_Items_Abstract extends Mage_Core_Block_Template
      * Prepare item before output
      *
      * @param Mage_Core_Block_Abstract $renderer
-     * @return Mage_Sales_Block_Items_Abstract
+     * @return $this
      */
     protected function _prepareItem(Mage_Core_Block_Abstract $renderer)
     {

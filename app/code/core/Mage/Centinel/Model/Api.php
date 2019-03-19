@@ -185,7 +185,7 @@ class Mage_Centinel_Model_Api extends Varien_Object
     /**
      * Call centinel api lookup method
      *
-     * @return Mage_Centinel_Model_Api
+     * @return $this
      */
     public function callLookup($data)
     {
@@ -223,7 +223,7 @@ class Mage_Centinel_Model_Api extends Varien_Object
     /**
      * Call centinel api authentication method
      *
-     * @return Mage_Centinel_Model_Api
+     * @return $this
      */
     public function callAuthentication($data)
     {

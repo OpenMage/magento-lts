@@ -45,7 +45,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Initialize unique fields
      *
-     * @return Mage_Admin_Model_Resource_User
+     * @return $this
      */
     protected function _initUniqueFields()
     {
@@ -66,7 +66,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      * Authenticate user by $username and $password
      *
      * @param Mage_Admin_Model_User $user
-     * @return Mage_Admin_Model_Resource_User
+     * @return $this
      */
     public function recordLogin(Mage_Admin_Model_User $user)
     {
@@ -157,7 +157,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      * Set created/modified values before user save
      *
      * @param Mage_Core_Model_Abstract $user
-     * @return Mage_Admin_Model_Resource_User
+     * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $user)
     {
@@ -173,7 +173,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      * Unserialize user extra data after user save
      *
      * @param Mage_Core_Model_Abstract $user
-     * @return Mage_Admin_Model_Resource_User
+     * @return $this
      */
     protected function _afterSave(Mage_Core_Model_Abstract $user)
     {
@@ -185,7 +185,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      * Unserialize user extra data after user load
      *
      * @param Mage_Core_Model_Abstract $user
-     * @return Mage_Admin_Model_Resource_User
+     * @return $this
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $user)
     {
@@ -228,7 +228,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      * TODO: unify _saveRelations() and add() methods, they make same things
      *
      * @param Mage_Core_Model_Abstract $user
-     * @return Mage_Admin_Model_Resource_User
+     * @return $this
      */
     public function _saveRelations(Mage_Core_Model_Abstract $user)
     {
@@ -320,7 +320,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      * Save user roles
      *
      * @param Mage_Core_Model_Abstract $user
-     * @return Mage_Admin_Model_Resource_User
+     * @return $this
      */
     public function add(Mage_Core_Model_Abstract $user)
     {
@@ -364,7 +364,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      * Delete user role
      *
      * @param Mage_Core_Model_Abstract $user
-     * @return Mage_Admin_Model_Resource_User
+     * @return $this
      */
     public function deleteFromRole(Mage_Core_Model_Abstract $user)
     {
@@ -443,7 +443,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      *
      * @param Mage_Core_Model_Abstract $object
      * @param string $data
-     * @return Mage_Admin_Model_Resource_User
+     * @return $this
      */
     public function saveExtra($object, $data)
     {
@@ -463,7 +463,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      *
      * @param Mage_Core_Model_Abstract $object
      * @param int $flag
-     * @return Mage_Admin_Model_Resource_User
+     * @return $this
      */
     public function saveReloadAclFlag($object, $flag)
     {

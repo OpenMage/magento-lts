@@ -32,7 +32,7 @@ class Mage_Catalog_Model_System_Config_Backend_Catalog_Product_Flat extends Mage
     /**
      * After enable flat products required reindex
      *
-     * @return Mage_Catalog_Model_System_Config_Backend_Catalog_Product_Flat
+     * @return $this
      */
     protected function _afterSave()
     {

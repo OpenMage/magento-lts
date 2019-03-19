@@ -71,7 +71,7 @@ class Mage_Downloadable_Model_Sample extends Mage_Core_Model_Abstract
     /**
      * After save process
      *
-     * @return Mage_Downloadable_Model_Sample
+     * @return $this
      */
     protected function _afterSave()
     {

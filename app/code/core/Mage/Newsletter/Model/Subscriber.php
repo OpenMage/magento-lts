@@ -180,7 +180,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      * Set the error messages scope for subscription
      *
      * @param boolean $scope
-     * @return Mage_Newsletter_Model_Subscriber
+     * @return $this
      */
 
     public function setMessagesScope($scope)
@@ -260,7 +260,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      * Load subscriber info by customer
      *
      * @param Mage_Customer_Model_Customer $customer
-     * @return Mage_Newsletter_Model_Subscriber
+     * @return $this
      */
     public function loadByCustomer(Mage_Customer_Model_Customer $customer)
     {
@@ -494,7 +494,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
     /**
      * Sends out confirmation email
      *
-     * @return Mage_Newsletter_Model_Subscriber
+     * @return $this
      */
     public function sendConfirmationRequestEmail()
     {
@@ -530,7 +530,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
     /**
      * Sends out confirmation success email
      *
-     * @return Mage_Newsletter_Model_Subscriber
+     * @return $this
      */
     public function sendConfirmationSuccessEmail()
     {
@@ -566,7 +566,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
     /**
      * Sends out unsubsciption email
      *
-     * @return Mage_Newsletter_Model_Subscriber
+     * @return $this
      */
     public function sendUnsubscriptionEmail()
     {

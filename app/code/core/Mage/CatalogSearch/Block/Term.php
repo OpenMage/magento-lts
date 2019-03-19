@@ -45,7 +45,7 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
     /**
      * Load terms and try to sort it by names
      *
-     * @return Mage_CatalogSearch_Block_Term
+     * @return $this
      */
     protected function _loadTerms()
     {

@@ -1011,7 +1011,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
      * Add rate to DHL rates array
      *
      * @param SimpleXMLElement $shipmentDetails
-     * @return Mage_Usa_Model_Shipping_Carrier_Dhl_International
+     * @return $this
      */
     protected function _addRate(SimpleXMLElement $shipmentDetails)
     {

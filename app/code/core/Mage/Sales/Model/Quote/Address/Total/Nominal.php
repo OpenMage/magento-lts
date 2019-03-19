@@ -81,7 +81,7 @@ class Mage_Sales_Model_Quote_Address_Total_Nominal extends Mage_Sales_Model_Quot
      * Fetch collected nominal items
      *
      * @param Mage_Sales_Model_Quote_Address $address
-     * @return Mage_Sales_Model_Quote_Address_Total_Nominal
+     * @return $this
      */
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {

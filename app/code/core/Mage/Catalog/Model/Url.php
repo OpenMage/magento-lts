@@ -212,7 +212,7 @@ class Mage_Catalog_Model_Url
      * Force Rewrites History save bypass config settings
      *
      * @param bool $flag
-     * @return Mage_Catalog_Model_Url
+     * @return $this
      */
     public function setShouldSaveRewritesHistory($flag)
     {
@@ -239,7 +239,7 @@ class Mage_Catalog_Model_Url
      * Used to make full reindexing of url rewrites
      *
      * @param int $storeId
-     * @return Mage_Catalog_Model_Url
+     * @return $this
      */
     public function refreshRewrites($storeId = null)
     {
@@ -264,7 +264,7 @@ class Mage_Catalog_Model_Url
      * @param Varien_Object $category
      * @param string $parentPath
      * @param bool $refreshProducts
-     * @return Mage_Catalog_Model_Url
+     * @return $this
      */
     protected function _refreshCategoryRewrites(Varien_Object $category, $parentPath = null, $refreshProducts = true)
     {
@@ -328,7 +328,7 @@ class Mage_Catalog_Model_Url
      *
      * @param Varien_Object $product
      * @param Varien_Object $category
-     * @return Mage_Catalog_Model_Url
+     * @return $this
      */
     protected function _refreshProductRewrite(Varien_Object $product, Varien_Object $category)
     {
@@ -385,7 +385,7 @@ class Mage_Catalog_Model_Url
      * Refresh products for catwgory
      *
      * @param Varien_Object $category
-     * @return Mage_Catalog_Model_Url
+     * @return $this
      */
     protected function _refreshCategoryProductRewrites(Varien_Object $category)
     {
@@ -435,7 +435,7 @@ class Mage_Catalog_Model_Url
      * @param int $categoryId
      * @param int|null $storeId
      * @param bool $refreshProducts
-     * @return Mage_Catalog_Model_Url
+     * @return $this
      */
     public function refreshCategoryRewrite($categoryId, $storeId = null, $refreshProducts = true)
     {
@@ -472,7 +472,7 @@ class Mage_Catalog_Model_Url
      *
      * @param int $productId
      * @param int|null $storeId
-     * @return Mage_Catalog_Model_Url
+     * @return $this
      */
     public function refreshProductRewrite($productId, $storeId = null)
     {
@@ -522,7 +522,7 @@ class Mage_Catalog_Model_Url
      * Refresh all product rewrites for designated store
      *
      * @param int $storeId
-     * @return Mage_Catalog_Model_Url
+     * @return $this
      */
     public function refreshProductRewrites($storeId)
     {
@@ -582,7 +582,7 @@ class Mage_Catalog_Model_Url
      * Deletes old rewrites for store, left from the times when store had some other root category
      *
      * @param int $storeId
-     * @return Mage_Catalog_Model_Url
+     * @return $this
      */
     public function clearStoreInvalidRewrites($storeId = null)
     {
@@ -968,7 +968,7 @@ class Mage_Catalog_Model_Url
      *
      * @param array $rewriteData New rewrite data
      * @param Varien_Object $rewrite Rewrite model
-     * @return Mage_Catalog_Model_Url
+     * @return $this
      */
     protected function _saveRewriteHistory($rewriteData, $rewrite)
     {

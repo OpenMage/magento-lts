@@ -38,7 +38,7 @@ class Mage_Sales_Model_Resource_Order_Attribute_Backend_Child extends Mage_Eav_M
      * Perform operation before save
      *
      * @param Varien_Object $object
-     * @return Mage_Sales_Model_Resource_Order_Attribute_Backend_Child
+     * @return $this
      */
     public function beforeSave($object)
     {

@@ -54,7 +54,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Account extends Mage_Adminhtm
     /**
      * Prepare Form and add elements to form
      *
-     * @return Mage_Adminhtml_Block_Sales_Order_Create_Form_Account
+     * @return $this
      */
     protected function _prepareForm()
     {

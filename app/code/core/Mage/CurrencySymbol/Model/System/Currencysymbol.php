@@ -84,7 +84,7 @@ class Mage_CurrencySymbol_Model_System_Currencysymbol
      * Sets store Id
      *
      * @param  $storeId
-     * @return Mage_CurrencySymbol_Model_System_Currencysymbol
+     * @return $this
      */
     public function setStoreId($storeId=null)
     {
@@ -98,7 +98,7 @@ class Mage_CurrencySymbol_Model_System_Currencysymbol
      * Sets website Id
      *
      * @param  $websiteId
-     * @return Mage_CurrencySymbol_Model_System_Currencysymbol
+     * @return $this
      */
     public function setWebsiteId($websiteId=null)
     {
@@ -192,7 +192,7 @@ class Mage_CurrencySymbol_Model_System_Currencysymbol
      * Saves currency symbol to config
      *
      * @param  $symbols array
-     * @return Mage_CurrencySymbol_Model_System_Currencysymbol
+     * @return $this
      */
     public function setCurrencySymbolsData($symbols=array())
     {

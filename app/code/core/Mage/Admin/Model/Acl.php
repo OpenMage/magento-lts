@@ -82,7 +82,7 @@ class Mage_Admin_Model_Acl extends Zend_Acl
      *
      * @param Zend_Acl_Role $role
      * @param Zend_Acl_Role $parent
-     * @return Mage_Admin_Model_Acl
+     * @return $this
      */
     public function addRoleParent($role, $parent)
     {

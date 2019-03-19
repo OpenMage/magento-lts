@@ -37,7 +37,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_A
      * Init layout of product configuration update result
      *
      * @param Mage_Adminhtml_Controller_Action $controller
-     * @return Mage_Adminhtml_Helper_Catalog_Product_Composite
+     * @return $this
      */
     protected function _initUpdateResultLayout($controller)
     {
@@ -53,7 +53,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_A
      *
      * @param Mage_Adminhtml_Controller_Action $controller
      * @param Varien_Object $updateResult
-     * @return Mage_Adminhtml_Helper_Catalog_Product_Composite
+     * @return $this
      */
     public function renderUpdateResult($controller, Varien_Object $updateResult)
     {
@@ -72,7 +72,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_A
      * @param Mage_Adminhtml_Controller_Action $controller
      * @param bool $isOk
      * @param string $productType
-     * @return Mage_Adminhtml_Helper_Catalog_Product_Composite
+     * @return $this
      */
     protected function _initConfigureResultLayout($controller, $isOk, $productType)
     {
@@ -96,7 +96,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_A
      *
      * @param Mage_Adminhtml_Controller_Action $controller
      * @param Varien_Object $configureResult
-     * @return Mage_Adminhtml_Helper_Catalog_Product_Composite
+     * @return $this
      */
     public function renderConfigureResult($controller, Varien_Object $configureResult)
     {

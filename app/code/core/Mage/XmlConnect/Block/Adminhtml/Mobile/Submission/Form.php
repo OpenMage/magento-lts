@@ -36,7 +36,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Form extends Mage_Adminh
     /**
      * Prepare form before rendering HTML
      *
-     * @return Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Form
+     * @return $this
      */
     protected function _prepareForm()
     {

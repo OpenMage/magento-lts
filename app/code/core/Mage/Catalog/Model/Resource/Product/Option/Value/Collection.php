@@ -47,7 +47,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Value_Collection
      * Add price, title to result
      *
      * @param int $storeId
-     * @return Mage_Catalog_Model_Resource_Product_Option_Value_Collection
+     * @return $this
      */
     public function getValues($storeId)
     {
@@ -61,7 +61,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Value_Collection
      * Add titles to result
      *
      * @param int $storeId
-     * @return Mage_Catalog_Model_Resource_Product_Option_Value_Collection
+     * @return $this
      */
     public function addTitlesToResult($storeId)
     {
@@ -129,7 +129,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Value_Collection
      * Add title result
      *
      * @param int $storeId
-     * @return Mage_Catalog_Model_Resource_Product_Option_Value_Collection
+     * @return $this
      */
     public function addTitleToResult($storeId)
     {
@@ -162,7 +162,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Value_Collection
      * Add price to result
      *
      * @param int $storeId
-     * @return Mage_Catalog_Model_Resource_Product_Option_Value_Collection
+     * @return $this
      */
     public function addPriceToResult($storeId)
     {
@@ -208,7 +208,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Value_Collection
      *
      * @param array $optionIds
      * @param int $storeId
-     * @return Mage_Catalog_Model_Resource_Product_Option_Value_Collection
+     * @return $this
      */
     public function getValuesByOption($optionIds, $storeId = null)
     {
@@ -223,7 +223,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Value_Collection
      * Add option to filter
      *
      * @param array|Mage_Catalog_Model_Product_Option|int $option
-     * @return Mage_Catalog_Model_Resource_Product_Option_Value_Collection
+     * @return $this
      */
     public function addOptionToFilter($option)
     {

@@ -49,7 +49,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Decimal
      *
      * @param array $entityIds      the entity ids limitation
      * @param int $attributeId      the attribute id limitation
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Eav_Decimal
+     * @return $this
      */
     protected function _prepareIndex($entityIds = null, $attributeId = null)
     {

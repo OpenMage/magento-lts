@@ -50,7 +50,7 @@ class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widg
     /**
      * Prepare collection for Grid
      *
-     * @return Mage_Adminhtml_Block_Catalog_Search_Grid
+     * @return $this
      */
     protected function _prepareCollection()
     {
@@ -63,7 +63,7 @@ class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widg
     /**
      * Prepare Grid columns
      *
-     * @return Mage_Adminhtml_Block_Catalog_Search_Grid
+     * @return $this
      */
     protected function _prepareColumns()
     {
@@ -149,7 +149,7 @@ class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widg
     /**
      * Prepare grid massaction actions
      *
-     * @return Mage_Adminhtml_Block_Catalog_Search_Grid
+     * @return $this
      */
     protected function _prepareMassaction()
     {

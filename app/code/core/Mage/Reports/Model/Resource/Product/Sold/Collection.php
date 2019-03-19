@@ -48,7 +48,7 @@ class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_M
      *
      * @param int $from
      * @param int $to
-     * @return Mage_Reports_Model_Resource_Product_Sold_Collection
+     * @return $this
      */
     public function setDateRange($from, $to)
     {
@@ -63,7 +63,7 @@ class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_M
      * Set store filter to collection
      *
      * @param array $storeIds
-     * @return Mage_Reports_Model_Resource_Product_Sold_Collection
+     * @return $this
      */
     public function setStoreIds($storeIds)
     {
@@ -76,7 +76,7 @@ class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_M
     /**
      * Add website product limitation
      *
-     * @return Mage_Reports_Model_Resource_Product_Sold_Collection
+     * @return $this
      */
     protected function _productLimitationJoinWebsite()
     {

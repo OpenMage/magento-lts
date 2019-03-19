@@ -58,7 +58,7 @@ class Mage_ProductAlert_Helper_Data extends Mage_Core_Helper_Url
      * Set current product instance
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_ProductAlert_Helper_Data
+     * @return $this
      */
     public function setProduct($product)
     {

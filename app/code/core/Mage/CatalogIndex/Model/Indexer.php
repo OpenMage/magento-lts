@@ -102,7 +102,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Create instances of all index types
      *
-     * @return Mage_CatalogIndex_Model_Indexer
+     * @return $this
      */
     protected function _loadIndexers()
     {
@@ -369,7 +369,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
      *
      * @param Mage_Core_Model_Store|array|int|Mage_Core_Model_Website $store
      * @param int|array|Mage_Catalog_Model_Product_Condition_Interface|Mage_Catalog_Model_Product $products
-     * @return Mage_CatalogIndex_Model_Indexer
+     * @return $this
      */
     protected function _afterPlainReindex($store, $products = null)
     {
@@ -437,7 +437,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
      * @param Mage_Core_Model_Store|Mage_Core_Model_Website $store
      * @param array $attributes
      * @param array $prices
-     * @return Mage_CatalogIndex_Model_Indexer
+     * @return $this
      */
     public function _walkCollectionRelation($collection, $store, $attributes = array(), $prices = array())
     {
@@ -554,7 +554,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Set CatalogIndex Flag as queue Indexing
      *
-     * @return Mage_CatalogIndex_Model_Indexer
+     * @return $this
      */
     public function queueIndexing()
     {
@@ -801,7 +801,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
      * Prepare Catalog Product Flat Columns
      *
      * @param Varien_Object $object
-     * @return Mage_CatalogIndex_Model_Indexer
+     * @return $this
      */
     public function prepareCatalogProductFlatColumns(Varien_Object $object)
     {
@@ -814,7 +814,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
      * Prepare Catalog Product Flat Indexes
      *
      * @param Varien_Object $object
-     * @return Mage_CatalogIndex_Model_Indexer
+     * @return $this
      */
     public function prepareCatalogProductFlatIndexes(Varien_Object $object)
     {
@@ -829,7 +829,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
      * @param mixed $storeId
      * @param string $resourceTable
      * @param mixed $products
-     * @return Mage_CatalogIndex_Model_Indexer
+     * @return $this
      */
     public function updateCatalogProductFlat($store, $products = null, $resourceTable = null)
     {

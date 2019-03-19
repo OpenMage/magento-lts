@@ -119,7 +119,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * Remove indexer namespace from event
      *
      * @param Mage_Index_Model_Event $event
-     * @return Mage_Index_Model_Process
+     * @return $this
      */
     protected function _resetEventNamespace($event)
     {
@@ -132,7 +132,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * Register data required by process in event object
      *
      * @param Mage_Index_Model_Event $event
-     * @return Mage_Index_Model_Process
+     * @return $this
      */
     public function register(Mage_Index_Model_Event $event)
     {
@@ -232,7 +232,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * Reindex all data what this process responsible is
      * Check and using depends processes
      *
-     * @return Mage_Index_Model_Process
+     * @return $this
      */
     public function reindexEverything()
     {
@@ -264,7 +264,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * Process event with assigned indexer object
      *
      * @param Mage_Index_Model_Event $event
-     * @return Mage_Index_Model_Process
+     * @return $this
      */
     public function processEvent(Mage_Index_Model_Event $event)
     {
@@ -373,7 +373,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      *
      * @param Mage_Index_Model_Resource_Event_Collection $eventsCollection
      * @param bool $skipUnmatched
-     * @return Mage_Index_Model_Process
+     * @return $this
      */
     protected function _processEventsCollection(
         Mage_Index_Model_Resource_Event_Collection $eventsCollection,
@@ -438,7 +438,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * Lock process without blocking.
      * This method allow protect multiple process runing and fast lock validation.
      *
-     * @return Mage_Index_Model_Process
+     * @return $this
      */
     public function lock()
     {
@@ -451,7 +451,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * If new instance of the process will try validate locking state
      * script will wait until process will be unlocked
      *
-     * @return Mage_Index_Model_Process
+     * @return $this
      */
     public function lockAndBlock()
     {
@@ -462,7 +462,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Unlock process
      *
-     * @return Mage_Index_Model_Process
+     * @return $this
      */
     public function unlock()
     {
@@ -484,7 +484,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * Change process status
      *
      * @param string $status
-     * @return Mage_Index_Model_Process
+     * @return $this
      */
     public function changeStatus($status)
     {
@@ -566,7 +566,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      *
      * @deprecated after 1.6.1.0
      * @param bool $value
-     * @return Mage_Index_Model_Process
+     * @return $this
      */
     public function setAllowTableChanges($value = true)
     {
@@ -577,7 +577,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Disable keys in index table
      *
-     * @return Mage_Index_Model_Process
+     * @return $this
      */
     public function disableIndexerKeys()
     {
@@ -591,7 +591,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Enable keys in index table
      *
-     * @return Mage_Index_Model_Process
+     * @return $this
      */
     public function enableIndexerKeys()
     {
@@ -606,7 +606,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * Process event with locks checking
      *
      * @param Mage_Index_Model_Event $event
-     * @return Mage_Index_Model_Process
+     * @return $this
      */
     public function safeProcessEvent(Mage_Index_Model_Event $event)
     {

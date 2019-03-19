@@ -311,7 +311,7 @@ class Mage_Core_Model_Resource
      *
      * @param string $tableName
      * @param string $mappedName
-     * @return Mage_Core_Model_Resource
+     * @return $this
      */
     public function setMappedTableName($tableName, $mappedName)
     {
@@ -338,7 +338,7 @@ class Mage_Core_Model_Resource
      * Clean db row
      *
      * @param array $row
-     * @return Mage_Core_Model_Resource
+     * @return $this
      */
     public function cleanDbRow(&$row)
     {

@@ -49,7 +49,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Decimal extends Mage_Core_Model_R
      * @param Mage_Catalog_Model_Layer_Filter_Decimal $filter
      * @param float $range
      * @param int $index
-     * @return Mage_Catalog_Model_Resource_Layer_Filter_Decimal
+     * @return $this
      */
     public function applyFilterToCollection($filter, $range, $index)
     {

@@ -48,7 +48,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      *
      * @param string $name
      * @param string $params
-     * @return Mage_Page_Block_Html_Head
+     * @return $this
      */
     public function addCss($name, $params = "")
     {
@@ -61,7 +61,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      *
      * @param string $name
      * @param string $params
-     * @return Mage_Page_Block_Html_Head
+     * @return $this
      */
     public function addJs($name, $params = "")
     {
@@ -74,7 +74,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      *
      * @param string $name
      * @param string $params
-     * @return Mage_Page_Block_Html_Head
+     * @return $this
      */
     public function addCssIe($name, $params = "")
     {
@@ -87,7 +87,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      *
      * @param string $name
      * @param string $params
-     * @return Mage_Page_Block_Html_Head
+     * @return $this
      */
     public function addJsIe($name, $params = "")
     {
@@ -100,7 +100,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      *
      * @param string $rel forward link types
      * @param string $href URI for linked resource
-     * @return Mage_Page_Block_Html_Head
+     * @return $this
      */
     public function addLinkRel($rel, $href)
     {
@@ -123,7 +123,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      * @param string $params
      * @param string $if
      * @param string $cond
-     * @return Mage_Page_Block_Html_Head
+     * @return $this
      */
     public function addItem($type, $name, $params=null, $if=null, $cond=null)
     {
@@ -145,7 +145,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      *
      * @param string $type
      * @param string $name
-     * @return Mage_Page_Block_Html_Head
+     * @return $this
      */
     public function removeItem($type, $name)
     {
@@ -394,7 +394,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      * Set title element text
      *
      * @param string $title
-     * @return Mage_Page_Block_Html_Head
+     * @return $this
      */
     public function setTitle($title)
     {

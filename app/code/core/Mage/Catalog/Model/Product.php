@@ -176,7 +176,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      *
      * @todo implement full validation process with errors returning which are ignoring now
      *
-     * @return Mage_Catalog_Model_Product
+     * @return $this
      */
     public function validate()
     {
@@ -279,7 +279,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      *
      * @param Mage_Catalog_Model_Product_Type_Abstract $instance  Product type instance
      * @param bool                                     $singleton Whether instance is singleton
-     * @return Mage_Catalog_Model_Product
+     * @return $this
      */
     public function setTypeInstance($instance, $singleton = false)
     {
@@ -347,7 +347,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Set assigned category IDs array to product
      *
      * @param array|string $ids
-     * @return Mage_Catalog_Model_Product
+     * @return $this
      */
     public function setCategoryIds($ids)
     {
@@ -541,7 +541,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Saving product type related data and init index
      *
-     * @return Mage_Catalog_Model_Product
+     * @return $this
      */
     protected function _afterSave()
     {
@@ -561,7 +561,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Clear chache related with product and protect delete from not admin
      * Register indexing event before delete product
      *
-     * @return Mage_Catalog_Model_Product
+     * @return $this
      */
     protected function _beforeDelete()
     {
@@ -574,7 +574,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Init indexing process after product delete commit
      *
-     * @return Mage_Catalog_Model_Product
+     * @return $this
      */
     protected function _afterDeleteCommit()
     {
@@ -589,7 +589,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Load product options if they exists
      *
-     * @return Mage_Catalog_Model_Product
+     * @return $this
      */
     protected function _afterLoad()
     {
@@ -619,7 +619,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Clear cache related with product id
      *
-     * @return Mage_Catalog_Model_Product
+     * @return $this
      */
     public function cleanCache()
     {
@@ -699,7 +699,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * algorithms gives nice optimization boost.
      *
      * @param float $price Price amount
-     * @return Mage_Catalog_Model_Product
+     * @return $this
      */
     public function setFinalPrice($price)
     {
@@ -1039,7 +1039,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      *                                          leave blank if image should be only in gallery
      * @param boolean       $move              if true, it will move source file
      * @param boolean       $exclude           mark image as disabled in product page view
-     * @return Mage_Catalog_Model_Product
+     * @return $this
      */
     public function addImageToMediaGallery($file, $mediaAttribute=null, $move=false, $exclude=true)
     {
@@ -1066,7 +1066,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Create duplicate
      *
-     * @return Mage_Catalog_Model_Product
+     * @return $this
      */
     public function duplicate()
     {
@@ -1279,7 +1279,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Set is duplicable flag
      *
      * @param boolean $value
-     * @return Mage_Catalog_Model_Product
+     * @return $this
      */
     public function setIsDuplicable($value)
     {
@@ -1495,7 +1495,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Same as setData(), but also initiates the stock item (if it is there)
      *
      * @param array $data Array to form the object from
-     * @return Mage_Catalog_Model_Product
+     * @return $this
      */
     public function fromArray($data)
     {
@@ -1514,7 +1514,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
 
     /**
      * @deprecated after 1.4.2.0
-     * @return Mage_Catalog_Model_Product
+     * @return $this
      */
     public function loadParentProductIds()
     {
@@ -1524,7 +1524,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Delete product
      *
-     * @return Mage_Catalog_Model_Product
+     * @return $this
      */
     public function delete()
     {
@@ -1637,7 +1637,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Add option to array of product options
      *
      * @param Mage_Catalog_Model_Product_Option $option
-     * @return Mage_Catalog_Model_Product
+     * @return $this
      */
     public function addOption(Mage_Catalog_Model_Product_Option $option)
     {
@@ -1885,7 +1885,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Reset all model data
      *
-     * @return Mage_Catalog_Model_Product
+     * @return $this
      */
     public function reset()
     {
@@ -1994,7 +1994,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Prepare product custom options.
      * To be sure that all product custom options does not has ID and has product instance
      *
-     * @return Mage_Catalog_Model_Product
+     * @return $this
      */
     public function prepareCustomOptions()
     {
@@ -2010,7 +2010,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Clearing references on product
      *
-     * @return Mage_Catalog_Model_Product
+     * @return $this
      */
     protected function _clearReferences()
     {
@@ -2021,7 +2021,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Clearing product's data
      *
-     * @return Mage_Catalog_Model_Product
+     * @return $this
      */
     protected function _clearData()
     {
@@ -2045,7 +2045,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Clearing references to product from product's options
      *
-     * @return Mage_Catalog_Model_Product
+     * @return $this
      */
     protected function _clearOptionReferences()
     {
@@ -2086,7 +2086,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Callback function which called after transaction commit in resource model
      *
-     * @return Mage_Catalog_Model_Product
+     * @return $this
      */
     public function afterCommitCallback()
     {

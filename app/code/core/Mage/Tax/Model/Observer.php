@@ -218,7 +218,7 @@ class Mage_Tax_Model_Observer
      * Refresh sales tax report statistics for last day
      *
      * @param Mage_Cron_Model_Schedule $schedule
-     * @return Mage_Tax_Model_Observer
+     * @return $this
      */
     public function aggregateSalesReportTaxData($schedule)
     {
@@ -234,7 +234,7 @@ class Mage_Tax_Model_Observer
      * Reset extra tax amounts on quote addresses before recollecting totals
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Tax_Model_Observer
+     * @return $this
      */
     public function quoteCollectTotalsBefore(Varien_Event_Observer $observer)
     {

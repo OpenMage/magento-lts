@@ -48,7 +48,7 @@ class Mage_Sales_Model_Resource_Report_Order extends Mage_Sales_Model_Resource_R
      *
      * @param mixed $from
      * @param mixed $to
-     * @return Mage_Sales_Model_Resource_Report_Order
+     * @return $this
      */
     public function aggregate($from = null, $to = null)
     {

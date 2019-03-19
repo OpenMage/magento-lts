@@ -195,7 +195,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
      *
      * @param Mage_Sales_Model_Order_Payment $payment
      * @param float $amount
-     * @return Mage_Paypal_Model_Express
+     * @return $this
      */
     public function order(Varien_Object $payment, $amount)
     {
@@ -262,7 +262,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
      *
      * @param Mage_Sales_Model_Order_Payment $payment
      * @param float $amount
-     * @return Mage_Paypal_Model_Express
+     * @return $this
      */
     public function authorize(Varien_Object $payment, $amount)
     {
@@ -273,7 +273,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
      * Void payment
      *
      * @param Mage_Sales_Model_Order_Payment $payment
-     * @return Mage_Paypal_Model_Express
+     * @return $this
      */
     public function void(Varien_Object $payment)
     {
@@ -298,7 +298,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
      *
      * @param Mage_Sales_Model_Order_Payment $payment
      * @param float $amount
-     * @return Mage_Paypal_Model_Express
+     * @return $this
      */
     public function capture(Varien_Object $payment, $amount)
     {
@@ -389,7 +389,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
      *
      * @param Mage_Sales_Model_Order_Payment $payment
      * @param float $amount
-     * @return Mage_Paypal_Model_Express
+     * @return $this
      */
     public function refund(Varien_Object $payment, $amount)
     {
@@ -401,7 +401,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
      * Cancel payment
      *
      * @param Mage_Sales_Model_Order_Payment $payment
-     * @return Mage_Paypal_Model_Express
+     * @return $this
      */
     public function cancel(Varien_Object $payment)
     {
@@ -557,7 +557,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
      *
      * @param Mage_Sales_Model_Order_Payment $payment
      * @param float $amount
-     * @return Mage_Paypal_Model_Express
+     * @return $this
      */
     protected function _placeOrder(Mage_Sales_Model_Order_Payment $payment, $amount)
     {

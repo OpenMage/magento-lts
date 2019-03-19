@@ -54,7 +54,7 @@ class Mage_Adminhtml_Block_Report_Product_Sold_Grid extends Mage_Adminhtml_Block
     /**
      * Prepare collection object for grid
      *
-     * @return Mage_Adminhtml_Block_Report_Product_Sold_Grid
+     * @return $this
      */
     protected function _prepareCollection()
     {
@@ -67,7 +67,7 @@ class Mage_Adminhtml_Block_Report_Product_Sold_Grid extends Mage_Adminhtml_Block
     /**
      * Prepare Grid columns
      *
-     * @return Mage_Adminhtml_Block_Report_Product_Sold_Grid
+     * @return $this
      */
     protected function _prepareColumns()
     {

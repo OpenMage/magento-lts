@@ -78,7 +78,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
      * @param string $type
      * @param string $block
      * @param string $template
-     * @return Mage_Adminhtml_Block_Sales_Items_Abstract
+     * @return $this
      */
     public function addItemRender($type, $block, $template)
     {
@@ -96,7 +96,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
      * @param string $column
      * @param string $block
      * @param string $template
-     * @return Mage_Adminhtml_Block_Sales_Items_Abstract
+     * @return $this
      */
     public function addColumnRender($column, $block, $template, $type=null)
     {
@@ -446,7 +446,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
     /**
      * Setter for flag _canEditQty
      *
-     * @return Mage_Adminhtml_Block_Sales_Items_Abstract
+     * @return $this
      * @see self::_canEditQty
      * @see self::canEditQty
      */

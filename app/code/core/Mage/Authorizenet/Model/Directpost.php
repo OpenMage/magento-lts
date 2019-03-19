@@ -81,7 +81,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      *
      * @param Varien_Object $payment
      * @param decimal $amount
-     * @return Mage_Authorizenet_Model_Directpost
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function capture(Varien_Object $payment, $amount)
@@ -148,7 +148,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      * Void the payment through gateway
      *
      * @param Varien_Object $payment
-     * @return Mage_Authorizenet_Model_Directpost
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function void(Varien_Object $payment)
@@ -212,7 +212,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      *
      * @param Varien_Object $payment
      * @param decimal $amount
-     * @return Mage_Authorizenet_Model_Directpost
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function refund(Varien_Object $payment, $amount)
@@ -233,7 +233,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      * refund the amount with transaction id
      *
      * @param string $payment Varien_Object object
-     * @return Mage_Authorizenet_Model_Directpost
+     * @return $this
      * @throws Mage_Core_Exception
      */
     protected function _refund(Varien_Object $payment, $amount)
@@ -372,7 +372,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      * Fill response with data.
      *
      * @param array $postData
-     * @return Mage_Authorizenet_Model_Directpost
+     * @return $this
      */
     public function setResponseData(array $postData)
     {

@@ -50,7 +50,7 @@ class Mage_Wishlist_Model_Resource_Item extends Mage_Core_Model_Resource_Db_Abst
      * @param int $wishlistId
      * @param int $productId
      * @param array $sharedStores
-     * @return Mage_Wishlist_Model_Resource_Item
+     * @return $this
      */
     public function loadByProductWishlist($object, $wishlistId, $productId, $sharedStores)
     {

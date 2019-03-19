@@ -44,7 +44,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
     /**
      * Initialize form
      *
-     * @return Mage_Adminhtml_Block_Customer_Edit_Tab_Account
+     * @return $this
      */
     public function initForm()
     {

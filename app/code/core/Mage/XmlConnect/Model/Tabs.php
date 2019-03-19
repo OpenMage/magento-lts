@@ -70,7 +70,7 @@ class Mage_XmlConnect_Model_Tabs
      * Translate Label fields
      *
      * @param array &$tabItems
-     * @return Mage_XmlConnect_Model_Tabs
+     * @return $this
      */
     protected function _translateLabel(&$tabItems)
     {

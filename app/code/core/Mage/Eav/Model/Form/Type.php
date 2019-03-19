@@ -100,7 +100,7 @@ class Mage_Eav_Model_Form_Type extends Mage_Core_Model_Abstract
      * Set assigned Eav Entity types
      *
      * @param array $entityTypes
-     * @return Mage_Eav_Model_Form_Type
+     * @return $this
      */
     public function setEntityTypes(array $entityTypes)
     {
@@ -112,7 +112,7 @@ class Mage_Eav_Model_Form_Type extends Mage_Core_Model_Abstract
      * Assign Entity Type to Form Type
      *
      * @param int $entityTypeId
-     * @return Mage_Eav_Model_Form_Type
+     * @return $this
      */
     public function addEntityType($entityTypeId)
     {
@@ -128,7 +128,7 @@ class Mage_Eav_Model_Form_Type extends Mage_Core_Model_Abstract
      * Copy Form Type properties from skeleton form type
      *
      * @param Mage_Eav_Model_Form_Type $skeleton
-     * @return Mage_Eav_Model_Form_Type
+     * @return $this
      */
     public function createFromSkeleton(Mage_Eav_Model_Form_Type $skeleton)
     {

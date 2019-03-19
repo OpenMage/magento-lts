@@ -301,7 +301,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      * log Attempt
      *
      * @param string $login
-     * @return Mage_Captcha_Model_Zend
+     * @return $this
      */
     public function logAttempt($login)
     {
@@ -479,7 +479,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     /**
      * Set captcha word
      *
-     * @return Mage_Captcha_Model_Zend
+     * @return $this
      */
     protected function _clearWord()
     {

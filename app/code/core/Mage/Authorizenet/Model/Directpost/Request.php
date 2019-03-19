@@ -51,7 +51,7 @@ class Mage_Authorizenet_Model_Directpost_Request extends Varien_Object
      * Needed to generate sign.
      *
      * @param string $transKey
-     * @return Mage_Authorizenet_Model_Directpost_Request
+     * @return $this
      */
     protected function _setTransactionKey($transKey)
     {
@@ -94,7 +94,7 @@ class Mage_Authorizenet_Model_Directpost_Request extends Varien_Object
      * Set paygate data to request.
      *
      * @param Mage_Authorizenet_Model_Directpost $paymentMethod
-     * @return Mage_Authorizenet_Model_Directpost_Request
+     * @return $this
      */
     public function setConstantData(Mage_Authorizenet_Model_Directpost $paymentMethod)
     {
@@ -118,7 +118,7 @@ class Mage_Authorizenet_Model_Directpost_Request extends Varien_Object
      *
      * @param Mage_Sales_Model_Order $order
      * @param Mage_Authorizenet_Model_Directpost $paymentMethod
-     * @return Mage_Authorizenet_Model_Directpost_Request
+     * @return $this
      */
     public function setDataFromOrder(Mage_Sales_Model_Order $order, Mage_Authorizenet_Model_Directpost $paymentMethod)
     {
@@ -173,7 +173,7 @@ class Mage_Authorizenet_Model_Directpost_Request extends Varien_Object
      * Set sign hash into the request object.
      * All needed fields should be placed in the object fist.
      *
-     * @return Mage_Authorizenet_Model_Directpost_Request
+     * @return $this
      */
     public function signRequestData()
     {

@@ -81,7 +81,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
      * Set store Id
      *
      * @param integer $storeId
-     * @return Mage_Catalog_Model_Resource_Category
+     * @return $this
      */
     public function setStoreId($storeId)
     {
@@ -122,7 +122,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
      * delete child categories
      *
      * @param Varien_Object $object
-     * @return Mage_Catalog_Model_Resource_Category
+     * @return $this
      */
     protected function _beforeDelete(Varien_Object $object)
     {
@@ -146,7 +146,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
      * Delete children categories of specific category
      *
      * @param Varien_Object $object
-     * @return Mage_Catalog_Model_Resource_Category
+     * @return $this
      */
     public function deleteChildren(Varien_Object $object)
     {
@@ -179,7 +179,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
      * prepare path and increment children count for parent categories
      *
      * @param Varien_Object $object
-     * @return Mage_Catalog_Model_Resource_Category
+     * @return $this
      */
     protected function _beforeSave(Varien_Object $object)
     {
@@ -219,7 +219,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
      * save related products ids and update path value
      *
      * @param Varien_Object $object
-     * @return Mage_Catalog_Model_Resource_Category
+     * @return $this
      */
     protected function _afterSave(Varien_Object $object)
     {
@@ -239,7 +239,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
      * Update path field
      *
      * @param Mage_Catalog_Model_Category $object
-     * @return Mage_Catalog_Model_Resource_Category
+     * @return $this
      */
     protected function _savePath($object)
     {
@@ -284,7 +284,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
      * Save category products relation
      *
      * @param Mage_Catalog_Model_Category $category
-     * @return Mage_Catalog_Model_Resource_Category
+     * @return $this
      */
     protected function _saveCategoryProducts($category)
     {
@@ -816,7 +816,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
      * @param Mage_Catalog_Model_Category $category
      * @param Mage_Catalog_Model_Category $newParent
      * @param null|int $afterCategoryId
-     * @return Mage_Catalog_Model_Resource_Category
+     * @return $this
      */
     public function changeParent(Mage_Catalog_Model_Category $category, Mage_Catalog_Model_Category $newParent,
         $afterCategoryId = null)

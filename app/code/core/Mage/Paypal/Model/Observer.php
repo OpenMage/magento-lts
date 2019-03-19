@@ -34,7 +34,7 @@ class Mage_Paypal_Model_Observer
 {
     /**
      * Goes to reports.paypal.com and fetches Settlement reports.
-     * @return Mage_Paypal_Model_Observer
+     * @return $this
      */
     public function fetchReports()
     {
@@ -58,7 +58,7 @@ class Mage_Paypal_Model_Observer
      * Clean unfinished transaction
      *
      * @deprecated since 1.6.2.0
-     * @return Mage_Paypal_Model_Observer
+     * @return $this
      */
     public function cleanTransactions()
     {
@@ -69,7 +69,7 @@ class Mage_Paypal_Model_Observer
      * Save order into registry to use it in the overloaded controller.
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Paypal_Model_Observer
+     * @return $this
      */
     public function saveOrderAfterSubmit(Varien_Event_Observer $observer)
     {
@@ -84,7 +84,7 @@ class Mage_Paypal_Model_Observer
      * Set data for response of frontend saveOrder action
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Paypal_Model_Observer
+     * @return $this
      */
     public function setResponseAfterSaveOrder(Varien_Event_Observer $observer)
     {

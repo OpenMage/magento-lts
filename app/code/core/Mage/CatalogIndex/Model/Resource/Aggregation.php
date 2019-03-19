@@ -88,7 +88,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
      * @param string $key
      * @param array|string $tags
      * @param int $storeId
-     * @return Mage_CatalogIndex_Model_Resource_Aggregation
+     * @return $this
      */
     public function saveCacheData($data, $key, $tags, $storeId)
     {
@@ -137,7 +137,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
      *
      * @param   array $tags
      * @param   int|null|string $storeId
-     * @return Mage_CatalogIndex_Model_Resource_Aggregation
+     * @return $this
      */
     public function clearCacheData($tags, $storeId)
     {
@@ -166,7 +166,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
      *
      * @param int $aggregationId
      * @param array $tags
-     * @return Mage_CatalogIndex_Model_Resource_Aggregation
+     * @return $this
      */
     protected function _saveTagRelations($aggregationId, $tags)
     {
@@ -217,7 +217,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
      * Insert tags to tag table
      *
      * @param string | array $tags
-     * @return Mage_CatalogIndex_Model_Resource_Aggregation
+     * @return $this
      */
     protected function _addTags($tags)
     {

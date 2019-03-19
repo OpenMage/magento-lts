@@ -37,7 +37,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Preview_Content extends Mage_Adminh
      * Set path to template used for generating block's output.
      *
      * @param string $templateType
-     * @return Mage_XmlConnect_Block_Adminhtml_Mobile_Preview_Content
+     * @return $this
      */
     public function setTemplate($templateType)
     {

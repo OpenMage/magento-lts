@@ -469,7 +469,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      * Set array helper
      *
      * @param Mage_Core_Helper_Abstract $helper
-     * @return Mage_Core_Helper_String
+     * @return $this
      */
     public function setArrayHelper(Mage_Core_Helper_Abstract $helper)
     {

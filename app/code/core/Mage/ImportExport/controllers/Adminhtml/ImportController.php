@@ -47,7 +47,7 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
     /**
      * Initialize layout.
      *
-     * @return Mage_ImportExport_Adminhtml_ImportController
+     * @return $this
      */
     protected function _initAction()
     {

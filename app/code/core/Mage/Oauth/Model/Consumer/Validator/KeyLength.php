@@ -69,7 +69,7 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Zend_Validate_String
     /**
      * Init validation failure message template definitions
      *
-     * @return Mage_Oauth_Model_Consumer_Validator_KeyLength
+     * @return $this
      */
     protected function _initMessageTemplates()
     {
@@ -96,7 +96,7 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Zend_Validate_String
      * Set length
      *
      * @param $length
-     * @return Mage_Oauth_Model_Consumer_Validator_KeyLength
+     * @return $this
      */
     public function setLength($length)
     {
@@ -137,7 +137,7 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Zend_Validate_String
      * Set key name
      *
      * @param string $name
-     * @return Mage_Oauth_Model_Consumer_Validator_KeyLength
+     * @return $this
      */
     public function setName($name)
     {

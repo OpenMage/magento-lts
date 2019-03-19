@@ -96,7 +96,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Abstract extends Varien_Object
     /**
      * Init form parent Simplexml object
      *
-     * @return Mage_XmlConnect_Model_Simplexml_Form_Abstract
+     * @return $this
      */
     protected function _prepareXmlObject()
     {
@@ -120,7 +120,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Abstract extends Varien_Object
      * Set simple xml object
      *
      * @param Mage_XmlConnect_Model_Simplexml_Element $xml
-     * @return Mage_XmlConnect_Model_Simplexml_Form_Abstract
+     * @return $this
      */
     public function setXmlObject(Mage_XmlConnect_Model_Simplexml_Element $xml)
     {
@@ -142,7 +142,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Abstract extends Varien_Object
      * Set element id
      *
      * @param $id
-     * @return Mage_XmlConnect_Model_Simplexml_Form_Abstract
+     * @return $this
      */
     public function setId($id)
     {
@@ -166,7 +166,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Abstract extends Varien_Object
      *
      * @param string $type
      * @param string $className
-     * @return Mage_XmlConnect_Model_Simplexml_Form_Abstract
+     * @return $this
      */
     public function addType($type, $className)
     {
@@ -192,7 +192,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Abstract extends Varien_Object
      *
      * @param Mage_XmlConnect_Model_Simplexml_Form_Element_Abstract $element
      * @param bool|string $after
-     * @return Mage_XmlConnect_Model_Simplexml_Form_Abstract
+     * @return $this
      */
     public function addElement(Mage_XmlConnect_Model_Simplexml_Form_Element_Abstract $element, $after = false)
     {
@@ -212,7 +212,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Abstract extends Varien_Object
      * @param string $type
      * @param array $config
      * @param mixed $after
-     * @return Mage_XmlConnect_Model_Simplexml_Form_Abstract
+     * @return $this
      */
     public function addField($elementId, $type, $config, $after = false)
     {
@@ -232,7 +232,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Abstract extends Varien_Object
      * Remove element from collection
      *
      * @param string $elementId
-     * @return Mage_XmlConnect_Model_Simplexml_Form_Abstract
+     * @return $this
      */
     public function removeField($elementId)
     {
@@ -355,7 +355,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Abstract extends Varien_Object
      * Add after element xml to object
      *
      * @param Mage_XmlConnect_Model_Simplexml_Element $xmlObj
-     * @return Mage_XmlConnect_Model_Simplexml_Form_Abstract
+     * @return $this
      */
     public function addAfterXmlElementToObj(Mage_XmlConnect_Model_Simplexml_Element $xmlObj)
     {
@@ -377,7 +377,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Abstract extends Varien_Object
      *
      * @throws Mage_Core_Exception
      * @param Mage_XmlConnect_Model_Simplexml_Element $xmlObj
-     * @return Mage_XmlConnect_Model_Simplexml_Form_Abstract
+     * @return $this
      */
     protected  function _addRequiredAttributes(Mage_XmlConnect_Model_Simplexml_Element $xmlObj)
     {
@@ -401,7 +401,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Abstract extends Varien_Object
      * Add validator to element xml object
      *
      * @param Mage_XmlConnect_Model_Simplexml_Element $xmlObj
-     * @return Mage_XmlConnect_Model_Simplexml_Form_Abstract
+     * @return $this
      */
     protected function _addValidator(Mage_XmlConnect_Model_Simplexml_Element $xmlObj)
     {
@@ -413,7 +413,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Abstract extends Varien_Object
      *
      * @throws Mage_Core_Exception
      * @param Mage_XmlConnect_Model_Simplexml_Element $xmlObj
-     * @return Mage_XmlConnect_Model_Simplexml_Form_Abstract
+     * @return $this
      */
     protected function _addId(Mage_XmlConnect_Model_Simplexml_Element $xmlObj)
     {
@@ -431,7 +431,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Abstract extends Varien_Object
      * Add form name to element
      *
      * @param Mage_XmlConnect_Model_Simplexml_Element $xmlObj
-     * @return Mage_XmlConnect_Model_Simplexml_Form_Abstract
+     * @return $this
      */
     protected function _addName(Mage_XmlConnect_Model_Simplexml_Element $xmlObj)
     {
@@ -473,7 +473,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Abstract extends Varien_Object
      * Set is name required attribute
      *
      * @param boolean $nameRequired
-     * @return Mage_XmlConnect_Model_Simplexml_Form_Abstract
+     * @return $this
      */
     public function setNameRequired($nameRequired)
     {
@@ -495,7 +495,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Abstract extends Varien_Object
      * Set custom attributes
      *
      * @param array $customAttributes
-     * @return Mage_XmlConnect_Model_Simplexml_Form_Abstract
+     * @return $this
      */
     public function setCustomAttributes(array $customAttributes)
     {

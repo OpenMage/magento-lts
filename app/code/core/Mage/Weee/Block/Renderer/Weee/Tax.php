@@ -92,7 +92,7 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget
      *
      * @param Varien_Data_Form_Element_Abstract $element
      *
-     * @return Mage_Weee_Block_Renderer_Weee_Tax
+     * @return $this
      */
     public function setElement(Varien_Data_Form_Element_Abstract $element)
     {

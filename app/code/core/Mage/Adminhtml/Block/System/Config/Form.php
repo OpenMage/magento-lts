@@ -112,7 +112,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     /**
      * Enter description here...
      *
-     * @return Mage_Adminhtml_Block_System_Config_Form
+     * @return $this
      */
     protected function _initObjects()
     {
@@ -131,7 +131,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     /**
      * Enter description here...
      *
-     * @return Mage_Adminhtml_Block_System_Config_Form
+     * @return $this
      */
     public function initForm()
     {
@@ -253,7 +253,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      * @param Varien_Simplexml_Element $section
      * @param string $fieldPrefix
      * @param string $labelPrefix
-     * @return Mage_Adminhtml_Block_System_Config_Form
+     * @return $this
      */
     public function initFields($fieldset, $group, $section, $fieldPrefix='', $labelPrefix='')
     {

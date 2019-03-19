@@ -46,7 +46,7 @@ class Mage_Core_Model_Encryption
      * Set helper instance
      *
      * @param Mage_Core_Helper_Data $helper
-     * @return Mage_Core_Model_Encryption
+     * @return $this
      */
     public function setHelper($helper)
     {

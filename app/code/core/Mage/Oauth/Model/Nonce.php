@@ -53,7 +53,7 @@ class Mage_Oauth_Model_Nonce extends Mage_Core_Model_Abstract
     /**
      * "After save" actions
      *
-     * @return Mage_Oauth_Model_Nonce
+     * @return $this
      */
     protected function _afterSave()
     {

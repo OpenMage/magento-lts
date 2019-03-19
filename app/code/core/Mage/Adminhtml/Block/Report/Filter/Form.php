@@ -101,7 +101,7 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
      *
      * @param string $key
      * @param string $value
-     * @return Mage_Adminhtml_Block_Report_Filter_Form
+     * @return $this
      */
     public function addReportTypeOption($key, $value)
     {
@@ -112,7 +112,7 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
     /**
      * Add fieldset with general report fields
      *
-     * @return Mage_Adminhtml_Block_Report_Filter_Form
+     * @return $this
      */
     protected function _prepareForm()
     {

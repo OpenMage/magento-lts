@@ -112,7 +112,7 @@ class Mage_Cron_Model_Observer
     /**
      * Generate cron schedule
      *
-     * @return Mage_Cron_Model_Observer
+     * @return $this
      */
     public function generate()
     {
@@ -203,7 +203,7 @@ class Mage_Cron_Model_Observer
     /**
      * Clean up the history of tasks
      *
-     * @return Mage_Cron_Model_Observer
+     * @return $this
      */
     public function cleanup()
     {
@@ -245,7 +245,7 @@ class Mage_Cron_Model_Observer
      *
      * @param $jobCode
      * @param $jobConfig
-     * @return Mage_Cron_Model_Observer
+     * @return $this
      */
     protected function _processAlwaysTask($jobCode, $jobConfig)
     {
@@ -272,7 +272,7 @@ class Mage_Cron_Model_Observer
      * @param Mage_Cron_Model_Schedule $schedule
      * @param $jobConfig
      * @param bool $isAlways
-     * @return Mage_Cron_Model_Observer
+     * @return $this
      */
     protected function _processJob($schedule, $jobConfig, $isAlways = false)
     {

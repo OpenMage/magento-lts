@@ -48,7 +48,7 @@ class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
      * Add new email info to corresponding list
      *
      * @param Mage_Core_Model_Email_Info $emailInfo
-     * @return Mage_Core_Model_Email_Template_Mailer
+     * @return $this
      */
     public function addEmailInfo(Mage_Core_Model_Email_Info $emailInfo)
     {
@@ -60,7 +60,7 @@ class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
      * Send all emails from email list
      * @see self::$_emailInfos
      *
-     * @return Mage_Core_Model_Email_Template_Mailer
+     * @return $this
      */
     public function send()
     {
@@ -90,7 +90,7 @@ class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
      * Set email sender
      *
      * @param string|array $sender
-     * @return Mage_Core_Model_Email_Template_Mailer
+     * @return $this
      */
     public function setSender($sender)
     {
@@ -111,7 +111,7 @@ class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
      * Set store id
      *
      * @param int $storeId
-     * @return Mage_Core_Model_Email_Template_Mailer
+     * @return $this
      */
     public function setStoreId($storeId)
     {
@@ -132,7 +132,7 @@ class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
      * Set template id
      *
      * @param int $templateId
-     * @return Mage_Core_Model_Email_Template_Mailer
+     * @return $this
      */
     public function setTemplateId($templateId)
     {
@@ -153,7 +153,7 @@ class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
      * Set tempate parameters
      *
      * @param array $templateParams
-     * @return Mage_Core_Model_Email_Template_Mailer
+     * @return $this
      */
     public function setTemplateParams(array $templateParams)
     {

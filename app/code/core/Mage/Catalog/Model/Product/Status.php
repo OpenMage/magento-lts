@@ -88,7 +88,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
      *
      * @deprecated remove on new builds
      * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
-     * @return Mage_Catalog_Model_Product_Status
+     * @return $this
      */
     public function addVisibleFilterToCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)
     {
@@ -101,7 +101,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
      *
      * @deprecated remove on new builds
      * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
-     * @return Mage_Catalog_Model_Product_Status
+     * @return $this
      */
     public function addSaleableFilterToCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)
     {

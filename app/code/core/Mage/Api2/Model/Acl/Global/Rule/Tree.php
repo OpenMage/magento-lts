@@ -148,7 +148,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
     /**
      * Initialize block
      *
-     * @return Mage_Api2_Model_Acl_Global_Rule_Tree
+     * @return $this
      * @throws Exception
      */
     protected function _init()
@@ -482,7 +482,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
      * Set role
      *
      * @param Mage_Api2_Model_Acl_Global_Role $role
-     * @return Mage_Api2_Model_Acl_Global_Rule_Tree
+     * @return $this
      */
     public function setRole($role)
     {
@@ -504,7 +504,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
      * Set resources permissions
      *
      * @param array $resourcesPermissions
-     * @return Mage_Api2_Model_Acl_Global_Rule_Tree
+     * @return $this
      */
     public function setResourcesPermissions($resourcesPermissions)
     {
@@ -526,7 +526,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
      * Set has entity only attributes flag
      *
      * @param bool $hasEntityOnlyAttributes
-     * @return Mage_Api2_Model_Acl_Global_Rule_Tree
+     * @return $this
      */
     public function setHasEntityOnlyAttributes($hasEntityOnlyAttributes)
     {

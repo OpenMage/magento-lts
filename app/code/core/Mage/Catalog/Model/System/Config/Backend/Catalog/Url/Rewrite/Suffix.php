@@ -32,7 +32,7 @@ class Mage_Catalog_Model_System_Config_Backend_Catalog_Url_Rewrite_Suffix extend
     /**
      * Check url rewrite suffix - whether we can support it
      *
-     * @return Mage_Catalog_Model_System_Config_Backend_Catalog_Url_Rewrite_Suffix
+     * @return $this
      */
     protected function _beforeSave()
     {

@@ -46,7 +46,7 @@ class Mage_Tax_Model_Resource_Calculation_Rule_Collection extends Mage_Core_Mode
      * Join calculation data to result
      *
      * @param string $alias table alias
-     * @return Mage_Tax_Model_Resource_Calculation_Rule_Collection
+     * @return $this
      */
     public function joinCalculationData($alias)
     {
@@ -68,7 +68,7 @@ class Mage_Tax_Model_Resource_Calculation_Rule_Collection extends Mage_Core_Mode
      * @param string $secondaryJoinField
      * @param string $titleField
      * @param string $dataField
-     * @return Mage_Tax_Model_Resource_Calculation_Rule_Collection
+     * @return $this
      */
     protected function _add($itemTable, $primaryJoinField, $secondaryJoinField, $titleField, $dataField)
     {
@@ -109,7 +109,7 @@ class Mage_Tax_Model_Resource_Calculation_Rule_Collection extends Mage_Core_Mode
     /**
      * Add product tax classes to result
      *
-     * @return Mage_Tax_Model_Resource_Calculation_Rule_Collection
+     * @return $this
      */
     public function addProductTaxClassesToResult()
     {
@@ -119,7 +119,7 @@ class Mage_Tax_Model_Resource_Calculation_Rule_Collection extends Mage_Core_Mode
     /**
      * Add customer tax classes to result
      *
-     * @return Mage_Tax_Model_Resource_Calculation_Rule_Collection
+     * @return $this
      */
     public function addCustomerTaxClassesToResult()
     {
@@ -129,7 +129,7 @@ class Mage_Tax_Model_Resource_Calculation_Rule_Collection extends Mage_Core_Mode
     /**
      * Add rates to result
      *
-     * @return Mage_Tax_Model_Resource_Calculation_Rule_Collection
+     * @return $this
      */
     public function addRatesToResult()
     {
@@ -142,7 +142,7 @@ class Mage_Tax_Model_Resource_Calculation_Rule_Collection extends Mage_Core_Mode
      * @param string $type
      * @param int $id
      * @throws Mage_Core_Exception
-     * @return Mage_Tax_Model_Resource_Calculation_Rule_Collection
+     * @return $this
      */
     public function setClassTypeFilter($type, $id)
     {

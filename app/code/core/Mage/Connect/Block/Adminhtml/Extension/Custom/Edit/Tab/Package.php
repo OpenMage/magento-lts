@@ -37,7 +37,7 @@ class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Package
     /**
      * Prepare Package Info Form before rendering HTML
      *
-     * @return Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Package
+     * @return $this
      */
     protected function _prepareForm()
     {

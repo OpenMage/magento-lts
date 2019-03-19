@@ -88,7 +88,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
      * Remove duplicates
      *
      * @param array $result
-     * @return Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media
+     * @return $this
      */
     protected function _removeDuplicates(&$result)
     {
@@ -126,7 +126,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
      * Delete gallery value in db
      *
      * @param array|integer $valueId
-     * @return Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media
+     * @return $this
      */
     public function deleteGallery($valueId)
     {
@@ -146,7 +146,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
      * Insert gallery value for store to db
      *
      * @param array $data
-     * @return Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media
+     * @return $this
      */
     public function insertGalleryValueInStore($data)
     {
@@ -161,7 +161,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
      *
      * @param integer $valueId
      * @param integer $storeId
-     * @return Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media
+     * @return $this
      */
     public function deleteGalleryValueInStore($valueId, $storeId)
     {
@@ -184,7 +184,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
      * @param array $newFiles
      * @param int $originalProductId
      * @param int $newProductId
-     * @return Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media
+     * @return $this
      */
     public function duplicate($object, $newFiles, $originalProductId, $newProductId)
     {

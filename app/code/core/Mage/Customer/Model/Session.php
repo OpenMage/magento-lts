@@ -124,7 +124,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
      * Set customer id
      *
      * @param int|null $id
-     * @return Mage_Customer_Model_Session
+     * @return $this
      */
     public function setCustomerId($id)
     {
@@ -149,7 +149,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
      * Set customer group id
      *
      * @param int|null $id
-     * @return Mage_Customer_Model_Session
+     * @return $this
      */
     public function setCustomerGroupId($id)
     {
@@ -246,7 +246,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Logout customer
      *
-     * @return Mage_Customer_Model_Session
+     * @return $this
      */
     public function logout()
     {
@@ -287,7 +287,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
      *
      * @param string $key
      * @param string $url
-     * @return Mage_Customer_Model_Session
+     * @return $this
      */
     protected function _setAuthUrl($key, $url)
     {
@@ -301,7 +301,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Logout without dispatching event
      *
-     * @return Mage_Customer_Model_Session
+     * @return $this
      */
     protected function _logout()
     {
@@ -316,7 +316,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
      * Set Before auth url
      *
      * @param string $url
-     * @return Mage_Customer_Model_Session
+     * @return $this
      */
     public function setBeforeAuthUrl($url)
     {
@@ -327,7 +327,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
      * Set After auth url
      *
      * @param string $url
-     * @return Mage_Customer_Model_Session
+     * @return $this
      */
     public function setAfterAuthUrl($url)
     {
@@ -337,7 +337,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Reset core session hosts after reseting session ID
      *
-     * @return Mage_Customer_Model_Session
+     * @return $this
      */
     public function renewSession()
     {

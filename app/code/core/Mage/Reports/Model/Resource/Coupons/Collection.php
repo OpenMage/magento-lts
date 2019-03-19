@@ -53,7 +53,7 @@ class Mage_Reports_Model_Resource_Coupons_Collection extends Mage_Sales_Model_En
      *
      * @param string $from
      * @param string $to
-     * @return Mage_Reports_Model_Resource_Coupons_Collection
+     * @return $this
      */
     public function setDateRange($from, $to)
     {
@@ -67,7 +67,7 @@ class Mage_Reports_Model_Resource_Coupons_Collection extends Mage_Sales_Model_En
      * Set store ids
      *
      * @param array $storeIds
-     * @return Mage_Reports_Model_Resource_Coupons_Collection
+     * @return $this
      */
     public function setStoreIds($storeIds)
     {

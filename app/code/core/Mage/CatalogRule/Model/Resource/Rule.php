@@ -104,7 +104,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      *
      * @param Mage_Core_Model_Abstract $object
      *
-     * @return Mage_CatalogRule_Model_Resource_Rule
+     * @return $this
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
@@ -120,7 +120,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      *
      * @param Mage_Core_Model_Abstract $object
      *
-     * @return Mage_CatalogRule_Model_Resource_Rule
+     * @return $this
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -329,7 +329,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      * @param Mage_CatalogRule_Model_Rule $rule
      *
      * @throws Exception
-     * @return Mage_CatalogRule_Model_Resource_Rule
+     * @return $this
      */
     public function updateRuleProductData(Mage_CatalogRule_Model_Rule $rule)
     {
@@ -390,7 +390,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      * @param int|string $toDate
      * @param int|null $productId
      *
-     * @return Mage_CatalogRule_Model_Resource_Rule
+     * @return $this
      */
     public function removeCatalogPricesForDateRange($fromDate, $toDate, $productId = null)
     {
@@ -429,7 +429,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      * @param string $date
      * @param int|null $productId
      *
-     * @return Mage_CatalogRule_Model_Resource_Rule
+     * @return $this
      */
     public function deleteOldData($date, $productId = null)
     {
@@ -547,7 +547,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      * @param int|Mage_Catalog_Model_Product $product
      *
      * @throws Exception
-     * @return Mage_CatalogRule_Model_Resource_Rule
+     * @return $this
      */
     public function applyAllRules($product = null)
     {
@@ -566,7 +566,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      *
      * @deprecated after 1.7.0.2 use method applyAllRules
      *
-     * @return Mage_CatalogRule_Model_Resource_Rule
+     * @return $this
      */
     public function applyAllRulesForDateRange($fromDate = null, $toDate = null, $productId = null)
     {
@@ -635,7 +635,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      *
      * @param array $arrData
      *
-     * @return Mage_CatalogRule_Model_Resource_Rule
+     * @return $this
      */
     protected function _saveRuleProductPrices($arrData)
     {
@@ -766,7 +766,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      * @param array $websiteIds
      *
      * @throws Exception
-     * @return Mage_CatalogRule_Model_Resource_Rule
+     * @return $this
      */
     public function applyToProduct($rule, $product, $websiteIds)
     {

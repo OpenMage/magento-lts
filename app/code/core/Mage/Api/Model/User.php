@@ -74,7 +74,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Save user
      *
-     * @return Mage_Api_Model_User|Mage_Core_Model_Abstract
+     * @return $this|Mage_Core_Model_Abstract
      */
     public function save()
     {
@@ -115,7 +115,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Delete user
      *
-     * @return Mage_Api_Model_User|Mage_Core_Model_Abstract
+     * @return $this|Mage_Core_Model_Abstract
      */
     public function delete()
     {
@@ -128,7 +128,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Save relations for users
      *
-     * @return Mage_Api_Model_User
+     * @return $this
      */
     public function saveRelations()
     {
@@ -149,7 +149,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Delete user from role
      *
-     * @return Mage_Api_Model_User
+     * @return $this
      */
     public function deleteFromRole()
     {
@@ -171,7 +171,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Add user
      *
-     * @return Mage_Api_Model_User
+     * @return $this
      */
     public function add()
     {
@@ -279,7 +279,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Reload user
      *
-     * @return Mage_Api_Model_User
+     * @return $this
      */
     public function reload()
     {
@@ -291,7 +291,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      * Load user by username
      *
      * @param string $username
-     * @return Mage_Api_Model_User
+     * @return $this
      */
     public function loadByUsername($username)
     {
@@ -303,7 +303,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      * Load user by session id
      *
      * @param string $sessId
-     * @return Mage_Api_Model_User
+     * @return $this
      */
     public function loadBySessId ($sessId)
     {
@@ -315,7 +315,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      * Logout user by session id
      *
      * @param string $sessid
-     * @return Mage_Api_Model_User
+     * @return $this
      */
     public function logoutBySessId($sessid)
     {

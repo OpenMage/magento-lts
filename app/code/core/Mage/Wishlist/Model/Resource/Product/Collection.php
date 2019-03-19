@@ -64,7 +64,7 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
      * Set add days in whishlist filter of product collection flag
      *
      * @param unknown_type $flag
-     * @return Mage_Wishlist_Model_Resource_Product_Collection
+     * @return $this
      */
     public function setDaysInWishlist($flag)
     {
@@ -76,7 +76,7 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
      * Add wishlist filter to collection
      *
      * @param Mage_Wishlist_Model_Wishlist $wishlist
-     * @return Mage_Wishlist_Model_Resource_Product_Collection
+     * @return $this
      */
     public function addWishlistFilter(Mage_Wishlist_Model_Wishlist $wishlist)
     {
@@ -110,7 +110,7 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
      *
      * @param string $attribute
      * @param string $dir
-     * @return Mage_Wishlist_Model_Resource_Product_Collection
+     * @return $this
      */
     public function addWishListSortOrder($attribute = 'added_at', $dir = 'desc')
     {
@@ -121,7 +121,7 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
     /**
      * Reset sort order
      *
-     * @return Mage_Wishlist_Model_Resource_Product_Collection
+     * @return $this
      */
     public function resetSortOrder()
     {
@@ -132,7 +132,7 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
     /**
      * Add store data (days in wishlist)
      *
-     * @return Mage_Wishlist_Model_Resource_Product_Collection
+     * @return $this
      */
     public function addStoreData()
     {
@@ -160,7 +160,7 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
      * Rewrite retrieve attribute field name for wishlist attributes
      *
      * @param string $attributeCode
-     * @return Mage_Wishlist_Model_Resource_Product_Collection
+     * @return $this
      */
     protected function _getAttributeFieldName($attributeCode)
     {

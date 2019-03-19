@@ -104,7 +104,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     /**
      * Define active menu item in menu block
      *
-     * @return Mage_Adminhtml_Controller_Action
+     * @return $this
      */
     protected function _setActiveMenu($menuPath)
     {
@@ -113,7 +113,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     }
 
     /**
-     * @return Mage_Adminhtml_Controller_Action
+     * @return $this
      */
     protected function _addBreadcrumb($label, $title, $link=null)
     {
@@ -122,7 +122,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     }
 
     /**
-     * @return Mage_Adminhtml_Controller_Action
+     * @return $this
      */
     protected function _addContent(Mage_Core_Block_Abstract $block)
     {
@@ -145,7 +145,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     /**
      * Controller predispatch method
      *
-     * @return Mage_Adminhtml_Controller_Action
+     * @return $this
      */
     public function preDispatch()
     {
@@ -218,7 +218,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
 
     /**
      * @deprecated after 1.4.0.0 alpha, logic moved to Mage_Adminhtml_Block_Notification_Baseurl
-     * @return Mage_Adminhtml_Controller_Action
+     * @return $this
      */
     protected function _checkUrlSettings()
     {
@@ -310,7 +310,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      * Set currently used module name
      *
      * @param string $moduleName
-     * @return Mage_Adminhtml_Controller_Action
+     * @return $this
      */
     public function setUsedModuleName($moduleName)
     {

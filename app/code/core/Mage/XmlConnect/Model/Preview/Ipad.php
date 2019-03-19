@@ -44,7 +44,7 @@ class Mage_XmlConnect_Model_Preview_Ipad extends Mage_XmlConnect_Model_Preview_A
      * Set device orientation
      *
      * @param string $orientation
-     * @return Mage_XmlConnect_Model_Preview_Ipad
+     * @return $this
      */
     public function setOrientation($orientation)
     {

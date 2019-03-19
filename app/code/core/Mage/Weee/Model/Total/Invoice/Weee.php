@@ -31,7 +31,7 @@ class Mage_Weee_Model_Total_Invoice_Weee extends Mage_Sales_Model_Order_Invoice_
      * Weee tax collector
      *
      * @param Mage_Sales_Model_Order_Invoice $invoice
-     * @return Mage_Weee_Model_Total_Invoice_Weee
+     * @return $this
      */
     public function collect(Mage_Sales_Model_Order_Invoice $invoice)
     {

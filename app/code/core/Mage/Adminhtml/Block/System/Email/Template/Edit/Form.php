@@ -38,7 +38,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
      * Prepare layout.
      * Add files to use dialog windows
      *
-     * @return Mage_Adminhtml_Block_System_Email_Template_Edit_Form
+     * @return $this
      */
     protected function _prepareLayout()
     {

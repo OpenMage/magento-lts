@@ -46,7 +46,7 @@ class Mage_Rating_Model_Resource_Rating_Option_Vote_Collection extends Mage_Core
      * Set review filter
      *
      * @param int $reviewId
-     * @return Mage_Rating_Model_Resource_Rating_Option_Vote_Collection
+     * @return $this
      */
     public function setReviewFilter($reviewId)
     {
@@ -59,7 +59,7 @@ class Mage_Rating_Model_Resource_Rating_Option_Vote_Collection extends Mage_Core
      * Set EntityPk filter
      *
      * @param int $entityId
-     * @return Mage_Rating_Model_Resource_Rating_Option_Vote_Collection
+     * @return $this
      */
     public function setEntityPkFilter($entityId)
     {
@@ -72,7 +72,7 @@ class Mage_Rating_Model_Resource_Rating_Option_Vote_Collection extends Mage_Core
      * Set store filter
      *
      * @param int $storeId
-     * @return Mage_Rating_Model_Resource_Rating_Option_Vote_Collection
+     * @return $this
      */
     public function setStoreFilter($storeId)
     {
@@ -89,7 +89,7 @@ class Mage_Rating_Model_Resource_Rating_Option_Vote_Collection extends Mage_Core
      * Add rating info to select
      *
      * @param int $storeId
-     * @return Mage_Rating_Model_Resource_Rating_Option_Vote_Collection
+     * @return $this
      */
     public function addRatingInfo($storeId=null)
     {
@@ -132,7 +132,7 @@ class Mage_Rating_Model_Resource_Rating_Option_Vote_Collection extends Mage_Core
     /**
      * Add option info to select
      *
-     * @return Mage_Rating_Model_Resource_Rating_Option_Vote_Collection
+     * @return $this
      */
     public function addOptionInfo()
     {
@@ -145,7 +145,7 @@ class Mage_Rating_Model_Resource_Rating_Option_Vote_Collection extends Mage_Core
     /**
      * Add rating options
      *
-     * @return Mage_Rating_Model_Resource_Rating_Option_Vote_Collection
+     * @return $this
      */
     public function addRatingOptions()
     {

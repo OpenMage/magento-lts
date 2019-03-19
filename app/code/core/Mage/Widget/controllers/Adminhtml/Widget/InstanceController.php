@@ -46,7 +46,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
     /**
      * Load layout, set active menu and breadcrumbs
      *
-     * @return Mage_Widget_Adminhtml_Widget_InstanceController
+     * @return $this
      */
     protected function _initAction()
     {

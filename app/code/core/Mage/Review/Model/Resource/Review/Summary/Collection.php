@@ -63,7 +63,7 @@ class Mage_Review_Model_Resource_Review_Summary_Collection extends Varien_Data_C
      *
      * @param unknown_type $entityId
      * @param unknown_type $entityType
-     * @return Mage_Review_Model_Resource_Review_Summary_Collection
+     * @return $this
      */
     public function addEntityFilter($entityId, $entityType = 1)
     {
@@ -76,7 +76,7 @@ class Mage_Review_Model_Resource_Review_Summary_Collection extends Varien_Data_C
      * Add store filter
      *
      * @param int $storeId
-     * @return Mage_Review_Model_Resource_Review_Summary_Collection
+     * @return $this
      */
     public function addStoreFilter($storeId)
     {

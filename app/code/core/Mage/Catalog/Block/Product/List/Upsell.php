@@ -145,7 +145,7 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
      *
      * @param string $type
      * @param int $limit
-     * @return Mage_Catalog_Block_Product_List_Upsell
+     * @return $this
      */
     public function setItemLimit($type, $limit)
     {

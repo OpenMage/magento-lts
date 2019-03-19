@@ -64,7 +64,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Deprecated
      * Set solution as was enabled
      *
      * @param Varien_Data_Form_Element_Abstract $element
-     * @return Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Deprecated
+     * @return $this
      */
     protected function _setWasActive(Varien_Data_Form_Element_Abstract $element)
     {

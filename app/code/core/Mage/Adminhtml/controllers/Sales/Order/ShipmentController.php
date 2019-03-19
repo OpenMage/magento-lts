@@ -109,7 +109,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      * Save shipment and order in one transaction
      *
      * @param Mage_Sales_Model_Order_Shipment $shipment
-     * @return Mage_Adminhtml_Sales_Order_ShipmentController
+     * @return $this
      */
     protected function _saveShipment($shipment)
     {

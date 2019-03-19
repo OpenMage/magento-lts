@@ -37,7 +37,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
     /**
      * Preparing layout for output
      *
-     * @return Mage_Adminhtml_Permissions_RoleController
+     * @return $this
      */
     protected function _initAction()
     {

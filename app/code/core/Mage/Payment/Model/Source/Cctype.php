@@ -54,7 +54,7 @@ class Mage_Payment_Model_Source_Cctype
      * Setter for allowed types
      *
      * @param $values
-     * @return Mage_Payment_Model_Source_Cctype
+     * @return $this
      */
     public function setAllowedTypes(array $values)
     {

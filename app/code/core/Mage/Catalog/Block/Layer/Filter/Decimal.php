@@ -47,7 +47,7 @@ class Mage_Catalog_Block_Layer_Filter_Decimal extends Mage_Catalog_Block_Layer_F
     /**
      * Prepare filter process
      *
-     * @return Mage_Catalog_Block_Layer_Filter_Decimal
+     * @return $this
      */
     protected function _prepareFilter()
     {

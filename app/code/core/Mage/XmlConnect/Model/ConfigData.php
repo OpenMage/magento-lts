@@ -115,7 +115,7 @@ class Mage_XmlConnect_Model_ConfigData extends Mage_Core_Model_Abstract
      * @param int $applicationId
      * @param array $configData
      * @param bool $replace
-     * @return Mage_XmlConnect_Model_ConfigData
+     * @return $this
      */
     public function setConfigData($applicationId, array $configData, $replace = true)
     {
@@ -146,7 +146,7 @@ class Mage_XmlConnect_Model_ConfigData extends Mage_Core_Model_Abstract
     /**
      * Save predefined configuration data
      *
-     * @return Mage_XmlConnect_Model_ConfigData
+     * @return $this
      */
     public function initSaveConfig()
     {
@@ -166,7 +166,7 @@ class Mage_XmlConnect_Model_ConfigData extends Mage_Core_Model_Abstract
      * @param int $applicationId
      * @param array $configData
      * @param string $category
-     * @return Mage_XmlConnect_Model_ConfigData
+     * @return $this
      */
     public function saveConfig($applicationId, array $configData, $category = self::DEFAULT_CATEGORY)
     {
@@ -193,7 +193,7 @@ class Mage_XmlConnect_Model_ConfigData extends Mage_Core_Model_Abstract
      * Set delete on update array paths
      *
      * @param array $pathsToDelete
-     * @return Mage_XmlConnect_Model_ConfigData
+     * @return $this
      */
     public function setDeleteOnUpdate(array $pathsToDelete)
     {
@@ -205,7 +205,7 @@ class Mage_XmlConnect_Model_ConfigData extends Mage_Core_Model_Abstract
      * Delete group of records those have to be deleted with update process
      *
      * @param int $applicationId
-     * @return Mage_XmlConnect_Model_ConfigData
+     * @return $this
      */
     protected function _deleteOnUpdate($applicationId)
     {
@@ -222,7 +222,7 @@ class Mage_XmlConnect_Model_ConfigData extends Mage_Core_Model_Abstract
      * @param string $category
      * @param string $path
      * @param bool $pathLike
-     * @return Mage_XmlConnect_Model_ConfigData
+     * @return $this
      */
     public function deleteConfig($applicationId, $category = '', $path = '', $pathLike = false)
     {

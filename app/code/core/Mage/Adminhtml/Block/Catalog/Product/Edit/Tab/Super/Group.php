@@ -91,7 +91,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
     /**
      * Prepare collection
      *
-     * @return Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group
+     * @return $this
      */
     protected function _prepareCollection()
     {

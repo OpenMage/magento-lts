@@ -44,7 +44,7 @@ class Mage_XmlConnect_Model_Preview_Android extends Mage_XmlConnect_Model_Previe
      * Set device orientation
      *
      * @param string $orientation
-     * @return Mage_XmlConnect_Model_Preview_Android
+     * @return $this
      */
     public function setOrientation($orientation)
     {

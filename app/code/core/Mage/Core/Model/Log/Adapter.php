@@ -69,7 +69,7 @@ class Mage_Core_Model_Log_Adapter
      * Perform forced log data to file
      *
      * @param mixed $data
-     * @return Mage_Core_Model_Log_Adapter
+     * @return $this
      */
     public function log($data = null)
     {
@@ -92,7 +92,7 @@ class Mage_Core_Model_Log_Adapter
      *
      * @param string|array $key
      * @param mixed $value
-     * @return Mage_Core_Model_Log_Adapter
+     * @return $this
      * @todo replace whole data
      */
     public function setData($key, $value = null)
@@ -110,7 +110,7 @@ class Mage_Core_Model_Log_Adapter
      * Setter for private data keys, that should be replaced in debug data with '***'
      *
      * @param array $keys
-     * @return Mage_Core_Model_Log_Adapter
+     * @return $this
      */
     public function setFilterDataKeys($keys)
     {

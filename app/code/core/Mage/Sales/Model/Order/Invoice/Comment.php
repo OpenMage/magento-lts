@@ -100,7 +100,7 @@ class Mage_Sales_Model_Order_Invoice_Comment extends Mage_Sales_Model_Abstract
     /**
      * Before object save
      *
-     * @return Mage_Sales_Model_Order_Invoice_Comment
+     * @return $this
      */
     protected function _beforeSave()
     {

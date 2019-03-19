@@ -102,7 +102,7 @@ class Mage_Checkout_Model_Type_Onepage
      * Declare checkout quote instance
      *
      * @param Mage_Sales_Model_Quote $quote
-     * @return Mage_Checkout_Model_Type_Onepage
+     * @return $this
      */
     public function setQuote(Mage_Sales_Model_Quote $quote)
     {
@@ -123,7 +123,7 @@ class Mage_Checkout_Model_Type_Onepage
     /**
      * Initialize quote state to be valid for one page checkout
      *
-     * @return Mage_Checkout_Model_Type_Onepage
+     * @return $this
      */
     public function initCheckout()
     {
@@ -688,7 +688,7 @@ class Mage_Checkout_Model_Type_Onepage
     /**
      * Prepare quote for guest checkout order submit
      *
-     * @return Mage_Checkout_Model_Type_Onepage
+     * @return $this
      */
     protected function _prepareGuestQuote()
     {
@@ -703,7 +703,7 @@ class Mage_Checkout_Model_Type_Onepage
     /**
      * Prepare quote for customer registration and customer order submit
      *
-     * @return Mage_Checkout_Model_Type_Onepage
+     * @return $this
      */
     protected function _prepareNewCustomerQuote()
     {
@@ -740,7 +740,7 @@ class Mage_Checkout_Model_Type_Onepage
     /**
      * Prepare quote for customer order submit
      *
-     * @return Mage_Checkout_Model_Type_Onepage
+     * @return $this
      */
     protected function _prepareCustomerQuote()
     {
@@ -775,7 +775,7 @@ class Mage_Checkout_Model_Type_Onepage
     /**
      * Involve new customer to system
      *
-     * @return Mage_Checkout_Model_Type_Onepage
+     * @return $this
      */
     protected function _involveNewCustomer()
     {
@@ -796,7 +796,7 @@ class Mage_Checkout_Model_Type_Onepage
     /**
      * Create order based on checkout type. Create customer if necessary.
      *
-     * @return Mage_Checkout_Model_Type_Onepage
+     * @return $this
      */
     public function saveOrder()
     {
@@ -886,7 +886,7 @@ class Mage_Checkout_Model_Type_Onepage
      * Validate quote state to be able submitted from one page checkout page
      *
      * @deprecated after 1.4 - service model doing quote validation
-     * @return Mage_Checkout_Model_Type_Onepage
+     * @return $this
      */
     protected function validateOrder()
     {

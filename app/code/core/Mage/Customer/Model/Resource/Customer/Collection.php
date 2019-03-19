@@ -45,7 +45,7 @@ class Mage_Customer_Model_Resource_Customer_Collection extends Mage_Eav_Model_En
     /**
      * Group result by customer email
      *
-     * @return Mage_Customer_Model_Resource_Customer_Collection
+     * @return $this
      */
     public function groupByEmail()
     {
@@ -63,7 +63,7 @@ class Mage_Customer_Model_Resource_Customer_Collection extends Mage_Eav_Model_En
     /**
      * Add Name to select
      *
-     * @return Mage_Customer_Model_Resource_Customer_Collection
+     * @return $this
      */
     public function addNameToSelect()
     {

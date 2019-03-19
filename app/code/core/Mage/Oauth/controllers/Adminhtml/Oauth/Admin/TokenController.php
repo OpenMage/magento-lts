@@ -38,7 +38,7 @@ class Mage_Oauth_Adminhtml_Oauth_Admin_TokenController extends Mage_Adminhtml_Co
     /**
      * Init titles
      *
-     * @return Mage_Oauth_Adminhtml_Oauth_Admin_TokenController
+     * @return $this
      */
     public function preDispatch()
     {

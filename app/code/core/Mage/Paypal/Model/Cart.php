@@ -234,7 +234,7 @@ class Mage_Paypal_Model_Cart
      * @param string $code
      * @param float $amount
      * @param string $lineItemDescription
-     * @return Mage_Paypal_Model_Cart
+     * @return $this
      */
     public function updateTotal($code, $amount, $lineItemDescription = null)
     {

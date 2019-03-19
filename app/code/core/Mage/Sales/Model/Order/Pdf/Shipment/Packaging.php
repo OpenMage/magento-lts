@@ -71,7 +71,7 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
      * Draw header block
      *
      * @param  Zend_Pdf_Page $page
-     * @return Mage_Sales_Model_Order_Pdf_Shipment_Packaging
+     * @return $this
      */
     protected function _drawHeaderBlock(Zend_Pdf_Page $page) {
         $page->setFillColor(new Zend_Pdf_Color_GrayScale(0.5));
@@ -89,7 +89,7 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
      * Draw packages block
      *
      * @param  Zend_Pdf_Page $page
-     * @return Mage_Sales_Model_Order_Pdf_Shipment_Packaging
+     * @return $this
      */
     protected function _drawPackageBlock(Zend_Pdf_Page $page)
     {

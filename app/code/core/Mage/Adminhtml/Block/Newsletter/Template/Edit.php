@@ -54,7 +54,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
     /**
      * Preparing block layout
      *
-     * @return Mage_Adminhtml_Block_Newsletter_Template_Edit
+     * @return $this
      */
     protected function _prepareLayout()
     {
@@ -224,7 +224,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
      * Set edit flag for block
      *
      * @param boolean $value
-     * @return Mage_Adminhtml_Block_Newsletter_Template_Edit
+     * @return $this
      */
     public function setEditMode($value = true)
     {

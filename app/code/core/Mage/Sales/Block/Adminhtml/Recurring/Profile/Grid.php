@@ -43,7 +43,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid extends Mage_Adminhtml_B
     /**
      * Prepare grid collection object
      *
-     * @return Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid
+     * @return $this
      */
     protected function _prepareCollection()
     {
@@ -58,7 +58,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid extends Mage_Adminhtml_B
     /**
      * Prepare grid columns
      *
-     * @return Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid
+     * @return $this
      */
     protected function _prepareColumns()
     {

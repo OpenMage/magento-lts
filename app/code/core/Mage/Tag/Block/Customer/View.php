@@ -106,7 +106,7 @@ class Mage_Tag_Block_Customer_View extends Mage_Catalog_Block_Product_Abstract
     /**
      * Preparing block layout
      *
-     * @return Mage_Tag_Block_Customer_View
+     * @return $this
      */
     protected function _prepareLayout()
     {

@@ -164,7 +164,7 @@ class Mage_Index_Model_Indexer
      * Lock indexer actions
      * @deprecated after 1.6.1.0
      *
-     * @return Mage_Index_Model_Indexer
+     * @return $this
      */
     public function lockIndexer()
     {
@@ -176,7 +176,7 @@ class Mage_Index_Model_Indexer
      * Unlock indexer actions
      * @deprecated after 1.6.1.0
      *
-     * @return Mage_Index_Model_Indexer
+     * @return $this
      */
     public function unlockIndexer()
     {
@@ -251,7 +251,7 @@ class Mage_Index_Model_Indexer
      * Register event in each indexing process process
      *
      * @param Mage_Index_Model_Event $event
-     * @return Mage_Index_Model_Indexer
+     * @return $this
      */
     public function registerEvent(Mage_Index_Model_Event $event)
     {
@@ -343,7 +343,7 @@ class Mage_Index_Model_Indexer
      *
      * @param string $method
      * @param array $args
-     * @return Mage_Index_Model_Indexer
+     * @return $this
      */
     protected function _runAll($method, $args)
     {
@@ -385,7 +385,7 @@ class Mage_Index_Model_Indexer
      * Enable/Disable keys in index tables
      *
      * @param bool $enable
-     * @return Mage_Index_Model_Indexer
+     * @return $this
      */
     protected function _changeKeyStatus($enable = true)
     {
@@ -445,7 +445,7 @@ class Mage_Index_Model_Indexer
     /**
      * Allow DDL operations while indexing
      *
-     * @return Mage_Index_Model_Indexer
+     * @return $this
      */
     public function allowTableChanges()
     {
@@ -456,7 +456,7 @@ class Mage_Index_Model_Indexer
     /**
      * Disallow DDL operations while indexing
      *
-     * @return Mage_Index_Model_Indexer
+     * @return $this
      */
     public function disallowTableChanges()
     {

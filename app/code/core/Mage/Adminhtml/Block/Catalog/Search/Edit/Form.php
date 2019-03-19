@@ -48,7 +48,7 @@ class Mage_Adminhtml_Block_Catalog_Search_Edit_Form extends Mage_Adminhtml_Block
     /**
      * Prepare form fields
      *
-     * @return Mage_Adminhtml_Block_Catalog_Search_Edit_Form
+     * @return $this
      */
     protected function _prepareForm()
     {

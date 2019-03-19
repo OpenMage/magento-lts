@@ -46,7 +46,7 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Title extends Mage_Core_Model_Res
      * Delete title by rate identifier
      *
      * @param int $rateId
-     * @return Mage_Tax_Model_Resource_Calculation_Rate_Title
+     * @return $this
      */
     public function deleteByRateId($rateId)
     {

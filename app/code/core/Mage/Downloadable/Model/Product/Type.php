@@ -149,7 +149,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      * Save Product downloadable information (links and samples)
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Downloadable_Model_Product_Type
+     * @return $this
      */
     public function save($product = null)
     {

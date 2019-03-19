@@ -38,7 +38,7 @@ class Mage_Sales_Model_Order_Status extends Mage_Core_Model_Abstract
      *
      * @param string  $state
      * @param boolean $isDefault make the status as default one for state
-     * @return Mage_Sales_Model_Order_Status
+     * @return $this
      */
     public function assignState($state, $isDefault=false)
     {
@@ -57,7 +57,7 @@ class Mage_Sales_Model_Order_Status extends Mage_Core_Model_Abstract
      * Unassigns order status from particular state
      *
      * @param string  $state
-     * @return Mage_Sales_Model_Order_Status
+     * @return $this
      */
     public function unassignState($state)
     {

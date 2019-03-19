@@ -89,7 +89,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Properties
      * Prepare block children and data.
      * Set widget type and widget parameters if available
      *
-     * @return Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Properties
+     * @return $this
      */
     protected function _preparelayout()
     {

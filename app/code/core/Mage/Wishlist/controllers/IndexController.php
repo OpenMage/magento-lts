@@ -73,7 +73,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     /**
      * Set skipping authentication in actions of this controller (wishlist)
      *
-     * @return Mage_Wishlist_IndexController
+     * @return $this
      */
     public function skipAuthentication()
     {

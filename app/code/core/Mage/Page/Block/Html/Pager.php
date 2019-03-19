@@ -120,7 +120,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
      * Setter for limit items per page
      *
      * @param int $limit
-     * @return Mage_Page_Block_Html_Pager
+     * @return $this
      */
     public function setLimit($limit)
     {
@@ -132,7 +132,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
      * Set collection for pagination
      *
      * @param  Varien_Data_Collection $collection
-     * @return Mage_Page_Block_Html_Pager
+     * @return $this
      */
     public function setCollection($collection)
     {
@@ -428,7 +428,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
      * Setter for $_frameLength
      *
      * @param int $frame
-     * @return Mage_Page_Block_Html_Pager
+     * @return $this
      */
     public function setFrameLength($frame)
     {
@@ -448,7 +448,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
      * Setter for $_jump
      *
      * @param int $jump
-     * @return Mage_Page_Block_Html_Pager
+     * @return $this
      */
     public function setJump($jump)
     {
@@ -504,7 +504,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     /**
      * Initialize frame data, such as frame start, frame start etc.
      *
-     * @return Mage_Page_Block_Html_Pager
+     * @return $this
      */
     protected function _initFrame()
     {
@@ -547,7 +547,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
      * Setter for flag _frameInitialized
      *
      * @param bool $flag
-     * @return Mage_Page_Block_Html_Pager
+     * @return $this
      */
     protected function _setFrameInitialized($flag)
     {
@@ -558,7 +558,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     /**
      * Check if frame data was initialized
      *
-     * @return Mage_Page_Block_Html_Pager
+     * @return $this
      */
     public function isFrameInitialized()
     {
@@ -589,7 +589,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
      * Set whether output of the pager is mandatory
      *
      * @param bool $isRequired
-     * @return Mage_Page_Block_Html_Pager
+     * @return $this
      */
     public function setIsOutputRequired($isRequired)
     {

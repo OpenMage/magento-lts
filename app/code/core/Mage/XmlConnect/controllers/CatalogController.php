@@ -369,7 +369,7 @@ class Mage_XmlConnect_CatalogController extends Mage_XmlConnect_Controller_Actio
     /**
      * Send product link to friend action
      *
-     * @return Mage_XmlConnect_CatalogController
+     * @return $this
      */
     public function sendEmailAction()
     {

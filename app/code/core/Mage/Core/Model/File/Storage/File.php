@@ -69,7 +69,7 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
     /**
      * Initialization
      *
-     * @return Mage_Core_Model_File_Storage_File
+     * @return $this
      */
     public function init()
     {
@@ -109,7 +109,7 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
     /**
      * Clear files and directories in storage
      *
-     * @return Mage_Core_Model_File_Storage_File
+     * @return $this
      */
     public function clear()
     {
@@ -193,7 +193,7 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
      *
      * @param  array $data
      * @param  string $callback
-     * @return Mage_Core_Model_File_Storage_File
+     * @return $this
      */
     public function import($data, $callback)
     {
@@ -217,7 +217,7 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
      * Import directories to storage
      *
      * @param  array $dirs
-     * @return Mage_Core_Model_File_Storage_File
+     * @return $this
      */
     public function importDirectories($dirs)
     {
@@ -228,7 +228,7 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
      * Import files list
      *
      * @param  array $files
-     * @return Mage_Core_Model_File_Storage_File
+     * @return $this
      */
     public function importFiles($files)
     {

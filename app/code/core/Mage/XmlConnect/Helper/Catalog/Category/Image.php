@@ -42,7 +42,7 @@ class Mage_XmlConnect_Helper_Catalog_Category_Image extends Mage_Catalog_Helper_
      * @param Mage_Catalog_Model_Product $product
      * @param string $attributeName
      * @param string $imageFile
-     * @return Mage_XmlConnect_Helper_Catalog_Category_Image
+     * @return $this
      */
     public function init(Mage_Catalog_Model_Product $product, $attributeName, $imageFile = null)
     {
@@ -55,7 +55,7 @@ class Mage_XmlConnect_Helper_Catalog_Category_Image extends Mage_Catalog_Helper_
      * @param Mage_Catalog_Model_Abstract $category
      * @param string $attributeName
      * @param string $imageFile
-     * @return Mage_XmlConnect_Helper_Catalog_Category_Image
+     * @return $this
      */
     public function initialize(Mage_Catalog_Model_Abstract $category, $attributeName, $imageFile = null)
     {

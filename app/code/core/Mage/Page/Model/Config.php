@@ -46,7 +46,7 @@ class Mage_Page_Model_Config
     /**
      * Initialize page layouts list
      *
-     * @return Mage_Page_Model_Config
+     * @return $this
      */
     protected function _initPageLayouts()
     {
@@ -62,7 +62,7 @@ class Mage_Page_Model_Config
      * Fill in $_pageLayouts by reading layouts from config
      *
      * @param string $xmlPath XML path to layouts root
-     * @return Mage_Page_Model_Config
+     * @return $this
      */
     protected function _appendPageLayouts($xmlPath)
     {

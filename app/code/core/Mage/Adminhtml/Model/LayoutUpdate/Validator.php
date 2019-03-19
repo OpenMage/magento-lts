@@ -91,7 +91,7 @@ class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Zend_Validate_Abstract
     /**
      * Initialize messages templates with translating
      *
-     * @return Mage_Adminhtml_Model_LayoutUpdate_Validator
+     * @return $this
      */
     protected function _initMessageTemplates()
     {

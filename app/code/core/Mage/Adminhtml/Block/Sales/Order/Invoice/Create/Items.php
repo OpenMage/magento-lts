@@ -39,7 +39,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
     /**
      * Prepare child blocks
      *
-     * @return Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items
+     * @return $this
      */
     protected function _beforeToHtml()
     {

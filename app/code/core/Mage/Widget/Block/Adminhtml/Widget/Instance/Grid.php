@@ -48,7 +48,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Grid extends Mage_Adminhtml_Bl
     /**
      * Prepare grid collection object
      *
-     * @return Mage_Widget_Block_Adminhtml_Widget_Instance_Grid
+     * @return $this
      */
     protected function _prepareCollection()
     {
@@ -61,7 +61,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Grid extends Mage_Adminhtml_Bl
     /**
      * Prepare grid columns
      *
-     * @return Mage_Widget_Block_Adminhtml_Widget_Instance_Grid
+     * @return $this
      */
     protected function _prepareColumns()
     {

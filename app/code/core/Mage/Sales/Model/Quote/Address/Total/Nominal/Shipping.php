@@ -54,7 +54,7 @@ class Mage_Sales_Model_Quote_Address_Total_Nominal_Shipping extends Mage_Sales_M
      * Collect shipping amount individually for each item
      *
      * @param Mage_Sales_Model_Quote_Address $address
-     * @return Mage_Sales_Model_Quote_Address_Total_Nominal_Shipping
+     * @return $this
      */
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {

@@ -58,7 +58,7 @@ class Mage_Catalog_Model_Resource_Product_Website extends Mage_Core_Model_Resour
      *
      * @param array $websiteIds
      * @param array $productIds
-     * @return Mage_Catalog_Model_Resource_Product_Website
+     * @return $this
      * @throws Exception
      */
     public function removeProducts($websiteIds, $productIds)
@@ -93,7 +93,7 @@ class Mage_Catalog_Model_Resource_Product_Website extends Mage_Core_Model_Resour
      *
      * @param array $websiteIds
      * @param array $productIds
-     * @return Mage_Catalog_Model_Resource_Product_Website
+     * @return $this
      * @throws Exception
      */
     public function addProducts($websiteIds, $productIds)

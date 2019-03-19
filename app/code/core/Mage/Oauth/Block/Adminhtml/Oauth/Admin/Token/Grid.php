@@ -49,7 +49,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid extends Mage_Adminhtml_B
     /**
      * Prepare collection
      *
-     * @return Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid
+     * @return $this
      */
     protected function _prepareCollection()
     {
@@ -70,7 +70,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid extends Mage_Adminhtml_B
     /**
      * Prepare columns
      *
-     * @return Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid
+     * @return $this
      */
     protected function _prepareColumns()
     {
@@ -105,7 +105,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid extends Mage_Adminhtml_B
     /**
      * Add mass-actions to grid
      *
-     * @return Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid
+     * @return $this
      */
     protected function _prepareMassaction()
     {

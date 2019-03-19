@@ -37,7 +37,7 @@ class Mage_Reports_Model_Resource_Review_Customer_Collection extends Mage_Review
     /**
      * Join customers
      *
-     * @return Mage_Reports_Model_Resource_Review_Customer_Collection
+     * @return $this
      */
     public function joinCustomers()
     {

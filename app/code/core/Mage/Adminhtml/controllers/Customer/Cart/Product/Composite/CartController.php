@@ -57,7 +57,7 @@ class Mage_Adminhtml_Customer_Cart_Product_Composite_CartController extends Mage
     /**
      * Loads customer, quote and quote item by request params
      *
-     * @return Mage_Adminhtml_Customer_Cart_Product_Composite_CartController
+     * @return $this
      */
     protected function _initData()
     {
@@ -87,7 +87,7 @@ class Mage_Adminhtml_Customer_Cart_Product_Composite_CartController extends Mage
     /**
      * Ajax handler to response configuration fieldset of composite product in customer's cart
      *
-     * @return Mage_Adminhtml_Customer_Cart_Product_Composite_CartController
+     * @return $this
      */
     public function configureAction()
     {
@@ -124,7 +124,7 @@ class Mage_Adminhtml_Customer_Cart_Product_Composite_CartController extends Mage
     /**
      * IFrame handler for submitted configuration for quote item
      *
-     * @return Mage_Adminhtml_Customer_Cart_Product_Composite_CartController
+     * @return $this
      */
     public function updateAction()
     {

@@ -196,7 +196,7 @@ class Mage_XmlConnect_Model_Simplexml_Form extends Mage_XmlConnect_Model_Simplex
      *
      * @param Mage_XmlConnect_Model_Simplexml_Form_Element_Abstract $element
      * @param bool $after
-     * @return Mage_XmlConnect_Model_Simplexml_Form
+     * @return $this
      */
     public function addElement(Mage_XmlConnect_Model_Simplexml_Form_Element_Abstract $element, $after = false)
     {
@@ -221,7 +221,7 @@ class Mage_XmlConnect_Model_Simplexml_Form extends Mage_XmlConnect_Model_Simplex
      * Add form element to collection
      *
      * @param $element
-     * @return Mage_XmlConnect_Model_Simplexml_Form
+     * @return $this
      */
     public function addElementToCollection($element)
     {
@@ -248,7 +248,7 @@ class Mage_XmlConnect_Model_Simplexml_Form extends Mage_XmlConnect_Model_Simplex
     /**
      * Get form object
      *
-     * @return Mage_XmlConnect_Model_Simplexml_Form
+     * @return $this
      */
     public function getForm()
     {
@@ -273,7 +273,7 @@ class Mage_XmlConnect_Model_Simplexml_Form extends Mage_XmlConnect_Model_Simplex
      * Set values to the form elements
      *
      * @param array $values
-     * @return Mage_XmlConnect_Model_Simplexml_Form
+     * @return $this
      */
     public function setValues($values)
     {
@@ -291,7 +291,7 @@ class Mage_XmlConnect_Model_Simplexml_Form extends Mage_XmlConnect_Model_Simplex
      * Add values to the form elements
      *
      * @param array $values
-     * @return Mage_XmlConnect_Model_Simplexml_Form
+     * @return $this
      */
     public function addValues($values)
     {
@@ -312,7 +312,7 @@ class Mage_XmlConnect_Model_Simplexml_Form extends Mage_XmlConnect_Model_Simplex
      * Remove field from collection
      *
      * @param string $elementId
-     * @return Mage_XmlConnect_Model_Simplexml_Form
+     * @return $this
      */
     public function removeField($elementId)
     {
@@ -326,7 +326,7 @@ class Mage_XmlConnect_Model_Simplexml_Form extends Mage_XmlConnect_Model_Simplex
      * Set field id prefix
      *
      * @param string $prefix
-     * @return Mage_XmlConnect_Model_Simplexml_Form
+     * @return $this
      */
     public function setFieldContainerIdPrefix($prefix)
     {

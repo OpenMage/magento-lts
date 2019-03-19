@@ -39,7 +39,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Currency_Base extends Mage_Admi
     /**
      * Check base currency is available in installed currencies
      *
-     * @return Mage_Adminhtml_Model_System_Config_Backend_Currency_Base
+     * @return $this
      */
     protected function _afterSave()
     {

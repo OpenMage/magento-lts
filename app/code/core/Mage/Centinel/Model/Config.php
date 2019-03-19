@@ -54,7 +54,7 @@ class Mage_Centinel_Model_Config
      * Set store to congif model
      *
      * @param int|Mage_Core_Model_Store $store
-     * @return Mage_Centinel_Model_Config
+     * @return $this
      */
     public function setStore($store)
     {

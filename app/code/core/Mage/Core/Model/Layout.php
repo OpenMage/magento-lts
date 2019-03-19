@@ -146,7 +146,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     /**
      * Loyout xml generation
      *
-     * @return Mage_Core_Model_Layout
+     * @return $this
      */
     public function generateXml()
     {
@@ -222,7 +222,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      *
      * @param Varien_Simplexml_Element $node
      * @param Varien_Simplexml_Element $parent
-     * @return Mage_Core_Model_Layout
+     * @return $this
      */
     protected function _generateBlock($node, $parent)
     {
@@ -285,7 +285,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      *
      * @param Varien_Simplexml_Element $node
      * @param Varien_Simplexml_Element $parent
-     * @return Mage_Core_Model_Layout
+     * @return $this
      */
     protected function _generateAction($node, $parent)
     {

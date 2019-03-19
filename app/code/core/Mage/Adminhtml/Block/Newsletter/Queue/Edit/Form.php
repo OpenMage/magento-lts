@@ -40,7 +40,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit_Form extends Mage_Adminhtml_Blo
      * or from  newsletter queue grid by edit option.
      *
      * @param void
-     * @return Mage_Adminhtml_Block_Newsletter_Queue_Edit_Form
+     * @return $this
      */
     protected function _prepareForm()
     {

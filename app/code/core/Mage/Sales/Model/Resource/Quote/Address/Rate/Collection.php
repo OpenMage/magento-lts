@@ -54,7 +54,7 @@ class Mage_Sales_Model_Resource_Quote_Address_Rate_Collection extends Mage_Core_
      * Set filter by address id
      *
      * @param int $addressId
-     * @return Mage_Sales_Model_Resource_Quote_Address_Rate_Collection
+     * @return $this
      */
     public function setAddressFilter($addressId)
     {
@@ -71,7 +71,7 @@ class Mage_Sales_Model_Resource_Quote_Address_Rate_Collection extends Mage_Core_
      * Setter for loading fixed items only
      *
      * @param bool $value
-     * @return Mage_Sales_Model_Resource_Quote_Address_Rate_Collection
+     * @return $this
      */
     public function setFixedOnlyFilter($value)
     {
@@ -83,7 +83,7 @@ class Mage_Sales_Model_Resource_Quote_Address_Rate_Collection extends Mage_Core_
      * Don't add item to the collection if only fixed are allowed and its carrier is not fixed
      *
      * @param Mage_Sales_Model_Quote_Address_Rate $rate
-     * @return Mage_Sales_Model_Resource_Quote_Address_Rate_Collection
+     * @return $this
      */
     public function addItem(Varien_Object $rate)
     {

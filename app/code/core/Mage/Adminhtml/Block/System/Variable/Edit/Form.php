@@ -46,7 +46,7 @@ class Mage_Adminhtml_Block_System_Variable_Edit_Form extends Mage_Adminhtml_Bloc
     /**
      * Prepare form before rendering HTML
      *
-     * @return Mage_Adminhtml_Block_System_Variable_Edit_Form
+     * @return $this
      */
     protected function _prepareForm()
     {

@@ -37,7 +37,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Usecustom extends Mage_Co
     /**
      * Validate custom url
      *
-     * @return Mage_Adminhtml_Model_System_Config_Backend_Admin_Usecustom
+     * @return $this
      */
     protected function _beforeSave()
     {
@@ -55,7 +55,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Usecustom extends Mage_Co
     /**
      * Delete custom admin url from configuration if "Use Custom Admin Url" option disabled
      *
-     * @return Mage_Adminhtml_Model_System_Config_Backend_Admin_Usecustom
+     * @return $this
      */
     protected function _afterSave()
     {

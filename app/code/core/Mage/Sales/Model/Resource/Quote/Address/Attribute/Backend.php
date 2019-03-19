@@ -38,7 +38,7 @@ class Mage_Sales_Model_Resource_Quote_Address_Attribute_Backend extends Mage_Eav
      * Collect totals
      *
      * @param Mage_Sales_Model_Quote_Address $address
-     * @return Mage_Sales_Model_Resource_Quote_Address_Attribute_Backend
+     * @return $this
      */
     public function collectTotals(Mage_Sales_Model_Quote_Address $address)
     {

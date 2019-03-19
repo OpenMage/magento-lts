@@ -157,7 +157,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
      * @throws Mage_Core_Exception
      *
      * @param Mage_Sales_Model_Order_Payment_Transaction $transaction
-     * @return Mage_Sales_Model_Resource_Order_Payment_Transaction
+     * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $transaction)
     {

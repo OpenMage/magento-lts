@@ -48,7 +48,7 @@ class Mage_SalesRule_Model_Resource_Report_Rule extends Mage_Reports_Model_Resou
      *
      * @param mixed $from
      * @param mixed $to
-     * @return Mage_SalesRule_Model_Resource_Report_Rule
+     * @return $this
      */
     public function aggregate($from = null, $to = null)
     {
@@ -95,7 +95,7 @@ class Mage_SalesRule_Model_Resource_Report_Rule extends Mage_Reports_Model_Resou
      *
      * @param mixed $from
      * @param mixed $to
-     * @return Mage_SalesRule_Model_Resource_Report_Rule
+     * @return $this
      */
     protected function _aggregateByOrderCreatedAt($from, $to)
     {

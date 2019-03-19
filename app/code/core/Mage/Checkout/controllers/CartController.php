@@ -69,7 +69,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
     /**
      * Set back redirect url to response
      *
-     * @return Mage_Checkout_CartController
+     * @return $this
      * @throws Mage_Exception
      */
     protected function _goBack()
@@ -122,7 +122,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
     /**
      * Predispatch: remove isMultiShipping option from quote
      *
-     * @return Mage_Checkout_CartController
+     * @return $this
      */
     public function preDispatch()
     {

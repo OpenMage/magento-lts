@@ -41,7 +41,7 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
     /**
      * Add Link elements to head
      *
-     * @return Mage_Rss_Block_List
+     * @return $this
      */
     protected function _prepareLayout()
     {

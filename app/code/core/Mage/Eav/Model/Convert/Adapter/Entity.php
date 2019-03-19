@@ -64,7 +64,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity
     /**
      * @param $attrFilter - $attrArray['attrDB']   = ['like','eq','fromTo','dateFromTo]
      * @param $attrToDb    - attribute name to DB field
-     * @return Mage_Eav_Model_Convert_Adapter_Entity
+     * @return $this
     */
     protected function _parseVars()
     {

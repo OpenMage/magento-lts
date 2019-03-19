@@ -84,7 +84,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     /**
      * Set message escape flag
      * @param bool $flag
-     * @return Mage_Core_Block_Messages
+     * @return $this
      */
     public function setEscapeMessageFlag($flag)
     {
@@ -108,7 +108,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
      * Add messages to display
      *
      * @param Mage_Core_Model_Message_Collection $messages
-     * @return Mage_Core_Block_Messages
+     * @return $this
      */
     public function addMessages(Mage_Core_Model_Message_Collection $messages)
     {

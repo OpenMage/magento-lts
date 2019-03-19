@@ -89,7 +89,7 @@ class Mage_XmlConnect_Block_Customer_Form extends Mage_Core_Block_Abstract
     /**
      * Set customers fields for edit form
      *
-     * @return Mage_XmlConnect_Block_Customer_Form
+     * @return $this
      */
     protected function _setCustomerFields()
     {
@@ -105,7 +105,7 @@ class Mage_XmlConnect_Block_Customer_Form extends Mage_Core_Block_Abstract
     /**
      * Set form data
      *
-     * @return Mage_XmlConnect_Block_Customer_Form
+     * @return $this
      */
     protected function _prepareFormData()
     {
@@ -128,7 +128,7 @@ class Mage_XmlConnect_Block_Customer_Form extends Mage_Core_Block_Abstract
      * Add customer fields - first name, last name and email
      *
      * @param Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $customerFieldset
-     * @return Mage_XmlConnect_Block_Customer_Form
+     * @return $this
      */
     protected function _addCustomerData(Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $customerFieldset)
     {
@@ -155,7 +155,7 @@ class Mage_XmlConnect_Block_Customer_Form extends Mage_Core_Block_Abstract
      * Add to form current password, password and password confirmation fields
      *
      * @param Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $formFieldset
-     * @return Mage_XmlConnect_Block_Customer_Form
+     * @return $this
      */
     protected function _addPasswordFields(Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $formFieldset)
     {

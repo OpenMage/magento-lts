@@ -45,7 +45,7 @@ class Mage_XmlConnect_Model_Resource_History_Collection extends Mage_Core_Model_
      * Filter collection by store
      *
      * @param int $storeId
-     * @return Mage_XmlConnect_Model_Resource_History_Collection
+     * @return $this
      */
     public function addStoreFilter($storeId)
     {
@@ -57,7 +57,7 @@ class Mage_XmlConnect_Model_Resource_History_Collection extends Mage_Core_Model_
      * Filter collection by application_id
      *
      * @param int $applicationId
-     * @return Mage_XmlConnect_Model_Resource_History_Collection
+     * @return $this
      */
     public function addApplicationFilter($applicationId)
     {

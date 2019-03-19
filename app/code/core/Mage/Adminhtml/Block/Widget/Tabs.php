@@ -153,7 +153,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
      * Tab has to be not hidden and can show
      *
      * @param string $tabId
-     * @return Mage_Adminhtml_Block_Widget_Tabs
+     * @return $this
      */
     public function setActiveTab($tabId)
     {
@@ -173,7 +173,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
      * Set Active Tab
      *
      * @param string $tabId
-     * @return Mage_Adminhtml_Block_Widget_Tabs
+     * @return $this
      */
     protected function _setActiveTab($tabId)
     {
@@ -369,7 +369,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
      * @param string $tab
      * @param string $key
      * @param mixed $value
-     * @return Mage_Adminhtml_Block_Widget_Tabs
+     * @return $this
      */
     public function setTabData($tab, $key, $value)
     {
@@ -387,7 +387,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
      * Removes tab with passed id from tabs block
      *
      * @param string $tabId
-     * @return Mage_Adminhtml_Block_Widget_Tabs
+     * @return $this
      */
     public function removeTab($tabId)
     {

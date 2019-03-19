@@ -51,7 +51,7 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController
     /**
      * Loads wishlist and wishlist item
      *
-     * @return Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController
+     * @return $this
      */
     protected function _initData()
     {
@@ -79,7 +79,7 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController
     /**
      * Ajax handler to response configuration fieldset of composite product in customer's wishlist
      *
-     * @return Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController
+     * @return $this
      */
     public function configureAction()
     {

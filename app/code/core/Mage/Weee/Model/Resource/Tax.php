@@ -68,7 +68,7 @@ class Mage_Weee_Model_Resource_Tax extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Update discount percents
      *
-     * @return Mage_Weee_Model_Resource_Tax
+     * @return $this
      */
     public function updateDiscountPercents()
     {
@@ -79,7 +79,7 @@ class Mage_Weee_Model_Resource_Tax extends Mage_Core_Model_Resource_Db_Abstract
      * Update products discount persent
      *
      * @param mixed $condition
-     * @return Mage_Weee_Model_Resource_Tax
+     * @return $this
      */
     public function updateProductsDiscountPercent($condition)
     {
@@ -90,7 +90,7 @@ class Mage_Weee_Model_Resource_Tax extends Mage_Core_Model_Resource_Db_Abstract
      * Update tax percents for WEEE based on products condition
      *
      * @param mixed $productCondition
-     * @return Mage_Weee_Model_Resource_Tax
+     * @return $this
      */
     protected function _updateDiscountPercents($productCondition = null)
     {

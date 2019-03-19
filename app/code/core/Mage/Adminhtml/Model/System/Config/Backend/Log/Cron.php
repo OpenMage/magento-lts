@@ -40,7 +40,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Log_Cron extends Mage_Core_Mode
     /**
      * Cron settings after save
      *
-     * @return Mage_Adminhtml_Model_System_Config_Backend_Log_Cron
+     * @return $this
      */
     protected function _afterSave()
     {

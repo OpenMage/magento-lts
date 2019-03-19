@@ -51,7 +51,7 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
     /**
      * Load all tracks and save it to local cache by shipments
      *
-     * @return Mage_Sales_Block_Order_Print_Shipment
+     * @return $this
      */
     protected function _beforeToHtml()
     {

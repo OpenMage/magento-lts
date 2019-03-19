@@ -201,7 +201,7 @@ class Mage_Core_Model_Url extends Varien_Object
      * Set use_url_cache flag
      *
      * @param boolean $flag
-     * @return Mage_Core_Model_Url
+     * @return $this
      */
     public function setUseUrlCache($flag)
     {
@@ -213,7 +213,7 @@ class Mage_Core_Model_Url extends Varien_Object
      * Set use session rule
      *
      * @param bool $useSession
-     * @return Mage_Core_Model_Url
+     * @return $this
      */
     public function setUseSession($useSession)
     {
@@ -225,7 +225,7 @@ class Mage_Core_Model_Url extends Varien_Object
      * Set route front name
      *
      * @param string $name
-     * @return Mage_Core_Model_Url
+     * @return $this
      */
     public function setRouteFrontName($name)
     {
@@ -283,7 +283,7 @@ class Mage_Core_Model_Url extends Varien_Object
      * Set request
      *
      * @param Zend_Controller_Request_Http $request
-     * @return Mage_Core_Model_Url
+     * @return $this
      */
     public function setRequest(Zend_Controller_Request_Http $request)
     {
@@ -352,7 +352,7 @@ class Mage_Core_Model_Url extends Varien_Object
      * Set store entity
      *
      * @param mixed $data
-     * @return Mage_Core_Model_Url
+     * @return $this
      */
     public function setStore($data)
     {
@@ -406,7 +406,7 @@ class Mage_Core_Model_Url extends Varien_Object
      * Set Route Parameters
      *
      * @param array $data
-     * @return Mage_Core_Model_Url
+     * @return $this
      */
     public function setRoutePath($data)
     {
@@ -519,7 +519,7 @@ class Mage_Core_Model_Url extends Varien_Object
      * Set route name
      *
      * @param string $data
-     * @return Mage_Core_Model_Url
+     * @return $this
      */
     public function setRouteName($data)
     {
@@ -568,7 +568,7 @@ class Mage_Core_Model_Url extends Varien_Object
      * Reset action name and route path if has change
      *
      * @param string $data
-     * @return Mage_Core_Model_Url
+     * @return $this
      */
     public function setControllerName($data)
     {
@@ -594,7 +594,7 @@ class Mage_Core_Model_Url extends Varien_Object
      * Reseted route path if action name has change
      *
      * @param string $data
-     * @return Mage_Core_Model_Url
+     * @return $this
      */
     public function setActionName($data)
     {
@@ -620,7 +620,7 @@ class Mage_Core_Model_Url extends Varien_Object
      *
      * @param array $data
      * @param boolean $unsetOldParams
-     * @return Mage_Core_Model_Url
+     * @return $this
      */
     public function setRouteParams(array $data, $unsetOldParams = true)
     {
@@ -710,7 +710,7 @@ class Mage_Core_Model_Url extends Varien_Object
      *
      * @param string $key
      * @param mixed $data
-     * @return Mage_Core_Model_Url
+     * @return $this
      */
     public function setRouteParam($key, $data)
     {
@@ -767,7 +767,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * If the host was switched but session cookie won't recognize it - add session id to query
      *
-     * @return Mage_Core_Model_Url
+     * @return $this
      */
     public function checkCookieDomains()
     {
@@ -791,7 +791,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Add session param
      *
-     * @return Mage_Core_Model_Url
+     * @return $this
      */
     public function addSessionParam()
     {
@@ -812,7 +812,7 @@ class Mage_Core_Model_Url extends Varien_Object
      * Set URL query param(s)
      *
      * @param mixed $data
-     * @return Mage_Core_Model_Url
+     * @return $this
      */
     public function setQuery($data)
     {
@@ -847,7 +847,7 @@ class Mage_Core_Model_Url extends Varien_Object
      * Set query Params as array
      *
      * @param array $data
-     * @return Mage_Core_Model_Url
+     * @return $this
      */
     public function setQueryParams(array $data)
     {
@@ -872,7 +872,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Purge Query params array
      *
-     * @return Mage_Core_Model_Url
+     * @return $this
      */
     public function purgeQueryParams()
     {
@@ -905,7 +905,7 @@ class Mage_Core_Model_Url extends Varien_Object
      *
      * @param string $key
      * @param mixed $data
-     * @return Mage_Core_Model_Url
+     * @return $this
      */
     public function setQueryParam($key, $data)
     {
@@ -936,7 +936,7 @@ class Mage_Core_Model_Url extends Varien_Object
      * Set fragment to URL
      *
      * @param string $data
-     * @return Mage_Core_Model_Url
+     * @return $this
      */
     public function setFragment($data)
     {
@@ -1041,7 +1041,7 @@ class Mage_Core_Model_Url extends Varien_Object
      *
      * @param string $url
      *
-     * @return Mage_Core_Model_Url
+     * @return $this
      */
     protected function _prepareSessionUrl($url)
     {
@@ -1054,7 +1054,7 @@ class Mage_Core_Model_Url extends Varien_Object
      * @param string $url
      * @param array $params
      *
-     * @return Mage_Core_Model_Url
+     * @return $this
      */
     protected function _prepareSessionUrlWithParams($url, array $params)
     {

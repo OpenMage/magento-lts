@@ -47,7 +47,7 @@ class Mage_ProductAlert_Model_Resource_Price extends Mage_ProductAlert_Model_Res
      * Before save process, check exists the same alert
      *
      * @param Mage_Core_Model_Abstract $object
-     * @return Mage_ProductAlert_Model_Resource_Price
+     * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {

@@ -46,7 +46,7 @@ class Mage_XmlConnect_Model_Resource_Template_Collection extends Mage_Core_Model
     /**
      * Initialize collection select
      *
-     * @return Mage_XmlConnect_Model_Resource_Template_Collection
+     * @return $this
      */
     protected function _initSelect()
     {
@@ -58,7 +58,7 @@ class Mage_XmlConnect_Model_Resource_Template_Collection extends Mage_Core_Model
     /**
      * Join Application Name to collection
      *
-     * @return Mage_XmlConnect_Model_Resource_Template_Collection
+     * @return $this
      */
     protected function _joinApplicationName()
     {

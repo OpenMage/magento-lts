@@ -63,7 +63,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
      * Set if load expired persistent session
      *
      * @param bool $loadExpired
-     * @return Mage_Persistent_Model_Session
+     * @return $this
      */
     public function setLoadExpired($loadExpired = true)
     {
@@ -96,7 +96,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
      * Serialize info for Resource Model to save
      * For new model check and set available cookie key
      *
-     * @return Mage_Persistent_Model_Session
+     * @return $this
      */
     protected function _beforeSave()
     {
@@ -125,7 +125,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
     /**
      * Set model data from info field
      *
-     * @return Mage_Persistent_Model_Session
+     * @return $this
      */
     protected function _afterLoad()
     {
@@ -143,7 +143,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
      * Get persistent session by cookie key
      *
      * @param string $key
-     * @return Mage_Persistent_Model_Session
+     * @return $this
      */
     public function loadByCookieKey($key = null)
     {
@@ -173,7 +173,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
      *
      * @param int $customerId
      * @param bool $clearCookie
-     * @return Mage_Persistent_Model_Session
+     * @return $this
      */
     public function deleteByCustomerId($customerId, $clearCookie = true)
     {
@@ -187,7 +187,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
     /**
      * Remove persistent cookie
      *
-     * @return Mage_Persistent_Model_Session
+     * @return $this
      */
     public function removePersistentCookie()
     {
@@ -199,7 +199,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
      * Delete expired persistent sessions for the website
      *
      * @param null|int $websiteId
-     * @return Mage_Persistent_Model_Session
+     * @return $this
      */
     public function deleteExpired($websiteId = null)
     {
@@ -236,7 +236,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
     /**
      * Set `updated_at` to be always changed
      *
-     * @return Mage_Persistent_Model_Session
+     * @return $this
      */
     public function save()
     {

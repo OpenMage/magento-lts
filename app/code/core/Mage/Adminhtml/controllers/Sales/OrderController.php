@@ -52,7 +52,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     /**
      * Init layout, menu and breadcrumb
      *
-     * @return Mage_Adminhtml_Sales_OrderController
+     * @return $this
      */
     protected function _initAction()
     {

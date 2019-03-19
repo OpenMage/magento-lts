@@ -37,7 +37,7 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Increment extends Mage_Eav_Model_E
      * Set new increment id
      *
      * @param Varien_Object $object
-     * @return Mage_Eav_Model_Entity_Attribute_Backend_Increment
+     * @return $this
      */
     public function beforeSave($object)
     {

@@ -113,7 +113,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     /**
      * Initialize visitor information from server data
      *
-     * @return Mage_Log_Model_Visitor
+     * @return $this
      */
     public function initServerData()
     {

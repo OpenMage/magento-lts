@@ -85,7 +85,7 @@ class Mage_Core_Model_Design_Config extends Varien_Simplexml_Config
      * Save cache
      *
      * @param array $tags
-     * @return Mage_Core_Model_Design_Config
+     * @return $this
      */
     public function saveCache($tags = null)
     {

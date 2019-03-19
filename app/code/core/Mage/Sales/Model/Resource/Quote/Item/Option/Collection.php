@@ -60,7 +60,7 @@ class Mage_Sales_Model_Resource_Quote_Item_Option_Collection extends Mage_Core_M
     /**
      * Fill array of options by item and product
      *
-     * @return Mage_Sales_Model_Resource_Quote_Item_Option_Collection
+     * @return $this
      */
     protected function _afterLoad()
     {
@@ -89,7 +89,7 @@ class Mage_Sales_Model_Resource_Quote_Item_Option_Collection extends Mage_Core_M
      * Apply quote item(s) filter to collection
      *
      * @param int | array $item
-     * @return Mage_Sales_Model_Resource_Quote_Item_Option_Collection
+     * @return $this
      */
     public function addItemFilter($item)
     {

@@ -76,7 +76,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
      *
      * Check customer authentication for some actions
      *
-     * @return Mage_Checkout_MultishippingController
+     * @return $this
      */
     public function preDispatch()
     {

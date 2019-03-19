@@ -60,7 +60,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphOrderData
      * Add order chart data to xml object
      *
      * @param Mage_XmlConnect_Model_Simplexml_Element $xmlObj
-     * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphOrderData
+     * @return $this
      */
     public function addOrderChartDataToXmlObj(Mage_XmlConnect_Model_Simplexml_Element $xmlObj)
     {

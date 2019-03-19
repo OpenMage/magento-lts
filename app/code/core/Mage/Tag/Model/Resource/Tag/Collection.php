@@ -73,7 +73,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
      *
      * @param bool $printQuery
      * @param bool $logQuery
-     * @return Mage_Tag_Model_Resource_Tag_Collection
+     * @return $this
      */
     public function load($printQuery = false, $logQuery = false)
     {
@@ -94,7 +94,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
      * @deprecated after 1.3.2.3
      *
      * @param string $table
-     * @return Mage_Tag_Model_Resource_Tag_Collection
+     * @return $this
      */
     public function setJoinFlag($table)
     {
@@ -123,7 +123,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
      * @deprecated after 1.3.2.3
      *
      * @param string $table
-     * @return Mage_Tag_Model_Resource_Tag_Collection
+     * @return $this
      */
     public function unsetJoinFlag($table = null)
     {
@@ -135,7 +135,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
      * Sett
      *
      * @param int $limit
-     * @return Mage_Tag_Model_Resource_Tag_Collection
+     * @return $this
      */
     public function limit($limit)
     {
@@ -147,7 +147,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
      * Replacing popularity by sum of popularity and base_popularity
      *
      * @param int $limit
-     * @return Mage_Tag_Model_Resource_Tag_Collection
+     * @return $this
      */
     public function addPopularity($limit = null)
     {
@@ -183,7 +183,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
      * Adds summary
      *
      * @param int $storeId
-     * @return Mage_Tag_Model_Resource_Tag_Collection
+     * @return $this
      */
     public function addSummary($storeId)
     {
@@ -212,7 +212,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     /**
      * Adds store visibility
      *
-     * @return Mage_Tag_Model_Resource_Tag_Collection
+     * @return $this
      */
     public function addStoresVisibility()
     {
@@ -223,7 +223,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     /**
      * Adds store visibility
      *
-     * @return Mage_Tag_Model_Resource_Tag_Collection
+     * @return $this
      */
     protected function _addStoresVisibility()
     {
@@ -261,7 +261,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
      *
      * @param string $field
      * @param array $condition
-     * @return Mage_Tag_Model_Resource_Tag_Collection
+     * @return $this
      */
     public function addFieldToFilter($field, $condition = null)
     {
@@ -301,7 +301,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
      *
      * @param array | int $storeId
      * @param bool $allFilter
-     * @return Mage_Tag_Model_Resource_Tag_Collection
+     * @return $this
      */
     public function addStoreFilter($storeId, $allFilter = true)
     {
@@ -338,7 +338,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     /**
      * Adds filtering by active
      *
-     * @return Mage_Tag_Model_Resource_Tag_Collection
+     * @return $this
      */
     public function setActiveFilter()
     {
@@ -354,7 +354,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
      * Adds filter by status
      *
      * @param int $status
-     * @return Mage_Tag_Model_Resource_Tag_Collection
+     * @return $this
      */
     public function addStatusFilter($status)
     {
@@ -366,7 +366,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
      * Adds filter by product id
      *
      * @param int $productId
-     * @return Mage_Tag_Model_Resource_Tag_Collection
+     * @return $this
      */
     public function addProductFilter($productId)
     {
@@ -381,7 +381,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
      * Adds filter by customer id
      *
      * @param int $customerId
-     * @return Mage_Tag_Model_Resource_Tag_Collection
+     * @return $this
      */
     public function addCustomerFilter($customerId)
     {
@@ -397,7 +397,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     /**
      * Adds grouping by tag id
      *
-     * @return Mage_Tag_Model_Resource_Tag_Collection
+     * @return $this
      */
     public function addTagGroup()
     {
@@ -409,7 +409,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     /**
      * Joins tag/relation table
      *
-     * @return Mage_Tag_Model_Resource_Tag_Collection
+     * @return $this
      */
     public function joinRel()
     {

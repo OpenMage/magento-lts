@@ -32,7 +32,7 @@ class Mage_Catalog_Model_System_Config_Backend_Catalog_Category_Flat extends Mag
     /**
      * After enable flat category required reindex
      *
-     * @return Mage_Catalog_Model_System_Config_Backend_Catalog_Category_Flat
+     * @return $this
      */
     protected function _afterSave()
     {

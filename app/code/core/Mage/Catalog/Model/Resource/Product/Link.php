@@ -56,7 +56,7 @@ class Mage_Catalog_Model_Resource_Product_Link extends Mage_Core_Model_Resource_
      * @param Mage_Catalog_Model_Product $product
      * @param array $data
      * @param int $typeId
-     * @return Mage_Catalog_Model_Resource_Product_Link
+     * @return $this
      */
     public function saveProductLinks($product, $data, $typeId)
     {
@@ -246,7 +246,7 @@ class Mage_Catalog_Model_Resource_Product_Link extends Mage_Core_Model_Resource_
      * @param Mage_Catalog_Model_Product $product
      * @param array $data
      * @param int $typeId
-     * @return Mage_Catalog_Model_Resource_Product_Link
+     * @return $this
      */
     public function saveGroupedLinks($product, $data, $typeId)
     {

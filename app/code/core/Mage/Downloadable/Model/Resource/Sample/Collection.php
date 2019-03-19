@@ -46,7 +46,7 @@ class Mage_Downloadable_Model_Resource_Sample_Collection extends Mage_Core_Model
      * Method for product filter
      *
      * @param Mage_Catalog_Model_Product|array|integer|null $product
-     * @return Mage_Downloadable_Model_Resource_Sample_Collection
+     * @return $this
      */
     public function addProductToFilter($product)
     {
@@ -65,7 +65,7 @@ class Mage_Downloadable_Model_Resource_Sample_Collection extends Mage_Core_Model
      * Add title column to select
      *
      * @param integer $storeId
-     * @return Mage_Downloadable_Model_Resource_Sample_Collection
+     * @return $this
      */
     public function addTitleToResult($storeId = 0)
     {

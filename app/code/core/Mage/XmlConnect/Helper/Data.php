@@ -919,7 +919,7 @@ EOT;
      * @param string $label
      * @param float $value
      * @param string $formattedValue
-     * @return Mage_XmlConnect_Helper_Data
+     * @return $this
      */
     public function addTotalItemToXmlObj($xmlObj, $code, $label, $value, $formattedValue)
     {

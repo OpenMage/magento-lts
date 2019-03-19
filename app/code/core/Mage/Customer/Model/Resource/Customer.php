@@ -66,7 +66,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      *
      * @param Mage_Customer_Model_Customer $customer
      * @throws Mage_Customer_Exception
-     * @return Mage_Customer_Model_Resource_Customer
+     * @return $this
      */
     protected function _beforeSave(Varien_Object $customer)
     {
@@ -129,7 +129,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      * Save/delete customer address
      *
      * @param Mage_Customer_Model_Customer $customer
-     * @return Mage_Customer_Model_Resource_Customer
+     * @return $this
      */
     protected function _saveAddresses(Mage_Customer_Model_Customer $customer)
     {
@@ -196,7 +196,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      * @param Mage_Customer_Model_Customer $customer
      * @param string $email
      * @param bool $testOnly
-     * @return Mage_Customer_Model_Resource_Customer
+     * @return $this
      */
     public function loadByEmail(Mage_Customer_Model_Customer $customer, $email, $testOnly = false)
     {
@@ -231,7 +231,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      *
      * @param Mage_Customer_Model_Customer $customer
      * @param string $newPassword
-     * @return Mage_Customer_Model_Resource_Customer
+     * @return $this
      */
     public function changePassword(Mage_Customer_Model_Customer $customer, $newPassword)
     {
@@ -304,7 +304,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      * Custom setter of increment ID if its needed
      *
      * @param Varien_Object $object
-     * @return Mage_Customer_Model_Resource_Customer
+     * @return $this
      */
     public function setNewIncrementId(Varien_Object $object)
     {
@@ -321,7 +321,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      *
      * @param Mage_Customer_Model_Customer $newResetPasswordLinkToken
      * @param string $newResetPasswordLinkToken
-     * @return Mage_Customer_Model_Resource_Customer
+     * @return $this
      */
     public function changeResetPasswordLinkToken(Mage_Customer_Model_Customer $customer, $newResetPasswordLinkToken) {
         if (is_string($newResetPasswordLinkToken) && !empty($newResetPasswordLinkToken)) {
@@ -341,7 +341,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      *
      * @param Mage_Customer_Model_Customer $customer
      * @param string $newResetPasswordLinkCustomerId
-     * @return Mage_Customer_Model_Resource_Customer
+     * @return $this
      * @throws Exception
      */
     public function changeResetPasswordLinkCustomerId(

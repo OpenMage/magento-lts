@@ -119,7 +119,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action
      * @param array $action
      * @param string $actionCaption
      * @param Varien_Object $row
-     * @return Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action
+     * @return $this
      */
     protected function _transformActionData(&$action, &$actionCaption, Varien_Object $row)
     {

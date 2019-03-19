@@ -36,7 +36,7 @@ class Mage_Uploader_Block_Multiple extends Mage_Uploader_Block_Abstract
     /**
      * Prepare layout, create upload button
      *
-     * @return Mage_Uploader_Block_Multiple
+     * @return $this
      */
     protected function _prepareLayout()
     {

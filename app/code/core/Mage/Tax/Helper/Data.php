@@ -867,7 +867,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      * @param Varien_Db_Select $select
      * @param int $storeId
      * @param string $priceTable
-     * @return Mage_Tax_Helper_Data
+     * @return $this
      */
     public function joinTaxClass($select, $storeId, $priceTable = 'main_table')
     {

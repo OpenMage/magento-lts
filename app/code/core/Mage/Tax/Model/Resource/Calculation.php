@@ -61,7 +61,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
      * Delete calculation settings by rule id
      *
      * @param int $ruleId
-     * @return Mage_Tax_Model_Resource_Calculation
+     * @return $this
      */
     public function deleteByRuleId($ruleId)
     {

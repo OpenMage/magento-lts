@@ -82,7 +82,7 @@ class Mage_Sales_Model_Resource_Order_Status_Collection extends Mage_Core_Model_
      * add state code filter to collection
      *
      * @param string $state
-     * @return Mage_Sales_Model_Resource_Order_Status_Collection
+     * @return $this
      */
     public function addStateFilter($state)
     {
@@ -95,7 +95,7 @@ class Mage_Sales_Model_Resource_Order_Status_Collection extends Mage_Core_Model_
      * add status code filter to collection
      *
      * @param string $status
-     * @return Mage_Sales_Model_Resource_Order_Status_Collection
+     * @return $this
      */
     public function addStatusFilter($status)
     {

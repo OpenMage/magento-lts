@@ -45,7 +45,7 @@ class Mage_Sales_Model_Observer
      * Clean expired quotes (cron process)
      *
      * @param Mage_Cron_Model_Schedule $schedule
-     * @return Mage_Sales_Model_Observer
+     * @return $this
      */
     public function cleanExpiredQuotes($schedule)
     {
@@ -85,7 +85,7 @@ class Mage_Sales_Model_Observer
      * Set expire quotes additional fields to filter
      *
      * @param array $fields
-     * @return Mage_Sales_Model_Observer
+     * @return $this
      */
     public function setExpireQuotesAdditionalFilterFields(array $fields)
     {
@@ -98,7 +98,7 @@ class Mage_Sales_Model_Observer
      *
      * @throws Exception
      * @param Varien_Event_Observer
-     * @return Mage_Sales_Model_Observer
+     * @return $this
      */
     public function substractQtyFromQuotes($observer)
     {
@@ -111,7 +111,7 @@ class Mage_Sales_Model_Observer
      * When applying a catalog price rule, make related quotes recollect on demand
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Sales_Model_Observer
+     * @return $this
      */
     public function markQuotesRecollectOnCatalogRules($observer)
     {
@@ -140,7 +140,7 @@ class Mage_Sales_Model_Observer
      * Catalog Product After Save (change status process)
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Sales_Model_Observer
+     * @return $this
      */
     public function catalogProductSaveAfter(Varien_Event_Observer $observer)
     {
@@ -158,7 +158,7 @@ class Mage_Sales_Model_Observer
      * Catalog Mass Status update process
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Sales_Model_Observer
+     * @return $this
      */
     public function catalogProductStatusUpdate(Varien_Event_Observer $observer)
     {
@@ -176,7 +176,7 @@ class Mage_Sales_Model_Observer
      * Refresh sales order report statistics for last day
      *
      * @param Mage_Cron_Model_Schedule $schedule
-     * @return Mage_Sales_Model_Observer
+     * @return $this
      */
     public function aggregateSalesReportOrderData($schedule)
     {
@@ -192,7 +192,7 @@ class Mage_Sales_Model_Observer
      * Refresh sales shipment report statistics for last day
      *
      * @param Mage_Cron_Model_Schedule $schedule
-     * @return Mage_Sales_Model_Observer
+     * @return $this
      */
     public function aggregateSalesReportShipmentData($schedule)
     {
@@ -208,7 +208,7 @@ class Mage_Sales_Model_Observer
      * Refresh sales invoiced report statistics for last day
      *
      * @param Mage_Cron_Model_Schedule $schedule
-     * @return Mage_Sales_Model_Observer
+     * @return $this
      */
     public function aggregateSalesReportInvoicedData($schedule)
     {
@@ -224,7 +224,7 @@ class Mage_Sales_Model_Observer
      * Refresh sales refunded report statistics for last day
      *
      * @param Mage_Cron_Model_Schedule $schedule
-     * @return Mage_Sales_Model_Observer
+     * @return $this
      */
     public function aggregateSalesReportRefundedData($schedule)
     {
@@ -240,7 +240,7 @@ class Mage_Sales_Model_Observer
      * Refresh bestsellers report statistics for last day
      *
      * @param Mage_Cron_Model_Schedule $schedule
-     * @return Mage_Sales_Model_Observer
+     * @return $this
      */
     public function aggregateSalesReportBestsellersData($schedule)
     {
@@ -295,7 +295,7 @@ class Mage_Sales_Model_Observer
      * Set new customer group to all his quotes
      *
      * @param  Varien_Event_Observer $observer
-     * @return Mage_Sales_Model_Observer
+     * @return $this
      */
     public function customerSaveAfter(Varien_Event_Observer $observer)
     {

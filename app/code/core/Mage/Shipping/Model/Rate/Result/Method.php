@@ -40,7 +40,7 @@ class Mage_Shipping_Model_Rate_Result_Method extends Mage_Shipping_Model_Rate_Re
      * Round shipping carrier's method price
      *
      * @param string|float|int $price
-     * @return Mage_Shipping_Model_Rate_Result_Method
+     * @return $this
      */
     public function setPrice($price)
     {

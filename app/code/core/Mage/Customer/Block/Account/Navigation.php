@@ -54,7 +54,7 @@ class Mage_Customer_Block_Account_Navigation extends Mage_Core_Block_Template
      * Remove a link
      *
      * @param $name Name of the link
-     * @return Mage_Customer_Block_Account_Navigation
+     * @return $this
      */
     public function removeLink($name)
     {

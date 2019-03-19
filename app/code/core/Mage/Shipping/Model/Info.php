@@ -38,7 +38,7 @@ class Mage_Shipping_Model_Info extends Varien_Object
      * Generating tracking info
      *
      * @param array $hash
-     * @return Mage_Shipping_Model_Info
+     * @return $this
      */
     public function loadByHash($hash)
     {

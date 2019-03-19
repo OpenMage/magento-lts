@@ -48,7 +48,7 @@ class Mage_Sales_Model_Resource_Report_Order_Updatedat extends Mage_Sales_Model_
      *
      * @param mixed $from
      * @param mixed $to
-     * @return Mage_Sales_Model_Resource_Report_Order_Updatedat
+     * @return $this
      */
     public function aggregate($from = null, $to = null)
     {

@@ -52,7 +52,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
      * Set link select
      *
      * @param Zend_Db_Select $select
-     * @return Mage_CatalogIndex_Model_Resource_Data_Abstract
+     * @return $this
      */
     protected function _setLinkSelect($select)
     {
@@ -247,7 +247,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
      * @param string $field entity_id field name
      * @param int $store
      * @param int|string|array $value the filter value
-     * @return Mage_CatalogIndex_Model_Resource_Data_Abstract
+     * @return $this
      */
     protected function _addAttributeFilter(Varien_Db_Select $select, $attributeCode, $table, $field, $store, $value)
     {

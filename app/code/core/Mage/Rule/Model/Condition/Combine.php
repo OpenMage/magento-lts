@@ -339,7 +339,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
      * Set conditions, if current prefix is undefined use 'conditions' key
      *
      * @param array $conditions
-     * @return Mage_Rule_Model_Condition_Combine
+     * @return $this
      */
     public function setConditions($conditions)
     {

@@ -115,7 +115,7 @@ class Mage_Core_Model_Design_Package
      * Set store
      *
      * @param  string|integer|Mage_Core_Model_Store $store
-     * @return Mage_Core_Model_Design_Package
+     * @return $this
      */
     public function setStore($store)
     {
@@ -143,7 +143,7 @@ class Mage_Core_Model_Design_Package
      * Set package area
      *
      * @param  string $area
-     * @return Mage_Core_Model_Design_Package
+     * @return $this
      */
     public function setArea($area)
     {
@@ -169,7 +169,7 @@ class Mage_Core_Model_Design_Package
      * In case of any problem, the default will be set.
      *
      * @param  string $name
-     * @return Mage_Core_Model_Design_Package
+     * @return $this
      */
     public function setPackageName($name = '')
     {
@@ -244,7 +244,7 @@ class Mage_Core_Model_Design_Package
      * 1) if 1 parameter specified, sets everything to this value
      * 2) if 2 parameters, treats 1st as key and 2nd as value
      *
-     * @return Mage_Core_Model_Design_Package
+     * @return $this
      */
     public function setTheme()
     {

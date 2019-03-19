@@ -54,7 +54,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      * Process page data before deleting
      *
      * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Cms_Model_Resource_Page
+     * @return $this
      */
     protected function _beforeDelete(Mage_Core_Model_Abstract $object)
     {
@@ -71,7 +71,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      * Process page data before saving
      *
      * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Cms_Model_Resource_Page
+     * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
@@ -112,7 +112,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      * Assign page to store views
      *
      * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Cms_Model_Resource_Page
+     * @return $this
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -159,7 +159,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      * @param Mage_Core_Model_Abstract $object
      * @param mixed $value
      * @param string $field
-     * @return Mage_Cms_Model_Resource_Page
+     * @return $this
      */
     public function load(Mage_Core_Model_Abstract $object, $value, $field = null)
     {
@@ -174,7 +174,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      * Perform operations after object load
      *
      * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Cms_Model_Resource_Page
+     * @return $this
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
@@ -399,7 +399,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      * Set store model
      *
      * @param Mage_Core_Model_Store $store
-     * @return Mage_Cms_Model_Resource_Page
+     * @return $this
      */
     public function setStore($store)
     {

@@ -65,7 +65,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
      *
      * @param Mage_Core_Model_Abstract $object
      *
-     * @return Mage_SalesRule_Model_Resource_Rule
+     * @return $this
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
@@ -81,7 +81,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
      *
      * @param Mage_Core_Model_Abstract $object
      *
-     * @return Mage_SalesRule_Model_Resource_Rule
+     * @return $this
      */
     public function _beforeSave(Mage_Core_Model_Abstract $object)
     {
@@ -100,7 +100,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
      *
      * @param Mage_Core_Model_Abstract $object
      *
-     * @return Mage_SalesRule_Model_Resource_Rule
+     * @return $this
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -163,7 +163,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
      * @param int $ruleId
      * @param array $labels
      *
-     * @return Mage_SalesRule_Model_Resource_Rule
+     * @return $this
      */
     public function saveStoreLabels($ruleId, $labels)
     {
@@ -259,7 +259,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
      *
      * @param Mage_SalesRule_Model_Rule $rule
      * @param mixed $attributes
-     * @return Mage_SalesRule_Model_Resource_Rule
+     * @return $this
      */
     public function setActualProductAttributes($rule, $attributes)
     {

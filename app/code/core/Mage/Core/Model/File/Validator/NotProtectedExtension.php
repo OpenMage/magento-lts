@@ -62,7 +62,7 @@ class Mage_Core_Model_File_Validator_NotProtectedExtension extends Zend_Validate
     /**
      * Initialize message templates with translating
      *
-     * @return Mage_Core_Model_File_Validator_NotProtectedExtension
+     * @return $this
      */
     protected function _initMessageTemplates()
     {
@@ -77,7 +77,7 @@ class Mage_Core_Model_File_Validator_NotProtectedExtension extends Zend_Validate
     /**
      * Initialize protected file extensions
      *
-     * @return Mage_Core_Model_File_Validator_NotProtectedExtension
+     * @return $this
      */
     protected function _initProtectedFileExtensions()
     {

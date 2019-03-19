@@ -120,7 +120,7 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
      *
      * @param string|array $key
      * @param mixed $value
-     * @return Mage_Payment_Model_Info
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function setAdditionalInformation($key, $value = null)
@@ -156,7 +156,7 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
      * Unsetter for entire additional_information value or one of its element by key
      *
      * @param string $key
-     * @return Mage_Payment_Model_Info
+     * @return $this
      */
     public function unsAdditionalInformation($key = null)
     {

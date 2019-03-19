@@ -66,7 +66,7 @@ class Mage_Log_Model_Log extends Mage_Core_Model_Abstract
     /**
      * Clean Logs
      *
-     * @return Mage_Log_Model_Log
+     * @return $this
      */
     public function clean()
     {

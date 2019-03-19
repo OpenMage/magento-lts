@@ -378,7 +378,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      *
      * @param  Mage_Catalog_Model_Product $product
      * @param  Varien_Object $buyRequest
-     * @return Mage_Catalog_Helper_Product
+     * @return $this
      */
     public function prepareProductOptions($product, $buyRequest)
     {
@@ -480,7 +480,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      * For instance, during order creation in the backend admin has ability to add any products to order
      *
      * @param bool $skipSaleableCheck
-     * @return Mage_Catalog_Helper_Product
+     * @return $this
      */
     public function setSkipSaleableCheck($skipSaleableCheck = false)
     {

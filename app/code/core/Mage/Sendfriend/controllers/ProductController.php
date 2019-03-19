@@ -37,7 +37,7 @@ class Mage_Sendfriend_ProductController extends Mage_Core_Controller_Front_Actio
      * Predispatch: check is enable module
      * If allow only for customer - redirect to login page
      *
-     * @return Mage_Sendfriend_ProductController
+     * @return $this
      */
     public function preDispatch()
     {

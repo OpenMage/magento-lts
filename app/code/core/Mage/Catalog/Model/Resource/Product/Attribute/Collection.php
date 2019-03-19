@@ -47,7 +47,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection
     /**
      * initialize select object
      *
-     * @return Mage_Catalog_Model_Resource_Product_Attribute_Collection
+     * @return $this
      */
     protected function _initSelect()
     {
@@ -76,7 +76,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection
      * Entity type is defined.
      *
      * @param  int $typeId
-     * @return Mage_Catalog_Model_Resource_Product_Attribute_Collection
+     * @return $this
      */
     public function setEntityTypeFilter($typeId)
     {
@@ -105,7 +105,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection
     /**
      * Remove price from attribute list
      *
-     * @return Mage_Catalog_Model_Resource_Product_Attribute_Collection
+     * @return $this
      */
     public function removePriceFilter()
     {
@@ -115,7 +115,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection
     /**
      * Specify "is_visible_in_advanced_search" filter
      *
-     * @return Mage_Catalog_Model_Resource_Product_Attribute_Collection
+     * @return $this
      */
     public function addDisplayInAdvancedSearchFilter()
     {
@@ -125,7 +125,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection
     /**
      * Specify "is_filterable" filter
      *
-     * @return Mage_Catalog_Model_Resource_Product_Attribute_Collection
+     * @return $this
      */
     public function addIsFilterableFilter()
     {
@@ -135,7 +135,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection
     /**
      * Add filterable in search filter
      *
-     * @return Mage_Catalog_Model_Resource_Product_Attribute_Collection
+     * @return $this
      */
     public function addIsFilterableInSearchFilter()
     {
@@ -145,7 +145,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection
     /**
      * Specify filter by "is_visible" field
      *
-     * @return Mage_Catalog_Model_Resource_Product_Attribute_Collection
+     * @return $this
      */
     public function addVisibleFilter()
     {
@@ -155,7 +155,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection
     /**
      * Specify "is_searchable" filter
      *
-     * @return Mage_Catalog_Model_Resource_Product_Attribute_Collection
+     * @return $this
      */
     public function addIsSearchableFilter()
     {
@@ -166,7 +166,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection
      * Specify filter for attributes that have to be indexed
      *
      * @param bool $addRequiredCodes
-     * @return Mage_Catalog_Model_Resource_Product_Attribute_Collection
+     * @return $this
      */
     public function addToIndexFilter($addRequiredCodes = false)
     {

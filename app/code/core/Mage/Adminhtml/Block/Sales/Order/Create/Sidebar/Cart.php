@@ -100,7 +100,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Cart
      *
      * Add button that clears customer's shopping cart
      *
-     * @return Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Cart
+     * @return $this
      */
     protected function _prepareLayout()
     {

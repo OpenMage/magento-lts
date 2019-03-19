@@ -121,7 +121,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
     /**
      * Init Front Controller
      *
-     * @return Mage_Core_Controller_Varien_Front
+     * @return $this
      */
     public function init()
     {
@@ -253,7 +253,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
     /**
      * Apply configuration rewrites to current url
      *
-     * @return Mage_Core_Controller_Varien_Front
+     * @return $this
      * @deprecated since 1.7.0.2. Refactored and moved to Mage_Core_Controller_Request_Rewrite
      */
     public function rewrite()

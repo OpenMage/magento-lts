@@ -52,7 +52,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
     /**
      * Predispatch: should set layout area
      *
-     * @return Mage_Checkout_OnepageController
+     * @return $this
      */
     public function preDispatch()
     {
@@ -80,7 +80,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
     /**
      * Send Ajax redirect response
      *
-     * @return Mage_Checkout_OnepageController
+     * @return $this
      */
     protected function _ajaxRedirectResponse()
     {

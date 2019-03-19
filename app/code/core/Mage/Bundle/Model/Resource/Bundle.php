@@ -114,7 +114,7 @@ class Mage_Bundle_Model_Resource_Bundle extends Mage_CatalogIndex_Model_Resource
      *
      * @param int $parentId
      * @param array $childIds
-     * @return Mage_Bundle_Model_Resource_Bundle
+     * @return $this
      */
     public function saveProductRelations($parentId, $childIds)
     {

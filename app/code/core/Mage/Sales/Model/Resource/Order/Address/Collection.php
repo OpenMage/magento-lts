@@ -60,7 +60,7 @@ class Mage_Sales_Model_Resource_Order_Address_Collection extends Mage_Sales_Mode
     /**
      * Redeclare after load method for dispatch event
      *
-     * @return Mage_Sales_Model_Resource_Order_Address_Collection
+     * @return $this
      */
     protected function _afterLoad()
     {

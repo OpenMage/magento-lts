@@ -66,7 +66,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selecti
     /**
      * Prepare block layout
      *
-     * @return Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selection
+     * @return $this
      */
     protected function _prepareLayout()
     {

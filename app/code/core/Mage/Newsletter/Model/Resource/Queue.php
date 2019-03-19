@@ -113,7 +113,7 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
      * Links queue to store
      *
      * @param Mage_Newsletter_Model_Queue $queue
-     * @return Mage_Newsletter_Model_Resource_Queue
+     * @return $this
      */
     public function setStores(Mage_Newsletter_Model_Queue $queue)
     {
@@ -181,7 +181,7 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
      * Saving template after saving queue action
      *
      * @param Mage_Core_Model_Abstract $queue
-     * @return Mage_Newsletter_Model_Resource_Queue
+     * @return $this
      */
     protected function _afterSave(Mage_Core_Model_Abstract $queue)
     {

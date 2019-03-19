@@ -78,7 +78,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
     /**
      * init select
      *
-     * @return Mage_Review_Model_Resource_Review_Product_Collection
+     * @return $this
      */
     protected function _initSelect()
     {
@@ -91,7 +91,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
      * Adds store filter into array
      *
      * @param mixed $storeId
-     * @return Mage_Review_Model_Resource_Review_Product_Collection
+     * @return $this
      */
     public function addStoreFilter($storeId = null)
     {
@@ -118,7 +118,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
      * Adds specific store id into array
      *
      * @param array $storeId
-     * @return Mage_Review_Model_Resource_Review_Product_Collection
+     * @return $this
      */
     public function setStoreFilter($storeId)
     {
@@ -143,7 +143,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
      * Applies all store filters in one place to prevent multiple joins in select
      *
      * @param null|Zend_Db_Select $select
-     * @return Mage_Review_Model_Resource_Review_Product_Collection
+     * @return $this
      */
     protected function _applyStoresFilterToSelect(Zend_Db_Select $select = null)
     {
@@ -177,7 +177,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
     /**
      * Add stores data
      *
-     * @return Mage_Review_Model_Resource_Review_Product_Collection
+     * @return $this
      */
     public function addStoreData()
     {
@@ -189,7 +189,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
      * Add customer filter
      *
      * @param int $customerId
-     * @return Mage_Review_Model_Resource_Review_Product_Collection
+     * @return $this
      */
     public function addCustomerFilter($customerId)
     {
@@ -202,7 +202,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
      * Add entity filter
      *
      * @param int $entityId
-     * @return Mage_Review_Model_Resource_Review_Product_Collection
+     * @return $this
      */
     public function addEntityFilter($entityId)
     {
@@ -215,7 +215,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
      * Add status filter
      *
      * @param mixed $status
-     * @return Mage_Review_Model_Resource_Review_Product_Collection
+     * @return $this
      */
     public function addStatusFilter($status)
     {
@@ -228,7 +228,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
      * Set date order
      *
      * @param string $dir
-     * @return Mage_Review_Model_Resource_Review_Product_Collection
+     * @return $this
      */
     public function setDateOrder($dir = 'DESC')
     {
@@ -239,7 +239,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
     /**
      * Add review summary
      *
-     * @return Mage_Review_Model_Resource_Review_Product_Collection
+     * @return $this
      */
     public function addReviewSummary()
     {
@@ -254,7 +254,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
     /**
      * Add rote votes
      *
-     * @return Mage_Review_Model_Resource_Review_Product_Collection
+     * @return $this
      */
     public function addRateVotes()
     {
@@ -272,7 +272,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
     /**
      * join fields to entity
      *
-     * @return Mage_Review_Model_Resource_Review_Product_Collection
+     * @return $this
      */
     protected function _joinFields()
     {
@@ -330,7 +330,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
      *
      * @param string $attribute
      * @param string $dir
-     * @return Mage_Review_Model_Resource_Review_Product_Collection
+     * @return $this
      */
     public function setOrder($attribute, $dir = 'DESC')
     {
@@ -361,7 +361,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
      * @param Mage_Eav_Model_Entity_Attribute_Abstract|string $attribute
      * @param array $condition
      * @param string $joinType
-     * @return Mage_Review_Model_Resource_Review_Product_Collection
+     * @return $this
      */
     public function addAttributeToFilter($attribute, $condition = null, $joinType = 'inner')
     {
@@ -422,7 +422,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
     /**
      * Action after load
      *
-     * @return Mage_Review_Model_Resource_Review_Product_Collection
+     * @return $this
      */
     protected function _afterLoad()
     {
@@ -472,7 +472,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
     /**
      * Redeclare parent method for store filters applying
      *
-     * @return Mage_Review_Model_Resource_Review_Product_Collection
+     * @return $this
      */
     protected function _beforeLoad()
     {

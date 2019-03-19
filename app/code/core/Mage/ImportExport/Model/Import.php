@@ -459,7 +459,7 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
     /**
      * Invalidate indexes by process codes.
      *
-     * @return Mage_ImportExport_Model_Import
+     * @return $this
      */
     public function invalidateIndex()
     {

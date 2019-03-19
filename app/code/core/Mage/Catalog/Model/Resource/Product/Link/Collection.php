@@ -67,7 +67,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Collection extends Mage_Core_Mode
      * Declare link model and initialize type attributes join
      *
      * @param Mage_Catalog_Model_Product_Link $linkModel
-     * @return Mage_Catalog_Model_Resource_Product_Link_Collection
+     * @return $this
      */
     public function setLinkModel(Mage_Catalog_Model_Product_Link $linkModel)
     {
@@ -92,7 +92,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Collection extends Mage_Core_Mode
      * Initialize collection parent product and add limitation join
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Catalog_Model_Resource_Product_Link_Collection
+     * @return $this
      */
     public function setProduct(Mage_Catalog_Model_Product $product)
     {
@@ -113,7 +113,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Collection extends Mage_Core_Mode
     /**
      * Add link's type to filter
      *
-     * @return Mage_Catalog_Model_Resource_Product_Link_Collection
+     * @return $this
      */
     public function addLinkTypeIdFilter()
     {
@@ -126,7 +126,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Collection extends Mage_Core_Mode
     /**
      * Add product to filter
      *
-     * @return Mage_Catalog_Model_Resource_Product_Link_Collection
+     * @return $this
      */
     public function addProductIdFilter()
     {
@@ -139,7 +139,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Collection extends Mage_Core_Mode
     /**
      * Join attributes
      *
-     * @return Mage_Catalog_Model_Resource_Product_Link_Collection
+     * @return $this
      */
     public function joinAttributes()
     {

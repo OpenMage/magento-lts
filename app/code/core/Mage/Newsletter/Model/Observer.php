@@ -44,7 +44,7 @@ class Mage_Newsletter_Model_Observer
      * Customer delete handler
      *
      * @param Varien_Object $observer
-     * @return Mage_Newsletter_Model_Observer
+     * @return $this
      */
     public function customerDeleted($observer)
     {

@@ -150,7 +150,7 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
     /**
      * @param $quote
      *
-     * @return Mage_Paypal_Block_Express_Shortcut
+     * @return $this
      */
     protected function _getBmlShortcut($quote)
     {

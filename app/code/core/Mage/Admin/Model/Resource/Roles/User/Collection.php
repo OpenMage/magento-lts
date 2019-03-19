@@ -46,7 +46,7 @@ class Mage_Admin_Model_Resource_Roles_User_Collection extends Mage_Core_Model_Re
     /**
      * Initialize select
      *
-     * @return Mage_Admin_Model_Resource_Roles_User_Collection
+     * @return $this
      */
     protected function _initSelect()
     {

@@ -38,7 +38,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main
     /**
      * Adding product form elements for editing attribute
      *
-     * @return Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main
+     * @return $this
      */
     protected function _prepareForm()
     {

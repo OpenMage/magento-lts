@@ -39,7 +39,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Configurable
      * Reindex stock data for defined configurable product ids
      *
      * @param int|array $entityIds
-     * @return Mage_CatalogInventory_Model_Resource_Indexer_Stock_Configurable
+     * @return $this
      */
     public function reindexEntity($entityIds)
     {

@@ -47,7 +47,7 @@ class Mage_Api_Model_Resource_Rules_Collection extends Mage_Core_Model_Resource_
      * Retrieve rules by role
      *
      * @param int $id
-     * @return Mage_Api_Model_Resource_Rules_Collection
+     * @return $this
      */
     public function getByRoles($id)
     {
@@ -58,7 +58,7 @@ class Mage_Api_Model_Resource_Rules_Collection extends Mage_Core_Model_Resource_
     /**
      * Add sort by length
      *
-     * @return Mage_Api_Model_Resource_Rules_Collection
+     * @return $this
      */
     public function addSortByLength()
     {

@@ -131,7 +131,7 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
      * Get billing agreement details
      * Data from response is inside this object
      *
-     * @return Mage_Sales_Model_Billing_Agreement
+     * @return $this
      */
     public function verifyToken()
     {
@@ -155,7 +155,7 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
     /**
      * Create billing agreement
      *
-     * @return Mage_Sales_Model_Billing_Agreement
+     * @return $this
      */
     public function place()
     {
@@ -176,7 +176,7 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
     /**
      * Cancel billing agreement
      *
-     * @return Mage_Sales_Model_Billing_Agreement
+     * @return $this
      */
     public function cancel()
     {
@@ -233,7 +233,7 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
      *  [method_code]           => string
      *
      * @param Mage_Sales_Model_Order_Payment $payment
-     * @return Mage_Sales_Model_Billing_Agreement
+     * @return $this
      */
     public function importOrderPayment(Mage_Sales_Model_Order_Payment $payment)
     {
@@ -282,7 +282,7 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
      * Add order relation to current billing agreement
      *
      * @param int|Mage_Sales_Model_Order $orderId
-     * @return Mage_Sales_Model_Billing_Agreement
+     * @return $this
      */
     public function addOrderRelation($orderId)
     {

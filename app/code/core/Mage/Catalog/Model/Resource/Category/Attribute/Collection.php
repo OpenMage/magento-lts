@@ -39,7 +39,7 @@ class Mage_Catalog_Model_Resource_Category_Attribute_Collection
      * Main select object initialization.
      * Joins catalog/eav_attribute table
      *
-     * @return Mage_Catalog_Model_Resource_Category_Attribute_Collection
+     * @return $this
      */
     protected function _initSelect()
     {
@@ -56,7 +56,7 @@ class Mage_Catalog_Model_Resource_Category_Attribute_Collection
      * Specify attribute entity type filter
      *
      * @param int $typeId
-     * @return Mage_Catalog_Model_Resource_Category_Attribute_Collection
+     * @return $this
      */
     public function setEntityTypeFilter($typeId)
     {

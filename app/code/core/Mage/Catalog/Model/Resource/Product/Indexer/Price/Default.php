@@ -64,7 +64,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default
      * Set Product Type code
      *
      * @param string $typeCode
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Price_Default
+     * @return $this
      */
     public function setTypeId($typeCode)
     {
@@ -89,7 +89,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default
      * Set Product Type Composite flag
      *
      * @param bool $flag
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Price_Default
+     * @return $this
      */
     public function setIsComposite($flag)
     {
@@ -110,7 +110,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default
     /**
      * Reindex temporary (price result data) for all products
      *
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Price_Default
+     * @return $this
      */
     public function reindexAll()
     {
@@ -132,7 +132,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default
      * Reindex temporary (price result data) for defined product(s)
      *
      * @param int|array $entityIds
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Price_Default
+     * @return $this
      */
     public function reindexEntity($entityIds)
     {
@@ -161,7 +161,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default
     /**
      * Prepare final price temporary index table
      *
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Price_Default
+     * @return $this
      */
     protected function _prepareDefaultFinalPriceTable()
     {
@@ -183,7 +183,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default
      * Prepare products default final price in temporary index table
      *
      * @param int|array $entityIds  the entity ids limitation
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Price_Default
+     * @return $this
      */
     protected function _prepareFinalPriceData($entityIds = null)
     {
@@ -333,7 +333,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default
     /**
      * Prepare table structure for custom option temporary aggregation data
      *
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Price_Default
+     * @return $this
      */
     protected function _prepareCustomOptionAggregateTable()
     {
@@ -344,7 +344,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default
     /**
      * Prepare table structure for custom option prices data
      *
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Price_Default
+     * @return $this
      */
     protected function _prepareCustomOptionPriceTable()
     {
@@ -355,7 +355,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default
     /**
      * Apply custom option minimal and maximal price to temporary final price index table
      *
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Price_Default
+     * @return $this
      */
     protected function _applyCustomOption()
     {
@@ -536,7 +536,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default
     /**
      * Mode Final Prices index to primary temporary index table
      *
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Price_Default
+     * @return $this
      */
     protected function _movePriceDataToIndexTable()
     {

@@ -122,7 +122,7 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
     /**
      * Add selected data
      *
-     * @return Mage_SalesRule_Model_Resource_Report_Collection
+     * @return $this
      */
     protected function _initSelect()
     {
@@ -143,7 +143,7 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
      * Add filtering by rules ids
      *
      * @param array $rulesList
-     * @return Mage_SalesRule_Model_Resource_Report_Collection
+     * @return $this
      */
     public function addRuleFilter($rulesList)
     {
@@ -154,7 +154,7 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
     /**
      * Apply filtering by rules ids
      *
-     * @return Mage_SalesRule_Model_Resource_Report_Collection
+     * @return $this
      */
     protected function _applyRulesFilter()
     {

@@ -265,7 +265,7 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
     /**
      * Initialize frame data, such as frame start, frame start etc.
      *
-     * @return Mage_Catalog_Block_Product_Widget_Html_Pager
+     * @return $this
      */
     protected function _initFrame()
     {

@@ -93,7 +93,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
     /**
      * Prepare Layout data
      *
-     * @return Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config
+     * @return $this
      */
     protected function _prepareLayout()
     {

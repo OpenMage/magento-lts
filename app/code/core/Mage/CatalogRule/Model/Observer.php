@@ -228,7 +228,7 @@ class Mage_CatalogRule_Model_Observer
      *
      * @param Varien_Event_Observer $observer
      *
-     * @return Mage_CatalogRule_Model_Observer
+     * @return $this
      */
     public function catalogProductTypeConfigurablePrice(Varien_Event_Observer $observer)
     {
@@ -277,7 +277,7 @@ class Mage_CatalogRule_Model_Observer
      * Calculate minimal final price with catalog rule price
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_CatalogRule_Model_Observer
+     * @return $this
      */
     public function prepareCatalogProductPriceIndexTable(Varien_Event_Observer $observer)
     {
@@ -303,7 +303,7 @@ class Mage_CatalogRule_Model_Observer
      *
      * @param string $attributeCode
      *
-     * @return Mage_CatalogRule_Model_Observer
+     * @return $this
      */
     protected function _checkCatalogRulesAvailability($attributeCode)
     {
@@ -359,7 +359,7 @@ class Mage_CatalogRule_Model_Observer
      *
      * @param Varien_Event_Observer $observer
      *
-     * @return Mage_CatalogRule_Model_Observer
+     * @return $this
      */
     public function catalogAttributeSaveAfter(Varien_Event_Observer $observer)
     {
@@ -375,7 +375,7 @@ class Mage_CatalogRule_Model_Observer
      * After delete attribute check rules that contains deleted attribute
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_CatalogRule_Model_Observer
+     * @return $this
      */
     public function catalogAttributeDeleteAfter(Varien_Event_Observer $observer)
     {

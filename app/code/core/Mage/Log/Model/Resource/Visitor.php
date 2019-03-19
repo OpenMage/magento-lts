@@ -100,7 +100,7 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
      * Save url info before save
      *
      * @param Mage_Core_Model_Abstract $visitor
-     * @return Mage_Log_Model_Resource_Visitor
+     * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $visitor)
     {
@@ -117,7 +117,7 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
      * Actions after save
      *
      * @param Mage_Core_Model_Abstract $visitor
-     * @return Mage_Log_Model_Resource_Visitor
+     * @return $this
      */
     protected function _afterSave(Mage_Core_Model_Abstract $visitor)
     {

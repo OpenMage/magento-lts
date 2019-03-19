@@ -53,7 +53,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
     /**
      * Init titles
      *
-     * @return Mage_Oauth_Adminhtml_Oauth_ConsumerController
+     * @return $this
      */
     public function preDispatch()
     {
@@ -268,7 +268,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
      * Set form data
      *
      * @param $data
-     * @return Mage_Oauth_Adminhtml_Oauth_ConsumerController
+     * @return $this
      */
     protected function _setFormData($data)
     {

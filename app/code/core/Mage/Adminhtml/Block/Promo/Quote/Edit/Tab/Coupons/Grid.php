@@ -114,7 +114,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Grid extends Mage_Adminh
     /**
      * Configure grid mass actions
      *
-     * @return Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Grid
+     * @return $this
      */
     protected function _prepareMassaction()
     {

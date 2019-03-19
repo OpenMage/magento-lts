@@ -62,7 +62,7 @@ class Mage_Reports_Model_Resource_Event_Collection extends Mage_Core_Model_Resou
      * Add store ids filter
      *
      * @param array $storeIds
-     * @return Mage_Reports_Model_Resource_Event_Collection
+     * @return $this
      */
     public function addStoreFilter(array $storeIds)
     {
@@ -78,7 +78,7 @@ class Mage_Reports_Model_Resource_Event_Collection extends Mage_Core_Model_Resou
      * @param int $subtype
      * @param int|array $ignore
      * @param int $limit
-     * @return Mage_Reports_Model_Resource_Event_Collection
+     * @return $this
      */
     public function addRecentlyFiler($typeId, $subjectId, $subtype = 0, $ignore = null, $limit = 15)
     {

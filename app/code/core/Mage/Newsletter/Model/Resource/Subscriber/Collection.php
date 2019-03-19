@@ -98,7 +98,7 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
      * Set loading mode subscribers by queue
      *
      * @param Mage_Newsletter_Model_Queue $queue
-     * @return Mage_Newsletter_Model_Resource_Subscriber_Collection
+     * @return $this
      */
     public function useQueue(Mage_Newsletter_Model_Queue $queue)
     {
@@ -112,7 +112,7 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
     /**
      * Set using of links to only unsendet letter subscribers.
      *
-     * @return Mage_Newsletter_Model_Resource_Subscriber_Collection
+     * @return $this
      */
     public function useOnlyUnsent()
     {
@@ -126,7 +126,7 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
     /**
      * Adds customer info to select
      *
-     * @return Mage_Newsletter_Model_Resource_Subscriber_Collection
+     * @return $this
      */
     public function showCustomerInfo()
     {
@@ -165,7 +165,7 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
     /**
      * Add type field expression to select
      *
-     * @return Mage_Newsletter_Model_Resource_Subscriber_Collection
+     * @return $this
      */
     public function addSubscriberTypeField()
     {
@@ -177,7 +177,7 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
     /**
      * Sets flag for customer info loading on load
      *
-     * @return Mage_Newsletter_Model_Resource_Subscriber_Collection
+     * @return $this
      */
     public function showStoreInfo()
     {
@@ -234,7 +234,7 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
     /**
      * Load only subscribed customers
      *
-     * @return Mage_Newsletter_Model_Resource_Subscriber_Collection
+     * @return $this
      */
     public function useOnlyCustomers()
     {
@@ -246,7 +246,7 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
     /**
      * Show only with subscribed status
      *
-     * @return Mage_Newsletter_Model_Resource_Subscriber_Collection
+     * @return $this
      */
     public function useOnlySubscribed()
     {
@@ -259,7 +259,7 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
      * Filter collection by specified store ids
      *
      * @param array|int $storeIds
-     * @return Mage_Newsletter_Model_Resource_Subscriber_Collection
+     * @return $this
      */
     public function addStoreFilter($storeIds)
     {

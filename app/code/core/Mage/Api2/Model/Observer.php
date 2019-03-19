@@ -61,7 +61,7 @@ class Mage_Api2_Model_Observer
      * After save attribute if it is not visible on front remove it from Attribute ACL
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Api2_Model_Observer
+     * @return $this
      */
     public function catalogAttributeSaveAfter(Varien_Event_Observer $observer)
     {

@@ -114,7 +114,7 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement
     /**
      * Prepare collection for grid
      *
-     * @return Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement
+     * @return $this
      */
     protected function _prepareCollection()
     {

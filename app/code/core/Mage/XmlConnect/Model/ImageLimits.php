@@ -134,7 +134,7 @@ class Mage_XmlConnect_Model_ImageLimits extends Mage_Core_Model_Abstract
      * Do steps to set current screen size and image limits configuration
      *
      * @param string $screenSize
-     * @return Mage_XmlConnect_Model_ImageLimits
+     * @return $this
      */
     protected function _doUpdateConfig($screenSize = '')
     {
@@ -146,7 +146,7 @@ class Mage_XmlConnect_Model_ImageLimits extends Mage_Core_Model_Abstract
      * Set screen current screen siz
      *
      * @param string $screenSize
-     * @return Mage_XmlConnect_Model_ImageLimits
+     * @return $this
      */
     protected function _setScreenSize($screenSize = '')
     {
@@ -179,7 +179,7 @@ class Mage_XmlConnect_Model_ImageLimits extends Mage_Core_Model_Abstract
      * Check maximum allowed screen size for devices
      *
      * @throws Mage_Core_Exception
-     * @return Mage_XmlConnect_Model_ImageLimits
+     * @return $this
      */
     protected function _checkMaximumAllowedSize()
     {
@@ -196,7 +196,7 @@ class Mage_XmlConnect_Model_ImageLimits extends Mage_Core_Model_Abstract
      * Init image limit configuration model
      *
      * @throws Mage_Core_Exception
-     * @return Mage_XmlConnect_Model_ImageLimits
+     * @return $this
      */
     protected function _initSizeModel()
     {
@@ -220,7 +220,7 @@ class Mage_XmlConnect_Model_ImageLimits extends Mage_Core_Model_Abstract
     /**
      * Set default image size model
      *
-     * @return Mage_XmlConnect_Model_ImageLimits
+     * @return $this
      */
     protected function _setDefaultSizeModel()
     {
@@ -232,7 +232,7 @@ class Mage_XmlConnect_Model_ImageLimits extends Mage_Core_Model_Abstract
     /**
      * After calculate image limits screen size update
      *
-     * @return Mage_XmlConnect_Model_ImageLimits
+     * @return $this
      */
     protected  function _afterCalculate()
     {
@@ -246,7 +246,7 @@ class Mage_XmlConnect_Model_ImageLimits extends Mage_Core_Model_Abstract
     /**
      * Calculate image limits for current screen size
      *
-     * @return Mage_XmlConnect_Model_ImageLimits
+     * @return $this
      */
     protected  function _calculateImageLimits()
     {
@@ -268,7 +268,7 @@ class Mage_XmlConnect_Model_ImageLimits extends Mage_Core_Model_Abstract
     /**
      * Calculate image rate
      *
-     * @return Mage_XmlConnect_Model_ImageLimits
+     * @return $this
      */
     protected function _calculateImageRate()
     {
@@ -313,7 +313,7 @@ class Mage_XmlConnect_Model_ImageLimits extends Mage_Core_Model_Abstract
      * Set screen size config update model
      *
      * @param object $sizeModel
-     * @return Mage_XmlConnect_Model_ImageLimits
+     * @return $this
      */
     public function setSizeModel($sizeModel)
     {
@@ -335,7 +335,7 @@ class Mage_XmlConnect_Model_ImageLimits extends Mage_Core_Model_Abstract
      * Set image limits config
      *
      * @param array $imageLimits
-     * @return Mage_XmlConnect_Model_ImageLimits
+     * @return $this
      */
     public function setImageLimits($imageLimits)
     {

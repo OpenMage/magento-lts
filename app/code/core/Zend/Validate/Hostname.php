@@ -2068,7 +2068,7 @@ class Zend_Validate_Hostname extends Zend_Validate_Abstract
      * Sets the options for this validator
      *
      * @param array $options
-     * @return Zend_Validate_Hostname
+     * @return $this
      */
     public function setOptions($options)
     {
@@ -2103,7 +2103,7 @@ class Zend_Validate_Hostname extends Zend_Validate_Abstract
 
     /**
      * @param Zend_Validate_Ip $ipValidator OPTIONAL
-     * @return Zend_Validate_Hostname
+     * @return $this
      */
     public function setIpValidator(Zend_Validate_Ip $ipValidator = null)
     {
@@ -2129,7 +2129,7 @@ class Zend_Validate_Hostname extends Zend_Validate_Abstract
      * Sets the allow option
      *
      * @param  integer $allow
-     * @return Zend_Validate_Hostname Provides a fluent interface
+     * @return $this Provides a fluent interface
      */
     public function setAllow($allow)
     {

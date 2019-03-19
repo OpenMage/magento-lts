@@ -63,7 +63,7 @@ class Mage_Core_Exception extends Exception
      *
      * @param string $message
      * @param bool $append
-     * @return Mage_Core_Exception
+     * @return $this
      */
     public function setMessage($message, $append = false)
     {

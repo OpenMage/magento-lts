@@ -51,7 +51,7 @@ class Mage_Directory_Model_Resource_Country extends Mage_Core_Model_Resource_Db_
      *
      * @throws Mage_Core_Exception
      * 
-     * @return Mage_Directory_Model_Resource_Country
+     * @return $this
      */
     public function loadByCode(Mage_Directory_Model_Country $country, $code)
     {

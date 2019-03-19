@@ -69,7 +69,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
      * Set customer filter to collection
      *
      * @param int $customerId
-     * @return Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
+     * @return $this
      */
     public function setCustomerId($customerId)
     {
@@ -82,7 +82,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
      * Set visitor filter to collection
      *
      * @param int $visitorId
-     * @return Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
+     * @return $this
      */
     public function setVisitorId($visitorId)
     {
@@ -132,7 +132,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
     /**
      * Add join to select
      *
-     * @return Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
+     * @return $this
      */
     public function _addJoinToSelect()
     {
@@ -259,7 +259,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
     /**
      * Load Comparable attributes
      *
-     * @return Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
+     * @return $this
      */
     public function loadComparableAttributes()
     {
@@ -276,7 +276,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
     /**
      * Use product as collection item
      *
-     * @return Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
+     * @return $this
      */
     public function useProductItem()
     {
@@ -306,7 +306,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
     /**
      * Clear compare items by condition
      *
-     * @return Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
+     * @return $this
      */
     public function clear()
     {

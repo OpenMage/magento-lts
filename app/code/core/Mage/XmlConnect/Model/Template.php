@@ -47,7 +47,7 @@ class Mage_XmlConnect_Model_Template extends Mage_Core_Model_Template
      * Processing object before save data
      * Add created_at  and modified_at params
      *
-     * @return Mage_XmlConnect_Model_Template
+     * @return $this
      */
     protected function _beforeSave()
     {

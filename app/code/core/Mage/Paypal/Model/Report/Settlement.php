@@ -258,7 +258,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
      *
      * @param string $localCsv Path to CSV file
      * @param string $format CSV format(column names)
-     * @return Mage_Paypal_Model_Report_Settlement
+     * @return $this
      */
     public function parseCsv($localCsv, $format = 'new')
     {
@@ -317,7 +317,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
     /**
      * Load report by unique key (accoutn + report date)
      *
-     * @return Mage_Paypal_Model_Report_Settlement
+     * @return $this
      */
     public function loadByAccountAndDate()
     {

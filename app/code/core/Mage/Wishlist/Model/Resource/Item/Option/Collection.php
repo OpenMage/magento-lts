@@ -61,7 +61,7 @@ class Mage_Wishlist_Model_Resource_Item_Option_Collection extends Mage_Core_Mode
     /**
      * Fill array of options by item and product
      *
-     * @return Mage_Wishlist_Model_Resource_Item_Option_Collection
+     * @return $this
      */
     protected function _afterLoad()
     {
@@ -90,7 +90,7 @@ class Mage_Wishlist_Model_Resource_Item_Option_Collection extends Mage_Core_Mode
      * Apply quote item(s) filter to collection
      *
      * @param  int|array $item
-     * @return Mage_Wishlist_Model_Resource_Item_Option_Collection
+     * @return $this
      */
     public function addItemFilter($item)
     {

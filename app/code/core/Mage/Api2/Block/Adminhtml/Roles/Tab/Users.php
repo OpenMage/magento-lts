@@ -55,7 +55,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
     /**
      * Prepare collection
      *
-     * @return Mage_Api2_Block_Adminhtml_Roles_Tab_Users
+     * @return $this
      */
     protected function _prepareCollection()
     {
@@ -78,7 +78,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
     /**
      * Prepare columns
      *
-     * @return Mage_Api2_Block_Adminhtml_Roles_Tab_Users
+     * @return $this
      */
     protected function _prepareColumns()
     {
@@ -186,7 +186,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
 
     /**
      * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @return Mage_Api2_Block_Adminhtml_Roles_Tab_Users
+     * @return $this
      */
     protected function _addColumnFilterToCollection($column)
     {

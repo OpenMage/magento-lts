@@ -90,7 +90,7 @@ class Mage_XmlConnect_Model_Configuration extends Mage_Core_Model_Abstract
      * Save is active admin application param
      *
      * @param int $isActive
-     * @return Mage_XmlConnect_Model_Configuration
+     * @return $this
      */
     public function saveIsActiveAdminApp($isActive)
     {
@@ -181,7 +181,7 @@ class Mage_XmlConnect_Model_Configuration extends Mage_Core_Model_Abstract
      * Save localization hash in configuration storage
      *
      * @param string $hash
-     * @return Mage_XmlConnect_Model_Configuration
+     * @return $this
      */
     public function setPreviousLocalizationHash($hash)
     {
@@ -261,7 +261,7 @@ class Mage_XmlConnect_Model_Configuration extends Mage_Core_Model_Abstract
     /**
      * Set application model
      *
-     * @return Mage_XmlConnect_Model_Configuration
+     * @return $this
      */
     public function setApplicationModel()
     {

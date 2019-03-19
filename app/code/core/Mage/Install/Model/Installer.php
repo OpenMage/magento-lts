@@ -75,7 +75,7 @@ class Mage_Install_Model_Installer extends Varien_Object
      * Set data model to store data between installation steps
      *
      * @param Varien_Object $model
-     * @return Mage_Install_Model_Installer
+     * @return $this
      */
     public function setDataModel(Varien_Object $model)
     {
@@ -154,7 +154,7 @@ class Mage_Install_Model_Installer extends Varien_Object
     /**
      * Database installation
      *
-     * @return Mage_Install_Model_Installer
+     * @return $this
      */
     public function installDb()
     {
@@ -305,7 +305,7 @@ class Mage_Install_Model_Installer extends Varien_Object
      * Set encryption key
      *
      * @param string $key
-     * @return Mage_Install_Model_Installer
+     * @return $this
      */
     public function installEnryptionKey($key)
     {

@@ -66,7 +66,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_StoreSwitcher extends Ma
      *
      * @param array $websites
      * @param Mage_XmlConnect_Model_Simplexml_Element $storeSwitcherXmlObj
-     * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_StoreSwitcher
+     * @return $this
      */
     protected function _createStoreItemList($websites, Mage_XmlConnect_Model_Simplexml_Element $storeSwitcherXmlObj)
     {
@@ -92,7 +92,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_StoreSwitcher extends Ma
      * @param Mage_XmlConnect_Model_Simplexml_Element $switcherItemsXmlObj
      * @param array $website
      * @param array $group
-     * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_StoreSwitcher
+     * @return $this
      */
     protected function _setStoreItemsByNestingLevel($storeSwitcherXmlObj, $switcherItemsXmlObj, $website, $group)
     {
@@ -130,7 +130,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_StoreSwitcher extends Ma
      * @param string $value
      * @param array $config
      * @param bool $isDisabled
-     * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_StoreSwitcher
+     * @return $this
      */
     protected function _addSwitcherItem($xmlObj, $value, $config, $isDisabled = false)
     {

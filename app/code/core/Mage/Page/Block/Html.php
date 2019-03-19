@@ -126,7 +126,7 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
      * Add CSS class to page body tag
      *
      * @param string $className
-     * @return Mage_Page_Block_Html
+     * @return $this
      */
     public function addBodyClass($className)
     {

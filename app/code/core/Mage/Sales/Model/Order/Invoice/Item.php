@@ -213,7 +213,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
     /**
      * Applying qty to order item
      *
-     * @return Mage_Sales_Model_Order_Invoice_Item
+     * @return $this
      */
     public function register()
     {
@@ -236,7 +236,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
     /**
      * Cancelling invoice item
      *
-     * @return Mage_Sales_Model_Order_Invoice_Item
+     * @return $this
      */
     public function cancel()
     {
@@ -260,7 +260,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
     /**
      * Invoice item row total calculation
      *
-     * @return Mage_Sales_Model_Order_Invoice_Item
+     * @return $this
      */
     public function calcRowTotal()
     {
@@ -305,7 +305,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
     /**
      * Before object save
      *
-     * @return Mage_Sales_Model_Order_Invoice_Item
+     * @return $this
      */
     protected function _beforeSave()
     {
@@ -321,7 +321,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
     /**
      * After object save
      *
-     * @return Mage_Sales_Model_Order_Invoice_Item
+     * @return $this
      */
     protected function _afterSave()
     {

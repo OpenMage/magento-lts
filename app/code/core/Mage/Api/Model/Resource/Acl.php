@@ -79,7 +79,7 @@ class Mage_Api_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
      *
      * @param Mage_Api_Model_Acl $acl
      * @param array $rolesArr
-     * @return Mage_Api_Model_Resource_Acl
+     * @return $this
      */
     public function loadRoles(Mage_Api_Model_Acl $acl, array $rolesArr)
     {
@@ -110,7 +110,7 @@ class Mage_Api_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
      *
      * @param Mage_Api_Model_Acl $acl
      * @param array $rulesArr
-     * @return Mage_Api_Model_Resource_Acl
+     * @return $this
      */
     public function loadRules(Mage_Api_Model_Acl $acl, array $rulesArr)
     {

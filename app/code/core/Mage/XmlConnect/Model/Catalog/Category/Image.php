@@ -133,7 +133,7 @@ class Mage_XmlConnect_Model_Catalog_Category_Image extends Mage_Catalog_Model_Pr
      * Set new file
      *
      * @param string $filePath
-     * @return Mage_XmlConnect_Model_Catalog_Category_Image
+     * @return $this
      */
     public function setNewFile($filePath)
     {

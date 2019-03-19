@@ -64,7 +64,7 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
      * Load object data by path
      *
      * @param  string $path
-     * @return Mage_Core_Model_File_Storage_Directory_Database
+     * @return $this
      */
     public function loadByPath($path)
     {
@@ -119,7 +119,7 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
      * Create directories recursively
      *
      * @param  string $path
-     * @return Mage_Core_Model_File_Storage_Directory_Database
+     * @return $this
      */
     public function createRecursive($path)
     {
@@ -171,7 +171,7 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
      * Import directories to storage
      *
      * @param  array $dirs
-     * @return Mage_Core_Model_File_Storage_Directory_Database
+     * @return $this
      */
     public function importDirectories($dirs)
     {
@@ -211,7 +211,7 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
     /**
      * Clean directories at storage
      *
-     * @return Mage_Core_Model_File_Storage_Directory_Database
+     * @return $this
      */
     public function clearDirectories()
     {
@@ -236,7 +236,7 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
      * Delete directory from database
      *
      * @param string $path
-     * @return Mage_Core_Model_File_Storage_Directory_Database
+     * @return $this
      */
     public function deleteDirectory($dirPath)
     {

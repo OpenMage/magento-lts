@@ -334,7 +334,7 @@ class Mage_Tax_Model_Config
     /**
      * Declare shipping prices type
      * @param bool $flag
-     * @return Mage_Tax_Model_Config
+     * @return $this
      */
     public function setShippingPriceIncludeTax($flag)
     {

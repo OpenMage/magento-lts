@@ -158,7 +158,7 @@ class Mage_Api2_Model_Server
      *
      * @throws Exception
      * @param Mage_Api2_Model_Auth_User_Abstract $authUser
-     * @return Mage_Api2_Model_Server
+     * @return $this
      */
     protected function _setAuthUser(Mage_Api2_Model_Auth_User_Abstract $authUser)
     {
@@ -186,7 +186,7 @@ class Mage_Api2_Model_Server
      * Find route that match current URL, set parameters of the route to Request object
      *
      * @param Mage_Api2_Model_Request $request
-     * @return Mage_Api2_Model_Server
+     * @return $this
      */
     protected function _route(Mage_Api2_Model_Request $request)
     {
@@ -205,7 +205,7 @@ class Mage_Api2_Model_Server
      *
      * @param Mage_Api2_Model_Request $request
      * @param Mage_Api2_Model_Auth_User_Abstract $apiUser
-     * @return Mage_Api2_Model_Server
+     * @return $this
      * @throws Mage_Api2_Exception
      */
     protected function _allow(Mage_Api2_Model_Request $request, Mage_Api2_Model_Auth_User_Abstract $apiUser)
@@ -226,7 +226,7 @@ class Mage_Api2_Model_Server
      * @param Mage_Api2_Model_Request $request
      * @param Mage_Api2_Model_Response $response
      * @param Mage_Api2_Model_Auth_User_Abstract $apiUser
-     * @return Mage_Api2_Model_Server
+     * @return $this
      */
     protected function _dispatch(
         Mage_Api2_Model_Request $request,
@@ -258,7 +258,7 @@ class Mage_Api2_Model_Server
      * @param Exception $exception
      * @param Mage_Api2_Model_Renderer_Interface $renderer
      * @param Mage_Api2_Model_Response $response
-     * @return Mage_Api2_Model_Server
+     * @return $this
      */
     protected function _renderException(Exception $exception, Mage_Api2_Model_Renderer_Interface $renderer,
         Mage_Api2_Model_Response $response

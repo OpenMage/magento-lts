@@ -82,7 +82,7 @@ class Mage_XmlConnect_Model_OfflineCatalog_Category extends Mage_XmlConnect_Bloc
     /**
      * Export category data
      *
-     * @return Mage_XmlConnect_Model_OfflineCatalog_Category
+     * @return $this
      */
     public function exportData()
     {
@@ -103,7 +103,7 @@ class Mage_XmlConnect_Model_OfflineCatalog_Category extends Mage_XmlConnect_Bloc
      * Export category data
      *
      * @param Mage_Catalog_Model_Category $category
-     * @return Mage_XmlConnect_Model_OfflineCatalog_Category
+     * @return $this
      */
     protected function _exportCategory($category)
     {

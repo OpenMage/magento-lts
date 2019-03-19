@@ -118,7 +118,7 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Orders extends Mage_
     /**
      * Disable massaction in grid
      *
-     * @return Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Orders
+     * @return $this
      */
     protected function _prepareMassaction()
     {

@@ -244,7 +244,7 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
      *
      * @param  string|array $spec
      * @param  null|mixed $value
-     * @return Zend_Controller_Request_Http
+     * @return $this
      */
     public function setQuery($spec, $value = null)
     {
@@ -286,7 +286,7 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
      *
      * @param  string|array $spec
      * @param  null|mixed $value
-     * @return Zend_Controller_Request_Http
+     * @return $this
      */
     public function setPost($spec, $value = null)
     {
@@ -385,7 +385,7 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
      * $_SERVER['HTTP_X_REWRITE_URL'], or $_SERVER['ORIG_PATH_INFO'] + $_SERVER['QUERY_STRING'].
      *
      * @param string $requestUri
-     * @return Zend_Controller_Request_Http
+     * @return $this
      */
     public function setRequestUri($requestUri = null)
     {
@@ -462,7 +462,7 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
      * ORIG_SCRIPT_NAME in its determination.
      *
      * @param mixed $baseUrl
-     * @return Zend_Controller_Request_Http
+     * @return $this
      */
     public function setBaseUrl($baseUrl = null)
     {
@@ -556,7 +556,7 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
      * Set the base path for the URL
      *
      * @param string|null $basePath
-     * @return Zend_Controller_Request_Http
+     * @return $this
      */
     public function setBasePath($basePath = null)
     {
@@ -605,7 +605,7 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
      * Set the PATH_INFO string
      *
      * @param string|null $pathInfo
-     * @return Zend_Controller_Request_Http
+     * @return $this
      */
     public function setPathInfo($pathInfo = null)
     {
@@ -665,7 +665,7 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
      * Can be empty array, or contain one or more of '_GET' or '_POST'.
      *
      * @param  array $paramSoures
-     * @return Zend_Controller_Request_Http
+     * @return $this
      */
     public function setParamSources(array $paramSources = array())
     {
@@ -691,7 +691,7 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
      *
      * @param mixed $key
      * @param mixed $value
-     * @return Zend_Controller_Request_Http
+     * @return $this
      */
     public function setParam($key, $value)
     {
@@ -764,7 +764,7 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
      * using the keys specified in the array.
      *
      * @param array $params
-     * @return Zend_Controller_Request_Http
+     * @return $this
      */
     public function setParams(array $params)
     {
@@ -782,7 +782,7 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
      *
      * @param string $name
      * @param string $target
-     * @return Zend_Controller_Request_Http
+     * @return $this
      */
     public function setAlias($name, $target)
     {

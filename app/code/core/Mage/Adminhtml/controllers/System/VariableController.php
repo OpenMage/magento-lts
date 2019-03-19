@@ -36,7 +36,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
     /**
      * Initialize Layout and set breadcrumbs
      *
-     * @return Mage_Adminhtml_System_VariableController
+     * @return $this
      */
     protected function _initLayout()
     {

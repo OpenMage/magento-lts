@@ -95,7 +95,7 @@ class Mage_XmlConnect_Helper_Customer_Form_Renderer extends Mage_Core_Helper_Abs
      *
      * @param Mage_XmlConnect_Model_Simplexml_Form_Abstract $fieldset
      * @param Mage_Core_Model_Layout $layout
-     * @return Mage_XmlConnect_Helper_Customer_Form_Renderer
+     * @return $this
      */
     public function addCustomAttributes(Mage_XmlConnect_Model_Simplexml_Form_Abstract $fieldset, $layout)
     {
@@ -216,7 +216,7 @@ class Mage_XmlConnect_Helper_Customer_Form_Renderer extends Mage_Core_Helper_Abs
      * Set block entity type
      *
      * @param string $setBlockEntity
-     * @return Mage_XmlConnect_Helper_Customer_Form_Renderer
+     * @return $this
      */
     public function setBlockEntityType($setBlockEntity)
     {

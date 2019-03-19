@@ -48,7 +48,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Preview_Tabitems extends Mage_Admin
      * Set active tab
      *
      * @param string $tab
-     * @return Mage_XmlConnect_Block_Adminhtml_Mobile_Preview_Tabitems
+     * @return $this
      */
     public function setActiveTab($tab)
     {

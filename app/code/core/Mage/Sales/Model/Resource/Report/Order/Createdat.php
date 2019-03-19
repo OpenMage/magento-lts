@@ -48,7 +48,7 @@ class Mage_Sales_Model_Resource_Report_Order_Createdat extends Mage_Sales_Model_
      *
      * @param mixed $from
      * @param mixed $to
-     * @return Mage_Sales_Model_Resource_Report_Order_Createdat
+     * @return $this
      */
     public function aggregate($from = null, $to = null)
     {
@@ -62,7 +62,7 @@ class Mage_Sales_Model_Resource_Report_Order_Createdat extends Mage_Sales_Model_
      * @param string $aggregationField
      * @param mixed $from
      * @param mixed $to
-     * @return Mage_Sales_Model_Resource_Report_Order_Createdat
+     * @return $this
      */
     protected function _aggregateByField($aggregationField, $from, $to)
     {

@@ -82,7 +82,7 @@ class Mage_Eav_Model_Attribute_Data_Select extends Mage_Eav_Model_Attribute_Data
      * Export attribute value to entity model
      *
      * @param array|string $value
-     * @return Mage_Eav_Model_Attribute_Data_Select
+     * @return $this
      */
     public function compactValue($value)
     {
@@ -96,7 +96,7 @@ class Mage_Eav_Model_Attribute_Data_Select extends Mage_Eav_Model_Attribute_Data
      * Restore attribute value from SESSION to entity model
      *
      * @param array|string $value
-     * @return Mage_Eav_Model_Attribute_Data_Select
+     * @return $this
      */
     public function restoreValue($value)
     {

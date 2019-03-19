@@ -46,7 +46,7 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
     /**
      * Set title of page
      *
-     * @return Mage_Adminhtml_Newsletter_TemplateController
+     * @return $this
      */
     protected function _setTitle()
     {

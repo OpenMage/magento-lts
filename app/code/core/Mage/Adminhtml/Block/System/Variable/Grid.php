@@ -49,7 +49,7 @@ class Mage_Adminhtml_Block_System_Variable_Grid extends Mage_Adminhtml_Block_Wid
     /**
      * Prepare grid collection object
      *
-     * @return Mage_Adminhtml_Block_System_Variable_Grid
+     * @return $this
      */
     protected function _prepareCollection()
     {
@@ -62,7 +62,7 @@ class Mage_Adminhtml_Block_System_Variable_Grid extends Mage_Adminhtml_Block_Wid
     /**
      * Prepare grid columns
      *
-     * @return Mage_Adminhtml_Block_System_Variable_Grid
+     * @return $this
      */
     protected function _prepareColumns()
     {

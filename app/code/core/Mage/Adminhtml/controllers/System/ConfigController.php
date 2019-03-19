@@ -44,7 +44,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
      * Controller predispatch method
      * Check if current section is found and is allowed
      *
-     * @return Mage_Adminhtml_System_ConfigController
+     * @return $this
      */
     public function preDispatch()
     {

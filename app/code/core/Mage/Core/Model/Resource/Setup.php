@@ -163,7 +163,7 @@ class Mage_Core_Model_Resource_Setup
      *
      * @param string $tableName
      * @param string $realTableName
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
     public function setTable($tableName, $realTableName)
     {
@@ -274,7 +274,7 @@ class Mage_Core_Model_Resource_Setup
      * Apply data updates to the system after upgrading.
      *
      * @param string $fromVersion
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
     public function applyDataUpdates()
     {
@@ -294,7 +294,7 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Apply module resource install, upgrade and data scripts
      *
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
     public function applyUpdates()
     {
@@ -337,7 +337,7 @@ class Mage_Core_Model_Resource_Setup
      * Currently - dynamically updates column types for foreign keys, when their targets were changed
      * during MMDB development.
      *
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
     protected function _hookQueries()
     {
@@ -351,7 +351,7 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Removes query hook
      *
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
     protected function _unhookQueries()
     {
@@ -371,7 +371,7 @@ class Mage_Core_Model_Resource_Setup
      *
      * @param string $sql
      * @param array $bind
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
     public function callbackQueryHook(&$sql, &$bind)
     {
@@ -384,7 +384,7 @@ class Mage_Core_Model_Resource_Setup
      * Run data install scripts
      *
      * @param string $newVersion
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
     protected function _installData($newVersion)
     {
@@ -400,7 +400,7 @@ class Mage_Core_Model_Resource_Setup
      *
      * @param string $oldVersion
      * @param string $newVersion
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
     protected function _upgradeData($oldVersion, $newVersion)
     {
@@ -414,7 +414,7 @@ class Mage_Core_Model_Resource_Setup
      * Run resource installation file
      *
      * @param string $newVersion
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
     protected function _installResourceDb($newVersion)
     {
@@ -430,7 +430,7 @@ class Mage_Core_Model_Resource_Setup
      *
      * @param string $oldVersion
      * @param string $newVersion
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
     protected function _upgradeResourceDb($oldVersion, $newVersion)
     {
@@ -445,7 +445,7 @@ class Mage_Core_Model_Resource_Setup
      *
      * @param string $newVersion
      * @param string $oldVersion
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
     protected function _rollbackResourceDb($newVersion, $oldVersion)
     {
@@ -457,7 +457,7 @@ class Mage_Core_Model_Resource_Setup
      * Uninstall resource
      *
      * @param string $version existing resource version
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
     protected function _uninstallResourceDb($version)
     {
@@ -563,7 +563,7 @@ class Mage_Core_Model_Resource_Setup
      *
      * @param string $actionType
      * @param string $version
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
     protected function _setResourceVersion($actionType, $version)
     {
@@ -757,7 +757,7 @@ class Mage_Core_Model_Resource_Setup
      * @param string|int $id
      * @param null|string $parentField
      * @param int|string $parentId
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
     public function deleteTableRow($table, $idField, $id, $parentField = null, $parentId = 0)
     {
@@ -826,7 +826,7 @@ class Mage_Core_Model_Resource_Setup
      * @param string $table
      * @param Zend_Db_Expr $conditionExpr
      * @param Zend_Db_Expr $valueExpr
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      *
      * @deprecated since 1.4.0.1
      */
@@ -870,7 +870,7 @@ class Mage_Core_Model_Resource_Setup
      * @param string $label
      * @param array $data
      * @param string $default
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      * @deprecated since 1.4.0.1
      */
     public function addConfigField($path, $label, array $data=array(), $default=null)
@@ -886,7 +886,7 @@ class Mage_Core_Model_Resource_Setup
      * @param int|string $scope
      * @param int $scopeId
      * @param int $inherit
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
     public function setConfigData($path, $value, $scope = 'default', $scopeId = 0, $inherit=0)
     {
@@ -909,7 +909,7 @@ class Mage_Core_Model_Resource_Setup
      *
      * @param string $path
      * @param string $scope (default|stores|websites|config)
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
     public function deleteConfigData($path, $scope = null)
     {
@@ -925,7 +925,7 @@ class Mage_Core_Model_Resource_Setup
      * Run plain SQL query(ies)
      *
      * @param string $sql
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
     public function run($sql)
     {
@@ -936,7 +936,7 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Prepare database before install/upgrade
      *
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
     public function startSetup()
     {
@@ -947,7 +947,7 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Prepare database after install/upgrade
      *
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
     public function endSetup()
     {
@@ -997,7 +997,7 @@ class Mage_Core_Model_Resource_Setup
      * Run each time after applying of all updates,
      * if setup model setted  $_callAfterApplyAllUpdates flag to true
      *
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
     public function afterApplyAllUpdates()
     {

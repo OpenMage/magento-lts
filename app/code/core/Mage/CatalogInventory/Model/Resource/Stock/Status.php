@@ -52,7 +52,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Status extends Mage_Core_Model_
      * @param float $qty
      * @param int $stockId
      * @param int|null $websiteId
-     * @return Mage_CatalogInventory_Model_Resource_Stock_Status
+     * @return $this
      */
     public function saveProductStatus(Mage_CatalogInventory_Model_Stock_Status $object, $productId, $status, $qty = 0,
         $stockId = 1, $websiteId = null)
@@ -203,7 +203,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Status extends Mage_Core_Model_
      *
      * @param Varien_Db_Select $select
      * @param Mage_Core_Model_Website $website
-     * @return Mage_CatalogInventory_Model_Resource_Stock_Status
+     * @return $this
      */
     public function addStockStatusToSelect(Varien_Db_Select $select, Mage_Core_Model_Website $website)
     {
@@ -223,7 +223,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Status extends Mage_Core_Model_
      * @param Varien_Db_Select $select
      * @param string|Zend_Db_Expr $entityField
      * @param string|Zend_Db_Expr $websiteField
-     * @return Mage_CatalogInventory_Model_Resource_Stock_Status
+     * @return $this
      */
     public function prepareCatalogProductIndexSelect(Varien_Db_Select $select, $entityField, $websiteField)
     {
@@ -241,7 +241,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Status extends Mage_Core_Model_
      * Add only is in stock products filter to product collection
      *
      * @param Mage_Catalog_Model_Resource_Product_Collection $collection
-     * @return Mage_CatalogInventory_Model_Resource_Stock_Status
+     * @return $this
      */
     public function addIsInStockFilterToCollection($collection)
     {

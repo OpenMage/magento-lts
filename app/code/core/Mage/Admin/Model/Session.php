@@ -94,7 +94,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      *
      * @param string $namespace
      * @param string $sessionName
-     * @return Mage_Admin_Model_Session
+     * @return $this
      * @see self::login()
      */
     public function init($namespace, $sessionName = null)
@@ -177,7 +177,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      * Refresh ACL resources stored in session
      *
      * @param  Mage_Admin_Model_User $user
-     * @return Mage_Admin_Model_Session
+     * @return $this
      */
     public function refreshAcl($user = null)
     {
@@ -256,7 +256,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      * Setter whether the current/next page should be treated as first page after login
      *
      * @param bool $value
-     * @return Mage_Admin_Model_Session
+     * @return $this
      */
     public function setIsFirstPageAfterLogin($value)
     {

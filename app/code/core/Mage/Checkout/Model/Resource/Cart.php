@@ -82,7 +82,7 @@ class Mage_Checkout_Model_Resource_Cart extends Mage_Core_Model_Resource_Db_Abst
      *
      * @param Mage_Catalog_Model_Resource_Product_Collection $collection
      * @param int $quoteId
-     * @return Mage_Checkout_Model_Resource_Cart
+     * @return $this
      */
     public function addExcludeProductFilter($collection, $quoteId)
     {

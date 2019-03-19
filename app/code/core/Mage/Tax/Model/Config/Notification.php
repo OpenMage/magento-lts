@@ -64,7 +64,7 @@ class Mage_Tax_Model_Config_Notification extends Mage_Core_Model_Config_Data
     /**
      * Prepare and store cron settings after save
      *
-     * @return Mage_Tax_Model_Config_Notification
+     * @return $this
      */
     protected function _afterSave()
     {
@@ -79,7 +79,7 @@ class Mage_Tax_Model_Config_Notification extends Mage_Core_Model_Config_Data
      * Reset flag for showing tax notifications
      *
      * @param string $path
-     * @return Mage_Tax_Model_Config_Notification
+     * @return $this
      */
     protected function _resetNotificationFlag($path)
     {

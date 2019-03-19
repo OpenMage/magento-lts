@@ -48,7 +48,7 @@ class Mage_Index_Model_Resource_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Sync indexes declarations in config and in DB
      *
-     * @return Mage_Index_Model_Resource_Setup
+     * @return $this
      */
     protected function _syncIndexes()
     {

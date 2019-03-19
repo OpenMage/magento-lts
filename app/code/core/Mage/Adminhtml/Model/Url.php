@@ -138,7 +138,7 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
     /**
      * Enable secret key using
      *
-     * @return Mage_Adminhtml_Model_Url
+     * @return $this
      */
     public function turnOnSecretKey()
     {
@@ -149,7 +149,7 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
     /**
      * Disable secret key using
      *
-     * @return Mage_Adminhtml_Model_Url
+     * @return $this
      */
     public function turnOffSecretKey()
     {
@@ -160,7 +160,7 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
     /**
      * Refresh admin menu cache etc.
      *
-     * @return Mage_Adminhtml_Model_Url
+     * @return $this
      */
     public function renewSecretUrls()
     {

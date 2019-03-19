@@ -310,7 +310,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
     /**
      * Apply all price rules, invalidate related cache and refresh price index
      *
-     * @return Mage_CatalogRule_Model_Rule
+     * @return $this
      */
     public function applyAll()
     {
@@ -327,7 +327,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
      * Apply all price rules to product
      *
      * @param  int|Mage_Catalog_Model_Product $product
-     * @return Mage_CatalogRule_Model_Rule
+     * @return $this
      */
     public function applyAllRulesToProduct($product)
     {
@@ -440,7 +440,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
     /**
      * Invalidate related cache types
      *
-     * @return Mage_CatalogRule_Model_Rule
+     * @return $this
      */
     protected function _invalidateCache()
     {

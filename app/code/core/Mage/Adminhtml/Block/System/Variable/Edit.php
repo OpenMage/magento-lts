@@ -59,7 +59,7 @@ class Mage_Adminhtml_Block_System_Variable_Edit extends Mage_Adminhtml_Block_Wid
      * Prepare layout.
      * Adding save_and_continue button
      *
-     * @return Mage_Adminhtml_Block_System_Variable_Edit
+     * @return $this
      */
     protected function _preparelayout()
     {

@@ -280,7 +280,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
      *
      * @param Mage_Reports_Model_Resource_Report_Collection_Abstract $collection
      * @param Varien_Object $filterData
-     * @return Mage_Adminhtml_Block_Report_Grid_Abstract
+     * @return $this
      */
     protected function _addOrderStatusFilter($collection, $filterData)
     {
@@ -294,7 +294,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
      *
      * @param Mage_Reports_Model_Resource_Report_Collection_Abstract $collection
      * @param Varien_Object $filterData
-     * @return Mage_Adminhtml_Block_Report_Grid_Abstract
+     * @return $this
      */
     protected function _addCustomFilter($collection, $filterData)
     {

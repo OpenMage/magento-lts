@@ -55,7 +55,7 @@ class Mage_GoogleBase_Model_Service_Item extends Mage_GoogleBase_Model_Service
      * $_object Setter
      *
      * @param Varien_Object $object
-     * @return Mage_GoogleBase_Model_Service_Item
+     * @return $this
      */
     public function setObject($object)
     {
@@ -77,7 +77,7 @@ class Mage_GoogleBase_Model_Service_Item extends Mage_GoogleBase_Model_Service
      * $_item Setter
      *
      * @param Mage_GoogleBase_Model_Item $item
-     * @return Mage_GoogleBase_Model_Service_Item
+     * @return $this
      */
     public function setItem($item)
     {
@@ -168,7 +168,7 @@ class Mage_GoogleBase_Model_Service_Item extends Mage_GoogleBase_Model_Service
     /**
      * Hide item in Google Base
      *
-     * @return Mage_GoogleBase_Model_Service_Item
+     * @return $this
      */
     public function hide()
     {
@@ -179,7 +179,7 @@ class Mage_GoogleBase_Model_Service_Item extends Mage_GoogleBase_Model_Service
     /**
      * Publish item in Google Base
      *
-     * @return Mage_GoogleBase_Model_Service_Item
+     * @return $this
      */
     public function activate()
     {
@@ -191,7 +191,7 @@ class Mage_GoogleBase_Model_Service_Item extends Mage_GoogleBase_Model_Service
      * Update item Control property
      *
      * @param boolean Save as draft or not
-     * @return Mage_GoogleBase_Model_Service_Item
+     * @return $this
      */
     protected function _saveDraft($yes = true)
     {
@@ -212,7 +212,7 @@ class Mage_GoogleBase_Model_Service_Item extends Mage_GoogleBase_Model_Service
     /**
      * Prepare Entry data and attributes before saving in Google Base
      *
-     * @return Mage_GoogleBase_Model_Service_Item
+     * @return $this
      */
     protected function _prepareEnrtyForSave()
     {
@@ -260,7 +260,7 @@ class Mage_GoogleBase_Model_Service_Item extends Mage_GoogleBase_Model_Service
     /**
      * Assign values to universal attribute of entry
      *
-     * @return Mage_GoogleBase_Model_Service_Item
+     * @return $this
      */
     protected function _setUniversalData()
     {
@@ -342,7 +342,7 @@ class Mage_GoogleBase_Model_Service_Item extends Mage_GoogleBase_Model_Service
      * @param string $value Google Base attribute value
      * @param string $type Google Base attribute type
      *
-     * @return Mage_GoogleBase_Model_Service_Item
+     * @return $this
      */
     protected function _setAttribute($attribute, $value, $type = 'text')
     {
@@ -363,7 +363,7 @@ class Mage_GoogleBase_Model_Service_Item extends Mage_GoogleBase_Model_Service
      * @param mixed $value Fload price value
      * @param string $type Google Base attribute type
      *
-     * @return Mage_GoogleBase_Model_Service_Item
+     * @return $this
      */
     protected function _setAttributePrice($attribute, $value, $type = 'text')
     {

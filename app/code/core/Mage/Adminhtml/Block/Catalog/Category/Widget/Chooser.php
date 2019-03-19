@@ -50,7 +50,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
      * Setter
      *
      * @param array $selectedCategories
-     * @return Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser
+     * @return $this
      */
     public function setSelectedCategories($selectedCategories)
     {

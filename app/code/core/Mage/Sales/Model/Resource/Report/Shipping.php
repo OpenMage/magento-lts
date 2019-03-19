@@ -48,7 +48,7 @@ class Mage_Sales_Model_Resource_Report_Shipping extends Mage_Sales_Model_Resourc
      *
      * @param mixed $from
      * @param mixed $to
-     * @return Mage_Sales_Model_Resource_Report_Shipping
+     * @return $this
      */
     public function aggregate($from = null, $to = null)
     {
@@ -68,7 +68,7 @@ class Mage_Sales_Model_Resource_Report_Shipping extends Mage_Sales_Model_Resourc
      *
      * @param mixed $from
      * @param mixed $to
-     * @return Mage_Sales_Model_Resource_Report_Shipping
+     * @return $this
      */
     protected function _aggregateByOrderCreatedAt($from, $to)
     {
@@ -169,7 +169,7 @@ class Mage_Sales_Model_Resource_Report_Shipping extends Mage_Sales_Model_Resourc
      *
      * @param mixed $from
      * @param mixed $to
-     * @return Mage_Sales_Model_Resource_Report_Shipping
+     * @return $this
      */
     protected function _aggregateByShippingCreatedAt($from, $to)
     {

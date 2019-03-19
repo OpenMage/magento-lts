@@ -46,7 +46,7 @@ class Mage_Core_Model_Resource_Design_Collection extends Mage_Core_Model_Resourc
     /**
      * Join store data to collection
      *
-     * @return Mage_Core_Model_Resource_Design_Collection
+     * @return $this
      */
     public function joinStore()
     {
@@ -60,7 +60,7 @@ class Mage_Core_Model_Resource_Design_Collection extends Mage_Core_Model_Resourc
      * Add date filter to collection
      *
      * @param null|int|string|Zend_Date $date
-     * @return Mage_Core_Model_Resource_Design_Collection
+     * @return $this
      */
     public function addDateFilter($date = null)
     {
@@ -79,7 +79,7 @@ class Mage_Core_Model_Resource_Design_Collection extends Mage_Core_Model_Resourc
      * Add store filter to collection
      *
      * @param int|array $storeId
-     * @return Mage_Core_Model_Resource_Design_Collection
+     * @return $this
      */
     public function addStoreFilter($storeId)
     {

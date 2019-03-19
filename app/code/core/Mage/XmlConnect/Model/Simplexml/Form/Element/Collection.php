@@ -150,7 +150,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Element_Collection implements ArrayAc
      * Sort elements by values using a user-defined comparison function
      *
      * @param mixed $callback
-     * @return Mage_XmlConnect_Model_Simplexml_Form_Element_Collection
+     * @return $this
      */
     public function usort($callback)
     {
@@ -162,7 +162,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Element_Collection implements ArrayAc
      * Remove element from collection
      *
      * @param mixed $elementId
-     * @return Mage_XmlConnect_Model_Simplexml_Form_Element_Collection
+     * @return $this
      */
     public function remove($elementId)
     {

@@ -73,7 +73,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Specify select columns which are used for load arrtibute values
      *
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @return $this
      */
     public function useLoadDataFields()
     {
@@ -87,7 +87,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
      * Specify attribute entity type filter
      *
      * @param  Mage_Eav_Model_Entity_Type | int $type
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @return $this
      */
     public function setEntityTypeFilter($type)
     {
@@ -113,7 +113,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
      * Specify attribute set filter
      *
      * @param int $setId
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @return $this
      */
     public function setAttributeSetFilter($setId)
     {
@@ -145,7 +145,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
      * Result will be ordered by sort_order
      *
      * @param array $setIds
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @return $this
      */
     public function setAttributeSetsFilter(array $setIds)
     {
@@ -165,7 +165,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
      * Filter for selecting of attributes that is in all sets
      *
      * @param array $setIds
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @return $this
      */
     public function setInAllAttributeSetsFilter(array $setIds)
     {
@@ -194,7 +194,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
      * Add filter which exclude attributes assigned to attribute set
      *
      * @param int $setId
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @return $this
      */
     public function setAttributeSetExcludeFilter($setId)
     {
@@ -212,7 +212,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
      * Exclude attributes filter
      *
      * @param array $attributes
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @return $this
      */
     public function setAttributesExcludeFilter($attributes)
     {
@@ -223,7 +223,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
      * Filter by attribute group id
      *
      * @param int $groupId
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @return $this
      */
     public function setAttributeGroupFilter($groupId)
     {
@@ -240,7 +240,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Declare group by attribute id condition for collection select
      *
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @return $this
      */
     public function addAttributeGrouping()
     {
@@ -251,7 +251,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Specify "is_unique" filter as true
      *
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @return $this
      */
     public function addIsUniqueFilter()
     {
@@ -261,7 +261,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Specify "is_unique" filter as false
      *
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @return $this
      */
     public function addIsNotUniqueFilter()
     {
@@ -271,7 +271,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Specify filter to select just attributes with options
      *
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @return $this
      */
     public function addHasOptionsFilter()
     {
@@ -299,7 +299,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
      * Apply filter by attribute frontend input type
      *
      * @param string $frontendInputType
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @return $this
      */
     public function setFrontendInputTypeFilter($frontendInputType)
     {
@@ -310,7 +310,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
      * Flag for adding information about attributes sets to result
      *
      * @param bool $flag
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @return $this
      */
     public function addSetInfo($flag = true)
     {
@@ -321,7 +321,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Ad information about attribute sets to collection result data
      *
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @return $this
      */
     protected function _addSetInfo()
     {
@@ -388,7 +388,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
      * Load is used in configurable products flag
      * @deprecated
      *
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @return $this
      */
     public function checkConfigurableProducts()
     {
@@ -399,7 +399,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
      * Specify collection attribute codes filter
      *
      * @param string || array $code
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @return $this
      */
     public function setCodeFilter($code)
     {
@@ -417,7 +417,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
      * Add store label to attribute by specified store id
      *
      * @param integer $storeId
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @return $this
      */
     public function addStoreLabel($storeId)
     {

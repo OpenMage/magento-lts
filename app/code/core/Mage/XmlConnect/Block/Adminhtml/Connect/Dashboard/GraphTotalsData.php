@@ -36,7 +36,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphTotalsData extends 
     /**
      * Get rid of unnecessary collection initialization by parent
      *
-     * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphTotalsData
+     * @return $this
      */
     protected function _prepareLayout()
     {
@@ -48,7 +48,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphTotalsData extends 
      *
      * @param null|int $storeId
      * @param string $rangeId
-     * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphTotalsData
+     * @return $this
      */
     protected function _initCollection($storeId, $rangeId)
     {
@@ -82,7 +82,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphTotalsData extends 
      * Add cart totals data to xml object
      *
      * @param Mage_XmlConnect_Model_Simplexml_Element $xmlObj
-     * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphTotalsData
+     * @return $this
      */
     public function addTotalsDataToXmlObj(Mage_XmlConnect_Model_Simplexml_Element $xmlObj)
     {
@@ -113,7 +113,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphTotalsData extends 
     /**
      * Clear totals values array
      *
-     * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphTotalsData
+     * @return $this
      */
     protected function _clearTotals()
     {

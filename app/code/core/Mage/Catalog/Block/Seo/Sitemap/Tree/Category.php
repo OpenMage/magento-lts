@@ -90,7 +90,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
     /**
      * Prepare array of categories separated into pages
      *
-     * @return Mage_Catalog_Block_Seo_Sitemap_Tree_Category
+     * @return $this
      */
     public function prepareCategoriesToPages()
     {
@@ -143,7 +143,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
     /**
      * Prepare collection filtered by paths
      *
-     * @return Mage_Catalog_Block_Seo_Sitemap_Tree_Category
+     * @return $this
      */
     protected function _prepareCollection()
     {

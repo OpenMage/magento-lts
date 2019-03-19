@@ -38,7 +38,7 @@ class Mage_Bundle_Model_Resource_Indexer_Stock extends Mage_CatalogInventory_Mod
      * Reindex temporary (price result data) for defined product(s)
      *
      * @param int|array $entityIds
-     * @return Mage_Bundle_Model_Resource_Indexer_Stock
+     * @return $this
      */
     public function reindexEntity($entityIds)
     {
@@ -62,7 +62,7 @@ class Mage_Bundle_Model_Resource_Indexer_Stock extends Mage_CatalogInventory_Mod
      *
      * @param int|array $entityIds
      * @param bool $usePrimaryTable use primary or temporary index table
-     * @return Mage_Bundle_Model_Resource_Indexer_Stock
+     * @return $this
      */
     protected function _prepareBundleOptionStockData($entityIds = null, $usePrimaryTable = false)
     {
@@ -192,7 +192,7 @@ class Mage_Bundle_Model_Resource_Indexer_Stock extends Mage_CatalogInventory_Mod
      * Prepare stock status data in temporary index table
      *
      * @param int|array $entityIds  the product limitation
-     * @return Mage_Bundle_Model_Resource_Indexer_Stock
+     * @return $this
      */
     protected function _prepareIndexTable($entityIds = null)
     {
@@ -206,7 +206,7 @@ class Mage_Bundle_Model_Resource_Indexer_Stock extends Mage_CatalogInventory_Mod
      * Update Stock status index by product ids
      *
      * @param array|int $entityIds
-     * @return Mage_Bundle_Model_Resource_Indexer_Stock
+     * @return $this
      */
     protected function _updateIndex($entityIds)
     {
@@ -219,7 +219,7 @@ class Mage_Bundle_Model_Resource_Indexer_Stock extends Mage_CatalogInventory_Mod
     /**
      * Clean temporary bundle options stock data
      *
-     * @return Mage_Bundle_Model_Resource_Indexer_Stock
+     * @return $this
      */
     protected function _cleanBundleOptionStockData()
     {

@@ -169,7 +169,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
      * @param Mage_Sales_Model_Quote $checkout
      * @param string $message
      * @param string $checkoutType
-     * @return Mage_Checkout_Helper_Data
+     * @return $this
      */
     public function sendPaymentFailedEmail($checkout, $message, $checkoutType = 'onepage')
     {

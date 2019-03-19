@@ -60,7 +60,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
      * Option Instance setter
      *
      * @param Mage_Catalog_Model_Product_Option $option
-     * @return Mage_Catalog_Model_Product_Option_Type_Default
+     * @return $this
      */
     public function setOption($option)
     {
@@ -86,7 +86,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
      * Product Instance setter
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Catalog_Model_Product_Option_Type_Default
+     * @return $this
      */
     public function setProduct($product)
     {
@@ -200,7 +200,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
      *
      * @throws Mage_Core_Exception
      * @param array $values All product option values, i.e. array (option_id => mixed, option_id => mixed...)
-     * @return Mage_Catalog_Model_Product_Option_Type_Default
+     * @return $this
      */
     public function validateUserValue($values)
     {

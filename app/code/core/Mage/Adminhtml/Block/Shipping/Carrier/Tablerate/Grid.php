@@ -64,7 +64,7 @@ class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtm
      * Set current website
      *
      * @param int $websiteId
-     * @return Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid
+     * @return $this
      */
     public function setWebsiteId($websiteId)
     {
@@ -89,7 +89,7 @@ class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtm
      * Set current website
      *
      * @param int $websiteId
-     * @return Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid
+     * @return $this
      */
     public function setConditionName($name)
     {
@@ -110,7 +110,7 @@ class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtm
     /**
      * Prepare shipping table rate collection
      *
-     * @return Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid
+     * @return $this
      */
     protected function _prepareCollection()
     {

@@ -59,7 +59,7 @@ class Mage_Adminhtml_Block_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form_Con
     /**
      * Add child HTML to layout
      *
-     * @return Mage_Adminhtml_Block_Tag_Edit
+     * @return $this
      */
     protected function _prepareLayout()
     {

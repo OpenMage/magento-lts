@@ -47,7 +47,7 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
      * Load by Tag and Customer
      *
      * @param Mage_Tag_Model_Tag_Relation $model
-     * @return Mage_Tag_Model_Resource_Tag_Relation
+     * @return $this
      */
     public function loadByTagCustomer($model)
     {
@@ -141,7 +141,7 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
      *
      * @param int $tagId
      * @param int $customerId
-     * @return Mage_Tag_Model_Resource_Tag_Relation
+     * @return $this
      */
     public function deactivate($tagId, $customerId)
     {
@@ -159,7 +159,7 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
      * Add TAG to PRODUCT relations
      *
      * @param Mage_Tag_Model_Tag_Relation $model
-     * @return Mage_Tag_Model_Resource_Tag_Relation
+     * @return $this
      */
     public function addRelations($model)
     {

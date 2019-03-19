@@ -47,7 +47,7 @@ class Mage_Paypal_Model_Resource_Report_Settlement_Row_Collection
     /**
      * Join reports info table
      *
-     * @return Mage_Paypal_Model_Resource_Report_Settlement_Row_Collection
+     * @return $this
      */
     protected function _initSelect()
     {
@@ -65,7 +65,7 @@ class Mage_Paypal_Model_Resource_Report_Settlement_Row_Collection
      * Filter items collection by account ID
      *
      * @param string $accountId
-     * @return Mage_Paypal_Model_Resource_Report_Settlement_Row_Collection
+     * @return $this
      */
     public function addAccountFilter($accountId)
     {

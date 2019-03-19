@@ -47,7 +47,7 @@ class Mage_Dataflow_Model_Resource_Profile_Collection extends Mage_Core_Model_Re
      * Filter collection by specified store ids
      *
      * @param array|int $storeIds
-     * @return Mage_Dataflow_Model_Resource_Profile_Collection
+     * @return $this
      */
     public function addStoreFilter($storeIds)
     {

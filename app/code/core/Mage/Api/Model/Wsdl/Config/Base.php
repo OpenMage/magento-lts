@@ -64,7 +64,7 @@ class Mage_Api_Model_Wsdl_Config_Base extends Varien_Simplexml_Config
      * Set handler
      *
      * @param string $handler
-     * @return Mage_Api_Model_Wsdl_Config_Base
+     * @return $this
      */
     public function setHandler($handler)
     {
@@ -125,7 +125,7 @@ class Mage_Api_Model_Wsdl_Config_Base extends Varien_Simplexml_Config
      *
      * @param string $key Varible key
      * @param string $value Variable value
-     * @return Mage_Api_Model_Wsdl_Config_Base
+     * @return $this
      */
     public function setWsdlVariable($key, $value)
     {

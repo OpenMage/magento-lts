@@ -78,7 +78,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
     /**
      * Before save actions
      *
-     * @return Mage_Api2_Model_Acl_Global_Role
+     * @return $this
      */
     protected function _beforeSave()
     {
@@ -107,7 +107,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
     /**
      * Perform checks before role delete
      *
-     * @return Mage_Api2_Model_Acl_Global_Role
+     * @return $this
      */
     protected function _beforeDelete()
     {

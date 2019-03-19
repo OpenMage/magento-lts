@@ -162,7 +162,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      * Reindex Bundle product Price Index
      *
      * @param Mage_Core_Model_Product|Mage_Catalog_Model_Product_Condition_Interface|array|int $products
-     * @return Mage_Bundle_Model_Resource_Price_Index
+     * @return $this
      */
     public function reindex($products = null)
     {
@@ -187,7 +187,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      *
      * @param int $productId
      * @param int $priceType
-     * @return Mage_Bundle_Model_Resource_Price_Index
+     * @return $this
      */
     protected function _reindexProduct($productId, $priceType)
     {
@@ -247,7 +247,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      * @param int $groupId
      * @param float $minPrice
      * @param float $maxPrice
-     * @return Mage_Bundle_Model_Resource_Price_Index
+     * @return $this
      */
     protected function _savePriceIndex($productId, $websiteId, $groupId, $minPrice, $maxPrice)
     {
@@ -461,7 +461,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      * @param Varien_Db_Select $select
      * @param string $attributeCode
      * @param Mage_Core_Model_Website $website
-     * @return Mage_Bundle_Model_Resource_Price_Index
+     * @return $this
      */
     protected function _addAttributeDataToSelect(Varien_Db_Select $select, $attributeCode,
         Mage_Core_Model_Website $website)

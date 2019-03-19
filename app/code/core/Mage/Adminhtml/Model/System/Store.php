@@ -68,7 +68,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
      * Init model
      * Load Website, Group and Store collections
      *
-     * @return Mage_Adminhtml_Model_System_Store
+     * @return $this
      */
     public function __construct()
     {
@@ -443,7 +443,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
      * Allowed types: website, group, store or null for all
      *
      * @param string $type
-     * @return Mage_Adminhtml_Model_System_Store
+     * @return $this
      */
     public function reload($type = null)
     {
@@ -500,7 +500,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
      * Specify whether to show admin-scope options
      *
      * @param bool $value
-     * @return Mage_Adminhtml_Model_System_Store
+     * @return $this
      */
     public function setIsAdminScopeAllowed($value)
     {

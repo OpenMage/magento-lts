@@ -32,7 +32,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View extends Mage_Adminhtml_B
     /**
      * Create buttons
      * TODO: implement ACL restrictions
-     * @return Mage_Sales_Block_Adminhtml_Recurring_Profile_View
+     * @return $this
      */
     protected function _prepareLayout()
     {
@@ -93,7 +93,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View extends Mage_Adminhtml_B
     /**
      * Set title and a hack for tabs container
      *
-     * @return Mage_Sales_Block_Adminhtml_Recurring_Profile_View
+     * @return $this
      */
     protected function _beforeToHtml()
     {

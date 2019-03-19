@@ -36,7 +36,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Customer_Address_Street extends
     /**
      * Actions after save
      *
-     * @return Mage_Adminhtml_Model_System_Config_Backend_Customer_Address_Street
+     * @return $this
      */
     protected function _afterSave()
     {

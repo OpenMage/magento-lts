@@ -134,7 +134,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     /**
      * Prepare data for save
      *
-     * @return Mage_Eav_Model_Entity_Attribute
+     * @return $this
      * @throws Mage_Eav_Exception
      */
     protected function _beforeSave()
@@ -204,7 +204,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     /**
      * Save additional data
      *
-     * @return Mage_Eav_Model_Entity_Attribute
+     * @return $this
      */
     protected function _afterSave()
     {

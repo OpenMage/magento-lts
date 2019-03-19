@@ -37,7 +37,7 @@ class Mage_Catalog_Model_Product_Compare_List extends Varien_Object
      * Add product to Compare List
      *
      * @param int|Mage_Catalog_Model_Product $product
-     * @return Mage_Catalog_Model_Product_Compare_List
+     * @return $this
      */
     public function addProduct($product)
     {
@@ -58,7 +58,7 @@ class Mage_Catalog_Model_Product_Compare_List extends Varien_Object
      * Add products to compare list
      *
      * @param array $productIds
-     * @return Mage_Catalog_Model_Product_Compare_List
+     * @return $this
      */
     public function addProducts($productIds)
     {
@@ -84,7 +84,7 @@ class Mage_Catalog_Model_Product_Compare_List extends Varien_Object
      * Remove product from compare list
      *
      * @param int|Mage_Catalog_Model_Product $product
-     * @return Mage_Catalog_Model_Product_Compare_List
+     * @return $this
      */
     public function removeProduct($product)
     {
@@ -104,7 +104,7 @@ class Mage_Catalog_Model_Product_Compare_List extends Varien_Object
      * Add visitor and customer data to compare item
      *
      * @param Mage_Catalog_Model_Product_Compare_Item $item
-     * @return Mage_Catalog_Model_Product_Compare_List
+     * @return $this
      */
     protected function _addVisitorToItem($item)
     {

@@ -114,7 +114,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
     /**
      * Prepare collection
      *
-     * @return Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid
+     * @return $this
      */
     protected function _prepareCollection()
     {
@@ -359,7 +359,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
     /**
      * Checking the data contains the same value of data after collection
      *
-     * @return Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid
+     * @return $this
      */
     protected function _afterLoadCollection()
     {

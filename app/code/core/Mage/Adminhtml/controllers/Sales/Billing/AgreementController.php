@@ -171,7 +171,7 @@ class Mage_Adminhtml_Sales_Billing_AgreementController extends Mage_Adminhtml_Co
     /**
      * Initialize customer by ID specified in request
      *
-     * @return Mage_Adminhtml_Sales_Billing_AgreementController
+     * @return $this
      */
     protected function _initCustomer()
     {

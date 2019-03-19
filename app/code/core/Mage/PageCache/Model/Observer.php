@@ -49,7 +49,7 @@ class Mage_PageCache_Model_Observer
      * Check when cache should be disabled
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_PageCache_Model_Observer
+     * @return $this
      */
     public function processPreDispatch(Varien_Event_Observer $observer)
     {

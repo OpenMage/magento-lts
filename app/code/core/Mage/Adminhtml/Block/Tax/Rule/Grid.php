@@ -40,7 +40,7 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
     /**
      * Prepare grid collection
      *
-     * @return Mage_Adminhtml_Block_Tax_Rule_Grid
+     * @return $this
      */
     protected function _prepareCollection()
     {

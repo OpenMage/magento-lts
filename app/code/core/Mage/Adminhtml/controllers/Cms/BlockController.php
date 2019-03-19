@@ -48,7 +48,7 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
     /**
      * Init actions
      *
-     * @return Mage_Adminhtml_Cms_BlockController
+     * @return $this
      */
     protected function _initAction()
     {

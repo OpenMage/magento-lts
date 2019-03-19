@@ -93,7 +93,7 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
      * @param Mage_Catalog_Model_Category $category
      * @param Mage_Core_Model_Layout_Update $update
      *
-     * @return Mage_Catalog_CategoryController
+     * @return $this
      */
     protected function _applyCustomDesignSettings($category, $update)
     {

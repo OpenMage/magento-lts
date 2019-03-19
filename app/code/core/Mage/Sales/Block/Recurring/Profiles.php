@@ -119,7 +119,7 @@ class Mage_Sales_Block_Recurring_Profiles extends Mage_Core_Block_Template
     /**
      * Set back Url
      *
-     * @return Mage_Sales_Block_Recurring_Profiles
+     * @return $this
      */
     protected function _beforeToHtml()
     {

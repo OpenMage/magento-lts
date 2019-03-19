@@ -57,7 +57,7 @@ class Mage_Api2_Model_Response extends Zend_Controller_Response_Http
      * Set header appropriate to specified MIME type
      *
      * @param string $mimeType MIME type
-     * @return Mage_Api2_Model_Response
+     * @return $this
      */
     public function setMimeType($mimeType)
     {

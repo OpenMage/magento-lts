@@ -81,7 +81,7 @@ class Mage_Sales_Model_Resource_Order extends Mage_Sales_Model_Resource_Order_Ab
     /**
      * Init virtual grid records for entity
      *
-     * @return Mage_Sales_Model_Resource_Order
+     * @return $this
      */
     protected function _initVirtualGridColumns()
     {

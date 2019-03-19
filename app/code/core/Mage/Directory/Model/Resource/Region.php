@@ -98,7 +98,7 @@ class Mage_Directory_Model_Resource_Region extends Mage_Core_Model_Resource_Db_A
      * @param string $value
      * @param string $field
      * 
-     * @return Mage_Directory_Model_Resource_Region
+     * @return $this
      */
     protected function _loadByCountry($object, $countryId, $value, $field)
     {
@@ -131,7 +131,7 @@ class Mage_Directory_Model_Resource_Region extends Mage_Core_Model_Resource_Db_A
      * @param string $regionCode
      * @param string $countryId
      *
-     * @return Mage_Directory_Model_Resource_Region
+     * @return $this
      */
     public function loadByCode(Mage_Directory_Model_Region $region, $regionCode, $countryId)
     {
@@ -145,7 +145,7 @@ class Mage_Directory_Model_Resource_Region extends Mage_Core_Model_Resource_Db_A
      * @param string $regionName
      * @param string $countryId
      * 
-     * @return Mage_Directory_Model_Resource_Region
+     * @return $this
      */
     public function loadByName(Mage_Directory_Model_Region $region, $regionName, $countryId)
     {

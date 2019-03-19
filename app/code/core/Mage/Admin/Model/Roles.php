@@ -64,7 +64,7 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
     /**
      * Update object into database
      *
-     * @return Mage_Admin_Model_Roles
+     * @return $this
      */
     public function update()
     {

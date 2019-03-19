@@ -60,7 +60,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
     /**
      * Predispatch: should set layout area
      *
-     * @return Mage_Core_Controller_Front_Action
+     * @return $this
      */
     public function preDispatch()
     {
@@ -73,7 +73,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
     /**
      * Postdispatch: should set last visited url
      *
-     * @return Mage_Core_Controller_Front_Action
+     * @return $this
      */
     public function postDispatch()
     {

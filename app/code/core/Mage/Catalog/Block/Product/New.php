@@ -139,7 +139,7 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
      * Set how much product should be displayed at once.
      *
      * @param $count
-     * @return Mage_Catalog_Block_Product_New
+     * @return $this
      */
     public function setProductsCount($count)
     {

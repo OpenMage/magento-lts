@@ -36,7 +36,7 @@ class Mage_Sales_Block_Adminhtml_Report_Filter_Form_Coupon extends Mage_Sales_Bl
     /**
      * Prepare form
      *
-     * @return Mage_Sales_Block_Adminhtml_Report_Filter_Form_Coupon
+     * @return $this
      */
     protected function _prepareForm()
     {

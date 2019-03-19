@@ -40,7 +40,7 @@ class Mage_ProductAlert_Model_Resource_Stock_Customer_Collection
      *
      * @param int $productId
      * @param int $websiteId
-     * @return Mage_ProductAlert_Model_Resource_Stock_Customer_Collection
+     * @return $this
      */
     public function join($productId, $websiteId)
     {

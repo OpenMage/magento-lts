@@ -84,7 +84,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Resources extends Mage_Adminhtml_Block
     /**
      * Prepare tree model
      *
-     * @return Mage_Api2_Block_Adminhtml_Roles_Tab_Resources
+     * @return $this
      */
     public function _prepareTreeModel()
     {

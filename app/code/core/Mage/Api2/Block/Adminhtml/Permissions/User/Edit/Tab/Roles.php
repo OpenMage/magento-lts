@@ -60,7 +60,7 @@ class Mage_Api2_Block_Adminhtml_Permissions_User_Edit_Tab_Roles
     /**
      * Prepare grid collection object
      *
-     * @return Mage_Api2_Block_Adminhtml_Permissions_User_Edit_Tab_Roles
+     * @return $this
      */
     protected function _prepareCollection()
     {
@@ -76,7 +76,7 @@ class Mage_Api2_Block_Adminhtml_Permissions_User_Edit_Tab_Roles
     /**
      * Prepare grid columns
      *
-     * @return Mage_Api2_Block_Adminhtml_Permissions_User_Edit_Tab_Roles
+     * @return $this
      */
     protected function _prepareColumns()
     {
@@ -102,7 +102,7 @@ class Mage_Api2_Block_Adminhtml_Permissions_User_Edit_Tab_Roles
      * Add custom column filter to collection
      *
      * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @return Mage_Api2_Block_Adminhtml_Permissions_User_Edit_Tab_Roles
+     * @return $this
      */
     protected function _addColumnFilterToCollection($column)
     {

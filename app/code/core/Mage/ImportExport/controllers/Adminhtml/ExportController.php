@@ -47,7 +47,7 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
     /**
      * Initialize layout.
      *
-     * @return Mage_ImportExport_Adminhtml_ExportController
+     * @return $this
      */
     protected function _initAction()
     {
@@ -71,7 +71,7 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
     /**
      * Load data with filter applying and create file for download.
      *
-     * @return Mage_ImportExport_Adminhtml_ExportController
+     * @return $this
      */
     public function exportAction()
     {

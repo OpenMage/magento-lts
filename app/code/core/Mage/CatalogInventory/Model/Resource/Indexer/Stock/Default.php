@@ -62,7 +62,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
     /**
      * Reindex all stock status data for default logic product type
      *
-     * @return Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
+     * @return $this
      */
     public function reindexAll()
     {
@@ -82,7 +82,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
      * Reindex stock data for defined product ids
      *
      * @param int|array $entityIds
-     * @return Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
+     * @return $this
      */
     public function reindexEntity($entityIds)
     {
@@ -94,7 +94,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
      * Set active Product Type Id
      *
      * @param string $typeId
-     * @return Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
+     * @return $this
      */
     public function setTypeId($typeId)
     {
@@ -121,7 +121,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
      * Set Product Type Composite flag
      *
      * @param bool $flag
-     * @return Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
+     * @return $this
      */
     public function setIsComposite($flag)
     {
@@ -205,7 +205,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
      * Prepare stock status data in temporary index table
      *
      * @param int|array $entityIds  the product limitation
-     * @return Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
+     * @return $this
      */
     protected function _prepareIndexTable($entityIds = null)
     {
@@ -221,7 +221,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
      * Update Stock status index by product ids
      *
      * @param array|int $entityIds
-     * @return Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
+     * @return $this
      */
     protected function _updateIndex($entityIds)
     {
@@ -254,7 +254,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
      * Update stock status index table (INSERT ... ON DUPLICATE KEY UPDATE ...)
      *
      * @param array $data
-     * @return Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
+     * @return $this
      */
     protected function _updateIndexTable($data)
     {

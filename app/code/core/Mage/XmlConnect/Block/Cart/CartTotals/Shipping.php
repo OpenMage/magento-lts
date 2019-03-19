@@ -93,7 +93,7 @@ class Mage_Xmlconnect_Block_Cart_CartTotals_Shipping extends Mage_Tax_Block_Chec
      * Set total id prefix
      *
      * @param string $totalIdPrefix
-     * @return Mage_Xmlconnect_Block_Cart_CartTotals_Shipping
+     * @return $this
      */
     public function setTotalIdPrefix($totalIdPrefix)
     {

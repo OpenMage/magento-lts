@@ -70,7 +70,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
     /**
      * Check feed for modification
      *
-     * @return Mage_AdminNotification_Model_Feed
+     * @return $this
      */
     public function checkUpdate()
     {
@@ -138,7 +138,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
     /**
      * Set last update time (now)
      *
-     * @return Mage_AdminNotification_Model_Feed
+     * @return $this
      */
     public function setLastUpdate()
     {

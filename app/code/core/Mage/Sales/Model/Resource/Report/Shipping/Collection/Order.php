@@ -101,7 +101,7 @@ class Mage_Sales_Model_Resource_Report_Shipping_Collection_Order
     /**
      * Add selected data
      *
-     * @return Mage_Sales_Model_Resource_Report_Shipping_Collection_Order
+     * @return $this
      */
     protected function _initSelect()
     {

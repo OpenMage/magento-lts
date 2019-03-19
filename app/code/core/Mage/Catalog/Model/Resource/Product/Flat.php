@@ -72,7 +72,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
      * Set store for resource model
      *
      * @param mixed $store
-     * @return Mage_Catalog_Model_Resource_Product_Flat
+     * @return $this
      */
     public function setStoreId($store)
     {

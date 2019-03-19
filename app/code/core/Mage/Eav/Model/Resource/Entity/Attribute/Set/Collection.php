@@ -46,7 +46,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Set_Collection extends Mage_Core_
      * Add filter by entity type id to collection
      *
      * @param int $typeId
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Set_Collection
+     * @return $this
      */
     public function setEntityTypeFilter($typeId)
     {

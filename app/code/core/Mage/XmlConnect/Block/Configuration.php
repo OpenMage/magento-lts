@@ -62,7 +62,7 @@ class Mage_XmlConnect_Block_Configuration extends Mage_Core_Block_Abstract
      *
      * @param Mage_XmlConnect_Model_Simplexml_Element $section
      * @param array $subTree
-     * @return Mage_XmlConnect_Block_Configuration
+     * @return $this
      */
     protected function _buildRecursive($section, $subTree)
     {
@@ -125,7 +125,7 @@ class Mage_XmlConnect_Block_Configuration extends Mage_Core_Block_Abstract
      * Add localization data to xml object
      *
      * @param Mage_XmlConnect_Model_Simplexml_Element $xml
-     * @return Mage_XmlConnect_Block_Configuration
+     * @return $this
      */
     protected function _addLocalization(Mage_XmlConnect_Model_Simplexml_Element $xml)
     {

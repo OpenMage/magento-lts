@@ -47,7 +47,7 @@ class Mage_Reports_Model_Flag extends Mage_Core_Model_Flag
      * Setter for flag code
      *
      * @param string $code
-     * @return Mage_Reports_Model_Flag
+     * @return $this
      */
     public function setReportFlagCode($code)
     {

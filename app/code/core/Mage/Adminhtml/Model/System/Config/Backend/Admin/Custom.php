@@ -45,7 +45,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom extends Mage_Core_
     /**
      * Validate value before save
      *
-     * @return Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom
+     * @return $this
      */
     protected function _beforeSave()
     {
@@ -62,7 +62,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom extends Mage_Core_
     /**
      * Change secure/unsecure base_url after use_custom_url was modified
      *
-     * @return Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom
+     * @return $this
      */
     public function _afterSave()
     {

@@ -54,7 +54,7 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber extends Mage_Adminhtml_Block_Te
     /**
      * Prepares block to render
      *
-     * @return Mage_Adminhtml_Block_Newsletter_Subscriber
+     * @return $this
      */
     protected function _beforeToHtml()
     {

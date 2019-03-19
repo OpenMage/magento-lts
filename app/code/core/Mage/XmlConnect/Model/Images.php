@@ -52,7 +52,7 @@ class Mage_XmlConnect_Model_Images extends Mage_Core_Model_Abstract
     /**
      * Delete item and repair order of images
      *
-     * @return Mage_XmlConnect_Model_Images
+     * @return $this
      */
     public function deleteAndRepairOrder()
     {
@@ -64,7 +64,7 @@ class Mage_XmlConnect_Model_Images extends Mage_Core_Model_Abstract
     /**
      * Delete image action
      *
-     * @return Mage_XmlConnect_Model_Images
+     * @return $this
      */
     public function deleteImageAction()
     {
@@ -77,7 +77,7 @@ class Mage_XmlConnect_Model_Images extends Mage_Core_Model_Abstract
      *
      * @param string $imageFile
      * @param bool $deleteOriginal
-     * @return Mage_XmlConnect_Model_Images
+     * @return $this
      */
     protected function _deleteImageFiles($imageFile, $deleteOriginal = true)
     {
@@ -103,7 +103,7 @@ class Mage_XmlConnect_Model_Images extends Mage_Core_Model_Abstract
      * Check image type
      *
      * @param string $type
-     * @return Mage_XmlConnect_Model_Images
+     * @return $this
      */
     public function checkType($type = '')
     {
@@ -135,7 +135,7 @@ class Mage_XmlConnect_Model_Images extends Mage_Core_Model_Abstract
      * Check is application record exists
      *
      * @param int $appId
-     * @return Mage_XmlConnect_Model_Images
+     * @return $this
      */
     public function checkApplication($appId = 0)
     {
@@ -154,7 +154,7 @@ class Mage_XmlConnect_Model_Images extends Mage_Core_Model_Abstract
      * Validate submit data
      *
      * @param array $data
-     * @return Mage_XmlConnect_Model_Images
+     * @return $this
      */
     public function validateAndSetSubmitData($data)
     {
@@ -309,7 +309,7 @@ class Mage_XmlConnect_Model_Images extends Mage_Core_Model_Abstract
      * @param string $imageFile
      * @param string $imageType
      * @param int $order
-     * @return Mage_XmlConnect_Model_Images
+     * @return $this
      */
     public function saveImage($applicationId, $imageFile, $imageType, $order)
     {
@@ -322,7 +322,7 @@ class Mage_XmlConnect_Model_Images extends Mage_Core_Model_Abstract
      * Used for backward compatibility only
      *
      * @param array $config
-     * @return Mage_XmlConnect_Model_Images
+     * @return $this
      */
     public function loadOldImageNodes(&$config)
     {

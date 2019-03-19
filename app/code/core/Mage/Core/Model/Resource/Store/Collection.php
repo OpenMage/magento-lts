@@ -56,7 +56,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
      * Set flag for load default (admin) store
      *
      * @param boolean $loadDefault
-     * @return Mage_Core_Model_Resource_Store_Collection
+     * @return $this
      */
     public function setLoadDefault($loadDefault)
     {
@@ -77,7 +77,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
     /**
      * Add disable default store filter to collection
      *
-     * @return Mage_Core_Model_Resource_Store_Collection
+     * @return $this
      */
     public function setWithoutDefaultFilter()
     {
@@ -90,7 +90,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
      * Group id can be passed as one single value or array of values.
      *
      * @param int|array $groupId
-     * @return Mage_Core_Model_Resource_Store_Collection
+     * @return $this
      */
     public function addGroupFilter($groupId)
     {
@@ -101,7 +101,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
      * Add store id(s) filter to collection
      *
      * @param int|array $store
-     * @return Mage_Core_Model_Resource_Store_Collection
+     * @return $this
      */
     public function addIdFilter($store)
     {
@@ -112,7 +112,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
      * Add filter by website to collection
      *
      * @param int|array $website
-     * @return Mage_Core_Model_Resource_Store_Collection
+     * @return $this
      */
     public function addWebsiteFilter($website)
     {
@@ -123,7 +123,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
      * Add root category id filter to store collection
      *
      * @param int|array $category
-     * @return Mage_Core_Model_Resource_Store_Collection
+     * @return $this
      */
     public function addCategoryFilter($category)
     {
@@ -158,7 +158,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
      *
      * @param boolean $printQuery
      * @param boolean $logQuery
-     * @return Mage_Core_Model_Resource_Store_Collection
+     * @return $this
      */
     public function load($printQuery = false, $logQuery = false)
     {
@@ -178,7 +178,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
      * Add root category id filter to store collection
      *
      * @param array $categories
-     * @return Mage_Core_Model_Resource_Store_Collection
+     * @return $this
      */
     public function loadByCategoryIds(array $categories)
     {
@@ -191,7 +191,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
     /**
      * Add store root category data to collection
      *
-     * @return Mage_Core_Model_Resource_Store_Collection
+     * @return $this
      */
     public function addRootCategoryIdAttribute()
     {

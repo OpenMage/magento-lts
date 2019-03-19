@@ -256,7 +256,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
      * Add Note message
      *
      * @param string $message
-     * @return Mage_CatalogSearch_Helper_Data
+     * @return $this
      */
     public function addNoteMessage($message)
     {
@@ -268,7 +268,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
      * Set Note messages
      *
      * @param array $messages
-     * @return Mage_CatalogSearch_Helper_Data
+     * @return $this
      */
     public function setNoteMessages(array $messages)
     {
@@ -290,7 +290,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
      * Check query of a warnings
      *
      * @param mixed $store
-     * @return Mage_CatalogSearch_Helper_Data
+     * @return $this
      */
     public function checkNotes($store = null)
     {

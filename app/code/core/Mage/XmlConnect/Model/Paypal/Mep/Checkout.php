@@ -320,7 +320,7 @@ class Mage_XmlConnect_Model_Paypal_Mep_Checkout
     /**
      * Prepare quote for guest checkout order submit
      *
-     * @return Mage_XmlConnect_Model_Paypal_Mep_Checkout
+     * @return $this
      */
     protected function _prepareGuestQuote()
     {

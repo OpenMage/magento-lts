@@ -429,7 +429,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
      * Add error
      *
      * @param $error
-     * @return Mage_Customer_Model_Address_Abstract
+     * @return $this
      */
     public function addError($error)
     {
@@ -450,7 +450,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     /**
      * Reset errors array
      *
-     * @return Mage_Customer_Model_Address_Abstract
+     * @return $this
      */
     protected function _resetErrors()
     {

@@ -107,7 +107,7 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
     /**
      * Generate Coupons Pool
      *
-     * @return Mage_SalesRule_Model_Coupon_Massgenerator
+     * @return $this
      */
     public function generatePool()
     {

@@ -38,7 +38,7 @@ class Mage_Core_Model_Observer
      * Check if synchronize process is finished and generate notification message
      *
      * @param  Varien_Event_Observer $observer
-     * @return Mage_Core_Model_Observer
+     * @return $this
      */
     public function addSynchronizeNotification(Varien_Event_Observer $observer)
     {
@@ -111,7 +111,7 @@ class Mage_Core_Model_Observer
      * Cleans cache by tags
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Core_Model_Observer
+     * @return $this
      */
     public function cleanCacheByTags(Varien_Event_Observer $observer)
     {

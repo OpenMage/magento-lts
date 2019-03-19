@@ -74,7 +74,7 @@ class Mage_Sales_Model_Resource_Order_Invoice extends Mage_Sales_Model_Resource_
     /**
      * Init virtual grid records for entity
      *
-     * @return Mage_Sales_Model_Resource_Order_Invoice
+     * @return $this
      */
     protected function _initVirtualGridColumns()
     {

@@ -70,7 +70,7 @@ class Mage_Bundle_Model_Price_Index extends Mage_Core_Model_Abstract
      *
      * @param int $productId
      * @param int $priceType
-     * @return Mage_Bundle_Model_Price_Index
+     * @return $this
      */
     protected function _reindexProduct($productId, $priceType)
     {
@@ -82,7 +82,7 @@ class Mage_Bundle_Model_Price_Index extends Mage_Core_Model_Abstract
      * Reindex Bundle product Price Index
      *
      * @param Mage_Core_Model_Product|Mage_Catalog_Model_Product_Condition_Interface|array|int $products
-     * @return Mage_Bundle_Model_Price_Index
+     * @return $this
      */
     public function reindex($products = null)
     {
@@ -94,7 +94,7 @@ class Mage_Bundle_Model_Price_Index extends Mage_Core_Model_Abstract
      * Add bundle price range index to Product collection
      *
      * @param Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection $collection
-     * @return Mage_Bundle_Model_Price_Index
+     * @return $this
      */
     public function addPriceIndexToCollection($collection)
     {
@@ -137,7 +137,7 @@ class Mage_Bundle_Model_Price_Index extends Mage_Core_Model_Abstract
      * Add price index to bundle product after load
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Bundle_Model_Price_Index
+     * @return $this
      */
     public function addPriceIndexToProduct($product)
     {

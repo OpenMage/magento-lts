@@ -30,7 +30,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Seo_Product extends Mage_Core_M
     /**
      * Refresh category url rewrites if configuration was changed
      *
-     * @return Mage_Adminhtml_Model_System_Config_Backend_Seo_Product
+     * @return $this
      */
     protected function _afterSave()
     {

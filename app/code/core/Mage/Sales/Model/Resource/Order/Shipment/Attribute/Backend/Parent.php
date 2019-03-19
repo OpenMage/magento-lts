@@ -39,7 +39,7 @@ class Mage_Sales_Model_Resource_Order_Shipment_Attribute_Backend_Parent
      * Performed after data is saved
      *
      * @param Varien_Object $object
-     * @return Mage_Sales_Model_Resource_Order_Shipment_Attribute_Backend_Parent
+     * @return $this
      */
     public function afterSave($object)
     {

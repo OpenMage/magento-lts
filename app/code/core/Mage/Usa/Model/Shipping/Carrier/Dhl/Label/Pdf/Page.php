@@ -100,7 +100,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page extends Zend_Pdf_Page
      *   Defaults to current locale.
      * @param $align
      * @throws Zend_Pdf_Exception
-     * @return Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page
+     * @return $this
      */
     public function drawText($text, $x, $y, $charEncoding = 'UTF-8', $align = self::ALIGN_LEFT)
     {

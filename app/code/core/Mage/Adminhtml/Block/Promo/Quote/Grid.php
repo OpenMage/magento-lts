@@ -50,7 +50,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Grid extends Mage_Adminhtml_Block_Widget_
      * Add websites to sales rules collection
      * Set collection
      *
-     * @return Mage_Adminhtml_Block_Promo_Quote_Grid
+     * @return $this
      */
     protected function _prepareCollection()
     {
@@ -67,7 +67,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Grid extends Mage_Adminhtml_Block_Widget_
     /**
      * Add grid columns
      *
-     * @return Mage_Adminhtml_Block_Promo_Quote_Grid
+     * @return $this
      */
     protected function _prepareColumns()
     {

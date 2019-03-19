@@ -36,7 +36,7 @@ class Mage_Adminhtml_Block_Customer_System_Config_Validatevat extends Mage_Admin
     /**
      * Set template to itself
      *
-     * @return Mage_Adminhtml_Block_Customer_System_Config_Validatevat
+     * @return $this
      */
     protected function _prepareLayout()
     {

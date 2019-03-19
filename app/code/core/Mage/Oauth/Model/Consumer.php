@@ -74,7 +74,7 @@ class Mage_Oauth_Model_Consumer extends Mage_Core_Model_Abstract
     /**
      * BeforeSave actions
      *
-     * @return Mage_Oauth_Model_Consumer
+     * @return $this
      */
     protected function _beforeSave()
     {

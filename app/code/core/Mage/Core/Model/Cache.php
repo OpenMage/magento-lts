@@ -469,7 +469,7 @@ class Mage_Core_Model_Cache
     /**
      * Initialize cache types options
      *
-     * @return Mage_Core_Model_Cache
+     * @return $this
      */
     protected function _initOptions()
     {
@@ -499,7 +499,7 @@ class Mage_Core_Model_Cache
      * Save cache usage options
      *
      * @param array $options
-     * @return Mage_Core_Model_Cache
+     * @return $this
      */
     public function saveOptions($options)
     {
@@ -535,7 +535,7 @@ class Mage_Core_Model_Cache
      * Disable cache usage for specific data type
      *
      * @param string $typeCode
-     * @return Mage_Core_Model_Cache
+     * @return $this
      */
     public function banUse($typeCode)
     {
@@ -605,7 +605,7 @@ class Mage_Core_Model_Cache
      * Save invalidated cache types
      *
      * @param array $types
-     * @return Mage_Core_Model_Cache
+     * @return $this
      */
     protected function _saveInvalidatedTypes($types)
     {
@@ -637,7 +637,7 @@ class Mage_Core_Model_Cache
      * Mark specific cache type(s) as invalidated
      *
      * @param string|array $typeCode
-     * @return Mage_Core_Model_Cache
+     * @return $this
      */
     public function invalidateType($typeCode)
     {
@@ -656,7 +656,7 @@ class Mage_Core_Model_Cache
      * Clean cached data for specific cache type
      *
      * @param string $typeCode
-     * @return Mage_Core_Model_Cache
+     * @return $this
      */
     public function cleanType($typeCode)
     {

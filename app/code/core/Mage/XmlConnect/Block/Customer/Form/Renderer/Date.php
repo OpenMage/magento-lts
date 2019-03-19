@@ -69,7 +69,7 @@ class Mage_XmlConnect_Block_Customer_Form_Renderer_Date extends Enterprise_Custo
      * Add date field to fieldset xml object
      *
      * @param Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $fieldsetXmlObj
-     * @return Mage_XmlConnect_Block_Customer_Form_Renderer_Date
+     * @return $this
      */
     public function addFieldToXmlObj(Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $fieldsetXmlObj)
     {

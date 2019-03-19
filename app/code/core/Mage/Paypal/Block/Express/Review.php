@@ -56,7 +56,7 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
      * Quote object setter
      *
      * @param Mage_Sales_Model_Quote $quote
-     * @return Mage_Paypal_Block_Express_Review
+     * @return $this
      */
     public function setQuote(Mage_Sales_Model_Quote $quote)
     {
@@ -196,7 +196,7 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
     /**
      * Retrieve payment method and assign additional template values
      *
-     * @return Mage_Paypal_Block_Express_Review
+     * @return $this
      */
     protected function _beforeToHtml()
     {

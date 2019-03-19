@@ -77,7 +77,7 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
      * Add filter to grid columns
      *
      * @param mixed $column
-     * @return Mage_Adminhtml_Block_Tag_Assigned_Grid
+     * @return $this
      */
     protected function _addColumnFilterToCollection($column)
     {
@@ -103,7 +103,7 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Retrieve Products Collection
      *
-     * @return Mage_Adminhtml_Block_Tag_Assigned_Grid
+     * @return $this
      */
     protected function _prepareCollection()
     {

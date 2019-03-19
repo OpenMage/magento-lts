@@ -90,7 +90,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      *
      * @param mixed $customer
      * @param bool $create Create wishlist if don't exists
-     * @return Mage_Wishlist_Model_Wishlist
+     * @return $this
      */
     public function loadByCustomer($customer, $create = false)
     {
@@ -127,7 +127,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     /**
      * Set random sharing code
      *
-     * @return Mage_Wishlist_Model_Wishlist
+     * @return $this
      */
     public function generateSharingCode()
     {
@@ -139,7 +139,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * Load by sharing code
      *
      * @param string $code
-     * @return Mage_Wishlist_Model_Wishlist
+     * @return $this
      */
     public function loadByCode($code)
     {
@@ -164,7 +164,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     /**
      * Set date of last update for wishlist
      *
-     * @return Mage_Wishlist_Model_Wishlist
+     * @return $this
      */
     protected function _beforeSave()
     {
@@ -397,7 +397,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * Set customer id
      *
      * @param int $customerId
-     * @return Mage_Wishlist_Model_Wishlist
+     * @return $this
      */
     public function setCustomerId($customerId)
     {
@@ -455,7 +455,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * Set shared store ids
      *
      * @param array $storeIds
-     * @return Mage_Wishlist_Model_Wishlist
+     * @return $this
      */
     public function setSharedStoreIds($storeIds)
     {
@@ -480,7 +480,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * Set wishlist store
      *
      * @param Mage_Core_Model_Store $store
-     * @return Mage_Wishlist_Model_Wishlist
+     * @return $this
      */
     public function setStore($store)
     {
@@ -542,7 +542,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * @param int|Mage_Wishlist_Model_Item $itemId
      * @param Varien_Object $buyRequest
      * @param null|array|Varien_Object $params
-     * @return Mage_Wishlist_Model_Wishlist
+     * @return $this
      *
      * @see Mage_Catalog_Helper_Product::addParamsToBuyRequest()
      */
@@ -608,7 +608,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     /**
      * Save wishlist.
      *
-     * @return Mage_Wishlist_Model_Wishlist
+     * @return $this
      */
     public function save()
     {

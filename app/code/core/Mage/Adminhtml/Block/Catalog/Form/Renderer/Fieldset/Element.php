@@ -116,7 +116,7 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element
     /**
      * Disable field in default value using case
      *
-     * @return Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element
+     * @return $this
      */
     public function checkFieldDisable()
     {

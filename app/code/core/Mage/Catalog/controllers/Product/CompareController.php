@@ -177,7 +177,7 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
      * Setter for customer id
      *
      * @param int $id
-     * @return Mage_Catalog_Product_CompareController
+     * @return $this
      */
     public function setCustomerId($id)
     {

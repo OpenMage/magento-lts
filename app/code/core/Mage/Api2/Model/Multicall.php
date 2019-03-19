@@ -68,7 +68,7 @@ class Mage_Api2_Model_Multicall
      * Make call to specified subresource with data from request
      *
      * @param Mage_Core_Model_Config_Element $subresource
-     * @return Mage_Api2_Model_Multicall
+     * @return $this
      */
     protected function _callSubresource($subresource)
     {
@@ -103,7 +103,7 @@ class Mage_Api2_Model_Multicall
      * @param Mage_Core_Model_Config_Element $subresource
      * @param array $requestData
      * @throws Mage_Api2_Exception
-     * @return Mage_Api2_Model_Multicall
+     * @return $this
      */
     protected function _internalCall($subresource, $requestData)
     {

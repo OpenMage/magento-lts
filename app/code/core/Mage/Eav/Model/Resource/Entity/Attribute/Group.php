@@ -115,7 +115,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Group extends Mage_Core_Model_Res
      * Set any group default if old one was removed
      *
      * @param integer $attributeSetId
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Group
+     * @return $this
      */
     public function updateDefaultGroup($attributeSetId)
     {

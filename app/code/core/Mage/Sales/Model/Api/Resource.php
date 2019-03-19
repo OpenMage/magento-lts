@@ -57,7 +57,7 @@ class Mage_Sales_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      * @param array $data
      * @param Mage_Core_Model_Abstract $object
      * @param array $attributes
-     * @return Mage_Sales_Model_Api_Resource
+     * @return $this
      */
     protected function _updateAttributes($data, $object, $type,  array $attributes = null)
     {
@@ -76,7 +76,7 @@ class Mage_Sales_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      *
      * @param Mage_Core_Model_Abstract $object
      * @param array $attributes
-     * @return Mage_Sales_Model_Api_Resource
+     * @return $this
      */
     protected function _getAttributes($object, $type, array $attributes = null)
     {

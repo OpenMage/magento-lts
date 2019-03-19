@@ -181,7 +181,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     /**
      * Init mapping array of short fields to its full names
      *
-     * @return Mage_Sales_Model_Order_Creditmemo
+     * @return $this
      */
     protected function _initOldFieldsMap()
     {
@@ -322,7 +322,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     /**
      * Creditmemo totals collecting
      *
-     * @return Mage_Sales_Model_Order_Creditmemo
+     * @return $this
      */
     public function collectTotals()
     {
@@ -465,7 +465,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     /**
      * Cancel Creditmemo action
      *
-     * @return Mage_Sales_Model_Order_Creditmemo
+     * @return $this
      */
     public function cancel()
     {
@@ -514,7 +514,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
      *
      * Apply to order, order items etc.
      *
-     * @return Mage_Sales_Model_Order_Creditmemo
+     * @return $this
      */
     public function register()
     {
@@ -663,7 +663,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
      * @param bool $notify
      * @param bool $visibleOnFront
      *
-     * @return Mage_Sales_Model_Order_Creditmemo
+     * @return $this
      */
     public function addComment($comment, $notify=false, $visibleOnFront=false)
     {
@@ -710,7 +710,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
      *
      * @param boolean $notifyCustomer
      * @param string $comment
-     * @return Mage_Sales_Model_Order_Creditmemo
+     * @return $this
      */
     public function sendEmail($notifyCustomer = true, $comment = '')
     {
@@ -805,7 +805,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
      *
      * @param boolean $notifyCustomer
      * @param string $comment
-     * @return Mage_Sales_Model_Order_Creditmemo
+     * @return $this
      */
     public function sendUpdateEmail($notifyCustomer = true, $comment = '')
     {
@@ -888,7 +888,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     /**
      * After save object manipulations
      *
-     * @return Mage_Sales_Model_Order_Creditmemo
+     * @return $this
      */
     protected function _afterSave()
     {
@@ -911,7 +911,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     /**
      * Before object save manipulations
      *
-     * @return Mage_Sales_Model_Order_Creditmemo
+     * @return $this
      */
     protected function _beforeSave()
     {

@@ -44,7 +44,7 @@ class Mage_XmlConnect_Block_Customer_Form_Renderer_Image extends Mage_XmlConnect
      * Add validator for image file field to fieldset xml object
      *
      * @param Mage_XmlConnect_Model_Simplexml_Form_Element_Abstract $fieldXmlObj
-     * @return Mage_XmlConnect_Block_Customer_Form_Renderer_Image
+     * @return $this
      */
     protected function _addValidator(Mage_XmlConnect_Model_Simplexml_Form_Element_Abstract $fieldXmlObj)
     {

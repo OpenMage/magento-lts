@@ -134,7 +134,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      * Add template data to queue.
      *
      * @param Varien_Object $data
-     * @return Mage_Newsletter_Model_Queue
+     * @return $this
      * @deprecated since 1.4.0.1
      */
     public function addTemplateData($data)
@@ -151,7 +151,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      * Set $_data['queue_start'] based on string from backend, which based on locale.
      *
      * @param string|null $startAt start date of the mailing queue
-     * @return Mage_Newsletter_Model_Queue
+     * @return $this
      */
     public function setQueueStartAtByString($startAt)
     {
@@ -171,7 +171,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      *
      * @param   int     $count
      * @param   array   $additionalVariables
-     * @return Mage_Newsletter_Model_Queue
+     * @return $this
      */
     public function sendPerSubscriber($count=20, array $additionalVariables=array())
     {
@@ -234,7 +234,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
     /**
      * Finish queue: set status SENT and update finish date
      *
-     * @return Mage_Newsletter_Model_Queue
+     * @return $this
      */
     protected function _finishQueue()
     {
@@ -264,7 +264,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      * Add subscribers to queue.
      *
      * @param array $subscriberIds
-     * @return Mage_Newsletter_Model_Queue
+     * @return $this
      */
     public function addSubscribersToQueue(array $subscriberIds)
     {
@@ -276,7 +276,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      * Setter for save template flag.
      *
      * @param boolean|integer|string $value
-     * @return Mage_Newsletter_Model_Queue
+     * @return $this
      * @deprecated since 1.4.0.1
      */
     public function setSaveTemplateFlag($value)
@@ -301,7 +301,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      * Setter for save stores flag.
      *
      * @param boolean|integer|string $value
-     * @return Mage_Newsletter_Model_Queue
+     * @return $this
      */
     public function setSaveStoresFlag($value)
     {
@@ -324,7 +324,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      * Setter for stores of queue.
      *
      * @param array
-     * @return Mage_Newsletter_Model_Queue
+     * @return $this
      */
     public function setStores(array $storesIds)
     {

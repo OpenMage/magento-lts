@@ -36,7 +36,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Product_Grid extends Mage_Adminhtml_Block_
     /**
      * Disable massaction
      *
-     * @return Mage_Adminhtml_Block_Urlrewrite_Product_Grid
+     * @return $this
      */
     protected function _prepareMassaction()
     {
@@ -46,7 +46,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Product_Grid extends Mage_Adminhtml_Block_
     /**
      * Prepare columns layout
      *
-     * @return Mage_Adminhtml_Block_Urlrewrite_Product_Grid
+     * @return $this
      */
     protected function _prepareColumns()
     {

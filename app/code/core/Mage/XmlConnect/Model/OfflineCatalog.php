@@ -62,7 +62,7 @@ class Mage_XmlConnect_Model_OfflineCatalog
      * Run export by type
      *
      * @param string $type
-     * @return Mage_XmlConnect_Model_OfflineCatalog
+     * @return $this
      */
     protected function _runExport($type)
     {
@@ -76,7 +76,7 @@ class Mage_XmlConnect_Model_OfflineCatalog
     /**
      * Export offline catalog data
      *
-     * @return Mage_XmlConnect_Model_OfflineCatalog
+     * @return $this
      */
     public function exportData()
     {

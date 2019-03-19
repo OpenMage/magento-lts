@@ -41,7 +41,7 @@ class Mage_XmlConnect_Model_OfflineCatalog_Config extends Mage_XmlConnect_Model_
     /**
      * Export config data
      *
-     * @return Mage_XmlConnect_Model_OfflineCatalog_Config
+     * @return $this
      */
     public function exportData()
     {

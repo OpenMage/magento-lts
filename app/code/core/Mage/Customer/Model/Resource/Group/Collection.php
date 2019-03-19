@@ -46,7 +46,7 @@ class Mage_Customer_Model_Resource_Group_Collection extends Mage_Core_Model_Reso
      * Set tax group filter
      *
      * @param mixed $classId
-     * @return Mage_Customer_Model_Resource_Group_Collection
+     * @return $this
      */
     public function setTaxGroupFilter($classId)
     {
@@ -62,7 +62,7 @@ class Mage_Customer_Model_Resource_Group_Collection extends Mage_Core_Model_Reso
      * Set ignore ID filter
      *
      * @param array $indexes
-     * @return Mage_Customer_Model_Resource_Group_Collection
+     * @return $this
      */
     public function setIgnoreIdFilter($indexes)
     {
@@ -75,7 +75,7 @@ class Mage_Customer_Model_Resource_Group_Collection extends Mage_Core_Model_Reso
     /**
      * Set real groups filter
      *
-     * @return Mage_Customer_Model_Resource_Group_Collection
+     * @return $this
      */
     public function setRealGroupsFilter()
     {
@@ -85,7 +85,7 @@ class Mage_Customer_Model_Resource_Group_Collection extends Mage_Core_Model_Reso
     /**
      * Add tax class
      *
-     * @return Mage_Customer_Model_Resource_Group_Collection
+     * @return $this
      */
     public function addTaxClass()
     {

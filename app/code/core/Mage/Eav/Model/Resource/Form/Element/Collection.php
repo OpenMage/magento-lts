@@ -46,7 +46,7 @@ class Mage_Eav_Model_Resource_Form_Element_Collection extends Mage_Core_Model_Re
      * Add Form Type filter to collection
      *
      * @param Mage_Eav_Model_Form_Type|int $type
-     * @return Mage_Eav_Model_Resource_Form_Element_Collection
+     * @return $this
      */
     public function addTypeFilter($type)
     {
@@ -61,7 +61,7 @@ class Mage_Eav_Model_Resource_Form_Element_Collection extends Mage_Core_Model_Re
      * Add Form Fieldset filter to collection
      *
      * @param Mage_Eav_Model_Form_Fieldset|int $fieldset
-     * @return Mage_Eav_Model_Resource_Form_Element_Collection
+     * @return $this
      */
     public function addFieldsetFilter($fieldset)
     {
@@ -77,7 +77,7 @@ class Mage_Eav_Model_Resource_Form_Element_Collection extends Mage_Core_Model_Re
      *
      * @param Mage_Eav_Model_Entity_Attribute_Abstract|int $attribute
      *
-     * @return Mage_Eav_Model_Resource_Form_Element_Collection
+     * @return $this
      */
     public function addAttributeFilter($attribute)
     {
@@ -91,7 +91,7 @@ class Mage_Eav_Model_Resource_Form_Element_Collection extends Mage_Core_Model_Re
     /**
      * Set order by element sort order
      *
-     * @return Mage_Eav_Model_Resource_Form_Element_Collection
+     * @return $this
      */
     public function setSortOrder()
     {
@@ -103,7 +103,7 @@ class Mage_Eav_Model_Resource_Form_Element_Collection extends Mage_Core_Model_Re
     /**
      * Join attribute data
      *
-     * @return Mage_Eav_Model_Resource_Form_Element_Collection
+     * @return $this
      */
     protected function _joinAttributeData()
     {
@@ -121,7 +121,7 @@ class Mage_Eav_Model_Resource_Form_Element_Collection extends Mage_Core_Model_Re
      *
      * @param boolean $printQuery
      * @param boolean $logQuery
-     * @return Mage_Eav_Model_Resource_Form_Element_Collection
+     * @return $this
      */
     public function load($printQuery = false, $logQuery = false)
     {

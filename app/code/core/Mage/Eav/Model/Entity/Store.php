@@ -58,7 +58,7 @@ class Mage_Eav_Model_Entity_Store extends Mage_Core_Model_Abstract
      *
      * @param int $entityTypeId
      * @param int $storeId
-     * @return Mage_Eav_Model_Entity_Store
+     * @return $this
      */
     public function loadByEntityStore($entityTypeId, $storeId)
     {

@@ -53,7 +53,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
     /**
      * Initialize unique fields
      *
-     * @return Mage_Eav_Model_Resource_Entity_Attribute
+     * @return $this
      */
     protected function _initUniqueFields()
     {
@@ -68,7 +68,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
      * Load all entity type attributes
      *
      * @param int $entityTypeId
-     * @return Mage_Eav_Model_Resource_Entity_Attribute
+     * @return $this
      */
     protected function _loadTypeAttributes($entityTypeId)
     {
@@ -140,7 +140,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
      * Delete entity
      *
      * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Eav_Model_Resource_Entity_Attribute
+     * @return $this
      */
     public function deleteEntity(Mage_Core_Model_Abstract $object)
     {
@@ -159,7 +159,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
      * Validate attribute data before save
      *
      * @param Mage_Eav_Model_Entity_Attribute $object
-     * @return Mage_Eav_Model_Resource_Entity_Attribute
+     * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
@@ -188,7 +188,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
      * Save additional attribute data after save attribute
      *
      * @param Mage_Eav_Model_Entity_Attribute $object
-     * @return Mage_Eav_Model_Resource_Entity_Attribute
+     * @return $this
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -204,7 +204,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
      * Save store labels
      *
      * @param Mage_Eav_Model_Entity_Attribute $object
-     * @return Mage_Eav_Model_Resource_Entity_Attribute
+     * @return $this
      */
     protected function _saveStoreLabels(Mage_Core_Model_Abstract $object)
     {
@@ -235,7 +235,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
      * Save additional data of attribute
      *
      * @param Mage_Eav_Model_Entity_Attribute $object
-     * @return Mage_Eav_Model_Resource_Entity_Attribute
+     * @return $this
      */
     protected function _saveAdditionalAttributeData(Mage_Core_Model_Abstract $object)
     {
@@ -263,7 +263,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
      * Save in set including
      *
      * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Eav_Model_Resource_Entity_Attribute
+     * @return $this
      */
     public function saveInSetIncluding(Mage_Core_Model_Abstract $object)
     {
@@ -300,7 +300,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
      *  Save attribute options
      *
      * @param Mage_Eav_Model_Entity_Attribute $object
-     * @return Mage_Eav_Model_Resource_Entity_Attribute
+     * @return $this
      */
     protected function _saveOption(Mage_Core_Model_Abstract $object)
     {
@@ -488,7 +488,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
      * Load label of current active store
      *
      * @param Mage_Eav_Model_Entity_Attribute $object
-     * @return Mage_Eav_Model_Resource_Entity_Attribute
+     * @return $this
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {

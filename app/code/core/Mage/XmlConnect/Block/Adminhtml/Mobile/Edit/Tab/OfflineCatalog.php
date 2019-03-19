@@ -60,7 +60,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_OfflineCatalog
     /**
      * Add generate button
      *
-     * @return Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_OfflineCatalog
+     * @return $this
      */
     protected function _addGenerateButton()
     {

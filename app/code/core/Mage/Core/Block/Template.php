@@ -106,7 +106,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
      * Set path to template used for generating block's output.
      *
      * @param string $template
-     * @return Mage_Core_Block_Template
+     * @return $this
      */
     public function setTemplate($template)
     {
@@ -163,7 +163,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
      * Set template location directory
      *
      * @param string $dir
-     * @return Mage_Core_Block_Template
+     * @return $this
      */
     public function setScriptPath($dir)
     {

@@ -53,7 +53,7 @@ class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abst
      * @param Mage_Eav_Model_Form_Type $object
      * @param mixed $value
      * @param string $field field to load by (defaults to model id)
-     * @return Mage_Eav_Model_Resource_Form_Type
+     * @return $this
      */
     public function load(Mage_Core_Model_Abstract $object, $value, $field = null)
     {
@@ -90,7 +90,7 @@ class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abst
      * @see Mage_Core_Model_Resource_Db_Abstract#_afterSave($object)
      *
      * @param Mage_Eav_Model_Form_Type $object
-     * @return Mage_Eav_Model_Resource_Form_Type
+     * @return $this
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {

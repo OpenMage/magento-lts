@@ -82,7 +82,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
     /**
      * Init indexing process after tag data commit
      *
-     * @return Mage_Tag_Model_Tag
+     * @return $this
      */
     public function afterCommitCallback()
     {
@@ -97,7 +97,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
      * Setter for addBasePopularity flag
      *
      * @param bool $flag
-     * @return Mage_Tag_Model_Tag
+     * @return $this
      */
     public function setAddBasePopularity($flag = true)
     {
@@ -178,7 +178,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
      * Product delete event action
      *
      * @param  Varien_Event_Observer $observer
-     * @return Mage_Tag_Model_Tag
+     * @return $this
      */
     public function productDeleteEventAction($observer)
     {
@@ -191,7 +191,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
      *
      * @deprecated after 1.4.0.0
      * @param int $storeId
-     * @return Mage_Tag_Model_Tag
+     * @return $this
      */
     public function addSummary($storeId)
     {

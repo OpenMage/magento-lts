@@ -50,7 +50,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Grid extends Mage_Adminhtml_Block_Widge
      * Add websites to catalog rules collection
      * Set collection
      *
-     * @return Mage_Adminhtml_Block_Promo_Catalog_Grid
+     * @return $this
      */
     protected function _prepareCollection()
     {
@@ -67,7 +67,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Grid extends Mage_Adminhtml_Block_Widge
     /**
      * Add grid columns
      *
-     * @return Mage_Adminhtml_Block_Promo_Catalog_Grid
+     * @return $this
      */
     protected function _prepareColumns()
     {

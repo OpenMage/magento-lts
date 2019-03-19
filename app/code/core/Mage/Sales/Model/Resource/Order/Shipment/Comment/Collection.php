@@ -62,7 +62,7 @@ class Mage_Sales_Model_Resource_Order_Shipment_Comment_Collection
      * Set shipment filter
      *
      * @param int $shipmentId
-     * @return Mage_Sales_Model_Resource_Order_Shipment_Comment_Collection
+     * @return $this
      */
     public function setShipmentFilter($shipmentId)
     {

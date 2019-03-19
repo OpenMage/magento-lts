@@ -48,7 +48,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable extends Mage_Core_Mo
      *
      * @param Mage_Catalog_Model_Product|int $mainProduct the parent id
      * @param array $productIds the children id array
-     * @return Mage_Catalog_Model_Resource_Product_Type_Configurable
+     * @return $this
      */
     public function saveProducts($mainProduct, $productIds)
     {

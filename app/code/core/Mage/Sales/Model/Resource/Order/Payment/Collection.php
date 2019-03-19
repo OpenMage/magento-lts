@@ -60,7 +60,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Collection extends Mage_Sales_Mode
     /**
      * Unserialize additional_information in each item
      *
-     * @return Mage_Sales_Model_Resource_Order_Payment_Collection
+     * @return $this
      */
     protected function _afterLoad()
     {

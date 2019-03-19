@@ -37,7 +37,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Found
     /**
      * Load value options
      *
-     * @return Mage_SalesRule_Model_Rule_Condition_Product_Found
+     * @return $this
      */
     public function loadValueOptions()
     {

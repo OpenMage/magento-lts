@@ -59,7 +59,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Apply extends Varien_Data
      *
      * @param bool $readonly
      * @param bool $useDisabled
-     * @return Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Apply
+     * @return $this
      */
     public function setReadonly($readonly, $useDisabled = false)
     {

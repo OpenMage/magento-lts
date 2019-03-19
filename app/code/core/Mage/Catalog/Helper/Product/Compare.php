@@ -273,7 +273,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
      * Calculate cache product compare collection
      *
      * @param  bool $logout
-     * @return Mage_Catalog_Helper_Product_Compare
+     * @return $this
      */
     public function calculate($logout = false)
     {
@@ -333,7 +333,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
      * Set is allow used flat (for collection)
      *
      * @param bool $flag
-     * @return Mage_Catalog_Helper_Product_Compare
+     * @return $this
      */
     public function setAllowUsedFlat($flag)
     {
@@ -355,7 +355,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
      * Setter for customer id
      *
      * @param int $id
-     * @return Mage_Catalog_Helper_Product_Compare
+     * @return $this
      */
     public function setCustomerId($id)
     {

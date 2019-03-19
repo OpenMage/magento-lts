@@ -133,7 +133,7 @@ class Mage_Sales_Model_Quote_Address_Total_Collector extends Mage_Sales_Model_Co
     /**
      * Initialize total models configuration and objects
      *
-     * @return Mage_Sales_Model_Quote_Address_Total_Collector
+     * @return $this
      */
     protected function _initModels()
     {
@@ -151,7 +151,7 @@ class Mage_Sales_Model_Quote_Address_Total_Collector extends Mage_Sales_Model_Co
     /**
      * Initialize retrievers array
      *
-     * @return Mage_Sales_Model_Quote_Address_Total_Collector
+     * @return $this
      */
     protected function _initRetrievers()
     {

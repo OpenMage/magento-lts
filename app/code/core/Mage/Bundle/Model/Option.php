@@ -65,7 +65,7 @@ class Mage_Bundle_Model_Option extends Mage_Core_Model_Abstract
      * Add selection to option
      *
      * @param Mage_Bundle_Model_Selection $selection
-     * @return Mage_Bundle_Model_Option
+     * @return $this
      */
     public function addSelection($selection)
     {

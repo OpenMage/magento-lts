@@ -59,7 +59,7 @@ class Mage_CatalogRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Re
      * Find product attribute in conditions or actions
      *
      * @param string $attributeCode
-     * @return Mage_CatalogRule_Model_Resource_Rule_Collection
+     * @return $this
      */
     public function addAttributeInConditionFilter($attributeCode)
     {

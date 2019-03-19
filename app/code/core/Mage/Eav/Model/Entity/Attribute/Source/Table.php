@@ -107,7 +107,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
      * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
      * @param string $dir
      *
-     * @return Mage_Eav_Model_Entity_Attribute_Source_Table
+     * @return $this
      */
     public function addValueSortToCollection($collection, $dir = Varien_Db_Select::SQL_ASC)
     {

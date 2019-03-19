@@ -107,7 +107,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
      *
      * @param  int|null $storeId
      * @param  int|array|null $productIds
-     * @return Mage_CatalogSearch_Model_Resource_Fulltext
+     * @return $this
      */
     public function rebuildIndex($storeId = null, $productIds = null)
     {
@@ -128,7 +128,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
      *
      * @param int $storeId Store View Id
      * @param int|array $productIds Product Entity Id
-     * @return Mage_CatalogSearch_Model_Resource_Fulltext
+     * @return $this
      */
     protected function _rebuildStoreIndex($storeId, $productIds = null)
     {
@@ -295,7 +295,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
     /**
      * Reset search results
      *
-     * @return Mage_CatalogSearch_Model_Resource_Fulltext
+     * @return $this
      */
     public function resetSearchResults()
     {
@@ -308,7 +308,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
      *
      * @param int $storeId Store View Id
      * @param int $productId Product Entity Id
-     * @return Mage_CatalogSearch_Model_Resource_Fulltext
+     * @return $this
      */
     public function cleanIndex($storeId = null, $productId = null)
     {
@@ -325,7 +325,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
      * @param Mage_CatalogSearch_Model_Fulltext $object
      * @param string $queryText
      * @param Mage_CatalogSearch_Model_Query $query
-     * @return Mage_CatalogSearch_Model_Resource_Fulltext
+     * @return $this
      */
     public function prepareResult($object, $queryText, $query)
     {
@@ -770,7 +770,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
      * @param int $productId
      * @param int $storeId
      * @param string $index
-     * @return Mage_CatalogSearch_Model_Resource_Fulltext
+     * @return $this
      */
     protected function _saveProductIndex($productId, $storeId, $index)
     {
@@ -786,7 +786,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
      *
      * @param int $storeId
      * @param array $productIndexes
-     * @return Mage_CatalogSearch_Model_Resource_Fulltext
+     * @return $this
      */
     protected function _saveProductIndexes($storeId, $productIndexes)
     {
@@ -837,7 +837,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
      *
      * @deprecated after 1.6.1.0
      * @param bool $value
-     * @return Mage_CatalogSearch_Model_Resource_Fulltext
+     * @return $this
      */
     public function setAllowTableChanges($value = true)
     {
@@ -852,7 +852,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
      *
      * @param array $productIds
      * @param array $categoryIds
-     * @return Mage_CatalogSearch_Model_Resource_Fulltext
+     * @return $this
      */
     public function updateCategoryIndex($productIds, $categoryIds)
     {

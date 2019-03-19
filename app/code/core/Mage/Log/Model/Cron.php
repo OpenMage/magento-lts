@@ -49,7 +49,7 @@ class Mage_Log_Model_Cron extends Mage_Core_Model_Abstract
     /**
      * Send Log Clean Warnings
      *
-     * @return Mage_Log_Model_Cron
+     * @return $this
      */
     protected function _sendLogCleanEmail()
     {
@@ -83,7 +83,7 @@ class Mage_Log_Model_Cron extends Mage_Core_Model_Abstract
     /**
      * Clean logs
      *
-     * @return Mage_Log_Model_Cron
+     * @return $this
      */
     public function logClean()
     {

@@ -47,7 +47,7 @@ class Mage_Paypal_Model_Cert extends Mage_Core_Model_Abstract
      *
      * @param int $websiteId
      * @param bool $strictLoad
-     * @return Mage_Paypal_Model_Cert
+     * @return $this
      */
     public function loadByWebsite($websiteId, $strictLoad = true)
     {
@@ -125,7 +125,7 @@ class Mage_Paypal_Model_Cert extends Mage_Core_Model_Abstract
     /**
      * Delete assigned certificate file after delete object
      *
-     * @return Mage_Paypal_Model_Cert
+     * @return $this
      */
     protected function _afterDelete()
     {

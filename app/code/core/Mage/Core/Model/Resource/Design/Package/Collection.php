@@ -37,7 +37,7 @@ class Mage_Core_Model_Resource_Design_Package_Collection extends Varien_Object
     /**
      * Load design package collection
      *
-     * @return Mage_Core_Model_Resource_Design_Package_Collection
+     * @return $this
      */
     public function load()
     {

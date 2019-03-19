@@ -48,7 +48,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Re
      *
      * @param Mage_CatalogInventory_Model_Stock_Item $item
      * @param int $productId
-     * @return Mage_CatalogInventory_Model_Resource_Stock_Item
+     * @return $this
      */
     public function loadByProductId(Mage_CatalogInventory_Model_Stock_Item $item, $productId)
     {
@@ -84,7 +84,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Re
      * Add join for catalog in stock field to product collection
      *
      * @param Mage_Catalog_Model_Resource_Product_Collection $productCollection
-     * @return Mage_CatalogInventory_Model_Resource_Stock_Item
+     * @return $this
      */
     public function addCatalogInventoryToProductCollection($productCollection)
     {

@@ -43,7 +43,7 @@ class Mage_Api2_Model_Auth_Adapter
     /**
      * Load adapters configuration and create adapters models
      *
-     * @return Mage_Api2_Model_Auth_Adapter
+     * @return $this
      * @throws Exception
      */
     protected function _initAdapters()

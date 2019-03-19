@@ -103,7 +103,7 @@ class Mage_XmlConnect_Model_Queue extends Mage_Core_Model_Template
      *
      * @param int $id
      * @param string $field
-     * @return Mage_XmlConnect_Model_Queue
+     * @return $this
      */
     public function load($id, $field = null)
     {
@@ -217,7 +217,7 @@ EOT;
     /**
      * Reset all model data
      *
-     * @return Mage_XmlConnect_Model_Queue
+     * @return $this
      */
     public function reset()
     {

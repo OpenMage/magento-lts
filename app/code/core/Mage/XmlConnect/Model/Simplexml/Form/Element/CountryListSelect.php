@@ -54,7 +54,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Element_CountryListSelect
     /**
      * Set country list values 'country_id' and 'region_id'
      *
-     * @return Mage_XmlConnect_Model_Simplexml_Form_Element_CountryListSelect
+     * @return $this
      */
     protected function _setValues()
     {
@@ -75,7 +75,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Element_CountryListSelect
      *
      * @deprecated old output standard
      * @param Mage_XmlConnect_Model_Simplexml_Element $xmlObj
-     * @return Mage_XmlConnect_Model_Simplexml_Form_Element_CountryListSelect
+     * @return $this
      */
     protected function _addOldStandardValue(Mage_XmlConnect_Model_Simplexml_Element $xmlObj)
     {

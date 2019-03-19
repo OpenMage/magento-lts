@@ -102,7 +102,7 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
      * Before save
      *
      * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Core_Model_Resource_Translate_String
+     * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
@@ -125,7 +125,7 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
      * After save
      *
      * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Core_Model_Resource_Translate_String
+     * @return $this
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -172,7 +172,7 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
      * @param string $string
      * @param string $locale
      * @param int|null $storeId
-     * @return Mage_Core_Model_Resource_Translate_String
+     * @return $this
      */
     public function deleteTranslate($string, $locale = null, $storeId = null)
     {
@@ -203,7 +203,7 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
      * @param String $translate
      * @param String $locale
      * @param int|null $storeId
-     * @return Mage_Core_Model_Resource_Translate_String
+     * @return $this
      */
     public function saveTranslate($string, $translate, $locale = null, $storeId = null)
     {

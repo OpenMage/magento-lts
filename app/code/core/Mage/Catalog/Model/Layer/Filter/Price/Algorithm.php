@@ -137,7 +137,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
      *
      * @param null|float $lowerLimit
      * @param null|float $upperLimit
-     * @return Mage_Catalog_Model_Layer_Filter_Price_Algorithm
+     * @return $this
      */
     public function setLimits($lowerLimit = null, $upperLimit = null)
     {
@@ -195,7 +195,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
      * @param float $max
      * @param float $standardDeviation
      * @param int $count
-     * @return Mage_Catalog_Model_Layer_Filter_Price_Algorithm
+     * @return $this
      */
     public function setStatistics($min, $max, $standardDeviation, $count)
     {
@@ -224,7 +224,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
      * Set prices model
      *
      * @param Mage_Catalog_Model_Layer_Filter_Price $pricesModel
-     * @return Mage_Catalog_Model_Layer_Filter_Price_Algorithm
+     * @return $this
      */
     public function setPricesModel($pricesModel)
     {

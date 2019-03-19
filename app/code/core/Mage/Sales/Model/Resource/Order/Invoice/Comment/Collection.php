@@ -63,7 +63,7 @@ class Mage_Sales_Model_Resource_Order_Invoice_Comment_Collection
      * Set invoice filter
      *
      * @param int $invoiceId
-     * @return Mage_Sales_Model_Resource_Order_Invoice_Comment_Collection
+     * @return $this
      */
     public function setInvoiceFilter($invoiceId)
     {

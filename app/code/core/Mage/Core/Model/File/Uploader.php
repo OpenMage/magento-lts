@@ -45,7 +45,7 @@ class Mage_Core_Model_File_Uploader extends Varien_File_Uploader
      * Save file to storage
      *
      * @param  array $result
-     * @return Mage_Core_Model_File_Uploader
+     * @return $this
      */
     protected function _afterSave($result)
     {

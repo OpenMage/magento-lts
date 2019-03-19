@@ -44,7 +44,7 @@ class Mage_Catalog_Block_Product_View_Type_Grouped extends Mage_Catalog_Block_Pr
     /**
      * Set preconfigured values to grouped associated products
      *
-     * @return Mage_Catalog_Block_Product_View_Type_Grouped
+     * @return $this
      */
     public function setPreconfiguredValue() {
         $configValues = $this->getProduct()->getPreconfiguredValues()->getSuperGroup();

@@ -48,7 +48,7 @@ class Mage_Sales_Model_Resource_Billing_Agreement extends Mage_Core_Model_Resour
      *
      * @param int $agreementId
      * @param int $orderId
-     * @return Mage_Sales_Model_Resource_Billing_Agreement
+     * @return $this
      */
     public function addOrderRelation($agreementId, $orderId)
     {

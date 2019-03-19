@@ -184,7 +184,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
     /**
      * Run profile
      *
-     * @return Mage_Dataflow_Model_Profile
+     * @return $this
      */
     public function run()
     {

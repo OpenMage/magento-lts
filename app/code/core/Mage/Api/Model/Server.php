@@ -77,7 +77,7 @@ class Mage_Api_Model_Server
      * @param Mage_Api_Controller_Action $controller
      * @param string $adapter Adapter name
      * @param string $handler Handler name
-     * @return Mage_Api_Model_Server
+     * @return $this
      */
     public function init(Mage_Api_Controller_Action $controller, $adapter = 'default', $handler = 'default')
     {
@@ -93,7 +93,7 @@ class Mage_Api_Model_Server
      *
      * @param string $adapterCode Adapter code
      * @param string $handler OPTIONAL Handler name (if not specified, it will be found from config)
-     * @return Mage_Api_Model_Server
+     * @return $this
      */
     public function initialize($adapterCode, $handler = null)
     {

@@ -119,7 +119,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Processing object before save data
      *
-     * @return Mage_Newsletter_Model_Template
+     * @return $this
      */
     protected function _beforeSave()
     {
@@ -131,7 +131,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      * Load template by code
      *
      * @param string $templateCode
-     * @return Mage_Newsletter_Model_Template
+     * @return $this
      */
     public function loadByCode($templateCode)
     {
@@ -365,7 +365,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Prepare Process (with save)
      *
-     * @return Mage_Newsletter_Model_Template
+     * @return $this
      * @deprecated since 1.4.0.1
      */
     public function preprocess()

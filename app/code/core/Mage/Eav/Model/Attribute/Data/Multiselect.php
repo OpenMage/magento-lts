@@ -53,7 +53,7 @@ class Mage_Eav_Model_Attribute_Data_Multiselect extends Mage_Eav_Model_Attribute
      * Export attribute value to entity model
      *
      * @param array|string $value
-     * @return Mage_Eav_Model_Attribute_Data_Multiselect
+     * @return $this
      */
     public function compactValue($value)
     {

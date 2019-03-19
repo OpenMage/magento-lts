@@ -193,7 +193,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Images extends Mage
     /**
      * Clear Image config object
      *
-     * @return Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Design_Images
+     * @return $this
      */
     public function clearConfig()
     {

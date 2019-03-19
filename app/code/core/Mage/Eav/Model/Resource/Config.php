@@ -59,7 +59,7 @@ class Mage_Eav_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Load all entity types
      *
-     * @return Mage_Eav_Model_Resource_Config
+     * @return $this
      */
     protected function _loadTypes()
     {

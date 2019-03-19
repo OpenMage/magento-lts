@@ -46,7 +46,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract extends Mage_Admin
      * Set column related to filter
      *
      * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @return Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract
+     * @return $this
      */
     public function setColumn($column)
     {

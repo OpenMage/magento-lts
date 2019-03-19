@@ -41,7 +41,7 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Type_Configurable
      * @param bool $printQuery
      * @param bool $logQuery
      * @throws Exception
-     * @return Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Type_Configurable_Product_Collection
+     * @return $this
      */
     public function _loadEntities($printQuery = false, $logQuery = false)
     {

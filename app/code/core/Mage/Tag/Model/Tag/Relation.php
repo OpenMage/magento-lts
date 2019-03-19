@@ -83,7 +83,7 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
     /**
      * Init indexing process after tag data commit
      *
-     * @return Mage_Tag_Model_Tag_Relation
+     * @return $this
      */
     public function afterCommitCallback()
     {
@@ -101,7 +101,7 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
      * @param int $tagId
      * @param int $customerId
      * @param int $storeId
-     * @return Mage_Tag_Model_Tag_Relation
+     * @return $this
      */
     public function loadByTagCustomer($productId=null, $tagId, $customerId, $storeId=null)
     {
@@ -146,7 +146,7 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
     /**
      * Deactivate tag relations (using current settings)
      *
-     * @return Mage_Tag_Model_Tag_Relation
+     * @return $this
      */
     public function deactivate()
     {
@@ -159,7 +159,7 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
      *
      * @param Mage_Tag_Model_Tag $model
      * @param array $productIds
-     * @return Mage_Tag_Model_Tag_Relation
+     * @return $this
      */
     public function addRelations(Mage_Tag_Model_Tag $model, $productIds = array())
     {

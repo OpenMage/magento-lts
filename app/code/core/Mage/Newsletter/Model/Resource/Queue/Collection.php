@@ -63,7 +63,7 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
      *
      * @deprecated since 1.4.0.1
      *
-     * @return Mage_Newsletter_Model_Resource_Queue_Collection
+     * @return $this
      */
     public function addTemplateInfo()
     {
@@ -78,7 +78,7 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
     /**
      * Adds subscribers info to selelect
      *
-     * @return Mage_Newsletter_Model_Resource_Queue_Collection
+     * @return $this
      */
     protected function _addSubscriberInfoToSelect()
     {
@@ -105,7 +105,7 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
      *
      * @param bool $printQuery
      * @param bool $logQuery
-     * @return Mage_Newsletter_Model_Resource_Queue_Collection
+     * @return $this
      */
     public function load($printQuery = false, $logQuery = false)
     {
@@ -118,7 +118,7 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
     /**
      * Joines subscribers information
      *
-     * @return Mage_Newsletter_Model_Resource_Queue_Collection
+     * @return $this
      */
     public function addSubscribersInfo()
     {
@@ -132,7 +132,7 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
      *
      * @param string $field
      * @param mixed $condition
-     * @return Mage_Newsletter_Model_Resource_Queue_Collection
+     * @return $this
      */
     public function addFieldToFilter($field, $condition = null)
     {
@@ -178,7 +178,7 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
      * Set filter for queue by subscriber.
      *
      * @param int $subscriberId
-     * @return Mage_Newsletter_Model_Resource_Queue_Collection
+     * @return $this
      */
     public function addSubscriberFilter($subscriberId)
     {
@@ -194,7 +194,7 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
     /**
      * Add filter by only ready fot sending item
      *
-     * @return Mage_Newsletter_Model_Resource_Queue_Collection
+     * @return $this
      */
     public function addOnlyForSendingFilter()
     {
@@ -210,7 +210,7 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
     /**
      * Add filter by only not sent items
      *
-     * @return Mage_Newsletter_Model_Resource_Queue_Collection
+     * @return $this
      */
     public function addOnlyUnsentFilter()
     {
@@ -233,7 +233,7 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
      * Filter collection by specified store ids
      *
      * @param array|int $storeIds
-     * @return Mage_Newsletter_Model_Resource_Queue_Collection
+     * @return $this
      */
     public function addStoreFilter($storeIds)
     {

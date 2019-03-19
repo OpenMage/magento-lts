@@ -65,7 +65,7 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
      * reissuing new sql just to get 'db' version of module.
      *
      * @param string $needType Can be 'db' or 'data'
-     * @return Mage_Core_Model_Resource_Resource
+     * @return $this
      */
     protected function _loadVersionData($needType)
     {
@@ -156,7 +156,7 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
      *
      * @param string $resName
      * @param string $version
-     * @return Mage_Core_Model_Resource_Resource
+     * @return $this
      */
     public function setDataVersion($resName, $version)
     {

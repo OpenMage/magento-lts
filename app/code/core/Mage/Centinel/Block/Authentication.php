@@ -48,7 +48,7 @@ class Mage_Centinel_Block_Authentication extends Mage_Core_Block_Template
      * Add identifier of related block
      *
      * @param string $blockId
-     * @return Mage_Centinel_Block_Authentication
+     * @return $this
      */
     public function addRelatedBlock($blockId)
     {

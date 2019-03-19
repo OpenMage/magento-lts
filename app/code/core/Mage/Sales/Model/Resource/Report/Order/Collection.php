@@ -115,7 +115,7 @@ class Mage_Sales_Model_Resource_Report_Order_Collection extends Mage_Sales_Model
     /**
      * Add selected data
      *
-     * @return Mage_Sales_Model_Resource_Report_Order_Collection
+     * @return $this
      */
     protected function _initSelect()
     {

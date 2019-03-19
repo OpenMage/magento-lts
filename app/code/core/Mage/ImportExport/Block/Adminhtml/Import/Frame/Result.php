@@ -65,7 +65,7 @@ class Mage_ImportExport_Block_Adminhtml_Import_Frame_Result extends Mage_Adminht
      * @param string $actionName
      * @param string $elementId
      * @param mixed $value OPTIONAL
-     * @return Mage_ImportExport_Block_Adminhtml_Import_Frame_Result
+     * @return $this
      */
     public function addAction($actionName, $elementId, $value = null)
     {
@@ -89,7 +89,7 @@ class Mage_ImportExport_Block_Adminhtml_Import_Frame_Result extends Mage_Adminht
      * Add error message.
      *
      * @param string $message Error message
-     * @return Mage_ImportExport_Block_Adminhtml_Import_Frame_Result
+     * @return $this
      */
     public function addError($message)
     {
@@ -108,7 +108,7 @@ class Mage_ImportExport_Block_Adminhtml_Import_Frame_Result extends Mage_Adminht
      *
      * @param mixed $message Message text
      * @param boolean $appendImportButton OPTIONAL Append import button to message?
-     * @return Mage_ImportExport_Block_Adminhtml_Import_Frame_Result
+     * @return $this
      */
     public function addNotice($message, $appendImportButton = false)
     {
@@ -127,7 +127,7 @@ class Mage_ImportExport_Block_Adminhtml_Import_Frame_Result extends Mage_Adminht
      *
      * @param mixed $message Message text
      * @param boolean $appendImportButton OPTIONAL Append import button to message?
-     * @return Mage_ImportExport_Block_Adminhtml_Import_Frame_Result
+     * @return $this
      */
     public function addSuccess($message, $appendImportButton = false)
     {

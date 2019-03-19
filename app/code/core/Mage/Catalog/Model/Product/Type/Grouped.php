@@ -151,7 +151,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
      *
      * @param  int $status
      * @param  Mage_Catalog_Model_Product $product
-     * @return Mage_Catalog_Model_Product_Type_Grouped
+     * @return $this
      */
     public function addStatusFilter($status, $product = null)
     {
@@ -170,7 +170,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
      * Set only saleable filter
      *
      * @param  Mage_Catalog_Model_Product $product
-     * @return Mage_Catalog_Model_Product_Type_Grouped
+     * @return $this
      */
     public function setSaleableStatus($product = null)
     {
@@ -255,7 +255,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
      * Save type related data
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Catalog_Model_Product_Type_Grouped
+     * @return $this
      */
     public function save($product = null)
     {

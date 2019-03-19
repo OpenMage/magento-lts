@@ -36,7 +36,7 @@ class Mage_XmlConnect_PbridgeController extends Mage_Core_Controller_Front_Actio
     /**
      * Load only action layout handles
      *
-     * @return Mage_XmlConnect_PbridgeController
+     * @return $this
      */
     protected function _initActionLayout()
     {

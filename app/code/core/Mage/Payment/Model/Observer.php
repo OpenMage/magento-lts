@@ -37,7 +37,7 @@ class Mage_Payment_Model_Observer
      * Set forced canCreditmemo flag
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Payment_Model_Observer
+     * @return $this
      */
     public function salesOrderBeforeSave($observer)
     {

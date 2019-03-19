@@ -106,7 +106,7 @@ class Mage_Tax_Model_Resource_Report_Collection extends Mage_Sales_Model_Resourc
     /**
      * Add selected data
      *
-     * @return Mage_Tax_Model_Resource_Report_Collection
+     * @return $this
      */
     protected function _initSelect()
     {

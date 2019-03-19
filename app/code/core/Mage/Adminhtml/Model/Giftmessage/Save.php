@@ -39,7 +39,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
     /**
      * Save all seted giftmessages
      *
-     * @return Mage_Adminhtml_Model_Giftmessage_Save
+     * @return $this
      */
     public function saveAllInQuote()
     {
@@ -81,7 +81,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
      *
      * @param integer $entityId
      * @param array $giftmessage
-     * @return Mage_Adminhtml_Model_Giftmessage_Save
+     * @return $this
      */
     protected function _saveOne($entityId, $giftmessage) {
         /* @var $giftmessageModel Mage_Giftmessage_Model_Message */
@@ -134,7 +134,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
      *
      * @param Mage_GiftMessage_Model_Message|null $giftmessageModel
      * @param Varien_Object $entityModel
-     * @return Mage_Adminhtml_Model_Giftmessage_Save
+     * @return $this
      */
     protected function _deleteOne($entityModel, $giftmessageModel=null)
     {
@@ -152,7 +152,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
      * Set allowed quote items for gift messages
      *
      * @param array $items
-     * @return Mage_Adminhtml_Model_Giftmessage_Save
+     * @return $this
      */
     public function setAllowQuoteItems($items)
     {
@@ -164,7 +164,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
      * Add allowed quote item for gift messages
      *
      * @param int $item
-     * @return Mage_Adminhtml_Model_Giftmessage_Save
+     * @return $this
      */
     public function addAllowQuoteItem($item)
     {

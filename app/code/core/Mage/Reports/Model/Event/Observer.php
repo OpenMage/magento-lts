@@ -53,7 +53,7 @@ class Mage_Reports_Model_Event_Observer
      * @param int $objectId
      * @param int $subjectId
      * @param int $subtype
-     * @return Mage_Reports_Model_Event_Observer
+     * @return $this
      */
     protected function _event($eventTypeId, $objectId, $subjectId = null, $subtype = 0)
     {
@@ -85,7 +85,7 @@ class Mage_Reports_Model_Event_Observer
      * Customer login action
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Reports_Model_Event_Observer
+     * @return $this
      */
     public function customerLogin(Varien_Event_Observer $observer)
     {
@@ -112,7 +112,7 @@ class Mage_Reports_Model_Event_Observer
      * Customer logout processing
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Reports_Model_Event_Observer
+     * @return $this
      */
     public function customerLogout(Varien_Event_Observer $observer)
     {
@@ -132,7 +132,7 @@ class Mage_Reports_Model_Event_Observer
      * View Catalog Product action
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Reports_Model_Event_Observer
+     * @return $this
      */
     public function catalogProductView(Varien_Event_Observer $observer)
     {
@@ -154,7 +154,7 @@ class Mage_Reports_Model_Event_Observer
      * Send Product link to friends action
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Reports_Model_Event_Observer
+     * @return $this
      */
     public function sendfriendProduct(Varien_Event_Observer $observer)
     {
@@ -173,7 +173,7 @@ class Mage_Reports_Model_Event_Observer
      * Reset count of compared products cache
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Reports_Model_Event_Observer
+     * @return $this
      */
     public function catalogProductCompareRemoveProduct(Varien_Event_Observer $observer)
     {
@@ -190,7 +190,7 @@ class Mage_Reports_Model_Event_Observer
      * Reset count of compared products cache
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Reports_Model_Event_Observer
+     * @return $this
      */
     public function catalogProductCompareClear(Varien_Event_Observer $observer)
     {
@@ -229,7 +229,7 @@ class Mage_Reports_Model_Event_Observer
      * Add product to shopping cart action
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Reports_Model_Event_Observer
+     * @return $this
      */
     public function checkoutCartAddProduct(Varien_Event_Observer $observer)
     {
@@ -248,7 +248,7 @@ class Mage_Reports_Model_Event_Observer
      * Add product to wishlist action
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Reports_Model_Event_Observer
+     * @return $this
      */
     public function wishlistAddProduct(Varien_Event_Observer $observer)
     {
@@ -265,7 +265,7 @@ class Mage_Reports_Model_Event_Observer
      * Share customer wishlist action
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Reports_Model_Event_Observer
+     * @return $this
      */
     public function wishlistShare(Varien_Event_Observer $observer)
     {
@@ -284,7 +284,7 @@ class Mage_Reports_Model_Event_Observer
      * @see Global Log Clean Settings
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Reports_Model_Event_Observer
+     * @return $this
      */
     public function eventClean(Varien_Event_Observer $observer)
     {

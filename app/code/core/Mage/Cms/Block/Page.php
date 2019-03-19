@@ -58,7 +58,7 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
     /**
      * Prepare global layout
      *
-     * @return Mage_Cms_Block_Page
+     * @return $this
      */
     protected function _prepareLayout()
     {

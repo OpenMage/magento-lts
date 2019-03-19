@@ -98,7 +98,7 @@ class Mage_XmlConnect_Block_Homebanners extends Mage_Core_Block_Abstract
      *
      * @param Mage_XmlConnect_Model_Simplexml_Element $imageXml
      * @param int $imageId
-     * @return Mage_XmlConnect_Block_Homebanners
+     * @return $this
      */
     protected function _addImageAction(Mage_XmlConnect_Model_Simplexml_Element $imageXml, $imageId)
     {

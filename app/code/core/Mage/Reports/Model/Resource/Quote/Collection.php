@@ -80,7 +80,7 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
      *
      * @param array $storeIds
      * @param string $filter
-     * @return Mage_Reports_Model_Resource_Quote_Collection
+     * @return $this
      */
     public function prepareForAbandonedReport($storeIds, $filter = null)
     {
@@ -100,7 +100,7 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
     /**
      * Prepare select query for products in carts report
      *
-     * @return Mage_Reports_Model_Resource_Quote_Collection
+     * @return $this
      */
     public function prepareForProductsInCarts()
     {
@@ -158,7 +158,7 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
      * Add store ids to filter
      *
      * @param array $storeIds
-     * @return Mage_Reports_Model_Resource_Quote_Collection
+     * @return $this
      */
     public function addStoreFilter($storeIds)
     {
@@ -170,7 +170,7 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
      * Add customer data
      *
      * @param unknown_type $filter
-     * @return Mage_Reports_Model_Resource_Quote_Collection
+     * @return $this
      */
     public function addCustomerData($filter = null)
     {
@@ -248,7 +248,7 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
      *
      * @param array $storeIds
      * @param array $filter
-     * @return Mage_Reports_Model_Resource_Quote_Collection
+     * @return $this
      */
     public function addSubtotal($storeIds = '', $filter = null)
     {

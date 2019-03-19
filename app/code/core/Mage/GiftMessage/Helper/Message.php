@@ -254,7 +254,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
      *
      * @param string $key
      * @param mixed $value
-     * @return Mage_GiftMessage_Helper_Message
+     * @return $this
      */
     public function setCached($key, $value)
     {

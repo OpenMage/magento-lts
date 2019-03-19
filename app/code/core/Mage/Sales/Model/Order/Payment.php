@@ -304,7 +304,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Authorize or authorize and capture payment on gateway, if applicable
      * This method is supposed to be called only when order is placed
      *
-     * @return Mage_Sales_Model_Order_Payment
+     * @return $this
      */
     public function place()
     {
@@ -401,7 +401,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      *
      * TODO: eliminate logic duplication with registerCaptureNotification()
      *
-     * @return Mage_Sales_Model_Order_Payment
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function capture($invoice)
@@ -487,7 +487,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      *
      * @param float $amount
      * @param bool $skipFraudDetection
-     * @return Mage_Sales_Model_Order_Payment
+     * @return $this
      */
     public function registerCaptureNotification($amount, $skipFraudDetection = false)
     {
@@ -550,7 +550,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      *
      * @see self::_authorize()
      * @param float $amount
-     * @return Mage_Sales_Model_Order_Payment
+     * @return $this
      */
     public function registerAuthorizationNotification($amount)
     {
@@ -561,7 +561,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Register payment fact: update self totals from the invoice
      *
      * @param Mage_Sales_Model_Order_Invoice $invoice
-     * @return Mage_Sales_Model_Order_Payment
+     * @return $this
      */
     public function pay($invoice)
     {
@@ -579,7 +579,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Cancel specified invoice: update self totals from it
      *
      * @param Mage_Sales_Model_Order_Invoice $invoice
-     * @return Mage_Sales_Model_Order_Payment
+     * @return $this
      */
     public function cancelInvoice($invoice)
     {
@@ -634,7 +634,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      *
      * @see self::_void()
      * @param Varien_Object $document
-     * @return Mage_Sales_Model_Order_Payment
+     * @return $this
      */
     public function void(Varien_Object $document)
     {
@@ -664,7 +664,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Updates payment totals, updates order status and adds proper comments
      *
      * @param Mage_Sales_Model_Order_Creditmemo $creditmemo
-     * @return Mage_Sales_Model_Order_Payment
+     * @return $this
      */
     public function refund($creditmemo)
     {
@@ -741,7 +741,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * TODO: implement logic of chargebacks reimbursements (via negative amount)
      *
      * @param float $amount
-     * @return Mage_Sales_Model_Order_Payment
+     * @return $this
      */
     public function registerRefundNotification($amount)
     {
@@ -827,7 +827,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Cancel a creditmemo: substract its totals from the payment
      *
      * @param Mage_Sales_Model_Order_Creditmemo $creditmemo
-     * @return Mage_Sales_Model_Order_Payment
+     * @return $this
      */
     public function cancelCreditmemo($creditmemo)
     {
@@ -846,7 +846,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     /**
      * Order cancellation hook for payment method instance
      * Adds void transaction if needed
-     * @return Mage_Sales_Model_Order_Payment
+     * @return $this
      */
     public function cancel()
     {
@@ -893,7 +893,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     /**
      * Accept online a payment that is in review state
      *
-     * @return Mage_Sales_Model_Order_Payment
+     * @return $this
      */
     public function accept()
     {
@@ -904,7 +904,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     /**
      * Accept order with payment method instance
      *
-     * @return Mage_Sales_Model_Order_Payment
+     * @return $this
      */
     public function deny()
     {
@@ -919,7 +919,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      *
      * @param string $action
      * @param bool $isOnline
-     * @return Mage_Sales_Model_Order_Payment
+     * @return $this
      */
     public function registerPaymentReviewAction($action, $isOnline)
     {
@@ -1021,7 +1021,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Updates payment totals, updates order status and adds proper comments
      *
      * @param float $amount
-     * @return Mage_Sales_Model_Order_Payment
+     * @return $this
      */
     protected function _order($amount)
     {
@@ -1065,7 +1065,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      *
      * @param bool $isOnline
      * @param float $amount
-     * @return Mage_Sales_Model_Order_Payment
+     * @return $this
      */
     protected function _authorize($isOnline, $amount)
     {
@@ -1138,7 +1138,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * @param bool $isOnline
      * @param float $amount
      * @param string $gatewayCallback
-     * @return Mage_Sales_Model_Order_Payment
+     * @return $this
      */
     protected function _void($isOnline, $amount = null, $gatewayCallback = 'void')
     {
@@ -1183,7 +1183,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
 //    /**
 //     * TODO: implement this
 //     * @param Mage_Sales_Model_Order_Invoice $invoice
-//     * @return Mage_Sales_Model_Order_Payment
+//     * @return $this
 //     */
 //    public function cancelCapture($invoice = null)
 //    {
@@ -1299,7 +1299,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Import details data of specified transaction
      *
      * @param Mage_Sales_Model_Order_Payment_Transaction $transactionTo
-     * @return Mage_Sales_Model_Order_Payment
+     * @return $this
      */
     public function importTransactionInfo(Mage_Sales_Model_Order_Payment_Transaction $transactionTo)
     {
@@ -1563,7 +1563,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     /**
      * Before object save manipulations
      *
-     * @return Mage_Sales_Model_Order_Payment
+     * @return $this
      */
     protected function _beforeSave()
     {
@@ -1629,7 +1629,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     /**
      * Reset transaction additional info property
      *
-     * @return Mage_Sales_Model_Order_Payment
+     * @return $this
      */
     public function resetTransactionAdditionalInfo()
     {

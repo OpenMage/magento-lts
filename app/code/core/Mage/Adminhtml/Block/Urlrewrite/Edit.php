@@ -51,7 +51,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
      * Prepare page layout, basing on different registry and request variables
      *
      * Generates layout of: creation modes selector, products grid, categories tree, urlrewrite edit form
-     * @return Mage_Adminhtml_Block_Urlrewrite_Edit
+     * @return $this
      */
     protected function _prepareLayout()
     {
@@ -148,7 +148,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
     /**
      * Add edit form as child block and add appropriate buttons
      *
-     * @return Mage_Adminhtml_Block_Urlrewrite_Edit
+     * @return $this
      */
     protected function _setFormChild()
     {
@@ -265,7 +265,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
      * Update layout by specified mode code
      *
      * @param string $mode
-     * @return Mage_Adminhtml_Block_Urlrewrite_Edit
+     * @return $this
      * @see Mage_Adminhtml_Block_Urlrewrite_Selector
      */
     public function updateModeLayout($mode = null)

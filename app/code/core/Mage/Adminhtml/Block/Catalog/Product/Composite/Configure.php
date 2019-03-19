@@ -64,7 +64,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Configure extends Mage_Admi
      * Set product object
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Adminhtml_Block_Catalog_Product_Composite_Configure
+     * @return $this
      */
     public function setProduct(Mage_Catalog_Model_Product $product = null)
     {

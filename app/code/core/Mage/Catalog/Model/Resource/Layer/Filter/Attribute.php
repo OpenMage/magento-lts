@@ -48,7 +48,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Attribute extends Mage_Core_Model
      *
      * @param Mage_Catalog_Model_Layer_Filter_Attribute $filter
      * @param int $value
-     * @return Mage_Catalog_Model_Resource_Layer_Filter_Attribute
+     * @return $this
      */
     public function applyFilterToCollection($filter, $value)
     {

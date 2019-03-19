@@ -36,7 +36,7 @@ class Mage_XmlConnect_Block_Adminhtml_Template_Preview_Form extends Mage_Adminht
     /**
      * Preparing from for revision page
      *
-     * @return Mage_XmlConnect_Block_Adminhtml_Template_Preview_Form
+     * @return $this
      */
     protected function _prepareForm()
     {

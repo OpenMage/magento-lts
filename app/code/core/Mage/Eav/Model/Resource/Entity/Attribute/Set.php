@@ -47,7 +47,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Set extends Mage_Core_Model_Resou
      * Perform actions after object save
      *
      * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Set
+     * @return $this
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {

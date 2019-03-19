@@ -174,7 +174,7 @@ class Mage_XmlConnect_Block_Customer_Address_Form extends Mage_Customer_Block_Ad
      * Add customer contact attributes
      *
      * @param Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $contactInfoFieldset
-     * @return Mage_XmlConnect_Block_Customer_Address_Form
+     * @return $this
      */
     protected function _addCustomerContactInfo(
         Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $contactInfoFieldset
@@ -209,7 +209,7 @@ class Mage_XmlConnect_Block_Customer_Address_Form extends Mage_Customer_Block_Ad
      * Add customer prefix field
      *
      * @param Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $contactInfoFieldset
-     * @return Mage_XmlConnect_Block_Customer_Address_Form
+     * @return $this
      */
     protected function _addPrefix(Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $contactInfoFieldset)
     {
@@ -241,7 +241,7 @@ class Mage_XmlConnect_Block_Customer_Address_Form extends Mage_Customer_Block_Ad
      * Add customer suffix field
      *
      * @param Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $contactInfoFieldset
-     * @return Mage_XmlConnect_Block_Customer_Address_Form
+     * @return $this
      */
     protected function _addSuffix(Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $contactInfoFieldset)
     {
@@ -273,7 +273,7 @@ class Mage_XmlConnect_Block_Customer_Address_Form extends Mage_Customer_Block_Ad
      * Add customer middle name field
      *
      * @param Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $contactInfoFieldset
-     * @return Mage_XmlConnect_Block_Customer_Address_Form
+     * @return $this
      */
     protected function _addMiddleName(Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $contactInfoFieldset)
     {
@@ -293,7 +293,7 @@ class Mage_XmlConnect_Block_Customer_Address_Form extends Mage_Customer_Block_Ad
      * Add customer first name field
      *
      * @param Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $contactInfoFieldset
-     * @return Mage_XmlConnect_Block_Customer_Address_Form
+     * @return $this
      */
     protected function _addFirstName(Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $contactInfoFieldset)
     {
@@ -310,7 +310,7 @@ class Mage_XmlConnect_Block_Customer_Address_Form extends Mage_Customer_Block_Ad
      * Add customer last name field
      *
      * @param Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $contactInfoFieldset
-     * @return Mage_XmlConnect_Block_Customer_Address_Form
+     * @return $this
      */
     protected function _addLastName(Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $contactInfoFieldset)
     {
@@ -328,7 +328,7 @@ class Mage_XmlConnect_Block_Customer_Address_Form extends Mage_Customer_Block_Ad
      *
      * @deprecated will delete in the next version
      * @param Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $addressFieldset
-     * @return Mage_XmlConnect_Block_Customer_Address_Form
+     * @return $this
      */
     protected function _addCustomAddressAttributes(
         Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $addressFieldset
@@ -372,7 +372,7 @@ class Mage_XmlConnect_Block_Customer_Address_Form extends Mage_Customer_Block_Ad
      * Set customer name widget block
      *
      * @param Mage_Customer_Block_Widget_Name $nameWidgetBlock
-     * @return Mage_XmlConnect_Block_Customer_Address_Form
+     * @return $this
      */
     public function setNameWidgetBlock($nameWidgetBlock)
     {
@@ -394,7 +394,7 @@ class Mage_XmlConnect_Block_Customer_Address_Form extends Mage_Customer_Block_Ad
      * Set enterprise customer fields renderer
      *
      * @param array $customerFiledRenderer
-     * @return Mage_XmlConnect_Block_Customer_Address_Form
+     * @return $this
      */
     public function setCustomerFiledRenderer($customerFiledRenderer)
     {

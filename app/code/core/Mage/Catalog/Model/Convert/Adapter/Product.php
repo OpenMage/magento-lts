@@ -127,7 +127,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product
      * Store affected entity ids
      *
      * @param  int|array $ids
-     * @return Mage_Catalog_Model_Convert_Adapter_Product
+     * @return $this
      */
     protected function _addAffectedEntityIds($ids)
     {
@@ -155,7 +155,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product
     /**
      * Clear affected entity ids results
      *
-     * @return Mage_Catalog_Model_Convert_Adapter_Product
+     * @return $this
      */
     public function clearAffectedEntityIds()
     {
@@ -276,7 +276,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product
      * ReDefine Product Type Instance to Product
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Catalog_Model_Convert_Adapter_Product
+     * @return $this
      */
     public function setProductTypeInstance(Mage_Catalog_Model_Product $product)
     {
@@ -589,7 +589,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product
      * @param Mage_Catalog_Model_Product $product
      * @param array $importData
      *
-     * @return Mage_Catalog_Model_Convert_Adapter_Product
+     * @return $this
      */
     public function saveImageDataRow($product, $importData)
     {

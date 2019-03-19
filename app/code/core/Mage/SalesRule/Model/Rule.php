@@ -199,7 +199,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     /**
      * Set coupon code and uses per coupon
      *
-     * @return Mage_SalesRule_Model_Rule
+     * @return $this
      */
     protected function _afterLoad()
     {
@@ -213,7 +213,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     /**
      * Save/delete coupon
      *
-     * @return Mage_SalesRule_Model_Rule
+     * @return $this
      */
     protected function _afterSave()
     {
@@ -242,7 +242,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      *
      * @param array $data
      *
-     * @return Mage_SalesRule_Model_Rule
+     * @return $this
      */
     public function loadPost(array $data)
     {

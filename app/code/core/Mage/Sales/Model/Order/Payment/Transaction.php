@@ -155,7 +155,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     /**
      * Payment instance setter
      * @param Mage_Sales_Model_Order_Payment $payment
-     * @return Mage_Sales_Model_Order_Payment_Transaction
+     * @return $this
      */
     public function setOrderPaymentObject(Mage_Sales_Model_Order_Payment $payment)
     {
@@ -167,7 +167,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     /**
      * Transaction ID setter
      * @param string $txnId
-     * @return Mage_Sales_Model_Order_Payment_Transaction
+     * @return $this
      */
     public function setTxnId($txnId)
     {
@@ -180,7 +180,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      * Can set the transaction id as well
      * @param string $parentTxnId
      * @param string $txnId
-     * @return Mage_Sales_Model_Order_Payment_Transaction
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function setParentTxnId($parentTxnId, $txnId = null)
@@ -202,7 +202,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      * Transaction type setter
      *
      * @param $txnType
-     * @return Mage_Sales_Model_Order_Payment_Transaction
+     * @return $this
      */
     public function setTxnType($txnType)
     {
@@ -215,7 +215,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      * May attempt to load it.
      *
      * @param bool $shouldLoad
-     * @return Mage_Sales_Model_Order_Payment_Transaction|false
+     * @return $this|false
      */
     public function getParentTransaction($shouldLoad = true)
     {
@@ -252,7 +252,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      * @param array|string $types
      * @param string $txnId
      * @param bool $recursive
-     * @return Mage_Sales_Model_Order_Payment_Transaction|array|null
+     * @return $this|array|null
      */
     public function getChildTransactions($types = null, $txnId = null, $recursive = false)
     {
@@ -308,7 +308,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      *
      * @param bool $shouldSave
      * @param bool $dryRun
-     * @return Mage_Sales_Model_Order_Payment_Transaction|false
+     * @return $this|false
      * @throws Exception
      */
     public function closeAuthorization($shouldSave = true, $dryRun = false)
@@ -409,7 +409,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     /**
      * Check object before loading by by specified transaction ID
      * @param $txnId
-     * @return Mage_Sales_Model_Order_Payment_Transaction
+     * @return $this
      */
     protected function _beforeLoadByTxnId($txnId)
     {
@@ -424,7 +424,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     /**
      * Load self by specified transaction ID. Requires the valid payment object to be set
      * @param string $txnId
-     * @return Mage_Sales_Model_Order_Payment_Transaction
+     * @return $this
      */
     public function loadByTxnId($txnId)
     {
@@ -439,7 +439,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     /**
      * Check object after loading by by specified transaction ID
      * @param $txnId
-     * @return Mage_Sales_Model_Order_Payment_Transaction
+     * @return $this
      */
     protected function _afterLoadByTxnId()
     {
@@ -455,7 +455,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      *
      * @param string $key
      * @param mixed $value
-     * @return Mage_Sales_Model_Order_Payment_Transaction
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function setAdditionalInformation($key, $value)
@@ -491,7 +491,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     /**
      * Unsetter for entire additional_information value or one of its element by key
      * @param string $key
-     * @return Mage_Sales_Model_Order_Payment_Transaction
+     * @return $this
      */
     public function unsAdditionalInformation($key = null)
     {
@@ -509,7 +509,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     /**
      * Close this transaction
      * @param bool $shouldSave
-     * @return Mage_Sales_Model_Order_Payment_Transaction
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function close($shouldSave = true)
@@ -594,7 +594,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      * If $order equals to true, method isn't loading new order instance.
      *
      * @param Mage_Sales_Model_Order|null|boolean $order
-     * @return Mage_Sales_Model_Order_Payment_Transaction
+     * @return $this
      */
     public function setOrder($order = null)
     {
@@ -631,7 +631,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
 
     /**
      * Verify data required for saving
-     * @return Mage_Sales_Model_Order_Payment_Transaction
+     * @return $this
      * @throws Mage_Core_Exception
      */
     protected function _beforeSave()

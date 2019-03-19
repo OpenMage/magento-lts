@@ -187,7 +187,7 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
      * Register data required by catalog category process in event object
      *
      * @param Mage_Index_Model_Event $event
-     * @return Mage_Catalog_Model_Category_Indexer_Flat
+     * @return $this
      */
     protected function _registerCatalogCategoryEvent(Mage_Index_Model_Event $event)
     {
@@ -215,7 +215,7 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
      * Register core store delete process
      *
      * @param Mage_Index_Model_Event $event
-     * @return Mage_Catalog_Model_Category_Indexer_Flat
+     * @return $this
      */
     protected function _registerCoreStoreEvent(Mage_Index_Model_Event $event)
     {

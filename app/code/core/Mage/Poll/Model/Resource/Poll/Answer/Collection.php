@@ -47,7 +47,7 @@ class Mage_Poll_Model_Resource_Poll_Answer_Collection extends Mage_Core_Model_Re
      * Add poll filter
      *
      * @param int $pollId
-     * @return Mage_Poll_Model_Resource_Poll_Answer_Collection
+     * @return $this
      */
     public function addPollFilter($pollId)
     {
@@ -59,7 +59,7 @@ class Mage_Poll_Model_Resource_Poll_Answer_Collection extends Mage_Core_Model_Re
      * Count percent
      *
      * @param Mage_Poll_Model_Poll $pollObject
-     * @return Mage_Poll_Model_Resource_Poll_Answer_Collection
+     * @return $this
      */
     public function countPercent($pollObject)
     {

@@ -31,7 +31,7 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Cost extends Mage_Sales_Model_Orde
      * Collect total cost of refunded items
      *
      * @param Mage_Sales_Model_Order_Creditmemo $creditmemo
-     * @return Mage_Sales_Model_Order_Creditmemo_Total_Cost
+     * @return $this
      */
     public function collect(Mage_Sales_Model_Order_Creditmemo $creditmemo)
     {

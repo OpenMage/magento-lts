@@ -57,7 +57,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit_Form extends Mage_Adminhtml
     /**
      * Prepare form before rendering HTML
      *
-     * @return Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit_Form
+     * @return $this
      */
     protected function _prepareForm()
     {
