@@ -66,7 +66,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Upsell extends Mage_Adminhtm
      * Add filter
      *
      * @param object $column
-     * @return Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Upsell
+     * @return $this
      */
     protected function _addColumnFilterToCollection($column)
     {

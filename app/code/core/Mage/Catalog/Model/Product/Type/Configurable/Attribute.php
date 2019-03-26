@@ -56,7 +56,7 @@ class Mage_Catalog_Model_Product_Type_Configurable_Attribute extends Mage_Core_M
      * Add price data to attribute
      *
      * @param array $priceData
-     * @return Mage_Catalog_Model_Product_Type_Configurable_Attribute
+     * @return $this
      */
     public function addPrice($priceData)
     {
@@ -88,7 +88,7 @@ class Mage_Catalog_Model_Product_Type_Configurable_Attribute extends Mage_Core_M
     /**
      * After save process
      *
-     * @return Mage_Catalog_Model_Product_Type_Configurable_Attribute
+     * @return $this
      */
     protected function _afterSave()
     {

@@ -57,7 +57,7 @@ class Mage_Downloadable_Model_Observer
      * Save data from order to purchased links
      *
      * @param Varien_Object $observer
-     * @return Mage_Downloadable_Model_Observer
+     * @return $this
      */
     public function saveDownloadableOrderItem($observer)
     {
@@ -133,7 +133,7 @@ class Mage_Downloadable_Model_Observer
      * Set checkout session flag if order has downloadable product(s)
      *
      * @param Varien_Object $observer
-     * @return Mage_Downloadable_Model_Observer
+     * @return $this
      */
     public function setHasDownloadableProducts($observer)
     {
@@ -158,7 +158,7 @@ class Mage_Downloadable_Model_Observer
      * Set status of link
      *
      * @param Varien_Object $observer
-     * @return Mage_Downloadable_Model_Observer
+     * @return $this
      */
     public function setLinkStatus($observer)
     {
@@ -256,7 +256,7 @@ class Mage_Downloadable_Model_Observer
      * Check is allowed guest checkuot if quote contain downloadable product(s)
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Downloadable_Model_Observer
+     * @return $this
      */
     public function isAllowedGuestCheckout(Varien_Event_Observer $observer)
     {
@@ -285,7 +285,7 @@ class Mage_Downloadable_Model_Observer
      * Initialize product options renderer with downloadable specific params
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Downloadable_Model_Observer
+     * @return $this
      */
     public function initOptionRenderer(Varien_Event_Observer $observer)
     {

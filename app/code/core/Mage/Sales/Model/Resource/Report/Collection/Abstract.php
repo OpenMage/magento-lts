@@ -46,7 +46,7 @@ class Mage_Sales_Model_Resource_Report_Collection_Abstract
      * Set status filter
      *
      * @param string $orderStatus
-     * @return Mage_Sales_Model_Resource_Report_Collection_Abstract
+     * @return $this
      */
     public function addOrderStatusFilter($orderStatus)
     {
@@ -57,7 +57,7 @@ class Mage_Sales_Model_Resource_Report_Collection_Abstract
     /**
      * Apply order status filter
      *
-     * @return Mage_Sales_Model_Resource_Report_Collection_Abstract
+     * @return $this
      */
     protected function _applyOrderStatusFilter()
     {
@@ -75,7 +75,7 @@ class Mage_Sales_Model_Resource_Report_Collection_Abstract
     /**
      * Order status filter is custom for this collection
      *
-     * @return Mage_Sales_Model_Resource_Report_Collection_Abstract
+     * @return $this
      */
     protected function _applyCustomFilter()
     {

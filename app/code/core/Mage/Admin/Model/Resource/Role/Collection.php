@@ -47,7 +47,7 @@ class Mage_Admin_Model_Resource_Role_Collection extends Mage_Core_Model_Resource
      * Add user filter
      *
      * @param int $userId
-     * @return Mage_Admin_Model_Resource_Role_Collection
+     * @return $this
      */
     public function setUserFilter($userId)
     {
@@ -59,7 +59,7 @@ class Mage_Admin_Model_Resource_Role_Collection extends Mage_Core_Model_Resource
     /**
      * Set roles filter
      *
-     * @return Mage_Admin_Model_Resource_Role_Collection
+     * @return $this
      */
     public function setRolesFilter()
     {

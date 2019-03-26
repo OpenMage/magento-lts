@@ -55,7 +55,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard extends Mage_Core_Block_
     /**
      * Add store switcher xml
      *
-     * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard
+     * @return $this
      */
     protected function _addStoreSwitcher()
     {
@@ -66,7 +66,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard extends Mage_Core_Block_
     /**
      * Add sales info
      *
-     * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard
+     * @return $this
      */
     protected function _addSalesInfo()
     {
@@ -79,7 +79,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard extends Mage_Core_Block_
      *
      * Add orders and amounts info to show diagram by selected range in application
      *
-     * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard
+     * @return $this
      */
     protected function _addGraphInfo()
     {
@@ -90,7 +90,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard extends Mage_Core_Block_
     /**
      * Add dashboard form data
      *
-     * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard
+     * @return $this
      */
     protected function _addDashboardFormData()
     {
@@ -121,7 +121,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard extends Mage_Core_Block_
      * Add last orders info to xml object
      *
      * @param Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $recentActivityFieldset
-     * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard
+     * @return $this
      */
     protected function _addLastOrders(Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $recentActivityFieldset)
     {
@@ -136,7 +136,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard extends Mage_Core_Block_
      * Add last search terms data
      *
      * @param Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $recentActivityFieldset
-     * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard
+     * @return $this
      */
     protected function _addLastSearchTerms(
         Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $recentActivityFieldset
@@ -152,7 +152,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard extends Mage_Core_Block_
      * Add new customers info to xml object
      *
      * @param Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $recentActivityFieldset
-     * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard
+     * @return $this
      */
     protected function _addNewCustomers(Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $recentActivityFieldset)
     {
@@ -167,7 +167,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard extends Mage_Core_Block_
      * Add top search queries info to xml object
      *
      * @param Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $overallActivityFieldset
-     * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard
+     * @return $this
      */
     protected function _addTopSearchTerms(
         Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $overallActivityFieldset
@@ -183,7 +183,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard extends Mage_Core_Block_
      * Add most viewed products to xml object
      *
      * @param Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $overallActivityFieldset
-     * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard
+     * @return $this
      */
     protected function _addMostViewedProducts(
         Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $overallActivityFieldset
@@ -199,7 +199,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard extends Mage_Core_Block_
      * Add best sellers info to xml object
      *
      * @param Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $overallActivityFieldset
-     * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard
+     * @return $this
      */
     protected function _addBestSellers(Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $overallActivityFieldset)
     {
@@ -214,7 +214,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard extends Mage_Core_Block_
      * Add customer info to xml object
      *
      * @param Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $overallActivityFieldset
-     * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard
+     * @return $this
      */
     protected function _addCustomers(Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $overallActivityFieldset)
     {
@@ -239,7 +239,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard extends Mage_Core_Block_
      * Set xml object
      *
      * @param Mage_XmlConnect_Model_Simplexml_Element $xmlObject
-     * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard
+     * @return $this
      */
     public function setXmlObject($xmlObject)
     {

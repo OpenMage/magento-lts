@@ -41,7 +41,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Filename extends Mage_Core_Mode
     /**
      * Processing object before save data
      *
-     * @return Mage_Adminhtml_Model_System_Config_Backend_Filename
+     * @return $this
      * @throws Mage_Core_Exception
      */
     protected function _beforeSave()

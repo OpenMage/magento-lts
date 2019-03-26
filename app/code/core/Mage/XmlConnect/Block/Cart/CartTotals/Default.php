@@ -73,7 +73,7 @@ class Mage_Xmlconnect_Block_Cart_CartTotals_Default extends Mage_Checkout_Block_
      * Set total id prefix
      *
      * @param string $totalIdPrefix
-     * @return Mage_Xmlconnect_Block_Cart_CartTotals_Default
+     * @return $this
      */
     public function setTotalIdPrefix($totalIdPrefix)
     {

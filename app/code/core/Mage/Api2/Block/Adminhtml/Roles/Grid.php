@@ -49,7 +49,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Grid extends Mage_Adminhtml_Block_Widget_G
     /**
      * Prepare collection
      *
-     * @return Mage_Api2_Block_Adminhtml_Roles_Grid
+     * @return $this
      */
     protected function _prepareCollection()
     {
@@ -63,7 +63,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Grid extends Mage_Adminhtml_Block_Widget_G
     /**
      * Prepare columns
      *
-     * @return Mage_Api2_Block_Adminhtml_Roles_Grid
+     * @return $this
      */
     protected function _prepareColumns()
     {

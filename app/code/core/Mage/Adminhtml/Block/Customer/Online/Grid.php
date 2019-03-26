@@ -49,7 +49,7 @@ class Mage_Adminhtml_Block_Customer_Online_Grid extends Mage_Adminhtml_Block_Wid
     /**
      * Prepare collection for grid
      *
-     * @return Mage_Adminhtml_Block_Customer_Online_Grid
+     * @return $this
      */
     protected function _prepareCollection()
     {
@@ -68,7 +68,7 @@ class Mage_Adminhtml_Block_Customer_Online_Grid extends Mage_Adminhtml_Block_Wid
     /**
      * Prepare columns
      *
-     * @return Mage_Adminhtml_Block_Customer_Online_Grid
+     * @return $this
      */
     protected function _prepareColumns()
     {

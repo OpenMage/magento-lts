@@ -113,7 +113,7 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
     /**
      * Load data
      *
-     * @return Mage_Dataflow_Model_Convert_Adapter_Io
+     * @return $this
      */
     public function load()
     {
@@ -141,7 +141,7 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
     /**
      * Save result to destination file from temporary
      *
-     * @return Mage_Dataflow_Model_Convert_Adapter_Io
+     * @return $this
      */
     public function save()
     {

@@ -243,7 +243,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     /**
      * Prepare data before save
      *
-     * @return Mage_Sales_Model_Order_Item
+     * @return $this
      */
     protected function _beforeSave()
     {
@@ -276,7 +276,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     /**
      * Get parent item
      *
-     * @return Mage_Sales_Model_Order_Item || null
+     * @return $this || null
      */
     public function getParentItem()
     {
@@ -542,7 +542,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     /**
      * Cancel order item
      *
-     * @return Mage_Sales_Model_Order_Item
+     * @return $this
      */
     public function cancel()
     {

@@ -152,7 +152,7 @@ class Mage_Newsletter_Model_Resource_Subscriber extends Mage_Core_Model_Resource
      *
      * @param Mage_Newsletter_Model_Subscriber $subscriber
      * @param Mage_Newsletter_Model_Queue $queue
-     * @return Mage_Newsletter_Model_Resource_Subscriber
+     * @return $this
      */
     public function received(Mage_Newsletter_Model_Subscriber $subscriber, Mage_Newsletter_Model_Queue $queue)
     {

@@ -69,7 +69,7 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
      * Set product object
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Catalog_Block_Product_View_Options
+     * @return $this
      */
     public function setProduct(Mage_Catalog_Model_Product $product = null)
     {
@@ -83,7 +83,7 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
      * @param string $type
      * @param string $block
      * @param string $template
-     * @return Mage_Catalog_Block_Product_View_Options
+     * @return $this
      */
     public function addOptionRenderer($type, $block, $template)
     {

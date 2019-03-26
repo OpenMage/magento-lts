@@ -130,7 +130,7 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
      * )
      *
      * @param  array $storage
-     * @return Mage_Core_Model_File_Storage
+     * @return $this
      */
     public function synchronize($storage)
     {

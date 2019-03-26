@@ -560,7 +560,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      * Method called after wishlist modifications and trigger 'wishlist_items_renewed' event.
      * Depends from configuration.
      *
-     * @return Mage_Wishlist_Helper_Data
+     * @return $this
      */
     public function calculate()
     {

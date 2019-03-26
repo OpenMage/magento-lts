@@ -90,7 +90,7 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
      * @param Varien_Object $object
      * @param unknown_type $customerId
      * @param unknown_type $couponId
-     * @return Mage_SalesRule_Model_Resource_Coupon_Usage
+     * @return $this
      */
     public function loadByCustomerCoupon(Varien_Object $object, $customerId, $couponId)
     {

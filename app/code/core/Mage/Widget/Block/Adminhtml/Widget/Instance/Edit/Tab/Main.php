@@ -98,7 +98,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main
     /**
      * Prepare form before rendering HTML
      *
-     * @return Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main
+     * @return $this
      */
     protected function _prepareForm()
     {
@@ -207,7 +207,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main
     /**
      * Initialize form fileds values
      *
-     * @return Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main
+     * @return $this
      */
     protected function _initFormValues()
     {

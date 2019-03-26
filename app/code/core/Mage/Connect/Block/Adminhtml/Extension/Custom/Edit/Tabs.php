@@ -47,7 +47,7 @@ class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tabs extends Mage_Admin
     /**
     * Set tabs
     *
-    * @return Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tabs
+    * @return $this
     */
     protected function _beforeToHtml()
     {

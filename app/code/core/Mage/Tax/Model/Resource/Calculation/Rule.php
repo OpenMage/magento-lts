@@ -45,7 +45,7 @@ class Mage_Tax_Model_Resource_Calculation_Rule extends Mage_Core_Model_Resource_
     /**
      * Initialize unique fields
      *
-     * @return Mage_Tax_Model_Resource_Calculation_Rule
+     * @return $this
      */
     protected function _initUniqueFields()
     {

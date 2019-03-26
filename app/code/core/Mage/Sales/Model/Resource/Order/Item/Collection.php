@@ -67,7 +67,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
     /**
      * Assign parent items on after collection load
      *
-     * @return Mage_Sales_Model_Resource_Order_Item_Collection
+     * @return $this
      */
     protected function _afterLoad()
     {
@@ -86,7 +86,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
     /**
      * Set random items order
      *
-     * @return Mage_Sales_Model_Resource_Order_Item_Collection
+     * @return $this
      */
     public function setRandomOrder()
     {
@@ -98,7 +98,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
      * Set filter by item id
      *
      * @param mixed $item
-     * @return Mage_Sales_Model_Resource_Order_Item_Collection
+     * @return $this
      */
     public function addIdFilter($item)
     {
@@ -116,7 +116,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
      * Filter collection by specified product types
      *
      * @param array $typeIds
-     * @return Mage_Sales_Model_Resource_Order_Item_Collection
+     * @return $this
      */
     public function filterByTypes($typeIds)
     {
@@ -128,7 +128,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
      * Filter collection by parent_item_id
      *
      * @param int $parentId
-     * @return Mage_Sales_Model_Resource_Order_Item_Collection
+     * @return $this
      */
     public function filterByParent($parentId = null)
     {
@@ -143,7 +143,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
     /**
      * Filter only available items.
      *
-     * @return Mage_Sales_Model_Resource_Order_Item_Collection
+     * @return $this
      */
     public function addAvailableFilter()
     {
@@ -157,7 +157,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
      * Filter by customerId
      *
      * @param int|array $customerId
-     * @return Mage_Sales_Model_Resource_Order_Item_Collection
+     * @return $this
      */
     public function addFilterByCustomerId($customerId)
     {

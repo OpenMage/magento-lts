@@ -80,7 +80,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
      * @param string|array $aParams
      * @param string $beforeText
      * @param string $afterText
-     * @return Mage_Page_Block_Template_Links
+     * @return $this
      */
     public function addLink($label, $url='', $title='', $prepare=false, $urlParams=array(),
         $position=null, $liParams=null, $aParams=null, $beforeText='', $afterText='')
@@ -108,7 +108,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
      *
      * @param Varien_Object $link
      * @param int $position
-     * @return Mage_Page_Block_Template_Links
+     * @return $this
      */
     protected function _addIntoPosition($link, $position)
     {
@@ -125,7 +125,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
      * Add block to link list
      *
      * @param string $blockName
-     * @return Mage_Page_Block_Template_Links
+     * @return $this
      */
     public function addLinkBlock($blockName)
     {
@@ -141,7 +141,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
      * Remove Link block by blockName
      *
      * @param string $blockName
-     * @return Mage_Page_Block_Template_Links
+     * @return $this
      */
     public function removeLinkBlock($blockName)
     {
@@ -157,7 +157,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
      * Removes link by url
      *
      * @param string $url
-     * @return Mage_Page_Block_Template_Links
+     * @return $this
      */
     public function removeLinkByUrl($url)
     {
@@ -219,7 +219,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
     /**
      * Set first/last
      *
-     * @return Mage_Page_Block_Template_Links
+     * @return $this
      */
     protected function _beforeToHtml()
     {

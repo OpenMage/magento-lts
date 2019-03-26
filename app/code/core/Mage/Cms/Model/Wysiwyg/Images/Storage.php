@@ -252,7 +252,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      * Delete file (and its thumbnail if exists) from storage
      *
      * @param string $target File path to be deleted
-     * @return Mage_Cms_Model_Wysiwyg_Images_Storage
+     * @return $this
      */
     public function deleteFile($target)
     {

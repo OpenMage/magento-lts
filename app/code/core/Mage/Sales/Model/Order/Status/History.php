@@ -91,7 +91,7 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
      * Notification flag
      *
      * @param  mixed $flag OPTIONAL (notification is not applicable by default)
-     * @return Mage_Sales_Model_Order_Status_History
+     * @return $this
      */
     public function setIsCustomerNotified($flag = null)
     {
@@ -150,7 +150,7 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
     /**
      * Set order again if required
      *
-     * @return Mage_Sales_Model_Order_Status_History
+     * @return $this
      */
     protected function _beforeSave()
     {

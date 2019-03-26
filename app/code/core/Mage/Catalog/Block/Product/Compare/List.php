@@ -90,7 +90,7 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
     /**
      * Preparing layout
      *
-     * @return Mage_Catalog_Block_Product_Compare_List
+     * @return $this
      */
     protected function _prepareLayout()
     {
@@ -188,7 +188,7 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
      * Setter for customer id
      *
      * @param int $id
-     * @return Mage_Catalog_Block_Product_Compare_List
+     * @return $this
      */
     public function setCustomerId($id)
     {

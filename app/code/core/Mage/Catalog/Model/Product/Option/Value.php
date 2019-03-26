@@ -208,7 +208,7 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
      *
      * @param int $oldOptionId
      * @param int $newOptionId
-     * @return Mage_Catalog_Model_Product_Option_Value
+     * @return $this
      */
     public function duplicate($oldOptionId, $newOptionId)
     {

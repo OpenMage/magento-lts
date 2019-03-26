@@ -52,7 +52,7 @@ class Mage_Catalog_Block_Product_List_Crosssell extends Mage_Catalog_Block_Produ
     /**
      * Prepare crosssell items data
      *
-     * @return Mage_Catalog_Block_Product_List_Crosssell
+     * @return $this
      */
     protected function _prepareData()
     {
@@ -80,7 +80,7 @@ class Mage_Catalog_Block_Product_List_Crosssell extends Mage_Catalog_Block_Produ
      * Before rendering html process
      * Prepare items collection
      *
-     * @return Mage_Catalog_Block_Product_List_Crosssell
+     * @return $this
      */
     protected function _beforeToHtml()
     {

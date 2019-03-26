@@ -44,7 +44,7 @@ class Mage_Install_Block_Db_Main extends Mage_Core_Block_Template
      * @param  string $type database type
      * @param  string $block database block type
      * @param  string $template
-     * @return Mage_Install_Block_Db_Main
+     * @return $this
      */
     public function addDatabaseBlock($type, $block, $template)
     {

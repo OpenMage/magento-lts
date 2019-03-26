@@ -67,7 +67,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Clean cache
      *
-     * @return Mage_Eav_Model_Entity_Setup
+     * @return $this
      */
     public function cleanCache()
     {
@@ -78,7 +78,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Install Default Group Ids
      *
-     * @return Mage_Eav_Model_Entity_Setup
+     * @return $this
      */
     public function installDefaultGroupIds()
     {
@@ -112,7 +112,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * @param string $code
      * @param array $params
-     * @return Mage_Eav_Model_Entity_Setup
+     * @return $this
      */
     public function addEntityType($code, array $params)
     {
@@ -155,7 +155,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * @param string $code
      * @param string $field
      * @param string $value
-     * @return Mage_Eav_Model_Entity_Setup
+     * @return $this
      */
     public function updateEntityType($code, $field, $value = null)
     {
@@ -201,7 +201,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * Remove entity type by Id or Code
      *
      * @param mixed $id
-     * @return Mage_Eav_Model_Entity_Setup
+     * @return $this
      */
     public function removeEntityType($id)
     {
@@ -243,7 +243,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * @param mixed $entityTypeId
      * @param string $name
      * @param int $sortOrder
-     * @return Mage_Eav_Model_Entity_Setup
+     * @return $this
      */
     public function addAttributeSet($entityTypeId, $name, $sortOrder = null)
     {
@@ -272,7 +272,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * @param int $id
      * @param string $field
      * @param mixed $value
-     * @return Mage_Eav_Model_Entity_Setup
+     * @return $this
      */
     public function updateAttributeSet($entityTypeId, $id, $field, $value = null)
     {
@@ -326,7 +326,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * @param mixed $entityTypeId
      * @param mixed $id
-     * @return Mage_Eav_Model_Entity_Setup
+     * @return $this
      */
     public function removeAttributeSet($entityTypeId, $id)
     {
@@ -338,7 +338,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * Set Default Attribute Set to Entity Type
      *
      * @param mixed $entityType
-     * @return Mage_Eav_Model_Entity_Setup
+     * @return $this
      */
     public function setDefaultSetToEntityType($entityType, $attributeSet = 'Default')
     {
@@ -419,7 +419,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * @param mixed $setId
      * @param string $name
      * @param int $sortOrder
-     * @return Mage_Eav_Model_Entity_Setup
+     * @return $this
      */
     public function addAttributeGroup($entityTypeId, $setId, $name, $sortOrder = null)
     {
@@ -458,7 +458,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * @param mixed $id
      * @param string $field
      * @param mixed $value
-     * @return Mage_Eav_Model_Entity_Setup
+     * @return $this
      */
     public function updateAttributeGroup($entityTypeId, $setId, $id, $field, $value = null)
     {
@@ -506,7 +506,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * @param mixed $entityTypeId
      * @param mixed $setId
      * @param mixed $groupId
-     * @return Mage_Eav_Model_Entity_Setup
+     * @return $this
      */
     public function getAttributeGroupId($entityTypeId, $setId, $groupId)
     {
@@ -530,7 +530,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * @param mixed $entityTypeId
      * @param mixed $setId
      * @param mixed $id
-     * @return Mage_Eav_Model_Entity_Setup
+     * @return $this
      */
     public function removeAttributeGroup($entityTypeId, $setId, $id)
     {
@@ -641,7 +641,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * @param string|integer $entityTypeId
      * @param string $code
      * @param array $attr
-     * @return Mage_Eav_Model_Entity_Setup
+     * @return $this
      */
     public function addAttribute($entityTypeId, $code, array $attr)
     {
@@ -769,7 +769,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * @param string $field
      * @param mixed $value
      * @param int $sortOrder
-     * @return Mage_Eav_Model_Entity_Setup
+     * @return $this
      */
     public function updateAttribute($entityTypeId, $id, $field, $value = null, $sortOrder = null)
     {
@@ -786,7 +786,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * @param string $field
      * @param mixed $value
      * @param int $sortOrder
-     * @return Mage_Eav_Model_Entity_Setup
+     * @return $this
      */
     protected function _updateAttribute($entityTypeId, $id, $field, $value = null, $sortOrder = null)
     {
@@ -831,7 +831,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * @param mixed $id
      * @param string $field
      * @param mixed $value
-     * @return Mage_Eav_Model_Entity_Setup
+     * @return $this
      */
     protected function _updateAttributeAdditionalData($entityTypeId, $id, $field, $value = null)
     {
@@ -979,7 +979,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * @param mixed $entityTypeId
      * @param mixed $code
-     * @return Mage_Eav_Model_Entity_Setup
+     * @return $this
      */
     public function removeAttribute($entityTypeId, $code)
     {
@@ -1001,7 +1001,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * @param mixed $setId
      * @param mixed $groupId
      * @param int $sortOrder
-     * @return Mage_Eav_Model_Entity_Setup
+     * @return $this
      */
     public function getAttributeSortOrder($entityTypeId, $setId, $groupId, $sortOrder = null)
     {
@@ -1025,7 +1025,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * @param mixed $groupId
      * @param mixed $attributeId
      * @param int $sortOrder
-     * @return Mage_Eav_Model_Entity_Setup
+     * @return $this
      */
     public function addAttributeToSet($entityTypeId, $setId, $groupId, $attributeId, $sortOrder=null)
     {
@@ -1074,7 +1074,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * @param int|string $groupId
      * @param int|string $attributeId
      * @param int $sortOrder
-     * @return Mage_Eav_Model_Entity_Setup
+     * @return $this
      */
     public function addAttributeToGroup($entityType, $setId, $groupId, $attributeId, $sortOrder = null)
     {
@@ -1136,7 +1136,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * Install entities
      *
      * @param array $entities
-     * @return Mage_Eav_Model_Entity_Setup
+     * @return $this
      */
     public function installEntities($entities = null)
     {
@@ -1377,7 +1377,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * Insert attribute and filter data
      *
      * @param array $data
-     * @return Mage_Eav_Model_Entity_Setup
+     * @return $this
      */
     protected function _insertAttribute(array $data)
     {
@@ -1409,7 +1409,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * @param int $entityTypeId
      * @param array $data
-     * @return Mage_Eav_Model_Entity_Setup
+     * @return $this
      */
     protected function _insertAttributeAdditionalData($entityTypeId, array $data)
     {

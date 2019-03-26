@@ -36,7 +36,7 @@ class Mage_Sales_Block_Adminhtml_Report_Filter_Form extends Mage_Adminhtml_Block
     /**
      * Add fields to base fieldset which are general to sales reports
      *
-     * @return Mage_Sales_Block_Adminhtml_Report_Filter_Form
+     * @return $this
      */
     protected function _prepareForm()
     {

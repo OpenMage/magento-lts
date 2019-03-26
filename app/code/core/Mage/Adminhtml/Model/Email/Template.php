@@ -117,7 +117,7 @@ class Mage_Adminhtml_Model_Email_Template extends Mage_Core_Model_Email_Template
     /**
      * Delete current usage
      *
-     * @return Mage_Adminhtml_Model_Email_Template
+     * @return $this
      */
     protected function _afterDelete() {
         $paths = $this->getSystemConfigPathsWhereUsedCurrently();

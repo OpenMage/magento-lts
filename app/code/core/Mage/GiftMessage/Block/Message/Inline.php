@@ -70,7 +70,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
      * Set type
      *
      * @param string $type
-     * @return Mage_GiftMessage_Block_Message_Inline
+     * @return $this
      */
     public function setType($type)
     {
@@ -101,7 +101,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
     /**
      * Init message
      *
-     * @return Mage_GiftMessage_Block_Message_Inline
+     * @return $this
      */
     protected function _initMessage()
     {

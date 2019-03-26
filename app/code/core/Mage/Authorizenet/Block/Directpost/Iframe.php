@@ -54,7 +54,7 @@ class Mage_Authorizenet_Block_Directpost_Iframe extends Mage_Core_Block_Template
      * Set output params
      *
      * @param array $params
-     * @return Mage_Authorizenet_Block_Directpost_Iframe
+     * @return $this
      */
     public function setParams($params)
     {

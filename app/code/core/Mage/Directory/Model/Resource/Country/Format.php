@@ -46,7 +46,7 @@ class Mage_Directory_Model_Resource_Country_Format extends Mage_Core_Model_Resou
     /**
      * Initialize unique fields
      *
-     * @return Mage_Directory_Model_Resource_Country_Format
+     * @return $this
      */
     protected function _initUniqueFields()
     {

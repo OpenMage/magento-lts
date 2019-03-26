@@ -248,7 +248,7 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Invalidate Cache
-     * @return Mage_Backup_Helper_Data
+     * @return $this
      */
     public function invalidateCache()
     {
@@ -262,7 +262,7 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Invalidate Indexer
      *
-     * @return Mage_Backup_Helper_Data
+     * @return $this
      */
     public function invalidateIndexer()
     {

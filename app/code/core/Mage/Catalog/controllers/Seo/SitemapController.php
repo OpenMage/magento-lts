@@ -37,7 +37,7 @@ class Mage_Catalog_Seo_SitemapController extends Mage_Core_Controller_Front_Acti
     /**
      * Check if SEO sitemap is enabled in configuration
      *
-     * @return Mage_Catalog_Seo_SitemapController
+     * @return $this
      */
     public function preDispatch(){
         parent::preDispatch();

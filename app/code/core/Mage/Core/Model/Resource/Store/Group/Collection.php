@@ -57,7 +57,7 @@ class Mage_Core_Model_Resource_Store_Group_Collection extends Mage_Core_Model_Re
      *
      * @param boolean $loadDefault
      *
-     * @return Mage_Core_Model_Resource_Store_Group_Collection
+     * @return $this
      */
     public function setLoadDefault($loadDefault)
     {
@@ -77,7 +77,7 @@ class Mage_Core_Model_Resource_Store_Group_Collection extends Mage_Core_Model_Re
     /**
      * Add disable default store group filter to collection
      *
-     * @return Mage_Core_Model_Resource_Store_Group_Collection
+     * @return $this
      */
     public function setWithoutDefaultFilter()
     {
@@ -87,7 +87,7 @@ class Mage_Core_Model_Resource_Store_Group_Collection extends Mage_Core_Model_Re
     /**
      * Filter to discard stores without views
      *
-     * @return Mage_Core_Model_Resource_Store_Group_Collection
+     * @return $this
      */
     public function setWithoutStoreViewFilter()
     {
@@ -97,7 +97,7 @@ class Mage_Core_Model_Resource_Store_Group_Collection extends Mage_Core_Model_Re
     /**
      * Load collection data
      *
-     * @return Mage_Core_Model_Resource_Store_Group_Collection
+     * @return $this
      */
     public function _beforeLoad()
     {
@@ -123,7 +123,7 @@ class Mage_Core_Model_Resource_Store_Group_Collection extends Mage_Core_Model_Re
      *
      * @param int|array $website
      *
-     * @return Mage_Core_Model_Resource_Store_Group_Collection
+     * @return $this
      */
     public function addWebsiteFilter($website)
     {

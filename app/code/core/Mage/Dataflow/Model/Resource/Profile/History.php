@@ -47,7 +47,7 @@ class Mage_Dataflow_Model_Resource_Profile_History extends Mage_Core_Model_Resou
      * Sets up performed at time if needed
      *
      * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Dataflow_Model_Resource_Profile_History
+     * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {

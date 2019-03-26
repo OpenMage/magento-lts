@@ -152,7 +152,7 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
     /**
      * Filter data before save
      *
-     * @return Mage_Api_Model_Roles
+     * @return $this
      */
     protected function _beforeSave()
     {
@@ -164,7 +164,7 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
     /**
      * Filter set data
      *
-     * @return Mage_Api_Model_Roles
+     * @return $this
      */
     public function filter()
     {

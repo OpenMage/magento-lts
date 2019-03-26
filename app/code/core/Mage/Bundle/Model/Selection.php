@@ -66,7 +66,7 @@ class Mage_Bundle_Model_Selection extends Mage_Core_Model_Abstract
     /**
      * Processing object after save data
      *
-     * @return Mage_Bundle_Model_Selection
+     * @return $this
      */
     protected function _afterSave()
     {

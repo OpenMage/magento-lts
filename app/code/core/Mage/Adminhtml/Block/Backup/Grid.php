@@ -54,7 +54,7 @@ class Mage_Adminhtml_Block_Backup_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Prepare mass action controls
      *
-     * @return Mage_Adminhtml_Block_Backup_Grid
+     * @return $this
      */
     protected function _prepareMassaction()
     {
@@ -73,7 +73,7 @@ class Mage_Adminhtml_Block_Backup_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Configuration of grid
      *
-     * @return Mage_Adminhtml_Block_Backup_Grid
+     * @return $this
      */
     protected function _prepareColumns()
     {

@@ -185,7 +185,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      * Setter for payment method instance
      *
      * @param Mage_Payment_Model_Method_Abstract $object
-     * @return Mage_Payment_Model_Recurring_Profile
+     * @return $this
      * @throws Exception
      */
     public function setMethodInstance(Mage_Payment_Model_Method_Abstract $object)
@@ -203,7 +203,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      * Then filter data
      *
      * @param Varien_Object $buyRequest
-     * @return Mage_Payment_Model_Recurring_Profile
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function importBuyRequest(Varien_Object $buyRequest)
@@ -228,7 +228,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      * Returns false if it cannot be imported
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Payment_Model_Recurring_Profile|false
+     * @return $this|false
      */
     public function importProduct(Mage_Catalog_Model_Product $product)
     {
@@ -285,7 +285,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      * Determine nearest possible profile start date
      *
      * @param Zend_Date $minAllowed
-     * @return Mage_Payment_Model_Recurring_Profile
+     * @return $this
      */
     public function setNearestStartDatetime(Zend_Date $minAllowed = null)
     {
@@ -321,7 +321,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      * Locale instance setter
      *
      * @param Mage_Core_Model_Locale $locale
-     * @return Mage_Payment_Model_Recurring_Profile
+     * @return $this
      */
     public function setLocale(Mage_Core_Model_Locale $locale)
     {
@@ -333,7 +333,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      * Store instance setter
      *
      * @param Mage_Core_Model_Store $store
-     * @return Mage_Payment_Model_Recurring_Profile
+     * @return $this
      */
     public function setStore(Mage_Core_Model_Store $store)
     {
@@ -499,7 +499,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
     /**
      * Filter self data to make sure it can be validated properly
      *
-     * @return Mage_Payment_Model_Recurring_Profile
+     * @return $this
      */
     protected function _filterValues()
     {
@@ -604,7 +604,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
     /**
      * Validate before saving
      *
-     * @return Mage_Payment_Model_Recurring_Profile
+     * @return $this
      */
     protected function _beforeSave()
     {

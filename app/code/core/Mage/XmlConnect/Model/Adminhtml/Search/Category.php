@@ -36,7 +36,7 @@ class Mage_XmlConnect_Model_Adminhtml_Search_Category extends Varien_Object
     /**
      * Load search results
      *
-     * @return Mage_XmlConnect_Model_Adminhtml_Search_Category
+     * @return $this
      */
     public function load()
     {

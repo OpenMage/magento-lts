@@ -91,7 +91,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * Set use absolute links flag
      *
      * @param bool $flag
-     * @return Mage_Core_Model_Email_Template_Filter
+     * @return $this
      */
     public function setUseAbsoluteLinks($flag)
     {
@@ -104,7 +104,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * Doesn't set anything intentionally, since SID is not allowed in any kind of emails
      *
      * @param bool $flag
-     * @return Mage_Core_Model_Email_Template_Filter
+     * @return $this
      */
     public function setUseSessionInUrl($flag)
     {
@@ -116,7 +116,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * Setter
      *
      * @param boolean $plainTemplateMode
-     * @return Mage_Core_Model_Email_Template_Filter
+     * @return $this
      */
     public function setPlainTemplateMode($plainTemplateMode)
     {
@@ -138,7 +138,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * Setter
      *
      * @param integer $storeId
-     * @return Mage_Core_Model_Email_Template_Filter
+     * @return $this
      */
     public function setStoreId($storeId)
     {

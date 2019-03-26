@@ -206,7 +206,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     /**
      * Init mapping array of short fields to its full names
      *
-     * @return Mage_Sales_Model_Order_Invoice
+     * @return $this
      */
     protected function _initOldFieldsMap()
     {
@@ -218,7 +218,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      * Load invoice by increment id
      *
      * @param string $incrementId
-     * @return Mage_Sales_Model_Order_Invoice
+     * @return $this
      */
     public function loadByIncrementId($incrementId)
     {
@@ -388,7 +388,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     /**
      * Capture invoice
      *
-     * @return Mage_Sales_Model_Order_Invoice
+     * @return $this
      */
     public function capture()
     {
@@ -402,7 +402,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     /**
      * Pay invoice
      *
-     * @return Mage_Sales_Model_Order_Invoice
+     * @return $this
      */
     public function pay()
     {
@@ -441,7 +441,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     /**
      * Void invoice
      *
-     * @return Mage_Sales_Model_Order_Invoice
+     * @return $this
      */
     public function void()
     {
@@ -453,7 +453,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     /**
      * Cancel invoice action
      *
-     * @return Mage_Sales_Model_Order_Invoice
+     * @return $this
      */
     public function cancel()
     {
@@ -502,7 +502,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     /**
      * Invoice totals collecting
      *
-     * @return Mage_Sales_Model_Order_Invoice
+     * @return $this
      */
     public function collectTotals()
     {
@@ -717,7 +717,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      * @param bool $notify
      * @param bool $visibleOnFront
      *
-     * @return Mage_Sales_Model_Order_Invoice
+     * @return $this
      */
     public function addComment($comment, $notify=false, $visibleOnFront=false)
     {
@@ -763,7 +763,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      *
      * @param boolean $notifyCustomer
      * @param string $comment
-     * @return Mage_Sales_Model_Order_Invoice
+     * @return $this
      */
     public function sendEmail($notifyCustomer = true, $comment = '')
     {
@@ -858,7 +858,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      *
      * @param boolean $notifyCustomer
      * @param string $comment
-     * @return Mage_Sales_Model_Order_Invoice
+     * @return $this
      */
     public function sendUpdateEmail($notifyCustomer = true, $comment = '')
     {
@@ -941,7 +941,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     /**
      * Reset invoice object
      *
-     * @return Mage_Sales_Model_Order_Invoice
+     * @return $this
      */
     public function reset()
     {

@@ -46,7 +46,7 @@ class Mage_Api_Model_Resource_Roles_Collection extends Mage_Core_Model_Resource_
     /**
      * Init collection select
      *
-     * @return Mage_Api_Model_Resource_Roles_Collection
+     * @return $this
      */
     protected function _initSelect()
     {

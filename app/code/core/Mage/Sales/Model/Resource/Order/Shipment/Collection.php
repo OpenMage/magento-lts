@@ -67,7 +67,7 @@ class Mage_Sales_Model_Resource_Order_Shipment_Collection extends Mage_Sales_Mod
     /**
      * Used to emulate after load functionality for each item without loading them
      *
-     * @return Mage_Sales_Model_Resource_Order_Shipment_Collection
+     * @return $this
      */
     protected function _afterLoad()
     {

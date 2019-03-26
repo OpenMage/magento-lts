@@ -37,7 +37,7 @@ class Mage_Captcha_Model_Observer
      * Check Captcha On Forgot Password Page
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Captcha_Model_Observer
+     * @return $this
      */
     public function checkForgotpassword($observer)
     {
@@ -58,7 +58,7 @@ class Mage_Captcha_Model_Observer
      * Check Captcha On User Login Page
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Captcha_Model_Observer
+     * @return $this
      */
     public function checkUserLogin($observer)
     {
@@ -86,7 +86,7 @@ class Mage_Captcha_Model_Observer
      * Check Captcha On Register User Page
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Captcha_Model_Observer
+     * @return $this
      */
     public function checkUserCreate($observer)
     {
@@ -108,7 +108,7 @@ class Mage_Captcha_Model_Observer
      * Check Captcha On Checkout as Guest Page
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Captcha_Model_Observer
+     * @return $this
      */
     public function checkGuestCheckout($observer)
     {
@@ -132,7 +132,7 @@ class Mage_Captcha_Model_Observer
      * Check Captcha On Checkout Register Page
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Captcha_Model_Observer
+     * @return $this
      */
     public function checkRegisterCheckout($observer)
     {
@@ -156,7 +156,7 @@ class Mage_Captcha_Model_Observer
      * Check Captcha On User Login Backend Page
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Captcha_Model_Observer
+     * @return $this
      */
     public function checkUserLoginBackend($observer)
     {
@@ -188,7 +188,7 @@ class Mage_Captcha_Model_Observer
      * Check Captcha On User Login Backend Page
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Captcha_Model_Observer
+     * @return $this
      */
     public function checkUserForgotPasswordBackend($observer)
     {
@@ -215,7 +215,7 @@ class Mage_Captcha_Model_Observer
      * Reset Attempts For Frontend
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Captcha_Model_Observer
+     * @return $this
      */
     public function resetAttemptForFrontend($observer)
     {
@@ -226,7 +226,7 @@ class Mage_Captcha_Model_Observer
      * Reset Attempts For Backend
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Captcha_Model_Observer
+     * @return $this
      */
     public function resetAttemptForBackend($observer)
     {
@@ -236,7 +236,7 @@ class Mage_Captcha_Model_Observer
     /**
      * Delete Unnecessary logged attempts
      *
-     * @return Mage_Captcha_Model_Observer
+     * @return $this
      */
     public function deleteOldAttempts()
     {
@@ -247,7 +247,7 @@ class Mage_Captcha_Model_Observer
     /**
      * Delete Expired Captcha Images
      *
-     * @return Mage_Captcha_Model_Observer
+     * @return $this
      */
     public function deleteExpiredImages()
     {
@@ -269,7 +269,7 @@ class Mage_Captcha_Model_Observer
      * Reset Attempts
      *
      * @param string $login
-     * @return Mage_Captcha_Model_Observer
+     * @return $this
      */
     protected function _resetAttempt($login)
     {
@@ -294,7 +294,7 @@ class Mage_Captcha_Model_Observer
      * Check Captcha On Share Wishlist Page
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Captcha_Model_Observer
+     * @return $this
      */
     public function checkWishlistSharing($observer)
     {
@@ -319,7 +319,7 @@ class Mage_Captcha_Model_Observer
      * Check Captcha On Email Product To A Friend Page
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Captcha_Model_Observer
+     * @return $this
      */
     public function checkSendfriendSend($observer)
     {

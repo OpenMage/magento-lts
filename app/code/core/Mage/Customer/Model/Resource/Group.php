@@ -45,7 +45,7 @@ class Mage_Customer_Model_Resource_Group extends Mage_Core_Model_Resource_Db_Abs
     /**
      * Initialize unique fields
      *
-     * @return Mage_Customer_Model_Resource_Group
+     * @return $this
      */
     protected function _initUniqueFields()
     {

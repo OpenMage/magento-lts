@@ -36,7 +36,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Grid_Renderer_Item extends Mag
     /**
      * Constructor to set default template
      *
-     * @return Mage_Adminhtml_Block_Customer_Edit_Tab_View_Grid_Renderer_Item
+     * @return $this
      */
     protected function _construct()
     {

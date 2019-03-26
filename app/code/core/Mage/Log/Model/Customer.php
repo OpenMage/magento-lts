@@ -60,7 +60,7 @@ class Mage_Log_Model_Customer extends Mage_Core_Model_Abstract
      * Load last log by customer id
      *
      * @param Mage_Customer_Model_Customer|int $customer
-     * @return Mage_Log_Model_Customer
+     * @return $this
      */
     public function loadByCustomer($customer)
     {

@@ -42,7 +42,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_NewCustomers
     /**
      * Get rid of unnecessary collection initialization
      *
-     * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_NewCustomers
+     * @return $this
      */
     protected function _prepareCollection()
     {
@@ -53,7 +53,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_NewCustomers
      * Init new customers collection
      *
      * @param int|null $storeId
-     * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_NewCustomers
+     * @return $this
      */
     protected function _initCollection($storeId)
     {
@@ -75,7 +75,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_NewCustomers
     /**
      * Clear collection
      *
-     * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_NewCustomers
+     * @return $this
      */
     protected function _clearCollection()
     {
@@ -87,7 +87,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_NewCustomers
      * Add new customers statistic to xml object
      *
      * @param Mage_XmlConnect_Model_Simplexml_Element $xmlObj
-     * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_NewCustomers
+     * @return $this
      */
     public function addNewCustomersToXmlObj(Mage_XmlConnect_Model_Simplexml_Element $xmlObj)
     {

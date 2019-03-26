@@ -307,7 +307,7 @@ class Mage_XmlConnect_Adminhtml_MobileController extends Mage_Adminhtml_Controll
      * Clear session data
      * Used after successful save/submit action
      *
-     * @return Mage_XmlConnect_Adminhtml_MobileController
+     * @return $this
      */
     protected function _clearSessionData()
     {

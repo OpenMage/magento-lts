@@ -120,7 +120,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
      * Perform actions before object save
      *
      * @param Varien_Object $object
-     * @return Mage_Review_Model_Resource_Review
+     * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
@@ -141,7 +141,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
      * Perform actions after object save
      *
      * @param Varien_Object $object
-     * @return Mage_Review_Model_Resource_Review
+     * @return $this
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -206,7 +206,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
      * Perform actions after object load
      *
      * @param Varien_Object $object
-     * @return Mage_Review_Model_Resource_Review
+     * @return $this
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
@@ -227,7 +227,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
      * Action before delete
      *
      * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Review_Model_Resource_Review
+     * @return $this
      */
     protected function _beforeDelete(Mage_Core_Model_Abstract $object)
     {
@@ -243,7 +243,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
      * Perform actions after object delete
      *
      * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Review_Model_Resource_Review
+     * @return $this
      */
     public function afterDeleteCommit(Mage_Core_Model_Abstract $object)
     {
@@ -378,7 +378,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
      *
      * @param array $ratingIds
      * @param int $entityPkValue
-     * @return Mage_Review_Model_Resource_Review
+     * @return $this
      */
     protected function _aggregateRatings($ratingIds, $entityPkValue)
     {
@@ -428,7 +428,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
      * Better to call this method in transaction, because operation performed on two separated tables
      *
      * @param int $productId
-     * @return Mage_Review_Model_Resource_Review
+     * @return $this
      */
     public function deleteReviewsByProductId($productId)
     {

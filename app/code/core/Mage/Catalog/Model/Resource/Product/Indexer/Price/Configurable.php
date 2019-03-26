@@ -38,7 +38,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable
     /**
      * Reindex temporary (price result data) for all products
      *
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable
+     * @return $this
      */
     public function reindexAll()
     {
@@ -61,7 +61,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable
      * Reindex temporary (price result data) for defined product(s)
      *
      * @param int|array $entityIds
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable
+     * @return $this
      */
     public function reindexEntity($entityIds)
     {
@@ -102,7 +102,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable
     /**
      * Prepare table structure for custom option temporary aggregation data
      *
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable
+     * @return $this
      */
     protected function _prepareConfigurableOptionAggregateTable()
     {
@@ -113,7 +113,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable
     /**
      * Prepare table structure for custom option prices data
      *
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable
+     * @return $this
      */
     protected function _prepareConfigurableOptionPriceTable()
     {
@@ -125,7 +125,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable
      * Calculate minimal and maximal prices for configurable product options
      * and apply it to final price
      *
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable
+     * @return $this
      */
     protected function _applyConfigurableOption()
     {

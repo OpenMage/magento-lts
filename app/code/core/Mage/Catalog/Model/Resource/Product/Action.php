@@ -54,7 +54,7 @@ class Mage_Catalog_Model_Resource_Product_Action extends Mage_Catalog_Model_Reso
      * @param array $entityIds
      * @param array $attrData
      * @param int $storeId
-     * @return Mage_Catalog_Model_Resource_Product_Action
+     * @return $this
      */
     public function updateAttributes($entityIds, $attrData, $storeId)
     {

@@ -38,7 +38,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Customer_Password_Link_Expirati
     /**
      * Validate expiration period value before saving
      *
-     * @return Mage_Adminhtml_Model_System_Config_Backend_Customer_Password_Link_Expirationperiod
+     * @return $this
      */
     protected function _beforeSave()
     {

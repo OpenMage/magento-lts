@@ -66,7 +66,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_SalesInfo extends Mage_A
     /**
      * Prepare sales data collection
      *
-     * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_SalesInfo
+     * @return $this
      */
     protected function _prepareLayout()
     {
@@ -100,7 +100,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_SalesInfo extends Mage_A
      * @param string $label
      * @param string $value
      * @param bool $isQuantity
-     * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_SalesInfo
+     * @return $this
      */
     public function addTotal($label, $value, $isQuantity = false)
     {

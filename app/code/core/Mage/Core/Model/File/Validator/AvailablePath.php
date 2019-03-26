@@ -92,7 +92,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
     /**
      * Initialize message templates with translating
      *
-     * @return Mage_Core_Model_File_Validator_AvailablePath
+     * @return $this
      */
     protected function _initMessageTemplates()
     {
@@ -114,7 +114,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
      *
      * @param array $paths  All paths masks types.
      *                      E.g.: array('available' => array(...), 'protected' => array(...))
-     * @return Mage_Core_Model_File_Validator_AvailablePath
+     * @return $this
      */
     public function setPaths(array $paths)
     {
@@ -131,7 +131,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
      * Set protected paths masks
      *
      * @param array $paths
-     * @return Mage_Core_Model_File_Validator_AvailablePath
+     * @return $this
      */
     public function setProtectedPaths(array $paths)
     {
@@ -143,7 +143,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
      * Add protected paths masks
      *
      * @param string|array $path
-     * @return Mage_Core_Model_File_Validator_AvailablePath
+     * @return $this
      */
     public function addProtectedPath($path)
     {
@@ -169,7 +169,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
      * Set available paths masks
      *
      * @param array $paths
-     * @return Mage_Core_Model_File_Validator_AvailablePath
+     * @return $this
      */
     public function setAvailablePaths(array $paths)
     {
@@ -181,7 +181,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
      * Add available paths mask
      *
      * @param string|array $path
-     * @return Mage_Core_Model_File_Validator_AvailablePath
+     * @return $this
      */
     public function addAvailablePath($path)
     {

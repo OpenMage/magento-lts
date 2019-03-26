@@ -53,7 +53,7 @@ class Mage_Eav_Model_Entity_Attribute_Exception extends Exception
      * Set Eav entity attribute
      *
      * @param string $attribute
-     * @return Mage_Eav_Model_Entity_Attribute_Exception
+     * @return $this
      */
     public function setAttributeCode($attribute)
     {
@@ -65,7 +65,7 @@ class Mage_Eav_Model_Entity_Attribute_Exception extends Exception
      * Set Eav entity attribute type
      *
      * @param string $part
-     * @return Mage_Eav_Model_Entity_Attribute_Exception
+     * @return $this
      */
     public function setPart($part) {
         $this->_part = $part;

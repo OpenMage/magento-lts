@@ -176,7 +176,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
      * Change Stock Item status process
      *
      * @param Mage_CatalogInventory_Model_Stock_Item $item
-     * @return Mage_CatalogInventory_Model_Stock_Status
+     * @return $this
      */
     public function changeItemStatus(Mage_CatalogInventory_Model_Stock_Item $item)
     {
@@ -200,7 +200,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
      * @param Mage_Catalog_Model_Product $product
      * @param int $stockId
      * @param int $stockStatus
-     * @return Mage_CatalogInventory_Model_Stock_Status
+     * @return $this
      */
     public function assignProduct(Mage_Catalog_Model_Product $product, $stockId = 1, $stockStatus = null)
     {
@@ -219,7 +219,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
      * Rebuild stock status for all products
      *
      * @param int $websiteId
-     * @return Mage_CatalogInventory_Model_Stock_Status
+     * @return $this
      */
     public function rebuild($websiteId = null)
     {
@@ -245,7 +245,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
      * @param int $productId
      * @param string $productType
      * @param int $websiteId
-     * @return Mage_CatalogInventory_Model_Stock_Status
+     * @return $this
      */
     public function updateStatus($productId, $productType = null, $websiteId = null)
     {
@@ -278,7 +278,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
      * @param int $stockId
      * @param int $websiteId
      *
-     * @return Mage_CatalogInventory_Model_Stock_Status
+     * @return $this
      */
     protected function _processChildren($productId, $productType, $qty = 0, $status = self::STATUS_IN_STOCK,
         $stockId = 1, $websiteId = null
@@ -346,7 +346,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
      * @param int $productId
      * @param int $stockId
      * @param int $websiteId
-     * @return Mage_CatalogInventory_Model_Stock_Status
+     * @return $this
      */
     protected function _processParents($productId, $stockId = 1, $websiteId = null)
     {
@@ -390,7 +390,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
      * @param float $qty
      * @param int $stockId
      * @param int|null $websiteId
-     * @return Mage_CatalogInventory_Model_Stock_Status
+     * @return $this
      */
     public function saveProductStatus($productId, $status, $qty = 0, $stockId = 1, $websiteId = null)
     {
@@ -498,7 +498,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
      *
      * @param Varien_Db_Select $select
      * @param Mage_Core_Model_Website $website
-     * @return Mage_CatalogInventory_Model_Stock_Status
+     * @return $this
      */
     public function addStockStatusToSelect(Varien_Db_Select $select, Mage_Core_Model_Website $website)
     {
@@ -512,7 +512,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
      * @param Varien_Db_Select $select
      * @param string|Zend_Db_Expr $entityField
      * @param string|Zend_Db_Expr $websiteField
-     * @return Mage_CatalogInventory_Model_Stock_Status
+     * @return $this
      */
     public function prepareCatalogProductIndexSelect(Varien_Db_Select $select, $entityField, $websiteField)
     {
@@ -529,7 +529,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
      * Add only is in stock products filter to product collection
      *
      * @param Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection $collection
-     * @return Mage_CatalogInventory_Model_Stock_Status
+     * @return $this
      */
     public function addIsInStockFilterToCollection($collection)
     {

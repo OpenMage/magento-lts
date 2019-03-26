@@ -119,7 +119,7 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
     /**
      * Processing data save after transaction commit
      *
-     * @return Mage_Customer_Model_Group
+     * @return $this
      */
     public function afterCommitCallback()
     {
@@ -144,7 +144,7 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
     /**
      * Prepare customer group data
      *
-     * @return Mage_Customer_Model_Group
+     * @return $this
      */
     protected function _prepareData()
     {

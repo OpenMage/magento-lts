@@ -187,7 +187,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
     /**
      * Read data collection and write to temporary file
      *
-     * @return Mage_Dataflow_Model_Convert_Parser_Csv
+     * @return $this
      */
     public function unparse()
     {

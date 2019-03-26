@@ -44,7 +44,7 @@ class Mage_Persistent_IndexController extends Mage_Core_Controller_Front_Action
      * Set whether clear checkout session when logout
      *
      * @param bool $clear
-     * @return Mage_Persistent_IndexController
+     * @return $this
      */
     public function setClearCheckoutSession($clear = true)
     {
@@ -77,7 +77,7 @@ class Mage_Persistent_IndexController extends Mage_Core_Controller_Front_Action
     /**
      * Revert all persistent data
      *
-     * @return Mage_Persistent_IndexController
+     * @return $this
      */
     protected function _cleanup()
     {

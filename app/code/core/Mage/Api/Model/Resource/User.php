@@ -46,7 +46,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Initialize unique fields
      *
-     * @return Mage_Api_Model_Resource_User
+     * @return $this
      */
     protected function _initUniqueFields()
     {
@@ -67,7 +67,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
      * Authenticate user by $username and $password
      *
      * @param Mage_Api_Model_User $user
-     * @return Mage_Api_Model_Resource_User
+     * @return $this
      */
     public function recordLogin(Mage_Api_Model_User $user)
     {
@@ -83,7 +83,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
      * Record api user session
      *
      * @param Mage_Api_Model_User $user
-     * @return Mage_Api_Model_Resource_User
+     * @return $this
      */
     public function recordSession(Mage_Api_Model_User $user)
     {
@@ -119,7 +119,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
      * Clean old session
      *
      * @param Mage_Api_Model_User $user
-     * @return Mage_Api_Model_Resource_User
+     * @return $this
      */
     public function cleanOldSessions(Mage_Api_Model_User $user)
     {
@@ -179,7 +179,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
      * Clear by session
      *
      * @param string $sessid
-     * @return Mage_Api_Model_Resource_User
+     * @return $this
      */
     public function clearBySessId($sessid)
     {
@@ -220,7 +220,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
      * Action before save
      *
      * @param Mage_Core_Model_Abstract $user
-     * @return Mage_Api_Model_Resource_User
+     * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $user)
     {
@@ -336,7 +336,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
      * Add Role
      *
      * @param Mage_Core_Model_Abstract $user
-     * @return Mage_Api_Model_Resource_User
+     * @return $this
      */
     public function add(Mage_Core_Model_Abstract $user)
     {
@@ -372,7 +372,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
      * Delete from role
      *
      * @param Mage_Core_Model_Abstract $user
-     * @return Mage_Api_Model_Resource_User
+     * @return $this
      */
     public function deleteFromRole(Mage_Core_Model_Abstract $user)
     {

@@ -56,7 +56,7 @@ class Mage_GoogleBase_Model_Resource_Attribute_Collection extends Mage_Core_Mode
      *
      * @param int $attributeSetId
      * @param string $targetCountry
-     * @return Mage_GoogleBase_Model_Resource_Attribute_Collection
+     * @return $this
      */
     public function addAttributeSetFilter($attributeSetId, $targetCountry)
     {
@@ -73,7 +73,7 @@ class Mage_GoogleBase_Model_Resource_Attribute_Collection extends Mage_Core_Mode
      * Add type filter
      *
      * @param int $type_id
-     * @return Mage_GoogleBase_Model_Resource_Attribute_Collection
+     * @return $this
      */
     public function addTypeFilter($type_id)
     {
@@ -86,7 +86,7 @@ class Mage_GoogleBase_Model_Resource_Attribute_Collection extends Mage_Core_Mode
      *
      * @param boolean $printQuery
      * @param boolean $logQuery
-     * @return Mage_GoogleBase_Model_Resource_Attribute_Collection
+     * @return $this
      */
     public function load($printQuery = false, $logQuery = false)
     {
@@ -103,7 +103,7 @@ class Mage_GoogleBase_Model_Resource_Attribute_Collection extends Mage_Core_Mode
     /**
      * Join attribute set
      *
-     * @return Mage_GoogleBase_Model_Resource_Attribute_Collection
+     * @return $this
      */
     protected function _joinAttributeSet()
     {

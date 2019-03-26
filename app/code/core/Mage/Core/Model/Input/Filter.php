@@ -119,7 +119,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
      * @param string $name
      * @param array|Zend_Filter_Interface $filter
      * @param string $placement
-     * @return Mage_Core_Model_Input_Filter
+     * @return $this
      */
     public function addFilter($name, $filter, $placement = Zend_Filter::CHAIN_APPEND)
     {
@@ -135,7 +135,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
      * Add a filter to the end of the chain
      *
      * @param  array|Zend_Filter_Interface $filter
-     * @return Mage_Core_Model_Input_Filter
+     * @return $this
      */
     public function appendFilter(Zend_Filter_Interface $filter)
     {
@@ -146,7 +146,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
      * Add a filter to the start of the chain
      *
      * @param  array|Zend_Filter_Interface $filter
-     * @return Mage_Core_Model_Input_Filter
+     * @return $this
      */
     public function prependFilter($filter)
     {
@@ -164,7 +164,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
      *      )
      *
      * @param array $filters
-     * @return Mage_Core_Model_Input_Filter
+     * @return $this
      */
     public function addFilters(array $filters)
     {
@@ -176,7 +176,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
      * Set filters
      *
      * @param array $filters
-     * @return Mage_Core_Model_Input_Filter
+     * @return $this
      */
     public function setFilters(array $filters)
     {

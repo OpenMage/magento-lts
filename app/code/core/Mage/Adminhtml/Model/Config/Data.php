@@ -52,7 +52,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
      * Save config section
      * Require set: section, website, store and groups
      *
-     * @return Mage_Adminhtml_Model_Config_Data
+     * @return $this
      */
     public function save()
     {

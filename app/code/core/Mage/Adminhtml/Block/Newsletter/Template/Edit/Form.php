@@ -56,7 +56,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit_Form extends Mage_Adminhtml_
     /**
      * Prepare form before rendering HTML
      *
-     * @return Mage_Adminhtml_Block_Newsletter_Template_Edit_Form
+     * @return $this
      */
     protected function _prepareForm()
     {

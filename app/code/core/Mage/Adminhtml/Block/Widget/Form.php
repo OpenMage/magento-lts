@@ -114,7 +114,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
      * Set form object
      *
      * @param Varien_Data_Form $form
-     * @return Mage_Adminhtml_Block_Widget_Form
+     * @return $this
      */
     public function setForm(Varien_Data_Form $form)
     {
@@ -127,7 +127,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
     /**
      * Prepare form before rendering HTML
      *
-     * @return Mage_Adminhtml_Block_Widget_Form
+     * @return $this
      */
     protected function _prepareForm()
     {
@@ -137,7 +137,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
     /**
      * This method is called before rendering HTML
      *
-     * @return Mage_Adminhtml_Block_Widget_Form
+     * @return $this
      */
     protected function _beforeToHtml()
     {
@@ -150,7 +150,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
      * Initialize form fields values
      * Method will be called after prepareForm and can be used for field values initialization
      *
-     * @return Mage_Adminhtml_Block_Widget_Form
+     * @return $this
      */
     protected function _initFormValues()
     {

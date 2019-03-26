@@ -54,7 +54,7 @@ class Mage_XmlConnect_Model_Paypal_Mecl_Checkout extends Mage_Paypal_Model_Expre
     /**
      * Set sandbox flag
      *
-     * @return Mage_XmlConnect_Model_Paypal_Mecl_Checkout
+     * @return $this
      */
     protected function _setSandboxFlag()
     {

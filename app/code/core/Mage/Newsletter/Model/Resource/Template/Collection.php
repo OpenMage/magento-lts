@@ -46,7 +46,7 @@ class Mage_Newsletter_Model_Resource_Template_Collection extends Mage_Core_Model
     /**
      * Load only actual template
      *
-     * @return Mage_Newsletter_Model_Resource_Template_Collection
+     * @return $this
      */
     public function useOnlyActual()
     {

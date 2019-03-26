@@ -93,7 +93,7 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
      * Append payment data to request
      *
      * @param Mage_Paypal_Model_Hostedpro $paymentMethod
-     * @return Mage_Paypal_Model_Hostedpro_Request
+     * @return $this
      */
     public function setPaymentMethod($paymentMethod)
     {
@@ -108,7 +108,7 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
      * Append order data to request
      *
      * @param Mage_Sales_Model_Order $order
-     * @return Mage_Paypal_Model_Hostedpro_Request
+     * @return $this
      */
     public function setOrder($order)
     {

@@ -37,7 +37,7 @@ class Mage_Adminhtml_Block_System_Cache_Form extends Mage_Adminhtml_Block_Widget
     /**
      * Initialize cache management form
      *
-     * @return Mage_Adminhtml_Block_System_Cache_Form
+     * @return $this
      */
     public function initForm()
     {

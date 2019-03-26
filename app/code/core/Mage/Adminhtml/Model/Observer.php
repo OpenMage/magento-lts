@@ -54,7 +54,7 @@ class Mage_Adminhtml_Model_Observer
     /**
      * Prepare massaction separated data
      *
-     * @return Mage_Adminhtml_Model_Observer
+     * @return $this
      */
     public function massactionPrepareKey()
     {
@@ -69,7 +69,7 @@ class Mage_Adminhtml_Model_Observer
     /**
      * Clear result of configuration files access level verification in system cache
      *
-     * @return Mage_Adminhtml_Model_Observer
+     * @return $this
      */
     public function clearCacheConfigurationFilesAccessLevelVerification()
     {

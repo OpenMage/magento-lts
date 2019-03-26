@@ -44,7 +44,7 @@ class Mage_Reports_Model_Grouped_Collection
      * Set column to group by
      *
      * @param string $column
-     * @return Mage_Reports_Model_Grouped_Collection
+     * @return $this
      */
     public function setColumnGroupBy($column)
     {
@@ -57,7 +57,7 @@ class Mage_Reports_Model_Grouped_Collection
      *
      * @param boolean $printQuery
      * @param boolean $logQuery
-     * @return Mage_Reports_Model_Grouped_Collection
+     * @return $this
      */
     public function load($printQuery = false, $logQuery = false)
     {
@@ -80,7 +80,7 @@ class Mage_Reports_Model_Grouped_Collection
      * Setter for resource collection
      *
      * @param Varien_Data_Collection_Db $collection
-     * @return Mage_Reports_Model_Grouped_Collection
+     * @return $this
      */
     public function setResourceCollection($collection)
     {
@@ -91,7 +91,7 @@ class Mage_Reports_Model_Grouped_Collection
     /**
      * Merge empty data collection with resource collection
      *
-     * @return Mage_Reports_Model_Grouped_Collection
+     * @return $this
      */
     protected function _mergeWithEmptyData()
     {
@@ -117,7 +117,7 @@ class Mage_Reports_Model_Grouped_Collection
     /**
      * Group data in resource collection
      *
-     * @return Mage_Reports_Model_Grouped_Collection
+     * @return $this
      */
     protected function _groupResourceData()
     {

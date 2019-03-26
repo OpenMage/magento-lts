@@ -36,7 +36,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Reviews extends Mage_Adminht
     /**
      * Hide grid mass action elements
      *
-     * @return Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Reviews
+     * @return $this
      */
     protected function _prepareMassaction()
     {

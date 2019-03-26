@@ -60,7 +60,7 @@ class Mage_Index_Model_Resource_Process_Collection extends Mage_Core_Model_Resou
     /**
      * Add count of unprocessed events to process collection
      *
-     * @return Mage_Index_Model_Resource_Process_Collection
+     * @return $this
      */
     public function addEventsStats()
     {

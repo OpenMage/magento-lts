@@ -145,7 +145,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
      * Prepare and set request to this instance
      *
      * @param Mage_Shipping_Model_Rate_Request $request
-     * @return Mage_Usa_Model_Shipping_Carrier_Ups
+     * @return $this
      */
     public function setRequest(Mage_Shipping_Model_Rate_Request $request)
     {

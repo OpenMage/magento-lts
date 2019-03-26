@@ -47,7 +47,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Buttons extends Mage_Adminhtml_Block_Templ
     /**
      * Preparing global layout
      *
-     * @return Mage_Api2_Block_Adminhtml_Roles_Buttons
+     * @return $this
      */
     protected function _prepareLayout()
     {

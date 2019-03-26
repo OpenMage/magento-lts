@@ -44,7 +44,7 @@ class Mage_XmlConnect_Block_Customer_Form_Renderer_File extends Enterprise_Custo
      * Change form post params for file upload compliance
      *
      * @param Mage_XmlConnect_Model_Simplexml_Form_Element_Abstract $fieldsetXmlObj
-     * @return Mage_XmlConnect_Block_Customer_Form_Renderer_File
+     * @return $this
      */
     protected function _setFormPostParams(Mage_XmlConnect_Model_Simplexml_Form_Element_Abstract $fieldsetXmlObj)
     {
@@ -57,7 +57,7 @@ class Mage_XmlConnect_Block_Customer_Form_Renderer_File extends Enterprise_Custo
      * Add file field to fieldset xml object
      *
      * @param Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $fieldsetXmlObj
-     * @return Mage_XmlConnect_Block_Customer_Form_Renderer_File
+     * @return $this
      */
     public function addFieldToXmlObj(Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset $fieldsetXmlObj)
     {
@@ -80,7 +80,7 @@ class Mage_XmlConnect_Block_Customer_Form_Renderer_File extends Enterprise_Custo
      * Add validator for file field to fieldset xml object
      *
      * @param Mage_XmlConnect_Model_Simplexml_Form_Element_Abstract $fieldXmlObj
-     * @return Mage_XmlConnect_Block_Customer_Form_Renderer_File
+     * @return $this
      */
     protected function _addValidator(Mage_XmlConnect_Model_Simplexml_Form_Element_Abstract $fieldXmlObj)
     {

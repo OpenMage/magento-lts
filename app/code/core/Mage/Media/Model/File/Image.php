@@ -79,7 +79,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
      * Create image resource for operation from file
      *
      * @param Mage_Media_Model_Image $object
-     * @return Mage_Media_Model_File_Image
+     * @return $this
      */
     public function getImage(Mage_Media_Model_Image $object)
     {
@@ -111,7 +111,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
      * Create tmp image resource for operations
      *
      * @param Mage_Media_Model_Image $object
-     * @return Mage_Media_Model_File_Image
+     * @return $this
      */
     public function getTmpImage(Mage_Media_Model_Image $object)
     {
@@ -123,7 +123,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
      * Resize image
      *
      * @param Mage_Media_Model_Image $object
-     * @return Mage_Media_Model_File_Image
+     * @return $this
      */
     public function resize(Mage_Media_Model_Image $object)
     {
@@ -147,7 +147,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
      * Add watermark for image
      *
      * @param Mage_Media_Model_Image $object
-     * @return Mage_Media_Model_File_Image
+     * @return $this
      */
     public function watermark(Mage_Media_Model_Image $object)
     {
@@ -159,7 +159,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
      *
      * @param Mage_Media_Model_Image $object
      * @param string|null $extension
-     * @return Mage_Media_Model_File_Image
+     * @return $this
      */
     public function saveAs(Mage_Media_Model_Image $object, $extension=null)
     {

@@ -241,7 +241,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Prepare additional price expression sql part
      *
      * @param Varien_Db_Select $select
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     protected function _preparePriceExpressionParameters($select)
     {
@@ -371,7 +371,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      *
      * @param string $model
      * @param unknown_type $entityModel
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     protected function _init($model, $entityModel = null)
     {
@@ -385,7 +385,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Prepare static entity fields
      *
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     protected function _prepareStaticFields()
     {
@@ -414,7 +414,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Set entity to use for attributes
      *
      * @param Mage_Eav_Model_Entity_Abstract $entity
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     public function setEntity($entity)
     {
@@ -429,7 +429,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Set Store scope for collection
      *
      * @param mixed $store
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     public function setStore($store)
     {
@@ -445,7 +445,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Redeclared for remove entity_type_id condition
      * in catalog_product_entity we store just products
      *
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     protected function _initSelect()
     {
@@ -470,7 +470,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      *
      * @param bool $printQuery
      * @param bool $logQuery
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     public function _loadAttributes($printQuery = false, $logQuery = false)
     {
@@ -486,7 +486,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      *
      * @param array|string|integer|Mage_Core_Model_Config_Element $attribute
      * @param false|string $joinType
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     public function addAttributeToSelect($attribute, $joinType = false)
     {
@@ -520,7 +520,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Add tax class id attribute to select and join price rules data if needed
      *
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     protected function _beforeLoad()
     {
@@ -533,7 +533,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Processing collection items after loading
      * Adding url rewrites, minimal prices, final prices, tax percents
      *
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     protected function _afterLoad()
     {
@@ -557,7 +557,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Prepare Url Data object
      *
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      * @deprecated after 1.7.0.2
      */
     protected function _prepareUrlDataObject()
@@ -592,7 +592,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      *
      * @param mixed $productId
      * @param boolean $exclude
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     public function addIdFilter($productId, $exclude = false)
     {
@@ -625,7 +625,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Adding product website names to result collection
      * Add for each product websites information
      *
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     public function addWebsiteNamesToResult()
     {
@@ -663,7 +663,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * for store website
      *
      * @param mixed $store
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     public function addStoreFilter($store = null)
     {
@@ -684,7 +684,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Add website filter to collection
      *
      * @param unknown_type $websites
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     public function addWebsiteFilter($websites = null)
     {
@@ -712,7 +712,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Specify category filter for product collection
      *
      * @param Mage_Catalog_Model_Category $category
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     public function addCategoryFilter(Mage_Catalog_Model_Category $category)
     {
@@ -735,7 +735,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Join minimal price attribute to result
      *
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     public function joinMinimalPrice()
     {
@@ -918,7 +918,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Prepare statistics data
      *
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     protected function _prepareStatisticsData()
     {
@@ -1017,7 +1017,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Destruct product count select
      *
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     public function unsProductCountSelect()
     {
@@ -1029,7 +1029,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Adding product count to categories collection
      *
      * @param Mage_Eav_Model_Entity_Collection_Abstract $categoryCollection
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     public function addCountToCategories($categoryCollection)
     {
@@ -1115,7 +1115,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Joins url rewrite rules to collection
      *
      * @deprecated after 1.7.0.2. Method is not used anywhere in the code.
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     public function joinUrlRewrite()
     {
@@ -1135,7 +1135,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * If collection loadded - run processing else set flag
      *
      * @param int|string $categoryId
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     public function addUrlRewrite($categoryId = '')
     {
@@ -1215,7 +1215,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * @deprecated use addPriceData
      * @see Mage_Catalog_Model_Resource_Product_Collection::addPriceData
      *
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     public function addMinimalPrice()
     {
@@ -1228,7 +1228,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * @deprecated sinse 1.3.2.2
      * @see Mage_Catalog_Model_Resource_Product_Collection::addPriceData
      *
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     protected function _addMinimalPrice()
     {
@@ -1241,7 +1241,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * @deprecated use addPriceData
      * @see Mage_Catalog_Model_Resource_Product_Collection::addPriceData
      *
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     public function addFinalPrice()
     {
@@ -1251,7 +1251,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Join prices from price rules to products collection
      *
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     protected function _joinPriceRules()
     {
@@ -1285,7 +1285,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Add final price to the product
      *
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     protected function _addFinalPrice()
     {
@@ -1345,7 +1345,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Set all ids
      *
      * @param array $value
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     public function setAllIdsCache($value)
     {
@@ -1358,7 +1358,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      *
      * @param int $customerGroupId
      * @param int $websiteId
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     public function addPriceData($customerGroupId = null, $websiteId = null)
     {
@@ -1389,7 +1389,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * @param Mage_Eav_Model_Entity_Attribute_Abstract|string $attribute
      * @param array $condition
      * @param string $joinType
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     public function addAttributeToFilter($attribute, $condition = null, $joinType = 'inner')
     {
@@ -1450,7 +1450,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Add requere tax percent flag for product collection
      *
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     public function addTaxPercents()
     {
@@ -1493,7 +1493,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Adding product custom options to result collection
      *
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     public function addOptionsToResult()
     {
@@ -1522,7 +1522,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Filter products with required options
      *
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     public function addFilterByRequiredOptions()
     {
@@ -1534,7 +1534,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Set product visibility filter for enabled products
      *
      * @param array $visibility
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     public function setVisibility($visibility)
     {
@@ -1549,7 +1549,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      *
      * @param string $attribute
      * @param string $dir
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     public function addAttributeToSort($attribute, $dir = self::SORT_ORDER_ASC)
     {
@@ -1609,7 +1609,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Prepare limitation filters
      *
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     protected function _prepareProductLimitationFilters()
     {
@@ -1638,7 +1638,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Join website product limitation
      *
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     protected function _productLimitationJoinWebsite()
     {
@@ -1685,7 +1685,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Join additional (alternative) store visibility filter
      *
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     protected function _productLimitationJoinStore()
     {
@@ -1757,7 +1757,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Join Product Price Table
      *
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     protected function _productLimitationJoinPrice()
     {
@@ -1768,7 +1768,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Join Product Price Table with left-join possibility
      *
      * @see Mage_Catalog_Model_Resource_Product_Collection::_productLimitationJoinPrice()
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     protected function _productLimitationPrice($joinLeft = false)
     {
@@ -1817,7 +1817,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Apply front-end price limitation filters to the collection
      *
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     public function applyFrontendPriceLimitations()
     {
@@ -1840,7 +1840,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * for different combinations of store_id/category_id/visibility filter states
      * Method supports multiple changes in one collection object for this parameters
      *
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     protected function _applyProductLimitations()
     {
@@ -1905,7 +1905,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Method allows using one time category product table
      * for combinations of category_id filter states
      *
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     protected function _applyZeroStoreProductLimitations()
     {
@@ -1940,7 +1940,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Add category ids to loaded items
      *
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     public function addCategoryIds()
     {
@@ -1985,7 +1985,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Add tier price data to loaded items
      *
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     public function addTierPriceData()
     {
@@ -2063,7 +2063,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      *
      * @param string $comparisonFormat - expression for sprintf()
      * @param array $fields - list of fields
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      * @throws Exception
      */
     public function addPriceDataFieldFilter($comparisonFormat, $fields)
@@ -2086,7 +2086,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Clear collection
      *
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     public function clear()
     {
@@ -2112,7 +2112,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      *
      * @param string $attribute
      * @param string $dir
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return $this
      */
     public function setOrder($attribute, $dir = 'desc')
     {

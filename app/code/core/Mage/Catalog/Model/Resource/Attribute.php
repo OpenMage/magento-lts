@@ -38,7 +38,7 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
      * Perform actions before object save
      *
      * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Catalog_Model_Resource_Attribute
+     * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
@@ -53,7 +53,7 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
      * Perform actions after object save
      *
      * @param  Mage_Core_Model_Abstract $object
-     * @return Mage_Catalog_Model_Resource_Attribute
+     * @return $this
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -65,7 +65,7 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
      * Clear useless attribute values
      *
      * @param  Mage_Core_Model_Abstract $object
-     * @return Mage_Catalog_Model_Resource_Attribute
+     * @return $this
      */
     protected function _clearUselessAttributeValues(Mage_Core_Model_Abstract $object)
     {
@@ -93,7 +93,7 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
      * Delete entity
      *
      * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Catalog_Model_Resource_Attribute
+     * @return $this
      */
     public function deleteEntity(Mage_Core_Model_Abstract $object)
     {

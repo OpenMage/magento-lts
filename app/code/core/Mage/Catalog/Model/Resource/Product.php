@@ -157,7 +157,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      * Process product data before save
      *
      * @param Varien_Object $object
-     * @return Mage_Catalog_Model_Resource_Product
+     * @return $this
      */
     protected function _beforeSave(Varien_Object $object)
     {
@@ -185,7 +185,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      * Save data related with product
      *
      * @param Varien_Object $product
-     * @return Mage_Catalog_Model_Resource_Product
+     * @return $this
      */
     protected function _afterSave(Varien_Object $product)
     {
@@ -199,7 +199,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      * Save product website relations
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Catalog_Model_Resource_Product
+     * @return $this
      */
     protected function _saveWebsiteIds($product)
     {
@@ -248,7 +248,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      * Save product category relations
      *
      * @param Varien_Object $object
-     * @return Mage_Catalog_Model_Resource_Product
+     * @return $this
      */
     protected function _saveCategories(Varien_Object $object)
     {
@@ -307,7 +307,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      * Refresh Product Enabled Index
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Catalog_Model_Resource_Product
+     * @return $this
      */
     public function refreshIndex($product)
     {
@@ -375,7 +375,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      * @param Mage_Core_Model_Store $store
      * @param Mage_Catalog_Model_Product $product
      * @throws Mage_Core_Exception
-     * @return Mage_Catalog_Model_Resource_Product
+     * @return $this
      */
     public function refreshEnabledIndex($store = null, $product = null)
     {
@@ -567,7 +567,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      *
      * @param int $oldId
      * @param int $newId
-     * @return Mage_Catalog_Model_Resource_Product
+     * @return $this
      */
     public function duplicate($oldId, $newId)
     {

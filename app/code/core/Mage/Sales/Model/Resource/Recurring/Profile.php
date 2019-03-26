@@ -105,7 +105,7 @@ class Mage_Sales_Model_Resource_Recurring_Profile extends Mage_Sales_Model_Resou
      *
      * @param int $recurringProfileId
      * @param int $orderId
-     * @return Mage_Sales_Model_Resource_Recurring_Profile
+     * @return $this
      */
     public function addOrderRelation($recurringProfileId, $orderId)
     {

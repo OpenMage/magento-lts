@@ -89,7 +89,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
     /**
      * Create tables for file and directory storages
      *
-     * @return Mage_Core_Model_File_Storage_Database
+     * @return $this
      */
     public function init()
     {
@@ -113,7 +113,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
      * Load object data by filename
      *
      * @param  string $filePath
-     * @return Mage_Core_Model_File_Storage_Database
+     * @return $this
      */
     public function loadByFilename($filePath)
     {
@@ -136,7 +136,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
     /**
      * Clear files and directories in storage
      *
-     * @return Mage_Core_Model_File_Storage_Database
+     * @return $this
      */
     public function clear()
     {
@@ -190,7 +190,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
      * Import files list
      *
      * @param  array $files
-     * @return Mage_Core_Model_File_Storage_Database
+     * @return $this
      */
     public function importFiles($files)
     {
@@ -227,7 +227,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
      * Store file into database
      *
      * @param  string $filename
-     * @return Mage_Core_Model_File_Storage_Database
+     * @return $this
      */
     public function saveFile($filename)
     {
@@ -262,7 +262,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
      *
      * @param  string $oldFilePath
      * @param  string $newFilePath
-     * @return Mage_Core_Model_File_Storage_Database
+     * @return $this
      */
     public function copyFile($oldFilePath, $newFilePath)
     {
@@ -281,7 +281,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
      *
      * @param  string $oldFilePath
      * @param  string $newFilePath
-     * @return Mage_Core_Model_File_Storage_Database
+     * @return $this
      */
     public function renameFile($oldFilePath, $newFilePath)
     {
@@ -323,7 +323,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
      * Delete file from database
      *
      * @param string $path
-     * @return Mage_Core_Model_File_Storage_Database
+     * @return $this
      */
     public function deleteFile($path)
     {

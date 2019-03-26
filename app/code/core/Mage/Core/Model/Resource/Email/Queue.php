@@ -39,7 +39,7 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
      *
      * @param Mage_Core_Model_Abstract $object
      *
-     * @return Mage_Core_Model_Resource_Email_Queue
+     * @return $this
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
@@ -52,7 +52,7 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
      * Prepare object data for saving
      *
      * @param Mage_Core_Model_Email_Queue|Mage_Core_Model_Abstract $object
-     * @return Mage_Core_Model_Resource_Email_Queue
+     * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
@@ -151,7 +151,7 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
      *
      * @throws Exception
      *
-     * @return Mage_Core_Model_Resource_Email_Queue
+     * @return $this
      */
     public function saveRecipients($messageId, array $recipients)
     {
@@ -185,7 +185,7 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
     /**
      * Remove already sent messages
      *
-     * @return Mage_Core_Model_Resource_Email_Queue
+     * @return $this
      */
     public function removeSentMessages()
     {

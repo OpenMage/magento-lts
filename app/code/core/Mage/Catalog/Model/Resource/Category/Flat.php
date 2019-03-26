@@ -149,7 +149,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      * Set store id
      *
      * @param integer $storeId
-     * @return Mage_Catalog_Model_Resource_Category_Flat
+     * @return $this
      */
     public function setStoreId($storeId)
     {
@@ -215,7 +215,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      * Add inactive categories ids
      *
      * @param array $ids
-     * @return Mage_Catalog_Model_Resource_Category_Flat
+     * @return $this
      */
     public function addInactiveCategoryIds($ids)
     {
@@ -229,7 +229,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Retreive inactive categories ids
      *
-     * @return Mage_Catalog_Model_Resource_Category_Flat
+     * @return $this
      */
     protected function _initInactiveCategoryIds()
     {
@@ -259,7 +259,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      * @param integer $recursionLevel
      * @param integer $storeId
      * @param bool $onlyActive
-     * @return Mage_Catalog_Model_Resource_Category_Flat
+     * @return $this
      */
     protected function _loadNodes($parentNode = null, $recursionLevel = 0, $storeId = 0, $onlyActive = true)
     {
@@ -490,7 +490,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      * Rebuild flat data from eav
      *
      * @param array|null $stores
-     * @return Mage_Catalog_Model_Resource_Category_Flat
+     * @return $this
      */
     public function rebuild($stores = null)
     {
@@ -565,7 +565,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      * Create Flate Table(s)
      *
      * @param array|int $stores
-     * @return Mage_Catalog_Model_Resource_Category_Flat
+     * @return $this
      */
     public function createTable($stores)
     {
@@ -576,7 +576,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      * Creating table and adding attributes as fields to table
      *
      * @param array|integer $store
-     * @return Mage_Catalog_Model_Resource_Category_Flat
+     * @return $this
      */
     protected function _createTable($store)
     {
@@ -870,7 +870,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      * Delete store table(s) of given stores;
      *
      * @param array|integer $stores
-     * @return Mage_Catalog_Model_Resource_Category_Flat
+     * @return $this
      */
     public function deleteStores($stores)
     {
@@ -882,7 +882,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      * Delete table(s) of given stores.
      *
      * @param array|integer $stores
-     * @return Mage_Catalog_Model_Resource_Category_Flat
+     * @return $this
      */
     protected function _deleteTable($stores)
     {
@@ -899,7 +899,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      * Synchronize flat data with eav model for category
      *
      * @param Varien_Object $category
-     * @return Mage_Catalog_Model_Resource_Category_Flat
+     * @return $this
      */
     protected function _synchronize($category)
     {
@@ -914,7 +914,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      *
      * @param Mage_Catalog_Model_Category|int $category
      * @param array $storeIds
-     * @return Mage_Catalog_Model_Resource_Category_Flat
+     * @return $this
      */
     public function synchronize($category = null, $storeIds = array())
     {
@@ -981,7 +981,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      * Remove table of given stores
      *
      * @param int|array $stores
-     * @return Mage_Catalog_Model_Resource_Category_Flat
+     * @return $this
      */
     public function removeStores($stores)
     {
@@ -993,7 +993,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      * Synchronize flat category data after move by affected category ids
      *
      * @param array $affectedCategoryIds
-     * @return Mage_Catalog_Model_Resource_Category_Flat
+     * @return $this
      */
     public function move(array $affectedCategoryIds)
     {
@@ -1069,7 +1069,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      * @param integer $categoryId
      * @param integer $prevParentId
      * @param integer $parentId
-     * @return Mage_Catalog_Model_Resource_Category_Flat
+     * @return $this
      */
     public function moveold($categoryId, $prevParentId, $parentId)
     {
@@ -1455,7 +1455,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Creating table and adding attributes as fields to table for all stores
      *
-     * @return Mage_Catalog_Model_Resource_Category_Flat
+     * @return $this
      */
     protected function _createTables()
     {
@@ -1471,7 +1471,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      * Transactional rebuild flat data from eav
      *
      * @throws Exception
-     * @return Mage_Catalog_Model_Resource_Category_Flat
+     * @return $this
      */
     public function reindexAll()
     {

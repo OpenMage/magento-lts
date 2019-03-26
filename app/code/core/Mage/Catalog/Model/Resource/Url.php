@@ -291,7 +291,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @param array $rewriteData
      * @param int|Varien_Object $rewrite
-     * @return Mage_Catalog_Model_Resource_Url
+     * @return $this
      */
     public function saveRewrite($rewriteData, $rewrite)
     {
@@ -326,7 +326,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      * Saves rewrite history
      *
      * @param array $rewriteData
-     * @return Mage_Catalog_Model_Resource_Url
+     * @return $this
      */
     public function saveRewriteHistory($rewriteData)
     {
@@ -346,7 +346,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @param Varien_Object $category
      * @param string $attributeCode
-     * @return Mage_Catalog_Model_Resource_Url
+     * @return $this
      */
     public function saveCategoryAttribute(Varien_Object $category, $attributeCode)
     {
@@ -500,7 +500,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @param Varien_Object $product
      * @param string $attributeCode
-     * @return Mage_Catalog_Model_Resource_Url
+     * @return $this
      */
     public function saveProductAttribute(Varien_Object $product, $attributeCode)
     {
@@ -641,7 +641,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      * Prepare category parentId
      *
      * @param Varien_Object $category
-     * @return Mage_Catalog_Model_Resource_Url
+     * @return $this
      */
     protected function _prepareCategoryParentId(Varien_Object $category)
     {
@@ -1053,7 +1053,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      * (either to other category or deleted), so rewrite "category_id-product_id" is invalid
      *
      * @param int $storeId
-     * @return Mage_Catalog_Model_Resource_Url
+     * @return $this
      */
     public function clearCategoryProduct($storeId)
     {
@@ -1088,7 +1088,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      * @param int $productId Product entity Id
      * @param int $storeId Store Id for rewrites
      * @param array $excludeCategoryIds Array of category Ids that should be skipped
-     * @return Mage_Catalog_Model_Resource_Url
+     * @return $this
      */
     public function clearProductRewrites($productId, $storeId, $excludeCategoryIds = array())
     {
@@ -1201,7 +1201,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @param int $categoryId
      * @param array $productIds
-     * @return Mage_Catalog_Model_Resource_Url
+     * @return $this
      */
     public function deleteCategoryProductRewrites($categoryId, $productIds)
     {
@@ -1215,7 +1215,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      * @param int $categoryId
      * @param array|int|null $productIds
      * @param null|int $storeId
-     * @return Mage_Catalog_Model_Resource_Url
+     * @return $this
      */
     public function deleteCategoryProductStoreRewrites($categoryId, $productIds = null, $storeId = null)
     {

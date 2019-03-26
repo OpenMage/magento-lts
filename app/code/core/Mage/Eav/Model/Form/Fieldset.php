@@ -83,7 +83,7 @@ class Mage_Eav_Model_Form_Fieldset extends Mage_Core_Model_Abstract
      * Validate data before save data
      *
      * @throws Mage_Core_Exception
-     * @return Mage_Eav_Model_Form_Fieldset
+     * @return $this
      */
     protected function _beforeSave()
     {
@@ -115,7 +115,7 @@ class Mage_Eav_Model_Form_Fieldset extends Mage_Core_Model_Abstract
      * Input array where key - store_id and value = label
      *
      * @param array $labels
-     * @return Mage_Eav_Model_Form_Fieldset
+     * @return $this
      */
     public function setLabels(array $labels)
     {
@@ -127,7 +127,7 @@ class Mage_Eav_Model_Form_Fieldset extends Mage_Core_Model_Abstract
      *
      * @param int $storeId
      * @param string $label
-     * @return Mage_Eav_Model_Form_Fieldset
+     * @return $this
      */
     public function setStoreLabel($storeId, $label)
     {

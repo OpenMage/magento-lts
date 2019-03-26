@@ -225,7 +225,7 @@ class Mage_Core_Model_Translate
      *
      * @param array $data
      * @param string $scope
-     * @return Mage_Core_Model_Translate
+     * @return $this
      */
     protected function _addData($data, $scope, $forceReload=false)
     {
@@ -270,7 +270,7 @@ class Mage_Core_Model_Translate
     /**
      * Loading current theme translation
      *
-     * @return Mage_Core_Model_Translate
+     * @return $this
      */
     protected function _loadThemeTranslation($forceReload = false)
     {
@@ -282,7 +282,7 @@ class Mage_Core_Model_Translate
     /**
      * Loading current store translation from DB
      *
-     * @return Mage_Core_Model_Translate
+     * @return $this
      */
     protected function _loadDbTranslation($forceReload = false)
     {
@@ -431,7 +431,7 @@ class Mage_Core_Model_Translate
      * Set Translate inline mode
      *
      * @param bool $flag
-     * @return Mage_Core_Model_Translate
+     * @return $this
      */
     public function setTranslateInline($flag=null)
     {

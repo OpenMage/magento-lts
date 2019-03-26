@@ -330,7 +330,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
      *
      * @param int $adminId
      * @param int $roleId
-     * @return Mage_Api2_Adminhtml_Api2_RoleController
+     * @return $this
      */
     protected function _deleteUserFromRole($adminId, $roleId)
     {
@@ -345,7 +345,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
      *
      * @param int $adminId
      * @param int $roleId
-     * @return Mage_Api2_Adminhtml_Api2_RoleController
+     * @return $this
      */
     protected function _addUserToRole($adminId, $roleId)
     {

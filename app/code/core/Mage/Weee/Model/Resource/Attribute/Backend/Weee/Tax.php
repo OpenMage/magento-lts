@@ -77,7 +77,7 @@ class Mage_Weee_Model_Resource_Attribute_Backend_Weee_Tax extends Mage_Core_Mode
      *
      * @param Mage_Catalog_Model_Product $product
      * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
-     * @return Mage_Weee_Model_Resource_Attribute_Backend_Weee_Tax
+     * @return $this
      */
     public function deleteProductData($product, $attribute)
     {
@@ -102,7 +102,7 @@ class Mage_Weee_Model_Resource_Attribute_Backend_Weee_Tax extends Mage_Core_Mode
      *
      * @param Mage_Catalog_Model_Product $product
      * @param array $data
-     * @return Mage_Weee_Model_Resource_Attribute_Backend_Weee_Tax
+     * @return $this
      */
     public function insertProductData($product, $data)
     {

@@ -180,7 +180,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
      * Add error
      *
      * @param string $error
-     * @return Mage_Install_Model_Installer_Console
+     * @return $this
      */
     public function addError($error)
     {
@@ -272,7 +272,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
     /**
      * Prepare data ans save it in data model
      *
-     * @return Mage_Install_Model_Installer_Console
+     * @return $this
      */
     protected function _prepareData()
     {
@@ -448,7 +448,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
     /**
      * Print available currency, locale and timezone options
      *
-     * @return Mage_Install_Model_Installer_Console
+     * @return $this
      */
     public function printOptions()
     {

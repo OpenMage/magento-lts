@@ -76,7 +76,7 @@ class Mage_Api2_Model_Request_Internal extends Mage_Api2_Model_Request
      * Set HTTP request method for request emulation during internal call
      *
      * @param string $method
-     * @return Mage_Api2_Model_Request_Internal
+     * @return $this
      */
     public function setMethod($method)
     {

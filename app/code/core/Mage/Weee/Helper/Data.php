@@ -281,7 +281,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param Mage_Sales_Model_Quote_Item_Abstract $item
      * @param array                                $value
-     * @return Mage_Weee_Helper_Data
+     * @return $this
      */
     public function setApplied($item, $value)
     {
@@ -388,7 +388,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
      * @param Mage_Catalog_Model_Product $product
      * @param array                      $tierPrices
      * @param boolean                    $includeIndex
-     * @return Mage_Weee_Helper_Data
+     * @return $this
      */
     public function processTierPrices($product, &$tierPrices, $includeIndex = true)
     {

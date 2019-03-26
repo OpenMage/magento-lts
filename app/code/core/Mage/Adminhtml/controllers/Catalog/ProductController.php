@@ -873,7 +873,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * @deprecated since 1.5.0.0
-     * @return Mage_Adminhtml_Catalog_ProductController
+     * @return $this
      */
     public function addCustomersToAlertQueueAction()
     {

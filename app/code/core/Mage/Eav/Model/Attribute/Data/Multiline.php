@@ -105,7 +105,7 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
      *
      * @param Mage_Core_Model_Abstract $entity
      * @param array|string $value
-     * @return Mage_Eav_Model_Attribute_Data_Multiline
+     * @return $this
      */
     public function compactValue($value)
     {
@@ -119,7 +119,7 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
      * Restore attribute value from SESSION to entity model
      *
      * @param array|string $value
-     * @return Mage_Eav_Model_Attribute_Data_Multiline
+     * @return $this
      */
     public function restoreValue($value)
     {

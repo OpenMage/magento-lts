@@ -69,7 +69,7 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
     /**
      * Enter description here...
      *
-     * @return Mage_Downloadable_Block_Customer_Products_List
+     * @return $this
      */
     protected function _prepareLayout()
     {

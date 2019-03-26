@@ -37,7 +37,7 @@ class Mage_XmlConnect_Model_Simplexml_Element extends Varien_Simplexml_Element
      * Appends $source to current node
      *
      * @param Mage_XmlConnect_Model_Simplexml_Element $source
-     * @return Mage_XmlConnect_Model_Simplexml_Element
+     * @return $this
      */
     public function appendChild($source)
     {
@@ -119,7 +119,7 @@ class Mage_XmlConnect_Model_Simplexml_Element extends Varien_Simplexml_Element
      * @param string $elementName
      * @param string $elementType
      * @param array $config
-     * @return Mage_XmlConnect_Model_Simplexml_Element
+     * @return $this
      */
     public function addField($elementName, $elementType, array $config)
     {
@@ -138,7 +138,7 @@ class Mage_XmlConnect_Model_Simplexml_Element extends Varien_Simplexml_Element
      * @param string $childName
      * @param string $value
      * @param array $config
-     * @return Mage_XmlConnect_Model_Simplexml_Element
+     * @return $this
      */
     public function addCustomChild($childName, $value = null, $config = null)
     {

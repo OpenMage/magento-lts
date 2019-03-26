@@ -104,7 +104,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection
      * Join order information
      *
      * @param array $keys
-     * @return Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection
+     * @return $this
      */
     public function addOrderInformation(array $keys)
     {
@@ -117,7 +117,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection
      * Join payment information
      *
      * @param array $keys
-     * @return Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection
+     * @return $this
      */
     public function addPaymentInformation(array $keys)
     {
@@ -129,7 +129,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection
      * Order ID filter setter
      *
      * @param int $orderId
-     * @return Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection
+     * @return $this
      */
     public function addOrderIdFilter($orderId)
     {
@@ -142,7 +142,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection
      * Can take either the integer id or the payment instance
      *
      * @param Mage_Sales_Model_Order_Payment|int $payment
-     * @return Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection
+     * @return $this
      */
     public function addPaymentIdFilter($payment)
     {
@@ -158,7 +158,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection
      * Parent ID filter setter
      *
      * @param int $parentId
-     * @return Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection
+     * @return $this
      */
     public function addParentIdFilter($parentId)
     {
@@ -170,7 +170,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection
      * Transaction type filter setter
      *
      * @param array|string $txnType
-     * @return Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection
+     * @return $this
      */
     public function addTxnTypeFilter($txnType)
     {
@@ -185,7 +185,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection
      * Add filter by store ids
      *
      * @param int|array $storeIds
-     * @return Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection
+     * @return $this
      */
     public function addStoreFilter($storeIds)
     {
@@ -197,7 +197,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection
     /**
      * Prepare filters
      *
-     * @return Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection
+     * @return $this
      */
     protected function _beforeLoad()
     {
@@ -244,7 +244,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection
     /**
      * Unserialize additional_information in each item
      *
-     * @return Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection
+     * @return $this
      */
     protected function _afterLoad()
     {

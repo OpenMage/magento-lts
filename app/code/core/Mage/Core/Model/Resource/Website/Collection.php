@@ -60,7 +60,7 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
      * Set flag for load default (admin) website
      *
      * @param boolean $loadDefault
-     * @return Mage_Core_Model_Resource_Website_Collection
+     * @return $this
      */
     public function setLoadDefault($loadDefault)
     {
@@ -103,7 +103,7 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
      * Add website filter to collection
      *
      * @param int $ids|array
-     * @return Mage_Core_Model_Resource_Website_Collection
+     * @return $this
      */
     public function addIdFilter($ids)
     {
@@ -124,7 +124,7 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
      *
      * @param boolean $printQuery
      * @param boolean $logQuery
-     * @return Mage_Core_Model_Resource_Website_Collection
+     * @return $this
      */
     public function load($printQuery = false, $logQuery = false)
     {
@@ -145,7 +145,7 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
      * Sets extra combined ordering by group's name, defined
      * sort ordering and store's name.
      *
-     * @return Mage_Core_Model_Resource_Website_Collection
+     * @return $this
      */
     public function joinGroupAndStore()
     {
@@ -175,7 +175,7 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
      * tables with appropriate information were joined before.
      *
      * @param int|array $groupIds
-     * @return Mage_Core_Model_Resource_Website_Collection
+     * @return $this
      */
     public function addFilterByGroupIds($groupIds)
     {

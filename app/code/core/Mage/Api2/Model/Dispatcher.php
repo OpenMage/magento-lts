@@ -50,7 +50,7 @@ class Mage_Api2_Model_Dispatcher
      *
      * @param Mage_Api2_Model_Request $request
      * @param Mage_Api2_Model_Response $response
-     * @return Mage_Api2_Model_Dispatcher
+     * @return $this
      * @throws Mage_Api2_Exception
      */
     public function dispatch(Mage_Api2_Model_Request $request, Mage_Api2_Model_Response $response)
@@ -108,7 +108,7 @@ class Mage_Api2_Model_Dispatcher
      * Set API user object
      *
      * @param Mage_Api2_Model_Auth_User_Abstract $apiUser
-     * @return Mage_Api2_Model_Dispatcher
+     * @return $this
      */
     public function setApiUser(Mage_Api2_Model_Auth_User_Abstract $apiUser)
     {

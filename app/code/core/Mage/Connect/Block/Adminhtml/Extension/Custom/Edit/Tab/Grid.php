@@ -61,7 +61,7 @@ class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Grid extends Mage_A
     /**
      * Prepare Local Package Collection for Grid
      *
-     * @return Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Grid
+     * @return $this
      */
     protected function _prepareCollection()
     {

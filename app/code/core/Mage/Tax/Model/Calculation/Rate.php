@@ -77,7 +77,7 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
     /**
      * Prepare location settings and tax postcode before save rate
      *
-     * @return Mage_Tax_Model_Calculation_Rate
+     * @return $this
      */
     protected function _beforeSave()
     {
@@ -135,7 +135,7 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
     /**
      * Save rate titles
      *
-     * @return Mage_Tax_Model_Calculation_Rate
+     * @return $this
      */
     protected function _afterSave()
     {
@@ -162,7 +162,7 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
      * After rate delete
      * redeclared for dispatch tax_settings_change_after event
      *
-     * @return Mage_Tax_Model_Calculation_Rate
+     * @return $this
      */
     protected function _afterDelete()
     {
@@ -225,7 +225,7 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
     /**
      * Deletes all tax rates
      *
-     * @return Mage_Tax_Model_Calculation_Rate
+     * @return $this
      */
     public function deleteAllRates()
     {
@@ -238,7 +238,7 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
      * Load rate model by code
      *
      * @param  string $code
-     * @return Mage_Tax_Model_Calculation_Rate
+     * @return $this
      */
     public function loadByCode($code)
     {

@@ -75,7 +75,7 @@ class Mage_Page_Block_Html_Wrapper extends Mage_Core_Block_Abstract
     /**
      * Setter whether this block depends on children
      * @param $depends
-     * @return Mage_Page_Block_Html_Wrapper
+     * @return $this
      */
     public function dependsOnChildren($depends = '0')
     {

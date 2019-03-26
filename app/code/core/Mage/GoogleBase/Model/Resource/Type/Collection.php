@@ -47,7 +47,7 @@ class Mage_GoogleBase_Model_Resource_Type_Collection extends Mage_Core_Model_Res
     /**
      * Init collection select
      *
-     * @return Mage_GoogleBase_Model_Resource_Type_Collection
+     * @return $this
      */
     protected function _initSelect()
     {
@@ -59,7 +59,7 @@ class Mage_GoogleBase_Model_Resource_Type_Collection extends Mage_Core_Model_Res
     /**
      * Add total count of Items for each type
      *
-     * @return Mage_GoogleBase_Model_Resource_Type_Collection
+     * @return $this
      */
     public function addItemsCount()
     {
@@ -83,7 +83,7 @@ class Mage_GoogleBase_Model_Resource_Type_Collection extends Mage_Core_Model_Res
      * Add country ISO filter to collection
      *
      * @param string $iso Two-letter country ISO code
-     * @return Mage_GoogleBase_Model_Resource_Type_Collection
+     * @return $this
      */
     public function addCountryFilter($iso)
     {
@@ -94,7 +94,7 @@ class Mage_GoogleBase_Model_Resource_Type_Collection extends Mage_Core_Model_Res
     /**
      * Join Attribute Set data
      *
-     * @return Mage_GoogleBase_Model_Resource_Type_Collection
+     * @return $this
      */
     protected function _joinAttributeSet()
     {

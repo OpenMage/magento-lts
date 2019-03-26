@@ -169,7 +169,7 @@ class Mage_Core_Model_Layout_Update
      * Set cache id
      *
      * @param string $cacheId
-     * @return Mage_Core_Model_Layout_Update
+     * @return $this
      */
     public function setCacheId($cacheId)
     {
@@ -223,7 +223,7 @@ class Mage_Core_Model_Layout_Update
      * Load layout updates by handles
      *
      * @param array|string $handles
-     * @return Mage_Core_Model_Layout_Update
+     * @return $this
      */
     public function load($handles=array())
     {
@@ -260,7 +260,7 @@ class Mage_Core_Model_Layout_Update
      * Merge layout update by handle
      *
      * @param string $handle
-     * @return Mage_Core_Model_Layout_Update
+     * @return $this
      */
     public function merge($handle)
     {

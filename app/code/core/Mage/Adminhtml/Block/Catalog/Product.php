@@ -45,7 +45,7 @@ class Mage_Adminhtml_Block_Catalog_Product extends Mage_Adminhtml_Block_Widget_C
     /**
      * Prepare button and grid
      *
-     * @return Mage_Adminhtml_Block_Catalog_Product
+     * @return $this
      */
     protected function _prepareLayout()
     {

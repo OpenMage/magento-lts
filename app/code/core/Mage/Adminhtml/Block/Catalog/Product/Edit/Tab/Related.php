@@ -65,7 +65,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminht
      * Add filter
      *
      * @param object $column
-     * @return Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related
+     * @return $this
      */
     protected function _addColumnFilterToCollection($column)
     {

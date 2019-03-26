@@ -57,7 +57,7 @@ class Mage_Wishlist_Block_Item_Configure extends Mage_Core_Block_Template
     /**
      * Configure product view blocks
      *
-     * @return Mage_Wishlist_Block_Item_Configure
+     * @return $this
      */
     protected function _prepareLayout()
     {

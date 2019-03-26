@@ -108,7 +108,7 @@ class Mage_Sales_Model_Service_Quote
      * Specify additional order data
      *
      * @param array $data
-     * @return Mage_Sales_Model_Service_Quote
+     * @return $this
      */
     public function setOrderData(array $data)
     {
@@ -272,7 +272,7 @@ class Mage_Sales_Model_Service_Quote
     /**
      * Inactivate quote
      *
-     * @return Mage_Sales_Model_Service_Quote
+     * @return $this
      */
     protected function _inactivateQuote()
     {
@@ -285,7 +285,7 @@ class Mage_Sales_Model_Service_Quote
     /**
      * Validate quote data before converting to order
      *
-     * @return Mage_Sales_Model_Service_Quote
+     * @return $this
      */
     protected function _validate()
     {

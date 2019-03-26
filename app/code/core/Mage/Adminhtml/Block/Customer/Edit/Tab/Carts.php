@@ -33,7 +33,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Carts extends Mage_Adminhtml_Block_
     /**
      * Add shopping cart grid of each website
      *
-     * @return Mage_Adminhtml_Block_Customer_Edit_Tab_Carts
+     * @return $this
      */
     protected function _prepareLayout()
     {

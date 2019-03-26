@@ -322,7 +322,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * @param string|array $key
      * @param mixed $value
      *
-     * @return Mage_Core_Controller_Request_Http
+     * @return $this
      */
     public function setPost($key, $value = null)
     {
@@ -474,7 +474,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * Set routing info data
      *
      * @param array $data
-     * @return Mage_Core_Controller_Request_Http
+     * @return $this
      */
     public function setRoutingInfo($data)
     {
@@ -557,7 +557,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * Define that request was forwarded internally
      *
      * @param boolean $flag
-     * @return Mage_Core_Controller_Request_Http
+     * @return $this
      */
     public function setInternallyForwarded($flag = true)
     {

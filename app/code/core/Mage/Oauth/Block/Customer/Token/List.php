@@ -80,7 +80,7 @@ class Mage_Oauth_Block_Customer_Token_List extends Mage_Customer_Block_Account_D
     /**
      * Prepare layout
      *
-     * @return Mage_Oauth_Block_Customer_Token_List
+     * @return $this
      */
     protected function _prepareLayout()
     {

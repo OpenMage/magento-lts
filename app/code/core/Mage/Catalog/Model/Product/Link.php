@@ -77,7 +77,7 @@ class Mage_Catalog_Model_Product_Link extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return Mage_Catalog_Model_Product_Link
+     * @return $this
      */
     public function useCrossSellLinks()
     {
@@ -151,7 +151,7 @@ class Mage_Catalog_Model_Product_Link extends Mage_Core_Model_Abstract
      * Save grouped product relation links
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Catalog_Model_Product_Link
+     * @return $this
      */
     public function saveGroupedLinks($product)
     {

@@ -36,7 +36,7 @@ class Mage_Adminhtml_Model_Search_Order extends Varien_Object
     /**
      * Load search results
      *
-     * @return Mage_Adminhtml_Model_Search_Order
+     * @return $this
      */
     public function load()
     {

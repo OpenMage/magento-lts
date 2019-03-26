@@ -53,7 +53,7 @@ class Mage_GoogleBase_Model_Type extends Mage_Core_Model_Abstract
      *
      * @param int $attributeSetId Attribute Set
      * @param string $targetCountry Two-letters country ISO code
-     * @return Mage_GoogleBase_Model_Type
+     * @return $this
      */
     public function loadByAttributeSetId($attributeSetId, $targetCountry)
     {

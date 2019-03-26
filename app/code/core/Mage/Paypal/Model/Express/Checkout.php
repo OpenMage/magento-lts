@@ -209,7 +209,7 @@ class Mage_Paypal_Model_Express_Checkout
      * @param string $successUrl - payment success result
      * @param string $cancelUrl  - payment cancellation result
      * @param string $pendingUrl - pending payment result
-     * @return Mage_Paypal_Model_Express_Checkout
+     * @return $this
      */
     public function prepareGiropayUrls($successUrl, $cancelUrl, $pendingUrl)
     {
@@ -221,7 +221,7 @@ class Mage_Paypal_Model_Express_Checkout
      * Set create billing agreement flag
      *
      * @param bool $flag
-     * @return Mage_Paypal_Model_Express_Checkout
+     * @return $this
      */
     public function setIsBillingAgreementRequested($flag)
     {
@@ -233,7 +233,7 @@ class Mage_Paypal_Model_Express_Checkout
      * Setter for customer Id
      *
      * @param int $id
-     * @return Mage_Paypal_Model_Express_Checkout
+     * @return $this
      * @deprecated please use self::setCustomer
      */
     public function setCustomerId($id)
@@ -256,7 +256,7 @@ class Mage_Paypal_Model_Express_Checkout
      * Setter for customer
      *
      * @param Mage_Customer_Model_Customer $customer
-     * @return Mage_Paypal_Model_Express_Checkout
+     * @return $this
      */
     public function setCustomer($customer)
     {
@@ -271,7 +271,7 @@ class Mage_Paypal_Model_Express_Checkout
      * @param  Mage_Customer_Model_Customer   $customer
      * @param  Mage_Sales_Model_Quote_Address $billingAddress
      * @param  Mage_Sales_Model_Quote_Address $shippingAddress
-     * @return Mage_Paypal_Model_Express_Checkout
+     * @return $this
      */
     public function setCustomerWithAddressChange($customer, $billingAddress = null, $shippingAddress = null)
     {
@@ -753,7 +753,7 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Set create billing agreement flag to api call
      *
-     * @return Mage_Paypal_Model_Express_Checkout
+     * @return $this
      */
     protected function _setBillingAgreementRequest()
     {
@@ -909,7 +909,7 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Prepare quote for guest checkout order submit
      *
-     * @return Mage_Paypal_Model_Express_Checkout
+     * @return $this
      */
     protected function _prepareGuestQuote()
     {
@@ -938,7 +938,7 @@ class Mage_Paypal_Model_Express_Checkout
      * Prepare quote for customer registration and customer order submit
      * and restore magento customer data from quote
      *
-     * @return Mage_Paypal_Model_Express_Checkout
+     * @return $this
      */
     protected function _prepareNewCustomerQuote()
     {
@@ -1000,7 +1000,7 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Prepare quote for customer order submit
      *
-     * @return Mage_Paypal_Model_Express_Checkout
+     * @return $this
      */
     protected function _prepareCustomerQuote()
     {
@@ -1037,7 +1037,7 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Involve new customer to system
      *
-     * @return Mage_Paypal_Model_Express_Checkout
+     * @return $this
      */
     protected function _involveNewCustomer()
     {

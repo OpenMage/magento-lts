@@ -80,7 +80,7 @@ class Mage_Sales_Model_Service_Order
      * Updates numeric data taking into account locale
      *
      * @param array $data
-     * @return Mage_Sales_Model_Service_Order
+     * @return $this
      */
     public function updateLocaleNumbers(&$data)
     {

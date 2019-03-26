@@ -55,7 +55,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
      *
      * @param string fileName
      * @param string filePath
-     * @return Mage_Backup_Model_Backup
+     * @return $this
      */
     public function load($fileName, $filePath)
     {
@@ -108,7 +108,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
      * Sets type of file
      *
      * @param string $value
-     * @return Mage_Backup_Model_Backup
+     * @return $this
      */
     public function setType($value='db')
     {
@@ -137,7 +137,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
      * Set the backup file content
      *
      * @param string $content
-     * @return Mage_Backup_Model_Backup
+     * @return $this
      * @throws Mage_Backup_Exception
      */
     public function setFile(&$content)
@@ -214,7 +214,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
      * Delete backup file
      *
      * @throws Mage_Backup_Exception
-     * @return Mage_Backup_Model_Backup
+     * @return $this
      */
     public function deleteFile()
     {
@@ -232,7 +232,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
      * Open backup file (write or read mode)
      *
      * @param bool $write
-     * @return Mage_Backup_Model_Backup
+     * @return $this
      */
     public function open($write = false)
     {
@@ -298,7 +298,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
      * Write to backup file
      *
      * @param string $string
-     * @return Mage_Backup_Model_Backup
+     * @return $this
      */
     public function write($string)
     {
@@ -319,7 +319,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
     /**
      * Close open backup file
      *
-     * @return Mage_Backup_Model_Backup
+     * @return $this
      */
     public function close()
     {
@@ -380,7 +380,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
      *
      * @param int $timestamp
      * @param string $type
-     * @return Mage_Backup_Model_Backup
+     * @return $this
      */
     public function loadByTimeAndType($timestamp, $type)
     {

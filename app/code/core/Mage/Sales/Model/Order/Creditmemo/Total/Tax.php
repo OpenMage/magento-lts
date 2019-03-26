@@ -31,7 +31,7 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Tax extends Mage_Sales_Model_Order
      * Collects the total tax for the credit memo
      *
      * @param Mage_Sales_Model_Order_Creditmemo $creditmemo
-     * @return Mage_Sales_Model_Order_Creditmemo_Total_Tax
+     * @return $this
      */
     public function collect(Mage_Sales_Model_Order_Creditmemo $creditmemo)
     {

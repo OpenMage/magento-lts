@@ -101,7 +101,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
      * Currency Rates setter
      *
      * @param array Currency Rates
-     * @return Mage_Directory_Model_Currency
+     * @return $this
      */
     public function setRates(array $rates)
     {

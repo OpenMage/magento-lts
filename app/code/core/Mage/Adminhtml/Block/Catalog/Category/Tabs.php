@@ -89,7 +89,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tabs extends Mage_Adminhtml_Block_Wi
     /**
      * Prepare Layout Content
      *
-     * @return Mage_Adminhtml_Block_Catalog_Category_Tabs
+     * @return $this
      */
     protected function _prepareLayout()
     {

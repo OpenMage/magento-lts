@@ -209,7 +209,7 @@ class Mage_Oauth_Model_Server
      * Retrieve protocol and request parameters from request object
      *
      * @link http://tools.ietf.org/html/rfc5849#section-3.5
-     * @return Mage_Oauth_Model_Server
+     * @return $this
      */
     protected function _fetchParams()
     {
@@ -266,7 +266,7 @@ class Mage_Oauth_Model_Server
     /**
      * Retrieve protocol parameters from query string
      *
-     * @return Mage_Oauth_Model_Server
+     * @return $this
      */
     protected function _fetchProtocolParamsFromQuery()
     {
@@ -310,7 +310,7 @@ class Mage_Oauth_Model_Server
     /**
      * Load token object, validate it depending on request type, set access data and save
      *
-     * @return Mage_Oauth_Model_Server
+     * @return $this
      * @throws Mage_Oauth_Exception
      */
     protected function _initToken()
@@ -374,7 +374,7 @@ class Mage_Oauth_Model_Server
      * Extract parameters from sources (GET, FormBody, Authorization header), decode them and validate
      *
      * @param string $requestType Request type - one of REQUEST_... class constant
-     * @return Mage_Oauth_Model_Server
+     * @return $this
      * @throws Mage_Core_Exception
      */
     protected function _processRequest($requestType)
@@ -709,7 +709,7 @@ class Mage_Oauth_Model_Server
      * Set response object
      *
      * @param Zend_Controller_Response_Http $response
-     * @return Mage_Oauth_Model_Server
+     * @return $this
      */
     public function setResponse(Zend_Controller_Response_Http $response)
     {

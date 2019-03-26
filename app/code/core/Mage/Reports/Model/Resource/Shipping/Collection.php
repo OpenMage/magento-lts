@@ -39,7 +39,7 @@ class Mage_Reports_Model_Resource_Shipping_Collection extends Mage_Sales_Model_E
      *
      * @param string $from
      * @param string $to
-     * @return Mage_Reports_Model_Resource_Shipping_Collection
+     * @return $this
      */
     public function setDateRange($from, $to)
     {
@@ -59,7 +59,7 @@ class Mage_Reports_Model_Resource_Shipping_Collection extends Mage_Sales_Model_E
      * Set store filter to collection
      *
      * @param array $storeIds
-     * @return Mage_Reports_Model_Resource_Shipping_Collection
+     * @return $this
      */
     public function setStoreIds($storeIds)
     {

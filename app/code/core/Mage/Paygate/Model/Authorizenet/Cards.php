@@ -50,7 +50,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
      * Set payment instance for storing credit card information and partial authorizations
      *
      * @param Mage_Payment_Model_Info $payment
-     * @return Mage_Paygate_Model_Authorizenet_Cards
+     * @return $this
      */
     public function setPayment(Mage_Payment_Model_Info $payment)
     {
@@ -83,7 +83,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
      * Save data from card object in cards storage
      *
      * @param Varien_Object $card
-     * @return Mage_Paygate_Model_Authorizenet_Cards
+     * @return $this
      */
     public function updateCard($card)
     {

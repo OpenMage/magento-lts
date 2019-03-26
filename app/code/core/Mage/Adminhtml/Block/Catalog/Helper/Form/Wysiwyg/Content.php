@@ -38,7 +38,7 @@ class Mage_Adminhtml_Block_Catalog_Helper_Form_Wysiwyg_Content
      * Prepare form.
      * Adding editor field to render
      *
-     * @return Mage_Adminhtml_Block_Catalog_Helper_Form_Wysiwyg_Content
+     * @return $this
      */
     protected function _prepareForm()
     {

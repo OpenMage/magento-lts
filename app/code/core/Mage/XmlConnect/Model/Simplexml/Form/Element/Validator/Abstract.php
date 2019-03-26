@@ -67,7 +67,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Element_Validator_Abstract
      * Set default validator messages
      *
      * @see Mage_Core_Helper_Js->_getTranslateData() and validation.js
-     * @return Mage_XmlConnect_Model_Simplexml_Form_Element_Validator_Abstract
+     * @return $this
      */
     protected function _setDefaultValidatorTypeMessages()
     {
@@ -173,7 +173,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Element_Validator_Abstract
      * Set validator type messages
      *
      * @param array $validatorTypeMessages
-     * @return Mage_XmlConnect_Model_Simplexml_Form_Element_Validator_Abstract
+     * @return $this
      */
     public function addValidatorTypeMessages(array $validatorTypeMessages)
     {

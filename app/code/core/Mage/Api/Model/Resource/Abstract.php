@@ -65,7 +65,7 @@ class Mage_Api_Model_Resource_Abstract
      * Set configuration for api resource
      *
      * @param Varien_Simplexml_Element $xml
-     * @return Mage_Api_Model_Resource_Abstract
+     * @return $this
      */
     public function setResourceConfig(Varien_Simplexml_Element $xml)
     {

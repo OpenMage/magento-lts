@@ -59,7 +59,7 @@ class Mage_GoogleCheckout_Model_Payment extends Mage_Payment_Model_Method_Abstra
      *
      * @param Varien_Object $payment
      * @param float $amount
-     * @return Mage_GoogleCheckout_Model_Payment
+     * @return $this
      */
     public function authorize(Varien_Object $payment, $amount)
     {

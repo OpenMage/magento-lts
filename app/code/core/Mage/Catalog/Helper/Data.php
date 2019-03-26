@@ -78,7 +78,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
      * Set a specified store ID value
      *
      * @param int $store
-     * @return Mage_Catalog_Helper_Data
+     * @return $this
      */
     public function setStoreId($store)
     {

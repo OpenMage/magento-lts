@@ -38,7 +38,7 @@ class Mage_Core_Model_Resource_Iterator extends Varien_Object
      * @param array|string $callbacks
      * @param array $args
      * @param Varien_Db_Adapter_Interface $adapter
-     * @return Mage_Core_Model_Resource_Iterator
+     * @return $this
      */
     public function walk($query, array $callbacks, array $args=array(), $adapter = null)
     {

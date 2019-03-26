@@ -60,7 +60,7 @@ class Mage_Sales_Model_Resource_Billing_Agreement_Collection extends Mage_Core_M
     /**
      * Add cutomer details(email, firstname, lastname) to select
      *
-     * @return Mage_Sales_Model_Resource_Billing_Agreement_Collection
+     * @return $this
      */
     public function addCustomerDetails()
     {

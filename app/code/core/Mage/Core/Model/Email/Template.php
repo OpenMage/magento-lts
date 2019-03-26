@@ -557,7 +557,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      * Set Return Path
      *
      * @param string $email
-     * @return Mage_Core_Model_Email_Template
+     * @return $this
      */
     public  function setReturnPath($email)
     {
@@ -569,7 +569,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      * Add Reply-To header
      *
      * @param string $email
-     * @return Mage_Core_Model_Email_Template
+     * @return $this
      */
     public function setReplyTo($email)
     {
@@ -623,7 +623,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Validate email template code
      *
-     * @return Mage_Core_Model_Email_Template
+     * @return $this
      */
     protected function _beforeSave()
     {

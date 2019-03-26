@@ -53,7 +53,7 @@ class Mage_Log_Model_Resource_Visitor_Online_Collection extends Mage_Core_Model_
     /**
      * Add Customer data to collection
      *
-     * @return Mage_Log_Model_Resource_Visitor_Online_Collection
+     * @return $this
      */
     public function addCustomerData()
     {
@@ -107,7 +107,7 @@ class Mage_Log_Model_Resource_Visitor_Online_Collection extends Mage_Core_Model_
      * Filter collection by specified website(s)
      *
      * @param int|array $websiteIds
-     * @return Mage_Log_Model_Resource_Visitor_Online_Collection
+     * @return $this
      */
     public function addWebsiteFilter($websiteIds)
     {

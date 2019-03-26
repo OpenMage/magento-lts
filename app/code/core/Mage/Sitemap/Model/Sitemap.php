@@ -125,7 +125,7 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
     /**
      * Generate XML file
      *
-     * @return Mage_Sitemap_Model_Sitemap
+     * @return $this
      */
     public function generateXml()
     {

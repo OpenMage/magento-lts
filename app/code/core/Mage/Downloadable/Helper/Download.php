@@ -252,7 +252,7 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
      *
      * @param string $resourceFile
      * @param string $linkType
-     * @return Mage_Downloadable_Helper_Download
+     * @return $this
      */
     public function setResource($resourceFile, $linkType = self::LINK_TYPE_FILE)
     {

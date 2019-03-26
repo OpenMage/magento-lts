@@ -62,7 +62,7 @@ class Mage_Authorizenet_Block_Directpost_Form extends Mage_Payment_Block_Form_Cc
     /**
      * Set method info
      *
-     * @return Mage_Authorizenet_Block_Directpost_Form
+     * @return $this
      */
     public function setMethodInfo()
     {

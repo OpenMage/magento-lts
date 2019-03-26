@@ -36,7 +36,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
     /**
      * Add report/sales breadcrumbs
      *
-     * @return Mage_Adminhtml_Report_SalesController
+     * @return $this
      */
     public function _initAction()
     {
@@ -124,7 +124,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
      * Refresh statistics for last 25 hours
      *
      * @deprecated after 1.4.0.1
-     * @return Mage_Adminhtml_Report_SalesController
+     * @return $this
      */
     public function refreshRecentAction()
     {
@@ -135,7 +135,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
      * Refresh statistics for all period
      *
      * @deprecated after 1.4.0.1
-     * @return Mage_Adminhtml_Report_SalesController
+     * @return $this
      */
     public function refreshLifetimeAction()
     {

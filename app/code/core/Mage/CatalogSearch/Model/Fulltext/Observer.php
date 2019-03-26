@@ -47,7 +47,7 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
      * Update product index when product data updated
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_CatalogSearch_Model_Fulltext_Observer
+     * @return $this
      */
     public function refreshProductIndex(Varien_Event_Observer $observer)
     {
@@ -64,7 +64,7 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
      * Clean product index when product deleted or marked as unsearchable/invisible
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_CatalogSearch_Model_Fulltext_Observer
+     * @return $this
      */
     public function cleanProductIndex(Varien_Event_Observer $observer)
     {
@@ -81,7 +81,7 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
      * Update all attribute-dependant index
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_CatalogSearch_Model_Fulltext_Observer
+     * @return $this
      */
     public function eavAttributeChange(Varien_Event_Observer $observer)
     {
@@ -122,7 +122,7 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
     /**
      * Rebuild index after import
      *
-     * @return Mage_CatalogSearch_Model_Fulltext_Observer
+     * @return $this
      */
     public function refreshIndexAfterImport()
     {
@@ -148,7 +148,7 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
      * Catalog Product mass website update
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_CatalogSearch_Model_Fulltext_Observer
+     * @return $this
      */
     public function catalogProductWebsiteUpdate(Varien_Event_Observer $observer)
     {
@@ -178,7 +178,7 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
      * Store delete processing
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_CatalogSearch_Model_Fulltext_Observer
+     * @return $this
      */
     public function cleanStoreIndex(Varien_Event_Observer $observer)
     {

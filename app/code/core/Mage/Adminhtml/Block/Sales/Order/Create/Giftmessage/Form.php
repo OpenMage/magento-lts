@@ -52,7 +52,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
      * Set entity for form
      *
      * @param Varien_Object $entity
-     * @return Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form
+     * @return $this
      */
     public function setEntity(Varien_Object $entity)
     {
@@ -132,7 +132,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     /**
      * Prepares form
      *
-     * @return Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form
+     * @return $this
      */
     public function _prepareForm()
     {
@@ -179,7 +179,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
      *
      * @param Varien_Data_Form_Element_Fieldset $fieldset
      *
-     * @return Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form
+     * @return $this
      */
     protected function _prepareHiddenFields(Varien_Data_Form_Element_Fieldset $fieldset)
     {
@@ -208,7 +208,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
      *
      * @param Varien_Data_Form_Element_Fieldset $fieldset
      *
-     * @return Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form
+     * @return $this
      */
     protected function _prepareVisibleFields(Varien_Data_Form_Element_Fieldset $fieldset)
     {
@@ -241,7 +241,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     /**
      * Initialize gift message for entity
      *
-     * @return Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form
+     * @return $this
      */
     protected function _initMessage()
     {
@@ -300,7 +300,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     /**
      * Aplies posted data to gift message
      *
-     * @return Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form
+     * @return $this
      */
     protected function _applyPostData()
     {

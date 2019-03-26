@@ -153,7 +153,7 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
     /**
      * Prepare and set options for massaction
      *
-     * @return Mage_Adminhtml_Block_Sales_Shipment_Grid
+     * @return $this
      */
     protected function _prepareMassaction()
     {

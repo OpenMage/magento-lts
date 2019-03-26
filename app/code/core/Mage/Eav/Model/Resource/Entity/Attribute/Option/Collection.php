@@ -54,7 +54,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Co
      * Set attribute filter
      *
      * @param int $setId
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection
+     * @return $this
      */
     public function setAttributeFilter($setId)
     {
@@ -67,7 +67,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Co
      *
      * @param int $storeId
      * @param bolean $useDefaultValue
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection
+     * @return $this
      */
     public function setStoreFilter($storeId = null, $useDefaultValue = true)
     {
@@ -110,7 +110,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Co
      * Add option id(s) frilter to collection
      *
      * @param int|array $optionId
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection
+     * @return $this
      */
     public function setIdFilter($optionId)
     {
@@ -134,7 +134,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Co
      *
      * @param string $dir direction
      * @param boolean $sortAlpha sort alphabetically by values in admin
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection
+     * @return $this
      */
     public function setPositionOrder($dir = self::SORT_ORDER_ASC, $sortAlpha = false)
     {

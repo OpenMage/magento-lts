@@ -66,7 +66,7 @@ class Mage_Eav_Model_Entity_Attribute_Group extends Mage_Core_Model_Abstract
     /**
      * Delete groups
      *
-     * @return Mage_Eav_Model_Entity_Attribute_Group
+     * @return $this
      */
     public function deleteGroups()
     {

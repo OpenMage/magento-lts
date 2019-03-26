@@ -49,7 +49,7 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Details extends Mage_Adminhtml_Bloc
 
     /**
      * Initialize form
-     * @return Mage_Paypal_Block_Adminhtml_Settlement_Details
+     * @return $this
      */
     protected function _prepareLayout()
     {

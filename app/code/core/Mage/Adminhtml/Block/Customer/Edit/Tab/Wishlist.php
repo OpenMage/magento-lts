@@ -94,7 +94,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
     /**
      * Prepare customer wishlist product collection
      *
-     * @return Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist
+     * @return $this
      */
     protected function _prepareCollection()
     {
@@ -110,7 +110,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
     /**
      * Prepare Grid columns
      *
-     * @return Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist
+     * @return $this
      */
     protected function _prepareColumns()
     {
@@ -193,7 +193,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
      * Add column filter to collection
      *
      * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @return Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist
+     * @return $this
      */
     protected function _addColumnFilterToCollection($column)
     {
@@ -223,7 +223,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
      * Sets sorting order by some column
      *
      * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @return Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist
+     * @return $this
      */
     protected function _setCollectionOrder($column)
     {
@@ -268,7 +268,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
      * @param string $productType
      * @param string $helperName
      *
-     * @return Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist
+     * @return $this
      */
     public function addProductConfigurationHelper($productType, $helperName)
     {

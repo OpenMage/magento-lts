@@ -103,7 +103,7 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
      *
      * @param mixed $id
      * @param string $field
-     * @return Mage_Cms_Model_Page
+     * @return $this
      */
     public function load($id, $field=null)
     {
@@ -116,7 +116,7 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
     /**
      * Load No-Route Page
      *
-     * @return Mage_Cms_Model_Page
+     * @return $this
      */
     public function noRoutePage()
     {

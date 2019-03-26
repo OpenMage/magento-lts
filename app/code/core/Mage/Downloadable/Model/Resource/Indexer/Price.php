@@ -37,7 +37,7 @@ class Mage_Downloadable_Model_Resource_Indexer_Price extends Mage_Catalog_Model_
     /**
      * Reindex temporary (price result data) for all products
      *
-     * @return Mage_Downloadable_Model_Resource_Indexer_Price
+     * @return $this
      */
     public function reindexAll()
     {
@@ -60,7 +60,7 @@ class Mage_Downloadable_Model_Resource_Indexer_Price extends Mage_Catalog_Model_
      * Reindex temporary (price result data) for defined product(s)
      *
      * @param int|array $entityIds
-     * @return Mage_Downloadable_Model_Resource_Indexer_Price
+     * @return $this
      */
     public function reindexEntity($entityIds)
     {
@@ -90,7 +90,7 @@ class Mage_Downloadable_Model_Resource_Indexer_Price extends Mage_Catalog_Model_
     /**
      * Prepare downloadable links price temporary index table
      *
-     * @return Mage_Downloadable_Model_Resource_Indexer_Price
+     * @return $this
      */
     protected function _prepareDownloadableLinkPriceTable()
     {
@@ -101,7 +101,7 @@ class Mage_Downloadable_Model_Resource_Indexer_Price extends Mage_Catalog_Model_
     /**
      * Calculate and apply Downloadable links price to index
      *
-     * @return Mage_Downloadable_Model_Resource_Indexer_Price
+     * @return $this
      */
     protected function _applyDownloadableLink()
     {

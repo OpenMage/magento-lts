@@ -157,7 +157,7 @@ class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
     /**
      * Applying qty to order item
      *
-     * @return Mage_Sales_Model_Order_Shipment_Item
+     * @return $this
      */
     public function register()
     {
@@ -170,7 +170,7 @@ class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
     /**
      * Before object save
      *
-     * @return Mage_Sales_Model_Order_Shipment_Item
+     * @return $this
      */
     protected function _beforeSave()
     {

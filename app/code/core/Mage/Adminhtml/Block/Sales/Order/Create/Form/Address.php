@@ -94,7 +94,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address
     /**
      * Prepare Form and add elements to form
      *
-     * @return Mage_Adminhtml_Block_Sales_Order_Create_Form_Address
+     * @return $this
      */
     protected function _prepareForm()
     {

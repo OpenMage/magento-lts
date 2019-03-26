@@ -97,7 +97,7 @@ class Mage_ProductAlert_Model_Observer
      * Process price emails
      *
      * @param Mage_ProductAlert_Model_Email $email
-     * @return Mage_ProductAlert_Model_Observer
+     * @return $this
      */
     protected function _processPrice(Mage_ProductAlert_Model_Email $email)
     {
@@ -188,7 +188,7 @@ class Mage_ProductAlert_Model_Observer
      * Process stock emails
      *
      * @param Mage_ProductAlert_Model_Email $email
-     * @return Mage_ProductAlert_Model_Observer
+     * @return $this
      */
     protected function _processStock(Mage_ProductAlert_Model_Email $email)
     {
@@ -281,7 +281,7 @@ class Mage_ProductAlert_Model_Observer
     /**
      * Send email to administrator if error
      *
-     * @return Mage_ProductAlert_Model_Observer
+     * @return $this
      */
     protected function _sendErrorEmail()
     {
@@ -314,7 +314,7 @@ class Mage_ProductAlert_Model_Observer
     /**
      * Run process send product alerts
      *
-     * @return Mage_ProductAlert_Model_Observer
+     * @return $this
      */
     public function process()
     {

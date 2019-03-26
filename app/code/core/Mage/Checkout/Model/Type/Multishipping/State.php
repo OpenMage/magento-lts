@@ -143,7 +143,7 @@ class Mage_Checkout_Model_Type_Multishipping_State extends Varien_Object
      * Mark step as completed
      *
      * @param string $step
-     * @return Mage_Checkout_Model_Type_Multishipping_State
+     * @return $this
      */
     public function setCompleteStep($step)
     {
@@ -171,7 +171,7 @@ class Mage_Checkout_Model_Type_Multishipping_State extends Varien_Object
      * Unset complete status from step
      *
      * @param string $step
-     * @return Mage_Checkout_Model_Type_Multishipping_State
+     * @return $this
      */
     public function unsCompleteStep($step)
     {

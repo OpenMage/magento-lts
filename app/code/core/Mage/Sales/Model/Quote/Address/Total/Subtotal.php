@@ -129,7 +129,7 @@ class Mage_Sales_Model_Quote_Address_Total_Subtotal extends Mage_Sales_Model_Quo
      *
      * @param  $address
      * @param  $item
-     * @return Mage_Sales_Model_Quote_Address_Total_Subtotal
+     * @return $this
      */
     protected function _removeItem($address, $item)
     {

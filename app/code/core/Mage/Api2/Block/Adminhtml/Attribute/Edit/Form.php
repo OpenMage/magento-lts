@@ -37,7 +37,7 @@ class Mage_Api2_Block_Adminhtml_Attribute_Edit_Form extends Mage_Adminhtml_Block
     /**
      * Prepare form before rendering HTML
      *
-     * @return Mage_Api2_Block_Adminhtml_Attribute_Edit_Form
+     * @return $this
      */
     protected function _prepareForm()
     {

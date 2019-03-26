@@ -43,7 +43,7 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Detail_Grid extends Mage_Adminhtml
     /**
      * Prepare collection for grid
      *
-     * @return Mage_Adminhtml_Block_Report_Tag_Popular_Detail_Grid
+     * @return $this
      */
     protected function _prepareCollection()
     {
@@ -61,7 +61,7 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Detail_Grid extends Mage_Adminhtml
     /**
      * Form columns for the grid
      *
-     * @return Mage_Adminhtml_Block_Report_Tag_Popular_Detail_Grid
+     * @return $this
      */
     protected function _prepareColumns()
     {

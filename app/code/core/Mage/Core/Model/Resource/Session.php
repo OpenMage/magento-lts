@@ -144,7 +144,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
     /**
      * Setup save handler
      *
-     * @return Mage_Core_Model_Resource_Session
+     * @return $this
      */
     public function setSaveHandler()
     {

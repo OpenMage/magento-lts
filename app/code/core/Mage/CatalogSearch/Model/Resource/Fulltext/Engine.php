@@ -50,7 +50,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_
      * @param int $storeId
      * @param array $index
      * @param string $entity 'product'|'cms'
-     * @return Mage_CatalogSearch_Model_Resource_Fulltext_Engine
+     * @return $this
      */
     public function saveEntityIndex($entityId, $storeId, $index, $entity = 'product')
     {
@@ -68,7 +68,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_
      * @param int $storeId
      * @param array $entityIndexes
      * @param string $entity 'product'|'cms'
-     * @return Mage_CatalogSearch_Model_Resource_Fulltext_Engine
+     * @return $this
      */
     public function saveEntityIndexes($storeId, $entityIndexes, $entity = 'product')
     {
@@ -116,7 +116,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_
      * @param int $storeId
      * @param int $entityId
      * @param string $entity 'product'|'cms'
-     * @return Mage_CatalogSearch_Model_Resource_Fulltext_Engine
+     * @return $this
      */
     public function cleanIndex($storeId = null, $entityId = null, $entity = 'product')
     {

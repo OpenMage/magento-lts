@@ -65,7 +65,7 @@ class Mage_Paypal_Model_Resource_Payment_Transaction_Collection
     /**
      * Prepare filters
      *
-     * @return Mage_Paypal_Model_Resource_Payment_Transaction_Collection
+     * @return $this
      */
     protected function _beforeLoad()
     {
@@ -85,7 +85,7 @@ class Mage_Paypal_Model_Resource_Payment_Transaction_Collection
     /**
      * Unserialize additional_information in each item
      *
-     * @return Mage_Paypal_Model_Resource_Payment_Transaction_Collection
+     * @return $this
      */
     protected function _afterLoad()
     {

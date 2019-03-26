@@ -63,7 +63,7 @@ class Mage_Sales_Model_Resource_Order_Creditmemo_Comment_Collection
      * Set creditmemo filter
      *
      * @param int $creditmemoId
-     * @return Mage_Sales_Model_Resource_Order_Creditmemo_Comment_Collection
+     * @return $this
      */
     public function setCreditmemoFilter($creditmemoId)
     {

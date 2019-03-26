@@ -82,7 +82,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Content
     /**
      * Prepare add and delete buttons for content tab
      *
-     * @return Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Content
+     * @return $this
      */
     protected function _prepareButtons()
     {

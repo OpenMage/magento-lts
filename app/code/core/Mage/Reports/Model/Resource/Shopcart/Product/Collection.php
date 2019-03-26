@@ -37,7 +37,7 @@ class Mage_Reports_Model_Resource_Shopcart_Product_Collection extends Mage_Repor
     /**
      * Join fields
      *
-     * @return Mage_Reports_Model_Resource_Shopcart_Product_Collection
+     * @return $this
      */
     protected function _joinFields()
     {
@@ -54,7 +54,7 @@ class Mage_Reports_Model_Resource_Shopcart_Product_Collection extends Mage_Repor
      *
      * @param string $from
      * @param strin $to
-     * @return Mage_Reports_Model_Resource_Shopcart_Product_Collection
+     * @return $this
      */
     public function setDateRange($from, $to)
     {

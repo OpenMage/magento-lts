@@ -100,7 +100,7 @@ class Mage_Sales_Model_Order_Creditmemo_Comment extends Mage_Sales_Model_Abstrac
     /**
      * Before object save
      *
-     * @return Mage_Sales_Model_Order_Creditmemo_Comment
+     * @return $this
      */
     protected function _beforeSave()
     {

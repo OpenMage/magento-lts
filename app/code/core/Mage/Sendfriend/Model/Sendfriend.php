@@ -214,7 +214,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
      * Set cookie instance
      *
      * @param Mage_Core_Model_Cookie $product
-     * @return Mage_Sendfriend_Model_Sendfriend
+     * @return $this
      */
     public function setCookie($cookie)
     {
@@ -240,7 +240,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
      * Set Visitor Remote Address
      *
      * @param int $ipAddr the IP address on Long Format
-     * @return Mage_Sendfriend_Model_Sendfriend
+     * @return $this
      */
     public function setRemoteAddr($ipAddr)
     {
@@ -262,7 +262,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
      * Set Website Id
      *
      * @param int $id - website id
-     * @return Mage_Sendfriend_Model_Sendfriend
+     * @return $this
      */
     public function setWebsiteId($id)
     {
@@ -284,7 +284,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
      * Set Recipients
      *
      * @param array $recipients
-     * @return Mage_Sendfriend_Model_Sendfriend
+     * @return $this
      */
     public function setRecipients($recipients)
     {
@@ -336,7 +336,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
      * Set product instance
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Sendfriend_Model_Sendfriend
+     * @return $this
      */
     public function setProduct($product)
     {
@@ -362,7 +362,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
      * Set Sender Information array
      *
      * @param array $sender
-     * @return Mage_Sendfriend_Model_Sendfriend
+     * @return $this
      */
     public function setSender($sender)
     {
@@ -559,7 +559,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     /**
      * Register self in global register with name send_to_friend_model
      *
-     * @return Mage_Sendfriend_Model_Sendfriend
+     * @return $this
      */
     public function register()
     {

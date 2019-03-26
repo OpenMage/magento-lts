@@ -88,7 +88,7 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
     /**
      * Retrieve Latest Notice
      *
-     * @return Mage_AdminNotification_Model_Inbox
+     * @return $this
      */
     public function loadLatestNotice()
     {
@@ -111,7 +111,7 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
      * Parse and save new data
      *
      * @param array $data
-     * @return Mage_AdminNotification_Model_Inbox
+     * @return $this
      */
     public function parse(array $data)
     {
@@ -126,7 +126,7 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
      * @param string|array $description
      * @param string $url
      * @param bool $isInternal
-     * @return Mage_AdminNotification_Model_Inbox
+     * @return $this
      */
     public function add($severity, $title, $description, $url = '', $isInternal = true)
     {
@@ -155,7 +155,7 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
      * @param string|array $description
      * @param string $url
      * @param bool $isInternal
-     * @return Mage_AdminNotification_Model_Inbox
+     * @return $this
      */
     public function addCritical($title, $description, $url = '', $isInternal = true)
     {
@@ -170,7 +170,7 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
      * @param string|array $description
      * @param string $url
      * @param bool $isInternal
-     * @return Mage_AdminNotification_Model_Inbox
+     * @return $this
      */
     public function addMajor($title, $description, $url = '', $isInternal = true)
     {
@@ -185,7 +185,7 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
      * @param string|array $description
      * @param string $url
      * @param bool $isInternal
-     * @return Mage_AdminNotification_Model_Inbox
+     * @return $this
      */
     public function addMinor($title, $description, $url = '', $isInternal = true)
     {
@@ -200,7 +200,7 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
      * @param string|array $description
      * @param string $url
      * @param bool $isInternal
-     * @return Mage_AdminNotification_Model_Inbox
+     * @return $this
      */
     public function addNotice($title, $description, $url = '', $isInternal = true)
     {

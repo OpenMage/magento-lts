@@ -38,7 +38,7 @@ class Mage_Sendfriend_Model_Observer
      * Register Sendfriend Model in global registry
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Sendfriend_Model_Observer
+     * @return $this
      */
     public function register(Varien_Event_Observer $observer)
     {

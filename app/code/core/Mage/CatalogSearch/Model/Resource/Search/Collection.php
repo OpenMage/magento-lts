@@ -52,7 +52,7 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
      * Add search query filter
      *
      * @param string $query
-     * @return Mage_CatalogSearch_Model_Resource_Search_Collection
+     * @return $this
      */
     public function addSearchFilter($query)
     {

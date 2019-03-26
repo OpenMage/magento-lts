@@ -105,7 +105,7 @@ class Mage_Backup_Model_Db
      * Create backup and stream write to adapter
      *
      * @param Mage_Backup_Model_Backup $backup
-     * @return Mage_Backup_Model_Db
+     * @return $this
      */
     public function createBackup(Mage_Backup_Model_Backup $backup)
     {

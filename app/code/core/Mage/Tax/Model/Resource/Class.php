@@ -46,7 +46,7 @@ class Mage_Tax_Model_Resource_Class extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Initialize unique fields
      *
-     * @return Mage_Tax_Model_Resource_Class
+     * @return $this
      */
     protected function _initUniqueFields()
     {

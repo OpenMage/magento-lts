@@ -40,7 +40,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Currency_Default extends Mage_A
      * Check default currency is available in installed currencies
      * Check default currency is available in allowed currencies
      *
-     * @return Mage_Adminhtml_Model_System_Config_Backend_Currency_Default
+     * @return $this
      */
     protected function _afterSave()
     {

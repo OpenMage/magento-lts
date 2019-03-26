@@ -71,7 +71,7 @@ class Mage_Core_Model_Message_Collection
     /**
      * Clear all messages except sticky
      *
-     * @return Mage_Core_Model_Message_Collection
+     * @return $this
      */
     public function clear()
     {

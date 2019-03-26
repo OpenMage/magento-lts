@@ -48,7 +48,7 @@ class Mage_Sales_Helper_Data extends Mage_Core_Helper_Data
      *
      * @param Mage_Sales_Model_Quote $quote
      * @param decimal $amount
-     * @return Mage_Sales_Helper_Data
+     * @return $this
      */
     public function checkQuoteAmount(Mage_Sales_Model_Quote $quote, $amount)
     {

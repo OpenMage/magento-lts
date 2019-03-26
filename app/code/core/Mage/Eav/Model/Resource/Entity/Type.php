@@ -47,7 +47,7 @@ class Mage_Eav_Model_Resource_Entity_Type extends Mage_Core_Model_Resource_Db_Ab
      *
      * @param Mage_Core_Model_Abstract $object
      * @param string $code
-     * @return Mage_Eav_Model_Resource_Entity_Type
+     * @return $this
      */
     public function loadByCode($object, $code)
     {

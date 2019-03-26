@@ -617,7 +617,7 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
      * Setter for current screen_size parameter
      *
      * @param string $screenSize
-     * @return Mage_XmlConnect_Model_Application
+     * @return $this
      */
     public function setScreenSize($screenSize)
     {
@@ -684,7 +684,7 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
     /**
      * Set last updated datetime string
      *
-     * @return Mage_XmlConnect_Model_Application
+     * @return $this
      */
     protected function _renewUpdatedAtTime()
     {
@@ -695,7 +695,7 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
     /**
      * Processing object before save data
      *
-     * @return Mage_XmlConnect_Model_Application
+     * @return $this
      */
     protected function _beforeSave()
     {
@@ -706,7 +706,7 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
     /**
      * Processing object after save data
      *
-     * @return Mage_XmlConnect_Model_Application
+     * @return $this
      */
     protected function _afterSave()
     {
@@ -719,7 +719,7 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
     /**
      * Save configuration data of application model
      *
-     * @return Mage_XmlConnect_Model_Application
+     * @return $this
      */
     protected function _saveConfigData()
     {
@@ -734,7 +734,7 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
      * Save old deprecated config to application config data table
      *
      * @deprecated Serialized config storage has been removed
-     * @return Mage_XmlConnect_Model_Application
+     * @return $this
      */
     private function _saveDeprecatedConfig()
     {
@@ -772,7 +772,7 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
     /**
      * Load configuration data (from serialized blob)
      *
-     * @return Mage_XmlConnect_Model_Application
+     * @return $this
      */
     public function loadConfiguration()
     {
@@ -789,7 +789,7 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
      * Load configuration data
      *
      * @internal re-factoring in progress
-     * @return Mage_XmlConnect_Model_Application
+     * @return $this
      */
     protected function _loadConfigData()
     {
@@ -805,7 +805,7 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
      * Load deprecated configuration
      *
      * @deprecated Serialized config storage has been removed
-     * @return Mage_XmlConnect_Model_Application
+     * @return $this
      */
     private function _loadDeprecatedConfig()
     {
@@ -847,7 +847,7 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
      * Load application by code
      *
      * @param string $code
-     * @return Mage_XmlConnect_Model_Application
+     * @return $this
      */
     public function loadByCode($code)
     {
@@ -1126,7 +1126,7 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
     /**
      * Perform update for all applications "updated at" parameter with current date
      *
-     * @return Mage_XmlConnect_Model_Application
+     * @return $this
      */
     public function updateAllAppsUpdatedAtParameter()
     {
@@ -1209,7 +1209,7 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
      * Set delete on update paths for config data
      *
      * @param array $pathsToDelete
-     * @return Mage_XmlConnect_Model_Application
+     * @return $this
      */
     public function setDeleteOnUpdateConfig(array $pathsToDelete)
     {
@@ -1235,7 +1235,7 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
      *
      * @throws Mage_Core_Exception
      * @param Mage_XmlConnect_Model_Device_Abstract|null $deviceModel
-     * @return Mage_XmlConnect_Model_Application
+     * @return $this
      */
     public function setDeviceModel($deviceModel = null)
     {
@@ -1266,7 +1266,7 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
      * Set current image limit model
      *
      * @param null|Mage_XmlConnect_Model_ImageLimits $imageLimitsModel
-     * @return Mage_XmlConnect_Model_Application
+     * @return $this
      */
     public function setImageLimitsModel($imageLimitsModel = null)
     {
@@ -1295,7 +1295,7 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
      * Set image action model
      *
      * @param Mage_XmlConnect_Model_ImageAction $imageActionModel
-     * @return Mage_XmlConnect_Model_Application
+     * @return $this
      */
     public function setImageActionModel($imageActionModel)
     {

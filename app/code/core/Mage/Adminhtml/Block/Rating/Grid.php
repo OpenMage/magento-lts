@@ -55,7 +55,7 @@ class Mage_Adminhtml_Block_Rating_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Prepare Rating Grid colunms
      *
-     * @return Mage_Adminhtml_Block_Rating_Grid
+     * @return $this
      */
     protected function _prepareColumns()
     {

@@ -91,7 +91,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Tier
      * Prepare global layout
      * Add "Add tier" button to layout
      *
-     * @return Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Tier
+     * @return $this
      */
     protected function _prepareLayout()
     {

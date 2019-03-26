@@ -50,7 +50,7 @@ class Mage_Api2_Model_Resource_Acl_Global_Role extends Mage_Core_Model_Resource_
      *
      * @param int $adminId Admin user id
      * @param int $roleId API2 role id
-     * @return Mage_Api2_Model_Resource_Acl_Global_Role
+     * @return $this
      */
     public function saveAdminToRoleRelation($adminId, $roleId)
     {
@@ -84,7 +84,7 @@ class Mage_Api2_Model_Resource_Acl_Global_Role extends Mage_Core_Model_Resource_
      *
      * @param int $adminId Admin user id
      * @param int $roleId API2 role id
-     * @return Mage_Api2_Model_Resource_Acl_Global_Role
+     * @return $this
      */
     public function deleteAdminToRoleRelation($adminId, $roleId)
     {

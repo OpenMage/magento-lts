@@ -215,7 +215,7 @@ class Mage_Catalog_Model_Convert_Parser_Product
      * ReDefine Product Type Instance to Product
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Catalog_Model_Convert_Parser_Product
+     * @return $this
      */
     public function setProductTypeInstance(Mage_Catalog_Model_Product $product)
     {
@@ -402,7 +402,7 @@ class Mage_Catalog_Model_Convert_Parser_Product
     /**
      * Unparse (prepare data) loaded products
      *
-     * @return Mage_Catalog_Model_Convert_Parser_Product
+     * @return $this
      */
     public function unparse()
     {

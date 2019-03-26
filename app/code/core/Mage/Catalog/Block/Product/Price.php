@@ -75,7 +75,7 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
      * Sets the id suffix
      *
      * @param string $idSuffix
-     * @return Mage_Catalog_Block_Product_Price
+     * @return $this
      */
     public function setIdSuffix($idSuffix)
     {

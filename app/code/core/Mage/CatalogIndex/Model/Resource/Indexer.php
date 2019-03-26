@@ -198,7 +198,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
      * @param array $products array of product ids
      * @param Mage_Core_Model_Store $store
      * @param int | null $forcedId identifier of "parent" product
-     * @return Mage_CatalogIndex_Model_Resource_Indexer
+     * @return $this
      */
     public function reindexTiers($products, $store, $forcedId = null)
     {
@@ -268,7 +268,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
      * @param array | int $products product ids
      * @param array $attributeIds
      * @param Mage_Core_Model_Store $store
-     * @return Mage_CatalogIndex_Model_Resource_Indexer
+     * @return $this
      */
     public function reindexPrices($products, $attributeIds, $store)
     {
@@ -282,7 +282,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
      * @param array $products array of product ids
      * @param Mage_Core_Model_Store $store
      * @param int | null $forcedId identifier of "parent" product
-     * @return Mage_CatalogIndex_Model_Resource_Indexer
+     * @return $this
      */
     public function reindexFinalPrices($products, $store, $forcedId = null)
     {
@@ -338,7 +338,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
      *
      * @param array $products array of product ids
      * @param Mage_Core_Model_Store $store
-     * @return Mage_CatalogIndex_Model_Resource_Indexer
+     * @return $this
      */
     public function reindexMinimalPrices($products, $store)
     {
@@ -396,7 +396,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
      * @param int|null $forcedId
      * @param string $table
      * @param bool $storeIsWebsite
-     * @return Mage_CatalogIndex_Model_Resource_Indexer
+     * @return $this
      */
     public function reindexAttributes($products, $attributeIds, $store, $forcedId = null, $table = 'catalogindex/eav',
         $storeIsWebsite = false)
@@ -531,7 +531,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
      *
      * @param string $table
      * @param array $fields
-     * @return Mage_CatalogIndex_Model_Resource_Indexer
+     * @return $this
      */
     protected function _beginInsert($table, $fields)
     {
@@ -544,7 +544,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
      *
      * @param string $table
      * @param bool $forced
-     * @return Mage_CatalogIndex_Model_Resource_Indexer
+     * @return $this
      */
     protected function _commitInsert($table, $forced = true)
     {
@@ -567,7 +567,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
      *
      * @param string $table
      * @param array $data
-     * @return Mage_CatalogIndex_Model_Resource_Indexer
+     * @return $this
      */
     protected function _insert($table, $data)
     {
@@ -580,7 +580,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
      * Add price columns for catalog product flat table
      *
      * @param Varien_Object $object
-     * @return Mage_CatalogIndex_Model_Resource_Indexer
+     * @return $this
      */
     public function prepareCatalogProductFlatColumns(Varien_Object $object)
     {
@@ -607,7 +607,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
      * Add price indexes for catalog product flat table
      *
      * @param Varien_Object $object
-     * @return Mage_CatalogIndex_Model_Resource_Indexer
+     * @return $this
      */
     public function prepareCatalogProductFlatIndexes(Varien_Object $object)
     {
@@ -633,7 +633,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
      * @param int $storeId
      * @param unknown_type $productIds
      * @param string $tableName
-     * @return Mage_CatalogIndex_Model_Resource_Indexer
+     * @return $this
      */
     public function updateCatalogProductFlat($storeId, $productIds = null, $tableName = null)
     {

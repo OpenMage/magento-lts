@@ -37,7 +37,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
     /**
      * Add report/products breadcrumbs
      *
-     * @return Mage_Adminhtml_Report_ProductController
+     * @return $this
      */
     public function _initAction()
     {

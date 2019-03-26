@@ -74,7 +74,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
      * @param unknown_type $data
      * @param unknown_type $storeId
      * @param unknown_type $productId
-     * @return Mage_CatalogIndex_Model_Resource_Indexer_Abstract
+     * @return $this
      */
     protected function _executeReplace($data, $storeId, $productId)
     {

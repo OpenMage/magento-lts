@@ -419,7 +419,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
      * Set qty mode to be strict or not
      *
      * @param bool $strict
-     * @return Mage_Checkout_Block_Cart_Item_Renderer
+     * @return $this
      */
     public function setQtyMode($strict)
     {
@@ -431,7 +431,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
      * Set ignore product URL rendering
      *
      * @param bool $ignore
-     * @return Mage_Checkout_Block_Cart_Item_Renderer
+     * @return $this
      */
     public function setIgnoreProductUrl($ignore = true)
     {

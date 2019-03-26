@@ -60,7 +60,7 @@ class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Ma
      * Prepare block text and determine whether block output enabled or not
      * Prevent blocks recursion if needed
      *
-     * @return Mage_Cms_Block_Widget_Block
+     * @return $this
      */
     protected function _beforeToHtml()
     {

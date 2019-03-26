@@ -34,7 +34,7 @@ class Mage_Core_Model_Design_Source_Design extends Mage_Eav_Model_Entity_Attribu
      * Add package name to label
      *
      * @param boolean $isFullLabel
-     * @return Mage_Core_Model_Design_Source_Design
+     * @return $this
      */
     public function setIsFullLabel($isFullLabel)
     {

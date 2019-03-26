@@ -76,7 +76,7 @@ class Mage_Dataflow_Model_Batch_Io
      * Init model (required)
      *
      * @param Mage_Dataflow_Model_Batch $object
-     * @return Mage_Dataflow_Model_Batch_Io
+     * @return $this
      */
     public function init(Mage_Dataflow_Model_Batch $object)
     {
@@ -130,7 +130,7 @@ class Mage_Dataflow_Model_Batch_Io
     /**
      * Open file in stream mode
      *
-     * @return Mage_Dataflow_Model_Batch_Io
+     * @return $this
      */
     public function open($write = true)
     {

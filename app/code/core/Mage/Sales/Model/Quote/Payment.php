@@ -164,7 +164,7 @@ class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
     /**
      * Prepare object for save
      *
-     * @return Mage_Sales_Model_Quote_Payment
+     * @return $this
      */
     protected function _beforeSave()
     {

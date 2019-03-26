@@ -67,7 +67,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Attributes extends Mage_Adminhtm
     /**
      * Prepare form before rendering HTML
      *
-     * @return Mage_Adminhtml_Block_Catalog_Category_Tab_Attributes
+     * @return $this
      */
     protected function _prepareForm() {
         $group      = $this->getGroup();

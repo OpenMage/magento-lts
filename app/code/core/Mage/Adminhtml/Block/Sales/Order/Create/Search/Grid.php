@@ -90,7 +90,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
     /**
      * Prepare collection to be displayed in the grid
      *
-     * @return Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid
+     * @return $this
      */
     protected function _prepareCollection()
     {
@@ -116,7 +116,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
     /**
      * Prepare columns
      *
-     * @return Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid
+     * @return $this
      */
     protected function _prepareColumns()
     {

@@ -104,7 +104,7 @@ class Mage_Eav_Model_Config
      * Reset object state
      *
      * @deprecated
-     * @return Mage_Eav_Model_Config
+     * @return $this
      */
     public function clear()
     {
@@ -233,7 +233,7 @@ class Mage_Eav_Model_Config
     /**
      * Initialize all entity types data
      *
-     * @return Mage_Eav_Model_Config
+     * @return $this
      */
     protected function _initEntityTypes()
     {
@@ -691,7 +691,7 @@ class Mage_Eav_Model_Config
      *
      * @param string|Mage_Eav_Model_Entity_Type $entityType
      * @param array $attributes
-     * @return Mage_Eav_Model_Config
+     * @return $this
      */
     public function importAttributesData($entityType, array $attributes)
     {

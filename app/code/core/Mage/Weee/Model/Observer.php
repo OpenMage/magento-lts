@@ -385,7 +385,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
      * in the backend
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Weee_Model_Observer
+     * @return $this
      */
     public function setSessionQuoteStore(Varien_Event_Observer $observer)
     {

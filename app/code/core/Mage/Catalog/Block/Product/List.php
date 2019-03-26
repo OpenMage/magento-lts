@@ -232,7 +232,7 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
      * Prepare Sort By fields from Category Data
      *
      * @param Mage_Catalog_Model_Category $category
-     * @return Mage_Catalog_Block_Product_List
+     * @return $this
      */
     public function prepareSortableFieldsByCategory($category) {
         if (!$this->getAvailableOrders()) {

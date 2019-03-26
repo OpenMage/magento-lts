@@ -848,7 +848,7 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
      * Converts old tree to new
      *
      * @deprecated since 1.5.0.0
-     * @return Mage_Catalog_Model_Resource_Setup
+     * @return $this
      */
     public function convertOldTreeToNew()
     {
@@ -924,7 +924,7 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
      * Creates level values for categories and saves them
      *
      * @deprecated since 1.5.0.0
-     * @return Mage_Catalog_Model_Resource_Setup
+     * @return $this
      */
     public function rebuildCategoryLevels()
     {

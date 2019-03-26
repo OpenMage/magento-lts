@@ -47,7 +47,7 @@ class Mage_Core_Model_Resource_Url_Rewrite_Collection extends Mage_Core_Model_Re
      * Add filter for tags (combined by OR)
      *
      * @param string|array $tags
-     * @return Mage_Core_Model_Resource_Url_Rewrite_Collection
+     * @return $this
      */
     public function addTagsFilter($tags)
     {
@@ -70,7 +70,7 @@ class Mage_Core_Model_Resource_Url_Rewrite_Collection extends Mage_Core_Model_Re
      *
      * @param mixed $store
      * @param bool $withAdmin
-     * @return Mage_Core_Model_Resource_Url_Rewrite_Collection
+     * @return $this
      */
     public function addStoreFilter($store, $withAdmin = true)
     {
@@ -90,7 +90,7 @@ class Mage_Core_Model_Resource_Url_Rewrite_Collection extends Mage_Core_Model_Re
      *  Add filter by catalog product Id
      *
      * @param int $productId
-     * @return Mage_Core_Model_Resource_Url_Rewrite_Collection
+     * @return $this
      */
     public function filterAllByProductId($productId)
     {
@@ -104,7 +104,7 @@ class Mage_Core_Model_Resource_Url_Rewrite_Collection extends Mage_Core_Model_Re
     /**
      * Add filter by all catalog category
      *
-     * @return Mage_Core_Model_Resource_Url_Rewrite_Collection
+     * @return $this
      */
     public function filterAllByCategory()
     {

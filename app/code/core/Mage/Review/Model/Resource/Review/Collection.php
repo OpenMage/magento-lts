@@ -109,7 +109,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
      * Enter description here ...
      *
      * @param unknown_type $customerId
-     * @return Mage_Review_Model_Resource_Review_Collection
+     * @return $this
      */
     public function addCustomerFilter($customerId)
     {
@@ -123,7 +123,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
      * Add store filter
      *
      * @param int|array $storeId
-     * @return Mage_Review_Model_Resource_Review_Collection
+     * @return $this
      */
     public function addStoreFilter($storeId)
     {
@@ -138,7 +138,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
     /**
      * Add stores data
      *
-     * @return Mage_Review_Model_Resource_Review_Collection
+     * @return $this
      */
     public function addStoreData()
     {
@@ -151,7 +151,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
      *
      * @param int|string $entity
      * @param int $pkValue
-     * @return Mage_Review_Model_Resource_Review_Collection
+     * @return $this
      */
     public function addEntityFilter($entity, $pkValue)
     {
@@ -180,7 +180,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
      * Add status filter
      *
      * @param int|string $status
-     * @return Mage_Review_Model_Resource_Review_Collection
+     * @return $this
      */
     public function addStatusFilter($status)
     {
@@ -200,7 +200,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
      * Set date order
      *
      * @param string $dir
-     * @return Mage_Review_Model_Resource_Review_Collection
+     * @return $this
      */
     public function setDateOrder($dir = 'DESC')
     {
@@ -211,7 +211,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
     /**
      * Add rate votes
      *
-     * @return Mage_Review_Model_Resource_Review_Collection
+     * @return $this
      */
     public function addRateVotes()
     {
@@ -231,7 +231,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
     /**
      * Add reviews total count
      *
-     * @return Mage_Review_Model_Resource_Review_Collection
+     * @return $this
      */
     public function addReviewsTotalCount()
     {
@@ -255,7 +255,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
      *
      * @param boolean $printQuery
      * @param boolean $logQuery
-     * @return Mage_Review_Model_Resource_Review_Collection
+     * @return $this
      */
     public function load($printQuery = false, $logQuery = false)
     {

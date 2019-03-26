@@ -44,7 +44,7 @@ class Mage_Api2_Model_Router
      * Set routes
      *
      * @param array $routes
-     * @return Mage_Api2_Model_Router
+     * @return $this
      */
     public function setRoutes(array $routes)
     {
@@ -98,7 +98,7 @@ class Mage_Api2_Model_Router
      *
      * @param Mage_Api2_Model_Request $request
      * @param boolean $trimApiTypePath OPTIONAL If TRUE - /api/:api_type part of request path info will be trimmed
-     * @return Mage_Api2_Model_Router
+     * @return $this
      * @throws Mage_Api2_Exception
      */
     public function routeApiType(Mage_Api2_Model_Request $request, $trimApiTypePath = true)

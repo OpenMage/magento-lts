@@ -74,7 +74,7 @@ class Mage_Sales_Model_Resource_Order_Shipment extends Mage_Sales_Model_Resource
     /**
      * Init virtual grid records for entity
      *
-     * @return Mage_Sales_Model_Resource_Order_Shipment
+     * @return $this
      */
     protected function _initVirtualGridColumns()
     {

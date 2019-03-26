@@ -78,7 +78,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
      * Set customer instance
      *
      * @param Mage_Customer_Model_Customer|null $customer
-     * @return Mage_Checkout_Model_Session
+     * @return $this
      */
     public function setCustomer($customer)
     {
@@ -100,7 +100,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
      * Set quote to be loaded even if inactive
      *
      * @param bool $load
-     * @return Mage_Checkout_Model_Session
+     * @return $this
      */
     public function setLoadInactive($load = true)
     {
@@ -197,7 +197,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Load data for customer quote and merge with current quote
      *
-     * @return Mage_Checkout_Model_Session
+     * @return $this
      */
     public function loadCustomerQuote()
     {
@@ -325,7 +325,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
      * @param string $itemKey
      * @param Mage_Core_Model_Message $message
      *
-     * @return Mage_Checkout_Model_Session
+     * @return $this
      */
     public function addItemAdditionalMessage($itemKey, $message)
     {
@@ -357,7 +357,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
      * @param int $itemId
      * @param Mage_Core_Model_Message $message
      *
-     * @return Mage_Checkout_Model_Session
+     * @return $this
      */
     function addQuoteItemMessage($itemId, $message)
     {

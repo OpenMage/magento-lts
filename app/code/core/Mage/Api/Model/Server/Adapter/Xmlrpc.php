@@ -46,7 +46,7 @@ class Mage_Api_Model_Server_Adapter_Xmlrpc
      * Set handler class name for webservice
      *
      * @param string $handler
-     * @return Mage_Api_Model_Server_Adapter_Xmlrpc
+     * @return $this
      */
     public function setHandler($handler)
     {
@@ -68,7 +68,7 @@ class Mage_Api_Model_Server_Adapter_Xmlrpc
      * Set webservice api controller
      *
      * @param Mage_Api_Controller_Action $controller
-     * @return Mage_Api_Model_Server_Adapter_Xmlrpc
+     * @return $this
      */
     public function setController(Mage_Api_Controller_Action $controller)
     {
@@ -98,7 +98,7 @@ class Mage_Api_Model_Server_Adapter_Xmlrpc
     /**
      * Run webservice
      *
-     * @return Mage_Api_Model_Server_Adapter_Xmlrpc
+     * @return $this
      */
     public function run()
     {

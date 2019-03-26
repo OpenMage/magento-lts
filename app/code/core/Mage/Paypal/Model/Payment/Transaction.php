@@ -82,7 +82,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
     /**
      * Transaction ID setter
      * @param string $txnId
-     * @return Mage_Paypal_Model_Payment_Transaction
+     * @return $this
      */
     public function setTxnId($txnId)
     {
@@ -93,7 +93,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
     /**
      * Check object before loading by by specified transaction ID
      * @param $txnId
-     * @return Mage_Paypal_Model_Payment_Transaction
+     * @return $this
      */
     protected function _beforeLoadByTxnId($txnId)
     {
@@ -107,7 +107,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
     /**
      * Load self by specified transaction ID. Requires the valid payment object to be set
      * @param string $txnId
-     * @return Mage_Paypal_Model_Payment_Transaction
+     * @return $this
      */
     public function loadByTxnId($txnId)
     {
@@ -122,7 +122,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
     /**
      * Check object after loading by by specified transaction ID
      * @param $txnId
-     * @return Mage_Paypal_Model_Payment_Transaction
+     * @return $this
      */
     protected function _afterLoadByTxnId()
     {
@@ -174,7 +174,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
     /**
      * Unsetter for entire additional_information value or one of its element by key
      * @param string $key
-     * @return Mage_Paypal_Model_Payment_Transaction
+     * @return $this
      */
     public function unsAdditionalInformation($key = null)
     {
@@ -205,7 +205,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
 
     /**
      * Verify data required for saving
-     * @return Mage_Paypal_Model_Payment_Transaction
+     * @return $this
      * @throws Mage_Core_Exception
      */
     protected function _beforeSave()

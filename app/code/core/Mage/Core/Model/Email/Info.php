@@ -72,7 +72,7 @@ class Mage_Core_Model_Email_Info extends Varien_Object
      *
      * @param string $email
      * @param string|null $name
-     * @return Mage_Core_Model_Email_Info
+     * @return $this
      */
     public function addBcc($email, $name = null)
     {
@@ -86,7 +86,7 @@ class Mage_Core_Model_Email_Info extends Varien_Object
      *
      * @param string $email
      * @param string|null $name
-     * @return Mage_Core_Model_Email_Info
+     * @return $this
      */
     public function addTo($email, $name = null)
     {

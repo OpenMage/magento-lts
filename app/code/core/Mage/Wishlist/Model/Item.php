@@ -122,7 +122,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract
      * Set quantity. If quantity is less than 0 - set it to 1
      *
      * @param int $qty
-     * @return Mage_Wishlist_Model_Item
+     * @return $this
      */
     public function setQty($qty)
     {
@@ -196,7 +196,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract
     /**
      * Save item options
      *
-     * @return Mage_Wishlist_Model_Item
+     * @return $this
      */
     protected function _saveItemOptions()
     {
@@ -234,7 +234,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract
     /**
      * Save item options after item saved
      *
-     * @return Mage_Wishlist_Model_Item
+     * @return $this
      */
     protected function _afterSave()
     {
@@ -263,7 +263,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract
     /**
      * Check required data
      *
-     * @return Mage_Wishlist_Model_Item
+     * @return $this
      */
     protected function _beforeSave()
     {
@@ -309,7 +309,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract
      * @param int $wishlistId
      * @param int $productId
      * @param array $sharedStores
-     * @return Mage_Wishlist_Model_Item
+     * @return $this
      */
     public function loadByProductWishlist($wishlistId, $productId, $sharedStores)
     {
@@ -439,7 +439,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract
      * Merge data to item info_buyRequest option
      *
      * @param array|Varien_Object $buyRequest
-     * @return Mage_Wishlist_Model_Item
+     * @return $this
      */
     public function mergeBuyRequest($buyRequest) {
         if ($buyRequest instanceof Varien_Object) {
@@ -471,7 +471,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract
      * Set buy request - object, holding request received from
      * product view page with keys and options for configured product
      * @param Varien_Object $buyRequest
-     * @return Mage_Wishlist_Model_Item
+     * @return $this
      */
     public function setBuyRequest($buyRequest)
     {
@@ -638,7 +638,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract
      *Remove option from item options
      *
      * @param string $code
-     * @return Mage_Wishlist_Model_Item
+     * @return $this
      */
     public function removeOption($code)
     {
@@ -713,7 +713,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract
      * @param int $id
      * @param null|string|array $optionsFilter
      *
-     * @return Mage_Wishlist_Model_Item
+     * @return $this
      */
     public function loadWithOptions($id, $optionsFilter = null)
     {

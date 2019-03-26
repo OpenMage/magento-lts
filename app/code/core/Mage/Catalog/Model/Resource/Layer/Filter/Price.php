@@ -289,7 +289,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
      * @param Mage_Catalog_Model_Layer_Filter_Price $filter
      * @param int $range
      * @param int $index    the range factor
-     * @return Mage_Catalog_Model_Resource_Layer_Filter_Price
+     * @return $this
      */
     public function applyFilterToCollection($filter, $range, $index)
     {
@@ -397,7 +397,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
      * Apply price range filter to product collection
      *
      * @param Mage_Catalog_Model_Layer_Filter_Price $filter
-     * @return Mage_Catalog_Model_Resource_Layer_Filter_Price
+     * @return $this
      */
     public function applyPriceRange($filter)
     {

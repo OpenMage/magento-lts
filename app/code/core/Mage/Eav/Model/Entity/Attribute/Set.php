@@ -62,7 +62,7 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
      * Init attribute set from skeleton (another attribute set)
      *
      * @param int $skeletonId
-     * @return Mage_Eav_Model_Entity_Attribute_Set
+     * @return $this
      */
     public function initFromSkeleton($skeletonId)
     {
@@ -105,7 +105,7 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
      * Collect data for save
      *
      * @param array $data
-     * @return Mage_Eav_Model_Entity_Attribute_Set
+     * @return $this
      */
     public function organizeData($data)
     {
@@ -200,7 +200,7 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
      * @param string|Mage_Eav_Model_Entity_Type $entityType
      * @param array $attributes
      * @param int $setId
-     * @return Mage_Eav_Model_Entity_Attribute_Set
+     * @return $this
      */
     public function addSetInfo($entityType, array $attributes, $setId = null)
     {

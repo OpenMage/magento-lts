@@ -118,7 +118,7 @@ class Mage_Wishlist_Model_Item_Option extends Mage_Core_Model_Abstract
     /**
      * Initialize item identifier before save data
      *
-     * @return Mage_Wishlist_Model_Item_Option
+     * @return $this
      */
     protected function _beforeSave()
     {
@@ -131,7 +131,7 @@ class Mage_Wishlist_Model_Item_Option extends Mage_Core_Model_Abstract
     /**
      * Clone option object
      *
-     * @return Mage_Wishlist_Model_Item_Option
+     * @return $this
      */
     public function __clone()
     {

@@ -38,7 +38,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
     /**
      * Init actions
      *
-     * @return Mage_Adminhtml_Cms_PageController
+     * @return $this
      */
     protected function _initAction()
     {

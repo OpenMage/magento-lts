@@ -49,7 +49,7 @@ class Mage_SalesRule_Model_Resource_Coupon_Collection extends Mage_Core_Model_Re
      *
      * @param Mage_SalesRule_Model_Rule|int $rule
      *
-     * @return Mage_SalesRule_Model_Resource_Coupon_Collection
+     * @return $this
      */
     public function addRuleToFilter($rule)
     {
@@ -69,7 +69,7 @@ class Mage_SalesRule_Model_Resource_Coupon_Collection extends Mage_Core_Model_Re
      *
      * @param array $ruleIds
      *
-     * @return Mage_SalesRule_Model_Resource_Coupon_Collection
+     * @return $this
      */
     public function addRuleIdsToFilter(array $ruleIds)
     {
@@ -80,7 +80,7 @@ class Mage_SalesRule_Model_Resource_Coupon_Collection extends Mage_Core_Model_Re
     /**
      * Filter collection to be filled with auto-generated coupons only
      *
-     * @return Mage_SalesRule_Model_Resource_Coupon_Collection
+     * @return $this
      */
     public function addGeneratedCouponsFilter()
     {

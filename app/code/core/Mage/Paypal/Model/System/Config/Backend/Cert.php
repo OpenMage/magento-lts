@@ -32,7 +32,7 @@ class Mage_Paypal_Model_System_Config_Backend_Cert extends Mage_Core_Model_Confi
     /**
      * Process additional data before save config
      *
-     * @return Mage_Paypal_Model_System_Config_Backend_Cert
+     * @return $this
      */
     protected function _beforeSave()
     {
@@ -62,7 +62,7 @@ class Mage_Paypal_Model_System_Config_Backend_Cert extends Mage_Core_Model_Confi
     /**
      * Process object after delete data
      *
-     * @return Mage_Paypal_Model_System_Config_Backend_Cert
+     * @return $this
      */
     protected function _afterDelete()
     {

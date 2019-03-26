@@ -32,7 +32,7 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_
     /**
      * Determine display parameters before rendering HTML
      *
-     * @return Mage_Adminhtml_Block_Sales_Order_Totals_Item
+     * @return $this
      */
     protected function _beforeToHtml()
     {
@@ -48,7 +48,7 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_
     /**
      * Initialize totals object
      *
-     * @return Mage_Adminhtml_Block_Sales_Order_Totals_Item
+     * @return $this
      */
     public function initTotals()
     {

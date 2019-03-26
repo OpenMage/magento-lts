@@ -89,7 +89,7 @@ class Mage_Sales_Model_Order_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Init mapping array of short fields to its full names
      *
-     * @return Mage_Sales_Model_Order_Address
+     * @return $this
      */
     protected function _initOldFieldsMap()
     {
@@ -100,7 +100,7 @@ class Mage_Sales_Model_Order_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Set order
      *
-     * @return Mage_Sales_Model_Order_Address
+     * @return $this
      */
     public function setOrder(Mage_Sales_Model_Order $order)
     {
@@ -124,7 +124,7 @@ class Mage_Sales_Model_Order_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Before object save manipulations
      *
-     * @return Mage_Sales_Model_Order_Address
+     * @return $this
      */
     protected function _beforeSave()
     {

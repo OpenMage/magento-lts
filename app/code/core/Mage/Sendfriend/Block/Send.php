@@ -112,7 +112,7 @@ class Mage_Sendfriend_Block_Send extends Mage_Core_Block_Template
      * Set Form data array
      *
      * @param array $data
-     * @return Mage_Sendfriend_Block_Send
+     * @return $this
      */
     public function setFormData($data)
     {

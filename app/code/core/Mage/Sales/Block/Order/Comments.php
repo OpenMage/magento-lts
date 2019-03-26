@@ -43,7 +43,7 @@ class Mage_Sales_Block_Order_Comments extends Mage_Core_Block_Template
      * Sets comments parent model instance
      *
      * @param Mage_Sales_Model_Abstract
-     * @return Mage_Sales_Block_Order_Comments
+     * @return $this
      */
     public function setEntity($entity)
     {

@@ -52,7 +52,7 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
      * @param int $visitorId
      * @param int $customerId
      * @param array $types
-     * @return Mage_Reports_Model_Resource_Event
+     * @return $this
      */
     public function updateCustomerType(Mage_Reports_Model_Event $model, $visitorId, $customerId, $types = array())
     {
@@ -79,7 +79,7 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
      * @param int $eventSubjectId
      * @param int $subtype
      * @param array $skipIds
-     * @return Mage_Reports_Model_Resource_Event
+     * @return $this
      */
     public function applyLogToCollection(Varien_Data_Collection_Db $collection, $eventTypeId, $eventSubjectId, $subtype,
         $skipIds = array())
@@ -159,7 +159,7 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
      * Clean report event table
      *
      * @param Mage_Reports_Model_Event $object
-     * @return Mage_Reports_Model_Resource_Event
+     * @return $this
      */
     public function clean(Mage_Reports_Model_Event $object)
     {

@@ -48,7 +48,7 @@ class Mage_SalesRule_Model_Resource_Report_Rule_Updatedat extends Mage_SalesRule
      *
      * @param mixed $from
      * @param mixed $to
-     * @return Mage_SalesRule_Model_Resource_Report_Rule_Updatedat
+     * @return $this
      */
     public function aggregate($from = null, $to = null)
     {

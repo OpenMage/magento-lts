@@ -287,7 +287,7 @@ class Mage_XmlConnect_Model_ImageAction extends Mage_Core_Model_Abstract
      * Delete Image action
      *
      * @param int $imageId
-     * @return Mage_XmlConnect_Model_ImageAction
+     * @return $this
      */
     public function deleteAction($imageId)
     {
@@ -301,7 +301,7 @@ class Mage_XmlConnect_Model_ImageAction extends Mage_Core_Model_Abstract
      *
      * @param array $imagesOrderData
      * @param string $type
-     * @return Mage_XmlConnect_Model_ImageAction
+     * @return $this
      */
     public function saveImageOrder($imagesOrderData, $type)
     {

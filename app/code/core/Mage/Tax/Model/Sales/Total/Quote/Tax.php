@@ -108,7 +108,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
      * Round the total amounts in address
      *
      * @param Mage_Sales_Model_Quote_Address $address
-     * @return Mage_Tax_Model_Sales_Total_Quote_Tax
+     * @return $this
      */
     protected function _roundTotals(Mage_Sales_Model_Quote_Address $address)
     {

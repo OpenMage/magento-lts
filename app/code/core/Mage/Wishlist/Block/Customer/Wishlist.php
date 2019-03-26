@@ -43,7 +43,7 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
      * Add wishlist conditions to collection
      *
      * @param  Mage_Wishlist_Model_Mysql4_Item_Collection $collection
-     * @return Mage_Wishlist_Block_Customer_Wishlist
+     * @return $this
      */
     protected function _prepareCollection($collection)
     {
@@ -54,7 +54,7 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
     /**
      * Preparing global layout
      *
-     * @return Mage_Wishlist_Block_Customer_Wishlist
+     * @return $this
      */
     protected function _prepareLayout()
     {
@@ -80,7 +80,7 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
      *
      * @deprecated after 1.6.2.0
      * @param null|array $optionCfg
-     * @return Mage_Wishlist_Block_Customer_Wishlist
+     * @return $this
      */
     public function setOptionsRenderCfgs($optionCfg)
     {
@@ -106,7 +106,7 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
      * @param string $productType
      * @param string $helperName
      * @param null|string $template
-     * @return Mage_Wishlist_Block_Customer_Wishlist
+     * @return $this
      */
     public function addOptionsRenderCfg($productType, $helperName, $template = null)
     {

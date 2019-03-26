@@ -48,7 +48,7 @@ class Mage_Adminhtml_Block_System_Design_Grid extends Mage_Adminhtml_Block_Widge
     /**
      * Prepare grid data collection
      *
-     * @return Mage_Adminhtml_Block_System_Design_Grid
+     * @return $this
      */
     protected function _prepareCollection()
     {
@@ -64,7 +64,7 @@ class Mage_Adminhtml_Block_System_Design_Grid extends Mage_Adminhtml_Block_Widge
     /**
      * Define grid columns
      *
-     * @return Mage_Adminhtml_Block_System_Design_Grid
+     * @return $this
      */
     protected function _prepareColumns()
     {

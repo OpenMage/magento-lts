@@ -159,7 +159,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
      * Filter checked/unchecked rows in grid
      *
      * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @return Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser
+     * @return $this
      */
     protected function _addColumnFilterToCollection($column)
     {
@@ -271,7 +271,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
      * Setter
      *
      * @param array $selectedProducts
-     * @return Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser
+     * @return $this
      */
     public function setSelectedProducts($selectedProducts)
     {

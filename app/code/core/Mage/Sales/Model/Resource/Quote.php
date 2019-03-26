@@ -72,7 +72,7 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
      *
      * @param Mage_Sales_Model_Quote $quote
      * @param int $customerId
-     * @return Mage_Sales_Model_Resource_Quote
+     * @return $this
      */
     public function loadByCustomerId($quote, $customerId)
     {
@@ -98,7 +98,7 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
      *
      * @param Mage_Sales_Model_Quote $quote
      * @param int $quoteId
-     * @return Mage_Sales_Model_Resource_Quote
+     * @return $this
      */
     public function loadActive($quote, $quoteId)
     {
@@ -121,7 +121,7 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
      *
      * @param Mage_Sales_Model_Quote $quote
      * @param int $quoteId
-     * @return Mage_Sales_Model_Resource_Quote
+     * @return $this
      */
     public function loadByIdWithoutStore($quote, $quoteId)
     {
@@ -180,7 +180,7 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
      *
      *  @param  array|null $productIdList
      *
-     * @return Mage_Sales_Model_Resource_Quote
+     * @return $this
      */
     public function markQuotesRecollectByAffectedProduct($productIdList = null)
     {
@@ -216,7 +216,7 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
     /**
      * Mark quotes - that depend on catalog price rules - to be recollected on demand
      *
-     * @return Mage_Sales_Model_Resource_Quote
+     * @return $this
      */
     public function markQuotesRecollectOnCatalogRules()
     {
@@ -227,7 +227,7 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
      * Subtract product from all quotes quantities
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Sales_Model_Resource_Quote
+     * @return $this
      */
     public function substractProductFromQuotes($product)
     {
@@ -265,7 +265,7 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
      * Mark recollect contain product(s) quotes
      *
      * @param array|int|Zend_Db_Expr $productIds
-     * @return Mage_Sales_Model_Resource_Quote
+     * @return $this
      */
     public function markQuotesRecollect($productIds)
     {

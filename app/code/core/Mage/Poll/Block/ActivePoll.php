@@ -71,7 +71,7 @@ class Mage_Poll_Block_ActivePoll extends Mage_Core_Block_Template
      * Set current Poll Id
      *
      * @param int $pollId
-     * @return Mage_Poll_Block_ActivePoll
+     * @return $this
      */
     public function setPollId($pollId)
     {
@@ -189,7 +189,7 @@ class Mage_Poll_Block_ActivePoll extends Mage_Core_Block_Template
      *
      * @param string $template
      * @param string $type
-     * @return Mage_Poll_Block_ActivePoll
+     * @return $this
      */
     public function setPollTemplate($template, $type)
     {

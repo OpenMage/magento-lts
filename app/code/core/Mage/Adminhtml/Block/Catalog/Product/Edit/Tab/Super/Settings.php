@@ -74,7 +74,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
     /**
      * Prepare form before rendering HTML
      *
-     * @return Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings
+     * @return $this
      */
     protected function _prepareForm()
     {

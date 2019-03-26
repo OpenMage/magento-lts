@@ -165,7 +165,7 @@ class Mage_XmlConnect_Block_Catalog_Product_List extends Mage_XmlConnect_Block_C
      * Add image attribute and apply sort fields to product collection
      *
      * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
-     * @return Mage_XmlConnect_Block_Catalog_Product_List
+     * @return $this
      */
     protected function _prepareCollection($collection)
     {

@@ -34,7 +34,7 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Datetime extends Mage_Eav_Model_En
      *
      * @param Varien_Object $object
      * @throws Mage_Eav_Exception
-     * @return Mage_Eav_Model_Entity_Attribute_Backend_Datetime
+     * @return $this
      */
     public function beforeSave($object)
     {

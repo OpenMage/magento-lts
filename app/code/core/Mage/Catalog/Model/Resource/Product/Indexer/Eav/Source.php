@@ -76,7 +76,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source
      *
      * @param array $entityIds      the entity ids limitation
      * @param int $attributeId      the attribute id limitation
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source
+     * @return $this
      */
     protected function _prepareIndex($entityIds = null, $attributeId = null)
     {
@@ -91,7 +91,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source
      *
      * @param array $entityIds      the entity ids limitation
      * @param int $attributeId      the attribute id limitation
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source
+     * @return $this
      */
     protected function _prepareSelectIndex($entityIds = null, $attributeId = null)
     {
@@ -172,7 +172,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source
      *
      * @param array $entityIds      the entity ids limitation
      * @param int $attributeId      the attribute id limitation
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source
+     * @return $this
      */
     protected function _prepareMultiselectIndex($entityIds = null, $attributeId = null)
     {
@@ -269,7 +269,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source
      * Save a data to temporary source index table
      *
      * @param array $data
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source
+     * @return $this
      */
     protected function _saveIndexData(array $data)
     {

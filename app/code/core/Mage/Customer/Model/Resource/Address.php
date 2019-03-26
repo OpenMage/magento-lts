@@ -50,7 +50,7 @@ class Mage_Customer_Model_Resource_Address extends Mage_Eav_Model_Entity_Abstrac
      * Set default shipping to address
      *
      * @param Varien_Object $address
-     * @return Mage_Customer_Model_Resource_Address
+     * @return $this
      */
     protected function _afterSave(Varien_Object $address)
     {

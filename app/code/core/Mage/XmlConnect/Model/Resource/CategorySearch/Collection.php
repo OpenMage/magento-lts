@@ -44,7 +44,7 @@ class Mage_XmlConnect_Model_Resource_CategorySearch_Collection extends Mage_Cata
      * Add search query filter
      *
      * @param string $query
-     * @return Mage_XmlConnect_Model_Resource_CategorySearch_Collection
+     * @return $this
      */
     public function addSearchFilter($query)
     {
@@ -58,7 +58,7 @@ class Mage_XmlConnect_Model_Resource_CategorySearch_Collection extends Mage_Cata
      * Add name filter
      *
      * @param string $query
-     * @return Mage_XmlConnect_Model_Resource_CategorySearch_Collection
+     * @return $this
      */
     protected function _addNameFilter($query)
     {
@@ -72,7 +72,7 @@ class Mage_XmlConnect_Model_Resource_CategorySearch_Collection extends Mage_Cata
      * Add description filter
      *
      * @param string $query
-     * @return Mage_XmlConnect_Model_Resource_CategorySearch_Collection
+     * @return $this
      */
     protected function _addDescriptionFilter($query)
     {
@@ -86,7 +86,7 @@ class Mage_XmlConnect_Model_Resource_CategorySearch_Collection extends Mage_Cata
      * Add url key filter
      *
      * @param string $query
-     * @return Mage_XmlConnect_Model_Resource_CategorySearch_Collection
+     * @return $this
      */
     protected function _addUrlKeyFilter($query)
     {
@@ -100,7 +100,7 @@ class Mage_XmlConnect_Model_Resource_CategorySearch_Collection extends Mage_Cata
      * Set collection filter
      *
      * @param array $collectionFilter
-     * @return Mage_XmlConnect_Model_Resource_CategorySearch_Collection
+     * @return $this
      */
     public function setCollectionFilter($collectionFilter)
     {

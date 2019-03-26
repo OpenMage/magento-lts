@@ -180,7 +180,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
      * Prepare and set request in property of current instance
      *
      * @param Varien_Object $request
-     * @return Mage_Usa_Model_Shipping_Carrier_Dhl
+     * @return $this
      */
     public function setRequest(Varien_Object $request)
     {
@@ -839,7 +839,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
      * Parse xml object
      *
      * @param mixed $shipXml
-     * @return Mage_Usa_Model_Shipping_Carrier_Dhl
+     * @return $this
      */
     protected function _parseXmlObject($shipXml)
     {

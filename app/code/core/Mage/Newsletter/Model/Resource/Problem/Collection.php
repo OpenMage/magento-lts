@@ -60,7 +60,7 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
     /**
      * Adds subscribers info
      *
-     * @return Mage_Newsletter_Model_Resource_Problem_Collection
+     * @return $this
      */
     public function addSubscriberInfo()
     {
@@ -77,7 +77,7 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
     /**
      * Adds queue info
      *
-     * @return Mage_Newsletter_Model_Resource_Problem_Collection
+     * @return $this
      */
     public function addQueueInfo()
     {
@@ -130,7 +130,7 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
      *
      * @param bool $printQuery
      * @param bool $logQuery
-     * @return Mage_Newsletter_Model_Resource_Problem_Collection
+     * @return $this
      */
     public function load($printQuery = false, $logQuery = false)
     {

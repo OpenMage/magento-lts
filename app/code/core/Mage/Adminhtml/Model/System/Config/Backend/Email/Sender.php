@@ -37,7 +37,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Email_Sender extends Mage_Core_
     /**
      * Check sender name validity
      *
-     * @return Mage_Adminhtml_Model_System_Config_Backend_Email_Sender
+     * @return $this
      */
     protected function _beforeSave()
     {

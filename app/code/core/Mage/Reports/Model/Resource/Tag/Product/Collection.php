@@ -45,7 +45,7 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
     /**
      * Add unique target count to result
      *
-     * @return Mage_Reports_Model_Resource_Tag_Product_Collection
+     * @return $this
      */
     public function addUniqueTagedCount()
     {
@@ -63,7 +63,7 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
     /**
      * Add all target count to result
      *
-     * @return Mage_Reports_Model_Resource_Tag_Product_Collection
+     * @return $this
      */
     public function addAllTagedCount()
     {
@@ -75,7 +75,7 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
     /**
      * Add target count to result
      *
-     * @return Mage_Reports_Model_Resource_Tag_Product_Collection
+     * @return $this
      */
     public function addTagedCount()
     {
@@ -88,7 +88,7 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
     /**
      * Add group by product to result
      *
-     * @return Mage_Reports_Model_Resource_Tag_Product_Collection
+     * @return $this
      */
     public function addGroupByProduct()
     {
@@ -101,7 +101,7 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
     /**
      * Add group by tag to result
      *
-     * @return Mage_Reports_Model_Resource_Tag_Product_Collection
+     * @return $this
      */
     public function addGroupByTag()
     {
@@ -116,7 +116,7 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
      * Add product filter
      *
      * @param int $customerId
-     * @return Mage_Reports_Model_Resource_Tag_Product_Collection
+     * @return $this
      */
     public function addProductFilter($customerId)
     {
@@ -131,7 +131,7 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
      *
      * @param string $attribute
      * @param string $dir
-     * @return Mage_Reports_Model_Resource_Tag_Product_Collection
+     * @return $this
      */
     public function setOrder($attribute, $dir = self::SORT_ORDER_DESC)
     {
@@ -147,7 +147,7 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
     /**
      * Join fields
      *
-     * @return Mage_Reports_Model_Resource_Tag_Product_Collection
+     * @return $this
      */
     protected function _joinFields()
     {

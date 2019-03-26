@@ -37,7 +37,7 @@ class Mage_XmlConnect_Model_Resource_Filter_Collection extends Varien_Data_Colle
      * Set CategoryId filter
      *
      * @param int $categoryId
-     * @return Mage_XmlConnect_Model_Resource_Filter_Collection
+     * @return $this
      */
     public function setCategoryId($categoryId)
     {
@@ -52,7 +52,7 @@ class Mage_XmlConnect_Model_Resource_Filter_Collection extends Varien_Data_Colle
      *
      * @param bool $printQuery
      * @param bool $logQuery
-     * @return Mage_XmlConnect_Model_Resource_Filter_Collection
+     * @return $this
      */
     public function load($printQuery = false, $logQuery = false)
     {

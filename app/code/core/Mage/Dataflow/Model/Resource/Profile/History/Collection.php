@@ -46,7 +46,7 @@ class Mage_Dataflow_Model_Resource_Profile_History_Collection extends Mage_Core_
     /**
      * Joins admin data to select
      *
-     * @return Mage_Dataflow_Model_Resource_Profile_History_Collection
+     * @return $this
      */
     public function joinAdminUser()
     {

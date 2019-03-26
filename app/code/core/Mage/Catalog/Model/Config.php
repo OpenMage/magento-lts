@@ -75,7 +75,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
      * Set store id
      *
      * @param integer $storeId
-     * @return Mage_Catalog_Model_Config
+     * @return $this
      */
     public function setStoreId($storeId)
     {

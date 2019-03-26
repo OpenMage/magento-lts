@@ -60,7 +60,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout
      * Add not allowed layout handle pattern
      *
      * @param string $pattern
-     * @return Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout
+     * @return $this
      */
     public function addLayoutHandlePattern($pattern)
     {

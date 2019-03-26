@@ -50,7 +50,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      * Configure and start session
      *
      * @param string $sessionName
-     * @return Mage_Core_Model_Session_Abstract_Varien
+     * @return $this
      */
     public function start($sessionName=null)
     {
@@ -190,7 +190,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      * Set session hosts
      *
      * @param array $hosts
-     * @return Mage_Core_Model_Session_Abstract_Varien
+     * @return $this
      */
     public function setSessionHosts(array $hosts)
     {
@@ -211,7 +211,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     /**
      * Revalidate cookie
      * @deprecated after 1.4 cookie renew moved to session start method
-     * @return Mage_Core_Model_Session_Abstract_Varien
+     * @return $this
      */
     public function revalidateCookie()
     {
@@ -223,7 +223,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      *
      * @param string $namespace
      * @param string $sessionName
-     * @return Mage_Core_Model_Session_Abstract_Varien
+     * @return $this
      */
     public function init($namespace, $sessionName=null)
     {
@@ -272,7 +272,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      * Set custom session id
      *
      * @param string $id
-     * @return Mage_Core_Model_Session_Abstract_Varien
+     * @return $this
      */
     public function setSessionId($id=null)
     {
@@ -296,7 +296,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      * Set session name
      *
      * @param string $name
-     * @return Mage_Core_Model_Session_Abstract_Varien
+     * @return $this
      */
     public function setSessionName($name)
     {
@@ -307,7 +307,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     /**
      * Unset all data
      *
-     * @return Mage_Core_Model_Session_Abstract_Varien
+     * @return $this
      */
     public function unsetAll()
     {
@@ -318,7 +318,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     /**
      * Alias for unsetAll
      *
-     * @return Mage_Core_Model_Session_Abstract_Varien
+     * @return $this
      */
     public function clear()
     {
@@ -420,7 +420,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      * Validate session
      *
      * @throws Mage_Core_Model_Session_Exception
-     * @return Mage_Core_Model_Session_Abstract_Varien
+     * @return $this
      */
     public function validate()
     {
@@ -544,7 +544,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     /**
      * Regenerate session Id
      *
-     * @return Mage_Core_Model_Session_Abstract_Varien
+     * @return $this
      */
     public function regenerateSessionId()
     {

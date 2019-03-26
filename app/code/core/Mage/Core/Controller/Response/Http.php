@@ -44,7 +44,7 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
      *
      * @link  http://bugs.php.net/bug.php?id=36705
      *
-     * @return Mage_Core_Controller_Response_Http
+     * @return $this
      */
     public function sendHeaders()
     {
@@ -89,7 +89,7 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
      *
      * @param string $url
      * @param int $code
-     * @return Mage_Core_Controller_Response_Http
+     * @return $this
      */
     public function setRedirect($url, $code = 302)
     {

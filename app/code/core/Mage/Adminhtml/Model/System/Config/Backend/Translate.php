@@ -43,7 +43,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Translate extends Mage_Core_Mod
     /**
      * Set status 'invalidate' for blocks and other output caches
      *
-     * @return Mage_Adminhtml_Model_System_Config_Backend_Translate
+     * @return $this
      */
     protected function _afterSave()
     {

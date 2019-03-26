@@ -77,7 +77,7 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
     /**
      * Redirect to referrer URL or otherwise to index page without params
      *
-     * @return Mage_Oauth_Customer_TokenController
+     * @return $this
      */
     protected function _redirectBack()
     {

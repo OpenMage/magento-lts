@@ -36,7 +36,7 @@ class Mage_Checkout_Block_Links extends Mage_Core_Block_Template
     /**
      * Add shopping cart link to parent block
      *
-     * @return Mage_Checkout_Block_Links
+     * @return $this
      */
     public function addCartLink()
     {
@@ -61,7 +61,7 @@ class Mage_Checkout_Block_Links extends Mage_Core_Block_Template
     /**
      * Add link on checkout page to parent block
      *
-     * @return Mage_Checkout_Block_Links
+     * @return $this
      */
     public function addCheckoutLink()
     {

@@ -76,7 +76,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
      * Rebuild Catalog Product Flat Data
      *
      * @param mixed $store
-     * @return Mage_Catalog_Model_Product_Flat_Indexer
+     * @return $this
      */
     public function rebuild($store = null)
     {
@@ -99,7 +99,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
      * @param string $attributeCode
      * @param int $store
      * @param int|array $productIds
-     * @return Mage_Catalog_Model_Product_Flat_Indexer
+     * @return $this
      */
     public function updateAttribute($attributeCode, $store = null, $productIds = null)
     {
@@ -123,7 +123,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
      * Prepare datastorage for catalog product flat
      *
      * @param int $store
-     * @return Mage_Catalog_Model_Product_Flat_Indexer
+     * @return $this
      */
     public function prepareDataStorage($store = null)
     {
@@ -144,7 +144,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
      * Update events observer attributes
      *
      * @param int $store
-     * @return Mage_Catalog_Model_Product_Flat_Indexer
+     * @return $this
      */
     public function updateEventAttributes($store = null)
     {
@@ -169,7 +169,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
      * @param int $productId
      * @param int $status
      * @param int $store
-     * @return Mage_Catalog_Model_Product_Flat_Indexer
+     * @return $this
      */
     public function updateProductStatus($productId, $status, $store = null)
     {
@@ -196,7 +196,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
      *
      * @param int|array $productIds
      * @param int $store
-     * @return Mage_Catalog_Model_Product_Flat_Indexer
+     * @return $this
      */
     public function updateProduct($productIds, $store = null)
     {
@@ -227,7 +227,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
      *
      * @param int|array $productIds
      * @param int $store
-     * @return Mage_Catalog_Model_Product_Flat_Indexer
+     * @return $this
      */
     public function saveProduct($productIds, $store = null)
     {
@@ -258,7 +258,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
      *
      * @param int|array $productIds
      * @param int $store
-     * @return Mage_Catalog_Model_Product_Flat_Indexer
+     * @return $this
      */
     public function removeProduct($productIds, $store = null)
     {
@@ -278,7 +278,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
      * Delete store process
      *
      * @param int $store
-     * @return Mage_Catalog_Model_Product_Flat_Indexer
+     * @return $this
      */
     public function deleteStore($store)
     {
@@ -289,7 +289,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
     /**
      * Rebuild Catalog Product Flat Data for all stores
      *
-     * @return Mage_Catalog_Model_Product_Flat_Indexer
+     * @return $this
      */
     public function reindexAll()
     {

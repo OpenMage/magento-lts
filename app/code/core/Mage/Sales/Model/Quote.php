@@ -267,7 +267,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Prepare data before save
      *
-     * @return Mage_Sales_Model_Quote
+     * @return $this
      */
     protected function _beforeSave()
     {
@@ -326,7 +326,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Save related items
      *
-     * @return Mage_Sales_Model_Quote
+     * @return $this
      */
     protected function _afterSave()
     {
@@ -349,7 +349,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Loading quote data by customer
      *
-     * @return Mage_Sales_Model_Quote
+     * @return $this
      */
     public function loadByCustomer($customer)
     {
@@ -368,7 +368,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Loading only active quote
      *
      * @param int $quoteId
-     * @return Mage_Sales_Model_Quote
+     * @return $this
      */
     public function loadActive($quoteId)
     {
@@ -381,7 +381,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Loading quote by identifier
      *
      * @param int $quoteId
-     * @return Mage_Sales_Model_Quote
+     * @return $this
      */
     public function loadByIdWithoutStore($quoteId)
     {
@@ -407,7 +407,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * @param  Mage_Customer_Model_Customer    $customer
      * @param  Mage_Sales_Model_Quote_Address  $billingAddress
      * @param  Mage_Sales_Model_Quote_Address  $shippingAddress
-     * @return Mage_Sales_Model_Quote
+     * @return $this
      */
     public function assignCustomerWithAddressChange(
         Mage_Customer_Model_Customer    $customer,
@@ -639,7 +639,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Leave no more than one billing and one shipping address, fill them with default data
      *
-     * @return Mage_Sales_Model_Quote
+     * @return $this
      */
     public function removeAllAddresses()
     {
@@ -686,7 +686,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Enter description here...
      *
      * @param Mage_Sales_Model_Quote_Address $address
-     * @return Mage_Sales_Model_Quote
+     * @return $this
      */
     public function setBillingAddress(Mage_Sales_Model_Quote_Address $address)
     {
@@ -704,7 +704,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Enter description here...
      *
      * @param Mage_Sales_Model_Quote_Address $address
-     * @return Mage_Sales_Model_Quote
+     * @return $this
      */
     public function setShippingAddress(Mage_Sales_Model_Quote_Address $address)
     {
@@ -900,7 +900,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Mark all quote items as deleted (empty quote)
      *
-     * @return Mage_Sales_Model_Quote
+     * @return $this
      */
     public function removeAllItems()
     {
@@ -1300,7 +1300,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Collect totals
      *
-     * @return Mage_Sales_Model_Quote
+     * @return $this
      */
     public function collectTotals()
     {
@@ -1479,7 +1479,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Sets flag, whether this quote has some error associated with it.
      *
      * @param bool $flag
-     * @return Mage_Sales_Model_Quote
+     * @return $this
      */
     protected function _setHasError($flag)
     {
@@ -1493,7 +1493,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * It's recommended to use addErrorInfo() instead - to be able to remove error statuses later.
      *
      * @param bool $flag
-     * @return Mage_Sales_Model_Quote
+     * @return $this
      * @see addErrorInfo()
      */
     public function setHasError($flag)
@@ -1510,7 +1510,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Clears list of errors, associated with this quote.
      * Also automatically removes error-flag from oneself.
      *
-     * @return Mage_Sales_Model_Quote
+     * @return $this
      */
     protected function _clearErrorInfo()
     {
@@ -1528,7 +1528,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * @param int|null $code Error code, unique for origin, that sets it
      * @param string|null $message Error message
      * @param Varien_Object|null $additionalData Any additional data, that caller would like to store
-     * @return Mage_Sales_Model_Quote
+     * @return $this
      */
     public function addErrorInfo($type = 'error', $origin = null, $code = null, $message = null, $additionalData = null)
     {
@@ -1553,7 +1553,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      *
      * @param string $type An internal error type ('error', 'qty', etc.), passed then to adding messages routine
      * @param array $params
-     * @return Mage_Sales_Model_Quote
+     * @return $this
      */
     public function removeErrorInfosByParams($type = 'error', $params)
     {
@@ -1596,7 +1596,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      *
      * @param string $type
      * @param string $text
-     * @return Mage_Sales_Model_Quote
+     * @return $this
      */
     public function removeMessageByText($type = 'error', $text)
     {
@@ -1625,7 +1625,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Generate new increment order id and associate it with current quote
      *
-     * @return Mage_Sales_Model_Quote
+     * @return $this
      */
     public function reserveOrderId()
     {
@@ -1898,7 +1898,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Trigger collect totals after loading, if required
      *
-     * @return Mage_Sales_Model_Quote
+     * @return $this
      */
     protected function _afterLoad()
     {
@@ -1945,7 +1945,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Prevent quote from saving
      *
-     * @return Mage_Sales_Model_Quote
+     * @return $this
      */
     public function preventSaving()
     {
@@ -1956,7 +1956,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Save quote with prevention checking
      *
-     * @return Mage_Sales_Model_Quote
+     * @return $this
      */
     public function save()
     {

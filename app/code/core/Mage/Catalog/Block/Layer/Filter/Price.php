@@ -47,7 +47,7 @@ class Mage_Catalog_Block_Layer_Filter_Price extends Mage_Catalog_Block_Layer_Fil
     /**
      * Prepare filter process
      *
-     * @return Mage_Catalog_Block_Layer_Filter_Price
+     * @return $this
      */
     protected function _prepareFilter()
     {

@@ -62,7 +62,7 @@ class Mage_Adminhtml_Block_Widget_Form_Element_Dependence extends Mage_Adminhtml
      *
      * @param string $fieldId - element ID in DOM
      * @param string $fieldName - element name in their fieldset/form namespace
-     * @return Mage_Adminhtml_Block_Widget_Form_Element_Dependence
+     * @return $this
      */
     public function addFieldMap($fieldId, $fieldName)
     {
@@ -76,7 +76,7 @@ class Mage_Adminhtml_Block_Widget_Form_Element_Dependence extends Mage_Adminhtml
      * @param string $fieldName
      * @param string $fieldNameFrom
      * @param string|array $refValues
-     * @return Mage_Adminhtml_Block_Widget_Form_Element_Dependence
+     * @return $this
      */
     public function addFieldDependence($fieldName, $fieldNameFrom, $refValues)
     {
@@ -88,7 +88,7 @@ class Mage_Adminhtml_Block_Widget_Form_Element_Dependence extends Mage_Adminhtml
      * Add misc configuration options to the javascript dependencies controller
      *
      * @param array $options
-     * @return Mage_Adminhtml_Block_Widget_Form_Element_Dependence
+     * @return $this
      */
     public function addConfigOptions(array $options)
     {

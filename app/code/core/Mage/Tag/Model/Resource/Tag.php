@@ -46,7 +46,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Initialize unique fields
      *
-     * @return Mage_Tag_Model_Resource_Tag
+     * @return $this
      */
     protected function _initUniqueFields()
     {
@@ -87,7 +87,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
      * Before saving actions
      *
      * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Tag_Model_Resource_Tag
+     * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
@@ -417,7 +417,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
      * Fetch store ids in which tag visible
      *
      * @param Mage_Tag_Model_Resource_Tag $object
-     * @return Mage_Tag_Model_Resource_Tag
+     * @return $this
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {

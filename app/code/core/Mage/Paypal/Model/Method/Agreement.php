@@ -97,7 +97,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
      * Init billing agreement
      *
      * @param Mage_Payment_Model_Billing_AgreementAbstract $agreement
-     * @return Mage_Paypal_Model_Method_Agreement
+     * @return $this
      */
     public function initBillingAgreementToken(Mage_Payment_Model_Billing_AgreementAbstract $agreement)
     {
@@ -138,7 +138,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
      * Create billing agreement by token specified in request
      *
      * @param Mage_Payment_Model_Billing_AgreementAbstract $agreement
-     * @return Mage_Paypal_Model_Method_Agreement
+     * @return $this
      */
     public function placeBillingAgreement(Mage_Payment_Model_Billing_AgreementAbstract $agreement)
     {
@@ -153,7 +153,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
      * Update billing agreement status
      *
      * @param Mage_Payment_Model_Billing_AgreementAbstract $agreement
-     * @return Mage_Paypal_Model_Method_Agreement
+     * @return $this
      */
     public function updateBillingAgreementStatus(Mage_Payment_Model_Billing_AgreementAbstract $agreement)
     {
@@ -178,7 +178,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
      *
      * @param Varien_Object $payment
      * @param float $amount
-     * @return Mage_Paypal_Model_Method_Agreement
+     * @return $this
      */
     public function authorize(Varien_Object $payment, $amount)
     {
@@ -189,7 +189,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
      * Void payment
      *
      * @param Mage_Sales_Model_Order_Payment $payment
-     * @return Mage_Paypal_Model_Method_Agreement
+     * @return $this
      */
     public function void(Varien_Object $payment)
     {
@@ -202,7 +202,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
      *
      * @param Mage_Sales_Model_Order_Payment $payment
      * @param float $amount
-     * @return Mage_Paypal_Model_Method_Agreement
+     * @return $this
      */
     public function capture(Varien_Object $payment, $amount)
     {
@@ -217,7 +217,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
      *
      * @param Mage_Sales_Model_Order_Payment $payment
      * @param float $amount
-     * @return Mage_Paypal_Model_Method_Agreement
+     * @return $this
      */
     public function refund(Varien_Object $payment, $amount)
     {
@@ -229,7 +229,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
      * Cancel payment
      *
      * @param Mage_Sales_Model_Order_Payment $payment
-     * @return Mage_Paypal_Model_Method_Agreement
+     * @return $this
      */
     public function cancel(Varien_Object $payment)
     {
@@ -289,7 +289,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
      *
      * @param Mage_Sales_Model_Order_Payment $payment
      * @param float $amount
-     * @return Mage_Paypal_Model_Method_Agreement
+     * @return $this
      */
     protected function _placeOrder(Mage_Sales_Model_Order_Payment $payment, $amount)
     {

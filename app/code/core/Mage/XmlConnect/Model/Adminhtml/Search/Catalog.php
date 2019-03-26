@@ -36,7 +36,7 @@ class Mage_XmlConnect_Model_Adminhtml_Search_Catalog extends Varien_Object
     /**
      * Load search results
      *
-     * @return Mage_XmlConnect_Model_Adminhtml_Search_Catalog
+     * @return $this
      */
     public function load()
     {

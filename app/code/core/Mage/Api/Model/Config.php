@@ -53,7 +53,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
     /**
      * Init configuration for webservices api
      *
-     * @return Mage_Api_Model_Config
+     * @return $this
      */
     protected function _construct()
     {
@@ -172,7 +172,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
      * @param Mage_Api_Model_Acl $acl
      * @param Mage_Core_Model_Config_Element $resource
      * @param string $parentName
-     * @return Mage_Api_Model_Config
+     * @return $this
      */
     public function loadAclResources(Mage_Api_Model_Acl $acl, $resource=null, $parentName=null)
     {

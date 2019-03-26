@@ -48,7 +48,7 @@ class Mage_GoogleBase_Model_Resource_Item extends Mage_Core_Model_Resource_Db_Ab
      * Load Item model by product
      *
      * @param Mage_GoogleBase_Model_Item $model
-     * @return Mage_GoogleBase_Model_Resource_Item
+     * @return $this
      */
     public function loadByProduct($model)
     {

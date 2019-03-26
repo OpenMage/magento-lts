@@ -44,7 +44,7 @@ class Mage_Reports_Model_Resource_Customer_Totals_Collection extends Mage_Report
      *
      * @param string $from
      * @param string $to
-     * @return Mage_Reports_Model_Resource_Customer_Totals_Collection
+     * @return $this
      */
     protected function _joinFields($from = '', $to = '')
     {
@@ -60,7 +60,7 @@ class Mage_Reports_Model_Resource_Customer_Totals_Collection extends Mage_Report
      *
      * @param string $from
      * @param string $to
-     * @return Mage_Reports_Model_Resource_Customer_Totals_Collection
+     * @return $this
      */
     public function setDateRange($from, $to)
     {
@@ -73,7 +73,7 @@ class Mage_Reports_Model_Resource_Customer_Totals_Collection extends Mage_Report
      * Set store filter collection
      *
      * @param array $storeIds
-     * @return Mage_Reports_Model_Resource_Customer_Totals_Collection
+     * @return $this
      */
     public function setStoreIds($storeIds)
     {

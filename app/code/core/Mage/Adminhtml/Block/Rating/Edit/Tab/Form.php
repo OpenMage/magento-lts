@@ -37,7 +37,7 @@ class Mage_Adminhtml_Block_Rating_Edit_Tab_Form extends Mage_Adminhtml_Block_Wid
     /**
      * Prepare rating edit form
      *
-     * @return Mage_Adminhtml_Block_Rating_Edit_Tab_Form
+     * @return $this
      */
     protected function _prepareForm()
     {

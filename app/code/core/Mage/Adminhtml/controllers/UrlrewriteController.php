@@ -36,7 +36,7 @@ class Mage_Adminhtml_UrlrewriteController extends Mage_Adminhtml_Controller_Acti
     /**
      * Instantiate urlrewrite, product and category
      *
-     * @return Mage_Adminhtml_UrlrewriteController
+     * @return $this
      */
     protected function _initRegistry()
     {

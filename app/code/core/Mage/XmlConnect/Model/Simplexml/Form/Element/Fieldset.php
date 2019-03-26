@@ -173,7 +173,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset
      *
      * @param string $key
      * @param int $direction
-     * @return Mage_XmlConnect_Model_Simplexml_Form_Element_Fieldset
+     * @return $this
      */
     public function setSortElementsByAttribute($key, $direction = SORT_ASC)
     {

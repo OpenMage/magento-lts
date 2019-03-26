@@ -47,7 +47,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
      * Perform actions after object load
      *
      * @param Mage_Widget_Model_Widget_Instance $object
-     * @return Mage_Widget_Model_Resource_Widget_Instance
+     * @return $this
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
@@ -64,7 +64,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
      * Perform actions after object save
      *
      * @param Mage_Widget_Model_Widget_Instance $object
-     * @return Mage_Widget_Model_Resource_Widget_Instance
+     * @return $this
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -190,7 +190,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
      * Collect page ids and layout update ids and set to object for further delete
      *
      * @param Varien_Object $object
-     * @return Mage_Widget_Model_Resource_Widget_Instance
+     * @return $this
      */
     protected function _beforeDelete(Mage_Core_Model_Abstract $object)
     {
@@ -213,7 +213,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
      * Delete layout updates by layout update ids collected in _beforeSave
      *
      * @param Mage_Widget_Model_Widget_Instance $object
-     * @return Mage_Widget_Model_Resource_Widget_Instance
+     * @return $this
      */
     protected function _afterDelete(Mage_Core_Model_Abstract $object)
     {
@@ -225,7 +225,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
      * Delete widget instance pages by given ids
      *
      * @param array $pageIds
-     * @return Mage_Widget_Model_Resource_Widget_Instance
+     * @return $this
      */
     protected function _deleteWidgetInstancePages($pageIds)
     {
@@ -246,7 +246,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
      * Delete layout updates by given ids
      *
      * @param array $layoutUpdateIds
-     * @return Mage_Widget_Model_Resource_Widget_Instance
+     * @return $this
      */
     protected function _deleteLayoutUpdates($layoutUpdateIds)
     {

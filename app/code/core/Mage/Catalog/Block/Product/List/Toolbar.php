@@ -201,7 +201,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
      *
      * @param string $param parameter name
      * @param mixed $value parameter value
-     * @return Mage_Catalog_Block_Product_List_Toolbar
+     * @return $this
      */
     protected function _memorizeParam($param, $value)
     {
@@ -216,7 +216,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
      * Set collection to pager
      *
      * @param Varien_Data_Collection $collection
-     * @return Mage_Catalog_Block_Product_List_Toolbar
+     * @return $this
      */
     public function setCollection($collection)
     {
@@ -381,7 +381,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
      * Set default Order field
      *
      * @param string $field
-     * @return Mage_Catalog_Block_Product_List_Toolbar
+     * @return $this
      */
     public function setDefaultOrder($field)
     {
@@ -395,7 +395,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
      * Set default sort direction
      *
      * @param string $dir
-     * @return Mage_Catalog_Block_Product_List_Toolbar
+     * @return $this
      */
     public function setDefaultDirection($dir)
     {
@@ -419,7 +419,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
      * Set Available order fields list
      *
      * @param array $orders
-     * @return Mage_Catalog_Block_Product_List_Toolbar
+     * @return $this
      */
     public function setAvailableOrders($orders)
     {
@@ -432,7 +432,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
      *
      * @param string $order
      * @param string $value
-     * @return Mage_Catalog_Block_Product_List_Toolbar
+     * @return $this
      */
     public function addOrderToAvailableOrders($order, $value)
     {
@@ -555,7 +555,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
      * Set available view modes list
      *
      * @param array $modes
-     * @return Mage_Catalog_Block_Product_List_Toolbar
+     * @return $this
      */
     public function setModes($modes)
     {
@@ -579,7 +579,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     /**
      * Disable view switcher
      *
-     * @return Mage_Catalog_Block_Product_List_Toolbar
+     * @return $this
      */
     public function disableViewSwitcher()
     {
@@ -590,7 +590,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     /**
      * Enable view switcher
      *
-     * @return Mage_Catalog_Block_Product_List_Toolbar
+     * @return $this
      */
     public function enableViewSwitcher()
     {
@@ -611,7 +611,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     /**
      * Disable Expanded
      *
-     * @return Mage_Catalog_Block_Product_List_Toolbar
+     * @return $this
      */
     public function disableExpanded()
     {
@@ -622,7 +622,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     /**
      * Enable Expanded
      *
-     * @return Mage_Catalog_Block_Product_List_Toolbar
+     * @return $this
      */
     public function enableExpanded()
     {
@@ -668,7 +668,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
      * @param string $mode
      * @param string $value
      * @param string $label
-     * @return Mage_Catalog_Block_Product_List_Toolbar
+     * @return $this
      */
     public function addPagerLimit($mode, $value, $label='')
     {

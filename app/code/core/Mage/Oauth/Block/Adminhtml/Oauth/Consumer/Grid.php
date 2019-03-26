@@ -60,7 +60,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Grid extends Mage_Adminhtml_Bloc
     /**
      * Prepare collection
      *
-     * @return Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Grid
+     * @return $this
      */
     protected function _prepareCollection()
     {
@@ -73,7 +73,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Grid extends Mage_Adminhtml_Bloc
     /**
      * Prepare columns
      *
-     * @return Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Grid
+     * @return $this
      */
     protected function _prepareColumns()
     {

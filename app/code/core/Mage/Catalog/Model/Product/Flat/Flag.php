@@ -78,7 +78,7 @@ class Mage_Catalog_Model_Product_Flat_Flag extends Mage_Core_Model_Flag
      *
      * @param int  $storeId
      * @param bool $built
-     * @return Mage_Catalog_Model_Product_Flat_Flag
+     * @return $this
      */
     public function setStoreBuilt($storeId, $built)
     {
@@ -109,7 +109,7 @@ class Mage_Catalog_Model_Product_Flat_Flag extends Mage_Core_Model_Flag
      *
      * @param bool $flag
      *
-     * @return Mage_Catalog_Model_Product_Flat_Flag
+     * @return $this
      */
     public function setIsBuilt($flag)
     {
@@ -126,7 +126,7 @@ class Mage_Catalog_Model_Product_Flat_Flag extends Mage_Core_Model_Flag
      *
      * @param bool $flag
      *
-     * @return Mage_Catalog_Model_Product_Flat_Flag
+     * @return $this
      */
     public function setIsBuild($flag)
     {

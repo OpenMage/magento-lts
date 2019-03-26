@@ -48,7 +48,7 @@ class Mage_Catalog_Model_Resource_Product_Relation extends Mage_Core_Model_Resou
      *
      * @param int $parentId
      * @param array $childIds
-     * @return Mage_Catalog_Model_Resource_Product_Relation
+     * @return $this
      */
     public function processRelations($parentId, $childIds)
     {

@@ -104,7 +104,7 @@ class Mage_Catalog_Model_Observer
      * Process delete of store
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Catalog_Model_Observer
+     * @return $this
      */
     public function storeDelete(Varien_Event_Observer $observer)
     {
@@ -153,7 +153,7 @@ class Mage_Catalog_Model_Observer
      * Catalog Product Compare Items Clean
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Catalog_Model_Observer
+     * @return $this
      */
     public function catalogProductCompareClean(Varien_Event_Observer $observer)
     {
@@ -165,7 +165,7 @@ class Mage_Catalog_Model_Observer
      * After save event of category
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Catalog_Model_Observer
+     * @return $this
      */
     public function categorySaveAfter(Varien_Event_Observer $observer)
     {
@@ -182,7 +182,7 @@ class Mage_Catalog_Model_Observer
      * Checking whether the using static urls in WYSIWYG allowed event
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Catalog_Model_Observer
+     * @return $this
      */
     public function catalogCheckIsUsingStaticUrlsAllowed(Varien_Event_Observer $observer)
     {

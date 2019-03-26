@@ -114,7 +114,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     /**
      * Processing object before save data
      *
-     * @return Mage_Widget_Model_Widget_Instance
+     * @return $this
      */
     protected function _beforeSave()
     {
@@ -199,7 +199,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
      * Prepare widget type
      *
      * @param string $type
-     * @return Mage_Widget_Model_Widget_Instance
+     * @return $this
      */
     public function setType($type)
     {
@@ -223,7 +223,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     /**
      * Replace '-' to '/', if was passed from request(GET request)
      *
-     * @return Mage_Widget_Model_Widget_Instance
+     * @return $this
      */
     protected function _prepareType()
     {
@@ -238,7 +238,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
      * Prepare widget package theme
      *
      * @param string $packageTheme
-     * @return Mage_Widget_Model_Widget_Instance
+     * @return $this
      */
     public function setPackageTheme($packageTheme)
     {
@@ -262,7 +262,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
      *
      * @deprecated after 1.6.1.0-alpha1
      *
-     * @return Mage_Widget_Model_Widget_Instance
+     * @return $this
      */
     protected function _preparePackageTheme()
     {
@@ -312,7 +312,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     /**
      * Parse packageTheme and set parsed package and theme
      *
-     * @return Mage_Widget_Model_Widget_Instance
+     * @return $this
      */
     protected function _parsePackageTheme()
     {
@@ -529,7 +529,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     /**
      * Invalidate related cache types
      *
-     * @return Mage_Widget_Model_Widget_Instance
+     * @return $this
      */
     protected function _invalidateCache()
     {

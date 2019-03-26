@@ -41,7 +41,7 @@ class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
      * @param Mage_Catalog_Model_Product $product
      * @param Mage_Core_Controller_Front_Action $controller
      *
-     * @return Mage_Catalog_Helper_Product_View
+     * @return $this
      */
     public function initProductLayout($product, $controller)
     {
@@ -107,7 +107,7 @@ class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
      * @param Mage_Core_Controller_Front_Action $controller
      * @param null|Varien_Object $params
      *
-     * @return Mage_Catalog_Helper_Product_View
+     * @return $this
      */
     public function prepareAndRender($productId, $controller, $params = null)
     {

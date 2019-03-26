@@ -109,7 +109,7 @@ class Mage_Rating_Model_Resource_Rating_Option extends Mage_Core_Model_Resource_
      * Add vote
      *
      * @param Mage_Rating_Model_Rating_Option $option
-     * @return Mage_Rating_Model_Resource_Rating_Option
+     * @return $this
      */
     public function addVote($option)
     {

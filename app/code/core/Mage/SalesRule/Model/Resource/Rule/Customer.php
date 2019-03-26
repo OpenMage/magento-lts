@@ -49,7 +49,7 @@ class Mage_SalesRule_Model_Resource_Rule_Customer extends Mage_Core_Model_Resour
      * @param Mage_SalesRule_Model_Rule_Customer $rule
      * @param int $customerId
      * @param int $ruleId
-     * @return Mage_SalesRule_Model_Resource_Rule_Customer
+     * @return $this
      */
     public function loadByCustomerRule($rule, $customerId, $ruleId)
     {

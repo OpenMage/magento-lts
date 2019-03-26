@@ -46,7 +46,7 @@ class Mage_AdminNotification_Model_Resource_Inbox_Collection extends Mage_Core_M
     /**
      * Add remove filter
      *
-     * @return Mage_AdminNotification_Model_Resource_Inbox_Collection
+     * @return $this
      */
     public function addRemoveFilter()
     {

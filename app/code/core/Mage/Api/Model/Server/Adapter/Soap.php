@@ -80,7 +80,7 @@ class Mage_Api_Model_Server_Adapter_Soap
      * Set handler class name for webservice
      *
      * @param string $handler
-     * @return Mage_Api_Model_Server_Adapter_Soap
+     * @return $this
      */
     public function setHandler($handler)
     {
@@ -102,7 +102,7 @@ class Mage_Api_Model_Server_Adapter_Soap
      * Set webservice api controller
      *
      * @param Mage_Api_Controller_Action $controller
-     * @return Mage_Api_Model_Server_Adapter_Soap
+     * @return $this
      */
     public function setController(Mage_Api_Controller_Action $controller)
     {
@@ -133,7 +133,7 @@ class Mage_Api_Model_Server_Adapter_Soap
      * Run webservice
      *
      * @param Mage_Api_Controller_Action $controller
-     * @return Mage_Api_Model_Server_Adapter_Soap
+     * @return $this
      */
     public function run()
     {

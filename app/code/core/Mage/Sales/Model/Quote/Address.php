@@ -227,7 +227,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Init mapping array of short fields to its full names
      *
-     * @return Mage_Sales_Model_Quote_Address
+     * @return $this
      */
     protected function _initOldFieldsMap()
     {
@@ -238,7 +238,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Initialize Quote identifier before save
      *
-     * @return Mage_Sales_Model_Quote_Address
+     * @return $this
      */
     protected function _beforeSave()
     {
@@ -314,7 +314,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Save child collections
      *
-     * @return Mage_Sales_Model_Quote_Address
+     * @return $this
      */
     protected function _afterSave()
     {
@@ -665,7 +665,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Remove item from collection
      *
      * @param int $itemId
-     * @return Mage_Sales_Model_Quote_Address
+     * @return $this
      */
     public function removeItem($itemId)
     {
@@ -830,7 +830,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Mark all shipping rates as deleted
      *
-     * @return Mage_Sales_Model_Quote_Address
+     * @return $this
      */
     public function removeAllShippingRates()
     {
@@ -844,7 +844,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Add shipping rate
      *
      * @param Mage_Sales_Model_Quote_Address_Rate $rate
-     * @return Mage_Sales_Model_Quote_Address
+     * @return $this
      */
     public function addShippingRate(Mage_Sales_Model_Quote_Address_Rate $rate)
     {
@@ -856,7 +856,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Collecting shipping rates by address
      *
-     * @return Mage_Sales_Model_Quote_Address
+     * @return $this
      */
     public function collectShippingRates()
     {
@@ -1004,7 +1004,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Collect address totals
      *
-     * @return Mage_Sales_Model_Quote_Address
+     * @return $this
      */
     public function collectTotals()
     {
@@ -1033,7 +1033,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Add total data or model
      *
      * @param Mage_Sales_Model_Quote_Address_Total|array $total
-     * @return Mage_Sales_Model_Quote_Address
+     * @return $this
      */
     public function addTotal($total)
     {
@@ -1051,7 +1051,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Rewrite clone method
      *
-     * @return Mage_Sales_Model_Quote_Address
+     * @return $this
      */
     public function __clone()
     {
@@ -1102,7 +1102,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Set applied taxes
      *
      * @param array $data
-     * @return Mage_Sales_Model_Quote_Address
+     * @return $this
      */
     public function setAppliedTaxes($data)
     {
@@ -1114,7 +1114,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      *
      * @param float $value
      * @param bool $alreadyExclTax
-     * @return Mage_Sales_Model_Quote_Address
+     * @return $this
      */
     public function setShippingAmount($value, $alreadyExclTax = false)
     {
@@ -1126,7 +1126,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      *
      * @param float $value
      * @param bool $alreadyExclTax
-     * @return Mage_Sales_Model_Quote_Address
+     * @return $this
      */
     public function setBaseShippingAmount($value, $alreadyExclTax = false)
     {

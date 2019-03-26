@@ -62,7 +62,7 @@ class Mage_Review_Model_Resource_Review_Summary extends Mage_Core_Model_Resource
      * Reaggregate all data by rating summary
      *
      * @param array $summary
-     * @return Mage_Review_Model_Resource_Review_Summary
+     * @return $this
      */
     public function reAggregate($summary)
     {

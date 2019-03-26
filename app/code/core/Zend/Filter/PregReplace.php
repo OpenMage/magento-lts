@@ -119,7 +119,7 @@ class Zend_Filter_PregReplace implements Zend_Filter_Interface
      * Set the match pattern for the regex being called within filter()
      *
      * @param mixed $match - same as the first argument of preg_replace
-     * @return Zend_Filter_PregReplace
+     * @return $this
      */
     public function setMatchPattern($match)
     {
@@ -141,7 +141,7 @@ class Zend_Filter_PregReplace implements Zend_Filter_Interface
      * Set the Replacement pattern/string for the preg_replace called in filter
      *
      * @param mixed $replacement - same as the second argument of preg_replace
-     * @return Zend_Filter_PregReplace
+     * @return $this
      */
     public function setReplacement($replacement)
     {

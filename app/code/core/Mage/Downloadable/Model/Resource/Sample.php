@@ -47,7 +47,7 @@ class Mage_Downloadable_Model_Resource_Sample extends Mage_Core_Model_Resource_D
      * Save title of sample item in store scope
      *
      * @param Mage_Downloadable_Model_Sample $sampleObject
-     * @return Mage_Downloadable_Model_Resource_Sample
+     * @return $this
      */
     public function saveItemTitle($sampleObject)
     {
@@ -91,7 +91,7 @@ class Mage_Downloadable_Model_Resource_Sample extends Mage_Core_Model_Resource_D
      * Delete data by item(s)
      *
      * @param Mage_Downloadable_Model_Sample|array|int $items
-     * @return Mage_Downloadable_Model_Resource_Sample
+     * @return $this
      */
     public function deleteItems($items)
     {

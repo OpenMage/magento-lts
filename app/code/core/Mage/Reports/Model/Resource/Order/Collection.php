@@ -52,7 +52,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
      * Check range for live mode
      *
      * @param unknown_type $range
-     * @return Mage_Reports_Model_Resource_Order_Collection
+     * @return $this
      */
     public function checkIsLive($range)
     {
@@ -77,7 +77,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
      * @param mixed $customStart
      * @param mixed $customEnd
      * @param int $isFilter
-     * @return Mage_Reports_Model_Resource_Order_Collection
+     * @return $this
      */
     public function prepareSummary($range, $customStart, $customEnd, $isFilter = 0)
     {
@@ -132,7 +132,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
      * @param mixed $customStart
      * @param mixed $customEnd
      * @param int $isFilter
-     * @return Mage_Reports_Model_Resource_Order_Collection
+     * @return $this
      */
     protected function _prepareSummaryLive($range, $customStart, $customEnd, $isFilter = 0)
     {
@@ -188,7 +188,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
      * @param string $range
      * @param mixed $customStart
      * @param mixed $customEnd
-     * @return Mage_Reports_Model_Resource_Order_Collection
+     * @return $this
      */
     protected function _prepareSummaryAggregated($range, $customStart, $customEnd)
     {
@@ -383,7 +383,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Add item count expression
      *
-     * @return Mage_Reports_Model_Resource_Order_Collection
+     * @return $this
      */
     public function addItemCountExpr()
     {
@@ -395,7 +395,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
      * Calculate totals report
      *
      * @param int $isFilter
-     * @return Mage_Reports_Model_Resource_Order_Collection
+     * @return $this
      */
     public function calculateTotals($isFilter = 0)
     {
@@ -412,7 +412,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
      * Calculate totals live report
      *
      * @param int $isFilter
-     * @return Mage_Reports_Model_Resource_Order_Collection
+     * @return $this
      */
     protected function _calculateTotalsLive($isFilter = 0)
     {
@@ -464,7 +464,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
      * Calculate totals aggregated report
      *
      * @param int $isFilter
-     * @return Mage_Reports_Model_Resource_Order_Collection
+     * @return $this
      */
     protected function _calculateTotalsAggregated($isFilter = 0)
     {
@@ -494,7 +494,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
      * Calculate lifitime sales
      *
      * @param int $isFilter
-     * @return Mage_Reports_Model_Resource_Order_Collection
+     * @return $this
      */
     public function calculateSales($isFilter = 0)
     {
@@ -553,7 +553,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
      *
      * @param string $from
      * @param string $to
-     * @return Mage_Reports_Model_Resource_Order_Collection
+     * @return $this
      */
     public function setDateRange($from, $to)
     {
@@ -575,7 +575,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
      * Set store filter collection
      *
      * @param array $storeIds
-     * @return Mage_Reports_Model_Resource_Order_Collection
+     * @return $this
      */
     public function setStoreIds($storeIds)
     {
@@ -621,7 +621,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Add group By customer attribute
      *
-     * @return Mage_Reports_Model_Resource_Order_Collection
+     * @return $this
      */
     public function groupByCustomer()
     {
@@ -641,7 +641,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
      * Join Customer Name (concat)
      *
      * @param string $alias
-     * @return Mage_Reports_Model_Resource_Order_Collection
+     * @return $this
      */
     public function joinCustomerName($alias = 'name')
     {
@@ -658,7 +658,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Add Order count field to select
      *
-     * @return Mage_Reports_Model_Resource_Order_Collection
+     * @return $this
      */
     public function addOrdersCount()
     {
@@ -673,7 +673,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
      * Add revenue
      *
      * @param boolean $convertCurrency
-     * @return Mage_Reports_Model_Resource_Order_Collection
+     * @return $this
      */
     public function addRevenueToSelect($convertCurrency = false)
     {
@@ -694,7 +694,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
      * Add summary average totals
      *
      * @param int $storeId
-     * @return Mage_Reports_Model_Resource_Order_Collection
+     * @return $this
      */
     public function addSumAvgTotals($storeId = 0)
     {
@@ -724,7 +724,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
      * Sort order by total amount
      *
      * @param string $dir
-     * @return Mage_Reports_Model_Resource_Order_Collection
+     * @return $this
      */
     public function orderByTotalAmount($dir = self::SORT_ORDER_DESC)
     {
@@ -736,7 +736,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
      * Order by orders count
      *
      * @param unknown_type $dir
-     * @return Mage_Reports_Model_Resource_Order_Collection
+     * @return $this
      */
     public function orderByOrdersCount($dir = self::SORT_ORDER_DESC)
     {
@@ -748,7 +748,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
      * Order by customer registration
      *
      * @param unknown_type $dir
-     * @return Mage_Reports_Model_Resource_Order_Collection
+     * @return $this
      */
     public function orderByCustomerRegistration($dir = self::SORT_ORDER_DESC)
     {
@@ -760,7 +760,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
      * Sort order by order created_at date
      *
      * @param string $dir
-     * @return Mage_Reports_Model_Resource_Order_Collection
+     * @return $this
      */
     public function orderByCreatedAt($dir = self::SORT_ORDER_DESC)
     {
@@ -790,7 +790,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Initialize initial fields to select
      *
-     * @return Mage_Reports_Model_Resource_Order_Collection
+     * @return $this
      */
     protected function _initInitialFieldsToSelect()
     {
@@ -802,7 +802,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
      * Add period filter by created_at attribute
      *
      * @param string $period
-     * @return Mage_Reports_Model_Resource_Order_Collection
+     * @return $this
      */
     public function addCreateAtPeriodFilter($period)
     {

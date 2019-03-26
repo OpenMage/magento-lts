@@ -254,7 +254,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
      * Deserialize renders from string
      *
      * @param string $renders
-     * @return Mage_Checkout_Block_Cart_Sidebar
+     * @return $this
      */
     public function deserializeRenders($renders)
     {

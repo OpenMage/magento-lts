@@ -45,7 +45,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
     protected $_batchModel = null;
     /**
      * Preparing batch model (initialization)
-     * @return Mage_Adminhtml_Block_System_Convert_Profile_Run
+     * @return $this
      */
     protected function _prepareBatchModel()
     {

@@ -67,7 +67,7 @@ class Mage_Reports_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Before Event save process
      *
-     * @return Mage_Reports_Model_Event
+     * @return $this
      */
     protected function _beforeSave()
     {
@@ -81,7 +81,7 @@ class Mage_Reports_Model_Event extends Mage_Core_Model_Abstract
      * @param int $visitorId
      * @param int $customerId
      * @param array $types
-     * @return Mage_Reports_Model_Event
+     * @return $this
      */
     public function updateCustomerType($visitorId, $customerId, $types = null)
     {
@@ -100,7 +100,7 @@ class Mage_Reports_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Clean events (visitors)
      *
-     * @return Mage_Reports_Model_Event
+     * @return $this
      */
     public function clean()
     {

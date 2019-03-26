@@ -59,7 +59,7 @@ class Mage_Catalog_Model_Product_Action extends Mage_Core_Model_Abstract
      * @param array $productIds
      * @param array $attrData
      * @param int $storeId
-     * @return Mage_Catalog_Model_Product_Action
+     * @return $this
      */
     public function updateAttributes($productIds, $attrData, $storeId)
     {

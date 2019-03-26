@@ -49,7 +49,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Element_Custom extends Mage_XmlConnec
      *
      * @throws Mage_Core_Exception
      * @param Mage_XmlConnect_Model_Simplexml_Element $xmlObj
-     * @return Mage_XmlConnect_Model_Simplexml_Form_Element_Custom
+     * @return $this
      */
     protected  function _addRequiredAttributes(Mage_XmlConnect_Model_Simplexml_Element $xmlObj)
     {

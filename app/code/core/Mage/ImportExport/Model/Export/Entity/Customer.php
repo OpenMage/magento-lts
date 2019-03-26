@@ -92,7 +92,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
     /**
      * Initialize website values.
      *
-     * @return Mage_ImportExport_Model_Export_Entity_Customer
+     * @return $this
      */
     protected function _initWebsites()
     {

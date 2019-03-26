@@ -36,7 +36,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Edit_Form extends Mage_Adminhtml_
     /**
      * Prepare form before rendering HTML.
      *
-     * @return Mage_ImportExport_Block_Adminhtml_Export_Edit_Form
+     * @return $this
      */
     protected function _prepareForm()
     {

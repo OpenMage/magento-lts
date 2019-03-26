@@ -53,7 +53,7 @@ class Mage_Customer_Model_Flowpassword extends Mage_Core_Model_Abstract
     /**
      * Prepare customer flow password data
      *
-     * @return Mage_Customer_Model_Flowpassword
+     * @return $this
      */
     protected function _prepareData()
     {

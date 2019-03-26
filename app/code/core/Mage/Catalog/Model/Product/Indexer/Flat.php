@@ -219,7 +219,7 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
      * Register data required by catalog product process in event object
      *
      * @param Mage_Index_Model_Event $event
-     * @return Mage_Catalog_Model_Product_Indexer_Flat
+     * @return $this
      */
     protected function _registerCatalogProductEvent(Mage_Index_Model_Event $event)
     {
@@ -278,7 +278,7 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
      * Register core store delete process
      *
      * @param Mage_Index_Model_Event $event
-     * @return Mage_Catalog_Model_Product_Indexer_Flat
+     * @return $this
      */
     protected function _registerCoreStoreEvent(Mage_Index_Model_Event $event)
     {

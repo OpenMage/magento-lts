@@ -61,7 +61,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      *
      * @deprecated
      * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
-     * @return Mage_Catalog_Model_Product_Visibility
+     * @return $this
      */
     public function addVisibleInCatalogFilterToCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)
     {
@@ -75,7 +75,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      *
      * @deprecated
      * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
-     * @return Mage_Catalog_Model_Product_Visibility
+     * @return $this
      */
     public function addVisibleInSearchFilterToCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)
     {
@@ -89,7 +89,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      *
      * @deprecated
      * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
-     * @return Mage_Catalog_Model_Product_Visibility
+     * @return $this
      */
     public function addVisibleInSiteFilterToCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)
     {

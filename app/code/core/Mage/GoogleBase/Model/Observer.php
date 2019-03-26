@@ -38,7 +38,7 @@ class Mage_GoogleBase_Model_Observer
      * Update product item in Google Base
      *
      * @param Varien_Object $observer
-     * @return Mage_GoogleBase_Model_Observer
+     * @return $this
      */
     public function saveProductItem($observer)
     {
@@ -71,7 +71,7 @@ class Mage_GoogleBase_Model_Observer
      * Delete product item from Google Base
      *
      * @param Varien_Object $observer
-     * @return Mage_GoogleBase_Model_Observer
+     * @return $this
      */
     public function deleteProductItem($observer)
     {

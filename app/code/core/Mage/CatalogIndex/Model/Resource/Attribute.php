@@ -106,7 +106,7 @@ class Mage_CatalogIndex_Model_Resource_Attribute extends Mage_CatalogIndex_Model
      * @param unknown_type $collection
      * @param unknown_type $attribute
      * @param unknown_type $value
-     * @return Mage_CatalogIndex_Model_Resource_Attribute
+     * @return $this
      */
     public function applyFilterToCollection($collection, $attribute, $value)
     {

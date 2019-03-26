@@ -455,7 +455,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Delete products.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return $this
      */
     protected function _deleteProducts()
     {
@@ -506,7 +506,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Initialize attribute sets code-to-id pairs.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return $this
      */
     protected function _initAttributeSets()
     {
@@ -521,7 +521,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Initialize categories text-path to ID hash.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return $this
      */
     protected function _initCategories()
     {
@@ -552,7 +552,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Initialize customer groups.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return $this
      */
     protected function _initCustomerGroups()
     {
@@ -565,7 +565,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Initialize existent product SKUs.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return $this
      */
     protected function _initSkus()
     {
@@ -586,7 +586,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Initialize stores hash.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return $this
      */
     protected function _initStores()
     {
@@ -601,7 +601,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Initialize product type models.
      *
      * @throws Exception
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return $this
      */
     protected function _initTypeModels()
     {
@@ -633,7 +633,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Initialize website values.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return $this
      */
     protected function _initWebsites()
     {
@@ -821,7 +821,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Custom options save.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return $this
      */
     protected function _saveCustomOptions()
     {
@@ -1131,7 +1131,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Gather and save information about product links.
      * Must be called after ALL products saving done.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return $this
      */
     protected function _saveLinks()
     {
@@ -1233,7 +1233,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Save product attributes.
      *
      * @param array $attributesData
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return $this
      */
     protected function _saveProductAttributes(array $attributesData)
     {
@@ -1280,7 +1280,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Save product categories.
      *
      * @param array $categoriesData
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return $this
      */
     protected function _saveProductCategories(array $categoriesData)
     {
@@ -1319,7 +1319,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      *
      * @param array $entityRowsIn Row for insert
      * @param array $entityRowsUp Row for update
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return $this
      */
     protected function _saveProductEntity(array $entityRowsIn, array $entityRowsUp)
     {
@@ -1352,7 +1352,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Gather and save information about product entities.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return $this
      */
     protected function _saveProducts()
     {
@@ -1606,7 +1606,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Save product tier prices.
      *
      * @param array $tierPriceData
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return $this
      */
     protected function _saveProductTierPrices(array $tierPriceData)
     {
@@ -1646,7 +1646,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Save product group prices.
      *
      * @param array $groupPriceData
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return $this
      */
     protected function _saveProductGroupPrices(array $groupPriceData)
     {
@@ -1728,7 +1728,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Save product media gallery.
      *
      * @param array $mediaGalleryData
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return $this
      */
     protected function _saveMediaGallery(array $mediaGalleryData)
     {
@@ -1811,7 +1811,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Save product websites.
      *
      * @param array $websiteData
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return $this
      */
     protected function _saveProductWebsites(array $websiteData)
     {
@@ -1884,7 +1884,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Stock item saving.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return $this
      */
     protected function _saveStockItem()
     {

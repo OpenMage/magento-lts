@@ -46,7 +46,7 @@ class Mage_Poll_Model_Resource_Poll_Answer extends Mage_Core_Model_Resource_Db_A
     /**
      * Initialize unique fields
      *
-     * @return Mage_Poll_Model_Resource_Poll_Answer
+     * @return $this
      */
     protected function _initUniqueFields()
     {

@@ -52,7 +52,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
      *
      * @param mixed $from
      * @param mixed $to
-     * @return Mage_Sales_Model_Resource_Report_Bestsellers
+     * @return $this
      */
     public function aggregate($from = null, $to = null)
     {
@@ -234,7 +234,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
      * Aggregate Orders data for default store
      *
      * @param object Varien_Db_Select|null $subSelect
-     * @return Mage_Sales_Model_Resource_Report_Bestsellers
+     * @return $this
      */
     protected function _aggregateDefault($subSelect = null)
     {
@@ -299,7 +299,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
      * Update rating position
      *
      * @param string $aggregation One of Mage_Sales_Model_Resource_Report_Bestsellers::AGGREGATION_XXX constants
-     * @return Mage_Sales_Model_Resource_Report_Bestsellers
+     * @return $this
      */
     protected function _updateRatingPos($aggregation)
     {

@@ -49,7 +49,7 @@ class Mage_Sales_Model_Status_List
      * @param int|null $code Code of status, unique for origin, that sets it
      * @param string|null $message Status message
      * @param Varien_Object|null $additionalData Any additional data, that caller would like to store
-     * @return Mage_Sales_Model_Status_List
+     * @return $this
      */
     public function addItem($origin = null, $code = null, $message = null, $additionalData = null)
     {
@@ -147,7 +147,7 @@ class Mage_Sales_Model_Status_List
     /**
      * Clears list from all items
      *
-     * @return Mage_Sales_Model_Status_List
+     * @return $this
      */
     public function clear()
     {

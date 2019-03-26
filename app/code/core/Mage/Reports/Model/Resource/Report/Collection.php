@@ -96,7 +96,7 @@ class Mage_Reports_Model_Resource_Report_Collection
      * Set period
      *
      * @param int $period
-     * @return Mage_Reports_Model_Resource_Report_Collection
+     * @return $this
      */
     public function setPeriod($period)
     {
@@ -109,7 +109,7 @@ class Mage_Reports_Model_Resource_Report_Collection
      *
      * @param int $from
      * @param int $to
-     * @return Mage_Reports_Model_Resource_Report_Collection
+     * @return $this
      */
     public function setInterval($from, $to)
     {
@@ -208,7 +208,7 @@ class Mage_Reports_Model_Resource_Report_Collection
      * Set store ids
      *
      * @param array $storeIds
-     * @return Mage_Reports_Model_Resource_Report_Collection
+     * @return $this
      */
     public function setStoreIds($storeIds)
     {
@@ -240,7 +240,7 @@ class Mage_Reports_Model_Resource_Report_Collection
      * Set page size
      *
      * @param int $size
-     * @return Mage_Reports_Model_Resource_Report_Collection
+     * @return $this
      */
     public function setPageSize($size)
     {
@@ -262,7 +262,7 @@ class Mage_Reports_Model_Resource_Report_Collection
      * Init report
      *
      * @param string $modelClass
-     * @return Mage_Reports_Model_Resource_Report_Collection
+     * @return $this
      */
     public function initReport($modelClass)
     {

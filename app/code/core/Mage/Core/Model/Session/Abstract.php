@@ -77,7 +77,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      *
      * @param string $namespace
      * @param string $sessionName
-     * @return Mage_Core_Model_Session_Abstract
+     * @return $this
      */
     public function init($namespace, $sessionName=null)
     {
@@ -413,7 +413,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      * Set skip flag if need skip generating of _GET session_id_key param
      *
      * @param bool $flag
-     * @return Mage_Core_Model_Session_Abstract
+     * @return $this
      */
     public function setSkipSessionIdFlag($flag)
     {
@@ -501,7 +501,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      * Add hostname to session
      *
      * @param string $host
-     * @return Mage_Core_Model_Session_Abstract
+     * @return $this
      */
     public function addHost($host)
     {
@@ -560,7 +560,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     /**
      * Renew session id and update session cookie
      *
-     * @return Mage_Core_Model_Session_Abstract
+     * @return $this
      */
     public function renewSession()
     {

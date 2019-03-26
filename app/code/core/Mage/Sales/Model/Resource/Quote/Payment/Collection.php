@@ -47,7 +47,7 @@ class Mage_Sales_Model_Resource_Quote_Payment_Collection extends Mage_Core_Model
      * Setquote filter to result
      *
      * @param int $quoteId
-     * @return Mage_Sales_Model_Resource_Quote_Payment_Collection
+     * @return $this
      */
     public function setQuoteFilter($quoteId)
     {

@@ -63,7 +63,7 @@ class Mage_Api2_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Widg
     /**
      * Prepare grid columns
      *
-     * @return Mage_Api2_Block_Adminhtml_Attribute_Grid
+     * @return $this
      */
     protected function _prepareColumns()
     {
@@ -78,7 +78,7 @@ class Mage_Api2_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Widg
     /**
      * Disable unnecessary functionality
      *
-     * @return Mage_Api2_Block_Adminhtml_Attribute_Grid
+     * @return $this
      */
     public function _prepareLayout()
     {

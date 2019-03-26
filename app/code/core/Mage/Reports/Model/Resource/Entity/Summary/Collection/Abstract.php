@@ -47,7 +47,7 @@ class Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract extends Var
      * @param string $periodType
      * @param string|int|null $customStart
      * @param string|int|null $customEnd
-     * @return Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract
+     * @return $this
      */
     public function setSelectPeriod($periodType, $customStart = null, $customEnd = null)
     {
@@ -91,7 +91,7 @@ class Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract extends Var
      * Set date period
      *
      * @param int $period
-     * @return Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract
+     * @return $this
      */
     public function setDatePeriod($period)
     {
@@ -102,7 +102,7 @@ class Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract extends Var
      * Set store filter
      *
      * @param int $storeId
-     * @return Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract
+     * @return $this
      */
     public function setStoreFilter($storeId)
     {
@@ -125,7 +125,7 @@ class Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract extends Var
     /**
      * Init collection
      *
-     * @return Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract
+     * @return $this
      */
     protected function _initCollection()
     {

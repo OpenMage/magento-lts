@@ -47,7 +47,7 @@ class Mage_AdminNotification_Model_Resource_Inbox extends Mage_Core_Model_Resour
      * Load latest notice
      *
      * @param Mage_AdminNotification_Model_Inbox $object
-     * @return Mage_AdminNotification_Model_Resource_Inbox
+     * @return $this
      */
     public function loadLatestNotice(Mage_AdminNotification_Model_Inbox $object)
     {

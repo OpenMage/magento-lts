@@ -55,7 +55,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle extends Mage_A
     /**
      * Prepare layout
      *
-     * @return Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle
+     * @return $this
      */
     protected function _prepareLayout()
     {

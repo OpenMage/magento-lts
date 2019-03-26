@@ -103,7 +103,7 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
      *
      * @param string $field
      * @param string $alias
-     * @return Mage_Reports_Model_Resource_Product_Lowstock_Collection
+     * @return $this
      */
     protected function _addInventoryItemFieldToSelect($field, $alias = null)
     {
@@ -139,7 +139,7 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
      * Join catalog inventory stock item table for further stock_item values filters
      *
      * @param unknown_type $fields
-     * @return Mage_Reports_Model_Resource_Product_Lowstock_Collection
+     * @return $this
      */
     public function joinInventoryItem($fields = array())
     {
@@ -177,7 +177,7 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
      * Add filter by product type(s)
      *
      * @param array|string $typeFilter
-     * @return Mage_Reports_Model_Resource_Product_Lowstock_Collection
+     * @return $this
      */
     public function filterByProductType($typeFilter)
     {
@@ -194,7 +194,7 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
      * Add filter by product types from config
      * Only types witch has QTY parameter
      *
-     * @return Mage_Reports_Model_Resource_Product_Lowstock_Collection
+     * @return $this
      */
     public function filterByIsQtyProductTypes()
     {
@@ -208,7 +208,7 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
      * Add Use Manage Stock Condition to collection
      *
      * @param int|null $storeId
-     * @return Mage_Reports_Model_Resource_Product_Lowstock_Collection
+     * @return $this
      */
     public function useManageStockFilter($storeId = null)
     {
@@ -226,7 +226,7 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
      * Add Notify Stock Qty Condition to collection
      *
      * @param int $storeId
-     * @return Mage_Reports_Model_Resource_Product_Lowstock_Collection
+     * @return $this
      */
     public function useNotifyStockQtyFilter($storeId = null)
     {

@@ -45,7 +45,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
     /**
      * Add meta information from product to head block
      *
-     * @return Mage_Catalog_Block_Product_View
+     * @return $this
      */
     protected function _prepareLayout()
     {

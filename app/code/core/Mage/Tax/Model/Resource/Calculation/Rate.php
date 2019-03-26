@@ -45,7 +45,7 @@ class Mage_Tax_Model_Resource_Calculation_Rate extends Mage_Core_Model_Resource_
     /**
      * Initialize unique fields
      *
-     * @return Mage_Tax_Model_Resource_Calculation_Rate
+     * @return $this
      */
     protected function _initUniqueFields()
     {
@@ -59,7 +59,7 @@ class Mage_Tax_Model_Resource_Calculation_Rate extends Mage_Core_Model_Resource_
     /**
      * Delete all rates
      *
-     * @return Mage_Tax_Model_Resource_Calculation_Rate
+     * @return $this
      */
     public function deleteAllRates()
     {

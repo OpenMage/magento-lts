@@ -218,7 +218,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable
     /**
      * Array of SKU to array of super attribute values for all products.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable
+     * @return $this
      */
     protected function _loadSkuSuperAttributeValues()
     {
@@ -267,7 +267,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable
     /**
      * Array of SKU to array of super attribute values for all products.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable
+     * @return $this
      */
     protected function _loadSkuSuperData()
     {
@@ -301,7 +301,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable
      *
      * @param array $superData
      * @param array $superAttributes
-     * @return Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable
+     * @return $this
      */
     protected function _processSuperData(array $superData, array &$superAttributes)
     {

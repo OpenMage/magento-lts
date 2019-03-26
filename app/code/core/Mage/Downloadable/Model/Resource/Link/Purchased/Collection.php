@@ -46,7 +46,7 @@ class Mage_Downloadable_Model_Resource_Link_Purchased_Collection extends Mage_Co
     /**
      * Add purchased items to collection
      *
-     * @return Mage_Downloadable_Model_Resource_Link_Purchased_Collection
+     * @return $this
      */
     public function addPurchasedItemsToResult()
     {

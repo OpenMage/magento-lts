@@ -48,7 +48,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @param Mage_Core_Model_Config $xmlConfig
      * @param string $condition
-     * @return Mage_Core_Model_Resource_Config
+     * @return $this
      */
     public function loadToXml(Mage_Core_Model_Config $xmlConfig, $condition = null)
     {
@@ -179,7 +179,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
      * @param string $value
      * @param string $scope
      * @param int $scopeId
-     * @return Mage_Core_Model_Resource_Config
+     * @return $this
      */
     public function saveConfig($path, $value, $scope, $scopeId)
     {
@@ -213,7 +213,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
      * @param string $path
      * @param string $scope
      * @param int $scopeId
-     * @return Mage_Core_Model_Resource_Config
+     * @return $this
      */
     public function deleteConfig($path, $scope, $scopeId)
     {

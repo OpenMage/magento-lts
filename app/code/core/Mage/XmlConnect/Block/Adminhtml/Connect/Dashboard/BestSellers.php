@@ -42,7 +42,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_BestSellers
     /**
      * Get rid of unnecessary collection initialization
      *
-     * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_BestSellers
+     * @return $this
      */
     protected function _prepareCollection()
     {
@@ -53,7 +53,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_BestSellers
      * Init last search terms collection
      *
      * @param int|null $storeId
-     * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_BestSellers
+     * @return $this
      */
     protected function _initCollection($storeId)
     {
@@ -67,7 +67,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_BestSellers
     /**
      * Clear collection
      *
-     * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_BestSellers
+     * @return $this
      */
     protected function _clearCollection()
     {
@@ -79,7 +79,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_BestSellers
      * Add best sellers products to xml object
      *
      * @param Mage_XmlConnect_Model_Simplexml_Element $xmlObj
-     * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_BestSellers
+     * @return $this
      */
     public function addBestSellersToXmlObj(Mage_XmlConnect_Model_Simplexml_Element $xmlObj)
     {

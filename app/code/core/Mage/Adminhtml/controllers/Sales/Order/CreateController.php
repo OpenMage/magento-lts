@@ -88,7 +88,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
     /**
      * Initialize order creation session data
      *
-     * @return Mage_Adminhtml_Sales_Order_CreateController
+     * @return $this
      */
     protected function _initSession()
     {
@@ -124,7 +124,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
     /**
      * Processing request data
      *
-     * @return Mage_Adminhtml_Sales_Order_CreateController
+     * @return $this
      */
     protected function _processData()
     {
@@ -135,7 +135,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
      * Process request data with additional logic for saving quote and creating order
      *
      * @param string $action
-     * @return Mage_Adminhtml_Sales_Order_CreateController
+     * @return $this
      */
     protected function _processActionData($action = null)
     {
@@ -567,7 +567,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
     /*
      * Ajax handler to response configuration fieldset of composite product in order
      *
-     * @return Mage_Adminhtml_Sales_Order_CreateController
+     * @return $this
      */
     public function configureProductToAddAction()
     {
@@ -592,7 +592,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
     /*
      * Ajax handler to response configuration fieldset of composite product in quote items
      *
-     * @return Mage_Adminhtml_Sales_Order_CreateController
+     * @return $this
      */
     public function configureQuoteItemsAction()
     {

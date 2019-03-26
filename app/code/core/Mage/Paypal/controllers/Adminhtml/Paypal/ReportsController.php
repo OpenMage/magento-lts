@@ -108,7 +108,7 @@ class Mage_Paypal_Adminhtml_Paypal_ReportsController extends Mage_Adminhtml_Cont
 
     /**
      * Initialize titles, navigation
-     * @return Mage_Paypal_Adminhtml_Paypal_ReportsController
+     * @return $this
      */
     protected function _initAction()
     {

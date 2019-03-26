@@ -45,7 +45,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
     /**
      * Prepare Global Layout
      *
-     * @return Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main
+     * @return $this
      */
     protected function _prepareLayout()
     {

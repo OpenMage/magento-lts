@@ -45,7 +45,7 @@ class Mage_CatalogIndex_Model_Resource_Setup extends Mage_Core_Model_Resource_Se
      * Enter description here ...
      *
      * @param unknown_type $table
-     * @return Mage_CatalogIndex_Model_Resource_Setup
+     * @return $this
      */
     public function convertStoreToWebsite($table)
     {
@@ -80,7 +80,7 @@ class Mage_CatalogIndex_Model_Resource_Setup extends Mage_Core_Model_Resource_Se
      * @param unknown_type $table
      * @param unknown_type $websiteId
      * @param unknown_type $storeIds
-     * @return Mage_CatalogIndex_Model_Resource_Setup
+     * @return $this
      */
     protected function _setWebsiteInfo($table, $websiteId, $storeIds)
     {

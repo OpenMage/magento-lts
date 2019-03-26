@@ -89,7 +89,7 @@ class Mage_GoogleBase_Model_Item extends Mage_Core_Model_Abstract
     /**
      * Save item to Google Base
      *
-     * @return Mage_GoogleBase_Model_Item
+     * @return $this
      */
     public function insertItem()
     {
@@ -110,7 +110,7 @@ class Mage_GoogleBase_Model_Item extends Mage_Core_Model_Abstract
     /**
      * Update Item data
      *
-     * @return Mage_GoogleBase_Model_Item
+     * @return $this
      */
     public function updateItem()
     {
@@ -132,7 +132,7 @@ class Mage_GoogleBase_Model_Item extends Mage_Core_Model_Abstract
     /**
      * Delete Item from Google Base
      *
-     * @return Mage_GoogleBase_Model_Item
+     * @return $this
      */
     public function deleteItem()
     {
@@ -143,7 +143,7 @@ class Mage_GoogleBase_Model_Item extends Mage_Core_Model_Abstract
     /**
      * Delete Item from Google Base
      *
-     *  @return Mage_GoogleBase_Model_Item
+     *  @return $this
      */
     public function hideItem()
     {
@@ -156,7 +156,7 @@ class Mage_GoogleBase_Model_Item extends Mage_Core_Model_Abstract
     /**
      * Delete Item from Google Base
      *
-     * @return Mage_GoogleBase_Model_Item
+     * @return $this
      */
     public function activateItem()
     {
@@ -170,7 +170,7 @@ class Mage_GoogleBase_Model_Item extends Mage_Core_Model_Abstract
      * Load Item Model by Product
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_GoogleBase_Model_Item
+     * @return $this
      */
     public function loadByProduct($product)
     {
@@ -185,7 +185,7 @@ class Mage_GoogleBase_Model_Item extends Mage_Core_Model_Abstract
      * Product Setter
      *
      * @param Mage_Catalog_Model_Product
-     * @return Mage_GoogleBase_Model_Item
+     * @return $this
      */
     public function setProduct($product)
     {
@@ -201,7 +201,7 @@ class Mage_GoogleBase_Model_Item extends Mage_Core_Model_Abstract
     /**
      * Check product instance
      *
-     * @return Mage_GoogleBase_Model_Item
+     * @return $this
      */
     protected function _checkProduct()
     {
@@ -214,7 +214,7 @@ class Mage_GoogleBase_Model_Item extends Mage_Core_Model_Abstract
     /**
      * Copy Product object and assign additional data to the copy
      *
-     * @return Mage_GoogleBase_Model_Item
+     * @return $this
      */
     protected function _prepareProductObject()
     {

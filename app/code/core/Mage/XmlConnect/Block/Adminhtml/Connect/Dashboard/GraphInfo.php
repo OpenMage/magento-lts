@@ -44,7 +44,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphInfo extends Mage_C
      * Add last orders info to xml object
      *
      * @param Mage_XmlConnect_Model_Simplexml_Element $xmlObj
-     * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphInfo
+     * @return $this
      */
     public function addGraphInfoToXmlObj(Mage_XmlConnect_Model_Simplexml_Element $xmlObj)
     {
@@ -61,7 +61,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphInfo extends Mage_C
      * Add time range select filed to xml object
      *
      * @param Mage_XmlConnect_Model_Simplexml_Element $xmlObj
-     * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphInfo
+     * @return $this
      */
     protected function _addRangeValues(Mage_XmlConnect_Model_Simplexml_Element $xmlObj)
     {
@@ -102,7 +102,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphInfo extends Mage_C
      * Add data select field to xml object
      *
      * @param Mage_XmlConnect_Model_Simplexml_Element $xmlObj
-     * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphInfo
+     * @return $this
      */
     protected function _addDataSelector(Mage_XmlConnect_Model_Simplexml_Element $xmlObj)
     {
@@ -123,7 +123,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphInfo extends Mage_C
      * Add orders chart data to xml object
      *
      * @param Mage_XmlConnect_Model_Simplexml_Element $graphInfoXmlObj
-     * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphInfo
+     * @return $this
      */
     protected function _addChartDataOrders(Mage_XmlConnect_Model_Simplexml_Element $graphInfoXmlObj)
     {
@@ -136,7 +136,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphInfo extends Mage_C
      * Add amounts chart data to xml object
      *
      * @param Mage_XmlConnect_Model_Simplexml_Element $graphInfoXmlObj
-     * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphInfo
+     * @return $this
      */
     protected function _addChartDataAmounts(Mage_XmlConnect_Model_Simplexml_Element $graphInfoXmlObj)
     {
@@ -149,7 +149,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphInfo extends Mage_C
      * Add totals chart data to xml object
      *
      * @param Mage_XmlConnect_Model_Simplexml_Element $graphInfoXmlObj
-     * @return Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphInfo
+     * @return $this
      */
     protected function _addTotalsBar(Mage_XmlConnect_Model_Simplexml_Element $graphInfoXmlObj)
     {

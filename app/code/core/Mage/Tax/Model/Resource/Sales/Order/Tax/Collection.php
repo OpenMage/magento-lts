@@ -46,7 +46,7 @@ class Mage_Tax_Model_Resource_Sales_Order_Tax_Collection extends Mage_Core_Model
      * Retrieve order tax collection by order identifier
      *
      * @param Varien_Object $order
-     * @return Mage_Tax_Model_Resource_Sales_Order_Tax_Collection
+     * @return $this
      */
     public function loadByOrder($order)
     {

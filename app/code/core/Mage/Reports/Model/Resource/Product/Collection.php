@@ -82,7 +82,7 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Set Type for COUNT SQL Select
      *
      * @param int $type
-     * @return Mage_Reports_Model_Resource_Product_Collection
+     * @return $this
      */
     public function setSelectCountSqlType($type)
     {
@@ -94,7 +94,7 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Set product entity id
      *
      * @param int $value
-     * @return Mage_Reports_Model_Resource_Product_Collection
+     * @return $this
      */
     public function setProductEntityId($entityId)
     {
@@ -116,7 +116,7 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Set product entity table name
      *
      * @param string $value
-     * @return Mage_Reports_Model_Resource_Product_Collection
+     * @return $this
      */
     public function setProductEntityTableName($value)
     {
@@ -138,7 +138,7 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Set product entity type id
      *
      * @param int $value
-     * @return Mage_Reports_Model_Resource_Product_Collection
+     * @return $this
      */
     public function setProductEntityTypeId($value)
     {
@@ -159,7 +159,7 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Join fields
      *
-     * @return Mage_Reports_Model_Resource_Product_Collection
+     * @return $this
      */
     protected function _joinFields()
     {
@@ -208,7 +208,7 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Add carts count
      *
-     * @return Mage_Reports_Model_Resource_Product_Collection
+     * @return $this
      */
     public function addCartsCount()
     {
@@ -234,7 +234,7 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      *
      * @param string $from
      * @param string $to
-     * @return Mage_Reports_Model_Resource_Product_Collection
+     * @return $this
      */
     public function addOrdersCount($from = '', $to = '')
     {
@@ -269,7 +269,7 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      *
      * @param string $from
      * @param string $to
-     * @return Mage_Reports_Model_Resource_Product_Collection
+     * @return $this
      */
     public function addOrderedQty($from = '', $to = '')
     {
@@ -330,7 +330,7 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      *
      * @param string $attribute
      * @param string $dir
-     * @return Mage_Reports_Model_Resource_Product_Collection
+     * @return $this
      */
     public function setOrder($attribute, $dir = self::SORT_ORDER_DESC)
     {
@@ -348,7 +348,7 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      *
      * @param string $from
      * @param string $to
-     * @return Mage_Reports_Model_Resource_Product_Collection
+     * @return $this
      */
     public function addViewsCount($from = '', $to = '')
     {
@@ -407,7 +407,7 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      *
      * @param  array $storeIds
      * @param  array $websiteIds
-     * @return Mage_Reports_Model_Resource_Product_Collection
+     * @return $this
      */
     public function addStoreRestrictions($storeIds, $websiteIds)
     {

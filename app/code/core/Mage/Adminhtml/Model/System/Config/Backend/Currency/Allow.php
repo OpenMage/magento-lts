@@ -40,7 +40,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Currency_Allow extends Mage_Adm
      * Check is isset default display currency in allowed currencies
      * Check allowed currencies is available in installed currencies
      *
-     * @return Mage_Adminhtml_Model_System_Config_Backend_Currency_Allow
+     * @return $this
      */
     protected function _afterSave()
     {

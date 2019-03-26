@@ -241,7 +241,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Options extends Mage_XmlConnect_Bloc
      * @param Mage_XmlConnect_Model_Simplexml_Element $xmlItem
      * @param string $type
      * @param int|null $value
-     * @return Mage_XmlConnect_Block_Catalog_Product_Options
+     * @return $this
      */
     protected function _setCartSelectedValue($xmlItem, $type, $value = null)
     {

@@ -294,7 +294,7 @@ class Mage_Paypal_Model_Config
      * Method code setter
      *
      * @param string|Mage_Payment_Model_Method_Abstract $method
-     * @return Mage_Paypal_Model_Config
+     * @return $this
      */
     public function setMethod($method)
     {
@@ -320,7 +320,7 @@ class Mage_Paypal_Model_Config
      * Store ID setter
      *
      * @param int $storeId
-     * @return Mage_Paypal_Model_Config
+     * @return $this
      */
     public function setStoreId($storeId)
     {

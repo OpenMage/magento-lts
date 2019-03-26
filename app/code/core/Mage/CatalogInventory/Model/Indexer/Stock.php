@@ -257,7 +257,7 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
      * Register data required by stock item save process in event object
      *
      * @param Mage_Index_Model_Event $event
-     * @return Mage_CatalogInventory_Model_Indexer_Stock
+     * @return $this
      */
     protected function _registerStockItemSaveEvent(Mage_Index_Model_Event $event)
     {
@@ -285,7 +285,7 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
      * Register data required by product delete process in event object
      *
      * @param Mage_Index_Model_Event $event
-     * @return Mage_CatalogInventory_Model_Indexer_Stock
+     * @return $this
      */
     protected function _registerCatalogProductDeleteEvent(Mage_Index_Model_Event $event)
     {
@@ -304,7 +304,7 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
      * Register data required by product mass action process in event object
      *
      * @param Mage_Index_Model_Event $event
-     * @return Mage_CatalogInventory_Model_Indexer_Stock
+     * @return $this
      */
     protected function _registerCatalogProductMassActionEvent(Mage_Index_Model_Event $event)
     {

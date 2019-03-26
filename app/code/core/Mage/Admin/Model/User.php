@@ -114,7 +114,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Processing data before model save
      *
-     * @return Mage_Admin_Model_User
+     * @return $this
      */
     protected function _beforeSave()
     {
@@ -188,7 +188,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Save user roles
      *
-     * @return Mage_Admin_Model_User
+     * @return $this
      */
     public function saveRelations()
     {
@@ -226,7 +226,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Unassign user from his current role
      *
-     * @return Mage_Admin_Model_User
+     * @return $this
      */
     public function deleteFromRole()
     {
@@ -248,7 +248,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Assign user to role
      *
-     * @return Mage_Admin_Model_User
+     * @return $this
      */
     public function add()
     {
@@ -279,7 +279,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Send email with new user password
      *
-     * @return Mage_Admin_Model_User
+     * @return $this
      * @deprecated deprecated since version 1.6.1.0
      */
     public function sendNewPasswordEmail()
@@ -290,7 +290,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Send email with reset password confirmation link
      *
-     * @return Mage_Admin_Model_User
+     * @return $this
      */
     public function sendPasswordResetConfirmationEmail()
     {
@@ -411,7 +411,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Reload current user
      *
-     * @return Mage_Admin_Model_User
+     * @return $this
      */
     public function reload()
     {
@@ -432,7 +432,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * Load user by its username
      *
      * @param string $username
-     * @return Mage_Admin_Model_User
+     * @return $this
      */
     public function loadByUsername($username)
     {
@@ -627,7 +627,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * Stores new reset password link token and its creation time
      *
      * @param string $newResetPasswordLinkToken
-     * @return Mage_Admin_Model_User
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function changeResetPasswordLinkToken($newResetPasswordLinkToken) {
@@ -675,7 +675,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Clean password's validation data (password, current_password, new_password, password_confirmation)
      *
-     * @return Mage_Admin_Model_User
+     * @return $this
      */
     public function cleanPasswordsValidationData()
     {

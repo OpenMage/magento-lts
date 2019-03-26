@@ -48,7 +48,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Element_Select extends Mage_XmlConnec
      * Add value and options to select
      *
      * @param Mage_XmlConnect_Model_Simplexml_Element $xmlObj
-     * @return Mage_XmlConnect_Model_Simplexml_Form_Element_Select
+     * @return $this
      */
     protected function _addValue(Mage_XmlConnect_Model_Simplexml_Element $xmlObj)
     {
@@ -65,7 +65,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Element_Select extends Mage_XmlConnec
      * Add options to select
      *
      * @param Mage_XmlConnect_Model_Simplexml_Element $xmlObj
-     * @return Mage_XmlConnect_Model_Simplexml_Form_Element_Select
+     * @return $this
      */
     protected function _addOptions(Mage_XmlConnect_Model_Simplexml_Element $xmlObj)
     {

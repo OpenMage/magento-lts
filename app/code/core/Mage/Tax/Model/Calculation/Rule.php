@@ -103,7 +103,7 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
      * After save rule
      * Re - declared for populate rate calculations
      *
-     * @return Mage_Tax_Model_Calculation_Rule
+     * @return $this
      */
     protected function _afterSave()
     {
@@ -117,7 +117,7 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
      * After rule delete
      * redeclared for dispatch tax_settings_change_after event
      *
-     * @return Mage_Tax_Model_Calculation_Rule
+     * @return $this
      */
     protected function _afterDelete()
     {

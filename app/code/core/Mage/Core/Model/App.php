@@ -260,7 +260,7 @@ class Mage_Core_Model_App
      * @param  string|array $code
      * @param  string $type
      * @param  string|array $options
-     * @return Mage_Core_Model_App
+     * @return $this
      */
     public function init($code, $type = null, $options = array())
     {
@@ -292,7 +292,7 @@ class Mage_Core_Model_App
      * Common logic for all run types
      *
      * @param  string|array $options
-     * @return Mage_Core_Model_App
+     * @return $this
      */
     public function baseInit($options)
     {
@@ -317,7 +317,7 @@ class Mage_Core_Model_App
      * @param  string $scopeType
      * @param  string|array $options
      * @param  string|array $modules
-     * @return Mage_Core_Model_App
+     * @return $this
      */
     public function initSpecified($scopeCode, $scopeType = null, $options = array(), $modules = array())
     {
@@ -340,7 +340,7 @@ class Mage_Core_Model_App
      *  options    - configuration options
      *
      * @param  array $params application run parameters
-     * @return Mage_Core_Model_App
+     * @return $this
      */
     public function run($params)
     {
@@ -370,7 +370,7 @@ class Mage_Core_Model_App
     /**
      * Initialize PHP environment
      *
-     * @return Mage_Core_Model_App
+     * @return $this
      */
     protected function _initEnvironment()
     {
@@ -383,7 +383,7 @@ class Mage_Core_Model_App
      * Initialize base system configuration (local.xml and config.xml files).
      * Base configuration provide ability initialize DB connection and cache backend
      *
-     * @return Mage_Core_Model_App
+     * @return $this
      */
     protected function _initBaseConfig()
     {
@@ -397,7 +397,7 @@ class Mage_Core_Model_App
      * Initialize application cache instance
      *
      * @param array $cacheInitOptions
-     * @return Mage_Core_Model_App
+     * @return $this
      */
     protected function _initCache(array $cacheInitOptions = array())
     {
@@ -417,7 +417,7 @@ class Mage_Core_Model_App
     /**
      * Initialize active modules configuration and data
      *
-     * @return Mage_Core_Model_App
+     * @return $this
      */
     protected function _initModules()
     {
@@ -456,7 +456,7 @@ class Mage_Core_Model_App
     /**
      * Init request object
      *
-     * @return Mage_Core_Model_App
+     * @return $this
      */
     protected function _initRequest()
     {
@@ -517,7 +517,7 @@ class Mage_Core_Model_App
     /**
      * Check get store
      *
-     * @return Mage_Core_Model_App
+     * @return $this
      */
     protected function _checkGetStore($type)
     {
@@ -572,7 +572,7 @@ class Mage_Core_Model_App
      * Check cookie store
      *
      * @param string $type
-     * @return Mage_Core_Model_App
+     * @return $this
      */
     protected function _checkCookieStore($type)
     {
@@ -743,7 +743,7 @@ class Mage_Core_Model_App
      * Set current default store
      *
      * @param string $store
-     * @return Mage_Core_Model_App
+     * @return $this
      */
     public function setCurrentStore($store)
     {
@@ -754,7 +754,7 @@ class Mage_Core_Model_App
     /**
      * Initialize application front controller
      *
-     * @return Mage_Core_Model_App
+     * @return $this
      */
     protected function _initFrontController()
     {
@@ -1206,7 +1206,7 @@ class Mage_Core_Model_App
      * Save cache usage settings
      *
      * @param array $data
-     * @return Mage_Core_Model_App
+     * @return $this
      */
     public function saveUseCache($data)
     {
@@ -1244,7 +1244,7 @@ class Mage_Core_Model_App
      * Request setter
      *
      * @param Mage_Core_Controller_Request_Http $request
-     * @return Mage_Core_Model_App
+     * @return $this
      */
     public function setRequest(Mage_Core_Controller_Request_Http $request)
     {
@@ -1271,7 +1271,7 @@ class Mage_Core_Model_App
      * Response setter
      *
      * @param Mage_Core_Controller_Response_Http $response
-     * @return Mage_Core_Model_App
+     * @return $this
      */
     public function setResponse(Mage_Core_Controller_Response_Http $response)
     {
@@ -1349,7 +1349,7 @@ class Mage_Core_Model_App
      * @param object $object
      * @param string $method
      * @param Varien_Event_Observer $observer
-     * @return Mage_Core_Model_App
+     * @return $this
      * @throws Mage_Core_Exception
      */
     protected function _callObserverMethod($object, $method, $observer)
@@ -1381,7 +1381,7 @@ class Mage_Core_Model_App
      * Set use session var instead of SID for URL
      *
      * @param bool $var
-     * @return Mage_Core_Model_App
+     * @return $this
      */
     public function setUseSessionVar($var)
     {
@@ -1419,7 +1419,7 @@ class Mage_Core_Model_App
      * Set Use session in URL flag
      *
      * @param bool $flag
-     * @return Mage_Core_Model_App
+     * @return $this
      */
     public function setUseSessionInUrl($flag = true)
     {
@@ -1441,7 +1441,7 @@ class Mage_Core_Model_App
      * Allow or disallow single store mode
      *
      * @param bool $value
-     * @return Mage_Core_Model_App
+     * @return $this
      */
     public function setIsSingleStoreModeAllowed($value)
     {

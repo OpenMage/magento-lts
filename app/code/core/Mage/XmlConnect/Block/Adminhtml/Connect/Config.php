@@ -54,7 +54,7 @@ class Mage_XmlConnect_Block_Adminhtml_Connect_Config extends Mage_Core_Block_Abs
      * Add localization data to xml object
      *
      * @param Mage_XmlConnect_Model_Simplexml_Element $xml
-     * @return Mage_XmlConnect_Block_Adminhtml_Connect_Config
+     * @return $this
      */
     protected function _addLocalization(Mage_XmlConnect_Model_Simplexml_Element $xml)
     {

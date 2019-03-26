@@ -59,7 +59,7 @@ class Mage_XmlConnect_Block_Catalog_Product_ItemPrice extends Mage_XmlConnect_Bl
      *
      * @param string $type
      * @param string $renderer
-     * @return Mage_XmlConnect_Block_Catalog_Product_ItemPrice
+     * @return $this
      */
     public function addRenderer($type, $renderer)
     {

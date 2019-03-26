@@ -58,7 +58,7 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Options extends Mage_Wishlist_B
      * @param string $productType
      * @param string $helperName
      * @param null|string $template
-     * @return Mage_Wishlist_Block_Customer_Wishlist_Item_Options
+     * @return $this
      */
     public function addOptionsRenderCfg($productType, $helperName, $template = null)
     {

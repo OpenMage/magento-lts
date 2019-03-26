@@ -66,7 +66,7 @@ class Mage_Core_Model_Flag extends Mage_Core_Model_Abstract
     /**
      * Processing object before save data
      *
-     * @return Mage_Core_Model_Flag
+     * @return $this
      */
     protected function _beforeSave()
     {
@@ -98,7 +98,7 @@ class Mage_Core_Model_Flag extends Mage_Core_Model_Abstract
      * Set flag data
      *
      * @param mixed $value
-     * @return Mage_Core_Model_Flag
+     * @return $this
      */
     public function setFlagData($value)
     {
@@ -108,7 +108,7 @@ class Mage_Core_Model_Flag extends Mage_Core_Model_Abstract
     /**
      * load self (load by flag code)
      *
-     * @return Mage_Core_Model_Flag
+     * @return $this
      */
     public function loadSelf()
     {

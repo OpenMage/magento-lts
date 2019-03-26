@@ -97,7 +97,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Tierprice
      *
      * @param Mage_Catalog_Model_Product $product
      * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
-     * @return Mage_Catalog_Model_Resource_Product_Attribute_Backend_Tierprice
+     * @return $this
      */
     public function deleteProductPrices($product, $attribute)
     {
@@ -121,7 +121,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Tierprice
      *
      * @param Mage_Catalog_Model_Product $product
      * @param array $data
-     * @return Mage_Catalog_Model_Resource_Product_Attribute_Backend_Tierprice
+     * @return $this
      */
     public function insertProductPrice($product, $data)
     {

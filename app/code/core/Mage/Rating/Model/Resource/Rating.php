@@ -46,7 +46,7 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Initialize unique fields
      *
-     * @return Mage_Rating_Model_Resource_Rating
+     * @return $this
      */
     protected function _initUniqueFields()
     {
@@ -86,7 +86,7 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
      * Actions after load
      *
      * @param Mage_Rating_Model_Rating $object
-     * @return Mage_Rating_Model_Resource_Rating
+     * @return $this
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
@@ -132,7 +132,7 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
      * Actions after save
      *
      * @param Mage_Rating_Model_Rating $object
-     * @return Mage_Rating_Model_Resource_Rating
+     * @return $this
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -228,7 +228,7 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
      * Prepare rating data for reaggregate all data for reviews
      *
      * @param Mage_Rating_Model_Rating $object
-     * @return Mage_Rating_Model_Resource_Rating
+     * @return $this
      */
     protected function _afterDelete(Mage_Core_Model_Abstract $object)
     {
@@ -423,7 +423,7 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
      * Delete ratings by product id
      *
      * @param int $productId
-     * @return Mage_Rating_Model_Resource_Rating
+     * @return $this
      */
     public function deleteAggregatedRatingsByProductId($productId)
     {

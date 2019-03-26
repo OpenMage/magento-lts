@@ -68,7 +68,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     /**
      * Prepares layout of block
      *
-     * @return Mage_Adminhtml_Block_Sales_Order_View_Giftmessage
+     * @return $this
      */
     protected function _prepareLayout()
     {
@@ -101,7 +101,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
      * Set entity for form
      *
      * @param Varien_Object $entity
-     * @return Mage_Adminhtml_Block_Sales_Order_View_Giftmessage
+     * @return $this
      */
     public function setEntity(Varien_Object $entity)
     {
@@ -204,7 +204,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     /**
      * Initialize gift message for entity
      *
-     * @return Mage_Adminhtml_Block_Sales_Order_View_Giftmessage
+     * @return $this
      */
     protected function _initMessage()
     {

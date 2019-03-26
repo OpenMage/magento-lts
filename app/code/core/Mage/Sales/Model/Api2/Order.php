@@ -47,7 +47,7 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
      * Add gift message info to select
      *
      * @param Mage_Sales_Model_Resource_Order_Collection $collection
-     * @return Mage_Sales_Model_Api2_Order
+     * @return $this
      */
     protected function _addGiftMessageInfo(Mage_Sales_Model_Resource_Order_Collection $collection)
     {
@@ -68,7 +68,7 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
      * Add order payment method field to select
      *
      * @param Mage_Sales_Model_Resource_Order_Collection $collection
-     * @return Mage_Sales_Model_Api2_Order
+     * @return $this
      */
     protected function _addPaymentMethodInfo(Mage_Sales_Model_Resource_Order_Collection $collection)
     {
@@ -85,7 +85,7 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
      * Add order tax information to select
      *
      * @param Mage_Sales_Model_Resource_Order_Collection $collection
-     * @return Mage_Sales_Model_Api2_Order
+     * @return $this
      */
     protected function _addTaxInfo(Mage_Sales_Model_Resource_Order_Collection $collection)
     {

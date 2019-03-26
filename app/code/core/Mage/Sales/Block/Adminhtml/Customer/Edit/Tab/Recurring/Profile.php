@@ -87,7 +87,7 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Recurring_Profile
     /**
      * Prepare collection for grid
      *
-     * @return Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Recurring_Profile
+     * @return $this
      */
     protected function _prepareCollection()
     {

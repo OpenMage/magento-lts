@@ -54,7 +54,7 @@ class Mage_Core_Model_Resource_Url_Rewrite extends Mage_Core_Model_Resource_Db_A
     /**
      * Initialize array fields
      *
-     * @return Mage_Core_Model_Resource_Url_Rewrite
+     * @return $this
      */
     protected function _initUniqueFields()
     {

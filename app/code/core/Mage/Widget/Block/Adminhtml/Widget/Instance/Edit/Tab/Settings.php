@@ -94,7 +94,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings
     /**
      * Prepare form before rendering HTML
      *
-     * @return Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings
+     * @return $this
      */
     protected function _prepareForm()
     {

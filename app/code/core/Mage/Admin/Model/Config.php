@@ -85,7 +85,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
      * @param Mage_Admin_Model_Acl $acl
      * @param Mage_Core_Model_Config_Element $resource
      * @param string $parentName
-     * @return Mage_Admin_Model_Config
+     * @return $this
      */
     public function loadAclResources(Mage_Admin_Model_Acl $acl, $resource = null, $parentName = null)
     {

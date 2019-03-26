@@ -39,7 +39,7 @@ class Mage_Customer_Model_Attribute_Backend_Data_Boolean
      * Prepare data before attribute save
      *
      * @param Mage_Customer_Model_Customer $customer
-     * @return Mage_Customer_Model_Attribute_Backend_Data_Boolean
+     * @return $this
      */
     public function beforeSave($customer)
     {

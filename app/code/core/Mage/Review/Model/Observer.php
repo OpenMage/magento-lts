@@ -38,7 +38,7 @@ class Mage_Review_Model_Observer
      * Add review summary info for tagged product collection
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Review_Model_Observer
+     * @return $this
      */
     public function tagProductCollectionLoadAfter(Varien_Event_Observer $observer)
     {
@@ -69,7 +69,7 @@ class Mage_Review_Model_Observer
      * Append review summary before rendering html
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Review_Model_Observer
+     * @return $this
      */
     public function catalogBlockProductCollectionBeforeToHtml(Varien_Event_Observer $observer)
     {

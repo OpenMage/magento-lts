@@ -48,7 +48,7 @@ class Mage_Newsletter_Model_Resource_Template extends Mage_Core_Model_Resource_D
      *
      * @param Mage_Newsletter_Model_Template $object
      * @param string $templateCode
-     * @return Mage_Newsletter_Model_Resource_Template
+     * @return $this
      */
     public function loadByCode(Mage_Newsletter_Model_Template $object, $templateCode)
     {
@@ -123,7 +123,7 @@ class Mage_Newsletter_Model_Resource_Template extends Mage_Core_Model_Resource_D
      * Perform actions before object save
      *
      * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Newsletter_Model_Resource_Template
+     * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {

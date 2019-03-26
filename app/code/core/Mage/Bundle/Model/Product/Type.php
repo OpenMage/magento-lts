@@ -268,7 +268,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      * Save type related data
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Bundle_Model_Product_Type
+     * @return $this
      */
     public function save($product = null)
     {
@@ -921,7 +921,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      * Check if product can be bought
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Bundle_Model_Product_Type
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function checkProductBuyState($product = null)

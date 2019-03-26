@@ -105,7 +105,7 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
     /**
      * Prepare child blocks
      *
-     * @return Mage_Catalog_Block_Layer_View
+     * @return $this
      */
     protected function _prepareLayout()
     {

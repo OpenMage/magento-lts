@@ -53,7 +53,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      *
      * @param array|Mage_Catalog_Model_Category|Mage_Catalog_Model_Product $object
      * @param int $calledFrom
-     * @return Mage_Catalog_Model_Design
+     * @return $this
      */
     public function applyDesign($object, $calledFrom = 0)
     {
@@ -200,7 +200,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      * @param Varien_Object $object
      * @param int $calledFrom
      *
-     * @return Mage_Catalog_Model_Design
+     * @return $this
      */
     protected function _inheritDesign($object, $calledFrom = 0)
     {
@@ -251,7 +251,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      * @param int $calledFrom
      * @param int $pass
      *
-     * @return Mage_Catalog_Model_Design
+     * @return $this
      */
     protected function _applyDesignRecursively($object, $calledFrom = 0, $pass = 0)
     {

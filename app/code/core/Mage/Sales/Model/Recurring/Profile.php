@@ -360,7 +360,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
      * Import quote information to the profile
      *
      * @param Mage_Sales_Model_Quote_ $quote
-     * @return Mage_Sales_Model_Recurring_Profile
+     * @return $this
      */
     public function importQuote(Mage_Sales_Model_Quote $quote)
     {
@@ -394,7 +394,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
      * Import quote item information to the profile
      *
      * @param Mage_Sales_Model_Quote_Item_Abstract $item
-     * @return Mage_Sales_Model_Recurring_Profile
+     * @return $this
      */
     public function importQuoteItem(Mage_Sales_Model_Quote_Item_Abstract $item)
     {
@@ -623,7 +623,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
      * Add order relation to recurring profile
      *
      * @param int $recurringProfileId
-     * @return Mage_Sales_Model_Recurring_Profile
+     * @return $this
      */
     public function addOrderRelation($orderId)
     {

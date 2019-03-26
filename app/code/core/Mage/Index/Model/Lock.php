@@ -84,7 +84,7 @@ class Mage_Index_Model_Lock
     /**
      * Get lock singleton instance
      *
-     * @return Mage_Index_Model_Lock
+     * @return $this
      */
     public static function getInstance()
     {

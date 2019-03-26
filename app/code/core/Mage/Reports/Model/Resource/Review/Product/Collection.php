@@ -42,7 +42,7 @@ class Mage_Reports_Model_Resource_Review_Product_Collection extends Mage_Catalog
     /**
      * Join review table to result
      *
-     * @return Mage_Reports_Model_Resource_Review_Product_Collection
+     * @return $this
      */
     public function joinReview()
     {
@@ -95,7 +95,7 @@ class Mage_Reports_Model_Resource_Review_Product_Collection extends Mage_Catalog
      *
      * @param string $attribute
      * @param string $dir
-     * @return Mage_Reports_Model_Resource_Review_Product_Collection
+     * @return $this
      */
     public function addAttributeToSort($attribute, $dir = self::SORT_ORDER_ASC)
     {

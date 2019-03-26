@@ -58,7 +58,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Address
     /**
      * Prepare Form and add elements to form
      *
-     * @return Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Address
+     * @return $this
      */
     protected function _prepareForm()
     {

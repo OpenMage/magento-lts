@@ -102,7 +102,7 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
      * Save status labels per store
      *
      * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Sales_Model_Resource_Order_Status
+     * @return $this
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -136,7 +136,7 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
      * @param string $status
      * @param string $state
      * @param bool $isDefault
-     * @return Mage_Sales_Model_Resource_Order_Status
+     * @return $this
      */
     public function assignState($status, $state, $isDefault)
     {
@@ -163,7 +163,7 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
      *
      * @param string $status
      * @param string $state
-     * @return Mage_Sales_Model_Resource_Order_Status
+     * @return $this
      */
     public function unassignState($status, $state)
     {

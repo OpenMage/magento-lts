@@ -111,7 +111,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
      * Initialize product collection
      *
      * @param Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection $collection
-     * @return Mage_Catalog_Model_Layer
+     * @return $this
      */
     public function prepareProductCollection($collection)
     {
@@ -133,7 +133,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
      * for prepare some index data before getting information
      * about existing intexes
      *
-     * @return Mage_Catalog_Model_Layer
+     * @return $this
      */
     public function apply()
     {
@@ -175,7 +175,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
      * Change current category object
      *
      * @param mixed $category
-     * @return Mage_Catalog_Model_Layer
+     * @return $this
      */
     public function setCurrentCategory($category)
     {

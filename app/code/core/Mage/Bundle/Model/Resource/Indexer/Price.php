@@ -37,7 +37,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
     /**
      * Reindex temporary (price result data) for all products
      *
-     * @return Mage_Bundle_Model_Resource_Indexer_Price
+     * @return $this
      */
     public function reindexAll()
     {
@@ -59,7 +59,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
      * Reindex temporary (price result data) for defined product(s)
      *
      * @param int|array $entityIds
-     * @return Mage_Bundle_Model_Resource_Indexer_Price
+     * @return $this
      */
     public function reindexEntity($entityIds)
     {
@@ -110,7 +110,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
     /**
      * Prepare temporary price index table for fixed bundle products
      *
-     * @return Mage_Bundle_Model_Resource_Indexer_Price
+     * @return $this
      */
     protected function _prepareBundlePriceTable()
     {
@@ -121,7 +121,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
     /**
      * Prepare table structure for temporary bundle selection prices index
      *
-     * @return Mage_Bundle_Model_Resource_Indexer_Price
+     * @return $this
      */
     protected function _prepareBundleSelectionTable()
     {
@@ -132,7 +132,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
     /**
      * Prepare table structure for temporary bundle option prices index
      *
-     * @return Mage_Bundle_Model_Resource_Indexer_Price
+     * @return $this
      */
     protected function _prepareBundleOptionTable()
     {
@@ -145,7 +145,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
      *
      * @param int $priceType
      * @param int|array $entityIds the entity ids limitatation
-     * @return Mage_Bundle_Model_Resource_Indexer_Price
+     * @return $this
      */
     protected function _prepareBundlePriceByType($priceType, $entityIds = null)
     {
@@ -304,7 +304,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
     /**
      * Calculate fixed bundle product selections price
      *
-     * @return Mage_Bundle_Model_Resource_Indexer_Price
+     * @return $this
      */
     protected function _calculateBundleOptionPrice()
     {
@@ -396,7 +396,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
      * Calculate bundle product selections price by product type
      *
      * @param int $priceType
-     * @return Mage_Bundle_Model_Resource_Indexer_Price
+     * @return $this
      */
     protected function _calculateBundleSelectionPrice($priceType)
     {
@@ -542,7 +542,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
      * Prepare temporary index price for bundle products
      *
      * @param int|array $entityIds  the entity ids limitation
-     * @return Mage_Bundle_Model_Resource_Indexer_Price
+     * @return $this
      */
     protected function _prepareBundlePrice($entityIds = null)
     {
@@ -584,7 +584,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
      * @see Mage_Catalog_Model_Resource_Product_Indexer_Price::_prepareTierPriceIndex
      *
      * @param int|array $entityIds
-     * @return Mage_Bundle_Model_Resource_Indexer_Price
+     * @return $this
      */
     protected function _prepareTierPriceIndex($entityIds = null)
     {
@@ -643,7 +643,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
      * @see Mage_Catalog_Model_Resource_Product_Indexer_Price::_prepareGroupPriceIndex
      *
      * @param int|array $entityIds
-     * @return Mage_Bundle_Model_Resource_Indexer_Price
+     * @return $this
      */
     protected function _prepareGroupPriceIndex($entityIds = null)
     {

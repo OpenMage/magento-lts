@@ -56,7 +56,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Startdate extends Mage_Eav_Mo
     * Prepare attribute value for save
     *
     * @param Varien_Object $object
-    * @return Mage_Catalog_Model_Product_Attribute_Backend_Startdate
+    * @return $this
     */
     public function beforeSave($object)
     {

@@ -113,7 +113,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      * Rebuild Catalog Product Flat Data
      *
      * @param Mage_Core_Model_Store|int $store
-     * @return Mage_Catalog_Model_Resource_Product_Flat_Indexer
+     * @return $this
      */
     public function rebuild($store = null)
     {
@@ -610,7 +610,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      *
      * @param int $storeId
      * @throws Mage_Core_Exception
-     * @return Mage_Catalog_Model_Resource_Product_Flat_Indexer
+     * @return $this
      */
     public function prepareFlatTable($storeId)
     {
@@ -826,7 +826,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      *
      * @param int $storeId
      * @param int|array $productIds update only product(s)
-     * @return Mage_Catalog_Model_Resource_Product_Flat_Indexer
+     * @return $this
      */
     public function updateStaticAttributes($storeId, $productIds = null)
     {
@@ -902,7 +902,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      *
      * @param int $storeId
      * @param int|array $productIds
-     * @return Mage_Catalog_Model_Resource_Product_Flat_Indexer
+     * @return $this
      */
     public function cleanNonWebsiteProducts($storeId, $productIds = null)
     {
@@ -949,7 +949,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @param int $storeId
      * @param int|array $productIds update only product(s)
-     * @return Mage_Catalog_Model_Resource_Product_Flat_Indexer
+     * @return $this
      */
     public function updateAttribute($attribute, $storeId, $productIds = null)
     {
@@ -1010,7 +1010,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      *
      * @param int $storeId
      * @param int|array $productIds update only product(s)
-     * @return Mage_Catalog_Model_Resource_Product_Flat_Indexer
+     * @return $this
      */
     public function updateEavAttributes($storeId, $productIds = null)
     {
@@ -1066,7 +1066,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      *
      * @param int $storeId
      * @param int|array $productIds Update child product(s) only
-     * @return Mage_Catalog_Model_Resource_Product_Flat_Indexer
+     * @return $this
      */
     public function updateRelationProducts($storeId, $productIds = null)
     {
@@ -1125,7 +1125,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      *
      * @param int $storeId
      * @param int|array $productIds
-     * @return Mage_Catalog_Model_Resource_Product_Flat_Indexer
+     * @return $this
      */
     public function updateChildrenDataFromParent($storeId, $productIds = null)
     {
@@ -1162,7 +1162,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      * Clean unused relation products
      *
      * @param int $storeId
-     * @return Mage_Catalog_Model_Resource_Product_Flat_Indexer
+     * @return $this
      */
     public function cleanRelationProducts($storeId)
     {
@@ -1221,7 +1221,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      *
      * @param int|array $productIds
      * @param int $storeId
-     * @return Mage_Catalog_Model_Resource_Product_Flat_Indexer
+     * @return $this
      */
     public function removeProduct($productIds, $storeId)
     {
@@ -1246,7 +1246,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      *
      * @param int|array $productIds
      * @param int $storeId
-     * @return Mage_Catalog_Model_Resource_Product_Flat_Indexer
+     * @return $this
      */
     public function removeProductChildren($productIds, $storeId)
     {
@@ -1267,7 +1267,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      *
      * @param int|array $productIds
      * @param int $storeId
-     * @return Mage_Catalog_Model_Resource_Product_Flat_Indexer
+     * @return $this
      */
     public function updateProduct($productIds, $storeId)
     {
@@ -1291,7 +1291,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      *
      * @param int|array $productIds
      * @param int $storeId
-     * @return Mage_Catalog_Model_Resource_Product_Flat_Indexer
+     * @return $this
      */
     public function saveProduct($productIds, $storeId)
     {
@@ -1309,7 +1309,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      * Delete flat table process
      *
      * @param int $storeId
-     * @return Mage_Catalog_Model_Resource_Product_Flat_Indexer
+     * @return $this
      */
     public function deleteFlatTable($storeId)
     {
@@ -1381,7 +1381,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Transactional rebuild Catalog Product Flat Data
      *
-     * @return Mage_Catalog_Model_Resource_Product_Flat_Indexer
+     * @return $this
      */
     public function reindexAll()
     {

@@ -81,7 +81,7 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
      *
      * @param int $productId
      * @param int $storeId
-     * @return Mage_Catalog_Model_Resource_Product_Status
+     * @return $this
      */
     public function refreshEnabledIndex($productId, $storeId)
     {
@@ -104,7 +104,7 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
      * @param int $productId
      * @param int $storId
      * @param int $value
-     * @return Mage_Catalog_Model_Resource_Product_Status
+     * @return $this
      */
     public function updateProductStatus($productId, $storeId, $value)
     {

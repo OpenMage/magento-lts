@@ -274,7 +274,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
      * Reset quote and address applied rules
      *
      * @param Mage_Sales_Model_Quote_Address $address
-     * @return Mage_SalesRule_Model_Validator
+     * @return $this
      */
     public function reset(Mage_Sales_Model_Quote_Address $address)
     {
@@ -526,7 +526,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
      *
      * @param Mage_Sales_Model_Quote_Address $address
      * @param array $items
-     * @return Mage_SalesRule_Model_Validator
+     * @return $this
      */
     public function processWeeeAmount(Mage_Sales_Model_Quote_Address $address, $items)
     {
@@ -858,7 +858,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
      *
      * @param mixed $items
      * @param Mage_Sales_Model_Quote_Address $address
-     * @return Mage_SalesRule_Model_Validator
+     * @return $this
      */
     public function initTotals($items, Mage_Sales_Model_Quote_Address $address)
     {
@@ -907,7 +907,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
      * @param  Mage_Sales_Model_Quote_Address $address
      * @param  Mage_SalesRule_Model_Rule $rule
      *
-     * @return Mage_SalesRule_Model_Validator
+     * @return $this
      */
     protected function _maintainAddressCouponCode($address, $rule)
     {
@@ -1015,7 +1015,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
      *
      * @param Mage_Sales_Model_Quote_Address $address
      * @param string $separator
-     * @return Mage_SalesRule_Model_Validator
+     * @return $this
      */
     public function prepareDescription($address, $separator = ', ')
     {

@@ -130,7 +130,7 @@ class Mage_XmlConnect_Model_Theme
      * Set theme name
      *
      * @param  $name
-     * @return Mage_XmlConnect_Model_Theme
+     * @return $this
      */
     public function setName($name)
     {
@@ -153,7 +153,7 @@ class Mage_XmlConnect_Model_Theme
      * Set theme Label
      *
      * @param  $label
-     * @return Mage_XmlConnect_Model_Theme
+     * @return $this
      */
     public function setLabel($label)
     {
@@ -207,7 +207,7 @@ class Mage_XmlConnect_Model_Theme
      *
      * @param  $themeName new theme label
      * @param  $data theme config array
-     * @return Mage_XmlConnect_Model_Theme
+     * @return $this
      */
     public function createNewTheme($themeName, $data)
     {

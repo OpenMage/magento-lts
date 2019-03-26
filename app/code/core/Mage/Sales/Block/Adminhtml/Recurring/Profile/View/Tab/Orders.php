@@ -46,7 +46,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders
     /**
      * Prepare grid collection object
      *
-     * @return Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders
+     * @return $this
      */
     protected function _prepareCollection()
     {
@@ -62,7 +62,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders
      *
      * TODO: fix up this mess
      *
-     * @return Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders
+     * @return $this
      */
     protected function _prepareColumns()
     {

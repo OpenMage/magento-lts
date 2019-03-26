@@ -39,7 +39,7 @@ class Mage_Customer_Model_Resource_Address_Attribute_Backend_Street
      * Prepare object for save
      *
      * @param Varien_Object $object
-     * @return Mage_Customer_Model_Resource_Address_Attribute_Backend_Street
+     * @return $this
      */
     public function beforeSave($object)
     {

@@ -46,7 +46,7 @@ class Mage_Sales_Model_Resource_Quote_Address_Item_Collection extends Mage_Core_
     /**
      * Set parent items
      *
-     * @return Mage_Sales_Model_Resource_Quote_Address_Item_Collection
+     * @return $this
      */
     protected function _afterLoad()
     {
@@ -67,7 +67,7 @@ class Mage_Sales_Model_Resource_Quote_Address_Item_Collection extends Mage_Core_
      * Set address filter
      *
      * @param int $addressId
-     * @return Mage_Sales_Model_Resource_Quote_Address_Item_Collection
+     * @return $this
      */
     public function setAddressFilter($addressId)
     {

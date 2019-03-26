@@ -50,7 +50,7 @@ class Mage_Eav_Model_Resource_Form_Fieldset extends Mage_Core_Model_Resource_Db_
      * After save (save labels)
      *
      * @param Mage_Eav_Model_Form_Fieldset $object
-     * @return Mage_Eav_Model_Resource_Form_Fieldset
+     * @return $this
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {

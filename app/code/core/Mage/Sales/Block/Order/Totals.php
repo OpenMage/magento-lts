@@ -39,7 +39,7 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
     /**
      * Initialize self totals and children blocks totals before html building
      *
-     * @return Mage_Sales_Block_Order_Totals
+     * @return $this
      */
     protected function _beforeToHtml()
     {
@@ -90,7 +90,7 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
     /**
      * Initialize order totals array
      *
-     * @return Mage_Sales_Block_Order_Totals
+     * @return $this
      */
     protected function _initTotals()
     {

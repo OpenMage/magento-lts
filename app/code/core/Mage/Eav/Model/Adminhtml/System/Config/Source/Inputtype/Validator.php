@@ -75,7 +75,7 @@ class Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype_Validator extends 
      * Add input type to haystack
      *
      * @param string $type
-     * @return Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype_Validator
+     * @return $this
      */
     public function addInputType($type)
     {

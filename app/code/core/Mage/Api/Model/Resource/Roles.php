@@ -64,7 +64,7 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
      * Action before save
      *
      * @param Mage_Core_Model_Abstract $role
-     * @return Mage_Api_Model_Resource_Roles
+     * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $role)
     {
@@ -90,7 +90,7 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
      * Action after save
      *
      * @param Mage_Core_Model_Abstract $role
-     * @return Mage_Api_Model_Resource_Roles
+     * @return $this
      */
     protected function _afterSave(Mage_Core_Model_Abstract $role)
     {
@@ -103,7 +103,7 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
      * Action after delete
      *
      * @param Mage_Core_Model_Abstract $role
-     * @return Mage_Api_Model_Resource_Roles
+     * @return $this
      */
     protected function _afterDelete(Mage_Core_Model_Abstract $role)
     {

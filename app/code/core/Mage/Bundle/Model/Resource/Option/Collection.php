@@ -61,7 +61,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
      * Joins values to options
      *
      * @param int $storeId
-     * @return Mage_Bundle_Model_Resource_Option_Collection
+     * @return $this
      */
     public function joinValues($storeId)
     {
@@ -96,7 +96,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
      * Sets product id filter
      *
      * @param int $productId
-     * @return Mage_Bundle_Model_Resource_Option_Collection
+     * @return $this
      */
     public function setProductIdFilter($productId)
     {
@@ -107,7 +107,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
     /**
      * Sets order by position
      *
-     * @return Mage_Bundle_Model_Resource_Option_Collection
+     * @return $this
      */
     public function setPositionOrder()
     {
@@ -152,7 +152,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
     /**
      * Removes appended selections before
      *
-     * @return Mage_Bundle_Model_Resource_Option_Collection
+     * @return $this
      */
     protected function _stripSelections()
     {
@@ -167,7 +167,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
      * Sets filter by option id
      *
      * @param array|int $ids
-     * @return Mage_Bundle_Model_Resource_Option_Collection
+     * @return $this
      */
     public function setIdFilter($ids)
     {
@@ -182,7 +182,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
     /**
      * Reset all item ids cache
      *
-     * @return Mage_Bundle_Model_Resource_Option_Collection
+     * @return $this
      */
     public function resetAllIds()
     {

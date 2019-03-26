@@ -76,7 +76,7 @@ class Mage_ProductAlert_Block_Product_View extends Mage_Core_Block_Template
     /**
      * Get current product instance
      *
-     * @return Mage_ProductAlert_Block_Product_View
+     * @return $this
      */
     protected function _prepareLayout()
     {

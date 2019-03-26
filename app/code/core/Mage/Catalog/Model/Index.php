@@ -37,7 +37,7 @@ class Mage_Catalog_Model_Index
     /**
      * Rebuild indexes
      *
-     * @return Mage_Catalog_Model_Index
+     * @return $this
      */
     public function rebuild()
     {

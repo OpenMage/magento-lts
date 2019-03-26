@@ -710,7 +710,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      * DoAuthorization call
      *
      * @link https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_api_nvp_r_DoAuthorization
-     * @return Mage_Paypal_Model_Api_Nvp
+     * @return $this
      */
     public function callDoAuthorization()
     {
@@ -1014,7 +1014,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      * Setter for 'raw response needed' flag
      *
      * @param bool $flag
-     * @return Mage_Paypal_Model_Api_Nvp
+     * @return $this
      */
     public function setRawResponseNeeded($flag)
     {

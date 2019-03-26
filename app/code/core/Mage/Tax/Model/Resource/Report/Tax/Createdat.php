@@ -47,7 +47,7 @@ class Mage_Tax_Model_Resource_Report_Tax_Createdat extends Mage_Reports_Model_Re
      *
      * @param mixed $from
      * @param mixed $to
-     * @return Mage_Tax_Model_Resource_Report_Tax_Createdat
+     * @return $this
      */
     public function aggregate($from = null, $to = null)
     {
@@ -61,7 +61,7 @@ class Mage_Tax_Model_Resource_Report_Tax_Createdat extends Mage_Reports_Model_Re
      * @param string $aggregationField
      * @param mixed $from
      * @param mixed $to
-     * @return Mage_Tax_Model_Resource_Report_Tax_Createdat
+     * @return $this
      */
     protected function _aggregateByOrder($aggregationField, $from, $to)
     {

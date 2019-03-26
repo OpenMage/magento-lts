@@ -95,7 +95,7 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby
      * Before Attribute Save Process
      *
      * @param Varien_Object $object
-     * @return Mage_Catalog_Model_Category_Attribute_Backend_Sortby
+     * @return $this
      */
     public function beforeSave($object) {
         $attributeCode = $this->getAttribute()->getName();

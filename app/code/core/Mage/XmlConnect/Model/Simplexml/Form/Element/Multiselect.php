@@ -49,7 +49,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Element_Multiselect
      * Add value to element
      *
      * @param Mage_XmlConnect_Model_Simplexml_Element $xmlObj
-     * @return Mage_XmlConnect_Model_Simplexml_Form_Element_Multiselect
+     * @return $this
      */
     protected function _addValue(Mage_XmlConnect_Model_Simplexml_Element $xmlObj)
     {

@@ -46,7 +46,7 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Initialize unique fields
      *
-     * @return Mage_Core_Model_Resource_Store
+     * @return $this
      */
     protected function _initUniqueFields()
     {
@@ -61,7 +61,7 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
      * Check store code before save
      *
      * @param Mage_Core_Model_Abstract $model
-     * @return Mage_Core_Model_Resource_Store
+     * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $model)
     {
@@ -77,7 +77,7 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
      * Update Store Group data after save store
      *
      * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Core_Model_Resource_Store
+     * @return $this
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -92,7 +92,7 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
      * Remove core configuration data after delete store
      *
      * @param Mage_Core_Model_Abstract $model
-     * @return Mage_Core_Model_Resource_Store
+     * @return $this
      */
     protected function _afterDelete(Mage_Core_Model_Abstract $model)
     {
@@ -113,7 +113,7 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
      *
      * @param int $groupId
      * @param int $storeId
-     * @return Mage_Core_Model_Resource_Store
+     * @return $this
      */
     protected function _updateGroupDefaultStore($groupId, $storeId)
     {
@@ -138,7 +138,7 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
      * Change store group for store
      *
      * @param Mage_Core_Model_Abstract $model
-     * @return Mage_Core_Model_Resource_Store
+     * @return $this
      */
     protected function _changeGroup(Mage_Core_Model_Abstract $model)
     {

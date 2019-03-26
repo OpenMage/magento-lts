@@ -123,7 +123,7 @@ class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_A
      * Update auto generated Specific Coupon if it's rule changed
      *
      * @param Mage_SalesRule_Model_Rule $rule
-     * @return Mage_SalesRule_Model_Resource_Coupon
+     * @return $this
      */
     public function updateSpecificCoupons(Mage_SalesRule_Model_Rule $rule)
     {

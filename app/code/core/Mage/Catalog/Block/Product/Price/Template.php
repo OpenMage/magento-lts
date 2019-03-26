@@ -60,7 +60,7 @@ class Mage_Catalog_Block_Product_Price_Template extends Mage_Core_Block_Abstract
      * @param string $type
      * @param string $block
      * @param string $template
-     * @return Mage_Catalog_Block_Product_Price_Template
+     * @return $this
      */
     public function addPriceBlockType($type, $block = '', $template = '')
     {

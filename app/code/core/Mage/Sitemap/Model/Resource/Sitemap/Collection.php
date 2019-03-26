@@ -47,7 +47,7 @@ class Mage_Sitemap_Model_Resource_Sitemap_Collection extends Mage_Core_Model_Res
      * Filter collection by specified store ids
      *
      * @param array|int $storeIds
-     * @return Mage_Sitemap_Model_Resource_Sitemap_Collection
+     * @return $this
      */
     public function addStoreFilter($storeIds)
     {

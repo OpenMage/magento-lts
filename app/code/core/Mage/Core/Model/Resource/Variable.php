@@ -48,7 +48,7 @@ class Mage_Core_Model_Resource_Variable extends Mage_Core_Model_Resource_Db_Abst
      *
      * @param Mage_Core_Model_Variable $object
      * @param string $code
-     * @return Mage_Core_Model_Resource_Variable
+     * @return $this
      */
     public function loadByCode(Mage_Core_Model_Variable $object, $code)
     {
@@ -81,7 +81,7 @@ class Mage_Core_Model_Resource_Variable extends Mage_Core_Model_Resource_Db_Abst
      * Perform actions after object save
      *
      * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Core_Model_Resource_Variable
+     * @return $this
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -132,7 +132,7 @@ class Mage_Core_Model_Resource_Variable extends Mage_Core_Model_Resource_Db_Abst
      *
      * @param Zend_Db_Select $select
      * @param integer $storeId
-     * @return Mage_Core_Model_Resource_Variable
+     * @return $this
      */
     protected function _addValueToSelect(Zend_Db_Select $select, $storeId = Mage_Core_Model_App::ADMIN_STORE_ID)
     {

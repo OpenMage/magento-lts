@@ -246,7 +246,7 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
      * @param unknown_type $range
      * @param unknown_type $index
      * @param unknown_type $tableName
-     * @return Mage_CatalogIndex_Model_Resource_Price
+     * @return $this
      */
     public function applyFilterToCollection($collection, $attribute, $range, $index, $tableName = 'price_table')
     {

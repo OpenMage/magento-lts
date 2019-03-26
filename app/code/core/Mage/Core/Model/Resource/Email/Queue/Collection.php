@@ -46,7 +46,7 @@ class Mage_Core_Model_Resource_Email_Queue_Collection extends Mage_Core_Model_Re
     /**
      * Add recipients and unserialize message parameters
      *
-     * @return Mage_Core_Model_Resource_Email_Queue_Collection
+     * @return $this
      */
     protected function _afterLoad()
     {
@@ -57,7 +57,7 @@ class Mage_Core_Model_Resource_Email_Queue_Collection extends Mage_Core_Model_Re
     /**
      * Add filter by only ready for sending item
      *
-     * @return Mage_Core_Model_Resource_Email_Queue_Collection
+     * @return $this
      */
     public function addOnlyForSendingFilter()
     {

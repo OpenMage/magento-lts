@@ -149,7 +149,7 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
      * Entity and form code must be defined for the form
      *
      * @param Mage_Customer_Model_Form $form
-     * @return Mage_Customer_Block_Form_Register
+     * @return $this
      */
     public function restoreSessionData(Mage_Customer_Model_Form $form, $scope = null)
     {

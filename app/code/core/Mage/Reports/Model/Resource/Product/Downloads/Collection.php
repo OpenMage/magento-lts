@@ -50,7 +50,7 @@ class Mage_Reports_Model_Resource_Product_Downloads_Collection extends Mage_Cata
     /**
      * Add downloads summary grouping by product
      *
-     * @return Mage_Reports_Model_Resource_Product_Downloads_Collection
+     * @return $this
      */
     public function addSummary()
     {
@@ -91,7 +91,7 @@ class Mage_Reports_Model_Resource_Product_Downloads_Collection extends Mage_Cata
      *
      * @param string $attribute
      * @param string $dir
-     * @return Mage_Reports_Model_Resource_Product_Downloads_Collection
+     * @return $this
      */
     public function setOrder($attribute, $dir = self::SORT_ORDER_DESC)
     {
@@ -108,7 +108,7 @@ class Mage_Reports_Model_Resource_Product_Downloads_Collection extends Mage_Cata
      *
      * @param string $field
      * @param string $condition
-     * @return Mage_Reports_Model_Resource_Product_Downloads_Collection
+     * @return $this
      */
     public function addFieldToFilter($field, $condition = null)
     {

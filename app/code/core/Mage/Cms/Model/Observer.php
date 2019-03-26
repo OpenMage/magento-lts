@@ -38,7 +38,7 @@ class Mage_Cms_Model_Observer
      * Modify No Route Forward object
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Cms_Model_Observer
+     * @return $this
      */
     public function noRoute(Varien_Event_Observer $observer)
     {
@@ -54,7 +54,7 @@ class Mage_Cms_Model_Observer
      * Modify no Cookies forward object
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Cms_Model_Observer
+     * @return $this
      */
     public function noCookies(Varien_Event_Observer $observer)
     {

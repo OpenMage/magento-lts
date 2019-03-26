@@ -38,7 +38,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
     /**
      * Prepare child blocks
      *
-     * @return Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items
+     * @return $this
      */
     protected function _prepareLayout()
     {

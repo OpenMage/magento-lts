@@ -148,7 +148,7 @@ class Mage_XmlConnect_Block_Adminhtml_Queue_Grid extends Mage_Adminhtml_Block_Wi
     /**
      * Prepare mass actions
      *
-     * @return Mage_XmlConnect_Block_Adminhtml_Queue_Grid
+     * @return $this
      */
     protected function _prepareMassaction()
     {

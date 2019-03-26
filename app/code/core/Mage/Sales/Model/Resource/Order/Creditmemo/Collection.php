@@ -67,7 +67,7 @@ class Mage_Sales_Model_Resource_Order_Creditmemo_Collection extends Mage_Sales_M
     /**
      * Used to emulate after load functionality for each item without loading them
      *
-     * @return Mage_Sales_Model_Resource_Order_Creditmemo_Collection
+     * @return $this
      */
     protected function _afterLoad()
     {
@@ -79,7 +79,7 @@ class Mage_Sales_Model_Resource_Order_Creditmemo_Collection extends Mage_Sales_M
      * Add filtration conditions
      *
      * @param array|null $filter
-     * @return Mage_Sales_Model_Resource_Order_Creditmemo_Collection
+     * @return $this
      */
     public function getFiltered($filter = null)
     {

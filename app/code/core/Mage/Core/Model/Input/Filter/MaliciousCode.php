@@ -78,7 +78,7 @@ class Mage_Core_Model_Input_Filter_MaliciousCode implements Zend_Filter_Interfac
      * Add expression
      *
      * @param string $expression
-     * @return Mage_Core_Model_Input_Filter_MaliciousCode
+     * @return $this
      */
     public function addExpression($expression)
     {
@@ -92,7 +92,7 @@ class Mage_Core_Model_Input_Filter_MaliciousCode implements Zend_Filter_Interfac
      * Set expressions
      *
      * @param array $expressions
-     * @return Mage_Core_Model_Input_Filter_MaliciousCode
+     * @return $this
      */
     public function setExpressions(array $expressions)
     {

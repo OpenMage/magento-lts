@@ -120,7 +120,7 @@ class Mage_XmlConnect_Model_Simplexml_Message extends Varien_Object
     /**
      * Get message type
      *
-     * @return Mage_XmlConnect_Model_Simplexml_Message
+     * @return $this
      */
     protected function _setMessageStatus()
     {
@@ -153,7 +153,7 @@ class Mage_XmlConnect_Model_Simplexml_Message extends Varien_Object
      * set message text
      *
      * @param string $text
-     * @return Mage_XmlConnect_Model_Simplexml_Message
+     * @return $this
      */
     public function setMessageText($text)
     {
@@ -177,7 +177,7 @@ class Mage_XmlConnect_Model_Simplexml_Message extends Varien_Object
      * Set message code
      *
      * @param string $messageCode
-     * @return Mage_XmlConnect_Model_Simplexml_Message
+     * @return $this
      */
     public function setMessageCode($messageCode)
     {
@@ -201,7 +201,7 @@ class Mage_XmlConnect_Model_Simplexml_Message extends Varien_Object
      * Set children message params
      *
      * @param array $children
-     * @return Mage_XmlConnect_Model_Simplexml_Message
+     * @return $this
      */
     public function setChildren($children)
     {
@@ -235,7 +235,7 @@ class Mage_XmlConnect_Model_Simplexml_Message extends Varien_Object
      * Set message renderer
      *
      * @param Mage_XmlConnect_Model_Simplexml_Message_Abstract $messageRenderer
-     * @return Mage_XmlConnect_Model_Simplexml_Message
+     * @return $this
      */
     protected function _setMessageRenderer($messageRenderer)
     {
@@ -257,7 +257,7 @@ class Mage_XmlConnect_Model_Simplexml_Message extends Varien_Object
      * Set flag error in processing
      *
      * @param boolean $flagError
-     * @return Mage_XmlConnect_Model_Simplexml_Message
+     * @return $this
      */
     public function _setFlagError($flagError)
     {

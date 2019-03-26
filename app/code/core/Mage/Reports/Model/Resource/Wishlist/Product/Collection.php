@@ -46,7 +46,7 @@ class Mage_Reports_Model_Resource_Wishlist_Product_Collection extends Mage_Wishl
     /**
      * Add wishlist count
      *
-     * @return Mage_Reports_Model_Resource_Wishlist_Product_Collection
+     * @return $this
      */
     public function addWishlistCount()
     {
@@ -70,7 +70,7 @@ class Mage_Reports_Model_Resource_Wishlist_Product_Collection extends Mage_Wishl
     /**
      * add customer count to result
      *
-     * @return Mage_Reports_Model_Resource_Wishlist_Product_Collection
+     * @return $this
      */
     public function getCustomerCount()
     {
@@ -110,7 +110,7 @@ class Mage_Reports_Model_Resource_Wishlist_Product_Collection extends Mage_Wishl
      *
      * @param string $attribute
      * @param string $dir
-     * @return Mage_Reports_Model_Resource_Wishlist_Product_Collection
+     * @return $this
      */
     public function setOrder($attribute, $dir = self::SORT_ORDER_DESC)
     {

@@ -193,7 +193,7 @@ class Mage_Core_Model_Url_Rewrite_Request
     /**
      * Process redirect (R) and permanent redirect (RP)
      *
-     * @return Mage_Core_Model_Url_Rewrite_Request
+     * @return $this
      */
     protected function _processRedirectOptions()
     {

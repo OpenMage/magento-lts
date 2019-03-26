@@ -74,7 +74,7 @@ class Mage_Sales_Model_Resource_Order_Creditmemo extends Mage_Sales_Model_Resour
     /**
      * Init virtual grid records for entity
      *
-     * @return Mage_Sales_Model_Resource_Order_Creditmemo
+     * @return $this
      */
     protected function _initVirtualGridColumns()
     {

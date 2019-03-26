@@ -74,7 +74,7 @@ class Mage_Log_Model_Visitor_Online extends Mage_Core_Model_Abstract
     /**
      * Prepare Online visitors collection
      *
-     * @return Mage_Log_Model_Visitor_Online
+     * @return $this
      */
     public function prepare()
     {

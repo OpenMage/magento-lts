@@ -214,7 +214,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Processing object before save data
      *
-     * @return Mage_Customer_Model_Customer
+     * @return $this
      */
     protected function _beforeSave()
     {
@@ -378,7 +378,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * Set plain and hashed password
      *
      * @param string $password
-     * @return Mage_Customer_Model_Customer
+     * @return $this
      */
     public function setPassword($password)
     {
@@ -600,7 +600,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * @param string $storeId
      * @param string $password
      * @throws Mage_Core_Exception
-     * @return Mage_Customer_Model_Customer
+     * @return $this
      */
     public function sendNewAccountEmail($type = 'registered', $backUrl = '', $storeId = '0', $password = null)
     {
@@ -659,7 +659,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Send email with new customer password
      *
-     * @return Mage_Customer_Model_Customer
+     * @return $this
      */
     public function sendPasswordReminderEmail()
     {
@@ -677,7 +677,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Send info email about changed password or email
      *
-     * @return Mage_Customer_Model_Customer
+     * @return $this
      */
     public function sendChangedPasswordOrEmail()
     {
@@ -701,7 +701,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * @param array $templateParams
      * @param int|null $storeId
      * @param string|null $customerEmail
-     * @return Mage_Customer_Model_Customer
+     * @return $this
      */
     protected function _sendEmailTemplate($template, $sender, $templateParams = array(), $storeId = null, $customerEmail = null)
     {
@@ -724,7 +724,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Send email with reset password confirmation link
      *
-     * @return Mage_Customer_Model_Customer
+     * @return $this
      */
     public function sendPasswordResetConfirmationEmail()
     {
@@ -844,7 +844,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * Set store to customer
      *
      * @param Mage_Core_Model_Store $store
-     * @return Mage_Customer_Model_Customer
+     * @return $this
      */
     public function setStore(Mage_Core_Model_Store $store)
     {
@@ -945,7 +945,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * Import customer data from text array
      *
      * @param array $row
-     * @return Mage_Customer_Model_Customer
+     * @return $this
      */
     public function importFromTextArray(array $row)
     {
@@ -1112,7 +1112,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Unset subscription
      *
-     * @return Mage_Customer_Model_Customer
+     * @return $this
      */
     function unsetSubscription()
     {
@@ -1125,7 +1125,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Clean all addresses
      *
-     * @return Mage_Customer_Model_Customer
+     * @return $this
      */
     function cleanAllAddresses() {
         $this->_addressesCollection = null;
@@ -1135,7 +1135,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Add error
      *
-     * @return Mage_Customer_Model_Customer
+     * @return $this
      */
     function addError($error)
     {
@@ -1156,7 +1156,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Reset errors array
      *
-     * @return Mage_Customer_Model_Customer
+     * @return $this
      */
     function resetErrors()
     {
@@ -1252,7 +1252,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Reset all model data
      *
-     * @return Mage_Customer_Model_Customer
+     * @return $this
      */
     public function reset()
     {
@@ -1277,7 +1277,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * Set is deleteable flag
      *
      * @param boolean $value
-     * @return Mage_Customer_Model_Customer
+     * @return $this
      */
     public function setIsDeleteable($value)
     {
@@ -1299,7 +1299,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * Set is readonly flag
      *
      * @param boolean $value
-     * @return Mage_Customer_Model_Customer
+     * @return $this
      */
     public function setIsReadonly($value)
     {
@@ -1380,7 +1380,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * Stores new reset password link token
      *
      * @param string $newResetPasswordLinkToken
-     * @return Mage_Customer_Model_Customer
+     * @return $this
      */
     public function changeResetPasswordLinkToken($newResetPasswordLinkToken) {
         if (!is_string($newResetPasswordLinkToken) || empty($newResetPasswordLinkToken)) {
@@ -1397,7 +1397,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * Stores new reset password link customer Id
      *
      * @param string $newResetPasswordLinkCustomerId
-     * @return Mage_Customer_Model_Customer
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function changeResetPasswordLinkCustomerId($newResetPasswordLinkCustomerId)
@@ -1447,7 +1447,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Clean password's validation data (password, password_confirmation)
      *
-     * @return Mage_Customer_Model_Customer
+     * @return $this
      */
     public function cleanPasswordsValidationData()
     {

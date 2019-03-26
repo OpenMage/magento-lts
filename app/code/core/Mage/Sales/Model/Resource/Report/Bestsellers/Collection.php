@@ -123,7 +123,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection
     /**
      * Add selected data
      *
-     * @return Mage_Sales_Model_Resource_Report_Bestsellers_Collection
+     * @return $this
      */
     protected function _initSelect()
     {
@@ -188,7 +188,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection
      * Set ids for store restrictions
      *
      * @param  array $storeIds
-     * @return Mage_Sales_Model_Resource_Report_Bestsellers_Collection
+     * @return $this
      */
     public function addStoreRestrictions($storeIds)
     {
@@ -213,7 +213,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection
      * Redeclare parent method for applying filters after parent method
      * but before adding unions and calculating totals
      *
-     * @return Mage_Sales_Model_Resource_Report_Bestsellers_Collection
+     * @return $this
      */
     protected function _beforeLoad()
     {

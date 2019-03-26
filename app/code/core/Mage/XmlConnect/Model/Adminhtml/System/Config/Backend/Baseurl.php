@@ -37,7 +37,7 @@ class Mage_XmlConnect_Model_Adminhtml_System_Config_Backend_Baseurl
     /**
      * Update all applications "updated at" parameter with current date
      *
-     * @return Mage_XmlConnect_Model_Adminhtml_System_Config_Backend_Baseurl
+     * @return $this
      */
     protected function _afterSave()
     {

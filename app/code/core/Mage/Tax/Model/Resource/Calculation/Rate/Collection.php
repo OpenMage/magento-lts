@@ -50,7 +50,7 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
     /**
      * Join country table to result
      *
-     * @return Mage_Tax_Model_Resource_Calculation_Rate_Collection
+     * @return $this
      */
     public function joinCountryTable()
     {
@@ -66,7 +66,7 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
     /**
      * Join Region Table
      *
-     * @return Mage_Tax_Model_Resource_Calculation_Rate_Collection
+     * @return $this
      */
     public function joinRegionTable()
     {
@@ -82,7 +82,7 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
      * Join rate title for specified store
      *
      * @param Mage_Core_Model_Store|string|int $store
-     * @return Mage_Tax_Model_Resource_Calculation_Rate_Collection
+     * @return $this
      */
     public function joinTitle($store = null)
     {
@@ -100,7 +100,7 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
     /**
      * Joins store titles for rates
      *
-     * @return Mage_Tax_Model_Resource_Calculation_Rate_Collection
+     * @return $this
      */
     public function joinStoreTitles()
     {
@@ -124,7 +124,7 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
      * Add rate filter
      *
      * @param int $rateId
-     * @return Mage_Tax_Model_Resource_Calculation_Rate_Collection
+     * @return $this
      */
     public function addRateFilter($rateId)
     {

@@ -104,7 +104,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     /**
      * Init mapping array of short fields to its full names
      *
-     * @return Mage_Sales_Model_Order_Shipment
+     * @return $this
      */
     protected function _initOldFieldsMap()
     {
@@ -116,7 +116,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      * Load shipment by increment id
      *
      * @param string $incrementId
-     * @return Mage_Sales_Model_Order_Shipment
+     * @return $this
      */
     public function loadByIncrementId($incrementId)
     {
@@ -332,7 +332,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      * @param bool $notify
      * @param bool $visibleOnFront
      *
-     * @return Mage_Sales_Model_Order_Shipment
+     * @return $this
      */
     public function addComment($comment, $notify=false, $visibleOnFront=false)
     {
@@ -379,7 +379,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      *
      * @param boolean $notifyCustomer
      * @param string $comment
-     * @return Mage_Sales_Model_Order_Shipment
+     * @return $this
      */
     public function sendEmail($notifyCustomer = true, $comment = '')
     {
@@ -469,7 +469,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      *
      * @param boolean $notifyCustomer
      * @param string $comment
-     * @return Mage_Sales_Model_Order_Shipment
+     * @return $this
      */
     public function sendUpdateEmail($notifyCustomer = true, $comment = '')
     {
@@ -546,7 +546,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     /**
      * Before object save
      *
-     * @return Mage_Sales_Model_Order_Shipment
+     * @return $this
      */
     protected function _beforeSave()
     {
@@ -577,7 +577,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     /**
      * After object save manipulations
      *
-     * @return Mage_Sales_Model_Order_Shipment
+     * @return $this
      */
     protected function _afterSave()
     {
@@ -616,7 +616,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      * Set shipping label
      *
      * @param string $label   label representation (image or pdf file)
-     * @return Mage_Sales_Model_Order_Shipment
+     * @return $this
      */
     public function setShippingLabel($label)
     {
