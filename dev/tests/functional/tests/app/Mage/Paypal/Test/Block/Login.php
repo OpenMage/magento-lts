@@ -20,7 +20,7 @@
  *
  * @category    Tests
  * @package     Tests_Functional
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -122,5 +122,19 @@ class Login extends Form
     {
         $this->waitForElementNotVisible($this->loader);
         return parent::fill($customer, $this->switchOnPayPalFrame($element));
+    }
+
+    /**
+     * Check is block active
+     *
+     * @return bool
+     */
+    public function isBlockActive()
+    {
+        if ($this->browser->find($this->mapping['password']['selector'])->isVisible()) {
+            return true;
+        }
+
+        return false;
     }
 }

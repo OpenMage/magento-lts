@@ -20,7 +20,7 @@
  *
  * @category    Tests
  * @package     Tests_Functional
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Mage\Paypal\Test\Block;
@@ -63,16 +63,18 @@ class NewLogin extends Login
      */
     public function fill(FixtureInterface $customer, Element $element = null)
     {
+        $fullMapping = $this->mapping;
+
         $this->waitForElementNotVisible($this->loader);
-        $this->clickToElement($this->startLoginButton);
         $this->_rootElement = $this->browser->find('.main');
+
+        $this->overrideMapping($this->getFormSplitMapping('email'));
         parent::fill($customer, $this->switchOnPayPalFrame($element));
 
-        $path = glob(MTF_TESTS_PATH . preg_replace('/^\w+\/\w+/', '*/*', str_replace('\\', '/', get_class($this))) . 'Password.xml');
-        $this->mapping = $this->mapper->read(reset($path))['fields'];
-        if (!$this->browser->find($this->mapping['password']['selector'])->isVisible()) {
+        if (!$this->browser->find($fullMapping['password']['selector'])->isVisible()) {
             $this->clickToElement($this->nextButton);
         }
+        $this->overrideMapping($this->getFormSplitMapping('password'));
         parent::fill($customer, $this->switchOnPayPalFrame($element));
 
         return $this;
@@ -82,5 +84,45 @@ class NewLogin extends Login
     {
         $rootElement = $this->findRootElement();
         $rootElement->find($selector)->click();
+    }
+
+    /**
+     * Check is block active
+     *
+     * @return bool
+     */
+    public function isBlockActive()
+    {
+        if (!$this->browser->find($this->mapping['password']['selector'])->isVisible()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Override mapping to the form
+     *
+     * @param array $mapping
+     * @return void
+     */
+    protected function overrideMapping(array $mapping)
+    {
+        $this->mapping = $mapping;
+    }
+
+    /**
+     * Get mapping to the form by key
+     *
+     * @return array
+     */
+    protected function getFormSplitMapping($key)
+    {
+        $mapping = $this->getFormMapping();
+        if (empty($mapping)) {
+            return [];
+        }
+
+        return isset($mapping['fields'][$key]) ? [$key => $mapping['fields'][$key]] : [];
     }
 }
