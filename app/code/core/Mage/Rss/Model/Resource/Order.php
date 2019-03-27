@@ -107,7 +107,7 @@ class Mage_Rss_Model_Resource_Order
      *
      * @deprecated after 1.4.1.0
      *
-     * @param unknown_type $entityIds
+     * @param array $entityIds
      * @return array
      */
     public function getAllEntityIds($entityIds = array())

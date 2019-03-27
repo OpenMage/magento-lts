@@ -714,6 +714,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      * Adds comment to invoice with additional possibility to send it to customer via email
      * and show it in customer account
      *
+     * @param Mage_Sales_Model_Order_Invoice_Comment|string $comment
      * @param bool $notify
      * @param bool $visibleOnFront
      *

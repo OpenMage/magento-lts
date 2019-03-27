@@ -75,7 +75,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
      * Return all children ids
      *
      * @param Mage_Core_Model_Store $store
-     * @param int $parentId
+     * @param int|array $parentIds
      * @return mixed
      */
     public function getChildProductIds($store, $parentIds)
@@ -95,7 +95,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
      * Return all parent ids
      *
      * @param Mage_Core_Model_Store $store
-     * @param int $childId
+     * @param int|array $childIds
      * @return mixed
      */
     public function getParentProductIds($store, $childIds)
@@ -117,7 +117,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
      * @param Mage_Core_Model_Store $store
      * @param array $settings
      * @param int $type
-     * @param int $suppliedId
+     * @param int|array $suppliedId
      */
     protected function fetchLinkInformation($store, $settings, $type, $suppliedId)
     {

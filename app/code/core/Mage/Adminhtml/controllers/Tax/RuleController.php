@@ -244,7 +244,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
      * Return helper instance
      *
      * @param string $className
-     * @return Mage_Core_Model_Abstract
+     * @return Mage_Core_Helper_Abstract
      */
     protected function _getHelperModel($className)
     {

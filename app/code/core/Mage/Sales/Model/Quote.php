@@ -349,6 +349,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Loading quote data by customer
      *
+     * @param int|Mage_Customer_Model_Customer $customer
      * @return $this
      */
     public function loadByCustomer($customer)
@@ -732,7 +733,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Retrieve quote items collection
      *
-     * @param   bool $loaded
+     * @param   bool $useCache
      * @return  Mage_Eav_Model_Entity_Collection_Abstract
      */
     public function getItemsCollection($useCache = true)

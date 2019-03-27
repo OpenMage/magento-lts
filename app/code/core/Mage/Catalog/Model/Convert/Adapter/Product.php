@@ -350,8 +350,8 @@ class Mage_Catalog_Model_Convert_Adapter_Product
     /**
      * Retrieve store object by code
      *
-     * @param string $store
-     * @return Mage_Core_Model_Store
+     * @param string $id
+     * @return Mage_Core_Model_Store|bool
      */
     public function getStoreById($id)
     {

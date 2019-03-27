@@ -51,7 +51,6 @@ class Mage_XmlConnect_Model_OfflineCatalog_Product extends Mage_XmlConnect_Block
     /**
      * Export product data
      *
-     * @return $this
      */
     public function exportData()
     {

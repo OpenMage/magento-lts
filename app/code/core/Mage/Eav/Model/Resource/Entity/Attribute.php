@@ -91,7 +91,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
     /**
      * Load attribute data by attribute code
      *
-     * @param Mage_Eav_Model_Entity_Attribute $object
+     * @param Mage_Core_Model_Abstract $object
      * @param int $entityTypeId
      * @param string $code
      * @return boolean
@@ -158,7 +158,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
     /**
      * Validate attribute data before save
      *
-     * @param Mage_Eav_Model_Entity_Attribute $object
+     * @param Mage_Core_Model_Abstract $object
      * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
@@ -187,7 +187,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
     /**
      * Save additional attribute data after save attribute
      *
-     * @param Mage_Eav_Model_Entity_Attribute $object
+     * @param Mage_Core_Model_Abstract $object
      * @return $this
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
@@ -203,7 +203,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
     /**
      * Save store labels
      *
-     * @param Mage_Eav_Model_Entity_Attribute $object
+     * @param Mage_Core_Model_Abstract $object
      * @return $this
      */
     protected function _saveStoreLabels(Mage_Core_Model_Abstract $object)
@@ -234,7 +234,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
     /**
      * Save additional data of attribute
      *
-     * @param Mage_Eav_Model_Entity_Attribute $object
+     * @param Mage_Core_Model_Abstract $object
      * @return $this
      */
     protected function _saveAdditionalAttributeData(Mage_Core_Model_Abstract $object)
@@ -299,7 +299,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
     /**
      *  Save attribute options
      *
-     * @param Mage_Eav_Model_Entity_Attribute $object
+     * @param Mage_Core_Model_Abstract $object
      * @return $this
      */
     protected function _saveOption(Mage_Core_Model_Abstract $object)
@@ -487,7 +487,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
      * Load additional attribute data.
      * Load label of current active store
      *
-     * @param Mage_Eav_Model_Entity_Attribute $object
+     * @param Mage_Core_Model_Abstract $object
      * @return $this
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)

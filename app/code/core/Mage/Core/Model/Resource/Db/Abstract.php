@@ -152,7 +152,6 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      *
      * @param string $mainTable
      * @param string $idFieldName
-     * @return Mage_Core_Model_Resource_Abstract
      */
     protected function _init($mainTable, $idFieldName)
     {

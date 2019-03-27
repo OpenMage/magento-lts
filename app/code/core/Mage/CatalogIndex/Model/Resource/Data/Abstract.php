@@ -85,7 +85,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
      * @param array $products
      * @param array $attributes
      * @param int $store
-     * @return unknown
+     * @return array
      */
     public function getAttributeData($products, $attributes, $store)
     {
@@ -128,7 +128,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
      * @param string $table
      * @param string $idField
      * @param string $whereField
-     * @param int $id
+     * @param int|array $id
      * @param array $additionalWheres
      * @return mixed
      */

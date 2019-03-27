@@ -40,7 +40,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice_
      *
      * @param int $productId
      * @param int $websiteId
-     * @return Mage_Catalog_Model_Resource_Product_Attribute_Backend_Tierprice
+     * @return array
      */
     public function loadPriceData($productId, $websiteId = null)
     {

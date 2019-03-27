@@ -590,8 +590,8 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     /**
      * Check whether file to move exists. Getting unique name
      *
-     * @param <type> $file
-     * @param <type> $dirsep
+     * @param string $file
+     * @param string $dirsep
      * @return string
      */
     protected function _getUniqueFileName($file, $dirsep) {

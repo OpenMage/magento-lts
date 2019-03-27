@@ -122,7 +122,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
      * @param string|null $from
      * @param string|null $to
      * @param Zend_Db_Select|string|null $subSelect
-     * @param unknown_type $doNotUseTruncate
+     * @param bool $doNotUseTruncate
      * @return Mage_Reports_Model_Resource_Report_Abstract
      */
     protected function _clearTableByDateRange($table, $from = null, $to = null, $subSelect = null,
@@ -159,7 +159,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
      * @param string|null $from
      * @param string|null $to
      * @param array $additionalWhere
-     * @param unknown_type $alias
+     * @param string $alias
      * @return Varien_Db_Select
      */
     protected function _getTableDateRangeSelect($table, $column, $whereColumn, $from = null, $to = null,
@@ -202,11 +202,10 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
      * Make condition for using in where section
      * from select statement with single date column
      *
-     * @result string|false
      *
      * @param Varien_Db_Select $select
      * @param string $periodColumn
-     * @return unknown
+     * @return string|false
      */
     protected function _makeConditionFromDateRangeSelect($select, $periodColumn)
     {
@@ -256,8 +255,8 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
      * @param string|null $from
      * @param string|null $to
      * @param array $additionalWhere
-     * @param unknown_type $alias
-     * @param unknown_type $relatedAlias
+     * @param string $alias
+     * @param string $relatedAlias
      * @return Varien_Db_Select
      */
     protected function _getTableDateRangeRelatedSelect($table, $relatedTable, $joinCondition, $column, $whereColumn,

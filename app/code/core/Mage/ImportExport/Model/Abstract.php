@@ -109,7 +109,7 @@ abstract class Mage_ImportExport_Model_Abstract extends Varien_Object
     /**
      * Return human readable debug trace.
      *
-     * @return array
+     * @return string
      */
     public function getFormatedLogTrace()
     {

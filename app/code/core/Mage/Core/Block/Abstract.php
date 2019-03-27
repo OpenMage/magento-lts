@@ -1079,7 +1079,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Returns helper object
      *
      * @param string $name
-     * @return Mage_Core_Block_Abstract
+     * @return Mage_Core_Helper_Abstract
      */
     public function helper($name)
     {
