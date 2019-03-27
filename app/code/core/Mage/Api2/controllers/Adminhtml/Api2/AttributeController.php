@@ -34,6 +34,17 @@
 class Mage_Api2_Adminhtml_Api2_AttributeController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * Controller predispatch method
+     *
+     * @return Mage_Adminhtml_Controller_Action
+     */
+    public function preDispatch()
+    {
+        $this->_setForcedFormKeyActions(array('save'));
+        return parent::preDispatch();
+    }
+
+    /**
      * Show user types grid
      */
     public function indexAction()

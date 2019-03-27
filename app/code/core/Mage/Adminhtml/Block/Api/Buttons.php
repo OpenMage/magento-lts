@@ -71,7 +71,7 @@ class Mage_Adminhtml_Block_Api_Buttons extends Mage_Adminhtml_Block_Template
                             true
                         )
                         . '\', \''
-                        . $this->getUrl('*/*/delete', array('rid' => $this->getRequest()->getParam('rid')))
+                        . $this->getUrlSecure('*/*/delete', array('rid' => $this->getRequest()->getParam('rid')))
                         . '\')',
                     'class' => 'delete'
                 ))

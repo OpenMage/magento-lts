@@ -1004,6 +1004,22 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     }
 
     /**
+     * Generate security url by route and parameters (add form key if "Add Secret Key to URLs" disabled)
+     *
+     * @param string $route
+     * @param array $params
+     *
+     * @return string
+     */
+    public function getUrlSecure($route = '', $params = array())
+    {
+        if (!Mage::helper('adminhtml')->isEnabledSecurityKeyUrl()) {
+            $params[Mage_Core_Model_Url::FORM_KEY] = $this->getFormKey();
+        }
+        return $this->getUrl($route, $params);
+    }
+
+    /**
      * Generate base64-encoded url by route and parameters
      *
      * @param   string $route

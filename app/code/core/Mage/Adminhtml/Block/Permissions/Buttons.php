@@ -70,7 +70,7 @@ class Mage_Adminhtml_Block_Permissions_Buttons extends Mage_Adminhtml_Block_Temp
                             Mage::helper('adminhtml')->__('Are you sure you want to do this?')
                         )
                         . '\', \''
-                        . $this->getUrl('*/*/delete', array('rid' => $this->getRequest()->getParam('rid')))
+                        . $this->getUrlSecure('*/*/delete', array('rid' => $this->getRequest()->getParam('rid')))
                         . '\')',
                     'class' => 'delete'
                 ))
