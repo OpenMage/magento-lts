@@ -37,7 +37,6 @@ abstract class Mage_XmlConnect_Block_Checkout_Payment_Method_Info_Paypal_Abstrac
      * Add CC Save Payment info to order XML object
      *
      * @param Mage_XmlConnect_Model_Simplexml_Element $orderItemXmlObj
-     * @return Mage_XmlConnect_Model_Simplexml_Element
      */
     public function addPaymentInfoToXmlObj(Mage_XmlConnect_Model_Simplexml_Element $orderItemXmlObj)
     {

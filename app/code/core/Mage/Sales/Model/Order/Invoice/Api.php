@@ -117,7 +117,7 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
      * @param string $orderIncrementId
      * @param array $itemsQty
      * @param string $comment
-     * @param booleam $email
+     * @param boolean $email
      * @param boolean $includeComment
      * @return string
      */

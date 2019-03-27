@@ -267,7 +267,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
     /**
      * Get currency rate (base to given currency)
      *
-     * @param string|Mage_Directory_Model_Currency $currencyCode
+     * @param string|Mage_Directory_Model_Currency $toCurrency
      * @return double
      */
     public function getRate($toCurrency)

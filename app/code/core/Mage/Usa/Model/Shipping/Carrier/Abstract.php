@@ -305,7 +305,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      * Do request to shipment
      *
      * @param Mage_Shipping_Model_Shipment_Request $request
-     * @return array
+     * @return Varien_Object
      */
     public function requestToShipment(Mage_Shipping_Model_Shipment_Request $request)
     {
@@ -353,7 +353,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      * Do request to RMA shipment
      *
      * @param $request
-     * @return array
+     * @return Varien_Object
      */
     public function returnOfShipment($request)
     {

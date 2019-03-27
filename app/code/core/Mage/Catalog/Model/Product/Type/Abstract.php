@@ -707,7 +707,6 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     /**
      * Check if product qty is fractional number
      *
-     * @param Mage_Catalog_Model_Product $product
      * @return bool
      */
     public function canUseQtyDecimals()

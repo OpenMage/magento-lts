@@ -40,7 +40,7 @@ class Mage_Catalog_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Resource_
      *
      * @param string $tableAlias
      * @param string $eavType
-     * @return array
+     * @return string|array
      */
     public function attributeSelectFields($tableAlias, $eavType)
     {

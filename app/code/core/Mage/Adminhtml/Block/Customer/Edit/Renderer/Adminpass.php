@@ -53,6 +53,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Adminpass
     }
 
     /**
+     * @param Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     protected function _getScriptHtml(Varien_Data_Form_Element_Abstract $element)

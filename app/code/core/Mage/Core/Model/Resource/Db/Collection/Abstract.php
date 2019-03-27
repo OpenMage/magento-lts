@@ -74,7 +74,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     /**
      * Fields to select changed flag
      *
-     * @var booleam
+     * @var boolean
      */
     protected $_fieldsToSelectChanged  = false;
 

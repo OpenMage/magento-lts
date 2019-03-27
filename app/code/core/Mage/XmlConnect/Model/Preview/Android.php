@@ -65,7 +65,7 @@ class Mage_XmlConnect_Model_Preview_Android extends Mage_XmlConnect_Model_Previe
     /**
      * Get application banner image url
      *
-     * @return string
+     * @return array
      */
     public function getBannerImage()
     {
