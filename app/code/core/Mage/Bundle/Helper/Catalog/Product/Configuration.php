@@ -40,7 +40,7 @@ class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_
      * @param Mage_Catalog_Model_Product $product
      * @param int $selectionId
      *
-     * @return decimal
+     * @return float
      */
     public function getSelectionQty($product, $selectionId)
     {
@@ -57,7 +57,7 @@ class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_
      * @param Mage_Catalog_Model_Product_Configuration_Item_Interface $item
      * @param Mage_Catalog_Model_Product $selectionProduct
      *
-     * @return decimal
+     * @return float
      */
     public function getSelectionFinalPrice(Mage_Catalog_Model_Product_Configuration_Item_Interface $item,
         $selectionProduct)

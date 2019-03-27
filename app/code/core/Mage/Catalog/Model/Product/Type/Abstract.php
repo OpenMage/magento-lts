@@ -773,7 +773,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Default action to get weight of product
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return decimal
+     * @return float
      */
     public function getWeight($product = null)
     {
