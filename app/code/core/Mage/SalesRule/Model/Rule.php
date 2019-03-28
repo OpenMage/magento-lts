@@ -42,7 +42,6 @@
  * @method Mage_SalesRule_Model_Rule setUsesPerCustomer(int $value)
  * @method int getUsesPerCoupon()
  * @method Mage_SalesRule_Model_Rule setUsesPerCoupon(int $value)
- * @method string getCustomerGroupIds()
  * @method Mage_SalesRule_Model_Rule setCustomerGroupIds(string $value)
  * @method int getIsActive()
  * @method Mage_SalesRule_Model_Rule setIsActive(int $value)

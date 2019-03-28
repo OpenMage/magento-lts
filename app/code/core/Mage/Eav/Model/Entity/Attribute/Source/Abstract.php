@@ -53,7 +53,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract
      * Set attribute instance
      *
      * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
-     * @return Mage_Eav_Model_Entity_Attribute_Frontend_Abstract
+     * @return $this
      */
     public function setAttribute($attribute)
     {

@@ -177,7 +177,8 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      * Standard resource collection initalization
      *
      * @param string $model
-     * @return Mage_Core_Model_Mysql4_Collection_Abstract
+     * @param null|string $entityModel
+     * @return $this
      */
     protected function _init($model, $entityModel = null)
     {

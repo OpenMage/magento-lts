@@ -28,7 +28,6 @@
 /**
  * Eav Form Type Model
  *
- * @method Mage_Eav_Model_Resource_Form_Type _getResource()
  * @method Mage_Eav_Model_Resource_Form_Type getResource()
  * @method string getCode()
  * @method Mage_Eav_Model_Form_Type setCode(string $value)

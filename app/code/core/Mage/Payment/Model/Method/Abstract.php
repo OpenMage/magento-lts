@@ -385,7 +385,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     /**
      * Validate payment method information object
      *
-     * @return Mage_Payment_Model_Abstract
+     * @return $this
      */
     public function validate()
     {
@@ -410,7 +410,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * @param Varien_Object $payment
      * @param float $amount
      *
-     * @return Mage_Payment_Model_Abstract
+     * @return $this
      */
     public function order(Varien_Object $payment, $amount)
     {
@@ -426,7 +426,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * @param Varien_Object $payment
      * @param float $amount
      *
-     * @return Mage_Payment_Model_Abstract
+     * @return $this
      */
     public function authorize(Varien_Object $payment, $amount)
     {
@@ -442,7 +442,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * @param Varien_Object $payment
      * @param float $amount
      *
-     * @return Mage_Payment_Model_Abstract
+     * @return $this
      */
     public function capture(Varien_Object $payment, $amount)
     {
@@ -486,7 +486,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * @param Varien_Object $payment
      * @param float $amount
      *
-     * @return Mage_Payment_Model_Abstract
+     * @return $this
      */
     public function refund(Varien_Object $payment, $amount)
     {
@@ -516,7 +516,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      *
      * @param Varien_Object $payment
      *
-     * @return Mage_Payment_Model_Abstract
+     * @return $this
      */
     public function cancel(Varien_Object $payment)
     {
@@ -542,7 +542,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      *
      * @param Varien_Object $payment
      *
-     * @return Mage_Payment_Model_Abstract
+     * @return $this
      */
     public function void(Varien_Object $payment)
     {
@@ -625,7 +625,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * Assign data to info model instance
      *
      * @param   mixed $data
-     * @return  Mage_Payment_Model_Info
+     * @return  $this
      */
     public function assignData($data)
     {
@@ -639,9 +639,9 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     }
 
    /**
-     * Parepare info instance for save
+     * Prepare info instance for save
      *
-     * @return Mage_Payment_Model_Abstract
+     * @return $this
      */
     public function prepareSave()
     {
@@ -741,7 +741,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * @param string $paymentAction
      * @param object $stateObject
      *
-     * @return Mage_Payment_Model_Abstract
+     * @return $this
      */
     public function initialize($paymentAction, $stateObject)
     {

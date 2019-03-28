@@ -27,9 +27,9 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Adjustments extends Mag
 {
     protected $_source;
     /**
-     * Initialize creditmemo agjustment totals
+     * Initialize creditmemo adjustment totals
      *
-     * @return Mage_Tax_Block_Sales_Order_Tax
+     * @return $this
      */
     public function initTotals()
     {
