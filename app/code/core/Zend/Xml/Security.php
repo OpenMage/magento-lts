@@ -107,7 +107,7 @@ class Zend_Xml_Security
         if (!self::isPhpFpm()) {
             foreach ($dom->childNodes as $child) {
                 if ($child->nodeType === XML_DOCUMENT_TYPE_NODE) {
-                    if ($child->entities->length > 0) {
+                    if (isset($child->entities) && $child->entities->length > 0) {
                         libxml_disable_entity_loader($loadEntities);
                         libxml_use_internal_errors($useInternalXmlErrors);
 
