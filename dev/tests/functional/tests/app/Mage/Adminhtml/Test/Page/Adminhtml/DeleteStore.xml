@@ -21,12 +21,13 @@
  *
  * @category    Tests
  * @package     Tests_Functional
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/etc/pages.xsd">
     <page name="DeleteStore" area="Adminhtml" mca="system_store/deleteStore" module="Mage_Adminhtml">
+        <block name="form" class="Mage\Adminhtml\Test\Block\System\Store\Delete\Form\StoreForm" locator="[id='page:main-container']" strategy="css selector"/>
         <block name="formPageActions" class="Mage\Adminhtml\Test\Block\FormPageActions" locator=".content-footer" strategy="css selector"/>
     </page>
 </config>
