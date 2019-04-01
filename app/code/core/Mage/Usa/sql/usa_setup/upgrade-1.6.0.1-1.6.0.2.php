@@ -84,7 +84,7 @@ $select = $connection->select()
 $oldConfigValues = $connection->fetchAll($select);
 
 foreach ($oldConfigValues as $oldValue) {
-    $newValue = '';
+    $newValue = array();
     if (stripos($oldValue['path'], 'free_method') && isset($oldToNewMethodCodesMap[$oldValue['value']])) {
         $newValue = $oldToNewMethodCodesMap[$oldValue['value']];
     } else if (stripos($oldValue['path'], 'allowed_methods')) {

@@ -133,7 +133,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
     {
         $client = new SoapClient($wsdl, array('trace' => $trace));
         $client->__setLocation($this->getConfigFlag('sandbox_mode')
-            ? 'https://wsbeta.fedex.com:443/web-services '
+            ? 'https://wsbeta.fedex.com:443/web-services'
             : 'https://ws.fedex.com:443/web-services'
         );
 
