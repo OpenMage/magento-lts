@@ -28,7 +28,6 @@
 /**
  * CatalogInventory Stock Status Indexer Model
  *
- * @method Mage_CatalogInventory_Model_Resource_Indexer_Stock _getResource()
  * @method Mage_CatalogInventory_Model_Resource_Indexer_Stock getResource()
  * @method int getProductId()
  * @method Mage_CatalogInventory_Model_Indexer_Stock setProductId(int $value)

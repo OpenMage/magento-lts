@@ -90,7 +90,7 @@ class Mage_Customer_Model_Resource_Address extends Mage_Eav_Model_Entity_Abstrac
      *
      * @param Mage_Customer_Model_Address $object
      * @param int $id
-     * @return Mage_Customer_Model_Address
+     * @return $this
      */
     public function setCustomerId($object, $id)
     {

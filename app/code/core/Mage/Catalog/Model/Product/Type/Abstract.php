@@ -843,7 +843,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Set store filter for associated products
      *
      * @param $store int|Mage_Core_Model_Store
-     * @return Mage_Catalog_Model_Product_Type_Configurable
+     * @return $this
      */
     public function setStoreFilter($store=null, $product = null)
     {
@@ -853,7 +853,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     }
 
     /**
-     * Allow for updates of chidren qty's
+     * Allow for updates of children qty's
      * (applicable for complicated product types. As default returns false)
      *
      * @return boolean false

@@ -504,7 +504,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Retrieve configuration for all attributes
      *
-     * @return Mage_Eav_Model_Entity_Attribute_Abstract
+     * @return $this
      */
     public function loadAllAttributes($object=null)
     {
@@ -1501,7 +1501,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * @param   Varien_Object $object
      * @param   string $table
      * @param   array $info
-     * @return  Varien_Object
+     * @return  $this
      */
     protected function _deleteAttributes($object, $table, $info)
     {

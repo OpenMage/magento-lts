@@ -28,7 +28,6 @@
 /**
  * Tag relation model
  *
- * @method Mage_Tag_Model_Resource_Tag_Relation _getResource()
  * @method Mage_Tag_Model_Resource_Tag_Relation getResource()
  * @method int getTagId()
  * @method Mage_Tag_Model_Tag_Relation setTagId(int $value)

@@ -393,7 +393,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      *
      * Method provide cache configuration data without loading store config XML
      *
-     * @return Mage_Core_Model_Config
+     * @return $this
      */
     public function initConfigCache()
     {

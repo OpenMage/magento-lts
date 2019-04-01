@@ -73,7 +73,8 @@ class Mage_Sales_Model_Quote_Address_Total_Subtotal extends Mage_Sales_Model_Quo
     /**
      * Address item initialization
      *
-     * @param  $item
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @param Mage_Sales_Model_Quote_Address_Item|Mage_Sales_Model_Quote_Item $item
      * @return bool
      */
     protected function _initItem($address, $item)

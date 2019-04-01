@@ -627,7 +627,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      *
      * Apply to order, order items etc.
      *
-     * @return unknown
+     * @return $this
      */
     public function register()
     {
