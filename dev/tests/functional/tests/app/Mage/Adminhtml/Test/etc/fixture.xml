@@ -21,7 +21,7 @@
  *
  * @category    Tests
  * @package     Tests_Functional
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 -->
@@ -43,4 +43,15 @@
         <collection>Magento\Store\Model\Resource\Store\Collection</collection>
         <identifier>code</identifier>
     </store>
+    <customConfigData module="Mage_Adminhtml">
+        <type>flat</type>
+        <entity_type>core_config_data</entity_type>
+        <collection>Mage\Core\Model\Resource\Config\Data\Collection</collection>
+        <fields>
+            <section>
+                <attribute_code>section</attribute_code>
+                <backend_type>virtual</backend_type>
+            </section>
+        </fields>
+    </customConfigData>
 </fixture>
