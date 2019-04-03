@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogInventory
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,7 +28,6 @@
 /**
  * CatalogInventory Stock Status Indexer Model
  *
- * @method Mage_CatalogInventory_Model_Resource_Indexer_Stock _getResource()
  * @method Mage_CatalogInventory_Model_Resource_Indexer_Stock getResource()
  * @method int getProductId()
  * @method Mage_CatalogInventory_Model_Indexer_Stock setProductId(int $value)

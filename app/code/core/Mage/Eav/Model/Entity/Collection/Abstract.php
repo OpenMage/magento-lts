@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -177,7 +177,8 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      * Standard resource collection initalization
      *
      * @param string $model
-     * @return Mage_Core_Model_Mysql4_Collection_Abstract
+     * @param null|string $entityModel
+     * @return $this
      */
     protected function _init($model, $entityModel = null)
     {

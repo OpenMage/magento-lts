@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -152,7 +152,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
      * Collect tax totals for quote address
      *
      * @param   Mage_Sales_Model_Quote_Address $address
-     * @return  Mage_Tax_Model_Sales_Total_Quote
+     * @return  $this
      */
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
@@ -374,11 +374,11 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
     }
 
     /**
-     * Tax caclulation for shipping price
+     * Tax calculation for shipping price
      *
      * @param   Mage_Sales_Model_Quote_Address $address
      * @param   Varien_Object $taxRateRequest
-     * @return  Mage_Tax_Model_Sales_Total_Quote
+     * @return  $this
      */
     protected function _calculateShippingTax(Mage_Sales_Model_Quote_Address $address, $taxRateRequest)
     {
@@ -407,7 +407,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
      * Calculate address tax amount based on one unit price and tax amount
      *
      * @param   Mage_Sales_Model_Quote_Address $address
-     * @return  Mage_Tax_Model_Sales_Total_Quote
+     * @param $taxRateRequest
+     * @return $this
      */
     protected function _unitBaseCalculation(Mage_Sales_Model_Quote_Address $address, $taxRateRequest)
     {
@@ -509,7 +510,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
      * @param   array $taxGroups
      * @param   string $taxId
      * @param   boolean $recalculateRowTotalInclTax
-     * @return  Mage_Tax_Model_Sales_Total_Quote
+     * @return  $this
      */
     protected function _calcUnitTaxAmount(
         $item, $rate, &$taxGroups = null, $taxId = null, $recalculateRowTotalInclTax = false
@@ -657,7 +658,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
      *
      * @param   Mage_Sales_Model_Quote_Address $address
      * @param   Varien_Object $taxRateRequest
-     * @return  Mage_Tax_Model_Sales_Total_Quote
+     * @return  $this
      */
     protected function _rowBaseCalculation(Mage_Sales_Model_Quote_Address $address, $taxRateRequest)
     {
@@ -755,7 +756,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
      * @param   array $taxGroups
      * @param   string $taxId
      * @param   boolean $recalculateRowTotalInclTax
-     * @return  Mage_Tax_Model_Sales_Total_Quote
+     * @return  $this
      */
     protected function _calcRowTaxAmount(
         $item, $rate, &$taxGroups = null, $taxId = null, $recalculateRowTotalInclTax = false
@@ -908,7 +909,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
      *
      * @param   Mage_Sales_Model_Quote_Address $address
      * @param   Varien_Object $taxRateRequest
-     * @return  Mage_Tax_Model_Sales_Total_Quote
+     * @return  $this
      */
     protected function _totalBaseCalculation(Mage_Sales_Model_Quote_Address $address, $taxRateRequest)
     {
@@ -1023,7 +1024,9 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
      * @param   Mage_Sales_Model_Quote_Item_Abstract $item
      * @param   float $rate
      * @param   array $taxGroups
-     * @return  Mage_Tax_Model_Sales_Total_Quote
+     * @param null|string $taxId
+     * @param bool $recalculateRowTotalInclTax
+     * @return  $this
      */
     protected function _aggregateTaxPerRate(
         $item, $rate, &$taxGroups, $taxId = null, $recalculateRowTotalInclTax = false
@@ -1399,7 +1402,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
      * Recalculate parent item amounts base on children data
      *
      * @param   Mage_Sales_Model_Quote_Item_Abstract $item
-     * @return  Mage_Tax_Model_Sales_Total_Quote
+     * @return $this
      */
     protected function _recalculateParent(Mage_Sales_Model_Quote_Item_Abstract $item)
     {
@@ -1470,7 +1473,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
      * Add tax totals information to address object
      *
      * @param   Mage_Sales_Model_Quote_Address $address
-     * @return  Mage_Tax_Model_Sales_Total_Quote
+     * @return  $this
      */
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {

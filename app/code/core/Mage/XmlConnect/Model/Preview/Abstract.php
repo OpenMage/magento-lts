@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -101,7 +101,7 @@ abstract class Mage_XmlConnect_Model_Preview_Abstract extends Varien_Object
      * Set active tab
      *
      * @param string $tab
-     * @return Mage_XmlConnect_Block_Adminhtml_Mobile_Preview_Tabitems
+     * @return $this
      */
     public function setActiveTab($tab)
     {

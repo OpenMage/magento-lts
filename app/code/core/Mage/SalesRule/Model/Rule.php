@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_SalesRule
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,7 +42,6 @@
  * @method Mage_SalesRule_Model_Rule setUsesPerCustomer(int $value)
  * @method int getUsesPerCoupon()
  * @method Mage_SalesRule_Model_Rule setUsesPerCoupon(int $value)
- * @method string getCustomerGroupIds()
  * @method Mage_SalesRule_Model_Rule setCustomerGroupIds(string $value)
  * @method int getIsActive()
  * @method Mage_SalesRule_Model_Rule setIsActive(int $value)

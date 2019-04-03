@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -255,8 +255,8 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
     /**
      * Retrieve available customer Billing Agreements
      *
-     * @param int $customer
-     * @return Mage_Paypal_Controller_Express_Abstract
+     * @param int $customerId
+     * @return Mage_Sales_Model_Resource_Billing_Agreement_Collection
      */
     public function getAvailableCustomerBillingAgreements($customerId)
     {

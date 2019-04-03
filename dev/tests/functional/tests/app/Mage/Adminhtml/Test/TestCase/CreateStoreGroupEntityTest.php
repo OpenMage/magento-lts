@@ -20,7 +20,7 @@
  *
  * @category    Tests
  * @package     Tests_Functional
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -153,11 +153,19 @@ class CreateStoreGroupEntityTest extends Injectable
         if ($this->storeGroup->getWebsiteId() !== 'Main Website') {
             $this->storeIndex->getStoreGrid()->openWebsite($this->storeGroup->getWebsiteId());
             $this->editStore->getFormPageActions()->delete();
-            $this->deleteStore->getFormPageActions()->delete();
+            $deleteStoreFormPageActions = $this->deleteStore->getFormPageActions();
+            if ($deleteStoreFormPageActions->isVisible()) {
+                $this->deleteStore->getForm()->fillForm();
+                $deleteStoreFormPageActions->delete();
+            }
         } else {
             $this->storeIndex->getStoreGrid()->openStoreGroupByName($this->storeGroup->getName());
             $this->editStore->getFormPageActions()->delete();
-            $this->deleteStore->getFormPageActions()->delete();
+            $deleteStoreFormPageActions = $this->deleteStore->getFormPageActions();
+            if ($deleteStoreFormPageActions->isVisible()) {
+                $this->deleteStore->getForm()->fillForm();
+                $deleteStoreFormPageActions->delete();
+            }
         }
     }
 }
