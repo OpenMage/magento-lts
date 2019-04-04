@@ -97,6 +97,8 @@ class Mage_Sales_Model_Resource_Order extends Mage_Sales_Model_Resource_Order_Ab
             $adapter->quote(' '),
             $ifnullLast
         ));
+        $concatAddress = new Zend_Db_Expr("TRIM(REPLACE($concatAddress,'  ', ' '))");
+
         $this->addVirtualGridColumn(
                 'billing_name',
                 'sales/order_address',
