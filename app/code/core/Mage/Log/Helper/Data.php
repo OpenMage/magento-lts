@@ -87,7 +87,7 @@ class Mage_Log_Helper_Data extends Mage_Core_Helper_Abstract
         );
         $result = false;
         $validatedFileExtension = pathinfo($file, PATHINFO_EXTENSION);
-        if ($validatedFileExtension && in_array($validatedFileExtension, $allowedFileExtensions)) {
+        if ($validatedFileExtension && in_array($validatedFileExtension, $_allowedFileExtensions)) {
             $result = true;
         }
 
