@@ -809,6 +809,7 @@ final class Mage
         $file = empty($file) ?
             (string) self::getConfig()->getNode('dev/log/file', Mage_Core_Model_Store::DEFAULT_CODE) : basename($file);
 
+        $logDir = self::getBaseDir('var') . DS . 'log';
         if (!self::helper('log')->isLogFileExtensionValid($file)) {
             return;
         }

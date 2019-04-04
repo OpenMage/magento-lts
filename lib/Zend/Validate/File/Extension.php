@@ -106,7 +106,7 @@ class Zend_Validate_File_Extension extends Zend_Validate_Abstract
      * Sets the case to use
      *
      * @param  boolean $case
-     * @return Zend_Validate_File_Extension Provides a fluent interface
+     * @return $this Provides a fluent interface
      */
     public function setCase($case)
     {
@@ -130,7 +130,7 @@ class Zend_Validate_File_Extension extends Zend_Validate_Abstract
      * Sets the file extensions
      *
      * @param  string|array $extension The extensions to validate
-     * @return Zend_Validate_File_Extension Provides a fluent interface
+     * @return $this Provides a fluent interface
      */
     public function setExtension($extension)
     {
@@ -143,7 +143,7 @@ class Zend_Validate_File_Extension extends Zend_Validate_Abstract
      * Adds the file extensions
      *
      * @param  string|array $extension The extensions to add for validation
-     * @return Zend_Validate_File_Extension Provides a fluent interface
+     * @return $this Provides a fluent interface
      */
     public function addExtension($extension)
     {
