@@ -809,14 +809,7 @@ final class Mage
         $file = empty($file) ?
             (string) self::getConfig()->getNode('dev/log/file', Mage_Core_Model_Store::DEFAULT_CODE) : basename($file);
 
-        // Validate file extension before save. Allowed file extensions: log, txt, html, csv
-        $_allowedFileExtensions = explode(
-            ',',
-            (string) self::getConfig()->getNode('dev/log/allowedFileExtensions', Mage_Core_Model_Store::DEFAULT_CODE)
-        );
-        $logValidator = new Zend_Validate_File_Extension($_allowedFileExtensions);
-        $logDir = self::getBaseDir('var') . DS . 'log';
-        if (!$logValidator->isValid($logDir . DS . $file)) {
+        if (!self::helper('log')->isLogFileExtensionValid($file)) {
             return;
         }
 
