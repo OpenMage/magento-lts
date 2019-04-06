@@ -31,14 +31,6 @@ if (version_compare(phpversion(), '5.2.0', '<')===true) {
 
 require 'app/bootstrap.php';
 
-/**
- * Compilation includes configuration file
- */
-$compilerConfig = 'includes/config.php';
-if (file_exists($compilerConfig)) {
-    include $compilerConfig;
-}
-
 $mageFilename = 'app/Mage.php';
 
 if (!file_exists($mageFilename)) {
