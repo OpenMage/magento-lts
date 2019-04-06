@@ -511,7 +511,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     /**
      * Get item price. Item price currency is website base currency.
      *
-     * @return decimal
+     * @return float
      */
     public function getPrice()
     {
@@ -695,7 +695,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
      * Get item tax amount
      *
      * @deprecated
-     * @return  decimal
+     * @return  float
      */
     public function getTaxAmount()
     {
@@ -707,7 +707,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
      * Get item base tax amount
      *
      * @deprecated
-     * @return decimal
+     * @return float
      */
     public function getBaseTaxAmount()
     {
@@ -718,7 +718,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
      * Get item price (item price always exclude price)
      *
      * @deprecated
-     * @return decimal
+     * @return float
      */
     protected function _calculatePrice($value, $saveTaxes = true)
     {

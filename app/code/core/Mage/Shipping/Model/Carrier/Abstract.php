@@ -480,7 +480,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     /**
      * set the number of boxes for shipping
      *
-     * @return weight
+     * @return float
      */
     public function getTotalNumOfBoxes($weight)
     {

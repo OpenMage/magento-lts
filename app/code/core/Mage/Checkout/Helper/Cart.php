@@ -143,7 +143,7 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
     /**
      * Get shopping cart summary qty
      *
-     * @return decimal
+     * @return float
      */
     public function getItemsQty()
     {
@@ -153,7 +153,7 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
     /**
      * Get shopping cart items summary (inchlude config settings)
      *
-     * @return decimal
+     * @return float
      */
     public function getSummaryCount()
     {

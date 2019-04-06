@@ -106,8 +106,8 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
      * Calculate configurable product selection price
      *
      * @param   array $priceInfo
-     * @param   decimal $productPrice
-     * @return  decimal
+     * @param   float $productPrice
+     * @return  float
      */
     protected function _calcSelectionPrice($priceInfo, $productPrice)
     {
