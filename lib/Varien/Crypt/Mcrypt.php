@@ -55,6 +55,23 @@ class Varien_Crypt_Mcrypt extends Varien_Crypt_Abstract
         }
     }
 
+	/**
+	 * Transition table
+	 */
+    protected function _getCipher()
+    {
+        $transition = [
+            (defined('MCRYPT_BLOWFISH') ? MCRYPT_BLOWFISH : 'blowfish') => 'bf-ecb',
+            // more constants need to be implement here
+        ];
+
+        if (!array_key_exists($this->getCipher(), $transition)) {
+            return NULL;
+        }
+
+        return $transition[$this->getCipher()];
+    }
+
     /**
      * Initialize mcrypt module
      *
@@ -64,34 +81,22 @@ class Varien_Crypt_Mcrypt extends Varien_Crypt_Abstract
     public function init($key)
     {
         if (!$this->getCipher()) {
-            $this->setCipher(MCRYPT_BLOWFISH);
+            $this->setCipher(defined('MCRYPT_BLOWFISH') ? MCRYPT_BLOWFISH : 'blowfish');
         }
 
-        if (!$this->getMode()) {
-            $this->setMode(MCRYPT_MODE_ECB);
+        if (!in_array($this->_getCipher(), openssl_get_cipher_methods())) {
+            throw new Varien_Exception('Cipher ' . $this->_getCipher() . ' is not supported by openssl');
         }
-
-        $this->setHandler(mcrypt_module_open($this->getCipher(), '', $this->getMode(), ''));
 
         if (!$this->getInitVector()) {
-            if (MCRYPT_MODE_CBC == $this->getMode()) {
-                $this->setInitVector(substr(
-                    md5(mcrypt_create_iv (mcrypt_enc_get_iv_size($this->getHandler()), MCRYPT_RAND)),
-                    - mcrypt_enc_get_iv_size($this->getHandler())
-                ));
-            } else {
-                $this->setInitVector(mcrypt_create_iv (mcrypt_enc_get_iv_size($this->getHandler()), MCRYPT_RAND));
-            }
+            $ivlen = openssl_cipher_iv_length($this->_getCipher());
+            $iv = openssl_random_pseudo_bytes($ivlen);
+
+            $this->setInitVector($iv);
         }
 
-        $maxKeySize = mcrypt_enc_get_key_size($this->getHandler());
-
-        if (strlen($key) > $maxKeySize) { // strlen() intentionally, to count bytes, rather than characters
-            $this->setHandler(null);
-            throw new Varien_Exception('Maximum key size must be smaller '.$maxKeySize);
-        }
-
-        mcrypt_generic_init($this->getHandler(), $key, $this->getInitVector());
+        $this->setHandler(true);
+        $this->setKey($key);
 
         return $this;
     }
@@ -110,7 +115,8 @@ class Varien_Crypt_Mcrypt extends Varien_Crypt_Abstract
         if (strlen($data) == 0) {
             return $data;
         }
-        return mcrypt_generic($this->getHandler(), $data);
+
+        return openssl_encrypt($data, $this->_getCipher(), $this->getKey(), 0, $this->getInitVector());
     }
 
     /**
@@ -127,12 +133,12 @@ class Varien_Crypt_Mcrypt extends Varien_Crypt_Abstract
         if (strlen($data) == 0) {
             return $data;
         }
-        return mdecrypt_generic($this->getHandler(), $data);
+
+        return openssl_decrypt($data, $this->_getCipher(), $this->getKey(), 0, $this->getInitVector());
     }
 
     protected function _reset()
     {
-        mcrypt_generic_deinit($this->getHandler());
-        mcrypt_module_close($this->getHandler());
+        // unused as PHP 7.3
     }
 }
