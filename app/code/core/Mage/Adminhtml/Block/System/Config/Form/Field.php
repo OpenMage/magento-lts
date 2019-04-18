@@ -94,7 +94,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field
             $html .= $this->_getElementHtml($element);
         };
         if ($element->getComment()) {
-            $html.= '<p class="note"><span>'.$element->getComment().'</span></p>';
+            $html.= '<p class="note"><span>'.$this->__($element->getComment()).'</span></p>';
         }
         $html.= '</td>';
 
