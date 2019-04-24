@@ -140,7 +140,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
             // secure cookie check to prevent MITM attack
             $secureCookieName = $sessionName . '_cid';
             if (isset($_SESSION[self::SECURE_COOKIE_CHECK_KEY])) {
-				$cookieValue = $cookie->get($secureCookieName);
+                $cookieValue = $cookie->get($secureCookieName);
 				
                 if (!is_string($cookieValue) || $_SESSION[self::SECURE_COOKIE_CHECK_KEY] !== md5($cookieValue)) {
                     session_regenerate_id(false);
