@@ -324,6 +324,9 @@
                     <compiled_js_folder>js</compiled_js_folder>
                 </allowed_resources>
                 <ignored_resources>.svn,.htaccess</ignored_resources>
+                <loaded_modules>
+                    <Mage_Core />
+                </loaded_modules>
             </media_storage_configuration>
         </system>
         <trans_email>
