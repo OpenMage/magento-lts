@@ -47,6 +47,7 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
     const XML_PATH_STORAGE_MEDIA_DATABASE   = 'default/system/media_storage_configuration/media_database';
     const XML_PATH_MEDIA_RESOURCE_WHITELIST = 'default/system/media_storage_configuration/allowed_resources';
     const XML_PATH_MEDIA_RESOURCE_IGNORED   = 'default/system/media_storage_configuration/ignored_resources';
+    const XML_PATH_MEDIA_LOADED_MODULES     = 'default/system/media_storage_configuration/loaded_modules';
     const XML_PATH_MEDIA_UPDATE_TIME        = 'system/media_storage_configuration/configuration_update_time';
 
 
@@ -220,6 +221,11 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
     {
         $config = array();
         $config['media_directory'] = Mage::getBaseDir('media');
+
+        $loadedModules = (array) Mage::app()->getConfig()->getNode(self::XML_PATH_MEDIA_LOADED_MODULES);
+        foreach ($loadedModules as $key => $loadedModule) {
+            $config['loaded_modules'][] = $loadedModule->getName();
+        }
 
         $allowedResources = (array) Mage::app()->getConfig()->getNode(self::XML_PATH_MEDIA_RESOURCE_WHITELIST);
         foreach ($allowedResources as $key => $allowedResource) {

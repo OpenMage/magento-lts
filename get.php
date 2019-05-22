@@ -116,7 +116,7 @@ if (empty($mediaDirectory)) {
         $mageRunCode,
         $mageRunType,
         array('cache' => array('disallow_save' => true)),
-        array('Mage_Core')
+        isset($config['loaded_modules']) ? $config['loaded_modules'] : ['Mage_Core']
     );
 }
 
