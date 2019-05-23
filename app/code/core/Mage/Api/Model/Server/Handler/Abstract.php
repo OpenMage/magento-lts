@@ -41,6 +41,12 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
         Mage::app()->loadAreaPart(Mage_Core_Model_App_Area::AREA_ADMINHTML, Mage_Core_Model_App_Area::PART_EVENTS);
     }
 
+    /**
+     * @param int $errorCode
+     * @param string $errorMessage
+     * @param string $errorFile
+     * @return bool
+     */
     public function handlePhpError($errorCode, $errorMessage, $errorFile)
     {
         Mage::log($errorMessage . $errorFile);
@@ -314,7 +320,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      * @param string $sessionId
      * @param array $calls
      * @param array $options
-     * @return array
+     * @return array|void
      */
     public function multiCall($sessionId, array $calls = array(), $options = array())
     {
@@ -440,7 +446,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      * List of available resources
      *
      * @param string $sessionId
-     * @return array
+     * @return array|void
      */
     public function resources($sessionId)
     {
@@ -505,7 +511,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      *
      * @param string $sessionId
      * @param string $resourceName
-     * @return array
+     * @return array|void
      */
     public function resourceFaults($sessionId, $resourceName)
     {

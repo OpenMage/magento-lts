@@ -33,7 +33,12 @@
  */
 class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
 {
-    public function extend($source, $overwrite=false)
+    /**
+     * @param Varien_Simplexml_Element $source
+     * @param bool $overwrite
+     * @return $this|Varien_Simplexml_Element
+     */
+    public function extend($source, $overwrite = false)
     {
         if (!$source instanceof Varien_Simplexml_Element) {
             return $this;
@@ -53,9 +58,10 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
      *
      * @param Varien_Simplexml_Element $source
      * @param boolean $overwrite
+     * @param string $elmNamespace
      * @return Varien_Simplexml_Element
      */
-    public function extendChild($source, $overwrite=false, $elmNamespace = '')
+    public function extendChild($source, $overwrite = false, $elmNamespace = '')
     {
         // this will be our new target node
         $targetChild = null;
@@ -144,6 +150,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
      * )
      *
      * @param Varien_Simplexml_Element $source
+     * @param null|string $namespace
      * @return array
      */
     public function getAttributes($source, $namespace = null)
@@ -168,6 +175,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
      * Return children of all namespaces
      *
      * @param Varien_Simplexml_Element $source
+     * @return array
      */
     public function getChildren($source)
     {
@@ -210,8 +218,8 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
      * Return element by tag name, and checking attributes with namespaces
      *
      * @param Varien_Simplexml_Element $source
-     * @param string $namespace
-     * @return null|Varien_Simplexml_Element
+     * @param string $elmNamespace
+     * @return SimpleXMLElement|Varien_Simplexml_Element|null
      */
     public function getElementByName($source, $elmNamespace = '')
     {
@@ -255,6 +263,8 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
     /**
      * Returns attribute value by attribute name
      *
+     * @param string $name
+     * @param string $namespace
      * @return string
      */
     public function getAttribute($name, $namespace = ''){

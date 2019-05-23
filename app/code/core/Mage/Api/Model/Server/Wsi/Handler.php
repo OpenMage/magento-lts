@@ -40,8 +40,8 @@ class Mage_Api_Model_Server_WSI_Handler extends Mage_Api_Model_Server_Handler_Ab
      *
      * @param string $function
      * @param array $args
+     * @return stdClass
      */
-
     public function __call ($function, $args)
     {
         $args = $args[0];
@@ -93,7 +93,7 @@ class Mage_Api_Model_Server_WSI_Handler extends Mage_Api_Model_Server_Handler_Ab
      */
     public function login($username, $apiKey = null)
     {
-        if (is_object($username)) {
+        if (is_object($username) && isset($username->apiKey) && isset($username->username)) {
             $apiKey = $username->apiKey;
             $username = $username->username;
         }
@@ -107,7 +107,7 @@ class Mage_Api_Model_Server_WSI_Handler extends Mage_Api_Model_Server_Handler_Ab
      * Return called class and method names
      *
      * @param String $apiPath
-     * @return Array
+     * @return array|void
      */
     protected function _getResourceName($apiPath){
 
@@ -139,7 +139,7 @@ class Mage_Api_Model_Server_WSI_Handler extends Mage_Api_Model_Server_Handler_Ab
      *
      * @param String $modelName
      * @param String $methodName
-     * @return Array of ReflectionParameter
+     * @return array of ReflectionParameter
      */
     public function getMethodParams($modelName, $methodName) {
 
@@ -151,15 +151,15 @@ class Mage_Api_Model_Server_WSI_Handler extends Mage_Api_Model_Server_Handler_Ab
     /**
      * Prepares arguments for the method calling. Sort in correct order, set default values for omitted parameters.
      *
-     * @param Array $params
-     * @param Array $args
-     * @return Array
+     * @param array $params
+     * @param array $args
+     * @return array
      */
     public function prepareArgs($params, $args) {
 
         $callArgs = array();
 
-        /** @var $parameter ReflectionParameter */
+        /** @var ReflectionParameter $parameter */
         foreach($params AS $parameter){
             $pName = $parameter->getName();
             if( isset( $args[$pName] ) ){

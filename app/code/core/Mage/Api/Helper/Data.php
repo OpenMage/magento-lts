@@ -57,7 +57,6 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
      * Go through a WSI args array and turns it to correct state.
      *
      * @param Object $obj - Link to Object
-     * @return Object
      */
     public function wsiArrayUnpacker(&$obj)
     {
@@ -90,7 +89,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
      * Go through an object parameters and unpack associative object to array.
      *
      * @param Object $obj - Link to Object
-     * @return Object
+     * @return bool
      */
     public function v2AssociativeArrayUnpacker(&$obj)
     {
@@ -167,7 +166,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
      * Corrects data representation.
      *
      * @param Object $obj - Link to Object
-     * @return Object
+     * @return array
      */
     public function clearWsiFootprints(&$obj)
     {
@@ -222,10 +221,10 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * For response to the WSI, generates an object from array.
      *
-     * @param Array $arr - Link to Object
-     * @return Object
+     * @param array $arr - Link to Object
+     * @return stdClass
      */
-    public function packArrayToObject(Array $arr)
+    public function packArrayToObject(array $arr)
     {
         $obj = new stdClass();
         $obj->complexObjectArray = $arr;

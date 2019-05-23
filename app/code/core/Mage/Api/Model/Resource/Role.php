@@ -44,27 +44,21 @@ class Mage_Api_Model_Resource_Role extends Mage_Core_Model_Resource_Db_Abstract
     }
 
     /**
-     * Action before save
-     *
-     * @param Mage_Core_Model_Abstract $object
-     * @return $this
+     * @inheritDoc
      */
-    protected function _beforeSave(Mage_Core_Model_Abstract $object)
+    protected function _beforeSave(Mage_Core_Model_Abstract $role)
     {
-        if (!$object->getId()) {
-            $object->setCreated(now());
+        if ($role instanceof Mage_Admin_Model_Role) {
+            if (!$role->getId()) {
+                $role->setCreated(now());
+            }
+            $role->setModified(now());
         }
-        $object->setModified(now());
-        return $this;
+        return parent::_beforeSave($role);
     }
 
     /**
-     * Load an object
-     *
-     * @param Mage_Core_Model_Abstract $object
-     * @param mixed $value
-     * @param string $field field to load by (defaults to model id)
-     * @return Mage_Core_Model_Resource_Db_Abstract
+     * @inheritDoc
      */
     public function load(Mage_Core_Model_Abstract $object, $value, $field = null)
     {

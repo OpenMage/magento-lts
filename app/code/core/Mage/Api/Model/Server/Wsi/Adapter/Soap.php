@@ -49,8 +49,8 @@ class Mage_Api_Model_Server_WSI_Adapter_Soap extends Mage_Api_Model_Server_Adapt
     /**
      * Run webservice
      *
-     * @param Mage_Api_Controller_Action $controller
-     * @return Mage_Api_Model_Server_Adapter_Soap
+     * @return $this
+     * @throws SoapFault
      */
     public function run()
     {
@@ -73,7 +73,7 @@ class Mage_Api_Model_Server_WSI_Adapter_Soap extends Mage_Api_Model_Server_Adapt
                                             preg_replace(
                                                 '/<\?xml version="([^\"]+)"([^\>]+)>/i',
                                                 '<?xml version="$1" encoding="'.$apiConfigCharset.'"?>',
-                                                $this->wsdlConfig->getWsdlContent()
+                                                $this->wsdlConfig->getData('wsdl_content')
                                             )
                                     )
                             )

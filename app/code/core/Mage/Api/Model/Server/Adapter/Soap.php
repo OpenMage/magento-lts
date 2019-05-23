@@ -70,9 +70,13 @@ class Mage_Api_Model_Server_Adapter_Soap
             unset($queryParams['wsdl']);
         }
 
-        $wsdlConfig->setUrl(Mage::helper('api')->getServiceUrl('*/*/*', array('_query' => $queryParams), true));
-        $wsdlConfig->setName('Magento');
-        $wsdlConfig->setHandler($this->getHandler());
+        $wsdlConfig->setData('url', Mage::helper('api')->getServiceUrl(
+            '*/*/*',
+            array('_query' => $queryParams),
+            true
+        ));
+        $wsdlConfig->setData('name', 'Magento');
+        $wsdlConfig->setData('handler', $this->getHandler());
         return $wsdlConfig;
     }
 
@@ -132,8 +136,8 @@ class Mage_Api_Model_Server_Adapter_Soap
     /**
      * Run webservice
      *
-     * @param Mage_Api_Controller_Action $controller
      * @return $this
+     * @throws SoapFault
      */
     public function run()
     {
@@ -220,8 +224,10 @@ class Mage_Api_Model_Server_Adapter_Soap
     /**
      * Transform wsdl url if $_SERVER["PHP_AUTH_USER"] is set
      *
-     * @param array
-     * @return String
+     * @param array $params
+     * @param bool $withAuth
+     * @return string
+     * @throws Zend_Uri_Exception
      */
     protected function getWsdlUrl($params = null, $withAuth = true)
     {
