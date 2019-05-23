@@ -42,7 +42,7 @@ class Mage_AdminNotification_Model_Survey
     /**
      * Check if survey url valid (exists) or not
      *
-     * @return boolen
+     * @return bool
      */
     public static function isSurveyUrlValid()
     {

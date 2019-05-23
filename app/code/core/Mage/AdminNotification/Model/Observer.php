@@ -45,7 +45,7 @@ class Mage_AdminNotification_Model_Observer
         if (Mage::getSingleton('admin/session')->isLoggedIn()) {
 
             $feedModel  = Mage::getModel('adminnotification/feed');
-            /* @var $feedModel Mage_AdminNotification_Model_Feed */
+            /* @var Mage_AdminNotification_Model_Feed $feedModel */
 
             $feedModel->checkUpdate();
 
