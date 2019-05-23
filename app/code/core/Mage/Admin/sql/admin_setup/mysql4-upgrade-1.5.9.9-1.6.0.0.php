@@ -24,7 +24,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 $installer->startSetup();
 
@@ -273,8 +273,10 @@ $tables = array(
     )
 );
 
-$installer->getConnection()->modifyTables($tables);
-
+$connection = $installer->getConnection();
+if ($connection instanceof Varien_Db_Adapter_Pdo_Mysql) {
+    $connection->modifyTables($tables);
+}
 
 /**
  * Add indexes

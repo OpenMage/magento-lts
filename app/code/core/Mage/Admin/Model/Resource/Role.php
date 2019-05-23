@@ -46,15 +46,16 @@ class Mage_Admin_Model_Resource_Role extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Process role before saving
      *
-     * @param Mage_Core_Model_Abstract $object
-     * @return $this
+     * {@inheritDoc}
      */
-    protected function _beforeSave(Mage_Core_Model_Abstract $object)
+    protected function _beforeSave(Mage_Core_Model_Abstract $role)
     {
-        if ( !$object->getId() ) {
-            $object->setCreated($this->formatDate(true));
+        if ($role instanceof Mage_Admin_Model_Role) {
+            if (!$role->getId()) {
+                $role->setCreated($this->formatDate(true));
+            }
+            $role->setModified($this->formatDate(true));
         }
-        $object->setModified($this->formatDate(true));
-        return $this;
+        return parent::_beforeSave($role);
     }
 }

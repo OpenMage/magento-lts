@@ -26,6 +26,9 @@
 
 /**
  * Class Mage_Admin_Model_Variable
+ *
+ * @method string getVariableName()
+ * @method string getIsAllowed()
  */
 class Mage_Admin_Model_Variable extends Mage_Core_Model_Abstract
 {

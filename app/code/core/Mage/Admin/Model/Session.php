@@ -36,10 +36,14 @@
  * @method $this setUser(Mage_Admin_Model_User $user)
  * @method Mage_Admin_Model_Acl getAcl()
  * @method $this setAcl(Mage_Admin_Model_Acl $acl)
+ * @method bool getUserPasswordChanged()
+ * @method $this setUserPasswordChanged(bool $value)
+ * @method bool getIndirectLogin()
+ * @method $this setIndirectLogin(bool $value)
+ * @method $this setIsFirstVisit(bool $value)
  */
 class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
 {
-
     /**
      * Whether it is the first page after successfull login
      *
@@ -64,7 +68,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
 
     /**
      * Class constructor
-     *
+     * @param array $parameters
      */
     public function __construct($parameters = array())
     {
@@ -76,7 +80,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
         $this->_response = (!empty($parameters['response'])) ?
             $parameters['response'] : new Mage_Core_Controller_Response_Http();
 
-        /** @var $user Mage_Core_Model_Factory */
+        /** @var Mage_Core_Model_Factory $user */
         $this->_factory = (!empty($parameters['factory'])) ?
             $parameters['factory'] : Mage::getModel('core/factory');
 
@@ -130,11 +134,11 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
     public function login($username, $password, $request = null)
     {
         if (empty($username) || empty($password)) {
-            return;
+            return null;
         }
 
         try {
-            /** @var $user Mage_Admin_Model_User */
+            /** @var Mage_Admin_Model_User $user */
             $user = $this->_factory->getModel('admin/user');
             $user->login($username, $password);
             if ($user->getId()) {

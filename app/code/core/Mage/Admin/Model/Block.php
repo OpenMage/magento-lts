@@ -27,6 +27,9 @@
 /**
  * Class Mage_Admin_Model_Block
  *
+ * @method string getBlockName()
+ * @method string getIsAllowed()
+ *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
