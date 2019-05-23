@@ -33,14 +33,19 @@
  */
 class Mage_Contacts_Helper_Data extends Mage_Core_Helper_Abstract
 {
-
     const XML_PATH_ENABLED   = 'contacts/contacts/enabled';
 
+    /**
+     * @return bool
+     */
     public function isEnabled()
     {
-        return Mage::getStoreConfig( self::XML_PATH_ENABLED );
+        return Mage::getStoreConfigFlag(self::XML_PATH_ENABLED);
     }
 
+    /**
+     * @return string
+     */
     public function getUserName()
     {
         if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
@@ -50,6 +55,9 @@ class Mage_Contacts_Helper_Data extends Mage_Core_Helper_Abstract
         return trim($customer->getName());
     }
 
+    /**
+     * @return string
+     */
     public function getUserEmail()
     {
         if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
