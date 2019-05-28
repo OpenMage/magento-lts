@@ -469,9 +469,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      */
     protected function _getEncodedPassword($password)
     {
-        /** @var Mage_Core_Helper_Data $helper */
-        $helper = $this->_getHelper('core');
-        return $helper->getHash($password, self::HASH_SALT_LENGTH);
+        return $this->_getHelper('core')->getHash($password, self::HASH_SALT_LENGTH);
     }
 
     /**
@@ -623,11 +621,9 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     {
         $result = array();
 
-        /** @var Mage_Core_Helper_Data $helper */
-        $helper = $this->_getHelper('core');
         if (!Zend_Validate::is($password, 'NotEmpty')) {
             $result[] = $this->_getHelper('adminhtml')->__('Current password field cannot be empty.');
-        } elseif (is_null($this->getId()) || !$helper->validateHash($password, $this->getPassword())){
+        } elseif (is_null($this->getId()) || !$this->_getHelper('core')->validateHash($password, $this->getPassword())){
             $result[] = $this->_getHelper('adminhtml')->__('Invalid current password.');
         }
 

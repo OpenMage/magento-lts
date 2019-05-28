@@ -63,36 +63,35 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Process role before saving
      *
-     * {@inheritDoc}
+     * @param Mage_Core_Model_Abstract $role
+     * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $role)
     {
-        if ($role instanceof Mage_Admin_Model_Roles) {
-            if ($role->getId() == '') {
-                if ($role->getIdFieldName()) {
-                    $role->unsetData($role->getIdFieldName());
-                } else {
-                    $role->unsetData('id');
-                }
-            }
-
-            if ($role->getPid() > 0) {
-                $select = $this->_getReadAdapter()->select()
-                    ->from($this->getMainTable(), array('tree_level'))
-                    ->where("{$this->getIdFieldName()} = :pid");
-
-                $binds = array(
-                    'pid' => (int)$role->getPid(),
-                );
-
-                $treeLevel = $this->_getReadAdapter()->fetchOne($select, $binds);
+        if ($role->getId() == '') {
+            if ($role->getIdFieldName()) {
+                $role->unsetData($role->getIdFieldName());
             } else {
-                $treeLevel = 0;
+                $role->unsetData('id');
             }
-            $role->setTreeLevel($treeLevel + 1);
-            $role->setRoleName($role->getName());
         }
-        return parent::_beforeSave($role);
+
+        if ($role->getPid() > 0) {
+            $select = $this->_getReadAdapter()->select()
+                ->from($this->getMainTable(), array('tree_level'))
+                ->where("{$this->getIdFieldName()} = :pid");
+
+            $binds = array(
+                'pid' => (int) $role->getPid(),
+            );
+
+            $treeLevel = $this->_getReadAdapter()->fetchOne($select, $binds);
+        } else {
+            $treeLevel = 0;
+        }
+        $role->setTreeLevel($treeLevel + 1);
+        $role->setRoleName($role->getName());
+        return $this;
     }
 
     /**

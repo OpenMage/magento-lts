@@ -273,10 +273,8 @@ $tables = array(
     )
 );
 
-$connection = $installer->getConnection();
-if ($connection instanceof Varien_Db_Adapter_Pdo_Mysql) {
-    $connection->modifyTables($tables);
-}
+$installer->getConnection()->modifyTables($tables);
+
 
 /**
  * Add indexes

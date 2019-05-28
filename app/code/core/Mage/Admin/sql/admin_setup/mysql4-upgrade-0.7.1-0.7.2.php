@@ -41,9 +41,6 @@ $installer->run("DELETE FROM {$tableAdmins} WHERE username "
 );
 
 // add unique key to username field
-$connection = $installer->getConnection();
-if ($connection instanceof Varien_Db_Adapter_Pdo_Mysql) {
-    $connection->addKey($tableAdmins, 'UNQ_ADMIN_USER_USERNAME', 'username', 'unique');
-}
+$installer->getConnection()->addKey($tableAdmins, 'UNQ_ADMIN_USER_USERNAME', 'username', 'unique');
 
 $installer->endSetup();
