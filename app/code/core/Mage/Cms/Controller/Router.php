@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Cms Controller Router
  *
@@ -41,8 +40,8 @@ class Mage_Cms_Controller_Router extends Mage_Core_Controller_Varien_Router_Abst
      */
     public function initControllerRouters($observer)
     {
-        /* @var $front Mage_Core_Controller_Varien_Front */
-        $front = $observer->getEvent()->getFront();
+        /* @var Mage_Core_Controller_Varien_Front $front */
+        $front = $observer->getEvent()->getData('front');
 
         $front->addRouter('cms', $this);
     }
@@ -72,17 +71,17 @@ class Mage_Cms_Controller_Router extends Mage_Core_Controller_Varien_Router_Abst
             'router'    => $this,
             'condition' => $condition
         ));
-        $identifier = $condition->getIdentifier();
+        $identifier = $condition->getData('identifier');
 
-        if ($condition->getRedirectUrl()) {
+        if ($condition->getData('redirect_url')) {
             Mage::app()->getFrontController()->getResponse()
-                ->setRedirect($condition->getRedirectUrl())
+                ->setRedirect($condition->getData('redirect_url'))
                 ->sendResponse();
             $request->setDispatched(true);
             return true;
         }
 
-        if (!$condition->getContinue()) {
+        if (!$condition->getData('continue')) {
             return false;
         }
 

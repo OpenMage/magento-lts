@@ -42,7 +42,7 @@ class Mage_Cms_Model_Observer
      */
     public function noRoute(Varien_Event_Observer $observer)
     {
-        $observer->getEvent()->getStatus()
+        $observer->getEvent()->getData('status')
             ->setLoaded(true)
             ->setForwardModule('cms')
             ->setForwardController('index')
@@ -58,7 +58,7 @@ class Mage_Cms_Model_Observer
      */
     public function noCookies(Varien_Event_Observer $observer)
     {
-        $redirect = $observer->getEvent()->getRedirect();
+        $redirect = $observer->getEvent()->getData('redirect');
 
         $pageId  = Mage::getStoreConfig(Mage_Cms_Helper_Page::XML_PATH_NO_COOKIES_PAGE);
         $pageUrl = Mage::helper('cms/page')->getPageUrl($pageId);

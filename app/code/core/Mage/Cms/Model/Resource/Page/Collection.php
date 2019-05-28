@@ -104,9 +104,7 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
     }
 
     /**
-     * Perform operations after collection load
-     *
-     * @return $this
+     * @inheritDoc
      */
     protected function _afterLoad()
     {

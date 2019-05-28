@@ -51,8 +51,7 @@ class Mage_Cms_Model_Resource_Page_Service extends Mage_Core_Model_Resource_Db_A
      * @param int $fromStoreId
      * @param int $byStoreId
      * @param string $byLinkTable
-     *
-     * @return Mage_Cms_Model_Mysql4_Page_Service
+     * @return $this
      */
     public function unlinkConflicts($fromStoreId, $byStoreId, $byLinkTable = null)
     {

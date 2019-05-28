@@ -44,10 +44,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
     }
 
     /**
-     * Process block data before deleting
-     *
-     * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Cms_Model_Resource_Page
+     * @inheritDoc
      */
     protected function _beforeDelete(Mage_Core_Model_Abstract $object)
     {
@@ -72,7 +69,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
             Mage::throwException(Mage::helper('cms')->__('A block identifier with the same properties already exists in the selected store.'));
         }
 
-        if (! $object->getId()) {
+        if (!$object->getId()) {
             $object->setCreationTime(Mage::getSingleton('core/date')->gmtDate());
         }
         $object->setUpdateTime(Mage::getSingleton('core/date')->gmtDate());
@@ -80,10 +77,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
     }
 
     /**
-     * Perform operations after object save
-     *
-     * @param Mage_Core_Model_Abstract $object
-     * @return $this
+     * @inheritDoc
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -121,12 +115,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
     }
 
     /**
-     * Load an object using 'identifier' field if there's no field specified and value is not numeric
-     *
-     * @param Mage_Core_Model_Abstract $object
-     * @param mixed $value
-     * @param string $field
-     * @return $this
+     * @inheritDoc
      */
     public function load(Mage_Core_Model_Abstract $object, $value, $field = null)
     {
@@ -138,10 +127,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
     }
 
     /**
-     * Perform operations after object load
-     *
-     * @param Mage_Core_Model_Abstract $object
-     * @return $this
+     * @inheritDoc
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {

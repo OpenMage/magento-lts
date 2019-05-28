@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Cms page mysql resource
  *
@@ -51,10 +50,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     }
 
     /**
-     * Process page data before deleting
-     *
-     * @param Mage_Core_Model_Abstract $object
-     * @return $this
+     * @inheritDoc
      */
     protected function _beforeDelete(Mage_Core_Model_Abstract $object)
     {
@@ -68,14 +64,11 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     }
 
     /**
-     * Process page data before saving
-     *
-     * @param Mage_Core_Model_Abstract $object
-     * @return $this
+     * @inheritDoc
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
-        /*
+        /**
          * For two attributes which represent timestamp data in DB
          * we should make converting such as:
          * If they are empty we need to convert them into DB
@@ -109,10 +102,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     }
 
     /**
-     * Assign page to store views
-     *
-     * @param Mage_Core_Model_Abstract $object
-     * @return $this
+     * @inheritDoc
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -154,12 +144,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     }
 
     /**
-     * Load an object using 'identifier' field if there's no field specified and value is not numeric
-     *
-     * @param Mage_Core_Model_Abstract $object
-     * @param mixed $value
-     * @param string $field
-     * @return $this
+     * @inheritDoc
      */
     public function load(Mage_Core_Model_Abstract $object, $value, $field = null)
     {
@@ -171,10 +156,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     }
 
     /**
-     * Perform operations after object load
-     *
-     * @param Mage_Core_Model_Abstract $object
-     * @return $this
+     * @inheritDoc
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
@@ -381,7 +363,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Get store ids to which specified item is assigned
      *
-     * @param int $id
+     * @param int $pageId
      * @return array
      */
     public function lookupStoreIds($pageId)

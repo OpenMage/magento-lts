@@ -116,6 +116,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             }
         }
 
+        /** @var Varien_Data_Collection_Filesystem $collection */
         $collection = $this->getCollection($path)
             ->setCollectDirs(false)
             ->setCollectFiles(true)
@@ -274,8 +275,8 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      *
      * @param string $targetPath Target directory
      * @param string $type Type of storage, e.g. image, media etc.
-     * @throws Mage_Core_Exception
-     * @return array File info Array
+     * @return array|bool|void
+     *@throws Mage_Core_Exception
      */
     public function uploadFile($targetPath, $type = null)
     {
@@ -416,7 +417,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Return thumbnails directory path for file/current directory
      *
-     * @param string $filePath Path to the file
+     * @param false|string $filePath Path to the file
      * @return string
      */
     public function getThumbsPath($filePath = false)
