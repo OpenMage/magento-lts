@@ -27,6 +27,8 @@
 /**
  * Customer account navigation sidebar
  *
+ * @method $this setEmailValue(string $value)
+ *
  * @category   Mage
  * @package    Mage_Customer
  * @author      Magento Core Team <core@magentocommerce.com>

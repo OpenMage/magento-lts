@@ -38,7 +38,7 @@ class Mage_Customer_Model_Resource_Address_Attribute_Backend_Region
     /**
      * Prepare object for save
      *
-     * @param Varien_Object $object
+     * @param Mage_Customer_Model_Address $object
      * @return $this
      */
     public function beforeSave($object)

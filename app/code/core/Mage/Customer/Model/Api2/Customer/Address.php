@@ -85,7 +85,7 @@ class Mage_Customer_Model_Api2_Customer_Address extends Mage_Api2_Model_Resource
      */
     protected function _getRegionIdByNameOrCode($region, $countryId)
     {
-        /** @var $collection Mage_Directory_Model_Resource_Region_Collection */
+        /** @var Mage_Directory_Model_Resource_Region_Collection $collection */
         $collection = Mage::getResourceModel('directory/region_collection');
 
         $collection->getSelect()
@@ -108,7 +108,7 @@ class Mage_Customer_Model_Api2_Customer_Address extends Mage_Api2_Model_Resource
      */
     protected function _loadCustomerAddressById($id)
     {
-        /* @var $address Mage_Customer_Model_Address */
+        /* @var Mage_Customer_Model_Address $address */
         $address = Mage::getModel('customer/address')->load($id);
 
         if (!$address->getId()) {
@@ -128,7 +128,7 @@ class Mage_Customer_Model_Api2_Customer_Address extends Mage_Api2_Model_Resource
      */
     protected function _loadCustomerById($id)
     {
-        /* @var $customer Mage_Customer_Model_Customer */
+        /* @var Mage_Customer_Model_Customer $customer */
         $customer = Mage::getModel('customer/customer')->load($id);
         if (!$customer->getId()) {
             $this->_critical(self::RESOURCE_NOT_FOUND);

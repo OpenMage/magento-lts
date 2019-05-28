@@ -38,6 +38,9 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
      */
     protected $_address;
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
         $this->getLayout()->getBlock('head')->setTitle(Mage::helper('customer')->__('Create New Customer Account'));
@@ -81,7 +84,7 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
             $data = new Varien_Object();
             if ($formData) {
                 $data->addData($formData);
-                $data->setCustomerData(1);
+                $data->setData('customer_data', 1);
             }
             if (isset($data['region_id'])) {
                 $data['region_id'] = (int)$data['region_id'];
@@ -98,7 +101,7 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
      */
     public function getCountryId()
     {
-        $countryId = $this->getFormData()->getCountryId();
+        $countryId = $this->getFormData()->getData('country_id');
         if ($countryId) {
             return $countryId;
         }
@@ -112,9 +115,9 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
      */
     public function getRegion()
     {
-        if (false !== ($region = $this->getFormData()->getRegion())) {
+        if (false !== ($region = $this->getFormData()->getData('region'))) {
             return $region;
-        } else if (false !== ($region = $this->getFormData()->getRegionId())) {
+        } elseif (false !== ($region = $this->getFormData()->getData('region_id'))) {
             return $region;
         }
         return null;
@@ -149,11 +152,12 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
      * Entity and form code must be defined for the form
      *
      * @param Mage_Customer_Model_Form $form
+     * @param string|null $scope
      * @return $this
      */
     public function restoreSessionData(Mage_Customer_Model_Form $form, $scope = null)
     {
-        if ($this->getFormData()->getCustomerData()) {
+        if ($this->getFormData()->getData('customer_data')) {
             $request = $form->prepareRequest($this->getFormData()->getData());
             $data    = $form->extractData($request, $scope, false);
             $form->restoreData($data);

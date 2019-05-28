@@ -25,8 +25,8 @@
  */
 
 /**
- * @var $this Mage_Catalog_Model_Resource_Setup
- * @var $conn Varien_Db_Adapter_Interface
+ * @var Mage_Catalog_Model_Resource_Setup $this
+ * @var Varien_Db_Adapter_Interface $conn
  */
 $conn = $this->getConnection();
 

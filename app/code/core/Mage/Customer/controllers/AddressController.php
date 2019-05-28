@@ -44,6 +44,9 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
         return Mage::getSingleton('customer/session');
     }
 
+    /**
+     * @inheritDoc
+     */
     public function preDispatch()
     {
         parent::preDispatch();
@@ -97,6 +100,9 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
         $this->renderLayout();
     }
 
+    /**
+     * @return Mage_Core_Controller_Varien_Action|void
+     */
     public function formPostAction()
     {
         if (!$this->_validateFormKey()) {
@@ -105,7 +111,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
         // Save data
         if ($this->getRequest()->isPost()) {
             $customer = $this->_getSession()->getCustomer();
-            /* @var $address Mage_Customer_Model_Address */
+            /* @var Mage_Customer_Model_Address $address */
             $address  = Mage::getModel('customer/address');
             $addressId = $this->getRequest()->getParam('id');
             if ($addressId) {
@@ -117,7 +123,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
 
             $errors = array();
 
-            /* @var $addressForm Mage_Customer_Model_Form */
+            /* @var Mage_Customer_Model_Form $addressForm */
             $addressForm = Mage::getModel('customer/form');
             $addressForm->setFormCode('customer_address_edit')
                 ->setEntity($address);
@@ -161,6 +167,9 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
         return $this->_redirectError(Mage::getUrl('*/*/edit', array('id' => $address->getId())));
     }
 
+    /**
+     * @return Mage_Core_Controller_Varien_Action|void
+     */
     public function deleteAction()
     {
         if (!$this->_validateFormKey()) {
@@ -181,7 +190,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
             try {
                 $address->delete();
                 $this->_getSession()->addSuccess($this->__('The address has been deleted.'));
-            } catch (Exception $e){
+            } catch (Exception $e) {
                 $this->_getSession()->addException($e, $this->__('An error occurred while deleting the address.'));
             }
         }

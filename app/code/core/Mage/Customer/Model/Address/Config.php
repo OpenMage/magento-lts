@@ -60,6 +60,16 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
      */
     protected $_defaultTypes    = array();
 
+    /**
+     * @var array
+     */
+    private $_defaultType       = array();
+
+    /**
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @return $this
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function setStore($store)
     {
         $this->_store = Mage::app()->getStore($store);
@@ -91,7 +101,7 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
     /**
      * Retrieve address formats
      *
-     * @return array
+     * @return Varien_Object[]
      */
     public function getFormats()
     {
@@ -105,17 +115,18 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
                 $htmlEscape = strtolower($typeConfig->htmlEscape);
                 $htmlEscape = $htmlEscape == 'false' || $htmlEscape == '0' || $htmlEscape == 'no'
                         || !strlen($typeConfig->htmlEscape) ? false : true;
-                $type->setCode($typeCode)
-                    ->setTitle((string)$typeConfig->title)
-                    ->setDefaultFormat(Mage::getStoreConfig($path, $store))
-                    ->setHtmlEscape($htmlEscape);
+                $type->setData('code', $typeCode)
+                    ->setData('title', (string)$typeConfig->title)
+                    ->setData('default_format', Mage::getStoreConfig($path, $store))
+                    ->setData('html_escape', $htmlEscape);
 
                 $renderer = (string)$typeConfig->renderer;
                 if (!$renderer) {
                     $renderer = self::DEFAULT_ADDRESS_RENDERER;
                 }
 
-                $type->setRenderer(
+                $type->setData(
+                    'renderer',
                     Mage::helper('customer/address')->getRenderer($renderer)->setType($type)
                 );
 
@@ -135,7 +146,7 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
     {
         $store = $this->getStore();
         $storeId = $store->getId();
-        if(!isset($this->_defaultType[$storeId])) {
+        if (!isset($this->_defaultType[$storeId])) {
             $this->_defaultType[$storeId] = new Varien_Object();
             $this->_defaultType[$storeId]->setCode('default')
                 ->setDefaultFormat('{{depend prefix}}{{var prefix}} {{/depend}}{{var firstname}} {{depend middlename}}'
@@ -158,12 +169,11 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
      */
     public function getFormatByCode($typeCode)
     {
-        foreach($this->getFormats() as $type) {
-            if($type->getCode()==$typeCode) {
+        foreach ($this->getFormats() as $type) {
+            if ($type->getData('code') == $typeCode) {
                 return $type;
             }
         }
         return $this->_getDefaultFormat();
     }
-
 }

@@ -30,8 +30,8 @@
  * @method Mage_Customer_Model_Resource_Group _getResource()
  * @method Mage_Customer_Model_Resource_Group getResource()
  * @method string getCustomerGroupCode()
- * @method Mage_Customer_Model_Group setCustomerGroupCode(string $value)
- * @method Mage_Customer_Model_Group setTaxClassId(int $value)
+ * @method $this setCustomerGroupCode(string $value)
+ * @method $this setTaxClassId(int $value)
  *
  * @category    Mage
  * @package     Mage_Customer
@@ -78,6 +78,7 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
      * Alias for setCustomerGroupCode
      *
      * @param string $value
+     * @return $this
      */
     public function setCode($value)
     {
@@ -94,6 +95,10 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
         return $this->getCustomerGroupCode();
     }
 
+    /**
+     * @param int|null $groupId
+     * @return int
+     */
     public function getTaxClassId($groupId = null)
     {
         if (!is_null($groupId)) {
@@ -106,7 +111,9 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
         return $this->getData('tax_class_id');
     }
 
-
+    /**
+     * @return bool
+     */
     public function usesAsDefault()
     {
         $data = Mage::getConfig()->getStoresConfigByPath(self::XML_PATH_DEFAULT_ID);
@@ -125,15 +132,15 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
     {
         parent::afterCommitCallback();
         Mage::getSingleton('index/indexer')->processEntityAction(
-            $this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE
+            $this,
+            self::ENTITY,
+            Mage_Index_Model_Event::TYPE_SAVE
         );
         return $this;
     }
 
     /**
-     * Prepare data before save
-     *
-     * @return Mage_Core_Model_Abstract
+     * @inheritDoc
      */
     protected function _beforeSave()
     {
@@ -153,5 +160,4 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
         );
         return $this;
     }
-
 }

@@ -105,7 +105,7 @@ class Mage_Customer_Model_Api2_Customer_Address_Validator extends Mage_Api2_Mode
      */
     protected function _checkRegion($data, Mage_Directory_Model_Country $country)
     {
-        /* @var $regions Mage_Directory_Model_Resource_Region_Collection */
+        /* @var Mage_Directory_Model_Resource_Region_Collection $regions */
         $regions = $country->getRegions();
         // Is it the country with predifined regions?
         if ($regions->count()) {

@@ -93,7 +93,7 @@ class Mage_Customer_Model_Observer
      *
      * @param Varien_Event_Observer $observer
      */
-    public function beforeLoadLayout($observer)
+    public function beforeLoadLayout(Varien_Event_Observer $observer)
     {
         $loggedIn = Mage::getSingleton('customer/session')->isLoggedIn();
 
@@ -106,14 +106,14 @@ class Mage_Customer_Model_Observer
      *
      * @param Varien_Event_Observer $observer
      */
-    public function beforeAddressSave($observer)
+    public function beforeAddressSave(Varien_Event_Observer $observer)
     {
         if (Mage::registry(self::VIV_CURRENTLY_SAVED_ADDRESS)) {
             Mage::unregister(self::VIV_CURRENTLY_SAVED_ADDRESS);
         }
 
-        /** @var $customerAddress Mage_Customer_Model_Address */
-        $customerAddress = $observer->getCustomerAddress();
+        /** @var Mage_Customer_Model_Address $customerAddress */
+        $customerAddress = $observer->getData('customer_address');
         if ($customerAddress->getId()) {
             Mage::register(self::VIV_CURRENTLY_SAVED_ADDRESS, $customerAddress->getId());
         } else {
@@ -135,10 +135,10 @@ class Mage_Customer_Model_Observer
      *
      * @param Varien_Event_Observer $observer
      */
-    public function afterAddressSave($observer)
+    public function afterAddressSave(Varien_Event_Observer $observer)
     {
-        /** @var $customerAddress Mage_Customer_Model_Address */
-        $customerAddress = $observer->getCustomerAddress();
+        /** @var Mage_Customer_Model_Address $customerAddress */
+        $customerAddress = $observer->getData('customer_address');
         $customer = $customerAddress->getCustomer();
 
         $store = Mage::app()->getStore()->isAdmin() ? $customer->getStore() : null;
@@ -152,12 +152,11 @@ class Mage_Customer_Model_Observer
         try {
             Mage::register(self::VIV_PROCESSED_FLAG, true);
 
-            /** @var $customerHelper Mage_Customer_Helper_Data */
+            /** @var Mage_Customer_Helper_Data $customerHelper */
             $customerHelper = Mage::helper('customer');
 
             if ($customerAddress->getVatId() == ''
-                || !Mage::helper('core')->isCountryInEU($customerAddress->getCountry()))
-            {
+                || !Mage::helper('core')->isCountryInEU($customerAddress->getCountry())) {
                 $defaultGroupId = $customerHelper->getDefaultCustomerGroupId($customer->getStore());
 
                 if (!$customer->getDisableAutoGroupChange() && $customer->getGroupId() != $defaultGroupId) {
@@ -165,14 +164,15 @@ class Mage_Customer_Model_Observer
                     $customer->save();
                 }
             } else {
-
                 $result = $customerHelper->checkVatNumber(
                     $customerAddress->getCountryId(),
                     $customerAddress->getVatId()
                 );
 
                 $newGroupId = $customerHelper->getCustomerGroupIdBasedOnVatNumber(
-                    $customerAddress->getCountryId(), $result, $customer->getStore()
+                    $customerAddress->getCountryId(),
+                    $result,
+                    $customer->getStore()
                 );
 
                 if (!$customer->getDisableAutoGroupChange() && $customer->getGroupId() != $newGroupId) {
@@ -181,13 +181,16 @@ class Mage_Customer_Model_Observer
                 }
 
                 if (!Mage::app()->getStore()->isAdmin()) {
-                    $validationMessage = Mage::helper('customer')->getVatValidationUserMessage($customerAddress,
-                        $customer->getDisableAutoGroupChange(), $result);
+                    $validationMessage = Mage::helper('customer')->getVatValidationUserMessage(
+                        $customerAddress,
+                        $customer->getDisableAutoGroupChange(),
+                        $result
+                    );
 
-                    if (!$validationMessage->getIsError()) {
-                        Mage::getSingleton('customer/session')->addSuccess($validationMessage->getMessage());
+                    if (!$validationMessage->getData('is_error')) {
+                        Mage::getSingleton('customer/session')->addSuccess($validationMessage->getData('message'));
                     } else {
-                        Mage::getSingleton('customer/session')->addError($validationMessage->getMessage());
+                        Mage::getSingleton('customer/session')->addError($validationMessage->getData('message'));
                     }
                 }
             }
@@ -201,10 +204,10 @@ class Mage_Customer_Model_Observer
      *
      * @param Varien_Event_Observer $observer
      */
-    public function quoteSubmitAfter($observer)
+    public function quoteSubmitAfter(Varien_Event_Observer $observer)
     {
-        /** @var $customer Mage_Customer_Model_Customer */
-        $customer = $observer->getQuote()->getCustomer();
+        /** @var Mage_Customer_Model_Customer $customer */
+        $customer = $observer->getData('quote')->getCustomer();
 
         if (!Mage::helper('customer/address')->isVatValidationEnabled($customer->getStore())) {
             return;

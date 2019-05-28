@@ -25,7 +25,7 @@
  */
 
 
-/* @var $installer Mage_Customer_Model_Entity_Setup */
+/* @var Mage_Customer_Model_Entity_Setup $installer */
 $installer = $this;
 
 $installer->run("
@@ -39,18 +39,34 @@ CREATE TABLE `{$installer->getTable('customer/form_attribute')}` (
 ");
 
 $installer->getConnection()->dropColumn($installer->getTable('customer/eav_attribute'), 'is_visible_on_front');
-$installer->getConnection()->changeColumn($installer->getTable('customer/eav_attribute'), 'lines_to_divide_multiline',
-    'multiline_count', 'TINYINT UNSIGNED NOT NULL DEFAULT 1');
+$installer->getConnection()->changeColumn(
+    $installer->getTable('customer/eav_attribute'),
+    'lines_to_divide_multiline',
+    'multiline_count',
+    'TINYINT UNSIGNED NOT NULL DEFAULT 1'
+);
 $installer->getConnection()->dropColumn($installer->getTable('customer/eav_attribute'), 'min_text_length');
 $installer->getConnection()->dropColumn($installer->getTable('customer/eav_attribute'), 'max_text_length');
-$installer->getConnection()->modifyColumn($installer->getTable('customer/eav_attribute'), 'input_filter',
-    'varchar(255) DEFAULT NULL');
-$installer->getConnection()->addColumn($installer->getTable('customer/eav_attribute'), 'validate_rules',
-    'text DEFAULT NULL');
-$installer->getConnection()->addColumn($installer->getTable('customer/eav_attribute'), 'is_system',
-    'TINYINT UNSIGNED NOT NULL DEFAULT 0');
-$installer->getConnection()->addColumn($installer->getTable('customer/eav_attribute'), 'sort_order',
-    'INT UNSIGNED NOT NULL DEFAULT 0');
+$installer->getConnection()->modifyColumn(
+    $installer->getTable('customer/eav_attribute'),
+    'input_filter',
+    'varchar(255) DEFAULT NULL'
+);
+$installer->getConnection()->addColumn(
+    $installer->getTable('customer/eav_attribute'),
+    'validate_rules',
+    'text DEFAULT NULL'
+);
+$installer->getConnection()->addColumn(
+    $installer->getTable('customer/eav_attribute'),
+    'is_system',
+    'TINYINT UNSIGNED NOT NULL DEFAULT 0'
+);
+$installer->getConnection()->addColumn(
+    $installer->getTable('customer/eav_attribute'),
+    'sort_order',
+    'INT UNSIGNED NOT NULL DEFAULT 0'
+);
 
 $installer->updateEntityType('customer', 'attribute_model', 'customer/attribute');
 $installer->updateEntityType('customer_address', 'attribute_model', 'customer/attribute');

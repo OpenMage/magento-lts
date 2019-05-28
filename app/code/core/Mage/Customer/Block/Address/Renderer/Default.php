@@ -57,7 +57,7 @@ class Mage_Customer_Block_Address_Renderer_Default
      * Retrive format type object
      *
      * @param  Varien_Object $type
-     * @return Mage_Customer_Model_Address_Renderer_Default
+     * @return $this
      */
     public function setType(Varien_Object $type)
     {
@@ -65,12 +65,16 @@ class Mage_Customer_Block_Address_Renderer_Default
         return $this;
     }
 
-    public function getFormat(Mage_Customer_Model_Address_Abstract $address=null)
+    /**
+     * @param Mage_Customer_Model_Address_Abstract|null $address
+     * @return string
+     */
+    public function getFormat(Mage_Customer_Model_Address_Abstract $address = null)
     {
         $countryFormat = is_null($address)
             ? false
-            : $address->getCountryModel()->getFormat($this->getType()->getCode());
-        $format = $countryFormat ? $countryFormat->getFormat() : $this->getType()->getDefaultFormat();
+            : $address->getCountryModel()->getFormat($this->getType()->getData('code'));
+        $format = $countryFormat ? $countryFormat->getFormat() : $this->getType()->getData('default_format');
         return $format;
     }
 
@@ -78,11 +82,13 @@ class Mage_Customer_Block_Address_Renderer_Default
      * Render address
      *
      * @param Mage_Customer_Model_Address_Abstract $address
+     * @param string|null $format
      * @return string
+     * @throws Exception
      */
-    public function render(Mage_Customer_Model_Address_Abstract $address, $format=null)
+    public function render(Mage_Customer_Model_Address_Abstract $address, $format = null)
     {
-        switch ($this->getType()->getCode()) {
+        switch ($this->getType()->getData('code')) {
             case 'html':
                 $dataFormat = Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_HTML;
                 break;
@@ -102,13 +108,13 @@ class Mage_Customer_Block_Address_Renderer_Default
 
         $data = array();
         foreach ($attributes as $attribute) {
-            /* @var $attribute Mage_Customer_Model_Attribute */
+            /* @var Mage_Customer_Model_Attribute $attribute */
             if (!$attribute->getIsVisible()) {
                 continue;
             }
             if ($attribute->getAttributeCode() == 'country_id') {
                 $data['country'] = $address->getCountryModel()->getName();
-            } else if ($attribute->getAttributeCode() == 'region') {
+            } elseif ($attribute->getAttributeCode() == 'region') {
                 $data['region'] = Mage::helper('directory')->__($address->getRegion());
             } else {
                 $dataModel = Mage_Customer_Model_Attribute_Data::factory($attribute, $address);
@@ -125,7 +131,7 @@ class Mage_Customer_Block_Address_Renderer_Default
             }
         }
 
-        if ($this->getType()->getHtmlEscape()) {
+        if ($this->getType()->getData('html_escape')) {
             foreach ($data as $key => $value) {
                 $data[$key] = $this->escapeHtml($value);
             }

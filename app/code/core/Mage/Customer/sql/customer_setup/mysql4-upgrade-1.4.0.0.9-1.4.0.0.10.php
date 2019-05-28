@@ -25,7 +25,7 @@
  */
 
 
-/* @var $installer Mage_Customer_Model_Entity_Setup */
+/* @var Mage_Customer_Model_Entity_Setup $installer */
 $installer = $this;
 
 $installer->updateEntityType('customer', 'entity_attribute_collection', 'customer/attribute_collection');

@@ -91,7 +91,8 @@ class Mage_Customer_Model_Resource_Group_Collection extends Mage_Core_Model_Reso
     {
         $this->getSelect()->joinLeft(
             array('tax_class_table' => $this->getTable('tax/tax_class')),
-            "main_table.tax_class_id = tax_class_table.class_id");
+            "main_table.tax_class_id = tax_class_table.class_id"
+        );
         return $this;
     }
 

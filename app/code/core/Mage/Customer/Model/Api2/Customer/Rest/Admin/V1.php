@@ -42,7 +42,7 @@ class Mage_Customer_Model_Api2_Customer_Rest_Admin_V1 extends Mage_Customer_Mode
      */
     protected function _retrieve()
     {
-        /** @var $log Mage_Log_Model_Customer */
+        /** @var Mage_Log_Model_Customer $log */
         $log = Mage::getModel('log/customer');
         $log->loadByCustomer($this->getRequest()->getParam('id'));
 
@@ -61,7 +61,7 @@ class Mage_Customer_Model_Api2_Customer_Rest_Admin_V1 extends Mage_Customer_Mode
      */
     protected function _delete()
     {
-        /** @var $customer Mage_Customer_Model_Customer */
+        /** @var Mage_Customer_Model_Customer $customer */
         $customer = parent::_loadCustomerById($this->getRequest()->getParam('id'));
 
         try {

@@ -81,7 +81,8 @@ class Mage_Customer_Model_Resource_Customer_Collection extends Mage_Eav_Model_En
             $concatenate[] = $adapter->getCheckSql(
                 '{{prefix}} IS NOT NULL AND {{prefix}} != \'\'',
                 $adapter->getConcatSql(array('LTRIM(RTRIM({{prefix}}))', '\' \'')),
-                '\'\'');
+                '\'\''
+            );
         }
         $concatenate[] = 'LTRIM(RTRIM({{firstname}}))';
         $concatenate[] = '\' \'';
@@ -89,14 +90,17 @@ class Mage_Customer_Model_Resource_Customer_Collection extends Mage_Eav_Model_En
             $concatenate[] = $adapter->getCheckSql(
                 '{{middlename}} IS NOT NULL AND {{middlename}} != \'\'',
                 $adapter->getConcatSql(array('LTRIM(RTRIM({{middlename}}))', '\' \'')),
-                '\'\'');
+                '\'\''
+            );
         }
         $concatenate[] = 'LTRIM(RTRIM({{lastname}}))';
         if (isset($fields['suffix'])) {
             $concatenate[] = $adapter
-                    ->getCheckSql('{{suffix}} IS NOT NULL AND {{suffix}} != \'\'',
-                $adapter->getConcatSql(array('\' \'', 'LTRIM(RTRIM({{suffix}}))')),
-                '\'\'');
+                    ->getCheckSql(
+                        '{{suffix}} IS NOT NULL AND {{suffix}} != \'\'',
+                        $adapter->getConcatSql(array('\' \'', 'LTRIM(RTRIM({{suffix}}))')),
+                        '\'\''
+                    );
         }
 
         $nameExpr = $adapter->getConcatSql($concatenate);
@@ -124,7 +128,7 @@ class Mage_Customer_Model_Resource_Customer_Collection extends Mage_Eav_Model_En
      *
      * @param int $limit
      * @param int $offset
-     * @return Mage_Eav_Model_Entity_Collection_Abstract
+     * @return Varien_Db_Select
      */
     protected function _getAllIdsSelect($limit = null, $offset = null)
     {
