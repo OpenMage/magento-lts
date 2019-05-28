@@ -61,49 +61,56 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
     }
 
     /**
-     * @inheritDoc
+     * Action before save
+     *
+     * @param Mage_Core_Model_Abstract $role
+     * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $role)
     {
-        if ($role instanceof Mage_Admin_Model_Roles) {
-            if ($role->getId() == '') {
-                if ($role->getIdFieldName()) {
-                    $role->unsetData($role->getIdFieldName());
-                } else {
-                    $role->unsetData('id');
-                }
-            }
-
-            if ($role->getPid() > 0) {
-                $row = $this->load($role->getPid());
+        if ($role->getId() == '') {
+            if ($role->getIdFieldName()) {
+                $role->unsetData($role->getIdFieldName());
             } else {
-                $row = array('tree_level' => 0);
+                $role->unsetData('id');
             }
-            $role->setTreeLevel($row['tree_level'] + 1);
-            $role->setRoleName($role->getName());
         }
-        return parent::_beforeSave($role);
-   }
+
+        if ($role->getPid() > 0) {
+            $row = $this->load($role->getPid());
+        } else {
+            $row = array('tree_level' => 0);
+        }
+        $role->setTreeLevel($row['tree_level'] + 1);
+        $role->setRoleName($role->getName());
+        return $this;
+    }
 
     /**
-     * @inheritDoc
+     * Action after save
+     *
+     * @param Mage_Core_Model_Abstract $role
+     * @return $this
      */
     protected function _afterSave(Mage_Core_Model_Abstract $role)
     {
         $this->_updateRoleUsersAcl($role);
         Mage::app()->getCache()->clean(Zend_Cache::CLEANING_MODE_MATCHING_TAG);
-        return parent::_afterSave($role);
+        return $this;
     }
 
     /**
-     * @inheritDoc
+     * Action after delete
+     *
+     * @param Mage_Core_Model_Abstract $role
+     * @return $this
      */
     protected function _afterDelete(Mage_Core_Model_Abstract $role)
     {
         $adapter = $this->_getWriteAdapter();
         $adapter->delete($this->getMainTable(), array('parent_id=?'=>$role->getId()));
         $adapter->delete($this->_ruleTable, array('role_id=?'=>$role->getId()));
-        return parent::_afterDelete($role);
+        return $this;
     }
 
     /**

@@ -350,9 +350,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      */
     protected function _getEncodedApiKey($apiKey)
     {
-        /** @var Mage_Core_Helper_Data $helper */
-        $helper = $this->_getHelper('core');
-        return $helper->getHash($apiKey, Mage_Admin_Model_User::HASH_SALT_LENGTH);
+        return $this->_getHelper('core')->getHash($apiKey, Mage_Admin_Model_User::HASH_SALT_LENGTH);
     }
 
     /**

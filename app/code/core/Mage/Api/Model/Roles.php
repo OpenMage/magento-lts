@@ -179,12 +179,13 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
     /**
      * Filter data before save
      *
-     * {@inheritDoc}
+     * @return $this
      */
     protected function _beforeSave()
     {
         $this->filter();
-        return parent::_beforeSave();
+        parent::_beforeSave();
+        return $this;
     }
 
     /**

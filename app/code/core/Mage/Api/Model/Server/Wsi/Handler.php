@@ -93,7 +93,7 @@ class Mage_Api_Model_Server_WSI_Handler extends Mage_Api_Model_Server_Handler_Ab
      */
     public function login($username, $apiKey = null)
     {
-        if (is_object($username) && isset($username->apiKey) && isset($username->username)) {
+        if (is_object($username)) {
             $apiKey = $username->apiKey;
             $username = $username->username;
         }
