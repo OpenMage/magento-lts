@@ -26,7 +26,7 @@
 
 
 $installer = $this;
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 
 $conn = $installer->getConnection();
 $table = $this->getTable('design_change');

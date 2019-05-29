@@ -31,13 +31,15 @@
  * @method Mage_Core_Model_Resource_Config_Data _getResource()
  * @method Mage_Core_Model_Resource_Config_Data getResource()
  * @method string getScope()
- * @method Mage_Core_Model_Config_Data setScope(string $value)
+ * @method $this setScope(string $value)
  * @method int getScopeId()
- * @method Mage_Core_Model_Config_Data setScopeId(int $value)
+ * @method $this setScopeId(int $value)
  * @method string getPath()
- * @method Mage_Core_Model_Config_Data setPath(string $value)
+ * @method $this setPath(string $value)
  * @method string getValue()
- * @method Mage_Core_Model_Config_Data setValue(string $value)
+ * @method $this setValue(string $value)
+ * @method string getStoreCode()
+ * @method string getWebsiteCode()
  *
  * @category    Mage
  * @package     Mage_Core
@@ -107,11 +109,12 @@ class Mage_Core_Model_Config_Data extends Mage_Core_Model_Abstract
         }
         return (string) Mage::getConfig()->getNode('default/' . $path);
     }
-    
 
-     /**
+
+    /**
      * Get value by key for new user data from <section>/groups/<group>/fields/<field>
-     * 
+     *
+     * @param string $key
      * @return string
      */
     public function getFieldsetDataValue($key)

@@ -24,13 +24,14 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Core Session Abstract model
  *
  * @category   Mage
  * @package    Mage_Core
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setMessages(Mage_Core_Model_Abstract|Mage_Core_Model_Message_Collection $value)
  */
 class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_Varien
 {
@@ -79,7 +80,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      * @param string $sessionName
      * @return $this
      */
-    public function init($namespace, $sessionName=null)
+    public function init($namespace, $sessionName = null)
     {
         parent::init($namespace, $sessionName);
         $this->addHost(true);
@@ -204,7 +205,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      * @param   bool $clear
      * @return  Mage_Core_Model_Message_Collection
      */
-    public function getMessages($clear=false)
+    public function getMessages($clear = false)
     {
         if (!$this->getData('messages')) {
             $this->setMessages(Mage::getModel('core/message_collection'));
@@ -229,10 +230,12 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     public function addException(Exception $exception, $alternativeText)
     {
         // log exception to exceptions log
-        $message = sprintf('Exception message: %s%sTrace: %s',
+        $message = sprintf(
+            'Exception message: %s%sTrace: %s',
             $exception->getMessage(),
             "\n",
-            $exception->getTraceAsString());
+            $exception->getTraceAsString()
+        );
         $file    = Mage::getStoreConfig(self::XML_PATH_LOG_EXCEPTION_FILE);
         Mage::log($message, Zend_Log::DEBUG, $file);
 
@@ -337,7 +340,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         foreach ($items as $item) {
             if ($item instanceof Mage_Core_Model_Message_Abstract) {
                 $text = $item->getText();
-            } else if (is_string($item)) {
+            } elseif (is_string($item)) {
                 $text = $item;
             } else {
                 continue; // Some unknown object, do not put it in already existing messages
@@ -348,7 +351,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         foreach ($messages as $message) {
             if ($message instanceof Mage_Core_Model_Message_Abstract) {
                 $text = $message->getText();
-            } else if (is_string($message)) {
+            } elseif (is_string($message)) {
                 $text = $message;
             } else {
                 $text = null; // Some unknown object, add it anyway
@@ -370,10 +373,9 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     /**
      * Specify session identifier
      *
-     * @param   string|null $id
-     * @return  Mage_Core_Model_Session_Abstract
+     * {@inheritDoc}
      */
-    public function setSessionId($id=null)
+    public function setSessionId($id = null)
     {
         if (is_null($id) && $this->useSid()) {
             $_queryParam = $this->getSessionIdQueryParam();
@@ -400,6 +402,9 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         return self::$_encryptedSessionId;
     }
 
+    /**
+     * @return string
+     */
     public function getSessionIdQueryParam()
     {
         $_sessionName = $this->getSessionName();

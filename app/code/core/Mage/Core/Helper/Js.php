@@ -147,8 +147,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
                 foreach ($messages as $message) {
                     $messageText = (string)$message;
                     $module = $message->getParent()->getAttribute("module");
-                    $this->_translateData[$messageText] = Mage::helper(empty($module) ? 'core' : $module
-                    )->__($messageText);
+                    $this->_translateData[$messageText] = Mage::helper(empty($module) ? 'core' : $module)->__($messageText);
                 }
             }
 
@@ -179,8 +178,11 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
                 Mage::getConfig()->loadModulesConfiguration(self::JAVASCRIPT_TRANSLATE_CONFIG_FILENAME, $xmlConfig);
 
                 if ($canUsaCache) {
-                    Mage::app()->saveCache($xmlConfig->getXmlString(), self::JAVASCRIPT_TRANSLATE_CONFIG_KEY,
-                        array(Mage_Core_Model_Config::CACHE_TAG));
+                    Mage::app()->saveCache(
+                        $xmlConfig->getXmlString(),
+                        self::JAVASCRIPT_TRANSLATE_CONFIG_KEY,
+                        array(Mage_Core_Model_Config::CACHE_TAG)
+                    );
                 }
             }
             $this->_config = $xmlConfig;

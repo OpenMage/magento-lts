@@ -27,6 +27,10 @@
 
 class Mage_Core_Model_Layout_Element extends Varien_Simplexml_Element
 {
+    /**
+     * @param array $args
+     * @return $this
+     */
     public function prepare($args)
     {
         switch ($this->getName()) {
@@ -65,6 +69,9 @@ class Mage_Core_Model_Layout_Element extends Varien_Simplexml_Element
         return $this;
     }
 
+    /**
+     * @return false|string
+     */
     public function getBlockName()
     {
         $tagName = (string)$this->getName();
@@ -74,6 +81,10 @@ class Mage_Core_Model_Layout_Element extends Varien_Simplexml_Element
         return (string)$this['name'];
     }
 
+    /**
+     * @param $args
+     * @return $this
+     */
     public function prepareBlock($args)
     {
         $type = (string)$this['type'];
@@ -93,11 +104,19 @@ class Mage_Core_Model_Layout_Element extends Varien_Simplexml_Element
         return $this;
     }
 
+    /**
+     * @param $args
+     * @return $this
+     */
     public function prepareReference($args)
     {
         return $this;
     }
 
+    /**
+     * @param $args
+     * @return $this
+     */
     public function prepareAction($args)
     {
         $parent = $this->getParent();
@@ -106,9 +125,12 @@ class Mage_Core_Model_Layout_Element extends Varien_Simplexml_Element
         return $this;
     }
 
+    /**
+     * @param $args
+     * @return $this
+     */
     public function prepareActionArgument($args)
     {
         return $this;
     }
-
 }

@@ -65,7 +65,8 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
      * @param  Mage_Core_Model_Abstract $destinationModel
      * @return bool
      */
-    protected function _synchronizeHasErrors(Mage_Core_Model_Abstract $sourceModel,
+    protected function _synchronizeHasErrors(
+        Mage_Core_Model_Abstract $sourceModel,
         Mage_Core_Model_Abstract $destinationModel
     ) {
         if (!$sourceModel || !$destinationModel) {
@@ -96,7 +97,7 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
      *
      * @param  int|null $storage
      * @param  array $params
-     * @return Mage_Core_Model_Abstract|bool
+     * @return Mage_Core_Model_File_Storage_File|Mage_Core_Model_File_Storage_Database|false
      */
     public function getStorageModel($storage = null, $params = array())
     {

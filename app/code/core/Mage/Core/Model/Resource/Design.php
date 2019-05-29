@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Core Design Resource Model
  *
@@ -44,11 +43,8 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
     }
 
     /**
-     * Perform actions before object save
-     *
-     * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Core_Model_Resource_Db_Abstract
-     * @throws Mage_Core_Exception
+     * @param Mage_Core_Model_Design $object
+     * @inheritDoc
      */
     public function _beforeSave(Mage_Core_Model_Abstract $object)
     {
@@ -73,7 +69,8 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
 
         if ($check) {
             Mage::throwException(
-                Mage::helper('core')->__('Your design change for the specified store intersects with another one, please specify another date range.'));
+                Mage::helper('core')->__('Your design change for the specified store intersects with another one, please specify another date range.')
+            );
         }
 
         parent::_beforeSave($object);
@@ -84,10 +81,10 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
      * Check intersections
      *
      * @param int $storeId
-     * @param date $dateFrom
-     * @param date $dateTo
+     * @param string $dateFrom
+     * @param string $dateTo
      * @param int $currentId
-     * @return Array
+     * @return string
      */
     protected function _checkIntersection($storeId, $dateFrom, $dateTo, $currentId)
     {

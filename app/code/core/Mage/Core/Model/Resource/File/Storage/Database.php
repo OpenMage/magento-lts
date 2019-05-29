@@ -81,13 +81,24 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
             ->addColumn('directory', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
                 'default' => null
                 ), 'Directory Path')
-            ->addIndex($adapter->getIndexName($table, array('filename', 'directory_id'),
-                Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
-                array('filename', 'directory_id'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
+            ->addIndex(
+                $adapter->getIndexName(
+                    $table,
+                    array('filename', 'directory_id'),
+                    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+                ),
+                array('filename', 'directory_id'),
+                array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)
+            )
             ->addIndex($adapter->getIndexName($table, array('directory_id')), array('directory_id'))
-            ->addForeignKey($adapter->getForeignKeyName($table, 'directory_id', $dirStorageTable, 'directory_id'),
-                'directory_id', $dirStorageTable, 'directory_id',
-                Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+            ->addForeignKey(
+                $adapter->getForeignKeyName($table, 'directory_id', $dirStorageTable, 'directory_id'),
+                'directory_id',
+                $dirStorageTable,
+                'directory_id',
+                Varien_Db_Ddl_Table::ACTION_CASCADE,
+                Varien_Db_Ddl_Table::ACTION_CASCADE
+            )
             ->setComment('File Storage');
 
         $adapter->createTable($ddlTable);
@@ -298,7 +309,7 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
             return;
         }
 
-        /* @var $resHelper Mage_Core_Model_Resource_Helper_Abstract */
+        /* @var Mage_Core_Model_Resource_Helper_Abstract $resHelper */
         $resHelper = Mage::getResourceHelper('core');
         $likeExpression = $resHelper->addLikeEscape($folderName . '/', array('position' => 'start'));
         $this->_getWriteAdapter()

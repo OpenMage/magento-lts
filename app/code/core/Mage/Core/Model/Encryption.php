@@ -100,7 +100,7 @@ class Mage_Core_Model_Encryption
             case 1:
                 return hash_equals($this->hash($password), $hash);
             case 2:
-                return hash_equals($this->hash($hashArr[1] . $password),  $hashArr[0]);
+                return hash_equals($this->hash($hashArr[1] . $password), $hashArr[0]);
         }
         Mage::throwException('Invalid hash.');
     }

@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Template model class
  *
@@ -71,14 +70,14 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
     /**
      * Applying of design config
      *
-     * @return Mage_Core_Model_Template
+     * @return $this
      */
     protected function _applyDesignConfig()
     {
         $designConfig = $this->getDesignConfig();
-        $store = $designConfig->getStore();
+        $store = $designConfig->getData('store');
         $storeId = is_object($store) ? $store->getId() : $store;
-        $area = $designConfig->getArea();
+        $area = $designConfig->getData('area');
         if (!is_null($storeId)) {
             $appEmulation = Mage::getSingleton('core/app_emulation');
             $this->_initialEnvironmentInfo = $appEmulation->startEnvironmentEmulation($storeId, $area);
@@ -89,7 +88,7 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
     /**
      * Revert design settings to previous
      *
-     * @return Mage_Core_Model_Template
+     * @return $this
      */
     protected function _cancelDesignConfig()
     {
@@ -108,7 +107,7 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
      */
     protected function getDesignConfig()
     {
-        if(is_null($this->_designConfig)) {
+        if (is_null($this->_designConfig)) {
             $store = Mage::getDesign()->getStore();
             $storeId = is_object($store) ? $store->getId() : $store;
             $this->_designConfig = new Varien_Object(array(
@@ -123,7 +122,7 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
      * Initialize design information for template processing
      *
      * @param   array $config
-     * @return  Mage_Core_Model_Template
+     * @return  $this
      */
     public function setDesignConfig(array $config)
     {
@@ -138,12 +137,12 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
      * @param int|string $storeId
      * @param string $area
      */
-    public function emulateDesign($storeId, $area=self::DEFAULT_DESIGN_AREA)
+    public function emulateDesign($storeId, $area = self::DEFAULT_DESIGN_AREA)
     {
         if ($storeId) {
             // save current design settings
             $this->_emulatedDesignConfig = clone $this->getDesignConfig();
-            if ($this->getDesignConfig()->getStore() != $storeId) {
+            if ($this->getDesignConfig()->getData('store') != $storeId) {
                 $this->setDesignConfig(array('area' => $area, 'store' => $storeId));
                 $this->_applyDesignConfig();
             }

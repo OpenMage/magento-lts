@@ -220,11 +220,10 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
 
         $params = $this->_getIncludeParameters($construction[2]);
         $layout = Mage::getModel('core/layout');
-        /* @var $layout Mage_Core_Model_Layout */
+        /* @var Mage_Core_Model_Layout $layout */
         if (isset($params['area'])) {
             $layout->setArea($params['area']);
-        }
-        else {
+        } else {
             $layout->setArea(Mage::app()->getLayout()->getArea());
         }
 
@@ -235,7 +234,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         $layout->generateBlocks();
 
         foreach ($layout->getAllBlocks() as $blockName => $block) {
-            /* @var $block Mage_Core_Block_Abstract */
+            /* @var Mage_Core_Block_Abstract $block */
             foreach ($params as $k => $v) {
                 if (in_array($k, $skipParams)) {
                     continue;
@@ -329,8 +328,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
             $path = '';
             $params['_direct'] = $params['direct_url'];
             unset($params['direct_url']);
-        }
-        else {
+        } else {
             $path = isset($params['url']) ? $params['url'] : '';
             unset($params['url']);
         }
@@ -456,8 +454,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         $protocol = $isSecure ? 'https' : 'http';
         if (isset($params['url'])) {
             return $protocol . '://' . $params['url'];
-        }
-        elseif (isset($params['http']) && isset($params['https'])) {
+        } elseif (isset($params['http']) && isset($params['https'])) {
             if ($isSecure) {
                 return $params['https'];
             }

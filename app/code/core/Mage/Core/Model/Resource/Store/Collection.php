@@ -154,11 +154,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
     }
 
     /**
-     * Load collection data
-     *
-     * @param boolean $printQuery
-     * @param boolean $logQuery
-     * @return $this
+     * @inheritDoc
      */
     public function load($printQuery = false, $logQuery = false)
     {

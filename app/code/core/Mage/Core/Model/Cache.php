@@ -132,8 +132,14 @@ class Mage_Core_Model_Cache
         $backend    = $this->_getBackendOptions($options);
         $frontend   = $this->_getFrontendOptions($options);
 
-        $this->_frontend = Zend_Cache::factory('Varien_Cache_Core', $backend['type'], $frontend, $backend['options'],
-            true, true, true
+        $this->_frontend = Zend_Cache::factory(
+            'Varien_Cache_Core',
+            $backend['type'],
+            $frontend,
+            $backend['options'],
+            true,
+            true,
+            true
         );
 
         if (isset($options['request_processors'])) {
@@ -420,7 +426,7 @@ class Mage_Core_Model_Cache
      * @param   array $tags
      * @return  bool
      */
-    public function clean($tags=array())
+    public function clean($tags = array())
     {
         $mode = Zend_Cache::CLEANING_MODE_MATCHING_ANY_TAG;
         if (!empty($tags)) {
@@ -459,7 +465,7 @@ class Mage_Core_Model_Cache
     /**
      * Get cache resource model
      *
-     * @return Mage_Core_Model_Mysql4_Cache
+     * @return Mage_Core_Model_Resource_Cache
      */
     protected function _getResource()
     {
@@ -572,7 +578,7 @@ class Mage_Core_Model_Cache
         $types = array();
         $config = Mage::getConfig()->getNode(self::XML_PATH_TYPES);
         if ($config) {
-            foreach ($config->children() as $type=>$node) {
+            foreach ($config->children() as $type => $node) {
                 $types[$type] = new Varien_Object(array(
                     'id'            => $type,
                     'cache_type'    => Mage::helper('core')->__((string)$node->label),
@@ -697,6 +703,8 @@ class Mage_Core_Model_Cache
 
     /**
      * Get request processor object
+     * @param string $processor
+     * @return object
      */
     protected function _getProcessor($processor)
     {

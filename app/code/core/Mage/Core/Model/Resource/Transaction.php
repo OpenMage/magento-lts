@@ -114,7 +114,7 @@ class Mage_Core_Model_Resource_Transaction
      * @param string $alias
      * @return $this
      */
-    public function addObject(Mage_Core_Model_Abstract $object, $alias='')
+    public function addObject(Mage_Core_Model_Abstract $object, $alias = '')
     {
         $this->_objects[] = $object;
         if (!empty($alias)) {
@@ -207,5 +207,4 @@ class Mage_Core_Model_Resource_Transaction
         }
         return $this;
     }
-
 }

@@ -101,7 +101,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
     protected function _getConnection($name)
     {
         $connection = sprintf('%s_%s', $this->_modulePrefix, $name);
-        /** @var $resource Mage_Core_Model_Resource */
+        /** @var Mage_Core_Model_Resource $resource */
         $resource   = Mage::getSingleton('core/resource');
 
         return $resource->getConnection($connection);

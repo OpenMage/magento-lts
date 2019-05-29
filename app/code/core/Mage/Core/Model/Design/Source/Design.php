@@ -63,7 +63,7 @@ class Mage_Core_Model_Design_Source_Design extends Mage_Eav_Model_Entity_Attribu
         if (is_null($this->_options)) {
             $design = Mage::getModel('core/design_package')->getThemeList();
             $options = array();
-            foreach ($design as $package => $themes){
+            foreach ($design as $package => $themes) {
                 $packageOption = array('label' => $package);
                 $themeOptions = array();
                 foreach ($themes as $theme) {
@@ -81,8 +81,7 @@ class Mage_Core_Model_Design_Source_Design extends Mage_Eav_Model_Entity_Attribu
         if ($withEmpty) {
             array_unshift($options, array(
                 'value'=>'',
-                'label'=>Mage::helper('core')->__('-- Please Select --'))
-            );
+                'label'=>Mage::helper('core')->__('-- Please Select --')));
         }
         return $options;
     }

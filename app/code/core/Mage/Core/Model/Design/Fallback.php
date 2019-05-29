@@ -60,6 +60,7 @@ class Mage_Core_Model_Design_Fallback
 
     /**
      * Constructor
+     * @param array $params
      */
     public function __construct(array $params = array())
     {
@@ -80,7 +81,7 @@ class Mage_Core_Model_Design_Fallback
     }
 
     /**
-     * @param $store string|integer|Mage_Core_Model_Store
+     * @param string|integer|Mage_Core_Model_Store $store
      * @return $this
      */
     public function setStore($store)
@@ -106,7 +107,6 @@ class Mage_Core_Model_Design_Fallback
         $cacheKey = $area . '/' . $package . '/' . $theme;
 
         if (!isset($this->_cachedSchemes[$cacheKey])) {
-
             if ($this->_isInheritanceDefined($area, $package, $theme)) {
                 $scheme = $this->_getFallbackScheme($area, $package, $theme);
             } else {
@@ -147,7 +147,6 @@ class Mage_Core_Model_Design_Fallback
         $scheme = array(array());
         $this->_visited = array();
         while ($parent = (string)$this->_config->getNode($area . '/' . $package . '/' . $theme . '/parent')) {
-
             $this->_checkVisited($area, $package, $theme);
 
             $parts = explode('/', $parent);
@@ -168,7 +167,6 @@ class Mage_Core_Model_Design_Fallback
      * @param string $package
      * @param string $theme
      * @throws Mage_Core_Exception
-     * @return array
      */
     protected function _checkVisited($area, $package, $theme)
     {

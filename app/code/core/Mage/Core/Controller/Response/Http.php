@@ -44,7 +44,7 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
      *
      * @link  http://bugs.php.net/bug.php?id=36705
      *
-     * @return $this
+     * {@inheritDoc}
      */
     public function sendHeaders()
     {
@@ -55,7 +55,7 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
 
         if (substr(php_sapi_name(), 0, 3) == 'cgi') {
             $statusSent = false;
-            foreach ($this->_headersRaw as $i=>$header) {
+            foreach ($this->_headersRaw as $i => $header) {
                 if (stripos($header, 'status:')===0) {
                     if ($statusSent) {
                         unset($this->_headersRaw[$i]);
@@ -64,7 +64,7 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
                     }
                 }
             }
-            foreach ($this->_headers as $i=>$header) {
+            foreach ($this->_headers as $i => $header) {
                 if (strcasecmp($header['name'], 'status')===0) {
                     if ($statusSent) {
                         unset($this->_headers[$i]);
@@ -87,9 +87,7 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
     /**
      * Additionally check for session messages in several domains case
      *
-     * @param string $url
-     * @param int $code
-     * @return $this
+     * {@inheritDoc}
      */
     public function setRedirect($url, $code = 302)
     {
@@ -99,12 +97,14 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
         if (self::$_transportObject === null) {
             self::$_transportObject = new Varien_Object;
         }
-        self::$_transportObject->setUrl($url);
-        self::$_transportObject->setCode($code);
-        Mage::dispatchEvent('controller_response_redirect',
-                array('response' => $this, 'transport' => self::$_transportObject));
+        self::$_transportObject->setData('url', $url);
+        self::$_transportObject->setData('code', $code);
+        Mage::dispatchEvent(
+            'controller_response_redirect',
+            array('response' => $this, 'transport' => self::$_transportObject)
+        );
 
-        return parent::setRedirect(self::$_transportObject->getUrl(), self::$_transportObject->getCode());
+        return parent::setRedirect(self::$_transportObject->getData('url'), self::$_transportObject->getData('code'));
     }
 
     /**

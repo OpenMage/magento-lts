@@ -41,7 +41,7 @@ class Mage_Core_Model_Variable_Observer
      */
     public function prepareWysiwygPluginConfig(Varien_Event_Observer $observer)
     {
-        $config = $observer->getEvent()->getConfig();
+        $config = $observer->getEvent()->getData('config');
 
         if ($config->getData('add_variables')) {
             $settings = Mage::getModel('core/variable_config')->getWysiwygPluginSettings($config);

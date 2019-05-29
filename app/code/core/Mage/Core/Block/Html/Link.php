@@ -83,7 +83,7 @@ class Mage_Core_Block_Html_Link extends Mage_Core_Block_Template
      * @param   string $quote
      * @return  string
      */
-    public function serialize($attributes = array(), $valueSeparator='=', $fieldSeparator=' ', $quote='"')
+    public function serialize($attributes = array(), $valueSeparator = '=', $fieldSeparator = ' ', $quote = '"')
     {
         $res  = '';
         $data = array();

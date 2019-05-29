@@ -31,7 +31,6 @@
  * @package     Mage_Core
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Core_Model_Store_Api extends Mage_Api_Model_Resource_Abstract
 {
     /**
@@ -92,5 +91,4 @@ class Mage_Core_Model_Store_Api extends Mage_Api_Model_Resource_Abstract
 
         return $result;
     }
-
 }

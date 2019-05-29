@@ -29,14 +29,20 @@
  *
  * @method Mage_Core_Model_Resource_Website _getResource()
  * @method Mage_Core_Model_Resource_Website getResource()
- * @method Mage_Core_Model_Website setCode(string $value)
+ * @method $this setCode(string $value)
  * @method string getName()
- * @method Mage_Core_Model_Website setName(string $value)
+ * @method $this setName(string $value)
  * @method int getSortOrder()
- * @method Mage_Core_Model_Website setSortOrder(int $value)
- * @method Mage_Core_Model_Website setDefaultGroupId(int $value)
+ * @method $this setSortOrder(int $value)
+ * @method $this setDefaultGroupId(int $value)
  * @method int getIsDefault()
- * @method Mage_Core_Model_Website setIsDefault(int $value)
+ * @method $this setIsDefault(int $value)
+ * @method int getGroupId()
+ * @method int getStoreId()
+ * @method $this setStoreId(int $value)
+ * @method bool hasWebsiteId()
+ * @method int getWebsiteId()
+ * @method bool hasDefaultGroupId()
  *
  * @category    Mage
  * @package     Mage_Core
@@ -151,11 +157,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Custom load
-     *
-     * @param int|string $id
-     * @param string $field
-     * @return $this
+     * @inheritDoc
      */
     public function load($id, $field = null)
     {
@@ -178,7 +180,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
             return $this;
         }
         if (is_numeric($code)) {
-            foreach (Mage::getConfig()->getNode('websites')->children() as $websiteCode=>$website) {
+            foreach (Mage::getConfig()->getNode('websites')->children() as $websiteCode => $website) {
                 if ((int)$website->system->website->id==$code) {
                     $code = $websiteCode;
                     break;
@@ -201,9 +203,9 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
      * @param string $path
      * @return mixed
      */
-    public function getConfig($path) {
+    public function getConfig($path)
+    {
         if (!isset($this->_configCache[$path])) {
-
             $config = Mage::getConfig()->getNode('websites/'.$this->getCode().'/'.$path);
             if (!$config) {
                 return false;
@@ -211,7 +213,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
             }
             if ($config->hasChildren()) {
                 $value = array();
-                foreach ($config->children() as $k=>$v) {
+                foreach ($config->children() as $k => $v) {
                     $value[$k] = $v;
                 }
             } else {
@@ -244,6 +246,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
      * Set website groups
      *
      * @param array $groups
+     * @return $this
      */
     public function setGroups($groups)
     {
@@ -275,7 +278,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     /**
      * Retrieve website groups
      *
-     * @return array
+     * @return Mage_Core_Model_Store_Group[]
      */
     public function getGroups()
     {
@@ -314,7 +317,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     /**
      * Retrieve default group model
      *
-     * @return Mage_Core_Model_Store_Group
+     * @return Mage_Core_Model_Store_Group|false
      */
     public function getDefaultGroup()
     {
@@ -381,7 +384,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     /**
      * Retrieve wersite store objects
      *
-     * @return array
+     * @return Mage_Core_Model_Store[]
      */
     public function getStores()
     {
@@ -457,16 +460,25 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
         return join('-', array($this->getWebsiteId(), $this->getGroupId(), $this->getStoreId()));
     }
 
+    /**
+     * @return int
+     */
     public function getDefaultGroupId()
     {
         return $this->_getData('default_group_id');
     }
 
+    /**
+     * @return string
+     */
     public function getCode()
     {
         return $this->_getData('code');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _beforeDelete()
     {
         $this->_protectFromNonAdmin();
@@ -534,7 +546,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
      * Retrieve default stores select object
      * Select fields website_id, store_id
      *
-     * @param $withDefault include/exclude default admin website
+     * @param bool $withDefault include/exclude default admin website
      * @return Varien_Db_Select
      */
     public function getDefaultStoresSelect($withDefault = false)

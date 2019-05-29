@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 
@@ -93,8 +93,7 @@ foreach ($websiteRows as $websiteRow) {
     $rootCategoryId = 2;
     if (isset($rootCategoryIds['website'][$websiteRow['website_id']])) {
         $rootCategoryId = $rootCategoryIds['website'][$websiteRow['website_id']];
-    }
-    elseif (isset($rootCategoryIds['default'][0])) {
+    } elseif (isset($rootCategoryIds['default'][0])) {
         $rootCategoryId = $rootCategoryIds['default'][0];
     }
     $defaultStoreId = (int)$installer->getConnection()
@@ -114,13 +113,15 @@ foreach ($websiteRows as $websiteRow) {
     $groupId = $installer->getConnection()->lastInsertId();
     // set group for store(s)
     $installer->getConnection()
-        ->update($this->getTable('core_store'),
+        ->update(
+            $this->getTable('core_store'),
             array('group_id'=>$groupId),
             $installer->getConnection()->quoteInto('website_id=?', $websiteRow['website_id'])
         );
     // set created group as default for website
     $installer->getConnection()
-        ->update($this->getTable('core_website'),
+        ->update(
+            $this->getTable('core_website'),
             array('default_group_id'=>$groupId),
             $installer->getConnection()->quoteInto('website_id=?', $websiteRow['website_id'])
         );

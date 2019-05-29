@@ -31,7 +31,6 @@
  * @package    Mage_Core
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-//class Mage_Core_Model_Convert extends Varien_Convert_Profile_Collection
 class Mage_Core_Model_Convert extends Mage_Dataflow_Model_Convert_Profile_Collection
 {
     public function __construct()
@@ -47,9 +46,13 @@ class Mage_Core_Model_Convert extends Mage_Dataflow_Model_Convert_Profile_Collec
         }
     }
 
+    /**
+     * @param string $type
+     * @return mixed|string
+     */
     public function getClassNameByType($type)
     {
-        if (strpos($type, '/')!==false) {
+        if (strpos($type, '/') !== false) {
             return Mage::getConfig()->getModelClassName($type);
         }
         return parent::getClassNameByType($type);

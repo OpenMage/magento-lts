@@ -30,6 +30,12 @@
  * @category    Mage
  * @package     Mage_Core
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getInlineCssFile()
+ * @method $this setTemplateType(int $value)
+ * @method getTemplateText()
+ * @method $this setTemplateText(string $value)
+ * @method string getTemplateStyles()
  */
 abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_Template
 {
@@ -62,7 +68,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
      *
      * @param   string $configPath The path to the config setting that defines which global/template/email/* node
      * should be used to load the email template
-     * @return   Mage_Core_Model_Email_Template
+     * @return   $this|null
      */
     public function loadByConfigPath($configPath)
     {
@@ -77,14 +83,16 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
                 return null;
             }
 
-            $storeId = $this->getDesignConfig()->getStore();
+            $storeId = $this->getDesignConfig()->getData('store');
 
             $data = &$defaultTemplates[$templateId];
             $this->setTemplateType($data['type']=='html' ? self::TYPE_HTML : self::TYPE_TEXT);
 
             $localeCode = Mage::getStoreConfig('general/locale/code', $storeId);
             $templateText = Mage::app()->getTranslator()->getTemplateFile(
-                $data['file'], 'email', $localeCode
+                $data['file'],
+                'email',
+                $localeCode
             );
 
             $this->setTemplateText($templateText);
@@ -218,8 +226,8 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
      */
     protected function _getCssFileContent($filename)
     {
-        $storeId = $this->getDesignConfig()->getStore();
-        $area = $this->getDesignConfig()->getArea();
+        $storeId = $this->getDesignConfig()->getData('store');
+        $area = $this->getDesignConfig()->getData('area');
         // This method should always be called within the context of the email's store, so these values will be correct
         $package = Mage::getDesign()->getPackageName();
         $theme = Mage::getDesign()->getTheme('skin');
@@ -264,7 +272,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
             $files = array_map('trim', explode(",", $filesToLoad));
 
             $css = '';
-            foreach($files as $fileName) {
+            foreach ($files as $fileName) {
                 $css .= $this->_getCssFileContent($fileName) . "\n";
             }
             $this->_cssFileCache[$configPath] = $css;

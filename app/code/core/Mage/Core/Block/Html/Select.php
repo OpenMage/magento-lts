@@ -24,17 +24,20 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * HTML select element block
  *
  * @category   Mage
  * @package    Mage_Core
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getExtraParams()
+ * @method string getName()
+ * @method string getValue()
+ * @method bool getIsRenderToJsTemplate()
  */
 class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
 {
-
     protected $_options = array();
 
     /**
@@ -67,7 +70,7 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
      * @param array  $params HTML attributes
      * @return $this
      */
-    public function addOption($value, $label, $params=array())
+    public function addOption($value, $label, $params = array())
     {
         $this->_options[] = array('value' => $value, 'label' => $label, 'params' => $params);
         return $this;
@@ -154,7 +157,7 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
             . $this->getClass() . '" title="' . $this->getTitle() . '" ' . $this->getExtraParams() . '>';
         $values = $this->getValue();
 
-        if (!is_array($values)){
+        if (!is_array($values)) {
             if (!is_null($values)) {
                 $values = array($values);
             } else {
@@ -232,11 +235,13 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
             }
         }
 
-        return sprintf('<option value="%s"%s %s>%s</option>',
+        return sprintf(
+            '<option value="%s"%s %s>%s</option>',
             $this->escapeHtml($option['value']),
             $selectedHtml,
             $params,
-            $this->escapeHtml($option['label']));
+            $this->escapeHtml($option['label'])
+        );
     }
 
     /**

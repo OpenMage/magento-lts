@@ -30,6 +30,10 @@
  * @category   Mage
  * @package    Mage_Core
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getCookieDomain()
+ * @method string getCookiePath()
+ * @method string getCookieLifetime()
  */
 abstract class Mage_Core_Model_Session_Abstract_Zend extends Varien_Object
 {
@@ -40,11 +44,17 @@ abstract class Mage_Core_Model_Session_Abstract_Zend extends Varien_Object
      */
     protected $_namespace;
 
+    /**
+     * @return Zend_Session_Namespace
+     */
     public function getNamespace()
     {
         return $this->_namespace;
     }
 
+    /**
+     * @return $this
+     */
     public function start()
     {
         Varien_Profiler::start(__METHOD__.'/setOptions');
@@ -83,6 +93,7 @@ abstract class Mage_Core_Model_Session_Abstract_Zend extends Varien_Object
      * Initialization session namespace
      *
      * @param string $namespace
+     * @return $this
      */
     public function init($namespace)
     {
@@ -99,11 +110,12 @@ abstract class Mage_Core_Model_Session_Abstract_Zend extends Varien_Object
     /**
      * Redeclaration object setter
      *
-     * @param   string $key
-     * @param   mixed $value
-     * @return  Mage_Core_Model_Session_Abstract
+     * @param string $key
+     * @param mixed $value
+     * @param bool $isChanged
+     * @return $this
      */
-    public function setData($key, $value='', $isChanged = false)
+    public function setData($key, $value = '', $isChanged = false)
     {
         if (!$this->_namespace->data) {
             $this->_namespace->data = new Varien_Object();
@@ -119,7 +131,7 @@ abstract class Mage_Core_Model_Session_Abstract_Zend extends Varien_Object
      * @param   bool $clear
      * @return  mixed
      */
-    public function getData($var=null, $clear=false)
+    public function getData($var = null, $clear = false)
     {
         if (!$this->_namespace->data) {
             $this->_namespace->data = new Varien_Object();
@@ -137,7 +149,7 @@ abstract class Mage_Core_Model_Session_Abstract_Zend extends Varien_Object
     /**
      * Cleare session data
      *
-     * @return Mage_Core_Model_Session_Abstract
+     * @return $this
      */
     public function unsetAll()
     {
@@ -155,7 +167,11 @@ abstract class Mage_Core_Model_Session_Abstract_Zend extends Varien_Object
         return Zend_Session::getId();
     }
 
-    public function setSessionId($id=null)
+    /**
+     * @param null $id
+     * @return $this
+     */
+    public function setSessionId($id = null)
     {
         if (!is_null($id)) {
             Zend_Session::setId($id);
@@ -166,7 +182,7 @@ abstract class Mage_Core_Model_Session_Abstract_Zend extends Varien_Object
     /**
      * Regenerate session Id
      *
-     * @return Mage_Core_Model_Session_Abstract_Zend
+     * @return $this
      */
     public function regenerateSessionId()
     {

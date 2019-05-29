@@ -37,7 +37,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
      * Returns expresion for field unification
      *
      * @param string $field
-     * @return Zend_Db_Expr
+     * @return string
      */
     public function castField($field)
     {
@@ -73,7 +73,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
      *
      * @param Varien_Db_Select $select
      * @param string $table
-     * @param array $table
+     * @param array $fields
      * @return string
      */
     public function getInsertFromSelectUsingAnalytic(Varien_Db_Select $select, $table, $fields)
@@ -261,7 +261,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
      * Prepare select column list
      *
      * @param Varien_Db_Select $select
-     * @param $groupByCondition OPTIONAL
+     * @param string $groupByCondition
      * @return array
      * @throws Zend_Db_Exception
      */
@@ -292,7 +292,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
                         throw new Zend_Db_Exception("Can't prepare expression when tableName is instance of Zend_Db_Expr");
                     }
                     $tableColumns = $this->_getReadAdapter()->describeTable($tables[$correlationName]['tableName']);
-                    foreach(array_keys($tableColumns) as $col) {
+                    foreach (array_keys($tableColumns) as $col) {
                         $preparedColumns[strtoupper($col)] = array($correlationName, $col, null);
                     }
                 } else {
@@ -331,7 +331,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
         }
         $separator = '';
         if ($groupConcatDelimiter) {
-            $separator = sprintf(" SEPARATOR '%s'",  $groupConcatDelimiter);
+            $separator = sprintf(" SEPARATOR '%s'", $groupConcatDelimiter);
         }
 
         $select->columns(array($fieldAlias => new Zend_Db_Expr(sprintf('GROUP_CONCAT(%s%s)', $fieldExpr, $separator))));

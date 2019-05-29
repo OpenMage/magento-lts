@@ -58,6 +58,11 @@ class Mage_Core_Model_Domainpolicy
      */
     protected $_store;
 
+    /**
+     * Mage_Core_Model_Domainpolicy constructor.
+     * @param array $options
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function __construct($options = array())
     {
         $this->_store = isset($options['store']) ? $options['store'] : Mage::app()->getStore();
@@ -71,13 +76,13 @@ class Mage_Core_Model_Domainpolicy
      */
     public function addDomainPolicyHeader($observer)
     {
-        /** @var Mage_Core_Controller->getCurrentAreaDomainPolicy_Varien_Action $action */
-        $action = $observer->getControllerAction();
+        /** @var Mage_Core_Controller_Varien_Action $action */
+        $action = $observer->getData('controller_action');
         $policy = null;
 
         if ('adminhtml' == $action->getLayout()->getArea()) {
             $policy = $this->getBackendPolicy();
-        } elseif('frontend' == $action->getLayout()->getArea()) {
+        } elseif ('frontend' == $action->getLayout()->getArea()) {
             $policy = $this->getFrontendPolicy();
         }
 
@@ -110,8 +115,6 @@ class Mage_Core_Model_Domainpolicy
         return $this->_getDomainPolicyByCode((int)(string)$this->_store->getConfig(self::XML_DOMAIN_POLICY_FRONTEND));
     }
 
-
-
     /**
      * Return string representation for policy code
      *
@@ -120,7 +123,7 @@ class Mage_Core_Model_Domainpolicy
      */
     protected function _getDomainPolicyByCode($policyCode)
     {
-        switch($policyCode) {
+        switch ($policyCode) {
             case self::FRAME_POLICY_ALLOW:
                 $policy = null;
                 break;

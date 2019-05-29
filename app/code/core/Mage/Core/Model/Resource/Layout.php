@@ -71,9 +71,11 @@ class Mage_Core_Model_Resource_Layout extends Mage_Core_Model_Resource_Db_Abstra
         if ($readAdapter) {
             $select = $readAdapter->select()
                 ->from(array('layout_update' => $this->getMainTable()), array('xml'))
-                ->join(array('link'=>$this->getTable('core/layout_link')), 
-                        'link.layout_update_id=layout_update.layout_update_id',
-                        '')
+                ->join(
+                    array('link'=>$this->getTable('core/layout_link')),
+                    'link.layout_update_id=layout_update.layout_update_id',
+                    ''
+                )
                 ->where('link.store_id IN (0, :store_id)')
                 ->where('link.area = :area')
                 ->where('link.package = :package')

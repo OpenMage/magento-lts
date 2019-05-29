@@ -28,14 +28,19 @@
 /**
  * Core session model
  *
- * @todo extend from Mage_Core_Model_Session_Abstract
- *
  * @method null|bool getCookieShouldBeReceived()
- * @method Mage_Core_Model_Session setCookieShouldBeReceived(bool $flag)
- * @method Mage_Core_Model_Session unsCookieShouldBeReceived()
+ * @method $this setCookieShouldBeReceived(bool $flag)
+ * @method $this unsCookieShouldBeReceived()
+ * @method $this unsSessionHosts()
+ * @method string getCurrencyCode()
+ * @method $this setCurrencyCode(string $code)
+ * @method $this setLastUrl(string $value)
  */
 class Mage_Core_Model_Session extends Mage_Core_Model_Session_Abstract
 {
+    /**
+     * @param array $data
+     */
     public function __construct($data = array())
     {
         $name = isset($data['name']) ? $data['name'] : null;

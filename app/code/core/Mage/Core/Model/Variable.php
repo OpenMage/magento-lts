@@ -30,9 +30,12 @@
  * @method Mage_Core_Model_Resource_Variable _getResource()
  * @method Mage_Core_Model_Resource_Variable getResource()
  * @method string getCode()
- * @method Mage_Core_Model_Variable setCode(string $value)
+ * @method $this setCode(string $value)
  * @method string getName()
- * @method Mage_Core_Model_Variable setName(string $value)
+ * @method $this setName(string $value)
+ * @method bool getUseDefaultValue()
+ * @method string getHtmlValue()
+ * @method string getPlainValue()
  *
  * @category    Mage
  * @package     Mage_Core
@@ -130,12 +133,12 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
     /**
      * Retrieve variables option array
      *
-     * @param boolean $withValues
+     * @param boolean $withGroup
      * @return array
      */
     public function getVariablesOptionArray($withGroup = false)
     {
-        /* @var $collection Mage_Core_Model_Mysql4_Variable_Collection */
+        /* @var Mage_Core_Model_Mysql4_Variable_Collection $collection */
         $collection = $this->getCollection();
         $variables = array();
         foreach ($collection->toOptionArray() as $variable) {
@@ -143,8 +146,8 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
                 'value' => '{{customVar code=' . $variable['value'] . '}}',
                 'label' => Mage::helper('core')->__(
                     '%s',
-                    Mage::helper('core')->escapeHtml($variable['label']
-                    ))
+                    Mage::helper('core')->escapeHtml($variable['label'])
+                )
             );
         }
         if ($withGroup && $variables) {
@@ -155,5 +158,4 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
         }
         return $variables;
     }
-
 }
