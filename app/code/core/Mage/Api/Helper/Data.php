@@ -88,7 +88,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Go through an object parameters and unpack associative object to array.
      *
-     * @param Object $obj - Link to Object
+     * @param Object|array $obj - Link to Object
      * @return bool
      */
     public function v2AssociativeArrayUnpacker(&$obj)
