@@ -31,7 +31,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
 {
     /**
      * Current directory path
-     * @var string
+     * @var string|false
      */
     protected $_currentPath;
 
@@ -50,7 +50,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
 
     /**
      * Image Storage root directory
-     * @var string
+     * @var string|false
      */
     protected $_storageRoot;
 
@@ -113,7 +113,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
      */
     public function convertPathToId($path)
     {
-        $storageRoot = realpath($this->getStorageRoot());
+        $storageRoot = (string)realpath($this->getStorageRoot());
         $path = str_replace($storageRoot, '', $path);
         return $this->idEncode($path);
     }
@@ -126,7 +126,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
      */
     public function convertIdToPath($id)
     {
-        $path = $this->idDecode($id);
+        $path = (string)$this->idDecode($id);
         $storageRoot = realpath($this->getStorageRoot());
         if (!strstr($path, $storageRoot)) {
             $path = $storageRoot . DS . $path;
@@ -207,7 +207,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
      * Try to create target directory if it doesn't exist
      *
      * @throws Mage_Core_Exception
-     * @return string
+     * @return string|false
      */
     public function getCurrentPath()
     {
@@ -215,7 +215,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
             $currentPath = $this->getStorageRoot();
             $node = $this->_getRequest()->getParam($this->getTreeNodeName());
             if ($node) {
-                $path = realpath($this->convertIdToPath($node));
+                $path = (string)realpath($this->convertIdToPath($node));
                 if (is_dir($path) && false !== stripos($path, $currentPath)) {
                     $currentPath = $path;
                 }
@@ -240,7 +240,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
     {
         if (!$this->_currentUrl) {
             $mediaPath = realpath(Mage::getConfig()->getOptions()->getMediaDir());
-            $path = str_replace($mediaPath, '', $this->getCurrentPath());
+            $path = str_replace((string)$mediaPath, '', (string)$this->getCurrentPath());
             $path = trim($path, DS);
             $this->_currentUrl = Mage::app()->getStore($this->_storeId)->getBaseUrl('media') .
                                  $this->convertPathToUrl($path) . '/';
@@ -273,7 +273,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
      * Revert opration to idEncode
      *
      * @param string $string
-     * @return string
+     * @return string|false
      */
     public function idDecode($string)
     {

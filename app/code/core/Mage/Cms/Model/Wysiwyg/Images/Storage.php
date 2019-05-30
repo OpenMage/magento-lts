@@ -47,7 +47,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Config object as array
      *
-     * @var array
+     * @var array|string
      */
     protected $_configAsArray;
 
@@ -89,7 +89,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         foreach ($collection as $key => $value) {
             $rootChildParts = explode(DIRECTORY_SEPARATOR, substr($value->getFilename(), $storageRootLength));
 
-            if (array_key_exists(end($rootChildParts), $conditions['plain'])
+            if (array_key_exists((string)end($rootChildParts), $conditions['plain'])
                 || ($regExp && preg_match($regExp, $value->getFilename()))) {
                 $collection->removeItemByKey($key);
             }
@@ -402,7 +402,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Resize images on the fly in controller action
      *
-     * @param string File basename
+     * @param string $filename File basename
      * @return bool|string Thumbnail path or false for errors
      */
     public function resizeOnTheFly($filename)
@@ -458,7 +458,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      */
     public function getConfig()
     {
-        if (! $this->_config) {
+        if ($this->_config === null) {
             $this->_config = Mage::getConfig()->getNode('cms/browser', 'adminhtml');
         }
 
@@ -468,11 +468,11 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Config object as array getter
      *
-     * @return array
+     * @return array|string
      */
     public function getConfigAsArray()
     {
-        if (! $this->_configAsArray) {
+        if (!$this->_configAsArray) {
             $this->_configAsArray = $this->getConfig()->asCanonicalArray();
         }
 
@@ -488,7 +488,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      */
     public function getConfigData($key, $default=false)
     {
-        $configArray = $this->getConfigAsArray();
+        $configArray = (array) $this->getConfigAsArray();
         $key = (string) $key;
 
         return array_key_exists($key, $configArray) ? $configArray[$key] : $default;

@@ -41,7 +41,7 @@ class Mage_Cms_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve Template processor for Page Content
      *
-     * @return Varien_Filter_Template
+//     * @return Mage_Core_Model_Abstract
      */
     public function getPageTemplateProcessor()
     {
@@ -52,7 +52,7 @@ class Mage_Cms_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve Template processor for Block Content
      *
-     * @return Varien_Filter_Template
+     * @return Mage_Core_Model_Abstract
      */
     public function getBlockTemplateProcessor()
     {

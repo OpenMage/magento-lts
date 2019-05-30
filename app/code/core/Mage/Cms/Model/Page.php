@@ -66,6 +66,9 @@
  * @method $this setCustomThemeTo(string $value)
  * @method $this setStoreId(int $value)
  * @method bool hasCreationTime()
+ * @method bool hasStores()
+ * @method string getStoreId()
+ * @method array getStores()
  *
  * @category    Mage
  * @package     Mage_Cms
@@ -127,7 +130,7 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
      *
      * @param string $identifier
      * @param int $storeId
-     * @return int
+     * @return string
      */
     public function checkIdentifier($identifier, $storeId)
     {

@@ -24,6 +24,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
 /**
  * CMS Page Helper
  *
@@ -43,7 +44,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
     * Call from controller action
     *
     * @param Mage_Core_Controller_Front_Action $action
-    * @param integer $pageId
+    * @param string $pageId
     * @return boolean
     */
     public function renderPage(Mage_Core_Controller_Front_Action $action, $pageId = null)
@@ -55,7 +56,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
     * Renders CMS page
     *
     * @param Mage_Core_Controller_Varien_Action $action
-    * @param integer $pageId
+    * @param string $pageId
     * @param bool $renderLayout
     * @return boolean
     */
@@ -79,7 +80,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
         }
 
         $inRange = Mage::app()->getLocale()
-            ->isStoreDateInInterval(null, $page->getCustomThemeFrom(), $page->getCustomThemeTo());
+            ->isStoreDateInInterval(0, $page->getCustomThemeFrom(), $page->getCustomThemeTo());
 
         if ($page->getCustomTheme()) {
             if ($inRange) {
@@ -144,8 +145,8 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
      * Also takes third parameter which allows not run renderLayout method.
      *
      * @param Mage_Core_Controller_Varien_Action $action
-     * @param $pageId
-     * @param $renderLayout
+     * @param string $pageId
+     * @param bool $renderLayout
      * @return bool
      */
     public function renderPageExtended(Mage_Core_Controller_Varien_Action $action, $pageId = null, $renderLayout = true)
@@ -157,7 +158,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
      * Retrieve page direct URL
      *
      * @param string $pageId
-     * @return string
+     * @return string|null
      */
     public function getPageUrl($pageId = null)
     {
@@ -173,6 +174,6 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
             return null;
         }
 
-        return Mage::getUrl(null, array('_direct' => $page->getIdentifier()));
+        return Mage::getUrl('', array('_direct' => $page->getIdentifier()));
     }
 }
