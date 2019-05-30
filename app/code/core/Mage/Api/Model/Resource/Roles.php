@@ -77,7 +77,7 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
         }
 
         if ($role->getPid() > 0) {
-            $row = $this->load($role->getPid());
+            $row = $this->load($role->getPid(), null);
         } else {
             $row = array('tree_level' => 0);
         }

@@ -84,7 +84,7 @@ class Mage_Api_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
     public function loadRoles(Mage_Api_Model_Acl $acl, array $rolesArr)
     {
         foreach ($rolesArr as $role) {
-            $parent = $role['parent_id']>0 ? Mage_Api_Model_Acl::ROLE_TYPE_GROUP.$role['parent_id'] : null;
+            $parent = $role['parent_id']>0 ? Mage_Api_Model_Acl::ROLE_TYPE_GROUP.$role['parent_id'] : '';
             switch ($role['role_type']) {
                 case Mage_Api_Model_Acl::ROLE_TYPE_GROUP:
                     $roleId = $role['role_type'].$role['role_id'];
