@@ -71,7 +71,7 @@ class Mage_AdminNotification_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getLatestNotice()
     {
-        if (is_null($this->_latestNotice)) {
+        if ($this->_latestNotice === null) {
             $this->_latestNotice = Mage::getModel('adminnotification/inbox')->loadLatestNotice();
         }
         return $this->_latestNotice;
@@ -85,7 +85,7 @@ class Mage_AdminNotification_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getUnreadNoticeCount($severity)
     {
-        if (is_null($this->_unreadNoticeCounts)) {
+        if ($this->_unreadNoticeCounts === null) {
             $this->_unreadNoticeCounts = Mage::getModel('adminnotification/inbox')->getNoticeStatus();
         }
         return isset($this->_unreadNoticeCounts[$severity]) ? $this->_unreadNoticeCounts[$severity] : 0;
@@ -99,7 +99,7 @@ class Mage_AdminNotification_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getPopupObjectUrl($withExt = false)
     {
-        if (is_null($this->_popupUrl)) {
+        if ($this->_popupUrl === null) {
             $sheme = Mage::app()->getFrontController()->getRequest()->isSecure()
                 ? 'https://'
                 : 'http://';
@@ -117,7 +117,7 @@ class Mage_AdminNotification_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function isReadablePopupObject()
     {
-        if (is_null($this->_popupReadable)) {
+        if ($this->_popupReadable === null) {
             $this->_popupReadable = false;
             $curl = new Varien_Http_Adapter_Curl();
             $curl->setConfig(array(

@@ -51,7 +51,7 @@ class Mage_AdminNotification_Model_Resource_Inbox_Collection extends Mage_Core_M
     public function addRemoveFilter()
     {
         $this->getSelect()
-            ->where('is_remove=?', 0);
+            ->where('is_remove=?', '0');
         return $this;
     }
 }

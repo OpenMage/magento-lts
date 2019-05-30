@@ -65,7 +65,7 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
      * Retrieve Severity collection array
      *
      * @param int|null $severity
-     * @return array|string
+     * @return array|string|null
      */
     public function getSeverities($severity = null)
     {
