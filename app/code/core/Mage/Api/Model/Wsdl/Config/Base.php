@@ -36,7 +36,7 @@ class Mage_Api_Model_Wsdl_Config_Base extends Varien_Simplexml_Config
     protected $_handler = '';
 
     /**
-     * @var Varien_Object
+     * @var Mage_Api_Helper_Object_Wsdl
      */
     protected $_wsdlVariables = null;
 
@@ -54,7 +54,7 @@ class Mage_Api_Model_Wsdl_Config_Base extends Varien_Simplexml_Config
         unset($queryParams['wsdl']);
 
         // set up default WSDL template variables
-        $this->_wsdlVariables = new Varien_Object(
+        $this->_wsdlVariables = new Mage_Api_Helper_Object_Wsdl(
             array(
                 'name' => 'Magento',
                 'url'  => Mage::helper('api')->getServiceUrl('*/*/*', array('_query' => $queryParams), true)

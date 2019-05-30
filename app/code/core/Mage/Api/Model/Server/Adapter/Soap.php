@@ -64,7 +64,7 @@ class Mage_Api_Model_Server_Adapter_Soap
      */
     protected function _getWsdlConfig()
     {
-        $wsdlConfig = new Varien_Object();
+        $wsdlConfig = new Mage_Api_Helper_Object_Wsdl();
         $queryParams = $this->getController()->getRequest()->getQuery();
         if (isset($queryParams['wsdl'])) {
             unset($queryParams['wsdl']);
