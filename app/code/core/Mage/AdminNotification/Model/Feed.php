@@ -166,7 +166,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
             return false;
         }
         $data = preg_split('/^\r?$/m', $data, 2);
-        $data = trim($data[1]);
+        $data = trim((string)$data[1]);
         $curl->close();
 
         try {
