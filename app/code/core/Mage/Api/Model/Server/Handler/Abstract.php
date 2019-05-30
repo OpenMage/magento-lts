@@ -581,7 +581,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      * Prepare Api row data for XML exporting
      * Convert not allowed symbol to numeric character reference
      *
-     * @param $row
+     * @param mixed $row
      * @return mixed
      */
     public function processingRow($row)
@@ -595,4 +595,4 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
         );
         return $row;
     }
-} // Class Mage_Api_Model_Server_Handler_Abstract End
+}

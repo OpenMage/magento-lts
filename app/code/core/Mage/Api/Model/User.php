@@ -335,7 +335,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      * Check if user is assigned to role
      *
      * @param int|Mage_Core_Model_Abstract $user
-     * @return array|null
+     * @return array
      */
     public function hasAssigned2Role($user)
     {

@@ -193,8 +193,8 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Retrieve api user role data if it was assigned to role
      *
-     * @param int|Mage_Api_Model_User $user
-     * @return null|array
+     * @param int|Mage_Api_Model_User|Mage_Core_Model_Abstract $user
+     * @return array|null
      */
     public function hasAssigned2Role($user)
     {
@@ -219,8 +219,8 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Action before save
      *
-     * @param Mage_Core_Model_Abstract $user
-     * @return $this
+     * @param Mage_Api_Model_User $user
+     * @inheritDoc
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $user)
     {

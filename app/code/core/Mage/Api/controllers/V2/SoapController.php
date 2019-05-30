@@ -45,4 +45,4 @@ class Mage_Api_V2_SoapController extends Mage_Api_Controller_Action
         $this->_getServer()->init($this, $handler_name, $handler_name)
             ->run();
     }
-} // Class Mage_Api_IndexController End
+}

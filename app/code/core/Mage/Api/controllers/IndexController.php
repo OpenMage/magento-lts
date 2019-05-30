@@ -39,4 +39,4 @@ class Mage_Api_IndexController extends Mage_Api_Controller_Action
         $this->_getServer()->init($this)
             ->run();
     }
-} // Class Mage_Api_IndexController End
+}

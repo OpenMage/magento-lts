@@ -96,7 +96,7 @@ class Mage_Api_Model_Wsdl_Config_Base extends Varien_Simplexml_Config
         /** @var Mage_Core_Model_Email_Template_Filter $template */
         $template = Mage::getModel('core/email_template_filter');
 
-        $this->_wsdlVariables->setData('handler', $this->getHandler());
+        $this->_wsdlVariables->setHandler($this->getHandler());
 
         $template->setVariables(array('wsdl'=>$this->_wsdlVariables));
 

@@ -63,7 +63,7 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Action before save
      *
-     * @param Mage_Core_Model_Abstract $role
+     * @param Mage_Core_Model_Abstract|Mage_Api_Model_Roles $role
      * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $role)

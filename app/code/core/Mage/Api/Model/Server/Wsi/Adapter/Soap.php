@@ -73,7 +73,7 @@ class Mage_Api_Model_Server_WSI_Adapter_Soap extends Mage_Api_Model_Server_Adapt
                                             preg_replace(
                                                 '/<\?xml version="([^\"]+)"([^\>]+)>/i',
                                                 '<?xml version="$1" encoding="'.$apiConfigCharset.'"?>',
-                                                $this->wsdlConfig->getData('wsdl_content')
+                                                $this->wsdlConfig->getWsdlContent()
                                             )
                                     )
                             )
