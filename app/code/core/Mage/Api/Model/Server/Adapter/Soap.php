@@ -38,7 +38,7 @@ class Mage_Api_Model_Server_Adapter_Soap
     /**
      * Wsdl config
      *
-     * @var Varien_Object
+     * @var Mage_Api_Helper_Object_Wsdl
      */
     protected $wsdlConfig = null;
 
