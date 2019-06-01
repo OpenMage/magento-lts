@@ -115,7 +115,7 @@ class Mage_Core_Model_Observer
     public function cleanCacheByTags(Varien_Event_Observer $observer)
     {
         /** @var array $tags */
-        $tags = $observer->getEvent()->getData('tags');
+        $tags = $observer->getEvent()->getTags();
         if (empty($tags)) {
             Mage::app()->cleanCache();
             return $this;
