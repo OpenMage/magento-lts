@@ -194,12 +194,12 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
      * Retrieve api user role data if it was assigned to role
      *
      * @param int|Mage_Api_Model_User|Mage_Core_Model_Abstract $user
-     * @return array|null
+     * @return array
      */
     public function hasAssigned2Role($user)
     {
         $userId = null;
-        $result = null;
+        $result = array();
         if (is_numeric($user)) {
             $userId = $user;
         } else if ($user instanceof Mage_Core_Model_Abstract) {
@@ -219,8 +219,8 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Action before save
      *
-     * @param Mage_Api_Model_User $user
-     * @inheritDoc
+     * @param Mage_Core_Model_Abstract|Mage_Api_Model_User $user
+     * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $user)
     {
@@ -228,7 +228,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
             $user->setCreated(now());
         }
         $user->setModified(now());
-        return parent::_beforeSave($user);
+        return $this;
     }
 
     /**
@@ -342,7 +342,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     {
         $adapter = $this->_getWriteAdapter();
         $aRoles  = $this->hasAssigned2Role($user);
-        if (is_array($aRoles) && count($aRoles) > 0) {
+        if (sizeof($aRoles) > 0) {
             foreach ($aRoles as $idx => $data) {
                 $adapter->delete(
                     $this->getTable('api/role'),

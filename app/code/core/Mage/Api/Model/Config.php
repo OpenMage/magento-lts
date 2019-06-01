@@ -36,10 +36,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
     const CACHE_TAG         = 'config_api';
 
     /**
-     * Constructor
-     *
-     * @param null $sourceData
-     * @see Varien_Simplexml_Config
+     * @inheritDoc
      */
     public function __construct($sourceData = null)
     {

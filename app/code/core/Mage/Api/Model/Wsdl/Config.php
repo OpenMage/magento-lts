@@ -92,7 +92,7 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
      * @param string $data
      * @param string $id
      * @param array $tags
-     * @param bool $lifetime
+     * @param int|bool $lifetime
      * @return bool|Mage_Core_Model_App
      */
     protected function _saveCache($data, $id, $tags = array(), $lifetime = false)
