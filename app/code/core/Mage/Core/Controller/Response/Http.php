@@ -97,14 +97,14 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
         if (self::$_transportObject === null) {
             self::$_transportObject = new Varien_Object;
         }
-        self::$_transportObject->setData('url', $url);
-        self::$_transportObject->setData('code', $code);
+        self::$_transportObject->setUrl($url);
+        self::$_transportObject->setCode($code);
         Mage::dispatchEvent(
             'controller_response_redirect',
             array('response' => $this, 'transport' => self::$_transportObject)
         );
 
-        return parent::setRedirect(self::$_transportObject->getData('url'), self::$_transportObject->getData('code'));
+        return parent::setRedirect(self::$_transportObject->getUrl(), self::$_transportObject->getCode());
     }
 
     /**
