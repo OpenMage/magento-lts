@@ -375,7 +375,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
 
         $select  = $adapter->select()
             ->from($this->getTable('cms/page_store'), 'store_id')
-            ->where('page_id = ?', $pageId);
+            ->where('page_id = ?', (int)$pageId);
 
         return $adapter->fetchCol($select);
     }
