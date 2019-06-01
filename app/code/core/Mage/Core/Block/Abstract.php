@@ -27,19 +27,6 @@
 /**
  * Base Content Block class
  *
- * @method bool hasWrapperMustBeVisible()
- * @method string getFormKey()
- * @method bool getIsHandle()
- * @method string getLayoutCode()
- * @method $this setArea(string $value)
- * @method $this setBlockId(string $value)
- * @method $this setBlockParams(array $value)
- * @method $this setCacheLifetime(int|false $value)
- * @method $this setCacheTags(array $value)
- * @method $this setFormAction(string $value)
- * @method $this setTemplate(string $value)
- * @method $this setType(string $value)
- *
  * For block generation you must define Data source class, data source class method,
  * parameters array and block template
  *

@@ -37,6 +37,8 @@
  * @method $this setDateFrom(string $value)
  * @method string getDateTo()
  * @method $this setDateTo(string $value)
+ * @method string getPackage()
+ * @method string getTheme()
  *
  * @category    Mage
  * @package     Mage_Core

@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Abstract resource model class
  *
@@ -197,7 +196,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      *
      * @param string $mainTable
      * @param string|null $idFieldName
-     * @return Mage_Core_Model_Resource_Db_Abstract
+     * @return $this
      */
     protected function _setMainTable($mainTable, $idFieldName = null)
     {
@@ -328,7 +327,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Retrieve connection for read data
      *
-     * @return Varien_Db_Adapter_Interface
+     * @return Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract
      */
     protected function _getReadAdapter()
     {
@@ -343,7 +342,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Retrieve connection for write data
      *
-     * @return Varien_Db_Adapter_Interface
+     * @return Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract
      */
     protected function _getWriteAdapter()
     {
@@ -516,7 +515,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * Add unique field restriction
      *
      * @param array|string $field
-     * @return Mage_Core_Model_Resource_Db_Abstract
+     * @return $this
      */
     public function addUniqueField($field)
     {
@@ -532,7 +531,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Reset unique fields restrictions
      *
-     * @return Mage_Core_Model_Resource_Db_Abstract
+     * @return $this
      */
     public function resetUniqueField()
     {
@@ -556,7 +555,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Initialize unique fields
      *
-     * @return Mage_Core_Model_Resource_Db_Abstract
+     * @return $this
      */
     protected function _initUniqueFields()
     {
@@ -627,7 +626,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * Check for unique values existence
      *
      * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Core_Model_Resource_Db_Abstract
+     * @return $this
      * @throws Mage_Core_Exception
      */
     protected function _checkUnique(Mage_Core_Model_Abstract $object)

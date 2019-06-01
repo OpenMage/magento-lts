@@ -40,6 +40,7 @@
  * @method $this setHomeUrl(string $value)
  * @method $this setLocaleCode(string $value)
  * @method int getStoreId()
+ * @method $this setStoreId(int $value)
  * @method string getLocaleCode()
  *
  * @category    Mage

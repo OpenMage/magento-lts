@@ -92,7 +92,7 @@ function __()
  * @param string $srcSep
  * @return string
  */
-function uc_words($str, $destSep = '_', $srcSep = '_')
+function uc_words($str, $destSep='_', $srcSep='_')
 {
     return str_replace(' ', $destSep, ucwords(str_replace($srcSep, ' ', $str)));
 }
