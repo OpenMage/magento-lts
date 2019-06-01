@@ -85,13 +85,13 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
                     'title' => $page->getTitle()
                 )
             );
-            $breadcrumbsObject = new Varien_Object();
-            $breadcrumbsObject->setData('crumbs', $breadcrumbsArray);
+            $breadcrumbsObject = new Mage_Cms_Helper_Object_Breadcrumbs();
+            $breadcrumbsObject->setCrumbs($breadcrumbsArray);
 
             Mage::dispatchEvent('cms_generate_breadcrumbs', array('breadcrumbs' => $breadcrumbsObject));
 
             if ($breadcrumbs instanceof Mage_Page_Block_Html_Breadcrumbs) {
-                foreach ($breadcrumbsObject->getData('crumbs') as $breadcrumbsItem) {
+                foreach ($breadcrumbsObject->getCrumbs() as $breadcrumbsItem) {
                     $breadcrumbs->addCrumb($breadcrumbsItem['crumbName'], $breadcrumbsItem['crumbInfo']);
                 }
             }

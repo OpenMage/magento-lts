@@ -63,7 +63,7 @@ class Mage_Cms_Controller_Router extends Mage_Core_Controller_Varien_Router_Abst
 
         $identifier = trim($request->getPathInfo(), '/');
 
-        $condition = new Varien_Object(array(
+        $condition = new Mage_Cms_Helper_Object_Router(array(
             'identifier' => $identifier,
             'continue'   => true
         ));
@@ -71,17 +71,17 @@ class Mage_Cms_Controller_Router extends Mage_Core_Controller_Varien_Router_Abst
             'router'    => $this,
             'condition' => $condition
         ));
-        $identifier = $condition->getData('identifier');
+        $identifier = $condition->getIdentifier();
 
-        if ($condition->getData('redirect_url')) {
+        if ($condition->getRedirectUrl()) {
             Mage::app()->getFrontController()->getResponse()
-                ->setRedirect($condition->getData('redirect_url'))
+                ->setRedirect($condition->getRedirectUrl())
                 ->sendResponse();
             $request->setDispatched(true);
             return true;
         }
 
-        if (!$condition->getData('continue')) {
+        if (!$condition->getContinue()) {
             return false;
         }
 
