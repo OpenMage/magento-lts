@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Mysqi Resource
  *
@@ -37,8 +36,8 @@ class Mage_Core_Model_Resource_Type_Db_Mysqli extends Mage_Core_Model_Resource_T
     /**
      * Get Connection
      *
-     * @param Array $config
-     * @return Varien_Db_Adapter_Mysqli 
+     * @param array $config
+     * @return Varien_Db_Adapter_Mysqli
      */
     public function getConnection($config)
     {

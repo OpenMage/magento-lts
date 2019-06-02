@@ -24,20 +24,21 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Enter description here ...
  *
  * @method Mage_Core_Model_Resource_Design _getResource()
  * @method Mage_Core_Model_Resource_Design getResource()
  * @method int getStoreId()
- * @method Mage_Core_Model_Design setStoreId(int $value)
+ * @method $this setStoreId(int $value)
  * @method string getDesign()
- * @method Mage_Core_Model_Design setDesign(string $value)
+ * @method $this setDesign(string $value)
  * @method string getDateFrom()
- * @method Mage_Core_Model_Design setDateFrom(string $value)
+ * @method $this setDateFrom(string $value)
  * @method string getDateTo()
- * @method Mage_Core_Model_Design setDateTo(string $value)
+ * @method $this setDateTo(string $value)
+ * @method string getPackage()
+ * @method string getTheme()
  *
  * @category    Mage
  * @package     Mage_Core
@@ -50,12 +51,20 @@ class Mage_Core_Model_Design extends Mage_Core_Model_Abstract
         $this->_init('core/design');
     }
 
+    /**
+     * @return $this
+     */
     public function validate()
     {
         $this->getResource()->validate($this);
         return $this;
     }
 
+    /**
+     * @param int $storeId
+     * @param string|null $date
+     * @return $this
+     */
     public function loadChange($storeId, $date = null)
     {
         $result = $this->getResource()

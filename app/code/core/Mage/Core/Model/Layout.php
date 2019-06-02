@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Layout model
  *
@@ -33,7 +32,6 @@
  */
 class Mage_Core_Model_Layout extends Varien_Simplexml_Config
 {
-
     /**
      * Layout Update module
      *
@@ -188,7 +186,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     /**
      * Create layout blocks hierarchy from layout xml configuration
      *
-     * @param Mage_Core_Layout_Element|null $parent
+     * @param Mage_Core_Model_Layout_Element|null $parent
      */
     public function generateBlocks($parent=null)
     {
@@ -221,7 +219,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      * Add block object to layout based on xml node data
      *
      * @param Varien_Simplexml_Element $node
-     * @param Varien_Simplexml_Element $parent
+     * @param Mage_Core_Model_Layout_Element $parent
      * @return $this
      */
     protected function _generateBlock($node, $parent)
@@ -284,7 +282,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      * Enter description here...
      *
      * @param Varien_Simplexml_Element $node
-     * @param Varien_Simplexml_Element $parent
+     * @param Mage_Core_Model_Layout_Element $parent
      * @return $this
      */
     protected function _generateAction($node, $parent)
@@ -309,7 +307,6 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
             $block = $this->getBlock($parentName);
         }
         if (!empty($block)) {
-
             $args = (array)$node->children();
             unset($args['@attributes']);
 
@@ -404,6 +401,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      *
      * @param string $name
      * @param Mage_Core_Model_Layout $block
+     * @return $this
      */
     public function setBlock($name, $block)
     {
@@ -415,6 +413,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      * Remove block from registry
      *
      * @param string $name
+     * @return $this
      */
     public function unsetBlock($name)
     {
@@ -429,7 +428,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      * @param     string $type
      * @param     string $name
      * @param     array $attributes
-     * @return    Mage_Core_Block_Abstract
+     * @return    Mage_Core_Block_Abstract|false
      */
     public function createBlock($type, $name='', array $attributes = array())
     {
@@ -463,7 +462,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     /**
      * Add a block to registry, create new object if needed
      *
-     * @param string|Mage_Core_Block_Abstract $blockClass
+     * @param string|Mage_Core_Block_Abstract $block
      * @param string $blockName
      * @return Mage_Core_Block_Abstract
      */
@@ -512,7 +511,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      * Get block object by name
      *
      * @param string $name
-     * @return Mage_Core_Block_Abstract
+     * @return Mage_Core_Block_Abstract|false
      */
     public function getBlock($name)
     {
@@ -528,6 +527,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      *
      * @param string $blockName
      * @param string $method
+     * @return $this
      */
     public function addOutputBlock($blockName, $method='toHtml')
     {
@@ -536,6 +536,10 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
         return $this;
     }
 
+    /**
+     * @param string $blockName
+     * @return $this
+     */
     public function removeOutputBlock($blockName)
     {
         unset($this->_output[$blockName]);
@@ -577,7 +581,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      * Enter description here...
      *
      * @param string $type
-     * @return Mage_Core_Helper_Abstract
+     * @return Mage_Core_Block_Abstract
      */
     public function getBlockSingleton($type)
     {
@@ -602,7 +606,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      * Retrieve helper object
      *
      * @param   string $name
-     * @return  Mage_Core_Helper_Abstract
+     * @return  Mage_Core_Helper_Abstract|false
      */
     public function helper($name)
     {
@@ -630,6 +634,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
         if ($result) {
             return (string)$result;
         }
+        /** @var Varien_Simplexml_Element $element */
         foreach (array_reverse($node->xpath('ancestor::*[@module]')) as $element) {
             $result = $element->getAttribute('module');
             if ($result) {

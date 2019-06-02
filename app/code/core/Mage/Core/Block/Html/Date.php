@@ -24,17 +24,27 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * HTML select element block
  *
  * @category   Mage
  * @package    Mage_Core
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getClass()
+ * @method string getExtraParams()
+ * @method string getFormat()
+ * @method string getImage()
+ * @method string getName()
+ * @method string getTime()
+ * @method string getValue()
+ * @method string getYearsRange()
  */
 class Mage_Core_Block_Html_Date extends Mage_Core_Block_Template
 {
-
+    /**
+     * @return string
+     */
     protected function _toHtml()
     {
         $displayFormat = Varien_Date::convertZendToStrftime($this->getFormat(), true, (bool)$this->getTime());
@@ -73,7 +83,12 @@ class Mage_Core_Block_Html_Date extends Mage_Core_Block_Template
         return $html;
     }
 
-    public function getEscapedValue($index=null) {
+    /**
+     * @param null $index
+     * @return string
+     */
+    public function getEscapedValue($index = null)
+    {
 
         if($this->getFormat() && $this->getValue()) {
             return strftime($this->getFormat(), strtotime($this->getValue()));
@@ -82,9 +97,11 @@ class Mage_Core_Block_Html_Date extends Mage_Core_Block_Template
         return htmlspecialchars($this->getValue());
     }
 
+    /**
+     * @return string
+     */
     public function getHtml()
     {
         return $this->toHtml();
     }
-
 }

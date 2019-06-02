@@ -111,8 +111,9 @@ class Mage_Core_Model_Translate
     /**
      * Initialization translation data
      *
-     * @param   string $area
-     * @return  Mage_Core_Model_Translate
+     * @param string $area
+     * @param bool $forceReload
+     * @return $this
      */
     public function init($area, $forceReload = false)
     {
@@ -151,7 +152,7 @@ class Mage_Core_Model_Translate
     /**
      * Retrieve modules configuration by translation
      *
-     * @return Mage_Core_Model_Config_Element
+     * @return array|SimpleXMLElement
      */
     public function getModulesConfig()
     {
@@ -170,7 +171,7 @@ class Mage_Core_Model_Translate
      * Initialize configuration
      *
      * @param   array $config
-     * @return  Mage_Core_Model_Translate
+     * @return  $this
      */
     public function setConfig($config)
     {
@@ -207,9 +208,10 @@ class Mage_Core_Model_Translate
     /**
      * Loading data from module translation files
      *
-     * @param   string $moduleName
-     * @param   string $files
-     * @return  Mage_Core_Model_Translate
+     * @param string $moduleName
+     * @param string $files
+     * @param bool $forceReload
+     * @return $this
      */
     protected function _loadModuleTranslation($moduleName, $files, $forceReload=false)
     {
@@ -225,6 +227,7 @@ class Mage_Core_Model_Translate
      *
      * @param array $data
      * @param string $scope
+     * @param bool $forceReload
      * @return $this
      */
     protected function _addData($data, $scope, $forceReload=false)
@@ -253,8 +256,7 @@ class Mage_Core_Model_Translate
                 }
                 $scopeKey = $scope . self::SCOPE_SEPARATOR . $key;
                 $this->_data[$scopeKey] = $value;
-            }
-            else {
+            } else {
                 $this->_data[$key]     = $value;
                 $this->_dataScope[$key]= $scope;
             }
@@ -262,6 +264,10 @@ class Mage_Core_Model_Translate
         return $this;
     }
 
+    /**
+     * @param string $string
+     * @return string
+     */
     protected function _prepareDataString($string)
     {
         return str_replace('""', '"', $string);
@@ -270,6 +276,7 @@ class Mage_Core_Model_Translate
     /**
      * Loading current theme translation
      *
+     * @param bool $forceReload
      * @return $this
      */
     protected function _loadThemeTranslation($forceReload = false)
@@ -282,6 +289,7 @@ class Mage_Core_Model_Translate
     /**
      * Loading current store translation from DB
      *
+     * @param bool $forceReload
      * @return $this
      */
     protected function _loadDbTranslation($forceReload = false)
@@ -294,8 +302,9 @@ class Mage_Core_Model_Translate
     /**
      * Retrieve translation file for module
      *
-     * @param   string $module
-     * @return  string
+     * @param string $module
+     * @param string $fileName
+     * @return string
      */
     protected function _getModuleFilePath($module, $fileName)
     {
@@ -349,7 +358,11 @@ class Mage_Core_Model_Translate
         return $this->_locale;
     }
 
-    public function setLocale( $locale )
+    /**
+     * @param string $locale
+     * @return $this
+     */
+    public function setLocale($locale)
     {
         $this->_locale = $locale;
         return $this;
@@ -358,7 +371,7 @@ class Mage_Core_Model_Translate
     /**
      * Retrieve DB resource model
      *
-     * @return unknown
+     * @return Mage_Core_Model_Resource_Translate
      */
     public function getResource()
     {
@@ -399,8 +412,7 @@ class Mage_Core_Model_Translate
             $module = $text->getModule();
             $text = $text->getText();
             $translated = $this->_getTranslatedString($text, $code);
-        }
-        else {
+        } else {
             if (!empty($_REQUEST['theme'])) {
                 $module = 'frontend/default/'.$_REQUEST['theme'];
             } else {
@@ -412,7 +424,16 @@ class Mage_Core_Model_Translate
 
         //array_unshift($args, $translated);
         //$result = @call_user_func_array('sprintf', $args);
-
+        if (substr_count($translated, '%') != count($args)) {
+            echo $translated;
+            Mage::log(
+                __METHOD__ . '() possible argument count mismatch! for ' . $translated
+                . ' Backtrace: ' . mageDebugBacktrace(true, false, true),
+                null,
+                'translated.log',
+                true
+            );
+        }
         $result = @vsprintf($translated, $args);
         if ($result === false) {
             $result = $translated;
@@ -515,8 +536,7 @@ class Mage_Core_Model_Translate
     /**
      * Loading data cache
      *
-     * @param   string $area
-     * @return  array | false
+     * @return array|false
      */
     protected function _loadCache()
     {
@@ -531,8 +551,7 @@ class Mage_Core_Model_Translate
     /**
      * Saving data cache
      *
-     * @param   string $area
-     * @return  Mage_Core_Model_Translate
+     * @return $this
      */
     protected function _saveCache()
     {
@@ -565,11 +584,9 @@ class Mage_Core_Model_Translate
         $translated = '';
         if (array_key_exists($code, $this->getData())) {
             $translated = $this->_data[$code];
-        }
-        elseif (array_key_exists($text, $this->getData())) {
+        } elseif (array_key_exists($text, $this->getData())) {
             $translated = $this->_data[$text];
-        }
-        else {
+        } else {
             $translated = $text;
         }
         return $translated;

@@ -37,7 +37,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
      * Returns expresion for field unification
      *
      * @param string $field
-     * @return Zend_Db_Expr
+     * @return string
      */
     public function castField($field)
     {
@@ -73,7 +73,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
      *
      * @param Varien_Db_Select $select
      * @param string $table
-     * @param array $table
+     * @param array $fields
      * @return string
      */
     public function getInsertFromSelectUsingAnalytic(Varien_Db_Select $select, $table, $fields)
@@ -261,7 +261,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
      * Prepare select column list
      *
      * @param Varien_Db_Select $select
-     * @param $groupByCondition OPTIONAL
+     * @param string $groupByCondition
      * @return array
      * @throws Zend_Db_Exception
      */

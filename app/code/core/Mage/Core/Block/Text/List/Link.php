@@ -32,7 +32,14 @@
  */
 class Mage_Core_Block_Text_List_Link extends Mage_Core_Block_Text
 {
-    function setLink($liParams, $aParams, $innerText, $afterText='')
+    /**
+     * @param array $liParams
+     * @param array $aParams
+     * @param string $innerText
+     * @param string $afterText
+     * @return $this
+     */
+    public function setLink($liParams, $aParams, $innerText, $afterText = '')
     {
         $this->setLiParams($liParams);
         $this->setAParams($aParams);
@@ -42,6 +49,9 @@ class Mage_Core_Block_Text_List_Link extends Mage_Core_Block_Text
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _toHtml()
     {
         $this->setText('<li');
@@ -68,5 +78,4 @@ class Mage_Core_Block_Text_List_Link extends Mage_Core_Block_Text
 
         return parent::_toHtml();
     }
-
 }

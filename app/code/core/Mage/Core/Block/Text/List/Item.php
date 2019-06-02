@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * List item block
  *
@@ -32,7 +31,12 @@
  */
 class Mage_Core_Block_Text_List_Item extends Mage_Core_Block_Text
 {
-    function setLink($liParams, $innerText)
+    /**
+     * @param array $liParams
+     * @param array $innerText
+     * @return $this
+     */
+    public function setLink($liParams, $innerText)
     {
         $this->setLiParams($liParams);
         $this->setInnerText($innerText);
@@ -40,6 +44,9 @@ class Mage_Core_Block_Text_List_Item extends Mage_Core_Block_Text
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _toHtml()
     {
         $this->setText('<li');
@@ -55,5 +62,4 @@ class Mage_Core_Block_Text_List_Item extends Mage_Core_Block_Text
 
         return parent::_toHtml();
     }
-
 }

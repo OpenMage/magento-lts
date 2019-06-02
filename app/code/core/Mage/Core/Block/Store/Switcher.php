@@ -30,6 +30,11 @@
  * @category   Mage
  * @package    Mage_Core
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method array getLanguages()
+ * @method $this setLanguages(array $value)
+ * @method array getStores()
+ * @method $this setStores(array $value)
  */
 class Mage_Core_Block_Store_Switcher extends Mage_Core_Block_Template
 {
@@ -45,6 +50,10 @@ class Mage_Core_Block_Store_Switcher extends Mage_Core_Block_Template
         return parent::__construct();
     }
 
+    /**
+     * @return $this
+     * @throws Mage_Core_Model_Store_Exception
+     */
     protected function _loadData()
     {
         if ($this->_loaded) {
@@ -58,9 +67,11 @@ class Mage_Core_Block_Store_Switcher extends Mage_Core_Block_Template
         $groupCollection = Mage::getModel('core/store_group')
             ->getCollection()
             ->addWebsiteFilter($websiteId);
+        /** @var Mage_Core_Model_Store_Group $group */
         foreach ($groupCollection as $group) {
             $this->_groups[$group->getId()] = $group;
         }
+        /** @var Mage_Core_Model_Store $store */
         foreach ($storeCollection as $store) {
             if (!$store->getIsActive()) {
                 continue;
@@ -74,6 +85,9 @@ class Mage_Core_Block_Store_Switcher extends Mage_Core_Block_Template
         return $this;
     }
 
+    /**
+     * @return int
+     */
     public function getStoreCount()
     {
         $stores = array();
@@ -83,6 +97,7 @@ class Mage_Core_Block_Store_Switcher extends Mage_Core_Block_Template
                 continue;
             }
             $useStore = false;
+            /** @var Mage_Core_Model_Store $store */
             foreach ($this->_stores[$group->getId()] as $store) {
                 if ($store->getLocaleCode() == $localeCode) {
                     $useStore = true;
@@ -98,6 +113,10 @@ class Mage_Core_Block_Store_Switcher extends Mage_Core_Block_Template
         return count($this->getStores());
     }
 
+    /**
+     * @return int
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function getLanguageCount()
     {
         $groupId = Mage::app()->getStore()->getGroupId();
@@ -109,11 +128,19 @@ class Mage_Core_Block_Store_Switcher extends Mage_Core_Block_Template
         return count($this->getLanguages());
     }
 
+    /**
+     * @return int
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function getCurrentStoreId()
     {
         return Mage::app()->getStore()->getId();
     }
 
+    /**
+     * @return string
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function getCurrentStoreCode()
     {
         return Mage::app()->getStore()->getCode();

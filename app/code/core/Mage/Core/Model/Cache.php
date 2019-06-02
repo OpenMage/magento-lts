@@ -132,8 +132,14 @@ class Mage_Core_Model_Cache
         $backend    = $this->_getBackendOptions($options);
         $frontend   = $this->_getFrontendOptions($options);
 
-        $this->_frontend = Zend_Cache::factory('Varien_Cache_Core', $backend['type'], $frontend, $backend['options'],
-            true, true, true
+        $this->_frontend = Zend_Cache::factory(
+            'Varien_Cache_Core',
+            $backend['type'],
+            $frontend,
+            $backend['options'],
+            true,
+            true,
+            true
         );
 
         if (isset($options['request_processors'])) {
@@ -459,7 +465,7 @@ class Mage_Core_Model_Cache
     /**
      * Get cache resource model
      *
-     * @return Mage_Core_Model_Mysql4_Cache
+     * @return Mage_Core_Model_Resource_Cache
      */
     protected function _getResource()
     {
@@ -697,6 +703,8 @@ class Mage_Core_Model_Cache
 
     /**
      * Get request processor object
+     * @param string $processor
+     * @return object
      */
     protected function _getProcessor($processor)
     {

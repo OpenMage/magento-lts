@@ -30,7 +30,13 @@
  * @link http://us3.php.net/manual/en/security.magicquotes.disabling.php
  */
 if (get_magic_quotes_gpc()) {
-    function mageUndoMagicQuotes($array, $topLevel=true) {
+    /**
+     * @param array $array
+     * @param bool $topLevel
+     * @return array
+     */
+    function mageUndoMagicQuotes($array, $topLevel = true)
+    {
         $newArray = array();
         foreach($array as $key => $value) {
             if (!$topLevel) {
@@ -68,9 +74,8 @@ function destruct($object)
 /**
  * Translator function
  *
+ * @return string
  * @deprecated 1.3
- * @param string $text the text to translate
- * @param mixed optional parameters to use in sprintf
  */
 function __()
 {
@@ -95,10 +100,10 @@ function uc_words($str, $destSep='_', $srcSep='_')
 /**
  * Simple sql format date
  *
- * @param string $format
+ * @param bool $dayOnly
  * @return string
  */
-function now($dayOnly=false)
+function now($dayOnly = false)
 {
     return date($dayOnly ? 'Y-m-d' : 'Y-m-d H:i:s');
 }
@@ -114,6 +119,10 @@ function is_empty_date($date)
     return preg_replace('#[ 0:-]#', '', $date)==='';
 }
 
+/**
+ * @param string $class
+ * @return bool|string
+ */
 function mageFindClassFile($class)
 {
     $classFile = uc_words($class, DIRECTORY_SEPARATOR).'.php';
@@ -135,8 +144,10 @@ function mageFindClassFile($class)
  * @param string $errstr
  * @param string $errfile
  * @param integer $errline
+ * @return bool
  */
-function mageCoreErrorHandler($errno, $errstr, $errfile, $errline){
+function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
+{
     if (strpos($errstr, 'DateTimeZone::__construct')!==false) {
         // there's no way to distinguish between caught system exceptions and warnings
         return false;
@@ -231,19 +242,29 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline){
     }
 }
 
-function mageDebugBacktrace($return=false, $html=true, $showFirst=false)
+/**
+ * @param bool $return
+ * @param bool $html
+ * @param bool $showFirst
+ * @return string
+ */
+function mageDebugBacktrace($return = false, $html = true, $showFirst = false)
 {
     $d = debug_backtrace();
     $out = '';
-    if ($html) $out .= "<pre>";
-    foreach ($d as $i=>$r) {
+    if ($html) {
+        $out .= "<pre>";
+    }
+    foreach ($d as $i => $r) {
         if (!$showFirst && $i==0) {
             continue;
         }
         // sometimes there is undefined index 'file'
         @$out .= "[$i] {$r['file']}:{$r['line']}\n";
     }
-    if ($html) $out .= "</pre>";
+    if ($html) {
+        $out .= "</pre>";
+    }
     if ($return) {
         return $out;
     } else {
@@ -271,7 +292,11 @@ function mageSendErrorFooter()
     exit;
 }
 
-function mageDelTree($path) {
+/**
+ * @param string $path
+ */
+function mageDelTree($path)
+{
     if (is_dir($path)) {
         $entries = scandir($path);
         foreach ($entries as $entry) {
@@ -285,7 +310,14 @@ function mageDelTree($path) {
     }
 }
 
-function mageParseCsv($string, $delimiter=",", $enclosure='"', $escape='\\')
+/**
+ * @param string $string
+ * @param string $delimiter
+ * @param string $enclosure
+ * @param string $escape
+ * @return array
+ */
+function mageParseCsv($string, $delimiter = ",", $enclosure = '"', $escape = '\\')
 {
     $elements = explode($delimiter, $string);
     for ($i = 0; $i < count($elements); $i++) {
@@ -294,8 +326,12 @@ function mageParseCsv($string, $delimiter=",", $enclosure='"', $escape='\\')
             for ($j = $i+1; $j < count($elements); $j++) {
                 if (substr_count($elements[$j], $enclosure) > 0) {
                     // Put the quoted string's pieces back together again
-                    array_splice($elements, $i, $j-$i+1,
-                        implode($delimiter, array_slice($elements, $i, $j-$i+1)));
+                    array_splice(
+                        $elements,
+                        $i,
+                        $j-$i+1,
+                        implode($delimiter, array_slice($elements, $i, $j-$i+1))
+                    );
                     break;
                 }
             }
@@ -311,6 +347,10 @@ function mageParseCsv($string, $delimiter=",", $enclosure='"', $escape='\\')
     return $elements;
 }
 
+/**
+ * @param string $dir
+ * @return bool
+ */
 function is_dir_writeable($dir)
 {
     if (is_dir($dir) && is_writable($dir)) {
@@ -335,6 +375,9 @@ function is_dir_writeable($dir)
 if ( !function_exists('sys_get_temp_dir') ) {
     // Based on http://www.phpit.net/
     // article/creating-zip-tar-archives-dynamically-php/2/
+    /**
+     * @return bool|string
+     */
     function sys_get_temp_dir()
     {
         // Try to get from environment variable

@@ -79,9 +79,10 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Saving cache
      *
-     * @param   mixed $data
-     * @param   string $id
-     * @param   array $tags
+     * @param mixed $data
+     * @param string $id
+     * @param array $tags
+     * @param null|false|int $lifeTime
      * @return  Mage_Core_Helper_Abstract
      */
     protected function _saveCache($data, $id, $tags=array(), $lifeTime=false)
@@ -187,8 +188,11 @@ abstract class Mage_Core_Helper_Abstract
     }
 
     /**
-     * @deprecated after 1.4.0.0-rc1
+     * @param $data
+     * @param array $allowedTags
+     * @return mixed
      * @see self::escapeHtml()
+     * @deprecated after 1.4.0.0-rc1
      */
     public function htmlEscape($data, $allowedTags = null)
     {
@@ -198,7 +202,7 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Escape html entities
      *
-     * @param   mixed $data
+     * @param   string|array $data
      * @param   array $allowedTags
      * @return  mixed
      */
@@ -261,6 +265,8 @@ abstract class Mage_Core_Helper_Abstract
     }
 
     /**
+     * @param string $data
+     * @return string
      * @deprecated after 1.4.0.0-rc1
      * @see self::escapeHtml()
      */

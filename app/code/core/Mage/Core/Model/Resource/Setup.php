@@ -54,21 +54,21 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Setup resource configuration object
      *
-     * @var Varien_Simplexml_Object
+     * @var Mage_Core_Model_Config_Element
      */
     protected $_resourceConfig;
 
     /**
      * Connection configuration object
      *
-     * @var Varien_Simplexml_Object
+     * @var Mage_Core_Model_Config_Element
      */
     protected $_connectionConfig;
 
     /**
      * Setup module configuration object
      *
-     * @var Varien_Simplexml_Object
+     * @var Mage_Core_Model_Config_Element
      */
     protected $_moduleConfig;
 
@@ -196,7 +196,6 @@ class Mage_Core_Model_Resource_Setup
     {
         if (is_array($tableName)) {
             return join('_', $tableName);
-
         }
         return $tableName;
     }
@@ -216,7 +215,7 @@ class Mage_Core_Model_Resource_Setup
      *
      * @return boolean
      */
-    static public function applyAllUpdates()
+    public static function applyAllUpdates()
     {
         Mage::app()->setUpdateMode(true);
         self::$_hadUpdates = false;
@@ -231,6 +230,7 @@ class Mage_Core_Model_Resource_Setup
             if (isset($resource->setup->class)) {
                 $className = $resource->setup->getClassName();
             }
+            /** @var Mage_Core_Model_Resource_Setup $setupClass */
             $setupClass = new $className($resName);
             $setupClass->applyUpdates();
             if ($setupClass->getCallAfterApplyAllUpdates()) {
@@ -251,7 +251,7 @@ class Mage_Core_Model_Resource_Setup
      * Apply database data updates whenever needed
      *
      */
-    static public function applyAllDataUpdates()
+    public static function applyAllDataUpdates()
     {
         if (!self::$_schemaUpdatesChecked) {
             return;
@@ -265,6 +265,7 @@ class Mage_Core_Model_Resource_Setup
             if (isset($resource->setup->class)) {
                 $className = $resource->setup->getClassName();
             }
+            /** @var Mage_Core_Model_Resource_Setup $setupClass */
             $setupClass = new $className($resName);
             $setupClass->applyDataUpdates();
         }
@@ -273,7 +274,6 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Apply data updates to the system after upgrading.
      *
-     * @param string $fromVersion
      * @return $this
      */
     public function applyDataUpdates()
@@ -294,7 +294,7 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Apply module resource install, upgrade and data scripts
      *
-     * @return $this
+     * @return $this|true
      */
     public function applyUpdates()
     {
@@ -342,7 +342,7 @@ class Mage_Core_Model_Resource_Setup
     protected function _hookQueries()
     {
         $this->_queriesHooked = true;
-        /* @var $adapter Varien_Db_Adapter_Pdo_Mysql */
+        /* @var Varien_Db_Adapter_Pdo_Mysql $adapter */
         $adapter = $this->getConnection();
         $adapter->setQueryHook(array('object' => $this, 'method' => 'callbackQueryHook'));
         return $this;
@@ -358,7 +358,7 @@ class Mage_Core_Model_Resource_Setup
         if (!$this->_queriesHooked) {
             return $this;
         }
-        /* @var $adapter Varien_Db_Adapter_Pdo_Mysql */
+        /* @var Varien_Db_Adapter_Pdo_Mysql $adapter */
         $adapter = $this->getConnection();
         $adapter->setQueryHook(null);
         $this->_queriesHooked = false;
@@ -531,7 +531,6 @@ class Mage_Core_Model_Resource_Setup
                 if (preg_match($regExp, $file, $matches)) {
                     $files[$matches[1]] = $filesDir . DS . $file;
                 }
-
             }
             $handlerDir->close();
         }
@@ -576,7 +575,6 @@ class Mage_Core_Model_Resource_Setup
             case self::TYPE_DATA_UPGRADE:
                 $this->_getResource()->setDataVersion($this->_resourceName, $version);
                 break;
-
         }
 
         return $this;
@@ -626,7 +624,6 @@ class Mage_Core_Model_Resource_Setup
                     case 'sql':
                         $sql = file_get_contents($fileName);
                         if (!empty($sql)) {
-
                             $result = $this->run($sql);
                         } else {
                             $result = true;
@@ -790,7 +787,7 @@ class Mage_Core_Model_Resource_Setup
      * @param mixed|null $value
      * @param string $parentField
      * @param string|integer $parentId
-     * @return Mage_Eav_Model_Entity_Setup
+     * @return $this
      */
     public function updateTableRow($table, $idField, $id, $field, $value = null, $parentField = null, $parentId = 0)
     {
@@ -835,10 +832,12 @@ class Mage_Core_Model_Resource_Setup
         if (strpos($table, '/') !== false) {
             $table = $this->getTable($table);
         }
-        $query = sprintf('UPDATE %s SET %s WHERE %s',
+        $query = sprintf(
+            'UPDATE %s SET %s WHERE %s',
             $this->getConnection()->quoteIdentifier($table),
             $conditionExpr,
-            $valueExpr);
+            $valueExpr
+        );
 
         $this->getConnection()->query($query);
 
@@ -858,7 +857,6 @@ class Mage_Core_Model_Resource_Setup
         }
 
         return $this->getConnection()->isTableExists($table);
-
     }
 
 /******************* CONFIG *****************/

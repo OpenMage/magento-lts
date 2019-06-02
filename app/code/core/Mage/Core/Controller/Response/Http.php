@@ -44,7 +44,7 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
      *
      * @link  http://bugs.php.net/bug.php?id=36705
      *
-     * @return $this
+     * {@inheritDoc}
      */
     public function sendHeaders()
     {
@@ -87,9 +87,7 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
     /**
      * Additionally check for session messages in several domains case
      *
-     * @param string $url
-     * @param int $code
-     * @return $this
+     * {@inheritDoc}
      */
     public function setRedirect($url, $code = 302)
     {
@@ -101,8 +99,10 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
         }
         self::$_transportObject->setUrl($url);
         self::$_transportObject->setCode($code);
-        Mage::dispatchEvent('controller_response_redirect',
-                array('response' => $this, 'transport' => self::$_transportObject));
+        Mage::dispatchEvent(
+            'controller_response_redirect',
+            array('response' => $this, 'transport' => self::$_transportObject)
+        );
 
         return parent::setRedirect(self::$_transportObject->getUrl(), self::$_transportObject->getCode());
     }

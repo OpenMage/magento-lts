@@ -89,6 +89,10 @@ class Mage_Core_Model_Locale
 
     protected static $_currencyCache = array();
 
+    /**
+     * Mage_Core_Model_Locale constructor.
+     * @param string|null $locale
+     */
     public function __construct($locale = null)
     {
         $this->setLocale($locale);
@@ -352,7 +356,7 @@ class Mage_Core_Model_Locale
     /**
      * Retrieve currency option list
      *
-     * @return unknown
+     * @return array
      */
     public function getOptionCurrencies()
     {
@@ -376,7 +380,7 @@ class Mage_Core_Model_Locale
     /**
      * Retrieve all currency option list
      *
-     * @return unknown
+     * @return array
      */
     public function getOptionAllCurrencies()
     {
@@ -391,6 +395,10 @@ class Mage_Core_Model_Locale
         return $this->_sortOptionArray($options);
     }
 
+    /**
+     * @param array $option
+     * @return array
+     */
     protected function _sortOptionArray($option)
     {
         $data = array();
@@ -421,7 +429,7 @@ class Mage_Core_Model_Locale
     /**
      * Retrieve array of allowed currencies
      *
-     * @return unknown
+     * @return array
      */
     public function getAllowCurrencies()
     {
@@ -454,8 +462,11 @@ class Mage_Core_Model_Locale
      */
     public function getDateFormatWithLongYear()
     {
-        return preg_replace('/(?<!y)yy(?!y)/', 'yyyy',
-            $this->getTranslation(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT, 'date'));
+        return preg_replace(
+            '/(?<!y)yy(?!y)/',
+            'yyyy',
+            $this->getTranslation(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT, 'date')
+        );
     }
 
     /**
@@ -667,12 +678,10 @@ class Mage_Core_Model_Locale
             if ($separatorComa > $separatorDot) {
                 $value = str_replace('.', '', $value);
                 $value = str_replace(',', '.', $value);
-            }
-            else {
+            } else {
                 $value = str_replace(',', '', $value);
             }
-        }
-        elseif ($separatorComa !== false) {
+        } elseif ($separatorComa !== false) {
             $value = str_replace(',', '.', $value);
         }
 
@@ -742,8 +751,7 @@ class Mage_Core_Model_Locale
             $this->_locale = new Zend_Locale(Mage::getStoreConfig(self::XML_PATH_DEFAULT_LOCALE, $storeId));
             $this->_localeCode = $this->_locale->toString();
             Mage::getSingleton('core/translate')->setLocale($this->_locale)->init('frontend', true);
-        }
-        else {
+        } else {
             $this->_emulatedLocales[] = false;
         }
     }
@@ -802,8 +810,8 @@ class Mage_Core_Model_Locale
     /**
      * Returns the localized country name
      *
-     * @param  string             $value  Name to get detailed information about
-     * @return array
+     * @param string $value Name to get detailed information about
+     * @return false|string
      */
     public function getCountryTranslation($value)
     {
@@ -844,10 +852,8 @@ class Mage_Core_Model_Locale
 
         $result = false;
         if (!is_empty_date($dateFrom) && $storeTimeStamp < $fromTimeStamp) {
-        }
-        elseif (!is_empty_date($dateTo) && $storeTimeStamp > $toTimeStamp) {
-        }
-        else {
+        } elseif (!is_empty_date($dateTo) && $storeTimeStamp > $toTimeStamp) {
+        } else {
             $result = true;
         }
 

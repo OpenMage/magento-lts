@@ -26,7 +26,7 @@
 
 
 $installer = $this;
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 $installer->getConnection()->addColumn($installer->getTable('core/email_template'), 'orig_template_code', "VARCHAR(200) DEFAULT NULL");

@@ -75,6 +75,9 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
      */
     protected $_usedStorageTypes = array('core/session');
 
+    /**
+     * @inheritDoc
+     */
     public function _prepareLayout()
     {
         $this->addMessages(Mage::getSingleton('core/session')->getMessages(true));
@@ -223,7 +226,6 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     /**
      * Retrieve messages in HTML format grouped by type
      *
-     * @param   string $type
      * @return  string
      */
     public function getGroupedHtml()
@@ -260,6 +262,9 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
         return $html;
     }
 
+    /**
+     * @return string
+     */
     protected function _toHtml()
     {
         return $this->getGroupedHtml();

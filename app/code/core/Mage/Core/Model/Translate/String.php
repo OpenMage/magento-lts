@@ -30,11 +30,13 @@
  * @method Mage_Core_Model_Resource_Translate_String _getResource()
  * @method Mage_Core_Model_Resource_Translate_String getResource()
  * @method int getStoreId()
- * @method Mage_Core_Model_Translate_String setStoreId(int $value)
+ * @method $this setStoreId(int $value)
  * @method string getTranslate()
- * @method Mage_Core_Model_Translate_String setTranslate(string $value)
+ * @method $this setTranslate(string $value)
+ * @method array getStoreTranslations()
+ * @method $this setStoreTranslations(array $value)
  * @method string getLocale()
- * @method Mage_Core_Model_Translate_String setLocale(string $value)
+ * @method $this setLocale(string $value)
  *
  * @category    Mage
  * @package     Mage_Core
@@ -46,7 +48,11 @@ class Mage_Core_Model_Translate_String extends Mage_Core_Model_Abstract
     {
         $this->_init('core/translate_string');
     }
-    
+
+    /**
+     * @param string $string
+     * @return $this
+     */
     public function setString($string)
     {
         $this->setData('string', $string);

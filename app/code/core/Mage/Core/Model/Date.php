@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Date conversion model
  *
@@ -160,7 +159,6 @@ class Mage_Core_Model_Date
 
         unset($date);
         return $timestamp;
-
     }
 
     /**
@@ -213,6 +211,13 @@ class Mage_Core_Model_Date
     }
 
     /**
+     * @param int $year
+     * @param int $month
+     * @param int $day
+     * @param int $hour
+     * @param int $minute
+     * @param int $second
+     * @return bool
      * @deprecated since 1.1.7
      */
     public function checkDateTime($year, $month, $day, $hour = 0, $minute = 0, $second = 0)
@@ -230,6 +235,10 @@ class Mage_Core_Model_Date
     }
 
     /**
+     * @param string $dateTimeString
+     * @param string $dateTimeFormat
+     * @return array
+     * @throws Mage_Core_Exception
      * @deprecated since 1.1.7
      */
     public function parseDateTime($dateTimeString, $dateTimeFormat)

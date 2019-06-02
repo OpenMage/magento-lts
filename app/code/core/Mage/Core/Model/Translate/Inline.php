@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Inline Translations PHP part
  *
@@ -155,7 +154,7 @@ class Mage_Core_Model_Translate_Inline
             $this->_isAllowed = $active && Mage::helper('core')->isDevAllowed($store);
         }
 
-        /* @var $translate Mage_Core_Model_Translate */
+        /* @var Mage_Core_Model_Translate $translate */
         $translate = Mage::getSingleton('core/translate');
 
         return $translate->getTranslateInline() && $this->_isAllowed;
@@ -173,7 +172,7 @@ class Mage_Core_Model_Translate_Inline
             return $this;
         }
 
-        /* @var $resource Mage_Core_Model_Mysql4_Translate_String */
+        /* @var Mage_Core_Model_Mysql4_Translate_String $resource */
         $resource = Mage::getResourceModel('core/translate_string');
         foreach ($translate as $t) {
             if (Mage::getDesign()->getArea() == 'adminhtml') {
@@ -253,8 +252,10 @@ class Mage_Core_Model_Translate_Inline
 
         $baseJsUrl = Mage::getBaseUrl('js');
         $url_prefix = Mage::app()->getStore()->isAdmin() ? 'adminhtml' : 'core';
-        $ajaxUrl = Mage::getUrl($url_prefix . '/ajax/translate',
-            array('_secure'=>Mage::app()->getStore()->isCurrentlySecure()));
+        $ajaxUrl = Mage::getUrl(
+            $url_prefix . '/ajax/translate',
+            array('_secure'=>Mage::app()->getStore()->isCurrentlySecure())
+        );
         $trigImg = Mage::getDesign()->getSkinUrl('images/fam_book_open.png');
 
         ob_start();
@@ -415,7 +416,8 @@ class Mage_Core_Model_Translate_Inline
     /**
      * Prepare special tags
      */
-    protected function _specialTags() {
+    protected function _specialTags()
+    {
         $this->_translateTags($this->_content, $this->_allowedTagsGlobal, '_applySpecialTagsFormat', false);
         $this->_translateTags($this->_content, $this->_allowedTagsSimple, '_applySimpleTagsFormat', true);
     }
@@ -567,7 +569,6 @@ class Mage_Core_Model_Translate_Inline
             $this->_content = substr_replace($this->_content, $spanHtml, $m[0][1], strlen($m[0][0]));
             $next = $m[0][1] + strlen($spanHtml) - 1;
         }
-
     }
 
     /**

@@ -107,8 +107,8 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
     /**
      * Add request parameter into url
      *
-     * @param  $url string
-     * @param  $param array( 'key' => value )
+     * @param string $url
+     * @param array $param ( 'key' => value )
      * @return string
      */
     public function addRequestParam($url, $param)

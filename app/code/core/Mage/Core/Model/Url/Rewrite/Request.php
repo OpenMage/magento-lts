@@ -142,7 +142,7 @@ class Mage_Core_Model_Url_Rewrite_Request
         if (!$this->_rewrite->getId() && $fromStore) {
             $stores = $this->_app->getStores(false, true);
             if (!empty($stores[$fromStore])) {
-                /** @var $store Mage_Core_Model_Store */
+                /** @var Mage_Core_Model_Store $store */
                 $store = $stores[$fromStore];
                 $fromStoreId = $store->getId();
             } else {
@@ -168,8 +168,10 @@ class Mage_Core_Model_Url_Rewrite_Request
             return false;
         }
 
-        $this->_request->setAlias(Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS,
-            $this->_rewrite->getRequestPath());
+        $this->_request->setAlias(
+            Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS,
+            $this->_rewrite->getRequestPath()
+        );
         $this->_processRedirectOptions();
 
         return true;

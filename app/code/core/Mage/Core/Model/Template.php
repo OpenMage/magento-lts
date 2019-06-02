@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Template model class
  *
@@ -71,7 +70,7 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
     /**
      * Applying of design config
      *
-     * @return Mage_Core_Model_Template
+     * @return $this
      */
     protected function _applyDesignConfig()
     {
@@ -89,7 +88,7 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
     /**
      * Revert design settings to previous
      *
-     * @return Mage_Core_Model_Template
+     * @return $this
      */
     protected function _cancelDesignConfig()
     {
@@ -123,7 +122,7 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
      * Initialize design information for template processing
      *
      * @param   array $config
-     * @return  Mage_Core_Model_Template
+     * @return  $this
      */
     public function setDesignConfig(array $config)
     {

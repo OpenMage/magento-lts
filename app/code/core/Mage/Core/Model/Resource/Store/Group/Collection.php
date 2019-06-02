@@ -95,9 +95,7 @@ class Mage_Core_Model_Resource_Store_Group_Collection extends Mage_Core_Model_Re
     }
 
     /**
-     * Load collection data
-     *
-     * @return $this
+     * @inheritDoc
      */
     public function _beforeLoad()
     {

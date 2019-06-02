@@ -45,6 +45,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
     /**
      * Validate and retrieve user and password from HTTP
      *
+     * @param string|null $headers
      * @return array
      */
     public function authValidate($headers = null)
@@ -69,14 +70,12 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
         if (isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW'])) {
             $user = $_SERVER['PHP_AUTH_USER'];
             $pass = $_SERVER['PHP_AUTH_PW'];
-        }
-        //  IIS Note::  For HTTP Authentication to work with IIS,
+        } //  IIS Note::  For HTTP Authentication to work with IIS,
         // the PHP directive cgi.rfc2616_headers must be set to 0 (the default value).
         elseif (!empty($_SERVER['HTTP_AUTHORIZATION'])) {
             $auth = $_SERVER['HTTP_AUTHORIZATION'];
             list($user, $pass) = explode(':', base64_decode(substr($auth, strpos($auth, " ") + 1)));
-        }
-        elseif (!empty($_SERVER['Authorization'])) {
+        } elseif (!empty($_SERVER['Authorization'])) {
             $auth = $_SERVER['Authorization'];
             list($user, $pass) = explode(':', base64_decode(substr($auth, strpos($auth, " ") + 1)));
         }

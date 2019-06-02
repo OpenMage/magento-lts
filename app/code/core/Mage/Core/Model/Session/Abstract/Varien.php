@@ -22,6 +22,8 @@
  * @package     Mage_Core
  * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *
+ * @method bool getSkipEmptySessionCheck()
  */
 
 
@@ -65,7 +67,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
              * backward compatibility with db argument (option is @deprecated after 1.12.0.2)
              */
             case 'db':
-                /* @var $sessionResource Mage_Core_Model_Resource_Session */
+                /* @var Mage_Core_Model_Resource_Session $sessionResource */
                 $sessionResource = Mage::getResourceSingleton('core/session');
                 $sessionResource->setSaveHandler();
                 break;
@@ -432,9 +434,8 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         }
         if (!isset($_SESSION[self::VALIDATOR_KEY])) {
             $_SESSION[self::VALIDATOR_KEY] = $this->getValidatorData();
-        }
-        else {
-            if ( ! self::$isValidated && ! $this->_validate()) {
+        } else {
+            if (! self::$isValidated && ! $this->_validate()) {
                 $this->getCookie()->delete(session_name());
                 // throw core session exception
                 throw new Mage_Core_Model_Session_Exception('');

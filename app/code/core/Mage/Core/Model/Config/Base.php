@@ -38,8 +38,7 @@
 class Mage_Core_Model_Config_Base extends Varien_Simplexml_Config
 {
     /**
-     * Constructor
-     *
+     * @param string|null $sourceData
      */
     public function __construct($sourceData=null)
     {

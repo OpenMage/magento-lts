@@ -24,13 +24,12 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Base html block
  *
  * @category   Mage
  * @package    Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
 {
@@ -152,8 +151,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
             foreach ($key as $k=>$v) {
                 $this->assign($k, $v);
             }
-        }
-        else {
+        } else {
             $this->_viewVars[$key] = $value;
         }
         return $this;
@@ -189,6 +187,9 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
         return false;
     }
 
+    /**
+     * @return bool
+     */
     public function getShowTemplateHints()
     {
         if (is_null(self::$_showTemplateHints)) {
@@ -243,7 +244,6 @@ HTML;
                 $thisClass = get_class($this);
                 Mage::log('Not valid template file:' . $fileName . ' class: ' . $thisClass, Zend_Log::CRIT, null, true);
             }
-
         } catch (Exception $e) {
             ob_get_clean();
             throw $e;
@@ -330,9 +330,7 @@ HTML;
     }
 
     /**
-     * Get cache key informative items
-     *
-     * @return array
+     * @inheritDoc
      */
     public function getCacheKeyInfo()
     {
