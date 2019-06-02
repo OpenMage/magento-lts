@@ -37,7 +37,7 @@ class Mage_Cms_Model_Observer
     /**
      * Modify No Route Forward object
      *
-     * @param Varien_Event_Observer $observer
+     * @param Varien_Event_Observer|Mage_Core_Helper_Object_Observer_Controller_Action $observer
      * @return $this
      */
     public function noRoute(Varien_Event_Observer $observer)

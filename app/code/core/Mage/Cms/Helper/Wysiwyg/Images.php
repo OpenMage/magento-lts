@@ -29,10 +29,9 @@
  */
 class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
 {
-
     /**
      * Current directory path
-     * @var string
+     * @var string|false
      */
     protected $_currentPath;
 
@@ -51,14 +50,15 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
 
     /**
      * Image Storage root directory
-     * @var string
+     * @var string|false
      */
     protected $_storageRoot;
 
     /**
      * Set a specified store ID value
      *
-     * @param <type> $store
+     * @param int $store
+     * @return $this
      */
     public function setStoreId($store)
     {
@@ -207,7 +207,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
      * Try to create target directory if it doesn't exist
      *
      * @throws Mage_Core_Exception
-     * @return string
+     * @return string|false
      */
     public function getCurrentPath()
     {
@@ -251,7 +251,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
     /**
      * Storage model singleton
      *
-     * @return Mage_Cms_Model_Page_Wysiwyg_Images_Storage
+     * @return Mage_Cms_Model_Wysiwyg_Images_Storage
      */
     public function getStorage()
     {
@@ -273,7 +273,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
      * Revert opration to idEncode
      *
      * @param string $string
-     * @return string
+     * @return string|false
      */
     public function idDecode($string)
     {

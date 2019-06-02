@@ -51,10 +51,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     }
 
     /**
-     * Process page data before deleting
-     *
-     * @param Mage_Core_Model_Abstract $object
-     * @return $this
+     * @inheritDoc
      */
     protected function _beforeDelete(Mage_Core_Model_Abstract $object)
     {
@@ -68,14 +65,12 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     }
 
     /**
-     * Process page data before saving
-     *
-     * @param Mage_Core_Model_Abstract $object
-     * @return $this
+     * @param Mage_Cms_Model_Page $object
+     * @inheritDoc
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
-        /*
+        /**
          * For two attributes which represent timestamp data in DB
          * we should make converting such as:
          * If they are empty we need to convert them into DB
@@ -109,10 +104,8 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     }
 
     /**
-     * Assign page to store views
-     *
-     * @param Mage_Core_Model_Abstract $object
-     * @return $this
+     * @param Mage_Cms_Model_Page $object
+     * @inheritDoc
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -154,12 +147,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     }
 
     /**
-     * Load an object using 'identifier' field if there's no field specified and value is not numeric
-     *
-     * @param Mage_Core_Model_Abstract $object
-     * @param mixed $value
-     * @param string $field
-     * @return $this
+     * @inheritDoc
      */
     public function load(Mage_Core_Model_Abstract $object, $value, $field = null)
     {
@@ -171,10 +159,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     }
 
     /**
-     * Perform operations after object load
-     *
-     * @param Mage_Core_Model_Abstract $object
-     * @return $this
+     * @inheritDoc
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
@@ -244,7 +229,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Check for unique of identifier of page to selected store(s).
      *
-     * @param Mage_Core_Model_Abstract $object
+     * @param Mage_Core_Model_Abstract|Mage_Cms_Model_Page $object
      * @return bool
      */
     public function getIsUniquePageToStores(Mage_Core_Model_Abstract $object)
@@ -274,7 +259,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      * @date Wed Mar 26 18:12:28 EET 2008
      *
      * @param Mage_Core_Model_Abstract $object
-     * @return bool
+     * @return int|false
      */
     protected function isNumericPageIdentifier(Mage_Core_Model_Abstract $object)
     {
@@ -285,7 +270,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      *  Check whether page identifier is valid
      *
      *  @param    Mage_Core_Model_Abstract $object
-     *  @return   bool
+     *  @return   int|false
      */
     protected function isValidPageIdentifier(Mage_Core_Model_Abstract $object)
     {
@@ -300,7 +285,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      *
      * @param string $identifier
      * @param int $storeId
-     * @return int
+     * @return string
      */
     public function checkIdentifier($identifier, $storeId)
     {
@@ -318,7 +303,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      * Retrieves cms page title from DB by passed identifier.
      *
      * @param string $identifier
-     * @return string|false
+     * @return string
      */
     public function getCmsPageTitleByIdentifier($identifier)
     {
@@ -340,7 +325,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      * Retrieves cms page title from DB by passed id.
      *
      * @param string $id
-     * @return string|false
+     * @return string
      */
     public function getCmsPageTitleById($id)
     {
@@ -381,7 +366,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Get store ids to which specified item is assigned
      *
-     * @param int $id
+     * @param string $pageId
      * @return array
      */
     public function lookupStoreIds($pageId)
@@ -390,7 +375,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
 
         $select  = $adapter->select()
             ->from($this->getTable('cms/page_store'), 'store_id')
-            ->where('page_id = ?',(int)$pageId);
+            ->where('page_id = ?', (int)$pageId);
 
         return $adapter->fetchCol($select);
     }

@@ -39,7 +39,7 @@ class Mage_Cms_Block_Widget_Page_Link
     /**
      * Prepared href attribute
      *
-     * @var string
+     * @var string|null
      */
     protected $_href;
 

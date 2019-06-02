@@ -31,39 +31,44 @@
  * @method Mage_Cms_Model_Resource_Page _getResource()
  * @method Mage_Cms_Model_Resource_Page getResource()
  * @method string getTitle()
- * @method Mage_Cms_Model_Page setTitle(string $value)
+ * @method $this setTitle(string $value)
  * @method string getRootTemplate()
- * @method Mage_Cms_Model_Page setRootTemplate(string $value)
+ * @method $this setRootTemplate(string $value)
  * @method string getMetaKeywords()
- * @method Mage_Cms_Model_Page setMetaKeywords(string $value)
+ * @method $this setMetaKeywords(string $value)
  * @method string getMetaDescription()
- * @method Mage_Cms_Model_Page setMetaDescription(string $value)
+ * @method $this setMetaDescription(string $value)
  * @method string getIdentifier()
- * @method Mage_Cms_Model_Page setIdentifier(string $value)
+ * @method $this setIdentifier(string $value)
  * @method string getContentHeading()
- * @method Mage_Cms_Model_Page setContentHeading(string $value)
+ * @method $this setContentHeading(string $value)
  * @method string getContent()
- * @method Mage_Cms_Model_Page setContent(string $value)
+ * @method $this setContent(string $value)
  * @method string getCreationTime()
- * @method Mage_Cms_Model_Page setCreationTime(string $value)
+ * @method $this setCreationTime(string $value)
  * @method string getUpdateTime()
- * @method Mage_Cms_Model_Page setUpdateTime(string $value)
+ * @method $this setUpdateTime(string $value)
  * @method int getIsActive()
- * @method Mage_Cms_Model_Page setIsActive(int $value)
+ * @method $this setIsActive(int $value)
  * @method int getSortOrder()
- * @method Mage_Cms_Model_Page setSortOrder(int $value)
+ * @method $this setSortOrder(int $value)
  * @method string getLayoutUpdateXml()
- * @method Mage_Cms_Model_Page setLayoutUpdateXml(string $value)
+ * @method $this setLayoutUpdateXml(string $value)
  * @method string getCustomTheme()
- * @method Mage_Cms_Model_Page setCustomTheme(string $value)
+ * @method $this setCustomTheme(string $value)
  * @method string getCustomRootTemplate()
- * @method Mage_Cms_Model_Page setCustomRootTemplate(string $value)
+ * @method $this setCustomRootTemplate(string $value)
  * @method string getCustomLayoutUpdateXml()
- * @method Mage_Cms_Model_Page setCustomLayoutUpdateXml(string $value)
+ * @method $this setCustomLayoutUpdateXml(string $value)
  * @method string getCustomThemeFrom()
- * @method Mage_Cms_Model_Page setCustomThemeFrom(string $value)
+ * @method $this setCustomThemeFrom(string $value)
  * @method string getCustomThemeTo()
- * @method Mage_Cms_Model_Page setCustomThemeTo(string $value)
+ * @method $this setCustomThemeTo(string $value)
+ * @method $this setStoreId(int $value)
+ * @method bool hasCreationTime()
+ * @method bool hasStores()
+ * @method string getStoreId()
+ * @method array getStores()
  *
  * @category    Mage
  * @package     Mage_Cms
@@ -99,11 +104,7 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Load object data
-     *
-     * @param mixed $id
-     * @param string $field
-     * @return $this
+     * @inheritDoc
      */
     public function load($id, $field=null)
     {
@@ -129,7 +130,7 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
      *
      * @param string $identifier
      * @param int $storeId
-     * @return int
+     * @return string
      */
     public function checkIdentifier($identifier, $storeId)
     {
