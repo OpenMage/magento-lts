@@ -97,8 +97,8 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
         $adapter = $this->_getReadAdapter();
 
         $select = $adapter->select()
-                    ->from($this->getMainTable())
-                    ->where('username=:username');
+            ->from($this->getMainTable())
+            ->where('username=:username');
 
         $binds = array(
             'username' => $username
@@ -110,7 +110,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Check if user is assigned to any role
      *
-     * @param int|Mage_Core_Admin_Model_User $user
+     * @param int|Mage_Admin_Model_User $user
      * @return null|false|array
      */
     public function hasAssigned2Role($user)
@@ -156,8 +156,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Set created/modified values before user save
      *
-     * @param Mage_Core_Model_Abstract $user
-     * @return $this
+     * {@inheritDoc}
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $user)
     {
@@ -184,8 +183,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Unserialize user extra data after user load
      *
-     * @param Mage_Core_Model_Abstract $user
-     * @return $this
+     * {@inheritDoc}
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $user)
     {
@@ -227,8 +225,8 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * TODO: unify _saveRelations() and add() methods, they make same things
      *
-     * @param Mage_Core_Model_Abstract $user
-     * @return $this
+     * @param Mage_Core_Model_Abstract|Mage_Admin_Model_User $user
+     * @return $this|Mage_Admin_Model_User
      */
     public function _saveRelations(Mage_Core_Model_Abstract $user)
     {

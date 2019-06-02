@@ -47,7 +47,6 @@ class Mage_Admin_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstra
 
     /**
      * Define main table
-     *
      */
     protected function _construct()
     {
@@ -91,8 +90,7 @@ class Mage_Admin_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstra
     }
 
     /**
-     * @param Mage_Core_Model_Abstract $object
-     * @return $this
+     * @inheritDoc
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -101,8 +99,7 @@ class Mage_Admin_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstra
     }
 
     /**
-     * @param Mage_Core_Model_Abstract $object
-     * @return $this
+     * @inheritDoc
      */
     protected function _afterDelete(Mage_Core_Model_Abstract $object)
     {

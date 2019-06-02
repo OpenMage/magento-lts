@@ -37,9 +37,9 @@ class Mage_Admin_Model_Acl_Assert_Time implements Zend_Acl_Assert_Interface
     /**
      * Assert time
      *
-     * @param Zend_Acl $acl
-     * @param Zend_Acl_Role_Interface $role
-     * @param Zend_Acl_Resource_Interface $resource
+     * @param Mage_Admin_Model_Acl $acl
+     * @param Mage_Admin_Model_Acl_Role $role
+     * @param Mage_Admin_Model_Acl_Resource $resource
      * @param string $privilege
      * @return boolean
      */
@@ -49,6 +49,9 @@ class Mage_Admin_Model_Acl_Assert_Time implements Zend_Acl_Assert_Interface
         return $this->_isCleanTime(time());
     }
 
+    /**
+     * @param bool $time
+     */
     protected function _isCleanTime($time)
     {
         // ...

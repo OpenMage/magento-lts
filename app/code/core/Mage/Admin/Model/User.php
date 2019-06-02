@@ -53,6 +53,18 @@
  * @method Mage_Admin_Model_User setIsActive(int $value)
  * @method array getExtra()
  * @method Mage_Admin_Model_User setExtra(string $value)
+ * @method int getUserId()
+ * @method int getRoleId()
+ * @method bool hasNewPassword()
+ * @method string getNewPassword()
+ * @method bool hasPasswordConfirmation()
+ * @method string getPasswordConfirmation()
+ * @method string getRpToken()
+ * @method Mage_Admin_Model_User setRpToken(string $value)
+ * @method string getRpTokenCreatedAt()
+ * @method Mage_Admin_Model_User setRpTokenCreatedAt(string $value)
+ * @method array getRoleIds()
+ * @method Mage_Admin_Model_User setRoleIds(array $value)
  *
  * @category    Mage
  * @package     Mage_Admin
@@ -112,9 +124,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Processing data before model save
-     *
-     * @return $this
+     * @inheritDoc
      */
     protected function _beforeSave()
     {
@@ -294,7 +304,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      */
     public function sendPasswordResetConfirmationEmail()
     {
-        /** @var $mailer Mage_Core_Model_Email_Template_Mailer */
+        /** @var Mage_Core_Model_Email_Template_Mailer $mailer */
         $mailer = Mage::getModel('core/email_template_mailer');
         $emailInfo = Mage::getModel('core/email_info');
         $emailInfo->addTo($this->getEmail(), $this->getName());
@@ -443,7 +453,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Check if user is assigned to any role
      *
-     * @param int|Mage_Core_Admin_Model_User $user
+     * @param int|Mage_Admin_Model_User $user
      * @return null|boolean|array
      */
     public function hasAssigned2Role($user)
@@ -603,7 +613,9 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * Validate password against current user password
      * Returns true or array of errors.
      *
-     * @return mixed
+     * @param string $password
+     * @return array|true
+     * @throws Zend_Validate_Exception
      */
     public function validateCurrentPassword($password)
     {
@@ -714,7 +726,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         $emails = $this->getUserCreateAdditionalEmail();
         $emails[] = $generalContactEmail;
 
-        /** @var $mailer Mage_Core_Model_Email_Template_Mailer */
+        /** @var Mage_Core_Model_Email_Template_Mailer $mailer */
         $mailer    = Mage::getModel('core/email_template_mailer');
         $emailInfo = Mage::getModel('core/email_info');
         $emailInfo->addTo(array_filter($emails), $generalContactName);
