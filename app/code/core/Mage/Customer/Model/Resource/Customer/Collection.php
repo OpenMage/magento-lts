@@ -124,7 +124,7 @@ class Mage_Customer_Model_Resource_Customer_Collection extends Mage_Eav_Model_En
      *
      * @param int $limit
      * @param int $offset
-     * @return Mage_Eav_Model_Entity_Collection_Abstract
+     * @return Varien_Db_Select
      */
     protected function _getAllIdsSelect($limit = null, $offset = null)
     {

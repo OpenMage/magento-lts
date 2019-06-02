@@ -44,7 +44,7 @@ class Mage_Customer_Model_Address_Api_V2 extends Mage_Customer_Model_Address_Api
     {
         $customer = Mage::getModel('customer/customer')
             ->load($customerId);
-        /* @var $customer Mage_Customer_Model_Customer */
+        /* @var Mage_Customer_Model_Customer $customer */
 
         if (!$customer->getId()) {
             $this->_fault('customer_not_exists');

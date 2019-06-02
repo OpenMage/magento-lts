@@ -62,9 +62,7 @@ class Mage_Customer_Model_Api2_Customer_Rest_Customer_V1 extends Mage_Customer_M
     }
 
     /**
-     * Retrieve collection with only current customer instance
-     *
-     * @return Mage_Customer_Model_Resource_Customer_Collection
+     * @inheritDoc
      */
     protected function _getCollectionForRetrieve()
     {

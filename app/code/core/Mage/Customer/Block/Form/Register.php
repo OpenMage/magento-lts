@@ -38,6 +38,9 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
      */
     protected $_address;
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
         $this->getLayout()->getBlock('head')->setTitle(Mage::helper('customer')->__('Create New Customer Account'));
@@ -149,6 +152,7 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
      * Entity and form code must be defined for the form
      *
      * @param Mage_Customer_Model_Form $form
+     * @param string|null $scope
      * @return $this
      */
     public function restoreSessionData(Mage_Customer_Model_Form $form, $scope = null)

@@ -32,7 +32,7 @@
  * @package    Mage_Customer
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-/* @var $installer Mage_Customer_Model_Entity_Setup */
+/* @var Mage_Customer_Model_Entity_Setup $installer */
 $installer = $this;
 
 $installer->startSetup();

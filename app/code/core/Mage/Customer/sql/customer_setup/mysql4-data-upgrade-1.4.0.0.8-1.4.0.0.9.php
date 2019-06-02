@@ -25,18 +25,18 @@
  */
 
 
-/* @var $installer Mage_Customer_Model_Entity_Setup */
+/* @var Mage_Customer_Model_Entity_Setup $installer */
 $installer = $this;
 
-/* @var $addressHelper Mage_Customer_Helper_Address */
+/* @var Mage_Customer_Helper_Address $addressHelper */
 $addressHelper = Mage::helper('customer/address');
 
-/* @var $eavConfig Mage_Eav_Model_Config */
+/* @var Mage_Eav_Model_Config $eavConfig */
 $eavConfig = Mage::getSingleton('eav/config');
 
 $websites  = Mage::app()->getWebsites(false);
 foreach ($websites as $website) {
-    /* @var $website Mage_Core_Model_Website */
+    /* @var Mage_Core_Model_Website $website */
     $store = $website->getDefaultStore();
     if (!$store) {
         continue;
@@ -53,6 +53,7 @@ foreach ($websites as $website) {
     );
 
     foreach ($attributes as $attributeCode) {
+        /** @var Mage_Customer_Model_Attribute $attribute */
         $attribute      = $eavConfig->getAttribute('customer', $attributeCode);
         $configValue    = $addressHelper->getConfig($attributeCode . '_show', $store);
         $isVisible      = $attribute->getData('is_visible');

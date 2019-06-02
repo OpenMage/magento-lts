@@ -41,7 +41,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Rest extends Mage_Customer_Mode
      */
     protected function _create(array $data)
     {
-        /** @var $validator Mage_Api2_Model_Resource_Validator_Eav */
+        /** @var Mage_Api2_Model_Resource_Validator_Eav $validator */
         $validator = Mage::getResourceModel('api2/validator_eav', array('resource' => $this));
 
         $data = $validator->filter($data);
@@ -52,7 +52,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Rest extends Mage_Customer_Mode
             $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
         }
 
-        /** @var $customer Mage_Customer_Model_Customer */
+        /** @var Mage_Customer_Model_Customer $customer */
         $customer = Mage::getModel('customer/customer');
         $customer->setData($data);
 
@@ -75,7 +75,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Rest extends Mage_Customer_Mode
      */
     protected function _retrieve()
     {
-        /** @var $customer Mage_Customer_Model_Customer */
+        /** @var Mage_Customer_Model_Customer $customer */
         $customer = $this->_loadCustomerById($this->getRequest()->getParam('id'));
         return $customer->getData();
     }
@@ -99,9 +99,9 @@ abstract class Mage_Customer_Model_Api2_Customer_Rest extends Mage_Customer_Mode
      */
     protected function _update(array $data)
     {
-        /** @var $customer Mage_Customer_Model_Customer */
+        /** @var Mage_Customer_Model_Customer $customer */
         $customer = $this->_loadCustomerById($this->getRequest()->getParam('id'));
-        /** @var $validator Mage_Api2_Model_Resource_Validator_Eav */
+        /** @var Mage_Api2_Model_Resource_Validator_Eav $validator */
         $validator = Mage::getResourceModel('api2/validator_eav', array('resource' => $this));
 
         $data = $validator->filter($data);
@@ -135,7 +135,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Rest extends Mage_Customer_Mode
      */
     protected function _loadCustomerById($id)
     {
-        /** @var $customer Mage_Customer_Model_Customer */
+        /** @var Mage_Customer_Model_Customer $customer */
         $customer = Mage::getModel('customer/customer')->load($id);
         if (!$customer->getId()) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
@@ -150,7 +150,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Rest extends Mage_Customer_Mode
      */
     protected function _getCollectionForRetrieve()
     {
-        /** @var $collection Mage_Customer_Model_Resource_Customer_Collection */
+        /** @var Mage_Customer_Model_Resource_Customer_Collection $collection */
         $collection = Mage::getResourceModel('customer/customer_collection');
         $collection->addAttributeToSelect(array_keys(
             $this->getAvailableAttributes($this->getUserType(), Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ)

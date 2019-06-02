@@ -30,6 +30,10 @@
  * @category   Mage
  * @package    Mage_Customer
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setScopeIsVisible(string $value)
+ * @method $this setScopeIsRequired(string $value)
+ * @method $this setScopeMultilineCount(string $value)
  */
 class Mage_Customer_Model_Attribute extends Mage_Eav_Model_Attribute
 {

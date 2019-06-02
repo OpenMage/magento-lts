@@ -45,11 +45,17 @@ class Mage_Customer_Block_Account_Dashboard_Sidebar extends Mage_Core_Block_Temp
 
     protected $_compareItems;
 
+    /**
+     * @return string
+     */
     public function getShoppingCartUrl()
     {
         return Mage::getUrl('checkout/cart');
     }
 
+    /**
+     * @return int
+     */
     public function getCartItemsCount()
     {
         if( !$this->_cartItemsCount ) {
@@ -62,6 +68,9 @@ class Mage_Customer_Block_Account_Dashboard_Sidebar extends Mage_Core_Block_Temp
         return $this->_cartItemsCount;
     }
 
+    /**
+     * @return Mage_Wishlist_Model_Mysql4_Item_Collection
+     */
     public function getWishlist()
     {
         if( !$this->_wishlist ) {
@@ -81,11 +90,18 @@ class Mage_Customer_Block_Account_Dashboard_Sidebar extends Mage_Core_Block_Temp
         return $this->_wishlist->getItemCollection();
     }
 
+    /**
+     * @return int
+     */
     public function getWishlistCount()
     {
         return $this->getWishlist()->getSize();
     }
 
+    /**
+     * @param Mage_Wishlist_Model_Item $wishlistItem
+     * @return string
+     */
     public function getWishlistAddToCartLink($wishlistItem)
     {
         return Mage::getUrl('wishlist/index/cart', array('item' => $wishlistItem->getId()));
@@ -104,26 +120,38 @@ class Mage_Customer_Block_Account_Dashboard_Sidebar extends Mage_Core_Block_Temp
 
          }
 
-         return $this->_compareItems;
-     }
+        return $this->_compareItems;
+    }
 
-     public function getCompareJsObjectName()
-     {
+    /**
+     * @return string
+     */
+    public function getCompareJsObjectName()
+    {
          return "dashboardSidebarCompareJsObject";
-     }
+    }
 
-     public function getCompareRemoveUrlTemplate()
-     {
-         return $this->getUrl('catalog/product_compare/remove',array('product'=>'#{id}'));
-     }
+    /**
+     * @return string
+     */
+    public function getCompareRemoveUrlTemplate()
+    {
+         return $this->getUrl('catalog/product_compare/remove', array('product'=>'#{id}'));
+    }
 
-     public function getCompareAddUrlTemplate()
-     {
-         return $this->getUrl('catalog/product_compare/add',array('product'=>'#{id}'));
-     }
+    /**
+     * @return string
+     */
+    public function getCompareAddUrlTemplate()
+    {
+         return $this->getUrl('catalog/product_compare/add', array('product'=>'#{id}'));
+    }
 
-     public function getCompareUrl()
-     {
+    /**
+     * @return string
+     */
+    public function getCompareUrl()
+    {
          return $this->getUrl('catalog/product_compare');
-     }
+    }
 }

@@ -101,6 +101,11 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     const VAT_CLASS_ERROR       = 'error';
 
     /**
+     * @var Mage_Customer_Model_Customer
+     */
+    protected $_customer;
+
+    /**
      * Customer groups collection
      *
      * @var Mage_Customer_Model_Entity_Group_Collection
@@ -407,6 +412,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve name prefix dropdown options
      *
+     * @param Mage_Core_Model_Store|int|string|null $store
      * @return array|bool
      */
     public function getNamePrefixOptions($store = null)
@@ -419,6 +425,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve name suffix dropdown options
      *
+     * @param Mage_Core_Model_Store|int|string|null $store
      * @return array|bool
      */
     public function getNameSuffixOptions($store = null)
@@ -627,7 +634,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     public function canCheckVatNumber($countryCode, $vatNumber, $requesterCountryCode, $requesterVatNumber)
     {
         $result = true;
-        /** @var $coreHelper Mage_Core_Helper_Data */
+        /** @var Mage_Core_Helper_Data $coreHelper */
         $coreHelper = Mage::helper('core');
 
         if (!is_string($countryCode)
@@ -741,7 +748,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getPasswordTimestamp($customerId)
     {
-        /** @var $customer Mage_Customer_Model_Customer */
+        /** @var Mage_Customer_Model_Customer $customer */
         $customer = Mage::getModel('customer/customer')
             ->setWebsiteId(Mage::app()->getStore()->getWebsiteId())
             ->load((int)$customerId);

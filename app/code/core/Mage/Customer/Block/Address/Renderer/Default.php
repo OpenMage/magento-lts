@@ -57,7 +57,7 @@ class Mage_Customer_Block_Address_Renderer_Default
      * Retrive format type object
      *
      * @param  Varien_Object $type
-     * @return Mage_Customer_Model_Address_Renderer_Default
+     * @return $this
      */
     public function setType(Varien_Object $type)
     {
@@ -65,6 +65,10 @@ class Mage_Customer_Block_Address_Renderer_Default
         return $this;
     }
 
+    /**
+     * @param Mage_Customer_Model_Address_Abstract|null $address
+     * @return string
+     */
     public function getFormat(Mage_Customer_Model_Address_Abstract $address=null)
     {
         $countryFormat = is_null($address)
@@ -78,7 +82,9 @@ class Mage_Customer_Block_Address_Renderer_Default
      * Render address
      *
      * @param Mage_Customer_Model_Address_Abstract $address
+     * @param string|null $format
      * @return string
+     * @throws Exception
      */
     public function render(Mage_Customer_Model_Address_Abstract $address, $format=null)
     {
@@ -102,7 +108,7 @@ class Mage_Customer_Block_Address_Renderer_Default
 
         $data = array();
         foreach ($attributes as $attribute) {
-            /* @var $attribute Mage_Customer_Model_Attribute */
+            /* @var Mage_Customer_Model_Attribute $attribute */
             if (!$attribute->getIsVisible()) {
                 continue;
             }

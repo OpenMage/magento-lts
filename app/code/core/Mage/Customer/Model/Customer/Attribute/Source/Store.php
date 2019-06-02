@@ -55,6 +55,9 @@ class Mage_Customer_Model_Customer_Attribute_Source_Store extends Mage_Eav_Model
         return $this->_options;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getOptionText($value)
     {
         if(!$value)$value ='0';

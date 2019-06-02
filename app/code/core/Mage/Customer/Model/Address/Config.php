@@ -60,6 +60,16 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
      */
     protected $_defaultTypes    = array();
 
+    /**
+     * @var array
+     */
+    private $_defaultType       = array();
+
+    /**
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @return $this
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function setStore($store)
     {
         $this->_store = Mage::app()->getStore($store);
@@ -91,7 +101,7 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
     /**
      * Retrieve address formats
      *
-     * @return array
+     * @return Varien_Object[]
      */
     public function getFormats()
     {
@@ -165,5 +175,4 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
         }
         return $this->_getDefaultFormat();
     }
-
 }

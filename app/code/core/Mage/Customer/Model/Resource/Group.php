@@ -67,6 +67,7 @@ class Mage_Customer_Model_Resource_Group extends Mage_Core_Model_Resource_Db_Abs
      */
     protected function _beforeDelete(Mage_Core_Model_Abstract $group)
     {
+        /** @var Mage_Customer_Model_Group $group */
         if ($group->usesAsDefault()) {
             Mage::throwException(Mage::helper('customer')->__('The group "%s" cannot be deleted', $group->getCode()));
         }

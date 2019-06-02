@@ -152,7 +152,7 @@ class Mage_Customer_Model_Observer
         try {
             Mage::register(self::VIV_PROCESSED_FLAG, true);
 
-            /** @var $customerHelper Mage_Customer_Helper_Data */
+            /** @var Mage_Customer_Helper_Data $customerHelper */
             $customerHelper = Mage::helper('customer');
 
             if ($customerAddress->getVatId() == ''
@@ -165,7 +165,6 @@ class Mage_Customer_Model_Observer
                     $customer->save();
                 }
             } else {
-
                 $result = $customerHelper->checkVatNumber(
                     $customerAddress->getCountryId(),
                     $customerAddress->getVatId()

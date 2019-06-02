@@ -27,9 +27,24 @@
 /**
  * Customer session model
  *
+ * @method string getAfterAuthUrl()
+ * @method string getBeforeAuthUrl()
+ * @method array getAddressFormData()
+ * @method $this setAddressFormData(array $value)
+ * @method array getCustomerFormData()
+ * @method $this setCustomerFormData(array $value)
+ * @method $this setUsername(string $value)
+ * @method bool getNoReferer(bool $value)
+ * @method $this setNoReferer(bool $value)
+ * @method $this unsNoReferer(bool $value)
+ * @method string getForgottenEmail()
+ * @method string getUsername()
+ * @method $this setForgottenEmail(string $value)
+ * @method $this unsForgottenEmail()
+ *
  * @category   Mage
  * @package    Mage_Customer
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
 {
@@ -207,7 +222,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function login($username, $password)
     {
-        /** @var $customer Mage_Customer_Model_Customer */
+        /** @var Mage_Customer_Model_Customer $customer */
         $customer = Mage::getModel('customer/customer')
             ->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
 
@@ -218,6 +233,10 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
         return false;
     }
 
+    /**
+     * @param Mage_Customer_Model_Customer $customer
+     * @return $this
+     */
     public function setCustomerAsLoggedIn($customer)
     {
         $this->setCustomer($customer);

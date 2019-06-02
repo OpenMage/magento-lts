@@ -52,7 +52,7 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
     {
         $customer = Mage::getModel('customer/customer')
             ->load($customerId);
-        /* @var $customer Mage_Customer_Model_Customer */
+        /* @var Mage_Customer_Model_Customer $customer */
 
         if (!$customer->getId()) {
             $this->_fault('customer_not_exists');
@@ -77,7 +77,6 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
             $row['is_default_shipping'] = $customer->getDefaultShipping() == $address->getId();
 
             $result[] = $row;
-
         }
 
         return $result;
@@ -94,7 +93,7 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
     {
         $customer = Mage::getModel('customer/customer')
             ->load($customerId);
-        /* @var $customer Mage_Customer_Model_Customer */
+        /* @var Mage_Customer_Model_Customer $customer */
 
         if (!$customer->getId()) {
             $this->_fault('customer_not_exists');

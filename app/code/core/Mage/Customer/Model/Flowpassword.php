@@ -28,6 +28,11 @@
 /**
  * Customer flow password info Model
  *
+ * @method Mage_Customer_Model_Resource_Flowpassword_Collection getCollection()
+ * @method $this setEmail(string $value)
+ * @method $this setIp(string $value)
+ * @method $this setRequestedDate(string $value)
+ *
  * @category    Mage
  * @package     Mage_Customer
  * @author      Magento Core Team <core@magentocommerce.com>
@@ -40,9 +45,7 @@ class Mage_Customer_Model_Flowpassword extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Prepare data before save
-     *
-     * @return Mage_Core_Model_Abstract
+     * @inheritDoc
      */
     protected function _beforeSave()
     {
@@ -118,4 +121,3 @@ class Mage_Customer_Model_Flowpassword extends Mage_Core_Model_Abstract
         return true;
     }
 }
-
