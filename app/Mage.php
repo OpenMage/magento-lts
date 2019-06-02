@@ -219,9 +219,10 @@ final class Mage
     {
         if (isset(self::$_registry[$key])) {
             if ($graceful) {
+                self::log('Mage registry key "'.$key.'" already exists');
                 return;
             }
-            self::throwException('Mage registry key "'.$key.'" already exists');
+            self::throwException('Mage registry key "'.$key.'" already exists, value being set is: ' . print_r($value, true));
         }
         self::$_registry[$key] = $value;
     }
