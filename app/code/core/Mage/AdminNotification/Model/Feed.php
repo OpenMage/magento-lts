@@ -152,7 +152,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
     /**
      * Retrieve feed data as XML element
      *
-     * @return SimpleXMLElement
+     * @return SimpleXMLElement|false
      */
     public function getFeedData()
     {
@@ -179,6 +179,9 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
         return $xml;
     }
 
+    /**
+     * @return SimpleXMLElement
+     */
     public function getFeedXml()
     {
         try {

@@ -64,7 +64,8 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
     /**
      * Retrieve Severity collection array
      *
-     * @return array|string
+     * @param int|null $severity
+     * @return array|string|null
      */
     public function getSeverities($severity = null)
     {
@@ -131,7 +132,7 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
     public function add($severity, $title, $description, $url = '', $isInternal = true)
     {
         if (!$this->getSeverities($severity)) {
-            Mage::throwException($this->__('Wrong message type'));
+            Mage::throwException(Mage::helper('adminnotification')->__('Wrong message type'));
         }
         if (is_array($description)) {
             $description = '<ul><li>' . implode('</li><li>', $description) . '</li></ul>';
