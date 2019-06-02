@@ -88,7 +88,7 @@ class Mage_Captcha_Model_Observer
      * @param Varien_Event_Observer $observer
      * @return $this
      */
-    public function checkUserCreate($observer)
+    public function checkUserCreate(Varien_Event_Observer $observer)
     {
         $formId = 'user_create';
         $captchaModel = Mage::helper('captcha')->getCaptcha($formId);
@@ -110,7 +110,7 @@ class Mage_Captcha_Model_Observer
      * @param Varien_Event_Observer $observer
      * @return $this
      */
-    public function checkGuestCheckout($observer)
+    public function checkGuestCheckout(Varien_Event_Observer $observer)
     {
         $formId = 'guest_checkout';
         $captchaModel = Mage::helper('captcha')->getCaptcha($formId);
@@ -280,7 +280,7 @@ class Mage_Captcha_Model_Observer
     /**
      * Get Captcha String
      *
-     * @param Varien_Object $request
+     * @param Mage_Core_Controller_Request_Http $request
      * @param string $formId
      * @return string
      */
