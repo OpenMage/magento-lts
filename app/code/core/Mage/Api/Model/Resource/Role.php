@@ -46,7 +46,7 @@ class Mage_Api_Model_Resource_Role extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Action before save
      *
-     * @param Mage_Core_Model_Abstract $object
+     * @param Mage_Core_Model_Abstract|Mage_Api_Model_Role $object
      * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
@@ -59,12 +59,7 @@ class Mage_Api_Model_Resource_Role extends Mage_Core_Model_Resource_Db_Abstract
     }
 
     /**
-     * Load an object
-     *
-     * @param Mage_Core_Model_Abstract $object
-     * @param mixed $value
-     * @param string $field field to load by (defaults to model id)
-     * @return Mage_Core_Model_Resource_Db_Abstract
+     * @inheritDoc
      */
     public function load(Mage_Core_Model_Abstract $object, $value, $field = null)
     {

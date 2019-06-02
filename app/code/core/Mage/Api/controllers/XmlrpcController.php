@@ -38,4 +38,4 @@ class Mage_Api_XmlrpcController extends Mage_Api_Controller_Action
         $this->_getServer()->init($this, 'xmlrpc')
             ->run();
     }
-} // Class Mage_Api_XmlrpcController End
+}
