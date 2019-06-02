@@ -219,7 +219,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Action before save
      *
-     * @param Mage_Core_Model_Abstract $user
+     * @param Mage_Core_Model_Abstract|Mage_Api_Model_User $user
      * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $user)
@@ -259,8 +259,8 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Save user roles
      *
-     * @param Mage_Core_Model_Abstract $user
-     * @return unknown
+     * @param Mage_Core_Model_Abstract|Mage_Api_Model_User $user
+     * @return $this|Mage_Core_Model_Abstract
      */
     public function _saveRelations(Mage_Core_Model_Abstract $user)
     {
@@ -335,7 +335,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Add Role
      *
-     * @param Mage_Core_Model_Abstract $user
+     * @param Mage_Core_Model_Abstract|Mage_Api_Model_User $user
      * @return $this
      */
     public function add(Mage_Core_Model_Abstract $user)
@@ -371,7 +371,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Delete from role
      *
-     * @param Mage_Core_Model_Abstract $user
+     * @param Mage_Core_Model_Abstract|Mage_Api_Model_User $user
      * @return $this
      */
     public function deleteFromRole(Mage_Core_Model_Abstract $user)
@@ -397,7 +397,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Retrieve roles which exists for user
      *
-     * @param Mage_Core_Model_Abstract $user
+     * @param Mage_Core_Model_Abstract|Mage_Api_Model_User $user
      * @return array
      */
     public function roleUserExists(Mage_Core_Model_Abstract $user)
@@ -416,7 +416,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Check if user not unique
      *
-     * @param Mage_Core_Model_Abstract $user
+     * @param Mage_Core_Model_Abstract|Mage_Api_Model_User $user
      * @return array
      */
     public function userExists(Mage_Core_Model_Abstract $user)
