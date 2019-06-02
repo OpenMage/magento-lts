@@ -30,9 +30,18 @@
  * @category   Varien
  * @package    Varien_Data
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getTitle()
+ * @method string getForceLoad()
+ * @method $this setConfig(Varien_Object $value)
+ * @method bool getWysiwyg()
  */
 class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
 {
+    /**
+     * Varien_Data_Form_Element_Editor constructor.
+     * @param array $attributes
+     */
     public function __construct($attributes=array())
     {
         parent::__construct($attributes);
@@ -46,6 +55,9 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
         }
     }
 
+    /**
+     * @return string
+     */
     public function getElementHtml()
     {
         $js = '
@@ -142,6 +154,9 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
         }
     }
 
+    /**
+     * @return string
+     */
     public function getTheme()
     {
         if(!$this->hasData('theme')) {
@@ -172,6 +187,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
     /**
      * Return HTML button to toggling WYSIWYG
      *
+     * @param bool $visible
      * @return string
      */
     protected function _getToggleButtonHtml($visible = true)
@@ -189,7 +205,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
      * Prepare Html buttons for additional WYSIWYG features
      *
      * @param bool $visible Display button or not
-     * @return void
+     * @return string
      */
     protected function _getPluginButtonsHtml($visible = true)
     {

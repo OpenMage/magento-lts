@@ -29,7 +29,11 @@
  *
  * @category   Varien
  * @package    Varien_Data
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getHtmlIdPrefix()
+ * @method string getHtmlIdSuffix()
+ * @method string getFieldNameSuffix()
  */
 class Varien_Data_Form extends Varien_Data_Form_Abstract
 {
@@ -51,37 +55,58 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
     static protected $_defaultFieldsetRenderer;
     static protected $_defaultFieldsetElementRenderer;
 
+    /**
+     * @inheritDoc
+     */
     public function __construct($attributes = array())
     {
         parent::__construct($attributes);
         $this->_allElements = new Varien_Data_Form_Element_Collection($this);
     }
 
+    /**
+     * @param Varien_Data_Form_Element_Renderer_Interface $renderer
+     */
     public static function setElementRenderer(Varien_Data_Form_Element_Renderer_Interface $renderer)
     {
         self::$_defaultElementRenderer = $renderer;
     }
 
+    /**
+     * @param Varien_Data_Form_Element_Renderer_Interface $renderer
+     */
     public static function setFieldsetRenderer(Varien_Data_Form_Element_Renderer_Interface $renderer)
     {
         self::$_defaultFieldsetRenderer = $renderer;
     }
 
+    /**
+     * @param Varien_Data_Form_Element_Renderer_Interface $renderer
+     */
     public static function setFieldsetElementRenderer(Varien_Data_Form_Element_Renderer_Interface $renderer)
     {
         self::$_defaultFieldsetElementRenderer = $renderer;
     }
 
+    /**
+     * @return Varien_Data_Form_Element_Renderer_Interface
+     */
     public static function getElementRenderer()
     {
         return self::$_defaultElementRenderer;
     }
 
+    /**
+     * @return Varien_Data_Form_Element_Renderer_Interface
+     */
     public static function getFieldsetRenderer()
     {
         return self::$_defaultFieldsetRenderer;
     }
 
+    /**
+     * @return Varien_Data_Form_Element_Renderer_Interface
+     */
     public static function getFieldsetElementRenderer()
     {
         return self::$_defaultFieldsetElementRenderer;
@@ -99,10 +124,12 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
     /**
      * Add form element
      *
-     * @param   Varien_Data_Form_Element_Abstract $element
-     * @return  Varien_Data_Form
+     * @param Varien_Data_Form_Element_Abstract $element
+     * @param string|false $after
+     * @return Varien_Data_Form
+     * @throws Exception
      */
-    public function addElement(Varien_Data_Form_Element_Abstract $element, $after=false)
+    public function addElement(Varien_Data_Form_Element_Abstract $element, $after = false)
     {
         $this->checkElementId($element->getId());
         parent::addElement($element, $after);
@@ -121,6 +148,10 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         return isset($this->_elementsIndex[$elementId]);
     }
 
+    /**
+     * @param Varien_Data_Form_Element_Abstract $element
+     * @return $this
+     */
     public function addElementToCollection($element)
     {
         $this->_elementsIndex[$element->getId()] = $element;
@@ -128,19 +159,31 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         return $this;
     }
 
+    /**
+     * @param string $elementId
+     * @return bool
+     * @throws Exception
+     */
     public function checkElementId($elementId)
     {
         if ($this->_elementIdExists($elementId)) {
-            throw new Exception('Element with id "'.$elementId.'" already exists');
+            throw new Exception('Element with id "' . $elementId . '" already exists');
         }
         return true;
     }
 
+    /**
+     * @return $this
+     */
     public function getForm()
     {
         return $this;
     }
 
+    /**
+     * @param string $elementId
+     * @return Varien_Data_Form_Element_Abstract|null
+     */
     public function getElement($elementId)
     {
         if ($this->_elementIdExists($elementId)) {
@@ -149,6 +192,10 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         return null;
     }
 
+    /**
+     * @param array $values
+     * @return $this
+     */
     public function setValues($values)
     {
         foreach ($this->_allElements as $element) {
@@ -162,6 +209,10 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         return $this;
     }
 
+    /**
+     * @param array $values
+     * @return $this
+     */
     public function addValues($values)
     {
         if (!is_array($values)) {
@@ -192,6 +243,11 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         return $this;
     }
 
+    /**
+     * @param string $name
+     * @param string $suffix
+     * @return string
+     */
     public function addSuffixToName($name, $suffix)
     {
         if (!$name) {
@@ -208,6 +264,10 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         return $newName;
     }
 
+    /**
+     * @param string $elementId
+     * @return $this|Varien_Data_Form_Abstract
+     */
     public function removeField($elementId)
     {
         if ($this->_elementIdExists($elementId)) {
@@ -216,26 +276,36 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         return $this;
     }
 
+    /**
+     * @param string $prefix
+     * @return $this
+     */
     public function setFieldContainerIdPrefix($prefix)
     {
         $this->setData('field_container_id_prefix', $prefix);
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getFieldContainerIdPrefix()
     {
         return $this->getData('field_container_id_prefix');
     }
 
+    /**
+     * @return string
+     */
     public function toHtml()
     {
         Varien_Profiler::start('form/toHtml');
         $html = '';
         if ($useContainer = $this->getUseContainer()) {
-            $html .= '<form '.$this->serialize($this->getHtmlAttributes()).'>';
+            $html .= '<form ' . $this->serialize($this->getHtmlAttributes()) . '>';
             $html .= '<div>';
             if (strtolower($this->getData('method')) == 'post') {
-                $html .= '<input name="form_key" type="hidden" value="'.Mage::getSingleton('core/session')->getFormKey().'" />';
+                $html .= '<input name="form_key" type="hidden" value="' . Mage::getSingleton('core/session')->getFormKey() . '" />';
             }
             $html .= '</div>';
         }
@@ -251,6 +321,9 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         return $html;
     }
 
+    /**
+     * @return string
+     */
     public function getHtml()
     {
         return $this->toHtml();

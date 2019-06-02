@@ -33,12 +33,19 @@
  */
 class Varien_Data_Form_Element_Gallery extends Varien_Data_Form_Element_Abstract
 {
+    /**
+     * Varien_Data_Form_Element_Gallery constructor.
+     * @param array $data
+     */
     public function __construct($data)
     {
         parent::__construct($data);
         $this->setType('file');
     }
 
+    /**
+     * @return string
+     */
     public function getElementHtml()
     {
         $gallery = $this->getValue();
@@ -174,11 +181,17 @@ EndSCRIPT;
         return $html;
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->getData('name');
     }
 
+    /**
+     * @return string
+     */
     public function getParentName()
     {
         return parent::getName();

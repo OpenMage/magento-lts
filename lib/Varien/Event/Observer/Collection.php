@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Event observer collection
  * 
@@ -75,7 +74,7 @@ class Varien_Event_Observer_Collection
      * Adds an observer to the collection
      *
      * @param Varien_Event_Observer $observer
-     * @return Varien_Event_Observer_Collection
+     * @return $this
      */
     public function addObserver(Varien_Event_Observer $observer)
     {
@@ -87,7 +86,7 @@ class Varien_Event_Observer_Collection
      * Removes an observer from the collection by its name
      *
      * @param string $observerName
-     * @return Varien_Event_Observer_Collection
+     * @return $this
      */
     public function removeObserverByName($observerName)
     {
@@ -99,7 +98,7 @@ class Varien_Event_Observer_Collection
      * Dispatches an event to all observers in the collection
      *
      * @param Varien_Event $event
-     * @return Varien_Event_Observer_Collection
+     * @return $this
      */
     public function dispatch(Varien_Event $event)
     {

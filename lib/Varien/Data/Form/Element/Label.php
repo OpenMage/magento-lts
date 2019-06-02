@@ -30,6 +30,8 @@
  * @category   Varien
  * @package    Varien_Data
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method bool getBold()
  */
 class Varien_Data_Form_Element_Label extends Varien_Data_Form_Element_Abstract
 {

@@ -30,9 +30,15 @@
  * @category   Varien
  * @package    Varien_Data
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method bool getChecked()
  */
 class Varien_Data_Form_Element_Checkbox extends Varien_Data_Form_Element_Abstract
 {
+    /**
+     * Varien_Data_Form_Element_Checkbox constructor.
+     * @param array $attributes
+     */
     public function __construct($attributes=array())
     {
         parent::__construct($attributes);
@@ -40,11 +46,17 @@ class Varien_Data_Form_Element_Checkbox extends Varien_Data_Form_Element_Abstrac
         $this->setExtType('checkbox');
     }
 
+    /**
+     * @return array
+     */
     public function getHtmlAttributes()
     {
         return array('type', 'title', 'class', 'style', 'checked', 'onclick', 'onchange', 'disabled', 'tabindex');
     }
 
+    /**
+     * @return string
+     */
     public function getElementHtml()
     {
         if ($checked = $this->getChecked()) {

@@ -84,6 +84,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      * Implementation of ArrayAccess:offsetGet()
      *
      * @param mixed $key
+     * @return mixed
      */
     public function offsetGet($key)
     {
@@ -118,7 +119,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      * @param Varien_Data_Form_Element_Abstract $element
      * @param bool|string $after
      *
-     * @return Varien_Data_Form_Element_Collection
+     * @return Varien_Data_Form_Element_Abstract
      */
     public function add(Varien_Data_Form_Element_Abstract $element, $after = false)
     {

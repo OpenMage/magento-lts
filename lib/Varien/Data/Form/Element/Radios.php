@@ -33,12 +33,19 @@
  */
 class Varien_Data_Form_Element_Radios extends Varien_Data_Form_Element_Abstract
 {
+    /**
+     * Varien_Data_Form_Element_Radios constructor.
+     * @param array $attributes
+     */
     public function __construct($attributes=array())
     {
         parent::__construct($attributes);
         $this->setType('radios');
     }
 
+    /**
+     * @return string
+     */
     public function getSeparator()
     {
         $separator = $this->getData('separator');
@@ -48,6 +55,9 @@ class Varien_Data_Form_Element_Radios extends Varien_Data_Form_Element_Abstract
         return $separator;
     }
 
+    /**
+     * @return string
+     */
     public function getElementHtml()
     {
         $html = '';
@@ -61,6 +71,11 @@ class Varien_Data_Form_Element_Radios extends Varien_Data_Form_Element_Abstract
         return $html;
     }
 
+    /**
+     * @param array|Varien_Object $option
+     * @param $selected
+     * @return string
+     */
     protected function _optionToHtml($option, $selected)
     {
         $html = '<input type="radio"'.$this->serialize(array('name', 'class', 'style'));

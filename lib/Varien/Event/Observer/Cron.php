@@ -27,10 +27,14 @@
 
 /**
  * Event cron observer object
- * 
+ *
  * @category   Varien
  * @package    Varien_Event
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getCronExpr()
+ * @method bool hasNow()
+ * @method $this setNow(int $time)
  */
 class Varien_Event_Observer_Cron extends Varien_Event_Observer
 {
@@ -57,7 +61,10 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
             && $this->matchCronExpression($e[3], $d['mon'])
             && $this->matchCronExpression($e[4], $d['wday']);
     }
-    
+
+    /**
+     * @return int
+     */
     public function getNow()
     {
         if (!$this->hasNow()) {
@@ -65,7 +72,12 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
         }
         return $this->getData('now');
     }
-    
+
+    /**
+     * @param string $expr
+     * @param int $num
+     * @return bool
+     */
     public function matchCronExpression($expr, $num)
     {
         // handle ALL match
@@ -116,8 +128,12 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
         $value = $this->getNumeric($expr);
         return ($value!==false) && ($num==$value) && ($num%$mod===0);
     }
-    
-    public function getNumeric($value) 
+
+    /**
+     * @param string|int $value
+     * @return string|int|false
+     */
+    public function getNumeric($value)
     {
         static $data = array(
             'jan'=>1,

@@ -33,7 +33,11 @@
  */
 class Varien_Data_Form_Element_Column extends Varien_Data_Form_Element_Abstract 
 {
-    public function __construct($attributes = array()) 
+    /**
+     * Varien_Data_Form_Element_Column constructor.
+     * @param array $attributes
+     */
+    public function __construct($attributes = array())
     {
         parent::__construct($attributes);
         $this->setType('column');

@@ -33,5 +33,4 @@
  */
 class Varien_Data_Form_Element_Datetime extends Varien_Data_Form_Element_Date
 {
-
 }
