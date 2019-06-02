@@ -49,7 +49,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
         parent::__construct();
         $this->setCacheId('adminhtml_acl_menu_config');
 
-        /* @var $adminhtmlConfig Varien_Simplexml_Config */
+        /* @var Varien_Simplexml_Config $adminhtmlConfig */
         $adminhtmlConfig = Mage::app()->loadCache($this->getCacheId());
         if ($adminhtmlConfig) {
             $this->_adminhtmlConfig = new Varien_Simplexml_Config($adminhtmlConfig);
@@ -126,7 +126,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
      * Get acl assert config
      *
      * @param string $name
-     * @return Mage_Core_Model_Config_Element|boolean
+     * @return false|SimpleXMLElement|Varien_Simplexml_Element
      */
     public function getAclAssert($name = '')
     {
@@ -146,7 +146,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
      * Retrieve privilege set by name
      *
      * @param string $name
-     * @return Mage_Core_Model_Config_Element|boolean
+     * @return false|SimpleXMLElement|Varien_Simplexml_Element
      */
     public function getAclPrivilegeSet($name = '')
     {
