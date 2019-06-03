@@ -424,16 +424,7 @@ class Mage_Core_Model_Translate
 
         //array_unshift($args, $translated);
         //$result = @call_user_func_array('sprintf', $args);
-        if (substr_count($translated, '%') != count($args)) {
-            echo $translated;
-            Mage::log(
-                __METHOD__ . '() possible argument count mismatch! for ' . $translated
-                . ' Backtrace: ' . mageDebugBacktrace(true, false, true),
-                null,
-                'translated.log',
-                true
-            );
-        }
+
         $result = @vsprintf($translated, $args);
         if ($result === false) {
             $result = $translated;
