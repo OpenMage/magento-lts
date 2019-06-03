@@ -37,7 +37,7 @@ class Mage_Customer_Block_Account_Dashboard_Info extends Mage_Core_Block_Templat
     /**
      * @var Mage_Newsletter_Model_Subscriber
      */
-    public $_subscription;
+    private $_subscription;
 
     /**
      * @return Mage_Customer_Model_Customer
