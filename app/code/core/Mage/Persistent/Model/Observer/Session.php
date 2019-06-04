@@ -41,7 +41,7 @@ class Mage_Persistent_Model_Observer_Session
      */
     public function synchronizePersistentOnLogin(Varien_Event_Observer $observer)
     {
-        /** @var $customer Mage_Customer_Model_Customer */
+        /** @var Mage_Customer_Model_Customer $customer */
         $customer = $observer->getEvent()->getCustomer();
         // Check if customer is valid (remove persistent cookie for invalid customer)
         if (!$customer || !$customer->getId() || !Mage::helper('persistent/session')->isRememberMeChecked()) {
@@ -57,7 +57,7 @@ class Mage_Persistent_Model_Observer_Session
             return;
         }
 
-        /** @var $sessionModel Mage_Persistent_Model_Session */
+        /** @var Mage_Persistent_Model_Session $sessionModel */
         $sessionModel = Mage::helper('persistent/session')->getSession();
 
         // Check if session is wrong or not exists, so create new session
@@ -95,7 +95,7 @@ class Mage_Persistent_Model_Observer_Session
             return;
         }
 
-        /** @var $customer Mage_Customer_Model_Customer */
+        /** @var Mage_Customer_Model_Customer $customer */
         $customer = $observer->getEvent()->getCustomer();
         // Check if customer is valid
         if (!$customer || !$customer->getId()) {
@@ -119,10 +119,10 @@ class Mage_Persistent_Model_Observer_Session
             return;
         }
 
-        /** @var $sessionModel Mage_Persistent_Model_Session */
+        /** @var Mage_Persistent_Model_Session $sessionModel */
         $sessionModel = Mage::helper('persistent/session')->getSession();
 
-        /** @var $request Mage_Core_Controller_Request_Http */
+        /** @var Mage_Core_Controller_Request_Http $request */
         $request = $observer->getEvent()->getFront()->getRequest();
 
         // Quote Id could be changed only by logged in customer
@@ -146,7 +146,7 @@ class Mage_Persistent_Model_Observer_Session
             return;
         }
 
-        /** @var $controllerAction Mage_Core_Controller_Varien_Action */
+        /** @var Mage_Core_Controller_Varien_Action $controllerAction */
         $controllerAction = $observer->getEvent()->getControllerAction();
         if ($controllerAction) {
             $rememberMeCheckbox = $controllerAction->getRequest()->getPost('persistent_remember_me');
@@ -173,7 +173,7 @@ class Mage_Persistent_Model_Observer_Session
             return;
         }
 
-        /** @var $controllerAction Mage_Core_Controller_Front_Action */
+        /** @var Mage_Core_Controller_Front_Action $controllerAction */
         $controllerAction = $observer->getEvent()->getControllerAction();
 
         if (Mage::getSingleton('customer/session')->isLoggedIn()

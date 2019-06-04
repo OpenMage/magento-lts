@@ -107,7 +107,7 @@ class Mage_Persistent_Helper_Session extends Mage_Core_Helper_Data
                 return $isRememberMeChecked;
             }
 
-            /** @var $helper Mage_Persistent_Helper_Data */
+            /** @var Mage_Persistent_Helper_Data $helper */
             $helper = Mage::helper('persistent');
             return $helper->isEnabled() && $helper->isRememberMeEnabled() && $helper->isRememberMeCheckedDefault();
         }
