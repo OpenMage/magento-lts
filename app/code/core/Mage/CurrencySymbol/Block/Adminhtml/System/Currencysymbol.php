@@ -34,6 +34,16 @@
 class Mage_Currencysymbol_Block_Adminhtml_System_Currencysymbol extends Mage_Adminhtml_Block_Widget_Form
 {
     /**
+     * @var string
+     */
+    private $_blockGroup;
+
+    /**
+     * @var string
+     */
+    private $_controller;
+
+    /**
      * Constructor. Initialization required variables for class instance.
      */
     public function __construct()
@@ -77,7 +87,7 @@ class Mage_Currencysymbol_Block_Adminhtml_System_Currencysymbol extends Mage_Adm
      */
     public function getSaveButtonHtml()
     {
-        /** @var $block Mage_Core_Block_Abstract */
+        /** @var Mage_Core_Block_Abstract $block */
         $block = $this->getLayout()->createBlock('adminhtml/widget_button');
         $block->setData(array(
             'label'     => Mage::helper('currencysymbol')->__('Save Currency Symbols'),

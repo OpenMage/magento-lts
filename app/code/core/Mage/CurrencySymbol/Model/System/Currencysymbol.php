@@ -30,6 +30,8 @@
  * @category    Mage
  * @package     Mage_CurrencySymbol
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this resetValues()
  */
 class Mage_CurrencySymbol_Model_System_Currencysymbol
 {
@@ -126,7 +128,7 @@ class Mage_CurrencySymbol_Model_System_Currencysymbol
             Mage::getStoreConfig(self::XML_PATH_ALLOWED_CURRENCIES, null)
         );
 
-        /* @var $storeModel Mage_Adminhtml_Model_System_Store */
+        /* @var Mage_Adminhtml_Model_System_Store $storeModel */
         $storeModel = Mage::getSingleton('adminhtml/system_store');
         foreach ($storeModel->getWebsiteCollection() as $website) {
             $websiteShow = false;
@@ -158,7 +160,7 @@ class Mage_CurrencySymbol_Model_System_Currencysymbol
 
         $currentSymbols = $this->_unserializeStoreConfig(self::XML_PATH_CUSTOM_CURRENCY_SYMBOL);
 
-        /** @var $locale Mage_Core_Model_Locale */
+        /** @var Mage_Core_Model_Locale $locale */
         $locale = Mage::app()->getLocale();
         foreach ($allowedCurrencies as $code) {
             if (!$symbol = $locale->getTranslation($code, 'currencysymbol')) {
@@ -191,7 +193,7 @@ class Mage_CurrencySymbol_Model_System_Currencysymbol
     /**
      * Saves currency symbol to config
      *
-     * @param  $symbols array
+     * @param array $symbols
      * @return $this
      */
     public function setCurrencySymbolsData($symbols=array())
@@ -251,7 +253,7 @@ class Mage_CurrencySymbol_Model_System_Currencysymbol
     /**
      * Clear translate cache
      *
-     * @return Saas_Translate_Helper_Data
+     * @return $this
      */
     public function clearCache()
     {
