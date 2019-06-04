@@ -61,7 +61,7 @@ class Mage_Poll_Model_Resource_Poll extends Mage_Core_Model_Resource_Db_Abstract
      * Get select object for not closed poll ids
      *
      * @param Mage_Poll_Model_Poll $object
-     * @return
+     * @return Varien_Db_Select
      */
     protected function _getSelectIds($object)
     {
@@ -134,7 +134,7 @@ class Mage_Poll_Model_Resource_Poll extends Mage_Core_Model_Resource_Db_Abstract
      * If poll id is not empty, it will look only for records with specified value
      *
      * @param string $ipAddress
-     * @param int $pollId
+     * @param int|false $pollId
      * @return array
      */
     public function getVotedPollIdsByIp($ipAddress, $pollId = false)
@@ -198,7 +198,7 @@ class Mage_Poll_Model_Resource_Poll extends Mage_Core_Model_Resource_Db_Abstract
      * Delete current poll from the table poll_store and then
      * insert to update "poll to store" relations
      *
-     * @param Mage_Core_Model_Abstract $object
+     * @param Mage_Core_Model_Abstract|Mage_Poll_Model_Poll $object
      */
     public function _afterSave(Mage_Core_Model_Abstract $object)
     {

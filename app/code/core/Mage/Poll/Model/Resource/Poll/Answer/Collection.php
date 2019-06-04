@@ -31,6 +31,8 @@
  * @category    Mage
  * @package     Mage_Poll
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Poll_Model_Poll_Answer[] getItems()
  */
 class Mage_Poll_Model_Resource_Poll_Answer_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -64,7 +66,7 @@ class Mage_Poll_Model_Resource_Poll_Answer_Collection extends Mage_Core_Model_Re
     public function countPercent($pollObject)
     {
         if (!$pollObject) {
-            return;
+            return $this;
         } else {
             foreach ($this->getItems() as $answer) {
                 $answer->countPercent($pollObject);

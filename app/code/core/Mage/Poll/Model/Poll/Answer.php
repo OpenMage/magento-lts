@@ -29,14 +29,16 @@
  *
  * @method Mage_Poll_Model_Resource_Poll_Answer _getResource()
  * @method Mage_Poll_Model_Resource_Poll_Answer getResource()
- * @method int getPollId()
- * @method Mage_Poll_Model_Poll_Answer setPollId(int $value)
- * @method string getAnswerTitle()
- * @method Mage_Poll_Model_Poll_Answer setAnswerTitle(string $value)
- * @method int getVotesCount()
- * @method Mage_Poll_Model_Poll_Answer setVotesCount(int $value)
  * @method int getAnswerOrder()
- * @method Mage_Poll_Model_Poll_Answer setAnswerOrder(int $value)
+ * @method $this setAnswerOrder(int $value)
+ * @method string getAnswerTitle()
+ * @method $this setAnswerTitle(string $value)
+ * @method float getPercent()
+ * @method $this setPercent(float $round)
+ * @method int getPollId()
+ * @method $this setPollId(int $value)
+ * @method int getVotesCount()
+ * @method $this setVotesCount(int $value)
  *
  * @category    Mage
  * @package     Mage_Poll
@@ -50,6 +52,10 @@ class Mage_Poll_Model_Poll_Answer extends Mage_Core_Model_Abstract
         $this->_init('poll/poll_answer');
     }
 
+    /**
+     * @param Mage_Poll_Model_Poll $poll
+     * @return $this
+     */
     public function countPercent($poll)
     {
         $this->setPercent(
@@ -58,6 +64,9 @@ class Mage_Poll_Model_Poll_Answer extends Mage_Core_Model_Abstract
         return $this;
     }
 
+    /**
+     * @return void
+     */
     protected function _afterSave()
     {
         Mage::getModel('poll/poll')
@@ -65,11 +74,17 @@ class Mage_Poll_Model_Poll_Answer extends Mage_Core_Model_Abstract
             ->resetVotesCount();
     }
 
+    /**
+     * @return void
+     */
     protected function _beforeDelete()
     {
         $this->setPollId($this->load($this->getId())->getPollId());
     }
 
+    /**
+     * @return void
+     */
     protected function _afterDelete()
     {
         Mage::getModel('poll/poll')
