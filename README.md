@@ -29,8 +29,24 @@ Download the latest archive and extract it, clone the repo, or add a composer de
 - MySQL 5.6+
 
 ## Translations
+
 There are some new or changed tranlations, if you want add them to your locale pack please check:
+
 - `app/locale/en_US/*_LTS.csv`
+
+## PhpStorm Factory Helper
+
+This repo includes class maps for the core Magento files in `.phpstorm.meta.php`.
+This file is generated using the following commands:
+
+```
+$ wget https://files.magerun.net/n98-magerun.phar
+$ docker run --rm -u $UID -v $PWD:/var/www/html php:7.0-apache php n98-magerun.phar dev:ide:phpstorm:meta
+```
+
+You can add additional meta files in this directory to cover your own project files. See
+[PhpStorm advanced metadata](https://www.jetbrains.com/help/phpstorm/ide-advanced-metadata.html)
+for more information.
 
 ## License
 
