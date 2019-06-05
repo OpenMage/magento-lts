@@ -60,7 +60,7 @@ class Mage_Admin_Model_Redirectpolicy
                                 $alternativeUrl = null)
     {
         if (empty($request)) {
-            return;
+            return null;
         }
         $countRequiredParams = ($this->_urlModel->useSecretKey()
             && $request->getParam(Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME)) ? 1 : 0;

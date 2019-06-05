@@ -41,7 +41,7 @@ class Mage_Admin_Model_Acl_Role_Registry extends Zend_Acl_Role_Registry
      * @param array|Zend_Acl_Role_Interface|string $parents
      * @return $this
      */
-    function addParent($role, $parents)
+    public function addParent($role, $parents)
     {
         try {
             if ($role instanceof Zend_Acl_Role_Interface) {
@@ -53,7 +53,7 @@ class Mage_Admin_Model_Acl_Role_Registry extends Zend_Acl_Role_Registry
         } catch (Zend_Acl_Role_Registry_Exception $e) {
             throw new Zend_Acl_Role_Registry_Exception("Child Role id '$roleId' does not exist");
         }
-        
+
         if (!is_array($parents)) {
             $parents = array($parents);
         }
