@@ -44,11 +44,6 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
     protected $_sortChildrenByKey = '';
 
     /**
-     * @var string
-     */
-    protected $_sortDirection = '';
-
-    /**
      * Children sort direction
      *
      * @var int

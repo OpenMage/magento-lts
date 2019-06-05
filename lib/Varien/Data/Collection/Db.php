@@ -278,7 +278,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      *
      * @param string $field
      * @param string $direction
-     * @return Varien_Data_Collection_Db
+     * @return $this
      */
     public function addOrder($field, $direction = self::SORT_ORDER_DESC)
     {
@@ -290,7 +290,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      *
      * @param string $field
      * @param string $direction
-     * @return Varien_Data_Collection_Db
+     * @return $this
      */
     public function unshiftOrder($field, $direction = self::SORT_ORDER_DESC)
     {
@@ -327,7 +327,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Render sql select conditions
      *
-     * @return  Varien_Data_Collection_Db
+     * @return  $this
      */
     protected function _renderFilters()
     {
@@ -500,7 +500,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Render sql select orders
      *
-     * @return  Varien_Data_Collection_Db
+     * @return  $this
      */
     protected function _renderOrders()
     {
@@ -517,7 +517,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Render sql select limit
      *
-     * @return  Varien_Data_Collection_Db
+     * @return  $this
      */
     protected function _renderLimit()
     {
@@ -533,7 +533,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      *
      * @param   bool $flag
      *
-     * @return  Varien_Data_Collection_Db
+     * @return  $this
      */
     public function distinct($flag)
     {
@@ -544,7 +544,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Before load action
      *
-     * @return Varien_Data_Collection_Db
+     * @return $this
      */
     protected function _beforeLoad()
     {

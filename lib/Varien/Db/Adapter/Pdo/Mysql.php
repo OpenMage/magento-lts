@@ -706,7 +706,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Split multi statement query
      *
-     * @param $sql string
+     * @param string $sql
      * @return array
      */
     protected function _splitMultiQuery($sql)
@@ -847,9 +847,9 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @deprecated since 1.4.0.1
      * @param string $fkName foreign key name
      * @param string $tableName main table name
-     * @param string $keyName main table field name
+     * @param string $columnName main table field name
      * @param string $refTableName refered table name
-     * @param string $refKeyName refered table field name
+     * @param string $refColumnName refered table field name
      * @param string $onUpdate on update statement
      * @param string $onDelete on delete statement
      * @param bool $purge
@@ -2973,7 +2973,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Prepare Sql condition
      *
-     * @param  $text Condition value
+     * @param  string $text Condition value
      * @param  mixed $value
      * @param  string $fieldName
      * @return string
@@ -3094,6 +3094,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param Zend_Db_Expr|Zend_Db_Select|string $expression
      * @param string $true  true value
      * @param string $false false value
+     * @return Zend_Db_Expr
      */
     public function getCheckSql($expression, $true, $false)
     {
@@ -3110,7 +3111,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * Returns valid IFNULL expression
      *
      * @param Zend_Db_Expr|Zend_Db_Select|string $expression
-     * @param string $value OPTIONAL. Applies when $expression is NULL
+     * @param string|int $value OPTIONAL. Applies when $expression is NULL
      * @return Zend_Db_Expr
      */
     public function getIfNullSql($expression, $value = 0)

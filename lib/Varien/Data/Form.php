@@ -34,6 +34,8 @@
  * @method string getHtmlIdPrefix()
  * @method string getHtmlIdSuffix()
  * @method string getFieldNameSuffix()
+ * @method setDataObject(Mage_Core_Model_Abstract $value)
+ * @method $this setFieldNameSuffix(string $value)
  */
 class Varien_Data_Form extends Varien_Data_Form_Abstract
 {
@@ -129,7 +131,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
      * @return Varien_Data_Form
      * @throws Exception
      */
-    public function addElement(Varien_Data_Form_Element_Abstract $element, $after = false)
+    public function addElement(Varien_Data_Form_Element_Abstract $element, $after=false)
     {
         $this->checkElementId($element->getId());
         parent::addElement($element, $after);
@@ -167,7 +169,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
     public function checkElementId($elementId)
     {
         if ($this->_elementIdExists($elementId)) {
-            throw new Exception('Element with id "' . $elementId . '" already exists');
+            throw new Exception('Element with id "'.$elementId.'" already exists');
         }
         return true;
     }
@@ -302,10 +304,10 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         Varien_Profiler::start('form/toHtml');
         $html = '';
         if ($useContainer = $this->getUseContainer()) {
-            $html .= '<form ' . $this->serialize($this->getHtmlAttributes()) . '>';
+            $html .= '<form '.$this->serialize($this->getHtmlAttributes()).'>';
             $html .= '<div>';
             if (strtolower($this->getData('method')) == 'post') {
-                $html .= '<input name="form_key" type="hidden" value="' . Mage::getSingleton('core/session')->getFormKey() . '" />';
+                $html .= '<input name="form_key" type="hidden" value="'.Mage::getSingleton('core/session')->getFormKey().'" />';
             }
             $html .= '</div>';
         }
