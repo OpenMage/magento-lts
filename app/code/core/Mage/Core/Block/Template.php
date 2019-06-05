@@ -80,7 +80,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
     {
         parent::_construct();
 
-        /*
+        /**
          * In case template was passed through constructor
          * we assign it to block's property _template
          * Mainly for those cases when block created

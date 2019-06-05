@@ -35,6 +35,7 @@
  * @method string getCreatedAt()
  * @method $this setCreatedAt(string $currentTime)
  * @method $this setUpdatedAt(string $currentTime)
+ * @method $this setAttribute(Mage_Eav_Model_Entity_Attribute_Abstract $value)
  * @method bool hasErrors()
  */
 abstract class Mage_Core_Model_Abstract extends Varien_Object
@@ -212,7 +213,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     }
 
     /**
-     * @return object
+     * @return Mage_Core_Model_Mysql4_Collection_Abstract|object
      */
     public function getCollection()
     {
@@ -488,7 +489,8 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
             $this->_afterDelete();
 
             $this->_getResource()->commit();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e){
             $this->_getResource()->rollBack();
             throw $e;
         }

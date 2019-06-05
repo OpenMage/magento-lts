@@ -33,6 +33,11 @@
  * @category   Mage
  * @package    Mage_Core
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setAdditionalHtml(string $value)
+ * @method string getFormKey()
+ * @method string getPosition()
+ * @method $this setTemplate(string $value)
  */
 abstract class Mage_Core_Block_Abstract extends Varien_Object
 {
@@ -941,12 +946,10 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         if (self::$_transportObject === null) {
             self::$_transportObject = new Varien_Object;
         }
-        self::$_transportObject->setData('html', $html);
-        Mage::dispatchEvent(
-            'core_block_abstract_to_html_after',
-            array('block' => $this, 'transport' => self::$_transportObject)
-        );
-        $html = self::$_transportObject->getData('html');
+        self::$_transportObject->setHtml($html);
+        Mage::dispatchEvent('core_block_abstract_to_html_after',
+            array('block' => $this, 'transport' => self::$_transportObject));
+        $html = self::$_transportObject->getHtml();
 
         return $html;
     }

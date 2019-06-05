@@ -24,6 +24,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
 /**
  * HTML select element block
  *
@@ -32,13 +33,20 @@
  * @author      Magento Core Team <core@magentocommerce.com>
  *
  * @method string getClass()
+ * @method $this setClass(string $value)
  * @method string getExtraParams()
+ * @method $this setExtraParams(string $value)
  * @method string getFormat()
+ * @method $this setFormat(string $value)
  * @method string getImage()
+ * @method $this setImage(string $value)
  * @method string getName()
+ * @method $this setName(string $value)
  * @method string getTime()
  * @method string getValue()
+ * @method $this setValue(string $value)
  * @method string getYearsRange()
+ * @method $this setYearsRange(string $value)
  */
 class Mage_Core_Block_Html_Date extends Mage_Core_Block_Template
 {

@@ -109,7 +109,7 @@ class Mage_Core_Model_Observer
     /**
      * Cleans cache by tags
      *
-     * @param Varien_Event_Observer|OpenMage_Observer_CleanCacheByTags_Observer $observer
+     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function cleanCacheByTags(Varien_Event_Observer $observer)

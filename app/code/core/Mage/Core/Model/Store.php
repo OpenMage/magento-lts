@@ -30,18 +30,19 @@
  * @method Mage_Core_Model_Resource_Store _getResource()
  * @method Mage_Core_Model_Resource_Store getResource()
  * @method $this setCode(string $value)
- * @method $this setWebsiteId(int $value)
  * @method $this setGroupId(int $value)
+ * @method string getHomeUrl()
+ * @method $this setHomeUrl(string $value)
+ * @method $this setIsActive(int $value)
+ * @method $this setLocaleCode(string $value)
+ * @method string getLanguageCode()
+ * @method string getLocaleCode()
  * @method $this setName(string $value)
  * @method int getSortOrder()
  * @method $this setSortOrder(int $value)
- * @method $this setIsActive(int $value)
- * @method string getHomeUrl()
- * @method $this setHomeUrl(string $value)
- * @method $this setLocaleCode(string $value)
  * @method int getStoreId()
  * @method $this setStoreId(int $value)
- * @method string getLocaleCode()
+ * @method $this setWebsiteId(int $value)
  *
  * @category    Mage
  * @package     Mage_Core
@@ -748,10 +749,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     public function isFrontUrlSecure()
     {
         if ($this->_isFrontSecure === null) {
-            $this->_isFrontSecure = Mage::getStoreConfigFlag(
-                Mage_Core_Model_Url::XML_PATH_SECURE_IN_FRONT,
-                $this->getId()
-            );
+            $this->_isFrontSecure = Mage::getStoreConfigFlag(Mage_Core_Model_Url::XML_PATH_SECURE_IN_FRONT,
+                $this->getId());
         }
         return $this->_isFrontSecure;
     }
@@ -1126,8 +1125,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     {
         $sidQueryParam = $this->_getSession()->getSessionIdQueryParam();
         $requestString = Mage::getSingleton('core/url')->escape(
-            ltrim(Mage::app()->getRequest()->getRequestString(), '/')
-        );
+            ltrim(Mage::app()->getRequest()->getRequestString(), '/'));
 
         $storeUrl = Mage::app()->getStore()->isCurrentlySecure()
             ? $this->getUrl('', array('_secure' => true))

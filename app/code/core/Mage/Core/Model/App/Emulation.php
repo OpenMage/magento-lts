@@ -102,7 +102,7 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
      *
      * Function restores initial store environment
      *
-     * @param Varien_Object|OpenMage_Object_AppEmulation $initialEnvironmentInfo information about environment of the initial store
+     * @param Varien_Object $initialEnvironmentInfo information about environment of the initial store
      *
      * @return $this
      */

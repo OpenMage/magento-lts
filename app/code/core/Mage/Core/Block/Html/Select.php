@@ -24,6 +24,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
 /**
  * HTML select element block
  *
@@ -33,7 +34,9 @@
  *
  * @method string getExtraParams()
  * @method string getName()
+ * @method $this setName(string $value)
  * @method string getValue()
+ * @method $this setValue(string $value)
  * @method bool getIsRenderToJsTemplate()
  */
 class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
@@ -235,13 +238,11 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
             }
         }
 
-        return sprintf(
-            '<option value="%s"%s %s>%s</option>',
+        return sprintf('<option value="%s"%s %s>%s</option>',
             $this->escapeHtml($option['value']),
             $selectedHtml,
             $params,
-            $this->escapeHtml($option['label'])
-        );
+            $this->escapeHtml($option['label']));
     }
 
     /**

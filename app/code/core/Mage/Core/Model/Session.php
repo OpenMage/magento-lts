@@ -28,12 +28,17 @@
 /**
  * Core session model
  *
+ * @todo extend from Mage_Core_Model_Session_Abstract
+ *
  * @method null|bool getCookieShouldBeReceived()
- * @method $this setCookieShouldBeReceived(bool $flag)
+ * @method $this setCookieShouldBeReceived(bool $value)
  * @method $this unsCookieShouldBeReceived()
  * @method $this unsSessionHosts()
  * @method string getCurrencyCode()
- * @method $this setCurrencyCode(string $code)
+ * @method $this setCurrencyCode(string $value)
+ * @method $this setFormData(array $value)
+ * @method int getJustVotedPoll()
+ * @method $this setJustVotedPoll(int $value)
  * @method $this setLastUrl(string $value)
  */
 class Mage_Core_Model_Session extends Mage_Core_Model_Session_Abstract

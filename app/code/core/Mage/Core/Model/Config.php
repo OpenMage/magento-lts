@@ -24,6 +24,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
 /**
  * Core configuration class
  *
@@ -418,9 +419,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             $retries = 10;
             do {
                 if ($this->_loadCache($this->_getCacheLockId())) {
-                    if ($retries) {
-                        usleep(500000); // 0.5 seconds
-                    }
+                    if ($retries) usleep(500000); // 0.5 seconds
                 } else {
                     return TRUE;
                 }
@@ -510,11 +509,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             if ($recursionLevel > 0) {
                 foreach ($source->$sectionName->children() as $subSectionName => $node) {
                     $this->_saveSectionCache(
-                        $cacheId,
-                        $subSectionName,
-                        $source->$sectionName,
-                        $recursionLevel-1,
-                        $tags
+                        $cacheId, $subSectionName, $source->$sectionName, $recursionLevel-1, $tags
                     );
                 }
             }
@@ -1015,8 +1010,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                 $hostArr = explode(':', $_SERVER['HTTP_HOST']);
                 $host = $hostArr[0];
                 $port = isset(
-                    $hostArr[1]
-                ) && (!$secure && $hostArr[1]!=80 || $secure && $hostArr[1]!=443
+                    $hostArr[1]) && (!$secure && $hostArr[1]!=80 || $secure && $hostArr[1]!=443
                 ) ? ':'.$hostArr[1] : '';
                 $path = Mage::app()->getRequest()->getBasePath();
 
