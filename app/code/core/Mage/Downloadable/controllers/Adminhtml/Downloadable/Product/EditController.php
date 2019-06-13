@@ -121,10 +121,20 @@ class Mage_Downloadable_Adminhtml_Downloadable_Product_EditController extends Ma
             try {
                 $this->_processDownload($resource, $resourceType);
             } catch (Mage_Core_Exception $e) {
-                Mage::getSingleton('admin/session')->addError(Mage::helper('downloadable')->__('An error occurred while getting the requested content.'));
+                $this->_getSession()->addError(Mage::helper('downloadable')->__('An error occurred while getting the requested content.'));
             }
         }
         exit(0);
+    }
+
+    /**
+     * Return admin session object
+     *
+     * @return Mage_Admin_Model_Session
+     */
+    protected function _getSession()
+    {
+        return Mage::getSingleton('admin/session');
     }
 
 }

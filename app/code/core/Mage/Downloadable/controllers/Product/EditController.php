@@ -44,4 +44,15 @@ class Mage_Downloadable_Product_EditController extends Mage_Downloadable_Adminht
     {
         $this->_forward('defaultIndex', 'cms_index');
     }
+
+    /**
+     * Return customer session object
+     *
+     * @return Mage_Customer_Model_Session
+     */
+    protected function _getSession()
+    {
+        return Mage::getSingleton('customer/session');
+    }
+
 }
