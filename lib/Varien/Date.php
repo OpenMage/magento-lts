@@ -124,7 +124,7 @@ class Varien_Date
     public static function toTimestamp($date)
     {
         if ($date instanceof Zend_Date) {
-            return $date->getUnixTimestamp();
+            return $date->getTimestamp();
         }
 
         if ($date === true) {
