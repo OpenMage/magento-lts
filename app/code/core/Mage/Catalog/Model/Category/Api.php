@@ -65,7 +65,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
                         $ids = $categoryId;
                     }
                 } elseif (in_array($store, $website->getStoreIds())) {
-                    $storeId = Mage::app()->getStore($store)->getId();
+                    $store = Mage::app()->getStore($store);
                     $ids = (null === $categoryId)? $store->getRootCategoryId() : $categoryId;
                 } else {
                     $this->_fault('store_not_exists');
@@ -370,7 +370,8 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
         // if $afterId is null - move category to the down
         if ($afterId === null && $parent_category->hasChildren()) {
             $parentChildren = $parent_category->getChildren();
-            $afterId = array_pop(explode(',', $parentChildren));
+            $parentChildren = explode(',', $parentChildren);
+            $afterId = array_pop($parentChildren);
         }
 
         if( strpos($parent_category->getPath(), $category->getPath()) === 0) {
