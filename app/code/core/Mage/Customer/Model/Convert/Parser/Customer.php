@@ -696,7 +696,7 @@ class Mage_Customer_Model_Convert_Parser_Customer
                         if ($customer->getDefaultBilling()) {
                             $model->setDefaultBilling($customer->getDefaultBilling());
                         } else {
-                            $shippingAddress->save();
+                            $billingAddress->save();
                             $model->setDefaultShipping($billingAddress->getId());
                             $model->addAddress($billingAddress);
 
