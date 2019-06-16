@@ -538,7 +538,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     public function getParentId()
     {
         $parentIds = $this->getParentIds();
-        return intval(array_pop($parentIds));
+        return (int)array_pop($parentIds);
     }
 
     /**

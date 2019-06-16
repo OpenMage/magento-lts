@@ -446,7 +446,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 foreach ($options as &$option) {
                     if ($option->getCode() == 'selection_qty_'.$selection->getSelectionId()) {
                         if ($optionUpdateFlag) {
-                            $option->setValue(intval($option->getValue()));
+                            $option->setValue((int)$option->getValue());
                         }
                         else {
                             $option->setValue($value);
@@ -468,7 +468,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      */
     public function prepareQuoteItemQty($qty, $product = null)
     {
-        return intval($qty);
+        return (int)$qty;
     }
 
     /**

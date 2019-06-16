@@ -406,7 +406,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      */
     public function rotate($angle)
     {
-        $angle = intval($angle);
+        $angle = (int)$angle;
         $this->getImageProcessor()->rotate($angle);
         return $this;
     }

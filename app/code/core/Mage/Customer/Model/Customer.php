@@ -1032,7 +1032,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
 
             $regions->addRegionNameFilter($row['billing_region'])->load();
             if ($regions) foreach($regions as $region) {
-                $regionId = intval($region->getId());
+                $regionId = (int)$region->getId();
             }
 
             $billingAddress->setFirstname($row['firstname']);
@@ -1074,7 +1074,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             $regions->addRegionNameFilter($row['shipping_region'])->load();
 
             if ($regions) foreach($regions as $region) {
-               $regionId = intval($region->getId());
+               $regionId = (int)$region->getId();
             }
 
             $shippingAddress->setFirstname($row['firstname']);

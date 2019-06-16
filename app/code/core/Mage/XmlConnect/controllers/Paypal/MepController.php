@@ -79,7 +79,7 @@ class Mage_XmlConnect_Paypal_MepController extends Mage_XmlConnect_Controller_Ac
                     'enterprise_giftcardaccount/checkout_onepage_payment_additional', 'giftcard_info'
                 );
 
-                if (intval($giftcardInfoBlock->getAppliedGiftCardAmount())) {
+                if ((int)$giftcardInfoBlock->getAppliedGiftCardAmount()) {
                     $this->_message(
                         $this->__('Paypal MEP doesn\'t support checkout with any discount.'),
                         self::MESSAGE_STATUS_ERROR

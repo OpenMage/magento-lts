@@ -47,8 +47,8 @@ class Mage_Poll_VoteController extends Mage_Core_Controller_Front_Action
      */
     public function addAction()
     {
-        $pollId     = intval($this->getRequest()->getParam('poll_id'));
-        $answerId   = intval($this->getRequest()->getParam('vote'));
+        $pollId     = (int)$this->getRequest()->getParam('poll_id');
+        $answerId   = (int)$this->getRequest()->getParam('vote');
 
         /** @var $poll Mage_Poll_Model_Poll */
         $poll = Mage::getModel('poll/poll')->load($pollId);

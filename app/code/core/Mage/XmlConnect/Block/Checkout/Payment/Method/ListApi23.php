@@ -69,7 +69,7 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_ListApi23 extends Mage_XmlCo
             'enterprise_giftcardaccount/checkout_onepage_payment_additional', 'giftcard_info'
         );
 
-        if (intval($giftCardInfoBlock->getAppliedGiftCardAmount())) {
+        if ((int)$giftCardInfoBlock->getAppliedGiftCardAmount()) {
             $amount = $this->getQuote()->getStore()->formatPrice($giftCardInfoBlock->getAppliedGiftCardAmount(), false);
             $amount = $this->__('Gift Card amount applied to order: %s', $amount);
             $methodsXmlObj->addCustomChild('information', null, array('label' => $amount));
@@ -98,8 +98,8 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_ListApi23 extends Mage_XmlCo
                     'post_name' => 'payment[use_customer_balance]',
                     'code'      => 1,
                     'label'     => $this->__('Use Store Credit (%s available)', $balance),
-                    'is_cover_a_quote' => intval($customerBalanceBlock->isFullyPaidAfterApplication()),
-                    'selected'  => intval($customerBalanceBlock->isCustomerBalanceUsed())
+                    'is_cover_a_quote' => (int)$customerBalanceBlock->isFullyPaidAfterApplication(),
+                    'selected'  => (int)$customerBalanceBlock->isCustomerBalanceUsed()
                 ));
             }
         }

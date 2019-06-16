@@ -37,7 +37,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Grid_Renderer_Data extends Mage_Adminhtml_Bl
     protected function _getValue (Varien_Object $row)
     {
         $data = parent::_getValue($row);
-        if (intval($data) == $data) {
+        if ((int)$data == $data) {
             return (string) number_format($data, 2);
         }
         if (!is_null($data)) {

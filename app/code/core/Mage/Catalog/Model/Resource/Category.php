@@ -552,7 +552,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
         $bind = array('category_id' => (int)$category->getId());
         $counts = $this->getReadConnection()->fetchOne($select, $bind);
 
-        return intval($counts);
+        return (int)$counts;
     }
 
     /**

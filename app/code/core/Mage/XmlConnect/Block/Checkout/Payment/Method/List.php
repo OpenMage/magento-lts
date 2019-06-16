@@ -90,7 +90,7 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_List extends Mage_Payment_Bl
             'enterprise_giftcardaccount/checkout_onepage_payment_additional', 'giftcard_info'
         );
 
-        if (intval($giftcardInfoBlock->getAppliedGiftCardAmount())) {
+        if ((int)$giftcardInfoBlock->getAppliedGiftCardAmount()) {
             $amount = $this->getQuote()->getStore()->formatPrice($giftcardInfoBlock->getAppliedGiftCardAmount(), false);
             $amount = $this->__('Gift Card amount applied to order: %s', $amount);
 
@@ -108,7 +108,7 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_List extends Mage_Payment_Bl
     protected function _isPaymentRequired()
     {
         $this->getQuote()->collectTotals();
-        return !intval($this->getQuote()->getGrandTotal()) && !$this->getQuote()->hasNominalItems();
+        return !(int)$this->getQuote()->getGrandTotal() && !$this->getQuote()->hasNominalItems();
     }
 
     /**
@@ -229,8 +229,8 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_List extends Mage_Payment_Bl
                     'post_name' => 'payment[use_customer_balance]',
                     'code'      => 1,
                     'label'     => $this->__('Use Store Credit (%s available)', $balance),
-                    'is_cover_a_quote' => intval($customerBalanceBlock->isFullyPaidAfterApplication()),
-                    'selected'  => intval($customerBalanceBlock->isCustomerBalanceUsed())
+                    'is_cover_a_quote' => (int)$customerBalanceBlock->isFullyPaidAfterApplication(),
+                    'selected'  => (int)($customerBalanceBlock->isCustomerBalanceUsed()
                 ));
             }
         }

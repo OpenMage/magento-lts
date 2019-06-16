@@ -795,13 +795,13 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
 
         // kilobytes
         if (stristr($_bytes, 'k')) {
-            $_bytes = intval($_bytes) * 1024;
+            $_bytes = (int)$_bytes * 1024;
         // megabytes
         } elseif (stristr($_bytes, 'm')) {
-            $_bytes = intval($_bytes) * 1024 * 1024;
+            $_bytes = (int)$_bytes * 1024 * 1024;
         // gigabytes
         } elseif (stristr($_bytes, 'g')) {
-            $_bytes = intval($_bytes) * 1024 * 1024 * 1024;
+            $_bytes = (int)$_bytes * 1024 * 1024 * 1024;
         }
         return (int)$_bytes;
     }
