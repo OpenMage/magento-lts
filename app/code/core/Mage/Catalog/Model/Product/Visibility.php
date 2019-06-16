@@ -60,41 +60,36 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      * Add visible in catalog filter to collection
      *
      * @deprecated
-     * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
+     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
      * @return $this
      */
-    public function addVisibleInCatalogFilterToCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)
+    public function addVisibleInCatalogFilterToCollection(Mage_Catalog_Model_Resource_Product_Collection $collection)
     {
         $collection->setVisibility($this->getVisibleInCatalogIds());
-//        $collection->addAttributeToFilter('visibility', array('in'=>$this->getVisibleInCatalogIds()));
         return $this;
     }
-
     /**
      * Add visibility in searchfilter to collection
      *
      * @deprecated
-     * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
+     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
      * @return $this
      */
-    public function addVisibleInSearchFilterToCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)
+    public function addVisibleInSearchFilterToCollection(Mage_Catalog_Model_Resource_Product_Collection $collection)
     {
         $collection->setVisibility($this->getVisibleInSearchIds());
-        //$collection->addAttributeToFilter('visibility', array('in'=>$this->getVisibleInSearchIds()));
         return $this;
     }
-
     /**
      * Add visibility in site filter to collection
      *
      * @deprecated
-     * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
+     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
      * @return $this
      */
-    public function addVisibleInSiteFilterToCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)
+    public function addVisibleInSiteFilterToCollection(Mage_Catalog_Model_Resource_Product_Collection $collection)
     {
         $collection->setVisibility($this->getVisibleInSiteIds());
-        //$collection->addAttributeToFilter('visibility', array('in'=>$this->getVisibleInSiteIds()));
         return $this;
     }
 
