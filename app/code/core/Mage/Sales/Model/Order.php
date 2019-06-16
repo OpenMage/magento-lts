@@ -2185,7 +2185,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
              * Order can be closed just in case when we have refunded amount.
              * In case of "0" grand total order checking ForcedCanCreditmemo flag
              */
-            elseif (floatval($this->getTotalRefunded()) || (!$this->getTotalRefunded()
+            elseif ((float)$this->getTotalRefunded() || (!$this->getTotalRefunded()
                 && $this->hasForcedCanCreditmemo())
             ) {
                 if ($this->getState() !== self::STATE_CLOSED) {

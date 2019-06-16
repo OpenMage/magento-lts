@@ -85,6 +85,6 @@ abstract class Mage_Dataflow_Model_Convert_Adapter_Abstract
             $number = str_replace($separator, '.', $number);
         }
 
-        return floatval($number);
+        return (float)$number;
     }
 }

@@ -307,7 +307,7 @@ class Mage_GoogleBase_Model_Service_Item extends Mage_GoogleBase_Model_Service
         }
         $entry->setContent($service->newContent()->setText($this->_cleanAtomAttribute($descrText)));
 
-        if (isset($attributeValues['price']['value']) && floatval($attributeValues['price']['value']) > 0) {
+        if (isset($attributeValues['price']['value']) && (float)$attributeValues['price']['value'] > 0) {
             $price = $attributeValues['price']['value'];
         } else {
             $price = $object->getPrice();

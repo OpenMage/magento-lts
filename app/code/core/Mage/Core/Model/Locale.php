@@ -654,7 +654,7 @@ class Mage_Core_Model_Locale
         }
 
         if (!is_string($value)) {
-            return floatval($value);
+            return (float)$value;
         }
 
         //trim spaces and apostrophes
@@ -676,7 +676,7 @@ class Mage_Core_Model_Locale
             $value = str_replace(',', '.', $value);
         }
 
-        return floatval($value);
+        return (float)$value;
     }
 
     /**

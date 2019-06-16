@@ -55,7 +55,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Price
                 return $data;
             }
 
-            $data = floatval($data) * $this->_getRate($row);
+            $data = (float)$data * $this->_getRate($row);
             $data = sprintf("%F", $data);
             $data = Mage::app()->getLocale()->currency($currency_code)->toCurrency($data);
             return $data;
@@ -89,10 +89,10 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Price
     protected function _getRate($row)
     {
         if ($rate = $this->getColumn()->getRate()) {
-            return floatval($rate);
+            return (float)$rate;
         }
         if ($rate = $row->getData($this->getColumn()->getRateField())) {
-            return floatval($rate);
+            return (float)$rate;
         }
         return 1;
     }

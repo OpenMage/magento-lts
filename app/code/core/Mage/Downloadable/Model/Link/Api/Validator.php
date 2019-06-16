@@ -203,7 +203,7 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
      */
     public function validatePrice(&$var)
     {
-        $var = is_numeric($var)? floatval($var) : floatval(0);
+        $var = is_numeric($var)? (float)$var : (float)0;
     }
 
     /**
