@@ -73,6 +73,11 @@
                 </entities>
             </api_resource>
         </models>
+        <helpers>
+            <api>
+                <class>Mage_Api_Helper</class>
+            </api>
+        </helpers>
         <resources>
             <api_setup>
                 <setup>
