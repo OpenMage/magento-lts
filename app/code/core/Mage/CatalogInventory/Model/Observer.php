@@ -935,7 +935,7 @@ class Mage_CatalogInventory_Model_Observer
             $websiteField = new Zend_Db_Expr($websiteField);
         }
 
-        Mage::getResourseSingleton('cataloginventory/stock_status')
+        Mage::getResourceSingleton('cataloginventory/stock_status')
             ->prepareCatalogProductIndexSelect($select, $entityField, $websiteField);
 
         return $this;

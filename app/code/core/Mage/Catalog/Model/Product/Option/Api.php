@@ -304,7 +304,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
             $option->deleteTitles($optionId);
             $option->delete();
         } catch (Exception $e){
-            $this->fault('delete_option_error');
+            $this->_fault('delete_option_error');
         }
         return true;
     }
