@@ -28,6 +28,9 @@
  * Customer account billing agreements block
  *
  * @author Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setBackUrl(string $value)
+ * @method $this setCreateUrl(string $value)
  */
 class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
 {

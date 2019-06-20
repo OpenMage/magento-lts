@@ -109,7 +109,7 @@ class Mage_Sales_Model_Order_Pdf_Creditmemo extends Mage_Sales_Model_Order_Pdf_A
     /**
      * Return PDF document
      *
-     * @param  array $creditmemos
+     * @param  Mage_Sales_Model_Order_Creditmemo[] $creditmemos
      * @return Zend_Pdf
      */
     public function getPdf($creditmemos = array())
@@ -147,7 +147,7 @@ class Mage_Sales_Model_Order_Pdf_Creditmemo extends Mage_Sales_Model_Order_Pdf_A
             /* Add table head */
             $this->_drawHeader($page);
             /* Add body */
-            foreach ($creditmemo->getAllItems() as $item){
+            foreach ($creditmemo->getAllItems() as $item) {
                 if ($item->getOrderItem()->getParentItem()) {
                     continue;
                 }

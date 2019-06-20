@@ -49,7 +49,6 @@ class Mage_Sales_Block_Adminhtml_Report_Filter_Form_Coupon extends Mage_Sales_Bl
         $fieldset = $this->getForm()->getElement('base_fieldset');
 
         if (is_object($fieldset) && $fieldset instanceof Varien_Data_Form_Element_Fieldset) {
-
             $fieldset->addField('price_rule_type', 'select', array(
                 'name'    => 'price_rule_type',
                 'options' => array(
@@ -80,8 +79,7 @@ class Mage_Sales_Block_Adminhtml_Report_Filter_Form_Coupon extends Mage_Sales_Bl
             $this->setChild('form_after', $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence')
                 ->addFieldMap($htmlIdPrefix . 'price_rule_type', 'price_rule_type')
                 ->addFieldMap($htmlIdPrefix . 'rules_list', 'rules_list')
-                ->addFieldDependence('rules_list', 'price_rule_type', '1')
-            );
+                ->addFieldDependence('rules_list', 'price_rule_type', '1'));
         }
 
         return $this;

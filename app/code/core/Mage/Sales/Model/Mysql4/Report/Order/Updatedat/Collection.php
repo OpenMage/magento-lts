@@ -32,7 +32,6 @@
  * @package     Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sales_Model_Mysql4_Report_Order_Updatedat_Collection
-    extends Mage_Sales_Model_Resource_Report_Order_Updatedat_Collection
+class Mage_Sales_Model_Mysql4_Report_Order_Updatedat_Collection extends Mage_Sales_Model_Resource_Report_Order_Updatedat_Collection
 {
 }

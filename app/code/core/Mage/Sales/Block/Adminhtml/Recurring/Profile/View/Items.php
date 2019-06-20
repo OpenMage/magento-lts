@@ -76,4 +76,3 @@ class Mage_Adminhtml_Block_Sales_Recurring_Profile_View_Items extends Mage_Admin
         return $store->formatPrice($value);
     }
 }
-

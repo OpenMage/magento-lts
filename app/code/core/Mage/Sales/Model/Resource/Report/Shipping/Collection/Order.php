@@ -32,8 +32,7 @@
  * @package     Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sales_Model_Resource_Report_Shipping_Collection_Order
-    extends Mage_Sales_Model_Resource_Report_Collection_Abstract
+class Mage_Sales_Model_Resource_Report_Shipping_Collection_Order extends Mage_Sales_Model_Resource_Report_Collection_Abstract
 {
     /**
      * Period format
@@ -106,7 +105,7 @@ class Mage_Sales_Model_Resource_Report_Shipping_Collection_Order
     protected function _initSelect()
     {
         $this->getSelect()->from(
-            $this->getResource()->getMainTable() , 
+            $this->getResource()->getMainTable(),
             $this->_getSelectedColumns()
         );
 

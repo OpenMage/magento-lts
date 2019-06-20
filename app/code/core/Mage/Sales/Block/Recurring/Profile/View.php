@@ -118,8 +118,7 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
         foreach (array('name' => Mage::helper('catalog')->__('Product Name'),
             'sku'  => Mage::helper('catalog')->__('SKU'),
             'qty'  => Mage::helper('catalog')->__('Quantity'),
-            ) as $itemKey => $label
-        ) {
+            ) as $itemKey => $label) {
             $value = $this->_profile->getInfoValue($key, $itemKey);
             if ($value) {
                 $this->_addInfo(array('label' => $label, 'value' => $value,));
@@ -210,15 +209,13 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
             'label' => $this->_profile->getFieldLabel('currency_code'),
             'value' => $this->_profile->getCurrencyCode()
         ));
-        foreach (
-            array(
+        foreach (array(
                 'init_amount',
                 'trial_billing_amount',
                 'billing_amount',
                 'tax_amount',
                 'shipping_amount'
-            ) as $key
-         ) {
+            ) as $key) {
             $value = $this->_profile->getData($key);
             if ($value) {
                 $this->_addInfo(array(

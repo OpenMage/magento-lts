@@ -32,8 +32,7 @@
  * @package     Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection
-    extends Mage_Sales_Model_Resource_Order_Collection_Abstract
+class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection extends Mage_Sales_Model_Resource_Order_Collection_Abstract
 {
     /**
      * Order ID filter
@@ -244,7 +243,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection
     /**
      * Unserialize additional_information in each item
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _afterLoad()
     {

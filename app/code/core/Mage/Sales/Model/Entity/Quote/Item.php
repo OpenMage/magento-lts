@@ -41,5 +41,4 @@ class Mage_Sales_Model_Entity_Quote_Item extends Mage_Eav_Model_Entity_Abstract
             $resource->getConnection('sales_write')
         );
     }
-
 }

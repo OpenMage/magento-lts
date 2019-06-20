@@ -40,6 +40,10 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
      * @var string
      */
     protected $_code;
+
+    /**
+     * @var Mage_Sales_Model_Quote_Address
+     */
     protected $_address = null;
 
     /**
@@ -71,7 +75,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     /**
      * Retrieve total code name
      *
-     * @return unknown
+     * @return string
      */
     public function getCode()
     {
@@ -182,7 +186,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     protected function _addAmount($amount)
     {
         if ($this->_canAddAmountToAddress) {
-            $this->_getAddress()->addTotalAmount($this->getCode(),$amount);
+            $this->_getAddress()->addTotalAmount($this->getCode(), $amount);
         }
         return $this;
     }
@@ -205,7 +209,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
      * Get all items except nominals
      *
      * @param Mage_Sales_Model_Quote_Address $address
-     * @return array
+     * @return Mage_Sales_Model_Quote_Address_Item[]
      */
     protected function _getAddressItems(Mage_Sales_Model_Quote_Address $address)
     {
@@ -259,7 +263,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
      * This method can be used for changing models apply sort order
      *
      * @param   array $config
-     * @param   store $store
+     * @param   Mage_Core_Model_Store $store
      * @return  array
      */
     public function processConfigArray($config, $store)

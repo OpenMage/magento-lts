@@ -29,8 +29,7 @@
  *
  * @author Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Orders extends Mage_Adminhtml_Block_Sales_Order_Grid
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Orders extends Mage_Adminhtml_Block_Sales_Order_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     /**
      * Initialize grid params

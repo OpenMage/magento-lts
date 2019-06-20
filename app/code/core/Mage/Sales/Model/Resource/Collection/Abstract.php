@@ -59,7 +59,7 @@ abstract class Mage_Sales_Model_Resource_Collection_Abstract extends Mage_Core_M
      * Backward compatibility with EAV collection
      *
      * @param string $attribute
-     * @return Mage_Sales_Model_Resource_Collection_Abstract
+     * @return $this
      */
     public function addAttributeToSelect($attribute)
     {
@@ -73,7 +73,7 @@ abstract class Mage_Sales_Model_Resource_Collection_Abstract extends Mage_Core_M
      *
      * @param string|Mage_Eav_Model_Entity_Attribute $attribute
      * @param array|integer|string|null $condition
-     * @return Mage_Sales_Model_Resource_Collection_Abstract
+     * @return $this
      */
     public function addAttributeToFilter($attribute, $condition = null)
     {
@@ -87,7 +87,7 @@ abstract class Mage_Sales_Model_Resource_Collection_Abstract extends Mage_Core_M
      *
      * @param string $attribute
      * @param string $dir
-     * @return Mage_Sales_Model_Resource_Collection_Abstract
+     * @return $this
      */
     public function addAttributeToSort($attribute, $dir = 'asc')
     {
@@ -101,7 +101,7 @@ abstract class Mage_Sales_Model_Resource_Collection_Abstract extends Mage_Core_M
      *
      * @param integer $pageNum
      * @param integer $pageSize
-     * @return Mage_Sales_Model_Resource_Collection_Abstract
+     * @return $this
      */
     public function setPage($pageNum, $pageSize)
     {
@@ -157,7 +157,7 @@ abstract class Mage_Sales_Model_Resource_Collection_Abstract extends Mage_Core_M
      * @param string $filter
      * @param string $joinType
      * @param int $storeId
-     * @return Mage_Sales_Model_Resource_Collection_Abstract
+     * @return $this
      */
     public function joinAttribute($alias, $attribute, $bind, $filter = null, $joinType = 'inner', $storeId = null)
     {

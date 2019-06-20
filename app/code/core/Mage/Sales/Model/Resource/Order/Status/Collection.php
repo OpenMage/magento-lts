@@ -30,6 +30,9 @@
  * @category    Mage
  * @package     Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Sales_Model_Order_Status getItemById(int $value)
+ * @method Mage_Sales_Model_Order_Status[] getItems()
  */
 class Mage_Sales_Model_Resource_Order_Status_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -108,7 +111,7 @@ class Mage_Sales_Model_Resource_Order_Status_Collection extends Mage_Core_Model_
      * Define label order
      *
      * @param string $dir
-     * @return Mage_Sales_Model_Mysql4_Order_Status_Collection
+     * @return $this
      */
     public function orderByLabel($dir = 'ASC')
     {

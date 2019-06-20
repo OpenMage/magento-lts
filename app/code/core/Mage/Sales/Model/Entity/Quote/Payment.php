@@ -41,5 +41,4 @@ class Mage_Sales_Model_Entity_Quote_Payment extends Mage_Eav_Model_Entity_Abstra
             $resource->getConnection('sales_write')
         );
     }
-
 }

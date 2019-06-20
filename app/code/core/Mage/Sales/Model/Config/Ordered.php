@@ -71,7 +71,7 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
     /**
      * Initialize total models configuration and objects
      *
-     * @return Mage_Sales_Model_Config_Ordered
+     * @return $this
      */
     protected function _initModels()
     {
@@ -147,10 +147,13 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
                         continue;
                     }
                     $configArray[$code]['before'] = array_unique(array_merge(
-                        $configArray[$code]['before'], $configArray[$beforeCode]['before']
+                        $configArray[$code]['before'],
+                        $configArray[$beforeCode]['before']
                     ));
                     $configArray[$beforeCode]['after'] = array_merge(
-                        $configArray[$beforeCode]['after'], array($code), $data['after']
+                        $configArray[$beforeCode]['after'],
+                        array($code),
+                        $data['after']
                     );
                     $configArray[$beforeCode]['after'] = array_unique($configArray[$beforeCode]['after']);
                 }
@@ -159,10 +162,13 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
                         continue;
                     }
                     $configArray[$code]['after'] = array_unique(array_merge(
-                        $configArray[$code]['after'], $configArray[$afterCode]['after']
+                        $configArray[$code]['after'],
+                        $configArray[$afterCode]['after']
                     ));
                     $configArray[$afterCode]['before'] = array_merge(
-                        $configArray[$afterCode]['before'], array($code), $data['before']
+                        $configArray[$afterCode]['before'],
+                        array($code),
+                        $data['before']
                     );
                     $configArray[$afterCode]['before'] = array_unique($configArray[$afterCode]['before']);
                 }
@@ -173,8 +179,7 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
         if (Mage::app()->useCache('config')) {
             Mage::app()->saveCache(serialize($sortedCollectors), $this->_collectorsCacheKey, array(
                     Mage_Core_Model_Config::CACHE_TAG
-                )
-            );
+                ));
         }
         return $sortedCollectors;
     }
@@ -183,7 +188,7 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
      * Initialize collectors array.
      * Collectors array is array of total models ordered based on configuration settings
      *
-     * @return  Mage_Sales_Model_Config_Ordered
+     * @return  $this
      */
     protected function _initCollectors()
     {

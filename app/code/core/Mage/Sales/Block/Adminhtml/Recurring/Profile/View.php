@@ -26,13 +26,16 @@
 
 /**
  * Recurring profile view page
+ *
+ * @method string getDestElementId()
+ * @method $this setViewHtml(string $value)
  */
 class Mage_Sales_Block_Adminhtml_Recurring_Profile_View extends Mage_Adminhtml_Block_Widget_Container
 {
     /**
      * Create buttons
      * TODO: implement ACL restrictions
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
@@ -93,7 +96,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View extends Mage_Adminhtml_B
     /**
      * Set title and a hack for tabs container
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _beforeToHtml()
     {

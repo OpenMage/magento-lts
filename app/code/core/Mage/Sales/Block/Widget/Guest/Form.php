@@ -32,9 +32,7 @@
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 
-class Mage_Sales_Block_Widget_Guest_Form
-    extends Mage_Core_Block_Template
-    implements Mage_Widget_Block_Interface
+class Mage_Sales_Block_Widget_Guest_Form extends Mage_Core_Block_Template implements Mage_Widget_Block_Interface
 {
     /**
      * Check whether module is available

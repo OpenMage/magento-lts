@@ -24,21 +24,19 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
- * Quote address attribute backend region resource model
+ * Quote address attribute backend region resource modelarray
  *
  * @category    Mage
  * @package     Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sales_Model_Resource_Quote_Address_Attribute_Backend_Region
-    extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+class Mage_Sales_Model_Resource_Quote_Address_Attribute_Backend_Region extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
     /**
      * Set region to the attribute
      *
-     * @param Varien_Object $object
+     * @param Varien_Object|Mage_Sales_Model_Quote_Address $object
      * @return $this
      */
     public function beforeSave($object)

@@ -24,7 +24,9 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * Class Mage_Sales_Model_Order_Creditmemo_Total_Tax
+ */
 class Mage_Sales_Model_Order_Creditmemo_Total_Tax extends Mage_Sales_Model_Order_Creditmemo_Total_Abstract
 {
     /**
@@ -46,7 +48,6 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Tax extends Mage_Sales_Model_Order
 
         $order = $creditmemo->getOrder();
 
-        /** @var $item Mage_Sales_Model_Order_Creditmemo_Item */
         foreach ($creditmemo->getAllItems() as $item) {
             $orderItem = $item->getOrderItem();
             if ($orderItem->isDummy()) {
@@ -62,7 +63,6 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Tax extends Mage_Sales_Model_Order
                 /**
                  * Check item tax amount
                  */
-
                 $tax            = $orderItemTax - $orderItem->getTaxRefunded();
                 $baseTax        = $baseOrderItemTax - $orderItem->getBaseTaxRefunded();
                 $hiddenTax      = $orderItemHiddenTax - $orderItem->getHiddenTaxRefunded();

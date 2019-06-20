@@ -69,7 +69,7 @@ class Mage_Sales_Model_Order_Pdf_Items_Invoice_Default extends Mage_Sales_Model_
         $prices = $this->getItemPricesForDisplay();
         $feedPrice = 395;
         $feedSubtotal = $feedPrice + 170;
-        foreach ($prices as $priceData){
+        foreach ($prices as $priceData) {
             if (isset($priceData['label'])) {
                 // draw Price label
                 $lines[$i][] = array(

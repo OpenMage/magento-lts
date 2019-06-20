@@ -188,7 +188,6 @@ class Mage_Sales_Model_Service_Quote
         try {
             $transaction->save();
         } catch (Exception $e) {
-
             if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
                 // reset customer ID's on exception, because customer not saved
                 $quote->getCustomer()->setId(null);
@@ -196,7 +195,7 @@ class Mage_Sales_Model_Service_Quote
 
             //reset order ID's on exception, because order not saved
             $order->setId(null);
-            /** @var $item Mage_Sales_Model_Order_Item */
+            /** @var Mage_Sales_Model_Order_Item $item */
             foreach ($order->getItemsCollection() as $item) {
                 $item->setOrderId(null);
                 $item->setItemId(null);

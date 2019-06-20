@@ -29,21 +29,26 @@
  *
  * @method Mage_Sales_Model_Resource_Quote_Item_Option _getResource()
  * @method Mage_Sales_Model_Resource_Quote_Item_Option getResource()
+ * @method Mage_Sales_Model_Resource_Quote_Item_Option_Collection getCollection()
+ *
+ * @method $this setBackorders(float $value)
+ * @method $this setHasError(bool $value)
+ * @method $this setHasQtyOptionUpdate(bool $value)
  * @method int getItemId()
- * @method Mage_Sales_Model_Quote_Item_Option setItemId(int $value)
+ * @method $this setItemId(int $value)
  * @method int getProductId()
- * @method Mage_Sales_Model_Quote_Item_Option setProductId(int $value)
+ * @method $this setMessage(string $value)
+ * @method $this setProductId(int $value)
+ * @method $this setIsQtyDecimal(bool $value)
  * @method string getCode()
- * @method Mage_Sales_Model_Quote_Item_Option setCode(string $value)
- * @method string getValue()
- * @method Mage_Sales_Model_Quote_Item_Option setValue(string $value)
+ * @method $this setCode(string $value)
+ * @method $this setValue(string $value)
  *
  * @category    Mage
  * @package     Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sales_Model_Quote_Item_Option extends Mage_Core_Model_Abstract
-    implements Mage_Catalog_Model_Product_Configuration_Item_Option_Interface
+class Mage_Sales_Model_Quote_Item_Option extends Mage_Core_Model_Abstract implements Mage_Catalog_Model_Product_Configuration_Item_Option_Interface
 {
     protected $_item;
     protected $_product;
@@ -74,7 +79,7 @@ class Mage_Sales_Model_Quote_Item_Option extends Mage_Core_Model_Abstract
      * Set quote item
      *
      * @param   Mage_Sales_Model_Quote_Item $item
-     * @return  Mage_Sales_Model_Quote_Item_Option
+     * @return  $this
      */
     public function setItem($item)
     {
@@ -97,7 +102,7 @@ class Mage_Sales_Model_Quote_Item_Option extends Mage_Core_Model_Abstract
      * Set option product
      *
      * @param   Mage_Catalog_Model_Product $product
-     * @return  Mage_Sales_Model_Quote_Item_Option
+     * @return  $this
      */
     public function setProduct($product)
     {
@@ -129,7 +134,7 @@ class Mage_Sales_Model_Quote_Item_Option extends Mage_Core_Model_Abstract
     /**
      * Initialize item identifier before save data
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _beforeSave()
     {

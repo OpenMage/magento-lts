@@ -38,7 +38,7 @@ class Mage_Sales_Block_Order_Email_Invoice_Items extends Mage_Sales_Block_Items_
      * Prepare item before output
      *
      * @param Mage_Core_Block_Abstract $renderer
-     * @return Mage_Sales_Block_Items_Abstract
+     * @return void
      */
     protected function _prepareItem(Mage_Core_Block_Abstract $renderer)
     {

@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quote_Address_Total_Abstract
 {
     public function __construct()
@@ -94,8 +93,7 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
                             $freeQty = $child->getFreeShipping();
                             if ($itemQty>$freeQty) {
                                 $rowWeight = $itemWeight*($itemQty-$freeQty);
-                            }
-                            else {
+                            } else {
                                 $rowWeight = 0;
                             }
                         }
@@ -113,16 +111,14 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
                         $freeQty = $item->getFreeShipping();
                         if ($item->getQty()>$freeQty) {
                             $rowWeight = $itemWeight*($item->getQty()-$freeQty);
-                        }
-                        else {
+                        } else {
                             $rowWeight = 0;
                         }
                     }
                     $freeMethodWeight+= $rowWeight;
                     $item->setRowWeight($rowWeight);
                 }
-            }
-            else {
+            } else {
                 if (!$item->getProduct()->isVirtual()) {
                     $addressQty += $item->getQty();
                 }
@@ -135,8 +131,7 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
                     $freeQty = $item->getFreeShipping();
                     if ($item->getQty()>$freeQty) {
                         $rowWeight = $itemWeight*($item->getQty()-$freeQty);
-                    }
-                    else {
+                    } else {
                         $rowWeight = 0;
                     }
                 }

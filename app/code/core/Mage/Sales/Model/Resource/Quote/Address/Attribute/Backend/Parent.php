@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  *Quote address attribute backend parent resource model
  *
@@ -32,13 +31,12 @@
  * @package     Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sales_Model_Resource_Quote_Address_Attribute_Backend_Parent
-    extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+class Mage_Sales_Model_Resource_Quote_Address_Attribute_Backend_Parent extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
     /**
      * Save items collection and shipping rates collection
      *
-     * @param Varien_Object $object
+     * @param Varien_Object|Mage_Sales_Model_Quote_Address $object
      * @return $this
      */
     public function afterSave($object)

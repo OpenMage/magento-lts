@@ -32,7 +32,6 @@
  * @package     Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sales_Model_Mysql4_Billing_Agreement_Collection
-    extends Mage_Sales_Model_Resource_Billing_Agreement_Collection
+class Mage_Sales_Model_Mysql4_Billing_Agreement_Collection extends Mage_Sales_Model_Resource_Billing_Agreement_Collection
 {
 }

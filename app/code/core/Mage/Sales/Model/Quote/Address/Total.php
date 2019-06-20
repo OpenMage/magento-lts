@@ -24,7 +24,14 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * Class Mage_Sales_Model_Quote_Address_Total
+ *
+ * @method Mage_Sales_Model_Quote_Address getAddress()
+ * @method $this setAddress(Mage_Sales_Model_Quote_Address $value)
+ * @method string getCode()
+ * @method $this setTitle(string $value)
+ */
 class Mage_Sales_Model_Quote_Address_Total extends Varien_Object
 {
     /**

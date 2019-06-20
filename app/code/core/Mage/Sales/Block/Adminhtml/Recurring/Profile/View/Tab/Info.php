@@ -26,10 +26,9 @@
 
 /**
  * Recurring profile information tab
+ * @method string getLabel()
  */
-class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Info
-    extends Mage_Adminhtml_Block_Widget
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Info extends Mage_Adminhtml_Block_Widget implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     /**
      * Label getter

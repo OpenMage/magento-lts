@@ -40,6 +40,10 @@ class Mage_Sales_Model_Entity_Order_Creditmemo_Item_Collection extends Mage_Eav_
         $this->_init('sales/order_creditmemo_item');
     }
 
+    /**
+     * @param int $creditmemoId
+     * @return $this
+     */
     public function setCreditmemoFilter($creditmemoId)
     {
         $this->addAttributeToFilter('parent_id', $creditmemoId);

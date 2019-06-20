@@ -33,6 +33,10 @@
  */
 class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Shipment_Api
 {
+    /**
+     * @param array $data
+     * @return array
+     */
     protected function _prepareItemQtyData($data)
     {
         $_data = array();
@@ -54,7 +58,11 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
      * @param boolean $includeComment
      * @return string
      */
-    public function create($orderIncrementId, $itemsQty = array(), $comment = null, $email = false,
+    public function create(
+        $orderIncrementId,
+        $itemsQty = array(),
+        $comment = null,
+        $email = false,
         $includeComment = false
     ) {
         $order = Mage::getModel('sales/order')->loadByIncrementId($orderIncrementId);
@@ -73,7 +81,7 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
              $this->_fault('data_invalid', Mage::helper('sales')->__('Cannot do shipment for order.'));
         }
 
-         /* @var $shipment Mage_Sales_Model_Order_Shipment */
+         /* @var Mage_Sales_Model_Order_Shipment $shipment */
         $shipment = $order->prepareShipment($itemsQty);
         if ($shipment) {
             $shipment->register();

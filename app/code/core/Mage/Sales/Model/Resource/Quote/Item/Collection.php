@@ -24,13 +24,15 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Quote item resource collection
  *
  * @category    Mage
  * @package     Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Sales_Model_Quote_Item getItemById(int $value)
+ * @method Mage_Sales_Model_Quote_Item[] getItems()
  */
 class Mage_Sales_Model_Resource_Quote_Item_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -99,10 +101,11 @@ class Mage_Sales_Model_Resource_Quote_Item_Collection extends Mage_Core_Model_Re
         $this->getSelect()->reset()
             ->from(
                 array('qi' => $this->getResource()->getMainTable()),
-                array('item_id', 'qty', 'quote_id'))
+                array('item_id', 'qty', 'quote_id')
+            )
             ->joinInner(
                 array('q' => $quotesTableName),
-               'qi.quote_id = q.entity_id',
+                'qi.quote_id = q.entity_id',
                 array('store_id', 'items_qty', 'items_count')
             );
         if ($productId) {
@@ -243,4 +246,3 @@ class Mage_Sales_Model_Resource_Quote_Item_Collection extends Mage_Core_Model_Re
         return $this;
     }
 }
-

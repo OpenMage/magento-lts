@@ -32,8 +32,7 @@
  * @package     Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sales_Model_Resource_Report_Bestsellers_Collection
-    extends Mage_Sales_Model_Resource_Report_Collection_Abstract
+class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales_Model_Resource_Report_Collection_Abstract
 {
     /**
      * Rating limit
@@ -227,9 +226,8 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection
             // apply date boundaries (before calling $this->_applyDateRangeFilter())
             $dtFormat   = Varien_Date::DATE_INTERNAL_FORMAT;
             $periodFrom = (!is_null($this->_from) ? new Zend_Date($this->_from, $dtFormat) : null);
-            $periodTo   = (!is_null($this->_to)   ? new Zend_Date($this->_to,   $dtFormat) : null);
+            $periodTo   = (!is_null($this->_to)   ? new Zend_Date($this->_to, $dtFormat) : null);
             if ('year' == $this->_period) {
-
                 if ($periodFrom) {
                     // not the first day of the year
                     if ($periodFrom->toValue(Zend_Date::MONTH) != 1 || $periodFrom->toValue(Zend_Date::DAY) != 1) {
@@ -286,9 +284,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection
                         $this->getSelect()->where('1<>1');
                     }
                 }
-
-            }
-            else if ('month' == $this->_period) {
+            } elseif ('month' == $this->_period) {
                 if ($periodFrom) {
                     // not the first day of the month
                     if ($periodFrom->toValue(Zend_Date::DAY) != 1) {
@@ -339,7 +335,6 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection
                         $this->getSelect()->where('1<>1');
                     }
                 }
-
             }
 
             $this->_applyDateRangeFilter();
@@ -374,6 +369,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection
     /**
      * Apply filter to exclude certain product types from the collection
      *
+     * @param Zend_Db_Select $select
      * @return Mage_Sales_Model_Resource_Report_Collection_Abstract
      */
     protected function _applyProductTypeFilter(Zend_Db_Select $select)

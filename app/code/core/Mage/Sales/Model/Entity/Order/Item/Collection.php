@@ -38,10 +38,13 @@ class Mage_Sales_Model_Entity_Order_Item_Collection extends Mage_Eav_Model_Entit
         $this->_init('sales/order_item');
     }
 
+    /**
+     * @param int $orderId
+     * @return $this
+     */
     public function setOrderFilter($orderId)
     {
         $this->addAttributeToFilter('parent_id', $orderId);
         return $this;
-
     }
 }

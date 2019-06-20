@@ -43,20 +43,28 @@ class Mage_Sales_Block_Order_Details extends Mage_Core_Block_Template
         Mage::registry('action')->getLayout()->getBlock('root')->setHeaderTitle(Mage::helper('sales')->__('Order Details'));
     }
 
+    /**
+     * @return string
+     */
     public function getBackUrl()
     {
         return Mage::getUrl('*/*/history');
     }
 
+    /**
+     * @return mixed
+     */
     public function getInvoices()
     {
         $invoices = Mage::getResourceModel('sales/invoice_collection')->setOrderFilter($this->getOrder()->getId())->load();
         return $invoices;
     }
 
+    /**
+     * @return string
+     */
     public function getPrintUrl()
     {
         return Mage::getUrl('*/*/print');
     }
-
 }

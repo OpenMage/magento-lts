@@ -32,8 +32,7 @@
  * @package     Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sales_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Helper_Mysql4
-    implements Mage_Sales_Model_Resource_Helper_Interface
+class Mage_Sales_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Helper_Mysql4 implements Mage_Sales_Model_Resource_Helper_Interface
 {
     /**
      * Update rating position
@@ -42,12 +41,15 @@ class Mage_Sales_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_H
      * @param array $aggregationAliases
      * @param string $mainTable
      * @param string $aggregationTable
-     * @return Mage_Sales_Model_Resource_Helper_Abstract
+     * @return Mage_Sales_Model_Resource_Helper_Mysql4
      */
-    public function getBestsellersReportUpdateRatingPos($aggregation, $aggregationAliases,
-        $mainTable, $aggregationTable
+    public function getBestsellersReportUpdateRatingPos(
+        $aggregation,
+        $aggregationAliases,
+        $mainTable,
+        $aggregationTable
     ) {
-        /** @var $reportsResourceHelper Mage_Reports_Model_Resource_Helper_Interface */
+        /** @var Mage_Reports_Model_Resource_Helper_Interface $reportsResourceHelper */
         $reportsResourceHelper = Mage::getResourceHelper('reports');
 
         if ($aggregation == $aggregationAliases['monthly']) {

@@ -41,5 +41,4 @@ class Mage_Sales_Model_Entity_Order_Invoice_Comment extends Mage_Eav_Model_Entit
             $resource->getConnection('sales_write')
         );
     }
-
 }

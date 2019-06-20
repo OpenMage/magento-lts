@@ -47,7 +47,7 @@ abstract class Mage_Sales_Model_Api2_Order_Address_Rest extends Mage_Sales_Model
      */
     protected function _retrieve()
     {
-        /** @var $address Mage_Sales_Model_Order_Address */
+        /** @var Mage_Sales_Model_Order_Address $address */
         $address = $this->_getCollectionForRetrieve()
             ->addAttributeToFilter('address_type', $this->getRequest()->getParam(self::PARAM_ADDRESS_TYPE))
             ->getFirstItem();
@@ -83,7 +83,7 @@ abstract class Mage_Sales_Model_Api2_Order_Address_Rest extends Mage_Sales_Model
      */
     protected function _getCollectionForRetrieve()
     {
-        /* @var $collection Mage_Sales_Model_Resource_Order_Address_Collection */
+        /* @var Mage_Sales_Model_Resource_Order_Address_Collection $collection */
         $collection = Mage::getResourceModel('sales/order_address_collection');
         $collection->addAttributeToFilter('parent_id', $this->getRequest()->getParam(self::PARAM_ORDER_ID));
 

@@ -39,7 +39,11 @@ class Mage_Sales_Model_Entity_Quote_Address_Rate_Collection extends Mage_Eav_Mod
     {
         $this->_init('sales/quote_address_rate');
     }
-    
+
+    /**
+     * @param int $addressId
+     * @return $this
+     */
     public function setAddressFilter($addressId)
     {
         $this->addAttributeToFilter('parent_id', $addressId);

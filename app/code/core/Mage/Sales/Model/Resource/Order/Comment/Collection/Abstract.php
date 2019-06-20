@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Flat sales order abstract comments collection, used as parent for: invoice, shipment, creditmemo
  *
@@ -32,14 +31,13 @@
  * @package     Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract
-    extends Mage_Sales_Model_Resource_Collection_Abstract
+abstract class Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract extends Mage_Sales_Model_Resource_Collection_Abstract
 {
     /**
      * Set filter on comments by their parent item
      *
      * @param Mage_Core_Model_Abstract|int $parent
-     * @return Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract
+     * @return $this
      */
     public function setParentFilter($parent)
     {
@@ -53,7 +51,7 @@ abstract class Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract
      * Adds filter to get only 'visible on front' comments
      *
      * @param int $flag
-     * @return Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract
+     * @return $this
      */
     public function addVisibleOnFrontFilter($flag = 1)
     {
@@ -64,7 +62,7 @@ abstract class Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract
      * Set created_at sort order
      *
      * @param string $direction
-     * @return Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract
+     * @return $this
      */
     public function setCreatedAtOrder($direction = 'desc')
     {

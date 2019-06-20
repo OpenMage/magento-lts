@@ -29,12 +29,20 @@ class Mage_Sales_Model_Config
 {
     const XML_PATH_ORDER_STATES = 'global/sales/order/states';
 
+    /**
+     * @param string $type
+     * @return bool
+     */
     public function getQuoteRuleConditionInstance($type)
     {
         $config = Mage::getConfig()->getNodeClassInstance("global/sales/quote/rule/conditions/$type");
         return $config;
     }
 
+    /**
+     * @param string $type
+     * @return bool
+     */
     public function getQuoteRuleActionInstance($type)
     {
         return Mage::getConfig()->getNodeClassInstance("global/sales/quote/rule/actions/$type");
@@ -50,7 +58,7 @@ class Mage_Sales_Model_Config
     {
         $states = Mage::getConfig()->getNode(self::XML_PATH_ORDER_STATES);
         if (!isset($states->$state) || !isset($states->$state->statuses)) {
-           return array();
+            return array();
         }
 
         $statuses = array();

@@ -39,13 +39,21 @@ class Mage_Sales_Model_Entity_Order_Shipment_Comment_Collection extends Mage_Eav
         $this->_init('sales/order_shipment_comment');
     }
 
+    /**
+     * @param int $shipmentId
+     * @return $this
+     */
     public function setShipmentFilter($shipmentId)
     {
         $this->addAttributeToFilter('parent_id', $shipmentId);
         return $this;
     }
 
-    public function setCreatedAtOrder($order='desc')
+    /**
+     * @param string $order
+     * @return $this
+     */
+    public function setCreatedAtOrder($order = 'desc')
     {
         $this->setOrder('created_at', $order);
         return $this;

@@ -207,7 +207,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     /**
      * Format option value process
      *
-     * @param  $value
+     * @param  array|string $value
      * @return string
      */
     protected function _formatOptionValue($value)
@@ -293,7 +293,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
      *
      * @return array
      */
-    public function getItemOptions() {
+    public function getItemOptions()
+    {
         $result = array();
         if ($options = $this->getItem()->getOrderItem()->getProductOptions()) {
             if (isset($options['options'])) {
@@ -356,9 +357,10 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
      */
     public function getSku($item)
     {
-        if ($item->getOrderItem()->getProductOptionByCode('simple_sku'))
+        if ($item->getOrderItem()->getProductOptionByCode('simple_sku')) {
             return $item->getOrderItem()->getProductOptionByCode('simple_sku');
-        else
+        } else {
             return $item->getSku();
+        }
     }
 }
