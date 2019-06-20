@@ -24,22 +24,24 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sitemap model
  *
  * @method Mage_Sitemap_Model_Resource_Sitemap _getResource()
  * @method Mage_Sitemap_Model_Resource_Sitemap getResource()
+ * @method Mage_Sitemap_Model_Resource_Sitemap_Collection getCollection()
+ *
+ * @method int getSitemapId()
  * @method string getSitemapType()
- * @method Mage_Sitemap_Model_Sitemap setSitemapType(string $value)
+ * @method $this setSitemapType(string $value)
  * @method string getSitemapFilename()
- * @method Mage_Sitemap_Model_Sitemap setSitemapFilename(string $value)
+ * @method $this setSitemapFilename(string $value)
  * @method string getSitemapPath()
- * @method Mage_Sitemap_Model_Sitemap setSitemapPath(string $value)
+ * @method $this setSitemapPath(string $value)
  * @method string getSitemapTime()
- * @method Mage_Sitemap_Model_Sitemap setSitemapTime(string $value)
+ * @method $this setSitemapTime(string $value)
  * @method int getStoreId()
- * @method Mage_Sitemap_Model_Sitemap setStoreId(int $value)
+ * @method $this setStoreId(int $value)
  *
  * @category    Mage
  * @package     Mage_Sitemap
@@ -62,6 +64,9 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
         $this->_init('sitemap/sitemap');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _beforeSave()
     {
         $io = new Varien_Io_File();
@@ -209,7 +214,9 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
         ));
         foreach ($pages->getItems() as $item) {
             $url = $item->getUrl();
-            if ( $url == $homepage) { $url = ''; }
+            if ($url == $homepage) {
+                $url = '';
+            }
             $xml = sprintf(
                 '<url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%.1f</priority></url>',
                 htmlspecialchars($baseUrl . $url),
