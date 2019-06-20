@@ -24,10 +24,10 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var $installer Mage_Sales_Model_Entity_Setup */
+/* @var Mage_Sales_Model_Entity_Setup $installer */
 $installer = $this;
 
-foreach(array(
+foreach (array(
         'sales/order', 'sales/order_grid', 'sales/creditmemo', 'sales/creditmemo_grid',
         'sales/invoice', 'sales/invoice_grid', 'sales/shipment','sales/shipment_grid',
     ) as $table) {

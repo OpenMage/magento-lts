@@ -26,7 +26,7 @@
 
 $installer = $this;
 
-/* @var $installer Mage_Sales_Model_Entity_Setup */
+/* @var Mage_Sales_Model_Entity_Setup $installer */
 $installer->getConnection()->addColumn($this->getTable('sales_quote_address'), 'shipping_tax_amount', 'decimal(12,4) NULL');
 $installer->getConnection()->addColumn($this->getTable('sales_quote_address'), 'base_shipping_tax_amount', 'decimal(12,4) NULL');
 

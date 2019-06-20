@@ -24,7 +24,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var $installer Mage_Sales_Model_Entity_Setup */
+/* @var Mage_Sales_Model_Entity_Setup $installer */
 $installer = $this;
 $installer->getConnection()->addColumn($installer->getTable('sales/order_item'), 'tax_canceled', 'decimal(12,4) NULL');
 $installer->getConnection()->addColumn($installer->getTable('sales/order_item'), 'hidden_tax_canceled', 'decimal(12,4) NULL');

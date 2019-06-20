@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Sales_Model_Entity_Setup */
+/* @var Mage_Sales_Model_Entity_Setup $installer */
 
 $installer->addAttribute('quote', 'customer_prefix', array('type'=>'static'));
 $installer->addAttribute('quote', 'customer_middlename', array('type'=>'static'));

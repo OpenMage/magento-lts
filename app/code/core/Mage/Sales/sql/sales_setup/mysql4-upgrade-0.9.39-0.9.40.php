@@ -29,4 +29,3 @@ $this->removeAttribute('order', 'giftcert_code');
 $this->removeAttribute('order', 'giftcert_amount');
 $this->removeAttribute('order', 'base_giftcert_amount');
 $this->endSetup();
-

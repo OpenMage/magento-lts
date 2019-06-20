@@ -40,7 +40,7 @@ $attributeLabels = array(
     'email' => 'Email'
 );
 
-foreach ($attributeLabels as $attributeCode => $attributeLabel){
+foreach ($attributeLabels as $attributeCode => $attributeLabel) {
     $this->updateAttribute($orderAddressEntityTypeId, $attributeCode, 'frontend_label', $attributeLabel);
 }
 

@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Sales_Model_Mysql4_Setup */
+/* @var Mage_Sales_Model_Mysql4_Setup $installer */
 
 $installer->run("
 ALTER TABLE `{$installer->getTable('sales_flat_quote_address')}` CHANGE `applied_taxes` `applied_taxes` TEXT;

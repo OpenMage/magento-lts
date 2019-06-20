@@ -25,10 +25,10 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Sales_Model_Entity_Setup */
+/* @var Mage_Sales_Model_Entity_Setup $installer */
 
 $conn = $installer->getConnection();
-/* @var $conn Varien_Db_Adapter_Pdo_Mysql */
+/* @var Varien_Db_Adapter_Pdo_Mysql $conn */
 
 $conn->addColumn($installer->getTable('sales_flat_quote'), 'customer_dob', 'datetime after customer_suffix');
 $installer->addAttribute('quote', 'customer_dob', array('type'=>'static', 'backend'=>'eav/entity_attribute_backend_datetime'));

@@ -25,7 +25,7 @@
  */
 $installer = $this;
 
-/* @var $installer Mage_Sales_Model_Entity_Setup */
+/* @var Mage_Sales_Model_Entity_Setup $installer */
 
 $installer->startSetup();
 
@@ -45,4 +45,3 @@ $installer->removeAttribute('order_status_history', 'comments');
 $installer->removeAttribute('order_status_history', 'order_status_id');
 
 $installer->endSetup();
-

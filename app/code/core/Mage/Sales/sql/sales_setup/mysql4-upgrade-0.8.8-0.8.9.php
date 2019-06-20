@@ -24,7 +24,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 $installer = $this;
-/* @var $installer Mage_Sales_Model_Entity_Setup */
+/* @var Mage_Sales_Model_Entity_Setup $installer */
 
 $installer->startSetup();
 $installer->run("
@@ -51,7 +51,7 @@ $installer->getConnection()->dropColumn($this->getTable('sales_quote_temp_text')
 $installer->getConnection()->dropColumn($this->getTable('sales_quote_temp_varchar'), 'store_id');
 
 $installer->getConnection()->addConstraint(
-    'SALE_ORDER_ENTITY_STORE', 
+    'SALE_ORDER_ENTITY_STORE',
     $this->getTable('sales_order_entity'),
     'store_id',
     $this->getTable('core_store'),
