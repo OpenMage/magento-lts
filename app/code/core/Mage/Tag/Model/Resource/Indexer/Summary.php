@@ -149,7 +149,8 @@ class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resourc
         try {
             if (!empty($tagIds)) {
                 $writeAdapter->delete(
-                    $this->getTable('tag/summary'), array('tag_id IN(?)' => $tagIds)
+                    $this->getTable('tag/summary'),
+                    array('tag_id IN(?)' => $tagIds)
                 );
             } else {
                 $writeAdapter->delete($this->getTable('tag/summary'));
@@ -168,7 +169,7 @@ class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resourc
                                 'tp.base_popularity IS NOT NULL',
                                 'tp.base_popularity',
                                 '0'
-                                )
+                            )
                             . ')',
                         'uses'              => new Zend_Db_Expr(0), // deprecated since 1.4.0.1
                         'historical_uses'   => new Zend_Db_Expr(0), // deprecated since 1.4.0.1

@@ -29,13 +29,26 @@
  *
  * @method Mage_Tag_Model_Resource_Tag _getResource()
  * @method Mage_Tag_Model_Resource_Tag getResource()
- * @method Mage_Tag_Model_Tag setName(string $value)
- * @method int getStatus()
- * @method Mage_Tag_Model_Tag setStatus(int $value)
+ * @method Mage_Tag_Model_Resource_Tag_Collection getCollection()
+ *
+ * @method bool hasBasePopularity()
+ * @method int getBasePopularity()
+ * @method $this setBasePopularity(int $value)
  * @method int getFirstCustomerId()
- * @method Mage_Tag_Model_Tag setFirstCustomerId(int $value)
+ * @method $this setFirstCustomerId(int $value)
  * @method int getFirstStoreId()
- * @method Mage_Tag_Model_Tag setFirstStoreId(int $value)
+ * @method $this setFirstStoreId(int $value)
+ * @method $this setName(string $value)
+ * @method int getStatus()
+ * @method $this setStatus(int $value)
+ * @method array getStatusFilter()
+ * @method int getStore()
+ * @method $this setStore(int $value)
+ * @method bool hasStoreId()
+ * @method int getStoreId()
+ * @method $this setStoreId(int $value)
+ * @method array getVisibleInStoreIds()
+ * @method $this setVisibleInStoreIds(array $value)
  *
  * @category    Mage
  * @package     Mage_Tag
@@ -88,7 +101,9 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
     {
         parent::afterCommitCallback();
         Mage::getSingleton('index/indexer')->processEntityAction(
-            $this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE
+            $this,
+            self::ENTITY,
+            Mage_Index_Model_Event::TYPE_SAVE
         );
         return $this;
     }
@@ -130,44 +145,71 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
                         ->load();
     }
 
+    /**
+     * @return int
+     */
     public function getPopularity()
     {
         return $this->_getData('popularity');
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->_getData('name');
     }
 
+    /**
+     * @return int
+     */
     public function getTagId()
     {
         return $this->_getData('tag_id');
     }
 
+    /**
+     * @return int
+     */
     public function getRatio()
     {
         return $this->_getData('ratio');
     }
 
+    /**
+     * @param int $ratio
+     * @return $this
+     */
     public function setRatio($ratio)
     {
         $this->setData('ratio', $ratio);
         return $this;
     }
 
+    /**
+     * @param string $name
+     * @return $this
+     */
     public function loadByName($name)
     {
         $this->_getResource()->loadByName($this, $name);
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function aggregate()
     {
         $this->_getResource()->aggregate($this);
         return $this;
     }
 
+    /**
+     * @param Varien_Event_Observer $observer
+     * @return $this
+     */
     public function productEventAggregate($observer)
     {
         $this->_getProductEventTagsCollection($observer)->walk('aggregate');
@@ -224,36 +266,57 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
         return self::STATUS_DISABLED;
     }
 
+    /**
+     * @return Mage_Tag_Model_Resource_Product_Collection
+     */
     public function getEntityCollection()
     {
         return Mage::getResourceModel('tag/product_collection');
     }
 
+    /**
+     * @return Mage_Tag_Model_Resource_Customer_Collection
+     */
     public function getCustomerCollection()
     {
         return Mage::getResourceModel('tag/customer_collection');
     }
 
+    /**
+     * @return string
+     */
     public function getTaggedProductsUrl()
     {
         return Mage::getUrl('tag/product/list', array('tagId' => $this->getTagId()));
     }
 
+    /**
+     * @return string
+     */
     public function getViewTagUrl()
     {
         return Mage::getUrl('tag/customer/view', array('tagId' => $this->getTagId()));
     }
 
+    /**
+     * @return string
+     */
     public function getEditTagUrl()
     {
         return Mage::getUrl('tag/customer/edit', array('tagId' => $this->getTagId()));
     }
 
+    /**
+     * @return string
+     */
     public function getRemoveTagUrl()
     {
         return Mage::getUrl('tag/customer/remove', array('tagId' => $this->getTagId()));
     }
 
+    /**
+     * @return Mage_Tag_Model_Resource_Popular_Collection
+     */
     public function getPopularCollection()
     {
         return Mage::getResourceModel('tag/popular_collection');
@@ -286,6 +349,10 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
         return in_array($storeId, $this->getVisibleInStoreIds());
     }
 
+    /**
+     * @return Mage_Core_Model_Abstract
+     * @throws Mage_Core_Exception
+     */
     protected function _beforeDelete()
     {
         $this->_protectFromNonAdmin();
@@ -302,7 +369,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
      */
     public function saveRelation($productId, $customerId, $storeId)
     {
-        /** @var $relationModel Mage_Tag_Model_Tag_Relation */
+        /** @var Mage_Tag_Model_Tag_Relation $relationModel */
         $relationModel = Mage::getModel('tag/tag_relation');
         $relationModel->setTagId($this->getId())
             ->setStoreId($storeId)
@@ -312,9 +379,9 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
             ->setCreatedAt($relationModel->getResource()->formatDate(time()));
 
         $relationModelSaveNeed = false;
-        switch($this->getStatus()) {
+        switch ($this->getStatus()) {
             case $this->getApprovedStatus():
-                if($this->_checkLinkBetweenTagProduct($relationModel)) {
+                if ($this->_checkLinkBetweenTagProduct($relationModel)) {
                     $relation = $this->_getLinkBetweenTagCustomerProduct($relationModel);
                     if ($relation->getId()) {
                         if (!$relation->getActive()) {
@@ -344,7 +411,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
                 $result = self::ADD_STATUS_NEW;
                 break;
             case $this->getDisabledStatus():
-                if($this->_checkLinkBetweenTagCustomerProduct($relationModel)) {
+                if ($this->_checkLinkBetweenTagCustomerProduct($relationModel)) {
                     $result = self::ADD_STATUS_REJECTED;
                 } else {
                     $this->setStatus($this->getPendingStatus())->save();
@@ -416,5 +483,4 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
 
         return parent::_afterSave();
     }
-
 }

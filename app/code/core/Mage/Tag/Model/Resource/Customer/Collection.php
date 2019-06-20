@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Tags customer collection
  *
@@ -290,8 +289,8 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
         $productsId = array_unique($productsId);
 
         /* small fix */
-        if ( sizeof($productsId) == 0 ) {
-            return;
+        if (sizeof($productsId) == 0) {
+            return $this;
         }
 
         $collection = Mage::getModel('catalog/product')->getCollection()
@@ -367,9 +366,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
     /**
      * Adds field to filter
      *
-     * @param string $attribute
-     * @param array $condition
-     * @return $this
+     * @inheritDoc
      */
     public function addFieldToFilter($attribute, $condition = null)
     {

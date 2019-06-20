@@ -24,13 +24,14 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Tagged Product(s) Collection
  *
  * @category    Mage
  * @package     Mage_Tag
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Catalog_Model_Product[] getItems()
  */
 class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Resource_Product_Collection
 {
@@ -382,7 +383,8 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
                 'product_id'    => 'product_id',
                 'item_store_id' => 'store_id',
             ))
-            ->join(array('t' => $tagTable),
+            ->join(
+                array('t' => $tagTable),
                 't.tag_id = relation.tag_id',
                 array(
                     'tag_id',

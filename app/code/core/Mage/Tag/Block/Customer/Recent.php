@@ -34,6 +34,9 @@
 
 class Mage_Tag_Block_Customer_Recent extends Mage_Core_Block_Template
 {
+    /**
+     * @var Mage_Tag_Model_Resource_Product_Collection
+     */
     protected $_collection;
 
     protected function _construct()
@@ -54,31 +57,50 @@ class Mage_Tag_Block_Customer_Recent extends Mage_Core_Block_Template
             ->addVisibleInSiteFilterToCollection($this->_collection);
     }
 
+    /**
+     * @return int
+     */
     public function count()
     {
         return $this->_collection->getSize();
     }
 
+    /**
+     * @return Mage_Tag_Model_Resource_Product_Collection
+     */
     protected function _getCollection()
     {
         return $this->_collection;
     }
 
+    /**
+     * @return Mage_Tag_Model_Resource_Product_Collection
+     */
     public function getCollection()
     {
         return $this->_getCollection();
     }
 
+    /**
+     * @param string $date
+     * @return string
+     */
     public function dateFormat($date)
     {
         return $this->formatDate($date, Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
     }
 
+    /**
+     * @return string
+     */
     public function getAllTagsUrl()
     {
         return Mage::getUrl('tag/customer');
     }
 
+    /**
+     * @return string
+     */
     protected function _toHtml()
     {
         if ($this->_collection->getSize() > 0) {
@@ -86,5 +108,4 @@ class Mage_Tag_Block_Customer_Recent extends Mage_Core_Block_Template
         }
         return '';
     }
-
 }

@@ -26,7 +26,7 @@
 
 
 /**
- * Tag resourse model
+ * Tag resource model
  *
  * @category    Mage
  * @package     Mage_Tag
@@ -66,7 +66,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
      */
     public function loadByName($model, $name)
     {
-        if ( $name ) {
+        if ($name) {
             $read = $this->_getReadAdapter();
             $select = $read->select();
             if (Mage::helper('core/string')->strlen($name) > 255) {
@@ -86,8 +86,8 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Before saving actions
      *
-     * @param Mage_Core_Model_Abstract $object
-     * @return $this
+     * @param Mage_Tag_Model_Tag $object
+     * @inheritDoc
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
@@ -110,8 +110,8 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Saving tag's base popularity
      *
-     * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Core_Model_Resource_Db_Abstract
+     * @param Mage_Tag_Model_Tag $object
+     * @inheritDoc
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -174,11 +174,13 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
                     'uses'      => 'COUNT(main.tag_relation_id)'
                 )
             )
-            ->join(array('store' => $this->getTable('core/store')),
+            ->join(
+                array('store' => $this->getTable('core/store')),
                 'store.store_id = main.store_id AND store.store_id > 0',
                 array()
             )
-            ->join(array('product_website' => $this->getTable('catalog/product_website')),
+            ->join(
+                array('product_website' => $this->getTable('catalog/product_website')),
                 'product_website.website_id = store.website_id AND product_website.product_id = main.product_id',
                 array()
             )
@@ -194,11 +196,13 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
                 array('historical_uses' => 'COUNT(main.tag_relation_id)',
                 'store_id')
             )
-            ->join(array('store' => $this->getTable('core/store')),
+            ->join(
+                array('store' => $this->getTable('core/store')),
                 'store.store_id = main.store_id AND store.store_id > 0',
                 array()
             )
-            ->join(array('product_website' => $this->getTable('catalog/product_website')),
+            ->join(
+                array('product_website' => $this->getTable('catalog/product_website')),
                 'product_website.website_id = store.website_id AND product_website.product_id = main.product_id',
                 array()
             )
@@ -242,11 +246,13 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
                     'uses'      => 'COUNT(main.tag_relation_id)'
                 )
             )
-            ->join(array('store' => $this->getTable('core/store')),
+            ->join(
+                array('store' => $this->getTable('core/store')),
                 'store.store_id=main.store_id AND store.store_id>0',
                 array()
             )
-            ->join(array('product_website' => $this->getTable('catalog/product_website')),
+            ->join(
+                array('product_website' => $this->getTable('catalog/product_website')),
                 'product_website.website_id = store.website_id AND product_website.product_id = main.product_id',
                 array()
             )
@@ -263,11 +269,13 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
                 array('main' => $this->getTable('tag/relation')),
                 array('historical_uses' => 'COUNT(main.tag_relation_id)')
             )
-            ->join(array('store' => $this->getTable('core/store')),
+            ->join(
+                array('store' => $this->getTable('core/store')),
                 'store.store_id = main.store_id AND store.store_id > 0',
                 array()
             )
-            ->join(array('product_website' => $this->getTable('catalog/product_website')),
+            ->join(
+                array('product_website' => $this->getTable('catalog/product_website')),
                 'product_website.website_id = store.website_id AND product_website.product_id = main.product_id',
                 array()
             )
@@ -284,7 +292,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
      *
      * @deprecated after 1.4.0.0
      *
-     * @param Mage_Tag_Model_Tag $object
+     * @param Mage_Tag_Model_Tag|Mage_Tag_Model_Tag $object
      * @return Mage_Tag_Model_Tag
      */
     public function aggregate($object)
@@ -328,7 +336,8 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
         // remove old and insert new data
         $write = $this->_getWriteAdapter();
         $write->delete(
-            $this->getTable('tag/summary'), array('tag_id = ?' => $tagId)
+            $this->getTable('tag/summary'),
+            array('tag_id = ?' => $tagId)
         );
         $write->insertMultiple($this->getTable('tag/summary'), $finalSummary);
 
@@ -397,7 +406,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
      *
      * @param string $field
      * @param mixed $value
-     * @param Mage_Core_Model_Abstract $object
+     * @param Mage_Core_Model_Abstract|Mage_Tag_Model_Tag $object
      * @return Zend_Db_Select
      */
     protected function _getLoadSelect($field, $value, $object)
@@ -416,7 +425,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Fetch store ids in which tag visible
      *
-     * @param Mage_Tag_Model_Resource_Tag $object
+     * @param Mage_Core_Model_Abstract|Mage_Tag_Model_Tag $object
      * @return $this
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
