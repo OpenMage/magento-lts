@@ -33,12 +33,15 @@ class Mage_SalesRule_Model_Rule_Condition_Combine extends Mage_Rule_Model_Condit
         $this->setType('salesrule/rule_condition_combine');
     }
 
+    /**
+     * @return array
+     */
     public function getNewChildSelectOptions()
     {
         $addressCondition = Mage::getModel('salesrule/rule_condition_address');
         $addressAttributes = $addressCondition->loadAttributeOptions()->getAttributeOption();
         $attributes = array();
-        foreach ($addressAttributes as $code=>$label) {
+        foreach ($addressAttributes as $code => $label) {
             $attributes[] = array('value'=>'salesrule/rule_condition_address|'.$code, 'label'=>$label);
         }
 

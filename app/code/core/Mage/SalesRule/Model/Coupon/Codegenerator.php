@@ -24,9 +24,15 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
-class Mage_SalesRule_Model_Coupon_Codegenerator extends Varien_Object
-    implements Mage_SalesRule_Model_Coupon_CodegeneratorInterface
+/**
+ * Class Mage_SalesRule_Model_Coupon_Codegenerator
+ *
+ * @method string getAlphabet()
+ * @method int getLength()
+ * @method int  getLengthMax()
+ * @method int  getLengthMin()
+ */
+class Mage_SalesRule_Model_Coupon_Codegenerator extends Varien_Object implements Mage_SalesRule_Model_Coupon_CodegeneratorInterface
 {
     /**
      * Retrieve generated code

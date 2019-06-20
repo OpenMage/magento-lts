@@ -77,13 +77,13 @@ class Mage_SalesRule_Model_Quote_Discount extends Mage_Sales_Model_Quote_Address
         $this->_calculator->initTotals($items, $address);
 
         $address->setDiscountDescription(array());
+        /** @var Mage_Sales_Model_Quote_Item[] $items */
         $items = $this->_calculator->sortItemsByPriority($items);
         foreach ($items as $item) {
             if ($item->getNoDiscount()) {
                 $item->setDiscountAmount(0);
                 $item->setBaseDiscountAmount(0);
-            }
-            else {
+            } else {
                 /**
                  * Child item discount we calculate for parent
                  */

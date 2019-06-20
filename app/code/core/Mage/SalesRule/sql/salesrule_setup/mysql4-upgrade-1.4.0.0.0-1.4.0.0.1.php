@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Sales_Model_Mysql4_Setup */
+/* @var Mage_Sales_Model_Mysql4_Setup $installer */
 
 $tableSalesrule = $installer->getTable('salesrule/rule');
 $tableSalesruleCustomer = $installer->getTable('salesrule/rule_customer');
@@ -34,7 +34,7 @@ $tableSalesruleCouponUsage = $installer->getTable('salesrule/coupon_usage');
 $tableCustomerEntity = $installer->getTable('customer/entity');
 
 $connection = $installer->getConnection();
-/* @var $connection Varien_Db_Adapter_Pdo_Mysql */
+/* @var Varien_Db_Adapter_Pdo_Mysql $connection */
 
 $installer->run("
 CREATE TABLE `{$tableSalesruleCoupon}` (

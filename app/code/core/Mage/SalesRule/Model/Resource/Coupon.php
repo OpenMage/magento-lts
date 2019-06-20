@@ -49,14 +49,14 @@ class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_A
     /**
      * Perform actions before object save
      *
-     * @param Mage_Core_Model_Abstract $object
+     * @param Mage_Core_Model_Abstract|Mage_SalesRule_Model_Coupon $object
      * @return Mage_Core_Model_Resource_Db_Abstract
      */
     public function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         if (!$object->getExpirationDate()) {
             $object->setExpirationDate(null);
-        } else if ($object->getExpirationDate() instanceof Zend_Date) {
+        } elseif ($object->getExpirationDate() instanceof Zend_Date) {
             $object->setExpirationDate($object->getExpirationDate()->toString(Varien_Date::DATETIME_INTERNAL_FORMAT));
         }
 
@@ -72,7 +72,7 @@ class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_A
      *
      * @param Mage_SalesRule_Model_Coupon $object
      * @param Mage_SalesRule_Model_Rule|int $rule
-     * @return unknown
+     * @return bool
      */
     public function loadPrimaryByRule(Mage_SalesRule_Model_Coupon $object, $rule)
     {
