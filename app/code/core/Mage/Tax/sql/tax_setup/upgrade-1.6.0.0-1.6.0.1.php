@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/** @var $installer Mage_Tax_Model_Resource_Setup */
+/** @var Mage_Tax_Model_Resource_Setup $installer */
 $installer = $this;
 $connection = $installer->getConnection();
 $connection->createTable($connection->createTableByDdl(

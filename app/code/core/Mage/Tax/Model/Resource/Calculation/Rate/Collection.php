@@ -24,13 +24,14 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Tax rate collection
  *
  * @category    Mage
  * @package     Mage_Tax
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Tax_Model_Calculation_Rate[] getItems()
  */
 class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -184,7 +185,8 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
             $this->getSelect()
                 ->from(
                     array('rates' => $this->getMainTable()),
-                array('tax_calculation_rate_id', 'code'))
+                    array('tax_calculation_rate_id', 'code')
+                )
                 ->limit($size, $offset);
 
             $rates = array_merge($rates, $this->toOptionArray());

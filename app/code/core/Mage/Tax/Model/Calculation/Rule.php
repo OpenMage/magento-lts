@@ -29,12 +29,18 @@
  *
  * @method Mage_Tax_Model_Resource_Calculation_Rule _getResource()
  * @method Mage_Tax_Model_Resource_Calculation_Rule getResource()
+ * @method Mage_Tax_Model_Resource_Calculation_Rule_Collection getCollection()
+ *
+ * @method $this setCalculateSubtotal(float $value)
  * @method string getCode()
- * @method Mage_Tax_Model_Calculation_Rule setCode(string $value)
+ * @method $this setCode(string $value)
  * @method int getPriority()
- * @method Mage_Tax_Model_Calculation_Rule setPriority(int $value)
+ * @method $this setPriority(int $value)
  * @method int getPosition()
- * @method Mage_Tax_Model_Calculation_Rule setPosition(int $value)
+ * @method $this setPosition(int $value)
+ * @method float getTaxRate()
+ * @method string getTaxCustomerClass()
+ * @method string getTaxProductClass()
  *
  * @category    Mage
  * @package     Mage_Tax
@@ -117,7 +123,7 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
      * After rule delete
      * redeclared for dispatch tax_settings_change_after event
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _afterDelete()
     {
@@ -200,4 +206,3 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
         return $this->getResource()->fetchRuleCodes($rateId, $customerTaxClassId, $productTaxClassId);
     }
 }
-

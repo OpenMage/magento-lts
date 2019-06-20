@@ -71,9 +71,10 @@ class Mage_Tax_Model_Resource_Calculation_Rule extends Mage_Core_Model_Resource_
         $select = $adapter->select()
             ->from(array('main' => $this->getTable('tax/tax_calculation')), null)
             ->joinLeft(
-            array('d' => $this->getTable('tax/tax_calculation_rule')),
-            'd.tax_calculation_rule_id = main.tax_calculation_rule_id',
-            array('d.code'))
+                array('d' => $this->getTable('tax/tax_calculation_rule')),
+                'd.tax_calculation_rule_id = main.tax_calculation_rule_id',
+                array('d.code')
+            )
             ->where('main.tax_calculation_rate_id in (?)', $rateId)
             ->where('main.customer_tax_class_id in (?)', $customerTaxClassId)
             ->where('main.product_tax_class_id in (?)', $productTaxClassId)

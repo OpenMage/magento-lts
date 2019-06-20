@@ -31,6 +31,8 @@
  * @category    Mage
  * @package     Mage_Tax
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Tax_Model_Calculation_Rate_Title[] getItems()
  */
 class Mage_Tax_Model_Resource_Calculation_Rate_Title_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

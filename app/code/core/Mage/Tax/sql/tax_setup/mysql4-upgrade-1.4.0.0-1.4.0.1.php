@@ -24,7 +24,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 
 /**
@@ -34,6 +34,9 @@ $installer = $this;
  */
 $table = $installer->getTable('tax/tax_order_aggregated_created');
 $installer->getConnection()->truncate($table);
-$installer->getConnection()->addKey($table, 'UNQ_PERIOD_STORE_CODE_ORDER_STATUS',
-    array('period', 'store_id', 'code', 'percent', 'order_status'), 'unique'
+$installer->getConnection()->addKey(
+    $table,
+    'UNQ_PERIOD_STORE_CODE_ORDER_STATUS',
+    array('period', 'store_id', 'code', 'percent', 'order_status'),
+    'unique'
 );

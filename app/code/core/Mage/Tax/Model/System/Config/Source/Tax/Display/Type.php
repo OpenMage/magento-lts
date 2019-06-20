@@ -33,6 +33,9 @@ class Mage_Tax_Model_System_Config_Source_Tax_Display_Type
 {
     protected $_options;
 
+    /**
+     * @return array
+     */
     public function toOptionArray()
     {
         if (!$this->_options) {

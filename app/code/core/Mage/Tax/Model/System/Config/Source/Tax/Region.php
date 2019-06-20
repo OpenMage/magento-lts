@@ -49,7 +49,7 @@ class Mage_Tax_Model_System_Config_Source_Tax_Region
      * @param null|string $country
      * @return array
      */
-    public function toOptionArray($noEmpty=false, $country = null)
+    public function toOptionArray($noEmpty = false, $country = null)
     {
         $options = $this->_optionsModel->getCollection()
             ->addCountryFilter($country)
