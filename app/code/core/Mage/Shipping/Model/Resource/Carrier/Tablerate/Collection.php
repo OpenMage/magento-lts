@@ -80,11 +80,13 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection extends Mage_Cor
             ->joinLeft(
                 array('country_table' => $this->_countryTable),
                 'country_table.country_id = main_table.dest_country_id',
-                array('dest_country' => 'iso3_code'))
+                array('dest_country' => 'iso3_code')
+            )
             ->joinLeft(
                 array('region_table' => $this->_regionTable),
                 'region_table.region_id = main_table.dest_region_id',
-                array('dest_region' => 'code'));
+                array('dest_region' => 'code')
+            );
 
         $this->addOrder('dest_country', self::SORT_ORDER_ASC);
         $this->addOrder('dest_region', self::SORT_ORDER_ASC);

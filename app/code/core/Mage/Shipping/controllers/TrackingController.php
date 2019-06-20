@@ -45,12 +45,13 @@ class Mage_Shipping_TrackingController extends Mage_Core_Controller_Front_Action
             $tracks = $order->getTracksCollection();
 
             $className = Mage::getConfig()->getBlockClassName('core/template');
+            /** @var Mage_Core_Block_Template $block */
             $block = new $className();
             $block->setType('core/template')
                 ->setIsAnonymous(true)
                 ->setTemplate('sales/order/trackinginfo.phtml');
 
-            foreach ($tracks as $track){
+            foreach ($tracks as $track) {
                 $trackingInfo = $track->getNumberDetail();
                 $block->setTrackingInfo($trackingInfo);
                 $response .= $block->toHtml()."\n<br />";
@@ -80,7 +81,7 @@ class Mage_Shipping_TrackingController extends Mage_Core_Controller_Front_Action
     /**
      * Initialize order model instance
      *
-     * @return Mage_Sales_Model_Order || false
+     * @return Mage_Sales_Model_Order|false
      */
     protected function _initOrder()
     {
@@ -94,5 +95,4 @@ class Mage_Shipping_TrackingController extends Mage_Core_Controller_Front_Action
         }
         return $order;
     }
-
 }

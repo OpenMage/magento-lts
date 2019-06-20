@@ -25,6 +25,9 @@
  */
 class Mage_Shipping_Model_Source_HandlingType
 {
+    /**
+     * @return array
+     */
     public function toOptionArray()
     {
         return array(

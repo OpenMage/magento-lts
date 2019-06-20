@@ -63,26 +63,26 @@ class Mage_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
      */
     protected function _getTrackingUrl($key, $model, $method = 'getId')
     {
-         if (empty($model)) {
-             $param = array($key => ''); // @deprecated after 1.4.0.0-alpha3
-         } else if (!is_object($model)) {
-             $param = array($key => $model); // @deprecated after 1.4.0.0-alpha3
-         } else {
-             $param = array(
-                 'hash' => Mage::helper('core')->urlEncode("{$key}:{$model->$method()}:{$model->getProtectCode()}")
-             );
-         }
+        if (empty($model)) {
+            $param = array($key => ''); // @deprecated after 1.4.0.0-alpha3
+        } elseif (!is_object($model)) {
+            $param = array($key => $model); // @deprecated after 1.4.0.0-alpha3
+        } else {
+            $param = array(
+                'hash' => Mage::helper('core')->urlEncode("{$key}:{$model->$method()}:{$model->getProtectCode()}")
+            );
+        }
          $storeId = is_object($model) ? $model->getStoreId() : null;
          $storeModel = Mage::app()->getStore($storeId);
          return $storeModel->getUrl('shipping/tracking/popup', $param);
     }
 
     /**
+     * @param string $order
+     * @return string
      * @deprecated after 1.4.0.0-alpha3
      * Retrieve tracking pop up url by order id or object
      *
-     * @param  int|Mage_Sales_Model_Order $order
-     * @return string
      */
     public function getTrackingPopUpUrlByOrderId($order = '')
     {
@@ -93,11 +93,11 @@ class Mage_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * @param string $track
+     * @return string
      * @deprecated after 1.4.0.0-alpha3
      * Retrieve tracking pop up url by track id or object
      *
-     * @param  int|Mage_Sales_Model_Order_Shipment_Track $track
-     * @return string
      */
     public function getTrackingPopUpUrlByTrackId($track = '')
     {
@@ -108,11 +108,11 @@ class Mage_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * @param string $ship
+     * @return string
      * @deprecated after 1.4.0.0-alpha3
      * Retrieve tracking pop up url by ship id or object
      *
-     * @param  int|Mage_Sales_Model_Order_Shipment $track
-     * @return string
      */
     public function getTrackingPopUpUrlByShipId($ship = '')
     {
@@ -150,6 +150,11 @@ class Mage_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
         return $this->_getUrl('shipping/tracking/ajax');
     }
 
+    /**
+     * @param string $method
+     * @param int $storeId
+     * @return bool
+     */
     public function isFreeMethod($method, $storeId = null)
     {
         $arr = explode('_', $method, 2);

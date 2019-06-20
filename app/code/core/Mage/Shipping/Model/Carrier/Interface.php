@@ -41,5 +41,4 @@ interface Mage_Shipping_Model_Carrier_Interface
      * @return array
      */
     public function getAllowedMethods();
-
 }

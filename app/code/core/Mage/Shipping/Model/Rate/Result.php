@@ -86,8 +86,7 @@ class Mage_Shipping_Model_Rate_Result
         }
         if ($result instanceof Mage_Shipping_Model_Rate_Result_Abstract) {
             $this->_rates[] = $result;
-        }
-        elseif ($result instanceof Mage_Shipping_Model_Rate_Result) {
+        } elseif ($result instanceof Mage_Shipping_Model_Rate_Result) {
             $rates = $result->getAllRates();
             foreach ($rates as $rate) {
                 $this->append($rate);
@@ -183,7 +182,7 @@ class Mage_Shipping_Model_Rate_Result
         if (!is_array($this->_rates) || !count($this->_rates)) {
             return $this;
         }
-        /* @var $rate Mage_Shipping_Model_Rate_Result_Method */
+        /* @var Mage_Shipping_Model_Rate_Result_Method $rate */
         foreach ($this->_rates as $i => $rate) {
             $tmp[$i] = $rate->getPrice();
         }

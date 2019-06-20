@@ -24,7 +24,13 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * Class Mage_Shipping_Model_Rate_Result_Abstract
+ * @method string getCarrier()
+ * @method string getCarrierTitle()
+ * @method string getMethodTitle()
+ * @method string getMethodDescription()
+ */
 class Mage_Shipping_Model_Rate_Result_Abstract extends Varien_Object
 {
 
