@@ -39,7 +39,7 @@ class Mage_Tag_ProductController extends Mage_Core_Controller_Front_Action
         $tagId = $this->getRequest()->getParam('tagId');
         $tag = Mage::getModel('tag/tag')->load($tagId);
 
-        if(!$tag->getId() || !$tag->isAvailableInStore()) {
+        if (!$tag->getId() || !$tag->isAvailableInStore()) {
             $this->_forward('404');
             return;
         }

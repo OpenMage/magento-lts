@@ -46,19 +46,19 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
         // fields list to return
         $fieldsForResult = array('tag_id', 'name');
 
-        /** @var $product Mage_Catalog_Model_Product */
+        /** @var Mage_Catalog_Model_Product $product */
         $product = Mage::getModel('catalog/product')->load($productId);
         if (!$product->getId()) {
             $this->_fault('product_not_exists');
         }
 
-        /** @var $tags Mage_Tag_Model_Resource_Tag_Collection */
+        /** @var Mage_Tag_Model_Resource_Tag_Collection $tags */
         $tags = Mage::getModel('tag/tag')->getCollection()->joinRel()->addProductFilter($productId);
         if ($store) {
             $tags->addStoreFilter($this->_getStoreId($store));
         }
 
-        /** @var $tag Mage_Tag_Model_Tag */
+        /** @var Mage_Tag_Model_Tag $tag */
         foreach ($tags as $tag) {
             $result[$tag->getId()] = $tag->toArray($fieldsForResult);
         }
@@ -78,7 +78,7 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
     {
         $result = array();
         $storeId = $this->_getStoreId($store);
-        /** @var $tag Mage_Tag_Model_Tag */
+        /** @var Mage_Tag_Model_Tag $tag */
         $tag = Mage::getModel('tag/tag')->setStoreId($storeId)->setAddBasePopularity()->load($tagId);
         if (!$tag->getId()) {
             $this->_fault('tag_not_exists');
@@ -90,6 +90,7 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
         $result['products'] = array();
         $relatedProductsCollection = $tag->getEntityCollection()->addTagFilter($tagId)
             ->addStoreFilter($storeId)->addPopularity($tagId);
+        /** @var Mage_Catalog_Model_Product $product */
         foreach ($relatedProductsCollection as $product) {
             $result['products'][$product->getId()] = $product->getPopularity();
         }
@@ -107,12 +108,12 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
     public function add($data)
     {
         $data = $this->_prepareDataForAdd($data);
-        /** @var $product Mage_Catalog_Model_Product */
+        /** @var Mage_Catalog_Model_Product $product */
         $product = Mage::getModel('catalog/product')->load($data['product_id']);
         if (!$product->getId()) {
             $this->_fault('product_not_exists');
         }
-        /** @var $customer Mage_Customer_Model_Customer */
+        /** @var Mage_Customer_Model_Customer $customer */
         $customer = Mage::getModel('customer/customer')->load($data['customer_id']);
         if (!$customer->getId()) {
             $this->_fault('customer_not_exists');
@@ -120,7 +121,7 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
         $storeId = $this->_getStoreId($data['store']);
 
         try {
-            /** @var $tag Mage_Tag_Model_Tag */
+            /** @var Mage_Tag_Model_Tag $tag */
             $tag = Mage::getModel('tag/tag');
             $tagNamesArr = Mage::helper('tag')->cleanTags(Mage::helper('tag')->extractTags($data['tag']));
             foreach ($tagNamesArr as $tagName) {
@@ -156,7 +157,7 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
     {
         $data = $this->_prepareDataForUpdate($data);
         $storeId = $this->_getStoreId($store);
-        /** @var $tag Mage_Tag_Model_Tag */
+        /** @var Mage_Tag_Model_Tag $tag */
         $tag = Mage::getModel('tag/tag')->setStoreId($storeId)->setAddBasePopularity()->load($tagId);
         if (!$tag->getId()) {
             $this->_fault('tag_not_exists');
@@ -196,7 +197,7 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
      */
     public function remove($tagId)
     {
-        /** @var $tag Mage_Tag_Model_Tag */
+        /** @var Mage_Tag_Model_Tag $tag */
         $tag = Mage::getModel('tag/tag')->load($tagId);
         if (!$tag->getId()) {
             $this->_fault('tag_not_exists');
@@ -235,7 +236,7 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
     protected function _prepareDataForUpdate($data)
     {
         // $data should contain at least one field to change
-        if ( !(isset($data['name']) or isset($data['status']) or isset($data['base_popularity']))) {
+        if (!(isset($data['name']) or isset($data['status']) or isset($data['base_popularity']))) {
             $this->_fault('invalid_data');
         }
 

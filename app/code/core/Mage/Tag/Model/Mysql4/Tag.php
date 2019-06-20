@@ -26,7 +26,7 @@
 
 
 /**
- * Tag resourse model
+ * Tag resource model
  *
  * @category    Mage
  * @package     Mage_Tag

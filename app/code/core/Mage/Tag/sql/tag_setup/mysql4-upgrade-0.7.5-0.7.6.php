@@ -24,20 +24,24 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 
 $deprecatedComment = 'deprecated since 1.4.0.1';
 
 $installer->getConnection()->modifyColumn(
-    $installer->getTable('tag/summary'), 'uses', "int(11) unsigned NOT NULL default '0' COMMENT '{$deprecatedComment}'"
-);
-$installer->getConnection()->modifyColumn(
-    $installer->getTable('tag/summary'), 'historical_uses',
+    $installer->getTable('tag/summary'),
+    'uses',
     "int(11) unsigned NOT NULL default '0' COMMENT '{$deprecatedComment}'"
 );
 $installer->getConnection()->modifyColumn(
-    $installer->getTable('tag/summary'), 'base_popularity',
+    $installer->getTable('tag/summary'),
+    'historical_uses',
+    "int(11) unsigned NOT NULL default '0' COMMENT '{$deprecatedComment}'"
+);
+$installer->getConnection()->modifyColumn(
+    $installer->getTable('tag/summary'),
+    'base_popularity',
     "int(11) UNSIGNED DEFAULT '0' NOT NULL COMMENT '{$deprecatedComment}'"
 );
 
