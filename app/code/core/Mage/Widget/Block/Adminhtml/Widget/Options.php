@@ -30,8 +30,12 @@
  * @category   Mage
  * @package    Mage_Widget
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getMainFieldsetHtmlId()
+ * @method $this setMainFieldsetHtmlId(string $value)
+ * @method string getWidgetType()
+ * @method array getWidgetValues()
  */
-
 class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Widget_Form
 {
     /**
@@ -51,6 +55,8 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
      *
      * widget_type must be set in data before
      * widget_values may be set before to render element values
+     *
+     * @return $this
      */
     protected function _prepareForm()
     {
@@ -146,8 +152,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
 
         if ($values = $this->getWidgetValues()) {
             $data['value'] = (isset($values[$fieldName]) ? $values[$fieldName] : '');
-        }
-        else {
+        } else {
             $data['value'] = $parameter->getValue();
             //prepare unique id value
             if ($fieldName == 'unique_id' && $data['value'] == '') {
@@ -165,8 +170,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
                     'value' => $option['value']
                 );
             }
-        }
-        // otherwise, a source model is specified
+        } // otherwise, a source model is specified
         elseif ($sourceModel = $parameter->getSourceModel()) {
             $data['values'] = Mage::getModel($sourceModel)->toOptionArray();
         }
@@ -177,8 +181,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
         // hidden element
         if (!$parameter->getVisible()) {
             $fieldType = 'hidden';
-        }
-        // just an element renderer
+        } // just an element renderer
         elseif (false !== strpos($fieldType, '/')) {
             $fieldRenderer = $this->getLayout()->createBlock($fieldType);
             $fieldType = $this->_defaultElementType;

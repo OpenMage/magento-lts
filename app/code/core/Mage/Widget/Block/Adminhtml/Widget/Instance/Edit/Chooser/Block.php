@@ -30,14 +30,25 @@
  * @category    Mage
  * @package     Mage_Widget
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setArea(string $value)
+ * @method $this setPackage(string $value)
+ * @method string getSelected()
+ * @method $this setSelected(string $value)
+ * @method $this setTheme(string $value)
  */
-class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block
-    extends Mage_Adminhtml_Block_Widget
+class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mage_Adminhtml_Block_Widget
 {
     protected $_layoutHandlesXml = null;
 
+    /**
+     * @var Varien_Simplexml_Element[]
+     */
     protected $_layoutHandleUpdates = array();
 
+    /**
+     * @var SimpleXMLElement
+     */
     protected $_layoutHandleUpdatesXml = null;
 
     protected $_layoutHandle = array();
@@ -170,13 +181,12 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block
     public function getBlocks()
     {
         if (empty($this->_blocks)) {
-            /* @var $update Mage_Core_Model_Layout_Update */
             $update = Mage::getModel('core/layout')->getUpdate();
-            /* @var $layoutHandles Mage_Core_Model_Layout_Element */
             $this->_layoutHandlesXml = $update->getFileLayoutUpdatesXml(
                 $this->getArea(),
                 $this->getPackage(),
-                $this->getTheme());
+                $this->getTheme()
+            );
             $this->_collectLayoutHandles();
             $this->_collectBlocks();
             array_unshift($this->_blocks, array(
@@ -189,7 +199,6 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block
 
     /**
      * Merging layout handles and create xml of merged layout handles
-     *
      */
     protected function _collectLayoutHandles()
     {
@@ -224,7 +233,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block
     protected function _collectBlocks()
     {
         if ($blocks = $this->_layoutHandleUpdatesXml->xpath('//block/label/..')) {
-            /* @var $block Mage_Core_Model_Layout_Element */
+            /* @var Mage_Core_Model_Layout_Element $block */
             foreach ($blocks as $block) {
                 if ((string)$block->getAttribute('name') && $this->_filterBlock($block)) {
                     $helper = Mage::helper(Mage_Core_Model_Layout::findTranslationModuleName($block));

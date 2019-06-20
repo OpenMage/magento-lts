@@ -49,5 +49,4 @@ class Mage_Widget_Model_Observer
         }
         return $this;
     }
-
 }

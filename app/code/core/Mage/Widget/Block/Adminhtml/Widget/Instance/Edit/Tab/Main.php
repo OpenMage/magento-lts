@@ -31,9 +31,7 @@
  * @package     Mage_Widget
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main
-    extends Mage_Adminhtml_Block_Widget_Form
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     /**
      * Internal constructor
@@ -88,7 +86,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main
     /**
      * Getter
      *
-     * @return Widget_Model_Widget_Instance
+     * @return Mage_Widget_Model_Widget_Instance
      */
     public function getWidgetInstance()
     {
@@ -98,7 +96,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main
     /**
      * Prepare form before rendering HTML
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareForm()
     {
@@ -109,7 +107,8 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main
             'method' => 'post'
         ));
 
-        $fieldset = $form->addFieldset('base_fieldset',
+        $fieldset = $form->addFieldset(
+            'base_fieldset',
             array('legend' => Mage::helper('widget')->__('Frontend Properties'))
         );
 
@@ -168,11 +167,11 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main
             'note' => Mage::helper('widget')->__('Sort Order of widget instances in the same block reference')
         ));
 
-        /* @var $layoutBlock Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout */
         $layoutBlock = $this->getLayout()
             ->createBlock('widget/adminhtml_widget_instance_edit_tab_main_layout')
             ->setWidgetInstance($widgetInstance);
-        $fieldset = $form->addFieldset('layout_updates_fieldset',
+        $fieldset = $form->addFieldset(
+            'layout_updates_fieldset',
             array('legend' => Mage::helper('widget')->__('Layout Updates'))
         );
         $fieldset->addField('layout_updates', 'note', array(
@@ -207,7 +206,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main
     /**
      * Initialize form fileds values
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _initFormValues()
     {

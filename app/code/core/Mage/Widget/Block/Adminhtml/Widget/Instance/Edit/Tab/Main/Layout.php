@@ -30,9 +30,11 @@
  * @category    Mage
  * @package     Mage_Widget
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Widget_Model_Widget_Instance getWidgetInstance()
+ * @method $this setWidgetInstance(Mage_Widget_Model_Widget_Instance $value)
  */
-class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout
-    extends Mage_Adminhtml_Block_Template implements Varien_Data_Form_Element_Renderer_Interface
+class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout extends Mage_Adminhtml_Block_Template implements Varien_Data_Form_Element_Renderer_Interface
 {
     /**
      * @var Varien_Data_Form_Element_Abstract
@@ -51,6 +53,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout
     /**
      * Render given element (return html of element)
      *
+     * @param Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     public function render(Varien_Data_Form_Element_Abstract $element)

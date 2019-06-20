@@ -31,9 +31,7 @@
  * @package     Mage_Widget
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings
-    extends Mage_Adminhtml_Block_Widget_Form
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     protected function _construct()
     {
@@ -94,7 +92,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings
     /**
      * Prepare form before rendering HTML
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareForm()
     {
@@ -105,7 +103,8 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings
             'method' => 'post'
         ));
 
-        $fieldset = $form->addFieldset('base_fieldset',
+        $fieldset = $form->addFieldset(
+            'base_fieldset',
             array('legend'=>Mage::helper('widget')->__('Settings'))
         );
 

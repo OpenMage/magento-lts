@@ -98,7 +98,7 @@ class Mage_Widget_Model_Widget_Config extends Varien_Object
     /**
      * Return Widgets Insertion Plugin Window URL
      *
-     * @param Varien_Object Editor element config
+     * @param Varien_Object $config Editor element config
      * @return string
      */
     public function getWidgetWindowUrl($config)
@@ -147,5 +147,4 @@ class Mage_Widget_Model_Widget_Config extends Varien_Object
         $param = Mage::helper('core')->urlDecode($queryParam);
         return preg_split('/\s*\,\s*/', $param, 0, PREG_SPLIT_NO_EMPTY);
     }
-
 }

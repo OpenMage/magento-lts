@@ -30,8 +30,15 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setConfig(Varien_Object $value)
+ * @method $this setElement(Varien_Data_Form_Element_Abstract $value)
+ * @method $this setFieldsetId(string $value)
+ * @method string getLabel()
+ * @method $this setTranslationHelper(Mage_Core_Helper_Abstract $value)
+ * @method $this setSourceUrl(string $value)
+ * @method $this setUniqId(string $value)
  */
-
 class Mage_Widget_Block_Adminhtml_Widget_Chooser extends Mage_Adminhtml_Block_Template
 {
     /**
@@ -143,7 +150,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Chooser extends Mage_Adminhtml_Block_Te
     protected function _toHtml()
     {
         $element   = $this->getElement();
-        /* @var $fieldset Varien_Data_Form_Element_Fieldset */
+        /* @var Varien_Data_Form_Element_Fieldset $fieldset */
         $fieldset  = $element->getForm()->getElement($this->getFieldsetId());
         $chooserId = $this->getUniqId();
         $config    = $this->getConfig();

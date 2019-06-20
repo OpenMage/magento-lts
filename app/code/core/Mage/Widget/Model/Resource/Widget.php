@@ -48,7 +48,7 @@ class Mage_Widget_Model_Resource_Widget extends Mage_Core_Model_Resource_Db_Abst
      * Retrieves pre-configured parameters for widget
      *
      * @param int $widgetId
-     * @return array
+     * @return array|false
      */
     public function loadPreconfiguredWidget($widgetId)
     {
