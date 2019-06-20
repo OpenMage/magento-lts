@@ -37,14 +37,14 @@ class Mage_Wishlist_Block_Customer_Sharing extends Mage_Core_Block_Template
     /**
      * Entered Data cache
      *
-     * @param array
+     * @var array
      */
-    protected  $_enteredData = null;
+    protected $_enteredData = null;
 
     /**
      * Prepare Global Layout
      *
-     * @return $this
+     * @return void
      */
     protected function _prepareLayout()
     {
@@ -79,8 +79,7 @@ class Mage_Wishlist_Block_Customer_Sharing extends Mage_Core_Block_Template
 
         if (!$this->_enteredData || !isset($this->_enteredData[$key])) {
             return null;
-        }
-        else {
+        } else {
             return $this->escapeHtml($this->_enteredData[$key]);
         }
     }

@@ -30,6 +30,10 @@
  * @category   Mage
  * @package    Mage_Wishlist
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Catalog_Model_Product getProduct()
+ * @method string getDisplayMinimalPrice()
+ * @method string getIdSuffix()
  */
 class Mage_Wishlist_Block_Render_Item_Price extends Mage_Core_Block_Template
 {

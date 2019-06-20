@@ -30,12 +30,15 @@
  *
  * @method Mage_Wishlist_Model_Resource_Wishlist _getResource()
  * @method Mage_Wishlist_Model_Resource_Wishlist getResource()
+ * @method Mage_Wishlist_Model_Resource_Wishlist_Collection getCollection()
+ *
  * @method int getShared()
- * @method Mage_Wishlist_Model_Wishlist setShared(int $value)
+ * @method $this setShared(int $value)
  * @method string getSharingCode()
- * @method Mage_Wishlist_Model_Wishlist setSharingCode(string $value)
+ * @method $this setSharingCode(string $value)
  * @method string getUpdatedAt()
- * @method Mage_Wishlist_Model_Wishlist setUpdatedAt(string $value)
+ * @method $this setUpdatedAt(string $value)
+ * @method string getVisibility()
  *
  * @category    Mage
  * @package     Mage_Wishlist
@@ -144,7 +147,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     public function loadByCode($code)
     {
         $this->_getResource()->load($this, $code, 'sharing_code');
-        if(!$this->getShared()) {
+        if (!$this->getShared()) {
             $this->setId(null);
         }
 
@@ -176,7 +179,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     /**
      * Save related items
      *
-     * @return Mage_Sales_Model_Quote
+     * @return $this
      */
     protected function _afterSave()
     {
@@ -238,12 +241,12 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     /**
      * Retrieve wishlist item collection
      *
-     * @return Mage_Wishlist_Model_Mysql4_Item_Collection
+     * @return Mage_Wishlist_Model_Resource_Item_Collection
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getItemCollection()
     {
         if (is_null($this->_itemCollection)) {
-            /** @var $currentWebsiteOnly boolean */
             $currentWebsiteOnly = !Mage::app()->getStore()->isAdmin();
             $this->_itemCollection =  Mage::getResourceModel('wishlist/item_collection')
                 ->addWishlistFilter($this)
@@ -264,7 +267,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * Retrieve wishlist item collection
      *
      * @param int $itemId
-     * @return Mage_Wishlist_Model_Item
+     * @return Mage_Wishlist_Model_Item|false
      */
     public function getItem($itemId)
     {
@@ -296,7 +299,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * Adding item to wishlist
      *
      * @param   Mage_Wishlist_Model_Item $item
-     * @return  Mage_Wishlist_Model_Wishlist
+     * @return  $this
      */
     public function addItem(Mage_Wishlist_Model_Item $item)
     {
@@ -337,7 +340,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
             }
         }
 
-        /* @var $product Mage_Catalog_Model_Product */
+        /* @var Mage_Catalog_Model_Product $product */
         $product = Mage::getModel('catalog/product')
             ->setStoreId($storeId)
             ->load($productId);
@@ -563,7 +566,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
         if ($productId) {
             if (!$params) {
                 $params = new Varien_Object();
-            } else if (is_array($params)) {
+            } elseif (is_array($params)) {
                 $params = new Varien_Object($params);
             }
             $params->setCurrentConfig($item->getBuyRequest());
@@ -573,7 +576,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
             $items = $this->getItemCollection();
             $isForceSetQuantity = true;
             foreach ($items as $_item) {
-                /* @var $_item Mage_Wishlist_Model_Item */
+                /* @var Mage_Wishlist_Model_Item $_item */
                 if ($_item->getProductId() == $product->getId()
                     && $_item->representProduct($product)
                     && $_item->getId() != $item->getId()) {
@@ -608,7 +611,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     /**
      * Save wishlist.
      *
-     * @return $this
+     * @inheritDoc
      */
     public function save()
     {

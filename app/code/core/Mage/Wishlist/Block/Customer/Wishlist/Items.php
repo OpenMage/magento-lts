@@ -43,7 +43,7 @@ class Mage_Wishlist_Block_Customer_Wishlist_Items extends Mage_Core_Block_Templa
         $columns = array();
         foreach ($this->getSortedChildren() as $code) {
             $child = $this->getChild($code);
-            if ($child->isEnabled()){
+            if ($child->isEnabled()) {
                 $columns[] = $child;
             }
         }

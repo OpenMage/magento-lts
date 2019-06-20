@@ -30,9 +30,15 @@
  * @category    Mage
  * @package     Mage_Wishlist
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Wishlist_Model_Resource_Item_Option_Collection getCollection()
+ * @method string getCode()
+ * @method int getProductId()
+ * @method $this setProductId(int $value)
+ * @method $this setWishlistItemId(int $value)
+ * @method $this setValue(string $sBuyRequest)
  */
-class Mage_Wishlist_Model_Item_Option extends Mage_Core_Model_Abstract
-    implements Mage_Catalog_Model_Product_Configuration_Item_Option_Interface
+class Mage_Wishlist_Model_Item_Option extends Mage_Core_Model_Abstract implements Mage_Catalog_Model_Product_Configuration_Item_Option_Interface
 {
     protected $_item;
     protected $_product;
@@ -118,7 +124,7 @@ class Mage_Wishlist_Model_Item_Option extends Mage_Core_Model_Abstract
     /**
      * Initialize item identifier before save data
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _beforeSave()
     {

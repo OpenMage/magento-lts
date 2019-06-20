@@ -87,8 +87,7 @@ class Mage_Wishlist_Model_Resource_Wishlist extends Mage_Core_Model_Resource_Db_
     /**
      * Setter for customer ID field name
      *
-     * @param $fieldName
-     *
+     * @param string $fieldName
      * @return $this
      */
     public function setCustomerIdFieldName($fieldName)
@@ -115,5 +114,4 @@ class Mage_Wishlist_Model_Resource_Wishlist extends Mage_Core_Model_Resource_Db_
 
         return $this->_itemsCount;
     }
-
 }

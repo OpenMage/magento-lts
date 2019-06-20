@@ -30,6 +30,9 @@
  * @category   Mage
  * @package    Mage_Wishlist
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Wishlist_Model_Item getItem()
+ * @method $this setOptionList(array $value)
  */
 class Mage_Wishlist_Block_Customer_Wishlist_Item_Options extends Mage_Wishlist_Block_Abstract
 {
@@ -52,7 +55,7 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Options extends Mage_Wishlist_B
         Mage::dispatchEvent('product_option_renderer_init', array('block' => $this));
     }
 
-    /*
+    /**
      * Adds config for rendering product type options
      *
      * @param string $productType

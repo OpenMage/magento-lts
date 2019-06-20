@@ -96,12 +96,12 @@ class Mage_Wishlist_SharedController extends Mage_Wishlist_Controller_Abstract
         $itemId = (int) $this->getRequest()->getParam('item');
         $code = $this->getRequest()->getParam('code');
 
-        /* @var $item Mage_Wishlist_Model_Item */
+        /* @var Mage_Wishlist_Model_Item $item */
         $item = Mage::getModel('wishlist/item')->load($itemId);
         $wishlist = Mage::getModel('wishlist/wishlist')->loadByCode($code);
         $redirectUrl = Mage::getUrl('*/*/index', array('code' => $code));
 
-        /* @var $session Mage_Wishlist_Model_Session */
+        /* @var Mage_Wishlist_Model_Session $session */
         $session    = Mage::getSingleton('wishlist/session');
         $cart       = Mage::getSingleton('checkout/cart');
 

@@ -24,20 +24,19 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Wishlist session model
  *
  * @category   Mage
  * @package    Mage_Wishlist
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setSharingForm(array $value)
  */
 class Mage_Wishlist_Model_Session extends Mage_Core_Model_Session_Abstract
 {
-
     public function __construct()
     {
         $this->init('wishlist');
     }
-
 }
