@@ -46,7 +46,7 @@ class Mage_Sendfriend_Block_Send extends Mage_Core_Block_Template
             return trim($name);
         }
 
-        /* @var $session Mage_Customer_Model_Session */
+        /* @var Mage_Customer_Model_Session $session */
         $session = Mage::getSingleton('customer/session');
 
         if ($session->isLoggedIn()) {
@@ -68,7 +68,7 @@ class Mage_Sendfriend_Block_Send extends Mage_Core_Block_Template
             return trim($email);
         }
 
-        /* @var $session Mage_Customer_Model_Session */
+        /* @var Mage_Customer_Model_Session $session */
         $session = Mage::getSingleton('customer/session');
 
         if ($session->isLoggedIn()) {
