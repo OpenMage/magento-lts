@@ -113,4 +113,3 @@ class Mage_Weee_Model_Resource_Attribute_Backend_Weee_Tax extends Mage_Core_Mode
         return $this;
     }
 }
-

@@ -26,6 +26,9 @@
 class Mage_Weee_Model_Config_Source_Display
 {
 
+    /**
+     * @return array
+     */
     public function toOptionArray()
     {
         /**
@@ -51,5 +54,4 @@ class Mage_Weee_Model_Config_Source_Display
             ),
         );
     }
-
 }
