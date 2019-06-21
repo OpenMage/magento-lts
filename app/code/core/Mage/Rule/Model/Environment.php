@@ -24,7 +24,11 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * Class Mage_Rule_Model_Environment
+ *
+ * @method $this setNow(int $value)
+ */
 class Mage_Rule_Model_Environment extends Varien_Object
 {
     /**

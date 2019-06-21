@@ -31,8 +31,7 @@
  * @package Mage_Rule
  * @author Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract
-    extends Mage_Core_Model_Resource_Db_Collection_Abstract
+abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
      * Store associated with rule entities information map
@@ -200,9 +199,9 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract
     /**
      * Retrieve environment for the rules in collection
      *
+     * @return Mage_Rule_Model_Environment
      * @deprecated after 1.6.2.0
      *
-     * @return Mage_Rule_Model_Resource_Rule_Collection_Abstract
      */
     public function getEnv()
     {
