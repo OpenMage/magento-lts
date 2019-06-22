@@ -24,7 +24,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer = $this;
 
@@ -269,7 +269,7 @@ EOD;
 $data = array(
     'template_code' => 'Example Newsletter Template',
     'template_text' => $newsletterContent ,
-    'template_styles' => NULL,
+    'template_styles' => null,
     'template_type' => Mage_Newsletter_Model_Template::TYPE_HTML,
     'template_subject' => 'Example Subject',
     'template_sender_name' => Mage::getStoreConfig('trans_email/ident_general/name'),
@@ -283,6 +283,6 @@ $model = Mage::getModel('newsletter/template')->setData($data);
 
 try {
     $model->save();
-} catch (Exception $e){
+} catch (Exception $e) {
     Mage::logException($e->getMessage());
 }

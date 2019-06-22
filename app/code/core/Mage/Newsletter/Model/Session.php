@@ -39,18 +39,29 @@ class Mage_Newsletter_Model_Session extends Mage_Core_Model_Session_Abstract
         $this->init('newsletter');
     }
 
+    /**
+     * @param string $message
+     * @return $this
+     */
     public function addError($message)
     {
         $this->setErrorMessage($message);
         return $this;
     }
 
+    /**
+     * @param string $message
+     * @return $this
+     */
     public function addSuccess($message)
     {
         $this->setSuccessMessage($message);
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getError()
     {
         $message = $this->getErrorMessage();
@@ -58,6 +69,9 @@ class Mage_Newsletter_Model_Session extends Mage_Core_Model_Session_Abstract
         return $message;
     }
 
+    /**
+     * @return string
+     */
     public function getSuccess()
     {
         $message = $this->getSuccessMessage();

@@ -24,13 +24,17 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Newsletter problems collection
  *
  * @category    Mage
  * @package     Mage_Newsletter
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Newsletter_Model_Problem[] getItems()
+ * @method Mage_Newsletter_Model_Problem[] getItemsByColumnValue(string $column, string $value)
+ * @method $this setCustomerFirstName(string $value)
+ * @method $this setCustomerLastName(string $value)
  */
 class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -64,7 +68,8 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
      */
     public function addSubscriberInfo()
     {
-        $this->getSelect()->joinLeft(array('subscriber'=>$this->getTable('newsletter/subscriber')),
+        $this->getSelect()->joinLeft(
+            array('subscriber'=>$this->getTable('newsletter/subscriber')),
             'main_table.subscriber_id = subscriber.subscriber_id',
             array('subscriber_email','customer_id','subscriber_status')
         );
@@ -81,11 +86,14 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
      */
     public function addQueueInfo()
     {
-        $this->getSelect()->joinLeft(array('queue'=>$this->getTable('newsletter/queue')),
+        $this->getSelect()->joinLeft(
+            array('queue'=>$this->getTable('newsletter/queue')),
             'main_table.queue_id = queue.queue_id',
             array('queue_start_at', 'queue_finish_at')
         )
-        ->joinLeft(array('template'=>$this->getTable('newsletter/template')), 'queue.template_id = template.template_id',
+        ->joinLeft(
+            array('template'=>$this->getTable('newsletter/template')),
+            'queue.template_id = template.template_id',
             array('template_subject','template_code','template_sender_name','template_sender_email')
         );
         return $this;

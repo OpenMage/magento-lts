@@ -29,14 +29,18 @@
  *
  * @method Mage_Newsletter_Model_Resource_Problem _getResource()
  * @method Mage_Newsletter_Model_Resource_Problem getResource()
- * @method int getSubscriberId()
- * @method Mage_Newsletter_Model_Problem setSubscriberId(int $value)
+ * @method int getCustomerId()
+ * @method $this setCustomerName(string $value)
+ * @method $this setCustomerFirstName(string $value)
+ * @method $this setCustomerLastName(string $value)
  * @method int getQueueId()
- * @method Mage_Newsletter_Model_Problem setQueueId(int $value)
+ * @method $this setQueueId(int $value)
  * @method int getProblemErrorCode()
- * @method Mage_Newsletter_Model_Problem setProblemErrorCode(int $value)
+ * @method $this setProblemErrorCode(int $value)
  * @method string getProblemErrorText()
- * @method Mage_Newsletter_Model_Problem setProblemErrorText(string $value)
+ * @method $this setProblemErrorText(string $value)
+ * @method int getSubscriberId()
+ * @method $this setSubscriberId(int $value)
  *
  * @category    Mage
  * @package     Mage_Newsletter
@@ -46,10 +50,10 @@ class Mage_Newsletter_Model_Problem extends Mage_Core_Model_Abstract
 {
     /**
      * Current Subscriber
-     * 
+     *
      * @var Mage_Newsletter_Model_Subscriber
      */
-    protected  $_subscriber = null;
+    protected $_subscriber = null;
 
     /**
      * Initialize Newsletter Problem Model
@@ -103,11 +107,11 @@ class Mage_Newsletter_Model_Problem extends Mage_Core_Model_Abstract
      */
     public function getSubscriber()
     {
-        if(!$this->getSubscriberId()) {
+        if (!$this->getSubscriberId()) {
             return null;
         }
 
-        if(is_null($this->_subscriber)) {
+        if (is_null($this->_subscriber)) {
             $this->_subscriber = Mage::getModel('newsletter/subscriber')
                 ->load($this->getSubscriberId());
         }
@@ -122,12 +126,11 @@ class Mage_Newsletter_Model_Problem extends Mage_Core_Model_Abstract
      */
     public function unsubscribe()
     {
-        if($this->getSubscriber()) {
+        if ($this->getSubscriber()) {
             $this->getSubscriber()->setSubscriberStatus(Mage_Newsletter_Model_Subscriber::STATUS_UNSUBSCRIBED)
                 ->setIsStatusChanged(true)
                 ->save();
         }
         return $this;
     }
-
 }

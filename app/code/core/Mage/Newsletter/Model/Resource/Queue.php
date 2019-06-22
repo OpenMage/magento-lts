@@ -79,8 +79,7 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
                 $adapter->insert($this->getTable('newsletter/queue_link'), $data);
             }
             $adapter->commit();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $adapter->rollBack();
         }
     }
@@ -103,8 +102,7 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
             );
 
             $adapter->commit();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $adapter->rollBack();
         }
     }
@@ -147,6 +145,7 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
 
         $subscriberIds = array();
 
+        /** @var Mage_Newsletter_Model_Subscriber $subscriber */
         foreach ($subscribers as $subscriber) {
             $subscriberIds[] = $subscriber->getId();
         }
@@ -180,7 +179,7 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
     /**
      * Saving template after saving queue action
      *
-     * @param Mage_Core_Model_Abstract $queue
+     * @param Mage_Core_Model_Abstract|Mage_Newsletter_Model_Queue $queue
      * @return $this
      */
     protected function _afterSave(Mage_Core_Model_Abstract $queue)

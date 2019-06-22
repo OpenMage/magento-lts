@@ -48,7 +48,7 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
                     Mage::throwException($this->__('Please enter a valid email address.'));
                 }
 
-                if (Mage::getStoreConfig(Mage_Newsletter_Model_Subscriber::XML_PATH_ALLOW_GUEST_SUBSCRIBE_FLAG) != 1 && 
+                if (Mage::getStoreConfig(Mage_Newsletter_Model_Subscriber::XML_PATH_ALLOW_GUEST_SUBSCRIBE_FLAG) != 1 &&
                     !$customerSession->isLoggedIn()) {
                     Mage::throwException($this->__('Sorry, but administrator denied subscription for guests. Please <a href="%s">register</a>.', Mage::helper('customer')->getRegisterUrl()));
                 }
@@ -64,15 +64,12 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
                 $status = Mage::getModel('newsletter/subscriber')->subscribe($email);
                 if ($status == Mage_Newsletter_Model_Subscriber::STATUS_NOT_ACTIVE) {
                     $session->addSuccess($this->__('Confirmation request has been sent.'));
-                }
-                else {
+                } else {
                     $session->addSuccess($this->__('Thank you for your subscription.'));
                 }
-            }
-            catch (Mage_Core_Exception $e) {
+            } catch (Mage_Core_Exception $e) {
                 $session->addException($e, $this->__('There was a problem with the subscription: %s', $e->getMessage()));
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 $session->addException($e, $this->__('There was a problem with the subscription.'));
             }
         }
@@ -91,8 +88,8 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
             $subscriber = Mage::getModel('newsletter/subscriber')->load($id);
             $session = Mage::getSingleton('core/session');
 
-            if($subscriber->getId() && $subscriber->getCode()) {
-                if($subscriber->confirm($code)) {
+            if ($subscriber->getId() && $subscriber->getCode()) {
+                if ($subscriber->confirm($code)) {
                     $session->addSuccess($this->__('Your subscription has been confirmed.'));
                 } else {
                     $session->addError($this->__('Invalid subscription confirmation code.'));
@@ -120,11 +117,9 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
                     ->setCheckCode($code)
                     ->unsubscribe();
                 $session->addSuccess($this->__('You have been unsubscribed.'));
-            }
-            catch (Mage_Core_Exception $e) {
+            } catch (Mage_Core_Exception $e) {
                 $session->addException($e, $e->getMessage());
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 $session->addException($e, $this->__('There was a problem with the un-subscription.'));
             }
         }

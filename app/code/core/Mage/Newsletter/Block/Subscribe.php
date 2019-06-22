@@ -34,12 +34,18 @@
 
 class Mage_Newsletter_Block_Subscribe extends Mage_Core_Block_Template
 {
+    /**
+     * @return string
+     */
     public function getSuccessMessage()
     {
         $message = Mage::getSingleton('newsletter/session')->getSuccess();
         return $message;
     }
 
+    /**
+     * @return string
+     */
     public function getErrorMessage()
     {
         $message = Mage::getSingleton('newsletter/session')->getError();
