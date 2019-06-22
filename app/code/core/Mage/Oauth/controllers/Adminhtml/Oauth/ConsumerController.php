@@ -88,7 +88,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
      */
     public function newAction()
     {
-        /** @var $model Mage_Oauth_Model_Consumer */
+        /** @var Mage_Oauth_Model_Consumer $model */
         $model = Mage::getModel('oauth/consumer');
 
         $formData = $this->_getFormData();
@@ -96,7 +96,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
             $this->_setFormData($formData);
             $model->addData($formData);
         } else {
-            /** @var $helper Mage_Oauth_Helper_Data */
+            /** @var Mage_Oauth_Helper_Data $helper */
             $helper = Mage::helper('oauth');
             $model->setKey($helper->generateConsumerKey());
             $model->setSecret($helper->generateConsumerSecret());
@@ -122,7 +122,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
             return;
         }
 
-        /** @var $model Mage_Oauth_Model_Consumer */
+        /** @var Mage_Oauth_Model_Consumer $model */
         $model = Mage::getModel('oauth/consumer');
         $model->load($id);
 
@@ -174,13 +174,14 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
             return;
         }
 
-        /** @var $model Mage_Oauth_Model_Consumer */
+        /** @var Mage_Oauth_Model_Consumer $model */
         $model = Mage::getModel('oauth/consumer');
 
         if ($id) {
             if (!(int) $id) {
                 $this->_getSession()->addError(
-                    $this->__('Invalid ID parameter.'));
+                    $this->__('Invalid ID parameter.')
+                );
                 $this->_redirect('*/*/index');
                 return;
             }
@@ -188,7 +189,8 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
 
             if (!$model->getId()) {
                 $this->_getSession()->addError(
-                    $this->__('Entry with ID #%s not found.', $id));
+                    $this->__('Entry with ID #%s not found.', $id)
+                );
                 $this->_redirect('*/*/index');
                 return;
             }
@@ -200,7 +202,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
             } else {
                 // If an admin was started create a new consumer and at this moment he has been edited an existing
                 // consumer, we save the new consumer with a new key-secret pair
-                /** @var $helper Mage_Oauth_Helper_Data */
+                /** @var Mage_Oauth_Helper_Data $helper */
                 $helper = Mage::helper('oauth');
 
                 $data['key']    = $helper->generateConsumerKey();
@@ -250,7 +252,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
             }
             $action = '/' . $action;
         }
-        /** @var $session Mage_Admin_Model_Session */
+        /** @var Mage_Admin_Model_Session $session */
         $session = Mage::getSingleton('admin/session');
         return $session->isAllowed('system/oauth/consumer' . $action);
     }
@@ -285,7 +287,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
         $consumerId = (int) $this->getRequest()->getParam('id');
         if ($consumerId) {
             try {
-                /** @var $consumer Mage_Oauth_Model_Consumer */
+                /** @var Mage_Oauth_Model_Consumer $consumer */
                 $consumer = Mage::getModel('oauth/consumer')->load($consumerId);
                 if (!$consumer->getId()) {
                     Mage::throwException(Mage::helper('oauth')->__('Unable to find a consumer.'));
@@ -298,7 +300,8 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
                 $this->_getSession()->addError($e->getMessage());
             } catch (Exception $e) {
                 $this->_getSession()->addException(
-                    $e, Mage::helper('oauth')->__('An error occurred while deleting the consumer.')
+                    $e,
+                    Mage::helper('oauth')->__('An error occurred while deleting the consumer.')
                 );
             }
         }

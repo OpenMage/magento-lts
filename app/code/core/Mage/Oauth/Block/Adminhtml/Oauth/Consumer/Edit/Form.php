@@ -57,7 +57,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit_Form extends Mage_Adminhtml
     /**
      * Prepare form before rendering HTML
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareForm()
     {
@@ -117,7 +117,9 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit_Form extends Mage_Adminhtml
             'class'     => 'validate-url',
         ));
 
-        $fieldset->addField('current_password', 'obscure',
+        $fieldset->addField(
+            'current_password',
+            'obscure',
             array(
                 'name'  => 'current_password',
                 'label' => Mage::helper('oauth')->__('Current Admin Password'),

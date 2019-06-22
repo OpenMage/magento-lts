@@ -53,7 +53,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
      */
     protected function _prepareCollection()
     {
-        /** @var $collection Mage_Oauth_Model_Resource_Token_Collection */
+        /** @var Mage_Oauth_Model_Resource_Token_Collection $collection */
         $collection = Mage::getModel('oauth/token')->getCollection();
         $collection->joinConsumerAsApplication()
             ->addFilterByType(Mage_Oauth_Model_Token::TYPE_ACCESS);
@@ -97,7 +97,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
             'frame_callback' => array($this, 'decorateUserId')
         ));
 
-        /** @var $sourceYesNo Mage_Adminhtml_Model_System_Config_Source_Yesno */
+        /** @var Mage_Adminhtml_Model_System_Config_Source_Yesno $sourceYesNo */
         $sourceYesNo = Mage::getSingleton('adminhtml/system_config_source_yesno');
         $this->addColumn('revoked', array(
             'header'    => $this->__('Revoked'),
@@ -151,7 +151,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
      */
     protected function _prepareMassaction()
     {
-        if(!$this->_isAllowed()) {
+        if (!$this->_isAllowed()) {
             return $this;
         }
 
@@ -218,7 +218,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
      */
     protected function _isAllowed()
     {
-        /** @var $session Mage_Admin_Model_Session */
+        /** @var Mage_Admin_Model_Session $session */
         $session = Mage::getSingleton('admin/session');
         return $session->isAllowed('system/oauth/authorizedTokens');
     }

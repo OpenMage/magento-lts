@@ -61,7 +61,6 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
         if (!$this->_session->authenticate($this)) {
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
         }
-
     }
 
     /**
@@ -112,7 +111,7 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
         }
 
         try {
-            /** @var $collection Mage_Oauth_Model_Resource_Token_Collection */
+            /** @var Mage_Oauth_Model_Resource_Token_Collection $collection */
             $collection = Mage::getModel('oauth/token')->getCollection();
             $collection->joinConsumerAsApplication()
                     ->addFilterByCustomerId($this->_session->getCustomerId())
@@ -121,7 +120,7 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
                     ->addFilterByRevoked(!$status);
             //here is can be load from model, but used from collection for get consumer name
 
-            /** @var $model Mage_Oauth_Model_Token */
+            /** @var Mage_Oauth_Model_Token $model */
             $model = $collection->getFirstItem();
             if ($model->getId()) {
                 $name = $model->getName();
@@ -160,20 +159,21 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
         }
 
         try {
-            /** @var $collection Mage_Oauth_Model_Resource_Token_Collection */
+            /** @var Mage_Oauth_Model_Resource_Token_Collection $collection */
             $collection = Mage::getModel('oauth/token')->getCollection();
             $collection->joinConsumerAsApplication()
                     ->addFilterByCustomerId($this->_session->getCustomerId())
                     ->addFilterByType(Mage_Oauth_Model_Token::TYPE_ACCESS)
                     ->addFilterById($id);
 
-            /** @var $model Mage_Oauth_Model_Token */
+            /** @var Mage_Oauth_Model_Token $model */
             $model = $collection->getFirstItem();
             if ($model->getId()) {
                 $name = $model->getName();
                 $model->delete();
                 $this->_session->addSuccess(
-                    $this->__('Application "%s" has been deleted.', $name));
+                    $this->__('Application "%s" has been deleted.', $name)
+                );
             } else {
                 $this->_session->addError($this->__('Application not found.'));
             }
