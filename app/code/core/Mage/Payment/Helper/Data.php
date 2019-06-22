@@ -55,7 +55,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param mixed $store
      * @param Mage_Sales_Model_Quote $quote
-     * @return array
+     * @return Mage_Payment_Model_Method_Abstract[]
      */
     public function getStoreMethods($store = null, $quote = null)
     {
@@ -83,6 +83,11 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
         return $res;
     }
 
+    /**
+     * @param $a
+     * @param $b
+     * @return int
+     */
     protected function _sortMethods($a, $b)
     {
         if (is_object($a)) {
@@ -94,8 +99,8 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retreive payment method form html
      *
-     * @param   Mage_Payment_Model_Abstract $method
-     * @return  Mage_Payment_Block_Form
+     * @param Mage_Payment_Model_Method_Abstract $method
+     * @return  Mage_Payment_Block_Form|Mage_Core_Block_Abstract
      */
     public function getMethodFormBlock(Mage_Payment_Model_Method_Abstract $method)
     {
@@ -112,15 +117,14 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
      * Retrieve payment information block
      *
      * @param   Mage_Payment_Model_Info $info
-     * @return  Mage_Core_Block_Template
+     * @return  Mage_Core_Block_Template|Mage_Core_Block_Abstract
      */
     public function getInfoBlock(Mage_Payment_Model_Info $info)
     {
         $blockType = $info->getMethodInstance()->getInfoBlockType();
         if ($this->getLayout()) {
             $block = $this->getLayout()->createBlock($blockType);
-        }
-        else {
+        } else {
             $className = Mage::getConfig()->getBlockClassName($blockType);
             $block = new $className;
         }
@@ -194,6 +198,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
      * @param bool $sorted
      * @param bool $asLabelValue
      * @param bool $withGroups
+     * @param null $store
      * @return array
      */
     public function getPaymentMethodList($sorted = true, $asLabelValue = false, $withGroups = false, $store = null)

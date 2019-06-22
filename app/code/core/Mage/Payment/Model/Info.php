@@ -30,24 +30,55 @@
  * @category   Mage
  * @package    Mage_Payment
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Sales_Model_Order getOrder()
+ * @method Mage_Sales_Model_Quote getQuote()
+ *
+ * @method string getAdditionalData()
+ * @method $this setAdditionalData(string $value)
+ * @method string getCcCid()
+ * @method $this setCcCid(string $value)
+ * @method string getCcCidEnc()
+ * @method string getCcExpMonth()
+ * @method $this setCcExpMonth(string $value)
+ * @method string getCcExpYear()
+ * @method $this setCcExpYear(string $value)
+ * @method string getCcLast4()
+ * @method $this setCcLast4(string $value)
+ * @method string getCcNumber()
+ * @method $this setCcNumber(string $value)
+ * @method string getCcNumberEnc()
+ * @method $this setCcNumberEnc(string $value)
+ * @method string getCcOwner()
+ * @method $this setCcOwner(string $value)
+ * @method string getCcSsIssue()
+ * @method $this setCcSsIssue(string $value)
+ * @method string getCcSsStartMonth()
+ * @method $this setCcSsStartMonth(string $value)
+ * @method string getCcSsStartYear()
+ * @method $this setCcSsStartYear(string $value)
+ * @method string getCcType()
+ * @method $this setCcType(string $value)
+ * @method string getMethod()
+ * @method bool hasMethodInstance()
+ * @method $this setMethodInstance(false|Mage_Payment_Model_Method_Abstract $value)
+ * @method $this setPoNumber(string $value)
  */
 class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
 {
     /**
      * Additional information container
      *
-     * @var array
+     * @var array|int
      */
     protected $_additionalInformation = -1;
 
     /**
      * Retrieve data
      *
-     * @param   string $key
-     * @param   mixed $index
-     * @return unknown
+     * @inheritDoc
      */
-    public function getData($key='', $index=null)
+    public function getData($key = '', $index = null)
     {
         if ('cc_number'===$key) {
             if (empty($this->_data['cc_number']) && !empty($this->_data['cc_number_enc'])) {
@@ -171,7 +202,7 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
     /**
      * Check whether there is additional information by specified key
      *
-     * @param $key
+     * @param string $key
      * @return bool
      */
     public function hasAdditionalInformation($key = null)

@@ -27,6 +27,7 @@
 /**
  * Base payment iformation block
  *
+ * @method bool hasIsSecureMode()
  */
 class Mage_Payment_Block_Info extends Mage_Core_Block_Template
 {
@@ -110,7 +111,7 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
      *
      * @param mixed $value
      * @param bool $escapeHtml
-     * @return $array
+     * @return array $array
      */
     public function getValueAsArray($value, $escapeHtml = false)
     {

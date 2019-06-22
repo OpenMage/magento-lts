@@ -53,14 +53,19 @@ class Mage_Payment_Model_Method_Checkmo extends Mage_Payment_Model_Method_Abstra
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getPayableTo()
     {
         return $this->getConfigData('payable_to');
     }
 
+    /**
+     * @return string
+     */
     public function getMailingAddress()
     {
         return $this->getConfigData('mailing_address');
     }
-
 }

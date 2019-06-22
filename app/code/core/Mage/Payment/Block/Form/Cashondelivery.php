@@ -58,5 +58,4 @@ class Mage_Payment_Block_Form_Cashondelivery extends Mage_Payment_Block_Form
         }
         return $this->_instructions;
     }
-
 }

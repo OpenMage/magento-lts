@@ -55,7 +55,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
             $availableTypes = $method->getConfigData('cctypes');
             if ($availableTypes) {
                 $availableTypes = explode(',', $availableTypes);
-                foreach ($types as $code=>$name) {
+                foreach ($types as $code => $name) {
                     if (!in_array($code, $availableTypes)) {
                         unset($types[$code]);
                     }
@@ -106,7 +106,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
     {
         if ($this->getMethod()) {
             $configData = $this->getMethod()->getConfigData('useccv');
-            if(is_null($configData)){
+            if (is_null($configData)) {
                 return true;
             }
             return (bool) $configData;
@@ -117,6 +117,9 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
     /*
     * Whether switch/solo card type available
     */
+    /**
+     * @return bool
+     */
     public function hasSsCardType()
     {
         $availableTypes = explode(',', $this->getMethod()->getConfigData('cctypes'));
@@ -131,7 +134,10 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
     * solo/switch card start year
     * @return array
     */
-     public function getSsStartYears()
+    /**
+     * @return array
+     */
+    public function getSsStartYears()
     {
         $years = array();
         $first = date("Y");
