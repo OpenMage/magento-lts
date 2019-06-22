@@ -90,10 +90,10 @@ class Mage_Oauth_Adminhtml_Oauth_Admin_TokenController extends Mage_Adminhtml_Co
         }
 
         try {
-            /** @var $user Mage_Admin_Model_User */
+            /** @var Mage_Admin_Model_User $user */
             $user = Mage::getSingleton('admin/session')->getData('user');
 
-            /** @var $collection Mage_Oauth_Model_Resource_Token_Collection */
+            /** @var Mage_Oauth_Model_Resource_Token_Collection $collection */
             $collection = Mage::getModel('oauth/token')->getCollection();
             $collection->joinConsumerAsApplication()
                     ->addFilterByAdminId($user->getId())
@@ -101,7 +101,7 @@ class Mage_Oauth_Adminhtml_Oauth_Admin_TokenController extends Mage_Adminhtml_Co
                     ->addFilterById($ids)
                     ->addFilterByRevoked(!$status);
 
-            /** @var $item Mage_Oauth_Model_Token */
+            /** @var Mage_Oauth_Model_Token $item */
             foreach ($collection as $item) {
                 $item->load($item->getId());
                 $item->setRevoked($status)->save();
@@ -136,17 +136,17 @@ class Mage_Oauth_Adminhtml_Oauth_Admin_TokenController extends Mage_Adminhtml_Co
         }
 
         try {
-            /** @var $user Mage_Admin_Model_User */
+            /** @var Mage_Admin_Model_User $user */
             $user = Mage::getSingleton('admin/session')->getData('user');
 
-            /** @var $collection Mage_Oauth_Model_Resource_Token_Collection */
+            /** @var Mage_Oauth_Model_Resource_Token_Collection $collection */
             $collection = Mage::getModel('oauth/token')->getCollection();
             $collection->joinConsumerAsApplication()
                     ->addFilterByAdminId($user->getId())
                     ->addFilterByType(Mage_Oauth_Model_Token::TYPE_ACCESS)
                     ->addFilterById($ids);
 
-            /** @var $item Mage_Oauth_Model_Token */
+            /** @var Mage_Oauth_Model_Token $item */
             foreach ($collection as $item) {
                 $item->delete();
             }
@@ -167,7 +167,7 @@ class Mage_Oauth_Adminhtml_Oauth_Admin_TokenController extends Mage_Adminhtml_Co
      */
     protected function _isAllowed()
     {
-        /** @var $session Mage_Admin_Model_Session */
+        /** @var Mage_Admin_Model_Session $session */
         $session = Mage::getSingleton('admin/session');
         return $session->isAllowed('system/acl/admin_token');
     }

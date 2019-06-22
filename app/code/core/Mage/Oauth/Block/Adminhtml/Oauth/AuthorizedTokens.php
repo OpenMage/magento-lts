@@ -47,4 +47,3 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens extends Mage_Adminhtml_B
         $this->_removeButton('add');
     }
 }
-

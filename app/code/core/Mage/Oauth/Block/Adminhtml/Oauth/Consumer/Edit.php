@@ -77,7 +77,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit extends Mage_Adminhtml_Bloc
         $this->_updateButton('save', 'id', 'save_button');
         $this->_updateButton('delete', 'label', $this->__('Delete'));
 
-        /** @var $session Mage_Admin_Model_Session */
+        /** @var Mage_Admin_Model_Session $session */
         $session = Mage::getSingleton('admin/session');
         if (!$this->getModel() || !$this->getModel()->getId() || !$session->isAllowed('system/oauth/consumer/delete')) {
             $this->_removeButton('delete');

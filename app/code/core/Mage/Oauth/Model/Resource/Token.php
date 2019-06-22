@@ -56,7 +56,9 @@ class Mage_Oauth_Model_Resource_Token extends Mage_Core_Model_Resource_Db_Abstra
         }
         $adapter = $this->_getWriteAdapter();
         $where   = $adapter->quoteInto(
-            'authorized = 1 AND consumer_id = ?', $exceptToken->getConsumerId(), Zend_Db::INT_TYPE
+            'authorized = 1 AND consumer_id = ?',
+            $exceptToken->getConsumerId(),
+            Zend_Db::INT_TYPE
         );
         $where .= $adapter->quoteInto(' AND entity_id <> ?', $exceptToken->getId(), Zend_Db::INT_TYPE);
 
