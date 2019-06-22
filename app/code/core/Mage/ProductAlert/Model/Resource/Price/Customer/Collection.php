@@ -32,8 +32,7 @@
  * @package     Mage_ProductAlert
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_ProductAlert_Model_Resource_Price_Customer_Collection
-    extends Mage_Customer_Model_Resource_Customer_Collection
+class Mage_ProductAlert_Model_Resource_Price_Customer_Collection extends Mage_Customer_Model_Resource_Customer_Collection
 {
     /**
      * join productalert price data to customer collection

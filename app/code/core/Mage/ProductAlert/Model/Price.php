@@ -24,28 +24,29 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * ProductAlert for changed price model
  *
  * @method Mage_ProductAlert_Model_Resource_Price _getResource()
  * @method Mage_ProductAlert_Model_Resource_Price getResource()
+ * @method Mage_ProductAlert_Model_Resource_Price_Collection getCollection()
+ *
  * @method int getCustomerId()
- * @method Mage_ProductAlert_Model_Price setCustomerId(int $value)
+ * @method $this setCustomerId(int $value)
  * @method int getProductId()
- * @method Mage_ProductAlert_Model_Price setProductId(int $value)
+ * @method $this setProductId(int $value)
  * @method float getPrice()
- * @method Mage_ProductAlert_Model_Price setPrice(float $value)
+ * @method $this setPrice(float $value)
  * @method int getWebsiteId()
- * @method Mage_ProductAlert_Model_Price setWebsiteId(int $value)
+ * @method $this setWebsiteId(int $value)
  * @method string getAddDate()
- * @method Mage_ProductAlert_Model_Price setAddDate(string $value)
+ * @method $this setAddDate(string $value)
  * @method string getLastSendDate()
- * @method Mage_ProductAlert_Model_Price setLastSendDate(string $value)
+ * @method $this setLastSendDate(string $value)
  * @method int getSendCount()
- * @method Mage_ProductAlert_Model_Price setSendCount(int $value)
+ * @method $this setSendCount(int $value)
  * @method int getStatus()
- * @method Mage_ProductAlert_Model_Price setStatus(int $value)
+ * @method $this setStatus(int $value)
  *
  * @category    Mage
  * @package     Mage_ProductAlert
@@ -58,11 +59,17 @@ class Mage_ProductAlert_Model_Price extends Mage_Core_Model_Abstract
         $this->_init('productalert/price');
     }
 
+    /**
+     * @return Mage_ProductAlert_Model_Resource_Price_Customer_Collection
+     */
     public function getCustomerCollection()
     {
         return Mage::getResourceModel('productalert/price_customer_collection');
     }
 
+    /**
+     * @return $this
+     */
     public function loadByParam()
     {
         if (!is_null($this->getProductId()) && !is_null($this->getCustomerId()) && !is_null($this->getWebsiteId())) {
@@ -71,6 +78,11 @@ class Mage_ProductAlert_Model_Price extends Mage_Core_Model_Abstract
         return $this;
     }
 
+    /**
+     * @param int $customerId
+     * @param int $websiteId
+     * @return $this
+     */
     public function deleteCustomer($customerId, $websiteId = 0)
     {
         $this->getResource()->deleteCustomer($this, $customerId, $websiteId);

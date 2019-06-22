@@ -66,16 +66,27 @@ class Mage_ProductAlert_Helper_Data extends Mage_Core_Helper_Url
         return $this;
     }
 
+    /**
+     * @return Mage_Customer_Model_Session
+     */
     public function getCustomer()
     {
         return Mage::getSingleton('customer/session');
     }
 
+    /**
+     * @return Mage_Core_Model_Store
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function getStore()
     {
         return Mage::app()->getStore();
     }
 
+    /**
+     * @param string $type
+     * @return string
+     */
     public function getSaveUrl($type)
     {
         return $this->_getUrl('productalert/add/' . $type, array(
@@ -84,6 +95,11 @@ class Mage_ProductAlert_Helper_Data extends Mage_Core_Helper_Url
         ));
     }
 
+    /**
+     * @param string $block
+     * @return string
+     * @throws Mage_Core_Exception
+     */
     public function createBlock($block)
     {
         $error = Mage::helper('core')->__('Invalid block type: %s', $block);
@@ -95,7 +111,7 @@ class Mage_ProductAlert_Helper_Data extends Mage_Core_Helper_Url
             }
             $fileName = mageFindClassFile($block);
             if ($fileName!==false) {
-                include_once ($fileName);
+                include_once($fileName);
                 $block = new $block(array());
             }
         }

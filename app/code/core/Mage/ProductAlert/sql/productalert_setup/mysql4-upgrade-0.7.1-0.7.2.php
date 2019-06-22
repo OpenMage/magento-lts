@@ -26,7 +26,7 @@
 
 
 $installer = $this;
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 // fix for sample data 1.2.0
@@ -34,16 +34,34 @@ $installer->getConnection()->changeTableEngine($installer->getTable('productaler
 $installer->getConnection()->dropKey($installer->getTable('productalert/stock'), 'FK_PRODUCT_ALERT_PRICE_CUSTOMER');
 $installer->getConnection()->dropKey($installer->getTable('productalert/stock'), 'FK_PRODUCT_ALERT_PRICE_PRODUCT');
 $installer->getConnection()->dropKey($installer->getTable('productalert/stock'), 'FK_PRODUCT_ALERT_PRICE_WEBSITE');
-$installer->getConnection()->addConstraint('FK_PRODUCT_ALERT_STOCK_CUSTOMER',
-    $installer->getTable('productalert/stock'), 'customer_id',
-    $installer->getTable('customer/entity'), 'entity_id',
-    'CASCADE', 'CASCADE', true);
-$installer->getConnection()->addConstraint('FK_PRODUCT_ALERT_STOCK_PRODUCT',
-    $installer->getTable('productalert/stock'), 'product_id',
-    $installer->getTable('catalog/product'), 'entity_id',
-    'CASCADE', 'CASCADE', true);
-$installer->getConnection()->addConstraint('FK_PRODUCT_ALERT_STOCK_WEBSITE',
-    $installer->getTable('productalert/stock'), 'website_id',
-    $installer->getTable('core/website'), 'website_id',
-    'CASCADE', 'CASCADE', true);
+$installer->getConnection()->addConstraint(
+    'FK_PRODUCT_ALERT_STOCK_CUSTOMER',
+    $installer->getTable('productalert/stock'),
+    'customer_id',
+    $installer->getTable('customer/entity'),
+    'entity_id',
+    'CASCADE',
+    'CASCADE',
+    true
+);
+$installer->getConnection()->addConstraint(
+    'FK_PRODUCT_ALERT_STOCK_PRODUCT',
+    $installer->getTable('productalert/stock'),
+    'product_id',
+    $installer->getTable('catalog/product'),
+    'entity_id',
+    'CASCADE',
+    'CASCADE',
+    true
+);
+$installer->getConnection()->addConstraint(
+    'FK_PRODUCT_ALERT_STOCK_WEBSITE',
+    $installer->getTable('productalert/stock'),
+    'website_id',
+    $installer->getTable('core/website'),
+    'website_id',
+    'CASCADE',
+    'CASCADE',
+    true
+);
 $installer->endSetup();

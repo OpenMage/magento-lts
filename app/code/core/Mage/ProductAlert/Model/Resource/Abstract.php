@@ -38,7 +38,7 @@ abstract class Mage_ProductAlert_Model_Resource_Abstract extends Mage_Core_Model
      * Retrieve alert row by object parameters
      *
      * @param Mage_Core_Model_Abstract $object
-     * @return array|bool
+     * @return array|false
      */
     protected function _getAlertRow(Mage_Core_Model_Abstract $object)
     {
@@ -82,7 +82,7 @@ abstract class Mage_ProductAlert_Model_Resource_Abstract extends Mage_Core_Model
      * @param int $websiteId
      * @return Mage_ProductAlert_Model_Resource_Abstract
      */
-    public function deleteCustomer(Mage_Core_Model_Abstract $object, $customerId, $websiteId=null)
+    public function deleteCustomer(Mage_Core_Model_Abstract $object, $customerId, $websiteId = null)
     {
         $adapter = $this->_getWriteAdapter();
         $where   = array();

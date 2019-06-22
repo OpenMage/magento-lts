@@ -26,27 +26,26 @@
 
 /**
  * Product view price and stock alerts
+ * @method $this setSignupUrl(string $value)
  */
 class Mage_ProductAlert_Block_Product_View extends Mage_Core_Block_Template
 {
     /**
      * Current product instance
      *
-     * @var null|Mage_Catalog_Model_Product
+     * @var Mage_Catalog_Model_Product
      */
     protected $_product = null;
 
     /**
      * Helper instance
      *
-     * @var null|Mage_ProductAlert_Helper_Data
+     * @var Mage_ProductAlert_Helper_Data
      */
     protected $_helper = null;
 
     /**
      * Check whether the stock alert data can be shown and prepare related data
-     *
-     * @return void
      */
     public function prepareStockAlertData()
     {
@@ -59,8 +58,6 @@ class Mage_ProductAlert_Block_Product_View extends Mage_Core_Block_Template
 
     /**
      * Check whether the price alert data can be shown and prepare related data
-     *
-     * @return void
      */
     public function preparePriceAlertData()
     {
@@ -76,7 +73,7 @@ class Mage_ProductAlert_Block_Product_View extends Mage_Core_Block_Template
     /**
      * Get current product instance
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
@@ -91,7 +88,7 @@ class Mage_ProductAlert_Block_Product_View extends Mage_Core_Block_Template
     /**
      * Retrieve helper instance
      *
-     * @return Mage_ProductAlert_Helper_Data|null
+     * @return Mage_ProductAlert_Helper_Data
      */
     protected function _getHelper()
     {

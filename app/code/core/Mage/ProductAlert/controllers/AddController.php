@@ -33,13 +33,16 @@
  */
 class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
 {
+    /**
+     * @return Mage_Core_Controller_Front_Action|void
+     */
     public function preDispatch()
     {
         parent::preDispatch();
 
         if (!Mage::getSingleton('customer/session')->authenticate($this)) {
             $this->setFlag('', 'no-dispatch', true);
-            if(!Mage::getSingleton('customer/session')->getBeforeUrl()) {
+            if (!Mage::getSingleton('customer/session')->getBeforeUrl()) {
                 Mage::getSingleton('customer/session')->setBeforeUrl($this->_getRefererUrl());
             }
         }
@@ -64,7 +67,7 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
 
         $product = Mage::getModel('catalog/product')->load($productId);
         if (!$product->getId()) {
-            /* @var $product Mage_Catalog_Model_Product */
+            /* @var Mage_Catalog_Model_Product $product */
             $session->addError($this->__('Not enough parameters.'));
             if ($this->_isUrlInternal($backUrl)) {
                 $this->_redirectUrl($backUrl);
@@ -82,8 +85,7 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
                 ->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
             $model->save();
             $session->addSuccess($this->__('The alert subscription has been saved.'));
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $session->addException($e, $this->__('Unable to update the alert subscription.'));
         }
         $this->_redirectReferer();
@@ -92,7 +94,7 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
     public function stockAction()
     {
         $session = Mage::getSingleton('catalog/session');
-        /* @var $session Mage_Catalog_Model_Session */
+        /* @var Mage_Catalog_Model_Session $session */
         $backUrl    = $this->getRequest()->getParam(Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED);
         $productId  = (int) $this->getRequest()->getParam('product_id');
         if (!$backUrl || !$productId) {
@@ -101,7 +103,7 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
         }
 
         if (!$product = Mage::getModel('catalog/product')->load($productId)) {
-            /* @var $product Mage_Catalog_Model_Product */
+            /* @var Mage_Catalog_Model_Product $product */
             $session->addError($this->__('Not enough parameters.'));
             $this->_redirectUrl($backUrl);
             return ;
@@ -114,8 +116,7 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
                 ->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
             $model->save();
             $session->addSuccess($this->__('Alert subscription has been saved.'));
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $session->addException($e, $this->__('Unable to update the alert subscription.'));
         }
         $this->_redirectReferer();

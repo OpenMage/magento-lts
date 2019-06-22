@@ -32,7 +32,6 @@
  * @package     Mage_ProductAlert
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_ProductAlert_Model_Mysql4_Price_Customer_Collection
-    extends Mage_ProductAlert_Model_Resource_Price_Customer_Collection
+class Mage_ProductAlert_Model_Mysql4_Price_Customer_Collection extends Mage_ProductAlert_Model_Resource_Price_Customer_Collection
 {
 }
