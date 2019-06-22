@@ -29,7 +29,9 @@
  *
  * @category   Mage
  * @package    Mage_Page
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setWelcome(string $value)
  */
 class Mage_Page_Block_Html_Welcome extends Mage_Core_Block_Template
 {

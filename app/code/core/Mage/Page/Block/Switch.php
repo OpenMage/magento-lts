@@ -35,21 +35,37 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
 {
     protected $_storeInUrl;
 
+    /**
+     * @return int|string|null
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function getCurrentWebsiteId()
     {
         return Mage::app()->getStore()->getWebsiteId();
     }
 
+    /**
+     * @return int|string|null
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function getCurrentGroupId()
     {
         return Mage::app()->getStore()->getGroupId();
     }
 
+    /**
+     * @return int
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function getCurrentStoreId()
     {
         return Mage::app()->getStore()->getId();
     }
 
+    /**
+     * @return Mage_Core_Model_Store_Group[]
+     * @throws Mage_Core_Exception
+     */
     public function getRawGroups()
     {
         if (!$this->hasData('raw_groups')) {
@@ -64,13 +80,17 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
         return $this->getData('raw_groups');
     }
 
+    /**
+     * @return Mage_Core_Model_Store[]
+     * @throws Mage_Core_Exception
+     */
     public function getRawStores()
     {
         if (!$this->hasData('raw_stores')) {
             $websiteStores = Mage::app()->getWebsite()->getStores();
             $stores = array();
             foreach ($websiteStores as $store) {
-                /* @var $store Mage_Core_Model_Store */
+                /* @var Mage_Core_Model_Store $store */
                 if (!$store->getIsActive()) {
                     continue;
                 }
@@ -95,7 +115,7 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
     /**
      * Retrieve list of store groups with default urls set
      *
-     * @return array
+     * @return Mage_Core_Model_Store_Group[]
      */
     public function getGroups()
     {
@@ -106,7 +126,7 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
             $groups = array();
             $localeCode = Mage::getStoreConfig('general/locale/code');
             foreach ($rawGroups as $group) {
-                /* @var $group Mage_Core_Model_Store_Group */
+                /* @var Mage_Core_Model_Store_Group $group */
                 if (!isset($rawStores[$group->getId()])) {
                     continue;
                 }
@@ -127,6 +147,9 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
         return $this->getData('groups');
     }
 
+    /**
+     * @return Mage_Core_Model_Store[]
+     */
     public function getStores()
     {
         if (!$this->getData('stores')) {
@@ -143,11 +166,18 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
         return $this->getData('stores');
     }
 
+    /**
+     * @return string
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function getCurrentStoreCode()
     {
         return Mage::app()->getStore()->getCode();
     }
 
+    /**
+     * @return bool
+     */
     public function isStoreInUrl()
     {
         if (is_null($this->_storeInUrl)) {
