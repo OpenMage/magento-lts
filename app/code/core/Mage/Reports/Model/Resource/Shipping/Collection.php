@@ -65,13 +65,17 @@ class Mage_Reports_Model_Resource_Shipping_Collection extends Mage_Sales_Model_E
     {
         if ($storeIds) {
             $this->addAttributeToFilter('store_id', array('in' => (array)$storeIds));
-            $this->addExpressionAttributeToSelect('total',
+            $this->addExpressionAttributeToSelect(
+                'total',
                 'SUM({{base_shipping_amount}})',
-                array('base_shipping_amount'));
+                array('base_shipping_amount')
+            );
         } else {
-            $this->addExpressionAttributeToSelect('total',
+            $this->addExpressionAttributeToSelect(
+                'total',
                 'SUM({{base_shipping_amount}}*{{base_to_global_rate}})',
-                array('base_shipping_amount', 'base_to_global_rate'));
+                array('base_shipping_amount', 'base_to_global_rate')
+            );
         }
 
         return $this;

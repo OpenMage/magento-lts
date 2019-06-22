@@ -61,7 +61,9 @@ class Mage_Reports_Model_Resource_Review_Product_Collection extends Mage_Catalog
                 'e.entity_id = r.entity_pk_value',
                 array(
                     'review_cnt'    => new Zend_Db_Expr(sprintf('(%s)', $subSelect)),
-                    'last_created'  => 'MAX(r.created_at)',))
+                'last_created'  => 'MAX(r.created_at)',
+                )
+            )
             ->group('e.entity_id');
 
         $joinCondition      = array(
@@ -70,7 +72,7 @@ class Mage_Reports_Model_Resource_Review_Product_Collection extends Mage_Catalog
         );
 
         /**
-         * @var $groupByCondition array of group by fields
+         * @var array $groupByCondition of group by fields
          */
         $groupByCondition   = $this->getSelect()->getPart(Zend_Db_Select::GROUP);
         $percentField       = $this->getConnection()->quoteIdentifier('table_rating.percent');
@@ -85,7 +87,8 @@ class Mage_Reports_Model_Resource_Review_Product_Collection extends Mage_Catalog
                 array(
                     'avg_rating'          => sprintf('%s/%s', $sumPercentField, $countRatingId),
                     'avg_rating_approved' => sprintf('%s/%s', $sumPercentApproved, $countRatingId),
-            ));
+                )
+            );
 
         return $this;
     }
@@ -93,9 +96,7 @@ class Mage_Reports_Model_Resource_Review_Product_Collection extends Mage_Catalog
     /**
      * Add attribute to sort
      *
-     * @param string $attribute
-     * @param string $dir
-     * @return $this
+     * @inheritDoc
      */
     public function addAttributeToSort($attribute, $dir = self::SORT_ORDER_ASC)
     {

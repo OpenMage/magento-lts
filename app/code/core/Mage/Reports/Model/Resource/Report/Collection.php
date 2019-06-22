@@ -58,14 +58,14 @@ class Mage_Reports_Model_Resource_Report_Collection
     /**
      * Model object
      *
-     * @var string
+     * @var Mage_Reports_Model_Report
      */
     protected $_model;
 
     /**
      * Intervals
      *
-     * @var int
+     * @var array
      */
     protected $_intervals;
 
@@ -89,7 +89,6 @@ class Mage_Reports_Model_Resource_Report_Collection
      */
     protected function _construct()
     {
-
     }
 
     /**
@@ -122,7 +121,8 @@ class Mage_Reports_Model_Resource_Report_Collection
     /**
      * Get intervals
      *
-     * @return unknown
+     * @return array|int
+     * @throws Zend_Date_Exception
      */
     public function getIntervals()
     {
@@ -138,7 +138,6 @@ class Mage_Reports_Model_Resource_Report_Collection
             $t = array();
             $firstInterval = true;
             while ($dateStart->compare($dateEnd) <= 0) {
-
                 switch ($this->_period) {
                     case 'day':
                         $t['title'] = $dateStart->toString(Mage::app()->getLocale()->getDateFormat());
@@ -219,7 +218,7 @@ class Mage_Reports_Model_Resource_Report_Collection
     /**
      * Get store ids
      *
-     * @return arrays
+     * @return array
      */
     public function getStoreIds()
     {
@@ -279,7 +278,7 @@ class Mage_Reports_Model_Resource_Report_Collection
      *
      * @param int $from
      * @param int $to
-     * @return unknown
+     * @return Mage_Reports_Model_Report
      */
     public function getReportFull($from, $to)
     {
@@ -291,7 +290,7 @@ class Mage_Reports_Model_Resource_Report_Collection
      *
      * @param int $from
      * @param int $to
-     * @return Varien_Object
+     * @return Mage_Reports_Model_Report
      */
     public function getReport($from, $to)
     {

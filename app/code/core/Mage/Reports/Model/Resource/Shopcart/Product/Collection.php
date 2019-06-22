@@ -53,7 +53,7 @@ class Mage_Reports_Model_Resource_Shopcart_Product_Collection extends Mage_Repor
      * Set date range
      *
      * @param string $from
-     * @param strin $to
+     * @param string $to
      * @return $this
      */
     public function setDateRange($from, $to)

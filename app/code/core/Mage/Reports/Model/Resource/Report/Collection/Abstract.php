@@ -94,7 +94,7 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
      * Set array of columns that should be aggregated
      *
      * @param array $columns
-     * @return Mage_Sales_Model_Resource_Report_Collection_Abstract
+     * @return $this
      */
     public function setAggregatedColumns(array $columns)
     {
@@ -117,7 +117,7 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
      *
      * @param mixed $from
      * @param mixed $to
-     * @return Mage_Sales_Model_Resource_Report_Collection_Abstract
+     * @return $this
      */
     public function setDateRange($from = null, $to = null)
     {
@@ -130,7 +130,7 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
      * Set period
      *
      * @param string $period
-     * @return Mage_Sales_Model_Resource_Report_Collection_Abstract
+     * @return $this
      */
     public function setPeriod($period)
     {
@@ -141,7 +141,7 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
     /**
      * Apply date range filter
      *
-     * @return Mage_Sales_Model_Resource_Report_Collection_Abstract
+     * @return $this
      */
     protected function _applyDateRangeFilter()
     {
@@ -160,7 +160,7 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
      * Set store ids
      *
      * @param mixed $storeIds (null, int|string, array, array may contain null)
-     * @return Mage_Sales_Model_Resource_Report_Collection_Abstract
+     * @return $this
      */
     public function addStoreFilter($storeIds)
     {
@@ -172,7 +172,7 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
      * Apply stores filter to select object
      *
      * @param Zend_Db_Select $select
-     * @return Mage_Sales_Model_Resource_Report_Collection_Abstract
+     * @return $this
      */
     protected function _applyStoresFilterToSelect(Zend_Db_Select $select)
     {
@@ -204,7 +204,7 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
     /**
      * Apply stores filter
      *
-     * @return Mage_Sales_Model_Resource_Report_Collection_Abstract
+     * @return $this
      */
     protected function _applyStoresFilter()
     {
@@ -215,7 +215,7 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
      * Set apply filters flag
      *
      * @param boolean $flag
-     * @return Mage_Sales_Model_Resource_Report_Collection_Abstract
+     * @return $this
      */
     public function setApplyFilters($flag)
     {
@@ -227,7 +227,7 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
      * Getter/Setter for isTotals
      *
      * @param null|boolean $flag
-     * @return Mage_Sales_Model_Resource_Report_Collection_Abstract
+     * @return $this|bool
      */
     public function isTotals($flag = null)
     {
@@ -242,7 +242,7 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
      * Getter/Setter for isSubTotals
      *
      * @param null|boolean $flag
-     * @return Mage_Sales_Model_Resource_Report_Collection_Abstract
+     * @return $this|bool
      */
     public function isSubTotals($flag = null)
     {
@@ -267,9 +267,7 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
      * Load data
      * Redeclare parent load method just for adding method _beforeLoad
      *
-     * @param bool $printQuery
-     * @param bool $logQuery
-     * @return Mage_Sales_Model_Resource_Report_Collection_Abstract
+     * @inheritDoc
      */
     public function load($printQuery = false, $logQuery = false)
     {

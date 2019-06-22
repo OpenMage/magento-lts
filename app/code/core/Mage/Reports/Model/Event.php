@@ -67,7 +67,7 @@ class Mage_Reports_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Before Event save process
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _beforeSave()
     {

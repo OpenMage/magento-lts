@@ -32,8 +32,7 @@
  * @package     Mage_Reports
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
-    extends Mage_Catalog_Model_Resource_Product_Collection
+abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract extends Mage_Catalog_Model_Resource_Product_Collection
 {
     /**
      * Customer id

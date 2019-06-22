@@ -46,15 +46,15 @@ class Mage_Reports_Model_Resource_Review_Customer_Collection extends Mage_Review
          */
         $this->_useAnalyticFunction = true;
 
-        /** @var $adapter Varien_Db_Adapter_Interface */
+        /** @var Varien_Db_Adapter_Interface $adapter */
         $adapter            = $this->getConnection();
-        /** @var $customer Mage_Customer_Model_Resource_Customer */
+        /** @var Mage_Customer_Model_Resource_Customer $customer */
         $customer           = Mage::getResourceSingleton('customer/customer');
-        /** @var $firstnameAttr Mage_Eav_Model_Entity_Attribute */
+        /** @var Mage_Eav_Model_Entity_Attribute $firstnameAttr */
         $firstnameAttr      = $customer->getAttribute('firstname');
-        /** @var $firstnameAttr Mage_Eav_Model_Entity_Attribute */
+        /** @var Mage_Eav_Model_Entity_Attribute $firstnameAttr */
         $middlenameAttr      = $customer->getAttribute('middlename');
-        /** @var $lastnameAttr Mage_Eav_Model_Entity_Attribute */
+        /** @var Mage_Eav_Model_Entity_Attribute $lastnameAttr */
         $lastnameAttr       = $customer->getAttribute('lastname');
 
         $firstnameCondition = array('table_customer_firstname.entity_id = detail.customer_id');
@@ -114,7 +114,8 @@ class Mage_Reports_Model_Resource_Review_Customer_Collection extends Mage_Review
             ->joinInner(
                 array('table_customer_lastname' => $lastnameAttr->getBackend()->getTable()),
                 implode(' AND ', $lastnameCondition),
-                array())
+                array()
+            )
             ->columns(array(
                 'customer_id' => 'detail.customer_id',
                 'customer_name' => $customerFullname,

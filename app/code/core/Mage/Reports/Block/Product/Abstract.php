@@ -24,13 +24,15 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Reports Recently Products Abstract Block
  *
  * @category   Mage
  * @package    Mage_Reports
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method int getCustomerId()
+ * @method array getProductIds()
  */
 abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Product_Abstract
 {
@@ -134,9 +136,9 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
                 ->getCollection()
                 ->addAttributeToSelect($attributes);
 
-                if ($this->getCustomerId()) {
-                    $this->_collection->setCustomerId($this->getCustomerId());
-                }
+            if ($this->getCustomerId()) {
+                $this->_collection->setCustomerId($this->getCustomerId());
+            }
 
                 $this->_collection->excludeProductIds($this->_getModel()->getExcludeProductIds())
                     ->addUrlRewrite()
@@ -192,8 +194,8 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
     /**
      * Get products collection and apply recent events log to it
      *
+     * @return Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
      * @deprecated
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
      */
     protected function _getRecentProductsCollection()
     {

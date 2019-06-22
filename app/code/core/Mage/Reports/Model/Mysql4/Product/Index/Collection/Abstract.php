@@ -32,7 +32,6 @@
  * @package     Mage_Reports
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Reports_Model_Mysql4_Product_Index_Collection_Abstract
-    extends Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
+abstract class Mage_Reports_Model_Mysql4_Product_Index_Collection_Abstract extends Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
 {
 }

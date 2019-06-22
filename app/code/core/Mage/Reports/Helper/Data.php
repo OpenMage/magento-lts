@@ -57,7 +57,7 @@ class Mage_Reports_Helper_Data extends Mage_Core_Helper_Abstract
     public function getIntervals($from, $to, $period = self::REPORT_PERIOD_TYPE_DAY)
     {
         $intervals = array();
-        if (!$from && !$to){
+        if (!$from && !$to) {
             return $intervals;
         }
 
@@ -79,7 +79,7 @@ class Mage_Reports_Helper_Data extends Mage_Core_Helper_Abstract
 
         while ($dateStart->compare($dateEnd) <= 0) {
             switch ($period) {
-                case self::REPORT_PERIOD_TYPE_DAY :
+                case self::REPORT_PERIOD_TYPE_DAY:
                     $t = $dateStart->toString('yyyy-MM-dd');
                     $dateStart->addDay(1);
                     break;
@@ -97,6 +97,12 @@ class Mage_Reports_Helper_Data extends Mage_Core_Helper_Abstract
         return  $intervals;
     }
 
+    /**
+     * @param Varien_Data_Collection $collection
+     * @param string $from
+     * @param string $to
+     * @param string $periodType
+     */
     public function prepareIntervalsCollection($collection, $from, $to, $periodType = self::REPORT_PERIOD_TYPE_DAY)
     {
         $intervals = $this->getIntervals($from, $to, $periodType);
@@ -109,4 +115,3 @@ class Mage_Reports_Helper_Data extends Mage_Core_Helper_Abstract
         }
     }
 }
-

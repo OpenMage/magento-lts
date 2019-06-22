@@ -156,7 +156,8 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
             ->join(
                 array('relation' => $this->getTable('tag/relation')),
                 'relation.product_id = e.entity_id',
-                array())
+                array()
+            )
             ->join(
                 array('t' => $this->getTable('tag/tag')),
                 't.tag_id = relation.tag_id',

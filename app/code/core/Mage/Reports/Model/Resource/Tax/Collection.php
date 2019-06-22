@@ -60,7 +60,8 @@ class Mage_Reports_Model_Resource_Tax_Collection extends Mage_Sales_Model_Entity
             ->getSelect()
             ->join(
                 array('tax_table' => $this->getTable('sales/order_tax')),
-                'e.entity_id = tax_table.order_id')
+                'e.entity_id = tax_table.order_id'
+            )
             ->group('tax_table.code')
             ->order(array('process', 'priority'));
         /*
