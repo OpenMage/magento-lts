@@ -30,6 +30,8 @@
  * @category   Mage
  * @package    Mage_Rating
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setEntityId(int $value)
  */
 class Mage_Rating_Block_Entity_Detailed extends Mage_Core_Block_Template
 {
@@ -39,6 +41,10 @@ class Mage_Rating_Block_Entity_Detailed extends Mage_Core_Block_Template
         $this->setTemplate('rating/detailed.phtml');
     }
 
+    /**
+     * @return string
+     * @throws Mage_Core_Model_Store_Exception
+     */
     protected function _toHtml()
     {
         $entityId = Mage::app()->getRequest()->getParam('id');
@@ -56,7 +62,7 @@ class Mage_Rating_Block_Entity_Detailed extends Mage_Core_Block_Template
 
         $ratingCollection = Mage::getModel('rating/rating')
             ->getResourceCollection()
-            ->addEntityFilter('product') # TOFIX
+            ->addEntityFilter('product') # @todo TOFIX
             ->setPositionOrder()
             ->setStoreFilter(Mage::app()->getStore()->getId())
             ->addRatingPerStoreName(Mage::app()->getStore()->getId())
