@@ -127,14 +127,4 @@ class Mage_Downloadable_Adminhtml_Downloadable_Product_EditController extends Ma
         exit(0);
     }
 
-    /**
-     * Return admin session object
-     *
-     * @return Mage_Admin_Model_Session
-     */
-    protected function _getSession()
-    {
-        return Mage::getSingleton('admin/session');
-    }
-
 }
