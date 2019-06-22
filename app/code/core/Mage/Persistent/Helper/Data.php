@@ -170,7 +170,7 @@ class Mage_Persistent_Helper_Data extends Mage_Core_Helper_Data
     /**
      * Get create account url depends on checkout
      *
-     * @param  $url string
+     * @param string $url
      * @return string
      */
     public function getCreateAccountUrl($url)
@@ -180,5 +180,4 @@ class Mage_Persistent_Helper_Data extends Mage_Core_Helper_Data
         }
         return $url;
     }
-
 }

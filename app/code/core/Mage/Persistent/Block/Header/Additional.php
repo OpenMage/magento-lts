@@ -30,8 +30,10 @@
  * @category    Mage
  * @package     Mage_Persistent
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setHref(string $value)
+ * @method $this setAnchorText(string $value)
  */
-
 class Mage_Persistent_Block_Header_Additional extends Mage_Core_Block_Html_Link
 {
     /**

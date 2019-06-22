@@ -100,7 +100,7 @@ class Mage_Persistent_IndexController extends Mage_Core_Controller_Front_Action
     {
         if ($this->_getHelper()->isPersistent()) {
             $this->_getHelper()->getSession()->removePersistentCookie();
-            /** @var $customerSession Mage_Customer_Model_Session */
+            /** @var Mage_Customer_Model_Session $customerSession */
             $customerSession = Mage::getSingleton('customer/session');
             if (!$customerSession->isLoggedIn()) {
                 $customerSession->setCustomerId(null)

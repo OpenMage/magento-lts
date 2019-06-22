@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Persistent Session Resource Model
  *
@@ -62,7 +61,8 @@ class Mage_Persistent_Model_Resource_Session extends Mage_Core_Model_Resource_Db
         $select = parent::_getLoadSelect($field, $value, $object);
         if (!$object->getLoadExpired()) {
             $tableName = $this->getMainTable();
-            $select->join(array('customer' => $this->getTable('customer/entity')),
+            $select->join(
+                array('customer' => $this->getTable('customer/entity')),
                 'customer.entity_id = ' . $tableName . '.customer_id'
             )->where($tableName . '.updated_at >= ?', $object->getExpiredBefore());
         }
@@ -98,8 +98,8 @@ class Mage_Persistent_Model_Resource_Session extends Mage_Core_Model_Resource_Db
     /**
      * Delete expired persistent sessions
      *
-     * @param  $websiteId
-     * @param  $expiredBefore
+     * @param  int $websiteId
+     * @param  string $expiredBefore
      * @return $this
      */
     public function deleteExpired($websiteId, $expiredBefore)

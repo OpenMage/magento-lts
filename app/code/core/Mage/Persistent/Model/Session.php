@@ -31,6 +31,15 @@
  * @category   Mage
  * @package    Mage_Persistent
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Persistent_Model_Resource_Session getResource()
+ * @method int getCustomerId()
+ * @method $this setCustomerId(int $value)
+ * @method string getInfo()
+ * @method $this setInfo(string $value)
+ * @method string getKey()
+ * @method $this setKey(string $value)
+ * @method $this setWebsiteId(int|string|null $value)
  */
 class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
 {
@@ -198,7 +207,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
     /**
      * Delete expired persistent sessions for the website
      *
-     * @param null|int $websiteId
+     * @param int|null $websiteId
      * @return $this
      */
     public function deleteExpired($websiteId = null)
@@ -226,9 +235,10 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
     /**
      * Delete 'persistent' cookie
      *
-     * @return Mage_Core_Model_Abstract
+     * @inheritDoc
      */
-    protected function _afterDeleteCommit() {
+    protected function _afterDeleteCommit()
+    {
         Mage::getSingleton('core/cookie')->delete(Mage_Persistent_Model_Session::COOKIE_NAME);
         return parent::_afterDeleteCommit();
     }
@@ -236,7 +246,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
     /**
      * Set `updated_at` to be always changed
      *
-     * @return $this
+     * @inheritDoc
      */
     public function save()
     {
