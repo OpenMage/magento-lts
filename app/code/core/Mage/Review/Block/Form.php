@@ -30,6 +30,10 @@
  * @category   Mage
  * @package    Mage_Review
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method bool getAllowWriteReviewFlag()
+ * @method $this setAllowWriteReviewFlag(bool $value)
+ * @method $this setLoginLink(string $value)
  */
 class Mage_Review_Block_Form extends Mage_Core_Block_Template
 {
@@ -55,14 +59,14 @@ class Mage_Review_Block_Form extends Mage_Core_Block_Template
             Mage::helper('review')->getIsGuestAllowToWrite()
         );
 
-        if (!$this->getAllowWriteReviewFlag) {
+        if (!$this->getAllowWriteReviewFlag()) {
             $this->setLoginLink(
                 Mage::getUrl('customer/account/login/', array(
                     Mage_Customer_Helper_Data::REFERER_QUERY_PARAM_NAME => Mage::helper('core')->urlEncode(
                         Mage::getUrl('*/*/*', array('_current' => true)) .
-                        '#review-form')
+                        '#review-form'
                     )
-                )
+                    ))
             );
         }
 
@@ -71,18 +75,29 @@ class Mage_Review_Block_Form extends Mage_Core_Block_Template
             ->assign('messages', Mage::getSingleton('review/session')->getMessages(true));
     }
 
+    /**
+     * @return false|Mage_Catalog_Model_Product|Mage_Core_Model_Abstract
+     * @throws Exception
+     */
     public function getProductInfo()
     {
         $product = Mage::getModel('catalog/product');
         return $product->load($this->getRequest()->getParam('id'));
     }
 
+    /**
+     * @return string
+     */
     public function getAction()
     {
         $productId = Mage::app()->getRequest()->getParam('id', false);
         return Mage::getUrl('review/product/post', array('id' => $productId, '_secure' => $this->_isSecure()));
     }
 
+    /**
+     * @return Mage_Rating_Model_Resource_Rating_Collection
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function getRatings()
     {
         $ratingCollection = Mage::getModel('rating/rating')

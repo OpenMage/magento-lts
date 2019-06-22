@@ -42,6 +42,7 @@ class Mage_Review_Model_Observer
      */
     public function tagProductCollectionLoadAfter(Varien_Event_Observer $observer)
     {
+        /** @var Mage_Tag_Model_Resource_Product_Collection $collection */
         $collection = $observer->getEvent()->getCollection();
         Mage::getSingleton('review/review')
             ->appendSummary($collection);
@@ -52,11 +53,12 @@ class Mage_Review_Model_Observer
     /**
      * Cleanup product reviews after product delete
      *
-     * @param   Varien_Event_Observer $observer
-     * @return  Mage_CatalogIndex_Model_Observer
+     * @param Varien_Event_Observer $observer
+     * @return $this
      */
     public function processProductAfterDeleteEvent(Varien_Event_Observer $observer)
     {
+        /** @var Mage_Catalog_Model_Product $eventProduct */
         $eventProduct = $observer->getEvent()->getProduct();
         if ($eventProduct && $eventProduct->getId()) {
             Mage::getResourceSingleton('review/review')->deleteReviewsByProductId($eventProduct->getId());
@@ -73,6 +75,7 @@ class Mage_Review_Model_Observer
      */
     public function catalogBlockProductCollectionBeforeToHtml(Varien_Event_Observer $observer)
     {
+        /** @var Mage_Catalog_Model_Resource_Product_Collection $productCollection */
         $productCollection = $observer->getEvent()->getCollection();
         if ($productCollection instanceof Varien_Data_Collection) {
             $productCollection->load();

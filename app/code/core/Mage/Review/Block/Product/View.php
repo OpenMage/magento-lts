@@ -52,9 +52,10 @@ class Mage_Review_Block_Product_View extends Mage_Catalog_Block_Product_View
      * Reviews collection count will be jerked here
      *
      * @param Mage_Catalog_Model_Product $product
-     * @param string $templateType
+     * @param bool $templateType
      * @param bool $displayIfNoReviews
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getReviewsSummaryHtml(Mage_Catalog_Model_Product $product, $templateType = false, $displayIfNoReviews = false)
     {
@@ -69,6 +70,10 @@ class Mage_Review_Block_Product_View extends Mage_Catalog_Block_Product_View
             ;
     }
 
+    /**
+     * @return Mage_Review_Model_Resource_Review_Collection
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function getReviewsCollection()
     {
         if (null === $this->_reviewsCollection) {
