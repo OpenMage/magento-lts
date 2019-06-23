@@ -85,11 +85,13 @@ class Mage_Log_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstract
             $select = $readAdapter->select()
                 ->from(
                     array('visitor_table' => $this->getTable('log/visitor')),
-                    array('visitor_id' => 'visitor_table.visitor_id'))
+                    array('visitor_id' => 'visitor_table.visitor_id')
+                )
                 ->joinLeft(
                     array('customer_table' => $this->getTable('log/customer')),
                     'visitor_table.visitor_id = customer_table.visitor_id AND customer_table.log_id IS NULL',
-                    array())
+                    array()
+                )
                 ->where('visitor_table.last_visit_at < ?', $timeLimit)
                 ->limit(100);
 
@@ -147,12 +149,14 @@ class Mage_Log_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstract
         $select = $readAdapter->select()
             ->from(
                 array('log_customer_main' => $this->getTable('log/customer')),
-                array('log_id'))
+                array('log_id')
+            )
             ->joinLeft(
                 array('log_customer' => $this->getTable('log/customer')),
                 'log_customer_main.customer_id = log_customer.customer_id '
                     . 'AND log_customer_main.log_id < log_customer.log_id',
-                array())
+                array()
+            )
             ->where('log_customer.customer_id IS NULL')
             ->where('log_customer_main.log_id < ?', $lastLogId + 1);
 
@@ -168,7 +172,8 @@ class Mage_Log_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstract
             $select = $readAdapter->select()
                 ->from(
                     $this->getTable('log/customer'),
-                    array('log_id', 'visitor_id'))
+                    array('log_id', 'visitor_id')
+                )
                 ->where('log_id > ?', $customerLogId)
                 ->where('log_id < ?', $lastLogId + 1)
                 ->order('log_id')
@@ -229,11 +234,13 @@ class Mage_Log_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstract
             $select = $readAdapter->select()
                 ->from(
                     array('url_info_table' => $this->getTable('log/url_info_table')),
-                    array('url_id'))
+                    array('url_id')
+                )
                 ->joinLeft(
                     array('url_table' => $this->getTable('log/url_table')),
                     'url_info_table.url_id = url_table.url_id',
-                    array())
+                    array()
+                )
                 ->where('url_table.url_id IS NULL')
                 ->limit(100);
 

@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 
@@ -56,8 +56,10 @@ $table = $installer->getConnection()
         'unsigned'  => true,
         'nullable'  => false,
         ), 'Store ID')
-    ->addIndex($installer->getIdxName('log/customer', array('visitor_id')),
-        array('visitor_id'))
+    ->addIndex(
+        $installer->getIdxName('log/customer', array('visitor_id')),
+        array('visitor_id')
+    )
     ->setComment('Log Customers Table');
 $installer->getConnection()->createTable($table);
 
@@ -159,8 +161,10 @@ $table = $installer->getConnection()
     ->addColumn('visit_time', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
         'nullable'  => false,
         ), 'Visit Time')
-    ->addIndex($installer->getIdxName('log/url_table', array('visitor_id')),
-        array('visitor_id'))
+    ->addIndex(
+        $installer->getIdxName('log/url_table', array('visitor_id')),
+        array('visitor_id')
+    )
     ->setComment('Log URL Table');
 $installer->getConnection()->createTable($table);
 
@@ -268,12 +272,18 @@ $table = $installer->getConnection()
         ), 'Customer ID')
     ->addColumn('last_url', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
         ), 'Last URL')
-    ->addIndex($installer->getIdxName('log/visitor_online', array('visitor_type')),
-        array('visitor_type'))
-    ->addIndex($installer->getIdxName('log/visitor_online', array('first_visit_at', 'last_visit_at')),
-        array('first_visit_at', 'last_visit_at'))
-    ->addIndex($installer->getIdxName('log/visitor_online', array('customer_id')),
-        array('customer_id'))
+    ->addIndex(
+        $installer->getIdxName('log/visitor_online', array('visitor_type')),
+        array('visitor_type')
+    )
+    ->addIndex(
+        $installer->getIdxName('log/visitor_online', array('first_visit_at', 'last_visit_at')),
+        array('first_visit_at', 'last_visit_at')
+    )
+    ->addIndex(
+        $installer->getIdxName('log/visitor_online', array('customer_id')),
+        array('customer_id')
+    )
     ->setComment('Log Visitor Online Table');
 $installer->getConnection()->createTable($table);
 

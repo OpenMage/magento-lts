@@ -26,7 +26,7 @@
 
 
 /**
- * Log aggregation resource model 
+ * Log aggregation resource model
  *
  * @category    Mage
  * @package     Mage_Log
@@ -52,8 +52,10 @@ class Mage_Log_Model_Resource_Aggregation extends Mage_Core_Model_Resource_Db_Ab
     {
         $adapter    = $this->_getReadAdapter();
         $select     = $adapter->select()
-            ->from($this->getTable('log/summary_table'),
-                array($adapter->quoteIdentifier('date')=>'MAX(add_date)'));
+            ->from(
+                $this->getTable('log/summary_table'),
+                array($adapter->quoteIdentifier('date')=>'MAX(add_date)')
+            );
 
         return $adapter->fetchOne($select);
     }
@@ -129,7 +131,7 @@ class Mage_Log_Model_Resource_Aggregation extends Mage_Core_Model_Resource_Db_Ab
             'add_date < ?' => $date,
             'customer_count = 0',
             'visitor_count = 0'
-        ); 
+        );
         $adapter->delete($this->getTable('log/summary_table'), $condition);
     }
 

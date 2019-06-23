@@ -26,7 +26,7 @@
 
 
 /**
- * Log Prepare Online visitors resource 
+ * Log Prepare Online visitors resource
  *
  * @category    Mage
  * @package     Mage_Log
@@ -60,7 +60,7 @@ class Mage_Log_Model_Resource_Visitor_Online extends Mage_Core_Model_Resource_Db
 
         $writeAdapter->beginTransaction();
 
-        try{
+        try {
             $writeAdapter->delete($this->getMainTable());
 
             $visitors = array();
@@ -73,7 +73,8 @@ class Mage_Log_Model_Resource_Visitor_Online extends Mage_Core_Model_Resource_Db
             $select = $readAdapter->select()
                 ->from(
                     $this->getTable('log/visitor'),
-                    array('visitor_id', 'first_visit_at', 'last_visit_at', 'last_url_id'))
+                    array('visitor_id', 'first_visit_at', 'last_visit_at', 'last_url_id')
+                )
                 ->where('last_visit_at >= ?', $readAdapter->formatDate($lastDate));
 
             $query = $readAdapter->query($select);
@@ -93,7 +94,8 @@ class Mage_Log_Model_Resource_Visitor_Online extends Mage_Core_Model_Resource_Db
             $select = $readAdapter->select()
                 ->from(
                     $this->getTable('log/visitor_info'),
-                    array('visitor_id', 'remote_addr'))
+                    array('visitor_id', 'remote_addr')
+                )
                 ->where('visitor_id IN(?)', array_keys($visitors));
 
             $query = $readAdapter->query($select);
@@ -105,7 +107,8 @@ class Mage_Log_Model_Resource_Visitor_Online extends Mage_Core_Model_Resource_Db
             $select = $readAdapter->select()
                 ->from(
                     $this->getTable('log/url_info_table'),
-                    array('url_id', 'url'))
+                    array('url_id', 'url')
+                )
                 ->where('url_id IN(?)', array_keys($lastUrls));
 
             $query = $readAdapter->query($select);
@@ -118,7 +121,8 @@ class Mage_Log_Model_Resource_Visitor_Online extends Mage_Core_Model_Resource_Db
             $select = $readAdapter->select()
                 ->from(
                     $this->getTable('log/customer'),
-                    array('visitor_id', 'customer_id'))
+                    array('visitor_id', 'customer_id')
+                )
                 ->where('visitor_id IN(?)', array_keys($visitors));
 
             $query = $readAdapter->query($select);
