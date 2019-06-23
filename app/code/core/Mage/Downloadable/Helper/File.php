@@ -79,7 +79,9 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
             if ($file[0]['status'] == 'new') {
                 try {
                     $fileName = $this->_moveFileFromTmp(
-                        $baseTmpPath, $basePath, $file[0]['file']
+                        $baseTmpPath,
+                        $basePath,
+                        $file[0]['file']
                     );
                 } catch (Exception $e) {
                     Mage::throwException(Mage::helper('downloadable')->__('An error occurred while saving the file(s).'));
@@ -139,7 +141,7 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
     {
         $file = $this->_prepareFileForPath($file);
 
-        if(substr($file, 0, 1) == DS) {
+        if (substr($file, 0, 1) == DS) {
             return $path . DS . substr($file, 1);
         }
 
@@ -175,7 +177,7 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
     /**
      * Get MIME type for $filePath
      *
-     * @param $filePath
+     * @param string $filePath
      * @return string
      */
     public function getFileType($filePath)
@@ -187,7 +189,7 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
     /**
      * Get MIME type by file extension
      *
-     * @param $ext
+     * @param string $ext
      * @return string
      * @deprecated
      */
@@ -215,5 +217,4 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
     {
         return $this->_mimeTypes;
     }
-
 }

@@ -32,7 +32,6 @@
  * @package     Mage_Downloadable
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Downloadable_Model_Mysql4_Link_Purchased_Item_Collection
-    extends Mage_Downloadable_Model_Resource_Link_Purchased_Item_Collection
+class Mage_Downloadable_Model_Mysql4_Link_Purchased_Item_Collection extends Mage_Downloadable_Model_Resource_Link_Purchased_Item_Collection
 {
 }

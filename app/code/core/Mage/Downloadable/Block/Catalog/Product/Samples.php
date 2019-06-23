@@ -56,6 +56,10 @@ class Mage_Downloadable_Block_Catalog_Product_Samples extends Mage_Catalog_Block
             ->getSamples($this->getProduct());
     }
 
+    /**
+     * @param Mage_Downloadable_Model_Sample $sample
+     * @return string
+     */
     public function getSampleUrl($sample)
     {
         return $this->getUrl('downloadable/download/sample', array('sample_id' => $sample->getId()));

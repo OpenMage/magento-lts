@@ -30,9 +30,12 @@
  * @category    Mage
  * @package     Mage_Downloadable
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setCanEditPrice(bool $value)
+ * @method bool getCanReadPrice()
+ * @method $this setCanReadPrice(bool $value)
  */
-class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Links
-    extends Mage_Uploader_Block_Single
+class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Links extends Mage_Uploader_Block_Single
 {
     /**
      * Purchased Separately Attribute cache
@@ -151,6 +154,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     public function getLinkData()
     {
         $linkArr = array();
+        /** @var Mage_Downloadable_Model_Link[] $links */
         $links = $this->getProduct()->getTypeInstance(true)->getLinks($this->getProduct());
         $priceWebsiteScope = Mage::helper('downloadable')->getIsPriceWebsiteScope();
         foreach ($links as $item) {
@@ -168,7 +172,8 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
                 'sort_order' => $item->getSortOrder(),
             );
             $file = Mage::helper('downloadable/file')->getFilePath(
-                Mage_Downloadable_Model_Link::getBasePath(), $item->getLinkFile()
+                Mage_Downloadable_Model_Link::getBasePath(),
+                $item->getLinkFile()
             );
 
             if ($item->getLinkFile() && !is_file($file)) {
@@ -190,7 +195,8 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
                     ));
             }
             $sampleFile = Mage::helper('downloadable/file')->getFilePath(
-                Mage_Downloadable_Model_Link::getBaseSamplePath(), $item->getSampleFile()
+                Mage_Downloadable_Model_Link::getBaseSamplePath(),
+                $item->getSampleFile()
             );
             if ($item->getSampleFile() && is_file($sampleFile)) {
                 $tmpLinkItem['sample_file_save'] = array(
@@ -240,21 +246,21 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
      * Prepare block Layout
      *
      */
-     protected function _prepareLayout()
+    protected function _prepareLayout()
     {
         parent::_prepareLayout();
         $this->setChild(
             'upload_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')->addData(array(
-                'id'      => '',
-                'label'   => Mage::helper('adminhtml')->__('Upload Files'),
-                'type'    => 'button',
-                'onclick' => 'Downloadable.massUploadByType(\'links\');Downloadable.massUploadByType(\'linkssample\')'
+               'id'      => '',
+               'label'   => Mage::helper('adminhtml')->__('Upload Files'),
+               'type'    => 'button',
+               'onclick' => 'Downloadable.massUploadByType(\'links\');Downloadable.massUploadByType(\'linkssample\')'
             ))
         );
         $this->_addElementIdsMapping(array(
-            'container' => $this->getHtmlId() . '-new',
-            'delete'    => $this->getHtmlId() . '-delete'
+           'container' => $this->getHtmlId() . '-new',
+           'delete'    => $this->getHtmlId() . '-delete'
         ));
     }
 
@@ -271,9 +277,10 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     /**
      * Retrive config json
      *
+     * @param string $type
      * @return string
      */
-    public function getConfigJson($type='links')
+    public function getConfigJson($type = 'links')
     {
 
         $this->getUploaderConfig()
@@ -290,6 +297,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     }
 
     /**
+     * @param string $type
      * @return string
      */
     public function getBrowseButtonHtml($type = '')
@@ -306,6 +314,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
 
 
     /**
+     * @param string $type
      * @return string
      */
     public function getDeleteButtonHtml($type = '')

@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
+/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 
 $installer->startSetup();
 
@@ -50,10 +50,18 @@ CREATE TABLE `{$installer->getTable('downloadable/link_purchased')}` (
 ");
 
 $conn->addConstraint(
-    'FK_DOWNLOADABLE_ORDER_ITEM_ID', $installer->getTable('downloadable/link_purchased'), 'order_item_id', $installer->getTable('sales/order_item'), 'item_id'
+    'FK_DOWNLOADABLE_ORDER_ITEM_ID',
+    $installer->getTable('downloadable/link_purchased'),
+    'order_item_id',
+    $installer->getTable('sales/order_item'),
+    'item_id'
 );
 $conn->addConstraint(
-    'FK_DOWNLOADABLE_ORDER_ID', $installer->getTable('downloadable/link_purchased'), 'order_id', $installer->getTable('sales/order'), 'entity_id'
+    'FK_DOWNLOADABLE_ORDER_ID',
+    $installer->getTable('downloadable/link_purchased'),
+    'order_id',
+    $installer->getTable('sales/order'),
+    'entity_id'
 );
 
 $installer->endSetup();

@@ -33,6 +33,9 @@
  */
 class Mage_Downloadable_Model_System_Config_Source_Contentdisposition
 {
+    /**
+     * @return array
+     */
     public function toOptionArray()
     {
         return array(
@@ -47,4 +50,3 @@ class Mage_Downloadable_Model_System_Config_Source_Contentdisposition
         );
     }
 }
-

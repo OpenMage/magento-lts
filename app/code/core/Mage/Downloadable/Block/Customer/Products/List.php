@@ -30,10 +30,16 @@
  * @category    Mage
  * @package     Mage_Downloadable
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Downloadable_Model_Resource_Link_Purchased_Item_Collection getItems()
+ * @method $this setItems(Mage_Downloadable_Model_Resource_Link_Purchased_Item_Collection $value)
+ * @method Mage_Downloadable_Model_Resource_Link_Purchased_Collection getPurchased()
+ * @method $this setPurchased(Mage_Downloadable_Model_Resource_Link_Purchased_Collection $value)
+ * @method string getRefererUrl()
+ * @method $this setRefererUrl(string $value)
  */
 class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Template
 {
-
     /**
      * Class constructor
      */
@@ -46,6 +52,7 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
             ->addOrder('created_at', 'desc');
         $this->setPurchased($purchased);
         $purchasedIds = array();
+        /** @var Mage_Downloadable_Model_Link_Purchased_Item $_item */
         foreach ($purchased as $_item) {
             $purchasedIds[] = $_item->getId();
         }
@@ -54,7 +61,8 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
         }
         $purchasedItems = Mage::getResourceModel('downloadable/link_purchased_item_collection')
             ->addFieldToFilter('purchased_id', array('in' => $purchasedIds))
-            ->addFieldToFilter('status',
+            ->addFieldToFilter(
+                'status',
                 array(
                     'nin' => array(
                         Mage_Downloadable_Model_Link_Purchased_Item::LINK_STATUS_PENDING_PAYMENT,
@@ -79,6 +87,7 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
             ->setCollection($this->getItems());
         $this->setChild('pager', $pager);
         $this->getItems()->load();
+        /** @var Mage_Downloadable_Model_Link_Purchased_Item $item */
         foreach ($this->getItems() as $item) {
             $item->setPurchased($this->getPurchased()->getItemById($item->getPurchasedId()));
         }
@@ -112,6 +121,7 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
     /**
      * Return number of left downloads or unlimited
      *
+     * @param Mage_Downloadable_Model_Link_Purchased_Item $item
      * @return string
      */
     public function getRemainingDownloads($item)
@@ -143,5 +153,4 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
     {
         return Mage::getStoreConfigFlag(Mage_Downloadable_Model_Link::XML_PATH_TARGET_NEW_WINDOW);
     }
-
 }

@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sales Order downloadable items name column renderer
  *
@@ -34,7 +33,14 @@
  */
 class Mage_Downloadable_Block_Adminhtml_Sales_Items_Column_Downloadable_Name extends Mage_Adminhtml_Block_Sales_Items_Column_Name
 {
+    /**
+     * @var Mage_Downloadable_Model_Link_Purchased
+     */
     protected $_purchased = null;
+
+    /**
+     * @return Mage_Downloadable_Model_Link_Purchased
+     */
     public function getLinks()
     {
         $this->_purchased = Mage::getModel('downloadable/link_purchased')
@@ -45,6 +51,9 @@ class Mage_Downloadable_Block_Adminhtml_Sales_Items_Column_Downloadable_Name ext
         return $this->_purchased;
     }
 
+    /**
+     * @return string
+     */
     public function getLinksTitle()
     {
         if ($this->_purchased && $this->_purchased->getLinkSectionTitle()) {

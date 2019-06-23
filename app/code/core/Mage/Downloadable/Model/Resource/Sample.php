@@ -67,11 +67,15 @@ class Mage_Downloadable_Model_Resource_Sample extends Mage_Core_Model_Resource_D
             );
             if ($sampleObject->getUseDefaultTitle()) {
                 $writeAdapter->delete(
-                    $sampleTitleTable, $where);
+                    $sampleTitleTable,
+                    $where
+                );
             } else {
                 $writeAdapter->update(
                     $sampleTitleTable,
-                    array('title' => $sampleObject->getTitle()), $where);
+                    array('title' => $sampleObject->getTitle()),
+                    $where
+                );
             }
         } else {
             if (!$sampleObject->getUseDefaultTitle()) {
@@ -81,7 +85,8 @@ class Mage_Downloadable_Model_Resource_Sample extends Mage_Core_Model_Resource_D
                         'sample_id' => $sampleObject->getId(),
                         'store_id'  => (int)$sampleObject->getStoreId(),
                         'title'     => $sampleObject->getTitle(),
-                    ));
+                    )
+                );
             }
         }
         return $this;
@@ -105,9 +110,13 @@ class Mage_Downloadable_Model_Resource_Sample extends Mage_Core_Model_Resource_D
         }
         if ($where) {
             $writeAdapter->delete(
-                $this->getMainTable(), $where);
+                $this->getMainTable(),
+                $where
+            );
             $writeAdapter->delete(
-                $this->getTable('downloadable/sample_title'), $where);
+                $this->getTable('downloadable/sample_title'),
+                $where
+            );
         }
         return $this;
     }
@@ -128,11 +137,13 @@ class Mage_Downloadable_Model_Resource_Sample extends Mage_Core_Model_Resource_D
             ->join(
                 array('d' => $this->getTable('downloadable/sample_title')),
                 'd.sample_id=m.sample_id AND d.store_id=0',
-                array())
+                array()
+            )
             ->joinLeft(
                 array('st' => $this->getTable('downloadable/sample_title')),
                 'st.sample_id=m.sample_id AND st.store_id=:store_id',
-                array('title' => $ifNullDefaultTitle))
+                array('title' => $ifNullDefaultTitle)
+            )
             ->where('m.product_id=:product_id', $productId);
         $bind = array(
             ':store_id'   => (int)$storeId,

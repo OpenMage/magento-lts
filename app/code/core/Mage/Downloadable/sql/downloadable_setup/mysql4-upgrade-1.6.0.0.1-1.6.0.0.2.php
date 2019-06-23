@@ -29,9 +29,9 @@ if (file_exists($installFile)) {
     include $installFile;
 }
 
-/** @var $installer Mage_Catalog_Model_Resource_Setup */
+/** @var Mage_Catalog_Model_Resource_Setup $installer */
 $installer = $this;
-/** @var $connection Varien_Db_Adapter_Pdo_Mysql */
+/** @var Varien_Db_Adapter_Pdo_Mysql $connection */
 $connection = $installer->getConnection();
 $connection->changeTableEngine(
     $installer->getTable('downloadable/product_price_indexer_tmp'),

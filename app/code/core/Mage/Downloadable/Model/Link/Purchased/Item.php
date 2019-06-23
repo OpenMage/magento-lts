@@ -29,36 +29,39 @@
  *
  * @method Mage_Downloadable_Model_Resource_Link_Purchased_Item _getResource()
  * @method Mage_Downloadable_Model_Resource_Link_Purchased_Item getResource()
+ * @method Mage_Downloadable_Model_Resource_Link_Purchased_Item_Collection getCollection()
+ *
  * @method int getPurchasedId()
- * @method Mage_Downloadable_Model_Link_Purchased_Item setPurchasedId(int $value)
+ * @method $this setPurchasedId(int $value)
  * @method int getOrderItemId()
- * @method Mage_Downloadable_Model_Link_Purchased_Item setOrderItemId(int $value)
+ * @method $this setOrderItemId(int $value)
  * @method int getProductId()
- * @method Mage_Downloadable_Model_Link_Purchased_Item setProductId(int $value)
+ * @method $this setProductId(int $value)
  * @method string getLinkHash()
- * @method Mage_Downloadable_Model_Link_Purchased_Item setLinkHash(string $value)
+ * @method $this setLinkHash(string $value)
  * @method int getNumberOfDownloadsBought()
- * @method Mage_Downloadable_Model_Link_Purchased_Item setNumberOfDownloadsBought(int $value)
+ * @method $this setNumberOfDownloadsBought(int $value)
  * @method int getNumberOfDownloadsUsed()
- * @method Mage_Downloadable_Model_Link_Purchased_Item setNumberOfDownloadsUsed(int $value)
+ * @method $this setNumberOfDownloadsUsed(int $value)
  * @method int getLinkId()
- * @method Mage_Downloadable_Model_Link_Purchased_Item setLinkId(int $value)
+ * @method $this setLinkId(int $value)
  * @method string getLinkTitle()
- * @method Mage_Downloadable_Model_Link_Purchased_Item setLinkTitle(string $value)
+ * @method $this setLinkTitle(string $value)
  * @method int getIsShareable()
- * @method Mage_Downloadable_Model_Link_Purchased_Item setIsShareable(int $value)
+ * @method $this setIsShareable(int $value)
  * @method string getLinkUrl()
- * @method Mage_Downloadable_Model_Link_Purchased_Item setLinkUrl(string $value)
+ * @method $this setLinkUrl(string $value)
  * @method string getLinkFile()
- * @method Mage_Downloadable_Model_Link_Purchased_Item setLinkFile(string $value)
+ * @method $this setLinkFile(string $value)
  * @method string getLinkType()
- * @method Mage_Downloadable_Model_Link_Purchased_Item setLinkType(string $value)
+ * @method $this setLinkType(string $value)
  * @method string getStatus()
- * @method Mage_Downloadable_Model_Link_Purchased_Item setStatus(string $value)
+ * @method $this setStatus(string $value)
  * @method string getCreatedAt()
- * @method Mage_Downloadable_Model_Link_Purchased_Item setCreatedAt(string $value)
+ * @method $this setCreatedAt(string $value)
  * @method string getUpdatedAt()
- * @method Mage_Downloadable_Model_Link_Purchased_Item setUpdatedAt(string $value)
+ * @method $this setUpdatedAt(string $value)
+ * @method Mage_Sales_Model_Order getOrder()
  *
  * @category    Mage
  * @package     Mage_Downloadable
@@ -93,9 +96,9 @@ class Mage_Downloadable_Model_Link_Purchased_Item extends Mage_Core_Model_Abstra
     {
         if (null == $this->getOrderItemId()) {
             throw new Exception(
-                Mage::helper('downloadable')->__('Order item id cannot be null'));
+                Mage::helper('downloadable')->__('Order item id cannot be null')
+            );
         }
         return parent::_beforeSave();
     }
-
 }

@@ -31,7 +31,6 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Downloadable
-    extends Mage_Downloadable_Block_Catalog_Product_Links
+class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Downloadable extends Mage_Downloadable_Block_Catalog_Product_Links
 {
 }

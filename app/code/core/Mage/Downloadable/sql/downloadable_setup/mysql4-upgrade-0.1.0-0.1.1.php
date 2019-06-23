@@ -25,14 +25,14 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
+/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $this */
 
 $installer->startSetup();
 // make attribute 'weight' not applicable to downloadable products
 $applyTo = explode(',', $installer->getAttribute('catalog_product', 'weight', 'apply_to'));
 if (in_array('downloadable', $applyTo)) {
     $newApplyTo = array();
-    foreach ($applyTo as $key=>$value) {
+    foreach ($applyTo as $key => $value) {
         if ($value != 'downloadable') {
             $newApplyTo[] = $value;
         }
