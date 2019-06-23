@@ -45,7 +45,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * DB connection.
      *
-     * @var Varien_Adapter_Interface
+     * @var Varien_Convert_Adapter_Interface
      */
     protected $_connection;
 
@@ -59,7 +59,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * DB data source model.
      *
-     * @var Mage_ImportExport_Model_Mysql4_Import_Data
+     * @var Mage_ImportExport_Model_Resource_Import_Data
      */
     protected $_dataSourceModel;
 
@@ -262,7 +262,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Validate data rows and save bunches to DB.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Abstract
+     * @return Mage_ImportExport_Model_Import_Entity_Abstract|void
      */
     protected function _saveValidatedBunches()
     {
@@ -323,7 +323,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
      * @param string $errorCode Error code or simply column name
      * @param int $errorRowNum Row number.
      * @param string $colName OPTIONAL Column name.
-     * @return Mage_ImportExport_Model_Import_Adapter_Abstract
+     * @return Mage_ImportExport_Model_Import_Entity_Abstract
      */
     public function addRowError($errorCode, $errorRowNum, $colName = null)
     {

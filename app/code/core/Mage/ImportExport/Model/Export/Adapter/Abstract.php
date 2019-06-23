@@ -30,6 +30,10 @@
  * @category    Mage
  * @package     Mage_ImportExport
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @property resource $_fileHandler
+ * @property string $_delimiter
+ * @property string $_enclosure
  */
 abstract class Mage_ImportExport_Model_Export_Adapter_Abstract
 {

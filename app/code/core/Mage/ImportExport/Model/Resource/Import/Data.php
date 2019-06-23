@@ -31,9 +31,7 @@
  * @package     Mage_ImportExport
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_ImportExport_Model_Resource_Import_Data
-    extends Mage_Core_Model_Resource_Db_Abstract
-    implements IteratorAggregate
+class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resource_Db_Abstract implements IteratorAggregate
 {
     /**
      * @var IteratorIterator
@@ -76,7 +74,7 @@ class Mage_ImportExport_Model_Resource_Import_Data
     /**
      * Clean all bunches from table.
      *
-     * @return Varien_Db_Adapter_Interface
+     * @return int
      */
     public function cleanBunches()
     {

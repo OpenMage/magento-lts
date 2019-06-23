@@ -160,9 +160,9 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
      */
     protected function _importData()
     {
-        /** @var $customer Mage_Customer_Model_Customer */
+        /** @var Mage_Customer_Model_Customer $customer */
         $customer       = Mage::getModel('customer/customer');
-        /** @var $resource Mage_Customer_Model_Address */
+        /** @var Mage_Customer_Model_Address $resource */
         $resource       = Mage::getModel('customer/address');
         $strftimeFormat = Varien_Date::convertZendToStrftime(Varien_Date::DATETIME_INTERNAL_FORMAT, true, true);
         $table          = $resource->getResource()->getEntityTable();
@@ -170,7 +170,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
         $customerId     = null;
         $regionColName  = self::getColNameForAttrCode('region');
         $countryColName = self::getColNameForAttrCode('country_id');
-        /** @var $regionIdAttr Mage_Customer_Model_Attribute */
+        /** @var Mage_Customer_Model_Attribute $regionIdAttr */
         $regionIdAttr   = Mage::getSingleton('eav/config')->getAttribute($this->getEntityTypeCode(), 'region_id');
         $regionIdTable  = $regionIdAttr->getBackend()->getTable();
         $regionIdAttrId = $regionIdAttr->getId();
@@ -197,7 +197,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
                     continue;
                 }
 
-                /** @var $addressCollection Mage_Customer_Model_Resource_Address_Collection */
+                /** @var Mage_Customer_Model_Resource_Address_Collection $addressCollection */
                 $addressCollection = Mage::getResourceModel('customer/address_collection');
                 $addressCollection->addAttributeToFilter('parent_id', $customerId);
 
@@ -485,7 +485,9 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
                     $rowIsValid &= $this->_customer->isAttributeValid($colName, $attrParams, $rowData, $rowNum);
                 } elseif ($attrParams['is_required']) {
                     $this->_customer->addRowError(
-                        Mage_ImportExport_Model_Import_Entity_Customer::ERROR_VALUE_IS_REQUIRED, $rowNum, $colName
+                        Mage_ImportExport_Model_Import_Entity_Customer::ERROR_VALUE_IS_REQUIRED,
+                        $rowNum,
+                        $colName
                     );
                     $rowIsValid = false;
                 }
@@ -514,7 +516,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
     /**
      * Get current scope
      *
-     * @param $rowData
+     * @param array $rowData
      * @return int
      */
     protected function _getRowScope($rowData)

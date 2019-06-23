@@ -251,7 +251,8 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
             if ($idToDelete) {
                 $this->_connection->query(
                     $this->_connection->quoteInto(
-                        "DELETE FROM `{$this->_entityTable}` WHERE `entity_id` IN (?)", $idToDelete
+                        "DELETE FROM `{$this->_entityTable}` WHERE `entity_id` IN (?)",
+                        $idToDelete
                     )
                 );
             }
@@ -284,6 +285,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
     protected function _initAttributes()
     {
         $collection = Mage::getResourceModel('customer/attribute_collection')->addSystemHiddenFilterWithPasswordHash();
+        /** @var Mage_Eav_Model_Attribute $attribute */
         foreach ($collection as $attribute) {
             $attributeArray = array(
                 'id'          => $attribute->getId(),
@@ -356,7 +358,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
      */
     protected function _initWebsites()
     {
-        /** @var $website Mage_Core_Model_Website */
+        /** @var Mage_Core_Model_Website $website */
         foreach (Mage::app()->getWebsites(true) as $website) {
             $this->_websiteCodeToId[$website->getCode()] = $website->getId();
             $this->_websiteIdToCode[$website->getId()]   = $website->getCode();
@@ -371,7 +373,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
      */
     protected function _saveCustomers()
     {
-        /** @var $resource Mage_Customer_Model_Customer */
+        /** @var Mage_Customer_Model_Customer $resource */
         $resource       = Mage::getModel('customer/customer');
         $strftimeFormat = Varien_Date::convertZendToStrftime(Varien_Date::DATETIME_INTERNAL_FORMAT, true, true);
         $table = $resource->getResource()->getEntityTable();
@@ -422,7 +424,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                     // attribute values
                     foreach (array_intersect_key($rowData, $this->_attributes) as $attrCode => $value) {
                         if (!$this->_attributes[$attrCode]['is_static'] && strlen($value)) {
-                            /** @var $attribute Mage_Customer_Model_Attribute */
+                            /** @var Mage_Customer_Model_Attribute $attribute */
                             $attribute  = $resource->getAttribute($attrCode);
                             $backModel  = $attribute->getBackendModel();
                             $attrParams = $this->_attributes[$attrCode];

@@ -43,7 +43,7 @@ class Mage_ImportExport_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Res
     /**
      * Returns maximum size of packet, that we can send to DB
      *
-     * @return int
+     * @return float
      */
     public function getMaxDataSize()
     {
@@ -55,8 +55,9 @@ class Mage_ImportExport_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Res
     /**
      * Returns next autoincrement value for a table
      *
-     * @param string $table Real table name in DB
+     * @param string $tableName
      * @return int
+     * @throws Mage_Core_Exception
      */
     public function getNextAutoincrement($tableName)
     {

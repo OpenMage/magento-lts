@@ -31,7 +31,6 @@
  * @package     Mage_ImportExport
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_ImportExport_Model_Export_Entity_Product_Type_Configurable
-    extends Mage_ImportExport_Model_Export_Entity_Product_Type_Abstract
+class Mage_ImportExport_Model_Export_Entity_Product_Type_Configurable extends Mage_ImportExport_Model_Export_Entity_Product_Type_Abstract
 {
 }

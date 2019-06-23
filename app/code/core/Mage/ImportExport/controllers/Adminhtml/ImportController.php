@@ -97,9 +97,9 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
         if ($data) {
             $this->loadLayout(false);
 
-            /** @var $resultBlock Mage_ImportExport_Block_Adminhtml_Import_Frame_Result */
+            /** @var Mage_ImportExport_Block_Adminhtml_Import_Frame_Result $resultBlock */
             $resultBlock = $this->getLayout()->getBlock('import.frame.result');
-            /** @var $importModel Mage_ImportExport_Model_Import */
+            /** @var Mage_ImportExport_Model_Import $importModel */
             $importModel = Mage::getModel('importexport/import');
 
             try {
@@ -130,17 +130,16 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
         $data = $this->getRequest()->getPost();
         if ($data) {
             $this->loadLayout(false);
-            /** @var $resultBlock Mage_ImportExport_Block_Adminhtml_Import_Frame_Result */
+            /** @var Mage_ImportExport_Block_Adminhtml_Import_Frame_Result $resultBlock */
             $resultBlock = $this->getLayout()->getBlock('import.frame.result');
             // common actions
             $resultBlock->addAction('show', 'import_validation_container')
                 ->addAction('clear', array(
                     Mage_ImportExport_Model_Import::FIELD_NAME_SOURCE_FILE,
-                    Mage_ImportExport_Model_Import::FIELD_NAME_IMG_ARCHIVE_FILE)
-                );
+                    Mage_ImportExport_Model_Import::FIELD_NAME_IMG_ARCHIVE_FILE));
 
             try {
-                /** @var $import Mage_ImportExport_Model_Import */
+                /** @var Mage_ImportExport_Model_Import $import */
                 $import = Mage::getModel('importexport/import');
                 $validationResult = $import->validateSource($import->setData($data)->uploadSource());
 
@@ -164,7 +163,8 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
                                 );
                             } else {
                                 $resultBlock->addNotice(
-                                    $this->__('File is partially valid, but import is not possible'), false
+                                    $this->__('File is partially valid, but import is not possible'),
+                                    false
                                 );
                             }
                         }
@@ -176,11 +176,13 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
                     } else {
                         if ($import->isImportAllowed()) {
                             $resultBlock->addSuccess(
-                                $this->__('File is valid! To start import process press "Import" button'), true
+                                $this->__('File is valid! To start import process press "Import" button'),
+                                true
                             );
                         } else {
                             $resultBlock->addError(
-                                $this->__('File is valid, but import is not possible'), false
+                                $this->__('File is valid, but import is not possible'),
+                                false
                             );
                         }
                     }
