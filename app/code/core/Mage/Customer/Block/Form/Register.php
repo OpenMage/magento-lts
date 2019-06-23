@@ -28,6 +28,11 @@
  * Customer register form block
  *
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setBackUrl(string $value)
+ * @method $this setErrorUrl(string $value)
+ * @method $this setShowAddressFields(bool $value)
+ * @method $this setSuccessUrl(string $value)
  */
 class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
 {
@@ -117,7 +122,7 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
     {
         if (false !== ($region = $this->getFormData()->getRegion())) {
             return $region;
-        } else if (false !== ($region = $this->getFormData()->getRegionId())) {
+        } elseif (false !== ($region = $this->getFormData()->getRegionId())) {
             return $region;
         }
         return null;

@@ -204,19 +204,19 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                     if ($referer) {
                         // Rebuild referer URL to handle the case when SID was changed
                         $referer = $this->_getModel('core/url')
-                            ->getRebuiltUrl( $this->_getHelper('core')->urlDecodeAndEscape($referer));
+                            ->getRebuiltUrl($this->_getHelper('core')->urlDecodeAndEscape($referer));
                         if ($this->_isUrlInternal($referer)) {
                             $session->setBeforeAuthUrl($referer);
                         }
                     }
-                } else if ($session->getAfterAuthUrl()) {
+                } elseif ($session->getAfterAuthUrl()) {
                     $session->setBeforeAuthUrl($session->getAfterAuthUrl(true));
                 }
             } else {
-                $session->setBeforeAuthUrl( $this->_getHelper('customer')->getLoginUrl());
+                $session->setBeforeAuthUrl($this->_getHelper('customer')->getLoginUrl());
             }
-        } else if ($session->getBeforeAuthUrl() ==  $this->_getHelper('customer')->getLogoutUrl()) {
-            $session->setBeforeAuthUrl( $this->_getHelper('customer')->getDashboardUrl());
+        } elseif ($session->getBeforeAuthUrl() ==  $this->_getHelper('customer')->getLogoutUrl()) {
+            $session->setBeforeAuthUrl($this->_getHelper('customer')->getDashboardUrl());
         } else {
             if (!$session->getAfterAuthUrl()) {
                 $session->setAfterAuthUrl($session->getBeforeAuthUrl());
@@ -346,8 +346,10 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             );
             /** @var Mage_Customer_Helper_Data $customerHelper */
             $customerHelper = $this->_getHelper('customer');
-            $session->addSuccess($this->__('Account confirmation is required. Please, check your email for the confirmation link. To resend the confirmation email please <a href="%s">click here</a>.',
-                $customerHelper->getEmailConfirmationUrl($customer->getEmail())));
+            $session->addSuccess($this->__(
+                'Account confirmation is required. Please, check your email for the confirmation link. To resend the confirmation email please <a href="%s">click here</a>.',
+                $customerHelper->getEmailConfirmationUrl($customer->getEmail())
+            ));
             $url = $this->_getUrl('*/*/index', array('_secure' => true));
         } else {
             $session->setCustomerAsLoggedIn($customer);
@@ -563,12 +565,16 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             $userPrompt = '';
             switch ($configAddressType) {
                 case Mage_Customer_Model_Address_Abstract::TYPE_SHIPPING:
-                    $userPrompt = $this->__('If you are a registered VAT customer, please click <a href="%s">here</a> to enter you shipping address for proper VAT calculation',
-                        $this->_getUrl('customer/address/edit'));
+                    $userPrompt = $this->__(
+                        'If you are a registered VAT customer, please click <a href="%s">here</a> to enter you shipping address for proper VAT calculation',
+                        $this->_getUrl('customer/address/edit')
+                    );
                     break;
                 default:
-                    $userPrompt = $this->__('If you are a registered VAT customer, please click <a href="%s">here</a> to enter you billing address for proper VAT calculation',
-                        $this->_getUrl('customer/address/edit'));
+                    $userPrompt = $this->__(
+                        'If you are a registered VAT customer, please click <a href="%s">here</a> to enter you billing address for proper VAT calculation',
+                        $this->_getUrl('customer/address/edit')
+                    );
             }
             $this->_getSession()->addSuccess($userPrompt);
         }
@@ -773,9 +779,11 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 }
             }
             $this->_getSession()
-                ->addSuccess( $this->_getHelper('customer')
-                ->__('If there is an account associated with %s you will receive an email with a link to reset your password.',
-                    $this->_getHelper('customer')->escapeHtml($email)));
+                ->addSuccess($this->_getHelper('customer')
+                ->__(
+                    'If there is an account associated with %s you will receive an email with a link to reset your password.',
+                    $this->_getHelper('customer')->escapeHtml($email)
+                ));
             $this->_redirect('*/*/');
             return;
         } else {

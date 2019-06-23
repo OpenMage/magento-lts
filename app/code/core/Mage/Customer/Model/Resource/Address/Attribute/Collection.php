@@ -32,8 +32,7 @@
  * @package     Mage_Customer
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Customer_Model_Resource_Address_Attribute_Collection
-    extends Mage_Customer_Model_Resource_Attribute_Collection
+class Mage_Customer_Model_Resource_Address_Attribute_Collection extends Mage_Customer_Model_Resource_Attribute_Collection
 {
     /**
      * Default attribute entity type code

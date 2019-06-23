@@ -30,6 +30,11 @@
  * @category   Mage
  * @package    Mage_Customer
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setBackUrl(string $value)
+ * @method $this setErrorUrl(string $value)
+ * @method $this setSuccessUrl(string $value)
+ * @method $this setTitle(string $value)
  */
 class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
 {

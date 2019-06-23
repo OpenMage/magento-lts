@@ -95,11 +95,11 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
 
         $result = array();
 
-        foreach ($this->_mapAttributes as $attributeAlias=>$attributeCode) {
+        foreach ($this->_mapAttributes as $attributeAlias => $attributeCode) {
             $result[$attributeAlias] = $customer->getData($attributeCode);
         }
 
-        foreach ($this->getAllowedAttributes($customer, $attributes) as $attributeCode=>$attribute) {
+        foreach ($this->getAllowedAttributes($customer, $attributes) as $attributeCode => $attribute) {
             $result[$attributeCode] = $customer->getData($attributeCode);
         }
 
@@ -161,7 +161,7 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
             $this->_fault('not_exists');
         }
 
-        foreach ($this->getAllowedAttributes($customer) as $attributeCode=>$attribute) {
+        foreach ($this->getAllowedAttributes($customer) as $attributeCode => $attribute) {
             if (isset($customerData[$attributeCode])) {
                 $customer->setData($attributeCode, $customerData[$attributeCode]);
             }

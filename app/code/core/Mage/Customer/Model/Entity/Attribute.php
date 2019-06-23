@@ -31,6 +31,8 @@
  * @category    Mage
  * @package     Mage_Customer
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method int getId()
  */
 class Mage_Customer_Model_Entity_Attribute extends Mage_Customer_Model_Resource_Attribute
 {

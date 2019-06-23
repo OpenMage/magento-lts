@@ -107,7 +107,7 @@ class Mage_Customer_Block_Account_Dashboard extends Mage_Core_Block_Template
      */
     public function getSubscriptionObject()
     {
-        if(is_null($this->_subscription)) {
+        if (is_null($this->_subscription)) {
             $this->_subscription = Mage::getModel('newsletter/subscriber')->loadByCustomer($this->getCustomer());
         }
 
@@ -127,7 +127,7 @@ class Mage_Customer_Block_Account_Dashboard extends Mage_Core_Block_Template
      */
     public function getSubscriptionText()
     {
-        if($this->getSubscriptionObject()->isSubscribed()) {
+        if ($this->getSubscriptionObject()->isSubscribed()) {
             return Mage::helper('customer')->__('You are currently subscribed to our newsletter.');
         }
 

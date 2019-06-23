@@ -83,8 +83,10 @@ class Mage_Customer_Model_Flowpassword extends Mage_Core_Model_Abstract
         if (in_array($helper->getCustomerForgotPasswordFlowSecure(), $checkForgotPasswordFlowTypes)) {
             $forgotPassword = $this->getCollection()
                 ->addFieldToFilter('email', array('eq' => $email))
-                ->addFieldToFilter('requested_date',
-                    array('gt' => Mage::getModel('core/date')->date(null, '-1 day')));
+                ->addFieldToFilter(
+                    'requested_date',
+                    array('gt' => Mage::getModel('core/date')->date(null, '-1 day'))
+                );
 
             if ($forgotPassword->getSize() > $helper->getCustomerForgotPasswordEmailTimes()) {
                 return false;
@@ -111,8 +113,10 @@ class Mage_Customer_Model_Flowpassword extends Mage_Core_Model_Abstract
         if (in_array($helper->getCustomerForgotPasswordFlowSecure(), $checkForgotPasswordFlowTypes) && $remoteAddr) {
             $forgotPassword = $this->getCollection()
                 ->addFieldToFilter('ip', array('eq' => $remoteAddr))
-                ->addFieldToFilter('requested_date',
-                    array('gt' => Mage::getModel('core/date')->date(null, '-1 hour')));
+                ->addFieldToFilter(
+                    'requested_date',
+                    array('gt' => Mage::getModel('core/date')->date(null, '-1 hour'))
+                );
 
             if ($forgotPassword->getSize() > $helper->getCustomerForgotPasswordIpTimes()) {
                 return false;

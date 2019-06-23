@@ -32,7 +32,6 @@
  * @package     Mage_Customer
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Customer_Model_Entity_Address_Attribute_Backend_Street
-    extends Mage_Customer_Model_Resource_Address_Attribute_Backend_Street
+class Mage_Customer_Model_Entity_Address_Attribute_Backend_Street extends Mage_Customer_Model_Resource_Address_Attribute_Backend_Street
 {
 }

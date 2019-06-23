@@ -25,8 +25,7 @@
  */
 
 
-class Mage_Customer_Model_Convert_Adapter_Customer
-    extends Mage_Eav_Model_Convert_Adapter_Entity
+class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Convert_Adapter_Entity
 {
     const MULTI_DELIMITER = ' , ';
 
@@ -76,7 +75,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer
     /**
      * Retrieve customer model cache
      *
-     * @return Mage_Customer_Model_Customer
+     * @return Mage_Customer_Model_Customer|object
      */
     public function getCustomerModel()
     {
@@ -90,7 +89,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer
     /**
      * Retrieve customer address model cache
      *
-     * @return Mage_Customer_Model_Address
+     * @return Mage_Customer_Model_Address|object
      */
     public function getBillingAddressModel()
     {
@@ -104,7 +103,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer
     /**
      * Retrieve customer address model cache
      *
-     * @return Mage_Customer_Model_Address
+     * @return Mage_Customer_Model_Address|object
      */
     public function getShippingAddressModel()
     {
@@ -370,7 +369,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer
     }
 
     /**
-     * @return Mage_Customer_Model_Customer
+     * @return Mage_Customer_Model_Customer|object
      */
     public function getCustomer()
     {
@@ -395,7 +394,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer
             $this->addException(Mage::helper('customer')->__('No customer collections found'), Mage_Dataflow_Model_Convert_Exception::FATAL);
         }
 
-        foreach ($collections as $storeId=>$collection) {
+        foreach ($collections as $storeId => $collection) {
             $this->addException(Mage::helper('customer')->__('Records for %s store found.', $stores[$storeId]));
 
             if (!$collection instanceof Mage_Customer_Model_Entity_Customer_Collection) {
@@ -423,8 +422,10 @@ class Mage_Customer_Model_Convert_Adapter_Customer
                 $this->addException(Mage::helper('customer')->__("Saved %d record(s)", $i));
             } catch (Exception $e) {
                 if (!$e instanceof Mage_Dataflow_Model_Convert_Exception) {
-                    $this->addException(Mage::helper('customer')->__('An error occurred while saving the collection, aborting. Error: %s', $e->getMessage()),
-                        Mage_Dataflow_Model_Convert_Exception::FATAL);
+                    $this->addException(
+                        Mage::helper('customer')->__('An error occurred while saving the collection, aborting. Error: %s', $e->getMessage()),
+                        Mage_Dataflow_Model_Convert_Exception::FATAL
+                    );
                 }
             }
         }

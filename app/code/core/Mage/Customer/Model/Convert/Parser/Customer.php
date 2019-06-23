@@ -25,8 +25,7 @@
  */
 
 
-class Mage_Customer_Model_Convert_Parser_Customer
-    extends Mage_Eav_Model_Convert_Parser_Abstract
+class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert_Parser_Abstract
 {
     const MULTI_DELIMITER = ' , ';
 
@@ -77,7 +76,7 @@ class Mage_Customer_Model_Convert_Parser_Customer
     /**
      * Retrieve customer model cache
      *
-     * @return Mage_Customer_Model_Customer
+     * @return Mage_Customer_Model_Customer|object
      */
     public function getCustomerModel()
     {
@@ -91,7 +90,7 @@ class Mage_Customer_Model_Convert_Parser_Customer
     /**
      * Retrieve customer address model cache
      *
-     * @return Mage_Customer_Model_Address
+     * @return Mage_Customer_Model_Address|object
      */
     public function getCustomerAddressModel()
     {
@@ -105,7 +104,7 @@ class Mage_Customer_Model_Convert_Parser_Customer
     /**
      * Retrieve newsletter subscribers model cache
      *
-     * @return Mage_Newsletter_Model_Subscriber
+     * @return Mage_Newsletter_Model_Subscriber|object
      */
     public function getNewsletterModel()
     {
@@ -149,7 +148,7 @@ class Mage_Customer_Model_Convert_Parser_Customer
     }
 
     /**
-     * @param $storeId
+     * @param int $storeId
      * @return Mage_Core_Model_Store|bool
      */
     public function getStoreById($storeId)
@@ -229,7 +228,7 @@ class Mage_Customer_Model_Convert_Parser_Customer
     public function unparse()
     {
         $systemFields = array();
-        foreach ($this->getFields() as $code=>$node) {
+        foreach ($this->getFields() as $code => $node) {
             if ($node->is('system')) {
                 $systemFields[] = $code;
             }
@@ -292,7 +291,7 @@ class Mage_Customer_Model_Convert_Parser_Customer
             $customerAddress = $this->getCustomerAddressModel();
 
             if (!$defaultBillingId) {
-                foreach ($this->getFields() as $code=>$node) {
+                foreach ($this->getFields() as $code => $node) {
                     if ($node->is('billing')) {
                         $row['billing_'.$code] = null;
                     }
@@ -300,7 +299,7 @@ class Mage_Customer_Model_Convert_Parser_Customer
             } else {
                 $customerAddress->load($defaultBillingId);
 
-                foreach ($this->getFields() as $code=>$node) {
+                foreach ($this->getFields() as $code => $node) {
                     if ($node->is('billing')) {
                         $row['billing_'.$code] = $customerAddress->getDataUsingMethod($code);
                     }
@@ -308,7 +307,7 @@ class Mage_Customer_Model_Convert_Parser_Customer
             }
 
             if (!$defaultShippingId) {
-                foreach ($this->getFields() as $code=>$node) {
+                foreach ($this->getFields() as $code => $node) {
                     if ($node->is('shipping')) {
                         $row['shipping_'.$code] = null;
                     }
@@ -317,7 +316,7 @@ class Mage_Customer_Model_Convert_Parser_Customer
                 if ($defaultShippingId != $defaultBillingId) {
                     $customerAddress->load($defaultShippingId);
                 }
-                foreach ($this->getFields() as $code=>$node) {
+                foreach ($this->getFields() as $code => $node) {
                     if ($node->is('shipping')) {
                         $row['shipping_'.$code] = $customerAddress->getDataUsingMethod($code);
                     }
@@ -337,7 +336,7 @@ class Mage_Customer_Model_Convert_Parser_Customer
                 && $newsletter->getSubscriberStatus() == Mage_Newsletter_Model_Subscriber::STATUS_SUBSCRIBED)
                 ? 1 : 0;
 
-            if($customer->getGroupId()){
+            if ($customer->getGroupId()) {
                 $groupCode = $this->_getCustomerGroupCode($customer);
                 if (is_null($groupCode)) {
                     $this->addException(
@@ -443,6 +442,7 @@ class Mage_Customer_Model_Convert_Parser_Customer
             $groups = Mage::getResourceModel('customer/group_collection')
                     ->load();
 
+            /** @var Mage_Customer_Model_Group $group */
             foreach ($groups as $group) {
                 $this->_customerGroups[$group->getId()] = $group->getData('customer_group_code');
             }
@@ -464,7 +464,7 @@ class Mage_Customer_Model_Convert_Parser_Customer
 
         $entityTypeId = Mage::getSingleton('eav/config')->getEntityType('customer')->getId();
         $result = array();
-        foreach ($data as $i=>$row) {
+        foreach ($data as $i => $row) {
             $this->setPosition('Line: '.($i+1));
             try {
                 // validate SKU
@@ -537,7 +537,7 @@ class Mage_Customer_Model_Convert_Parser_Customer
                     if (!empty($row['entity_id'])) {
                         $model->load($row['entity_id']);
                     }
-                    foreach ($row as $field=>$value) {
+                    foreach ($row as $field => $value) {
                         $attribute = $entity->getAttribute($field);
                         if (!$attribute) {
                             continue;
@@ -580,6 +580,7 @@ class Mage_Customer_Model_Convert_Parser_Customer
                         ->addRegionNameFilter($row['billing_region'])
                         ->load();
                     if ($regions) {
+                        /** @var Mage_Directory_Model_Region $region */
                         foreach ($regions as $region) {
                             $regionId = $region->getId();
                         }

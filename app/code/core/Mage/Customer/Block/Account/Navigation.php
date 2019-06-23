@@ -51,7 +51,7 @@ class Mage_Customer_Block_Account_Navigation extends Mage_Core_Block_Template
      * @param array $urlParams
      * @return $this
      */
-    public function addLink($name, $path, $label, $urlParams=array())
+    public function addLink($name, $path, $label, $urlParams = array())
     {
         $this->_links[$name] = new Varien_Object(array(
             'name' => $name,

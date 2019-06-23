@@ -46,12 +46,18 @@ $table = $installer->getConnection()
         'nullable' => false,
         'default'  => '0000-00-00 00:00:00',
     ), 'Requested date for change')
-    ->addIndex($installer->getIdxName('customer/flowpassword', array('email')),
-        array('email'))
-    ->addIndex($installer->getIdxName('customer/flowpassword', array('ip')),
-        array('ip'))
-    ->addIndex($installer->getIdxName('customer/flowpassword', array('requested_date')),
-        array('requested_date'))
+    ->addIndex(
+        $installer->getIdxName('customer/flowpassword', array('email')),
+        array('email')
+    )
+    ->addIndex(
+        $installer->getIdxName('customer/flowpassword', array('ip')),
+        array('ip')
+    )
+    ->addIndex(
+        $installer->getIdxName('customer/flowpassword', array('requested_date')),
+        array('requested_date')
+    )
     ->setComment('Customer flow password');
 $installer->getConnection()->createTable($table);
 

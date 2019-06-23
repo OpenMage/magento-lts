@@ -24,13 +24,15 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Customers collection
  *
  * @category    Mage
  * @package     Mage_Customer
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Customer_Model_Address getItemById(int $value)
+ * @method Mage_Customer_Model_Address[] getItems()
  */
 class Mage_Customer_Model_Resource_Address_Collection extends Mage_Eav_Model_Entity_Collection_Abstract
 {

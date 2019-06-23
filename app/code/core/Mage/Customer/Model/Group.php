@@ -29,6 +29,8 @@
  *
  * @method Mage_Customer_Model_Resource_Group _getResource()
  * @method Mage_Customer_Model_Resource_Group getResource()
+ * @method Mage_Customer_Model_Resource_Group_Collection getCollection()
+ *
  * @method string getCustomerGroupCode()
  * @method $this setCustomerGroupCode(string $value)
  * @method $this setTaxClassId(int $value)
@@ -132,7 +134,9 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
     {
         parent::afterCommitCallback();
         Mage::getSingleton('index/indexer')->processEntityAction(
-            $this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE
+            $this,
+            self::ENTITY,
+            Mage_Index_Model_Event::TYPE_SAVE
         );
         return $this;
     }

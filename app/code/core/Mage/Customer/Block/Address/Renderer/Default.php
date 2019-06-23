@@ -32,9 +32,7 @@
  * @package    Mage_Customer
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Customer_Block_Address_Renderer_Default
-    extends Mage_Core_Block_Abstract
-    implements Mage_Customer_Block_Address_Renderer_Interface
+class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstract implements Mage_Customer_Block_Address_Renderer_Interface
 {
     /**
      * Format type object
@@ -69,7 +67,7 @@ class Mage_Customer_Block_Address_Renderer_Default
      * @param Mage_Customer_Model_Address_Abstract|null $address
      * @return string
      */
-    public function getFormat(Mage_Customer_Model_Address_Abstract $address=null)
+    public function getFormat(Mage_Customer_Model_Address_Abstract $address = null)
     {
         $countryFormat = is_null($address)
             ? false
@@ -86,7 +84,7 @@ class Mage_Customer_Block_Address_Renderer_Default
      * @return string
      * @throws Exception
      */
-    public function render(Mage_Customer_Model_Address_Abstract $address, $format=null)
+    public function render(Mage_Customer_Model_Address_Abstract $address, $format = null)
     {
         switch ($this->getType()->getCode()) {
             case 'html':
@@ -114,7 +112,7 @@ class Mage_Customer_Block_Address_Renderer_Default
             }
             if ($attribute->getAttributeCode() == 'country_id') {
                 $data['country'] = $address->getCountryModel()->getName();
-            } else if ($attribute->getAttributeCode() == 'region') {
+            } elseif ($attribute->getAttributeCode() == 'region') {
                 $data['region'] = Mage::helper('directory')->__($address->getRegion());
             } else {
                 $dataModel = Mage_Customer_Model_Attribute_Data::factory($attribute, $address);

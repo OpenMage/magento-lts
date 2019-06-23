@@ -136,7 +136,11 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
 
         $dateFormat = preg_replace('/[^\%\w]/', '\\1', $this->getDateFormat());
 
-        return sprintf(strtr($dateFormat, $strtr),
-            $this->_dateInputs['m'], $this->_dateInputs['d'], $this->_dateInputs['y']);
+        return sprintf(
+            strtr($dateFormat, $strtr),
+            $this->_dateInputs['m'],
+            $this->_dateInputs['d'],
+            $this->_dateInputs['y']
+        );
     }
 }

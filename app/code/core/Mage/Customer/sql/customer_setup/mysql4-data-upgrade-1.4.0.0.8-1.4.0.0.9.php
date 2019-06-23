@@ -62,7 +62,7 @@ foreach ($websites as $website) {
         if ($configValue == 'opt' || $configValue == '1') {
             $scopeIsVisible     = '1';
             $scopeIsRequired    = '0';
-        } else if ($configValue == 'req') {
+        } elseif ($configValue == 'req') {
             $scopeIsVisible     = '1';
             $scopeIsRequired    = '1';
         } else {
@@ -94,7 +94,7 @@ foreach ($websites as $website) {
         if ($configValue == 'opt' || $configValue == '1') {
             $scopeIsVisible     = '1';
             $scopeIsRequired    = '0';
-        } else if ($configValue == 'req') {
+        } elseif ($configValue == 'req') {
             $scopeIsVisible     = '1';
             $scopeIsRequired    = '1';
         } else {

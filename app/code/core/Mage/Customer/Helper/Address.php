@@ -87,7 +87,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
      */
     public function getRenderer($renderer)
     {
-        if(is_string($renderer) && $className = Mage::getConfig()->getBlockClassName($renderer)) {
+        if (is_string($renderer) && $className = Mage::getConfig()->getBlockClassName($renderer)) {
             return new $className();
         } else {
             return $renderer;
@@ -124,7 +124,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
             /** @var Mage_Eav_Model_Attribute $attribute */
             $attribute = Mage::getSingleton('eav/config')->getAttribute('customer_address', 'street');
             $lines = (int)$attribute->getMultilineCount();
-            if($lines <= 0) {
+            if ($lines <= 0) {
                 $lines = 2;
             }
             $this->_streetLines[$websiteId] = min(20, $lines);

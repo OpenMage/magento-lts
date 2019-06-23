@@ -32,6 +32,11 @@
  * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Customer_Model_Resource_Customer _getResource()
+ * @method Mage_Customer_Model_Resource_Customer getResource()
+ * @method Mage_Customer_Model_Resource_Customer_Collection getCollection()
+ *
+ * @method bool hasEmail()
+ * @method string getEmail()
  * @method int getPostIndex()
  */
 class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract

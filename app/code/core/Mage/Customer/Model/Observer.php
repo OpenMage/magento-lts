@@ -112,7 +112,7 @@ class Mage_Customer_Model_Observer
             Mage::unregister(self::VIV_CURRENTLY_SAVED_ADDRESS);
         }
 
-        /** @var $customerAddress Mage_Customer_Model_Address */
+        /** @var Mage_Customer_Model_Address $customerAddress */
         $customerAddress = $observer->getCustomerAddress();
         if ($customerAddress->getId()) {
             Mage::register(self::VIV_CURRENTLY_SAVED_ADDRESS, $customerAddress->getId());
@@ -137,7 +137,7 @@ class Mage_Customer_Model_Observer
      */
     public function afterAddressSave($observer)
     {
-        /** @var $customerAddress Mage_Customer_Model_Address */
+        /** @var Mage_Customer_Model_Address $customerAddress */
         $customerAddress = $observer->getCustomerAddress();
         $customer = $customerAddress->getCustomer();
 
@@ -156,8 +156,7 @@ class Mage_Customer_Model_Observer
             $customerHelper = Mage::helper('customer');
 
             if ($customerAddress->getVatId() == ''
-                || !Mage::helper('core')->isCountryInEU($customerAddress->getCountry()))
-            {
+                || !Mage::helper('core')->isCountryInEU($customerAddress->getCountry())) {
                 $defaultGroupId = $customerHelper->getDefaultCustomerGroupId($customer->getStore());
 
                 if (!$customer->getDisableAutoGroupChange() && $customer->getGroupId() != $defaultGroupId) {
@@ -171,7 +170,9 @@ class Mage_Customer_Model_Observer
                 );
 
                 $newGroupId = $customerHelper->getCustomerGroupIdBasedOnVatNumber(
-                    $customerAddress->getCountryId(), $result, $customer->getStore()
+                    $customerAddress->getCountryId(),
+                    $result,
+                    $customer->getStore()
                 );
 
                 if (!$customer->getDisableAutoGroupChange() && $customer->getGroupId() != $newGroupId) {
@@ -180,8 +181,11 @@ class Mage_Customer_Model_Observer
                 }
 
                 if (!Mage::app()->getStore()->isAdmin()) {
-                    $validationMessage = Mage::helper('customer')->getVatValidationUserMessage($customerAddress,
-                        $customer->getDisableAutoGroupChange(), $result);
+                    $validationMessage = Mage::helper('customer')->getVatValidationUserMessage(
+                        $customerAddress,
+                        $customer->getDisableAutoGroupChange(),
+                        $result
+                    );
 
                     if (!$validationMessage->getIsError()) {
                         Mage::getSingleton('customer/session')->addSuccess($validationMessage->getMessage());
@@ -202,7 +206,7 @@ class Mage_Customer_Model_Observer
      */
     public function quoteSubmitAfter($observer)
     {
-        /** @var $customer Mage_Customer_Model_Customer */
+        /** @var Mage_Customer_Model_Customer $customer */
         $customer = $observer->getQuote()->getCustomer();
 
         if (!Mage::helper('customer/address')->isVatValidationEnabled($customer->getStore())) {
