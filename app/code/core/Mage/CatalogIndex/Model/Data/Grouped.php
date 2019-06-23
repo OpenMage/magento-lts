@@ -46,10 +46,10 @@ class Mage_CatalogIndex_Model_Data_Grouped extends Mage_CatalogIndex_Model_Data_
     /**
      * Fetch final price for product
      *
-     * @param int $product
+     * @param array $product
      * @param Mage_Core_Model_Store $store
      * @param Mage_Customer_Model_Group $group
-     * @return float
+     * @return false
      */
     public function getFinalPrice($product, $store, $group)
     {

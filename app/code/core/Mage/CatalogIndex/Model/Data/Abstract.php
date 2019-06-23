@@ -31,6 +31,11 @@
  * @category   Mage
  * @package    Mage_CatalogIndex
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_CatalogIndex_Model_Resource_Data_Abstract getResource()
+ *
+ * @method array getMinimalPriceData()
+ * @method $this setMinimalPriceData(array $data)
  */
 class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
 {
@@ -44,13 +49,13 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     /**
      * Defines when product type has children
      *
-     * @var boolean
+     * @var array<int, bool>
      */
     protected $_haveChildren = array(
-                        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_TIERS=>true,
-                        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_PRICES=>true,
-                        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_ATTRIBUTES=>true,
-                        );
+        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_TIERS => true,
+        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_PRICES => true,
+        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_ATTRIBUTES => true,
+    );
 
     /**
      * Defines when product type has parents
@@ -118,6 +123,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
      * @param array $settings
      * @param int $type
      * @param int|array $suppliedId
+     * @return mixed
      */
     protected function fetchLinkInformation($store, $settings, $type, $suppliedId)
     {
@@ -144,7 +150,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     /**
      * Fetch final price for product
      *
-     * @param int $product
+     * @param array $product
      * @param Mage_Core_Model_Store $store
      * @param Mage_Customer_Model_Group $group
      * @return float
@@ -164,16 +170,16 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
             switch ($row['attribute_id']) {
                 case $priceId:
                     $basePrice = $row['value'];
-                break;
+                    break;
                 case $specialPriceId:
                     $specialPrice = $row['value'];
-                break;
+                    break;
                 case $specialPriceFromId:
                     $specialPriceFrom = $row['value'];
-                break;
+                    break;
                 case $specialPriceToId:
                     $specialPriceTo = $row['value'];
-                break;
+                    break;
             }
         }
 
@@ -220,8 +226,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
         $taxClassId  = $this->getResource()->getAttributeData(array($productId), array($attributeId), $store->getId());
         if (is_array($taxClassId) && isset($taxClassId[0]['value'])) {
             $taxClassId = $taxClassId[0]['value'];
-        }
-        else {
+        } else {
             $taxClassId = 0;
         }
         return $taxClassId;
@@ -245,6 +250,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
      * @param array $products
      * @param array $attributes
      * @param Mage_Core_Model_Store $store
+     * @return array
      */
     public function getAttributeData($products, $attributes, $store)
     {

@@ -46,10 +46,10 @@ class Mage_CatalogIndex_Model_Resource_Attribute extends Mage_CatalogIndex_Model
     /**
      * Enter description here ...
      *
-     * @param unknown_type $attribute
-     * @param unknown_type $filter
-     * @param unknown_type $entityFilter
-     * @return unknown
+     * @param Mage_Eav_Model_Entity_Attribute $attribute
+     * @param string $filter
+     * @param int|array $entityFilter
+     * @return array
      */
     public function getFilteredEntities($attribute, $filter, $entityFilter)
     {
@@ -69,9 +69,9 @@ class Mage_CatalogIndex_Model_Resource_Attribute extends Mage_CatalogIndex_Model
     /**
      * Enter description here ...
      *
-     * @param unknown_type $attribute
-     * @param unknown_type $entitySelect
-     * @return unknown
+     * @param Mage_Eav_Model_Entity_Attribute $attribute
+     * @param Zend_Db_Select $entitySelect
+     * @return array
      */
     public function getCount($attribute, $entitySelect)
     {
@@ -103,9 +103,9 @@ class Mage_CatalogIndex_Model_Resource_Attribute extends Mage_CatalogIndex_Model
     /**
      * Enter description here ...
      *
-     * @param unknown_type $collection
-     * @param unknown_type $attribute
-     * @param unknown_type $value
+     * @param Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection
+     * @param Mage_Eav_Model_Entity_Attribute $attribute
+     * @param string $value
      * @return $this
      */
     public function applyFilterToCollection($collection, $attribute, $value)

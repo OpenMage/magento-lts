@@ -64,7 +64,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Grouped extends Mage_CatalogIndex_Mo
 
             $typedProducts = Mage::getSingleton('catalogindex/retreiver')
                 ->assignProductTypes($products);
-            foreach ($typedProducts as $type=>$typeIds) {
+            foreach ($typedProducts as $type => $typeIds) {
                 $retreiver = Mage::getSingleton('catalogindex/retreiver')->getRetreiver($type);
                 foreach ($typeIds as $id) {
                     $finalPrice = $retreiver->getFinalPrice($id, $store, $group);
@@ -99,7 +99,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Grouped extends Mage_CatalogIndex_Mo
                 }
             }
 
-            if (!is_null($resultMinimal)){
+            if (!is_null($resultMinimal)) {
                 $result[] = array(
                     'customer_group_id' => $customerGroup,
                     'minimal_value'     => $resultMinimal,

@@ -42,5 +42,4 @@ class Mage_CatalogIndex_Model_Data_Virtual extends Mage_CatalogIndex_Model_Data_
     {
         return Mage_Catalog_Model_Product_Type::TYPE_VIRTUAL;
     }
-
 }

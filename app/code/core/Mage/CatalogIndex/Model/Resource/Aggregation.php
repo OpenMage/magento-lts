@@ -228,8 +228,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
             }
             $query = "INSERT INTO `{$this->_tagTable}` (tag_code) VALUES (".implode('),(', $tags).")";
             $this->_getWriteAdapter()->query($query);
-        }
-        else {
+        } else {
             $this->_getWriteAdapter()->insert($this->_tagTable, array(
                 'tag_code' => $tags
             ));

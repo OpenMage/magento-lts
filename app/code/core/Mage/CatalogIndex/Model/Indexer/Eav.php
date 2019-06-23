@@ -50,6 +50,11 @@ class Mage_CatalogIndex_Model_Indexer_Eav extends Mage_CatalogIndex_Model_Indexe
         return parent::_construct();
     }
 
+    /**
+     * @param Mage_Catalog_Model_Product $object
+     * @param Mage_Eav_Model_Entity_Attribute_Abstract|null $attribute
+     * @return array|mixed
+     */
     public function createIndexData(Mage_Catalog_Model_Product $object, Mage_Eav_Model_Entity_Attribute_Abstract $attribute = null)
     {
         $data = array();
@@ -75,6 +80,10 @@ class Mage_CatalogIndex_Model_Indexer_Eav extends Mage_CatalogIndex_Model_Indexe
         return $data;
     }
 
+    /**
+     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+     * @return bool
+     */
     protected function _isAttributeIndexable(Mage_Eav_Model_Entity_Attribute_Abstract $attribute)
     {
         if ($attribute->getIsFilterable() == 0 && $attribute->getIsVisibleInAdvancedSearch() == 0) {
@@ -87,6 +96,9 @@ class Mage_CatalogIndex_Model_Indexer_Eav extends Mage_CatalogIndex_Model_Indexe
         return true;
     }
 
+    /**
+     * @return array|string
+     */
     protected function _getIndexableAttributeConditions()
     {
         $conditions = "main_table.frontend_input IN ('select', 'multiselect') AND (additional_table.is_filterable IN (1, 2) OR additional_table.is_visible_in_advanced_search = 1)";

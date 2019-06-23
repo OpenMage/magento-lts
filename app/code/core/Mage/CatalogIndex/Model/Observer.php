@@ -35,7 +35,9 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
     protected $_parentProductIds = array();
     protected $_productIdsMassupdate = array();
 
-    protected function _construct() {}
+    protected function _construct()
+    {
+    }
 
     /**
      * Get indexer object
@@ -93,6 +95,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
     public function processAfterSaveEvent(Varien_Event_Observer $observer)
     {
         $productIds = array();
+        /** @var Mage_Catalog_Model_Product $eventProduct */
         $eventProduct = $observer->getEvent()->getProduct();
         $productIds[] = $eventProduct->getId();
 
@@ -163,6 +166,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
      */
     public function processAfterDeleteEvent(Varien_Event_Observer $observer)
     {
+        /** @var Mage_Catalog_Model_Product $eventProduct */
         $eventProduct = $observer->getEvent()->getProduct();
         $eventProduct->setNeedStoreForReindex(true);
         $this->_getIndexer()->cleanup($eventProduct);
@@ -269,6 +273,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
      */
     public function catalogCategorySaveAfter(Varien_Event_Observer $observer)
     {
+        /** @var Mage_Catalog_Model_Category $category */
         $category = $observer->getEvent()->getCategory();
         if ($category->getInitialSetupFlag()) {
             return $this;
@@ -314,6 +319,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
      */
     public function registerParentIds(Varien_Event_Observer $observer)
     {
+        /** @var Mage_Catalog_Model_Product $product */
         $product = $observer->getEvent()->getProduct();
         $product->loadParentProductIds();
         $productIds = array($product->getId());

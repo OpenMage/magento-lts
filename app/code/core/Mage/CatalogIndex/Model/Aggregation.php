@@ -54,6 +54,9 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
         $this->_init('catalogindex/aggregation');
     }
 
+    /**
+     * @return array|bool
+     */
     protected function _isEnabled()
     {
         return Mage::app()->useCache(self::CACHE_FLAG_NAME);
@@ -66,7 +69,7 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
      * @param   null|int|string|Mage_Core_Model_Store $store
      * @return  array|null
      */
-    public function getCacheData($key, $store=null)
+    public function getCacheData($key, $store = null)
     {
         if (!$this->_isEnabled()) {
             return null;
@@ -90,7 +93,7 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
      * @param   null|int|string|Mage_Core_Model_Store $store
      * @return  Mage_CatalogIndex_Model_Aggregation
      */
-    public function saveCacheData($data, $key, $tags, $store=null)
+    public function saveCacheData($data, $key, $tags, $store = null)
     {
         if (!$this->_isEnabled()) {
             return $this;
@@ -124,7 +127,7 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
     /**
      * Clear all cache data related with products
      *
-     * @param   int|array $productIds
+     * @param   array $productIds
      * @return  Mage_CatalogIndex_Model_Aggregation
      */
     public function clearProductData($productIds)
@@ -158,8 +161,8 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
      * this method split tags like "category:1,2,3" to four
      * different tags: category, category1, category2, category3
      *
-     * @param unknown_type $tags
-     * @return unknown
+     * @param array $tags
+     * @return array
      */
     protected function _processTags($tags)
     {
