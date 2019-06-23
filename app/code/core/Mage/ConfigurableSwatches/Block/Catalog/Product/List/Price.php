@@ -24,6 +24,11 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * Class Mage_ConfigurableSwatches_Block_Catalog_Product_List_Price
+ *
+ * @method Mage_Eav_Model_Entity_Collection_Abstract getProductCollection()
+ */
 class Mage_ConfigurableSwatches_Block_Catalog_Product_List_Price extends Mage_Core_Block_Template
 {
     /**
@@ -56,7 +61,7 @@ class Mage_ConfigurableSwatches_Block_Catalog_Product_List_Price extends Mage_Co
             'generalConfig' => $compositeProductHelper->prepareJsonGeneralConfig()
         );
         foreach ($this->getProducts() as $product) {
-            /** @var $product Mage_Catalog_Model_Product */
+            /** @var Mage_Catalog_Model_Product $product */
             if (!$product->getSwatchPrices()) {
                 continue;
             }
@@ -91,5 +96,4 @@ class Mage_ConfigurableSwatches_Block_Catalog_Product_List_Price extends Mage_Co
 
         return parent::_toHtml();
     }
-
 }
