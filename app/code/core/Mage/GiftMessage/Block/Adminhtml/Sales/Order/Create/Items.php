@@ -55,7 +55,9 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_Create_Items extends Mage_Adm
             return false;
         }
         return $this->helper('giftmessage/message')->getIsMessagesAvailable(
-            'item', $item, $item->getStoreId()
+            'item',
+            $item,
+            $item->getStoreId()
         );
     }
 

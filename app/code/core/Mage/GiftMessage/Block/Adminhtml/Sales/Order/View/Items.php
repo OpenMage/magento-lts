@@ -57,11 +57,11 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items extends Mage_Admin
      */
     public function getDefaultSender()
     {
-        if(!$this->getItem()) {
+        if (!$this->getItem()) {
             return '';
         }
 
-        if($this->getItem()->getOrder()) {
+        if ($this->getItem()->getOrder()) {
             return $this->getItem()->getOrder()->getBillingAddress()->getName();
         }
 
@@ -75,21 +75,21 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items extends Mage_Admin
      */
     public function getDefaultRecipient()
     {
-        if(!$this->getItem()) {
+        if (!$this->getItem()) {
             return '';
         }
 
-        if($this->getItem()->getOrder()) {
+        if ($this->getItem()->getOrder()) {
             if ($this->getItem()->getOrder()->getShippingAddress()) {
                 return $this->getItem()->getOrder()->getShippingAddress()->getName();
-            } else if ($this->getItem()->getOrder()->getBillingAddress()) {
+            } elseif ($this->getItem()->getOrder()->getBillingAddress()) {
                 return $this->getItem()->getOrder()->getBillingAddress()->getName();
             }
         }
 
         if ($this->getItem()->getShippingAddress()) {
             return $this->getItem()->getShippingAddress()->getName();
-        } else if ($this->getItem()->getBillingAddress()) {
+        } elseif ($this->getItem()->getBillingAddress()) {
             return $this->getItem()->getBillingAddress()->getName();
         }
 
@@ -110,7 +110,7 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items extends Mage_Admin
     /**
      * Retrive real html id for field
      *
-     * @param string $name
+     * @param string $id
      * @return string
      */
     public function getFieldId($id)
@@ -131,7 +131,7 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items extends Mage_Admin
     /**
      * Initialize gift message for entity
      *
-     * @return Mage_Adminhtml_Block_Sales_Order_Edit_Items_Grid_Renderer_Name_Giftmessage
+     * @return Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items
      */
     protected function _initMessage()
     {
@@ -139,10 +139,10 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items extends Mage_Admin
             $this->helper('giftmessage/message')->getGiftMessage($this->getItem()->getGiftMessageId());
 
         // init default values for giftmessage form
-        if(!$this->getMessage()->getSender()) {
+        if (!$this->getMessage()->getSender()) {
             $this->getMessage()->setSender($this->getDefaultSender());
         }
-        if(!$this->getMessage()->getRecipient()) {
+        if (!$this->getMessage()->getRecipient()) {
             $this->getMessage()->setRecipient($this->getDefaultRecipient());
         }
 
@@ -156,7 +156,7 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items extends Mage_Admin
      */
     public function getMessage()
     {
-        if(!isset($this->_giftMessage[$this->getItem()->getGiftMessageId()])) {
+        if (!isset($this->_giftMessage[$this->getItem()->getGiftMessageId()])) {
             $this->_initMessage();
         }
 
@@ -166,7 +166,7 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items extends Mage_Admin
     /**
      * Retrieve save url
      *
-     * @return array
+     * @return string
      */
     public function getSaveUrl()
     {

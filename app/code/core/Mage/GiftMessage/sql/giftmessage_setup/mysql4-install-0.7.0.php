@@ -24,8 +24,8 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/** @var Mage_GiftMessage_Model_Resource_Setup $this */
 $installer = $this;
-/* $installer Mage_GiftMessage_Model_Resource_Setup */
 
 $installer->startSetup();
 
@@ -45,13 +45,13 @@ CREATE TABLE {$this->getTable('gift_message')} (
 
 $installer->endSetup();
 
-$installer->addAttribute('quote',              'gift_message_id', array('type' => 'int', 'visible' => false, 'required' => false));
-$installer->addAttribute('quote_address',      'gift_message_id', array('type' => 'int', 'visible' => false, 'required' => false));
-$installer->addAttribute('quote_item',         'gift_message_id', array('type' => 'int', 'visible' => false, 'required' => false));
+$installer->addAttribute('quote', 'gift_message_id', array('type' => 'int', 'visible' => false, 'required' => false));
+$installer->addAttribute('quote_address', 'gift_message_id', array('type' => 'int', 'visible' => false, 'required' => false));
+$installer->addAttribute('quote_item', 'gift_message_id', array('type' => 'int', 'visible' => false, 'required' => false));
 $installer->addAttribute('quote_address_item', 'gift_message_id', array('type' => 'int', 'visible' => false, 'required' => false));
-$installer->addAttribute('order',              'gift_message_id', array('type' => 'int', 'visible' => false, 'required' => false));
-$installer->addAttribute('order_item',         'gift_message_id', array('type' => 'int', 'visible' => false, 'required' => false));
-$installer->addAttribute('order_item',  'gift_message_available', array('type' => 'int', 'visible' => false, 'required' => false));
+$installer->addAttribute('order', 'gift_message_id', array('type' => 'int', 'visible' => false, 'required' => false));
+$installer->addAttribute('order_item', 'gift_message_id', array('type' => 'int', 'visible' => false, 'required' => false));
+$installer->addAttribute('order_item', 'gift_message_available', array('type' => 'int', 'visible' => false, 'required' => false));
 $installer->addAttribute('catalog_product', 'gift_message_available', array(
         'backend'       => 'giftmessage/entity_attribute_backend_boolean_config',
         'frontend'      => '',

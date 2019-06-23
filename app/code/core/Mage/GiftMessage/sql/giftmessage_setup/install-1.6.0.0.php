@@ -25,7 +25,7 @@
  */
 
 
-/** @var $installer Mage_GiftMessage_Model_Resource_Setup */
+/** @var Mage_GiftMessage_Model_Resource_Setup $installer */
 
 $installer = $this;
 $installer->startSetup();
@@ -81,7 +81,8 @@ foreach ($entities as $entity) {
  */
 $installer->addAttribute('order_item', 'gift_message_available', $options);
 Mage::getResourceModel('catalog/setup', 'catalog_setup')->addAttribute(
-    Mage_Catalog_Model_Product::ENTITY, 'gift_message_available',
+    Mage_Catalog_Model_Product::ENTITY,
+    'gift_message_available',
     array(
         'group'         => 'Gift Options',
         'backend'       => 'catalog/product_attribute_backend_boolean',

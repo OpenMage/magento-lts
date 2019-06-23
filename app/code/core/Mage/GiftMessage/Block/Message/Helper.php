@@ -26,15 +26,15 @@
 
 
 /**
- *
  * @deprecated after 1.3.2.4
  * @category   Mage
  * @package    Mage_GiftMessage
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setCanDisplayContainer(bool $value)
  */
 class Mage_GiftMessage_Block_Message_Helper extends Mage_Core_Block_Template
 {
-
     protected $_entity = null;
     protected $_type   = null;
     protected $_giftMessage = null;
@@ -47,69 +47,104 @@ class Mage_GiftMessage_Block_Message_Helper extends Mage_Core_Block_Template
         $this->setTemplate('giftmessage/helper.phtml');
     }
 
+    /**
+     * @param mixed $entity
+     * @return $this
+     */
     public function setEntity($entity)
     {
         $this->_entity = $entity;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getEntity()
     {
         return $this->_entity;
     }
 
+    /**
+     * @param string $type
+     * @return $this
+     */
     public function setType($type)
     {
         $this->_type = $type;
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getType()
     {
         return $this->_type;
     }
 
+    /**
+     * @return bool
+     */
     public function hasGiftMessage()
     {
         return $this->getEntity()->getGiftMessageId() > 0;
     }
 
+    /**
+     * @param string $value
+     * @return $this
+     */
     public function setScriptIncluded($value)
     {
         self::$_scriptIncluded = $value;
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getScriptIncluded()
     {
         return self::$_scriptIncluded;
     }
 
+    /**
+     * @return string
+     */
     public function getJsObjectName()
     {
         return $this->getId() . 'JsObject';
     }
 
+    /**
+     * @return string
+     */
     public function getEditUrl()
     {
         return $this->helper('giftmessage/url')->getEditUrl($this->getEntity(), $this->getType());
     }
 
+    /**
+     * @return $this
+     */
     protected function _initMessage()
     {
         $this->_giftMessage = $this->helper('giftmessage/message')->getGiftMessage(
-                                            $this->getEntity()->getGiftMessageId()
-                              );
+            $this->getEntity()->getGiftMessageId()
+        );
         return $this;
     }
 
+    /**
+     * @return Mage_GiftMessage_Model_Message
+     */
     public function getMessage()
     {
-        if(is_null($this->_giftMessage)) {
+        if (is_null($this->_giftMessage)) {
             $this->_initMessage();
         }
 
         return $this->_giftMessage;
     }
-
 }
