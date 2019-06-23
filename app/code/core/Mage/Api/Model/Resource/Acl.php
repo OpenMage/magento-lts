@@ -69,7 +69,8 @@ class Mage_Api_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
                     array('a'=>$this->getTable('api/assert')),
                     'a.assert_id=r.assert_id',
                     array('assert_type', 'assert_data')
-                ));
+                )
+        );
         $this->loadRules($acl, $rulesArr);
         return $acl;
     }
@@ -127,7 +128,7 @@ class Mage_Api_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
             try {
                 if ($rule['api_permission'] == 'allow') {
                     $acl->allow($role, $resource, $privileges, $assert);
-                } else if ($rule['api_permission'] == 'deny') {
+                } elseif ($rule['api_permission'] == 'deny') {
                     $acl->deny($role, $resource, $privileges, $assert);
                 }
             } catch (Exception $e) {

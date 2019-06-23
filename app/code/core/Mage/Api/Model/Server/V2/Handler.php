@@ -43,9 +43,9 @@ class Mage_Api_Model_Server_V2_Handler extends Mage_Api_Model_Server_Handler_Abs
      * @return mixed
      */
 
-    public function __call( $function, $args )
+    public function __call($function, $args)
     {
-        $sessionId = array_shift( $args );
+        $sessionId = array_shift($args);
         $apiKey = '';
         $nodes = Mage::getSingleton('api/config')->getNode('v2/resources_function_prefix')->children();
         foreach ($nodes as $resource => $prefix) {

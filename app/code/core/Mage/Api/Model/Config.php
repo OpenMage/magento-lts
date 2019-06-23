@@ -38,7 +38,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
     /**
      * @inheritDoc
      */
-    public function __construct($sourceData=null)
+    public function __construct($sourceData = null)
     {
         $this->setCacheId('config_api');
         $this->setCacheTags(array(self::CACHE_TAG));
@@ -120,7 +120,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
             }
 
             if (isset($adapter->required) && isset($adapter->required->extensions)) {
-                foreach ($adapter->required->extensions->children() as $extension=>$data) {
+                foreach ($adapter->required->extensions->children() as $extension => $data) {
                     if (!extension_loaded($extension)) {
                         continue;
                     }
@@ -172,7 +172,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
      * @param string $parentName
      * @return $this
      */
-    public function loadAclResources(Mage_Api_Model_Acl $acl, $resource=null, $parentName=null)
+    public function loadAclResources(Mage_Api_Model_Acl $acl, $resource = null, $parentName = null)
     {
         $resourceName = null;
         if (is_null($resource)) {
@@ -202,7 +202,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
      * @param string $name
      * @return bool|Mage_Core_Model_Config_Element|SimpleXMLElement
      */
-    public function getAclAssert($name='')
+    public function getAclAssert($name = '')
     {
         $asserts = $this->getNode('acl/asserts');
         if (''===$name) {
@@ -222,7 +222,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
      * @param string $name
      * @return bool|Mage_Core_Model_Config_Element|SimpleXMLElement
      */
-    public function getAclPrivilegeSet($name='')
+    public function getAclPrivilegeSet($name = '')
     {
         $sets = $this->getNode('acl/privilegeSets');
         if (''===$name) {
@@ -240,7 +240,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
      * @param string|null $resourceName
      * @return array
      */
-    public function getFaults($resourceName=null)
+    public function getFaults($resourceName = null)
     {
         if (is_null($resourceName)
             || !isset($this->getResources()->$resourceName)
@@ -253,7 +253,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
 
         $translateModule = 'api';
         if (isset($faultsNode['module'])) {
-           $translateModule = (string) $faultsNode['module'];
+            $translateModule = (string) $faultsNode['module'];
         }
 
         $faults = array();
@@ -293,7 +293,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
      * @param bool $lifetime
      * @return bool|Mage_Core_Model_App
      */
-    protected function _saveCache($data, $id, $tags=array(), $lifetime=false)
+    protected function _saveCache($data, $id, $tags = array(), $lifetime = false)
     {
         return Mage::app()->saveCache($data, $id, $tags, $lifetime);
     }

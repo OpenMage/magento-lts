@@ -77,5 +77,4 @@ interface Mage_Api_Model_Server_Adapter_Interface
      * @param string $message
      */
     function fault($code, $message);
-
-} // Class Mage_Api_Model_Server_Adapter_Interface End
+}

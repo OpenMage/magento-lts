@@ -61,6 +61,9 @@
  * @category    Mage
  * @package     Mage_Api
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setRoleIds(array $value)
+ * @method $this setRoleUserId(int $value)
  */
 class Mage_Api_Model_User extends Mage_Core_Model_Abstract
 {
@@ -82,7 +85,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Save user
      *
-     * @return $this|Mage_Core_Model_Abstract
+     * @return $this
      */
     public function save()
     {
@@ -98,7 +101,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
             $data['user_id']   = $this->getId();
         }
 
-        if ( $this->getUsername() ) {
+        if ($this->getUsername()) {
             $data['username']   = $this->getUsername();
         }
 
@@ -110,7 +113,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
             $data['api_key']   = $this->_getEncodedApiKey($this->getNewApiKey());
         }
 
-        if ( !is_null($this->getIsActive()) ) {
+        if (!is_null($this->getIsActive())) {
             $data['is_active']  = intval($this->getIsActive());
         }
 
@@ -203,7 +206,8 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      *
      * @return Object|Mage_Api_Model_Resource_User_Collection
      */
-    public function getCollection() {
+    public function getCollection()
+    {
         return Mage::getResourceModel('api/user_collection');
     }
 
@@ -313,7 +317,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      * @param string $sessId
      * @return $this
      */
-    public function loadBySessId ($sessId)
+    public function loadBySessId($sessId)
     {
         $this->setData($this->getResource()->loadBySessId($sessId));
         return $this;
