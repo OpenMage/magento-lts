@@ -29,15 +29,18 @@
  *
  * @method Mage_Index_Model_Resource_Event _getResource()
  * @method Mage_Index_Model_Resource_Event getResource()
- * @method Mage_Index_Model_Event setType(string $value)
- * @method Mage_Index_Model_Event setEntity(string $value)
+ * @method $this setType(string $value)
+ * @method $this setEntity(string $value)
+ * @method bool hasEntityPk()
  * @method int getEntityPk()
- * @method Mage_Index_Model_Event setEntityPk(int $value)
+ * @method $this setEntityPk(int $value)
  * @method string getCreatedAt()
- * @method Mage_Index_Model_Event setCreatedAt(string $value)
- * @method Mage_Index_Model_Event setOldData(string $value)
- * @method Mage_Index_Model_Event setNewData(string $value)
+ * @method $this setCreatedAt(string $value)
+ * @method $this setOldData(string $value)
+ * @method $this setNewData(string $value)
  * @method Varien_Object getDataObject()
+ * @method $this setDataObject(Varien_Object $value)
+ * @method bool hasCreatedAt()
  *
  * @category    Mage
  * @package     Mage_Index
@@ -82,7 +85,8 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Specify process object
      *
-     * @param null|Mage_Index_Model_Process $process
+     * @param Mage_Index_Model_Process $process
+     * @return $this
      */
     public function setProcess($process)
     {
@@ -93,7 +97,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Get related process object
      *
-     * @return Mage_Index_Model_Process | null
+     * @return Mage_Index_Model_Process
      */
     public function getProcess()
     {
@@ -102,6 +106,8 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
 
     /**
      * Specify namespace for old and new data
+     * @param string $namespace
+     * @return $this
      */
     public function setDataNamespace($namespace)
     {
@@ -129,10 +135,11 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Add process id to event object
      *
-     * @param   $processId
-     * @return  Mage_Index_Model_Event
+     * @param int $processId
+     * @param string $status
+     * @return  $this
      */
-    public function addProcessId($processId, $status=Mage_Index_Model_Process::EVENT_STATUS_NEW)
+    public function addProcessId($processId, $status = Mage_Index_Model_Process::EVENT_STATUS_NEW)
     {
         $this->_processIds[$processId] = $status;
         return $this;
@@ -266,12 +273,12 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Add new values to old data array (overwrite if value with same key exist)
      *
-     * @deprecated since 1.6.2.0
-     * @param array | string $data
-     * @param null | mixed $value
+     * @param array|string $key
+     * @param null|mixed $value
      * @return $this
+     * @deprecated since 1.6.2.0
      */
-    public function addOldData($key, $value=null)
+    public function addOldData($key, $value = null)
     {
         return $this;
     }
@@ -279,11 +286,11 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Add new values to new data array (overwrite if value with same key exist)
      *
-     * @param array | string $data
-     * @param null | mixed $value
+     * @param array|string $key
+     * @param null|mixed $value
      * @return $this
      */
-    public function addNewData($key, $value=null)
+    public function addNewData($key, $value = null)
     {
         $newData = $this->getNewData(false);
         if (!is_array($key)) {
@@ -326,7 +333,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Serelaize old and new data arrays before saving
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _beforeSave()
     {

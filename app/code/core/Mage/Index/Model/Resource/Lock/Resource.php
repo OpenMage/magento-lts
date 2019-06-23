@@ -47,7 +47,7 @@ class Mage_Index_Model_Resource_Lock_Resource extends Mage_Core_Model_Resource
      * @param string $name
      * @param string $extendConfigWith
      *
-     * @return Varien_Db_Adapter_Interface
+     * @return Varien_Db_Adapter_Interface|false
      */
     public function getConnection($name, $extendConfigWith = '')
     {
@@ -66,7 +66,7 @@ class Mage_Index_Model_Resource_Lock_Resource extends Mage_Core_Model_Resource
             $this->_connections[$index] = $this->_getDefaultConnection($name, $extendConfigWith);
             return $this->_connections[$index];
         }
-        if (!$connConfig->is('active', 1)) {
+        if (!$connConfig->is('active', '1')) {
             return false;
         }
 
@@ -114,7 +114,7 @@ class Mage_Index_Model_Resource_Lock_Resource extends Mage_Core_Model_Resource
      * @param string $requiredConnectionName
      * @param string $extendConfigWith
      *
-     * @return string
+     * @return Varien_Db_Adapter_Interface|false
      */
     protected function _getDefaultConnection($requiredConnectionName, $extendConfigWith = '')
     {

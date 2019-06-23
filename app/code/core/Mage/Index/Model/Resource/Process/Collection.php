@@ -74,7 +74,9 @@ class Mage_Index_Model_Resource_Process_Collection extends Mage_Core_Model_Resou
                 array('e' => $countsSelect),
                 'e.process_id=main_table.process_id',
                 array('events' => $this->getConnection()->getCheckSql(
-                    $this->getConnection()->prepareSqlCondition('e.events', array('null' => null)), 0, 'e.events'
+                    $this->getConnection()->prepareSqlCondition('e.events', array('null' => null)),
+                    0,
+                    'e.events'
                 ))
             );
         return $this;

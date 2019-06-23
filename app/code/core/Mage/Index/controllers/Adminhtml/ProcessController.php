@@ -34,7 +34,7 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
     {
         $processId = $this->getRequest()->getParam('process');
         if ($processId) {
-            /** @var $process Mage_Index_Model_Process */
+            /** @var Mage_Index_Model_Process $process */
             $process = Mage::getModel('index/process')->load($processId);
             if ($process->getId() && $process->getIndexer()->isVisible()) {
                 return $process;
@@ -60,7 +60,7 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
      */
     public function editAction()
     {
-        /** @var $process Mage_Index_Model_Process */
+        /** @var Mage_Index_Model_Process $process */
         $process = $this->_initProcess();
         if ($process) {
             $this->_title($process->getIndexCode());
@@ -85,7 +85,7 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
      */
     public function saveAction()
     {
-        /** @var $process Mage_Index_Model_Process */
+        /** @var Mage_Index_Model_Process $process */
         $process = $this->_initProcess();
         if ($process) {
             $mode = $this->getRequest()->getPost('mode');
@@ -100,8 +100,9 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
             } catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
             } catch (Exception $e) {
-                $this->_getSession()->addException($e,
-                     Mage::helper('index')->__('There was a problem with saving process.')
+                $this->_getSession()->addException(
+                    $e,
+                    Mage::helper('index')->__('There was a problem with saving process.')
                 );
             }
             $this->_redirect('*/*/list');
@@ -118,7 +119,7 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
      */
     public function reindexProcessAction()
     {
-        /** @var $process Mage_Index_Model_Process */
+        /** @var Mage_Index_Model_Process $process */
         $process = $this->_initProcess();
         if ($process) {
             try {
@@ -132,8 +133,9 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
             } catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
             } catch (Exception $e) {
-                $this->_getSession()->addException($e,
-                     Mage::helper('index')->__('There was a problem with reindexing process.')
+                $this->_getSession()->addException(
+                    $e,
+                    Mage::helper('index')->__('There was a problem with reindexing process.')
                 );
             }
         } else {
@@ -150,7 +152,6 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
      */
     public function reindexEventsAction()
     {
-
     }
 
     /**
@@ -158,7 +159,6 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
      */
     public function reindexAllAction()
     {
-
     }
 
     /**
@@ -167,7 +167,7 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
      */
     public function massReindexAction()
     {
-        /* @var $indexer Mage_Index_Model_Indexer */
+        /* @var Mage_Index_Model_Indexer $indexer */
         $indexer    = Mage::getSingleton('index/indexer');
         $processIds = $this->getRequest()->getParam('process');
         if (empty($processIds) || !is_array($processIds)) {
@@ -176,7 +176,7 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
             try {
                 $counter = 0;
                 foreach ($processIds as $processId) {
-                    /* @var $process Mage_Index_Model_Process */
+                    /* @var Mage_Index_Model_Process $process */
                     $process = $indexer->getProcessById($processId);
                     if ($process && $process->getIndexer()->isVisible()) {
                         $process->reindexEverything();
@@ -210,7 +210,7 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
                 $counter = 0;
                 $mode = $this->getRequest()->getParam('index_mode');
                 foreach ($processIds as $processId) {
-                    /* @var $process Mage_Index_Model_Process */
+                    /* @var Mage_Index_Model_Process $process */
                     $process = Mage::getModel('index/process')->load($processId);
                     if ($process->getId() && $process->getIndexer()->isVisible()) {
                         $process->setMode($mode)->save();

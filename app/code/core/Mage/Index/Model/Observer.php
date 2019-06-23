@@ -142,5 +142,4 @@ class Mage_Index_Model_Observer
             Mage_Index_Model_Event::TYPE_SAVE
         );
     }
-
 }

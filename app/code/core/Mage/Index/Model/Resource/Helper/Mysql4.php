@@ -31,8 +31,7 @@
  * @package     Mage_Index
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Index_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Helper_Mysql4
-    implements Mage_Index_Model_Resource_Helper_Lock_Interface
+class Mage_Index_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Helper_Mysql4 implements Mage_Index_Model_Resource_Helper_Lock_Interface
 {
     /**
      * Insert data from select statement
@@ -42,7 +41,7 @@ class Mage_Index_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_H
      * @param string $destTable
      * @param array $columns
      * @param bool $readToIndex
-     * @return $this
+     * @return Mage_Index_Model_Resource_Abstract
      */
     public function insertData($object, $select, $destTable, $columns, $readToIndex)
     {

@@ -42,7 +42,7 @@ interface Mage_Index_Model_Resource_Helper_Lock_Interface
      * Set lock
      *
      * @param string $name
-     * @return int
+     * @return bool
      */
     public function setLock($name);
 
@@ -50,7 +50,7 @@ interface Mage_Index_Model_Resource_Helper_Lock_Interface
      * Release lock
      *
      * @param string $name
-     * @return int
+     * @return bool
      */
     public function releaseLock($name);
 

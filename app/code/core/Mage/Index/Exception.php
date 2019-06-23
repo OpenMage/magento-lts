@@ -32,4 +32,6 @@
 * @author      Magento Core Team <core@magentocommerce.com>
 */
 class Mage_Index_Exception extends Mage_Core_Exception
-{}
+{
+
+}
