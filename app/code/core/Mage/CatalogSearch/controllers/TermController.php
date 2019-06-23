@@ -25,16 +25,20 @@
  */
 
 
-class Mage_CatalogSearch_TermController extends Mage_Core_Controller_Front_Action {
+class Mage_CatalogSearch_TermController extends Mage_Core_Controller_Front_Action
+{
 
-    public function preDispatch(){
+    /**
+     * @return $this|Mage_Core_Controller_Front_Action
+     */
+    public function preDispatch()
+    {
         parent::preDispatch();
-        if(!Mage::getStoreConfig('catalog/seo/search_terms')){
+        if (!Mage::getStoreConfig('catalog/seo/search_terms')) {
               $this->_redirect('noroute');
-              $this->setFlag('',self::FLAG_NO_DISPATCH,true);
+              $this->setFlag('', self::FLAG_NO_DISPATCH, true);
         }
         return $this;
-
     }
     public function popularAction()
     {

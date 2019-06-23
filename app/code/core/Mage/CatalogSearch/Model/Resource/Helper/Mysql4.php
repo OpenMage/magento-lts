@@ -38,8 +38,10 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
     /**
      * Join information for usin full text search
      *
-     * @param  Varien_Db_Select $select
-     * @return Varien_Db_Select $select
+     * @param string $table
+     * @param string $alias
+     * @param Varien_Db_Select $select
+     * @return Zend_Db_Expr $select
      */
     public function chooseFulltext($table, $alias, $select)
     {
@@ -84,21 +86,21 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
                     $terms[$word] = $word;
                     $word = '"'.$word.'"';
                     $words[] = $word;
-                } else if ($isBracket) {
+                } elseif ($isBracket) {
                     if ($word == '(') {
                         $isOpenBracket++;
                     } else {
                         $isOpenBracket--;
                     }
                     $words[] = $word;
-                } else if ($isBool) {
+                } elseif ($isBool) {
                     $words[] = $word;
                 }
             }
         }
         if ($isOpenBracket > 0) {
             $words[] = sprintf("%')".$isOpenBracket."s", '');
-        } else if ($isOpenBracket < 0) {
+        } elseif ($isOpenBracket < 0) {
             $words[0] = sprintf("%'(".$isOpenBracket."s", '');
         }
         if ($maxWordLength && count($terms) > $maxWordLength) {
@@ -116,7 +118,8 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
      * @param array $fields update fields pairs or values
      * @return int The number of affected rows.
      */
-    public function insertOnDuplicate($table, array $data, array $fields = array()) {
+    public function insertOnDuplicate($table, array $data, array $fields = array())
+    {
         return $this->_getWriteAdapter()->insertOnDuplicate($table, $data, $fields);
     }
 

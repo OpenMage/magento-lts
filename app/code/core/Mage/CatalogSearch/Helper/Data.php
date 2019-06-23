@@ -127,7 +127,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
             if ($this->_queryText === null) {
                 $this->_queryText = '';
             } else {
-                /* @var $stringHelper Mage_Core_Helper_String */
+                /* @var Mage_Core_Helper_String $stringHelper */
                 $stringHelper = Mage::helper('core/string');
                 $this->_queryText = is_array($this->_queryText) ? ''
                     : $stringHelper->cleanString(trim($this->_queryText));
@@ -290,7 +290,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
      * Check query of a warnings
      *
      * @param mixed $store
-     * @return $this
+     * @return void
      */
     public function checkNotes($store = null)
     {
@@ -298,7 +298,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
             $this->addNoteMessage($this->__('Maximum Search query length is %s. Your query was cut.', $this->getMaxQueryLength()));
         }
 
-        /* @var $stringHelper Mage_Core_Helper_String */
+        /* @var Mage_Core_Helper_String $stringHelper */
         $stringHelper = Mage::helper('core/string');
 
         $searchType = Mage::getStoreConfig(Mage_CatalogSearch_Model_Fulltext::XML_PATH_CATALOG_SEARCH_TYPE);
@@ -330,8 +330,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
         foreach ($index as $value) {
             if (!is_array($value)) {
                 $_index[] = $value;
-            }
-            else {
+            } else {
                 $_index = array_merge($_index, $value);
             }
         }

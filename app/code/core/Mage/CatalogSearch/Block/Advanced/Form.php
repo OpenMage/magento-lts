@@ -33,6 +33,9 @@
  */
 class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
 {
+    /**
+     * @return Mage_Core_Block_Template
+     */
     public function _prepareLayout()
     {
         // add Home breadcrumb
@@ -206,8 +209,7 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
         if (is_array($options) && count($options)>2) {
             $extra = 'multiple="multiple" size="4"';
             $name.= '[]';
-        }
-        else {
+        } else {
             array_unshift($options, array('value'=>'', 'label'=>Mage::helper('catalogsearch')->__('All')));
         }
 
@@ -247,6 +249,9 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
             ->getHtml();
     }
 
+    /**
+     * @return Mage_Core_Block_Abstract|Mage_Core_Block_Html_Select
+     */
     protected function _getSelectBlock()
     {
         $block = $this->getData('_select_block');
@@ -257,6 +262,9 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
         return $block;
     }
 
+    /**
+     * @return Mage_Core_Block_Abstract|Mage_Core_Block_Html_Date
+     */
     protected function _getDateBlock()
     {
         $block = $this->getData('_date_block');

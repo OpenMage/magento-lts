@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Tax_Model_Mysql4_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 

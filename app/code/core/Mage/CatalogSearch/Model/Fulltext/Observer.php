@@ -51,6 +51,7 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
      */
     public function refreshProductIndex(Varien_Event_Observer $observer)
     {
+        /** @var Mage_Catalog_Model_Product $product */
         $product = $observer->getEvent()->getProduct();
 
         $this->_getFulltextModel()
@@ -68,6 +69,7 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
      */
     public function cleanProductIndex(Varien_Event_Observer $observer)
     {
+        /** @var Mage_Catalog_Model_Product $product */
         $product = $observer->getEvent()->getProduct();
 
         $this->_getFulltextModel()
@@ -86,9 +88,9 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
     public function eavAttributeChange(Varien_Event_Observer $observer)
     {
         $attribute = $observer->getEvent()->getAttribute();
-        /* @var $attribute Mage_Eav_Model_Entity_Attribute */
+        /* @var Mage_Eav_Model_Entity_Attribute $attribute */
         $entityType = Mage::getSingleton('eav/config')->getEntityType(Mage_Catalog_Model_Product::ENTITY);
-        /* @var $entityType Mage_Eav_Model_Entity_Type */
+        /* @var Mage_Eav_Model_Entity_Type $entityType */
 
         if ($attribute->getEntityTypeId() != $entityType->getId()) {
             return $this;
@@ -104,8 +106,7 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
             if ($attribute->getIsSearchable()) {
                 $showNotice = true;
             }
-        }
-        elseif ($attribute->dataHasChangedFor('is_searchable')) {
+        } elseif ($attribute->dataHasChangedFor('is_searchable')) {
             $showNotice = true;
         }
 
@@ -162,8 +163,7 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
                     $this->_getFulltextModel()
                         ->cleanIndex($storeId, $productIds)
                         ->resetSearchResults();
-                }
-                elseif ($actionType == 'add') {
+                } elseif ($actionType == 'add') {
                     $this->_getFulltextModel()
                         ->rebuildIndex($storeId, $productIds)
                         ->resetSearchResults();
@@ -183,7 +183,7 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
     public function cleanStoreIndex(Varien_Event_Observer $observer)
     {
         $store = $observer->getEvent()->getStore();
-        /* @var $store Mage_Core_Model_Store */
+        /* @var Mage_Core_Model_Store $store */
 
         $this->_getFulltextModel()
             ->cleanIndex($store->getId());
