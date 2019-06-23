@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Directory Country Resource Collection
  *
@@ -34,6 +33,11 @@
  */
 class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+    /**
+     * @var Mage_Directory_Model_Country[]
+     */
+    protected $_items;
+
     /**
      * Define main table
      */
@@ -73,7 +77,7 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
      * Loads Item By Id
      *
      * @param string $countryId
-     * @return Mage_Directory_Model_Resource_Country
+     * @return Mage_Directory_Model_Resource_Country|Mage_Directory_Model_Country
      */
     public function getItemById($countryId)
     {
@@ -102,7 +106,7 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
                 if (is_array($iso)) {
                     $whereOr = array();
                     foreach ($iso as $iso_curr) {
-                        $whereOr[] .= $this->_getConditionSql("{$iso_curr}_code", array('in' => $countryCode));
+                        $whereOr[] = $this->_getConditionSql("{$iso_curr}_code", array('in' => $countryCode));
                     }
                     $this->_select->where('(' . implode(') OR (', $whereOr) . ')');
                 } else {
@@ -112,7 +116,7 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
                 if (is_array($iso)) {
                     $whereOr = array();
                     foreach ($iso as $iso_curr) {
-                        $whereOr[] .= $this->_getConditionSql("{$iso_curr}_code", $countryCode);
+                        $whereOr[] = $this->_getConditionSql("{$iso_curr}_code", $countryCode);
                     }
                     $this->_select->where('(' . implode(') OR (', $whereOr) . ')');
                 } else {

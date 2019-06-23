@@ -24,10 +24,10 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 
-/* @var $connection Varien_Db_Adapter_Pdo_Mysql */
+/* @var Varien_Db_Adapter_Pdo_Mysql $connection */
 $connection  = $installer->getConnection();
 
 $regionTable = $installer->getTable('directory/country_region');
@@ -214,6 +214,5 @@ foreach ($regionsToIns as $row) {
             'code'         => $row[1],
             'default_name' => $row[2]
         ));
-    } 
+    }
 }
-

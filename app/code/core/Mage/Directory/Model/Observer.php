@@ -39,19 +39,24 @@ class Mage_Directory_Model_Observer
     const XML_PATH_ERROR_IDENTITY = 'currency/import/error_email_identity';
     const XML_PATH_ERROR_RECIPIENT = 'currency/import/error_email';
 
+    /**
+     * @param $schedule
+     * @throws Mage_Core_Exception
+     */
     public function scheduledUpdateCurrencyRates($schedule)
     {
         $importWarnings = array();
-        if(!Mage::getStoreConfig(self::IMPORT_ENABLE) || !Mage::getStoreConfig(self::CRON_STRING_PATH)) {
+        if (!Mage::getStoreConfig(self::IMPORT_ENABLE) || !Mage::getStoreConfig(self::CRON_STRING_PATH)) {
             return;
         }
 
         $service = Mage::getStoreConfig(self::IMPORT_SERVICE);
-        if( !$service ) {
+        if (!$service) {
             $importWarnings[] = Mage::helper('directory')->__('FATAL ERROR:') . ' ' . Mage::helper('directory')->__('Invalid Import Service specified.');
         }
 
         try {
+            /** @var Mage_Directory_Model_Currency_Import_Abstract $importModel */
             $importModel = Mage::getModel(Mage::getConfig()->getNode('global/currency/import/services/' . $service . '/model')->asArray());
         } catch (Exception $e) {
             $importWarnings[] = Mage::helper('directory')->__('FATAL ERROR:') . ' ' . Mage::throwException(Mage::helper('directory')->__('Unable to initialize the import model.'));
@@ -60,7 +65,7 @@ class Mage_Directory_Model_Observer
         $rates = $importModel->fetchRates();
         $errors = $importModel->getMessages();
 
-        if( sizeof($errors) > 0 ) {
+        if (sizeof($errors) > 0) {
             foreach ($errors as $error) {
                 $importWarnings[] = Mage::helper('directory')->__('WARNING:') . ' ' . $error;
             }
@@ -68,13 +73,12 @@ class Mage_Directory_Model_Observer
 
         if (sizeof($importWarnings) == 0) {
             Mage::getModel('directory/currency')->saveRates($rates);
-        }
-        else {
+        } else {
             $translate = Mage::getSingleton('core/translate');
-            /* @var $translate Mage_Core_Model_Translate */
+            /* @var Mage_Core_Model_Translate $translate */
             $translate->setTranslateInline(false);
 
-            /* @var $mailTemplate Mage_Core_Model_Email_Template */
+            /* @var Mage_Core_Model_Email_Template $mailTemplate */
             $mailTemplate = Mage::getModel('core/email_template');
             $mailTemplate->setDesignConfig(array(
                 'area'  => 'frontend',

@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 
@@ -78,7 +78,9 @@ $table = $installer->getConnection()
             array('country_id', 'type'),
             Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
         ),
-        array('country_id', 'type'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
+        array('country_id', 'type'),
+        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)
+    )
      ->setComment('Directory Country Format');
 $installer->getConnection()->createTable($table);
 
@@ -103,8 +105,10 @@ $table = $installer->getConnection()
         ), 'Region code')
     ->addColumn('default_name', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
         ), 'Region Name')
-    ->addIndex($installer->getIdxName('directory/country_region', array('country_id')),
-        array('country_id'))
+    ->addIndex(
+        $installer->getIdxName('directory/country_region', array('country_id')),
+        array('country_id')
+    )
     ->setComment('Directory Country Region');
 $installer->getConnection()->createTable($table);
 
@@ -128,12 +132,18 @@ $table = $installer->getConnection()
         'nullable'  => true,
         'default'   => null,
         ), 'Region Name')
-    ->addIndex($installer->getIdxName('directory/country_region_name', array('region_id')),
-        array('region_id'))
+    ->addIndex(
+        $installer->getIdxName('directory/country_region_name', array('region_id')),
+        array('region_id')
+    )
     ->addForeignKey(
         $installer->getFkName('directory/country_region_name', 'region_id', 'directory/country_region', 'region_id'),
-        'region_id', $installer->getTable('directory/country_region'), 'region_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+        'region_id',
+        $installer->getTable('directory/country_region'),
+        'region_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
     ->setComment('Directory Country Region Name');
 $installer->getConnection()->createTable($table);
 
@@ -156,8 +166,10 @@ $table = $installer->getConnection()
         'nullable'  => false,
         'default'   => '0.000000000000',
         ), 'Currency Conversion Rate')
-    ->addIndex($installer->getIdxName('directory/currency_rate', array('currency_to')),
-        array('currency_to'))
+    ->addIndex(
+        $installer->getIdxName('directory/currency_rate', array('currency_to')),
+        array('currency_to')
+    )
     ->setComment('Directory Currency Rate');
 $installer->getConnection()->createTable($table);
 
