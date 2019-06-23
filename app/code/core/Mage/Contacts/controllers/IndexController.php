@@ -45,7 +45,7 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
     {
         parent::preDispatch();
 
-        if( !Mage::getStoreConfigFlag(self::XML_PATH_ENABLED) ) {
+        if (!Mage::getStoreConfigFlag(self::XML_PATH_ENABLED)) {
             $this->norouteAction();
         }
     }
@@ -54,7 +54,7 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
     {
         $this->loadLayout();
         $this->getLayout()->getBlock('contactForm')
-            ->setFormAction( Mage::getUrl('*/*/post', array('_secure' => $this->getRequest()->isSecure())) );
+            ->setFormAction(Mage::getUrl('*/*/post', array('_secure' => $this->getRequest()->isSecure())));
 
         $this->_initLayoutMessages('customer/session');
         $this->_initLayoutMessages('catalog/session');
@@ -64,7 +64,7 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
     public function postAction()
     {
         $post = $this->getRequest()->getPost();
-        if ( $post ) {
+        if ($post) {
             $translate = Mage::getSingleton('core/translate');
             /* @var Mage_Core_Model_Translate $translate */
             $translate->setTranslateInline(false);
@@ -74,11 +74,11 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
 
                 $error = false;
 
-                if (!Zend_Validate::is(trim($post['name']) , 'NotEmpty')) {
+                if (!Zend_Validate::is(trim($post['name']), 'NotEmpty')) {
                     $error = true;
                 }
 
-                if (!Zend_Validate::is(trim($post['comment']) , 'NotEmpty')) {
+                if (!Zend_Validate::is(trim($post['comment']), 'NotEmpty')) {
                     $error = true;
                 }
 
@@ -122,10 +122,8 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
                 $this->_redirect('*/*/');
                 return;
             }
-
         } else {
             $this->_redirect('*/*/');
         }
     }
-
 }
