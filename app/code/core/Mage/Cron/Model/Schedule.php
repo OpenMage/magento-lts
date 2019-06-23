@@ -132,8 +132,8 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
         }
 
         // handle multiple options
-        if (strpos($expr,',')!==false) {
-            foreach (explode(',',$expr) as $e) {
+        if (strpos($expr, ',')!==false) {
+            foreach (explode(',', $expr) as $e) {
                 if ($this->matchCronExpression($e, $num)) {
                     return true;
                 }
@@ -142,7 +142,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
         }
 
         // handle modulus
-        if (strpos($expr,'/')!==false) {
+        if (strpos($expr, '/')!==false) {
             $e = explode('/', $expr);
             if (sizeof($e)!==2) {
                 throw Mage::exception('Mage_Cron', "Invalid cron expression, expecting 'match/modulus': ".$expr);
@@ -160,9 +160,8 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
         if ($expr==='*') {
             $from = 0;
             $to = 60;
-        }
-        // handle range
-        elseif (strpos($expr,'-')!==false) {
+        } // handle range
+        elseif (strpos($expr, '-')!==false) {
             $e = explode('-', $expr);
             if (sizeof($e)!==2) {
                 throw Mage::exception('Mage_Cron', "Invalid cron expression, expecting 'from-to' structure: ".$expr);
@@ -170,8 +169,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
 
             $from = $this->getNumeric($e[0]);
             $to = $this->getNumeric($e[1]);
-        }
-        // handle regular token
+        } // handle regular token
         else {
             $from = $this->getNumeric($expr);
             $to = $from;
@@ -218,7 +216,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
         }
 
         if (is_string($value)) {
-            $value = strtolower(substr($value,0,3));
+            $value = strtolower(substr($value, 0, 3));
             if (isset($data[$value])) {
                 return $data[$value];
             }
