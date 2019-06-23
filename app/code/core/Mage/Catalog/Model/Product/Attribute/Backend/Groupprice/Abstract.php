@@ -31,9 +31,11 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice _getResource()
+ * @method Mage_Catalog_Model_Resource_Eav_Attribute getAttribute()
  */
-abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract
-    extends Mage_Catalog_Model_Product_Attribute_Backend_Price
+abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract extends Mage_Catalog_Model_Product_Attribute_Backend_Price
 {
     /**
      * Website currency codes and rates
@@ -61,7 +63,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract
             $this->_rates = array();
             $baseCurrency = Mage::app()->getBaseCurrencyCode();
             foreach (Mage::app()->getWebsites() as $website) {
-                /* @var $website Mage_Core_Model_Website */
+                /* @var Mage_Core_Model_Website $website */
                 if ($website->getBaseCurrencyCode() != $baseCurrency) {
                     $rate = Mage::getModel('directory/currency')
                         ->load($baseCurrency)
@@ -195,7 +197,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract
             if ($v['website_id'] == $websiteId) {
                 $data[$key] = $v;
                 $data[$key]['website_price'] = $v['price'];
-            } else if ($v['website_id'] == 0 && !isset($data[$key])) {
+            } elseif ($v['website_id'] == 0 && !isset($data[$key])) {
                 $data[$key] = $v;
                 $data[$key]['website_id'] = $websiteId;
                 if ($this->_isPriceFixed($price)) {
@@ -220,7 +222,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract
         $websiteId = null;
         if ($this->getAttribute()->isScopeGlobal()) {
             $websiteId = 0;
-        } else if ($storeId) {
+        } elseif ($storeId) {
             $websiteId = Mage::app()->getStore($storeId)->getWebsiteId();
         }
 

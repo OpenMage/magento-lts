@@ -32,8 +32,7 @@
  * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Block_Product_View_Options_Type_File
-    extends Mage_Catalog_Block_Product_View_Options_Abstract
+class Mage_Catalog_Block_Product_View_Options_Type_File extends Mage_Catalog_Block_Product_View_Options_Abstract
 {
     /**
      * Returns info of file
@@ -45,7 +44,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_File
         $info = $this->getProduct()->getPreconfiguredValues()->getData('options/' . $this->getOption()->getId());
         if (empty($info)) {
             $info = new Varien_Object();
-        } else if (is_array($info)) {
+        } elseif (is_array($info)) {
             $info = new Varien_Object($info);
         }
         return $info;

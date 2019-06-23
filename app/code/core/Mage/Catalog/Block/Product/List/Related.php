@@ -43,10 +43,13 @@ class Mage_Catalog_Block_Product_List_Related extends Mage_Catalog_Block_Product
 
     protected $_itemCollection;
 
+    /**
+     * @return $this
+     */
     protected function _prepareData()
     {
         $product = Mage::registry('product');
-        /* @var $product Mage_Catalog_Model_Product */
+        /* @var Mage_Catalog_Model_Product $product */
 
         $this->_itemCollection = $product->getRelatedProductCollection()
             ->addAttributeToSelect('required_options')
@@ -55,7 +58,8 @@ class Mage_Catalog_Block_Product_List_Related extends Mage_Catalog_Block_Product
         ;
 
         if (Mage::helper('catalog')->isModuleEnabled('Mage_Checkout')) {
-            Mage::getResourceSingleton('checkout/cart')->addExcludeProductFilter($this->_itemCollection,
+            Mage::getResourceSingleton('checkout/cart')->addExcludeProductFilter(
+                $this->_itemCollection,
                 Mage::getSingleton('checkout/session')->getQuoteId()
             );
             $this->_addProductAttributesAndPrices($this->_itemCollection);
@@ -72,12 +76,18 @@ class Mage_Catalog_Block_Product_List_Related extends Mage_Catalog_Block_Product
         return $this;
     }
 
+    /**
+     * @return Mage_Catalog_Block_Product_Abstract
+     */
     protected function _beforeToHtml()
     {
         $this->_prepareData();
         return parent::_beforeToHtml();
     }
 
+    /**
+     * @return mixed
+     */
     public function getItems()
     {
         return $this->_itemCollection;

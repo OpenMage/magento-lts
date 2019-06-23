@@ -42,7 +42,7 @@ class Mage_Catalog_Model_Product_Type_Api extends Mage_Api_Model_Resource_Abstra
     {
         $result = array();
 
-        foreach (Mage_Catalog_Model_Product_Type::getOptionArray() as $type=>$label) {
+        foreach (Mage_Catalog_Model_Product_Type::getOptionArray() as $type => $label) {
             $result[] = array(
                 'type'  => $type,
                 'label' => $label

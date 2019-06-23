@@ -33,6 +33,9 @@
  */
 class Mage_Catalog_Model_Category_Attribute_Source_Mode extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
 {
+    /**
+     * @return array
+     */
     public function getAllOptions()
     {
         if (!$this->_options) {

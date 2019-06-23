@@ -60,6 +60,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
      *
      * @param int|string $productId
      * @param string|int $store
+     * @param null $identifierType
      * @return array
      */
     public function items($productId, $store = null, $identifierType = null)
@@ -89,7 +90,9 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
      * @param int|string $productId
      * @param string $file
      * @param string|int $store
+     * @param null $identifierType
      * @return array
+     * @throws Mage_Api_Exception
      */
     public function info($productId, $file, $store = null, $identifierType = null)
     {
@@ -110,7 +113,9 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
      * @param int|string $productId
      * @param array $data
      * @param string|int $store
+     * @param null $identifierType
      * @return string
+     * @throws Mage_Api_Exception
      */
     public function create($productId, $data, $store = null, $identifierType = null)
     {
@@ -199,7 +204,9 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
      * @param string $file
      * @param array $data
      * @param string|int $store
+     * @param null $identifierType
      * @return boolean
+     * @throws Mage_Api_Exception
      */
     public function update($productId, $file, $data, $store = null, $identifierType = null)
     {
@@ -230,8 +237,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
                 $fileName = Mage::getBaseDir('media'). DS . 'catalog' . DS . 'product' . $file;
                 $ioAdapter->open(array('path'=>dirname($fileName)));
                 $ioAdapter->write(basename($fileName), $fileContent, 0666);
-
-            } catch(Exception $e) {
+            } catch (Exception $e) {
                 $this->_fault('not_created', Mage::helper('catalog')->__('Can\'t create image.'));
             }
         }
@@ -269,7 +275,9 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
      *
      * @param int|string $productId
      * @param string $file
+     * @param null $identifierType
      * @return boolean
+     * @throws Mage_Api_Exception
      */
     public function remove($productId, $file, $identifierType = null)
     {
@@ -308,7 +316,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
         $result = array();
 
         foreach ($attributes as $attribute) {
-            /* @var $attribute Mage_Catalog_Model_Resource_Eav_Attribute */
+            /* @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
             if ($attribute->isInSet($setId)
                 && $attribute->getFrontendInput() == 'media_image') {
                 if ($attribute->isScopeGlobal()) {
@@ -344,7 +352,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
      * Retrieve gallery attribute from product
      *
      * @param Mage_Catalog_Model_Product $product
-     * @param Mage_Catalog_Model_Resource_Eav_Mysql4_Attribute|boolean
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Attribute|boolean
      */
     protected function _getGalleryAttribute($product)
     {

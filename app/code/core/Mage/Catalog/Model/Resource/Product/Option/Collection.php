@@ -73,9 +73,11 @@ class Mage_Catalog_Model_Resource_Product_Option_Collection extends Mage_Core_Mo
         );
 
         $this->getSelect()
-            ->join(array('default_option_title' => $productOptionTitleTable),
+            ->join(
+                array('default_option_title' => $productOptionTitleTable),
                 'default_option_title.option_id = main_table.option_id',
-                array('default_title' => 'title'))
+                array('default_title' => 'title')
+            )
             ->joinLeft(
                 array('store_option_title' => $productOptionTitleTable),
                 'store_option_title.option_id = main_table.option_id AND '
@@ -83,7 +85,8 @@ class Mage_Catalog_Model_Resource_Product_Option_Collection extends Mage_Core_Mo
                 array(
                     'store_title'   => 'title',
                     'title'         => $titleExpr
-                ))
+                )
+            )
             ->where('default_option_title.store_id = ?', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID);
 
         return $this;
@@ -121,7 +124,8 @@ class Mage_Catalog_Model_Resource_Product_Option_Collection extends Mage_Core_Mo
                 array(
                     'default_price' => 'price',
                     'default_price_type' => 'price_type'
-                ))
+                )
+            )
             ->joinLeft(
                 array('store_option_price' => $productOptionPriceTable),
                 'store_option_price.option_id = main_table.option_id AND '
@@ -131,7 +135,8 @@ class Mage_Catalog_Model_Resource_Product_Option_Collection extends Mage_Core_Mo
                     'store_price_type'  => 'price_type',
                     'price'             => $priceExpr,
                     'price_type'        => $priceTypeExpr
-                ));
+                )
+            );
 
         return $this;
     }
@@ -152,7 +157,6 @@ class Mage_Catalog_Model_Resource_Product_Option_Collection extends Mage_Core_Mo
             $optionIds[] = $option->getId();
         }
         if (!empty($optionIds)) {
-            /** @var $values Mage_Catalog_Model_Option_Value_Collection */
             $values = Mage::getModel('catalog/product_option_value')
                 ->getCollection()
                 ->addTitleToResult($storeId)
@@ -161,9 +165,10 @@ class Mage_Catalog_Model_Resource_Product_Option_Collection extends Mage_Core_Mo
                 ->setOrder('sort_order', self::SORT_ORDER_ASC)
                 ->setOrder('title', self::SORT_ORDER_ASC);
 
+            /** @var Mage_Catalog_Model_Product_Option_Value $value */
             foreach ($values as $value) {
                 $optionId = $value->getOptionId();
-                if($this->getItemById($optionId)) {
+                if ($this->getItemById($optionId)) {
                     $this->getItemById($optionId)->addValue($value);
                     $value->setOption($this->getItemById($optionId));
                 }
@@ -210,7 +215,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Collection extends Mage_Core_Mo
      * Add filtering by option ids
      *
      * @param mixed $optionIds
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Option_Collection
+     * @return $this
      */
     public function addIdsToFilter($optionIds)
     {

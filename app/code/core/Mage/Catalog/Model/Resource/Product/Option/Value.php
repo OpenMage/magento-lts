@@ -106,7 +106,6 @@ class Mage_Catalog_Model_Resource_Product_Option_Value extends Mage_Core_Model_R
 
         if ($object->getStoreId() != '0' && $scope == Mage_Core_Model_Store::PRICE_SCOPE_WEBSITE
             && !$object->getData('scope', 'price')) {
-
             $baseCurrency = Mage::app()->getBaseCurrencyCode();
 
             $storeIds = Mage::app()->getStore($object->getStoreId())
@@ -154,14 +153,13 @@ class Mage_Catalog_Model_Resource_Product_Option_Value extends Mage_Core_Model_R
                     }
                 }// end of foreach()
             }
-        } else if ($scope == Mage_Core_Model_Store::PRICE_SCOPE_WEBSITE && $object->getData('scope', 'price')) {
+        } elseif ($scope == Mage_Core_Model_Store::PRICE_SCOPE_WEBSITE && $object->getData('scope', 'price')) {
             $where = array(
                 'option_type_id = ?'    => (int)$object->getId(),
                 'store_id = ?'          => (int)$object->getStoreId(),
             );
             $this->_getWriteAdapter()->delete($priceTable, $where);
         }
-
     }
 
     /**
@@ -225,7 +223,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Value extends Mage_Core_Model_R
                 );
                 $this->_getWriteAdapter()->insert($titleTable, $bind);
             }
-        } else if ($object->getData('scope', 'title')) {
+        } elseif ($object->getData('scope', 'title')) {
             $where = array(
                 'option_type_id = ?'    => (int)$object->getId(),
                 'store_id = ?'          => (int)$object->getStoreId()
@@ -326,8 +324,11 @@ class Mage_Catalog_Model_Resource_Product_Option_Value extends Mage_Core_Model_R
                 ->from($priceTable, array())
                 ->where('option_type_id = ?', $oldTypeId)
                 ->columns($columns);
-            $insertSelect = $writeAdapter->insertFromSelect($select, $priceTable,
-                array('option_type_id', 'store_id', 'price', 'price_type'));
+            $insertSelect = $writeAdapter->insertFromSelect(
+                $select,
+                $priceTable,
+                array('option_type_id', 'store_id', 'price', 'price_type')
+            );
             $writeAdapter->query($insertSelect);
 
             // title
@@ -341,8 +342,11 @@ class Mage_Catalog_Model_Resource_Product_Option_Value extends Mage_Core_Model_R
                 ->from($titleTable, array())
                 ->where('option_type_id = ?', $oldTypeId)
                 ->columns($columns);
-            $insertSelect = $writeAdapter->insertFromSelect($select, $titleTable,
-                array('option_type_id', 'store_id', 'title'));
+            $insertSelect = $writeAdapter->insertFromSelect(
+                $select,
+                $titleTable,
+                array('option_type_id', 'store_id', 'title')
+            );
             $writeAdapter->query($insertSelect);
         }
 

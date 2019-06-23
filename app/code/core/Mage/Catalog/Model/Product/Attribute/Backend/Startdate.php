@@ -30,9 +30,8 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Catalog_Model_Product_Attribute_Backend_Startdate extends Mage_Eav_Model_Entity_Attribute_Backend_Datetime
 {
    /**
@@ -72,7 +71,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Startdate extends Mage_Eav_Mo
     * Product from date attribute validate function.
     * In case invalid data throws exception.
     *
-    * @param Varien_Object $object
+    * @param Mage_Catalog_Model_Product $object
     * @throws Mage_Eav_Model_Entity_Attribute_Exception
     * @return bool
     */

@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
+/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 
 $attributeId    = $installer->getAttributeId('catalog_category', 'is_active');
 $entityTypeId   = $installer->getEntityTypeId('catalog_category');
@@ -42,4 +42,3 @@ if (!$attributesCount) {
         $data = $installer->getConnection()->insert($categoryIntTable, $row);
     }
 }
-

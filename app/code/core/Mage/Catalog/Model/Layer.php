@@ -31,6 +31,8 @@
  * @category    Mage
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setStore(int $value)
  */
 class Mage_Catalog_Model_Layer extends Varien_Object
 {
@@ -92,7 +94,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
     /**
      * Retrieve current layer product collection
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
+     * @return Mage_Catalog_Model_Resource_Product_Collection
      */
     public function getProductCollection()
     {
@@ -110,7 +112,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
     /**
      * Initialize product collection
      *
-     * @param Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection $collection
+     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
      * @return $this
      */
     public function prepareProductCollection($collection)
@@ -161,8 +163,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
         if (is_null($category)) {
             if ($category = Mage::registry('current_category')) {
                 $this->setData('current_category', $category);
-            }
-            else {
+            } else {
                 $category = Mage::getModel('catalog/category')->load($this->getCurrentStore()->getRootCategoryId());
                 $this->setData('current_category', $category);
             }
@@ -209,7 +210,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
     /**
      * Get collection of all filterable attributes for layer products set
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Attribute_Collection
+     * @return Mage_Catalog_Model_Resource_Product_Attribute_Collection|array
      */
     public function getFilterableAttributes()
     {
@@ -220,7 +221,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
         if (!$setIds) {
             return array();
         }
-        /** @var $collection Mage_Catalog_Model_Resource_Product_Attribute_Collection */
+        /** @var Mage_Catalog_Model_Resource_Product_Attribute_Collection $collection */
         $collection = Mage::getResourceModel('catalog/product_attribute_collection');
         $collection
             ->setItemObjectClass('catalog/resource_eav_attribute')
@@ -248,8 +249,8 @@ class Mage_Catalog_Model_Layer extends Varien_Object
     /**
      * Add filters to attribute collection
      *
-     * @param   Mage_Catalog_Model_Resource_Eav_Mysql4_Attribute_Collection $collection
-     * @return  Mage_Catalog_Model_Resource_Eav_Mysql4_Attribute_Collection
+     * @param   Mage_Catalog_Model_Resource_Product_Attribute_Collection $collection
+     * @return  Mage_Catalog_Model_Resource_Product_Attribute_Collection
      */
     protected function _prepareAttributeCollection($collection)
     {

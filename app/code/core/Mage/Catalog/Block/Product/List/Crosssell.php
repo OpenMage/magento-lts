@@ -57,7 +57,7 @@ class Mage_Catalog_Block_Product_List_Crosssell extends Mage_Catalog_Block_Produ
     protected function _prepareData()
     {
         $product = Mage::registry('product');
-        /* @var $product Mage_Catalog_Model_Product */
+        /* @var Mage_Catalog_Model_Product $product */
 
         $this->_itemCollection = $product->getCrossSellProductCollection()
             ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
@@ -80,7 +80,7 @@ class Mage_Catalog_Block_Product_List_Crosssell extends Mage_Catalog_Block_Produ
      * Before rendering html process
      * Prepare items collection
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _beforeToHtml()
     {
@@ -97,5 +97,4 @@ class Mage_Catalog_Block_Product_List_Crosssell extends Mage_Catalog_Block_Produ
     {
         return $this->_itemCollection;
     }
-
 }

@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
+/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 
 $installer->startSetup();
 
@@ -51,8 +51,7 @@ $installer->addAttribute('catalog_product', 'options_container', array(
     'visible_on_front'  => false,
     'visible_in_advanced_search' => false,
     'unique'            => false,
-    )
-);
+    ));
 
 $newAttributeId = $installer->getAttributeId('catalog_product', 'options_container');
 

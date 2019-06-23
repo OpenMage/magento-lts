@@ -131,7 +131,7 @@ class Mage_Catalog_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      * @param string|int $store
      * @return int
      */
-    public function currentStore($store=null)
+    public function currentStore($store = null)
     {
         if (!is_null($store)) {
             try {

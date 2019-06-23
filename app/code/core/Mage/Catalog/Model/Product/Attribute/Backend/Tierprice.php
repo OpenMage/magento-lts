@@ -32,13 +32,12 @@
  * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Model_Product_Attribute_Backend_Tierprice
-    extends Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract
+class Mage_Catalog_Model_Product_Attribute_Backend_Tierprice extends Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract
 {
     /**
      * Retrieve resource instance
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Attribute_Backend_Tierprice
+     * @return Mage_Catalog_Model_Resource_Product_Attribute_Backend_Tierprice
      */
     protected function _getResource()
     {

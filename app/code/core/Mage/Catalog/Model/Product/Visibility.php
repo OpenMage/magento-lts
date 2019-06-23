@@ -60,13 +60,12 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      * Add visible in catalog filter to collection
      *
      * @deprecated
-     * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
+     * @param Mage_Catalog_Model_Resource_Product_Collection  $collection
      * @return $this
      */
-    public function addVisibleInCatalogFilterToCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)
+    public function addVisibleInCatalogFilterToCollection(Mage_Catalog_Model_Resource_Product_Collection  $collection)
     {
         $collection->setVisibility($this->getVisibleInCatalogIds());
-//        $collection->addAttributeToFilter('visibility', array('in'=>$this->getVisibleInCatalogIds()));
         return $this;
     }
 
@@ -74,13 +73,12 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      * Add visibility in searchfilter to collection
      *
      * @deprecated
-     * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
+     * @param Mage_Catalog_Model_Resource_Product_Collection  $collection
      * @return $this
      */
-    public function addVisibleInSearchFilterToCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)
+    public function addVisibleInSearchFilterToCollection(Mage_Catalog_Model_Resource_Product_Collection  $collection)
     {
         $collection->setVisibility($this->getVisibleInSearchIds());
-        //$collection->addAttributeToFilter('visibility', array('in'=>$this->getVisibleInSearchIds()));
         return $this;
     }
 
@@ -88,13 +86,12 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      * Add visibility in site filter to collection
      *
      * @deprecated
-     * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
+     * @param Mage_Catalog_Model_Resource_Product_Collection  $collection
      * @return $this
      */
-    public function addVisibleInSiteFilterToCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)
+    public function addVisibleInSiteFilterToCollection(Mage_Catalog_Model_Resource_Product_Collection  $collection)
     {
         $collection->setVisibility($this->getVisibleInSiteIds());
-        //$collection->addAttributeToFilter('visibility', array('in'=>$this->getVisibleInSiteIds()));
         return $this;
     }
 
@@ -133,7 +130,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      *
      * @return array
      */
-    static public function getOptionArray()
+    public static function getOptionArray()
     {
         return array(
             self::VISIBILITY_NOT_VISIBLE=> Mage::helper('catalog')->__('Not Visible Individually'),
@@ -148,7 +145,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      *
      * @return array
      */
-    static public function toOptionArray()
+    public static function toOptionArray()
     {
         return self::getOptionArray();
     }
@@ -158,7 +155,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      *
      * @return array
      */
-    static public function getAllOption()
+    public static function getAllOption()
     {
         $options = self::getOptionArray();
         array_unshift($options, array('value'=>'', 'label'=>''));
@@ -170,7 +167,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      *
      * @return array
      */
-    static public function getAllOptions()
+    public static function getAllOptions()
     {
         $res = array();
         $res[] = array('value'=>'', 'label'=> Mage::helper('catalog')->__('-- Please Select --'));
@@ -189,7 +186,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      * @param int $optionId
      * @return string
      */
-    static public function getOptionText($optionId)
+    public static function getOptionText($optionId)
     {
         $options = self::getOptionArray();
         return isset($options[$optionId]) ? $options[$optionId] : null;
@@ -234,7 +231,6 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
     /**
      * Retrieve Select For Flat Attribute update
      *
-     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @param int $store
      * @return Varien_Db_Select|null
      */
@@ -248,7 +244,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      * Set attribute instance
      *
      * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
-     * @return Mage_Eav_Model_Entity_Attribute_Frontend_Abstract
+     * @return Mage_Catalog_Model_Product_Visibility
      */
     public function setAttribute($attribute)
     {
@@ -269,9 +265,10 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
     /**
      * Add Value Sort To Collection Select
      *
-     * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
+     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
      * @param string $dir direction
-     * @return Mage_Eav_Model_Entity_Attribute_Source_Abstract
+     * @return Mage_Catalog_Model_Product_Visibility
+     * @throws Mage_Core_Exception
      */
     public function addValueSortToCollection($collection, $dir = 'asc')
     {
@@ -287,10 +284,10 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
                     "e.entity_id={$tableName}.entity_id"
                         . " AND {$tableName}.attribute_id='{$attributeId}'"
                         . " AND {$tableName}.store_id='0'",
-                    array());
+                    array()
+                );
             $valueExpr = $tableName . '.value';
-        }
-        else {
+        } else {
             $valueTable1 = $attributeCode . '_t1';
             $valueTable2 = $attributeCode . '_t2';
             $collection->getSelect()
@@ -299,7 +296,8 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
                     "e.entity_id={$valueTable1}.entity_id"
                         . " AND {$valueTable1}.attribute_id='{$attributeId}'"
                         . " AND {$valueTable1}.store_id='0'",
-                    array())
+                    array()
+                )
                 ->joinLeft(
                     array($valueTable2 => $attributeTable),
                     "e.entity_id={$valueTable2}.entity_id"

@@ -24,7 +24,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
+/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 $installer = $this;
 
 // is product used for recurring payments
@@ -75,4 +75,3 @@ $installer->addAttribute('catalog_product', 'recurring_profile', array(
     'apply_to'          => 'simple,virtual',
     'is_configurable'   => false
 ));
-

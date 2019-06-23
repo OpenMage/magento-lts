@@ -43,7 +43,7 @@ abstract class Mage_Catalog_Block_Seo_Sitemap_Abstract extends Mage_Core_Block_T
     public function bindPager($pagerName)
     {
         $pager = $this->getLayout()->getBlock($pagerName);
-        /* @var $pager Mage_Page_Html_Pager */
+        /* @var Mage_Page_Block_Html_Pager $pager */
         if ($pager) {
             $pager->setAvailableLimit(array(50 => 50));
             $pager->setCollection($this->getCollection());
@@ -56,12 +56,11 @@ abstract class Mage_Catalog_Block_Seo_Sitemap_Abstract extends Mage_Core_Block_T
      *
      * In most cases should be overriden in descendant blocks
      *
-     * @param Varien_Object $item
+     * @param Mage_Catalog_Block_Seo_Sitemap_Abstract $item
      * @return string
      */
     public function getItemUrl($item)
     {
         return $item->getUrl();
     }
-
 }

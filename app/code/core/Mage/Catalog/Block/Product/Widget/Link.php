@@ -32,8 +32,7 @@
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 
-class Mage_Catalog_Block_Product_Widget_Link
-    extends Mage_Catalog_Block_Widget_Link
+class Mage_Catalog_Block_Product_Widget_Link extends Mage_Catalog_Block_Widget_Link
 {
     /**
      * Initialize entity model

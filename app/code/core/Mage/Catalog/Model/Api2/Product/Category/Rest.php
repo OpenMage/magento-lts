@@ -84,7 +84,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Category_Rest extends Mage_Catalo
      */
     protected function _getCategoryById($categoryId)
     {
-        /** @var $category Mage_Catalog_Model_Category */
+        /** @var Mage_Catalog_Model_Category $category */
         $category = Mage::getModel('catalog/category')->setStoreId(0)->load($categoryId);
         if (!$category->getId()) {
             $this->_critical('Category not found', Mage_Api2_Model_Server::HTTP_NOT_FOUND);

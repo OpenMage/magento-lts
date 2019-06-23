@@ -31,8 +31,7 @@
  * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Model_Product_Attribute_Source_Countryofmanufacture
-    extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
+class Mage_Catalog_Model_Product_Attribute_Source_Countryofmanufacture extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
 {
     /**
      * Get list of all available countries

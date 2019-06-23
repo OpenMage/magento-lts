@@ -50,7 +50,7 @@ class Mage_Catalog_Model_Product_Website extends Mage_Core_Model_Abstract
     /**
      * Retrieve Resource instance wrapper
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Website
+     * @inheritDoc
      */
     protected function _getResource()
     {
@@ -68,8 +68,7 @@ class Mage_Catalog_Model_Product_Website extends Mage_Core_Model_Abstract
     {
         try {
             $this->_getResource()->removeProducts($websiteIds, $productIds);
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             Mage::throwException(
                 Mage::helper('catalog')->__('An error occurred while removing products from websites.')
             );
@@ -88,8 +87,7 @@ class Mage_Catalog_Model_Product_Website extends Mage_Core_Model_Abstract
     {
         try {
             $this->_getResource()->addProducts($websiteIds, $productIds);
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             Mage::throwException(
                 Mage::helper('catalog')->__('An error occurred while adding products to websites.')
             );

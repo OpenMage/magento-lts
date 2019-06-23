@@ -24,6 +24,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/** @var Mage_Catalog_Model_Resource_Setup $installer */
 $installer = $this;
 $tableName = $installer->getTable('catalog/product_index_eav_decimal');
 $indexName = $installer->getConnection()->getPrimaryKeyName($tableName);
@@ -39,4 +40,3 @@ $installer->getConnection()
 
 $installer->getConnection()
         ->addIndex($tableNameTmp, $indexNameTmp, $fields, Varien_Db_Adapter_Interface::INDEX_TYPE_PRIMARY);
-

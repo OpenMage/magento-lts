@@ -32,7 +32,6 @@
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-interface Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price_Interface
-    extends Mage_Catalog_Model_Resource_Product_Indexer_Price_Interface
+interface Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price_Interface extends Mage_Catalog_Model_Resource_Product_Indexer_Price_Interface
 {
 }

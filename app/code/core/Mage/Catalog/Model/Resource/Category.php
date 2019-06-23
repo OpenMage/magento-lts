@@ -121,7 +121,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
      * update children count for parent category
      * delete child categories
      *
-     * @param Varien_Object $object
+     * @param Varien_Object|Mage_Catalog_Model_Category $object
      * @return $this
      */
     protected function _beforeDelete(Varien_Object $object)
@@ -136,7 +136,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
             $childDecrease = $object->getChildrenCount() + 1; // +1 is itself
             $data = array('children_count' => new Zend_Db_Expr('children_count - ' . $childDecrease));
             $where = array('entity_id IN(?)' => $parentIds);
-            $this->_getWriteAdapter()->update( $this->getEntityTable(), $data, $where);
+            $this->_getWriteAdapter()->update($this->getEntityTable(), $data, $where);
         }
         $this->deleteChildren($object);
         return $this;
@@ -145,7 +145,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
     /**
      * Delete children categories of specific category
      *
-     * @param Varien_Object $object
+     * @param Varien_Object|Mage_Catalog_Model_Category $object
      * @return $this
      */
     public function deleteChildren(Varien_Object $object)
@@ -178,7 +178,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
      * Process category data before saving
      * prepare path and increment children count for parent categories
      *
-     * @param Varien_Object $object
+     * @param Varien_Object|Mage_Catalog_Model_Category $object
      * @return $this
      */
     protected function _beforeSave(Varien_Object $object)
@@ -202,14 +202,13 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
             }
             $object->setPath($object->getPath() . '/');
 
-            $toUpdateChild = explode('/',$object->getPath());
+            $toUpdateChild = explode('/', $object->getPath());
 
             $this->_getWriteAdapter()->update(
                 $this->getEntityTable(),
                 array('children_count'  => new Zend_Db_Expr('children_count+1')),
                 array('entity_id IN(?)' => $toUpdateChild)
             );
-
         }
         return $this;
     }
@@ -218,8 +217,8 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
      * Process category data after save category object
      * save related products ids and update path value
      *
-     * @param Varien_Object $object
-     * @return $this
+     * @param Mage_Catalog_Model_Category $object
+     * @inheritDoc
      */
     protected function _afterSave(Varien_Object $object)
     {
@@ -568,7 +567,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
     public function getCategories($parent, $recursionLevel = 0, $sorted = false, $asCollection = false, $toLoad = true)
     {
         $tree = Mage::getResourceModel('catalog/category_tree');
-        /* @var $tree Mage_Catalog_Model_Resource_Category_Tree */
+        /* @var Mage_Catalog_Model_Resource_Category_Tree $tree */
         $nodes = $tree->loadNode($parent)
             ->loadChildren($recursionLevel)
             ->getChildren();
@@ -585,7 +584,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
      * Return parent categories of category
      *
      * @param Mage_Catalog_Model_Category $category
-     * @return array
+     * @return Mage_Catalog_Model_Category[]
      */
     public function getParentCategories($category)
     {
@@ -645,7 +644,6 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
         return $collection;
     }
 
-
     /**
      * Return child categories
      *
@@ -661,7 +659,6 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
 
         return $collection;
     }
-
 
     /**
      * Return children categories lists with inactive
@@ -680,7 +677,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
     /**
      * Returns select for category's children.
      *
-     * @param $category
+     * @param Mage_Catalog_Model_Category $category
      * @param bool $recursive
      * @return Varien_Db_Select
      */
@@ -736,7 +733,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
     /**
      * Return IDs of category's children along with inactive categories.
      *
-     * @param $category
+     * @param Mage_Catalog_Model_Category $category
      * @param bool $recursive
      * @return array
      */
@@ -786,7 +783,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
         $select = $this->_getReadAdapter()->select()
             ->from($this->getTable('core/store_group'), array('group_id'))
             ->where('root_category_id = :root_category_id');
-        $result = $this->_getReadAdapter()->fetchOne($select,  array('root_category_id' => $categoryId));
+        $result = $this->_getReadAdapter()->fetchOne($select, array('root_category_id' => $categoryId));
 
         if ($result) {
             return true;
@@ -818,9 +815,11 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
      * @param null|int $afterCategoryId
      * @return $this
      */
-    public function changeParent(Mage_Catalog_Model_Category $category, Mage_Catalog_Model_Category $newParent,
-        $afterCategoryId = null)
-    {
+    public function changeParent(
+        Mage_Catalog_Model_Category $category,
+        Mage_Catalog_Model_Category $newParent,
+        $afterCategoryId = null
+    ) {
         $childrenCount  = $this->getChildrenCount($category->getId()) + 1;
         $table          = $this->getEntityTable();
         $adapter        = $this->_getWriteAdapter();
@@ -858,9 +857,8 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
             $table,
             array(
                 'path' => new Zend_Db_Expr('REPLACE(' . $pathField . ','.
-                    $adapter->quote($category->getPath() . '/'). ', '.$adapter->quote($newPath . '/').')'
-                ),
-                'level' => new Zend_Db_Expr( $levelFiled . ' + ' . $levelDisposition)
+                    $adapter->quote($category->getPath() . '/'). ', '.$adapter->quote($newPath . '/').')'),
+                'level' => new Zend_Db_Expr($levelFiled . ' + ' . $levelDisposition)
             ),
             array($pathField . ' LIKE ?' => $category->getPath() . '/%')
         );
@@ -910,7 +908,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
          */
         if ($afterCategoryId) {
             $select = $adapter->select()
-                ->from($table,'position')
+                ->from($table, 'position')
                 ->where('entity_id = :entity_id');
             $position = $adapter->fetchOne($select, array('entity_id' => $afterCategoryId));
 
@@ -921,7 +919,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
                 'parent_id = ?' => $newParent->getId(),
                 $positionField . ' > ?' => $position
             );
-            $adapter->update($table,$bind,$where);
+            $adapter->update($table, $bind, $where);
         } elseif ($afterCategoryId !== null) {
             $position = 0;
             $bind = array(
@@ -931,10 +929,10 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
                 'parent_id = ?' => $newParent->getId(),
                 $positionField . ' > ?' => $position
             );
-            $adapter->update($table,$bind,$where);
+            $adapter->update($table, $bind, $where);
         } else {
             $select = $adapter->select()
-                ->from($table,array('position' => new Zend_Db_Expr('MIN(' . $positionField. ')')))
+                ->from($table, array('position' => new Zend_Db_Expr('MIN(' . $positionField. ')')))
                 ->where('parent_id = :parent_id');
             $position = $adapter->fetchOne($select, array('parent_id' => $newParent->getId()));
         }

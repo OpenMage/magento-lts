@@ -30,11 +30,11 @@
  * @category    Mage
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
- */
-
-/**
- * @method Mage_Catalog_Model_Layer_Filter_Price setInterval(array)
+ *
  * @method array getInterval()
+ * @method $this setInterval(array $value)
+ * @method array getPriorIntervals()
+ * @method $this setPriorIntervals(array $value)
  */
 class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Filter_Abstract
 {
@@ -62,7 +62,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
     /**
      * Resource instance
      *
-     * @var Mage_Catalog_Model_Resource_Eav_Mysql4_Layer_Filter_Price
+     * @var Mage_Catalog_Model_Resource_Layer_Filter_Price
      */
     protected $_resource;
 
@@ -79,7 +79,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
     /**
      * Retrieve resource instance
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Layer_Filter_Price
+     * @return Mage_Catalog_Model_Resource_Layer_Filter_Price
      */
     protected function _getResource()
     {
@@ -114,8 +114,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
                         $range = pow(10, (strlen(floor($maxPrice)) - $index));
                         $items = $this->getRangeItemCounts($range);
                         $index++;
-                    }
-                    while($range > self::MIN_RANGE_POWER && count($items) < 2);
+                    } while ($range > self::MIN_RANGE_POWER && count($items) < 2);
                 } else {
                     $range = (float)Mage::app()->getStore()->getConfig(self::XML_PATH_RANGE_STEP);
                 }
@@ -262,7 +261,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
      */
     protected function _getCalculatedItemsData()
     {
-        /** @var $algorithmModel Mage_Catalog_Model_Layer_Filter_Price_Algorithm */
+        /** @var Mage_Catalog_Model_Layer_Filter_Price_Algorithm $algorithmModel */
         $algorithmModel = Mage::getSingleton('catalog/layer_filter_price_algorithm');
         $collection = $this->getLayer()->getProductCollection();
         $appliedInterval = $this->getInterval();
@@ -370,7 +369,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
      * Apply price range filter
      *
      * @param Zend_Controller_Request_Abstract $request
-     * @param $filterBlock
+     * @param null $filterBlock
      *
      * @return $this
      */

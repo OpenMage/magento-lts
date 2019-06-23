@@ -103,7 +103,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav extends Mage_Catalog_Model
         }
 
         foreach ($this->getIndexers() as $indexer) {
-            /** @var $indexer Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract */
+            /** @var Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract $indexer */
             $indexer->reindexEntities($productId);
         }
 
@@ -124,7 +124,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav extends Mage_Catalog_Model
         }
 
         foreach ($this->getIndexers() as $indexer) {
-            /** @var $indexer Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract */
+            /** @var Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract $indexer */
             $indexer->reindexEntities($data['reindex_eav_parent_ids']);
         }
 
@@ -145,7 +145,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav extends Mage_Catalog_Model
         }
 
         foreach ($this->getIndexers() as $indexer) {
-            /** @var $indexer Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract */
+            /** @var Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract $indexer */
             $indexer->reindexEntities($data['reindex_eav_product_ids']);
         }
 
@@ -181,7 +181,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav extends Mage_Catalog_Model
     {
         $this->useIdxTable(true);
         foreach ($this->getIndexers() as $indexer) {
-            /** @var $indexer Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract */
+            /** @var Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract $indexer */
             $indexer->reindexAll();
         }
 
@@ -197,7 +197,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav extends Mage_Catalog_Model
     public function getIdxTable($table = null)
     {
         if ($this->useIdxTable()) {
-           return $this->getTable('catalog/product_eav_indexer_idx');
+            return $this->getTable('catalog/product_eav_indexer_idx');
         }
         return $this->getTable('catalog/product_eav_indexer_tmp');
     }

@@ -80,7 +80,7 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
      * Apply category filter to layer
      *
      * @param   Zend_Controller_Request_Abstract $request
-     * @param   Mage_Core_Block_Abstract $filterBlock
+     * @param   null $filterBlock
      * @return  Mage_Catalog_Model_Layer_Filter_Category
      */
     public function apply(Zend_Controller_Request_Abstract $request, $filterBlock)
@@ -112,8 +112,8 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
     /**
      * Validate category for be using as filter
      *
-     * @param   Mage_Catalog_Model_Category $category
-     * @return unknown
+     * @param Mage_Catalog_Model_Category $category
+     * @return int
      */
     protected function _isValidCategory($category)
     {
@@ -159,7 +159,6 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
 
         if ($data === null) {
             $categoty   = $this->getCategory();
-            /** @var $categoty Mage_Catalog_Model_Categeory */
             $categories = $categoty->getChildrenCategories();
 
             $this->getLayer()->getProductCollection()

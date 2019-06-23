@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/** @var $installer Mage_Catalog_Model_Resource_Setup */
+/** @var Mage_Catalog_Model_Resource_Setup $installer */
 
 $attribute = 'special_price';
 $installer
@@ -33,7 +33,7 @@ $installer
         Mage_Catalog_Model_Product::ENTITY,
         'special_price',
         'note',
-        NULL
+        null
     )
     ->updateAttribute(
         Mage_Catalog_Model_Product::ENTITY,

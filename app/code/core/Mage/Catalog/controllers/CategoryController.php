@@ -36,7 +36,7 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
     /**
      * Initialize requested category object
      *
-     * @return Mage_Catalog_Model_Category
+     * @return Mage_Catalog_Model_Category|false
      */
     protected function _initCategory()
     {
@@ -151,7 +151,7 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
             // apply custom layout update once layout is loaded
             if ($layoutUpdates = $settings->getLayoutUpdates()) {
                 if (is_array($layoutUpdates)) {
-                    foreach($layoutUpdates as $layoutUpdate) {
+                    foreach ($layoutUpdates as $layoutUpdate) {
                         $update->addUpdate($layoutUpdate);
                     }
                 }
@@ -171,8 +171,7 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
             $this->_initLayoutMessages('catalog/session');
             $this->_initLayoutMessages('checkout/session');
             $this->renderLayout();
-        }
-        elseif (!$this->getResponse()->isRedirect()) {
+        } elseif (!$this->getResponse()->isRedirect()) {
             $this->_forward('noRoute');
         }
     }

@@ -145,8 +145,8 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
     public function isBuiltAllStores()
     {
         $isBuildAll = true;
-        foreach(Mage::app()->getStores(false) as $store) {
-            /** @var $store Mage_Core_Model_Store */
+        foreach (Mage::app()->getStores(false) as $store) {
+            /** @var Mage_Core_Model_Store $store */
             $isBuildAll = $isBuildAll && $this->isBuilt($store->getId());
         }
         return $isBuildAll;
@@ -175,7 +175,7 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
     /**
      * Disable Catalog Product Flat
      *
-     * @param $save bool
+     * @param bool $save
      */
     public function disableFlatCollection($save = false)
     {

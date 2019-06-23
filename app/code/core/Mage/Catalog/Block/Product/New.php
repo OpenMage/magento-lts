@@ -95,7 +95,7 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
             ->setTime('23:59:59')
             ->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);
 
-        /** @var $collection Mage_Catalog_Model_Resource_Product_Collection */
+        /** @var Mage_Catalog_Model_Resource_Product_Collection $collection */
         $collection = Mage::getResourceModel('catalog/product_collection');
         $collection->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds());
 
@@ -115,7 +115,7 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
                     array('attribute' => 'news_from_date', 'is'=>new Zend_Db_Expr('not null')),
                     array('attribute' => 'news_to_date', 'is'=>new Zend_Db_Expr('not null'))
                     )
-              )
+            )
             ->addAttributeToSort('news_from_date', 'desc')
             ->setPageSize($this->getProductsCount())
             ->setCurPage(1)
@@ -138,7 +138,7 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
     /**
      * Set how much product should be displayed at once.
      *
-     * @param $count
+     * @param int $count
      * @return $this
      */
     public function setProductsCount($count)

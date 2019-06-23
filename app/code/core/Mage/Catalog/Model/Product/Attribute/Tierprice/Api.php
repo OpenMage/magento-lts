@@ -40,6 +40,12 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
         $this->_storeIdSessionField = 'product_store_id';
     }
 
+    /**
+     * @param int $productId
+     * @param null $identifierType
+     * @return array
+     * @throws Mage_Core_Exception
+     */
     public function info($productId, $identifierType = null)
     {
         $product = $this->_initProduct($productId, $identifierType);
@@ -72,7 +78,9 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
      *
      * @param int|string $productId
      * @param array $tierPrices
+     * @param null $identifierType
      * @return boolean
+     * @throws Mage_Api_Exception
      */
     public function update($productId, $tierPrices, $identifierType = null)
     {
@@ -91,7 +99,7 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
              */
             if (is_array($errors = $product->validate())) {
                 $strErrors = array();
-                foreach($errors as $code=>$error) {
+                foreach ($errors as $code => $error) {
                     $strErrors[] = ($error === true)? Mage::helper('catalog')->__('Value for "%s" is invalid.', $code) : Mage::helper('catalog')->__('Value for "%s" is invalid: %s', $code, $error);
                 }
                 $this->_fault('data_invalid', implode("\n", $strErrors));

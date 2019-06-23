@@ -32,7 +32,6 @@
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Attribute_Backend_Media
-    extends Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media
+class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Attribute_Backend_Media extends Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media
 {
 }

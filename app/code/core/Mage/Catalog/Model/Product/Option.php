@@ -29,24 +29,34 @@
  *
  * @method Mage_Catalog_Model_Resource_Product_Option _getResource()
  * @method Mage_Catalog_Model_Resource_Product_Option getResource()
- * @method int getProductId()
- * @method Mage_Catalog_Model_Product_Option setProductId(int $value)
- * @method string getType()
- * @method Mage_Catalog_Model_Product_Option setType(string $value)
- * @method int getIsRequire()
- * @method Mage_Catalog_Model_Product_Option setIsRequire(int $value)
- * @method string getSku()
- * @method Mage_Catalog_Model_Product_Option setSku(string $value)
- * @method int getMaxCharacters()
- * @method Mage_Catalog_Model_Product_Option setMaxCharacters(int $value)
+ * @method Mage_Catalog_Model_Resource_Product_Option_Collection getCollection()()
+ * @method bool getAddRequiredFilter()
+ * @method bool getAddRequiredFilterValue()
  * @method string getFileExtension()
- * @method Mage_Catalog_Model_Product_Option setFileExtension(string $value)
+ * @method $this setFileExtension(string $value)
  * @method int getImageSizeX()
- * @method Mage_Catalog_Model_Product_Option setImageSizeX(int $value)
+ * @method $this setImageSizeX(int $value)
  * @method int getImageSizeY()
- * @method Mage_Catalog_Model_Product_Option setImageSizeY(int $value)
+ * @method $this setImageSizeY(int $value)
+ * @method int getIsRequire()
+ * @method $this setIsRequire(int $value)
+ * @method int getMaxCharacters()
+ * @method $this setMaxCharacters(int $value)
+ * @method int getOptionId()
+ * @method $this setOptionId(int $value)
+ * @method string getPriceType()
+ * @method int getProductId()
+ * @method $this setProductId(int $value)
+ * @method string getSku()
+ * @method $this setSku(string $value)
  * @method int getSortOrder()
- * @method Mage_Catalog_Model_Product_Option setSortOrder(int $value)
+ * @method $this setSortOrder(int $value)
+ * @method int getStoreId()
+ * @method float getStorePrice()
+ * @method string getStoreTitle()
+ * @method string getTitle()
+ * @method string getType()
+ * @method $this setType(string $value)
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -190,7 +200,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     /**
      * Get values
      *
-     * @return array
+     * @return Mage_Catalog_Model_Product_Option_Value[]
      */
     public function getValues()
     {
@@ -308,7 +318,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      * Group model factory
      *
      * @param string $type Option type
-     * @return Mage_Catalog_Model_Product_Option_Group_Abstract
+     * @return Mage_Catalog_Model_Product_Option_Type_Default
      */
     public function groupFactory($type)
     {
@@ -354,7 +364,6 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
                      * need to remove all data of previous group
                      */
                     if ($this->getGroupByType($previousType) != $this->getGroupByType($this->getData('type'))) {
-
                         switch ($this->getGroupByType($previousType)) {
                             case self::OPTION_GROUP_SELECT:
                                 $this->unsetData('values');
@@ -383,7 +392,8 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
                         }
                     }
                 }
-                $this->save();            }
+                $this->save();
+            }
         }//eof foreach()
         return $this;
     }
@@ -492,7 +502,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      *
      * @param array $optionIds
      * @param int $store_id
-     * @return unknown
+     * @return Mage_Catalog_Model_Resource_Product_Option_Value_Collection
      */
     public function getOptionValuesByOptionId($optionIds, $store_id)
     {

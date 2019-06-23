@@ -71,15 +71,15 @@ class Mage_Catalog_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Resource_
         if (preg_match('/^((?:var)?char)\((\d+)\)/', $type, $matches)) {
             $type       = $matches[1];
             $length     = $matches[2];
-        } else if (preg_match('/^decimal\((\d+),(\d+)\)/', $type, $matches)) {
+        } elseif (preg_match('/^decimal\((\d+),(\d+)\)/', $type, $matches)) {
             $type       = 'decimal';
             $precision  = $matches[1];
             $scale      = $matches[2];
-        } else if (preg_match('/^float\((\d+),(\d+)\)/', $type, $matches)) {
+        } elseif (preg_match('/^float\((\d+),(\d+)\)/', $type, $matches)) {
             $type       = 'float';
             $precision  = $matches[1];
             $scale      = $matches[2];
-        } else if (preg_match('/^((?:big|medium|small|tiny)?int)\((\d+)\)?/', $type, $matches)) {
+        } elseif (preg_match('/^((?:big|medium|small|tiny)?int)\((\d+)\)?/', $type, $matches)) {
             $type       = $matches[1];
         }
 

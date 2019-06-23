@@ -214,7 +214,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         }
 
         $position = array();
-        for($i = 0; $i <= $level; $i++) {
+        for ($i = 0; $i <= $level; $i++) {
             if (isset($this->_itemLevelPositions[$i])) {
                 $position[] = $this->_itemLevelPositions[$i];
             }
@@ -226,18 +226,25 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
      * Render category to html
      *
      * @param Mage_Catalog_Model_Category $category
-     * @param int Nesting level number
-     * @param boolean Whether ot not this item is last, affects list item class
-     * @param boolean Whether ot not this item is first, affects list item class
-     * @param boolean Whether ot not this item is outermost, affects list item class
-     * @param string Extra class of outermost list items
-     * @param string If specified wraps children list in div with this class
-     * @param boolean Whether ot not to add on* attributes to list item
+     * @param int $level Nesting level number
+     * @param boolean $isLast Whether ot not this item is last, affects list item class
+     * @param boolean $isFirst Whether ot not this item is first, affects list item class
+     * @param boolean $isOutermost Whether ot not this item is outermost, affects list item class
+     * @param string $outermostItemClass Extra class of outermost list items
+     * @param string $childrenWrapClass If specified wraps children list in div with this class
+     * @param boolean $noEventAttributes Whether ot not to add on* attributes to list item
      * @return string
      */
-    protected function _renderCategoryMenuItemHtml($category, $level = 0, $isLast = false, $isFirst = false,
-        $isOutermost = false, $outermostItemClass = '', $childrenWrapClass = '', $noEventAttributes = false)
-    {
+    protected function _renderCategoryMenuItemHtml(
+        $category,
+        $level = 0,
+        $isLast = false,
+        $isFirst = false,
+        $isOutermost = false,
+        $outermostItemClass = '',
+        $childrenWrapClass = '',
+        $noEventAttributes = false
+    ) {
         if (!$category->getIsActive()) {
             return '';
         }
@@ -348,8 +355,8 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
      *
      * @deprecated deprecated after 1.4
      * @param Mage_Catalog_Model_Category $category
-     * @param int Nesting level number
-     * @param boolean Whether ot not this item is last, affects list item class
+     * @param int $level Nesting level number
+     * @param boolean $last Whether ot not this item is last, affects list item class
      * @return string
      */
     public function drawItem($category, $level = 0, $last = false)
@@ -360,7 +367,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
     /**
      * Enter description here...
      *
-     * @return Mage_Catalog_Model_Category
+     * @return Mage_Catalog_Model_Category|false
      */
     public function getCurrentCategory()
     {
@@ -373,7 +380,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
     /**
      * Enter description here...
      *
-     * @return string
+     * @return array
      */
     public function getCurrentCategoryPath()
     {
@@ -389,7 +396,8 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
      * @param Mage_Catalog_Model_Category $category
      * @return string
      */
-    public function drawOpenCategoryItem($category) {
+    public function drawOpenCategoryItem($category)
+    {
         $html = '';
         if (!$category->getIsActive()) {
             return $html;
@@ -428,9 +436,9 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
     /**
      * Render categories menu in HTML
      *
-     * @param int Level number for list item class to start from
-     * @param string Extra class of outermost list items
-     * @param string If specified wraps children list in div with this class
+     * @param int $level Level number for list item class to start from
+     * @param string $outermostItemClass Extra class of outermost list items
+     * @param string $childrenWrapClass If specified wraps children list in div with this class
      * @return string
      */
     public function renderCategoriesMenuHtml($level = 0, $outermostItemClass = '', $childrenWrapClass = '')

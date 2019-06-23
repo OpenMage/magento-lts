@@ -31,14 +31,13 @@
  * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Catalog_Model_Attribute_Backend_Urlkey_Abstract
-    extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+abstract class Mage_Catalog_Model_Attribute_Backend_Urlkey_Abstract extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
     /**
      * Format url key attribute before save, also use product name as url key if it empty
      *
      * @param Varien_Object $object
-     * @return Mage_Catalog_Model_Category_Attribute_Backend_Urlkey
+     * @return $this
      */
     public function beforeSave($object)
     {
@@ -62,7 +61,7 @@ abstract class Mage_Catalog_Model_Attribute_Backend_Urlkey_Abstract
      *
      * @param Varien_Object $object
      *
-     * @return Mage_Catalog_Model_Category_Attribute_Backend_Urlkey
+     * @return $this
      */
     public function afterSave($object)
     {

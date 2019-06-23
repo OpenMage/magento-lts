@@ -25,10 +25,10 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
+/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 
 $installer->startSetup();
-$installer->addAttribute('catalog_product', 'media_gallery',  array(
+$installer->addAttribute('catalog_product', 'media_gallery', array(
         'group'         => 'Images',
         'label'         => 'Media Gallery',
         'input'         => 'gallery',
@@ -39,8 +39,7 @@ $installer->addAttribute('catalog_product', 'media_gallery',  array(
         'required'      => false,
         'user_defined'  => false,
         'visible_on_front' => false
-    )
-);
+    ));
 $installer->run("
     DROP TABLE IF EXISTS `{$this->getTable('catalog_product_entity_media_gallery')}`;
     CREATE TABLE `{$this->getTable('catalog_product_entity_media_gallery')}` (

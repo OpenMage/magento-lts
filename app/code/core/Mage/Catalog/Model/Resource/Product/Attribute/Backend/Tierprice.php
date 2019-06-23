@@ -32,8 +32,7 @@
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Tierprice
-    extends Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice_Abstract
+class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Tierprice extends Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice_Abstract
 {
     /**
      * Initialize connection and define main table
@@ -83,7 +82,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Tierprice
         $websiteId = null;
         if ($attribute->isScopeGlobal()) {
             $websiteId = 0;
-        } else if ($product->getStoreId()) {
+        } elseif ($product->getStoreId()) {
             $websiteId = Mage::app()->getStore($product->getStoreId())->getWebsiteId();
         }
 

@@ -24,6 +24,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/** @var Mage_Catalog_Model_Resource_Setup $installer */
 $installer = $this;
 $installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'country_of_manufacture', array(
     'group'             => 'General',

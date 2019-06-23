@@ -110,6 +110,10 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
         return $this->_optionRenders['default'];
     }
 
+    /**
+     * @param $type
+     * @return string
+     */
     public function getGroupOfOption($type)
     {
         $group = Mage::getSingleton('catalog/product_option')->getGroupByType($type);
@@ -127,6 +131,9 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
         return $this->getProduct()->getOptions();
     }
 
+    /**
+     * @return bool
+     */
     public function hasOptions()
     {
         if ($this->getOptions()) {
@@ -163,12 +170,12 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
         $config = array();
 
         foreach ($this->getOptions() as $option) {
-            /* @var $option Mage_Catalog_Model_Product_Option */
+            /* @var Mage_Catalog_Model_Product_Option $option */
             $priceValue = 0;
             if ($option->getGroupByType() == Mage_Catalog_Model_Product_Option::OPTION_GROUP_SELECT) {
                 $_tmpPriceValues = array();
                 foreach ($option->getValues() as $value) {
-                    /* @var $value Mage_Catalog_Model_Product_Option_Value */
+                    /* @var Mage_Catalog_Model_Product_Option_Value $value */
                     $id = $value->getId();
                     $_tmpPriceValues[$id] = $this->_getPriceConfiguration($value);
                 }
@@ -186,6 +193,7 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
      * Get option html block
      *
      * @param Mage_Catalog_Model_Product_Option $option
+     * @return string
      */
     public function getOptionHtml(Mage_Catalog_Model_Product_Option $option)
     {

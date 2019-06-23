@@ -54,7 +54,7 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
      * Retrieve product attribute (public method for status model)
      *
      * @param string $attributeCode
-     * @return Mage_Catalog_Model_Resource_Eav_Attribute
+     * @return Mage_Eav_Model_Entity_Attribute_Abstract
      */
     public function getProductAttribute($attributeCode)
     {
@@ -64,7 +64,7 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
     /**
      * Retrieve product attribute
      *
-     * @param unknown_type $attribute
+     * @param string|integer|Mage_Core_Model_Config_Element $attribute
      * @return Mage_Eav_Model_Entity_Attribute_Abstract
      */
     protected function _getProductAttribute($attribute)
@@ -102,9 +102,11 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
      * Update product status for store
      *
      * @param int $productId
-     * @param int $storId
+     * @param int $storeId
      * @param int $value
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
     public function updateProductStatus($productId, $storeId, $value)
     {
@@ -184,7 +186,8 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
             $select = $adapter->select()
                 ->from(
                     array('t1' => $attributeTable),
-                    array('entity_id' => 't1.entity_id', 'value' => $valueCheckSql))
+                    array('entity_id' => 't1.entity_id', 'value' => $valueCheckSql)
+                )
                 ->joinLeft(
                     array('t2' => $attributeTable),
                     't1.entity_id = t2.entity_id AND t1.attribute_id = t2.attribute_id AND t2.store_id = '

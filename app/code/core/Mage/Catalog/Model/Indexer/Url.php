@@ -115,7 +115,7 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
             } else {
                 $result = false;
             }
-        } else if ($entity == Mage_Core_Model_Store_Group::ENTITY) {
+        } elseif ($entity == Mage_Core_Model_Store_Group::ENTITY) {
             $storeGroup = $event->getDataObject();
             $hasDataChanges = $storeGroup && ($storeGroup->dataHasChangedFor('root_category_id')
                 || $storeGroup->dataHasChangedFor('website_id'));
@@ -124,7 +124,7 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
             } else {
                 $result = false;
             }
-        } else if ($entity == Mage_Core_Model_Config_Data::ENTITY) {
+        } elseif ($entity == Mage_Core_Model_Config_Data::ENTITY) {
             $configData = $event->getDataObject();
             if ($configData && in_array($configData->getPath(), $this->_relatedConfigSettings)) {
                 $result = $configData->isValueChanged();
@@ -144,6 +144,7 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
      * Register data required by process in event object
      *
      * @param Mage_Index_Model_Event $event
+     * @return Mage_Catalog_Model_Indexer_Url
      */
     protected function _registerEvent(Mage_Index_Model_Event $event)
     {
@@ -151,7 +152,7 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
         $entity = $event->getEntity();
         switch ($entity) {
             case Mage_Catalog_Model_Product::ENTITY:
-               $this->_registerProductEvent($event);
+                $this->_registerProductEvent($event);
                 break;
 
             case Mage_Catalog_Model_Category::ENTITY:
@@ -222,7 +223,7 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
             $this->reindexAll();
         }
 
-        /* @var $urlModel Mage_Catalog_Model_Url */
+        /* @var Mage_Catalog_Model_Url $urlModel */
         $urlModel = Mage::getSingleton('catalog/url');
 
         // Force rewrites history saving
@@ -231,7 +232,7 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
             $urlModel->setShouldSaveRewritesHistory($dataObject->getData('save_rewrites_history'));
         }
 
-        if(isset($data['rewrite_product_ids'])) {
+        if (isset($data['rewrite_product_ids'])) {
             $urlModel->clearStoreInvalidRewrites(); // Maybe some products were moved or removed from website
             foreach (array_unique($data['rewrite_product_ids']) as $productId) {
                  $urlModel->refreshProductRewrite($productId);
@@ -251,7 +252,7 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
      */
     public function reindexAll()
     {
-        /** @var $resourceModel Mage_Catalog_Model_Resource_Url */
+        /** @var Mage_Catalog_Model_Resource_Url $resourceModel */
         $resourceModel = Mage::getResourceSingleton('catalog/url');
         $resourceModel->beginTransaction();
         try {

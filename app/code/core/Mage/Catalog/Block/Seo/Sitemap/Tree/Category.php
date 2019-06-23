@@ -34,7 +34,7 @@
  */
 class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Seo_Sitemap_Category
 {
-    CONST XML_PATH_LINES_PER_PAGE = 'catalog/sitemap/lines_perpage';
+    const XML_PATH_LINES_PER_PAGE = 'catalog/sitemap/lines_perpage';
 
     protected $_storeRootCategoryPath = '';
     protected $_storeRootCategoryLevel = 0;
@@ -51,7 +51,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
     protected function _prepareLayout()
     {
         $helper = Mage::helper('catalog/category');
-        /* @var $helper Mage_Catalog_Helper_Category */
+        /* @var Mage_Catalog_Helper_Category $helper */
         $parent = Mage::getModel('catalog/category')
             ->setStoreId(Mage::app()->getStore()->getId())
             ->load(Mage::app()->getStore()->getRootCategoryId());
@@ -71,7 +71,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
     public function bindPager($pagerName)
     {
         $pager = $this->getLayout()->getBlock($pagerName);
-        /* @var $pager Mage_Catalog_Block_Seo_Sitemap_Tree_Pager */
+        /* @var Mage_Catalog_Block_Seo_Sitemap_Tree_Pager $pager */
         if ($pager) {
             $pager->setAvailableLimit(array(50 => 50));
             $pager->setTotalNum($this->_total);
@@ -128,7 +128,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
     /**
      * Return collection of categories
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection
+     * @return Mage_Catalog_Model_Resource_Category_Collection
      */
     public function getTreeCollection()
     {
@@ -150,7 +150,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
         $_to = 0;
         $pathFilter = array();
         if (isset($this->_categoriesToPages[$this->_currentPage])) {
-            foreach ($this->_categoriesToPages[$this->_currentPage] as $_categoryId=>$_categoryInfo) {
+            foreach ($this->_categoriesToPages[$this->_currentPage] as $_categoryId => $_categoryInfo) {
                 $pathFilter[] = $_categoryInfo['path'];
                 $_to = max($_to, $_categoryInfo['children_count']);
             }
@@ -176,5 +176,4 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
     {
         return (int) ($item->getLevel() - $this->_storeRootCategoryLevel - 1) * $delta;
     }
-
 }

@@ -122,13 +122,13 @@ class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Ab
                     $this->_registerCatalogProductMassActionEvent($event);
                     break;
             }
-        } else if ($entity == Mage_Catalog_Model_Resource_Eav_Attribute::ENTITY) {
+        } elseif ($entity == Mage_Catalog_Model_Resource_Eav_Attribute::ENTITY) {
             switch ($event->getType()) {
                 case Mage_Index_Model_Event::TYPE_SAVE:
                     $this->_registerCatalogAttributeSaveEvent($event);
                     break;
             }
-        } else if ($entity == Mage_Catalog_Model_Convert_Adapter_Product::ENTITY) {
+        } elseif ($entity == Mage_Catalog_Model_Convert_Adapter_Product::ENTITY) {
             $event->addNewData('catalog_product_eav_reindex_all', true);
         }
     }
@@ -172,7 +172,7 @@ class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Ab
      */
     protected function _registerCatalogProductSaveEvent(Mage_Index_Model_Event $event)
     {
-        /* @var $product Mage_Catalog_Model_Product */
+        /* @var Mage_Catalog_Model_Product $product */
         $product    = $event->getDataObject();
         $attributes = $product->getAttributes();
         $reindexEav = $product->getForceReindexRequired();
@@ -201,7 +201,7 @@ class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Ab
      */
     protected function _registerCatalogProductDeleteEvent(Mage_Index_Model_Event $event)
     {
-        /* @var $product Mage_Catalog_Model_Product */
+        /* @var Mage_Catalog_Model_Product $product */
         $product    = $event->getDataObject();
 
         $parentIds  = $this->_getResource()->getRelationsByChild($product->getId());
@@ -220,7 +220,7 @@ class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Ab
      */
     protected function _registerCatalogProductMassActionEvent(Mage_Index_Model_Event $event)
     {
-        /* @var $actionObject Varien_Object */
+        /* @var Varien_Object $actionObject */
         $actionObject = $event->getDataObject();
         $attrData     = $actionObject->getAttributesData();
         $reindexEav   = false;
@@ -261,7 +261,7 @@ class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Ab
      */
     protected function _registerCatalogAttributeSaveEvent(Mage_Index_Model_Event $event)
     {
-        /* @var $attribute Mage_Catalog_Model_Resource_Eav_Attribute */
+        /* @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
         $attribute = $event->getDataObject();
         if ($attribute->isIndexable()) {
             $before = $attribute->getOrigData('is_filterable')

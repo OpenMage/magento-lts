@@ -25,6 +25,6 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Catalog_Model_Entity_Setup */
+/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 
 $installer->deleteConfigData('catalog/category/root_id', 'stores');

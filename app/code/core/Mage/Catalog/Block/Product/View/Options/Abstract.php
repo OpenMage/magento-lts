@@ -92,6 +92,9 @@ abstract class Mage_Catalog_Block_Product_View_Options_Abstract extends Mage_Cor
         return $this->_option;
     }
 
+    /**
+     * @return string
+     */
     public function getFormatedPrice()
     {
         if ($option = $this->getOption()) {
@@ -110,7 +113,7 @@ abstract class Mage_Catalog_Block_Product_View_Options_Abstract extends Mage_Cor
      * @param bool $flag
      * @return string
      */
-    protected function _formatPrice($value, $flag=true)
+    protected function _formatPrice($value, $flag = true)
     {
         if ($value['pricing_value'] == 0) {
             return '';

@@ -53,7 +53,7 @@ class Mage_Catalog_Model_Template_Filter extends Varien_Filter_Template
      * Set use absolute links flag
      *
      * @param bool $flag
-     * @return Mage_Core_Model_Email_Template_Filter
+     * @return Mage_Catalog_Model_Template_Filter
      */
     public function setUseAbsoluteLinks($flag)
     {
@@ -66,7 +66,7 @@ class Mage_Catalog_Model_Template_Filter extends Varien_Filter_Template
      * Doesn't set anything intentionally, since SID is not allowed in any kind of emails
      *
      * @param bool $flag
-     * @return Mage_Core_Model_Email_Template_Filter
+     * @return Mage_Catalog_Model_Template_Filter
      */
     public function setUseSessionInUrl($flag)
     {
@@ -134,8 +134,7 @@ class Mage_Catalog_Model_Template_Filter extends Varien_Filter_Template
             $path = '';
             $params['_direct'] = $params['direct_url'];
             unset($params['direct_url']);
-        }
-        else {
+        } else {
             $path = isset($params['url']) ? $params['url'] : '';
             unset($params['url']);
         }

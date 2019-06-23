@@ -24,16 +24,16 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product options text type block
  *
  * @category   Mage
  * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method bool getSkipJsReloadPrice()
  */
-class Mage_Catalog_Block_Product_View_Options_Type_Select
-    extends Mage_Catalog_Block_Product_View_Options_Abstract
+class Mage_Catalog_Block_Product_View_Options_Type_Select extends Mage_Catalog_Block_Product_View_Options_Abstract
 {
     /**
      * Return html for control element
@@ -149,5 +149,4 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select
             return $selectHtml;
         }
     }
-
 }

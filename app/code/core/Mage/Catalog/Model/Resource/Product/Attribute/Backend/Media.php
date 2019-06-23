@@ -111,7 +111,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
      * Insert gallery value to db and retrive last id
      *
      * @param array $data
-     * @return interger
+     * @return int
      */
     public function insertGallery($data)
     {
@@ -227,11 +227,12 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
      * for given product IDs.
      *
      * @param array $productIds
-     * @param $storeId
+     * @param int $storeId
      * @param int $attributeId
      * @return Varien_Db_Select
      */
-    protected function _getLoadGallerySelect(array $productIds, $storeId, $attributeId) {
+    protected function _getLoadGallerySelect(array $productIds, $storeId, $attributeId)
+    {
         $adapter = $this->_getReadAdapter();
 
         $positionCheckSql = $adapter->getCheckSql('value.position IS NULL', 'default_value.position', 'value.position');
@@ -268,8 +269,9 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
      *
      * @return int
      */
-    protected function _getAttributeId() {
-        if(is_null($this->_attributeId)) {
+    protected function _getAttributeId()
+    {
+        if (is_null($this->_attributeId)) {
             $attribute = Mage::getModel('eav/entity_attribute')
                 ->loadByCode(Mage_Catalog_Model_Product::ENTITY, 'media_gallery');
 
@@ -282,10 +284,11 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
      * Get media gallery set for given product IDs
      *
      * @param array $productIds
-     * @param $storeId
+     * @param int $storeId
      * @return array
      */
-    public function loadGallerySet(array $productIds, $storeId) {
+    public function loadGallerySet(array $productIds, $storeId)
+    {
         $select = $this->_getLoadGallerySelect($productIds, $storeId, $this->_getAttributeId());
 
         $adapter = $this->_getReadAdapter();

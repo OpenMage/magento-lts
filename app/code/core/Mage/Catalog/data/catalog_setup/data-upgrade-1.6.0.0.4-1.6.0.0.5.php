@@ -24,16 +24,16 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/** @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
+/** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 $installer = $this;
 
-/** @var $eavResource Mage_Catalog_Model_Resource_Eav_Attribute */
+/** @var Mage_Catalog_Model_Resource_Eav_Attribute $eavResource */
 $eavResource = Mage::getResourceModel('catalog/eav_attribute');
 
 $multiSelectAttributeCodes = $eavResource->getAttributeCodesByFrontendType('multiselect');
 
-foreach($multiSelectAttributeCodes as $attributeCode) {
-    /** @var $attribute Mage_Catalog_Model_Resource_Eav_Attribute */
+foreach ($multiSelectAttributeCodes as $attributeCode) {
+    /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
     $attribute = $installer->getAttribute('catalog_product', $attributeCode);
     if ($attribute) {
         $attributeTable = $installer->getAttributeTable('catalog_product', $attributeCode);

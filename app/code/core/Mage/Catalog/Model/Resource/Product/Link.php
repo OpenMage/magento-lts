@@ -79,7 +79,7 @@ class Mage_Catalog_Model_Resource_Product_Link extends Mage_Core_Model_Resource_
         $links   = $adapter->fetchPairs($select, $bind);
 
         $deleteIds = array();
-        foreach($links as $linkedProductId => $linkId) {
+        foreach ($links as $linkedProductId => $linkId) {
             if (!isset($data[$linkedProductId])) {
                 $deleteIds[] = (int)$linkId;
             }
@@ -109,8 +109,10 @@ class Mage_Catalog_Model_Resource_Product_Link extends Mage_Core_Model_Resource_
                 $attributeTable = $this->getAttributeTypeTable($attributeInfo['type']);
                 if ($attributeTable) {
                     if (isset($linkInfo[$attributeInfo['code']])) {
-                        $value = $this->_prepareAttributeValue($attributeInfo['type'],
-                            $linkInfo[$attributeInfo['code']]);
+                        $value = $this->_prepareAttributeValue(
+                            $attributeInfo['type'],
+                            $linkInfo[$attributeInfo['code']]
+                        );
                         $bind = array(
                             'product_link_attribute_id' => $attributeInfo['id'],
                             'link_id'                   => $linkId,

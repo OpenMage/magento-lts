@@ -482,7 +482,10 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
             foreach ($roundingFactorCoefficients as $roundingFactorCoefficient) {
                 $roundingFactorCoefficient *= $tenPower;
                 $roundPrices = $this->_findRoundPrice(
-                    $lowerPrice, $upperPrice, $returnEmpty, $roundingFactorCoefficient
+                    $lowerPrice,
+                    $upperPrice,
+                    $returnEmpty,
+                    $roundingFactorCoefficient
                 );
                 if ($roundPrices) {
                     $index = round($roundingFactorCoefficient

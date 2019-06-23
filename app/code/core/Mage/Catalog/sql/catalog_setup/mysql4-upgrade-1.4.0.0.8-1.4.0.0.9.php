@@ -25,12 +25,18 @@
  */
 
 
-/* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
+/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 $installer = $this;
 
 $installer->startSetup();
-$installer->getConnection()->addColumn($installer->getTable('catalog/product_index_price'), 'final_price',
-    'DECIMAL(12,4) DEFAULT NULL AFTER `price`');
-$installer->getConnection()->addColumn($installer->getTable('catalog/product_index_price'), 'tier_price',
-    'DECIMAL(12,4) DEFAULT NULL');
+$installer->getConnection()->addColumn(
+    $installer->getTable('catalog/product_index_price'),
+    'final_price',
+    'DECIMAL(12,4) DEFAULT NULL AFTER `price`'
+);
+$installer->getConnection()->addColumn(
+    $installer->getTable('catalog/product_index_price'),
+    'tier_price',
+    'DECIMAL(12,4) DEFAULT NULL'
+);
 $installer->endSetup();

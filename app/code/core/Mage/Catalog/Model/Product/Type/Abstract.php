@@ -58,7 +58,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     /**
      * @deprecated
      *
-     * @var array
+     * @var Mage_Catalog_Model_Resource_Eav_Attribute[]
      */
     protected $_editableAttributes;
 
@@ -261,7 +261,8 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     /**
      * Retrieve product attribute by identifier
      *
-     * @param   int $attributeId
+     * @param int $attributeId
+     * @param null $product
      * @return  Mage_Eav_Model_Entity_Attribute_Abstract
      */
     public function getAttributeById($attributeId, $product = null)
@@ -296,8 +297,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         $salable = $this->getProduct($product)->getStatus() == Mage_Catalog_Model_Product_Status::STATUS_ENABLED;
         if ($salable && $this->getProduct($product)->hasData('is_salable')) {
             $salable = $this->getProduct($product)->getData('is_salable');
-        }
-        elseif ($salable && $this->isComposite()) {
+        } elseif ($salable && $this->isComposite()) {
             $salable = null;
         }
 
@@ -383,9 +383,11 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * @param string $processMode
      * @return array|string
      */
-    public function processConfiguration(Varien_Object $buyRequest, $product = null,
-        $processMode = self::PROCESS_MODE_LITE)
-    {
+    public function processConfiguration(
+        Varien_Object $buyRequest,
+        $product = null,
+        $processMode = self::PROCESS_MODE_LITE
+    ) {
         $_products = $this->_prepareProduct($buyRequest, $product, $processMode);
 
         $this->processFileQueue();
@@ -440,7 +442,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
                     case 'receive_uploaded_file':
                         $src = isset($queueOptions['src_name']) ? $queueOptions['src_name'] : '';
                         $dst = isset($queueOptions['dst_name']) ? $queueOptions['dst_name'] : '';
-                        /** @var $uploader Zend_File_Transfer_Adapter_Http */
+                        /** @var Zend_File_Transfer_Adapter_Http $uploader */
                         $uploader = isset($queueOptions['uploader']) ? $queueOptions['uploader'] : null;
 
                         $path = dirname($dst);
@@ -524,7 +526,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         $transport = new stdClass;
         $transport->options = array();
         foreach ($this->getProduct($product)->getOptions() as $_option) {
-            /* @var $_option Mage_Catalog_Model_Product_Option */
+            /* @var Mage_Catalog_Model_Product_Option $_option */
             $group = $_option->groupFactory($_option->getType())
                 ->setOption($_option)
                 ->setProduct($this->getProduct($product))
@@ -606,7 +608,6 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         if ($optionIds = $this->getProduct($product)->getCustomOption('option_ids')) {
             foreach (explode(',', $optionIds->getValue()) as $optionId) {
                 if ($option = $this->getProduct($product)->getOptionById($optionId)) {
-
                     $confItemOption = $this->getProduct($product)
                         ->getCustomOption(self::OPTION_PREFIX . $option->getId());
 
@@ -724,7 +725,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     {
         $sku = $this->getProduct($product)->getData('sku');
         if ($this->getProduct($product)->getCustomOption('option_ids')) {
-            $sku = $this->getOptionSku($product,$sku);
+            $sku = $this->getOptionSku($product, $sku);
         }
         return $sku;
     }
@@ -736,16 +737,15 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * @param string $sku Product SKU without option
      * @return string
      */
-    public function getOptionSku($product = null, $sku='')
+    public function getOptionSku($product = null, $sku = '')
     {
         $skuDelimiter = '-';
-        if(empty($sku)){
+        if (empty($sku)) {
             $sku = $this->getProduct($product)->getData('sku');
         }
         if ($optionIds = $this->getProduct($product)->getCustomOption('option_ids')) {
             foreach (explode(',', $optionIds->getValue()) as $optionId) {
                 if ($option = $this->getProduct($product)->getOptionById($optionId)) {
-
                     $confItemOption = $this->getProduct($product)->getCustomOption(self::OPTION_PREFIX . $optionId);
 
                     $group = $option->groupFactory($option->getType())
@@ -762,7 +762,6 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
                                     $group->getListener()->getMessage()
                                 );
                     }
-
                 }
             }
         }
@@ -802,10 +801,11 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Example: the cataloginventory validation of decimal qty can change qty to int,
      * so need to change configuration item qty option value too.
      *
-     * @param array         $options
+     * @param array $options
      * @param Varien_Object $option
-     * @param mixed         $value
+     * @param mixed $value
      *
+     * @param null $product
      * @return object       Mage_Catalog_Model_Product_Type_Abstract
      */
     public function updateQtyOption($options, Varien_Object $option, $value, $product = null)
@@ -830,6 +830,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     /**
      * Retrive store filter for associated products
      *
+     * @param null $product
      * @return int|Mage_Core_Model_Store
      */
     public function getStoreFilter($product = null)
@@ -841,10 +842,11 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     /**
      * Set store filter for associated products
      *
-     * @param $store int|Mage_Core_Model_Store
+     * @param int|Mage_Core_Model_Store $store
+     * @param null $product
      * @return $this
      */
-    public function setStoreFilter($store=null, $product = null)
+    public function setStoreFilter($store = null, $product = null)
     {
         $cacheKey = '_cache_instance_store_filter';
         $this->getProduct($product)->setData($cacheKey, $store);
@@ -855,6 +857,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Allow for updates of children qty's
      * (applicable for complicated product types. As default returns false)
      *
+     * @param null $product
      * @return boolean false
      */
     public function getForceChildItemQtyChanges($product = null)
@@ -866,6 +869,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Prepare Quote Item Quantity
      *
      * @param mixed $qty
+     * @param null $product
      * @return float
      */
     public function prepareQuoteItemQty($qty, $product = null)
@@ -918,7 +922,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     {
         $product    = $this->getProduct($product);
         $searchData = array();
-        if ($product->getHasOptions()){
+        if ($product->getHasOptions()) {
             $searchData = Mage::getSingleton('catalog/product_option')
                 ->getSearchableData($product->getId(), $product->getStoreId());
         }
@@ -974,7 +978,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
             $result = $this->prepareForCart($buyRequestForCheck, $productForCheck);
 
             if (is_string($result)) {
-               $errors[] = $result;
+                $errors[] = $result;
             }
         } catch (Mage_Core_Exception $e) {
             $errors[] = $e->getMessages();

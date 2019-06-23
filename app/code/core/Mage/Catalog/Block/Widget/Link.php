@@ -30,11 +30,11 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method bool hasStoreId()
+ * @method int getStoreId()
  */
-
-class Mage_Catalog_Block_Widget_Link
-    extends Mage_Core_Block_Html_Link
-    implements Mage_Widget_Block_Interface
+class Mage_Catalog_Block_Widget_Link extends Mage_Core_Block_Html_Link implements Mage_Widget_Block_Interface
 {
     /**
      * Entity model name which must be used to retrieve entity specific data.
@@ -65,8 +65,7 @@ class Mage_Catalog_Block_Widget_Link
     public function getHref()
     {
         if (!$this->_href) {
-
-            if($this->hasStoreId()) {
+            if ($this->hasStoreId()) {
                 $store = Mage::app()->getStore($this->getStoreId());
             } else {
                 $store = Mage::app()->getStore();
@@ -76,17 +75,16 @@ class Mage_Catalog_Block_Widget_Link
 
             if (isset($idPath[0]) && isset($idPath[1]) && $idPath[0] == 'product') {
 
-                /** @var $helper Mage_Catalog_Helper_Product */
+                /** @var Mage_Catalog_Helper_Product $helper */
                 $helper = $this->_getFactory()->getHelper('catalog/product');
                 $productId = $idPath[1];
                 $categoryId = isset($idPath[2]) ? $idPath[2] : null;
 
                 $this->_href = $helper->getFullProductUrl($productId, $categoryId);
-
             } elseif (isset($idPath[0]) && isset($idPath[1]) && $idPath[0] == 'category') {
                 $categoryId = $idPath[1];
                 if ($categoryId) {
-                    /** @var $helper Mage_Catalog_Helper_Category */
+                    /** @var Mage_Catalog_Helper_Category $helper */
                     $helper = $this->_getFactory()->getHelper('catalog/category');
                     $category = Mage::getModel('catalog/category')->load($categoryId);
                     $this->_href = $helper->getCategoryUrl($category);
