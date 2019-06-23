@@ -47,23 +47,24 @@ class Mage_Api2_Model_Auth
      */
     public function authenticate(Mage_Api2_Model_Request $request)
     {
-        /** @var $helper Mage_Api2_Helper_Data */
+        /** @var Mage_Api2_Helper_Data $helper */
         $helper    = Mage::helper('api2/data');
         $userTypes = $helper->getUserTypes();
 
         if (!$userTypes) {
             throw new Exception('No allowed user types found');
         }
-        /** @var $authAdapter Mage_Api2_Model_Auth_Adapter */
+        /** @var Mage_Api2_Model_Auth_Adapter $authAdapter */
         $authAdapter   = Mage::getModel('api2/auth_adapter');
         $userParamsObj = $authAdapter->getUserParams($request);
 
         if (!isset($userTypes[$userParamsObj->type])) {
             throw new Mage_Api2_Exception(
-                'Invalid user type or type is not allowed', Mage_Api2_Model_Server::HTTP_UNAUTHORIZED
+                'Invalid user type or type is not allowed',
+                Mage_Api2_Model_Server::HTTP_UNAUTHORIZED
             );
         }
-        /** @var $userModel Mage_Api2_Model_Auth_User_Abstract */
+        /** @var Mage_Api2_Model_Auth_User_Abstract $userModel */
         $userModel = Mage::getModel($userTypes[$userParamsObj->type]);
 
         if (!$userModel instanceof Mage_Api2_Model_Auth_User_Abstract) {

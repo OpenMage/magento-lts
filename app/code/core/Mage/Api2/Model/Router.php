@@ -75,7 +75,7 @@ class Mage_Api2_Model_Router
     {
         $isMatched = false;
 
-        /** @var $route Mage_Api2_Model_Route_Interface */
+        /** @var Mage_Api2_Model_Route_Interface $route */
         foreach ($this->getRoutes() as $route) {
             if ($params = $route->match($request)) {
                 $request->setParams($params);
@@ -87,8 +87,10 @@ class Mage_Api2_Model_Router
             throw new Mage_Api2_Exception('Request does not match any route.', Mage_Api2_Model_Server::HTTP_NOT_FOUND);
         }
         if (!$request->getResourceType() || !$request->getModel()) {
-            throw new Mage_Api2_Exception('Matched resource is not properly set.',
-                Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+            throw new Mage_Api2_Exception(
+                'Matched resource is not properly set.',
+                Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR
+            );
         }
         return $request;
     }
@@ -103,7 +105,7 @@ class Mage_Api2_Model_Router
      */
     public function routeApiType(Mage_Api2_Model_Request $request, $trimApiTypePath = true)
     {
-        /** @var $apiTypeRoute Mage_Api2_Model_Route_ApiType */
+        /** @var Mage_Api2_Model_Route_ApiType $apiTypeRoute */
         $apiTypeRoute = Mage::getModel('api2/route_apiType');
 
         if (!($apiTypeMatch = $apiTypeRoute->match($request, true))) {

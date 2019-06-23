@@ -35,8 +35,7 @@
  * @method Mage_Api2_Block_Adminhtml_Roles_Tab_Users setUsers(array $users)
  * @method Mage_Admin_Model_Resource_User_Collection getCollection()
  */
-class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Widget_Grid
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Widget_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     /**
      * Construct grid block
@@ -59,7 +58,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
      */
     protected function _prepareCollection()
     {
-        /** @var $collection Mage_Admin_Model_Resource_User_Collection */
+        /** @var Mage_Admin_Model_Resource_User_Collection $collection */
         $collection = Mage::getModel('admin/user')->getCollection();
         $collection->getSelect()->joinLeft(
             array('acl' => $collection->getTable('api2/acl_user')),
@@ -78,7 +77,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
     /**
      * Prepare columns
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareColumns()
     {
@@ -199,7 +198,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
             if ($column->getFilter()->getValue()) {
                 $this->getCollection()->addFieldToFilter('user_id', array('in' => $inRoleIds));
             } else {
-                if($inRoleIds) {
+                if ($inRoleIds) {
                     $this->getCollection()->addFieldToFilter('user_id', array('nin' => $inRoleIds));
                 }
             }
@@ -224,10 +223,10 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
                 return '{}';
             }
             $jsonUsers = array();
-            foreach($users as $usrId) {
+            foreach ($users as $usrId) {
                 $jsonUsers[$usrId] = 0;
             }
-            /** @var $helper Mage_Core_Helper_Data */
+            /** @var Mage_Core_Helper_Data $helper */
             $helper = Mage::helper('core');
             $result = $helper->jsonEncode((object) $jsonUsers);
         } else {

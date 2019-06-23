@@ -118,7 +118,7 @@ class Mage_Api2_Model_Acl_Filter
     public function getAllowedAttributes($operationType = null)
     {
         if (null === $this->_allowedAttributes) {
-            /** @var $helper Mage_Api2_Helper_Data */
+            /** @var Mage_Api2_Helper_Data $helper */
             $helper = Mage::helper('api2/data');
 
             if (null === $operationType) {
@@ -126,11 +126,14 @@ class Mage_Api2_Model_Acl_Filter
             }
             if ($helper->isAllAttributesAllowed($this->_resource->getUserType())) {
                 $this->_allowedAttributes = array_keys($this->_resource->getAvailableAttributes(
-                    $this->_resource->getUserType(), $operationType
+                    $this->_resource->getUserType(),
+                    $operationType
                 ));
             } else {
                 $this->_allowedAttributes = $helper->getAllowedAttributes(
-                    $this->_resource->getUserType(), $this->_resource->getResourceType(), $operationType
+                    $this->_resource->getUserType(),
+                    $this->_resource->getResourceType(),
+                    $operationType
                 );
             }
             // force attributes to be no filtered

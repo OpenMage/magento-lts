@@ -39,15 +39,15 @@ class Mage_Api2_Model_Auth_User
      * @param boolean $asOptionArray OPTIONAL If TRUE - return an options array, plain array - otherwise
      * @return array
      */
-    static public function getUserTypes($asOptionArray = false)
+    public static function getUserTypes($asOptionArray = false)
     {
         $userTypes = array();
 
-        /** @var $helper Mage_Api2_Helper_Data */
+        /** @var Mage_Api2_Helper_Data $helper */
         $helper = Mage::helper('api2');
 
         foreach ($helper->getUserTypes() as $modelPath) {
-            /** @var $userModel Mage_Api2_Model_Auth_User_Abstract */
+            /** @var Mage_Api2_Model_Auth_User_Abstract $userModel */
             $userModel = Mage::getModel($modelPath);
 
             if ($asOptionArray) {

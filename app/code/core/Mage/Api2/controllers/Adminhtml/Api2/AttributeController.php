@@ -101,29 +101,30 @@ class Mage_Api2_Adminhtml_Api2_AttributeController extends Mage_Adminhtml_Contro
 
         if (!$type) {
             $this->_getSession()->addError(
-                $this->__('User type "%s" no longer exists', $type));
+                $this->__('User type "%s" no longer exists', $type)
+            );
             $this->_redirect('*/*/');
             return;
         }
 
-        /** @var $session Mage_Adminhtml_Model_Session */
+        /** @var Mage_Adminhtml_Model_Session $session */
         $session = $this->_getSession();
 
         try {
-            /** @var $ruleTree Mage_Api2_Model_Acl_Global_Rule_Tree */
+            /** @var Mage_Api2_Model_Acl_Global_Rule_Tree $ruleTree */
             $ruleTree = Mage::getSingleton(
                 'api2/acl_global_rule_tree',
                 array('type' => Mage_Api2_Model_Acl_Global_Rule_Tree::TYPE_ATTRIBUTE)
             );
 
-            /** @var $attribute Mage_Api2_Model_Acl_Filter_Attribute */
+            /** @var Mage_Api2_Model_Acl_Filter_Attribute $attribute */
             $attribute = Mage::getModel('api2/acl_filter_attribute');
 
-            /** @var $collection Mage_Api2_Model_Resource_Acl_Filter_Attribute_Collection */
+            /** @var Mage_Api2_Model_Resource_Acl_Filter_Attribute_Collection $collection */
             $collection = $attribute->getCollection();
             $collection->addFilterByUserType($type);
 
-            /** @var $model Mage_Api2_Model_Acl_Filter_Attribute */
+            /** @var Mage_Api2_Model_Acl_Filter_Attribute $model */
             foreach ($collection as $model) {
                 $model->delete();
             }

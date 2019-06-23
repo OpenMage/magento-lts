@@ -107,7 +107,7 @@ class Mage_Api2_Model_Request_Interpreter_Xml implements Mage_Api2_Model_Request
             foreach ($xmlObject->children() as $key => $value) {
                 if (count($value->children()) > 0) {
                     $value = $this->_toArray($value);
-                } else if (count($value->attributes()) > 0) {
+                } elseif (count($value->attributes()) > 0) {
                     $attributes = $value->attributes();
                     if (isset($attributes['value'])) {
                         $value = (string)$attributes['value'];

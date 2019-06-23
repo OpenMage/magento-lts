@@ -38,7 +38,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Privilege
      *
      * @return array
      */
-    static public function toOptionArray()
+    public static function toOptionArray()
     {
         return array(
             array(
@@ -65,7 +65,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Privilege
      *
      * @return array
      */
-    static public function toArray()
+    public static function toArray()
     {
         return array(
             Mage_Api2_Model_Resource::OPERATION_CREATE   => Mage::helper('api2')->__('Create'),

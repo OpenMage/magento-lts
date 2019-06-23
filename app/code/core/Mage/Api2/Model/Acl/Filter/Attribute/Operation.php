@@ -38,7 +38,7 @@ class Mage_Api2_Model_Acl_Filter_Attribute_Operation
      *
      * @return array
      */
-    static public function toOptionArray()
+    public static function toOptionArray()
     {
         return array(
             array(
@@ -57,7 +57,7 @@ class Mage_Api2_Model_Acl_Filter_Attribute_Operation
      *
      * @return array
      */
-    static public function toArray()
+    public static function toArray()
     {
         return array(
             Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ  => Mage::helper('api2')->__('Read'),

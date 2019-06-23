@@ -48,7 +48,7 @@ class Mage_Api2_Model_Acl_Global
         if (null === $apiUser->getRole()) {
             return true;
         }
-        /** @var $aclInstance Mage_Api2_Model_Acl */
+        /** @var Mage_Api2_Model_Acl $aclInstance */
         $aclInstance = Mage::getSingleton(
             'api2/acl',
             array('resource_type' => $resourceType, 'operation' => $operation)

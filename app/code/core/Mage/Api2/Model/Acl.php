@@ -128,7 +128,7 @@ class Mage_Api2_Model_Acl extends Zend_Acl
      */
     protected function _setRoles()
     {
-        /** @var $role Mage_Api2_Model_Acl_Global_Role */
+        /** @var Mage_Api2_Model_Acl_Global_Role $role */
         foreach ($this->_getRolesCollection() as $role) {
             $this->addRole($role->getId());
         }
@@ -142,14 +142,14 @@ class Mage_Api2_Model_Acl extends Zend_Acl
      */
     protected function _setRules()
     {
-        /** @var $rulesCollection Mage_Api2_Model_Resource_Acl_Global_Rule_Collection */
+        /** @var Mage_Api2_Model_Resource_Acl_Global_Rule_Collection $rulesCollection */
         $rulesCollection = Mage::getResourceModel('api2/acl_global_rule_collection');
 
-        /** @var $rule Mage_Api2_Model_Acl_Global_Rule */
+        /** @var Mage_Api2_Model_Acl_Global_Rule $rule */
         foreach ($rulesCollection as $rule) {
             if (Mage_Api2_Model_Acl_Global_Rule::RESOURCE_ALL === $rule->getResourceId()) {
                 if (in_array($rule->getRoleId(), Mage_Api2_Model_Acl_Global_Role::getSystemRoles())) {
-                    /** @var $role Mage_Api2_Model_Acl_Global_Role */
+                    /** @var Mage_Api2_Model_Acl_Global_Role $role */
                     $role = $this->_getRolesCollection()->getItemById($rule->getRoleId());
                     $privileges = $this->_getConfig()->getResourceUserPrivileges(
                         $this->_resourceType,
