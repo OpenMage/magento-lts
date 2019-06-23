@@ -31,8 +31,7 @@
  * @package    Mage_Bundle
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_Abstract
-    implements Mage_Catalog_Helper_Product_Configuration_Interface
+class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_Abstract implements Mage_Catalog_Helper_Product_Configuration_Interface
 {
     /**
      * Get selection quantity
@@ -56,12 +55,12 @@ class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_
      *
      * @param Mage_Catalog_Model_Product_Configuration_Item_Interface $item
      * @param Mage_Catalog_Model_Product $selectionProduct
-     *
      * @return float
      */
-    public function getSelectionFinalPrice(Mage_Catalog_Model_Product_Configuration_Item_Interface $item,
-        $selectionProduct)
-    {
+    public function getSelectionFinalPrice(
+        Mage_Catalog_Model_Product_Configuration_Item_Interface $item,
+        $selectionProduct
+    ) {
         $selectionProduct->unsetData('final_price');
         return $item->getProduct()->getPriceModel()->getSelectionFinalTotalPrice(
             $item->getProduct(),
@@ -79,6 +78,7 @@ class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_
      * Returns array of options objects.
      * Each option object will contain array of selections objects
      *
+     * @param Mage_Catalog_Model_Product_Configuration_Item_Interface $item
      * @return array
      */
     public function getBundleOptions(Mage_Catalog_Model_Product_Configuration_Item_Interface $item)
@@ -86,9 +86,7 @@ class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_
         $options = array();
         $product = $item->getProduct();
 
-        /**
-         * @var Mage_Bundle_Model_Product_Type
-         */
+        /** @var Mage_Bundle_Model_Product_Type $typeInstance */
         $typeInstance = $product->getTypeInstance(true);
 
         // get bundle options
@@ -96,7 +94,7 @@ class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_
         $bundleOptionsIds = $optionsQuoteItemOption ? unserialize($optionsQuoteItemOption->getValue()) : array();
         if ($bundleOptionsIds) {
             /**
-            * @var Mage_Bundle_Model_Mysql4_Option_Collection
+            * @var Mage_Bundle_Model_Resource_Option_Collection
             */
             $optionsCollection = $typeInstance->getOptionsByIds($bundleOptionsIds, $product);
 
@@ -111,6 +109,7 @@ class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_
                     $product
                 );
 
+                /** @var Mage_Bundle_Model_Option[] $bundleOptions */
                 $bundleOptions = $optionsCollection->appendSelections($selectionsCollection, true);
                 foreach ($bundleOptions as $bundleOption) {
                     if ($bundleOption->getSelections()) {

@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/** @var $installer Mage_Catalog_Model_Resource_Setup */
+/** @var Mage_Catalog_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 
@@ -56,11 +56,18 @@ $table = $installer->getConnection()
         ), 'Position')
     ->addColumn('type', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
         ), 'Type')
-    ->addIndex($installer->getIdxName('bundle/option', array('parent_id')),
-        array('parent_id'))
-    ->addForeignKey($installer->getFkName('bundle/option', 'parent_id', 'catalog/product', 'entity_id'),
-        'parent_id', $installer->getTable('catalog/product'), 'entity_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+    ->addIndex(
+        $installer->getIdxName('bundle/option', array('parent_id')),
+        array('parent_id')
+    )
+    ->addForeignKey(
+        $installer->getFkName('bundle/option', 'parent_id', 'catalog/product', 'entity_id'),
+        'parent_id',
+        $installer->getTable('catalog/product'),
+        'entity_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
     ->setComment('Catalog Product Bundle Option');
 $installer->getConnection()->createTable($table);
 
@@ -85,11 +92,19 @@ $table = $installer->getConnection()
         ), 'Store Id')
     ->addColumn('title', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
         ), 'Title')
-    ->addIndex($installer->getIdxName('bundle/option_value', array('option_id', 'store_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
-        array('option_id', 'store_id'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
-    ->addForeignKey($installer->getFkName('bundle/option_value', 'option_id', 'bundle/option', 'option_id'),
-        'option_id', $installer->getTable('bundle/option'), 'option_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+    ->addIndex(
+        $installer->getIdxName('bundle/option_value', array('option_id', 'store_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
+        array('option_id', 'store_id'),
+        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)
+    )
+    ->addForeignKey(
+        $installer->getFkName('bundle/option_value', 'option_id', 'bundle/option', 'option_id'),
+        'option_id',
+        $installer->getTable('bundle/option'),
+        'option_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
     ->setComment('Catalog Product Bundle Option Value');
 $installer->getConnection()->createTable($table);
 
@@ -141,16 +156,30 @@ $table = $installer->getConnection()
         'nullable'  => false,
         'default'   => '0',
         ), 'Selection Can Change Qty')
-    ->addIndex($installer->getIdxName('bundle/selection', array('option_id')),
-        array('option_id'))
-    ->addIndex($installer->getIdxName('bundle/selection', array('product_id')),
-        array('product_id'))
-    ->addForeignKey($installer->getFkName('bundle/selection', 'option_id', 'bundle/option', 'option_id'),
-        'option_id', $installer->getTable('bundle/option'), 'option_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->addForeignKey($installer->getFkName('bundle/selection', 'product_id', 'catalog/product', 'entity_id'),
-        'product_id', $installer->getTable('catalog/product'), 'entity_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+    ->addIndex(
+        $installer->getIdxName('bundle/selection', array('option_id')),
+        array('option_id')
+    )
+    ->addIndex(
+        $installer->getIdxName('bundle/selection', array('product_id')),
+        array('product_id')
+    )
+    ->addForeignKey(
+        $installer->getFkName('bundle/selection', 'option_id', 'bundle/option', 'option_id'),
+        'option_id',
+        $installer->getTable('bundle/option'),
+        'option_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
+    ->addForeignKey(
+        $installer->getFkName('bundle/selection', 'product_id', 'catalog/product', 'entity_id'),
+        'product_id',
+        $installer->getTable('catalog/product'),
+        'entity_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
     ->setComment('Catalog Product Bundle Selection');
 $installer->getConnection()->createTable($table);
 
@@ -178,14 +207,26 @@ $table = $installer->getConnection()
         'nullable'  => false,
         'default'   => '0.0000',
         ), 'Selection Price Value')
-    ->addIndex($installer->getIdxName('bundle/selection_price', array('website_id')),
-        array('website_id'))
-    ->addForeignKey($installer->getFkName('bundle/selection_price', 'website_id', 'core/website', 'website_id'),
-        'website_id', $installer->getTable('core/website'), 'website_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->addForeignKey($installer->getFkName('bundle/selection_price', 'selection_id', 'bundle/selection', 'selection_id'),
-        'selection_id', $installer->getTable('bundle/selection'), 'selection_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+    ->addIndex(
+        $installer->getIdxName('bundle/selection_price', array('website_id')),
+        array('website_id')
+    )
+    ->addForeignKey(
+        $installer->getFkName('bundle/selection_price', 'website_id', 'core/website', 'website_id'),
+        'website_id',
+        $installer->getTable('core/website'),
+        'website_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
+    ->addForeignKey(
+        $installer->getFkName('bundle/selection_price', 'selection_id', 'bundle/selection', 'selection_id'),
+        'selection_id',
+        $installer->getTable('bundle/selection'),
+        'selection_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
     ->setComment('Catalog Product Bundle Selection Price');
 $installer->getConnection()->createTable($table);
 
@@ -215,19 +256,38 @@ $table = $installer->getConnection()
     ->addColumn('max_price', Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4', array(
         'nullable'  => false,
         ), 'Max Price')
-    ->addIndex($installer->getIdxName('bundle/price_index', array('website_id')),
-        array('website_id'))
-    ->addIndex($installer->getIdxName('bundle/price_index', array('customer_group_id')),
-        array('customer_group_id'))
-    ->addForeignKey($installer->getFkName('bundle/price_index', 'customer_group_id', 'customer/customer_group', 'customer_group_id'),
-        'customer_group_id', $installer->getTable('customer/customer_group'), 'customer_group_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->addForeignKey($installer->getFkName('bundle/price_index', 'entity_id', 'catalog/product', 'entity_id'),
-        'entity_id', $installer->getTable('catalog/product'), 'entity_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->addForeignKey($installer->getFkName('bundle/price_index', 'website_id', 'core/website', 'website_id'),
-        'website_id', $installer->getTable('core/website'), 'website_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+    ->addIndex(
+        $installer->getIdxName('bundle/price_index', array('website_id')),
+        array('website_id')
+    )
+    ->addIndex(
+        $installer->getIdxName('bundle/price_index', array('customer_group_id')),
+        array('customer_group_id')
+    )
+    ->addForeignKey(
+        $installer->getFkName('bundle/price_index', 'customer_group_id', 'customer/customer_group', 'customer_group_id'),
+        'customer_group_id',
+        $installer->getTable('customer/customer_group'),
+        'customer_group_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
+    ->addForeignKey(
+        $installer->getFkName('bundle/price_index', 'entity_id', 'catalog/product', 'entity_id'),
+        'entity_id',
+        $installer->getTable('catalog/product'),
+        'entity_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
+    ->addForeignKey(
+        $installer->getFkName('bundle/price_index', 'website_id', 'core/website', 'website_id'),
+        'website_id',
+        $installer->getTable('core/website'),
+        'website_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
     ->setComment('Catalog Product Bundle Price Index');
 $installer->getConnection()->createTable($table);
 
@@ -530,7 +590,7 @@ $table = $installer->getConnection()
 $installer->getConnection()->createTable($table);
 
 /**
- * Add attributes to the eav/attribute 
+ * Add attributes to the eav/attribute
  */
 $installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'price_type', array(
         'type'              => 'int',

@@ -173,7 +173,8 @@ class Mage_Bundle_Model_Resource_Selection extends Mage_Core_Model_Resource_Db_A
     {
         $write = $this->_getWriteAdapter();
         if ($item->getDefaultPriceScope()) {
-            $write->delete($this->getTable('bundle/selection_price'),
+            $write->delete(
+                $this->getTable('bundle/selection_price'),
                 array(
                     'selection_id = ?' => $item->getSelectionId(),
                     'website_id = ?'   => $item->getWebsiteId()

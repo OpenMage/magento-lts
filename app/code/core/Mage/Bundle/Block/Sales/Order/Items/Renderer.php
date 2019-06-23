@@ -33,6 +33,10 @@
  */
 class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Order_Item_Renderer_Default
 {
+    /**
+     * @param null $item
+     * @return bool
+     */
     public function isShipmentSeparately($item = null)
     {
         if ($item) {
@@ -72,6 +76,10 @@ class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Orde
         return false;
     }
 
+    /**
+     * @param null $item
+     * @return bool
+     */
     public function isChildCalculated($item = null)
     {
         if ($item) {
@@ -111,7 +119,12 @@ class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Orde
         return false;
     }
 
-    public function getSelectionAttributes($item) {
+    /**
+     * @param Varien_Object|Mage_Sales_Model_Order_Item $item
+     * @return mixed|null
+     */
+    public function getSelectionAttributes($item)
+    {
         if ($item instanceof Mage_Sales_Model_Order_Item) {
             $options = $item->getProductOptions();
         } else {
@@ -123,6 +136,10 @@ class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Orde
         return null;
     }
 
+    /**
+     * @param Mage_Sales_Model_Order_Item $item
+     * @return string
+     */
     public function getValueHtml($item)
     {
         if ($attributes = $this->getSelectionAttributes($item)) {
@@ -146,9 +163,9 @@ class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Orde
 
         if ($item instanceof Mage_Sales_Model_Order_Invoice_Item) {
             $_items = $item->getInvoice()->getAllItems();
-        } else if ($item instanceof Mage_Sales_Model_Order_Shipment_Item) {
+        } elseif ($item instanceof Mage_Sales_Model_Order_Shipment_Item) {
             $_items = $item->getShipment()->getAllItems();
-        } else if ($item instanceof Mage_Sales_Model_Order_Creditmemo_Item) {
+        } elseif ($item instanceof Mage_Sales_Model_Order_Creditmemo_Item) {
             $_items = $item->getCreditmemo()->getAllItems();
         }
 
@@ -169,6 +186,10 @@ class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Orde
         }
     }
 
+    /**
+     * @param Mage_Sales_Model_Order_Invoice_Item $item
+     * @return bool
+     */
     public function canShowPriceInfo($item)
     {
         if (($item->getOrderItem()->getParentItem() && $this->isChildCalculated())

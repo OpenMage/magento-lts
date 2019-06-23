@@ -39,6 +39,9 @@ class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_P
     protected $_itemCollection;
     protected $_product = null;
 
+    /**
+     * @return $this
+     */
     protected function _prepareData()
     {
         $collection = Mage::getModel('catalog/product')->getResourceCollection()
@@ -52,9 +55,9 @@ class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_P
 
             $ids = Mage::getSingleton('checkout/cart')->getProductIds();
 
-            if (count($ids)) {
-                $collection->addIdFilter(Mage::getSingleton('checkout/cart')->getProductIds(), true);
-            }
+        if (count($ids)) {
+            $collection->addIdFilter(Mage::getSingleton('checkout/cart')->getProductIds(), true);
+        }
 
         Mage::getSingleton('catalog/product_status')->addSaleableFilterToCollection($collection);
         Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($collection);
@@ -66,29 +69,46 @@ class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_P
         return $this;
     }
 
+    /**
+     * @return Mage_Catalog_Block_Product_Abstract
+     */
     protected function _beforeToHtml()
     {
         $this->_prepareData();
         return parent::_beforeToHtml();
     }
 
+    /**
+     * @return mixed
+     */
     public function getItemCollection()
     {
         return $this->_itemCollection;
     }
 
-    public function getItems() {
+    /**
+     * @return mixed
+     */
+    public function getItems()
+    {
         if (is_null($this->_items)) {
             $this->_items = $this->getItemCollection()->getItems();
         }
         return $this->_items;
     }
 
+    /**
+     * @return float
+     */
     public function getRowCount()
     {
         return ceil($this->getItemCollection()->getSize()/$this->getColumnCount());
     }
 
+    /**
+     * @param array $columns
+     * @return $this
+     */
     public function setColumnCount($columns)
     {
         if (intval($columns) > 0) {
@@ -97,6 +117,9 @@ class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_P
         return $this;
     }
 
+    /**
+     * @return int
+     */
     public function getColumnCount()
     {
         return $this->_columnCount;
@@ -108,6 +131,9 @@ class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_P
         reset($this->_items);
     }
 
+    /**
+     * @return mixed
+     */
     public function getIterableItem()
     {
         $item = current($this->_items);

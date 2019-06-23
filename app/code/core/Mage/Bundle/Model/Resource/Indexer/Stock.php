@@ -177,7 +177,7 @@ class Mage_Bundle_Model_Resource_Indexer_Stock extends Mage_CatalogInventory_Mod
         }
 
         $select->columns(array('status' => $adapter->getLeastSql(array(
-            new Zend_Db_Expr('MIN(' . $adapter->getCheckSql('o.stock_status IS NOT NULL','o.stock_status', '0') .')'),
+            new Zend_Db_Expr('MIN(' . $adapter->getCheckSql('o.stock_status IS NOT NULL', 'o.stock_status', '0') .')'),
             new Zend_Db_Expr('MIN(' . $statusExpr . ')'),
         ))));
 

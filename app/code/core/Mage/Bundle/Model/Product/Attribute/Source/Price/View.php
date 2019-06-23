@@ -97,7 +97,7 @@ class Mage_Bundle_Model_Product_Attribute_Source_Price_View extends Mage_Eav_Mod
         }
 
         return array($attributeCode => $column);
-   }
+    }
 
     /**
      * Retrieve Select for update Attribute value in flat table

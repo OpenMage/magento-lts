@@ -57,7 +57,7 @@ class Mage_Bundle_Model_Price_Index extends Mage_Core_Model_Abstract
     /**
      * Retrieve resource instance wrapper
      *
-     * @return Mage_Bundle_Model_Mysql4_Price_Index
+     * @inheritDoc
      */
     protected function _getResource()
     {
@@ -80,7 +80,7 @@ class Mage_Bundle_Model_Price_Index extends Mage_Core_Model_Abstract
     /**
      * Reindex Bundle product Price Index
      *
-     * @param Mage_Core_Model_Product|Mage_Catalog_Model_Product_Condition_Interface|array|int $products
+     * @param Mage_Catalog_Model_Product|Mage_Catalog_Model_Product_Condition_Interface|array|int $products
      * @return $this
      */
     public function reindex($products = null)
@@ -92,7 +92,7 @@ class Mage_Bundle_Model_Price_Index extends Mage_Core_Model_Abstract
     /**
      * Add bundle price range index to Product collection
      *
-     * @param Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection $collection
+     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
      * @return $this
      */
     public function addPriceIndexToCollection($collection)
@@ -100,7 +100,7 @@ class Mage_Bundle_Model_Price_Index extends Mage_Core_Model_Abstract
         $productObjects = array();
         $productIds     = array();
         foreach ($collection->getItems() as $product) {
-            /* @var $product Mage_Catalog_Model_Product */
+            /* @var Mage_Catalog_Model_Product $product */
             if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE) {
                 $productIds[] = $product->getEntityId();
                 $productObjects[$product->getEntityId()] = $product;
@@ -119,8 +119,7 @@ class Mage_Bundle_Model_Price_Index extends Mage_Core_Model_Abstract
                     ->setData('_price_index', true)
                     ->setData('_price_index_min_price', $prices[$productId]['min_price'])
                     ->setData('_price_index_max_price', $prices[$productId]['max_price']);
-            }
-            else {
+            } else {
                 $addOptionsToResult = true;
             }
         }

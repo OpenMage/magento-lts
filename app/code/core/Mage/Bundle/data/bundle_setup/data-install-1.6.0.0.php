@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/** @var $installer Mage_Catalog_Model_Resource_Setup */
+/** @var Mage_Catalog_Model_Resource_Setup $installer */
 
 $fieldList = array(
     'price','special_price','special_from_date','special_to_date',

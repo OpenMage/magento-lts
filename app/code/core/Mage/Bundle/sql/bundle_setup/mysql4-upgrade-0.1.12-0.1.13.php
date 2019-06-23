@@ -25,7 +25,7 @@
  */
 
 
-/* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
+/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 $installer = $this;
 $installer->run("
 CREATE TABLE {$this->getTable('bundle/selection_price')} (

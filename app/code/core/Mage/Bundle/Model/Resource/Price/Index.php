@@ -111,7 +111,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
     /**
      * Retrieve product ids array by product condition
      *
-     * @param Mage_Core_Model_Product|Mage_Catalog_Model_Product_Condition_Interface|array|int $product
+     * @param Mage_Catalog_Model_Product|Mage_Catalog_Model_Product_Condition_Interface|array|int $product
      * @param int $lastEntityId
      * @param int $limit
      * @return array
@@ -161,7 +161,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
     /**
      * Reindex Bundle product Price Index
      *
-     * @param Mage_Core_Model_Product|Mage_Catalog_Model_Product_Condition_Interface|array|int $products
+     * @param Mage_Catalog_Model_Product|Mage_Catalog_Model_Product_Condition_Interface|array|int $products
      * @return $this
      */
     public function reindex($products = null)
@@ -213,9 +213,9 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
             $priceData = $this->getProductsPriceData($productId, $website);
             $priceData = $priceData[$productId];
 
-            /* @var $website Mage_Core_Model_Website */
+            /* @var Mage_Core_Model_Website $website */
             foreach ($this->_getCustomerGroups() as $group) {
-                /* @var $group Mage_Customer_Model_Group */
+                /* @var Mage_Customer_Model_Group $group */
                 if ($priceType == Mage_Bundle_Model_Product_Price::PRICE_TYPE_FIXED) {
                     $basePrice     = $this->_getBasePrice($productId, $priceData, $website, $group);
                     $customOptions = $this->getCustomOptions($productId, $website);
@@ -223,8 +223,16 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
                     $basePrice = 0;
                 }
 
-                list($minPrice, $maxPrice) = $this->_calculateBundleSelections($options, $salableStatus,
-                    $productId, $priceType, $basePrice, $priceData, $priceIndex, $website, $group
+                list($minPrice, $maxPrice) = $this->_calculateBundleSelections(
+                    $options,
+                    $salableStatus,
+                    $productId,
+                    $priceType,
+                    $basePrice,
+                    $priceData,
+                    $priceIndex,
+                    $website,
+                    $group
                 );
 
                 if ($priceType == Mage_Bundle_Model_Product_Price::PRICE_TYPE_FIXED) {
@@ -350,7 +358,6 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
                 array('status' => 't_status.value')
             );
         } else {
-
             $statusField = $read->getCheckSql(
                 't2_status.value_id > 0',
                 't2_status.value',
@@ -463,9 +470,11 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      * @param Mage_Core_Model_Website $website
      * @return $this
      */
-    protected function _addAttributeDataToSelect(Varien_Db_Select $select, $attributeCode,
-        Mage_Core_Model_Website $website)
-    {
+    protected function _addAttributeDataToSelect(
+        Varien_Db_Select $select,
+        $attributeCode,
+        Mage_Core_Model_Website $website
+    ) {
         $attribute  = $this->_getAttribute($attributeCode);
         $store      = $website->getDefaultStore();
         if ($attribute->isScopeGlobal()) {
@@ -589,7 +598,8 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
                         'value_id'   => $valueIdCond,
                         'price'      => $priceCond,
                         'price_type' => $priceTypeCond
-                    ))
+                    )
+                )
                 ->joinLeft(
                     array('price_store_table' => $this->getTable('catalog/product_option_price')),
                     'option_table.option_id = price_store_table.option_id' .
@@ -729,9 +739,17 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      * @param Mage_Customer_Model_Group $group
      * @return array
      */
-    public function _calculateBundleSelections(array $options, array $salableStatus, $productId, $priceType, $basePrice,
-        $priceData, $priceIndex, $website, $group)
-    {
+    public function _calculateBundleSelections(
+        array $options,
+        array $salableStatus,
+        $productId,
+        $priceType,
+        $basePrice,
+        $priceData,
+        $priceIndex,
+        $website,
+        $group
+    ) {
         $minPrice = $maxPrice = $basePrice;
         $optPrice = 0;
 
@@ -764,8 +782,11 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
                     if ($selection['price_type']) { // percent
                         $selectionPrice = $basePrice * $selection['price_value'] / 100;
                     } else {
-                        $selectionPrice = $this->_calculateSpecialPrice($selection['price_value'],
-                        $priceData, $website);
+                        $selectionPrice = $this->_calculateSpecialPrice(
+                            $selection['price_value'],
+                            $priceData,
+                            $website
+                        );
                     }
                 }
 
@@ -814,8 +835,11 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
         $specialPrice       = $priceData['special_price'];
 
         if (!is_null($specialPrice) && $specialPrice != false) {
-            if (Mage::app()->getLocale()->isStoreDateInInterval($store, $priceData['special_from_date'],
-            $priceData['special_to_date'])) {
+            if (Mage::app()->getLocale()->isStoreDateInInterval(
+                $store,
+                $priceData['special_from_date'],
+                $priceData['special_to_date']
+            )) {
                 $specialPrice   = ($finalPrice * $specialPrice) / 100;
                 $finalPrice     = min($finalPrice, $specialPrice);
             }

@@ -57,8 +57,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
             $attributes = $this->getSelectionAttributes($_item);
             if (is_array($attributes)) {
                 $optionId   = $attributes['option_id'];
-            }
-            else {
+            } else {
                 $optionId = 0;
             }
 
@@ -177,7 +176,6 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
             }
 
             $drawItems[$optionId]['lines'][] = $line;
-
         }
 
         // custom options

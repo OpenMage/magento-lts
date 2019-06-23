@@ -30,6 +30,11 @@
  * @category    Mage
  * @package     Mage_Bundle
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method bool getCanEditPrice()
+ * @method $this setCanEditPrice(bool $value)
+ * @method bool getCanReadPrice()
+ * @method $this setCanReadPrice(bool $value)
  */
 class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selection extends Mage_Adminhtml_Block_Widget
 {
@@ -66,11 +71,12 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selecti
     /**
      * Prepare block layout
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
-        $this->setChild('selection_delete_button',
+        $this->setChild(
+            'selection_delete_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
                     'label' => Mage::helper('catalog')->__('Delete'),
