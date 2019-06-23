@@ -32,9 +32,7 @@
  * @package     Mage_CatalogInventory
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
-    extends Mage_Catalog_Model_Resource_Product_Indexer_Abstract
-    implements Mage_CatalogInventory_Model_Resource_Indexer_Stock_Interface
+class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Catalog_Model_Resource_Product_Indexer_Abstract implements Mage_CatalogInventory_Model_Resource_Indexer_Stock_Interface
 {
     /**
      * Current Product Type Id
@@ -168,11 +166,13 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
             ->join(
                 array('cis' => $this->getTable('cataloginventory/stock')),
                 '',
-                array('stock_id'))
+                array('stock_id')
+            )
             ->joinLeft(
                 array('cisi' => $this->getTable('cataloginventory/stock_item')),
                 'cisi.stock_id = cis.stock_id AND cisi.product_id = e.entity_id',
-                array())
+                array()
+            )
             ->columns(array('qty' => $qtyExpr))
             ->where('cw.website_id != 0')
             ->where('e.type_id = ?', $this->getTypeId());
@@ -182,11 +182,17 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
         $psCondition = $adapter->quoteInto($psExpr . '=?', Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
 
         if ($this->_isManageStock()) {
-            $statusExpr = $adapter->getCheckSql('cisi.use_config_manage_stock = 0 AND cisi.manage_stock = 0',
-                1, 'cisi.is_in_stock');
+            $statusExpr = $adapter->getCheckSql(
+                'cisi.use_config_manage_stock = 0 AND cisi.manage_stock = 0',
+                1,
+                'cisi.is_in_stock'
+            );
         } else {
-            $statusExpr = $adapter->getCheckSql('cisi.use_config_manage_stock = 0 AND cisi.manage_stock = 1',
-                'cisi.is_in_stock', 1);
+            $statusExpr = $adapter->getCheckSql(
+                'cisi.use_config_manage_stock = 0 AND cisi.manage_stock = 1',
+                'cisi.is_in_stock',
+                1
+            );
         }
 
         $optExpr = $adapter->getCheckSql($psCondition, 1, 0);

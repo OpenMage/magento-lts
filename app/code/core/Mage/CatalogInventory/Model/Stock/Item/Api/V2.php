@@ -40,7 +40,7 @@ class Mage_CatalogInventory_Model_Stock_Item_Api_V2 extends Mage_CatalogInventor
      */
     public function update($productId, $data)
     {
-        /** @var $product Mage_Catalog_Model_Product */
+        /** @var Mage_Catalog_Model_Product $product */
         $product = Mage::getModel('catalog/product');
         $idBySku = $product->getIdBySku($productId);
         $productId = $idBySku ? $idBySku : $productId;
@@ -52,7 +52,7 @@ class Mage_CatalogInventory_Model_Stock_Item_Api_V2 extends Mage_CatalogInventor
             $this->_fault('not_exists');
         }
 
-        /** @var $stockItem Mage_CatalogInventory_Model_Stock_Item */
+        /** @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
         $stockItem = $product->getStockItem();
         $stockData = array_replace($stockItem->getData(), (array)$data);
         $stockItem->setData($stockData);

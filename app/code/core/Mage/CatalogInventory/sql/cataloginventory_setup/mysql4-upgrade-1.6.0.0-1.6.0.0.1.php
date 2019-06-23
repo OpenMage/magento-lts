@@ -24,9 +24,9 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/** @var $installer Mage_Eav_Model_Entity_Setup */
+/** @var Mage_Eav_Model_Entity_Setup $installer */
 $installer = $this;
-/** @var $connection Varien_Db_Adapter_Pdo_Mysql */
+/** @var Varien_Db_Adapter_Pdo_Mysql $connection */
 $connection = $installer->getConnection();
 $connection->changeTableEngine(
     $installer->getTable('cataloginventory/stock_status_indexer_tmp'),

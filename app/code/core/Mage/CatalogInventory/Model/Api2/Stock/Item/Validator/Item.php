@@ -49,7 +49,7 @@ class Mage_CatalogInventory_Model_Api2_Stock_Item_Validator_Item extends Mage_Ap
             $this->_addError('Invalid value for "item_id" in request.');
         } else {
             // Validate Stock Item
-            /* @var $stockItem Mage_CatalogInventory_Model_Stock_Item */
+            /* @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
             $stockItem = Mage::getModel('cataloginventory/stock_item')->load($data['item_id']);
             if (!$stockItem->getId()) {
                 $this->_addError(sprintf('StockItem #%d not found.', $data['item_id']));

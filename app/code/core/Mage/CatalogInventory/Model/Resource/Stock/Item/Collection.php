@@ -62,7 +62,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item_Collection extends Mage_Co
     /**
      * Add product filter to collection
      *
-     * @param array $products
+     * @param array|Mage_Catalog_Model_Product[] $products
      * @return $this
      */
     public function addProductsFilter($products)
@@ -94,7 +94,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item_Collection extends Mage_Co
         $websiteId = Mage::app()->getStore($storeId)->getWebsiteId();
         $this->getSelect()->joinLeft(
             array('status_table' => $this->getTable('cataloginventory/stock_status')),
-                'main_table.product_id=status_table.product_id'
+            'main_table.product_id=status_table.product_id'
                 . ' AND main_table.stock_id=status_table.stock_id'
                 . $this->getConnection()->quoteInto(' AND status_table.website_id=?', $websiteId),
             array('stock_status')
@@ -149,7 +149,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item_Collection extends Mage_Co
     /**
      * Initialize select object
      *
-     * @return $this
+     * @return Varien_Db_Select
      */
     protected function _initSelect()
     {

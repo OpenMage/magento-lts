@@ -26,7 +26,7 @@
 
 
 $installer = $this;
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 foreach (array(
@@ -37,8 +37,11 @@ foreach (array(
     'cataloginventory/options/notify_stock_qty' => 'cataloginventory/item_options/notify_stock_qty',
     'cataloginventory/options/manage_stock'     => 'cataloginventory/item_options/manage_stock',
     ) as $was => $become) {
-    $installer->run(sprintf("UPDATE `%s` SET `path` = '%s' WHERE `path` = '%s'",
-        $this->getTable('core/config_data'), $become, $was
+    $installer->run(sprintf(
+        "UPDATE `%s` SET `path` = '%s' WHERE `path` = '%s'",
+        $this->getTable('core/config_data'),
+        $become,
+        $was
     ));
 }
 

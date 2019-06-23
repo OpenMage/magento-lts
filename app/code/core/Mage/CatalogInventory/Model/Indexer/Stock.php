@@ -99,7 +99,7 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
     /**
      * Retrieve resource instance wrapper
      *
-     * @return Mage_CatalogInventory_Model_Mysql4_Indexer_Stock
+     * @inheritDoc
      */
     protected function _getResource()
     {
@@ -142,22 +142,22 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
 
         $entity = $event->getEntity();
         if ($entity == Mage_Core_Model_Store::ENTITY) {
-            /* @var $store Mage_Core_Model_Store */
+            /* @var Mage_Core_Model_Store $store */
             $store = $event->getDataObject();
             if ($store && $store->isObjectNew()) {
                 $result = true;
             } else {
                 $result = false;
             }
-        } else if ($entity == Mage_Core_Model_Store_Group::ENTITY) {
-            /* @var $storeGroup Mage_Core_Model_Store_Group */
+        } elseif ($entity == Mage_Core_Model_Store_Group::ENTITY) {
+            /* @var Mage_Core_Model_Store_Group $storeGroup */
             $storeGroup = $event->getDataObject();
             if ($storeGroup && $storeGroup->dataHasChangedFor('website_id')) {
                 $result = true;
             } else {
                 $result = false;
             }
-        } else if ($entity == Mage_Core_Model_Config_Data::ENTITY) {
+        } elseif ($entity == Mage_Core_Model_Config_Data::ENTITY) {
             $configData = $event->getDataObject();
             if ($configData && in_array($configData->getPath(), $this->_relatedConfigSettings)) {
                 $result = $configData->isValueChanged();
@@ -223,6 +223,7 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
     {
         switch ($event->getType()) {
             case Mage_Index_Model_Event::TYPE_SAVE:
+                /** @var Mage_Catalog_Model_Product $product */
                 $product = $event->getDataObject();
                 if ($product && $product->getStockData()) {
                     $product->setForceReindexRequired(true);
@@ -260,7 +261,7 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
      */
     protected function _registerStockItemSaveEvent(Mage_Index_Model_Event $event)
     {
-        /* @var $object Mage_CatalogInventory_Model_Stock_Item */
+        /* @var Mage_CatalogInventory_Model_Stock_Item $object */
         $object      = $event->getDataObject();
 
         $event->addNewData('reindex_stock', 1);
@@ -273,7 +274,9 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
             $massObject->setAttributesData(array('force_reindex_required' => 1));
             $massObject->setProductIds(array($object->getProductId()));
             Mage::getSingleton('index/indexer')->logEvent(
-                $massObject, Mage_Catalog_Model_Product::ENTITY, Mage_Index_Model_Event::TYPE_MASS_ACTION
+                $massObject,
+                Mage_Catalog_Model_Product::ENTITY,
+                Mage_Index_Model_Event::TYPE_MASS_ACTION
             );
         }
 
@@ -288,7 +291,7 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
      */
     protected function _registerCatalogProductDeleteEvent(Mage_Index_Model_Event $event)
     {
-        /* @var $product Mage_Catalog_Model_Product */
+        /* @var Mage_Catalog_Model_Product $product */
         $product = $event->getDataObject();
 
         $parentIds = $this->_getResource()->getProductParentsByChild($product->getId());
@@ -307,7 +310,7 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
      */
     protected function _registerCatalogProductMassActionEvent(Mage_Index_Model_Event $event)
     {
-        /* @var $actionObject Varien_Object */
+        /* @var Varien_Object $actionObject */
         $actionObject = $event->getDataObject();
         $attributes   = array(
             'status'

@@ -51,7 +51,7 @@ class Mage_CatalogInventory_Helper_Minsaleqty
         if (is_numeric($value)) {
             $data = (float)$value;
             return (string)$data;
-        } else if (is_array($value)) {
+        } elseif (is_array($value)) {
             $data = array();
             foreach ($value as $groupId => $qty) {
                 if (!array_key_exists($groupId, $data)) {
@@ -79,7 +79,7 @@ class Mage_CatalogInventory_Helper_Minsaleqty
             return array(
                 Mage_Customer_Model_Group::CUST_GROUP_ALL => $this->_fixQty($value)
             );
-        } else if (is_string($value) && !empty($value)) {
+        } elseif (is_string($value) && !empty($value)) {
             try {
                 return Mage::helper('core/unserializeArray')->unserialize($value);
             } catch (Exception $e) {
@@ -93,7 +93,7 @@ class Mage_CatalogInventory_Helper_Minsaleqty
     /**
      * Check whether value is in form retrieved by _encodeArrayFieldValue()
      *
-     * @param mixed
+     * @param mixed $value
      * @return bool
      */
     protected function _isEncodedArrayFieldValue($value)
@@ -113,7 +113,7 @@ class Mage_CatalogInventory_Helper_Minsaleqty
     /**
      * Encode value to be used in Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
      *
-     * @param array
+     * @param array $value
      * @return array
      */
     protected function _encodeArrayFieldValue(array $value)
@@ -132,7 +132,7 @@ class Mage_CatalogInventory_Helper_Minsaleqty
     /**
      * Decode value from used in Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
      *
-     * @param array
+     * @param array $value
      * @return array
      */
     protected function _decodeArrayFieldValue(array $value)
@@ -169,7 +169,7 @@ class Mage_CatalogInventory_Helper_Minsaleqty
             if ($groupId == $customerGroupId) {
                 $result = $qty;
                 break;
-            } else if ($groupId == Mage_Customer_Model_Group::CUST_GROUP_ALL) {
+            } elseif ($groupId == Mage_Customer_Model_Group::CUST_GROUP_ALL) {
                 $result = $qty;
             }
         }
