@@ -96,7 +96,7 @@ class Mage_Core_Model_Log_Adapter
      */
     public function setData($key, $value = null)
     {
-        if(is_array($key)) {
+        if (is_array($key)) {
             $this->_data = $key;
         } else {
             $this->_data[$key] = $value;

@@ -408,7 +408,7 @@ class Mage_Core_Model_Design_Package
      * Get filename by specified theme parameters
      *
      * @param array $file
-     * @param $params
+     * @param array $params
      * @return string
      */
     protected function _renderFilename($file, array $params)
@@ -437,7 +437,7 @@ class Mage_Core_Model_Design_Package
      * If disabled, the lookup won't be performed to spare filesystem calls.
      *
      * @param string $file
-     * @param array &$params
+     * @param array $params
      * @param array $fallbackScheme
      * @return string
      */
@@ -568,8 +568,8 @@ class Mage_Core_Model_Design_Package
     {
         $result = array();
 
-        if (is_null($package)){
-            foreach ($this->getPackageList() as $package){
+        if (is_null($package)) {
+            foreach ($this->getPackageList() as $package) {
                 $result[$package] = $this->getThemeList($package);
             }
         } else {
@@ -593,7 +593,7 @@ class Mage_Core_Model_Design_Package
         $dir = opendir($path);
         if ($dir) {
             while ($entry = readdir($dir)) {
-                if (substr($entry, 0, 1) == '.' || !is_dir($path . DS . $entry)){
+                if (substr($entry, 0, 1) == '.' || !is_dir($path . DS . $entry)) {
                     continue;
                 }
                 if ($fullPath) {
@@ -672,7 +672,7 @@ class Mage_Core_Model_Design_Package
     /**
      * Merge specified javascript files and return URL to the merged file on success
      *
-     * @param $files
+     * @param array $files
      * @return string
      */
     public function getMergedJsUrl($files)
@@ -691,7 +691,7 @@ class Mage_Core_Model_Design_Package
     /**
      * Merge specified css files and return URL to the merged file on success
      *
-     * @param $files
+     * @param array $files
      * @return string
      */
     public function getMergedCssUrl($files)
@@ -734,7 +734,7 @@ class Mage_Core_Model_Design_Package
      * @param array $srcFiles
      * @param string|bool $targetFile - file path to be written
      * @param bool $mustMerge
-     * @param callback $beforeMergeCallback
+     * @param callable $beforeMergeCallback
      * @param array|string $extensionsFilter
      * @return bool|string
      */
@@ -908,7 +908,7 @@ class Mage_Core_Model_Design_Package
                 $baseUrl = Mage::getBaseUrl('web', $secure);
             }
 
-            foreach ($pathParts as $key=>$part) {
+            foreach ($pathParts as $key => $part) {
                 if ($part == '.' || $part == '..') {
                     unset($pathParts[$key]);
                 }

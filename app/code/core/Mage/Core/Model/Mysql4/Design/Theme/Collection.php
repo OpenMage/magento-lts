@@ -28,7 +28,7 @@
  * @method array getData(string $value)
  * @method $this setData(string $value, array $value)
  */
-class Mage_Core_Model_Mysql4_Design_Theme extends Varien_Directory_Collection
+class Mage_Core_Model_Mysql4_Design_Theme_Collection extends Varien_Directory_Collection
 {
     /**
      * @return $this

@@ -36,7 +36,7 @@ class Mage_Core_Model_Url_Rewrite_Request
     /**
      * Instance of request
      *
-     * @var Zend_Controller_Request_Http
+     * @var Mage_Core_Controller_Request_Http
      */
     protected $_request;
 
@@ -359,7 +359,7 @@ class Mage_Core_Model_Url_Rewrite_Request
      * Retrieve router by name
      *
      * @param string $name
-     * @return Mage_Core_Controller_Varien_Router_Abstract|bool
+     * @return Mage_Core_Controller_Varien_Router_Abstract|false
      */
     protected function _getRouter($name)
     {

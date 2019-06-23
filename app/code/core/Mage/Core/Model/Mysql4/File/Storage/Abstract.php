@@ -26,7 +26,7 @@
 
 
 /**
- * Abstract storage resourse model
+ * Abstract storage resource model
  *
  * @category    Mage
  * @package     Mage_Core

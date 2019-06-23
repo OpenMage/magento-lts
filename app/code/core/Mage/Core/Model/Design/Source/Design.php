@@ -63,7 +63,7 @@ class Mage_Core_Model_Design_Source_Design extends Mage_Eav_Model_Entity_Attribu
         if (is_null($this->_options)) {
             $design = Mage::getModel('core/design_package')->getThemeList();
             $options = array();
-            foreach ($design as $package => $themes){
+            foreach ($design as $package => $themes) {
                 $packageOption = array('label' => $package);
                 $themeOptions = array();
                 foreach ($themes as $theme) {

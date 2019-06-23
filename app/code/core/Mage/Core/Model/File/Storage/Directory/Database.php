@@ -126,7 +126,7 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
      * Create directories recursively
      *
      * @param  string $path
-     * @return $this
+     * @return Mage_Core_Model_File_Storage_Directory_Database
      */
     public function createRecursive($path)
     {

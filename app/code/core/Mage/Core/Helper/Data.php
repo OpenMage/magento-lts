@@ -170,7 +170,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         }
         if (is_null($date)) {
             $date = Mage::app()->getLocale()->date(Mage::getSingleton('core/date')->gmtTimestamp(), null, null);
-        } else if (!$date instanceof Zend_Date) {
+        } elseif (!$date instanceof Zend_Date) {
             $date = Mage::app()->getLocale()->date(strtotime($date), null, null);
         }
 
@@ -199,7 +199,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 
         if (is_null($time)) {
             $date = Mage::app()->getLocale()->date(time());
-        } else if ($time instanceof Zend_Date) {
+        } elseif ($time instanceof Zend_Date) {
             $date = $time;
         } else {
             $date = Mage::app()->getLocale()->date(strtotime($time));
@@ -343,7 +343,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
             }
 
             $replacements[$german] = array();
-            foreach ($subst as $k=>$v) {
+            foreach ($subst as $k => $v) {
                 $replacements[$german][$k<256 ? chr($k) : '&#'.$k.';'] = $v;
             }
         }
@@ -390,7 +390,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $types = array();
         $config = Mage::getConfig()->getNode(Mage_Core_Model_Cache::XML_PATH_TYPES);
-        foreach ($config->children() as $type=>$node) {
+        foreach ($config->children() as $type => $node) {
             $types[$type] = (string)$node->label;
         }
         return $types;
@@ -406,7 +406,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         $types = array();
         $config = Mage::getConfig()->getNode(self::XML_PATH_CACHE_BETA_TYPES);
         if ($config) {
-            foreach ($config->children() as $type=>$node) {
+            foreach ($config->children() as $type => $node) {
                 $types[$type] = (string)$node->label;
             }
         }
@@ -427,11 +427,10 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * @param string $root
      * @return boolean
      */
-    public function copyFieldset($fieldset, $aspect, $source, $target, $root='global')
+    public function copyFieldset($fieldset, $aspect, $source, $target, $root = 'global')
     {
         if (!(is_array($source) || $source instanceof Varien_Object)
             || !(is_array($target) || $target instanceof Varien_Object)) {
-
             return false;
         }
         $fields = Mage::getConfig()->getFieldset($fieldset, $root);
@@ -443,7 +442,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         $targetIsArray = is_array($target);
 
         $result = false;
-        foreach ($fields as $code=>$node) {
+        foreach ($fields as $code => $node) {
             if (empty($node->$aspect)) {
                 continue;
             }
@@ -491,7 +490,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * $forceSetAll true will cause to set all possible values for all elements.
      * When false (default), only non-empty values will be set.
      *
-     * @param mixed $array
+     * @param Varien_Object[] $array
      * @param string $prefix
      * @param bool $forceSetAll
      * @return mixed
@@ -707,7 +706,7 @@ XML;
 
     /**
      * Generate a hash from unique ID
-     * @param $prefix
+     * @param string $prefix
      * @return string
      */
     public function uniqHash($prefix = '')
@@ -730,7 +729,7 @@ XML;
      * @param array $srcFiles
      * @param string|false $targetFile - file path to be written
      * @param bool $mustMerge
-     * @param callback $beforeMergeCallback
+     * @param callable $beforeMergeCallback
      * @param array|string $extensionsFilter
      * @return bool|string
      */
@@ -770,7 +769,7 @@ XML;
                     if (!is_array($extensionsFilter)) {
                         $extensionsFilter = array($extensionsFilter);
                     }
-                    if (!empty($srcFiles)){
+                    if (!empty($srcFiles)) {
                         foreach ($srcFiles as $key => $file) {
                             $fileExt = strtolower(pathinfo($file, PATHINFO_EXTENSION));
                             if (!in_array($fileExt, $extensionsFilter)) {
@@ -933,7 +932,7 @@ XML;
      * Security enchancement for CSV data processing by Excel-like applications.
      * @see https://bugzilla.mozilla.org/show_bug.cgi?id=1054702
      *
-     * @param $data
+     * @param array $data
      * @return array
      */
     public function getEscapedCSVData(array $data)

@@ -131,7 +131,7 @@ abstract class Mage_Core_Model_Session_Abstract_Zend extends Varien_Object
      * @param   bool $clear
      * @return  mixed
      */
-    public function getData($var=null, $clear=false)
+    public function getData($var = null, $clear = false)
     {
         if (!$this->_namespace->data) {
             $this->_namespace->data = new Varien_Object();

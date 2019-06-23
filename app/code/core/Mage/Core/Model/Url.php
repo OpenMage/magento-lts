@@ -1076,7 +1076,7 @@ class Mage_Core_Model_Url extends Varien_Object
         $sessionId = $session->getSessionIdForHost($url);
         if (Mage::app()->getUseSessionVar() && !$sessionId) {
             $this->setQueryParam('___SID', $this->getSecure() ? 'S' : 'U'); // Secure/Unsecure
-        } else if ($sessionId) {
+        } elseif ($sessionId) {
             $this->setQueryParam($session->getSessionIdQueryParam(), $sessionId);
         }
         return $this;

@@ -122,9 +122,9 @@ class Mage_Core_Model_Design_Fallback
     /**
      * Check if inheritance defined in theme config
      *
-     * @param $area
-     * @param $package
-     * @param $theme
+     * @param string $area
+     * @param string $package
+     * @param string $theme
      * @return bool
      */
     protected function _isInheritanceDefined($area, $package, $theme)

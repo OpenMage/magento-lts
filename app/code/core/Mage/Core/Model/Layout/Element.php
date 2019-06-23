@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 class Mage_Core_Model_Layout_Element extends Varien_Simplexml_Element
 {
     /**
@@ -82,7 +81,7 @@ class Mage_Core_Model_Layout_Element extends Varien_Simplexml_Element
     }
 
     /**
-     * @param $args
+     * @param array $args
      * @return $this
      */
     public function prepareBlock($args)
@@ -105,7 +104,7 @@ class Mage_Core_Model_Layout_Element extends Varien_Simplexml_Element
     }
 
     /**
-     * @param $args
+     * @param array $args
      * @return $this
      */
     public function prepareReference($args)
@@ -114,7 +113,7 @@ class Mage_Core_Model_Layout_Element extends Varien_Simplexml_Element
     }
 
     /**
-     * @param $args
+     * @param array $args
      * @return $this
      */
     public function prepareAction($args)
@@ -126,7 +125,7 @@ class Mage_Core_Model_Layout_Element extends Varien_Simplexml_Element
     }
 
     /**
-     * @param $args
+     * @param array $args
      * @return $this
      */
     public function prepareActionArgument($args)

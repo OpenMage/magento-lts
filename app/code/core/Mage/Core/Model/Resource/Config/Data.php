@@ -46,7 +46,7 @@ class Mage_Core_Model_Resource_Config_Data extends Mage_Core_Model_Resource_Db_A
      * Convert array to comma separated value
      *
      * @param Mage_Core_Model_Config_Data $object
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
@@ -65,7 +65,7 @@ class Mage_Core_Model_Resource_Config_Data extends Mage_Core_Model_Resource_Db_A
      * Set id to object if exists configuration instead of throw exception
      *
      * @param Mage_Core_Model_Config_Data $object
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function _checkUnique(Mage_Core_Model_Abstract $object)
     {

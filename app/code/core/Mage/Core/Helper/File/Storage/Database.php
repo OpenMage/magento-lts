@@ -41,7 +41,7 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
 
     /**
      * Storage resource model
-     * @var null|Mage_Core_Model_Mysql4_File_Storage_Database
+     * @var Mage_Core_Model_Resource_File_Storage_Database
      */
     protected $_resourceModel = null;
 
@@ -103,7 +103,7 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
     /**
      * Get storage model
      *
-     * @return Mage_Core_Model_Mysql4_File_Storage_Database
+     * @return Mage_Core_Model_Resource_File_Storage_Database
      */
     public function getResourceStorageModel()
     {
@@ -196,7 +196,7 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
      * Save database file to file system
      *
      * @param string $filename
-     * @return bool|int
+     * @return bool
      */
     public function saveFileToFilesystem($filename)
     {

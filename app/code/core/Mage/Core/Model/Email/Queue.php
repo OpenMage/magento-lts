@@ -80,7 +80,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
     /**
      * Save bind recipients to message
      *
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function _afterSave()
     {
@@ -91,7 +91,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
     /**
      * Validate recipients before saving
      *
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function _beforeSave()
     {
@@ -188,13 +188,11 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
      */
     public function send()
     {
-        /** @var Mage_Core_Model_Resource_Email_Queue_Collection $collection */
         $collection = Mage::getModel('core/email_queue')->getCollection()
             ->addOnlyForSendingFilter()
             ->setPageSize(self::MESSAGES_LIMIT_PER_CRON_RUN)
             ->setCurPage(1)
             ->load();
-
 
         ini_set('SMTP', Mage::getStoreConfig('system/smtp/host'));
         ini_set('smtp_port', Mage::getStoreConfig('system/smtp/port'));

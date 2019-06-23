@@ -29,6 +29,8 @@
  *
  * @method Mage_Core_Model_Resource_Store_Group _getResource()
  * @method Mage_Core_Model_Resource_Store_Group getResource()
+ * @method Mage_Core_Model_Resource_Store_Group_Collection getCollection()
+ *
  * @method $this setWebsiteId(int $value)
  * @method string getName()
  * @method $this setName(string $value)
@@ -160,7 +162,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
     /**
      * Retrieve new (not loaded) Store collection object with group filter
      *
-     * @return Mage_Core_Model_Mysql4_Store_Collection
+     * @return Mage_Core_Model_Resource_Store_Collection
      */
     public function getStoreCollection()
     {
@@ -260,7 +262,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
     /**
      * Retrieve list of stores with given locale
      *
-     * @param $locale
+     * @param string $locale
      * @return array
      */
     public function getStoresByLocale($locale)

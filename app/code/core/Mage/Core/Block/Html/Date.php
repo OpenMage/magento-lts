@@ -43,6 +43,8 @@
  * @method string getName()
  * @method $this setName(string $value)
  * @method string getTime()
+ * @method $this setTime(string $value)
+ * @method $this setTitle(string $value)
  * @method string getValue()
  * @method $this setValue(string $value)
  * @method string getYearsRange()
@@ -98,7 +100,7 @@ class Mage_Core_Block_Html_Date extends Mage_Core_Block_Template
     public function getEscapedValue($index = null)
     {
 
-        if($this->getFormat() && $this->getValue()) {
+        if ($this->getFormat() && $this->getValue()) {
             return strftime($this->getFormat(), strtotime($this->getValue()));
         }
 

@@ -30,6 +30,12 @@
  * @category   Mage
  * @package    Mage_Core
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setContentHeading(string $value)
+ * @method $this setFormAction(string $value)
+ * @method $this setIdSuffix(string $value)
+ * @method $this setProduct(Mage_Catalog_Model_Product $value)
+ * @method $this setDisplayMinimalPrice(bool $value)
  */
 class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
 {
@@ -145,10 +151,10 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
      * @param   mixed $value
      * @return  Mage_Core_Block_Template
      */
-    public function assign($key, $value=null)
+    public function assign($key, $value = null)
     {
         if (is_array($key)) {
-            foreach ($key as $k=>$v) {
+            foreach ($key as $k => $v) {
                 $this->assign($k, $v);
             }
         } else {
@@ -309,7 +315,7 @@ HTML;
      * @param string $fileName
      * @return string
      */
-    public function getJsUrl($fileName='')
+    public function getJsUrl($fileName = '')
     {
         if (!$this->_jsUrl) {
             $this->_jsUrl = Mage::getBaseUrl('js');

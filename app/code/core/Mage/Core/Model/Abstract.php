@@ -37,6 +37,8 @@
  * @method $this setUpdatedAt(string $currentTime)
  * @method $this setAttribute(Mage_Eav_Model_Entity_Attribute_Abstract $value)
  * @method bool hasErrors()
+ * @method Mage_Customer_Model_Address_Abstract getBillingAddress()
+ * @method Mage_Customer_Model_Address_Abstract getShippingAddress()
  */
 abstract class Mage_Core_Model_Abstract extends Varien_Object
 {
@@ -82,7 +84,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      *
      * When you use true - all cache will be clean
      *
-     * @var string || true
+     * @var string|true
      */
     protected $_cacheTag    = false;
 
@@ -120,7 +122,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * @param string $resourceName
      * @param string|null $resourceCollectionName
      */
-    protected function _setResourceModel($resourceName, $resourceCollectionName=null)
+    protected function _setResourceModel($resourceName, $resourceCollectionName = null)
     {
         $this->_resourceName = $resourceName;
         if (is_null($resourceCollectionName)) {
@@ -132,7 +134,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Get resource instance
      *
-     * @return Mage_Core_Model_Mysql4_Abstract
+     * @return Mage_Core_Model_Resource_Db_Abstract|object|string
      */
     protected function _getResource()
     {
@@ -202,7 +204,8 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Get collection instance
      *
-     * @return object
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getResourceCollection()
     {
@@ -213,7 +216,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     }
 
     /**
-     * @return Mage_Core_Model_Mysql4_Collection_Abstract|object
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|object
      */
     public function getCollection()
     {
@@ -227,7 +230,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * @param string|null $field
      * @return $this
      */
-    public function load($id, $field=null)
+    public function load($id, $field = null)
     {
         $this->_beforeLoad($id, $field);
         $this->_getResource()->load($this, $id, $field);
@@ -375,7 +378,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * @param bool $flag
      * @return bool
      */
-    public function isObjectNew($flag=null)
+    public function isObjectNew($flag = null)
     {
         if ($flag !== null) {
             $this->_isObjectNew = $flag;
@@ -489,8 +492,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
             $this->_afterDelete();
 
             $this->_getResource()->commit();
-        }
-        catch (Exception $e){
+        } catch (Exception $e) {
             $this->_getResource()->rollBack();
             throw $e;
         }
@@ -553,7 +555,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Retrieve model resource
      *
-     * @return Mage_Core_Model_Mysql4_Abstract
+     * @return Mage_Core_Model_Resource_Db_Abstract
      */
     public function getResource()
     {

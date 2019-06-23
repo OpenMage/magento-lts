@@ -89,7 +89,7 @@ class Mage_Core_Model_App_Area
      * @param   string|null $part
      * @return  Mage_Core_Model_App_Area
      */
-    public function load($part=null)
+    public function load($part = null)
     {
         if (is_null($part)) {
             $this->_loadPart(self::PART_CONFIG)

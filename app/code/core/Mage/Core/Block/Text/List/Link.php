@@ -57,7 +57,7 @@ class Mage_Core_Block_Text_List_Link extends Mage_Core_Block_Text
         $this->setText('<li');
         $params = $this->getLiParams();
         if (!empty($params) && is_array($params)) {
-            foreach ($params as $key=>$value) {
+            foreach ($params as $key => $value) {
                 $this->addText(' '.$key.'="'.addslashes($value).'"');
             }
         } elseif (is_string($params)) {
@@ -67,7 +67,7 @@ class Mage_Core_Block_Text_List_Link extends Mage_Core_Block_Text
 
         $params = $this->getAParams();
         if (!empty($params) && is_array($params)) {
-            foreach ($params as $key=>$value) {
+            foreach ($params as $key => $value) {
                 $this->addText(' '.$key.'="'.addslashes($value).'"');
             }
         } elseif (is_string($params)) {

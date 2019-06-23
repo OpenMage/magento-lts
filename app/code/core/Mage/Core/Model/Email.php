@@ -39,8 +39,11 @@
  * @method getFromName()
  * @method $this setFromName(string $string)
  * @method string getTemplate()
+ * @method $this setTemplate(string $string)
  * @method string|array getToEmail()
+ * @method $this setToEmail(string|array $string)
  * @method getToName()
+ * @method $this setToName(string $string)
  * @method string getType()
  * @method $this setType(string $string)
  */
@@ -69,7 +72,7 @@ class Mage_Core_Model_Email extends Varien_Object
     public function setTemplateVar($var, $value = null)
     {
         if (is_array($var)) {
-            foreach ($var as $index=>$value) {
+            foreach ($var as $index => $value) {
                 $this->_tplVars[$index] = $value;
             }
         } else {
@@ -96,7 +99,7 @@ class Mage_Core_Model_Email extends Varien_Object
             $this->_block = Mage::getModel('core/layout')->createBlock('core/template', 'email')
                 ->setArea('frontend')
                 ->setTemplate($this->getTemplate());
-            foreach ($this->getTemplateVars() as $var=>$value) {
+            foreach ($this->getTemplateVars() as $var => $value) {
                 $this->_block->assign($var, $value);
             }
             $this->_block->assign('_type', strtolower($this->getType()))

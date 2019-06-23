@@ -249,10 +249,10 @@ class Mage_Core_Model_Layout_Update
         Mage::app()->saveCache($hash, $this->getCacheId(), $tags, null);
 
         // Only save actual XML to cache if it doesn't already exist
-        if ( ! Mage::app()->getCache()->test(self::XML_KEY_PREFIX . $hash)) {
+        if (! Mage::app()->getCache()->test(self::XML_KEY_PREFIX . $hash)) {
             Mage::app()->saveCache($str, self::XML_KEY_PREFIX . $hash, $tags, null);
         }
-        return TRUE;
+        return true;
     }
 
     /**
@@ -261,7 +261,7 @@ class Mage_Core_Model_Layout_Update
      * @param array|string $handles
      * @return $this
      */
-    public function load($handles=array())
+    public function load($handles = array())
     {
         if (is_string($handles)) {
             $handles = array($handles);

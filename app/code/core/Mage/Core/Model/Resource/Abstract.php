@@ -82,7 +82,7 @@ abstract class Mage_Core_Model_Resource_Abstract
     /**
      * Subscribe some callback to transaction commit
      *
-     * @param callback $callback
+     * @param callable $callback
      * @return $this
      */
     public function addCommitCallback($callback)
@@ -136,9 +136,9 @@ abstract class Mage_Core_Model_Resource_Abstract
     /**
      * Format date to internal format
      *
-     * @param string|Zend_Date $date
+     * @param string|Zend_Date|true|null $date
      * @param bool $includeTime
-     * @return string
+     * @return string|null
      */
     public function formatDate($date, $includeTime = true)
     {
@@ -221,7 +221,7 @@ abstract class Mage_Core_Model_Resource_Abstract
                     if (null !== $fieldValue) {
                         $fieldValue   = $this->_prepareTableValueForSave($fieldValue, $fields[$field]['DATA_TYPE']);
                         $data[$field] = $this->_getWriteAdapter()->prepareColumnValue($fields[$field], $fieldValue);
-                    } else if (!empty($fields[$field]['NULLABLE'])) {
+                    } elseif (!empty($fields[$field]['NULLABLE'])) {
                         $data[$field] = null;
                     }
                 }

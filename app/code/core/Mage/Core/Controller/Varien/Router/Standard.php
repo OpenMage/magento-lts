@@ -38,14 +38,15 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
     {
         $routers = array();
         $routersConfigNode = Mage::getConfig()->getNode($configArea.'/routers');
-        if($routersConfigNode) {
+        if ($routersConfigNode) {
             $routers = $routersConfigNode->children();
         }
-        foreach ($routers as $routerName=>$routerConfig) {
+        foreach ($routers as $routerName => $routerConfig) {
             $use = (string)$routerConfig->use;
             if ($use == $useRouterName) {
                 $modules = array((string)$routerConfig->args->module);
                 if ($routerConfig->args->modules) {
+                    /** @var Varien_Simplexml_Element $customModule */
                     foreach ($routerConfig->args->modules->children() as $customModule) {
                         if ((string)$customModule) {
                             if ($before = $customModule->getAttribute('before')) {
@@ -109,7 +110,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      * Match the request
      *
      * @param Mage_Core_Controller_Request_Http $request
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function match(Zend_Controller_Request_Http $request)
     {

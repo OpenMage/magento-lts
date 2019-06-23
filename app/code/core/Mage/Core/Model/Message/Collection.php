@@ -138,7 +138,7 @@ class Mage_Core_Model_Message_Collection
      * @param   string $type
      * @return  array
      */
-    public function getItems($type=null)
+    public function getItems($type = null)
     {
         if ($type) {
             return isset($this->_messages[$type]) ? $this->_messages[$type] : array();
@@ -193,7 +193,7 @@ class Mage_Core_Model_Message_Collection
      * @param string|null $type
      * @return int
      */
-    public function count($type=null)
+    public function count($type = null)
     {
         if ($type) {
             if (isset($this->_messages[$type])) {

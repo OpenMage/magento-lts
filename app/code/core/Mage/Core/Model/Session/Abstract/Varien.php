@@ -39,7 +39,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     const SECURE_COOKIE_CHECK_KEY               = '_secure_cookie_check';
 
     /** @var bool Flag true if session validator data has already been evaluated */
-    protected static $isValidated = FALSE;
+    protected static $isValidated = false;
 
     /**
      * Map of session enabled hosts
@@ -54,7 +54,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      * @param string $sessionName
      * @return $this
      */
-    public function start($sessionName=null)
+    public function start($sessionName = null)
     {
         if (isset($_SESSION) && !$this->getSkipEmptySessionCheck()) {
             return $this;
@@ -228,7 +228,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      * @param string $sessionName
      * @return $this
      */
-    public function init($namespace, $sessionName=null)
+    public function init($namespace, $sessionName = null)
     {
         if (!isset($_SESSION)) {
             $this->start($sessionName);
@@ -252,7 +252,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      * @param bool $clear
      * @return mixed
      */
-    public function getData($key='', $clear = false)
+    public function getData($key = '', $clear = false)
     {
         $data = parent::getData($key);
         if ($clear && isset($this->_data[$key])) {
@@ -277,7 +277,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      * @param string $id
      * @return $this
      */
-    public function setSessionId($id=null)
+    public function setSessionId($id = null)
     {
         if (!is_null($id) && preg_match('#^[0-9a-zA-Z,-]+$#', $id)) {
             session_id($id);
@@ -459,7 +459,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     {
         $sessionData = $_SESSION[self::VALIDATOR_KEY];
         $validatorData = $this->getValidatorData();
-        self::$isValidated = TRUE; // Only validate once since the validator data is the same for every namespace
+        self::$isValidated = true; // Only validate once since the validator data is the same for every namespace
 
         if ($this->useValidateRemoteAddr()
                 && $sessionData[self::VALIDATOR_REMOTE_ADDR_KEY] != $validatorData[self::VALIDATOR_REMOTE_ADDR_KEY]) {

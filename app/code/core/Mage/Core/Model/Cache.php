@@ -426,7 +426,7 @@ class Mage_Core_Model_Cache
      * @param   array $tags
      * @return  bool
      */
-    public function clean($tags=array())
+    public function clean($tags = array())
     {
         $mode = Zend_Cache::CLEANING_MODE_MATCHING_ANY_TAG;
         if (!empty($tags)) {
@@ -518,7 +518,7 @@ class Mage_Core_Model_Cache
      * Check if cache can be used for specific data type
      *
      * @param string $typeCode
-     * @return bool|array
+     * @return false|array
      */
     public function canUse($typeCode)
     {
@@ -578,7 +578,7 @@ class Mage_Core_Model_Cache
         $types = array();
         $config = Mage::getConfig()->getNode(self::XML_PATH_TYPES);
         if ($config) {
-            foreach ($config->children() as $type=>$node) {
+            foreach ($config->children() as $type => $node) {
                 $types[$type] = new Varien_Object(array(
                     'id'            => $type,
                     'cache_type'    => Mage::helper('core')->__((string)$node->label),

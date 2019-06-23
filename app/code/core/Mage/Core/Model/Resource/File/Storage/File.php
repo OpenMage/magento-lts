@@ -192,7 +192,7 @@ class Mage_Core_Model_Resource_File_Storage_File
     public function saveFile($filePath, $content, $overwrite = false)
     {
         $filename = basename($filePath);
-        $path = $this->getMediaBaseDirectory() . DS . str_replace('/', DS ,dirname($filePath));
+        $path = $this->getMediaBaseDirectory() . DS . str_replace('/', DS, dirname($filePath));
 
         if (!is_dir($path)) {
             @mkdir($path, 0777, true);

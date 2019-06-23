@@ -150,8 +150,8 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
     /**
      * Add variables that are used by transactional emails and newsletter emails
      *
-     * @param $variables
-     * @param $storeId
+     * @param array $variables
+     * @param int $storeId
      * @return mixed
      */
     protected function _addEmailVariables($variables, $storeId)
@@ -191,7 +191,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
      * Merge HTML and CSS and returns HTML that has CSS styles applied "inline" to the HTML tags. This is necessary
      * in order to support all email clients.
      *
-     * @param $html
+     * @param string $html
      * @return string
      */
     protected function _applyInlineCss($html)
@@ -259,7 +259,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
      * Accepts a path to a System Config setting that contains a comma-delimited list of files to load. Loads those
      * files and then returns the concatenated content.
      *
-     * @param $configPath
+     * @param string $configPath
      * @return string
      */
     protected function _getCssByConfig($configPath)

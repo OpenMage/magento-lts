@@ -29,6 +29,8 @@
  *
  * @method Mage_Core_Model_Resource_Store _getResource()
  * @method Mage_Core_Model_Resource_Store getResource()
+ * @method Mage_Core_Model_Resource_Store_Collection getCollection()
+ *
  * @method $this setCode(string $value)
  * @method $this setGroupId(int $value)
  * @method string getHomeUrl()
@@ -38,11 +40,14 @@
  * @method string getLanguageCode()
  * @method string getLocaleCode()
  * @method $this setName(string $value)
+ * @method $thissetRootCategoryPath(string $value)
+ * @method $this setRootCategory(Mage_Catalog_Model_Category $value)
  * @method int getSortOrder()
  * @method $this setSortOrder(int $value)
  * @method int getStoreId()
  * @method $this setStoreId(int $value)
  * @method $this setWebsiteId(int $value)
+ * @method string getRootCategoryPath()
  *
  * @category    Mage
  * @package     Mage_Core
@@ -749,8 +754,10 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     public function isFrontUrlSecure()
     {
         if ($this->_isFrontSecure === null) {
-            $this->_isFrontSecure = Mage::getStoreConfigFlag(Mage_Core_Model_Url::XML_PATH_SECURE_IN_FRONT,
-                $this->getId());
+            $this->_isFrontSecure = Mage::getStoreConfigFlag(
+                Mage_Core_Model_Url::XML_PATH_SECURE_IN_FRONT,
+                $this->getId()
+            );
         }
         return $this->_isFrontSecure;
     }
@@ -1074,7 +1081,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Retrieve website identifier
      *
-     * @return string|int|null
+     * @return int|string|null
      */
     public function getWebsiteId()
     {
@@ -1084,7 +1091,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Retrieve group identifier
      *
-     * @return string|int|null
+     * @return int|string|null
      */
     public function getGroupId()
     {
@@ -1094,7 +1101,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Retrieve default group identifier
      *
-     * @return string|int|null
+     * @return int|string|null
      */
     public function getDefaultGroupId()
     {
@@ -1125,7 +1132,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     {
         $sidQueryParam = $this->_getSession()->getSessionIdQueryParam();
         $requestString = Mage::getSingleton('core/url')->escape(
-            ltrim(Mage::app()->getRequest()->getRequestString(), '/'));
+            ltrim(Mage::app()->getRequest()->getRequestString(), '/')
+        );
 
         $storeUrl = Mage::app()->getStore()->isCurrentlySecure()
             ? $this->getUrl('', array('_secure' => true))

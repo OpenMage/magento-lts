@@ -60,7 +60,7 @@ class Mage_Core_Model_Resource_Website extends Mage_Core_Model_Resource_Db_Abstr
      * Validate website code before object save
      *
      * @param Mage_Core_Model_Website $object
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
@@ -89,7 +89,7 @@ class Mage_Core_Model_Resource_Website extends Mage_Core_Model_Resource_Db_Abstr
      * Remove core configuration data after delete website
      *
      * @param Mage_Core_Model_Website $model
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function _afterDelete(Mage_Core_Model_Abstract $model)
     {

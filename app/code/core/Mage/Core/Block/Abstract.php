@@ -35,9 +35,19 @@
  * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setAdditionalHtml(string $value)
+ * @method $this setBlockParams(array $value)
+ * @method $this setCacheLifetime(int|false $value)
+ * @method $this setCacheKey(string $value)
+ * @method $this setCacheTags(array $value)
+ * @method $this setClass(string $value)
+ * @method $this setDisabled(bool $value)
  * @method string getFormKey()
+ * @method $this setLabel(string $value)
+ * @method $this setOnclick(string $value)
  * @method string getPosition()
  * @method $this setTemplate(string $value)
+ * @method $this setType(string $value)
+ * @method bool hasWrapperMustBeVisible()
  */
 abstract class Mage_Core_Block_Abstract extends Varien_Object
 {
@@ -613,7 +623,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Obtain sorted child blocks
      *
-     * @return array
+     * @return Mage_Core_Block_Abstract[]
      */
     public function getSortedChildBlocks()
     {
@@ -947,8 +957,10 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             self::$_transportObject = new Varien_Object;
         }
         self::$_transportObject->setHtml($html);
-        Mage::dispatchEvent('core_block_abstract_to_html_after',
-            array('block' => $this, 'transport' => self::$_transportObject));
+        Mage::dispatchEvent(
+            'core_block_abstract_to_html_after',
+            array('block' => $this, 'transport' => self::$_transportObject)
+        );
         $html = self::$_transportObject->getHtml();
 
         return $html;

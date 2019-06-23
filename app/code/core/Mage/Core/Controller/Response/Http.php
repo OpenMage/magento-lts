@@ -44,7 +44,7 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
      *
      * @link  http://bugs.php.net/bug.php?id=36705
      *
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function sendHeaders()
     {
@@ -55,7 +55,7 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
 
         if (substr(php_sapi_name(), 0, 3) == 'cgi') {
             $statusSent = false;
-            foreach ($this->_headersRaw as $i=>$header) {
+            foreach ($this->_headersRaw as $i => $header) {
                 if (stripos($header, 'status:')===0) {
                     if ($statusSent) {
                         unset($this->_headersRaw[$i]);
@@ -64,7 +64,7 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
                     }
                 }
             }
-            foreach ($this->_headers as $i=>$header) {
+            foreach ($this->_headers as $i => $header) {
                 if (strcasecmp($header['name'], 'status')===0) {
                     if ($statusSent) {
                         unset($this->_headers[$i]);
@@ -78,6 +78,9 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
         return parent::sendHeaders();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function sendResponse()
     {
         Mage::dispatchEvent('http_response_send_before', array('response'=>$this));
@@ -87,7 +90,7 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
     /**
      * Additionally check for session messages in several domains case
      *
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function setRedirect($url, $code = 302)
     {

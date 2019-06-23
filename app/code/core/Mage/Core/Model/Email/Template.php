@@ -125,7 +125,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      * Declare template processing filter
      *
      * @param   Varien_Filter_Template $filter
-     * @return  Mage_Core_Model_Email_Template
+     * @return  $this
      */
     public function setTemplateFilter(Varien_Filter_Template $filter)
     {
@@ -152,7 +152,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      * Load template by code
      *
      * @param   string $templateCode
-     * @return   Mage_Core_Model_Email_Template
+     * @return   $this
      */
     public function loadByCode($templateCode)
     {
@@ -216,7 +216,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      */
     public static function getDefaultTemplates()
     {
-        if(is_null(self::$_defaultTemplates)) {
+        if (is_null(self::$_defaultTemplates)) {
             self::$_defaultTemplates = Mage::getConfig()->getNode(self::XML_PATH_TEMPLATE_EMAIL)->asArray();
         }
 
@@ -480,10 +480,10 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Send transactional email to recipient
      *
-     * @param   int $templateId
-     * @param   string|array $sender sender information, can be declared as part of config path
+     * @param   string|int $templateId
+     * @param   array|string $sender sender information, can be declared as part of config path
      * @param   string $email recipient email
-     * @param   string $name recipient name
+     * @param   array|string|null $name recipient name
      * @param   array $vars variables which can be used in template
      * @param   int|null $storeId
      *
@@ -491,7 +491,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      *
      * @return  $this
      */
-    public function sendTransactional($templateId, $sender, $email, $name, $vars=array(), $storeId=null)
+    public function sendTransactional($templateId, $sender, $email, $name, $vars = array(), $storeId = null)
     {
         $this->setSentSuccess(false);
         if (($storeId === null) && $this->getDesignConfig()->getStore()) {
@@ -536,7 +536,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     {
         $processor = $this->getTemplateFilter();
 
-        if(!$this->_preprocessFlag) {
+        if (!$this->_preprocessFlag) {
             $variables['this'] = $this;
         }
 
@@ -649,7 +649,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
         if (empty($code)) {
             Mage::throwException(Mage::helper('core')->__('The template Name must not be empty.'));
         }
-        if($this->_getResource()->checkCodeUsage($this)) {
+        if ($this->_getResource()->checkCodeUsage($this)) {
             Mage::throwException(Mage::helper('core')->__('Duplicate Of Template Name'));
         }
         return parent::_beforeSave();

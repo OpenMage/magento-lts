@@ -40,7 +40,7 @@ class Mage_Core_Model_Resource_Iterator extends Varien_Object
      * @param Varien_Db_Adapter_Interface $adapter
      * @return $this
      */
-    public function walk($query, array $callbacks, array $args=array(), $adapter = null)
+    public function walk($query, array $callbacks, array $args = array(), $adapter = null)
     {
         $stmt = $this->_getStatement($query, $adapter);
         $args['idx'] = 0;

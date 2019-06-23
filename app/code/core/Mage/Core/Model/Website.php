@@ -29,6 +29,8 @@
  *
  * @method Mage_Core_Model_Resource_Website _getResource()
  * @method Mage_Core_Model_Resource_Website getResource()
+ * @method Mage_Core_Model_Resource_Website_Collection getCollection()
+ *
  * @method $this setCode(string $value)
  * @method string getName()
  * @method $this setName(string $value)
@@ -40,6 +42,7 @@
  * @method int getGroupId()
  * @method int getStoreId()
  * @method $this setStoreId(int $value)
+ * @method array getStoresIds()
  * @method bool hasWebsiteId()
  * @method int getWebsiteId()
  * @method bool hasDefaultGroupId()
@@ -180,7 +183,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
             return $this;
         }
         if (is_numeric($code)) {
-            foreach (Mage::getConfig()->getNode('websites')->children() as $websiteCode=>$website) {
+            foreach (Mage::getConfig()->getNode('websites')->children() as $websiteCode => $website) {
                 if ((int)$website->system->website->id==$code) {
                     $code = $websiteCode;
                     break;
@@ -213,7 +216,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
             }
             if ($config->hasChildren()) {
                 $value = array();
-                foreach ($config->children() as $k=>$v) {
+                foreach ($config->children() as $k => $v) {
                     $value[$k] = $v;
                 }
             } else {
@@ -266,7 +269,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     /**
      * Retrieve new (not loaded) Group collection object with website filter
      *
-     * @return Mage_Core_Model_Mysql4_Store_Group_Collection
+     * @return Mage_Core_Model_Resource_Store_Group_Collection
      */
     public function getGroupCollection()
     {
@@ -372,7 +375,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     /**
      * Retrieve new (not loaded) Store collection object with website filter
      *
-     * @return Mage_Core_Model_Mysql4_Store_Collection
+     * @return Mage_Core_Model_Resource_Store_Collection
      */
     public function getStoreCollection()
     {

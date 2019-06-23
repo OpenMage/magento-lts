@@ -78,7 +78,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
     public function postDispatch()
     {
         parent::postDispatch();
-        if (!$this->getFlag('', self::FLAG_NO_START_SESSION )) {
+        if (!$this->getFlag('', self::FLAG_NO_START_SESSION)) {
             Mage::getSingleton('core/session')->setLastUrl(Mage::getUrl('*/*/*', array('_current'=>true)));
         }
         return $this;

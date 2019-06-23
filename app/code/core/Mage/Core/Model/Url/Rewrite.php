@@ -29,6 +29,8 @@
  *
  * @method Mage_Core_Model_Resource_Url_Rewrite _getResource()
  * @method Mage_Core_Model_Resource_Url_Rewrite getResource()
+ * @method Mage_Core_Model_Resource_Url_Rewrite_Collection getResourceCollection()
+ *
  * @method $this setStoreId(int $value)
  * @method int getCategoryId()
  * @method $this setCategoryId(int $value)
@@ -127,7 +129,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
         $loadTags = is_array($tags) ? $tags : explode(',', $tags);
 
         $search = $this->getResourceCollection();
-        foreach ($loadTags as $k=>$t) {
+        foreach ($loadTags as $k => $t) {
             if (!is_numeric($k)) {
                 $t = $k.'='.$t;
             }
@@ -140,6 +142,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
         $search->setPageSize(1)->load();
 
         if ($search->getSize()>0) {
+            /** @var Mage_Core_Model_Url_Rewrite $rewrite */
             foreach ($search as $rewrite) {
                 $this->setData($rewrite->getData());
             }
@@ -169,7 +172,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
 
         $addTags = is_array($tags) ? $tags : explode(',', $tags);
 
-        foreach ($addTags as $k=>$t) {
+        foreach ($addTags as $k => $t) {
             if (!is_numeric($k)) {
                 $t = $k.'='.$t;
             }
@@ -193,7 +196,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
 
         $removeTags = is_array($tags) ? $tags : explode(',', $tags);
 
-        foreach ($removeTags as $k=>$t) {
+        foreach ($removeTags as $k => $t) {
             if (!is_numeric($k)) {
                 $t = $k.'='.$t;
             }
@@ -216,7 +219,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
      * @throws Mage_Core_Model_Store_Exception
      * @deprecated since 1.7.0.2. Refactored and moved to Mage_Core_Controller_Request_Rewrite
      */
-    public function rewrite(Zend_Controller_Request_Http $request=null, Zend_Controller_Response_Http $response=null)
+    public function rewrite(Zend_Controller_Request_Http $request = null, Zend_Controller_Response_Http $response = null)
     {
         if (!Mage::isInstalled()) {
             return false;
@@ -329,7 +332,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
             $queryParams = array();
             parse_str($_SERVER['QUERY_STRING'], $queryParams);
             $hasChanges = false;
-            foreach ($queryParams as $key=>$value) {
+            foreach ($queryParams as $key => $value) {
                 if (substr($key, 0, 3) === '___') {
                     unset($queryParams[$key]);
                     $hasChanges = true;

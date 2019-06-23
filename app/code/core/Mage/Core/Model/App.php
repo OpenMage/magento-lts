@@ -192,7 +192,7 @@ class Mage_Core_Model_App
     /**
      * Request object
      *
-     * @var Zend_Controller_Request_Http
+     * @var Mage_Core_Controller_Request_Http
      */
     protected $_request;
 
@@ -955,7 +955,7 @@ class Mage_Core_Model_App
      * @param null|Mage_Core_Model_Website|true|int|string $id
      * @return Mage_Core_Model_Website
      */
-    public function getWebsite($id=null)
+    public function getWebsite($id = null)
     {
         if (is_null($id)) {
             $id = $this->getStore()->getWebsiteId();
@@ -1015,7 +1015,7 @@ class Mage_Core_Model_App
      * @param null|Mage_Core_Model_Store_Group|int|string $id
      * @return Mage_Core_Model_Store_Group
      */
-    public function getGroup($id=null)
+    public function getGroup($id = null)
     {
         if (is_null($id)) {
             $id = $this->getStore()->getGroup()->getId();
@@ -1171,7 +1171,7 @@ class Mage_Core_Model_App
      * @param null|false|int $lifeTime
      * @return  $this
      */
-    public function saveCache($data, $id, $tags=array(), $lifeTime=false)
+    public function saveCache($data, $id, $tags = array(), $lifeTime = false)
     {
         $this->_cache->save($data, $id, $tags, $lifeTime);
         return $this;
@@ -1195,7 +1195,7 @@ class Mage_Core_Model_App
      * @param   array $tags
      * @return  $this
      */
-    public function cleanCache($tags=array())
+    public function cleanCache($tags = array())
     {
         $this->_cache->clean($tags);
         Mage::dispatchEvent('application_clean_cache', array('tags' => $tags));
@@ -1206,9 +1206,9 @@ class Mage_Core_Model_App
      * Check whether to use cache for specific component
      *
      * @param null|string $type
-     * @return bool|array
+     * @return false|array
      */
-    public function useCache($type=null)
+    public function useCache($type = null)
     {
         return $this->_cache->canUse($type);
     }
@@ -1311,7 +1311,7 @@ class Mage_Core_Model_App
     public function dispatchEvent($eventName, $args)
     {
         $eventName = strtolower($eventName);
-        foreach ($this->_events as $area=>$events) {
+        foreach ($this->_events as $area => $events) {
             if (!isset($events[$eventName])) {
                 $eventConfig = $this->getConfig()->getEventConfig($area, $eventName);
                 if (!$eventConfig) {
@@ -1342,7 +1342,7 @@ class Mage_Core_Model_App
                 $observer = new Varien_Event_Observer();
             }
 
-            foreach ($events[$eventName]['observers'] as $obsName=>$obs) {
+            foreach ($events[$eventName]['observers'] as $obsName => $obs) {
                 $observer->setData(array('event'=>$event));
                 Varien_Profiler::start('OBSERVER: '.$obsName);
                 switch ($obs['type']) {
@@ -1526,9 +1526,9 @@ class Mage_Core_Model_App
      * @return array
      * @deprecated after 1.4.0.0-alpha3, functionality implemented in Mage_Core_Model_Cache
      */
-    protected function _getCacheTags($tags=array())
+    protected function _getCacheTags($tags = array())
     {
-        foreach ($tags as $index=>$value) {
+        foreach ($tags as $index => $value) {
             $tags[$index] = $this->_getCacheId($value);
         }
         return $tags;
@@ -1552,7 +1552,7 @@ class Mage_Core_Model_App
      * @param   string $id
      * @return  string
      */
-    protected function _getCacheId($id=null)
+    protected function _getCacheId($id = null)
     {
         if ($id) {
             $id = $this->prepareCacheId($id);

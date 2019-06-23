@@ -248,7 +248,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
 
     /**
      * @param string $frontName
-     * @return false|Mage_Core_Controller_Varien_Router_Abstract
+     * @return false|Mage_Core_Controller_Varien_Router_Standard
      */
     public function getRouterByFrontName($frontName)
     {

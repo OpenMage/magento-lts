@@ -233,7 +233,7 @@ class Mage_Core_Model_Locale
      * @param   bool $translatedName translation flag
      * @return  array
      */
-    protected function _getOptionLocales($translatedName=false)
+    protected function _getOptionLocales($translatedName = false)
     {
         $options = array();
         $zendLocales = $this->getLocale()->getLocaleList();
@@ -292,7 +292,7 @@ class Mage_Core_Model_Locale
         $options= array();
         $zones  = $this->getTranslationList('windowstotimezone');
         ksort($zones);
-        foreach ($zones as $code=>$name) {
+        foreach ($zones as $code => $name) {
             $name = trim($name);
             $zonesList = explode(' ', $code);
             if (count($zonesList) == 1) {
@@ -344,7 +344,7 @@ class Mage_Core_Model_Locale
         $options    = array();
         $countries  = $this->getCountryTranslationList();
 
-        foreach ($countries as $code=>$name) {
+        foreach ($countries as $code => $name) {
             $options[] = array(
                'label' => $name,
                'value' => $code,
@@ -364,7 +364,7 @@ class Mage_Core_Model_Locale
         $options = array();
         $allowed = $this->getAllowCurrencies();
 
-        foreach ($currencies as $name=>$code) {
+        foreach ($currencies as $name => $code) {
             if (!in_array($code, $allowed)) {
                 continue;
             }
@@ -386,7 +386,7 @@ class Mage_Core_Model_Locale
     {
         $currencies = $this->getTranslationList('currencytoname');
         $options = array();
-        foreach ($currencies as $name=>$code) {
+        foreach ($currencies as $name => $code) {
             $options[] = array(
                'label' => $name,
                'value' => $code,
@@ -450,7 +450,7 @@ class Mage_Core_Model_Locale
      * @param   string $type
      * @return  string
      */
-    public function getDateFormat($type=null)
+    public function getDateFormat($type = null)
     {
         return preg_replace('/(?<!y)yy(?!y)/', 'yyyy', $this->getTranslation($type, 'date'));
     }
@@ -475,7 +475,7 @@ class Mage_Core_Model_Locale
      * @param   string $type
      * @return  string
      */
-    public function getTimeFormat($type=null)
+    public function getTimeFormat($type = null)
     {
         return $this->getTranslation($type, 'time');
     }
@@ -545,13 +545,13 @@ class Mage_Core_Model_Locale
     /**
      * Create Zend_Date object with date converted to store timezone and store Locale
      *
-     * @param   mixed $store Information about store
+     * @param   null|string|bool|int|Mage_Core_Model_Store $store Information about store
      * @param   string|integer|Zend_Date|array|null $date date in UTC
      * @param   boolean $includeTime flag for including time to date
      * @param   string|null $format
      * @return  Zend_Date
      */
-    public function storeDate($store=null, $date=null, $includeTime=false, $format = null)
+    public function storeDate($store = null, $date = null, $includeTime = false, $format = null)
     {
         $timezone = Mage::app()->getStore($store)->getConfig(self::XML_PATH_DEFAULT_TIMEZONE);
         $date = new Zend_Date($date, $format, $this->getLocale());
@@ -575,7 +575,7 @@ class Mage_Core_Model_Locale
      * @param null|string $format
      * @return Zend_Date
      */
-    public function utcDate($store=null, $date, $includeTime = false, $format = null)
+    public function utcDate($store = null, $date, $includeTime = false, $format = null)
     {
         $dateObj = $this->storeDate($store, $date, $includeTime);
         $dateObj->set($date, $format);
@@ -590,7 +590,7 @@ class Mage_Core_Model_Locale
      * @param   mixed $store
      * @return  int
      */
-    public function storeTimeStamp($store=null)
+    public function storeTimeStamp($store = null)
     {
         $timezone = Mage::app()->getStore($store)->getConfig(self::XML_PATH_DEFAULT_TIMEZONE);
         $currentTimezone = @date_default_timezone_get();
@@ -700,7 +700,7 @@ class Mage_Core_Model_Locale
         $symbols = Zend_Locale_Data::getList($this->getLocaleCode(), 'symbols');
 
         $pos = strpos($format, ';');
-        if ($pos !== false){
+        if ($pos !== false) {
             $format = substr($format, 0, $pos);
         }
         $format = preg_replace("/[^0\#\.,]/", "", $format);
@@ -714,7 +714,7 @@ class Mage_Core_Model_Locale
         $requiredPrecision = $totalPrecision;
         $t = substr($format, $decimalPoint);
         $pos = strpos($t, '#');
-        if ($pos !== false){
+        if ($pos !== false) {
             $requiredPrecision = strlen($t) - $pos - $totalPrecision;
         }
         $group = 0;
@@ -799,7 +799,7 @@ class Mage_Core_Model_Locale
     /**
      * Replace all yy date format to yyyy
      *
-     * @param $currentFormat
+     * @param string $currentFormat
      * @return mixed
      */
     protected function _convertYearTwoDigitTo4($currentFormat)

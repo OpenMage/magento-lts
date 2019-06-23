@@ -177,7 +177,7 @@ class Mage_Core_Model_Translate_Inline
         foreach ($translate as $t) {
             if (Mage::getDesign()->getArea() == 'adminhtml') {
                 $storeId = 0;
-            } else if (empty($t['perstore'])) {
+            } elseif (empty($t['perstore'])) {
                 $resource->deleteTranslate($t['original'], null, false);
                 $storeId = 0;
             } else {
@@ -202,7 +202,7 @@ class Mage_Core_Model_Translate_Inline
             foreach ($body as &$part) {
                 $this->stripInlineTranslations($part);
             }
-        } else if (is_string($body)) {
+        } elseif (is_string($body)) {
             $body = preg_replace('#' . $this->_tokenRegex . '#', '$1', $body);
         }
         return $this;
@@ -227,7 +227,7 @@ class Mage_Core_Model_Translate_Inline
             foreach ($body as &$part) {
                 $this->processResponseBody($part);
             }
-        } else if (is_string($body)) {
+        } elseif (is_string($body)) {
             $this->_content = $body;
 
             $this->_specialTags();
@@ -392,7 +392,7 @@ class Mage_Core_Model_Translate_Inline
                     $trAttr  = ' data-translate=' . $quoteHtml
                         . htmlspecialchars('[' . join(',', $trArr) . ']') . $quoteHtml;
                 }
-                $tagHtml = substr_replace($tagHtml , $trAttr, strlen($tagMatch[1][0])+1, 1);
+                $tagHtml = substr_replace($tagHtml, $trAttr, strlen($tagMatch[1][0])+1, 1);
                 $content = substr_replace($content, $tagHtml, $tagMatch[0][1], strlen($tagMatch[0][0]));
             }
             $nextTag = $tagMatch[0][1] + strlen($tagHtml);
@@ -452,7 +452,7 @@ class Mage_Core_Model_Translate_Inline
     {
         return substr($tagHtml, 0, strlen($tagName) + 1)
             . ' data-translate='
-            . $this->_getHtmlQuote() . htmlspecialchars( '[' . join(',', $trArr) . ']')
+            . $this->_getHtmlQuote() . htmlspecialchars('[' . join(',', $trArr) . ']')
             . $this->_getHtmlQuote()
             . substr($tagHtml, strlen($tagName) + 1);
     }
@@ -516,10 +516,10 @@ class Mage_Core_Model_Translate_Inline
     /**
      * Find end of tag
      *
-     * @param $body
-     * @param $tagName
-     * @param $from
-     * @return bool|int return false if end of tag is not found
+     * @param string $body
+     * @param string $tagName
+     * @param int $from
+     * @return false|int return false if end of tag is not found
      */
     private function findEndOfTag($body, $tagName, $from)
     {

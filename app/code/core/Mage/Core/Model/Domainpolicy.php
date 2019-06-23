@@ -71,23 +71,21 @@ class Mage_Core_Model_Domainpolicy
     /**
      * Add X-Frame-Options header to response, depends on config settings
      *
-     * @var Varien_Object $observer
+     * @var Varien_Event_Observer $observer
      * @return $this
      */
-    public function addDomainPolicyHeader($observer)
+    public function addDomainPolicyHeader(Varien_Event_Observer $observer)
     {
-        /** @var Mage_Core_Controller_Varien_Action $action */
         $action = $observer->getControllerAction();
         $policy = null;
 
         if ('adminhtml' == $action->getLayout()->getArea()) {
             $policy = $this->getBackendPolicy();
-        } elseif('frontend' == $action->getLayout()->getArea()) {
+        } elseif ('frontend' == $action->getLayout()->getArea()) {
             $policy = $this->getFrontendPolicy();
         }
 
         if ($policy) {
-            /** @var Mage_Core_Controller_Response_Http $response */
             $response = $action->getResponse();
             $response->setHeader('X-Frame-Options', $policy, true);
         }
@@ -118,12 +116,12 @@ class Mage_Core_Model_Domainpolicy
     /**
      * Return string representation for policy code
      *
-     * @param $policyCode
+     * @param string $policyCode
      * @return string|null
      */
     protected function _getDomainPolicyByCode($policyCode)
     {
-        switch($policyCode) {
+        switch ($policyCode) {
             case self::FRAME_POLICY_ALLOW:
                 $policy = null;
                 break;

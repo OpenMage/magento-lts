@@ -38,7 +38,7 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
      * Load recipients, unserialize message parameters
      *
      * @param Mage_Core_Model_Email_Queue $object
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
@@ -51,7 +51,7 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
      * Prepare object data for saving
      *
      * @param Mage_Core_Model_Email_Queue $object
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {

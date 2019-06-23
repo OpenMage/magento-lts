@@ -49,7 +49,7 @@ class Mage_Core_Model_Resource
     /**
      * Instances of actual connections
      *
-     * @var array
+     * @var Varien_Db_Adapter_Interface|false[]
      */
     protected $_connections        = array();
 
@@ -127,7 +127,7 @@ class Mage_Core_Model_Resource
     /**
      * Get Instances of actual connections
      *
-     * @return array
+     * @return false[]|Varien_Db_Adapter_Interface
      */
     public function getConnections()
     {
@@ -344,7 +344,7 @@ class Mage_Core_Model_Resource
     {
         $zeroDate = $this->getConnection(self::DEFAULT_READ_RESOURCE)->getSuggestedZeroDate();
         if (!empty($row) && is_array($row)) {
-            foreach ($row as $key=>&$value) {
+            foreach ($row as $key => &$value) {
                 if (is_string($value) && $value === $zeroDate) {
                     $value = '';
                 }
@@ -388,7 +388,7 @@ class Mage_Core_Model_Resource
     }
 
     /**
-     * @param $value
+     * @param mixed $value
      * @return $this
      */
     public function setAutoUpdate($value)

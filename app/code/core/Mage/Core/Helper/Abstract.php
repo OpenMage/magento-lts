@@ -55,7 +55,7 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Retrieve request object
      *
-     * @return Zend_Controller_Request_Http
+     * @return Mage_Core_Controller_Request_Http
      */
     protected function _getRequest()
     {
@@ -85,7 +85,7 @@ abstract class Mage_Core_Helper_Abstract
      * @param null|false|int $lifeTime
      * @return  Mage_Core_Helper_Abstract
      */
-    protected function _saveCache($data, $id, $tags=array(), $lifeTime=false)
+    protected function _saveCache($data, $id, $tags = array(), $lifeTime = false)
     {
         Mage::app()->saveCache($data, $id, $tags, $lifeTime);
         return $this;
@@ -109,7 +109,7 @@ abstract class Mage_Core_Helper_Abstract
      * @param   array $tags
      * @return  Mage_Core_Helper_Abstract
      */
-    protected function _cleanCache($tags=array())
+    protected function _cleanCache($tags = array())
     {
         Mage::app()->cleanCache($tags);
         return $this;
@@ -188,7 +188,7 @@ abstract class Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param $data
+     * @param array $data
      * @param array $allowedTags
      * @return mixed
      * @see self::escapeHtml()
@@ -331,7 +331,7 @@ abstract class Mage_Core_Helper_Abstract
      * @param string $quote
      * @return mixed
      */
-    public function jsQuoteEscape($data, $quote='\'')
+    public function jsQuoteEscape($data, $quote = '\'')
     {
         if (is_array($data)) {
             $result = array();

@@ -50,7 +50,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
      */
     public function authValidate($headers = null)
     {
-        if(!is_null($headers)) {
+        if (!is_null($headers)) {
             $_SERVER = $headers;
         }
 
@@ -59,7 +59,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
 
         // moshe's fix for CGI
         if (empty($_SERVER['HTTP_AUTHORIZATION'])) {
-            foreach ($_SERVER as $k=>$v) {
+            foreach ($_SERVER as $k => $v) {
                 if (substr($k, -18)==='HTTP_AUTHORIZATION' && !empty($v)) {
                     $_SERVER['HTTP_AUTHORIZATION'] = $v;
                     break;
@@ -94,8 +94,8 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
     public function authFailed()
     {
         Mage::app()->getResponse()
-            ->setHeader('HTTP/1.1','401 Unauthorized')
-            ->setHeader('WWW-Authenticate','Basic realm="RSS Feeds"')
+            ->setHeader('HTTP/1.1', '401 Unauthorized')
+            ->setHeader('WWW-Authenticate', 'Basic realm="RSS Feeds"')
             ->setBody('<h1>401 Unauthorized</h1>')
             ->sendResponse();
         exit;

@@ -56,7 +56,7 @@ class Mage_Core_Model_Translate
     /**
      * Translation object
      *
-     * @var Zend_Translate_Adapter
+     * @var Zend_Translate
      */
     protected $_translate;
 
@@ -134,7 +134,7 @@ class Mage_Core_Model_Translate
 
         $this->_data = array();
 
-        foreach ($this->getModulesConfig() as $moduleName=>$info) {
+        foreach ($this->getModulesConfig() as $moduleName => $info) {
             $info = $info->asArray();
             $this->_loadModuleTranslation($moduleName, $info['files'], $forceReload);
         }
@@ -213,7 +213,7 @@ class Mage_Core_Model_Translate
      * @param bool $forceReload
      * @return $this
      */
-    protected function _loadModuleTranslation($moduleName, $files, $forceReload=false)
+    protected function _loadModuleTranslation($moduleName, $files, $forceReload = false)
     {
         foreach ($files as $file) {
             $file = $this->_getModuleFilePath($moduleName, $file);
@@ -230,7 +230,7 @@ class Mage_Core_Model_Translate
      * @param bool $forceReload
      * @return $this
      */
-    protected function _addData($data, $scope, $forceReload=false)
+    protected function _addData($data, $scope, $forceReload = false)
     {
         foreach ($data as $key => $value) {
             if ($key === $value) {
@@ -238,7 +238,7 @@ class Mage_Core_Model_Translate
             }
             $key    = $this->_prepareDataString($key);
             $value  = $this->_prepareDataString($value);
-            if ($scope && isset($this->_dataScope[$key]) && !$forceReload ) {
+            if ($scope && isset($this->_dataScope[$key]) && !$forceReload) {
                 /**
                  * Checking previos value
                  */
@@ -381,7 +381,7 @@ class Mage_Core_Model_Translate
     /**
      * Retrieve translation object
      *
-     * @return Zend_Translate_Adapter
+     * @return Zend_Translate
      */
     public function getTranslate()
     {
@@ -445,7 +445,7 @@ class Mage_Core_Model_Translate
      * @param bool $flag
      * @return $this
      */
-    public function setTranslateInline($flag=null)
+    public function setTranslateInline($flag = null)
     {
         $this->_canUseInline = (bool) $flag;
         return $this;
@@ -469,7 +469,7 @@ class Mage_Core_Model_Translate
      * @param string $localeCode
      * @return string
      */
-    public function getTemplateFile($file, $type, $localeCode=null)
+    public function getTemplateFile($file, $type, $localeCode = null)
     {
         if (is_null($localeCode) || preg_match('/[^a-zA-Z_]/', $localeCode)) {
             $localeCode = $this->getLocale();
@@ -556,7 +556,7 @@ class Mage_Core_Model_Translate
     /**
      * Check cache usage availability
      *
-     * @return bool
+     * @return false|array
      */
     protected function _canUseCache()
     {

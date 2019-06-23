@@ -55,7 +55,7 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
     /**
      * Configuration of emulated desing package.
      *
-     * @var Varien_Object|boolean
+     * @var Varien_Object
      */
     protected $_emulatedDesignConfig = false;
 
@@ -63,7 +63,7 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
      * Initial environment information
      * @see self::_applyDesignConfig()
      *
-     * @var Varien_Object|null
+     * @var Varien_Object
      */
     protected $_initialEnvironmentInfo = null;
 
@@ -107,7 +107,7 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
      */
     protected function getDesignConfig()
     {
-        if(is_null($this->_designConfig)) {
+        if (is_null($this->_designConfig)) {
             $store = Mage::getDesign()->getStore();
             $storeId = is_object($store) ? $store->getId() : $store;
             $this->_designConfig = new Varien_Object(array(
@@ -137,7 +137,7 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
      * @param int|string $storeId
      * @param string $area
      */
-    public function emulateDesign($storeId, $area=self::DEFAULT_DESIGN_AREA)
+    public function emulateDesign($storeId, $area = self::DEFAULT_DESIGN_AREA)
     {
         if ($storeId) {
             // save current design settings
@@ -153,7 +153,6 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
 
     /**
      * Revert to last design config, used before emulation
-     *
      */
     public function revertDesign()
     {

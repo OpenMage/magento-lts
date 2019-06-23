@@ -79,7 +79,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      *
      * @param array $data
      */
-    public function __construct($data=array())
+    public function __construct($data = array())
     {
         $this->_elementClass = Mage::getConfig()->getModelClassName('core/layout_element');
         $this->setXml(simplexml_load_string('<layout/>', $this->_elementClass));
@@ -188,7 +188,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      *
      * @param Mage_Core_Model_Layout_Element|null $parent
      */
-    public function generateBlocks($parent=null)
+    public function generateBlocks($parent = null)
     {
         if (empty($parent)) {
             $parent = $this->getNode();
@@ -324,7 +324,11 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
                          * if there is no helper we hope that this is assoc array
                          */
                         $arr = array();
-                        foreach($arg as $subkey => $value) {
+                        /**
+                         * @var string $subkey
+                         * @var Mage_Core_Model_Layout_Element $value
+                         */
+                        foreach ($arg as $subkey => $value) {
                             $arr[(string)$subkey] = $value->asArray();
                         }
                         if (!empty($arr)) {
@@ -430,7 +434,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      * @param     array $attributes
      * @return    Mage_Core_Block_Abstract|false
      */
-    public function createBlock($type, $name='', array $attributes = array())
+    public function createBlock($type, $name = '', array $attributes = array())
     {
         try {
             $block = $this->_getBlockInstance($type, $attributes);
@@ -478,7 +482,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      * @param array $attributes
      * @return Mage_Core_Block_Abstract
      */
-    protected function _getBlockInstance($block, array $attributes=array())
+    protected function _getBlockInstance($block, array $attributes = array())
     {
         if (is_string($block)) {
             if (strpos($block, '/')!==false) {
@@ -495,7 +499,6 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
         }
         return $block;
     }
-
 
     /**
      * Retrieve all blocks from registry as array
@@ -529,7 +532,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      * @param string $method
      * @return $this
      */
-    public function addOutputBlock($blockName, $method='toHtml')
+    public function addOutputBlock($blockName, $method = 'toHtml')
     {
         //$this->_output[] = array($blockName, $method);
         $this->_output[$blockName] = array($blockName, $method);
