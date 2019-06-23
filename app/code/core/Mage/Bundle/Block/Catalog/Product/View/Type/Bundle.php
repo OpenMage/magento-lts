@@ -24,13 +24,14 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog bundle product info block
  *
  * @category    Mage
  * @package     Mage_Bundle
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getAddToCartUrl(Mage_Catalog_Model_Product $value)
  */
 class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Block_Product_View_Abstract
 {
@@ -71,6 +72,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
     {
         if (!$this->_options) {
             $product = $this->getProduct();
+            /** @var Mage_Bundle_Model_Product_Type $typeInstance */
             $typeInstance = $product->getTypeInstance(true);
             $typeInstance->setStoreFilter($product->getStoreId(), $product);
 
@@ -81,7 +83,9 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                 $product
             );
 
-            $this->_options = $optionCollection->appendSelections($selectionCollection, false,
+            $this->_options = $optionCollection->appendSelections(
+                $selectionCollection,
+                false,
                 Mage::helper('catalog/product')->getSkipSaleableCheck()
             );
         }
@@ -115,9 +119,9 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
         $options      = array();
         $selected     = array();
         $currentProduct = $this->getProduct();
-        /* @var $coreHelper Mage_Core_Helper_Data */
+        /* @var Mage_Core_Helper_Data $coreHelper */
         $coreHelper   = Mage::helper('core');
-        /* @var $bundlePriceModel Mage_Bundle_Model_Product_Price */
+        /* @var Mage_Bundle_Model_Product_Price $bundlePriceModel */
         $bundlePriceModel = Mage::getModel('bundle/product_price');
 
         $preConfiguredFlag = $currentProduct->hasPreconfiguredValues();
@@ -128,7 +132,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
 
         $position = 0;
         foreach ($optionsArray as $_option) {
-            /* @var $_option Mage_Bundle_Model_Option */
+            /* @var Mage_Bundle_Model_Option $_option */
             if (!$_option->getSelections()) {
                 continue;
             }
@@ -142,10 +146,10 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
             );
 
             $selectionCount = count($_option->getSelections());
-            /** @var $taxHelper Mage_Tax_Helper_Data */
+            /** @var Mage_Tax_Helper_Data $taxHelper */
             $taxHelper = Mage::helper('tax');
             foreach ($_option->getSelections() as $_selection) {
-                /* @var $_selection Mage_Catalog_Model_Product */
+                /* @var Mage_Catalog_Model_Product $_selection */
                 $selectionId = $_selection->getSelectionId();
                 $_qty = !($_selection->getSelectionQty() * 1) ? '1' : $_selection->getSelectionQty() * 1;
                 // recalculate currency
@@ -156,32 +160,91 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                     $tierPriceInfo['website_price'] =
                         $bundlePriceModel->getLowestPrice($currentProduct, $tierPriceInfo['website_price']);
                     $tierPriceInfo['price'] = $coreHelper->currency($tierPriceInfo['price'], false, false);
-                    $tierPriceInfo['priceInclTax'] = $taxHelper->getPrice($_selection, $tierPriceInfo['price'], true,
-                        null, null, null, null, null, false);
-                    $tierPriceInfo['priceExclTax'] = $taxHelper->getPrice($_selection, $tierPriceInfo['price'], false,
-                        null, null, null, null, null, false);
+                    $tierPriceInfo['priceInclTax'] = $taxHelper->getPrice(
+                        $_selection,
+                        $tierPriceInfo['price'],
+                        true,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        false
+                    );
+                    $tierPriceInfo['priceExclTax'] = $taxHelper->getPrice(
+                        $_selection,
+                        $tierPriceInfo['price'],
+                        false,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        false
+                    );
                 }
                 unset($tierPriceInfo); // break the reference with the last element
 
-                $itemPrice = $bundlePriceModel->getSelectionFinalTotalPrice($currentProduct, $_selection,
-                    $currentProduct->getQty(), $_selection->getQty(), false, false
+                $itemPrice = $bundlePriceModel->getSelectionFinalTotalPrice(
+                    $currentProduct,
+                    $_selection,
+                    $currentProduct->getQty(),
+                    $_selection->getQty(),
+                    false,
+                    false
                 );
 
                 $canApplyMAP = false;
 
-                /* @var $taxHelper Mage_Tax_Helper_Data */
+                /* @var Mage_Tax_Helper_Data $taxHelper */
                 $taxHelper = Mage::helper('tax');
 
-                $_priceInclTax = $taxHelper->getPrice($_selection, $itemPrice, true,
-                    null, null, null, null, null, false);
-                $_priceExclTax = $taxHelper->getPrice($_selection, $itemPrice, false,
-                    null, null, null, null, null, false);
+                $_priceInclTax = $taxHelper->getPrice(
+                    $_selection,
+                    $itemPrice,
+                    true,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    false
+                );
+                $_priceExclTax = $taxHelper->getPrice(
+                    $_selection,
+                    $itemPrice,
+                    false,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    false
+                );
 
                 if ($currentProduct->getPriceType() == Mage_Bundle_Model_Product_Price::PRICE_TYPE_FIXED) {
-                    $_priceInclTax = $taxHelper->getPrice($currentProduct, $itemPrice, true,
-                        null, null, null, null, null, false);
-                    $_priceExclTax = $taxHelper->getPrice($currentProduct, $itemPrice, false,
-                        null, null, null, null, null, false);
+                    $_priceInclTax = $taxHelper->getPrice(
+                        $currentProduct,
+                        $itemPrice,
+                        true,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        false
+                    );
+                    $_priceExclTax = $taxHelper->getPrice(
+                        $currentProduct,
+                        $itemPrice,
+                        false,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        false
+                    );
                 }
 
                 $selection = array (

@@ -57,8 +57,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
             $attributes = $this->getSelectionAttributes($_item);
             if (is_array($attributes)) {
                 $optionId   = $attributes['option_id'];
-            }
-            else {
+            } else {
                 $optionId = 0;
             }
 
@@ -93,7 +92,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
             ) {
                 if (isset($shipItems[$_item->getId()])) {
                     $qty = $shipItems[$_item->getId()]->getQty()*1;
-                } else if ($_item->getIsVirtual()) {
+                } elseif ($_item->getIsVirtual()) {
                     $qty = Mage::helper('bundle')->__('N/A');
                 } else {
                     $qty = 0;

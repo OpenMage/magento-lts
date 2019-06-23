@@ -403,7 +403,6 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
         $write = $this->_getWriteAdapter();
 
         if ($priceType == Mage_Bundle_Model_Product_Price::PRICE_TYPE_FIXED) {
-
             $selectionPriceValue = $write->getCheckSql(
                 'bsp.selection_price_value IS NULL',
                 'bs.selection_price_value',
@@ -556,7 +555,8 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
          * Add possibility modify prices from external events
          */
         $select = $this->_getWriteAdapter()->select()
-            ->join(array('wd' => $this->_getWebsiteDateTable()),
+            ->join(
+                array('wd' => $this->_getWebsiteDateTable()),
                 'i.website_id = wd.website_id',
                 array()
             );

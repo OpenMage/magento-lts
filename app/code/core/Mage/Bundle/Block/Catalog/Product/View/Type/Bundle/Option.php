@@ -31,6 +31,10 @@
  * @category    Mage
  * @package     Mage_Bundle
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Catalog_Model_Product getFormatProduct()
+ * @method $this setFormatProduct(Mage_Catalog_Model_Product $value)
+ * @method Mage_Bundle_Model_Option getOption()
  */
 class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bundle_Block_Catalog_Product_Price
 {
@@ -184,7 +188,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     /**
      * Returns the formatted string for the quantity chosen for the given selection
      *
-     * @param Mage_Catalog_Model_Proudct $_selection
+     * @param Mage_Catalog_Model_Product $_selection
      * @param bool                       $includeContainer
      * @return string
      */

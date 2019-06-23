@@ -58,7 +58,7 @@ class Mage_Bundle_Model_CatalogIndex_Data_Bundle extends Mage_CatalogIndex_Model
     /**
      * Get child link table and field settings
      *
-     * @return mixed
+     * @return array
      */
     protected function _getLinkSettings()
     {
@@ -66,10 +66,10 @@ class Mage_Bundle_Model_CatalogIndex_Data_Bundle extends Mage_CatalogIndex_Model
             'table'=>'bundle/selection',
             'parent_field'=>'parent_product_id',
             'child_field'=>'product_id'
-            );
+        );
     }
 
-/**
+    /**
      * Prepare select statement before 'fetchLinkInformation' function result fetch
      *
      * @param int $store

@@ -68,8 +68,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Invoice extends Mage_Bundle_Model_
             $attributes = $this->getSelectionAttributes($_item);
             if (is_array($attributes)) {
                 $optionId = $attributes['option_id'];
-            }
-            else {
+            } else {
                 $optionId = 0;
             }
 
