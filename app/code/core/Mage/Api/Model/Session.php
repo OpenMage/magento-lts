@@ -45,7 +45,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
      * @param string|null $sessionName
      * @return $this
      */
-    public function start($sessionName=null)
+    public function start($sessionName = null)
     {
 //        parent::start($sessionName=null);
         $this->_currentSessId = md5(time() . uniqid('', true) . $sessionName);
@@ -58,7 +58,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
      * @param string|null $sessionName
      * @return $this
      */
-    public function init($namespace, $sessionName=null)
+    public function init($namespace, $sessionName = null)
     {
         if (is_null($this->_currentSessId)) {
             $this->start();
@@ -121,7 +121,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
             ->setSessid($this->getSessionId())
             ->login($username, $apiKey);
 
-        if ( $user->getId() && $user->getIsActive() != '1' ) {
+        if ($user->getId() && $user->getIsActive() != '1') {
             Mage::throwException(Mage::helper('api')->__('Your account has been deactivated.'));
         } elseif (!Mage::getModel('api/user')->hasAssigned2Role($user->getId())) {
             Mage::throwException(Mage::helper('api')->__('Access denied.'));
@@ -141,7 +141,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
      * @param Mage_Api_Model_User|null $user
      * @return $this
      */
-    public function refreshAcl($user=null)
+    public function refreshAcl($user = null)
     {
         if (is_null($user)) {
             $user = $this->getUser();
@@ -167,17 +167,18 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
      * @param   string $privilege
      * @return  bool
      */
-    public function isAllowed($resource, $privilege=null)
+    public function isAllowed($resource, $privilege = null)
     {
         $user = $this->getUser();
         $acl = $this->getAcl();
 
         if ($user && $acl) {
             try {
-                if ($acl->isAllowed($user->getAclRole(), 'all', null)){
+                if ($acl->isAllowed($user->getAclRole(), 'all', null)) {
                     return true;
                 }
-            } catch (Exception $e) {}
+            } catch (Exception $e) {
+            }
 
             try {
                 return $acl->isAllowed($user->getAclRole(), $resource, $privilege);
@@ -194,12 +195,12 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
      * @param Mage_Api_Model_User $user
      * @return  boolean
      */
-    public function isSessionExpired ($user)
+    public function isSessionExpired($user)
     {
         if (!$user->getId()) {
             return true;
         }
-        $timeout = strtotime( now() ) - strtotime( $user->getLogdate() );
+        $timeout = strtotime(now()) - strtotime($user->getLogdate());
         return $timeout > Mage::getStoreConfig('api/config/session_timeout');
     }
 
@@ -229,7 +230,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
      *  @param    string $sessId
      *  @return  boolean
      */
-    protected function _renewBySessId ($sessId)
+    protected function _renewBySessId($sessId)
     {
         $user = Mage::getModel('api/user')->loadBySessId($sessId);
         if (!$user->getId() || !$user->getSessid()) {

@@ -129,7 +129,8 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
         $timeSubtract     = $readAdapter->getDateAddSql(
             'logdate',
             $timeout,
-            Varien_Db_Adapter_Interface::INTERVAL_SECOND);
+            Varien_Db_Adapter_Interface::INTERVAL_SECOND
+        );
         $writeAdapter->delete(
             $this->getTable('api/session'),
             array('user_id = ?' => $user->getId(), $readAdapter->quote(now()) . ' > '.$timeSubtract)
@@ -168,9 +169,9 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
             $selectUser = $adapter->select()
                 ->from($this->getTable('api/user'))
                 ->where('user_id = ?', $apiSession['user_id']);
-                if ($user = $adapter->fetchRow($selectUser)) {
-                    $result = array_merge($user, $apiSession);
-                }
+            if ($user = $adapter->fetchRow($selectUser)) {
+                $result = array_merge($user, $apiSession);
+            }
         }
         return $result;
     }
@@ -202,7 +203,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
         $result = null;
         if (is_numeric($user)) {
             $userId = $user;
-        } else if ($user instanceof Mage_Core_Model_Abstract) {
+        } elseif ($user instanceof Mage_Core_Model_Abstract) {
             $userId = $user->getUserId();
         }
 
@@ -276,7 +277,8 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
         try {
             $adapter->delete(
                 $this->getTable('api/role'),
-                array('user_id = ?' => (int) $user->getId()));
+                array('user_id = ?' => (int) $user->getId())
+            );
             foreach ($rolesIds as $rid) {
                 $rid = intval($rid);
                 if ($rid > 0) {
@@ -325,8 +327,10 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
                 array('ar' => $table),
                 $adapter->quoteInto(
                     "ar.role_id = {$table}.parent_id AND ar.role_type = ?",
-                    Mage_Api_Model_Acl::ROLE_TYPE_GROUP),
-                array('role_id'))
+                    Mage_Api_Model_Acl::ROLE_TYPE_GROUP
+                ),
+                array('role_id')
+            )
             ->where("{$table}.user_id = ?", $user->getId());
 
         return (($roles = $adapter->fetchCol($select)) ? $roles : array());

@@ -61,7 +61,6 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
     public function wsiArrayUnpacker(&$obj)
     {
         if (is_object($obj)) {
-
             $modifiedKeys = $this->clearWsiFootprints($obj);
 
             foreach ($obj as $value) {

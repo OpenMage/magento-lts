@@ -31,16 +31,14 @@
  * @package    Mage_Api
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Api_Model_Server_Adapter_Xmlrpc
-    extends Varien_Object
-    implements Mage_Api_Model_Server_Adapter_Interface
+class Mage_Api_Model_Server_Adapter_Xmlrpc extends Varien_Object implements Mage_Api_Model_Server_Adapter_Interface
 {
      /**
       * XmlRpc Server
       *
       * @var Zend_XmlRpc_Server
       */
-     protected $_xmlRpc = null;
+    protected $_xmlRpc = null;
 
      /**
      * Set handler class name for webservice
@@ -109,7 +107,7 @@ class Mage_Api_Model_Server_Adapter_Xmlrpc
             ->setClass($this->getHandler());
         $this->getController()->getResponse()
             ->clearHeaders()
-            ->setHeader('Content-Type','text/xml; charset='.$apiConfigCharset)
+            ->setHeader('Content-Type', 'text/xml; charset='.$apiConfigCharset)
             ->setBody($this->_xmlRpc->handle());
         return $this;
     }

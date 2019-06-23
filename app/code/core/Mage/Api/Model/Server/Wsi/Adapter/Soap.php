@@ -59,25 +59,25 @@ class Mage_Api_Model_Server_Wsi_Adapter_Soap extends Mage_Api_Model_Server_Adapt
         if ($this->getController()->getRequest()->getParam('wsdl') !== null) {
             $this->getController()->getResponse()
                 ->clearHeaders()
-                ->setHeader('Content-Type','text/xml; charset='.$apiConfigCharset)
+                ->setHeader('Content-Type', 'text/xml; charset='.$apiConfigCharset)
                 ->setBody(
-                        preg_replace(
-                            '/(\>\<)/i',
-                            ">\n<",
+                    preg_replace(
+                        '/(\>\<)/i',
+                        ">\n<",
+                        str_replace(
+                            '<soap:operation soapAction=""></soap:operation>',
+                            "<soap:operation soapAction=\"\" />\n",
                             str_replace(
-                                    '<soap:operation soapAction=""></soap:operation>',
-                                    "<soap:operation soapAction=\"\" />\n",
-                                    str_replace(
-                                            '<soap:body use="literal"></soap:body>',
-                                            "<soap:body use=\"literal\" />\n",
-                                            preg_replace(
-                                                '/<\?xml version="([^\"]+)"([^\>]+)>/i',
-                                                '<?xml version="$1" encoding="'.$apiConfigCharset.'"?>',
-                                                $this->wsdlConfig->getWsdlContent()
-                                            )
-                                    )
+                                '<soap:body use="literal"></soap:body>',
+                                "<soap:body use=\"literal\" />\n",
+                                preg_replace(
+                                    '/<\?xml version="([^\"]+)"([^\>]+)>/i',
+                                    '<?xml version="$1" encoding="'.$apiConfigCharset.'"?>',
+                                    $this->wsdlConfig->getWsdlContent()
+                                )
                             )
                         )
+                    )
                 );
         } else {
             try {

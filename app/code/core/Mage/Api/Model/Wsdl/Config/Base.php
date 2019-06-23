@@ -45,7 +45,7 @@ class Mage_Api_Model_Wsdl_Config_Base extends Varien_Simplexml_Config
     /**
      * @inheritDoc
      */
-    public function __construct($sourceData=null)
+    public function __construct($sourceData = null)
     {
         $this->_elementClass = 'Mage_Api_Model_Wsdl_Config_Element';
 

@@ -43,9 +43,12 @@ class Mage_Api_Model_Acl_Assert_Ip implements Zend_Acl_Assert_Interface
      * @param string $privilege
      * @return boolean
      */
-    public function assert(Mage_Api_Model_Acl $acl, Mage_Api_Model_Acl_Role $role = null,
-                           Mage_Api_Model_Acl_Resource $resource = null, $privilege = null)
-    {
+    public function assert(
+        Mage_Api_Model_Acl $acl,
+        Mage_Api_Model_Acl_Role $role = null,
+        Mage_Api_Model_Acl_Resource $resource = null,
+        $privilege = null
+    ) {
         return $this->_isCleanIP(Mage::helper('core/http')->getRemoteAddr());
     }
 

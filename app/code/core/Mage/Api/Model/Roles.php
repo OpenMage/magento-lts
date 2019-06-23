@@ -123,8 +123,12 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
      * @return array|false|Varien_Simplexml_Element
      */
     protected function _buildResourcesArray(
-        Varien_Simplexml_Element $resource = null, $parentName = null, $level = 0, $represent2Darray = null,
-        $rawNodes = false, $module = 'adminhtml'
+        Varien_Simplexml_Element $resource = null,
+        $parentName = null,
+        $level = 0,
+        $represent2Darray = null,
+        $rawNodes = false,
+        $module = 'adminhtml'
     ) {
         static $result;
 
@@ -150,7 +154,7 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
 
                 $resource->title = Mage::helper($module)->__((string)$resource->title);
 
-                if ( is_null($represent2Darray) ) {
+                if (is_null($represent2Darray)) {
                     $result[$resourceName]['name']  = (string)$resource->title;
                     $result[$resourceName]['level'] = $level;
                 } else {
