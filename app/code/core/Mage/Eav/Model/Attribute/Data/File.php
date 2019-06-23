@@ -123,7 +123,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
         /**
          * Check protected file extension
          */
-        /** @var $validator Mage_Core_Model_File_Validator_NotProtectedExtension */
+        /** @var Mage_Core_Model_File_Validator_NotProtectedExtension $validator */
         $validator = Mage::getSingleton('core/file_validator_notProtectedExtension');
         if (!$validator->isValid($extension)) {
             return $validator->getMessages();
@@ -152,7 +152,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
      *
      * @param array|string $value
      * @throws Mage_Core_Exception
-     * @return boolean
+     * @return true|array
      */
     public function validateValue($value)
     {
@@ -194,9 +194,9 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
     /**
      * Export attribute value to entity model
      *
-     * @param Mage_Core_Model_Abstract $entity
      * @param array|string $value
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function compactValue($value)
     {
@@ -263,7 +263,9 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
     /**
      * Return formated attribute value from entity model
      *
+     * @param string $format
      * @return string|array
+     * @throws Mage_Core_Exception
      */
     public function outputValue($format = Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_TEXT)
     {

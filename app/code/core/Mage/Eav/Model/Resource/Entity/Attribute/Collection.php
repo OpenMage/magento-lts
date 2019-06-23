@@ -24,13 +24,18 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * EAV attribute resource collection
  *
  * @category    Mage
  * @package     Mage_Eav
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Eav_Model_Resource_Entity_Attribute getResource()
+ *
+ * @method Mage_Eav_Model_Entity_Attribute getItemById(int $value)
+ * @method Mage_Eav_Model_Entity_Attribute[] getItems()
+ * @method Mage_Eav_Model_Entity_Attribute getFirstItem()
  */
 class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -286,7 +291,8 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
             ->joinLeft(
                 array('ao' => $this->getTable('eav/attribute_option')),
                 'ao.attribute_id = main_table.attribute_id',
-                'option_id')
+                'option_id'
+            )
             ->group('main_table.attribute_id')
             ->where($orWhere);
 

@@ -166,7 +166,7 @@ class Mage_Eav_Model_Resource_Form_Attribute_Collection extends Mage_Core_Model_
     /**
      * Add joins to select
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _beforeLoad()
     {
@@ -218,13 +218,21 @@ class Mage_Eav_Model_Resource_Form_Attribute_Collection extends Mage_Core_Model_
                     if (isset($eaColumns[$columnName])) {
                         $code = sprintf('scope_%s', $columnName);
                         $expression = $connection->getCheckSql('sa.%s IS NULL', 'ea.%s', 'sa.%s');
-                        $saColumns[$code] = new Zend_Db_Expr(sprintf($expression,
-                            $columnName, $columnName, $columnName));
+                        $saColumns[$code] = new Zend_Db_Expr(sprintf(
+                            $expression,
+                            $columnName,
+                            $columnName,
+                            $columnName
+                        ));
                     } elseif (isset($caColumns[$columnName])) {
                         $code = sprintf('scope_%s', $columnName);
                         $expression = $connection->getCheckSql('sa.%s IS NULL', 'ca.%s', 'sa.%s');
-                        $saColumns[$code] = new Zend_Db_Expr(sprintf($expression,
-                            $columnName, $columnName, $columnName));
+                        $saColumns[$code] = new Zend_Db_Expr(sprintf(
+                            $expression,
+                            $columnName,
+                            $columnName,
+                            $columnName
+                        ));
                     }
                 }
             }
@@ -232,7 +240,8 @@ class Mage_Eav_Model_Resource_Form_Attribute_Collection extends Mage_Core_Model_
             $store = $this->getStore();
             $joinWebsiteExpression = $connection
                 ->quoteInto(
-                    'sa.attribute_id = main_table.attribute_id AND sa.website_id = ?', (int)$store->getWebsiteId()
+                    'sa.attribute_id = main_table.attribute_id AND sa.website_id = ?',
+                    (int)$store->getWebsiteId()
                 );
             $select->joinLeft(
                 array('sa' => $this->_getEavWebsiteTable()),

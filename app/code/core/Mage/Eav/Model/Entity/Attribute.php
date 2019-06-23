@@ -24,13 +24,25 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * EAV Entity attribute model
  *
  * @category   Mage
  * @package    Mage_Eav
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Eav_Model_Resource_Entity_Attribute _getResource()
+ * @method Mage_Eav_Model_Resource_Entity_Attribute getResource()
+ * @method Mage_Eav_Model_Resource_Entity_Attribute_Collection getResourceCollection()
+ *
+ * @method int getAttributeGroupId()
+ * @method $this setDefaultValue(int $value)
+ * @method int getEntityAttributeId()
+ * @method $this setEntityAttributeId(int $value)
+ * @method $this setIsFilterable(int $value)
+ * @method array getFilterOptions()
+ * @method $this setFrontendLabel(string $value)
+ * @method $this unsIsVisible()
  */
 class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Abstract
 {
@@ -41,7 +53,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
      */
     protected $_eventPrefix                         = 'eav_entity_attribute';
 
-    CONST ATTRIBUTE_CODE_MAX_LENGTH                 = 30;
+    const ATTRIBUTE_CODE_MAX_LENGTH                 = 30;
 
     /**
      * Parameter name in event
@@ -115,7 +127,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     /**
      * Load entity_attribute_id into $this by $this->attribute_set_id
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     public function loadEntityAttributeIdBySet()
     {
@@ -134,7 +146,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     /**
      * Prepare data for save
      *
-     * @return $this
+     * @inheritDoc
      * @throws Mage_Eav_Exception
      */
     protected function _beforeSave()
@@ -204,7 +216,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     /**
      * Save additional data
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _afterSave()
     {
@@ -320,7 +332,9 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     /**
      * Return store label of attribute
      *
+     * @param int $storeId
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getStoreLabel($storeId = null)
     {

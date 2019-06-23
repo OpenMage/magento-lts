@@ -51,5 +51,4 @@ class Mage_Eav_Model_Entity extends Mage_Eav_Model_Entity_Abstract
         $resource = Mage::getSingleton('core/resource');
         $this->setConnection($resource->getConnection('eav_read'));
     }
-
 }

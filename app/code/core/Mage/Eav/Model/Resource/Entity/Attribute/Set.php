@@ -46,13 +46,12 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Set extends Mage_Core_Model_Resou
     /**
      * Perform actions after object save
      *
-     * @param Mage_Core_Model_Abstract $object
-     * @return $this
+     * @param Mage_Core_Model_Abstract|Mage_Eav_Model_Entity_Attribute_Set $object
+     * @inheritDoc
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
         if ($object->getGroups()) {
-            /* @var $group Mage_Eav_Model_Entity_Attribute_Group */
             foreach ($object->getGroups() as $group) {
                 $group->setAttributeSetId($object->getId());
                 if ($group->itemExists() && !$group->getId()) {
@@ -63,14 +62,12 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Set extends Mage_Core_Model_Resou
         }
         if ($object->getRemoveGroups()) {
             foreach ($object->getRemoveGroups() as $group) {
-                /* @var $group Mage_Eav_Model_Entity_Attribute_Group */
                 $group->delete();
             }
             Mage::getResourceModel('eav/entity_attribute_group')->updateDefaultGroup($object->getId());
         }
         if ($object->getRemoveAttributes()) {
             foreach ($object->getRemoveAttributes() as $attribute) {
-                /* @var $attribute Mage_Eav_Model_Entity_Attribute */
                 $attribute->deleteEntity();
             }
         }
@@ -123,11 +120,13 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Set extends Mage_Core_Model_Resou
             $select = $adapter->select()
                 ->from(
                     array('entity' => $this->getTable('eav/entity_attribute')),
-                    array('attribute_id', 'attribute_set_id', 'attribute_group_id', 'sort_order'))
+                    array('attribute_id', 'attribute_set_id', 'attribute_group_id', 'sort_order')
+                )
                 ->joinLeft(
                     array('attribute_group' => $this->getTable('eav/attribute_group')),
                     'entity.attribute_group_id = attribute_group.attribute_group_id',
-                    array('group_sort_order' => 'sort_order'))
+                    array('group_sort_order' => 'sort_order')
+                )
                 ->where('entity.attribute_id IN (?)', $attributeIds);
             $bind = array();
             if (is_numeric($setId)) {

@@ -71,7 +71,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
      * Get a text for option value
      *
      * @param string|integer $value
-     * @return string
+     * @return string|array|false
      */
     public function getOptionText($value)
     {
@@ -119,7 +119,8 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
                 "e.entity_id={$valueTable1}.entity_id"
                 . " AND {$valueTable1}.attribute_id='{$this->getAttribute()->getId()}'"
                 . " AND {$valueTable1}.store_id=0",
-                array())
+                array()
+            )
             ->joinLeft(
                 array($valueTable2 => $this->getAttribute()->getBackend()->getTable()),
                 "e.entity_id={$valueTable2}.entity_id"

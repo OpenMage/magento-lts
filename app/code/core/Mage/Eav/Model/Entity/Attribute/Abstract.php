@@ -24,16 +24,47 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Entity/Attribute/Model - attribute abstract
  *
  * @category   Mage
  * @package    Mage_Eav
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method array getApplyTo()
+ * @method bool hasAttributeSetInfo()
+ * @method array getAttributeSetInfo()
+ * @method $this setAttributeSetInfo(array $value)
+ * @method $this setAttributeGroupId(int $value)
+ * @method bool getFlatAddChildData()
+ * @method array getFlatAddFilterableAttributes()
+ * @method string getFrontendClass()
+ * @method string getFrontendInput()
+ * @method string getFrontendLabel()
+ * @method string getFrontendModel()
+ * @method $this setFrontendModel(string $value)
+ * @method bool getIsConfigurable()
+ * @method bool getIsFilterable()
+ * @method bool getIsFilterableInSearch()
+ * @method bool setIsGlobal()
+ * @method bool getIsRequired()
+ * @method bool getIsSearchable()
+ * @method bool getIsUnique()
+ * @method bool getIsUserDefined()
+ * @method bool hasIsVisible()
+ * @method bool getIsVisible()
+ * @method bool getIsVisibleInAdvancedSearch()
+ * @method string getSourceModel()
+ * @method $this setSourceModel(string $value)
+ * @method string getSortOrder()
+ * @method $this setSortOrder(string $value)
+ * @method int getStoreId()
+ * @method $this setStoreId(int $value)
+ * @method string getStoreLabel()
+ * @method string getUsedForSortBy()
+ * @method array getValidateRules()
  */
-abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_Abstract
-    implements Mage_Eav_Model_Entity_Attribute_Interface
+abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_Abstract implements Mage_Eav_Model_Entity_Attribute_Interface
 {
     const TYPE_STATIC = 'static';
 
@@ -180,83 +211,139 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
         return $this->_getData('attribute_id');
     }
 
+    /**
+     * @param $data
+     * @return Mage_Eav_Model_Entity_Attribute_Abstract
+     */
     public function setAttributeCode($data)
     {
         return $this->setData('attribute_code', $data);
     }
 
+    /**
+     * @return mixed
+     */
     public function getAttributeCode()
     {
         return $this->_getData('attribute_code');
     }
 
+    /**
+     * @param $data
+     * @return Mage_Eav_Model_Entity_Attribute_Abstract
+     */
     public function setAttributeModel($data)
     {
         return $this->setData('attribute_model', $data);
     }
 
+    /**
+     * @return mixed
+     */
     public function getAttributeModel()
     {
         return $this->_getData('attribute_model');
     }
 
+    /**
+     * @param $data
+     * @return Mage_Eav_Model_Entity_Attribute_Abstract
+     */
     public function setBackendType($data)
     {
         return $this->setData('backend_type', $data);
     }
 
+    /**
+     * @return mixed
+     */
     public function getBackendType()
     {
         return $this->_getData('backend_type');
     }
 
+    /**
+     * @param $data
+     * @return Mage_Eav_Model_Entity_Attribute_Abstract
+     */
     public function setBackendModel($data)
     {
         return $this->setData('backend_model', $data);
     }
 
+    /**
+     * @return mixed
+     */
     public function getBackendModel()
     {
         return $this->_getData('backend_model');
     }
 
+    /**
+     * @param $data
+     * @return Mage_Eav_Model_Entity_Attribute_Abstract
+     */
     public function setBackendTable($data)
     {
         return $this->setData('backend_table', $data);
     }
 
+    /**
+     * @return mixed
+     */
     public function getIsVisibleOnFront()
     {
         return $this->_getData('is_visible_on_front');
     }
 
+    /**
+     * @return mixed
+     */
     public function getDefaultValue()
     {
         return $this->_getData('default_value');
     }
 
+    /**
+     * @return mixed
+     */
     public function getAttributeSetId()
     {
         return $this->_getData('attribute_set_id');
     }
 
+    /**
+     * @param $id
+     * @return $this
+     */
     public function setAttributeSetId($id)
     {
         $this->_data['attribute_set_id'] = $id;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getEntityTypeId()
     {
         return $this->_getData('entity_type_id');
     }
 
+    /**
+     * @param $id
+     * @return $this
+     */
     public function setEntityTypeId($id)
     {
         $this->_data['entity_type_id'] = $id;
         return $this;
     }
 
+    /**
+     * @param $type
+     * @return $this
+     */
     public function setEntityType($type)
     {
         $this->setData('entity_type', $type);
@@ -305,7 +392,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     /**
      * Retreive entity type
      *
-     * @return string
+     * @return Mage_Eav_Model_Entity_Type
      */
     public function getEntityType()
     {
@@ -399,8 +486,10 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
             }
             $source = Mage::getModel($this->getSourceModel());
             if (!$source) {
-                throw Mage::exception('Mage_Eav',
-                    Mage::helper('eav')->__('Source model "%s" not found for attribute "%s"',
+                throw Mage::exception(
+                    'Mage_Eav',
+                    Mage::helper('eav')->__(
+                        'Source model "%s" not found for attribute "%s"',
                         $this->getSourceModel(),
                         $this->getAttributeCode()
                     )
@@ -411,27 +500,44 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
         return $this->_source;
     }
 
+    /**
+     * @return bool
+     */
     public function usesSource()
     {
         return $this->getFrontendInput() === 'select' || $this->getFrontendInput() === 'multiselect'
             || $this->getData('source_model') != '';
     }
 
+    /**
+     * @return string
+     */
     protected function _getDefaultBackendModel()
     {
         return Mage_Eav_Model_Entity::DEFAULT_BACKEND_MODEL;
     }
 
+    /**
+     * @return string
+     */
     protected function _getDefaultFrontendModel()
     {
         return Mage_Eav_Model_Entity::DEFAULT_FRONTEND_MODEL;
     }
 
+    /**
+     * @return string
+     */
     protected function _getDefaultSourceModel()
     {
         return $this->getEntity()->getDefaultAttributeSourceModel();
     }
 
+    /**
+     * @param $value
+     * @return bool
+     * @throws Mage_Core_Exception
+     */
     public function isValueEmpty($value)
     {
         $attrType = $this->getBackend()->getType();
@@ -649,7 +755,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      *
      * @return array
      */
-    protected function _getFlatColumnsOldDefinition() {
+    protected function _getFlatColumnsOldDefinition()
+    {
         $columns = array();
         switch ($this->getBackendType()) {
             case 'static':
@@ -804,9 +911,10 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Retrieve Select For Flat Attribute update
      *
      * @param int $store
-     * @return Varien_Db_Select
+     * @return $this|Varien_Db_Select
      */
-    public function getFlatUpdateSelect($store = null) {
+    public function getFlatUpdateSelect($store = null)
+    {
         if ($store === null) {
             foreach (Mage::app()->getStores() as $store) {
                 $this->getFlatUpdateSelect($store->getId());

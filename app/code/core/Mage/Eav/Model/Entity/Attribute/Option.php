@@ -29,10 +29,12 @@
  *
  * @method Mage_Eav_Model_Resource_Entity_Attribute_Option _getResource()
  * @method Mage_Eav_Model_Resource_Entity_Attribute_Option getResource()
+ * @method Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection getCollection()
+ *
  * @method int getAttributeId()
- * @method Mage_Eav_Model_Entity_Attribute_Option setAttributeId(int $value)
+ * @method $this setAttributeId(int $value)
  * @method int getSortOrder()
- * @method Mage_Eav_Model_Entity_Attribute_Option setSortOrder(int $value)
+ * @method $this setSortOrder(int $value)
  *
  * @category    Mage
  * @package     Mage_Eav

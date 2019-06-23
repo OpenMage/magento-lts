@@ -243,7 +243,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
                 $this->_dateFilterFormat = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT;
             }
             return Mage::app()->getLocale()->getDateFormat($this->_dateFilterFormat);
-        } else if ($format === false) {
+        } elseif ($format === false) {
             // reset value
             $this->_dateFilterFormat = null;
             return $this;
@@ -273,7 +273,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      * Validate value by attribute input validation rule
      *
      * @param string $value
-     * @return string
+     * @return string|array|true
      */
     protected function _validateInputRule($value)
     {
@@ -453,7 +453,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
                         Zend_Validate_Date::FALSEFORMAT
                     );
                     if (!$validator->isValid($value)) {
-                       return array_unique($validator->getMessages());
+                        return array_unique($validator->getMessages());
                     }
 
                     break;

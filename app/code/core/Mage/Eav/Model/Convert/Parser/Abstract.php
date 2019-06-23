@@ -25,16 +25,19 @@
  */
 
 
-abstract class Mage_Eav_Model_Convert_Parser_Abstract
-    extends Mage_Dataflow_Model_Convert_Parser_Abstract
+abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Model_Convert_Parser_Abstract
 {
     protected $_storesById;
     protected $_attributeSetsById;
     protected $_attributeSetsByName;
 
+    /**
+     * @param array $stores
+     * @return array|false
+     */
     public function getStoreIds($stores)
     {
-       if (empty($stores)) {
+        if (empty($stores)) {
             $storeIds = array(0);
         } else {
             $storeIds = array();
@@ -53,11 +56,20 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract
         return $storeIds;
     }
 
+    /**
+     * @param int $storeId
+     * @return string
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function getStoreCode($storeId)
     {
         return Mage::app()->getStore($storeId?$storeId:0)->getCode();
     }
 
+    /**
+     * @param int $entityTypeId
+     * @return $this
+     */
     public function loadAttributeSets($entityTypeId)
     {
         $attributeSetCollection = Mage::getResourceModel('eav/entity_attribute_set_collection')
@@ -65,7 +77,11 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract
             ->load();
         $this->_attributeSetsById = array();
         $this->_attributeSetsByName = array();
-        foreach ($attributeSetCollection as $id=>$attributeSet) {
+        /**
+         * @var int $id
+         * @var Mage_Eav_Model_Entity_Attribute_Set $attributeSet
+         */
+        foreach ($attributeSetCollection as $id => $attributeSet) {
             $name = $attributeSet->getAttributeSetName();
             $this->_attributeSetsById[$id] = $name;
             $this->_attributeSetsByName[$name] = $id;
@@ -73,6 +89,11 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract
         return $this;
     }
 
+    /**
+     * @param int $entityTypeId
+     * @param int $id
+     * @return bool
+     */
     public function getAttributeSetName($entityTypeId, $id)
     {
         if (!$this->_attributeSetsById) {
@@ -81,6 +102,11 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract
         return isset($this->_attributeSetsById[$id]) ? $this->_attributeSetsById[$id] : false;
     }
 
+    /**
+     * @param int $entityTypeId
+     * @param string $name
+     * @return bool
+     */
     public function getAttributeSetId($entityTypeId, $name)
     {
         if (!$this->_attributeSetsByName) {
@@ -89,6 +115,11 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract
         return isset($this->_attributeSetsByName[$name]) ? $this->_attributeSetsByName[$name] : false;
     }
 
+    /**
+     * @param Mage_Eav_Model_Entity_Attribute_Source_Interface $source
+     * @param string $value
+     * @return string|null
+     */
     public function getSourceOptionId(Mage_Eav_Model_Entity_Attribute_Source_Interface $source, $value)
     {
         foreach ($source->getAllOptions() as $option) {

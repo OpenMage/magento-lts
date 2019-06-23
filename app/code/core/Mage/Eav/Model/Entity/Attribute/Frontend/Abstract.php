@@ -32,8 +32,7 @@
  * @package    Mage_Eav
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract
-    implements Mage_Eav_Model_Entity_Attribute_Frontend_Interface
+abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage_Eav_Model_Entity_Attribute_Frontend_Interface
 {
 
     /**
@@ -93,7 +92,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract
     /**
      * Retreive attribute value
      *
-     * @param $object
+     * @param Varien_Object $object
      * @return mixed
      */
     public function getValue(Varien_Object $object)
@@ -233,7 +232,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract
      *
      * @return string
      */
-    public function getInputRendererClass() {
+    public function getInputRendererClass()
+    {
         $className = $this->getAttribute()->getData('frontend_input_renderer');
         if ($className) {
             return Mage::getConfig()->getBlockClassName($className);

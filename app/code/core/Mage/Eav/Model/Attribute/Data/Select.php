@@ -117,7 +117,9 @@ class Mage_Eav_Model_Attribute_Data_Select extends Mage_Eav_Model_Attribute_Data
     /**
      * Return formated attribute value from entity model
      *
+     * @param string $format
      * @return string|array
+     * @throws Mage_Core_Exception
      */
     public function outputValue($format = Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_TEXT)
     {

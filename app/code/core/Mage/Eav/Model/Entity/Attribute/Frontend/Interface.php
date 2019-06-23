@@ -27,7 +27,7 @@
 
 /**
  * Entity attribute frontend interface
- * 
+ *
  * Frontend is providing the user interface for the attribute
  *
  */

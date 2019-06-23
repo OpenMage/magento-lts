@@ -119,9 +119,7 @@ class Mage_Eav_Model_Resource_Form_Element_Collection extends Mage_Core_Model_Re
     /**
      * Load data (join attribute data)
      *
-     * @param boolean $printQuery
-     * @param boolean $logQuery
-     * @return $this
+     * @inheritDoc
      */
     public function load($printQuery = false, $logQuery = false)
     {

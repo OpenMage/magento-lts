@@ -32,7 +32,7 @@
  * @package    Mage_Eav
  */
 $installer = $this;
-/* @var $installer Mage_Eav_Model_Entity_Setup */
+/* @var Mage_Eav_Model_Entity_Setup $installer */
 
 $installer->startSetup();
 $installer->run("

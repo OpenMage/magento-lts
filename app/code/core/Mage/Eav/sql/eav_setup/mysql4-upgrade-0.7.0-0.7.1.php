@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Eav_Model_Entity_Setup */
+/* @var Mage_Eav_Model_Entity_Setup $installer */
 $installer->startSetup();
 $installer->getConnection()->dropColumn($this->getTable('eav_attribute'), 'attribute_name');
 $installer->getConnection()->dropColumn($this->getTable('eav_attribute'), 'apply_to');
