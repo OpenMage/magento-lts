@@ -24,36 +24,24 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Cms Page Model
  *
  * @method Mage_Cms_Model_Resource_Page _getResource()
  * @method Mage_Cms_Model_Resource_Page getResource()
- * @method string getTitle()
- * @method $this setTitle(string $value)
- * @method string getRootTemplate()
- * @method $this setRootTemplate(string $value)
- * @method string getMetaKeywords()
- * @method $this setMetaKeywords(string $value)
- * @method string getMetaDescription()
- * @method $this setMetaDescription(string $value)
- * @method string getIdentifier()
- * @method $this setIdentifier(string $value)
+ * @method Mage_Cms_Model_Resource_Page_Collection getCollection()
+ *
  * @method string getContentHeading()
  * @method $this setContentHeading(string $value)
  * @method string getContent()
  * @method $this setContent(string $value)
  * @method string getCreationTime()
  * @method $this setCreationTime(string $value)
- * @method string getUpdateTime()
- * @method $this setUpdateTime(string $value)
  * @method int getIsActive()
  * @method $this setIsActive(int $value)
- * @method int getSortOrder()
- * @method $this setSortOrder(int $value)
  * @method string getLayoutUpdateXml()
  * @method $this setLayoutUpdateXml(string $value)
+ * @method bool hasCreationTime()
  * @method string getCustomTheme()
  * @method $this setCustomTheme(string $value)
  * @method string getCustomRootTemplate()
@@ -64,11 +52,26 @@
  * @method $this setCustomThemeFrom(string $value)
  * @method string getCustomThemeTo()
  * @method $this setCustomThemeTo(string $value)
+ * @method string getIdentifier()
+ * @method $this setIdentifier(string $value)
+ * @method string getMetaDescription()
+ * @method $this setMetaDescription(string $value)
+ * @method string getMetaKeywords()
+ * @method $this setMetaKeywords(string $value)
+ * @method string getPreviewUrl()
+ * @method string getRootTemplate()
+ * @method $this setRootTemplate(string $value)
  * @method $this setStoreId(int $value)
- * @method bool hasCreationTime()
+ * @method int getSortOrder()
+ * @method $this setSortOrder(int $value)
  * @method bool hasStores()
- * @method string getStoreId()
  * @method array getStores()
+ * @method string getStoreCode()
+ * @method string getStoreId()
+ * @method string getTitle()
+ * @method $this setTitle(string $value)
+ * @method string getUpdateTime()
+ * @method $this setUpdateTime(string $value)
  *
  * @category    Mage
  * @package     Mage_Cms
@@ -106,7 +109,7 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
     /**
      * @inheritDoc
      */
-    public function load($id, $field=null)
+    public function load($id, $field = null)
     {
         if (is_null($id)) {
             return $this->noRoutePage();

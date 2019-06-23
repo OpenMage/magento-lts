@@ -31,7 +31,8 @@
  * @package     Mage_Cms
  * @author      Magento Core Team <core@magentocommerce.com>
  *
- * @method int getStoreId()
+ * @method string getStoreId()
+ * @method $this setStoreId(string $value)
  */
 class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
 {

@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Cms Static Block Widget
  *
@@ -81,7 +80,6 @@ class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Ma
                 ->setStoreId(Mage::app()->getStore()->getId())
                 ->load($blockId);
             if ($block->getIsActive()) {
-                /* @var Mage_Cms_Helper_Data $helper */
                 $helper = Mage::helper('cms');
                 $processor = $helper->getBlockTemplateProcessor();
                 $this->setText($processor->filter($block->getContent()));

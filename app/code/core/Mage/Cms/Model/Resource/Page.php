@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Cms page mysql resource
  *
@@ -167,7 +166,6 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
             $stores = $this->lookupStoreIds($object->getId());
 
             $object->setData('store_id', $stores);
-
         }
 
         return parent::_afterLoad($object);
@@ -190,7 +188,8 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
             $select->join(
                 array('cms_page_store' => $this->getTable('cms/page_store')),
                 $this->getMainTable() . '.page_id = cms_page_store.page_id',
-                array())
+                array()
+            )
                 ->where('is_active = ?', 1)
                 ->where('cms_page_store.store_id IN (?)', $storeIds)
                 ->order('cms_page_store.store_id DESC')
@@ -215,7 +214,8 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
             ->join(
                 array('cps' => $this->getTable('cms/page_store')),
                 'cp.page_id = cps.page_id',
-                array())
+                array()
+            )
             ->where('cp.identifier = ?', $identifier)
             ->where('cps.store_id IN (?)', $store);
 

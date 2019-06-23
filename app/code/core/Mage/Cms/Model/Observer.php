@@ -37,7 +37,7 @@ class Mage_Cms_Model_Observer
     /**
      * Modify No Route Forward object
      *
-     * @param Varien_Event_Observer|Mage_Core_Helper_Object_Observer_Controller_Action $observer
+     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function noRoute(Varien_Event_Observer $observer)
@@ -65,8 +65,7 @@ class Mage_Cms_Model_Observer
 
         if ($pageUrl) {
             $redirect->setRedirectUrl($pageUrl);
-        }
-        else {
+        } else {
             $redirect->setRedirect(true)
                 ->setPath('cms/index/noCookies')
                 ->setArguments(array());

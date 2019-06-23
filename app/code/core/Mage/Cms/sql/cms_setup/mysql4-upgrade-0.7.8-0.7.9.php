@@ -39,4 +39,3 @@ CREATE TABLE IF NOT EXISTS `' . $table . '` (
   PRIMARY KEY  (`widget_id`),
   KEY `IDX_CODE` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT="CMS Preconfigured Widgets";');
-

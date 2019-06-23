@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * CMS page collection
  *
@@ -40,7 +39,6 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
      * @var bool
      */
     protected $_previewFlag;
-
 
     /**
      * Define resource model
@@ -185,7 +183,6 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
         }
         return parent::_renderFiltersBefore();
     }
-
 
     /**
      * Get SQL for get record count.

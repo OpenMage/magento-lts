@@ -222,8 +222,10 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
             }
             $io = new Varien_Io_File();
             if (!$io->isWriteable($currentPath) && !$io->mkdir($currentPath)) {
-                $message = Mage::helper('cms')->__('The directory %s is not writable by server.',
-                    $io->getFilteredPath($currentPath));
+                $message = Mage::helper('cms')->__(
+                    'The directory %s is not writable by server.',
+                    $io->getFilteredPath($currentPath)
+                );
                 Mage::throwException($message);
             }
             $this->_currentPath = $currentPath;

@@ -32,6 +32,8 @@
  * @category   Mage
  * @package    Mage_Cms
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setBlockId(int $int)
  */
 class Mage_Cms_Block_Block extends Mage_Core_Block_Abstract
 {

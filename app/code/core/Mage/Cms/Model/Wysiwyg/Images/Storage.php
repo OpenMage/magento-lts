@@ -63,7 +63,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             $subDirectories = Mage::getModel('core/file_storage_directory_database')->getSubdirectories($path);
             foreach ($subDirectories as $directory) {
                 $fullPath = rtrim($path, DS) . DS . $directory['name'];
-                  if (!file_exists($fullPath)) {
+                if (!file_exists($fullPath)) {
                     mkdir($fullPath, 0777, true);
                 }
             }
@@ -140,9 +140,10 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             if ($this->isImage($item->getBasename())) {
                 $thumbUrl = $this->getThumbnailUrl(
                     Mage_Core_Model_File_Uploader::getCorrectFileName($item->getFilename()),
-                    true);
+                    true
+                );
                 // generate thumbnail "on the fly" if it does not exists
-                if(! $thumbUrl) {
+                if (! $thumbUrl) {
                     $thumbUrl = Mage::getSingleton('adminhtml/url')->getUrl('*/*/thumbnail', array('file' => $item->getId()));
                 }
 
@@ -233,8 +234,10 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         $io = new Varien_Io_File();
 
         if ($rootCmp == $pathCmp) {
-            Mage::throwException(Mage::helper('cms')->__('Cannot delete root directory %s.',
-                $io->getFilteredPath($path)));
+            Mage::throwException(Mage::helper('cms')->__(
+                'Cannot delete root directory %s.',
+                $io->getFilteredPath($path)
+            ));
         }
 
         if (Mage::helper('core/file_storage_database')->checkDbUsage()) {
@@ -296,7 +299,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         $result = $uploader->save($targetPath);
 
         if (!$result) {
-            Mage::throwException( Mage::helper('cms')->__('Cannot upload file.') );
+            Mage::throwException(Mage::helper('cms')->__('Cannot upload file.'));
         }
 
         // create thumbnail
@@ -486,7 +489,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      * @param mixed $default
      * @return mixed
      */
-    public function getConfigData($key, $default=false)
+    public function getConfigData($key, $default = false)
     {
         $configArray = $this->getConfigAsArray();
         $key = (string) $key;

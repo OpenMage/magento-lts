@@ -40,7 +40,7 @@ class Mage_Cms_Controller_Router extends Mage_Core_Controller_Varien_Router_Abst
      */
     public function initControllerRouters($observer)
     {
-        /* @var $front Mage_Core_Controller_Varien_Front */
+        /* @var Mage_Core_Controller_Varien_Front $front */
         $front = $observer->getEvent()->getFront();
 
         $front->addRouter('cms', $this);

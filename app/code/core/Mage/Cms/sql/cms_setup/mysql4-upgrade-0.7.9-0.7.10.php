@@ -33,4 +33,3 @@ $blockTable = $installer->getTable('cms/block');
 
 $installer->getConnection()->modifyColumn($pageTable, 'content', 'MEDIUMTEXT');
 $installer->getConnection()->modifyColumn($blockTable, 'content', 'MEDIUMTEXT');
-

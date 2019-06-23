@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * CMS block model
  *
@@ -60,8 +59,9 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Perform operations before object save
      *
-     * @param Mage_Cms_Model_Block $object
+     * @param Mage_Core_Model_Abstract $object
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
@@ -111,7 +111,6 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
         }
 
         return parent::_afterSave($object);
-
     }
 
     /**
