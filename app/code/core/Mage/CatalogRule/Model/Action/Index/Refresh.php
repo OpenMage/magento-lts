@@ -116,12 +116,12 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
     {
         $this->_app->dispatchEvent('catalogrule_before_apply', array('resource' => $this->_resource));
 
-        /** @var $coreDate Mage_Core_Model_Date */
+        /** @var Mage_Core_Model_Date $coreDate */
         $coreDate  = $this->_factory->getModel('core/date');
         $timestamp = $coreDate->gmtTimestamp('Today');
 
         foreach ($this->_app->getWebsites(false) as $website) {
-            /** @var $website Mage_Core_Model_Website */
+            /** @var Mage_Core_Model_Website $website */
             if ($website->getDefaultStore()) {
                 $this->_reindex($website, $timestamp);
             }
@@ -271,10 +271,10 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
      */
     protected function _prepareTemporarySelect(Mage_Core_Model_Website $website)
     {
-        /** @var $catalogFlatHelper Mage_Catalog_Helper_Product_Flat */
+        /** @var Mage_Catalog_Helper_Product_Flat $catalogFlatHelper */
         $catalogFlatHelper = $this->_factory->getHelper('catalog/product_flat');
 
-        /** @var $eavConfig Mage_Eav_Model_Config */
+        /** @var Mage_Eav_Model_Config $eavConfig */
         $eavConfig = $this->_factory->getSingleton('eav/config');
         $priceAttribute = $eavConfig->getAttribute(Mage_Catalog_Model_Product::ENTITY, 'price');
 
@@ -334,13 +334,13 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
             );
         } else {
             $select->joinInner(
-                    array(
+                array(
                         'pd' => $this->_resource->getTable(array('catalog/product', $priceAttribute->getBackendType()))
                     ),
-                    'pd.entity_id = rp.product_id AND pd.store_id = 0 AND pd.attribute_id = '
+                'pd.entity_id = rp.product_id AND pd.store_id = 0 AND pd.attribute_id = '
                         . $priceAttribute->getId(),
-                    array()
-                )
+                array()
+            )
                 ->joinLeft(
                     array(
                         'p' => $this->_resource->getTable(array('catalog/product', $priceAttribute->getBackendType()))
@@ -416,7 +416,8 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
             '',
             array(
                 $this->_connection->getIfNullSql(
-                    new Zend_Db_Expr('@group_id'), $nA
+                    new Zend_Db_Expr('@group_id'),
+                    $nA
                 ) . ' != cppt.grouped_id' =>
                 '@price := ' . $this->_connection->getCaseSql(
                     $this->_connection->quoteIdentifier('cppt.action_operator'),
@@ -436,7 +437,8 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
                     )
                 ),
                 $this->_connection->getIfNullSql(
-                    new Zend_Db_Expr('@group_id'), $nA
+                    new Zend_Db_Expr('@group_id'),
+                    $nA
                 ) . ' = cppt.grouped_id AND '
                 . $this->_connection->getIfNullSql(
                     new Zend_Db_Expr('@action_stop'),
@@ -467,7 +469,7 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
      * Prepare index select
      *
      * @param Mage_Core_Model_Website $website
-     * @param $time
+     * @param int|Zend_Db_Expr $time
      * @return Varien_Db_Select
      */
     protected function _prepareIndexSelect(Mage_Core_Model_Website $website, $time)
@@ -614,6 +616,7 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
 
     /**
      * Prepare data for group website relation
+     * @param string $timestamp
      */
     protected function _prepareGroupWebsite($timestamp)
     {
@@ -651,7 +654,7 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
      */
     protected function _prepareAffectedProduct()
     {
-        /** @var $modelCondition Mage_Catalog_Model_Product_Condition */
+        /** @var Mage_Catalog_Model_Product_Condition $modelCondition */
         $modelCondition = $this->_factory->getModel('catalog/product_condition');
 
         $productCondition = $modelCondition->setTable($this->_resource->getTable('catalogrule/affected_product'))

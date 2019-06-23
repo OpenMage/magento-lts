@@ -61,6 +61,7 @@ class Mage_CatalogRule_Model_Action_Index_Refresh_Row extends Mage_CatalogRule_M
 
     /**
      * Do not recreate rule group website for row refresh
+     * @param string $timestamp
      */
     protected function _prepareGroupWebsite($timestamp)
     {

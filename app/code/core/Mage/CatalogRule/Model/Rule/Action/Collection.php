@@ -33,6 +33,9 @@ class Mage_CatalogRule_Model_Rule_Action_Collection extends Mage_Rule_Model_Acti
         $this->setType('catalogrule/rule_action_collection');
     }
 
+    /**
+     * @return array
+     */
     public function getNewChildSelectOptions()
     {
         $actions = parent::getNewChildSelectOptions();

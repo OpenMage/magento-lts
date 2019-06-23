@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 
@@ -47,7 +47,7 @@ if ($conn->tableColumnExists($ruleTable, 'store_ids')) {
             }
         }
 
-        $conn->update($ruleTable, array('website_ids'=>join(',',array_keys($websiteIds))), "rule_id=".$r['rule_id']);
+        $conn->update($ruleTable, array('website_ids'=>join(',', array_keys($websiteIds))), "rule_id=".$r['rule_id']);
     }
     $conn->dropColumn($ruleTable, 'store_ids');
 }
