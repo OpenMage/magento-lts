@@ -30,6 +30,9 @@
  * @category   Mage
  * @package    Mage_Admin
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Admin_Model_Variable getItemById(int $value)
+ * @method Mage_Admin_Model_Variable[] getItems()
  */
 class Mage_Admin_Model_Resource_Variable_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

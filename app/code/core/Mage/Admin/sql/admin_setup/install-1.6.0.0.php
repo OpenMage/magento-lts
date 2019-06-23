@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 
@@ -88,10 +88,14 @@ $table = $installer->getConnection()
         'nullable'  => true,
         'default'   => null,
         ), 'Role Name')
-    ->addIndex($installer->getIdxName('admin/role', array('parent_id', 'sort_order')),
-        array('parent_id', 'sort_order'))
-    ->addIndex($installer->getIdxName('admin/role', array('tree_level')),
-        array('tree_level'))
+    ->addIndex(
+        $installer->getIdxName('admin/role', array('parent_id', 'sort_order')),
+        array('parent_id', 'sort_order')
+    )
+    ->addIndex(
+        $installer->getIdxName('admin/role', array('tree_level')),
+        array('tree_level')
+    )
     ->setComment('Admin Role Table');
 $installer->getConnection()->createTable($table);
 
@@ -127,13 +131,22 @@ $table = $installer->getConnection()
         ), 'Role Type')
     ->addColumn('permission', Varien_Db_Ddl_Table::TYPE_TEXT, 10, array(
         ), 'Permission')
-    ->addIndex($installer->getIdxName('admin/rule', array('resource_id', 'role_id')),
-        array('resource_id', 'role_id'))
-    ->addIndex($installer->getIdxName('admin/rule', array('role_id', 'resource_id')),
-        array('role_id', 'resource_id'))
-    ->addForeignKey($installer->getFkName('admin/rule', 'role_id', 'admin/role', 'role_id'),
-        'role_id', $installer->getTable('admin/role'), 'role_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+    ->addIndex(
+        $installer->getIdxName('admin/rule', array('resource_id', 'role_id')),
+        array('resource_id', 'role_id')
+    )
+    ->addIndex(
+        $installer->getIdxName('admin/rule', array('role_id', 'resource_id')),
+        array('role_id', 'resource_id')
+    )
+    ->addForeignKey(
+        $installer->getFkName('admin/rule', 'role_id', 'admin/role', 'role_id'),
+        'role_id',
+        $installer->getTable('admin/role'),
+        'role_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
     ->setComment('Admin Rule Table');
 $installer->getConnection()->createTable($table);
 
@@ -185,8 +198,11 @@ $table = $installer->getConnection()
         ), 'User Is Active')
     ->addColumn('extra', Varien_Db_Ddl_Table::TYPE_TEXT, '64k', array(
         ), 'User Extra Data')
-    ->addIndex($installer->getIdxName('admin/user', array('username'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
-        array('username'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
+    ->addIndex(
+        $installer->getIdxName('admin/user', array('username'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
+        array('username'),
+        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)
+    )
     ->setComment('Admin User Table');
 $installer->getConnection()->createTable($table);
 

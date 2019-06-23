@@ -50,8 +50,8 @@ class Mage_Admin_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstra
      */
     public function saveRel(Mage_Admin_Model_Rules $rule)
     {
+        $adapter = $this->_getWriteAdapter();
         try {
-            $adapter = $this->_getWriteAdapter();
             $adapter->beginTransaction();
             $roleId = $rule->getRoleId();
 
@@ -92,7 +92,7 @@ class Mage_Admin_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstra
         } catch (Mage_Core_Exception $e) {
             $adapter->rollBack();
             throw $e;
-        } catch (Exception $e){
+        } catch (Exception $e) {
             $adapter->rollBack();
             Mage::logException($e);
         }
