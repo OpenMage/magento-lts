@@ -51,7 +51,8 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
      *
      */
     protected function _construct()
-    {}
+    {
+    }
 
     /**
      * Retrieve feed url
@@ -96,7 +97,6 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
             if ($feedData) {
                 Mage::getModel('adminnotification/inbox')->parse(array_reverse($feedData));
             }
-
         }
         $this->setLastUpdate();
 
@@ -171,8 +171,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
 
         try {
             $xml  = new SimpleXMLElement($data);
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
 
@@ -187,8 +186,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
         try {
             $data = $this->getFeedData();
             $xml  = new SimpleXMLElement($data);
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $xml  = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" ?>');
         }
 

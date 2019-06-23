@@ -32,7 +32,6 @@
  * @package     Mage_AdminNotification
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_AdminNotification_Model_Mysql4_Inbox_Collection
-    extends Mage_AdminNotification_Model_Resource_Inbox_Collection
+class Mage_AdminNotification_Model_Mysql4_Inbox_Collection extends Mage_AdminNotification_Model_Resource_Inbox_Collection
 {
 }
