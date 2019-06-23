@@ -64,5 +64,4 @@ interface Mage_Media_Model_Image_Config_Interface
      * @return string
      */
     function getMediaPath($file);
-
 }
