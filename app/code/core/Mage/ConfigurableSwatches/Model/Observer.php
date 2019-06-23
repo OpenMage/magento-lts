@@ -37,13 +37,13 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
             return; // exit without loading swatch functionality
         }
 
-        /* @var $mediaHelper Mage_ConfigurableSwatches_Helper_Mediafallback */
+        /* @var Mage_ConfigurableSwatches_Helper_Mediafallback $mediaHelper */
         $mediaHelper = Mage::helper('configurableswatches/mediafallback');
 
-        /** @var $priceHelper Mage_ConfigurableSwatches_Helper_List_Price */
+        /** @var Mage_ConfigurableSwatches_Helper_List_Price $priceHelper */
         $priceHelper = Mage::helper('configurableswatches/list_price');
 
-        /* @var $collection Mage_Catalog_Model_Resource_Product_Collection */
+        /* @var Mage_Catalog_Model_Resource_Product_Collection $collection */
         $collection = $observer->getCollection();
 
         if ($collection
@@ -64,13 +64,12 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
 
         $mediaHelper->attachGallerySetToCollection($products, $collection->getStoreId());
 
-        /* @var $product Mage_Catalog_Model_Product */
+        /* @var Mage_Catalog_Model_Product $product */
         foreach ($products as $product) {
             $mediaHelper->groupMediaGalleryImages($product);
             Mage::helper('configurableswatches/productimg')
                 ->indexProductImages($product, $product->getListSwatchAttrValues());
         }
-
     }
 
     /**
@@ -79,16 +78,17 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
      *
      * @param Varien_Event_Observer $observer
      */
-    public function productLoadAfter(Varien_Event_Observer $observer) {
+    public function productLoadAfter(Varien_Event_Observer $observer)
+    {
 
         if (!Mage::helper('configurableswatches')->isEnabled()) { // functionality disabled
             return; // exit without loading swatch functionality
         }
 
-        /* @var $helper Mage_ConfigurableSwatches_Helper_Mediafallback */
+        /* @var Mage_ConfigurableSwatches_Helper_Mediafallback $helper */
         $helper = Mage::helper('configurableswatches/mediafallback');
 
-        /* @var $product Mage_Catalog_Model_Product */
+        /* @var Mage_Catalog_Model_Product $product */
         $product = $observer->getDataObject();
 
         if ($product->getTypeId() != Mage_Catalog_Model_Product_Type_Configurable::TYPE_CODE) {
@@ -107,22 +107,23 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
      *
      * @param Varien_Event_Observer $observer
      */
-    public function loadChildProductImagesOnMediaLoad(Varien_Event_Observer $observer) {
+    public function loadChildProductImagesOnMediaLoad(Varien_Event_Observer $observer)
+    {
 
         if (!Mage::helper('configurableswatches')->isEnabled()) { // functionality disabled
             return; // exit without loading swatch functionality
         }
 
-        /* @var $eventWrapper Varien_Object */
+        /* @var Varien_Object $eventWrapper */
         $eventWrapper = $observer->getEventObjectWrapper();
-        /* @var $product Mage_Catalog_Model_Product */
+        /* @var Mage_Catalog_Model_Product $product */
         $product = $eventWrapper->getProduct();
 
         if ($product->getTypeId() != Mage_Catalog_Model_Product_Type_Configurable::TYPE_CODE) {
             return;
         }
 
-        /* @var $productType Mage_Catalog_Model_Product_Type_Configurable */
+        /* @var Mage_Catalog_Model_Product_Type_Configurable $productType */
         $productType = Mage::getModel('catalog/product_type_configurable');
 
         $childrenProducts = $productType->getUsedProducts(null, $product);
@@ -157,7 +158,6 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
         // Perform this operation if we're on a category view page or search results page
         if (($front == 'catalog' && $controller == 'category' && $action == 'view')
             || ($front == 'catalogsearch' && $controller == 'result' && $action == 'index')) {
-
             // Block name for layered navigation differs depending on which Magento edition we're in
             $blockName = 'catalog.leftnav';
             if (Mage::getEdition() == Mage::EDITION_ENTERPRISE) {
