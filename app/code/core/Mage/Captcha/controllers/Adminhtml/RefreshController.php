@@ -51,7 +51,7 @@ class Mage_Captcha_Adminhtml_RefreshController extends Mage_Adminhtml_Controller
     /**
      * Check is allowed access to action
      *
-     * @return bool
+     * @return true
      */
     protected function _isAllowed()
     {
