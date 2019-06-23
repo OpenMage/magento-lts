@@ -43,6 +43,9 @@ class Mage_Checkout_Block_Multishipping_Addresses extends Mage_Sales_Block_Items
         return Mage::getSingleton('checkout/type_multishipping');
     }
 
+    /**
+     * @return Mage_Sales_Block_Items_Abstract
+     */
     protected function _prepareLayout()
     {
         if ($headBlock = $this->getLayout()->getBlock('head')) {
@@ -51,6 +54,10 @@ class Mage_Checkout_Block_Multishipping_Addresses extends Mage_Sales_Block_Items
         return parent::_prepareLayout();
     }
 
+    /**
+     * @return array
+     * @throws Exception
+     */
     public function getItems()
     {
         $items = $this->getCheckout()->getQuoteShippingAddressesItems();
@@ -62,7 +69,7 @@ class Mage_Checkout_Block_Multishipping_Addresses extends Mage_Sales_Block_Items
     /**
      * Retrieve HTML for addresses dropdown
      *
-     * @param  $item
+     * @param Mage_Sales_Model_Quote_Address_Item $item
      * @param string $index
      * @return string
      */
@@ -99,36 +106,59 @@ class Mage_Checkout_Block_Multishipping_Addresses extends Mage_Sales_Block_Items
         return $options;
     }
 
+    /**
+     * @return Mage_Customer_Model_Customer
+     */
     public function getCustomer()
     {
         return $this->getCheckout()->getCustomerSession()->getCustomer();
     }
 
+    /**
+     * @param $item
+     * @return string
+     */
     public function getItemUrl($item)
     {
         return $this->getUrl('catalog/product/view/id/'.$item->getProductId());
     }
 
+    /**
+     * @param $item
+     * @return string
+     */
     public function getItemDeleteUrl($item)
     {
         return $this->getUrl('*/*/removeItem', array('address'=>$item->getQuoteAddressId(), 'id'=>$item->getId()));
     }
 
+    /**
+     * @return string
+     */
     public function getPostActionUrl()
     {
         return $this->getUrl('*/*/addressesPost');
     }
 
+    /**
+     * @return string
+     */
     public function getNewAddressUrl()
     {
         return Mage::getUrl('*/multishipping_address/newShipping');
     }
 
+    /**
+     * @return string
+     */
     public function getBackUrl()
     {
         return Mage::getUrl('*/cart/');
     }
 
+    /**
+     * @return bool
+     */
     public function isContinueDisabled()
     {
         return !$this->getCheckout()->validateMinimumAmount();

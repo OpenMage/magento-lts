@@ -56,6 +56,9 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
         return Mage::getSingleton('checkout/type_multishipping');
     }
 
+    /**
+     * @return Mage_Sales_Block_Items_Abstract
+     */
     protected function _prepareLayout()
     {
         if ($headBlock = $this->getLayout()->getBlock('head')) {
@@ -66,11 +69,17 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
         return parent::_prepareLayout();
     }
 
+    /**
+     * @return Mage_Sales_Model_Quote_Address
+     */
     public function getBillingAddress()
     {
         return $this->getCheckout()->getQuote()->getBillingAddress();
     }
 
+    /**
+     * @return string
+     */
     public function getPaymentHtml()
     {
         return $this->getChildHtml('payment_info');
@@ -90,11 +99,17 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
         return $this->_getData('payment');
     }
 
+    /**
+     * @return Mage_Sales_Model_Quote_Address[]
+     */
     public function getShippingAddresses()
     {
         return $this->getCheckout()->getQuote()->getAllShippingAddresses();
     }
 
+    /**
+     * @return int
+     */
     public function getShippingAddressCount()
     {
         $count = $this->getData('shipping_address_count');
@@ -105,6 +120,10 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
         return $count;
     }
 
+    /**
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @return Mage_Sales_Model_Quote_Address_Rate|false
+     */
     public function getShippingAddressRate($address)
     {
         if ($rate = $address->getShippingRateByCode($address->getShippingMethod())) {
@@ -113,6 +132,10 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
         return false;
     }
 
+    /**
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @return string
+     */
     public function getShippingPriceInclTax($address)
     {
         $exclTax = $address->getShippingAmount();
@@ -120,21 +143,37 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
         return $this->formatPrice($exclTax + $taxAmount);
     }
 
+    /**
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @return string
+     */
     public function getShippingPriceExclTax($address)
     {
         return $this->formatPrice($address->getShippingAmount());
     }
 
+    /**
+     * @param float $price
+     * @return string
+     */
     public function formatPrice($price)
     {
         return $this->getQuote()->getStore()->formatPrice($price);
     }
 
+    /**
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @return Mage_Sales_Model_Quote_Address_Item[]
+     */
     public function getShippingAddressItems($address)
     {
         return $address->getAllVisibleItems();
     }
 
+    /**
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @return Mage_Sales_Model_Quote_Address_Total[]
+     */
     public function getShippingAddressTotals($address)
     {
         $totals = $address->getTotals();
@@ -142,8 +181,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
             if ($total->getCode()=='grand_total') {
                 if ($address->getAddressType() == Mage_Sales_Model_Quote_Address::TYPE_BILLING) {
                     $total->setTitle($this->__('Total'));
-                }
-                else {
+                } else {
                     $total->setTitle($this->__('Total for this address'));
                 }
             }
@@ -151,41 +189,67 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
         return $totals;
     }
 
+    /**
+     * @return float
+     */
     public function getTotal()
     {
         return $this->getCheckout()->getQuote()->getGrandTotal();
     }
 
+    /**
+     * @return string
+     */
     public function getAddressesEditUrl()
     {
         return $this->getUrl('*/*/backtoaddresses');
     }
 
+    /**
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @return string
+     */
     public function getEditShippingAddressUrl($address)
     {
         return $this->getUrl('*/multishipping_address/editShipping', array('id'=>$address->getCustomerAddressId()));
     }
 
+    /**
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @return string
+     */
     public function getEditBillingAddressUrl($address)
     {
         return $this->getUrl('*/multishipping_address/editBilling', array('id'=>$address->getCustomerAddressId()));
     }
 
+    /**
+     * @return string
+     */
     public function getEditShippingUrl()
     {
         return $this->getUrl('*/*/backtoshipping');
     }
 
+    /**
+     * @return string
+     */
     public function getPostActionUrl()
     {
         return $this->getUrl('*/*/overviewPost');
     }
 
+    /**
+     * @return string
+     */
     public function getEditBillingUrl()
     {
         return $this->getUrl('*/*/backtobilling');
     }
 
+    /**
+     * @return string
+     */
     public function getBackUrl()
     {
         return $this->getUrl('*/*/backtobilling');
@@ -223,13 +287,16 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
     /**
      * Retrieve quote
      *
-     * @return Mage_Sales_Model_Qoute
+     * @return Mage_Sales_Model_Quote
      */
     public function getQuote()
     {
         return $this->getCheckout()->getQuote();
     }
 
+    /**
+     * @return mixed
+     */
     public function getBillinAddressTotals()
     {
         $_address = $this->getQuote()->getBillingAddress();
@@ -237,7 +304,12 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
     }
 
 
-    public function renderTotals($totals, $colspan=null)
+    /**
+     * @param Mage_Sales_Model_Order_Total $totals
+     * @param null $colspan
+     * @return string
+     */
+    public function renderTotals($totals, $colspan = null)
     {
         if ($colspan === null) {
             $colspan = $this->helper('tax')->displayCartBothPrices() ? 5 : 3;

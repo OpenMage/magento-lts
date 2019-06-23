@@ -29,18 +29,21 @@
  *
  * @method Mage_Checkout_Model_Resource_Agreement _getResource()
  * @method Mage_Checkout_Model_Resource_Agreement getResource()
+ * @method Mage_Checkout_Model_Resource_Agreement_Collection getCollection()
+ *
  * @method string getName()
- * @method Mage_Checkout_Model_Agreement setName(string $value)
+ * @method $this setName(string $value)
  * @method string getContent()
- * @method Mage_Checkout_Model_Agreement setContent(string $value)
+ * @method $this setContent(string $value)
  * @method string getContentHeight()
- * @method Mage_Checkout_Model_Agreement setContentHeight(string $value)
+ * @method $this setContentHeight(string $value)
  * @method string getCheckboxText()
- * @method Mage_Checkout_Model_Agreement setCheckboxText(string $value)
+ * @method $this setCheckboxText(string $value)
  * @method int getIsActive()
- * @method Mage_Checkout_Model_Agreement setIsActive(int $value)
+ * @method $this setIsActive(int $value)
  * @method int getIsHtml()
- * @method Mage_Checkout_Model_Agreement setIsHtml(int $value)
+ * @method $this setIsHtml(int $value)
+ * @method int getStoreId()
  *
  * @category    Mage
  * @package     Mage_Checkout

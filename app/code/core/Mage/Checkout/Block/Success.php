@@ -24,9 +24,16 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * Class Mage_Checkout_Block_Success
+ *
+ * @method int getLastOrderId()
+ */
 class Mage_Checkout_Block_Success extends Mage_Core_Block_Template
 {
+    /**
+     * @return string
+     */
     public function getRealOrderId()
     {
         $order = Mage::getModel('sales/order')->load($this->getLastOrderId());

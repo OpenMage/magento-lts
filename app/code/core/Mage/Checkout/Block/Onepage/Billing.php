@@ -65,6 +65,9 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
         parent::_construct();
     }
 
+    /**
+     * @return bool
+     */
     public function isUseBillingAddressForShipping()
     {
         if (($this->getQuote()->getIsVirtual())
@@ -77,7 +80,7 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
     /**
      * Return country collection
      *
-     * @return Mage_Directory_Model_Mysql4_Country_Collection
+     * @return Mage_Directory_Model_Resource_Country_Collection
      */
     public function getCountries()
     {
@@ -155,7 +158,7 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
      * Return Customer Address Middle Name
      * If Sales Quote Address Middle Name is not defined - return Customer Middle Name
      *
-     * @return string | NULL
+     * @return string|null
      */
     public function getMiddlename()
     {
@@ -204,6 +207,9 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
         return $this->_getTaxvat()->isEnabled();
     }
 
+    /**
+     * @return string
+     */
     public function getTaxvatHtml()
     {
         return $this->_getTaxvat()

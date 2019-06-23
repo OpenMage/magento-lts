@@ -89,7 +89,7 @@ abstract class Mage_Checkout_Block_Cart_Abstract extends Mage_Core_Block_Templat
             return $this->_itemRenders[$type];
         }
         return $this->_itemRenders['default'];
-     }
+    }
 
     /**
      * Get renderer block instance by product type code
@@ -170,15 +170,22 @@ abstract class Mage_Checkout_Block_Cart_Abstract extends Mage_Core_Block_Templat
      */
     public function getItemHtml(Mage_Sales_Model_Quote_Item $item)
     {
+        /** @var Mage_Checkout_Block_Cart_Item_Renderer $renderer */
         $renderer = $this->getItemRenderer($item->getProductType())->setItem($item);
         return $renderer->toHtml();
     }
 
+    /**
+     * @return array
+     */
     public function getTotals()
     {
         return $this->getTotalsCache();
     }
 
+    /**
+     * @return array
+     */
     public function getTotalsCache()
     {
         if (empty($this->_totals)) {

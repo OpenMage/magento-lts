@@ -42,9 +42,9 @@ class Mage_Checkout_Model_Cart_Shipping_Api extends Mage_Checkout_Model_Api_Reso
     /**
      * Set an Shipping Method for Shopping Cart
      *
-     * @param  $quoteId
-     * @param  $shippingMethod
-     * @param  $store
+     * @param  int $quoteId
+     * @param  string $shippingMethod
+     * @param  string|int $store
      * @return bool
      */
     public function setShippingMethod($quoteId, $shippingMethod, $store = null)
@@ -52,7 +52,7 @@ class Mage_Checkout_Model_Cart_Shipping_Api extends Mage_Checkout_Model_Api_Reso
         $quote = $this->_getQuote($quoteId, $store);
 
         $quoteShippingAddress = $quote->getShippingAddress();
-        if(is_null($quoteShippingAddress->getId()) ) {
+        if (is_null($quoteShippingAddress->getId())) {
             $this->_fault("shipping_address_is_not_set");
         }
 
@@ -64,7 +64,7 @@ class Mage_Checkout_Model_Cart_Shipping_Api extends Mage_Checkout_Model_Api_Reso
         try {
             $quote->getShippingAddress()->setShippingMethod($shippingMethod);
             $quote->collectTotals()->save();
-        } catch(Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $e) {
             $this->_fault('shipping_method_is_not_set', $e->getMessage());
         }
 
@@ -74,11 +74,11 @@ class Mage_Checkout_Model_Cart_Shipping_Api extends Mage_Checkout_Model_Api_Reso
     /**
      * Get list of available shipping methods
      *
-     * @param  $quoteId
-     * @param  $store
+     * @param  int $quoteId
+     * @param  int|string $store
      * @return array
      */
-    public function getShippingMethodsList($quoteId, $store=null)
+    public function getShippingMethodsList($quoteId, $store = null)
     {
         $quote = $this->_getQuote($quoteId, $store);
 
@@ -92,7 +92,7 @@ class Mage_Checkout_Model_Cart_Shipping_Api extends Mage_Checkout_Model_Api_Reso
             $groupedRates = $quoteShippingAddress->getGroupedAllShippingRates();
 
             $ratesResult = array();
-            foreach ($groupedRates as $carrierCode => $rates ) {
+            foreach ($groupedRates as $carrierCode => $rates) {
                 $carrierName = $carrierCode;
                 if (!is_null(Mage::getStoreConfig('carriers/'.$carrierCode.'/title'))) {
                     $carrierName = Mage::getStoreConfig('carriers/'.$carrierCode.'/title');
@@ -111,6 +111,4 @@ class Mage_Checkout_Model_Cart_Shipping_Api extends Mage_Checkout_Model_Api_Reso
 
         return $ratesResult;
     }
-
-
 }

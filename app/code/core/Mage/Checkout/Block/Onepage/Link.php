@@ -33,16 +33,25 @@
  */
 class Mage_Checkout_Block_Onepage_Link extends Mage_Core_Block_Template
 {
+    /**
+     * @return string
+     */
     public function getCheckoutUrl()
     {
         return $this->getUrl('checkout/onepage', array('_secure'=>true));
     }
 
+    /**
+     * @return bool
+     */
     public function isDisabled()
     {
         return !Mage::getSingleton('checkout/session')->getQuote()->validateMinimumAmount();
     }
 
+    /**
+     * @return bool
+     */
     public function isPossibleOnepageCheckout()
     {
         return $this->helper('checkout')->canOnepageCheckout();

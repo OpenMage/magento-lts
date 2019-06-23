@@ -28,6 +28,8 @@
  * One page common functionality block
  *
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method \Mage_Sales_Model_Quote_Address getAddress()
  */
 abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Template
 {
@@ -77,11 +79,17 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
         return $this->_quote;
     }
 
+    /**
+     * @return bool
+     */
     public function isCustomerLoggedIn()
     {
         return Mage::getSingleton('customer/session')->isLoggedIn();
     }
 
+    /**
+     * @return mixed
+     */
     public function getCountryCollection()
     {
         if (!$this->_countryCollection) {
@@ -91,6 +99,9 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
         return $this->_countryCollection;
     }
 
+    /**
+     * @return mixed
+     */
     public function getRegionCollection()
     {
         if (!$this->_regionCollection) {
@@ -101,12 +112,19 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
         return $this->_regionCollection;
     }
 
+    /**
+     * @return int
+     */
     public function customerHasAddresses()
     {
         return count($this->getCustomer()->getAddresses());
     }
 
 /* */
+    /**
+     * @param string $type
+     * @return string
+     */
     public function getAddressesHtmlSelect($type)
     {
         if ($this->isCustomerLoggedIn()) {
@@ -145,6 +163,11 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
         return '';
     }
 
+    /**
+     * @param string $type
+     * @return string
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function getCountryHtmlSelect($type)
     {
         $countryId = $this->getAddress()->getCountryId();
@@ -166,6 +189,10 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
     }
 
 
+    /**
+     * @param string $type
+     * @return string
+     */
     public function getRegionHtmlSelect($type)
     {
         $select = $this->getLayout()->createBlock('core/html_select')
@@ -179,6 +206,10 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
         return $select->getHtml();
     }
 
+    /**
+     * @return bool|mixed
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function getCountryOptions()
     {
         $options    = false;

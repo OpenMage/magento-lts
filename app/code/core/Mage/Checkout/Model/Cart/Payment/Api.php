@@ -34,7 +34,10 @@
 
 class Mage_Checkout_Model_Cart_Payment_Api extends Mage_Checkout_Model_Api_Resource
 {
-
+    /**
+     * @param array $data
+     * @return array
+     */
     protected function _preparePaymentData($data)
     {
         if (!(is_array($data) && is_null($data[0]))) {
@@ -45,8 +48,8 @@ class Mage_Checkout_Model_Cart_Payment_Api extends Mage_Checkout_Model_Api_Resou
     }
 
     /**
-     * @param  $method
-     * @param  $quote
+     * @param  Mage_Payment_Model_Method_Abstract $method
+     * @param  Mage_Sales_Model_Quote $quote
      * @return bool
      */
     protected function _canUsePaymentMethod($method, $quote)
@@ -77,6 +80,10 @@ class Mage_Checkout_Model_Cart_Payment_Api extends Mage_Checkout_Model_Api_Resou
         return true;
     }
 
+    /**
+     * @param Mage_Payment_Model_Method_Abstract $method
+     * @return array|null
+     */
     protected function _getPaymentMethodAvailableCcTypes($method)
     {
         $ccTypes = Mage::getSingleton('payment/config')->getCcTypes();
@@ -111,7 +118,7 @@ class Mage_Checkout_Model_Cart_Payment_Api extends Mage_Checkout_Model_Api_Resou
         $methods = Mage::helper('payment')->getStoreMethods($store, $quote);
 
         foreach ($methods as $method) {
-            /** @var $method Mage_Payment_Model_Method_Abstract */
+            /** @var Mage_Payment_Model_Method_Abstract $method */
             if ($this->_canUsePaymentMethod($method, $quote)) {
                 $isRecurring = $quote->hasRecurringItems() && $method->canManageRecurringProfiles();
 
@@ -129,9 +136,9 @@ class Mage_Checkout_Model_Cart_Payment_Api extends Mage_Checkout_Model_Api_Resou
     }
 
     /**
-     * @param  $quoteId
-     * @param  $paymentData
-     * @param  $store
+     * @param  int $quoteId
+     * @param  array $paymentData
+     * @param  string|int $store
      * @return bool
      */
     public function setPaymentMethod($quoteId, $paymentData, $store = null)
@@ -171,7 +178,7 @@ class Mage_Checkout_Model_Cart_Payment_Api extends Mage_Checkout_Model_Api_Resou
         $methods = Mage::helper('payment')->getStoreMethods($store, $quote);
         foreach ($methods as $method) {
             if ($method->getCode() == $paymentData['method']) {
-                /** @var $method Mage_Payment_Model_Method_Abstract */
+                /** @var Mage_Payment_Model_Method_Abstract $method */
                 if (!($this->_canUsePaymentMethod($method, $quote)
                     && ($total != 0
                         || $method->getCode() == 'free'
@@ -195,5 +202,4 @@ class Mage_Checkout_Model_Cart_Payment_Api extends Mage_Checkout_Model_Api_Resou
         }
         return true;
     }
-
 }
