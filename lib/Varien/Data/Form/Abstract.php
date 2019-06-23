@@ -35,6 +35,7 @@
  * @method $this setValue(mixed $value)
  * @method $this setUseContainer(bool $value)
  * @method $this setDisabled(bool $value)
+ * @method $this setRequired(bool $value)
  *
  * @category   Varien
  * @package    Varien_Data

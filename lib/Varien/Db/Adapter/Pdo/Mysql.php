@@ -3729,7 +3729,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @param array|string $tableNames array of tables names | table name
      * @param string $schemaName schema name
-     * @return arrray
+     * @return array
      */
     public function getTablesChecksum($tableNames, $schemaName = null)
     {

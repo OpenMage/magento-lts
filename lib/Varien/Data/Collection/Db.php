@@ -375,7 +375,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * @see self::_getConditionSql for $condition
      *
      * @param   string|array $field
-     * @param   null|string|array $condition
+     * @param   int|string|array|null $condition
      * @return  $this
      */
     public function addFieldToFilter($field, $condition = null)
@@ -403,7 +403,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * Build sql where condition part
      *
      * @param   string|array $field
-     * @param   null|string|array $condition
+     * @param   int|string|array $condition
      *
      * @return  string
      */

@@ -56,7 +56,7 @@ class Varien_File_Uploader
     /**
      * Upload type. Used to right handle $_FILES array.
      *
-     * @var Varien_File_Uploader::SINGLE_STYLE|Varien_File_Uploader::MULTIPLE_STYLE
+     * @var string Varien_File_Uploader::SINGLE_STYLE|Varien_File_Uploader::MULTIPLE_STYLE
      * @access protected
      */
     protected $_uploadType;
@@ -146,7 +146,7 @@ class Varien_File_Uploader
     /**
      * Resulting of uploaded file
      *
-     * @var array|bool      Array with file info keys: path, file. Result is
+     * @var array|false     Array with file info keys: path, file. Result is
      *                      FALSE when file not uploaded
      */
     protected $_result;
@@ -180,7 +180,7 @@ class Varien_File_Uploader
      * @param string $destinationFolder
      * @param string $newFileName
      * @access public
-     * @return void|bool
+     * @return array|false
      */
     public function save($destinationFolder, $newFileName = null)
     {

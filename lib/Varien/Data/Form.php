@@ -32,6 +32,7 @@
  * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string getHtmlIdPrefix()
+ * @method $this setHtmlIdPrefix(string $value)
  * @method string getHtmlIdSuffix()
  * @method string getFieldNameSuffix()
  * @method setDataObject(Mage_Core_Model_Abstract $value)
