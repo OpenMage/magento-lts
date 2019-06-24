@@ -61,6 +61,11 @@
                 <class>Mage_Sendfriend_Block</class>
             </sendfriend>
         </blocks>
+        <helpers>
+            <sendfriend>
+                <class>Mage_Sendfriend_Helper</class>
+            </sendfriend>
+        </helpers>
         <template>
             <email>
                 <sendfriend_email_template translate="label" module="sendfriend">
