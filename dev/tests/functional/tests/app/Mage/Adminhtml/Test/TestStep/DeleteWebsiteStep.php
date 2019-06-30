@@ -94,7 +94,10 @@ class DeleteWebsiteStep implements TestStepInterface
             $this->storeIndex->open();
             $this->storeIndex->getStoreGrid()->openWebsite($websiteName);
             $this->editWebsite->getFormPageActions()->delete();
-            $this->deleteWebsite->getForm()->delete();
+            $deleteWebsiteForm = $this->deleteWebsite->getForm();
+            if ($deleteWebsiteForm->isVisible()) {
+                $deleteWebsiteForm->delete();
+            }
         }
     }
 }

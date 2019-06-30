@@ -68,7 +68,6 @@
             <data name="user/data/role_id/dataset" xsi:type="string">administrators</data>
             <data name="duplicatedParam" xsi:type="string">username</data>
             <data name="user/data/current_password" xsi:type="string">123123q</data>
-            <data name="issue" xsi:type="string">Bug: MPERF-6585: Typo mistake in User already exists error message.</data>
             <constraint name="Mage\Admin\Test\Constraint\AssertUserDuplicateMessage" />
         </variation>
         <variation name="CreateAdminUserEntityTestVariation4" firstConstraint="Mage\Admin\Test\Constraint\AssertUserDuplicateMessage" method="test">
@@ -82,7 +81,6 @@
             <data name="user/data/role_id/dataset" xsi:type="string">administrators</data>
             <data name="duplicatedParam" xsi:type="string">email</data>
             <data name="user/data/current_password" xsi:type="string">123123q</data>
-            <data name="issue" xsi:type="string">Bug: MPERF-6585: Typo mistake in User already exists error message.</data>
             <constraint name="Mage\Admin\Test\Constraint\AssertUserDuplicateMessage" />
         </variation>
         <variation name="CreateAdminUserEntityTestVariation5" firstConstraint="Mage\Admin\Test\Constraint\AssertUserSuccessSaveMessage" method="test">

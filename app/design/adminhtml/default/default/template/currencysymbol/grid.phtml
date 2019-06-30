@@ -66,12 +66,12 @@
                             <?php foreach($this->getCurrencySymbolsData() as $code => $data): ?>
                             <tr>
                                 <td class="label">
-                                <label for="custom_currency_symbol<?php echo $code; ?>"><?php echo $code; ?> (<?php echo $data['displayName']; ?>)</label>
+                                <label for="custom_currency_symbol<?php echo $this->escapeHtml($code); ?>"><?php echo $this->escapeHtml($code); ?> (<?php echo $this->escapeHtml($data['displayName']); ?>)</label>
                                 </td>
                                 <td class="value">
-                                    <input id="custom_currency_symbol<?php echo $code; ?>" class=" required-entry input-text" type="text" value="<?php echo Mage::helper('core')->quoteEscape($data['displaySymbol']); ?>"<?php echo $data['inherited'] ? ' disabled="disabled"' : '';?> name="custom_currency_symbol[<?php echo $code; ?>]">
-                                    &nbsp; <input id="custom_currency_symbol_inherit<?php echo $code; ?>" class="checkbox config-inherit" type="checkbox" onclick="toggleUseDefault(<?php echo '\'' . $code . '\',\'' . Mage::helper('core')->quoteEscape($data['parentSymbol'], true) . '\''; ?>)"<?php echo $data['inherited'] ? ' checked="checked"' : ''; ?> value="1" name="inherit_custom_currency_symbol[<?php echo $code; ?>]">
-                                    <label class="inherit" title="" for="custom_currency_symbol_inherit<?php echo $code; ?>"><?php echo $this->getInheritText(); ?></label>
+                                    <input id="custom_currency_symbol<?php echo $this->escapeHtml($code); ?>" class=" required-entry input-text" type="text" value="<?php echo Mage::helper('core')->quoteEscape($this->escapeHtml($data['displaySymbol'])); ?>"<?php echo $data['inherited'] ? ' disabled="disabled"' : '';?> name="custom_currency_symbol[<?php echo $this->escapeHtml($code); ?>]">
+                                    &nbsp; <input id="custom_currency_symbol_inherit<?php echo $this->escapeHtml($code); ?>" class="checkbox config-inherit" type="checkbox" onclick="toggleUseDefault(<?php echo '\'' . $this->escapeHtml($code) . '\',\'' . Mage::helper('core')->quoteEscape($data['parentSymbol'], true) . '\''; ?>)"<?php echo $data['inherited'] ? ' checked="checked"' : ''; ?> value="1" name="inherit_custom_currency_symbol[<?php echo $this->escapeHtml($code); ?>]">
+                                    <label class="inherit" title="" for="custom_currency_symbol_inherit<?php echo $this->escapeHtml($code); ?>"><?php echo $this->getInheritText(); ?></label>
                                 </td>
                             </tr>
                             <?php endforeach; ?>

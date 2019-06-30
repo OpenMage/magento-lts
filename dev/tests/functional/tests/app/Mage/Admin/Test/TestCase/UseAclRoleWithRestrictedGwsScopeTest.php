@@ -132,7 +132,7 @@ class UseAclRoleWithRestrictedGwsScopeTest extends Injectable
     {
         $userData = $user->getData();
         $userData['role_id'] = ['role' => $role];
-        unset($userData['user_id']);
+        unset($userData['user_id'], $userData['password'], $userData['password_confirmation']);
 
         return $this->fixtureFactory->createByCode('user', ['data' => $userData]);
     }
