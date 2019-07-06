@@ -3,6 +3,7 @@
 "Accepted Currency","Accepted Currency"
 "Amount of %s approved by payment gateway. Transaction ID: ""%s"".","Amount of %s approved by payment gateway. Transaction ID: ""%s""."
 "Authorize.net Direct Post","Authorize.net Direct Post"
+"Authorize.net Direct Post (Deprecated)","Authorize.net Direct Post (Deprecated)"
 "Card Verification Number","Card Verification Number"
 "Card Verification Number Visual Reference","Card Verification Number Visual Reference"
 "Close","Close"
