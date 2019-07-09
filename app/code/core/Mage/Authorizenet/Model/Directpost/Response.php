@@ -44,23 +44,31 @@ class Mage_Authorizenet_Model_Directpost_Response extends Varien_Object
      */
     public function generateHash($merchantMd5, $merchantApiLogin, $amount, $transactionId)
     {
-        if (!$amount) {
-            $amount = '0.00';
-        }
         return strtoupper(md5($merchantMd5 . $merchantApiLogin . $transactionId . $amount));
     }
 
     /**
      * Return if is valid order id.
      *
-     * @param string $merchantMd5
+     * @param string $storedHash
      * @param string $merchantApiLogin
      * @return bool
      */
-    public function isValidHash($merchantMd5, $merchantApiLogin)
+    public function isValidHash($storedHash, $merchantApiLogin)
     {
-        return $this->generateHash($merchantMd5, $merchantApiLogin, $this->getXAmount(), $this->getXTransId())
-            == $this->getData('x_MD5_Hash');
+        if (empty($this->getData('x_amount'))) {
+            $this->setData('x_amount', '0.00');
+        }
+
+        if (!empty($this->getData('x_SHA2_Hash'))) {
+            $hash = $this->generateSha2Hash($storedHash);
+            return $hash == $this->getData('x_SHA2_Hash');
+        } elseif (!empty($this->getData('x_MD5_Hash'))) {
+            $hash = $this->generateHash($storedHash, $merchantApiLogin, $this->getXAmount(), $this->getXTransId());
+            return $hash == $this->getData('x_MD5_Hash');
+        }
+
+        return false;
     }
 
     /**
@@ -71,5 +79,83 @@ class Mage_Authorizenet_Model_Directpost_Response extends Varien_Object
     public function isApproved()
     {
         return $this->getXResponseCode() == Mage_Authorizenet_Model_Directpost::RESPONSE_CODE_APPROVED;
+    }
+
+    /**
+     * Generates an SHA2 hash to compare against AuthNet's.
+     *
+     * @param string $signatureKey
+     * @return string
+     * @see https://support.authorize.net/s/article/MD5-Hash-End-of-Life-Signature-Key-Replacement
+     */
+    public function generateSha2Hash($signatureKey)
+    {
+        $hashFields = [
+            'x_trans_id',
+            'x_test_request',
+            'x_response_code',
+            'x_auth_code',
+            'x_cvv2_resp_code',
+            'x_cavv_response',
+            'x_avs_code',
+            'x_method',
+            'x_account_number',
+            'x_amount',
+            'x_company',
+            'x_first_name',
+            'x_last_name',
+            'x_address',
+            'x_city',
+            'x_state',
+            'x_zip',
+            'x_country',
+            'x_phone',
+            'x_fax',
+            'x_email',
+            'x_ship_to_company',
+            'x_ship_to_first_name',
+            'x_ship_to_last_name',
+            'x_ship_to_address',
+            'x_ship_to_city',
+            'x_ship_to_state',
+            'x_ship_to_zip',
+            'x_ship_to_country',
+            'x_invoice_num',
+        ];
+
+        $order = Mage::getModel('sales/order')->loadByIncrementId($this->getData('x_invoice_num'));
+        $billing = $order->getBillingAddress();
+        if (!empty($billing)) {
+            $this->setXFirstName(strval($billing->getFirstname()))
+                ->setXLastName(strval($billing->getLastname()))
+                ->setXCompany(strval($billing->getCompany()))
+                ->setXAddress(strval($billing->getStreet(1)))
+                ->setXCity(strval($billing->getCity()))
+                ->setXState(strval($billing->getRegion()))
+                ->setXZip(strval($billing->getPostcode()))
+                ->setXCountry(strval($billing->getCountry()))
+                ->setXPhone(strval($billing->getTelephone()))
+                ->setXFax(strval($billing->getFax()))
+                ->setXEmail(strval($order->getCustomerEmail()));
+        }
+        $shipping = $order->getShippingAddress();
+        if (!empty($shipping)) {
+            $this->setXShipToFirstName(strval($shipping->getFirstname()))
+                ->setXShipToLastName(strval($shipping->getLastname()))
+                ->setXShipToCompany(strval($shipping->getCompany()))
+                ->setXShipToAddress(strval($shipping->getStreet(1)))
+                ->setXShipToCity(strval($shipping->getCity()))
+                ->setXShipToState(strval($shipping->getRegion()))
+                ->setXShipToZip(strval($shipping->getPostcode()))
+                ->setXShipToCountry(strval($shipping->getCountry()));
+        }
+
+        $message = '^';
+        foreach ($hashFields as $field) {
+            $fieldData = $this->getData($field);
+            $message .= (isset($fieldData) ? $fieldData : '') . '^';
+        }
+
+        return strtoupper(hash_hmac('sha512', $message, pack('H*', $signatureKey)));
     }
 }
