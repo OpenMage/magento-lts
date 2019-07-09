@@ -254,7 +254,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
             $chars = self::CHARS_LOWERS . self::CHARS_UPPERS . self::CHARS_DIGITS;
         }
         for ($i = 0, $str = '', $lc = strlen($chars)-1; $i < $len; $i++) {
-            $str .= $chars[mt_rand(0, $lc)];
+            $str .= $chars[random_int(0, $lc)];
         }
         return $str;
     }

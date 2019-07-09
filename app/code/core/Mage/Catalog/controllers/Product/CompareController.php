@@ -80,7 +80,7 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
         }
 
         $productId = (int) $this->getRequest()->getParam('product');
-        if ($productId
+        if ($this->isProductAvailable($productId)
             && (Mage::getSingleton('log/visitor')->getId() || Mage::getSingleton('customer/session')->isLoggedIn())
         ) {
             $product = Mage::getModel('catalog/product')
@@ -106,7 +106,8 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
      */
     public function removeAction()
     {
-        if ($productId = (int) $this->getRequest()->getParam('product')) {
+        $productId = (int) $this->getRequest()->getParam('product');
+        if ($this->isProductAvailable($productId)) {
             $product = Mage::getModel('catalog/product')
                 ->setStoreId(Mage::app()->getStore()->getId())
                 ->load($productId);
@@ -183,5 +184,16 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
     {
         $this->_customerId = $id;
         return $this;
+    }
+
+    /**
+     * Check if product is available
+     *
+     * @param int $productId
+     * @return bool
+     */
+    public function isProductAvailable($productId)
+    {
+        return Mage::getModel('catalog/product')->load($productId)->isAvailable();
     }
 }

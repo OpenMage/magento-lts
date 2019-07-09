@@ -27,18 +27,18 @@
 <script type="text/javascript">
 //<![CDATA[
 function setSettings(urlTemplate, typeElement, packageThemeElement) {
-    if (!editForm.validate()) {
+    if (editForm.validator && editForm.validator.validate()) {
+        typeElement = $F(typeElement).replace(/\//g, '-');
+        packageThemeElement = $F(packageThemeElement).split(/\//g);
+
+        setLocation(new Template(urlTemplate, /(^|.|\r|\n)({{(\w+)}})/).evaluate({
+            'type': typeElement,
+            'package': packageThemeElement[0],
+            'theme': packageThemeElement[1]
+        }));
+    } else {
         return false;
     }
-
-    typeElement = $F(typeElement).replace(/\//g, '-');
-    packageThemeElement = $F(packageThemeElement).split(/\//g);
-
-    setLocation(new Template(urlTemplate, /(^|.|\r|\n)({{(\w+)}})/).evaluate({
-        'type':    typeElement,
-        'package': packageThemeElement[0],
-        'theme':   packageThemeElement[1]
-    }));
 }
 
 function saveAndContinueEdit() {
