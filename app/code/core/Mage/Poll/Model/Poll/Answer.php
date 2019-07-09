@@ -58,22 +58,34 @@ class Mage_Poll_Model_Poll_Answer extends Mage_Core_Model_Abstract
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _afterSave()
     {
         Mage::getModel('poll/poll')
             ->setId($this->getPollId())
             ->resetVotesCount();
+        return parent::_afterSave();
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _beforeDelete()
     {
         $this->setPollId($this->load($this->getId())->getPollId());
+        return parent::_beforeDelete();
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _afterDelete()
     {
         Mage::getModel('poll/poll')
             ->setId($this->getPollId())
             ->resetVotesCount();
+        return parent::_afterDelete();
     }
 }
