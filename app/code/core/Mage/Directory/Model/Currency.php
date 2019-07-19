@@ -190,14 +190,8 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
             return $price * $rate;
         }
 
-        if ($toCurrency instanceof Mage_Directory_Model_Currency) {
-            $toCurrencyCode = $toCurrency->getCode();
-        } else {
-            $toCurrencyCode = $toCurrency;
-        }
-
         throw new Exception(
-            Mage::helper('directory')->__('Undefined rate from "%s-%s".', $this->getCode(), $toCurrencyCode)
+            Mage::helper('directory')->__('Undefined rate from "%s-%s".', $this->getCode(), $toCurrency instanceof Mage_Directory_Model_Currency ? $toCurrency->getCode() : $toCurrency)
         );
     }
 
