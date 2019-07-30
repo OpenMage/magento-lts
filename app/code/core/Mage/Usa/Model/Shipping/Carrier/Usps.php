@@ -1956,7 +1956,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
     }
 
     /**
-     * @deprecate
+     * @deprecated
      */
     public function getMethodLabel($value)
     {
