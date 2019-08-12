@@ -487,7 +487,7 @@ final class Mage
      *
      * @param   string $modelClass
      * @param   array $arguments
-     * @return  Object
+     * @return  Varien_Data_Collection
      */
     public static function getResourceModel($modelClass, $arguments = array())
     {

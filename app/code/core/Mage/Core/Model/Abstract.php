@@ -196,7 +196,8 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Get collection instance
      *
-     * @return object
+     * @return Varien_Data_Collection
+     * @throws Mage_Core_Exception
      */
     public function getResourceCollection()
     {
@@ -206,6 +207,9 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         return Mage::getResourceModel($this->_resourceCollectionName, $this->_getResource());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getCollection()
     {
         return $this->getResourceCollection();
