@@ -230,7 +230,7 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_List extends Mage_Payment_Bl
                     'code'      => 1,
                     'label'     => $this->__('Use Store Credit (%s available)', $balance),
                     'is_cover_a_quote' => (int)$customerBalanceBlock->isFullyPaidAfterApplication(),
-                    'selected'  => (int)($customerBalanceBlock->isCustomerBalanceUsed()
+                    'selected'  => (int)$customerBalanceBlock->isCustomerBalanceUsed()
                 ));
             }
         }
