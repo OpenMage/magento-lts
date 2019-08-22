@@ -263,7 +263,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
      */
     public function blocksAction()
     {
-        /* @var $widgetInstance age_Widget_Model_Widget_Instance */
+        /* @var $widgetInstance Mage_Widget_Model_Widget_Instance */
         $widgetInstance = $this->_initWidgetInstance();
         $layout = $this->getRequest()->getParam('layout');
         $selected = $this->getRequest()->getParam('selected', null);
@@ -284,7 +284,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
      */
     public function templateAction()
     {
-        /* @var $widgetInstance age_Widget_Model_Widget_Instance */
+        /* @var $widgetInstance Mage_Widget_Model_Widget_Instance */
         $widgetInstance = $this->_initWidgetInstance();
         $block = $this->getRequest()->getParam('block');
         $selected = $this->getRequest()->getParam('selected', null);
