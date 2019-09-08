@@ -1,0 +1,6 @@
+{
+    "name": "openmage/magento-mirror",
+    "type": "magento-core",
+    "license": ["OSL-3.0", "AFL-3.0"],
+    "description": "Magento CE"
+}
