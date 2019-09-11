@@ -173,6 +173,7 @@ class Mage_Core_Model_Design_Package
      */
     public function setPackageName($name = '')
     {
+        $origName = $this->_name;
         if (empty($name)) {
             // see, if exceptions for user-agents defined in config
             $customPackage = $this->_checkUserAgentAgainstRegexps('design/package/ua_regexp');
@@ -190,6 +191,13 @@ class Mage_Core_Model_Design_Package
         if (!$this->designPackageExists($this->_name, $this->getArea())) {
             $this->_name = self::DEFAULT_PACKAGE;
         }
+        
+        if ($this->_name != $origName) {
+            //When changing package, clear all the theme data. Otherwise Magento might try to use one theme with a
+            //package from a different theme. Especially when dealing with environment emulations for emails
+            $this->_theme = null;
+        }
+        
         return $this;
     }
 
