@@ -845,4 +845,16 @@ class Varien_Io_File extends Varien_Io_Abstract
     {
         return $this->getCleanPath(dirname($file));
     }
+    
+    public function fopen($fileName, $mode)
+    {
+        $this->_streamHandler = @fopen($fileName, $mode);
+        return $this->_streamHandler;
+    }
+    
+    public function fclose($fileName, $mode)
+    {
+        return $this->streamClose();
+    }
+    
 }
