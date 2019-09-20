@@ -92,6 +92,8 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
             ->setInitialDesign($initialDesign)
             ->setInitialLocaleCode($initialLocaleCode);
 
+        Mage::app()->getTranslator()->init($area, true);
+        
         return $initialEnvironmentInfo;
     }
 
