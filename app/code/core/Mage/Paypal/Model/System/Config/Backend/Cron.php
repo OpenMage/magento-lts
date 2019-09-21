@@ -31,7 +31,8 @@ class Mage_Paypal_Model_System_Config_Backend_Cron extends Mage_Core_Model_Confi
 
     /**
      * Cron settings after save
-     * @return void
+     *
+     * {@inheritDoc}
      */
     protected function _afterSave()
     {
