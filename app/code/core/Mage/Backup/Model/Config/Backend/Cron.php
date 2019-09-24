@@ -59,9 +59,9 @@ class Mage_Backup_Model_Config_Backend_Cron extends Mage_Core_Model_Config_Data
             $cronExprArray = array(
                 intval($time[1]),                                   # Minute
                 intval($time[0]),                                   # Hour
-                ($frequency == $frequencyMonthly) ? '1' : '*',      # Day of the Month
-                '*',                                                # Month of the Year
-                ($frequency == $frequencyWeekly) ? '1' : '*',       # Day of the Week
+                ($frequency == $frequencyMonthly) ? '1' : '*',          # Day of the Month
+                '*',                                                    # Month of the Year
+                ($frequency == $frequencyWeekly) ? '1' : '*',           # Day of the Week
             );
             $cronExprString = join(' ', $cronExprArray);
         }

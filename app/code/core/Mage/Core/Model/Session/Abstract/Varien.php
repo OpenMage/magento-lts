@@ -142,17 +142,18 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
 
         if (Mage::app()->getFrontController()->getRequest()->isSecure() && empty($cookieParams['secure'])) {
             // secure cookie check to prevent MITM attack
-            $secureCookieName = session_name() . '_cid';
-            if (isset($_SESSION[self::SECURE_COOKIE_CHECK_KEY])
-                && $_SESSION[self::SECURE_COOKIE_CHECK_KEY] !== md5($cookie->get($secureCookieName))
-            ) {
-                session_regenerate_id(false);
-                $sessionHosts = $this->getSessionHosts();
-                $currentCookieDomain = $cookie->getDomain();
-                foreach (array_keys($sessionHosts) as $host) {
-                    // Delete cookies with the same name for parent domains
-                    if (strpos($currentCookieDomain, $host) > 0) {
-                        $cookie->delete($this->getSessionName(), null, $host);
+            $secureCookieName = $this->getSessionName() . '_cid';
+            if (isset($_SESSION[self::SECURE_COOKIE_CHECK_KEY])) {
+                $cookieValue = $cookie->get($secureCookieName);
+                if (!is_string($cookieValue) || $_SESSION[self::SECURE_COOKIE_CHECK_KEY] !== md5($cookieValue)) {
+                    session_regenerate_id(false);
+                    $sessionHosts = $this->getSessionHosts();
+                    $currentCookieDomain = $cookie->getDomain();
+                    foreach (array_keys($sessionHosts) as $host) {
+                        // Delete cookies with the same name for parent domains
+                        if (strpos($currentCookieDomain, $host) > 0) {
+                            $cookie->delete($this->getSessionName(), null, $host);
+                        }
                     }
                 }
                 $_SESSION = array();

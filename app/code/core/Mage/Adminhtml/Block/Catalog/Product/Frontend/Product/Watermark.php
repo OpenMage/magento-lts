@@ -71,7 +71,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Frontend_Product_Watermark extends Ma
                 ->setForm( $this->getForm() )
                 ->setLabel(Mage::helper('adminhtml')->__('Position of Watermark for %s', $attribute['title']))
                 ->setRenderer($renderer)
-                ->setValues(Mage::getSingleton('adminhtml/system_config_source_catalog_product_watermark_position')->toOptionArray());
+                ->setValues(Mage::getSingleton('adminhtml/system_config_source_watermark_position')->toOptionArray());
             $html.= $field->toHtml();
         }
 

@@ -34,6 +34,11 @@
 class Mage_Adminhtml_SitemapController extends  Mage_Adminhtml_Controller_Action
 {
     /**
+     * Maximum sitemap name length
+     */
+    const MAXIMUM_SITEMAP_NAME_LENGTH = 32;
+
+    /**
      * Controller predispatch method
      *
      * @return Mage_Adminhtml_Controller_Action
@@ -141,6 +146,19 @@ class Mage_Adminhtml_SitemapController extends  Mage_Adminhtml_Controller_Action
             if (!empty($data['sitemap_filename']) && !empty($data['sitemap_path'])) {
                 $path = rtrim($data['sitemap_path'], '\\/')
                       . DS . $data['sitemap_filename'];
+
+                // check filename length
+                if (strlen($data['sitemap_filename']) > self::MAXIMUM_SITEMAP_NAME_LENGTH) {
+                    Mage::getSingleton('adminhtml/session')->addError(
+                        Mage::helper('sitemap')->__(
+                            'Please enter a sitemap name with at most %s characters.',
+                            self::MAXIMUM_SITEMAP_NAME_LENGTH
+                        ));
+                    $this->_redirect('*/*/edit', array(
+                        'sitemap_id' => $this->getRequest()->getParam('sitemap_id')
+                    ));
+                    return;
+                }
                 /** @var $validator Mage_Core_Model_File_Validator_AvailablePath */
                 $validator = Mage::getModel('core/file_validator_availablePath');
                 /** @var $helper Mage_Adminhtml_Helper_Catalog */

@@ -61,6 +61,11 @@
                 <class>Mage_Sendfriend_Block</class>
             </sendfriend>
         </blocks>
+        <helpers>
+            <sendfriend>
+                <class>Mage_Sendfriend_Helper</class>
+            </sendfriend>
+        </helpers>
         <template>
             <email>
                 <sendfriend_email_template translate="label" module="sendfriend">
@@ -122,7 +127,7 @@
     <default>
         <sendfriend>
             <email>
-                <enabled>1</enabled>
+                <enabled>0</enabled>
                 <template>sendfriend_email_template</template>
                 <allow_guest>0</allow_guest>
                 <max_recipients>5</max_recipients>

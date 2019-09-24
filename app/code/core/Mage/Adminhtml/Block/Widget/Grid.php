@@ -547,6 +547,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             }
 
             if (!$this->_isExport) {
+                $this->_beforeLoadCollection();
                 $this->getCollection()->load();
                 $this->_afterLoadCollection();
             }
@@ -651,6 +652,11 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     protected function _afterLoadCollection()
+    {
+        return $this;
+    }
+
+    protected function _beforeLoadCollection()
     {
         return $this;
     }
@@ -1055,6 +1061,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $this->_prepareGrid();
         $this->getCollection()->getSelect()->limit();
         $this->getCollection()->setPageSize(0);
+        $this->_beforeLoadCollection();
         $this->getCollection()->load();
         $this->_afterLoadCollection();
 
@@ -1098,6 +1105,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $this->_prepareGrid();
         $this->getCollection()->getSelect()->limit();
         $this->getCollection()->setPageSize(0);
+        $this->_beforeLoadCollection();
         $this->getCollection()->load();
         $this->_afterLoadCollection();
         $indexes = array();
@@ -1197,6 +1205,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $this->_prepareGrid();
         $this->getCollection()->getSelect()->limit();
         $this->getCollection()->setPageSize(0);
+        $this->_beforeLoadCollection();
         $this->getCollection()->load();
         $this->_afterLoadCollection();
         $headers = array();
