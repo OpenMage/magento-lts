@@ -53,7 +53,7 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
     /**
      * dummy call to pass through checking
      *
-     * @return unknown
+     * @return bool
      */
     protected function _beforeModuleMatch()
     {

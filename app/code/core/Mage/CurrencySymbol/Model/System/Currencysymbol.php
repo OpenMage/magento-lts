@@ -274,7 +274,11 @@ class Mage_CurrencySymbol_Model_System_Currencysymbol
         $result = array();
         $configData = (string)Mage::getStoreConfig($configPath, $storeId);
         if ($configData) {
-            $result = unserialize($configData);
+            try {
+                $result = Mage::helper('core/unserializeArray')->unserialize($configData);
+            } catch (Exception $e) {
+                Mage::logException($e);
+            }
         }
 
         return is_array($result) ? $result : array();

@@ -46,6 +46,9 @@ class Mage_Catalog_Model_Product_Attribute_Source_Countryofmanufacture
             $options = unserialize($cache);
         } else {
             $collection = Mage::getModel('directory/country')->getResourceCollection();
+            if (!Mage::app()->getStore()->isAdmin()) {
+                $collection->loadByStore();
+            }
             $options = $collection->toOptionArray();
             if (Mage::app()->useCache('config')) {
                 Mage::app()->saveCache(serialize($options), $cacheKey, array('config'));

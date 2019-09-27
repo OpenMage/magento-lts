@@ -34,7 +34,7 @@ class Mage_Directory_Model_Currency_Filter implements Zend_Filter_Interface
     /**
      * Rate value
      *
-     * @var decimal
+     * @var float
      */
     protected $_rate;
 

@@ -585,8 +585,14 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         if (!$entityId || empty($attribute)) {
             return false;
         }
+
+        $returnArray = false;
+
         if (!is_array($attribute)) {
             $attribute = array($attribute);
+        }
+        elseif (sizeof($attribute) > 1) {
+            $returnArray = true;
         }
 
         $attributesData     = array();
@@ -676,7 +682,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
             }
         }
 
-        if (sizeof($attributesData) == 1) {
+        if (sizeof($attributesData) == 1 && !$returnArray) {
             $_data = each($attributesData);
             $attributesData = $_data[1];
         }

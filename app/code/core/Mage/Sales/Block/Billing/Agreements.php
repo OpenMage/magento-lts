@@ -79,9 +79,9 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
     /**
      * Retrieve item value by key
      *
-     * @param Varien_Object $item
+     * @param Mage_Sales_Model_Billing_Agreement $item
      * @param string $key
-     * @return mixed
+     * @return string
      */
     public function getItemValue(Mage_Sales_Model_Billing_Agreement $item, $key)
     {

@@ -367,7 +367,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
     /**
      * Perform actions before object save
      *
-     * @param Varien_Object $object
+     * @param Mage_Core_Model_Abstract $object
      * @return Mage_Sales_Model_Resource_Order_Abstract
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)

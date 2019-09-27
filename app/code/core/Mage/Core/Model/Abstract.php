@@ -100,8 +100,6 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * Standard model initialization
      *
      * @param string $resourceModel
-     * @param string $idFieldName
-     * @return Mage_Core_Model_Abstract
      */
     protected function _init($resourceModel)
     {

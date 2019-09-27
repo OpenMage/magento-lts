@@ -229,8 +229,8 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
     /**
      * Check data before update
      *
-     * @param $data
-     * @return
+     * @param array $data
+     * @return array
      */
     protected function _prepareDataForUpdate($data)
     {

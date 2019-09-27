@@ -178,6 +178,22 @@
                     </security_domain_policy>
                 </observers>
             </controller_action_predispatch>
+            <model_save_before>
+                <observers>
+                    <secure_var_processing>
+                        <class>core/observer</class>
+                        <method>secureVarProcessing</method>
+                    </secure_var_processing>
+                </observers>
+            </model_save_before>
+            <model_delete_before>
+                <observers>
+                    <secure_var_processing>
+                        <class>core/observer</class>
+                        <method>secureVarProcessing</method>
+                    </secure_var_processing>
+                </observers>
+            </model_delete_before>
         </events>
     </global>
     <frontend>
@@ -324,6 +340,9 @@
                     <compiled_js_folder>js</compiled_js_folder>
                 </allowed_resources>
                 <ignored_resources>.svn,.htaccess</ignored_resources>
+                <loaded_modules>
+                    <Mage_Core />
+                </loaded_modules>
             </media_storage_configuration>
         </system>
         <trans_email>

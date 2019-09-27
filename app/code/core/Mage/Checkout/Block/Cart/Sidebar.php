@@ -84,7 +84,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
      * It will include tax, if required by config settings.
      *
      * @param   bool $skipTax flag for getting price with tax or not. Ignored in case when we display just subtotal incl.tax
-     * @return  decimal
+     * @return  float
      */
     public function getSubtotal($skipTax = true)
     {
@@ -114,7 +114,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
      * Get subtotal, including tax.
      * Will return > 0 only if appropriate config settings are enabled.
      *
-     * @return decimal
+     * @return float
      */
     public function getSubtotalInclTax()
     {

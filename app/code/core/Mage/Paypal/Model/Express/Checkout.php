@@ -82,7 +82,7 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Payment method type
      *
-     * @var unknown_type
+     * @var string
      */
     protected $_methodType = Mage_Paypal_Model_Config::METHOD_WPP_EXPRESS;
 

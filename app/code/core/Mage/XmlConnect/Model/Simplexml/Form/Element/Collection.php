@@ -31,7 +31,7 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Model_Simplexml_Form_Element_Collection implements ArrayAccess, IteratorAggregate
+class Mage_XmlConnect_Model_Simplexml_Form_Element_Collection implements ArrayAccess, IteratorAggregate, Countable
 {
     /**
      * Elements storage
@@ -175,9 +175,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Element_Collection implements ArrayAc
     }
 
     /**
-     * Count elements in collection
-     *
-     * @return int
+     * Implementation of Countable:count()
      */
     public function count()
     {

@@ -67,7 +67,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      * Send authorize request to gateway
      *
      * @param  Varien_Object $payment
-     * @param  decimal $amount
+     * @param  float $amount
      * @return Mage_Paygate_Model_Authorizenet
      * @throws Mage_Core_Exception
      */
@@ -80,7 +80,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      * Send capture request to gateway
      *
      * @param Varien_Object $payment
-     * @param decimal $amount
+     * @param float $amount
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -211,7 +211,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      * Need to decode Last 4 digits for request.
      *
      * @param Varien_Object $payment
-     * @param decimal $amount
+     * @param float $amount
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -389,9 +389,11 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     public function validateResponse()
     {
         $response = $this->getResponse();
-        //md5 check
-        if (!$this->getConfigData('trans_md5') || !$this->getConfigData('login') ||
-            !$response->isValidHash($this->getConfigData('trans_md5'), $this->getConfigData('login'))
+        $hashConfigKey = !empty($response->getData('x_SHA2_Hash')) ? 'signature_key' : 'trans_md5';
+
+        //hash check
+        if (!$this->getConfigData($hashConfigKey)
+            || !$response->isValidHash($this->getConfigData($hashConfigKey), $this->getConfigData('login'))
         ) {
             Mage::throwException(
                 Mage::helper('authorizenet')->__('Response hash validation failed. Transaction declined.')
@@ -499,7 +501,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      */
     public function checkTransId()
     {
-        if (!$this->getResponse()->getXTransId()) {
+        if (!$this->getResponse()->getXTransId() && ('0' !== $this->getResponse()->getXTransId())) {
             Mage::throwException(
                 Mage::helper('authorizenet')->__('Payment authorization error. Transacion id is empty.')
             );

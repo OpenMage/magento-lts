@@ -172,7 +172,7 @@ final class Mage
             'major'     => '1',
             'minor'     => '9',
             'revision'  => '4',
-            'patch'     => '1',
+            'patch'     => '2',
             'stability' => '',
             'number'    => '',
         );
@@ -420,8 +420,10 @@ final class Mage
      *
      * @param string $eventName
      * @param callback $callback
-     * @param array $arguments
+     * @param array $data
      * @param string $observerName
+     * @param string $observerClass
+     * @return Varien_Event_Collection
      */
     public static function addObserver($eventName, $callback, $data = array(), $observerName = '', $observerClass = '')
     {

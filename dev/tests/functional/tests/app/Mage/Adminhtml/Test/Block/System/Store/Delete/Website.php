@@ -34,6 +34,13 @@ use Magento\Mtf\Block\Form;
 class Website extends Form
 {
     /**
+     * Action buttons container.
+     *
+     * @var string
+     */
+    protected $buttonContainer = '.content-footer';
+
+    /**
      * 'Delete Website' button css selector.
      *
      * @var string
@@ -50,5 +57,15 @@ class Website extends Form
         $mapping = $this->dataMapping(['create_backup' => 'No']);
         $this->_fill($mapping);
         $this->_rootElement->find($this->delete)->click();
+    }
+
+    /**
+     * Check whether element is visible
+     *
+     * @return bool
+     */
+    public function isVisible()
+    {
+        return $this->_rootElement->find($this->buttonContainer)->isVisible();
     }
 }

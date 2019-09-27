@@ -717,7 +717,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Check if store is admin store
      *
-     * @return unknown
+     * @return bool
      */
     public function isAdmin()
     {
