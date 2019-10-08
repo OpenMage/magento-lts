@@ -1289,12 +1289,18 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     {
         $session = Mage::getSingleton('adminhtml/session');
         $sessionParamName = $this->getId().$paramName;
-        if ($this->getRequest()->has($paramName)) {
-            $param = $this->getRequest()->getParam($paramName);
-            if ($this->_saveParametersInSession) {
-                $session->setData($sessionParamName, $param);
+        $param = $this->getRequest()->getParam($paramName);
+
+        if ($param !== null) {
+            if (trim($param) !== '') {
+                if ($this->_saveParametersInSession) {
+                    $session->setData($sessionParamName, $param);
+                }
+                return $param;
+            } else {
+                $session->unsetData($sessionParamName);
+                return $default;
             }
-            return $param;
         }
         elseif ($this->_saveParametersInSession && ($param = $session->getData($sessionParamName)))
         {
