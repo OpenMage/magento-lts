@@ -296,6 +296,8 @@ varienGrid.prototype = {
         }
     },
     resetFilter : function(){
+        this.addVarToUrl(this.sortVar, '');
+        this.addVarToUrl(this.dirVar, '');
         this.addVarToUrl(this.pageVar, 1);
         this.reload(this.addVarToUrl(this.filterVar, ''));
     },
