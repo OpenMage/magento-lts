@@ -360,8 +360,8 @@ class Mage_Core_Model_Url extends Varien_Object
             $this->setData('store', Mage::app()->getStore($data));
         }
         catch (Mage_Core_Model_Store_Exception $e) {
-            // store not found (e.g. on developer server)
             Mage::logException($e);
+
             throw new Mage_Core_Exception("Store with id {$data} was not found!");
         }
 
