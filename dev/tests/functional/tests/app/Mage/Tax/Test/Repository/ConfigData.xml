@@ -394,18 +394,6 @@
                 <item name="label" xsi:type="string">Excluding Tax</item>
                 <item name="value" xsi:type="string">1</item>
             </field>
-            <field name="tax/sales_display/gift_wrapping" xsi:type="array">
-                <item name="scope" xsi:type="string">tax</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Excluding Tax</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="tax/sales_display/printed_card" xsi:type="array">
-                <item name="scope" xsi:type="string">tax</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Excluding Tax</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
             <field name="tax/sales_display/grandtotal" xsi:type="array">
                 <item name="scope" xsi:type="string">tax</item>
                 <item name="scope_id" xsi:type="number">1</item>
