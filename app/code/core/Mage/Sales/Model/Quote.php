@@ -831,9 +831,29 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     public function getItemById($itemId)
     {
-        return $this->getItemsCollection()->getItemById($itemId);
+        $quoteItem = null;
+        if ($quoteItem = $this->getItemsCollection()->getItemById($itemId)) {
+            return $quoteItem
+        } else {
+            foreach (this->getItemsCollection() as $item) {
+                if ($item->getId() == $itemId) {
+                    $quoteItem = $itemId;
+                    return $quoteItem;
+                } 
+            }
+        }
+        return $quoteItem;
     }
 
+        protected function _getQuoteItemById(Mage_Sales_Model_Quote $quote, int $itemId) {
+        foreach ($quote->getItemsCollection() as $quoteItem) {
+            if ($quoteItem->getId() == $itemId) {
+                return $quoteItem;
+            }
+        }
+        return null;
+    }
+    
     /**
      * Delete quote item. If it does not have identifier then it will be only removed from collection
      *
