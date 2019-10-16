@@ -233,4 +233,15 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
         return $list;
     }
 
+    /**
+     * Write a file
+     * @param  string $filename remote filename
+     * @param  string $src local filename
+     * @return boolean
+     */
+    public function writeFile($filename, $src)
+    {
+        return $this->_connection->put($filename, $src, phpseclib\Net\SFTP::SOURCE_LOCAL_FILE);
+    }
+
 }
