@@ -162,7 +162,9 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
 
         $request->setPathInfo()->setDispatched(false);
 
-        $this->_getRequestRewriteController()->rewrite();
+        if (!Mage::app()->getStore()->isAdmin()) {
+            $this->_getRequestRewriteController()->rewrite();
+        }
 
         Varien_Profiler::start('mage::dispatch::routers_match');
         $i = 0;
