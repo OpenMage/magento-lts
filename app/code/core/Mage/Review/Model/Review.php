@@ -158,7 +158,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
     {
         $entityIds = array();
         foreach ($collection->getItems() as $_itemId => $_item) {
-            $entityIds[] = $_item->getEntityId();
+            $entityIds[] = $_item->getId();
         }
 
         if (sizeof($entityIds) == 0) {
@@ -170,11 +170,9 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
             ->addStoreFilter(Mage::app()->getStore()->getId())
             ->load();
 
-        foreach ($collection->getItems() as $_item ) {
-            foreach ($summaryData as $_summary) {
-                if ($_summary->getEntityPkValue() == $_item->getEntityId()) {
-                    $_item->setRatingSummary($_summary);
-                }
+        foreach ($summaryData as $_summary) {
+            if (($_item = $collection->getItemById($_summary->getEntityPkValue()))) {
+                $_item->setRatingSummary($_summary);
             }
         }
 
