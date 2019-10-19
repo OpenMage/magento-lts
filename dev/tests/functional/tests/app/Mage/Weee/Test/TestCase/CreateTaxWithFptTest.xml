@@ -34,9 +34,9 @@
             <data name="prices/category/price" xsi:type="string">70.00</data>
             <data name="prices/category/fpt_price" xsi:type="string">10.00</data>
             <data name="prices/category/final_price" xsi:type="string">80.00</data>
-            <data name="prices/product/price" xsi:type="string">100.00</data>
+            <data name="prices/product/price" xsi:type="string">70.00</data>
             <data name="prices/product/fpt_price" xsi:type="string">10.00</data>
-            <data name="prices/product/final_price" xsi:type="string">110.00</data>
+            <data name="prices/product/final_price" xsi:type="string">100.00</data>
             <data name="prices/cartItem/cart_item_price" xsi:type="string">100</data>
             <data name="prices/cartItem/price_fpt_total" xsi:type="string">110</data>
             <data name="prices/cartItem/price_fpt" xsi:type="string">10.00</data>
@@ -44,7 +44,6 @@
             <data name="prices/cartItem/subtotal_fpt_total" xsi:type="string">110</data>
             <data name="prices/cartItem/subtotal_fpt" xsi:type="string">10.00</data>
             <data name="prices/total/grand_total" xsi:type="string">118.25</data>
-            <data name="issue" xsi:type="string">Bug: MPERF-7520: [FPT] Final price of Simple Product isn't recalculated after selecting options on product page</data>
             <constraint name="Mage\Weee\Test\Constraint\AssertFptApplied" />
         </variation>
         <variation name="CreateTaxWithFptTestVariation2" method="test">
@@ -54,8 +53,9 @@
             <data name="prices/category/price" xsi:type="string">75.78</data>
             <data name="prices/category/fpt_price" xsi:type="string">10.00</data>
             <data name="prices/category/final_price" xsi:type="string">85.78</data>
-            <data name="prices/product/price" xsi:type="string">118.25</data>
+            <data name="prices/product/price" xsi:type="string">75.78</data>
             <data name="prices/product/fpt_price" xsi:type="string">10.00</data>
+            <data name="prices/product/final_price" xsi:type="string">118.25</data>
             <data name="prices/cartItem/cart_item_price" xsi:type="string">108.25</data>
             <data name="prices/cartItem/price_fpt_total" xsi:type="string">118.25</data>
             <data name="prices/cartItem/price_fpt" xsi:type="string">10.00</data>
@@ -64,7 +64,6 @@
             <data name="prices/cartItem/subtotal_fpt" xsi:type="string">10.00</data>
             <data name="prices/total/grand_total_incl_tax" xsi:type="string">118.25</data>
             <data name="prices/total/grand_total_excl_tax" xsi:type="string">110</data>
-            <data name="issue" xsi:type="string">Bug: MPERF-7520: [FPT] Final price of Simple Product isn't recalculated after selecting options on product page</data>
             <constraint name="Mage\Weee\Test\Constraint\AssertFptApplied" />
         </variation>
         <variation name="CreateTaxWithFptTestVariation3" method="test">
@@ -112,9 +111,9 @@
             <data name="prices/category/price" xsi:type="string">70.00</data>
             <data name="prices/category/fpt_price" xsi:type="string">10.00</data>
             <data name="prices/category/final_price" xsi:type="string">80.00</data>
-            <data name="prices/product/price" xsi:type="string">100.00</data>
+            <data name="prices/product/price" xsi:type="string">70.00</data>
             <data name="prices/product/fpt_price" xsi:type="string">10.00</data>
-            <data name="prices/product/final_price" xsi:type="string">110.00</data>
+            <data name="prices/product/final_price" xsi:type="string">100.00</data>
             <data name="prices/cartItem/cart_item_price" xsi:type="string">100</data>
             <data name="prices/cartItem/price_fpt_total" xsi:type="string">110</data>
             <data name="prices/cartItem/price_fpt" xsi:type="string">10.00</data>
@@ -122,7 +121,6 @@
             <data name="prices/cartItem/subtotal_fpt_total" xsi:type="string">110</data>
             <data name="prices/cartItem/subtotal_fpt" xsi:type="string">10.00</data>
             <data name="prices/total/grand_total" xsi:type="string">119.08</data>
-            <data name="issue" xsi:type="string">Bug: MPERF-7520: [FPT] Final price of Simple Product isn't recalculated after selecting options on product page</data>
             <constraint name="Mage\Weee\Test\Constraint\AssertFptApplied" />
         </variation>
         <variation name="CreateTaxWithFptTestVariation6" method="test">
@@ -218,9 +216,9 @@
             <data name="prices/category/price" xsi:type="string">64.67</data>
             <data name="prices/category/fpt_price" xsi:type="string">10.00</data>
             <data name="prices/category/final_price" xsi:type="string">74.67</data>
-            <data name="prices/product/price" xsi:type="string">92.38</data>
+            <data name="prices/product/price" xsi:type="string">64.67</data>
             <data name="prices/product/fpt_price" xsi:type="string">10.00</data>
-            <data name="prices/product/final_price" xsi:type="string">102.38</data>
+            <data name="prices/product/final_price" xsi:type="string">92.38</data>
             <data name="prices/cartItem/cart_item_price" xsi:type="string">92.38</data>
             <data name="prices/cartItem/price_fpt_total" xsi:type="string">102.38</data>
             <data name="prices/cartItem/price_fpt" xsi:type="string">10.00</data>
@@ -228,7 +226,6 @@
             <data name="prices/cartItem/subtotal_fpt_total" xsi:type="string">102.38</data>
             <data name="prices/cartItem/subtotal_fpt" xsi:type="string">10.00</data>
             <data name="prices/total/grand_total" xsi:type="string">110.83</data>
-            <data name="issue" xsi:type="string">Bug: MPERF-7520: [FPT] Final price of Simple Product isn't recalculated after selecting options on product page</data>
             <constraint name="Mage\Weee\Test\Constraint\AssertFptApplied" />
         </variation>
     </testCase>

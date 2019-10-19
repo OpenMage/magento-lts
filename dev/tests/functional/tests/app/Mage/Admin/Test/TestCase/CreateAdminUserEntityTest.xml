@@ -32,11 +32,11 @@
             <data name="user/data/firstname" xsi:type="string">FirstName%isolation%</data>
             <data name="user/data/lastname" xsi:type="string">LastName%isolation%</data>
             <data name="user/data/email" xsi:type="string">email%isolation%@example.com</data>
-            <data name="user/data/password" xsi:type="string">123123q</data>
-            <data name="user/data/password_confirmation" xsi:type="string">123123q</data>
+            <data name="user/data/password" xsi:type="string">123123q123123q</data>
+            <data name="user/data/password_confirmation" xsi:type="string">123123q123123q</data>
             <data name="user/data/is_active" xsi:type="string">Active</data>
             <data name="user/data/role_id/dataset" xsi:type="string">administrators</data>
-            <data name="user/data/current_password" xsi:type="string">123123q</data>
+            <data name="user/data/current_password" xsi:type="string">123123q123123q</data>
             <constraint name="Mage\Admin\Test\Constraint\AssertUserSuccessSaveMessage" next="Mage\Admin\Test\Constraint\AssertUserInGrid" />
             <constraint name="Mage\Admin\Test\Constraint\AssertUserInGrid" next="Mage\Admin\Test\Constraint\AssertUserSuccessLogOut" prev="Mage\Admin\Test\Constraint\AssertUserSuccessSaveMessage" />
             <constraint name="Mage\Admin\Test\Constraint\AssertUserSuccessLogOut" next="Mage\Admin\Test\Constraint\AssertUserSuccessLogin" prev="Mage\Admin\Test\Constraint\AssertUserInGrid" />
@@ -47,11 +47,11 @@
             <data name="user/data/firstname" xsi:type="string">FirstName%isolation%</data>
             <data name="user/data/lastname" xsi:type="string">LastName%isolation%</data>
             <data name="user/data/email" xsi:type="string">email%isolation%@example.com</data>
-            <data name="user/data/password" xsi:type="string">123123q</data>
-            <data name="user/data/password_confirmation" xsi:type="string">123123q</data>
+            <data name="user/data/password" xsi:type="string">123123q123123q</data>
+            <data name="user/data/password_confirmation" xsi:type="string">123123q123123q</data>
             <data name="user/data/is_active" xsi:type="string">Inactive</data>
             <data name="user/data/role_id/dataset" xsi:type="string">administrators</data>
-            <data name="user/data/current_password" xsi:type="string">123123q</data>
+            <data name="user/data/current_password" xsi:type="string">123123q123123q</data>
             <constraint name="Mage\Admin\Test\Constraint\AssertUserSuccessSaveMessage" next="Mage\Admin\Test\Constraint\AssertUserInGrid" />
             <constraint name="Mage\Admin\Test\Constraint\AssertUserInGrid" next="Mage\Admin\Test\Constraint\AssertUserSuccessLogOut" prev="Mage\Admin\Test\Constraint\AssertUserSuccessSaveMessage" />
             <constraint name="Mage\Admin\Test\Constraint\AssertUserSuccessLogOut" next="Mage\Admin\Test\Constraint\AssertUserAccountInactiveMessage" prev="Mage\Admin\Test\Constraint\AssertUserInGrid" />
@@ -62,12 +62,12 @@
             <data name="user/data/firstname" xsi:type="string">FirstName%isolation%</data>
             <data name="user/data/lastname" xsi:type="string">LastName%isolation%</data>
             <data name="user/data/email" xsi:type="string">email%isolation%@example.com</data>
-            <data name="user/data/password" xsi:type="string">123123q</data>
-            <data name="user/data/password_confirmation" xsi:type="string">123123q</data>
+            <data name="user/data/password" xsi:type="string">123123q123123q</data>
+            <data name="user/data/password_confirmation" xsi:type="string">123123q123123q</data>
             <data name="user/data/is_active" xsi:type="string">Active</data>
             <data name="user/data/role_id/dataset" xsi:type="string">administrators</data>
             <data name="duplicatedParam" xsi:type="string">username</data>
-            <data name="user/data/current_password" xsi:type="string">123123q</data>
+            <data name="user/data/current_password" xsi:type="string">123123q123123q</data>
             <constraint name="Mage\Admin\Test\Constraint\AssertUserDuplicateMessage" />
         </variation>
         <variation name="CreateAdminUserEntityTestVariation4" firstConstraint="Mage\Admin\Test\Constraint\AssertUserDuplicateMessage" method="test">
@@ -75,12 +75,12 @@
             <data name="user/data/firstname" xsi:type="string">FirstName%isolation%</data>
             <data name="user/data/lastname" xsi:type="string">LastName%isolation%</data>
             <data name="user/data/email" xsi:type="string">-</data>
-            <data name="user/data/password" xsi:type="string">123123q</data>
-            <data name="user/data/password_confirmation" xsi:type="string">123123q</data>
+            <data name="user/data/password" xsi:type="string">123123q123123q</data>
+            <data name="user/data/password_confirmation" xsi:type="string">123123q123123q</data>
             <data name="user/data/is_active" xsi:type="string">Active</data>
             <data name="user/data/role_id/dataset" xsi:type="string">administrators</data>
             <data name="duplicatedParam" xsi:type="string">email</data>
-            <data name="user/data/current_password" xsi:type="string">123123q</data>
+            <data name="user/data/current_password" xsi:type="string">123123q123123q</data>
             <constraint name="Mage\Admin\Test\Constraint\AssertUserDuplicateMessage" />
         </variation>
         <variation name="CreateAdminUserEntityTestVariation5" firstConstraint="Mage\Admin\Test\Constraint\AssertUserSuccessSaveMessage" method="test">
@@ -88,11 +88,11 @@
             <data name="user/data/firstname" xsi:type="string">FirstName%isolation%</data>
             <data name="user/data/lastname" xsi:type="string">LastName%isolation%</data>
             <data name="user/data/email" xsi:type="string">email%isolation%@example.com</data>
-            <data name="user/data/password" xsi:type="string">123123q</data>
-            <data name="user/data/password_confirmation" xsi:type="string">123123q</data>
+            <data name="user/data/password" xsi:type="string">123123q123123q</data>
+            <data name="user/data/password_confirmation" xsi:type="string">123123q123123q</data>
             <data name="user/data/is_active" xsi:type="string">Active</data>
             <data name="user/data/role_id/dataset" xsi:type="string">-</data>
-            <data name="user/data/current_password" xsi:type="string">123123q</data>
+            <data name="user/data/current_password" xsi:type="string">123123q123123q</data>
             <constraint name="Mage\Admin\Test\Constraint\AssertUserSuccessSaveMessage" next="Mage\Admin\Test\Constraint\AssertUserInGrid" />
             <constraint name="Mage\Admin\Test\Constraint\AssertUserInGrid" next="Mage\Admin\Test\Constraint\AssertUserSuccessLogOut" prev="Mage\Admin\Test\Constraint\AssertUserSuccessSaveMessage" />
             <constraint name="Mage\Admin\Test\Constraint\AssertUserSuccessLogOut" next="Mage\Admin\Test\Constraint\AssertUserAccessDeniedMessage" prev="Mage\Admin\Test\Constraint\AssertUserInGrid" />
@@ -103,11 +103,11 @@
             <data name="user/data/firstname" xsi:type="string">FirstName%isolation%</data>
             <data name="user/data/lastname" xsi:type="string">LastName%isolation%</data>
             <data name="user/data/email" xsi:type="string">email%isolation%@example.cim</data>
-            <data name="user/data/password" xsi:type="string">123123q</data>
-            <data name="user/data/password_confirmation" xsi:type="string">123123q</data>
+            <data name="user/data/password" xsi:type="string">123123q123123q</data>
+            <data name="user/data/password_confirmation" xsi:type="string">123123q123123q</data>
             <data name="user/data/is_active" xsi:type="string">Active</data>
             <data name="user/data/role_id/dataset" xsi:type="string">-</data>
-            <data name="user/data/current_password" xsi:type="string">123123q</data>
+            <data name="user/data/current_password" xsi:type="string">123123q123123q</data>
             <constraint name="Mage\Admin\Test\Constraint\AssertUserInvalidEmailMessage" />
         </variation>
         <variation name="CreateAdminUserEntityTestVariation7" firstConstraint="Mage\Admin\Test\Constraint\AssertUserWithCustomRole" method="test">
@@ -115,12 +115,12 @@
             <data name="user/data/firstname" xsi:type="string">FirstName%isolation%</data>
             <data name="user/data/lastname" xsi:type="string">LastName%isolation%</data>
             <data name="user/data/email" xsi:type="string">email%isolation%@example.com</data>
-            <data name="user/data/password" xsi:type="string">123123q</data>
-            <data name="user/data/password_confirmation" xsi:type="string">123123q</data>
+            <data name="user/data/password" xsi:type="string">123123q123123q</data>
+            <data name="user/data/password_confirmation" xsi:type="string">123123q123123q</data>
             <data name="user/data/is_active" xsi:type="string">Active</data>
             <data name="user/data/role_id/dataset" xsi:type="string">custom</data>
             <data name="isCustomRole" xsi:type="boolean">true</data>
-            <data name="user/data/current_password" xsi:type="string">123123q</data>
+            <data name="user/data/current_password" xsi:type="string">123123q123123q</data>
             <constraint name="Mage\Admin\Test\Constraint\AssertUserWithCustomRole"/>
         </variation>
     </testCase>
