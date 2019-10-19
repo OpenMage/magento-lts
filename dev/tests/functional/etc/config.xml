@@ -29,7 +29,7 @@
     <application>
         <reopenBrowser>testCase</reopenBrowser>
         <backendLogin>admin</backendLogin>
-        <backendPassword>123123q</backendPassword>
+        <backendPassword>123123q123123q</backendPassword>
         <backendLoginUrl/>
     </application>
     <install>

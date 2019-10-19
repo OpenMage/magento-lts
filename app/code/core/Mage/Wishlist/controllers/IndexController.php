@@ -137,6 +137,13 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
         }
         $this->loadLayout();
 
+        if ($this->_isFormKeyEnabled() && strpos($this->_getRefererUrl(), 'login')) {
+            Mage::getSingleton('core/session')->addError(Mage::helper('wishlist')->__(
+                'Please add product to wishlist again.'
+            ));
+            return $this->_redirectUrl(Mage::getSingleton('customer/session')->getBeforeWishlistUrl());
+        }
+
         $session = Mage::getSingleton('customer/session');
         $block   = $this->getLayout()->getBlock('customer.wishlist');
         $referer = $session->getAddActionReferer(true);

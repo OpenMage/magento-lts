@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+    <name>Mage_All_Latest</name>
+    <version>1.9.4.3</version>
+    <stability>stable</stability>
+    <license uri="http://opensource.org/licenses/osl-3.0.php">OSL v3.0</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Metapackage for latest Magento 1.9.0.0 release</summary>
+    <description>Metapackage for latest Magento 1.9.0.0 release</description>
+    <notes>1.9.4.3</notes>
+    <authors><author><name>Magento Core Team</name><user>core</user><email>core@magentocommerce.com</email></author></authors>
+    <date>2019-10-02</date>
+    <time>08:11:46</time>
+    <contents><target name="mage"><dir name="pkginfo"><file name="Mage_All_Latest.txt" hash=""/></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.4.0</min><max>7.2.99</max></php><package><name>Mage_Core_Modules</name><channel>community</channel><min>1.9.4.3</min><max>1.9.4.3</max></package><package><name>Mage_Core_Adminhtml</name><channel>community</channel><min>1.9.4.3</min><max>1.9.4.3</max></package><package><name>Interface_Adminhtml_Default</name><channel>community</channel><min>1.9.4.3</min><max>1.9.4.3</max></package><package><name>Interface_Frontend_Default</name><channel>community</channel><min>1.9.4.3</min><max>1.9.4.3</max></package><package><name>Interface_Install_Default</name><channel>community</channel><min>1.9.4.3</min><max>1.9.4.3</max></package><package><name>Mage_Downloader</name><channel>community</channel><min>1.9.4.3</min><max>1.9.4.3</max></package><package><name>Mage_Centinel</name><channel>community</channel><min>1.9.4.3</min><max>1.9.4.3</max></package><package><name>Interface_Frontend_Base_Default</name><channel>community</channel><min>1.9.4.3</min><max>1.9.4.3</max></package><package><name>Phoenix_Moneybookers</name><channel>community</channel><min>1.9.4.3</min><max>1.9.4.3</max></package><package><name>Mage_Compiler</name><channel>community</channel><min>1.9.4.3</min><max>1.9.4.3</max></package><package><name>Magento_Mobile</name><channel>community</channel><min>1.9.4.3</min><max>1.9.4.3</max></package><package><name>Lib_Cm</name><channel>community</channel><min>1.9.4.3</min><max>1.9.4.3</max></package><package><name>Cm_RedisSession</name><channel>community</channel><min>1.9.4.3</min><max>1.9.4.3</max></package><package><name>Interface_Frontend_Rwd_Default</name><channel>community</channel><min>1.9.4.3</min><max>1.9.4.3</max></package></required></dependencies>
+</package>

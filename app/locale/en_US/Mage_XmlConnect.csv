@@ -974,6 +974,7 @@
 "The icon that appears in the Android Market.","The icon that appears in the Android Market."
 "The length of the text in the %s field is too big. Please shorten the text.","The length of the text in the %s field is too big. Please shorten the text."
 "The max length of the field ""%@"" is %d!","The max length of the field ""%@"" is %d!"
+"The minimum password length is ","The minimum password length is "
 "The minimum password length is 6","The minimum password length is 6"
 "The server responded with invalid data.","The server responded with invalid data."
 "The shortening service returned status code %d indicating a client side error.","The shortening service returned status code %d indicating a client side error."

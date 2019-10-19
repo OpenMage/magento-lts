@@ -25,5 +25,15 @@
  */
 
 ?>
-<a href="<?php echo $this->getItemRemoveUrl($this->getItem()); ?>" onclick="return confirmRemoveWishlistItem();" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Remove Item')) ?>"
-    class="btn-remove btn-remove2"><?php echo $this->__('Remove item');?></a>
+<a href="#"
+   class="btn-remove btn-remove2"
+   title="<?php echo Mage::helper('core')->quoteEscape($this->__('Remove Item')) ?>"
+   onclick="if (confirmRemoveWishlistItem()) {
+                customFormSubmit(
+                    '<?php echo $this->getItemRemoveUrlCustom($this->getItem(), false) ?>',
+                    '<?php echo $this->escapeHtml(json_encode(array('form_key' => $this->getFormKey()))) ?>',
+                    'post'
+                )
+            }">
+    <?php echo $this->__('Remove item') ?>
+</a>

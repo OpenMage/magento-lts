@@ -124,6 +124,10 @@ Product.OptionsPrice.prototype = {
             var excl;
             var incl;
             var tax;
+
+            if ($(pair.value) == null) {
+                pair.value = "product-price-weee-" + this.productId;
+            }
             if ($(pair.value)) {
                 if (pair.value == 'old-price-'+this.productId && this.productOldPrice != this.productPrice) {
                     _productPrice = this.productOldPrice;

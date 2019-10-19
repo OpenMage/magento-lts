@@ -14,6 +14,7 @@
 "Enabled","Enabled"
 "File ""%s"" must be writeable","File ""%s"" must be writeable"
 "Not Compiled","Not Compiled"
+"Please, press disable button before run compilation process","Please, press disable button before run compilation process"
 "Run Compilation Process","Run Compilation Process"
 "Scopes Compilation Settings","Scopes Compilation Settings"
 "System","System"

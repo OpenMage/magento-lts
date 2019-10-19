@@ -1557,7 +1557,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
         if ((!$customer->getId() || !$customer->isInStore($this->getSession()->getStore()))
             && !$quote->getCustomerIsGuest()
         ) {
-            $customer->setCreatedAt($order->getCreatedAt());
+            $customer->setCreatedAt($order->getCreatedAtStoreDate());
             $customer
                 ->save()
                 ->sendNewAccountEmail('registered', '', $quote->getStoreId());;

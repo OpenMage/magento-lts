@@ -113,6 +113,7 @@ class EditCurrencySymbolEntityTest extends Injectable
     {
         // Preconditions:
         $this->applyCurrencyInConfig();
+        $this->applyCurrencyConverterCredentials();
         $this->importCurrencyRates();
         $product = $this->createSimpleProductWithCategory();
 
@@ -134,6 +135,20 @@ class EditCurrencySymbolEntityTest extends Injectable
         $config = $this->fixtureFactory->createByCode(
             'configData',
             ['dataset' => 'config_currency_symbols_usd_and_uah']
+        );
+        $config->persist();
+    }
+
+    /**
+     * Set currency converter credentials
+     *
+     * @return void
+     */
+    protected function applyCurrencyConverterCredentials()
+    {
+        $config = $this->fixtureFactory->createByCode(
+            'configData',
+            ['dataset' => 'config_currency_converters']
         );
         $config->persist();
     }

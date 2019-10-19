@@ -34,15 +34,27 @@
     <p class="block-subtitle"><?php echo $this->__('Last Added Items') ?></p>
     <?php if ($this->hasWishlistItems()): ?>
     <ol class="mini-products-list" id="wishlist-sidebar">
-     <?php foreach ($this->getWishlistItems() as $_item): ?>
+    <?php foreach ($this->getWishlistItems() as $_item): ?>
         <?php $product = $_item->getProduct(); ?>
+        <?php $_params = $this->escapeHtml(json_encode(array('form_key' => $this->getFormKey()))); ?>
         <li class="item">
             <a href="<?php echo $this->getProductUrl($_item) ?>" title="<?php echo $this->escapeHtml($product->getName()) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($product, 'thumbnail')->resize(50); ?>" width="50" height="50" alt="<?php echo $this->escapeHtml($product->getName()) ?>" /></a>
             <div class="product-details">
-                <a href="<?php echo $this->getItemRemoveUrl($_item) ?>" title="<?php echo $this->quoteEscape($this->__('Remove This Item')) ?>" onclick="return confirm('<?php echo $this->jsQuoteEscape($this->__('Are you sure you would like to remove this item from the wishlist?')) ?>');" class="btn-remove"><?php echo $this->__('Remove This Item') ?></a>
+                <a href="#"
+                   class="btn-remove"
+                   title="<?php echo $this->quoteEscape($this->__('Remove This Item')) ?>"
+                   onclick="if (confirm('<?php echo $this->jsQuoteEscape($this->__('Are you sure you would like to remove this item from the wishlist?')) ?>')) {
+                       customFormSubmit('<?php echo $this->getItemRemoveUrlCustom($_item, false) ?>', '<?php echo $_params ?>', 'post')
+                   }">
+                    <?php echo $this->__('Remove This Item') ?>
+                </a>
                 <p class="product-name"><a href="<?php echo $this->getProductUrl($_item) ?>"><?php echo $this->escapeHtml($product->getName()) ?></a></p>
                 <?php if ($product->isSaleable() && $product->isVisibleInSiteVisibility()): ?>
-                    <a href="<?php echo $this->getItemAddToCartUrl($_item) ?>" class="link-cart"><?php echo $this->__('Add to Cart') ?></a>
+                    <a href="#"
+                       class="link-cart"
+                       onclick="customFormSubmit('<?php echo $this->getItemAddToCartUrlCustom($_item, false) ?>', '<?php echo $_params ?>', 'post')">
+                        <?php echo $this->__('Add to Cart') ?>
+                    </a>
                 <?php endif; ?>
                 <?php echo $this->getPriceHtml($product, false, '-wishlist') ?>
             </div>

@@ -83,10 +83,17 @@ class Mage_Compiler_Adminhtml_Compiler_ProcessController extends Mage_Adminhtml_
         /**
          * Add redirect heades before clear compiled sources
          */
-        $this->_redirect('*/*/run');
-        $this->_getCompiler()->clear();
-        $this->getResponse()->sendHeaders();
-        exit;
+        if (defined('COMPILER_INCLUDE_PATH')) {
+            Mage::getSingleton('adminhtml/session')->addError(
+                Mage::helper('compiler')->__('Please, press disable button before run compilation process')
+            );
+            $this->_redirect('*/*/');
+        } else {
+            $this->_redirect('*/*/run');
+            $this->_getCompiler()->clear();
+            $this->getResponse()->sendHeaders();
+            exit;
+        }
     }
 
     public function disableAction()

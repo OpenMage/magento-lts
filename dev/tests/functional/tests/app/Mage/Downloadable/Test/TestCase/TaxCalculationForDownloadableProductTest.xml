@@ -104,8 +104,8 @@
             <data name="catalogRule" xsi:type="string">default</data>
             <data name="taxRule" xsi:type="string">customer_greater_store_rate</data>
             <data name="customer/dataset" xsi:type="string">johndoe_unique</data>
-            <data name="prices/category_price_excl_tax" xsi:type="string">18.48</data>
-            <data name="prices/category_price_incl_tax" xsi:type="string">20.03</data>
+            <data name="prices/category_price_excl_tax" xsi:type="string">18.47</data>
+            <data name="prices/category_price_incl_tax" xsi:type="string">20.02</data>
             <data name="prices/product_view_price_excl_tax" xsi:type="string">28.11</data>
             <data name="prices/product_view_price_incl_tax" xsi:type="string">30.47</data>
             <data name="prices/cart_item_price_excl_tax" xsi:type="string">28.12</data>
@@ -118,7 +118,6 @@
             <data name="prices/grand_total_excl_tax" xsi:type="string">28.12</data>
             <data name="prices/grand_total_incl_tax" xsi:type="string">30.47</data>
             <data name="arguments/payment/method" xsi:type="string">checkmo</data>
-            <data name="issue" xsi:type="string">Bug: MPERF-7121: Wrong tax calculation on category page (One cent)</data>
             <constraint name="Mage\Downloadable\Test\Constraint\AssertTaxRuleIsAppliedToAllPricesDownloadableExcludingIncludingTax" next="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableExcludingIncludingTax"/>
             <constraint name="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableExcludingIncludingTax" next="Mage\Downloadable\Test\Constraint\AssertOrderTaxOnBackendDownloadableExcludingIncludingTax" prev="Mage\Downloadable\Test\Constraint\AssertTaxRuleIsAppliedToAllPricesDownloadableExcludingIncludingTax"/>
             <constraint name="Mage\Downloadable\Test\Constraint\AssertOrderTaxOnBackendDownloadableExcludingIncludingTax" prev="Mage\Downloadable\Test\Constraint\AssertTaxCalculationAfterCheckoutDownloadableExcludingIncludingTax"/>
