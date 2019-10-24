@@ -37,7 +37,7 @@
         <dataset name="custom">
             <field name="rolename" xsi:type="string">Custom%isolation%</field>
             <field name="gws_is_all" xsi:type="string">All</field>
-            <field name="current_password" xsi:type="string">123123q</field>
+            <field name="current_password" xsi:type="string">123123q123123q</field>
             <field name="resource_access" xsi:type="string">Custom</field>
             <field name="roles_resources" xsi:type="array">
                 <item name="preset" xsi:type="string">sales</item>
@@ -47,7 +47,7 @@
         <dataset name="custom_with_gws_scope">
             <field name="rolename" xsi:type="string">Custom%isolation%</field>
             <field name="gws_is_all" xsi:type="string">Custom</field>
-            <field name="current_password" xsi:type="string">123123q</field>
+            <field name="current_password" xsi:type="string">123123q123123q</field>
             <field name="resource_access" xsi:type="string">Custom</field>
             <field name="roles_resources" xsi:type="array">
                 <item name="preset" xsi:type="string">sales</item>

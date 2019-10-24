@@ -45,6 +45,7 @@
                 </tr>
             </thead>
             <tbody>
+            <?php $_params = $this->escapeHtml(json_encode(array('form_key' => $this->getFormKey()))); ?>
             <?php foreach($this->getWishlistItems() as $item): ?>
                 <?php
                     $product = $item->getProduct();
@@ -64,7 +65,16 @@
                             <button type="button" title="<?php echo $this->quoteEscape($this->__('Add to Cart')) ?>" onclick="setLocation('<?php echo $this->getSharedItemAddToCartUrl($item) ?>')" class="button btn-cart"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
                         <?php endif ?>
                     <?php endif; ?>
-                        <p><a href="<?php echo $this->getAddToWishlistUrl($item) ?>" onclick="setLocation(this.href); return false;" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a></p>
+                        <p>
+                            <?php $_wishlistUrl = $this->getAddToWishlistUrlCustom($item, false); ?>
+                            <a href="#"
+                               data-url="<?php echo $_wishlistUrl ?>"
+                               data-params="<?php echo $_params ?>"
+                               onclick="customFormSubmit('<?php echo $_wishlistUrl ?>', '<?php echo $_params ?>', 'post')"
+                               class="link-wishlist">
+                                <?php echo $this->__('Add to Wishlist') ?>
+                            </a>
+                        </p>
                     </td>
                 </tr>
             <?php endforeach ?>

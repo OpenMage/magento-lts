@@ -54,7 +54,16 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Column_Cart extends Mage_Wishli
     {
         $js = "
             function addWItemToCart(itemId) {
-                var url = '" . $this->getItemAddToCartUrl('%item%') . "';
+                addWItemToCartCustom(itemId, true)
+            }
+            
+            function addWItemToCartCustom(itemId, sendGet) {
+                var url = '';
+                if (sendGet) {
+                    url = '" . $this->getItemAddToCartUrl('%item%') . "';
+                } else {
+                    url = '" . $this->getItemAddToCartUrlCustom('%item%', false) . "';
+                }
                 url = url.gsub('%item%', itemId);
                 var form = $('wishlist-view-form');
                 if (form) {
@@ -64,7 +73,11 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Column_Cart extends Mage_Wishli
                         url += separator + input.name + '=' + encodeURIComponent(input.value);
                     }
                 }
-                setLocation(url);
+                if (sendGet) {
+                    setLocation(url);
+                } else {
+                    customFormSubmit(url, '" . json_encode(array('form_key' => $this->getFormKey())) . "', 'post');
+                }
             }
         ";
 

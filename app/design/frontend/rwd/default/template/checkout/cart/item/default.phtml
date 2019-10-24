@@ -28,6 +28,8 @@
 $_item = $this->getItem();
 $isVisibleProduct = $_item->getProduct()->isVisibleInSiteVisibility();
 $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type::TYPE_BEFORE_ORDER_CONFIRM);
+$_params = $this->escapeHtml(json_encode(array('form_key' => $this->getFormKey())));
+$_deleteUrl = $this->getDeleteUrlCustom(false);
 ?>
 <tr>
     <td class="product-cart-image">
@@ -56,7 +58,12 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
 
     <td class="product-cart-info">
 
-        <a href="<?php echo $this->getDeleteUrl() ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Remove Item')) ?>" class="btn-remove btn-remove2"><?php echo $this->__('Remove Item') ?></a>
+        <a href="#"
+           title="<?php echo Mage::helper('core')->quoteEscape($this->__('Remove Item')) ?>"
+           class="btn-remove btn-remove2"
+           onclick="customFormSubmit('<?php echo $_deleteUrl ?>', '<?php echo $_params ?>', 'post')">
+            <?php echo $this->__('Remove Item') ?>
+        </a>
 
         <h2 class="product-name">
         <?php if ($this->hasProductUrl()):?>
@@ -325,7 +332,12 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
     </td>
     <?php endif; ?>
     <td class="a-center product-cart-remove">
-        <a href="<?php echo $this->getDeleteUrl() ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Remove Item')) ?>" class="btn-remove btn-remove2"><?php echo $this->__('Remove Item') ?></a>
+        <a href="#"
+           title="<?php echo Mage::helper('core')->quoteEscape($this->__('Remove Item')) ?>"
+           class="btn-remove btn-remove2"
+           onclick="customFormSubmit('<?php echo $_deleteUrl ?>', '<?php echo $_params ?>', 'post')">
+            <?php echo $this->__('Remove Item') ?>
+        </a>
     </td>
 </tr>
 

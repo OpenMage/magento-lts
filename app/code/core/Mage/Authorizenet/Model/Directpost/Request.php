@@ -186,7 +186,8 @@ class Mage_Authorizenet_Model_Directpost_Request extends Varien_Object
     public function signRequestData()
     {
         $fpTimestamp = time();
-        if (!empty($this->_getSignatureKey())) {
+        $signatureKey = $this->_getSignatureKey();
+        if (!empty($signatureKey)) {
             $hash = $this->_generateSha2RequestSign(
                 $this->getXLogin(),
                 $this->_getSignatureKey(),

@@ -205,6 +205,17 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
     }
 
     /**
+     * Controller predispatch method
+     *
+     * @return Mage_Adminhtml_Controller_Action
+     */
+    public function preDispatch()
+    {
+        $this->_setForcedFormKeyActions('delete');
+        return parent::preDispatch();
+    }
+
+    /**
      * Check permissions before allow edit list of blocks
      *
      * @return bool

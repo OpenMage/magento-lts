@@ -32,19 +32,19 @@
             <field name="firstname" xsi:type="string">FirstName%isolation%</field>
             <field name="lastname" xsi:type="string">LastName%isolation%</field>
             <field name="email" xsi:type="string">email%isolation%@example.com</field>
-            <field name="password" xsi:type="string">123123q</field>
-            <field name="password_confirmation" xsi:type="string">123123q</field>
+            <field name="password" xsi:type="string">123123q123123q</field>
+            <field name="password_confirmation" xsi:type="string">123123q123123q</field>
             <field name="is_active" xsi:type="string">Active</field>
-            <field name="current_password" xsi:type="string">123123q</field>
+            <field name="current_password" xsi:type="string">123123q123123q</field>
         </dataset>
         <dataset name="custom_admin">
             <field name="username" xsi:type="string">AdminUser%isolation%</field>
             <field name="firstname" xsi:type="string">FirstName%isolation%</field>
             <field name="lastname" xsi:type="string">LastName%isolation%</field>
             <field name="email" xsi:type="string">email%isolation%@example.com</field>
-            <field name="password" xsi:type="string">123123q</field>
-            <field name="password_confirmation" xsi:type="string">123123q</field>
-            <field name="current_password" xsi:type="string">123123q</field>
+            <field name="password" xsi:type="string">123123q123123q</field>
+            <field name="password_confirmation" xsi:type="string">123123q123123q</field>
+            <field name="current_password" xsi:type="string">123123q123123q</field>
             <field name="is_active" xsi:type="string">Active</field>
             <field name="role_id" xsi:type="array">
                 <item name="dataset" xsi:type="string">administrators</item>
@@ -55,9 +55,9 @@
             <field name="firstname" xsi:type="string">FirstName%isolation%</field>
             <field name="lastname" xsi:type="string">LastName%isolation%</field>
             <field name="email" xsi:type="string">email%isolation%@example.com</field>
-            <field name="password" xsi:type="string">123123q</field>
-            <field name="password_confirmation" xsi:type="string">123123q</field>
-            <field name="current_password" xsi:type="string">123123q</field>
+            <field name="password" xsi:type="string">123123q123123q</field>
+            <field name="password_confirmation" xsi:type="string">123123q123123q</field>
+            <field name="current_password" xsi:type="string">123123q123123q</field>
             <field name="is_active" xsi:type="string">Active</field>
         </dataset>
         <dataset name="admin_for_installation">
@@ -65,16 +65,16 @@
             <field name="firstname" xsi:type="string">FirstName%isolation%</field>
             <field name="lastname" xsi:type="string">LastName%isolation%</field>
             <field name="email" xsi:type="string">email%isolation%@example.com</field>
-            <field name="password" xsi:type="string">123123q</field>
-            <field name="password_confirmation" xsi:type="string">123123q</field>
+            <field name="password" xsi:type="string">123123q123123q</field>
+            <field name="password_confirmation" xsi:type="string">123123q123123q</field>
         </dataset>
         <dataset name="admin_install_admin">
             <field name="username" xsi:type="string">admin</field>
             <field name="firstname" xsi:type="string">FirstName%isolation%</field>
             <field name="lastname" xsi:type="string">LastName%isolation%</field>
             <field name="email" xsi:type="string">email%isolation%@example.com</field>
-            <field name="password" xsi:type="string">123123q</field>
-            <field name="password_confirmation" xsi:type="string">123123q</field>
+            <field name="password" xsi:type="string">123123q123123q</field>
+            <field name="password_confirmation" xsi:type="string">123123q123123q</field>
         </dataset>
     </repository>
 </config>

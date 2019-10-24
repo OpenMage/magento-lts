@@ -814,6 +814,9 @@ final class Maged_Controller
     public function dispatch()
     {
         if (class_exists('Mage')) {
+            if (Mage::getConfig() == null) {
+                Mage::init();
+            }
             $baseUrl = Mage::getBaseUrl(
                 Mage_Core_Model_Store::URL_TYPE_LINK, Mage::getSingleton('adminhtml/url')->getSecure()
             );
@@ -1074,7 +1077,7 @@ final class Maged_Controller
             'major'     => '1',
             'minor'     => '9',
             'revision'  => '4',
-            'patch'     => '2',
+            'patch'     => '3',
             'stability' => '',
             'number'    => '',
         );

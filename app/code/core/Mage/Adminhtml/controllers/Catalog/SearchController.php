@@ -125,6 +125,9 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
                 $model->addData($data);
                 $model->setIsProcessed(0);
                 $model->save();
+                $this->_getSession()->addSuccess(
+                    Mage::helper('catalog')->__('You saved the search term.')
+                );
 
             } catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
@@ -186,6 +189,17 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
         }
 
         $this->_redirect('*/*/index');
+    }
+
+    /**
+     * Controller predispatch method
+     *
+     * @return Mage_Adminhtml_Controller_Action
+     */
+    public function preDispatch()
+    {
+        $this->_setForcedFormKeyActions('delete', 'massDelete');
+        return parent::preDispatch();
     }
 
     protected function _isAllowed()

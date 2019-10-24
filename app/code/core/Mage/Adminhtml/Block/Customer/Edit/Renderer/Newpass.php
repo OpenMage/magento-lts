@@ -45,7 +45,11 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Newpass
     {
         $html  = '<tr>';
         $html .= '<td class="label">' . $element->getLabelHtml() . '</td>';
-        $html .= '<td class="value">' . $element->getElementHtml() . '</td>';
+        $html .= '<td class="value">' . $element->getElementHtml();
+        if ($element->getNote()) {
+            $html .= '<p class="note"><span>' . $element->getNote() . '</span></p>';
+        }
+        $html .= '</td>';
         $html .= '</tr>' . "\n";
         $html .= '<tr>';
         $html .= '<td class="label"><label>&nbsp;</label></td>';

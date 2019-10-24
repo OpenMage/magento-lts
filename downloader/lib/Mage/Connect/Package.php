@@ -998,6 +998,12 @@ END;
             return $this->_dependencyPhpExtensions;
         }
         foreach($this->_packageXml->dependencies->required->extension as $_package) {
+            if (
+                version_compare(PHP_VERSION, '7.2.0', '>=')
+                && (string) $_package->name == 'mcrypt'
+            ) {
+                continue;
+            }
             $this->_dependencyPhpExtensions[] = array(
                 'name'    => (string)$_package->name,
                 'min'     => (string)$_package->min,
