@@ -168,6 +168,10 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
             ->setActionCode($this->getOrigData('profile_id') ? 'update' : 'create')
             ->save();
         $csvParser = new Varien_File_Csv();
+        $delimiter = trim($this->getData('gui_data/parse/delimiter'));
+        if ($delimiter) {
+            $csvParser->setDelimiter($delimiter);
+        }
         $xmlParser = new DOMDocument();
         $newUploadedFilenames = array();
 
