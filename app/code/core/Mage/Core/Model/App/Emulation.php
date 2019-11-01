@@ -82,6 +82,7 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
         } else {
             $initialTranslateInline = $this->_emulateInlineTranslation();
         }
+        $this->setInitialArea(Mage::getDesign()->getArea());
         $initialDesign = $this->_emulateDesign($storeId, $area);
         // Current store needs to be changed right before locale change and after design change
         $this->_app->setCurrentStore($storeId);
@@ -174,7 +175,7 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
     {
         $initialLocaleCode = $this->_app->getLocale()->getLocaleCode();
         $newLocaleCode = $this->_getStoreConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE, $storeId);
-        if ($initialLocaleCode != $newLocaleCode) {
+        if ($initialLocaleCode != $newLocaleCode || $this->getInitialArea() != $area) {
             $this->_app->getLocale()->setLocaleCode($newLocaleCode);
             $this->_factory->getSingleton('core/translate')->setLocale($newLocaleCode)->init($area, true);
         }
