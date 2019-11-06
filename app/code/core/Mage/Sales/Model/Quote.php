@@ -833,7 +833,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     {
         $quoteItem = null;
         if ($quoteItem = $this->getItemsCollection()->getItemById($itemId)) {
-            return $quoteItem
+            return $quoteItem;
         } else {
             foreach (this->getItemsCollection() as $item) {
                 if ($item->getId() == $itemId) {
