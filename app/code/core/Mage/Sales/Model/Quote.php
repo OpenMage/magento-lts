@@ -835,7 +835,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         if ($quoteItem = $this->getItemsCollection()->getItemById($itemId)) {
             return $quoteItem;
         } else {
-            foreach (this->getItemsCollection() as $item) {
+            foreach ($this->getItemsCollection() as $item) {
                 if ($item->getId() == $itemId) {
                     $quoteItem = $item;
                     return $quoteItem;
