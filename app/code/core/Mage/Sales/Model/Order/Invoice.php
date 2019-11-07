@@ -178,12 +178,6 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      */
     protected $_wasPayCalled = false;
 
-    public function __construct()
-    {
-        register_shutdown_function(array($this, 'destruct'));
-        parent::__construct();
-    }
-
     /**
      * Uploader clean on shutdown
      */
@@ -350,6 +344,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
                 if ($canVoid === false) {
                     $this->setCanVoidFlag(false);
                     $this->_saveBeforeDestruct = true;
+                    register_shutdown_function(array($this, 'destruct'));
                 }
             }
             else {
