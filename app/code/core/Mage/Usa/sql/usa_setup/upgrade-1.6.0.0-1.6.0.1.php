@@ -97,7 +97,7 @@ foreach ($mapsOld as $mapOld) {
                 $mapNew[] = $shippingMethod;
             }
         }
-        $mapNew = implode($mapNew, ',');
+        $mapNew = implode(',', $mapNew);
     } else {
         continue;
     }

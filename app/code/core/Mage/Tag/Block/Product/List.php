@@ -103,7 +103,7 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
                 $tag->getTaggedProductsUrl(), $this->escapeHtml($tag->getName()), $tag->getProducts()
             );
         }
-        return implode($out, $glue);
+        return implode($glue, $out);
     }
 
     /**

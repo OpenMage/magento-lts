@@ -45,7 +45,7 @@ abstract class Mage_XmlConnect_Block_Checkout_Payment_Method_Info_Paypal_Abstrac
 
         if ($specificInfo = $this->getSpecificInformation()) {
             foreach ($specificInfo as $label => $value) {
-                $orderItemXmlObj->addCustomChild('item', implode($this->getValueAsArray($value, true), '\n'), array(
+                $orderItemXmlObj->addCustomChild('item', implode('\n', $this->getValueAsArray($value, true)), array(
                     'label' => $label
                 ));
             }

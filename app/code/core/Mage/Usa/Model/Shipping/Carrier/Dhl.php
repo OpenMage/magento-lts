@@ -794,7 +794,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
         if ($this->_rawRequest->getAction() == 'GenerateLabel') {
             $result = new Varien_Object();
             if (!empty($this->_errors)) {
-                $result->setErrors(implode($this->_errors, '; '));
+                $result->setErrors(implode('; ', $this->_errors));
             } else {
                 if ($xml !== false) {
                     if ($r->getDestCountryId() == self::USA_COUNTRY_ID) {
