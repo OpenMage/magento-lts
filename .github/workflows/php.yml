@@ -12,11 +12,11 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    - name: Validate composer.json and composer.lock
+    - name: php version
       run: php --version
 
-    - name: Validate composer.json and composer.lock
-      run: composer version
+    - name: composer version
+      run: composer --version
 
     - name: Validate composer.json and composer.lock
       run: composer validate
