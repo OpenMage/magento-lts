@@ -71,7 +71,7 @@ class Mage_Core_Controller_Front_Router
         if (!empty($params)) {
             $paramsStr = '';
             foreach ($params as $key=>$value) {
-                if (!isset($reservedKeys[$key]) && '_'!==$key{0} && !empty($value)) {
+                if (!isset($reservedKeys[$key]) && '_'!==$key[0] && !empty($value)) {
                     $paramsStr .= $key.'/'.$value.'/';
                 }
             }

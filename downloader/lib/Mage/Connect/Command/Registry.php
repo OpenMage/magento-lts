@@ -284,7 +284,7 @@ extends Mage_Connect_Command
                 }
 
                 while ($ent = readdir($dp)) {
-                    if ($ent{0} == '.' || substr($ent, -4) != '.reg') {
+                    if ($ent[0] == '.' || substr($ent, -4) != '.reg') {
                         continue;
                     }
                     $pkglist[] = array('file'=>$ent, 'channel'=>$channel);

@@ -1157,7 +1157,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                 if (!empty($attr['backend'])) {
                     if ('_' === $attr['backend']) {
                         $attr['backend'] = $backendPrefix;
-                    } elseif ('_' === $attr['backend']{0}) {
+                    } elseif ('_' === $attr['backend'][0]) {
                         $attr['backend'] = $backendPrefix.$attr['backend'];
                     }
                 }
