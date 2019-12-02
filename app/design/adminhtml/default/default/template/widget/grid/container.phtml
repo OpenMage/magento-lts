@@ -24,6 +24,7 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+<?php if (!empty($this->getHeaderText()) || !empty($this->getButtonsHtml())): ?>
 <div class="content-header">
     <table cellspacing="0">
         <tr>
@@ -32,6 +33,7 @@
         </tr>
     </table>
 </div>
+<?php endif; ?>
 <div>
     <?php echo $this->getGridHtml() ?>
 </div>
