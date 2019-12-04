@@ -3,9 +3,10 @@
   "license": "OSL-3.0",
   "type": "magento-source",
   "require": {
-    "php": ">=7.0 <7.3",
-    "magento-hackathon/magento-composer-installer": "*"
+    "php": ">=7.0 <7.5",
+    "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1"
   },
+  "description": " A fork of Magento-1 that is accepting bug fixes (backward compatible, drop in replacement for official Magento)",
   "authors": [
     {
       "name": "Lee Saferite",
