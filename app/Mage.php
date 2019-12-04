@@ -179,6 +179,49 @@ final class Mage
     }
 
     /**
+     * Gets the current OpenMage version string
+     * @link https://openmage.github.io/supported-versions.html
+     * @link https://semver.org/
+     *
+     * @return string
+     */
+    public static function getOpenMageVersion()
+    {
+        $i = self::getOpenMageVersionInfo();
+        $versionString = "{$i['major']}.{$i['minor']}.{$i['patch']}";
+        if ( $i['stability'] || $i['number'] ) {
+            $versionString .= "-";
+            if ( $i['stability'] && $i['number'] ) {
+                $versionString .= implode('.', [$i['stability'], $i['number']]);
+            } else {
+                $versionString .= implode('', [$i['stability'], $i['number']]);
+            }
+        }
+        return trim(
+            $versionString,
+            '.-'
+        );
+    }
+
+    /**
+     * Gets the detailed OpenMage version information
+     * @link https://openmage.github.io/supported-versions.html
+     * @link https://semver.org/
+     *
+     * @return array
+     */
+    public static function getOpenMageVersionInfo()
+    {
+        return array(
+            'major'     => '19',
+            'minor'     => '4',
+            'patch'     => '0',
+            'stability' => '', // beta,alpha,rc
+            'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
+        );
+    }
+
+    /**
      * Get current Magento edition
      *
      * @static
