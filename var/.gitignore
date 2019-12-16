@@ -1,4 +1,6 @@
-!.gitignore
-!.htaccess
 *
 .*
+!package
+!package/*
+!.htaccess
+!.gitignore
