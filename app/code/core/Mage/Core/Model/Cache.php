@@ -404,6 +404,17 @@ class Mage_Core_Model_Cache
     }
 
     /**
+     * Test data
+     *
+     * @param string $id
+     * @return false|int
+     */
+    public function test($id)
+    {
+        return $this->getFrontend()->test($this->_id($id));
+    }
+
+    /**
      * Remove cached data by identifier
      *
      * @param   string $id
