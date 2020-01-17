@@ -1394,6 +1394,16 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     }
 
     /**
+     * Retrieve Session Form Key
+     *
+     * @return string
+     */
+    public function getFormKey()
+    {
+        return Mage::getSingleton('core/session')->getFormKey();
+    }
+
+    /**
      * Load block html from cache storage
      *
      * @return string | false

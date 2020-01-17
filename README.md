@@ -18,15 +18,15 @@ Note, the branches older than `1.9.3.x` that were created before this strategy c
 Download the latest archive and extract it, clone the repo, or add a composer dependency to your existing project like so:
 
 ```json
-"openmage/magento-lts": "1.9.3.x"
+"openmage/magento-lts": "1.9.4.x"
 ```
 
 [More Information](http://openmage.github.io/magento-lts/install.html)
 
 ## Requirements
 
-- PHP 5.6+ (PHP 7.1 and OpenSSL extension strongly recommended)
-- MySQL 5.6+
+- PHP 5.6+ (PHP 7.3 and OpenSSL extension strongly recommended)
+- MySQL 5.6+ (8.0+ Recommended)
 
 ## Translations
 

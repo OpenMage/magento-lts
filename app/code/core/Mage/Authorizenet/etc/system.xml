@@ -30,7 +30,7 @@
         <payment>
             <groups>
                 <authorizenet_directpost translate="label" module="authorizenet">
-                    <label>Authorize.net Direct Post</label>
+                    <label>Authorize.net Direct Post (Deprecated)</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>34</sort_order>
                     <show_in_default>1</show_in_default>
@@ -81,6 +81,15 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </trans_key>
+                        <signature_key translate="label">
+                            <label>Signature Key</label>
+                            <frontend_type>obscure</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
+                            <sort_order>55</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </signature_key>
                         <trans_md5 translate="label">
                             <label>Merchant MD5</label>
                             <frontend_type>obscure</frontend_type>

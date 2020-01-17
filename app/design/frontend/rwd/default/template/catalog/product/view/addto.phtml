@@ -26,17 +26,31 @@
 ?>
 
 <?php $_product = $this->getProduct(); ?>
-<?php $_wishlistSubmitUrl = $this->helper('wishlist')->getAddUrl($_product); ?>
+<?php $_wishlistSubmitUrl = $this->helper('wishlist')->getAddUrlWithCustomParams($_product, array(), false); ?>
+<?php $_params = $this->escapeHtml(json_encode(array('form_key' => $this->getFormKey()))); ?>
 
 <ul class="add-to-links">
 <?php if ($this->helper('wishlist')->isAllow()) : ?>
-    <li><a href="<?php echo $_wishlistSubmitUrl ?>" onclick="productAddToCartForm.submitLight(this, this.href); return false;" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a></li>
+    <li>
+        <a href="<?php echo $_wishlistSubmitUrl ?>"
+           onclick="productAddToCartForm.submitLight(this, this.href); return false;"
+           class="link-wishlist">
+            <?php echo $this->__('Add to Wishlist') ?>
+        </a>
+    </li>
 <?php endif; ?>
 <?php
-    $_compareUrl = $this->helper('catalog/product_compare')->getAddUrl($_product);
+    $_compareUrl = $this->helper('catalog/product_compare')->getAddUrlCustom($_product, false);
 ?>
 <?php if($_compareUrl) : ?>
-    <li><span class="separator">|</span> <a href="<?php echo $_compareUrl ?>" class="link-compare"><?php echo $this->__('Add to Compare') ?></a></li>
+    <li>
+        <span class="separator">|</span>
+        <a href="#"
+           class="link-compare"
+           onclick="customFormSubmit('<?php echo $_compareUrl ?>', '<?php echo $_params ?>', 'post')">
+            <?php echo $this->__('Add to Compare') ?>
+        </a>
+    </li>
 <?php endif; ?>
 
 </ul>

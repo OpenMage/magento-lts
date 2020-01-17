@@ -27,35 +27,36 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="../../../../../../../vendor/magento/mtf/Magento/Mtf/Repository/etc/repository.xsd">
-	<repository class="Mage\Catalog\Test\Repository\CatalogProductAttribute\Options">
-		<dataset name="default">
-			<field name="0" xsi:type="array">
-				<item name="is_default" xsi:type="string">Yes</item>
-				<item name="admin" xsi:type="string">blue</item>
-				<item name="view" xsi:type="string">blue</item>
-			</field>
-			<field name="1" xsi:type="array">
-				<item name="admin" xsi:type="string">black</item>
-				<item name="view" xsi:type="string">black</item>
-			</field>
-		</dataset>
+    <repository class="Mage\Catalog\Test\Repository\CatalogProductAttribute\Options">
+        <dataset name="default">
+            <field name="0" xsi:type="array">
+                <item name="is_default" xsi:type="string">Yes</item>
+                <item name="admin" xsi:type="string">blue</item>
+                <item name="view" xsi:type="string">blue</item>
+            </field>
+            <field name="1" xsi:type="array">
+                <item name="admin" xsi:type="string">black</item>
+                <item name="view" xsi:type="string">black</item>
+            </field>
+        </dataset>
 
-		<dataset name="with_three_options">
-			<field name="0" xsi:type="array">
-				<item name="is_default" xsi:type="string">Yes</item>
-				<item name="admin" xsi:type="string">black</item>
-				<item name="view" xsi:type="string">option_0_%isolation%</item>
-			</field>
-			<field name="1" xsi:type="array">
-				<item name="is_default" xsi:type="string">No</item>
-				<item name="admin" xsi:type="string">white</item>
-				<item name="view" xsi:type="string">option_1_%isolation%</item>
-			</field>
-			<field name="2" xsi:type="array">
-				<item name="is_default" xsi:type="string">No</item>
-				<item name="admin" xsi:type="string">green</item>
-				<item name="view" xsi:type="string">option_2_%isolation%</item>
-			</field>
-		</dataset>
-	</repository>
+        <dataset name="with_three_options">
+            <field name="0" xsi:type="array">
+                <item name="is_default" xsi:type="string">Yes</item>
+                <item name="admin" xsi:type="string">black</item>
+                <item name="view" xsi:type="string">black</item>
+            </field>
+            <field name="1" xsi:type="array">
+                <item name="is_default" xsi:type="string">No</item>
+                <item name="admin" xsi:type="string">white</item>
+                <item name="view" xsi:type="string">white</item>
+            </field>
+            <field name="2" xsi:type="array">
+                <item name="is_default" xsi:type="string">No</item>
+                <item name="admin" xsi:type="string">green</item>
+                <item name="view" xsi:type="string">green</item>
+            </field>
+        </dataset>
+
+    </repository>
 </config>

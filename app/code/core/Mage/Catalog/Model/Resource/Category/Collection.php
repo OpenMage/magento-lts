@@ -408,10 +408,9 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
         if (!is_array($paths)) {
             $paths = array($paths);
         }
-        $write  = $this->getResource()->getWriteConnection();
         $cond   = array();
         foreach ($paths as $path) {
-            $cond[] = $write->quoteInto('e.path LIKE ?', "$path%");
+            $cond[] = $this->getResource()->getReadConnection()->quoteInto('e.path LIKE ?', "$path%");
         }
         if ($cond) {
             $this->getSelect()->where(join(' OR ', $cond));

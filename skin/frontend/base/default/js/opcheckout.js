@@ -742,7 +742,7 @@ Payment.prototype = {
     changeVisible: function(method, mode) {
         var block = 'payment_form_' + method;
         [block + '_before', block, block + '_after'].each(function(el) {
-            element = $(el);
+            var element = $(el);
             if (element) {
                 element.style.display = (mode) ? 'none' : '';
                 element.select('input', 'select', 'textarea', 'button').each(function(field) {

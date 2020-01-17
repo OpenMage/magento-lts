@@ -41,7 +41,7 @@ class AssertProductSpecialPriceNotLargerActual extends AbstractConstraint
     /**
      * Text value to be checked.
      */
-    const ERROR_MESSAGE = 'The Special Price is active only when lower than the Actual Price';
+    const ERROR_MESSAGE = 'The Special Price is active only when lower than the Actual Price.';
 
     /**
      * Assert that special price can't be larger, than actual.
@@ -53,7 +53,7 @@ class AssertProductSpecialPriceNotLargerActual extends AbstractConstraint
     public function processAssert(CatalogProductNew $productPage, InjectableFixture $product)
     {
         $errorMessages = $productPage->getProductForm()->getRequireNoticeAttributes($product);
-        \PHPUnit_Framework_Assert::assertEquals(self::ERROR_MESSAGE, $errorMessages['special_price']);
+        \PHPUnit_Framework_Assert::assertEquals(self::ERROR_MESSAGE, $errorMessages['prices']['specialprice']);
     }
 
     /**
