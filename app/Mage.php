@@ -172,9 +172,52 @@ final class Mage
             'major'     => '1',
             'minor'     => '9',
             'revision'  => '4',
-            'patch'     => '1',
+            'patch'     => '3',
             'stability' => '',
             'number'    => '',
+        );
+    }
+
+    /**
+     * Gets the current OpenMage version string
+     * @link https://openmage.github.io/supported-versions.html
+     * @link https://semver.org/
+     *
+     * @return string
+     */
+    public static function getOpenMageVersion()
+    {
+        $i = self::getOpenMageVersionInfo();
+        $versionString = "{$i['major']}.{$i['minor']}.{$i['patch']}";
+        if ( $i['stability'] || $i['number'] ) {
+            $versionString .= "-";
+            if ( $i['stability'] && $i['number'] ) {
+                $versionString .= implode('.', [$i['stability'], $i['number']]);
+            } else {
+                $versionString .= implode('', [$i['stability'], $i['number']]);
+            }
+        }
+        return trim(
+            $versionString,
+            '.-'
+        );
+    }
+
+    /**
+     * Gets the detailed OpenMage version information
+     * @link https://openmage.github.io/supported-versions.html
+     * @link https://semver.org/
+     *
+     * @return array
+     */
+    public static function getOpenMageVersionInfo()
+    {
+        return array(
+            'major'     => '19',
+            'minor'     => '4',
+            'patch'     => '0',
+            'stability' => '', // beta,alpha,rc
+            'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
         );
     }
 
@@ -811,19 +854,18 @@ final class Mage
         $file = empty($file) ?
             (string) self::getConfig()->getNode('dev/log/file', Mage_Core_Model_Store::DEFAULT_CODE) : basename($file);
 
-        // Validate file extension before save. Allowed file extensions: log, txt, html, csv
-        $_allowedFileExtensions = explode(
-            ',',
-            (string) self::getConfig()->getNode('dev/log/allowedFileExtensions', Mage_Core_Model_Store::DEFAULT_CODE)
-        );
-        $logDir = self::getBaseDir('var') . DS . 'log';
-        $validatedFileExtension = pathinfo($file, PATHINFO_EXTENSION);
-        if (!$validatedFileExtension || !in_array($validatedFileExtension, $_allowedFileExtensions)) {
-            return;
-        }
-
         try {
             if (!isset($loggers[$file])) {
+                // Validate file extension before save. Allowed file extensions: log, txt, html, csv
+                $_allowedFileExtensions = explode(
+                    ',',
+                    (string) self::getConfig()->getNode('dev/log/allowedFileExtensions', Mage_Core_Model_Store::DEFAULT_CODE)
+                );
+                if ( ! ($extension = pathinfo($file, PATHINFO_EXTENSION)) || ! in_array($extension, $_allowedFileExtensions)) {
+                    return;
+                }
+
+                $logDir = self::getBaseDir('var') . DS . 'log';
                 $logFile = $logDir . DS . $file;
 
                 if (!is_dir($logDir)) {

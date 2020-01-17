@@ -328,7 +328,8 @@ class Mage_XmlConnect_Helper_Translate extends Mage_Core_Helper_Abstract
             'OtherAmount' => $this->__('Other amount'),
             'OutOfStock' => $this->__('Out of Stock'),
             'ParsingError' => $this->__('Error while reading remote data'),
-            'PasswordLength' => $this->__('The minimum password length is 6'),
+            'PasswordLength' => $this->__('The minimum password length is ')
+                . Mage::getModel('customer/customer')->getMinPasswordLength(),
             'PayPalCheckout' => $this->__('PayPal Checkout'),
             'PayPalText' => $this->__('PayPal'),
             'PaymentBridgeServiceErrorMessage' => $this->__('Unknown Payment Bridge Error'),

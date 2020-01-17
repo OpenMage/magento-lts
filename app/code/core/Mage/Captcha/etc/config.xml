@@ -53,6 +53,11 @@
                 </entities>
             </captcha_resource>
         </models>
+        <helpers>
+            <captcha>
+                <class>Mage_Captcha_Helper</class>
+            </captcha>
+        </helpers>
         <events>
             <controller_action_predispatch_customer_account_loginpost>
                 <observers>
@@ -150,6 +155,15 @@
                 </args>
             </captcha>
         </routers>
+        <translate>
+            <modules>
+                <Mage_Captcha>
+                    <files>
+                        <default>Mage_Captcha.csv</default>
+                    </files>
+                </Mage_Captcha>
+            </modules>
+        </translate>
         <layout>
             <updates>
                 <captcha>

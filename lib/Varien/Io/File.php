@@ -845,4 +845,9 @@ class Varien_Io_File extends Varien_Io_Abstract
     {
         return $this->getCleanPath(dirname($file));
     }
+    
+    public function getStreamHandler()
+    {
+        return $this->_streamHandler;
+    }
 }

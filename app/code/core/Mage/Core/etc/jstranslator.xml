@@ -85,10 +85,10 @@
         <message>Please use only visible characters and spaces.</message>
     </validate-email-sender>
     <validate-password translate="message" module="core">
-        <message>Please enter 6 or more characters without leading or trailing spaces.</message>
+        <message>Please enter more characters or clean leading or trailing spaces.</message>
     </validate-password>
     <validate-admin-password translate="message" module="core">
-        <message>Please enter 7 or more characters. Password should contain both numeric and alphabetic characters.</message>
+        <message>Please enter more characters. Password should contain both numeric and alphabetic characters.</message>
     </validate-admin-password>
     <validate-cpassword translate="message" module="core">
         <message>Please make sure your passwords match.</message>
@@ -133,7 +133,7 @@
         <message>Please select State/Province.</message>
     </validate-state>
     <validate-new-password translate="message" module="core">
-        <message>Please enter 6 or more characters without leading or trailing spaces.</message>
+        <message>Please enter more characters or clean leading or trailing spaces.</message>
     </validate-new-password>
     <validate-greater-than-zero translate="message" module="core">
         <message>Please enter a number greater than 0 in this field.</message>

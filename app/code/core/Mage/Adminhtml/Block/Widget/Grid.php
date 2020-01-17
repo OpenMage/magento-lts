@@ -464,7 +464,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     {
         if ($this->getCollection()) {
             $field = ( $column->getFilterIndex() ) ? $column->getFilterIndex() : $column->getIndex();
-            if ($column->getFilterConditionCallback()) {
+            if ($column->getFilterConditionCallback() && $column->getFilterConditionCallback()[0] instanceof self) {
                 call_user_func($column->getFilterConditionCallback(), $this->getCollection(), $column);
             } else {
                 $cond = $column->getFilter()->getCondition();
@@ -647,7 +647,13 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 
     protected function _beforeToHtml()
     {
-        $this->_prepareGrid();
+        try {
+            $this->_prepareGrid();
+        } catch (Exception $e) {
+            $this->resetSavedParametersInSession();
+            throw $e;
+        }
+
         return parent::_beforeToHtml();
     }
 
@@ -984,6 +990,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             foreach ($collection as $item) {
                 call_user_func_array(array($this, $callback), array_merge(array($item), $args));
             }
+            $collection->clear();
+            unset($collection);
         }
     }
 
@@ -1308,6 +1316,23 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     {
         $this->_saveParametersInSession = $flag;
         return $this;
+    }
+
+    public function resetSavedParametersInSession()
+    {
+        $session = Mage::getSingleton('adminhtml/session');
+
+        $params = array(
+           $this->_varNameLimit,
+           $this->_varNamePage,
+           $this->_varNameSort,
+           $this->_varNameDir,
+           $this->_varNameFilter
+        );
+
+        foreach ($params as $param) {
+            $session->unsetData($this->getId().$param);
+        }
     }
 
     public function getJsObjectName()

@@ -34,23 +34,11 @@
                 <item name="label" xsi:type="string">Yes</item>
                 <item name="value" xsi:type="string">1</item>
             </field>
-            <field name="carriers/ups/active_rma" xsi:type="array">
-                <item name="scope" xsi:type="string">carriers</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">Yes</item>
-                <item name="value" xsi:type="string">1</item>
-            </field>
             <field name="carriers/ups/type" xsi:type="array">
                 <item name="scope" xsi:type="string">carriers</item>
                 <item name="scope_id" xsi:type="number">1</item>
                 <item name="label" xsi:type="string">United Parcel Service XML</item>
                 <item name="value" xsi:type="string">UPS_XML</item>
-            </field>
-            <field name="carriers/ups/is_account_live" xsi:type="array">
-                <item name="scope" xsi:type="string">carriers</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string">0</item>
             </field>
             <field name="carriers/ups/password" xsi:type="array">
                 <item name="scope" xsi:type="string">carriers</item>
@@ -163,12 +151,6 @@
         </dataset>
         <dataset name="ups_rollback">
             <field name="carriers/ups/active" xsi:type="array">
-                <item name="scope" xsi:type="string">carriers</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string">0</item>
-            </field>
-            <field name="carriers/ups/active_rma" xsi:type="array">
                 <item name="scope" xsi:type="string">carriers</item>
                 <item name="scope_id" xsi:type="number">1</item>
                 <item name="label" xsi:type="string">No</item>

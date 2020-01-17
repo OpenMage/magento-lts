@@ -148,7 +148,11 @@ class CreateCmsPageEntityTest extends Injectable
                 $this->storeIndex->open();
                 $this->storeIndex->getStoreGrid()->openStore($store);
                 $this->editStore->getFormPageActions()->delete();
-                $this->deleteStore->getFormPageActions()->delete();
+                $deleteStoreFormPageActions = $this->deleteStore->getFormPageActions();
+                if ($deleteStoreFormPageActions->isVisible()) {
+                    $this->deleteStore->getForm()->fillForm();
+                    $deleteStoreFormPageActions->delete();
+                }
             }
         }
     }

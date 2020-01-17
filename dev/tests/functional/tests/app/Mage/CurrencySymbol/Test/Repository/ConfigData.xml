@@ -48,5 +48,19 @@
                 </item>
             </field>
         </dataset>
+        <dataset name="config_currency_converters">
+            <field name="currency/fixerio/api_key" xsi:type="array">
+                <item name="scope" xsi:type="string">currency</item>
+                <item name="scope_id" xsi:type="number">1</item>
+                <item name="label" xsi:type="string" />
+                <item name="value" xsi:type="string" />
+            </field>
+            <field name="currency/currencyconverterapi/api_key" xsi:type="array">
+                <item name="scope" xsi:type="string">currency</item>
+                <item name="scope_id" xsi:type="number">1</item>
+                <item name="label" xsi:type="string" />
+                <item name="value" xsi:type="string" />
+            </field>
+        </dataset>
     </repository>
 </config>

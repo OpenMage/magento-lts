@@ -533,6 +533,7 @@
                 <remind_email_template>customer_password_remind_email_template</remind_email_template>
                 <reset_link_expiration_period>2</reset_link_expiration_period>
                 <require_admin_user_to_change_user_password>1</require_admin_user_to_change_user_password>
+                <min_password_length>7</min_password_length>
             </password>
             <address>
                 <street_lines>2</street_lines>
@@ -593,6 +594,7 @@ T: {{var telephone}}
                 <forgot_password_flow_secure>1</forgot_password_flow_secure>
                 <forgot_password_email_times>5</forgot_password_email_times>
                 <forgot_password_ip_times>5</forgot_password_ip_times>
+                <min_admin_password_length>14</min_admin_password_length>
             </security>
         </admin>
     </default>

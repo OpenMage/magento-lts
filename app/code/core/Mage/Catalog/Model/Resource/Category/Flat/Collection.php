@@ -341,14 +341,12 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
             $paths = array($paths);
         }
         $select = $this->getSelect();
-        $orWhere = false;
+        $cond   = array();
         foreach ($paths as $path) {
-            if ($orWhere) {
-                $select->orWhere('main_table.path LIKE ?', "$path%");
-            } else {
-                $select->where('main_table.path LIKE ?', "$path%");
-                $orWhere = true;
-            }
+            $cond[] = $this->getResource()->getReadConnection()->quoteInto('main_table.path LIKE ?', "$path%");
+        }
+        if ($cond) {
+            $select->where(join(' OR ', $cond));
         }
         return $this;
     }
