@@ -683,8 +683,8 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         }
 
         if (sizeof($attributesData) == 1 && !$returnArray) {
-            $_data = each($attributesData);
-            $attributesData = $_data[1];
+            $_data = reset($attributesData);
+            $attributesData = $_data;
         }
 
         return $attributesData ? $attributesData : false;
