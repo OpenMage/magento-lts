@@ -106,7 +106,7 @@ $_params = $this->escapeHtml(json_encode(array('form_key' => $this->getFormKey()
                                     <?php endif; ?>
                                     <ul class="add-to-links">
                                         <?php if ($this->helper('wishlist')->isAllow()) : ?>
-                                            <?php $_wishlistUrl = $this->helper('wishlist')-getAddUrlWithCustomParams($_product, array(), false); ?>
+                                            <?php $_wishlistUrl = $this->helper('wishlist')->getAddUrlWithCustomParams($_product, array(), false); ?>
                                             <li><a href="#"
                                                    data-url="<?php echo $_wishlistUrl ?>"
                                                    data-params="<?php echo $_params ?>"
@@ -191,7 +191,7 @@ $_params = $this->escapeHtml(json_encode(array('form_key' => $this->getFormKey()
                                 <?php endif; ?>
                                 <ul class="add-to-links">
                                     <?php if ($this->helper('wishlist')->isAllow()) : ?>
-                                        <?php $_wishlistUrl = $this->helper('wishlist')-getAddUrlWithCustomParams($_product, array(), false); ?>
+                                        <?php $_wishlistUrl = $this->helper('wishlist')->getAddUrlWithCustomParams($_product, array(), false); ?>
                                         <li>
                                             <a href="#"
                                                data-url="<?php echo $_wishlistUrl ?>"
