@@ -142,7 +142,7 @@ class Mage_XmlConnect_Block_Customer_Order_Details extends Mage_Payment_Block_In
             if (!empty($specificInfo)) {
                 foreach ($specificInfo as $label => $value) {
                     if ($value) {
-                        $paymentNode->addCustomChild('item',implode($this->getValueAsArray($value, true), '\n'), array(
+                        $paymentNode->addCustomChild('item',implode('\n', $this->getValueAsArray($value, true)), array(
                             'label' => $label
                         ));
                     }

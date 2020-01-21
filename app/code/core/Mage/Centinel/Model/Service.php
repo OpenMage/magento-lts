@@ -101,7 +101,7 @@ class Mage_Centinel_Model_Service extends Varien_Object
      */
     protected function _generateChecksum($paymentMethodCode, $cardType, $cardNumber, $cardExpMonth, $cardExpYear, $amount, $currencyCode)
     {
-        return md5(implode(func_get_args(), '_'));
+        return md5(implode('_', func_get_args()));
     }
 
     /**

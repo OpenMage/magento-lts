@@ -46,7 +46,7 @@
             <?php foreach ($card as $_label => $_value):?>
             <tr>
                 <td><?php echo $this->escapeHtml($_label)?>:</td>
-                <td><?php echo nl2br(implode($this->getValueAsArray($_value, true), "\n"))?></td>
+                <td><?php echo nl2br(implode("\n", $this->getValueAsArray($_value, true)))?></td>
             </tr>
             <?php endforeach; ?>
             </tbody>

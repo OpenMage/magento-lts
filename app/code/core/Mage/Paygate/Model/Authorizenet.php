@@ -1517,7 +1517,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
             $data[] = $dataKey;
             $data[] = $object->getData($dataKey);
         }
-        return md5(implode($data, '_'));
+        return md5(implode('_', $data));
     }
 
     /**

@@ -54,7 +54,7 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_Info_Authorizenet extends Ma
                 'label' => $showCount ? $this->__('Credit Card %s', $key + 1) : $this->__('Credit Card')
             ));
             foreach ($card as $label => $value) {
-                $creditCard->addCustomChild('item', implode($this->getValueAsArray($value, true), '\n'), array(
+                $creditCard->addCustomChild('item', implode('\n', $this->getValueAsArray($value, true)), array(
                     'label' => $label
                 ));
             }
