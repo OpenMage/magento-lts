@@ -86,7 +86,7 @@ abstract class Varien_Filter_Template_Tokenizer_Abstract
      */
     public function char()
     {
-        return $this->_string{$this->_currentIndex};
+        return $this->_string[$this->_currentIndex];
     }
     
     

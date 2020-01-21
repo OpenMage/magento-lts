@@ -470,7 +470,7 @@ class Mage_System_Ftp
                 $info = preg_split("/[\s]+/", $rawfile, 9);
                 $arraypointer[] = array(
                     'name'   => $info[8],
-                    'dir'  => $info[0]{0} == 'd',
+                    'dir'  => $info[0][0] == 'd',
                     'size'   => (int) $info[4],
                     'chmod'  => self::chmodnum($info[0]),
                     'rawdata' => $info,
