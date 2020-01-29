@@ -770,3 +770,9 @@ function customFormSubmitToParent(url, parametersArray, method) {
         }
     });
 }
+
+function buttonDisabler() {
+    const buttons = document.querySelectorAll('button.save');
+    buttons.forEach(button => button.disabled = true);
+}
+

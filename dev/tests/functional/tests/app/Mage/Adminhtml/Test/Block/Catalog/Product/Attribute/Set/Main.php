@@ -95,6 +95,7 @@ class Main extends Block
         $attribute = $this->_rootElement->find($attributeLocator, Locator::SELECTOR_XPATH);
         $attribute->click();
         $target = $this->_rootElement->find(sprintf($this->groups, $attributeGroup), Locator::SELECTOR_XPATH);
+        $this->browser->refresh();
         $attribute->dragAndDrop($target);
     }
 

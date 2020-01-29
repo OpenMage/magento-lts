@@ -273,8 +273,8 @@ extends Mage_Connect_Command
 
 
                     $conflicts = $package->checkPhpDependencies();
-                    if(true !== $conflicts) {                       
-                        $confilcts = implode(",",$conflicts);
+                    if(true !== $conflicts) {
+                        $conflicts = implode(",", $conflicts);
                         $err = "Package {$pChan}/{$pName} {$pVer} depends on PHP extensions: ".$conflicts;
                         if($forceMode) {
                             $this->doError($command, $err);

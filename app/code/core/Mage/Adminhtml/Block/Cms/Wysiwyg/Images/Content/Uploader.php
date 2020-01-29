@@ -44,7 +44,10 @@ class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Content_Uploader extends Mage_Uplo
         $this->getUploaderConfig()
             ->setFileParameterName('image')
             ->setTarget(
-                Mage::getModel('adminhtml/url')->addSessionParam()->getUrl('*/*/upload', array('type' => $type))
+                Mage::getModel('adminhtml/url')->addSessionParam()->getUrl(
+                    '*/*/upload',
+                    array('type' => $type, '_query' => false)
+                )
             );
         $this->getButtonConfig()
             ->setAttributes(array(

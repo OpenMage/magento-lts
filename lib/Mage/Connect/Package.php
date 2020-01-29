@@ -768,7 +768,7 @@ END;
         foreach($this->getDependencyPhpExtensions() as $dep)
         {
             if(!extension_loaded($dep['name'])) {
-                $errors[] = $dep;
+                $errors[] = $dep['name'];
             }
         }
         if(count($errors)) {

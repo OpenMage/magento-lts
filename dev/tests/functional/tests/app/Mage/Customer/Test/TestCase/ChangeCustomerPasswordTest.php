@@ -121,5 +121,26 @@ class ChangeCustomerPasswordTest extends Injectable
         $this->customerAccountIndex->getInfoBlock()->openChangePassword();
         $this->customerAccountEdit->getAccountInfoForm()->fill($customer);
         $this->customerAccountEdit->getAccountInfoForm()->submit();
+        $this->cmsIndex->getTopLinksBlock()->openAccount();
+        if (
+            !$this->customerAccountIndex->getMessagesBlock()->isVisibleMessage('success')
+            && $this->cmsIndex->getLinksBlock()->isLinkVisible('Log In')
+        ) {
+            $fixtureFactory = $this->objectManager->create('Magento\Mtf\Fixture\FixtureFactory');
+            $customer = $fixtureFactory->createByCode(
+                'customer',
+                [
+                    'data' => [
+                        'email' => $initialCustomer->getEmail(),
+                        'password' => $customer->getPassword(),
+                        'password_confirmation' => $customer->getPassword(),
+                    ],
+                ]
+            );
+            $this->objectManager->create(
+                'Mage\Customer\Test\TestStep\LoginCustomerOnFrontendStep',
+                ['customer' => $customer]
+            )->run();
+        }
     }
 }
