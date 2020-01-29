@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+    <name>Lib_Phpseclib</name>
+    <version>1.9.4.4</version>
+    <stability>stable</stability>
+    <license uri="http://www.gnu.org/licenses/lgpl.txt">LGPL v.3</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Phpseclib Library</summary>
+    <description>Phpseclib Library</description>
+    <notes>1.9.4.4</notes>
+    <authors><author><name>Magento Core Team</name><user>core</user><email>core@magentocommerce.com</email></author></authors>
+    <date>2020-01-08</date>
+    <time>15:19:46</time>
+    <contents><target name="magelib"><dir name="phpseclib"><dir name="Crypt"><file name="AES.php" hash="22d0024134a5291b96ba1e04ff5706cc"/><file name="Base.php" hash="30f53da6745acd05de335bbf8a81c171"/><file name="Blowfish.php" hash="af6bf1aa8864cba2be2cd01059504f8c"/><file name="DES.php" hash="dd4ec1b7a4b4a67d0b41fc45a3d9a060"/><file name="Hash.php" hash="eb18f40942a4431ef8704b7e3a8013fd"/><file name="RC2.php" hash="e26943cba9cf24f4231fc9fa52002eca"/><file name="RC4.php" hash="de8b1dcc1a3e0a18b4d0b27f9f56c063"/><file name="RSA.php" hash="450260568ddca20f50130fb54f3907a7"/><file name="Random.php" hash="93193a666526c63ba95629cd71504aef"/><file name="Rijndael.php" hash="e695ed56c5178ac7ee1f438e728f1f24"/><file name="TripleDES.php" hash="3c282665b77ed6a970f2f34ec0305953"/><file name="Twofish.php" hash="5eb765fe5f99cee6236198ef6b0ce273"/></dir><dir name="File"><file name="ANSI.php" hash="0bbcc6b7de2830e94d8653123441eabe"/><dir name="ASN1"><file name="Element.php" hash="c94013bbb82d49d0c467a5e48fc318bd"/></dir><file name="ASN1.php" hash="f08c586b9ae2d22439620659410e0d8f"/><file name="X509.php" hash="b1c6ed7a19714520d227eb9d951c0963"/></dir><dir name="Math"><file name="BigInteger.php" hash="ac5a5a2c4575e74393c3137cc76e0919"/></dir><dir name="Net"><file name="SCP.php" hash="6f04a3784d5b677391fac09b152d2c86"/><dir name="SFTP"><file name="Stream.php" hash="819f66e981bbd02ad8237413c8cb13a2"/></dir><file name="SFTP.php" hash="81b700bba41e7578744b87f0daf5da6d"/><file name="SSH1.php" hash="aa19523d08b5db590d8413795f7d9f41"/><file name="SSH2.php" hash="97b204231f064dd38b0751aaf7617e48"/></dir><dir name="PHP"><dir name="Compat"><dir name="Function"><file name="array_fill.php" hash="3e4447472476fae11a7da92ed423312d"/><file name="bcpowmod.php" hash="2e8a52baa7152d7b68766fcb364775b2"/><file name="str_split.php" hash="a6a819d04367fbb16fcf774b7ba33a94"/></dir></dir></dir><dir name="System"><dir name="SSH"><dir name="Agent"><file name="Identity.php" hash="0592ff991d07c93a2bcbb2dfcbd85e5b"/></dir><file name="Agent.php" hash="4d1554ca5700f3359c827a8cb9c9ca07"/></dir></dir><file name="bootstrap.php" hash="1fd3efc24ca047574642e5fe830e6194"/><file name="openssl.cnf" hash="b4409823562c617107907cd04d67c8fa"/></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.4.0</min><max>7.2.99</max></php></required></dependencies>
+</package>

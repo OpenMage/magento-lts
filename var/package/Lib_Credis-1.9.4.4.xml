@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+    <name>Lib_Credis</name>
+    <version>1.9.4.4</version>
+    <stability>stable</stability>
+    <license uri="http://opensource.org/licenses/osl-3.0.php">OSL v3.0</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Credis Library</summary>
+    <description>Credis Library</description>
+    <notes>1.9.4.4</notes>
+    <authors><author><name>Magento Core Team</name><user>core</user><email>core@magentocommerce.com</email></author></authors>
+    <date>2020-01-08</date>
+    <time>15:19:43</time>
+    <contents><target name="magelib"><dir name="Credis"><file name="Client.php" hash="1fde64fdcd768d51758ec437d5952861"/></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.4.0</min><max>7.2.99</max></php></required></dependencies>
+</package>
