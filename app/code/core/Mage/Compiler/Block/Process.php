@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Compiler
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -66,16 +66,16 @@ class Mage_Compiler_Block_Process extends Mage_Adminhtml_Block_Template
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
                     'label'     => Mage::helper('compiler')->__('Run Compilation Process'),
-                    'onclick'   => 'compilationForm.submit();',
+                    'onclick'   => 'buttonDisabler(event); compilationForm.submit();',
                     'class'     => 'save'
         )));
 
-        if (defined('COMPILER_INCLUDE_PATH')) {
+        if (!$this->_process->isConstNotDefineInFile()) {
             $this->setChild('change_status_button',
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData(array(
                         'label'     => Mage::helper('compiler')->__('Disable'),
-                        'onclick' => 'setLocation(\'' . $this->getUrl('*/compiler_process/disable') . '\')',
+                        'onclick' => 'buttonDisabler(event); setLocation(\'' . $this->getUrl('*/compiler_process/disable') . '\')',
                         'class'     => 'save'
             )));
         } else {
@@ -83,7 +83,7 @@ class Mage_Compiler_Block_Process extends Mage_Adminhtml_Block_Template
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData(array(
                         'label'     => Mage::helper('compiler')->__('Enable'),
-                        'onclick' => 'setLocation(\'' . $this->getUrl('*/compiler_process/enable') . '\')',
+                        'onclick' => 'buttonDisabler(event); setLocation(\'' . $this->getUrl('*/compiler_process/enable') . '\')',
                         'class'     => 'save'
             )));
         }
@@ -174,7 +174,7 @@ class Mage_Compiler_Block_Process extends Mage_Adminhtml_Block_Template
 
     public function getCompilerStatus()
     {
-        if (defined('COMPILER_INCLUDE_PATH')) {
+        if (!$this->_process->isConstNotDefineInFile()) {
             return $this->__('Enabled');
         } else {
             return $this->__('Disabled');

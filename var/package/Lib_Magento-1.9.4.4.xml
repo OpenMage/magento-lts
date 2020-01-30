@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+    <name>Lib_Magento</name>
+    <version>1.9.4.4</version>
+    <stability>stable</stability>
+    <license uri="http://opensource.org/licenses/osl-3.0.php">OSL v3.0</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Magento Library</summary>
+    <description>Magento Library</description>
+    <notes>1.9.4.4</notes>
+    <authors><author><name>Magento Core Team</name><user>core</user><email>core@magentocommerce.com</email></author></authors>
+    <date>2020-01-08</date>
+    <time>15:19:46</time>
+    <contents><target name="magelib"><dir name="Magento"><dir name="Autoload"><file name="ClassMap.php" hash="43ae3fa9d4585c0c2ef4f456fb85ebd2"/><file name="IncludePath.php" hash="60b9e96f614b7e5be7487d4bb30a3829"/><file name="Simple.php" hash="e5090fd5f6ef2dc45724cf72ea4a015b"/></dir><file name="Crypt.php" hash="cf4a9977ba14f800407581c402c1dad8"/><dir name="Db"><dir name="Adapter"><dir name="Pdo"><file name="Mysql.php" hash="11a8769ba769e883babcbb2ddc059640"/></dir></dir><dir name="Object"><file name="Interface.php" hash="7cc609ba0bbc7b3409d25f42c80ef633"/><file name="Table.php" hash="7dfde7fa287a083673399cdebb6ea296"/><file name="Trigger.php" hash="413c6686e61c8c2284cc4b95211429ef"/><file name="View.php" hash="c4b60b868ad9cae9b5ba147c19e5db1e"/></dir><file name="Object.php" hash="de5604d68c90a7d9c76844862225ab48"/><dir name="Sql"><file name="Select.php" hash="f521db692ed2a9e38eaedbd16ccd81e7"/><file name="Trigger.php" hash="f8839147e4b617a7f6676c40457d5104"/></dir></dir><file name="Exception.php" hash="00a9e234099c4062fffa991deb7bc4ca"/><dir name="Profiler"><dir name="Output"><file name="Csvfile.php" hash="377d2f3148ab29e80c739472b4331be0"/><file name="Firebug.php" hash="947a58bc742dea3d362fb9bb45d9a217"/><file name="Html.php" hash="63f0720ce0cbfb31bb47c6638c2a8f04"/></dir><file name="OutputAbstract.php" hash="49a2ee626b718aec0927550420082c34"/></dir><file name="Profiler.php" hash="d6588b64e0dc5765bfd192897bdb25ec"/></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.4.0</min><max>7.2.99</max></php></required></dependencies>
+</package>

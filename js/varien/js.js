@@ -19,7 +19,7 @@
  *
  * @category    Varien
  * @package     js
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 function popWin(url,win,para) {
@@ -770,3 +770,9 @@ function customFormSubmitToParent(url, parametersArray, method) {
         }
     });
 }
+
+function buttonDisabler() {
+    const buttons = document.querySelectorAll('button.save');
+    buttons.forEach(button => button.disabled = true);
+}
+

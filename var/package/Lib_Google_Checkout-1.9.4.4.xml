@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+    <name>Lib_Google_Checkout</name>
+    <version>1.9.4.4</version>
+    <stability>stable</stability>
+    <license>Apache License</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Google Checkout Library</summary>
+    <description>Google Checkout Library</description>
+    <notes>1.9.4.4</notes>
+    <authors><author><name>Magento Core Team</name><user>core</user><email>core@magentocommerce.com</email></author></authors>
+    <date>2020-01-08</date>
+    <time>15:19:43</time>
+    <contents></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.4.0</min><max>7.2.99</max></php></required></dependencies>
+</package>
