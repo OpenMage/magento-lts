@@ -21,7 +21,7 @@
  *
  * @category    Tests
  * @package     Tests_Functional
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 -->
@@ -34,12 +34,6 @@
                 <item name="scope_id" xsi:type="number">1</item>
                 <item name="label" xsi:type="string">Yes</item>
                 <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/authorizenet/using_pbridge" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string"/>
             </field>
             <field name="payment/authorizenet/payment_action" xsi:type="array">
                 <item name="scope" xsi:type="string">payment</item>
@@ -98,12 +92,6 @@
                 <item name="scope_id" xsi:type="number">1</item>
                 <item name="label" xsi:type="string">Yes</item>
                 <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/authorizenet/using_pbridge" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string"/>
             </field>
             <field name="payment/authorizenet/payment_action" xsi:type="array">
                 <item name="scope" xsi:type="string">payment</item>
@@ -296,12 +284,6 @@
                 <item name="scope_id" xsi:type="number">1</item>
                 <item name="label" xsi:type="string">Yes</item>
                 <item name="value" xsi:type="string">1</item>
-            </field>
-            <field name="payment/authorizenet/using_pbridge" xsi:type="array">
-                <item name="scope" xsi:type="string">payment</item>
-                <item name="scope_id" xsi:type="number">1</item>
-                <item name="label" xsi:type="string">No</item>
-                <item name="value" xsi:type="string"/>
             </field>
             <field name="payment/authorizenet/payment_action" xsi:type="array">
                 <item name="scope" xsi:type="string">payment</item>
