@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Connect
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -605,7 +605,7 @@ END;
         foreach($this->getDependencyPhpExtensions() as $dep)
         {
             if(!extension_loaded($dep['name'])) {
-                $errors[] = $dep;
+                $errors[] = $dep['name'];
             }
         }
         if(count($errors)) {

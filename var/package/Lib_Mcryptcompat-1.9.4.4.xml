@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+    <name>Lib_Mcryptcompat</name>
+    <version>1.9.4.4</version>
+    <stability>stable</stability>
+    <license uri="http://www.opensource.org/licenses/mit-license.html">MIT</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Mcrypt Library</summary>
+    <description>PHP 7.1 removed the mcrypt extension. This provides a compatibility layer for legacy applications.</description>
+    <notes>1.9.4.4</notes>
+    <authors><author><name>Jim Wigginton</name><user>core</user><email>terrafrost@php.net</email></author></authors>
+    <date>2020-01-08</date>
+    <time>15:19:46</time>
+    <contents><target name="magelib"><dir name="mcryptcompat"><file name="mcrypt.php" hash="bf8efc3ef65399aba6c1f08e9b3adbe0"/></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.4.0</min><max>7.2.99</max></php></required></dependencies>
+</package>

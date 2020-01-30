@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -55,7 +55,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
 
         $this->getUploader()->getUploaderConfig()
             ->setFileParameterName('image')
-            ->setTarget(Mage::getModel('adminhtml/url')->addSessionParam()->getUrl('*/catalog_product_gallery/upload'));
+            ->setTarget(Mage::getModel('adminhtml/url')->addSessionParam()->getUrl(
+                '*/catalog_product_gallery/upload',
+                array('_query' => false)
+            ));
 
         $browseConfig = $this->getUploader()->getButtonConfig();
         $browseConfig
