@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -360,6 +360,29 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
     protected function _getCurrentStoreId()
     {
         return (int)Mage::app()->getStore()->getId();
+    }
+
+    /**
+     * Add filter by path to collection
+     *
+     * @param string $parent
+     * @return $this
+     */
+    public function addParentPathFilter($parent)
+    {
+        $this->addFieldToFilter('path', array('like' => "{$parent}/%"));
+        return $this;
+    }
+
+    /**
+     * Add store filter
+     *
+     * @return $this
+     */
+    public function addStoreFilter()
+    {
+        $this->addFieldToFilter('main_table.store_id', $this->getStoreId());
+        return $this;
     }
 
     /**
