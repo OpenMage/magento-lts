@@ -29,9 +29,8 @@
 <IfModule mod_php5.c>
 
 ############################################
-## adjust memory limit
+## adjust max execution time
 
-    php_value memory_limit 512M
     php_value max_execution_time 18000
 
 ############################################
