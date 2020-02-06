@@ -775,5 +775,5 @@ function buttonDisabler() {
     var buttons = document.querySelectorAll('button.save');
     buttons.forEach(function(button) {
         button.disabled = true;
-    }
+    });
 }
