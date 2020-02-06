@@ -918,10 +918,16 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * @return string
      */
     public function getDefaultSortBy() {
-        if (!$sortBy = $this->getData('default_sort_by')) {
+
+        $sortBy = $this->getData('default_sort_by');
+
+        //when not set or not available use default from system config
+        if (!$sortBy || !isset($available[$sortBy])) {
             $sortBy = Mage::getSingleton('catalog/config')
                 ->getProductListDefaultSortBy($this->getStoreId());
         }
+
+        //even the sort from system config not available, use the first of available
         $available = $this->getAvailableSortByOptions();
         if (!isset($available[$sortBy])) {
             $sortBy = array_keys($available);
