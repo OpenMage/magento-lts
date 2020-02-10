@@ -920,6 +920,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     public function getDefaultSortBy() {
 
         $sortBy = $this->getData('default_sort_by');
+        $available = $this->getAvailableSortByOptions();
 
         //when not set or not available use default from system config
         if (!$sortBy || !isset($available[$sortBy])) {
@@ -928,7 +929,6 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
         }
 
         //even the sort from system config not available, use the first of available
-        $available = $this->getAvailableSortByOptions();
         if (!isset($available[$sortBy])) {
             $sortBy = array_keys($available);
             $sortBy = $sortBy[0];
