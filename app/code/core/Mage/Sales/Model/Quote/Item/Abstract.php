@@ -131,7 +131,8 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
         if ($parentItem) {
             $this->_parentItem = $parentItem;
             // Prevent duplication of children in those are already set
-            if (!in_array($this, $parentItem->getChildren())) {
+            // true for PHP 7.3 Nesting level too deep - recursive dependency?
+            if (!in_array($this, $parentItem->getChildren(), true)) {
                 $parentItem->addChild($this);
             }
         }

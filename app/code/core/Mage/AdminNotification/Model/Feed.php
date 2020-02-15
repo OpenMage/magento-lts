@@ -169,7 +169,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
         $curl->close();
 
         try {
-            $xml  = new SimpleXMLElement($data);
+            $xml = @new SimpleXMLElement($data);
         }
         catch (Exception $e) {
             return false;
