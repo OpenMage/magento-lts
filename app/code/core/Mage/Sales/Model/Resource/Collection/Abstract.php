@@ -82,6 +82,45 @@ abstract class Mage_Sales_Model_Resource_Collection_Abstract extends Mage_Core_M
     }
 
     /**
+     * Wrapper for compatibility with Varien_Data_Collection_Db
+     *
+     * @param mixed $attribute
+     * @param mixed $condition
+     */
+    public function addFieldToFilter($attribute, $condition = null)
+    {
+        // https://www.getpagespeed.com/monitoring/mysql/evil-increment_id-mysql-not-using-index
+        if (is_string($attribute) && (stripos($attribute, 'increment_id') !== false)) {
+            if (is_array($condition)) {
+                foreach ($condition as $key => &$value) {
+                    if (($key == 'like') && (stripos($value, '%') !== false)) {
+                        // 9 for increment id length
+                        // 4 for ' + % + % + '
+                        if ((strlen($value) - 4) >= 9)
+                            $value = (string) str_replace(["'","%"], '', $value);
+                    }
+                    else if (is_array($value)) {
+                        foreach ($value as $subkey => &$subvalue) {
+                            if (is_numeric($subvalue))
+                                $subvalue = (string) $subvalue;
+                        }
+                        unset($subvalue);
+                    }
+                    else if (is_numeric($value)) {
+                        $value = (string) $value;
+                    }
+                }
+                unset($value);
+            }
+            else if (is_numeric($condition)) {
+                $condition = (string) $condition;
+            }
+        }
+
+        return parent::addFieldToFilter($attribute, $condition);
+    }
+
+    /**
      * Specify collection select order by attribute value
      * Backward compatibility with EAV collection
      *
