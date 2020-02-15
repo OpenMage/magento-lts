@@ -27,7 +27,7 @@
 <div class="switcher">
     <label for="store_switcher"><?php echo $this->__('Current Configuration Scope:') ?></label>
     <?php echo $this->getHintHtml() ?>
-    <select id="store_switcher" class="system-config-store-switcher" onchange="location.href=this.options[this.selectedIndex].getAttribute('url')">
+    <select id="store_switcher" class="system-config-store-switcher" onchange="location.href=this.options[this.selectedIndex].getAttribute('data-url');">
     <?php foreach ($this->getStoreSelectOptions() as $_value => $_option): ?>
     <?php if (isset($_option['is_group'])): ?>
         <?php if ($_option['is_close']): ?>
@@ -37,7 +37,7 @@
         <?php endif; ?>
         <?php continue ?>
     <?php endif; ?>
-      <option value="<?php echo $this->escapeHtml($_value) ?>" url="<?php echo $_option['url'] ?>" <?php echo $_option['selected'] ? 'selected="selected"' : '' ?> style="<?php echo $_option['style'] ?>">
+      <option value="<?php echo $this->escapeHtml($_value) ?>" data-url="<?php echo $_option['url'] ?>" <?php echo $_option['selected'] ? 'selected="selected"' : '' ?> style="<?php echo $_option['style'] ?>">
           <?php echo $this->escapeHtml($_option['label']) ?>
       </option>
     <?php endforeach ?>

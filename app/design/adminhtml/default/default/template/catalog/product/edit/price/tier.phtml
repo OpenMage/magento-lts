@@ -56,13 +56,13 @@
                 <th class="last"><?php echo Mage::helper('catalog')->__('Action') ?></th>
             </tr>
         </thead>
-        <tbody id="<?php echo $_htmlId ?>_container"></tbody>
         <tfoot>
             <tr>
                 <td <?php if (!$_showWebsite): ?>style="display:none"<?php endif; ?>></td>
                 <td colspan="4" class="a-right"><?php echo $this->getAddButtonHtml() ?></td>
             </tr>
         </tfoot>
+        <tbody id="<?php echo $_htmlId ?>_container"></tbody>
     </table>
 
 <script type="text/javascript">
