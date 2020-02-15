@@ -41,8 +41,8 @@ class Mage_Adminhtml_Block_Promo_Catalog_Grid extends Mage_Adminhtml_Block_Widge
     {
         parent::__construct();
         $this->setId('promo_catalog_grid');
-        $this->setDefaultSort('name');
-        $this->setDefaultDir('ASC');
+        $this->setDefaultSort('rule_id');
+        $this->setDefaultDir('desc');
         $this->setSaveParametersInSession(true);
     }
 
