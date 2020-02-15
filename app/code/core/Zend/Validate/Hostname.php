@@ -2512,7 +2512,7 @@ class Zend_Validate_Hostname extends Zend_Validate_Abstract
     protected function checkDnsRecords($hostName)
     {
         if (function_exists('idn_to_ascii')) {
-            $result = checkdnsrr(idn_to_ascii($hostName), 'A');
+            $result = checkdnsrr(idn_to_ascii($hostName, IDNA_DEFAULT, INTL_IDNA_VARIANT_UTS46), 'A');
         } else {
             $idn = new Net_IDNA2();
             $result = checkdnsrr($idn->encode($hostName), 'A');

@@ -180,7 +180,7 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
         $parsedUrl = parse_url($url);
         if (!$this->_isPunycode($parsedUrl['host'])) {
             if (function_exists('idn_to_ascii')) {
-                $host = idn_to_ascii($parsedUrl['host']);
+                $host = idn_to_ascii($parsedUrl['host'], IDNA_DEFAULT, INTL_IDNA_VARIANT_UTS46);
             } else {
                 $idn = new Net_IDNA2();
                 $host = $idn->encode($parsedUrl['host']);
