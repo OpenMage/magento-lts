@@ -355,7 +355,7 @@ class Zend_Reflection_File implements Reflector
                 case T_DOLLAR_OPEN_CURLY_BRACES:
                 case T_CURLY_OPEN:
                     $embeddedVariableTrapped = true;
-                    continue;
+                    continue 2;
 
                 // Name of something
                 case T_STRING:
@@ -366,7 +366,7 @@ class Zend_Reflection_File implements Reflector
                         $this->_classes[] = $value;
                         $classTrapped = false;
                     }
-                    continue;
+                    continue 2;
 
                 // Required file names are T_CONSTANT_ENCAPSED_STRING
                 case T_CONSTANT_ENCAPSED_STRING:
@@ -374,7 +374,7 @@ class Zend_Reflection_File implements Reflector
                         $this->_requiredFiles[] = $value ."\n";
                         $requireTrapped = false;
                     }
-                    continue;
+                    continue 2;
 
                 // Functions
                 case T_FUNCTION:
