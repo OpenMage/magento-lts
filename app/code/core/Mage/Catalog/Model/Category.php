@@ -928,8 +928,8 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
                 ->getProductListDefaultSortBy($this->getStoreId());
         }
 
-        //even the sort from system config not available, use the first of available
-        if (!isset($available[$sortBy])) {
+        //even the sort from system config not set or unavailable, use the first of available
+        if (!$sortBy || !isset($available[$sortBy])) {
             $sortBy = array_keys($available);
             $sortBy = $sortBy[0];
         }
