@@ -103,7 +103,7 @@ class Mage_Sales_Model_Convert_Quote extends Varien_Object
      * Convert quote payment to order payment
      *
      * @param   Mage_Sales_Model_Quote_Payment $payment
-     * @return  Mage_Sales_Model_Quote_Payment
+     * @return  Mage_Sales_Model_Order_Payment
      */
     public function paymentToOrderPayment(Mage_Sales_Model_Quote_Payment $payment)
     {
