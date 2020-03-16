@@ -167,9 +167,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     protected function _initSelect()
     {
         $this->getSelect()->from(array('e' => $this->getEntity()->getEntityTable()));
-        if ($this->getEntity()->getTypeId()) {
-            $this->addAttributeToFilter('entity_type_id', $this->getEntity()->getTypeId());
-        }
+
         return $this;
     }
 
