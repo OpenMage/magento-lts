@@ -532,7 +532,8 @@ class Varien_Io_File extends Varien_Io_Abstract
     protected function _checkSrcIsFile($src)
     {
         $result = false;
-        if (is_string($src) && @is_readable($src) && is_file($src)) {
+        // both is_readable() and is_file() emit E_WARNING if there is a null byte in $src
+        if (is_string($src) && @is_readable($src) && @is_file($src)) {
             $result = true;
         }
 
