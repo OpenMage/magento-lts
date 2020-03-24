@@ -141,10 +141,9 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
             return;
         }
         $order = Mage::registry('current_order');
-
-        $cart = Mage::getSingleton('checkout/cart');
-        $cartTruncated = false;
+        
         /* @var $cart Mage_Checkout_Model_Cart */
+        $cart = Mage::getSingleton('checkout/cart');
 
         $items = $order->getItemsCollection();
         foreach ($items as $item) {

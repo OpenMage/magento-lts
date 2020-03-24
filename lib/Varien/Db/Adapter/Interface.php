@@ -402,7 +402,7 @@ interface Varien_Db_Adapter_Interface
      *
      * @param mixed $table The table to insert data into.
      * @param array $data Column-value pairs or array of column-value pairs.
-     * @param arrat $fields update fields pairs or values
+     * @param array $fields update fields pairs or values
      * @return int The number of affected rows.
      */
     public function insertOnDuplicate($table, array $data, array $fields = array());
