@@ -248,14 +248,6 @@ implements Mage_HTTP_IClient
         $this->makeRequest("POST", $uri, $params);
     }
 
-    /**
-     * Make JSON POST request
-     * @see lib/Mage/HTTP/Mage_HTTP_Client#post_json($uri, $params)
-     */
-    public function post_json($uri, $params)
-    {
-        $this->makeRequest("JSON", $uri, $params);
-    }
 
     /**
      * Get response headers
@@ -362,13 +354,9 @@ implements Mage_HTTP_IClient
         $this->curlOption(CURLOPT_URL, $uri);
         if($method == 'POST') {
             $this->curlOption(CURLOPT_POST, 1);
-            $this->curlOption(CURLOPT_POSTFIELDS, http_build_query($params));
+            $this->curlOption(CURLOPT_POSTFIELDS, is_array($params) ? http_build_query($params) : $params);
         } elseif($method == "GET") {
             $this->curlOption(CURLOPT_HTTPGET, 1);
-        } elseif($method == "JSON") {
-            $this->curlOption(CURLOPT_CUSTOMREQUEST, 'POST');
-            $this->curlOption(CURLOPT_POSTFIELDS, json_encode($params));
-            $this->curlOption(CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
         } else {
             $this->curlOption(CURLOPT_CUSTOMREQUEST, $method);
         }
