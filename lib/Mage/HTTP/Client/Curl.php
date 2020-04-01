@@ -345,7 +345,7 @@ implements Mage_HTTP_IClient
      * Make request
      * @param string $method
      * @param string $uri
-     * @param array $params
+     * @param array|string $params pass an array to form post, pass a json encoded string to directly post json
      * @return null
      */
     protected function makeRequest($method, $uri, $params = array())
