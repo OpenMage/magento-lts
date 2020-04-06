@@ -262,7 +262,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     protected function _initOldFieldsMap()
     {
-        $this->_oldFieldsMap = Mage::helper('sales')->getOldFieldMap('quote');
         return $this;
     }
 
