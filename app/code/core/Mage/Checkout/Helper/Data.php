@@ -336,7 +336,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
 
     public function updateCookiesSameSiteNone5Min()
     {
-        $cookies = ['frontend', 'frontend_cid'];
+        $cookies = array('frontend', 'frontend_cid');
         foreach ($cookies as $feCookieName) {
             /** @var $cookieModel Mage_Core_Model_Cookie */
             $cookieModel = Mage::getSingleton('core/cookie');
@@ -351,7 +351,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
                 null,
                 true,
                 null,
-                'None',
+                'None'
             );
         }
     }

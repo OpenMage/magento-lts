@@ -269,7 +269,7 @@ class Mage_Core_Model_Cookie
             'domain' => $domain,
             'Secure' => $secure,
             'httponly' => $httponly,
-            'SameSite' => $sameSite,
+            'SameSite' => $sameSite
         ));
 
         return $this;
@@ -352,7 +352,7 @@ class Mage_Core_Model_Cookie
             'domain' => $domain,
             'Secure' => $secure,
             'httponly' => $httponly,
-            'SameSite' => $sameSite,
+            'SameSite' => $sameSite
         ));
 
         return $this;
