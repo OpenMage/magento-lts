@@ -40,6 +40,18 @@ class Mage_Core_Model_Cookie
     const XML_PATH_COOKIE_HTTPONLY  = 'web/cookie/cookie_httponly';
 
     protected $_lifetime;
+    protected $_sameSite = 'Lax';
+
+    public function setSameSite($sameSite)
+    {
+        $this->_sameSite = $sameSite;
+        return $this;
+    }
+
+    public function getSameSite()
+    {
+        return $this->_sameSite;
+    }
 
     /**
      * Store object
@@ -203,10 +215,19 @@ class Mage_Core_Model_Cookie
      * @param string $domain
      * @param int|bool $secure
      * @param bool $httponly
+     * @param string $sameSite Strict, Lax or None
      * @return $this
      */
-    public function set($name, $value, $period = null, $path = null, $domain = null, $secure = null, $httponly = null)
-    {
+    public function set(
+        $name,
+        $value,
+        $period = null,
+        $path = null,
+        $domain = null,
+        $secure = null,
+        $httponly = null,
+        $sameSite = null
+    ) {
         /**
          * Check headers sent
          */
@@ -238,8 +259,18 @@ class Mage_Core_Model_Cookie
         if (is_null($httponly)) {
             $httponly = $this->getHttponly();
         }
+        if (is_null($sameSite)) {
+            $sameSite = $this->getSameSite();
+        }
 
-        setcookie($name, $value, $expire, $path, $domain, $secure, $httponly);
+        setcookie($name, $value, array(
+            'expires' => $expire,
+            'path' => $path,
+            'domain' => $domain,
+            'Secure' => $secure,
+            'httponly' => $httponly,
+            'SameSite' => $sameSite,
+        ));
 
         return $this;
     }
@@ -252,16 +283,18 @@ class Mage_Core_Model_Cookie
      * @param string $path
      * @param string $domain
      * @param int|bool $secure
+     * @param bool $httponly
+     * @param string $sameSite Strict, Lax or None
      * @return $this
      */
-    public function renew($name, $period = null, $path = null, $domain = null, $secure = null, $httponly = null)
+    public function renew($name, $period = null, $path = null, $domain = null, $secure = null, $httponly = null, $sameSite = null)
     {
         if (($period === null) && !$this->getLifetime()) {
             return $this;
         }
         $value = $this->_getRequest()->getCookie($name, false);
         if ($value !== false) {
-            $this->set($name, $value, $period, $path, $domain, $secure, $httponly);
+            $this->set($name, $value, $period, $path, $domain, $secure, $httponly, $sameSite);
         }
         return $this;
     }
@@ -285,9 +318,10 @@ class Mage_Core_Model_Cookie
      * @param string $domain
      * @param int|bool $secure
      * @param int|bool $httponly
+     * @param string $sameSite Strict, Lax or None
      * @return $this
      */
-    public function delete($name, $path = null, $domain = null, $secure = null, $httponly = null)
+    public function delete($name, $path = null, $domain = null, $secure = null, $httponly = null, $sameSite = null)
     {
         /**
          * Check headers sent
@@ -308,8 +342,19 @@ class Mage_Core_Model_Cookie
         if (is_null($httponly)) {
             $httponly = $this->getHttponly();
         }
+        if (is_null($sameSite)) {
+            $sameSite = $this->getSameSite();
+        }
 
-        setcookie($name, null, null, $path, $domain, $secure, $httponly);
+        setcookie($name, null, array(
+            'expires' => null,
+            'path' => $path,
+            'domain' => $domain,
+            'Secure' => $secure,
+            'httponly' => $httponly,
+            'SameSite' => $sameSite,
+        ));
+
         return $this;
     }
 }

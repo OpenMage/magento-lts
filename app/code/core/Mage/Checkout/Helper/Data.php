@@ -333,4 +333,26 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return Mage::getStoreConfigFlag(self::XML_PATH_CUSTOMER_MUST_BE_LOGGED);
     }
+
+    public function updateCookiesSameSiteNone5Min()
+    {
+        $cookies = ['frontend', 'frontend_cid'];
+        foreach ($cookies as $feCookieName) {
+            /** @var $cookieModel Mage_Core_Model_Cookie */
+            $cookieModel = Mage::getSingleton('core/cookie');
+            $frontendCookieValue = $cookieModel->get($feCookieName);
+            $cookieModel->setSameSite('None');
+            $cookieModel->setLifetime(strtotime("+5 minutes"));
+            $cookieModel->set(
+                $feCookieName,
+                $frontendCookieValue,
+                300, // 5 minutes
+                null,
+                null,
+                true,
+                null,
+                'None',
+            );
+        }
+    }
 }

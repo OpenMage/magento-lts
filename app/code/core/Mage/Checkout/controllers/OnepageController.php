@@ -33,6 +33,8 @@
  */
 class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 {
+    const XML_PATH_COOKIE_USE_SAME_SITE_NONE = 'checkout/options/enable_same_site';
+
     /**
      * List of functions for section update
      *
@@ -649,6 +651,14 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
          * when there is redirect to third party, we don't want to save order yet.
          * we will save the order in return action.
          */
+        // self::XML_PATH_COOKIE_USE_SAME_SITE_NONE
+        $isSameSiteNoneEnabled = Mage::getStoreConfig(self::XML_PATH_COOKIE_USE_SAME_SITE_NONE, Mage::app()->getStore()) === '1';
+        if ($isSameSiteNoneEnabled) {
+            /** @var $checkoutHelper Mage_Checkout_Helper_Data */
+            $checkoutHelper = Mage::helper('checkout');
+            $checkoutHelper->updateCookiesSameSiteNone5Min();
+        }
+
         if (isset($redirectUrl)) {
             $result['redirect'] = $redirectUrl;
         }
