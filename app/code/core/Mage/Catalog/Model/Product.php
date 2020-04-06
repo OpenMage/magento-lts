@@ -362,7 +362,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     protected function _initOldFieldsMap()
     {
-        $this->_oldFieldsMap = Mage::helper('catalog')->getOldFieldMap();
         return $this;
     }
 
