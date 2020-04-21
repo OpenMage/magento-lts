@@ -45,6 +45,9 @@ class Mage_Reports_Model_Totals
     {
         $columns = array();
         foreach ($grid->getColumns() as $col) {
+            if ($col->getTotal() === null) {
+                continue;
+            }
             $columns[$col->getIndex()] = array("total" => $col->getTotal(), "value" => 0);
         }
 
