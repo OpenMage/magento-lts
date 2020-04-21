@@ -131,6 +131,7 @@ class Mage_Checkout_Block_Onepage_Success extends Mage_Core_Block_Template
                     'can_print_order' => $isVisible,
                     'can_view_order'  => Mage::getSingleton('customer/session')->isLoggedIn() && $isVisible,
                     'order_id'  => $order->getIncrementId(),
+                    'order' => $order,
                 ));
             }
         }
@@ -151,6 +152,7 @@ class Mage_Checkout_Block_Onepage_Success extends Mage_Core_Block_Template
                     'agreement_url' => $this->getUrl('sales/billing_agreement/view',
                         array('agreement' => $agreementId)
                     ),
+                    'agreement' => $agreement,
                 ));
             }
         }
