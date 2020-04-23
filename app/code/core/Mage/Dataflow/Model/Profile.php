@@ -72,6 +72,15 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
      * @var array
      */
     protected $_customerTablePermanentAttributes = array('email', 'website');
+    
+    /**
+     * Allowed mime types for csv files
+     * Linux / Mac text/csv
+     * Windows application/octet-stream
+     * Windows with excel installed application/vnd.ms-excel
+     * @var array
+     */
+    protected $_allowedCSVMimeTypes = array('text/csv','application/octet-stream','application/vnd.ms-excel');
 
     protected function _construct()
     {
@@ -185,7 +194,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                     $uploader->save($path);
                     $uploadFile = $uploader->getUploadedFileName();
 
-                    if ($_FILES['file_' . ($index + 1)]['type'] == "text/csv") {
+                    if (in_array($_FILES['file_' . ($index + 1)]['type'], $this->_allowedCSVMimeTypes)) {
                         $fileData = $csvParser->getData($path . $uploadFile);
                         $fileData = array_shift($fileData);
                     } else {
