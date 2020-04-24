@@ -255,7 +255,6 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
 
         $appEmulation = Mage::getSingleton('core/app_emulation');
         $initialEnvironmentInfo = $appEmulation->startEnvironmentEmulation($storeId);
-        Mage::app()->getTranslator()->init('frontend', true);
 
         if ($this->_type == 'price') {
             $this->_getPriceBlock()
