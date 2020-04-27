@@ -246,13 +246,14 @@ class Mage_Core_Model_Layout_Update
         // Cache key is sha1 hash of actual XML string
         $hash = sha1($str);
         $tags[] = self::LAYOUT_GENERAL_CACHE_TAG;
-        Mage::app()->saveCache($hash, $this->getCacheId(), $tags, null);
+        $returnValue = Mage::app()->saveCache($hash, $this->getCacheId(), $tags, null);
 
         // Only save actual XML to cache if it doesn't already exist
         if (!Mage::app()->testCache(self::XML_KEY_PREFIX . $hash)) {
-            Mage::app()->saveCache($str, self::XML_KEY_PREFIX . $hash, $tags, null);
+            $returnValue = Mage::app()->saveCache($str, self::XML_KEY_PREFIX . $hash, $tags, null);
         }
-        return true;
+
+        return $returnValue;
     }
 
     /**
