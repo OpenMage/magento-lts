@@ -443,6 +443,14 @@
                     </customer_addres_after_save_viv_observer>
                 </observers>
             </customer_address_save_after>
+            <customer_customer_authenticated>
+                <observers>
+                    <customer_upgrade_password>
+                        <class>Mage_Customer_Model_Observer</class>
+                        <method>actionUpgradeCustomerPassword</method>
+                    </customer_upgrade_password>
+                </observers>
+            </customer_customer_authenticated>
         </events>
     </global>
     <adminhtml>

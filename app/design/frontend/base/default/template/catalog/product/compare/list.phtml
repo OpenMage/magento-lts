@@ -29,7 +29,10 @@
     <h1><?php echo $this->__('Compare Products') ?></h1>
     <a href="#" onclick="window.print(); return false;" class="link-print"><?php echo $this->__('Print This Page') ?></a>
 </div>
-<?php $_total=$this->getItems()->getSize() ?>
+<?php
+$_total = $this->getItems()->getSize();
+$_params = $this->escapeHtml(json_encode(array('form_key' => $this->getFormKey())));
+?>
 <?php if($_total): ?>
     <table class="data-table compare-table" id="product_comparison">
     <?php $_i=0 ?>
@@ -65,13 +68,30 @@
                     <?php echo $this->getReviewsSummaryHtml($_item, 'short') ?>
                     <?php echo $this->getPriceHtml($_item, true, '-compare-list-top') ?>
                     <?php if($_item->isSaleable()): ?>
-                        <p><button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add to Cart')) ?>" class="button btn-cart" onclick="setPLocation('<?php echo $this->helper('catalog/product_compare')->getAddToCartUrl($_item) ?>', true)"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button></p>
+                        <button type="button"
+                                title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add to Cart')) ?>"
+                                class="button btn-cart"
+                                onclick="customFormSubmitToParent(
+                                        '<?php echo $this->helper('catalog/product_compare')->getAddToCartUrlCustom($_item, false) ?>',
+                                        '<?php echo $_params ?>',
+                                        'post')">
+                            <span><span><?php echo $this->__('Add to Cart') ?></span></span>
+                        </button>
                     <?php else: ?>
                         <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
                     <?php endif; ?>
                     <?php if ($this->helper('wishlist')->isAllow()) : ?>
                         <ul class="add-to-links">
-                            <li><a href="<?php echo $this->getAddToWishlistUrl($_item) ?>" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a></li>
+                            <li>
+                                <a href="#"
+                                   class="link-wishlist"
+                                   onclick="customFormSubmit(
+                                           '<?php echo $this->getAddToWishlistUrlCustom($_item, false) ?>',
+                                           '<?php echo $_params ?>',
+                                           'post')">
+                                    <?php echo $this->__('Add to Wishlist') ?>
+                                </a>
+                            </li>
                         </ul>
                     <?php endif; ?>
                 </td>
@@ -118,13 +138,32 @@
                 <td>
                     <?php echo $this->getPriceHtml($_item, true, '-compare-list-bottom') ?>
                     <?php if($_item->isSaleable()): ?>
-                        <p><button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add to Cart')) ?>" class="button btn-cart" onclick="setPLocation('<?php echo $this->helper('catalog/product_compare')->getAddToCartUrl($_item) ?>', true)"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button></p>
+                        <p>
+                            <button type="button"
+                                    title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add to Cart')) ?>"
+                                    class="button btn-cart"
+                                    onclick="customFormSubmitToParent(
+                                            '<?php echo $this->helper('catalog/product_compare')->getAddToCartUrlCustom($_item, false) ?>',
+                                            '<?php echo $_params ?>',
+                                            'post')">
+                                <span><span><?php echo $this->__('Add to Cart') ?></span></span>
+                            </button>
+                        </p>
                     <?php else: ?>
                         <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
                     <?php endif; ?>
                     <?php if ($this->helper('wishlist')->isAllow()) : ?>
                         <ul class="add-to-links">
-                            <li><a href="<?php echo $this->getAddToWishlistUrl($_item);?>" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a></li>
+                            <li>
+                                <a href="#"
+                                   class="link-wishlist"
+                                   onclick="customFormSubmit(
+                                           '<?php echo $this->getAddToWishlistUrlCustom($_item, false) ?>',
+                                           '<?php echo $_params ?>',
+                                           'post')">
+                                    <?php echo $this->__('Add to Wishlist') ?>
+                                </a>
+                            </li>
                         </ul>
                     <?php endif; ?>
                 </td>
