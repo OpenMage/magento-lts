@@ -126,8 +126,7 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
      *
      * @return array
      */
-    protected function _getSortedCollectorCodes()
-    {
+    protected function _getSortedCollectorCodes() {
         if (Mage::app()->useCache('config')) {
             $cachedData = Mage::app()->loadCache($this->_collectorsCacheKey);
             if ($cachedData) {
@@ -140,41 +139,64 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
         $element = current($configArray);
         if (isset($element['sort_order'])) {
             uasort($configArray, array($this, '_compareSortOrder'));
+            $sortedCollectors = array_keys($configArray);
         } else {
             foreach ($configArray as $code => $data) {
                 foreach ($data['before'] as $beforeCode) {
                     if (!isset($configArray[$beforeCode])) {
                         continue;
                     }
-                    $configArray[$code]['before'] = array_unique(array_merge(
-                        $configArray[$code]['before'], $configArray[$beforeCode]['before']
-                    ));
+                    $configArray[$code]['before'] = array_merge(
+                            $configArray[$code]['before'],
+                            $configArray[$beforeCode]['before']);
+                    $configArray[$code]['before'] = array_unique(
+                            $configArray[$code]['before']);
                     $configArray[$beforeCode]['after'] = array_merge(
-                        $configArray[$beforeCode]['after'], array($code), $data['after']
-                    );
-                    $configArray[$beforeCode]['after'] = array_unique($configArray[$beforeCode]['after']);
+                            $configArray[$beforeCode]['after'], array($code),
+                            $data['after']);
+                    $configArray[$beforeCode]['after'] = array_unique(
+                            $configArray[$beforeCode]['after']);
                 }
                 foreach ($data['after'] as $afterCode) {
                     if (!isset($configArray[$afterCode])) {
                         continue;
                     }
-                    $configArray[$code]['after'] = array_unique(array_merge(
-                        $configArray[$code]['after'], $configArray[$afterCode]['after']
-                    ));
+                    $configArray[$code]['after'] = array_merge(
+                            $configArray[$code]['after'],
+                            $configArray[$afterCode]['after']);
+                    $configArray[$code]['after'] = array_unique(
+                            $configArray[$code]['after']);
                     $configArray[$afterCode]['before'] = array_merge(
-                        $configArray[$afterCode]['before'], array($code), $data['before']
-                    );
-                    $configArray[$afterCode]['before'] = array_unique($configArray[$afterCode]['before']);
+                            $configArray[$afterCode]['before'], array($code),
+                            $data['before']);
+                    $configArray[$afterCode]['before'] = array_unique(
+                            $configArray[$afterCode]['before']);
                 }
             }
-            uasort($configArray, array($this, '_compareTotals'));
+            //uasort($configArray, array($this, '_compareTotals'));
+            $res = "";
+            foreach ($configArray as $code => $data) {
+                foreach ($data['before'] as $beforeCode) {
+                    if (!isset($configArray[$beforeCode])) {
+                        continue;
+                    }
+                    $res = $res . "$code $beforeCode\n";
+                }
+                foreach ($data['after'] as $afterCode) {
+                    if (!isset($configArray[$afterCode])) {
+                        continue;
+                    }
+                    $res = $res . "$afterCode $code\n";
+                }
+            }
+            file_put_contents(Mage::getBaseDir('tmp')."/graph.txt", $res);
+            $sortedCollectors=explode("\n",shell_exec('tsort '.Mage::getBaseDir('tmp')."/graph.txt"),-1);           
         }
-        $sortedCollectors = array_keys($configArray);
         if (Mage::app()->useCache('config')) {
-            Mage::app()->saveCache(serialize($sortedCollectors), $this->_collectorsCacheKey, array(
-                    Mage_Core_Model_Config::CACHE_TAG
-                )
-            );
+            Mage::app()
+                    ->saveCache(serialize($sortedCollectors),
+                            $this->_collectorsCacheKey,
+                            array(Mage_Core_Model_Config::CACHE_TAG));
         }
         return $sortedCollectors;
     }
