@@ -15,6 +15,6 @@ We will keep the details of your security vulnerability report private and only 
 
 To report a vulnerability, please *DO NOT* open a public Issue or Pull Request.
 
-Please email your security vulnerability report to one of the project maintainers listed in the README.md file along with your Github user name so that you may be added to the security advisory as a collaborator. You can then click "Start a temporary private fork" or just provide the patch file in the security advisory.
+Please email your security vulnerability report to one of the project maintainers listed in the README.md file along with your Github user name so that once we create a security advisory you may be added to it as a collaborator for further collaboration.
 
-We will review the advisory, work with you to find a suitable solution and then work with our community and partners to disclose the vulnerability once a patch is prepared and ours users and partners have an easy path forward to apply the patch promptly.
+We will review the advisory and work with you to find a suitable solution. We will disclose the vulnerability once a patch is prepared and ours community and partners have an easy path forward to apply the patch promptly. We will be sure to give you credit for the vulnerability discovery unless you request otherwise.
