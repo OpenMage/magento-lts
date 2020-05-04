@@ -8,20 +8,6 @@ trap '>&2 echo Error: Command \`$BASH_COMMAND\` on line $LINENO failed with exit
 
 # prepare for test suite
 case $TEST_SUITE in
-    static)
-        cd dev/tests/static
-
-        echo "==> preparing changed files list"
-        changed_files_ce="$TRAVIS_BUILD_DIR/dev/tests/static/testsuite/Magento/Test/_files/changed_files_ce.txt"
-        php get_github_changes.php \
-            --output-file="$changed_files_ce" \
-            --base-path="$TRAVIS_BUILD_DIR" \
-            --repo='https://github.com/OpenMage/magento-lts.git' \
-            --branch="$TRAVIS_BRANCH"
-        sed 's/^/  + including /' "$changed_files_ce"
-
-        cd ../../..
-        ;;
     functional)
         echo "Installing Magento"
         mysql -uroot -e 'CREATE DATABASE magento;'
@@ -32,7 +18,7 @@ case $TEST_SUITE in
           --url "http://${MAGENTO_HOST_NAME}/" --use_rewrites yes --use_secure no \
           --secure_base_url "http://${MAGENTO_HOST_NAME}/" --use_secure_admin no \
           --admin_lastname Owner --admin_firstname Store --admin_email "admin@example.com" \
-          --admin_username admin --admin_password 123123 \
+          --admin_username admin --admin_password asd123#2*53515523 \
           --encryption_key "I2V7t7fiCIRKw9FWz4m3CStgeBG1T+ATZ0Us+W8jAIk="
 
         echo "Prepare functional tests for running"
