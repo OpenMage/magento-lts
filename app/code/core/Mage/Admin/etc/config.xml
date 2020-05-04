@@ -79,6 +79,16 @@
                 <class>Mage_Admin_Block</class>
             </admin>
         </blocks>
+        <events>
+            <admin_user_authenticate_after>
+                <observers>
+                    <admin_user_login>
+                        <class>Mage_Admin_Model_Observer</class>
+                        <method>actionAdminAuthenticate</method>
+                    </admin_user_login>
+                </observers>
+            </admin_user_authenticate_after>
+        </events>
     </global>
     <default>
         <admin>

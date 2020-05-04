@@ -123,4 +123,34 @@ class Mage_Admin_Model_Observer
     public function actionPostDispatchAdmin($event)
     {
     }
+
+    /**
+     * Validate admin password and upgrade hash version
+     *
+     * @param Varien_Event_Observer $observer
+     */
+    public function actionAdminAuthenticate($observer)
+    {
+        $password = $observer->getEvent()->getPassword();
+        $user = $observer->getEvent()->getUser();
+        $authResult = $observer->getEvent()->getResult();
+
+        if (!$authResult) {
+            return;
+        }
+
+        if (
+            !(bool) $user->getPasswordUpgraded()
+            && !Mage::helper('core')->getEncryptor()->validateHashByVersion(
+                $password,
+                $user->getPassword(),
+                Mage_Core_Model_Encryption::HASH_VERSION_SHA256
+            )
+        ) {
+            Mage::getModel('admin/user')->load($user->getId())
+                ->setNewPassword($password)->setForceNewPassword(true)
+                ->save();
+            $user->setPasswordUpgraded(true);
+        }
+    }
 }
