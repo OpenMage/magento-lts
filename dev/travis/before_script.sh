@@ -32,7 +32,9 @@ case $TEST_SUITE in
         cp ./phpunit.xml.dist ./phpunit.xml
         sed -e "s?127.0.0.1?${MAGENTO_HOST_NAME}?g" --in-place ./phpunit.xml
         sed -e "s?basic?travis_acceptance?g" --in-place ./phpunit.xml
+        cd ./utils
+        php -f mtf troubleshooting:check-all
 
-        cd ../..
+        cd ../../..
         ;;
 esac
