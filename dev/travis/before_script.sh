@@ -30,6 +30,7 @@ case $TEST_SUITE in
           --locale en_US --timezone "America/Los_Angeles" --default_currency USD \
           --db_host 127.0.0.1 --db_name magento --db_user root --db_pass "" \
           --url "http://${MAGENTO_HOST_NAME}/" --use_rewrites yes --use_secure no \
+          --secure_base_url "http://${MAGENTO_HOST_NAME}/" --use_secure_admin no \
           --admin_lastname Owner --admin_firstname Store --admin_email "admin@example.com" \
           --admin_username admin --admin_password 123123 \
           --encryption_key "I2V7t7fiCIRKw9FWz4m3CStgeBG1T+ATZ0Us+W8jAIk="
