@@ -57,12 +57,6 @@
         <step name="submitOrder" module="Mage_Sales" />
     </scenario>
 
-    <scenario name="PrintOrderFrontendGuestTest" firstStep="createNewOrderViaCurl">
-        <step name="createNewOrderViaCurl" module="Mage_Sales" next="openSalesOrderOnFrontendForGuest"/>
-        <step name="openSalesOrderOnFrontendForGuest" module="Mage_Sales" next="printOrderOnFrontend"/>
-        <step name="printOrderOnFrontend" module="Mage_Sales"/>
-    </scenario>
-
     <scenario name="MoveShoppingCartProductsOnOrderPageTest" firstStep="createCustomer">
         <step name="createCustomer" module="Mage_Customer" next="createProducts" />
         <step name="createProducts" module="Mage_Catalog" next="loginCustomerOnFrontend" />

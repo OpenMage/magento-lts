@@ -470,7 +470,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      */
     protected function _getEncodedPassword($password)
     {
-        return $this->_getHelper('core')->getHashPassword($password, self::HASH_SALT_LENGTH);
+        return $this->_getHelper('core')->getHash($password, self::HASH_SALT_LENGTH);
     }
 
     /**
