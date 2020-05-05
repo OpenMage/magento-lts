@@ -24,7 +24,7 @@ case $TEST_SUITE in
         echo "Prepare functional tests for running"
         cd dev/tests/functional
 
-        composer install  --no-interaction
+        composer --ignore-platform-reqs install  --no-interaction
         export DISPLAY=:1.0
         sh ./vendor/se/selenium-server-standalone/bin/selenium-server-standalone -port 4444 -host 127.0.0.1 \
             -Dwebdriver.firefox.bin=$(which firefox) -trustAllSSLCertificate &> ~/selenium.log &

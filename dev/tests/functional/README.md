@@ -28,6 +28,5 @@ Run tests:
 docker run --rm -it \
   --volume $(realpath $PWD/../../../):/app --workdir /app \
   php:7.2 \
-    dev/tests/functional/vendor/phpunit/phpunit/phpunit -c dev/tests/functional \
-    dev/tests/functional/testsuites/Magento/Mtf/TestSuite/InjectableTests.php
+    dev/tests/functional/vendor/phpunit/phpunit/phpunit -c dev/tests/functional
 ```
