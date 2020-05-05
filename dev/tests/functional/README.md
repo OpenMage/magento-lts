@@ -13,6 +13,15 @@ docker run --rm -it \
   composer --ignore-platform-reqs install
 ```
 
+Then generate tests using PHP:
+
+```sh
+docker run --rm -it \
+  --volume $(realpath $PWD/../../../):/app --workdir /app \
+  php:7.2 \
+    php -f dev/tests/functional/utils/generate.php
+```
+
 Run tests:
 
 ```sh

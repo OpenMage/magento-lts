@@ -35,7 +35,6 @@ before_install: ./dev/travis/before_install.sh
 install: if [ $TEST_SUITE == "functional" ]; then composer install --no-interaction; fi
 before_script: ./dev/travis/before_script.sh
 script:
-  - test $TEST_SUITE = "functional" && TEST_FILTER='dev/tests/functional/testsuites/Magento/Mtf/TestSuite/InjectableTests.php' || true
   - if [ $TEST_SUITE == "static" ]; then ! find . -not \( -path ./.phpstorm.meta.php -prune \) -not \( -path ./lib/PEAR -prune \) -not \( -path ./lib/phpseclib -prune \) -not \( -path ./lib/Zend -prune \) -type f -name "*.php" -exec php -d error_reporting=32767 -l {} \; 2>&1 >&- | grep "^"; fi
   - if [ $TEST_SUITE == "static" ]; then ! find app/design -type f -name "*.phtml" -exec php -d error_reporting=32767 -l {} \; 2>&1 >&- | grep "^"; fi
-  - if [ $TEST_SUITE == "functional" ]; then dev/tests/functional/vendor/phpunit/phpunit/phpunit -c dev/tests/$TEST_SUITE $TEST_FILTER; fi
+  - if [ $TEST_SUITE == "functional" ]; then dev/tests/functional/vendor/phpunit/phpunit/phpunit -c dev/tests/$TEST_SUITE; fi
