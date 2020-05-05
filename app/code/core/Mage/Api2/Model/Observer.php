@@ -83,4 +83,26 @@ class Mage_Api2_Model_Observer
 
         return $this;
     }
+
+    /**
+     * Upgrade API key hash when api user has logged in
+     *
+     * @param Varien_Event_Observer $observer
+     */
+    public function upgradeApiKey($observer)
+    {
+        $apiKey = $observer->getEvent()->getApiKey();
+        $model = $observer->getEvent()->getModel();
+        if (
+            !(bool) $model->getApiPasswordUpgraded()
+            && !Mage::helper('core')->getEncryptor()->validateHashByVersion(
+                $apiKey,
+                $model->getApiKey(),
+                Mage_Core_Model_Encryption::HASH_VERSION_SHA256
+            )
+        ) {
+            Mage::getModel('api/user')->load($model->getId())->setNewApiKey($apiKey)->save();
+            $model->setApiPasswordUpgraded(true);
+        }
+    }
 }

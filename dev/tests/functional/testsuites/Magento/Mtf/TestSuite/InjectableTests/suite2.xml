@@ -74,7 +74,6 @@
 
             <class value="Mage\Sales\Test\TestCase\CreateOrderFromBackendCustomerPageTest" />
             <class value="Mage\Sales\Test\TestCase\MoveShoppingCartProductsOnOrderPageTest" />
-            <class value="Mage\Sales\Test\TestCase\PrintOrderFrontendGuestTest" />
             <class value="Mage\Sales\Test\TestCase\ReorderOrderEntityTest" />
             <class value="Mage\SalesRule\Test\TestCase\DeleteSalesRuleEntityTest" />
             <class value="Mage\Sitemap\Test\TestCase\CreateSitemapEntityTest" />

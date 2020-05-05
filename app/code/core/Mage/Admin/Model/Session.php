@@ -41,6 +41,13 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
 {
 
     /**
+     * Session admin SID config path
+     *
+     * @const
+     */
+    const XML_PATH_ALLOW_SID_FOR_ADMIN_AREA = 'web/session/use_admin_sid';
+
+    /**
      * Whether it is the first page after successfull login
      *
      * @var boolean
@@ -112,7 +119,12 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
         $user = $this->getUser();
         if ($user) {
             $extraData = $user->getExtra();
-            if (isset($extraData['indirect_login']) && $this->getIndirectLogin()) {
+            if (
+                !is_null(Mage::app()->getRequest()->getParam('SID'))
+                && !$this->allowAdminSid()
+                || isset($extraData['indirect_login'])
+                && $this->getIndirectLogin()
+            ) {
                 $this->unsetData('user');
                 $this->setIndirectLogin(false);
             }
@@ -302,5 +314,15 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
             Mage::getSingleton('adminhtml/session')->addError($message);
             $request->setParam('messageSent', true);
         }
+    }
+
+    /**
+     * Check is allowed to use SID for admin area
+     *
+     * @return bool
+     */
+    protected function allowAdminSid()
+    {
+        return (bool) Mage::getStoreConfig(self::XML_PATH_ALLOW_SID_FOR_ADMIN_AREA);
     }
 }

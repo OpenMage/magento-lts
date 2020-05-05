@@ -91,6 +91,14 @@
                     </api2>
                 </observers>
             </admin_user_save_after>
+            <api_user_authenticated>
+                <observers>
+                    <api2_upgrade_key>
+                        <class>Mage_Api2_Model_Observer</class>
+                        <method>upgradeApiKey</method>
+                    </api2_upgrade_key>
+                </observers>
+            </api_user_authenticated>
         </events>
         <api2>
             <auth_adapters>
