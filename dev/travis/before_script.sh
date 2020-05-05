@@ -33,7 +33,7 @@ case $TEST_SUITE in
         sed -e "s?127.0.0.1?${MAGENTO_HOST_NAME}?g" --in-place ./phpunit.xml
         sed -e "s?basic?travis_acceptance?g" --in-place ./phpunit.xml
         cd ./utils
-        php -f mtf troubleshooting:check-all
+        #php -f mtf troubleshooting:check-all
 
         cd ../../..
         ;;
