@@ -67,7 +67,7 @@ class AssertProductAttributeSearchableByLabel extends AbstractConstraint
             $isProductVisible = $catalogSearchResult->getListProductBlock()->isProductVisible($product);
         }
 
-        \PHPUnit_Framework_Assert::assertTrue($isProductVisible, 'Product was not found by option label.');
+        \PHPUnit\Framework\Assert::assertTrue($isProductVisible, 'Product was not found by option label.');
     }
 
     /**

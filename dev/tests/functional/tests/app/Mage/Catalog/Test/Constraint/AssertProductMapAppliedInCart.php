@@ -71,21 +71,21 @@ class AssertProductMapAppliedInCart extends AbstractConstraint
             // Check that price is not present on category page.
             $productPriceBlock = $listProductBlock->getProductPriceBlock($productName);
             $productPriceBlock->clickForPrice();
-            \PHPUnit_Framework_Assert::assertFalse(
+            \PHPUnit\Framework\Assert::assertFalse(
                 $productPriceBlock->getMapBlock()->isPriceVisible(),
                 'Price is present in MSRP dialog on category page.'
             );
 
             // Check that price is not present on product page.
             $listProductBlock->openProductViewPage($productName);
-            \PHPUnit_Framework_Assert::assertFalse(
+            \PHPUnit\Framework\Assert::assertFalse(
                 $catalogProductView->getViewBlock()->getPriceBlock()->isRegularPriceVisible(),
                 'Price is present in View block on product page.'
             );
 
             // Check that price is present in cart.
             $catalogProductView->getViewBlock()->addToCart($product);
-            \PHPUnit_Framework_Assert::assertEquals(
+            \PHPUnit\Framework\Assert::assertEquals(
                 number_format($product->getPrice(), 2),
                 $cart->getCartBlock()->getCartItem($product)->getCartItemTypePrice('price'),
                 "MAP of $productName product in cart is not equal to product price."

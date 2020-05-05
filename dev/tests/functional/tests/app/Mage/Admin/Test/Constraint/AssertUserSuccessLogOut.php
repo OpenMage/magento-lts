@@ -55,7 +55,7 @@ class AssertUserSuccessLogOut extends AbstractConstraint
     ) {
         $dashboard->getAdminPanelHeader()->logOut();
         $isLoginBlockVisible = $adminAuth->getLoginBlock()->isVisible();
-        \PHPUnit_Framework_Assert::assertTrue($isLoginBlockVisible, 'Admin user was not logged out.');
+        \PHPUnit\Framework\Assert::assertTrue($isLoginBlockVisible, 'Admin user was not logged out.');
     }
 
     /**

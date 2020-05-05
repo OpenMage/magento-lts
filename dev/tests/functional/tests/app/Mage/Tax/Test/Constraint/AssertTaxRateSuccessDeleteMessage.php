@@ -51,7 +51,7 @@ class AssertTaxRateSuccessDeleteMessage extends AbstractConstraint
      */
     public function processAssert(TaxRateIndex $taxRateIndex)
     {
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             self::SUCCESS_DELETE_MESSAGE,
             $taxRateIndex->getMessagesBlock()->getSuccessMessages()
         );

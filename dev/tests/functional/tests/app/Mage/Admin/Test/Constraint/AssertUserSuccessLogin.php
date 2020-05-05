@@ -73,7 +73,7 @@ class AssertUserSuccessLogin extends AbstractConstraint
         }
         $adminAuth->getLoginBlock()->loginToAdminPanel($adminUser->getData());
 
-        \PHPUnit_Framework_Assert::assertTrue($adminPanelHeader->isVisible(), 'Admin user was not logged in.');
+        \PHPUnit\Framework\Assert::assertTrue($adminPanelHeader->isVisible(), 'Admin user was not logged in.');
     }
 
     /**

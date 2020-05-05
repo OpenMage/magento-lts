@@ -81,7 +81,7 @@ class AssertProductInCart extends AbstractConstraint
         $formPrice = $cartItem->getCartItemTypePrice('price');
         $fixturePrice = number_format($this->prepareFixturePrice($product), 2);
 
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             $fixturePrice,
             $formPrice,
             'Product price in shopping cart is not correct.'

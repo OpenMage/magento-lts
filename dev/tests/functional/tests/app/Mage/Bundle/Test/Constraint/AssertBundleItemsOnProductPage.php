@@ -66,7 +66,7 @@ class AssertBundleItemsOnProductPage extends AbstractAssertForm
         $formOptions = $this->prepareFormData($formOptions);
 
         $error = $this->verifyData($productOptions, $formOptions);
-        \PHPUnit_Framework_Assert::assertEmpty($error, $error);
+        \PHPUnit\Framework\Assert::assertEmpty($error, $error);
     }
 
     /**

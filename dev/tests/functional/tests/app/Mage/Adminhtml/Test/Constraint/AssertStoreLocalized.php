@@ -83,7 +83,7 @@ class AssertStoreLocalized extends AbstractConstraint
         $this->setConfig($store, $fixtureFactory, $config);
         $cmsIndex->open();
         $this->selectStore($store);
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             strtolower($cmsIndex->getTopLinksBlock()->getAccountLabelText()),
             self::EXPECTED_TEXT
         );

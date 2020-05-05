@@ -51,7 +51,7 @@ class AssertOrderWithMultishippingSuccessPlacedMessage extends AbstractConstrain
      */
     public function processAssert(CheckoutMultishippingSuccess $сheckoutMultishippingSuccess)
     {
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             self::SUCCESS_MESSAGE,
             $сheckoutMultishippingSuccess->getTitleBlock()->getTitle()
         );

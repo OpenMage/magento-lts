@@ -82,7 +82,7 @@ class AssertSearchTermOnFrontend extends AbstractConstraint
             $errors[] = '- url window (' . $windowUrl . ') does not match the url redirect(' . $redirectUrl . ')';
         }
 
-        \PHPUnit_Framework_Assert::assertEmpty($errors, $errors);
+        \PHPUnit\Framework\Assert::assertEmpty($errors, $errors);
     }
 
     /**

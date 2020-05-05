@@ -61,7 +61,7 @@ class AssertConfigurableProductInCart extends AssertProductInCart
         $catalogProductView->getViewBlock()->addToCart($product);
         $checkoutData = $product->getCheckoutData();
         $price = $checkoutCart->getCartBlock()->getCartItem($product)->getCartItemTypePrice('price');
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             $checkoutData['cartItem']['price'],
             $price,
             'Product price in shopping cart is not correct.'

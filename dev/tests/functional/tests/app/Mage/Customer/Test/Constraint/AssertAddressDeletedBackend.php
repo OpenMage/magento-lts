@@ -56,7 +56,7 @@ class AssertAddressDeletedBackend extends AbstractConstraint
         $orderIndex->open()->getPageActionsBlock()->addNew();
         $orderCreateIndex->getCustomerGrid()->selectCustomer($customer);
         $orderCreateIndex->getStoreBlock()->selectStoreView();
-        \PHPUnit_Framework_Assert::assertNotContains(
+        \PHPUnit\Framework\Assert::assertNotContains(
             $this->prepareAddress($deletedAddress),
             $orderCreateIndex->getCreateBlock()->getBillingAddressForm()->getExistingAddresses(),
             'Deleted address is present on backend during order creation'

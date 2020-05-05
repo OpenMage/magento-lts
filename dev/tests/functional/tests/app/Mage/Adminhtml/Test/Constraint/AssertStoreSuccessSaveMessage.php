@@ -56,7 +56,7 @@ class AssertStoreSuccessSaveMessage extends AbstractConstraint
     public function processAssert(StoreIndex $storeIndex, $savedMessage = null)
     {
         $expectedMessage = ($savedMessage === null) ? self::SUCCESS_MESSAGE : $savedMessage;
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             $expectedMessage,
             $storeIndex->getMessagesBlock()->getSuccessMessages(),
             'Wrong success message is displayed.'

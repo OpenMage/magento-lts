@@ -51,7 +51,7 @@ class AssertReviewSuccessSaveMessage extends AbstractConstraint
      */
     public function processAssert(CatalogProductReview $reviewIndex)
     {
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             self::SUCCESS_MESSAGE,
             $reviewIndex->getMessagesBlock()->getSuccessMessages()
         );

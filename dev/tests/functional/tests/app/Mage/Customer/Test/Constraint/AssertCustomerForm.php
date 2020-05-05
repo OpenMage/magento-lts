@@ -82,7 +82,7 @@ class AssertCustomerForm extends AbstractConstraint
         $pageCustomerIndex->getCustomerGridBlock()->searchAndOpen($filter);
         $dataForm = $pageCustomerEdit->getCustomerForm()->getDataCustomer($customer, $address);
         $dataDiff = $this->verify($data, $dataForm);
-        \PHPUnit_Framework_Assert::assertTrue(
+        \PHPUnit\Framework\Assert::assertTrue(
             empty($dataDiff),
             'Customer data on edit page(backend) not equals to passed from fixture.'
             . "\nFailed values: " . implode(', ', $dataDiff)

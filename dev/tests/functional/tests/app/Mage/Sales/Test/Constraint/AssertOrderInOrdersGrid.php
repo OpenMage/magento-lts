@@ -47,7 +47,7 @@ class AssertOrderInOrdersGrid extends AbstractConstraint
      */
     public function processAssert(SalesOrderIndex $salesOrder, $orderId)
     {
-        \PHPUnit_Framework_Assert::assertTrue(
+        \PHPUnit\Framework\Assert::assertTrue(
             $salesOrder->open()->getSalesOrderGrid()->isRowVisible(['id' => $orderId]),
             "Order with id $orderId is absent in orders grid on backend."
         );

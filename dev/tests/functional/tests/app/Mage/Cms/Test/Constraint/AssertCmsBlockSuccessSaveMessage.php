@@ -51,7 +51,7 @@ class AssertCmsBlockSuccessSaveMessage extends AbstractConstraint
      */
     public function processAssert(CmsBlockIndex $cmsBlockIndex)
     {
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             self::SUCCESS_SAVE_MESSAGE,
             $cmsBlockIndex->getMessagesBlock()->getSuccessMessages()
         );

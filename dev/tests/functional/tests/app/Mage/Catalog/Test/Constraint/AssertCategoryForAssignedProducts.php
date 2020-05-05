@@ -56,7 +56,7 @@ class AssertCategoryForAssignedProducts extends AbstractConstraint
         $browser->open($_ENV['app_frontend_url'] . strtolower($category->getUrlKey()) . '.html');
         $products = $category->getDataFieldConfig('category_products')['source']->getProducts();
         foreach ($products as $productFixture) {
-            \PHPUnit_Framework_Assert::assertTrue(
+            \PHPUnit\Framework\Assert::assertTrue(
                 $categoryView->getListProductBlock()->isProductVisible($productFixture),
                 "Products '{$productFixture->getName()}' is not find."
             );

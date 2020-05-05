@@ -61,7 +61,7 @@ class AssertCustomerInGrid extends AbstractConstraint
         $filter = ['name' => $data[0], 'email' => $data[1]['email']];
 
         $pageCustomerIndex->open();
-        \PHPUnit_Framework_Assert::assertTrue(
+        \PHPUnit\Framework\Assert::assertTrue(
             $pageCustomerIndex->getCustomerGridBlock()->isRowVisible($filter),
             'Customer with '
             . 'name \'' . $filter['name'] . '\', '

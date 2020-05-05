@@ -139,7 +139,7 @@ abstract class AbstractAssertTaxCalculationAfterCheckout extends AbstractAssertT
     protected function assertReviewPrices(InjectableFixture $product, array $prices)
     {
         $error = $this->verifyData($prices, $this->getActualPrices($product, 'review_prices'));
-        \PHPUnit_Framework_Assert::assertTrue(empty($error), $error);
+        \PHPUnit\Framework\Assert::assertTrue(empty($error), $error);
     }
 
     /**

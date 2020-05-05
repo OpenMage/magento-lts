@@ -47,7 +47,7 @@ class AssertChannelTextPresent extends AbstractConstraint
      */
     public function processAssert(ConnectManager $connectManager)
     {
-        \PHPUnit_Framework_Assert::assertContains(
+        \PHPUnit\Framework\Assert::assertContains(
             self::CONNECT_CHANNEL_TEXT,
             $connectManager->getConnectContent()->getChannelTitle(),
             'License agreement text is absent.'

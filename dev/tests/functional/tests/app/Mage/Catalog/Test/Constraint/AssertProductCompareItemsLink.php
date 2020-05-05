@@ -55,13 +55,13 @@ class AssertProductCompareItemsLink extends AbstractConstraint
     public function processAssert(CmsIndex $cmsIndex, array $products)
     {
         $cmsIndex->open();
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             count($products),
             $cmsIndex->getCompareBlock()->getQtyInCompareList(),
             'Qty is not correct in "Compare Products" link.'
         );
 
-        \PHPUnit_Framework_Assert::assertTrue(
+        \PHPUnit\Framework\Assert::assertTrue(
             strpos($cmsIndex->getCompareBlock()->getCompareLinkUrl(), $this->compareProductUrl) !== false,
             'Compare product link isn\'t lead to Compare Product Page.'
         );

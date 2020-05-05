@@ -51,7 +51,7 @@ class Assert3DSecureVerificationFailed extends AbstractConstraint
      */
     public function processAssert(CheckoutOnepage $checkoutOnepage)
     {
-        \PHPUnit_Framework_Assert::assertContains(
+        \PHPUnit\Framework\Assert::assertContains(
             self::VERIFICATION_FAIL_MESSAGE,
             $checkoutOnepage->getReviewBlock()->getVerificationResponseText()
         );

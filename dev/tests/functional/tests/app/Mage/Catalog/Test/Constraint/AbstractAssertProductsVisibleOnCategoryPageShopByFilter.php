@@ -52,7 +52,7 @@ abstract class AbstractAssertProductsVisibleOnCategoryPageShopByFilter extends A
                 $isProductVisible = $catalogCategoryView->getListProductBlock()->isProductVisible($product);
             }
             $expected = in_array($key, $searchProductsIndexes) ? true : false;
-            \PHPUnit_Framework_Assert::assertEquals($expected, $isProductVisible);
+            \PHPUnit\Framework\Assert::assertEquals($expected, $isProductVisible);
         }
     }
 }

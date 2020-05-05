@@ -49,7 +49,7 @@ class AssertWishlistIsEmpty extends AbstractConstraint
     public function processAssert(CmsIndex $cmsIndex, WishlistIndex $wishlistIndex)
     {
         $cmsIndex->getTopLinksBlock()->openAccountLink("My Wishlist");
-        \PHPUnit_Framework_Assert::assertTrue(
+        \PHPUnit\Framework\Assert::assertTrue(
             $wishlistIndex->getWishlistBlock()->isEmptyBlockVisible(),
             'Wish list is not empty.'
         );

@@ -43,7 +43,7 @@ class AssertSalesPrintOrderPaymentMethod extends AbstractConstraint
      */
     public function processAssert(SalesGuestPrint $salesGuestPrint, $paymentMethod)
     {
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             $paymentMethod,
             $salesGuestPrint->getViewBlock()->getPaymentMethod(),
             "Payment method was printed incorrect on sales guest print page."

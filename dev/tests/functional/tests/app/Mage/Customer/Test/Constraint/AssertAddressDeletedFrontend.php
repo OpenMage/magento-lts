@@ -55,7 +55,7 @@ class AssertAddressDeletedFrontend extends AbstractConstraint
     {
         $customerAccountIndex->open();
         $customerAccountIndex->getAccountNavigationBlock()->openNavigationItem('Address Book');
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             self::EXPECTED_MESSAGE,
             $customerAddress->getBookBlock()->getAdditionalAddressBlock()->getBlockText(),
             'Expected text is absent in Additional Address block.'

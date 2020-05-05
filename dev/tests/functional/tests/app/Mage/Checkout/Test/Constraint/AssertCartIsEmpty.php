@@ -48,7 +48,7 @@ class AssertCartIsEmpty extends AbstractConstraint
     public function processAssert(CheckoutCart $checkoutCart)
     {
         $checkoutCart->open();
-        \PHPUnit_Framework_Assert::assertTrue(
+        \PHPUnit\Framework\Assert::assertTrue(
             $checkoutCart->getCartBlock()->emptyCartBlockIsVisible(),
             "Shopping cart is not empty."
         );

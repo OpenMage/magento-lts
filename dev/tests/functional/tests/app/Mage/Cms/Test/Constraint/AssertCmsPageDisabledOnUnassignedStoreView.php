@@ -66,7 +66,7 @@ class AssertCmsPageDisabledOnUnassignedStoreView extends AbstractConstraint
         $browser->open($_ENV['app_frontend_url'] . $cms->getIdentifier());
         $notFoundMessage = ($notFoundMessage !== null) ? $notFoundMessage : self::ERROR_MESSAGE;
         $cmsIndex->getHeaderBlock()->selectStore('Default Store View');
-        \PHPUnit_Framework_Assert::assertContains(
+        \PHPUnit\Framework\Assert::assertContains(
             $notFoundMessage,
             $frontendCmsPage->getCmsPageContentBlock()->getPageContent(),
             'Wrong page content is displayed.'

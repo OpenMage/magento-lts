@@ -49,7 +49,7 @@ class AssertTaxRateNotInTaxRule extends AbstractConstraint
     public function processAssert(TaxRate $taxRate, TaxRuleNew $taxRuleNew) {
         $taxRuleNew->open();
         $taxCode = $taxRate->getCode();
-        \PHPUnit_Framework_Assert::assertFalse(
+        \PHPUnit\Framework\Assert::assertFalse(
             $taxRuleNew->getTaxRuleForm()->isTaxRateAvailable($taxCode),
             "Tax Rate '$taxCode' is present in Tax Rule form."
         );

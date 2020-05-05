@@ -54,7 +54,7 @@ class AssertTaxRateIsInCorrectRange extends AbstractConstraint
         $taxRateIndex->open()->getTaxRatesGrid()->searchAndOpen(['code' => $taxRateCode]);
         $ratePercentage = $taxRateEdit->getTaxRateForm()->getTaxRatePercentage();
 
-        \PHPUnit_Framework_Assert::assertTrue(
+        \PHPUnit\Framework\Assert::assertTrue(
             $ratePercentage >= 0 && $ratePercentage <= 100,
             "$taxRateCode rate percent $ratePercentage is not in correct range between 0 and 100."
         );

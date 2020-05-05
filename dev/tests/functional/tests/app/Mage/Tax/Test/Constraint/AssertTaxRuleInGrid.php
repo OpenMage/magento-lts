@@ -51,7 +51,7 @@ class AssertTaxRuleInGrid extends AbstractConstraint
         $filter = ['code' => $taxRule->getCode()];
 
         $taxRuleIndex->open();
-        \PHPUnit_Framework_Assert::assertTrue(
+        \PHPUnit\Framework\Assert::assertTrue(
             $taxRuleIndex->getTaxRuleGrid()->isRowVisible($filter),
             "Tax Rule '{$filter['code']}' is absent in Tax Rule grid."
         );

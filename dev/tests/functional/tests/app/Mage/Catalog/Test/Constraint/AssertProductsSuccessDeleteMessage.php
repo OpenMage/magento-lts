@@ -53,7 +53,7 @@ class AssertProductsSuccessDeleteMessage extends AbstractConstraint
      */
     public function processAssert(array $products, CatalogProduct $productPage)
     {
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             sprintf(self::SUCCESS_DELETE_MESSAGE, count($products)),
             $productPage->getMessagesBlock()->getSuccessMessages()
         );

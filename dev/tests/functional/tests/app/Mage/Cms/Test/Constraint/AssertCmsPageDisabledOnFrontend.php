@@ -62,7 +62,7 @@ class AssertCmsPageDisabledOnFrontend extends AbstractConstraint
     ) {
         $notFoundMessage = ($notFoundMessage !== null) ? $notFoundMessage : self::ERROR_MESSAGE;
         $browser->open($_ENV['app_frontend_url'] . $cms->getIdentifier());
-        \PHPUnit_Framework_Assert::assertContains(
+        \PHPUnit\Framework\Assert::assertContains(
             $notFoundMessage,
             $frontendCmsPage->getCmsPageContentBlock()->getPageContent(),
             'Wrong page is displayed.'

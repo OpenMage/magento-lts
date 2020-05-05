@@ -59,7 +59,7 @@ class AssertProductRatingOnReviewPage extends AbstractAssertForm
         $ratingForm = $this->sortDataByPath($reviewEdit->getReviewForm()->getData()['ratings'], '::title');
         $error = $this->verifyData($ratingReview, $ratingForm);
 
-        \PHPUnit_Framework_Assert::assertEmpty($error, $error);
+        \PHPUnit\Framework\Assert::assertEmpty($error, $error);
     }
 
     /**

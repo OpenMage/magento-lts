@@ -47,11 +47,11 @@ class AssertSuccessInstall extends AbstractConstraint
     public function processAssert(InstallWizardEnd $installWizardEnd, CmsIndex $cmsIndex, $successInstallMessage)
     {
         // Check InstallWizardEnd page title text.
-        \PHPUnit_Framework_Assert::assertEquals($successInstallMessage, $installWizardEnd->getMainBlock()->getTitle());
+        \PHPUnit\Framework\Assert::assertEquals($successInstallMessage, $installWizardEnd->getMainBlock()->getTitle());
 
         // Check if header block on CmsIndex page is visible.
         $cmsIndex->open();
-        \PHPUnit_Framework_Assert::assertTrue($cmsIndex->getHeaderBlock()->isVisible());
+        \PHPUnit\Framework\Assert::assertTrue($cmsIndex->getHeaderBlock()->isVisible());
     }
 
     /**

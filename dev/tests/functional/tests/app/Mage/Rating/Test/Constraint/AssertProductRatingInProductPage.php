@@ -65,7 +65,7 @@ class AssertProductRatingInProductPage extends AbstractConstraint
         $reviewForm = $reviewProductList->getReviewFormBlock();
         $ratings = $review->getDataFieldConfig('ratings')['source']->getRatings();
         foreach($ratings as $rating){
-            \PHPUnit_Framework_Assert::assertTrue(
+            \PHPUnit\Framework\Assert::assertTrue(
                 $reviewForm->isVisibleRating($rating),
                 'Product rating "' . $rating->getRatingCode() . '" is not displayed on review product page.'
             );

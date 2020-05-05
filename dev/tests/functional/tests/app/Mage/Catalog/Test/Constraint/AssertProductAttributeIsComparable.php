@@ -66,7 +66,7 @@ class AssertProductAttributeIsComparable extends AbstractConstraint
             ? $attribute->getManageFrontendLabel()
             : $attribute->getFrontendLabel();
 
-        \PHPUnit_Framework_Assert::assertTrue(
+        \PHPUnit\Framework\Assert::assertTrue(
             $catalogProductCompare->getCompareProductsBlock()->isAttributeVisible($label),
             'Attribute is absent on product compare page.'
         );

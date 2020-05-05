@@ -52,7 +52,7 @@ class AssertStoreBackend extends AbstractConstraint
     public function processAssert(Store $store, SystemConfig $systemConfig)
     {
         $systemConfig->open();
-        \PHPUnit_Framework_Assert::assertTrue(
+        \PHPUnit\Framework\Assert::assertTrue(
             $systemConfig->getStoresSwitcher()->isStoreVisible($store),
             "Store " . $store->getName() . " is not visible in dropdown on config page."
         );

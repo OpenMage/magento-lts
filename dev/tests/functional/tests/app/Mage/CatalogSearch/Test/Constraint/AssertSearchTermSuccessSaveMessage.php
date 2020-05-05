@@ -51,7 +51,7 @@ class AssertSearchTermSuccessSaveMessage extends AbstractConstraint
      */
     public function processAssert(CatalogSearchIndex $catalogSearchIndex)
     {
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             self::SUCCESS_MESSAGE,
             $catalogSearchIndex->getMessagesBlock()->getSuccessMessages()
         );

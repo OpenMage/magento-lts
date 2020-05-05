@@ -56,7 +56,7 @@ abstract class AbstractAssertOrdersAddress extends AbstractConstraint
     protected function assert(SalesOrderIndex $salesOrder, SalesOrderView $salesOrderView, $orderId, $addressData)
     {
         $salesOrder->open()->getSalesOrderGrid()->searchAndOpen(['id' => $orderId]);
-        \PHPUnit_Framework_Assert::assertEquals($addressData, $this->getFormAddress($salesOrderView));
+        \PHPUnit\Framework\Assert::assertEquals($addressData, $this->getFormAddress($salesOrderView));
     }
 
     /**

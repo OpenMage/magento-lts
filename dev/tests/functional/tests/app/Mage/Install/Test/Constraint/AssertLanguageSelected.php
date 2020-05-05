@@ -48,7 +48,7 @@ class AssertLanguageSelected extends AbstractConstraint
     public function processAssert(CmsIndex $cmsIndex)
     {
         $cmsIndex->open();
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             strtolower($cmsIndex->getTopLinksBlock()->getAccountLabelText()),
             self::EXPECTED_TEXT
         );

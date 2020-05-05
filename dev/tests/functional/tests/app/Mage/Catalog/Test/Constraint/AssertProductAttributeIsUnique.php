@@ -64,7 +64,7 @@ class AssertProductAttributeIsUnique extends AbstractConstraint
         $attributeNew->getPageActions()->saveAndContinue();
 
         $actualMessage = $attributeNew->getMessagesBlock()->getErrorMessages();
-        \PHPUnit_Framework_Assert::assertEquals(self::UNIQUE_MESSAGE, $actualMessage);
+        \PHPUnit\Framework\Assert::assertEquals(self::UNIQUE_MESSAGE, $actualMessage);
     }
 
     /**

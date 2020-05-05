@@ -52,7 +52,7 @@ class AssertSuccessDeploy extends AbstractConstraint
     public function processAssert(DownloaderDeployEnd $downloaderDeployEnd)
     {
         // Check DeployWizardEnd page title text.
-        \PHPUnit_Framework_Assert::assertContains(self::SUCCESSFULLY_DEPLOY_TEXT, $downloaderDeployEnd->getMainBlock()->getDeployStatus());
+        \PHPUnit\Framework\Assert::assertContains(self::SUCCESSFULLY_DEPLOY_TEXT, $downloaderDeployEnd->getMainBlock()->getDeployStatus());
     }
 
     /**

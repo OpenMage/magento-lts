@@ -59,7 +59,7 @@ class AssertUserWrongCredentialsMessage extends AbstractConstraint
         $adminAuth->open();
         $adminAuth->getLoginBlock()->loginToAdminPanel($user->getData());
 
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             static::INVALID_CREDENTIALS_MESSAGE,
             $adminAuth->getMessagesBlock()->getErrorMessages(),
             'Message "' . static::INVALID_CREDENTIALS_MESSAGE . '" is not visible.'

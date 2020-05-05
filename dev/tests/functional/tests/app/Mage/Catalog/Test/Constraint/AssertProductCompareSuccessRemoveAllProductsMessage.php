@@ -51,7 +51,7 @@ class AssertProductCompareSuccessRemoveAllProductsMessage extends AbstractConstr
      */
     public function processAssert(CatalogProductView $catalogProductView)
     {
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             self::SUCCESS_MESSAGE,
             $catalogProductView->getMessagesBlock()->getSuccessMessages()
         );

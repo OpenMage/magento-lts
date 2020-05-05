@@ -53,7 +53,7 @@ class AssertProductIsPresentInWishlist extends AbstractConstraint
         $cmsIndex->getTopLinksBlock()->openAccount();
         $cmsIndex->getLinksBlock()->openLink("My Wishlist");
 
-        \PHPUnit_Framework_Assert::assertTrue(
+        \PHPUnit\Framework\Assert::assertTrue(
             $wishlistIndex->getItemsBlock()->getItemProductBlock($product)->isVisible(),
             $product->getName() . ' is not visible on wishlist page.'
         );

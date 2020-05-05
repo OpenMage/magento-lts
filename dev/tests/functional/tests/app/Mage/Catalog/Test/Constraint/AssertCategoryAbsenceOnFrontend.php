@@ -62,7 +62,7 @@ class AssertCategoryAbsenceOnFrontend extends AbstractConstraint
     ) {
         $browser->open($_ENV['app_frontend_url'] . $category->getUrlKey() . '.html');
         $notFoundMessage = ($notFoundMessage !== null) ? $notFoundMessage : self::NOT_FOUND_MESSAGE;
-        \PHPUnit_Framework_Assert::assertContains(
+        \PHPUnit\Framework\Assert::assertContains(
             $notFoundMessage,
             $categoryView->getViewBlock()->getText(),
             'Category is present on frontend.'

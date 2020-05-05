@@ -61,7 +61,7 @@ abstract class AbstractAssertNoButtonOnOrderPage extends AbstractConstraint
         $orderIndex->open();
         $orderId = ($orderId == null) ? $order->getId() : $orderId;
         $orderIndex->getSalesOrderGrid()->searchAndOpen(['id' => $orderId]);
-        \PHPUnit_Framework_Assert::assertFalse(
+        \PHPUnit\Framework\Assert::assertFalse(
             $salesOrderView->getPageActions()->isActionButtonVisible($this->buttonName),
             "'$this->buttonName' button is present on order view page."
         );

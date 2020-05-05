@@ -67,7 +67,7 @@ class AssertCmsBlockNotOnCategoryPage extends AbstractConstraint
         $cmsIndex->getTopmenu()->selectCategory($category->getName());
         $categoryViewContent = $catalogCategoryView->getViewBlock()->getText();
         $cmsBlockContent = explode("\n", $categoryViewContent);
-        \PHPUnit_Framework_Assert::assertNotContains($cmsBlock->getContent(), $cmsBlockContent);
+        \PHPUnit\Framework\Assert::assertNotContains($cmsBlock->getContent(), $cmsBlockContent);
     }
 
     /**

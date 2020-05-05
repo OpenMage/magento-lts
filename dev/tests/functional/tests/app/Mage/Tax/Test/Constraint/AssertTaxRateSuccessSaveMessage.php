@@ -51,7 +51,7 @@ class AssertTaxRateSuccessSaveMessage extends AbstractConstraint
      */
     public function processAssert(TaxRateIndex $taxRateIndexPage)
     {
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             self::SUCCESS_MESSAGE,
             $taxRateIndexPage->getMessagesBlock()->getSuccessMessages()
         );

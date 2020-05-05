@@ -67,7 +67,7 @@ class AssertCategoryForm extends AbstractAssertForm
         $catalogCategoryIndex->getTreeCategories()->selectCategory($category);
         $dataForm = $catalogCategoryIndex->getCategoryForm()->getDataCategory($category);
         $error = $this->verifyData($data, $dataForm);
-        \PHPUnit_Framework_Assert::assertEmpty($error, $error);
+        \PHPUnit\Framework\Assert::assertEmpty($error, $error);
     }
 
     /**

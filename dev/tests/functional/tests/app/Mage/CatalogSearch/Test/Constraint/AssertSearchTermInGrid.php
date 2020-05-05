@@ -61,7 +61,7 @@ class AssertSearchTermInGrid extends AbstractConstraint
         ];
 
         $indexPage->getGrid()->search($filters);
-        \PHPUnit_Framework_Assert::assertTrue(
+        \PHPUnit\Framework\Assert::assertTrue(
             $indexPage->getGrid()->isRowVisible($filters, false),
             'Row terms according to the filters is not found.'
         );

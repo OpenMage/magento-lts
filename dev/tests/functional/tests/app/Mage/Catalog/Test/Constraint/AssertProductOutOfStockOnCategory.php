@@ -64,7 +64,7 @@ class AssertProductOutOfStockOnCategory extends AbstractConstraint
             $isProductVisible = $catalogCategoryView->getListProductBlock()->isProductVisible($product);
         }
 
-        \PHPUnit_Framework_Assert::assertFalse($isProductVisible, 'Product is present on category page.');
+        \PHPUnit\Framework\Assert::assertFalse($isProductVisible, 'Product is present on category page.');
     }
 
     /**
