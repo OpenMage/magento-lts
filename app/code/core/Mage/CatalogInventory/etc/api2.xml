@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogInventory
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -45,7 +45,7 @@
                         <update>1</update>
                     </admin>
                 </privileges>
-                <attributes translate="item_id product_id stock_id qty min_qty use_config_min_qty is_qty_decimal backorders use_config_backorders min_sale_qty use_config_min_sale_qty max_sale_qty use_config_max_sale_qty is_in_stock low_stock_date notify_stock_qty use_config_notify_stock_qty manage_stock use_config_manage_stock stock_status_changed_auto use_config_qty_increments qty_increments use_config_enable_qty_inc enable_qty_increments is_decimal_divided" module="api2">
+                <attributes translate="item_id product_id stock_id qty min_qty use_config_min_qty is_qty_decimal backorders use_config_backorders min_sale_qty use_config_min_sale_qty max_sale_qty use_config_max_sale_qty is_in_stock low_stock_date notify_stock_qty use_config_notify_stock_qty manage_stock use_config_manage_stock stock_status_changed_auto use_config_qty_increments qty_increments use_config_enable_qty_inc enable_qty_increments is_decimal_divided created_at updated_at" module="api2">
                     <item_id>Item ID</item_id>
                     <product_id>Product ID</product_id>
                     <stock_id>Stock ID</stock_id>
@@ -71,6 +71,8 @@
                     <use_config_enable_qty_inc>Use Config Settings for Enable Qty Increments</use_config_enable_qty_inc>
                     <enable_qty_increments>Enable Qty Increments</enable_qty_increments>
                     <is_decimal_divided>Can Be Divided into Multiple Boxes for Shipping</is_decimal_divided>
+                    <created_at>Created Date</created_at>
+                    <updated_at>Updated Date</updated_at>
                 </attributes>
                 <exclude_attributes>
                     <admin>
@@ -79,6 +81,8 @@
                             <product_id>1</product_id>
                             <stock_id>1</stock_id>
                             <low_stock_date>1</low_stock_date>
+                            <created_at>1</created_at>
+                            <updated_at>1</updated_at>
                         </write>
                     </admin>
                 </exclude_attributes>

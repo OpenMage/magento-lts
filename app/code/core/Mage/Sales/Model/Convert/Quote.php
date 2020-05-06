@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -103,7 +103,7 @@ class Mage_Sales_Model_Convert_Quote extends Varien_Object
      * Convert quote payment to order payment
      *
      * @param   Mage_Sales_Model_Quote_Payment $payment
-     * @return  Mage_Sales_Model_Quote_Payment
+     * @return  Mage_Sales_Model_Order_Payment
      */
     public function paymentToOrderPayment(Mage_Sales_Model_Quote_Payment $payment)
     {
