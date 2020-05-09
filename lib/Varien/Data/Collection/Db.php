@@ -757,7 +757,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * Load cached data for select
      *
      * @param Zend_Db_Select $select
-     * @return string | false
+     * @return string|false
      */
     protected function _loadCache($select)
     {
@@ -786,7 +786,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Check if cache can be used for collection data
      *
-     * @return Zend_Cache_Core
+     * @return Zend_Cache_Core|false
      */
     protected function _canUseCache()
     {
