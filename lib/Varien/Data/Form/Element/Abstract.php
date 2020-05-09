@@ -31,6 +31,23 @@
  * @category   Varien
  * @package    Varien_Data
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setAfterElementHtml(string $value)
+ * @method string getClass()
+ * @method $this setClass(string $value)
+ * @method $this setContainer(Varien_Data_Form $value)
+ * @method $this setExtType(string $value)
+ * @method string getLabel()
+ * @method $this setLabel(string $value)
+ * @method $this setName(string $value)
+ * @method bool getNoSpan()
+ * @method bool getRequired()
+ * @method string getValue()
+ * @method array getValues()
+ * @method $this setValues(array|int|string $value)
+ * @method $this unsCanUseDefaultValue()
+ * @method $this unsCanUseWebsiteValue()
+ * @method $this unsScope()
  */
 abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstract
 {

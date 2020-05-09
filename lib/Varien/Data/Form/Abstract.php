@@ -30,7 +30,12 @@
  *
  * @category   Varien
  * @package    Varien_Data
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setDisabled(bool $value)
+ * @method $this setRequired(bool $value)
+ * @method $this setUseContainer(bool $value)
+ * @method $this setValue(mixed $value)
  */
 class Varien_Data_Form_Abstract extends Varien_Object
 {

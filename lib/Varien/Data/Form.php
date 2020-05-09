@@ -29,7 +29,13 @@
  *
  * @category   Varien
  * @package    Varien_Data
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method setDataObject(Mage_Core_Model_Abstract $value)
+ * @method string getHtmlIdPrefix()
+ * @method $this setHtmlIdPrefix(string $value)
+ * @method string getHtmlIdSuffix()
+ * @method string getFieldNameSuffix()
  */
 class Varien_Data_Form extends Varien_Data_Form_Abstract
 {
