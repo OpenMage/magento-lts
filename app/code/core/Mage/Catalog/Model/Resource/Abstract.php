@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -585,8 +585,14 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         if (!$entityId || empty($attribute)) {
             return false;
         }
+
+        $returnArray = false;
+
         if (!is_array($attribute)) {
             $attribute = array($attribute);
+        }
+        elseif (sizeof($attribute) > 1) {
+            $returnArray = true;
         }
 
         $attributesData     = array();
@@ -676,9 +682,9 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
             }
         }
 
-        if (sizeof($attributesData) == 1) {
-            $_data = each($attributesData);
-            $attributesData = $_data[1];
+        if (sizeof($attributesData) == 1 && !$returnArray) {
+            $_data = reset($attributesData);
+            $attributesData = $_data;
         }
 
         return $attributesData ? $attributesData : false;

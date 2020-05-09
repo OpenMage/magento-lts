@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -60,7 +60,7 @@
                         <retrieve>1</retrieve>
                     </guest>
                 </privileges>
-                <attributes translate="entity_id type_id attribute_set_id stock_data image_url is_saleable total_reviews_count url buy_now_url has_custom_options is_in_stock regular_price_with_tax regular_price_without_tax final_price_with_tax final_price_without_tax use_config_gift_message_available use_config_gift_wrapping_available url_key_create_redirect" module="api2">
+                <attributes translate="entity_id type_id attribute_set_id stock_data image_url is_saleable total_reviews_count url buy_now_url has_custom_options is_in_stock regular_price_with_tax regular_price_without_tax final_price_with_tax final_price_without_tax use_config_gift_message_available use_config_gift_wrapping_available url_key_create_redirect created_at updated_at" module="api2">
                     <entity_id>Product ID</entity_id>
                     <type_id>Product Type</type_id>
                     <attribute_set_id>Attribute Set</attribute_set_id>
@@ -79,6 +79,8 @@
                     <use_config_gift_message_available>Use Config Settings for Allow Gift Message</use_config_gift_message_available>
                     <use_config_gift_wrapping_available>Use Config Settings for Allow Gift Wrapping</use_config_gift_wrapping_available>
                     <url_key_create_redirect>Create Permanent Redirect for old URL</url_key_create_redirect>
+                    <created_at>Created Date</created_at>
+                    <updated_at>Updated Date</updated_at>
                 </attributes>
                 <entity_only_attributes>
                     <customer>
@@ -175,6 +177,8 @@
                             <recurring_profile>1</recurring_profile>
                             <thumbnail>1</thumbnail>
                             <entity_id>1</entity_id>
+                            <created_at>1</created_at>
+                            <updated_at>1</updated_at>
                         </write>
                     </admin>
                 </exclude_attributes>
@@ -229,9 +233,19 @@
                         <retrieve>1</retrieve>
                     </guest>
                 </privileges>
-                <attributes translate="category_id" module="api2">
+                <attributes translate="category_id created_at updated_at" module="api2">
                     <category_id>Category ID</category_id>
+                    <created_at>Created Date</created_at>
+                    <updated_at>Updated Date</updated_at>
                 </attributes>
+                <exclude_attributes>
+                    <admin>
+                        <write>
+                            <created_at>1</created_at>
+                            <updated_at>1</updated_at>
+                        </write>
+                    </admin>
+                </exclude_attributes>
                 <routes>
                     <route_collection>
                         <route>/products/:id/categories</route>
