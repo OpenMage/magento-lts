@@ -274,7 +274,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
      *
      * @param int $productId
      * @param string $productType
-     * @param int $qty
+     * @param int/float $qty
      * @param int $status
      * @param int $stockId
      * @param int $websiteId
@@ -393,7 +393,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
      *
      * @param int $productId
      * @param int $status
-     * @param int $qty
+     * @param int/float $qty
      * @param int $stockId
      * @param int|null $websiteId
      * @return $this
