@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_SalesRule
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -79,7 +79,7 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
         $code = '';
         $charsetSize = count($charset);
         for ($i=0; $i<$length; $i++) {
-            $char = $charset[mt_rand(0, $charsetSize - 1)];
+            $char = $charset[random_int(0, $charsetSize - 1)];
             if ($split > 0 && ($i % $split) == 0 && $i != 0) {
                 $char = $splitChar . $char;
             }

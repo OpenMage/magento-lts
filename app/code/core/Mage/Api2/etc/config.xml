@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Api2
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -91,6 +91,14 @@
                     </api2>
                 </observers>
             </admin_user_save_after>
+            <api_user_authenticated>
+                <observers>
+                    <api2_upgrade_key>
+                        <class>Mage_Api2_Model_Observer</class>
+                        <method>upgradeApiKey</method>
+                    </api2_upgrade_key>
+                </observers>
+            </api_user_authenticated>
         </events>
         <api2>
             <auth_adapters>

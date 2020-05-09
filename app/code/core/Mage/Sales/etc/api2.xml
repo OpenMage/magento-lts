@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -63,10 +63,11 @@
                         <action_type>collection</action_type>
                     </route_collection>
                 </routes>
-                <attributes translate="entity_id increment_id created_at status shipping_description _payment_method base_currency_code store_currency_code store_name remote_ip store_to_order_rate subtotal subtotal_incl_tax discount_amount base_grand_total grand_total shipping_amount shipping_tax_amount shipping_incl_tax tax_amount _tax_name _tax_rate coupon_code base_discount_amount base_subtotal base_shipping_amount base_shipping_tax_amount base_tax_amount total_paid base_total_paid total_refunded base_total_refunded base_subtotal_incl_tax base_total_due total_due shipping_discount_amount base_shipping_discount_amount discount_description customer_balance_amount base_customer_balance_amount base_customer_balance_amount _gift_message _order_comments customer_id" module="api2">
+                <attributes translate="entity_id increment_id created_at updated_at status shipping_description _payment_method base_currency_code store_currency_code store_name remote_ip store_to_order_rate subtotal subtotal_incl_tax discount_amount base_grand_total grand_total shipping_amount shipping_tax_amount shipping_incl_tax tax_amount _tax_name _tax_rate coupon_code base_discount_amount base_subtotal base_shipping_amount base_shipping_tax_amount base_tax_amount total_paid base_total_paid total_refunded base_total_refunded base_subtotal_incl_tax base_total_due total_due shipping_discount_amount base_shipping_discount_amount discount_description customer_balance_amount base_customer_balance_amount base_customer_balance_amount _gift_message _order_comments customer_id" module="api2">
                     <entity_id>Order ID (internal)</entity_id>
                     <increment_id>Order ID</increment_id>
                     <created_at>Order Date</created_at>
+                    <updated_at>Order Updated Date</updated_at>
                     <status>Order Status</status>
                     <shipping_description>Shipping Method</shipping_description>
                     <_payment_method>Payment Method</_payment_method>
@@ -108,12 +109,21 @@
                     <_order_comments>Order Comments</_order_comments>
                     <customer_id>Customer ID</customer_id>
                 </attributes>
+                <exclude_attributes>
+                    <admin>
+                        <write>
+                            <created_at>1</created_at>
+                            <updated_at>1</updated_at>
+                        </write>
+                    </admin>
+                </exclude_attributes>
                 <include_attributes>
                     <customer>
                         <read>
                             <entity_id>1</entity_id>
                             <increment_id>1</increment_id>
                             <created_at>1</created_at>
+                            <updated_at>1</updated_at>
                             <status>1</status>
                             <shipping_description>1</shipping_description>
                             <_payment_method>1</_payment_method>
@@ -175,7 +185,7 @@
                         <retrieve>1</retrieve>
                     </customer>
                 </privileges>
-                <attributes translate="item_id name parent_item_id sku price price_incl_tax qty_ordered qty_invoiced qty_shipped qty_canceled qty_refunded row_total row_total_incl_tax base_price original_price base_original_price base_price_incl_tax tax_percent tax_amount base_tax_amount discount_amount base_discount_amount base_row_total base_row_total_incl_tax" module="api2">
+                <attributes translate="item_id name parent_item_id sku price price_incl_tax qty_ordered qty_invoiced qty_shipped qty_canceled qty_refunded row_total row_total_incl_tax base_price original_price base_original_price base_price_incl_tax tax_percent tax_amount base_tax_amount discount_amount base_discount_amount base_row_total base_row_total_incl_tax created_at updated_at" module="api2">
                     <item_id>Order Item ID</item_id>
                     <name>Product and Custom Options Name</name>
                     <parent_item_id>Parent Order Item ID</parent_item_id>
@@ -200,7 +210,17 @@
                     <base_discount_amount>Base Discount Amount</base_discount_amount>
                     <base_row_total>Base Item Subtotal</base_row_total>
                     <base_row_total_incl_tax>Base Item Subtotal Including Tax</base_row_total_incl_tax>
+                    <created_at>Created Date</created_at>
+                    <updated_at>Updated Date</updated_at>
                 </attributes>
+                <excluded_attributes>
+                    <admin>
+                        <write>
+                            <created_at>1</created_at>
+                            <updated_at>1</updated_at>
+                        </write>
+                    </admin>
+                </excluded_attributes>
                 <include_attributes>
                     <customer>
                         <read>
@@ -253,7 +273,7 @@
                     </route_collection>
                 </routes>
                 <versions>1</versions>
-                <attributes translate="lastname firstname middlename prefix suffix company street city region postcode country_id telephone address_type email" module="api2">
+                <attributes translate="lastname firstname middlename prefix suffix company street city region postcode country_id telephone address_type email created_at updated_at" module="api2">
                     <lastname>Customer Last Name</lastname>
                     <firstname>Customer First Name</firstname>
                     <middlename>Customer Middle Name</middlename>
@@ -268,7 +288,17 @@
                     <telephone>Phone Number</telephone>
                     <address_type>Address Type</address_type>
                     <email>Email</email>
+                    <created_at>Created Date</created_at>
+                    <updated_at>Updated Date</updated_at>
                 </attributes>
+                <excluded_attributes>
+                    <admin>
+                        <write>
+                            <created_at>1</created_at>
+                            <updated_at>1</updated_at>
+                        </write>
+                    </admin>
+                </excluded_attributes>
             </order_address>
             <order_comment translate="title" module="api2">
                 <group>sales_order</group>

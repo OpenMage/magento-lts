@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -363,6 +363,29 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
     }
 
     /**
+     * Add filter by path to collection
+     *
+     * @param string $parent
+     * @return $this
+     */
+    public function addParentPathFilter($parent)
+    {
+        $this->addFieldToFilter('path', array('like' => "{$parent}/%"));
+        return $this;
+    }
+
+    /**
+     * Add store filter
+     *
+     * @return $this
+     */
+    public function addStoreFilter()
+    {
+        $this->addFieldToFilter('main_table.store_id', $this->getStoreId());
+        return $this;
+    }
+
+    /**
      * Add active category filter
      *
      * @return $this
@@ -408,10 +431,9 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
         if (!is_array($paths)) {
             $paths = array($paths);
         }
-        $write  = $this->getResource()->getWriteConnection();
         $cond   = array();
         foreach ($paths as $path) {
-            $cond[] = $write->quoteInto('e.path LIKE ?', "$path%");
+            $cond[] = $this->getResource()->getReadConnection()->quoteInto('e.path LIKE ?', "$path%");
         }
         if ($cond) {
             $this->getSelect()->where(join(' OR ', $cond));

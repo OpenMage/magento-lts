@@ -32,10 +32,8 @@
 <IfModule mod_php5.c>
 
 ############################################
-## adjust memory limit
+## adjust max execution time
 
-#    php_value memory_limit 64M
-    php_value memory_limit 256M
     php_value max_execution_time 18000
 
 ############################################
@@ -71,8 +69,6 @@
 ## see above for php_flag descriptions
 
 <IfModule mod_php7.c>
-    #php_value memory_limit 64M
-    php_value memory_limit 256M
     php_value max_execution_time 18000
     php_flag magic_quotes_gpc off
     php_flag session.auto_start off
@@ -216,9 +212,17 @@
 ############################################
 ## Add default Expires header
 ## http://developer.yahoo.com/performance/rules.html#expires
-
-    ExpiresDefault "access plus 1 year"
-
+    ExpiresActive On
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/pdf "access plus 1 month"
+    ExpiresByType text/x-javascript "access plus 1 month"
+    ExpiresByType application/x-shockwave-flash "access plus 1 month"
+    ExpiresByType image/x-icon "access plus 1 year"
+    ExpiresDefault "access plus 2 days"
 </IfModule>
 
 ############################################
