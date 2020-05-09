@@ -130,7 +130,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
      * @param string $whereField
      * @param int|array $id
      * @param array $additionalWheres
-     * @return mixed
+     * @return array
      */
     public function fetchLinkInformation($store, $table, $idField, $whereField, $id, $additionalWheres = array())
     {
