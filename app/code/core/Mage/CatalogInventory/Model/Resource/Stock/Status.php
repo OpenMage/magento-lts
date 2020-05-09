@@ -49,7 +49,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Status extends Mage_Core_Model_
      * @param Mage_CatalogInventory_Model_Stock_Status $object
      * @param int $productId
      * @param int $status
-     * @param int/float $qty
+     * @param int|float $qty
      * @param int $stockId
      * @param int|null $websiteId
      * @return $this
