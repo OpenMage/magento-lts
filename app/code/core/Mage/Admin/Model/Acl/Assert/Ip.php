@@ -53,7 +53,7 @@ class Mage_Admin_Model_Acl_Assert_Ip implements Zend_Acl_Assert_Interface
     }
 
     /**
-     * @param bool $ip
+     * @param string|false $ip
      */
     protected function _isCleanIP($ip)
     {

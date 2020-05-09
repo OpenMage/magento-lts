@@ -53,7 +53,7 @@ class Mage_Admin_Model_Acl_Assert_Time implements Zend_Acl_Assert_Interface
     }
 
     /**
-     * @param bool $time
+     * @param int $time
      */
     protected function _isCleanTime($time)
     {
