@@ -49,7 +49,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     /**
      * Defines when product type has children
      *
-     * @var array<int, bool>
+     * @var int[]|bool[]
      */
     protected $_haveChildren = array(
         Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_TIERS => true,
@@ -150,7 +150,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     /**
      * Fetch final price for product
      *
-     * @param array $product
+     * @param int $product
      * @param Mage_Core_Model_Store $store
      * @param Mage_Customer_Model_Group $group
      * @return float

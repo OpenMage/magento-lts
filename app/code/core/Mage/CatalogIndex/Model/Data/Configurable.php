@@ -34,7 +34,7 @@ class Mage_CatalogIndex_Model_Data_Configurable extends Mage_CatalogIndex_Model_
     /**
      * Defines when product type has children
      *
-     * @var array<int, bool>
+     * @var int[]|bool[]
      */
     protected $_haveChildren = array(
         Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_TIERS=>false,
