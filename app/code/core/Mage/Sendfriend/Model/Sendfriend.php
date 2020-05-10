@@ -187,7 +187,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
         }
 
         $email = $this->getSender()->getEmail();
-        if (empty($email) or !Zend_Validate::is($email, 'EmailAddress')) {
+        if (empty($email) || !Zend_Validate::is($email, 'EmailAddress')) {
             $errors[] = Mage::helper('sendfriend')->__('Invalid sender email.');
         }
 
