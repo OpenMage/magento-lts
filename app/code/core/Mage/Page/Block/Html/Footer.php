@@ -34,6 +34,9 @@
 class Mage_Page_Block_Html_Footer extends Mage_Core_Block_Template
 {
 
+    /**
+     * @var string
+     */
     protected $_copyright;
 
     protected function _construct()
@@ -73,7 +76,7 @@ class Mage_Page_Block_Html_Footer extends Mage_Core_Block_Template
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getCopyright()
     {
