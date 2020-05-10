@@ -31,6 +31,7 @@
  * @category    Mage
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated
  */
 class Mage_Catalog_Model_Resource_Eav_Mysql4_Attribute extends Mage_Catalog_Model_Resource_Attribute
 {
