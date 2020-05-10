@@ -75,7 +75,7 @@ class Mage_Sitemap_Model_Observer
         }
 
         $collection = Mage::getModel('sitemap/sitemap')->getCollection();
-        /* @var Mage_Sitemap_Model_Mysql4_Sitemap_Collection $collection */
+        /* @var Mage_Sitemap_Model_Resource_Sitemap_Collection $collection */
         foreach ($collection as $sitemap) {
             /* @var Mage_Sitemap_Model_Sitemap $sitemap */
 
