@@ -238,8 +238,8 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      * Makes additional text preparations for HTML templates
      *
      * @param bool $usePreprocess Use Preprocessed text or original text
-     * @param null $html
-     * @return string|null
+     * @param string|null $html
+     * @return string
      */
     public function getPreparedTemplateText($usePreprocess = false, $html = null)
     {
