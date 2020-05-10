@@ -251,7 +251,7 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
     /**
      * Add subtotals
      *
-     * @param string $storeIds
+     * @param array|string $storeIds
      * @param array $filter
      * @return $this
      */
