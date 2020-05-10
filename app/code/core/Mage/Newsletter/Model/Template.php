@@ -239,7 +239,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      *
      * @param bool $usePreprocess Use Preprocessed text or original text
      * @param null $html
-     * @return string
+     * @return string|null
      */
     public function getPreparedTemplateText($usePreprocess = false, $html = null)
     {

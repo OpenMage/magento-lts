@@ -163,7 +163,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      * Alias for setSubscriberConfirmCode()
      *
      * @param string $value
-     * @return Mage_Newsletter_Model_Subscriber
+     * @return $this
      */
     public function setCode($value)
     {
@@ -184,7 +184,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      * Alias for setSubscriberStatus()
      *
      * @param int $value
-     * @return Mage_Newsletter_Model_Subscriber
+     * @return $this
      */
     public function setStatus($value)
     {
@@ -218,7 +218,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      * Alias for setSubscriberEmail()
      *
      * @param string $value
-     * @return Mage_Newsletter_Model_Subscriber
+     * @return $this
      */
     public function setEmail($value)
     {
@@ -229,7 +229,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      * Set for status change flag
      *
      * @param boolean $value
-     * @return Mage_Newsletter_Model_Subscriber
+     * @return $this
      */
     public function setIsStatusChanged($value)
     {
@@ -266,7 +266,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      * Load subscriber data from resource model by email
      *
      * @param string $subscriberEmail
-     * @return Mage_Newsletter_Model_Subscriber
+     * @return $this
      */
     public function loadByEmail($subscriberEmail)
     {
@@ -402,7 +402,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      * Saving customer subscription status
      *
      * @param   Mage_Customer_Model_Customer $customer
-     * @return  Mage_Newsletter_Model_Subscriber
+     * @return  $this
      */
     public function subscribeCustomer($customer)
     {
@@ -422,7 +422,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
             $this->setSubscriberConfirmCode($this->randomSequence());
         }
 
-       /*
+       /**
         * Logical mismatch between customer registration confirmation code and customer password confirmation
         */
         $confirmation = null;
@@ -501,7 +501,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      * Mark receiving subscriber of queue newsletter
      *
      * @param Mage_Newsletter_Model_Queue $queue
-     * @return Mage_Newsletter_Model_Subscriber
+     * @return $this
      */
     public function received(Mage_Newsletter_Model_Queue $queue)
     {
