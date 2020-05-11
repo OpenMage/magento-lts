@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -401,6 +401,17 @@ class Mage_Core_Model_Cache
             $tags[] = Mage_Core_Model_App::CACHE_TAG;
         }
         return $this->getFrontend()->save((string)$data, $this->_id($id), $this->_tags($tags), $lifeTime);
+    }
+
+    /**
+     * Test data
+     *
+     * @param string $id
+     * @return false|int
+     */
+    public function test($id)
+    {
+        return $this->getFrontend()->test($this->_id($id));
     }
 
     /**

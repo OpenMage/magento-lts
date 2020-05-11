@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -141,10 +141,9 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
             return;
         }
         $order = Mage::registry('current_order');
-
-        $cart = Mage::getSingleton('checkout/cart');
-        $cartTruncated = false;
+        
         /* @var $cart Mage_Checkout_Model_Cart */
+        $cart = Mage::getSingleton('checkout/cart');
 
         $items = $order->getItemsCollection();
         foreach ($items as $item) {

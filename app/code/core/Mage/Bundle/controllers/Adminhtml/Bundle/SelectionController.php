@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Bundle
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,6 +38,9 @@ class Mage_Bundle_Adminhtml_Bundle_SelectionController extends Mage_Adminhtml_Co
         $this->setUsedModuleName('Mage_Bundle');
     }
 
+    /**
+     * @return Zend_Controller_Response_Abstract
+     */
     public function searchAction()
     {
         return $this->getResponse()->setBody(
@@ -46,18 +49,23 @@ class Mage_Bundle_Adminhtml_Bundle_SelectionController extends Mage_Adminhtml_Co
                 ->setIndex($this->getRequest()->getParam('index'))
                 ->setFirstShow(true)
                 ->toHtml()
-           );
+        );
     }
 
+    /**
+     * @return Zend_Controller_Response_Abstract
+     */
     public function gridAction()
     {
         return $this->getResponse()->setBody(
             $this->getLayout()
-                ->createBlock('bundle/adminhtml_catalog_product_edit_tab_bundle_option_search_grid',
-                    'adminhtml.catalog.product.edit.tab.bundle.option.search.grid')
+                ->createBlock(
+                    'bundle/adminhtml_catalog_product_edit_tab_bundle_option_search_grid',
+                    'adminhtml.catalog.product.edit.tab.bundle.option.search.grid'
+                )
                 ->setIndex($this->getRequest()->getParam('index'))
                 ->toHtml()
-           );
+        );
     }
     /**
      * Check for is allowed
