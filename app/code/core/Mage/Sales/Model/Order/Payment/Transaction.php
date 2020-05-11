@@ -735,11 +735,11 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     public function getTransactionTypes()
     {
         return array(
-            Mage_Sales_Model_Order_Payment_Transaction::TYPE_ORDER    => Mage::helper('sales')->__('Order'),
-            Mage_Sales_Model_Order_Payment_Transaction::TYPE_AUTH    => Mage::helper('sales')->__('Authorization'),
-            Mage_Sales_Model_Order_Payment_Transaction::TYPE_CAPTURE => Mage::helper('sales')->__('Capture'),
-            Mage_Sales_Model_Order_Payment_Transaction::TYPE_VOID    => Mage::helper('sales')->__('Void'),
-            Mage_Sales_Model_Order_Payment_Transaction::TYPE_REFUND  => Mage::helper('sales')->__('Refund')
+            self::TYPE_ORDER    => Mage::helper('sales')->__('Order'),
+            self::TYPE_AUTH    => Mage::helper('sales')->__('Authorization'),
+            self::TYPE_CAPTURE => Mage::helper('sales')->__('Capture'),
+            self::TYPE_VOID    => Mage::helper('sales')->__('Void'),
+            self::TYPE_REFUND  => Mage::helper('sales')->__('Refund')
         );
     }
 

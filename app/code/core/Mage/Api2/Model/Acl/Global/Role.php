@@ -89,7 +89,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
         }
 
         //check and protect guest role
-        if (Mage_Api2_Model_Acl_Global_Role::isSystemRole($this)
+        if (self::isSystemRole($this)
             && $this->getRoleName() != $this->getOrigData('role_name')) {
 
             /** @var $helper Mage_Core_Helper_Data */
@@ -111,7 +111,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
      */
     protected function _beforeDelete()
     {
-        if (Mage_Api2_Model_Acl_Global_Role::isSystemRole($this)) {
+        if (self::isSystemRole($this)) {
             /** @var $helper Mage_Core_Helper_Data */
             $helper = Mage::helper('core');
 

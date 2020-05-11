@@ -663,7 +663,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      */
     public function addChildItem($item)
     {
-        if ($item instanceof Mage_Sales_Model_Order_Item) {
+        if ($item instanceof self) {
             $this->_children[] = $item;
         } else if (is_array($item)) {
             $this->_children = array_merge($this->_children, $item);

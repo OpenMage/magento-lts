@@ -96,7 +96,7 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
             $this->_block = $this->getAction()
                 ->getLayout()
                 ->createBlock('paypal/'.$this->_paymentMethodCode.'_iframe');
-            if (!$this->_block instanceof Mage_Paypal_Block_Iframe) {
+            if (!$this->_block instanceof self) {
                 Mage::throwException('Invalid block type');
             }
         }

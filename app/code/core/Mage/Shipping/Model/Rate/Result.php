@@ -87,7 +87,7 @@ class Mage_Shipping_Model_Rate_Result
         if ($result instanceof Mage_Shipping_Model_Rate_Result_Abstract) {
             $this->_rates[] = $result;
         }
-        elseif ($result instanceof Mage_Shipping_Model_Rate_Result) {
+        elseif ($result instanceof self) {
             $rates = $result->getAllRates();
             foreach ($rates as $rate) {
                 $this->append($rate);

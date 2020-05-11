@@ -151,7 +151,7 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
      */
     public function convertToAccess()
     {
-        if (Mage_Oauth_Model_Token::TYPE_REQUEST != $this->getType()) {
+        if (self::TYPE_REQUEST != $this->getType()) {
             Mage::throwException('Can not convert due to token is not request type');
         }
         /** @var $helper Mage_Oauth_Helper_Data */

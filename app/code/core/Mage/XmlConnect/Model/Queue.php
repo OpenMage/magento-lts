@@ -197,7 +197,7 @@ class Mage_XmlConnect_Model_Queue extends Mage_Core_Model_Template
 EOT;
 
         switch ($this->getData('type')) {
-            case Mage_XmlConnect_Model_Queue::MESSAGE_TYPE_AIRMAIL:
+            case self::MESSAGE_TYPE_AIRMAIL:
                 $html  = sprintf($htmlDescription, Mage::helper('xmlconnect')->__('Push title'))
                     . $this->getPushTitle()
                     . sprintf($htmlDescription, Mage::helper('xmlconnect')->__('Message title'))
@@ -205,7 +205,7 @@ EOT;
                     . sprintf($htmlDescription, Mage::helper('xmlconnect')->__('Message content'))
                     . $processor->filter($this->getContent());
                 break;
-            case Mage_XmlConnect_Model_Queue::MESSAGE_TYPE_PUSH:
+            case self::MESSAGE_TYPE_PUSH:
             default:
                 $html  = sprintf($htmlDescription, Mage::helper('xmlconnect')->__('Push title'))
                     . $this->getPushTitle();
@@ -249,7 +249,7 @@ EOT;
     public function getAirmailBroadcastParams()
     {
         $notificationType = Mage::getStoreConfig(
-            sprintf(Mage_XmlConnect_Model_Queue::XML_PATH_NOTIFICATION_TYPE, $this->getApplicationType())
+            sprintf(self::XML_PATH_NOTIFICATION_TYPE, $this->getApplicationType())
         );
 
         $payload = array(
@@ -280,7 +280,7 @@ EOT;
     public function getPushBroadcastParams()
     {
         $notificationType = Mage::getStoreConfig(
-            sprintf(Mage_XmlConnect_Model_Queue::XML_PATH_NOTIFICATION_TYPE, $this->getApplicationType())
+            sprintf(self::XML_PATH_NOTIFICATION_TYPE, $this->getApplicationType())
         );
 
         $payload = array(

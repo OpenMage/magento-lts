@@ -1472,12 +1472,12 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                     $previousType = $productType;
                 }
                 if (isset($rowData[self::COL_ATTR_SET]) && !is_null($rowData[self::COL_ATTR_SET])) {
-                    $previousAttributeSet = $rowData[Mage_ImportExport_Model_Import_Entity_Product::COL_ATTR_SET];
+                    $previousAttributeSet = $rowData[self::COL_ATTR_SET];
                 }
                 if (self::SCOPE_NULL == $rowScope) {
                     // for multiselect attributes only
                     if (!is_null($previousAttributeSet)) {
-                         $rowData[Mage_ImportExport_Model_Import_Entity_Product::COL_ATTR_SET] = $previousAttributeSet;
+                         $rowData[self::COL_ATTR_SET] = $previousAttributeSet;
                     }
                     if (is_null($productType) && !is_null($previousType)) {
                         $productType = $previousType;

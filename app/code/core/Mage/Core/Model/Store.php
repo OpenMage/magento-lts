@@ -797,8 +797,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public function getBaseCurrencyCode()
     {
-        $configValue = $this->getConfig(Mage_Core_Model_Store::XML_PATH_PRICE_SCOPE);
-        if ($configValue == Mage_Core_Model_Store::PRICE_SCOPE_GLOBAL) {
+        $configValue = $this->getConfig(self::XML_PATH_PRICE_SCOPE);
+        if ($configValue == self::PRICE_SCOPE_GLOBAL) {
             return Mage::app()->getBaseCurrencyCode();
         } else {
             return $this->getConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE);
@@ -1146,7 +1146,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
             $storeParsedQuery[$k] = $v;
         }
 
-        if (!Mage::getStoreConfigFlag(Mage_Core_Model_Store::XML_PATH_STORE_IN_URL, $this->getCode())) {
+        if (!Mage::getStoreConfigFlag(self::XML_PATH_STORE_IN_URL, $this->getCode())) {
             $storeParsedQuery['___store'] = $this->getCode();
         }
         if ($fromStore !== false) {

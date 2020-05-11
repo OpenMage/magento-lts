@@ -455,7 +455,7 @@ class Mage_Core_Model_Locale
     public function getDateFormatWithLongYear()
     {
         return preg_replace('/(?<!y)yy(?!y)/', 'yyyy',
-            $this->getTranslation(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT, 'date'));
+            $this->getTranslation(self::FORMAT_TYPE_SHORT, 'date'));
     }
 
     /**
@@ -568,7 +568,7 @@ class Mage_Core_Model_Locale
     {
         $dateObj = $this->storeDate($store, $date, $includeTime);
         $dateObj->set($date, $format);
-        $dateObj->setTimezone(Mage_Core_Model_Locale::DEFAULT_TIMEZONE);
+        $dateObj->setTimezone(self::DEFAULT_TIMEZONE);
         return $dateObj;
     }
 

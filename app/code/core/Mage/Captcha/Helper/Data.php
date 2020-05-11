@@ -96,7 +96,7 @@ class Mage_Captcha_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getFonts()
     {
-        $node = Mage::getConfig()->getNode(Mage_Captcha_Helper_Data::XML_PATH_CAPTCHA_FONTS);
+        $node = Mage::getConfig()->getNode(self::XML_PATH_CAPTCHA_FONTS);
         $fonts = array();
         if ($node) {
             foreach ($node->children() as $fontName => $fontNode) {

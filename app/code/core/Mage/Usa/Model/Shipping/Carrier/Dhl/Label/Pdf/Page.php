@@ -51,7 +51,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page extends Zend_Pdf_Page
      */
     public function __construct($param1, $param2 = null, $param3 = null)
     {
-        if ($param1 instanceof Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page
+        if ($param1 instanceof self
             && $param2 === null && $param3 === null
         ) {
             $this->_contents = $param1->getContents();

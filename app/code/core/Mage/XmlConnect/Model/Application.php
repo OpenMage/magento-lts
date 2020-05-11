@@ -300,7 +300,7 @@ class Mage_XmlConnect_Model_Application extends Mage_Core_Model_Abstract
      */
     public function getIsSubmitted()
     {
-        return $this->getStatus() == Mage_XmlConnect_Model_Application::APP_STATUS_SUCCESS;
+        return $this->getStatus() === self::APP_STATUS_SUCCESS;
     }
 
     /**

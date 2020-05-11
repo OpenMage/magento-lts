@@ -404,7 +404,7 @@ class Mage_Paypal_Model_Express_Checkout
     public function canSkipOrderReviewStep()
     {
         $isOnepageCheckout = !$this->_quote->getPayment()
-            ->getAdditionalInformation(Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_BUTTON);
+            ->getAdditionalInformation(self::PAYMENT_INFO_BUTTON);
         return $this->_config->isOrderReviewStepDisabled() && $isOnepageCheckout;
     }
 
@@ -619,7 +619,7 @@ class Mage_Paypal_Model_Express_Checkout
 
         // commence redirecting to finish payment, if paypal requires it
         if ($order->getPayment()->getAdditionalInformation(
-                Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_REDIRECT
+                self::PAYMENT_INFO_TRANSPORT_REDIRECT
         )) {
             $this->_redirectUrl = $this->_config->getExpressCheckoutCompleteUrl($token);
         }

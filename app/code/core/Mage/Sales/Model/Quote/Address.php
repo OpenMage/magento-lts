@@ -284,7 +284,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      */
     protected function _isSameAsBilling()
     {
-        return ($this->getAddressType() == Mage_Sales_Model_Quote_Address::TYPE_SHIPPING
+        return ($this->getAddressType() === self::TYPE_SHIPPING
             && ($this->_isNotRegisteredCustomer() || $this->_isDefaultShippingNullOrSameAsBillingAddress()));
     }
 
