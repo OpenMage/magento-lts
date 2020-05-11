@@ -25,6 +25,7 @@
 "Path","Path"
 "Please create the specified folder ""%s"" before saving the sitemap.","Please create the specified folder ""%s"" before saving the sitemap."
 "Please define correct path","Please define correct path"
+"Please enter a sitemap name with at most %s characters.","Please enter a sitemap name with at most %s characters."
 "Please make sure that ""%s"" is writable by web-server.","Please make sure that ""%s"" is writable by web-server."
 "Please use only letters (a-z or A-Z), numbers (0-9) or underscore (_) in the filename. No spaces or other characters are allowed.","Please use only letters (a-z or A-Z), numbers (0-9) or underscore (_) in the filename. No spaces or other characters are allowed."
 "Priority","Priority"

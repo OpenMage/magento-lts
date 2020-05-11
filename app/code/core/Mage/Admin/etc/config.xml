@@ -21,14 +21,14 @@
  *
  * @category    Mage
  * @package     Mage_Admin
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Admin>
-            <version>1.6.1.2</version>
+            <version>1.6.1.3</version>
         </Mage_Admin>
     </modules>
     <global>
@@ -79,6 +79,16 @@
                 <class>Mage_Admin_Block</class>
             </admin>
         </blocks>
+        <events>
+            <admin_user_authenticate_after>
+                <observers>
+                    <admin_user_login>
+                        <class>Mage_Admin_Model_Observer</class>
+                        <method>actionAdminAuthenticate</method>
+                    </admin_user_login>
+                </observers>
+            </admin_user_authenticate_after>
+        </events>
     </global>
     <default>
         <admin>

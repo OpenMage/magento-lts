@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_ConfigurableSwatches
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -62,7 +62,6 @@ class Mage_ConfigurableSwatches_Helper_Productlist extends Mage_Core_Helper_Abst
             && ($block = Mage::app()->getLayout()->getBlock($blockName))
             && $block instanceof Mage_Catalog_Block_Layer_View
         ) {
-
             // First, set a new template for the attribute that should show as a swatch
             if ($layer = $block->getLayer()) {
                 foreach ($layer->getFilterableAttributes() as $attribute) {
