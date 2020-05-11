@@ -34,7 +34,7 @@
 class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
 {
     /**
-     * @var Mage_CatalogSearch_Model_Resource_Query_Collection
+     * @var array
      */
     protected $_terms;
     protected $_minPopularity;
@@ -88,7 +88,7 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
     }
 
     /**
-     * @return Mage_CatalogSearch_Model_Resource_Query_Collection
+     * @return array
      */
     public function getTerms()
     {
