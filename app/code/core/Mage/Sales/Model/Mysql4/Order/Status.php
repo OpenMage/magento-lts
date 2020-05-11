@@ -26,6 +26,7 @@
 
 /**
  * Order status resource model
+ * @deprecated
  */
 class Mage_Sales_Model_Mysql4_Order_Status extends Mage_Sales_Model_Resource_Order_Status
 {

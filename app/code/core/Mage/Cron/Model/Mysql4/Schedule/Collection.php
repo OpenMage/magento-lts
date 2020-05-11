@@ -31,6 +31,7 @@
  * @category    Mage
  * @package     Mage_Cron
  * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated
  */
 class Mage_Cron_Model_Mysql4_Schedule_Collection extends Mage_Cron_Model_Resource_Schedule_Collection
 {

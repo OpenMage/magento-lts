@@ -31,6 +31,7 @@
  * @category    Mage
  * @package     Mage_Widget
  * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated
  */
 class Mage_Widget_Model_Mysql4_Widget_Instance_Collection extends Mage_Widget_Model_Resource_Widget_Instance_Collection
 {

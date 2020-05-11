@@ -31,6 +31,7 @@
  * @category    Mage
  * @package     Mage_Paygate
  * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated
  */
 class Mage_Paygate_Model_Mysql4_Authorizenet_Debug extends Mage_Paygate_Model_Resource_Authorizenet_Debug
 {

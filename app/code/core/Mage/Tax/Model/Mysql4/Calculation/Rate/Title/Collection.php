@@ -31,8 +31,8 @@
  * @category    Mage
  * @package     Mage_Tax
  * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated
  */
-class Mage_Tax_Model_Mysql4_Calculation_Rate_Title_Collection
-    extends Mage_Tax_Model_Resource_Calculation_Rate_Title_Collection
+class Mage_Tax_Model_Mysql4_Calculation_Rate_Title_Collection extends Mage_Tax_Model_Resource_Calculation_Rate_Title_Collection
 {
 }
