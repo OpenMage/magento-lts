@@ -31,6 +31,7 @@
  * @category    Mage
  * @package     Mage_GiftMessage
  * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated
  */
 class Mage_GiftMessage_Model_Mysql4_Message_Collection extends Mage_GiftMessage_Model_Resource_Message_Collection
 {

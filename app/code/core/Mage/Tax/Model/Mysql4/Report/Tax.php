@@ -31,6 +31,7 @@
  * @category    Mage
  * @package     Mage_Tax
  * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated
  */
 class Mage_Tax_Model_Mysql4_Report_Tax extends Mage_Tax_Model_Resource_Report_Tax
 {

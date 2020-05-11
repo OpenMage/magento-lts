@@ -31,8 +31,8 @@
  * @category    Mage
  * @package     Mage_SalesRule
  * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated
  */
-class Mage_SalesRule_Model_Mysql4_Rule_Customer_Collection
-    extends Mage_SalesRule_Model_Resource_Rule_Customer_Collection
+class Mage_SalesRule_Model_Mysql4_Rule_Customer_Collection extends Mage_SalesRule_Model_Resource_Rule_Customer_Collection
 {
 }

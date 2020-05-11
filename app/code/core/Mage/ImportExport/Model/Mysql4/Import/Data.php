@@ -30,6 +30,7 @@
  * @category    Mage
  * @package     Mage_ImportExport
  * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated
  */
 class Mage_ImportExport_Model_Mysql4_Import_Data extends Mage_ImportExport_Model_Resource_Import_Data
 {
