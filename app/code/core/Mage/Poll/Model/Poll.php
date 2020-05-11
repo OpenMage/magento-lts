@@ -209,7 +209,7 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
      * Check answer existing for poll
      *
      * @param   mixed $answer
-     * @return  false|string
+     * @return  bool
      */
     public function hasAnswer($answer)
     {
