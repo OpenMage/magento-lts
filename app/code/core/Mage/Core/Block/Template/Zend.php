@@ -43,7 +43,7 @@ class Mage_Core_Block_Template_Zend extends Mage_Core_Block_Template
      * @param      none
      * @return     void
      */
-    function _construct()
+    public function _construct()
     {
         parent::_construct();
         $this->_view = new Zend_View();

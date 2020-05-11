@@ -43,7 +43,7 @@ class Mage_Catalog_Block_Product_View_Tabs extends Mage_Core_Block_Template
      * @param string $block
      * @param string $template
      */
-    function addTab($alias, $title, $block, $template)
+    public function addTab($alias, $title, $block, $template)
     {
 
         if (!$title || !$block || !$template) {
@@ -61,7 +61,7 @@ class Mage_Catalog_Block_Product_View_Tabs extends Mage_Core_Block_Template
             );
     }
 
-    function getTabs()
+    public function getTabs()
     {
         return $this->_tabs;
     }

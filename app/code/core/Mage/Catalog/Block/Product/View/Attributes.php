@@ -36,7 +36,7 @@ class Mage_Catalog_Block_Product_View_Attributes extends Mage_Core_Block_Templat
 {
     protected $_product = null;
 
-    function getProduct()
+    public function getProduct()
     {
         if (!$this->_product) {
             $this->_product = Mage::registry('product');

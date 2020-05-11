@@ -41,7 +41,7 @@ class Mage_Admin_Model_Acl_Role_Registry extends Zend_Acl_Role_Registry
      * @param array|Zend_Acl_Role_Interface|string $parents
      * @return Mage_Auth_Model_Acl_Role_Registry
      */
-    function addParent($role, $parents)
+    public function addParent($role, $parents)
     {
         try {
             if ($role instanceof Zend_Acl_Role_Interface) {
