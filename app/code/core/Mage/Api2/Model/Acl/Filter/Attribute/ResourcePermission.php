@@ -97,7 +97,7 @@ class Mage_Api2_Model_Acl_Filter_Attribute_ResourcePermission
                     if (!$resourceUserPrivileges) { // skip user without any privileges for resource
                         continue;
                     }
-                    $operations = $operationSource->toArray();
+                    $operations = $operationSource::toArray();
 
                     if (empty($resourceUserPrivileges[Mage_Api2_Model_Resource::OPERATION_CREATE])
                         && empty($resourceUserPrivileges[Mage_Api2_Model_Resource::OPERATION_UPDATE])

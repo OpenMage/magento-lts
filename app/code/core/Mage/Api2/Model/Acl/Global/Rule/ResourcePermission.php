@@ -80,7 +80,7 @@ class Mage_Api2_Model_Acl_Global_Rule_ResourcePermission
             $config = Mage::getModel('api2/config');
             /** @var $privilegeSource Mage_Api2_Model_Acl_Global_Rule_Privilege */
             $privilegeSource = Mage::getModel('api2/acl_global_rule_privilege');
-            $privileges = array_keys($privilegeSource->toArray());
+            $privileges = array_keys($privilegeSource::toArray());
 
             /** @var $node Varien_Simplexml_Element */
             foreach ($config->getResources() as $resourceType => $node) {
