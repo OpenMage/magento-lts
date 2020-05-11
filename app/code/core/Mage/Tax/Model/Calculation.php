@@ -46,7 +46,7 @@
  */
 class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
 {
-    /*
+    /**
      * Identifier constant for Tax calculation before discount excluding TAX
      */
     const CALC_TAX_BEFORE_DISCOUNT_ON_EXCL      = '0_0';
@@ -355,7 +355,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     /**
      * Get request object for getting tax rate based on store shippig original address
      *
-     * @param   null|mixed $store
+     * @param   null|Mage_Core_Model_Store $store
      * @return  Varien_Object
      */
     public function getRateOriginRequest($store = null)
@@ -372,8 +372,8 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     /**
      * Return the default rate request. It can be either based on store address or customer address
      *
-     * @param mixed $store
-     * @return \Varien_Object
+     * @param null|Mage_Core_Model_Store $store
+     * @return Varien_Object
      */
     public function getDefaultRateRequest($store = null)
     {
