@@ -100,7 +100,7 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
     }
 
     /**
-     * @return mixed
+     * @return bool
      */
     public function hasError()
     {

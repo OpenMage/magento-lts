@@ -71,7 +71,7 @@ class Mage_Checkout_Block_Total_Default extends Mage_Checkout_Block_Cart_Totals
     }
 
     /**
-     * @return mixed
+     * @return Mage_Core_Model_Store
      */
     public function getStore()
     {

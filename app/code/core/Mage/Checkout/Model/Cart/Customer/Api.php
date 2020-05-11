@@ -163,9 +163,9 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
                                 $shippingAddress = $quote->getShippingAddress();
                                 $shippingMethod = $shippingAddress->getShippingMethod();
                                 $shippingAddress->addData($billingAddress->getData())
-                                ->setSameAsBilling(1)
-                                ->setShippingMethod($shippingMethod)
-                                ->setCollectShippingRates(true);
+                                    ->setSameAsBilling(1)
+                                    ->setShippingMethod($shippingMethod)
+                                    ->setCollectShippingRates(true);
                                 break;
                         }
                     }
