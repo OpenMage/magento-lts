@@ -605,7 +605,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * if $method is in format "part/method" will run method on specified part
      * for example: $this->walkAttributes('backend/validate');
      *
-     * @param array $partMethod
+     * @param string $partMethod
      * @param array $args
      * @return array
      * @throws Mage_Eav_Model_Entity_Attribute_Exception
@@ -1035,7 +1035,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * Retrieve select object for loading entity attributes values
      *
      * @param Varien_Object $object
-     * @param $table
+     * @param string $table
      * @return  Zend_Db_Select
      */
     protected function _getLoadAttributesSelect($object, $table)
@@ -1586,7 +1586,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Delete entity using current object's data
      *
-     * @param object $object
+     * @param int|string|Varien_Object $object
      * @return Mage_Eav_Model_Entity_Abstract
      * @throws Exception
      */

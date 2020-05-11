@@ -137,7 +137,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      *
      * @param   mixed $entityType
      * @param   string $code
-     * @return  Mage_Eav_Model_Entity_Attribute_Abstract
+     * @return  $this
      */
     public function loadByCode($entityType, $code)
     {
@@ -172,7 +172,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     /**
      * Retrieve attribute configuration (deprecated)
      *
-     * @return Mage_Eav_Model_Entity_Attribute_Abstract
+     * @return $this
      */
     public function getConfig()
     {
@@ -193,7 +193,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Specify attribute identifier
      *
      * @param   int $data
-     * @return  Mage_Eav_Model_Entity_Attribute_Abstract
+     * @return  $this
      */
     public function setAttributeId($data)
     {
@@ -204,7 +204,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     /**
      * Get attribute identifuer
      *
-     * @return int | null
+     * @return int|null
      */
     public function getAttributeId()
     {
@@ -212,8 +212,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * @param $data
-     * @return Mage_Eav_Model_Entity_Attribute_Abstract
+     * @param mixed $data
+     * @return $this
      */
     public function setAttributeCode($data)
     {
@@ -229,8 +229,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * @param $data
-     * @return Mage_Eav_Model_Entity_Attribute_Abstract
+     * @param mixed $data
+     * @return $this
      */
     public function setAttributeModel($data)
     {
@@ -246,8 +246,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * @param $data
-     * @return Mage_Eav_Model_Entity_Attribute_Abstract
+     * @param mixed $data
+     * @return $this
      */
     public function setBackendType($data)
     {
@@ -263,8 +263,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * @param $data
-     * @return Mage_Eav_Model_Entity_Attribute_Abstract
+     * @param mixed $data
+     * @return $this
      */
     public function setBackendModel($data)
     {
@@ -280,8 +280,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * @param $data
-     * @return Mage_Eav_Model_Entity_Attribute_Abstract
+     * @param mixed $data
+     * @return $this
      */
     public function setBackendTable($data)
     {
@@ -313,7 +313,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * @param $id
+     * @param mixed $id
      * @return $this
      */
     public function setAttributeSetId($id)
@@ -331,7 +331,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * @param $id
+     * @param mixed $id
      * @return $this
      */
     public function setEntityTypeId($id)
@@ -341,7 +341,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * @param $type
+     * @param mixed $type
      * @return $this
      */
     public function setEntityType($type)
@@ -382,7 +382,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Set attribute name
      *
      * @param   string $name
-     * @return  Mage_Eav_Model_Entity_Attribute_Abstract
+     * @return  $this
      */
     public function setName($name)
     {
@@ -403,7 +403,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Set attribute entity instance
      *
      * @param Mage_Eav_Model_Entity_Abstract $entity
-     * @return Mage_Eav_Model_Entity_Attribute_Abstract
+     * @return $this
      */
     public function setEntity($entity)
     {

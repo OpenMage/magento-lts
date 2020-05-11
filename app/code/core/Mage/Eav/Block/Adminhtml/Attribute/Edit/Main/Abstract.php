@@ -37,7 +37,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
     protected $_attribute = null;
 
     /**
-     * @param $attribute
+     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @return $this
      */
     public function setAttributeObject($attribute)
