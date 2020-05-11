@@ -776,7 +776,6 @@ $select
     ))
     ->where('entity.entity_type_code IN (?)', array_keys($entityToFlat))
     ->where('attribute.attribute_code NOT IN(?)', $excludeAttributes['all']);
-;
 
 
 $attributes = array();
