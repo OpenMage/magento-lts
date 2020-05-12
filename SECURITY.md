@@ -1,6 +1,6 @@
 # Security Policy
 
-OpenMage LTS is a fork of Magento CE 1.9.4.4 which provides a place for the Magento community to continue to contribute to the Magento 1 code base. We appreciate you disclosing important security vulnerabilities responsibly and privately by following the easy process defined below.
+OpenMage LTS is a fork of Magento CE 1.9 which provides a place for the Magento community to continue to contribute to the Magento 1 code base. We appreciate you disclosing important security vulnerabilities responsibly and privately by following the easy process defined below.
 
 We will keep the details of your security vulnerability report private and only share it with verified members of our organization or our partner organizations and only on an as-needed basis.
 
