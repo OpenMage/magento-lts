@@ -142,7 +142,7 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
 
     public function getFilePath($useParams=false)
     {
-        if($useParams && sizeof($this->getParams())) {
+        if($useParams && count($this->getParams())) {
             $changes = '.' . $this->getParamsSum();
         } else {
             $changes = '';
@@ -154,7 +154,7 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
 
     public function getFileUrl($useParams=false)
     {
-        if($useParams && sizeof($this->getParams())) {
+        if($useParams && count($this->getParams())) {
             $changes = '.' . $this->getParamsSum();
         } else {
             $changes = '';

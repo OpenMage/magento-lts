@@ -591,7 +591,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         if (!is_array($attribute)) {
             $attribute = array($attribute);
         }
-        elseif (sizeof($attribute) > 1) {
+        elseif (count($attribute) > 1) {
             $returnArray = true;
         }
 
@@ -682,7 +682,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
             }
         }
 
-        if (sizeof($attributesData) == 1 && !$returnArray) {
+        if (count($attributesData) === 1 && !$returnArray) {
             $_data = reset($attributesData);
             $attributesData = $_data;
         }

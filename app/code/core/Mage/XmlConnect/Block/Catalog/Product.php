@@ -76,7 +76,7 @@ class Mage_XmlConnect_Block_Catalog_Product extends Mage_XmlConnect_Block_Catalo
              */
             $hasGallery = 1;
             if ($product->getMediaGalleryImages()) {
-                $hasGallery = sizeof($product->getMediaGalleryImages()) > 0 ? 1 : 0;
+                $hasGallery = count($product->getMediaGalleryImages()) ? 1 : 0;
             }
             $item->addChild('has_gallery', $hasGallery);
             /**

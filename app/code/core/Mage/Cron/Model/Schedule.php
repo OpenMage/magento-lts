@@ -64,7 +64,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
     public function setCronExpr($expr)
     {
         $e = preg_split('#\s+#', $expr, null, PREG_SPLIT_NO_EMPTY);
-        if (sizeof($e)<5 || sizeof($e)>6) {
+        if (count($e)<5 || count($e)>6) {
             throw Mage::exception('Mage_Cron', 'Invalid cron expression: '.$expr);
         }
 
@@ -125,7 +125,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
         // handle modulus
         if (strpos($expr,'/')!==false) {
             $e = explode('/', $expr);
-            if (sizeof($e)!==2) {
+            if (count($e)!==2) {
                 throw Mage::exception('Mage_Cron', "Invalid cron expression, expecting 'match/modulus': ".$expr);
             }
             if (!is_numeric($e[1])) {
@@ -145,7 +145,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
         // handle range
         elseif (strpos($expr,'-')!==false) {
             $e = explode('-', $expr);
-            if (sizeof($e)!==2) {
+            if (count($e)!==2) {
                 throw Mage::exception('Mage_Cron', "Invalid cron expression, expecting 'from-to' structure: ".$expr);
             }
 

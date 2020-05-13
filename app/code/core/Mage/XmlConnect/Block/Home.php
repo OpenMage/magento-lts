@@ -61,7 +61,7 @@ class Mage_XmlConnect_Block_Home extends Mage_XmlConnect_Block_Catalog
             }
         }
 
-        if (sizeof($categoryCollection)) {
+        if (count($categoryCollection)) {
             $itemsXmlObj = $homeXmlObj->addChild('categories');
         }
 

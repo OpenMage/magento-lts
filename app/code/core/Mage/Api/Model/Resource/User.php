@@ -346,7 +346,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     {
         $adapter = $this->_getWriteAdapter();
         $aRoles  = $this->hasAssigned2Role($user);
-        if (sizeof($aRoles) > 0) {
+        if (count($aRoles)) {
             foreach ($aRoles as $idx => $data) {
                 $adapter->delete(
                     $this->getTable('api/role'),

@@ -276,7 +276,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
 
         // process each string in the array, and find the max length
         foreach ($this->getAllSeries() as $index => $serie) {
-            $localmaxlength[$index] = sizeof($serie);
+            $localmaxlength[$index] = count($serie);
             $localmaxvalue[$index] = max($serie);
             $localminvalue[$index] = min($serie);
         }
@@ -318,7 +318,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
 
         foreach ($this->getAllSeries() as $index => $serie) {
             $thisdataarray = $serie;
-            for ($j = 0; $j < sizeof($thisdataarray); $j++) {
+            for ($j = 0; $j < count($thisdataarray); $j++) {
                 $currentvalue = $thisdataarray[$j];
                 if (is_numeric($currentvalue)) {
                     $ylocation = $yorigin + $currentvalue;
@@ -341,7 +341,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
         $valueBuffer = array();
         $rangeBuffer = "";
 
-        if (sizeof($this->_axisLabels) > 0) {
+        if (count($this->_axisLabels)) {
             $params['chxt'] = implode(',', array_keys($this->_axisLabels));
             $indexid = 0;
             foreach ($this->_axisLabels as $idx=>$labels){
@@ -380,15 +380,15 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
                     $tmpstring = implode('|', $this->_axisLabels[$idx]);
 
                     $valueBuffer[] = $indexid . ":|" . $tmpstring;
-                    if (sizeof($this->_axisLabels[$idx]) > 1) {
-                        $deltaX = 100/(sizeof($this->_axisLabels[$idx])-1);
+                    if (count($this->_axisLabels[$idx]) > 1) {
+                        $deltaX = 100/(count($this->_axisLabels[$idx])-1);
                     } else {
                         $deltaX = 100;
                     }
                 } else if ($idx == 'y') {
                     $valueBuffer[] = $indexid . ":|" . implode('|', $yLabels);
-                    if (sizeof($yLabels)-1) {
-                        $deltaY = 100/(sizeof($yLabels)-1);
+                    if (count($yLabels)-1) {
+                        $deltaY = 100/(count($yLabels)-1);
                     } else {
                         $deltaY = 100;
                     }

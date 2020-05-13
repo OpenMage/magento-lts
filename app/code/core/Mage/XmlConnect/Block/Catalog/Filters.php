@@ -47,7 +47,7 @@ class Mage_XmlConnect_Block_Catalog_Filters extends Mage_XmlConnect_Block_Catalo
 
         $filtersXmlObj = $categoryXmlObj->addChild('filters');
         foreach ($filtersCollection->getItems() as $item) {
-            if (!sizeof($item->getValues())) {
+            if (!count($item->getValues())) {
                 continue;
             }
             $itemXmlObj = $filtersXmlObj->addChild('item');

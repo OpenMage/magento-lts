@@ -380,7 +380,7 @@ class Mage_Catalog_Model_Convert_Parser_Product
         }
 
         // set importinted to adaptor
-        if (sizeof($inventoryFields) > 0) {
+        if (count($inventoryFields)) {
             Mage::register('current_imported_inventory', $inventoryFields);
             //$this->setInventoryItems($inventoryFields);
         } // end setting imported to adaptor

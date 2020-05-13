@@ -123,7 +123,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
             return null;
         }
 
-        if ( $userId > 0 ) {
+        if ($userId > 0) {
             $adapter = $this->_getReadAdapter();
 
             $select = $adapter->select();
@@ -288,7 +288,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      */
     public function getRoles(Mage_Core_Model_Abstract $user)
     {
-        if ( !$user->getId() ) {
+        if (!$user->getId()) {
             return array();
         }
 
@@ -300,7 +300,8 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
                     ->joinLeft(
                         array('ar' => $table),
                         "(ar.role_id = {$table}.parent_id and ar.role_type = 'G')",
-                        array('role_id'))
+                        array('role_id')
+                    )
                     ->where("{$table}.user_id = :user_id");
 
         $binds = array(
@@ -327,7 +328,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
         $dbh = $this->_getWriteAdapter();
 
         $aRoles = $this->hasAssigned2Role($user);
-        if ( sizeof($aRoles) > 0 ) {
+        if (count($aRoles)) {
             foreach ($aRoles as $idx => $data) {
                 $conditions = array(
                     'role_id = ?' => $data['role_id'],
@@ -368,10 +369,10 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      */
     public function deleteFromRole(Mage_Core_Model_Abstract $user)
     {
-        if ( $user->getUserId() <= 0 ) {
+        if ($user->getUserId() <= 0) {
             return $this;
         }
-        if ( $user->getRoleId() <= 0 ) {
+        if ($user->getRoleId() <= 0) {
             return $this;
         }
 
@@ -394,7 +395,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      */
     public function roleUserExists(Mage_Core_Model_Abstract $user)
     {
-        if ( $user->getUserId() > 0 ) {
+        if ($user->getUserId() > 0) {
             $roleTable = $this->getTable('admin/role');
 
             $dbh = $this->_getReadAdapter();
