@@ -520,7 +520,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
             $oldTimes = explode(',', $oldTimes);
             foreach ($oldTimes as $oldTime) {
                 $periodTime = $time - $this->_getHelper()->getPeriod();
-                if (is_numeric($oldTime) AND $oldTime >= $periodTime) {
+                if (is_numeric($oldTime) && $oldTime >= $periodTime) {
                     $newTimes[] = $oldTime;
                 }
             }
