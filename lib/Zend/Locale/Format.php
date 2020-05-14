@@ -905,9 +905,8 @@ class Zend_Locale_Format
 
         // split number parts
         $split = false;
-        preg_match_all('/\d+/u', $number, $splitted);
 
-        if (!empty($number) && count($splitted[0]) == 0) {
+        if ( ! preg_match_all('/\d+/u', $number, $splitted)) {
             self::_setEncoding($oenc);
             #require_once 'Zend/Locale/Exception.php';
             throw new Zend_Locale_Exception("No date part in '$date' found.");
