@@ -741,13 +741,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getPasswordTimestamp($customerId)
     {
-        /** @var $customer Mage_Customer_Model_Customer */
-        $customer = Mage::getModel('customer/customer')
-            ->setWebsiteId(Mage::app()->getStore()->getWebsiteId())
-            ->load((int)$customerId);
-        $passwordCreatedAt = $customer->getPasswordCreatedAt();
-
-        return is_null($passwordCreatedAt) ? $customer->getCreatedAtTimestamp() : $passwordCreatedAt;
+        return Mage::getResourceModel('customer/customer')->getPasswordTimestamp($customerId);
     }
 
     /**
