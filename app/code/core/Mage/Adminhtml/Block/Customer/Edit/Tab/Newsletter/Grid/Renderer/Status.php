@@ -50,7 +50,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid_Renderer_Status ext
 
     public function render(Varien_Object $row)
     {
-        return Mage::helper('customer')->__($this->getStatus($row->getQueueStatus()));
+        return Mage::helper('customer')->__(self::getStatus($row->getQueueStatus()));
     }
 
     public static function  getStatus($status)

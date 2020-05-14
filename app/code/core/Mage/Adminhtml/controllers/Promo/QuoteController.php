@@ -414,7 +414,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
                 }
 
                 /** @var $generator Mage_SalesRule_Model_Coupon_Massgenerator */
-                $generator = $rule->getCouponMassGenerator();
+                $generator = $rule::getCouponMassGenerator();
                 if (!$generator->validateData($data)) {
                     $result['error'] = Mage::helper('salesrule')->__('Not valid data provided');
                 } else {

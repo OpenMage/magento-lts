@@ -138,7 +138,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function formatCurrency($value, $includeContainer = true)
     {
-        return $this->currency($value, true, $includeContainer);
+        return self::currency($value, true, $includeContainer);
     }
 
     /**

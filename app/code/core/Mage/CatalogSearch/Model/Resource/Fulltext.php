@@ -813,7 +813,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
 
             $dateObj = new Zend_Date(null, null, $locale);
             $dateObj->setTimezone($timezone);
-            $this->_dates[$storeId] = array($dateObj, $locale->getTranslation(null, 'date', $locale));
+            $this->_dates[$storeId] = array($dateObj, $locale::getTranslation(null, 'date', $locale));
         }
 
         if (!is_empty_date($date)) {

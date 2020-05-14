@@ -91,7 +91,7 @@ class Mage_XmlConnect_Block_Catalog_Product_ItemPrice_Bundle extends Mage_Bundle
                 $pricesXmlObj->addCustomChild('price', $minimalPriceTax, array(
                     'id' => 'as_low_as_excluding_tax',
                     'label' => $this->__('As Low Excl. Tax'),
-                    'formatted_value' => $coreHelper->currency($minimalPriceTax, true, false)
+                    'formatted_value' => $coreHelper::currency($minimalPriceTax, true, false)
                 ));
 
                 if ($weeeTaxAmount && $product->getPriceType() == 1
@@ -109,7 +109,7 @@ class Mage_XmlConnect_Block_Catalog_Product_ItemPrice_Bundle extends Mage_Bundle
                         $priceWeeeXmlObj->addCustomChild('item', $amount, array(
                             'id' => 'weee_tax',
                             'label' => $weeeTaxAttribute->getName(),
-                            'formatted_value' => $coreHelper->currency($amount, true, false)
+                            'formatted_value' => $coreHelper::currency($amount, true, false)
                         ));
                     }
                 }
@@ -117,14 +117,14 @@ class Mage_XmlConnect_Block_Catalog_Product_ItemPrice_Bundle extends Mage_Bundle
                 $pricesXmlObj->addCustomChild('price', $minimalPriceInclTax, array(
                     'id' => 'as_low_as_including_tax',
                     'label' => $this->__('As Low Incl. Tax'),
-                    'formatted_value' => $coreHelper->currency($minimalPriceInclTax, true, false)
+                    'formatted_value' => $coreHelper::currency($minimalPriceInclTax, true, false)
                 ));
             } else {
                 $pricesXmlObj = $priceListXmlObj->addCustomChild('prices', null, array('id' => 'price'));
                 $pricesXmlObj->addCustomChild('price', $minimalPriceTax, array(
                     'id' => 'as_low_as',
                     'label' => $this->__('As Low As'),
-                    'formatted_value' => $coreHelper->currency($minimalPriceTax, true, false)
+                    'formatted_value' => $coreHelper::currency($minimalPriceTax, true, false)
                 ));
 
                 if ($weeeTaxAmount && $product->getPriceType() == 1
@@ -142,7 +142,7 @@ class Mage_XmlConnect_Block_Catalog_Product_ItemPrice_Bundle extends Mage_Bundle
                         $priceWeeeXmlObj->addCustomChild('item', $amount, array(
                             'id' => 'weee_tax',
                             'label' => $weeeTaxAttribute->getName(),
-                            'formatted_value' => $coreHelper->currency($amount, true, false)
+                            'formatted_value' => $coreHelper::currency($amount, true, false)
                         ));
                     }
                 }
@@ -151,7 +151,7 @@ class Mage_XmlConnect_Block_Catalog_Product_ItemPrice_Bundle extends Mage_Bundle
                     $pricesXmlObj->addCustomChild('price', $minimalPriceInclTax, array(
                         'id' => 'as_low_as_including_tax',
                         'label' => $this->__('As Low Incl. Tax'),
-                        'formatted_value' => $coreHelper->currency($minimalPriceInclTax, true, false)
+                        'formatted_value' => $coreHelper::currency($minimalPriceInclTax, true, false)
                     ));
                 }
             }
@@ -165,7 +165,7 @@ class Mage_XmlConnect_Block_Catalog_Product_ItemPrice_Bundle extends Mage_Bundle
                     $pricesXmlObj->addCustomChild('price', $minimalPriceTax, array(
                         'id' => 'from_excluding_tax',
                         'label' => $this->__('From Excl. Tax'),
-                        'formatted_value' => $coreHelper->currency($minimalPriceTax, true, false)
+                        'formatted_value' => $coreHelper::currency($minimalPriceTax, true, false)
                     ));
 
                     if ($weeeTaxAmount && $product->getPriceType() == 1
@@ -183,7 +183,7 @@ class Mage_XmlConnect_Block_Catalog_Product_ItemPrice_Bundle extends Mage_Bundle
                             $priceWeeeXmlObj->addCustomChild('item', $amount, array(
                                 'id' => 'weee_tax',
                                 'label' => $weeeTaxAttribute->getName(),
-                                'formatted_value' => $coreHelper->currency($amount, true, false)
+                                'formatted_value' => $coreHelper::currency($amount, true, false)
                             ));
                         }
                     }
@@ -191,14 +191,14 @@ class Mage_XmlConnect_Block_Catalog_Product_ItemPrice_Bundle extends Mage_Bundle
                     $pricesXmlObj->addCustomChild('price', $minimalPriceInclTax, array(
                         'id' => 'from_including_tax',
                         'label' => $this->__('From Incl. Tax'),
-                        'formatted_value' => $coreHelper->currency($minimalPriceInclTax, true, false)
+                        'formatted_value' => $coreHelper::currency($minimalPriceInclTax, true, false)
                     ));
                 } else {
                     $pricesXmlObj = $priceListXmlObj->addCustomChild('prices', null, array('id' => 'price'));
                     $pricesXmlObj->addCustomChild('price', $minimalPriceTax, array(
                         'id' => 'from',
                         'label' => $this->__('From'),
-                        'formatted_value' => $coreHelper->currency($minimalPriceTax, true, false)
+                        'formatted_value' => $coreHelper::currency($minimalPriceTax, true, false)
                     ));
 
                     if ($weeeTaxAmount && $product->getPriceType() == 1
@@ -216,7 +216,7 @@ class Mage_XmlConnect_Block_Catalog_Product_ItemPrice_Bundle extends Mage_Bundle
                             $priceWeeeXmlObj->addCustomChild('item', $amount, array(
                                 'id' => 'weee_tax',
                                 'label' => $weeeTaxAttribute->getName(),
-                                'formatted_value' => $coreHelper->currency($amount, true, false)
+                                'formatted_value' => $coreHelper::currency($amount, true, false)
                             ));
                         }
                     }
@@ -225,7 +225,7 @@ class Mage_XmlConnect_Block_Catalog_Product_ItemPrice_Bundle extends Mage_Bundle
                         $pricesXmlObj->addCustomChild('price', $minimalPriceInclTax, array(
                             'id' => 'from_including_tax',
                             'label' => $this->__('From Incl. Tax'),
-                            'formatted_value' => $coreHelper->currency($minimalPriceInclTax, true, false)
+                            'formatted_value' => $coreHelper::currency($minimalPriceInclTax, true, false)
                         ));
                     }
                 }
@@ -247,7 +247,7 @@ class Mage_XmlConnect_Block_Catalog_Product_ItemPrice_Bundle extends Mage_Bundle
                     $pricesXmlObj->addCustomChild('price', $maximalPriceTax, array(
                         'id' => 'to_excluding_tax',
                         'label' => $this->__('To Excl. Tax'),
-                        'formatted_value' => $coreHelper->currency($maximalPriceTax, true, false)
+                        'formatted_value' => $coreHelper::currency($maximalPriceTax, true, false)
                     ));
 
                     if ($weeeTaxAmount && $product->getPriceType() == 1
@@ -265,7 +265,7 @@ class Mage_XmlConnect_Block_Catalog_Product_ItemPrice_Bundle extends Mage_Bundle
                             $priceWeeeXmlObj->addCustomChild('item', $amount, array(
                                 'id' => 'weee_tax',
                                 'label' => $weeeTaxAttribute->getName(),
-                                'formatted_value' => $coreHelper->currency($amount, true, false)
+                                'formatted_value' => $coreHelper::currency($amount, true, false)
                             ));
                         }
                     }
@@ -273,13 +273,13 @@ class Mage_XmlConnect_Block_Catalog_Product_ItemPrice_Bundle extends Mage_Bundle
                     $pricesXmlObj->addCustomChild('price', $maximalPriceInclTax, array(
                         'id' => 'to_including_tax',
                         'label' => $this->__('To Incl. Tax'),
-                        'formatted_value' => $coreHelper->currency($maximalPriceInclTax, true, false)
+                        'formatted_value' => $coreHelper::currency($maximalPriceInclTax, true, false)
                     ));
                 } else {
                     $pricesXmlObj->addCustomChild('price', $maximalPriceTax, array(
                         'id' => 'to',
                         'label' => $this->__('To'),
-                        'formatted_value' => $coreHelper->currency($maximalPriceTax, true, false)
+                        'formatted_value' => $coreHelper::currency($maximalPriceTax, true, false)
                     ));
 
                     if ($weeeTaxAmount && $product->getPriceType() == 1
@@ -297,7 +297,7 @@ class Mage_XmlConnect_Block_Catalog_Product_ItemPrice_Bundle extends Mage_Bundle
                             $priceWeeeXmlObj->addCustomChild('item', $amount, array(
                                 'id' => 'weee_tax',
                                 'label' => $weeeTaxAttribute->getName(),
-                                'formatted_value' => $coreHelper->currency($amount, true, false)
+                                'formatted_value' => $coreHelper::currency($amount, true, false)
                             ));
                         }
                     }
@@ -306,7 +306,7 @@ class Mage_XmlConnect_Block_Catalog_Product_ItemPrice_Bundle extends Mage_Bundle
                         $pricesXmlObj->addCustomChild('price', $maximalPriceInclTax, array(
                             'id' => 'to_including_tax',
                             'label' => $this->__('To Incl. Tax'),
-                            'formatted_value' => $coreHelper->currency($maximalPriceInclTax, true, false)
+                            'formatted_value' => $coreHelper::currency($maximalPriceInclTax, true, false)
                         ));
                     }
                 }
@@ -319,7 +319,7 @@ class Mage_XmlConnect_Block_Catalog_Product_ItemPrice_Bundle extends Mage_Bundle
                     $pricesXmlObj->addCustomChild('price', $minimalPriceTax, array(
                         'id' => 'excluding_tax',
                         'label' => $this->__('Excl. Tax'),
-                        'formatted_value' => $coreHelper->currency($minimalPriceTax, true, false)
+                        'formatted_value' => $coreHelper::currency($minimalPriceTax, true, false)
                     ));
 
                     if ($weeeTaxAmount && $product->getPriceType() == 1
@@ -337,7 +337,7 @@ class Mage_XmlConnect_Block_Catalog_Product_ItemPrice_Bundle extends Mage_Bundle
                             $priceWeeeXmlObj->addCustomChild('item', $amount, array(
                                 'id' => 'weee_tax',
                                 'label' => $weeeTaxAttribute->getName(),
-                                'formatted_value' => $coreHelper->currency($amount, true, false)
+                                'formatted_value' => $coreHelper::currency($amount, true, false)
                             ));
                         }
                     }
@@ -345,14 +345,14 @@ class Mage_XmlConnect_Block_Catalog_Product_ItemPrice_Bundle extends Mage_Bundle
                     $pricesXmlObj->addCustomChild('price', $minimalPriceInclTax, array(
                         'id' => 'including_tax',
                         'label' => $this->__('Incl. Tax'),
-                        'formatted_value' => $coreHelper->currency($minimalPriceInclTax, true, false)
+                        'formatted_value' => $coreHelper::currency($minimalPriceInclTax, true, false)
                     ));
                 } else {
                     $pricesXmlObj = $priceListXmlObj->addCustomChild('prices', null, array('id' => 'price'));
                     $pricesXmlObj->addCustomChild('price', $minimalPriceTax, array(
                         'id' => 'regular',
                         'label' => $this->__('Regular'),
-                        'formatted_value' => $coreHelper->currency($minimalPriceTax, true, false)
+                        'formatted_value' => $coreHelper::currency($minimalPriceTax, true, false)
                     ));
 
                     if ($weeeTaxAmount && $product->getPriceType() == 1
@@ -370,7 +370,7 @@ class Mage_XmlConnect_Block_Catalog_Product_ItemPrice_Bundle extends Mage_Bundle
                             $priceWeeeXmlObj->addCustomChild('item', $amount, array(
                                 'id' => 'weee_tax',
                                 'label' => $weeeTaxAttribute->getName(),
-                                'formatted_value' => $coreHelper->currency($amount, true, false)
+                                'formatted_value' => $coreHelper::currency($amount, true, false)
                             ));
                         }
                     }
@@ -379,7 +379,7 @@ class Mage_XmlConnect_Block_Catalog_Product_ItemPrice_Bundle extends Mage_Bundle
                         $pricesXmlObj->addCustomChild('price', $minimalPriceInclTax, array(
                             'id' => 'including_tax',
                             'label' => $this->__('Incl. Tax'),
-                            'formatted_value' => $coreHelper->currency($minimalPriceInclTax, true, false)
+                            'formatted_value' => $coreHelper::currency($minimalPriceInclTax, true, false)
                         ));
                     }
                 }
