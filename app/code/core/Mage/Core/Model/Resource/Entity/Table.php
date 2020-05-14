@@ -36,7 +36,7 @@ class Mage_Core_Model_Resource_Entity_Table extends Mage_Core_Model_Resource_Ent
      *
      * @return String
      */
-    function getTable()
+    public function getTable()
     {
         return $this->getConfig('table');
     }

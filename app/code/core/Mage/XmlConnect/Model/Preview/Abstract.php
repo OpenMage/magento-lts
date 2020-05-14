@@ -67,7 +67,7 @@ abstract class Mage_XmlConnect_Model_Preview_Abstract extends Varien_Object
      *
      * @return null
      */
-    final function _construct()
+    final public function _construct()
     {
         parent::_construct();
         $this->setApplicationModel();
