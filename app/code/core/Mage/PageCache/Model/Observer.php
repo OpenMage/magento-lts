@@ -56,6 +56,7 @@ class Mage_PageCache_Model_Observer
         if (!$this->isCacheEnabled()) {
             return $this;
         }
+        /** @var Mage_Core_Controller_Front_Action $action */
         $action = $observer->getEvent()->getControllerAction();
         $request = $action->getRequest();
         $needCaching = true;

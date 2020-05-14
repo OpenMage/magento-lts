@@ -676,7 +676,7 @@ class Mage_Catalog_Model_Url
                 $match['increment'] = $lastRequestPath;
             }
             return $match['prefix']
-                . (isset($match['increment']) ? ($match['increment'] + 1) : '1')
+                . (!empty($match['increment']) ? ((int)$match['increment'] + 1) : '1')
                 . $match['suffix'];
         }
         else {

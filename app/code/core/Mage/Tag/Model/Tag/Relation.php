@@ -24,23 +24,28 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Tag relation model
  *
  * @method Mage_Tag_Model_Resource_Tag_Relation getResource()
- * @method int getTagId()
- * @method Mage_Tag_Model_Tag_Relation setTagId(int $value)
- * @method int getCustomerId()
- * @method Mage_Tag_Model_Tag_Relation setCustomerId(int $value)
- * @method int getProductId()
- * @method Mage_Tag_Model_Tag_Relation setProductId(int $value)
- * @method int getStoreId()
- * @method Mage_Tag_Model_Tag_Relation setStoreId(int $value)
  * @method int getActive()
- * @method Mage_Tag_Model_Tag_Relation setActive(int $value)
- * @method string getCreatedAt()
- * @method Mage_Tag_Model_Tag_Relation setCreatedAt(string $value)
+ * @method $this setActive(int $value)
+ * @method array getAddedProductIds()
+ * @method $this setAddedProductIds(array $value)
+ * @method $this setCreatedAt(string $value)
+ * @method int getCustomerId()
+ * @method $this setCustomerId(int $value)
+ * @method int getProductId()
+ * @method $this setProductId(int $value)
+ * @method $this setProductIds(array $value)
+ * @method $this setRelatedTagIds(array $value)
+ * @method string getStatusFilter()
+ * @method $this setStatusFilter(string $value)
+ * @method bool hasStoreId()
+ * @method int getStoreId()
+ * @method $this setStoreId(int $value)
+ * @method int getTagId()
+ * @method $this setTagId(int $value)
  *
  * @category    Mage
  * @package     Mage_Tag
@@ -72,7 +77,7 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
     /**
      * Retrieve Resource Instance wrapper
      *
-     * @return Mage_Tag_Model_Mysql4_Tag_Relation
+     * @inheritDoc
      */
     protected function _getResource()
     {
@@ -88,7 +93,9 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
     {
         parent::afterCommitCallback();
         Mage::getSingleton('index/indexer')->processEntityAction(
-            $this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE
+            $this,
+            self::ENTITY,
+            Mage_Index_Model_Event::TYPE_SAVE
         );
         return $this;
     }
@@ -102,12 +109,12 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
      * @param int $storeId
      * @return $this
      */
-    public function loadByTagCustomer($productId=null, $tagId, $customerId, $storeId=null)
+    public function loadByTagCustomer($productId = null, $tagId, $customerId, $storeId = null)
     {
         $this->setProductId($productId);
         $this->setTagId($tagId);
         $this->setCustomerId($customerId);
-        if(!is_null($storeId)) {
+        if (!is_null($storeId)) {
             $this->setStoreId($storeId);
         }
         $this->_getResource()->loadByTagCustomer($this);
@@ -149,7 +156,7 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
      */
     public function deactivate()
     {
-        $this->_getResource()->deactivate($this->getTagId(),  $this->getCustomerId());
+        $this->_getResource()->deactivate($this->getTagId(), $this->getCustomerId());
         return $this;
     }
 

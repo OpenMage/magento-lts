@@ -31,7 +31,6 @@
  * @package    Mage_Tag
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Tag_Model_Entity_Customer_Collection extends Mage_Customer_Model_Entity_Customer_Collection
 {
     protected $_tagTable;
@@ -52,9 +51,13 @@ class Mage_Tag_Model_Entity_Customer_Collection extends Mage_Customer_Model_Enti
 //            ->join(array('tr' => $this->_tagRelTable), 'tr.entity_val_id=p.product_id and tr.entity_id=1', array('total_used' => 'count(tr.tag_relations_id)'))
 //            ->group('p.product_id', 'tr.tag_id')
 //        ;
-
     }
 
+    /**
+     * @param int $tagId
+     * @return $this
+     * @throws Mage_Core_Exception
+     */
     public function addTagFilter($tagId)
     {
         $this->joinField('tag_tag_id', $this->_tagRelTable, 'tag_id', 'customer_id=entity_id');
@@ -62,6 +65,11 @@ class Mage_Tag_Model_Entity_Customer_Collection extends Mage_Customer_Model_Enti
         return $this;
     }
 
+    /**
+     * @param int $productId
+     * @return $this
+     * @throws Mage_Core_Exception
+     */
     public function addProductFilter($productId)
     {
         $this->joinField('tag_product_id', $this->_tagRelTable, 'product_id', 'customer_id=entity_id');
@@ -69,6 +77,11 @@ class Mage_Tag_Model_Entity_Customer_Collection extends Mage_Customer_Model_Enti
         return $this;
     }
 
+    /**
+     * @param bool $printQuery
+     * @param bool $logQuery
+     * @return $this|Mage_Eav_Model_Entity_Collection_Abstract
+     */
     public function load($printQuery = false, $logQuery = false)
     {
         parent::load($printQuery, $logQuery);
@@ -76,6 +89,11 @@ class Mage_Tag_Model_Entity_Customer_Collection extends Mage_Customer_Model_Enti
         return $this;
     }
 
+    /**
+     * @param bool $printQuery
+     * @param bool $logQuery
+     * @return $this
+     */
     protected function _loadTags($printQuery = false, $logQuery = false)
     {
         if (empty($this->_items)) {
@@ -87,9 +105,9 @@ class Mage_Tag_Model_Entity_Customer_Collection extends Mage_Customer_Model_Enti
         }
         $this->getSelect()->reset()
             ->from(array('tr' => $this->_tagRelTable), array('*','total_used' => 'count(tr.tag_relation_id)'))
-            ->joinLeft(array('t' => $this->_tagTable),'t.tag_id=tr.tag_id')
+            ->joinLeft(array('t' => $this->_tagTable), 't.tag_id=tr.tag_id')
             ->group(array('tr.customer_id', 't.tag_id'))
-            ->where('tr.customer_id in (?)',$customerIds)
+            ->where('tr.customer_id in (?)', $customerIds)
         ;
         $this->printLogQuery($printQuery, $logQuery);
 
@@ -108,5 +126,4 @@ class Mage_Tag_Model_Entity_Customer_Collection extends Mage_Customer_Model_Enti
         }
         return $this;
     }
-
 }

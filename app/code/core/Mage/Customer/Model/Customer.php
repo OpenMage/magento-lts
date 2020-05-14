@@ -159,7 +159,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Initialize customer model
      */
-    function _construct()
+    public function _construct()
     {
         $this->_init('customer/customer');
     }
@@ -404,7 +404,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     public function hashPassword($password, $salt = null)
     {
         return $this->_getHelper('core')
-            ->getHashPassword(trim($password), (bool) $salt ? $salt : Mage_Admin_Model_User::HASH_SALT_LENGTH);
+            ->getHash(trim($password), (bool) $salt ? $salt : Mage_Admin_Model_User::HASH_SALT_LENGTH);
     }
 
     /**
@@ -1126,7 +1126,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
-    function unsetSubscription()
+    public function unsetSubscription()
     {
         if (isset($this->_isSubscribed)) {
             unset($this->_isSubscribed);
@@ -1138,7 +1138,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * Clean all addresses
      *
      */
-    function cleanAllAddresses() {
+    public function cleanAllAddresses() {
         $this->_addressesCollection = null;
         $this->_addresses           = null;
     }
@@ -1148,7 +1148,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
-    function addError($error)
+    public function addError($error)
     {
         $this->_errors[] = $error;
         return $this;
@@ -1159,7 +1159,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      *
      * @return array
      */
-    function getErrors()
+    public function getErrors()
     {
         return $this->_errors;
     }
@@ -1169,7 +1169,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
-    function resetErrors()
+    public function resetErrors()
     {
         $this->_errors = array();
         return $this;
@@ -1182,7 +1182,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * @param $line
      * @return boolean
      */
-    function printError($error, $line = null)
+    public function printError($error, $line = null)
     {
         if ($error == null) {
             return false;
@@ -1205,7 +1205,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * @param string $type
      * @return bool
      */
-    function validateAddress(array $data, $type = 'billing')
+    public function validateAddress(array $data, $type = 'billing')
     {
         $fields = array('city', 'country', 'postcode', 'telephone', 'street1');
         $usca   = array('US', 'CA');

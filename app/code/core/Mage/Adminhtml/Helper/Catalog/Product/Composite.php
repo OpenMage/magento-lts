@@ -103,7 +103,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_A
         try {
             if (!$configureResult->getOk()) {
                 Mage::throwException($configureResult->getMessage());
-            };
+            }
 
             $currentStoreId = (int) $configureResult->getCurrentStoreId();
             if (!$currentStoreId) {

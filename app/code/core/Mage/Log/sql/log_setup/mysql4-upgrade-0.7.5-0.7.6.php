@@ -26,7 +26,7 @@
 
 
 $installer = $this;
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 $installer->getConnection()->modifyColumn($installer->getTable('log/visitor_online'), 'remote_addr', 'bigint(20) NOT NULL');

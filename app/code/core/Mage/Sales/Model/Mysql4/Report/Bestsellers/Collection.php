@@ -31,8 +31,8 @@
  * @category    Mage
  * @package     Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated
  */
-class Mage_Sales_Model_Mysql4_Report_Bestsellers_Collection
-    extends Mage_Sales_Model_Resource_Report_Bestsellers_Collection
+class Mage_Sales_Model_Mysql4_Report_Bestsellers_Collection extends Mage_Sales_Model_Resource_Report_Bestsellers_Collection
 {
 }

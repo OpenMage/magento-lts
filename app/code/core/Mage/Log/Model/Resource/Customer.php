@@ -94,7 +94,7 @@ class Mage_Log_Model_Resource_Customer extends Mage_Core_Model_Resource_Db_Abstr
 
     /**
      * Retrieve select object for load object data
-     * 
+     *
      * @param string $field
      * @param mixed $value
      * @param Mage_Log_Model_Customer $object
@@ -110,15 +110,18 @@ class Mage_Log_Model_Resource_Customer extends Mage_Core_Model_Resource_Db_Abstr
                 ->joinInner(
                     array('lvt' => $this->_visitorTable),
                     "lvt.visitor_id = {$table}.visitor_id",
-                    array('last_visit_at'))
+                    array('last_visit_at')
+                )
                 ->joinInner(
                     array('lvit' => $this->_visitorInfoTable),
                     'lvt.visitor_id = lvit.visitor_id',
-                    array('http_referer', 'remote_addr'))
+                    array('http_referer', 'remote_addr')
+                )
                 ->joinInner(
                     array('luit' => $this->_urlInfoTable),
                     'luit.url_id = lvt.last_url_id',
-                    array('url'))
+                    array('url')
+                )
                 ->order("{$table}.login_at DESC")
                 ->limit(1);
         }

@@ -25,10 +25,14 @@
  */
 
 
-/* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
+/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 $installer = $this;
 
 $installer->startSetup();
-$installer->getConnection()->addKey($installer->getTable('bundle/option_value'), 'UNQ_OPTION_STORE',
-    array('option_id', 'store_id'), 'unique');
+$installer->getConnection()->addKey(
+    $installer->getTable('bundle/option_value'),
+    'UNQ_OPTION_STORE',
+    array('option_id', 'store_id'),
+    'unique'
+);
 $installer->endSetup();

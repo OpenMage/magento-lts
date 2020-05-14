@@ -65,8 +65,7 @@ class Mage_Cms_Model_Observer
 
         if ($pageUrl) {
             $redirect->setRedirectUrl($pageUrl);
-        }
-        else {
+        } else {
             $redirect->setRedirect(true)
                 ->setPath('cms/index/noCookies')
                 ->setArguments(array());

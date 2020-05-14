@@ -31,6 +31,7 @@
  * @category    Mage
  * @package     Mage_Wishlist
  * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated
  */
 class Mage_Wishlist_Model_Mysql4_Item_Collection extends Mage_Wishlist_Model_Resource_Item_Collection
 {

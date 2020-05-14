@@ -49,17 +49,18 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Minimalprice extends Mage_Catalog
     /**
      * Enter description here ...
      *
-     * @param unknown_type $conditions
-     * @return unknown
+     * @param array $conditions
+     * @return string
      */
     public function getMinimalValue($conditions)
     {
         $select = $this->_getReadAdapter()->select();
         $select->from($this->getTable('catalogindex/price'), 'MIN(value)');
-        foreach ($conditions as $field=>$value) {
+        foreach ($conditions as $field => $value) {
             $condition = "{$field} = ?";
-            if (is_array($value))
+            if (is_array($value)) {
                 $condition = "{$field} in (?)";
+            }
 
             $select->where($condition, $value);
         }
@@ -70,18 +71,19 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Minimalprice extends Mage_Catalog
     /**
      * Enter description here ...
      *
-     * @param unknown_type $productId
-     * @param unknown_type $storeId
-     * @param unknown_type $attributeId
+     * @param int $productId
+     * @param int $storeId
+     * @param int $attributeId
      */
     public function cleanup($productId, $storeId = null, $attributeId = null)
     {
         $conditions[] = $this->_getWriteAdapter()->quoteInto("{$this->_entityIdFieldName} = ?", $productId);
 
-        if (!is_null($storeId))
+        if (!is_null($storeId)) {
             $conditions[] = $this->_getWriteAdapter()->quoteInto("{$this->_storeIdFieldName} = ?", $storeId);
+        }
 
-        $conditions = implode (' AND ', $conditions);
+        $conditions = implode(' AND ', $conditions);
         $this->_getWriteAdapter()->delete($this->getMainTable(), $conditions);
     }
 }

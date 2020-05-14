@@ -398,7 +398,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
                 $indexid++;
             }
             $params['chxl'] = implode('|', $valueBuffer);
-        };
+        }
 
         // chart size
         $params['chs'] = $this->getWidth().'x'.$this->getHeight();

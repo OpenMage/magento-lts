@@ -34,6 +34,10 @@
 
 class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
 {
+    /**
+     * @return int|false
+     * @throws Mage_Core_Exception
+     */
     protected function _getTagId()
     {
         $tagId = (int) $this->getRequest()->getParam('tagId');
@@ -49,7 +53,7 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
 
     public function indexAction()
     {
-        if( !Mage::getSingleton('customer/session')->isLoggedIn() ) {
+        if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
             Mage::getSingleton('customer/session')->authenticate($this);
             return;
         }
@@ -74,7 +78,7 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
 
     public function viewAction()
     {
-        if( !Mage::getSingleton('customer/session')->isLoggedIn() ) {
+        if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
             Mage::getSingleton('customer/session')->authenticate($this);
             return;
         }
@@ -93,8 +97,7 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
             $this->_initLayoutMessages('checkout/session');
             $this->getLayout()->getBlock('head')->setTitle(Mage::helper('tag')->__('My Tags'));
             $this->renderLayout();
-        }
-        else {
+        } else {
             $this->_forward('noRoute');
         }
     }
@@ -111,7 +114,7 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
 
     public function removeAction()
     {
-        if( !Mage::getSingleton('customer/session')->isLoggedIn() ) {
+        if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
             Mage::getSingleton('customer/session')->authenticate($this);
             return;
         }
@@ -130,8 +133,7 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
             } catch (Exception $e) {
                 Mage::getSingleton('tag/session')->addError(Mage::helper('tag')->__('Unable to remove tag. Please, try again later.'));
             }
-        }
-        else {
+        } else {
             $this->_forward('noRoute');
         }
     }

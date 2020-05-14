@@ -359,7 +359,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
      *
      * @return $this
      */
-    function addQuoteItemMessage($itemId, $message)
+    public function addQuoteItemMessage($itemId, $message)
     {
         return $this->addItemAdditionalMessage('quote_item' . $itemId, $message);
     }

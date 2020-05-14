@@ -23,8 +23,7 @@
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Type_Configurable
-    extends Mage_Catalog_Model_Resource_Product_Type_Configurable
+class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Type_Configurable extends Mage_Catalog_Model_Resource_Product_Type_Configurable
 {
 
     /**
@@ -36,7 +35,8 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Type_Configurable
      * @return array
      * @see Mage_Catalog_Model_Resource_Product_Type_Configurable::getChildrenIds()
      */
-    public function getChildrenIds($parentId, $required = true) {
+    public function getChildrenIds($parentId, $required = true)
+    {
         if (is_array($parentId)) {
             $childrenIds = array();
             if (!empty($parentId)) {

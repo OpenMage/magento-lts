@@ -46,7 +46,7 @@ class Mage_Api_Model_Resource_Rules_Collection extends Mage_Core_Model_Resource_
     /**
      * Retrieve rules by role
      *
-     * @param int $id
+     * @param string $id
      * @return $this
      */
     public function getByRoles($id)

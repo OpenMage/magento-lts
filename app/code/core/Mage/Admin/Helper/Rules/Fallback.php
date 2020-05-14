@@ -36,7 +36,7 @@ class Mage_Admin_Helper_Rules_Fallback extends Mage_Core_Helper_Abstract
 {
     /**
      * Fallback to resource parent node
-     * @param $resourceId
+     * @param string $resourceId
      *
      * @return string
      */
@@ -50,8 +50,8 @@ class Mage_Admin_Helper_Rules_Fallback extends Mage_Core_Helper_Abstract
 
     /**
      * Fallback resource permissions similarly to zend_acl
-     * @param        $resources
-     * @param        $resourceId
+     * @param array $resources
+     * @param string $resourceId
      * @param string $defaultValue
      *
      * @return string

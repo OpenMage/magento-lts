@@ -234,7 +234,8 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
 
         if ($product->getPriceType() == Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC) {
             $product->setData(
-                'msrp_enabled', Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Enabled::MSRP_ENABLE_NO
+                'msrp_enabled',
+                Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Enabled::MSRP_ENABLE_NO
             );
             $product->unsetData('msrp');
             $product->unsetData('msrp_display_actual_price_type');
@@ -274,7 +275,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
     {
         parent::save($product);
         $product = $this->getProduct($product);
-        /* @var $resource Mage_Bundle_Model_Mysql4_Bundle */
+        /* @var Mage_Bundle_Model_Mysql4_Bundle $resource */
         $resource = Mage::getResourceModel('bundle/bundle');
 
         $options = $product->getBundleOptionsData();
@@ -367,7 +368,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      * Retrieve bundle option collection
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Bundle_Model_Mysql4_Option_Collection
+     * @return Mage_Bundle_Model_Resource_Option_Collection
      */
     public function getOptionsCollection($product = null)
     {
@@ -392,7 +393,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      *
      * @param array $optionIds
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Bundle_Model_Mysql4_Selection_Collection
+     * @return Mage_Bundle_Model_Resource_Selection_Collection
      */
     public function getSelectionsCollection($optionIds, $product = null)
     {
@@ -428,7 +429,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      * so need to change quote item qty option value too.
      *
      * @param   array           $options
-     * @param   Varien_Object   $option
+     * @param   Varien_Object|Mage_Sales_Model_Quote_Item_Option   $option
      * @param   mixed           $value
      * @param   Mage_Catalog_Model_Product $product
      * @return  Mage_Bundle_Model_Product_Type
@@ -441,14 +442,14 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
 
         $selections = $this->getSelectionsCollection($optionCollection->getAllIds(), $product);
 
+        /** @var Mage_Bundle_Model_Selection $selection */
         foreach ($selections as $selection) {
             if ($selection->getProductId() == $optionProduct->getId()) {
                 foreach ($options as &$option) {
                     if ($option->getCode() == 'selection_qty_'.$selection->getSelectionId()) {
                         if ($optionUpdateFlag) {
                             $option->setValue(intval($option->getValue()));
-                        }
-                        else {
+                        } else {
                             $option->setValue($value);
                         }
                     }
@@ -504,12 +505,12 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             return false;
         }
         $salableSelectionCount = 0;
+        /** @var Mage_Bundle_Model_Selection $selection */
         foreach ($selectionCollection as $selection) {
             if ($selection->isSalable()) {
                 $requiredOptionIds[$selection->getOptionId()] = 1;
                 $salableSelectionCount++;
             }
-
         }
 
         return (array_sum($requiredOptionIds) == count($requiredOptionIds) && $salableSelectionCount);
@@ -734,10 +735,10 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 ->addFilterByRequiredOptions()
                 ->setSelectionIdsFilter($selectionIds);
 
-                if (!Mage::helper('catalog')->isPriceGlobal() && $storeId) {
-                    $websiteId = Mage::app()->getStore($storeId)->getWebsiteId();
-                    $usedSelections->joinPrices($websiteId);
-                }
+            if (!Mage::helper('catalog')->isPriceGlobal() && $storeId) {
+                $websiteId = Mage::app()->getStore($storeId)->getWebsiteId();
+                $usedSelections->joinPrices($websiteId);
+            }
             $this->getProduct($product)->setData($this->_keyUsedSelections, $usedSelections);
             $this->getProduct($product)->setData($this->_keyUsedSelectionsIds, $selectionIds);
         }
@@ -796,7 +797,10 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 if ($selection->isSalable()) {
                     $selectionQty = $product->getCustomOption('selection_qty_' . $selection->getSelectionId());
                     if ($selectionQty) {
-                        $price = $product->getPriceModel()->getSelectionFinalTotalPrice($product, $selection, 0,
+                        $price = $product->getPriceModel()->getSelectionFinalTotalPrice(
+                            $product,
+                            $selection,
+                            0,
                             $selectionQty->getValue()
                         );
 
@@ -814,7 +818,6 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                             'qty'   => $selectionQty->getValue(),
                             'price' => Mage::app()->getStore()->convertPrice($price)
                         );
-
                     }
                 }
             }
@@ -942,7 +945,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
 
         $skipSaleableCheck = Mage::helper('catalog/product')->getSkipSaleableCheck();
         foreach ($selectionIds as $selectionId) {
-            /* @var $selection Mage_Bundle_Model_Selection */
+            /* @var Mage_Bundle_Model_Selection $selection */
             $selection = $productSelections->getItemById($selectionId);
             if (!$selection || (!$selection->isSalable() && !$skipSaleableCheck)) {
                 Mage::throwException(

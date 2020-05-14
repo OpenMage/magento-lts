@@ -150,7 +150,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
             );
             if (strlen($widgetInstance->getSortOrder())) {
                 $insert['sort_order'] = $widgetInstance->getSortOrder();
-            };
+            }
 
             $writeAdapter->insert($layoutUpdateTable, $insert);
             $layoutUpdateId = $writeAdapter->lastInsertId($layoutUpdateTable);

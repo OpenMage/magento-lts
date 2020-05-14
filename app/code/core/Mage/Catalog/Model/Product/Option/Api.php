@@ -45,7 +45,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
     public function add($productId, $data, $store = null)
     {
         $product = $this->_getProduct($productId, $store, null);
-        if (!(is_array($data['additional_fields']) and count($data['additional_fields']))) {
+        if (!(is_array($data['additional_fields']) && count($data['additional_fields']))) {
             $this->_fault('invalid_data');
         }
         if (!$this->_isTypeAllowed($data['type'])) {
@@ -76,7 +76,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
         }
         $product = $this->_getProduct($option->getProductId(), $store, null);
         $option = $product->getOptionById($optionId);
-        if (isset($data['type']) and !$this->_isTypeAllowed($data['type'])) {
+        if (isset($data['type']) && !$this->_isTypeAllowed($data['type'])) {
             $this->_fault('invalid_type');
         }
         if (isset($data['additional_fields'])) {
@@ -109,7 +109,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
                 // reset can be used as there should be the only
                 // element in 'additional_fields' for options of all types except those from Select group
                 $field = reset($data['additional_fields']);
-                if (!(is_array($field) and count($field))) {
+                if (!(is_array($field) && count($field))) {
                     $this->_fault('invalid_data');
                 } else {
                     foreach ($field as $key => $value) {
@@ -119,7 +119,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
             } else {
                 // convert Select rows array to appropriate format for saving in the model
                 foreach ($data['additional_fields'] as $row) {
-                    if (!(is_array($row) and count($row))) {
+                    if (!(is_array($row) && count($row))) {
                         $this->_fault('invalid_data');
                     } else {
                         foreach ($row as $key => $value) {

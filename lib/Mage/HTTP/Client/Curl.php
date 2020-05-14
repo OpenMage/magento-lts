@@ -345,7 +345,7 @@ implements Mage_HTTP_IClient
      * Make request
      * @param string $method
      * @param string $uri
-     * @param array $params
+     * @param array|string $params pass an array to form post, pass a json encoded string to directly post json
      * @return null
      */
     protected function makeRequest($method, $uri, $params = array())
@@ -354,7 +354,7 @@ implements Mage_HTTP_IClient
         $this->curlOption(CURLOPT_URL, $uri);
         if($method == 'POST') {
             $this->curlOption(CURLOPT_POST, 1);
-            $this->curlOption(CURLOPT_POSTFIELDS, http_build_query($params));
+            $this->curlOption(CURLOPT_POSTFIELDS, is_array($params) ? http_build_query($params) : $params);
         } elseif($method == "GET") {
             $this->curlOption(CURLOPT_HTTPGET, 1);
         } else {

@@ -26,11 +26,12 @@
 
 
 /**
- * Tag resourse model
+ * Tag resource model
  *
  * @category    Mage
  * @package     Mage_Tag
  * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated
  */
 class Mage_Tag_Model_Mysql4_Tag extends Mage_Tag_Model_Resource_Tag
 {

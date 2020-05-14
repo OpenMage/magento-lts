@@ -39,7 +39,7 @@ class Mage_Core_Block_Text_Tag extends Mage_Core_Block_Text
         $this->setTagParams(array());
     }
 
-    function setTagParam($param, $value=null)
+    public function setTagParam($param, $value=null)
     {
         if (is_array($param) && is_null($value)) {
             foreach ($param as $k=>$v) {
@@ -53,7 +53,7 @@ class Mage_Core_Block_Text_Tag extends Mage_Core_Block_Text
         return $this;
     }
 
-    function setContents($text)
+    public function setContents($text)
     {
         $this->setTagContents($text);
         return $this;

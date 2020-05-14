@@ -31,6 +31,7 @@
  * @category    Mage
  * @package     Mage_ProductAlert
  * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated
  */
 class Mage_ProductAlert_Model_Mysql4_Price extends Mage_ProductAlert_Model_Resource_Price
 {

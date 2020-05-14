@@ -35,7 +35,10 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
 {
     protected static $_namespacesPrefix = null;
 
-    public function __construct($sourceData=null)
+    /**
+     * @inheritDoc
+     */
+    public function __construct($sourceData = null)
     {
         $this->setCacheId(Mage::helper('api')->getCacheId());
         parent::__construct($sourceData);
@@ -44,7 +47,7 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
     /**
      * Return wsdl content
      *
-     * @return string
+     * @return string|bool
      */
     public function getWsdlContent()
     {
@@ -68,26 +71,47 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
         return self::$_namespacesPrefix;
     }
 
+    /**
+     * @return Varien_Simplexml_Config_Cache_Abstract|Zend_Cache_Core
+     */
     public function getCache()
     {
         return Mage::app()->getCache();
     }
 
+    /**
+     * @param string $id
+     * @return bool|mixed
+     */
     protected function _loadCache($id)
     {
         return Mage::app()->loadCache($id);
     }
 
-    protected function _saveCache($data, $id, $tags=array(), $lifetime=false)
+    /**
+     * @param string $data
+     * @param string $id
+     * @param array $tags
+     * @param int|false|null $lifetime
+     * @return bool|Mage_Core_Model_App
+     */
+    protected function _saveCache($data, $id, $tags = array(), $lifetime = false)
     {
         return Mage::app()->saveCache($data, $id, $tags, $lifetime);
     }
 
+    /**
+     * @param string $id
+     * @return Mage_Core_Model_App
+     */
     protected function _removeCache($id)
     {
         return Mage::app()->removeCache($id);
     }
 
+    /**
+     * @return $this
+     */
     public function init()
     {
         $this->setCacheChecksum(null);
@@ -103,7 +127,7 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
         $mergeWsdl = new Mage_Api_Model_Wsdl_Config_Base();
         $mergeWsdl->setHandler($this->getHandler());
 
-        if(Mage::helper('api/data')->isComplianceWSI()){
+        if (Mage::helper('api/data')->isComplianceWSI()) {
         /**
          * Exclude Mage_Api wsdl xml file because it used for previous version
          * of API wsdl declaration
@@ -135,7 +159,7 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
     /**
      * Return Xml of node as string
      *
-     * @return string
+     * @return string|bool
      */
     public function getXmlString()
     {

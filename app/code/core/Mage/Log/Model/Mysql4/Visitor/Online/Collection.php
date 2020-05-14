@@ -31,6 +31,7 @@
  * @category    Mage
  * @package     Mage_Log
  * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated
  */
 class Mage_Log_Model_Mysql4_Visitor_Online_Collection extends Mage_Log_Model_Resource_Visitor_Online_Collection
 {

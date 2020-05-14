@@ -35,6 +35,9 @@ class Mage_Bundle_Model_Source_Option_Type
 {
     const BUNDLE_OPTIONS_TYPES_PATH = 'global/catalog/product/options/bundle/types';
 
+    /**
+     * @return array
+     */
     public function toOptionArray()
     {
         $types = array();

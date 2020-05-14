@@ -64,7 +64,7 @@ class Mage_Sales_Model_Order_Shipment_Track extends Mage_Sales_Model_Abstract
     /**
      * Initialize resource model
      */
-    function _construct()
+    public function _construct()
     {
         $this->_init('sales/order_shipment_track');
     }

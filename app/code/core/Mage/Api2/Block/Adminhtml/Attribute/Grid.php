@@ -63,7 +63,7 @@ class Mage_Api2_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Widg
     /**
      * Prepare grid columns
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareColumns()
     {
@@ -96,7 +96,7 @@ class Mage_Api2_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Widg
      */
     public function getRowUrl($row)
     {
-        /** @var $session Mage_Admin_Model_Session */
+        /** @var Mage_Admin_Model_Session $session */
         $session = Mage::getSingleton('admin/session');
         if ($session->isAllowed('system/api/attributes/edit')) {
             return $this->getUrl('*/*/edit', array('type' => $row->getUserTypeCode()));

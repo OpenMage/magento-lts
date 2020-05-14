@@ -31,15 +31,15 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Bundle_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Bundle
-    extends Mage_Bundle_Block_Catalog_Product_View_Type_Bundle
+class Mage_Bundle_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Bundle extends Mage_Bundle_Block_Catalog_Product_View_Type_Bundle
 {
     /**
      * Returns string with json config for bundle product
      *
      * @return string
      */
-    public function getJsonConfig() {
+    public function getJsonConfig()
+    {
         $options = array();
         $optionsArray = $this->getOptions();
         foreach ($optionsArray as $option) {

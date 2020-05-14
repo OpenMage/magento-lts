@@ -159,7 +159,7 @@ class Mage_Payment_Model_Config
      * @param array $b
      * @return int
      */
-    static function compareCcTypes($a, $b)
+    public static function compareCcTypes($a, $b)
     {
         if (!isset($a['order'])) {
             $a['order'] = 0;

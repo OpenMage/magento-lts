@@ -49,8 +49,8 @@ class Mage_Api_Model_Server_V2_Adapter_Soap extends Mage_Api_Model_Server_Adapte
     /**
      * Run webservice
      *
-     * @param Mage_Api_Controller_Action $controller
      * @return Mage_Api_Model_Server_Adapter_Soap
+     * @throws SoapFault
      */
     public function run()
     {
@@ -59,9 +59,9 @@ class Mage_Api_Model_Server_V2_Adapter_Soap extends Mage_Api_Model_Server_Adapte
         if ($this->getController()->getRequest()->getParam('wsdl') !== null) {
             $this->getController()->getResponse()
                 ->clearHeaders()
-                ->setHeader('Content-Type','text/xml; charset='.$apiConfigCharset)
+                ->setHeader('Content-Type', 'text/xml; charset='.$apiConfigCharset)
                 ->setBody(
-                      preg_replace(
+                    preg_replace(
                         '/<\?xml version="([^\"]+)"([^\>]+)>/i',
                         '<?xml version="$1" encoding="'.$apiConfigCharset.'"?>',
                         $this->wsdlConfig->getWsdlContent()
@@ -85,10 +85,10 @@ class Mage_Api_Model_Server_V2_Adapter_Soap extends Mage_Api_Model_Server_Adapte
                     ->setHeader('Content-Type', 'text/xml; charset=' . $apiConfigCharset)
                     ->setHeader('Content-Length', strlen($content), true)
                     ->setBody($content);
-            } catch( Zend_Soap_Server_Exception $e ) {
-                $this->fault( $e->getCode(), $e->getMessage() );
-            } catch( Exception $e ) {
-                $this->fault( $e->getCode(), $e->getMessage() );
+            } catch (Zend_Soap_Server_Exception $e) {
+                $this->fault($e->getCode(), $e->getMessage());
+            } catch (Exception $e) {
+                $this->fault($e->getCode(), $e->getMessage());
             }
         }
 

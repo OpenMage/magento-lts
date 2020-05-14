@@ -32,7 +32,7 @@
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 $installer = $this;
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 
@@ -91,10 +91,14 @@ $table = $installer->getConnection()
         ), 'User id')
     ->addColumn('role_name', Varien_Db_Ddl_Table::TYPE_TEXT, 50, array(
         ), 'Role name')
-    ->addIndex($installer->getIdxName('api/role', array('parent_id', 'sort_order')),
-        array('parent_id', 'sort_order'))
-    ->addIndex($installer->getIdxName('api/role', array('tree_level')),
-        array('tree_level'))
+    ->addIndex(
+        $installer->getIdxName('api/role', array('parent_id', 'sort_order')),
+        array('parent_id', 'sort_order')
+    )
+    ->addIndex(
+        $installer->getIdxName('api/role', array('tree_level')),
+        array('tree_level')
+    )
     ->setComment('Api ACL Roles');
 $installer->getConnection()->createTable($table);
 
@@ -127,13 +131,22 @@ $table = $installer->getConnection()
         ), 'Role type')
     ->addColumn('api_permission', Varien_Db_Ddl_Table::TYPE_TEXT, 10, array(
         ), 'Permission')
-    ->addIndex($installer->getIdxName('api/rule', array('resource_id', 'role_id')),
-        array('resource_id', 'role_id'))
-    ->addIndex($installer->getIdxName('api/rule', array('role_id', 'resource_id')),
-        array('role_id', 'resource_id'))
-    ->addForeignKey($installer->getFkName('api/rule', 'role_id', 'api/role', 'role_id'),
-        'role_id', $installer->getTable('api/role'), 'role_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+    ->addIndex(
+        $installer->getIdxName('api/rule', array('resource_id', 'role_id')),
+        array('resource_id', 'role_id')
+    )
+    ->addIndex(
+        $installer->getIdxName('api/rule', array('role_id', 'resource_id')),
+        array('role_id', 'resource_id')
+    )
+    ->addForeignKey(
+        $installer->getFkName('api/rule', 'role_id', 'api/role', 'role_id'),
+        'role_id',
+        $installer->getTable('api/role'),
+        'role_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
     ->setComment('Api ACL Rules');
 $installer->getConnection()->createTable($table);
 
@@ -193,13 +206,22 @@ $table = $installer->getConnection()
         ), 'Login date')
     ->addColumn('sessid', Varien_Db_Ddl_Table::TYPE_TEXT, 40, array(
         ), 'Sessioin id')
-    ->addIndex($installer->getIdxName('api/session', array('user_id')),
-        array('user_id'))
-    ->addIndex($installer->getIdxName('api/session', array('sessid')),
-        array('sessid'))
-    ->addForeignKey($installer->getFkName('api/session', 'user_id', 'api/user', 'user_id'),
-        'user_id', $installer->getTable('api/user'), 'user_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+    ->addIndex(
+        $installer->getIdxName('api/session', array('user_id')),
+        array('user_id')
+    )
+    ->addIndex(
+        $installer->getIdxName('api/session', array('sessid')),
+        array('sessid')
+    )
+    ->addForeignKey(
+        $installer->getFkName('api/session', 'user_id', 'api/user', 'user_id'),
+        'user_id',
+        $installer->getTable('api/user'),
+        'user_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
     ->setComment('Api Sessions');
 $installer->getConnection()->createTable($table);
 

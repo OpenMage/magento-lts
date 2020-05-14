@@ -30,29 +30,40 @@
  * @method Mage_Api_Model_Resource_User _getResource()
  * @method Mage_Api_Model_Resource_User getResource()
  * @method string getFirstname()
- * @method Mage_Api_Model_User setFirstname(string $value)
+ * @method $this setFirstname(string $value)
  * @method string getLastname()
- * @method Mage_Api_Model_User setLastname(string $value)
+ * @method $this setLastname(string $value)
  * @method string getEmail()
- * @method Mage_Api_Model_User setEmail(string $value)
+ * @method $this setEmail(string $value)
  * @method string getUsername()
- * @method Mage_Api_Model_User setUsername(string $value)
+ * @method $this setUsername(string $value)
  * @method string getApiKey()
- * @method Mage_Api_Model_User setApiKey(string $value)
+ * @method $this setApiKey(string $value)
  * @method string getCreated()
- * @method Mage_Api_Model_User setCreated(string $value)
+ * @method $this setCreated(string $value)
  * @method string getModified()
- * @method Mage_Api_Model_User setModified(string $value)
+ * @method $this setModified(string $value)
  * @method int getLognum()
- * @method Mage_Api_Model_User setLognum(int $value)
+ * @method $this setLognum(int $value)
  * @method int getReloadAclFlag()
- * @method Mage_Api_Model_User setReloadAclFlag(int $value)
+ * @method $this setReloadAclFlag(int $value)
  * @method int getIsActive()
- * @method Mage_Api_Model_User setIsActive(int $value)
+ * @method $this setIsActive(int $value)
+ * @method string getSessid()
+ * @method $this setSessid($sessId)
+ * @method string getNewApiKey()
+ * @method string getUserId()
+ * @method string getLogdate()
+ * @method int getRoleId()
+ * @method array getRoleIds()
+ * @method $this setLogdate(string $value)
  *
  * @category    Mage
  * @package     Mage_Api
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setRoleIds(array $value)
+ * @method $this setRoleUserId(int $value)
  */
 class Mage_Api_Model_User extends Mage_Core_Model_Abstract
 {
@@ -74,7 +85,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Save user
      *
-     * @return $this|Mage_Core_Model_Abstract
+     * @return $this
      */
     public function save()
     {
@@ -90,7 +101,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
             $data['user_id']   = $this->getId();
         }
 
-        if ( $this->getUsername() ) {
+        if ($this->getUsername()) {
             $data['username']   = $this->getUsername();
         }
 
@@ -102,7 +113,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
             $data['api_key']   = $this->_getEncodedApiKey($this->getNewApiKey());
         }
 
-        if ( !is_null($this->getIsActive()) ) {
+        if (!is_null($this->getIsActive())) {
             $data['is_active']  = intval($this->getIsActive());
         }
 
@@ -195,7 +206,8 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      *
      * @return Object|Mage_Api_Model_Resource_User_Collection
      */
-    public function getCollection() {
+    public function getCollection()
+    {
         return Mage::getResourceModel('api/user_collection');
     }
 
@@ -305,7 +317,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      * @param string $sessId
      * @return $this
      */
-    public function loadBySessId ($sessId)
+    public function loadBySessId($sessId)
     {
         $this->setData($this->getResource()->loadBySessId($sessId));
         return $this;
@@ -327,7 +339,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      * Check if user is assigned to role
      *
      * @param int|Mage_Core_Model_Abstract $user
-     * @return array|null
+     * @return array
      */
     public function hasAssigned2Role($user)
     {
@@ -342,7 +354,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      */
     protected function _getEncodedApiKey($apiKey)
     {
-        return $this->_getHelper('core')->getHashPassword($apiKey, Mage_Admin_Model_User::HASH_SALT_LENGTH);
+        return $this->_getHelper('core')->getHash($apiKey, Mage_Admin_Model_User::HASH_SALT_LENGTH);
     }
 
     /**

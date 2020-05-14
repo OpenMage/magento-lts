@@ -29,18 +29,22 @@
  *
  * @method Mage_Admin_Model_Resource_Roles _getResource()
  * @method Mage_Admin_Model_Resource_Roles getResource()
+ * @method Mage_Admin_Model_Resource_Roles_Collection getResourceCollection()
+ *
  * @method int getParentId()
- * @method Mage_Admin_Model_Roles setParentId(int $value)
+ * @method $this setParentId(int $value)
  * @method int getTreeLevel()
- * @method Mage_Admin_Model_Roles setTreeLevel(int $value)
+ * @method $this setTreeLevel(int $value)
  * @method int getSortOrder()
- * @method Mage_Admin_Model_Roles setSortOrder(int $value)
+ * @method $this setSortOrder(int $value)
  * @method string getRoleType()
- * @method Mage_Admin_Model_Roles setRoleType(string $value)
+ * @method $this setRoleType(string $value)
  * @method int getUserId()
- * @method Mage_Admin_Model_Roles setUserId(int $value)
+ * @method $this setUserId(int $value)
  * @method string getRoleName()
- * @method Mage_Admin_Model_Roles setRoleName(string $value)
+ * @method $this setRoleName(string $value)
+ * @method string getName()
+ * @method int getPid()
  *
  * @category    Mage
  * @package     Mage_Admin
@@ -85,7 +89,7 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
     /**
      * Return tree of acl resources
      *
-     * @return array|null|Varien_Simplexml_Element
+     * @return Varien_Simplexml_Element|array
      */
     public function getResourcesTree()
     {
@@ -95,7 +99,7 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
     /**
      * Return list of acl resources
      *
-     * @return array|null|Varien_Simplexml_Element
+     * @return Varien_Simplexml_Element|array
      */
     public function getResourcesList()
     {
@@ -105,7 +109,7 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
     /**
      * Return list of acl resources in 2D format
      *
-     * @return array|null|Varien_Simplexml_Element
+     * @return Varien_Simplexml_Element|array
      */
     public function getResourcesList2D()
     {
@@ -126,16 +130,21 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
      * Build resources array process
      *
      * @param  null|Varien_Simplexml_Element $resource
-     * @param  null $parentName
-     * @param  int $level
-     * @param  null $represent2Darray
+     * @param  null|string $parentName
+     * @param  null|int $level
+     * @param  null|mixed $represent2Darray
      * @param  bool $rawNodes
      * @param  string $module
-     * @return array|null|Varien_Simplexml_Element
+     * @return Varien_Simplexml_Element|false|array
      */
-    protected function _buildResourcesArray(Varien_Simplexml_Element $resource = null,
-        $parentName = null, $level = 0, $represent2Darray = null, $rawNodes = false, $module = 'adminhtml')
-    {
+    protected function _buildResourcesArray(
+        Varien_Simplexml_Element $resource = null,
+        $parentName = null,
+        $level = 0,
+        $represent2Darray = null,
+        $rawNodes = false,
+        $module = 'adminhtml'
+    ) {
         static $result;
         if (is_null($resource)) {
             $resource = Mage::getSingleton('admin/config')->getAdminhtmlConfig()->getNode('acl/resources');
@@ -156,7 +165,7 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
                     $resource->addAttribute("module_c", $module);
                 }
 
-                if ( is_null($represent2Darray) ) {
+                if (is_null($represent2Darray)) {
                     $result[$resourceName]['name']  = Mage::helper($module)->__((string)$resource->title);
                     $result[$resourceName]['level'] = $level;
                 } else {

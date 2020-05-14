@@ -24,13 +24,17 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Acl model
- * 
+ *
  * @category   Mage
  * @package    Mage_Admin
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @property Mage_Admin_Model_Acl_Role_Registry $_roleRegistry
+ *
+ * @method Mage_Admin_Model_Resource_Acl _getResource()
+ * @method Mage_Admin_Model_Resource_Acl getResource()
  */
 class Mage_Admin_Model_Acl extends Zend_Acl
 {
@@ -63,7 +67,7 @@ class Mage_Admin_Model_Acl extends Zend_Acl
      *
      */
     const RULE_PERM_ALLOW = 2;
-    
+
     /**
      * Get role registry object or create one
      *
@@ -80,8 +84,8 @@ class Mage_Admin_Model_Acl extends Zend_Acl
     /**
      * Add parent to role object
      *
-     * @param Zend_Acl_Role $role
-     * @param Zend_Acl_Role $parent
+     * @param Zend_Acl_Role|string $role
+     * @param Zend_Acl_Role|string $parent
      * @return $this
      */
     public function addRoleParent($role, $parent)

@@ -136,12 +136,12 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
                 $assert = new $assertClass(unserialize($rule['assert_data']));
             }
             try {
-                if ( $rule['permission'] == 'allow' ) {
+                if ($rule['permission'] == 'allow') {
                     if ($resource === self::ACL_ALL_RULES) {
                         $acl->allow($role, null, $privileges, $assert);
                     }
                     $acl->allow($role, $resource, $privileges, $assert);
-                } else if ( $rule['permission'] == 'deny' ) {
+                } elseif ($rule['permission'] == 'deny') {
                     $acl->deny($role, $resource, $privileges, $assert);
                 }
             } catch (Exception $e) {
