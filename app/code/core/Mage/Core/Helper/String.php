@@ -258,7 +258,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      * @param string $wordSeparatorRegexp
      * @return array
      */
-    function splitWords($str, $uniqueOnly = false, $maxWordLength = 0, $wordSeparatorRegexp = '\s')
+    public function splitWords($str, $uniqueOnly = false, $maxWordLength = 0, $wordSeparatorRegexp = '\s')
     {
         $result = array();
         $split = preg_split('#' . $wordSeparatorRegexp . '#siu', $str, null, PREG_SPLIT_NO_EMPTY);

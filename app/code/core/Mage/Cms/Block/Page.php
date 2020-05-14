@@ -24,9 +24,10 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Cms page content block
+ *
+ * @method int getPageId()
  *
  * @category   Mage
  * @package    Mage_Cms
@@ -56,9 +57,7 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
     }
 
     /**
-     * Prepare global layout
-     *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
@@ -120,7 +119,7 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
      */
     protected function _toHtml()
     {
-        /* @var $helper Mage_Cms_Helper_Data */
+        /* @var Mage_Cms_Helper_Data $helper */
         $helper = Mage::helper('cms');
         $processor = $helper->getPageTemplateProcessor();
         $html = $processor->filter($this->getPage()->getContent());

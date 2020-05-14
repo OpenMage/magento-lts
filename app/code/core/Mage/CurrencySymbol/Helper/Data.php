@@ -44,7 +44,7 @@ class Mage_CurrencySymbol_Helper_Data extends Mage_Core_Helper_Data
     {
         $currencyOptions = array();
         $currencySymbol = Mage::getModel('currencysymbol/system_currencysymbol');
-        if($currencySymbol) {
+        if ($currencySymbol) {
             $customCurrencySymbol = $currencySymbol->getCurrencySymbol($baseCode);
 
             if ($customCurrencySymbol) {

@@ -25,7 +25,7 @@
  */
 
 
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer = $this;
 
@@ -64,10 +64,14 @@ $table = $installer->getConnection()
     ->addColumn('finished_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
         'nullable'  => true,
         ), 'Finished At')
-    ->addIndex($installer->getIdxName('cron/schedule', array('job_code')),
-        array('job_code'))
-    ->addIndex($installer->getIdxName('cron/schedule', array('scheduled_at', 'status')),
-        array('scheduled_at', 'status'))
+    ->addIndex(
+        $installer->getIdxName('cron/schedule', array('job_code')),
+        array('job_code')
+    )
+    ->addIndex(
+        $installer->getIdxName('cron/schedule', array('scheduled_at', 'status')),
+        array('scheduled_at', 'status')
+    )
     ->setComment('Cron Schedule');
 $installer->getConnection()->createTable($table);
 

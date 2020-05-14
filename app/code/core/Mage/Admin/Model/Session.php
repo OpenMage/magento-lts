@@ -32,14 +32,33 @@
  * @package     Mage_Admin
  * @author      Magento Core Team <core@magentocommerce.com>
  *
- * @method Mage_Admin_Model_User getUser()
- * @method $this setUser(Mage_Admin_Model_User $user)
  * @method Mage_Admin_Model_Acl getAcl()
  * @method $this setAcl(Mage_Admin_Model_Acl $acl)
+ * @method int getActiveTabId()
+ * @method $this setActiveTabId(int $value)
+ * @method $this unsActiveTabId()
+ * @method $this setAttributeData(array|false $data)
+ * @method string getDeletedPath()
+ * @method $this setDeletedPath(string $value)
+ * @method bool getIndirectLogin()
+ * @method $this setIndirectLogin(bool $value)
+ * @method $this setIsFirstVisit(bool $value)
+ * @method bool getIsTreeWasExpanded()
+ * @method $this setIsTreeWasExpanded(bool $value)
+ * @method int getLastEditedCategory()
+ * @method $this setLastEditedCategory(int $value)
+ * @method string getLastViewedStore()
+ * @method $this setLastViewedStore(string $value)
+ * @method bool getUserPasswordChanged()
+ * @method $this setUserPasswordChanged(bool $value)
+ * @method bool hasSyncProcessStopWatch()
+ * @method bool getSyncProcessStopWatch()
+ * @method $this setSyncProcessStopWatch(bool $value)
+ * @method Mage_Admin_Model_User getUser()
+ * @method $this setUser(Mage_Admin_Model_User $user)
  */
 class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
 {
-
     /**
      * Session admin SID config path
      *
@@ -71,7 +90,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
 
     /**
      * Class constructor
-     *
+     * @param array $parameters
      */
     public function __construct($parameters = array())
     {
@@ -83,7 +102,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
         $this->_response = (!empty($parameters['response'])) ?
             $parameters['response'] : new Mage_Core_Controller_Response_Http();
 
-        /** @var $user Mage_Core_Model_Factory */
+        /** @var Mage_Core_Model_Factory $user */
         $this->_factory = (!empty($parameters['factory'])) ?
             $parameters['factory'] : Mage::getModel('core/factory');
 
@@ -142,11 +161,11 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
     public function login($username, $password, $request = null)
     {
         if (empty($username) || empty($password)) {
-            return;
+            return null;
         }
 
         try {
-            /** @var $user Mage_Admin_Model_User */
+            /** @var Mage_Admin_Model_User $user */
             $user = $this->_factory->getModel('admin/user');
             $user->login($username, $password);
             if ($user->getId()) {
@@ -233,7 +252,8 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
                     if (!$acl->has($resource)) {
                         return $acl->isAllowed($user->getAclRole(), null, $privilege);
                     }
-                } catch (Exception $e) { }
+                } catch (Exception $e) {
+                }
             }
         }
         return false;
@@ -297,7 +317,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      * @param Exception $e
      * @param string $username
      * @param string $message
-     * @param Mage_Core_Controller_Request_Http $request
+     * @param Mage_Core_Controller_Request_Http|null $request
      * @return void
      */
     protected function _loginFailed($e, $request, $username, $message)

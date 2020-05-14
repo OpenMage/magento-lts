@@ -538,7 +538,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     /**
      * "GetTransactionDetails" method does not exists in PaypalUK
      */
-    function callGetTransactionDetails()
+    public function callGetTransactionDetails()
     {
     }
 

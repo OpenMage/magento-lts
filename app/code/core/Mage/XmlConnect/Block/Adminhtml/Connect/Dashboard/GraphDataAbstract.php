@@ -151,7 +151,7 @@ abstract class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphDataAbstra
                 $indexId++;
             }
             $params['description'] = implode('|', $valueBuffer);
-        };
+        }
 
         foreach ($this->getAllSeries() as $row) {
             array_walk($row, create_function('&$val', '$val = ceil($val);'));

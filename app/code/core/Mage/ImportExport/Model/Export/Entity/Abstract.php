@@ -376,7 +376,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
      * @throws Mage_Core_Exception
      * @return array
      */
-    abstract function exportFile();
+    abstract public function exportFile();
 
     /**
      * Clean up attribute collection.

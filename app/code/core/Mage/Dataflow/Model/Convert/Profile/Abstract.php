@@ -148,14 +148,14 @@ abstract class Mage_Dataflow_Model_Convert_Profile_Abstract
         return $this;
     }
 
-    function setDataflowProfile($profile) {
+    public function setDataflowProfile($profile) {
         if (is_array($profile)) {
             $this->_dataflow_profile = $profile;
         }
         return $this;
     }
 
-    function getDataflowProfile()
+    public function getDataflowProfile()
     {
         return $this->_dataflow_profile;
     }

@@ -24,9 +24,11 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Cms block content block
+ *
+ * @method int getBlockId()
+ * @method $this setBlockId(int $int)
  *
  * @category   Mage
  * @package    Mage_Cms
@@ -34,7 +36,6 @@
  */
 class Mage_Cms_Block_Block extends Mage_Core_Block_Abstract
 {
-
     /**
      * Initialize cache
      *
@@ -63,7 +64,7 @@ class Mage_Cms_Block_Block extends Mage_Core_Block_Abstract
                 ->setStoreId(Mage::app()->getStore()->getId())
                 ->load($blockId);
             if ($block->getIsActive()) {
-                /* @var $helper Mage_Cms_Helper_Data */
+                /* @var Mage_Cms_Helper_Data $helper */
                 $helper = Mage::helper('cms');
                 $processor = $helper->getBlockTemplateProcessor();
                 $html = $processor->filter($block->getContent());

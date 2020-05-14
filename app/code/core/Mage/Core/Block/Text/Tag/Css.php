@@ -40,7 +40,7 @@ class Mage_Core_Block_Text_Tag_Css extends Mage_Core_Block_Text_Tag
         $this->setTagParams(array('rel'=>'stylesheet', 'type'=>'text/css', 'media'=>'all'));
     }
 
-    function setHref($href, $type=null)
+    public function setHref($href, $type=null)
     {
         $type = (string)$type;
         if (empty($type)) {
