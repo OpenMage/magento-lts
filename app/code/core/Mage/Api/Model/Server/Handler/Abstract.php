@@ -41,6 +41,12 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
         Mage::app()->loadAreaPart(Mage_Core_Model_App_Area::AREA_ADMINHTML, Mage_Core_Model_App_Area::PART_EVENTS);
     }
 
+    /**
+     * @param int $errorCode
+     * @param string $errorMessage
+     * @param string $errorFile
+     * @return bool
+     */
     public function handlePhpError($errorCode, $errorMessage, $errorFile)
     {
         Mage::log($errorMessage . $errorFile);
@@ -87,7 +93,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      * @param string $sessionId
      * @return Mage_Api_Model_Server_Handler_Abstract
      */
-    protected function _startSession($sessionId=null)
+    protected function _startSession($sessionId = null)
     {
         $this->_getSession()->setSessionId($sessionId);
         $this->_getSession()->init('api', 'api');
@@ -102,7 +108,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      * @param   string $privilege
      * @return  bool
      */
-    protected function _isAllowed($resource, $privilege=null)
+    protected function _isAllowed($resource, $privilege = null)
     {
         return $this->_getSession()->isAllowed($resource, $privilege);
     }
@@ -112,7 +118,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      *
      *  @return  boolean
      */
-    protected function _isSessionExpired ()
+    protected function _isSessionExpired()
     {
         return $this->_getSession()->isSessionExpired();
     }
@@ -124,7 +130,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      * @param string $resourceName
      * @param string $customMessage
      */
-    protected function _fault($faultName, $resourceName=null, $customMessage=null)
+    protected function _fault($faultName, $resourceName = null, $customMessage = null)
     {
         $faults = $this->_getConfig()->getFaults($resourceName);
         if (!isset($faults[$faultName]) && !is_null($resourceName)) {
@@ -148,7 +154,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      * @param string $customMessage
      * @return array
      */
-    protected function _faultAsArray($faultName, $resourceName=null, $customMessage=null)
+    protected function _faultAsArray($faultName, $resourceName = null, $customMessage = null)
     {
         $faults = $this->_getConfig()->getFaults($resourceName);
         if (!isset($faults[$faultName]) && !is_null($resourceName)) {
@@ -180,7 +186,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      * End web service session
      *
      * @param string $sessionId
-     * @return boolean
+     * @return true
      */
     public function endSession($sessionId)
     {
@@ -262,7 +268,6 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             && isset($resources->$resourceName->acl)
             && !$this->_isAllowed((string)$resources->$resourceName->acl)) {
             return $this->_fault('access_denied');
-
         }
 
 
@@ -314,7 +319,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      * @param string $sessionId
      * @param array $calls
      * @param array $options
-     * @return array
+     * @return array|void
      */
     public function multiCall($sessionId, array $calls = array(), $options = array())
     {
@@ -440,7 +445,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      * List of available resources
      *
      * @param string $sessionId
-     * @return array
+     * @return array|void
      */
     public function resources($sessionId)
     {
@@ -470,9 +475,9 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
                 }
                 $methodAliases = array();
                 if (isset($resourcesAlias[$resourceName])) {
-                   foreach ($resourcesAlias[$resourceName] as $alias) {
-                       $methodAliases[] =  $alias . '.' . $methodName;
-                   }
+                    foreach ($resourcesAlias[$resourceName] as $alias) {
+                        $methodAliases[] =  $alias . '.' . $methodName;
+                    }
                 }
 
                 $methods[] = array(
@@ -505,7 +510,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      *
      * @param string $sessionId
      * @param string $resourceName
-     * @return array
+     * @return array|void
      */
     public function resourceFaults($sessionId, $resourceName)
     {
@@ -575,7 +580,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      * Prepare Api row data for XML exporting
      * Convert not allowed symbol to numeric character reference
      *
-     * @param $row
+     * @param mixed $row
      * @return mixed
      */
     public function processingRow($row)
@@ -589,4 +594,4 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
         );
         return $row;
     }
-} // Class Mage_Api_Model_Server_Handler_Abstract End
+}

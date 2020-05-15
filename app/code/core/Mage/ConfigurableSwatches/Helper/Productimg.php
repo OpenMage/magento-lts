@@ -93,7 +93,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
      *
      * @param Mage_Catalog_Model_Product $product
      * @param array|null $preValues
-     * @return Mage_ConfigurableSwatches_Helper_Data
+     * @return void
      */
     public function indexProductImages($product, $preValues = null)
     {
@@ -148,7 +148,8 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
                 $imageKeys[$swatchLabel] = array_search($swatchLabel, $imageHaystack);
                 if ($imageKeys[$swatchLabel] === false && isset($mapping[$label]['default_label'])) {
                     $imageKeys[$swatchLabel] = array_search(
-                        $mapping[$label]['default_label'] . self::SWATCH_LABEL_SUFFIX, $imageHaystack
+                        $mapping[$label]['default_label'] . self::SWATCH_LABEL_SUFFIX,
+                        $imageHaystack
                     );
                 }
 
@@ -170,12 +171,17 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
      * @param string $value
      * @param int $width
      * @param int $height
-     * @param $swatchType
+     * @param string $swatchType
      * @param string $fallbackFileExt
      * @return string
      */
-    public function getSwatchUrl($product, $value, $width = self::SWATCH_DEFAULT_WIDTH,
-         $height = self::SWATCH_DEFAULT_HEIGHT, &$swatchType, $fallbackFileExt = null
+    public function getSwatchUrl(
+        $product,
+        $value,
+        $width = self::SWATCH_DEFAULT_WIDTH,
+        $height = self::SWATCH_DEFAULT_HEIGHT,
+        &$swatchType,
+        $fallbackFileExt = null
     ) {
         $url = '';
         $swatchType = 'none';
@@ -220,8 +226,12 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
      * @throws Mage_Core_Exception
      * @return string
      */
-    public function getGlobalSwatchUrl($object, $value, $width = self::SWATCH_DEFAULT_WIDTH,
-        $height = self::SWATCH_DEFAULT_HEIGHT, $fileExt = null
+    public function getGlobalSwatchUrl(
+        $object,
+        $value,
+        $width = self::SWATCH_DEFAULT_WIDTH,
+        $height = self::SWATCH_DEFAULT_HEIGHT,
+        $fileExt = null
     ) {
         if (is_null($fileExt)) {
             $fileExt = self::SWATCH_FILE_EXT;
@@ -341,7 +351,9 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
             $this->_productImageFilters[$product->getId()] = $filters;
         }
 
-        return !in_array(Mage_ConfigurableSwatches_Helper_Data::normalizeKey($image->getLabel()),
-            $this->_productImageFilters[$product->getId()]);
+        return !in_array(
+            Mage_ConfigurableSwatches_Helper_Data::normalizeKey($image->getLabel()),
+            $this->_productImageFilters[$product->getId()]
+        );
     }
 }

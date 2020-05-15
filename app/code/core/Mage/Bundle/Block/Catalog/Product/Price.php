@@ -30,10 +30,17 @@
  *
  * @category   Mage
  * @package    Mage_Bundle
+ *
+ * @method string getMAPTemplate()
+ * @method $this unsWithoutPrice()
+ * @method $this setWithoutPrice(bool $value)
  */
 class Mage_Bundle_Block_Catalog_Product_Price extends Mage_Catalog_Block_Product_Price
 {
 
+    /**
+     * @return bool
+     */
     public function isRatesGraterThenZero()
     {
         $_request = Mage::getSingleton('tax/calculation')->getDefaultRateRequest();

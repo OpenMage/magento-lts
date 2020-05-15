@@ -55,7 +55,7 @@ class Mage_Api_Model_Server
      */
     public function getAdapterCodeByAlias($alias)
     {
-        /** @var $config Mage_Api_Model_Config */
+        /** @var Mage_Api_Model_Config $config */
         $config  = Mage::getSingleton('api/config');
         $aliases = $config->getAdapterAliases();
 
@@ -97,12 +97,12 @@ class Mage_Api_Model_Server
      */
     public function initialize($adapterCode, $handler = null)
     {
-        /** @var $helper Mage_Api_Model_Config */
+        /** @var Mage_Api_Model_Config $helper */
         $helper   = Mage::getSingleton('api/config');
         $adapters = $helper->getActiveAdapters();
 
         if (isset($adapters[$adapterCode])) {
-            /** @var $adapterModel Mage_Api_Model_Server_Adapter_Interface */
+            /** @var Mage_Api_Model_Server_Adapter_Interface $adapterModel */
             $adapterModel = Mage::getModel((string) $adapters[$adapterCode]->model);
 
             if (!($adapterModel instanceof Mage_Api_Model_Server_Adapter_Interface)) {
@@ -156,6 +156,4 @@ class Mage_Api_Model_Server
     {
         return $this->_adapter;
     }
-
-
 } // Class Mage_Api_Model_Server_Abstract End

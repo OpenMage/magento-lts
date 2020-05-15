@@ -42,7 +42,10 @@ class Mage_Api_Model_Wsdl_Config_Base extends Varien_Simplexml_Config
 
     protected $_loadedFiles = array();
 
-    public function __construct($sourceData=null)
+    /**
+     * @inheritDoc
+     */
+    public function __construct($sourceData = null)
     {
         $this->_elementClass = 'Mage_Api_Model_Wsdl_Config_Element';
 
@@ -90,7 +93,7 @@ class Mage_Api_Model_Wsdl_Config_Base extends Varien_Simplexml_Config
      */
     public function processFileData($text)
     {
-        /** @var $template Mage_Core_Model_Email_Template_Filter */
+        /** @var Mage_Core_Model_Email_Template_Filter $template */
         $template = Mage::getModel('core/email_template_filter');
 
         $this->_wsdlVariables->setHandler($this->getHandler());
@@ -100,6 +103,10 @@ class Mage_Api_Model_Wsdl_Config_Base extends Varien_Simplexml_Config
         return $template->filter($text);
     }
 
+    /**
+     * @param string $file
+     * @return $this
+     */
     public function addLoadedFile($file)
     {
         if (!in_array($file, $this->_loadedFiles)) {
@@ -108,6 +115,10 @@ class Mage_Api_Model_Wsdl_Config_Base extends Varien_Simplexml_Config
         return $this;
     }
 
+    /**
+     * @param string $file
+     * @return $this|false
+     */
     public function loadFile($file)
     {
         if (in_array($file, $this->_loadedFiles)) {

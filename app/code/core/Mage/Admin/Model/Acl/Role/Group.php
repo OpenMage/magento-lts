@@ -27,7 +27,7 @@
 
 /**
  * Acl Group model
- * 
+ *
  * @category   Mage
  * @package    Mage_Admin
  * @author      Magento Core Team <core@magentocommerce.com>

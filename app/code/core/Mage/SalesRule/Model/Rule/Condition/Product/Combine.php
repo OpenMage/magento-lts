@@ -216,7 +216,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
         $valid = parent::validate($object);
         if (!$valid && $product->getTypeId() == Mage_Catalog_Model_Product_Type_Configurable::TYPE_CODE) {
             $children = $object->getChildren();
-            if (is_array($children) and isset($children[0])) {
+            if (is_array($children) && isset($children[0])) {
                 $child = $children[0];
 
                 /** @var Mage_Catalog_Model_Product $childProduct */

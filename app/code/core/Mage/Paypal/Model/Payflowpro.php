@@ -327,7 +327,7 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
 
         $this->_processErrors($response);
 
-        if (!$this->_isTransactionUnderReview($response->getOrigresult())) {
+        if (!self::_isTransactionUnderReview($response->getOrigresult())) {
             $payment->setTransactionId($response->getOrigpnref())
                 ->setIsTransactionClosed(0);
             if ($response->getOrigresult() == self::RESPONSE_CODE_APPROVED) {

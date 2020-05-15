@@ -31,8 +31,7 @@
  * @package     Mage_Api2
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Api2_Model_Acl_Global_Rule_ResourcePermission
-    implements Mage_Api2_Model_Acl_PermissionInterface
+class Mage_Api2_Model_Acl_Global_Rule_ResourcePermission implements Mage_Api2_Model_Acl_PermissionInterface
 {
     /**
      * Resources permissions
@@ -61,11 +60,11 @@ class Mage_Api2_Model_Acl_Global_Rule_ResourcePermission
             $allowedType = Mage_Api2_Model_Acl_Global_Rule_Permission::TYPE_ALLOW;
 
             if ($this->_role) {
-                /** @var $rules Mage_Api2_Model_Resource_Acl_Global_Rule_Collection */
+                /** @var Mage_Api2_Model_Resource_Acl_Global_Rule_Collection $rules */
                 $rules = Mage::getResourceModel('api2/acl_global_rule_collection');
                 $rules->addFilterByRoleId($this->_role->getId());
 
-                /** @var $rule Mage_Api2_Model_Acl_Global_Rule */
+                /** @var Mage_Api2_Model_Acl_Global_Rule $rule */
                 foreach ($rules as $rule) {
                     $resourceId = $rule->getResourceId();
                     $rulesPairs[$resourceId]['privileges'][$roleConfigNodeName][$rule->getPrivilege()] = $allowedType;
@@ -76,13 +75,13 @@ class Mage_Api2_Model_Acl_Global_Rule_ResourcePermission
             }
 
             //set permissions to resources
-            /** @var $config Mage_Api2_Model_Config */
+            /** @var Mage_Api2_Model_Config $config */
             $config = Mage::getModel('api2/config');
-            /** @var $privilegeSource Mage_Api2_Model_Acl_Global_Rule_Privilege */
+            /** @var Mage_Api2_Model_Acl_Global_Rule_Privilege $privilegeSource */
             $privilegeSource = Mage::getModel('api2/acl_global_rule_privilege');
-            $privileges = array_keys($privilegeSource->toArray());
+            $privileges = array_keys($privilegeSource::toArray());
 
-            /** @var $node Varien_Simplexml_Element */
+            /** @var Varien_Simplexml_Element $node */
             foreach ($config->getResources() as $resourceType => $node) {
                 $resourceId = (string)$resourceType;
                 $allowedRoles = (array)$node->privileges;

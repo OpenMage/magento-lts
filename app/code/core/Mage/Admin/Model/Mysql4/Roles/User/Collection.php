@@ -31,6 +31,7 @@
  * @category    Mage
  * @package     Mage_Admin
  * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated
  */
 class Mage_Admin_Model_Mysql4_Roles_User_Collection extends Mage_Admin_Model_Resource_Roles_User_Collection
 {

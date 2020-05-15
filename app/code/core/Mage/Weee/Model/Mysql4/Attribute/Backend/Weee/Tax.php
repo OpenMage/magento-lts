@@ -31,6 +31,7 @@
  * @category    Mage
  * @package     Mage_Weee
  * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated
  */
 class Mage_Weee_Model_Mysql4_Attribute_Backend_Weee_Tax extends Mage_Weee_Model_Resource_Attribute_Backend_Weee_Tax
 {

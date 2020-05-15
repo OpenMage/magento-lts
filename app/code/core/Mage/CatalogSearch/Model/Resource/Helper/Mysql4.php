@@ -55,7 +55,7 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
      * @param int $maxWordLength
      * @return array(0=>words, 1=>terms)
      */
-    function prepareTerms($str, $maxWordLength = 0)
+    public function prepareTerms($str, $maxWordLength = 0)
     {
         $boolWords = array(
             '+' => '+',

@@ -29,18 +29,23 @@
  *
  * @method Mage_Cms_Model_Resource_Block _getResource()
  * @method Mage_Cms_Model_Resource_Block getResource()
+ * @method Mage_Cms_Model_Resource_Block_Collection getCollection()
+ *
  * @method string getTitle()
- * @method Mage_Cms_Model_Block setTitle(string $value)
+ * @method $this setTitle(string $value)
  * @method string getIdentifier()
- * @method Mage_Cms_Model_Block setIdentifier(string $value)
+ * @method $this setIdentifier(string $value)
  * @method string getContent()
- * @method Mage_Cms_Model_Block setContent(string $value)
+ * @method $this setContent(string $value)
  * @method string getCreationTime()
- * @method Mage_Cms_Model_Block setCreationTime(string $value)
+ * @method $this setCreationTime(string $value)
  * @method string getUpdateTime()
- * @method Mage_Cms_Model_Block setUpdateTime(string $value)
+ * @method $this setUpdateTime(string $value)
  * @method int getIsActive()
- * @method Mage_Cms_Model_Block setIsActive(int $value)
+ * @method $this setIsActive(int $value)
+ * @method $this setStoreId(int $storeId)
+ * @method int getStoreId()
+ * @method int getBlockId()
  *
  * @category    Mage
  * @package     Mage_Cms

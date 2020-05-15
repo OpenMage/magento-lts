@@ -46,11 +46,11 @@ abstract class Mage_Captcha_Model_Config_Form_Abstract extends Mage_Core_Model_C
     public function toOptionArray()
     {
         $optionArray = array();
-        /* @var $backendNode Mage_Core_Model_Config_Element */
+        /* @var Mage_Core_Model_Config_Element $backendNode */
         $backendNode = Mage::getConfig()->getNode($this->_configPath);
         if ($backendNode) {
             foreach ($backendNode->children() as $formNode) {
-                /* @var $formNode Mage_Core_Model_Config_Element */
+                /* @var Mage_Core_Model_Config_Element $formNode */
                 if (!empty($formNode->label)) {
                     $optionArray[] = array('label' => (string)$formNode->label, 'value' => $formNode->getName());
                 }

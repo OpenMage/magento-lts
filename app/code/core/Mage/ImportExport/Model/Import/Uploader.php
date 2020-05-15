@@ -43,7 +43,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
     );
     const DEFAULT_FILE_TYPE = 'application/octet-stream';
 
-    function __construct($filePath = null)
+    public function __construct($filePath = null)
     {
         if (!is_null($filePath)) {
             $this->_setUploadFile($filePath);

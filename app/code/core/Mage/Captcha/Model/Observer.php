@@ -88,7 +88,7 @@ class Mage_Captcha_Model_Observer
      * @param Varien_Event_Observer $observer
      * @return $this
      */
-    public function checkUserCreate($observer)
+    public function checkUserCreate(Varien_Event_Observer $observer)
     {
         $formId = 'user_create';
         $captchaModel = Mage::helper('captcha')->getCaptcha($formId);
@@ -110,7 +110,7 @@ class Mage_Captcha_Model_Observer
      * @param Varien_Event_Observer $observer
      * @return $this
      */
-    public function checkGuestCheckout($observer)
+    public function checkGuestCheckout(Varien_Event_Observer $observer)
     {
         $formId = 'guest_checkout';
         $captchaModel = Mage::helper('captcha')->getCaptcha($formId);
@@ -198,8 +198,8 @@ class Mage_Captcha_Model_Observer
         $email = (string) $observer->getControllerAction()->getRequest()->getParam('email');
         $params = $observer->getControllerAction()->getRequest()->getParams();
 
-        if (!empty($email) && !empty($params)){
-            if ($captchaModel->isRequired()){
+        if (!empty($email) && !empty($params)) {
+            if ($captchaModel->isRequired()) {
                 if (!$captchaModel->isCorrect($this->_getCaptchaString($controller->getRequest(), $formId))) {
                     $this->_getBackendSession()->setEmail((string) $controller->getRequest()->getPost('email'));
                     $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
@@ -251,7 +251,7 @@ class Mage_Captcha_Model_Observer
      */
     public function deleteExpiredImages()
     {
-        foreach (Mage::app()->getWebsites(true) as $website){
+        foreach (Mage::app()->getWebsites(true) as $website) {
             $expire = time() - Mage::helper('captcha')->getConfigNode('timeout', $website->getDefaultStore())*60;
             $imageDirectory = Mage::helper('captcha')->getImgDir($website);
             foreach (new DirectoryIterator($imageDirectory) as $file) {
@@ -280,7 +280,7 @@ class Mage_Captcha_Model_Observer
     /**
      * Get Captcha String
      *
-     * @param Varien_Object $request
+     * @param Mage_Core_Controller_Request_Http $request
      * @param string $formId
      * @return string
      */

@@ -46,9 +46,9 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_Items_Renderer extends Mage_Adminh
 
         if ($item instanceof Mage_Sales_Model_Order_Invoice_Item) {
             $_items = $item->getInvoice()->getAllItems();
-        } else if ($item instanceof Mage_Sales_Model_Order_Shipment_Item) {
+        } elseif ($item instanceof Mage_Sales_Model_Order_Shipment_Item) {
             $_items = $item->getShipment()->getAllItems();
-        } else if ($item instanceof Mage_Sales_Model_Order_Creditmemo_Item) {
+        } elseif ($item instanceof Mage_Sales_Model_Order_Creditmemo_Item) {
             $_items = $item->getCreditmemo()->getAllItems();
         }
 
@@ -69,6 +69,10 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_Items_Renderer extends Mage_Adminh
         }
     }
 
+    /**
+     * @param Mage_Sales_Model_Order_Invoice_Item $item
+     * @return bool
+     */
     public function isShipmentSeparately($item = null)
     {
         if ($item) {
@@ -108,6 +112,10 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_Items_Renderer extends Mage_Adminh
         return false;
     }
 
+    /**
+     * @param Mage_Sales_Model_Order_Invoice_Item $item
+     * @return bool
+     */
     public function isChildCalculated($item = null)
     {
         if ($item) {
@@ -147,7 +155,12 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_Items_Renderer extends Mage_Adminh
         return false;
     }
 
-    public function getSelectionAttributes($item) {
+    /**
+     * @param Varien_Object|Mage_Sales_Model_Order_Invoice_Item $item
+     * @return mixed|null
+     */
+    public function getSelectionAttributes($item)
+    {
         if ($item instanceof Mage_Sales_Model_Order_Item) {
             $options = $item->getProductOptions();
         } else {
@@ -159,6 +172,10 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_Items_Renderer extends Mage_Adminh
         return null;
     }
 
+    /**
+     * @param null $item
+     * @return array
+     */
     public function getOrderOptions($item = null)
     {
         $result = array();
@@ -187,6 +204,10 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_Items_Renderer extends Mage_Adminh
         return $this->getItem()->getOrderItem();
     }
 
+    /**
+     * @param Mage_Sales_Model_Order_Invoice_Item $item
+     * @return string
+     */
     public function getValueHtml($item)
     {
         $result = $this->escapeHtml($item->getName());
@@ -203,6 +224,10 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_Items_Renderer extends Mage_Adminh
         return $result;
     }
 
+    /**
+     * @param Mage_Sales_Model_Order_Invoice_Item $item
+     * @return bool
+     */
     public function canShowPriceInfo($item)
     {
         if (($item->getOrderItem()->getParentItem() && $this->isChildCalculated())

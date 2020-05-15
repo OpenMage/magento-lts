@@ -48,7 +48,8 @@ class Mage_Bundle_Model_Resource_Bundle extends Mage_CatalogIndex_Model_Resource
             ->from(array("bundle_option" => $this->getTable('bundle/option')), array('type', 'option_id'))
             ->where("bundle_option.parent_id = ?", $productId)
             ->where("bundle_option.required = 1")
-            ->joinLeft(array(
+            ->joinLeft(
+                array(
                 "bundle_selection" => $this->getTable('bundle/selection')),
                 "bundle_selection.option_id = bundle_option.option_id",
                 $columns

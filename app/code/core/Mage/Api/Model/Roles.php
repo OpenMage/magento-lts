@@ -30,19 +30,20 @@
  * @method Mage_Api_Model_Resource_Roles _getResource()
  * @method Mage_Api_Model_Resource_Roles getResource()
  * @method int getParentId()
- * @method Mage_Api_Model_Roles setParentId(int $value)
+ * @method $this setParentId(int $value)
  * @method int getTreeLevel()
- * @method Mage_Api_Model_Roles setTreeLevel(int $value)
+ * @method $this setTreeLevel(int $value)
  * @method int getSortOrder()
- * @method Mage_Api_Model_Roles setSortOrder(int $value)
+ * @method $this setSortOrder(int $value)
  * @method string getRoleType()
- * @method Mage_Api_Model_Roles setRoleType(string $value)
+ * @method $this setRoleType(string $value)
  * @method int getUserId()
- * @method Mage_Api_Model_Roles setUserId(int $value)
+ * @method $this setUserId(int $value)
  * @method string getRoleName()
- * @method Mage_Api_Model_Roles setRoleName(string $value)
+ * @method $this setRoleName(string $value)
  * @method string getName()
  * @method Mage_Api_Model_Role setName() setName(string $name)
+ * @method int getPid()
  *
  * @category    Mage
  * @package     Mage_Api
@@ -63,40 +64,71 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
         $this->_init('api/roles');
     }
 
+    /**
+     * @return $this
+     */
     public function update()
     {
         $this->getResource()->update($this);
         return $this;
     }
 
+    /**
+     * @return Mage_Api_Model_Resource_Roles_User_Collection
+     */
     public function getUsersCollection()
     {
         return Mage::getResourceModel('api/roles_user_collection');
     }
 
+    /**
+     * @return array|false|Varien_Simplexml_Element
+     */
     public function getResourcesTree()
     {
         return $this->_buildResourcesArray(null, null, null, null, true);
     }
 
+    /**
+     * @return array|false|Varien_Simplexml_Element
+     */
     public function getResourcesList()
     {
         return $this->_buildResourcesArray();
     }
 
+    /**
+     * @return array|false|Varien_Simplexml_Element
+     */
     public function getResourcesList2D()
     {
         return $this->_buildResourcesArray(null, null, null, true);
     }
 
+    /**
+     * @return array
+     */
     public function getRoleUsers()
     {
         return $this->getResource()->getRoleUsers($this);
     }
 
+    /**
+     * @param Varien_Simplexml_Element|null $resource
+     * @param string|null $parentName
+     * @param int $level
+     * @param bool|null $represent2Darray
+     * @param bool $rawNodes
+     * @param string $module
+     * @return array|false|Varien_Simplexml_Element
+     */
     protected function _buildResourcesArray(
-        Varien_Simplexml_Element $resource = null, $parentName = null, $level = 0, $represent2Darray = null,
-        $rawNodes = false, $module = 'adminhtml'
+        Varien_Simplexml_Element $resource = null,
+        $parentName = null,
+        $level = 0,
+        $represent2Darray = null,
+        $rawNodes = false,
+        $module = 'adminhtml'
     ) {
         static $result;
 
@@ -122,7 +154,7 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
 
                 $resource->title = Mage::helper($module)->__((string)$resource->title);
 
-                if ( is_null($represent2Darray) ) {
+                if (is_null($represent2Darray)) {
                     $result[$resourceName]['name']  = (string)$resource->title;
                     $result[$resourceName]['level'] = $level;
                 } else {
@@ -172,7 +204,7 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
         if (!$this->_filters || !$data) {
             return $this;
         }
-        /** @var $filter Mage_Core_Model_Input_Filter */
+        /** @var Mage_Core_Model_Input_Filter $filter */
         $filter = Mage::getModel('core/input_filter');
         $filter->setFilters($this->_filters);
         $this->setData($filter->filter($data));

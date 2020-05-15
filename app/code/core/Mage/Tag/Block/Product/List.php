@@ -35,16 +35,27 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
      */
     protected $_uniqueHtmlId = null;
 
+    /**
+     * @return int
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function getCount()
     {
         return count($this->getTags());
     }
 
+    /**
+     * @return mixed
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function getTags()
     {
         return $this->_getCollection()->getItems();
     }
 
+    /**
+     * @return bool
+     */
     public function getProductId()
     {
         if ($product = Mage::registry('current_product')) {
@@ -53,10 +64,13 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
         return false;
     }
 
+    /**
+     * @return mixed
+     * @throws Mage_Core_Model_Store_Exception
+     */
     protected function _getCollection()
     {
-        if( !$this->_collection && $this->getProductId() ) {
-
+        if (!$this->_collection && $this->getProductId()) {
             $model = Mage::getModel('tag/tag');
             $this->_collection = $model->getResourceCollection()
                 ->addPopularity()
@@ -70,6 +84,9 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
         return $this->_collection;
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _beforeToHtml()
     {
         if (!$this->getProductId()) {
@@ -79,6 +96,9 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
         return parent::_beforeToHtml();
     }
 
+    /**
+     * @return string
+     */
     public function getFormAction()
     {
         return Mage::getUrl('tag/index/save', array(
@@ -94,13 +114,17 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
      * @param string $pattern
      * @param string $glue
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function renderTags($pattern, $glue = ' ')
     {
         $out = array();
         foreach ($this->getTags() as $tag) {
-            $out[] = sprintf($pattern,
-                $tag->getTaggedProductsUrl(), $this->escapeHtml($tag->getName()), $tag->getProducts()
+            $out[] = sprintf(
+                $pattern,
+                $tag->getTaggedProductsUrl(),
+                $this->escapeHtml($tag->getName()),
+                $tag->getProducts()
             );
         }
         return implode($glue, $out);

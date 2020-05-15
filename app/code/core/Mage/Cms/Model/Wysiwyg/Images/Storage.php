@@ -47,7 +47,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Config object as array
      *
-     * @var array
+     * @var array|string
      */
     protected $_configAsArray;
 
@@ -63,7 +63,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             $subDirectories = Mage::getModel('core/file_storage_directory_database')->getSubdirectories($path);
             foreach ($subDirectories as $directory) {
                 $fullPath = rtrim($path, DS) . DS . $directory['name'];
-                  if (!file_exists($fullPath)) {
+                if (!file_exists($fullPath)) {
                     mkdir($fullPath, 0777, true);
                 }
             }
@@ -116,6 +116,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             }
         }
 
+        /** @var Varien_Data_Collection_Filesystem $collection */
         $collection = $this->getCollection($path)
             ->setCollectDirs(false)
             ->setCollectFiles(true)
@@ -139,9 +140,10 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             if ($this->isImage($item->getBasename())) {
                 $thumbUrl = $this->getThumbnailUrl(
                     Mage_Core_Model_File_Uploader::getCorrectFileName($item->getFilename()),
-                    true);
+                    true
+                );
                 // generate thumbnail "on the fly" if it does not exists
-                if(! $thumbUrl) {
+                if (! $thumbUrl) {
                     $thumbUrl = Mage::getSingleton('adminhtml/url')->getUrl('*/*/thumbnail', array('file' => $item->getId()));
                 }
 
@@ -232,8 +234,10 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         $io = new Varien_Io_File();
 
         if ($rootCmp == $pathCmp) {
-            Mage::throwException(Mage::helper('cms')->__('Cannot delete root directory %s.',
-                $io->getFilteredPath($path)));
+            Mage::throwException(Mage::helper('cms')->__(
+                'Cannot delete root directory %s.',
+                $io->getFilteredPath($path)
+            ));
         }
 
         if (Mage::helper('core/file_storage_database')->checkDbUsage()) {
@@ -274,8 +278,8 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      *
      * @param string $targetPath Target directory
      * @param string $type Type of storage, e.g. image, media etc.
-     * @throws Mage_Core_Exception
-     * @return array File info Array
+     * @return array|bool|void
+     *@throws Mage_Core_Exception
      */
     public function uploadFile($targetPath, $type = null)
     {
@@ -295,7 +299,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         $result = $uploader->save($targetPath);
 
         if (!$result) {
-            Mage::throwException( Mage::helper('cms')->__('Cannot upload file.') );
+            Mage::throwException(Mage::helper('cms')->__('Cannot upload file.'));
         }
 
         // create thumbnail
@@ -401,7 +405,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Resize images on the fly in controller action
      *
-     * @param string File basename
+     * @param string $filename File basename
      * @return bool|string Thumbnail path or false for errors
      */
     public function resizeOnTheFly($filename)
@@ -416,7 +420,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Return thumbnails directory path for file/current directory
      *
-     * @param string $filePath Path to the file
+     * @param false|string $filePath Path to the file
      * @return string
      */
     public function getThumbsPath($filePath = false)
@@ -467,7 +471,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Config object as array getter
      *
-     * @return array
+     * @return array|string
      */
     public function getConfigAsArray()
     {
@@ -485,7 +489,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      * @param mixed $default
      * @return mixed
      */
-    public function getConfigData($key, $default=false)
+    public function getConfigData($key, $default = false)
     {
         $configArray = $this->getConfigAsArray();
         $key = (string) $key;

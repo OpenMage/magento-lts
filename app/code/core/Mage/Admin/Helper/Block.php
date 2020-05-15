@@ -60,7 +60,7 @@ class Mage_Admin_Helper_Block
     /**
      *  Get disallowed names for block
      *
-     * @return bool
+     * @return array
      */
     public function getDisallowedBlockNames()
     {

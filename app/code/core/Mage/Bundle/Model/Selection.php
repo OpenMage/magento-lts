@@ -29,24 +29,33 @@
  *
  * @method Mage_Bundle_Model_Resource_Selection _getResource()
  * @method Mage_Bundle_Model_Resource_Selection getResource()
- * @method int getOptionId()
- * @method Mage_Bundle_Model_Selection setOptionId(int $value)
- * @method int getParentProductId()
- * @method Mage_Bundle_Model_Selection setParentProductId(int $value)
- * @method int getProductId()
- * @method Mage_Bundle_Model_Selection setProductId(int $value)
- * @method int getPosition()
- * @method Mage_Bundle_Model_Selection setPosition(int $value)
+ * @method Mage_Bundle_Model_Resource_Selection_Collection getCollection()
+ *
+ * @method string getDefaultPriceScope()
  * @method int getIsDefault()
- * @method Mage_Bundle_Model_Selection setIsDefault(int $value)
- * @method int getSelectionPriceType()
- * @method Mage_Bundle_Model_Selection setSelectionPriceType(int $value)
- * @method float getSelectionPriceValue()
- * @method Mage_Bundle_Model_Selection setSelectionPriceValue(float $value)
- * @method float getSelectionQty()
- * @method Mage_Bundle_Model_Selection setSelectionQty(float $value)
+ * @method $this setIsDefault(int $value)
+ * @method int getOptionId()
+ * @method $this setOptionId(int $value)
+ * @method int getParentProductId()
+ * @method $this setParentProductId(int $value)
+ * @method int getPosition()
+ * @method $this setPosition(int $value)
+ * @method int getProductId()
+ * @method $this setProductId(int $value)
  * @method int getSelectionCanChangeQty()
- * @method Mage_Bundle_Model_Selection setSelectionCanChangeQty(int $value)
+ * @method $this setSelectionCanChangeQty(int $value)
+ * @method int getSelectionId()
+ * @method int getSelectionPriceType()
+ * @method $this setSelectionPriceType(int $value)
+ * @method float getSelectionPriceValue()
+ * @method $this setSelectionPriceValue(float $value)
+ * @method float getSelectionQty()
+ * @method $this setSelectionQty(float $value)
+ * @method int getWebsiteId()
+ * @method $this setWebsiteId(int $value)
+ * @method $this unsSelectionPriceValue()
+ * @method $this unsSelectionPriceType()
+ * @method bool isSalable()
  *
  * @category    Mage
  * @package     Mage_Bundle
@@ -66,7 +75,8 @@ class Mage_Bundle_Model_Selection extends Mage_Core_Model_Abstract
     /**
      * Processing object after save data
      *
-     * @return $this
+     * @return void
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _afterSave()
     {

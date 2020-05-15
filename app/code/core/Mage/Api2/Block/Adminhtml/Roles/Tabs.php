@@ -50,7 +50,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tabs extends Mage_Adminhtml_Block_Widget_T
     /**
      * Hook before html rendering
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _beforeToHtml()
     {

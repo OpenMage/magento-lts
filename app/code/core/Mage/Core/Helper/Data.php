@@ -138,7 +138,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function formatCurrency($value, $includeContainer = true)
     {
-        return $this->currency($value, true, $includeContainer);
+        return self::currency($value, true, $includeContainer);
     }
 
     /**
@@ -942,7 +942,7 @@ XML;
                 $value = (string)$value;
 
                 $firstLetter = substr($value, 0, 1);
-                if ($firstLetter !== false and in_array($firstLetter, array("=", "+", "-"))) {
+                if ($firstLetter !== false && in_array($firstLetter, array("=", "+", "-"))) {
                     $data[$key] = ' ' . $value;
                 }
             }
@@ -958,7 +958,7 @@ XML;
      */
     public function unEscapeCSVData($data)
     {
-        if (is_array($data) and Mage::getStoreConfigFlag(Mage_ImportExport_Model_Export_Adapter_Csv::CONFIG_ESCAPING_FLAG)) {
+        if (is_array($data) && Mage::getStoreConfigFlag(Mage_ImportExport_Model_Export_Adapter_Csv::CONFIG_ESCAPING_FLAG)) {
 
             foreach ($data as $key => $value) {
                 $value = (string)$value;
