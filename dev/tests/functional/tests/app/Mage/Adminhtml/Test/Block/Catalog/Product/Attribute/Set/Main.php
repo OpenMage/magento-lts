@@ -20,7 +20,7 @@
  *
  * @category    Tests
  * @package     Tests_Functional
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -95,6 +95,7 @@ class Main extends Block
         $attribute = $this->_rootElement->find($attributeLocator, Locator::SELECTOR_XPATH);
         $attribute->click();
         $target = $this->_rootElement->find(sprintf($this->groups, $attributeGroup), Locator::SELECTOR_XPATH);
+        $this->browser->refresh();
         $attribute->dragAndDrop($target);
     }
 

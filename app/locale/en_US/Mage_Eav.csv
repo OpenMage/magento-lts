@@ -110,6 +110,7 @@
 "System","System"
 "Text Area","Text Area"
 "Text Field","Text Field"
+"The value of attribute ""%s"" contains invalid data.","The value of attribute ""%s"" contains invalid data."
 "The value of attribute ""%s"" must be unique","The value of attribute ""%s"" must be unique"
 "The value of attribute ""%s"" must be unique.","The value of attribute ""%s"" must be unique."
 "This attribute is used in configurable products","This attribute is used in configurable products"

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Api2
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -170,7 +170,8 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
         // request encoding check if it is specified in header
         if (isset($matches[2]) && self::REQUEST_CHARSET != strtolower($matches[2])) {
             throw new Mage_Api2_Exception(
-                'UTF-8 is the only supported charset', Mage_Api2_Model_Server::HTTP_BAD_REQUEST
+                'UTF-8 is the only supported charset',
+                Mage_Api2_Model_Server::HTTP_BAD_REQUEST
             );
         }
         return $matches[1];

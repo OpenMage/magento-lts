@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_SalesRule
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -43,7 +43,7 @@ class Mage_SalesRule_Model_Coupon_Codegenerator extends Varien_Object
         $indexMax = strlen($alphabet) - 1;
         for ($i = 0; $i < $length; $i++) {
             $index = rand(0, $indexMax);
-            $result .= $alphabet{$index};
+            $result .= $alphabet[$index];
         }
         return $result;
     }

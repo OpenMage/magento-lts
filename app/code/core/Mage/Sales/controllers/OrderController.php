@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -70,7 +70,7 @@ class Mage_Sales_OrderController extends Mage_Sales_Controller_Abstract
     /**
      * Check osCommerce order view availability
      *
-     * @deprecate after 1.6.0.0
+     * @deprecated after 1.6.0.0
      * @param   array $order
      * @return  bool
      */
@@ -82,7 +82,7 @@ class Mage_Sales_OrderController extends Mage_Sales_Controller_Abstract
     /**
      * osCommerce Order view page
      *
-     * @deprecate after 1.6.0.0
+     * @deprecated after 1.6.0.0
      *
      */
     public function viewOldAction()

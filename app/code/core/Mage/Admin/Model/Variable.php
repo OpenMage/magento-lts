@@ -20,12 +20,19 @@
  *
  * @category    Mage
  * @package     Mage_Admin
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class Mage_Admin_Model_Variable
+ *
+ * @method Mage_Admin_Model_Resource_Variable _getResource()()
+ * @method Mage_Admin_Model_Resource_Variable getResource()()
+ * @method Mage_Admin_Model_Resource_Variable_Collection getCollection()
+ *
+ * @method string getIsAllowed()
+ * @method string getVariableName()
  */
 class Mage_Admin_Model_Variable extends Mage_Core_Model_Abstract
 {

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Admin
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,6 +30,9 @@
  * @category   Mage
  * @package    Mage_Admin
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Admin_Model_Variable getItemById(int $value)
+ * @method Mage_Admin_Model_Variable[] getItems()
  */
 class Mage_Admin_Model_Resource_Variable_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
