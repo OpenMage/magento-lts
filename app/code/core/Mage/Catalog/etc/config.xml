@@ -21,14 +21,14 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Catalog>
-            <version>1.6.0.0.19.1.5</version>
+            <version>1.6.0.0.19.1.6</version>
         </Mage_Catalog>
     </modules>
     <admin>

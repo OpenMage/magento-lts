@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Api2
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -77,7 +77,9 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
         $this->_resource = $options['resource'];
 
         $validationConfig = $this->_resource->getConfig()->getValidationConfig(
-            $this->_resource->getResourceType(), self::CONFIG_NODE_KEY);
+            $this->_resource->getResourceType(),
+            self::CONFIG_NODE_KEY
+        );
         if (!is_array($validationConfig)) {
             $validationConfig = array();
         }
@@ -170,7 +172,7 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
         // fields rules
         foreach ($data as $field => $value) {
             if (isset($this->_validators[$field])) {
-                /* @var $validator Zend_Validate_Interface */
+                /* @var Zend_Validate_Interface $validator */
                 $validator = $this->_validators[$field];
                 if (!$validator->isValid($value)) {
                     $isValid = false;

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Widget
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -150,7 +150,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
             );
             if (strlen($widgetInstance->getSortOrder())) {
                 $insert['sort_order'] = $widgetInstance->getSortOrder();
-            };
+            }
 
             $writeAdapter->insert($layoutUpdateTable, $insert);
             $layoutUpdateId = $writeAdapter->lastInsertId($layoutUpdateTable);

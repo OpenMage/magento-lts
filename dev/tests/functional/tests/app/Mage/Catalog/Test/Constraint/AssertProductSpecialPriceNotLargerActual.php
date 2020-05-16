@@ -20,7 +20,7 @@
  *
  * @category    Tests
  * @package     Tests_Functional
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Mage\Catalog\Test\Constraint;
@@ -41,7 +41,7 @@ class AssertProductSpecialPriceNotLargerActual extends AbstractConstraint
     /**
      * Text value to be checked.
      */
-    const ERROR_MESSAGE = 'The Special Price is active only when lower than the Actual Price';
+    const ERROR_MESSAGE = 'The Special Price is active only when lower than the Actual Price.';
 
     /**
      * Assert that special price can't be larger, than actual.
@@ -53,7 +53,7 @@ class AssertProductSpecialPriceNotLargerActual extends AbstractConstraint
     public function processAssert(CatalogProductNew $productPage, InjectableFixture $product)
     {
         $errorMessages = $productPage->getProductForm()->getRequireNoticeAttributes($product);
-        \PHPUnit_Framework_Assert::assertEquals(self::ERROR_MESSAGE, $errorMessages['special_price']);
+        \PHPUnit_Framework_Assert::assertEquals(self::ERROR_MESSAGE, $errorMessages['prices']['specialprice']);
     }
 
     /**

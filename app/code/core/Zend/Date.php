@@ -149,7 +149,7 @@ class Zend_Date extends Zend_Date_DateObject
      */
     public function __construct($date = null, $part = null, $locale = null)
     {
-        if (is_object($date) and !($date instanceof Zend_TimeSync_Protocol) and
+        if (is_object($date) && !($date instanceof Zend_TimeSync_Protocol) &&
             !($date instanceof Zend_Date)) {
             if ($locale instanceof Zend_Locale) {
                 $locale = $date;
@@ -160,12 +160,12 @@ class Zend_Date extends Zend_Date_DateObject
             }
         }
 
-        if (($date !== null) and !is_array($date) and !($date instanceof Zend_TimeSync_Protocol) and
-            !($date instanceof Zend_Date) and !defined($date) and Zend_Locale::isLocale($date, true, false)) {
+        if (($date !== null) && !is_array($date) && !($date instanceof Zend_TimeSync_Protocol) &&
+            !($date instanceof Zend_Date) && !defined($date) && Zend_Locale::isLocale($date, true, false)) {
             $locale = $date;
             $date   = null;
             $part   = null;
-        } else if (($part !== null) and !defined($part) and Zend_Locale::isLocale($part, true, false)) {
+        } else if (($part !== null) && !defined($part) && Zend_Locale::isLocale($part, true, false)) {
             $locale = $part;
             $part   = null;
         }
@@ -460,7 +460,7 @@ class Zend_Date extends Zend_Date_DateObject
             $format = null;
         }
 
-        if (($type !== null) and ($type != 'php') and ($type != 'iso') and
+        if (($type !== null) && ($type != 'php') && ($type != 'iso') &&
             Zend_Locale::isLocale($type, null, false)) {
             $locale = $type;
             $type = null;
@@ -1214,7 +1214,7 @@ class Zend_Date extends Zend_Date_DateObject
         }
 
         preg_match('/([+-]\d{2}):{0,1}\d{2}/', $zone, $match);
-        if (!empty($match) and ($match[count($match) - 1] <= 14) and ($match[count($match) - 1] >= -12)) {
+        if (!empty($match) && ($match[count($match) - 1] <= 14) && ($match[count($match) - 1] >= -12)) {
             $zone = "Etc/GMT";
             $zone .= ($match[count($match) - 1] < 0) ? "+" : "-";
             $zone .= (int) abs($match[count($match) - 1]);
@@ -1223,7 +1223,7 @@ class Zend_Date extends Zend_Date_DateObject
 
         preg_match('/([[:alpha:]\/_]{3,30})(?!.*([[:alpha:]\/]{3,30}))/', $zone, $match);
         try {
-            if (!empty($match) and (!is_int($match[count($match) - 1]))) {
+            if (!empty($match) && (!is_int($match[count($match) - 1]))) {
                 $oldzone = $this->getTimezone();
                 $this->setTimezone($match[count($match) - 1]);
                 $result = $this->getTimezone();
@@ -1273,7 +1273,7 @@ class Zend_Date extends Zend_Date_DateObject
         }
 
         // dst-correction if 'fix_dst' = true and dst !== false but only for non UTC and non GMT
-        if ((self::$_options['fix_dst'] === true) and ($dst !== false) and ($this->_dst === true)) {
+        if ((self::$_options['fix_dst'] === true) && ($dst !== false) && ($this->_dst === true)) {
             $hour = $this->toString(self::HOUR, 'iso');
             if ($hour != $dst) {
                 if (($dst == ($hour + 1)) or ($dst == ($hour - 23))) {
@@ -1528,7 +1528,7 @@ class Zend_Date extends Zend_Date_DateObject
 
             case self::WEEKDAY_8601:
                 $weekday = (int) $this->toString(self::WEEKDAY_8601, 'iso', $locale);
-                if ((intval($date) > 0) and (intval($date) < 8)) {
+                if ((intval($date) > 0) && (intval($date) < 8)) {
                     return $this->_assign($calc, $this->mktime(0, 0, 0, 1, 1 + intval($date), 1970, true),
                         $this->mktime(0, 0, 0, 1, 1 + $weekday, 1970, true), $hour);
                 }
@@ -1545,7 +1545,7 @@ class Zend_Date extends Zend_Date_DateObject
 
             case self::WEEKDAY_DIGIT:
                 $weekday = (int) $this->toString(self::WEEKDAY_DIGIT, 'iso', $locale);
-                if (is_numeric($date) and (intval($date) >= 0) and (intval($date) < 7)) {
+                if (is_numeric($date) && (intval($date) >= 0) && (intval($date) < 7)) {
                     return $this->_assign($calc, $this->mktime(0, 0, 0, 1, 1 + $date, 1970, true),
                         $this->mktime(0, 0, 0, 1, 1 + $weekday, 1970, true), $hour);
                 }
@@ -2084,7 +2084,7 @@ class Zend_Date extends Zend_Date_DateObject
                 if (empty($timematch)) {
                     preg_match('/[T,\s]{0,1}(\d{2})(\d{2})(\d{2})/', $tmpdate, $timematch);
                 }
-                if (empty($datematch) and empty($timematch)) {
+                if (empty($datematch) && empty($timematch)) {
                     #require_once 'Zend/Date/Exception.php';
                     throw new Zend_Date_Exception("unsupported ISO8601 format ($date)", 0, null, $date);
                 }
@@ -2644,7 +2644,7 @@ class Zend_Date extends Zend_Date_DateObject
                         }
 
                         $parsed = Zend_Locale_Format::getDate($date, array('date_format' => $part, 'locale' => $locale, 'fix_date' => true, 'format_type' => 'iso'));
-                        if ((strpos(strtoupper($part), 'YY') !== false) and (strpos(strtoupper($part), 'YYYY') === false)) {
+                        if ((strpos(strtoupper($part), 'YY') !== false) && (strpos(strtoupper($part), 'YYYY') === false)) {
                             $parsed['year'] = self::getFullYear($parsed['year']);
                         }
 
@@ -2974,7 +2974,7 @@ class Zend_Date extends Zend_Date_DateObject
                     }
 
                     $parsed = Zend_Locale_Format::getDate($date, array('date_format' => $format, 'locale' => $locale, 'format_type' => 'iso'));
-                    if ((strpos(strtoupper($format), 'YY') !== false) and (strpos(strtoupper($format), 'YYYY') === false)) {
+                    if ((strpos(strtoupper($format), 'YY') !== false) && (strpos(strtoupper($format), 'YYYY') === false)) {
                         $parsed['year'] = self::getFullYear($parsed['year']);
                     }
                 } catch (Zend_Locale_Exception $e) {
@@ -4800,34 +4800,34 @@ class Zend_Date extends Zend_Date_DateObject
             $parsed = $date;
         }
 
-        if (((strpos($format, 'Y') !== false) or (strpos($format, 'y') !== false)) and
+        if (((strpos($format, 'Y') !== false) or (strpos($format, 'y') !== false)) &&
             (!isset($parsed['year']))) {
             // Year expected but not found
             return false;
         }
 
-        if ((strpos($format, 'M') !== false) and (!isset($parsed['month']))) {
+        if ((strpos($format, 'M') !== false) && (!isset($parsed['month']))) {
             // Month expected but not found
             return false;
         }
 
-        if ((strpos($format, 'd') !== false) and (!isset($parsed['day']))) {
+        if ((strpos($format, 'd') !== false) && (!isset($parsed['day']))) {
             // Day expected but not found
             return false;
         }
 
-        if (((strpos($format, 'H') !== false) or (strpos($format, 'h') !== false)) and
+        if (((strpos($format, 'H') !== false) or (strpos($format, 'h') !== false)) &&
             (!isset($parsed['hour']))) {
             // Hour expected but not found
             return false;
         }
 
-        if ((strpos($format, 'm') !== false) and (!isset($parsed['minute']))) {
+        if ((strpos($format, 'm') !== false) && (!isset($parsed['minute']))) {
             // Minute expected but not found
             return false;
         }
 
-        if ((strpos($format, 's') !== false) and (!isset($parsed['second']))) {
+        if ((strpos($format, 's') !== false) && (!isset($parsed['second']))) {
             // Second expected  but not found
             return false;
         }
