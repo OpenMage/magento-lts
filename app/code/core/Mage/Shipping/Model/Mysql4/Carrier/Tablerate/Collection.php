@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Shipping
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,8 +31,8 @@
  * @category    Mage
  * @package     Mage_Shipping
  * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated
  */
-class Mage_Shipping_Model_Mysql4_Carrier_Tablerate_Collection
-    extends Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection
+class Mage_Shipping_Model_Mysql4_Carrier_Tablerate_Collection extends Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection
 {
 }

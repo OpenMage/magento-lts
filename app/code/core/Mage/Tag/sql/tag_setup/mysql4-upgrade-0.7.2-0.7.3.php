@@ -20,21 +20,26 @@
  *
  * @category    Mage
  * @package     Mage_Tag
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 $installer = $this;
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 
-$installer->getConnection()->addColumn($this->getTable('tag_summary'), 'base_popularity',
+$installer->getConnection()->addColumn(
+    $this->getTable('tag_summary'),
+    'base_popularity',
     'int(11) UNSIGNED DEFAULT \'0\' NOT NULL AFTER `popularity`'
 );
 
-$installer->getConnection()->changeColumn($this->getTable('tag_relation'), 'customer_id', 'customer_id',
+$installer->getConnection()->changeColumn(
+    $this->getTable('tag_relation'),
+    'customer_id',
+    'customer_id',
     'INT(10) UNSIGNED NULL DEFAULT NULL'
 );
 

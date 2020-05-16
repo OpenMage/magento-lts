@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Directory
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -107,14 +107,14 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Retrieve region collection
-     *
+     * @param string|array|null $countryFilter
      * @return Mage_Directory_Model_Resource_Region_Collection
      */
-    public function getRegionCollection()
+    public function getRegionCollection($countryFilter = null)
     {
         if (!$this->_regionCollection) {
             $this->_regionCollection = Mage::getModel('directory/region')->getResourceCollection()
-                ->addCountryFilter($this->getAddress()->getCountryId())
+                ->addCountryFilter($countryFilter)
                 ->load();
         }
         return $this->_regionCollection;

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Poll
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -58,22 +58,34 @@ class Mage_Poll_Model_Poll_Answer extends Mage_Core_Model_Abstract
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _afterSave()
     {
         Mage::getModel('poll/poll')
             ->setId($this->getPollId())
             ->resetVotesCount();
+        return parent::_afterSave();
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _beforeDelete()
     {
         $this->setPollId($this->load($this->getId())->getPollId());
+        return parent::_beforeDelete();
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _afterDelete()
     {
         Mage::getModel('poll/poll')
             ->setId($this->getPollId())
             ->resetVotesCount();
+        return parent::_afterDelete();
     }
 }

@@ -19,7 +19,7 @@
  *
  * @category    design
  * @package     rwd_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -699,7 +699,7 @@ $j(document).ready(function () {
     var skipContents = $j('.skip-content');
     var skipLinks = $j('.skip-link');
 
-    skipLinks.on('click', function (e) {
+    $j('.skip-links').on('click', '.skip-link', function (e) {
         e.preventDefault();
 
         var self = $j(this);
@@ -719,13 +719,14 @@ $j(document).ready(function () {
         // Toggle stubs
         if (isSkipContentOpen) {
             self.removeClass('skip-active');
+            elem.removeClass('skip-active');
         } else {
             self.addClass('skip-active');
             elem.addClass('skip-active');
         }
     });
 
-    $j('#header-cart').on('click', '.skip-link-close', function(e) {
+    $j('.skip-links').on('click', '#header-cart .skip-link-close', function(e) {
         var parent = $j(this).parents('.skip-content');
         var link = parent.siblings('.skip-link');
 
@@ -839,7 +840,7 @@ $j(document).ready(function () {
     //     destruct: defaults to false, but if true, the plugin will remove itself, display content, and remove event handlers
 
 
-    jQuery.fn.toggleSingle = function (options) {
+    $j.fn.toggleSingle = function (options) {
 
         // passing destruct: true allows
         var settings = $j.extend({

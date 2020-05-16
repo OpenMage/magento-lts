@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -177,12 +177,6 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      * @var bool
      */
     protected $_wasPayCalled = false;
-
-    public function __construct()
-    {
-        register_shutdown_function(array($this, 'destruct'));
-        parent::__construct();
-    }
 
     /**
      * Uploader clean on shutdown
@@ -350,6 +344,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
                 if ($canVoid === false) {
                     $this->setCanVoidFlag(false);
                     $this->_saveBeforeDestruct = true;
+                    register_shutdown_function(array($this, 'destruct'));
                 }
             }
             else {

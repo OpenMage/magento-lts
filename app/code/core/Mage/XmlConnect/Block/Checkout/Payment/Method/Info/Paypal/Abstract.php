@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -45,7 +45,7 @@ abstract class Mage_XmlConnect_Block_Checkout_Payment_Method_Info_Paypal_Abstrac
 
         if ($specificInfo = $this->getSpecificInformation()) {
             foreach ($specificInfo as $label => $value) {
-                $orderItemXmlObj->addCustomChild('item', implode($this->getValueAsArray($value, true), '\n'), array(
+                $orderItemXmlObj->addCustomChild('item', implode('\n', $this->getValueAsArray($value, true)), array(
                     'label' => $label
                 ));
             }

@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -49,7 +49,7 @@
                     </li>
             <?php $_streetValidationClass = $this->helper('customer/address')->getAttributeValidationClass('street'); ?>
                     <li class="wide">
-                        <label for="shipping:street1" class="required"><em>*</em><?php echo $this->__('Address') ?></label>
+                        <label for="shipping:street1" class="required"><em>*</em><?php echo $this->__('Street Address') ?></label>
                         <div class="input-box">
                             <input type="text" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Street Address')) ?>" name="shipping[street][]" id="shipping:street1" value="<?php echo $this->escapeHtml($this->getAddress()->getStreet(1)) ?>" class="input-text <?php echo $_streetValidationClass ?>" onchange="shipping.setSameAsBilling(false);" />
                         </div>

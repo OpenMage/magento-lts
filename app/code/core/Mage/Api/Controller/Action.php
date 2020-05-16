@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Api
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,11 +32,14 @@
 */
 class Mage_Api_Controller_Action extends Mage_Core_Controller_Front_Action
 {
+    /**
+     * @return $this
+     */
     public function preDispatch()
     {
         $this->getLayout()->setArea('adminhtml');
         Mage::app()->setCurrentStore('admin');
-        $this->setFlag('', self::FLAG_NO_START_SESSION, 1); // Do not start standart session
+        $this->setFlag('', self::FLAG_NO_START_SESSION, 1); // Do not start standard session
         parent::preDispatch();
         return $this;
     }
