@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,7 +31,7 @@
  * @package     Mage_XmlConnect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_XmlConnect_Model_Simplexml_Form_Element_Collection implements ArrayAccess, IteratorAggregate
+class Mage_XmlConnect_Model_Simplexml_Form_Element_Collection implements ArrayAccess, IteratorAggregate, Countable
 {
     /**
      * Elements storage
@@ -175,9 +175,7 @@ class Mage_XmlConnect_Model_Simplexml_Form_Element_Collection implements ArrayAc
     }
 
     /**
-     * Count elements in collection
-     *
-     * @return int
+     * Implementation of Countable:count()
      */
     public function count()
     {

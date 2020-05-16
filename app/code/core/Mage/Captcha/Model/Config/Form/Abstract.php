@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Captcha
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -46,11 +46,11 @@ abstract class Mage_Captcha_Model_Config_Form_Abstract extends Mage_Core_Model_C
     public function toOptionArray()
     {
         $optionArray = array();
-        /* @var $backendNode Mage_Core_Model_Config_Element */
+        /* @var Mage_Core_Model_Config_Element $backendNode */
         $backendNode = Mage::getConfig()->getNode($this->_configPath);
         if ($backendNode) {
             foreach ($backendNode->children() as $formNode) {
-                /* @var $formNode Mage_Core_Model_Config_Element */
+                /* @var Mage_Core_Model_Config_Element $formNode */
                 if (!empty($formNode->label)) {
                     $optionArray[] = array('label' => (string)$formNode->label, 'value' => $formNode->getName());
                 }
