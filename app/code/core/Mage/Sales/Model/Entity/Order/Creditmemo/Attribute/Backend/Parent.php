@@ -28,7 +28,7 @@ class Mage_Sales_Model_Entity_Order_Creditmemo_Attribute_Backend_Parent extends 
 {
     /**
      * @param Varien_Object|Mage_Sales_Model_Order_Creditmemo $object
-     * @return $this|Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+     * @return $this
      */
     public function afterSave($object)
     {

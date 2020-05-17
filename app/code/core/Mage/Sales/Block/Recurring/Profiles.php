@@ -109,7 +109,7 @@ class Mage_Sales_Block_Recurring_Profiles extends Mage_Core_Block_Template
     /**
      * Instantiate profiles collection
      *
-     * @param string $fields
+     * @param string|array $fields
      */
     protected function _prepareProfiles($fields = '*')
     {

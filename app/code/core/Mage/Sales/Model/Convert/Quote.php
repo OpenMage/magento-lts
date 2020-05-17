@@ -38,7 +38,7 @@ class Mage_Sales_Model_Convert_Quote extends Varien_Object
      * Convert quote model to order model
      *
      * @param Mage_Sales_Model_Quote $quote
-     * @param null $order
+     * @param null|Mage_Sales_Model_Order  $order
      * @return  Mage_Sales_Model_Order
      */
     public function toOrder(Mage_Sales_Model_Quote $quote, $order = null)

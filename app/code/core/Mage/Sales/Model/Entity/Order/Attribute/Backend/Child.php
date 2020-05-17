@@ -29,7 +29,7 @@ class Mage_Sales_Model_Entity_Order_Attribute_Backend_Child extends Mage_Eav_Mod
 {
     /**
      * @param Varien_Object $object
-     * @return $this|Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+     * @return $this
      */
     public function beforeSave($object)
     {

@@ -35,7 +35,7 @@
 class Mage_Sales_Block_Order_Print_Invoice extends Mage_Sales_Block_Items_Abstract
 {
     /**
-     * @return Mage_Sales_Block_Items_Abstract|void
+     * @return void
      */
     protected function _prepareLayout()
     {

@@ -1369,7 +1369,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
     /**
      * @param int $paymentId
-     * @return bool|mixed
+     * @return false|Mage_Sales_Model_Quote_Payment
      */
     public function getPaymentById($paymentId)
     {

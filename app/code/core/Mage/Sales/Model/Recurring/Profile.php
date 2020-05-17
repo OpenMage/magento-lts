@@ -635,7 +635,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
     /**
      * Add order relation to recurring profile
      *
-     * @param $orderId
+     * @param int $orderId
      * @return $this
      */
     public function addOrderRelation($orderId)
@@ -763,7 +763,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
     /**
      * Add additional options suboption into itev
      *
-     * @param $item
+     * @param Mage_Sales_Model_Order_Item $item
      * @param array $option
      */
     protected function _addAdditionalOptionToItem($item, $option)
@@ -782,7 +782,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
     /**
      * Recursively cleanup array from objects
      *
-     * @param array
+     * @param array $array
      */
     private function _cleanupArray(&$array)
     {

@@ -35,7 +35,7 @@
 class Mage_Sales_Block_Adminhtml_Report_Filter_Form_Order extends Mage_Sales_Block_Adminhtml_Report_Filter_Form
 {
     /**
-     * @return $this|Mage_Sales_Block_Adminhtml_Report_Filter_Form
+     * @return $this
      */
     protected function _prepareForm()
     {

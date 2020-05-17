@@ -64,7 +64,7 @@ class Mage_Sales_Model_Entity_Quote extends Mage_Eav_Model_Entity_Abstract
      *
      * @param Mage_Sales_Model_Quote $quote
      * @param int $customerId
-     * @return Mage_Sales_Model_Entity_Quote
+     * @return $this
      */
     public function loadByCustomerId($quote, $customerId)
     {
@@ -95,7 +95,7 @@ class Mage_Sales_Model_Entity_Quote extends Mage_Eav_Model_Entity_Abstract
      *
      * @param Mage_Sales_Model_Quote $quote
      * @param int $quoteId
-     * @return Mage_Sales_Model_Entity_Quote
+     * @return $this
      */
     public function loadByIdWithoutStore($quote, $quoteId)
     {

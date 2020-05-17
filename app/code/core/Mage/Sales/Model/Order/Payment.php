@@ -1342,7 +1342,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * @param string $type
      * @param Mage_Sales_Model_Abstract $salesDocument
      * @param bool $failsafe
-     * @param bool $message
+     * @param string|false $message
      * @return null|Mage_Sales_Model_Order_Payment_Transaction
      */
     public function addTransaction($type, $salesDocument = null, $failsafe = false, $message = false)
@@ -1502,7 +1502,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     /**
      * Find one transaction by ID or type
      * @param string $txnId
-     * @param bool $txnType
+     * @param string|false $txnType
      * @return Mage_Sales_Model_Order_Payment_Transaction|false
      */
     protected function _lookupTransaction($txnId, $txnType = false)
@@ -1541,7 +1541,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     /**
      * Find one transaction by ID or type
      * @param string $txnId
-     * @param bool $txnType
+     * @param string|false $txnType
      * @return Mage_Sales_Model_Order_Payment_Transaction|false
      */
     public function lookupTransaction($txnId, $txnType = false)

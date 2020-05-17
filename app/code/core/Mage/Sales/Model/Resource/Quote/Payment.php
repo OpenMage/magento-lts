@@ -55,7 +55,7 @@ class Mage_Sales_Model_Resource_Quote_Payment extends Mage_Sales_Model_Resource_
     /**
      * @param Varien_Object $object
      * @param string $field
-     * @param null $defaultValue
+     * @param mixed $defaultValue
      * @see Mage_Core_Model_Resource_Abstract::_unserializeField()
      */
     protected function _unserializeField(Varien_Object $object, $field, $defaultValue = null)

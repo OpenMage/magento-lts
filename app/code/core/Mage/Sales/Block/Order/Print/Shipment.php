@@ -73,7 +73,7 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
     }
 
     /**
-     * @return Mage_Sales_Block_Items_Abstract|void
+     * @return void
      */
     protected function _prepareLayout()
     {

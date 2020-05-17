@@ -1755,7 +1755,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param $itemId
+     * @param int $itemId
      * @return Varien_Object|null
      */
     public function getItemById($itemId)
@@ -1764,8 +1764,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param $quoteItemId
-     * @return mixed|null
+     * @param int $quoteItemId
+     * @return Mage_Sales_Model_Order_Item|null
      */
     public function getItemByQuoteItemId($quoteItemId)
     {
@@ -1827,7 +1827,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @return array
+     * @return Mage_Sales_Model_Order_Payment[]
      */
     public function getAllPayments()
     {
@@ -1842,8 +1842,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
 
     /**
-     * @param $paymentId
-     * @return bool|mixed
+     * @param int $paymentId
+     * @return bool|Mage_Sales_Model_Order_Payment
      */
     public function getPaymentById($paymentId)
     {
@@ -1941,8 +1941,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param $statusId
-     * @return bool|mixed
+     * @param int $statusId
+     * @return false|Mage_Sales_Model_Order_Status_History
      */
     public function getStatusHistoryById($statusId)
     {
@@ -2014,8 +2014,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param $price
-     * @param $precision
+     * @param float $price
+     * @param int $precision
      * @param bool $addBrackets
      * @return string
      */
@@ -2060,7 +2060,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param $price
+     * @param float $price
      * @return string
      */
     public function formatBasePrice($price)
@@ -2069,8 +2069,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param $price
-     * @param $precision
+     * @param float $price
+     * @param int $precision
      * @return string
      */
     public function formatBasePricePrecision($price, $precision)
@@ -2112,7 +2112,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
     /**
      * @param string $key
-     * @param null $index
+     * @param int|string|null $index
      * @return float|mixed
      */
     public function getData($key = '', $index = null)

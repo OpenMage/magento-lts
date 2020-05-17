@@ -834,7 +834,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     /**
      * Get item price (item price always exclude price)
      *
-     * @param $value
+     * @param float $value
      * @param bool $saveTaxes
      * @return float
      * @throws Mage_Core_Model_Store_Exception

@@ -163,7 +163,7 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
      * Add new total to totals array after specific total or before last total by default
      *
      * @param   Varien_Object $total
-     * @param   null|string $after
+     * @param   null|string $after accepted values: 'first', 'last'
      * @return  Mage_Sales_Block_Order_Totals
      */
     public function addTotal(Varien_Object $total, $after = null)
@@ -201,7 +201,7 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
      * Add new total to totals array before specific total or after first total by default
      *
      * @param Varien_Object $total
-     * @param null $before
+     * @param null|array|string $before
      * @return  Mage_Sales_Block_Order_Totals
      */
     public function addTotalBefore(Varien_Object $total, $before = null)
@@ -238,7 +238,6 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
     /**
      * Get Total object by code
      *
-     * @
      * @param string $code
      * @return Varien_Object|false
      */
@@ -281,7 +280,7 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
     /**
      * get totals array for visualization
      *
-     * @param null $area
+     * @param null|string $area
      * @return array
      */
     public function getTotals($area = null)

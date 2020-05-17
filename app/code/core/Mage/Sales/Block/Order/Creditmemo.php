@@ -40,7 +40,7 @@ class Mage_Sales_Block_Order_Creditmemo extends Mage_Sales_Block_Order_Creditmem
     }
 
     /**
-     * @return Mage_Sales_Block_Order_Creditmemo_Items|void
+     * @return void
      */
     protected function _prepareLayout()
     {

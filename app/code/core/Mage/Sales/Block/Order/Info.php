@@ -42,7 +42,7 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
     }
 
     /**
-     * @return Mage_Core_Block_Template|void
+     * @return void
      */
     protected function _prepareLayout()
     {

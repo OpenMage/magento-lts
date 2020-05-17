@@ -69,7 +69,7 @@ class Mage_Sales_Model_Quote_Address_Rate extends Mage_Shipping_Model_Rate_Abstr
     }
 
     /**
-     * @return $this|Mage_Shipping_Model_Rate_Abstract
+     * @return $this
      */
     protected function _beforeSave()
     {

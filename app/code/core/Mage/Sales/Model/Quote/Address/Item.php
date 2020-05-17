@@ -137,7 +137,7 @@ class Mage_Sales_Model_Quote_Address_Item extends Mage_Sales_Model_Quote_Item_Ab
     }
 
     /**
-     * @return $this|Mage_Sales_Model_Quote_Item_Abstract
+     * @return $this
      */
     protected function _beforeSave()
     {

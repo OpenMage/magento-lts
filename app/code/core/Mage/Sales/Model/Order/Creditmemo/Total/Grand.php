@@ -29,7 +29,7 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Grand extends Mage_Sales_Model_Ord
 {
     /**
      * @param Mage_Sales_Model_Order_Creditmemo $creditmemo
-     * @return $this|Mage_Sales_Model_Order_Creditmemo_Total_Abstract
+     * @return $this
      */
     public function collect(Mage_Sales_Model_Order_Creditmemo $creditmemo)
     {

@@ -29,7 +29,7 @@ class Mage_Sales_Model_Entity_Quote_Address_Attribute_Backend_Region extends Mag
 {
     /**
      * @param Varien_Object|Mage_Sales_Model_Quote_Address $object
-     * @return Mage_Eav_Model_Entity_Attribute_Backend_Abstract|void
+     * @return void
      */
     public function beforeSave($object)
     {

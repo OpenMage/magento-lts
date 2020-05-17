@@ -201,7 +201,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
      * @param mixed (array|string|object) $columns
      * @param bool $isRow
      * @param string $txnType
-     * @return mixed array or string
+     * @return array|string
      */
     private function _lookupByTxnId($orderId, $paymentId, $txnId, $columns, $isRow = false, $txnType = null)
     {
