@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,14 +39,14 @@ interface Mage_Customer_Block_Address_Renderer_Interface
      *
      * @param Varien_Object $type
      */
-    function setType(Varien_Object $type);
+    public function setType(Varien_Object $type);
 
     /**
      * Retrive format type object
      *
      * @return Varien_Object
      */
-    function getType();
+    public function getType();
 
     /**
      * Render address
@@ -54,5 +54,5 @@ interface Mage_Customer_Block_Address_Renderer_Interface
      * @param Mage_Customer_Model_Address_Abstract $address
      * @return mixed
      */
-    function render(Mage_Customer_Model_Address_Abstract $address);
+    public function render(Mage_Customer_Model_Address_Abstract $address);
 }

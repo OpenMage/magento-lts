@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Bundle
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -177,7 +177,7 @@ class Mage_Bundle_Model_Resource_Indexer_Stock extends Mage_CatalogInventory_Mod
         }
 
         $select->columns(array('status' => $adapter->getLeastSql(array(
-            new Zend_Db_Expr('MIN(' . $adapter->getCheckSql('o.stock_status IS NOT NULL','o.stock_status', '0') .')'),
+            new Zend_Db_Expr('MIN(' . $adapter->getCheckSql('o.stock_status IS NOT NULL', 'o.stock_status', '0') .')'),
             new Zend_Db_Expr('MIN(' . $statusExpr . ')'),
         ))));
 

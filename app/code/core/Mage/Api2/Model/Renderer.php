@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Api2
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,13 +37,12 @@ abstract class Mage_Api2_Model_Renderer
      * Get Renderer of given type
      *
      * @param array|string $acceptTypes
+     * @return false|Mage_Core_Model_Abstract
      * @throws Mage_Api2_Exception
-     * @throws Exception
-     * @return Mage_Api2_Model_Renderer_Interface
      */
     public static function factory($acceptTypes)
     {
-        /** @var $helper Mage_Api2_Helper_Data */
+        /** @var Mage_Api2_Helper_Data $helper */
         $helper   = Mage::helper('api2');
         $adapters = $helper->getResponseRenderAdapters();
 
