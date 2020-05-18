@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,24 +38,18 @@ class Mage_Adminhtml_Model_System_Config_Backend_Currency_Cron extends Mage_Core
 
     protected function _afterSave()
     {
-        $enabled = $this->getData('groups/import/fields/enabled/value');
-        $service = $this->getData('groups/import/fields/service/value');
         $time = $this->getData('groups/import/fields/time/value');
         $frequency = $this->getData('groups/import/fields/frequency/value');
-        $errorEmail = $this->getData('groups/import/fields/error_email/value');
 
-        $frequencyDaily = Mage_Adminhtml_Model_System_Config_Source_Cron_Frequency::CRON_DAILY;
         $frequencyWeekly = Mage_Adminhtml_Model_System_Config_Source_Cron_Frequency::CRON_WEEKLY;
         $frequencyMonthly = Mage_Adminhtml_Model_System_Config_Source_Cron_Frequency::CRON_MONTHLY;
-
-        $cronDayOfWeek = date('N');
 
         $cronExprArray = array(
             intval($time[1]),                                   # Minute
             intval($time[0]),                                   # Hour
-            ($frequency == $frequencyMonthly) ? '1' : '*',       # Day of the Month
-            '*',                                                # Month of the Year
-            ($frequency == $frequencyWeekly) ? '1' : '*',        # Day of the Week
+            ($frequency == $frequencyMonthly) ? '1' : '*',          # Day of the Month
+            '*',                                                    # Month of the Year
+            ($frequency == $frequencyWeekly) ? '1' : '*',           # Day of the Week
         );
 
         $cronExprString = join(' ', $cronExprArray);

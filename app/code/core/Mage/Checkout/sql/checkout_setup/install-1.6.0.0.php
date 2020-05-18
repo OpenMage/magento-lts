@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -779,5 +779,13 @@ if ($data) {
         throw $e;
     }
 }
+
+$setup->insert(
+    $this->getTable('core_config_data'),
+    array(
+        'path' => 'admin/security/validate_formkey_checkout',
+        'value' => '1'
+    )
+);
 
 $installer->endSetup();

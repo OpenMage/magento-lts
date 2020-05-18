@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_AdminNotification
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -100,11 +100,7 @@ class Mage_AdminNotification_Helper_Data extends Mage_Core_Helper_Abstract
     public function getPopupObjectUrl($withExt = false)
     {
         if (is_null($this->_popupUrl)) {
-            $sheme = Mage::app()->getFrontController()->getRequest()->isSecure()
-                ? 'https://'
-                : 'http://';
-
-            $this->_popupUrl = $sheme . Mage::getStoreConfig(self::XML_PATH_POPUP_URL);
+            $this->_popupUrl = 'https://' . Mage::getStoreConfig(self::XML_PATH_POPUP_URL);
         }
         return $this->_popupUrl . ($withExt ? '.swf' : '');
     }

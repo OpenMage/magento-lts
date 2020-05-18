@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -776,7 +776,6 @@ $select
     ))
     ->where('entity.entity_type_code IN (?)', array_keys($entityToFlat))
     ->where('attribute.attribute_code NOT IN(?)', $excludeAttributes['all']);
-;
 
 
 $attributes = array();
