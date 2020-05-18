@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,8 +31,8 @@
  * @category    Mage
  * @package     Mage_Reports
  * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated
  */
-class Mage_Reports_Model_Mysql4_Review_Customer_Collection
-    extends Mage_Reports_Model_Resource_Review_Customer_Collection
+class Mage_Reports_Model_Mysql4_Review_Customer_Collection extends Mage_Reports_Model_Resource_Review_Customer_Collection
 {
 }

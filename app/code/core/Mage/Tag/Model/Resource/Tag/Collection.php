@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tag
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -197,7 +197,8 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
                     array($tableAlias => $this->getTable('tag/summary')),
                     'main_table.tag_id = ' . $tableAlias . '.tag_id' . $joinCondition,
                     array('store_id','popularity', 'customers', 'products'
-                ));
+                    )
+                );
 
             $this->addFilterToMap('store_id', $tableAlias . '.store_id');
             $this->addFilterToMap('popularity', $tableAlias . '.popularity');
@@ -271,11 +272,12 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
                 $this->_getConditionSql('COUNT(relation.tag_relation_id)', $condition)
             );
         } elseif ($this->getFlag('summary') && in_array(
-            $field, array('customers', 'products', 'uses', 'historical_uses', 'popularity')
+            $field,
+            array('customers', 'products', 'uses', 'historical_uses', 'popularity')
         )) {
             $this->getSelect()->where($this->_getConditionSql('summary.' . $field, $condition));
         } else {
-           parent::addFieldToFilter($field, $condition);
+            parent::addFieldToFilter($field, $condition);
         }
         return $this;
     }
@@ -306,7 +308,6 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     public function addStoreFilter($storeId, $allFilter = true)
     {
         if (!$this->getFlag('store_filter')) {
-
             $this->getSelect()->joinLeft(
                 array('summary_store' => $this->getTable('tag/summary')),
                 'main_table.tag_id = summary_store.tag_id'

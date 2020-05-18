@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogInventory
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -935,7 +935,7 @@ class Mage_CatalogInventory_Model_Observer
             $websiteField = new Zend_Db_Expr($websiteField);
         }
 
-        Mage::getResourseSingleton('cataloginventory/stock_status')
+        Mage::getResourceSingleton('cataloginventory/stock_status')
             ->prepareCatalogProductIndexSelect($select, $entityField, $websiteField);
 
         return $this;

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Admin
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,18 +29,25 @@
  *
  * @method Mage_Admin_Model_Resource_Role _getResource()
  * @method Mage_Admin_Model_Resource_Role getResource()
+ * @method Mage_Admin_Model_Resource_Role_Collection getResourceCollection()
+ *
  * @method int getParentId()
- * @method Mage_Admin_Model_Role setParentId(int $value)
+ * @method $this setParentId(int $value)
  * @method int getTreeLevel()
- * @method Mage_Admin_Model_Role setTreeLevel(int $value)
+ * @method $this setTreeLevel(int $value)
  * @method int getSortOrder()
- * @method Mage_Admin_Model_Role setSortOrder(int $value)
+ * @method $this setSortOrder(int $value)
+ * @method int getRoleId()
  * @method string getRoleType()
- * @method Mage_Admin_Model_Role setRoleType(string $value)
+ * @method $this setRoleType(string $value)
  * @method int getUserId()
- * @method Mage_Admin_Model_Role setUserId(int $value)
+ * @method $this setUserId(int $value)
  * @method string getRoleName()
- * @method Mage_Admin_Model_Role setRoleName(string $value)
+ * @method $this setRoleName(string $value)
+ * @method int getPid()
+ * @method string getName()
+ * @method $this setCreated(string $value)
+ * @method $this setModified(string $value)
  *
  * @category    Mage
  * @package     Mage_Admin
