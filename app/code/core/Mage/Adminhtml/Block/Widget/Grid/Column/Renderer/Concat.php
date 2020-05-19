@@ -32,8 +32,7 @@
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 
-class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Concat
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
+class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Concat extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
 
     /**
@@ -50,9 +49,8 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Concat
                 $dataArr[] = $data;
             }
         }
-        $data = join($this->getColumn()->getSeparator(), $dataArr);
+        $data = implode($this->getColumn()->getSeparator(), $dataArr);
         // TODO run column type renderer
         return $data;
     }
-
 }

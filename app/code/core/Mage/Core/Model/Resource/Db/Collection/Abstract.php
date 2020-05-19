@@ -141,7 +141,6 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      */
     protected function _construct()
     {
-
     }
 
     /**
@@ -253,7 +252,6 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
                 $columnEntry = array('main_table', $field, $alias);
                 array_splice($columns, $insertIndex, 0, array($columnEntry)); // Insert column
                 $insertIndex ++;
-
             }
         } else {
             array_unshift($columns, array('main_table', '*', null));
@@ -354,7 +352,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
         }
 
         $fullExpression = $expression;
-        foreach ($fields as $fieldKey=>$fieldItem) {
+        foreach ($fields as $fieldKey => $fieldItem) {
             $fullExpression = str_replace('{{' . $fieldKey . '}}', $fieldItem, $fullExpression);
         }
 
@@ -508,8 +506,6 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     public function getData()
     {
         if ($this->_data === null) {
-
-
             $this->_renderFilters()
                  ->_renderOrders()
                  ->_renderLimit();
@@ -547,7 +543,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     /**
      * Join table to collection select
      *
-     * @param string $table
+     * @param array|string $table
      * @param string $cond
      * @param string $cols
      * @return Mage_Core_Model_Resource_Db_Collection_Abstract
@@ -713,7 +709,4 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     {
         return Varien_Date::formatDate($date, $includeTime);
     }
-
-
-
 }
