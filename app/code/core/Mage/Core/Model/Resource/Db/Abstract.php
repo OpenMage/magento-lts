@@ -172,7 +172,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         $this->_resources = Mage::getSingleton('core/resource');
 
         if (is_array($connections)) {
-            foreach ($connections as $k=>$v) {
+            foreach ($connections as $k => $v) {
                 $this->_connections[$k] = $this->_resources->getConnection($v);
             }
         } else if (is_string($connections)) {
@@ -255,7 +255,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     public function getTable($entityName)
     {
         if (is_array($entityName)) {
-            $cacheName    = join('@', $entityName);
+            $cacheName    = implode('@', $entityName);
             list($entityName, $entitySuffix) = $entityName;
         } else {
             $cacheName    = $entityName;
@@ -316,7 +316,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         }
         if (!empty($this->_resourcePrefix)) {
             $this->_connections[$connectionName] = $this->_resources->getConnection(
-                $this->_resourcePrefix . '_' . $connectionName);
+                $this->_resourcePrefix . '_' . $connectionName
+            );
         } else {
             $this->_connections[$connectionName] = $this->_resources->getConnection($connectionName);
         }
@@ -522,7 +523,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         if (is_null($this->_uniqueFields)) {
             $this->_initUniqueFields();
         }
-        if (is_array($this->_uniqueFields) ) {
+        if (is_array($this->_uniqueFields)) {
             $this->_uniqueFields[] = $field;
         }
         return $this;
@@ -669,7 +670,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         }
 
         if (!empty($existent)) {
-            if (count($existent) == 1 ) {
+            if (count($existent) == 1) {
                 $error = Mage::helper('core')->__('%s already exists.', $existent[0]);
             } else {
                 $error = Mage::helper('core')->__('%s already exist.', implode(', ', $existent));
@@ -774,5 +775,4 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         }
         return $checksum;
     }
-
 }

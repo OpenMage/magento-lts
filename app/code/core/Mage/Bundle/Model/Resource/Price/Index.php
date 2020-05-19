@@ -144,7 +144,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
 
         $select->joinLeft(
             array($priceTypeAlias => $priceType->getBackend()->getTable()),
-            join(' AND ', $joinConds),
+            implode(' AND ', $joinConds),
             array('price_type' => $priceTypeAlias . '.value')
         );
 
@@ -770,7 +770,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
 
                 // calculate selection price
                 if ($priceType == Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC) {
-                    $priceIndexKey = join('-', array(
+                    $priceIndexKey = implode('-', array(
                         $selection['product_id'],
                         $website->getId(),
                         $group->getId()

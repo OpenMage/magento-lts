@@ -35,7 +35,7 @@ foreach ($fieldList as $field) {
     $applyTo = explode(',', $installer->getAttribute('catalog_product', $field, 'apply_to'));
     if (!in_array('virtual', $applyTo)) {
         $applyTo[] = 'virtual';
-        $installer->updateAttribute('catalog_product', $field, 'apply_to', join(',', $applyTo));
+        $installer->updateAttribute('catalog_product', $field, 'apply_to', implode(',', $applyTo));
     }
 }
 

@@ -25,8 +25,7 @@
  */
 
 
-class Mage_Catalog_Model_Convert_Parser_Product
-    extends Mage_Eav_Model_Convert_Parser_Abstract
+class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_Parser_Abstract
 {
     const MULTI_DELIMITER = ' , ';
     protected $_resource;
@@ -72,7 +71,7 @@ class Mage_Catalog_Model_Convert_Parser_Product
 
     public function __construct()
     {
-        foreach (Mage::getConfig()->getFieldset('catalog_product_dataflow', 'admin') as $code=>$node) {
+        foreach (Mage::getConfig()->getFieldset('catalog_product_dataflow', 'admin') as $code => $node) {
             if ($node->is('inventory')) {
                 $this->_inventoryFields[] = $code;
                 if ($node->is('use_config')) {
@@ -264,7 +263,7 @@ class Mage_Catalog_Model_Convert_Parser_Product
         $entityTypeId    = Mage::getSingleton('eav/config')->getEntityType(Mage_Catalog_Model_Product::ENTITY)->getId();
         $inventoryFields = array();
 
-        foreach ($data as $i=>$row) {
+        foreach ($data as $i => $row) {
             $this->setPosition('Line: '.($i+1));
             try {
                 // validate SKU
@@ -330,7 +329,7 @@ class Mage_Catalog_Model_Convert_Parser_Product
                     if (!empty($row['entity_id'])) {
                         $model->load($row['entity_id']);
                     }
-                    foreach ($row as $field=>$value) {
+                    foreach ($row as $field => $value) {
                         $attribute = $entity->getAttribute($field);
 
                         if (!$attribute) {
@@ -359,7 +358,6 @@ class Mage_Catalog_Model_Convert_Parser_Product
                             $value = $optionId;
                         }
                         $model->setData($field, $value);
-
                     }//foreach ($row as $field=>$value)
 
                     //echo 'Before **********************<br/><pre>';
@@ -421,10 +419,12 @@ class Mage_Catalog_Model_Convert_Parser_Product
             $row = array(
                 'store'         => $this->getStore()->getCode(),
                 'websites'      => '',
-                'attribute_set' => $this->getAttributeSetName($product->getEntityTypeId(),
-                                        $product->getAttributeSetId()),
+                'attribute_set' => $this->getAttributeSetName(
+                    $product->getEntityTypeId(),
+                    $product->getAttributeSetId()
+                ),
                 'type'          => $product->getTypeId(),
-                'category_ids'  => join(',', $product->getCategoryIds())
+                'category_ids'  => implode(',', $product->getCategoryIds())
             );
 
             if ($this->getStore()->getCode() == Mage_Core_Model_Store::ADMIN_CODE) {
@@ -433,7 +433,7 @@ class Mage_Catalog_Model_Convert_Parser_Product
                     $websiteCode = Mage::app()->getWebsite($websiteId)->getCode();
                     $websiteCodes[$websiteCode] = $websiteCode;
                 }
-                $row['websites'] = join(',', $websiteCodes);
+                $row['websites'] = implode(',', $websiteCodes);
             } else {
                 $row['websites'] = $this->getStore()->getWebsite()->getCode();
                 if ($this->getVar('url_field')) {

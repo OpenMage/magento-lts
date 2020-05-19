@@ -89,7 +89,8 @@ class Mage_Payment_Model_Observer
         }
 
         // add the start datetime as product custom option
-        $product->addCustomOption(Mage_Payment_Model_Recurring_Profile::PRODUCT_OPTIONS_KEY,
+        $product->addCustomOption(
+            Mage_Payment_Model_Recurring_Profile::PRODUCT_OPTIONS_KEY,
             serialize(array('start_datetime' => $profile->getStartDatetime()))
         );
 
@@ -119,8 +120,10 @@ class Mage_Payment_Model_Observer
         /** @var Mage_Sales_Model_Order_Payment $payment */
         $payment = $observer->getEvent()->getPayment();
         if ($payment->getMethod() === Mage_Payment_Model_Method_Banktransfer::PAYMENT_METHOD_BANKTRANSFER_CODE) {
-            $payment->setAdditionalInformation('instructions',
-                $payment->getMethodInstance()->getInstructions());
+            $payment->setAdditionalInformation(
+                'instructions',
+                $payment->getMethodInstance()->getInstructions()
+            );
         }
     }
 
@@ -164,11 +167,15 @@ class Mage_Payment_Model_Observer
                 $methods = '';
                 $spacer  = '';
                 foreach ($titles as $key => $values) {
-                    $methods = $methods . $spacer . $key . ' [' . join(', ', $values) . ']';
+                    $methods = $methods . $spacer . $key . ' [' . implode(', ', $values) . ']';
                     $spacer = ', ';
                 }
-                throw new Mage_Core_Exception(Mage::helper('sales')->__('Status "%s" cannot be unassigned. It is in used in %d payment method configuration(s): %s',
-                    $statusModel->getLabel(), $used, $methods));
+                throw new Mage_Core_Exception(Mage::helper('sales')->__(
+                    'Status "%s" cannot be unassigned. It is in used in %d payment method configuration(s): %s',
+                    $statusModel->getLabel(),
+                    $used,
+                    $methods
+                ));
             }
         }
     }

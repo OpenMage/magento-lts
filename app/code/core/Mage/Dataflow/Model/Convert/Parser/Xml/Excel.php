@@ -61,8 +61,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
 
         try {
             $adapter = Mage::getModel($adapterName);
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $message = Mage::helper('dataflow')->__('Declared adapter %s was not found.', $adapterName);
             $this->addException($message, Mage_Dataflow_Model_Convert_Exception::FATAL);
             return $this;
@@ -124,20 +123,17 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
                     $xmlString = substr($xmlTmpString, $strposF);
                     $isWorksheet = true;
                     continue;
-                }
-                else {
+                } else {
                     if (preg_match('/ss:Name=\"'.preg_quote($worksheet).'\"/siU', substr($xmlTmpString, 0, $strposF))) {
                         $xmlString = substr($xmlTmpString, $strposF);
                         $isWorksheet = true;
                         continue;
-                    }
-                    else {
+                    } else {
                         $xmlString = '';
                         continue;
                     }
                 }
-            }
-            else {
+            } else {
                 $xmlString = $this->_parseXmlRow($xmlString);
 
                 $strposS = strpos($xmlString, '</Worksheet>');
@@ -176,7 +172,6 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
                 $dom->load($file);
             }
         } else {
-
             $this->validateDataString();
             $dom->loadXML($this->getData());
         }
@@ -265,8 +260,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
                 $this->_saveParsedRow($xmlRowString);
 
                 $xmlString = substr($xmlTmpString, $strposF + 6);
-            }
-            else {
+            } else {
                 $found = false;
                 continue;
             }
@@ -292,8 +286,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
 
         try {
             $xmlElement = new SimpleXMLElement($xml);
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $message = 'Invalid XML row';
             $this->addException($message, Mage_Dataflow_Model_Convert_Exception::ERROR);
             return $this;
@@ -490,6 +483,6 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
         }
         $xmlData[] = '</Row>';
 
-        return join('', $xmlData);
+        return implode('', $xmlData);
     }
 }

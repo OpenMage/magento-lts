@@ -31,8 +31,7 @@
  * @package     Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget_Form
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     /**
      * Retrieve an instance of the fallback helper
@@ -115,9 +114,9 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
 
         foreach ($undefinedResources as $undefinedResourceId) {
             if ($this->_getFallbackHelper()->fallbackResourcePermissions(
-                    $resourcesPermissionsMap,
-                    $undefinedResourceId
-                ) == Mage_Admin_Model_Rules::RULE_PERMISSION_ALLOWED
+                $resourcesPermissionsMap,
+                $undefinedResourceId
+            ) == Mage_Admin_Model_Rules::RULE_PERMISSION_ALLOWED
             ) {
                 array_push($selrids, $undefinedResourceId);
             }
@@ -128,7 +127,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
 
         $this->setTemplate('permissions/rolesedit.phtml');
         //->assign('resources', $resources);
-        //->assign('checkedResources', join(',', $selrids));
+        //->assign('checkedResources', implode(',', $selrids));
     }
 
     /**
@@ -187,8 +186,9 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
             $item['sort_order'] = isset($node->sort_order) ? (string)$node->sort_order : 0;
             $item['id'] = (string)$node->attributes()->aclpath;
 
-            if (in_array($item['id'], $selres))
+            if (in_array($item['id'], $selres)) {
                 $item['checked'] = true;
+            }
         }
         if (isset($node->children)) {
             $children = $node->children->children();

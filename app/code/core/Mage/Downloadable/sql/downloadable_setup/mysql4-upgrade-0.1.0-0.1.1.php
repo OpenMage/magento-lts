@@ -32,14 +32,14 @@ $installer->startSetup();
 $applyTo = explode(',', $installer->getAttribute('catalog_product', 'weight', 'apply_to'));
 if (in_array('downloadable', $applyTo)) {
     $newApplyTo = array();
-    foreach ($applyTo as $key=>$value) {
+    foreach ($applyTo as $key => $value) {
         if ($value != 'downloadable') {
             $newApplyTo[] = $value;
         }
     }
-    $installer->updateAttribute('catalog_product', 'weight', 'apply_to', join(',', $newApplyTo));
+    $installer->updateAttribute('catalog_product', 'weight', 'apply_to', implode(',', $newApplyTo));
 } else {
-    $installer->updateAttribute('catalog_product', 'weight', 'apply_to', join(',', $applyTo));
+    $installer->updateAttribute('catalog_product', 'weight', 'apply_to', implode(',', $applyTo));
 }
 
 // remove 'weight' values for downloadable products if there were any created

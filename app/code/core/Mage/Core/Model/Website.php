@@ -178,7 +178,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
             return $this;
         }
         if (is_numeric($code)) {
-            foreach (Mage::getConfig()->getNode('websites')->children() as $websiteCode=>$website) {
+            foreach (Mage::getConfig()->getNode('websites')->children() as $websiteCode => $website) {
                 if ((int)$website->system->website->id==$code) {
                     $code = $websiteCode;
                     break;
@@ -201,9 +201,9 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
      * @param string $path
      * @return mixed
      */
-    public function getConfig($path) {
+    public function getConfig($path)
+    {
         if (!isset($this->_configCache[$path])) {
-
             $config = Mage::getConfig()->getNode('websites/'.$this->getCode().'/'.$path);
             if (!$config) {
                 return false;
@@ -211,7 +211,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
             }
             if ($config->hasChildren()) {
                 $value = array();
-                foreach ($config->children() as $k=>$v) {
+                foreach ($config->children() as $k => $v) {
                     $value[$k] = $v;
                 }
             } else {
@@ -454,7 +454,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
      */
     public function getWebsiteGroupStore()
     {
-        return join('-', array($this->getWebsiteId(), $this->getGroupId(), $this->getStoreId()));
+        return implode('-', array($this->getWebsiteId(), $this->getGroupId(), $this->getStoreId()));
     }
 
     public function getDefaultGroupId()

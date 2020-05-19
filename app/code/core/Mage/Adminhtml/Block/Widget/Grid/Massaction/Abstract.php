@@ -74,7 +74,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
             ->setMassaction($this)
             ->setId($itemId);
 
-        if($this->_items[$itemId]->getAdditional()) {
+        if ($this->_items[$itemId]->getAdditional()) {
             $this->_items[$itemId]->setAdditionalActionBlock($this->_items[$itemId]->getAdditional());
             $this->_items[$itemId]->unsAdditional();
         }
@@ -90,7 +90,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
      */
     public function getItem($itemId)
     {
-        if(isset($this->_items[$itemId])) {
+        if (isset($this->_items[$itemId])) {
             return $this->_items[$itemId];
         }
 
@@ -115,7 +115,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     public function getItemsJson()
     {
         $result = array();
-        foreach ($this->getItems() as $itemId=>$item) {
+        foreach ($this->getItems() as $itemId => $item) {
             $result[$itemId] = $item->toArray();
         }
 
@@ -189,9 +189,9 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
      */
     public function getSelectedJson()
     {
-        if($selected = $this->getRequest()->getParam($this->getFormFieldNameInternal())) {
+        if ($selected = $this->getRequest()->getParam($this->getFormFieldNameInternal())) {
             $selected = explode(',', $this->quoteEscape($selected));
-            return join(',', $selected);
+            return implode(',', $selected);
         } else {
             return '';
         }
@@ -204,7 +204,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
      */
     public function getSelected()
     {
-        if($selected = $this->getRequest()->getParam($this->getFormFieldNameInternal())) {
+        if ($selected = $this->getRequest()->getParam($this->getFormFieldNameInternal())) {
             $selected = explode(',', $this->quoteEscape($selected));
             return $selected;
         } else {
@@ -242,7 +242,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
 
         $gridIds = $this->getParentBlock()->getCollection()->getAllIds();
 
-        if(!empty($gridIds)) {
+        if (!empty($gridIds)) {
             return join(",", $gridIds);
         }
         return '';

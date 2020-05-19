@@ -59,9 +59,8 @@ class Mage_Adminhtml_Model_System_Config_Backend_Log_Cron extends Mage_Core_Mode
                 '*',                                                    # Month of the Year
                 ($frequency == $frequencyWeekly) ? '1' : '*',           # Day of the Week
             );
-            $cronExprString = join(' ', $cronExprArray);
-        }
-        else {
+            $cronExprString = implode(' ', $cronExprArray);
+        } else {
             $cronExprString = '';
         }
 
@@ -77,8 +76,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Log_Cron extends Mage_Core_Mode
                 ->setValue((string) Mage::getConfig()->getNode(self::CRON_MODEL_PATH))
                 ->setPath(self::CRON_MODEL_PATH)
                 ->save();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             Mage::throwException(Mage::helper('adminhtml')->__('Unable to save the cron expression.'));
         }
     }

@@ -118,11 +118,17 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
         $conditions = array();
         if (strlen($value['from']) > 0) {
             $conditions[] = $adapter->quoteInto(
-                'price_index.min_price %s * %s >= ?', $value['from'], Zend_Db::FLOAT_TYPE);
+                'price_index.min_price %s * %s >= ?',
+                $value['from'],
+                Zend_Db::FLOAT_TYPE
+            );
         }
         if (strlen($value['to']) > 0) {
             $conditions[] = $adapter->quoteInto(
-                'price_index.min_price %s * %s <= ?', $value['to'], Zend_Db::FLOAT_TYPE);
+                'price_index.min_price %s * %s <= ?',
+                $value['to'],
+                Zend_Db::FLOAT_TYPE
+            );
         }
 
         if (!$conditions) {
@@ -132,7 +138,7 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
         $collection->addPriceData();
         $select     = $collection->getSelect();
         $response   = $this->_dispatchPreparePriceEvent($select);
-        $additional = join('', $response->getAdditionalCalculations());
+        $additional = implode('', $response->getAdditionalCalculations());
 
         foreach ($conditions as $condition) {
             $select->where(sprintf($condition, $additional, $rate));

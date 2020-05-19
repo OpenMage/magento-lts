@@ -195,8 +195,7 @@ class Mage_Core_Model_Resource_Setup
     protected function _getTableCacheName($tableName)
     {
         if (is_array($tableName)) {
-            return join('_', $tableName);
-
+            return implode('_', $tableName);
         }
         return $tableName;
     }
@@ -216,7 +215,7 @@ class Mage_Core_Model_Resource_Setup
      *
      * @return boolean
      */
-    static public function applyAllUpdates()
+    public static function applyAllUpdates()
     {
         Mage::app()->setUpdateMode(true);
         self::$_hadUpdates = false;
@@ -251,7 +250,7 @@ class Mage_Core_Model_Resource_Setup
      * Apply database data updates whenever needed
      *
      */
-    static public function applyAllDataUpdates()
+    public static function applyAllDataUpdates()
     {
         if (!self::$_schemaUpdatesChecked) {
             return;
@@ -282,9 +281,9 @@ class Mage_Core_Model_Resource_Setup
         $configVer = (string)$this->_moduleConfig->version;
         if ($dataVer !== false) {
              $status = version_compare($configVer, $dataVer);
-             if ($status == self::VERSION_COMPARE_GREATER) {
-                 $this->_upgradeData($dataVer, $configVer);
-             }
+            if ($status == self::VERSION_COMPARE_GREATER) {
+                $this->_upgradeData($dataVer, $configVer);
+            }
         } elseif ($configVer) {
             $this->_installData($configVer);
         }
@@ -312,7 +311,7 @@ class Mage_Core_Model_Resource_Setup
         // Module is installed
         if ($dbVer !== false) {
              $status = version_compare($configVer, $dbVer);
-             switch ($status) {
+            switch ($status) {
                 case self::VERSION_COMPARE_LOWER:
                     $this->_rollbackResourceDb($configVer, $dbVer);
                     break;
@@ -321,8 +320,8 @@ class Mage_Core_Model_Resource_Setup
                     break;
                 default:
                     return true;
-                    break;
-             }
+                   break;
+            }
         } elseif ($configVer) {
             $this->_installResourceDb($configVer);
         }
@@ -531,7 +530,6 @@ class Mage_Core_Model_Resource_Setup
                 if (preg_match($regExp, $file, $matches)) {
                     $files[$matches[1]] = $filesDir . DS . $file;
                 }
-
             }
             $handlerDir->close();
         }
@@ -576,7 +574,6 @@ class Mage_Core_Model_Resource_Setup
             case self::TYPE_DATA_UPGRADE:
                 $this->_getResource()->setDataVersion($this->_resourceName, $version);
                 break;
-
         }
 
         return $this;
@@ -626,7 +623,6 @@ class Mage_Core_Model_Resource_Setup
                     case 'sql':
                         $sql = file_get_contents($fileName);
                         if (!empty($sql)) {
-
                             $result = $this->run($sql);
                         } else {
                             $result = true;
@@ -721,7 +717,7 @@ class Mage_Core_Model_Resource_Setup
      * @param string|integer $parentId
      * @return mixed|boolean
      */
-    public function getTableRow($table, $idField, $id, $field=null, $parentField=null, $parentId=0)
+    public function getTableRow($table, $idField, $id, $field = null, $parentField = null, $parentId = 0)
     {
         if (strpos($table, '/') !== false) {
             $table = $this->getTable($table);
@@ -835,10 +831,12 @@ class Mage_Core_Model_Resource_Setup
         if (strpos($table, '/') !== false) {
             $table = $this->getTable($table);
         }
-        $query = sprintf('UPDATE %s SET %s WHERE %s',
+        $query = sprintf(
+            'UPDATE %s SET %s WHERE %s',
             $this->getConnection()->quoteIdentifier($table),
             $conditionExpr,
-            $valueExpr);
+            $valueExpr
+        );
 
         $this->getConnection()->query($query);
 
@@ -858,7 +856,6 @@ class Mage_Core_Model_Resource_Setup
         }
 
         return $this->getConnection()->isTableExists($table);
-
     }
 
 /******************* CONFIG *****************/
@@ -873,7 +870,7 @@ class Mage_Core_Model_Resource_Setup
      * @return $this
      * @deprecated since 1.4.0.1
      */
-    public function addConfigField($path, $label, array $data=array(), $default=null)
+    public function addConfigField($path, $label, array $data = array(), $default = null)
     {
         return $this;
     }
@@ -888,7 +885,7 @@ class Mage_Core_Model_Resource_Setup
      * @param int $inherit
      * @return $this
      */
-    public function setConfigData($path, $value, $scope = 'default', $scopeId = 0, $inherit=0)
+    public function setConfigData($path, $value, $scope = 'default', $scopeId = 0, $inherit = 0)
     {
         $table = $this->getTable('core/config_data');
         // this is a fix for mysql 4.1

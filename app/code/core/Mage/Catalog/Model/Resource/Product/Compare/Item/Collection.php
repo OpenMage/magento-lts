@@ -32,8 +32,7 @@
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
-    extends Mage_Catalog_Model_Resource_Product_Collection
+class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_Catalog_Model_Resource_Product_Collection
 {
     /**
      * Customer Filter
@@ -185,14 +184,16 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
             ->distinct(true)
             ->from(
                 array('entity' => $this->getEntity()->getEntityTable()),
-                'attribute_set_id')
+                'attribute_set_id'
+            )
             ->join(
                 array('website' => $this->getTable('catalog/product_website')),
-                join(' AND ', $websiteConds),
-                array())
+                implode(' AND ', $websiteConds),
+                array()
+            )
             ->join(
                 array('compare' => $this->getTable('catalog/compare_item')),
-                join(' AND ', $compareConds),
+                implode(' AND ', $compareConds),
                 array()
             );
         return $this->getConnection()->fetchCol($select);
