@@ -385,8 +385,8 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             ->where('entity_id = ?', (int)$attributeData['entity_id']);
 
         $row = $adapter->fetchRow($select);
-        $whereCond = array('value_id = ?' => $row['value_id']);
         if ($row) {
+            $whereCond = array('value_id = ?' => $row['value_id']);
             $adapter->update($attributeTable, $attributeData, $whereCond);
         } else {
             $adapter->insert($attributeTable, $attributeData);
