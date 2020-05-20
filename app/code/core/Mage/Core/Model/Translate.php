@@ -478,7 +478,7 @@ class Mage_Core_Model_Translate
                       . DS . 'template' . DS . $type . DS . $file;
         }
 
-        $ioAdapter = new Varien_Io_File();
+        $ioAdapter = Mage::getModel('core/varien_io_file');
         $ioAdapter->open(array('path' => Mage::getBaseDir('locale')));
 
         return (string) $ioAdapter->read($filePath);

@@ -62,7 +62,7 @@ class Mage_XmlConnect_Model_Theme
      */
     public function __construct($file)
     {
-        $io = new Varien_Io_File();
+        $io = Mage::getModel('core/varien_io_file');
         $this->_file = $file;
         if (!file_exists($file)) {
             Mage::throwException(Mage::helper('xmlconnect')->__('File doesn\'t exist "%s".',
@@ -189,7 +189,7 @@ class Mage_XmlConnect_Model_Theme
     {
         $currentThemeFileName = $this->_getThemeFile();
 
-        $ioFile = new Varien_Io_File();
+        $ioFile = Mage::getModel('core/varien_io_file');
         if (!$ioFile->cp($currentThemeFileName, $filePath)) {
             Mage::throwException(
                 Mage::helper('xmlconnect')->__('Can\'t copy file "%s" to "%s".',
@@ -323,7 +323,7 @@ class Mage_XmlConnect_Model_Theme
         if (is_writeable($this->_file)) {
             file_put_contents($this->_file, $xml->asXML());
         } else {
-            $io = new Varien_Io_File();
+            $io = Mage::getModel('core/varien_io_file');
             Mage::throwException(Mage::helper('xmlconnect')->__('Can\'t write to file "%s".',
                 $io->getFilteredPath($this->_file)));
         }

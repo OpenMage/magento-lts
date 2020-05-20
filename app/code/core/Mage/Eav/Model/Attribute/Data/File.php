@@ -226,7 +226,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
         if ($toDelete) {
             $this->getEntity()->setData($attribute->getAttributeCode(), '');
             $file = $path . $original;
-            $ioFile = new Varien_Io_File();
+            $ioFile = Mage::getModel('core/varien_io_file');
             if ($ioFile->fileExists($file)) {
                 $ioFile->rm($file);
             }
@@ -234,7 +234,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
 
         if (!empty($value['tmp_name'])) {
             try {
-                $uploader = new Varien_File_Uploader($value);
+                $uploader = Mage::getModel('core/varien_file_uploader',$value);
                 $uploader->setFilesDispersion(true);
                 $uploader->setFilenamesCaseSensitivity(false);
                 $uploader->setAllowRenameFiles(true);

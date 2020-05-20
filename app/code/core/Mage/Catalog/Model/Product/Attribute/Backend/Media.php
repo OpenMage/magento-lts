@@ -288,7 +288,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
 
         $fileName = $this->_getNotDuplicatedFilename($fileName, $dispretionPath);
 
-        $ioAdapter = new Varien_Io_File();
+        $ioAdapter = Mage::getModel('core/varien_io_file');
         $ioAdapter->setAllowCreateFolders(true);
         $distanationDirectory = dirname($this->_getConfig()->getTmpMediaPath($fileName));
 
@@ -553,7 +553,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
      */
     protected function _moveImageFromTmp($file)
     {
-        $ioObject = new Varien_Io_File();
+        $ioObject = Mage::getModel('core/varien_io_file');
         $destDirectory = dirname($this->_getConfig()->getMediaPath($file));
         try {
             $ioObject->open(array('path'=>$destDirectory));
@@ -618,7 +618,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     protected function _copyImage($file)
     {
         try {
-            $ioObject = new Varien_Io_File();
+            $ioObject = Mage::getModel('core/varien_io_file');
             $destDirectory = dirname($this->_getConfig()->getMediaPath($file));
             $ioObject->open(array('path'=>$destDirectory));
 
@@ -643,7 +643,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
 
         } catch (Exception $e) {
             $file = $this->_getConfig()->getMediaPath($file);
-            $io = new Varien_Io_File();
+            $io = Mage::getModel('core/varien_io_file');
             Mage::throwException(
                 Mage::helper('catalog')->__(
                     'Failed to copy file %s. Please, delete media with non-existing images and try again.',

@@ -144,7 +144,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
         }
         $fileName .= '.' . $this->_mimeTypes[$data['file']['mime']];
 
-        $ioAdapter = new Varien_Io_File();
+        $ioAdapter = Mage::getModel('core/varien_io_file');
         try {
             // Create temporary directory for api
             $ioAdapter->checkAndCreateFolder($tmpDirectory);
@@ -156,7 +156,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
             // try to create Image object - it fails with Exception if image is not supported
             try {
                 $filePath = $tmpDirectory . DS . $fileName;
-                new Varien_Image($filePath);
+                Mage::getModel('core/varien_image',$filePath);
                 Mage::getModel('core/file_validator_image')->validate($filePath);
             } catch (Exception $e) {
                 // Remove temporary directory
@@ -225,7 +225,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
 
             unset($data['file']['content']);
 
-            $ioAdapter = new Varien_Io_File();
+            $ioAdapter = Mage::getModel('core/varien_io_file');
             try {
                 $fileName = Mage::getBaseDir('media'). DS . 'catalog' . DS . 'product' . $file;
                 $ioAdapter->open(array('path'=>dirname($fileName)));

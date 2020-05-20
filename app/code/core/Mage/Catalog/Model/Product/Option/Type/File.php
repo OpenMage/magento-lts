@@ -699,7 +699,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         $this->_createWriteableDir($this->getOrderTargetDir());
 
         // Directory listing and hotlink secure
-        $io = new Varien_Io_File();
+        $io = Mage::getModel('core/varien_io_file');
         $io->cd($this->getTargetDir());
         if (!$io->fileExists($this->getTargetDir() . DS . '.htaccess')) {
             $io->streamOpen($this->getTargetDir() . DS . '.htaccess');
@@ -718,7 +718,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      */
     protected function _createWriteableDir($path)
     {
-        $io = new Varien_Io_File();
+        $io = Mage::getModel('core/varien_io_file');
         if (!$io->isWriteable($path) && !$io->mkdir($path, 0777, true)) {
             Mage::throwException(Mage::helper('catalog')->__("Cannot create writeable directory '%s'.", $path));
         }

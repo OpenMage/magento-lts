@@ -271,7 +271,7 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
             $uniqueResultFile = $this->getUniqueFilename($path, $file);
 
             if ($uniqueResultFile !== $file) {
-                $ioFile = new Varien_Io_File();
+                $ioFile = Mage::getModel('core/varien_io_file');
                 $ioFile->open(array('path' => $path));
                 $ioFile->mv($path . $file, $path . $uniqueResultFile);
             }

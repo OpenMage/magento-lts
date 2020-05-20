@@ -64,7 +64,7 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
 
     protected function _beforeSave()
     {
-        $io = new Varien_Io_File();
+        $io = Mage::getModel('core/varien_io_file');
         $realPath = $io->getCleanPath(Mage::getBaseDir() . '/' . $this->getSitemapPath());
 
         /**
@@ -129,7 +129,7 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
      */
     public function generateXml()
     {
-        $io = new Varien_Io_File();
+        $io = Mage::getModel('core/varien_io_file');
         $io->setAllowCreateFolders(true);
         $io->open(array('path' => $this->getPath()));
 

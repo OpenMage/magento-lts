@@ -119,7 +119,7 @@ class Mage_Captcha_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $websiteCode = Mage::app()->getWebsite($website)->getCode();
         $captchaDir = Mage::getBaseDir('media') . DS . 'captcha' . DS . $websiteCode . DS;
-        $io = new Varien_Io_File();
+        $io = Mage::getModel('core/varien_io_file');
         $io->checkAndCreateFolder($captchaDir, 0755);
         return $captchaDir;
     }

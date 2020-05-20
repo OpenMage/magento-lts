@@ -107,7 +107,7 @@ abstract class Mage_Dataflow_Model_Convert_Parser_Abstract
 
     protected function _copy($file)
     {
-        $ioAdapter = new Varien_Io_File();
+        $ioAdapter = Mage::getModel('core/varien_io_file');
         if (!$ioAdapter->fileExists($file)) {
             Mage::throwException(Mage::helper('dataflow')->__('File "%s" does not exist.', $file));
         }

@@ -377,7 +377,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
 //            if (!$this->_checkMemory()) {
 //                $this->_baseFile = null;
 //            }
-            $this->_processor = new Varien_Image($this->getBaseFile());
+            $this->_processor = Mage::getModel('core/varien_image',$this->getBaseFile());
         }
         $this->_processor->keepAspectRatio($this->_keepAspectRatio);
         $this->_processor->keepFrame($this->_keepFrame);
@@ -686,7 +686,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     public function clearCache()
     {
         $directory = Mage::getBaseDir('media') . DS.'catalog'.DS.'product'.DS.'cache'.DS;
-        $io = new Varien_Io_File();
+        $io = Mage::getModel('core/varien_io_file');
         $io->rmdir($directory, true);
 
         Mage::helper('core/file_storage_database')->deleteFolder($directory);

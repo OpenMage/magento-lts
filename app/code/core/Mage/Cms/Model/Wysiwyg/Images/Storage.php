@@ -201,7 +201,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             Mage::throwException(Mage::helper('cms')->__('A directory with the same name already exists. Please try another folder name.'));
         }
 
-        $io = new Varien_Io_File();
+        $io = Mage::getModel('core/varien_io_file');
         if ($io->mkdir($newPath)) {
             if (Mage::helper('core/file_storage_database')->checkDbUsage()) {
                 $relativePath = Mage::helper('core/file_storage_database')->getMediaRelativePath($newPath);
@@ -231,7 +231,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         $rootCmp = rtrim($this->getHelper()->getStorageRoot(), DS);
         $pathCmp = rtrim($path, DS);
 
-        $io = new Varien_Io_File();
+        $io = Mage::getModel('core/varien_io_file');
 
         if ($rootCmp == $pathCmp) {
             Mage::throwException(Mage::helper('cms')->__(
@@ -260,7 +260,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      */
     public function deleteFile($target)
     {
-        $io = new Varien_Io_File();
+        $io = Mage::getModel('core/varien_io_file');
         $io->rm($target);
         Mage::helper('core/file_storage_database')->deleteFile($target);
 
@@ -283,7 +283,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      */
     public function uploadFile($targetPath, $type = null)
     {
-        $uploader = new Mage_Core_Model_File_Uploader('image');
+        $uploader = Mage::getModel('core/file_uploader','image');
         if ($allowed = $this->getAllowedExtensions($type)) {
             $uploader->setAllowedExtensions($allowed);
         }
@@ -379,7 +379,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         }
 
         $targetDir = $this->getThumbsPath($source);
-        $io = new Varien_Io_File();
+        $io = Mage::getModel('core/varien_io_file');
         if (!$io->isWriteable($targetDir)) {
             $io->mkdir($targetDir);
         }

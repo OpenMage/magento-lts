@@ -122,7 +122,7 @@ class Mage_Dataflow_Model_Batch_Io
     public function getIoAdapter()
     {
         if (is_null($this->_ioFile)) {
-            $this->_ioFile = new Varien_Io_File();
+            $this->_ioFile = Mage::getModel('core/varien_io_file');
         }
         return $this->_ioFile;
     }

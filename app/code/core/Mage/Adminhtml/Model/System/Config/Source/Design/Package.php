@@ -28,7 +28,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Package
 
     public function toOptionArray()
     {
-        $dir = new Varien_Io_File();
+        $dir = Mage::getModel('core/varien_io_file');
         #$dir->open(array('path'=>Mage::getStore))
     }
 
