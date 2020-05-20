@@ -7,18 +7,18 @@ level of backwards compatibility to the official releases.
 **Pull requests with unofficial bug fixes and security patches from the community are encouraged and welcome!**
 
 Though Magento does not follow [Semantic Versioning](http://semver.org/) we aim to provide a workable system for
-dependency definition. Each Magento `1.<minor>.<revision>` release will get its own branch (named `1.<minor>.<revision>.x`)
+dependency definition. Each Magento `1.<minor>.<revision>` release will get its own branch (named `1<minor>.<revision>.x`)
 that will be independently maintained with upstream patches and community bug fixes for as long as it makes sense
-to do so (based on available resources). For example, Magento version `1.9.3.4` was merged into the `1.9.3.x` branch.
+to do so (based on available resources). For example, Magento version `1.9.3.4` was merged into the `19.3.x` branch.
 
-Note, the branches older than `1.9.3.x` that were created before this strategy came into practice are **not maintained**.
+Note, the branches older than `19.3.x` that were created before this strategy came into practice are **not maintained**.
 
 ## Installation
 
 Download the latest archive and extract it, clone the repo, or add a composer dependency to your existing project like so:
 
 ```json
-"openmage/magento-lts": "1.9.4.x"
+"openmage/magento-lts": "19.4.x"
 ```
 
 [More Information](http://openmage.github.io/magento-lts/install.html)
