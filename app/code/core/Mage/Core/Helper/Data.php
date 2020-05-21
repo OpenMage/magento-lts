@@ -274,17 +274,12 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      *  Generate password hash for user
      *
      * @param string $password
-     * @param mixed $salt
+     * @param mixed $salt deprecated
      * @return string
      */
     public function getHashPassword($password, $salt = false)
     {
-        $encryptionModel = $this->getEncryptor();
-        $latestVersionHash = $this->getVersionHash($encryptionModel);
-        if ($latestVersionHash == $encryptionModel::HASH_VERSION_SHA512) {
-            return $this->getEncryptor()->getHashPassword($password, $salt);
-        }
-        return $this->getEncryptor()->getHashPassword($password, Mage_Admin_Model_User::HASH_SALT_EMPTY);
+        return $this->getEncryptor()->getHashPassword($password);
     }
 
     public function validateHash($password, $hash)
@@ -294,6 +289,8 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Get encryption method depending on the presence of the function - password_hash.
+     *
+     * @deprecated
      *
      * @param Mage_Core_Model_Encryption $encryptionModel
      * @return int

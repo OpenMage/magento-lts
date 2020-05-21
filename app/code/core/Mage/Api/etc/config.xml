@@ -90,6 +90,17 @@
                 <api/>
             </direct_front_name>
         </request>
+        <events>
+            <api_user_authenticated>
+                <observers>
+                    <api_password_upgrade>
+                        <type>singleton</type>
+                        <class>api/observer</class>
+                        <method>apiAuthenticated</method>
+                    </api_password_upgrade>
+                </observers>
+            </api_user_authenticated>
+        </events>
     </global>
     <frontend>
         <routers>

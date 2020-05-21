@@ -38,7 +38,7 @@ class Mage_Core_Model_Encryption
     const HASH_VERSION_SHA512 = 2;
 
     /**
-     * Encryption method bcrypt
+     * Encryption method: PASSWORD_DEFAULT
      */
     const HASH_VERSION_LATEST = 3;
 
@@ -67,13 +67,12 @@ class Mage_Core_Model_Encryption
      * Generate a [salted] hash.
      *
      * $salt can be:
-     * false - a random will be generated
+     * false - no salt will be used
      * integer - a random with specified length will be generated
-     * string
      *
      * @param string $password
      * @param mixed $salt
-     * @return string
+     * @return bool|string
      */
     public function getHash($password, $salt = false)
     {
@@ -81,25 +80,36 @@ class Mage_Core_Model_Encryption
             $salt = $this->_helper->getRandomString($salt);
         }
         return $salt === false
-            ? $this->hash($password)
+            ? $this->hash($password, self::HASH_VERSION_SHA256)
             : $this->hash($salt . $password, self::HASH_VERSION_SHA256) . ':' . $salt;
     }
 
     /**
-     * Generate hash for customer password
+     * Generate hash for a password
      *
      * @param string $password
-     * @param mixed $salt
-     * @return string
+     * @param mixed $salt deprecated
+     * @return bool|string
      */
     public function getHashPassword($password, $salt = null)
     {
-        if (is_integer($salt)) {
-            $salt = $this->_helper->getRandomString($salt);
+        return $this->hash($password, self::HASH_VERSION_LATEST);
+    }
+
+    /**
+     * Check if a given hash should be upgraded
+     *
+     * @param string $hash
+     * @return bool
+     */
+    public function passwordHashNeedsUpgrade($hash)
+    {
+        // all old hashes MD5/SHA256/SHA512 with salt. password_hash hashes start w/ $
+        if (isset($hash[0]) && $hash[0] != '$') {
+            return true;
         }
-        return (bool) $salt
-            ? $this->hash($salt . $password, $this->_helper->getVersionHash($this)) . ':' . $salt
-            : $this->hash($password, $this->_helper->getVersionHash($this));
+
+        return password_needs_rehash($hash, PASSWORD_DEFAULT);
     }
 
     /**
@@ -111,7 +121,7 @@ class Mage_Core_Model_Encryption
      */
     public function hash($data, $version = self::HASH_VERSION_MD5)
     {
-        if (self::HASH_VERSION_LATEST === $version && $version === $this->_helper->getVersionHash($this)) {
+        if (self::HASH_VERSION_LATEST === $version) {
             return password_hash($data, PASSWORD_DEFAULT);
         } elseif (self::HASH_VERSION_SHA256 == $version) {
             return hash('sha256', $data);
@@ -127,14 +137,23 @@ class Mage_Core_Model_Encryption
      * @param string $password
      * @param string $hash
      * @return bool
-     * @throws Exception
      */
     public function validateHash($password, $hash)
     {
-        return $this->validateHashByVersion($password, $hash, self::HASH_VERSION_LATEST)
-            || $this->validateHashByVersion($password, $hash, self::HASH_VERSION_SHA512)
+        // password_hash hashes start w/ $
+        if (isset($hash[0]) && $hash[0] == '$') {
+            return $this->validateHashByVersion($password, $hash, self::HASH_VERSION_LATEST);
+        }
+
+        $result = $this->validateHashByVersion($password, $hash, self::HASH_VERSION_SHA512)
             || $this->validateHashByVersion($password, $hash, self::HASH_VERSION_SHA256)
             || $this->validateHashByVersion($password, $hash, self::HASH_VERSION_MD5);
+
+        if (!$result) {
+            $this->hash($password, self::HASH_VERSION_LATEST);
+        }
+
+        return $result;
     }
 
     /**
@@ -147,7 +166,7 @@ class Mage_Core_Model_Encryption
      */
     public function validateHashByVersion($password, $hash, $version = self::HASH_VERSION_MD5)
     {
-        if ($version == self::HASH_VERSION_LATEST && $version == $this->_helper->getVersionHash($this)) {
+        if ($version == self::HASH_VERSION_LATEST) {
             return password_verify($password, $hash);
         }
         // look for salt

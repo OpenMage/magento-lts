@@ -139,17 +139,13 @@ class Mage_Admin_Model_Observer
             return;
         }
 
-        if (
-            !(bool) $user->getPasswordUpgraded()
-            && !Mage::helper('core')->getEncryptor()->validateHashByVersion(
-                $password,
-                $user->getPassword(),
-                Mage_Core_Model_Encryption::HASH_VERSION_SHA256
-            )
-        ) {
-            Mage::getModel('admin/user')->load($user->getId())
-                ->setNewPassword($password)->setForceNewPassword(true)
-                ->save();
+        if((bool)$user->getPasswordUpgraded()) {
+            return;
+        }
+
+        $encryptor = Mage::helper('core')->getEncryptor();
+        if ($encryptor->passwordHashNeedsUpgrade($user->getPassword())) {
+            $user->setPassword($password)->save();
             $user->setPasswordUpgraded(true);
         }
     }
