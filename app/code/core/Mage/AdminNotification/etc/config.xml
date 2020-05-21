@@ -91,7 +91,7 @@
     <default>
         <system>
             <adminnotification>
-                <feed_url>openmage.github.io/Web_Notifications/notifications_v1.rss</feed_url>
+                <feed_url>www.openmage.org/Web_Notifications/notifications_v1.rss</feed_url>
                 <popup_url>widgets.magentocommerce.com/notificationPopup</popup_url>
                 <severity_icons_url>widgets.magentocommerce.com/%s/%s.gif</severity_icons_url>
                 <use_https>1</use_https>
