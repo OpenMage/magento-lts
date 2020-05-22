@@ -843,7 +843,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Retrieve resource instance wrapper
      *
-     * @@inheritDoc
+     * @inheritDoc
      */
     protected function _getResource()
     {
