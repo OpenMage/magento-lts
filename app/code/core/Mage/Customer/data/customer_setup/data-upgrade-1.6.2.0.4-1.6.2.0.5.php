@@ -24,7 +24,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/** @var $installer Mage_Customer_Model_Entity_Setup */
+/** @var Mage_Customer_Model_Entity_Setup $this */
 $installer = $this;
 
 $installer->startSetup();
@@ -59,13 +59,15 @@ foreach ($attributes as $attribute) {
             ->where('entity_type_id = ?', $entityTypeId)
             ->where('attribute_id = ?', $attributeId);
 
-        $query = $select->insertFromSelect($attributeTableNew,
+        $query = $select->insertFromSelect(
+            $attributeTableNew,
             array('entity_type_id', 'attribute_id', 'entity_id', 'value')
         );
 
         $connection->query($query);
 
-        $connection->delete($attributeTableOld,
+        $connection->delete(
+            $attributeTableOld,
             $connection->quoteInto('entity_type_id = ?', $entityTypeId)
             . $connection->quoteInto(' AND attribute_id = ?', $attributeId)
         );
