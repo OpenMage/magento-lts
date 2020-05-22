@@ -8,7 +8,6 @@ assignees: ''
 ---
 
 <!---
-Please review our guidelines before adding a new issue: https://github.com/magento/magento2/wiki/Issue-reporting-guidelines
 Fields marked with (*) are required. Please don't remove the template.
 -->
 
