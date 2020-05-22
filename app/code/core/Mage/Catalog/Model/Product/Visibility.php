@@ -60,36 +60,34 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      * Add visible in catalog filter to collection
      *
      * @deprecated
-     * @param Mage_Catalog_Model_Resource_Product_Collection  $collection
+     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
      * @return $this
      */
-    public function addVisibleInCatalogFilterToCollection(Mage_Catalog_Model_Resource_Product_Collection  $collection)
+    public function addVisibleInCatalogFilterToCollection(Mage_Catalog_Model_Resource_Product_Collection $collection)
     {
         $collection->setVisibility($this->getVisibleInCatalogIds());
         return $this;
     }
-
     /**
      * Add visibility in searchfilter to collection
      *
      * @deprecated
-     * @param Mage_Catalog_Model_Resource_Product_Collection  $collection
+     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
      * @return $this
      */
-    public function addVisibleInSearchFilterToCollection(Mage_Catalog_Model_Resource_Product_Collection  $collection)
+    public function addVisibleInSearchFilterToCollection(Mage_Catalog_Model_Resource_Product_Collection $collection)
     {
         $collection->setVisibility($this->getVisibleInSearchIds());
         return $this;
     }
-
     /**
      * Add visibility in site filter to collection
      *
      * @deprecated
-     * @param Mage_Catalog_Model_Resource_Product_Collection  $collection
+     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
      * @return $this
      */
-    public function addVisibleInSiteFilterToCollection(Mage_Catalog_Model_Resource_Product_Collection  $collection)
+    public function addVisibleInSiteFilterToCollection(Mage_Catalog_Model_Resource_Product_Collection $collection)
     {
         $collection->setVisibility($this->getVisibleInSiteIds());
         return $this;

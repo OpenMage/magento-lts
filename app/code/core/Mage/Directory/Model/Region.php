@@ -29,12 +29,15 @@
  *
  * @method Mage_Directory_Model_Resource_Region _getResource()
  * @method Mage_Directory_Model_Resource_Region getResource()
- * @method string getCountryId()
- * @method Mage_Directory_Model_Region setCountryId(string $value)
+ * @method Mage_Directory_Model_Resource_Region_Collection getCollection()
+ *
  * @method string getCode()
- * @method Mage_Directory_Model_Region setCode(string $value)
+ * @method $this setCode(string $value)
+ * @method string getCountryId()
+ * @method $this setCountryId(string $value)
  * @method string getDefaultName()
- * @method Mage_Directory_Model_Region setDefaultName(string $value)
+ * @method $this setDefaultName(string $value)
+ * @method int getRegionId()
  *
  * @category    Mage
  * @package     Mage_Directory
@@ -63,6 +66,11 @@ class Mage_Directory_Model_Region extends Mage_Core_Model_Abstract
         return $name;
     }
 
+    /**
+     * @param string $code
+     * @param string $countryId
+     * @return $this
+     */
     public function loadByCode($code, $countryId)
     {
         if ($code) {
@@ -71,10 +79,14 @@ class Mage_Directory_Model_Region extends Mage_Core_Model_Abstract
         return $this;
     }
 
+    /**
+     * @param string $name
+     * @param string $countryId
+     * @return $this
+     */
     public function loadByName($name, $countryId)
     {
         $this->_getResource()->loadByName($this, $name, $countryId);
         return $this;
     }
-
 }
