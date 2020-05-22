@@ -92,7 +92,7 @@ class Mage_XmlConnect_Helper_OfflineCatalog extends Mage_Core_Helper_Abstract
     {
         $fileModel = $this->_getFileIo();
         $resultDir = $this->_getResultDir();
-        $fileModel->rmdirRecursive($resultDir);
+        $fileModel::rmdirRecursive($resultDir);
         $fileModel->mkdir($resultDir);
         return $this;
     }

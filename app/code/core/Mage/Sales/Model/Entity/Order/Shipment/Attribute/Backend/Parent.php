@@ -24,10 +24,12 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
-class Mage_Sales_Model_Entity_Order_Shipment_Attribute_Backend_Parent
-    extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+class Mage_Sales_Model_Entity_Order_Shipment_Attribute_Backend_Parent extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
+    /**
+     * @param Varien_Object|Mage_Sales_Model_Order_Shipment $object
+     * @return $this
+     */
     public function afterSave($object)
     {
         parent::afterSave($object);
@@ -46,7 +48,7 @@ class Mage_Sales_Model_Entity_Order_Shipment_Attribute_Backend_Parent
             $track->save();
         }
 
-        foreach($object->getCommentsCollection() as $comment) {
+        foreach ($object->getCommentsCollection() as $comment) {
             $comment->save();
         }
         return $this;

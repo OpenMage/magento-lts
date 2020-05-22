@@ -31,8 +31,8 @@
  * @category    Mage
  * @package     Mage_CatalogInventory
  * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated
  */
-class Mage_CatalogInventory_Model_Mysql4_Stock_Item_Collection
-    extends Mage_CatalogInventory_Model_Resource_Stock_Item_Collection
+class Mage_CatalogInventory_Model_Mysql4_Stock_Item_Collection extends Mage_CatalogInventory_Model_Resource_Stock_Item_Collection
 {
 }

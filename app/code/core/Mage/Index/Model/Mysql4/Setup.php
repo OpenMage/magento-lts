@@ -31,6 +31,7 @@
  * @category    Mage
  * @package     Mage_Index
  * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated
  */
 class Mage_Index_Model_Mysql4_Setup extends Mage_Index_Model_Resource_Setup
 {

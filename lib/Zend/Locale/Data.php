@@ -966,7 +966,7 @@ class Zend_Locale_Data
             } else {
                 self::$_cache->save( $data, $id);
             }
-            static::$_localCache['id'] = $data;
+            static::$_localCache[$id] = $temp;
         }
 
         return $temp;
@@ -1523,7 +1523,7 @@ class Zend_Locale_Data
             } else {
                 self::$_cache->save( $data, $id);
             }
-            static::$_localCache['id'] = $data;
+            static::$_localCache[$id] = $temp;
         }
 
         return $temp;

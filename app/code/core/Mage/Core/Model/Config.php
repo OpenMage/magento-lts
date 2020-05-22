@@ -1069,7 +1069,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * @param string $moduleName
      * @return Mage_Core_Model_Config_Element|SimpleXMLElement
      */
-    function getModuleConfig($moduleName = '')
+    public function getModuleConfig($moduleName = '')
     {
         $modules = $this->getNode('modules');
         if (''===$moduleName) {
@@ -1087,7 +1087,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * @param string|Mage_Core_Model_Config_Element $module
      * @return object
      */
-    function getModuleSetup($module = '')
+    public function getModuleSetup($module = '')
     {
         $className = 'Mage_Core_Setup';
         if (''!==$module) {

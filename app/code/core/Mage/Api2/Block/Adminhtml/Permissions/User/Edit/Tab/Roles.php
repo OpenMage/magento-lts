@@ -31,9 +31,7 @@
  * @package    Mage_Api2
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Api2_Block_Adminhtml_Permissions_User_Edit_Tab_Roles
-    extends Mage_Adminhtml_Block_Widget_Grid
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Api2_Block_Adminhtml_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtml_Block_Widget_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     /**
      * Selected API2 roles for grid
@@ -60,11 +58,11 @@ class Mage_Api2_Block_Adminhtml_Permissions_User_Edit_Tab_Roles
     /**
      * Prepare grid collection object
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {
-        /** @var $collection Mage_Api2_Model_Resource_Acl_Global_Role_Collection */
+        /** @var Mage_Api2_Model_Resource_Acl_Global_Role_Collection $collection */
         $collection = Mage::getResourceModel('api2/acl_global_role_collection');
         $collection->addFieldToFilter('entity_id', array('nin' => Mage_Api2_Model_Acl_Global_Role::getSystemRoles()));
 
@@ -76,7 +74,7 @@ class Mage_Api2_Block_Adminhtml_Permissions_User_Edit_Tab_Roles
     /**
      * Prepare grid columns
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareColumns()
     {
@@ -132,10 +130,10 @@ class Mage_Api2_Block_Adminhtml_Permissions_User_Edit_Tab_Roles
         if (null === $this->_selectedRoles) {
             $userRoles = array();
 
-            /* @var $user Mage_Admin_Model_User */
+            /* @var Mage_Admin_Model_User $user */
             $user = Mage::registry('permissions_user');
             if ($user->getId()) {
-                /** @var $collection Mage_Api2_Model_Resource_Acl_Global_Role_Collection */
+                /** @var Mage_Api2_Model_Resource_Acl_Global_Role_Collection $collection */
                 $collection = Mage::getResourceModel('api2/acl_global_role_collection');
                 $collection->addFilterByAdminId($user->getId());
 

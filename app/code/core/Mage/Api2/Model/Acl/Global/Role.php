@@ -92,7 +92,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
         if (Mage_Api2_Model_Acl_Global_Role::isSystemRole($this)
             && $this->getRoleName() != $this->getOrigData('role_name')) {
 
-            /** @var $helper Mage_Core_Helper_Data */
+            /** @var Mage_Core_Helper_Data $helper */
             $helper = Mage::helper('core');
 
             Mage::throwException(
@@ -112,7 +112,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
     protected function _beforeDelete()
     {
         if (Mage_Api2_Model_Acl_Global_Role::isSystemRole($this)) {
-            /** @var $helper Mage_Core_Helper_Data */
+            /** @var Mage_Core_Helper_Data $helper */
             $helper = Mage::helper('core');
 
             Mage::throwException(
@@ -142,7 +142,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
      *
      * @return array
      */
-    static public function getSystemRoles()
+    public static function getSystemRoles()
     {
         return array(
             self::ROLE_GUEST_ID,

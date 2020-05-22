@@ -30,8 +30,8 @@
  * @category    Mage
  * @package     Mage_Xmlconnect
  * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated
  */
-class Mage_XmlConnect_Model_Mysql4_ConfigData_Collection
-    extends Mage_XmlConnect_Model_Resource_ConfigData_Collection
+class Mage_XmlConnect_Model_Mysql4_ConfigData_Collection extends Mage_XmlConnect_Model_Resource_ConfigData_Collection
 {
 }

@@ -26,7 +26,7 @@
 
 class Mage_Checkout_IndexController extends Mage_Core_Controller_Front_Action
 {
-    function indexAction()
+    public function indexAction()
     {
         $this->_redirect('checkout/onepage', array('_secure'=>true));
     }

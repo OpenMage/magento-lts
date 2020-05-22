@@ -31,6 +31,7 @@
  * @category    Mage
  * @package     Mage_Sendfriend
  * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated
  */
 class Mage_Sendfriend_Model_Mysql4_Setup extends Mage_Sendfriend_Model_Resource_Setup
 {

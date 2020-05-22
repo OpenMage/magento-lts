@@ -47,7 +47,6 @@ class Mage_Sales_Block_Adminhtml_Report_Filter_Form extends Mage_Adminhtml_Block
         $fieldset = $this->getForm()->getElement('base_fieldset');
 
         if (is_object($fieldset) && $fieldset instanceof Varien_Data_Form_Element_Fieldset) {
-
             $statuses = Mage::getModel('sales/order_config')->getStatuses();
             $values = array();
             foreach ($statuses as $code => $label) {
@@ -80,8 +79,7 @@ class Mage_Sales_Block_Adminhtml_Report_Filter_Form extends Mage_Adminhtml_Block
                 $this->setChild('form_after', $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence')
                     ->addFieldMap("{$htmlIdPrefix}show_order_statuses", 'show_order_statuses')
                     ->addFieldMap("{$htmlIdPrefix}order_statuses", 'order_statuses')
-                    ->addFieldDependence('order_statuses', 'show_order_statuses', '1')
-                );
+                    ->addFieldDependence('order_statuses', 'show_order_statuses', '1'));
             }
         }
 

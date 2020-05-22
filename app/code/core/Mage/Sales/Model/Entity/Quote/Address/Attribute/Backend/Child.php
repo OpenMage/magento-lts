@@ -25,9 +25,12 @@
  */
 
 
-class Mage_Sales_Model_Entity_Quote_Address_Attribute_Backend_Child
-    extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+class Mage_Sales_Model_Entity_Quote_Address_Attribute_Backend_Child extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
+    /**
+     * @param Varien_Object $object
+     * @return $this
+     */
     public function beforeSave($object)
     {
         if ($object->getAddress()) {

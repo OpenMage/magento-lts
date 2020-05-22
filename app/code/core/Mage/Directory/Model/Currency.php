@@ -30,6 +30,9 @@
  * @category   Mage
  * @package    Mage_Directory
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Directory_Model_Resource_Currency _getResource()
+ * @method $this unsRate()
  */
 class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
 {
@@ -100,7 +103,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
     /**
      * Currency Rates setter
      *
-     * @param array Currency Rates
+     * @param array $rates Currency Rates
      * @return $this
      */
     public function setRates(array $rates)
@@ -114,7 +117,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
      *
      * @param   string $id
      * @param   string $field
-     * @return  Mage_Directory_Model_Currency
+     * @return  $this
      */
     public function load($id, $field = null)
     {
@@ -190,8 +193,11 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
             }
         }
 
-        throw new Exception(Mage::helper('directory')->__('Undefined rate from "%s-%s".', $this->getCode(),
-            $toCurrency instanceof Mage_Directory_Model_Currency ? $toCurrency->getCode() : $toCurrency));
+        throw new Exception(Mage::helper('directory')->__(
+            'Undefined rate from "%s-%s".',
+            $this->getCode(),
+            $toCurrency instanceof Mage_Directory_Model_Currency ? $toCurrency->getCode() : $toCurrency
+        ));
     }
 
     /**
@@ -232,9 +238,13 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
      * @param   bool $addBrackets
      * @return  string
      */
-    public function formatPrecision($price, $precision, $options = array(), $includeContainer = true,
-                                    $addBrackets = false)
-    {
+    public function formatPrecision(
+        $price,
+        $precision,
+        $options = array(),
+        $includeContainer = true,
+        $addBrackets = false
+    ) {
         if (!isset($options['precision'])) {
             $options['precision'] = $precision;
         }

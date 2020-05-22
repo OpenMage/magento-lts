@@ -28,6 +28,7 @@
  * Cms page service resource model
  *
  * @author     Magento Core Team <core@magentocommerce.com>
+ * @deprecated
  */
 class Mage_Cms_Model_Mysql4_Page_Service extends Mage_Cms_Model_Resource_Page_Service
 {

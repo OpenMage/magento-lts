@@ -26,11 +26,10 @@
 
 
 $installer = $this;
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 
 $pageTable = $installer->getTable('cms/page');
 $blockTable = $installer->getTable('cms/block');
 
 $installer->getConnection()->modifyColumn($pageTable, 'content', 'MEDIUMTEXT');
 $installer->getConnection()->modifyColumn($blockTable, 'content', 'MEDIUMTEXT');
-

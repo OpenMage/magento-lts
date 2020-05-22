@@ -25,7 +25,7 @@ Download the latest archive and extract it, clone the repo, or add a composer de
 
 ## Requirements
 
-- PHP 5.6+ (PHP 7.3 and OpenSSL extension strongly recommended)
+- PHP 7.0+ (PHP 7.3 and OpenSSL extension strongly recommended)
 - MySQL 5.6+ (8.0+ Recommended)
 
 ## Translations

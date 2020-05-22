@@ -38,7 +38,7 @@ interface Mage_Catalog_Model_Product_Configuration_Item_Interface
      *
      * @return Mage_Catalog_Model_Product
      */
-    function getProduct();
+    public function getProduct();
 
     /**
      * Get item option by code

@@ -173,7 +173,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
      * @param Varien_Simplexml_Element $fieldNode
      * @return string
      */
-    function getAttributeModule($sectionNode = null, $groupNode = null, $fieldNode = null)
+    public function getAttributeModule($sectionNode = null, $groupNode = null, $fieldNode = null)
     {
         $moduleName = 'adminhtml';
         if (is_object($sectionNode) && method_exists($sectionNode, 'attributes')) {

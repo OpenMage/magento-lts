@@ -52,7 +52,7 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
         $post = Mage::app()->getRequest()->getPost();
         $errors = false;
 
-        /** @var $order Mage_Sales_Model_Order */
+        /** @var Mage_Sales_Model_Order $order */
         $order = Mage::getModel('sales/order');
         /** @var Mage_Core_Model_Cookie $cookieModel */
         $cookieModel = Mage::getSingleton('core/cookie');
@@ -61,7 +61,7 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
         if (empty($post) && !$cookieModel->get($this->_cookieName)) {
             Mage::app()->getResponse()->setRedirect(Mage::getUrl('sales/guest/form'));
             return false;
-        } elseif (!empty($post) && isset($post['oar_order_id']) && isset($post['oar_type']))  {
+        } elseif (!empty($post) && isset($post['oar_order_id']) && isset($post['oar_type'])) {
             $type           = $post['oar_type'];
             $incrementId    = $post['oar_order_id'];
             $lastName       = $post['oar_billing_lastname'];
@@ -102,9 +102,9 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
             }
         } elseif ($cookieModel->get($this->_cookieName)) {
             $cookie = $cookieModel->get($this->_cookieName);
-            $cookieOrder = $this->_loadOrderByCookie( $cookie );
-            if( !is_null( $cookieOrder) ){
-                if( is_null( $cookieOrder->getCustomerId() ) ){
+            $cookieOrder = $this->_loadOrderByCookie($cookie);
+            if (!is_null($cookieOrder)) {
+                if (is_null($cookieOrder->getCustomerId())) {
                     $cookieModel->renew($this->_cookieName, $this->_lifeTime, '/');
                     $order = $cookieOrder;
                 } else {
@@ -153,7 +153,7 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
 
     /**
      * Try to load order by cookie hash
-     * 
+     *
      * @param string|null $cookie
      * @return null|Mage_Sales_Model_Order
      */
@@ -165,7 +165,7 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
             $incrementId = isset($cookieData[1]) ? $cookieData[1] : null;
 
             if (!empty($protectCode) && !empty($incrementId)) {
-                /** @var $order Mage_Sales_Model_Order */
+                /** @var Mage_Sales_Model_Order $order */
                 $order = Mage::getModel('sales/order');
                 $order->loadByIncrementId($incrementId);
 
@@ -186,5 +186,4 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
     {
         return $this->_cookieName;
     }
-
 }

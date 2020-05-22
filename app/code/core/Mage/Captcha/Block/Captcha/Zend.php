@@ -30,6 +30,9 @@
  * @category   Core
  * @package    Mage_Captcha
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getFormId()
+ * @method bool getIsAjax()
  */
 class Mage_Captcha_Block_Captcha_Zend extends Mage_Core_Block_Template
 {
@@ -80,7 +83,7 @@ class Mage_Captcha_Block_Captcha_Zend extends Mage_Core_Block_Template
     /**
      * Returns captcha model
      *
-     * @return Mage_Captcha_Model_Abstract
+     * @return Mage_Captcha_Model_Interface
      */
     public function getCaptchaModel()
     {

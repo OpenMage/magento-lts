@@ -31,6 +31,7 @@
  * @category    Mage
  * @package     Mage_Checkout
  * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated
  */
 class Mage_Checkout_Model_Mysql4_Setup extends Mage_Checkout_Model_Resource_Setup
 {

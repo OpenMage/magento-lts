@@ -53,7 +53,7 @@ class Mage_Sales_Block_Order_Info_Buttons extends Mage_Core_Block_Template
     /**
      * Get url for printing order
      *
-     * @param Mage_Sales_Order $order
+     * @param Mage_Sales_Model_Order $order
      * @return string
      */
     public function getPrintUrl($order)
@@ -67,7 +67,7 @@ class Mage_Sales_Block_Order_Info_Buttons extends Mage_Core_Block_Template
     /**
      * Get url for reorder action
      *
-     * @param Mage_Sales_Order $order
+     * @param Mage_Sales_Model_Order $order
      * @return string
      */
     public function getReorderUrl($order)
