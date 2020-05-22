@@ -529,7 +529,7 @@ class Mage_Core_Model_Cache
      * Check if cache can be used for specific data type
      *
      * @param string $typeCode
-     * @return false|array
+     * @return bool|array
      */
     public function canUse($typeCode)
     {

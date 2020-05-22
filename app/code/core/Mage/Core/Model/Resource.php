@@ -49,7 +49,7 @@ class Mage_Core_Model_Resource
     /**
      * Instances of actual connections
      *
-     * @var Varien_Db_Adapter_Interface|false[]
+     * @var Varien_Db_Adapter_Interface[]|false
      */
     protected $_connections        = array();
 
@@ -127,7 +127,7 @@ class Mage_Core_Model_Resource
     /**
      * Get Instances of actual connections
      *
-     * @return false[]|Varien_Db_Adapter_Interface
+     * @return Varien_Db_Adapter_Interface[]|false
      */
     public function getConnections()
     {
