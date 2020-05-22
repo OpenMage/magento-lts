@@ -27,7 +27,7 @@
 /** @var $this Mage_Adminhtml_Block_Page_Header */
 ?>
 <div class="header-top">
-    <a href="<?php echo $this->getHomeLink() ?>"><img src="<?php echo $this->getSkinUrl('images/logo.gif') ?>" alt="<?php echo Mage::helper('core')->quoteEscape($this->__('Magento Logo')) ?>" class="logo"/></a>
+    <a href="<?php echo $this->getHomeLink() ?>"><img src="<?php echo $this->getSkinUrl('images/logo.png') ?>" alt="<?php echo Mage::helper('core')->quoteEscape($this->__('Magento Logo')) ?>" class="logo"/></a>
     <div class="header-right">
         <p class="super">
             <?php echo $this->__("Logged in as %s", $this->escapeHtml($this->getUser()->getUsername())) ?><span class="separator">|</span><?php echo $this->formatDate(null, 'full') ?><span class="separator">|</span><a href="<?php echo $this->getLogoutLink() ?>" class="link-logout"><?php echo $this->__('Log Out') ?></a>
