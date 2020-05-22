@@ -40,6 +40,7 @@
  * @method Mage_Sales_Model_Order_Creditmemo_Comment setComment(string $value)
  * @method string getCreatedAt()
  * @method Mage_Sales_Model_Order_Creditmemo_Comment setCreatedAt(string $value)
+ * @method Mage_Sales_Model_Order_Creditmemo_Comment setStoreId(int $value)
  *
  * @category    Mage
  * @package     Mage_Sales

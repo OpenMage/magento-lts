@@ -24,13 +24,15 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Flat sales order payment collection
  *
  * @category    Mage
  * @package     Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Sales_Model_Order_Payment getItemById(int $value)
+ * @method Mage_Sales_Model_Order_Payment[] getItems()
  */
 class Mage_Sales_Model_Resource_Order_Payment_Collection extends Mage_Sales_Model_Resource_Order_Collection_Abstract
 {
@@ -60,7 +62,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Collection extends Mage_Sales_Mode
     /**
      * Unserialize additional_information in each item
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _afterLoad()
     {

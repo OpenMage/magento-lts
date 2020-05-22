@@ -26,6 +26,6 @@
 
 $installer = $this;
 
-/* @var $installer Mage_Sales_Model_Entity_Setup */
+/* @var Mage_Sales_Model_Entity_Setup $installer */
 $installer->addAttribute('order', 'edit_increment', array('type'=>'int'));
 $installer->addAttribute('order', 'original_increment_id', array('type'=>'varchar'));

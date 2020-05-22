@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Sales_Model_Mysql4_Setup */
+/* @var Mage_Sales_Model_Mysql4_Setup $installer */
 
 $installer->startSetup();
 $installer->addAttribute('order_payment', 'additional_information', array('type' => 'text'));
@@ -76,10 +76,8 @@ $paymentsCount = $connection->fetchOne("
 
 $connection->beginTransaction();
 try {
-
     /* process payment attributes*/
     for ($i=0; $i<=$paymentsCount; $i+=$processingItemsCountForOneIteration) {
-
         /* get payment ids for current iteration*/
         $currentPaymentIds = $installer->getConnection()->fetchCol("
             SELECT entity_id
@@ -131,7 +129,6 @@ try {
             $insertQueryItems
         );
     }
-
 } catch (Exception $e) {
     $connection->rollBack();
     throw $e;

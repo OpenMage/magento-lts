@@ -175,8 +175,13 @@ class Mage_Sales_Model_Resource_Report_Refunded extends Mage_Sales_Model_Resourc
         try {
             if ($from !== null || $to !== null) {
                 $subSelect = $this->_getTableDateRangeRelatedSelect(
-                    $sourceTable, $orderTable, array('order_id'=>'entity_id'),
-                    'created_at', 'updated_at', $from, $to
+                    $sourceTable,
+                    $orderTable,
+                    array('order_id'=>'entity_id'),
+                    'created_at',
+                    'updated_at',
+                    $from,
+                    $to
                 );
             } else {
                 $subSelect = null;
@@ -187,7 +192,9 @@ class Mage_Sales_Model_Resource_Report_Refunded extends Mage_Sales_Model_Resourc
             $periodExpr = $adapter->getDatePartSql(
                 $this->getStoreTZOffsetQuery(
                     array('source_table' => $sourceTable),
-                    'source_table.created_at', $from, $to
+                    'source_table.created_at',
+                    $from,
+                    $to
                 )
             );
 
@@ -197,11 +204,14 @@ class Mage_Sales_Model_Resource_Report_Refunded extends Mage_Sales_Model_Resourc
                 'order_status'      => 'order_table.status',
                 'orders_count'      => new Zend_Db_Expr('COUNT(order_table.entity_id)'),
                 'refunded'          => new Zend_Db_Expr(
-                    'SUM(order_table.base_total_refunded * order_table.base_to_global_rate)'),
+                    'SUM(order_table.base_total_refunded * order_table.base_to_global_rate)'
+                ),
                 'online_refunded'   => new Zend_Db_Expr(
-                    'SUM(order_table.base_total_online_refunded * order_table.base_to_global_rate)'),
+                    'SUM(order_table.base_total_online_refunded * order_table.base_to_global_rate)'
+                ),
                 'offline_refunded'  => new Zend_Db_Expr(
-                    'SUM(order_table.base_total_offline_refunded * order_table.base_to_global_rate)')
+                    'SUM(order_table.base_total_offline_refunded * order_table.base_to_global_rate)'
+                )
             );
 
             $select = $adapter->select();
@@ -218,7 +228,8 @@ class Mage_Sales_Model_Resource_Report_Refunded extends Mage_Sales_Model_Resourc
             $filterSubSelect
                 ->from(
                     array('filter_source_table' => $sourceTable),
-                    new Zend_Db_Expr('MAX(filter_source_table.entity_id)'))
+                    new Zend_Db_Expr('MAX(filter_source_table.entity_id)')
+                )
                 ->where('filter_source_table.order_id = source_table.order_id');
 
             if ($subSelect !== null) {

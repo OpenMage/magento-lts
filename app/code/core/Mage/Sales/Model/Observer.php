@@ -52,10 +52,10 @@ class Mage_Sales_Model_Observer
         Mage::dispatchEvent('clear_expired_quotes_before', array('sales_observer' => $this));
 
         $lifetimes = Mage::getConfig()->getStoresConfigByPath('checkout/cart/delete_quote_after');
-        foreach ($lifetimes as $storeId=>$lifetime) {
+        foreach ($lifetimes as $storeId => $lifetime) {
             $lifetime *= 86400;
 
-            /** @var $quotes Mage_Sales_Model_Mysql4_Quote_Collection */
+            /** @var Mage_Sales_Model_Mysql4_Quote_Collection $quotes */
             $quotes = Mage::getModel('sales/quote')->getCollection();
 
             $quotes->addFieldToFilter('store_id', $storeId);
@@ -97,11 +97,12 @@ class Mage_Sales_Model_Observer
      * When deleting product, substract it from all quotes quantities
      *
      * @throws Exception
-     * @param Varien_Event_Observer
+     * @param Varien_Event_Observer $observer
      * @return $this
      */
-    public function substractQtyFromQuotes($observer)
+    public function substractQtyFromQuotes(Varien_Event_Observer $observer)
     {
+        /** @var Mage_Catalog_Model_Product $product */
         $product = $observer->getEvent()->getProduct();
         Mage::getResourceSingleton('sales/quote')->substractProductFromQuotes($product);
         return $this;
@@ -113,8 +114,9 @@ class Mage_Sales_Model_Observer
      * @param Varien_Event_Observer $observer
      * @return $this
      */
-    public function markQuotesRecollectOnCatalogRules($observer)
+    public function markQuotesRecollectOnCatalogRules(Varien_Event_Observer $observer)
     {
+        /** @var Mage_Catalog_Model_Product $product */
         $product = $observer->getEvent()->getProduct();
 
         if (is_numeric($product)) {
@@ -144,6 +146,7 @@ class Mage_Sales_Model_Observer
      */
     public function catalogProductSaveAfter(Varien_Event_Observer $observer)
     {
+        /** @var Mage_Catalog_Model_Product $product */
         $product = $observer->getEvent()->getProduct();
         if ($product->getStatus() == Mage_Catalog_Model_Product_Status::STATUS_ENABLED) {
             return $this;
@@ -261,14 +264,18 @@ class Mage_Sales_Model_Observer
     {
         // replace the element of recurring payment profile field with a form
         $profileElement = $observer->getEvent()->getProductElement();
-        $block = Mage::app()->getLayout()->createBlock('sales/adminhtml_recurring_profile_edit_form',
-            'adminhtml_recurring_profile_edit_form')->setParentElement($profileElement)
+        $block = Mage::app()->getLayout()->createBlock(
+            'sales/adminhtml_recurring_profile_edit_form',
+            'adminhtml_recurring_profile_edit_form'
+        )->setParentElement($profileElement)
             ->setProductEntity($observer->getEvent()->getProduct());
         $observer->getEvent()->getResult()->output = $block->toHtml();
 
         // make the profile element dependent on is_recurring
-        $dependencies = Mage::app()->getLayout()->createBlock('adminhtml/widget_form_element_dependence',
-            'adminhtml_recurring_profile_edit_form_dependence')->addFieldMap('is_recurring', 'product[is_recurring]')
+        $dependencies = Mage::app()->getLayout()->createBlock(
+            'adminhtml/widget_form_element_dependence',
+            'adminhtml_recurring_profile_edit_form_dependence'
+        )->addFieldMap('is_recurring', 'product[is_recurring]')
             ->addFieldMap($profileElement->getHtmlId(), $profileElement->getName())
             ->addFieldDependence($profileElement->getName(), 'product[is_recurring]', '1')
             ->addConfigOptions(array('levels_up' => 2));
@@ -299,7 +306,7 @@ class Mage_Sales_Model_Observer
      */
     public function customerSaveAfter(Varien_Event_Observer $observer)
     {
-        /** @var $customer Mage_Customer_Model_Customer */
+        /** @var Mage_Customer_Model_Customer $customer */
         $customer = $observer->getEvent()->getCustomer();
 
         if ($customer->getGroupId() !== $customer->getOrigData('group_id')) {
@@ -311,7 +318,7 @@ class Mage_Sales_Model_Observer
                 ? array(Mage::app()->getWebsite($customer->getWebsiteId()))
                 : Mage::app()->getWebsites();
 
-            /** @var $quote Mage_Sales_Model_Quote */
+            /** @var Mage_Sales_Model_Quote $quote */
             $quote = Mage::getSingleton('sales/quote');
 
             foreach ($websites as $website) {
@@ -336,7 +343,7 @@ class Mage_Sales_Model_Observer
      */
     public function setQuoteCanApplyMsrp(Varien_Event_Observer $observer)
     {
-        /** @var $quote Mage_Sales_Model_Quote */
+        /** @var Mage_Sales_Model_Quote $quote */
         $quote = $observer->getEvent()->getQuote();
 
         $canApplyMsrp = false;
@@ -360,9 +367,9 @@ class Mage_Sales_Model_Observer
      */
     public function addVatRequestParamsOrderComment(Varien_Event_Observer $observer)
     {
-        /** @var $orderInstance Mage_Sales_Model_Order */
+        /** @var Mage_Sales_Model_Order $orderInstance */
         $orderInstance = $observer->getOrder();
-        /** @var $orderAddress Mage_Sales_Model_Order_Address */
+        /** @var Mage_Sales_Model_Order_Address $orderAddress */
         $orderAddress = $this->_getVatRequiredSalesAddress($orderInstance);
         if (!($orderAddress instanceof Mage_Sales_Model_Order_Address)) {
             return;
@@ -429,11 +436,13 @@ class Mage_Sales_Model_Observer
      */
     public function changeQuoteCustomerGroupId(Varien_Event_Observer $observer)
     {
-        /** @var $addressHelper Mage_Customer_Helper_Address */
         $addressHelper = Mage::helper('customer/address');
 
+        /** @var Mage_Sales_Model_Quote_Address $quoteAddress */
         $quoteAddress = $observer->getQuoteAddress();
+        /** @var Mage_Sales_Model_Quote $quoteInstance */
         $quoteInstance = $quoteAddress->getQuote();
+        /** @var Mage_Customer_Model_Customer $customerInstance */
         $customerInstance = $quoteInstance->getCustomer();
         $isDisableAutoGroupChange = $customerInstance->getDisableAutoGroupChange();
 
@@ -449,7 +458,6 @@ class Mage_Sales_Model_Observer
             return;
         }
 
-        /** @var $customerHelper Mage_Customer_Helper_Data */
         $customerHelper = Mage::helper('customer');
 
         $customerCountryCode = $quoteAddress->getCountryId();
@@ -468,7 +476,7 @@ class Mage_Sales_Model_Observer
             return;
         }
 
-        /** @var $coreHelper Mage_Core_Helper_Data */
+        /** @var Mage_Core_Helper_Data $coreHelper */
         $coreHelper = Mage::helper('core');
         $merchantCountryCode = $coreHelper->getMerchantCountryCode();
         $merchantVatNumber = $coreHelper->getMerchantVatNumber();
@@ -507,7 +515,9 @@ class Mage_Sales_Model_Observer
         // Magento always has to emulate group even if customer uses default billing/shipping address
         if (!$isDisableAutoGroupChange) {
             $groupId = $customerHelper->getCustomerGroupIdBasedOnVatNumber(
-                $customerCountryCode, $gatewayResponse, $customerInstance->getStore()
+                $customerCountryCode,
+                $gatewayResponse,
+                $customerInstance->getStore()
             );
         } else {
             $groupId = $quoteInstance->getCustomerGroupId();
@@ -527,6 +537,7 @@ class Mage_Sales_Model_Observer
      */
     public function restoreQuoteCustomerGroupId($observer)
     {
+        /** @var Mage_Sales_Model_Quote_Address $quoteAddress */
         $quoteAddress = $observer->getQuoteAddress();
         $configAddressType = Mage::helper('customer/address')->getTaxCalculationAddressType();
         // Restore initial customer group ID in quote only if VAT is calculated based on shipping address

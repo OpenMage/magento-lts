@@ -30,6 +30,9 @@
  * @category    Mage
  * @package     Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setCode(string $value)
+ * @method $this setTotalConfigNode(array $value)
  */
 abstract class Mage_Sales_Model_Order_Total_Abstract extends Varien_Object
 {
