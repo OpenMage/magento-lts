@@ -1003,3 +1003,30 @@ table.actions {
   background-size: 15px;
   line-height: 38px;
 }
+
+.message-popup {
+  background: #929292;
+  .message-popup-head {
+    h2 {
+      color:$white;
+    }
+    a {
+      background: $color_action !important;
+      border: none;
+      margin-top: 1px;
+      span{
+        background: close-icon($white) no-repeat 0 50%;
+        background-size: 13px;
+      }
+    }
+  }
+  .message-popup-content {
+    background: $white;
+    .read-more {
+      a {
+        background: arrow-right-icon($color_action)  no-repeat 0 50%;
+        background-size: 13px;
+      }
+    }
+  }
+}
