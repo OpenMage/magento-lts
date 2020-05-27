@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,6 +28,15 @@
  * Customer account billing agreement view block
  *
  * @author Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setAgreementCreatedAt(string $value)
+ * @method $this setAgreementUpdatedAt(string $value)
+ * @method $this setAgreementStatus(string $value)
+ * @method $this setBackUrl(string $value)
+ * @method $this setCanCancel(bool $value)
+ * @method $this setCancelUrl(string $value)
+ * @method $this setPaymentMethodTitle(string $value)
+ * @method $this setReferenceId(string $value)
  */
 class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
 {

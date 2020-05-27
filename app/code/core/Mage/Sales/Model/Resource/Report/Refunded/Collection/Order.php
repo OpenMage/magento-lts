@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,8 +32,7 @@
  * @package     Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sales_Model_Resource_Report_Refunded_Collection_Order
-    extends Mage_Sales_Model_Resource_Report_Collection_Abstract
+class Mage_Sales_Model_Resource_Report_Refunded_Collection_Order extends Mage_Sales_Model_Resource_Report_Collection_Abstract
 {
     /**
      * Period format
@@ -68,7 +67,7 @@ class Mage_Sales_Model_Resource_Report_Refunded_Collection_Order
      */
     protected function _getSelectedColumns()
     {
-        $adapter = $this->getConnection(); 
+        $adapter = $this->getConnection();
         if ('month' == $this->_period) {
             $this->_periodFormat = $adapter->getDateFormatSql('period', '%Y-%m');
         } elseif ('year' == $this->_period) {
@@ -102,7 +101,7 @@ class Mage_Sales_Model_Resource_Report_Refunded_Collection_Order
     protected function _initSelect()
     {
         $this->getSelect()->from(
-            $this->getResource()->getMainTable() , 
+            $this->getResource()->getMainTable(),
             $this->_getSelectedColumns()
         );
         if (!$this->isTotals()) {

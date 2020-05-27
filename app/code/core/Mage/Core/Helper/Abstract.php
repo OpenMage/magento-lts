@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -212,7 +212,7 @@ abstract class Mage_Core_Helper_Abstract
         } else {
             // process single item
             if (strlen($data)) {
-                if (is_array($allowedTags) and !empty($allowedTags)) {
+                if (is_array($allowedTags) && !empty($allowedTags)) {
                     $allowed = implode('|', $allowedTags);
                     $result = preg_replace('/<([\/\s\r\n]*)(' . $allowed . ')([\/\s\r\n]*)>/si', '##$1$2$3##', $data);
                     $result = htmlspecialchars($result, ENT_COMPAT, 'UTF-8', false);

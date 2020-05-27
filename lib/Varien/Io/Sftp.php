@@ -20,7 +20,7 @@
  *
  * @category    Varien
  * @package     Varien_Io
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -231,6 +231,17 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
     {
         $list = $this->_connection->rawlist();
         return $list;
+    }
+
+    /**
+     * Write a file
+     * @param  string $filename remote filename
+     * @param  string $src local filename
+     * @return boolean
+     */
+    public function writeFile($filename, $src)
+    {
+        return $this->_connection->put($filename, $src, phpseclib\Net\SFTP::SOURCE_LOCAL_FILE);
     }
 
 }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Cron
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -48,10 +48,10 @@ class Mage_Cron_Model_Resource_Schedule extends Mage_Core_Model_Resource_Db_Abst
      * and return true. Otherwise, return false and do not change the job.
      * This method is used to implement locking for cron jobs.
      *
-     * @param unknown_type $scheduleId
+     * @param int $scheduleId
      * @param String $newStatus
      * @param String $currentStatus
-     * @return unknown
+     * @return bool
      */
     public function trySetJobStatusAtomic($scheduleId, $newStatus, $currentStatus)
     {

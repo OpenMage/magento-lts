@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,6 +33,9 @@
  */
 class Mage_Customer_Model_Customer_Attribute_Backend_Billing extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
+    /**
+     * @param Mage_Customer_Model_Customer $object
+     */
     public function beforeSave($object)
     {
         $defaultBilling = $object->getDefaultBilling();
@@ -40,11 +43,13 @@ class Mage_Customer_Model_Customer_Attribute_Backend_Billing extends Mage_Eav_Mo
             $object->unsetDefaultBilling();
         }
     }
-    
+
+    /**
+     * @param Mage_Customer_Model_Customer $object
+     */
     public function afterSave($object)
     {
-        if ($defaultBilling = $object->getDefaultBilling()) 
-        {
+        if ($defaultBilling = $object->getDefaultBilling()) {
             $addressId = false;
             /**
              * post_index set in customer save action for address

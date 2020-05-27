@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Captcha
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -51,7 +51,7 @@ class Mage_Captcha_Adminhtml_RefreshController extends Mage_Adminhtml_Controller
     /**
      * Check is allowed access to action
      *
-     * @return bool
+     * @return true
      */
     protected function _isAllowed()
     {

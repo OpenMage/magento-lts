@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_ImportExport
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,8 +31,7 @@
  * @package     Mage_ImportExport
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable
-    extends Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
+class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
 {
     /**
      * Error codes.
@@ -131,7 +130,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable
     /**
      * Add attribute parameters to appropriate attribute set.
      *
-     * @param string $attrParams Name of attribute set.
+     * @param string $attrSetName
      * @param array $attrParams Refined attribute parameters.
      * @return Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
      */

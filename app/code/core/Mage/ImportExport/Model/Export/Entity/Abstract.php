@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_ImportExport
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,6 +30,8 @@
  * @category    Mage
  * @package     Mage_ImportExport
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @property array $_invalidRows
  */
 abstract class Mage_ImportExport_Model_Export_Entity_Abstract
 {
@@ -189,11 +191,11 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
     * Initialize website values.
     *
-    * @return Mage_ImportExport_Model_Export_Entity_Customer
+    * @return $this
     */
     protected function _initWebsites()
     {
-        /** @var $website Mage_Core_Model_Website */
+        /** @var Mage_Core_Model_Website $website */
         foreach (Mage::app()->getWebsites(true) as $website) {
             $this->_websiteIdToCode[$website->getId()] = $website->getCode();
         }
@@ -203,7 +205,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Initialize stores hash.
      *
-     * @return Mage_ImportExport_Model_Export_Entity_Abstract
+     * @return $this
      */
     protected function _initStores()
     {
@@ -294,11 +296,11 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
                         $to   = array_shift($exportFilter[$attrCode]);
 
                         if (is_scalar($from) && !empty($from)) {
-                            $date = Mage::app()->getLocale()->date($from,null,null,false)->toString('MM/dd/YYYY');
+                            $date = Mage::app()->getLocale()->date($from, null, null, false)->toString('MM/dd/YYYY');
                             $collection->addAttributeToFilter($attrCode, array('from' => $date, 'date' => true));
                         }
                         if (is_scalar($to) && !empty($to)) {
-                            $date = Mage::app()->getLocale()->date($to,null,null,false)->toString('MM/dd/YYYY');
+                            $date = Mage::app()->getLocale()->date($to, null, null, false)->toString('MM/dd/YYYY');
                             $collection->addAttributeToFilter($attrCode, array('to' => $date, 'date' => true));
                         }
                     }
@@ -376,7 +378,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
      * @throws Mage_Core_Exception
      * @return array
      */
-    abstract function exportFile();
+    abstract public function exportFile();
 
     /**
      * Clean up attribute collection.

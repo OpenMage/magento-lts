@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -162,7 +162,9 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
 
         $request->setPathInfo()->setDispatched(false);
 
-        $this->_getRequestRewriteController()->rewrite();
+        if (!Mage::app()->getStore()->isAdmin()) {
+            $this->_getRequestRewriteController()->rewrite();
+        }
 
         Varien_Profiler::start('mage::dispatch::routers_match');
         $i = 0;

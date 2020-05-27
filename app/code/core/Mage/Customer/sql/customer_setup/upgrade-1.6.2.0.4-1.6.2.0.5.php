@@ -20,11 +20,11 @@
  *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var $installer Mage_Customer_Model_Entity_Setup */
+/* @var Mage_Customer_Model_Entity_Setup $installer */
 $installer = $this;
 $installer->startSetup();
 
@@ -46,12 +46,18 @@ $table = $installer->getConnection()
         'nullable' => false,
         'default'  => '0000-00-00 00:00:00',
     ), 'Requested date for change')
-    ->addIndex($installer->getIdxName('customer/flowpassword', array('email')),
-        array('email'))
-    ->addIndex($installer->getIdxName('customer/flowpassword', array('ip')),
-        array('ip'))
-    ->addIndex($installer->getIdxName('customer/flowpassword', array('requested_date')),
-        array('requested_date'))
+    ->addIndex(
+        $installer->getIdxName('customer/flowpassword', array('email')),
+        array('email')
+    )
+    ->addIndex(
+        $installer->getIdxName('customer/flowpassword', array('ip')),
+        array('ip')
+    )
+    ->addIndex(
+        $installer->getIdxName('customer/flowpassword', array('requested_date')),
+        array('requested_date')
+    )
     ->setComment('Customer flow password');
 $installer->getConnection()->createTable($table);
 

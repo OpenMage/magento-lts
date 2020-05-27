@@ -20,11 +20,11 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 $installer = $this;
-/* @var $installer Mage_Sales_Model_Entity_Setup */
+/* @var Mage_Sales_Model_Entity_Setup $installer */
 $installer->getConnection()->addColumn($installer->getTable('sales_quote'), 'reserved_order_id', 'varchar(64) default \'\'');
 $installer->addAttribute('quote', 'reserved_order_id', array('type'=>'static'));

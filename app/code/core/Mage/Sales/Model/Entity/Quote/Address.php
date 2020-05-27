@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,10 +42,14 @@ class Mage_Sales_Model_Entity_Quote_Address extends Mage_Eav_Model_Entity_Abstra
         );
     }
 
+    /**
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @return $this
+     */
     public function collectTotals(Mage_Sales_Model_Quote_Address $address)
     {
         $attributes = $this->loadAllAttributes()->getAttributesByCode();
-        foreach ($attributes as $attrCode=>$attr) {
+        foreach ($attributes as $attrCode => $attr) {
             $backend = $attr->getBackend();
             if (method_exists($backend, 'collectTotals')) {
                 $backend->collectTotals($address);
@@ -54,10 +58,14 @@ class Mage_Sales_Model_Entity_Quote_Address extends Mage_Eav_Model_Entity_Abstra
         return $this;
     }
 
+    /**
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @return $this
+     */
     public function fetchTotals(Mage_Sales_Model_Quote_Address $address)
     {
         $attributes = $this->loadAllAttributes()->getAttributesByCode();
-        foreach ($attributes as $attrCode=>$attr) {
+        foreach ($attributes as $attrCode => $attr) {
             $frontend = $attr->getFrontend();
             if (method_exists($frontend, 'fetchTotals')) {
                 $frontend->fetchTotals($address);

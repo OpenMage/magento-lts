@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -49,15 +49,18 @@ class Mage_Customer_Model_Customer_Attribute_Source_Website extends Mage_Eav_Mod
         return $this->_options;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getOptionText($value)
     {
         if (!$this->_options) {
-          $this->_options = $this->getAllOptions();
+            $this->_options = $this->getAllOptions();
         }
         foreach ($this->_options as $option) {
-          if ($option['value'] == $value) {
-            return $option['label'];
-          }
+            if ($option['value'] == $value) {
+                return $option['label'];
+            }
         }
         return false;
     }
