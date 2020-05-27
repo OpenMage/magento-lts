@@ -1,0 +1,92 @@
+//colors
+$color_dolphin_approx: #68666f;
+$color_wild_sand_approx: #f6f6f6;
+$color_curious_blue_approx: #269de7;
+$color_astral_approx: #3378a3;
+$color_white_approx: #fefefe;
+$color_alto_approx:  lightgrey;
+$color_gallery_approx: #eee;
+$white: #fff;
+$color_alice_blue_approx: #f0f9ff;
+$color_boulder_approx: #777;
+$black_10: rgba(0, 0, 0, 0.1);
+$color_shark_approx: #272930;
+$color_silver_approx: #ccc;
+$wild_sand: #f4f4f4;
+$color_gray_approx: #888;
+$black_20_7843: rgba(0, 0, 0, 0.207843);
+$color_martini_approx: #999;
+$black_40: rgba(0, 0, 0, 0.4);
+$color_coral_red_approx: #fa4545;
+$color_merino_approx: #f9f5ec;
+$color_chenin_approx: #dfc97a;
+$color_pot_pourri_approx: #f3dcd8;
+$color_sanguine_brown_approx: #963535;
+$color_chrome_white_approx: #e4eecb;
+$color_foggy_gray_approx: #ceceb6;
+$color_san_felix_approx: #185b00;
+$color_island_spice_approx: #fffbf0;
+$color_brandy_punch_approx: #d87e34;
+$mine_shaft_15: rgba(50, 50, 50, 0.15);
+$color_alabaster_approx: #f8f8f8;
+$color_apple_approx: #56af45;
+$color_casablanca_approx: #f0ad4e;
+$color_dorado_approx: #555;
+$color_geyser_approx: #d6e2e5;
+$black_18_0392: rgba(0, 0, 0, 0.180392);
+$color_bahama_blue_approx: #026294;
+$color_cinnabar_approx: #e63a3a;
+$color_link_water_approx: #f1f8fc;
+$color_matisse_approx: #206a9b;
+$color_coral_tree_approx: #a66;
+$color_picton_blue_approx: #34abfa;
+$color_allports_approx: #006aa9;
+$color_fiord_approx: #456;
+$color_your_pink_approx: #fbb;
+$black: #000;
+$color_solitude_approx: #def;
+$color_cornflower_approx: #8fc4e8;
+$color_guardsman_red_approx: #d50000;
+$color_spindle_approx: #b8daf0;
+$color_san_marino_approx: #46a;
+$color_manatee_approx: #889;
+$red: red;
+$color_lime_approx: #a5ff00;
+$color_action: #0090FF;
+
+//spacings
+$menu_padding_v: 9px;
+$menu_padding_h: 12px;
+
+
+$color-warning: $color_guardsman_red_approx;
+$color-help: #00a9ff;
+//fonts
+$font_0: Open Sans;
+$font_1: Helvetica Neue;
+$font_2: Helvetica;
+$font_3: Arial;
+$font_4: sans-serif;
+
+//urls
+$url_0: url(images/logo-openmage.png);
+$url_1: url(images/information-variant.svg);
+$url_2: url(images/icon-error.png);
+$url_3: url(images/icon-success.png);
+$url_4: url(images/logo-magento.png);
+$url_login_background: url(images/honeycomb.png);
+
+@function warning-icon($color) {
+  $stripped-color: str-slice(#{$color}, 2);
+  @return url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' style='width:24px;height:24px' viewBox='0 0 24 24'%3E%3Cpath fill='%23#{$stripped-color}' d='M13,13H11V7H13M13,17H11V15H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z' /%3E%3C/svg%3E");
+}
+
+@function help-icon($color) {
+  $stripped-color: str-slice(#{$color}, 2);
+  @return  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' style='width:24px;height:24px' viewBox='0 0 24 24'%3E%3Cpath fill='%23#{$stripped-color}' d='M15.07,11.25L14.17,12.17C13.45,12.89 13,13.5 13,15H11V14.5C11,13.39 11.45,12.39 12.17,11.67L13.41,10.41C13.78,10.05 14,9.55 14,9C14,7.89 13.1,7 12,7A2,2 0 0,0 10,9H8A4,4 0 0,1 12,5A4,4 0 0,1 16,9C16,9.88 15.64,10.67 15.07,11.25M13,19H11V17H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2Z' /%3E%3C/svg%3E");
+}
+
+@function success-icon($color) {
+  $stripped-color: str-slice(#{$color}, 2);
+  @return  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' style='width:24px;height:24px' viewBox='0 0 24 24'%3E%3Cpath fill='%23#{$stripped-color}' d='M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z' /%3E%3C/svg%3E");
+}
