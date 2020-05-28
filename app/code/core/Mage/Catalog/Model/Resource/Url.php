@@ -82,7 +82,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      * Retrieve stores array or store model
      *
      * @param int $storeId
-     * @return Mage_Core_Model_Store|array
+     * @return Mage_Core_Model_Store|Mage_Core_Model_Store[]
      */
     public function getStores($storeId = null)
     {
@@ -290,7 +290,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      * Save rewrite URL
      *
      * @param array $rewriteData
-     * @param int|Varien_Object $rewrite
+     * @param Varien_Object|Mage_Core_Model_Url_Rewrite $rewrite
      * @return $this
      */
     public function saveRewrite($rewriteData, $rewrite)
@@ -344,7 +344,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Save category attribute
      *
-     * @param Varien_Object $category
+     * @param Varien_Object|Mage_Catalog_Model_Category $category
      * @param string $attributeCode
      * @return $this
      */
@@ -498,7 +498,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Save product attribute
      *
-     * @param Varien_Object $product
+     * @param Varien_Object|Mage_Catalog_Model_Product $product
      * @param string $attributeCode
      * @return $this
      */
@@ -640,7 +640,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Prepare category parentId
      *
-     * @param Varien_Object $category
+     * @param Varien_Object|Mage_Catalog_Model_Category $category
      * @return $this
      */
     protected function _prepareCategoryParentId(Varien_Object $category)
@@ -657,21 +657,19 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Prepare stores root categories
      *
-     * @param array $stores
-     * @return array
+     * @param Mage_Core_Model_Store[] $stores
+     * @return Mage_Core_Model_Store[]
      */
     protected function _prepareStoreRootCategories($stores)
     {
         $rootCategoryIds = array();
         foreach ($stores as $store) {
-            /* @var $store Mage_Core_Model_Store */
             $rootCategoryIds[$store->getRootCategoryId()] = $store->getRootCategoryId();
         }
         if ($rootCategoryIds) {
             $categories = $this->_getCategories($rootCategoryIds);
         }
         foreach ($stores as $store) {
-            /* @var $store Mage_Core_Model_Store */
             $rootCategoryId = $store->getRootCategoryId();
             if (isset($categories[$rootCategoryId])) {
                 $store->setRootCategoryPath($categories[$rootCategoryId]->getPath());
@@ -725,11 +723,13 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
                 ->order('main_table.path');
         }
         $table = $this->getTable(array('catalog/category', 'int'));
-        $select->joinLeft(array('d' => $table),
+        $select->joinLeft(
+            array('d' => $table),
             'd.attribute_id = :attribute_id AND d.store_id = 0 AND d.entity_id = main_table.entity_id',
             array()
         )
-        ->joinLeft(array('c' => $table),
+        ->joinLeft(
+            array('c' => $table),
             'c.attribute_id = :attribute_id AND c.store_id = :store_id AND c.entity_id = main_table.entity_id',
             array()
         );
@@ -769,8 +769,11 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
 
         if ($storeId !== null && $categories) {
             foreach (array('name', 'url_key', 'url_path') as $attributeCode) {
-                $attributes = $this->_getCategoryAttribute($attributeCode, array_keys($categories),
-                    $category->getStoreId());
+                $attributes = $this->_getCategoryAttribute(
+                    $attributeCode,
+                    array_keys($categories),
+                    $category->getStoreId()
+                );
                 foreach ($attributes as $categoryId => $attributeValue) {
                     $categories[$categoryId]->setData($attributeCode, $attributeValue);
                 }
@@ -785,7 +788,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @param int $categoryId
      * @param int $storeId
-     * @return Varien_Object
+     * @return Varien_Object|false
      */
     public function getCategory($categoryId, $storeId)
     {
@@ -805,7 +808,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @param int|array $categoryIds
      * @param int $storeId
-     * @return array
+     * @return Mage_Catalog_Model_Category[]|false
      */
     public function getCategories($categoryIds, $storeId)
     {
@@ -857,7 +860,9 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      * Actually this routine can be used to get children ids of any category, not only root.
      * But as far as result is cached in memory, it's not recommended to do so.
      *
-     * @param Varien_Object $category
+     * @param int $categoryId
+     * @param string $categoryPath
+     * @param bool $includeStart
      * @return Varien_Object
      */
     public function getRootChildrenIds($categoryId, $categoryPath, $includeStart = true)
@@ -1008,7 +1013,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @param int $productId
      * @param int $storeId
-     * @return Varien_Object
+     * @return Varien_Object|false
      */
     public function getProduct($productId, $storeId)
     {
@@ -1025,7 +1030,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @param int $storeId
      * @param int $lastEntityId
-     * @return array
+     * @return Mage_Catalog_Model_Product[]
      */
     public function getProductsByStore($storeId, &$lastEntityId)
     {
@@ -1113,7 +1118,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      * left from the times when categories/products belonged to store
      *
      * @param int $storeId
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Url
+     * @return $this
      */
     public function clearStoreCategoriesInvalidRewrites($storeId)
     {
@@ -1147,7 +1152,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @param int $storeId
      * @param int|array|null $productId
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Url
+     * @return $this
      */
     public function clearStoreProductsInvalidRewrites($storeId, $productId = null)
     {
@@ -1187,7 +1192,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      * b) product rewrites left from products that once belonged to this site, but then deleted or just removed from website
      *
      * @param int $storeId
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Url
+     * @return $this
      */
     public function clearStoreInvalidRewrites($storeId)
     {

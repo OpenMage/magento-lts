@@ -131,7 +131,7 @@ class Mage_Catalog_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abs
     public function getAttributesUsedForSortBy()
     {
         $adapter = $this->_getReadAdapter();
-        $storeLabelExpr = $adapter->getCheckSql('al.value IS NULL', 'main_table.frontend_label','al.value');
+        $storeLabelExpr = $adapter->getCheckSql('al.value IS NULL', 'main_table.frontend_label', 'al.value');
         $select = $adapter->select()
             ->from(array('main_table' => $this->getTable('eav/attribute')))
             ->join(

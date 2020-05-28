@@ -41,7 +41,7 @@ class Mage_Catalog_Model_Api2_Product_Category_Rest_Admin_V1 extends Mage_Catalo
      */
     protected function _create(array $data)
     {
-        /* @var $validator Mage_Api2_Model_Resource_Validator_Fields */
+        /* @var Mage_Api2_Model_Resource_Validator_Fields $validator */
         $validator = Mage::getResourceModel('api2/validator_fields', array('resource' => $this));
         if (!$validator->isValidData($data)) {
             foreach ($validator->getErrors() as $error) {
@@ -58,8 +58,11 @@ class Mage_Catalog_Model_Api2_Product_Category_Rest_Admin_V1 extends Mage_Catalo
             $categoryIds = array();
         }
         if (in_array($category->getId(), $categoryIds)) {
-            $this->_critical(sprintf('Product #%d is already assigned to category #%d',
-                $product->getId(), $category->getId()), Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
+            $this->_critical(sprintf(
+                'Product #%d is already assigned to category #%d',
+                $product->getId(),
+                $category->getId()
+            ), Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
         if ($category->getId() == Mage_Catalog_Model_Category::TREE_ROOT_ID) {
             $this->_critical('Cannot assign product to tree root category.', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
@@ -67,7 +70,7 @@ class Mage_Catalog_Model_Api2_Product_Category_Rest_Admin_V1 extends Mage_Catalo
         $categoryIds[] = $category->getId();
         $product->setCategoryIds(implode(',', $categoryIds));
 
-        try{
+        try {
             $product->save();
         } catch (Mage_Core_Exception $e) {
             $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
@@ -91,15 +94,18 @@ class Mage_Catalog_Model_Api2_Product_Category_Rest_Admin_V1 extends Mage_Catalo
         $categoryIds = $product->getCategoryIds();
         $categoryToBeDeletedId = array_search($category->getId(), $categoryIds);
         if (false === $categoryToBeDeletedId) {
-            $this->_critical(sprintf('Product #%d isn\'t assigned to category #%d',
-                $product->getId(), $category->getId()), Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
+            $this->_critical(sprintf(
+                'Product #%d isn\'t assigned to category #%d',
+                $product->getId(),
+                $category->getId()
+            ), Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
 
         // delete category
         unset($categoryIds[$categoryToBeDeletedId]);
         $product->setCategoryIds(implode(',', $categoryIds));
 
-        try{
+        try {
             $product->save();
         } catch (Mage_Core_Exception $e) {
             $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
@@ -128,7 +134,7 @@ class Mage_Catalog_Model_Api2_Product_Category_Rest_Admin_V1 extends Mage_Catalo
      */
     protected function _getLocation($resource)
     {
-        /** @var $apiTypeRoute Mage_Api2_Model_Route_ApiType */
+        /** @var Mage_Api2_Model_Route_ApiType $apiTypeRoute */
         $apiTypeRoute = Mage::getModel('api2/route_apiType');
 
         $chain = $apiTypeRoute->chain(new Zend_Controller_Router_Route(

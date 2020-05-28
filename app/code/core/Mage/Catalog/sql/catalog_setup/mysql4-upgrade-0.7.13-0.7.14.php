@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
+/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 
 $mediaAttributeId = (int) $installer->getAttributeId('catalog_product', 'media_gallery');
 

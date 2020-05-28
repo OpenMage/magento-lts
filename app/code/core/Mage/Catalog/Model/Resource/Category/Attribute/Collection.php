@@ -32,8 +32,7 @@
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Model_Resource_Category_Attribute_Collection
-    extends Mage_Eav_Model_Resource_Entity_Attribute_Collection
+class Mage_Catalog_Model_Resource_Category_Attribute_Collection extends Mage_Eav_Model_Resource_Entity_Attribute_Collection
 {
     /**
      * Main select object initialization.

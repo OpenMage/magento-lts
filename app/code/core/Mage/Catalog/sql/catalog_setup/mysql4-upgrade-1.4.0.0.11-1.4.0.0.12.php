@@ -24,7 +24,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
+/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 $installer = $this;
 $installer->updateAttribute('catalog_category', 'url_path', 'is_unique', 0);
 $installer->updateAttribute('catalog_product', 'url_path', 'is_unique', 0);

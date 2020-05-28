@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/** @var $installer Mage_Catalog_Model_Resource_Setup */
+/** @var Mage_Catalog_Model_Resource_Setup $installer */
 $installer->getConnection()->modifyColumn(
     $installer->getTable('catalog/category_product_index'),
     'position',

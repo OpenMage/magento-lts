@@ -43,10 +43,10 @@ class Mage_Catalog_Model_Api2_Product extends Mage_Api2_Model_Resource
     public function getAvailableAttributes($userType, $operation)
     {
         $attributes = $this->getAvailableAttributesFromConfig();
-        /** @var $entityType Mage_Eav_Model_Entity_Type */
+        /** @var Mage_Eav_Model_Entity_Type $entityType */
         $entityType = Mage::getModel('eav/entity_type')->loadByCode('catalog_product');
         $entityOnlyAttrs = $this->getEntityOnlyAttributes($userType, $operation);
-        /** @var $attribute Mage_Catalog_Model_Resource_Eav_Attribute */
+        /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
         foreach ($entityType->getAttributeCollection() as $attribute) {
             if ($this->_isAttributeVisible($attribute, $userType)) {
                 $attributes[$attribute->getAttributeCode()] = $attribute->getFrontendLabel();
@@ -85,7 +85,7 @@ class Mage_Catalog_Model_Api2_Product extends Mage_Api2_Model_Resource
             );
             if ($attribute->getIsUserDefined()) {
                 $isAttributeVisible = $attribute->getIsVisibleOnFront();
-            } else if (in_array($attribute->getAttributeCode(), $systemAttributesForNonAdmin)) {
+            } elseif (in_array($attribute->getAttributeCode(), $systemAttributesForNonAdmin)) {
                 $isAttributeVisible = true;
             }
         }
