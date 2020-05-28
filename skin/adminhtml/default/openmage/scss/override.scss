@@ -268,7 +268,7 @@ small {
       }
 
       .date img {
-        @include replaceImage(calendar-icon($color_action),17px,17px);
+        @include replaceImage(icon-calendar($color_action),17px,17px);
         margin-top: 5px;
       }
     }
@@ -720,7 +720,7 @@ div {
 
 .success-msg {
   @extend %extend_13;
-  background-image: success-icon($color_san_felix_approx) !important;
+  background-image: icon-success($color_san_felix_approx) !important;
   background-repeat: no-repeat !important;
   background-size: 16px 16px !important;
   background-color: $color_chrome_white_approx !important;
@@ -994,18 +994,29 @@ table.actions {
   font-weight: 600;
 }
 
+a.rule-param-remove {
+  img {
+    @include replaceImage(icon-close($color-warning),13px,13px);
+  }
+}
+img.rule-param-add {
+  @include replaceImage(icon-add($color_apple_approx),13px,13px);
+}
 .address-list li.on {
   background: $white;
 }
 
+ul.tabs a.changed span.changed {
+  background: icon-save($color_apple_approx) !important;
+}
 
 .notification-global {
-  background: $color_merino_approx warning-icon($color-warning) 27px 5px no-repeat;
+  background: $color_merino_approx icon-warning($color-warning) 27px 5px no-repeat;
   background-size: 15px;
 }
 
 #page-help-link {
-  background: help-icon($color-help) no-repeat 0 50%;
+  background: icon-help($color-help) no-repeat 0 50%;
   background-size: 15px;
   line-height: 38px;
 }
@@ -1021,7 +1032,7 @@ table.actions {
       border: none;
       margin-top: 1px;
       span{
-        background: close-icon($white) no-repeat 0 50%;
+        background: icon-close($white) no-repeat 0 50%;
         background-size: 13px;
       }
     }
@@ -1030,7 +1041,7 @@ table.actions {
     background: $white;
     .read-more {
       a {
-        background: arrow-right-icon($color_action)  no-repeat 0 50%;
+        background: icon-arrow-right($color_action)  no-repeat 0 50%;
         background-size: 13px;
       }
     }
@@ -1040,27 +1051,23 @@ table.actions {
 .pager {
   img.arrow {
     &:nth-of-type(1) {
-      @include replaceImage(arrow-left-icon($color_action),17px,17px);
+      @include replaceImage(icon-arrow-left($color_action),17px,17px);
     }
     &:nth-of-type(2) {
-      @include replaceImage(arrow-right-icon($color_action),17px,17px);
+      @include replaceImage(icon-arrow-right($color_action),17px,17px);
     }
   }
 }
 .export {
   img {
-    @include replaceImage(export-icon($color_apple_approx),19px,19px);
+    @include replaceImage(icon-export($color_apple_approx),19px,19px);
   }
 }
 
 img[src$='grid-cal.gif'] {
-  @include replaceImage(calendar-icon($color_action),17px,17px);
+  @include replaceImage(icon-calendar($color_action),17px,17px);
 }
 
 .link-store-scope {
-  background: help-icon($color-help);
-}
-
-.head-sales-order, .head-sales-invoice {
-
+  background: icon-help($color-help);
 }
