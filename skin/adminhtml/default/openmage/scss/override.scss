@@ -263,7 +263,8 @@ small {
       }
 
       .date img {
-        padding: 4px;
+        @include replaceImage(calendar-icon($color_action),17px,17px);
+        margin-top: 5px;
       }
     }
 
@@ -1029,4 +1030,32 @@ table.actions {
       }
     }
   }
+}
+
+.pager {
+  img.arrow {
+    &:nth-of-type(1) {
+      @include replaceImage(arrow-left-icon($color_action),17px,17px);
+    }
+    &:nth-of-type(2) {
+      @include replaceImage(arrow-right-icon($color_action),17px,17px);
+    }
+  }
+}
+.export {
+  img {
+    @include replaceImage(export-icon($color_apple_approx),19px,19px);
+  }
+}
+
+img[src$='grid-cal.gif'] {
+  @include replaceImage(calendar-icon($color_action),17px,17px);
+}
+
+.link-store-scope {
+  background: help-icon($color-help);
+}
+
+.head-sales-order, .head-sales-invoice {
+  
 }

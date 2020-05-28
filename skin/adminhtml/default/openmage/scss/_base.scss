@@ -1,3 +1,4 @@
+@import "icons";
 @import "variables";
 
 //@extend-elements
@@ -297,4 +298,12 @@
   border: 1px solid $color_manatee_approx;
   font-weight: 600;
   background-color: $color_link_water_approx;
+}
+
+@mixin replaceImage($img,$width,$height){
+  padding-left: $width;
+  box-sizing: border-box;
+  width: $width;
+  background: $img no-repeat;
+  height: $height;
 }
