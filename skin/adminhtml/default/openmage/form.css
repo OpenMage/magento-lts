@@ -1,4 +1,8 @@
 @charset "UTF-8";
+/* ! Do not edit css files !
+   Edit scss version and compile with sass from scss folder like this:
+   $ sass form.scss ../form.css
+ */
 select, textarea, input.input-text {
   font: 400 12px/1.33 "Open Sans", sans-serif;
   display: inline-block;

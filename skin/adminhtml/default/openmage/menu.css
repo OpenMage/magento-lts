@@ -1,3 +1,7 @@
+/* ! Do not edit css files !
+   Edit scss version and compile with sass from scss folder like this:
+   $ sass menu.scss ../menu.css
+ */
 #nav ul li.active, #nav ul li {
   float: none;
   height: auto;

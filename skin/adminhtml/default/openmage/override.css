@@ -1,3 +1,7 @@
+/* ! Do not edit css files !
+   Edit scss version and compile with sass from scss folder like this:
+   $ sass override.scss ../override.css
+ */
 .popup-window .content-header, body {
   color: #68666f;
   font: 400 12px/1.33 "Open Sans", sans-serif;

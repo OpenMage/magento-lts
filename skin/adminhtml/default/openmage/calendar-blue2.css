@@ -1,3 +1,7 @@
+/* ! Do not edit css files !
+   Edit scss version and compile with sass from scss folder like this:
+   $ sass calendar-blue2.scss ../calendar-blue2.css
+ */
 .calendar table, .calendar {
   color: #555;
   cursor: default;
