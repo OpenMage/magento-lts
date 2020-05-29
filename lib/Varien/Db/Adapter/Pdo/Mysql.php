@@ -1884,12 +1884,16 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             case 'longblob':
                 return Varien_Db_Ddl_Table::TYPE_BLOB;
             case 'tinyint':
+            case 'tinyint unsigned':
             case 'smallint':
+            case 'smallint unsigned':
                 return Varien_Db_Ddl_Table::TYPE_SMALLINT;
             case 'mediumint':
             case 'int':
+            case 'int unsigned':
                 return Varien_Db_Ddl_Table::TYPE_INTEGER;
             case 'bigint':
+            case 'bigint unsigned':
                 return Varien_Db_Ddl_Table::TYPE_BIGINT;
             case 'datetime':
                 return Varien_Db_Ddl_Table::TYPE_DATETIME;

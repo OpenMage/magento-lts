@@ -270,6 +270,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
                 break;
             case 'tinyint':
             case 'smallint':
+            case 'smallint unsigned':
                 $type = Varien_Db_Ddl_Table::TYPE_SMALLINT;
                 break;
             case 'mediumint':
