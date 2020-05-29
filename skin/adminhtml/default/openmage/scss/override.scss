@@ -346,7 +346,7 @@ small {
     }
 
     &.odd tr td {
-      background: $color_dolphin_approx !important;
+      background: $color_wild_sand_approx !important;
     }
   }
 
@@ -671,8 +671,7 @@ div {
 
 .order-totals {
   background: $color_gallery_approx;
-  border: 0 !important;
-  border-top: 1px solid $color_alto_approx !important;
+  border: 1px solid $color_alto_approx !important;
 }
 
 .order-choose-address {
@@ -1049,15 +1048,23 @@ ul.tabs a.changed span.changed {
 }
 
 .pager {
-  img.arrow {
-    &:nth-of-type(1) {
+  img[src$='pager_arrow_left.gif'].arrow {
       @include replaceImage(icon-arrow-left($color_action),17px,17px);
     }
-    &:nth-of-type(2) {
+  img[src$='pager_arrow_right.gif'].arrow {
       @include replaceImage(icon-arrow-right($color_action),17px,17px);
     }
+  img[src$='pager_arrow_left_off.gif'].arrow {
+    @include replaceImage(icon-arrow-left($color_action),17px,17px);
+    opacity: 0.5;
   }
+  img[src$='pager_arrow_right_off.gif'].arrow {
+    @include replaceImage(icon-arrow-right($color_action),17px,17px);
+    opacity: 0.5;
+  }
+
 }
+
 .export {
   img {
     @include replaceImage(icon-export($color_apple_approx),19px,19px);

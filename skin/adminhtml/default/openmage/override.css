@@ -360,7 +360,7 @@ small {
   background: #eee !important;
 }
 .grid tbody.odd tr td {
-  background: #68666f !important;
+  background: #f6f6f6 !important;
 }
 .grid td input.input-text {
   min-width: 80px;
@@ -604,8 +604,7 @@ div.autocomplete ul li.selected {
 
 .order-totals {
   background: #eee;
-  border: 0 !important;
-  border-top: 1px solid lightgrey !important;
+  border: 1px solid lightgrey !important;
 }
 
 .order-choose-address {
@@ -911,19 +910,35 @@ ul.tabs a.changed span.changed {
   background-size: 13px;
 }
 
-.pager img.arrow:nth-of-type(1) {
+.pager img[src$="pager_arrow_left.gif"].arrow {
   padding-left: 17px;
   box-sizing: border-box;
   width: 17px;
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' style='width:24px;height:24px' viewBox='0 0 24 24'%3E%3Cpath fill='%230090FF' d='M22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2A10,10 0 0,1 22,12M14,7L9,12L14,17V7Z' /%3E%3C/svg%3E") no-repeat;
   height: 17px;
 }
-.pager img.arrow:nth-of-type(2) {
+.pager img[src$="pager_arrow_right.gif"].arrow {
   padding-left: 17px;
   box-sizing: border-box;
   width: 17px;
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' style='width:24px;height:24px' viewBox='0 0 24 24'%3E%3Cpath fill='%230090FF' d='M2,12A10,10 0 0,1 12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12M10,17L15,12L10,7V17Z' /%3E%3C/svg%3E") no-repeat;
   height: 17px;
+}
+.pager img[src$="pager_arrow_left_off.gif"].arrow {
+  padding-left: 17px;
+  box-sizing: border-box;
+  width: 17px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' style='width:24px;height:24px' viewBox='0 0 24 24'%3E%3Cpath fill='%230090FF' d='M22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2A10,10 0 0,1 22,12M14,7L9,12L14,17V7Z' /%3E%3C/svg%3E") no-repeat;
+  height: 17px;
+  opacity: 0.5;
+}
+.pager img[src$="pager_arrow_right_off.gif"].arrow {
+  padding-left: 17px;
+  box-sizing: border-box;
+  width: 17px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' style='width:24px;height:24px' viewBox='0 0 24 24'%3E%3Cpath fill='%230090FF' d='M2,12A10,10 0 0,1 12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12M10,17L15,12L10,7V17Z' /%3E%3C/svg%3E") no-repeat;
+  height: 17px;
+  opacity: 0.5;
 }
 
 .export img {
