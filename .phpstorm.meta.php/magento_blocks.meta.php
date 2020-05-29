@@ -283,7 +283,6 @@ namespace PHPSTORM_META {
             'adminhtml/notification_inbox' instanceof \Mage_Adminhtml_Block_Notification_Inbox,
             'adminhtml/notification_security' instanceof \Mage_Adminhtml_Block_Notification_Security,
             'adminhtml/notification_survey' instanceof \Mage_Adminhtml_Block_Notification_Survey,
-            'adminhtml/notification_symlink' instanceof \Mage_Adminhtml_Block_Notification_Symlink,
             'adminhtml/notification_toolbar' instanceof \Mage_Adminhtml_Block_Notification_Toolbar,
             'adminhtml/notification_window' instanceof \Mage_Adminhtml_Block_Notification_Window,
             'adminhtml/page' instanceof \Mage_Adminhtml_Block_Page,
@@ -1351,6 +1350,6 @@ namespace PHPSTORM_META {
             'moneybookers/payment' instanceof \Phoenix_Moneybookers_Block_Payment,
             'moneybookers/placeform' instanceof \Phoenix_Moneybookers_Block_Placeform,
             'moneybookers/redirect' instanceof \Phoenix_Moneybookers_Block_Redirect,
-        ], 
+        ],
     ];
 }

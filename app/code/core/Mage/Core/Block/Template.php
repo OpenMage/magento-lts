@@ -56,13 +56,6 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
 
     protected $_jsUrl;
 
-    /**
-     * Is allowed symlinks flag
-     *
-     * @var bool
-     */
-    protected $_allowSymlinks = null;
-
     protected static $_showTemplateHints;
     protected static $_showTemplateHintsBlocks;
 
@@ -354,9 +347,6 @@ HTML;
      */
     protected function _getAllowSymlinks()
     {
-        if (is_null($this->_allowSymlinks)) {
-            $this->_allowSymlinks = Mage::getStoreConfigFlag(self::XML_PATH_TEMPLATE_ALLOW_SYMLINK);
-        }
-        return $this->_allowSymlinks;
+        return FALSE;
     }
 }
