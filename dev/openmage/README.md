@@ -5,6 +5,8 @@ With these files you can have a fully operational OpenMage LTS development envir
 
 **NOTE: This is not for production use!**
 
+For a more robust development environment that supports https, please consider using [ddev](https://ddev.readthedocs.io/en/stable/users/cli-usage/#magento-1-quickstart).
+
 ## Prerequisites
 
 - Install [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/)
