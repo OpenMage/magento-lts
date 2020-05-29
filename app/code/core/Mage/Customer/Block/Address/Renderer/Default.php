@@ -135,6 +135,11 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
             }
         }
 
+        if($address instanceof \Mage_Sales_Model_Order_Address){
+            $order = $address->getOrder();
+            $data['email'] = $order->getCustomerEmail();
+        }
+
         if ($this->getType()->getHtmlEscape()) {
             foreach ($data as $key => $value) {
                 $data[$key] = $this->escapeHtml($value);
