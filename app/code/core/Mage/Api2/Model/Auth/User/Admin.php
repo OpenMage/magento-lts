@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Api2
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -61,11 +61,11 @@ class Mage_Api2_Model_Auth_User_Admin extends Mage_Api2_Model_Auth_User_Abstract
                 throw new Exception('Admin identifier is not set');
             }
 
-            /** @var $collection Mage_Api2_Model_Resource_Acl_Global_Role_Collection */
+            /** @var Mage_Api2_Model_Resource_Acl_Global_Role_Collection $collection */
             $collection = Mage::getModel('api2/acl_global_role')->getCollection();
             $collection->addFilterByAdminId($this->getUserId());
 
-            /** @var $role Mage_Api2_Model_Acl_Global_Role */
+            /** @var Mage_Api2_Model_Acl_Global_Role $role */
             $role = $collection->getFirstItem();
             if (!$role->getId()) {
                 throw new Exception('Admin role not found');

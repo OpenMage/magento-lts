@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Log
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,7 +32,7 @@ class Mage_Log_Helper_Data extends Mage_Core_Helper_Abstract
     const XML_PATH_LOG_ENABLED = 'system/log/enable_log';
 
     /**
-     * @var Mage_Log_Helper_Data
+     * @var int
      */
     protected $_logLevel;
 
@@ -41,6 +41,10 @@ class Mage_Log_Helper_Data extends Mage_Core_Helper_Abstract
      */
     private $_allowedFileExtensions = array('log', 'txt', 'html', 'csv');
 
+    /**
+     * Mage_Log_Helper_Data constructor.
+     * @param array $data
+     */
     public function __construct(array $data = array())
     {
         $this->_logLevel = isset($data['log_level']) ? $data['log_level']
@@ -81,7 +85,7 @@ class Mage_Log_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Checking if file extensions is allowed. If passed then return true.
      *
-     * @param $file
+     * @param string $file
      * @return bool
      */
     public function isLogFileExtensionValid($file)

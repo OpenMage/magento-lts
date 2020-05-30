@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,11 +39,13 @@ class Mage_Catalog_Block_Product_View_Tabs extends Mage_Core_Block_Template
     /**
      * Add tab to the container
      *
+     * @param $alias
      * @param string $title
      * @param string $block
      * @param string $template
+     * @return bool
      */
-    function addTab($alias, $title, $block, $template)
+    public function addTab($alias, $title, $block, $template)
     {
 
         if (!$title || !$block || !$template) {
@@ -55,13 +57,17 @@ class Mage_Catalog_Block_Product_View_Tabs extends Mage_Core_Block_Template
             'title' => $title
         );
 
-        $this->setChild($alias,
+        $this->setChild(
+            $alias,
             $this->getLayout()->createBlock($block, $alias)
                 ->setTemplate($template)
-            );
+        );
     }
 
-    function getTabs()
+    /**
+     * @return array
+     */
+    public function getTabs()
     {
         return $this->_tabs;
     }

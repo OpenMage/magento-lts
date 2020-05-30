@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -51,7 +51,7 @@
                         <update>1</update>
                     </customer>
                 </privileges>
-                <attributes translate="entity_id last_logged_in firstname lastname email website_id created_in group_id confirmation disable_auto_group_change" module="api2">
+                <attributes translate="entity_id last_logged_in firstname lastname email website_id created_in group_id confirmation disable_auto_group_change created_at updated_at" module="api2">
                     <entity_id>Customer ID</entity_id>
                     <last_logged_in>Last Logged In</last_logged_in>
                     <firstname>First Name</firstname>
@@ -62,12 +62,15 @@
                     <group_id>Group</group_id>
                     <confirmation>Is Confirmed</confirmation>
                     <disable_auto_group_change>Disable automatic group change based on VAT ID</disable_auto_group_change>
+                    <created_at>Created Date</created_at>
+                    <updated_at>Updated Date</updated_at>
                 </attributes>
                 <exclude_attributes>
                     <admin>
                         <write>
                             <entity_id>1</entity_id>
                             <created_at>1</created_at>
+                            <updated_at>1</updated_at>
                             <created_in>1</created_in>
                             <last_logged_in>1</last_logged_in>
                         </write>
@@ -81,7 +84,6 @@
                             <group_id>1</group_id>
                             <disable_auto_group_change>1</disable_auto_group_change>
                             <confirmation>1</confirmation>
-                            <created_at>1</created_at>
                         </read>
                         <write>
                             <entity_id>1</entity_id>
@@ -92,6 +94,7 @@
                             <disable_auto_group_change>1</disable_auto_group_change>
                             <confirmation>1</confirmation>
                             <created_at>1</created_at>
+                            <updated_at>1</updated_at>
                         </write>
                     </customer>
                 </exclude_attributes>
@@ -145,10 +148,12 @@
                         <delete>1</delete>
                     </customer>
                 </privileges>
-                <attributes translate="entity_id is_default_billing is_default_shipping" module="api2">
+                <attributes translate="entity_id is_default_billing is_default_shipping created_at updated_at" module="api2">
                     <entity_id>Customer Address ID</entity_id>
                     <is_default_billing>Is Default Billing Address</is_default_billing>
                     <is_default_shipping>Is Default Shipping Address</is_default_shipping>
+                    <created_at>Created Date</created_at>
+                    <updated_at>Updated Date</updated_at>
                 </attributes>
                 <exclude_attributes>
                     <admin>
@@ -166,6 +171,8 @@
                             <vat_request_date>1</vat_request_date>
                             <vat_request_id>1</vat_request_id>
                             <vat_request_success>1</vat_request_success>
+                            <created_at>1</created_at>
+                            <updated_at>1</updated_at>
                         </write>
                     </admin>
                     <customer>
@@ -175,6 +182,8 @@
                         <write>
                             <entity_id>1</entity_id>
                             <region_id>1</region_id>
+                            <created_at>1</created_at>
+                            <updated_at>1</updated_at>
                         </write>
                     </customer>
                 </exclude_attributes>

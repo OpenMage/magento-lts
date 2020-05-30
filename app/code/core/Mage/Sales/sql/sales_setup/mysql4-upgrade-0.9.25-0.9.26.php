@@ -20,12 +20,12 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 $installer = $this;
-/* @var $installer Mage_Sales_Model_Mysql4_Setup */
+/* @var Mage_Sales_Model_Mysql4_Setup $installer */
 
 $installer->run("
 DELETE FROM `{$this->getTable('sales_order_tax')}`
@@ -36,6 +36,8 @@ WHERE `order_id` NOT IN (
 
 $installer->getConnection()->addConstraint(
     'FK_SALES_ORDER_TAX_ORDER',
-    $this->getTable('sales_order_tax'), 'order_id',
-    $this->getTable('sales_order'), 'entity_id'
+    $this->getTable('sales_order_tax'),
+    'order_id',
+    $this->getTable('sales_order'),
+    'entity_id'
 );

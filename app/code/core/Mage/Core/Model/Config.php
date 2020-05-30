@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -1052,7 +1052,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * @param string $moduleName
      * @return Varien_Simplexml_Object
      */
-    function getModuleConfig($moduleName='')
+    public function getModuleConfig($moduleName='')
     {
         $modules = $this->getNode('modules');
         if (''===$moduleName) {
@@ -1070,7 +1070,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * @param string|Varien_Simplexml_Object $module
      * @return object
      */
-    function getModuleSetup($module='')
+    public function getModuleSetup($module='')
     {
         $className = 'Mage_Core_Setup';
         if (''!==$module) {

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -77,20 +77,20 @@ class Mage_Eav_Model_Attribute_Data_Image extends Mage_Eav_Model_Attribute_Data_
             $size = $value['size'];
             if ($rules['max_file_size'] < $size) {
                 $errors[] = Mage::helper('eav')->__('"%s" exceeds the allowed file size.', $label);
-            };
+            }
         }
 
         if (!empty($rules['max_image_width'])) {
             if ($rules['max_image_width'] < $imageProp[0]) {
                 $r = $rules['max_image_width'];
                 $errors[] = Mage::helper('eav')->__('"%s" width exceeds allowed value of %s px.', $label, $r);
-            };
+            }
         }
         if (!empty($rules['max_image_heght'])) {
             if ($rules['max_image_heght'] < $imageProp[1]) {
                 $r = $rules['max_image_heght'];
                 $errors[] = Mage::helper('eav')->__('"%s" height exceeds allowed value of %s px.', $label, $r);
-            };
+            }
         }
 
         return $errors;

@@ -20,7 +20,7 @@
  *
  * @category    Varien
  * @package     Varien_Data
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,7 +31,7 @@
  * @package    Varien_Data
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Varien_Data_Tree_Node_Collection implements ArrayAccess, IteratorAggregate
+class Varien_Data_Tree_Node_Collection implements ArrayAccess, IteratorAggregate, Countable
 {
     private $_nodes;
     private $_container;
@@ -111,7 +111,10 @@ class Varien_Data_Tree_Node_Collection implements ArrayAccess, IteratorAggregate
         }
         return $this;
     }
-    
+
+    /**
+     * Implementation of Countable:count()
+     */
     public function count()
     {
         return count($this->_nodes);

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -43,11 +43,21 @@ class Mage_Sales_Block_Order_Shipment_Items extends Mage_Sales_Block_Items_Abstr
         return Mage::registry('current_order');
     }
 
-    public function getPrintShipmentUrl($shipment){
+    /**
+     * @param Mage_Sales_Model_Order_Shipment $shipment
+     * @return string
+     */
+    public function getPrintShipmentUrl($shipment)
+    {
         return Mage::getUrl('*/*/printShipment', array('shipment_id' => $shipment->getId()));
     }
 
-    public function getPrintAllShipmentsUrl($order){
+    /**
+     * @param Mage_Sales_Model_Order $order
+     * @return string
+     */
+    public function getPrintAllShipmentsUrl($order)
+    {
         return Mage::getUrl('*/*/printShipment', array('order_id' => $order->getId()));
     }
 
