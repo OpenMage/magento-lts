@@ -43,4 +43,3 @@ class Mage_Sales_Model_Resource_Quote_Collection extends Mage_Core_Model_Resourc
         $this->_init('sales/quote');
     }
 }
-

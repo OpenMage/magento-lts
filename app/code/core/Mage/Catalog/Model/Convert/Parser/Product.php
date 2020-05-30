@@ -24,10 +24,13 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * Class Mage_Catalog_Model_Convert_Parser_Product
+ */
 class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_Parser_Abstract
 {
     const MULTI_DELIMITER = ' , ';
+
     protected $_resource;
 
     /**
@@ -108,6 +111,10 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
         return $this->_resource;
     }
 
+    /**
+     * @param int $storeId
+     * @return Mage_Catalog_Model_Resource_Product_Collection
+     */
     public function getCollection($storeId)
     {
         if (!isset($this->_collections[$storeId])) {
@@ -164,7 +171,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
     /**
      * Retrieve product model cache
      *
-     * @return Mage_Catalog_Model_Product
+     * @return Mage_Catalog_Model_Product|object
      */
     public function getProductModel()
     {
@@ -227,6 +234,9 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getAttributeSetInstance()
     {
         $productType = $this->getProductModel()->getType();
@@ -387,11 +397,17 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
         return $this;
     }
 
+    /**
+     * @param $items
+     */
     public function setInventoryItems($items)
     {
         $this->_inventoryItems = $items;
     }
 
+    /**
+     * @return array
+     */
     public function getInventoryItems()
     {
         return $this->_inventoryItems;
@@ -411,7 +427,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                 ->setStoreId($this->getStoreId())
                 ->load($entityId);
             $this->setProductTypeInstance($product);
-            /* @var $product Mage_Catalog_Model_Product */
+            /* @var Mage_Catalog_Model_Product $product */
 
             $position = Mage::helper('catalog')->__('Line %d, SKU: %s', ($i+1), $product->getSku());
             $this->setPosition($position);

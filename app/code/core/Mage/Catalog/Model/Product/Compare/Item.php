@@ -29,12 +29,16 @@
  * Catalog Compare Item Model
  *
  * @method Mage_Catalog_Model_Resource_Product_Compare_Item getResource()
- * @method Mage_Catalog_Model_Product_Compare_Item setVisitorId(int $value)
- * @method Mage_Catalog_Model_Product_Compare_Item setCustomerId(int $value)
+ *
+ * @method $this setVisitorId(int $value)
+ * @method $this setCustomerId(int $value)
  * @method int getProductId()
- * @method Mage_Catalog_Model_Product_Compare_Item setProductId(int $value)
+ * @method $this setProductId(int $value)
  * @method int getStoreId()
- * @method Mage_Catalog_Model_Product_Compare_Item setStoreId(int $value)
+ * @method $this setStoreId(int $value)
+ * @method bool hasVisitorId()
+ * @method bool hasCustomerId()
+ * @method bool hasStoreId()
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -66,7 +70,7 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
     protected $_eventObject = 'item';
 
     /**
-     * Initialize resourse model
+     * Initialize resource model
      *
      */
     protected function _construct()
@@ -77,7 +81,7 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
     /**
      * Retrieve Resource instance
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item
+     * @inheritDoc
      */
     protected function _getResource()
     {
@@ -158,8 +162,7 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
     {
         if ($product instanceof Mage_Catalog_Model_Product) {
             $this->setProductId($product->getId());
-        }
-        else if(intval($product)) {
+        } elseif (intval($product)) {
             $this->setProductId(intval($product));
         }
 

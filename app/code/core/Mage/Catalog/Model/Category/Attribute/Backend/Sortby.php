@@ -112,6 +112,10 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby extends Mage_Eav_Mode
         return $this;
     }
 
+    /**
+     * @param Varien_Object $object
+     * @return $this|Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+     */
     public function afterLoad($object)
     {
         $attributeCode = $this->getAttribute()->getName();

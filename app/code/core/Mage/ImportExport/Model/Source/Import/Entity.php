@@ -45,7 +45,7 @@ class Mage_ImportExport_Model_Source_Import_Entity
         $comboOptions = Mage_ImportExport_Model_Config::getModelsComboOptions($entities);
 
         foreach ($comboOptions as $option) {
-           $options[] = $option;
+            $options[] = $option;
         }
         return $options;
     }

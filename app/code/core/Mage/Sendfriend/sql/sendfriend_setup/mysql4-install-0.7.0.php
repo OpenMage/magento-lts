@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Sendfriend_Model_Mysql4_Setup */
+/* @var Mage_Sendfriend_Model_Mysql4_Setup $installer */
 
 $installer->startSetup();
 
@@ -42,4 +42,3 @@ CREATE TABLE {$this->getTable('sendfriend_log')} (
 ");
 
 $installer->endSetup();
-

@@ -37,7 +37,7 @@ class Footer extends Block
     /**
      * @var string
      */
-    protected $versionPath = '//div[@class="footer" and contains(.,"Magento ver. ';
+    protected $versionPath = '//div[@class="footer" and contains(.,"OpenMage ver. ';
 
     /**
      * @param $currentVersion

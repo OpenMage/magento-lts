@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
+/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 
 $installer->startSetup();
 $installer->getConnection()->closeConnection();
@@ -43,7 +43,8 @@ $installer->getConnection()->addColumn(
 );
 
 $entityTypeId   = $installer->getEntityTypeId('catalog_product');
-$sqlAttributes  = $installer->getConnection()->quoteInto('?',
+$sqlAttributes  = $installer->getConnection()->quoteInto(
+    '?',
     Mage::getSingleton('catalog/config')->getProductCollectionAttributes()
 );
 $installer->run("

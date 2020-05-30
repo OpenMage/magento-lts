@@ -112,6 +112,9 @@ class Mage_CatalogInventory_Model_Observer
     public function addStockStatusToCollection($observer)
     {
         $productCollection = $observer->getEvent()->getCollection();
+        if ($productCollection->hasFlag('no_stock_data')) {
+            return $this;
+        }
         if ($productCollection->hasFlag('require_stock_items')) {
             Mage::getModel('cataloginventory/stock')->addItemsToProducts($productCollection);
         } else {

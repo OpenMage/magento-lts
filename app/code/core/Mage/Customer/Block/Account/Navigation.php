@@ -34,12 +34,24 @@
 
 class Mage_Customer_Block_Account_Navigation extends Mage_Core_Block_Template
 {
-
+    /**
+     * @var array
+     */
     protected $_links = array();
 
+    /**
+     * @var bool
+     */
     protected $_activeLink = false;
 
-    public function addLink($name, $path, $label, $urlParams=array())
+    /**
+     * @param string $name
+     * @param string $path
+     * @param string $label
+     * @param array $urlParams
+     * @return $this
+     */
+    public function addLink($name, $path, $label, $urlParams = array())
     {
         $this->_links[$name] = new Varien_Object(array(
             'name' => $name,
@@ -53,7 +65,7 @@ class Mage_Customer_Block_Account_Navigation extends Mage_Core_Block_Template
     /**
      * Remove a link
      *
-     * @param $name Name of the link
+     * @param string $name Name of the link
      * @return $this
      */
     public function removeLink($name)
@@ -64,17 +76,28 @@ class Mage_Customer_Block_Account_Navigation extends Mage_Core_Block_Template
         return $this;
     }
 
+    /**
+     * @param string $path
+     * @return $this
+     */
     public function setActive($path)
     {
         $this->_activeLink = $this->_completePath($path);
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function getLinks()
     {
         return $this->_links;
     }
 
+    /**
+     * @param Varien_Object $link
+     * @return bool
+     */
     public function isActive($link)
     {
         if (empty($this->_activeLink)) {
@@ -86,6 +109,10 @@ class Mage_Customer_Block_Account_Navigation extends Mage_Core_Block_Template
         return false;
     }
 
+    /**
+     * @param string $path
+     * @return string
+     */
     protected function _completePath($path)
     {
         $path = rtrim($path, '/');
@@ -99,5 +126,4 @@ class Mage_Customer_Block_Account_Navigation extends Mage_Core_Block_Template
         }
         return $path;
     }
-
 }

@@ -39,6 +39,10 @@ class Mage_Sales_Model_Entity_Order_Invoice_Item_Collection extends Mage_Eav_Mod
         $this->_init('sales/order_invoice_item');
     }
 
+    /**
+     * @param int $invoiceId
+     * @return $this
+     */
     public function setInvoiceFilter($invoiceId)
     {
         $this->addAttributeToFilter('parent_id', $invoiceId);

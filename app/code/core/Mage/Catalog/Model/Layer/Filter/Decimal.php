@@ -31,6 +31,8 @@
  * @category    Mage
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setRange(int $value)
  */
 class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_Filter_Abstract
 {
@@ -39,7 +41,7 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
     /**
      * Resource instance
      *
-     * @var Mage_Catalog_Model_Resource_Eav_Mysql4_Layer_Filter_Decimal
+     * @var Mage_Catalog_Model_Resource_Layer_Filter_Decimal
      */
     protected $_resource;
 
@@ -56,7 +58,7 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
     /**
      * Retrieve resource instance
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Layer_Filter_Decimal
+     * @return Mage_Catalog_Model_Resource_Layer_Filter_Decimal
      */
     protected function _getResource()
     {
@@ -178,8 +180,7 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
                 $range = pow(10, (strlen(floor($maxValue)) - $index));
                 $items = $this->getRangeItemCounts($range);
                 $index++;
-            }
-            while ($range > self::MIN_RANGE_POWER && count($items) < 2);
+            } while ($range > self::MIN_RANGE_POWER && count($items) < 2);
             $this->setData('range', $range);
         }
 
@@ -225,8 +226,6 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
                     'count' => $count,
                 );
             }
-
-
         }
         return $data;
     }

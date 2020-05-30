@@ -30,6 +30,8 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setLayer(Mage_Catalog_Model_Layer $value)
  */
 class Mage_Catalog_Block_Layer_State extends Mage_Core_Block_Template
 {

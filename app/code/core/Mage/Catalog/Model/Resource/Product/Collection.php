@@ -31,6 +31,9 @@
  * @category    Mage
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Catalog_Model_Product getItemById(int|string $value)
+ * @method Mage_Catalog_Model_Product[] getItems()
  */
 class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_Resource_Collection_Abstract
 {
@@ -89,7 +92,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Is add final price to product collection flag
      *
-     * @var unknown_type
+     * @var bool
      */
     protected $_addFinalPrice                = false;
 
@@ -368,9 +371,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Standard resource collection initalization
      *
-     * @param string $model
-     * @param unknown_type $entityModel
-     * @return $this
+     * @inheritDoc
      */
     protected function _init($model, $entityModel = null)
     {
@@ -384,7 +385,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Prepare static entity fields
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareStaticFields()
     {
@@ -412,8 +413,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Set entity to use for attributes
      *
-     * @param Mage_Eav_Model_Entity_Abstract $entity
-     * @return $this
+     * @inheritDoc
      */
     public function setEntity($entity)
     {
@@ -467,9 +467,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Load attributes into loaded entities
      *
-     * @param bool $printQuery
-     * @param bool $logQuery
-     * @return $this
+     * @inheritDoc
      */
     public function _loadAttributes($printQuery = false, $logQuery = false)
     {
@@ -483,9 +481,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Add attribute to entities in collection
      * If $attribute=='*' select all attributes
      *
-     * @param array|string|integer|Mage_Core_Model_Config_Element $attribute
-     * @param false|string $joinType
-     * @return $this
+     * @inheritDoc
      */
     public function addAttributeToSelect($attribute, $joinType = false)
     {
@@ -519,7 +515,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Add tax class id attribute to select and join price rules data if needed
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _beforeLoad()
     {
@@ -562,7 +558,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     protected function _prepareUrlDataObject()
     {
         $objects = array();
-        /** @var $item Mage_Catalog_Model_Product */
+        /** @var Mage_Catalog_Model_Product $item */
         foreach ($this->_items as $item) {
             if ($this->getFlag('do_not_use_category_id')) {
                 $item->setDoNotUseCategoryId(true);
@@ -683,7 +679,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Add website filter to collection
      *
-     * @param unknown_type $websites
+     * @param array|string|int $websites
      * @return $this
      */
     public function addWebsiteFilter($websites = null)
@@ -867,7 +863,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      */
     public function getAllAttributeValues($attribute)
     {
-        /** @var $select Varien_Db_Select */
+        /** @var Varien_Db_Select $select */
         $select    = clone $this->getSelect();
         $attribute = $this->getEntity()->getAttribute($attribute);
 
@@ -898,6 +894,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Get SQL for get record count
      *
+     * @param null $select
      * @param bool $resetLeftJoins
      * @return Varien_Db_Select
      */
@@ -974,9 +971,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Retrive all ids for collection
      *
-     * @param unknown_type $limit
-     * @param unknown_type $offset
-     * @return array
+     * @inheritDoc
      */
     public function getAllIds($limit = null, $offset = null)
     {
@@ -1091,7 +1086,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     public function getSetIds()
     {
         $select = clone $this->getSelect();
-        /** @var $select Varien_Db_Select */
+        /** @var Varien_Db_Select $select */
         $select->reset(Zend_Db_Select::COLUMNS);
         $select->distinct(true);
         $select->columns('attribute_set_id');
@@ -1106,7 +1101,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     public function getProductTypeIds()
     {
         $select = clone $this->getSelect();
-        /** @var $select Varien_Db_Select */
+        /** @var Varien_Db_Select $select */
         $select->reset(Zend_Db_Select::COLUMNS);
         $select->distinct(true);
         $select->columns('type_id');
@@ -1390,8 +1385,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      *
      * @param Mage_Eav_Model_Entity_Attribute_Abstract|string $attribute
      * @param array $condition
-     * @param string $joinType
-     * @return $this
+     * @inheritDoc
      */
     public function addAttributeToFilter($attribute, $condition = null, $joinType = 'inner')
     {
@@ -1549,9 +1543,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Add attribute to sort order
      *
-     * @param string $attribute
-     * @param string $dir
-     * @return $this
+     * @inheritDoc
      */
     public function addAttributeToSort($attribute, $dir = self::SORT_ORDER_ASC)
     {
@@ -1590,7 +1582,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
             if ($column) {
                 $this->getSelect()->order("e.{$column} {$dir}");
-            } else if (isset($this->_joinFields[$attribute])) {
+            } elseif (isset($this->_joinFields[$attribute])) {
                 $this->getSelect()->order($this->_getAttributeFieldName($attribute) . ' ' . $dir);
             }
 
@@ -1768,8 +1760,11 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Join Product Price Table with left-join possibility
      *
-     * @see Mage_Catalog_Model_Resource_Product_Collection::_productLimitationJoinPrice()
+     * @param bool $joinLeft
      * @return $this
+     * @throws Zend_Db_Exception
+     * @throws Zend_Db_Select_Exception
+     * @see Mage_Catalog_Model_Resource_Product_Collection::_productLimitationJoinPrice()
      */
     protected function _productLimitationPrice($joinLeft = false)
     {
@@ -2005,11 +2000,11 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             return $this;
         }
 
-        /** @var $attribute Mage_Catalog_Model_Resource_Eav_Attribute */
+        /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
         $attribute = $this->getAttribute('tier_price');
         if ($attribute->isScopeGlobal()) {
             $websiteId = 0;
-        } else if ($this->getStoreId()) {
+        } elseif ($this->getStoreId()) {
             $websiteId = Mage::app()->getStore($this->getStoreId())->getWebsiteId();
         }
 
@@ -2045,7 +2040,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             );
         }
 
-        /* @var $backend Mage_Catalog_Model_Product_Attribute_Backend_Tierprice */
+        /* @var Mage_Catalog_Model_Product_Attribute_Backend_Tierprice $backend */
         $backend = $attribute->getBackend();
 
         foreach ($this->getItems() as $item) {
@@ -2088,7 +2083,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Clear collection
      *
-     * @return $this
+     * @inheritDoc
      */
     public function clear()
     {

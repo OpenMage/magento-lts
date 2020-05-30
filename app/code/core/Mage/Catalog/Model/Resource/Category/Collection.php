@@ -24,13 +24,16 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Category resource collection
  *
  * @category    Mage
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Catalog_Model_Category getFirstItem()
+ * @method Mage_Catalog_Model_Category getItemById(int $value)
+ * @method Mage_Catalog_Model_Category[] getItems()
  */
 class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model_Resource_Collection_Abstract
 {
@@ -157,24 +160,28 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
     /**
      * Before collection load
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _beforeLoad()
     {
-        Mage::dispatchEvent($this->_eventPrefix . '_load_before',
-                            array($this->_eventObject => $this));
+        Mage::dispatchEvent(
+            $this->_eventPrefix . '_load_before',
+            array($this->_eventObject => $this)
+        );
         return parent::_beforeLoad();
     }
 
     /**
      * After collection load
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _afterLoad()
     {
-        Mage::dispatchEvent($this->_eventPrefix . '_load_after',
-                            array($this->_eventObject => $this));
+        Mage::dispatchEvent(
+            $this->_eventPrefix . '_load_after',
+            array($this->_eventObject => $this)
+        );
 
         return parent::_afterLoad();
     }
@@ -268,15 +275,16 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
             if (!empty($regularIds)) {
                 $select = $this->_conn->select();
                 $select->from(
-                        array('main_table' => $this->_productTable),
-                        array('category_id', new Zend_Db_Expr('COUNT(main_table.product_id)'))
-                    )
+                    array('main_table' => $this->_productTable),
+                    array('category_id', new Zend_Db_Expr('COUNT(main_table.product_id)'))
+                )
                     ->where($this->_conn->quoteInto('main_table.category_id IN(?)', $regularIds))
                     ->group('main_table.category_id');
                 if ($websiteId) {
                     $select->join(
                         array('w' => $this->_productWebsiteTable),
-                        'main_table.product_id = w.product_id', array()
+                        'main_table.product_id = w.product_id',
+                        array()
                     )
                     ->where('w.website_id = ?', $websiteId);
                 }
@@ -301,9 +309,9 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
                     );
                     $select = $this->_conn->select();
                     $select->from(
-                            array('main_table' => $this->_productTable),
-                            new Zend_Db_Expr('COUNT(DISTINCT main_table.product_id)')
-                        )
+                        array('main_table' => $this->_productTable),
+                        new Zend_Db_Expr('COUNT(DISTINCT main_table.product_id)')
+                    )
                         ->joinInner(
                             array('e' => $this->getTable('catalog/category')),
                             'main_table.category_id=e.entity_id',
@@ -314,7 +322,8 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
                     if ($websiteId) {
                         $select->join(
                             array('w' => $this->_productWebsiteTable),
-                            'main_table.product_id = w.product_id', array()
+                            'main_table.product_id = w.product_id',
+                            array()
                         )
                         ->where('w.website_id = ?', $websiteId);
                     }
@@ -393,8 +402,10 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
     public function addIsActiveFilter()
     {
         $this->addAttributeToFilter('is_active', 1);
-        Mage::dispatchEvent($this->_eventPrefix . '_add_is_active_filter',
-                            array($this->_eventObject => $this));
+        Mage::dispatchEvent(
+            $this->_eventPrefix . '_add_is_active_filter',
+            array($this->_eventObject => $this)
+        );
         return $this;
     }
 

@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
+/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 
 $installer->startSetup();
 $conn = $installer->getConnection();
@@ -65,11 +65,17 @@ DELETE FROM `{$installer->getTable('core_url_rewrite')}` WHERE `url_rewrite_id` 
 DROP TABLE IF EXISTS `{$installer->getTable('core_url_rewrite_temporary')}`;
 ");
 $conn->addConstraint(
-    'FK_CORE_URL_REWRITE_CATEGORY', $installer->getTable('core_url_rewrite'), 'category_id',
-    $installer->getTable('catalog_category_entity'), 'entity_id'
+    'FK_CORE_URL_REWRITE_CATEGORY',
+    $installer->getTable('core_url_rewrite'),
+    'category_id',
+    $installer->getTable('catalog_category_entity'),
+    'entity_id'
 );
 $conn->addConstraint(
-    'FK_CORE_URL_REWRITE_PRODUCT', $installer->getTable('core_url_rewrite'), 'product_id',
-    $installer->getTable('catalog_product_entity'), 'entity_id'
+    'FK_CORE_URL_REWRITE_PRODUCT',
+    $installer->getTable('core_url_rewrite'),
+    'product_id',
+    $installer->getTable('catalog_product_entity'),
+    'entity_id'
 );
 $installer->endSetup();

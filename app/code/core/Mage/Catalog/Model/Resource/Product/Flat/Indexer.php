@@ -421,7 +421,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
             }
 
             foreach ($this->getAttributes() as $attribute) {
-                /** @var $attribute Mage_Eav_Model_Entity_Attribute_Abstract */
+                /** @var Mage_Eav_Model_Entity_Attribute_Abstract $attribute */
                 $columns = $attribute
                     ->setFlatAddFilterableAttributes($this->getFlatHelper()->isAddFilterableAttributes())
                     ->setFlatAddChildData($this->getFlatHelper()->isAddChildData())
@@ -482,7 +482,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
             );
 
             foreach ($this->getAttributes() as $attribute) {
-                /** @var $attribute Mage_Eav_Model_Entity_Attribute */
+                /** @var Mage_Eav_Model_Entity_Attribute $attribute */
                 $indexes = $attribute
                     ->setFlatAddFilterableAttributes($this->getFlatHelper()->isAddFilterableAttributes())
                     ->setFlatAddChildData($this->getFlatHelper()->isAddChildData())
@@ -665,7 +665,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
 
         // Create table or modify existing one
         if (!$this->_isFlatTableExists($storeId)) {
-            /** @var $table Varien_Db_Ddl_Table */
+            /** @var Varien_Db_Ddl_Table $table */
             $table = $adapter->newTable($tableName);
             foreach ($columns as $fieldName => $fieldProp) {
                 $table->addColumn(
@@ -854,7 +854,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
         }
         $adapter   = $this->_getWriteAdapter();
         $websiteId = (int)Mage::app()->getStore($storeId)->getWebsite()->getId();
-        /* @var $status Mage_Eav_Model_Entity_Attribute */
+        /* @var Mage_Eav_Model_Entity_Attribute $status */
         $status    = $this->getAttribute('status');
 
         $fieldList  = array('entity_id', 'type_id', 'attribute_set_id');
@@ -899,7 +899,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
             ->where('t1.store_id = ?', Mage_Core_Model_App::ADMIN_STORE_ID)
             ->where("{$fieldExpr} = ?", Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
         foreach ($this->getAttributes() as $attributeCode => $attribute) {
-            /** @var $attribute Mage_Eav_Model_Entity_Attribute */
+            /** @var Mage_Eav_Model_Entity_Attribute $attribute */
             if ($attribute->getBackend()->getType() == 'static') {
                 if (!isset($columns[$attributeCode])) {
                     continue;
@@ -1042,7 +1042,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
         }
 
         foreach ($this->getAttributes() as $attribute) {
-            /* @var $attribute Mage_Eav_Model_Entity_Attribute */
+            /* @var Mage_Eav_Model_Entity_Attribute $attribute */
             if ($attribute->getBackend()->getType() != 'static') {
                 $this->updateAttribute($attribute, $storeId, $productIds);
             }

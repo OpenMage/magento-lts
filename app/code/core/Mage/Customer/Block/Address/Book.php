@@ -27,12 +27,18 @@
 /**
  * Customer address book block
  *
+ * @method string getRefererUrl()
+ * @method $this setRefererUrl(string $url)
+ *
  * @category   Mage
  * @package    Mage_Customer
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Customer_Block_Address_Book extends Mage_Core_Block_Template
 {
+    /**
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
         $this->getLayout()->getBlock('head')
@@ -41,11 +47,17 @@ class Mage_Customer_Block_Address_Book extends Mage_Core_Block_Template
         return parent::_prepareLayout();
     }
 
+    /**
+     * @return string
+     */
     public function getAddAddressUrl()
     {
         return $this->getUrl('customer/address/new', array('_secure'=>true));
     }
 
+    /**
+     * @return string
+     */
     public function getBackUrl()
     {
         if ($this->getRefererUrl()) {
@@ -54,44 +66,72 @@ class Mage_Customer_Block_Address_Book extends Mage_Core_Block_Template
         return $this->getUrl('customer/account/', array('_secure'=>true));
     }
 
+    /**
+     * @return string
+     */
     public function getDeleteUrl()
     {
-        return $this->getUrl('customer/address/delete',
-            array(Mage_Core_Model_Url::FORM_KEY => Mage::getSingleton('core/session')->getFormKey()));
+        return $this->getUrl(
+            'customer/address/delete',
+            array(Mage_Core_Model_Url::FORM_KEY => Mage::getSingleton('core/session')->getFormKey())
+        );
     }
 
+    /**
+     * @param Mage_Customer_Model_Address $address
+     * @return string
+     */
     public function getAddressEditUrl($address)
     {
         return $this->getUrl('customer/address/edit', array('_secure'=>true, 'id'=>$address->getId()));
     }
 
+    /**
+     * @return Mage_Customer_Model_Address
+     */
     public function getPrimaryBillingAddress()
     {
         return $this->getCustomer()->getPrimaryBillingAddress();
     }
 
+    /**
+     * @return Mage_Customer_Model_Address
+     */
     public function getPrimaryShippingAddress()
     {
         return $this->getCustomer()->getPrimaryShippingAddress();
     }
 
+    /**
+     * @return bool
+     */
     public function hasPrimaryAddress()
     {
         return $this->getPrimaryBillingAddress() || $this->getPrimaryShippingAddress();
     }
 
+    /**
+     * @return bool|Mage_Customer_Model_Address[]
+     */
     public function getAdditionalAddresses()
     {
         $addresses = $this->getCustomer()->getAdditionalAddresses();
         return empty($addresses) ? false : $addresses;
     }
 
+    /**
+     * @param Mage_Customer_Model_Address $address
+     * @return string|null
+     */
     public function getAddressHtml($address)
     {
         return $address->format('html');
         //return $address->toString($address->getHtmlFormat());
     }
 
+    /**
+     * @return Mage_Customer_Model_Customer
+     */
     public function getCustomer()
     {
         $customer = $this->getData('customer');
