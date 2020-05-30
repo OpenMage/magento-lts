@@ -24,13 +24,14 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * SEO Categories Sitemap block
  *
  * @category   Mage
  * @package    Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setCollection(array|Mage_Catalog_Model_Resource_Category_Collection|Varien_Data_Collection|Varien_Data_Tree_Node_Collection $value)
  */
 class Mage_Catalog_Block_Seo_Sitemap_Category extends Mage_Catalog_Block_Seo_Sitemap_Abstract
 {
@@ -43,7 +44,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Category extends Mage_Catalog_Block_Seo_Sit
     protected function _prepareLayout()
     {
         $helper = Mage::helper('catalog/category');
-        /* @var $helper Mage_Catalog_Helper_Category */
+        /* @var Mage_Catalog_Helper_Category $helper */
         $collection = $helper->getStoreCategories('name', true, false);
         $this->setCollection($collection);
         return $this;
@@ -58,8 +59,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Category extends Mage_Catalog_Block_Seo_Sit
     public function getItemUrl($category)
     {
         $helper = Mage::helper('catalog/category');
-        /* @var $helper Mage_Catalog_Helper_Category */
+        /* @var Mage_Catalog_Helper_Category $helper */
         return $helper->getCategoryUrl($category);
     }
-
 }

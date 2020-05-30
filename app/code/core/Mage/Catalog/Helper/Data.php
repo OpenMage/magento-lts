@@ -95,7 +95,6 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     public function getBreadcrumbPath()
     {
         if (!$this->_categoryPath) {
-
             $path = array();
             if ($category = $this->getCategory()) {
                 $pathInStore = $category->getPathInStore();
@@ -169,14 +168,14 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     {
         if ($productId = Mage::getSingleton('catalog/session')->getLastViewedProductId()) {
             $product = Mage::getModel('catalog/product')->load($productId);
-            /* @var $product Mage_Catalog_Model_Product */
+            /* @var Mage_Catalog_Model_Product $product */
             if (Mage::helper('catalog/product')->canShow($product, 'catalog')) {
                 return $product->getProductUrl();
             }
         }
         if ($categoryId = Mage::getSingleton('catalog/session')->getLastViewedCategoryId()) {
             $category = Mage::getModel('catalog/category')->load($categoryId);
-            /* @var $category Mage_Catalog_Model_Category */
+            /* @var Mage_Catalog_Model_Category $category */
             if (!Mage::helper('catalog/category')->canShow($category)) {
                 return '';
             }
@@ -280,7 +279,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve template processor for catalog content
      *
-     * @return Varien_Filter_Template
+     * @return false|Mage_Core_Model_Abstract
      */
     public function getPageTemplateProcessor()
     {
@@ -420,8 +419,8 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function canApplyMsrpToProductType($product)
     {
-        if($this->_mapApplyToProductType === null) {
-            /** @var $attribute Mage_Catalog_Model_Resource_Eav_Attribute */
+        if ($this->_mapApplyToProductType === null) {
+            /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
             $attribute = Mage::getModel('catalog/resource_eav_attribute')
                 ->loadByCode(Mage_Catalog_Model_Product::ENTITY, 'msrp_enabled');
             $this->_mapApplyToProductType = $attribute->getApplyTo();

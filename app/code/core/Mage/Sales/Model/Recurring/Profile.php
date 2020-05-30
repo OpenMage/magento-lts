@@ -31,69 +31,71 @@
  * @method Mage_Sales_Model_Resource_Recurring_Profile _getResource()
  * @method Mage_Sales_Model_Resource_Recurring_Profile getResource()
  * @method string getState()
- * @method Mage_Sales_Model_Recurring_Profile setState(string $value)
+ * @method $this setState(string $value)
  * @method int getCustomerId()
- * @method Mage_Sales_Model_Recurring_Profile setCustomerId(int $value)
+ * @method $this setCustomerId(int $value)
  * @method int getStoreId()
- * @method Mage_Sales_Model_Recurring_Profile setStoreId(int $value)
+ * @method $this setStoreId(int $value)
  * @method string getMethodCode()
- * @method Mage_Sales_Model_Recurring_Profile setMethodCode(string $value)
+ * @method $this setMethodCode(string $value)
  * @method string getCreatedAt()
- * @method Mage_Sales_Model_Recurring_Profile setCreatedAt(string $value)
+ * @method $this setCreatedAt(string $value)
  * @method string getUpdatedAt()
- * @method Mage_Sales_Model_Recurring_Profile setUpdatedAt(string $value)
+ * @method $this setUpdatedAt(string $value)
  * @method string getReferenceId()
- * @method Mage_Sales_Model_Recurring_Profile setReferenceId(string $value)
+ * @method $this setReferenceId(string $value)
  * @method string getSubscriberName()
- * @method Mage_Sales_Model_Recurring_Profile setSubscriberName(string $value)
+ * @method $this setSubscriberName(string $value)
  * @method string getStartDatetime()
- * @method Mage_Sales_Model_Recurring_Profile setStartDatetime(string $value)
+ * @method $this setStartDatetime(string $value)
  * @method string getInternalReferenceId()
- * @method Mage_Sales_Model_Recurring_Profile setInternalReferenceId(string $value)
+ * @method $this setInternalReferenceId(string $value)
  * @method string getScheduleDescription()
- * @method Mage_Sales_Model_Recurring_Profile setScheduleDescription(string $value)
+ * @method $this setScheduleDescription(string $value)
  * @method int getSuspensionThreshold()
- * @method Mage_Sales_Model_Recurring_Profile setSuspensionThreshold(int $value)
+ * @method $this setSuspensionThreshold(int $value)
  * @method int getBillFailedLater()
- * @method Mage_Sales_Model_Recurring_Profile setBillFailedLater(int $value)
+ * @method $this setBillFailedLater(int $value)
  * @method string getPeriodUnit()
- * @method Mage_Sales_Model_Recurring_Profile setPeriodUnit(string $value)
+ * @method $this setPeriodUnit(string $value)
  * @method int getPeriodFrequency()
- * @method Mage_Sales_Model_Recurring_Profile setPeriodFrequency(int $value)
+ * @method $this setPeriodFrequency(int $value)
  * @method int getPeriodMaxCycles()
- * @method Mage_Sales_Model_Recurring_Profile setPeriodMaxCycles(int $value)
+ * @method $this setPeriodMaxCycles(int $value)
  * @method float getBillingAmount()
- * @method Mage_Sales_Model_Recurring_Profile setBillingAmount(float $value)
+ * @method $this setBillingAmount(float $value)
  * @method string getTrialPeriodUnit()
- * @method Mage_Sales_Model_Recurring_Profile setTrialPeriodUnit(string $value)
+ * @method $this setTrialPeriodUnit(string $value)
  * @method int getTrialPeriodFrequency()
- * @method Mage_Sales_Model_Recurring_Profile setTrialPeriodFrequency(int $value)
+ * @method $this setTrialPeriodFrequency(int $value)
  * @method int getTrialPeriodMaxCycles()
- * @method Mage_Sales_Model_Recurring_Profile setTrialPeriodMaxCycles(int $value)
+ * @method $this setTrialPeriodMaxCycles(int $value)
  * @method float getTrialBillingAmount()
- * @method Mage_Sales_Model_Recurring_Profile setTrialBillingAmount(float $value)
+ * @method $this setTrialBillingAmount(float $value)
  * @method string getCurrencyCode()
- * @method Mage_Sales_Model_Recurring_Profile setCurrencyCode(string $value)
+ * @method $this setCurrencyCode(string $value)
  * @method float getShippingAmount()
- * @method Mage_Sales_Model_Recurring_Profile setShippingAmount(float $value)
+ * @method $this setShippingAmount(float $value)
  * @method float getTaxAmount()
- * @method Mage_Sales_Model_Recurring_Profile setTaxAmount(float $value)
+ * @method $this setTaxAmount(float $value)
  * @method float getInitAmount()
- * @method Mage_Sales_Model_Recurring_Profile setInitAmount(float $value)
+ * @method $this setInitAmount(float $value)
  * @method int getInitMayFail()
- * @method Mage_Sales_Model_Recurring_Profile setInitMayFail(int $value)
+ * @method $this setInitMayFail(int $value)
  * @method string getOrderInfo()
- * @method Mage_Sales_Model_Recurring_Profile setOrderInfo(string $value)
+ * @method $this setOrderInfo(string $value)
  * @method string getOrderItemInfo()
- * @method Mage_Sales_Model_Recurring_Profile setOrderItemInfo(string $value)
+ * @method $this setOrderItemInfo(string $value)
  * @method string getBillingAddressInfo()
- * @method Mage_Sales_Model_Recurring_Profile setBillingAddressInfo(string $value)
+ * @method $this setBillingAddressInfo(string $value)
  * @method string getShippingAddressInfo()
- * @method Mage_Sales_Model_Recurring_Profile setShippingAddressInfo(string $value)
+ * @method $this setShippingAddressInfo(string $value)
  * @method string getProfileVendorInfo()
- * @method Mage_Sales_Model_Recurring_Profile setProfileVendorInfo(string $value)
+ * @method $this setProfileVendorInfo(string $value)
  * @method string getAdditionalInfo()
- * @method Mage_Sales_Model_Recurring_Profile setAdditionalInfo(string $value)
+ * @method $this setAdditionalInfo(string $value)
+ * @method Mage_Sales_Model_Quote getQuote()
+ * @method $this setNewState(string $value)
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -132,8 +134,8 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
     /**
      * Load order by system increment identifier
      *
-     * @param string $incrementId
-     * @return Mage_Sales_Model_Order
+     * @param int $internalReferenceId
+     * @return $this
      */
     public function loadByInternalReferenceId($internalReferenceId)
     {
@@ -244,6 +246,9 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
         }
     }
 
+    /**
+     * @return mixed
+     */
     public function canFetchUpdate()
     {
         return $this->getMethodInstance()->canGetRecurringProfileDetails();
@@ -359,8 +364,9 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
     /**
      * Import quote information to the profile
      *
-     * @param Mage_Sales_Model_Quote_ $quote
+     * @param Mage_Sales_Model_Quote $quote
      * @return $this
+     * @throws Exception
      */
     public function importQuote(Mage_Sales_Model_Quote $quote)
     {
@@ -490,13 +496,20 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
     public function getStateLabel($state)
     {
         switch ($state) {
-            case self::STATE_UNKNOWN:   return Mage::helper('sales')->__('Not Initialized');
-            case self::STATE_PENDING:   return Mage::helper('sales')->__('Pending');
-            case self::STATE_ACTIVE:    return Mage::helper('sales')->__('Active');
-            case self::STATE_SUSPENDED: return Mage::helper('sales')->__('Suspended');
-            case self::STATE_CANCELED:  return Mage::helper('sales')->__('Canceled');
-            case self::STATE_EXPIRED:   return Mage::helper('sales')->__('Expired');
-            default: return $state;
+            case self::STATE_UNKNOWN:
+                return Mage::helper('sales')->__('Not Initialized');
+            case self::STATE_PENDING:
+                return Mage::helper('sales')->__('Pending');
+            case self::STATE_ACTIVE:
+                return Mage::helper('sales')->__('Active');
+            case self::STATE_SUSPENDED:
+                return Mage::helper('sales')->__('Suspended');
+            case self::STATE_CANCELED:
+                return Mage::helper('sales')->__('Canceled');
+            case self::STATE_EXPIRED:
+                return Mage::helper('sales')->__('Expired');
+            default:
+                return $state;
         }
     }
 
@@ -554,7 +567,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
     /**
      * Automatically set "unknown" state if not defined
      *
-     * @return Mage_Payment_Model_Recurring_Profile
+     * @inheritDoc
      */
     protected function _filterValues()
     {
@@ -613,7 +626,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
     public function getChildOrderIds()
     {
         $ids = $this->_getResource()->getChildOrderIds($this);
-        if (empty($ids)){
+        if (empty($ids)) {
             $ids[] = '-1';
         }
         return $ids;
@@ -622,7 +635,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
     /**
      * Add order relation to recurring profile
      *
-     * @param int $recurringProfileId
+     * @param int $orderId
      * @return $this
      */
     public function addOrderRelation($orderId)
@@ -645,10 +658,14 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
         }
 
         switch ($paymentType) {
-            case self::PAYMENT_TYPE_REGULAR: return $this->_getRegularItem($itemInfo);
-            case self::PAYMENT_TYPE_TRIAL: return $this->_getTrialItem($itemInfo);
-            case self::PAYMENT_TYPE_INITIAL: return $this->_getInitialItem($itemInfo);
-            default: new Exception("Invalid recurring profile payment type '{$paymentType}'.");
+            case self::PAYMENT_TYPE_REGULAR:
+                return $this->_getRegularItem($itemInfo);
+            case self::PAYMENT_TYPE_TRIAL:
+                return $this->_getTrialItem($itemInfo);
+            case self::PAYMENT_TYPE_INITIAL:
+                return $this->_getInitialItem($itemInfo);
+            default:
+                new Exception("Invalid recurring profile payment type '{$paymentType}'.");
         }
     }
 
@@ -746,7 +763,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
     /**
      * Add additional options suboption into itev
      *
-     * @param Mage_Sales_Model_Order_Item $itemInfo
+     * @param Mage_Sales_Model_Order_Item $item
      * @param array $option
      */
     protected function _addAdditionalOptionToItem($item, $option)
@@ -765,7 +782,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
     /**
      * Recursively cleanup array from objects
      *
-     * @param array &$array
+     * @param array $array
      */
     private function _cleanupArray(&$array)
     {

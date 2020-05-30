@@ -53,7 +53,8 @@ class Mage_Sales_Model_Resource_Billing_Agreement extends Mage_Core_Model_Resour
     public function addOrderRelation($agreementId, $orderId)
     {
         $this->_getWriteAdapter()->insert(
-            $this->getTable('sales/billing_agreement_order'), array(
+            $this->getTable('sales/billing_agreement_order'),
+            array(
                 'agreement_id'  => $agreementId,
                 'order_id'      => $orderId
             )

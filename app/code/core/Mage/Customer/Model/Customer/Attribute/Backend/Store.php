@@ -33,6 +33,10 @@
  */
 class Mage_Customer_Model_Customer_Attribute_Backend_Store extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
+    /**
+     * @param Mage_Customer_Model_Customer $object
+     * @inheritDoc
+     */
     public function beforeSave($object)
     {
         if ($object->getId()) {

@@ -24,12 +24,13 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/*
- * @var $installer Mage_Core_Model_Resource_Setup
+/**
+ * @var Mage_Core_Model_Resource_Setup $this
  */
 $installer = $this;
 $installer->getConnection()->insert(
-    $installer->getTable('core/config_data'), array(
+    $installer->getTable('core/config_data'),
+    array(
        'scope'    => 'default',
        'scope_id' => 0,
        'path'     => Mage_Directory_Helper_Data::XML_PATH_DISPLAY_ALL_STATES,
@@ -38,21 +39,21 @@ $installer->getConnection()->insert(
 );
 
 /**
- * @var $countries array
+ * @var array $countries
  */
 $countries = array();
-foreach(Mage::helper('directory')->getCountryCollection() as $country) {
-    if($country->getRegionCollection()->getSize() > 0) {
+foreach (Mage::helper('directory')->getCountryCollection() as $country) {
+    if ($country->getRegionCollection()->getSize() > 0) {
         $countries[] = $country->getId();
     }
 }
 
 $installer->getConnection()->insert(
-    $installer->getTable('core/config_data'), array(
+    $installer->getTable('core/config_data'),
+    array(
         'scope'    => 'default',
         'scope_id' => 0,
         'path'     => Mage_Directory_Helper_Data::XML_PATH_STATES_REQUIRED,
         'value'    => implode(',', $countries)
     )
 );
-

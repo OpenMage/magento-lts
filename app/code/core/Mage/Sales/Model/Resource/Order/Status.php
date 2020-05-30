@@ -61,8 +61,9 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
     /**
      * Retrieve select object for load object data
      *
-     * @param   string $field
-     * @param   mixed $value
+     * @param string $field
+     * @param mixed $value
+     * @param Varien_Object $object
      * @return  Zend_Db_Select
      */
     protected function _getLoadSelect($field, $value, $object)
@@ -87,7 +88,7 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
     /**
      * Store labels getter
      *
-     * @param Mage_Core_Model_Abstract $status
+     * @param Mage_Core_Model_Abstract|Mage_Sales_Model_Order_Status $status
      * @return array
      */
     public function getStoreLabels(Mage_Core_Model_Abstract $status)
@@ -101,8 +102,8 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
     /**
      * Save status labels per store
      *
-     * @param Mage_Core_Model_Abstract $object
-     * @return $this
+     * @param Mage_Sales_Model_Order|Mage_Sales_Model_Order_Status $object
+     * @inheritDoc
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {

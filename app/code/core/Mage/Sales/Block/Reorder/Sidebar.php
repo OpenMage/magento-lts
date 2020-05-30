@@ -27,7 +27,9 @@
 /**
  * Sales order view block
  *
- * @method int|null getCustomerId()
+ * @method int getCustomerId()
+ * @method Mage_Sales_Model_Resource_Order_Collection getOrders()
+ * @method $this setOrders(Mage_Sales_Model_Resource_Order_Collection $value)
  *
  * @category   Mage
  * @package    Mage_Sales
@@ -58,11 +60,12 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
 
         $orders = Mage::getResourceModel('sales/order_collection')
             ->addAttributeToFilter('customer_id', $customerId)
-            ->addAttributeToFilter('state',
+            ->addAttributeToFilter(
+                'state',
                 array('in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates())
             )
             ->addAttributeToSort('created_at', 'desc')
-            ->setPage(1,1);
+            ->setPage(1, 1);
         //TODO: add filter by current website
 
         $this->setOrders($orders);

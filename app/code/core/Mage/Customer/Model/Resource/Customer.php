@@ -64,9 +64,9 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
     /**
      * Check customer scope, email and confirmation key before saving
      *
-     * @param Mage_Customer_Model_Customer $customer
-     * @throws Mage_Customer_Exception
+     * @param Varien_Object|Mage_Customer_Model_Customer $customer
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _beforeSave(Varien_Object $customer)
     {
@@ -94,7 +94,8 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
         $result = $adapter->fetchOne($select, $bind);
         if ($result) {
             throw Mage::exception(
-                'Mage_Customer', Mage::helper('customer')->__('This customer email already exists'),
+                'Mage_Customer',
+                Mage::helper('customer')->__('This customer email already exists'),
                 Mage_Customer_Model_Customer::EXCEPTION_EMAIL_EXISTS
             );
         }
@@ -174,9 +175,9 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
     /**
      * Retrieve select object for loading base entity row
      *
-     * @param Varien_Object $object
+     * @param Mage_Customer_Model_Customer $object
      * @param mixed $rowId
-     * @return Varien_Db_Select
+     * @return Zend_Db_Select
      */
     protected function _getLoadRowSelect($object, $rowId)
     {
@@ -319,11 +320,12 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      *
      * Stores new reset password link token and its creation time
      *
-     * @param Mage_Customer_Model_Customer $newResetPasswordLinkToken
+     * @param Mage_Customer_Model_Customer $customer
      * @param string $newResetPasswordLinkToken
      * @return $this
      */
-    public function changeResetPasswordLinkToken(Mage_Customer_Model_Customer $customer, $newResetPasswordLinkToken) {
+    public function changeResetPasswordLinkToken(Mage_Customer_Model_Customer $customer, $newResetPasswordLinkToken)
+    {
         if (is_string($newResetPasswordLinkToken) && !empty($newResetPasswordLinkToken)) {
             $customer->setRpToken($newResetPasswordLinkToken);
             $currentDate = Varien_Date::now();

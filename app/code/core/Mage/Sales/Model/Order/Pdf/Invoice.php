@@ -99,7 +99,7 @@ class Mage_Sales_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abst
     /**
      * Return PDF document
      *
-     * @param  array $invoices
+     * @param  Mage_Sales_Model_Order_Invoice[] $invoices
      * @return Zend_Pdf
      */
     public function getPdf($invoices = array())
@@ -137,7 +137,7 @@ class Mage_Sales_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abst
             /* Add table */
             $this->_drawHeader($page);
             /* Add body */
-            foreach ($invoice->getAllItems() as $item){
+            foreach ($invoice->getAllItems() as $item) {
                 if ($item->getOrderItem()->getParentItem()) {
                     continue;
                 }

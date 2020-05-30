@@ -28,16 +28,22 @@
 set_time_limit(0);
 
 $installer = $this;
-/* @var $installer Mage_Sales_Model_Mysql4_Setup */
+/* @var Mage_Sales_Model_Mysql4_Setup $installer */
 
 $installer->getConnection()->addColumn(
-    $this->getTable('sales/quote'), 'global_currency_code', 'varchar(255) NULL AFTER `store_to_quote_rate`'
+    $this->getTable('sales/quote'),
+    'global_currency_code',
+    'varchar(255) NULL AFTER `store_to_quote_rate`'
 );
 $installer->getConnection()->addColumn(
-    $this->getTable('sales/quote'), 'base_to_quote_rate', 'decimal(12,4) NULL AFTER `store_to_quote_rate`'
+    $this->getTable('sales/quote'),
+    'base_to_quote_rate',
+    'decimal(12,4) NULL AFTER `store_to_quote_rate`'
 );
 $installer->getConnection()->addColumn(
-    $this->getTable('sales/quote'), 'base_to_global_rate', 'decimal(12,4) NULL AFTER `store_to_quote_rate`'
+    $this->getTable('sales/quote'),
+    'base_to_global_rate',
+    'decimal(12,4) NULL AFTER `store_to_quote_rate`'
 );
 
 $installer->addAttribute('quote', 'global_currency_code', array('type'=>'static'));
@@ -75,7 +81,6 @@ try {
     $installer->getConnection()->beginTransaction();
 
     foreach ($entityTypes as $typeId => $entity) {
-
         $globalCurrencyCode = $installer->getAttribute($typeId, 'global_currency_code');
         if ($globalCurrencyCode['backend_type'] == 'static') {
             $globalCurrencyCodeTable = $this->getTable($entity['entity_table']);
@@ -174,7 +179,7 @@ try {
     }
 
     $installer->getConnection()->commit();
-} catch(Exception $e) {
+} catch (Exception $e) {
     $installer->getConnection()->rollBack();
     throw $e;
 }

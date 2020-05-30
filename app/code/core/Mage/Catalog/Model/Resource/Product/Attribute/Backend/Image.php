@@ -32,8 +32,7 @@
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Image
-    extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Image extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
     /**
      * After save
@@ -49,7 +48,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Image
             $object->setData($this->getAttribute()->getName(), '');
             $this->getAttribute()->getEntity()
                 ->saveAttribute($object, $this->getAttribute()->getName());
-            return;
+            return $this;
         }
 
         try {
@@ -70,7 +69,6 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Image
                 $this->getAttribute()->getEntity()
                     ->saveAttribute($object, $this->getAttribute()->getName());
             }
-
         } catch (Exception $e) {
             return $this;
         }

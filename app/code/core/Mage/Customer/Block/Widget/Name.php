@@ -24,6 +24,12 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * Class Mage_Customer_Block_Widget_Name
+ *
+ * @method bool getForceUseCustomerAttributes()
+ * @method bool getForceUseCustomerRequiredAttributes()
+ */
 class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstract
 {
     public function _construct()

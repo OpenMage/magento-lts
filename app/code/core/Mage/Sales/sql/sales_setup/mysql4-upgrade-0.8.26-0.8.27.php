@@ -25,10 +25,10 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Sales_Model_Entity_Setup */
+/* @var Mage_Sales_Model_Entity_Setup $installer */
 
 $conn = $installer->getConnection();
-/* @var $conn Varien_Db_Adapter_Pdo_Mysql */
+/* @var Varien_Db_Adapter_Pdo_Mysql $conn */
 
 $conn->addColumn($installer->getTable('sales_quote'), 'customer_prefix', 'varchar(40) after customer_email');
 $conn->addColumn($installer->getTable('sales_quote'), 'customer_middlename', 'varchar(40) after customer_firstname');
@@ -45,6 +45,3 @@ $installer->addAttribute('order', 'customer_suffix', array('type'=>'varchar', 'v
 $installer->addAttribute('order_address', 'prefix', array());
 $installer->addAttribute('order_address', 'middlename', array());
 $installer->addAttribute('order_address', 'suffix', array());
-
-
-

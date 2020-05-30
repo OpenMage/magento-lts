@@ -32,8 +32,7 @@
  * @package     Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sales_Model_Resource_Order_Status_History_Collection
-    extends Mage_Sales_Model_Resource_Order_Collection_Abstract
+class Mage_Sales_Model_Resource_Order_Status_History_Collection extends Mage_Sales_Model_Resource_Order_Collection_Abstract
 {
     /**
      * Event prefix
@@ -68,18 +67,17 @@ class Mage_Sales_Model_Resource_Order_Status_History_Collection
      *
      * @return Mage_Sales_Model_Order_Status_History|null
      */
-    public function getUnnotifiedForInstance($instance, $historyEntityName=Mage_Sales_Model_Order::HISTORY_ENTITY_NAME)
+    public function getUnnotifiedForInstance($instance, $historyEntityName = Mage_Sales_Model_Order::HISTORY_ENTITY_NAME)
     {
-        if(!$instance instanceof Mage_Sales_Model_Order) {
+        if (!$instance instanceof Mage_Sales_Model_Order) {
             $instance = $instance->getOrder();
         }
         $this->setOrderFilter($instance)->setOrder('created_at', 'desc')
             ->addFieldToFilter('entity_name', $historyEntityName)
             ->addFieldToFilter('is_customer_notified', 0)->setPageSize(1);
-        foreach($this as $historyItem) {
+        foreach ($this as $historyItem) {
             return $historyItem;
         }
         return null;
     }
-
 }

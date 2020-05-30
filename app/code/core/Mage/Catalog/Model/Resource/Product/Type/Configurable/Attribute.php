@@ -224,10 +224,10 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
                     || ($old[$k]['pricing_value'] != $v['pricing_value']);
                 if (!$hasValue) {
                     $needDelete = true;
-                } else if ($dataChanged) {
+                } elseif ($dataChanged) {
                     $needUpdate = true;
                 }
-            } else if ($hasValue) {
+            } elseif ($hasValue) {
                 $needInsert = true;
             }
 

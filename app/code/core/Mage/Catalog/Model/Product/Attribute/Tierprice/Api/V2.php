@@ -83,7 +83,6 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api_V2 extends Mage_Catalog
                 'price_qty'  => $tierPrice->qty,
                 'price'      => $tierPrice->price
             );
-
         }
 
         return $updateValue;

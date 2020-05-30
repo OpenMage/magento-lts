@@ -26,6 +26,15 @@
 
 interface Mage_Catalog_Model_Product_Condition_Interface
 {
+    /**
+     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
+     * @return $this
+     */
     public function applyToCollection($collection);
+
+    /**
+     * @param Magento_Db_Adapter_Pdo_Mysql $dbAdapter
+     * @return string
+     */
     public function getIdsSelect($dbAdapter);
 }

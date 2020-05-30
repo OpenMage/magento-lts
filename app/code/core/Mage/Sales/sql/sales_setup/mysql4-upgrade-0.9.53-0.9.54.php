@@ -25,10 +25,13 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Sales_Model_Mysql4_Setup */
+/* @var Mage_Sales_Model_Mysql4_Setup $installer */
 $this->startSetup();
 
-$installer->getConnection()->addColumn($installer->getTable('sales/order_aggregated_created'),
-    'base_canceled_amount', 'decimal(12,4) NOT NULL DEFAULT \'0\'');
+$installer->getConnection()->addColumn(
+    $installer->getTable('sales/order_aggregated_created'),
+    'base_canceled_amount',
+    'decimal(12,4) NOT NULL DEFAULT \'0\''
+);
 
 $this->endSetup();

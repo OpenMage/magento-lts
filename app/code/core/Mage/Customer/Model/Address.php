@@ -30,6 +30,14 @@
  * @category   Mage
  * @package    Mage_Customer
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Customer_Model_Resource_Customer _getResource()
+ * @method Mage_Customer_Model_Resource_Customer getResource()
+ * @method Mage_Customer_Model_Resource_Customer_Collection getCollection()
+ *
+ * @method bool hasEmail()
+ * @method string getEmail()
+ * @method int getPostIndex()
  */
 class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
 {
@@ -66,7 +74,7 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
     /**
      * Retrieve address customer
      *
-     * @return Mage_Customer_Model_Customer | false
+     * @return Mage_Customer_Model_Customer|false
      */
     public function getCustomer()
     {
@@ -84,6 +92,7 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
      * Specify address customer
      *
      * @param Mage_Customer_Model_Customer $customer
+     * @return $this
      */
     public function setCustomer(Mage_Customer_Model_Customer $customer)
     {
