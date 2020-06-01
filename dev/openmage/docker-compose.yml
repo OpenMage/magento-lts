@@ -33,6 +33,7 @@ services:
       - mysql
 
   cli:
+    image: openmage/php-dev:7.3-cli
     build:
       context: docker-magento/7.3/cli
     working_dir: /var/www/html

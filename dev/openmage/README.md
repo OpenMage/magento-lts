@@ -14,9 +14,10 @@ For a more robust development environment that supports https, please consider u
 
 ## Step 1
 
-Change to this directory (`dev/openmage`) and run the following command to start MySQL and Apache:
+Change to this directory (`dev/openmage`) and run the following commands to start MySQL and Apache:
 
 ```
+$ docker-compose pull
 $ docker-compose up -d mysql apache
 ```
 
