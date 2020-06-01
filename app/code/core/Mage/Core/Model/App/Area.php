@@ -25,7 +25,7 @@
  */
 
 /**
- * Application area nodel
+ * Application area model
  *
  * @author      Magento Core Team <core@magentocommerce.com>
  */
