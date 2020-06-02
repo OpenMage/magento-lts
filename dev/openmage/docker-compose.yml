@@ -3,8 +3,6 @@ version: "3.7"
 services:
   apache:
     image: openmage/php-dev:7.3-apache
-    build:
-      context: docker-magento/7.3/apache
     hostname: openmage.docker
     ports:
       - "80:80"
@@ -21,10 +19,9 @@ services:
 
   cron:
     image: openmage/php-dev:7.3-cli
-    build:
-      context: docker-magento/7.3/cli
     working_dir: /var/www/html
     command: /run-cron.sh
+    user: www-data
     volumes:
       - ../..:/var/www/html
     environment:
@@ -34,10 +31,9 @@ services:
 
   cli:
     image: openmage/php-dev:7.3-cli
-    build:
-      context: docker-magento/7.3/cli
     working_dir: /var/www/html
     command: /bin/true
+    user: www-data
     volumes:
       - ../..:/var/www/html
 #    environment:

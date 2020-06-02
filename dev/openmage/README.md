@@ -17,7 +17,7 @@ For a more robust development environment that supports https, please consider u
 Change to this directory (`dev/openmage`) and run the following commands to start MySQL and Apache:
 
 ```
-$ docker-compose pull
+$ chmod 777 app/etc media var
 $ docker-compose up -d mysql apache
 ```
 
@@ -103,5 +103,8 @@ clone the source files into this directory and then run `docker-compose build`.
 
 ```
 $ git clone https://github.com/meanbee/docker-magento.git
-$ docker-compose build
+$ docker build -t openmage/php-dev:7.3-cli docker-magento/7.3/cli
+$ docker push openmage/php-dev:7.3-cli
+$ docker build -t openmage/php-dev:7.3-apache docker-magento/7.3/apache
+$ docker push openmage/php-dev:7.3-apache
 ```
