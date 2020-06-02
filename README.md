@@ -1,3 +1,9 @@
+<p align="center">
+<a href="https://travis-ci.org/openmage/magento-lts"><img src="https://travis-ci.org/openmage/magento-lts.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/openmage/magento-lts"><img src="https://poser.pugx.org/openmage/magento-lts/d/total.svg" alt="Total Downloads"></a>
+<a href="https://packagist.org/openmage/magento-lts/framework"><img src="https://poser.pugx.org/openmage/magento-lts/license.svg" alt="License"></a>
+</p>
+
 # Magento - Long Term Support
 
 This repository is the home of an **unofficial** community-driven project. It's goal is to be a dependable alternative
