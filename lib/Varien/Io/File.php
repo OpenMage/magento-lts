@@ -409,6 +409,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      *
      * @param string $dir
      * @return boolean
+     * @throws Exception
      */
     public function cd($dir)
     {
@@ -418,7 +419,6 @@ class Varien_Io_File extends Varien_Io_Abstract
             return true;
         } else {
             throw new Exception('Unable to list current working directory.');
-            return false;
         }
     }
 
