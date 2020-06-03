@@ -343,8 +343,8 @@ class Zend_Locale_Data
         $val = urlencode($val);
         $id  = self::_filterCacheId('Zend_LocaleL_' . $locale . '_' . $path . '_' . $val);
 
-        // add runtime cache to avoid callng cache backend multiple times during one request
-        if ( isset(self::$_localCache[$id])) {
+        // add runtime cache to avoid calling cache backend multiple times during one request
+        if (isset(self::$_localCache[$id])) {
             return self::$_localCache[$id];
         }
         if (!self::$_cacheDisabled && ($result = self::$_cache->load($id))) {
@@ -1000,6 +1000,11 @@ class Zend_Locale_Data
         }
         $val = urlencode($val);
         $id  = self::_filterCacheId('Zend_LocaleC_' . $locale . '_' . $path . '_' . $val);
+
+        // add runtime cache to avoid calling cache backend multiple times during one request
+        if (isset(self::$_localCache[$id])) {
+            return self::$_localCache[$id];
+        }
         if (!self::$_cacheDisabled && ($result = self::$_cache->load($id))) {
             $result = unserialize($result);
             self::$_localCache[$id] = $result;
