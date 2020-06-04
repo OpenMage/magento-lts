@@ -55,9 +55,15 @@ class Mage_CatalogRule_Model_Resource_Rule_Product_Price extends Mage_Core_Model
      * @param string $websiteDate
      * @return $this
      */
-    public function applyPriceRuleToIndexTable(Varien_Db_Select $select, $indexTable, $entityId, $customerGroupId, 
-        $websiteId, $updateFields, $websiteDate)
-    {
+    public function applyPriceRuleToIndexTable(
+        Varien_Db_Select $select,
+        $indexTable,
+        $entityId,
+        $customerGroupId,
+        $websiteId,
+        $updateFields,
+        $websiteDate
+    ) {
         if (empty($updateFields)) {
             return $this;
         }
