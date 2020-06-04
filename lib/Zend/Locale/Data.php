@@ -359,7 +359,7 @@ class Zend_Locale_Data
                     }
                 } else if ($value === 2) {
                     foreach($temp as $key => $value) {
-                        if (is_numeric($key) or ($key == 'QO') or ($key == 'EU')) {
+                        if (is_numeric($key) || ($key == 'QO') || ($key == 'EU')) {
                             unset($temp[$key]);
                         }
                     }
@@ -1242,7 +1242,7 @@ class Zend_Locale_Data
                 $temp = array();
                 foreach ($_temp as $key => $keyvalue) {
                     $val = self::_getFile($locale, '/ldml/numbers/currencies/currency[@type=\'' . $key . '\']/displayName', '', $key);
-                    if (!isset($val[$key]) or ($val[$key] != $value)) {
+                    if (!isset($val[$key]) || ($val[$key] != $value)) {
                         continue;
                     }
                     if (!isset($temp[$val[$key]])) {
@@ -1284,7 +1284,7 @@ class Zend_Locale_Data
                 $temp = array();
                 foreach ($_temp as $key => $keyvalue) {
                     $val = self::_getFile('supplementalData', '/supplementalData/currencyData/region[@iso3166=\'' . $key . '\']/currency', 'iso4217', $key);
-                    if (!isset($val[$key]) or ($val[$key] != $value)) {
+                    if (!isset($val[$key]) || ($val[$key] != $value)) {
                         continue;
                     }
                     if (!isset($temp[$val[$key]])) {

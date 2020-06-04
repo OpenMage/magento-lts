@@ -93,7 +93,7 @@ class ContinuePayPalCheckoutStep implements TestStepInterface
         while (!$reviewBlockIsPresent and $sleepingTime <= 60) {
             sleep(1);
             $reviewBlockIsPresent = $this->paypalPage->getReviewBlock()->isVisible()
-                or $this->paypalPage->getOldReviewBlock()->isVisible();
+                || $this->paypalPage->getOldReviewBlock()->isVisible();
             $sleepingTime++;
         }
         $this->reviewBlock = $this->paypalPage->getReviewBlock()->isVisible()

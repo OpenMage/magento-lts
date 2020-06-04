@@ -79,7 +79,7 @@ class Maged_Model_BruteForce_ConfigIni implements Maged_Model_BruteForce_ModelCo
      */
     public function set($name, $value)
     {
-        if (is_array($value) or is_object($value)) {
+        if (is_array($value) || is_object($value)) {
             throw new Exception ("Bad value type.");
         }
         $this->data[$name] = $value;

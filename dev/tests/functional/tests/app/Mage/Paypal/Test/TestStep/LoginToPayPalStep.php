@@ -90,7 +90,7 @@ class LoginToPayPalStep implements TestStepInterface
         {
             sleep(1);
             $reviewBlockIsPresent = $this->paypalPage->getReviewBlock()->isVisible()
-            or $this->paypalPage->getOldReviewBlock()->isVisible();
+                || $this->paypalPage->getOldReviewBlock()->isVisible();
             $sleepingTime++;
         }
         /** Log out from previous session. */
