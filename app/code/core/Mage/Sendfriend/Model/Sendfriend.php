@@ -177,7 +177,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
         }
 
         $email = $this->getSender()->getEmail();
-        if (empty($email) OR !Zend_Validate::is($email, 'EmailAddress')) {
+        if (empty($email) || !Zend_Validate::is($email, 'EmailAddress')) {
             $errors[] = Mage::helper('sendfriend')->__('Invalid sender email.');
         }
 
@@ -289,9 +289,9 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     public function setRecipients($recipients)
     {
         // validate array
-        if (!is_array($recipients) OR !isset($recipients['email'])
-            OR !isset($recipients['name']) OR !is_array($recipients['email'])
-            OR !is_array($recipients['name'])) {
+        if (!is_array($recipients) || !isset($recipients['email'])
+            || !isset($recipients['name']) || !is_array($recipients['email'])
+            || !is_array($recipients['name'])) {
             return $this;
         }
 

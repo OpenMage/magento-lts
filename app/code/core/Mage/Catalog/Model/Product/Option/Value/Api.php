@@ -150,7 +150,7 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
         foreach ($data as $key => $value) {
             $data[$key] = Mage::helper('catalog')->stripTags($value);
         }
-        if (!isset($data['title']) OR empty($data['title'])) {
+        if (!isset($data['title']) || empty($data['title'])) {
             $this->_fault('option_value_title_required');
         }
         $data['option_type_id'] = $valueId;

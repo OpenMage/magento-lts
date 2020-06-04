@@ -427,7 +427,7 @@ class Mage_XmlConnect_Helper_Data extends Mage_Core_Helper_Abstract
                 $target[$key] = $changes[$key];
                 continue;
             }
-            if (is_array($value) or is_array($target[$key])) {
+            if (is_array($value) || is_array($target[$key])) {
                 $target[$key] = self::arrayMergeRecursive($target[$key], $changes[$key]);
             } else if (is_numeric($key)) {
                 if (!in_array($value, $target)) {
