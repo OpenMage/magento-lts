@@ -46,11 +46,11 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
     /**
      * Increment times_used counter
      *
-     *
      * @param unknown_type $customerId
      * @param unknown_type $couponId
+     * @param bool $decrement   Decrement instead of increment times_used
      */
-    public function updateCustomerCouponTimesUsed($customerId, $couponId)
+    public function updateCustomerCouponTimesUsed($customerId, $couponId, $decrement = FALSE)
     {
         $read = $this->_getReadAdapter();
         $select = $read->select();
@@ -60,11 +60,11 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
 
         $timesUsed = $read->fetchOne($select, array(':coupon_id' => $couponId, ':customer_id' => $customerId));
 
-        if ($timesUsed > 0) {
+        if ($timesUsed !== FALSE && $timesUsed > 0) {
             $this->_getWriteAdapter()->update(
                 $this->getMainTable(),
                 array(
-                    'times_used' => $timesUsed + 1
+                    'times_used' => $timesUsed + ($decrement ? -1 : 1)
                 ),
                 array(
                     'coupon_id = ?' => $couponId,
@@ -98,9 +98,9 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
         if ($read && $couponId && $customerId) {
             $select = $read->select()
                 ->from($this->getMainTable())
-                ->where('customer_id =:customet_id')
+                ->where('customer_id =:customer_id')
                 ->where('coupon_id = :coupon_id');
-            $data = $read->fetchRow($select, array(':coupon_id' => $couponId, ':customet_id' => $customerId));
+            $data = $read->fetchRow($select, array(':coupon_id' => $couponId, ':customer_id' => $customerId));
             if ($data) {
                 $object->setData($data);
             }
