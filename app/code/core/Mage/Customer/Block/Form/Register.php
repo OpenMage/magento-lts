@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,6 +28,11 @@
  * Customer register form block
  *
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setBackUrl(string $value)
+ * @method $this setErrorUrl(string $value)
+ * @method $this setShowAddressFields(bool $value)
+ * @method $this setSuccessUrl(string $value)
  */
 class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
 {
@@ -38,6 +43,9 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
      */
     protected $_address;
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
         $this->getLayout()->getBlock('head')->setTitle(Mage::helper('customer')->__('Create New Customer Account'));
@@ -114,7 +122,7 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
     {
         if (false !== ($region = $this->getFormData()->getRegion())) {
             return $region;
-        } else if (false !== ($region = $this->getFormData()->getRegionId())) {
+        } elseif (false !== ($region = $this->getFormData()->getRegionId())) {
             return $region;
         }
         return null;
@@ -149,6 +157,7 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
      * Entity and form code must be defined for the form
      *
      * @param Mage_Customer_Model_Form $form
+     * @param string|null $scope
      * @return $this
      */
     public function restoreSessionData(Mage_Customer_Model_Form $form, $scope = null)

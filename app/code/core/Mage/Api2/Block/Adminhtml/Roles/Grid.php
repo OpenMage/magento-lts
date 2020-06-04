@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Api2
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -53,7 +53,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Grid extends Mage_Adminhtml_Block_Widget_G
      */
     protected function _prepareCollection()
     {
-        /** @var $collection Mage_Api2_Model_Resource_Acl_Global_Role_Collection */
+        /** @var Mage_Api2_Model_Resource_Acl_Global_Role_Collection $collection */
         $collection = Mage::getModel('api2/acl_global_role')->getCollection();
         $this->setCollection($collection);
         parent::_prepareCollection();
@@ -113,7 +113,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Grid extends Mage_Adminhtml_Block_Widget_G
      */
     public function getRowUrl($row)
     {
-        /** @var $session Mage_Admin_Model_Session */
+        /** @var Mage_Admin_Model_Session $session */
         $session = Mage::getSingleton('admin/session');
 
         if ($session->isAllowed('system/api/roles/edit')) {

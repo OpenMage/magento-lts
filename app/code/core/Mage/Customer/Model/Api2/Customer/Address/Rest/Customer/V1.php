@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,7 +42,7 @@ class Mage_Customer_Model_Api2_Customer_Address_Rest_Customer_V1 extends Mage_Cu
      */
     protected function _loadCustomerAddressById($id)
     {
-        /* @var $customerAddress Mage_Customer_Model_Address */
+        /* @var Mage_Customer_Model_Address $customerAddress */
         $customerAddress = parent::_loadCustomerAddressById($id);
         // check owner
         if ($this->getApiUser()->getUserId() != $customerAddress->getCustomerId()) {
@@ -60,7 +60,7 @@ class Mage_Customer_Model_Api2_Customer_Address_Rest_Customer_V1 extends Mage_Cu
      */
     protected function _loadCustomerById($id)
     {
-        /* @var $customer Mage_Customer_Model_Customer */
+        /* @var Mage_Customer_Model_Customer $customer */
         $customer = parent::_loadCustomerById($id);
         // check customer accaunt owner
         if ($this->getApiUser()->getUserId() != $customer->getId()) {

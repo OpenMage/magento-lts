@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_ImportExport
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -71,13 +71,13 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
     /**
      * Load data with filter applying and create file for download.
      *
-     * @return $this
+     * @return Mage_Adminhtml_Controller_Action
      */
     public function exportAction()
     {
         if ($this->getRequest()->getPost(Mage_ImportExport_Model_Export::FILTER_ELEMENT_GROUP)) {
             try {
-                /** @var $model Mage_ImportExport_Model_Export */
+                /** @var Mage_ImportExport_Model_Export $model */
                 $model = Mage::getModel('importexport/export');
                 $model->setData($this->getRequest()->getParams());
 
@@ -127,9 +127,9 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
             try {
                 $this->loadLayout();
 
-                /** @var $attrFilterBlock Mage_ImportExport_Block_Adminhtml_Export_Filter */
+                /** @var Mage_ImportExport_Block_Adminhtml_Export_Filter $attrFilterBlock */
                 $attrFilterBlock = $this->getLayout()->getBlock('export.filter');
-                /** @var $export Mage_ImportExport_Model_Export */
+                /** @var Mage_ImportExport_Model_Export $export */
                 $export = Mage::getModel('importexport/export');
 
                 $export->filterAttributeCollection(

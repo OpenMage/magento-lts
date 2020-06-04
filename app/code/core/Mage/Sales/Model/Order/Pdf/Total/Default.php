@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,6 +30,14 @@
  * @category   Mage
  * @package    Mage_Sales
  * @author     Magento Core Team <core@magentocommerce.com>
+ * @method string getAmountPrefix()
+ * @method bool getDisplayZero()
+ * @method int getFontSize()
+ * @method Mage_Sales_Model_Order getOrder()
+ * @method Varien_Object getSource()
+ * @method string getSourceField()
+ * @method string getTitle()
+ * @method string getTitleSourceField()
  */
 class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
 {

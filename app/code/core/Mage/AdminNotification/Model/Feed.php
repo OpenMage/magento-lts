@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_AdminNotification
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,6 +34,7 @@
  */
 class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
 {
+    const XML_USE_HTTPS_PATH    = 'system/adminnotification/use_https';
     const XML_FEED_URL_PATH     = 'system/adminnotification/feed_url';
     const XML_FREQUENCY_PATH    = 'system/adminnotification/frequency';
     const XML_LAST_UPDATE_PATH  = 'system/adminnotification/last_update';
@@ -50,7 +51,8 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
      *
      */
     protected function _construct()
-    {}
+    {
+    }
 
     /**
      * Retrieve feed url
@@ -94,7 +96,6 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
             if ($feedData) {
                 Mage::getModel('adminnotification/inbox')->parse(array_reverse($feedData));
             }
-
         }
         $this->setLastUpdate();
 
@@ -150,7 +151,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
     /**
      * Retrieve feed data as XML element
      *
-     * @return SimpleXMLElement
+     * @return SimpleXMLElement|false
      */
     public function getFeedData()
     {
@@ -169,21 +170,22 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
 
         try {
             $xml  = new SimpleXMLElement($data);
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
 
         return $xml;
     }
 
+    /**
+     * @return SimpleXMLElement
+     */
     public function getFeedXml()
     {
         try {
             $data = $this->getFeedData();
             $xml  = new SimpleXMLElement($data);
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $xml  = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" ?>');
         }
 

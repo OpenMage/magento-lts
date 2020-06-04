@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_ConfigurableSwatches
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
@@ -74,10 +74,11 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
      * Trims and lower-cases strings used as array indexes in json and for string matching in a
      * multi-byte compatible way if the mbstring module is available.
      *
-     * @param $key
+     * @param string $key
      * @return string
      */
-    public static function normalizeKey($key) {
+    public static function normalizeKey($key)
+    {
         if (function_exists('mb_strtolower')) {
             return trim(mb_strtolower($key, 'UTF-8'));
         }
@@ -123,7 +124,7 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
     public function getSwatchesProductJs()
     {
         /**
-         * @var $product Mage_Catalog_Model_Product
+         * @var Mage_Catalog_Model_Product $product
          */
         $product = Mage::registry('current_product');
         if ($this->isEnabled() && $product) {
