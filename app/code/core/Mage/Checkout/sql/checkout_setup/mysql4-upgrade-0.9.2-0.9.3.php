@@ -25,11 +25,13 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 
-$installer->getConnection()->addColumn($installer->getTable('checkout_agreement'), 'is_html',
+$installer->getConnection()->addColumn(
+    $installer->getTable('checkout_agreement'),
+    'is_html',
     'tinyint(4) NOT NULL DEFAULT 0 AFTER `is_active`'
 );
 
