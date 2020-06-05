@@ -55,7 +55,7 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Retrieve request object
      *
-     * @return Zend_Controller_Request_Http
+     * @return Mage_Core_Controller_Request_Http
      */
     protected function _getRequest()
     {
@@ -79,12 +79,13 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Saving cache
      *
-     * @param   mixed $data
-     * @param   string $id
-     * @param   array $tags
+     * @param mixed $data
+     * @param string $id
+     * @param array $tags
+     * @param null|false|int $lifeTime
      * @return  Mage_Core_Helper_Abstract
      */
-    protected function _saveCache($data, $id, $tags=array(), $lifeTime=false)
+    protected function _saveCache($data, $id, $tags = array(), $lifeTime = false)
     {
         Mage::app()->saveCache($data, $id, $tags, $lifeTime);
         return $this;
@@ -108,7 +109,7 @@ abstract class Mage_Core_Helper_Abstract
      * @param   array $tags
      * @return  Mage_Core_Helper_Abstract
      */
-    protected function _cleanCache($tags=array())
+    protected function _cleanCache($tags = array())
     {
         Mage::app()->cleanCache($tags);
         return $this;
@@ -187,8 +188,11 @@ abstract class Mage_Core_Helper_Abstract
     }
 
     /**
-     * @deprecated after 1.4.0.0-rc1
+     * @param array $data
+     * @param array $allowedTags
+     * @return mixed
      * @see self::escapeHtml()
+     * @deprecated after 1.4.0.0-rc1
      */
     public function htmlEscape($data, $allowedTags = null)
     {
@@ -198,7 +202,7 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Escape html entities
      *
-     * @param   mixed $data
+     * @param   string|array $data
      * @param   array $allowedTags
      * @return  mixed
      */
@@ -261,6 +265,8 @@ abstract class Mage_Core_Helper_Abstract
     }
 
     /**
+     * @param string $data
+     * @return string
      * @deprecated after 1.4.0.0-rc1
      * @see self::escapeHtml()
      */
@@ -325,7 +331,7 @@ abstract class Mage_Core_Helper_Abstract
      * @param string $quote
      * @return mixed
      */
-    public function jsQuoteEscape($data, $quote='\'')
+    public function jsQuoteEscape($data, $quote = '\'')
     {
         if (is_array($data)) {
             $result = array();

@@ -25,12 +25,15 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 
 $installer->getConnection()->changeColumn(
-    $this->getTable('core_session'), 'session_data', 'session_data', 'MEDIUMBLOB NOT NULL'
+    $this->getTable('core_session'),
+    'session_data',
+    'session_data',
+    'MEDIUMBLOB NOT NULL'
 );
 
 $installer->endSetup();

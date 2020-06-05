@@ -64,7 +64,7 @@ class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
      */
     public function send()
     {
-        /** @var $emailTemplate Mage_Core_Model_Email_Template */
+        /** @var Mage_Core_Model_Email_Template $emailTemplate */
         $emailTemplate = Mage::getModel('core/email_template');
         // Send all emails from corresponding list
         while (!empty($this->_emailInfos)) {
@@ -81,7 +81,7 @@ class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
                     $emailInfo->getToNames(),
                     $this->getTemplateParams(),
                     $this->getStoreId()
-            );
+                );
         }
         return $this;
     }

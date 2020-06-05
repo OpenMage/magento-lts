@@ -71,9 +71,11 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
      *
      * @return Varien_Object information about environment of the initial store
      */
-    public function startEnvironmentEmulation($storeId, $area = Mage_Core_Model_App_Area::AREA_FRONTEND,
-                                              $emulateStoreInlineTranslation = false)
-    {
+    public function startEnvironmentEmulation(
+        $storeId,
+        $area = Mage_Core_Model_App_Area::AREA_FRONTEND,
+        $emulateStoreInlineTranslation = false
+    ) {
         if (is_null($area)) {
             $area = Mage_Core_Model_App_Area::AREA_FRONTEND;
         }
@@ -232,9 +234,10 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
      *
      * @return $this
      */
-    protected function _restoreInitialLocale($initialLocaleCode,
-                                             $initialArea = Mage_Core_Model_App_Area::AREA_ADMINHTML)
-    {
+    protected function _restoreInitialLocale(
+        $initialLocaleCode,
+        $initialArea = Mage_Core_Model_App_Area::AREA_ADMINHTML
+    ) {
         $currentLocaleCode = $this->_app->getLocale()->getLocaleCode();
         if ($currentLocaleCode != $initialLocaleCode) {
             $this->_app->getLocale()->setLocaleCode($initialLocaleCode);

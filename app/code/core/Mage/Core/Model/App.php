@@ -168,21 +168,21 @@ class Mage_Core_Model_App
     /**
      * Websites cache
      *
-     * @var array
+     * @var Mage_Core_Model_Website[]
      */
     protected $_websites = array();
 
     /**
      * Groups cache
      *
-     * @var array
+     * @var Mage_Core_Model_Store_Group[]
      */
     protected $_groups = array();
 
     /**
      * Stores cache
      *
-     * @var array
+     * @var Mage_Core_Model_Store[]
      */
     protected $_stores = array();
 
@@ -208,7 +208,7 @@ class Mage_Core_Model_App
     /**
      * Request object
      *
-     * @var Zend_Controller_Request_Http
+     * @var Mage_Core_Controller_Request_Http
      */
     protected $_request;
 
@@ -485,7 +485,7 @@ class Mage_Core_Model_App
      *
      * @param string $scopeCode code of default scope (website/store_group/store code)
      * @param string $scopeType type of default scope (website/group/store)
-     * @return Mage_Core_Model_App
+     * @return $this
      */
     protected function _initCurrentStore($scopeCode, $scopeType)
     {
@@ -516,7 +516,8 @@ class Mage_Core_Model_App
             $this->_checkGetStore($scopeType);
         }
         $this->_useSessionInUrl = $this->getStore()->getConfig(
-            Mage_Core_Model_Session_Abstract::XML_PATH_USE_FRONTEND_SID);
+            Mage_Core_Model_Session_Abstract::XML_PATH_USE_FRONTEND_SID
+        );
         return $this;
     }
 
@@ -566,11 +567,9 @@ class Mage_Core_Model_App
         $curStoreObj = $this->_stores[$this->_currentStore];
         if ($type == 'website' && $storeObj->getWebsiteId() == $curStoreObj->getWebsiteId()) {
             $this->_currentStore = $store;
-        }
-        elseif ($type == 'group' && $storeObj->getGroupId() == $curStoreObj->getGroupId()) {
+        } elseif ($type == 'group' && $storeObj->getGroupId() == $curStoreObj->getGroupId()) {
             $this->_currentStore = $store;
-        }
-        elseif ($type == 'store') {
+        } elseif ($type == 'store') {
             $this->_currentStore = $store;
         }
 
@@ -632,17 +631,17 @@ class Mage_Core_Model_App
         $this->_website  = null;
         $this->_websites = array();
 
-        /** @var $websiteCollection Mage_Core_Model_Website */
+        /** @var Mage_Core_Model_Resource_Website_Collection $websiteCollection */
         $websiteCollection = Mage::getModel('core/website')->getCollection()
                 ->initCache($this->getCache(), 'app', array(Mage_Core_Model_Website::CACHE_TAG))
                 ->setLoadDefault(true);
 
-        /** @var $websiteCollection Mage_Core_Model_Store_Group */
+        /** @var Mage_Core_Model_Resource_Store_Group_Collection $groupCollection */
         $groupCollection = Mage::getModel('core/store_group')->getCollection()
                 ->initCache($this->getCache(), 'app', array(Mage_Core_Model_Store_Group::CACHE_TAG))
                 ->setLoadDefault(true);
 
-        /** @var $websiteCollection Mage_Core_Model_Store */
+        /** @var Mage_Core_Model_Resource_Store_Collection $storeCollection */
         $storeCollection = Mage::getModel('core/store')->getCollection()
             ->initCache($this->getCache(), 'app', array(Mage_Core_Model_Store::CACHE_TAG))
             ->setLoadDefault(true);
@@ -657,7 +656,7 @@ class Mage_Core_Model_App
         $groupStores   = array();
 
         foreach ($storeCollection as $store) {
-            /** @var $store Mage_Core_Model_Store */
+            /** @var Mage_Core_Model_Store $store */
             $store->initConfigCache();
             $store->setWebsite($websiteCollection->getItemById($store->getWebsiteId()));
             $store->setGroup($groupCollection->getItemById($store->getGroupId()));
@@ -674,7 +673,7 @@ class Mage_Core_Model_App
         }
 
         foreach ($groupCollection as $group) {
-            /* @var $group Mage_Core_Model_Store_Group */
+            /* @var Mage_Core_Model_Store_Group $group */
             if (!isset($groupStores[$group->getId()])) {
                 $groupStores[$group->getId()] = array();
             }
@@ -687,7 +686,7 @@ class Mage_Core_Model_App
         }
 
         foreach ($websiteCollection as $website) {
-            /* @var $website Mage_Core_Model_Website */
+            /* @var Mage_Core_Model_Website $website */
             if (!isset($websiteGroups[$website->getId()])) {
                 $websiteGroups[$website->getId()] = array();
             }
@@ -787,7 +786,7 @@ class Mage_Core_Model_App
      * Redeclare custom error handler
      *
      * @param   string $handler
-     * @return  Mage_Core_Model_App
+     * @return  $this
      */
     public function setErrorHandler($handler)
     {
@@ -799,7 +798,7 @@ class Mage_Core_Model_App
      * Loading application area
      *
      * @param   string $code
-     * @return  Mage_Core_Model_App
+     * @return  $this
      */
     public function loadArea($code)
     {
@@ -812,7 +811,7 @@ class Mage_Core_Model_App
      *
      * @param   string $area
      * @param   string $part
-     * @return  Mage_Core_Model_App
+     * @return  $this
      */
     public function loadAreaPart($area, $part)
     {
@@ -867,7 +866,7 @@ class Mage_Core_Model_App
 
         if (empty($this->_stores[$id])) {
             $store = Mage::getModel('core/store');
-            /* @var $store Mage_Core_Model_Store */
+            /* @var Mage_Core_Model_Store $store */
             if (is_numeric($id)) {
                 $store->load($id);
             } elseif (is_string($id)) {
@@ -887,19 +886,17 @@ class Mage_Core_Model_App
      * Retrieve application store object without Store_Exception
      *
      * @param string|int|Mage_Core_Model_Store $id
-     * @return Mage_Core_Model_Store
+     * @return Mage_Core_Model_Store|Varien_Object
      */
     public function getSafeStore($id = null)
     {
         try {
             return $this->getStore($id);
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             if ($this->_currentStore) {
                 $this->getRequest()->setActionName('noRoute');
                 return new Varien_Object();
-            }
-            else {
+            } else {
                 Mage::throwException(Mage::helper('core')->__('Requested invalid store "%s"', $id));
             }
         }
@@ -910,7 +907,7 @@ class Mage_Core_Model_App
      *
      * @param bool $withDefault
      * @param bool $codeKey
-     * @return array
+     * @return Mage_Core_Model_Store[]
      */
     public function getStores($withDefault = false, $codeKey = false)
     {
@@ -921,8 +918,7 @@ class Mage_Core_Model_App
             }
             if ($codeKey) {
                 $stores[$store->getCode()] = $store;
-            }
-            else {
+            } else {
                 $stores[$store->getId()] = $store;
             }
         }
@@ -930,6 +926,9 @@ class Mage_Core_Model_App
         return $stores;
     }
 
+    /**
+     * @return Mage_Core_Model_Store
+     */
     protected function _getDefaultStore()
     {
         if (empty($this->_store)) {
@@ -958,6 +957,9 @@ class Mage_Core_Model_App
         return null;
     }
 
+    /**
+     * @return string
+     */
     public function getDistroLocaleCode()
     {
         return self::DISTRO_LOCALE_CODE;
@@ -969,7 +971,7 @@ class Mage_Core_Model_App
      * @param null|Mage_Core_Model_Website|true|int|string $id
      * @return Mage_Core_Model_Website
      */
-    public function getWebsite($id=null)
+    public function getWebsite($id = null)
     {
         if (is_null($id)) {
             $id = $this->getStore()->getWebsiteId();
@@ -999,6 +1001,11 @@ class Mage_Core_Model_App
         return $this->_websites[$id];
     }
 
+    /**
+     * @param bool $withDefault
+     * @param bool $codeKey
+     * @return Mage_Core_Model_Website[]
+     */
     public function getWebsites($withDefault = false, $codeKey = false)
     {
         $websites = array();
@@ -1009,8 +1016,7 @@ class Mage_Core_Model_App
                 }
                 if ($codeKey) {
                     $websites[$website->getCode()] = $website;
-                }
-                else {
+                } else {
                     $websites[$website->getId()] = $website;
                 }
             }
@@ -1025,7 +1031,7 @@ class Mage_Core_Model_App
      * @param null|Mage_Core_Model_Store_Group|int|string $id
      * @return Mage_Core_Model_Store_Group
      */
-    public function getGroup($id=null)
+    public function getGroup($id = null)
     {
         if (is_null($id)) {
             $id = $this->getStore()->getGroup()->getId();
@@ -1179,9 +1185,9 @@ class Mage_Core_Model_App
      * @param   string $id
      * @param   array $tags
      * @param null|false|int $lifeTime
-     * @return  Mage_Core_Model_App
+     * @return  $this
      */
-    public function saveCache($data, $id, $tags=array(), $lifeTime=false)
+    public function saveCache($data, $id, $tags = array(), $lifeTime = false)
     {
         $this->_cache->save($data, $id, $tags, $lifeTime);
         return $this;
@@ -1202,7 +1208,7 @@ class Mage_Core_Model_App
      * Remove cache
      *
      * @param   string $id
-     * @return  Mage_Core_Model_App
+     * @return  $this
      */
     public function removeCache($id)
     {
@@ -1214,9 +1220,9 @@ class Mage_Core_Model_App
      * Cleaning cache
      *
      * @param   array $tags
-     * @return  Mage_Core_Model_App
+     * @return  $this
      */
-    public function cleanCache($tags=array())
+    public function cleanCache($tags = array())
     {
         $this->_cache->clean($tags);
         Mage::dispatchEvent('application_clean_cache', array('tags' => $tags));
@@ -1227,9 +1233,9 @@ class Mage_Core_Model_App
      * Check whether to use cache for specific component
      *
      * @param null|string $type
-     * @return bool|array
+     * @return false|array
      */
-    public function useCache($type=null)
+    public function useCache($type = null)
     {
         return $this->_cache->canUse($type);
     }
@@ -1287,7 +1293,7 @@ class Mage_Core_Model_App
     /**
      * Retrieve response object
      *
-     * @return Zend_Controller_Response_Http
+     * @return Mage_Core_Controller_Response_Http
      */
     public function getResponse()
     {
@@ -1311,6 +1317,10 @@ class Mage_Core_Model_App
         return $this;
     }
 
+    /**
+     * @param string $area
+     * @return $this
+     */
     public function addEventArea($area)
     {
         if (!isset($this->_events[$area])) {
@@ -1319,10 +1329,16 @@ class Mage_Core_Model_App
         return $this;
     }
 
+    /**
+     * @param string $eventName
+     * @param array $args
+     * @return $this
+     * @throws Mage_Core_Exception
+     */
     public function dispatchEvent($eventName, $args)
     {
         $eventName = strtolower($eventName);
-        foreach ($this->_events as $area=>$events) {
+        foreach ($this->_events as $area => $events) {
             if (!isset($events[$eventName])) {
                 $eventConfig = $this->getConfig()->getEventConfig($area, $eventName);
                 if (!$eventConfig) {
@@ -1330,7 +1346,11 @@ class Mage_Core_Model_App
                     continue;
                 }
                 $observers = array();
-                foreach ($eventConfig->observers->children() as $obsName=>$obsConfig) {
+                /**
+                 * @var string $obsName
+                 * @var Mage_Core_Model_Config_Element $obsConfig
+                 */
+                foreach ($eventConfig->observers->children() as $obsName => $obsConfig) {
                     $observers[$obsName] = array(
                         'type'  => (string)$obsConfig->type,
                         'model' => $obsConfig->class ? (string)$obsConfig->class : $obsConfig->getClassName(),
@@ -1349,7 +1369,7 @@ class Mage_Core_Model_App
                 $observer = new Varien_Event_Observer();
             }
 
-            foreach ($events[$eventName]['observers'] as $obsName=>$obs) {
+            foreach ($events[$eventName]['observers'] as $obsName => $obs) {
                 $observer->setData(array('event'=>$event));
                 Varien_Profiler::start('OBSERVER: '.$obsName);
                 switch ($obs['type']) {
@@ -1394,11 +1414,17 @@ class Mage_Core_Model_App
         return $this;
     }
 
+    /**
+     * @param bool $value
+     */
     public function setUpdateMode($value)
     {
         $this->_updateMode = $value;
     }
 
+    /**
+     * @return bool
+     */
     public function getUpdateMode()
     {
         return $this->_updateMode;
@@ -1488,7 +1514,7 @@ class Mage_Core_Model_App
      *
      * @param bool $withDefault
      * @param bool $codeKey
-     * @return array
+     * @return Mage_Core_Model_Store_Group[]
      */
     public function getGroups($withDefault = false, $codeKey = false)
     {
@@ -1500,8 +1526,7 @@ class Mage_Core_Model_App
                 }
                 if ($codeKey) {
                     $groups[$group->getCode()] = $group;
-                }
-                else {
+                } else {
                     $groups[$group->getId()] = $group;
                 }
             }
@@ -1524,14 +1549,13 @@ class Mage_Core_Model_App
     /**
      * Generate cache tags from cache id
      *
+     * @param array $tags
+     * @return array
      * @deprecated after 1.4.0.0-alpha3, functionality implemented in Mage_Core_Model_Cache
-     * @param   string $id
-     * @param   array $tags
-     * @return  array
      */
-    protected function _getCacheTags($tags=array())
+    protected function _getCacheTags($tags = array())
     {
-        foreach ($tags as $index=>$value) {
+        foreach ($tags as $index => $value) {
             $tags[$index] = $this->_getCacheId($value);
         }
         return $tags;
@@ -1555,7 +1579,7 @@ class Mage_Core_Model_App
      * @param   string $id
      * @return  string
      */
-    protected function _getCacheId($id=null)
+    protected function _getCacheId($id = null)
     {
         if ($id) {
             $id = $this->prepareCacheId($id);
@@ -1591,7 +1615,6 @@ class Mage_Core_Model_App
      *  Unset website by id from app cache
      *
      * @param null|bool|int|string|Mage_Core_Model_Website $id
-     * @return void
      */
     public function clearWebsiteCache($id = null)
     {

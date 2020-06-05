@@ -24,15 +24,20 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer = $this;
 
 $installer->startSetup();
-$installer->getConnection()->addColumn($installer->getTable('core/layout_link'),
-    'area', "VARCHAR(64) NOT NULL DEFAULT '' AFTER `store_id`");
+$installer->getConnection()->addColumn(
+    $installer->getTable('core/layout_link'),
+    'area',
+    "VARCHAR(64) NOT NULL DEFAULT '' AFTER `store_id`"
+);
 
-$installer->getConnection()->update($installer->getTable('core/layout_link'),
-     array('area' => Mage::getSingleton('core/design_package')->getArea()));
+$installer->getConnection()->update(
+    $installer->getTable('core/layout_link'),
+    array('area' => Mage::getSingleton('core/design_package')->getArea())
+);
 
 $installer->endSetup();
