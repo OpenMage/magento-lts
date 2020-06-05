@@ -445,7 +445,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
             if (!empty($name)) {
                 $block->setAnonSuffix(substr($name, 1));
             }
-            $name = 'ANONYMOUS_'.sizeof($this->_blocks);
+            $name = 'ANONYMOUS_'.count($this->_blocks);
         } elseif (isset($this->_blocks[$name]) && Mage::getIsDeveloperMode()) {
             //Mage::throwException(Mage::helper('core')->__('Block with name "%s" already exists', $name));
         }

@@ -41,7 +41,7 @@ class Mage_XmlConnect_Model_Simplexml_Element extends Varien_Simplexml_Element
      */
     public function appendChild($source)
     {
-        if (sizeof($source->children())) {
+        if (count($source->children())) {
             $name = $source->getName();
             $child = $this->addChild($name);
         } else {

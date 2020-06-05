@@ -573,7 +573,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     protected function parseSize($string)
     {
         $size = explode('x', strtolower($string));
-        if (sizeof($size) == 2) {
+        if (count($size) === 2) {
             return array(
                 'width' => ($size[0] > 0) ? $size[0] : null,
                 'heigth' => ($size[1] > 0) ? $size[1] : null,

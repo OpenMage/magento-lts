@@ -446,7 +446,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         if ($block->getIsAnonymous()) {
             $suffix = $block->getAnonSuffix();
             if (empty($suffix)) {
-                $suffix = 'child' . sizeof($this->_children);
+                $suffix = 'child' . count($this->_children);
             }
             $blockName = $this->getNameInLayout() . '.' . $suffix;
 

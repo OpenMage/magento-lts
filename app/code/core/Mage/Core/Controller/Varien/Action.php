@@ -869,13 +869,13 @@ abstract class Mage_Core_Controller_Varien_Action
 
         if (!($rewrite->actions && $rewrite->actions->$action) || $rewrite->is('override_actions')) {
             $t = explode('/', (string)$rewrite->to);
-            if (sizeof($t)!==2 || empty($t[0]) || empty($t[1])) {
+            if (count($t)!==2 || empty($t[0]) || empty($t[1])) {
                 return false;
             }
             $t[2] = $action;
         } else {
             $t = explode('/', (string)$rewrite->actions->$action->to);
-            if (sizeof($t)!==3 || empty($t[0]) || empty($t[1]) || empty($t[2])) {
+            if (count($t)!==3 || empty($t[0]) || empty($t[1]) || empty($t[2])) {
                 return false;
             }
         }

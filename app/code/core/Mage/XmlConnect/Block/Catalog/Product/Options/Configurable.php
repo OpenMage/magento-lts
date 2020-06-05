@@ -58,7 +58,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Configurable extends Mage_Xm
          * Configurable attributes
          */
         $productAttributes = $product->getTypeInstance(true)->getConfigurableAttributes($product);
-        if (!sizeof($productAttributes)) {
+        if (!count($productAttributes)) {
             return $isObject ? $xmlModel : $xmlModel->asNiceXml();
         }
 
@@ -122,7 +122,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Configurable extends Mage_Xm
                 }
             }
 
-            if (sizeof($info['options']) > 0) {
+            if (count($info['options'])) {
                $attributes[$attributeId] = $info;
             }
         }
@@ -146,7 +146,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Configurable extends Mage_Xm
                         $valueNode->addAttribute('price', $option['price']);
                         $valueNode->addAttribute('formated_price', $option['formated_price']);
                     }
-                    if (sizeof($productAttributes) > 1) {
+                    if (count($productAttributes) > 1) {
                         $this->_prepareRecursivelyRelatedValues($valueNode, $productAttributes, $option['products'], 1);
                     }
                     if ($product->hasPreconfiguredValues()) {
