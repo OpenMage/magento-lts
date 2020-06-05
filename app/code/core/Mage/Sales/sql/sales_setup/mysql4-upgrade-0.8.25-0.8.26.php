@@ -26,7 +26,7 @@
 
 $installer = $this;
 
-/* @var $installer Mage_Sales_Model_Entity_Setup */
+/* @var Mage_Sales_Model_Entity_Setup $installer */
 $installer->run("
     ALTER TABLE `{$this->getTable('sales_order')}` ADD INDEX `IDX_CUSTOMER` (`customer_id`);
 ");

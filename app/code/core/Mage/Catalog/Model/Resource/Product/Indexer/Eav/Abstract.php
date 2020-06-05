@@ -32,8 +32,7 @@
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
-    extends Mage_Catalog_Model_Resource_Product_Indexer_Abstract
+abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract extends Mage_Catalog_Model_Resource_Product_Indexer_Abstract
 {
     /**
      * Rebuild all index data
@@ -157,7 +156,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
         $select = $write->select()
             ->from($idxTable, null);
 
-        $condition = $write->quoteInto('=?',Mage_Catalog_Model_Product_Visibility::VISIBILITY_NOT_VISIBLE);
+        $condition = $write->quoteInto('=?', Mage_Catalog_Model_Product_Visibility::VISIBILITY_NOT_VISIBLE);
         $this->_addAttributeToSelect(
             $select,
             'visibility',
@@ -188,11 +187,13 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
             ->join(
                 array('cs' => $this->getTable('core/store')),
                 '',
-                array())
+                array()
+            )
             ->join(
                 array('i' => $idxTable),
                 'l.child_id = i.entity_id AND cs.store_id = i.store_id',
-                array('attribute_id', 'store_id', 'value'))
+                array('attribute_id', 'store_id', 'value')
+            )
             ->group(array(
                 'l.parent_id', 'i.attribute_id', 'i.store_id', 'i.value'
             ));

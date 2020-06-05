@@ -171,7 +171,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Giftcard extends Mage_XmlCon
                         $amountNode->addAttribute('selected', 1);
                     }
                     $amountNode->addAttribute('formatted_price', $xmlModel->xmlAttribute(
-                        $coreHelper->currency($price, true, false)
+                        $coreHelper::currency($price, true, false)
                     ));
                     $amountNode->addAttribute('price', $price);
                 }
@@ -191,7 +191,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Giftcard extends Mage_XmlCon
             }
             if ($priceModel->getMinAmount($product)) {
                 $minPrice  = $product->getOpenAmountMin();
-                $minAmount = $coreHelper->currency($minPrice, true, false);
+                $minAmount = $coreHelper::currency($minPrice, true, false);
             } else {
                 $minAmount = $minPrice = 0;
             }
@@ -200,7 +200,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Giftcard extends Mage_XmlCon
 
             if ($priceModel->getMaxAmount($product)) {
                 $maxPrice  = $product->getOpenAmountMax();
-                $maxAmount = $coreHelper->currency($maxPrice, true, false);
+                $maxAmount = $coreHelper::currency($maxPrice, true, false);
             } else {
                 $maxAmount = $maxPrice = 0;
             }

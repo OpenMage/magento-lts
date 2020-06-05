@@ -613,7 +613,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     public function walkAttributes($partMethod, array $args = array())
     {
         $methodArr = explode('/', $partMethod);
-        switch (sizeof($methodArr)) {
+        switch (count($methodArr)) {
             case 1:
                 $part   = 'attribute';
                 $method = $methodArr[0];

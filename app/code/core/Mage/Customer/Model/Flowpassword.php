@@ -28,6 +28,11 @@
 /**
  * Customer flow password info Model
  *
+ * @method Mage_Customer_Model_Resource_Flowpassword_Collection getCollection()
+ * @method $this setEmail(string $value)
+ * @method $this setIp(string $value)
+ * @method $this setRequestedDate(string $value)
+ *
  * @category    Mage
  * @package     Mage_Customer
  * @author      Magento Core Team <core@magentocommerce.com>
@@ -40,9 +45,7 @@ class Mage_Customer_Model_Flowpassword extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Prepare data before save
-     *
-     * @return Mage_Core_Model_Abstract
+     * @inheritDoc
      */
     protected function _beforeSave()
     {
@@ -80,8 +83,10 @@ class Mage_Customer_Model_Flowpassword extends Mage_Core_Model_Abstract
         if (in_array($helper->getCustomerForgotPasswordFlowSecure(), $checkForgotPasswordFlowTypes)) {
             $forgotPassword = $this->getCollection()
                 ->addFieldToFilter('email', array('eq' => $email))
-                ->addFieldToFilter('requested_date',
-                    array('gt' => Mage::getModel('core/date')->date(null, '-1 day')));
+                ->addFieldToFilter(
+                    'requested_date',
+                    array('gt' => Mage::getModel('core/date')->date(null, '-1 day'))
+                );
 
             if ($forgotPassword->getSize() > $helper->getCustomerForgotPasswordEmailTimes()) {
                 return false;
@@ -108,8 +113,10 @@ class Mage_Customer_Model_Flowpassword extends Mage_Core_Model_Abstract
         if (in_array($helper->getCustomerForgotPasswordFlowSecure(), $checkForgotPasswordFlowTypes) && $remoteAddr) {
             $forgotPassword = $this->getCollection()
                 ->addFieldToFilter('ip', array('eq' => $remoteAddr))
-                ->addFieldToFilter('requested_date',
-                    array('gt' => Mage::getModel('core/date')->date(null, '-1 hour')));
+                ->addFieldToFilter(
+                    'requested_date',
+                    array('gt' => Mage::getModel('core/date')->date(null, '-1 hour'))
+                );
 
             if ($forgotPassword->getSize() > $helper->getCustomerForgotPasswordIpTimes()) {
                 return false;
@@ -118,4 +125,3 @@ class Mage_Customer_Model_Flowpassword extends Mage_Core_Model_Abstract
         return true;
     }
 }
-

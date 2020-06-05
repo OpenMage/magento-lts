@@ -29,12 +29,14 @@
  *
  * @method Mage_CatalogSearch_Model_Resource_Fulltext _getResource()
  * @method Mage_CatalogSearch_Model_Resource_Fulltext getResource()
+ * @method Mage_CatalogSearch_Model_Resource_Fulltext_Collection getCollection()
+ *
  * @method int getProductId()
- * @method Mage_CatalogSearch_Model_Fulltext setProductId(int $value)
+ * @method $this setProductId(int $value)
  * @method int getStoreId()
- * @method Mage_CatalogSearch_Model_Fulltext setStoreId(int $value)
+ * @method $this setStoreId(int $value)
  * @method string getDataIndex()
- * @method Mage_CatalogSearch_Model_Fulltext setDataIndex(string $value)
+ * @method $this setDataIndex(string $value)
  *
  * @category    Mage
  * @package     Mage_CatalogSearch

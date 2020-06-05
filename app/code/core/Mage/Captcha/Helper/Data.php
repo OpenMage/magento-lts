@@ -84,7 +84,7 @@ class Mage_Captcha_Helper_Data extends Mage_Core_Helper_Abstract
     public function getConfigNode($id, $store = null)
     {
         $areaCode = Mage::app()->getStore($store)->isAdmin() ? 'admin' : 'customer';
-        return Mage::getStoreConfig( $areaCode . '/captcha/' . $id, $store);
+        return Mage::getStoreConfig($areaCode . '/captcha/' . $id, $store);
     }
 
     /**
@@ -100,10 +100,10 @@ class Mage_Captcha_Helper_Data extends Mage_Core_Helper_Abstract
         $fonts = array();
         if ($node) {
             foreach ($node->children() as $fontName => $fontNode) {
-               $fonts[$fontName] = array(
+                $fonts[$fontName] = array(
                    'label' => (string)$fontNode->label,
                    'path' => Mage::getBaseDir('base') . DS . $fontNode->path
-               );
+                );
             }
         }
         return $fonts;

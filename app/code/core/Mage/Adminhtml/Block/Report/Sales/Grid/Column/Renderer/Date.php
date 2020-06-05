@@ -50,11 +50,11 @@ class Mage_Adminhtml_Block_Report_Sales_Grid_Column_Renderer_Date
                     $localeData = new Zend_Locale_Data;
                     switch ($this->getColumn()->getPeriodType()) {
                         case 'month' :
-                            self::$_format = $localeData->getContent($localeCode, 'dateitem', 'yM');
+                            self::$_format = $localeData::getContent($localeCode, 'dateitem', 'yM');
                             break;
 
                         case 'year' :
-                            self::$_format = $localeData->getContent($localeCode, 'dateitem', 'y');
+                            self::$_format = $localeData::getContent($localeCode, 'dateitem', 'y');
                             break;
 
                         default:

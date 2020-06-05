@@ -31,8 +31,8 @@
  * @category    Mage
  * @package     Mage_CatalogRule
  * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated
  */
-class Mage_CatalogRule_Model_Mysql4_Rule_Product_Price_Collection
-    extends Mage_CatalogRule_Model_Resource_Rule_Product_Price_Collection
+class Mage_CatalogRule_Model_Mysql4_Rule_Product_Price_Collection extends Mage_CatalogRule_Model_Resource_Rule_Product_Price_Collection
 {
 }

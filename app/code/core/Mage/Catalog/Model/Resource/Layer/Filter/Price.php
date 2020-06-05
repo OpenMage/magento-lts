@@ -337,6 +337,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
      * @param Mage_Catalog_Model_Layer_Filter_Price $filter
      * @param float $price
      * @param int $index
+     * @param null $lowerPrice
      * @return array|false
      */
     public function loadPreviousPrices($filter, $price, $index, $lowerPrice = null)
@@ -362,7 +363,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
      * @param float $price
      * @param int $rightIndex
      * @param null|int $upperPrice
-     * @return array
+     * @return array|false
      */
     public function loadNextPrices($filter, $price, $rightIndex, $upperPrice = null)
     {
@@ -429,6 +430,5 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
         }
 
         return $this;
-
     }
 }

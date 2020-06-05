@@ -33,6 +33,9 @@
  */
 class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
 {
+    /**
+     * @var array
+     */
     protected $_terms;
     protected $_minPopularity;
     protected $_maxPopularity;
@@ -57,7 +60,7 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
                 ->load()
                 ->getItems();
 
-            if( count($terms) == 0 ) {
+            if (count($terms) == 0) {
                 return $this;
             }
 
@@ -66,8 +69,9 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
             $this->_minPopularity = end($terms)->getPopularity();
             $range = $this->_maxPopularity - $this->_minPopularity;
             $range = ( $range == 0 ) ? 1 : $range;
+            /** @var Mage_CatalogSearch_Model_Query $term */
             foreach ($terms as $term) {
-                if( !$term->getPopularity() ) {
+                if (!$term->getPopularity()) {
                     continue;
                 }
                 $term->setRatio(($term->getPopularity()-$this->_minPopularity)/$range);
@@ -83,12 +87,19 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function getTerms()
     {
         $this->_loadTerms();
         return $this->_terms;
     }
 
+    /**
+     * @param Varien_Object $obj
+     * @return string
+     */
     public function getSearchUrl($obj)
     {
         $url = Mage::getModel('core/url');
@@ -100,11 +111,17 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
         return $url->getUrl('catalogsearch/result');
     }
 
+    /**
+     * @return int
+     */
     public function getMaxPopularity()
     {
         return $this->_maxPopularity;
     }
 
+    /**
+     * @return int
+     */
     public function getMinPopularity()
     {
         return $this->_minPopularity;

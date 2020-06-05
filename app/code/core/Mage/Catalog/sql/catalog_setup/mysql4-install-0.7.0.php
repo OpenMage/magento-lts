@@ -25,13 +25,12 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
+/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 
 $installer->startSetup();
 
 if (!$installer->tableExists($installer->getTable('catalog_category_entity'))) {
-
-$installer->run("
+    $installer->run("
 
 -- DROP TABLE IF EXISTS {$this->getTable('catalog_category_entity')};
 CREATE TABLE {$this->getTable('catalog_category_entity')} (
@@ -530,7 +529,6 @@ CREATE TABLE `{$installer->getTable('catalog_product_enabled_index')}` (
 ALTER TABLE `{$this->getTable('catalog_category_entity')}` ADD `children_count` INT NOT NULL;
 
 ");
-
 }
 
 $installer->endSetup();
@@ -546,7 +544,7 @@ Mage::getModel('catalog/category')
     ->save();
 
 $category = Mage::getModel('catalog/category');
-/* @var $category Mage_Catalog_Model_Category */
+/* @var Mage_Catalog_Model_Category $category */
 
 $category->setStoreId(0)
     ->setName('Default Category')

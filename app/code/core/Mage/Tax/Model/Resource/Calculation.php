@@ -373,7 +373,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
      * @param Varien_Object $request
      * @return array
      */
-    function getApplicableRateIds($request)
+    public function getApplicableRateIds($request)
     {
         $countryId = $request->getCountryId();
         $regionId = $request->getRegionId();

@@ -32,8 +32,7 @@
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Model_Resource_Category_Attribute_Frontend_Image
-    extends Mage_Eav_Model_Entity_Attribute_Frontend_Abstract
+class Mage_Catalog_Model_Resource_Category_Attribute_Frontend_Image extends Mage_Eav_Model_Entity_Attribute_Frontend_Abstract
 {
     const IMAGE_PATH_SEGMENT = 'catalog/category/';
 

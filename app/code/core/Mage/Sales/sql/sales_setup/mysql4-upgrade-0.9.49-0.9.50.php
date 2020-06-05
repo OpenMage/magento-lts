@@ -25,7 +25,7 @@
  */
 
 
-/* @var $installer Mage_Sales_Model_Mysql4_Setup */
+/* @var Mage_Sales_Model_Mysql4_Setup $installer */
 $installer = $this;
 
 $tablePaymentTransaction = $this->getTable('sales/payment_transaction');
@@ -48,8 +48,7 @@ CREATE TABLE `{$tablePaymentTransaction}` (
   KEY `IDX_ORDER_ID` (`order_id`),
   KEY `IDX_PARENT_ID` (`parent_id`),
   KEY `IDX_PAYMENT_ID` (`payment_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;"
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 
 $installer->getConnection()->addConstraint(
     'SALES_PAYMENT_TRANSACTION_PARENT',

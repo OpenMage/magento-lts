@@ -61,6 +61,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
      * Setter for parent element
      *
      * @param Varien_Data_Form_Element_Abstract $element
+     * @return Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form
      */
     public function setParentElement(Varien_Data_Form_Element_Abstract $element)
     {
@@ -72,6 +73,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
      * Setter for current product
      *
      * @param Mage_Catalog_Model_Product $product
+     * @return Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form
      */
     public function setProductEntity(Mage_Catalog_Model_Product $product)
     {
@@ -111,8 +113,8 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form();
-        $form->setFieldsetRenderer($this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset'));
-        $form->setFieldsetElementRenderer($this->getLayout()
+        $form::setFieldsetRenderer($this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset'));
+        $form::setFieldsetElementRenderer($this->getLayout()
             ->createBlock('adminhtml/widget_form_renderer_fieldset_element'));
 
         /**
@@ -205,11 +207,13 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
     /**
      * Getter for period unit options with "Please Select" label
      *
+     * @param string $emptyLabel
      * @return array
      */
     protected function _getPeriodUnitOptions($emptyLabel)
     {
-        return array_merge(array('' => $emptyLabel),
+        return array_merge(
+            array('' => $emptyLabel),
             $this->_profile->getAllPeriodUnits()
         );
     }

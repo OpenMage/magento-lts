@@ -42,10 +42,14 @@ class Mage_Sales_Model_Entity_Quote_Address extends Mage_Eav_Model_Entity_Abstra
         );
     }
 
+    /**
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @return $this
+     */
     public function collectTotals(Mage_Sales_Model_Quote_Address $address)
     {
         $attributes = $this->loadAllAttributes()->getAttributesByCode();
-        foreach ($attributes as $attrCode=>$attr) {
+        foreach ($attributes as $attrCode => $attr) {
             $backend = $attr->getBackend();
             if (method_exists($backend, 'collectTotals')) {
                 $backend->collectTotals($address);
@@ -54,10 +58,14 @@ class Mage_Sales_Model_Entity_Quote_Address extends Mage_Eav_Model_Entity_Abstra
         return $this;
     }
 
+    /**
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @return $this
+     */
     public function fetchTotals(Mage_Sales_Model_Quote_Address $address)
     {
         $attributes = $this->loadAllAttributes()->getAttributesByCode();
-        foreach ($attributes as $attrCode=>$attr) {
+        foreach ($attributes as $attrCode => $attr) {
             $frontend = $attr->getFrontend();
             if (method_exists($frontend, 'fetchTotals')) {
                 $frontend->fetchTotals($address);

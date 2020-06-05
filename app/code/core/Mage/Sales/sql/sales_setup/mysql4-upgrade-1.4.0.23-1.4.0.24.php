@@ -23,8 +23,11 @@
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-/* @var $installer Mage_Sales_Model_Entity_Setup */
+/* @var Mage_Sales_Model_Entity_Setup $installer */
 $installer = $this;
 
-$installer->getConnection()->addColumn($installer->getTable('sales/invoice'),
-    'base_total_refunded', 'decimal(12,4) default NULL');
+$installer->getConnection()->addColumn(
+    $installer->getTable('sales/invoice'),
+    'base_total_refunded',
+    'decimal(12,4) default NULL'
+);

@@ -43,7 +43,11 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
     );
     const DEFAULT_FILE_TYPE = 'application/octet-stream';
 
-    function __construct($filePath = null)
+    /**
+     * Mage_ImportExport_Model_Import_Uploader constructor.
+     * @param string|null $filePath
+     */
+    public function __construct($filePath = null)
     {
         if (!is_null($filePath)) {
             $this->_setUploadFile($filePath);
@@ -59,8 +63,11 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
         $this->setAllowCreateFolders(true);
         $this->setFilesDispersion(true);
         $this->setAllowedExtensions(array_keys($this->_allowedMimeTypes));
-        $this->addValidateCallback('catalog_product_image',
-                Mage::helper('catalog/image'), 'validateUploadFile');
+        $this->addValidateCallback(
+            'catalog_product_image',
+            Mage::helper('catalog/image'),
+            'validateUploadFile'
+        );
         $this->addValidateCallback(
             Mage_Core_Model_File_Validator_Image::NAME,
             Mage::getModel('core/file_validator_image'),
@@ -74,6 +81,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
      *
      * @param string $fileName
      * @return array
+     * @throws Exception
      */
     public function move($fileName)
     {
@@ -169,7 +177,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
     /**
      * Set TMP file path prefix
      *
-     * @param type $path
+     * @param string $path
      * @return bool
      */
     public function setTmpDir($path)
@@ -194,7 +202,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
     /**
      * Set destination file path prefix
      *
-     * @param type $path
+     * @param string $path
      * @return bool
      */
     public function setDestDir($path)
@@ -222,5 +230,4 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
             return false;
         }
     }
-
 }

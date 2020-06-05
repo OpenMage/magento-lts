@@ -31,6 +31,7 @@
  * @category    Mage
  * @package     Mage_CatalogSearch
  * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated
  */
 class Mage_CatalogSearch_Model_Mysql4_Fulltext extends Mage_CatalogSearch_Model_Resource_Fulltext
 {

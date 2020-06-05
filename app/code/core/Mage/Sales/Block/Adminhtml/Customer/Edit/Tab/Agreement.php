@@ -29,9 +29,7 @@
  *
  * @author Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement
-    extends Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement extends Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     /**
      * Columns, that should be removed from grid
@@ -96,6 +94,9 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement
         return false;
     }
 
+    /**
+     * @return string
+     */
     public function getGridUrl()
     {
         return $this->getUrl('*/sales_billing_agreement/customerGrid', array('_current'=>true));
@@ -114,7 +115,7 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement
     /**
      * Prepare collection for grid
      *
-     * @return $this
+     * @return Mage_Adminhtml_Block_Widget_Grid
      */
     protected function _prepareCollection()
     {

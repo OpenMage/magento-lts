@@ -103,14 +103,14 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
 
         $priceStr = '<span class="price-notice">+';
         if ($taxHelper->displayPriceIncludingTax()) {
-            $priceStr .= $coreHelper->currencyByStore($_priceInclTax, $store);
+            $priceStr .= $coreHelper::currencyByStore($_priceInclTax, $store);
         } elseif ($taxHelper->displayPriceExcludingTax()) {
-            $priceStr .= $coreHelper->currencyByStore($_priceExclTax, $store);
+            $priceStr .= $coreHelper::currencyByStore($_priceExclTax, $store);
         } elseif ($taxHelper->displayBothPrices()) {
-            $priceStr .= $coreHelper->currencyByStore($_priceExclTax, $store);
+            $priceStr .= $coreHelper::currencyByStore($_priceExclTax, $store);
             if ($_priceInclTax != $_priceExclTax) {
                 $priceStr .= ' (+'.$coreHelper
-                    ->currencyByStore($_priceInclTax, $store).' '.$this->__('Incl. Tax').')';
+                    ::currencyByStore($_priceInclTax, $store).' '.$this->__('Incl. Tax').')';
             }
         }
         $priceStr .= '</span>';
@@ -141,7 +141,7 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
         $coreHelper = Mage::helper('core');
 
         foreach ($this->getLinks() as $link) {
-            $config[$link->getId()] = $coreHelper->currency($link->getPrice(), false, false);
+            $config[$link->getId()] = $coreHelper::currency($link->getPrice(), false, false);
         }
 
         return $coreHelper->jsonEncode($config);

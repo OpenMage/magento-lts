@@ -26,6 +26,8 @@
 
 /**
  * Quote submit service model
+ *
+ * @method $this setEmailSent(bool $value)
  */
 class Mage_Sales_Model_Service_Order
 {
@@ -263,10 +265,10 @@ class Mage_Sales_Model_Service_Order
         $creditmemo->setInvoice($invoice);
 
         $invoiceQtysRefunded = array();
-        foreach($invoice->getOrder()->getCreditmemosCollection() as $createdCreditmemo) {
+        foreach ($invoice->getOrder()->getCreditmemosCollection() as $createdCreditmemo) {
             if ($createdCreditmemo->getState() != Mage_Sales_Model_Order_Creditmemo::STATE_CANCELED
                 && $createdCreditmemo->getInvoiceId() == $invoice->getId()) {
-                foreach($createdCreditmemo->getAllItems() as $createdCreditmemoItem) {
+                foreach ($createdCreditmemo->getAllItems() as $createdCreditmemoItem) {
                     $orderItemId = $createdCreditmemoItem->getOrderItem()->getId();
                     if (isset($invoiceQtysRefunded[$orderItemId])) {
                         $invoiceQtysRefunded[$orderItemId] += $createdCreditmemoItem->getQty();
@@ -278,7 +280,7 @@ class Mage_Sales_Model_Service_Order
         }
 
         $invoiceQtysRefundLimits = array();
-        foreach($invoice->getAllItems() as $invoiceItem) {
+        foreach ($invoice->getAllItems() as $invoiceItem) {
             $invoiceQtyCanBeRefunded = $invoiceItem->getQty();
             $orderItemId = $invoiceItem->getOrderItem()->getId();
             if (isset($invoiceQtysRefunded[$orderItemId])) {
@@ -366,7 +368,7 @@ class Mage_Sales_Model_Service_Order
      * @param array $qtys
      * @return bool
      */
-    protected function _canInvoiceItem($item, $qtys=array())
+    protected function _canInvoiceItem($item, $qtys = array())
     {
         if ($item->getLockedDoInvoice()) {
             return false;
@@ -387,7 +389,7 @@ class Mage_Sales_Model_Service_Order
                     }
                 }
                 return false;
-            } else if($item->getParentItem()) {
+            } elseif ($item->getParentItem()) {
                 $parent = $item->getParentItem();
                 if (empty($qtys)) {
                     return $parent->getQtyToInvoice() > 0;
@@ -408,7 +410,7 @@ class Mage_Sales_Model_Service_Order
      * @param array $qtys
      * @return bool
      */
-    protected function _canShipItem($item, $qtys=array())
+    protected function _canShipItem($item, $qtys = array())
     {
         if ($item->getIsVirtual() || $item->getLockedDoShip()) {
             return false;
@@ -435,7 +437,7 @@ class Mage_Sales_Model_Service_Order
                     }
                 }
                 return false;
-            } else if($item->getParentItem()) {
+            } elseif ($item->getParentItem()) {
                 $parent = $item->getParentItem();
                 if (empty($qtys)) {
                     return $parent->getQtyToShip() > 0;
@@ -456,7 +458,7 @@ class Mage_Sales_Model_Service_Order
      * @param array $invoiceQtysRefundLimits
      * @return bool
      */
-    protected function _canRefundItem($item, $qtys=array(), $invoiceQtysRefundLimits=array())
+    protected function _canRefundItem($item, $qtys = array(), $invoiceQtysRefundLimits = array())
     {
         $this->updateLocaleNumbers($qtys);
         if ($item->isDummy()) {
@@ -473,7 +475,7 @@ class Mage_Sales_Model_Service_Order
                     }
                 }
                 return false;
-            } else if($item->getParentItem()) {
+            } elseif ($item->getParentItem()) {
                 $parent = $item->getParentItem();
                 if (empty($qtys)) {
                     return $this->_canRefundNoDummyItem($parent, $invoiceQtysRefundLimits);
@@ -493,7 +495,7 @@ class Mage_Sales_Model_Service_Order
      * @param array $invoiceQtysRefundLimits
      * @return bool
      */
-    protected function _canRefundNoDummyItem($item, $invoiceQtysRefundLimits=array())
+    protected function _canRefundNoDummyItem($item, $invoiceQtysRefundLimits = array())
     {
         if ($item->getQtyToRefund() < 0) {
             return false;
@@ -505,5 +507,4 @@ class Mage_Sales_Model_Service_Order
 
         return true;
     }
-
 }

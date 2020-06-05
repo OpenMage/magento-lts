@@ -24,7 +24,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
+/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 $installer = $this;
 $installer->startSetup();
 
@@ -32,7 +32,7 @@ $entityTypeId     = $installer->getEntityTypeId('catalog_category');
 $attributeSetId   = $installer->getDefaultAttributeSetId($entityTypeId);
 $attributeGroupId = $installer->getDefaultAttributeGroupId($entityTypeId, $attributeSetId);
 
-$installer->addAttribute('catalog_category', 'include_in_menu',  array(
+$installer->addAttribute('catalog_category', 'include_in_menu', array(
     'type'     => 'int',
     'label'    => 'Include in Navigation Menu',
     'input'    => 'select',

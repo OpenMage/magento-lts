@@ -25,7 +25,7 @@
  */
 
 
-/* @var $installer Mage_Sales_Model_Mysql4_Setup */
+/* @var Mage_Sales_Model_Mysql4_Setup $installer */
 $installer = $this;
 
 $installer->startSetup();
@@ -37,10 +37,14 @@ UPDATE `{$installer->getTable('sales_order')}` AS `s`
 WHERE `c`.`entity_id` IS NULL;
 ");
 $installer->getConnection()->modifyColumn($installer->getTable('sales_order'), 'customer_id', 'INT UNSIGNED NULL DEFAULT NULL');
-$installer->getConnection()->addConstraint('FK_SALES_ORDER_CUSTOMER',
-    $installer->getTable('sales_order'), 'customer_id',
-    $installer->getTable('customer_entity'), 'entity_id',
-    'set null', 'cascade'
+$installer->getConnection()->addConstraint(
+    'FK_SALES_ORDER_CUSTOMER',
+    $installer->getTable('sales_order'),
+    'customer_id',
+    $installer->getTable('customer_entity'),
+    'entity_id',
+    'set null',
+    'cascade'
 );
 
 $installer->endSetup();

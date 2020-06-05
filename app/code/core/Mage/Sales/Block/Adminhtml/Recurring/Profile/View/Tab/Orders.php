@@ -27,9 +27,7 @@
 /**
  * Recurring profile orders grid
  */
-class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders
-    extends Mage_Adminhtml_Block_Widget_Grid
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders extends Mage_Adminhtml_Block_Widget_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     /**
      * Initialize basic parameters
@@ -46,7 +44,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders
     /**
      * Prepare grid collection object
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {
@@ -62,7 +60,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders
      *
      * TODO: fix up this mess
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareColumns()
     {
@@ -123,7 +121,8 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders
         ));
 
         if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/view')) {
-            $this->addColumn('action',
+            $this->addColumn(
+                'action',
                 array(
                     'header'    => Mage::helper('sales')->__('Action'),
                     'width'     => '50px',
@@ -141,7 +140,8 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders
                     'index'     => 'stores',
                     'is_system' => true,
                     'data-column' => 'action',
-            ));
+                )
+            );
         }
 
         return parent::_prepareColumns();
@@ -150,7 +150,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders
     /**
      * Return row url for js event handlers
      *
-     * @param Varien_Object
+     * @param Varien_Object $row
      * @return string
      */
     public function getRowUrl($row)

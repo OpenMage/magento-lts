@@ -423,7 +423,7 @@ class Mage_XmlConnect_Helper_Data extends Mage_Core_Helper_Abstract
             $changes = array($changes);
         }
         foreach ($changes as $key => $value) {
-            if (!array_key_exists($key, $target) and !is_numeric($key)) {
+            if (!array_key_exists($key, $target) && !is_numeric($key)) {
                 $target[$key] = $changes[$key];
                 continue;
             }

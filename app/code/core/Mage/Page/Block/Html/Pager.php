@@ -175,7 +175,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
 
     public function getShowPerPage()
     {
-        if(sizeof($this->getAvailableLimit())<=1) {
+        if(count($this->getAvailableLimit())<=1) {
             return false;
         }
         return $this->_showPerPage;

@@ -24,36 +24,40 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sales order shipment model
  *
  * @method Mage_Sales_Model_Resource_Order_Shipment _getResource()
  * @method Mage_Sales_Model_Resource_Order_Shipment getResource()
- * @method int getStoreId()
- * @method Mage_Sales_Model_Order_Shipment setStoreId(int $value)
- * @method float getTotalWeight()
- * @method Mage_Sales_Model_Order_Shipment setTotalWeight(float $value)
- * @method float getTotalQty()
- * @method Mage_Sales_Model_Order_Shipment setTotalQty(float $value)
- * @method int getEmailSent()
- * @method Mage_Sales_Model_Order_Shipment setEmailSent(int $value)
- * @method int getOrderId()
- * @method Mage_Sales_Model_Order_Shipment setOrderId(int $value)
- * @method int getCustomerId()
- * @method Mage_Sales_Model_Order_Shipment setCustomerId(int $value)
- * @method int getShippingAddressId()
- * @method Mage_Sales_Model_Order_Shipment setShippingAddressId(int $value)
+ * @method Mage_Sales_Model_Resource_Order_Shipment_Collection getCollection()
+ *
+ * @method string getBackUrl()
  * @method int getBillingAddressId()
- * @method Mage_Sales_Model_Order_Shipment setBillingAddressId(int $value)
- * @method int getShipmentStatus()
- * @method Mage_Sales_Model_Order_Shipment setShipmentStatus(int $value)
- * @method string getIncrementId()
- * @method Mage_Sales_Model_Order_Shipment setIncrementId(string $value)
+ * @method $this setBillingAddressId(int $value)
  * @method string getCreatedAt()
- * @method Mage_Sales_Model_Order_Shipment setCreatedAt(string $value)
+ * @method $this setCreatedAt(string $value)
+ * @method int getCustomerId()
+ * @method $this setCustomerId(int $value)
+ * @method int getEmailSent()
+ * @method $this setEmailSent(int $value)
+ * @method string getIncrementId()
+ * @method $this setIncrementId(string $value)
+ * @method int getOrderId()
+ * @method $this setOrderId(int $value)
+ * @method mixed getPackages()
+ * @method $this setPackages(string $value)
+ * @method int getStoreId()
+ * @method int getShipmentStatus()
+ * @method $this setShipmentStatus(int $value)
+ * @method int getShippingAddressId()
+ * @method $this setShippingAddressId(int $value)
+ * @method $this setStoreId(int $value)
+ * @method float getTotalQty()
+ * @method $this setTotalQty(float $value)
+ * @method float getTotalWeight()
+ * @method $this setTotalWeight(float $value)
  * @method string getUpdatedAt()
- * @method Mage_Sales_Model_Order_Shipment setUpdatedAt(string $value)
+ * @method $this setUpdatedAt(string $value)
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -85,9 +89,24 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      */
     const HISTORY_ENTITY_NAME = 'shipment';
 
+    /**
+     * @var Mage_Sales_Model_Resource_Order_Shipment_Item_Collection
+     */
     protected $_items;
+
+    /**
+     * @var Mage_Sales_Model_Resource_Order_Shipment_Track_Collection
+     */
     protected $_tracks;
+
+    /**
+     * @var Mage_Sales_Model_Order
+     */
     protected $_order;
+
+    /**
+     * @var Mage_Sales_Model_Resource_Order_Shipment_Comment_Collection
+     */
     protected $_comments;
 
     protected $_eventPrefix = 'sales_order_shipment';
@@ -136,7 +155,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      * Declare order for shipment
      *
      * @param   Mage_Sales_Model_Order $order
-     * @return  Mage_Sales_Model_Order_Shipment
+     * @return  $this
      */
     public function setOrder(Mage_Sales_Model_Order $order)
     {
@@ -195,7 +214,8 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      *
      * Apply to order, order items etc.
      *
-     * @return unknown
+     * @return $this
+     * @throws Mage_Core_Exception
      */
     public function register()
     {
@@ -212,8 +232,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
                 if (!$item->getOrderItem()->isDummy(true)) {
                     $totalQty+= $item->getQty();
                 }
-            }
-            else {
+            } else {
                 $item->isDeleted(true);
             }
         }
@@ -222,6 +241,9 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         return $this;
     }
 
+    /**
+     * @return Mage_Sales_Model_Resource_Order_Shipment_Item_Collection
+     */
     public function getItemsCollection()
     {
         if (empty($this->_items)) {
@@ -237,6 +259,9 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         return $this->_items;
     }
 
+    /**
+     * @return Mage_Sales_Model_Order_Shipment_Item[]
+     */
     public function getAllItems()
     {
         $items = array();
@@ -248,6 +273,10 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         return $items;
     }
 
+    /**
+     * @param int $itemId
+     * @return bool
+     */
     public function getItemById($itemId)
     {
         foreach ($this->getItemsCollection() as $item) {
@@ -258,6 +287,11 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         return false;
     }
 
+    /**
+     * @param Mage_Sales_Model_Order_Shipment_Item $item
+     * @return $this
+     * @throws Exception
+     */
     public function addItem(Mage_Sales_Model_Order_Shipment_Item $item)
     {
         $item->setShipment($this)
@@ -270,6 +304,9 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     }
 
 
+    /**
+     * @return Mage_Sales_Model_Resource_Order_Shipment_Track_Collection
+     */
     public function getTracksCollection()
     {
         if (empty($this->_tracks)) {
@@ -285,6 +322,9 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         return $this->_tracks;
     }
 
+    /**
+     * @return Mage_Sales_Model_Order_Shipment_Track[]
+     */
     public function getAllTracks()
     {
         $tracks = array();
@@ -296,6 +336,10 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         return $tracks;
     }
 
+    /**
+     * @param int $trackId
+     * @return Mage_Sales_Model_Order_Shipment_Track|false
+     */
     public function getTrackById($trackId)
     {
         foreach ($this->getTracksCollection() as $track) {
@@ -306,6 +350,11 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         return false;
     }
 
+    /**
+     * @param Mage_Sales_Model_Order_Shipment_Track $track
+     * @return $this
+     * @throws Exception
+     */
     public function addTrack(Mage_Sales_Model_Order_Shipment_Track $track)
     {
         $track->setShipment($this)
@@ -329,12 +378,14 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      * Adds comment to shipment with additional possibility to send it to customer via email
      * and show it in customer account
      *
+     * @param Mage_Sales_Model_Order_Shipment_Comment $comment
      * @param bool $notify
      * @param bool $visibleOnFront
      *
      * @return $this
+     * @throws Exception
      */
-    public function addComment($comment, $notify=false, $visibleOnFront=false)
+    public function addComment($comment, $notify = false, $visibleOnFront = false)
     {
         if (!($comment instanceof Mage_Sales_Model_Order_Shipment_Comment)) {
             $comment = Mage::getModel('sales/order_shipment_comment')
@@ -352,7 +403,11 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         return $this;
     }
 
-    public function getCommentsCollection($reload=false)
+    /**
+     * @param bool $reload
+     * @return Mage_Sales_Model_Resource_Order_Shipment_Comment_Collection
+     */
+    public function getCommentsCollection($reload = false)
     {
         if (is_null($this->_comments) || $reload) {
             $this->_comments = Mage::getResourceModel('sales/order_shipment_comment_collection')
@@ -457,8 +512,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
                 'comment'      => $comment,
                 'billing'      => $order->getBillingAddress(),
                 'payment_html' => $paymentBlockHtml
-            )
-        );
+            ));
         $mailer->send();
 
         return $this;
@@ -527,13 +581,16 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
                 'shipment' => $this,
                 'comment'  => $comment,
                 'billing'  => $order->getBillingAddress()
-            )
-        );
+            ));
         $mailer->send();
 
         return $this;
     }
 
+    /**
+     * @param string $configPath
+     * @return array|false
+     */
     protected function _getEmails($configPath)
     {
         $data = Mage::getStoreConfig($configPath, $this->getStoreId());
@@ -546,7 +603,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     /**
      * Before object save
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _beforeSave()
     {
@@ -568,6 +625,10 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         return parent::_beforeSave();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Mage_Core_Exception
+     */
     protected function _beforeDelete()
     {
         $this->_protectFromNonAdmin();
@@ -577,7 +638,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     /**
      * After object save manipulations
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _afterSave()
     {
@@ -588,13 +649,13 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         }
 
         if (null !== $this->_tracks) {
-            foreach($this->_tracks as $track) {
+            foreach ($this->_tracks as $track) {
                 $track->save();
             }
         }
 
         if (null !== $this->_comments) {
-            foreach($this->_comments as $comment) {
+            foreach ($this->_comments as $comment) {
                 $comment->save();
             }
         }

@@ -40,7 +40,7 @@ class Mage_Core_Block_Text_Tag_Js extends Mage_Core_Block_Text_Tag
         $this->setTagParams(array('language'=>'javascript', 'type'=>'text/javascript'));
     }
 
-    function setSrc($src, $type=null)
+    public function setSrc($src, $type=null)
     {
         $type = (string)$type;
         if (empty($type)) {

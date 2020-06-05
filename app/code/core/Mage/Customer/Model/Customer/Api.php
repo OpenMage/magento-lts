@@ -40,14 +40,13 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
      * Prepare data to insert/update.
      * Creating array for stdClass Object
      *
-     * @param stdClass $data
+     * @param array $data
      * @return array
      */
     protected function _prepareData($data)
     {
-       foreach ($this->_mapAttributes as $attributeAlias=>$attributeCode) {
-            if(isset($data[$attributeAlias]))
-            {
+        foreach ($this->_mapAttributes as $attributeAlias => $attributeCode) {
+            if (isset($data[$attributeAlias])) {
                 $data[$attributeCode] = $data[$attributeAlias];
                 unset($data[$attributeAlias]);
             }
@@ -63,9 +62,10 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
      */
     public function create($customerData)
     {
+        $customer = Mage::getModel('customer/customer');
         $customerData = $this->_prepareData($customerData);
         try {
-            $customer = Mage::getModel('customer/customer')
+            $customer
                 ->setData($customerData)
                 ->save();
         } catch (Mage_Core_Exception $e) {
@@ -95,11 +95,11 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
 
         $result = array();
 
-        foreach ($this->_mapAttributes as $attributeAlias=>$attributeCode) {
+        foreach ($this->_mapAttributes as $attributeAlias => $attributeCode) {
             $result[$attributeAlias] = $customer->getData($attributeCode);
         }
 
-        foreach ($this->getAllowedAttributes($customer, $attributes) as $attributeCode=>$attribute) {
+        foreach ($this->getAllowedAttributes($customer, $attributes) as $attributeCode => $attribute) {
             $result[$attributeCode] = $customer->getData($attributeCode);
         }
 
@@ -115,7 +115,7 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
     public function items($filters)
     {
         $collection = Mage::getModel('customer/customer')->getCollection()->addAttributeToSelect('*');
-        /** @var $apiHelper Mage_Api_Helper_Data */
+        /** @var Mage_Api_Helper_Data $apiHelper */
         $apiHelper = Mage::helper('api');
         $filters = $apiHelper->parseFilters($filters, $this->_mapAttributes);
         try {
@@ -126,6 +126,7 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
             $this->_fault('filters_invalid', $e->getMessage());
         }
         $result = array();
+        /** @var Mage_Customer_Model_Customer $customer */
         foreach ($collection as $customer) {
             $data = $customer->toArray();
             $row  = array();
@@ -160,7 +161,7 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
             $this->_fault('not_exists');
         }
 
-        foreach ($this->getAllowedAttributes($customer) as $attributeCode=>$attribute) {
+        foreach ($this->getAllowedAttributes($customer) as $attributeCode => $attribute) {
             if (isset($customerData[$attributeCode])) {
                 $customer->setData($attributeCode, $customerData[$attributeCode]);
             }
@@ -192,5 +193,4 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
 
         return true;
     }
-
-} // Class Mage_Customer_Model_Customer_Api End
+}

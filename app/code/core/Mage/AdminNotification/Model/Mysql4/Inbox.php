@@ -31,6 +31,7 @@
  * @category    Mage
  * @package     Mage_AdminNotification
  * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated
  */
 class Mage_AdminNotification_Model_Mysql4_Inbox extends Mage_AdminNotification_Model_Resource_Inbox
 {

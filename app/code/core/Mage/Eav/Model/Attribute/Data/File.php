@@ -141,7 +141,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
                 return array(
                     Mage::helper('eav')->__('"%s" exceeds the allowed file size.', $label)
                 );
-            };
+            }
         }
 
         return array();

@@ -39,6 +39,9 @@ class Mage_Sales_Block_Order_Shipment extends Mage_Core_Block_Template
         $this->setTemplate('sales/order/shipment.phtml');
     }
 
+    /**
+     * @return void
+     */
     protected function _prepareLayout()
     {
         if ($headBlock = $this->getLayout()->getBlock('head')) {
@@ -50,6 +53,9 @@ class Mage_Sales_Block_Order_Shipment extends Mage_Core_Block_Template
         );
     }
 
+    /**
+     * @return string
+     */
     public function getPaymentInfoHtml()
     {
         return $this->getChildHtml('payment_info');
@@ -91,27 +97,49 @@ class Mage_Sales_Block_Order_Shipment extends Mage_Core_Block_Template
         return Mage::helper('sales')->__('View Another Order');
     }
 
+    /**
+     * @param Mage_Sales_Model_Order $order
+     * @return string
+     */
     public function getInvoiceUrl($order)
     {
         return Mage::getUrl('*/*/invoice', array('order_id' => $order->getId()));
     }
 
+    /**
+     * @param Mage_Sales_Model_Order $order
+     * @return string
+     */
     public function getViewUrl($order)
     {
         return Mage::getUrl('*/*/view', array('order_id' => $order->getId()));
     }
 
+    /**
+     * @param Mage_Sales_Model_Order $order
+     * @return string
+     */
     public function getCreditmemoUrl($order)
     {
         return Mage::getUrl('*/*/creditmemo', array('order_id' => $order->getId()));
     }
 
 
-    public function getPrintShipmentUrl($shipment){
+    /**
+     * @param Mage_Sales_Model_Order_Shipment $shipment
+     * @return string
+     */
+    public function getPrintShipmentUrl($shipment)
+    {
         return Mage::getUrl('*/*/printShipment', array('shipment_id' => $shipment->getId()));
     }
 
-    public function getPrintAllShipmentsUrl($order){
+    /**
+     * @param Mage_Sales_Model_Order $order
+     * @return string
+     */
+    public function getPrintAllShipmentsUrl($order)
+    {
         return Mage::getUrl('*/*/printShipment', array('order_id' => $order->getId()));
     }
 }

@@ -31,8 +31,8 @@
  * @category    Mage
  * @package     Mage_Shipping
  * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated
  */
-class Mage_Shipping_Model_Mysql4_Carrier_Tablerate_Collection
-    extends Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection
+class Mage_Shipping_Model_Mysql4_Carrier_Tablerate_Collection extends Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection
 {
 }

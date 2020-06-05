@@ -27,6 +27,13 @@
 /**
  * Class Mage_Admin_Model_Block
  *
+ * @method Mage_Admin_Model_Resource_Block _getResource()
+ * @method Mage_Admin_Model_Resource_Block getResource()
+ * @method Mage_Admin_Model_Resource_Block_Collection getCollection()
+ *
+ * @method string getBlockName()
+ * @method string getIsAllowed()
+ *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>

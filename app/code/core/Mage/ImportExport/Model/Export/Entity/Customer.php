@@ -96,7 +96,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
      */
     protected function _initWebsites()
     {
-        /** @var $website Mage_Core_Model_Website */
+        /** @var Mage_Core_Model_Website $website */
         foreach (Mage::app()->getWebsites(true) as $website) {
             $this->_websiteIdToCode[$website->getId()] = $website->getCode();
         }
@@ -217,8 +217,10 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
 
         // create export file
         $writer->setHeaderCols(array_merge(
-            $this->_permanentAttributes, $validAttrCodes,
-            array('password'), $addrColNames,
+            $this->_permanentAttributes,
+            $validAttrCodes,
+            array('password'),
+            $addrColNames,
             array_keys($defaultAddrMap)
         ));
         foreach ($collection as $customerId => $customer) {
@@ -248,8 +250,11 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
             $writeRow = array_merge($row, $addrRow);
             $writer->writeRow($writeRow);
 
-            $additionalRowsCount = $this->_getAdditionalRowsCount($customerAddress,
-                $addressMultiselect, $customerAttributeMultiSelect);
+            $additionalRowsCount = $this->_getAdditionalRowsCount(
+                $customerAddress,
+                $addressMultiselect,
+                $customerAttributeMultiSelect
+            );
             if ($additionalRowsCount) {
                 for ($i = 0; $i < $additionalRowsCount; $i++) {
                     $writeRow = array();
@@ -349,7 +354,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
     /**
      * Entity attributes collection getter.
      *
-     * @return Mage_Customer_Model_Entity_Attribute_Collection
+     * @return Mage_Customer_Model_Resource_Attribute_Collection|Object
      */
     public function getAttributeCollection()
     {
@@ -369,7 +374,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
     /**
      * Get Address Attributes
      *
-     * @param $attribute
+     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @return array
      */
     protected function _getAddressAttributeOptions($attribute)
@@ -453,10 +458,10 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
     /**
      * Add default fields to row
      *
-     * @param $defaultAddrs
-     * @param $addressId
-     * @param $row
-     * @return mixed
+     * @param array $defaultAddrs
+     * @param int $addressId
+     * @param array $row
+     * @return array
      */
     protected function _addDefaultAddressFields($defaultAddrs, $addressId, $row)
     {

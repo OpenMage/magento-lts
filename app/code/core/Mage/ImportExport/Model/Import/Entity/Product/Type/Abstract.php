@@ -162,9 +162,10 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
 
         foreach (Mage::getResourceModel('eav/entity_attribute_set_collection')
                 ->setEntityTypeFilter($this->_entityModel->getEntityTypeId()) as $attributeSet) {
+            /** @var Mage_Eav_Model_Entity_Attribute_Set $attributeSet */
             foreach (Mage::getResourceModel('catalog/product_attribute_collection')
                 ->setAttributeSetFilter($attributeSet->getId()) as $attribute) {
-
+                /** @var Mage_Eav_Model_Entity_Attribute $attribute */
                 $attributeCode = $attribute->getAttributeCode();
                 $attributeId   = $attribute->getId();
 
@@ -256,19 +257,19 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
                 // check value for non-empty in the case of required attribute?
                 if (isset($rowData[$attrCode]) && strlen($rowData[$attrCode])) {
                     $error |= !$this->_entityModel->isAttributeValid($attrCode, $attrParams, $rowData, $rowNum);
-                } elseif (
-                    $this->_isAttributeRequiredCheckNeeded($attrCode)
+                } elseif ($this->_isAttributeRequiredCheckNeeded($attrCode)
                     && $attrParams['is_required']) {
                         // For the default scope - if this is a new product or
                         // for an old product, if the imported doc has the column present for the attrCode
-                        if (Mage_ImportExport_Model_Import_Entity_Product::SCOPE_DEFAULT == $rowScope &&
+                    if (Mage_ImportExport_Model_Import_Entity_Product::SCOPE_DEFAULT == $rowScope &&
                             ($isNewProduct || array_key_exists($attrCode, $rowData))) {
-                            $this->_entityModel->addRowError(
-                                Mage_ImportExport_Model_Import_Entity_Product::ERROR_VALUE_IS_REQUIRED,
-                                    $rowNum, $attrCode
-                            );
-                            $error = true;
-                        }
+                        $this->_entityModel->addRowError(
+                            Mage_ImportExport_Model_Import_Entity_Product::ERROR_VALUE_IS_REQUIRED,
+                            $rowNum,
+                            $attrCode
+                        );
+                        $error = true;
+                    }
                 }
             }
         }

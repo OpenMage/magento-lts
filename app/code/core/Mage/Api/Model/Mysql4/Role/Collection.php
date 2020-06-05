@@ -31,6 +31,7 @@
  * @category    Mage
  * @package     Mage_Api
  * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated
  */
 class Mage_Api_Model_Mysql4_Role_Collection extends Mage_Api_Model_Resource_Role_Collection
 {

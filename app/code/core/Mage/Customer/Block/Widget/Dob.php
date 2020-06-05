@@ -24,6 +24,10 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * @method string getTime()
+ * @method $this setTime(string $value)
+ */
 class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
 {
     /**
@@ -41,16 +45,26 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
         $this->setTemplate('customer/widget/dob.phtml');
     }
 
+    /**
+     * @return bool
+     */
     public function isEnabled()
     {
         return (bool)$this->_getAttribute('dob')->getIsVisible();
     }
 
+    /**
+     * @return bool
+     */
     public function isRequired()
     {
         return (bool)$this->_getAttribute('dob')->getIsRequired();
     }
 
+    /**
+     * @param string $date
+     * @return $this
+     */
     public function setDate($date)
     {
         $this->setTime($date ? strtotime($date) : false);
@@ -58,16 +72,25 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
         return $this;
     }
 
+    /**
+     * @return false|string
+     */
     public function getDay()
     {
         return $this->getTime() ? date('d', $this->getTime()) : '';
     }
 
+    /**
+     * @return false|string
+     */
     public function getMonth()
     {
         return $this->getTime() ? date('m', $this->getTime()) : '';
     }
 
+    /**
+     * @return false|string
+     */
     public function getYear()
     {
         return $this->getTime() ? date('Y', $this->getTime()) : '';
@@ -113,7 +136,11 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
 
         $dateFormat = preg_replace('/[^\%\w]/', '\\1', $this->getDateFormat());
 
-        return sprintf(strtr($dateFormat, $strtr),
-            $this->_dateInputs['m'], $this->_dateInputs['d'], $this->_dateInputs['y']);
+        return sprintf(
+            strtr($dateFormat, $strtr),
+            $this->_dateInputs['m'],
+            $this->_dateInputs['d'],
+            $this->_dateInputs['y']
+        );
     }
 }
