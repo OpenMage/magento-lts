@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -172,7 +172,7 @@ final class Mage
             'major'     => '1',
             'minor'     => '9',
             'revision'  => '4',
-            'patch'     => '3',
+            'patch'     => '5',
             'stability' => '',
             'number'    => '',
         );
@@ -215,7 +215,7 @@ final class Mage
         return array(
             'major'     => '19',
             'minor'     => '4',
-            'patch'     => '0',
+            'patch'     => '3',
             'stability' => '', // beta,alpha,rc
             'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
         );
@@ -317,7 +317,7 @@ final class Mage
 
         $appRoot = realpath($appRoot);
 
-        if (is_dir($appRoot) and is_readable($appRoot)) {
+        if (is_dir($appRoot) && is_readable($appRoot)) {
             self::$_appRoot = $appRoot;
         } else {
             self::throwException($appRoot . ' is not a directory or not readable by this user');

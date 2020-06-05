@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Bundle
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -35,6 +35,10 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tabs extends Mage_Adminht
 {
     protected $_attributeTabBlock = 'bundle/adminhtml_catalog_product_edit_tab_attributes';
 
+    /**
+     * @return Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs|void
+     * @throws Exception
+     */
     protected function _prepareLayout()
     {
         parent::_prepareLayout();

@@ -20,7 +20,7 @@
  *
  * @category    Varien
  * @package     Varien_Data
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -205,7 +205,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      */
     public function getCurPage($displacement = 0)
     {
-        if ($this->_curPage + $displacement < 1) {
+        if ($this->_curPage + $displacement <= 1) {
             return 1;
         }
         elseif ($this->_curPage + $displacement > $this->getLastPageNumber()) {

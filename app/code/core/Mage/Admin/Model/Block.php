@@ -20,12 +20,19 @@
  *
  * @category    Mage
  * @package     Mage_Admin
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class Mage_Admin_Model_Block
+ *
+ * @method Mage_Admin_Model_Resource_Block _getResource()
+ * @method Mage_Admin_Model_Resource_Block getResource()
+ * @method Mage_Admin_Model_Resource_Block_Collection getCollection()
+ *
+ * @method string getBlockName()
+ * @method string getIsAllowed()
  *
  * @category   Mage
  * @package    Mage_Adminhtml

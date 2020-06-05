@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -215,7 +215,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
         $result = 0;
 
         if (!$this->_isSingleSelection()) {
-            foreach(explode(',', $optionValue) as $value) {
+            foreach (explode(',', $optionValue) as $value) {
                 if ($_result = $option->getValueById($value)) {
                     $result += $this->_getChargableOptionPrice(
                         $_result->getPrice(),
@@ -267,7 +267,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
 
         if (!$this->_isSingleSelection()) {
             $skus = array();
-            foreach(explode(',', $optionValue) as $value) {
+            foreach (explode(',', $optionValue) as $value) {
                 if ($optionSku = $option->getValueById($value)) {
                     $skus[] = $optionSku->getSku();
                 } else {

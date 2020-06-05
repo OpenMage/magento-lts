@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Bundle
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,6 +31,10 @@
  * @category    Mage
  * @package     Mage_Bundle
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Catalog_Model_Product getFormatProduct()
+ * @method $this setFormatProduct(Mage_Catalog_Model_Product $value)
+ * @method Mage_Bundle_Model_Option getOption()
  */
 class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bundle_Block_Catalog_Product_Price
 {
@@ -184,7 +188,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     /**
      * Returns the formatted string for the quantity chosen for the given selection
      *
-     * @param Mage_Catalog_Model_Proudct $_selection
+     * @param Mage_Catalog_Model_Product $_selection
      * @param bool                       $includeContainer
      * @return string
      */
@@ -276,11 +280,11 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
         $priceTax    = $taxHelper->getPrice($product, $price);
         $priceIncTax = $taxHelper->getPrice($product, $price, true);
 
-        $formated = $coreHelper->currencyByStore($priceTax, $product->getStore(), true, $includeContainer);
+        $formated = $coreHelper::currencyByStore($priceTax, $product->getStore(), true, $includeContainer);
         if ($taxHelper->displayBothPrices() && $priceTax != $priceIncTax) {
             $formated .=
                     ' (+' .
-                    $coreHelper->currencyByStore($priceIncTax, $product->getStore(), true, $includeContainer) .
+                    $coreHelper::currencyByStore($priceIncTax, $product->getStore(), true, $includeContainer) .
                     ' ' . $this->__('Incl. Tax') . ')';
         }
 

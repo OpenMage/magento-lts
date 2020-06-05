@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sendfriend
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,10 +29,12 @@
  *
  * @method Mage_Sendfriend_Model_Resource_Sendfriend _getResource()
  * @method Mage_Sendfriend_Model_Resource_Sendfriend getResource()
+ * @method Mage_Sendfriend_Model_Resource_Sendfriend_Collection getCollection()
+ *
  * @method int getIp()
- * @method Mage_Sendfriend_Model_Sendfriend setIp(int $value)
+ * @method $this setIp(int $value)
  * @method int getTime()
- * @method Mage_Sendfriend_Model_Sendfriend setTime(int $value)
+ * @method $this setTime(int $value)
  *
  * @category    Mage
  * @package     Mage_Sendfriend
@@ -78,7 +80,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     /**
      * Last values for Cookie
      *
-     * @var string
+     * @var array
      */
     protected $_lastCookieValue = array();
 
@@ -108,20 +110,26 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
      * @return array
      */
     public function toOptionArray()
-    {        return array();
+    {
+        return array();
     }
 
+    /**
+     * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function send()
     {
-        if ($this->isExceedLimit()){
+        if ($this->isExceedLimit()) {
             Mage::throwException(Mage::helper('sendfriend')->__('You have exceeded limit of %d sends in an hour', $this->getMaxSendsToFriend()));
         }
 
-        /* @var $translate Mage_Core_Model_Translate */
+        /* @var Mage_Core_Model_Translate $translate */
         $translate = Mage::getSingleton('core/translate');
         $translate->setTranslateInline(false);
 
-        /* @var $mailTemplate Mage_Core_Model_Email_Template */
+        /* @var Mage_Core_Model_Email_Template $mailTemplate */
         $mailTemplate = Mage::getModel('core/email_template');
 
         $message = nl2br(htmlspecialchars($this->getSender()->getMessage()));
@@ -150,8 +158,10 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
                     'message'       => $message,
                     'sender_name'   => $sender['name'],
                     'sender_email'  => $sender['email'],
-                    'product_image' => Mage::helper('catalog/image')->init($this->getProduct(),
-                        'small_image')->resize(75),
+                    'product_image' => Mage::helper('catalog/image')->init(
+                        $this->getProduct(),
+                        'small_image'
+                    )->resize(75),
                 )
             );
         }
@@ -213,7 +223,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     /**
      * Set cookie instance
      *
-     * @param Mage_Core_Model_Cookie $product
+     * @param Mage_Core_Model_Cookie $cookie
      * @return $this
      */
     public function setCookie($cookie)
@@ -520,7 +530,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
             $oldTimes = explode(',', $oldTimes);
             foreach ($oldTimes as $oldTime) {
                 $periodTime = $time - $this->_getHelper()->getPeriod();
-                if (is_numeric($oldTime) AND $oldTime >= $periodTime) {
+                if (is_numeric($oldTime) && $oldTime >= $periodTime) {
                     $newTimes[] = $oldTime;
                 }
             }

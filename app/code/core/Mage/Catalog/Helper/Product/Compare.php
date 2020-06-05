@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -92,6 +92,10 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
      */
     protected $_productVisibility;
 
+    /**
+     * Mage_Catalog_Helper_Product_Compare constructor.
+     * @param array $data
+     */
     public function __construct(array $data = array())
     {
         $this->_logCondition = isset($data['log_condition'])
@@ -185,7 +189,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     /**
      * Retrieve remove item from compare list url
      *
-     * @param   $item
+     * @param   Mage_Catalog_Model_Product $item
      * @return  string
      */
     public function getRemoveUrl($item)
@@ -259,7 +263,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
         if (!$this->_catalogSession->hasCatalogCompareItemsCount() && !$this->_customerId) {
             $count = 0;
         } else {
-            /** @var $collection Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection */
+            /** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection $collection */
             $collection = Mage::getResourceModel('catalog/product_compare_item_collection')
                 ->useProductItem(true);
             if (!$logout && $this->_customerSession->isLoggedIn()) {

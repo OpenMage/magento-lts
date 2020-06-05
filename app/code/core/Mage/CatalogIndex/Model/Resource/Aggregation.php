@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogIndex
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -228,8 +228,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
             }
             $query = "INSERT INTO `{$this->_tagTable}` (tag_code) VALUES (".implode('),(', $tags).")";
             $this->_getWriteAdapter()->query($query);
-        }
-        else {
+        } else {
             $this->_getWriteAdapter()->insert($this->_tagTable, array(
                 'tag_code' => $tags
             ));

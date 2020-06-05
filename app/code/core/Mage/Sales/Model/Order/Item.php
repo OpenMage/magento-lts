@@ -20,172 +20,182 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Order Item Model
+ * Class Mage_Sales_Model_Order_Item
  *
  * @method Mage_Sales_Model_Resource_Order_Item _getResource()
  * @method Mage_Sales_Model_Resource_Order_Item getResource()
+ * @method Mage_Sales_Model_Resource_Order_Item_Collection getCollection()
+ *
  * @method int getOrderId()
- * @method Mage_Sales_Model_Order_Item setOrderId(int $value)
+ * @method $this setOrderId(int $value)
  * @method int getParentItemId()
- * @method Mage_Sales_Model_Order_Item setParentItemId(int $value)
+ * @method $this setParentItemId(int $value)
  * @method int getQuoteItemId()
- * @method Mage_Sales_Model_Order_Item setQuoteItemId(int $value)
+ * @method $this setQuoteItemId(int $value)
  * @method int getStoreId()
- * @method Mage_Sales_Model_Order_Item setStoreId(int $value)
+ * @method $this setStoreId(int $value)
  * @method string getCreatedAt()
- * @method Mage_Sales_Model_Order_Item setCreatedAt(string $value)
+ * @method $this setCreatedAt(string $value)
  * @method string getUpdatedAt()
- * @method Mage_Sales_Model_Order_Item setUpdatedAt(string $value)
+ * @method $this setUpdatedAt(string $value)
  * @method int getProductId()
- * @method Mage_Sales_Model_Order_Item setProductId(int $value)
+ * @method $this setProductId(int $value)
  * @method string getProductType()
- * @method Mage_Sales_Model_Order_Item setProductType(string $value)
+ * @method $this setProductType(string $value)
  * @method float getWeight()
- * @method Mage_Sales_Model_Order_Item setWeight(float $value)
+ * @method $this setWeight(float $value)
  * @method int getIsVirtual()
- * @method Mage_Sales_Model_Order_Item setIsVirtual(int $value)
+ * @method $this setIsVirtual(int $value)
  * @method string getSku()
- * @method Mage_Sales_Model_Order_Item setSku(string $value)
+ * @method $this setSku(string $value)
  * @method string getName()
- * @method Mage_Sales_Model_Order_Item setName(string $value)
+ * @method $this setName(string $value)
  * @method string getDescription()
- * @method Mage_Sales_Model_Order_Item setDescription(string $value)
+ * @method $this setDescription(string $value)
  * @method string getAppliedRuleIds()
- * @method Mage_Sales_Model_Order_Item setAppliedRuleIds(string $value)
+ * @method $this setAppliedRuleIds(string $value)
  * @method string getAdditionalData()
- * @method Mage_Sales_Model_Order_Item setAdditionalData(string $value)
+ * @method $this setAdditionalData(string $value)
  * @method int getFreeShipping()
- * @method Mage_Sales_Model_Order_Item setFreeShipping(int $value)
+ * @method $this setFreeShipping(int $value)
  * @method int getIsQtyDecimal()
- * @method Mage_Sales_Model_Order_Item setIsQtyDecimal(int $value)
+ * @method $this setIsQtyDecimal(int $value)
  * @method int getNoDiscount()
- * @method Mage_Sales_Model_Order_Item setNoDiscount(int $value)
+ * @method $this setNoDiscount(int $value)
  * @method float getQtyBackordered()
- * @method Mage_Sales_Model_Order_Item setQtyBackordered(float $value)
+ * @method $this setQtyBackordered(float $value)
  * @method float getQtyCanceled()
- * @method Mage_Sales_Model_Order_Item setQtyCanceled(float $value)
+ * @method $this setQtyCanceled(float $value)
  * @method float getQtyInvoiced()
- * @method Mage_Sales_Model_Order_Item setQtyInvoiced(float $value)
+ * @method $this setQtyInvoiced(float $value)
  * @method float getQtyOrdered()
- * @method Mage_Sales_Model_Order_Item setQtyOrdered(float $value)
+ * @method $this setQtyOrdered(float $value)
  * @method float getQtyRefunded()
- * @method Mage_Sales_Model_Order_Item setQtyRefunded(float $value)
+ * @method $this setQtyRefunded(float $value)
  * @method float getQtyShipped()
- * @method Mage_Sales_Model_Order_Item setQtyShipped(float $value)
+ * @method $this setQtyShipped(float $value)
  * @method float getBaseCost()
- * @method Mage_Sales_Model_Order_Item setBaseCost(float $value)
+ * @method $this setBaseCost(float $value)
  * @method float getPrice()
- * @method Mage_Sales_Model_Order_Item setPrice(float $value)
+ * @method $this setPrice(float $value)
  * @method float getBasePrice()
- * @method Mage_Sales_Model_Order_Item setBasePrice(float $value)
- * @method Mage_Sales_Model_Order_Item setOriginalPrice(float $value)
+ * @method $this setBasePrice(float $value)
+ * @method $this setOriginalPrice(float $value)
  * @method float getBaseOriginalPrice()
- * @method Mage_Sales_Model_Order_Item setBaseOriginalPrice(float $value)
+ * @method $this setBaseOriginalPrice(float $value)
  * @method float getTaxPercent()
- * @method Mage_Sales_Model_Order_Item setTaxPercent(float $value)
+ * @method $this setTaxPercent(float $value)
  * @method float getTaxAmount()
- * @method Mage_Sales_Model_Order_Item setTaxAmount(float $value)
+ * @method $this setTaxAmount(float $value)
  * @method float getBaseTaxAmount()
- * @method Mage_Sales_Model_Order_Item setBaseTaxAmount(float $value)
+ * @method $this setBaseTaxAmount(float $value)
  * @method float getTaxInvoiced()
- * @method Mage_Sales_Model_Order_Item setTaxInvoiced(float $value)
+ * @method $this setTaxInvoiced(float $value)
  * @method float getBaseTaxInvoiced()
- * @method Mage_Sales_Model_Order_Item setBaseTaxInvoiced(float $value)
+ * @method $this setBaseTaxInvoiced(float $value)
  * @method float getDiscountPercent()
- * @method Mage_Sales_Model_Order_Item setDiscountPercent(float $value)
+ * @method $this setDiscountPercent(float $value)
  * @method float getDiscountAmount()
- * @method Mage_Sales_Model_Order_Item setDiscountAmount(float $value)
+ * @method $this setDiscountAmount(float $value)
  * @method float getBaseDiscountAmount()
- * @method Mage_Sales_Model_Order_Item setBaseDiscountAmount(float $value)
+ * @method $this setBaseDiscountAmount(float $value)
  * @method float getDiscountInvoiced()
- * @method Mage_Sales_Model_Order_Item setDiscountInvoiced(float $value)
+ * @method $this setDiscountInvoiced(float $value)
  * @method float getBaseDiscountInvoiced()
- * @method Mage_Sales_Model_Order_Item setBaseDiscountInvoiced(float $value)
+ * @method $this setBaseDiscountInvoiced(float $value)
  * @method float getAmountRefunded()
- * @method Mage_Sales_Model_Order_Item setAmountRefunded(float $value)
+ * @method $this setAmountRefunded(float $value)
  * @method float getBaseAmountRefunded()
- * @method Mage_Sales_Model_Order_Item setBaseAmountRefunded(float $value)
+ * @method $this setBaseAmountRefunded(float $value)
  * @method float getRowTotal()
- * @method Mage_Sales_Model_Order_Item setRowTotal(float $value)
+ * @method $this setRowTotal(float $value)
  * @method float getBaseRowTotal()
- * @method Mage_Sales_Model_Order_Item setBaseRowTotal(float $value)
+ * @method $this setBaseRowTotal(float $value)
  * @method float getRowInvoiced()
- * @method Mage_Sales_Model_Order_Item setRowInvoiced(float $value)
+ * @method $this setRowInvoiced(float $value)
  * @method float getBaseRowInvoiced()
- * @method Mage_Sales_Model_Order_Item setBaseRowInvoiced(float $value)
+ * @method $this setBaseRowInvoiced(float $value)
  * @method float getRowWeight()
- * @method Mage_Sales_Model_Order_Item setRowWeight(float $value)
+ * @method $this setRowWeight(float $value)
  * @method int getGiftMessageId()
- * @method Mage_Sales_Model_Order_Item setGiftMessageId(int $value)
+ * @method $this setGiftMessageId(int $value)
  * @method int getGiftMessageAvailable()
- * @method Mage_Sales_Model_Order_Item setGiftMessageAvailable(int $value)
+ * @method $this setGiftMessageAvailable(int $value)
  * @method float getBaseTaxBeforeDiscount()
- * @method Mage_Sales_Model_Order_Item setBaseTaxBeforeDiscount(float $value)
+ * @method $this setBaseTaxBeforeDiscount(float $value)
  * @method float getTaxBeforeDiscount()
- * @method Mage_Sales_Model_Order_Item setTaxBeforeDiscount(float $value)
+ * @method $this setTaxBeforeDiscount(float $value)
  * @method string getExtOrderItemId()
- * @method Mage_Sales_Model_Order_Item setExtOrderItemId(string $value)
+ * @method $this setExtOrderItemId(string $value)
  * @method string getWeeeTaxApplied()
- * @method Mage_Sales_Model_Order_Item setWeeeTaxApplied(string $value)
+ * @method $this setWeeeTaxApplied(string $value)
  * @method float getWeeeTaxAppliedAmount()
- * @method Mage_Sales_Model_Order_Item setWeeeTaxAppliedAmount(float $value)
+ * @method $this setWeeeTaxAppliedAmount(float $value)
  * @method float getWeeeTaxAppliedRowAmount()
- * @method Mage_Sales_Model_Order_Item setWeeeTaxAppliedRowAmount(float $value)
+ * @method $this setWeeeTaxAppliedRowAmount(float $value)
  * @method float getBaseWeeeTaxAppliedAmount()
- * @method Mage_Sales_Model_Order_Item setBaseWeeeTaxAppliedAmount(float $value)
+ * @method $this setBaseWeeeTaxAppliedAmount(float $value)
  * @method float getBaseWeeeTaxAppliedRowAmount()
- * @method Mage_Sales_Model_Order_Item setBaseWeeeTaxAppliedRowAmount(float $value)
+ * @method $this setBaseWeeeTaxAppliedRowAmount(float $value)
  * @method float getWeeeTaxDisposition()
- * @method Mage_Sales_Model_Order_Item setWeeeTaxDisposition(float $value)
+ * @method $this setWeeeTaxDisposition(float $value)
  * @method float getWeeeTaxRowDisposition()
- * @method Mage_Sales_Model_Order_Item setWeeeTaxRowDisposition(float $value)
+ * @method $this setWeeeTaxRowDisposition(float $value)
  * @method float getBaseWeeeTaxDisposition()
- * @method Mage_Sales_Model_Order_Item setBaseWeeeTaxDisposition(float $value)
+ * @method $this setBaseWeeeTaxDisposition(float $value)
  * @method float getBaseWeeeTaxRowDisposition()
- * @method Mage_Sales_Model_Order_Item setBaseWeeeTaxRowDisposition(float $value)
+ * @method $this setBaseWeeeTaxRowDisposition(float $value)
  * @method int getLockedDoInvoice()
- * @method Mage_Sales_Model_Order_Item setLockedDoInvoice(int $value)
+ * @method $this setLockedDoInvoice(int $value)
  * @method int getLockedDoShip()
- * @method Mage_Sales_Model_Order_Item setLockedDoShip(int $value)
+ * @method $this setLockedDoShip(int $value)
  * @method float getPriceInclTax()
- * @method Mage_Sales_Model_Order_Item setPriceInclTax(float $value)
+ * @method $this setPriceInclTax(float $value)
  * @method float getBasePriceInclTax()
- * @method Mage_Sales_Model_Order_Item setBasePriceInclTax(float $value)
+ * @method $this setBasePriceInclTax(float $value)
  * @method float getRowTotalInclTax()
- * @method Mage_Sales_Model_Order_Item setRowTotalInclTax(float $value)
+ * @method $this setRowTotalInclTax(float $value)
  * @method float getBaseRowTotalInclTax()
- * @method Mage_Sales_Model_Order_Item setBaseRowTotalInclTax(float $value)
+ * @method $this setBaseRowTotalInclTax(float $value)
  * @method float getHiddenTaxAmount()
- * @method Mage_Sales_Model_Order_Item setHiddenTaxAmount(float $value)
+ * @method $this setHiddenTaxAmount(float $value)
  * @method float getBaseHiddenTaxAmount()
- * @method Mage_Sales_Model_Order_Item setBaseHiddenTaxAmount(float $value)
+ * @method $this setBaseHiddenTaxAmount(float $value)
  * @method float getHiddenTaxInvoiced()
- * @method Mage_Sales_Model_Order_Item setHiddenTaxInvoiced(float $value)
+ * @method $this setHiddenTaxInvoiced(float $value)
  * @method float getBaseHiddenTaxInvoiced()
- * @method Mage_Sales_Model_Order_Item setBaseHiddenTaxInvoiced(float $value)
+ * @method $this setBaseHiddenTaxInvoiced(float $value)
  * @method float getHiddenTaxRefunded()
- * @method Mage_Sales_Model_Order_Item setHiddenTaxRefunded(float $value)
+ * @method $this setHiddenTaxRefunded(float $value)
  * @method float getBaseHiddenTaxRefunded()
- * @method Mage_Sales_Model_Order_Item setBaseHiddenTaxRefunded(float $value)
+ * @method $this setBaseHiddenTaxRefunded(float $value)
  * @method int getIsNominal()
- * @method Mage_Sales_Model_Order_Item setIsNominal(int $value)
+ * @method $this setIsNominal(int $value)
  * @method float getTaxCanceled()
- * @method Mage_Sales_Model_Order_Item setTaxCanceled(float $value)
+ * @method $this setTaxCanceled(float $value)
  * @method float getHiddenTaxCanceled()
- * @method Mage_Sales_Model_Order_Item setHiddenTaxCanceled(float $value)
+ * @method $this setHiddenTaxCanceled(float $value)
  * @method float getTaxRefunded()
- * @method Mage_Sales_Model_Order_Item setTaxRefunded(float $value)
+ * @method $this setTaxRefunded(float $value)
  * @method float getBaseTaxRefunded()
- * @method Mage_Sales_Model_Order_Item setBaseTaxRefunded(float $value)
+ * @method $this setBaseTaxRefunded(float $value)
  * @method float getDiscountRefunded()
- * @method Mage_Sales_Model_Order_Item setDiscountRefunded(float $value)
+ * @method $this setDiscountRefunded(float $value)
  * @method float getBaseDiscountRefunded()
- * @method Mage_Sales_Model_Order_Item setBaseDiscountRefunded(float $value)
+ * @method $this setBaseDiscountRefunded(float $value)
+ * @method $this setShippingAmount(float $value)
+ * @method bool getHasChildren()
+ * @method $this setHasChildren(bool $value)
+ * @method $this setProduct(Mage_Catalog_Model_Product $value)
+ * @method $this setGiftMessage(string $value)
+ * @method $this setQuoteParentItemId(int $value)
+ * @method int getParentProductId()
+ * @method int getQuoteParentItemId()
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -261,7 +271,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      * Set parent item
      *
      * @param   Mage_Sales_Model_Order_Item $item
-     * @return  Mage_Sales_Model_Order_Item
+     * @return  $this
      */
     public function setParentItem($item)
     {
@@ -276,7 +286,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     /**
      * Get parent item
      *
-     * @return $this || null
+     * @return $this|null
      */
     public function getParentItem()
     {
@@ -425,7 +435,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      * Declare order
      *
      * @param   Mage_Sales_Model_Order $order
-     * @return  Mage_Sales_Model_Order_Item
+     * @return  $this
      */
     public function setOrder(Mage_Sales_Model_Order $order)
     {
@@ -479,7 +489,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
             return self::STATUS_INVOICED;
         }
 
-        if ($backordered && ($actuallyOrdered == $backordered) ) {
+        if ($backordered && ($actuallyOrdered == $backordered)) {
             return self::STATUS_BACKORDERED;
         }
 
@@ -520,12 +530,13 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      */
     public function getStatus()
     {
-        return $this->getStatusName($this->getStatusId());
+        return self::getStatusName($this->getStatusId());
     }
 
     /**
      * Retrieve status name
      *
+     * @param int $statusId
      * @return string
      */
     public static function getStatusName($statusId)
@@ -603,7 +614,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      * Set product options
      *
      * @param   array $options
-     * @return  Mage_Sales_Model_Order_Item
+     * @return  $this
      */
     public function setProductOptions(array $options)
     {
@@ -631,7 +642,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      * @param string $code
      * @return array
      */
-    public function getProductOptionByCode($code=null)
+    public function getProductOptionByCode($code = null)
     {
         $options = $this->getProductOptions();
         if (is_null($code)) {
@@ -646,7 +657,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     /**
      * Return real product type of item or NULL if item is not composite
      *
-     * @return string | null
+     * @return array|null
      */
     public function getRealProductType()
     {
@@ -665,7 +676,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     {
         if ($item instanceof Mage_Sales_Model_Order_Item) {
             $this->_children[] = $item;
-        } else if (is_array($item)) {
+        } elseif (is_array($item)) {
             $this->_children = array_merge($this->_children, $item);
         }
     }
@@ -675,7 +686,8 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      *
      * @return array
      */
-    public function getChildrenItems() {
+    public function getChildrenItems()
+    {
         return $this->_children;
     }
 
@@ -685,7 +697,8 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      *
      * @return bool
      */
-    public function isChildrenCalculated() {
+    public function isChildrenCalculated()
+    {
         if ($parentItem = $this->getParentItem()) {
             $options = $parentItem->getProductOptions();
         } else {
@@ -720,7 +733,8 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      *
      * @return bool
      */
-    public function isShipSeparately() {
+    public function isShipSeparately()
+    {
         if ($parentItem = $this->getParentItem()) {
             $options = $parentItem->getProductOptions();
         } else {
@@ -742,7 +756,8 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      * @param bool $shipment
      * @return bool
      */
-    public function isDummy($shipment = false){
+    public function isDummy($shipment = false)
+    {
         if ($shipment) {
             if ($this->getHasChildren() && $this->isShipSeparately()) {
                 return true;

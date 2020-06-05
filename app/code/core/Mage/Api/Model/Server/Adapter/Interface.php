@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Api
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,14 +39,14 @@ interface Mage_Api_Model_Server_Adapter_Interface
      * @param string $handler
      * @return Mage_Api_Model_Server_Adapter_Interface
      */
-    function setHandler($handler);
+    public function setHandler($handler);
 
     /**
      * Retrive handler class name for webservice
      *
      * @return string
      */
-    function getHandler();
+    public function getHandler();
 
     /**
      * Set webservice api controller
@@ -54,21 +54,21 @@ interface Mage_Api_Model_Server_Adapter_Interface
      * @param Mage_Api_Controller_Action $controller
      * @return Mage_Api_Model_Server_Adapter_Interface
      */
-    function setController(Mage_Api_Controller_Action $controller);
+    public function setController(Mage_Api_Controller_Action $controller);
 
     /**
      * Retrive webservice api controller
      *
      * @return Mage_Api_Controller_Action
      */
-    function getController();
+    public function getController();
 
     /**
      * Run webservice
      *
      * @return Mage_Api_Model_Server_Adapter_Interface
      */
-    function run();
+    public function run();
 
     /**
      * Dispatch webservice fault
@@ -76,6 +76,5 @@ interface Mage_Api_Model_Server_Adapter_Interface
      * @param int $code
      * @param string $message
      */
-    function fault($code, $message);
-
-} // Class Mage_Api_Model_Server_Adapter_Interface End
+    public function fault($code, $message);
+}

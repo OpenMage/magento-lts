@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,9 +41,12 @@ interface Mage_Sales_Model_Resource_Helper_Interface
      * @param array $aggregationAliases
      * @param string $mainTable
      * @param string $aggregationTable
-     * @return Mage_Sales_Model_Resource_Helper_Abstract
+     * @return Mage_Sales_Model_Resource_Helper_Mysql4
      */
-    public function getBestsellersReportUpdateRatingPos($aggregation, $aggregationAliases,
-        $mainTable, $aggregationTable
+    public function getBestsellersReportUpdateRatingPos(
+        $aggregation,
+        $aggregationAliases,
+        $mainTable,
+        $aggregationTable
     );
 }

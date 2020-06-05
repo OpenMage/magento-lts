@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,7 +37,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     /**
      * List of entities converted from EAV to flat data structure
      *
-     * @var $_flatEntityTables array
+     * @var array $_flatEntityTables
      */
     protected $_flatEntityTables     = array(
         'quote'             => 'sales/quote',
@@ -66,7 +66,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     /**
      * List of entities used with separate grid table
      *
-     * @var $_flatEntitiesGrid array
+     * @var array $_flatEntitiesGrid
      */
     protected $_flatEntitiesGrid     = array(
         'order',
@@ -98,8 +98,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     public function addAttribute($entityTypeId, $code, array $attr)
     {
         if (isset($this->_flatEntityTables[$entityTypeId]) &&
-            $this->_flatTableExist($this->_flatEntityTables[$entityTypeId]))
-        {
+            $this->_flatTableExist($this->_flatEntityTables[$entityTypeId])) {
             $this->_addFlatAttribute($this->_flatEntityTables[$entityTypeId], $code, $attr);
             $this->_addGridAttribute($this->_flatEntityTables[$entityTypeId], $code, $attr, $entityTypeId);
         } else {

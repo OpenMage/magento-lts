@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -109,7 +109,7 @@ class Mage_Sales_Model_Order_Pdf_Creditmemo extends Mage_Sales_Model_Order_Pdf_A
     /**
      * Return PDF document
      *
-     * @param  array $creditmemos
+     * @param  Mage_Sales_Model_Order_Creditmemo[] $creditmemos
      * @return Zend_Pdf
      */
     public function getPdf($creditmemos = array())
@@ -147,7 +147,7 @@ class Mage_Sales_Model_Order_Pdf_Creditmemo extends Mage_Sales_Model_Order_Pdf_A
             /* Add table head */
             $this->_drawHeader($page);
             /* Add body */
-            foreach ($creditmemo->getAllItems() as $item){
+            foreach ($creditmemo->getAllItems() as $item) {
                 if ($item->getOrderItem()->getParentItem()) {
                     continue;
                 }
