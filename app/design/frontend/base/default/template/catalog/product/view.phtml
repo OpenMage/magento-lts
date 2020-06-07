@@ -42,9 +42,9 @@
         <form action="<?php echo $this->getSubmitUrlCustom($_product, array('_secure' => $this->_isSecure()), false) ?>"
               method="post"
               id="product_addtocart_form"
-            <?php if ($_product->getOptions()): ?> enctype="multipart/form-data" <?php endif; ?>>
-            <?php echo $this->getBlockHtml('formkey') ?>
+              <?php if ($_product->getOptions()): ?> enctype="multipart/form-data" <?php endif; ?>>
         <div class="no-display">
+            <?php echo $this->getBlockHtml('formkey') ?>
             <input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
             <input type="hidden" name="related_product" id="related-products-field" value="" />
         </div>
