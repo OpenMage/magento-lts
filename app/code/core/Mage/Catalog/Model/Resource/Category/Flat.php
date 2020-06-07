@@ -846,7 +846,8 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         );
         foreach ($attributesType as $type) {
             foreach ($this->_getAttributeTypeValues($type, $entityIds, $store_id) as $row) {
-                $values[$row['entity_id']][$attributes[$row['attribute_id']]['attribute_code']] = $row['value'];
+                if (array_key_exists($row['attribute_id'], $attributes))
+                    $values[$row['entity_id']][$attributes[$row['attribute_id']]['attribute_code']] = $row['value'];
             }
         }
         return $values;

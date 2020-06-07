@@ -88,6 +88,7 @@ foreach ($oldConfigValues as $oldValue) {
     if (stripos($oldValue['path'], 'free_method') && isset($oldToNewMethodCodesMap[$oldValue['value']])) {
         $newValue = $oldToNewMethodCodesMap[$oldValue['value']];
     } else if (stripos($oldValue['path'], 'allowed_methods')) {
+        $newValue = array();
         foreach (explode(',', $oldValue['value']) as $shippingMethod) {
             if (isset($oldToNewMethodCodesMap[$shippingMethod])) {
                 $newValue[] = $oldToNewMethodCodesMap[$shippingMethod];

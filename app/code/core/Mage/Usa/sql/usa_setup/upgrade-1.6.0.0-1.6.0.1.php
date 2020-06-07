@@ -90,6 +90,7 @@ foreach ($mapsOld as $mapOld) {
     } else if (stripos($mapOld['path'], 'free_method') && isset($codes['method'][$mapOld['value']])) {
         $mapNew = $codes['method'][$mapOld['value']];
     } else if (stripos($mapOld['path'], 'allowed_methods')) {
+        $mapNew = array();
         foreach (explode(',', $mapOld['value']) as $shippingMethod) {
             if (isset($codes['method'][$shippingMethod])) {
                 $mapNew[] = $codes['method'][$shippingMethod];

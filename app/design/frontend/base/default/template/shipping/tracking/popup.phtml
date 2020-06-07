@@ -128,7 +128,7 @@
                 </tbody>
             </table>
             <script type="text/javascript">decorateTable('tracking-table-popup-<?php echo $_id++ ?>');</script>
-            <?php if (is_object($track) && sizeof($track->getProgressdetail())>0): ?>
+            <?php if (is_object($track) && !empty($track->getProgressdetail())): ?>
                 <br />
                 <table class="data-table" id="track-history-table-<?php echo $track->getTracking(); ?>">
                     <col />
