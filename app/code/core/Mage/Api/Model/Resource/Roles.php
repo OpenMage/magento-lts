@@ -140,7 +140,7 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
     {
         $users  = $this->getRoleUsers($role);
         $rowsCount = 0;
-        if (sizeof($users) > 0) {
+        if (count($users)) {
             $rowsCount = $this->_getWriteAdapter()->update(
                 $this->_usersTable,
                 array('reload_acl_flag' => 1),

@@ -49,16 +49,20 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
 
     protected $_itemLimits = array();
 
+    /**
+     * @return $this
+     */
     protected function _prepareData()
     {
         $product = Mage::registry('product');
-        /* @var $product Mage_Catalog_Model_Product */
+        /* @var Mage_Catalog_Model_Product $product */
         $this->_itemCollection = $product->getUpSellProductCollection()
             ->setPositionOrder()
             ->addStoreFilter()
         ;
         if (Mage::helper('catalog')->isModuleEnabled('Mage_Checkout')) {
-            Mage::getResourceSingleton('checkout/cart')->addExcludeProductFilter($this->_itemCollection,
+            Mage::getResourceSingleton('checkout/cart')->addExcludeProductFilter(
+                $this->_itemCollection,
                 Mage::getSingleton('checkout/session')->getQuoteId()
             );
 
@@ -89,17 +93,26 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
         return $this;
     }
 
+    /**
+     * @return Mage_Catalog_Block_Product_Abstract
+     */
     protected function _beforeToHtml()
     {
         $this->_prepareData();
         return parent::_beforeToHtml();
     }
 
+    /**
+     * @return Mage_Catalog_Model_Resource_Product_Link_Product_Collection
+     */
     public function getItemCollection()
     {
         return $this->_itemCollection;
     }
 
+    /**
+     * @return Mage_Catalog_Model_Product[]
+     */
     public function getItems()
     {
         if (is_null($this->_items) && $this->getItemCollection()) {
@@ -108,11 +121,18 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
         return $this->_items;
     }
 
+    /**
+     * @return float
+     */
     public function getRowCount()
     {
         return ceil(count($this->getItemCollection()->getItems())/$this->getColumnCount());
     }
 
+    /**
+     * @param array $columns
+     * @return $this
+     */
     public function setColumnCount($columns)
     {
         if (intval($columns) > 0) {
@@ -121,6 +141,9 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
         return $this;
     }
 
+    /**
+     * @return int
+     */
     public function getColumnCount()
     {
         return $this->_columnCount;
@@ -132,6 +155,9 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
         reset($this->_items);
     }
 
+    /**
+     * @return mixed
+     */
     public function getIterableItem()
     {
         $item = current($this->_items);
@@ -155,6 +181,10 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
         return $this;
     }
 
+    /**
+     * @param string $type
+     * @return array|int|mixed
+     */
     public function getItemLimit($type = '')
     {
         if ($type == '') {
@@ -162,8 +192,7 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
         }
         if (isset($this->_itemLimits[$type])) {
             return $this->_itemLimits[$type];
-        }
-        else {
+        } else {
             return 0;
         }
     }

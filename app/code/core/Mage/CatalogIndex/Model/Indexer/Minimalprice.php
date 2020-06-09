@@ -28,19 +28,21 @@
 /**
  * Catalog indexer price processor
  *
+ * @property Mage_Directory_Model_Currency $_currencyModel
+ *
  * @method Mage_CatalogIndex_Model_Resource_Indexer_Minimalprice _getResource()
  * @method Mage_CatalogIndex_Model_Resource_Indexer_Minimalprice getResource()
- * @method Mage_CatalogIndex_Model_Indexer_Minimalprice setEntityId(int $value)
+ * @method $this setEntityId(int $value)
  * @method int getCustomerGroupId()
- * @method Mage_CatalogIndex_Model_Indexer_Minimalprice setCustomerGroupId(int $value)
+ * @method $this setCustomerGroupId(int $value)
  * @method float getQty()
- * @method Mage_CatalogIndex_Model_Indexer_Minimalprice setQty(float $value)
+ * @method $this setQty(float $value)
  * @method float getValue()
- * @method Mage_CatalogIndex_Model_Indexer_Minimalprice setValue(float $value)
+ * @method $this setValue(float $value)
  * @method int getTaxClassId()
- * @method Mage_CatalogIndex_Model_Indexer_Minimalprice setTaxClassId(int $value)
+ * @method $this setTaxClassId(int $value)
  * @method int getWebsiteId()
- * @method Mage_CatalogIndex_Model_Indexer_Minimalprice setWebsiteId(int $value)
+ * @method $this setWebsiteId(int $value)
  *
  * @category    Mage
  * @package     Mage_CatalogIndex
@@ -61,6 +63,10 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
         return parent::_construct();
     }
 
+    /**
+     * @return Mage_Eav_Model_Entity_Attribute_Abstract|mixed
+     * @throws Mage_Core_Exception
+     */
     public function getTierPriceAttribute()
     {
         $data = $this->getData('tier_price_attribute');
@@ -71,6 +77,10 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
         return $data;
     }
 
+    /**
+     * @return Mage_Eav_Model_Entity_Attribute_Abstract|mixed
+     * @throws Mage_Core_Exception
+     */
     public function getPriceAttribute()
     {
         $data = $this->getData('price_attribute');
@@ -81,6 +91,11 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
         return $data;
     }
 
+    /**
+     * @param Mage_Catalog_Model_Product $object
+     * @param Mage_Eav_Model_Entity_Attribute_Abstract|null $attribute
+     * @return array|bool
+     */
     public function createIndexData(Mage_Catalog_Model_Product $object, Mage_Eav_Model_Entity_Attribute_Abstract $attribute = null)
     {
         $searchEntityId = $object->getId();
@@ -114,8 +129,9 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
             $data['customer_group_id'] = $group->getId();
 
             $value = $this->_getResource()->getMinimalValue($search);
-            if (is_null($value))
+            if (is_null($value)) {
                 continue;
+            }
             $data['value'] = $value;
             $result[] = $data;
         }
@@ -123,15 +139,23 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
         return $result;
     }
 
+    /**
+     * @return bool
+     */
     public function isAttributeIdUsed()
     {
         return false;
     }
 
+    /**
+     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+     * @return bool
+     */
     protected function _isAttributeIndexable(Mage_Eav_Model_Entity_Attribute_Abstract $attribute)
     {
-        if ($attribute->getAttributeCode() != 'minimal_price')
+        if ($attribute->getAttributeCode() != 'minimal_price') {
             return false;
+        }
 
         return true;
     }

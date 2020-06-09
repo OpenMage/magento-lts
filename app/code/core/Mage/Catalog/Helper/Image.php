@@ -140,7 +140,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      * @param mixed $imageFile
      * @return $this
      */
-    public function init(Mage_Catalog_Model_Product $product, $attributeName, $imageFile=null)
+    public function init(Mage_Catalog_Model_Product $product, $attributeName, $imageFile = null)
     {
         $this->_reset();
         $this->_setModel(Mage::getModel('catalog/product_image'));
@@ -306,7 +306,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      * @param int $imageOpacity
      * @return $this
      */
-    public function watermark($fileName, $position, $size=null, $imageOpacity=null)
+    public function watermark($fileName, $position, $size = null, $imageOpacity = null)
     {
         $this->setWatermark($fileName)
             ->setWatermarkPosition($position)
@@ -573,7 +573,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     protected function parseSize($string)
     {
         $size = explode('x', strtolower($string));
-        if (sizeof($size) == 2) {
+        if (count($size) === 2) {
             return array(
                 'width' => ($size[0] > 0) ? $size[0] : null,
                 'heigth' => ($size[1] > 0) ? $size[1] : null,
@@ -634,7 +634,8 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      * @return bool
      * @throws Mage_Core_Exception
      */
-    public function validateUploadFile($filePath) {
+    public function validateUploadFile($filePath)
+    {
         $maxDimension = Mage::getStoreConfig(self::XML_NODE_PRODUCT_MAX_DIMENSION);
         $imageInfo = getimagesize($filePath);
         if (!$imageInfo) {
@@ -653,5 +654,4 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
 
         return $mimeType !== null;
     }
-
 }

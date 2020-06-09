@@ -45,9 +45,9 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
     }
 
     /**
-     * @param  $quoteId
-     * @param  $productsData
-     * @param  $store
+     * @param  int $quoteId
+     * @param  array $productsData
+     * @param  string|int $store
      * @return bool
      */
     public function add($quoteId, $productsData, $store = null)
@@ -66,7 +66,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
         foreach ($productsData as $productItem) {
             if (isset($productItem['product_id'])) {
                 $productByItem = $this->_getProduct($productItem['product_id'], $store, "id");
-            } else if (isset($productItem['sku'])) {
+            } elseif (isset($productItem['sku'])) {
                 $productByItem = $this->_getProduct($productItem['sku'], $store, "sku");
             } else {
                 $errors[] = Mage::helper('checkout')->__("One item of products do not have identifier or sku");
@@ -98,9 +98,9 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
     }
 
     /**
-     * @param  $quoteId
-     * @param  $productsData
-     * @param  $store
+     * @param  int $quoteId
+     * @param  array $productsData
+     * @param  string|int $store
      * @return bool
      */
     public function update($quoteId, $productsData, $store = null)
@@ -119,16 +119,19 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
         foreach ($productsData as $productItem) {
             if (isset($productItem['product_id'])) {
                 $productByItem = $this->_getProduct($productItem['product_id'], $store, "id");
-            } else if (isset($productItem['sku'])) {
+            } elseif (isset($productItem['sku'])) {
                 $productByItem = $this->_getProduct($productItem['sku'], $store, "sku");
             } else {
                 $errors[] = Mage::helper('checkout')->__("One item of products do not have identifier or sku");
                 continue;
             }
 
-            /** @var $quoteItem Mage_Sales_Model_Quote_Item */
-            $quoteItem = $this->_getQuoteItemByProduct($quote, $productByItem,
-                $this->_getProductRequest($productItem));
+            /** @var Mage_Sales_Model_Quote_Item $quoteItem */
+            $quoteItem = $this->_getQuoteItemByProduct(
+                $quote,
+                $productByItem,
+                $this->_getProductRequest($productItem)
+            );
             if (is_null($quoteItem->getId())) {
                 $errors[] = Mage::helper('checkout')->__("One item of products is not belong any of quote item");
                 continue;
@@ -153,9 +156,9 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
     }
 
     /**
-     * @param  $quoteId
-     * @param  $productsData
-     * @param  $store
+     * @param  int $quoteId
+     * @param  array $productsData
+     * @param  string|int $store
      * @return bool
      */
     public function remove($quoteId, $productsData, $store = null)
@@ -174,7 +177,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
         foreach ($productsData as $productItem) {
             if (isset($productItem['product_id'])) {
                 $productByItem = $this->_getProduct($productItem['product_id'], $store, "id");
-            } else if (isset($productItem['sku'])) {
+            } elseif (isset($productItem['sku'])) {
                 $productByItem = $this->_getProduct($productItem['sku'], $store, "sku");
             } else {
                 $errors[] = Mage::helper('checkout')->__("One item of products do not have identifier or sku");
@@ -182,9 +185,12 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
             }
 
             try {
-                /** @var $quoteItem Mage_Sales_Model_Quote_Item */
-                $quoteItem = $this->_getQuoteItemByProduct($quote, $productByItem,
-                    $this->_getProductRequest($productItem));
+                /** @var Mage_Sales_Model_Quote_Item $quoteItem */
+                $quoteItem = $this->_getQuoteItemByProduct(
+                    $quote,
+                    $productByItem,
+                    $this->_getProductRequest($productItem)
+                );
                 if (is_null($quoteItem->getId())) {
                     $errors[] = Mage::helper('checkout')->__("One item of products is not belong any of quote item");
                     continue;
@@ -209,8 +215,8 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
     }
 
     /**
-     * @param  $quoteId
-     * @param  $store
+     * @param  int $quoteId
+     * @param  string|int $store
      * @return array
      */
     public function items($quoteId, $store = null)
@@ -226,7 +232,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
 
         $productsResult = array();
         foreach ($quote->getAllItems() as $item) {
-            /** @var $item Mage_Sales_Model_Quote_Item */
+            /** @var Mage_Sales_Model_Quote_Item $item */
             $product = $item->getProduct();
             $productsResult[] = array( // Basic product data
                 'product_id'   => $product->getId(),
@@ -243,9 +249,9 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
     }
 
     /**
-     * @param  $quoteId
-     * @param  $productsData
-     * @param  $store
+     * @param  int $quoteId
+     * @param  array $productsData
+     * @param  string|int $store
      * @return bool
      */
     public function moveToCustomerQuote($quoteId, $productsData, $store = null)
@@ -261,7 +267,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
             $this->_fault('customer_not_set_for_quote');
         }
 
-        /** @var $customerQuote Mage_Sales_Model_Quote */
+        /** @var Mage_Sales_Model_Quote $customerQuote */
         $customerQuote = Mage::getModel('sales/quote')
             ->setStoreId($store)
             ->loadByCustomer($customer);
@@ -283,7 +289,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
         foreach ($productsData as $key => $productItem) {
             if (isset($productItem['product_id'])) {
                 $productByItem = $this->_getProduct($productItem['product_id'], $store, "id");
-            } else if (isset($productItem['sku'])) {
+            } elseif (isset($productItem['sku'])) {
                 $productByItem = $this->_getProduct($productItem['sku'], $store, "sku");
             } else {
                 $errors[] = Mage::helper('checkout')->__("One item of products do not have identifier or sku");
@@ -291,9 +297,12 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
             }
 
             try {
-                /** @var $quoteItem Mage_Sales_Model_Quote_Item */
-                $quoteItem = $this->_getQuoteItemByProduct($quote, $productByItem,
-                    $this->_getProductRequest($productItem));
+                /** @var Mage_Sales_Model_Quote_Item $quoteItem */
+                $quoteItem = $this->_getQuoteItemByProduct(
+                    $quote,
+                    $productByItem,
+                    $this->_getProductRequest($productItem)
+                );
                 if ($quoteItem && $quoteItem->getId()) {
                     $newQuoteItem = clone $quoteItem;
                     $newQuoteItem->setId(null);

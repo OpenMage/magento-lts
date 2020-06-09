@@ -100,10 +100,10 @@ class Varien_Db_Select extends Zend_Db_Select
      * $db->fetchAll($select, array('id' => 5));
      * </code>
      *
-     * @param string $cond  The WHERE condition.
-     * @param string|int|array $value OPTIONAL A single value to quote into the condition.
-     * @param null|string $type  OPTIONAL The type of the given value
-     * @inheritDoc
+     * @param string $cond The WHERE condition.
+     * @param Zend_Db_Select|Zend_Db_Expr|array|null|int|string|float $value OPTIONAL A single value to quote into the condition.
+     * @param null|string|int $type  OPTIONAL The type of the given value e.g. Zend_Db::INT_TYPE, "INT"
+     * @return $this
      */
     public function where($cond, $value = null, $type = null)
     {
@@ -112,12 +112,13 @@ class Varien_Db_Select extends Zend_Db_Select
         }
         /**
          * Additional internal type used for really null value
+         * cast to string, to prevent false matching 0 == "TYPE_CONDITION"
          */
-        if ($type == self::TYPE_CONDITION) {
+        if ((string)$type === self::TYPE_CONDITION) {
             $type = null;
         }
         if (is_array($value)) {
-            $cond = $this->_adapter->quoteInto($cond, $value);
+            $cond = $this->_adapter->quoteInto($cond, $value, $type);
             $value = null;
         }
         return parent::where($cond, $value, $type);

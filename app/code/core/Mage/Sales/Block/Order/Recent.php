@@ -30,11 +30,12 @@
  * @category   Mage
  * @package    Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Sales_Model_Resource_Order_Collection getOrders()
+ * @method $this setOrders(Mage_Sales_Model_Resource_Order_Collection $orders)
  */
-
 class Mage_Sales_Block_Order_Recent extends Mage_Core_Block_Template
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -79,16 +80,27 @@ class Mage_Sales_Block_Order_Recent extends Mage_Core_Block_Template
         $this->setOrders($orders);
     }
 
+    /**
+     * @param Mage_Sales_Model_Order $order
+     * @return string
+     */
     public function getViewUrl($order)
     {
         return $this->getUrl('sales/order/view', array('order_id' => $order->getId()));
     }
 
+    /**
+     * @param Mage_Sales_Model_Order $order
+     * @return string
+     */
     public function getTrackUrl($order)
     {
         return $this->getUrl('sales/order/track', array('order_id' => $order->getId()));
     }
 
+    /**
+     * @return string
+     */
     protected function _toHtml()
     {
         if ($this->getOrders()->getSize() > 0) {
@@ -97,6 +109,10 @@ class Mage_Sales_Block_Order_Recent extends Mage_Core_Block_Template
         return '';
     }
 
+    /**
+     * @param Mage_Sales_Model_Order $order
+     * @return string
+     */
     public function getReorderUrl($order)
     {
         return $this->getUrl('sales/order/reorder', array('order_id' => $order->getId()));

@@ -41,5 +41,4 @@ class Mage_Sales_Model_Entity_Order_Shipment_Comment extends Mage_Eav_Model_Enti
             $resource->getConnection('sales_write')
         );
     }
-
 }

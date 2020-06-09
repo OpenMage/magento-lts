@@ -25,7 +25,11 @@
  */
 
 
-/* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
+/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 $installer = $this;
-$installer->updateAttribute('catalog_product', 'custom_layout_update', 'is_global',
-    Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE);
+$installer->updateAttribute(
+    'catalog_product',
+    'custom_layout_update',
+    'is_global',
+    Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE
+);

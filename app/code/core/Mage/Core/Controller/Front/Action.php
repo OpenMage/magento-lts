@@ -78,7 +78,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
     public function postDispatch()
     {
         parent::postDispatch();
-        if (!$this->getFlag('', self::FLAG_NO_START_SESSION )) {
+        if (!$this->getFlag('', self::FLAG_NO_START_SESSION)) {
             Mage::getSingleton('core/session')->setLastUrl(Mage::getUrl('*/*/*', array('_current'=>true)));
         }
         return $this;
@@ -107,7 +107,10 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
      * @param int $contentLength    explicit content length, if strlen($content) isn't applicable
      * @return $this
      */
-    protected function _prepareDownloadResponse($fileName, $content, $contentType = 'application/octet-stream',
+    protected function _prepareDownloadResponse(
+        $fileName,
+        $content,
+        $contentType = 'application/octet-stream',
         $contentLength = null
     ) {
         $session = Mage::getSingleton('admin/session');

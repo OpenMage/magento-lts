@@ -30,23 +30,23 @@
  *
  * @method Mage_CatalogIndex_Model_Resource_Price _getResource()
  * @method Mage_CatalogIndex_Model_Resource_Price getResource()
- * @method Mage_CatalogIndex_Model_Price setEntityId(int $value)
+ * @method $this setEntityId(int $value)
  * @method int getCustomerGroupId()
- * @method Mage_CatalogIndex_Model_Price setCustomerGroupId(int $value)
+ * @method $this setCustomerGroupId(int $value)
  * @method int getWebsiteId()
- * @method Mage_CatalogIndex_Model_Price setWebsiteId(int $value)
+ * @method $this setWebsiteId(int $value)
  * @method int getTaxClassId()
- * @method Mage_CatalogIndex_Model_Price setTaxClassId(int $value)
+ * @method $this setTaxClassId(int $value)
  * @method float getPrice()
- * @method Mage_CatalogIndex_Model_Price setPrice(float $value)
+ * @method $this setPrice(float $value)
  * @method float getFinalPrice()
- * @method Mage_CatalogIndex_Model_Price setFinalPrice(float $value)
+ * @method $this setFinalPrice(float $value)
  * @method float getMinPrice()
- * @method Mage_CatalogIndex_Model_Price setMinPrice(float $value)
+ * @method $this setMinPrice(float $value)
  * @method float getMaxPrice()
- * @method Mage_CatalogIndex_Model_Price setMaxPrice(float $value)
+ * @method $this setMaxPrice(float $value)
  * @method float getTierPrice()
- * @method Mage_CatalogIndex_Model_Price setTierPrice(float $value)
+ * @method $this setTierPrice(float $value)
  *
  * @category    Mage
  * @package     Mage_CatalogIndex
@@ -62,26 +62,54 @@ class Mage_CatalogIndex_Model_Price extends Mage_Core_Model_Abstract
         $this->_getResource()->setCustomerGroupId(Mage::getSingleton('customer/session')->getCustomerGroupId());
     }
 
+    /**
+     * @param Mage_Eav_Model_Entity_Attribute $attribute
+     * @param Zend_Db_Select $entityIdsFilter
+     * @return float|int
+     */
     public function getMaxValue($attribute, $entityIdsFilter)
     {
         return $this->_getResource()->getMaxValue($attribute, $entityIdsFilter);
     }
 
+    /**
+     * @param Mage_Eav_Model_Entity_Attribute $attribute
+     * @param int $range
+     * @param Zend_Db_Select $entitySelect
+     * @return array
+     */
     public function getCount($attribute, $range, $entitySelect)
     {
         return $this->_getResource()->getCount($range, $attribute, $entitySelect);
     }
 
+    /**
+     * @param Mage_Eav_Model_Entity_Attribute $attribute
+     * @param int $range
+     * @param int $index
+     * @param array $entityIdsFilter
+     * @return array
+     */
     public function getFilteredEntities($attribute, $range, $index, $entityIdsFilter)
     {
         return $this->_getResource()->getFilteredEntities($range, $index, $attribute, $entityIdsFilter);
     }
 
+    /**
+     * @param Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection
+     * @param Mage_Eav_Model_Entity_Attribute $attribute
+     * @param int $range
+     * @param int $index
+     * @return Mage_CatalogIndex_Model_Resource_Price
+     */
     public function applyFilterToCollection($collection, $attribute, $range, $index)
     {
         return $this->_getResource()->applyFilterToCollection($collection, $attribute, $range, $index);
     }
 
+    /**
+     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
+     */
     public function addMinimalPrices(Mage_Catalog_Model_Resource_Product_Collection $collection)
     {
         $minimalPrices = $this->_getResource()->getMinimalPrices($collection->getLoadedIds());

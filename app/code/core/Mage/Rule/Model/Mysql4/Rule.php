@@ -31,6 +31,7 @@
  * @category    Mage
  * @package     Mage_Rule
  * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated
  */
 class Mage_Rule_Model_Mysql4_Rule extends Mage_Rule_Model_Resource_Rule
 {

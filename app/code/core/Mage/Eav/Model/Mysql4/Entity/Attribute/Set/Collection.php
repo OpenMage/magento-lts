@@ -31,8 +31,8 @@
  * @category    Mage
  * @package     Mage_Eav
  * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated
  */
-class Mage_Eav_Model_Mysql4_Entity_Attribute_Set_Collection
-    extends Mage_Eav_Model_Resource_Entity_Attribute_Set_Collection
+class Mage_Eav_Model_Mysql4_Entity_Attribute_Set_Collection extends Mage_Eav_Model_Resource_Entity_Attribute_Set_Collection
 {
 }

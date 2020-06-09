@@ -39,14 +39,14 @@ interface Mage_Api_Model_Server_Adapter_Interface
      * @param string $handler
      * @return Mage_Api_Model_Server_Adapter_Interface
      */
-    function setHandler($handler);
+    public function setHandler($handler);
 
     /**
      * Retrive handler class name for webservice
      *
      * @return string
      */
-    function getHandler();
+    public function getHandler();
 
     /**
      * Set webservice api controller
@@ -54,21 +54,21 @@ interface Mage_Api_Model_Server_Adapter_Interface
      * @param Mage_Api_Controller_Action $controller
      * @return Mage_Api_Model_Server_Adapter_Interface
      */
-    function setController(Mage_Api_Controller_Action $controller);
+    public function setController(Mage_Api_Controller_Action $controller);
 
     /**
      * Retrive webservice api controller
      *
      * @return Mage_Api_Controller_Action
      */
-    function getController();
+    public function getController();
 
     /**
      * Run webservice
      *
      * @return Mage_Api_Model_Server_Adapter_Interface
      */
-    function run();
+    public function run();
 
     /**
      * Dispatch webservice fault
@@ -76,5 +76,5 @@ interface Mage_Api_Model_Server_Adapter_Interface
      * @param int $code
      * @param string $message
      */
-    function fault($code, $message);
+    public function fault($code, $message);
 }

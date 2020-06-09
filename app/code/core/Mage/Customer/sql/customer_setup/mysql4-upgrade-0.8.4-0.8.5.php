@@ -29,4 +29,3 @@ if ($attrId = $this->getAttribute('customer', 'birthdate', 'attribute_id')) {
 }
 
 $this->installEntities();
-

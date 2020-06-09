@@ -206,7 +206,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      */
     public function getCurPage($displacement = 0)
     {
-        if ($this->_curPage + $displacement < 1) {
+        if ($this->_curPage + $displacement <= 1) {
             return 1;
         }
         elseif ($this->_curPage + $displacement > $this->getLastPageNumber()) {

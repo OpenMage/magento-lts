@@ -28,25 +28,29 @@
 /**
  * Tier Price indexer
  *
+ * @property Mage_Directory_Model_Currency $_currencyModel
+ * @property Mage_Customer_Model_Resource_Group_Collection $_customerGroups
+ *
  * @method Mage_CatalogIndex_Model_Resource_Indexer_Price _getResource()
  * @method Mage_CatalogIndex_Model_Resource_Indexer_Price getResource()
- * @method Mage_CatalogIndex_Model_Indexer_Tierprice setEntityId(int $value)
+ *
+ * @method $this setEntityId(int $value)
  * @method int getCustomerGroupId()
- * @method Mage_CatalogIndex_Model_Indexer_Tierprice setCustomerGroupId(int $value)
+ * @method $this setCustomerGroupId(int $value)
  * @method int getWebsiteId()
- * @method Mage_CatalogIndex_Model_Indexer_Tierprice setWebsiteId(int $value)
+ * @method $this setWebsiteId(int $value)
  * @method int getTaxClassId()
- * @method Mage_CatalogIndex_Model_Indexer_Tierprice setTaxClassId(int $value)
+ * @method $this setTaxClassId(int $value)
  * @method float getPrice()
- * @method Mage_CatalogIndex_Model_Indexer_Tierprice setPrice(float $value)
+ * @method $this setPrice(float $value)
  * @method float getFinalPrice()
- * @method Mage_CatalogIndex_Model_Indexer_Tierprice setFinalPrice(float $value)
+ * @method $this setFinalPrice(float $value)
  * @method float getMinPrice()
- * @method Mage_CatalogIndex_Model_Indexer_Tierprice setMinPrice(float $value)
+ * @method $this setMinPrice(float $value)
  * @method float getMaxPrice()
- * @method Mage_CatalogIndex_Model_Indexer_Tierprice setMaxPrice(float $value)
+ * @method $this setMaxPrice(float $value)
  * @method float getTierPrice()
- * @method Mage_CatalogIndex_Model_Indexer_Tierprice setTierPrice(float $value)
+ * @method $this setTierPrice(float $value)
  *
  * @category    Mage
  * @package     Mage_CatalogIndex
@@ -65,6 +69,11 @@ class Mage_CatalogIndex_Model_Indexer_Tierprice extends Mage_CatalogIndex_Model_
         return parent::_construct();
     }
 
+    /**
+     * @param Mage_Catalog_Model_Product $object
+     * @param Mage_Eav_Model_Entity_Attribute_Abstract|null $attribute
+     * @return array
+     */
     public function createIndexData(Mage_Catalog_Model_Product $object, Mage_Eav_Model_Entity_Attribute_Abstract $attribute = null)
     {
         $data = array();
@@ -96,12 +105,15 @@ class Mage_CatalogIndex_Model_Indexer_Tierprice extends Mage_CatalogIndex_Model_
                 $data['customer_group_id'] = $row['cust_group'];
                 $result[] = $data;
             }
-
         }
 
         return $result;
     }
 
+    /**
+     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+     * @return bool
+     */
     protected function _isAttributeIndexable(Mage_Eav_Model_Entity_Attribute_Abstract $attribute)
     {
         if ($attribute->getAttributeCode() != 'tier_price') {
@@ -111,6 +123,9 @@ class Mage_CatalogIndex_Model_Indexer_Tierprice extends Mage_CatalogIndex_Model_
         return true;
     }
 
+    /**
+     * @return array
+     */
     protected function _getIndexableAttributeConditions()
     {
         $conditions = array();

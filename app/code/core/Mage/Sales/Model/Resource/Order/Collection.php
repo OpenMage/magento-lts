@@ -84,7 +84,7 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
      */
     public function getSelectCountSql()
     {
-        /* @var $countSelect Varien_Db_Select */
+        /* @var Varien_Db_Select $countSelect */
         $countSelect = parent::getSelectCountSql();
         $countSelect->resetJoinLeft();
         $countSelect->reset(Zend_Db_Select::GROUP);
@@ -96,7 +96,7 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
      *
      * @param int $limit
      * @param int $offset
-     * @return Mage_Eav_Model_Entity_Collection_Abstract
+     * @return Varien_Db_Select
      */
     protected function _getAllIdsSelect($limit = null, $offset = null)
     {
@@ -222,7 +222,8 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
             ->joinInner(
                 array('sbao' => $this->getTable('sales/billing_agreement_order')),
                 'main_table.entity_id = sbao.order_id',
-                array())
+                array()
+            )
             ->where('sbao.agreement_id IN(?)', $agreements);
         return $this;
     }
@@ -240,7 +241,8 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
             ->joinInner(
                 array('srpo' => $this->getTable('sales/recurring_profile_order')),
                 'main_table.entity_id = srpo.order_id',
-                array())
+                array()
+            )
             ->where('srpo.profile_id IN(?)', $ids);
         return $this;
     }

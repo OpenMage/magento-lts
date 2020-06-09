@@ -31,8 +31,8 @@
  * @category    Mage
  * @package     Mage_Paypal
  * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated
  */
-class Mage_Paypal_Model_Mysql4_Report_Settlement_Row_Collection
-    extends Mage_Paypal_Model_Resource_Report_Settlement_Row_Collection
+class Mage_Paypal_Model_Mysql4_Report_Settlement_Row_Collection extends Mage_Paypal_Model_Resource_Report_Settlement_Row_Collection
 {
 }

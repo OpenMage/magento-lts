@@ -290,9 +290,11 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * @param bool $displayIfNoReviews
      * @return string
      */
-    public function getReviewsSummaryHtml(Mage_Catalog_Model_Product $product, $templateType = false,
-        $displayIfNoReviews = false)
-    {
+    public function getReviewsSummaryHtml(
+        Mage_Catalog_Model_Product $product,
+        $templateType = false,
+        $displayIfNoReviews = false
+    ) {
         if ($this->_initReviewsHelperBlock()) {
             return $this->_reviewsHelperBlock->getSummaryHtml($product, $templateType, $displayIfNoReviews);
         }
@@ -388,6 +390,9 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * when unit testing
      *
      *  @return string
+     */
+    /**
+     * @return string
      */
     protected function callParentToHtml()
     {
@@ -556,7 +561,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      *
      * @param string $pageLayout
      * @param int $columnCount
-     * @return Mage_Catalog_Block_Product_List
+     * @return $this
      */
     public function addColumnCountLayoutDepend($pageLayout, $columnCount)
     {
@@ -568,7 +573,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * Remove row size depends on page layout
      *
      * @param string $pageLayout
-     * @return Mage_Catalog_Block_Product_List
+     * @return $this
      */
     public function removeColumnCountLayoutDepend($pageLayout)
     {
@@ -666,7 +671,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     {
         parent::_prepareLayout();
 
-        /* @var $block Mage_Catalog_Block_Product_Price_Template */
+        /* @var Mage_Catalog_Block_Product_Price_Template $block */
         $block = $this->getLayout()->getBlock('catalog_product_price_template');
         if ($block) {
             foreach ($block->getPriceBlockTypes() as $type => $priceBlock) {

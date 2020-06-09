@@ -54,7 +54,7 @@ class Mage_Catalog_Model_Product_Link_Api extends Mage_Catalog_Model_Api_Resourc
      * Retrieve product link associations
      *
      * @param string $type
-     * @param int|sku $productId
+     * @param int|string $productId
      * @param  string $identifierType
      * @return array
      */
@@ -314,7 +314,7 @@ class Mage_Catalog_Model_Product_Link_Api extends Mage_Catalog_Model_Api_Resourc
      *
      * @param Mage_Catalog_Model_Product_Link $link
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection
+     * @return Mage_Catalog_Model_Resource_Product_Link_Product_Collection
      */
     protected function _initCollection($link, $product)
     {
@@ -329,7 +329,7 @@ class Mage_Catalog_Model_Product_Link_Api extends Mage_Catalog_Model_Api_Resourc
     /**
      * Export collection to editable array
      *
-     * @param Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection $collection
+     * @param Mage_Catalog_Model_Resource_Product_Link_Product_Collection $collection
      * @return array
      */
     protected function _collectionToEditableArray($collection)

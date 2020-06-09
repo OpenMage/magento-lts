@@ -60,11 +60,16 @@ class Mage_Catalog_Model_Api2_Product_Rest_Customer_V1 extends Mage_Catalog_Mode
     protected function _applyTaxToPrice($price, $withTax = true)
     {
         $customer = $this->_getCustomer();
-        /** @var $session Mage_Customer_Model_Session */
+        /** @var Mage_Customer_Model_Session $session */
         $session = Mage::getSingleton('customer/session');
         $session->setCustomerId($customer->getId());
-        $price = $this->_getPrice($price, $withTax, $customer->getPrimaryShippingAddress(),
-            $customer->getPrimaryBillingAddress(), $customer->getTaxClassId());
+        $price = $this->_getPrice(
+            $price,
+            $withTax,
+            $customer->getPrimaryShippingAddress(),
+            $customer->getPrimaryBillingAddress(),
+            $customer->getTaxClassId()
+        );
         $session->setCustomerId(null);
 
         return $price;
@@ -78,7 +83,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Customer_V1 extends Mage_Catalog_Mode
     protected function _getCustomer()
     {
         if (is_null($this->_customer)) {
-            /** @var $customer Mage_Customer_Model_Customer */
+            /** @var Mage_Customer_Model_Customer $customer */
             $customer = Mage::getModel('customer/customer')->load($this->getApiUser()->getUserId());
             if (!$customer->getId()) {
                 $this->_critical('Customer not found.', Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);

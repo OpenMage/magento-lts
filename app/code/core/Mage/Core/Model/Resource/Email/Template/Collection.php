@@ -32,7 +32,7 @@
  * @package     Mage_Core
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Core_Model_Resource_Email_Template_Collection extends  Mage_Core_Model_Resource_Db_Collection_Abstract
+class Mage_Core_Model_Resource_Email_Template_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
      * Template table name

@@ -31,8 +31,11 @@
  * @package     Mage_Checkout
  * @author      Magento Core Team <core@magentocommerce.com>
  *
- * @method Mage_Checkout_Block_Cart_Item_Renderer setProductName(string)
- * @method Mage_Checkout_Block_Cart_Item_Renderer setDeleteUrl(string)
+ * @method bool hasProductName()
+ * @method $this setProductName(string)
+ * @method bool hasDeleteUrl()
+ * @method $this setDeleteUrl(string)
+ * @method string getIdSuffix()
  */
 class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
 {
@@ -59,8 +62,8 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     /**
      * Set item for render
      *
-     * @param   Mage_Sales_Model_Quote_Item $item
-     * @return  Mage_Checkout_Block_Cart_Item_Renderer
+     * @param Mage_Sales_Model_Quote_Item_Abstract $item
+     * @return  $this
      */
     public function setItem(Mage_Sales_Model_Quote_Item_Abstract $item)
     {
@@ -88,6 +91,10 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
         return $this->getItem()->getProduct();
     }
 
+    /**
+     * @param Mage_Catalog_Helper_Image $productThumbnail
+     * @return $this
+     */
     public function overrideProductThumbnail($productThumbnail)
     {
         $this->_productThumbnail = $productThumbnail;
@@ -97,7 +104,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     /**
      * Get product thumbnail image
      *
-     * @return Mage_Catalog_Model_Product_Image
+     * @return Mage_Catalog_Helper_Image
      */
     public function getProductThumbnail()
     {
@@ -107,6 +114,10 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
         return $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail');
     }
 
+    /**
+     * @param string $productUrl
+     * @return $this
+     */
     public function overrideProductUrl($productUrl)
     {
         $this->_productUrl = $productUrl;
@@ -181,7 +192,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
      */
     public function getProductOptions()
     {
-        /* @var $helper Mage_Catalog_Helper_Product_Configuration */
+        /* @var Mage_Catalog_Helper_Product_Configuration $helper */
         $helper = Mage::helper('catalog/product_configuration');
         return $helper->getCustomOptions($this->getItem());
     }
@@ -345,12 +356,12 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
         // Add messages saved previously in checkout session
         $checkoutSession = $this->getCheckoutSession();
         if ($checkoutSession) {
-            /* @var $collection Mage_Core_Model_Message_Collection */
+            /* @var Mage_Core_Model_Message_Collection $collection */
             $collection = $checkoutSession->getQuoteItemMessages($quoteItem->getId(), true);
             if ($collection) {
                 $additionalMessages = $collection->getItems();
                 foreach ($additionalMessages as $message) {
-                    /* @var $message Mage_Core_Model_Message_Abstract */
+                    /* @var Mage_Core_Model_Message_Abstract $message */
                     $messages[] = array(
                         'text' => $message->getCode(),
                         'type' => ($message->getType() == Mage_Core_Model_Message::ERROR) ? 'error' : 'notice'
@@ -384,7 +395,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
      */
     public function getFormatedOptionValue($optionValue)
     {
-        /* @var $helper Mage_Catalog_Helper_Product_Configuration */
+        /* @var Mage_Catalog_Helper_Product_Configuration $helper */
         $helper = Mage::helper('catalog/product_configuration');
         $params = array(
             'max_length' => 55,

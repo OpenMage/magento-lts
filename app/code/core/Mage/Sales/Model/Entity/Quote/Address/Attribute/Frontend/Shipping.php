@@ -25,9 +25,12 @@
  */
 
 
-class Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend_Shipping
-    extends Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend
+class Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend_Shipping extends Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend
 {
+    /**
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @return $this
+     */
     public function fetchTotals(Mage_Sales_Model_Quote_Address $address)
     {
         $amount = $address->getShippingAmount();
@@ -44,5 +47,4 @@ class Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend_Shipping
         }
         return $this;
     }
-
 }

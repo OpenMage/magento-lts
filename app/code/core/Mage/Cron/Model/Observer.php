@@ -60,7 +60,7 @@ class Mage_Cron_Model_Observer
         $jobsRoot = Mage::getConfig()->getNode('crontab/jobs');
         $defaultJobsRoot = Mage::getConfig()->getNode('default/crontab/jobs');
 
-        /** @var $schedule Mage_Cron_Model_Schedule */
+        /** @var Mage_Cron_Model_Schedule $schedule */
         foreach ($schedules->getIterator() as $schedule) {
             $jobConfig = $jobsRoot->{$schedule->getJobCode()};
             if (!$jobConfig || !$jobConfig->run) {
@@ -98,6 +98,9 @@ class Mage_Cron_Model_Observer
         }
     }
 
+    /**
+     * @return Mage_Cron_Model_Resource_Schedule_Collection
+     */
     public function getPendingSchedules()
     {
         if (!$this->_pendingSchedules) {
@@ -157,9 +160,9 @@ class Mage_Cron_Model_Observer
     /**
      * Generate jobs for config information
      *
-     * @param   $jobs
+     * @param   SimpleXMLElement $jobs
      * @param   array $exists
-     * @return  Mage_Cron_Model_Observer
+     * @return  $this
      */
     protected function _generateJobs($jobs, $exists)
     {
@@ -243,9 +246,9 @@ class Mage_Cron_Model_Observer
     /**
      * Processing cron task which is marked as always
      *
-     * @param $jobCode
-     * @param $jobConfig
-     * @return $this
+     * @param string $jobCode
+     * @param SimpleXMLElement $jobConfig
+     * @return $this|void
      */
     protected function _processAlwaysTask($jobCode, $jobConfig)
     {
@@ -270,9 +273,9 @@ class Mage_Cron_Model_Observer
      * Process cron task
      *
      * @param Mage_Cron_Model_Schedule $schedule
-     * @param $jobConfig
+     * @param SimpleXMLElement $jobConfig
      * @param bool $isAlways
-     * @return $this
+     * @return $this|void
      */
     protected function _processJob($schedule, $jobConfig, $isAlways = false)
     {
@@ -329,7 +332,6 @@ class Mage_Cron_Model_Observer
             $schedule
                 ->setStatus(Mage_Cron_Model_Schedule::STATUS_SUCCESS)
                 ->setFinishedAt(strftime('%Y-%m-%d %H:%M:%S', time()));
-
         } catch (Exception $e) {
             $schedule->setStatus($errorStatus)
                 ->setMessages($e->__toString());
@@ -342,12 +344,12 @@ class Mage_Cron_Model_Observer
     /**
      * Get job for task marked as always
      *
-     * @param $jobCode
-     * @return bool|Mage_Cron_Model_Schedule
+     * @param string $jobCode
+     * @return Mage_Cron_Model_Schedule
      */
     protected function _getAlwaysJobSchedule($jobCode)
     {
-        /** @var $schedule Mage_Cron_Model_Schedule */
+        /** @var Mage_Cron_Model_Schedule $schedule */
         $schedule = Mage::getModel('cron/schedule')->load($jobCode, 'job_code');
         if ($schedule->getId() === null) {
             $ts = strftime('%Y-%m-%d %H:%M:00', time());
@@ -357,6 +359,5 @@ class Mage_Cron_Model_Observer
         }
         $schedule->setStatus(Mage_Cron_Model_Schedule::STATUS_RUNNING)->save();
         return $schedule;
-
     }
 }

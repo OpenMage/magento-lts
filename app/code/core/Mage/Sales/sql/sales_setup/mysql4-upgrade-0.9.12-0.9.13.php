@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Sales_Model_Mysql4_Setup */
+/* @var Mage_Sales_Model_Mysql4_Setup $installer */
 
 $installer->addAttribute('quote', 'subtotal', array('type'=>'decimal'));
 $installer->addAttribute('quote', 'base_subtotal', array('type'=>'decimal'));

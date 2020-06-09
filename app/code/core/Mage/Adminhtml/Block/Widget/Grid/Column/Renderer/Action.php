@@ -48,7 +48,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action
             return '&nbsp;';
         }
 
-        if(sizeof($actions)==1 && !$this->getColumn()->getNoLink()) {
+        if(count($actions) === 1 && !$this->getColumn()->getNoLink()) {
             foreach ($actions as $action) {
                 if ( is_array($action) ) {
                     return $this->_toLinkHtml($action, $row);

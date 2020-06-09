@@ -231,7 +231,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
         $tagIds = $this->getColumnValues('tag_id');
 
         $tagsStores = array();
-        if (sizeof($tagIds) > 0) {
+        if (count($tagIds)) {
             $select = $this->getConnection()->select()
                 ->from($this->getTable('tag/summary'), array('store_id', 'tag_id'))
                 ->where('tag_id IN(?)', $tagIds);

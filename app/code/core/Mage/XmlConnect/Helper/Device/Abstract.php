@@ -170,28 +170,28 @@ abstract class Mage_XmlConnect_Helper_Device_Abstract extends Mage_Core_Helper_A
      *
      * @return array
      */
-    abstract function getImagesTypesList();
+    abstract public function getImagesTypesList();
 
     /**
      * Get default application tabs
      *
      * @return array
      */
-    abstract function getDefaultDesignTabs();
+    abstract public function getDefaultDesignTabs();
 
     /**
      * Default application configuration: font and color
      *
      * @return array
      */
-    abstract function getDefaultConfiguration();
+    abstract public function getDefaultConfiguration();
 
     /**
      * List of allowed fonts for application
      *
      * @return array
      */
-    abstract function getFontList();
+    abstract public function getFontList();
 
     /**
      * List of allowed font sizes for application
@@ -227,7 +227,7 @@ abstract class Mage_XmlConnect_Helper_Device_Abstract extends Mage_Core_Helper_A
      * @param array $params
      * @return array
      */
-    abstract function validateSubmit($params);
+    abstract public function validateSubmit($params);
 
     /**
      * Get renderer for submission country

@@ -306,7 +306,7 @@ class Mage_Paypal_Model_Ipn
     protected function _registerAdjustment()
     {
         $reasonCode = isset($this->_request['reason_code']) ? $this->_request['reason_code'] : null;
-        $reasonComment = $this->_info->explainReasonCode($reasonCode);
+        $reasonComment = $this->_info::explainReasonCode($reasonCode);
         $notificationAmount = $this->_order->getBaseCurrency()->formatTxt($this->_request['mc_gross']);
         /**
          *  Add IPN comment about registered dispute
@@ -323,9 +323,9 @@ class Mage_Paypal_Model_Ipn
     protected function _registerDispute()
     {
         $reasonCode = isset($this->_request['reason_code']) ? $this->_request['reason_code'] : null;
-        $reasonComment = $this->_info->explainReasonCode($reasonCode);
+        $reasonComment = $this->_info::explainReasonCode($reasonCode);
         $caseType = isset($this->_request['case_type']) ? $this->_request['case_type'] : null;
-        $caseTypeLabel = $this->_info->getCaseTypeLabel($caseType);
+        $caseTypeLabel = $this->_info::getCaseTypeLabel($caseType);
         $caseId = isset($this->_request['case_id']) ? $this->_request['case_id'] : null;
         /**
          *  Add IPN comment about registered dispute
@@ -544,7 +544,7 @@ class Mage_Paypal_Model_Ipn
     {
         $this->_importPaymentInformation();
         $reason = $this->getRequestData('reason_code');
-        $isRefundFinal = !$this->_info->isReversalDisputable($reason);
+        $isRefundFinal = !$this->_info::isReversalDisputable($reason);
 
         /** @var Mage_Sales_Model_Order_Payment $payment */
         $payment = $this->_order->getPayment();
@@ -555,7 +555,7 @@ class Mage_Paypal_Model_Ipn
             $payment->getMethodInstance()->getCode(),
             $this->getRequestData('txn_id')
         );
-        $comment = $this->_createIpnComment($this->_info->explainReasonCode($reason))
+        $comment = $this->_createIpnComment($this->_info::explainReasonCode($reason))
             . ' '
             . Mage::helper('paypal')->__('Refunded amount of %s. Transaction ID: "%s"', $amount, $transactionId);
 
@@ -585,7 +585,7 @@ class Mage_Paypal_Model_Ipn
     protected function _registerPaymentReversal()
     {
         $reasonCode = isset($this->_request['reason_code']) ? $this->_request['reason_code'] : null;
-        $reasonComment = $this->_info->explainReasonCode($reasonCode);
+        $reasonComment = $this->_info::explainReasonCode($reasonCode);
         $notificationAmount = $this->_order
             ->getBaseCurrency()
             ->formatTxt($this->_request['mc_gross'] + $this->_request['mc_fee']);
@@ -638,7 +638,7 @@ class Mage_Paypal_Model_Ipn
         $this->_importPaymentInformation();
 
         $this->_order->getPayment()
-            ->setPreparedMessage($this->_createIpnComment($this->_info->explainPendingReason($reason)))
+            ->setPreparedMessage($this->_createIpnComment($this->_info::explainPendingReason($reason)))
             ->setTransactionId($this->getRequestData('txn_id'))
             ->setIsTransactionClosed(0)
             ->registerPaymentReviewAction(Mage_Sales_Model_Order_Payment::REVIEW_ACTION_UPDATE, false);
@@ -767,15 +767,15 @@ class Mage_Paypal_Model_Ipn
          * TODO: implement logic in one place
          * @see Mage_Paypal_Model_Pro::importPaymentInfo()
          */
-        if ($this->_info->isPaymentReviewRequired($payment)) {
+        if ($this->_info::isPaymentReviewRequired($payment)) {
             $payment->setIsTransactionPending(true);
             if ($fraudFilters) {
                 $payment->setIsFraudDetected(true);
             }
         }
-        if ($this->_info->isPaymentSuccessful($payment)) {
+        if ($this->_info::isPaymentSuccessful($payment)) {
             $payment->setIsTransactionApproved(true);
-        } elseif ($this->_info->isPaymentFailed($payment)) {
+        } elseif ($this->_info::isPaymentFailed($payment)) {
             $payment->setIsTransactionDenied(true);
         }
 

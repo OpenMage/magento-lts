@@ -62,7 +62,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Bundle extends Mage_XmlConne
             $product->getTypeInstance(true)->getOptionsIds($product), $product
         );
         $bundleOptions = $optionCollection->appendSelections($selectionCollection, false, false);
-        if (!sizeof($bundleOptions)) {
+        if (!count($bundleOptions)) {
             return $isObject ? $xmlModel : $xmlModel->asNiceXml();
         }
 

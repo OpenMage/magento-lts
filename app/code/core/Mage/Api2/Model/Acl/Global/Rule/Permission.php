@@ -45,7 +45,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Permission
      *
      * @return array
      */
-    static public function toOptionArray()
+    public static function toOptionArray()
     {
         return array(
             array(
@@ -64,7 +64,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Permission
      *
      * @return array
      */
-    static public function toArray()
+    public static function toArray()
     {
         return array(
             self::TYPE_DENY  => Mage::helper('api2')->__('Deny'),

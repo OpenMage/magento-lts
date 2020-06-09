@@ -32,7 +32,7 @@
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 $installer = $this;
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 /**
@@ -71,12 +71,18 @@ $table = $installer->getConnection()
         'nullable'  => false,
         'default'   => '0',
         ), 'Flag if notification might be removed')
-    ->addIndex($installer->getIdxName('adminnotification/inbox', array('severity')),
-        array('severity'))
-    ->addIndex($installer->getIdxName('adminnotification/inbox', array('is_read')),
-        array('is_read'))
-    ->addIndex($installer->getIdxName('adminnotification/inbox', array('is_remove')),
-        array('is_remove'))
+    ->addIndex(
+        $installer->getIdxName('adminnotification/inbox', array('severity')),
+        array('severity')
+    )
+    ->addIndex(
+        $installer->getIdxName('adminnotification/inbox', array('is_read')),
+        array('is_read')
+    )
+    ->addIndex(
+        $installer->getIdxName('adminnotification/inbox', array('is_remove')),
+        array('is_remove')
+    )
     ->setComment('Adminnotification Inbox');
 $installer->getConnection()->createTable($table);
 

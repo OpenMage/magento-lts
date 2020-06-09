@@ -41,7 +41,7 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
      *
      * @var Mage_Core_Model_Url
      */
-    protected  $_url;
+    protected $_url;
 
     /**
      * URL Rewrite Instance
@@ -107,7 +107,7 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
      */
     protected function _validImage($image)
     {
-        if($image == 'no_selection') {
+        if ($image == 'no_selection') {
             $image = null;
         }
         return $image;
@@ -170,7 +170,7 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
      *
      * @return string
      */
-    public function getUrlPath($product, $category=null)
+    public function getUrlPath($product, $category = null)
     {
         $path = $product->getData('url_path');
 

@@ -27,28 +27,34 @@
 
 /**
  * Assert time for admin acl
- * 
+ *
  * @category   Mage
  * @package    Mage_Admin
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Admin_Model_Acl_Assert_Time implements Zend_Acl_Assert_Interface 
+class Mage_Admin_Model_Acl_Assert_Time implements Zend_Acl_Assert_Interface
 {
     /**
      * Assert time
      *
-     * @param Zend_Acl $acl
-     * @param Zend_Acl_Role_Interface $role
-     * @param Zend_Acl_Resource_Interface $resource
+     * @param Mage_Admin_Model_Acl $acl
+     * @param Mage_Admin_Model_Acl_Role $role
+     * @param Mage_Admin_Model_Acl_Resource $resource
      * @param string $privilege
      * @return boolean
      */
-    public function assert(Mage_Admin_Model_Acl $acl, Mage_Admin_Model_Acl_Role $role = null,
-                           Mage_Admin_Model_Acl_Resource $resource = null, $privilege = null)
-    {
+    public function assert(
+        Mage_Admin_Model_Acl $acl,
+        Mage_Admin_Model_Acl_Role $role = null,
+        Mage_Admin_Model_Acl_Resource $resource = null,
+        $privilege = null
+    ) {
         return $this->_isCleanTime(time());
     }
 
+    /**
+     * @param int $time
+     */
     protected function _isCleanTime($time)
     {
         // ...

@@ -31,6 +31,7 @@
  * @category    Mage
  * @package     Mage_Backup
  * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated
  */
 class Mage_Backup_Model_Mysql4_Db extends Mage_Backup_Model_Resource_Db
 {
