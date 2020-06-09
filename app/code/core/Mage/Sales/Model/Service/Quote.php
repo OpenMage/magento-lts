@@ -180,6 +180,8 @@ class Mage_Sales_Model_Service_Quote
         $transaction->addCommitCallback(array($order, 'place'));
         $transaction->addCommitCallback(array($order, 'save'));
 
+        Mage::register('current_order', $order);
+        
         /**
          * We can use configuration data for declare new order status
          */
