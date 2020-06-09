@@ -243,7 +243,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
         }
         if (is_array($data)) {
             foreach ($data as &$value) {
-                if (is_array($value) or is_object($value)) {
+                if (is_array($value) || is_object($value)) {
                     $this->toArray($value);
                 }
             }

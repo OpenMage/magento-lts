@@ -306,7 +306,7 @@ class SOAP_Transport_HTTP extends SOAP_Transport
                             $cookie['secure'] = true;
                         } elseif ('expires' == $elName) {
                             $cookie['expires'] = str_replace('"', '', $elValue);
-                        } elseif ('path' == $elName OR 'domain' == $elName) {
+                        } elseif ('path' == $elName || 'domain' == $elName) {
                             $cookie[$elName] = urldecode($elValue);
                         } else {
                             $cookie[$elName] = $elValue;

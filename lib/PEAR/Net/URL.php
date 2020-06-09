@@ -388,7 +388,7 @@ class Net_URL
                 $path = array_values($path);
                 $i--;
 
-            } elseif ($path[$i] == '..' AND ($i > 1 OR ($i == 1 AND $path[0] != '') ) ) {
+            } elseif ($path[$i] == '..' AND ($i > 1 || ($i == 1 AND $path[0] != '') ) ) {
                 unset($path[$i]);
                 unset($path[$i-1]);
                 $path = array_values($path);
