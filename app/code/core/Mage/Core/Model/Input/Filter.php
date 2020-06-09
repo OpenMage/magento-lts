@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,7 +30,7 @@
  * Model for multi-filtering all data which set to models
  * Example:
  * <code>
- * /** @var $filter Mage_Core_Model_Input_Filter {@*}
+ * /** @var Mage_Core_Model_Input_Filter $filter {@*}
  * $filter = Mage::getModel('core/input_filter');
  * $filter->setFilters(array(
  *      'list_values' => array(
@@ -304,7 +304,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
     {
         $zendFilter = false;
         if (is_object($filterData) && $filterData instanceof Zend_Filter_Interface) {
-            /** @var $zendFilter Zend_Filter_Interface */
+            /** @var Zend_Filter_Interface $zendFilter */
             $zendFilter = $filterData;
         } elseif (isset($filterData['model'])) {
             $zendFilter = $this->_createCustomZendFilter($filterData);

@@ -20,16 +20,20 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Product price block
  *
  * @category   Mage
  * @package    Mage_Catalog
+ *
+ * @method $this setPriceElementIdPrefix(string $value)
+ * @method bool hasRealPriceHtml()
+ * @method string getRealPriceHtml()
+ * @method $this setRealPriceHtml(string $value)
  */
 class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstract
 {
@@ -109,7 +113,7 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
 
         // if our parent is a bundle, then we need to further adjust our tier prices
         if (isset($parent) && $parent->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE) {
-            /* @var $bundlePriceModel Mage_Bundle_Model_Product_Price */
+            /* @var Mage_Bundle_Model_Product_Price $bundlePriceModel */
             $bundlePriceModel = Mage::getModel('bundle/product_price');
         }
 

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sendfriend
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -46,7 +46,7 @@ class Mage_Sendfriend_Block_Send extends Mage_Core_Block_Template
             return trim($name);
         }
 
-        /* @var $session Mage_Customer_Model_Session */
+        /* @var Mage_Customer_Model_Session $session */
         $session = Mage::getSingleton('customer/session');
 
         if ($session->isLoggedIn()) {
@@ -68,7 +68,7 @@ class Mage_Sendfriend_Block_Send extends Mage_Core_Block_Template
             return trim($email);
         }
 
-        /* @var $session Mage_Customer_Model_Session */
+        /* @var Mage_Customer_Model_Session $session */
         $session = Mage::getSingleton('customer/session');
 
         if ($session->isLoggedIn()) {

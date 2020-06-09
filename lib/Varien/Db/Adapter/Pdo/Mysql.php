@@ -20,7 +20,7 @@
  *
  * @category    Varien
  * @package     Varien_Db
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -1506,8 +1506,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * Method revrited for handle empty arrays in value param
      *
      * @param string  $text  The text with a placeholder.
-     * @param mixed   $value The value to quote.
-     * @param string  $type  OPTIONAL SQL datatype
+     * @param Zend_Db_Select|Zend_Db_Expr|array|null|int|string|float $value OPTIONAL A single value to quote into the condition.
+     * @param null|string|int $type  OPTIONAL The type of the given value e.g. Zend_Db::INT_TYPE, "INT"
      * @param integer $count OPTIONAL count of placeholders to replace
      * @return string An SQL-safe quoted value placed into the orignal text.
      */
@@ -1884,12 +1884,16 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             case 'longblob':
                 return Varien_Db_Ddl_Table::TYPE_BLOB;
             case 'tinyint':
+            case 'tinyint unsigned':
             case 'smallint':
+            case 'smallint unsigned':
                 return Varien_Db_Ddl_Table::TYPE_SMALLINT;
             case 'mediumint':
             case 'int':
+            case 'int unsigned':
                 return Varien_Db_Ddl_Table::TYPE_INTEGER;
             case 'bigint':
+            case 'bigint unsigned':
                 return Varien_Db_Ddl_Table::TYPE_BIGINT;
             case 'datetime':
                 return Varien_Db_Ddl_Table::TYPE_DATETIME;

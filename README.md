@@ -1,3 +1,9 @@
+<p align="center">
+<a href="https://travis-ci.org/openmage/magento-lts"><img src="https://travis-ci.org/openmage/magento-lts.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/openmage/magento-lts"><img src="https://poser.pugx.org/openmage/magento-lts/d/total.svg" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/openmage/magento-lts"><img src="https://poser.pugx.org/openmage/magento-lts/license.svg" alt="License"></a>
+</p>
+
 # Magento - Long Term Support
 
 This repository is the home of an **unofficial** community-driven project. It's goal is to be a dependable alternative
@@ -25,7 +31,7 @@ Download the latest archive and extract it, clone the repo, or add a composer de
 
 ## Requirements
 
-- PHP 5.6+ (PHP 7.3 and OpenSSL extension strongly recommended)
+- PHP 7.0+ (PHP 7.3 and OpenSSL extension strongly recommended)
 - MySQL 5.6+ (8.0+ Recommended)
 
 ## Translations

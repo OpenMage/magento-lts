@@ -20,17 +20,20 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var $installer Mage_Sales_Model_Entity_Setup */
+/* @var Mage_Sales_Model_Entity_Setup $installer */
 $installer = $this;
 
 $billingAgreementTable = $installer->getTable('sales/billing_agreement');
 
-$installer->getConnection()->addColumn($billingAgreementTable,
-    'store_id', 'smallint(5) unsigned DEFAULT NULL');
+$installer->getConnection()->addColumn(
+    $billingAgreementTable,
+    'store_id',
+    'smallint(5) unsigned DEFAULT NULL'
+);
 
 $installer->getConnection()->addConstraint(
     'FK_BILLING_AGREEMENT_STORE',

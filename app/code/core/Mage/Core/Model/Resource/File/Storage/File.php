@@ -20,10 +20,9 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Model for synchronization from DB to filesystem
@@ -109,7 +108,7 @@ class Mage_Core_Model_Resource_File_Storage_File
      * Clear files and directories in storage
      *
      * @param  string $dir
-     * @return Mage_Core_Model_Mysql4_File_Storage_File
+     * @return $this
      */
     public function clear($dir = '')
     {
@@ -193,7 +192,7 @@ class Mage_Core_Model_Resource_File_Storage_File
     public function saveFile($filePath, $content, $overwrite = false)
     {
         $filename = basename($filePath);
-        $path = $this->getMediaBaseDirectory() . DS . str_replace('/', DS ,dirname($filePath));
+        $path = $this->getMediaBaseDirectory() . DS . str_replace('/', DS, dirname($filePath));
 
         if (!is_dir($path)) {
             @mkdir($path, 0777, true);
@@ -210,9 +209,8 @@ class Mage_Core_Model_Resource_File_Storage_File
                 if (@fwrite($fp, $content) !== false && @fclose($fp)) {
                     return true;
                 }
-            }
-            // If overwrite is required, throw exception on failure to write file
-            else if (@file_put_contents($fullPath, $content, LOCK_EX) !== false) {
+            } // If overwrite is required, throw exception on failure to write file
+            elseif (@file_put_contents($fullPath, $content, LOCK_EX) !== false) {
                 return true;
             }
 

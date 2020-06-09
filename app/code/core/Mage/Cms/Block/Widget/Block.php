@@ -20,10 +20,9 @@
  *
  * @category    Mage
  * @package     Mage_Cms
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Cms Static Block Widget
@@ -31,6 +30,9 @@
  * @category   Mage
  * @package    Mage_Cms
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method int getBlockId()
+ * @method $this setText(string $value)
  */
 class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Mage_Widget_Block_Interface
 {
@@ -78,7 +80,6 @@ class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Ma
                 ->setStoreId(Mage::app()->getStore()->getId())
                 ->load($blockId);
             if ($block->getIsActive()) {
-                /* @var $helper Mage_Cms_Helper_Data */
                 $helper = Mage::helper('cms');
                 $processor = $helper->getBlockTemplateProcessor();
                 if ($this->isRequestFromAdminArea()) {

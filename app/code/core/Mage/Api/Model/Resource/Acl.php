@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Api
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -69,7 +69,8 @@ class Mage_Api_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
                     array('a'=>$this->getTable('api/assert')),
                     'a.assert_id=r.assert_id',
                     array('assert_type', 'assert_data')
-                ));
+                )
+        );
         $this->loadRules($acl, $rulesArr);
         return $acl;
     }
@@ -78,7 +79,7 @@ class Mage_Api_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
      * Load roles
      *
      * @param Mage_Api_Model_Acl $acl
-     * @param array $rolesArr
+     * @param array[] $rolesArr
      * @return $this
      */
     public function loadRoles(Mage_Api_Model_Acl $acl, array $rolesArr)
@@ -127,7 +128,7 @@ class Mage_Api_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
             try {
                 if ($rule['api_permission'] == 'allow') {
                     $acl->allow($role, $resource, $privileges, $assert);
-                } else if ($rule['api_permission'] == 'deny') {
+                } elseif ($rule['api_permission'] == 'deny') {
                     $acl->deny($role, $resource, $privileges, $assert);
                 }
             } catch (Exception $e) {

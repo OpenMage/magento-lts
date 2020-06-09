@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,6 +33,9 @@ class Mage_Sales_Helper_Reorder extends Mage_Core_Helper_Data
 {
     const XML_PATH_SALES_REORDER_ALLOW = 'sales/reorder/allow';
 
+    /**
+     * @return bool
+     */
     public function isAllow()
     {
         return $this->isAllowed();
@@ -52,6 +55,10 @@ class Mage_Sales_Helper_Reorder extends Mage_Core_Helper_Data
         return false;
     }
 
+    /**
+     * @param Mage_Sales_Model_Order $order
+     * @return bool
+     */
     public function canReorder(Mage_Sales_Model_Order $order)
     {
         if (!$this->isAllowed($order->getStore())) {

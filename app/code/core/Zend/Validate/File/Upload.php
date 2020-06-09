@@ -243,7 +243,7 @@ class Zend_Validate_File_Upload extends Zend_Validate_Abstract
     protected function _throw($file, $errorType)
     {
         if ($file !== null) {
-            if (is_array($file) and !empty($file['name'])) {
+            if (is_array($file) && !empty($file['name'])) {
                 $this->_value = $file['name'];
             }
         }

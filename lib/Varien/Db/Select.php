@@ -20,7 +20,7 @@
  *
  * @category    Varien
  * @package     Varien_Db
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -101,8 +101,8 @@ class Varien_Db_Select extends Zend_Db_Select
      * </code>
      *
      * @param string   $cond  The WHERE condition.
-     * @param string   $value OPTIONAL A single value to quote into the condition.
-     * @param null|string $type  OPTIONAL The type of the given value
+     * @param Zend_Db_Select|Zend_Db_Expr|array|null|int|string|float $value OPTIONAL A single value to quote into the condition.
+     * @param null|string|int $type  OPTIONAL The type of the given value e.g. Zend_Db::INT_TYPE, "INT"
      * @return Varien_Db_Select This Zend_Db_Select object.
      */
     public function where($cond, $value = null, $type = null)
@@ -112,12 +112,13 @@ class Varien_Db_Select extends Zend_Db_Select
         }
         /**
          * Additional internal type used for really null value
+         * cast to string, to prevent false matching 0 == "TYPE_CONDITION"
          */
-        if ($type == self::TYPE_CONDITION) {
+        if ((string)$type === self::TYPE_CONDITION) {
             $type = null;
         }
         if (is_array($value)) {
-            $cond = $this->_adapter->quoteInto($cond, $value);
+            $cond = $this->_adapter->quoteInto($cond, $value, $type);
             $value = null;
         }
         return parent::where($cond, $value, $type);

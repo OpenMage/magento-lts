@@ -20,28 +20,28 @@
  *
  * @category    Mage
  * @package     Mage_Admin
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 /**
  * Acl role registry
- * 
+ *
  * @category   Mage
  * @package    Mage_Admin
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Admin_Model_Acl_Role_Registry extends Zend_Acl_Role_Registry 
+class Mage_Admin_Model_Acl_Role_Registry extends Zend_Acl_Role_Registry
 {
     /**
      * Add parent to the $role node
      *
      * @param Zend_Acl_Role_Interface|string $role
      * @param array|Zend_Acl_Role_Interface|string $parents
-     * @return Mage_Auth_Model_Acl_Role_Registry
+     * @return $this
      */
-    function addParent($role, $parents)
+    public function addParent($role, $parents)
     {
         try {
             if ($role instanceof Zend_Acl_Role_Interface) {
@@ -53,7 +53,7 @@ class Mage_Admin_Model_Acl_Role_Registry extends Zend_Acl_Role_Registry
         } catch (Zend_Acl_Role_Registry_Exception $e) {
             throw new Zend_Acl_Role_Registry_Exception("Child Role id '$roleId' does not exist");
         }
-        
+
         if (!is_array($parents)) {
             $parents = array($parents);
         }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -47,7 +47,7 @@ class Mage_XmlConnect_Block_Catalog_Filters extends Mage_XmlConnect_Block_Catalo
 
         $filtersXmlObj = $categoryXmlObj->addChild('filters');
         foreach ($filtersCollection->getItems() as $item) {
-            if (!sizeof($item->getValues())) {
+            if (!count($item->getValues())) {
                 continue;
             }
             $itemXmlObj = $filtersXmlObj->addChild('item');

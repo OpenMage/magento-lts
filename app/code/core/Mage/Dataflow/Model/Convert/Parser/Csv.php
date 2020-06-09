@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Dataflow
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -164,7 +164,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
 
     public function parseRow($i, $line)
     {
-        if (sizeof($line) == 1) return false;
+        if (count($line) === 1) return false;
 
         if (0==$i) {
             if ($this->getVar('fieldnames')) {

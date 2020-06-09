@@ -20,13 +20,16 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 class Mage_Sales_Block_Order_Creditmemo_Totals extends Mage_Sales_Block_Order_Totals
 {
     protected $_creditmemo = null;
 
+    /**
+     * @return mixed|null
+     */
     public function getCreditmemo()
     {
         if ($this->_creditmemo === null) {
@@ -41,6 +44,10 @@ class Mage_Sales_Block_Order_Creditmemo_Totals extends Mage_Sales_Block_Order_To
         return $this->_creditmemo;
     }
 
+    /**
+     * @param Mage_Sales_Model_Order_Creditmemo $creditmemo
+     * @return $this
+     */
     public function setCreditmemo($creditmemo)
     {
         $this->_creditmemo = $creditmemo;
@@ -104,6 +111,4 @@ class Mage_Sales_Block_Order_Creditmemo_Totals extends Mage_Sales_Block_Order_To
          */
         return $this;
     }
-
-
 }

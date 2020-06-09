@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,7 +37,7 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
     /**
      * Product Compare items collection
      *
-     * @var Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection
+     * @var Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
      */
     protected $_items;
 
@@ -83,7 +83,7 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
     /**
      * Preparing layout
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
@@ -97,7 +97,7 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
     /**
      * Retrieve Product Compare items collection
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection
+     * @return Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
      */
     public function getItems()
     {
