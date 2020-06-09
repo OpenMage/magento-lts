@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Varien Object
  *
@@ -34,7 +33,6 @@
  */
 class Varien_Object implements ArrayAccess
 {
-
     /**
      * Object attributes
      *
@@ -44,7 +42,7 @@ class Varien_Object implements ArrayAccess
 
     /**
      * Data changes flag (true after setData|unsetData call)
-     * @var $_hasDataChange bool
+     * @var bool $_hasDataChange
      */
     protected $_hasDataChanges = false;
 
@@ -89,11 +87,15 @@ class Varien_Object implements ArrayAccess
     protected $_syncFieldsMap = array();
 
     /**
+     * @var array
+     */
+    protected $_dirty;
+
+    /**
      * Constructor
      *
      * By default is looking for first argument as array and assignes it as object attributes
      * This behaviour may change in child classes
-     *
      */
     public function __construct()
     {
@@ -126,8 +128,6 @@ class Varien_Object implements ArrayAccess
     /**
      * Inits mapping array of object's previously used fields to new fields.
      * Must be overloaded by descendants to set concrete fields map.
-     *
-     * @return Varien_Object
      */
     protected function _initOldFieldsMap()
     {
@@ -138,7 +138,7 @@ class Varien_Object implements ArrayAccess
      * Called after old fields are inited. Forms synchronization map to sync old fields and new fields
      * between each other.
      *
-     * @return Varien_Object
+     * @return $this
      */
     protected function _prepareSyncFieldsMap()
     {
@@ -184,7 +184,7 @@ class Varien_Object implements ArrayAccess
      * set name of object id field
      *
      * @param   string $name
-     * @return  Varien_Object
+     * @return  $this
      */
     public function setIdFieldName($name)
     {
@@ -195,8 +195,7 @@ class Varien_Object implements ArrayAccess
     /**
      * Retrieve name of object id field
      *
-     * @param   string $name
-     * @return  Varien_Object
+     * @return string
      */
     public function getIdFieldName()
     {
@@ -220,7 +219,7 @@ class Varien_Object implements ArrayAccess
      * Set object id field value
      *
      * @param   mixed $value
-     * @return  Varien_Object
+     * @return  $this
      */
     public function setId($value)
     {
@@ -238,7 +237,7 @@ class Varien_Object implements ArrayAccess
      * Retains previous data in the object.
      *
      * @param array $arr
-     * @return Varien_Object
+     * @return $this
      */
     public function addData(array $arr)
     {
@@ -258,7 +257,7 @@ class Varien_Object implements ArrayAccess
      *
      * @param string|array $key
      * @param mixed $value
-     * @return Varien_Object
+     * @return $this
      */
     public function setData($key, $value=null)
     {
@@ -282,7 +281,7 @@ class Varien_Object implements ArrayAccess
      * $key can be a string only. Array will be ignored.
      *
      * @param string $key
-     * @return Varien_Object
+     * @return $this
      */
     public function unsetData($key=null)
     {
@@ -305,7 +304,7 @@ class Varien_Object implements ArrayAccess
      * $key can be a string only. Array will be ignored.
      *
      * @param string $key
-     * @return Varien_Object
+     * @return $this
      */
     public function unsetOldData($key=null)
     {
@@ -406,7 +405,7 @@ class Varien_Object implements ArrayAccess
      *
      * @param string $key
      * @param mixed $args
-     * @return Varien_Object
+     * @return $this
      */
     public function setDataUsingMethod($key, $args=array())
     {
@@ -513,11 +512,13 @@ class Varien_Object implements ArrayAccess
     /**
      * Convert object attributes to XML
      *
-     * @param  array $arrAttributes array of required attributes
+     * @param array $arrAttributes array of required attributes
      * @param string $rootName name of the root element
+     * @param bool $addOpenTag
+     * @param bool $addCdata
      * @return string
      */
-    protected function __toXml(array $arrAttributes = array(), $rootName = 'item', $addOpenTag=false, $addCdata=true)
+    protected function __toXml(array $arrAttributes = array(), $rootName = 'item', $addOpenTag = false, $addCdata = true)
     {
         $xml = '';
         if ($addOpenTag) {
@@ -547,9 +548,11 @@ class Varien_Object implements ArrayAccess
      *
      * @param array $arrAttributes
      * @param string $rootName
+     * @param bool $addOpenTag
+     * @param bool $addCdata
      * @return string
      */
-    public function toXml(array $arrAttributes = array(), $rootName = 'item', $addOpenTag=false, $addCdata=true)
+    public function toXml(array $arrAttributes = array(), $rootName = 'item', $addOpenTag = false, $addCdata = true)
     {
         return $this->__toXml($arrAttributes, $rootName, $addOpenTag, $addCdata);
     }
@@ -659,7 +662,6 @@ class Varien_Object implements ArrayAccess
      * @param string $var
      * @return mixed
      */
-
     public function __get($var)
     {
         $var = $this->_underscore($var);
@@ -712,6 +714,10 @@ class Varien_Object implements ArrayAccess
         return $result;
     }
 
+    /**
+     * @param string $name
+     * @return string
+     */
     protected function _camelize($name)
     {
         return uc_words($name, '');
@@ -762,7 +768,7 @@ class Varien_Object implements ArrayAccess
      *
      * @param string $key
      * @param mixed $data
-     * @return Varien_Object
+     * @return $this
      */
     public function setOrigData($key=null, $data=null)
     {
@@ -791,7 +797,7 @@ class Varien_Object implements ArrayAccess
      * Clears data changes status
      *
      * @param boolean $value
-     * @return Varien_Object
+     * @return $this
      */
     public function setDataChanges($value)
     {
@@ -804,7 +810,7 @@ class Varien_Object implements ArrayAccess
      *
      * @param mixed $data
      * @param array $objects
-     * @return string
+     * @return string|array
      */
     public function debug($data=null, &$objects=array())
     {
@@ -899,7 +905,7 @@ class Varien_Object implements ArrayAccess
      *
      * @param string $field
      * @param boolean $flag
-     * @return Varien_Object
+     * @return $this
      */
     public function flagDirty($field, $flag=true)
     {
