@@ -196,7 +196,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Get collection instance
      *
-     * @return Varien_Data_Collection
+     * @return Varien_Data_Collection|false
      * @throws Mage_Core_Exception
      */
     public function getResourceCollection()
@@ -208,7 +208,8 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     }
 
     /**
-     * {@inheritDoc}
+     * @return Varien_Data_Collection|false
+     * @throws Mage_Core_Exception
      */
     public function getCollection()
     {

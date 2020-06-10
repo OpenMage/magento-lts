@@ -1391,7 +1391,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      *
      * @param   string $modelClass
      * @param   array $constructArguments
-     * @return  Varien_Data_Collection|bool
+     * @return  Varien_Data_Collection|false
      */
     public function getResourceModelInstance($modelClass='', $constructArguments=array())
     {
