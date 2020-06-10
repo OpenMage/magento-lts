@@ -24,35 +24,37 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Entity type model
  *
  * @method Mage_Eav_Model_Resource_Entity_Type _getResource()
  * @method Mage_Eav_Model_Resource_Entity_Type getResource()
- * @method Mage_Eav_Model_Entity_Type setEntityTypeCode(string $value)
+ * @method Mage_Eav_Model_Resource_Entity_Type_Collection getCollection()
+ *
+ * @method $this setEntityTypeCode(string $value)
  * @method string getEntityModel()
- * @method Mage_Eav_Model_Entity_Type setEntityModel(string $value)
- * @method Mage_Eav_Model_Entity_Type setAttributeModel(string $value)
- * @method Mage_Eav_Model_Entity_Type setEntityTable(string $value)
- * @method Mage_Eav_Model_Entity_Type setValueTablePrefix(string $value)
- * @method Mage_Eav_Model_Entity_Type setEntityIdField(string $value)
+ * @method $this setEntityModel(string $value)
+ * @method $this setAttributeModel(string $value)
+ * @method $this setEntityTable(string $value)
+ * @method $this setValueTablePrefix(string $value)
+ * @method $this setEntityIdField(string $value)
  * @method int getIsDataSharing()
- * @method Mage_Eav_Model_Entity_Type setIsDataSharing(int $value)
+ * @method $this setIsDataSharing(int $value)
  * @method string getDataSharingKey()
- * @method Mage_Eav_Model_Entity_Type setDataSharingKey(string $value)
- * @method Mage_Eav_Model_Entity_Type setDefaultAttributeSetId(int $value)
+ * @method $this setDataSharingKey(string $value)
+ * @method $this setDefaultAttributeSetId(int $value)
  * @method string getIncrementModel()
- * @method Mage_Eav_Model_Entity_Type setIncrementModel(string $value)
+ * @method $this setIncrementModel(string $value)
  * @method int getIncrementPerStore()
- * @method Mage_Eav_Model_Entity_Type setIncrementPerStore(int $value)
+ * @method $this setIncrementPerStore(int $value)
  * @method int getIncrementPadLength()
- * @method Mage_Eav_Model_Entity_Type setIncrementPadLength(int $value)
+ * @method $this setIncrementPadLength(int $value)
  * @method string getIncrementPadChar()
- * @method Mage_Eav_Model_Entity_Type setIncrementPadChar(string $value)
+ * @method $this setIncrementPadChar(string $value)
  * @method string getAdditionalAttributeTable()
- * @method Mage_Eav_Model_Entity_Type setAdditionalAttributeTable(string $value)
- * @method Mage_Eav_Model_Entity_Type setEntityAttributeCollection(string $value)
+ * @method $this setAdditionalAttributeTable(string $value)
+ * @method $this setEntityAttributeCollection(string $value)
+ * @method $this setAttributeCodes(array $value)
  *
  * @category    Mage
  * @package     Mage_Eav
@@ -131,7 +133,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     /**
      * Init and retreive attribute collection
      *
-     * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
+     * @return Mage_Core_Model_Mysql4_Collection_Abstract|object
      */
     protected function _getAttributeCollection()
     {
@@ -193,6 +195,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
                     ->save();
             }
 
+            /** @var Mage_Eav_Model_Entity_Increment_Abstract $incrementInstance */
             $incrementInstance = Mage::getModel($this->getIncrementModel())
                 ->setPrefix($entityStoreConfig->getIncrementPrefix())
                 ->setPadLength($this->getIncrementPadLength())
