@@ -20,7 +20,7 @@
  *
  * @category    Tests
  * @package     Tests_Functional
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -113,6 +113,7 @@ class EditCurrencySymbolEntityTest extends Injectable
     {
         // Preconditions:
         $this->applyCurrencyInConfig();
+        $this->applyCurrencyConverterCredentials();
         $this->importCurrencyRates();
         $product = $this->createSimpleProductWithCategory();
 
@@ -134,6 +135,20 @@ class EditCurrencySymbolEntityTest extends Injectable
         $config = $this->fixtureFactory->createByCode(
             'configData',
             ['dataset' => 'config_currency_symbols_usd_and_uah']
+        );
+        $config->persist();
+    }
+
+    /**
+     * Set currency converter credentials
+     *
+     * @return void
+     */
+    protected function applyCurrencyConverterCredentials()
+    {
+        $config = $this->fixtureFactory->createByCode(
+            'configData',
+            ['dataset' => 'config_currency_converters']
         );
         $config->persist();
     }

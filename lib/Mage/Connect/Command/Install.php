@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Connect
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -273,8 +273,8 @@ extends Mage_Connect_Command
 
 
                     $conflicts = $package->checkPhpDependencies();
-                    if(true !== $conflicts) {                       
-                        $confilcts = implode(",",$conflicts);
+                    if(true !== $conflicts) {
+                        $conflicts = implode(",", $conflicts);
                         $err = "Package {$pChan}/{$pName} {$pVer} depends on PHP extensions: ".$conflicts;
                         if($forceMode) {
                             $this->doError($command, $err);

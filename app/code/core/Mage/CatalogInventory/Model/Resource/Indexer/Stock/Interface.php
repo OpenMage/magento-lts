@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogInventory
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,7 +39,7 @@ interface Mage_CatalogInventory_Model_Resource_Indexer_Stock_Interface
      *
      */
     public function reindexAll()
-;
+    ;
 
     /**
      * Reindex stock status data for defined ids
@@ -47,7 +47,7 @@ interface Mage_CatalogInventory_Model_Resource_Indexer_Stock_Interface
      * @param int|array $entityIds
      */
     public function reindexEntity($entityIds)
-;
+    ;
 
     /**
      * Set Product Type Id for indexer
@@ -55,7 +55,7 @@ interface Mage_CatalogInventory_Model_Resource_Indexer_Stock_Interface
      * @param string $typeId
      */
     public function setTypeId($typeId)
-;
+    ;
 
     /**
      * Retrieve Product Type Id for indexer
@@ -64,5 +64,5 @@ interface Mage_CatalogInventory_Model_Resource_Indexer_Stock_Interface
      *
      */
     public function getTypeId()
-;
+    ;
 }

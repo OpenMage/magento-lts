@@ -20,7 +20,7 @@
  *
  * @category    Varien
  * @package     Varien_Filter
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -186,7 +186,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     {
         // Processing of {include template=... [...]} statement
         $includeParameters = $this->_getIncludeParameters($construction[2]);
-        if(!isset($includeParameters['template']) or !$this->getIncludeProcessor()) {
+        if(!isset($includeParameters['template']) || !$this->getIncludeProcessor()) {
             // Not specified template or not seted include processor
             $replacedValue = '{Error in include processing}';
         } else {
@@ -213,7 +213,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     {
         // Processing of {template config_path=... [...]} statement
         $templateParameters = $this->_getIncludeParameters($construction[2]);
-        if (!isset($templateParameters['config_path']) or !$this->getTemplateProcessor()) {
+        if (!isset($templateParameters['config_path']) || !$this->getTemplateProcessor()) {
             $replacedValue = '{Error in template processing}';
         } else {
             // Including of template

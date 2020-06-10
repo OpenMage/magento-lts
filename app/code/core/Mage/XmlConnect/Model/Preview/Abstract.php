@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -67,7 +67,7 @@ abstract class Mage_XmlConnect_Model_Preview_Abstract extends Varien_Object
      *
      * @return null
      */
-    final function _construct()
+    final public function _construct()
     {
         parent::_construct();
         $this->setApplicationModel();

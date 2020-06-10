@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Captcha
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,6 +30,9 @@
  * @category   Core
  * @package    Mage_Captcha
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getFormId()
+ * @method bool getIsAjax()
  */
 class Mage_Captcha_Block_Captcha_Zend extends Mage_Core_Block_Template
 {
@@ -80,7 +83,7 @@ class Mage_Captcha_Block_Captcha_Zend extends Mage_Core_Block_Template
     /**
      * Returns captcha model
      *
-     * @return Mage_Captcha_Model_Abstract
+     * @return Mage_Captcha_Model_Interface
      */
     public function getCaptchaModel()
     {

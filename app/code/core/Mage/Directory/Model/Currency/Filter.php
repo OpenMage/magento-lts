@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Directory
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -45,7 +45,12 @@ class Mage_Directory_Model_Currency_Filter implements Zend_Filter_Interface
      */
     protected $_currency;
 
-    public function __construct($code, $rate=1)
+    /**
+     * Mage_Directory_Model_Currency_Filter constructor.
+     * @param string $code
+     * @param int $rate
+     */
+    public function __construct($code, $rate = 1)
     {
         $this->_currency = Mage::app()->getLocale()->currency($code);
         $this->_rate = $rate;

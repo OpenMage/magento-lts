@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_PageCache
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -57,11 +57,9 @@ class Mage_PageCache_Adminhtml_PageCacheController extends Mage_Adminhtml_Contro
                     Mage::helper('pagecache')->__('The external full page cache has been cleaned.')
                 );
             }
-        }
-        catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $this->_getSession()->addException(
                 $e,
                 Mage::helper('pagecache')->__('An error occurred while clearing the external full page cache.')

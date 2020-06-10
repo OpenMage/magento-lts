@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -199,8 +199,10 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     public function addIsActiveFilter()
     {
         $this->addFieldToFilter('is_active', 1);
-        Mage::dispatchEvent($this->_eventPrefix . '_add_is_active_filter',
-                            array($this->_eventObject => $this));
+        Mage::dispatchEvent(
+            $this->_eventPrefix . '_add_is_active_filter',
+            array($this->_eventObject => $this)
+        );
         return $this;
     }
 
@@ -258,7 +260,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     /**
      * Retrieve resource instance
      *
-     * @return Mage_Catalog_Model_Resource_Category_Flat
+     * @inheritDoc
      */
     public function getResource()
     {
@@ -304,7 +306,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
      */
     public function addUrlRewriteToResult()
     {
-        /** @var $urlRewrite Mage_Catalog_Helper_Category_Url_Rewrite_Interface */
+        /** @var Mage_Catalog_Helper_Category_Url_Rewrite_Interface $urlRewrite */
         $urlRewrite = $this->_factory->getCategoryUrlRewriteHelper();
         $urlRewrite->joinTableToCollection($this, $this->_getCurrentStoreId());
 
@@ -341,14 +343,12 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
             $paths = array($paths);
         }
         $select = $this->getSelect();
-        $orWhere = false;
+        $cond   = array();
         foreach ($paths as $path) {
-            if ($orWhere) {
-                $select->orWhere('main_table.path LIKE ?', "$path%");
-            } else {
-                $select->where('main_table.path LIKE ?', "$path%");
-                $orWhere = true;
-            }
+            $cond[] = $this->getResource()->getReadConnection()->quoteInto('main_table.path LIKE ?', "$path%");
+        }
+        if ($cond) {
+            $select->where(join(' OR ', $cond));
         }
         return $this;
     }

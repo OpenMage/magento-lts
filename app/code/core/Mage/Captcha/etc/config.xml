@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Captcha
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -53,6 +53,11 @@
                 </entities>
             </captcha_resource>
         </models>
+        <helpers>
+            <captcha>
+                <class>Mage_Captcha_Helper</class>
+            </captcha>
+        </helpers>
         <events>
             <controller_action_predispatch_customer_account_loginpost>
                 <observers>
@@ -150,6 +155,15 @@
                 </args>
             </captcha>
         </routers>
+        <translate>
+            <modules>
+                <Mage_Captcha>
+                    <files>
+                        <default>Mage_Captcha.csv</default>
+                    </files>
+                </Mage_Captcha>
+            </modules>
+        </translate>
         <layout>
             <updates>
                 <captcha>

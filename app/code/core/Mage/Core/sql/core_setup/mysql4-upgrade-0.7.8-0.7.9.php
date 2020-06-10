@@ -20,12 +20,12 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 $installer = $this;
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 
 $configValuesMap = array(
     'catalog/productalert/email_stock_template'         => 'catalog_productalert_email_stock_template',
@@ -51,6 +51,6 @@ $configValuesMap = array(
     'wishlist/email/email_template'                     => 'wishlist_email_email_template',
 );
 
-foreach ($configValuesMap as $configPath=>$configValue) {
+foreach ($configValuesMap as $configPath => $configValue) {
     $installer->setConfigData($configPath, $configValue);
 }
