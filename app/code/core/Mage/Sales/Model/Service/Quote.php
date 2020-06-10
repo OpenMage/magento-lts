@@ -180,6 +180,7 @@ class Mage_Sales_Model_Service_Quote
         $transaction->addCommitCallback(array($order, 'place'));
         $transaction->addCommitCallback(array($order, 'save'));
 
+        Mage::unregister('current_order');
         Mage::register('current_order', $order);
         
         /**
