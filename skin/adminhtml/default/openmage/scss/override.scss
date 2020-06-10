@@ -134,10 +134,11 @@ small {
 
 .content-header {
   @extend %extend_3;
-
+  margin-bottom: 0px;
+  padding-bottom: 0px;
   h3 {
     @extend %extend_3;
-    margin: 0.3em;
+    margin: 0 0.3em 0.3em;
     line-height: 32px;
   }
 }
@@ -356,7 +357,7 @@ small {
 }
 
 .header {
-  background: $color_shark_approx;
+  background: $header_background;
 }
 
 .header-right {
@@ -1077,4 +1078,8 @@ img[src$='grid-cal.gif'] {
 
 .link-store-scope {
   background: icon-help($color-help);
+}
+
+.emph, .accent {
+  color: $color_action !important;
 }

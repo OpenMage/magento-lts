@@ -49,15 +49,10 @@
 //original selectors
 //.grid tr.headings th a.sort-arrow-desc, .grid tr.headings th a.sort-arrow-asc
 %extend_6 {
-  background: $color_dolphin_approx;
+  background: none;
   border: 0;
-  //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
-  box-shadow: inset 0 1px 2px $black_10;
-  //Instead of the line below you could use @include box-sizing($bs)
   box-sizing: border-box;
-  color: $color_alto_approx;
-  //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
-  border-radius: 2px;
+  font-weight: bold;
   position: relative;
 }
 

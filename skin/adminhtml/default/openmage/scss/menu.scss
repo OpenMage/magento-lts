@@ -88,7 +88,7 @@
         line-height: 38px;
 
         &:hover {
-          background: $color_boulder_approx;
+          background: darken($openmage_base_blue,10);
           color: $white;
         }
       }
@@ -106,7 +106,7 @@
       }
 
       &.over > a {
-        background: $color_boulder_approx;
+        background: darken($openmage_base_blue,12);
         color: $white;
       }
     }
@@ -273,7 +273,7 @@
 
     &.active > a {
       font-weight: 600;
-      background: $color_boulder_approx;
+      background: darken($openmage_base_blue,14);
     }
   }
 }

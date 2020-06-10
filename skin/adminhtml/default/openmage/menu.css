@@ -10,7 +10,7 @@
 }
 
 .nav-bar {
-  background: #555;
+  background: #202856;
   padding: 0 30px;
 }
 .nav-bar:after {
@@ -41,7 +41,7 @@
   left: -10000px;
 }
 #nav li.over ul a {
-  color: #555;
+  color: #202856;
   font-size: 12px;
 }
 #nav li.over ul li.over ul {
@@ -78,7 +78,7 @@
   line-height: 38px;
 }
 #nav li.level0 > a:hover {
-  background: #777;
+  background: #2c3878;
   color: #fff;
 }
 #nav li.level0 li.parent > a:after {
@@ -93,7 +93,7 @@
   border-color: transparent transparent transparent #ccc;
 }
 #nav li.level0.over > a {
-  background: #777;
+  background: #293470;
   color: #fff;
 }
 #nav li.parent a {
@@ -145,18 +145,18 @@
   padding: 0;
 }
 #nav ul li.active a {
-  color: #555;
+  color: #202856;
   font-size: 12px;
 }
 #nav ul li a {
   background: #fff;
-  color: #555;
+  color: #202856;
   padding: 9px 12px;
-  color: #555;
+  color: #202856;
   font-size: 12px;
 }
 #nav ul li a:hover {
-  background: #555;
+  background: #202856;
   color: #fff;
 }
 #nav ul li.parent a {
@@ -206,7 +206,7 @@
 }
 #nav .level0.active > a {
   font-weight: 600;
-  background: #777;
+  background: #273169;
 }
 
 /*# sourceMappingURL=menu.css.map */

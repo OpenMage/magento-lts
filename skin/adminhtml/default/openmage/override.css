@@ -36,12 +36,10 @@ dl.accordion dt, .entry-edit .entry-edit-head {
 }
 
 .grid tr.headings th a.sort-arrow-asc, .grid tr.headings th a.sort-arrow-desc {
-  background: #68666f;
+  background: none;
   border: 0;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
-  color: lightgrey;
-  border-radius: 2px;
+  font-weight: bold;
   position: relative;
 }
 
@@ -222,8 +220,12 @@ small {
   padding-right: 0;
 }
 
+.content-header {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
 .content-header h3 {
-  margin: 0.3em;
+  margin: 0 0.3em 0.3em;
   line-height: 32px;
 }
 
@@ -314,14 +316,14 @@ small {
   margin-top: 5px;
 }
 .grid tr.headings {
-  background: #777;
-  border: 1px solid #777;
+  background: #71798e;
+  border: 1px solid #71798e;
 }
 .grid tr.headings th {
   padding: 4px;
   font-size: 12px;
   vertical-align: middle;
-  border: 1px solid #777;
+  border: 1px solid #71798e;
   color: #fff;
   font-weight: 400;
 }
@@ -367,7 +369,7 @@ small {
 }
 
 .header {
-  background: #272930;
+  background: #000537;
 }
 
 .header-right {
@@ -404,7 +406,7 @@ ul.tabs-horiz li a {
 }
 ul.tabs-horiz li a.active {
   border: 0;
-  background: #777;
+  background: #71798e;
   color: #fff !important;
 }
 ul.tabs {
@@ -423,7 +425,7 @@ ul.tabs a {
   border-bottom: 1px solid #eee;
 }
 ul.tabs a.active {
-  border-left: 3px solid #777;
+  border-left: 3px solid #71798e;
   padding: 8px 18px;
   background: #eee;
   box-shadow: 0 1px 2px #ccc inset;
@@ -457,7 +459,7 @@ ul.config-tabs dt {
   padding: 10px;
   font-size: 18px;
   border-top: 0;
-  background: #777;
+  background: #71798e;
   color: #fff;
 }
 
@@ -959,6 +961,10 @@ img[src$="grid-cal.gif"] {
 
 .link-store-scope {
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' style='width:24px;height:24px' viewBox='0 0 24 24'%3E%3Cpath fill='%2300a9ff' d='M15.07,11.25L14.17,12.17C13.45,12.89 13,13.5 13,15H11V14.5C11,13.39 11.45,12.39 12.17,11.67L13.41,10.41C13.78,10.05 14,9.55 14,9C14,7.89 13.1,7 12,7A2,2 0 0,0 10,9H8A4,4 0 0,1 12,5A4,4 0 0,1 16,9C16,9.88 15.64,10.67 15.07,11.25M13,19H11V17H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2Z' /%3E%3C/svg%3E");
+}
+
+.emph, .accent {
+  color: #0090FF !important;
 }
 
 /*# sourceMappingURL=override.css.map */
