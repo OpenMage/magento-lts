@@ -245,19 +245,6 @@
                             <cache translate="title">
                                 <title>Cache Management</title>
                             </cache>
-                            <extensions translate="title">
-                                <title>Magento Connect</title>
-                                <children>
-                                    <local translate="title">
-                                        <title>Magento Connect Manager</title>
-                                        <sort_order>0</sort_order>
-                                    </local>
-                                    <custom translate="title">
-                                        <title>Package Extensions</title>
-                                        <sort_order>5</sort_order>
-                                    </custom>
-                                </children>
-                            </extensions>
                         </children>
                     </system>
                     <global_search translate="title">
