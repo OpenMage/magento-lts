@@ -149,10 +149,6 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      */
     public function preDispatch()
     {
-        // override admin store design settings via stores section
-
-        $legacy = Mage::getStoreConfig('admin/design/theme');
-
         $theme = 'openmage';
 
         // get legacy theme choice form backend config
