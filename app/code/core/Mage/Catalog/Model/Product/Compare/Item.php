@@ -162,7 +162,7 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
     {
         if ($product instanceof Mage_Catalog_Model_Product) {
             $this->setProductId($product->getId());
-        elseif ((int)$product) {
+        } elseif ((int)$product) {
             $this->setProductId(intval($product));
         }
 
