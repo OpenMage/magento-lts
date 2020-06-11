@@ -152,9 +152,11 @@ small {
 }
 
 .switcher {
-  background: $color_white_approx;
-  padding: 15px;
-  border: 1px solid $color_alto_approx;
+  background: none;
+  padding: 0px;
+  padding-bottom:10px;
+  border: none;
+
 }
 
 .entry-edit {
@@ -362,12 +364,18 @@ small {
 
 .header-right {
   font-size: 12px;
-
-  fieldset input.input-text {
-    border: 0;
+  .super {
+    line-height: 2.8em;
+    margin-bottom: 0px;
+  }
+  fieldset {
+    margin-top: 3px;
+      input.input-text {
+      border: 0;
+    }
   }
 }
-
+.header-right fieldset
 .footer {
   background: $color_gallery_approx;
   padding: 15px;
@@ -464,7 +472,10 @@ ul {
     border: 0;
     font-weight: 300;
     text-transform: none;
-    padding: 10px;
+    padding-left: 10px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-right: 7px;
     font-size: 18px;
     border-top: 0;
     background: $color_boulder_approx;
