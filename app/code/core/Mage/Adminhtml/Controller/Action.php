@@ -149,11 +149,11 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      */
     public function preDispatch()
     {
-        $theme = 'openmage';
-
         // get legacy theme choice form backend config
         if (Mage::getStoreConfigFlag('admin/design/theme')) {
             $theme = Mage::getConfig()->getNode("stores/admin/design/theme/default");
+        } else {
+            $theme = Mage::getConfig()->getNode("stores/admin/design/theme/openmage");
         }
 
         Mage::getDesign()

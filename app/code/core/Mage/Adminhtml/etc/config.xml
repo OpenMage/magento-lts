@@ -242,6 +242,7 @@
                 </package>
                 <theme>
                     <default>default</default>
+                    <openmage>openmage</openmage>
                 </theme>
             </design>
         </admin>
