@@ -107,7 +107,7 @@ class Mage_Index_Model_Indexer
      * Get index process by specific code
      *
      * @param string $code
-     * @return Mage_Index_Model_Process | false
+     * @return Mage_Index_Model_Process|false
      */
     public function getProcessByCode($code)
     {
@@ -129,7 +129,7 @@ class Mage_Index_Model_Indexer
     {
         $processes = array();
         $this->_errors = array();
-        foreach($codes as $code) {
+        foreach ($codes as $code) {
             $process = $this->getProcessByCode($code);
             if (!$process) {
                 $this->_errors[] = sprintf('Warning: Unknown indexer with code %s', trim($code));
@@ -204,11 +204,11 @@ class Mage_Index_Model_Indexer
      * @throws Exception
      * @return  Mage_Index_Model_Indexer
      */
-    public function indexEvents($entity=null, $type=null)
+    public function indexEvents($entity = null, $type = null)
     {
         Mage::dispatchEvent('start_index_events' . $this->_getEventTypeName($entity, $type));
 
-        /** @var $resourceModel Mage_Index_Model_Resource_Process */
+        /** @var Mage_Index_Model_Resource_Process $resourceModel */
         $resourceModel = Mage::getResourceSingleton('index/process');
 
         $allowTableChanges = $this->_allowTableChanges && !$resourceModel->isInTransaction();
@@ -268,7 +268,7 @@ class Mage_Index_Model_Indexer
      * @param   bool $doSave
      * @return  Mage_Index_Model_Event
      */
-    public function logEvent(Varien_Object $entity, $entityType, $eventType, $doSave=true)
+    public function logEvent(Varien_Object $entity, $entityType, $eventType, $doSave = true)
     {
         $event = Mage::getModel('index/event')
             ->setEntity($entityType)
@@ -302,7 +302,7 @@ class Mage_Index_Model_Indexer
         if ($event->getProcessIds()) {
             Mage::dispatchEvent('start_process_event' . $this->_getEventTypeName($entityType, $eventType));
 
-            /** @var $resourceModel Mage_Index_Model_Resource_Process */
+            /** @var Mage_Index_Model_Resource_Process $resourceModel */
             $resourceModel = Mage::getResourceSingleton('index/process');
 
             $allowTableChanges = $this->_allowTableChanges && !$resourceModel->isInTransaction();
@@ -343,7 +343,7 @@ class Mage_Index_Model_Indexer
      *
      * @param string $method
      * @param array $args
-     * @return $this
+     * @return void
      */
     protected function _runAll($method, $args)
     {
