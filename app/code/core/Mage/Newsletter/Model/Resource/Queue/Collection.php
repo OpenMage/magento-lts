@@ -67,7 +67,8 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
      */
     public function addTemplateInfo()
     {
-        $this->getSelect()->joinLeft(array('template'=>$this->getTable('template')),
+        $this->getSelect()->joinLeft(
+            array('template'=>$this->getTable('template')),
             'template.template_id=main_table.template_id',
             array('template_subject','template_sender_name','template_sender_email')
         );
@@ -82,7 +83,7 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
      */
     protected function _addSubscriberInfoToSelect()
     {
-        /** @var $select Varien_Db_Select */
+        /** @var Varien_Db_Select $select */
         $select = $this->getConnection()->select()
             ->from(array('qlt' => $this->getTable('newsletter/queue_link')), 'COUNT(qlt.queue_link_id)')
             ->where('qlt.queue_id = main_table.queue_id');
@@ -103,9 +104,7 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
     /**
      * Adds subscribers info to select and loads collection
      *
-     * @param bool $printQuery
-     * @param bool $logQuery
-     * @return $this
+     * @inheritDoc
      */
     public function load($printQuery = false, $logQuery = false)
     {
@@ -130,9 +129,7 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
      * Checks if field is 'subscribers_total', 'subscribers_sent'
      * to add specific filter or adds reguler filter
      *
-     * @param string $field
-     * @param mixed $condition
-     * @return $this
+     * @inheritDoc
      */
     public function addFieldToFilter($field, $condition = null)
     {
@@ -182,7 +179,8 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
      */
     public function addSubscriberFilter($subscriberId)
     {
-        $this->getSelect()->join(array('link'=>$this->getTable('newsletter/queue_link')),
+        $this->getSelect()->join(
+            array('link'=>$this->getTable('newsletter/queue_link')),
             'main_table.queue_id=link.queue_id',
             array('letter_sent_at')
         )
@@ -238,8 +236,10 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
     public function addStoreFilter($storeIds)
     {
         if (!$this->_isStoreFilter) {
-            $this->getSelect()->joinInner(array('store_link' => $this->getTable('newsletter/queue_store_link')),
-                'main_table.queue_id = store_link.queue_id', array()
+            $this->getSelect()->joinInner(
+                array('store_link' => $this->getTable('newsletter/queue_store_link')),
+                'main_table.queue_id = store_link.queue_id',
+                array()
             )
             ->where('store_link.store_id IN (?)', $storeIds)
             ->group('main_table.queue_id');
