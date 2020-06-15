@@ -71,18 +71,18 @@
     </adminhtml_mobile_queuemessage>
 
     <adminhtml_mobile_edittemplate>
-         <reference name="head">
+        <reference name="head">
             <action method="setCanLoadExtJs"><flag>1</flag></action>
             <action method="addJs"><script>mage/adminhtml/variables.js</script></action>
             <action method="addJs"><script>mage/adminhtml/wysiwyg/widget.js</script></action>
-             <action method="addJs"><name>lib/uploader/flow.min.js</name></action>
-             <action method="addJs"><name>lib/uploader/fusty-flow.js</name></action>
-             <action method="addJs"><name>lib/uploader/fusty-flow-factory.js</name></action>
-             <action method="addJs"><name>mage/adminhtml/uploader/instance.js</name></action>
+            <action method="addJs"><name>lib/uploader/flow.min.js</name></action>
+            <action method="addJs"><name>lib/uploader/fusty-flow.js</name></action>
+            <action method="addJs"><name>lib/uploader/fusty-flow-factory.js</name></action>
+            <action method="addJs"><name>mage/adminhtml/uploader/instance.js</name></action>
             <action method="addJs"><script>mage/adminhtml/browser.js</script></action>
             <action method="addJs"><script>prototype/window.js</script></action>
             <action method="addItem"><type>js_css</type><name>prototype/windows/themes/default.css</name></action>
-            <action method="addItem"><type>js_css</type><name>prototype/windows/themes/magento.css</name></action>
+            <action method="addCss"><name>lib/prototype/windows/themes/magento.css</name></action>
         </reference>
         <reference name="content">
             <block type="xmlconnect/adminhtml_template_edit" name="template_edit"/>
