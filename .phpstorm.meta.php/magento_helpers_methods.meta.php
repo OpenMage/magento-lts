@@ -192,8 +192,6 @@ namespace PHPSTORM_META {
             'widget/data' => \Mage_Widget_Helper_Data::class,
             'wishlist' => \Mage_Wishlist_Helper_Data::class,
             'wishlist/data' => \Mage_Wishlist_Helper_Data::class,
-            'moneybookers' => \Phoenix_Moneybookers_Helper_Data::class,
-            'moneybookers/data' => \Phoenix_Moneybookers_Helper_Data::class,
         ])
     );
     override( \Mage_Adminhtml_Controller_Rss_Abstract::_getHelper(0),
@@ -388,8 +386,6 @@ namespace PHPSTORM_META {
             'widget/data' => \Mage_Widget_Helper_Data::class,
             'wishlist' => \Mage_Wishlist_Helper_Data::class,
             'wishlist/data' => \Mage_Wishlist_Helper_Data::class,
-            'moneybookers' => \Phoenix_Moneybookers_Helper_Data::class,
-            'moneybookers/data' => \Phoenix_Moneybookers_Helper_Data::class,
         ])
     );
     override( \Mage_Api_Model_User::_getHelper(0),
@@ -584,8 +580,6 @@ namespace PHPSTORM_META {
             'widget/data' => \Mage_Widget_Helper_Data::class,
             'wishlist' => \Mage_Wishlist_Helper_Data::class,
             'wishlist/data' => \Mage_Wishlist_Helper_Data::class,
-            'moneybookers' => \Phoenix_Moneybookers_Helper_Data::class,
-            'moneybookers/data' => \Phoenix_Moneybookers_Helper_Data::class,
         ])
     );
     override( \Mage_Core_Block_Abstract::helper(0),
@@ -780,8 +774,6 @@ namespace PHPSTORM_META {
             'widget/data' => \Mage_Widget_Helper_Data::class,
             'wishlist' => \Mage_Wishlist_Helper_Data::class,
             'wishlist/data' => \Mage_Wishlist_Helper_Data::class,
-            'moneybookers' => \Phoenix_Moneybookers_Helper_Data::class,
-            'moneybookers/data' => \Phoenix_Moneybookers_Helper_Data::class,
         ])
     );
     override( \Mage_Core_Model_App::getHelper(0),
@@ -976,8 +968,6 @@ namespace PHPSTORM_META {
             'widget/data' => \Mage_Widget_Helper_Data::class,
             'wishlist' => \Mage_Wishlist_Helper_Data::class,
             'wishlist/data' => \Mage_Wishlist_Helper_Data::class,
-            'moneybookers' => \Phoenix_Moneybookers_Helper_Data::class,
-            'moneybookers/data' => \Phoenix_Moneybookers_Helper_Data::class,
         ])
     );
     override( \Mage_Core_Model_Factory::getHelper(0),
@@ -1172,8 +1162,6 @@ namespace PHPSTORM_META {
             'widget/data' => \Mage_Widget_Helper_Data::class,
             'wishlist' => \Mage_Wishlist_Helper_Data::class,
             'wishlist/data' => \Mage_Wishlist_Helper_Data::class,
-            'moneybookers' => \Phoenix_Moneybookers_Helper_Data::class,
-            'moneybookers/data' => \Phoenix_Moneybookers_Helper_Data::class,
         ])
     );
     override( \Mage_Core_Model_Layout::helper(0),
@@ -1368,8 +1356,6 @@ namespace PHPSTORM_META {
             'widget/data' => \Mage_Widget_Helper_Data::class,
             'wishlist' => \Mage_Wishlist_Helper_Data::class,
             'wishlist/data' => \Mage_Wishlist_Helper_Data::class,
-            'moneybookers' => \Phoenix_Moneybookers_Helper_Data::class,
-            'moneybookers/data' => \Phoenix_Moneybookers_Helper_Data::class,
         ])
     );
     override( \Mage_Customer_AccountController::_getHelper(0),
@@ -1564,8 +1550,6 @@ namespace PHPSTORM_META {
             'widget/data' => \Mage_Widget_Helper_Data::class,
             'wishlist' => \Mage_Wishlist_Helper_Data::class,
             'wishlist/data' => \Mage_Wishlist_Helper_Data::class,
-            'moneybookers' => \Phoenix_Moneybookers_Helper_Data::class,
-            'moneybookers/data' => \Phoenix_Moneybookers_Helper_Data::class,
         ])
     );
     override( \Mage_Customer_Model_Customer::_getHelper(0),
@@ -1760,8 +1744,6 @@ namespace PHPSTORM_META {
             'widget/data' => \Mage_Widget_Helper_Data::class,
             'wishlist' => \Mage_Wishlist_Helper_Data::class,
             'wishlist/data' => \Mage_Wishlist_Helper_Data::class,
-            'moneybookers' => \Phoenix_Moneybookers_Helper_Data::class,
-            'moneybookers/data' => \Phoenix_Moneybookers_Helper_Data::class,
         ])
     );
     override( \Mage_ImportExport_Model_Import_Entity_Product::getHelper(0),
@@ -1956,8 +1938,6 @@ namespace PHPSTORM_META {
             'widget/data' => \Mage_Widget_Helper_Data::class,
             'wishlist' => \Mage_Wishlist_Helper_Data::class,
             'wishlist/data' => \Mage_Wishlist_Helper_Data::class,
-            'moneybookers' => \Phoenix_Moneybookers_Helper_Data::class,
-            'moneybookers/data' => \Phoenix_Moneybookers_Helper_Data::class,
         ])
     );
     override( \Mage_Rss_Controller_Abstract::_getHelper(0),
@@ -2152,8 +2132,6 @@ namespace PHPSTORM_META {
             'widget/data' => \Mage_Widget_Helper_Data::class,
             'wishlist' => \Mage_Wishlist_Helper_Data::class,
             'wishlist/data' => \Mage_Wishlist_Helper_Data::class,
-            'moneybookers' => \Phoenix_Moneybookers_Helper_Data::class,
-            'moneybookers/data' => \Phoenix_Moneybookers_Helper_Data::class,
         ])
     );
     override( \Mage_SalesRule_Model_Validator::_getHelper(0),
@@ -2348,8 +2326,6 @@ namespace PHPSTORM_META {
             'widget/data' => \Mage_Widget_Helper_Data::class,
             'wishlist' => \Mage_Wishlist_Helper_Data::class,
             'wishlist/data' => \Mage_Wishlist_Helper_Data::class,
-            'moneybookers' => \Phoenix_Moneybookers_Helper_Data::class,
-            'moneybookers/data' => \Phoenix_Moneybookers_Helper_Data::class,
         ])
     );
     override( \Mage_Weee_Helper_Data::_getHelper(0),
@@ -2544,8 +2520,6 @@ namespace PHPSTORM_META {
             'widget/data' => \Mage_Widget_Helper_Data::class,
             'wishlist' => \Mage_Wishlist_Helper_Data::class,
             'wishlist/data' => \Mage_Wishlist_Helper_Data::class,
-            'moneybookers' => \Phoenix_Moneybookers_Helper_Data::class,
-            'moneybookers/data' => \Phoenix_Moneybookers_Helper_Data::class,
         ])
     );
     override( \Mage_Weee_Model_Config_Source_Fpt_Tax::_getHelper(0),
@@ -2740,8 +2714,6 @@ namespace PHPSTORM_META {
             'widget/data' => \Mage_Widget_Helper_Data::class,
             'wishlist' => \Mage_Wishlist_Helper_Data::class,
             'wishlist/data' => \Mage_Wishlist_Helper_Data::class,
-            'moneybookers' => \Phoenix_Moneybookers_Helper_Data::class,
-            'moneybookers/data' => \Phoenix_Moneybookers_Helper_Data::class,
         ])
     );
 }

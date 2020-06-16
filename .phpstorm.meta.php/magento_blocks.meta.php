@@ -1345,12 +1345,6 @@ namespace PHPSTORM_META {
             'wishlist/share_email_items' instanceof \Mage_Wishlist_Block_Share_Email_Items,
             'wishlist/share_email_rss' instanceof \Mage_Wishlist_Block_Share_Email_Rss,
             'wishlist/share_wishlist' instanceof \Mage_Wishlist_Block_Share_Wishlist,
-            'moneybookers/form' instanceof \Phoenix_Moneybookers_Block_Form,
-            'moneybookers/info' instanceof \Phoenix_Moneybookers_Block_Info,
-            'moneybookers/jsinit' instanceof \Phoenix_Moneybookers_Block_Jsinit,
-            'moneybookers/payment' instanceof \Phoenix_Moneybookers_Block_Payment,
-            'moneybookers/placeform' instanceof \Phoenix_Moneybookers_Block_Placeform,
-            'moneybookers/redirect' instanceof \Phoenix_Moneybookers_Block_Redirect,
-        ], 
+        ],
     ];
 }
