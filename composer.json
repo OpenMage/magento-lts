@@ -2,26 +2,48 @@
   "name": "openmage/magento-lts",
   "license": "OSL-3.0",
   "type": "magento-source",
-  "require": {
-    "php": ">=7.0 <7.5",
-    "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1"
-  },
-  "description": " A fork of Magento-1 that is accepting bug fixes (backward compatible, drop in replacement for official Magento)",
+  "description": "A fork of Magento-1 that is accepting bug fixes (backward compatible, drop in replacement for official Magento)",
   "authors": [
     {
       "name": "Lee Saferite",
       "email": "lee.saferite@aoe.com",
       "role": "Maintainer"
     },
-      {
-        "name": "Daniel Fahlke aka Flyingmana",
-        "email": "flyingmana@googlemail.com",
-        "role": "Maintainer"
-      },
+    {
+      "name": "Daniel Fahlke aka Flyingmana",
+      "email": "flyingmana@googlemail.com",
+      "role": "Maintainer"
+    },
     {
       "name": "David Robinson",
       "email": "david.robinson@aoe.com",
       "role": "Maintainer"
+    }
+  ],
+  "require": {
+    "php": ">=7.0 <7.5",
+    "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-master",
+    "smgladkovskiy/phpcs-git-pre-commit": " dev-master",
+    "squizlabs/php_codesniffer": "*"
+  },
+  "extra": {
+    "magento-root-dir": "."
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "scripts": {
+    "install-hooks": ["sh ./vendor/smgladkovskiy/phpcs-git-pre-commit/src/setup.sh"],
+    "post-install-cmd": ["@install-hooks"],
+    "post-update-cmd": ["@install-hooks"]
+  },
+  "repositories": [
+    {
+      "type": "github",
+      "url": "https://github.com/sreichel/phpcs-git-pre-commit"
     }
   ]
 }

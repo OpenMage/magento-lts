@@ -46,14 +46,6 @@ include_once "Varien/Autoload.php";
 
 Varien_Autoload::register();
 
-/** AUTOLOADER PATCH **/
-if (file_exists($autoloaderPath = BP . DS . 'vendor/autoload.php') ||
-    file_exists($autoloaderPath = BP . DS . '../vendor/autoload.php')
-) {
-    require $autoloaderPath;
-}
-/** AUTOLOADER PATCH **/
-
 include_once "phpseclib/bootstrap.php";
 include_once "mcryptcompat/mcrypt.php";
 
