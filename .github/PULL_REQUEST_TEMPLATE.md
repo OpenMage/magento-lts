@@ -1,5 +1,5 @@
 <!---
-    Thank you for contributing to Magento.
+    Thank you for contributing to OpenMage LTS.
     To help us process this pull request we recommend that you add the following information:
      - Summary of the pull request,
      - Issue(s) related to the changes made,
