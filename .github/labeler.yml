@@ -1,0 +1,354 @@
+Environment:
+  - .github/*
+  - .github/**/*
+  - .phpstorm.meta.php/*
+  - .htaccess
+  - .travis.yml
+  - .composer.json
+
+# Add Mage.php
+Module: Mage.php:
+  - app/Mage.php
+
+Module: ./shell:
+  - shell/*
+  - shell/**/*
+
+# Add Library Labels
+Module: lib/Mage:
+  - lib/Mage/*
+  - lib/Mage/**/*
+
+Module: lib/Varien:
+  - lib/Varien/*
+  - lib/Varien/**/*
+
+Module: lib/Zend:
+  - lib/Zend/*
+  - lib/Zend/**/*
+  - app/code/core/Zend/*
+  - app/code/core/Zend/**/*
+
+Module: lib/*:
+  - lib/*
+  - lib/**/*
+  - !lib/Mage/*
+  - !lib/Mage/**/*
+  - !lib/Varien/*
+  - !lib/Varien/**/*
+  - !lib/Zend/*
+  - !lib/Zend/**/*
+  - !app/code/core/Zend/*
+  - !app/code/core/Zend/**/*
+
+# Add Module Labels
+Module: Admin:
+  - app/code/core/Mage/Admin/*
+  - app/code/core/Mage/Admin/**/*
+
+Module: Adminhtml:
+  - app/code/core/Mage/Adminhtml/*
+  - app/code/core/Mage/Adminhtml/**/*
+
+Module: AdminNotification:
+  - app/code/core/Mage/AdminNotification/*
+  - app/code/core/Mage/AdminNotification/**/*
+
+Module: Api:
+  - app/code/core/Mage/Api/*
+  - app/code/core/Mage/Api/**/*
+
+Module: Api2:
+  - app/code/core/Mage/Api2/*
+  - app/code/core/Mage/Api2/**/*
+
+Module: Authorizenet:
+  - app/code/core/Mage/Authorizenet/*
+  - app/code/core/Mage/Authorizenet/**/*
+
+Module: Backup:
+  - app/code/core/Mage/Backup/*
+  - app/code/core/Mage/Backup/**/*
+
+Module: Bundle:
+  - app/code/core/Mage/Bundle/*
+  - app/code/core/Mage/Bundle/**/*
+
+Module: Captcha:
+  - app/code/core/Mage/Captcha/*
+  - app/code/core/Mage/Captcha/**/*
+
+Module: Catalog:
+  - app/code/core/Mage/Catalog/*
+  - app/code/core/Mage/Catalog/**/*
+
+Module: CatalogIndex:
+  - app/code/core/Mage/CatalogIndex/*
+  - app/code/core/Mage/CatalogIndex/**/*
+
+Module: CatalogInventory:
+  - app/code/core/Mage/CatalogInventory/*
+  - app/code/core/Mage/CatalogInventory/**/*
+
+Module: CatalogRule:
+  - app/code/core/Mage/CatalogRule/*
+  - app/code/core/Mage/CatalogRule/**/*
+
+Module: CatalogSearch:
+  - app/code/core/Mage/CatalogSearch/*
+  - app/code/core/Mage/CatalogSearch/**/*
+
+Module: Centinel:
+  - app/code/core/Mage/Centinel/*
+  - app/code/core/Mage/Centinel/**/*
+
+Module: Checkout:
+  - app/code/core/Mage/Checkout/*
+  - app/code/core/Mage/Checkout/**/*
+
+Module: Cms:
+  - app/code/core/Mage/Cms/*
+  - app/code/core/Mage/Cms/**/*
+
+Module: ConfigurableSwatches:
+  - app/code/core/Mage/ConfigurableSwatches/*
+  - app/code/core/Mage/ConfigurableSwatches/**/*
+
+Module: Connect:
+  - app/code/core/Mage/Connect/*
+  - app/code/core/Mage/Connect/**/*
+
+Module: Contacts:
+  - app/code/core/Mage/Contacts/*
+  - app/code/core/Mage/Contacts/**/*
+
+Module: Core:
+  - app/code/core/Mage/Core/*
+  - app/code/core/Mage/Core/**/*
+
+Module: Cron:
+  - app/code/core/Mage/Cron/*
+  - app/code/core/Mage/Cron/**/*
+
+Module: CurrencySymbol:
+  - app/code/core/Mage/CurrencySymbol/*
+  - app/code/core/Mage/CurrencySymbol/**/*
+
+Module: Customer:
+  - app/code/core/Mage/Customer/*
+  - app/code/core/Mage/Customer/**/*
+
+Module: Dataflow:
+  - app/code/core/Mage/Dataflow/*
+  - app/code/core/Mage/Dataflow/**/*
+
+Module: Directory:
+  - app/code/core/Mage/Directory/*
+  - app/code/core/Mage/Directory/**/*
+
+Module: Downloadable:
+  - app/code/core/Mage/Downloadable/*
+  - app/code/core/Mage/Downloadable/**/*
+
+Module: Eav:
+  - app/code/core/Mage/Eav/*
+  - app/code/core/Mage/Eav/**/*
+
+Module: Giftmessage:
+  - app/code/core/Mage/Giftmessage/*
+  - app/code/core/Mage/Giftmessage/**/*
+
+Module: GoogleAnalytics:
+  - app/code/core/Mage/GoogleAnalytics/*
+  - app/code/core/Mage/GoogleAnalytics/**/*
+
+Module: GoogleBase:
+  - app/code/core/Mage/GoogleBase/*
+  - app/code/core/Mage/GoogleBase/**/*
+
+Module: GoogleCheckout:
+  - app/code/core/Mage/GoogleCheckout/*
+  - app/code/core/Mage/GoogleCheckout/**/*
+
+Module: ImportExport:
+  - app/code/core/Mage/ImportExport/*
+  - app/code/core/Mage/ImportExport/**/*
+
+Module: Index:
+  - app/code/core/Mage/Index/*
+  - app/code/core/Mage/Index/**/*
+
+Module: Install:
+  - app/code/core/Mage/Install/*
+  - app/code/core/Mage/Install/**/*
+
+Module: Log:
+  - app/code/core/Mage/Log/*
+  - app/code/core/Mage/Log/**/*
+
+Module: Media:
+  - app/code/core/Mage/Media/*
+  - app/code/core/Mage/Media/**/*
+
+Module: Newsletter:
+  - app/code/core/Mage/Newsletter/*
+  - app/code/core/Mage/Newsletter/**/*
+
+Module: Oauth:
+  - app/code/core/Mage/Oauth/*
+  - app/code/core/Mage/Oauth/**/*
+
+Module: Page:
+  - app/code/core/Mage/Page/*
+  - app/code/core/Mage/Page/**/*
+
+Module: PageCache:
+  - app/code/core/Mage/PageCache/*
+  - app/code/core/Mage/PageCache/**/*
+
+Module: Paygate:
+  - app/code/core/Mage/Paygate/*
+  - app/code/core/Mage/Paygate/**/*
+
+Module: Payment:
+  - app/code/core/Mage/Payment/*
+  - app/code/core/Mage/Payment/**/*
+
+Module: Paypal:
+  - app/code/core/Mage/Paypal/*
+  - app/code/core/Mage/Paypal/**/*
+
+Module: PaypalUk:
+  - app/code/core/Mage/PaypalUk/*
+  - app/code/core/Mage/PaypalUk/**/*
+
+Module: Persistant:
+  - app/code/core/Mage/Persistant/*
+  - app/code/core/Mage/Persistant/**/*
+
+Module: Poll:
+  - app/code/core/Mage/Poll/*
+  - app/code/core/Mage/Poll/**/*
+
+Module: ProductAlert:
+  - app/code/core/Mage/ProductAlert/*
+  - app/code/core/Mage/ProductAlert/**/*
+
+Module: Rating:
+  - app/code/core/Mage/Rating/*
+  - app/code/core/Mage/Rating/**/*
+
+Module: Reports:
+  - app/code/core/Mage/Reports/*
+  - app/code/core/Mage/Reports/**/*
+
+Module: Review:
+  - app/code/core/Mage/Review/*
+  - app/code/core/Mage/Review/**/*
+
+Module: Rss:
+  - app/code/core/Mage/Rss/*
+  - app/code/core/Mage/Rss/**/*
+
+Module: Rule:
+  - app/code/core/Mage/Rule/*
+  - app/code/core/Mage/Rule/**/*
+
+Module: Sales:
+  - app/code/core/Mage/Sales/*
+  - app/code/core/Mage/Sales/**/*
+
+Module: SalesRule:
+  - app/code/core/Mage/SalesRule/*
+  - app/code/core/Mage/SalesRule/**/*
+
+Module: Sendfriend:
+  - app/code/core/Mage/Sendfriend/*
+  - app/code/core/Mage/Sendfriend/**/*
+
+Module: Shipping:
+  - app/code/core/Mage/Shipping/*
+  - app/code/core/Mage/Shipping/**/*
+
+Module: Sitemap:
+  - app/code/core/Mage/Sitemap/*
+  - app/code/core/Mage/Sitemap/**/*
+
+Module: Tag:
+  - app/code/core/Mage/Tag/*
+  - app/code/core/Mage/Tag/**/*
+
+Module: Tax:
+  - app/code/core/Mage/Tax/*
+  - app/code/core/Mage/Tax/**/*
+
+Module: Uploader:
+  - app/code/core/Mage/Uploader/*
+  - app/code/core/Mage/Uploader/**/*
+
+Module: Usa:
+  - app/code/core/Mage/Usa/*
+  - app/code/core/Mage/Usa/**/*
+
+Module: Weee:
+  - app/code/core/Mage/Weee/*
+  - app/code/core/Mage/Weee/**/*
+
+Module: Widget:
+  - app/code/core/Mage/Widget/*
+  - app/code/core/Mage/Widget/**/*
+
+Module: Wishlist:
+  - app/code/core/Mage/Wishlist/*
+  - app/code/core/Mage/Wishlist/**/*
+
+Module: XmlConnect:
+  - app/code/core/Mage/XmlConnect/*
+  - app/code/core/Mage/XmlConnect/**/*
+
+Module: Cm/RedisSession:
+  - app/code/community/Cm/RedisSession/*
+  - app/code/community/Cm/RedisSession/**/*
+
+Module: Phoenix/Moneybookers:
+  - app/code/community/Phoenix/Moneybookers/*
+  - app/code/community/Phoenix/Moneybookers/**/*
+
+# Add Template Labels
+Template : admin:
+  - app/design/adminhtml/*
+  - app/design/adminhtml/**/*
+  - skin/adminhtml/*
+  - skin/adminhtml/**/*
+
+Template : base:
+  - app/design/frontend/base/*
+  - app/design/frontend/base/**/*
+  - skin/frontend/base/*
+  - skin/frontend/base/**/*
+
+Template : default:
+  - app/design/frontend/default/*
+  - app/design/frontend/default/**/*
+  - skin/frontend/default/*
+  - skin/frontend/default/**/*
+
+Template : rwd:
+  - app/design/frontend/rwd/*
+  - app/design/frontend/rwd/**/*
+  - skin/frontend/rwd/*
+  - skin/frontend/rwd/**/*
+
+Template : install:
+  - app/design/install/*
+  - app/design/install/**/*
+  - skin/frontend/install/*
+  - skin/frontend/install/**/*
+
+Translations:
+  - app/locale/*
+  - app/locale/**/*
+
+# Add Documentation Label
+Documentation:
+  - *.md
