@@ -4,7 +4,7 @@
   - .phpstorm.meta.php/*
   - .travis.yml
 
-'.htaccess':
+'htaccess':
   - .htaccess
 
 'composer':
