@@ -20,7 +20,7 @@
 
 ### Fixed Issues (if relevant)
 <!---
-    If relevant, please provide a list of fixed issues in the format magento/magento2#<issue_number>.
+    If relevant, please provide a list of fixed issues in the format OpenMage/magento-lts#<issue_number>.
     There could be 1 or more issues linked here and it will help us find some more information about the reasoning behind this change.
 -->
 1. Fixes OpenMage/magento-lts#<issue_number>
