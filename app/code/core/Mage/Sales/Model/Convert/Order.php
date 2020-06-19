@@ -40,7 +40,7 @@ class Mage_Sales_Model_Convert_Order extends Varien_Object
      * @param null|Mage_Sales_Model_Quote $quote
      * @return  Mage_Sales_Model_Quote
      */
-    public function toQuote(Mage_Sales_Model_Order $order, $quote=null)
+    public function toQuote(Mage_Sales_Model_Order $order, $quote = null)
     {
         if (!($quote instanceof Mage_Sales_Model_Quote)) {
             $quote = Mage::getModel('sales/quote');
@@ -90,10 +90,11 @@ class Mage_Sales_Model_Convert_Order extends Varien_Object
     /**
      * Convert order payment to quote payment
      *
-     * @param   Mage_Sales_Model_Order_Payment $payment
+     * @param Mage_Sales_Model_Order_Payment $payment
+     * @param null|Mage_Sales_Model_Quote_Payment  $quotePayment
      * @return  Mage_Sales_Model_Quote_Payment
      */
-    public function paymentToQuotePayment(Mage_Sales_Model_Order_Payment $payment, $quotePayment=null)
+    public function paymentToQuotePayment(Mage_Sales_Model_Order_Payment $payment, $quotePayment = null)
     {
         if (!($quotePayment instanceof Mage_Sales_Model_Quote_Payment)) {
             $quotePayment = Mage::getModel('sales/quote_payment');
@@ -110,7 +111,7 @@ class Mage_Sales_Model_Convert_Order extends Varien_Object
      * Retrieve
      *
      * @param Mage_Sales_Model_Order_Item $item
-     * @return unknown
+     * @return Mage_Sales_Model_Quote_Item
      */
     public function itemToQuoteItem(Mage_Sales_Model_Order_Item $item)
     {

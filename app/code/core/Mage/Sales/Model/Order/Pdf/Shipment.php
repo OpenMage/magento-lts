@@ -80,7 +80,7 @@ class Mage_Sales_Model_Order_Pdf_Shipment extends Mage_Sales_Model_Order_Pdf_Abs
     /**
      * Return PDF document
      *
-     * @param  array $shipments
+     * @param  Mage_Sales_Model_Order_Shipment[] $shipments
      * @return Zend_Pdf
      */
     public function getPdf($shipments = array())

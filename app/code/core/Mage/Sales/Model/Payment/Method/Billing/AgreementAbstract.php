@@ -75,8 +75,9 @@ abstract class Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract extends
     /**
      * Assign data to info model instance
      *
-     * @param   mixed $data
-     * @return  Mage_Payment_Model_Info
+     * @param mixed $data
+     * @return Mage_Payment_Model_Method_Abstract
+     * @throws Mage_Core_Exception
      */
     public function assignData($data)
     {
@@ -103,7 +104,7 @@ abstract class Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract extends
     /**
      *
      *
-     * @param unknown_type $quote
+     * @param Mage_Sales_Model_Quote $quote
      */
     abstract protected function _isAvailable($quote);
 }

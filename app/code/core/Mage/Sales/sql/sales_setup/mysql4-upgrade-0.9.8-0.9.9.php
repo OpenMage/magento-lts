@@ -25,8 +25,8 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Sales_Model_Mysql4_Setup */
+/* @var Mage_Sales_Model_Mysql4_Setup $installer */
 
-$installer->addAttribute('invoice',    'store_id', array('type'=>'static'));
+$installer->addAttribute('invoice', 'store_id', array('type'=>'static'));
 $installer->addAttribute('creditmemo', 'store_id', array('type'=>'static'));
-$installer->addAttribute('shipment',   'store_id', array('type'=>'static'));
+$installer->addAttribute('shipment', 'store_id', array('type'=>'static'));

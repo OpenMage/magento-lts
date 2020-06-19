@@ -140,7 +140,7 @@ abstract class Mage_XmlConnect_Block_Adminhtml_Connect_Dashboard_GraphDataAbstra
         $valueBuffer = array();
         $params = array();
 
-        if (sizeof($this->_axisLabels) > 0) {
+        if (count($this->_axisLabels)) {
             $indexId = 0;
             foreach ($this->_axisLabels as $idx => $labels) {
                 if ($idx == self::AXIS_X) {

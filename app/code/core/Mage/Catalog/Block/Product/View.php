@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product View block
  *
@@ -32,6 +31,11 @@
  * @package  Mage_Catalog
  * @module   Catalog
  * @author   Magento Core Team <core@magentocommerce.com>
+ *
+ * @method int getProductId()
+ * @method $this setCustomAddToCartUrl(string $value)
+ * @method bool hasCustomAddToCartUrl()
+ * @method string getCustomAddToCartUrl()
  */
 class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstract
 {
@@ -45,7 +49,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
     /**
      * Add meta information from product to head block
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
@@ -66,7 +70,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
             }
             $description = $product->getMetaDescription();
             if ($description) {
-                $headBlock->setDescription( ($description) );
+                $headBlock->setDescription(($description));
             } else {
                 $headBlock->setDescription(Mage::helper('core/string')->substr($product->getDescription(), 0, 255));
             }
@@ -129,7 +133,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
             return Mage::helper('core')->jsonEncode($config);
         }
 
-        /* @var $product Mage_Catalog_Model_Product */
+        /* @var Mage_Catalog_Model_Product $product */
         $product = $this->getProduct();
 
         /** @var Mage_Catalog_Helper_Product_Type_Composite $compositeProductHelper */

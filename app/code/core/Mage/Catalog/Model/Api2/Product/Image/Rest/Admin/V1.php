@@ -42,7 +42,7 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
      */
     protected function _create(array $data)
     {
-        /* @var $validator Mage_Catalog_Model_Api2_Product_Image_Validator_Image */
+        /* @var Mage_Catalog_Model_Api2_Product_Image_Validator_Image $validator */
         $validator = Mage::getModel('catalog/api2_product_image_validator_image');
         if (!$validator->isValidData($data)) {
             foreach ($validator->getErrors() as $error) {
@@ -52,8 +52,10 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
         }
         $imageFileContent = @base64_decode($data['file_content'], true);
         if (!$imageFileContent) {
-            $this->_critical('The image content must be valid base64 encoded data',
-                Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
+            $this->_critical(
+                'The image content must be valid base64 encoded data',
+                Mage_Api2_Model_Server::HTTP_BAD_REQUEST
+            );
         }
         unset($data['file_content']);
 
@@ -149,9 +151,9 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
     /**
      * Update product image
      *
-     * @throws Mage_Api2_Exception
      * @param array $data
-     * @return bool
+     * @return void
+     * @throws Mage_Api2_Exception
      */
     protected function _update(array $data)
     {
@@ -222,7 +224,7 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
      */
     protected function _getImageLocation($imageId)
     {
-        /* @var $apiTypeRoute Mage_Api2_Model_Route_ApiType */
+        /* @var Mage_Api2_Model_Route_ApiType $apiTypeRoute */
         $apiTypeRoute = Mage::getModel('api2/route_apiType');
 
         $chain = $apiTypeRoute->chain(

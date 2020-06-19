@@ -536,7 +536,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             else if ($filter && is_array($filter)) {
                 $this->_setFilterValues($filter);
             }
-            else if(0 !== sizeof($this->_defaultFilter)) {
+            else if(count($this->_defaultFilter)) {
                 $this->_setFilterValues($this->_defaultFilter);
             }
 

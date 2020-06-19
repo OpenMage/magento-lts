@@ -69,8 +69,8 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
     /**
      * Retrieve full information about quote
      *
-     * @param  $quoteId
-     * @param  $store
+     * @param  int $quoteId
+     * @param  int $store
      * @return array
      */
     public function info($quoteId, $store = null)
@@ -104,9 +104,9 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
     }
 
     /**
-     * @param  $quoteId
-     * @param  $store
-     * @return void
+     * @param int $quoteId
+     * @param string|int $store
+     * @return array
      */
     public function totals($quoteId, $store = null)
     {
@@ -127,9 +127,9 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
     /**
      * Create an order from the shopping cart (quote)
      *
-     * @param  $quoteId
-     * @param  $store
-     * @param  $agreements array
+     * @param  int $quoteId
+     * @param  int|string $store
+     * @param  array $agreements
      * @return string
      */
     public function createOrder($quoteId, $store = null, $agreements = null)
@@ -151,13 +151,13 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
             $this->_fault('guest_checkout_is_not_enabled');
         }
 
-        /** @var $customerResource Mage_Checkout_Model_Api_Resource_Customer */
+        /** @var Mage_Checkout_Model_Api_Resource_Customer $customerResource */
         $customerResource = Mage::getModel("checkout/api_resource_customer");
         $isNewCustomer = $customerResource->prepareCustomerForQuote($quote);
 
         try {
             $quote->collectTotals();
-            /** @var $service Mage_Sales_Model_Service_Quote */
+            /** @var Mage_Sales_Model_Service_Quote $service */
             $service = Mage::getModel('sales/service_quote', $quote);
             $service->submitAll();
 
@@ -171,8 +171,10 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
 
             $order = $service->getOrder();
             if ($order) {
-                Mage::dispatchEvent('checkout_type_onepage_save_order_after',
-                    array('order' => $order, 'quote' => $quote));
+                Mage::dispatchEvent(
+                    'checkout_type_onepage_save_order_after',
+                    array('order' => $order, 'quote' => $quote)
+                );
 
                 try {
                     $order->queueNewOrderEmail();
@@ -193,8 +195,8 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
     }
 
     /**
-     * @param  $quoteId
-     * @param  $store
+     * @param  int $quoteId
+     * @param  int|string $store
      * @return array
      */
     public function licenseAgreement($quoteId, $store = null)
@@ -209,7 +211,7 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
                     ->addFieldToFilter('is_active', 1);
 
             foreach ($agreementsCollection as $_a) {
-                /** @var $_a  Mage_Checkout_Model_Agreement */
+                /** @var Mage_Checkout_Model_Agreement $_a */
                 $agreements[] = $this->_getAttributes($_a, "quote_agreement");
             }
         }

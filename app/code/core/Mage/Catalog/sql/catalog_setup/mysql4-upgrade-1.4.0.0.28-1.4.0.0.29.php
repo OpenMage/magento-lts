@@ -25,7 +25,7 @@
  */
 
 
-/* @var $installer Mage_Eav_Model_Entity_Setup */
+/* @var Mage_Eav_Model_Entity_Setup $installer */
 $installer = $this;
 
 $installer->startSetup();
@@ -64,7 +64,8 @@ $applyToProductsAttributeId = $installer->getAttributeId($entityTypeId, 'custom_
 $attributeIdExpr = new Zend_Db_Expr(
     'IF (e_a.attribute_id = e.attribute_id,'.
     $useParentSettingsAttributeId.', '.
-    $applyToProductsAttributeId .')');
+    $applyToProductsAttributeId .')'
+);
 $productValueExpr = new Zend_Db_Expr('IF (e.value IN (1,3), 1, 0)');
 $valueExpr = new Zend_Db_Expr('IF (e_a.attribute_id = e.attribute_id, 1, '. $productValueExpr .')');
 $select = $installer->getConnection()->select()
@@ -80,7 +81,8 @@ $select = $installer->getConnection()->select()
     )
     ->joinCross(
         array('e_a' => $eavAttributeTable),
-        array())
+        array()
+    )
     ->where('e_a.attribute_id IN (?)', array($designApplyAttributeId, $designAttributeId))
     ->where('e.attribute_id = ?', $designApplyAttributeId)
     ->order(array('e.entity_id', 'attribute_id'));

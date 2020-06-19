@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 
 $connection = $installer->getConnection();
 $table      = $installer->getTable('catalog/product_super_attribute_pricing');

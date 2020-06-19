@@ -49,7 +49,7 @@ class Mage_Catalog_Model_Entity_Product_Attribute_Design_Options_Container exten
     public function getOptionText($value)
     {
         $options = $this->getAllOptions();
-        if (sizeof($options) > 0) {
+        if (count($options)) {
             foreach ($options as $option) {
                 if (isset($option['value']) && $option['value'] == $value) {
                     return $option['label'];
@@ -61,5 +61,4 @@ class Mage_Catalog_Model_Entity_Product_Attribute_Design_Options_Container exten
         }
         return false;
     }
-
 }

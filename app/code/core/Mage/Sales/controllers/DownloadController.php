@@ -163,7 +163,7 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
     public function downloadCustomOptionAction()
     {
         $quoteItemOptionId = $this->getRequest()->getParam('id');
-        /** @var $option Mage_Sales_Model_Quote_Item_Option */
+        /** @var Mage_Sales_Model_Quote_Item_Option $option */
         $option = Mage::getModel('sales/quote_item_option')->load($quoteItemOptionId);
 
         if (!$option->getId()) {
@@ -180,7 +180,7 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
         }
         $productOption = null;
         if ($optionId) {
-            /** @var $productOption Mage_Catalog_Model_Product_Option */
+            /** @var Mage_Catalog_Model_Product_Option $productOption */
             $productOption = Mage::getModel('catalog/product_option')->load($optionId);
         }
         if (!$productOption || !$productOption->getId()

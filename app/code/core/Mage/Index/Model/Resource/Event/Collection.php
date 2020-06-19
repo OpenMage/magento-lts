@@ -111,7 +111,8 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
     protected function _joinProcessEventTable()
     {
         if (!$this->getFlag('process_event_table_joined')) {
-            $this->getSelect()->join(array('process_event' => $this->getTable('index/process_event')),
+            $this->getSelect()->join(
+                array('process_event' => $this->getTable('index/process_event')),
                 'process_event.event_id=main_table.event_id',
                 array('process_event_status' => 'status')
             );

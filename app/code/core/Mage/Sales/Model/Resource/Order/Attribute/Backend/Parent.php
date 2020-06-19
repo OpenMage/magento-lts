@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Invoice backend model for parent attribute
  *
@@ -37,7 +36,7 @@ class Mage_Sales_Model_Resource_Order_Attribute_Backend_Parent extends Mage_Eav_
     /**
      * Perform operation after save
      *
-     * @param Varien_Object $object
+     * @param Varien_Object|Mage_Sales_Model_Order $object
      * @return $this
      */
     public function afterSave($object)

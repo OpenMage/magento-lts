@@ -39,6 +39,9 @@ class Mage_Sales_Block_Order_View extends Mage_Core_Block_Template
         $this->setTemplate('sales/order/view.phtml');
     }
 
+    /**
+     * @return void
+     */
     protected function _prepareLayout()
     {
         if ($headBlock = $this->getLayout()->getBlock('head')) {
@@ -50,6 +53,9 @@ class Mage_Sales_Block_Order_View extends Mage_Core_Block_Template
         );
     }
 
+    /**
+     * @return string
+     */
     public function getPaymentInfoHtml()
     {
         return $this->getChildHtml('payment_info');
@@ -91,19 +97,30 @@ class Mage_Sales_Block_Order_View extends Mage_Core_Block_Template
         return Mage::helper('sales')->__('View Another Order');
     }
 
+    /**
+     * @param Mage_Sales_Model_Order $order
+     * @return string
+     */
     public function getInvoiceUrl($order)
     {
         return Mage::getUrl('*/*/invoice', array('order_id' => $order->getId()));
     }
 
+    /**
+     * @param Mage_Sales_Model_Order $order
+     * @return string
+     */
     public function getShipmentUrl($order)
     {
         return Mage::getUrl('*/*/shipment', array('order_id' => $order->getId()));
     }
 
+    /**
+     * @param Mage_Sales_Model_Order $order
+     * @return string
+     */
     public function getCreditmemoUrl($order)
     {
         return Mage::getUrl('*/*/creditmemo', array('order_id' => $order->getId()));
     }
-
 }

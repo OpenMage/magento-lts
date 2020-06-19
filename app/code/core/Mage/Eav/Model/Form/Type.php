@@ -65,7 +65,7 @@ class Mage_Eav_Model_Form_Type extends Mage_Core_Model_Abstract
     /**
      * Retrieve resource instance wrapper
      *
-     * @return Mage_Eav_Model_Mysql4_Form_Type
+     * @inheritDoc
      */
     protected function _getResource()
     {
@@ -75,7 +75,7 @@ class Mage_Eav_Model_Form_Type extends Mage_Core_Model_Abstract
     /**
      * Retrieve resource collection instance wrapper
      *
-     * @return Mage_Eav_Model_Mysql4_Form_Type_Collection
+     * @inheritDoc
      */
     public function getCollection()
     {
@@ -141,7 +141,7 @@ class Mage_Eav_Model_Form_Type extends Mage_Core_Model_Abstract
         // copy fieldsets
         $fieldsetMap = array();
         foreach ($fieldsetCollection as $skeletonFieldset) {
-            /* @var $skeletonFieldset Mage_Eav_Model_Form_Fieldset */
+            /* @var Mage_Eav_Model_Form_Fieldset $skeletonFieldset */
             $fieldset = Mage::getModel('eav/form_fieldset');
             $fieldset->setTypeId($this->getId())
                 ->setCode($skeletonFieldset->getCode())
@@ -153,7 +153,7 @@ class Mage_Eav_Model_Form_Type extends Mage_Core_Model_Abstract
 
         // copy elements
         foreach ($elementCollection as $skeletonElement) {
-            /* @var $skeletonElement Mage_Eav_Model_Form_Element */
+            /* @var Mage_Eav_Model_Form_Element $skeletonElement */
             $element = Mage::getModel('eav/form_element');
             $fieldsetId = null;
             if ($skeletonElement->getFieldsetId()) {

@@ -31,8 +31,7 @@
  * @package     Mage_Downloadable
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Samples
-    extends Mage_Uploader_Block_Single
+class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Samples extends Mage_Uploader_Block_Single
 {
     /**
      * Class constructor
@@ -89,6 +88,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Sa
     public function getSampleData()
     {
         $samplesArr = array();
+        /** @var Mage_Downloadable_Model_Sample[] $samples */
         $samples = $this->getProduct()->getTypeInstance(true)->getSamples($this->getProduct());
         foreach ($samples as $item) {
             $tmpSampleItem = array(
@@ -99,7 +99,8 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Sa
                 'sort_order' => $item->getSortOrder(),
             );
             $file = Mage::helper('downloadable/file')->getFilePath(
-                Mage_Downloadable_Model_Sample::getBasePath(), $item->getSampleFile()
+                Mage_Downloadable_Model_Sample::getBasePath(),
+                $item->getSampleFile()
             );
             if ($item->getSampleFile() && !is_file($file)) {
                 Mage::helper('core/file_storage_database')->saveFileToFilesystem($file);

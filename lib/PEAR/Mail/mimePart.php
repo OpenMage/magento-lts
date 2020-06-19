@@ -355,7 +355,7 @@ class Mail_mimePart {
                     $char = '=09';
                 } elseif ($dec == 9) {
                     ; // Do nothing if a tab.
-                } elseif (($dec == 61) OR ($dec < 32 ) OR ($dec > 126)) {
+                } elseif (($dec == 61) || ($dec < 32 ) || ($dec > 126)) {
                     $char = $escape . strtoupper(sprintf('%02s', dechex($dec)));
                 } elseif (($dec == 46) AND ($newline == '')) {
                     //Bug #9722: convert full-stop at bol

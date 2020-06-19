@@ -25,7 +25,7 @@
  */
 
 
-/* @var $installer Mage_Sales_Model_Mysql4_Setup */
+/* @var Mage_Sales_Model_Mysql4_Setup $installer */
 $installer = $this;
 
 $orderEntityType = $installer->getEntityType('order');
@@ -66,7 +66,6 @@ try {
     }
 
     $installer->getConnection()->commit();
-
 } catch (Exception $e) {
     $installer->getConnection()->rollBack();
     foreach ($attributes as $attribute) {

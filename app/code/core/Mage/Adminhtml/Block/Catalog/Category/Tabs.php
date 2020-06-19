@@ -112,7 +112,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tabs extends Mage_Adminhtml_Block_Wi
         $defaultGroupId = 0;
         foreach ($groupCollection as $group) {
             /* @var $group Mage_Eav_Model_Entity_Attribute_Group */
-            if ($defaultGroupId == 0 or $group->getIsDefault()) {
+            if ($defaultGroupId == 0 || $group->getIsDefault()) {
                 $defaultGroupId = $group->getId();
             }
         }

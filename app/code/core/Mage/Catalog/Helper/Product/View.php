@@ -64,7 +64,7 @@ class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
         $layoutUpdates = $settings->getLayoutUpdates();
         if ($layoutUpdates) {
             if (is_array($layoutUpdates)) {
-                foreach($layoutUpdates as $layoutUpdate) {
+                foreach ($layoutUpdates as $layoutUpdate) {
                     $update->addUpdate($layoutUpdate);
                 }
             }

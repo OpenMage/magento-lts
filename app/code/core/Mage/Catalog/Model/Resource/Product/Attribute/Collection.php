@@ -32,8 +32,7 @@
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Model_Resource_Product_Attribute_Collection
-    extends Mage_Eav_Model_Resource_Entity_Attribute_Collection
+class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_Model_Resource_Entity_Attribute_Collection
 {
     /**
      * Resource model initialization
@@ -66,7 +65,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection
             ->join(
                 array('additional_table' => $this->getTable('catalog/eav_attribute')),
                 'additional_table.attribute_id = main_table.attribute_id'
-                )
+            )
             ->where('main_table.entity_type_id = ?', $entityTypeId);
         return $this;
     }
@@ -179,8 +178,10 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection
         );
 
         if ($addRequiredCodes) {
-            $conditions[] = $this->getConnection()->quoteInto('main_table.attribute_code IN (?)',
-                array('status', 'visibility'));
+            $conditions[] = $this->getConnection()->quoteInto(
+                'main_table.attribute_code IN (?)',
+                array('status', 'visibility')
+            );
         }
 
         $this->getSelect()->where(sprintf('(%s)', implode(' OR ', $conditions)));
@@ -191,7 +192,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection
     /**
      * Specify filter for attributes used in quick search
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Attribute_Collection
+     * @return $this
      */
     public function addSearchableAttributeFilter()
     {

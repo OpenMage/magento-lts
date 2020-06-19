@@ -25,6 +25,6 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Sales_Model_Entity_Setup */
+/* @var Mage_Sales_Model_Entity_Setup $installer */
 $installer->getConnection()->addColumn($installer->getTable('sales_quote'), 'reserved_order_id', 'varchar(64) default \'\'');
 $installer->addAttribute('quote', 'reserved_order_id', array('type'=>'static'));

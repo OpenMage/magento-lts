@@ -24,7 +24,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
+/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 $installer = $this;
 
 // Create Root Catalog Node
@@ -40,7 +40,7 @@ Mage::getModel('catalog/category')
     ->setInitialSetupFlag(true)
     ->save();
 
-/* @var $category Mage_Catalog_Model_Category */
+/* @var Mage_Catalog_Model_Category $category */
 $category = Mage::getModel('catalog/category');
 
 $category->setStoreId(0)
@@ -210,4 +210,3 @@ foreach ($describe as $columnData) {
     }
     $installer->getConnection()->dropColumn($installer->getTable('eav/attribute'), $columnData['COLUMN_NAME']);
 }
-

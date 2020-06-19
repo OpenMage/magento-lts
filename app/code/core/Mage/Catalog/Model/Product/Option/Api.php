@@ -69,7 +69,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
      */
     public function update($optionId, $data, $store = null)
     {
-        /** @var $option Mage_Catalog_Model_Product_Option */
+        /** @var Mage_Catalog_Model_Product_Option $option */
         $option = Mage::getModel('catalog/product_option')->load($optionId);
         if (!$option->getId()) {
             $this->_fault('option_not_exists');
@@ -86,7 +86,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
             );
         }
         foreach ($option->getValues() as $valueId => $value) {
-            if(isset($data['values'][$valueId])) {
+            if (isset($data['values'][$valueId])) {
                 $data['values'][$valueId] = array_merge($value->getData(), $data['values'][$valueId]);
             }
         }
@@ -188,8 +188,8 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
         $types = array();
         foreach (Mage::getConfig()->getNode($path)->children() as $group) {
             $groupTypes = Mage::getConfig()->getNode($path . '/' . $group->getName() . '/types')->children();
-            /** @var $type Mage_Core_Model_Config_Element */
-            foreach($groupTypes as $type){
+            /** @var Mage_Core_Model_Config_Element $type */
+            foreach ($groupTypes as $type) {
                 $labelPath = $path . '/' . $group->getName() . '/types/' . $type->getName() . '/label';
                 $types[] = array(
                     'label' => (string) Mage::getConfig()->getNode($labelPath),
@@ -209,12 +209,12 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
      */
     public function info($optionId, $store = null)
     {
-        /** @var $option Mage_Catalog_Model_Product_Option */
+        /** @var Mage_Catalog_Model_Product_Option $option */
         $option = Mage::getModel('catalog/product_option')->load($optionId);
         if (!$option->getId()) {
             $this->_fault('option_not_exists');
         }
-        /** @var $product Mage_Catalog_Model_Product */
+        /** @var Mage_Catalog_Model_Product $product */
         $product = $this->_getProduct($option->getProductId(), $store, null);
         $option = $product->getOptionById($optionId);
         $result = array(
@@ -272,7 +272,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
     {
         $result = array();
         $product = $this->_getProduct($productId, $store, null);
-        /** @var $option Mage_Catalog_Model_Product_Option */
+        /** @var Mage_Catalog_Model_Product_Option $option */
         foreach ($product->getProductOptionsCollection() as $option) {
             $result[] = array(
                 'option_id' => $option->getId(),
@@ -293,7 +293,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
      */
     public function remove($optionId)
     {
-        /** @var $option Mage_Catalog_Model_Product_Option */
+        /** @var Mage_Catalog_Model_Product_Option $option */
         $option = Mage::getModel('catalog/product_option')->load($optionId);
         if (!$option->getId()) {
             $this->_fault('option_not_exists');
@@ -318,7 +318,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
     protected function _isTypeAllowed($type)
     {
         $allowedTypes = array();
-        foreach($this->types() as $optionType){
+        foreach ($this->types() as $optionType) {
             $allowedTypes[] = $optionType['value'];
         }
 
@@ -327,5 +327,4 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
         }
         return true;
     }
-
 }

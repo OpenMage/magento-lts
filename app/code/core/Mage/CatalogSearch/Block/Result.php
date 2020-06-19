@@ -24,13 +24,14 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product search result block
  *
  * @category   Mage
  * @package    Mage_CatalogSearch
  * @module     Catalog
+ *
+ * @method $this setResultCount(int $value)
  */
 class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
 {
@@ -54,7 +55,7 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
     /**
      * Prepare layout
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
@@ -109,7 +110,7 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
     {
         $category = Mage::getSingleton('catalog/layer')
             ->getCurrentCategory();
-        /* @var $category Mage_Catalog_Model_Category */
+        /* @var Mage_Catalog_Model_Category $category */
         $availableOrders = $category->getAvailableSortByOptions();
         unset($availableOrders['position']);
         $availableOrders = array_merge(array(
@@ -134,8 +135,7 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
         $this->getListBlock()
             ->setModes(array(
                 'grid' => $this->__('Grid'),
-                'list' => $this->__('List'))
-            );
+                'list' => $this->__('List')));
         return $this;
     }
 
@@ -148,7 +148,7 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
     {
 //        $this->getListBlock()
 //           ->setCollection($this->_getProductCollection());
-       return $this;
+        return $this;
     }
 
     /**

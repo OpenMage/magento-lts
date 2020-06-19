@@ -25,15 +25,22 @@
  */
 
 
-/* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
+/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 $installer = $this;
 
 $installer->startSetup();
-$installer->getConnection()->addColumn($installer->getTable('catalog/compare_item'), 'store_id',
-    'smallint unsigned default null');
-$installer->getConnection()->addConstraint('FK_CATALOG_COMPARE_ITEM_STORE',
-    $installer->getTable('catalog/compare_item'), 'store_id',
-    $installer->getTable('core/store'), 'store_id',
-    'set null', 'cascade'
+$installer->getConnection()->addColumn(
+    $installer->getTable('catalog/compare_item'),
+    'store_id',
+    'smallint unsigned default null'
+);
+$installer->getConnection()->addConstraint(
+    'FK_CATALOG_COMPARE_ITEM_STORE',
+    $installer->getTable('catalog/compare_item'),
+    'store_id',
+    $installer->getTable('core/store'),
+    'store_id',
+    'set null',
+    'cascade'
 );
 $installer->endSetup();

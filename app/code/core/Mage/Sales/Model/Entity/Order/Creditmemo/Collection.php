@@ -39,12 +39,15 @@ class Mage_Sales_Model_Entity_Order_Creditmemo_Collection extends Mage_Eav_Model
         $this->_init('sales/order_creditmemo');
     }
 
+    /**
+     * @param Mage_Sales_Model_Order $order
+     * @return $this
+     */
     public function setOrderFilter($order)
     {
         if ($order instanceof Mage_Sales_Model_Order) {
             $this->addAttributeToFilter('order_id', $order->getId());
-        }
-        else {
+        } else {
             $this->addAttributeToFilter('order_id', $order);
         }
 

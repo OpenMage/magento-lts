@@ -33,4 +33,6 @@
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Store_Exception extends Mage_Core_Exception
-{}
+{
+
+}

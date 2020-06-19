@@ -90,8 +90,10 @@ class Mage_CatalogSearch_Model_Resource_Query_Collection extends Mage_Core_Model
                 array('main_table' => $this->getTable('catalogsearch/search_query')),
                 array('query'      => $ifSynonymFor, 'num_results')
             )
-            ->where('num_results > 0 AND display_in_terms = 1 AND query_text LIKE ?',
-                Mage::getResourceHelper('core')->addLikeEscape($query, array('position' => 'start')))
+            ->where(
+                'num_results > 0 AND display_in_terms = 1 AND query_text LIKE ?',
+                Mage::getResourceHelper('core')->addLikeEscape($query, array('position' => 'start'))
+            )
             ->order('popularity ' . Varien_Db_Select::SQL_DESC);
         if ($this->getStoreId()) {
             $this->getSelect()
@@ -122,8 +124,7 @@ class Mage_CatalogSearch_Model_Resource_Query_Collection extends Mage_Core_Model
         if ($storeIds) {
             $this->addStoreFilter($storeIds);
             $this->getSelect()->where('num_results > 0');
-        }
-        elseif (null === $storeIds) {
+        } elseif (null === $storeIds) {
             $this->addStoreFilter(Mage::app()->getStore()->getId());
             $this->getSelect()->where('num_results > 0');
         }

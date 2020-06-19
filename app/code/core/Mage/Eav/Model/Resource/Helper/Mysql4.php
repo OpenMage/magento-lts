@@ -83,6 +83,9 @@ class Mage_Eav_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Hel
             case 'tinyint':
                 $columnType = 'smallint';
                 break;
+            case 'int unsigned':
+                $columnType = 'int';
+                break;
         }
 
         return array_search($columnType, $this->_ddlColumnTypes);
@@ -93,7 +96,7 @@ class Mage_Eav_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Hel
      *
      * @param string $value
      * @param string $eavType
-     * @return Zend_Db_Expr
+     * @return string
      */
     public function prepareEavAttributeValue($value, $eavType)
     {

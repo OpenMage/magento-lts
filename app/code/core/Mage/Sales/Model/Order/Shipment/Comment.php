@@ -24,22 +24,23 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
- * Enter description here ...
+ * Class Mage_Sales_Model_Order_Shipment_Comment
  *
  * @method Mage_Sales_Model_Resource_Order_Shipment_Comment _getResource()
  * @method Mage_Sales_Model_Resource_Order_Shipment_Comment getResource()
- * @method int getParentId()
- * @method Mage_Sales_Model_Order_Shipment_Comment setParentId(int $value)
- * @method int getIsCustomerNotified()
- * @method Mage_Sales_Model_Order_Shipment_Comment setIsCustomerNotified(int $value)
- * @method int getIsVisibleOnFront()
- * @method Mage_Sales_Model_Order_Shipment_Comment setIsVisibleOnFront(int $value)
+ * @method Mage_Sales_Model_Resource_Order_Shipment_Comment_Collection getCollection()
  * @method string getComment()
- * @method Mage_Sales_Model_Order_Shipment_Comment setComment(string $value)
+ * @method $this setComment(string $value)
  * @method string getCreatedAt()
- * @method Mage_Sales_Model_Order_Shipment_Comment setCreatedAt(string $value)
+ * @method $this setCreatedAt(string $value)
+ * @method int getIsCustomerNotified()
+ * @method $this setIsCustomerNotified(int $value)
+ * @method int getParentId()
+ * @method $this setParentId(int $value)
+ * @method $this setStoreId(int $value)
+ * @method int getIsVisibleOnFront()
+ * @method $this setIsVisibleOnFront(int $value)
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -66,7 +67,7 @@ class Mage_Sales_Model_Order_Shipment_Comment extends Mage_Sales_Model_Abstract
      * Declare Shipment instance
      *
      * @param   Mage_Sales_Model_Order_Shipment $shipment
-     * @return  Mage_Sales_Model_Order_Shipment_Comment
+     * @return  $this
      */
     public function setShipment(Mage_Sales_Model_Order_Shipment $shipment)
     {

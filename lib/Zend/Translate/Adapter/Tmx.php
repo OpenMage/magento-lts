@@ -195,7 +195,7 @@ class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter {
                         $this->_tu = $this->_content;
                     }
 
-                    if (!empty($this->_content) or (!isset($this->_data[$this->_tuv][$this->_tu]))) {
+                    if (!empty($this->_content) || (!isset($this->_data[$this->_tuv][$this->_tu]))) {
                         $this->_data[$this->_tuv][$this->_tu] = $this->_content;
                     }
                     break;

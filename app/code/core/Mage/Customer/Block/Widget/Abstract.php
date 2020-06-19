@@ -24,13 +24,26 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * Class Mage_Customer_Block_Widget_Abstract
+ *
+ * @method Mage_Core_Model_Abstract getObject()
+ * @method $this setObject(Mage_Core_Model_Abstract $value)
+ */
 class Mage_Customer_Block_Widget_Abstract extends Mage_Core_Block_Template
 {
+    /**
+     * @param string $key
+     * @return string|null
+     */
     public function getConfig($key)
     {
         return $this->helper('customer/address')->getConfig($key);
     }
 
+    /**
+     * @return string
+     */
     public function getFieldIdFormat()
     {
         if (!$this->hasData('field_id_format')) {
@@ -39,6 +52,9 @@ class Mage_Customer_Block_Widget_Abstract extends Mage_Core_Block_Template
         return $this->getData('field_id_format');
     }
 
+    /**
+     * @return string
+     */
     public function getFieldNameFormat()
     {
         if (!$this->hasData('field_name_format')) {
@@ -47,11 +63,19 @@ class Mage_Customer_Block_Widget_Abstract extends Mage_Core_Block_Template
         return $this->getData('field_name_format');
     }
 
+    /**
+     * @param string $field
+     * @return string
+     */
     public function getFieldId($field)
     {
         return sprintf($this->getFieldIdFormat(), $field);
     }
 
+    /**
+     * @param string $field
+     * @return string
+     */
     public function getFieldName($field)
     {
         return sprintf($this->getFieldNameFormat(), $field);

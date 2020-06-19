@@ -50,10 +50,11 @@ class Mage_Core_Model_Resource_Design_Collection extends Mage_Core_Model_Resourc
      */
     public function joinStore()
     {
-         return $this->join(
+        return $this->join(
             array('cs' => 'core/store'),
             'cs.store_id = main_table.store_id',
-            array('cs.name'));
+            array('cs.name')
+        );
     }
 
     /**

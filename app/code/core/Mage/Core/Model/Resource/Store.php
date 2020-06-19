@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Core Store Resource Model
  *
@@ -60,14 +59,15 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Check store code before save
      *
-     * @param Mage_Core_Model_Abstract $model
-     * @return $this
+     * @param Mage_Core_Model_Store $model
+     * @inheritDoc
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $model)
     {
         if (!preg_match('/^[a-z]+[a-z0-9_]*$/', $model->getCode())) {
             Mage::throwException(
-                Mage::helper('core')->__('The store code may contain only letters (a-z), numbers (0-9) or underscore(_), the first character must be a letter'));
+                Mage::helper('core')->__('The store code may contain only letters (a-z), numbers (0-9) or underscore(_), the first character must be a letter')
+            );
         }
 
         return $this;
@@ -76,8 +76,8 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Update Store Group data after save store
      *
-     * @param Mage_Core_Model_Abstract $object
-     * @return $this
+     * @param Mage_Core_Model_Store $object
+     * @inheritDoc
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -91,8 +91,8 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Remove core configuration data after delete store
      *
-     * @param Mage_Core_Model_Abstract $model
-     * @return $this
+     * @param Mage_Core_Model_Store $model
+     * @inheritDoc
      */
     protected function _afterDelete(Mage_Core_Model_Abstract $model)
     {
@@ -137,7 +137,7 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Change store group for store
      *
-     * @param Mage_Core_Model_Abstract $model
+     * @param Mage_Core_Model_Abstract|Mage_Core_Model_Store_Group $model
      * @return $this
      */
     protected function _changeGroup(Mage_Core_Model_Abstract $model)

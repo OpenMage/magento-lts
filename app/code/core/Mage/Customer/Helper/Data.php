@@ -101,6 +101,11 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     const VAT_CLASS_ERROR       = 'error';
 
     /**
+     * @var Mage_Customer_Model_Customer
+     */
+    protected $_customer;
+
+    /**
      * Customer groups collection
      *
      * @var Mage_Customer_Model_Entity_Group_Collection
@@ -158,7 +163,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve full customer name from provided object
      *
-     * @param Varien_Object $object
+     * @param Mage_Newsletter_Model_Subscriber|Mage_Sales_Model_Order|Mage_Sales_Model_Quote $object
      * @return string
      */
     public function getFullCustomerName($object = null)
@@ -169,8 +174,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
         } else {
             $config = Mage::getSingleton('eav/config');
 
-            if (
-                $config->getAttribute('customer', 'prefix')->getIsVisible()
+            if ($config->getAttribute('customer', 'prefix')->getIsVisible()
                 && (
                     $object->getPrefix()
                     || $object->getCustomerPrefix()
@@ -407,6 +411,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve name prefix dropdown options
      *
+     * @param Mage_Core_Model_Store|int|string|null $store
      * @return array|bool
      */
     public function getNamePrefixOptions($store = null)
@@ -419,6 +424,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve name suffix dropdown options
      *
+     * @param Mage_Core_Model_Store|int|string|null $store
      * @return array|bool
      */
     public function getNameSuffixOptions($store = null)
@@ -462,7 +468,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Generate unique token based on customer Id for reset password confirmation link
      *
-     * @param $customerId
+     * @param int $customerId
      * @return string
      */
     public function generateResetPasswordLinkCustomerId($customerId)
@@ -580,8 +586,10 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
         ));
 
         if (!extension_loaded('soap')) {
-            Mage::logException(Mage::exception('Mage_Core',
-                Mage::helper('core')->__('PHP SOAP extension is required.')));
+            Mage::logException(Mage::exception(
+                'Mage_Core',
+                Mage::helper('core')->__('PHP SOAP extension is required.')
+            ));
             return $gatewayResponse;
         }
 
@@ -627,7 +635,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     public function canCheckVatNumber($countryCode, $vatNumber, $requesterCountryCode, $requesterVatNumber)
     {
         $result = true;
-        /** @var $coreHelper Mage_Core_Helper_Data */
+        /** @var Mage_Core_Helper_Data $coreHelper */
         $coreHelper = Mage::helper('core');
 
         if (!is_string($countryCode)
@@ -707,7 +715,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
                     ? $willChargeTaxMessage
                     : $willNotChargeTaxMessage);
             }
-        } else if ($validationResult->getRequestSuccess()) {
+        } elseif ($validationResult->getRequestSuccess()) {
             $message = sprintf(
                 $this->__('The VAT ID entered (%s) is not a valid VAT ID.') . ' ',
                 $this->escapeHtml($customerAddress->getVatId())
@@ -715,10 +723,11 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
             if (!$groupAutoAssignDisabled && !$customerGroupAutoAssignDisabled) {
                 $message .= $willChargeTaxMessage;
             }
-        }
-        else {
-            $contactUsMessage = sprintf($this->__('If you believe this is an error, please contact us at %s'),
-                Mage::getStoreConfig(self::XML_PATH_SUPPORT_EMAIL));
+        } else {
+            $contactUsMessage = sprintf(
+                $this->__('If you believe this is an error, please contact us at %s'),
+                Mage::getStoreConfig(self::XML_PATH_SUPPORT_EMAIL)
+            );
 
             $message = $this->__('Your Tax ID cannot be validated.') . ' '
                 . (!$groupAutoAssignDisabled && !$customerGroupAutoAssignDisabled
@@ -736,12 +745,12 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get customer password creation timestamp or customer account creation timestamp
      *
-     * @param $customerId
+     * @param int $customerId
      * @return int
      */
     public function getPasswordTimestamp($customerId)
     {
-        /** @var $customer Mage_Customer_Model_Customer */
+        /** @var Mage_Customer_Model_Customer $customer */
         $customer = Mage::getModel('customer/customer')
             ->setWebsiteId(Mage::app()->getStore()->getWebsiteId())
             ->load((int)$customerId);

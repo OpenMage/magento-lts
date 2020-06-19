@@ -39,7 +39,7 @@ interface Mage_CatalogInventory_Model_Resource_Indexer_Stock_Interface
      *
      */
     public function reindexAll()
-;
+    ;
 
     /**
      * Reindex stock status data for defined ids
@@ -47,7 +47,7 @@ interface Mage_CatalogInventory_Model_Resource_Indexer_Stock_Interface
      * @param int|array $entityIds
      */
     public function reindexEntity($entityIds)
-;
+    ;
 
     /**
      * Set Product Type Id for indexer
@@ -55,7 +55,7 @@ interface Mage_CatalogInventory_Model_Resource_Indexer_Stock_Interface
      * @param string $typeId
      */
     public function setTypeId($typeId)
-;
+    ;
 
     /**
      * Retrieve Product Type Id for indexer
@@ -64,5 +64,5 @@ interface Mage_CatalogInventory_Model_Resource_Indexer_Stock_Interface
      *
      */
     public function getTypeId()
-;
+    ;
 }

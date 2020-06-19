@@ -30,6 +30,8 @@
  * @category    Mage
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setCollection(Mage_Catalog_Model_Resource_Product_Collection $value)
  */
 class Mage_Catalog_Block_Seo_Sitemap_Product extends Mage_Catalog_Block_Seo_Sitemap_Abstract
 {
@@ -42,7 +44,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Product extends Mage_Catalog_Block_Seo_Site
     protected function _prepareLayout()
     {
         $collection = Mage::getModel('catalog/product')->getCollection();
-        /* @var $collection Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection */
+        /* @var Mage_Catalog_Model_Resource_Product_Collection $collection */
 
         $collection->addAttributeToSelect('name');
         $collection->addAttributeToSelect('url_key');
@@ -65,8 +67,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Product extends Mage_Catalog_Block_Seo_Site
     public function getItemUrl($product)
     {
         $helper = Mage::helper('catalog/product');
-        /* @var $helper Mage_Catalog_Helper_Product */
+        /* @var Mage_Catalog_Helper_Product $helper */
         return $helper->getProductUrl($product);
     }
-
 }

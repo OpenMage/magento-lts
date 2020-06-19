@@ -76,7 +76,6 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
     {
         $returnUrl = $this->getRequest()->getParam('return_url');
         if ($returnUrl) {
-
             if (!$this->_isUrlInternal($returnUrl)) {
                 throw new Mage_Exception('External urls redirect to "' . $returnUrl . '" denied!');
             }
@@ -89,8 +88,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
         ) {
             $this->getResponse()->setRedirect($backUrl);
         } else {
-            if (
-                (strtolower($this->getRequest()->getActionName()) == 'add')
+            if ((strtolower($this->getRequest()->getActionName()) == 'add')
                 && !$this->getRequest()->getParam('in_cart')
             ) {
                 $this->_getSession()->setContinueShoppingUrl($this->_getRefererUrl());
@@ -103,7 +101,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
     /**
      * Initialize product instance from request data
      *
-     * @return Mage_Catalog_Model_Product || false
+     * @return Mage_Catalog_Model_Product|false
      */
     protected function _initProduct()
     {
@@ -145,8 +143,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
         $cart = $this->_getCart();
         if ($cart->getQuote()->getItemsCount()) {
             $cart->init();
-            if (
-                $cart->getQuote()->getShippingAddress()
+            if ($cart->getQuote()->getShippingAddress()
                 && $this->_getSession()->getEstimatedShippingAddressData()
                 && $couponCode = $this->_getSession()->getCartCouponCode()
             ) {
@@ -203,8 +200,8 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
     /**
      * Add product to shopping cart action
      *
-     * @return Mage_Core_Controller_Varien_Action
-     * @throws Exception
+     * @return void
+     * @throws Mage_Exception
      */
     public function addAction()
     {
@@ -245,7 +242,8 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             /**
              * @todo remove wishlist observer processAddToCart
              */
-            Mage::dispatchEvent('checkout_cart_add_product_complete',
+            Mage::dispatchEvent(
+                'checkout_cart_add_product_complete',
                 array('product' => $product, 'request' => $this->getRequest(), 'response' => $this->getResponse())
             );
 
@@ -297,7 +295,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             ->addFilterByCustomerId($customerId)
             ->addIdFilter($orderItemIds)
             ->load();
-        /* @var $itemsCollection Mage_Sales_Model_Mysql4_Order_Item_Collection */
+        /* @var Mage_Sales_Model_Mysql4_Order_Item_Collection $itemsCollection */
         $cart = $this->_getCart();
         foreach ($itemsCollection as $item) {
             try {
@@ -400,7 +398,8 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
             $this->_getSession()->setCartWasUpdated(true);
 
-            Mage::dispatchEvent('checkout_cart_update_item_complete',
+            Mage::dispatchEvent(
+                'checkout_cart_update_item_complete',
                 array('item' => $item, 'request' => $this->getRequest(), 'response' => $this->getResponse())
             );
             if (!$this->_getSession()->getNoCartRedirect(true)) {
@@ -623,7 +622,6 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                 $this->_getSession()->setCartCouponCode('');
                 $this->_getSession()->addSuccess($this->__('Coupon code was canceled.'));
             }
-
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
         } catch (Exception $e) {

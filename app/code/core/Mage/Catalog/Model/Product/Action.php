@@ -46,7 +46,7 @@ class Mage_Catalog_Model_Product_Action extends Mage_Core_Model_Abstract
     /**
      * Retrieve resource instance wrapper
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Action
+     * @inheritDoc
      */
     protected function _getResource()
     {
@@ -78,7 +78,9 @@ class Mage_Catalog_Model_Product_Action extends Mage_Core_Model_Abstract
 
         // register mass action indexer event
         Mage::getSingleton('index/indexer')->processEntityAction(
-            $this, Mage_Catalog_Model_Product::ENTITY, Mage_Index_Model_Event::TYPE_MASS_ACTION
+            $this,
+            Mage_Catalog_Model_Product::ENTITY,
+            Mage_Index_Model_Event::TYPE_MASS_ACTION
         );
 
         Mage::dispatchEvent('catalog_product_attribute_update_after', array(
@@ -109,7 +111,7 @@ class Mage_Catalog_Model_Product_Action extends Mage_Core_Model_Abstract
 
         if ($type == 'add') {
             Mage::getModel('catalog/product_website')->addProducts($websiteIds, $productIds);
-        } else if ($type == 'remove') {
+        } elseif ($type == 'remove') {
             Mage::getModel('catalog/product_website')->removeProducts($websiteIds, $productIds);
         }
 
@@ -121,7 +123,9 @@ class Mage_Catalog_Model_Product_Action extends Mage_Core_Model_Abstract
 
         // register mass action indexer event
         Mage::getSingleton('index/indexer')->processEntityAction(
-            $this, Mage_Catalog_Model_Product::ENTITY, Mage_Index_Model_Event::TYPE_MASS_ACTION
+            $this,
+            Mage_Catalog_Model_Product::ENTITY,
+            Mage_Index_Model_Event::TYPE_MASS_ACTION
         );
 
         // add back compatibility system event

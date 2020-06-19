@@ -75,8 +75,7 @@ class Mage_Core_Model_Log_Adapter
     {
         if ($data === null) {
             $data = $this->_data;
-        }
-        else {
+        } else {
             if (!is_array($data)) {
                 $data = array($data);
             }
@@ -97,10 +96,9 @@ class Mage_Core_Model_Log_Adapter
      */
     public function setData($key, $value = null)
     {
-        if(is_array($key)) {
+        if (is_array($key)) {
             $this->_data = $key;
-        }
-        else {
+        } else {
             $this->_data[$key] = $value;
         }
         return $this;
@@ -133,8 +131,7 @@ class Mage_Core_Model_Log_Adapter
             foreach ($debugData as $key => $value) {
                 if (in_array($key, $this->_debugReplacePrivateDataKeys)) {
                     $debugData[$key] = '****';
-                }
-                else {
+                } else {
                     if (is_array($debugData[$key])) {
                         $debugData[$key] = $this->_filterDebugData($debugData[$key]);
                     }

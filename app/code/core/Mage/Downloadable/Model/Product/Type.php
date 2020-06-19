@@ -53,7 +53,6 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
             $linksCollectionById = array();
             foreach ($_linkCollection as $link) {
                 /* @var Mage_Downloadable_Model_Link $link */
-
                 $link->setProduct($product);
                 $linksCollectionById[$link->getId()] = $link;
             }
@@ -118,12 +117,11 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      * Get downloadable product samples
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Downloadable_Model_Mysql4_Sample_Collection
+     * @return Mage_Downloadable_Model_Resource_Sample_Collection
      */
     public function getSamples($product = null)
     {
         $product = $this->getProduct($product);
-        /* @var Mage_Catalog_Model_Product $product */
         if (is_null($product->getDownloadableSamples())) {
             $_sampleCollection = Mage::getModel('downloadable/sample')->getCollection()
                 ->addProductToFilter($product->getId())
@@ -156,8 +154,6 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
         parent::save($product);
 
         $product = $this->getProduct($product);
-        /* @var Mage_Catalog_Model_Product $product */
-
         if ($data = $product->getDownloadableData()) {
             if (isset($data['sample'])) {
                 $_deleteItems = array();
@@ -334,7 +330,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      * Check if product can be bought
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Bundle_Model_Product_Type
+     * @return Mage_Downloadable_Model_Product_Type
      * @throws Mage_Core_Exception
      */
     public function checkProductBuyState($product = null)

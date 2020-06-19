@@ -42,7 +42,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
      */
     protected function _create(array $data)
     {
-        /* @var $customer Mage_Customer_Model_Customer */
+        /* @var Mage_Customer_Model_Customer $customer */
         $customer = $this->_loadCustomerById($this->getRequest()->getParam('customer_id'));
         $validator = $this->_getValidator();
 
@@ -58,7 +58,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
             $data['region'] = $this->_getRegionIdByNameOrCode($data['region'], $data['country_id']);
         }
 
-        /* @var $address Mage_Customer_Model_Address */
+        /* @var Mage_Customer_Model_Address $address */
         $address = Mage::getModel('customer/address');
         $address->setData($data);
         $address->setCustomer($customer);
@@ -81,7 +81,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
      */
     protected function _retrieve()
     {
-        /* @var $address Mage_Customer_Model_Address */
+        /* @var Mage_Customer_Model_Address $address */
         $address = $this->_loadCustomerAddressById($this->getRequest()->getParam('id'));
         $addressData = $address->getData();
         $addressData['street'] = $address->getStreet();
@@ -96,7 +96,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
     protected function _retrieveCollection()
     {
         $data = array();
-        /* @var $address Mage_Customer_Model_Address */
+        /* @var Mage_Customer_Model_Address $address */
         foreach ($this->_getCollectionForRetrieve() as $address) {
             $addressData           = $address->getData();
             $addressData['street'] = $address->getStreet();
@@ -112,10 +112,10 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
      */
     protected function _getCollectionForRetrieve()
     {
-        /* @var $customer Mage_Customer_Model_Customer */
+        /* @var Mage_Customer_Model_Customer $customer */
         $customer = $this->_loadCustomerById($this->getRequest()->getParam('customer_id'));
 
-        /* @var $collection Mage_Customer_Model_Resource_Address_Collection */
+        /* @var Mage_Customer_Model_Resource_Address_Collection $collection */
         $collection = $customer->getAddressesCollection();
 
         $this->_applyCollectionModifiers($collection);
@@ -144,7 +144,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
      */
     protected function _update(array $data)
     {
-        /* @var $address Mage_Customer_Model_Address */
+        /* @var Mage_Customer_Model_Address $address */
         $address = $this->_loadCustomerAddressById($this->getRequest()->getParam('id'));
         $validator = $this->_getValidator();
 
@@ -158,7 +158,8 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
         }
         if (isset($data['region'])) {
             $data['region'] = $this->_getRegionIdByNameOrCode(
-                $data['region'], isset($data['country_id']) ? $data['country_id'] : $address->getCountryId()
+                $data['region'],
+                isset($data['country_id']) ? $data['country_id'] : $address->getCountryId()
             );
             $data['region_id'] = null; // to avoid overwrite region during update in address model _beforeSave()
         }
@@ -178,7 +179,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
      */
     protected function _delete()
     {
-        /* @var $address Mage_Customer_Model_Address */
+        /* @var Mage_Customer_Model_Address $address */
         $address = $this->_loadCustomerAddressById($this->getRequest()->getParam('id'));
 
         if ($this->_isDefaultBillingAddress($address) || $this->_isDefaultShippingAddress($address)) {

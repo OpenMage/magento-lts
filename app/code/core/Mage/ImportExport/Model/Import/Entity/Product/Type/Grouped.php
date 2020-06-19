@@ -31,8 +31,7 @@
  * @package     Mage_ImportExport
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped
-    extends Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
+class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
 {
     /**
      * Column names that holds values with particular meaning.
@@ -183,8 +182,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped
                     ->where(
                         'product_id IN (?) AND link_type_id = ' . $groupedLinkId,
                         array_keys($linksData['attr_product_ids'])
-                    )
-                );
+                    ));
                 foreach ($savedData as $pseudoKey => $linkId) {
                     if (isset($linksData['position'][$pseudoKey])) {
                         $linksData['position'][$pseudoKey]['link_id'] = $linkId;

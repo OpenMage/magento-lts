@@ -672,9 +672,8 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                                 $address->setBaseWeeeDiscount($address->getBaseWeeeDiscount() + $totalBaseWeeeDiscount);
                             }
                         }
-
-                        break;
                     }
+                    break;
             }
         }
         return $this;

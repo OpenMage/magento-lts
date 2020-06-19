@@ -32,15 +32,15 @@
  * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Model_Category_Attribute_Source_Sortby
-    extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
+class Mage_Catalog_Model_Category_Attribute_Source_Sortby extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
 {
     /**
      * Retrieve Catalog Config Singleton
      *
      * @return Mage_Catalog_Model_Config
      */
-    protected function _getCatalogConfig() {
+    protected function _getCatalogConfig()
+    {
         return Mage::getSingleton('catalog/config');
     }
 

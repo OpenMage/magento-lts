@@ -24,13 +24,15 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog entity abstract model
  *
  * @category    Mage
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method int getStoreId()
+ * @method bool getUseDataSharing()
  */
 abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entity_Abstract
 {
@@ -212,7 +214,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      * Insert or Update attribute data
      *
      * @param Mage_Catalog_Model_Abstract $object
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+     * @param Mage_Eav_Model_Entity_Attribute_Abstract|Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @param mixed $value
      * @return Mage_Catalog_Model_Resource_Abstract
      */
@@ -250,7 +252,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
              * Update attribute value for store
              */
             $this->_attributeValuesToSave[$table][] = $bind;
-        } else if ($attribute->isScopeWebsite() && $storeId != $this->getDefaultStoreId()) {
+        } elseif ($attribute->isScopeWebsite() && $storeId != $this->getDefaultStoreId()) {
             /**
              * Update attribute value for website
              */
@@ -292,7 +294,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
                 ->where('entity_type_id = ?', $attribute->getEntityTypeId())
                 ->where('attribute_id = ?', $attribute->getAttributeId())
                 ->where('store_id = ?', $this->getDefaultStoreId())
-                ->where('entity_id = ?',  $object->getEntityId());
+                ->where('entity_id = ?', $object->getEntityId());
             $row = $this->_getReadAdapter()->fetchOne($select);
 
             if (!$row) {
@@ -484,7 +486,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         }
 
         $data = array();
-        foreach ($this->getAttributesByTable() as $table=>$attributes) {
+        foreach ($this->getAttributesByTable() as $table => $attributes) {
             $select = $this->_getReadAdapter()->select()
                 ->from($table)
                 ->where($this->getEntityIdField() . '=?', $object->getId());
@@ -532,7 +534,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      * Checks also attribute's store scope:
      * We should insert on duplicate key update values if we unchecked 'STORE VIEW' checkbox in store view.
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+     * @param Mage_Eav_Model_Entity_Attribute_Abstract|Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @param mixed $value New value of the attribute.
      * @param array $origData
      * @return bool
@@ -540,8 +542,8 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     protected function _canUpdateAttribute(
         Mage_Eav_Model_Entity_Attribute_Abstract $attribute,
         $value,
-        array &$origData)
-    {
+        array &$origData
+    ) {
         $result = parent::_canUpdateAttribute($attribute, $value, $origData);
         if ($result &&
             ($attribute->isScopeStore() || $attribute->isScopeWebsite()) &&
@@ -590,8 +592,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
 
         if (!is_array($attribute)) {
             $attribute = array($attribute);
-        }
-        elseif (sizeof($attribute) > 1) {
+        } elseif (count($attribute) > 1) {
             $returnArray = true;
         }
 
@@ -602,7 +603,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         $adapter            = $this->_getReadAdapter();
 
         foreach ($attribute as $_attribute) {
-            /* @var $attribute Mage_Catalog_Model_Entity_Attribute */
+            /* @var Mage_Catalog_Model_Entity_Attribute $attribute */
             $_attribute = $this->getAttribute($_attribute);
             if (!$_attribute) {
                 continue;
@@ -653,8 +654,11 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
                 );
 
                 if ($store != $this->getDefaultStoreId()) {
-                    $valueExpr = $adapter->getCheckSql('store_value.value IS NULL',
-                        'default_value.value', 'store_value.value');
+                    $valueExpr = $adapter->getCheckSql(
+                        'store_value.value IS NULL',
+                        'default_value.value',
+                        'store_value.value'
+                    );
                     $joinCondition = array(
                         $adapter->quoteInto('store_value.attribute_id IN (?)', array_keys($_attributes)),
                         'store_value.entity_type_id = :entity_type_id',
@@ -669,7 +673,6 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
                     );
 
                     $bind['store_id'] = $store;
-
                 } else {
                     $select->columns(array('attr_value' => 'value'), 'default_value');
                 }
@@ -682,7 +685,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
             }
         }
 
-        if (sizeof($attributesData) == 1 && !$returnArray) {
+        if (count($attributesData) === 1 && !$returnArray) {
             $_data = reset($attributesData);
             $attributesData = $_data;
         }
@@ -693,10 +696,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     /**
      * Reset firstly loaded attributes
      *
-     * @param Varien_Object $object
-     * @param integer $entityId
-     * @param array|null $attributes
-     * @return Mage_Catalog_Model_Resource_Abstract
+     * @inheritDoc
      */
     public function load($object, $entityId, $attributes = array())
     {

@@ -54,7 +54,7 @@ class Mage_Downloadable_Model_Link_Api_Uploader extends Mage_Core_Model_File_Upl
     public function __construct($file)
     {
         $this->_setUploadFile($file);
-        if( !file_exists($this->_file['tmp_name']) ) {
+        if (!file_exists($this->_file['tmp_name'])) {
             throw new Exception('', 'file_not_uploaded');
         } else {
             $this->_fileExists = true;
@@ -111,7 +111,6 @@ class Mage_Downloadable_Model_Link_Api_Uploader extends Mage_Core_Model_File_Upl
     private function _getTmpFilePath()
     {
         return tempnam(sys_get_temp_dir(), $this->_filePrefix);
-
     }
 
     /**
@@ -125,5 +124,4 @@ class Mage_Downloadable_Model_Link_Api_Uploader extends Mage_Core_Model_File_Upl
     {
         return rename($sourceFile, $destinationFile);
     }
-
 }

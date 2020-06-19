@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Sendfriend_Model_Resource_Setup */
+/* @var Mage_Sendfriend_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 
@@ -38,7 +38,7 @@ $table = $installer->getConnection()
         'primary'   => true,
         ), 'Log ID')
     ->addColumn('ip', Varien_Db_Ddl_Table::TYPE_BIGINT, '20', array(
-        'unsigned'  => true, 
+        'unsigned'  => true,
         'nullable'  => false,
         'default'   => '0',
         ), 'Customer IP address')
@@ -48,7 +48,7 @@ $table = $installer->getConnection()
         'default'   => '0',
         ), 'Log time')
     ->addColumn('website_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
-        'unsigned'  => true, 
+        'unsigned'  => true,
         'nullable'  => false,
         'default'   => '0',
         ), 'Website ID')

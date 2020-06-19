@@ -33,6 +33,21 @@
  * @category   Mage
  * @package    Mage_Core
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setAdditionalHtml(string $value)
+ * @method $this setBlockParams(array $value)
+ * @method $this setCacheLifetime(int|false $value)
+ * @method $this setCacheKey(string $value)
+ * @method $this setCacheTags(array $value)
+ * @method $this setClass(string $value)
+ * @method $this setDisabled(bool $value)
+ * @method string getFormKey()
+ * @method $this setLabel(string $value)
+ * @method $this setOnclick(string $value)
+ * @method string getPosition()
+ * @method $this setTemplate(string $value)
+ * @method $this setType(string $value)
+ * @method bool hasWrapperMustBeVisible()
  */
 abstract class Mage_Core_Block_Abstract extends Varien_Object
 {
@@ -88,7 +103,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Contains references to child block objects
      *
-     * @var array
+     * @var Mage_Core_Block_Abstract[]
      */
     protected $_children = array();
 
@@ -255,7 +270,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Retrieve parent block
      *
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
     public function getParentBlock()
     {
@@ -266,7 +281,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Set parent block
      *
      * @param   Mage_Core_Block_Abstract $block
-     * @return  Mage_Core_Block_Abstract
+     * @return  $this
      */
     public function setParentBlock(Mage_Core_Block_Abstract $block)
     {
@@ -288,7 +303,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Set layout object
      *
      * @param   Mage_Core_Model_Layout $layout
-     * @return  Mage_Core_Block_Abstract
+     * @return  $this
      */
     public function setLayout(Mage_Core_Model_Layout $layout)
     {
@@ -304,7 +319,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      *
      * You can redefine this method in child classes for changing layout
      *
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
     protected function _prepareLayout()
     {
@@ -334,7 +349,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Set the anonymous flag
      *
      * @param  bool $flag
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
     public function setIsAnonymous($flag)
     {
@@ -356,7 +371,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Set anonymous suffix for current block
      *
      * @param string $suffix
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
     public function setAnonSuffix($suffix)
     {
@@ -378,7 +393,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Set block alias
      *
      * @param string $alias
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
     public function setBlockAlias($alias)
     {
@@ -390,7 +405,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Set block's name in layout and unsets previous link if such exists.
      *
      * @param string $name
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
     public function setNameInLayout($name)
     {
@@ -420,7 +435,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      *
      * @param   string $name
      * @param   mixed $value
-     * @return  Mage_Core_Block_Abstract
+     * @return  $this
      */
     public function setAttribute($name, $value = null)
     {
@@ -432,7 +447,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      *
      * @param   string $alias
      * @param   Mage_Core_Block_Abstract $block
-     * @return  Mage_Core_Block_Abstract
+     * @return  $this
      */
     public function setChild($alias, $block)
     {
@@ -446,7 +461,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         if ($block->getIsAnonymous()) {
             $suffix = $block->getAnonSuffix();
             if (empty($suffix)) {
-                $suffix = 'child' . sizeof($this->_children);
+                $suffix = 'child' . count($this->_children);
             }
             $blockName = $this->getNameInLayout() . '.' . $suffix;
 
@@ -473,7 +488,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Unset child block
      *
      * @param  string $alias
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
     public function unsetChild($alias)
     {
@@ -508,7 +523,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * @param string $callback
      * @param mixed $result
      * @param array $params
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
     public function unsetCallChild($alias, $callback, $result, $params)
     {
@@ -532,7 +547,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Unset all children blocks
      *
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
     public function unsetChildren()
     {
@@ -608,7 +623,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Obtain sorted child blocks
      *
-     * @return array
+     * @return Mage_Core_Block_Abstract[]
      */
     public function getSortedChildBlocks()
     {
@@ -737,7 +752,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Sort block's children
      *
      * @param boolean $force force re-sort all children
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
     public function sortChildren($force = false)
     {
@@ -784,7 +799,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      *
      * @param   Mage_Core_Block_Abstract|string $block
      * @param   string $alias
-     * @return  Mage_Core_Block_Abstract
+     * @return  $this
      */
     public function append($block, $alias = '')
     {
@@ -812,7 +827,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Add self to the specified group of parent block
      *
      * @param string $groupName
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
     public function addToParentGroup($groupName)
     {
@@ -849,7 +864,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
                 } else {
                     $result[$alias] = $block;
                 }
-
             }
         }
         return $result;
@@ -873,7 +887,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Before rendering html, but after trying to load cache
      *
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
     protected function _beforeToHtml()
     {
@@ -885,7 +899,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      *
      * @param $openTag
      * @param $closeTag
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
     public function setFrameTags($openTag, $closeTag = null)
     {
@@ -914,7 +928,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         $html = $this->_loadCache();
         if ($html === false) {
             $translate = Mage::getSingleton('core/translate');
-            /** @var $translate Mage_Core_Model_Translate */
+            /** @var Mage_Core_Model_Translate $translate */
             if ($this->hasData('translate_inline')) {
                 $translate->setTranslateInline($this->getData('translate_inline'));
             }
@@ -943,8 +957,10 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             self::$_transportObject = new Varien_Object;
         }
         self::$_transportObject->setHtml($html);
-        Mage::dispatchEvent('core_block_abstract_to_html_after',
-            array('block' => $this, 'transport' => self::$_transportObject));
+        Mage::dispatchEvent(
+            'core_block_abstract_to_html_after',
+            array('block' => $this, 'transport' => self::$_transportObject)
+        );
         $html = self::$_transportObject->getHtml();
 
         return $html;
@@ -1072,7 +1088,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Set messages block
      *
      * @param   Mage_Core_Block_Messages $block
-     * @return  Mage_Core_Block_Abstract
+     * @return  $this
      */
     public function setMessagesBlock(Mage_Core_Block_Messages $block)
     {
@@ -1084,7 +1100,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Return block helper
      *
      * @param string $type
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
     public function getHelper($type)
     {
@@ -1161,8 +1177,11 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     }
 
     /**
-     * @deprecated after 1.4.0.0-rc1
+     * @param string|array $data
+     * @param array $allowedTags
+     * @return string
      * @see self::escapeHtml()
+     * @deprecated after 1.4.0.0-rc1
      */
     public function htmlEscape($data, $allowedTags = null)
     {
@@ -1172,7 +1191,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Escape html entities
      *
-     * @param   mixed $data
+     * @param   string|array $data
      * @param   array $allowedTags
      * @return  string
      */
@@ -1195,6 +1214,8 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     }
 
     /**
+     * @param string $data
+     * @return string
      * @deprecated after 1.4.0.0-rc1
      * @see self::escapeUrl()
      */
@@ -1261,7 +1282,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Prepare url for save to cache
      *
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
     protected function _beforeCacheUrl()
     {
@@ -1353,7 +1374,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Add tag to block
      *
      * @param string|array $tag
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
     public function addCacheTag($tag)
     {
@@ -1368,7 +1389,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Add tags from specified model to current block
      *
      * @param Mage_Core_Model_Abstract $model
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
     public function addModelTags(Mage_Core_Model_Abstract $model)
     {
@@ -1414,7 +1435,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             return false;
         }
         $cacheKey = $this->getCacheKey();
-        /** @var $session Mage_Core_Model_Session */
+        /** @var Mage_Core_Model_Session $session */
         $session = Mage::getSingleton('core/session');
         $cacheData = $this->_getApp()->loadCache($cacheKey);
         if ($cacheData) {
@@ -1431,7 +1452,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Save block content to cache storage
      *
      * @param string $data
-     * @return Mage_Core_Block_Abstract
+     * @return $this|false
      */
     protected function _saveCache($data)
     {
@@ -1439,7 +1460,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             return false;
         }
         $cacheKey = $this->getCacheKey();
-        /** @var $session Mage_Core_Model_Session */
+        /** @var Mage_Core_Model_Session $session */
         $session = Mage::getSingleton('core/session');
         $data = str_replace(
             $session->getSessionIdQueryParam() . '=' . $session->getEncryptedSessionId(),
@@ -1497,7 +1518,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     public function getItemsTags($items)
     {
         $tags = array();
-        /** @var $item Mage_Core_Model_Abstract */
+        /** @var Mage_Core_Model_Abstract $item */
         foreach ($items as $item) {
             $itemTags = $item->getCacheIdTags();
             if (false === $itemTags) {

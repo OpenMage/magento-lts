@@ -31,6 +31,14 @@
  * @category    Mage
  * @package     Mage_Core
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getCreatedAt()
+ * @method $this setCreatedAt(string $currentTime)
+ * @method $this setUpdatedAt(string $currentTime)
+ * @method $this setAttribute(Mage_Eav_Model_Entity_Attribute_Abstract $value)
+ * @method bool hasErrors()
+ * @method Mage_Customer_Model_Address_Abstract getBillingAddress()
+ * @method Mage_Customer_Model_Address_Abstract getShippingAddress()
  */
 abstract class Mage_Core_Model_Abstract extends Varien_Object
 {
@@ -76,7 +84,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      *
      * When you use true - all cache will be clean
      *
-     * @var string || true
+     * @var string|true
      */
     protected $_cacheTag    = false;
 
@@ -114,7 +122,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * @param string $resourceName
      * @param string|null $resourceCollectionName
      */
-    protected function _setResourceModel($resourceName, $resourceCollectionName=null)
+    protected function _setResourceModel($resourceName, $resourceCollectionName = null)
     {
         $this->_resourceName = $resourceName;
         if (is_null($resourceCollectionName)) {
@@ -126,7 +134,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Get resource instance
      *
-     * @return Mage_Core_Model_Mysql4_Abstract
+     * @return Mage_Core_Model_Resource_Db_Abstract|object|string
      */
     protected function _getResource()
     {
@@ -171,7 +179,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * Declare model object identifier value
      *
      * @param   mixed $id
-     * @return  Mage_Core_Model_Abstract
+     * @return  $this
      */
     public function setId($id)
     {
@@ -196,7 +204,8 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Get collection instance
      *
-     * @return object
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getResourceCollection()
     {
@@ -206,6 +215,9 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         return Mage::getResourceModel($this->_resourceCollectionName, $this->_getResource());
     }
 
+    /**
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|object
+     */
     public function getCollection()
     {
         return $this->getResourceCollection();
@@ -214,10 +226,11 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Load object data
      *
-     * @param   integer $id
-     * @return  Mage_Core_Model_Abstract
+     * @param string|integer $id
+     * @param string|null $field
+     * @return $this
      */
-    public function load($id, $field=null)
+    public function load($id, $field = null)
     {
         $this->_beforeLoad($id, $field);
         $this->_getResource()->load($this, $id, $field);
@@ -243,7 +256,9 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Processing object before load data
      *
-     * @return Mage_Core_Model_Abstract
+     * @param int $id
+     * @param string|null $field
+     * @return $this
      */
     protected function _beforeLoad($id, $field = null)
     {
@@ -257,7 +272,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Processing object after load data
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     protected function _afterLoad()
     {
@@ -266,12 +281,10 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         return $this;
     }
 
-
-
     /**
      * Object after load processing. Implemented as public interface for supporting objects after load in collections
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     public function afterLoad()
     {
@@ -295,7 +308,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Save object data
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     public function save()
     {
@@ -334,7 +347,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Callback function which called after transaction commit in resource model
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     public function afterCommitCallback()
     {
@@ -349,7 +362,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * When method is called we don't have garantee what transaction was really commited
      *
      * @deprecated after 1.4.0.0 - please use afterCommitCallback instead
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     protected function _afterSaveCommit()
     {
@@ -365,7 +378,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * @param bool $flag
      * @return bool
      */
-    public function isObjectNew($flag=null)
+    public function isObjectNew($flag = null)
     {
         if ($flag !== null) {
             $this->_isObjectNew = $flag;
@@ -379,7 +392,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Processing object before save data
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     protected function _beforeSave()
     {
@@ -442,7 +455,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Remove model onject related cache
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     public function cleanModelCache()
     {
@@ -456,7 +469,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Processing object after save data
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     protected function _afterSave()
     {
@@ -468,7 +481,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Delete object from database
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     public function delete()
     {
@@ -479,8 +492,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
             $this->_afterDelete();
 
             $this->_getResource()->commit();
-        }
-        catch (Exception $e){
+        } catch (Exception $e) {
             $this->_getResource()->rollBack();
             throw $e;
         }
@@ -491,7 +503,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Processing object before delete data
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     protected function _beforeDelete()
     {
@@ -519,7 +531,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Processing object after delete data
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     protected function _afterDelete()
     {
@@ -531,7 +543,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Processing manipulation after main transaction commit
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     protected function _afterDeleteCommit()
     {
@@ -543,13 +555,16 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Retrieve model resource
      *
-     * @return Mage_Core_Model_Mysql4_Abstract
+     * @return Mage_Core_Model_Resource_Db_Abstract
      */
     public function getResource()
     {
         return $this->_getResource();
     }
 
+    /**
+     * @return int
+     */
     public function getEntityId()
     {
         return $this->_getData('entity_id');
@@ -558,7 +573,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Clearing object for correct deleting by garbage collector
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     final public function clearInstance()
     {
@@ -571,7 +586,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Clearing cyclic references
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     protected function _clearReferences()
     {
@@ -581,11 +596,10 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Clearing object's data
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     protected function _clearData()
     {
         return $this;
     }
-
 }

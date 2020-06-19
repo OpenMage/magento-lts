@@ -56,7 +56,7 @@ class Mage_Sales_Model_Resource_Recurring_Profile extends Mage_Sales_Model_Resou
     /**
      * Unserialize Varien_Object field in an object
      *
-     * @param Mage_Core_Model_Abstract $object
+     * @param Varien_Object $object
      * @param string $field
      * @param mixed $defaultValue
      */
@@ -94,7 +94,8 @@ class Mage_Sales_Model_Resource_Recurring_Profile extends Mage_Sales_Model_Resou
         $select  = $adapter->select()
             ->from(
                 array('main_table' => $this->getTable('sales/recurring_profile_order')),
-                array('order_id'))
+                array('order_id')
+            )
             ->where('profile_id=:profile_id');
 
         return $adapter->fetchCol($select, $bind);
@@ -110,7 +111,8 @@ class Mage_Sales_Model_Resource_Recurring_Profile extends Mage_Sales_Model_Resou
     public function addOrderRelation($recurringProfileId, $orderId)
     {
         $this->_getWriteAdapter()->insert(
-            $this->getTable('sales/recurring_profile_order'), array(
+            $this->getTable('sales/recurring_profile_order'),
+            array(
                 'profile_id' => $recurringProfileId,
                 'order_id'   => $orderId
             )

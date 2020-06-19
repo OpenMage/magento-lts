@@ -27,20 +27,23 @@
 /**
  * Email Template Mailer Model
  *
- * @method Mage_Core_Model_Email_Queue setEntityId(int $value)
- * @method Mage_Core_Model_Email_Queue setEntityType(string $value)
- * @method Mage_Core_Model_Email_Queue setEventType(string $value)
- * @method Mage_Core_Model_Email_Queue setIsForceCheck(int $value)
- * @method int getIsForceCheck()
+ * @method Mage_Core_Model_Resource_Email_Queue _getResource()
+ * @method $this setCreatedAt(string $value)
  * @method int getEntityId()
+ * @method $this setEntityId(int $value)
  * @method string getEntityType()
+ * @method $this setEntityType(string $value)
  * @method string getEventType()
+ * @method $this setEventType(string $value)
+ * @method int getIsForceCheck()
+ * @method $this setIsForceCheck(int $value)
  * @method string getMessageBodyHash()
  * @method string getMessageBody()
- * @method Mage_Core_Model_Email_Queue setMessageBody(string $value)
- * @method Mage_Core_Model_Email_Queue setMessageParameters(array $value)
- * @method Mage_Core_Model_Email_Queue setProcessedAt(string $value)
+ * @method $this setMessageBody(string $value)
+ * @method $this setMessageBodyHash(array $value)
  * @method array getMessageParameters()
+ * @method $this setMessageParameters(array $value)
+ * @method $this setProcessedAt(string $value)
  *
  * @category    Mage
  * @package     Mage_Core
@@ -77,7 +80,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
     /**
      * Save bind recipients to message
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _afterSave()
     {
@@ -88,7 +91,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
     /**
      * Validate recipients before saving
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _beforeSave()
     {
@@ -185,18 +188,16 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
      */
     public function send()
     {
-        /** @var $collection Mage_Core_Model_Resource_Email_Queue_Collection */
         $collection = Mage::getModel('core/email_queue')->getCollection()
             ->addOnlyForSendingFilter()
             ->setPageSize(self::MESSAGES_LIMIT_PER_CRON_RUN)
             ->setCurPage(1)
             ->load();
 
-
         ini_set('SMTP', Mage::getStoreConfig('system/smtp/host'));
         ini_set('smtp_port', Mage::getStoreConfig('system/smtp/port'));
 
-        /** @var $message Mage_Core_Model_Email_Queue */
+        /** @var Mage_Core_Model_Email_Queue $message */
         foreach ($collection as $message) {
             if ($message->getId()) {
                 $parameters = new Varien_Object($message->getMessageParameters());
