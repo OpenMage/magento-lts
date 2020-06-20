@@ -48,7 +48,7 @@
 <body id="page-login" onload="document.forms.loginForm.username.focus();">
     <div class="login-container">
         <div class="login-box">
-            <form method="post" action="" id="loginForm" autocomplete="off">
+            <form method="post" action="<?php echo $this->getUrl('adminhtml') ?>" id="loginForm" autocomplete="off">
                 <div class="login-form">
                     <input name="form_key" type="hidden" value="<?php echo $this->getFormKey() ?>" />
                     <h2><?php echo Mage::helper('adminhtml')->__('Log in to Admin Panel') ?></h2>
