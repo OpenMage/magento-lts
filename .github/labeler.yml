@@ -22,7 +22,7 @@
   - js/*
   - js/**/*
 
-# Add Library Labels
+# Add Library Labels (tbc)
 'Module: lib/Mage':
   - lib/Mage/*
   - lib/Mage/**/*
@@ -30,6 +30,10 @@
 'Module: lib/Varien':
   - lib/Varien/*
   - lib/Varien/**/*
+
+'Module: lib/PEAR':
+  - lib/PEAR/*
+  - lib/PEAR/**/*
 
 'Module: lib/Zend':
   - lib/Zend/*
@@ -42,6 +46,8 @@
   - lib/**/*
   - !lib/Mage/*
   - !lib/Mage/**/*
+  - !lib/PEAR/*
+  - !lib/PEAR/**/*
   - !lib/Varien/*
   - !lib/Varien/**/*
   - !lib/Zend/*
