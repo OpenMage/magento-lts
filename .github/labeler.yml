@@ -23,25 +23,25 @@
   - js/**/*
 
 # Add Library Labels (tbc)
-'Module: lib/Mage':
+'Component: lib/Mage':
   - lib/Mage/*
   - lib/Mage/**/*
 
-'Module: lib/Varien':
+'Component: lib/Varien':
   - lib/Varien/*
   - lib/Varien/**/*
 
-'Module: lib/PEAR':
+'Component: lib/PEAR':
   - lib/PEAR/*
   - lib/PEAR/**/*
 
-'Module: lib/Zend':
+'Component: lib/Zend':
   - lib/Zend/*
   - lib/Zend/**/*
   - app/code/core/Zend/*
   - app/code/core/Zend/**/*
 
-'Module: lib/*':
+'Component: lib/*':
   - lib/*
   - lib/**/*
   - !lib/Mage/*
@@ -64,12 +64,12 @@
   - app/Mage.php
 
 # Add Module Labels
-'Module: Admin':
+'Component: Admin':
   - app/code/core/Mage/Admin/*
   - app/code/core/Mage/Admin/**/*
   - app/design/adminhtml/default/layout/admin.xml
 
-'Module: Adminhtml':
+'Component: Adminhtml':
   - app/code/core/Mage/Adminhtml/*
   - app/code/core/Mage/Adminhtml/**/*
   - app/design/adminhtml/*
@@ -77,25 +77,25 @@
   - skin/adminhtml/*
   - skin/adminhtml/**/*
 
-'Module: AdminNotification':
+'Component: AdminNotification':
   - app/code/core/Mage/AdminNotification/*
   - app/code/core/Mage/AdminNotification/**/*
   - app/design/adminhtml/default/layout/adminnotification.xml
 
-'Module: Api':
+'Component: Api':
   - app/code/core/Mage/Api/*
   - app/code/core/Mage/Api/**/*
   - app/design/adminhtml/default/template/api/*
   - app/design/adminhtml/default/template/api/**/*
 
-'Module: Api2':
+'Component: Api2':
   - app/code/core/Mage/Api2/*
   - app/code/core/Mage/Api2/**/*
   - app/design/adminhtml/default/layout/api2.xml
   - app/design/adminhtml/default/template/api2/*
   - app/design/adminhtml/default/template/api2/**/*
 
-'Module: Authorizenet':
+'Component: Authorizenet':
   - app/code/core/Mage/Authorizenet/*
   - app/code/core/Mage/Authorizenet/**/*
   - app/design/adminhtml/default/layout/authorizenet.xml
@@ -105,13 +105,13 @@
   - app/design/frontend/*/*/template/authorizenet/*
   - app/design/frontend/*/*/template/authorizenet/**/*
 
-'Module: Backup':
+'Component: Backup':
   - app/code/core/Mage/Backup/*
   - app/code/core/Mage/Backup/**/*
   - app/design/adminhtml/default/template/backup/*
   - app/design/adminhtml/default/template/backup/**/*
 
-'Module: Bundle':
+'Component: Bundle':
   - app/code/core/Mage/Bundle/*
   - app/code/core/Mage/Bundle/**/*
   - app/design/adminhtml/default/layout/bundle.xml
@@ -121,7 +121,7 @@
   - app/design/frontend/*/*/template/bundle/*
   - app/design/frontend/*/*/template/bundle/**/*
 
-'Module: Captcha':
+'Component: Captcha':
   - app/code/core/Mage/Captcha/*
   - app/code/core/Mage/Captcha/**/*
   - app/design/adminhtml/default/layout/captcha.xml
@@ -131,7 +131,7 @@
   - app/design/frontend/*/*/template/captcha/*
   - app/design/frontend/*/*/template/captcha/**/*
 
-'Module: Catalog':
+'Component: Catalog':
   - app/code/core/Mage/Catalog/*
   - app/code/core/Mage/Catalog/**/*
   - app/design/adminhtml/default/layout/catalog.xml
@@ -142,22 +142,22 @@
   - app/design/frontend/*/*/template/catalog/*
   - app/design/frontend/*/*/template/catalog/**/*
 
-'Module: CatalogIndex':
+'Component: CatalogIndex':
   - app/code/core/Mage/CatalogIndex/*
   - app/code/core/Mage/CatalogIndex/**/*
 
-'Module: CatalogInventory':
+'Component: CatalogInventory':
   - app/code/core/Mage/CatalogInventory/*
   - app/code/core/Mage/CatalogInventory/**/*
   - app/design/frontend/*/*/layout/cataloginventory.xml
   - app/design/frontend/*/*/template/cataloginventory/*
   - app/design/frontend/*/*/template/cataloginventory/**/*
 
-'Module: CatalogRule':
+'Component: CatalogRule':
   - app/code/core/Mage/CatalogRule/*
   - app/code/core/Mage/CatalogRule/**/*
 
-'Module: CatalogSearch':
+'Component: CatalogSearch':
   - app/code/core/Mage/CatalogSearch/*
   - app/code/core/Mage/CatalogSearch/**/*
   - app/design/adminhtml/default/layout/search.xml
@@ -165,7 +165,7 @@
   - app/design/frontend/*/*/template/catalogsearch/*
   - app/design/frontend/*/*/template/catalogsearch/**/*
 
-'Module: Centinel':
+'Component: Centinel':
   - app/code/core/Mage/Centinel/*
   - app/code/core/Mage/Centinel/**/*
   - app/design/adminhtml/default/layout/centinel.xml
@@ -175,14 +175,14 @@
   - app/design/frontend/*/*/template/centinel/*
   - app/design/frontend/*/*/template/centinel/**/*
 
-'Module: Checkout':
+'Component: Checkout':
   - app/code/core/Mage/Checkout/*
   - app/code/core/Mage/Checkout/**/*
   - app/design/frontend/*/*/layout/checkout.xml
   - app/design/frontend/*/*/template/checkout/*
   - app/design/frontend/*/*/template/checkout/**/*
 
-'Module: Cms':
+'Component: Cms':
   - app/code/core/Mage/Cms/*
   - app/code/core/Mage/Cms/**/*
   - app/design/adminhtml/default/layout/cms.xml
@@ -192,43 +192,43 @@
   - app/design/frontend/*/*/template/cms/*
   - app/design/frontend/*/*/template/cms/**/*
 
-'Module: ConfigurableSwatches':
+'Component: ConfigurableSwatches':
   - app/code/core/Mage/ConfigurableSwatches/*
   - app/code/core/Mage/ConfigurableSwatches/**/*
 
-'Module: Connect':
+'Component: Connect':
   - app/code/core/Mage/Connect/*
   - app/code/core/Mage/Connect/**/*
   - app/design/adminhtml/default/layout/connect.xml
   - app/design/adminhtml/default/template/connect/*
   - app/design/adminhtml/default/template/connect/**/*
 
-'Module: Contacts':
+'Component: Contacts':
   - app/code/core/Mage/Contacts/*
   - app/code/core/Mage/Contacts/**/*
   - app/design/frontend/*/*/layout/contacts.xml
   - app/design/frontend/*/*/template/contacts/*
   - app/design/frontend/*/*/template/contacts/**/*
 
-'Module: Core':
+'Component: Core':
   - app/code/core/Mage/Core/*
   - app/code/core/Mage/Core/**/*
   - app/design/frontend/*/*/layout/core.xml
   - app/design/frontend/*/*/template/core/*
   - app/design/frontend/*/*/template/core/**/*
 
-'Module: Cron':
+'Component: Cron':
   - app/code/core/Mage/Cron/*
   - app/code/core/Mage/Cron/**/*
 
-'Module: CurrencySymbol':
+'Component: CurrencySymbol':
   - app/code/core/Mage/CurrencySymbol/*
   - app/code/core/Mage/CurrencySymbol/**/*
   - app/design/adminhtml/default/layout/currencysymbol.xml
   - app/design/adminhtml/default/template/currencysymbol/*
   - app/design/adminhtml/default/template/currencysymbol/**/*
 
-'Module: Customer':
+'Component: Customer':
   - app/code/core/Mage/Customer/*
   - app/code/core/Mage/Customer/**/*
   - app/design/adminhtml/default/layout/customer.xml
@@ -238,12 +238,12 @@
   - app/design/frontend/*/*/template/customer/*
   - app/design/frontend/*/*/template/customer/**/*
 
-'Module: Dataflow':
+'Component: Dataflow':
   - app/code/core/Mage/Dataflow/*
   - app/code/core/Mage/Dataflow/**/*
   - app/design/adminhtml/default/layout/dataflow.xml
 
-'Module: Directory':
+'Component: Directory':
   - app/code/core/Mage/Directory/*
   - app/code/core/Mage/Directory/**/*
   - app/design/adminhtml/default/template/directory/*
@@ -252,7 +252,7 @@
   - app/design/frontend/*/*/template/directory/*
   - app/design/frontend/*/*/template/directory/**/*
 
-'Module: Downloadable':
+'Component: Downloadable':
   - app/code/core/Mage/Downloadable/*
   - app/code/core/Mage/Downloadable/**/*
   - app/design/adminhtml/default/layout/downloadable.xml
@@ -262,13 +262,13 @@
   - app/design/frontend/*/*/template/downloadable/*
   - app/design/frontend/*/*/template/downloadable/**/*
 
-'Module: Eav':
+'Component: Eav':
   - app/code/core/Mage/Eav/*
   - app/code/core/Mage/Eav/**/*
   - app/design/adminhtml/default/template/eav/*
   - app/design/adminhtml/default/template/eav/**/*
 
-'Module: Giftmessage':
+'Component: Giftmessage':
   - app/code/core/Mage/Giftmessage/*
   - app/code/core/Mage/Giftmessage/**/*
   - app/design/adminhtml/default/layout/giftmessage.xml
@@ -277,52 +277,52 @@
   - app/design/frontend/*/*/template/giftmessage/*
   - app/design/frontend/*/*/template/giftmessage/**/*
 
-'Module: GoogleAnalytics':
+'Component: GoogleAnalytics':
   - app/code/core/Mage/GoogleAnalytics/*
   - app/code/core/Mage/GoogleAnalytics/**/*
   - app/design/frontend/*/*/layout/googleanalytics.xml
   - app/design/frontend/*/*/template/googleanalytics/*
   - app/design/frontend/*/*/template/googleanalytics/**/*
 
-'Module: GoogleBase':
+'Component: GoogleBase':
   - app/code/core/Mage/GoogleBase/*
   - app/code/core/Mage/GoogleBase/**/*
   - app/design/adminhtml/default/template/googlebase/*
   - app/design/adminhtml/default/template/googlebase/**/*
 
-'Module: GoogleCheckout':
+'Component: GoogleCheckout':
   - app/code/core/Mage/GoogleCheckout/*
   - app/code/core/Mage/GoogleCheckout/**/*
 
-'Module: ImportExport':
+'Component: ImportExport':
   - app/code/core/Mage/ImportExport/*
   - app/code/core/Mage/ImportExport/**/*
   - app/design/adminhtml/default/layout/importexport.xml
   - app/design/adminhtml/default/template/importexport/*
   - app/design/adminhtml/default/template/importexport/**/*
 
-'Module: Index':
+'Component: Index':
   - app/code/core/Mage/Index/*
   - app/code/core/Mage/Index/**/*
   - app/design/adminhtml/default/layout/index.xml
   - app/design/adminhtml/default/template/index/*
   - app/design/adminhtml/default/template/index/**/*
 
-'Module: Install':
+'Component: Install':
   - app/code/core/Mage/Install/*
   - app/code/core/Mage/Install/**/*
 
-'Module: Log':
+'Component: Log':
   - app/code/core/Mage/Log/*
   - app/code/core/Mage/Log/**/*
 
-'Module: Media':
+'Component: Media':
   - app/code/core/Mage/Media/*
   - app/code/core/Mage/Media/**/*
   - app/design/adminhtml/default/template/media/*
   - app/design/adminhtml/default/template/media/**/*
 
-'Module: Newsletter':
+'Component: Newsletter':
   - app/code/core/Mage/Newsletter/*
   - app/code/core/Mage/Newsletter/**/*
     - app/design/adminhtml/default/layout/newsletter.xml
@@ -332,7 +332,7 @@
   - app/design/frontend/*/*/template/newsletter/*
   - app/design/frontend/*/*/template/newsletter/**/*
 
-'Module: Oauth':
+'Component: Oauth':
   - app/code/core/Mage/Oauth/*
   - app/code/core/Mage/Oauth/**/*
   - app/design/adminhtml/default/layout/oauth.xml
@@ -342,7 +342,7 @@
   - app/design/frontend/*/*/template/oauth/*
   - app/design/frontend/*/*/template/oauth/**/*
 
-'Module: Page':
+'Component: Page':
   - app/code/core/Mage/Page/*
   - app/code/core/Mage/Page/**/*
   - app/design/adminhtml/default/template/page/*
@@ -351,7 +351,7 @@
   - app/design/frontend/*/*/template/page/*
   - app/design/frontend/*/*/template/page/**/*
 
-'Module: PageCache':
+'Component: PageCache':
   - app/code/core/Mage/PageCache/*
   - app/code/core/Mage/PageCache/**/*
   - app/design/adminhtml/default/layout/pagecache.xml
@@ -361,7 +361,7 @@
   - app/design/frontend/*/*/template/pagecache/*
   - app/design/frontend/*/*/template/pagecache/**/*
 
-'Module: Paygate':
+'Component: Paygate':
   - app/code/core/Mage/Paygate/*
   - app/code/core/Mage/Paygate/**/*
   - app/design/adminhtml/default/template/paygate/*
@@ -369,7 +369,7 @@
   - app/design/frontend/*/*/template/paygate/*
   - app/design/frontend/*/*/template/paygate/**/*
 
-'Module: Payment':
+'Component: Payment':
   - app/code/core/Mage/Payment/*
   - app/code/core/Mage/Payment/**/*
   - app/design/adminhtml/default/template/payment/*
@@ -378,7 +378,7 @@
   - app/design/frontend/*/*/template/payment/*
   - app/design/frontend/*/*/template/payment/**/*
 
-'Module: Paypal':
+'Component: Paypal':
   - app/code/core/Mage/Paypal/*
   - app/code/core/Mage/Paypal/**/*
   - app/design/adminhtml/default/template/paypal/*
@@ -388,19 +388,19 @@
   - app/design/frontend/*/*/template/paypal/*
   - app/design/frontend/*/*/template/paypal/**/*
 
-'Module: PaypalUk':
+'Component: PaypalUk':
   - app/code/core/Mage/PaypalUk/*
   - app/code/core/Mage/PaypalUk/**/*
   - app/design/frontend/*/*/layout/paypaluk.xml
 
-'Module: Persistant':
+'Component: Persistant':
   - app/code/core/Mage/Persistant/*
   - app/code/core/Mage/Persistant/**/*
   - app/design/frontend/*/*/layout/persistent.xml
   - app/design/frontend/*/*/template/persistent/*
   - app/design/frontend/*/*/template/persistent/**/*
 
-'Module: Poll':
+'Component: Poll':
   - app/code/core/Mage/Poll/*
   - app/code/core/Mage/Poll/**/*
   - app/design/adminhtml/default/template/poll/*
@@ -409,14 +409,14 @@
   - app/design/frontend/*/*/template/poll/*
   - app/design/frontend/*/*/template/poll/**/*
 
-'Module: ProductAlert':
+'Component: ProductAlert':
   - app/code/core/Mage/ProductAlert/*
   - app/code/core/Mage/ProductAlert/**/*
   - app/design/frontend/*/*/layout/productalert.xml
   - app/design/frontend/*/*/template/productalert/*
   - app/design/frontend/*/*/template/productalert/**/*
 
-'Module: Rating':
+'Component: Rating':
   - app/code/core/Mage/Rating/*
   - app/code/core/Mage/Rating/**/*
   - app/design/adminhtml/default/template/rating/*
@@ -424,7 +424,7 @@
   - app/design/frontend/*/*/template/rating/*
   - app/design/frontend/*/*/template/rating/**/*
 
-'Module: Reports':
+'Component: Reports':
   - app/code/core/Mage/Reports/*
   - app/code/core/Mage/Reports/**/*
   - app/design/adminhtml/default/layout/report.xml
@@ -434,7 +434,7 @@
   - app/design/frontend/*/*/template/reports/*
   - app/design/frontend/*/*/template/reports/**/*
 
-'Module: Review':
+'Component: Review':
   - app/code/core/Mage/Review/*
   - app/code/core/Mage/Review/**/*
   - app/design/adminhtml/default/template/review/*
@@ -443,7 +443,7 @@
   - app/design/frontend/*/*/template/review/*
   - app/design/frontend/*/*/template/review/**/*
 
-'Module: Rss':
+'Component: Rss':
   - app/code/core/Mage/Rss/*
   - app/code/core/Mage/Rss/**/*
   - app/design/adminhtml/default/layout/rss.xml
@@ -451,11 +451,11 @@
   - app/design/frontend/*/*/template/rss/*
   - app/design/frontend/*/*/template/rss/**/*
 
-'Module: Rule':
+'Component: Rule':
   - app/code/core/Mage/Rule/*
   - app/code/core/Mage/Rule/**/*
 
-'Module: Sales':
+'Component: Sales':
   - app/code/core/Mage/Sales/*
   - app/code/core/Mage/Sales/**/*
   - app/design/adminhtml/default/layout/sales.xml
@@ -469,29 +469,29 @@
   - app/design/frontend/*/*/template/sales/*
   - app/design/frontend/*/*/template/sales/**/*
 
-'Module: SalesRule':
+'Component: SalesRule':
   - app/code/core/Mage/SalesRule/*
   - app/code/core/Mage/SalesRule/**/*
 
-'Module: Sendfriend':
+'Component: Sendfriend':
   - app/code/core/Mage/Sendfriend/*
   - app/code/core/Mage/Sendfriend/**/*
   - app/design/frontend/*/*/layout/sendfriend.xml
   - app/design/frontend/*/*/template/sendfriend/*
   - app/design/frontend/*/*/template/sendfriend/**/*
 
-'Module: Shipping':
+'Component: Shipping':
   - app/code/core/Mage/Shipping/*
   - app/code/core/Mage/Shipping/**/*
   - app/design/frontend/*/*/layout/shipping.xml
   - app/design/frontend/*/*/template/shipping/*
   - app/design/frontend/*/*/template/shipping/**/*
 
-'Module: Sitemap':
+'Component: Sitemap':
   - app/code/core/Mage/Sitemap/*
   - app/code/core/Mage/Sitemap/**/*
 
-'Module: Tag':
+'Component: Tag':
   - app/code/core/Mage/Tag/*
   - app/code/core/Mage/Tag/**/*
   - app/design/adminhtml/default/layout/tag.xml
@@ -501,7 +501,7 @@
   - app/design/frontend/*/*/template/tag/*
   - app/design/frontend/*/*/template/tag/**/*
 
-'Module: Tax':
+'Component: Tax':
   - app/code/core/Mage/Tax/*
   - app/code/core/Mage/Tax/**/*
   - app/design/adminhtml/default/layout/tax.xml
@@ -510,38 +510,38 @@
   - app/design/frontend/*/*/template/tax/*
   - app/design/frontend/*/*/template/tax/**/*
 
-'Module: Uploader':
+'Component: Uploader':
   - app/code/core/Mage/Uploader/*
   - app/code/core/Mage/Uploader/**/*
 
-'Module: Usa':
+'Component: Usa':
   - app/code/core/Mage/Usa/*
   - app/code/core/Mage/Usa/**/*
   - app/design/adminhtml/default/template/usa/*
   - app/design/adminhtml/default/template/usa/**/*
 
-'Module: Weee':
+'Component: Weee':
   - app/code/core/Mage/Weee/*
   - app/code/core/Mage/Weee/**/*
   - app/design/adminhtml/default/template/weee/*
   - app/design/adminhtml/default/template/weee/**/*
   - app/design/frontend/*/*/layout/weee.xml
 
-'Module: Widget':
+'Component: Widget':
   - app/code/core/Mage/Widget/*
   - app/code/core/Mage/Widget/**/*
   - app/design/adminhtml/default/layout/widget.xml
   - app/design/adminhtml/default/template/widget/*
   - app/design/adminhtml/default/template/widget/**/*
 
-'Module: Wishlist':
+'Component: Wishlist':
   - app/code/core/Mage/Wishlist/*
   - app/code/core/Mage/Wishlist/**/*
   - app/design/frontend/*/*/layout/wishlist.xml
   - app/design/frontend/*/*/template/wishlist/*
   - app/design/frontend/*/*/template/wishlist/**/*
 
-'Module: XmlConnect':
+'Component: XmlConnect':
   - app/code/core/Mage/XmlConnect/*
   - app/code/core/Mage/XmlConnect/**/*
   - app/design/adminhtml/default/layout/xmlconnect.xml
@@ -551,11 +551,11 @@
   - app/design/frontend/*/*/template/xmlconnect/*
   - app/design/frontend/*/*/template/xmlconnect/**/*
 
-'Module: Cm/RedisSession':
+'Component: Cm/RedisSession':
   - app/code/community/Cm/RedisSession/*
   - app/code/community/Cm/RedisSession/**/*
 
-'Module: Phoenix/Moneybookers':
+'Component: Phoenix/Moneybookers':
   - app/code/community/Phoenix/Moneybookers/*
   - app/code/community/Phoenix/Moneybookers/**/*
   - app/design/adminhtml/default/layout/moneybookers.xml
