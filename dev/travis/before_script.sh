@@ -18,7 +18,7 @@ case $TEST_SUITE in
           --url "http://${MAGENTO_HOST_NAME}/" --use_rewrites yes --use_secure no \
           --secure_base_url "http://${MAGENTO_HOST_NAME}/" --use_secure_admin no \
           --admin_lastname Owner --admin_firstname Store --admin_email "admin@example.com" \
-          --admin_username admin --admin_password asd123#2*53515523 \
+          --admin_username admin --admin_password 123123q123123q \
           --encryption_key "I2V7t7fiCIRKw9FWz4m3CStgeBG1T+ATZ0Us+W8jAIk="
 
         echo "Prepare functional tests for running"
