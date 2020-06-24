@@ -131,7 +131,7 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
     {
         if (empty($rules)) {
             $rules = null;
-        } else if (is_array($rules)) {
+        } elseif (is_array($rules)) {
             $rules = serialize($rules);
         }
         $this->setData('validate_rules', $rules);
