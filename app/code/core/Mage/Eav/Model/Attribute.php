@@ -115,8 +115,8 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
         $rules = $this->getData('validate_rules');
         if (is_array($rules)) {
             return $rules;
-        } elseif (!empty($rules)) {
-            return unserialize($rules);
+        } else if (!empty($rules)) {
+            return Mage::helper('core/unserializeArray')->unserialize($rules);
         }
         return array();
     }
@@ -131,7 +131,7 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
     {
         if (empty($rules)) {
             $rules = null;
-        } elseif (is_array($rules)) {
+        } else if (is_array($rules)) {
             $rules = serialize($rules);
         }
         $this->setData('validate_rules', $rules);
