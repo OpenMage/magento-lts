@@ -68,4 +68,5 @@ for more information.
 * [David Robinson](https://github.com/drobinson)
 * [Daniel Fahlke aka Flyingmana](https://github.com/Flyingmana)
 * [Tymoteusz Motylewski](https://github.com/tmotyl)
+* [Sven Reichel](https://github.com/sreichel)
 * Pull requests are welcome
