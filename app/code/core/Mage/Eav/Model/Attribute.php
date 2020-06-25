@@ -116,7 +116,7 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
         if (is_array($rules)) {
             return $rules;
         } elseif (!empty($rules)) {
-            return unserialize($rules);
+            return Mage::helper('core/unserializeArray')->unserialize($rules);
         }
         return array();
     }
