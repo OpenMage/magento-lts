@@ -655,9 +655,11 @@ class Mage_Core_Model_App
         $websiteGroups = array();
         $groupStores   = array();
 
+        $storeCollection->initConfigCache();
+
         foreach ($storeCollection as $store) {
             /** @var Mage_Core_Model_Store $store */
-            $store->initConfigCache();
+            // $store->initConfigCache();
             $store->setWebsite($websiteCollection->getItemById($store->getWebsiteId()));
             $store->setGroup($groupCollection->getItemById($store->getGroupId()));
 
