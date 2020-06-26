@@ -1113,6 +1113,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * @todo get global dir config
      * @param string $type
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getBaseDir($type = 'base')
     {
@@ -1416,7 +1417,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      *
      * @param   string $modelClass
      * @param   array $constructArguments
-     * @return  Mage_Core_Model_Resource_Db_Collection_Abstract|false
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|false
      */
     public function getResourceModelInstance($modelClass = '', $constructArguments = array())
     {
