@@ -13,14 +13,23 @@
       "email": "lee.saferite@aoe.com",
       "role": "Maintainer"
     },
-      {
-        "name": "Daniel Fahlke aka Flyingmana",
-        "email": "flyingmana@googlemail.com",
-        "role": "Maintainer"
-      },
+    {
+      "name": "Daniel Fahlke aka Flyingmana",
+      "email": "flyingmana@googlemail.com",
+      "role": "Maintainer"
+    },
     {
       "name": "David Robinson",
       "email": "david.robinson@aoe.com",
+      "role": "Maintainer"
+    },
+    {
+      "name": "Tymoteusz Motylewski",
+      "role": "Maintainer"
+    },
+    {
+      "name": "Sven Reichel",
+      "email": "github-sr@hotmail.com",
       "role": "Maintainer"
     }
   ]

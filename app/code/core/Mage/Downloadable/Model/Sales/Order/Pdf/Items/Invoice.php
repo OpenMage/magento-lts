@@ -32,8 +32,7 @@
  * @package    Mage_Downloadable
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Downloadable_Model_Sales_Order_Pdf_Items_Invoice
-    extends Mage_Downloadable_Model_Sales_Order_Pdf_Items_Abstract
+class Mage_Downloadable_Model_Sales_Order_Pdf_Items_Invoice extends Mage_Downloadable_Model_Sales_Order_Pdf_Items_Abstract
 {
     /**
      * Draw item line
@@ -72,7 +71,7 @@ class Mage_Downloadable_Model_Sales_Order_Pdf_Items_Invoice
         $prices = $this->getItemPricesForDisplay();
         $feedPrice = 395;
         $feedSubtotal = $feedPrice + 170;
-        foreach ($prices as $priceData){
+        foreach ($prices as $priceData) {
             if (isset($priceData['label'])) {
                 // draw Price label
                 $lines[$i][] = array(

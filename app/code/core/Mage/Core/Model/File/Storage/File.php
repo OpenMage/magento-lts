@@ -275,4 +275,22 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
 
         return false;
     }
+
+    /**
+     * @param $filePath
+     * @return bool
+     */
+    public function lockCreateFile($filePath)
+    {
+        return $this->getResource()->lockCreateFile($filePath);
+    }
+
+    /**
+     * @param $filePath
+     */
+    public function removeLockedFile($filePath)
+    {
+        $this->getResource()->removeLockedFile($filePath);
+    }
+
 }

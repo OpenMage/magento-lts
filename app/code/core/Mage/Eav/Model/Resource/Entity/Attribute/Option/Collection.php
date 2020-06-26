@@ -66,8 +66,9 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Co
      * Add store filter to collection
      *
      * @param int $storeId
-     * @param bolean $useDefaultValue
+     * @param bool $useDefaultValue
      * @return $this
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function setStoreFilter($storeId = null, $useDefaultValue = true)
     {
@@ -83,21 +84,24 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Co
                 ->join(
                     array('tdv' => $this->_optionValueTable),
                     'tdv.option_id = main_table.option_id',
-                    array('default_value' => 'value'))
+                    array('default_value' => 'value')
+                )
                 ->joinLeft(
                     array('tsv' => $this->_optionValueTable),
                     $joinCondition,
                     array(
                         'store_default_value' => 'value',
                         'value'               => $adapter->getCheckSql('tsv.value_id > 0', 'tsv.value', 'tdv.value')
-                    ))
+                    )
+                )
                 ->where('tdv.store_id = ?', 0);
         } else {
             $this->getSelect()
                 ->joinLeft(
                     array('tsv' => $this->_optionValueTable),
                     $joinCondition,
-                    'value')
+                    'value'
+                )
                 ->where('tsv.store_id = ?', $storeId);
         }
 
@@ -145,7 +149,8 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Co
                 ->joinLeft(
                     array('sort_alpha_value' => $this->_optionValueTable),
                     'sort_alpha_value.option_id = main_table.option_id AND sort_alpha_value.store_id = 0',
-                    array('value'));
+                    array('value')
+                );
             $this->setOrder('sort_alpha_value.value', $dir);
         }
 

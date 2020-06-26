@@ -26,11 +26,17 @@
 
 
 $installer = $this;
-/* @var $installer Mage_Eav_Model_Entity_Setup */
+/* @var Mage_Eav_Model_Entity_Setup $installer */
 
 $installer->startSetup();
-$installer->getConnection()->addConstraint('FK_EAV_ENTITY_ATTRIBUTE_ATTRIBUTE',
-    $installer->getTable('eav/entity_attribute'), 'attribute_id',
-    $installer->getTable('eav/attribute'), 'attribute_id',
-    'CASCADE', 'CASCADE', true);
+$installer->getConnection()->addConstraint(
+    'FK_EAV_ENTITY_ATTRIBUTE_ATTRIBUTE',
+    $installer->getTable('eav/entity_attribute'),
+    'attribute_id',
+    $installer->getTable('eav/attribute'),
+    'attribute_id',
+    'CASCADE',
+    'CASCADE',
+    true
+);
 $installer->endSetup();

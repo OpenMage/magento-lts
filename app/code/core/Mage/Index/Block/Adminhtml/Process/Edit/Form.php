@@ -26,6 +26,9 @@
 
 class Mage_Index_Block_Adminhtml_Process_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+    /**
+     * @return Mage_Adminhtml_Block_Widget_Form
+     */
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form(array('id' => 'edit_form', 'action' => $this->getActionUrl(), 'method' => 'post'));
@@ -34,6 +37,9 @@ class Mage_Index_Block_Adminhtml_Process_Edit_Form extends Mage_Adminhtml_Block_
         return parent::_prepareForm();
     }
 
+    /**
+     * @return string
+     */
     public function getActionUrl()
     {
         return $this->getUrl('adminhtml/process/save');

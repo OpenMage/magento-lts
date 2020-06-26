@@ -335,6 +335,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
             $attributeCollection = Mage::getResourceModel('catalog/product_attribute_collection');
             $attributeCollection->addIsSearchableFilter();
 
+            $this->_searchableAttributes = [];
             foreach ($attributeCollection as $attribute) {
                 $this->_searchableAttributes[] = $attribute->getAttributeCode();
             }

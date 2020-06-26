@@ -30,9 +30,15 @@
  * @category   Varien
  * @package    Varien_Data
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setAutosubmit(bool $false)
  */
 class Varien_Data_Form_Element_Imagefile extends Varien_Data_Form_Element_Abstract
 {
+    /**
+     * Varien_Data_Form_Element_Imagefile constructor.
+     * @param array $attributes
+     */
     public function __construct($attributes=array())
     {
         parent::__construct($attributes);

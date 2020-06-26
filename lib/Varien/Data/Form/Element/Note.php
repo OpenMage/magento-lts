@@ -30,9 +30,15 @@
  * @category   Varien
  * @package    Varien_Data
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getText()
  */
 class Varien_Data_Form_Element_Note extends Varien_Data_Form_Element_Abstract
 {
+    /**
+     * Varien_Data_Form_Element_Note constructor.
+     * @param array $attributes
+     */
     public function __construct($attributes=array())
     {
         parent::__construct($attributes);
@@ -40,6 +46,9 @@ class Varien_Data_Form_Element_Note extends Varien_Data_Form_Element_Abstract
         //$this->setExtType('textfield');
     }
 
+    /**
+     * @return string
+     */
     public function getElementHtml()
     {
         $html = '<span id="' . $this->getHtmlId() . '">' . $this->getText() . '</span>';
