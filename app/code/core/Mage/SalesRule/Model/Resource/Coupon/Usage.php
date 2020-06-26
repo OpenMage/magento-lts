@@ -60,7 +60,7 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
 
         $timesUsed = $read->fetchOne($select, array(':coupon_id' => $couponId, ':customer_id' => $customerId));
 
-        if ($timesUsed !== FALSE && $timesUsed > 0) {
+        if ($timesUsed !== false && $timesUsed > 0) {
             $this->_getWriteAdapter()->update(
                 $this->getMainTable(),
                 array(
