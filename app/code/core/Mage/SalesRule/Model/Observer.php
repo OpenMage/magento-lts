@@ -154,7 +154,7 @@ class Mage_SalesRule_Model_Observer
 
                 if ($customerId = $order->getCustomerId()) {
                     // Decrement coupon_usage times_used
-                    Mage::getResourceModel('salesrule/coupon_usage')->updateCustomerCouponTimesUsed($customerId, $coupon->getId(), TRUE);
+                    Mage::getResourceModel('salesrule/coupon_usage')->updateCustomerCouponTimesUsed($customerId, $coupon->getId(), true);
 
                     // Decrement rule times_used
                     if ($customerCoupon = Mage::getModel('salesrule/rule_customer')->loadByCustomerRule($customerId, $coupon->getId())) {
@@ -332,4 +332,3 @@ class Mage_SalesRule_Model_Observer
         return $this;
     }
 }
-
