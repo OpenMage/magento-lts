@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -112,7 +112,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
             $this->_critical('Requested product does not support images', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
         $galleryAttribute = $attributes[self::GALLERY_ATTRIBUTE_CODE];
-        /** @var $mediaGallery Mage_Catalog_Model_Product_Attribute_Backend_Media */
+        /** @var Mage_Catalog_Model_Product_Attribute_Backend_Media $mediaGallery */
         $mediaGallery = $galleryAttribute->getBackend();
         return $mediaGallery;
     }

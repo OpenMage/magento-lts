@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -78,7 +78,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
     public function postDispatch()
     {
         parent::postDispatch();
-        if (!$this->getFlag('', self::FLAG_NO_START_SESSION )) {
+        if (!$this->getFlag('', self::FLAG_NO_START_SESSION)) {
             Mage::getSingleton('core/session')->setLastUrl(Mage::getUrl('*/*/*', array('_current'=>true)));
         }
         return $this;
@@ -107,7 +107,10 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
      * @param int $contentLength    explicit content length, if strlen($content) isn't applicable
      * @return $this
      */
-    protected function _prepareDownloadResponse($fileName, $content, $contentType = 'application/octet-stream',
+    protected function _prepareDownloadResponse(
+        $fileName,
+        $content,
+        $contentType = 'application/octet-stream',
         $contentLength = null
     ) {
         $session = Mage::getSingleton('admin/session');

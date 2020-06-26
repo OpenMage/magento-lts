@@ -20,12 +20,12 @@
  *
  * @category    Mage
  * @package     Mage_Downloadable
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 $installer = $this;
-/* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
+/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 
 $installer->startSetup();
 
@@ -60,10 +60,18 @@ CREATE TABLE `{$installer->getTable('downloadable/link_purchased_item')}`(
 ");
 
 $conn->addConstraint(
-    'FK_DOWNLOADABLE_LINK_PURCHASED_ID', $installer->getTable('downloadable/link_purchased_item'), 'purchased_id', $installer->getTable('downloadable/link_purchased'), 'purchased_id'
+    'FK_DOWNLOADABLE_LINK_PURCHASED_ID',
+    $installer->getTable('downloadable/link_purchased_item'),
+    'purchased_id',
+    $installer->getTable('downloadable/link_purchased'),
+    'purchased_id'
 );
 $conn->addConstraint(
-    'FK_DOWNLOADABLE_ORDER_ITEM_ID', $installer->getTable('downloadable/link_purchased_item'), 'order_item_id', $installer->getTable('sales/order_item'), 'item_id'
+    'FK_DOWNLOADABLE_ORDER_ITEM_ID',
+    $installer->getTable('downloadable/link_purchased_item'),
+    'order_item_id',
+    $installer->getTable('sales/order_item'),
+    'item_id'
 );
 
 $installer->run("

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -120,18 +120,21 @@ class Mage_Checkout_Model_Type_Multishipping_State extends Varien_Object
         return self::STEP_SELECT_ADDRESSES;
     }
 
+    /**
+     * @param string $step
+     * @return $this
+     */
     public function setActiveStep($step)
     {
         if (isset($this->_steps[$step])) {
             $this->getCheckoutSession()->setCheckoutState($step);
-        }
-        else {
+        } else {
             $this->getCheckoutSession()->setCheckoutState(self::STEP_SELECT_ADDRESSES);
         }
 
         // Fix active step changing
-        if(!$this->_steps[$step]->getIsActive()) {
-            foreach($this->getSteps() as $stepObject) {
+        if (!$this->_steps[$step]->getIsActive()) {
+            foreach ($this->getSteps() as $stepObject) {
                 $stepObject->unsIsActive();
             }
             $this->_steps[$step]->setIsActive(true);
@@ -183,22 +186,18 @@ class Mage_Checkout_Model_Type_Multishipping_State extends Varien_Object
 
     public function canSelectAddresses()
     {
-
     }
 
     public function canInputShipping()
     {
-
     }
 
     public function canSeeOverview()
     {
-
     }
 
     public function canSuccess()
     {
-
     }
 
     /**

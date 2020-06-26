@@ -20,10 +20,9 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Quote addresses shiping rates collection
@@ -82,8 +81,8 @@ class Mage_Sales_Model_Resource_Quote_Address_Rate_Collection extends Mage_Core_
     /**
      * Don't add item to the collection if only fixed are allowed and its carrier is not fixed
      *
-     * @param Mage_Sales_Model_Quote_Address_Rate $rate
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
      */
     public function addItem(Varien_Object $rate)
     {

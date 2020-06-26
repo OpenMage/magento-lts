@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_SalesRule
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -127,6 +127,40 @@ class Mage_SalesRule_Model_Observer
                 if ($customerId) {
                     $couponUsage = Mage::getResourceModel('salesrule/coupon_usage');
                     $couponUsage->updateCustomerCouponTimesUsed($customerId, $coupon->getId());
+                }
+            }
+        }
+    }
+
+    /**
+     * Registered callback: called after an order payment is canceled
+     *
+     * @param $observer
+     */
+    public function sales_order_paymentCancel($observer)
+    {
+        /** @var Varien_Event $event */
+        $event = $observer->getEvent();
+        /** @var Mage_Sales_Model_Order $order */
+        $order = $event->getPayment()->getOrder();
+
+        if ($order->canCancel()) {
+            if ($code = $order->getCouponCode()) {
+                // Decrement coupon times_used
+                $coupon = Mage::getModel('salesrule/coupon')->loadByCode($code);
+                $coupon->setTimesUsed($coupon->getTimesUsed() - 1);
+                $coupon->save();
+
+
+                if ($customerId = $order->getCustomerId()) {
+                    // Decrement coupon_usage times_used
+                    Mage::getResourceModel('salesrule/coupon_usage')->updateCustomerCouponTimesUsed($customerId, $coupon->getId(), true);
+
+                    // Decrement rule times_used
+                    if ($customerCoupon = Mage::getModel('salesrule/rule_customer')->loadByCustomerRule($customerId, $coupon->getId())) {
+                        $customerCoupon->setTimesUsed($customerCoupon->getTimesUsed() - 1);
+                        $customerCoupon->save();
+                    }
                 }
             }
         }
@@ -298,4 +332,3 @@ class Mage_SalesRule_Model_Observer
         return $this;
     }
 }
-

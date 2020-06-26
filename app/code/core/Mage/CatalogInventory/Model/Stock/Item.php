@@ -20,51 +20,76 @@
  *
  * @category    Mage
  * @package     Mage_CatalogInventory
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog Inventory Stock Model
  *
  * @method Mage_CatalogInventory_Model_Resource_Stock_Item _getResource()
  * @method Mage_CatalogInventory_Model_Resource_Stock_Item getResource()
- * @method Mage_CatalogInventory_Model_Stock_Item setProductId(int $value)
- * @method Mage_CatalogInventory_Model_Stock_Item setStockId(int $value)
+ * @method Mage_CatalogInventory_Model_Resource_Stock_Item_Collection getCollection()
+ *
+ * @method $this setProductId(int $value)
+ * @method $this setStockId(int $value)
  * @method float getQty()
- * @method Mage_CatalogInventory_Model_Stock_Item setQty(float $value)
- * @method Mage_CatalogInventory_Model_Stock_Item setMinQty(float $value)
+ * @method $this setQty(float $value)
+ * @method $this setMinQty(float $value)
  * @method int getUseConfigMinQty()
- * @method Mage_CatalogInventory_Model_Stock_Item setUseConfigMinQty(int $value)
+ * @method $this setUseConfigMinQty(int $value)
  * @method int getIsQtyDecimal()
- * @method Mage_CatalogInventory_Model_Stock_Item setIsQtyDecimal(int $value)
- * @method Mage_CatalogInventory_Model_Stock_Item setBackorders(int $value)
+ * @method $this setIsQtyDecimal(int $value)
+ * @method $this setBackorders(int $value)
  * @method int getUseConfigBackorders()
- * @method Mage_CatalogInventory_Model_Stock_Item setUseConfigBackorders(int $value)
- * @method Mage_CatalogInventory_Model_Stock_Item setMinSaleQty(float $value)
+ * @method $this setUseConfigBackorders(int $value)
+ * @method $this setMinSaleQty(float $value)
  * @method int getUseConfigMinSaleQty()
- * @method Mage_CatalogInventory_Model_Stock_Item setUseConfigMinSaleQty(int $value)
- * @method Mage_CatalogInventory_Model_Stock_Item setMaxSaleQty(float $value)
+ * @method $this setUseConfigMinSaleQty(int $value)
+ * @method $this setMaxSaleQty(float $value)
  * @method int getUseConfigMaxSaleQty()
- * @method Mage_CatalogInventory_Model_Stock_Item setUseConfigMaxSaleQty(int $value)
- * @method Mage_CatalogInventory_Model_Stock_Item setIsInStock(int $value)
+ * @method $this setUseConfigMaxSaleQty(int $value)
+ * @method $this setIsInStock(int $value)
  * @method string getLowStockDate()
- * @method Mage_CatalogInventory_Model_Stock_Item setLowStockDate(string $value)
- * @method Mage_CatalogInventory_Model_Stock_Item setNotifyStockQty(float $value)
+ * @method $this setLowStockDate(string $value)
+ * @method $this setNotifyStockQty(float $value)
  * @method int getUseConfigNotifyStockQty()
- * @method Mage_CatalogInventory_Model_Stock_Item setUseConfigNotifyStockQty(int $value)
- * @method Mage_CatalogInventory_Model_Stock_Item setManageStock(int $value)
+ * @method $this setUseConfigNotifyStockQty(int $value)
+ * @method $this setManageStock(int $value)
  * @method int getUseConfigManageStock()
- * @method Mage_CatalogInventory_Model_Stock_Item setUseConfigManageStock(int $value)
+ * @method $this setUseConfigManageStock(int $value)
  * @method int getStockStatusChangedAutomatically()
- * @method Mage_CatalogInventory_Model_Stock_Item setStockStatusChangedAutomatically(int $value)
+ * @method bool hasStockStatusChangedAutomaticallyFlag()
+ * @method int getStockStatusChangedAutomaticallyFlag()
+ * @method $this setStockStatusChangedAutomatically(int $value)
  * @method int getUseConfigQtyIncrements()
- * @method Mage_CatalogInventory_Model_Stock_Item setUseConfigQtyIncrements(int $value)
- * @method Mage_CatalogInventory_Model_Stock_Item setQtyIncrements(float $value)
+ * @method $this setUseConfigQtyIncrements(int $value)
+ * @method $this setQtyIncrements(float $value)
  * @method int getUseConfigEnableQtyIncrements()
- * @method Mage_CatalogInventory_Model_Stock_Item setUseConfigEnableQtyIncrements(int $value)
- * @method Mage_CatalogInventory_Model_Stock_Item setEnableQtyIncrements(int $value)
+ * @method $this setUseConfigEnableQtyIncrements(int $value)
+ * @method $this setEnableQtyIncrements(int $value)
+ * @method bool getStockStatus()
+ * @method $this setStockStatusChangedAutomaticallyFlag(bool $value)
+ * @method int getProductTypeId()
+ * @method $this setStoreId(int $value)
+ * @method $this setParentItem(Mage_Sales_Model_Quote_Item $value)
+ * @method $this setProductChangedWebsites(bool $value)
+ * @method string getProductName()
+ * @method $this setProductName(string $value)
+ * @method $this setProductStatusChanged(bool $value)
+ * @method $this setProductTypeId(string $value)
+ * @method bool getSuppressCheckQtyIncrements()
+ * @method $this setSuppressCheckQtyIncrements(bool $value)
+ * @method int getTypeId()
+ * @method $this hasIsChildItem()
+ * @method bool getIsChildItem()
+ * @method $this setIsChildItem(bool $value)
+ * @method $this unsIsChildItem()
+ * @method float getOrderedItems()
+ * @method $this setOrderedItems(float $value)
+ * @method $this setStockQty(float $value)
+ * @method bool hasStockQty()
+ * @method float getQtyCorrection()
  *
  * @category    Mage
  * @package     Mage_CatalogInventory
@@ -183,7 +208,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
      * Load item data by product
      *
      * @param   mixed $product
-     * @return  Mage_CatalogInventory_Model_Stock_Item
+     * @return  $this
      */
     public function loadByProduct($product)
     {
@@ -199,7 +224,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
      * Subtract quote item quantity
      *
      * @param   float $qty
-     * @return  Mage_CatalogInventory_Model_Stock_Item
+     * @return  $this
      */
     public function subtractQty($qty)
     {
@@ -258,7 +283,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
      * Adding stock data to product
      *
      * @param   Mage_Catalog_Model_Product $product
-     * @return  Mage_CatalogInventory_Model_Stock_Item
+     * @return  $this
      */
     public function assignProduct(Mage_Catalog_Model_Product $product)
     {
@@ -300,7 +325,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     /**
      * Setter for customer group id
      *
-     * @param int Value of customer group id
+     * @param int $value Value of customer group id
      * @return $this
      */
     public function setCustomerGroupId($value)
@@ -528,6 +553,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
         /**
          * Check if child product assigned to parent
          */
+        /** @var Mage_Sales_Model_Quote_Item $parentItem */
         $parentItem = $this->getParentItem();
         if ($this->getIsChildItem() && !empty($parentItem)) {
             $typeInstance = $parentItem->getProduct()->getTypeInstance(true);
@@ -684,7 +710,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
                 ->setQuoteMessageIndex('qty');
             if ($this->getIsChildItem()) {
                 $result->setMessage(
-                    Mage::helper('cataloginventory')->__('%s is available for purchase in increments of %s only.',$this->getProductName(), $qtyIncrements * 1)
+                    Mage::helper('cataloginventory')->__('%s is available for purchase in increments of %s only.', $this->getProductName(), $qtyIncrements * 1)
                 );
             } else {
                 $result->setMessage(
@@ -699,7 +725,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     /**
      * Add join for catalog in stock field to product collection
      *
-     * @param Mage_Catalog_Model_Entity_Product_Collection $productCollection
+     * @param Mage_Catalog_Model_Resource_Product_Collection $productCollection
      * @return $this
      */
     public function addCatalogInventoryToProductCollection($productCollection)
@@ -717,8 +743,11 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
      * @param string $errorIndex
      * @return $this
      */
-    protected function _addQuoteItemError(Mage_Sales_Model_Quote_Item $item, $itemError,
-        $quoteError, $errorIndex='error'
+    protected function _addQuoteItemError(
+        Mage_Sales_Model_Quote_Item $item,
+        $itemError,
+        $quoteError,
+        $errorIndex = 'error'
     ) {
         $item->setHasError(true);
         $item->setMessage($itemError);
@@ -740,7 +769,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
             $typeId = $productTypeId;
         }
 
-        $isQty = Mage::helper('catalogInventory')->isQty($typeId);
+        $isQty = Mage::helper('cataloginventory')->isQty($typeId);
 
         if ($isQty) {
             if (!$this->verifyStock()) {
@@ -752,8 +781,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
             $this->setLowStockDate(null);
             if ($this->verifyNotification()) {
                 $this->setLowStockDate(Mage::app()->getLocale()->date(null, null, null, false)
-                    ->toString(Varien_Date::DATETIME_INTERNAL_FORMAT)
-                );
+                    ->toString(Varien_Date::DATETIME_INTERNAL_FORMAT));
             }
 
             $this->setStockStatusChangedAutomatically(0);
@@ -863,6 +891,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
                 $productsByGroups = $product->getTypeInstance(true)->getProductsToPurchaseByReqGroups($product);
                 foreach ($productsByGroups as $productsInGroup) {
                     $qty = 0;
+                    /** @var Mage_Catalog_Model_Product $childProduct */
                     foreach ($productsInGroup as $childProduct) {
                         if ($childProduct->hasStockItem()) {
                             $qty += $childProduct->getStockItem()->getStockQty();

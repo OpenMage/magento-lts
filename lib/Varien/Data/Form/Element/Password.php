@@ -20,7 +20,7 @@
  *
  * @category    Varien
  * @package     Varien_Data
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,13 +33,20 @@
  */
 class Varien_Data_Form_Element_Password extends Varien_Data_Form_Element_Abstract
 {
-    public function __construct($attributes=array()) 
+    /**
+     * Varien_Data_Form_Element_Password constructor.
+     * @param array $attributes
+     */
+    public function __construct($attributes=array())
     {
         parent::__construct($attributes);
         $this->setType('password');
         $this->setExtType('textfield');
     }
-    
+
+    /**
+     * @return string
+     */
     public function getHtml()
     {
         $this->addClass('input-text');

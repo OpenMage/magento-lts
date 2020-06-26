@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -46,8 +46,8 @@ class Mage_Core_Model_Resource_Store_Group extends Mage_Core_Model_Resource_Db_A
     /**
      * Update default store group for website
      *
-     * @param Mage_Core_Model_Abstract $model
-     * @return $this
+     * @param Mage_Core_Model_Store_Group $model
+     * @inheritDoc
      */
     protected function _afterSave(Mage_Core_Model_Abstract $model)
     {
@@ -83,7 +83,7 @@ class Mage_Core_Model_Resource_Store_Group extends Mage_Core_Model_Resource_Db_A
     /**
      * Change store group website
      *
-     * @param Mage_Core_Model_Abstract $model
+     * @param Mage_Core_Model_Abstract|Mage_Core_Model_Store_Group $model
      * @return $this
      */
     protected function _changeWebsite(Mage_Core_Model_Abstract $model)

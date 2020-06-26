@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Bundle
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -57,8 +57,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
             $attributes = $this->getSelectionAttributes($_item);
             if (is_array($attributes)) {
                 $optionId   = $attributes['option_id'];
-            }
-            else {
+            } else {
                 $optionId = 0;
             }
 
@@ -177,7 +176,6 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
             }
 
             $drawItems[$optionId]['lines'][] = $line;
-
         }
 
         // custom options

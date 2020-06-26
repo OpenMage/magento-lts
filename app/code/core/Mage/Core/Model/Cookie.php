@@ -20,10 +20,9 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Core cookie model
@@ -222,8 +221,7 @@ class Mage_Core_Model_Cookie
 
         if ($period == 0) {
             $expire = 0;
-        }
-        else {
+        } else {
             $expire = time() + $period;
         }
         if (is_null($path)) {
@@ -252,6 +250,7 @@ class Mage_Core_Model_Cookie
      * @param string $path
      * @param string $domain
      * @param int|bool $secure
+     * @param bool $httponly
      * @return $this
      */
     public function renew($name, $period = null, $path = null, $domain = null, $secure = null, $httponly = null)
@@ -269,7 +268,7 @@ class Mage_Core_Model_Cookie
     /**
      * Retrieve cookie or false if not exists
      *
-     * @param string $neme The cookie name
+     * @param string $name The cookie name
      * @return mixed
      */
     public function get($name = null)

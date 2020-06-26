@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,16 +33,25 @@
  */
 class Mage_Checkout_Block_Onepage_Link extends Mage_Core_Block_Template
 {
+    /**
+     * @return string
+     */
     public function getCheckoutUrl()
     {
         return $this->getUrl('checkout/onepage', array('_secure'=>true));
     }
 
+    /**
+     * @return bool
+     */
     public function isDisabled()
     {
         return !Mage::getSingleton('checkout/session')->getQuote()->validateMinimumAmount();
     }
 
+    /**
+     * @return bool
+     */
     public function isPossibleOnepageCheckout()
     {
         return $this->helper('checkout')->canOnepageCheckout();

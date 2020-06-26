@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,12 +33,19 @@
  */
 class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Template
 {
+    /**
+     * @param Varien_Object $item
+     * @return $this
+     */
     public function setItem(Varien_Object $item)
     {
         $this->setData('item', $item);
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getItem()
     {
         return $this->_getData('item');
@@ -55,6 +62,9 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
     }
 
 
+    /**
+     * @return mixed
+     */
     public function getOrderItem()
     {
         if ($this->getItem() instanceof Mage_Sales_Model_Order_Item) {
@@ -64,6 +74,9 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
         }
     }
 
+    /**
+     * @return array
+     */
     public function getItemOptions()
     {
         $result = array();

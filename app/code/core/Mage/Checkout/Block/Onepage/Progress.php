@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,26 +33,41 @@
  */
 class Mage_Checkout_Block_Onepage_Progress extends Mage_Checkout_Block_Onepage_Abstract
 {
+    /**
+     * @return Mage_Sales_Model_Quote_Address
+     */
     public function getBilling()
     {
         return $this->getQuote()->getBillingAddress();
     }
 
+    /**
+     * @return Mage_Sales_Model_Quote_Address
+     */
     public function getShipping()
     {
         return $this->getQuote()->getShippingAddress();
     }
 
+    /**
+     * @return string
+     */
     public function getShippingMethod()
     {
         return $this->getQuote()->getShippingAddress()->getShippingMethod();
     }
 
+    /**
+     * @return string
+     */
     public function getShippingDescription()
     {
         return $this->getQuote()->getShippingAddress()->getShippingDescription();
     }
 
+    /**
+     * @return float
+     */
     public function getShippingAmount()
     {
         /*$amount = $this->getQuote()->getShippingAddress()->getShippingAmount();
@@ -64,6 +79,9 @@ class Mage_Checkout_Block_Onepage_Progress extends Mage_Checkout_Block_Onepage_A
         return $this->getQuote()->getShippingAddress()->getShippingAmount();
     }
 
+    /**
+     * @return string
+     */
     public function getPaymentHtml()
     {
         return $this->getChildHtml('payment_info');
@@ -103,11 +121,18 @@ class Mage_Checkout_Block_Onepage_Progress extends Mage_Checkout_Block_Onepage_A
         return $this->formatPrice($inclTax);
     }
 
+    /**
+     * @return string
+     */
     public function getShippingPriceExclTax()
     {
         return $this->formatPrice($this->getQuote()->getShippingAddress()->getShippingAmount());
     }
 
+    /**
+     * @param float $price
+     * @return string
+     */
     public function formatPrice($price)
     {
         return $this->getQuote()->getStore()->formatPrice($price);
