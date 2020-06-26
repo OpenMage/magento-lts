@@ -50,7 +50,7 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
      * @param unknown_type $couponId
      * @param bool $decrement   Decrement instead of increment times_used
      */
-    public function updateCustomerCouponTimesUsed($customerId, $couponId, $decrement = FALSE)
+    public function updateCustomerCouponTimesUsed($customerId, $couponId, $decrement = false)
     {
         $read = $this->_getReadAdapter();
         $select = $read->select();
