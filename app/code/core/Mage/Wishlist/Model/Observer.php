@@ -35,7 +35,7 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
      * Get customer wishlist model instance
      *
      * @param   int $customerId
-     * @return  Mage_Wishlist_Model_Wishlist || false
+     * @return  Mage_Wishlist_Model_Wishlist|false
      */
     protected function _getWishlist($customerId)
     {
@@ -89,8 +89,12 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
         return $this;
     }
 
+    /**
+     * @param Varien_Event_Observer $observer
+     */
     public function processAddToCart($observer)
     {
+        /** @var Mage_Core_Controller_Request_Http $request */
         $request = $observer->getEvent()->getRequest();
         $sharedWishlist = Mage::getSingleton('checkout/session')->getSharedWishlist();
         $messages = Mage::getSingleton('checkout/session')->getWishlistPendingMessages();
@@ -102,13 +106,13 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
             $wishlistIds = array($singleWishlistId);
         }
 
-        if (!empty($wishlistIds) && $request->getParam('wishlist_next')){
+        if (!empty($wishlistIds) && $request->getParam('wishlist_next')) {
             $wishlistId = array_shift($wishlistIds);
 
             if (Mage::getSingleton('customer/session')->isLoggedIn()) {
                 $wishlist = Mage::getModel('wishlist/wishlist')
                         ->loadByCustomer(Mage::getSingleton('customer/session')->getCustomer(), true);
-            } else if ($sharedWishlist) {
+            } elseif ($sharedWishlist) {
                 $wishlist = Mage::getModel('wishlist/wishlist')->loadByCode($sharedWishlist);
             } else {
                 return;
@@ -117,9 +121,10 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
 
             $wishlist->getItemCollection()->load();
 
-            foreach($wishlist->getItemCollection() as $wishlistItem){
-                if ($wishlistItem->getId() == $wishlistId)
+            foreach ($wishlist->getItemCollection() as $wishlistItem) {
+                if ($wishlistItem->getId() == $wishlistId) {
                     $wishlistItem->delete();
+                }
             }
             Mage::getSingleton('checkout/session')->setWishlistIds($wishlistIds);
             Mage::getSingleton('checkout/session')->setSingleWishlistId(null);
@@ -164,5 +169,4 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
 
         return $this;
     }
-
 }
