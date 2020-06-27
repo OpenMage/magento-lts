@@ -24,9 +24,14 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * Class Mage_Tax_Model_Class_Source_Customer
+ */
 class Mage_Tax_Model_Class_Source_Customer extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
 {
+    /**
+     * @return array
+     */
     public function getAllOptions()
     {
         if (!$this->_options) {
@@ -37,6 +42,9 @@ class Mage_Tax_Model_Class_Source_Customer extends Mage_Eav_Model_Entity_Attribu
         return $this->_options;
     }
 
+    /**
+     * @return array
+     */
     public function toOptionArray()
     {
         return $this->getAllOptions();
