@@ -30,10 +30,11 @@
  * @category    Mage
  * @package     Mage_Widget
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setWidgetType(string $value)
+ * @method $this setWidgetValues(array $value)
  */
-class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Properties
-    extends Mage_Widget_Block_Adminhtml_Widget_Options
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Properties extends Mage_Widget_Block_Adminhtml_Widget_Options implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     /**
      * Prepare label for tab
@@ -78,7 +79,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Properties
     /**
      * Getter
      *
-     * @return age_Widget_Model_Widget_Instance
+     * @return Mage_Widget_Model_Widget_Instance
      */
     public function getWidgetInstance()
     {
@@ -89,7 +90,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Properties
      * Prepare block children and data.
      * Set widget type and widget parameters if available
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _preparelayout()
     {
@@ -102,7 +103,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Properties
      * Add field to Options form based on option configuration
      *
      * @param Varien_Object $parameter
-     * @return Varien_Data_Form_Element_Abstract
+     * @return Varien_Data_Form_Element_Abstract|false
      */
     protected function _addField($parameter)
     {
