@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Authorizenet
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -150,6 +150,7 @@
                 <test>1</test>
                 <title>Credit Card Direct Post (Authorize.net)</title>
                 <trans_key backend_model="adminhtml/system_config_backend_encrypted"/>
+                <signature_key backend_model="adminhtml/system_config_backend_encrypted"/>
                 <trans_md5 backend_model="adminhtml/system_config_backend_encrypted"/>
                 <allowspecific>0</allowspecific>
                 <currency>USD</currency>

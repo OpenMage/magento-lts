@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogSearch
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -102,18 +102,16 @@ class Mage_CatalogSearch_Model_Resource_Query extends Mage_Core_Model_Resource_D
     /**
      * Loading string as a value or regular numeric
      *
-     * @param Mage_Core_Model_Abstract $object
      * @param int|string $value
      * @param null|string $field
-     * @return $this
+     * @inheritDoc
      */
     public function load(Mage_Core_Model_Abstract $object, $value, $field = null)
     {
         if (is_numeric($value)) {
             return parent::load($object, $value);
-        }
-        else {
-            $this->loadByQuery($object,$value);
+        } else {
+            $this->loadByQuery($object, $value);
         }
         return $this;
     }

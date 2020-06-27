@@ -20,7 +20,7 @@
  *
  * @category    Varien
  * @package     Varien_Data
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -84,6 +84,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      * Implementation of ArrayAccess:offsetGet()
      *
      * @param mixed $key
+     * @return mixed
      */
     public function offsetGet($key)
     {
@@ -118,7 +119,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      * @param Varien_Data_Form_Element_Abstract $element
      * @param bool|string $after
      *
-     * @return Varien_Data_Form_Element_Collection
+     * @return Varien_Data_Form_Element_Abstract
      */
     public function add(Varien_Data_Form_Element_Abstract $element, $after = false)
     {

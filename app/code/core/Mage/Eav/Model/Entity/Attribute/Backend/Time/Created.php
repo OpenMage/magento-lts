@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -36,7 +36,7 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Time_Created extends Mage_Eav_Mode
 
     /**
      * Returns date format if it matches a certain mask.
-     * @param $date
+     * @param string $date
      * @return null|string
      */
     protected function _getFormat($date)
@@ -51,7 +51,7 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Time_Created extends Mage_Eav_Mode
      * Set created date
      * Set created date in UTC time zone
      *
-     * @param Mage_Core_Model_Object $object
+     * @param Mage_Core_Model_Abstract $object
      * @return $this
      */
     public function beforeSave($object)

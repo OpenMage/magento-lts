@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -130,7 +130,7 @@ class Mage_Tax_Model_Resource_Setup extends Mage_Sales_Model_Resource_Setup
     /**
      * Load Old Rate Data
      * @deprecated since 1.5.0.0
-     * 
+     *
      * @param array $oldRateTypes
      * @return array
      */
@@ -139,7 +139,7 @@ class Mage_Tax_Model_Resource_Setup extends Mage_Sales_Model_Resource_Setup
         $table  = $this->getTable('tax_rate');
         $select = $this->_conn->select()
             ->from(array('main_table'=>$table));
-        foreach ($oldRateTypes as $type){
+        foreach ($oldRateTypes as $type) {
             $id = $type['type_id'];
             $select->joinLeft(
                 array("data_{$id}"=>$this->getTable('tax_rate_data')),

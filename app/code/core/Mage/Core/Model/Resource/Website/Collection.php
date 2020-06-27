@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -81,7 +81,7 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
     /**
      * Convert items array to array for select options
      *
-     * @return Array
+     * @return array
      */
     public function toOptionArray()
     {
@@ -91,7 +91,7 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
     /**
      * Convert items array to hash for select options
      *
-     * @return Array
+     * @return array
      */
     public function toOptionHash()
     {
@@ -120,11 +120,7 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
     }
 
     /**
-     * Load collection data
-     *
-     * @param boolean $printQuery
-     * @param boolean $logQuery
-     * @return $this
+     * @inheritDoc
      */
     public function load($printQuery = false, $logQuery = false)
     {
@@ -135,7 +131,6 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
              ->unshiftOrder('main_table.sort_order', Varien_Db_Select::SQL_ASC); // website sort order FIRST
 
         return parent::load($printQuery, $logQuery);
-
     }
 
     /**

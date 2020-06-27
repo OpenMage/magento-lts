@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Api2
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,12 +37,12 @@ abstract class Mage_Api2_Model_Request_Interpreter
      * Request body interpreters factory
      *
      * @param string $type
-     * @return Mage_Api2_Model_Request_Interpreter_Interface
-     * @throws Exception|Mage_Api2_Exception
+     * @return false|Mage_Core_Model_Abstract
+     * @throws Mage_Api2_Exception
      */
     public static function factory($type)
     {
-        /** @var $helper Mage_Api2_Helper_Data */
+        /** @var Mage_Api2_Helper_Data $helper */
         $helper = Mage::helper('api2/data');
         $adapters = $helper->getRequestInterpreterAdapters();
 

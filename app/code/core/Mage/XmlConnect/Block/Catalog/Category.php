@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -72,7 +72,7 @@ class Mage_XmlConnect_Block_Catalog_Category extends Mage_XmlConnect_Block_Catal
         $categoryCollection = $this->getCurrentChildCategories();
 
         // subcategories are exists
-        if (sizeof($categoryCollection)) {
+        if (count($categoryCollection)) {
             $itemsXmlObj = $categoryXmlObj->addChild('items');
             $categoryImageSize = Mage::getModel('xmlconnect/images')->getImageLimitParam('content/category');
             foreach ($categoryCollection as $item) {

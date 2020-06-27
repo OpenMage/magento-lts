@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Downloadable
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -72,12 +72,16 @@ class Mage_Downloadable_Model_Resource_Sample_Collection extends Mage_Core_Model
         $ifNullDefaultTitle = $this->getConnection()
             ->getIfNullSql('st.title', 'd.title');
         $this->getSelect()
-            ->joinLeft(array('d' => $this->getTable('downloadable/sample_title')),
+            ->joinLeft(
+                array('d' => $this->getTable('downloadable/sample_title')),
                 'd.sample_id=main_table.sample_id AND d.store_id = 0',
-                array('default_title' => 'title'))
-            ->joinLeft(array('st' => $this->getTable('downloadable/sample_title')),
+                array('default_title' => 'title')
+            )
+            ->joinLeft(
+                array('st' => $this->getTable('downloadable/sample_title')),
                 'st.sample_id=main_table.sample_id AND st.store_id = ' . (int)$storeId,
-                array('store_title' => 'title','title' => $ifNullDefaultTitle))
+                array('store_title' => 'title','title' => $ifNullDefaultTitle)
+            )
             ->order('main_table.sort_order ASC')
             ->order('title ASC');
 

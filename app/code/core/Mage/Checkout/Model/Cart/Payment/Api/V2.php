@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,14 +32,18 @@
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 
- class Mage_Checkout_Model_Cart_Payment_Api_V2 extends Mage_Checkout_Model_Cart_Payment_Api
+class Mage_Checkout_Model_Cart_Payment_Api_V2 extends Mage_Checkout_Model_Cart_Payment_Api
 {
-     protected function _preparePaymentData($data)
-     {
+    /**
+      * @param object $data
+      * @return array
+      */
+    protected function _preparePaymentData($data)
+    {
         if (null !== ($_data = get_object_vars($data))) {
             return parent::_preparePaymentData($_data);
         }
 
         return array();
-     }
+    }
 }

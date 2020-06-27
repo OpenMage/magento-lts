@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -33,8 +33,8 @@
 
 <?php if ($_specificInfo = $this->getSpecificInformation()):?>
 <?php foreach ($_specificInfo as $_label => $_value):?>
-<?php echo $_label ?>: <?php echo implode($this->getValueAsArray($_value), ' ')?>{{pdf_row_separator}}
+<?php echo $_label ?>: <?php echo implode(' ', $this->getValueAsArray($_value))?>{{pdf_row_separator}}
 <?php endforeach; ?>
 <?php endif;?>
 
-<?php echo implode($this->getChildPdfAsArray(), '{{pdf_row_separator}}') ?>
+<?php echo implode('{{pdf_row_separator}}', $this->getChildPdfAsArray()) ?>

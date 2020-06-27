@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,7 +31,6 @@
  * @package    Mage_Core
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-//class Mage_Core_Model_Convert extends Varien_Convert_Profile_Collection
 class Mage_Core_Model_Convert extends Mage_Dataflow_Model_Convert_Profile_Collection
 {
     public function __construct()
@@ -47,6 +46,10 @@ class Mage_Core_Model_Convert extends Mage_Dataflow_Model_Convert_Profile_Collec
         }
     }
 
+    /**
+     * @param string $type
+     * @return mixed|string
+     */
     public function getClassNameByType($type)
     {
         if (strpos($type, '/')!==false) {

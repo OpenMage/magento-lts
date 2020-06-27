@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -40,37 +40,64 @@ abstract class Mage_Core_Model_Message_Abstract
     protected $_identifier;
     protected $_isSticky = false;
 
-    public function __construct($type, $code='')
+    /**
+     * Mage_Core_Model_Message_Abstract constructor.
+     * @param string $type
+     * @param string $code
+     */
+    public function __construct($type, $code = '')
     {
         $this->_type = $type;
         $this->_code = $code;
     }
 
+    /**
+     * @return string
+     */
     public function getCode()
     {
         return $this->_code;
     }
 
+    /**
+     * @return string
+     */
     public function getText()
     {
         return $this->getCode();
     }
 
+    /**
+     * @return string
+     */
     public function getType()
     {
         return $this->_type;
     }
 
+    /**
+     * @param string $class
+     * @return $this
+     */
     public function setClass($class)
     {
         $this->_class = $class;
+        return $this;
     }
 
+    /**
+     * @param string $method
+     * @return $this
+     */
     public function setMethod($method)
     {
         $this->_method = $method;
+        return $this;
     }
 
+    /**
+     * @return string
+     */
     public function toString()
     {
         $out = $this->getType().': '.$this->getText();

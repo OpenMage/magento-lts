@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -119,9 +119,7 @@ class Mage_Eav_Model_Resource_Form_Element_Collection extends Mage_Core_Model_Re
     /**
      * Load data (join attribute data)
      *
-     * @param boolean $printQuery
-     * @param boolean $logQuery
-     * @return $this
+     * @inheritDoc
      */
     public function load($printQuery = false, $logQuery = false)
     {

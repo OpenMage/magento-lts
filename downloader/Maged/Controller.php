@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Connect
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -814,6 +814,9 @@ final class Maged_Controller
     public function dispatch()
     {
         if (class_exists('Mage')) {
+            if (Mage::getConfig() == null) {
+                Mage::init();
+            }
             $baseUrl = Mage::getBaseUrl(
                 Mage_Core_Model_Store::URL_TYPE_LINK, Mage::getSingleton('adminhtml/url')->getSecure()
             );
@@ -1074,7 +1077,7 @@ final class Maged_Controller
             'major'     => '1',
             'minor'     => '9',
             'revision'  => '4',
-            'patch'     => '1',
+            'patch'     => '5',
             'stability' => '',
             'number'    => '',
         );

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -64,8 +64,7 @@ class Mage_Catalog_Model_Resource_Product_Website extends Mage_Core_Model_Resour
     public function removeProducts($websiteIds, $productIds)
     {
         if (!is_array($websiteIds) || !is_array($productIds)
-            || count($websiteIds) == 0 || count($productIds) == 0)
-        {
+            || count($websiteIds) == 0 || count($productIds) == 0) {
             return $this;
         }
 
@@ -99,8 +98,7 @@ class Mage_Catalog_Model_Resource_Product_Website extends Mage_Core_Model_Resour
     public function addProducts($websiteIds, $productIds)
     {
         if (!is_array($websiteIds) || !is_array($productIds)
-            || count($websiteIds) == 0 || count($productIds) == 0)
-        {
+            || count($websiteIds) == 0 || count($productIds) == 0) {
             return $this;
         }
 

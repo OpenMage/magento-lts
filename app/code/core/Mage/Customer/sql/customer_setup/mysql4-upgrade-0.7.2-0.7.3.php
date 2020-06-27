@@ -20,12 +20,12 @@
  *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 $installer = $this;
-/* @var $installer Mage_Customer_Model_Entity_Setup */
+/* @var Mage_Customer_Model_Entity_Setup $installer */
 $installer->startSetup();
 
 $this->getConnection()->dropColumn($this->getTable('customer_address_entity'), 'store_id');

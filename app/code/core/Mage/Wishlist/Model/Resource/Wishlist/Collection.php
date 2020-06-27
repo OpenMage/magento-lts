@@ -20,10 +20,9 @@
  *
  * @category    Mage
  * @package     Mage_Wishlist
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Wislist model collection
@@ -31,6 +30,8 @@
  * @category    Mage
  * @package     Mage_Wishlist
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Wishlist_Model_Wishlist[] getItems()
  */
 class Mage_Wishlist_Model_Resource_Wishlist_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

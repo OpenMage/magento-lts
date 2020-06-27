@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Widget
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -48,11 +48,11 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Grid extends Mage_Adminhtml_Bl
     /**
      * Prepare grid collection object
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {
-        /* @var $collection Mage_Widget_Model_Mysql4_Widget_Instance_Collection */
+        /* @var Mage_Widget_Model_Mysql4_Widget_Instance_Collection $collection */
         $collection = Mage::getModel('widget/widget_instance')->getCollection();
         $this->setCollection($collection);
         return parent::_prepareCollection();
@@ -61,7 +61,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Grid extends Mage_Adminhtml_Bl
     /**
      * Prepare grid columns
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareColumns()
     {
@@ -143,6 +143,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Grid extends Mage_Adminhtml_Bl
     /**
      * Row click url
      *
+     * @param Mage_Widget_Model_Widget_Instance $row
      * @return string
      */
     public function getRowUrl($row)

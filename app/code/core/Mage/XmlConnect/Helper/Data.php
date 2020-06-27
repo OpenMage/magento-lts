@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -423,11 +423,11 @@ class Mage_XmlConnect_Helper_Data extends Mage_Core_Helper_Abstract
             $changes = array($changes);
         }
         foreach ($changes as $key => $value) {
-            if (!array_key_exists($key, $target) and !is_numeric($key)) {
+            if (!array_key_exists($key, $target) && !is_numeric($key)) {
                 $target[$key] = $changes[$key];
                 continue;
             }
-            if (is_array($value) or is_array($target[$key])) {
+            if (is_array($value) || is_array($target[$key])) {
                 $target[$key] = self::arrayMergeRecursive($target[$key], $changes[$key]);
             } else if (is_numeric($key)) {
                 if (!in_array($value, $target)) {

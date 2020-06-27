@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Admin
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,18 +29,22 @@
  *
  * @method Mage_Admin_Model_Resource_Rules _getResource()
  * @method Mage_Admin_Model_Resource_Rules getResource()
- * @method int getRoleId()
- * @method Mage_Admin_Model_Rules setRoleId(int $value)
- * @method string getResourceId()
- * @method Mage_Admin_Model_Rules setResourceId(string $value)
- * @method string getPrivileges()
- * @method Mage_Admin_Model_Rules setPrivileges(string $value)
+ * @method Mage_Admin_Model_Resource_Rules_Collection getResourceCollection()
+ *
  * @method int getAssertId()
- * @method Mage_Admin_Model_Rules setAssertId(int $value)
- * @method string getRoleType()
- * @method Mage_Admin_Model_Rules setRoleType(string $value)
+ * @method $this setAssertId(int $value)
  * @method string getPermission()
- * @method Mage_Admin_Model_Rules setPermission(string $value)
+ * @method $this setPermission(string $value)
+ * @method array getResources()
+ * @method $this setResources(array $value)
+ * @method string getResourceId()
+ * @method $this setResourceId(string $value)
+ * @method string getPrivileges()
+ * @method $this setPrivileges(string $value)
+ * @method int getRoleId()
+ * @method $this setRoleId(int $value)
+ * @method string getRoleType()
+ * @method $this setRoleType(string $value)
  *
  * @category    Mage
  * @package     Mage_Admin

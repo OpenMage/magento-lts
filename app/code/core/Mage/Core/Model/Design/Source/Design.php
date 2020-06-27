@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -63,7 +63,7 @@ class Mage_Core_Model_Design_Source_Design extends Mage_Eav_Model_Entity_Attribu
         if (is_null($this->_options)) {
             $design = Mage::getModel('core/design_package')->getThemeList();
             $options = array();
-            foreach ($design as $package => $themes){
+            foreach ($design as $package => $themes) {
                 $packageOption = array('label' => $package);
                 $themeOptions = array();
                 foreach ($themes as $theme) {
@@ -81,8 +81,7 @@ class Mage_Core_Model_Design_Source_Design extends Mage_Eav_Model_Entity_Attribu
         if ($withEmpty) {
             array_unshift($options, array(
                 'value'=>'',
-                'label'=>Mage::helper('core')->__('-- Please Select --'))
-            );
+                'label'=>Mage::helper('core')->__('-- Please Select --')));
         }
         return $options;
     }
