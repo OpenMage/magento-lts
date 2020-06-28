@@ -27,6 +27,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "colinmollenhour",
+      "name": "Colin Mollenhour",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/38738?v=4",
+      "profile": "http://colin.mollenhour.com/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
