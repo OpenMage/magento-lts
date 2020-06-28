@@ -17,7 +17,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 OpenMage. (https://www.openmage.org)
+ * @copyright  Copyright (c) RedChamps. (https://redchamps.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -27,7 +27,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     OpenMage
+ * @author     RedChamps
  */
 class Mage_Adminhtml_Model_System_Config_Backend_Logo extends Mage_Adminhtml_Model_System_Config_Backend_Image
 {
