@@ -423,6 +423,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "woutersamaey",
+      "name": "Wouter Samaey",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/71019?v=4",
+      "profile": "http://www.storefront.be/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
