@@ -729,6 +729,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "cundd",
+      "name": "Daniel Corn",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/743122?v=4",
+      "profile": "https://github.com/cundd",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
