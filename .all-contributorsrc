@@ -702,6 +702,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "dng-dev",
+      "name": "Daniel Niedergesäß",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/836079?v=4",
+      "profile": "https://github.com/dng-dev",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
