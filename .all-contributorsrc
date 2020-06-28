@@ -819,6 +819,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "MichaelThessel",
+      "name": "Michael Thessel",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/2926266?v=4",
+      "profile": "https://github.com/MichaelThessel",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
