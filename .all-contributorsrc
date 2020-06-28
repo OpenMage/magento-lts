@@ -9,6 +9,16 @@
   "imageSize": 100,
   "commit": true,
   "commitConvention": "none",
-  "contributors": [],
+  "contributors": [
+    {
+      "login": "sreichel",
+      "name": "sv3n",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/5022236?v=4",
+      "profile": "https://magento.stackexchange.com/users/46249/sv3n",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
   "contributorsPerLine": 7
 }
