@@ -108,6 +108,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "JeroenBoersma",
+      "name": "Jeroen Boersma",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/1163348?v=4",
+      "profile": "http://srcode.nl/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
