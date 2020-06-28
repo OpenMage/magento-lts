@@ -180,6 +180,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "midlan",
+      "name": "Milan Davídek",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/4263992?v=4",
+      "profile": "http://milandavidek.cz/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
