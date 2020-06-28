@@ -1,6 +1,6 @@
 <p align="center">
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-13-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-14-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <a href="https://travis-ci.org/openmage/magento-lts"><img src="https://travis-ci.org/openmage/magento-lts.svg" alt="Build Status"></a>
 <a href="https://packagist.org/packages/openmage/magento-lts"><img src="https://poser.pugx.org/openmage/magento-lts/d/total.svg" alt="Total Downloads"></a>
@@ -98,6 +98,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/edannenberg"><img src="https://avatars0.githubusercontent.com/u/1352794?v=4" width="100px;" alt=""/><br /><sub><b>Erik Dannenberg</b></sub></a><br /><a href="https://github.com/OpenMage/magento-lts/commits?author=edannenberg" title="Code">💻</a></td>
     <td align="center"><a href="http://srcode.nl/"><img src="https://avatars2.githubusercontent.com/u/1163348?v=4" width="100px;" alt=""/><br /><sub><b>Jeroen Boersma</b></sub></a><br /><a href="https://github.com/OpenMage/magento-lts/commits?author=JeroenBoersma" title="Code">💻</a></td>
     <td align="center"><a href="https://www.linkedin.com/in/lfluvisotto"><img src="https://avatars3.githubusercontent.com/u/535626?v=4" width="100px;" alt=""/><br /><sub><b>Leandro F. L.</b></sub></a><br /><a href="https://github.com/OpenMage/magento-lts/commits?author=lfluvisotto" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/kkrieger85"><img src="https://avatars2.githubusercontent.com/u/4435523?v=4" width="100px;" alt=""/><br /><sub><b>Kevin Krieger</b></sub></a><br /><a href="https://github.com/OpenMage/magento-lts/commits?author=kkrieger85" title="Code">💻</a></td>
   </tr>
 </table>
 
