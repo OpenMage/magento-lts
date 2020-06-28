@@ -36,6 +36,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "drobinson",
+      "name": "David Robinson",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/455332?v=4",
+      "profile": "https://github.com/drobinson",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
