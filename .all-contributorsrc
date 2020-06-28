@@ -522,6 +522,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "real34",
+      "name": "Pierre Martin",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/75968?v=4",
+      "profile": "https://www.pierre-martin.fr/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
