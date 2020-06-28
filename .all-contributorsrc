@@ -612,6 +612,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "mickys",
+      "name": "Micky Socaci",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/200507?v=4",
+      "profile": "https://binarzone.com/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
