@@ -1,6 +1,6 @@
 <p align="center">
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-30-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-31-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <a href="https://travis-ci.org/openmage/magento-lts"><img src="https://travis-ci.org/openmage/magento-lts.svg" alt="Build Status"></a>
 <a href="https://packagist.org/packages/openmage/magento-lts"><img src="https://poser.pugx.org/openmage/magento-lts/d/total.svg" alt="Total Downloads"></a>
@@ -121,6 +121,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://www.simonsprankel.com/"><img src="https://avatars1.githubusercontent.com/u/930199?v=4" width="100px;" alt=""/><br /><sub><b>Simon Sprankel</b></sub></a><br /><a href="https://github.com/OpenMage/magento-lts/commits?author=sprankhub" title="Code">💻</a></td>
     <td align="center"><a href="https://tomlankhorst.nl/"><img src="https://avatars0.githubusercontent.com/u/675432?v=4" width="100px;" alt=""/><br /><sub><b>Tom Lankhorst</b></sub></a><br /><a href="https://github.com/OpenMage/magento-lts/commits?author=tomlankhorst" title="Code">💻</a></td>
+    <td align="center"><a href="https://shirtsofholland.com/"><img src="https://avatars0.githubusercontent.com/u/11224809?v=4" width="100px;" alt=""/><br /><sub><b>shirtsofholland</b></sub></a><br /><a href="https://github.com/OpenMage/magento-lts/commits?author=shirtsofholl" title="Code">💻</a></td>
   </tr>
 </table>
 
