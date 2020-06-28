@@ -558,6 +558,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "paulrodriguez",
+      "name": "Paul Rodriguez",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/6373764?v=4",
+      "profile": "https://github.com/paulrodriguez",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
