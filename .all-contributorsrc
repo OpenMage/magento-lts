@@ -261,6 +261,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "sprankhub",
+      "name": "Simon Sprankel",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/930199?v=4",
+      "profile": "https://www.simonsprankel.com/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
