@@ -1,6 +1,6 @@
 <p align="center">
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-41-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-42-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <a href="https://travis-ci.org/openmage/magento-lts"><img src="https://travis-ci.org/openmage/magento-lts.svg" alt="Build Status"></a>
 <a href="https://packagist.org/packages/openmage/magento-lts"><img src="https://poser.pugx.org/openmage/magento-lts/d/total.svg" alt="Total Downloads"></a>
@@ -134,6 +134,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/kalenjordan"><img src="https://avatars2.githubusercontent.com/u/1542197?v=4" width="100px;" alt=""/><br /><sub><b>kalenjordan</b></sub></a><br /><a href="https://github.com/OpenMage/magento-lts/commits?author=kalenjordan" title="Code">💻</a></td>
     <td align="center"><a href="https://www.ioweb.gr/en"><img src="https://avatars3.githubusercontent.com/u/20220341?v=4" width="100px;" alt=""/><br /><sub><b>IOWEB TECHNOLOGIES</b></sub></a><br /><a href="https://github.com/OpenMage/magento-lts/commits?author=ioweb-gr" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/fplantinet"><img src="https://avatars0.githubusercontent.com/u/2428023?v=4" width="100px;" alt=""/><br /><sub><b>Florent</b></sub></a><br /><a href="https://github.com/OpenMage/magento-lts/commits?author=fplantinet" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/dvdsndr"><img src="https://avatars1.githubusercontent.com/u/13637075?v=4" width="100px;" alt=""/><br /><sub><b>dvdsndr</b></sub></a><br /><a href="https://github.com/OpenMage/magento-lts/commits?author=dvdsndr" title="Code">💻</a></td>
   </tr>
 </table>
 
