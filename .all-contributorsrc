@@ -441,6 +441,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "viable-hartman",
+      "name": "Trevor Hartman",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/1300504?v=4",
+      "profile": "https://hydrobuilder.com/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
