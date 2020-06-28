@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -14,13 +14,13 @@
  *
  * DISCLAIMER
  *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
+ * Do not edit or add to this file if you wish to upgrade OpenMage to newer
+ * versions in the future. If you wish to customize OpenMage for your
+ * needs please refer to https://www.openmage.org for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 OpenMage. (https://www.openmage.org)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,7 +30,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @author     OpenMage
  */
 class Mage_Adminhtml_Model_System_Config_Backend_Logo extends Mage_Adminhtml_Model_System_Config_Backend_Image
 {
