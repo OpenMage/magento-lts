@@ -504,6 +504,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "royduin",
+      "name": "Roy Duineveld",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/1703233?v=4",
+      "profile": "https://royduineveld.nl/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
