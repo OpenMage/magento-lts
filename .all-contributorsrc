@@ -252,6 +252,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "tschifftner",
+      "name": "Tobias Schifftner",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/14741874?v=4",
+      "profile": "https://www.ambimax.de/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
