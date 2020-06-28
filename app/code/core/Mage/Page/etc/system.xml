@@ -144,8 +144,11 @@
                     <show_in_store>1</show_in_store>
                     <fields>
                         <logo_src translate="label">
-                            <label>Logo Image Src</label>
-                            <frontend_type>text</frontend_type>
+                            <label>Logo Image</label>
+                            <frontend_type>image</frontend_type>
+                            <comment>Allowed file types: jpg, jpeg, gif, png</comment>
+                            <backend_model>adminhtml/system_config_backend_logo</backend_model>
+                            <base_url type="skin" scope_info="1">frontend/base/default</base_url>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -160,8 +163,11 @@
                             <show_in_store>1</show_in_store>
                         </logo_alt>
                         <logo_src_small translate="label">
-                            <label>Small Logo Image Src</label>
-                            <frontend_type>text</frontend_type>
+                            <label>Small Logo Image</label>
+                            <frontend_type>image</frontend_type>
+                            <comment>Allowed file types: jpg, jpeg, gif, png</comment>
+                            <backend_model>adminhtml/system_config_backend_logo</backend_model>
+                            <base_url type="skin" scope_info="1">frontend/base/default</base_url>
                             <sort_order>25</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
