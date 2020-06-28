@@ -594,6 +594,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "miguelbalparda",
+      "name": "Miguel Balparda",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/3997682?v=4",
+      "profile": "http://magento.stackexchange.com/users/5209/mbalparda",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
