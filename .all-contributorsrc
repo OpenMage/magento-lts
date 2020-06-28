@@ -54,6 +54,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "Flyingmana",
+      "name": "Daniel Fahlke",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/237319?v=4",
+      "profile": "http://flyingmana.name/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
