@@ -477,6 +477,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "sergeifilippov",
+      "name": "Sergei Filippov",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/123676?v=4",
+      "profile": "https://www.haiku.co.nz/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
