@@ -855,6 +855,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "EliasKotlyar",
+      "name": "Elias Kotlyar",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/9529505?v=4",
+      "profile": "https://github.com/EliasKotlyar",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
