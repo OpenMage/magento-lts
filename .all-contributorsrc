@@ -756,6 +756,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "blopa",
+      "name": "Pablo Benmaman",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/3838114?v=4",
+      "profile": "https://github.com/blopa",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
