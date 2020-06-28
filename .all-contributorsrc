@@ -657,6 +657,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "jaroschek",
+      "name": "Stefan Jaroschek",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/470290?v=4",
+      "profile": "https://github.com/jaroschek",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
