@@ -189,6 +189,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "mattdavenport",
+      "name": "Matt Davenport",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/1127393?v=4",
+      "profile": "https://mattdavenport.io/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
