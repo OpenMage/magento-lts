@@ -1,6 +1,6 @@
 <p align="center">
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-45-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-46-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <a href="https://travis-ci.org/openmage/magento-lts"><img src="https://travis-ci.org/openmage/magento-lts.svg" alt="Build Status"></a>
 <a href="https://packagist.org/packages/openmage/magento-lts"><img src="https://poser.pugx.org/openmage/magento-lts/d/total.svg" alt="Total Downloads"></a>
@@ -140,6 +140,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/VincentMarmiesse"><img src="https://avatars0.githubusercontent.com/u/1949412?v=4" width="100px;" alt=""/><br /><sub><b>Vincent MARMIESSE</b></sub></a><br /><a href="https://github.com/OpenMage/magento-lts/commits?author=VincentMarmiesse" title="Code">💻</a></td>
     <td align="center"><a href="http://www.proxiblue.com.au/"><img src="https://avatars2.githubusercontent.com/u/4994260?v=4" width="100px;" alt=""/><br /><sub><b>Lucas van Staden</b></sub></a><br /><a href="https://github.com/OpenMage/magento-lts/commits?author=ProxiBlue" title="Code">💻</a></td>
     <td align="center"><a href="http://zamoroka.com/"><img src="https://avatars1.githubusercontent.com/u/9164112?v=4" width="100px;" alt=""/><br /><sub><b>zamoroka</b></sub></a><br /><a href="https://github.com/OpenMage/magento-lts/commits?author=zamoroka" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/wpdevteam"><img src="https://avatars3.githubusercontent.com/u/1577103?v=4" width="100px;" alt=""/><br /><sub><b>wpdevteam</b></sub></a><br /><a href="https://github.com/OpenMage/magento-lts/commits?author=wpdevteam" title="Code">💻</a></td>
   </tr>
 </table>
 
