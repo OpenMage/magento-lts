@@ -1,6 +1,6 @@
 <p align="center">
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-70-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-71-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <a href="https://travis-ci.org/openmage/magento-lts"><img src="https://travis-ci.org/openmage/magento-lts.svg" alt="Build Status"></a>
 <a href="https://packagist.org/packages/openmage/magento-lts"><img src="https://poser.pugx.org/openmage/magento-lts/d/total.svg" alt="Total Downloads"></a>
@@ -171,6 +171,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://binarzone.com/"><img src="https://avatars1.githubusercontent.com/u/200507?v=4" width="100px;" alt=""/><br /><sub><b>Micky Socaci</b></sub></a><br /><a href="https://github.com/OpenMage/magento-lts/commits?author=mickys" title="Code">💻</a></td>
     <td align="center"><a href="https://www.binaerfabrik.de/"><img src="https://avatars3.githubusercontent.com/u/7369753?v=4" width="100px;" alt=""/><br /><sub><b>Marvin Sengera</b></sub></a><br /><a href="https://github.com/OpenMage/magento-lts/commits?author=mSengera" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/kanevbg"><img src="https://avatars3.githubusercontent.com/u/11477130?v=4" width="100px;" alt=""/><br /><sub><b>Kostadin A.</b></sub></a><br /><a href="https://github.com/OpenMage/magento-lts/commits?author=kanevbg" title="Code">💻</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/julienloizelet"><img src="https://avatars3.githubusercontent.com/u/20956510?v=4" width="100px;" alt=""/><br /><sub><b>Julien Loizelet</b></sub></a><br /><a href="https://github.com/OpenMage/magento-lts/commits?author=julienloizelet" title="Code">💻</a></td>
   </tr>
 </table>
 

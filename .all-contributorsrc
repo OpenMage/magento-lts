@@ -639,6 +639,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "julienloizelet",
+      "name": "Julien Loizelet",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/20956510?v=4",
+      "profile": "https://github.com/julienloizelet",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
