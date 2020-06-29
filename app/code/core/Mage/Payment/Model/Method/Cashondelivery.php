@@ -54,5 +54,4 @@ class Mage_Payment_Model_Method_Cashondelivery extends Mage_Payment_Model_Method
     {
         return trim($this->getConfigData('instructions'));
     }
-
 }
