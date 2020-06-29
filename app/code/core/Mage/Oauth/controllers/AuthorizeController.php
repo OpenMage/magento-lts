@@ -48,9 +48,9 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
      */
     protected function _initForm($simple = false)
     {
-        /** @var $server Mage_Oauth_Model_Server */
+        /** @var Mage_Oauth_Model_Server $server */
         $server = Mage::getModel('oauth/server');
-        /** @var $session Mage_Customer_Model_Session */
+        /** @var Mage_Customer_Model_Session $session */
         $session = Mage::getSingleton($this->_sessionName);
 
         $isException = false;
@@ -73,15 +73,15 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
         $contentBlock = $layout->getBlock('content');
         if ($logged) {
             $contentBlock->unsetChild('oauth.authorize.form');
-            /** @var $block Mage_Oauth_Block_Authorize_Button */
+            /** @var Mage_Oauth_Block_Authorize_Button $block */
             $block = $contentBlock->getChild('oauth.authorize.button');
         } else {
             $contentBlock->unsetChild('oauth.authorize.button');
-            /** @var $block Mage_Oauth_Block_Authorize */
+            /** @var Mage_Oauth_Block_Authorize $block */
             $block = $contentBlock->getChild('oauth.authorize.form');
         }
 
-        /** @var $helper Mage_Core_Helper_Url */
+        /** @var Mage_Core_Helper_Url $helper */
         $helper = Mage::helper('core/url');
         $session->setAfterAuthUrl(Mage::getUrl('customer/account/login', array('_nosid' => true)))
                 ->setBeforeAuthUrl($helper->getCurrentUrl());
@@ -100,10 +100,10 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
      */
     protected function _initConfirmPage($simple = false)
     {
-        /** @var $helper Mage_Oauth_Helper_Data */
+        /** @var Mage_Oauth_Helper_Data $helper */
         $helper = Mage::helper('oauth');
 
-        /** @var $session Mage_Customer_Model_Session */
+        /** @var Mage_Customer_Model_Session $session */
         $session = Mage::getSingleton($this->_sessionName);
         if (!$session->getCustomerId()) {
             $session->addError($this->__('Please login to proceed authorization.'));
@@ -114,15 +114,15 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
 
         $this->loadLayout();
 
-        /** @var $block Mage_Oauth_Block_Authorize */
+        /** @var Mage_Oauth_Block_Authorize $block */
         $block = $this->getLayout()->getBlock('oauth.authorize.confirm');
         $block->setIsSimple($simple);
 
         try {
-            /** @var $server Mage_Oauth_Model_Server */
+            /** @var Mage_Oauth_Model_Server $server */
             $server = Mage::getModel('oauth/server');
 
-            /** @var $token Mage_Oauth_Model_Token */
+            /** @var Mage_Oauth_Model_Token $token */
             $token = $server->authorizeToken($session->getCustomerId(), Mage_Oauth_Model_Token::USER_TYPE_CUSTOMER);
 
             if (($callback = $helper->getFullCallbackUrl($token))) { //false in case of OOB
@@ -156,19 +156,19 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
     {
         $this->loadLayout();
 
-        /** @var $session Mage_Customer_Model_Session */
+        /** @var Mage_Customer_Model_Session $session */
         $session = Mage::getSingleton($this->_sessionName);
         try {
-            /** @var $server Mage_Oauth_Model_Server */
+            /** @var Mage_Oauth_Model_Server $server */
             $server = Mage::getModel('oauth/server');
 
-            /** @var $block Mage_Oauth_Block_Authorize */
+            /** @var Mage_Oauth_Block_Authorize $block */
             $block = $this->getLayout()->getBlock('oauth.authorize.reject');
             $block->setIsSimple($simple);
 
-            /** @var $token Mage_Oauth_Model_Token */
+            /** @var Mage_Oauth_Model_Token $token */
             $token = $server->checkAuthorizeRequest();
-            /** @var $helper Mage_Oauth_Helper_Data */
+            /** @var Mage_Oauth_Helper_Data $helper */
             $helper = Mage::helper('oauth');
 
             if (($callback = $helper->getFullCallbackUrl($token, true))) {
