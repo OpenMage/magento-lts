@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tag
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,20 +38,29 @@ class Mage_Tag_Block_Customer_Edit extends Mage_Core_Block_Template
 {
     protected $_tag;
 
+    /**
+     * @return Mage_Tag_Model_Tag_Relation
+     */
     public function getTag()
     {
-        if( !$this->_tag ) {
+        if (!$this->_tag) {
             $this->_tag = Mage::registry('tagModel');
         }
 
         return $this->_tag;
     }
 
+    /**
+     * @return string
+     */
     public function getFormAction()
     {
         return $this->getUrl('*/*/save', array('tagId' => $this->getTag()->getTagId()));
     }
 
+    /**
+     * @return string
+     */
     public function getBackUrl()
     {
         return $this->getUrl('*/*/view', array('tagId' => $this->getTag()->getTagId()));

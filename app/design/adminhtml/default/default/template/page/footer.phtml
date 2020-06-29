@@ -20,12 +20,12 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <p class="bug-report">
-    <a href="<?php echo $this->getBugreportUrl() ?>" id="footer_bug_tracking"><?php echo $this->__('Help Us Keep Magento Healthy - Report All Bugs') ?></a><br/>
+    <a href="<?php echo $this->getBugreportUrl() ?>" id="footer_bug_tracking"><?php echo $this->__('Help Us Keep OpenMage Healthy - Report All Bugs') ?></a><br/>
     <?php echo $this->__('Interface Locale: %s', $this->getLanguageSelect()) ?>
 </p>
 <p class="legality">
@@ -33,7 +33,8 @@
     <img src="<?php echo $this->getSkinUrl('images/varien_logo.gif') ?>" class="v-middle" alt="" />&nbsp;&nbsp;
     <?php echo $this->__('Magento&trade; is a trademark of Magento Inc.<br/>Copyright &copy; %s Magento Inc.', date('Y')) ?>
 </p>
-<?php echo $this->__('Magento ver. %s', Mage::getVersion()) ?>
+<?php echo $this->__('OpenMage ver. %s', Mage::getOpenMageVersion()) ?>
+&nbsp;(<?php echo $this->__('based on Magento ver. %s', Mage::getVersion()) ?>)
 <script type="text/javascript">
     $('footer_bug_tracking').target = 'Varien_External';
     $('footer_connect').target = 'Varien_External';

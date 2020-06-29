@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -84,7 +84,8 @@ class Mage_Core_Model_Resource_Variable_Collection extends Mage_Core_Model_Resou
             ->join(
                 array('value_table' => $this->getTable('core/variable_value')),
                 'value_table.variable_id = main_table.variable_id',
-                array('value_table.plain_value', 'value_table.html_value'));
+                array('value_table.plain_value', 'value_table.html_value')
+            );
         $this->addFieldToFilter('value_table.store_id', array('eq' => $this->getStoreId()));
         return $this;
     }

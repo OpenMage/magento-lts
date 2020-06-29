@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sitemap
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -75,25 +75,24 @@ class Mage_Sitemap_Model_Observer
         }
 
         $collection = Mage::getModel('sitemap/sitemap')->getCollection();
-        /* @var $collection Mage_Sitemap_Model_Mysql4_Sitemap_Collection */
+        /* @var Mage_Sitemap_Model_Resource_Sitemap_Collection $collection */
         foreach ($collection as $sitemap) {
-            /* @var $sitemap Mage_Sitemap_Model_Sitemap */
+            /* @var Mage_Sitemap_Model_Sitemap $sitemap */
 
             try {
                 $sitemap->generateXml();
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 $errors[] = $e->getMessage();
             }
         }
 
         if ($errors && Mage::getStoreConfig(self::XML_PATH_ERROR_RECIPIENT)) {
             $translate = Mage::getSingleton('core/translate');
-            /* @var $translate Mage_Core_Model_Translate */
+            /* @var Mage_Core_Model_Translate $translate */
             $translate->setTranslateInline(false);
 
             $emailTemplate = Mage::getModel('core/email_template');
-            /* @var $emailTemplate Mage_Core_Model_Email_Template */
+            /* @var Mage_Core_Model_Email_Template $emailTemplate */
             $emailTemplate->setDesignConfig(array('area' => 'backend'))
                 ->sendTransactional(
                     Mage::getStoreConfig(self::XML_PATH_ERROR_TEMPLATE),

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Downloadable
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -57,7 +57,7 @@ class Mage_Downloadable_Model_Link_Api_V2 extends Mage_Downloadable_Model_Link_A
      * @param string $resourceType
      * @param string|int $store
      * @param string $identifierType ('sku'|'id')
-     * @return type
+     * @return bool
      */
     public function add($productId, $resource, $resourceType, $store = null, $identifierType = null)
     {

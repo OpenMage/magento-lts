@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -56,8 +56,7 @@ abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource
     /**
      * Perform actions before object save
      *
-     * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Eav_Model_Resource_Attribute
+     * @inheritDoc
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
@@ -73,7 +72,7 @@ abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource
      *
      * @param string $field
      * @param mixed $value
-     * @param Mage_Core_Model_Abstract $object
+     * @param Mage_Core_Model_Abstract|Mage_Eav_Model_Attribute $object
      * @return Varien_Db_Select
      */
     protected function _getLoadSelect($field, $value, $object)
@@ -91,7 +90,8 @@ abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource
             }
             $conditionSql = $adapter->quoteInto(
                 $this->getMainTable() . '.attribute_id = scope_table.attribute_id AND scope_table.website_id =?',
-                $websiteId);
+                $websiteId
+            );
             $select->joinLeft(
                 array('scope_table' => $scopeTable),
                 $conditionSql,
@@ -105,8 +105,8 @@ abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource
     /**
      * Save attribute/form relations after attribute save
      *
-     * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Eav_Model_Resource_Attribute
+     * @param Mage_Eav_Model_Attribute $object
+     * @inheritDoc
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {

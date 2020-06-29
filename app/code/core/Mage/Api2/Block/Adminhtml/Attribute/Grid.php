@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Api2
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -63,7 +63,7 @@ class Mage_Api2_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Widg
     /**
      * Prepare grid columns
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareColumns()
     {
@@ -96,7 +96,7 @@ class Mage_Api2_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Widg
      */
     public function getRowUrl($row)
     {
-        /** @var $session Mage_Admin_Model_Session */
+        /** @var Mage_Admin_Model_Session $session */
         $session = Mage::getSingleton('admin/session');
         if ($session->isAllowed('system/api/attributes/edit')) {
             return $this->getUrl('*/*/edit', array('type' => $row->getUserTypeCode()));

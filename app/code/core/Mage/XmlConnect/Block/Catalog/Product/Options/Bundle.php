@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -62,7 +62,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Options_Bundle extends Mage_XmlConne
             $product->getTypeInstance(true)->getOptionsIds($product), $product
         );
         $bundleOptions = $optionCollection->appendSelections($selectionCollection, false, false);
-        if (!sizeof($bundleOptions)) {
+        if (!count($bundleOptions)) {
             return $isObject ? $xmlModel : $xmlModel->asNiceXml();
         }
 

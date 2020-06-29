@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,10 +29,12 @@
  *
  * @method Mage_Tax_Model_Resource_Class _getResource()
  * @method Mage_Tax_Model_Resource_Class getResource()
+ * @method Mage_Tax_Model_Resource_Class_Collection getCollection()
+ *
  * @method string getClassName()
- * @method Mage_Tax_Model_Class setClassName(string $value)
+ * @method $this setClassName(string $value)
  * @method string getClassType()
- * @method Mage_Tax_Model_Class setClassType(string $value)
+ * @method $this setClassType(string $value)
  *
  * @category    Mage
  * @package     Mage_Tax

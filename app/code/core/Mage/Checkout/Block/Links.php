@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,6 +30,9 @@
  * @category    Mage
  * @package     Mage_Checkout
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method int getSummaryQty()
+ * @method Mage_Page_Block_Template_Links getParentBlock()
  */
 class Mage_Checkout_Block_Links extends Mage_Core_Block_Template
 {
@@ -73,8 +76,13 @@ class Mage_Checkout_Block_Links extends Mage_Core_Block_Template
         if ($parentBlock && Mage::helper('core')->isModuleOutputEnabled('Mage_Checkout')) {
             $text = $this->__('Checkout');
             $parentBlock->addLink(
-                $text, 'checkout', $text,
-                true, array('_secure' => true), 60, null,
+                $text,
+                'checkout',
+                $text,
+                true,
+                array('_secure' => true),
+                60,
+                null,
                 'class="top-link-checkout"'
             );
         }

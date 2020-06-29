@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Media
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -40,14 +40,14 @@ interface Mage_Media_Model_Image_Config_Interface
      *
      * @return string
      */
-    function getBaseMediaUrl();
+    public function getBaseMediaUrl();
 
     /**
      * Retrive base path for media files
      *
      * @return string
      */
-    function getBaseMediaPath();
+    public function getBaseMediaPath();
 
     /**
      * Retrive url for media file
@@ -55,7 +55,7 @@ interface Mage_Media_Model_Image_Config_Interface
      * @param string $file
      * @return string
      */
-    function getMediaUrl($file);
+    public function getMediaUrl($file);
 
     /**
      * Retrive file system path for media file
@@ -63,6 +63,5 @@ interface Mage_Media_Model_Image_Config_Interface
      * @param string $file
      * @return string
      */
-    function getMediaPath($file);
-
+    public function getMediaPath($file);
 }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Newsletter
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -60,6 +60,9 @@ class Mage_Newsletter_ManageController extends Mage_Core_Controller_Front_Action
         $this->renderLayout();
     }
 
+    /**
+     * @return Mage_Newsletter_ManageController
+     */
     public function saveAction()
     {
         if (!$this->_validateFormKey()) {
@@ -75,8 +78,7 @@ class Mage_Newsletter_ManageController extends Mage_Core_Controller_Front_Action
             } else {
                 Mage::getSingleton('customer/session')->addSuccess($this->__('The subscription has been removed.'));
             }
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             Mage::getSingleton('customer/session')->addError($this->__('An error occurred while saving your subscription.'));
         }
         $this->_redirect('customer/account/');

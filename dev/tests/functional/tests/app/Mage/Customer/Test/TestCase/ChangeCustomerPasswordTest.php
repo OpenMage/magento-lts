@@ -20,7 +20,7 @@
  *
  * @category    Tests
  * @package     Tests_Functional
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -121,5 +121,26 @@ class ChangeCustomerPasswordTest extends Injectable
         $this->customerAccountIndex->getInfoBlock()->openChangePassword();
         $this->customerAccountEdit->getAccountInfoForm()->fill($customer);
         $this->customerAccountEdit->getAccountInfoForm()->submit();
+        $this->cmsIndex->getTopLinksBlock()->openAccount();
+        if (
+            !$this->customerAccountIndex->getMessagesBlock()->isVisibleMessage('success')
+            && $this->cmsIndex->getLinksBlock()->isLinkVisible('Log In')
+        ) {
+            $fixtureFactory = $this->objectManager->create('Magento\Mtf\Fixture\FixtureFactory');
+            $customer = $fixtureFactory->createByCode(
+                'customer',
+                [
+                    'data' => [
+                        'email' => $initialCustomer->getEmail(),
+                        'password' => $customer->getPassword(),
+                        'password_confirmation' => $customer->getPassword(),
+                    ],
+                ]
+            );
+            $this->objectManager->create(
+                'Mage\Customer\Test\TestStep\LoginCustomerOnFrontendStep',
+                ['customer' => $customer]
+            )->run();
+        }
     }
 }

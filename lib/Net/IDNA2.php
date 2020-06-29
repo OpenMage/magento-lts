@@ -2683,7 +2683,7 @@ class Net_IDNA2
 
         if ($delim_pos > self::_byteLength($this->_punycode_prefix)) {
             for ($k = self::_byteLength($this->_punycode_prefix); $k < $delim_pos; ++$k) {
-                $decoded[] = ord($encoded{$k});
+                $decoded[] = ord($encoded[$k]);
             }
         } else {
             $decoded = array();

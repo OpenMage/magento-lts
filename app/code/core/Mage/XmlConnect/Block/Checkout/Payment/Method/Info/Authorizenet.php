@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -54,7 +54,7 @@ class Mage_XmlConnect_Block_Checkout_Payment_Method_Info_Authorizenet extends Ma
                 'label' => $showCount ? $this->__('Credit Card %s', $key + 1) : $this->__('Credit Card')
             ));
             foreach ($card as $label => $value) {
-                $creditCard->addCustomChild('item', implode($this->getValueAsArray($value, true), '\n'), array(
+                $creditCard->addCustomChild('item', implode('\n', $this->getValueAsArray($value, true)), array(
                     'label' => $label
                 ));
             }

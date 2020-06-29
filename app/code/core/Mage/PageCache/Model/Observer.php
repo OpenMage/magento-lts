@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_PageCache
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -56,6 +56,7 @@ class Mage_PageCache_Model_Observer
         if (!$this->isCacheEnabled()) {
             return $this;
         }
+        /** @var Mage_Core_Controller_Front_Action $action */
         $action = $observer->getEvent()->getControllerAction();
         $request = $action->getRequest();
         $needCaching = true;

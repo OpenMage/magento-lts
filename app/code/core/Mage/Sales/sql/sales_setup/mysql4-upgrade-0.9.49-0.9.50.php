@@ -20,12 +20,12 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
-/* @var $installer Mage_Sales_Model_Mysql4_Setup */
+/* @var Mage_Sales_Model_Mysql4_Setup $installer */
 $installer = $this;
 
 $tablePaymentTransaction = $this->getTable('sales/payment_transaction');
@@ -48,8 +48,7 @@ CREATE TABLE `{$tablePaymentTransaction}` (
   KEY `IDX_ORDER_ID` (`order_id`),
   KEY `IDX_PARENT_ID` (`parent_id`),
   KEY `IDX_PAYMENT_ID` (`payment_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;"
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 
 $installer->getConnection()->addConstraint(
     'SALES_PAYMENT_TRANSACTION_PARENT',

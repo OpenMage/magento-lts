@@ -20,12 +20,12 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 $installer = $this;
-/* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
+/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 
 $installer->startSetup();
 $installer->getConnection()->closeConnection();
@@ -43,7 +43,8 @@ $installer->getConnection()->addColumn(
 );
 
 $entityTypeId   = $installer->getEntityTypeId('catalog_product');
-$sqlAttributes  = $installer->getConnection()->quoteInto('?',
+$sqlAttributes  = $installer->getConnection()->quoteInto(
+    '?',
     Mage::getSingleton('catalog/config')->getProductCollectionAttributes()
 );
 $installer->run("

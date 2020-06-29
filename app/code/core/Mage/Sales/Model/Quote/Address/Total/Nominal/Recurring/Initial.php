@@ -20,15 +20,14 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Total model for recurring profile initial fee
  */
-class Mage_Sales_Model_Quote_Address_Total_Nominal_Recurring_Initial
-    extends Mage_Sales_Model_Quote_Address_Total_Nominal_RecurringAbstract
+class Mage_Sales_Model_Quote_Address_Total_Nominal_Recurring_Initial extends Mage_Sales_Model_Quote_Address_Total_Nominal_RecurringAbstract
 {
     /**
      * Custom row total/profile keys

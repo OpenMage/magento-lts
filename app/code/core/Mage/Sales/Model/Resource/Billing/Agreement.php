@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -53,7 +53,8 @@ class Mage_Sales_Model_Resource_Billing_Agreement extends Mage_Core_Model_Resour
     public function addOrderRelation($agreementId, $orderId)
     {
         $this->_getWriteAdapter()->insert(
-            $this->getTable('sales/billing_agreement_order'), array(
+            $this->getTable('sales/billing_agreement_order'),
+            array(
                 'agreement_id'  => $agreementId,
                 'order_id'      => $orderId
             )

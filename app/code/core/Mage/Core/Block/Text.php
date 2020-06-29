@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,22 +29,41 @@
  * Base html block
  *
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method array getLiParams()
+ * @method $this setLiParams(array $value)
+ * @method array getAParams()
+ * @method $this setAParams(array $value)
+ * @method string getInnerText()
+ * @method $this setInnerText(string $value)
+ * @method string getAfterText()
+ * @method $this setAfterText(string $value)
  */
 class Mage_Core_Block_Text extends Mage_Core_Block_Abstract
 {
-
+    /**
+     * @param string $text
+     * @return $this
+     */
     public function setText($text)
     {
         $this->setData('text', $text);
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getText()
     {
         return $this->getData('text');
     }
 
-    public function addText($text, $before=false)
+    /**
+     * @param string $text
+     * @param bool $before
+     */
+    public function addText($text, $before = false)
     {
         if ($before) {
             $this->setText($text.$this->getText());
@@ -53,6 +72,9 @@ class Mage_Core_Block_Text extends Mage_Core_Block_Abstract
         }
     }
 
+    /**
+     * @return string
+     */
     protected function _toHtml()
     {
         if (!$this->_beforeToHtml()) {
@@ -61,5 +83,4 @@ class Mage_Core_Block_Text extends Mage_Core_Block_Abstract
 
         return $this->getText();
     }
-
 }

@@ -19,7 +19,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 var Checkout = Class.create();
@@ -742,7 +742,7 @@ Payment.prototype = {
     changeVisible: function(method, mode) {
         var block = 'payment_form_' + method;
         [block + '_before', block, block + '_after'].each(function(el) {
-            element = $(el);
+            var element = $(el);
             if (element) {
                 element.style.display = (mode) ? 'none' : '';
                 element.select('input', 'select', 'textarea', 'button').each(function(field) {
