@@ -33,5 +33,4 @@ class Mage_Payment_Block_Form_Checkmo extends Mage_Payment_Block_Form
         parent::_construct();
         $this->setTemplate('payment/form/checkmo.phtml');
     }
-
 }

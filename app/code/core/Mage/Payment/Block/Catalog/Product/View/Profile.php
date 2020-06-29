@@ -26,6 +26,8 @@
 
 /**
  * Recurring profile info/options product view block
+ *
+ * @method $this setDateHtmlId(string $string)
  */
 class Mage_Payment_Block_Catalog_Product_View_Profile extends Mage_Core_Block_Template
 {
@@ -78,7 +80,7 @@ class Mage_Payment_Block_Catalog_Product_View_Profile extends Mage_Core_Block_Te
     /**
      * Determine current product and initialize its recurring profile model
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
