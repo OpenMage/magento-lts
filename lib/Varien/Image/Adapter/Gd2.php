@@ -43,18 +43,22 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      */
     protected $_resized = false;
 
+    /**
+     *  Remove usage of register_shutdown_function and allow
+     *  memory to be freed
+     */
     public function __construct()
     {
-        // Initialize shutdown function
-        register_shutdown_function(array($this, 'destruct'));
     }
 
     /**
      * Destroy object image on shutdown
      */
-    public function destruct()
+    public function __destruct()
     {
-        @imagedestroy($this->_imageHandler);
+        if (is_resource($this->_imageHandler)) {
+            imagedestroy($this->_imageHandler);
+        }
     }
 
     /**
