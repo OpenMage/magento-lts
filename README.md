@@ -21,10 +21,25 @@ Note, the branches older than `1.9.3.x` that were created before this strategy c
 
 ## Installation
 
+### Using Composer
 Download the latest archive and extract it, clone the repo, or add a composer dependency to your existing project like so:
 
 ```json
 "openmage/magento-lts": "1.9.4.x"
+```
+
+### Using Git
+Go to `https://github.com/OpenMage/magento-lts` and fork the project. Enter your web directory and start a new fit project utilizing `git init`. Set git remote to your forked repo using `git remote add origin https://github.com/<YOUR GIT USERNAME>/magento-lts`. Issue `git pull origin master`. Then add the official LTS repo as an upstream using `git remote add upstream https://github.com/OpenMage/magento-lts`. Issue `git pull upstream v19.4.4` or the latest version you want to pull. Be sure to check for conflicts before merging all in the next step. Dont forget to git commit and add files to your own forked repo.
+
+When using git you have the ability to fix and test your own code in your own repo. In addition you can periodically sync with the official upstream Magento LTS repo.
+
+```
+git init
+git remote add origin https://github.com/<YOUR GIT USERNAME>/magento-lts
+git pull origin master
+git remote add upstream https://github.com/OpenMage/magento-lts
+git pull upstream v19.4.4
+git add -A && git commit
 ```
 
 [More Information](http://openmage.github.io/magento-lts/install.html)
