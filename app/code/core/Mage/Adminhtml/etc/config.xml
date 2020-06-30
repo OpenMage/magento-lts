@@ -87,6 +87,14 @@
                     </configuration_files_access_level_verification>
                 </observers>
             </admin_user_authenticate_after>
+            <controller_action_predispatch>
+                <observers>
+                    <bad_controller_login_prevention>
+                        <class>adminhtml/observer</class>
+                        <method>preventBadControllerLogin</method>
+                    </bad_controller_login_prevention>
+                </observers>
+            </controller_action_predispatch>
         </events>
     </global>
     <admin>
