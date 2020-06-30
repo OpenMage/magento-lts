@@ -76,4 +76,41 @@ class Mage_Adminhtml_Model_Observer
         Mage::app()->removeCache(Mage_Adminhtml_Block_Notification_Security::VERIFICATION_RESULT_CACHE_KEY);
         return $this;
     }
+
+    /**
+     * Prevent login from controllers that is not Mage_Adminhtml_IndexController
+     *
+     * @param Varien_Event_Observer $observer
+     */
+    public function preventBadControllerLogin(Varien_Event_Observer $observer)
+    {
+
+        $event = $observer->getEvent();
+        $controller = $event->getData('controller_action');
+        $adminConfig = Mage::getConfig()->getNode('admin/routers/adminhtml/args')->asArray();
+        $isLoggedIn = Mage::getSingleton('admin/session')->isLoggedIn();
+        $adminLoginUrl = Mage::helper('adminhtml')->getUrl('adminhtml');
+        $currentUrl = Mage::helper('core/url')->getCurrentUrl();
+        $adminPath = null;
+
+        if ($controller instanceof Mage_Adminhtml_IndexController) {
+            return;
+        }
+
+        if (isset($adminConfig['frontName']) && is_string($adminConfig['frontName'])) {
+            $adminPath = $adminConfig['frontName'];
+        }
+
+        if ($controller instanceof Mage_Adminhtml_Controller_Action && $isLoggedIn !== true) {
+            $controller->getResponse()->clearHeaders();
+            if ($adminPath !== null && stristr($currentUrl, $adminPath) !== false) {
+                $controller->getResponse()->setRedirect($adminLoginUrl);
+            } else {
+                $controller->getResponse()->setBody('');
+                $controller->getResponse()->setHttpResponseCode(403);
+            }
+            $controller->getResponse()->sendResponse();
+            exit;
+        }
+    }
 }
