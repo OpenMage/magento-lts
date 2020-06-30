@@ -51,14 +51,19 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
     {
     }
 
-    /**
-     * Destroy object image on shutdown
-     */
     public function __destruct()
     {
         if (is_resource($this->_imageHandler)) {
             imagedestroy($this->_imageHandler);
         }
+    }
+
+    /**
+     * Destroy object image on shutdown
+     */
+    public function destruct()
+    {
+        @imagedestroy($this->_imageHandler);
     }
 
     /**
