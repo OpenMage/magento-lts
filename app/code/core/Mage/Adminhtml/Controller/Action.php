@@ -280,6 +280,13 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
         $this->renderLayout();
     }
 
+    public function forbiddenAction()
+    {
+        $this->getResponse()->setHeader('HTTP/1.1','403 Forbidden');
+        $this->loadLayout(array('adminhtml_denied'));
+        $this->renderLayout();
+    }
+
     public function loadLayout($ids=null, $generateBlocks=true, $generateXml=true)
     {
         parent::loadLayout($ids, $generateBlocks, $generateXml);
