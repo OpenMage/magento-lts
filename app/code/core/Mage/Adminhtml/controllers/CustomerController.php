@@ -800,7 +800,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
 
         $path = Mage::getBaseDir('media') . DS . 'customer';
 
-        $ioFile = new Varien_Io_File();
+        $ioFile = Mage::getModel('core/varien_io_file');
         $ioFile->open(array('path' => $path));
         $fileName   = $ioFile->getCleanPath($path . $file);
         $path       = $ioFile->getCleanPath($path);

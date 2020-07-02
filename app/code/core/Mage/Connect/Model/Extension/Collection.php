@@ -55,7 +55,7 @@ class Mage_Connect_Model_Extension_Collection extends Varien_Data_Collection_Fil
     public function __construct()
     {
         $this->_baseDir = Mage::getBaseDir('var') . DS . 'connect';
-        $io = new Varien_Io_File();
+        $io = Mage::getModel('core/varien_io_file');
         $io->setAllowCreateFolders(true)->createDestinationDir($this->_baseDir);
         $this->addTargetDir($this->_baseDir);
     }

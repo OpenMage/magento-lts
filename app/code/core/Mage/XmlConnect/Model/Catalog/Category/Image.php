@@ -183,7 +183,7 @@ class Mage_XmlConnect_Model_Catalog_Category_Image extends Mage_Catalog_Model_Pr
     public function clearCache()
     {
         $directory = Mage::getBaseDir('media') . DS . 'catalog' . DS . 'category' . DS . 'cache' . DS;
-        $ioFile = new Varien_Io_File();
+        $ioFile = Mage::getModel('core/varien_io_file');
         $ioFile->rmdir($directory, true);
     }
 

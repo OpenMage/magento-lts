@@ -146,7 +146,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
             Mage::throwException(Mage::helper('backup')->__('Wrong order of creation for new backup.'));
         }
 
-        $ioProxy = new Varien_Io_File();
+        $ioProxy = Mage::getModel('core/varien_io_file');
         $ioProxy->setAllowCreateFolders(true);
         $ioProxy->open(array('path'=>$this->getPath()));
 
@@ -222,7 +222,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
             Mage::throwException(Mage::helper('backup')->__("Backup file does not exist."));
         }
 
-        $ioProxy = new Varien_Io_File();
+        $ioProxy = Mage::getModel('core/varien_io_file');
         $ioProxy->open(array('path'=>$this->getPath()));
         $ioProxy->rm($this->getFileName());
         return $this;
@@ -240,7 +240,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
             Mage::exception('Mage_Backup', Mage::helper('backup')->__('Backup file path was not specified.'));
         }
 
-        $ioAdapter = new Varien_Io_File();
+        $ioAdapter = Mage::getModel('core/varien_io_file');
         try {
             $path = $ioAdapter->getCleanPath($this->getPath());
             $ioAdapter->checkAndCreateFolder($path);
@@ -339,7 +339,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
             return ;
         }
 
-        $ioAdapter = new Varien_Io_File();
+        $ioAdapter = Mage::getModel('core/varien_io_file');
         $ioAdapter->open(array('path' => $this->getPath()));
 
         $ioAdapter->streamOpen($this->getFileName(), 'r');

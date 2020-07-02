@@ -308,7 +308,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
             }
 
             // Do resize and save
-            $processor = new Varien_Image($sourceFilePath);
+            $processor = Mage::getModel('core/varien_image',$sourceFilePath);
             $processor->resize($width, $height);
             $processor->save(Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS . $destPath);
             Mage::helper('core/file_storage_database')->saveFile($destPath);
@@ -323,7 +323,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
     public function clearSwatchesCache()
     {
         $directory = Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS . self::SWATCH_CACHE_DIR;
-        $io = new Varien_Io_File();
+        $io = Mage::getModel('core/varien_io_file');
         $io->rmdir($directory, true);
 
         Mage::helper('core/file_storage_database')->deleteFolder($directory);

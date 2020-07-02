@@ -918,7 +918,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected function _getFileContainerContent(array $fileData)
     {
-        $io = new Varien_Io_File();
+        $io = Mage::getModel('core/varien_io_file');
         $path = $io->dirname($fileData['value']);
         $io->open(array('path' => $path));
         return $io->read($fileData['value']);
@@ -1027,7 +1027,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $this->_isExport = true;
         $this->_prepareGrid();
 
-        $io = new Varien_Io_File();
+        $io = Mage::getModel('core/varien_io_file');
 
         $path = Mage::getBaseDir('var') . DS . 'export' . DS;
         $name = md5(microtime());
@@ -1171,7 +1171,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $this->_prepareGrid();
 
         $parser = new Varien_Convert_Parser_Xml_Excel();
-        $io     = new Varien_Io_File();
+        $io     = Mage::getModel('core/varien_io_file');
 
         $path = Mage::getBaseDir('var') . DS . 'export' . DS;
         $name = md5(microtime());

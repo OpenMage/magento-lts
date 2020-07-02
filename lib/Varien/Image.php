@@ -26,6 +26,7 @@
 
 /**
  * Image handler library
+ * Instead of creating instances using "new", use Mage::getModel('core/image')
  *
  * @category   Varien
  * @package    Varien_Image

@@ -1096,7 +1096,7 @@ abstract class Mage_Core_Controller_Varien_Action
                 $this->getResponse()->clearBody();
                 $this->getResponse()->sendHeaders();
 
-                $ioAdapter = new Varien_Io_File();
+                $ioAdapter = Mage::getModel('core/varien_io_file');
                 $ioAdapter->open(array('path' => $ioAdapter->dirname($file)));
                 $ioAdapter->streamOpen($file, 'r');
                 while ($buffer = $ioAdapter->streamRead()) {

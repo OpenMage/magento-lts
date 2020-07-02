@@ -154,7 +154,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
 
         if( !is_writable($destinationDir) ) {
             try {
-                $io = new Varien_Io_File();
+                $io = Mage::getModel('core/varien_io_file');
                 $io->mkdir($destination);
             } catch (Exception $e) {
                 throw new Exception("Unable to write file into directory '{$destinationDir}'. Access forbidden.");

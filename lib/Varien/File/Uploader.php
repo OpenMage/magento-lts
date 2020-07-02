@@ -30,6 +30,8 @@
  * ATTENTION! This class must be used like abstract class and must added
  * validation by protected file extension list to extended class
  *
+ * Instead of creating instances using "new", use Mage::getModel('core/varien_file_uploader')
+ *
  * @category   Varien
  * @package    Varien_File
  * @author     Magento Core Team <core@magentocommerce.com>

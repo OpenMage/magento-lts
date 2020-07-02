@@ -36,7 +36,7 @@ class Mage_Adminhtml_Catalog_Product_GalleryController extends Mage_Adminhtml_Co
     public function uploadAction()
     {
         try {
-            $uploader = new Mage_Core_Model_File_Uploader('image');
+            $uploader = Mage::getModel('core/file_uploader','image');
             $uploader->setAllowedExtensions(array('jpg','jpeg','gif','png'));
             $uploader->addValidateCallback('catalog_product_image',
                 Mage::helper('catalog/image'), 'validateUploadFile');

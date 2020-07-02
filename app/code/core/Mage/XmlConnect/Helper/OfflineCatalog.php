@@ -105,7 +105,7 @@ class Mage_XmlConnect_Helper_OfflineCatalog extends Mage_Core_Helper_Abstract
     protected function _getFileIo()
     {
         if ($this->_fileIo === null) {
-            $this->_fileIo = new Varien_Io_File();
+            $this->_fileIo = Mage::getModel('core/varien_io_file');
         }
         return $this->_fileIo;
     }

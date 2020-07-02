@@ -50,7 +50,7 @@ class Mage_Backup_Model_Fs_Collection extends Varien_Data_Collection_Filesystem
         $this->_baseDir = Mage::getBaseDir('var') . DS . 'backups';
 
         // check for valid base dir
-        $ioProxy = new Varien_Io_File();
+        $ioProxy = Mage::getModel('core/varien_io_file');
         $ioProxy->mkdir($this->_baseDir);
         if (!is_file($this->_baseDir . DS . '.htaccess')) {
             $ioProxy->open(array('path' => $this->_baseDir));

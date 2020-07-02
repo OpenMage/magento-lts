@@ -176,7 +176,7 @@ EOT;
                 $this->_themeArray  = array();
                 $themeDir = $this->getMediaThemePath();
 
-                $ioFile = new Varien_Io_File();
+                $ioFile = Mage::getModel('core/varien_io_file');
                 $ioFile->checkAndCreateFolder($themeDir);
                 $ioFile->open(array('path' => $themeDir));
                 $fileList = $ioFile->ls(Varien_Io_File::GREP_FILES);
@@ -213,7 +213,7 @@ EOT;
         if (Mage::app()->useCache('config') && $cache) {
             $defaultFiles = unserialize($cache);
         } else {
-            $ioFile = new Varien_Io_File();
+            $ioFile = Mage::getModel('core/varien_io_file');
             $ioFile->open(array('path' => $this->_getDefaultThemePath()));
             $fileDefaultList = $ioFile->ls(Varien_Io_File::GREP_FILES);
             $defaultFiles = array();
@@ -251,7 +251,7 @@ EOT;
         $saveLibxmlErrors   = libxml_use_internal_errors(true);
         $defaultThemeArray  = array();
         $themeDir = $this->_getDefaultThemePath();
-        $ioFile = new Varien_Io_File();
+        $ioFile = Mage::getModel('core/varien_io_file');
         $ioFile->open(array('path' => $themeDir));
         try {
             $fileList = $ioFile->ls(Varien_Io_File::GREP_FILES);
@@ -319,7 +319,7 @@ EOT;
         $themeDir = $this->getMediaThemePath();
         $defaultThemeDir = $this->_getDefaultThemePath();
 
-        $ioFile = new Varien_Io_File();
+        $ioFile = Mage::getModel('core/varien_io_file');
         $ioFile->open(array('path' => $defaultThemeDir));
         $fileList = $ioFile->ls(Varien_Io_File::GREP_FILES);
         foreach ($fileList as $file) {
@@ -422,7 +422,7 @@ EOT;
     public function deleteTheme($themeId)
     {
         $result = false;
-        $ioFile = new Varien_Io_File();
+        $ioFile = Mage::getModel('core/varien_io_file');
         $ioFile->cd($this->getMediaThemePath());
         $themeFile = basename($themeId . '.xml');
         if ($ioFile->fileExists($themeFile)) {

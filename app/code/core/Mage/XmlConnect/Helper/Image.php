@@ -116,7 +116,7 @@ class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
                 Mage::throwException(Mage::helper('xmlconnect')->__('File can\'t be uploaded.'));
             } elseif ($e->getMessage() == 'Disallowed file type.') {
                 $filename = $_FILES[$field]['name'];
-                $io = new Varien_Io_File();
+                $io = Mage::getModel('core/varien_io_file');
                 Mage::throwException(
                     Mage::helper('xmlconnect')->__(
                         'Error while uploading file "%s".' .
@@ -167,7 +167,7 @@ class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
          */
         if (!file_exists($originalSizeFileName)) {
             $oldFileName = $this->getOldUploadDir() . DS . $fileName;
-            $io = new Varien_Io_File();
+            $io = Mage::getModel('core/varien_io_file');
             if (file_exists($oldFileName)) {
                 if (!(copy($oldFileName, $originalSizeFileName) && (is_readable($customSizeFileName)
                     || chmod($customSizeFileName, 0644))
@@ -192,7 +192,7 @@ class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
             if (isset($_FILES[$fieldPath]) && is_array($_FILES[$fieldPath]) && isset($_FILES[$fieldPath]['name'])) {
                 $fileName = $_FILES[$fieldPath]['name'];
             }
-            $io = new Varien_Io_File();
+            $io = Mage::getModel('core/varien_io_file');
             Mage::throwException(Mage::helper('xmlconnect')->__('Error while uploading file "%s".',
                 $io->getFilteredPath($fileName)));
         }
@@ -224,7 +224,7 @@ class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
             }
         }
 
-        $image = new Varien_Image($file);
+        $image = Mage::getModel('core/varien_image',$file);
         $width = $image->getOriginalWidth();
         $height = $image->getOriginalHeight();
 
@@ -484,7 +484,7 @@ class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
         $file = array_pop($imageUrl);
         $filePath = Mage_XmlConnect_Model_Images::getBasePath() . DS . $file;
         if (!file_exists($customDir . DS . $file)) {
-            $image = new Varien_Image($filePath);
+            $image = Mage::getModel('core/varien_image',$filePath);
             $widthOriginal = $image->getOriginalWidth();
             $heightOriginal = $image->getOriginalHeight();
 
@@ -693,7 +693,7 @@ class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
     protected function _verifyDirExist($dir)
     {
         try {
-            $ioFile = new Varien_Io_File();
+            $ioFile = Mage::getModel('core/varien_io_file');
             $ioFile->checkAndCreateFolder($dir);
         } catch (Exception $e) {
             Mage::throwException($e->getMessage());

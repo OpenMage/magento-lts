@@ -82,7 +82,7 @@ class Mage_XmlConnect_Model_Images extends Mage_Core_Model_Abstract
     protected function _deleteImageFiles($imageFile, $deleteOriginal = true)
     {
         $convertedImageFile = $this->_convertFileExtensionToPng($imageFile);
-        $ioAdapter = new Varien_Io_File();
+        $ioAdapter = Mage::getModel('core/varien_io_file');
         $baseImageDir = Mage::helper('xmlconnect/image')->getMediaPath('custom');
         if (is_dir($baseImageDir)) {
             $dirArray = array_diff(scandir($baseImageDir), array('.', '..'));
@@ -237,7 +237,7 @@ class Mage_XmlConnect_Model_Images extends Mage_Core_Model_Abstract
      */
     protected  function _checkImageExists($imagePath)
     {
-        $image = new Varien_Io_File();
+        $image = Mage::getModel('core/varien_io_file');
         return $image->fileExists(self::getBasePath() . $imagePath);
     }
 
@@ -255,7 +255,7 @@ class Mage_XmlConnect_Model_Images extends Mage_Core_Model_Abstract
         $imageHelper = Mage::helper('xmlconnect/image');
         $screenSize = $width . 'x' . $height;
         $customDir = $imageHelper->getMediaPath('custom' . DS . $screenSize);
-        $ioFile = new Varien_Io_File();
+        $ioFile = Mage::getModel('core/varien_io_file');
         $ioFile->checkAndCreateFolder($customDir);
         $filePath = self::getBasePath() . DS . $imageFile;
         $isImagePng = true;
@@ -276,7 +276,7 @@ class Mage_XmlConnect_Model_Images extends Mage_Core_Model_Abstract
                 $filePath = $this->_forcedConvertPng($filePath, $customSizeFile, $originalImageType);
             }
 
-            $image = new Varien_Image($filePath);
+            $image = Mage::getModel('core/varien_image',$filePath);
             $widthOriginal = $image->getOriginalWidth();
             $heightOriginal = $image->getOriginalHeight();
 

@@ -63,7 +63,7 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
         $imageFileName = $this->_getFileName($data);
 
         try {
-            $ioAdapter = new Varien_Io_File();
+            $ioAdapter = Mage::getModel('core/varien_io_file');
             $ioAdapter->checkAndCreateFolder($apiTempDir);
             $ioAdapter->open(array('path' => $apiTempDir));
             $ioAdapter->write($imageFileName, $imageFileContent, 0666);
@@ -72,7 +72,7 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
             // try to create Image object to check if image data is valid
             try {
                 $filePath = $apiTempDir . DS . $imageFileName;
-                new Varien_Image($filePath);
+                Mage::getModel('core/varien_image',$filePath);
                 Mage::getModel('core/file_validator_image')->validate($filePath);
             } catch (Exception $e) {
                 $ioAdapter->rmdir($apiTempDir, true);

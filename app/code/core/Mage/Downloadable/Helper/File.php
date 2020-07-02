@@ -102,7 +102,7 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
      */
     protected function _moveFileFromTmp($baseTmpPath, $basePath, $file)
     {
-        $ioObject = new Varien_Io_File();
+        $ioObject = Mage::getModel('core/varien_io_file');
         $destDirectory = dirname($this->getFilePath($basePath, $file));
         try {
             $ioObject->open(array('path'=>$destDirectory));
