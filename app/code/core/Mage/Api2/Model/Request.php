@@ -323,15 +323,4 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
         }
         return false;
     }
-
-    /**
-     * @inheritDoc
-     */
-    public function getScheme()
-    {
-        return ($this->getServer('HTTP_X_FORWARDED_PROTO') == 'https' ?
-            static::SCHEME_HTTPS :
-            parent::getScheme()
-        );
-    }
 }

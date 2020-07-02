@@ -593,15 +593,4 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     {
         return $this->_internallyForwarded;
     }
-
-    /**
-     * @inheritDoc
-     */
-    public function getScheme()
-    {
-        return ($this->getServer('HTTP_X_FORWARDED_PROTO') == 'https' ?
-            static::SCHEME_HTTPS :
-            parent::getScheme()
-        );
-    }
 }
