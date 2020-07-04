@@ -44,16 +44,6 @@
 'Component: lib/*':
   - lib/*
   - lib/**/*
-  - !lib/Mage/*
-  - !lib/Mage/**/*
-  - !lib/PEAR/*
-  - !lib/PEAR/**/*
-  - !lib/Varien/*
-  - !lib/Varien/**/*
-  - !lib/Zend/*
-  - !lib/Zend/**/*
-  - !app/code/core/Zend/*
-  - !app/code/core/Zend/**/*
 
 'shell':
   - shell/*
@@ -607,4 +597,4 @@
 
 # Add Documentation Label
 'Documentation':
-  - *.md
+  - '*.md'
