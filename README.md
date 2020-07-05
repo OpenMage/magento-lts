@@ -29,7 +29,7 @@ Download the latest archive and extract it, clone the repo, or add a composer de
 ```
 
 ### Using Git
-Go to `https://github.com/OpenMage/magento-lts` and fork the project. Enter your web directory and start a new fit project utilizing `git init`. Set git remote to your forked repo using `git remote add origin https://github.com/<YOUR GIT USERNAME>/magento-lts`. Issue `git pull origin master`. Then add the official LTS repo as an upstream using `git remote add upstream https://github.com/OpenMage/magento-lts`. Issue `git pull upstream v19.4.4` or the latest version you want to pull. Be sure to check for conflicts before merging all in the next step. Dont forget to git commit and add files to your own forked repo.
+Go to `https://github.com/OpenMage/magento-lts` and fork the project. Enter your web directory and start a new git project utilizing `git init`. Set git remote to your forked repo using `git remote add origin https://github.com/<YOUR GIT USERNAME>/magento-lts`. Issue `git pull origin master`. Then add the official LTS repo as an upstream using `git remote add upstream https://github.com/OpenMage/magento-lts`. Issue `git pull upstream v19.4.4` or the latest version you want to pull. Be sure to check for conflicts before merging all in the next step. Dont forget to git commit and add files to your own forked repo.
 
 When using git you have the ability to fix and test your own code in your own repo. In addition you can periodically sync with the official upstream Magento LTS repo.
 
