@@ -88,7 +88,7 @@ class Mage_Wishlist_Block_Links extends Mage_Page_Block_Template_Links_Block
     {
         if ($count > 1) {
             return $this->__('My Wishlist (%d items)', $count);
-        } else if ($count == 1) {
+        } elseif ($count == 1) {
             return $this->__('My Wishlist (%d item)', $count);
         } else {
             return $this->__('My Wishlist');
@@ -96,10 +96,10 @@ class Mage_Wishlist_Block_Links extends Mage_Page_Block_Template_Links_Block
     }
 
     /**
-     * @deprecated after 1.4.2.0
+     * @return Mage_Wishlist_Block_Links
      * @see Mage_Wishlist_Block_Links::__construct
      *
-     * @return array
+     * @deprecated after 1.4.2.0
      */
     public function addWishlistLink()
     {
@@ -113,7 +113,7 @@ class Mage_Wishlist_Block_Links extends Mage_Page_Block_Template_Links_Block
      */
     public function getCacheTags()
     {
-        /** @var $wishlist Mage_Wishlist_Model_Wishlist */
+        /** @var Mage_Wishlist_Model_Wishlist $wishlist */
         $wishlist = $this->helper('wishlist')->getWishlist();
         $this->addModelTags($wishlist);
         foreach ($wishlist->getItemCollection() as $item) {

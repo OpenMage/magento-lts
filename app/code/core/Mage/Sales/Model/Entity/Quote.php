@@ -46,8 +46,8 @@ class Mage_Sales_Model_Entity_Quote extends Mage_Eav_Model_Entity_Abstract
     /**
      * Retrieve select object for loading base entity row
      *
-     * @param   Varien_Object $object
-     * @param   mixed $rowId
+     * @param   Varien_Object|Mage_Sales_Model_Quote $object
+     * @param   int $rowId
      * @return  Zend_Db_Select
      */
     protected function _getLoadRowSelect($object, $rowId)
@@ -64,6 +64,7 @@ class Mage_Sales_Model_Entity_Quote extends Mage_Eav_Model_Entity_Abstract
      *
      * @param Mage_Sales_Model_Quote $quote
      * @param int $customerId
+     * @return $this
      */
     public function loadByCustomerId($quote, $customerId)
     {
@@ -94,6 +95,7 @@ class Mage_Sales_Model_Entity_Quote extends Mage_Eav_Model_Entity_Abstract
      *
      * @param Mage_Sales_Model_Quote $quote
      * @param int $quoteId
+     * @return $this
      */
     public function loadByIdWithoutStore($quote, $quoteId)
     {
@@ -113,6 +115,11 @@ class Mage_Sales_Model_Entity_Quote extends Mage_Eav_Model_Entity_Abstract
         return $this;
     }
 
+    /**
+     * @param Mage_Sales_Model_Quote $quote
+     * @return string
+     * @throws Exception
+     */
     public function getReservedOrderId($quote)
     {
         return Mage::getSingleton('eav/config')->getEntityType('order')->fetchNewIncrementId($quote->getStoreId());

@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Model for synchronization from DB to filesystem
  *
@@ -46,6 +45,9 @@ class Mage_Core_Model_Resource_File_Storage_File
      * @var array
      */
     protected $_ignoredFiles;
+
+    /** @var resource */
+    protected $filePointer;
 
     /**
      * Files at storage
@@ -109,7 +111,7 @@ class Mage_Core_Model_Resource_File_Storage_File
      * Clear files and directories in storage
      *
      * @param  string $dir
-     * @return Mage_Core_Model_Mysql4_File_Storage_File
+     * @return $this
      */
     public function clear($dir = '')
     {
@@ -193,26 +195,33 @@ class Mage_Core_Model_Resource_File_Storage_File
     public function saveFile($filePath, $content, $overwrite = false)
     {
         $filename = basename($filePath);
-        $path = $this->getMediaBaseDirectory() . DS . str_replace('/', DS ,dirname($filePath));
+        $path = $this->getMediaBaseDirectory() . DS . str_replace('/', DS, dirname($filePath));
 
         if (!is_dir($path)) {
             @mkdir($path, 0777, true);
         }
 
         $fullPath = $path . DS . $filename;
-        if (!file_exists($fullPath) || $overwrite) {
-            // If overwrite is not required then return if file could not be locked (assume it is being written by another process)
-            // Exception is only thrown if file was opened but could not be written.
-            if (!$overwrite) {
-                if (!($fp = @fopen($fullPath, 'x'))) {
-                    return false;
-                }
-                if (@fwrite($fp, $content) !== false && @fclose($fp)) {
+        if ($this->filePointer || !file_exists($fullPath) || $overwrite) {
+            // If we already opened the file using lockCreateFile method
+            if ($this->filePointer) {
+                $fp = $this->filePointer;
+                $this->filePointer = NULL;
+                if (@fwrite($fp, $content) !== false && @fflush($fp) && @flock($fp, LOCK_UN) && @fclose($fp)) {
                     return true;
                 }
             }
-            // If overwrite is required, throw exception on failure to write file
-            else if (@file_put_contents($fullPath, $content, LOCK_EX) !== false) {
+            // If overwrite is not required then return if file could not be locked (assume it is being written by another process)
+            // Exception is only thrown if file was opened but could not be written.
+            else if (!$overwrite) {
+                if (!($fp = @fopen($fullPath, 'x'))) {
+                    return false;
+                }
+                if (@fwrite($fp, $content) !== false && @fflush($fp) && @fclose($fp)) {
+                    return true;
+                }
+            } // If overwrite is required, throw exception on failure to write file
+            elseif (@file_put_contents($fullPath, $content, LOCK_EX) !== false) {
                 return true;
             }
 
@@ -221,4 +230,58 @@ class Mage_Core_Model_Resource_File_Storage_File
 
         return false;
     }
+
+    /**
+     * Create a new file already locked by this process and save the handle for later writing by saveFile method.
+     *
+     * @param $filePath
+     * @return bool
+     */
+    public function lockCreateFile($filePath)
+    {
+        $filename = basename($filePath);
+        $path = $this->getMediaBaseDirectory() . DS . str_replace('/', DS ,dirname($filePath));
+
+        if (!is_dir($path)) {
+            @mkdir($path, 0777, true);
+        }
+
+        $fullPath = $path . DS . $filename;
+
+        // Get exclusive lock on new or existing file
+        if ($fp = @fopen($fullPath, 'c')) {
+            @flock($fp, LOCK_EX);
+            @fseek($fp, 0, SEEK_END);
+            if (@ftell($fp) === 0) { // If the file is empty we can write to it
+                $this->filePointer = $fp;
+                return true;
+            } else { // Otherwise we should not write to it
+                @flock($fp, LOCK_UN);
+                @fclose($fp);
+                return false;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Unlock, close and remove a locked file (in case the file could not be read from remote storage)
+     *
+     * @param $filePath
+     */
+    public function removeLockedFile($filePath)
+    {
+        $filename = basename($filePath);
+        $path = $this->getMediaBaseDirectory() . DS . str_replace('/', DS ,dirname($filePath));
+        $fullPath = $path . DS . $filename;
+        if ($this->filePointer) {
+            $fp = $this->filePointer;
+            $this->filePointer = NULL;
+            @flock($fp, LOCK_UN);
+            @fclose($fp);
+        }
+        @unlink($fullPath);
+    }
+
 }

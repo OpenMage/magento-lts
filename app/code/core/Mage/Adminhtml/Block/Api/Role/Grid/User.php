@@ -53,14 +53,12 @@ class Mage_Adminhtml_Block_Api_Role_Grid_User extends Mage_Adminhtml_Block_Widge
             }
             if ($column->getFilter()->getValue()) {
                 $this->getCollection()->addFieldToFilter('user_id', array('in'=>$inRoleIds));
-            }
-            else {
-                if($inRoleIds) {
+            } else {
+                if ($inRoleIds) {
                     $this->getCollection()->addFieldToFilter('user_id', array('nin'=>$inRoleIds));
                 }
             }
-        }
-        else {
+        } else {
             parent::_addColumnFilterToCollection($column);
         }
         return $this;
@@ -154,29 +152,29 @@ class Mage_Adminhtml_Block_Api_Role_Grid_User extends Mage_Adminhtml_Block_Widge
         return $this->getUrl('*/*/editrolegrid', array('rid' => $roleId));
     }
 
-    protected function _getUsers($json=false)
+    protected function _getUsers($json = false)
     {
-        if ( $this->getRequest()->getParam('in_role_user') != "" ) {
+        if ($this->getRequest()->getParam('in_role_user') != "") {
             return (int)$this->getRequest()->getParam('in_role_user');
         }
         $roleId = ( $this->getRequest()->getParam('rid') > 0 ) ? $this->getRequest()->getParam('rid') : Mage::registry('RID');
         $users  = Mage::getModel('api/roles')->setId($roleId)->getRoleUsers();
-        if (sizeof($users) > 0) {
-            if ( $json ) {
-                $jsonUsers = Array();
-                foreach($users as $usrid) $jsonUsers[$usrid] = 0;
+        if (count($users)) {
+            if ($json) {
+                $jsonUsers = array();
+                foreach ($users as $usrid) {
+                    $jsonUsers[$usrid] = 0;
+                }
                 return Mage::helper('core')->jsonEncode((object)$jsonUsers);
             } else {
                 return array_values($users);
             }
         } else {
-            if ( $json ) {
+            if ($json) {
                 return '{}';
             } else {
                 return array();
             }
         }
     }
-
 }
-

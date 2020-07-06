@@ -54,9 +54,9 @@ class Mage_Catalog_Model_Product_Type
     /**
      * Product type instance factory
      *
-     * @param   Mage_Catalog_Model_Product $product
-     * @param   bool $singleton
-     * @return  Mage_Catalog_Model_Product_Type_Abstract
+     * @param Varien_Object|Mage_Catalog_Model_Product $product
+     * @param bool $singleton
+     * @return false|Mage_Core_Model_Abstract
      */
     public static function factory($product, $singleton = false)
     {
@@ -72,8 +72,7 @@ class Mage_Catalog_Model_Product_Type
 
         if ($singleton === true) {
             $typeModel = Mage::getSingleton($typeModelName);
-        }
-        else {
+        } else {
             $typeModel = Mage::getModel($typeModelName);
             $typeModel->setProduct($product);
         }
@@ -105,10 +104,13 @@ class Mage_Catalog_Model_Product_Type
         return self::$_priceModels[$productType];
     }
 
-    static public function getOptionArray()
+    /**
+     * @return array
+     */
+    public static function getOptionArray()
     {
         $options = array();
-        foreach(self::getTypes() as $typeId=>$type) {
+        foreach (self::getTypes() as $typeId => $type) {
             $options[$typeId] = Mage::helper('catalog')->__($type['label']);
         }
 
@@ -120,19 +122,25 @@ class Mage_Catalog_Model_Product_Type
      *
      * @return array
      */
-    static public function toOptionArray()
+    public static function toOptionArray()
     {
         return self::getOptionArray();
     }
 
-    static public function getAllOption()
+    /**
+     * @return array
+     */
+    public static function getAllOption()
     {
         $options = self::getOptionArray();
         array_unshift($options, array('value'=>'', 'label'=>''));
         return $options;
     }
 
-    static public function getAllOptions()
+    /**
+     * @return array
+     */
+    public static function getAllOptions()
     {
         $res = array();
         $res[] = array('value'=>'', 'label'=>'');
@@ -145,7 +153,10 @@ class Mage_Catalog_Model_Product_Type
         return $res;
     }
 
-    static public function getOptions()
+    /**
+     * @return array
+     */
+    public static function getOptions()
     {
         $res = array();
         foreach (self::getOptionArray() as $index => $value) {
@@ -157,13 +168,20 @@ class Mage_Catalog_Model_Product_Type
         return $res;
     }
 
-    static public function getOptionText($optionId)
+    /**
+     * @param $optionId
+     * @return mixed|null
+     */
+    public static function getOptionText($optionId)
     {
         $options = self::getOptionArray();
         return isset($options[$optionId]) ? $options[$optionId] : null;
     }
 
-    static public function getTypes()
+    /**
+     * @return array|string
+     */
+    public static function getTypes()
     {
         if (is_null(self::$_types)) {
             $productTypes = Mage::getConfig()->getNode('global/catalog/product/type')->asArray();
@@ -186,12 +204,12 @@ class Mage_Catalog_Model_Product_Type
      *
      * @return array
      */
-    static public function getCompositeTypes()
+    public static function getCompositeTypes()
     {
         if (is_null(self::$_compositeTypes)) {
             self::$_compositeTypes = array();
             $types = self::getTypes();
-            foreach ($types as $typeId=>$typeInfo) {
+            foreach ($types as $typeId => $typeInfo) {
                 if (array_key_exists('composite', $typeInfo) && $typeInfo['composite']) {
                     self::$_compositeTypes[] = $typeId;
                 }

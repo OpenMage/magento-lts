@@ -24,12 +24,15 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * Class Mage_Tax_Model_Class_Source_Product
+ */
 class Mage_Tax_Model_Class_Source_Product extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
 {
     /**
      * Get all options
      *
+     * @param bool $withEmpty
      * @return array
      */
     public function getAllOptions($withEmpty = false)
@@ -101,7 +104,7 @@ class Mage_Tax_Model_Class_Source_Product extends Mage_Eav_Model_Entity_Attribut
         }
 
         return array($attributeCode => $column);
-   }
+    }
 
     /**
      * Retrieve Select for update attribute value in flat table

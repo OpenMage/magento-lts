@@ -45,7 +45,7 @@ class Mage_Core_Model_Layout_Update
     protected $_elementClass;
 
     /**
-     * @var Simplexml_Element
+     * @var SimpleXMLElement
      */
     protected $_packageLayout;
 
@@ -87,12 +87,15 @@ class Mage_Core_Model_Layout_Update
     public function __construct()
     {
         $subst = Mage::getConfig()->getPathVars();
-        foreach ($subst as $k=>$v) {
+        foreach ($subst as $k => $v) {
             $this->_subst['from'][] = '{{'.$k.'}}';
             $this->_subst['to'][] = $v;
         }
     }
 
+    /**
+     * @return string
+     */
     public function getElementClass()
     {
         if (!$this->_elementClass) {
@@ -101,34 +104,54 @@ class Mage_Core_Model_Layout_Update
         return $this->_elementClass;
     }
 
+    /**
+     * @return $this
+     */
     public function resetUpdates()
     {
         $this->_updates = array();
         return $this;
     }
 
+    /**
+     * @param string $update
+     * @return $this
+     */
     public function addUpdate($update)
     {
         $this->_updates[] = $update;
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function asArray()
     {
         return $this->_updates;
     }
 
+    /**
+     * @return string
+     */
     public function asString()
     {
         return implode('', $this->_updates);
     }
 
+    /**
+     * @return $this
+     */
     public function resetHandles()
     {
         $this->_handles = array();
         return $this;
     }
 
+    /**
+     * @param string $handle
+     * @return $this
+     */
     public function addHandle($handle)
     {
         if (is_array($handle)) {
@@ -141,12 +164,19 @@ class Mage_Core_Model_Layout_Update
         return $this;
     }
 
+    /**
+     * @param string $handle
+     * @return $this
+     */
     public function removeHandle($handle)
     {
         unset($this->_handles[$handle]);
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function getHandles()
     {
         return array_keys($this->_handles);
@@ -177,6 +207,9 @@ class Mage_Core_Model_Layout_Update
         return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function loadCache()
     {
         if (!Mage::app()->useCache('layout')) {
@@ -199,6 +232,9 @@ class Mage_Core_Model_Layout_Update
         return true;
     }
 
+    /**
+     * @return bool
+     */
     public function saveCache()
     {
         if (!Mage::app()->useCache('layout')) {
@@ -213,10 +249,10 @@ class Mage_Core_Model_Layout_Update
         Mage::app()->saveCache($hash, $this->getCacheId(), $tags, null);
 
         // Only save actual XML to cache if it doesn't already exist
-        if ( ! Mage::app()->testCache(self::XML_KEY_PREFIX . $hash)) {
+        if (!Mage::app()->testCache(self::XML_KEY_PREFIX . $hash)) {
             Mage::app()->saveCache($str, self::XML_KEY_PREFIX . $hash, $tags, null);
         }
-        return TRUE;
+        return true;
     }
 
     /**
@@ -225,7 +261,7 @@ class Mage_Core_Model_Layout_Update
      * @param array|string $handles
      * @return $this
      */
-    public function load($handles=array())
+    public function load($handles = array())
     {
         if (is_string($handles)) {
             $handles = array($handles);
@@ -249,6 +285,9 @@ class Mage_Core_Model_Layout_Update
         return $this;
     }
 
+    /**
+     * @return SimpleXMLElement
+     */
     public function asSimplexml()
     {
         $updates = trim($this->asString());
@@ -275,6 +314,10 @@ class Mage_Core_Model_Layout_Update
         return $this;
     }
 
+    /**
+     * @return $this
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function fetchFileLayoutUpdates()
     {
         $storeId = Mage::app()->getStore()->getId();
@@ -360,6 +403,11 @@ class Mage_Core_Model_Layout_Update
         return $this;
     }
 
+    /**
+     * @param string $handle
+     * @return bool
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function fetchPackageLayoutUpdates($handle)
     {
         $_profilerKey = 'layout/package_update: '.$handle;
@@ -367,6 +415,7 @@ class Mage_Core_Model_Layout_Update
         if (empty($this->_packageLayout)) {
             $this->fetchFileLayoutUpdates();
         }
+        /** @var Varien_Simplexml_Element $updateXml */
         foreach ($this->_packageLayout->$handle as $updateXml) {
 #echo '<textarea style="width:600px; height:400px;">'.$handle.':'.print_r($updateXml,1).'</textarea>';
             $this->fetchRecursiveUpdates($updateXml);
@@ -377,6 +426,10 @@ class Mage_Core_Model_Layout_Update
         return true;
     }
 
+    /**
+     * @param string $handle
+     * @return bool
+     */
     public function fetchDbLayoutUpdates($handle)
     {
         $_profilerKey = 'layout/db_update: '.$handle;
@@ -388,6 +441,7 @@ class Mage_Core_Model_Layout_Update
         }
         $updateStr = '<update_xml>' . $updateStr . '</update_xml>';
         $updateStr = str_replace($this->_subst['from'], $this->_subst['to'], $updateStr);
+        /** @var Varien_Simplexml_Element $updateXml */
         $updateXml = simplexml_load_string($updateStr, $this->getElementClass());
         $this->fetchRecursiveUpdates($updateXml);
         $this->addUpdate($updateXml->innerXml());
@@ -407,6 +461,10 @@ class Mage_Core_Model_Layout_Update
         return Mage::getResourceModel('core/layout')->fetchUpdatesByHandle($handle);
     }
 
+    /**
+     * @param SimpleXMLElement $updateXml
+     * @return $this
+     */
     public function fetchRecursiveUpdates($updateXml)
     {
         foreach ($updateXml->children() as $child) {
@@ -426,14 +484,14 @@ class Mage_Core_Model_Layout_Update
      * @param string $package
      * @param string $theme
      * @param integer|null $storeId
-     * @return Mage_Core_Model_Layout_Element
+     * @return SimpleXMLElement
      */
     public function getFileLayoutUpdatesXml($area, $package, $theme, $storeId = null)
     {
         if (null === $storeId) {
             $storeId = Mage::app()->getStore()->getId();
         }
-        /* @var $design Mage_Core_Model_Design_Package */
+        /* @var Mage_Core_Model_Design_Package $design */
         $design = Mage::getSingleton('core/design_package');
         $layoutXml = null;
         $elementClass = $this->getElementClass();
@@ -469,6 +527,7 @@ class Mage_Core_Model_Layout_Update
             }
             $fileStr = file_get_contents($filename);
             $fileStr = str_replace($this->_subst['from'], $this->_subst['to'], $fileStr);
+            /** @var Varien_Simplexml_Element $fileXml */
             $fileXml = simplexml_load_string($fileStr, $elementClass);
             if (!$fileXml instanceof SimpleXMLElement) {
                 continue;

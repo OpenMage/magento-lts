@@ -24,18 +24,19 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Tax Rate Title Model
  *
  * @method Mage_Tax_Model_Resource_Calculation_Rate_Title _getResource()
  * @method Mage_Tax_Model_Resource_Calculation_Rate_Title getResource()
+ * @method Mage_Tax_Model_Resource_Calculation_Rate_Title_Collection getCollection()
+ *
  * @method int getTaxCalculationRateId()
- * @method Mage_Tax_Model_Calculation_Rate_Title setTaxCalculationRateId(int $value)
+ * @method $this setTaxCalculationRateId(int $value)
  * @method int getStoreId()
- * @method Mage_Tax_Model_Calculation_Rate_Title setStoreId(int $value)
+ * @method $this setStoreId(int $value)
  * @method string getValue()
- * @method Mage_Tax_Model_Calculation_Rate_Title setValue(string $value)
+ * @method $this setValue(string $value)
  *
  * @category    Mage
  * @package     Mage_Tax
@@ -48,6 +49,10 @@ class Mage_Tax_Model_Calculation_Rate_Title extends Mage_Core_Model_Abstract
         $this->_init('tax/calculation_rate_title');
     }
 
+    /**
+     * @param int $rateId
+     * @return $this
+     */
     public function deleteByRateId($rateId)
     {
         $this->getResource()->deleteByRateId($rateId);

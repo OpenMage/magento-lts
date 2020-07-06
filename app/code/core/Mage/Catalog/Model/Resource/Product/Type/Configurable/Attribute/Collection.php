@@ -31,6 +31,8 @@
  * @category    Mage
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Catalog_Model_Product_Type_Configurable_Attribute getItemById(int $value)
  */
 class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
     extends Mage_Core_Model_Resource_Db_Collection_Abstract
@@ -254,6 +256,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
                     $optionsByValue[$option['value']] = array('label' => $option['label'], 'order' => $sortOrder++);
                 }
 
+                /** @var Mage_Catalog_Model_Product $associatedProduct */
                 foreach ($this->getProduct()->getTypeInstance(true)
                              ->getUsedProducts(array($productAttribute->getAttributeCode()), $this->getProduct())
                          as $associatedProduct) {

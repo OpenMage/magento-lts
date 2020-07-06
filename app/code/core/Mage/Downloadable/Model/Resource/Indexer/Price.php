@@ -117,24 +117,29 @@ class Mage_Downloadable_Model_Resource_Indexer_Price extends Mage_Catalog_Model_
         $select = $write->select()
             ->from(
                 array('i' => $this->_getDefaultFinalPriceTable()),
-                array('entity_id', 'customer_group_id', 'website_id'))
+                array('entity_id', 'customer_group_id', 'website_id')
+            )
             ->join(
                 array('dl' => $dlType->getBackend()->getTable()),
                 "dl.entity_id = i.entity_id AND dl.attribute_id = {$dlType->getAttributeId()}"
                     . " AND dl.store_id = 0",
-                array())
+                array()
+            )
             ->join(
                 array('dll' => $this->getTable('downloadable/link')),
                 'dll.product_id = i.entity_id',
-                array())
+                array()
+            )
             ->join(
                 array('dlpd' => $this->getTable('downloadable/link_price')),
                 'dll.link_id = dlpd.link_id AND dlpd.website_id = 0',
-                array())
+                array()
+            )
             ->joinLeft(
                 array('dlpw' => $this->getTable('downloadable/link_price')),
                 'dlpd.link_id = dlpw.link_id AND dlpw.website_id = i.website_id',
-                array())
+                array()
+            )
             ->where('dl.value = ?', 1)
             ->group(array('i.entity_id', 'i.customer_group_id', 'i.website_id'))
             ->columns(array(
@@ -153,7 +158,8 @@ class Mage_Downloadable_Model_Resource_Indexer_Price extends Mage_Catalog_Model_
                 array('id' => $table),
                 'i.entity_id = id.entity_id AND i.customer_group_id = id.customer_group_id'
                     .' AND i.website_id = id.website_id',
-                array())
+                array()
+            )
             ->columns(array(
                 'min_price'   => new Zend_Db_Expr('i.min_price + id.min_price'),
                 'max_price'   => new Zend_Db_Expr('i.max_price + id.max_price'),

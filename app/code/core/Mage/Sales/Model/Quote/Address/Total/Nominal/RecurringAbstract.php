@@ -27,8 +27,7 @@
 /**
  * Total model for recurring profiles
  */
-abstract class Mage_Sales_Model_Quote_Address_Total_Nominal_RecurringAbstract
-    extends Mage_Sales_Model_Quote_Address_Total_Abstract
+abstract class Mage_Sales_Model_Quote_Address_Total_Nominal_RecurringAbstract extends Mage_Sales_Model_Quote_Address_Total_Abstract
 {
     /**
      * Don't add amounts to address

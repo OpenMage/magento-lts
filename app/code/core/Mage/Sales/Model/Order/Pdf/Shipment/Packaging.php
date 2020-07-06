@@ -36,7 +36,7 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
     /**
      * Format pdf file
      *
-     * @param  null $shipment
+     * @param  Mage_Sales_Model_Order_Shipment $shipment
      * @return Zend_Pdf
      */
     public function getPdf($shipment = null)
@@ -73,7 +73,8 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
      * @param  Zend_Pdf_Page $page
      * @return $this
      */
-    protected function _drawHeaderBlock(Zend_Pdf_Page $page) {
+    protected function _drawHeaderBlock(Zend_Pdf_Page $page)
+    {
         $page->setFillColor(new Zend_Pdf_Color_GrayScale(0.5));
         $page->setLineColor(new Zend_Pdf_Color_GrayScale(0.5));
         $page->setLineWidth(0.5);
@@ -112,7 +113,7 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
 
             $page->setFillColor(new Zend_Pdf_Color_GrayScale(0));
             $packageText = Mage::helper('sales')->__('Package') . ' ' . $packageNum;
-            $page->drawText($packageText, 525, $this->y , 'UTF-8');
+            $page->drawText($packageText, 525, $this->y, 'UTF-8');
             $packageNum++;
 
             $package = new Varien_Object($package);
@@ -121,7 +122,7 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
 
             $typeText = Mage::helper('sales')->__('Type') . ' : '
                 . $packaging->getContainerTypeByCode($params->getContainer());
-            $page->drawText($typeText, 35, $this->y , 'UTF-8');
+            $page->drawText($typeText, 35, $this->y, 'UTF-8');
 
             if ($params->getLength() != null) {
                 $lengthText = $params->getLength() .' '. $dimensionUnits;
@@ -129,13 +130,13 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
                 $lengthText = '--';
             }
             $lengthText = Mage::helper('sales')->__('Length') . ' : ' . $lengthText;
-            $page->drawText($lengthText, 200, $this->y , 'UTF-8');
+            $page->drawText($lengthText, 200, $this->y, 'UTF-8');
 
             if ($params->getDeliveryConfirmation() != null) {
                 $confirmationText = Mage::helper('sales')->__('Signature Confirmation')
                     . ' : '
                     . $packaging->getDeliveryConfirmationTypeByCode($params->getDeliveryConfirmation());
-                $page->drawText($confirmationText, 355, $this->y , 'UTF-8');
+                $page->drawText($confirmationText, 355, $this->y, 'UTF-8');
             }
 
             $this->y = $this->y - 10;
@@ -144,7 +145,7 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
                 $customsValueText = Mage::helper('sales')->__('Customs Value')
                     . ' : '
                     . $packaging->displayPrice($params->getCustomsValue());
-                $page->drawText($customsValueText, 35, $this->y , 'UTF-8');
+                $page->drawText($customsValueText, 35, $this->y, 'UTF-8');
             }
             if ($params->getWidth() != null) {
                 $widthText = $params->getWidth() .' '. $dimensionUnits;
@@ -152,7 +153,7 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
                 $widthText = '--';
             }
             $widthText = Mage::helper('sales')->__('Width') . ' : ' . $widthText;
-            $page->drawText($widthText, 200, $this->y , 'UTF-8');
+            $page->drawText($widthText, 200, $this->y, 'UTF-8');
 
             if ($params->getContentType() != null) {
                 if ($params->getContentType() == 'OTHER') {
@@ -163,14 +164,14 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
                 $contentsText = Mage::helper('sales')->__('Contents')
                     . ' : '
                     . $contentsValue;
-                $page->drawText($contentsText, 355, $this->y , 'UTF-8');
+                $page->drawText($contentsText, 355, $this->y, 'UTF-8');
             }
 
             $this->y = $this->y - 10;
 
             $weightText = Mage::helper('sales')->__('Total Weight') . ' : ' . $params->getWeight() .' '
                 . Mage::helper('usa')->getMeasureWeightName($params->getWeightUnits());
-            $page->drawText($weightText, 35, $this->y , 'UTF-8');
+            $page->drawText($weightText, 35, $this->y, 'UTF-8');
 
             if ($params->getHeight() != null) {
                 $heightText = $params->getHeight() .' '. $dimensionUnits;
@@ -178,19 +179,19 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
                 $heightText = '--';
             }
             $heightText = Mage::helper('sales')->__('Height') . ' : ' . $heightText;
-            $page->drawText($heightText, 200, $this->y , 'UTF-8');
+            $page->drawText($heightText, 200, $this->y, 'UTF-8');
 
             $this->y = $this->y - 10;
 
             if ($params->getSize()) {
                 $sizeText = Mage::helper('sales')->__('Size') . ' : ' . ucfirst(strtolower($params->getSize()));
-                $page->drawText($sizeText, 35, $this->y , 'UTF-8');
+                $page->drawText($sizeText, 35, $this->y, 'UTF-8');
             }
             if ($params->getGirth() != null) {
                 $dimensionGirthUnits = Mage::helper('usa')->getMeasureDimensionName($params->getGirthDimensionUnits());
                 $girthText = Mage::helper('sales')->__('Girth')
                              . ' : ' . $params->getGirth() . ' ' . $dimensionGirthUnits;
-                $page->drawText($girthText, 200, $this->y , 'UTF-8');
+                $page->drawText($girthText, 200, $this->y, 'UTF-8');
             }
 
             $this->y = $this->y - 5;
@@ -235,7 +236,10 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
                 );
             }
             $page->drawText(
-                Mage::helper('sales')->__('Qty Ordered'), $itemCollsX[++$i] + $txtIndent, $this->y, 'UTF-8'
+                Mage::helper('sales')->__('Qty Ordered'),
+                $itemCollsX[++$i] + $txtIndent,
+                $this->y,
+                'UTF-8'
             );
             $page->drawText(Mage::helper('sales')->__('Qty'), $itemCollsX[++$i] + $txtIndent, $this->y, 'UTF-8');
 

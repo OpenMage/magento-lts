@@ -82,7 +82,7 @@ class Mage_Core_Model_File_Validator_NotProtectedExtension extends Zend_Validate
     protected function _initProtectedFileExtensions()
     {
         if (!$this->_protectedFileExtensions) {
-            /** @var $helper Mage_Core_Helper_Data */
+            /** @var Mage_Core_Helper_Data $helper */
             $helper = Mage::helper('core');
             $extensions = $helper->getProtectedFileExtensions();
             if (is_string($extensions)) {

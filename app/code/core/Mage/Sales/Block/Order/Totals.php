@@ -39,7 +39,7 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
     /**
      * Initialize self totals and children blocks totals before html building
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _beforeToHtml()
     {
@@ -71,6 +71,10 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
         return $this->_order;
     }
 
+    /**
+     * @param Mage_Sales_Model_Order $order
+     * @return $this
+     */
     public function setOrder($order)
     {
         $this->_order = $order;
@@ -107,8 +111,7 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
         /**
          * Add shipping
          */
-        if (!$source->getIsVirtual() && ((float) $source->getShippingAmount() || $source->getShippingDescription()))
-        {
+        if (!$source->getIsVirtual() && ((float) $source->getShippingAmount() || $source->getShippingDescription())) {
             $this->_totals['shipping'] = new Varien_Object(array(
                 'code'  => 'shipping',
                 'field' => 'shipping_amount',
@@ -160,10 +163,10 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
      * Add new total to totals array after specific total or before last total by default
      *
      * @param   Varien_Object $total
-     * @param   null|string|last|first $after
+     * @param   null|string $after accepted values: 'first', 'last'
      * @return  Mage_Sales_Block_Order_Totals
      */
-    public function addTotal(Varien_Object $total, $after=null)
+    public function addTotal(Varien_Object $total, $after = null)
     {
         if ($after !== null && $after != 'last' && $after != 'first') {
             $totals = array();
@@ -181,9 +184,9 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
                 $totals[$last->getCode()] = $last;
             }
             $this->_totals = $totals;
-        } elseif ($after=='last')  {
+        } elseif ($after=='last') {
             $this->_totals[$total->getCode()] = $total;
-        } elseif ($after=='first')  {
+        } elseif ($after=='first') {
             $totals = array($total->getCode()=>$total);
             $this->_totals = array_merge($totals, $this->_totals);
         } else {
@@ -197,11 +200,11 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
     /**
      * Add new total to totals array before specific total or after first total by default
      *
-     * @param   Varien_Object $total
-     * @param   null|string $after
+     * @param Varien_Object $total
+     * @param null|array|string $before
      * @return  Mage_Sales_Block_Order_Totals
      */
-    public function addTotalBefore(Varien_Object $total, $before=null)
+    public function addTotalBefore(Varien_Object $total, $before = null)
     {
         if ($before !== null) {
             if (!is_array($before)) {
@@ -235,7 +238,8 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
     /**
      * Get Total object by code
      *
-     * @@return Varien_Object
+     * @param string $code
+     * @return Varien_Object|false
      */
     public function getTotal($code)
     {
@@ -276,9 +280,10 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
     /**
      * get totals array for visualization
      *
+     * @param null|string $area
      * @return array
      */
-    public function getTotals($area=null)
+    public function getTotals($area = null)
     {
         $totals = array();
         if ($area === null) {

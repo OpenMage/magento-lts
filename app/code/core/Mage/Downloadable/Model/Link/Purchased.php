@@ -30,23 +30,24 @@
  * @method Mage_Downloadable_Model_Resource_Link_Purchased _getResource()
  * @method Mage_Downloadable_Model_Resource_Link_Purchased getResource()
  * @method int getOrderId()
- * @method Mage_Downloadable_Model_Link_Purchased setOrderId(int $value)
+ * @method $this setOrderId(int $value)
  * @method string getOrderIncrementId()
- * @method Mage_Downloadable_Model_Link_Purchased setOrderIncrementId(string $value)
+ * @method $this setOrderIncrementId(string $value)
  * @method int getOrderItemId()
- * @method Mage_Downloadable_Model_Link_Purchased setOrderItemId(int $value)
+ * @method $this setOrderItemId(int $value)
  * @method string getCreatedAt()
- * @method Mage_Downloadable_Model_Link_Purchased setCreatedAt(string $value)
+ * @method $this setCreatedAt(string $value)
  * @method string getUpdatedAt()
- * @method Mage_Downloadable_Model_Link_Purchased setUpdatedAt(string $value)
+ * @method $this setUpdatedAt(string $value)
  * @method int getCustomerId()
- * @method Mage_Downloadable_Model_Link_Purchased setCustomerId(int $value)
+ * @method $this setCustomerId(int $value)
  * @method string getProductName()
- * @method Mage_Downloadable_Model_Link_Purchased setProductName(string $value)
+ * @method $this setProductName(string $value)
  * @method string getProductSku()
- * @method Mage_Downloadable_Model_Link_Purchased setProductSku(string $value)
+ * @method $this setProductSku(string $value)
  * @method string getLinkSectionTitle()
- * @method Mage_Downloadable_Model_Link_Purchased setLinkSectionTitle(string $value)
+ * @method $this setLinkSectionTitle(string $value)
+ * @method $this setPurchasedItems(Mage_Downloadable_Model_Resource_Link_Purchased_Item_Collection $value)
  *
  * @category    Mage
  * @package     Mage_Downloadable
@@ -67,15 +68,15 @@ class Mage_Downloadable_Model_Link_Purchased extends Mage_Core_Model_Abstract
     /**
      * Check order id
      *
-     * @return Mage_Core_Model_Abstract
+     * @inheritDoc
      */
     public function _beforeSave()
     {
         if (null == $this->getOrderId()) {
             throw new Exception(
-                Mage::helper('downloadable')->__('Order id cannot be null'));
+                Mage::helper('downloadable')->__('Order id cannot be null')
+            );
         }
         return parent::_beforeSave();
     }
-
 }

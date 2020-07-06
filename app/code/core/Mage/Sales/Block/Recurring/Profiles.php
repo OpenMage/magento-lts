@@ -26,6 +26,10 @@
 
 /**
  * Recurring profiles listing
+ *
+ * @method $this setBackUrl(string $value)
+ * @method $this setGridColumns(Varien_Object[] $profiles)
+ * @method $this setGridElements(Varien_Object[] $profiles)
  */
 class Mage_Sales_Block_Recurring_Profiles extends Mage_Core_Block_Template
 {
@@ -47,7 +51,7 @@ class Mage_Sales_Block_Recurring_Profiles extends Mage_Core_Block_Template
             ->setCollection($this->_profiles)->setIsOutputRequired(false);
         $this->setChild('pager', $pager);
 
-        /* @var $profile Mage_Sales_Model_Recurring_Profile */
+        /* @var Mage_Sales_Model_Recurring_Profile $profile */
         $profile = Mage::getModel('sales/recurring_profile');
 
         $this->setGridColumns(array(
@@ -85,7 +89,7 @@ class Mage_Sales_Block_Recurring_Profiles extends Mage_Core_Block_Template
         $profiles = array();
         $store = Mage::app()->getStore();
         $locale = Mage::app()->getLocale();
-        foreach($this->_profiles as $profile) {
+        foreach ($this->_profiles as $profile) {
             $profile->setStore($store)->setLocale($locale);
             $profiles[] = new Varien_Object(array(
                 'reference_id' => $profile->getReferenceId(),
@@ -105,7 +109,7 @@ class Mage_Sales_Block_Recurring_Profiles extends Mage_Core_Block_Template
     /**
      * Instantiate profiles collection
      *
-     * @param array|int $fields
+     * @param string|array $fields
      */
     protected function _prepareProfiles($fields = '*')
     {
@@ -119,7 +123,7 @@ class Mage_Sales_Block_Recurring_Profiles extends Mage_Core_Block_Template
     /**
      * Set back Url
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _beforeToHtml()
     {

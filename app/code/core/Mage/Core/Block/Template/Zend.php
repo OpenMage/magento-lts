@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Zend html block
  *
@@ -34,14 +33,13 @@
  */
 class Mage_Core_Block_Template_Zend extends Mage_Core_Block_Template
 {
-
+    /**
+     * @var Zend_View
+     */
     protected $_view = null;
 
     /**
      * Class constructor. Base html block
-     *
-     * @param      none
-     * @return     void
      */
     public function _construct()
     {
@@ -49,10 +47,16 @@ class Mage_Core_Block_Template_Zend extends Mage_Core_Block_Template
         $this->_view = new Zend_View();
     }
 
-    public function assign($key, $value=null)
+    /**
+     * @param array|string $key
+     * @param null $value
+     * @return $this|Mage_Core_Block_Template
+     * @throws Zend_View_Exception
+     */
+    public function assign($key, $value = null)
     {
         if (is_array($key) && is_null($value)) {
-            foreach ($key as $k=>$v) {
+            foreach ($key as $k => $v) {
                 $this->assign($k, $v);
             }
         } elseif (!is_null($value)) {
@@ -61,14 +65,21 @@ class Mage_Core_Block_Template_Zend extends Mage_Core_Block_Template
         return $this;
     }
 
+    /**
+     * @param string $dir
+     * @return void
+     */
     public function setScriptPath($dir)
     {
         $this->_view->setScriptPath($dir.DS);
     }
 
+    /**
+     * @param string $fileName
+     * @return string
+     */
     public function fetchView($fileName)
     {
         return $this->_view->render($fileName);
     }
-
 }

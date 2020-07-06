@@ -84,9 +84,9 @@ class Mage_Catalog_Model_Product_Attribute_Api_V2 extends Mage_Catalog_Model_Pro
     public function info($attribute)
     {
         $result = parent::info($attribute);
-        if (!empty($result['additional_fields'])){
+        if (!empty($result['additional_fields'])) {
             $keys = array_keys($result['additional_fields']);
-            foreach ($keys as $key ) {
+            foreach ($keys as $key) {
                 $result['additional_fields'][] = array(
                     'key' => $key,
                     'value' => $result['additional_fields'][$key]

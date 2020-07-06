@@ -70,7 +70,8 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
         $select = $this->getConnection()->select()
             ->from(
                 array('ea' => $this->getTable('eav/attribute')),
-                array('entity_type_id', 'attribute_code', 'attribute_id'))
+                array('entity_type_id', 'attribute_code', 'attribute_id')
+            )
             ->where('ea.entity_type_id IN(?)', array($customer, $customerAddress));
         foreach ($this->getConnection()->fetchAll($select) as $row) {
             $attributeIds[$row['entity_type_id']][$row['attribute_code']] = $row['attribute_id'];

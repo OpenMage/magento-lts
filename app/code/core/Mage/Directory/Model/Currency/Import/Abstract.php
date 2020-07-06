@@ -28,6 +28,8 @@
  * Abstract model for import currency
  *
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @property array $_messages
  */
 abstract class Mage_Directory_Model_Currency_Import_Abstract
 {
@@ -89,6 +91,9 @@ abstract class Mage_Directory_Model_Currency_Import_Abstract
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function fetchRates()
     {
         $data = array();
@@ -103,8 +108,7 @@ abstract class Mage_Directory_Model_Currency_Import_Abstract
             foreach ($currencies as $currencyTo) {
                 if ($currencyFrom == $currencyTo) {
                     $data[$currencyFrom][$currencyTo] = $this->_numberFormat(1);
-                }
-                else {
+                } else {
                     $data[$currencyFrom][$currencyTo] = $this->_numberFormat($this->_convert($currencyFrom, $currencyTo));
                 }
             }
@@ -114,11 +118,18 @@ abstract class Mage_Directory_Model_Currency_Import_Abstract
         return $data;
     }
 
+    /**
+     * @param float $number
+     * @return float
+     */
     protected function _numberFormat($number)
     {
         return $number;
     }
 
+    /**
+     * @return array
+     */
     public function getMessages()
     {
         return $this->_messages;

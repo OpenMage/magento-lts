@@ -27,6 +27,9 @@
 /**
  * Customer dashboard block
  *
+ * @method string getRefererUrl()
+ * @method $this setRefererUrl(string $value)
+ *
  * @category   Mage
  * @package    Mage_Customer
  * @author      Magento Core Team <core@magentocommerce.com>
@@ -35,69 +38,105 @@ class Mage_Customer_Block_Account_Dashboard extends Mage_Core_Block_Template
 {
     protected $_subscription = null;
 
+    /**
+     * @return Mage_Customer_Model_Customer
+     */
     public function getCustomer()
     {
         return Mage::getSingleton('customer/session')->getCustomer();
     }
 
+    /**
+     * @return string
+     */
     public function getAccountUrl()
     {
         return Mage::getUrl('customer/account/edit', array('_secure'=>true));
     }
 
+    /**
+     * @return string
+     */
     public function getAddressesUrl()
     {
         return Mage::getUrl('customer/address/index', array('_secure'=>true));
     }
 
+    /**
+     * @param Mage_Customer_Model_Address $address
+     * @return string
+     */
     public function getAddressEditUrl($address)
     {
         return Mage::getUrl('customer/address/edit', array('_secure'=>true, 'id'=>$address->getId()));
     }
 
+    /**
+     * @return string
+     */
     public function getOrdersUrl()
     {
         return Mage::getUrl('customer/order/index', array('_secure'=>true));
     }
 
+    /**
+     * @return string
+     */
     public function getReviewsUrl()
     {
         return Mage::getUrl('review/customer/index', array('_secure'=>true));
     }
 
+    /**
+     * @return string
+     */
     public function getWishlistUrl()
     {
         return Mage::getUrl('customer/wishlist/index', array('_secure'=>true));
     }
 
+    /**
+     * @todo LTS add tags URL
+     */
     public function getTagsUrl()
     {
-
     }
 
+    /**
+     * @return Mage_Newsletter_Model_Subscriber
+     */
     public function getSubscriptionObject()
     {
-        if(is_null($this->_subscription)) {
+        if (is_null($this->_subscription)) {
             $this->_subscription = Mage::getModel('newsletter/subscriber')->loadByCustomer($this->getCustomer());
         }
 
         return $this->_subscription;
     }
 
+    /**
+     * @return string
+     */
     public function getManageNewsletterUrl()
     {
         return $this->getUrl('*/newsletter/manage');
     }
 
+    /**
+     * @return string
+     */
     public function getSubscriptionText()
     {
-        if($this->getSubscriptionObject()->isSubscribed()) {
+        if ($this->getSubscriptionObject()->isSubscribed()) {
             return Mage::helper('customer')->__('You are currently subscribed to our newsletter.');
         }
 
         return Mage::helper('customer')->__('You are currently not subscribed to our newsletter.');
     }
 
+    /**
+     * @return false|Mage_Customer_Model_Address[]
+     */
     public function getPrimaryAddresses()
     {
         $addresses = $this->getCustomer()->getPrimaryAddresses();

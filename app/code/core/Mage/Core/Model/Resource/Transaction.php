@@ -24,14 +24,13 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Resource transaction model
  *
  * @todo need collect conection by name
  * @category   Mage
  * @package    Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Resource_Transaction
 {
@@ -114,7 +113,7 @@ class Mage_Core_Model_Resource_Transaction
      * @param string $alias
      * @return $this
      */
-    public function addObject(Mage_Core_Model_Abstract $object, $alias='')
+    public function addObject(Mage_Core_Model_Abstract $object, $alias = '')
     {
         $this->_objects[] = $object;
         if (!empty($alias)) {
@@ -126,7 +125,7 @@ class Mage_Core_Model_Resource_Transaction
     /**
      * Add callback function which will be called before commit transactions
      *
-     * @param callback $callback
+     * @param callable $callback
      * @return $this
      */
     public function addCommitCallback($callback)
@@ -207,5 +206,4 @@ class Mage_Core_Model_Resource_Transaction
         }
         return $this;
     }
-
 }

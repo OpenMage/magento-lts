@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Tax_Model_Mysql4_Setup */
+/* @var Mage_Tax_Model_Mysql4_Setup $installer */
 
 $installer->addAttribute('invoice', 'shipping_tax_amount', array('type'=>'decimal'));
 $installer->addAttribute('invoice', 'base_shipping_tax_amount', array('type'=>'decimal'));
@@ -64,4 +64,3 @@ $installer->addAttribute('creditmemo_item', 'row_total_incl_tax', array('type'=>
 $installer->addAttribute('creditmemo_item', 'base_row_total_incl_tax', array('type'=>'decimal'));
 $installer->addAttribute('creditmemo', 'subtotal_incl_tax', array('type'=>'decimal'));
 $installer->addAttribute('creditmemo', 'base_subtotal_incl_tax', array('type'=>'decimal'));
-

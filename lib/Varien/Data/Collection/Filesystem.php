@@ -120,7 +120,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      * Set empty to not filter
      *
      * @param string $regex
-     * @return Varien_Data_Collection_Files
+     * @return $this
      */
     public function setDirsFilter($regex)
     {
@@ -133,7 +133,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      * Set empty to not filter
      *
      * @param string $regex
-     * @return Varien_Data_Collection_Files
+     * @return $this
      */
     public function setFilesFilter($regex)
     {
@@ -146,7 +146,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      * Set empty value to not use this filter
      *
      * @param string $regex
-     * @return Varien_Data_Collection_Files
+     * @return $this
      */
     public function setDisallowedFilesFilter($regex)
     {
@@ -158,7 +158,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      * Set whether to collect dirs
      *
      * @param bool $value
-     * @return Varien_Data_Collection_Filesystem
+     * @return $this
      */
     public function setCollectDirs($value)
     {
@@ -170,7 +170,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      * Set whether to collect files
      *
      * @param bool $value
-     * @return Varien_Data_Collection_Filesystem
+     * @return $this
      */
     public function setCollectFiles($value)
     {
@@ -182,7 +182,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      * Set whether to collect recursively
      *
      * @param bool $value
-     * @return Varien_Data_Collection_Filesystem
+     * @return $this
      */
     public function setCollectRecursively($value)
     {
@@ -194,7 +194,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      * Target directory setter. Adds directory to be scanned
      *
      * @param string $value
-     * @return Varien_Data_Collection_Filesystem
+     * @return $this
      */
     public function addTargetDir($value)
     {
@@ -211,7 +211,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      * Works *before* sorting.
      *
      * @param bool $value
-     * @return Varien_Data_Collection_Filesystem
+     * @return $this
      */
     public function setDirsFirst($value)
     {
@@ -268,7 +268,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      *
      * @param bool $printQuery
      * @param bool $logQuery
-     * @return Varien_Data_Collection_Filesystem
+     * @return $this
      */
     public function loadData($printQuery = false, $logQuery = false)
     {
@@ -400,7 +400,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      * @param string $type 'and'|'or'
      * @param callback $callback
      * @param bool $isInverted
-     * @return Varien_Data_Collection_Filesystem
+     * @return $this
      */
     public function addCallbackFilter($field, $value, $type, $callback, $isInverted = false)
     {
@@ -473,7 +473,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      * @param mixed $cond
      * @param string $type 'and' | 'or'
      * @see Varien_Data_Collection_Db::addFieldToFilter()
-     * @return Varien_Data_Collection_Filesystem
+     * @return $this
      */
     public function addFieldToFilter($field, $cond, $type = 'and')
     {
@@ -553,7 +553,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      *
      * @param string $bracket
      * @param bool $isAnd
-     * @return Varien_Data_Collection_Filesystem
+     * @return $this
      */
     protected function _addFilterBracket($bracket = '(', $isAnd = true)
     {
@@ -591,7 +591,10 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
     /**
      * Does nothing. Intentionally disabled parent method
      *
-     * @return Varien_Data_Collection_Filesystem
+     * @param string $field
+     * @param string|array $value
+     * @param string $type and|or|string
+     * @return $this
      */
     public function addFilter($field, $value, $type = 'and')
     {

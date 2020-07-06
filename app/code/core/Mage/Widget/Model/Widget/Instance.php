@@ -29,12 +29,16 @@
  *
  * @method Mage_Widget_Model_Resource_Widget_Instance _getResource()
  * @method Mage_Widget_Model_Resource_Widget_Instance getResource()
+ * @method Mage_Widget_Model_Resource_Widget_Instance_Collection getCollection()
+ *
+ * @method array getPageGroups()
+ * @method $this setPageGroups(array $value)
+ * @method $this setStoreIds(string $value)
  * @method string getTitle()
- * @method Mage_Widget_Model_Widget_Instance setTitle(string $value)
- * @method Mage_Widget_Model_Widget_Instance setStoreIds(string $value)
- * @method Mage_Widget_Model_Widget_Instance setWidgetParameters(string $value)
+ * @method $this setTitle(string $value)
+ * @method $this setWidgetParameters(string $value)
  * @method int getSortOrder()
- * @method Mage_Widget_Model_Widget_Instance setSortOrder(int $value)
+ * @method $this setSortOrder(int $value)
  *
  * @category    Mage
  * @package     Mage_Widget
@@ -114,7 +118,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     /**
      * Processing object before save data
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _beforeSave()
     {
@@ -149,8 +153,11 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
                     if ($pageGroupData['for'] == self::SPECIFIC_ENTITIES) {
                         $layoutHandleUpdates = array();
                         foreach (explode(',', $pageGroupData['entities']) as $entity) {
-                            $layoutHandleUpdates[] = str_replace('{{ID}}', $entity,
-                                $this->_specificEntitiesLayoutHandles[$pageGroup['page_group']]);
+                            $layoutHandleUpdates[] = str_replace(
+                                '{{ID}}',
+                                $entity,
+                                $this->_specificEntitiesLayoutHandles[$pageGroup['page_group']]
+                            );
                         }
                         $tmpPageGroup['entities'] = $pageGroupData['entities'];
                         $tmpPageGroup['layout_handle_updates'] = $layoutHandleUpdates;
@@ -494,8 +501,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
             '_theme'   => $this->getTheme()
         ));
         if (!$this->getId() && !$this->isCompleteToCreate()
-            || ($templatePath && !is_readable($templateFilename)))
-        {
+            || ($templatePath && !is_readable($templateFilename))) {
             return '';
         }
         $parameters = $this->getWidgetParameters();

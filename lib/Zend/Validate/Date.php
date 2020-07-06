@@ -220,7 +220,7 @@ class Zend_Validate_Date extends Zend_Validate_Abstract
             return false;
         }
 
-        if (((strpos($this->_format, 'Y') !== false) or (strpos($this->_format, 'y') !== false)) and
+        if (((strpos($this->_format, 'Y') !== false) || (strpos($this->_format, 'y') !== false)) and
             (!isset($parsed['year']))) {
             // Year expected but not found
             return false;
@@ -236,7 +236,7 @@ class Zend_Validate_Date extends Zend_Validate_Abstract
             return false;
         }
 
-        if (((strpos($this->_format, 'H') !== false) or (strpos($this->_format, 'h') !== false)) and
+        if (((strpos($this->_format, 'H') !== false) || (strpos($this->_format, 'h') !== false)) and
             (!isset($parsed['hour']))) {
             // Hour expected but not found
             return false;

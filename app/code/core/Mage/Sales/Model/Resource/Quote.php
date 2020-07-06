@@ -48,7 +48,7 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
      *
      * @param string $field
      * @param mixed $value
-     * @param Mage_Core_Model_Abstract $object
+     * @param Mage_Core_Model_Abstract|Mage_Sales_Model_Quote $object
      * @return Varien_Db_Select
      */
     protected function _getLoadSelect($field, $value, $object)
@@ -191,21 +191,24 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
         $subSelect
             ->distinct()
             ->from(
-                   array('qi' => $this->getTable('sales/quote_item')),
-                   array('entity_id' => 'quote_id'))
+                array('qi' => $this->getTable('sales/quote_item')),
+                array('entity_id' => 'quote_id')
+            )
             ->join(
-                   array('pp' => $this->getTable('catalogrule/rule_product_price')),
-                   'qi.product_id = pp.product_id',
-                   array());
+                array('pp' => $this->getTable('catalogrule/rule_product_price')),
+                'qi.product_id = pp.product_id',
+                array()
+            );
         if ($productIdList !== null) {
-           $subSelect->where('qi.product_id IN (?)', $productIdList);
+            $subSelect->where('qi.product_id IN (?)', $productIdList);
         }
 
         $select
-             ->join(
-                    array('tmp' => $subSelect),
-                    'q.entity_id = tmp.entity_id',
-                    array('trigger_recollect' => new Zend_Db_Expr(1)))
+            ->join(
+                array('tmp' => $subSelect),
+                'q.entity_id = tmp.entity_id',
+                array('trigger_recollect' => new Zend_Db_Expr(1))
+            )
              ->where('q.is_active = ?', 1);
         $sql = $writeAdapter->updateFromSelect($select, array('q' => $this->getTable('sales/quote')));
         $writeAdapter->query($sql);
@@ -240,7 +243,8 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
 
         $subSelect->from(false, array(
             'items_qty'   => new Zend_Db_Expr(
-                $adapter->quoteIdentifier('q.items_qty') . ' - ' . $adapter->quoteIdentifier('qi.qty')),
+                $adapter->quoteIdentifier('q.items_qty') . ' - ' . $adapter->quoteIdentifier('qi.qty')
+            ),
             'items_count' => new Zend_Db_Expr($adapter->quoteIdentifier('q.items_count') . ' - 1')
         ))
         ->where('q.items_count > 0')
@@ -288,4 +292,3 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
         return $this;
     }
 }
-

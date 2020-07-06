@@ -24,13 +24,14 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog super product configurable part block
  *
  * @category   Mage
  * @package    Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method bool hasAllowProducts()
  */
 class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Block_Product_View_Abstract
 {
@@ -189,7 +190,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
             $prices = $attribute->getPrices();
             if (is_array($prices)) {
                 foreach ($prices as $value) {
-                    if(!$this->_validateAttributeValue($attributeId, $value, $options)) {
+                    if (!$this->_validateAttributeValue($attributeId, $value, $options)) {
                         continue;
                     }
                     $currentProduct->setConfigurablePrice(
@@ -232,8 +233,8 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
                     $this->_preparePrice(abs($additional-$optionPrice));
                 }
             }
-            if($this->_validateAttributeInfo($info)) {
-               $attributes[$attributeId] = $info;
+            if ($this->_validateAttributeInfo($info)) {
+                $attributes[$attributeId] = $info;
             }
 
             // Add attribute default value (if set)
@@ -296,7 +297,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
      */
     protected function _validateAttributeValue($attributeId, &$value, &$options)
     {
-        if(isset($options[$attributeId][$value['value_index']])) {
+        if (isset($options[$attributeId][$value['value_index']])) {
             return true;
         }
 
@@ -311,7 +312,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
      */
     protected function _validateAttributeInfo(&$info)
     {
-        if(count($info['options']) > 0) {
+        if (count($info['options']) > 0) {
             return true;
         }
         return false;

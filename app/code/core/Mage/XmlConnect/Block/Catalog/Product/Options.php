@@ -83,7 +83,7 @@ class Mage_XmlConnect_Block_Catalog_Product_Options extends Mage_XmlConnect_Bloc
             return $xmlModel;
         }
         $xmlModel->addAttribute('id', $product->getId());
-        if (!$product->isSaleable() || !sizeof($product->getOptions())) {
+        if (!$product->isSaleable() || !count($product->getOptions())) {
             return $xmlModel;
         }
 

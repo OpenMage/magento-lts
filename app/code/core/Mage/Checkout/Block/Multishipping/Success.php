@@ -33,10 +33,12 @@
  */
 class Mage_Checkout_Block_Multishipping_Success extends Mage_Checkout_Block_Multishipping_Abstract
 {
+    /**
+     * @return bool|string
+     */
     public function getOrderIds()
     {
         $ids = Mage::getSingleton('core/session')->getOrderIds(true);
-//        Zend_Debug::dump(Mage::getSingleton('core/session')->getOrderIds());
         if ($ids && is_array($ids)) {
             return $ids;
             return implode(', ', $ids);
@@ -44,11 +46,18 @@ class Mage_Checkout_Block_Multishipping_Success extends Mage_Checkout_Block_Mult
         return false;
     }
 
+    /**
+     * @param int $orderId
+     * @return string
+     */
     public function getViewOrderUrl($orderId)
     {
         return $this->getUrl('sales/order/view/', array('order_id' => $orderId, '_secure' => true));
     }
 
+    /**
+     * @return string
+     */
     public function getContinueUrl()
     {
         return Mage::getBaseUrl();

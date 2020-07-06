@@ -52,7 +52,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
     /**
      * Predispatch: should set layout area
      *
-     * @return $this
+     * @return $this|void
      */
     public function preDispatch()
     {
@@ -70,7 +70,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
         if (!$this->_canShowForUnregisteredUsers()) {
             $this->norouteAction();
-            $this->setFlag('',self::FLAG_NO_DISPATCH,true);
+            $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             return;
         }
 
@@ -339,7 +339,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             if (Mage::getSingleton('customer/session')->getCustomer()->getId() == $address->getCustomerId()) {
                 $this->_prepareDataJSON($address->toArray());
             } else {
-                $this->getResponse()->setHeader('HTTP/1.1','403 Forbidden');
+                $this->getResponse()->setHeader('HTTP/1.1', '403 Forbidden');
             }
         }
     }
@@ -456,9 +456,10 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             if (!$result) {
                 Mage::dispatchEvent(
                     'checkout_controller_onepage_save_shipping_method',
-                     array(
+                    array(
                           'request' => $this->getRequest(),
-                          'quote'   => $this->getOnepage()->getQuote()));
+                    'quote'   => $this->getOnepage()->getQuote())
+                );
                 $this->getOnepage()->getQuote()->collectTotals();
                 $this->_prepareDataJSON($result);
 
@@ -544,7 +545,9 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
     /**
      * Create invoice
      *
-     * @return Mage_Sales_Model_Order_Invoice
+     * @return Mage_Sales_Model_Service_Order
+     * @throws Mage_Core_Exception
+     * @throws Mage_Payment_Model_Info_Exception
      */
     protected function _initInvoice()
     {
@@ -552,7 +555,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         foreach ($this->_getOrder()->getAllItems() as $item) {
             $items[$item->getId()] = $item->getQtyOrdered();
         }
-        /* @var $invoice Mage_Sales_Model_Service_Order */
+        /* @var Mage_Sales_Model_Service_Order $invoice */
         $invoice = Mage::getModel('sales/service_order', $this->_getOrder())->prepareInvoice($items);
         $invoice->setEmailSent(true)->register();
 
@@ -692,5 +695,4 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         $this->getResponse()->setHeader('Content-type', 'application/json', true);
         return $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($response));
     }
-
 }

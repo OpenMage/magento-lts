@@ -24,9 +24,15 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * Class Mage_SalesRule_Model_Rule_Condition_Address
+ * @method $this setAttributeOption(array $attributes)
+ */
 class Mage_SalesRule_Model_Rule_Condition_Address extends Mage_Rule_Model_Condition_Abstract
 {
+    /**
+     * @return $this|Mage_Rule_Model_Condition_Abstract
+     */
     public function loadAttributeOptions()
     {
         $attributes = array(
@@ -46,6 +52,9 @@ class Mage_SalesRule_Model_Rule_Condition_Address extends Mage_Rule_Model_Condit
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getAttributeElement()
     {
         $element = parent::getAttributeElement();
@@ -53,27 +62,44 @@ class Mage_SalesRule_Model_Rule_Condition_Address extends Mage_Rule_Model_Condit
         return $element;
     }
 
+    /**
+     * @return string
+     */
     public function getInputType()
     {
         switch ($this->getAttribute()) {
-            case 'base_subtotal': case 'weight': case 'total_qty':
+            case 'base_subtotal':
+            case 'weight':
+            case 'total_qty':
                 return 'numeric';
 
-            case 'shipping_method': case 'payment_method': case 'country_id': case 'region_id':
+            case 'shipping_method':
+            case 'payment_method':
+            case 'country_id':
+            case 'region_id':
                 return 'select';
         }
         return 'string';
     }
 
+    /**
+     * @return string
+     */
     public function getValueElementType()
     {
         switch ($this->getAttribute()) {
-            case 'shipping_method': case 'payment_method': case 'country_id': case 'region_id':
+            case 'shipping_method':
+            case 'payment_method':
+            case 'country_id':
+            case 'region_id':
                 return 'select';
         }
         return 'text';
     }
 
+    /**
+     * @return array|mixed
+     */
     public function getValueSelectOptions()
     {
         if (!$this->hasData('value_select_options')) {
@@ -109,8 +135,8 @@ class Mage_SalesRule_Model_Rule_Condition_Address extends Mage_Rule_Model_Condit
     /**
      * Validate Address Rule Condition
      *
-     * @param Varien_Object $object
-     * @return bool
+     * @param Mage_Sales_Model_Quote_Address $object
+     * @inheritDoc
      */
     public function validate(Varien_Object $object)
     {
@@ -118,8 +144,7 @@ class Mage_SalesRule_Model_Rule_Condition_Address extends Mage_Rule_Model_Condit
         if (!$address instanceof Mage_Sales_Model_Quote_Address) {
             if ($object->getQuote()->isVirtual()) {
                 $address = $object->getQuote()->getBillingAddress();
-            }
-            else {
+            } else {
                 $address = $object->getQuote()->getShippingAddress();
             }
         }

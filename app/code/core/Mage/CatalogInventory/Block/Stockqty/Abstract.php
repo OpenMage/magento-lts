@@ -96,5 +96,4 @@ abstract class Mage_CatalogInventory_Block_Stockqty_Abstract extends Mage_Core_B
     {
         return ($this->getStockQty() > 0 && $this->getStockQty() <= $this->getThresholdQty());
     }
-
 }

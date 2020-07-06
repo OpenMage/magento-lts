@@ -72,6 +72,11 @@ class Mage_Core_Model_Config_Options extends Varien_Object
         $this->_data['export_dir']  = $this->_data['var_dir'].DS.'export';
     }
 
+    /**
+     * @param string $type
+     * @return mixed
+     * @throws Mage_Core_Exception
+     */
     public function getDir($type)
     {
         $method = 'get'.ucwords($type).'Dir';
@@ -82,65 +87,99 @@ class Mage_Core_Model_Config_Options extends Varien_Object
         return $dir;
     }
 
+    /**
+     * @return string
+     */
     public function getAppDir()
     {
         //return $this->getDataSetDefault('app_dir', Mage::getRoot());
         return $this->_data['app_dir'];
     }
 
+    /**
+     * @return string
+     */
     public function getBaseDir()
     {
         //return $this->getDataSetDefault('base_dir', dirname($this->getAppDir()));
         return $this->_data['base_dir'];
     }
 
+    /**
+     * @return string
+     */
     public function getCodeDir()
     {
         //return $this->getDataSetDefault('code_dir', $this->getAppDir().DS.'code');
         return $this->_data['code_dir'];
     }
 
+    /**
+     * @return string
+     */
     public function getDesignDir()
     {
         //return $this->getDataSetDefault('design_dir', $this->getAppDir().DS.'design');
         return $this->_data['design_dir'];
     }
 
+    /**
+     * @return string
+     */
     public function getEtcDir()
     {
         //return $this->getDataSetDefault('etc_dir', $this->getAppDir().DS.'etc');
         return $this->_data['etc_dir'];
     }
 
+    /**
+     * @return string
+     */
     public function getLibDir()
     {
         //return $this->getDataSetDefault('lib_dir', $this->getBaseDir().DS.'lib');
         return $this->_data['lib_dir'];
     }
 
+    /**
+     * @return string
+     */
     public function getLocaleDir()
     {
         //return $this->getDataSetDefault('locale_dir', $this->getAppDir().DS.'locale');
         return $this->_data['locale_dir'];
     }
 
+    /**
+     * @return string
+     */
     public function getMediaDir()
     {
         //return $this->getDataSetDefault('media_dir', $this->getBaseDir().DS.'media');
         return $this->_data['media_dir'];
     }
 
+    /**
+     * @return string
+     */
     public function getSkinDir()
     {
         //return $this->getDataSetDefault('skin_dir', $this->getBaseDir().DS.'skin');
         return $this->_data['skin_dir'];
     }
 
+    /**
+     * @return bool|string
+     */
     public function getSysTmpDir()
     {
         return sys_get_temp_dir();
     }
 
+    /**
+     * @return string
+     * @throws Mage_Core_Exception
+     */
     public function getVarDir()
     {
         //$dir = $this->getDataSetDefault('var_dir', $this->getBaseDir().DS.'var');
@@ -155,6 +194,10 @@ class Mage_Core_Model_Config_Options extends Varien_Object
         return $dir;
     }
 
+    /**
+     * @return string
+     * @throws Mage_Core_Exception
+     */
     public function getTmpDir()
     {
         //$dir = $this->getDataSetDefault('tmp_dir', $this->getVarDir().DS.'tmp');
@@ -168,6 +211,9 @@ class Mage_Core_Model_Config_Options extends Varien_Object
         return $dir;
     }
 
+    /**
+     * @return string
+     */
     public function getCacheDir()
     {
         //$dir = $this->getDataSetDefault('cache_dir', $this->getVarDir().DS.'cache');
@@ -176,6 +222,9 @@ class Mage_Core_Model_Config_Options extends Varien_Object
         return $dir;
     }
 
+    /**
+     * @return string
+     */
     public function getLogDir()
     {
         //$dir = $this->getDataSetDefault('log_dir', $this->getVarDir().DS.'log');
@@ -184,6 +233,9 @@ class Mage_Core_Model_Config_Options extends Varien_Object
         return $dir;
     }
 
+    /**
+     * @return string
+     */
     public function getSessionDir()
     {
         //$dir = $this->getDataSetDefault('session_dir', $this->getVarDir().DS.'session');
@@ -192,6 +244,9 @@ class Mage_Core_Model_Config_Options extends Varien_Object
         return $dir;
     }
 
+    /**
+     * @return string
+     */
     public function getUploadDir()
     {
         //$dir = $this->getDataSetDefault('upload_dir', $this->getMediaDir().DS.'upload');
@@ -200,6 +255,9 @@ class Mage_Core_Model_Config_Options extends Varien_Object
         return $dir;
     }
 
+    /**
+     * @return string
+     */
     public function getExportDir()
     {
         //$dir = $this->getDataSetDefault('export_dir', $this->getVarDir().DS.'export');
@@ -208,6 +266,10 @@ class Mage_Core_Model_Config_Options extends Varien_Object
         return $dir;
     }
 
+    /**
+     * @param string $dir
+     * @return bool
+     */
     public function createDirIfNotExists($dir)
     {
         if (!empty($this->_dirExists[$dir])) {

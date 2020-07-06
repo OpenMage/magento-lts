@@ -24,20 +24,21 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Abstract database storage model class
  *
  * @category    Mage
  * @package     Mage_Core
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getConnectionName()
  */
 abstract class Mage_Core_Model_File_Storage_Database_Abstract extends Mage_Core_Model_File_Storage_Abstract
 {
     /**
      * Class construct
      *
-     * @param string $databaseConnection
+     * @param array $params
      */
     public function __construct($params = array())
     {
@@ -68,10 +69,11 @@ abstract class Mage_Core_Model_File_Storage_Database_Abstract extends Mage_Core_
     /**
      * Get resource instance
      *
-     * @return Mage_Core_Model_Mysql4_Abstract
+     * @return Mage_Core_Model_Resource_File_Storage_Database
      */
     protected function _getResource()
     {
+        /** @var Mage_Core_Model_Resource_File_Storage_Database $resource */
         $resource = parent::_getResource();
         $resource->setConnectionName($this->getConnectionName());
 
@@ -81,7 +83,7 @@ abstract class Mage_Core_Model_File_Storage_Database_Abstract extends Mage_Core_
     /**
      * Prepare data storage
      *
-     * @return Mage_Core_Model_File_Storage_Database
+     * @return $this
      */
     public function prepareStorage()
     {
@@ -93,8 +95,8 @@ abstract class Mage_Core_Model_File_Storage_Database_Abstract extends Mage_Core_
     /**
      * Specify connection name
      *
-     * @param  $connectionName
-     * @return Mage_Core_Model_File_Storage_Database
+     * @param  string $connectionName
+     * @return $this
      */
     public function setConnectionName($connectionName)
     {

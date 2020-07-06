@@ -44,7 +44,7 @@ class Mage_Customer_Model_Address_Api_V2 extends Mage_Customer_Model_Address_Api
     {
         $customer = Mage::getModel('customer/customer')
             ->load($customerId);
-        /* @var $customer Mage_Customer_Model_Customer */
+        /* @var Mage_Customer_Model_Customer $customer */
 
         if (!$customer->getId()) {
             $this->_fault('customer_not_exists');
@@ -52,7 +52,7 @@ class Mage_Customer_Model_Address_Api_V2 extends Mage_Customer_Model_Address_Api
 
         $address = Mage::getModel('customer/address');
 
-        foreach ($this->getAllowedAttributes($address) as $attributeCode=>$attribute) {
+        foreach ($this->getAllowedAttributes($address) as $attributeCode => $attribute) {
             if (isset($addressData->$attributeCode)) {
                 $address->setData($attributeCode, $addressData->$attributeCode);
             }
@@ -133,7 +133,7 @@ class Mage_Customer_Model_Address_Api_V2 extends Mage_Customer_Model_Address_Api
             $this->_fault('not_exists');
         }
 
-        foreach ($this->getAllowedAttributes($address) as $attributeCode=>$attribute) {
+        foreach ($this->getAllowedAttributes($address) as $attributeCode => $attribute) {
             if (isset($addressData->$attributeCode)) {
                 $address->setData($attributeCode, $addressData->$attributeCode);
             }

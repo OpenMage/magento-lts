@@ -72,7 +72,7 @@ class Mage_XmlConnect_Block_Catalog_Category extends Mage_XmlConnect_Block_Catal
         $categoryCollection = $this->getCurrentChildCategories();
 
         // subcategories are exists
-        if (sizeof($categoryCollection)) {
+        if (count($categoryCollection)) {
             $itemsXmlObj = $categoryXmlObj->addChild('items');
             $categoryImageSize = Mage::getModel('xmlconnect/images')->getImageLimitParam('content/category');
             foreach ($categoryCollection as $item) {

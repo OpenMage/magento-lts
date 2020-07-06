@@ -26,6 +26,9 @@
 
 class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Product_Attribute_Backend_Price
 {
+    /**
+     * @return string
+     */
     public static function getBackendModelName()
     {
         return 'weee/attribute_backend_weee_tax';
@@ -82,7 +85,7 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
     {
         $data = $this->_getResource()->loadProductData($object, $this->getAttribute());
 
-        foreach ($data as $i=>$row) {
+        foreach ($data as $i => $row) {
             if ($data[$i]['website_id'] == 0) {
                 $rate = Mage::app()->getStore()->getBaseCurrency()->getRate(Mage::app()->getBaseCurrencyCode());
                 if ($rate) {
@@ -93,12 +96,15 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
             } else {
                 $data[$i]['website_value'] = $data[$i]['value'];
             }
-
         }
         $object->setData($this->getAttribute()->getName(), $data);
         return $this;
     }
 
+    /**
+     * @param Mage_Catalog_Model_Product $object
+     * @return $this|Mage_Catalog_Model_Product_Attribute_Backend_Price
+     */
     public function afterSave($object)
     {
         $orig = $object->getOrigData($this->getAttribute()->getName());
@@ -138,15 +144,21 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
         return $this;
     }
 
+    /**
+     * @param Varien_Object $object
+     * @return $this|Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+     */
     public function afterDelete($object)
     {
         $this->_getResource()->deleteProductData($object, $this->getAttribute());
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getTable()
     {
         return $this->_getResource()->getTable('weee/tax');
     }
 }
-

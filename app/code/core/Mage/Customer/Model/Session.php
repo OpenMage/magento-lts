@@ -27,9 +27,41 @@
 /**
  * Customer session model
  *
+ * @method string getAddActionReferer()
+ * @method $this setAddActionReferer(string $value)
+ * @method array getAddressFormData()
+ * @method $this setAddressFormData(array $value)
+ * @method string getAfterAuthUrl()
+ * @method string getBeforeUrl()
+ * @method $this setBeforeUrl(string $value)
+ * @method string getBeforeAuthUrl()
+ * @method array getBeforeWishlistRequest()
+ * @method $this setBeforeWishlistRequest(array $value)
+ * @method $this unsBeforeWishlistRequest()
+ * @method string getBeforeWishlistUrl()
+ * @method $this setBeforeWishlistUrl(string $value)
+ * @method array getCustomerFormData()
+ * @method $this setCustomerFormData(array $value)
+ * @method bool  hasDisplayOutOfStockProducts()
+ * @method string  getDisplayOutOfStockProducts(string $value)
+ * @method $this  setDisplayOutOfStockProducts()
+ * @method string getForgottenEmail()
+ * @method $this setForgottenEmail(string $value)
+ * @method $this unsForgottenEmail()
+ * @method bool getNoReferer(bool $value)
+ * @method $this setNoReferer(bool $value)
+ * @method $this unsNoReferer(bool $value)
+ * @method string getUsername()
+ * @method $this setUsername(string $value)
+ * @method string  getWishlistDisplayType()
+ * @method $this  setWishlistDisplayType(string $value)
+ * @method bool hasWishlistItemCount()
+ * @method int getWishlistItemCount()
+ * @method $this setWishlistItemCount(int $value)
+ *
  * @category   Mage
  * @package    Mage_Customer
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
 {
@@ -207,7 +239,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function login($username, $password)
     {
-        /** @var $customer Mage_Customer_Model_Customer */
+        /** @var Mage_Customer_Model_Customer $customer */
         $customer = Mage::getModel('customer/customer')
             ->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
 
@@ -218,6 +250,10 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
         return false;
     }
 
+    /**
+     * @param Mage_Customer_Model_Customer $customer
+     * @return $this
+     */
     public function setCustomerAsLoggedIn($customer)
     {
         $this->setCustomer($customer);
@@ -251,7 +287,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     public function logout()
     {
         if ($this->isLoggedIn()) {
-            Mage::dispatchEvent('customer_logout', array('customer' => $this->getCustomer()) );
+            Mage::dispatchEvent('customer_logout', array('customer' => $this->getCustomer()));
             $this->_logout();
         }
         return $this;
@@ -274,7 +310,8 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
         if (isset($loginUrl)) {
             $action->getResponse()->setRedirect($loginUrl);
         } else {
-            $action->setRedirectWithCookieCheck(Mage_Customer_Helper_Data::ROUTE_ACCOUNT_LOGIN,
+            $action->setRedirectWithCookieCheck(
+                Mage_Customer_Helper_Data::ROUTE_ACCOUNT_LOGIN,
                 Mage::helper('customer')->getLoginUrlParams()
             );
         }
