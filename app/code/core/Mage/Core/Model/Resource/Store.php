@@ -64,9 +64,9 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $model)
     {
-        if (!preg_match('/^[a-z]+[a-z0-9_]*$/', $model->getCode())) {
+        if (!preg_match('/^[a-z]+[a-z0-9_\-]*$/', $model->getCode())) {
             Mage::throwException(
-                Mage::helper('core')->__('The store code may contain only letters (a-z), numbers (0-9) or underscore(_), the first character must be a letter')
+                Mage::helper('core')->__('The store code may contain only letters (a-z), numbers (0-9), underscore(_) or dash(-), the first character must be a letter')
             );
         }
 
