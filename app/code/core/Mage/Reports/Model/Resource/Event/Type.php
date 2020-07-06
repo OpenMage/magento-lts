@@ -35,7 +35,7 @@
 class Mage_Reports_Model_Resource_Event_Type extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
-     * Main table initialization 
+     * Main table initialization
      *
      */
     protected function _construct()
