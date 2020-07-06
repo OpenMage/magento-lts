@@ -60,6 +60,12 @@ You can add additional meta files in this directory to cover your own project fi
 [PhpStorm advanced metadata](https://www.jetbrains.com/help/phpstorm/ide-advanced-metadata.html)
 for more information.
 
+## Removed Modules
+
+- Phoenix_Moneybookers
+
+    Re-install: `$ composer require openmage-module-fostering/phoenix_moneybookers`
+
 ## License
 
 [OSL v3.0](http://opensource.org/licenses/OSL-3.0)
