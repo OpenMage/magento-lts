@@ -58,5 +58,4 @@ class Mage_Payment_Block_Form_Banktransfer extends Mage_Payment_Block_Form
         }
         return $this->_instructions;
     }
-
 }

@@ -38,7 +38,9 @@ class Mage_Tax_Model_Observer
      */
     public function salesEventConvertQuoteAddressToOrder(Varien_Event_Observer $observer)
     {
+        /** @var Mage_Sales_Model_Quote_Address $address */
         $address = $observer->getEvent()->getAddress();
+        /** @var Mage_Sales_Model_Order $order */
         $order = $observer->getEvent()->getOrder();
 
         $taxes = $address->getAppliedTaxes();
@@ -58,6 +60,7 @@ class Mage_Tax_Model_Observer
      */
     public function salesEventOrderAfterSave(Varien_Event_Observer $observer)
     {
+        /** @var Mage_Sales_Model_Order $order */
         $order = $observer->getEvent()->getOrder();
 
         if (!$order->getConvertingFromQuote() || $order->getAppliedTaxIsSaved()) {
@@ -167,7 +170,8 @@ class Mage_Tax_Model_Observer
 
         $additionalCalculations = $response->getAdditionalCalculations();
         $calculation = Mage::helper('tax')->getPriceTaxSql(
-            $table . '.min_price', $table.'.tax_class_id'
+            $table . '.min_price',
+            $table.'.tax_class_id'
         );
 
         if (!empty($calculation)) {
@@ -191,6 +195,7 @@ class Mage_Tax_Model_Observer
     public function addTaxPercentToProductCollection($observer)
     {
         $helper = Mage::helper('tax');
+        /** @var Mage_Catalog_Model_Resource_Product_Collection $collection */
         $collection = $observer->getEvent()->getCollection();
         $store = $collection->getStoreId();
         if (!$helper->needPriceConversion($store)) {
@@ -209,7 +214,6 @@ class Mage_Tax_Model_Observer
                 }
                 $item->setTaxPercent($classToRate[$item->getTaxClassId()]);
             }
-
         }
         return $this;
     }
@@ -238,7 +242,7 @@ class Mage_Tax_Model_Observer
      */
     public function quoteCollectTotalsBefore(Varien_Event_Observer $observer)
     {
-        /* @var $quote Mage_Sales_Model_Quote */
+        /* @var Mage_Sales_Model_Quote $quote */
         $quote = $observer->getEvent()->getQuote();
         foreach ($quote->getAllAddresses() as $address) {
             $address->setExtraTaxAmount(0);

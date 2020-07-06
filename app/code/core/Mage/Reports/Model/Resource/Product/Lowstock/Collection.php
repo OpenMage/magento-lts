@@ -138,15 +138,17 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
     /**
      * Join catalog inventory stock item table for further stock_item values filters
      *
-     * @param unknown_type $fields
+     * @param array $fields
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function joinInventoryItem($fields = array())
     {
         if (!$this->_inventoryItemJoined) {
             $this->getSelect()->join(
                 array($this->_getInventoryItemTableAlias() => $this->_getInventoryItemTable()),
-                sprintf('e.%s = %s.product_id',
+                sprintf(
+                    'e.%s = %s.product_id',
                     $this->getEntity()->getEntityIdField(),
                     $this->_getInventoryItemTableAlias()
                 ),

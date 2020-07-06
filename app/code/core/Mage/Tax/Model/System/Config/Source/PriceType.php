@@ -42,6 +42,9 @@ class Mage_Tax_Model_System_Config_Source_PriceType
         );
     }
 
+    /**
+     * @return array
+     */
     public function toOptionArray()
     {
         return $this->_options;

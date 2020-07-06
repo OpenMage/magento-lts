@@ -51,10 +51,16 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
             $this->_optionsDefault = array();
         }
         if (!isset($this->_options[$storeId])) {
+            $idPrefix = 'ATTRIBUTE_OPTIONS_ID_' . $this->getAttribute()->getId();
+            $tags = array_merge(
+                array('eav', Mage_Core_Model_Translate::CACHE_TAG),
+                $this->getAttribute()->getCacheTags()
+            );
             $collection = Mage::getResourceModel('eav/entity_attribute_option_collection')
                 ->setPositionOrder('asc')
                 ->setAttributeFilter($this->getAttribute()->getId())
                 ->setStoreFilter($this->getAttribute()->getStoreId())
+                ->initCache(Mage::app()->getCache(), $idPrefix, $tags)
                 ->load();
             $this->_options[$storeId]        = $collection->toOptionArray();
             $this->_optionsDefault[$storeId] = $collection->toOptionArray('default_value');

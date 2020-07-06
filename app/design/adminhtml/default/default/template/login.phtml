@@ -29,7 +29,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="robots" content="noindex, nofollow" />
-    <title><?php echo Mage::helper('adminhtml')->__('Log into Magento Admin Page') ?></title>
+    <title><?php echo Mage::helper('adminhtml')->__('Log into OpenMage Admin Page') ?></title>
     <link type="text/css" rel="stylesheet" href="<?php echo $this->getSkinUrl('reset.css') ?>" media="all" />
     <link type="text/css" rel="stylesheet" href="<?php echo $this->getSkinUrl('boxes.css') ?>" media="all" />
     <link rel="icon" href="<?php echo $this->getSkinUrl('favicon.ico') ?>" type="image/x-icon" />
@@ -48,7 +48,7 @@
 <body id="page-login" onload="document.forms.loginForm.username.focus();">
     <div class="login-container">
         <div class="login-box">
-            <form method="post" action="" id="loginForm" autocomplete="off">
+            <form method="post" action="<?php echo $this->getUrl('adminhtml') ?>" id="loginForm" autocomplete="off">
                 <div class="login-form">
                     <input name="form_key" type="hidden" value="<?php echo $this->getFormKey() ?>" />
                     <h2><?php echo Mage::helper('adminhtml')->__('Log in to Admin Panel') ?></h2>

@@ -10,7 +10,7 @@
   "authors": [
     {
       "name": "Lee Saferite",
-      "email": "lee.saferite@aoe.com",
+      "email": "lee.saferite@openmage.org",
       "role": "Maintainer"
     },
     {
@@ -21,6 +21,15 @@
     {
       "name": "David Robinson",
       "email": "david.robinson@aoe.com",
+      "role": "Maintainer"
+    },
+    {
+      "name": "Tymoteusz Motylewski",
+      "role": "Maintainer"
+    },
+    {
+      "name": "Sven Reichel",
+      "email": "github-sr@hotmail.com",
       "role": "Maintainer"
     }
   ]

@@ -87,7 +87,7 @@ class Mage_Page_Helper_Layout extends Mage_Core_Helper_Abstract
     /**
      * Retrieve current applied page layout
      *
-     * @return Varien_Object|boolean
+     * @return Varien_Object|false
      */
     public function getCurrentPageLayout()
     {

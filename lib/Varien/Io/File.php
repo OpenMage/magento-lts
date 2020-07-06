@@ -487,7 +487,7 @@ class Varien_Io_File extends Varien_Io_Abstract
     protected function _IsValidSource($src)
     {
         //Treat string that contains a null byte as invalid
-        if ((is_string($src) && strpos($src, char(0)) === false) || is_resource($src)) {
+        if ((is_string($src) && strpos($src, chr(0)) === false) || is_resource($src)) {
             return true;
         }
 
