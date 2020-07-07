@@ -157,7 +157,7 @@
             <fixerio>
                 <timeout>100</timeout>
                 <api_key backend_model="adminhtml/system_config_backend_encrypted"/>
-                <active>1</active>
+                <active>0</active>
             </fixerio>
             <webservicex>
                 <timeout>100</timeout>
