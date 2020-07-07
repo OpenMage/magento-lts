@@ -115,7 +115,6 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
         $itemPositionClassPrefix = $parentPositionClass ? $parentPositionClass . '-' : 'nav-';
 
         foreach ($children as $child) {
-
             $child->setLevel($childLevel);
             $child->setIsFirst($counter == 1);
             $child->setIsLast($counter == $childrenCount);

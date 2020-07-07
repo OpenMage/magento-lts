@@ -57,7 +57,8 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
     public function updateCustomerType(Mage_Reports_Model_Event $model, $visitorId, $customerId, $types = array())
     {
         if ($types) {
-            $this->_getWriteAdapter()->update($this->getMainTable(),
+            $this->_getWriteAdapter()->update(
+                $this->getMainTable(),
                 array('subject_id' => (int)$customerId, 'subtype' => 0),
                 array(
                     'subject_id = ?'      => (int)$visitorId,
@@ -81,15 +82,20 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
      * @param array $skipIds
      * @return $this
      */
-    public function applyLogToCollection(Varien_Data_Collection_Db $collection, $eventTypeId, $eventSubjectId, $subtype,
-        $skipIds = array())
-    {
+    public function applyLogToCollection(
+        Varien_Data_Collection_Db $collection,
+        $eventTypeId,
+        $eventSubjectId,
+        $subtype,
+        $skipIds = array()
+    ) {
         $idFieldName = $collection->getResource()->getIdFieldName();
 
         $derivedSelect = $this->getReadConnection()->select()
             ->from(
                 $this->getTable('reports/event'),
-                array('event_id' => new Zend_Db_Expr('MAX(event_id)'), 'object_id'))
+                array('event_id' => new Zend_Db_Expr('MAX(event_id)'), 'object_id')
+            )
             ->where('event_type_id = ?', (int)$eventTypeId)
             ->where('subject_id = ?', (int)$eventSubjectId)
             ->where('subtype = ?', (int)$subtype)
@@ -107,7 +113,8 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
             ->joinInner(
                 array('evt' => new Zend_Db_Expr("({$derivedSelect})")),
                 "{$idFieldName} = evt.object_id",
-                array())
+                array()
+            )
             ->order('evt.event_id ' . Varien_Db_Select::SQL_DESC);
 
         return $this;
@@ -169,7 +176,8 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
                 ->joinLeft(
                     array('visitor_table' => $this->getTable('log/visitor')),
                     'event_table.subject_id = visitor_table.visitor_id',
-                    array())
+                    array()
+                )
                 ->where('visitor_table.visitor_id IS NULL')
                 ->where('event_table.subtype = ?', 1)
                 ->limit(1000);
@@ -184,4 +192,3 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
         return $this;
     }
 }
-

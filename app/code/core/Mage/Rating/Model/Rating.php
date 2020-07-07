@@ -29,16 +29,36 @@
  *
  * @method Mage_Rating_Model_Resource_Rating getResource()
  * @method Mage_Rating_Model_Resource_Rating _getResource()
- * @method array getRatingCodes()
- * @method Mage_Rating_Model_Rating setRatingCodes(array $value)
- * @method array getStores()
- * @method Mage_Rating_Model_Rating setStores(array $value)
+ * @method Mage_Rating_Model_Resource_Rating_Collection getCollection()
+ * @method Mage_Rating_Model_Resource_Rating_Collection getResourceCollection()
+ *
+ * @method $this setCount(int $value)
+ * @method $this setCustomerId(int $value)
+ * @method $this setEntityId(int $value)
+ * @method string getEntityPkValue()
+ * @method $this setEntityPkValue(string $value)
+ * @method $this setId(string $value)
+ * @method $this setPosition(string $value)
+ * @method bool hasRatingCodes()
  * @method string getRatingCode()
- * @method Mage_Rating_Model_Rating getRatingCode(string $value)
+ * @method $this setRatingCode(string $value)
+ * @method array getRatingCodes()
+ * @method $this setRatingCodes(array $value)
+ * @method $this setRatingId(int $value)
+ * @method int getReviewId()
+ * @method $this setReviewId(int $value)
+ * @method bool hasStores()
+ * @method int getStoreId()
+ * @method $this setStoreId(int $value)
+ * @method array getStores()
+ * @method $this setStores(array $value)
+ * @method $this setSum(int $value)
+ * @method $this setSummary(float|int $param)
+ * @method int getVoteId()
  *
  * @category   Mage
  * @package    Mage_Rating
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Rating_Model_Rating extends Mage_Core_Model_Abstract
 {
@@ -60,6 +80,11 @@ class Mage_Rating_Model_Rating extends Mage_Core_Model_Abstract
         $this->_init('rating/rating');
     }
 
+    /**
+     * @param int $optionId
+     * @param string $entityPkValue
+     * @return $this
+     */
     public function addOptionVote($optionId, $entityPkValue)
     {
         Mage::getModel('rating/rating_option')->setOptionId($optionId)
@@ -70,6 +95,10 @@ class Mage_Rating_Model_Rating extends Mage_Core_Model_Abstract
         return $this;
     }
 
+    /**
+     * @param int $optionId
+     * @return $this
+     */
     public function updateOptionVote($optionId)
     {
         Mage::getModel('rating/rating_option')->setOptionId($optionId)
@@ -89,8 +118,7 @@ class Mage_Rating_Model_Rating extends Mage_Core_Model_Abstract
     {
         if ($options = $this->getData('options')) {
             return $options;
-        }
-        elseif ($id = $this->getId()) {
+        } elseif ($id = $this->getId()) {
             return Mage::getResourceModel('rating/rating_option_collection')
                ->addRatingFilter($id)
                ->setPositionOrder()
@@ -103,16 +131,23 @@ class Mage_Rating_Model_Rating extends Mage_Core_Model_Abstract
     /**
      * Get rating collection object
      *
-     * @return array
+     * @param string $entityPkValue
+     * @param bool $onlyForCurrentStore
+     * @return array|Mage_Rating_Model_Rating
      */
 
-    public function getEntitySummary($entityPkValue,  $onlyForCurrentStore = true)
+    public function getEntitySummary($entityPkValue, $onlyForCurrentStore = true)
     {
         $this->setEntityPkValue($entityPkValue);
         return $this->_getResource()->getEntitySummary($this, $onlyForCurrentStore);
     }
 
-    public function getReviewSummary($reviewId,  $onlyForCurrentStore = true)
+    /**
+     * @param int $reviewId
+     * @param bool $onlyForCurrentStore
+     * @return array
+     */
+    public function getReviewSummary($reviewId, $onlyForCurrentStore = true)
     {
         $this->setReviewId($reviewId);
         return $this->_getResource()->getReviewSummary($this, $onlyForCurrentStore);

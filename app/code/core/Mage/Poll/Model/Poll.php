@@ -29,21 +29,28 @@
  *
  * @method Mage_Poll_Model_Resource_Poll _getResource()
  * @method Mage_Poll_Model_Resource_Poll getResource()
- * @method string getPollTitle()
- * @method Mage_Poll_Model_Poll setPollTitle(string $value)
- * @method Mage_Poll_Model_Poll setVotesCount(int $value)
- * @method int getStoreId()
- * @method Mage_Poll_Model_Poll setStoreId(int $value)
- * @method string getDatePosted()
- * @method Mage_Poll_Model_Poll setDatePosted(string $value)
- * @method string getDateClosed()
- * @method Mage_Poll_Model_Poll setDateClosed(string $value)
+ * @method Mage_Poll_Model_Resource_Poll_Collection getCollection()
+ *
  * @method int getActive()
- * @method Mage_Poll_Model_Poll setActive(int $value)
- * @method int getClosed()
- * @method Mage_Poll_Model_Poll setClosed(int $value)
+ * @method $this setActive(int $value)
  * @method int getAnswersDisplay()
- * @method Mage_Poll_Model_Poll setAnswersDisplay(int $value)
+ * @method $this setAnswersDisplay(int $value)
+ * @method int getClosed()
+ * @method $this setClosed(int $value)
+ * @method string getDateClosed()
+ * @method $this setDateClosed(string $value)
+ * @method string getDatePosted()
+ * @method $this setDatePosted(string $value)
+ * @method array getExcludeFilter()
+ * @method $this setExcludeFilter(array $value)
+ * @method string getPollTitle()
+ * @method $this setPollTitle(string $value)
+ * @method int getStoreId()
+ * @method $this setStoreId(int $value)
+ * @method $this setStoreIds(array $value)
+ * @method int getStoreFilter()
+ * @method $this setStoreFilter(int $value)
+ * @method $this setVotesCount(int $value)
  *
  * @category    Mage
  * @package     Mage_Poll
@@ -55,6 +62,10 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
     const XML_PATH_POLL_CHECK_BY_IP = 'web/polls/poll_check_by_ip';
 
     protected $_pollCookieDefaultName = 'poll';
+
+    /**
+     * @var Mage_Poll_Model_Poll_Answer[]
+     */
     protected $_answersCollection   = array();
     protected $_storeCollection     = array();
 
@@ -99,8 +110,8 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
     /**
      * Retrieve defined or current Id
      *
-     * @param int|null $pollId
-     * @return int
+     * @param string $pollId
+     * @return string
      */
     public function getPollId($pollId = null)
     {
@@ -124,9 +135,9 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
      * Declare poll as voted
      *
      * @param   int $pollId
-     * @return  Mage_Poll_Model_Poll
+     * @return  $this
      */
-    public function setVoted($pollId=null)
+    public function setVoted($pollId = null)
     {
         $this->getCookie()->set($this->getCookieName($pollId), $this->getPollId($pollId));
 
@@ -160,7 +171,7 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
     /**
      * Get random active pool identifier
      *
-     * @return int
+     * @return string
      */
     public function getRandomId()
     {
@@ -180,7 +191,9 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
     /**
      * Add vote to poll
      *
-     * @return unknown
+     * @param Mage_Poll_Model_Poll_Vote $vote
+     * @return $this
+     * @throws Exception
      */
     public function addVote(Mage_Poll_Model_Poll_Vote $vote)
     {
@@ -196,15 +209,14 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
      * Check answer existing for poll
      *
      * @param   mixed $answer
-     * @return  boll
+     * @return  bool
      */
     public function hasAnswer($answer)
     {
         $answerId = false;
         if (is_numeric($answer)) {
             $answerId = $answer;
-        }
-        elseif ($answer instanceof Mage_Poll_Model_Poll_Answer) {
+        } elseif ($answer instanceof Mage_Poll_Model_Poll_Answer) {
             $answerId = $answer->getId();
         }
 
@@ -214,13 +226,18 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
         return false;
     }
 
+    /**
+     * @return $this
+     */
     public function resetVotesCount()
     {
         $this->_getResource()->resetVotesCount($this);
         return $this;
     }
 
-
+    /**
+     * @return array
+     */
     public function getVotedPollsIds()
     {
         $idsArray = array();
@@ -243,17 +260,28 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
         return $idsArray;
     }
 
+    /**
+     * @param Mage_Poll_Model_Poll_Answer $object
+     * @return $this
+     */
     public function addAnswer($object)
     {
         $this->_answersCollection[] = $object;
         return $this;
     }
 
+    /**
+     * @return Mage_Poll_Model_Poll_Answer[]
+     */
     public function getAnswers()
     {
         return $this->_answersCollection;
     }
 
+    /**
+     * @param int $storeId
+     * @return $this
+     */
     public function addStoreId($storeId)
     {
         $ids = $this->getStoreIds();
@@ -264,6 +292,9 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function getStoreIds()
     {
         $ids = $this->_getData('store_ids');
@@ -279,9 +310,11 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
         $this->_getResource()->loadStoreIds($this);
     }
 
+    /**
+     * @return int
+     */
     public function getVotesCount()
     {
         return $this->_getData('votes_count');
     }
-
 }
