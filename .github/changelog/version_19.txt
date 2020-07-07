@@ -1,10 +1,31 @@
 
 
+## v19.4.6 - unreleased
 
 
 
-## v19.4.5 - unreleased
+## v19.4.5 - 2020-07-07
 
+#1044 Phoenix_Moneybookers - Removed Phoenix_Moneybookers
+#1040 Mage_XmlConnect - Removed Mage_XmlConnect
+#748 Mage_Shipping - DOC block update
+#759 Mage_Persistant - DOC block update
+#758 Mage_Poll - DOC block update
+#757 Mage_ProductAlert - DOC block update
+#755 Mage_Reports - DOC block update
+#756 Mage_Rating - DOC block update
+#1048 Fix broken file upload for downloadables caused by PATCH SUPEE-11314
+#1050 add PullRequest Templates and config for automatic Issue Labeling (#1090)
+#1014 Mage_Adminhtml - update admin footer
+#1085 Installer rebranding
+#1072 Mage_Admin - Fixed issue with admin login after forced password rehash
+#1084 fix "Call to undefined function char()" error introduced in #966 (#1083)
+#1069 :heart: for contributors - introduce all-contributors-bot to fill README (#1088)
+#1082 Update composer.json to fix email address
+#1067 Mage_Core - Remove unneeded docblock method definition
+#764 Mage_Oauth - mini DOC block update
+#760 Mage_Payment - DOC block update
+#762 Mage_Page - DOC block update
 
 
 ## v19.4.4 - 2020-06-28
