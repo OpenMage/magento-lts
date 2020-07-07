@@ -24,13 +24,14 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Event regex observer object
- * 
+ *
  * @category   Varien
  * @package    Varien_Event
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getEventRegex()
  */
 class Varien_Event_Observer_Regex extends Varien_Event_Observer
 {

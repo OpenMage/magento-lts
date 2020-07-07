@@ -242,7 +242,7 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
 
             $this->_isConfig = true;
             $this->_stock = Mage::getModel('cataloginventory/stock');
-            $this->_configTypeIds = array_keys(Mage::helper('catalogInventory')->getIsQtyTypeIds(true));
+            $this->_configTypeIds = array_keys(Mage::helper('cataloginventory')->getIsQtyTypeIds(true));
         }
     }
 

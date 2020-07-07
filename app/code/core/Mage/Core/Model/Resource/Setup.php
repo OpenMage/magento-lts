@@ -54,21 +54,21 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Setup resource configuration object
      *
-     * @var Varien_Simplexml_Object
+     * @var Mage_Core_Model_Config_Element
      */
     protected $_resourceConfig;
 
     /**
      * Connection configuration object
      *
-     * @var Varien_Simplexml_Object
+     * @var Mage_Core_Model_Config_Element
      */
     protected $_connectionConfig;
 
     /**
      * Setup module configuration object
      *
-     * @var Varien_Simplexml_Object
+     * @var Mage_Core_Model_Config_Element
      */
     protected $_moduleConfig;
 
@@ -151,7 +151,7 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Get connection object
      *
-     * @return Varien_Db_Adapter_Interface
+     * @return Varien_Db_Adapter_Interface|Varien_Db_Adapter_Pdo_Mysql
      */
     public function getConnection()
     {
@@ -230,6 +230,7 @@ class Mage_Core_Model_Resource_Setup
             if (isset($resource->setup->class)) {
                 $className = $resource->setup->getClassName();
             }
+            /** @var Mage_Core_Model_Resource_Setup $setupClass */
             $setupClass = new $className($resName);
             $setupClass->applyUpdates();
             if ($setupClass->getCallAfterApplyAllUpdates()) {
@@ -264,6 +265,7 @@ class Mage_Core_Model_Resource_Setup
             if (isset($resource->setup->class)) {
                 $className = $resource->setup->getClassName();
             }
+            /** @var Mage_Core_Model_Resource_Setup $setupClass */
             $setupClass = new $className($resName);
             $setupClass->applyDataUpdates();
         }
@@ -272,7 +274,6 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Apply data updates to the system after upgrading.
      *
-     * @param string $fromVersion
      * @return $this
      */
     public function applyDataUpdates()
@@ -293,7 +294,7 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Apply module resource install, upgrade and data scripts
      *
-     * @return $this
+     * @return $this|true
      */
     public function applyUpdates()
     {
@@ -341,7 +342,7 @@ class Mage_Core_Model_Resource_Setup
     protected function _hookQueries()
     {
         $this->_queriesHooked = true;
-        /* @var $adapter Varien_Db_Adapter_Pdo_Mysql */
+        /* @var Varien_Db_Adapter_Pdo_Mysql $adapter */
         $adapter = $this->getConnection();
         $adapter->setQueryHook(array('object' => $this, 'method' => 'callbackQueryHook'));
         return $this;
@@ -357,7 +358,7 @@ class Mage_Core_Model_Resource_Setup
         if (!$this->_queriesHooked) {
             return $this;
         }
-        /* @var $adapter Varien_Db_Adapter_Pdo_Mysql */
+        /* @var Varien_Db_Adapter_Pdo_Mysql $adapter */
         $adapter = $this->getConnection();
         $adapter->setQueryHook(null);
         $this->_queriesHooked = false;
@@ -491,7 +492,7 @@ class Mage_Core_Model_Resource_Setup
             $matches = array();
             if (preg_match($regExpDb, $file, $matches)) {
                 $dbFiles[$matches[1]] = $filesDir . DS . $file;
-            } else if (preg_match($regExpType, $file, $matches)) {
+            } elseif (preg_match($regExpType, $file, $matches)) {
                 $typeFiles[$matches[1]] = $filesDir . DS . $file;
             }
         }
@@ -750,7 +751,7 @@ class Mage_Core_Model_Resource_Setup
      *
      * @param string $table
      * @param string $idField
-     * @param string|int $id
+     * @param int|string $id
      * @param null|string $parentField
      * @param int|string $parentId
      * @return $this
@@ -786,7 +787,7 @@ class Mage_Core_Model_Resource_Setup
      * @param mixed|null $value
      * @param string $parentField
      * @param string|integer $parentId
-     * @return Mage_Eav_Model_Entity_Setup
+     * @return $this
      */
     public function updateTableRow($table, $idField, $id, $field, $value = null, $parentField = null, $parentId = 0)
     {

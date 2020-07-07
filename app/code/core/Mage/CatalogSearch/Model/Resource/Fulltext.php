@@ -469,7 +469,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
      * Retrieve searchable attribute by Id or code
      *
      * @param int|string $attribute
-     * @return Mage_Eav_Model_Entity_Attribute
+     * @return Mage_Eav_Model_Entity_Attribute_Abstract
      */
     protected function _getSearchableAttribute($attribute)
     {
@@ -591,8 +591,8 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
     /**
      * Return all product children ids
      *
-     * @param $productId
-     * @param $typeId
+     * @param int $productId
+     * @param int $typeId
      * @param null|int $websiteId
      * @return array|null
      */
@@ -675,8 +675,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
                             $index[$attributeCode] = array($index[$attributeCode]);
                         }
                         $index[$attributeCode][] = $value;
-                    }
-                    //For other types of products
+                    } //For other types of products
                     else {
                         $index[$attributeCode] = $value;
                     }

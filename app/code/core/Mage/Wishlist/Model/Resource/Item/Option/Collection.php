@@ -97,9 +97,9 @@ class Mage_Wishlist_Model_Resource_Item_Option_Collection extends Mage_Core_Mode
         if (empty($item)) {
             $this->_totalRecords = 0;
             $this->_setIsLoaded(true);
-        } else if (is_array($item)) {
+        } elseif (is_array($item)) {
             $this->addFieldToFilter('wishlist_item_id', array('in' => $item));
-        } else if ($item instanceof Mage_Wishlist_Model_Item) {
+        } elseif ($item instanceof Mage_Wishlist_Model_Item) {
             $this->addFieldToFilter('wishlist_item_id', $item->getId());
         } else {
             $this->addFieldToFilter('wishlist_item_id', $item);
@@ -149,7 +149,7 @@ class Mage_Wishlist_Model_Resource_Item_Option_Collection extends Mage_Core_Mode
     /**
      * Get all option for item
      *
-     * @param  mixed $item
+     * @param int|Mage_Catalog_Model_Product $product
      * @return array
      */
     public function getOptionsByProduct($product)

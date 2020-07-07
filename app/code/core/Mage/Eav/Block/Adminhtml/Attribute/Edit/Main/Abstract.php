@@ -36,12 +36,19 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
 {
     protected $_attribute = null;
 
+    /**
+     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
+     * @return $this
+     */
     public function setAttributeObject($attribute)
     {
         $this->_attribute = $attribute;
         return $this;
     }
 
+    /**
+     * @return Mage_Catalog_Model_Resource_Eav_Attribute
+     */
     public function getAttributeObject()
     {
         if (null === $this->_attribute) {
@@ -53,7 +60,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
     /**
      * Preparing default form elements for editing attribute
      *
-     * @return Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract
+     * @inheritDoc
      */
     protected function _prepareForm()
     {
@@ -65,7 +72,8 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
             'method' => 'post'
         ));
 
-        $fieldset = $form->addFieldset('base_fieldset',
+        $fieldset = $form->addFieldset(
+            'base_fieldset',
             array('legend'=>Mage::helper('eav')->__('Attribute Properties'))
         );
         if ($attributeObject->getAttributeId()) {
@@ -78,8 +86,10 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
 
         $yesno = Mage::getModel('adminhtml/system_config_source_yesno')->toOptionArray();
 
-        $validateClass = sprintf('validate-code validate-length maximum-length-%d',
-            Mage_Eav_Model_Entity_Attribute::ATTRIBUTE_CODE_MAX_LENGTH);
+        $validateClass = sprintf(
+            'validate-code validate-length maximum-length-%d',
+            Mage_Eav_Model_Entity_Attribute::ATTRIBUTE_CODE_MAX_LENGTH
+        );
         $fieldset->addField('attribute_code', 'text', array(
             'name'  => 'attribute_code',
             'label' => Mage::helper('eav')->__('Attribute Code'),
@@ -169,7 +179,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
     /**
      * Initialize form fileds values
      *
-     * @return Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract
+     * @inheritDoc
      */
     protected function _initFormValues()
     {
@@ -217,5 +227,4 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
             ->createBlock('eav/adminhtml_attribute_edit_js')->toHtml();
         return $html.$jsScripts;
     }
-
 }

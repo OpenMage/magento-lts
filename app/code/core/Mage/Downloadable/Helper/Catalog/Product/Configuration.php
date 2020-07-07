@@ -31,8 +31,7 @@
  * @package    Mage_Downloadable
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Downloadable_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_Abstract
-    implements Mage_Catalog_Helper_Product_Configuration_Interface
+class Mage_Downloadable_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_Abstract implements Mage_Catalog_Helper_Product_Configuration_Interface
 {
     /**
      * Retrieves item links options

@@ -49,7 +49,7 @@ abstract class Mage_Core_Model_File_Storage_Abstract extends Mage_Core_Model_Abs
     public function getMediaBaseDirectory()
     {
         if (null === $this->_mediaBaseDirectory) {
-            /** @var $helper Mage_Core_Helper_File_Storage_Database */
+            /** @var Mage_Core_Helper_File_Storage_Database $helper */
             $helper = Mage::helper('core/file_storage_database');
             $this->_mediaBaseDirectory = $helper->getMediaBaseDir();
         }

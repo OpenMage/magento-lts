@@ -29,7 +29,10 @@
  *
  * @category   Mage
  * @package    Mage_Page
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setLogoAlt(string $value)
+ * @method $this setLogoSrc(string $value)
  */
 class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
 {
@@ -41,13 +44,18 @@ class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
     /**
      * Check if current url is url for home page
      *
-     * @return true
+     * @return bool
      */
     public function getIsHomePage()
     {
         return $this->getUrl('') == $this->getUrl('*/*/*', array('_current'=>true, '_use_rewrite'=>true));
     }
 
+    /**
+     * @param string $logo_src
+     * @param string $logo_alt
+     * @return $this
+     */
     public function setLogo($logo_src, $logo_alt)
     {
         $this->setLogoSrc($logo_src);
@@ -55,6 +63,9 @@ class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getLogoSrc()
     {
         if (empty($this->_data['logo_src'])) {
@@ -63,6 +74,9 @@ class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
         return $this->getSkinUrl($this->_data['logo_src']);
     }
 
+    /**
+     * @return string
+     */
     public function getLogoSrcSmall()
     {
         if (empty($this->_data['logo_src_small'])) {
@@ -71,6 +85,9 @@ class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
         return $this->getSkinUrl($this->_data['logo_src_small']);
     }
 
+    /**
+     * @return string
+     */
     public function getLogoAlt()
     {
         if (empty($this->_data['logo_alt'])) {

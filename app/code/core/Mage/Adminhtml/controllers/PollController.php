@@ -162,7 +162,7 @@ class Mage_Adminhtml_PollController extends Mage_Adminhtml_Controller_Action
 
                 $answers = $this->getRequest()->getParam('answer');
 
-                if( !is_array($answers) || sizeof($answers) == 0 ) {
+                if( !is_array($answers) || !count($answers) ) {
                     Mage::throwException(Mage::helper('adminhtml')->__('Please, add some answers to this poll first.'));
                 }
 

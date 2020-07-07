@@ -41,6 +41,7 @@ class Mage_Payment_Model_Observer
      */
     public function salesOrderBeforeSave($observer)
     {
+        /** @var Mage_Sales_Model_Order $order */
         $order = $observer->getEvent()->getOrder();
 
         if ($order->getPayment()->getMethodInstance()->getCode() != 'free') {
@@ -72,6 +73,7 @@ class Mage_Payment_Model_Observer
      */
     public function prepareProductRecurringProfileOptions($observer)
     {
+        /** @var Mage_Catalog_Model_Product $product */
         $product = $observer->getEvent()->getProduct();
         $buyRequest = $observer->getEvent()->getBuyRequest();
 
@@ -138,6 +140,7 @@ class Mage_Payment_Model_Observer
     {
         $state = $observer->getEvent()->getState();
         if ($state == Mage_Sales_Model_Order::STATE_NEW) {
+            /** @var Mage_Sales_Model_Order_Status|false $statusModel */
             $statusModel = $observer->getEvent()->getStatus();
             $status      = $statusModel->getStatus();
             $used        = 0;

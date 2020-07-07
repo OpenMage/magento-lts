@@ -53,12 +53,14 @@ class Mage_Weee_Model_Total_Invoice_Weee extends Mage_Sales_Model_Order_Invoice_
             $weeeRowDiscountAmount = $orderItem->getDiscountAppliedForWeeeTax();
             $weeeDiscountAmount = $invoice->roundPrice(
                 $weeeRowDiscountAmount / $orderItemQty * $item->getQty(),
-                'regular', true
+                'regular',
+                true
             );
             $baseWeeeRowDiscountAmount = $orderItem->getBaseDiscountAppliedForWeeeTax();
             $baseWeeeDiscountAmount = $invoice->roundPrice(
                 $baseWeeeRowDiscountAmount / $orderItemQty * $item->getQty(),
-                'base', true
+                'base',
+                true
             );
             $weeeTaxAmount = $item->getWeeeTaxAppliedAmount() * $item->getQty();
             $baseWeeeTaxAmount = $item->getBaseWeeeTaxAppliedAmount() * $item->getQty();

@@ -163,7 +163,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
 
     public function parseRow($i, $line)
     {
-        if (sizeof($line) == 1) {
+        if (count($line) === 1) {
             return false;
         }
 

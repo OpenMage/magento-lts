@@ -57,7 +57,8 @@ class Mage_Core_Model_Resource_Url_Rewrite_Collection extends Mage_Core_Model_Re
             $this->join(
                 array('curt' => $this->getTable('core/url_rewrite_tag')),
                 'main_table.url_rewrite_id = curt.url_rewrite_id',
-                array());
+                array()
+            );
             $this->setFlag('tag_table_joined', true);
         }
 

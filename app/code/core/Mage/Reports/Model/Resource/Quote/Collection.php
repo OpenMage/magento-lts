@@ -57,7 +57,7 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
      * Set type for COUNT SQL select
      *
      * @param int $type
-     * @return Mage_Reports_Model_Mysql4_Quote_Collection
+     * @return $this
      */
     public function setSelectCountSqlType($type)
     {
@@ -118,7 +118,8 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
                 array('oi' => $this->getTable('sales/order_item')),
                 array(
                    'orders' => new Zend_Db_Expr('COUNT(1)'),
-                   'product_id'))
+                'product_id')
+            )
             ->group('oi.product_id');
 
         $this->getSelect()
@@ -127,19 +128,23 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
             ->joinInner(
                 array('quote_items' => $this->getTable('sales/quote_item')),
                 'quote_items.quote_id = main_table.entity_id',
-                null)
+                null
+            )
             ->joinInner(
                 array('e' => $this->getTable('catalog/product')),
                 'e.entity_id = quote_items.product_id',
-                null)
+                null
+            )
             ->joinInner(
                 array('product_name' => $productAttrNameTable),
                 "product_name.entity_id = e.entity_id AND product_name.attribute_id = {$productAttrNameId}",
-                array('name'=>'product_name.value'))
+                array('name'=>'product_name.value')
+            )
             ->joinInner(
                 array('product_price' => $productAttrPriceTable),
                 "product_price.entity_id = e.entity_id AND product_price.attribute_id = {$productAttrPriceId}",
-                array('price' => new Zend_Db_Expr('product_price.value * main_table.base_to_global_rate')))
+                array('price' => new Zend_Db_Expr('product_price.value * main_table.base_to_global_rate'))
+            )
             ->joinLeft(
                 array('order_items' => new Zend_Db_Expr(sprintf('(%s)', $ordersSubSelect))),
                 'order_items.product_id = e.entity_id',
@@ -169,7 +174,7 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
     /**
      * Add customer data
      *
-     * @param unknown_type $filter
+     * @param array|null $filter
      * @return $this
      */
     public function addCustomerData($filter = null)
@@ -246,7 +251,7 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
     /**
      * Add subtotals
      *
-     * @param array $storeIds
+     * @param array|string $storeIds
      * @param array $filter
      * @return $this
      */
@@ -267,13 +272,15 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
             if (isset($filter['subtotal']['from'])) {
                 $this->getSelect()->where(
                     $this->_joinedFields['subtotal'] . ' >= ?',
-                    $filter['subtotal']['from'], Zend_Db::FLOAT_TYPE
+                    $filter['subtotal']['from'],
+                    Zend_Db::FLOAT_TYPE
                 );
             }
             if (isset($filter['subtotal']['to'])) {
                 $this->getSelect()->where(
                     $this->_joinedFields['subtotal'] . ' <= ?',
-                    $filter['subtotal']['to'], Zend_Db::FLOAT_TYPE
+                    $filter['subtotal']['to'],
+                    Zend_Db::FLOAT_TYPE
                 );
             }
         }
@@ -284,7 +291,7 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
     /**
      * Get select count sql
      *
-     * @return unknown
+     * @return Varien_Db_Select
      */
     public function getSelectCountSql()
     {

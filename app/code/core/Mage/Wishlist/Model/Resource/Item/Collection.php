@@ -31,6 +31,9 @@
  * @category    Mage
  * @package     Mage_Wishlist
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Wishlist_Model_Item getItemById(int|string $value)
+ * @method Mage_Wishlist_Model_Item[] getItems()
  */
 class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -145,11 +148,11 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
     protected function _assignOptions()
     {
         $itemIds = array_keys($this->_items);
-        /* @var $optionCollection Mage_Wishlist_Model_Resource_Item_Option_Collection */
+        /* @var Mage_Wishlist_Model_Resource_Item_Option_Collection $optionCollection */
         $optionCollection = Mage::getModel('wishlist/item_option')->getCollection();
         $optionCollection->addItemFilter($itemIds);
 
-        /* @var $item Mage_Wishlist_Model_Item */
+        /* @var Mage_Wishlist_Model_Item $item */
         foreach ($this as $item) {
             $item->setOptions($optionCollection->getOptionsByItem($item));
         }
@@ -492,7 +495,8 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
      *
      * @return int
      */
-    public function getItemsQty(){
+    public function getItemsQty()
+    {
         if (is_null($this->_itemsQty)) {
             $this->_itemsQty = 0;
             foreach ($this as $wishlistItem) {

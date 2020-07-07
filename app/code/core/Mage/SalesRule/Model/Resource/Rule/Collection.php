@@ -77,7 +77,6 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
     public function setValidationFilter($websiteId, $customerGroupId, $couponCode = '', $now = null)
     {
         if (!$this->getFlag('validation_filter')) {
-
             /* We need to overwrite joinLeft if coupon is applied */
             $this->getSelect()->reset();
             parent::_initSelect();
@@ -117,7 +116,8 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
                 );
                 $orWhereCondition = implode(' OR ', $orWhereConditions);
                 $select->where(
-                    $noCouponCondition . ' OR ((' . $orWhereCondition . ') AND rule_coupons.code = ?)', $couponCode
+                    $noCouponCondition . ' OR ((' . $orWhereCondition . ') AND rule_coupons.code = ?)',
+                    $couponCode
                 );
             } else {
                 $this->addFieldToFilter('main_table.coupon_type', Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON);
@@ -139,7 +139,7 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
      * @param string|null $now
      * @use $this->addWebsiteFilter()
      *
-     * @return Mage_SalesRule_Model_Mysql4_Rule_Collection
+     * @return $this
      */
     public function addWebsiteGroupDateFilter($websiteId, $customerGroupId, $now = null)
     {

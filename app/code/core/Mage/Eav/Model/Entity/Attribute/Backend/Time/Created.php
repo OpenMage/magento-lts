@@ -36,7 +36,7 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Time_Created extends Mage_Eav_Mode
 
     /**
      * Returns date format if it matches a certain mask.
-     * @param $date
+     * @param string $date
      * @return null|string
      */
     protected function _getFormat($date)
@@ -51,7 +51,7 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Time_Created extends Mage_Eav_Mode
      * Set created date
      * Set created date in UTC time zone
      *
-     * @param Mage_Core_Model_Object $object
+     * @param Mage_Core_Model_Abstract $object
      * @return $this
      */
     public function beforeSave($object)

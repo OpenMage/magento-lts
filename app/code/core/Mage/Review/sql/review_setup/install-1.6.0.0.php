@@ -32,7 +32,7 @@
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 $installer = $this;
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 /**
@@ -98,18 +98,34 @@ $table = $installer->getConnection()
         'nullable'  => false,
         'default'   => '0',
         ), 'Status code')
-    ->addIndex($installer->getIdxName('review/review', array('entity_id')),
-        array('entity_id'))
-    ->addIndex($installer->getIdxName('review/review', array('status_id')),
-        array('status_id'))
-    ->addIndex($installer->getIdxName('review/review', array('entity_pk_value')),
-        array('entity_pk_value'))
-    ->addForeignKey($installer->getFkName('review/review', 'entity_id', 'review/review_entity', 'entity_id'),
-        'entity_id', $installer->getTable('review/review_entity'), 'entity_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->addForeignKey($installer->getFkName('review/review', 'status_id', 'review/review_status', 'status_id'),
-        'status_id', $installer->getTable('review/review_status'), 'status_id',
-        Varien_Db_Ddl_Table::ACTION_NO_ACTION, Varien_Db_Ddl_Table::ACTION_NO_ACTION)
+    ->addIndex(
+        $installer->getIdxName('review/review', array('entity_id')),
+        array('entity_id')
+    )
+    ->addIndex(
+        $installer->getIdxName('review/review', array('status_id')),
+        array('status_id')
+    )
+    ->addIndex(
+        $installer->getIdxName('review/review', array('entity_pk_value')),
+        array('entity_pk_value')
+    )
+    ->addForeignKey(
+        $installer->getFkName('review/review', 'entity_id', 'review/review_entity', 'entity_id'),
+        'entity_id',
+        $installer->getTable('review/review_entity'),
+        'entity_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
+    ->addForeignKey(
+        $installer->getFkName('review/review', 'status_id', 'review/review_status', 'status_id'),
+        'status_id',
+        $installer->getTable('review/review_status'),
+        'status_id',
+        Varien_Db_Ddl_Table::ACTION_NO_ACTION,
+        Varien_Db_Ddl_Table::ACTION_NO_ACTION
+    )
     ->setComment('Review base information');
 $installer->getConnection()->createTable($table);
 
@@ -145,21 +161,42 @@ $table = $installer->getConnection()
     ->addColumn('customer_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
         'unsigned'  => true,
         ), 'Customer Id')
-    ->addIndex($installer->getIdxName('review/review_detail', array('review_id')),
-        array('review_id'))
-    ->addIndex($installer->getIdxName('review/review_detail', array('store_id')),
-        array('store_id'))
-    ->addIndex($installer->getIdxName('review/review_detail', array('customer_id')),
-        array('customer_id'))
-    ->addForeignKey($installer->getFkName('review/review_detail', 'customer_id', 'customer/entity', 'entity_id'),
-        'customer_id', $installer->getTable('customer/entity'), 'entity_id',
-        Varien_Db_Ddl_Table::ACTION_SET_NULL, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->addForeignKey($installer->getFkName('review/review_detail', 'review_id', 'review/review', 'review_id'),
-        'review_id', $installer->getTable('review/review'), 'review_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->addForeignKey($installer->getFkName('review/review_detail', 'store_id', 'core/store', 'store_id'),
-        'store_id', $installer->getTable('core/store'), 'store_id',
-        Varien_Db_Ddl_Table::ACTION_SET_NULL, Varien_Db_Ddl_Table::ACTION_CASCADE)
+    ->addIndex(
+        $installer->getIdxName('review/review_detail', array('review_id')),
+        array('review_id')
+    )
+    ->addIndex(
+        $installer->getIdxName('review/review_detail', array('store_id')),
+        array('store_id')
+    )
+    ->addIndex(
+        $installer->getIdxName('review/review_detail', array('customer_id')),
+        array('customer_id')
+    )
+    ->addForeignKey(
+        $installer->getFkName('review/review_detail', 'customer_id', 'customer/entity', 'entity_id'),
+        'customer_id',
+        $installer->getTable('customer/entity'),
+        'entity_id',
+        Varien_Db_Ddl_Table::ACTION_SET_NULL,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
+    ->addForeignKey(
+        $installer->getFkName('review/review_detail', 'review_id', 'review/review', 'review_id'),
+        'review_id',
+        $installer->getTable('review/review'),
+        'review_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
+    ->addForeignKey(
+        $installer->getFkName('review/review_detail', 'store_id', 'core/store', 'store_id'),
+        'store_id',
+        $installer->getTable('core/store'),
+        'store_id',
+        Varien_Db_Ddl_Table::ACTION_SET_NULL,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
     ->setComment('Review detail information');
 $installer->getConnection()->createTable($table);
 
@@ -194,11 +231,18 @@ $table = $installer->getConnection()
         'nullable'  => false,
         'default'   => '0',
         ), 'Store id')
-    ->addIndex($installer->getIdxName('review/review_aggregate', array('store_id')),
-        array('store_id'))
-    ->addForeignKey($installer->getFkName('review/review_aggregate', 'store_id', 'core/store', 'store_id'),
-        'store_id', $installer->getTable('core/store'), 'store_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+    ->addIndex(
+        $installer->getIdxName('review/review_aggregate', array('store_id')),
+        array('store_id')
+    )
+    ->addForeignKey(
+        $installer->getFkName('review/review_aggregate', 'store_id', 'core/store', 'store_id'),
+        'store_id',
+        $installer->getTable('core/store'),
+        'store_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
     ->setComment('Review aggregates');
 $installer->getConnection()->createTable($table);
 
@@ -217,14 +261,26 @@ $table = $installer->getConnection()
         'nullable'  => false,
         'primary'   => true,
         ), 'Store Id')
-    ->addIndex($installer->getIdxName('review/review_store', array('store_id')),
-        array('store_id'))
-    ->addForeignKey($installer->getFkName('review/review_store', 'review_id', 'review/review', 'review_id'),
-        'review_id', $installer->getTable('review/review'), 'review_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->addForeignKey($installer->getFkName('review/review_store', 'store_id', 'core/store', 'store_id'),
-        'store_id', $installer->getTable('core/store'), 'store_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+    ->addIndex(
+        $installer->getIdxName('review/review_store', array('store_id')),
+        array('store_id')
+    )
+    ->addForeignKey(
+        $installer->getFkName('review/review_store', 'review_id', 'review/review', 'review_id'),
+        'review_id',
+        $installer->getTable('review/review'),
+        'review_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
+    ->addForeignKey(
+        $installer->getFkName('review/review_store', 'store_id', 'core/store', 'store_id'),
+        'store_id',
+        $installer->getTable('core/store'),
+        'store_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
     ->setComment('Review Store');
 $installer->getConnection()->createTable($table);
 

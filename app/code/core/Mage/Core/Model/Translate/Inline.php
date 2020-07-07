@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Inline Translations PHP part
  *
@@ -155,7 +154,7 @@ class Mage_Core_Model_Translate_Inline
             $this->_isAllowed = $active && Mage::helper('core')->isDevAllowed($store);
         }
 
-        /* @var $translate Mage_Core_Model_Translate */
+        /* @var Mage_Core_Model_Translate $translate */
         $translate = Mage::getSingleton('core/translate');
 
         return $translate->getTranslateInline() && $this->_isAllowed;
@@ -173,12 +172,12 @@ class Mage_Core_Model_Translate_Inline
             return $this;
         }
 
-        /* @var $resource Mage_Core_Model_Mysql4_Translate_String */
+        /* @var Mage_Core_Model_Mysql4_Translate_String $resource */
         $resource = Mage::getResourceModel('core/translate_string');
         foreach ($translate as $t) {
             if (Mage::getDesign()->getArea() == 'adminhtml') {
                 $storeId = 0;
-            } else if (empty($t['perstore'])) {
+            } elseif (empty($t['perstore'])) {
                 $resource->deleteTranslate($t['original'], null, false);
                 $storeId = 0;
             } else {
@@ -203,7 +202,7 @@ class Mage_Core_Model_Translate_Inline
             foreach ($body as &$part) {
                 $this->stripInlineTranslations($part);
             }
-        } else if (is_string($body)) {
+        } elseif (is_string($body)) {
             $body = preg_replace('#' . $this->_tokenRegex . '#', '$1', $body);
         }
         return $this;
@@ -228,7 +227,7 @@ class Mage_Core_Model_Translate_Inline
             foreach ($body as &$part) {
                 $this->processResponseBody($part);
             }
-        } else if (is_string($body)) {
+        } elseif (is_string($body)) {
             $this->_content = $body;
 
             $this->_specialTags();
@@ -517,10 +516,10 @@ class Mage_Core_Model_Translate_Inline
     /**
      * Find end of tag
      *
-     * @param $body
-     * @param $tagName
-     * @param $from
-     * @return bool|int return false if end of tag is not found
+     * @param string $body
+     * @param string $tagName
+     * @param int $from
+     * @return false|int return false if end of tag is not found
      */
     private function findEndOfTag($body, $tagName, $from)
     {

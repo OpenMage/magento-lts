@@ -128,7 +128,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
             $this->_setFilterValues($data);
         } else if ($filter && is_array($filter)) {
             $this->_setFilterValues($filter);
-        } else if(0 !== sizeof($this->_defaultFilter)) {
+        } else if(count($this->_defaultFilter)) {
             $this->_setFilterValues($this->_defaultFilter);
         }
         /** @var $collection Mage_Reports_Model_Resource_Report_Collection */

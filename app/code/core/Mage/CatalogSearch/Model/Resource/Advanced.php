@@ -84,9 +84,9 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
         if (is_array($value)) {
             if (!empty($value['from']) || !empty($value['to'])) { // range
                 $condition = $value;
-            } else if (in_array($attribute->getBackendType(), array('varchar', 'text'))) { // multiselect
+            } elseif (in_array($attribute->getBackendType(), array('varchar', 'text'))) { // multiselect
                 $condition = array('in_set' => $value);
-            } else if (!isset($value['from']) && !isset($value['to'])) { // select
+            } elseif (!isset($value['from']) && !isset($value['to'])) { // select
                 $condition = array('in' => $value);
             }
         } else {

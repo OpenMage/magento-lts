@@ -77,14 +77,13 @@ class Mage_Core_Model_Resource_Translate extends Mage_Core_Model_Resource_Db_Abs
         );
 
         return $adapter->fetchPairs($select, $bind);
-
     }
 
     /**
      * Retrieve translations array by strings
      *
      * @param array $strings
-     * @param int_type $storeId
+     * @param int $storeId
      * @return array
      */
     public function getTranslationArrayByStrings(array $strings, $storeId = null)
@@ -120,7 +119,7 @@ class Mage_Core_Model_Resource_Translate extends Mage_Core_Model_Resource_Db_Abs
     /**
      * Retrieve table checksum
      *
-     * @return int
+     * @return array|false
      */
     public function getMainChecksum()
     {

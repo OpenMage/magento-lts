@@ -51,5 +51,3 @@ class Mage_Weee_Model_Config_Source_Fpt_Tax
         return Mage::helper($helperName);
     }
 }
-
-

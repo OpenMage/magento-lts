@@ -24,15 +24,16 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Base html block
+ *
+ * @method Mage_Core_Block_Text_Tag_Css setTagName(string $value)
+ * @method Mage_Core_Block_Text_Tag_Css setTagParams(array $value)
  *
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Block_Text_Tag_Css extends Mage_Core_Block_Text_Tag
 {
-
     protected function _construct()
     {
         parent::_construct();
@@ -40,7 +41,12 @@ class Mage_Core_Block_Text_Tag_Css extends Mage_Core_Block_Text_Tag
         $this->setTagParams(array('rel'=>'stylesheet', 'type'=>'text/css', 'media'=>'all'));
     }
 
-    public function setHref($href, $type=null)
+    /**
+     * @param string $href
+     * @param string|null $type
+     * @return Mage_Core_Block_Text_Tag_Css
+     */
+    public function setHref($href, $type = null)
     {
         $type = (string)$type;
         if (empty($type)) {
@@ -50,5 +56,4 @@ class Mage_Core_Block_Text_Tag_Css extends Mage_Core_Block_Text_Tag
 
         return $this->setTagParam('href', $url);
     }
-
 }

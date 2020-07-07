@@ -24,28 +24,34 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Wishlist item model
  *
  * @method Mage_Wishlist_Model_Resource_Item getResource()
- * @method int getWishlistId()
- * @method Mage_Wishlist_Model_Item setWishlistId(int $value)
- * @method int getProductId()
- * @method Mage_Wishlist_Model_Item setProductId(int $value)
- * @method int getStoreId()
- * @method Mage_Wishlist_Model_Item setStoreId(int $value)
+ * @method Mage_Wishlist_Model_Resource_Item_Collection getCollection()
+ *
  * @method string getAddedAt()
- * @method Mage_Wishlist_Model_Item setAddedAt(string $value)
+ * @method $this setAddedAt(string $value)
  * @method string getDescription()
- * @method Mage_Wishlist_Model_Item setDescription(string $value)
+ * @method $this setDescription(string $value)
+ * @method bool getHasError()
+ * @method string getMessage()
+ * @method $this setProduct(Mage_Catalog_Model_Product $value)
+ * @method int getProductId()
+ * @method $this setProductId(int $value)
+ * @method $this unsProduct()
+ * @method float getQty()
+ * @method int getStoreId()
+ * @method $this setStoreId(int $value)
+ * @method int getWishlistId()
+ * @method $this setWishlistId(int $value)Mage_Wishlist_Model_Resource_Item
+ * @method $this setWishlist(Mage_Wishlist_Model_Wishlist $param)
  *
  * @category    Mage
  * @package     Mage_Wishlist
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract
-    implements Mage_Catalog_Model_Product_Configuration_Item_Interface
+class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_Catalog_Model_Product_Configuration_Item_Interface
 {
     const EXCEPTION_CODE_NOT_SALABLE            = 901;
     const EXCEPTION_CODE_HAS_REQUIRED_OPTIONS   = 902;
@@ -65,7 +71,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract
      */
     protected $_customOptionDownloadUrl = 'wishlist/index/downloadCustomOption';
 
-   /**
+    /**
      * Prefix of model events names
      *
      * @var string
@@ -126,14 +132,14 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract
      */
     public function setQty($qty)
     {
-        $this->setData('qty', ($qty >= 0) ? $qty : 1 );
+        $this->setData('qty', ($qty >= 0) ? $qty : 1);
         return $this;
     }
 
     /**
      * Retrieve resource instance wrapper
      *
-     * @return Mage_Wishlist_Model_Mysql4_Item
+     * @inheritDoc
      */
     protected function _getResource()
     {
@@ -165,14 +171,13 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract
      * Register option code
      *
      * @param   Mage_Wishlist_Model_Item_Option $option
-     * @return  Mage_Wishlist_Model_Item
+     * @return  $this
      */
     protected function _addOptionCode($option)
     {
         if (!isset($this->_optionsByCode[$option->getCode()])) {
             $this->_optionsByCode[$option->getCode()] = $option;
-        }
-        else {
+        } else {
             Mage::throwException(Mage::helper('sales')->__('An item option with code %s already exists.', $option->getCode()));
         }
         return $this;
@@ -234,7 +239,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract
     /**
      * Save item options after item saved
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _afterSave()
     {
@@ -331,8 +336,10 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract
         $product = $this->_getData('product');
         if (is_null($product)) {
             if (!$this->getProductId()) {
-                throw new Mage_Core_Exception(Mage::helper('wishlist')->__('Cannot specify product.'),
-                    self::EXCEPTION_CODE_NOT_SPECIFIED_PRODUCT);
+                throw new Mage_Core_Exception(
+                    Mage::helper('wishlist')->__('Cannot specify product.'),
+                    self::EXCEPTION_CODE_NOT_SPECIFIED_PRODUCT
+                );
             }
 
             $product = Mage::getModel('catalog/product')
@@ -441,7 +448,8 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract
      * @param array|Varien_Object $buyRequest
      * @return $this
      */
-    public function mergeBuyRequest($buyRequest) {
+    public function mergeBuyRequest($buyRequest)
+    {
         if ($buyRequest instanceof Varien_Object) {
             $buyRequest = $buyRequest->getData();
         }
@@ -501,7 +509,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract
             return false;
         }
         if (empty($selfOptions) && !empty($buyRequest)) {
-            if (!$product->isComposite()){
+            if (!$product->isComposite()) {
                 return true;
             } else {
                 return false;
@@ -510,10 +518,10 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract
 
         $requestArray = $buyRequest->getData();
 
-        if(!$this->_compareOptions($requestArray, $selfOptions)){
+        if (!$this->_compareOptions($requestArray, $selfOptions)) {
             return false;
         }
-        if(!$this->_compareOptions($selfOptions, $requestArray)){
+        if (!$this->_compareOptions($selfOptions, $requestArray)) {
             return false;
         }
         return true;
@@ -535,10 +543,10 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract
         $itemOptions    = $this->getOptionsByCode();
         $productOptions = $product->getCustomOptions();
 
-        if(!$this->compareOptions($itemOptions, $productOptions)){
+        if (!$this->compareOptions($itemOptions, $productOptions)) {
             return false;
         }
-        if(!$this->compareOptions($productOptions, $itemOptions)){
+        if (!$this->compareOptions($productOptions, $itemOptions)) {
             return false;
         }
         return true;
@@ -557,10 +565,10 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract
     {
         foreach ($options1 as $option) {
             $code = $option->getCode();
-            if (in_array($code, $this->_notRepresentOptions )) {
+            if (in_array($code, $this->_notRepresentOptions)) {
                 continue;
             }
-            if ( !isset($options2[$code])
+            if (!isset($options2[$code])
                 || ($options2[$code]->getValue() === null)
                 || $options2[$code]->getValue() != $option->getValue()) {
                 return false;
@@ -573,7 +581,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract
      * Initialize item options
      *
      * @param   array $options
-     * @return  Mage_Wishlist_Model_Item
+     * @return  $this
      */
     public function setOptions($options)
     {
@@ -607,16 +615,16 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract
      * Add option to item
      *
      * @param   Mage_Wishlist_Model_Item_Option $option
-     * @return  Mage_Wishlist_Model_Item
+     * @return  $this
      */
     public function addOption($option)
     {
         if (is_array($option)) {
             $option = Mage::getModel('wishlist/item_option')->setData($option)
                 ->setItem($this);
-        } else if ($option instanceof Mage_Wishlist_Model_Item_Option) {
+        } elseif ($option instanceof Mage_Wishlist_Model_Item_Option) {
             $option->setItem($this);
-        } else if ($option instanceof Varien_Object) {
+        } elseif ($option instanceof Varien_Object) {
             $option = Mage::getModel('wishlist/item_option')->setData($option->getData())
                ->setProduct($option->getProduct())
                ->setItem($this);
@@ -653,7 +661,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract
      * Get item option by code
      *
      * @param   string $code
-     * @return  Mage_Wishlist_Model_Item_Option || null
+     * @return  Mage_Wishlist_Model_Item_Option|null
      */
     public function getOptionByCode($code)
     {
@@ -684,6 +692,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract
 
     /**
      * Sets custom option download url
+     * @param string $url
      */
     public function setCustomDownloadUrl($url)
     {
@@ -696,7 +705,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract
      *
      * We have to customize only controller url, so return it.
      *
-     * @return null|Varien_Object
+     * @return Varien_Object
      */
     public function getFileDownloadParams()
     {

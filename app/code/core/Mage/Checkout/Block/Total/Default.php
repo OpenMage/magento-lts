@@ -29,10 +29,16 @@
  * Default Total Row Renderer
  *
  * @author Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Sales_Model_Quote_Address_Total getTotal()
  */
 class Mage_Checkout_Block_Total_Default extends Mage_Checkout_Block_Cart_Totals
 {
     protected $_template = 'checkout/total/default.phtml';
+
+    /**
+     * @var Mage_Core_Model_Store
+     */
     protected $_store;
 
     protected function _construct()
@@ -51,6 +57,10 @@ class Mage_Checkout_Block_Total_Default extends Mage_Checkout_Block_Cart_Totals
         return $this->getTotal()->getStyle();
     }
 
+    /**
+     * @param Mage_Sales_Model_Quote_Address_Total $total
+     * @return $this
+     */
     public function setTotal($total)
     {
         $this->setData('total', $total);
@@ -60,6 +70,9 @@ class Mage_Checkout_Block_Total_Default extends Mage_Checkout_Block_Cart_Totals
         return $this;
     }
 
+    /**
+     * @return Mage_Core_Model_Store
+     */
     public function getStore()
     {
         return $this->_store;

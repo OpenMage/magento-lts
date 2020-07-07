@@ -700,7 +700,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      */
     public function hasItems()
     {
-        return sizeof($this->getAllItems())>0;
+        return count($this->getAllItems()) > 0;
     }
 
     /**

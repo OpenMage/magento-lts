@@ -30,9 +30,14 @@
  * @category    Mage
  * @package     Mage_Widget
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setArea(string $value)
+ * @method $this setPackage(string $value)
+ * @method string getSelectName()
+ * @method $this setSelectName(string $value)
+ * @method $this setTheme(string $value)
  */
-class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout
-    extends Mage_Adminhtml_Block_Widget
+class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Mage_Adminhtml_Block_Widget
 {
     protected $_layoutHandles = array();
 
@@ -133,7 +138,8 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout
             ->setOptions($this->getLayoutHandles(
                 $this->getArea(),
                 $this->getPackage(),
-                $this->getTheme()));
+                $this->getTheme()
+            ));
         return parent::_toHtml().$selectBlock->toHtml();
     }
 
@@ -148,7 +154,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout
     public function getLayoutHandles($area, $package, $theme)
     {
         if (empty($this->_layoutHandles)) {
-            /* @var $update Mage_Core_Model_Layout_Update */
+            /* @var Mage_Core_Model_Layout_Update $update */
             $update = Mage::getModel('core/layout')->getUpdate();
             $this->_layoutHandles[''] = Mage::helper('widget')->__('-- Please Select --');
             $this->_collectLayoutHandles($update->getFileLayoutUpdatesXml($area, $package, $theme));

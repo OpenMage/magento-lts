@@ -49,7 +49,12 @@ class Varien_Event_Collection
      * @var Varien_Event_Observer_Collection
      */
     protected $_observers;
-    
+
+    /**
+     * @var Varien_Event_Observer_Collection
+     */
+    protected $_globalObservers;
+
     /**
      * Initializes global observers collection
      * 

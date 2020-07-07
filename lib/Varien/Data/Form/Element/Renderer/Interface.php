@@ -33,5 +33,9 @@
  */
 interface Varien_Data_Form_Element_Renderer_Interface
 {
+    /**
+     * @param Varien_Data_Form_Element_Abstract $element
+     * @return mixed
+     */
     public function render(Varien_Data_Form_Element_Abstract $element);
 }

@@ -69,7 +69,7 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
     /**
      * Add stock item objects to products
      *
-     * @param   collection $products
+     * @param Mage_Catalog_Model_Resource_Product_Collection $productCollection
      * @return  Mage_CatalogInventory_Model_Stock
      */
     public function addItemsToProducts($productCollection)
@@ -79,9 +79,11 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
             ->joinStockStatus($productCollection->getStoreId())
             ->load();
         $stockItems = array();
+        /** @var Mage_CatalogInventory_Model_Stock_Item $item */
         foreach ($items as $item) {
             $stockItems[$item->getProductId()] = $item;
         }
+        /** @var Mage_Catalog_Model_Product $product */
         foreach ($productCollection as $product) {
             if (isset($stockItems[$product->getId()])) {
                 $stockItems[$product->getId()]->assignProduct($product);
@@ -93,7 +95,7 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
     /**
      * Retrieve items collection object with stock filter
      *
-     * @return unknown
+     * @return Mage_CatalogInventory_Model_Resource_Stock_Item_Collection
      */
     public function getItemCollection()
     {
@@ -105,6 +107,7 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
      * Prepare array($productId=>$qty) based on array($productId => array('qty'=>$qty, 'item'=>$stockItem))
      *
      * @param array $items
+     * @return array
      */
     protected function _prepareProductQtys($items)
     {
@@ -116,7 +119,7 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
                 $stockItem = $item['item'];
             }
             $canSubtractQty = $stockItem->getId() && $stockItem->canSubtractQty();
-            if ($canSubtractQty && Mage::helper('catalogInventory')->isQty($stockItem->getTypeId())) {
+            if ($canSubtractQty && Mage::helper('cataloginventory')->isQty($stockItem->getTypeId())) {
                 $qtys[$productId] = $item['qty'];
             }
         }
@@ -159,7 +162,8 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
 
     /**
      *
-     * @param unknown_type $items
+     * @param array $items
+     * @return Mage_CatalogInventory_Model_Stock
      */
     public function revertProductsSale($items)
     {
@@ -179,7 +183,7 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
         $productId = $item->getProductId();
         if ($productId) {
             $stockItem = Mage::getModel('cataloginventory/stock_item')->loadByProduct($productId);
-            if (Mage::helper('catalogInventory')->isQty($stockItem->getTypeId())) {
+            if (Mage::helper('cataloginventory')->isQty($stockItem->getTypeId())) {
                 if ($item->getStoreId()) {
                     $stockItem->setStoreId($item->getStoreId());
                 }
@@ -188,8 +192,7 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
                     $stockItem->save();
                 }
             }
-        }
-        else {
+        } else {
             Mage::throwException(Mage::helper('cataloginventory')->__('Cannot specify product identifier for the order item.'));
         }
         return $this;
@@ -199,13 +202,13 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
      * Get back to stock (when order is canceled or whatever else)
      *
      * @param int $productId
-     * @param numeric $qty
+     * @param float $qty
      * @return $this
      */
     public function backItemQty($productId, $qty)
     {
         $stockItem = Mage::getModel('cataloginventory/stock_item')->loadByProduct($productId);
-        if ($stockItem->getId() && Mage::helper('catalogInventory')->isQty($stockItem->getTypeId())) {
+        if ($stockItem->getId() && Mage::helper('cataloginventory')->isQty($stockItem->getTypeId())) {
             $stockItem->addQty($qty);
             if ($stockItem->getCanBackInStock() && $stockItem->getQty() > $stockItem->getMinQty()) {
                 $stockItem->setIsInStock(true)
@@ -231,7 +234,7 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
     /**
      * Adds filtering for collection to return only in stock products
      *
-     * @param Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection $collection
+     * @param Mage_Catalog_Model_Resource_Product_Link_Product_Collection $collection
      * @return $this $this
      */
     public function addInStockFilterToCollection($collection)

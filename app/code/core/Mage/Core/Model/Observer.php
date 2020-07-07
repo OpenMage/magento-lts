@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Core Observer model
  *
@@ -115,7 +114,7 @@ class Mage_Core_Model_Observer
      */
     public function cleanCacheByTags(Varien_Event_Observer $observer)
     {
-        /** @var $tags array */
+        /** @var array $tags */
         $tags = $observer->getEvent()->getTags();
         if (empty($tags)) {
             Mage::app()->cleanCache();

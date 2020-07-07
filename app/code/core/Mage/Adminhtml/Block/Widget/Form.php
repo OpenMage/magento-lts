@@ -190,7 +190,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
                         'label'     => $attribute->getFrontend()->getLabel(),
                         'class'     => $attribute->getFrontend()->getClass(),
                         'required'  => $attribute->getIsRequired(),
-                        'note'      => $attribute->getNote(),
+                        'note'      => $this->escapeHtml($attribute->getNote()),
                     )
                 )
                 ->setEntityAttribute($attribute);

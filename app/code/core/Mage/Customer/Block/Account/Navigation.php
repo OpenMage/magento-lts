@@ -116,7 +116,7 @@ class Mage_Customer_Block_Account_Navigation extends Mage_Core_Block_Template
     protected function _completePath($path)
     {
         $path = rtrim($path, '/');
-        switch (sizeof(explode('/', $path))) {
+        switch (count(explode('/', $path))) {
             case 1:
                 $path .= '/index';
                 // no break

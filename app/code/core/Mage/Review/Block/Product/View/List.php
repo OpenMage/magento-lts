@@ -35,11 +35,18 @@ class Mage_Review_Block_Product_View_List extends Mage_Review_Block_Product_View
 {
     protected $_forceHasOptions = false;
 
+    /**
+     * @return int
+     */
     public function getProductId()
     {
         return Mage::registry('product')->getId();
     }
 
+    /**
+     * @return $this
+     * @throws Mage_Core_Model_Store_Exception
+     */
     protected function _prepareLayout()
     {
         parent::_prepareLayout();
@@ -52,6 +59,10 @@ class Mage_Review_Block_Product_View_List extends Mage_Review_Block_Product_View
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     * @throws Mage_Core_Model_Store_Exception
+     */
     protected function _beforeToHtml()
     {
         $this->getReviewsCollection()
@@ -60,6 +71,10 @@ class Mage_Review_Block_Product_View_List extends Mage_Review_Block_Product_View
         return parent::_beforeToHtml();
     }
 
+    /**
+     * @param int $id
+     * @return string
+     */
     public function getReviewUrl($id)
     {
         return Mage::getUrl('review/product/view', array('id' => $id));

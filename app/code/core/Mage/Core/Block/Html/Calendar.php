@@ -34,6 +34,10 @@
  */
 class Mage_Core_Block_Html_Calendar extends Mage_Core_Block_Template
 {
+    /**
+     * @return string
+     * @throws Zend_Locale_Exception
+     */
     protected function _toHtml()
     {
         $localeCode = Mage::app()->getLocale()->getLocaleCode();
@@ -61,7 +65,7 @@ class Mage_Core_Block_Html_Calendar extends Mage_Core_Block_Template
         $this->assign('pm', Mage::helper('core')->jsonEncode(Zend_Locale_Data::getContent($localeCode, 'pm')));
 
         // get first day of week and weekend days
-        $this->assign('firstDay',    (int)Mage::getStoreConfig('general/locale/firstday'));
+        $this->assign('firstDay', (int)Mage::getStoreConfig('general/locale/firstday'));
         $this->assign('weekendDays', Mage::helper('core')->jsonEncode((string)Mage::getStoreConfig('general/locale/weekend')));
 
         // define default format and tooltip format

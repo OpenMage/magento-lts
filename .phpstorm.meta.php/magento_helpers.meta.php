@@ -195,8 +195,6 @@ namespace PHPSTORM_META {
             'widget/data' instanceof \Mage_Widget_Helper_Data,
             'wishlist' instanceof \Mage_Wishlist_Helper_Data,
             'wishlist/data' instanceof \Mage_Wishlist_Helper_Data,
-            'moneybookers' instanceof \Phoenix_Moneybookers_Helper_Data,
-            'moneybookers/data' instanceof \Phoenix_Moneybookers_Helper_Data,
-        ], 
+        ],
     ];
 }

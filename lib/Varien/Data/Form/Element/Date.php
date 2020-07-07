@@ -30,6 +30,13 @@
  * @category   Varien
  * @package    Varien_Data
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getFormat()
+ * @method string getInputFormat()
+ * @method string getLocale()
+ * @method string getImage()
+ * @method string getTime()
+ * @method bool getDisabled()
  */
 class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
 {
@@ -38,6 +45,10 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
      */
     protected $_value;
 
+    /**
+     * Varien_Data_Form_Element_Date constructor.
+     * @param array $attributes
+     */
     public function __construct($attributes=array())
     {
         parent::__construct($attributes);
@@ -49,8 +60,11 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
     }
 
     /**
-     * If script executes on x64 system, converts large 
+     * If script executes on x64 system, converts large
      * numeric values to timestamp limit
+     *
+     * @param string $value
+     * @return int
      */
     protected function _toTimestamp($value)
     {

@@ -24,7 +24,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 
 $installer->startSetup();
@@ -52,7 +52,6 @@ if (!$installer->getConnection()->isTableExists($installer->getTable('widget/wid
         ->setComment('Preconfigured Widgets');
     $installer->getConnection()->createTable($table);
 } else {
-
     $installer->getConnection()->dropIndex(
         $installer->getTable('widget/widget'),
         'IDX_CODE'
@@ -170,9 +169,14 @@ $table = $installer->getConnection()
     ->addColumn('page_template', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
         ), 'Path to widget template')
     ->addIndex($installer->getIdxName('widget/widget_instance_page', 'instance_id'), 'instance_id')
-    ->addForeignKey($installer->getFkName('widget/widget_instance_page', 'instance_id', 'widget/widget_instance', 'instance_id'),
-        'instance_id', $installer->getTable('widget/widget_instance'), 'instance_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+    ->addForeignKey(
+        $installer->getFkName('widget/widget_instance_page', 'instance_id', 'widget/widget_instance', 'instance_id'),
+        'instance_id',
+        $installer->getTable('widget/widget_instance'),
+        'instance_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
     ->setComment('Instance of Widget on Page');
 $installer->getConnection()->createTable($table);
 
@@ -193,15 +197,27 @@ $table = $installer->getConnection()
         ), 'Layout Update Id')
     ->addIndex($installer->getIdxName('widget/widget_instance_page_layout', 'page_id'), 'page_id')
     ->addIndex($installer->getIdxName('widget/widget_instance_page_layout', 'layout_update_id'), 'layout_update_id')
-    ->addIndex($installer->getIdxName('widget/widget_instance_page_layout', array('layout_update_id', 'page_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
+    ->addIndex(
+        $installer->getIdxName('widget/widget_instance_page_layout', array('layout_update_id', 'page_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
         array('layout_update_id', 'page_id'),
-        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
-    ->addForeignKey($installer->getFkName('widget/widget_instance_page_layout', 'page_id', 'widget/widget_instance_page', 'page_id'),
-        'page_id', $installer->getTable('widget/widget_instance_page'), 'page_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->addForeignKey($installer->getFkName('widget/widget_instance_page_layout', 'layout_update_id', 'core/layout_update', 'layout_update_id'),
-        'layout_update_id', $installer->getTable('core/layout_update'), 'layout_update_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)
+    )
+    ->addForeignKey(
+        $installer->getFkName('widget/widget_instance_page_layout', 'page_id', 'widget/widget_instance_page', 'page_id'),
+        'page_id',
+        $installer->getTable('widget/widget_instance_page'),
+        'page_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
+    ->addForeignKey(
+        $installer->getFkName('widget/widget_instance_page_layout', 'layout_update_id', 'core/layout_update', 'layout_update_id'),
+        'layout_update_id',
+        $installer->getTable('core/layout_update'),
+        'layout_update_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
     ->setComment('Layout updates');
 $installer->getConnection()->createTable($table);
 
