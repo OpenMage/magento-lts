@@ -43,3 +43,9 @@
  - [ ] Pull request has a meaningful description of its purpose
  - [ ] All commits are accompanied by meaningful commit messages
  - [ ] All automated tests passed successfully (all builds are green)
+ - [ ] Add yourself to contributors list
+ <!--- 
+    Add to contributors: add comment to this PR '@all-contributors please add <username> for <contributions>'
+    contribution types: code, doc, design
+    See other contributions type at https://allcontributors.org/docs/en/emoji-key
+ -->
