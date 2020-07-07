@@ -24,6 +24,11 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * Class Mage_Shipping_Block_Tracking_Popup
+ *
+ * @method string getProtectCode()
+ */
 class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
 {
     /**
@@ -40,6 +45,8 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     protected $_ship_id;
 
     /**
+     * @param int $oid
+     * @return Mage_Shipping_Block_Tracking_Popup
      * @deprecated after 1.3.2.3
      */
     public function setOrderId($oid)
@@ -56,6 +63,8 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     }
 
     /**
+     * @param int $oid
+     * @return Mage_Shipping_Block_Tracking_Popup
      * @deprecated after 1.3.2.3
      */
     public function setShipId($oid)
@@ -72,9 +81,11 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     }
 
     /**
+     * @param string $tid
+     * @return Mage_Shipping_Block_Tracking_Popup
      * @deprecated after 1.3.2.3
      */
-    public function setTrackId($tid='')
+    public function setTrackId($tid = '')
     {
         return $this->setData('track_id', $tid);
     }
@@ -91,7 +102,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
       * @deprecated after 1.4.0.0-alpha3
       * Initialize order model instance
       *
-      * @return Mage_Sales_Model_Order || false
+      * @return Mage_Sales_Model_Order|false
       */
     protected function _initOrder()
     {
@@ -108,7 +119,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
      * @deprecated after 1.4.0.0-alpha3
      * Initialize ship model instance
      *
-     * @return Mage_Sales_Model_Order_Shipment || false
+     * @return Mage_Sales_Model_Order_Shipment|false
      */
     protected function _initShipment()
     {
@@ -129,7 +140,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
      */
     public function getTrackingInfo()
     {
-        /* @var $info Mage_Shipping_Model_Info */
+        /* @var Mage_Shipping_Model_Info $info */
         $info = Mage::registry('current_shipping_info');
 
         return $info->getTrackingInfo();
@@ -146,12 +157,13 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
         $shipTrack = array();
         if ($order = $this->_initOrder()) {
             $shipments = $order->getShipmentsCollection();
-            foreach ($shipments as $shipment){
+            /** @var Mage_Sales_Model_Order_Shipment $shipment */
+            foreach ($shipments as $shipment) {
                 $increment_id = $shipment->getIncrementId();
                 $tracks = $shipment->getTracksCollection();
 
                 $trackingInfos=array();
-                foreach ($tracks as $track){
+                foreach ($tracks as $track) {
                     $trackingInfos[] = $track->getNumberDetail();
                 }
                 $shipTrack[$increment_id] = $trackingInfos;
@@ -174,11 +186,10 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
             $tracks = $shipment->getTracksCollection();
 
             $trackingInfos=array();
-            foreach ($tracks as $track){
+            foreach ($tracks as $track) {
                 $trackingInfos[] = $track->getNumberDetail();
             }
             $shipTrack[$increment_id] = $trackingInfos;
-
         }
         return $shipTrack;
     }
@@ -218,7 +229,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
      */
     public function formatDeliveryDate($date)
     {
-        /* @var $locale Mage_Core_Model_Locale */
+        /* @var Mage_Core_Model_Locale $locale */
         $locale = Mage::app()->getLocale();
         $format = $locale->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM);
         return $locale->date(strtotime($date), Zend_Date::TIMESTAMP, null, false)
@@ -238,7 +249,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
             $time = $date . ' ' . $time;
         }
         
-        /* @var $locale Mage_Core_Model_Locale */
+        /* @var Mage_Core_Model_Locale $locale */
         $locale = Mage::app()->getLocale();
         
         $format = $locale->getTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
@@ -256,14 +267,19 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
         return (bool) Mage::getStoreConfig('contacts/contacts/enabled');
     }
 
+    /**
+     * @return string
+     */
     public function getStoreSupportEmail()
     {
         return Mage::getStoreConfig('trans_email/ident_support/email');
     }
 
+    /**
+     * @return string
+     */
     public function getContactUs()
     {
         return $this->getUrl('contacts');
     }
-
 }

@@ -31,10 +31,30 @@
  * @category   Mage
  * @package    Mage_Core
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getClass()
+ * @method $this setClass(string $value)
+ * @method string getExtraParams()
+ * @method $this setExtraParams(string $value)
+ * @method string getFormat()
+ * @method $this setFormat(string $value)
+ * @method string getImage()
+ * @method $this setImage(string $value)
+ * @method string getName()
+ * @method $this setName(string $value)
+ * @method string getTime()
+ * @method $this setTime(string $value)
+ * @method $this setTitle(string $value)
+ * @method string getValue()
+ * @method $this setValue(string $value)
+ * @method string getYearsRange()
+ * @method $this setYearsRange(string $value)
  */
 class Mage_Core_Block_Html_Date extends Mage_Core_Block_Template
 {
-
+    /**
+     * @return string
+     */
     protected function _toHtml()
     {
         $displayFormat = Varien_Date::convertZendToStrftime($this->getFormat(), true, (bool)$this->getTime());
@@ -73,18 +93,25 @@ class Mage_Core_Block_Html_Date extends Mage_Core_Block_Template
         return $html;
     }
 
-    public function getEscapedValue($index=null) {
+    /**
+     * @param null $index
+     * @return string
+     */
+    public function getEscapedValue($index = null)
+    {
 
-        if($this->getFormat() && $this->getValue()) {
+        if ($this->getFormat() && $this->getValue()) {
             return strftime($this->getFormat(), strtotime($this->getValue()));
         }
 
         return htmlspecialchars($this->getValue());
     }
 
+    /**
+     * @return string
+     */
     public function getHtml()
     {
         return $this->toHtml();
     }
-
 }

@@ -32,8 +32,7 @@
  * @package    Mage_Eav
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract
-    implements Mage_Eav_Model_Entity_Attribute_Backend_Interface
+abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_Eav_Model_Entity_Attribute_Backend_Interface
 {
     /**
      * Reference to the attribute instance
@@ -81,7 +80,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract
      * Set attribute instance
      *
      * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
-     * @return Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+     * @return $this
      */
     public function setAttribute($attribute)
     {
@@ -163,7 +162,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract
      * Set value id
      *
      * @param int $valueId
-     * @return Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+     * @return $this
      */
     public function setValueId($valueId)
     {
@@ -176,7 +175,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract
      *
      * @param Varien_Object $entity
      * @param int $valueId
-     * @return Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+     * @return $this
      */
     public function setEntityValueId($entity, $valueId)
     {
@@ -257,15 +256,15 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 
         if ($this->getAttribute()->getIsUnique()
             && !$this->getAttribute()->getIsRequired()
-            && ($value == '' || $this->getAttribute()->isValueEmpty($value)))
-        {
+            && ($value == '' || $this->getAttribute()->isValueEmpty($value))) {
             return true;
         }
 
         if ($this->getAttribute()->getIsUnique()) {
             if (!$this->getAttribute()->getEntity()->checkAttributeUniqueValue($this->getAttribute(), $object)) {
                 $label = $this->getAttribute()->getFrontend()->getLabel();
-                throw Mage::exception('Mage_Eav',
+                throw Mage::exception(
+                    'Mage_Eav',
                     Mage::helper('eav')->__('The value of attribute "%s" must be unique', $label)
                 );
             }
@@ -278,7 +277,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract
      * After load method
      *
      * @param Varien_Object $object
-     * @return Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+     * @return $this
      */
     public function afterLoad($object)
     {
@@ -289,7 +288,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract
      * Before save method
      *
      * @param Varien_Object $object
-     * @return Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+     * @return $this
      */
     public function beforeSave($object)
     {
@@ -305,7 +304,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract
      * After save method
      *
      * @param Varien_Object $object
-     * @return Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+     * @return $this
      */
     public function afterSave($object)
     {
@@ -316,7 +315,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract
      * Before delete method
      *
      * @param Varien_Object $object
-     * @return Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+     * @return $this
      */
     public function beforeDelete($object)
     {
@@ -326,7 +325,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract
      * After delete method
      *
      * @param Varien_Object $object
-     * @return Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+     * @return $this
      */
     public function afterDelete($object)
     {

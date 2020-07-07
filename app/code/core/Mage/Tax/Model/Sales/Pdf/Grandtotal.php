@@ -58,7 +58,7 @@ class Mage_Tax_Model_Sales_Pdf_Grandtotal extends Mage_Sales_Model_Order_Pdf_Tot
         ));
 
         if ($config->displaySalesFullSummary($store)) {
-           $totals = array_merge($totals, $this->getFullTaxInfo());
+            $totals = array_merge($totals, $this->getFullTaxInfo());
         }
 
         $totals[] = array(

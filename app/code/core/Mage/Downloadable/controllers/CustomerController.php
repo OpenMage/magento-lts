@@ -65,5 +65,4 @@ class Mage_Downloadable_CustomerController extends Mage_Core_Controller_Front_Ac
         }
         $this->renderLayout();
     }
-
 }

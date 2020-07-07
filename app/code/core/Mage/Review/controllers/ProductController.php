@@ -41,6 +41,9 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
      */
     protected $_cookieCheckActions = array('post');
 
+    /**
+     * @return $this|Mage_Core_Controller_Front_Action|void
+     */
     public function preDispatch()
     {
         parent::preDispatch();
@@ -66,7 +69,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
     /**
      * Initialize and check product
      *
-     * @return Mage_Catalog_Model_Product
+     * @return Mage_Catalog_Model_Product|false
      */
     protected function _initProduct()
     {
@@ -114,7 +117,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
         $product = Mage::getModel('catalog/product')
             ->setStoreId(Mage::app()->getStore()->getId())
             ->load($productId);
-        /* @var $product Mage_Catalog_Model_Product */
+        /* @var Mage_Catalog_Model_Product $product */
         if (!$product->getId() || !$product->isVisibleInCatalog() || !$product->isVisibleInSiteVisibility()) {
             return false;
         }
@@ -139,7 +142,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
         }
 
         $review = Mage::getModel('review/review')->load($reviewId);
-        /* @var $review Mage_Review_Model_Review */
+        /* @var Mage_Review_Model_Review $review */
         if (!$review->getId() || !$review->isApproved() || !$review->isAvailableOnStore(Mage::app()->getStore())) {
             return false;
         }
@@ -173,9 +176,9 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
         if (($product = $this->_initProduct()) && !empty($data)) {
             $session = Mage::getSingleton('core/session');
-            /* @var $session Mage_Core_Model_Session */
+            /* @var Mage_Core_Model_Session $session */
             $review = Mage::getModel('review/review')->setData($this->_cropReviewData($data));
-            /* @var $review Mage_Review_Model_Review */
+            /* @var Mage_Review_Model_Review $review */
 
             $validate = $review->validate();
             if ($validate === true) {
@@ -198,20 +201,17 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
                     $review->aggregate();
                     $session->addSuccess($this->__('Your review has been accepted for moderation.'));
-                }
-                catch (Exception $e) {
+                } catch (Exception $e) {
                     $session->setFormData($data);
                     $session->addError($this->__('Unable to post the review.'));
                 }
-            }
-            else {
+            } else {
                 $session->setFormData($data);
                 if (is_array($validate)) {
                     foreach ($validate as $errorMessage) {
                         $session->addError($errorMessage);
                     }
-                }
-                else {
+                } else {
                     $session->addError($this->__('Unable to post the review.'));
                 }
             }

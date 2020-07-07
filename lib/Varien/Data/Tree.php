@@ -73,7 +73,7 @@ class Varien_Data_Tree
     /**
      * Enter description here...
      *
-     * @param unknown_type $nodeId
+     * @param int $nodeId
      */
     public function loadNode($nodeId)
     {
@@ -196,7 +196,7 @@ class Varien_Data_Tree
     /**
      * Enter description here...
      *
-     * @param unknown_type $nodeId
+     * @param int $nodeId
      * @return Varien_Data_Tree_Node
      */
     public function getNodeById($nodeId)

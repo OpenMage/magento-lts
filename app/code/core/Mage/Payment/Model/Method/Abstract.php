@@ -28,6 +28,18 @@
  * Payment method abstract model
  *
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getCheckoutRedirectUrl()
+ * @method $this setInfoInstance(Mage_Payment_Model_Info $value)
+ * @method string getInstructions()
+ * @method string getOrderPlaceRedirectUrl()
+ * @method int getStore()
+ * @method $this setStore(int $value)
+ * @method $this initBillingAgreementToken(Mage_Sales_Model_Billing_Agreement $value)
+ * @method array getBillingAgreementTokenInfo(Mage_Sales_Model_Billing_Agreement $value)
+ * @method $this placeBillingAgreement(Mage_Sales_Model_Billing_Agreement $value)
+ * @method $this updateBillingAgreementStatus(Mage_Sales_Model_Billing_Agreement $value)
+ * @method $this validateRecurringProfile(Mage_Payment_Model_Recurring_Profile $value)
  */
 abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
 {
@@ -96,7 +108,6 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
 
     public function __construct()
     {
-
     }
 
     /**
@@ -276,6 +287,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     /**
      * To check billing country is allowed for the payment method
      *
+     * @param string $country
      * @return bool
      */
     public function canUseForCountry($country)
@@ -283,12 +295,11 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
         /*
         for specific country, the flag will set up as 1
         */
-        if($this->getConfigData('allowspecific')==1){
+        if ($this->getConfigData('allowspecific')==1) {
             $availableCountries = explode(',', $this->getConfigData('specificcountry'));
-            if(!in_array($country, $availableCountries)){
+            if (!in_array($country, $availableCountries)) {
                 return false;
             }
-
         }
         return true;
     }
@@ -393,14 +404,14 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
           * to validate payment method is allowed for billing country or not
           */
          $paymentInfo = $this->getInfoInstance();
-         if ($paymentInfo instanceof Mage_Sales_Model_Order_Payment) {
-             $billingCountry = $paymentInfo->getOrder()->getBillingAddress()->getCountryId();
-         } else {
-             $billingCountry = $paymentInfo->getQuote()->getBillingAddress()->getCountryId();
-         }
-         if (!$this->canUseForCountry($billingCountry)) {
-             Mage::throwException(Mage::helper('payment')->__('Selected payment type is not allowed for billing country.'));
-         }
+        if ($paymentInfo instanceof Mage_Sales_Model_Order_Payment) {
+            $billingCountry = $paymentInfo->getOrder()->getBillingAddress()->getCountryId();
+        } else {
+            $billingCountry = $paymentInfo->getQuote()->getBillingAddress()->getCountryId();
+        }
+        if (!$this->canUseForCountry($billingCountry)) {
+            Mage::throwException(Mage::helper('payment')->__('Selected payment type is not allowed for billing country.'));
+        }
          return $this;
     }
 
@@ -631,8 +642,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     {
         if (is_array($data)) {
             $this->getInfoInstance()->addData($data);
-        }
-        elseif ($data instanceof Varien_Object) {
+        } elseif ($data instanceof Varien_Object) {
             $this->getInfoInstance()->addData($data->getData());
         }
         return $this;
@@ -659,7 +669,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      */
     public function isAvailable($quote = null)
     {
-        $checkResult = new StdClass;
+        $checkResult = new stdClass;
         $isActive = (bool)(int)$this->getConfigData('active', $quote ? $quote->getStoreId() : null);
         $checkResult->isAvailable = $isActive;
         $checkResult->isDeniedInConfig = !$isActive; // for future use in observers

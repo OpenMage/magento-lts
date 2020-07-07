@@ -53,7 +53,7 @@ class Mage_Oauth_TokenController extends Mage_Core_Controller_Front_Action
      */
     public function indexAction()
     {
-        /** @var $server Mage_Oauth_Model_Server */
+        /** @var Mage_Oauth_Model_Server $server */
         $server = Mage::getModel('oauth/server');
 
         $server->accessToken();

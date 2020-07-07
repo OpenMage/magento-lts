@@ -53,10 +53,10 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid extends Mage_Adminhtml_B
      */
     protected function _prepareCollection()
     {
-        /** @var $user Mage_Admin_Model_User */
+        /** @var Mage_Admin_Model_User $user */
         $user = Mage::getSingleton('admin/session')->getData('user');
 
-        /** @var $collection Mage_Oauth_Model_Resource_Token_Collection */
+        /** @var Mage_Oauth_Model_Resource_Token_Collection $collection */
         $collection = Mage::getModel('oauth/token')->getCollection();
         $collection->joinConsumerAsApplication()
                 ->addFilterByType(Mage_Oauth_Model_Token::TYPE_ACCESS)
@@ -87,7 +87,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid extends Mage_Adminhtml_B
             'escape'    => true,
         ));
 
-        /** @var $sourceYesNo Mage_Adminhtml_Model_System_Config_Source_Yesno */
+        /** @var Mage_Adminhtml_Model_System_Config_Source_Yesno $sourceYesNo */
         $sourceYesNo = Mage::getSingleton('adminhtml/system_config_source_yesno');
         $this->addColumn('revoked', array(
             'header'    => $this->__('Revoked'),

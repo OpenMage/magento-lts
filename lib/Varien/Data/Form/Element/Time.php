@@ -33,12 +33,19 @@
  */
 class Varien_Data_Form_Element_Time extends Varien_Data_Form_Element_Abstract
 {
+    /**
+     * Varien_Data_Form_Element_Time constructor.
+     * @param array $attributes
+     */
     public function __construct($attributes=array())
     {
         parent::__construct($attributes);
         $this->setType('time');
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         $name = parent::getName();
@@ -48,6 +55,9 @@ class Varien_Data_Form_Element_Time extends Varien_Data_Form_Element_Abstract
         return $name;
     }
 
+    /**
+     * @return string
+     */
     public function getElementHtml()
     {
         $this->addClass('select');
@@ -58,7 +68,7 @@ class Varien_Data_Form_Element_Time extends Varien_Data_Form_Element_Abstract
 
         if( $value = $this->getValue() ) {
             $values = explode(',', $value);
-            if( is_array($values) && count($values) == 3 ) {
+            if ( is_array($values) && count($values) == 3 ) {
                 $value_hrs = $values[0];
                 $value_min = $values[1];
                 $value_sec = $values[2];

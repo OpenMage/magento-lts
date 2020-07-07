@@ -63,7 +63,7 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
     /**
      * Set add days in whishlist filter of product collection flag
      *
-     * @param unknown_type $flag
+     * @param bool $flag
      * @return $this
      */
     public function setDaysInWishlist($flag)
@@ -147,7 +147,8 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
         $nowDate = $adapter->formatDate(Mage::getSingleton('core/date')->date());
 
         $this->joinField('store_name', 'core/store', 'name', 'store_id=item_store_id');
-        $this->joinField('days_in_wishlist',
+        $this->joinField(
+            'days_in_wishlist',
             'wishlist/item',
             $resourceHelper->getDateDiff($this->_wishlistItemTableAlias . '.added_at', $nowDate),
             'wishlist_item_id=wishlist_item_id'
@@ -159,8 +160,7 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
     /**
      * Rewrite retrieve attribute field name for wishlist attributes
      *
-     * @param string $attributeCode
-     * @return $this
+     * @inheritDoc
      */
     protected function _getAttributeFieldName($attributeCode)
     {
@@ -174,7 +174,9 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
      * Prevent loading collection because after Magento 1.4.2.0 it's impossible
      * to use product collection in wishlist
      *
-     * @return bool
+     * @param bool $printQuery
+     * @param bool $logQuery
+     * @return Mage_Wishlist_Model_Resource_Product_Collection
      */
     public function load($printQuery = false, $logQuery = false)
     {

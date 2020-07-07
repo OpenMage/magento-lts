@@ -79,7 +79,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
     /**
      * Prepare sales rule's discount quantity
      *
-     * @param Mage_Core_Model_Abstract $object
+     * @param Mage_Core_Model_Abstract|Mage_SalesRule_Model_Rule $object
      *
      * @return $this
      */
@@ -98,9 +98,8 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
      * Save rule's associated store labels.
      * Save product attributes used in rule.
      *
-     * @param Mage_Core_Model_Abstract $object
-     *
-     * @return $this
+     * @param Mage_SalesRule_Model_Rule $object
+     * @inheritDoc
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -200,7 +199,6 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
         } catch (Exception $e) {
             $adapter->rollBack();
             throw $e;
-
         }
 
         return $this;
@@ -240,16 +238,18 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
     /**
      * Return codes of all product attributes currently used in promo rules for specified customer group and website
      *
-     * @param unknown_type $websiteId
-     * @param unknown_type $customerGroupId
+     * @param int $websiteId
+     * @param int $customerGroupId
      * @return mixed
      */
     public function getActiveAttributes($websiteId, $customerGroupId)
     {
         $read = $this->_getReadAdapter();
         $select = $read->select()
-            ->from(array('a' => $this->getTable('salesrule/product_attribute')),
-                new Zend_Db_Expr('DISTINCT ea.attribute_code'))
+            ->from(
+                array('a' => $this->getTable('salesrule/product_attribute')),
+                new Zend_Db_Expr('DISTINCT ea.attribute_code')
+            )
             ->joinInner(array('ea' => $this->getTable('eav/attribute')), 'ea.attribute_id = a.attribute_id', array());
         return $read->fetchAll($select);
     }
@@ -306,8 +306,11 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
     public function getProductAttributes($serializedString)
     {
         $result = array();
-        if (preg_match_all('~s:32:"salesrule/rule_condition_product";s:9:"attribute";s:\d+:"(.*?)"~s',
-            $serializedString, $matches)){
+        if (preg_match_all(
+            '~s:32:"salesrule/rule_condition_product";s:9:"attribute";s:\d+:"(.*?)"~s',
+            $serializedString,
+            $matches
+        )) {
             foreach ($matches[1] as $offset => $attributeCode) {
                 $result[] = $attributeCode;
             }

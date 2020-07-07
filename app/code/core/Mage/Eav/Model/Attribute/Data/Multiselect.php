@@ -52,8 +52,7 @@ class Mage_Eav_Model_Attribute_Data_Multiselect extends Mage_Eav_Model_Attribute
     /**
      * Export attribute value to entity model
      *
-     * @param array|string $value
-     * @return $this
+     * @inheritDoc
      */
     public function compactValue($value)
     {
@@ -66,7 +65,9 @@ class Mage_Eav_Model_Attribute_Data_Multiselect extends Mage_Eav_Model_Attribute
     /**
      * Return formated attribute value from entity model
      *
+     * @param string $format
      * @return string|array
+     * @throws Mage_Core_Exception
      */
     public function outputValue($format = Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_TEXT)
     {

@@ -290,7 +290,7 @@ class Zend_Filter_File_Rename implements Zend_Filter_Interface
             return $file;
         }
 
-        if (!isset($rename['target']) or ($rename['target'] == '*')) {
+        if (!isset($rename['target']) || ($rename['target'] == '*')) {
             $rename['target'] = $rename['source'];
         }
 

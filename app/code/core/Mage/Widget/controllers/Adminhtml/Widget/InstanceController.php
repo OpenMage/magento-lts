@@ -52,10 +52,14 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
     {
         $this->loadLayout()
             ->_setActiveMenu('cms/widgets')
-            ->_addBreadcrumb(Mage::helper('widget')->__('CMS'),
-                Mage::helper('widget')->__('CMS'))
-            ->_addBreadcrumb(Mage::helper('widget')->__('Manage Widget Instances'),
-                Mage::helper('widget')->__('Manage Widget Instances'));
+            ->_addBreadcrumb(
+                Mage::helper('widget')->__('CMS'),
+                Mage::helper('widget')->__('CMS')
+            )
+            ->_addBreadcrumb(
+                Mage::helper('widget')->__('Manage Widget Instances'),
+                Mage::helper('widget')->__('Manage Widget Instances')
+            );
         return $this;
     }
 
@@ -68,7 +72,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
     {
         $this->_title($this->__('CMS'))->_title($this->__('Widgets'));
 
-        /** @var $widgetInstance Mage_Widget_Model_Widget_Instance */
+        /** @var Mage_Widget_Model_Widget_Instance $widgetInstance */
         $widgetInstance = Mage::getModel('widget/widget_instance');
 
         $instanceId = $this->getRequest()->getParam('instance_id', null);
@@ -251,7 +255,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
             ->setUseMassaction(true)
             ->setProductTypeId($productTypeId)
             ->setSelectedProducts(explode(',', $selected));
-        /* @var $serializer Mage_Adminhtml_Block_Widget_Grid_Serializer */
+        /* @var Mage_Adminhtml_Block_Widget_Grid_Serializer $serializer */
         $serializer = $this->getLayout()->createBlock('adminhtml/widget_grid_serializer');
         $serializer->initSerializerBlock($chooser, 'getSelectedProducts', 'selected_products', 'selected_products');
         $this->setBody($chooser->toHtml().$serializer->toHtml());
@@ -263,7 +267,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
      */
     public function blocksAction()
     {
-        /* @var $widgetInstance age_Widget_Model_Widget_Instance */
+        /* @var Mage_Widget_Model_Widget_Instance $widgetInstance */
         $widgetInstance = $this->_initWidgetInstance();
         $layout = $this->getRequest()->getParam('layout');
         $selected = $this->getRequest()->getParam('selected', null);
@@ -284,7 +288,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
      */
     public function templateAction()
     {
-        /* @var $widgetInstance age_Widget_Model_Widget_Instance */
+        /* @var Mage_Widget_Model_Widget_Instance $widgetInstance */
         $widgetInstance = $this->_initWidgetInstance();
         $block = $this->getRequest()->getParam('block');
         $selected = $this->getRequest()->getParam('selected', null);
@@ -321,10 +325,11 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
      *
      * @return array
      */
-    protected function _prepareParameters() {
+    protected function _prepareParameters()
+    {
         $result = array();
         $parameters = $this->getRequest()->getPost('parameters');
-        if(is_array($parameters) && count($parameters)) {
+        if (is_array($parameters) && count($parameters)) {
             foreach ($parameters as $key => $value) {
                 $result[Mage::helper('core')->stripTags($key)] = $value;
             }
@@ -335,25 +340,24 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
     /**
      * Validates update xml post data
      *
-     * @param $widgetInstance
-     * @param $data
+     * @param Mage_Widget_Model_Widget_Instance $widgetInstance
+     * @param array $data
      * @return bool
      */
     protected function _validatePostData($widgetInstance, $data)
     {
         $errorNo = true;
         if (!empty($data['widget_instance']) && is_array($data['widget_instance'])) {
-            /** @var $validatorCustomLayout Mage_Adminhtml_Model_LayoutUpdate_Validator */
             $validatorCustomLayout = Mage::getModel('adminhtml/layoutUpdate_validator');
             foreach ($data['widget_instance'] as $pageGroup) {
                 try {
-                    if (
-                        !empty($pageGroup['page_group'])
+                    if (!empty($pageGroup['page_group'])
                         && !empty($pageGroup[$pageGroup['page_group']]['template'])
                         && !empty($pageGroup[$pageGroup['page_group']]['block'])
                         && !$validatorCustomLayout->isValid($widgetInstance->generateLayoutUpdateXml(
                             $pageGroup[$pageGroup['page_group']]['block'],
-                            $pageGroup[$pageGroup['page_group']]['template']))
+                            $pageGroup[$pageGroup['page_group']]['template']
+                        ))
                     ) {
                         $errorNo = false;
                     }

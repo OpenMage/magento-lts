@@ -25,7 +25,7 @@
  */
 
 
-/* @var $installer Mage_Checkout_Model_Mysql4_Setup */
+/* @var Mage_Checkout_Model_Mysql4_Setup $installer */
 $installer = $this;
 
 $installer->startSetup();

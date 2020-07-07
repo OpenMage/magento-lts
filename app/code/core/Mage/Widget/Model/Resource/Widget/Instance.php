@@ -46,8 +46,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
     /**
      * Perform actions after object load
      *
-     * @param Mage_Widget_Model_Widget_Instance $object
-     * @return $this
+     * @inheritDoc
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
@@ -63,8 +62,8 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
     /**
      * Perform actions after object save
      *
-     * @param Mage_Widget_Model_Widget_Instance $object
-     * @return $this
+     * @inheritDoc
+     * @throws Zend_Db_Adapter_Exception
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -108,9 +107,13 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
             if (in_array($pageGroup['page_id'], $pageIds)) {
                 $writeAdapter->update($pageTable, $data, array('page_id = ?' => (int)$pageId));
             } else {
-                $writeAdapter->insert($pageTable,
-                    array_merge(array('instance_id' => $object->getId()),
-                    $data));
+                $writeAdapter->insert(
+                    $pageTable,
+                    array_merge(
+                        array('instance_id' => $object->getId()),
+                        $data
+                    )
+                );
                 $pageId = $writeAdapter->lastInsertId($pageTable);
             }
             foreach ($pageLayoutUpdateIds as $layoutUpdateId) {
@@ -189,7 +192,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
      * Perform actions before object delete.
      * Collect page ids and layout update ids and set to object for further delete
      *
-     * @param Varien_Object $object
+     * @param Mage_Core_Model_Abstract $object
      * @return $this
      */
     protected function _beforeDelete(Mage_Core_Model_Abstract $object)
@@ -212,8 +215,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
      * Perform actions after object delete.
      * Delete layout updates by layout update ids collected in _beforeSave
      *
-     * @param Mage_Widget_Model_Widget_Instance $object
-     * @return $this
+     * @inheritDoc
      */
     protected function _afterDelete(Mage_Core_Model_Abstract $object)
     {
@@ -278,5 +280,4 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
         $storeIds = $adapter->fetchOne($select);
         return $storeIds ? explode(',', $storeIds) : array();
     }
-
 }

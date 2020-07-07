@@ -660,7 +660,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
                         'store_value.value'
                     );
                     $joinCondition = array(
-                        $adapter->quoteInto('store_value.attribute_id IN (?)', array_keys($_attributes)),
+                        'store_value.attribute_id = default_value.attribute_id',
                         'store_value.entity_type_id = :entity_type_id',
                         'store_value.entity_id = :entity_id',
                         'store_value.store_id = :store_id',

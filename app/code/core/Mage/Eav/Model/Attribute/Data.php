@@ -58,7 +58,7 @@ class Mage_Eav_Model_Attribute_Data
      */
     public static function factory(Mage_Eav_Model_Attribute $attribute, Mage_Core_Model_Abstract $entity)
     {
-        /* @var $dataModel Mage_Eav_Model_Attribute_Data_Abstract */
+        /* @var Mage_Eav_Model_Attribute_Data_Abstract $dataModel */
         $dataModelClass = $attribute->getDataModel();
         if (!empty($dataModelClass)) {
             if (empty(self::$_dataModels[$dataModelClass])) {

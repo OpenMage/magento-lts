@@ -29,9 +29,11 @@
  *
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Core_Block_Text_List extends Mage_Core_Block_Text
 {
+    /**
+     * @inheritDoc
+     */
     protected function _toHtml()
     {
         $this->setText('');
