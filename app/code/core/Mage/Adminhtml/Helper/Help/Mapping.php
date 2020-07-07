@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -181,7 +181,6 @@ abstract class Mage_Adminhtml_Helper_Help_Mapping extends Mage_Core_Helper_Abstr
             'system_config/edit/section/google' => 'configuration/sales/google-api.html',
             'system_config/edit/section/payment' => 'configuration/sales/payment-methods.html',
             'system_config/edit/section/payment_services' => 'configuration/sales/payment-services.html',
-            'system_config/edit/section/moneybookers' => 'payment/gateways.html',
             'system_config/edit/section/api' => 'configuration/services/magento-core-api.html',
             'system_config/edit/section/oauth' => 'configuration/services/oauth.html',
             'system_config/edit/section/admin' => 'configuration/advanced/admin.html',

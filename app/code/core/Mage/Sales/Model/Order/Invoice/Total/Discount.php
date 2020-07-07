@@ -20,13 +20,17 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 class Mage_Sales_Model_Order_Invoice_Total_Discount extends Mage_Sales_Model_Order_Invoice_Total_Abstract
 {
+    /**
+     * @param Mage_Sales_Model_Order_Invoice $invoice
+     * @return $this
+     */
     public function collect(Mage_Sales_Model_Order_Invoice $invoice)
     {
         $invoice->setDiscountAmount(0);
@@ -52,7 +56,7 @@ class Mage_Sales_Model_Order_Invoice_Total_Discount extends Mage_Sales_Model_Ord
             $baseTotalDiscountAmount = $baseTotalDiscountAmount + $invoice->getOrder()->getBaseShippingDiscountAmount();
         }
 
-        /** @var $item Mage_Sales_Model_Order_Invoice_Item */
+        /** @var Mage_Sales_Model_Order_Invoice_Item $item */
         foreach ($invoice->getAllItems() as $item) {
             $orderItem = $item->getOrderItem();
             if ($orderItem->isDummy()) {

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Page
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,6 +34,9 @@
 class Mage_Page_Block_Html_Footer extends Mage_Core_Block_Template
 {
 
+    /**
+     * @var string
+     */
     protected $_copyright;
 
     protected function _construct()
@@ -62,12 +65,19 @@ class Mage_Page_Block_Html_Footer extends Mage_Core_Block_Template
         );
     }
 
+    /**
+     * @param string $copyright
+     * @return $this
+     */
     public function setCopyright($copyright)
     {
         $this->_copyright = $copyright;
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getCopyright()
     {
         if (!$this->_copyright) {
@@ -80,13 +90,13 @@ class Mage_Page_Block_Html_Footer extends Mage_Core_Block_Template
     /**
      * Retrieve child block HTML, sorted by default
      *
-     * @param   string $name
-     * @param   boolean $useCache
+     * @param string $name
+     * @param boolean $useCache
+     * @param bool $sorted
      * @return  string
      */
-    public function getChildHtml($name='', $useCache=true, $sorted=true)
+    public function getChildHtml($name = '', $useCache = true, $sorted = true)
     {
         return parent::getChildHtml($name, $useCache, $sorted);
     }
-
 }

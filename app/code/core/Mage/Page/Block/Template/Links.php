@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Page
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -82,9 +82,18 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
      * @param string $afterText
      * @return $this
      */
-    public function addLink($label, $url='', $title='', $prepare=false, $urlParams=array(),
-        $position=null, $liParams=null, $aParams=null, $beforeText='', $afterText='')
-    {
+    public function addLink(
+        $label,
+        $url = '',
+        $title = '',
+        $prepare = false,
+        $urlParams = array(),
+        $position = null,
+        $liParams = null,
+        $aParams = null,
+        $beforeText = '',
+        $afterText = ''
+    ) {
         if (is_null($label) || false===$label) {
             return $this;
         }
@@ -208,7 +217,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
             return $params;
         } elseif (is_array($params)) {
             $result = '';
-            foreach ($params as $key=>$value) {
+            foreach ($params as $key => $value) {
                 $result .= ' ' . $key . '="' . addslashes($value) . '"';
             }
             return $result;
@@ -219,7 +228,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
     /**
      * Set first/last
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _beforeToHtml()
     {
@@ -246,7 +255,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
             }
         } else {
             $position = 0;
-            foreach ($this->_links as $k=>$v) {
+            foreach ($this->_links as $k => $v) {
                 $position = $k;
             }
             $position += 10;
@@ -268,4 +277,3 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
         return parent::getCacheTags();
     }
 }
-

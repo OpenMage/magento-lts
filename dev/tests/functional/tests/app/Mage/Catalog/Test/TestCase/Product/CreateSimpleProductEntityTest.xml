@@ -21,7 +21,7 @@
  *
  * @category    Tests
  * @package     Tests_Functional
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 -->
@@ -252,7 +252,6 @@
             <data name="product/data/stock_data/qty" xsi:type="string">658</data>
             <data name="product/data/stock_data/is_in_stock" xsi:type="string">In Stock</data>
             <data name="configData" xsi:type="string">-</data>
-            <data name="issue" xsi:type="string">Bug: MPERF-5976: Special Price can be larger than Actual Price</data>
             <constraint name="Mage\Catalog\Test\Constraint\AssertProductSpecialPriceNotLargerActual" />
         </variation>
         <variation name="CreateSimpleProductEntityTestVariation11" firstConstraint="Mage\Catalog\Test\Constraint\AssertProductSaveMessage" method="test">

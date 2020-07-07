@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -443,6 +443,14 @@
                     </customer_addres_after_save_viv_observer>
                 </observers>
             </customer_address_save_after>
+            <customer_customer_authenticated>
+                <observers>
+                    <customer_upgrade_password>
+                        <class>Mage_Customer_Model_Observer</class>
+                        <method>actionUpgradeCustomerPassword</method>
+                    </customer_upgrade_password>
+                </observers>
+            </customer_customer_authenticated>
         </events>
     </global>
     <adminhtml>
@@ -533,6 +541,7 @@
                 <remind_email_template>customer_password_remind_email_template</remind_email_template>
                 <reset_link_expiration_period>2</reset_link_expiration_period>
                 <require_admin_user_to_change_user_password>1</require_admin_user_to_change_user_password>
+                <min_password_length>7</min_password_length>
             </password>
             <address>
                 <street_lines>2</street_lines>
@@ -593,6 +602,7 @@ T: {{var telephone}}
                 <forgot_password_flow_secure>1</forgot_password_flow_secure>
                 <forgot_password_email_times>5</forgot_password_email_times>
                 <forgot_password_ip_times>5</forgot_password_ip_times>
+                <min_admin_password_length>14</min_admin_password_length>
             </security>
         </admin>
     </default>

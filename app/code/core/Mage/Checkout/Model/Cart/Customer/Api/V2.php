@@ -20,12 +20,12 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Shoping cart api for customer data 
+ * Shoping cart api for customer data
  *
  * @category    Mage
  * @package     Mage_Checkout
@@ -57,7 +57,7 @@ class Mage_Checkout_Model_Cart_Customer_Api_V2 extends Mage_Checkout_Model_Cart_
     {
         if (is_array($data)) {
             $dataAddresses = array();
-            foreach($data as $addressItem) {
+            foreach ($data as $addressItem) {
                 if (null !== ($_addressItem = get_object_vars($addressItem))) {
                     $dataAddresses[] = $_addressItem;
                 }

@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Paygate
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -30,7 +30,7 @@
         <payment>
             <groups>
                 <authorizenet translate="label" module="paygate">
-                    <label>Authorize.net</label>
+                    <label>Authorize.net (Deprecated)</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>34</sort_order>
                     <show_in_default>1</show_in_default>

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Oauth
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -74,7 +74,7 @@ abstract class Mage_Oauth_Block_Authorize_Abstract extends Mage_Core_Block_Templ
     public function getConsumer()
     {
         if (null === $this->_consumer) {
-            /** @var $token Mage_Oauth_Model_Token */
+            /** @var Mage_Oauth_Model_Token $token */
             $token = Mage::getModel('oauth/token');
             $token->load($this->getToken(), 'token');
             $this->_consumer = $token->getConsumer();

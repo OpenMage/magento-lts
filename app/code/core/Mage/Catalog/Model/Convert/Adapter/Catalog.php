@@ -20,14 +20,16 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
-class Mage_Catalog_Model_Convert_Adapter_Catalog
-    extends Mage_Dataflow_Model_Convert_Adapter_Abstract
+class Mage_Catalog_Model_Convert_Adapter_Catalog extends Mage_Dataflow_Model_Convert_Adapter_Abstract
 {
+    /**
+     * @return object
+     */
     public function getResource()
     {
         if (!$this->_resource) {
@@ -36,6 +38,9 @@ class Mage_Catalog_Model_Convert_Adapter_Catalog
         return $this->_resource;
     }
 
+    /**
+     * @return $this
+     */
     public function load()
     {
         $res = $this->getResource();
@@ -55,6 +60,9 @@ class Mage_Catalog_Model_Convert_Adapter_Catalog
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function save()
     {
         /*

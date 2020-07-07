@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Wishlist
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -105,8 +105,8 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
             $qtys = array_filter(json_decode($qtysString), 'strlen');
         }
 
+        /** @var Mage_Wishlist_Model_Item $item */
         foreach ($collection as $item) {
-            /** @var Mage_Wishlist_Model_Item */
             try {
                 $disableAddToCart = $item->getProduct()->getDisableAddToCart();
                 $item->unsProduct();
@@ -123,11 +123,10 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
                 if ($item->addToCart($cart, $isOwner)) {
                     $addedItems[] = $item->getProduct();
                 }
-
             } catch (Mage_Core_Exception $e) {
                 if ($e->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_NOT_SALABLE) {
                     $notSalable[] = $item;
-                } else if ($e->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_HAS_REQUIRED_OPTIONS) {
+                } elseif ($e->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_HAS_REQUIRED_OPTIONS) {
                     $hasOptions[] = $item;
                 } else {
                     $messages[] = $this->__('%s for "%s".', trim($e->getMessage(), '.'), $item->getProduct()->getName());
@@ -150,7 +149,7 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
         }
         if (Mage::helper('checkout/cart')->getShouldRedirectToCart()) {
             $redirectUrl = Mage::helper('checkout/cart')->getCartUrl();
-        } else if ($this->_getRefererUrl()) {
+        } elseif ($this->_getRefererUrl()) {
             $redirectUrl = $this->_getRefererUrl();
         } else {
             $redirectUrl = $indexUrl;
@@ -193,8 +192,7 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
             // save wishlist model for setting date of last update
             try {
                 $wishlist->save();
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 Mage::getSingleton('wishlist/session')->addError($this->__('Cannot update wishlist'));
                 $redirectUrl = $indexUrl;
             }

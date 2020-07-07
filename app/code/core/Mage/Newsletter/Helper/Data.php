@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Newsletter
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -73,7 +73,7 @@ class Mage_Newsletter_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve Template processor for Newsletter template
      *
-     * @return Varien_Filter_Template
+     * @return false|Mage_Core_Model_Abstract|Varien_Filter_Template
      */
     public function getTemplateProcessor()
     {
@@ -81,4 +81,3 @@ class Mage_Newsletter_Helper_Data extends Mage_Core_Helper_Abstract
         return Mage::getModel($model);
     }
 }
-

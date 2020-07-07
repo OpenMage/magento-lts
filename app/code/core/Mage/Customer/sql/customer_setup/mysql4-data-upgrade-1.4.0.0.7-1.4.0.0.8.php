@@ -20,19 +20,19 @@
  *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
-/* @var $installer Mage_Customer_Model_Entity_Setup */
+/* @var Mage_Customer_Model_Entity_Setup $installer */
 $installer = $this;
 
-/* @var $addressHelper Mage_Customer_Helper_Address */
+/* @var Mage_Customer_Helper_Address $addressHelper */
 $addressHelper = Mage::helper('customer/address');
 $store         = Mage::app()->getStore(Mage_Core_Model_App::ADMIN_STORE_ID);
 
-/* @var $eavConfig Mage_Eav_Model_Config */
+/* @var Mage_Eav_Model_Config $eavConfig */
 $eavConfig = Mage::getSingleton('eav/config');
 
 // update customer system attributes data
@@ -179,6 +179,7 @@ $attributes = array(
 );
 
 foreach ($attributes as $attributeCode => $data) {
+    /** @var Mage_Customer_Model_Attribute $attribute */
     $attribute = $eavConfig->getAttribute('customer', $attributeCode);
     $attribute->setWebsite($store->getWebsite());
     $attribute->addData($data);

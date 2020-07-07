@@ -422,7 +422,7 @@ abstract class Zend_Translate_Adapter {
      */
     public function setLocale($locale)
     {
-        if (($locale === "auto") or ($locale === null)) {
+        if (($locale === "auto") || ($locale === null)) {
             $this->_automatic = true;
         } else {
             $this->_automatic = false;
@@ -503,7 +503,7 @@ abstract class Zend_Translate_Adapter {
      */
     public function getMessageId($message, $locale = null)
     {
-        if (empty($locale) or !$this->isAvailable($locale)) {
+        if (empty($locale) || !$this->isAvailable($locale)) {
             $locale = $this->_options['locale'];
         }
 
@@ -519,7 +519,7 @@ abstract class Zend_Translate_Adapter {
      */
     public function getMessageIds($locale = null)
     {
-        if (empty($locale) or !$this->isAvailable($locale)) {
+        if (empty($locale) || !$this->isAvailable($locale)) {
             $locale = $this->_options['locale'];
         }
 
@@ -540,7 +540,7 @@ abstract class Zend_Translate_Adapter {
             return $this->_translate;
         }
 
-        if ((empty($locale) === true) or ($this->isAvailable($locale) === false)) {
+        if ((empty($locale) === true) || ($this->isAvailable($locale) === false)) {
             $locale = $this->_options['locale'];
         }
 

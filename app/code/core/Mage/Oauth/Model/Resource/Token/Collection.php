@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Oauth
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -54,10 +54,10 @@ class Mage_Oauth_Model_Resource_Token_Collection extends Mage_Core_Model_Resourc
     {
         $select = $this->getSelect();
         $select->joinLeft(
-                    array('c' => $this->getTable('oauth/consumer')),
-                    'c.entity_id = main_table.consumer_id',
-                    'name'
-                );
+            array('c' => $this->getTable('oauth/consumer')),
+            'c.entity_id = main_table.consumer_id',
+            'name'
+        );
 
         return $this;
     }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -58,7 +58,7 @@ class Mage_Eav_Model_Attribute_Data
      */
     public static function factory(Mage_Eav_Model_Attribute $attribute, Mage_Core_Model_Abstract $entity)
     {
-        /* @var $dataModel Mage_Eav_Model_Attribute_Data_Abstract */
+        /* @var Mage_Eav_Model_Attribute_Data_Abstract $dataModel */
         $dataModelClass = $attribute->getDataModel();
         if (!empty($dataModelClass)) {
             if (empty(self::$_dataModels[$dataModelClass])) {

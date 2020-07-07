@@ -20,10 +20,9 @@
  *
  * @category    Mage
  * @package     Mage_GiftMessage
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Gift Message attribute source model
@@ -61,5 +60,4 @@ class Mage_GiftMessage_Model_Entity_Attribute_Source_Boolean_Config extends Mage
         }
         return $this->_options;
     }
-
 }

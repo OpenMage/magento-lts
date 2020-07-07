@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Downloadable
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -63,6 +63,7 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
 
         $result = array();
         try {
+            /** @var Mage_Downloadable_Model_Link_Api_Uploader $uploader */
             $uploader = Mage::getModel('downloadable/link_api_uploader', $fileInfo);
             $uploader->setAllowRenameFiles(true);
             $uploader->setFilesDispersion(true);
@@ -171,7 +172,8 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
                 'sort_order' => $item->getSortOrder()
             );
             $file = Mage::helper('downloadable/file')->getFilePath(
-                Mage_Downloadable_Model_Link::getBasePath(), $item->getLinkFile()
+                Mage_Downloadable_Model_Link::getBasePath(),
+                $item->getLinkFile()
             );
 
             if ($item->getLinkFile() && !is_file($file)) {
@@ -189,7 +191,8 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
                     ));
             }
             $sampleFile = Mage::helper('downloadable/file')->getFilePath(
-                Mage_Downloadable_Model_Link::getBaseSamplePath(), $item->getSampleFile()
+                Mage_Downloadable_Model_Link::getBaseSamplePath(),
+                $item->getSampleFile()
             );
             if ($item->getSampleFile() && is_file($sampleFile)) {
                 $tmpLinkItem['sample_file_save'] = array(
@@ -233,7 +236,7 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
             $this->_fault('validation_error', $e->getMessage());
         }
 
-        switch($resourceType) {
+        switch ($resourceType) {
             case 'link':
                 $downloadableModel = Mage::getSingleton('downloadable/link');
                 break;

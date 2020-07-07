@@ -21,7 +21,7 @@
  *
  * @category    Tests
  * @package     Tests_Functional
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 -->
@@ -46,6 +46,20 @@
                 <item name="value" xsi:type="array">
                     <item name="US Dollar" xsi:type="string">USD</item>
                 </item>
+            </field>
+        </dataset>
+        <dataset name="config_currency_converters">
+            <field name="currency/fixerio/api_key" xsi:type="array">
+                <item name="scope" xsi:type="string">currency</item>
+                <item name="scope_id" xsi:type="number">1</item>
+                <item name="label" xsi:type="string" />
+                <item name="value" xsi:type="string" />
+            </field>
+            <field name="currency/currencyconverterapi/api_key" xsi:type="array">
+                <item name="scope" xsi:type="string">currency</item>
+                <item name="scope_id" xsi:type="number">1</item>
+                <item name="label" xsi:type="string" />
+                <item name="value" xsi:type="string" />
             </field>
         </dataset>
     </repository>

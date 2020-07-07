@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,12 +38,42 @@ interface Mage_Eav_Model_Entity_Attribute_Backend_Interface
     public function isStatic();
     public function getType();
     public function getEntityIdField();
+
+    /**
+     * @param int $valueId
+     * @return int
+     */
     public function setValueId($valueId);
     public function getValueId();
+
+    /**
+     * @param object $object
+     * @return mixed
+     */
     public function afterLoad($object);
+
+    /**
+     * @param object $object
+     * @return mixed
+     */
     public function beforeSave($object);
+
+    /**
+     * @param object $object
+     * @return mixed
+     */
     public function afterSave($object);
+
+    /**
+     * @param object $object
+     * @return mixed
+     */
     public function beforeDelete($object);
+
+    /**
+     * @param object $object
+     * @return mixed
+     */
     public function afterDelete($object);
 
     /**
