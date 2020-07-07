@@ -20,7 +20,7 @@
  *
  * @category    Tests
  * @package     Tests_Functional
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -58,8 +58,10 @@ class Payment extends Block
     public function selectPaymentMethod(array $paymentCode)
     {
         $paymentInput = $this->_rootElement->find(sprintf($this->paymentMethod, $paymentCode['method']));
-        if ($paymentInput->isVisible()) {
-            $paymentInput->click();
+        if ($paymentInput->isPresent()) {
+            if ($paymentInput->isVisible()) {
+                $paymentInput->click();
+            }
             $this->getTemplateBlock()->waitLoader();
         } else {
             throw new \Exception("{$paymentCode['method']} method is not visible.");

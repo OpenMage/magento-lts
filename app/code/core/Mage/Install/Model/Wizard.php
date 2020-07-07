@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Install
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -71,8 +71,8 @@ class Mage_Install_Model_Wizard
     /**
      * Get wizard step by request
      *
-     * @param   Mage_Core_Controller_Zend_Request $request
-     * @return  Varien_Object || false
+     * @param   Zend_Controller_Request_Abstract $request
+     * @return  Varien_Object | false
      */
     public function getStepByRequest(Zend_Controller_Request_Abstract $request)
     {

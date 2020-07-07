@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -49,7 +49,7 @@ class Mage_Catalog_Model_Category_Attribute_Api extends Mage_Catalog_Model_Api_R
         $result = array();
 
         foreach ($attributes as $attribute) {
-            /* @var $attribute Mage_Catalog_Model_Resource_Eav_Attribute */
+            /* @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
             if ($this->_isAllowedAttribute($attribute)) {
                 if (!$attribute->getId() || $attribute->isScopeGlobal()) {
                     $scope = 'global';
@@ -92,7 +92,7 @@ class Mage_Catalog_Model_Category_Attribute_Api extends Mage_Catalog_Model_Api_R
 
         $result = array();
         if ($attribute->usesSource()) {
-            foreach ($attribute->getSource()->getAllOptions(false) as $optionId=>$optionValue) {
+            foreach ($attribute->getSource()->getAllOptions(false) as $optionId => $optionValue) {
                 if (is_array($optionValue)) {
                     $result[] = $optionValue;
                 } else {

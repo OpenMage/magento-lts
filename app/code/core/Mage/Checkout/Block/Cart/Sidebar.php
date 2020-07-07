@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -84,7 +84,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
      * It will include tax, if required by config settings.
      *
      * @param   bool $skipTax flag for getting price with tax or not. Ignored in case when we display just subtotal incl.tax
-     * @return  decimal
+     * @return  float
      */
     public function getSubtotal($skipTax = true)
     {
@@ -98,7 +98,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
                 } else {
                     $subtotal = $totals['subtotal']->getValueInclTax();
                 }
-            } elseif($config->displayCartSubtotalInclTax()) {
+            } elseif ($config->displayCartSubtotalInclTax()) {
                 $subtotal = $totals['subtotal']->getValueInclTax();
             } else {
                 $subtotal = $totals['subtotal']->getValue();
@@ -114,7 +114,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
      * Get subtotal, including tax.
      * Will return > 0 only if appropriate config settings are enabled.
      *
-     * @return decimal
+     * @return float
      */
     public function getSubtotalInclTax()
     {
@@ -131,7 +131,8 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
      * @param bool $exclShippingTax
      * @return float
      */
-    private function _addTax($price, $exclShippingTax=true) {
+    private function _addTax($price, $exclShippingTax = true)
+    {
         $totals = $this->getTotals();
         if (isset($totals['tax'])) {
             if ($exclShippingTax) {
@@ -210,7 +211,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
         return parent::getItems();
     }
 
-    /*
+    /**
      * Return totals from custom quote if needed
      *
      * @return array
@@ -254,7 +255,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
      * Deserialize renders from string
      *
      * @param string $renders
-     * @return Mage_Checkout_Block_Cart_Sidebar
+     * @return $this
      */
     public function deserializeRenders($renders)
     {
@@ -286,10 +287,10 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
         $quoteTags = $this->getQuote()->getCacheIdTags();
 
         $items = array();
-        /** @var $item Mage_Sales_Model_Quote_Item */
+        /** @var Mage_Sales_Model_Quote_Item $item */
         foreach ($this->getItems() as $item) {
             $items[] = $item->getProduct();
-       }
+        }
 
         return array_merge(
             parent::getCacheTags(),

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_SalesRule
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -49,7 +49,7 @@ class Mage_SalesRule_Model_Resource_Rule_Customer extends Mage_Core_Model_Resour
      * @param Mage_SalesRule_Model_Rule_Customer $rule
      * @param int $customerId
      * @param int $ruleId
-     * @return Mage_SalesRule_Model_Resource_Rule_Customer
+     * @return $this
      */
     public function loadByCustomerRule($rule, $customerId, $ruleId)
     {

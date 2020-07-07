@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Wishlist
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -50,7 +50,7 @@ class Mage_Wishlist_Model_Resource_Item extends Mage_Core_Model_Resource_Db_Abst
      * @param int $wishlistId
      * @param int $productId
      * @param array $sharedStores
-     * @return Mage_Wishlist_Model_Resource_Item
+     * @return $this
      */
     public function loadByProductWishlist($object, $wishlistId, $productId, $sharedStores)
     {

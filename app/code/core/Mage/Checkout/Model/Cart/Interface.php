@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -55,7 +55,7 @@ interface Mage_Checkout_Model_Cart_Interface
      * Associate quote with the cart
      *
      * @abstract
-     * @param $quote Mage_Sales_Model_Quote
+     * @param Mage_Sales_Model_Quote $quote
      * @return Mage_Checkout_Model_Cart_Interface
      */
     public function setQuote(Mage_Sales_Model_Quote $quote);

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_ProductAlert
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -36,6 +36,9 @@ class Mage_ProductAlert_Block_Price extends Mage_Core_Block_Template
         $this->setTemplate('productalert/price.phtml');
     }
 
+    /**
+     * @return bool
+     */
     public function isShow()
     {
         if (!Mage::getStoreConfig('catalog/productalert/allow_price')) {
@@ -45,6 +48,11 @@ class Mage_ProductAlert_Block_Price extends Mage_Core_Block_Template
         return true;
     }
 
+    /**
+     * @param string $route
+     * @param array $params
+     * @return string
+     */
     public function getUrl($route = '', $params = array())
     {
         return Mage::helper('productalert')->getSaveUrl('price');

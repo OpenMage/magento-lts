@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -69,7 +69,7 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
      * Set product object
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Catalog_Block_Product_View_Options
+     * @return $this
      */
     public function setProduct(Mage_Catalog_Model_Product $product = null)
     {
@@ -83,7 +83,7 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
      * @param string $type
      * @param string $block
      * @param string $template
-     * @return Mage_Catalog_Block_Product_View_Options
+     * @return $this
      */
     public function addOptionRenderer($type, $block, $template)
     {
@@ -110,6 +110,10 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
         return $this->_optionRenders['default'];
     }
 
+    /**
+     * @param $type
+     * @return string
+     */
     public function getGroupOfOption($type)
     {
         $group = Mage::getSingleton('catalog/product_option')->getGroupByType($type);
@@ -127,6 +131,9 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
         return $this->getProduct()->getOptions();
     }
 
+    /**
+     * @return bool
+     */
     public function hasOptions()
     {
         if ($this->getOptions()) {
@@ -163,12 +170,12 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
         $config = array();
 
         foreach ($this->getOptions() as $option) {
-            /* @var $option Mage_Catalog_Model_Product_Option */
+            /* @var Mage_Catalog_Model_Product_Option $option */
             $priceValue = 0;
             if ($option->getGroupByType() == Mage_Catalog_Model_Product_Option::OPTION_GROUP_SELECT) {
                 $_tmpPriceValues = array();
                 foreach ($option->getValues() as $value) {
-                    /* @var $value Mage_Catalog_Model_Product_Option_Value */
+                    /* @var Mage_Catalog_Model_Product_Option_Value $value */
                     $id = $value->getId();
                     $_tmpPriceValues[$id] = $this->_getPriceConfiguration($value);
                 }
@@ -186,6 +193,7 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
      * Get option html block
      *
      * @param Mage_Catalog_Model_Product_Option $option
+     * @return string
      */
     public function getOptionHtml(Mage_Catalog_Model_Product_Option $option)
     {

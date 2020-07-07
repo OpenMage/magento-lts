@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -68,7 +68,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     /**
      * Prepares layout of block
      *
-     * @return Mage_Adminhtml_Block_Sales_Order_View_Giftmessage
+     * @return $this
      */
     protected function _prepareLayout()
     {
@@ -101,7 +101,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
      * Set entity for form
      *
      * @param Varien_Object $entity
-     * @return Mage_Adminhtml_Block_Sales_Order_View_Giftmessage
+     * @return $this
      */
     public function setEntity(Varien_Object $entity)
     {
@@ -204,7 +204,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     /**
      * Initialize gift message for entity
      *
-     * @return Mage_Adminhtml_Block_Sales_Order_View_Giftmessage
+     * @return $this
      */
     protected function _initMessage()
     {

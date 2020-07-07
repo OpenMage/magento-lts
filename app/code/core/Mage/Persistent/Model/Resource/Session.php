@@ -20,10 +20,9 @@
  *
  * @category    Mage
  * @package     Mage_Persistent
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Persistent Session Resource Model
@@ -62,7 +61,8 @@ class Mage_Persistent_Model_Resource_Session extends Mage_Core_Model_Resource_Db
         $select = parent::_getLoadSelect($field, $value, $object);
         if (!$object->getLoadExpired()) {
             $tableName = $this->getMainTable();
-            $select->join(array('customer' => $this->getTable('customer/entity')),
+            $select->join(
+                array('customer' => $this->getTable('customer/entity')),
                 'customer.entity_id = ' . $tableName . '.customer_id'
             )->where($tableName . '.updated_at >= ?', $object->getExpiredBefore());
         }
@@ -74,7 +74,7 @@ class Mage_Persistent_Model_Resource_Session extends Mage_Core_Model_Resource_Db
      * Delete customer persistent session by customer id
      *
      * @param int $customerId
-     * @return Mage_Persistent_Model_Resource_Session
+     * @return $this
      */
     public function deleteByCustomerId($customerId)
     {
@@ -98,9 +98,9 @@ class Mage_Persistent_Model_Resource_Session extends Mage_Core_Model_Resource_Db
     /**
      * Delete expired persistent sessions
      *
-     * @param  $websiteId
-     * @param  $expiredBefore
-     * @return Mage_Persistent_Model_Resource_Session
+     * @param  int $websiteId
+     * @param  string $expiredBefore
+     * @return $this
      */
     public function deleteExpired($websiteId, $expiredBefore)
     {

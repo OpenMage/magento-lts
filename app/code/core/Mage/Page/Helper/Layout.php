@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Page
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,7 +37,7 @@ class Mage_Page_Helper_Layout extends Mage_Core_Helper_Abstract
      * Apply page layout handle
      *
      * @param string $pageLayout
-     * @return Mage_Page_Helper_Layout
+     * @return $this
      */
     public function applyHandle($pageLayout)
     {
@@ -59,7 +59,7 @@ class Mage_Page_Helper_Layout extends Mage_Core_Helper_Abstract
      * (for old design packages)
      *
      * @param string $pageLayout
-     * @return Mage_Page_Helper_Layout
+     * @return $this
      */
     public function applyTemplate($pageLayout = null)
     {
@@ -87,7 +87,7 @@ class Mage_Page_Helper_Layout extends Mage_Core_Helper_Abstract
     /**
      * Retrieve current applied page layout
      *
-     * @return Varien_Object|boolean
+     * @return Varien_Object|false
      */
     public function getCurrentPageLayout()
     {

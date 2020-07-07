@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,7 +41,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Massaction_Item extends Mage_Adminhtml_Bl
      * Set parent massaction block
      *
      * @param  Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract $massaction
-     * @return Mage_Adminhtml_Block_Widget_Grid_Massaction_Item
+     * @return $this
      */
     public function setMassaction($massaction)
     {
@@ -63,7 +63,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Massaction_Item extends Mage_Adminhtml_Bl
      * Set additional action block for this item
      *
      * @param string|Mage_Core_Block_Abstract $block
-     * @return Mage_Adminhtml_Block_Widget_Grid_Massaction_Item
+     * @return $this
      */
     public function setAdditionalActionBlock($block)
     {

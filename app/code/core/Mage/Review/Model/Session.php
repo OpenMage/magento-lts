@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Review
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,6 +30,11 @@
  * @category   Mage
  * @package    Mage_Review
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method array getFormData()
+ * @method $this setFormData(array $value)
+ * @method array getRedirectUrl()
+ * @method $this setRedirectUrl(string $value)
  */
 class Mage_Review_Model_Session extends Mage_Core_Model_Session_Abstract
 {

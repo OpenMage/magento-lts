@@ -20,13 +20,16 @@
  *
  * @category    Mage
  * @package     Mage_SalesRule
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 class Mage_SalesRule_Model_Rule_Action_Product extends Mage_Rule_Model_Action_Abstract
 {
+    /**
+     * @return $this|Mage_Rule_Model_Action_Abstract
+     */
     public function loadAttributeOptions()
     {
         $this->setAttributeOption(array(
@@ -35,6 +38,9 @@ class Mage_SalesRule_Model_Rule_Action_Product extends Mage_Rule_Model_Action_Ab
         return $this;
     }
 
+    /**
+     * @return $this|Mage_Rule_Model_Action_Abstract
+     */
     public function loadOperatorOptions()
     {
         $this->setOperatorOption(array(
@@ -46,6 +52,9 @@ class Mage_SalesRule_Model_Rule_Action_Product extends Mage_Rule_Model_Action_Ab
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function asHtml()
     {
         $html = $this->getTypeElement()->getHtml().Mage::helper('salesrule')->__("Update product's %s %s: %s", $this->getAttributeElement()->getHtml(), $this->getOperatorElement()->getHtml(), $this->getValueElement()->getHtml());

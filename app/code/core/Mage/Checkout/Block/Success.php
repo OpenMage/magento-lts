@@ -20,13 +20,20 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * Class Mage_Checkout_Block_Success
+ *
+ * @method int getLastOrderId()
+ */
 class Mage_Checkout_Block_Success extends Mage_Core_Block_Template
 {
+    /**
+     * @return string
+     */
     public function getRealOrderId()
     {
         $order = Mage::getModel('sales/order')->load($this->getLastOrderId());

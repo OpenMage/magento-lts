@@ -20,14 +20,13 @@
  *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-class Mage_Reports_Model_Grouped_Collection
-    extends Varien_Data_Collection //Mage_Core_Model_Resource_Db_Collection_Abstract
+class Mage_Reports_Model_Grouped_Collection extends Varien_Data_Collection //Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Column name for group by clause 
+     * Column name for group by clause
      *
      * @var string
      */
@@ -44,7 +43,7 @@ class Mage_Reports_Model_Grouped_Collection
      * Set column to group by
      *
      * @param string $column
-     * @return Mage_Reports_Model_Grouped_Collection
+     * @return $this
      */
     public function setColumnGroupBy($column)
     {
@@ -57,7 +56,7 @@ class Mage_Reports_Model_Grouped_Collection
      *
      * @param boolean $printQuery
      * @param boolean $logQuery
-     * @return Mage_Reports_Model_Grouped_Collection
+     * @return $this
      */
     public function load($printQuery = false, $logQuery = false)
     {
@@ -80,7 +79,7 @@ class Mage_Reports_Model_Grouped_Collection
      * Setter for resource collection
      *
      * @param Varien_Data_Collection_Db $collection
-     * @return Mage_Reports_Model_Grouped_Collection
+     * @return $this
      */
     public function setResourceCollection($collection)
     {
@@ -91,7 +90,7 @@ class Mage_Reports_Model_Grouped_Collection
     /**
      * Merge empty data collection with resource collection
      *
-     * @return Mage_Reports_Model_Grouped_Collection
+     * @return $this
      */
     protected function _mergeWithEmptyData()
     {
@@ -117,7 +116,7 @@ class Mage_Reports_Model_Grouped_Collection
     /**
      * Group data in resource collection
      *
-     * @return Mage_Reports_Model_Grouped_Collection
+     * @return $this
      */
     protected function _groupResourceData()
     {

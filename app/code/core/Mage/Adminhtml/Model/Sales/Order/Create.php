@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -127,7 +127,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      * Set validate data in import data flag
      *
      * @param boolean $flag
-     * @return Mage_Adminhtml_Model_Sales_Order_Create
+     * @return $this
      */
     public function setIsValidate($flag)
     {
@@ -164,7 +164,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Initialize data for price rules
      *
-     * @return Mage_Adminhtml_Model_Sales_Order_Create
+     * @return $this
      */
     public function initRuleData()
     {
@@ -207,7 +207,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Quote saving
      *
-     * @return Mage_Adminhtml_Model_Sales_Order_Create
+     * @return $this
      */
     public function saveQuote()
     {
@@ -250,7 +250,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      * Set quote object
      *
      * @param Mage_Sales_Model_Quote $quote
-     * @return Mage_Adminhtml_Model_Sales_Order_Create
+     * @return $this
      */
     public function setQuote(Mage_Sales_Model_Quote $quote)
     {
@@ -652,7 +652,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      * Handle data sent from sidebar
      *
      * @param array $data
-     * @return Mage_Adminhtml_Model_Sales_Order_Create
+     * @return $this
      */
     public function applySidebarData($data)
     {
@@ -1084,7 +1084,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      *
      * @param Mage_Sales_Model_Quote_Address $address
      * @param array $data
-     * @return Mage_Adminhtml_Model_Sales_Order_Create
+     * @return $this
      */
     protected function _setQuoteAddress(Mage_Sales_Model_Quote_Address $address, array $data)
     {
@@ -1344,7 +1344,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      * Set and validate Customer data
      *
      * @param Mage_Customer_Model_Customer $customer
-     * @return Mage_Adminhtml_Model_Sales_Order_Create
+     * @return $this
      */
     protected function _setCustomerData(Mage_Customer_Model_Customer $customer)
     {
@@ -1374,7 +1374,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Prepare quote customer
      *
-     * @return Mage_Adminhtml_Model_Sales_Order_Create
+     * @return $this
      */
     public function _prepareCustomer()
     {
@@ -1557,7 +1557,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
         if ((!$customer->getId() || !$customer->isInStore($this->getSession()->getStore()))
             && !$quote->getCustomerIsGuest()
         ) {
-            $customer->setCreatedAt($order->getCreatedAt());
+            $customer->setCreatedAt($order->getCreatedAtStoreDate());
             $customer
                 ->save()
                 ->sendNewAccountEmail('registered', '', $quote->getStoreId());
@@ -1580,7 +1580,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Validate quote data before order creation
      *
-     * @return Mage_Adminhtml_Model_Sales_Order_Create
+     * @return $this
      */
     protected function _validate()
     {

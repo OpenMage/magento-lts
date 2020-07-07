@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_ImportExport
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,14 +31,13 @@
  * @package     Mage_ImportExport
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_ImportExport_Model_Product_Attribute_Backend_Urlkey
-    extends Mage_Catalog_Model_Product_Attribute_Backend_Urlkey
+class Mage_ImportExport_Model_Product_Attribute_Backend_Urlkey extends Mage_Catalog_Model_Product_Attribute_Backend_Urlkey
 {
     /**
      * No need to validate url_key during import
      *
      * @param Mage_Catalog_Model_Product $object
-     * @return Mage_ImportExport_Model_Product_Attribute_Backend_Urlkey
+     * @return $this
      */
     protected function _validateUrlKey($object)
     {

@@ -20,11 +20,21 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * Controller predispatch method
+     *
+     * @return Mage_Adminhtml_Controller_Action
+     */
+    public function preDispatch()
+    {
+        $this->_setForcedFormKeyActions('delete');
+        return parent::preDispatch();
+    }
 
     protected function _initAction()
     {
@@ -113,6 +123,19 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
             $this->getRequest()->setParam('current_password', null);
             unset($data['current_password']);
             $result = $this->_validateCurrentPassword($currentPassword);
+            $model->setData($data);
+
+            if ($model->hasNewApiKey() && $model->getNewApiKey() === '') {
+                $model->unsNewApiKey();
+            }
+
+            if ($model->hasApiKeyConfirmation() && $model->getApiKeyConfirmation() === '') {
+                $model->unsApiKeyConfirmation();
+            }
+
+            if (!is_array($result)) {
+                $result = $model->validate();
+            }
 
             if (is_array($result)) {
                 foreach ($result as $error) {
@@ -128,17 +151,16 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
                 return;
             }
 
-            $model->setData($data);
             try {
                 $model->save();
                 if ( $uRoles = $this->getRequest()->getParam('roles', false) ) {
                     /*parse_str($uRoles, $uRoles);
                     $uRoles = array_keys($uRoles);*/
-                    if ( 1 == sizeof($uRoles) ) {
+                    if (count($uRoles) === 1) {
                         $model->setRoleIds($uRoles)
                             ->setRoleUserId($model->getUserId())
                             ->saveRelations();
-                    } else if ( sizeof($uRoles) > 1 ) {
+                    } else if (count($uRoles) > 1) {
                         //@FIXME: stupid fix of previous multi-roles logic.
                         //@TODO:  make proper DB upgrade in the future revisions.
                         $rs = array();

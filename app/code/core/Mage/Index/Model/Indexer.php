@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Index
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -107,7 +107,7 @@ class Mage_Index_Model_Indexer
      * Get index process by specific code
      *
      * @param string $code
-     * @return Mage_Index_Model_Process | false
+     * @return Mage_Index_Model_Process|false
      */
     public function getProcessByCode($code)
     {
@@ -129,7 +129,7 @@ class Mage_Index_Model_Indexer
     {
         $processes = array();
         $this->_errors = array();
-        foreach($codes as $code) {
+        foreach ($codes as $code) {
             $process = $this->getProcessByCode($code);
             if (!$process) {
                 $this->_errors[] = sprintf('Warning: Unknown indexer with code %s', trim($code));
@@ -164,7 +164,7 @@ class Mage_Index_Model_Indexer
      * Lock indexer actions
      * @deprecated after 1.6.1.0
      *
-     * @return Mage_Index_Model_Indexer
+     * @return $this
      */
     public function lockIndexer()
     {
@@ -176,7 +176,7 @@ class Mage_Index_Model_Indexer
      * Unlock indexer actions
      * @deprecated after 1.6.1.0
      *
-     * @return Mage_Index_Model_Indexer
+     * @return $this
      */
     public function unlockIndexer()
     {
@@ -204,11 +204,11 @@ class Mage_Index_Model_Indexer
      * @throws Exception
      * @return  Mage_Index_Model_Indexer
      */
-    public function indexEvents($entity=null, $type=null)
+    public function indexEvents($entity = null, $type = null)
     {
         Mage::dispatchEvent('start_index_events' . $this->_getEventTypeName($entity, $type));
 
-        /** @var $resourceModel Mage_Index_Model_Resource_Process */
+        /** @var Mage_Index_Model_Resource_Process $resourceModel */
         $resourceModel = Mage::getResourceSingleton('index/process');
 
         $allowTableChanges = $this->_allowTableChanges && !$resourceModel->isInTransaction();
@@ -251,7 +251,7 @@ class Mage_Index_Model_Indexer
      * Register event in each indexing process process
      *
      * @param Mage_Index_Model_Event $event
-     * @return Mage_Index_Model_Indexer
+     * @return $this
      */
     public function registerEvent(Mage_Index_Model_Event $event)
     {
@@ -268,7 +268,7 @@ class Mage_Index_Model_Indexer
      * @param   bool $doSave
      * @return  Mage_Index_Model_Event
      */
-    public function logEvent(Varien_Object $entity, $entityType, $eventType, $doSave=true)
+    public function logEvent(Varien_Object $entity, $entityType, $eventType, $doSave = true)
     {
         $event = Mage::getModel('index/event')
             ->setEntity($entityType)
@@ -302,7 +302,7 @@ class Mage_Index_Model_Indexer
         if ($event->getProcessIds()) {
             Mage::dispatchEvent('start_process_event' . $this->_getEventTypeName($entityType, $eventType));
 
-            /** @var $resourceModel Mage_Index_Model_Resource_Process */
+            /** @var Mage_Index_Model_Resource_Process $resourceModel */
             $resourceModel = Mage::getResourceSingleton('index/process');
 
             $allowTableChanges = $this->_allowTableChanges && !$resourceModel->isInTransaction();
@@ -343,7 +343,7 @@ class Mage_Index_Model_Indexer
      *
      * @param string $method
      * @param array $args
-     * @return Mage_Index_Model_Indexer
+     * @return void
      */
     protected function _runAll($method, $args)
     {
@@ -385,7 +385,7 @@ class Mage_Index_Model_Indexer
      * Enable/Disable keys in index tables
      *
      * @param bool $enable
-     * @return Mage_Index_Model_Indexer
+     * @return $this
      */
     protected function _changeKeyStatus($enable = true)
     {
@@ -445,7 +445,7 @@ class Mage_Index_Model_Indexer
     /**
      * Allow DDL operations while indexing
      *
-     * @return Mage_Index_Model_Indexer
+     * @return $this
      */
     public function allowTableChanges()
     {
@@ -456,7 +456,7 @@ class Mage_Index_Model_Indexer
     /**
      * Disallow DDL operations while indexing
      *
-     * @return Mage_Index_Model_Indexer
+     * @return $this
      */
     public function disallowTableChanges()
     {

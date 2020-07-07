@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Authorizenet
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -67,7 +67,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      * Send authorize request to gateway
      *
      * @param  Varien_Object $payment
-     * @param  decimal $amount
+     * @param  float $amount
      * @return Mage_Paygate_Model_Authorizenet
      * @throws Mage_Core_Exception
      */
@@ -80,8 +80,8 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      * Send capture request to gateway
      *
      * @param Varien_Object $payment
-     * @param decimal $amount
-     * @return Mage_Authorizenet_Model_Directpost
+     * @param float $amount
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function capture(Varien_Object $payment, $amount)
@@ -148,7 +148,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      * Void the payment through gateway
      *
      * @param Varien_Object $payment
-     * @return Mage_Authorizenet_Model_Directpost
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function void(Varien_Object $payment)
@@ -211,8 +211,8 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      * Need to decode Last 4 digits for request.
      *
      * @param Varien_Object $payment
-     * @param decimal $amount
-     * @return Mage_Authorizenet_Model_Directpost
+     * @param float $amount
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function refund(Varien_Object $payment, $amount)
@@ -233,7 +233,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      * refund the amount with transaction id
      *
      * @param string $payment Varien_Object object
-     * @return Mage_Authorizenet_Model_Directpost
+     * @return $this
      * @throws Mage_Core_Exception
      */
     protected function _refund(Varien_Object $payment, $amount)
@@ -372,7 +372,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      * Fill response with data.
      *
      * @param array $postData
-     * @return Mage_Authorizenet_Model_Directpost
+     * @return $this
      */
     public function setResponseData(array $postData)
     {
@@ -389,9 +389,12 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     public function validateResponse()
     {
         $response = $this->getResponse();
-        //md5 check
-        if (!$this->getConfigData('trans_md5') || !$this->getConfigData('login') ||
-            !$response->isValidHash($this->getConfigData('trans_md5'), $this->getConfigData('login'))
+        $xSHA2Hash = $response->getData('x_SHA2_Hash');
+        $hashConfigKey = !empty($xSHA2Hash) ? 'signature_key' : 'trans_md5';
+
+        //hash check
+        if (!$this->getConfigData($hashConfigKey)
+            || !$response->isValidHash($this->getConfigData($hashConfigKey), $this->getConfigData('login'))
         ) {
             Mage::throwException(
                 Mage::helper('authorizenet')->__('Response hash validation failed. Transaction declined.')
@@ -499,7 +502,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      */
     public function checkTransId()
     {
-        if (!$this->getResponse()->getXTransId()) {
+        if (!$this->getResponse()->getXTransId() && ('0' !== $this->getResponse()->getXTransId())) {
             Mage::throwException(
                 Mage::helper('authorizenet')->__('Payment authorization error. Transacion id is empty.')
             );

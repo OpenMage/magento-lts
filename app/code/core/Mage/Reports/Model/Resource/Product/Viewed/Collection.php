@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -46,7 +46,7 @@ class Mage_Reports_Model_Resource_Product_Viewed_Collection extends Mage_Reports
      *
      * @param string $from
      * @param string $to
-     * @return Mage_Reports_Model_Resource_Product_Viewed_Collection
+     * @return $this
      */
     protected function _joinFields($from = '', $to = '')
     {
@@ -60,7 +60,7 @@ class Mage_Reports_Model_Resource_Product_Viewed_Collection extends Mage_Reports
      *
      * @param string $from
      * @param string $to
-     * @return Mage_Reports_Model_Resource_Product_Viewed_Collection
+     * @return $this
      */
     public function setDateRange($from, $to)
     {
@@ -73,7 +73,7 @@ class Mage_Reports_Model_Resource_Product_Viewed_Collection extends Mage_Reports
      * Set store ids
      *
      * @param array $storeIds
-     * @return Mage_Reports_Model_Resource_Product_Viewed_Collection
+     * @return $this
      */
     public function setStoreIds($storeIds)
     {
@@ -88,7 +88,7 @@ class Mage_Reports_Model_Resource_Product_Viewed_Collection extends Mage_Reports
      * Add store ids to filter 'report_event' data by store
      *
      * @param array|int $storeIds
-     * @return Mage_Reports_Model_Resource_Product_Viewed_Collection
+     * @return $this
      */
     public function addStoreIds($storeIds)
     {
@@ -103,7 +103,7 @@ class Mage_Reports_Model_Resource_Product_Viewed_Collection extends Mage_Reports
     /**
      * Apply store filter
      *
-     * @return Mage_Reports_Model_Resource_Product_Viewed_Collection
+     * @return $this
      */
     protected function _applyStoreIds()
     {

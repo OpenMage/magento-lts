@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,6 +30,8 @@
  *
  * @method Mage_Core_Model_Resource_File_Storage_Database _getResource()
  * @method Mage_Core_Model_Resource_File_Storage_Database getResource()
+ * @method string getConnectionName()
+ * @method $this setDirectoryId(int $value)
  *
  * @category    Mage
  * @package     Mage_Core
@@ -80,7 +82,8 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
         if (is_null($this->_directoryModel)) {
             $this->_directoryModel = Mage::getModel(
                 'core/file_storage_directory_database',
-                array('connection' => $this->getConnectionName()));
+                array('connection' => $this->getConnectionName())
+            );
         }
 
         return $this->_directoryModel;
@@ -89,7 +92,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
     /**
      * Create tables for file and directory storages
      *
-     * @return Mage_Core_Model_File_Storage_Database
+     * @return $this
      */
     public function init()
     {
@@ -113,7 +116,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
      * Load object data by filename
      *
      * @param  string $filePath
-     * @return Mage_Core_Model_File_Storage_Database
+     * @return $this
      */
     public function loadByFilename($filePath)
     {
@@ -136,7 +139,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
     /**
      * Clear files and directories in storage
      *
-     * @return Mage_Core_Model_File_Storage_Database
+     * @return $this
      */
     public function clear()
     {
@@ -152,7 +155,8 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
      * @param  int $count
      * @return bool|array
      */
-    public function exportDirectories($offset = 0, $count = 100) {
+    public function exportDirectories($offset = 0, $count = 100)
+    {
         return $this->getDirectoryModel()->exportDirectories($offset, $count);
     }
 
@@ -162,7 +166,8 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
      * @param  array $dirs
      * @return Mage_Core_Model_File_Storage_Directory_Database
      */
-    public function importDirectories($dirs) {
+    public function importDirectories($dirs)
+    {
         return $this->getDirectoryModel()->importDirectories($dirs);
     }
 
@@ -190,7 +195,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
      * Import files list
      *
      * @param  array $files
-     * @return Mage_Core_Model_File_Storage_Database
+     * @return $this
      */
     public function importFiles($files)
     {
@@ -209,7 +214,8 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
                 $file['directory_id'] = (isset($file['directory']) && strlen($file['directory']))
                     ? Mage::getModel(
                         'core/file_storage_directory_database',
-                        array('connection' => $this->getConnectionName()))
+                        array('connection' => $this->getConnectionName())
+                    )
                             ->loadByPath($file['directory'])->getId()
                     : null;
 
@@ -227,7 +233,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
      * Store file into database
      *
      * @param  string $filename
-     * @return Mage_Core_Model_File_Storage_Database
+     * @return $this
      */
     public function saveFile($filename)
     {
@@ -262,7 +268,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
      *
      * @param  string $oldFilePath
      * @param  string $newFilePath
-     * @return Mage_Core_Model_File_Storage_Database
+     * @return $this
      */
     public function copyFile($oldFilePath, $newFilePath)
     {
@@ -281,7 +287,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
      *
      * @param  string $oldFilePath
      * @param  string $newFilePath
-     * @return Mage_Core_Model_File_Storage_Database
+     * @return $this
      */
     public function renameFile($oldFilePath, $newFilePath)
     {
@@ -323,7 +329,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
      * Delete file from database
      *
      * @param string $path
-     * @return Mage_Core_Model_File_Storage_Database
+     * @return $this
      */
     public function deleteFile($path)
     {

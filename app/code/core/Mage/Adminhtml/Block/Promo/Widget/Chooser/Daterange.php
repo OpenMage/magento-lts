@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -90,7 +90,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange extends Mage_Adminhtml
      * Target element ID setter
      *
      * @param string $value
-     * @return Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange
+     * @return $this
      */
     public function setTargetElementId($value)
     {
@@ -103,7 +103,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange extends Mage_Adminhtml
      *
      * @param string $from
      * @param string $to
-     * @return Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange
+     * @return $this
      */
     public function setRangeValues($from, $to)
     {
@@ -116,7 +116,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange extends Mage_Adminhtml
      * Automatically attempts to split the string by delimiter
      *
      * @param string $delimitedString
-     * @return Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange
+     * @return $this
      */
     public function setRangeValue($delimitedString)
     {
@@ -132,7 +132,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange extends Mage_Adminhtml
      * Range delimiter setter
      *
      * @param string $value
-     * @return Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange
+     * @return $this
      */
     public function setRangeDelimiter($value)
     {

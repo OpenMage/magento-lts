@@ -20,7 +20,7 @@
  *
  * @category    Varien
  * @package     Varien_Data
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,7 +33,11 @@
  */
 class Varien_Data_Form_Element_Button extends Varien_Data_Form_Element_Abstract
 {
-    public function __construct($attributes=array()) 
+    /**
+     * Varien_Data_Form_Element_Button constructor.
+     * @param array $attributes
+     */
+    public function __construct($attributes=array())
     {
         parent::__construct($attributes);
         $this->setType('button');

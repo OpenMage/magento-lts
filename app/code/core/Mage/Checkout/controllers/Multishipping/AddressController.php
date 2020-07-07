@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -46,7 +46,7 @@ class Mage_Checkout_Multishipping_AddressController extends Mage_Core_Controller
     /**
      * Retrieve checkout state model
      *
-     * @return Mage_Checkot_Model_Type_Multishipping_State
+     * @return Mage_Checkout_Model_Type_Multishipping_State
      */
     protected function _getState()
     {
@@ -73,8 +73,7 @@ class Mage_Checkout_Multishipping_AddressController extends Mage_Core_Controller
 
             if ($this->_getCheckout()->getCustomerDefaultShippingAddress()) {
                 $addressForm->setBackUrl(Mage::getUrl('*/multishipping/addresses'));
-            }
-            else {
+            } else {
                 $addressForm->setBackUrl(Mage::getUrl('*/cart/'));
             }
         }

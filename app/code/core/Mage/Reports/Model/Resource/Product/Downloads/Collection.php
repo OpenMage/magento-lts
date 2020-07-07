@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,13 +44,11 @@ class Mage_Reports_Model_Resource_Product_Downloads_Collection extends Mage_Cata
     protected function _construct()
     {
         parent::_construct();
-
-
     }
     /**
      * Add downloads summary grouping by product
      *
-     * @return Mage_Reports_Model_Resource_Product_Downloads_Collection
+     * @return $this
      */
     public function addSummary()
     {
@@ -64,15 +62,18 @@ class Mage_Reports_Model_Resource_Product_Downloads_Collection extends Mage_Cata
                 array(
                     'purchases' => new Zend_Db_Expr('SUM(d.number_of_downloads_bought)'),
                     'downloads' => new Zend_Db_Expr('SUM(d.number_of_downloads_used)'),
-                ))
+                )
+            )
             ->joinInner(
                 array('l' => $this->getTable('downloadable/link_title')),
                 'd.link_id = l.link_id',
-                array('l.link_id'))
+                array('l.link_id')
+            )
             ->joinLeft(
                 array('l_store' => $this->getTable('downloadable/link_title')),
                 $adapter->quoteInto('l.link_id = l_store.link_id AND l_store.store_id = ?', (int)$this->getStoreId()),
-                array('link_title' => $linkExpr))
+                array('link_title' => $linkExpr)
+            )
             ->where(implode(' OR ', array(
                 $adapter->quoteInto('d.number_of_downloads_bought > ?', 0),
                 $adapter->quoteInto('d.number_of_downloads_used > ?', 0),
@@ -91,7 +92,7 @@ class Mage_Reports_Model_Resource_Product_Downloads_Collection extends Mage_Cata
      *
      * @param string $attribute
      * @param string $dir
-     * @return Mage_Reports_Model_Resource_Product_Downloads_Collection
+     * @return $this
      */
     public function setOrder($attribute, $dir = self::SORT_ORDER_DESC)
     {
@@ -108,7 +109,7 @@ class Mage_Reports_Model_Resource_Product_Downloads_Collection extends Mage_Cata
      *
      * @param string $field
      * @param string $condition
-     * @return Mage_Reports_Model_Resource_Product_Downloads_Collection
+     * @return $this
      */
     public function addFieldToFilter($field, $condition = null)
     {

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -61,7 +61,7 @@ class Mage_Sales_Model_Resource_Order_Creditmemo_Item_Collection extends Mage_Sa
      * Set creditmemo filter
      *
      * @param int $creditmemoId
-     * @return Mage_Sales_Model_Resource_Order_Creditmemo_Item_Collection
+     * @return $this
      */
     public function setCreditmemoFilter($creditmemoId)
     {

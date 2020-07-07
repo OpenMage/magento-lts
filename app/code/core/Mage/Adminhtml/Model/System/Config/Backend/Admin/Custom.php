@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -45,7 +45,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom extends Mage_Core_
     /**
      * Validate value before save
      *
-     * @return Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom
+     * @return $this
      */
     protected function _beforeSave()
     {
@@ -62,7 +62,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom extends Mage_Core_
     /**
      * Change secure/unsecure base_url after use_custom_url was modified
      *
-     * @return Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom
+     * @return $this
      */
     public function _afterSave()
     {

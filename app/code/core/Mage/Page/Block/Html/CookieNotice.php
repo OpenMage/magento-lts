@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Page
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,7 +41,8 @@ class Mage_Page_Block_Html_CookieNotice extends Mage_Core_Block_Template
     public function getCookieRestrictionBlockContent()
     {
         $blockIdentifier = Mage::helper('core/cookie')->getCookieRestrictionNoticeCmsBlockIdentifier();
-        $block = Mage::getModel('cms/block')->load($blockIdentifier, 'identifier');
+        $block = Mage::getModel('cms/block')->setStoreId(Mage::app()->getStore()->getId());
+        $block->load($blockIdentifier, 'identifier');
 
         $html = '';
         if ($block->getIsActive()) {

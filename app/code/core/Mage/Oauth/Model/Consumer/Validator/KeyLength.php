@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Oauth
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -69,7 +69,7 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Zend_Validate_String
     /**
      * Init validation failure message template definitions
      *
-     * @return Mage_Oauth_Model_Consumer_Validator_KeyLength
+     * @return $this
      */
     protected function _initMessageTemplates()
     {
@@ -95,8 +95,8 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Zend_Validate_String
     /**
      * Set length
      *
-     * @param $length
-     * @return Mage_Oauth_Model_Consumer_Validator_KeyLength
+     * @param int $length
+     * @return $this
      */
     public function setLength($length)
     {
@@ -137,7 +137,7 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Zend_Validate_String
      * Set key name
      *
      * @param string $name
-     * @return Mage_Oauth_Model_Consumer_Validator_KeyLength
+     * @return $this
      */
     public function setName($name)
     {

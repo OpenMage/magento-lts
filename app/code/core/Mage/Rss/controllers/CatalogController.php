@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Rss
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -102,7 +102,7 @@ class Mage_Rss_CatalogController extends Mage_Rss_Controller_Abstract
     /**
      * Controller predispatch method to change area for some specific action.
      *
-     * @return Mage_Rss_CatalogController
+     * @return $this
      */
     public function preDispatch()
     {

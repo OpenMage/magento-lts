@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,7 +38,7 @@ class Mage_Sales_Model_Resource_Quote_Address_Attribute_Backend extends Mage_Eav
      * Collect totals
      *
      * @param Mage_Sales_Model_Quote_Address $address
-     * @return Mage_Sales_Model_Resource_Quote_Address_Attribute_Backend
+     * @return $this
      */
     public function collectTotals(Mage_Sales_Model_Quote_Address $address)
     {

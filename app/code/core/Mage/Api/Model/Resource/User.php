@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Api
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -46,7 +46,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Initialize unique fields
      *
-     * @return Mage_Api_Model_Resource_User
+     * @return $this
      */
     protected function _initUniqueFields()
     {
@@ -67,7 +67,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
      * Authenticate user by $username and $password
      *
      * @param Mage_Api_Model_User $user
-     * @return Mage_Api_Model_Resource_User
+     * @return $this
      */
     public function recordLogin(Mage_Api_Model_User $user)
     {
@@ -83,7 +83,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
      * Record api user session
      *
      * @param Mage_Api_Model_User $user
-     * @return Mage_Api_Model_Resource_User
+     * @return $this
      */
     public function recordSession(Mage_Api_Model_User $user)
     {
@@ -119,7 +119,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
      * Clean old session
      *
      * @param Mage_Api_Model_User $user
-     * @return Mage_Api_Model_Resource_User
+     * @return $this
      */
     public function cleanOldSessions(Mage_Api_Model_User $user)
     {
@@ -129,7 +129,8 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
         $timeSubtract     = $readAdapter->getDateAddSql(
             'logdate',
             $timeout,
-            Varien_Db_Adapter_Interface::INTERVAL_SECOND);
+            Varien_Db_Adapter_Interface::INTERVAL_SECOND
+        );
         $writeAdapter->delete(
             $this->getTable('api/session'),
             array('user_id = ?' => $user->getId(), $readAdapter->quote(now()) . ' > '.$timeSubtract)
@@ -168,9 +169,9 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
             $selectUser = $adapter->select()
                 ->from($this->getTable('api/user'))
                 ->where('user_id = ?', $apiSession['user_id']);
-                if ($user = $adapter->fetchRow($selectUser)) {
-                    $result = array_merge($user, $apiSession);
-                }
+            if ($user = $adapter->fetchRow($selectUser)) {
+                $result = array_merge($user, $apiSession);
+            }
         }
         return $result;
     }
@@ -179,7 +180,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
      * Clear by session
      *
      * @param string $sessid
-     * @return Mage_Api_Model_Resource_User
+     * @return $this
      */
     public function clearBySessId($sessid)
     {
@@ -202,7 +203,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
         $result = null;
         if (is_numeric($user)) {
             $userId = $user;
-        } else if ($user instanceof Mage_Core_Model_Abstract) {
+        } elseif ($user instanceof Mage_Core_Model_Abstract) {
             $userId = $user->getUserId();
         }
 
@@ -219,8 +220,8 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Action before save
      *
-     * @param Mage_Core_Model_Abstract $user
-     * @return Mage_Api_Model_Resource_User
+     * @param Mage_Core_Model_Abstract|Mage_Api_Model_User $user
+     * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $user)
     {
@@ -259,8 +260,8 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Save user roles
      *
-     * @param Mage_Core_Model_Abstract $user
-     * @return unknown
+     * @param Mage_Core_Model_Abstract|Mage_Api_Model_User $user
+     * @return $this|Mage_Core_Model_Abstract
      */
     public function _saveRelations(Mage_Core_Model_Abstract $user)
     {
@@ -276,7 +277,8 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
         try {
             $adapter->delete(
                 $this->getTable('api/role'),
-                array('user_id = ?' => (int) $user->getId()));
+                array('user_id = ?' => (int) $user->getId())
+            );
             foreach ($rolesIds as $rid) {
                 $rid = intval($rid);
                 if ($rid > 0) {
@@ -325,8 +327,10 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
                 array('ar' => $table),
                 $adapter->quoteInto(
                     "ar.role_id = {$table}.parent_id AND ar.role_type = ?",
-                    Mage_Api_Model_Acl::ROLE_TYPE_GROUP),
-                array('role_id'))
+                    Mage_Api_Model_Acl::ROLE_TYPE_GROUP
+                ),
+                array('role_id')
+            )
             ->where("{$table}.user_id = ?", $user->getId());
 
         return (($roles = $adapter->fetchCol($select)) ? $roles : array());
@@ -335,14 +339,14 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Add Role
      *
-     * @param Mage_Core_Model_Abstract $user
-     * @return Mage_Api_Model_Resource_User
+     * @param Mage_Core_Model_Abstract|Mage_Api_Model_User $user
+     * @return $this
      */
     public function add(Mage_Core_Model_Abstract $user)
     {
         $adapter = $this->_getWriteAdapter();
         $aRoles  = $this->hasAssigned2Role($user);
-        if (sizeof($aRoles) > 0) {
+        if (count($aRoles)) {
             foreach ($aRoles as $idx => $data) {
                 $adapter->delete(
                     $this->getTable('api/role'),
@@ -371,8 +375,8 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Delete from role
      *
-     * @param Mage_Core_Model_Abstract $user
-     * @return Mage_Api_Model_Resource_User
+     * @param Mage_Core_Model_Abstract|Mage_Api_Model_User $user
+     * @return $this
      */
     public function deleteFromRole(Mage_Core_Model_Abstract $user)
     {
@@ -381,7 +385,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
         }
         if ($user->getRoleId() <= 0) {
             return $this;
-        };
+        }
 
         $adapter   = $this->_getWriteAdapter();
         $table     = $this->getTable('api/role');
@@ -397,7 +401,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Retrieve roles which exists for user
      *
-     * @param Mage_Core_Model_Abstract $user
+     * @param Mage_Core_Model_Abstract|Mage_Api_Model_User $user
      * @return array
      */
     public function roleUserExists(Mage_Core_Model_Abstract $user)
@@ -416,7 +420,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Check if user not unique
      *
-     * @param Mage_Core_Model_Abstract $user
+     * @param Mage_Core_Model_Abstract|Mage_Api_Model_User $user
      * @return array
      */
     public function userExists(Mage_Core_Model_Abstract $user)

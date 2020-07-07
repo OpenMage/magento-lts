@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -258,7 +258,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
      *
      * @param string $localCsv Path to CSV file
      * @param string $format CSV format(column names)
-     * @return Mage_Paypal_Model_Report_Settlement
+     * @return $this
      */
     public function parseCsv($localCsv, $format = 'new')
     {
@@ -317,7 +317,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
     /**
      * Load report by unique key (accoutn + report date)
      *
-     * @return Mage_Paypal_Model_Report_Settlement
+     * @return $this
      */
     public function loadByAccountAndDate()
     {

@@ -20,14 +20,22 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * Class Mage_Sales_Model_Order_Status
+ * @method Mage_Sales_Model_Resource_Order_Status _getResource()
+ * @method Mage_Sales_Model_Resource_Order_Status getResource()
+ * @method Mage_Sales_Model_Resource_Order_Status_Collection getCollection()
+ *
+ * @method string getStatus()
+ * @method string getLabel()
+ * @method bool hasStoreLabels()
+ */
 class Mage_Sales_Model_Order_Status extends Mage_Core_Model_Abstract
 {
-
     protected function _construct()
     {
         $this->_init('sales/order_status');
@@ -38,9 +46,9 @@ class Mage_Sales_Model_Order_Status extends Mage_Core_Model_Abstract
      *
      * @param string  $state
      * @param boolean $isDefault make the status as default one for state
-     * @return Mage_Sales_Model_Order_Status
+     * @return $this
      */
-    public function assignState($state, $isDefault=false)
+    public function assignState($state, $isDefault = false)
     {
         $this->_getResource()->beginTransaction();
         try {
@@ -57,7 +65,7 @@ class Mage_Sales_Model_Order_Status extends Mage_Core_Model_Abstract
      * Unassigns order status from particular state
      *
      * @param string  $state
-     * @return Mage_Sales_Model_Order_Status
+     * @return $this
      */
     public function unassignState($state)
     {
@@ -93,7 +101,7 @@ class Mage_Sales_Model_Order_Status extends Mage_Core_Model_Abstract
      * @param mixed $store
      * @return string
      */
-    public function getStoreLabel($store=null)
+    public function getStoreLabel($store = null)
     {
         $store = Mage::app()->getStore($store);
         $label = false;
@@ -110,6 +118,7 @@ class Mage_Sales_Model_Order_Status extends Mage_Core_Model_Abstract
      * Load default status per state
      *
      * @param string $state
+     * @return Mage_Sales_Model_Order_Status
      */
     public function loadDefaultByState($state)
     {

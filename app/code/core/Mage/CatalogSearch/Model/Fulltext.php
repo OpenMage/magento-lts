@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogSearch
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,12 +29,14 @@
  *
  * @method Mage_CatalogSearch_Model_Resource_Fulltext _getResource()
  * @method Mage_CatalogSearch_Model_Resource_Fulltext getResource()
+ * @method Mage_CatalogSearch_Model_Resource_Fulltext_Collection getCollection()
+ *
  * @method int getProductId()
- * @method Mage_CatalogSearch_Model_Fulltext setProductId(int $value)
+ * @method $this setProductId(int $value)
  * @method int getStoreId()
- * @method Mage_CatalogSearch_Model_Fulltext setStoreId(int $value)
+ * @method $this setStoreId(int $value)
  * @method string getDataIndex()
- * @method Mage_CatalogSearch_Model_Fulltext setDataIndex(string $value)
+ * @method $this setDataIndex(string $value)
  *
  * @category    Mage
  * @package     Mage_CatalogSearch
@@ -72,7 +74,7 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
      * @param int|null $storeId Store View Id
      * @param int|array|null $productIds Product Entity Id
      *
-     * @return Mage_CatalogSearch_Model_Fulltext
+     * @return $this
      */
     public function rebuildIndex($storeId = null, $productIds = null)
     {
@@ -99,7 +101,7 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
      *
      * @param int $storeId Store View Id
      * @param int $productId Product Entity Id
-     * @return Mage_CatalogSearch_Model_Fulltext
+     * @return $this
      */
     public function cleanIndex($storeId = null, $productId = null)
     {
@@ -110,7 +112,7 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
     /**
      * Reset search results cache
      *
-     * @return Mage_CatalogSearch_Model_Fulltext
+     * @return $this
      */
     public function resetSearchResults()
     {
@@ -122,7 +124,7 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
      * Prepare results for query
      *
      * @param Mage_CatalogSearch_Model_Query $query
-     * @return Mage_CatalogSearch_Model_Fulltext
+     * @return $this
      */
     public function prepareResult($query = null)
     {
@@ -160,7 +162,7 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
      * @deprecated after 1.6.1.0
      *
      * @param bool $value
-     * @return Mage_CatalogSearch_Model_Fulltext
+     * @return $this
      */
     public function setAllowTableChanges($value = true)
     {
@@ -176,7 +178,7 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
      * @param array $productIds
      * @param array $categoryIds
      *
-     * @return Mage_CatalogSearch_Model_Fulltext
+     * @return $this
      */
     public function updateCategoryIndex($productIds, $categoryIds)
     {

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_ImportExport
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -236,7 +236,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
     /**
      * Delete customers.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Customer
+     * @return $this
      */
     protected function _deleteCustomers()
     {
@@ -251,7 +251,8 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
             if ($idToDelete) {
                 $this->_connection->query(
                     $this->_connection->quoteInto(
-                        "DELETE FROM `{$this->_entityTable}` WHERE `entity_id` IN (?)", $idToDelete
+                        "DELETE FROM `{$this->_entityTable}` WHERE `entity_id` IN (?)",
+                        $idToDelete
                     )
                 );
             }
@@ -279,17 +280,20 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
     /**
      * Initialize customer attributes.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Customer
+     * @return $this
      */
     protected function _initAttributes()
     {
         $collection = Mage::getResourceModel('customer/attribute_collection')->addSystemHiddenFilterWithPasswordHash();
+        /** @var Mage_Eav_Model_Attribute $attribute */
         foreach ($collection as $attribute) {
             $attributeArray = array(
                 'id'          => $attribute->getId(),
                 'is_required' => $attribute->getIsRequired(),
                 'is_static'   => $attribute->isStatic(),
-                'rules'       => $attribute->getValidateRules() ? unserialize($attribute->getValidateRules()) : null,
+                'rules'       => $attribute->getValidateRules()
+                    ? Mage::helper('core/unserializeArray')->unserialize($attribute->getValidateRules())
+                    : null,
                 'type'        => Mage_ImportExport_Model_Import::getAttributeType($attribute),
                 'options'     => $this->getAttributeOptions($attribute)
             );
@@ -304,7 +308,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
     /**
      * Initialize customer groups.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Customer
+     * @return $this
      */
     protected function _initCustomerGroups()
     {
@@ -317,7 +321,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
     /**
      * Initialize existent customers data.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Customer
+     * @return $this
      */
     protected function _initCustomers()
     {
@@ -337,7 +341,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
     /**
      * Initialize stores hash.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Customer
+     * @return $this
      */
     protected function _initStores()
     {
@@ -350,11 +354,11 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
     /**
      * Initialize website values.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Customer
+     * @return $this
      */
     protected function _initWebsites()
     {
-        /** @var $website Mage_Core_Model_Website */
+        /** @var Mage_Core_Model_Website $website */
         foreach (Mage::app()->getWebsites(true) as $website) {
             $this->_websiteCodeToId[$website->getCode()] = $website->getId();
             $this->_websiteIdToCode[$website->getId()]   = $website->getCode();
@@ -365,11 +369,11 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
     /**
      * Gather and save information about customer entities.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Customer
+     * @return $this
      */
     protected function _saveCustomers()
     {
-        /** @var $resource Mage_Customer_Model_Customer */
+        /** @var Mage_Customer_Model_Customer $resource */
         $resource       = Mage::getModel('customer/customer');
         $strftimeFormat = Varien_Date::convertZendToStrftime(Varien_Date::DATETIME_INTERNAL_FORMAT, true, true);
         $table = $resource->getResource()->getEntityTable();
@@ -420,7 +424,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                     // attribute values
                     foreach (array_intersect_key($rowData, $this->_attributes) as $attrCode => $value) {
                         if (!$this->_attributes[$attrCode]['is_static'] && strlen($value)) {
-                            /** @var $attribute Mage_Customer_Model_Attribute */
+                            /** @var Mage_Customer_Model_Attribute $attribute */
                             $attribute  = $resource->getAttribute($attrCode);
                             $backModel  = $attribute->getBackendModel();
                             $attrParams = $this->_attributes[$attrCode];
@@ -477,7 +481,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
      * Save customer attributes.
      *
      * @param array $attributesData
-     * @return Mage_ImportExport_Model_Import_Entity_Customer
+     * @return $this
      */
     protected function _saveCustomerAttributes(array $attributesData)
     {
@@ -504,7 +508,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
      *
      * @param array $entityRowsIn Row for insert
      * @param array $entityRowsUp Row for update
-     * @return Mage_ImportExport_Model_Import_Entity_Customer
+     * @return $this
      */
     protected function _saveCustomerEntity(array $entityRowsIn, array $entityRowsUp)
     {

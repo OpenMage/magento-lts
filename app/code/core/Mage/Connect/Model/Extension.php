@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Connect
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -64,7 +64,7 @@ class Mage_Connect_Model_Extension extends Varien_Object
     /**
     * Set package object.
     *
-    * @return Mage_Connect_Model_Extension
+    * @return $this
     */
     public function generatePackageXml()
     {
@@ -87,7 +87,7 @@ class Mage_Connect_Model_Extension extends Varien_Object
     /**
     * Set general information.
     *
-    * @return Mage_Connect_Model_Extension
+    * @return $this
     */
     protected function _setPackage()
     {
@@ -103,7 +103,7 @@ class Mage_Connect_Model_Extension extends Varien_Object
     /**
     * Set release information
     *
-    * @return Mage_Connect_Model_Extension
+    * @return $this
     */
     protected function _setRelease()
     {
@@ -119,7 +119,7 @@ class Mage_Connect_Model_Extension extends Varien_Object
     /**
     * Set authors
     *
-    * @return Mage_Connect_Model_Extension
+    * @return $this
     */
     protected function _setAuthors()
     {
@@ -153,7 +153,7 @@ class Mage_Connect_Model_Extension extends Varien_Object
     /**
     * Set php, php extensions, another packages dependencies
     *
-    * @return Mage_Connect_Model_Extension
+    * @return $this
     */
     protected function _setDependencies()
     {
@@ -195,7 +195,7 @@ class Mage_Connect_Model_Extension extends Varien_Object
     /**
     * Set contents. Add file or entire directory.
     *
-    * @return Mage_Connect_Model_Extension
+    * @return $this
     */
     protected function _setContents()
     {

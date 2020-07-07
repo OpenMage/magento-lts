@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -60,7 +60,7 @@ class Mage_Sales_Model_Resource_Quote_Item_Option_Collection extends Mage_Core_M
     /**
      * Fill array of options by item and product
      *
-     * @return Mage_Sales_Model_Resource_Quote_Item_Option_Collection
+     * @return $this
      */
     protected function _afterLoad()
     {
@@ -89,7 +89,7 @@ class Mage_Sales_Model_Resource_Quote_Item_Option_Collection extends Mage_Core_M
      * Apply quote item(s) filter to collection
      *
      * @param int | array $item
-     * @return Mage_Sales_Model_Resource_Quote_Item_Option_Collection
+     * @return $this
      */
     public function addItemFilter($item)
     {

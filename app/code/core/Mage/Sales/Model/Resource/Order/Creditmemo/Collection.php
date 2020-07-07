@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -67,7 +67,7 @@ class Mage_Sales_Model_Resource_Order_Creditmemo_Collection extends Mage_Sales_M
     /**
      * Used to emulate after load functionality for each item without loading them
      *
-     * @return Mage_Sales_Model_Resource_Order_Creditmemo_Collection
+     * @return $this
      */
     protected function _afterLoad()
     {
@@ -79,7 +79,7 @@ class Mage_Sales_Model_Resource_Order_Creditmemo_Collection extends Mage_Sales_M
      * Add filtration conditions
      *
      * @param array|null $filter
-     * @return Mage_Sales_Model_Resource_Order_Creditmemo_Collection
+     * @return $this
      */
     public function getFiltered($filter = null)
     {

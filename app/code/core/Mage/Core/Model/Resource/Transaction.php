@@ -20,10 +20,9 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Resource transaction model
@@ -31,7 +30,7 @@
  * @todo need collect conection by name
  * @category   Mage
  * @package    Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Resource_Transaction
 {
@@ -58,7 +57,7 @@ class Mage_Core_Model_Resource_Transaction
     /**
      * Begin transaction for all involved object resources
      *
-     * @return Mage_Core_Model_Resource_Transaction
+     * @return $this
      */
     protected function _startTransaction()
     {
@@ -71,7 +70,7 @@ class Mage_Core_Model_Resource_Transaction
     /**
      * Commit transaction for all resources
      *
-     * @return Mage_Core_Model_Resource_Transaction
+     * @return $this
      */
     protected function _commitTransaction()
     {
@@ -84,7 +83,7 @@ class Mage_Core_Model_Resource_Transaction
     /**
      * Rollback transaction
      *
-     * @return Mage_Core_Model_Resource_Transaction
+     * @return $this
      */
     protected function _rollbackTransaction()
     {
@@ -97,7 +96,7 @@ class Mage_Core_Model_Resource_Transaction
     /**
      * Run all configured object callbacks
      *
-     * @return Mage_Core_Model_Resource_Transaction
+     * @return $this
      */
     protected function _runCallbacks()
     {
@@ -112,9 +111,9 @@ class Mage_Core_Model_Resource_Transaction
      *
      * @param Mage_Core_Model_Abstract $object
      * @param string $alias
-     * @return Mage_Core_Model_Resource_Transaction
+     * @return $this
      */
-    public function addObject(Mage_Core_Model_Abstract $object, $alias='')
+    public function addObject(Mage_Core_Model_Abstract $object, $alias = '')
     {
         $this->_objects[] = $object;
         if (!empty($alias)) {
@@ -126,8 +125,8 @@ class Mage_Core_Model_Resource_Transaction
     /**
      * Add callback function which will be called before commit transactions
      *
-     * @param callback $callback
-     * @return Mage_Core_Model_Resource_Transaction
+     * @param callable $callback
+     * @return $this
      */
     public function addCommitCallback($callback)
     {
@@ -138,7 +137,7 @@ class Mage_Core_Model_Resource_Transaction
     /**
      * Initialize objects save transaction
      *
-     * @return Mage_Core_Model_Resource_Transaction
+     * @return $this
      * @throws Exception
      */
     public function save()
@@ -175,7 +174,7 @@ class Mage_Core_Model_Resource_Transaction
     /**
      * Initialize objects delete transaction
      *
-     * @return Mage_Core_Model_Resource_Transaction
+     * @return $this
      * @throws Exception
      */
     public function delete()
@@ -207,5 +206,4 @@ class Mage_Core_Model_Resource_Transaction
         }
         return $this;
     }
-
 }

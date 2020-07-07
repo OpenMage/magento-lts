@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Directory
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -47,7 +47,7 @@ class Mage_Directory_Model_Resource_Country_Format_Collection extends Mage_Core_
      * Set country filter
      *
      * @param string|Mage_Directory_Model_Country $country
-     * @return Mage_Directory_Model_Resource_Country_Format_Collection
+     * @return $this
      */
     public function setCountryFilter($country)
     {

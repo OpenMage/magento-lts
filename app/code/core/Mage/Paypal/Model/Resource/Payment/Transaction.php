@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -93,7 +93,7 @@ class Mage_Paypal_Model_Resource_Payment_Transaction extends Mage_Core_Model_Res
      * @throws Mage_Core_Exception
      *
      * @param Mage_Core_Model_Abstract $transaction
-     * @return Mage_Paypal_Model_Resource_Payment_Transaction
+     * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $transaction)
     {

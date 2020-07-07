@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Cms
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,6 +30,9 @@
  * @category    Mage
  * @package     Mage_Cms
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getStoreId()
+ * @method $this setStoreId(string $value)
  */
 class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
 {
@@ -71,7 +74,7 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
      * files_browser_*:         Files Browser (media, images) settings
      * encode_directives:       Encode template directives with JS or not
      *
-     * @param $data array       constructor params to override default config values
+     * @param array $data constructor params to override default config values
      * @return Varien_Object
      */
     public function getConfig($data = array())
@@ -93,7 +96,8 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
             'content_css'                   =>
                 Mage::getBaseUrl('js').'mage/adminhtml/wysiwyg/tiny_mce/themes/advanced/skins/default/content.css',
             'width'                         => '100%',
-            'plugins'                       => array()
+            'plugins'                       => array(),
+            'media_disable_flash'           => Mage::helper('cms')->isSwfDisabled()
         ));
 
         $config->setData('directives_url_quoted', preg_quote($config->getData('directives_url')));

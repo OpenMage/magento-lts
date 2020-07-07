@@ -20,17 +20,21 @@
  *
  * @category    Mage
  * @package     Mage_Rule
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 class Mage_Rule_Model_Renderer_Actions implements Varien_Data_Form_Element_Renderer_Interface
 {
+    /**
+     * @param Varien_Data_Form_Element_Abstract $element
+     * @return string
+     */
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
         if ($element->getRule() && $element->getRule()->getActions()) {
-           return $element->getRule()->getActions()->asHtmlRecursive();
+            return $element->getRule()->getActions()->asHtmlRecursive();
         }
         return '';
     }

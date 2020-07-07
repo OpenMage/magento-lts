@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogRule
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -53,11 +53,17 @@ class Mage_CatalogRule_Model_Resource_Rule_Product_Price extends Mage_Core_Model
      * @param string $websiteId
      * @param array $updateFields       the array of fields for compare with rule price and update
      * @param string $websiteDate
-     * @return Mage_CatalogRule_Model_Resource_Rule_Product_Price
+     * @return $this
      */
-    public function applyPriceRuleToIndexTable(Varien_Db_Select $select, $indexTable, $entityId, $customerGroupId, 
-        $websiteId, $updateFields, $websiteDate)
-    {
+    public function applyPriceRuleToIndexTable(
+        Varien_Db_Select $select,
+        $indexTable,
+        $entityId,
+        $customerGroupId,
+        $websiteId,
+        $updateFields,
+        $websiteDate
+    ) {
         if (empty($updateFields)) {
             return $this;
         }

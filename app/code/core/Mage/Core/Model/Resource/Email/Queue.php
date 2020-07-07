@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_Abstract
@@ -37,9 +37,8 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
     /**
      * Load recipients, unserialize message parameters
      *
-     * @param Mage_Core_Model_Abstract $object
-     *
-     * @return Mage_Core_Model_Resource_Email_Queue
+     * @param Mage_Core_Model_Email_Queue $object
+     * @inheritDoc
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
@@ -51,8 +50,8 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
     /**
      * Prepare object data for saving
      *
-     * @param Mage_Core_Model_Email_Queue|Mage_Core_Model_Abstract $object
-     * @return Mage_Core_Model_Resource_Email_Queue
+     * @param Mage_Core_Model_Email_Queue $object
+     * @inheritDoc
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
@@ -101,7 +100,7 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
                 $newEmails[$email] = array($email, $name, $type);
             }
             $diff = array_diff_key($newEmails, $oldEmails);
-            if (sizeof($diff) > 0) {
+            if (count($diff)) {
                 $queue->clearRecipients();
                 foreach ($diff as $recipient) {
                     list($email, $name, $type) = $recipient;
@@ -151,7 +150,7 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
      *
      * @throws Exception
      *
-     * @return Mage_Core_Model_Resource_Email_Queue
+     * @return $this
      */
     public function saveRecipients($messageId, array $recipients)
     {
@@ -185,7 +184,7 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
     /**
      * Remove already sent messages
      *
-     * @return Mage_Core_Model_Resource_Email_Queue
+     * @return $this
      */
     public function removeSentMessages()
     {

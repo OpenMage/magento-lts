@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Weee
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,8 +31,7 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget
-    implements Varien_Data_Form_Element_Renderer_Interface
+class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget implements Varien_Data_Form_Element_Renderer_Interface
 {
     /**
      * Object being rendered
@@ -92,7 +91,7 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget
      *
      * @param Varien_Data_Form_Element_Abstract $element
      *
-     * @return Mage_Weee_Block_Renderer_Weee_Tax
+     * @return $this
      */
     public function setElement(Varien_Data_Form_Element_Abstract $element)
     {
@@ -225,13 +224,15 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget
      */
     protected function _setAddButton()
     {
-        $this->setChild('add_button',
+        $this->setChild(
+            'add_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array('id' => "add_tax_" . $this->getElement()->getHtmlId(),
                 'label' => Mage::helper('catalog')->__('Add Tax'),
                 'onclick' => "weeeTaxControl.addItem('" . $this->getElement()->getHtmlId() . "')",
                 'class' => 'add'
-            )));
+                ))
+        );
     }
 
     /**
@@ -244,4 +245,3 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget
         return $this->getChildHtml('add_button');
     }
 }
-

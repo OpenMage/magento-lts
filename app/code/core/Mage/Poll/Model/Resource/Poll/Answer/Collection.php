@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Poll
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,6 +31,8 @@
  * @category    Mage
  * @package     Mage_Poll
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Poll_Model_Poll_Answer[] getItems()
  */
 class Mage_Poll_Model_Resource_Poll_Answer_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -47,7 +49,7 @@ class Mage_Poll_Model_Resource_Poll_Answer_Collection extends Mage_Core_Model_Re
      * Add poll filter
      *
      * @param int $pollId
-     * @return Mage_Poll_Model_Resource_Poll_Answer_Collection
+     * @return $this
      */
     public function addPollFilter($pollId)
     {
@@ -59,7 +61,7 @@ class Mage_Poll_Model_Resource_Poll_Answer_Collection extends Mage_Core_Model_Re
      * Count percent
      *
      * @param Mage_Poll_Model_Poll $pollObject
-     * @return Mage_Poll_Model_Resource_Poll_Answer_Collection
+     * @return $this
      */
     public function countPercent($pollObject)
     {

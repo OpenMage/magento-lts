@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -245,12 +245,12 @@ abstract class Mage_Eav_Model_Form
     /**
      * Return array of form attributes
      *
-     * @return array
+     * @return Mage_Customer_Model_Attribute[]
      */
     public function getAttributes()
     {
         if (is_null($this->_attributes)) {
-            /* @var $collection Mage_Eav_Model_Resource_Form_Attribute_Collection */
+            /* @var Mage_Eav_Model_Resource_Form_Attribute_Collection $collection */
             $collection = $this->_getFormAttributeCollection();
 
             $collection->setStore($this->getStore())
@@ -261,7 +261,7 @@ abstract class Mage_Eav_Model_Form
             $this->_attributes      = array();
             $this->_userAttributes  = array();
             foreach ($collection as $attribute) {
-                /* @var $attribute Mage_Eav_Model_Entity_Attribute */
+                /* @var Mage_Eav_Model_Entity_Attribute $attribute */
                 $this->_attributes[$attribute->getAttributeCode()] = $attribute;
                 if ($attribute->getIsUserDefined()) {
                     $this->_userAttributes[$attribute->getAttributeCode()] = $attribute;

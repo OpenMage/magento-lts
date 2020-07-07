@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -81,6 +81,22 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
     protected $_flagObject;
 
     /**
+     * Catalog Product Flat force status enable/disable
+     * to force EAV for products in quote
+     * store settings will be used by default
+     *
+     * @var boolean
+     */
+    protected $_forceFlatStatus = false;
+
+    /**
+     * Old Catalog Product Flat forced status
+     *
+     * @var boolean
+     */
+    protected $_forceFlatStatusOld;
+
+    /**
      * Retrieve Catalog Product Flat Flag object
      *
      * @return Mage_Catalog_Model_Product_Flat_Flag
@@ -129,8 +145,8 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
     public function isBuiltAllStores()
     {
         $isBuildAll = true;
-        foreach(Mage::app()->getStores(false) as $store) {
-            /** @var $store Mage_Core_Model_Store */
+        foreach (Mage::app()->getStores(false) as $store) {
+            /** @var Mage_Core_Model_Store $store */
             $isBuildAll = $isBuildAll && $this->isBuilt($store->getId());
         }
         return $isBuildAll;
@@ -154,5 +170,41 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
     public function isAddChildData()
     {
         return intval(Mage::getConfig()->getNode(self::XML_NODE_ADD_CHILD_DATA));
+    }
+
+    /**
+     * Disable Catalog Product Flat
+     *
+     * @param bool $save
+     */
+    public function disableFlatCollection($save = false)
+    {
+        $this->_forceFlatStatus = true;
+
+        if ($save) {
+            $this->_forceFlatStatusOld = $this->_forceFlatStatus;
+        }
+    }
+
+    /**
+     * Reset Catalog Product Flat
+     */
+    public function resetFlatCollection()
+    {
+        if (isset($this->_forceFlatStatusOld)) {
+            $this->_forceFlatStatus = $this->_forceFlatStatusOld;
+        } else {
+            $this->_forceFlatStatus = false;
+        }
+    }
+
+    /**
+     * Checks if Catalog Product Flat was forced disabled
+     *
+     * @return bool
+     */
+    public function isFlatCollectionDisabled()
+    {
+        return $this->_forceFlatStatus;
     }
 }

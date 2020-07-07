@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Poll
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,6 +31,9 @@
  * @category    Mage
  * @package     Mage_Poll
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method int getId()
+ * @method $this setSelectStores(array $value)
  */
 class Mage_Poll_Model_Resource_Poll_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -64,7 +67,7 @@ class Mage_Poll_Model_Resource_Poll_Collection extends Mage_Core_Model_Resource_
      *
      * @deprecated
      * @param mixed $store
-     * @return Mage_Poll_Model_Resource_Poll_Collection
+     * @return $this
      */
     public function addStoresFilter($store)
     {
@@ -76,7 +79,7 @@ class Mage_Poll_Model_Resource_Poll_Collection extends Mage_Core_Model_Resource_
      *
      * @param mixed $storeId
      * @param bool  $withAdmin
-     * @return Mage_Poll_Model_Resource_Poll_Collection
+     * @return $this
      */
     public function addStoreFilter($storeId, $withAdmin = true)
     {
@@ -99,7 +102,7 @@ class Mage_Poll_Model_Resource_Poll_Collection extends Mage_Core_Model_Resource_
     /**
      * Add stores data
      *
-     * @return Mage_Poll_Model_Resource_Poll_Collection
+     * @return $this
      */
     public function addStoreData()
     {
@@ -134,7 +137,7 @@ class Mage_Poll_Model_Resource_Poll_Collection extends Mage_Core_Model_Resource_
     /**
      * Set stores of the current poll
      *
-     * @return Mage_Poll_Model_Resource_Poll_Collection
+     * @return $this
      */
     public function addSelectStores()
     {

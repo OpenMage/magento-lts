@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -71,7 +71,7 @@ class Mage_Core_Model_Message_Collection
     /**
      * Clear all messages except sticky
      *
-     * @return Mage_Core_Model_Message_Collection
+     * @return $this
      */
     public function clear()
     {
@@ -115,6 +115,9 @@ class Mage_Core_Model_Message_Collection
         }
     }
 
+    /**
+     * @param string $identifier
+     */
     public function deleteMessageByIdentifier($identifier)
     {
         foreach ($this->_messages as $type => $messages) {
@@ -135,7 +138,7 @@ class Mage_Core_Model_Message_Collection
      * @param   string $type
      * @return  array
      */
-    public function getItems($type=null)
+    public function getItems($type = null)
     {
         if ($type) {
             return isset($this->_messages[$type]) ? $this->_messages[$type] : array();
@@ -170,6 +173,9 @@ class Mage_Core_Model_Message_Collection
         return $this->getItemsByType(Mage_Core_Model_Message::ERROR);
     }
 
+    /**
+     * @return string
+     */
     public function toString()
     {
         $out = '';
@@ -184,9 +190,10 @@ class Mage_Core_Model_Message_Collection
     /**
      * Retrieve messages count
      *
+     * @param string|null $type
      * @return int
      */
-    public function count($type=null)
+    public function count($type = null)
     {
         if ($type) {
             if (isset($this->_messages[$type])) {

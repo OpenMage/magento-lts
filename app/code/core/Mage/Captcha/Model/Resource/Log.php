@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Captcha
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -57,11 +57,11 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
      * Save or Update count Attempts
      *
      * @param string|null $login
-     * @return Mage_Captcha_Model_Resource_Log
+     * @return $this
      */
     public function logAttempt($login)
     {
-        if ($login != null){
+        if ($login != null) {
             $this->_getWriteAdapter()->insertOnDuplicate(
                 $this->getMainTable(),
                 array(
@@ -89,7 +89,7 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
      * Delete User attempts by login
      *
      * @param string $login
-     * @return Mage_Captcha_Model_Resource_Log
+     * @return $this
      */
     public function deleteUserAttempts($login)
     {
@@ -102,7 +102,8 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
         $ip = Mage::helper('core/http')->getRemoteAddr();
         if ($ip != null) {
             $this->_getWriteAdapter()->delete(
-                $this->getMainTable(), array('type = ?' => self::TYPE_REMOTE_ADDRESS, 'value = ?' => $ip)
+                $this->getMainTable(),
+                array('type = ?' => self::TYPE_REMOTE_ADDRESS, 'value = ?' => $ip)
             );
         }
 
@@ -112,7 +113,7 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Get count attempts by ip
      *
-     * @return null|int
+     * @return string|int
      */
     public function countAttemptsByRemoteAddress()
     {
@@ -130,7 +131,7 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
      * Get count attempts by user login
      *
      * @param string $login
-     * @return null|int
+     * @return string|int
      */
     public function countAttemptsByUserLogin($login)
     {

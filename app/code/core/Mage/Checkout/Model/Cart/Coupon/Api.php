@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -35,9 +35,9 @@
 class Mage_Checkout_Model_Cart_Coupon_Api extends Mage_Checkout_Model_Api_Resource
 {
     /**
-     * @param  $quoteId
-     * @param  $couponCode
-     * @param  $storeId
+     * @param  int $quoteId
+     * @param  string $couponCode
+     * @param  int|string $store
      * @return bool
      */
     public function add($quoteId, $couponCode, $store = null)
@@ -46,9 +46,9 @@ class Mage_Checkout_Model_Cart_Coupon_Api extends Mage_Checkout_Model_Api_Resour
     }
 
     /**
-     * @param  $quoteId
-     * @param  $storeId
-     * @return void
+     * @param  int $quoteId
+     * @param  int|string $store
+     * @return bool
      */
     public function remove($quoteId, $store = null)
     {
@@ -57,8 +57,8 @@ class Mage_Checkout_Model_Cart_Coupon_Api extends Mage_Checkout_Model_Api_Resour
     }
 
     /**
-     * @param  $quoteId
-     * @param  $storeId
+     * @param  int $quoteId
+     * @param  int|string $store
      * @return string
      */
     public function get($quoteId, $store = null)
@@ -69,9 +69,9 @@ class Mage_Checkout_Model_Cart_Coupon_Api extends Mage_Checkout_Model_Api_Resour
     }
 
     /**
-     * @param  $quoteId
-     * @param  $couponCode
-     * @param  $store
+     * @param  int $quoteId
+     * @param  string $couponCode
+     * @param  int|string $store
      * @return bool
      */
     protected function _applyCoupon($quoteId, $couponCode, $store = null)
@@ -104,6 +104,4 @@ class Mage_Checkout_Model_Cart_Coupon_Api extends Mage_Checkout_Model_Api_Resour
 
         return true;
     }
-
-
 }

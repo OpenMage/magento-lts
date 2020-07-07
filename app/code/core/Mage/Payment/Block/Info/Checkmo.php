@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Payment
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -66,7 +66,7 @@ class Mage_Payment_Block_Info_Checkmo extends Mage_Payment_Block_Info
     /**
      * Enter description here...
      *
-     * @return Mage_Payment_Block_Info_Checkmo
+     * @return $this
      */
     protected function _convertAdditionalData()
     {
@@ -87,10 +87,12 @@ class Mage_Payment_Block_Info_Checkmo extends Mage_Payment_Block_Info
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function toPdf()
     {
         $this->setTemplate('payment/info/pdf/checkmo.phtml');
         return $this->toHtml();
     }
-
 }

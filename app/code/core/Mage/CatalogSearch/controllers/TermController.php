@@ -20,21 +20,25 @@
  *
  * @category    Mage
  * @package     Mage_CatalogSearch
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
-class Mage_CatalogSearch_TermController extends Mage_Core_Controller_Front_Action {
+class Mage_CatalogSearch_TermController extends Mage_Core_Controller_Front_Action
+{
 
-    public function preDispatch(){
+    /**
+     * @return $this|Mage_Core_Controller_Front_Action
+     */
+    public function preDispatch()
+    {
         parent::preDispatch();
-        if(!Mage::getStoreConfig('catalog/seo/search_terms')){
+        if (!Mage::getStoreConfig('catalog/seo/search_terms')) {
               $this->_redirect('noroute');
-              $this->setFlag('',self::FLAG_NO_DISPATCH,true);
+              $this->setFlag('', self::FLAG_NO_DISPATCH, true);
         }
         return $this;
-
     }
     public function popularAction()
     {

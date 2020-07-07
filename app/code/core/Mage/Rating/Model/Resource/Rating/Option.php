@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Rating
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -109,7 +109,7 @@ class Mage_Rating_Model_Resource_Rating_Option extends Mage_Core_Model_Resource_
      * Add vote
      *
      * @param Mage_Rating_Model_Rating_Option $option
-     * @return Mage_Rating_Model_Resource_Rating_Option
+     * @return $this
      */
     public function addVote($option)
     {
@@ -185,20 +185,29 @@ class Mage_Rating_Model_Resource_Rating_Option extends Mage_Core_Model_Resource_
         $appVoteValueSumCond = $readAdapter->getCheckSql('review.status_id=1', 'vote.value', '0');
 
         $select = $readAdapter->select()
-            ->from(array('vote'=>$this->_ratingVoteTable),
+            ->from(
+                array('vote'=>$this->_ratingVoteTable),
                 array(
                     'vote_count'         => new Zend_Db_Expr('COUNT(vote.vote_id)'),
                     'vote_value_sum'     => new Zend_Db_Expr('SUM(vote.value)'),
                     'app_vote_count'     => new Zend_Db_Expr("COUNT({$appVoteCountCond})"),
-                    'app_vote_value_sum' => new Zend_Db_Expr("SUM({$appVoteValueSumCond})") ))
-            ->join(array('review'   =>$this->_reviewTable),
+                'app_vote_value_sum' => new Zend_Db_Expr("SUM({$appVoteValueSumCond})") )
+            )
+            ->join(
+                array('review'   =>$this->_reviewTable),
                 'vote.review_id=review.review_id',
-                array())
-            ->joinLeft(array('store'=>$this->_reviewStoreTable),
-                'vote.review_id=store.review_id', 'store_id')
-            ->join(array('rstore'   =>$this->_ratingStoreTable),
+                array()
+            )
+            ->joinLeft(
+                array('store'=>$this->_reviewStoreTable),
+                'vote.review_id=store.review_id',
+                'store_id'
+            )
+            ->join(
+                array('rstore'   =>$this->_ratingStoreTable),
                 'vote.rating_id=rstore.rating_id AND rstore.store_id=store.store_id',
-                array())
+                array()
+            )
             ->where('vote.rating_id = :rating_id')
             ->where('vote.entity_pk_value = :pk_value')
             ->group(array(
@@ -263,5 +272,4 @@ class Mage_Rating_Model_Resource_Rating_Option extends Mage_Core_Model_Resource_
 
         return $this->_optionData;
     }
-
 }

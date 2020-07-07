@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -211,7 +211,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * Fill response with data.
      *
      * @param array $postData
-     * @return Mage_Paypal_Model_Payflowlink
+     * @return $this
      */
     public function setResponseData(array $postData)
     {
@@ -581,7 +581,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * @deprecated since 1.6.2.0
      * @param Varien_Object $payment
      * @param  $amount
-     * @return Mage_Paypal_Model_Payflowlink
+     * @return $this
      */
     protected function _initialize(Varien_Object $payment, $amount)
     {
@@ -607,7 +607,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * @param mixed $amount
      * @param Mage_Paypal_Model_Payment_Transaction $transaction
      * @param string $txnId
-     * @return Mage_Paypal_Model_Payflowlink
+     * @return $this
      */
     protected function _authorize(Varien_Object $payment, $amount, $transaction, $txnId)
     {
@@ -630,7 +630,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * @deprecated since 1.6.2.0
      * @param Mage_Paypal_Model_Payment_Transaction $transaction
      * @param mixed $amount
-     * @return Mage_Paypal_Model_Payflowlink
+     * @return $this
      */
     protected function _checkTransaction($transaction, $amount)
     {

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Widget
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -46,16 +46,20 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
     /**
      * Load layout, set active menu and breadcrumbs
      *
-     * @return Mage_Widget_Adminhtml_Widget_InstanceController
+     * @return $this
      */
     protected function _initAction()
     {
         $this->loadLayout()
             ->_setActiveMenu('cms/widgets')
-            ->_addBreadcrumb(Mage::helper('widget')->__('CMS'),
-                Mage::helper('widget')->__('CMS'))
-            ->_addBreadcrumb(Mage::helper('widget')->__('Manage Widget Instances'),
-                Mage::helper('widget')->__('Manage Widget Instances'));
+            ->_addBreadcrumb(
+                Mage::helper('widget')->__('CMS'),
+                Mage::helper('widget')->__('CMS')
+            )
+            ->_addBreadcrumb(
+                Mage::helper('widget')->__('Manage Widget Instances'),
+                Mage::helper('widget')->__('Manage Widget Instances')
+            );
         return $this;
     }
 
@@ -68,7 +72,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
     {
         $this->_title($this->__('CMS'))->_title($this->__('Widgets'));
 
-        /** @var $widgetInstance Mage_Widget_Model_Widget_Instance */
+        /** @var Mage_Widget_Model_Widget_Instance $widgetInstance */
         $widgetInstance = Mage::getModel('widget/widget_instance');
 
         $instanceId = $this->getRequest()->getParam('instance_id', null);
@@ -167,7 +171,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
     public function saveAction()
     {
         $widgetInstance = $this->_initWidgetInstance();
-        if (!$widgetInstance) {
+        if (!$widgetInstance || !$this->_validatePostData($widgetInstance, $this->getRequest()->getPost())) {
             $this->_redirect('*/*/');
             return;
         }
@@ -175,7 +179,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
             ->setStoreIds($this->getRequest()->getPost('store_ids', array(0)))
             ->setSortOrder($this->getRequest()->getPost('sort_order', 0))
             ->setPageGroups($this->getRequest()->getPost('widget_instance'))
-            ->setWidgetParameters($this->getRequest()->getPost('parameters'));
+            ->setWidgetParameters($this->_prepareParameters());
         try {
             $widgetInstance->save();
             $this->_getSession()->addSuccess(
@@ -251,7 +255,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
             ->setUseMassaction(true)
             ->setProductTypeId($productTypeId)
             ->setSelectedProducts(explode(',', $selected));
-        /* @var $serializer Mage_Adminhtml_Block_Widget_Grid_Serializer */
+        /* @var Mage_Adminhtml_Block_Widget_Grid_Serializer $serializer */
         $serializer = $this->getLayout()->createBlock('adminhtml/widget_grid_serializer');
         $serializer->initSerializerBlock($chooser, 'getSelectedProducts', 'selected_products', 'selected_products');
         $this->setBody($chooser->toHtml().$serializer->toHtml());
@@ -263,7 +267,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
      */
     public function blocksAction()
     {
-        /* @var $widgetInstance age_Widget_Model_Widget_Instance */
+        /* @var Mage_Widget_Model_Widget_Instance $widgetInstance */
         $widgetInstance = $this->_initWidgetInstance();
         $layout = $this->getRequest()->getParam('layout');
         $selected = $this->getRequest()->getParam('selected', null);
@@ -284,7 +288,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
      */
     public function templateAction()
     {
-        /* @var $widgetInstance age_Widget_Model_Widget_Instance */
+        /* @var Mage_Widget_Model_Widget_Instance $widgetInstance */
         $widgetInstance = $this->_initWidgetInstance();
         $block = $this->getRequest()->getParam('block');
         $selected = $this->getRequest()->getParam('selected', null);
@@ -296,6 +300,17 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
     }
 
     /**
+     * Controller predispatch method
+     *
+     * @return Mage_Adminhtml_Controller_Action
+     */
+    public function preDispatch()
+    {
+        $this->_setForcedFormKeyActions('delete');
+        return parent::preDispatch();
+    }
+
+    /**
      * Check is allowed access to action
      *
      * @return bool
@@ -303,5 +318,61 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
     protected function _isAllowed()
     {
         return Mage::getSingleton('admin/session')->isAllowed('cms/widget_instance');
+    }
+
+    /**
+     * Prepare widget parameters
+     *
+     * @return array
+     */
+    protected function _prepareParameters()
+    {
+        $result = array();
+        $parameters = $this->getRequest()->getPost('parameters');
+        if (is_array($parameters) && count($parameters)) {
+            foreach ($parameters as $key => $value) {
+                $result[Mage::helper('core')->stripTags($key)] = $value;
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * Validates update xml post data
+     *
+     * @param Mage_Widget_Model_Widget_Instance $widgetInstance
+     * @param array $data
+     * @return bool
+     */
+    protected function _validatePostData($widgetInstance, $data)
+    {
+        $errorNo = true;
+        if (!empty($data['widget_instance']) && is_array($data['widget_instance'])) {
+            $validatorCustomLayout = Mage::getModel('adminhtml/layoutUpdate_validator');
+            foreach ($data['widget_instance'] as $pageGroup) {
+                try {
+                    if (!empty($pageGroup['page_group'])
+                        && !empty($pageGroup[$pageGroup['page_group']]['template'])
+                        && !empty($pageGroup[$pageGroup['page_group']]['block'])
+                        && !$validatorCustomLayout->isValid($widgetInstance->generateLayoutUpdateXml(
+                            $pageGroup[$pageGroup['page_group']]['block'],
+                            $pageGroup[$pageGroup['page_group']]['template']
+                        ))
+                    ) {
+                        $errorNo = false;
+                    }
+                } catch (Exception $exception) {
+                    Mage::logException($exception);
+                    $this->_getSession()->addError(
+                        $this->__('An error occurred during POST data validation: %s', $exception->getMessage())
+                    );
+                    $errorNo = false;
+                }
+            }
+            foreach ($validatorCustomLayout->getMessages() as $message) {
+                $this->_getSession()->addError($message);
+            }
+        }
+        return $errorNo;
     }
 }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Media
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -58,18 +58,32 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
         return false;
     }
 
-    public function load(Mage_Media_Model_Image $object, $file, $field=null)
+    /**
+     * @param Mage_Media_Model_Image $object
+     * @param mixed $file
+     * @param null $field
+     * @return $this
+     */
+    public function load(Mage_Media_Model_Image $object, $file, $field = null)
     {
         // Do some implementation
         return $this;
     }
 
+    /**
+     * @param Mage_Media_Model_Image $object
+     * @return $this
+     */
     public function save(Mage_Media_Model_Image $object)
     {
         // Do some implementation
         return $this;
     }
 
+    /**
+     * @param Mage_Media_Model_Image $object
+     * @return $this
+     */
     public function delete(Mage_Media_Model_Image $object)
     {
         return $this;
@@ -79,12 +93,13 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
      * Create image resource for operation from file
      *
      * @param Mage_Media_Model_Image $object
-     * @return Mage_Media_Model_File_Image
+     * @return bool|false|resource
+     * @throws Mage_Core_Exception
      */
     public function getImage(Mage_Media_Model_Image $object)
     {
         $resource = false;
-        switch(strtolower($object->getExtension())) {
+        switch (strtolower($object->getExtension())) {
             case 'jpg':
             case 'jpeg':
                 $resource = imagecreatefromjpeg($object->getFilePath());
@@ -99,7 +114,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
                 break;
         }
 
-        if(!$resource) {
+        if (!$resource) {
             Mage::throwException(Mage::helper('media')->__('The image does not exist or is invalid.'));
         }
 
@@ -111,7 +126,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
      * Create tmp image resource for operations
      *
      * @param Mage_Media_Model_Image $object
-     * @return Mage_Media_Model_File_Image
+     * @return false|resource
      */
     public function getTmpImage(Mage_Media_Model_Image $object)
     {
@@ -123,7 +138,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
      * Resize image
      *
      * @param Mage_Media_Model_Image $object
-     * @return Mage_Media_Model_File_Image
+     * @return $this
      */
     public function resize(Mage_Media_Model_Image $object)
     {
@@ -133,7 +148,10 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
         imagecopyresampled(
             $tmpImage,
             $sourceImage,
-            0, 0, 0, 0,
+            0,
+            0,
+            0,
+            0,
             $object->getDestanationDimensions()->getWidth(),
             $object->getDestanationDimensions()->getHeight(),
             $object->getDimensions()->getWidth(),
@@ -147,7 +165,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
      * Add watermark for image
      *
      * @param Mage_Media_Model_Image $object
-     * @return Mage_Media_Model_File_Image
+     * @return $this
      */
     public function watermark(Mage_Media_Model_Image $object)
     {
@@ -159,11 +177,11 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
      *
      * @param Mage_Media_Model_Image $object
      * @param string|null $extension
-     * @return Mage_Media_Model_File_Image
+     * @return $this
      */
-    public function saveAs(Mage_Media_Model_Image $object, $extension=null)
+    public function saveAs(Mage_Media_Model_Image $object, $extension = null)
     {
-        if(is_null($extension)) {
+        if (is_null($extension)) {
             $extension = $object->getExtension();
         }
 
@@ -181,7 +199,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
                 break;
         }
 
-        if(!$result) {
+        if (!$result) {
             Mage::throwException(Mage::helper('media')->__('An error occurred while creating the image.'));
         }
 
@@ -197,7 +215,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
     public function getDimensions(Mage_Media_Model_Image $object)
     {
         $info = @getimagesize($object->getFilePath());
-        if(!$info) {
+        if (!$info) {
             Mage::throwException(Mage::helper('media')->__('The image does not exist or is invalid.'));
         }
 
@@ -209,6 +227,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
      * Destroys resource object
      *
      * @param resource $resource
+     * @return Mage_Media_Model_File_Image
      */
     public function destroyResource(&$resource)
     {
@@ -219,16 +238,15 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
     /**
      * Destroys resource object
      *
-     * @param resource $resource
+     * @param Mage_Media_Model_Image $object
+     * @return bool
      */
     public function hasSpecialImage(Mage_Media_Model_Image $object)
     {
-        if(file_exists($object->getFilePath(true))) {
+        if (file_exists($object->getFilePath(true))) {
             return true;
         }
 
         return false;
     }
-
-
 }

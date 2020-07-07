@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Page
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,6 +30,10 @@
  * @category   Mage
  * @package    Mage_Page
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getLayoutCode()
+ * @method bool getIsHandle()
+ * @method $this setBodyClass(string $value)
  */
 class Mage_Page_Block_Html extends Mage_Core_Block_Template
 {
@@ -53,16 +57,25 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
         $this->_beforeCacheUrl();
     }
 
+    /**
+     * @return string
+     */
     public function getBaseUrl()
     {
         return $this->_urls['base'];
     }
 
+    /**
+     * @return string
+     */
     public function getBaseSecureUrl()
     {
         return $this->_urls['baseSecure'];
     }
 
+    /**
+     * @return string
+     */
     public function getCurrentUrl()
     {
         return $this->_urls['current'];
@@ -71,9 +84,9 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
     /**
      *  Print Logo URL (Conf -> Sales -> Invoice and Packing Slip Design)
      *
-     *  @return	  string
+     *  @return   string
      */
-    public function getPrintLogoUrl ()
+    public function getPrintLogoUrl()
     {
         // load html logo
         $logo = Mage::getStoreConfig('sales/identity/logo_html');
@@ -88,8 +101,7 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
                 // prevent tiff format displaying in html
                 if (strtolower(substr($logo, -5)) === '.tiff' || strtolower(substr($logo, -4)) === '.tif') {
                     $logo = '';
-                }
-                else {
+                } else {
                     $logo = 'sales/store/logo/' . $logo;
                 }
             }
@@ -98,25 +110,34 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
         // buld url
         if (!empty($logo)) {
             $logo = Mage::getStoreConfig('web/unsecure/base_media_url') . $logo;
-        }
-        else {
+        } else {
             $logo = '';
         }
 
         return $logo;
     }
 
+    /**
+     * @return string
+     */
     public function getPrintLogoText()
     {
         return Mage::getStoreConfig('sales/identity/address');
     }
 
+    /**
+     * @param string $title
+     * @return $this
+     */
     public function setHeaderTitle($title)
     {
         $this->_title = $title;
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderTitle()
     {
         return $this->_title;
@@ -126,15 +147,19 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
      * Add CSS class to page body tag
      *
      * @param string $className
-     * @return Mage_Page_Block_Html
+     * @return $this
      */
     public function addBodyClass($className)
     {
         $className = preg_replace('#[^a-z0-9]+#', '-', strtolower($className));
-        $this->setBodyClass($this->getBodyClass() . ' ' . $className);
+        $class = $this->getBodyClass() ? $this->getBodyClass() . ' ' . $className : $className;
+        $this->setBodyClass($class);
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getLang()
     {
         if (!$this->hasData('lang')) {
@@ -143,6 +168,11 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
         return $this->getData('lang');
     }
 
+    /**
+     * @param string $theme
+     * @return $this
+     * @throws Mage_Core_Exception
+     */
     public function setTheme($theme)
     {
         $arr = explode('/', $theme);
@@ -154,11 +184,17 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getBodyClass()
     {
         return $this->_getData('body_class');
     }
 
+    /**
+     * @return string
+     */
     public function getAbsoluteFooter()
     {
         return Mage::getStoreConfig('design/footer/absolute_footer');

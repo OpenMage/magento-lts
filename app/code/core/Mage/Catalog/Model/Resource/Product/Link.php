@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -56,7 +56,7 @@ class Mage_Catalog_Model_Resource_Product_Link extends Mage_Core_Model_Resource_
      * @param Mage_Catalog_Model_Product $product
      * @param array $data
      * @param int $typeId
-     * @return Mage_Catalog_Model_Resource_Product_Link
+     * @return $this
      */
     public function saveProductLinks($product, $data, $typeId)
     {
@@ -79,7 +79,7 @@ class Mage_Catalog_Model_Resource_Product_Link extends Mage_Core_Model_Resource_
         $links   = $adapter->fetchPairs($select, $bind);
 
         $deleteIds = array();
-        foreach($links as $linkedProductId => $linkId) {
+        foreach ($links as $linkedProductId => $linkId) {
             if (!isset($data[$linkedProductId])) {
                 $deleteIds[] = (int)$linkId;
             }
@@ -109,8 +109,10 @@ class Mage_Catalog_Model_Resource_Product_Link extends Mage_Core_Model_Resource_
                 $attributeTable = $this->getAttributeTypeTable($attributeInfo['type']);
                 if ($attributeTable) {
                     if (isset($linkInfo[$attributeInfo['code']])) {
-                        $value = $this->_prepareAttributeValue($attributeInfo['type'],
-                            $linkInfo[$attributeInfo['code']]);
+                        $value = $this->_prepareAttributeValue(
+                            $attributeInfo['type'],
+                            $linkInfo[$attributeInfo['code']]
+                        );
                         $bind = array(
                             'product_link_attribute_id' => $attributeInfo['id'],
                             'link_id'                   => $linkId,
@@ -246,7 +248,7 @@ class Mage_Catalog_Model_Resource_Product_Link extends Mage_Core_Model_Resource_
      * @param Mage_Catalog_Model_Product $product
      * @param array $data
      * @param int $typeId
-     * @return Mage_Catalog_Model_Resource_Product_Link
+     * @return $this
      */
     public function saveGroupedLinks($product, $data, $typeId)
     {

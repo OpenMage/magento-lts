@@ -20,10 +20,9 @@
  *
  * @category    Mage
  * @package     Mage_Directory
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Directory currency collection model
@@ -66,7 +65,7 @@ class Mage_Directory_Model_Resource_Currency_Collection extends Mage_Core_Model_
      * Join currency rates by currency
      *
      * @param string $currency
-     * @return Mage_Directory_Model_Resource_Currency_Collection
+     * @return $this
      */
     public function joinRates($currency)
     {
@@ -76,7 +75,8 @@ class Mage_Directory_Model_Resource_Currency_Collection extends Mage_Core_Model_
             ->joinLeft(
                 array($alias => $this->_currencyRateTable),
                 "{$alias}.currency_to = main_table.currency_code AND {$alias}.currency_from=:{$alias}",
-                'rate');
+                'rate'
+            );
 
         return $this;
     }
@@ -85,7 +85,7 @@ class Mage_Directory_Model_Resource_Currency_Collection extends Mage_Core_Model_
      * Set language condition by name table
      *
      * @param string $lang
-     * @return Mage_Directory_Model_Resource_Currency_Collection
+     * @return $this
      */
     public function addLanguageFilter($lang = null)
     {
@@ -99,7 +99,7 @@ class Mage_Directory_Model_Resource_Currency_Collection extends Mage_Core_Model_
      * Add currency code condition
      *
      * @param string $code
-     * @return Mage_Directory_Model_Resource_Currency_Collection
+     * @return $this
      */
     public function addCodeFilter($code)
     {

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogInventory
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -48,7 +48,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Re
      *
      * @param Mage_CatalogInventory_Model_Stock_Item $item
      * @param int $productId
-     * @return Mage_CatalogInventory_Model_Resource_Stock_Item
+     * @return $this
      */
     public function loadByProductId(Mage_CatalogInventory_Model_Stock_Item $item, $productId)
     {
@@ -73,7 +73,8 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Re
     protected function _getLoadSelect($field, $value, $object)
     {
         $select = parent::_getLoadSelect($field, $value, $object)
-            ->join(array('p' => $this->getTable('catalog/product')),
+            ->join(
+                array('p' => $this->getTable('catalog/product')),
                 'product_id=p.entity_id',
                 array('type_id')
             );
@@ -84,7 +85,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Re
      * Add join for catalog in stock field to product collection
      *
      * @param Mage_Catalog_Model_Resource_Product_Collection $productCollection
-     * @return Mage_CatalogInventory_Model_Resource_Stock_Item
+     * @return $this
      */
     public function addCatalogInventoryToProductCollection($productCollection)
     {
@@ -109,7 +110,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Re
     /**
      * Use qty correction for qty column update
      *
-     * @param Mage_Core_Model_Abstract $object
+     * @param Varien_Object|Mage_CatalogInventory_Model_Stock_Item $object
      * @param string $table
      * @return array
      */

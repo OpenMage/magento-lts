@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,9 +38,9 @@ class Mage_Core_Model_Resource_Iterator extends Varien_Object
      * @param array|string $callbacks
      * @param array $args
      * @param Varien_Db_Adapter_Interface $adapter
-     * @return Mage_Core_Model_Resource_Iterator
+     * @return $this
      */
-    public function walk($query, array $callbacks, array $args=array(), $adapter = null)
+    public function walk($query, array $callbacks, array $args = array(), $adapter = null)
     {
         $stmt = $this->_getStatement($query, $adapter);
         $args['idx'] = 0;

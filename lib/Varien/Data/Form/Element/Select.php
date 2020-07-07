@@ -20,7 +20,7 @@
  *
  * @category    Varien
  * @package     Varien_Data
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,9 +30,15 @@
  * @category   Varien
  * @package    Varien_Data
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method array getOptions()
  */
 class Varien_Data_Form_Element_Select extends Varien_Data_Form_Element_Abstract
 {
+    /**
+     * Varien_Data_Form_Element_Select constructor.
+     * @param array $attributes
+     */
     public function __construct($attributes=array())
     {
         parent::__construct($attributes);
@@ -41,6 +47,9 @@ class Varien_Data_Form_Element_Select extends Varien_Data_Form_Element_Abstract
         $this->_prepareOptions();
     }
 
+    /**
+     * @return string
+     */
     public function getElementHtml()
     {
         $this->addClass('select');
@@ -78,6 +87,11 @@ class Varien_Data_Form_Element_Select extends Varien_Data_Form_Element_Abstract
         return $html;
     }
 
+    /**
+     * @param array $option
+     * @param string $selected
+     * @return string
+     */
     protected function _optionToHtml($option, $selected)
     {
         if (is_array($option['value'])) {
@@ -116,6 +130,9 @@ class Varien_Data_Form_Element_Select extends Varien_Data_Form_Element_Abstract
         }
     }
 
+    /**
+     * @return array
+     */
     public function getHtmlAttributes()
     {
         return array('title', 'class', 'style', 'onclick', 'onchange', 'disabled', 'readonly', 'tabindex');

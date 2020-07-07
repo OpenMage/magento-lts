@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,7 +41,7 @@ class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
      * @param Mage_Catalog_Model_Product $product
      * @param Mage_Core_Controller_Front_Action $controller
      *
-     * @return Mage_Catalog_Helper_Product_View
+     * @return $this
      */
     public function initProductLayout($product, $controller)
     {
@@ -64,7 +64,7 @@ class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
         $layoutUpdates = $settings->getLayoutUpdates();
         if ($layoutUpdates) {
             if (is_array($layoutUpdates)) {
-                foreach($layoutUpdates as $layoutUpdate) {
+                foreach ($layoutUpdates as $layoutUpdate) {
                     $update->addUpdate($layoutUpdate);
                 }
             }
@@ -107,7 +107,7 @@ class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
      * @param Mage_Core_Controller_Front_Action $controller
      * @param null|Varien_Object $params
      *
-     * @return Mage_Catalog_Helper_Product_View
+     * @return $this
      */
     public function prepareAndRender($productId, $controller, $params = null)
     {

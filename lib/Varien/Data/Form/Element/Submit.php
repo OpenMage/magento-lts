@@ -20,7 +20,7 @@
  *
  * @category    Varien
  * @package     Varien_Data
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,6 +33,10 @@
  */
 class Varien_Data_Form_Element_Submit extends Varien_Data_Form_Element_Abstract
 {
+    /**
+     * Varien_Data_Form_Element_Submit constructor.
+     * @param array $attributes
+     */
     public function __construct($attributes=array())
     {
         parent::__construct($attributes);
@@ -40,6 +44,9 @@ class Varien_Data_Form_Element_Submit extends Varien_Data_Form_Element_Abstract
         $this->setType('submit');
     }
 
+    /**
+     * @return string
+     */
     public function getHtml()
     {
         $this->addClass('submit');

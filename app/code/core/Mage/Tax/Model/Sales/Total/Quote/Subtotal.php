@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -123,7 +123,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      * and subtotal including/excluding tax.
      * Determine discount price if needed
      *
-     * @param   Mage_Sales_Model_Quote_Address $address
+     * @param Mage_Sales_Model_Quote_Address $address
      *
      * @return  Mage_Tax_Model_Sales_Total_Quote_Subtotal
      */
@@ -195,7 +195,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      * @param Mage_Sales_Model_Quote_Item_Abstract $item
      * @param Varien_Object $taxRequest
      *
-     * @return Mage_Tax_Model_Sales_Total_Quote_Subtotal
+     * @return $this
      */
     protected function _processItem($item, $taxRequest)
     {
@@ -221,7 +221,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      * @param Mage_Sales_Model_Quote_Item_Abstract $item
      * @param Varien_Object $request
      *
-     * @return Mage_Tax_Model_Sales_Total_Quote_Subtotal
+     * @return $this
      */
     protected function _unitBaseCalculation($item, $request)
     {
@@ -266,7 +266,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
 
                 $item->setRowTax($tax * $qty);
                 $item->setBaseRowTax($baseTax * $qty);
-
             } else {
                 $storeRate       = $this->_calculator->getStoreRate($request, $this->_store);
                 if ($taxOnOrigPrice) {
@@ -358,7 +357,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      * @param Mage_Sales_Model_Quote_Item_Abstract $item
      * @param Varien_Object $request
      *
-     * @return Mage_Tax_Model_Sales_Total_Quote_Subtotal
+     * @return $this
      */
     protected function _rowBaseCalculation($item, $request)
     {
@@ -503,7 +502,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      * @param Mage_Sales_Model_Quote_Item_Abstract $item
      * @param Varien_Object $request
      *
-     * @return Mage_Tax_Model_Sales_Total_Quote_Subtotal
+     * @return $this
      */
     protected function _totalBaseCalculation($item, $request)
     {
@@ -556,7 +555,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
                 //Save the tax calculated
                 $item->setRowTax($rowTax);
                 $item->setBaseRowTax($baseRowTax);
-
             } else {
                 $storeRate = $calc->getStoreRate($request, $this->_store);
                 if ($taxOnOrigPrice) {
@@ -613,8 +611,11 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
                 $taxRate = $appliedRate['percent'];
                 $rowTaxes[] = $this->_deltaRound($calc->calcTaxAmount($taxable, $taxRate, false, false), $taxId, false);
                 $baseRowTaxes[] = $this->_deltaRound(
-                        $calc->calcTaxAmount($baseTaxable, $taxRate, false, false), $taxId, false, 'base');
-
+                    $calc->calcTaxAmount($baseTaxable, $taxRate, false, false),
+                    $taxId,
+                    false,
+                    'base'
+                );
             }
 
             $taxSubtotal     = $subtotal + array_sum($rowTaxes);
@@ -811,11 +812,14 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
             $address->setTotalAmount('subtotal', $address->getTotalAmount('subtotal') + $subTotal);
             $address->setBaseTotalAmount('subtotal', $address->getBaseTotalAmount('subtotal') + $baseSubTotal);
         } else {
-            $address->setTotalAmount('subtotal',
+            $address->setTotalAmount(
+                'subtotal',
                 $address->getTotalAmount('subtotal') + $item->getRowTotal()
             );
-            $address->setBaseTotalAmount('subtotal',
-                $address->getBaseTotalAmount('subtotal') + $item->getBaseRowTotal());
+            $address->setBaseTotalAmount(
+                'subtotal',
+                $address->getBaseTotalAmount('subtotal') + $item->getBaseRowTotal()
+            );
         }
         $address->setSubtotalInclTax($address->getSubtotalInclTax() + $item->getRowTotalInclTax());
         $address->setBaseSubtotalInclTax($address->getBaseSubtotalInclTax() + $item->getBaseRowTotalInclTax());
@@ -972,4 +976,3 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
         return false;
     }
 }
-

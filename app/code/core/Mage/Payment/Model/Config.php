@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Payment
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -43,7 +43,7 @@ class Mage_Payment_Model_Config
      * @param   mixed $store
      * @return  array
      */
-    public function getActiveMethods($store=null)
+    public function getActiveMethods($store = null)
     {
         $methods = array();
         $config = Mage::getStoreConfig('payment', $store);
@@ -66,7 +66,7 @@ class Mage_Payment_Model_Config
      * @param mixed $store
      * @return array
      */
-    public function getAllMethods($store=null)
+    public function getAllMethods($store = null)
     {
         $methods = array();
         $config = Mage::getStoreConfig('payment', $store);
@@ -79,7 +79,13 @@ class Mage_Payment_Model_Config
         return $methods;
     }
 
-    protected function _getMethod($code, $config, $store=null)
+    /**
+     * @param $code
+     * @param $config
+     * @param null $store
+     * @return bool
+     */
+    protected function _getMethod($code, $config, $store = null)
     {
         if (isset(self::$_methods[$code])) {
             return self::$_methods[$code];
@@ -159,7 +165,7 @@ class Mage_Payment_Model_Config
      * @param array $b
      * @return int
      */
-    static function compareCcTypes($a, $b)
+    public static function compareCcTypes($a, $b)
     {
         if (!isset($a['order'])) {
             $a['order'] = 0;
@@ -171,11 +177,10 @@ class Mage_Payment_Model_Config
 
         if ($a['order'] == $b['order']) {
             return 0;
-        } else if ($a['order'] > $b['order']) {
+        } elseif ($a['order'] > $b['order']) {
             return 1;
         } else {
             return -1;
         }
-
     }
 }

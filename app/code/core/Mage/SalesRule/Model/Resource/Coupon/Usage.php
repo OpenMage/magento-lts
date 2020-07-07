@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_SalesRule
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -47,10 +47,11 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
      * Increment times_used counter
      *
      *
-     * @param unknown_type $customerId
-     * @param unknown_type $couponId
+     * @param int $customerId
+     * @param int $couponId
+     * @param bool $decrement   Decrement instead of increment times_used
      */
-    public function updateCustomerCouponTimesUsed($customerId, $couponId)
+    public function updateCustomerCouponTimesUsed($customerId, $couponId, $decrement = false)
     {
         $read = $this->_getReadAdapter();
         $select = $read->select();
@@ -60,11 +61,11 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
 
         $timesUsed = $read->fetchOne($select, array(':coupon_id' => $couponId, ':customer_id' => $customerId));
 
-        if ($timesUsed > 0) {
+        if ($timesUsed !== false && $timesUsed > 0) {
             $this->_getWriteAdapter()->update(
                 $this->getMainTable(),
                 array(
-                    'times_used' => $timesUsed + 1
+                    'times_used' => $timesUsed + ($decrement ? -1 : 1)
                 ),
                 array(
                     'coupon_id = ?' => $couponId,
@@ -88,9 +89,9 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
      *
      *
      * @param Varien_Object $object
-     * @param unknown_type $customerId
-     * @param unknown_type $couponId
-     * @return Mage_SalesRule_Model_Resource_Coupon_Usage
+     * @param int $customerId
+     * @param int $couponId
+     * @return $this
      */
     public function loadByCustomerCoupon(Varien_Object $object, $customerId, $couponId)
     {
@@ -98,9 +99,9 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
         if ($read && $couponId && $customerId) {
             $select = $read->select()
                 ->from($this->getMainTable())
-                ->where('customer_id =:customet_id')
+                ->where('customer_id =:customer_id')
                 ->where('coupon_id = :coupon_id');
-            $data = $read->fetchRow($select, array(':coupon_id' => $couponId, ':customet_id' => $customerId));
+            $data = $read->fetchRow($select, array(':coupon_id' => $couponId, ':customer_id' => $customerId));
             if ($data) {
                 $object->setData($data);
             }

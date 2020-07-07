@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,7 +34,6 @@
  *
  * @deprecated after 1.5.0.1
  */
-class Mage_Reports_Model_Mysql4_Shopcart_Product_Collection
-    extends Mage_Reports_Model_Resource_Shopcart_Product_Collection
+class Mage_Reports_Model_Mysql4_Shopcart_Product_Collection extends Mage_Reports_Model_Resource_Shopcart_Product_Collection
 {
 }

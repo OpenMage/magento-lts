@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Backup
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -271,7 +271,7 @@ class Mage_Backup_Model_Resource_Db
     /**
      * Start transaction mode
      *
-     * @return Mage_Backup_Model_Resource_Db
+     * @return $this
      */
     public function beginTransaction()
     {
@@ -283,7 +283,7 @@ class Mage_Backup_Model_Resource_Db
     /**
      * Commit transaction
      *
-     * @return Mage_Backup_Model_Resource_Db
+     * @return $this
      */
     public function commitTransaction()
     {
@@ -295,7 +295,7 @@ class Mage_Backup_Model_Resource_Db
     /**
      * Rollback transaction
      *
-     * @return Mage_Backup_Model_Resource_Db
+     * @return $this
      */
     public function rollBackTransaction()
     {
@@ -307,7 +307,7 @@ class Mage_Backup_Model_Resource_Db
      * Run sql code
      *
      * @param $command
-     * @return Mage_Backup_Model_Resource_Db
+     * @return $this
      */
     public function runCommand($command){
         $this->_write->query($command);

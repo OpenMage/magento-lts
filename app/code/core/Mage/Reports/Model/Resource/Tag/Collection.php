@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,7 +39,7 @@ class Mage_Reports_Model_Resource_Tag_Collection extends Mage_Tag_Model_Resource
      *
      * @deprecated after 1.4.0.1
      *
-     * @return Mage_Reports_Model_Resource_Tag_Collection
+     * @return $this
      */
     public function addGroupByTag()
     {
@@ -50,7 +50,7 @@ class Mage_Reports_Model_Resource_Tag_Collection extends Mage_Tag_Model_Resource
      * Add tag popularity to select by specified store ids
      *
      * @param int|array $storeIds
-     * @return Mage_Reports_Model_Resource_Tag_Collection
+     * @return $this
      */
     public function addPopularity($storeIds)
     {

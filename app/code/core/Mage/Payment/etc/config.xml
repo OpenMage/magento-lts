@@ -21,14 +21,14 @@
  *
  * @category    Mage
  * @package     Mage_Payment
- * @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Payment>
-            <version>1.6.0.0</version>
+            <version>1.6.0.1</version>
         </Mage_Payment>
     </modules>
     <global>
@@ -36,6 +36,9 @@
             <payment>
                 <class>Mage_Payment_Model</class>
             </payment>
+            <payment_resource>
+                <class>Mage_Core_Model_Resource</class>
+            </payment_resource>
         </models>
         <resources>
             <payment_setup>
@@ -166,15 +169,6 @@
     </adminhtml>
     <default>
         <payment>
-            <ccsave>
-                <active>1</active>
-                <cctypes>AE,VI,MC,DI</cctypes>
-                <model>payment/method_ccsave</model>
-                <order_status>pending</order_status>
-                <title>Credit Card (saved)</title>
-                <allowspecific>0</allowspecific>
-                <group>offline</group>
-            </ccsave>
             <checkmo>
                 <active>1</active>
                 <model>payment/method_checkmo</model>

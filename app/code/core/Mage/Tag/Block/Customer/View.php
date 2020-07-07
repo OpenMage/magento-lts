@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tag
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,6 +31,9 @@
  * @category   Mage
  * @package    Mage_Tag
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method int getTagId()
+ * @method $this setTagId(int $value)
  */
 class Mage_Tag_Block_Customer_View extends Mage_Catalog_Block_Product_Abstract
 {
@@ -89,7 +92,7 @@ class Mage_Tag_Block_Customer_View extends Mage_Catalog_Block_Product_Abstract
      */
     public function getCount()
     {
-        return sizeof($this->getMyProducts());
+        return count($this->getMyProducts());
     }
 
     /**
@@ -106,7 +109,7 @@ class Mage_Tag_Block_Customer_View extends Mage_Catalog_Block_Product_Abstract
     /**
      * Preparing block layout
      *
-     * @return Mage_Tag_Block_Customer_View
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {

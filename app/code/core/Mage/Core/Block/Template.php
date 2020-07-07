@@ -20,17 +20,22 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Base html block
  *
  * @category   Mage
  * @package    Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setContentHeading(string $value)
+ * @method $this setFormAction(string $value)
+ * @method $this setIdSuffix(string $value)
+ * @method $this setProduct(Mage_Catalog_Model_Product $value)
+ * @method $this setDisplayMinimalPrice(bool $value)
  */
 class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
 {
@@ -106,7 +111,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
      * Set path to template used for generating block's output.
      *
      * @param string $template
-     * @return Mage_Core_Block_Template
+     * @return $this
      */
     public function setTemplate($template)
     {
@@ -146,14 +151,13 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
      * @param   mixed $value
      * @return  Mage_Core_Block_Template
      */
-    public function assign($key, $value=null)
+    public function assign($key, $value = null)
     {
         if (is_array($key)) {
-            foreach ($key as $k=>$v) {
+            foreach ($key as $k => $v) {
                 $this->assign($k, $v);
             }
-        }
-        else {
+        } else {
             $this->_viewVars[$key] = $value;
         }
         return $this;
@@ -163,7 +167,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
      * Set template location directory
      *
      * @param string $dir
-     * @return Mage_Core_Block_Template
+     * @return $this
      */
     public function setScriptPath($dir)
     {
@@ -189,6 +193,9 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
         return false;
     }
 
+    /**
+     * @return bool
+     */
     public function getShowTemplateHints()
     {
         if (is_null(self::$_showTemplateHints)) {
@@ -243,7 +250,6 @@ HTML;
                 $thisClass = get_class($this);
                 Mage::log('Not valid template file:' . $fileName . ' class: ' . $thisClass, Zend_Log::CRIT, null, true);
             }
-
         } catch (Exception $e) {
             ob_get_clean();
             throw $e;
@@ -309,7 +315,7 @@ HTML;
      * @param string $fileName
      * @return string
      */
-    public function getJsUrl($fileName='')
+    public function getJsUrl($fileName = '')
     {
         if (!$this->_jsUrl) {
             $this->_jsUrl = Mage::getBaseUrl('js');
@@ -330,9 +336,7 @@ HTML;
     }
 
     /**
-     * Get cache key informative items
-     *
-     * @return array
+     * @inheritDoc
      */
     public function getCacheKeyInfo()
     {

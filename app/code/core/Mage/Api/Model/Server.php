@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Api
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -55,7 +55,7 @@ class Mage_Api_Model_Server
      */
     public function getAdapterCodeByAlias($alias)
     {
-        /** @var $config Mage_Api_Model_Config */
+        /** @var Mage_Api_Model_Config $config */
         $config  = Mage::getSingleton('api/config');
         $aliases = $config->getAdapterAliases();
 
@@ -77,7 +77,7 @@ class Mage_Api_Model_Server
      * @param Mage_Api_Controller_Action $controller
      * @param string $adapter Adapter name
      * @param string $handler Handler name
-     * @return Mage_Api_Model_Server
+     * @return $this
      */
     public function init(Mage_Api_Controller_Action $controller, $adapter = 'default', $handler = 'default')
     {
@@ -93,16 +93,16 @@ class Mage_Api_Model_Server
      *
      * @param string $adapterCode Adapter code
      * @param string $handler OPTIONAL Handler name (if not specified, it will be found from config)
-     * @return Mage_Api_Model_Server
+     * @return $this
      */
     public function initialize($adapterCode, $handler = null)
     {
-        /** @var $helper Mage_Api_Model_Config */
+        /** @var Mage_Api_Model_Config $helper */
         $helper   = Mage::getSingleton('api/config');
         $adapters = $helper->getActiveAdapters();
 
         if (isset($adapters[$adapterCode])) {
-            /** @var $adapterModel Mage_Api_Model_Server_Adapter_Interface */
+            /** @var Mage_Api_Model_Server_Adapter_Interface $adapterModel */
             $adapterModel = Mage::getModel((string) $adapters[$adapterCode]->model);
 
             if (!($adapterModel instanceof Mage_Api_Model_Server_Adapter_Interface)) {
@@ -156,6 +156,4 @@ class Mage_Api_Model_Server
     {
         return $this->_adapter;
     }
-
-
 } // Class Mage_Api_Model_Server_Abstract End

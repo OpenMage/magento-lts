@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Shipping
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,9 +32,7 @@
  * @package    Mage_Shipping
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Shipping_Model_Carrier_Freeshipping
-    extends Mage_Shipping_Model_Carrier_Abstract
-    implements Mage_Shipping_Model_Carrier_Interface
+class Mage_Shipping_Model_Carrier_Freeshipping extends Mage_Shipping_Model_Carrier_Abstract implements Mage_Shipping_Model_Carrier_Interface
 {
 
     /**
@@ -55,7 +53,7 @@ class Mage_Shipping_Model_Carrier_Freeshipping
      * FreeShipping Rates Collector
      *
      * @param Mage_Shipping_Model_Rate_Request $request
-     * @return Mage_Shipping_Model_Rate_Result
+     * @return Mage_Shipping_Model_Rate_Result|false
      */
     public function collectRates(Mage_Shipping_Model_Rate_Request $request)
     {
@@ -122,5 +120,4 @@ class Mage_Shipping_Model_Carrier_Freeshipping
     {
         return array('freeshipping' => $this->getConfigData('name'));
     }
-
 }

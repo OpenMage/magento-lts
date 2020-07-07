@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,7 +42,7 @@ class Mage_Catalog_Model_Api2_Product_Website extends Mage_Api2_Model_Resource
      */
     protected function _loadProductById($id)
     {
-        /* @var $product Mage_Catalog_Model_Product */
+        /* @var Mage_Catalog_Model_Product $product */
         $product = Mage::getModel('catalog/product')->load($id);
         if (!$product->getId()) {
             $this->_critical(sprintf('Product #%s not found.', $id), Mage_Api2_Model_Server::HTTP_NOT_FOUND);
@@ -59,7 +59,7 @@ class Mage_Catalog_Model_Api2_Product_Website extends Mage_Api2_Model_Resource
      */
     protected function _loadWebsiteById($id)
     {
-        /* @var $website Mage_Core_Model_Website */
+        /* @var Mage_Core_Model_Website $website */
         $website = Mage::getModel('core/website')->load($id);
         if (!$website->getId()) {
             $this->_critical(sprintf('Website #%s not found.', $id), Mage_Api2_Model_Server::HTTP_NOT_FOUND);

@@ -20,12 +20,15 @@
  *
  * @category    Mage
  * @package     Mage_Weee
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Product_Attribute_Backend_Price
 {
+    /**
+     * @return string
+     */
     public static function getBackendModelName()
     {
         return 'weee/attribute_backend_weee_tax';
@@ -33,7 +36,7 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
     /**
      * Retrieve resource model
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Attribute_Backend_Weee
+     * @return Mage_Weee_Model_Resource_Attribute_Backend_Weee_Tax
      */
     protected function _getResource()
     {
@@ -44,7 +47,7 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
      * Validate data
      *
      * @param   Mage_Catalog_Model_Product $object
-     * @return  this
+     * @return  $this
      */
     public function validate($object)
     {
@@ -76,13 +79,13 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
      * Assign WEEE taxes to product data
      *
      * @param   Mage_Catalog_Model_Product $object
-     * @return  Mage_Catalog_Model_Product_Attribute_Backend_Weee
+     * @return  $this
      */
     public function afterLoad($object)
     {
         $data = $this->_getResource()->loadProductData($object, $this->getAttribute());
 
-        foreach ($data as $i=>$row) {
+        foreach ($data as $i => $row) {
             if ($data[$i]['website_id'] == 0) {
                 $rate = Mage::app()->getStore()->getBaseCurrency()->getRate(Mage::app()->getBaseCurrencyCode());
                 if ($rate) {
@@ -93,12 +96,15 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
             } else {
                 $data[$i]['website_value'] = $data[$i]['value'];
             }
-
         }
         $object->setData($this->getAttribute()->getName(), $data);
         return $this;
     }
 
+    /**
+     * @param Mage_Catalog_Model_Product $object
+     * @return $this|Mage_Catalog_Model_Product_Attribute_Backend_Price
+     */
     public function afterSave($object)
     {
         $orig = $object->getOrigData($this->getAttribute()->getName());
@@ -138,15 +144,21 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
         return $this;
     }
 
+    /**
+     * @param Varien_Object $object
+     * @return $this|Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+     */
     public function afterDelete($object)
     {
         $this->_getResource()->deleteProductData($object, $this->getAttribute());
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getTable()
     {
         return $this->_getResource()->getTable('weee/tax');
     }
 }
-

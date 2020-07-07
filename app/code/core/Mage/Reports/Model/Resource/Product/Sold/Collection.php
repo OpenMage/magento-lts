@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,18 +42,19 @@ class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_M
     {
         parent::_construct();
         $this->_useAnalyticFunction = true;
+        // skip adding stock information to collection for perfromance reasons
+        $this->setFlag('no_stock_data', true);
     }
     /**
      * Set Date range to collection
      *
      * @param int $from
      * @param int $to
-     * @return Mage_Reports_Model_Resource_Product_Sold_Collection
+     * @return $this
      */
     public function setDateRange($from, $to)
     {
         $this->_reset()
-            ->addAttributeToSelect('*')
             ->addOrderedQty($from, $to)
             ->setOrder('ordered_qty', self::SORT_ORDER_DESC);
         return $this;
@@ -63,7 +64,7 @@ class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_M
      * Set store filter to collection
      *
      * @param array $storeIds
-     * @return Mage_Reports_Model_Resource_Product_Sold_Collection
+     * @return $this
      */
     public function setStoreIds($storeIds)
     {
@@ -76,7 +77,7 @@ class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_M
     /**
      * Add website product limitation
      *
-     * @return Mage_Reports_Model_Resource_Product_Sold_Collection
+     * @return $this
      */
     protected function _productLimitationJoinWebsite()
     {
@@ -87,7 +88,8 @@ class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_M
                 ->quoteInto('product_website.website_id IN(?)', $filters['website_ids']);
 
             $subQuery = $this->getConnection()->select()
-                ->from(array('product_website' => $this->getTable('catalog/product_website')),
+                ->from(
+                    array('product_website' => $this->getTable('catalog/product_website')),
                     array('product_website.product_id')
                 )
                 ->where(join(' AND ', $conditions));

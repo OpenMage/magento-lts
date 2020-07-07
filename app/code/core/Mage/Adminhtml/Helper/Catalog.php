@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -63,7 +63,7 @@ class Mage_Adminhtml_Helper_Catalog extends Mage_Core_Helper_Abstract
      * Set Custom Attribute Tab Block Name for Product Edit
      *
      * @param string $attributeTabBlock
-     * @return Mage_Adminhtml_Helper_Catalog
+     * @return $this
      */
     public function setAttributeTabBlock($attributeTabBlock)
     {
@@ -85,7 +85,7 @@ class Mage_Adminhtml_Helper_Catalog extends Mage_Core_Helper_Abstract
      * Set Custom Attribute Tab Block Name for Category Edit
      *
      * @param string $attributeTabBlock
-     * @return Mage_Adminhtml_Helper_Catalog
+     * @return $this
      */
     public function setCategoryAttributeTabBlock($attributeTabBlock)
     {

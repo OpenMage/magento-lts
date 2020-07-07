@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_AdminNotification
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -47,7 +47,7 @@ class Mage_AdminNotification_Model_Resource_Inbox extends Mage_Core_Model_Resour
      * Load latest notice
      *
      * @param Mage_AdminNotification_Model_Inbox $object
-     * @return Mage_AdminNotification_Model_Resource_Inbox
+     * @return $this
      */
     public function loadLatestNotice(Mage_AdminNotification_Model_Inbox $object)
     {

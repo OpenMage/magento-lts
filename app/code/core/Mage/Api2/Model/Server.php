@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Api2
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -72,7 +72,7 @@ class Mage_Api2_Model_Server
     {
         // can not use response object case
         try {
-            /** @var $response Mage_Api2_Model_Response */
+            /** @var Mage_Api2_Model_Response $response */
             $response = Mage::getSingleton('api2/response');
         } catch (Exception $e) {
             Mage::logException($e);
@@ -85,9 +85,9 @@ class Mage_Api2_Model_Server
         }
         // can not render errors case
         try {
-            /** @var $request Mage_Api2_Model_Request */
+            /** @var Mage_Api2_Model_Request $request */
             $request = Mage::getSingleton('api2/request');
-            /** @var $renderer Mage_Api2_Model_Renderer_Interface */
+            /** @var Mage_Api2_Model_Renderer_Interface $renderer */
             $renderer = Mage_Api2_Model_Renderer::factory($request->getAcceptTypes());
         } catch (Exception $e) {
             Mage::logException($e);
@@ -99,7 +99,7 @@ class Mage_Api2_Model_Server
         }
         // default case
         try {
-            /** @var $apiUser Mage_Api2_Model_Auth_User_Abstract */
+            /** @var Mage_Api2_Model_Auth_User_Abstract $apiUser */
             $apiUser = $this->_authenticate($request);
 
             $this->_route($request)
@@ -127,7 +127,8 @@ class Mage_Api2_Model_Server
      *
      * @param Mage_Api2_Model_Request $request
      * @param Mage_Api2_Model_Response $response
-     * @return Mage_Api2_Model_Response
+     * @return void
+     * @throws Mage_Api2_Exception
      */
     public function internalCall(Mage_Api2_Model_Request $request, Mage_Api2_Model_Response $response)
     {
@@ -146,7 +147,7 @@ class Mage_Api2_Model_Server
      */
     protected function _authenticate(Mage_Api2_Model_Request $request)
     {
-        /** @var $authManager Mage_Api2_Model_Auth */
+        /** @var Mage_Api2_Model_Auth $authManager */
         $authManager = Mage::getModel('api2/auth');
 
         $this->_setAuthUser($authManager->authenticate($request));
@@ -158,7 +159,7 @@ class Mage_Api2_Model_Server
      *
      * @throws Exception
      * @param Mage_Api2_Model_Auth_User_Abstract $authUser
-     * @return Mage_Api2_Model_Server
+     * @return $this
      */
     protected function _setAuthUser(Mage_Api2_Model_Auth_User_Abstract $authUser)
     {
@@ -186,11 +187,11 @@ class Mage_Api2_Model_Server
      * Find route that match current URL, set parameters of the route to Request object
      *
      * @param Mage_Api2_Model_Request $request
-     * @return Mage_Api2_Model_Server
+     * @return $this
      */
     protected function _route(Mage_Api2_Model_Request $request)
     {
-        /** @var $router Mage_Api2_Model_Router */
+        /** @var Mage_Api2_Model_Router $router */
         $router = Mage::getModel('api2/router');
 
         $router->routeApiType($request, true)
@@ -205,12 +206,12 @@ class Mage_Api2_Model_Server
      *
      * @param Mage_Api2_Model_Request $request
      * @param Mage_Api2_Model_Auth_User_Abstract $apiUser
-     * @return Mage_Api2_Model_Server
+     * @return $this
      * @throws Mage_Api2_Exception
      */
     protected function _allow(Mage_Api2_Model_Request $request, Mage_Api2_Model_Auth_User_Abstract $apiUser)
     {
-        /** @var $globalAcl Mage_Api2_Model_Acl_Global */
+        /** @var Mage_Api2_Model_Acl_Global $globalAcl */
         $globalAcl = Mage::getModel('api2/acl_global');
 
         if (!$globalAcl->isAllowed($apiUser, $request->getResourceType(), $request->getOperation())) {
@@ -226,15 +227,14 @@ class Mage_Api2_Model_Server
      * @param Mage_Api2_Model_Request $request
      * @param Mage_Api2_Model_Response $response
      * @param Mage_Api2_Model_Auth_User_Abstract $apiUser
-     * @return Mage_Api2_Model_Server
+     * @return $this
      */
     protected function _dispatch(
         Mage_Api2_Model_Request $request,
         Mage_Api2_Model_Response $response,
         Mage_Api2_Model_Auth_User_Abstract $apiUser
-    )
-    {
-        /** @var $dispatcher Mage_Api2_Model_Dispatcher */
+    ) {
+        /** @var Mage_Api2_Model_Dispatcher $dispatcher */
         $dispatcher = Mage::getModel('api2/dispatcher');
         $dispatcher->setApiUser($apiUser)->dispatch($request, $response);
 
@@ -258,9 +258,11 @@ class Mage_Api2_Model_Server
      * @param Exception $exception
      * @param Mage_Api2_Model_Renderer_Interface $renderer
      * @param Mage_Api2_Model_Response $response
-     * @return Mage_Api2_Model_Server
+     * @return $this
      */
-    protected function _renderException(Exception $exception, Mage_Api2_Model_Renderer_Interface $renderer,
+    protected function _renderException(
+        Exception $exception,
+        Mage_Api2_Model_Renderer_Interface $renderer,
         Mage_Api2_Model_Response $response
     ) {
         if ($exception instanceof Mage_Api2_Exception && $exception->getCode()) {
@@ -286,7 +288,9 @@ class Mage_Api2_Model_Server
             //set HTTP Code of last error, Content-Type and Body
             $response->setBody($renderer->render($messages));
             $response->setHeader('Content-Type', sprintf(
-                '%s; charset=%s', $renderer->getMimeType(), Mage_Api2_Model_Response::RESPONSE_CHARSET
+                '%s; charset=%s',
+                $renderer->getMimeType(),
+                Mage_Api2_Model_Response::RESPONSE_CHARSET
             ));
         } catch (Exception $e) {
             //tunnelling of 406(Not acceptable) error

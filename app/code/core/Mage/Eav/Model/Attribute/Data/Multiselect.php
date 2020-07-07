@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -52,8 +52,7 @@ class Mage_Eav_Model_Attribute_Data_Multiselect extends Mage_Eav_Model_Attribute
     /**
      * Export attribute value to entity model
      *
-     * @param array|string $value
-     * @return Mage_Eav_Model_Attribute_Data_Multiselect
+     * @inheritDoc
      */
     public function compactValue($value)
     {
@@ -66,7 +65,9 @@ class Mage_Eav_Model_Attribute_Data_Multiselect extends Mage_Eav_Model_Attribute
     /**
      * Return formated attribute value from entity model
      *
+     * @param string $format
      * @return string|array
+     * @throws Mage_Core_Exception
      */
     public function outputValue($format = Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_TEXT)
     {
@@ -79,6 +80,7 @@ class Mage_Eav_Model_Attribute_Data_Multiselect extends Mage_Eav_Model_Attribute
             case Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_JSON:
             case Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_ARRAY:
                 $output = $values;
+                break;
             default:
                 $output = array();
                 foreach ($values as $value) {

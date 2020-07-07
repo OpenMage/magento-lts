@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_GiftMessage
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,14 +33,14 @@
  */
 class Mage_GiftMessage_Model_Api_V2 extends Mage_GiftMessage_Model_Api
 {
-
     /**
      * Return an Array of Object attributes.
      *
      * @param Mixed $data
-     * @return Array
+     * @return array
      */
-    protected function _prepareData($data){
+    protected function _prepareData($data)
+    {
         if (is_object($data)) {
             $arr = get_object_vars($data);
             foreach ($arr as $key => $value) {
@@ -81,7 +81,8 @@ class Mage_GiftMessage_Model_Api_V2 extends Mage_GiftMessage_Model_Api
      * @param Mage_Sales_Model_Quote $quote
      * @return stdClass
      */
-    protected function _setGiftMessage($entityId, $request, $quote) {
+    protected function _setGiftMessage($entityId, $request, $quote)
+    {
         $response = new stdClass();
         $response->entityId = $entityId;
 
@@ -100,6 +101,4 @@ class Mage_GiftMessage_Model_Api_V2 extends Mage_GiftMessage_Model_Api
         }
         return $response;
     }
-
 }
-?>

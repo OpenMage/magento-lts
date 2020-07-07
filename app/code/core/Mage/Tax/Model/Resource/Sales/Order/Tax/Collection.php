@@ -20,10 +20,9 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Order Tax Collection
@@ -31,6 +30,8 @@
  * @category    Mage
  * @package     Mage_Tax
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Tax_Model_Sales_Order_Tax[] getItems()
  */
 class Mage_Tax_Model_Resource_Sales_Order_Tax_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -46,7 +47,7 @@ class Mage_Tax_Model_Resource_Sales_Order_Tax_Collection extends Mage_Core_Model
      * Retrieve order tax collection by order identifier
      *
      * @param Varien_Object $order
-     * @return Mage_Tax_Model_Resource_Sales_Order_Tax_Collection
+     * @return $this
      */
     public function loadByOrder($order)
     {

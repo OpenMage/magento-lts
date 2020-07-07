@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Page
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,6 +31,11 @@
  * @category   Mage
  * @package    Mage_Page
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setCanLoadCalendarJs(bool $value)
+ * @method $this setDescription(string $value)
+ * @method $this setKeywords(string $value)
+ * @method $this setCanLoadTinyMce(bool $value)
  */
 class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
 {
@@ -48,7 +53,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      *
      * @param string $name
      * @param string $params
-     * @return Mage_Page_Block_Html_Head
+     * @return $this
      */
     public function addCss($name, $params = "")
     {
@@ -61,7 +66,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      *
      * @param string $name
      * @param string $params
-     * @return Mage_Page_Block_Html_Head
+     * @return $this
      */
     public function addJs($name, $params = "")
     {
@@ -74,7 +79,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      *
      * @param string $name
      * @param string $params
-     * @return Mage_Page_Block_Html_Head
+     * @return $this
      */
     public function addCssIe($name, $params = "")
     {
@@ -87,7 +92,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      *
      * @param string $name
      * @param string $params
-     * @return Mage_Page_Block_Html_Head
+     * @return $this
      */
     public function addJsIe($name, $params = "")
     {
@@ -100,7 +105,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      *
      * @param string $rel forward link types
      * @param string $href URI for linked resource
-     * @return Mage_Page_Block_Html_Head
+     * @return $this
      */
     public function addLinkRel($rel, $href)
     {
@@ -123,9 +128,9 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      * @param string $params
      * @param string $if
      * @param string $cond
-     * @return Mage_Page_Block_Html_Head
+     * @return $this
      */
-    public function addItem($type, $name, $params=null, $if=null, $cond=null)
+    public function addItem($type, $name, $params = null, $if = null, $cond = null)
     {
         if ($type==='skin_css' && empty($params)) {
             $params = 'media="all"';
@@ -136,7 +141,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
             'params' => $params,
             'if'     => $if,
             'cond'   => $cond,
-       );
+        );
         return $this;
     }
 
@@ -145,7 +150,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      *
      * @param string $type
      * @param string $name
-     * @return Mage_Page_Block_Html_Head
+     * @return $this
      */
     public function removeItem($type, $name)
     {
@@ -200,14 +205,16 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
             }
 
             // static and skin css
-            $html .= $this->_prepareStaticAndSkinElements('<link rel="stylesheet" type="text/css" href="%s"%s />'."\n",
+            $html .= $this->_prepareStaticAndSkinElements(
+                '<link rel="stylesheet" type="text/css" href="%s"%s />'."\n",
                 empty($items['js_css']) ? array() : $items['js_css'],
                 empty($items['skin_css']) ? array() : $items['skin_css'],
                 $shouldMergeCss ? array(Mage::getDesign(), 'getMergedCssUrl') : null
             );
 
             // static and skin javascripts
-            $html .= $this->_prepareStaticAndSkinElements('<script type="text/javascript" src="%s"%s></script>' . "\n",
+            $html .= $this->_prepareStaticAndSkinElements(
+                '<script type="text/javascript" src="%s"%s></script>' . "\n",
                 empty($items['js']) ? array() : $items['js'],
                 empty($items['skin_js']) ? array() : $items['skin_js'],
                 $shouldMergeJs ? array(Mage::getDesign(), 'getMergedJsUrl') : null
@@ -240,12 +247,15 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      * @param string $format - HTML element format for sprintf('<element src="%s"%s />', $src, $params)
      * @param array $staticItems - array of relative names of static items to be grabbed from js/ folder
      * @param array $skinItems - array of relative names of skin items to be found in skins according to design config
-     * @param callback $mergeCallback
+     * @param callable $mergeCallback
      * @return string
      */
-    protected function &_prepareStaticAndSkinElements($format, array $staticItems, array $skinItems,
-                                                      $mergeCallback = null)
-    {
+    protected function &_prepareStaticAndSkinElements(
+        $format,
+        array $staticItems,
+        array $skinItems,
+        $mergeCallback = null
+    ) {
         $designPackage = Mage::getDesign();
         $baseJsUrl = Mage::getBaseUrl('js');
         $items = array();
@@ -293,7 +303,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      * Classify HTML head item and queue it into "lines" array
      *
      * @see self::getCssJsHtml()
-     * @param array &$lines
+     * @param array $lines
      * @param string $itemIf
      * @param string $itemType
      * @param string $itemParams
@@ -306,8 +316,10 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         $href   = $itemName;
         switch ($itemType) {
             case 'rss':
-                $lines[$itemIf]['other'][] = sprintf('<link href="%s"%s rel="alternate" type="application/rss+xml" />',
-                    $href, $params
+                $lines[$itemIf]['other'][] = sprintf(
+                    '<link href="%s"%s rel="alternate" type="application/rss+xml" />',
+                    $href,
+                    $params
                 );
                 break;
             case 'link_rel':
@@ -394,7 +406,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      * Set title element text
      *
      * @param string $title
-     * @return Mage_Page_Block_Html_Head
+     * @return $this
      */
     public function setTitle($title)
     {
@@ -503,7 +515,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         $faviconFile = Mage::getBaseUrl('media') . $folderName . '/' . $storeConfig;
         $absolutePath = Mage::getBaseDir('media') . '/' . $folderName . '/' . $storeConfig;
 
-        if(!is_null($storeConfig) && $this->_isFile($absolutePath)) {
+        if (!is_null($storeConfig) && $this->_isFile($absolutePath)) {
             $url = $faviconFile;
         } else {
             $url = $this->getSkinUrl('favicon.ico');
@@ -517,7 +529,8 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      * @param string $filename
      * @return bool
      */
-    protected function _isFile($filename) {
+    protected function _isFile($filename)
+    {
         if (Mage::helper('core/file_storage_database')->checkDbUsage() && !is_file($filename)) {
             Mage::helper('core/file_storage_database')->saveFileToFilesystem($filename);
         }

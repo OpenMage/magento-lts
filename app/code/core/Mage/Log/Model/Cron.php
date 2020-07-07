@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Log
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -49,7 +49,7 @@ class Mage_Log_Model_Cron extends Mage_Core_Model_Abstract
     /**
      * Send Log Clean Warnings
      *
-     * @return Mage_Log_Model_Cron
+     * @return $this
      */
     protected function _sendLogCleanEmail()
     {
@@ -61,11 +61,11 @@ class Mage_Log_Model_Cron extends Mage_Core_Model_Abstract
         }
 
         $translate = Mage::getSingleton('core/translate');
-        /* @var $translate Mage_Core_Model_Translate */
+        /* @var Mage_Core_Model_Translate $translate */
         $translate->setTranslateInline(false);
 
         $emailTemplate = Mage::getModel('core/email_template');
-        /* @var $emailTemplate Mage_Core_Model_Email_Template */
+        /* @var Mage_Core_Model_Email_Template $emailTemplate */
         $emailTemplate->setDesignConfig(array('area' => 'backend'))
             ->sendTransactional(
                 Mage::getStoreConfig(self::XML_PATH_EMAIL_LOG_CLEAN_TEMPLATE),
@@ -83,7 +83,7 @@ class Mage_Log_Model_Cron extends Mage_Core_Model_Abstract
     /**
      * Clean logs
      *
-     * @return Mage_Log_Model_Cron
+     * @return $this
      */
     public function logClean()
     {
@@ -95,8 +95,7 @@ class Mage_Log_Model_Cron extends Mage_Core_Model_Abstract
 
         try {
             Mage::getModel('log/log')->clean();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $this->_errors[] = $e->getMessage();
             $this->_errors[] = $e->getTrace();
         }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Connect
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -61,7 +61,7 @@ class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Grid extends Mage_A
     /**
      * Prepare Local Package Collection for Grid
      *
-     * @return Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Grid
+     * @return $this
      */
     protected function _prepareCollection()
     {

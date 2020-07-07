@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Dataflow
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -76,7 +76,7 @@ class Mage_Dataflow_Model_Batch_Io
      * Init model (required)
      *
      * @param Mage_Dataflow_Model_Batch $object
-     * @return Mage_Dataflow_Model_Batch_Io
+     * @return $this
      */
     public function init(Mage_Dataflow_Model_Batch $object)
     {
@@ -130,7 +130,7 @@ class Mage_Dataflow_Model_Batch_Io
     /**
      * Open file in stream mode
      *
-     * @return Mage_Dataflow_Model_Batch_Io
+     * @return $this
      */
     public function open($write = true)
     {

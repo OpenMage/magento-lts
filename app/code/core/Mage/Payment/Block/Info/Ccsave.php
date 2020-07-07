@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Payment
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,6 +32,7 @@ class Mage_Payment_Block_Info_Ccsave extends Mage_Payment_Block_Info_Cc
      * Expiration date and full number will show up only in secure mode (only for admin, not in emails or pdfs)
      *
      * @param Varien_Object|array $transport
+     * @return Varien_Object
      */
     protected function _prepareSpecificInformation($transport = null)
     {
@@ -44,7 +45,8 @@ class Mage_Payment_Block_Info_Ccsave extends Mage_Payment_Block_Info_Cc
         if (!$this->getIsSecureMode()) {
             $transport->addData(array(
                 Mage::helper('payment')->__('Expiration Date') => $this->_formatCardDate(
-                    $info->getCcExpYear(), $this->getCcExpMonth()
+                    $info->getCcExpYear(),
+                    $this->getCcExpMonth()
                 ),
                 Mage::helper('payment')->__('Credit Card Number') => $info->getCcNumber(),
             ));

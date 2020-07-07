@@ -20,18 +20,20 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * Class Mage_Sales_Model_Order_Creditmemo_Total_Tax
+ */
 class Mage_Sales_Model_Order_Creditmemo_Total_Tax extends Mage_Sales_Model_Order_Creditmemo_Total_Abstract
 {
     /**
      * Collects the total tax for the credit memo
      *
      * @param Mage_Sales_Model_Order_Creditmemo $creditmemo
-     * @return Mage_Sales_Model_Order_Creditmemo_Total_Tax
+     * @return $this
      */
     public function collect(Mage_Sales_Model_Order_Creditmemo $creditmemo)
     {
@@ -46,7 +48,6 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Tax extends Mage_Sales_Model_Order
 
         $order = $creditmemo->getOrder();
 
-        /** @var $item Mage_Sales_Model_Order_Creditmemo_Item */
         foreach ($creditmemo->getAllItems() as $item) {
             $orderItem = $item->getOrderItem();
             if ($orderItem->isDummy()) {
@@ -62,9 +63,8 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Tax extends Mage_Sales_Model_Order
                 /**
                  * Check item tax amount
                  */
-
                 $tax            = $orderItemTax - $orderItem->getTaxRefunded();
-                $baseTax        = $baseOrderItemTax - $orderItem->getTaxRefunded();
+                $baseTax        = $baseOrderItemTax - $orderItem->getBaseTaxRefunded();
                 $hiddenTax      = $orderItemHiddenTax - $orderItem->getHiddenTaxRefunded();
                 $baseHiddenTax  = $baseOrderItemHiddenTax - $orderItem->getBaseHiddenTaxRefunded();
                 if (!$item->isLast()) {

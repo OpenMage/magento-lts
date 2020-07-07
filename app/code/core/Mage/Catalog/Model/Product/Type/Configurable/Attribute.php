@@ -20,22 +20,34 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog Configurable Product Attribute Model
  *
  * @method Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute _getResource()
  * @method Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute getResource()
- * @method int getProductId()
- * @method Mage_Catalog_Model_Product_Type_Configurable_Attribute setProductId(int $value)
+ * @method Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection getCollection()
+ *
+ * @method string getAttributeCode()
  * @method int getAttributeId()
- * @method Mage_Catalog_Model_Product_Type_Configurable_Attribute setAttributeId(int $value)
+ * @method $this setAttributeId(int $value)
+ * @method $this setLabel(string $value)
  * @method int getPosition()
- * @method Mage_Catalog_Model_Product_Type_Configurable_Attribute setPosition(int $value)
+ * @method $this setPosition(int $value)
+ * @method array getPrices()
+ * @method $this setPrices(array $value)
+ * @method int getProductId()
+ * @method $this setProductId(int $value)
+ * @method Mage_Catalog_Model_Resource_Eav_Attribute getProductAttribute()
+ * @method $this setProductAttribute(Mage_Catalog_Model_Resource_Eav_Attribute $value)
+ * @method int getStoreId()
+ * @method $this setStoreId(int $value)
+ * @method int getUseDefault()
+ * @method $this setUseDefault(int $value)
+ * @method array getValues()
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -56,7 +68,7 @@ class Mage_Catalog_Model_Product_Type_Configurable_Attribute extends Mage_Core_M
      * Add price data to attribute
      *
      * @param array $priceData
-     * @return Mage_Catalog_Model_Product_Type_Configurable_Attribute
+     * @return $this
      */
     public function addPrice($priceData)
     {
@@ -78,7 +90,7 @@ class Mage_Catalog_Model_Product_Type_Configurable_Attribute extends Mage_Core_M
     {
         if ($this->getData('use_default') && $this->getProductAttribute()) {
             return $this->getProductAttribute()->getStoreLabel();
-        } else if (is_null($this->getData('label')) && $this->getProductAttribute()) {
+        } elseif (is_null($this->getData('label')) && $this->getProductAttribute()) {
             $this->setData('label', $this->getProductAttribute()->getStoreLabel());
         }
 
@@ -88,7 +100,7 @@ class Mage_Catalog_Model_Product_Type_Configurable_Attribute extends Mage_Core_M
     /**
      * After save process
      *
-     * @return Mage_Catalog_Model_Product_Type_Configurable_Attribute
+     * @return $this
      */
     protected function _afterSave()
     {

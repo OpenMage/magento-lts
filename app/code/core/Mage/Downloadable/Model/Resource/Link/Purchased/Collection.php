@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Downloadable
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -46,13 +46,15 @@ class Mage_Downloadable_Model_Resource_Link_Purchased_Collection extends Mage_Co
     /**
      * Add purchased items to collection
      *
-     * @return Mage_Downloadable_Model_Resource_Link_Purchased_Collection
+     * @return $this
      */
     public function addPurchasedItemsToResult()
     {
         $this->getSelect()
-            ->join(array('pi'=>$this->getTable('downloadable/link_purchased_item')),
-                'pi.purchased_id=main_table.purchased_id');
+            ->join(
+                array('pi'=>$this->getTable('downloadable/link_purchased_item')),
+                'pi.purchased_id=main_table.purchased_id'
+            );
         return $this;
     }
 }

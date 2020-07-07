@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -40,6 +40,7 @@
  * @method Mage_Sales_Model_Order_Creditmemo_Comment setComment(string $value)
  * @method string getCreatedAt()
  * @method Mage_Sales_Model_Order_Creditmemo_Comment setCreatedAt(string $value)
+ * @method Mage_Sales_Model_Order_Creditmemo_Comment setStoreId(int $value)
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -100,7 +101,7 @@ class Mage_Sales_Model_Order_Creditmemo_Comment extends Mage_Sales_Model_Abstrac
     /**
      * Before object save
      *
-     * @return Mage_Sales_Model_Order_Creditmemo_Comment
+     * @return $this
      */
     protected function _beforeSave()
     {

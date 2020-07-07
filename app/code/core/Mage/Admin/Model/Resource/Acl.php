@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Admin
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -90,7 +90,7 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
      *
      * @param Mage_Admin_Model_Acl $acl
      * @param array $rolesArr
-     * @return Mage_Admin_Model_Resource_Acl
+     * @return $this
      */
     public function loadRoles(Mage_Admin_Model_Acl $acl, array $rolesArr)
     {
@@ -121,7 +121,7 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
      *
      * @param Mage_Admin_Model_Acl $acl
      * @param array $rulesArr
-     * @return Mage_Admin_Model_Resource_Acl
+     * @return $this
      */
     public function loadRules(Mage_Admin_Model_Acl $acl, array $rulesArr)
     {
@@ -136,12 +136,12 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
                 $assert = new $assertClass(unserialize($rule['assert_data']));
             }
             try {
-                if ( $rule['permission'] == 'allow' ) {
+                if ($rule['permission'] == 'allow') {
                     if ($resource === self::ACL_ALL_RULES) {
                         $acl->allow($role, null, $privileges, $assert);
                     }
                     $acl->allow($role, $resource, $privileges, $assert);
-                } else if ( $rule['permission'] == 'deny' ) {
+                } elseif ($rule['permission'] == 'deny') {
                     $acl->deny($role, $resource, $privileges, $assert);
                 }
             } catch (Exception $e) {

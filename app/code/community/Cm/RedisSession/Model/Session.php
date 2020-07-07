@@ -138,7 +138,7 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
         // Connect and authenticate
         $this->_redis = new Credis_Client($host, $port, $timeout, $persistent);
         if (!empty($pass)) {
-            $this->_redis->auth($pass) or Zend_Cache::throwException('Unable to authenticate with the redis server.');
+            $this->_redis->auth($pass) || Zend_Cache::throwException('Unable to authenticate with the redis server.');
         }
         $this->_redis->setCloseOnDestruct(FALSE);  // Destructor order cannot be predicted
         $this->_useRedis = TRUE;

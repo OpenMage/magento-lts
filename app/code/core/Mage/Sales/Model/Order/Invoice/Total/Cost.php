@@ -20,10 +20,9 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 class Mage_Sales_Model_Order_Invoice_Total_Cost extends Mage_Sales_Model_Order_Invoice_Total_Abstract
 {
@@ -31,13 +30,13 @@ class Mage_Sales_Model_Order_Invoice_Total_Cost extends Mage_Sales_Model_Order_I
      * Collect total cost of invoiced items
      *
      * @param Mage_Sales_Model_Order_Invoice $invoice
-     * @return Mage_Sales_Model_Order_Invoice_Total_Cost
+     * @return $this
      */
     public function collect(Mage_Sales_Model_Order_Invoice $invoice)
     {
         $baseInvoiceTotalCost = 0;
         foreach ($invoice->getAllItems() as $item) {
-            if (!$item->getOrderItem()->getHasChildren()){
+            if (!$item->getOrderItem()->getHasChildren()) {
                 $baseInvoiceTotalCost += $item->getBaseCost()*$item->getQty();
             }
         }

@@ -20,7 +20,7 @@
  *
  * @category    Varien
  * @package     Varien_Data
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,9 +28,16 @@
  * Form multiline text elements
  *
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method int getLineCount()
+ * @method $this setLineCount(int $value)
  */
 class Varien_Data_Form_Element_Multiline extends Varien_Data_Form_Element_Abstract
 {
+    /**
+     * Varien_Data_Form_Element_Multiline constructor.
+     * @param array $attributes
+     */
     public function __construct($attributes=array())
     {
         parent::__construct($attributes);
@@ -38,11 +45,18 @@ class Varien_Data_Form_Element_Multiline extends Varien_Data_Form_Element_Abstra
         $this->setLineCount(2);
     }
 
+    /**
+     * @return array
+     */
     public function getHtmlAttributes()
     {
         return array('type', 'title', 'class', 'style', 'onclick', 'onchange', 'disabled', 'maxlength');
     }
 
+    /**
+     * @param int $suffix
+     * @return string
+     */
     public function getLabelHtml($suffix = 0)
     {
         return parent::getLabelHtml($suffix);
@@ -75,6 +89,9 @@ class Varien_Data_Form_Element_Multiline extends Varien_Data_Form_Element_Abstra
         return $html;
     }
 
+    /**
+     * @return string
+     */
     public function getDefaultHtml()
     {
         $html = '';

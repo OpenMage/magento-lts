@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -51,7 +51,7 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController
     /**
      * Loads wishlist and wishlist item
      *
-     * @return Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController
+     * @return $this
      */
     protected function _initData()
     {
@@ -79,7 +79,7 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController
     /**
      * Ajax handler to response configuration fieldset of composite product in customer's wishlist
      *
-     * @return Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController
+     * @return $this
      */
     public function configureAction()
     {

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -48,7 +48,7 @@ class Mage_Adminhtml_Block_System_Design_Grid extends Mage_Adminhtml_Block_Widge
     /**
      * Prepare grid data collection
      *
-     * @return Mage_Adminhtml_Block_System_Design_Grid
+     * @return $this
      */
     protected function _prepareCollection()
     {
@@ -64,7 +64,7 @@ class Mage_Adminhtml_Block_System_Design_Grid extends Mage_Adminhtml_Block_Widge
     /**
      * Define grid columns
      *
-     * @return Mage_Adminhtml_Block_System_Design_Grid
+     * @return $this
      */
     protected function _prepareColumns()
     {

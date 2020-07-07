@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -52,12 +52,13 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
      * @param int $visitorId
      * @param int $customerId
      * @param array $types
-     * @return Mage_Reports_Model_Resource_Event
+     * @return $this
      */
     public function updateCustomerType(Mage_Reports_Model_Event $model, $visitorId, $customerId, $types = array())
     {
         if ($types) {
-            $this->_getWriteAdapter()->update($this->getMainTable(),
+            $this->_getWriteAdapter()->update(
+                $this->getMainTable(),
                 array('subject_id' => (int)$customerId, 'subtype' => 0),
                 array(
                     'subject_id = ?'      => (int)$visitorId,
@@ -79,17 +80,22 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
      * @param int $eventSubjectId
      * @param int $subtype
      * @param array $skipIds
-     * @return Mage_Reports_Model_Resource_Event
+     * @return $this
      */
-    public function applyLogToCollection(Varien_Data_Collection_Db $collection, $eventTypeId, $eventSubjectId, $subtype,
-        $skipIds = array())
-    {
+    public function applyLogToCollection(
+        Varien_Data_Collection_Db $collection,
+        $eventTypeId,
+        $eventSubjectId,
+        $subtype,
+        $skipIds = array()
+    ) {
         $idFieldName = $collection->getResource()->getIdFieldName();
 
         $derivedSelect = $this->getReadConnection()->select()
             ->from(
                 $this->getTable('reports/event'),
-                array('event_id' => new Zend_Db_Expr('MAX(event_id)'), 'object_id'))
+                array('event_id' => new Zend_Db_Expr('MAX(event_id)'), 'object_id')
+            )
             ->where('event_type_id = ?', (int)$eventTypeId)
             ->where('subject_id = ?', (int)$eventSubjectId)
             ->where('subtype = ?', (int)$subtype)
@@ -107,7 +113,8 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
             ->joinInner(
                 array('evt' => new Zend_Db_Expr("({$derivedSelect})")),
                 "{$idFieldName} = evt.object_id",
-                array())
+                array()
+            )
             ->order('evt.event_id ' . Varien_Db_Select::SQL_DESC);
 
         return $this;
@@ -159,7 +166,7 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
      * Clean report event table
      *
      * @param Mage_Reports_Model_Event $object
-     * @return Mage_Reports_Model_Resource_Event
+     * @return $this
      */
     public function clean(Mage_Reports_Model_Event $object)
     {
@@ -169,7 +176,8 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
                 ->joinLeft(
                     array('visitor_table' => $this->getTable('log/visitor')),
                     'event_table.subject_id = visitor_table.visitor_id',
-                    array())
+                    array()
+                )
                 ->where('visitor_table.visitor_id IS NULL')
                 ->where('event_table.subtype = ?', 1)
                 ->limit(1000);
@@ -184,4 +192,3 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
         return $this;
     }
 }
-

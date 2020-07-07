@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -49,7 +49,7 @@ class Mage_Core_Model_Resource_Config_Data_Collection extends Mage_Core_Model_Re
      * @param string $scope
      * @param int $scopeId
      * @param string $section
-     * @return Mage_Core_Model_Resource_Config_Data_Collection
+     * @return $this
      */
     public function addScopeFilter($scope, $scopeId, $section)
     {
@@ -63,7 +63,7 @@ class Mage_Core_Model_Resource_Config_Data_Collection extends Mage_Core_Model_Re
      *  Add path filter
      *
      * @param string $section
-     * @return Mage_Core_Model_Resource_Config_Data_Collection
+     * @return $this
      */
     public function addPathFilter($section)
     {
@@ -75,7 +75,7 @@ class Mage_Core_Model_Resource_Config_Data_Collection extends Mage_Core_Model_Re
      * Add value filter
      *
      * @param int|string $value
-     * @return Mage_Core_Model_Resource_Config_Data_Collection
+     * @return $this
      */
     public function addValueFilter($value)
     {

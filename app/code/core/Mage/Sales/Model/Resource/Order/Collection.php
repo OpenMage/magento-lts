@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -64,7 +64,7 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
     /**
      * Add items count expr to collection select, backward capability with eav structure
      *
-     * @return Mage_Sales_Model_Resource_Order_Collection
+     * @return $this
      */
     public function addItemCountExpr()
     {
@@ -84,7 +84,7 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
      */
     public function getSelectCountSql()
     {
-        /* @var $countSelect Varien_Db_Select */
+        /* @var Varien_Db_Select $countSelect */
         $countSelect = parent::getSelectCountSql();
         $countSelect->resetJoinLeft();
         $countSelect->reset(Zend_Db_Select::GROUP);
@@ -96,7 +96,7 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
      *
      * @param int $limit
      * @param int $offset
-     * @return Mage_Eav_Model_Entity_Collection_Abstract
+     * @return Varien_Db_Select
      */
     protected function _getAllIdsSelect($limit = null, $offset = null)
     {
@@ -109,7 +109,7 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
      * Join table sales_flat_order_address to select for billing and shipping order addresses.
      * Create corillation map
      *
-     * @return Mage_Sales_Model_Resource_Order_Collection
+     * @return $this
      */
     protected function _addAddressFields()
     {
@@ -177,7 +177,7 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
      *
      * @param string $field
      * @param null|string|array $condition
-     * @return Mage_Sales_Model_Resource_Order_Collection
+     * @return $this
      */
     public function addFieldToSearchFilter($field, $condition = null)
     {
@@ -191,7 +191,7 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
      *
      * @param array $attributes
      * @param array|integer|string|null $condition
-     * @return Mage_Sales_Model_Resource_Order_Collection
+     * @return $this
      */
     public function addAttributeToSearchFilter($attributes, $condition = null)
     {
@@ -213,7 +213,7 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
      * Add filter by specified billing agreements
      *
      * @param int|array $agreements
-     * @return Mage_Sales_Model_Resource_Order_Collection
+     * @return $this
      */
     public function addBillingAgreementsFilter($agreements)
     {
@@ -222,7 +222,8 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
             ->joinInner(
                 array('sbao' => $this->getTable('sales/billing_agreement_order')),
                 'main_table.entity_id = sbao.order_id',
-                array())
+                array()
+            )
             ->where('sbao.agreement_id IN(?)', $agreements);
         return $this;
     }
@@ -231,7 +232,7 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
      * Add filter by specified recurring profile id(s)
      *
      * @param array|int $ids
-     * @return Mage_Sales_Model_Resource_Order_Collection
+     * @return $this
      */
     public function addRecurringProfilesFilter($ids)
     {
@@ -240,7 +241,8 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
             ->joinInner(
                 array('srpo' => $this->getTable('sales/recurring_profile_order')),
                 'main_table.entity_id = srpo.order_id',
-                array())
+                array()
+            )
             ->where('srpo.profile_id IN(?)', $ids);
         return $this;
     }

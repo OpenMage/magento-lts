@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_ProductAlert
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -111,7 +111,7 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
      * Set website model
      *
      * @param Mage_Core_Model_Website $website
-     * @return Mage_ProductAlert_Model_Email
+     * @return $this
      */
     public function setWebsite(Mage_Core_Model_Website $website)
     {
@@ -123,7 +123,7 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
      * Set website id
      *
      * @param int $websiteId
-     * @return Mage_ProductAlert_Model_Email
+     * @return $this
      */
     public function setWebsiteId($websiteId)
     {
@@ -135,7 +135,7 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
      * Set customer by id
      *
      * @param int $customerId
-     * @return Mage_ProductAlert_Model_Email
+     * @return $this
      */
     public function setCustomerId($customerId)
     {
@@ -147,7 +147,7 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
      * Set customer model
      *
      * @param Mage_Customer_Model_Customer $customer
-     * @return Mage_ProductAlert_Model_Email
+     * @return $this
      */
     public function setCustomer(Mage_Customer_Model_Customer $customer)
     {
@@ -158,7 +158,7 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
     /**
      * Clean data
      *
-     * @return Mage_ProductAlert_Model_Email
+     * @return $this
      */
     public function clean()
     {
@@ -173,7 +173,7 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
      * Add product (price change) to collection
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_ProductAlert_Model_Email
+     * @return $this
      */
     public function addPriceProduct(Mage_Catalog_Model_Product $product)
     {
@@ -185,7 +185,7 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
      * Add product (back in stock) to collection
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_ProductAlert_Model_Email
+     * @return $this
      */
     public function addStockProduct(Mage_Catalog_Model_Product $product)
     {
@@ -255,7 +255,6 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
 
         $appEmulation = Mage::getSingleton('core/app_emulation');
         $initialEnvironmentInfo = $appEmulation->startEnvironmentEmulation($storeId);
-        Mage::app()->getTranslator()->init('frontend', true);
 
         if ($this->_type == 'price') {
             $this->_getPriceBlock()

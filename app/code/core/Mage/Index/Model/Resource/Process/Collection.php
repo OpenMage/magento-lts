@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Index
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -60,7 +60,7 @@ class Mage_Index_Model_Resource_Process_Collection extends Mage_Core_Model_Resou
     /**
      * Add count of unprocessed events to process collection
      *
-     * @return Mage_Index_Model_Resource_Process_Collection
+     * @return $this
      */
     public function addEventsStats()
     {
@@ -74,7 +74,9 @@ class Mage_Index_Model_Resource_Process_Collection extends Mage_Core_Model_Resou
                 array('e' => $countsSelect),
                 'e.process_id=main_table.process_id',
                 array('events' => $this->getConnection()->getCheckSql(
-                    $this->getConnection()->prepareSqlCondition('e.events', array('null' => null)), 0, 'e.events'
+                    $this->getConnection()->prepareSqlCondition('e.events', array('null' => null)),
+                    0,
+                    'e.events'
                 ))
             );
         return $this;

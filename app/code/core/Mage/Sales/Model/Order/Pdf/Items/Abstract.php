@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -207,7 +207,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     /**
      * Format option value process
      *
-     * @param  $value
+     * @param  array|string $value
      * @return string
      */
     protected function _formatOptionValue($value)
@@ -293,7 +293,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
      *
      * @return array
      */
-    public function getItemOptions() {
+    public function getItemOptions()
+    {
         $result = array();
         if ($options = $this->getItem()->getOrderItem()->getProductOptions()) {
             if (isset($options['options'])) {
@@ -317,7 +318,6 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
      */
     protected function _setFontRegular($size = 7)
     {
-        // $font = Zend_Pdf_Font::fontWithPath(Mage::getBaseDir() . '/lib/LinLibertineFont/LinLibertine_It-2.8.2.ttf');
         $font = Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA);
         $this->getPage()->setFont($font, $size);
         return $font;
@@ -331,8 +331,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
      */
     protected function _setFontBold($size = 7)
     {
-        // $font = Zend_Pdf_Font::fontWithPath(Mage::getBaseDir() . '/lib/LinLibertineFont/LinLibertine_Bd-2.8.1.ttf');
-        $font = Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA);
+        $font = Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA_BOLD);
         $this->getPage()->setFont($font, $size);
         return $font;
     }
@@ -345,8 +344,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
      */
     protected function _setFontItalic($size = 7)
     {
-        // $font = Zend_Pdf_Font::fontWithPath(Mage::getBaseDir() . '/lib/LinLibertineFont/LinLibertine_It-2.8.2.ttf');
-        $font = Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA);
+        $font = Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA_OBLIQUE);
         $this->getPage()->setFont($font, $size);
         return $font;
     }
@@ -359,9 +357,10 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
      */
     public function getSku($item)
     {
-        if ($item->getOrderItem()->getProductOptionByCode('simple_sku'))
+        if ($item->getOrderItem()->getProductOptionByCode('simple_sku')) {
             return $item->getOrderItem()->getProductOptionByCode('simple_sku');
-        else
+        } else {
             return $item->getSku();
+        }
     }
 }

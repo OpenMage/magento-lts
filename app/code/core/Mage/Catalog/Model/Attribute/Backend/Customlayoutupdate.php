@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -35,13 +35,14 @@
 class Mage_Catalog_Model_Attribute_Backend_Customlayoutupdate extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
 
-   /**
-    * Product custom layout update attribute validate function.
-    * In case invalid data throws exception.
-    *
-    * @param Varien_Object $object
-    * @throws Mage_Eav_Model_Entity_Attribute_Exception
-    */
+    /**
+     * Product custom layout update attribute validate function.
+     * In case invalid data throws exception.
+     *
+     * @param Varien_Object $object
+     * @return bool
+     * @throws Mage_Eav_Model_Entity_Attribute_Exception
+     */
     public function validate($object)
     {
         $attributeName = $this->getAttribute()->getName();
@@ -51,7 +52,7 @@ class Mage_Catalog_Model_Attribute_Backend_Customlayoutupdate extends Mage_Eav_M
             return true;
         }
 
-        /** @var $validator Mage_Adminhtml_Model_LayoutUpdate_Validator */
+        /** @var Mage_Adminhtml_Model_LayoutUpdate_Validator $validator */
         $validator = Mage::getModel('adminhtml/layoutUpdate_validator');
         if (!$validator->isValid($xml)) {
             $messages = $validator->getMessages();

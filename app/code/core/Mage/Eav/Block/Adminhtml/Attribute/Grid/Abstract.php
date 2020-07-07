@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -93,11 +93,11 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Grid_Abstract extends Mage_Adm
     /**
      * Return url of given row
      *
+     * @param Mage_Catalog_Model_Resource_Eav_Attribute $row
      * @return string
      */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', array('attribute_id' => $row->getAttributeId()));
     }
-
 }

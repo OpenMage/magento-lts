@@ -1,19 +1,18 @@
 <?php
-/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
  * Pure-PHP implementation of Triple DES.
  *
  * Uses mcrypt, if available, and an internal implementation, otherwise.  Operates in the EDE3 mode (encrypt-decrypt-encrypt).
  *
- * PHP versions 4 and 5
+ * PHP version 5
  *
  * Here's a short example of how to use this library:
  * <code>
  * <?php
- *    include('Crypt/TripleDES.php');
+ *    include 'vendor/autoload.php';
  *
- *    $des = new Crypt_TripleDES();
+ *    $des = new \phpseclib\Crypt\TripleDES();
  *
  *    $des->setKey('abcdefghijklmnopqrstuvwx');
  *
@@ -27,241 +26,223 @@
  * ?>
  * </code>
  *
- * LICENSE: This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston,
- * MA  02111-1307  USA
- *
- * @category   Crypt
- * @package    Crypt_TripleDES
- * @author     Jim Wigginton <terrafrost@php.net>
- * @copyright  MMVII Jim Wigginton
- * @license    http://www.gnu.org/licenses/lgpl.txt
- * @version    $Id: TripleDES.php,v 1.13 2010/02/26 03:40:25 terrafrost Exp $
- * @link       http://phpseclib.sourceforge.net
+ * @category  Crypt
+ * @package   TripleDES
+ * @author    Jim Wigginton <terrafrost@php.net>
+ * @copyright 2007 Jim Wigginton
+ * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
+ * @link      http://phpseclib.sourceforge.net
  */
 
-/**
- * Include Crypt_DES
- */
-require_once 'DES.php';
-
-/**
- * Encrypt / decrypt using inner chaining
- *
- * Inner chaining is used by SSH-1 and is generally considered to be less secure then outer chaining (CRYPT_DES_MODE_CBC3).
- */
-define('CRYPT_DES_MODE_3CBC', 3);
-
-/**
- * Encrypt / decrypt using outer chaining
- *
- * Outer chaining is used by SSH-2 and when the mode is set to CRYPT_DES_MODE_CBC.
- */
-define('CRYPT_DES_MODE_CBC3', CRYPT_DES_MODE_CBC);
+namespace phpseclib\Crypt;
 
 /**
  * Pure-PHP implementation of Triple DES.
  *
+ * @package TripleDES
  * @author  Jim Wigginton <terrafrost@php.net>
- * @version 0.1.0
  * @access  public
- * @package Crypt_TerraDES
  */
-class Crypt_TripleDES {
+class TripleDES extends DES
+{
     /**
-     * The Three Keys
+     * Encrypt / decrypt using inner chaining
      *
-     * @see Crypt_TripleDES::setKey()
-     * @var String
-     * @access private
+     * Inner chaining is used by SSH-1 and is generally considered to be less secure then outer chaining (self::MODE_CBC3).
      */
-    var $key = "\0\0\0\0\0\0\0\0";
+    const MODE_3CBC = -2;
 
     /**
-     * The Encryption Mode
+     * Encrypt / decrypt using outer chaining
      *
-     * @see Crypt_TripleDES::Crypt_TripleDES()
-     * @var Integer
-     * @access private
+     * Outer chaining is used by SSH-2 and when the mode is set to \phpseclib\Crypt\Base::MODE_CBC.
      */
-    var $mode = CRYPT_DES_MODE_CBC;
+    const MODE_CBC3 = Base::MODE_CBC;
 
     /**
-     * Continuous Buffer status
+     * Key Length (in bytes)
      *
-     * @see Crypt_TripleDES::enableContinuousBuffer()
-     * @var Boolean
+     * @see \phpseclib\Crypt\TripleDES::setKeyLength()
+     * @var int
      * @access private
      */
-    var $continuousBuffer = false;
+    var $key_length = 24;
 
     /**
-     * Padding status
+     * The default salt used by setPassword()
      *
-     * @see Crypt_TripleDES::enablePadding()
-     * @var Boolean
+     * @see \phpseclib\Crypt\Base::password_default_salt
+     * @see \phpseclib\Crypt\Base::setPassword()
+     * @var string
      * @access private
      */
-    var $padding = true;
+    var $password_default_salt = 'phpseclib';
 
     /**
-     * The Initialization Vector
+     * The mcrypt specific name of the cipher
      *
-     * @see Crypt_TripleDES::setIV()
-     * @var String
+     * @see \phpseclib\Crypt\DES::cipher_name_mcrypt
+     * @see \phpseclib\Crypt\Base::cipher_name_mcrypt
+     * @var string
      * @access private
      */
-    var $iv = "\0\0\0\0\0\0\0\0";
+    var $cipher_name_mcrypt = 'tripledes';
 
     /**
-     * A "sliding" Initialization Vector
+     * Optimizing value while CFB-encrypting
      *
-     * @see Crypt_TripleDES::enableContinuousBuffer()
-     * @var String
+     * @see \phpseclib\Crypt\Base::cfb_init_len
+     * @var int
      * @access private
      */
-    var $encryptIV = "\0\0\0\0\0\0\0\0";
+    var $cfb_init_len = 750;
 
     /**
-     * A "sliding" Initialization Vector
+     * max possible size of $key
      *
-     * @see Crypt_TripleDES::enableContinuousBuffer()
-     * @var String
+     * @see self::setKey()
+     * @see \phpseclib\Crypt\DES::setKey()
+     * @var string
      * @access private
      */
-    var $decryptIV = "\0\0\0\0\0\0\0\0";
+    var $key_length_max = 24;
 
     /**
-     * The Crypt_DES objects
+     * Internal flag whether using self::MODE_3CBC or not
      *
-     * @var Array
+     * @var bool
+     * @access private
+     */
+    var $mode_3cbc;
+
+    /**
+     * The \phpseclib\Crypt\DES objects
+     *
+     * Used only if $mode_3cbc === true
+     *
+     * @var array
      * @access private
      */
     var $des;
 
     /**
-     * mcrypt resource for encryption
-     *
-     * The mcrypt resource can be recreated every time something needs to be created or it can be created just once.
-     * Since mcrypt operates in continuous mode, by default, it'll need to be recreated when in non-continuous mode.
-     *
-     * @see Crypt_AES::encrypt()
-     * @var String
-     * @access private
-     */
-    var $enmcrypt;
-
-    /**
-     * mcrypt resource for decryption
-     *
-     * The mcrypt resource can be recreated every time something needs to be created or it can be created just once.
-     * Since mcrypt operates in continuous mode, by default, it'll need to be recreated when in non-continuous mode.
-     *
-     * @see Crypt_AES::decrypt()
-     * @var String
-     * @access private
-     */
-    var $demcrypt;
-
-    /**
-     * Does the (en|de)mcrypt resource need to be (re)initialized?
-     *
-     * @see setKey()
-     * @see setIV()
-     * @var Boolean
-     * @access private
-     */
-    var $changed = true;
-
-    /**
      * Default Constructor.
      *
-     * Determines whether or not the mcrypt extension should be used.  $mode should only, at present, be
-     * CRYPT_DES_MODE_ECB or CRYPT_DES_MODE_CBC.  If not explictly set, CRYPT_DES_MODE_CBC will be used.
+     * Determines whether or not the mcrypt extension should be used.
      *
-     * @param optional Integer $mode
-     * @return Crypt_TripleDES
+     * $mode could be:
+     *
+     * - \phpseclib\Crypt\Base::MODE_ECB
+     *
+     * - \phpseclib\Crypt\Base::MODE_CBC
+     *
+     * - \phpseclib\Crypt\Base::MODE_CTR
+     *
+     * - \phpseclib\Crypt\Base::MODE_CFB
+     *
+     * - \phpseclib\Crypt\Base::MODE_OFB
+     *
+     * - \phpseclib\Crypt\TripleDES::MODE_3CBC
+     *
+     * If not explicitly set, \phpseclib\Crypt\Base::MODE_CBC will be used.
+     *
+     * @see \phpseclib\Crypt\DES::__construct()
+     * @see \phpseclib\Crypt\Base::__construct()
+     * @param int $mode
      * @access public
      */
-    function Crypt_TripleDES($mode = CRYPT_DES_MODE_CBC)
+    function __construct($mode = Base::MODE_CBC)
     {
-        if ( !defined('CRYPT_DES_MODE') ) {
-            switch (true) {
-                case extension_loaded('mcrypt'):
-                    // i'd check to see if des was supported, by doing in_array('des', mcrypt_list_algorithms('')),
-                    // but since that can be changed after the object has been created, there doesn't seem to be
-                    // a lot of point...
-                    define('CRYPT_DES_MODE', CRYPT_DES_MODE_MCRYPT);
-                    break;
-                default:
-                    define('CRYPT_DES_MODE', CRYPT_DES_MODE_INTERNAL);
-            }
-        }
+        switch ($mode) {
+            // In case of self::MODE_3CBC, we init as CRYPT_DES_MODE_CBC
+            // and additional flag us internally as 3CBC
+            case self::MODE_3CBC:
+                parent::__construct(Base::MODE_CBC);
+                $this->mode_3cbc = true;
 
-        if ( $mode == CRYPT_DES_MODE_3CBC ) {
-            $this->mode = CRYPT_DES_MODE_3CBC;
-            $this->des = array(
-                new Crypt_DES(CRYPT_DES_MODE_CBC),
-                new Crypt_DES(CRYPT_DES_MODE_CBC),
-                new Crypt_DES(CRYPT_DES_MODE_CBC)
-            );
-
-            // we're going to be doing the padding, ourselves, so disable it in the Crypt_DES objects
-            $this->des[0]->disablePadding();
-            $this->des[1]->disablePadding();
-            $this->des[2]->disablePadding();
-
-            return;
-        }
-
-        switch ( CRYPT_DES_MODE ) {
-            case CRYPT_DES_MODE_MCRYPT:
-                switch ($mode) {
-                    case CRYPT_DES_MODE_ECB:
-                        $this->mode = MCRYPT_MODE_ECB;
-                        break;
-                    case CRYPT_DES_MODE_CTR:
-                        $this->mode = 'ctr';
-                        break;
-                    case CRYPT_DES_MODE_CBC:
-                    default:
-                        $this->mode = MCRYPT_MODE_CBC;
-                }
-
-                break;
-            default:
+                // This three $des'es will do the 3CBC work (if $key > 64bits)
                 $this->des = array(
-                    new Crypt_DES(CRYPT_DES_MODE_ECB),
-                    new Crypt_DES(CRYPT_DES_MODE_ECB),
-                    new Crypt_DES(CRYPT_DES_MODE_ECB)
+                    new DES(Base::MODE_CBC),
+                    new DES(Base::MODE_CBC),
+                    new DES(Base::MODE_CBC),
                 );
- 
-                // we're going to be doing the padding, ourselves, so disable it in the Crypt_DES objects
+
+                // we're going to be doing the padding, ourselves, so disable it in the \phpseclib\Crypt\DES objects
                 $this->des[0]->disablePadding();
                 $this->des[1]->disablePadding();
                 $this->des[2]->disablePadding();
-
-                switch ($mode) {
-                    case CRYPT_DES_MODE_ECB:
-                    case CRYPT_DES_MODE_CTR:
-                    case CRYPT_DES_MODE_CBC:
-                        $this->mode = $mode;
-                        break;
-                    default:
-                        $this->mode = CRYPT_DES_MODE_CBC;
-                }
+                break;
+            // If not 3CBC, we init as usual
+            default:
+                parent::__construct($mode);
         }
+    }
+
+    /**
+     * Test for engine validity
+     *
+     * This is mainly just a wrapper to set things up for \phpseclib\Crypt\Base::isValidEngine()
+     *
+     * @see \phpseclib\Crypt\Base::__construct()
+     * @param int $engine
+     * @access public
+     * @return bool
+     */
+    function isValidEngine($engine)
+    {
+        if ($engine == self::ENGINE_OPENSSL) {
+            $this->cipher_name_openssl_ecb = 'des-ede3';
+            $mode = $this->_openssl_translate_mode();
+            $this->cipher_name_openssl = $mode == 'ecb' ? 'des-ede3' : 'des-ede3-' . $mode;
+        }
+
+        return parent::isValidEngine($engine);
+    }
+
+    /**
+     * Sets the initialization vector. (optional)
+     *
+     * SetIV is not required when \phpseclib\Crypt\Base::MODE_ECB is being used.  If not explicitly set, it'll be assumed
+     * to be all zero's.
+     *
+     * @see \phpseclib\Crypt\Base::setIV()
+     * @access public
+     * @param string $iv
+     */
+    function setIV($iv)
+    {
+        parent::setIV($iv);
+        if ($this->mode_3cbc) {
+            $this->des[0]->setIV($iv);
+            $this->des[1]->setIV($iv);
+            $this->des[2]->setIV($iv);
+        }
+    }
+
+    /**
+     * Sets the key length.
+     *
+     * Valid key lengths are 64, 128 and 192
+     *
+     * @see \phpseclib\Crypt\Base:setKeyLength()
+     * @access public
+     * @param int $length
+     */
+    function setKeyLength($length)
+    {
+        $length >>= 3;
+        switch (true) {
+            case $length <= 8:
+                $this->key_length = 8;
+                break;
+            case $length <= 16:
+                $this->key_length = 16;
+                break;
+            default:
+                $this->key_length = 24;
+        }
+
+        parent::setKeyLength($length);
     }
 
     /**
@@ -272,266 +253,87 @@ class Crypt_TripleDES {
      *
      * DES also requires that every eighth bit be a parity bit, however, we'll ignore that.
      *
-     * If the key is not explicitly set, it'll be assumed to be all zero's.
+     * If the key is not explicitly set, it'll be assumed to be all null bytes.
      *
      * @access public
-     * @param String $key
+     * @see \phpseclib\Crypt\DES::setKey()
+     * @see \phpseclib\Crypt\Base::setKey()
+     * @param string $key
      */
     function setKey($key)
     {
-        $length = strlen($key);
+        $length = $this->explicit_key_length ? $this->key_length : strlen($key);
         if ($length > 8) {
-            $key = str_pad($key, 24, chr(0));
+            $key = str_pad(substr($key, 0, 24), 24, chr(0));
             // if $key is between 64 and 128-bits, use the first 64-bits as the last, per this:
             // http://php.net/function.mcrypt-encrypt#47973
-            //$key = $length <= 16 ? substr_replace($key, substr($key, 0, 8), 16) : substr($key, 0, 24);
+            $key = $length <= 16 ? substr_replace($key, substr($key, 0, 8), 16) : substr($key, 0, 24);
+        } else {
+            $key = str_pad($key, 8, chr(0));
         }
-        $this->key = $key;
-        switch (true) {
-            case CRYPT_DES_MODE == CRYPT_DES_MODE_INTERNAL:
-            case $this->mode == CRYPT_DES_MODE_3CBC:
-                $this->des[0]->setKey(substr($key,  0, 8));
-                $this->des[1]->setKey(substr($key,  8, 8));
-                $this->des[2]->setKey(substr($key, 16, 8));
-        }
-        $this->changed = true;
-    }
+        parent::setKey($key);
 
-    /**
-     * Sets the initialization vector. (optional)
-     *
-     * SetIV is not required when CRYPT_DES_MODE_ECB is being used.  If not explictly set, it'll be assumed
-     * to be all zero's.
-     *
-     * @access public
-     * @param String $iv
-     */
-    function setIV($iv)
-    {
-        $this->encryptIV = $this->decryptIV = $this->iv = str_pad(substr($iv, 0, 8), 8, chr(0));
-        if ($this->mode == CRYPT_DES_MODE_3CBC) {
-            $this->des[0]->setIV($iv);
-            $this->des[1]->setIV($iv);
-            $this->des[2]->setIV($iv);
+        // And in case of self::MODE_3CBC:
+        // if key <= 64bits we not need the 3 $des to work,
+        // because we will then act as regular DES-CBC with just a <= 64bit key.
+        // So only if the key > 64bits (> 8 bytes) we will call setKey() for the 3 $des.
+        if ($this->mode_3cbc && $length > 8) {
+            $this->des[0]->setKey(substr($key,  0, 8));
+            $this->des[1]->setKey(substr($key,  8, 8));
+            $this->des[2]->setKey(substr($key, 16, 8));
         }
-        $this->changed = true;
-    }
-
-    /**
-     * Generate CTR XOR encryption key
-     *
-     * Encrypt the output of this and XOR it against the ciphertext / plaintext to get the
-     * plaintext / ciphertext in CTR mode.
-     *
-     * @see Crypt_DES::decrypt()
-     * @see Crypt_DES::encrypt()
-     * @access public
-     * @param Integer $length
-     * @param String $iv
-     */
-    function _generate_xor($length, &$iv)
-    {
-        $xor = '';
-        $num_blocks = ($length + 7) >> 3;
-        for ($i = 0; $i < $num_blocks; $i++) {
-            $xor.= $iv;
-            for ($j = 4; $j <= 8; $j+=4) {
-                $temp = substr($iv, -$j, 4);
-                switch ($temp) {
-                    case "\xFF\xFF\xFF\xFF":
-                        $iv = substr_replace($iv, "\x00\x00\x00\x00", -$j, 4);
-                        break;
-                    case "\x7F\xFF\xFF\xFF":
-                        $iv = substr_replace($iv, "\x80\x00\x00\x00", -$j, 4);
-                        break 2;
-                    default:
-                        extract(unpack('Ncount', $temp));
-                        $iv = substr_replace($iv, pack('N', $count + 1), -$j, 4);
-                        break 2;
-                }
-            }
-        }
-
-        return $xor;
     }
 
     /**
      * Encrypts a message.
      *
+     * @see \phpseclib\Crypt\Base::encrypt()
      * @access public
-     * @param String $plaintext
+     * @param string $plaintext
+     * @return string $cipertext
      */
     function encrypt($plaintext)
     {
-        if ($this->mode != CRYPT_DES_MODE_CTR && $this->mode != 'ctr') {
-            $plaintext = $this->_pad($plaintext);
-        }
+        // parent::en/decrypt() is able to do all the work for all modes and keylengths,
+        // except for: self::MODE_3CBC (inner chaining CBC) with a key > 64bits
 
         // if the key is smaller then 8, do what we'd normally do
-        if ($this->mode == CRYPT_DES_MODE_3CBC && strlen($this->key) > 8) {
-            $ciphertext = $this->des[2]->encrypt($this->des[1]->decrypt($this->des[0]->encrypt($plaintext)));
-
-            return $ciphertext;
+        if ($this->mode_3cbc && strlen($this->key) > 8) {
+            return $this->des[2]->encrypt(
+                $this->des[1]->decrypt(
+                    $this->des[0]->encrypt(
+                        $this->_pad($plaintext)
+                    )
+                )
+            );
         }
 
-        if ( CRYPT_DES_MODE == CRYPT_DES_MODE_MCRYPT ) {
-            if ($this->changed) {
-                if (!isset($this->enmcrypt)) {
-                    $this->enmcrypt = mcrypt_module_open(MCRYPT_3DES, '', $this->mode, '');
-                }
-                mcrypt_generic_init($this->enmcrypt, $this->key, $this->encryptIV);
-                $this->changed = false;
-            }
-
-            $ciphertext = mcrypt_generic($this->enmcrypt, $plaintext);
-
-            if (!$this->continuousBuffer) {
-                mcrypt_generic_init($this->enmcrypt, $this->key, $this->encryptIV);
-            }
-
-            return $ciphertext;
-        }
-
-        if (strlen($this->key) <= 8) {
-            $this->des[0]->mode = $this->mode;
-
-            return $this->des[0]->encrypt($plaintext);
-        }
-
-        // we pad with chr(0) since that's what mcrypt_generic does.  to quote from http://php.net/function.mcrypt-generic :
-        // "The data is padded with "\0" to make sure the length of the data is n * blocksize."
-        $plaintext = str_pad($plaintext, ceil(strlen($plaintext) / 8) * 8, chr(0));
-
-        $des = $this->des;
-
-        $ciphertext = '';
-        switch ($this->mode) {
-            case CRYPT_DES_MODE_ECB:
-                for ($i = 0; $i < strlen($plaintext); $i+=8) {
-                    $block = substr($plaintext, $i, 8);
-                    $block = $des[0]->_processBlock($block, CRYPT_DES_ENCRYPT);
-                    $block = $des[1]->_processBlock($block, CRYPT_DES_DECRYPT);
-                    $block = $des[2]->_processBlock($block, CRYPT_DES_ENCRYPT);
-                    $ciphertext.= $block;
-                }
-                break;
-            case CRYPT_DES_MODE_CBC:
-                $xor = $this->encryptIV;
-                for ($i = 0; $i < strlen($plaintext); $i+=8) {
-                    $block = substr($plaintext, $i, 8) ^ $xor;
-                    $block = $des[0]->_processBlock($block, CRYPT_DES_ENCRYPT);
-                    $block = $des[1]->_processBlock($block, CRYPT_DES_DECRYPT);
-                    $block = $des[2]->_processBlock($block, CRYPT_DES_ENCRYPT);
-                    $xor = $block;
-                    $ciphertext.= $block;
-                }
-                if ($this->continuousBuffer) {
-                    $this->encryptIV = $xor;
-                }
-                break;
-            case CRYPT_DES_MODE_CTR:
-                $xor = $this->encryptIV;
-                for ($i = 0; $i < strlen($plaintext); $i+=8) {
-                    $key = $this->_generate_xor(8, $xor);
-                    $key = $des[0]->_processBlock($key, CRYPT_DES_ENCRYPT);
-                    $key = $des[1]->_processBlock($key, CRYPT_DES_DECRYPT);
-                    $key = $des[2]->_processBlock($key, CRYPT_DES_ENCRYPT);
-                    $block = substr($plaintext, $i, 8);
-                    $ciphertext.= $block ^ $key;
-                }
-                if ($this->continuousBuffer) {
-                    $this->encryptIV = $xor;
-                }
-        }
-
-        return $ciphertext;
+        return parent::encrypt($plaintext);
     }
 
     /**
      * Decrypts a message.
      *
+     * @see \phpseclib\Crypt\Base::decrypt()
      * @access public
-     * @param String $ciphertext
+     * @param string $ciphertext
+     * @return string $plaintext
      */
     function decrypt($ciphertext)
     {
-        if ($this->mode == CRYPT_DES_MODE_3CBC && strlen($this->key) > 8) {
-            $plaintext = $this->des[0]->decrypt($this->des[1]->encrypt($this->des[2]->decrypt($ciphertext)));
-
-            return $this->_unpad($plaintext);
+        if ($this->mode_3cbc && strlen($this->key) > 8) {
+            return $this->_unpad(
+                $this->des[0]->decrypt(
+                    $this->des[1]->encrypt(
+                        $this->des[2]->decrypt(
+                            str_pad($ciphertext, (strlen($ciphertext) + 7) & 0xFFFFFFF8, "\0")
+                        )
+                    )
+                )
+            );
         }
 
-        // we pad with chr(0) since that's what mcrypt_generic does.  to quote from http://php.net/function.mcrypt-generic :
-        // "The data is padded with "\0" to make sure the length of the data is n * blocksize."
-        $ciphertext = str_pad($ciphertext, (strlen($ciphertext) + 7) & 0xFFFFFFF8, chr(0));
-
-        if ( CRYPT_DES_MODE == CRYPT_DES_MODE_MCRYPT ) {
-            if ($this->changed) {
-                if (!isset($this->demcrypt)) {
-                    $this->demcrypt = mcrypt_module_open(MCRYPT_3DES, '', $this->mode, '');
-                }
-                mcrypt_generic_init($this->demcrypt, $this->key, $this->decryptIV);
-                $this->changed = false;
-            }
-
-            $plaintext = mdecrypt_generic($this->demcrypt, $ciphertext);
-
-            if (!$this->continuousBuffer) {
-                mcrypt_generic_init($this->demcrypt, $this->key, $this->decryptIV);
-            }
-
-            return $this->mode != 'ctr' ? $this->_unpad($plaintext) : $plaintext;
-        }
-
-        if (strlen($this->key) <= 8) {
-            $this->des[0]->mode = $this->mode;
-
-            return $this->_unpad($this->des[0]->decrypt($plaintext));
-        }
-
-        $des = $this->des;
-
-        $plaintext = '';
-        switch ($this->mode) {
-            case CRYPT_DES_MODE_ECB:
-                for ($i = 0; $i < strlen($ciphertext); $i+=8) {
-                    $block = substr($ciphertext, $i, 8);
-                    $block = $des[2]->_processBlock($block, CRYPT_DES_DECRYPT);
-                    $block = $des[1]->_processBlock($block, CRYPT_DES_ENCRYPT);
-                    $block = $des[0]->_processBlock($block, CRYPT_DES_DECRYPT);
-                    $plaintext.= $block;
-                }
-                break;
-            case CRYPT_DES_MODE_CBC:
-                $xor = $this->decryptIV;
-                for ($i = 0; $i < strlen($ciphertext); $i+=8) {
-                    $orig = $block = substr($ciphertext, $i, 8);
-                    $block = $des[2]->_processBlock($block, CRYPT_DES_DECRYPT);
-                    $block = $des[1]->_processBlock($block, CRYPT_DES_ENCRYPT);
-                    $block = $des[0]->_processBlock($block, CRYPT_DES_DECRYPT);
-                    $plaintext.= $block ^ $xor;
-                    $xor = $orig;
-                }
-                if ($this->continuousBuffer) {
-                    $this->decryptIV = $xor;
-                }
-                break;
-            case CRYPT_DES_MODE_CTR:
-                $xor = $this->decryptIV;
-                for ($i = 0; $i < strlen($ciphertext); $i+=8) {
-                    $key = $this->_generate_xor(8, $xor);
-                    $key = $des[0]->_processBlock($key, CRYPT_DES_ENCRYPT);
-                    $key = $des[1]->_processBlock($key, CRYPT_DES_DECRYPT);
-                    $key = $des[2]->_processBlock($key, CRYPT_DES_ENCRYPT);
-                    $block = substr($ciphertext, $i, 8);
-                    $plaintext.= $block ^ $key;
-                }
-                if ($this->continuousBuffer) {
-                    $this->decryptIV = $xor;
-                }
-        }
-
-        return $this->mode != CRYPT_DES_MODE_CTR ? $this->_unpad($plaintext) : $plaintext;
+        return parent::decrypt($ciphertext);
     }
 
     /**
@@ -563,18 +365,19 @@ class Crypt_TripleDES {
      * outputs.  The reason is due to the fact that the initialization vector's change after every encryption /
      * decryption round when the continuous buffer is enabled.  When it's disabled, they remain constant.
      *
-     * Put another way, when the continuous buffer is enabled, the state of the Crypt_DES() object changes after each
+     * Put another way, when the continuous buffer is enabled, the state of the \phpseclib\Crypt\DES() object changes after each
      * encryption / decryption round, whereas otherwise, it'd remain constant.  For this reason, it's recommended that
      * continuous buffers not be used.  They do offer better security and are, in fact, sometimes required (SSH uses them),
      * however, they are also less intuitive and more likely to cause you problems.
      *
-     * @see Crypt_TripleDES::disableContinuousBuffer()
+     * @see \phpseclib\Crypt\Base::enableContinuousBuffer()
+     * @see self::disableContinuousBuffer()
      * @access public
      */
     function enableContinuousBuffer()
     {
-        $this->continuousBuffer = true;
-        if ($this->mode == CRYPT_DES_MODE_3CBC) {
+        parent::enableContinuousBuffer();
+        if ($this->mode_3cbc) {
             $this->des[0]->enableContinuousBuffer();
             $this->des[1]->enableContinuousBuffer();
             $this->des[2]->enableContinuousBuffer();
@@ -586,16 +389,14 @@ class Crypt_TripleDES {
      *
      * The default behavior.
      *
-     * @see Crypt_TripleDES::enableContinuousBuffer()
+     * @see \phpseclib\Crypt\Base::disableContinuousBuffer()
+     * @see self::enableContinuousBuffer()
      * @access public
      */
     function disableContinuousBuffer()
     {
-        $this->continuousBuffer = false;
-        $this->encryptIV = $this->iv;
-        $this->decryptIV = $this->iv;
-
-        if ($this->mode == CRYPT_DES_MODE_3CBC) {
+        parent::disableContinuousBuffer();
+        if ($this->mode_3cbc) {
             $this->des[0]->disableContinuousBuffer();
             $this->des[1]->disableContinuousBuffer();
             $this->des[2]->disableContinuousBuffer();
@@ -603,88 +404,57 @@ class Crypt_TripleDES {
     }
 
     /**
-     * Pad "packets".
+     * Creates the key schedule
      *
-     * DES works by encrypting eight bytes at a time.  If you ever need to encrypt or decrypt something that's not
-     * a multiple of eight, it becomes necessary to pad the input so that it's length is a multiple of eight.
-     *
-     * Padding is enabled by default.  Sometimes, however, it is undesirable to pad strings.  Such is the case in SSH1,
-     * where "packets" are padded with random bytes before being encrypted.  Unpad these packets and you risk stripping
-     * away characters that shouldn't be stripped away. (SSH knows how many bytes are added because the length is
-     * transmitted separately)
-     *
-     * @see Crypt_TripleDES::disablePadding()
-     * @access public
-     */
-    function enablePadding()
-    {
-        $this->padding = true;
-    }
-
-    /**
-     * Do not pad packets.
-     *
-     * @see Crypt_TripleDES::enablePadding()
-     * @access public
-     */
-    function disablePadding()
-    {
-        $this->padding = false;
-    }
-
-    /**
-     * Pads a string
-     *
-     * Pads a string using the RSA PKCS padding standards so that its length is a multiple of the blocksize (8).
-     * 8 - (strlen($text) & 7) bytes are added, each of which is equal to chr(8 - (strlen($text) & 7)
-     *
-     * If padding is disabled and $text is not a multiple of the blocksize, the string will be padded regardless
-     * and padding will, hence forth, be enabled.
-     *
-     * @see Crypt_TripleDES::_unpad()
+     * @see \phpseclib\Crypt\DES::_setupKey()
+     * @see \phpseclib\Crypt\Base::_setupKey()
      * @access private
      */
-    function _pad($text)
+    function _setupKey()
     {
-        $length = strlen($text);
+        switch (true) {
+            // if $key <= 64bits we configure our internal pure-php cipher engine
+            // to act as regular [1]DES, not as 3DES. mcrypt.so::tripledes does the same.
+            case strlen($this->key) <= 8:
+                $this->des_rounds = 1;
+                break;
 
-        if (!$this->padding) {
-            if (($length & 7) == 0) {
-                return $text;
-            } else {
-                user_error("The plaintext's length ($length) is not a multiple of the block size (8)", E_USER_NOTICE);
-                $this->padding = true;
-            }
+            // otherwise, if $key > 64bits, we configure our engine to work as 3DES.
+            default:
+                $this->des_rounds = 3;
+
+                // (only) if 3CBC is used we have, of course, to setup the $des[0-2] keys also separately.
+                if ($this->mode_3cbc) {
+                    $this->des[0]->_setupKey();
+                    $this->des[1]->_setupKey();
+                    $this->des[2]->_setupKey();
+
+                    // because $des[0-2] will, now, do all the work we can return here
+                    // not need unnecessary stress parent::_setupKey() with our, now unused, $key.
+                    return;
+                }
         }
-
-        $pad = 8 - ($length & 7);
-        return str_pad($text, $length + $pad, chr($pad));
+        // setup our key
+        parent::_setupKey();
     }
 
     /**
-     * Unpads a string
+     * Sets the internal crypt engine
      *
-     * If padding is enabled and the reported padding length is invalid the encryption key will be assumed to be wrong
-     * and false will be returned.
-     *
-     * @see Crypt_TripleDES::_pad()
-     * @access private
+     * @see \phpseclib\Crypt\Base::__construct()
+     * @see \phpseclib\Crypt\Base::setPreferredEngine()
+     * @param int $engine
+     * @access public
+     * @return int
      */
-    function _unpad($text)
+    function setPreferredEngine($engine)
     {
-        if (!$this->padding) {
-            return $text;
+        if ($this->mode_3cbc) {
+            $this->des[0]->setPreferredEngine($engine);
+            $this->des[1]->setPreferredEngine($engine);
+            $this->des[2]->setPreferredEngine($engine);
         }
 
-        $length = ord($text[strlen($text) - 1]);
-
-        if (!$length || $length > 8) {
-            return false;
-        }
-
-        return substr($text, 0, -$length);
+        return parent::setPreferredEngine($engine);
     }
 }
-
-// vim: ts=4:sw=4:et:
-// vim6: fdl=1:

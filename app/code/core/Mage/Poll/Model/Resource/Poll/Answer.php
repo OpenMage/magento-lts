@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Poll
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -46,7 +46,7 @@ class Mage_Poll_Model_Resource_Poll_Answer extends Mage_Core_Model_Resource_Db_A
     /**
      * Initialize unique fields
      *
-     * @return Mage_Poll_Model_Resource_Poll_Answer
+     * @return $this
      */
     protected function _initUniqueFields()
     {

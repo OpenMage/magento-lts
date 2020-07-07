@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,8 +32,7 @@
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Model_Resource_Product_Attribute_Collection
-    extends Mage_Eav_Model_Resource_Entity_Attribute_Collection
+class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_Model_Resource_Entity_Attribute_Collection
 {
     /**
      * Resource model initialization
@@ -47,7 +46,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection
     /**
      * initialize select object
      *
-     * @return Mage_Catalog_Model_Resource_Product_Attribute_Collection
+     * @return $this
      */
     protected function _initSelect()
     {
@@ -66,7 +65,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection
             ->join(
                 array('additional_table' => $this->getTable('catalog/eav_attribute')),
                 'additional_table.attribute_id = main_table.attribute_id'
-                )
+            )
             ->where('main_table.entity_type_id = ?', $entityTypeId);
         return $this;
     }
@@ -76,7 +75,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection
      * Entity type is defined.
      *
      * @param  int $typeId
-     * @return Mage_Catalog_Model_Resource_Product_Attribute_Collection
+     * @return $this
      */
     public function setEntityTypeFilter($typeId)
     {
@@ -105,7 +104,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection
     /**
      * Remove price from attribute list
      *
-     * @return Mage_Catalog_Model_Resource_Product_Attribute_Collection
+     * @return $this
      */
     public function removePriceFilter()
     {
@@ -115,7 +114,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection
     /**
      * Specify "is_visible_in_advanced_search" filter
      *
-     * @return Mage_Catalog_Model_Resource_Product_Attribute_Collection
+     * @return $this
      */
     public function addDisplayInAdvancedSearchFilter()
     {
@@ -125,7 +124,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection
     /**
      * Specify "is_filterable" filter
      *
-     * @return Mage_Catalog_Model_Resource_Product_Attribute_Collection
+     * @return $this
      */
     public function addIsFilterableFilter()
     {
@@ -135,7 +134,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection
     /**
      * Add filterable in search filter
      *
-     * @return Mage_Catalog_Model_Resource_Product_Attribute_Collection
+     * @return $this
      */
     public function addIsFilterableInSearchFilter()
     {
@@ -145,7 +144,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection
     /**
      * Specify filter by "is_visible" field
      *
-     * @return Mage_Catalog_Model_Resource_Product_Attribute_Collection
+     * @return $this
      */
     public function addVisibleFilter()
     {
@@ -155,7 +154,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection
     /**
      * Specify "is_searchable" filter
      *
-     * @return Mage_Catalog_Model_Resource_Product_Attribute_Collection
+     * @return $this
      */
     public function addIsSearchableFilter()
     {
@@ -166,7 +165,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection
      * Specify filter for attributes that have to be indexed
      *
      * @param bool $addRequiredCodes
-     * @return Mage_Catalog_Model_Resource_Product_Attribute_Collection
+     * @return $this
      */
     public function addToIndexFilter($addRequiredCodes = false)
     {
@@ -179,8 +178,10 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection
         );
 
         if ($addRequiredCodes) {
-            $conditions[] = $this->getConnection()->quoteInto('main_table.attribute_code IN (?)',
-                array('status', 'visibility'));
+            $conditions[] = $this->getConnection()->quoteInto(
+                'main_table.attribute_code IN (?)',
+                array('status', 'visibility')
+            );
         }
 
         $this->getSelect()->where(sprintf('(%s)', implode(' OR ', $conditions)));
@@ -191,7 +192,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection
     /**
      * Specify filter for attributes used in quick search
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Attribute_Collection
+     * @return $this
      */
     public function addSearchableAttributeFilter()
     {

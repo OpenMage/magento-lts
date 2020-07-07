@@ -20,13 +20,15 @@
  *
  * @category    Mage
  * @package     Mage_Api
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 /**
  * ACL role resource
+ *
+ * @method $this setCreated(string $value)
  *
  * @category    Mage
  * @package     Mage_Api
@@ -47,7 +49,7 @@ class Mage_Api_Model_Resource_Acl_Role extends Mage_Core_Model_Resource_Db_Abstr
      * Action before save
      *
      * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Api_Model_Resource_Acl_Role
+     * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {

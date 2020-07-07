@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,6 +29,9 @@ class Mage_Catalog_Block_Product extends Mage_Core_Block_Template
 {
     protected $_finalPrice = array();
 
+    /**
+     * @return mixed
+     */
     public function getProduct()
     {
         if (!$this->getData('product') instanceof Mage_Catalog_Model_Product) {
@@ -45,11 +48,17 @@ class Mage_Catalog_Block_Product extends Mage_Core_Block_Template
         return $this->getData('product');
     }
 
+    /**
+     * @return mixed
+     */
     public function getPrice()
     {
         return $this->getProduct()->getPrice();
     }
 
+    /**
+     * @return mixed
+     */
     public function getFinalPrice()
     {
         if (!isset($this->_finalPrice[$this->getProduct()->getId()])) {
@@ -58,6 +67,10 @@ class Mage_Catalog_Block_Product extends Mage_Core_Block_Template
         return $this->_finalPrice[$this->getProduct()->getId()];
     }
 
+    /**
+     * @param Mage_Catalog_Model_Product $product
+     * @return string
+     */
     public function getPriceHtml($product)
     {
         $this->setTemplate('catalog/product/price.phtml');

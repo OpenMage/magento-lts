@@ -20,7 +20,7 @@
  *
  * @category    Varien
  * @package     Varien_File
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -56,7 +56,7 @@ class Varien_File_Uploader
     /**
      * Upload type. Used to right handle $_FILES array.
      *
-     * @var Varien_File_Uploader::SINGLE_STYLE|Varien_File_Uploader::MULTIPLE_STYLE
+     * @var string Varien_File_Uploader::SINGLE_STYLE|Varien_File_Uploader::MULTIPLE_STYLE
      * @access protected
      */
     protected $_uploadType;
@@ -146,7 +146,7 @@ class Varien_File_Uploader
     /**
      * Resulting of uploaded file
      *
-     * @var array|bool      Array with file info keys: path, file. Result is
+     * @var array|false     Array with file info keys: path, file. Result is
      *                      FALSE when file not uploaded
      */
     protected $_result;
@@ -180,7 +180,7 @@ class Varien_File_Uploader
      * @param string $destinationFolder
      * @param string $newFileName
      * @access public
-     * @return void|bool
+     * @return array|false
      */
     public function save($destinationFolder, $newFileName = null)
     {
@@ -519,7 +519,7 @@ class Varien_File_Uploader
 
                 $fileAttributes = $tmp_var;
                 $this->_file = $fileAttributes;
-            } elseif( count($fileId) > 0 && isset($_FILES[$fileId])) {
+            } elseif(!empty($fileId) && isset($_FILES[$fileId])) {
                 $this->_uploadType = self::SINGLE_STYLE;
                 $this->_file = $_FILES[$fileId];
             } elseif( $fileId == '' ) {

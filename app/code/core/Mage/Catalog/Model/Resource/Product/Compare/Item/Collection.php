@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,8 +32,7 @@
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
-    extends Mage_Catalog_Model_Resource_Product_Collection
+class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_Catalog_Model_Resource_Product_Collection
 {
     /**
      * Customer Filter
@@ -69,7 +68,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
      * Set customer filter to collection
      *
      * @param int $customerId
-     * @return Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
+     * @return $this
      */
     public function setCustomerId($customerId)
     {
@@ -82,7 +81,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
      * Set visitor filter to collection
      *
      * @param int $visitorId
-     * @return Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
+     * @return $this
      */
     public function setVisitorId($visitorId)
     {
@@ -132,7 +131,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
     /**
      * Add join to select
      *
-     * @return Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
+     * @return $this
      */
     public function _addJoinToSelect()
     {
@@ -185,11 +184,13 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
             ->distinct(true)
             ->from(
                 array('entity' => $this->getEntity()->getEntityTable()),
-                'attribute_set_id')
+                'attribute_set_id'
+            )
             ->join(
                 array('website' => $this->getTable('catalog/product_website')),
                 join(' AND ', $websiteConds),
-                array())
+                array()
+            )
             ->join(
                 array('compare' => $this->getTable('catalog/compare_item')),
                 join(' AND ', $compareConds),
@@ -259,7 +260,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
     /**
      * Load Comparable attributes
      *
-     * @return Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
+     * @return $this
      */
     public function loadComparableAttributes()
     {
@@ -276,7 +277,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
     /**
      * Use product as collection item
      *
-     * @return Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
+     * @return $this
      */
     public function useProductItem()
     {
@@ -306,7 +307,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
     /**
      * Clear compare items by condition
      *
-     * @return Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
+     * @return $this
      */
     public function clear()
     {

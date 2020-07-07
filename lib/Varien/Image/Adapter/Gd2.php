@@ -20,7 +20,7 @@
  *
  * @category    Varien
  * @package     Varien_Image
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -220,7 +220,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
 
     public function display()
     {
-        header("Content-type: ".$this->getMimeType());
+        header("Content-type: ".$this->getMimeTypeWithOutFileType());
         call_user_func($this->_getCallback('output'), $this->_imageHandler);
     }
 
@@ -639,5 +639,15 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         imagecolortransparent($imageHandler, $background);
         imagealphablending($imageHandler, false);
         imagesavealpha($imageHandler, true);
+    }
+
+    /**
+     * Gives real mime-type with not considering file type field
+     *
+     * @return string
+     */
+    public function getMimeTypeWithOutFileType()
+    {
+        return $this->_fileMimeType;
     }
 }

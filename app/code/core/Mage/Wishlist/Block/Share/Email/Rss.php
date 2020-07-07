@@ -20,10 +20,9 @@
  *
  * @category    Mage
  * @package     Mage_Wishlist
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Wishlist RSS URL to Email Block
@@ -31,6 +30,8 @@
  * @category   Mage
  * @package    Mage_Wishlist
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setWishlistId(int $value)
  */
 class Mage_Wishlist_Block_Share_Email_Rss extends Mage_Core_Block_Template
 {

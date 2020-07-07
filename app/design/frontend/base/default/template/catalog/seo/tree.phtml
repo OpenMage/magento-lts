@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -33,7 +33,9 @@
 <?php if($_items->getSize()): ?>
     <ul class="sitemap">
         <?php foreach ($_items as $_item): ?>
-            <li class="level-<?php echo $this->getLevel($_item) ?>" <?php echo $this->getLevel($_item)?'style="padding-left:' . $this->getLevel($_item, 2) . '0px;"':'' ?>><a href="<?php echo $this->getItemUrl($_item) ?>"><?php echo $_item->name ?></a></li>
+            <?php if ($_item->getIsActive()): ?>
+                <li class="level-<?php echo $this->getLevel($_item) ?>" <?php echo $this->getLevel($_item)?'style="padding-left:' . $this->getLevel($_item, 2) . '0px;"':'' ?>><a href="<?php echo $this->getItemUrl($_item) ?>"><?php echo $_item->name ?></a></li>
+            <?php endif; ?>
         <?php endforeach; ?>
     </ul>
 <?php else: ?>

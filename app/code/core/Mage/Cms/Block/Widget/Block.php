@@ -20,10 +20,9 @@
  *
  * @category    Mage
  * @package     Mage_Cms
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Cms Static Block Widget
@@ -31,6 +30,9 @@
  * @category   Mage
  * @package    Mage_Cms
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method int getBlockId()
+ * @method $this setText(string $value)
  */
 class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Mage_Widget_Block_Interface
 {
@@ -60,7 +62,7 @@ class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Ma
      * Prepare block text and determine whether block output enabled or not
      * Prevent blocks recursion if needed
      *
-     * @return Mage_Cms_Block_Widget_Block
+     * @return $this
      */
     protected function _beforeToHtml()
     {
@@ -78,10 +80,15 @@ class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Ma
                 ->setStoreId(Mage::app()->getStore()->getId())
                 ->load($blockId);
             if ($block->getIsActive()) {
-                /* @var $helper Mage_Cms_Helper_Data */
                 $helper = Mage::helper('cms');
                 $processor = $helper->getBlockTemplateProcessor();
-                $this->setText($processor->filter($block->getContent()));
+                if ($this->isRequestFromAdminArea()) {
+                    $this->setText($processor->filter(
+                        Mage::getSingleton('core/input_filter_maliciousCode')->filter($block->getContent())
+                    ));
+                } else {
+                    $this->setText($processor->filter($block->getContent()));
+                }
                 $this->addModelTags($block);
             }
         }
@@ -103,5 +110,15 @@ class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Ma
             $result[] = $blockId;
         }
         return $result;
+    }
+
+    /**
+     * Check is request goes from admin area
+     *
+     * @return bool
+     */
+    public function isRequestFromAdminArea()
+    {
+        return $this->getRequest()->getRouteName() === Mage_Core_Model_App_Area::AREA_ADMINHTML;
     }
 }

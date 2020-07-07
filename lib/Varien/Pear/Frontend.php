@@ -20,7 +20,7 @@
  *
  * @category    Varien
  * @package     Varien_Pear
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -57,7 +57,7 @@ class Varien_Pear_Frontend extends PEAR_Frontend
 
     public function log($msg, $append_crlf = true)
     {
-        if (is_null($msg) || false===$msg or ''===$msg) {
+        if (is_null($msg) || false===$msg || ''===$msg) {
             return;
         }
 

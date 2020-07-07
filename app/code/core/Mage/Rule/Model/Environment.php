@@ -20,18 +20,22 @@
  *
  * @category    Mage
  * @package     Mage_Rule
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * Class Mage_Rule_Model_Environment
+ *
+ * @method $this setNow(int $value)
+ */
 class Mage_Rule_Model_Environment extends Varien_Object
 {
     /**
      * Collect application environment for rules filtering
      *
      * @todo make it not dependent on checkout module
-     * @return Mage_Rule_Model_Environment
+     * @return $this
      */
     public function collect()
     {

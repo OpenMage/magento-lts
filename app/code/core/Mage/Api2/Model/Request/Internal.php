@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Api2
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -76,7 +76,7 @@ class Mage_Api2_Model_Request_Internal extends Mage_Api2_Model_Request
      * Set HTTP request method for request emulation during internal call
      *
      * @param string $method
-     * @return Mage_Api2_Model_Request_Internal
+     * @return $this
      */
     public function setMethod($method)
     {

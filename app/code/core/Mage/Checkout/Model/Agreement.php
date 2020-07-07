@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,18 +29,21 @@
  *
  * @method Mage_Checkout_Model_Resource_Agreement _getResource()
  * @method Mage_Checkout_Model_Resource_Agreement getResource()
+ * @method Mage_Checkout_Model_Resource_Agreement_Collection getCollection()
+ *
  * @method string getName()
- * @method Mage_Checkout_Model_Agreement setName(string $value)
+ * @method $this setName(string $value)
  * @method string getContent()
- * @method Mage_Checkout_Model_Agreement setContent(string $value)
+ * @method $this setContent(string $value)
  * @method string getContentHeight()
- * @method Mage_Checkout_Model_Agreement setContentHeight(string $value)
+ * @method $this setContentHeight(string $value)
  * @method string getCheckboxText()
- * @method Mage_Checkout_Model_Agreement setCheckboxText(string $value)
+ * @method $this setCheckboxText(string $value)
  * @method int getIsActive()
- * @method Mage_Checkout_Model_Agreement setIsActive(int $value)
+ * @method $this setIsActive(int $value)
  * @method int getIsHtml()
- * @method Mage_Checkout_Model_Agreement setIsHtml(int $value)
+ * @method $this setIsHtml(int $value)
+ * @method int getStoreId()
  *
  * @category    Mage
  * @package     Mage_Checkout

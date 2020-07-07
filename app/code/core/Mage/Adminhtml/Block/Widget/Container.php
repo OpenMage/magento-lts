@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -68,7 +68,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
      * @param integer $level
      * @param integer $sortOrder
      * @param string|null $placement area, that button should be displayed in ('header', 'footer', null)
-     * @return Mage_Adminhtml_Block_Widget_Container
+     * @return $this
      */
     protected function _addButton($id, $data, $level = 0, $sortOrder = 0, $area = 'header')
     {
@@ -93,7 +93,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
      * @param integer $level
      * @param integer $sortOrder
      * @param string|null $placement area, that button should be displayed in ('header', 'footer', null)
-     * @return Mage_Adminhtml_Block_Widget_Container
+     * @return $this
      */
     public function addButton($id, $data, $level = 0, $sortOrder = 0, $area = 'header')
     {
@@ -104,7 +104,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
      * Remove existing button
      *
      * @param string $id
-     * @return Mage_Adminhtml_Block_Widget_Container
+     * @return $this
      */
     protected function _removeButton($id)
     {
@@ -120,7 +120,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
      * Public wrapper for the _removeButton() method
      *
      * @param string $id
-     * @return Mage_Adminhtml_Block_Widget_Container
+     * @return $this
      */
     public function removeButton($id)
     {
@@ -133,7 +133,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
      * @param string $id
      * @param string|null $key
      * @param mixed $data
-     * @return Mage_Adminhtml_Block_Widget_Container
+     * @return $this
      */
     protected function _updateButton($id, $key=null, $data)
     {
@@ -164,7 +164,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
      * @param string $id
      * @param string|null $key
      * @param mixed $data
-     * @return Mage_Adminhtml_Block_Widget_Container
+     * @return $this
      */
     public function updateButton($id, $key=null, $data)
     {

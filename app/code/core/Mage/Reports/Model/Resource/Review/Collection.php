@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -46,8 +46,8 @@ class Mage_Reports_Model_Resource_Review_Collection extends Mage_Review_Model_Re
     /**
      * add product filter
      *
-     * @param unknown_type $productId
-     * @return Mage_Reports_Model_Resource_Review_Collection
+     * @param string|int $productId
+     * @return $this
      */
     public function addProductFilter($productId)
     {
@@ -59,7 +59,7 @@ class Mage_Reports_Model_Resource_Review_Collection extends Mage_Review_Model_Re
     /**
      * Reset select
      *
-     * @return Mage_Reports_Model_Resource_Review_Collection
+     * @return $this
      */
     public function resetSelect()
     {
@@ -90,7 +90,7 @@ class Mage_Reports_Model_Resource_Review_Collection extends Mage_Review_Model_Re
      *
      * @param string $attribute
      * @param string $dir
-     * @return Mage_Reports_Model_Resource_Review_Collection
+     * @return $this
      */
     public function setOrder($attribute, $dir = self::SORT_ORDER_DESC)
     {

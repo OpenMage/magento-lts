@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Review
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,7 +37,7 @@ class Mage_Review_Model_Resource_Review_Summary_Collection extends Varien_Data_C
     /**
      * Enter description here ...
      *
-     * @var unknown
+     * @var string
      */
     protected $_summaryTable;
 
@@ -61,9 +61,9 @@ class Mage_Review_Model_Resource_Review_Summary_Collection extends Varien_Data_C
     /**
      * Add entity filter
      *
-     * @param unknown_type $entityId
-     * @param unknown_type $entityType
-     * @return Mage_Review_Model_Resource_Review_Summary_Collection
+     * @param int|array $entityId
+     * @param int $entityType
+     * @return $this
      */
     public function addEntityFilter($entityId, $entityType = 1)
     {
@@ -76,7 +76,7 @@ class Mage_Review_Model_Resource_Review_Summary_Collection extends Varien_Data_C
      * Add store filter
      *
      * @param int $storeId
-     * @return Mage_Review_Model_Resource_Review_Summary_Collection
+     * @return $this
      */
     public function addStoreFilter($storeId)
     {

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Admin
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,6 +31,8 @@
  * @category    Mage
  * @package     Mage_Admin
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Admin_Model_Rules[] getItems()
  */
 class Mage_Admin_Model_Resource_Rules_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -47,7 +49,7 @@ class Mage_Admin_Model_Resource_Rules_Collection extends Mage_Core_Model_Resourc
      * Get rules by role id
      *
      * @param int $id
-     * @return Mage_Admin_Model_Resource_Rules_Collection
+     * @return $this
      */
     public function getByRoles($id)
     {
@@ -58,7 +60,7 @@ class Mage_Admin_Model_Resource_Rules_Collection extends Mage_Core_Model_Resourc
     /**
      * Sort by length
      *
-     * @return Mage_Admin_Model_Resource_Rules_Collection
+     * @return $this
      */
     public function addSortByLength()
     {

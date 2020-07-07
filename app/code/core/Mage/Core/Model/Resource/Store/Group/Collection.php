@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -57,7 +57,7 @@ class Mage_Core_Model_Resource_Store_Group_Collection extends Mage_Core_Model_Re
      *
      * @param boolean $loadDefault
      *
-     * @return Mage_Core_Model_Resource_Store_Group_Collection
+     * @return $this
      */
     public function setLoadDefault($loadDefault)
     {
@@ -77,7 +77,7 @@ class Mage_Core_Model_Resource_Store_Group_Collection extends Mage_Core_Model_Re
     /**
      * Add disable default store group filter to collection
      *
-     * @return Mage_Core_Model_Resource_Store_Group_Collection
+     * @return $this
      */
     public function setWithoutDefaultFilter()
     {
@@ -87,7 +87,7 @@ class Mage_Core_Model_Resource_Store_Group_Collection extends Mage_Core_Model_Re
     /**
      * Filter to discard stores without views
      *
-     * @return Mage_Core_Model_Resource_Store_Group_Collection
+     * @return $this
      */
     public function setWithoutStoreViewFilter()
     {
@@ -95,16 +95,14 @@ class Mage_Core_Model_Resource_Store_Group_Collection extends Mage_Core_Model_Re
     }
 
     /**
-     * Load collection data
-     *
-     * @return Mage_Core_Model_Resource_Store_Group_Collection
+     * @inheritDoc
      */
     public function _beforeLoad()
     {
         if (!$this->getLoadDefault()) {
             $this->setWithoutDefaultFilter();
         }
-        $this->addOrder('main_table.name',  self::SORT_ORDER_ASC);
+        $this->addOrder('main_table.name', self::SORT_ORDER_ASC);
         return parent::_beforeLoad();
     }
 
@@ -123,7 +121,7 @@ class Mage_Core_Model_Resource_Store_Group_Collection extends Mage_Core_Model_Re
      *
      * @param int|array $website
      *
-     * @return Mage_Core_Model_Resource_Store_Group_Collection
+     * @return $this
      */
     public function addWebsiteFilter($website)
     {

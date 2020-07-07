@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -122,12 +122,16 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
      * @param string|null $from
      * @param string|null $to
      * @param Zend_Db_Select|string|null $subSelect
-     * @param unknown_type $doNotUseTruncate
+     * @param bool $doNotUseTruncate
      * @return Mage_Reports_Model_Resource_Report_Abstract
      */
-    protected function _clearTableByDateRange($table, $from = null, $to = null, $subSelect = null,
-        $doNotUseTruncate = false)
-    {
+    protected function _clearTableByDateRange(
+        $table,
+        $from = null,
+        $to = null,
+        $subSelect = null,
+        $doNotUseTruncate = false
+    ) {
         if ($from === null && $to === null && !$doNotUseTruncate) {
             $this->_truncateTable($table);
             return $this;
@@ -159,12 +163,18 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
      * @param string|null $from
      * @param string|null $to
      * @param array $additionalWhere
-     * @param unknown_type $alias
+     * @param string $alias
      * @return Varien_Db_Select
      */
-    protected function _getTableDateRangeSelect($table, $column, $whereColumn, $from = null, $to = null,
-        $additionalWhere = array(), $alias = 'date_range_table')
-    {
+    protected function _getTableDateRangeSelect(
+        $table,
+        $column,
+        $whereColumn,
+        $from = null,
+        $to = null,
+        $additionalWhere = array(),
+        $alias = 'date_range_table'
+    ) {
         $adapter = $this->_getReadAdapter();
         $select  = $adapter->select()
             ->from(
@@ -176,19 +186,19 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
             ->distinct(true);
 
         if ($from !== null) {
-           $select->where($alias . '.' . $whereColumn . ' >= ?', $from);
+            $select->where($alias . '.' . $whereColumn . ' >= ?', $from);
         }
 
         if ($to !== null) {
-           $select->where($alias . '.' . $whereColumn . ' <= ?', $to);
+            $select->where($alias . '.' . $whereColumn . ' <= ?', $to);
         }
 
         if (!empty($additionalWhere)) {
             foreach ($additionalWhere as $condition) {
                 if (is_array($condition) && count($condition) == 2) {
-                   $condition = $adapter->quoteInto($condition[0], $condition[1]);
+                    $condition = $adapter->quoteInto($condition[0], $condition[1]);
                 } elseif (is_array($condition)) { // Invalid condition
-                   continue;
+                    continue;
                 }
                 $condition = str_replace('{{table}}', $adapter->quoteIdentifier($alias), $condition);
                 $select->where($condition);
@@ -202,11 +212,10 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
      * Make condition for using in where section
      * from select statement with single date column
      *
-     * @result string|false
      *
      * @param Varien_Db_Select $select
      * @param string $periodColumn
-     * @return unknown
+     * @return string|false
      */
     protected function _makeConditionFromDateRangeSelect($select, $periodColumn)
     {
@@ -256,14 +265,22 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
      * @param string|null $from
      * @param string|null $to
      * @param array $additionalWhere
-     * @param unknown_type $alias
-     * @param unknown_type $relatedAlias
+     * @param string $alias
+     * @param string $relatedAlias
      * @return Varien_Db_Select
      */
-    protected function _getTableDateRangeRelatedSelect($table, $relatedTable, $joinCondition, $column, $whereColumn,
-        $from = null, $to = null, $additionalWhere = array(), $alias = 'date_range_table',
-        $relatedAlias = 'related_date_range_table')
-    {
+    protected function _getTableDateRangeRelatedSelect(
+        $table,
+        $relatedTable,
+        $joinCondition,
+        $column,
+        $whereColumn,
+        $from = null,
+        $to = null,
+        $additionalWhere = array(),
+        $alias = 'date_range_table',
+        $relatedAlias = 'related_date_range_table'
+    ) {
         $adapter = $this->_getReadAdapter();
         $joinConditionSql = array();
 
@@ -286,19 +303,19 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
             ->distinct(true);
 
         if ($from !== null) {
-           $select->where($relatedAlias . '.' . $whereColumn . ' >= ?', $from);
+            $select->where($relatedAlias . '.' . $whereColumn . ' >= ?', $from);
         }
 
         if ($to !== null) {
-           $select->where($relatedAlias . '.' . $whereColumn . ' <= ?', $to);
+            $select->where($relatedAlias . '.' . $whereColumn . ' <= ?', $to);
         }
 
         if (!empty($additionalWhere)) {
             foreach ($additionalWhere as $condition) {
                 if (is_array($condition) && count($condition) == 2) {
-                   $condition = $adapter->quoteInto($condition[0], $condition[1]);
+                    $condition = $adapter->quoteInto($condition[0], $condition[1]);
                 } elseif (is_array($condition)) { // Invalid condition
-                   continue;
+                    continue;
                 }
                 $condition = str_replace(
                     array('{{table}}', '{{related_table}}'),
@@ -359,7 +376,9 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
         }
 
         $periods = $this->_getTZOffsetTransitions(
-            Mage::app()->getLocale()->storeDate($store)->toString(Zend_Date::TIMEZONE_NAME), $from, $to
+            Mage::app()->getLocale()->storeDate($store)->toString(Zend_Date::TIMEZONE_NAME),
+            $from,
+            $to
         );
         if (empty($periods)) {
             return $column;
@@ -456,7 +475,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
 
         if ($transitionYear > 10000 || $transitionYear < -10000) {
             $result = false;
-        } else if ($timeStamp > $to) {
+        } elseif ($timeStamp > $to) {
             $result = false;
         }
 
@@ -466,7 +485,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
     /**
      * Retrieve store timezone offset from UTC in the form acceptable by SQL's CONVERT_TZ()
      *
-     * @param unknown_type $store
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
      * @return string
      */
     protected function _getStoreTimezoneUtcOffset($store = null)
@@ -477,7 +496,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
     /**
      * Retrieve date in UTC timezone
      *
-     * @param unknown_type $date
+     * @param string|null $date
      * @return Zend_Date|null
      */
     protected function _dateToUtc($date)

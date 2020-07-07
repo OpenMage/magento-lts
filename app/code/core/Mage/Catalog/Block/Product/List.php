@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,6 +31,19 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method array getAvailableOrders()
+ * @method $this setAvailableOrders(array $value)
+ * @method int getCategoryId()
+ * @method $this setCategoryId(int $value)
+ * @method string getDefaultDirection()
+ * @method $this setDefaultDirection(string $value)
+ * @method array getModes()
+ * @method $this setModes(array $value)
+ * @method string getToolbarBlockName()
+ * @method string getSortBy()
+ * @method $this setSortBy(string $value)
+ * @method bool getShowRootCategory()
  */
 class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstract
 {
@@ -51,13 +64,13 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
     /**
      * Retrieve loaded category collection
      *
-     * @return Mage_Eav_Model_Entity_Collection_Abstract
+     * @return Mage_Catalog_Model_Resource_Product_Collection
      */
     protected function _getProductCollection()
     {
         if (is_null($this->_productCollection)) {
             $layer = $this->getLayer();
-            /* @var $layer Mage_Catalog_Model_Layer */
+            /* @var Mage_Catalog_Model_Layer $layer */
             if ($this->getShowRootCategory()) {
                 $this->setCategoryId(Mage::app()->getStore()->getRootCategoryId());
             }
@@ -168,7 +181,7 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
     /**
      * Retrieve Toolbar block
      *
-     * @return Mage_Catalog_Block_Product_List_Toolbar
+     * @return Mage_Catalog_Block_Product_List_Toolbar|Mage_Core_Block_Abstract
      */
     public function getToolbarBlock()
     {
@@ -201,18 +214,30 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
         return $this->getChildHtml('toolbar');
     }
 
+    /**
+     * @param $collection
+     * @return $this
+     */
     public function setCollection($collection)
     {
         $this->_productCollection = $collection;
         return $this;
     }
 
+    /**
+     * @param $code
+     * @return $this
+     * @throws Mage_Core_Exception
+     */
     public function addAttribute($code)
     {
         $this->_getProductCollection()->addAttributeToSelect($code);
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getPriceBlockTemplate()
     {
         return $this->_getData('price_block_template');
@@ -232,9 +257,10 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
      * Prepare Sort By fields from Category Data
      *
      * @param Mage_Catalog_Model_Category $category
-     * @return Mage_Catalog_Block_Product_List
+     * @return $this
      */
-    public function prepareSortableFieldsByCategory($category) {
+    public function prepareSortableFieldsByCategory($category)
+    {
         if (!$this->getAvailableOrders()) {
             $this->setAvailableOrders($category->getAvailableSortByOptions());
         }

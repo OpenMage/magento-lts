@@ -20,7 +20,7 @@
  *
  * @category    Tests
  * @package     Tests_Functional
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -51,7 +51,7 @@ class Paypal extends Page
     protected $blocks = [
         'loginBlock' => [
             'class' => 'Mage\Paypal\Test\Block\Login',
-            'locator' => '#contents',
+            'locator' => '#login', // previous locator = #contents
             'strategy' => 'css selector',
         ],
         'oldLoginBlock' => [
@@ -67,6 +67,11 @@ class Paypal extends Page
         'oldReviewBlock' => [
             'class' => 'Mage\Paypal\Test\Block\OldReview',
             'locator' => '#content',
+            'strategy' => 'css selector',
+        ],
+        'newLoginBlock' => [
+            'class' => 'Mage\Paypal\Test\Block\NewLogin',
+            'locator' => '#login',
             'strategy' => 'css selector',
         ],
     ];
@@ -111,5 +116,13 @@ class Paypal extends Page
     public function getOldReviewBlock()
     {
         return $this->getBlockInstance('oldReviewBlock');
+    }
+
+    /**
+     * @return NewLogin
+     */
+    public function getNewLoginBlock()
+    {
+        return $this->getBlockInstance('newLoginBlock');
     }
 }

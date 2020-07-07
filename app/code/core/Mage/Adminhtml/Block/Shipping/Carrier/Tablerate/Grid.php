@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -64,7 +64,7 @@ class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtm
      * Set current website
      *
      * @param int $websiteId
-     * @return Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid
+     * @return $this
      */
     public function setWebsiteId($websiteId)
     {
@@ -89,7 +89,7 @@ class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtm
      * Set current website
      *
      * @param int $websiteId
-     * @return Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid
+     * @return $this
      */
     public function setConditionName($name)
     {
@@ -110,7 +110,7 @@ class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtm
     /**
      * Prepare shipping table rate collection
      *
-     * @return Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid
+     * @return $this
      */
     protected function _prepareCollection()
     {

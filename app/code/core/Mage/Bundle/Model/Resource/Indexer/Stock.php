@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Bundle
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,7 +38,7 @@ class Mage_Bundle_Model_Resource_Indexer_Stock extends Mage_CatalogInventory_Mod
      * Reindex temporary (price result data) for defined product(s)
      *
      * @param int|array $entityIds
-     * @return Mage_Bundle_Model_Resource_Indexer_Stock
+     * @return $this
      */
     public function reindexEntity($entityIds)
     {
@@ -62,7 +62,7 @@ class Mage_Bundle_Model_Resource_Indexer_Stock extends Mage_CatalogInventory_Mod
      *
      * @param int|array $entityIds
      * @param bool $usePrimaryTable use primary or temporary index table
-     * @return Mage_Bundle_Model_Resource_Indexer_Stock
+     * @return $this
      */
     protected function _prepareBundleOptionStockData($entityIds = null, $usePrimaryTable = false)
     {
@@ -177,7 +177,7 @@ class Mage_Bundle_Model_Resource_Indexer_Stock extends Mage_CatalogInventory_Mod
         }
 
         $select->columns(array('status' => $adapter->getLeastSql(array(
-            new Zend_Db_Expr('MIN(' . $adapter->getCheckSql('o.stock_status IS NOT NULL','o.stock_status', '0') .')'),
+            new Zend_Db_Expr('MIN(' . $adapter->getCheckSql('o.stock_status IS NOT NULL', 'o.stock_status', '0') .')'),
             new Zend_Db_Expr('MIN(' . $statusExpr . ')'),
         ))));
 
@@ -192,7 +192,7 @@ class Mage_Bundle_Model_Resource_Indexer_Stock extends Mage_CatalogInventory_Mod
      * Prepare stock status data in temporary index table
      *
      * @param int|array $entityIds  the product limitation
-     * @return Mage_Bundle_Model_Resource_Indexer_Stock
+     * @return $this
      */
     protected function _prepareIndexTable($entityIds = null)
     {
@@ -206,7 +206,7 @@ class Mage_Bundle_Model_Resource_Indexer_Stock extends Mage_CatalogInventory_Mod
      * Update Stock status index by product ids
      *
      * @param array|int $entityIds
-     * @return Mage_Bundle_Model_Resource_Indexer_Stock
+     * @return $this
      */
     protected function _updateIndex($entityIds)
     {
@@ -219,7 +219,7 @@ class Mage_Bundle_Model_Resource_Indexer_Stock extends Mage_CatalogInventory_Mod
     /**
      * Clean temporary bundle options stock data
      *
-     * @return Mage_Bundle_Model_Resource_Indexer_Stock
+     * @return $this
      */
     protected function _cleanBundleOptionStockData()
     {

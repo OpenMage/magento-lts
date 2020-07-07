@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Index
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,7 +42,7 @@ interface Mage_Index_Model_Resource_Helper_Lock_Interface
      * Set lock
      *
      * @param string $name
-     * @return int
+     * @return bool
      */
     public function setLock($name);
 
@@ -50,7 +50,7 @@ interface Mage_Index_Model_Resource_Helper_Lock_Interface
      * Release lock
      *
      * @param string $name
-     * @return int
+     * @return bool
      */
     public function releaseLock($name);
 

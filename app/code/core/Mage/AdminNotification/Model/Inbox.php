@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_AdminNotification
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -64,7 +64,8 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
     /**
      * Retrieve Severity collection array
      *
-     * @return array|string
+     * @param int|null $severity
+     * @return array|string|null
      */
     public function getSeverities($severity = null)
     {
@@ -88,7 +89,7 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
     /**
      * Retrieve Latest Notice
      *
-     * @return Mage_AdminNotification_Model_Inbox
+     * @return $this
      */
     public function loadLatestNotice()
     {
@@ -111,7 +112,7 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
      * Parse and save new data
      *
      * @param array $data
-     * @return Mage_AdminNotification_Model_Inbox
+     * @return $this
      */
     public function parse(array $data)
     {
@@ -126,12 +127,12 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
      * @param string|array $description
      * @param string $url
      * @param bool $isInternal
-     * @return Mage_AdminNotification_Model_Inbox
+     * @return $this
      */
     public function add($severity, $title, $description, $url = '', $isInternal = true)
     {
         if (!$this->getSeverities($severity)) {
-            Mage::throwException($this->__('Wrong message type'));
+            Mage::throwException(Mage::helper('adminnotification')->__('Wrong message type'));
         }
         if (is_array($description)) {
             $description = '<ul><li>' . implode('</li><li>', $description) . '</li></ul>';
@@ -155,7 +156,7 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
      * @param string|array $description
      * @param string $url
      * @param bool $isInternal
-     * @return Mage_AdminNotification_Model_Inbox
+     * @return $this
      */
     public function addCritical($title, $description, $url = '', $isInternal = true)
     {
@@ -170,7 +171,7 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
      * @param string|array $description
      * @param string $url
      * @param bool $isInternal
-     * @return Mage_AdminNotification_Model_Inbox
+     * @return $this
      */
     public function addMajor($title, $description, $url = '', $isInternal = true)
     {
@@ -185,7 +186,7 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
      * @param string|array $description
      * @param string $url
      * @param bool $isInternal
-     * @return Mage_AdminNotification_Model_Inbox
+     * @return $this
      */
     public function addMinor($title, $description, $url = '', $isInternal = true)
     {
@@ -200,7 +201,7 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
      * @param string|array $description
      * @param string $url
      * @param bool $isInternal
-     * @return Mage_AdminNotification_Model_Inbox
+     * @return $this
      */
     public function addNotice($title, $description, $url = '', $isInternal = true)
     {

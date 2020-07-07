@@ -21,14 +21,14 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Core>
-            <version>1.6.0.7</version>
+            <version>1.6.0.10</version>
         </Mage_Core>
     </modules>
     <global>
@@ -178,6 +178,22 @@
                     </security_domain_policy>
                 </observers>
             </controller_action_predispatch>
+            <model_save_before>
+                <observers>
+                    <secure_var_processing>
+                        <class>core/observer</class>
+                        <method>secureVarProcessing</method>
+                    </secure_var_processing>
+                </observers>
+            </model_save_before>
+            <model_delete_before>
+                <observers>
+                    <secure_var_processing>
+                        <class>core/observer</class>
+                        <method>secureVarProcessing</method>
+                    </secure_var_processing>
+                </observers>
+            </model_delete_before>
         </events>
     </global>
     <frontend>
@@ -324,6 +340,9 @@
                     <compiled_js_folder>js</compiled_js_folder>
                 </allowed_resources>
                 <ignored_resources>.svn,.htaccess</ignored_resources>
+                <loaded_modules>
+                    <Mage_Core />
+                </loaded_modules>
             </media_storage_configuration>
         </system>
         <trans_email>
@@ -397,6 +416,7 @@
                 <use_http_x_forwarded_for>0</use_http_x_forwarded_for>
                 <use_http_user_agent>0</use_http_user_agent>
                 <use_frontend_sid>1</use_frontend_sid>
+                <use_admin_sid>0</use_admin_sid>
             </session>
             <browser_capabilities>
                 <cookies>1</cookies>
@@ -417,11 +437,12 @@
                 <domain_policy_frontend>2</domain_policy_frontend>
                 <extensions_compatibility_mode>1</extensions_compatibility_mode>
                 <session_cookie_lifetime>10800</session_cookie_lifetime>
+                <secure_system_configuration_save_disabled>0</secure_system_configuration_save_disabled>
             </security>
         </admin>
         <general>
             <country>
-                <eu_countries>AT,BE,BG,CY,CZ,DK,EE,FI,FR,DE,GR,HU,IE,IT,LV,LT,LU,MT,NL,PL,PT,RO,SK,SI,ES,SE,GB</eu_countries>
+                <eu_countries>AT,BE,BG,CY,CZ,DK,EE,FI,FR,DE,GR,HU,IE,IT,LV,LT,LU,MT,NL,PL,PT,RO,SK,SI,ES,SE,GB,HR</eu_countries>
             </country>
             <locale>
                 <firstday>0</firstday>
@@ -429,8 +450,13 @@
             </locale>
             <file>
                 <protected_extensions>
-                    <!-- PHP script file extension -->
+                    <!-- BOF PHP script file extensions -->
                     <php>php</php>
+                    <php3>php3</php3>
+                    <php4>php4</php4>
+                    <php5>php5</php5>
+                    <php7>php7</php7>
+                    <!-- EOF PHP script file extensions -->
                     <!-- File extension of configuration of an Apache Web server -->
                     <htaccess>htaccess</htaccess>
                     <!-- Java script file extension -->
@@ -448,6 +474,7 @@
                     <!-- BOF HTML file extensions -->
                     <htm>htm</htm>
                     <html>html</html>
+                    <pht>pht</pht>
                     <phtml>phtml</phtml>
                     <shtml>shtml</shtml>
                     <!-- EOF HTML file extensions -->
@@ -472,7 +499,19 @@
             <reprocess_images>
                 <active>1</active>
             </reprocess_images>
+            <!-- Additional email for notifications -->
+            <additional_notification_emails>
+                <!-- On creating a new admin user. You can specify several emails separated by commas. -->
+                <admin_user_create></admin_user_create>
+            </additional_notification_emails>
         </general>
+        <validators>
+            <custom_layout>
+                <disallowed_block>
+                    <Mage_Core_Block_Template_Zend/>
+                </disallowed_block>
+            </custom_layout>
+        </validators>
     </default>
     <stores>
         <default>

@@ -20,13 +20,13 @@
  *
  * @category    Mage
  * @package     Mage_CatalogInventory
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 $installer = $this;
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 foreach (array(
@@ -37,8 +37,11 @@ foreach (array(
     'cataloginventory/options/notify_stock_qty' => 'cataloginventory/item_options/notify_stock_qty',
     'cataloginventory/options/manage_stock'     => 'cataloginventory/item_options/manage_stock',
     ) as $was => $become) {
-    $installer->run(sprintf("UPDATE `%s` SET `path` = '%s' WHERE `path` = '%s'",
-        $this->getTable('core/config_data'), $become, $was
+    $installer->run(sprintf(
+        "UPDATE `%s` SET `path` = '%s' WHERE `path` = '%s'",
+        $this->getTable('core/config_data'),
+        $become,
+        $was
     ));
 }
 

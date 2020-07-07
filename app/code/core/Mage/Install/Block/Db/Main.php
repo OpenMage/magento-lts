@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Install
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,7 +44,7 @@ class Mage_Install_Block_Db_Main extends Mage_Core_Block_Template
      * @param  string $type database type
      * @param  string $block database block type
      * @param  string $template
-     * @return Mage_Install_Block_Db_Main
+     * @return $this
      */
     public function addDatabaseBlock($type, $block, $template)
     {

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_ImportExport
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -65,7 +65,7 @@ class Mage_ImportExport_Block_Adminhtml_Import_Frame_Result extends Mage_Adminht
      * @param string $actionName
      * @param string $elementId
      * @param mixed $value OPTIONAL
-     * @return Mage_ImportExport_Block_Adminhtml_Import_Frame_Result
+     * @return $this
      */
     public function addAction($actionName, $elementId, $value = null)
     {
@@ -89,7 +89,7 @@ class Mage_ImportExport_Block_Adminhtml_Import_Frame_Result extends Mage_Adminht
      * Add error message.
      *
      * @param string $message Error message
-     * @return Mage_ImportExport_Block_Adminhtml_Import_Frame_Result
+     * @return $this
      */
     public function addError($message)
     {
@@ -108,7 +108,7 @@ class Mage_ImportExport_Block_Adminhtml_Import_Frame_Result extends Mage_Adminht
      *
      * @param mixed $message Message text
      * @param boolean $appendImportButton OPTIONAL Append import button to message?
-     * @return Mage_ImportExport_Block_Adminhtml_Import_Frame_Result
+     * @return $this
      */
     public function addNotice($message, $appendImportButton = false)
     {
@@ -127,7 +127,7 @@ class Mage_ImportExport_Block_Adminhtml_Import_Frame_Result extends Mage_Adminht
      *
      * @param mixed $message Message text
      * @param boolean $appendImportButton OPTIONAL Append import button to message?
-     * @return Mage_ImportExport_Block_Adminhtml_Import_Frame_Result
+     * @return $this
      */
     public function addSuccess($message, $appendImportButton = false)
     {
@@ -180,7 +180,7 @@ class Mage_ImportExport_Block_Adminhtml_Import_Frame_Result extends Mage_Adminht
      */
     public function getMessagesHtml()
     {
-        /** @var $messagesBlock Mage_Core_Block_Messages */
+        /** @var Mage_Core_Block_Messages $messagesBlock */
         $messagesBlock = $this->_layout->createBlock('core/messages');
 
         foreach ($this->_messages as $priority => $messages) {

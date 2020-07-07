@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Page
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -46,7 +46,7 @@ class Mage_Page_Model_Config
     /**
      * Initialize page layouts list
      *
-     * @return Mage_Page_Model_Config
+     * @return $this
      */
     protected function _initPageLayouts()
     {
@@ -62,7 +62,7 @@ class Mage_Page_Model_Config
      * Fill in $_pageLayouts by reading layouts from config
      *
      * @param string $xmlPath XML path to layouts root
-     * @return Mage_Page_Model_Config
+     * @return $this
      */
     protected function _appendPageLayouts($xmlPath)
     {
@@ -99,7 +99,7 @@ class Mage_Page_Model_Config
      * Retrieve page layout by code
      *
      * @param string $layoutCode
-     * @return Varien_Object|boolean
+     * @return Varien_Object|false
      */
     public function getPageLayout($layoutCode)
     {

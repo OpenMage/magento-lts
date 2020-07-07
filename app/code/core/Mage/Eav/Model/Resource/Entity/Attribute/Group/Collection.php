@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -47,7 +47,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Group_Collection extends Mage_Cor
      * Set Attribute Set Filter
      *
      * @param int $setId
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Group_Collection
+     * @return $this
      */
     public function setAttributeSetFilter($setId)
     {
@@ -60,7 +60,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Group_Collection extends Mage_Cor
      * Set sort order
      *
      * @param string $direction
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Group_Collection
+     * @return $this
      */
     public function setSortOrder($direction = self::SORT_ORDER_ASC)
     {

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Oauth
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -162,7 +162,7 @@ class Mage_Oauth_Model_Server
     /**
      * Request object
      *
-     * @var Mage_Core_Controller_Request_Http
+     * @var Mage_Core_Controller_Request_Http|Zend_Controller_Request_Http
      */
     protected $_request;
 
@@ -209,7 +209,7 @@ class Mage_Oauth_Model_Server
      * Retrieve protocol and request parameters from request object
      *
      * @link http://tools.ietf.org/html/rfc5849#section-3.5
-     * @return Mage_Oauth_Model_Server
+     * @return $this
      */
     protected function _fetchParams()
     {
@@ -266,7 +266,7 @@ class Mage_Oauth_Model_Server
     /**
      * Retrieve protocol parameters from query string
      *
-     * @return Mage_Oauth_Model_Server
+     * @return $this
      */
     protected function _fetchProtocolParamsFromQuery()
     {
@@ -310,7 +310,7 @@ class Mage_Oauth_Model_Server
     /**
      * Load token object, validate it depending on request type, set access data and save
      *
-     * @return Mage_Oauth_Model_Server
+     * @return $this
      * @throws Mage_Oauth_Exception
      */
     protected function _initToken()
@@ -374,7 +374,7 @@ class Mage_Oauth_Model_Server
      * Extract parameters from sources (GET, FormBody, Authorization header), decode them and validate
      *
      * @param string $requestType Request type - one of REQUEST_... class constant
-     * @return Mage_Oauth_Model_Server
+     * @return $this
      * @throws Mage_Core_Exception
      */
     protected function _processRequest($requestType)
@@ -470,7 +470,7 @@ class Mage_Oauth_Model_Server
         if ($timestamp <= 0 || $timestamp > (time() + self::TIME_DEVIATION)) {
             $this->_throwException('', self::ERR_TIMESTAMP_REFUSED);
         }
-        /** @var $nonceObj Mage_Oauth_Model_Nonce */
+        /** @var Mage_Oauth_Model_Nonce $nonceObj */
         $nonceObj = Mage::getModel('oauth/nonce');
 
         $nonceObj->load($nonce, 'nonce');
@@ -709,7 +709,7 @@ class Mage_Oauth_Model_Server
      * Set response object
      *
      * @param Zend_Controller_Response_Http $response
-     * @return Mage_Oauth_Model_Server
+     * @return $this
      */
     public function setResponse(Zend_Controller_Response_Http $response)
     {

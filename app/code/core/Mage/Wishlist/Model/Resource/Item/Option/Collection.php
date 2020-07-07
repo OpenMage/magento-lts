@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Wishlist
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -61,7 +61,7 @@ class Mage_Wishlist_Model_Resource_Item_Option_Collection extends Mage_Core_Mode
     /**
      * Fill array of options by item and product
      *
-     * @return Mage_Wishlist_Model_Resource_Item_Option_Collection
+     * @return $this
      */
     protected function _afterLoad()
     {
@@ -90,16 +90,16 @@ class Mage_Wishlist_Model_Resource_Item_Option_Collection extends Mage_Core_Mode
      * Apply quote item(s) filter to collection
      *
      * @param  int|array $item
-     * @return Mage_Wishlist_Model_Resource_Item_Option_Collection
+     * @return $this
      */
     public function addItemFilter($item)
     {
         if (empty($item)) {
             $this->_totalRecords = 0;
             $this->_setIsLoaded(true);
-        } else if (is_array($item)) {
+        } elseif (is_array($item)) {
             $this->addFieldToFilter('wishlist_item_id', array('in' => $item));
-        } else if ($item instanceof Mage_Wishlist_Model_Item) {
+        } elseif ($item instanceof Mage_Wishlist_Model_Item) {
             $this->addFieldToFilter('wishlist_item_id', $item->getId());
         } else {
             $this->addFieldToFilter('wishlist_item_id', $item);
@@ -149,7 +149,7 @@ class Mage_Wishlist_Model_Resource_Item_Option_Collection extends Mage_Core_Mode
     /**
      * Get all option for item
      *
-     * @param  mixed $item
+     * @param int|Mage_Catalog_Model_Product $product
      * @return array
      */
     public function getOptionsByProduct($product)

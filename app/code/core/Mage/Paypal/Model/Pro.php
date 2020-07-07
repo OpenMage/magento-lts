@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -139,7 +139,7 @@ class Mage_Paypal_Model_Pro
     /**
      * Destroy existing NVP Api object
      *
-     * @return Mage_Paypal_Model_Pro
+     * @return $this
      */
     public function resetApi()
     {
@@ -166,7 +166,7 @@ class Mage_Paypal_Model_Pro
      *
      * @param Mage_Paypal_Model_Api_Abstract $from
      * @param Mage_Payment_Model_Info $to
-     * @return Mage_Paypal_Model_Pro
+     * @return $this
      */
     public function importPaymentInfo(Varien_Object $from, Mage_Payment_Model_Info $to)
     {

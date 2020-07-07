@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_AdminNotification
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -51,7 +51,8 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
      *
      */
     protected function _construct()
-    {}
+    {
+    }
 
     /**
      * Retrieve feed url
@@ -61,8 +62,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
     public function getFeedUrl()
     {
         if (is_null($this->_feedUrl)) {
-            $this->_feedUrl = (Mage::getStoreConfigFlag(self::XML_USE_HTTPS_PATH) ? 'https://' : 'http://')
-                . Mage::getStoreConfig(self::XML_FEED_URL_PATH);
+            $this->_feedUrl = 'https://' . Mage::getStoreConfig(self::XML_FEED_URL_PATH);
         }
         return $this->_feedUrl;
     }
@@ -70,7 +70,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
     /**
      * Check feed for modification
      *
-     * @return Mage_AdminNotification_Model_Feed
+     * @return $this
      */
     public function checkUpdate()
     {
@@ -96,7 +96,6 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
             if ($feedData) {
                 Mage::getModel('adminnotification/inbox')->parse(array_reverse($feedData));
             }
-
         }
         $this->setLastUpdate();
 
@@ -138,7 +137,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
     /**
      * Set last update time (now)
      *
-     * @return Mage_AdminNotification_Model_Feed
+     * @return $this
      */
     public function setLastUpdate()
     {
@@ -152,7 +151,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
     /**
      * Retrieve feed data as XML element
      *
-     * @return SimpleXMLElement
+     * @return SimpleXMLElement|false
      */
     public function getFeedData()
     {
@@ -171,21 +170,22 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
 
         try {
             $xml  = new SimpleXMLElement($data);
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
 
         return $xml;
     }
 
+    /**
+     * @return SimpleXMLElement
+     */
     public function getFeedXml()
     {
         try {
             $data = $this->getFeedData();
             $xml  = new SimpleXMLElement($data);
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $xml  = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" ?>');
         }
 

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,8 +32,7 @@
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Model_Resource_Product_Type_Configurable_Product_Collection
-    extends Mage_Catalog_Model_Resource_Product_Collection
+class Mage_Catalog_Model_Resource_Product_Type_Configurable_Product_Collection extends Mage_Catalog_Model_Resource_Product_Collection
 {
     /**
      * Link table name
@@ -53,12 +52,13 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Product_Collection
 
     /**
      * Init select
-     * @return Mage_Catalog_Model_Resource_Product_Type_Configurable_Product_Collection
+     * @return $this
      */
     protected function _initSelect()
     {
         parent::_initSelect();
-        $this->getSelect()->join(array('link_table' => $this->_linkTable),
+        $this->getSelect()->join(
+            array('link_table' => $this->_linkTable),
             'link_table.product_id = e.entity_id',
             array('parent_id')
         );
@@ -70,7 +70,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Product_Collection
      * Set Product filter to result
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Catalog_Model_Resource_Product_Type_Configurable_Product_Collection
+     * @return $this
      */
     public function setProductFilter($product)
     {

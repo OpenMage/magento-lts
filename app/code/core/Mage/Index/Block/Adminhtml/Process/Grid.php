@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Index
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -55,7 +55,7 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
     /**
      * Prepare grid collection
      *
-     * @return Mage_Index_Block_Adminhtml_Process_Grid
+     * @return $this
      */
     protected function _prepareCollection()
     {
@@ -69,11 +69,11 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
     /**
      * Add name and description to collection elements
      *
-     * @return Mage_Index_Block_Adminhtml_Process_Grid
+     * @return $this
      */
     protected function _afterLoadCollection()
     {
-        /** @var $item Mage_Index_Model_Process */
+        /** @var Mage_Index_Model_Process $item */
         foreach ($this->_collection as $key => $item) {
             if (!$item->getIndexer()->isVisible()) {
                 $this->_collection->removeItemByKey($key);
@@ -92,7 +92,7 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
     /**
      * Prepare grid columns
      *
-     * @return Mage_Index_Block_Adminhtml_Process_Grid
+     * @return $this
      */
     protected function _prepareColumns()
     {
@@ -151,7 +151,8 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
             'frame_callback' => array($this, 'decorateDate')
         ));
 
-        $this->addColumn('action',
+        $this->addColumn(
+            'action',
             array(
                 'header'    =>  Mage::helper('index')->__('Action'),
                 'width'     => '100',
@@ -167,7 +168,8 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
                 'filter'    => false,
                 'sortable'  => false,
                 'is_system' => true,
-        ));
+            )
+        );
 
         parent::_prepareColumns();
 
@@ -188,13 +190,13 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
     {
         $class = '';
         switch ($row->getStatus()) {
-            case Mage_Index_Model_Process::STATUS_PENDING :
+            case Mage_Index_Model_Process::STATUS_PENDING:
                 $class = 'grid-severity-notice';
                 break;
-            case Mage_Index_Model_Process::STATUS_RUNNING :
+            case Mage_Index_Model_Process::STATUS_RUNNING:
                 $class = 'grid-severity-major';
                 break;
-            case Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX :
+            case Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX:
                 $class = 'grid-severity-critical';
                 break;
         }
@@ -237,7 +239,7 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
      */
     public function decorateDate($value, $row, $column, $isExport)
     {
-        if(!$value) {
+        if (!$value) {
             return $this->__('Never');
         }
         return $value;
@@ -258,7 +260,7 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
     /**
      * Add mass-actions to grid
      *
-     * @return Mage_Index_Block_Adminhtml_Process_Grid
+     * @return $this
      */
     protected function _prepareMassaction()
     {

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -333,7 +333,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
     /**
      * Export $this public data to private request array
      *
-     * @param array $internalRequestMap
+     * @param array $privateRequestMap
      * @param array $request
      * @return array
      */
@@ -527,7 +527,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      * (keys should go as 3rd, 4th[...] parameters)
      *
      * @param Varien_Object $address
-     * @param array $request
+     * @param array $to
      */
     protected function _importStreetFromAddress(Varien_Object $address, array &$to)
     {

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Index
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,7 +34,7 @@
 class Mage_Index_Model_Lock_Storage_Db implements Mage_Index_Model_Lock_Storage_Interface
 {
     /**
-     * @var Mage_Index_Model_Resource_Helper_Abstract
+     * @var Mage_Core_Model_Resource_Helper_Abstract
      */
     protected $_helper;
 
@@ -48,12 +48,16 @@ class Mage_Index_Model_Lock_Storage_Db implements Mage_Index_Model_Lock_Storage_
      */
     public function __construct()
     {
-        /** @var $resource Mage_Core_Model_Resource */
+        /** @var Mage_Core_Model_Resource $resource */
         $resource   = Mage::getSingleton('index/resource_lock_resource');
         $this->_connection = $resource->getConnection('index_write', 'default_lock');
         $this->_helper = Mage::getResourceHelper('index');
     }
 
+    /**
+     * @param string $name
+     * @return string
+     */
     protected function _prepareLockName($name)
     {
         $config = $this->_connection->getConfig();
@@ -64,7 +68,7 @@ class Mage_Index_Model_Lock_Storage_Db implements Mage_Index_Model_Lock_Storage_
      * Set named lock
      *
      * @param string $lockName
-     * @return int
+     * @return bool
      */
     public function setLock($lockName)
     {

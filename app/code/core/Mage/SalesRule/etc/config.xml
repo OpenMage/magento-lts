@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_SalesRule
- * @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -112,6 +112,14 @@
                     </salesrule>
                 </observers>
             </sales_order_place_after>
+            <sales_order_payment_cancel>
+                <observers>
+                    <salesrule>
+                        <class>salesrule/observer</class>
+                        <method>sales_order_paymentCancel</method>
+                    </salesrule>
+                </observers>
+            </sales_order_payment_cancel>
             <sales_quote_config_get_product_attributes>
                 <observers>
                     <salesrule>
@@ -134,8 +142,8 @@
                 <totals>
                     <freeshipping>
                         <class>salesrule/quote_freeshipping</class>
-                        <after>subtotal,tax_subtotal</after>
-                        <before>shipping</before>
+                        <after>subtotal</after>
+                        <before>tax_subtotal,shipping</before>
                     </freeshipping>
                     <discount>
                         <class>salesrule/quote_discount</class>

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Newsletter
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -48,7 +48,7 @@ class Mage_Newsletter_Model_Resource_Template extends Mage_Core_Model_Resource_D
      *
      * @param Mage_Newsletter_Model_Template $object
      * @param string $templateCode
-     * @return Mage_Newsletter_Model_Resource_Template
+     * @return $this
      */
     public function loadByCode(Mage_Newsletter_Model_Template $object, $templateCode)
     {
@@ -122,8 +122,8 @@ class Mage_Newsletter_Model_Resource_Template extends Mage_Core_Model_Resource_D
     /**
      * Perform actions before object save
      *
-     * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Newsletter_Model_Resource_Template
+     * @param Mage_Newsletter_Model_Template $object
+     * @inheritDoc
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {

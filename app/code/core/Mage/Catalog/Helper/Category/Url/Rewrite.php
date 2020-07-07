@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,8 +31,7 @@
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Helper_Category_Url_Rewrite
-    implements Mage_Catalog_Helper_Category_Url_Rewrite_Interface
+class Mage_Catalog_Helper_Category_Url_Rewrite implements Mage_Catalog_Helper_Category_Url_Rewrite_Interface
 {
     /**
      * Adapter instance
@@ -65,7 +64,7 @@ class Mage_Catalog_Helper_Category_Url_Rewrite
      *
      * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
      * @param int $storeId
-     * @return Mage_Catalog_Helper_Category_Url_Rewrite
+     * @return $this
      */
     public function joinTableToEavCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection, $storeId)
     {
@@ -87,7 +86,7 @@ class Mage_Catalog_Helper_Category_Url_Rewrite
      *
      * @param Mage_Catalog_Model_Resource_Category_Flat_Collection $collection
      * @param int $storeId
-     * @return Mage_Catalog_Helper_Category_Url_Rewrite|Mage_Catalog_Helper_Category_Url_Rewrite_Interface
+     * @return $this|Mage_Catalog_Helper_Category_Url_Rewrite_Interface
      */
     public function joinTableToCollection(Mage_Catalog_Model_Resource_Category_Flat_Collection $collection, $storeId)
     {
@@ -107,18 +106,21 @@ class Mage_Catalog_Helper_Category_Url_Rewrite
      *
      * @param Varien_Db_Select $select
      * @param int $storeId
-     * @return Mage_Catalog_Helper_Category_Url_Rewrite
+     * @return $this
      */
     public function joinTableToSelect(Varien_Db_Select $select, $storeId)
     {
         $select->joinLeft(
             array('url_rewrite' => $this->_resource->getTableName('core/url_rewrite')),
             'url_rewrite.category_id=main_table.entity_id AND url_rewrite.is_system=1 AND ' .
-                $this->_connection->quoteInto('url_rewrite.store_id = ? AND ',
-                    (int)$storeId) .
+                $this->_connection->quoteInto(
+                    'url_rewrite.store_id = ? AND ',
+                    (int)$storeId
+                ) .
                 'url_rewrite.category_id IS NOT NULL AND '.
                 $this->_connection->prepareSqlCondition('url_rewrite.id_path', array('like' => 'category/%')),
-            array('request_path' => 'url_rewrite.request_path'));
+            array('request_path' => 'url_rewrite.request_path')
+        );
         return $this;
     }
 }

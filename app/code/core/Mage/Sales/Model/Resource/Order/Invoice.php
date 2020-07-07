@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -74,7 +74,7 @@ class Mage_Sales_Model_Resource_Order_Invoice extends Mage_Sales_Model_Resource_
     /**
      * Init virtual grid records for entity
      *
-     * @return Mage_Sales_Model_Resource_Order_Invoice
+     * @return $this
      */
     protected function _initVirtualGridColumns()
     {
@@ -83,18 +83,20 @@ class Mage_Sales_Model_Resource_Order_Invoice extends Mage_Sales_Model_Resource_
         $checkedFirstname  = $adapter->getIfNullSql('{{table}}.firstname', $adapter->quote(''));
         $checkedMiddlename = $adapter->getIfNullSql('{{table}}.middlename', $adapter->quote(''));
         $checkedLastname   = $adapter->getIfNullSql('{{table}}.lastname', $adapter->quote(''));
+        $concatName = $adapter->getConcatSql(array(
+            $checkedFirstname,
+            $adapter->quote(' '),
+            $checkedMiddlename,
+            $adapter->quote(' '),
+            $checkedLastname
+        ));
+        $concatName = new Zend_Db_Expr("TRIM(REPLACE($concatName,'  ', ' '))");
 
         $this->addVirtualGridColumn(
             'billing_name',
             'sales/order_address',
             array('billing_address_id' => 'entity_id'),
-            $adapter->getConcatSql(array(
-                $checkedFirstname,
-                $adapter->quote(' '),
-                $checkedMiddlename,
-                $adapter->quote(' '),
-                $checkedLastname
-            ))
+            $concatName
         )
         ->addVirtualGridColumn(
             'order_increment_id',

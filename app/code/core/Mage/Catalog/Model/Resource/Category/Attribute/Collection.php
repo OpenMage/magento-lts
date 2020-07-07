@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,14 +32,13 @@
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Model_Resource_Category_Attribute_Collection
-    extends Mage_Eav_Model_Resource_Entity_Attribute_Collection
+class Mage_Catalog_Model_Resource_Category_Attribute_Collection extends Mage_Eav_Model_Resource_Entity_Attribute_Collection
 {
     /**
      * Main select object initialization.
      * Joins catalog/eav_attribute table
      *
-     * @return Mage_Catalog_Model_Resource_Category_Attribute_Collection
+     * @return $this
      */
     protected function _initSelect()
     {
@@ -56,7 +55,7 @@ class Mage_Catalog_Model_Resource_Category_Attribute_Collection
      * Specify attribute entity type filter
      *
      * @param int $typeId
-     * @return Mage_Catalog_Model_Resource_Category_Attribute_Collection
+     * @return $this
      */
     public function setEntityTypeFilter($typeId)
     {

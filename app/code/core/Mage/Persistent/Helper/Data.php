@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Persistent
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -170,7 +170,7 @@ class Mage_Persistent_Helper_Data extends Mage_Core_Helper_Data
     /**
      * Get create account url depends on checkout
      *
-     * @param  $url string
+     * @param string $url
      * @return string
      */
     public function getCreateAccountUrl($url)
@@ -180,5 +180,4 @@ class Mage_Persistent_Helper_Data extends Mage_Core_Helper_Data
         }
         return $url;
     }
-
 }

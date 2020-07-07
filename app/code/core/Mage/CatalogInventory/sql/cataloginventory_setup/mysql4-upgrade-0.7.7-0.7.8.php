@@ -20,17 +20,17 @@
  *
  * @category    Mage
  * @package     Mage_CatalogInventory
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 $installer = $this;
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 
 $tableCataloginventoryStockItem = $installer->getTable('cataloginventory/stock_item');
 
 $connection = $installer->getConnection();
-/* @var $connection Varien_Db_Adapter_Pdo_Mysql */
+/* @var Varien_Db_Adapter_Pdo_Mysql $connection */
 
 $connection->addColumn($tableCataloginventoryStockItem, 'use_config_enable_qty_increments', "tinyint(1) unsigned NOT NULL default '1'");
 $connection->addColumn($tableCataloginventoryStockItem, 'enable_qty_increments', "tinyint(1) unsigned NOT NULL default '0'");

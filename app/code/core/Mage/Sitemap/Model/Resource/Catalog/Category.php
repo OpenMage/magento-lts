@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sitemap
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -46,11 +46,11 @@ class Mage_Sitemap_Model_Resource_Catalog_Category extends Mage_Sitemap_Model_Re
      * Get category collection array
      *
      * @param int $storeId
-     * @return array
+     * @return array|false
      */
     public function getCollection($storeId)
     {
-        /* @var $store Mage_Core_Model_Store */
+        /* @var Mage_Core_Model_Store $store */
         $store = Mage::app()->getStore($storeId);
         if (!$store) {
             return false;
@@ -71,7 +71,7 @@ class Mage_Sitemap_Model_Resource_Catalog_Category extends Mage_Sitemap_Model_Re
 
         $storeId = (int)$store->getId();
 
-        /** @var $urlRewrite Mage_Catalog_Helper_Category_Url_Rewrite_Interface */
+        /** @var Mage_Catalog_Helper_Category_Url_Rewrite_Interface $urlRewrite */
         $urlRewrite = $this->_factory->getCategoryUrlRewriteHelper();
         $urlRewrite->joinTableToSelect($this->_select, $storeId);
 
@@ -109,7 +109,7 @@ class Mage_Sitemap_Model_Resource_Catalog_Category extends Mage_Sitemap_Model_Re
      * Loads category attribute by given attribute code.
      *
      * @param string $attributeCode
-     * @return Mage_Sitemap_Model_Resource_Catalog_Abstract
+     * @return $this
      */
     protected function _loadAttribute($attributeCode)
     {

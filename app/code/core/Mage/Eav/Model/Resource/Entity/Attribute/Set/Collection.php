@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -46,7 +46,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Set_Collection extends Mage_Core_
      * Add filter by entity type id to collection
      *
      * @param int $typeId
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Set_Collection
+     * @return $this
      */
     public function setEntityTypeFilter($typeId)
     {

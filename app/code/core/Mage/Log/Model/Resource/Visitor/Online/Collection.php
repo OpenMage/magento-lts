@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Log
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -53,7 +53,7 @@ class Mage_Log_Model_Resource_Visitor_Online_Collection extends Mage_Core_Model_
     /**
      * Add Customer data to collection
      *
-     * @return Mage_Log_Model_Resource_Visitor_Online_Collection
+     * @return $this
      */
     public function addCustomerData()
     {
@@ -68,7 +68,7 @@ class Mage_Log_Model_Resource_Visitor_Online_Collection extends Mage_Core_Model_
 
         foreach ($attributes as $alias => $attributeCode) {
             $attribute = $customer->getAttribute($attributeCode);
-            /* @var $attribute Mage_Eav_Model_Entity_Attribute_Abstract */
+            /* @var Mage_Eav_Model_Entity_Attribute_Abstract $attribute */
 
             if ($attribute->getBackendType() == 'static') {
                 $tableAlias = 'customer_' . $attribute->getAttributeCode();
@@ -80,8 +80,7 @@ class Mage_Log_Model_Resource_Visitor_Online_Collection extends Mage_Core_Model_
                 );
 
                 $this->_fields[$alias] = sprintf('%s.%s', $tableAlias, $attribute->getAttributeCode());
-            }
-            else {
+            } else {
                 $tableAlias = 'customer_' . $attribute->getAttributeCode();
 
                 $joinConds  = array(
@@ -107,7 +106,7 @@ class Mage_Log_Model_Resource_Visitor_Online_Collection extends Mage_Core_Model_
      * Filter collection by specified website(s)
      *
      * @param int|array $websiteIds
-     * @return Mage_Log_Model_Resource_Visitor_Online_Collection
+     * @return $this
      */
     public function addWebsiteFilter($websiteIds)
     {
@@ -126,11 +125,11 @@ class Mage_Log_Model_Resource_Visitor_Online_Collection extends Mage_Core_Model_
      *     array('attribute'=>'lastname', 'like'=>'test%'),
      * )
      *
-     * @see self::_getConditionSql for $condition
-     *
      * @param string $field
      * @param null|string|array $condition
-     * @return Mage_Eav_Model_Entity_Collection_Abstract
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract
+     * @see self::_getConditionSql for $condition
+     *
      */
     public function addFieldToFilter($field, $condition = null)
     {

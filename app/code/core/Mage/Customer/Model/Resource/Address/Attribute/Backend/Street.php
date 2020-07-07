@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,14 +32,13 @@
  * @package     Mage_Customer
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Customer_Model_Resource_Address_Attribute_Backend_Street
-    extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+class Mage_Customer_Model_Resource_Address_Attribute_Backend_Street extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
     /**
      * Prepare object for save
      *
-     * @param Varien_Object $object
-     * @return Mage_Customer_Model_Resource_Address_Attribute_Backend_Street
+     * @param Varien_Object|Mage_Customer_Model_Address_Abstract $object
+     * @return $this
      */
     public function beforeSave($object)
     {

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogSearch
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,12 +33,11 @@ class Mage_CatalogSearch_Model_Layer_Filter_Attribute extends Mage_Catalog_Model
     /**
      * Check whether specified attribute can be used in LN
      *
-     * @param Mage_Catalog_Model_Resource_Eav_Attribute  $attribute
+     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @return bool
      */
     protected function _getIsFilterableAttribute($attribute)
     {
         return $attribute->getIsFilterableInSearch();
     }
-
 }

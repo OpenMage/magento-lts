@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Captcha
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -71,7 +71,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      * Captcha form id
      * @var string
      */
-    protected  $_formId;
+    protected $_formId;
 
     /**
      * Zend captcha constructor
@@ -116,7 +116,11 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      */
     public function isRequired($login = null)
     {
-        if ($this->_isUserAuth() || !$this->_isEnabled() || !in_array($this->_formId, $this->_getTargetForms())) {
+        $nonAuthForms = array('wishlist_sharing', 'sendfriend_send');
+
+        if ((!in_array($this->_formId, $nonAuthForms) && $this->_isUserAuth())
+            || !$this->_isEnabled() || !in_array($this->_formId, $this->_getTargetForms())
+        ) {
             return false;
         }
 
@@ -197,7 +201,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     /**
      * Whether to respect case while checking the answer
      *
-     * @return bool
+     * @return string
      */
     public function isCaseSensitive()
     {
@@ -262,7 +266,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
         $storedWord = $this->getWord();
         $this->_clearWord();
 
-        if (!$word || !$storedWord){
+        if (!$word || !$storedWord) {
             return false;
         }
 
@@ -297,7 +301,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      * log Attempt
      *
      * @param string $login
-     * @return Mage_Captcha_Model_Zend
+     * @return $this
      */
     public function logAttempt($login)
     {
@@ -426,7 +430,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     /**
      * Whether captcha is enabled at this area
      *
-     * @return bool
+     * @return string
      */
     protected function _isEnabled()
     {
@@ -465,7 +469,8 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      */
     protected function _setWord($word)
     {
-        $this->getSession()->setData($this->_getFormIdKey(self::SESSION_WORD),
+        $this->getSession()->setData(
+            $this->_getFormIdKey(self::SESSION_WORD),
             array('data' => $word, 'expires' => time() + $this->getTimeout())
         );
         $this->_word = $word;
@@ -475,7 +480,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     /**
      * Set captcha word
      *
-     * @return Mage_Captcha_Model_Zend
+     * @return $this
      */
     protected function _clearWord()
     {

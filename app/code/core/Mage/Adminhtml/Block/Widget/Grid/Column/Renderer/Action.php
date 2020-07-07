@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -48,7 +48,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action
             return '&nbsp;';
         }
 
-        if(sizeof($actions)==1 && !$this->getColumn()->getNoLink()) {
+        if(count($actions) === 1 && !$this->getColumn()->getNoLink()) {
             foreach ($actions as $action) {
                 if ( is_array($action) ) {
                     return $this->_toLinkHtml($action, $row);
@@ -119,7 +119,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action
      * @param array $action
      * @param string $actionCaption
      * @param Varien_Object $row
-     * @return Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action
+     * @return $this
      */
     protected function _transformActionData(&$action, &$actionCaption, Varien_Object $row)
     {

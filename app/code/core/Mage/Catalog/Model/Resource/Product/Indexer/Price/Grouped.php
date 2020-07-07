@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,13 +32,12 @@
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Model_Resource_Product_Indexer_Price_Grouped
-    extends Mage_Catalog_Model_Resource_Product_Indexer_Price_Default
+class Mage_Catalog_Model_Resource_Product_Indexer_Price_Grouped extends Mage_Catalog_Model_Resource_Product_Indexer_Price_Default
 {
     /**
      * Reindex temporary (price result data) for all products
      *
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Price_Grouped
+     * @return $this
      */
     public function reindexAll()
     {
@@ -58,7 +57,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Grouped
      * Reindex temporary (price result data) for defined product(s)
      *
      * @param int|array $entityIds
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Price_Grouped
+     * @return $this
      */
     public function reindexEntity($entityIds)
     {
@@ -72,7 +71,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Grouped
      * Use calculated price for relation products
      *
      * @param int|array $entityIds  the parent entity ids limitation
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Price_Grouped
+     * @return $this
      */
     protected function _prepareGroupedProductPriceData($entityIds = null)
     {
@@ -84,11 +83,13 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Grouped
             ->join(
                 array('l' => $this->getTable('catalog/product_link')),
                 'e.entity_id = l.product_id AND l.link_type_id=' . Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED,
-                array())
+                array()
+            )
             ->join(
                 array('cg' => $this->getTable('customer/customer_group')),
                 '',
-                array('customer_group_id'));
+                array('customer_group_id')
+            );
         $this->_addWebsiteJoinToSelect($select, true);
         $this->_addProductWebsiteJoinToSelect($select, 'cw.website_id', 'e.entity_id');
         $minCheckSql = $write->getCheckSql('le.required_options = 0', 'i.min_price', 0);
@@ -97,7 +98,8 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Grouped
             ->join(
                 array('le' => $this->getTable('catalog/product')),
                 'le.entity_id = l.linked_product_id',
-                array())
+                array()
+            )
             ->join(
                 array('i' => $table),
                 'i.entity_id = l.linked_product_id AND i.website_id = cw.website_id'
@@ -111,7 +113,8 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Grouped
                     'max_price'    => new Zend_Db_Expr('MAX(' . $maxCheckSql . ')'),
                     'tier_price'   => new Zend_Db_Expr('NULL'),
                     'group_price'  => new Zend_Db_Expr('NULL'),
-                ))
+                )
+            )
             ->group(array('e.entity_id', 'cg.customer_group_id', 'cw.website_id'))
             ->where('e.type_id=?', $this->getTypeId());
 

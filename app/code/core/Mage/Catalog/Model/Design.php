@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -53,7 +53,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      *
      * @param array|Mage_Catalog_Model_Category|Mage_Catalog_Model_Product $object
      * @param int $calledFrom
-     * @return Mage_Catalog_Model_Design
+     * @return $this
      */
     public function applyDesign($object, $calledFrom = 0)
     {
@@ -88,6 +88,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      * Apply custom design
      *
      * @param string $design
+     * @return bool
      */
     public function applyCustomDesign($design)
     {
@@ -131,8 +132,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
                     $hasError = true;
                     break;
             }
-        }
-        else {
+        } else {
             switch ($applyForObject) {
                 case self::APPLY_FOR_CATEGORY:
                     $validApplyTo = array(
@@ -163,10 +163,11 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
     /**
      * Check and apply design
      *
-     * @deprecated after 1.4.2.0-beta1
-     *
      * @param string $design
      * @param array $date
+     * @return bool
+     * @deprecated after 1.4.2.0-beta1
+     *
      */
     protected function _isApplyDesign($design, array $date)
     {
@@ -200,7 +201,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      * @param Varien_Object $object
      * @param int $calledFrom
      *
-     * @return Mage_Catalog_Model_Design
+     * @return $this
      */
     protected function _inheritDesign($object, $calledFrom = 0)
     {
@@ -211,8 +212,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
             if ($category && $category->getId()) {
                 return $this->_inheritDesign($category, $calledFrom);
             }
-        }
-        elseif ($object instanceof Mage_Catalog_Model_Category) {
+        } elseif ($object instanceof Mage_Catalog_Model_Category) {
             $category = $object->getParentCategory();
 
             $useParentSettings = $object->getCustomUseParentSettings();
@@ -247,11 +247,11 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      *
      * @deprecated after 1.4.1.0
      *
-     * @param Varien_Object $object
+     * @param Mage_Catalog_Model_Category|Mage_Catalog_Model_Product $object
      * @param int $calledFrom
      * @param int $pass
      *
-     * @return Mage_Catalog_Model_Design
+     * @return $this
      */
     protected function _applyDesignRecursively($object, $calledFrom = 0, $pass = 0)
     {
@@ -271,8 +271,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
         if ($object instanceof Mage_Catalog_Model_Product) {
             $category = $object->getCategory();
             $pass --;
-        }
-        elseif ($object instanceof Mage_Catalog_Model_Category) {
+        } elseif ($object instanceof Mage_Catalog_Model_Category) {
             $category = $object->getParentCategory();
         }
 
@@ -284,6 +283,11 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
     }
 
     /**
+     * @param mixed $designUpdateData
+     * @param int $calledFrom
+     * @param bool $loaded
+     * @param int $pass
+     * @return Mage_Catalog_Model_Design
      * @deprecated after 1.4.2.0-beta1
      */
     protected function _applyDesign($designUpdateData, $calledFrom = 0, $loaded = false, $pass = 0)
@@ -313,7 +317,8 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
             if ($designUpdateData instanceof Mage_Catalog_Model_Product) {
                 $_category = $designUpdateData->getCategory();
                 $_designUpdateData = array_merge(
-                    $_designUpdateData, array($_category)
+                    $_designUpdateData,
+                    array($_category)
                 );
                 $pass --;
             } elseif ($designUpdateData instanceof Mage_Catalog_Model_Category) {
@@ -375,9 +380,19 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
         $date = $object->getCustomDesignDate();
         if (array_key_exists('from', $date) && array_key_exists('to', $date)
             && Mage::app()->getLocale()->isStoreDateInInterval(null, $date['from'], $date['to'])) {
-                $settings->setCustomDesign($object->getCustomDesign())
-                    ->setPageLayout($object->getPageLayout())
-                    ->setLayoutUpdates((array)$object->getCustomLayoutUpdate());
+            $customLayout = $object->getCustomLayoutUpdate();
+            if ($customLayout) {
+                try {
+                    if (!Mage::getModel('core/layout_validator')->isValid($customLayout)) {
+                        $customLayout = '';
+                    }
+                } catch (Exception $e) {
+                    $customLayout = '';
+                }
+            }
+            $settings->setCustomDesign($object->getCustomDesign())
+                ->setPageLayout($object->getPageLayout())
+                ->setLayoutUpdates((array)$customLayout);
         }
         return $settings;
     }

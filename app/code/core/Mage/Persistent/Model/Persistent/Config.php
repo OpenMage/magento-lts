@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Persistent
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -51,7 +51,7 @@ class Mage_Persistent_Model_Persistent_Config
      * Set path to config file that should be loaded
      *
      * @param string $path
-     * @return Mage_Persistent_Model_Persistent_Config
+     * @return $this
      */
     public function setConfigFilePath($path)
     {
@@ -72,8 +72,10 @@ class Mage_Persistent_Model_Persistent_Config
             $filePath = $this->_configFilePath;
             if (!is_file($filePath) || !is_readable($filePath)) {
                 $io = new Varien_Io_File();
-                Mage::throwException(Mage::helper('persistent')->__('Cannot load configuration from file %s.',
-                    $io->getFilteredPath($filePath)));
+                Mage::throwException(Mage::helper('persistent')->__(
+                    'Cannot load configuration from file %s.',
+                    $io->getFilteredPath($filePath)
+                ));
             }
             $xml = file_get_contents($filePath);
             $this->_xmlConfig = new Varien_Simplexml_Element($xml);
@@ -95,7 +97,7 @@ class Mage_Persistent_Model_Persistent_Config
     /**
      * Run all methods declared in persistent configuration
      *
-     * @return Mage_Persistent_Model_Persistent_Config
+     * @return $this
      */
     public function fire()
     {
@@ -118,8 +120,8 @@ class Mage_Persistent_Model_Persistent_Config
      * Run one method by given method info
      *
      * @param array $info
-     * @param bool $instance
-     * @return Mage_Persistent_Model_Persistent_Config
+     * @param Mage_Core_Block_Abstract|false $instance
+     * @return $this
      */
     public function fireOne($info, $instance = false)
     {

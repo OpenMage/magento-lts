@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_SalesRule
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -49,14 +49,14 @@ class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_A
     /**
      * Perform actions before object save
      *
-     * @param Mage_Core_Model_Abstract $object
+     * @param Mage_Core_Model_Abstract|Mage_SalesRule_Model_Coupon $object
      * @return Mage_Core_Model_Resource_Db_Abstract
      */
     public function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         if (!$object->getExpirationDate()) {
             $object->setExpirationDate(null);
-        } else if ($object->getExpirationDate() instanceof Zend_Date) {
+        } elseif ($object->getExpirationDate() instanceof Zend_Date) {
             $object->setExpirationDate($object->getExpirationDate()->toString(Varien_Date::DATETIME_INTERNAL_FORMAT));
         }
 
@@ -72,7 +72,7 @@ class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_A
      *
      * @param Mage_SalesRule_Model_Coupon $object
      * @param Mage_SalesRule_Model_Rule|int $rule
-     * @return unknown
+     * @return bool
      */
     public function loadPrimaryByRule(Mage_SalesRule_Model_Coupon $object, $rule)
     {
@@ -123,7 +123,7 @@ class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_A
      * Update auto generated Specific Coupon if it's rule changed
      *
      * @param Mage_SalesRule_Model_Rule $rule
-     * @return Mage_SalesRule_Model_Resource_Coupon
+     * @return $this
      */
     public function updateSpecificCoupons(Mage_SalesRule_Model_Rule $rule)
     {

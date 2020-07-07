@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -55,7 +55,7 @@ class Mage_Paypal_Model_Resource_Report_Settlement extends Mage_Core_Model_Resou
      * Save report rows collected in settlement model
      *
      * @param Mage_Paypal_Model_Report_Settlement $object
-     * @return Mage_Paypal_Model_Resource_Report_Settlement
+     * @return $this
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -106,7 +106,7 @@ class Mage_Paypal_Model_Resource_Report_Settlement extends Mage_Core_Model_Resou
      * @param Mage_Paypal_Model_Report_Settlement $report
      * @param string $accountId
      * @param string $reportDate
-     * @return Mage_Paypal_Model_Resource_Report_Settlement
+     * @return $this
      */
     public function loadByAccountAndDate(Mage_Paypal_Model_Report_Settlement $report, $accountId, $reportDate)
     {

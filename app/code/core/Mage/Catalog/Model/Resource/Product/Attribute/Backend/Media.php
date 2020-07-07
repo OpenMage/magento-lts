@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -88,7 +88,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
      * Remove duplicates
      *
      * @param array $result
-     * @return Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media
+     * @return $this
      */
     protected function _removeDuplicates(&$result)
     {
@@ -111,7 +111,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
      * Insert gallery value to db and retrive last id
      *
      * @param array $data
-     * @return interger
+     * @return int
      */
     public function insertGallery($data)
     {
@@ -126,7 +126,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
      * Delete gallery value in db
      *
      * @param array|integer $valueId
-     * @return Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media
+     * @return $this
      */
     public function deleteGallery($valueId)
     {
@@ -146,7 +146,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
      * Insert gallery value for store to db
      *
      * @param array $data
-     * @return Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media
+     * @return $this
      */
     public function insertGalleryValueInStore($data)
     {
@@ -161,7 +161,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
      *
      * @param integer $valueId
      * @param integer $storeId
-     * @return Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media
+     * @return $this
      */
     public function deleteGalleryValueInStore($valueId, $storeId)
     {
@@ -184,7 +184,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
      * @param array $newFiles
      * @param int $originalProductId
      * @param int $newProductId
-     * @return Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media
+     * @return $this
      */
     public function duplicate($object, $newFiles, $originalProductId, $newProductId)
     {
@@ -227,11 +227,12 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
      * for given product IDs.
      *
      * @param array $productIds
-     * @param $storeId
+     * @param int $storeId
      * @param int $attributeId
      * @return Varien_Db_Select
      */
-    protected function _getLoadGallerySelect(array $productIds, $storeId, $attributeId) {
+    protected function _getLoadGallerySelect(array $productIds, $storeId, $attributeId)
+    {
         $adapter = $this->_getReadAdapter();
 
         $positionCheckSql = $adapter->getCheckSql('value.position IS NULL', 'default_value.position', 'value.position');
@@ -268,8 +269,9 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
      *
      * @return int
      */
-    protected function _getAttributeId() {
-        if(is_null($this->_attributeId)) {
+    protected function _getAttributeId()
+    {
+        if (is_null($this->_attributeId)) {
             $attribute = Mage::getModel('eav/entity_attribute')
                 ->loadByCode(Mage_Catalog_Model_Product::ENTITY, 'media_gallery');
 
@@ -282,10 +284,11 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
      * Get media gallery set for given product IDs
      *
      * @param array $productIds
-     * @param $storeId
+     * @param int $storeId
      * @return array
      */
-    public function loadGallerySet(array $productIds, $storeId) {
+    public function loadGallerySet(array $productIds, $storeId)
+    {
         $select = $this->_getLoadGallerySelect($productIds, $storeId, $this->_getAttributeId());
 
         $adapter = $this->_getReadAdapter();

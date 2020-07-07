@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_ImportExport
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,8 +31,7 @@
  * @package     Mage_ImportExport
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable
-    extends Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
+class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
 {
     /**
      * Error codes.
@@ -131,7 +130,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable
     /**
      * Add attribute parameters to appropriate attribute set.
      *
-     * @param string $attrParams Name of attribute set.
+     * @param string $attrSetName
      * @param array $attrParams Refined attribute parameters.
      * @return Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
      */
@@ -218,7 +217,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable
     /**
      * Array of SKU to array of super attribute values for all products.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable
+     * @return $this
      */
     protected function _loadSkuSuperAttributeValues()
     {
@@ -267,7 +266,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable
     /**
      * Array of SKU to array of super attribute values for all products.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable
+     * @return $this
      */
     protected function _loadSkuSuperData()
     {
@@ -301,7 +300,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable
      *
      * @param array $superData
      * @param array $superAttributes
-     * @return Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable
+     * @return $this
      */
     protected function _processSuperData(array $superData, array &$superAttributes)
     {

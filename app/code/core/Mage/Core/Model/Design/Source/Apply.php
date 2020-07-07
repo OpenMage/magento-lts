@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,6 +29,9 @@
  */
 class Mage_Core_Model_Design_Source_Apply extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
 {
+    /**
+     * @return array
+     */
     public function getAllOptions()
     {
         if (!$this->_options) {
@@ -39,7 +42,7 @@ class Mage_Core_Model_Design_Source_Apply extends Mage_Eav_Model_Entity_Attribut
                 2 => Mage::helper('core')->__('This category only')
             );
 
-            foreach ($optionArray as $k=>$label) {
+            foreach ($optionArray as $k => $label) {
                 $this->_options[] = array('value'=>$k, 'label'=>$label);
             }
         }

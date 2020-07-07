@@ -20,10 +20,9 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Quote addresses shiping rates collection
@@ -54,7 +53,7 @@ class Mage_Sales_Model_Resource_Quote_Address_Rate_Collection extends Mage_Core_
      * Set filter by address id
      *
      * @param int $addressId
-     * @return Mage_Sales_Model_Resource_Quote_Address_Rate_Collection
+     * @return $this
      */
     public function setAddressFilter($addressId)
     {
@@ -71,7 +70,7 @@ class Mage_Sales_Model_Resource_Quote_Address_Rate_Collection extends Mage_Core_
      * Setter for loading fixed items only
      *
      * @param bool $value
-     * @return Mage_Sales_Model_Resource_Quote_Address_Rate_Collection
+     * @return $this
      */
     public function setFixedOnlyFilter($value)
     {
@@ -82,8 +81,8 @@ class Mage_Sales_Model_Resource_Quote_Address_Rate_Collection extends Mage_Core_
     /**
      * Don't add item to the collection if only fixed are allowed and its carrier is not fixed
      *
-     * @param Mage_Sales_Model_Quote_Address_Rate $rate
-     * @return Mage_Sales_Model_Resource_Quote_Address_Rate_Collection
+     * @inheritDoc
+     * @throws Exception
      */
     public function addItem(Varien_Object $rate)
     {

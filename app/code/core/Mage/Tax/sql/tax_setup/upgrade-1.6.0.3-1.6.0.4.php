@@ -20,11 +20,11 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var $this Mage_Tax_Model_Resource_Setup */
+/* @var Mage_Tax_Model_Resource_Setup $this */
 
 /**
  * Add new field to 'tax/tax_calculation_rule'
@@ -38,4 +38,4 @@ $this->getConnection()
             'NULLABLE' => false,
             'COMMENT' => 'Calculate off subtotal option',
         )
-);
+    );

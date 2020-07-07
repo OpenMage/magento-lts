@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -151,7 +151,7 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
      * Authorize payment
      *
      * @param Mage_Sales_Model_Order_Payment $payment
-     * @return Mage_Paypal_Model_Payflowpro
+     * @return $this
      */
     public function authorize(Varien_Object $payment, $amount)
     {
@@ -192,7 +192,7 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
      * Capture payment
      *
      * @param Mage_Sales_Model_Order_Payment $payment
-     * @return Mage_Paypal_Model_Payflowpro
+     * @return $this
      */
     public function capture(Varien_Object $payment, $amount)
     {
@@ -234,7 +234,7 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
      * Void payment
      *
      * @param Mage_Sales_Model_Order_Payment $payment
-     * @return Mage_Paypal_Model_Payflowpro
+     * @return $this
      */
     public function void(Varien_Object $payment)
     {
@@ -277,7 +277,7 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
      * Attempt to void the authorization on cancelling
      *
      * @param Varien_Object $payment
-     * @return Mage_Paypal_Model_Payflowpro
+     * @return $this
      */
     public function cancel(Varien_Object $payment)
     {
@@ -292,7 +292,7 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
      * Refund capture
      *
      * @param Mage_Sales_Model_Order_Payment $payment
-     * @return Mage_Paypal_Model_Payflowpro
+     * @return $this
      */
     public function refund(Varien_Object $payment, $amount)
     {
@@ -327,7 +327,7 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
 
         $this->_processErrors($response);
 
-        if (!$this->_isTransactionUnderReview($response->getOrigresult())) {
+        if (!self::_isTransactionUnderReview($response->getOrigresult())) {
             $payment->setTransactionId($response->getOrigpnref())
                 ->setIsTransactionClosed(0);
             if ($response->getOrigresult() == self::RESPONSE_CODE_APPROVED) {
@@ -570,7 +570,7 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
      *
      * @param Varien_Object $payment
      * @param Varien_Object $request
-     * @return Mage_Paypal_Model_Payflowpro
+     * @return $this
      */
     protected function _setReferenceTransaction(Varien_Object $payment, $request)
     {

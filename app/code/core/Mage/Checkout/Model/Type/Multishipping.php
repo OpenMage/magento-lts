@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,6 +30,11 @@
  * @category    Mage
  * @package     Mage_Checkout
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method bool getCollectRatesFlag()
+ * @method $this setCollectRatesFlag(bool $value)
+ * @method setCustomerAddressId(int $getCustomerAddressId)
+ * @method setProductOptions(array $getOrderOptions)
  */
 class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Abstract
 {
@@ -53,7 +58,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
      * Initialize multishipping checkout.
      * Split virtual/not virtual items between default billing/shipping addresses
      *
-     * @return Mage_Checkout_Model_Type_Multishipping
+     * @return $this
      */
     protected function _init()
     {
@@ -156,12 +161,12 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
      *
      * @param int $addressId
      * @param int $itemId
-     * @return Mage_Checkout_Model_Type_Multishipping
+     * @return $this
      */
     public function removeAddressItem($addressId, $itemId)
     {
         $address = $this->getQuote()->getAddressById($addressId);
-        /* @var $address Mage_Sales_Model_Quote_Address */
+        /* @var Mage_Sales_Model_Quote_Address $address */
         if ($address) {
             $item = $address->getValidItemById($itemId);
             if ($item) {
@@ -206,7 +211,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
      * )
      *
      * @param array $info
-     * @return Mage_Checkout_Model_Type_Multishipping
+     * @return $this
      */
     public function setShippingItemsInformation($info)
     {
@@ -270,8 +275,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
                         $_item->setQty(0);
                         $quote->removeItem($_item->getId());
                     }
-                 }
-
+                }
             }
 
             $this->save();
@@ -285,7 +289,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
      *
      * @param int $quoteItemId
      * @param array $data array('qty'=>$qty, 'address'=>$customerAddressId)
-     * @return Mage_Checkout_Model_Type_Multishipping
+     * @return $this
      */
     protected function _addShippingItem($quoteItemId, $data)
     {
@@ -332,7 +336,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
      * Reimport customer address info to quote shipping address
      *
      * @param int $addressId customer address id
-     * @return Mage_Checkout_Model_Type_Multishipping
+     * @return $this
      */
     public function updateQuoteCustomerShippingAddress($addressId)
     {
@@ -350,7 +354,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
      * Reimport customer billing address to quote
      *
      * @param int $addressId customer address id
-     * @return Mage_Checkout_Model_Type_Multishipping
+     * @return $this
      */
     public function setQuoteCustomerBillingAddress($addressId)
     {
@@ -367,7 +371,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
      * Assign shipping methods to addresses
      *
      * @param  array $methods
-     * @return Mage_Checkout_Model_Type_Multishipping
+     * @return $this
      */
     public function setShippingMethods($methods)
     {
@@ -387,7 +391,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
      * Set payment method info to quote payment
      *
      * @param array $payment
-     * @return Mage_Checkout_Model_Type_Multishipping
+     * @return $this
      */
     public function setPaymentMethod($payment)
     {
@@ -459,7 +463,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
     /**
      * Validate quote data
      *
-     * @return Mage_Checkout_Model_Type_Multishipping
+     * @return $this
      */
     protected function _validate()
     {
@@ -468,7 +472,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
             Mage::throwException(Mage::helper('checkout')->__('Invalid checkout type.'));
         }
 
-        /** @var $paymentMethod Mage_Payment_Model_Method_Abstract */
+        /** @var Mage_Payment_Model_Method_Abstract $paymentMethod */
         $paymentMethod = $quote->getPayment()->getMethodInstance();
         if (!empty($paymentMethod) && !$paymentMethod->isAvailable($quote)) {
             Mage::throwException(Mage::helper('checkout')->__('Please specify payment method.'));
@@ -496,7 +500,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
     /**
      * Create orders per each quote address
      *
-     * @return Mage_Checkout_Model_Type_Multishipping
+     * @return $this
      */
     public function createOrders()
     {
@@ -523,7 +527,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
             foreach ($orders as $order) {
                 $order->place();
                 $order->save();
-                if ($order->getCanSendNewEmailFlag()){
+                if ($order->getCanSendNewEmailFlag()) {
                     $order->queueNewOrderEmail();
                 }
                 $orderIds[$order->getId()] = $order->getIncrementId();
@@ -548,7 +552,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
     /**
      * Collect quote totals and save quote object
      *
-     * @return Mage_Checkout_Model_Type_Multishipping
+     * @return $this
      */
     public function save()
     {
@@ -560,7 +564,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
     /**
      * Specify BEGIN state in checkout session whot allow reinit multishipping checkout
      *
-     * @return Mage_Checkout_Model_Type_Multishipping
+     * @return $this
      */
     public function reset()
     {
@@ -594,6 +598,9 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
         return $descr;
     }
 
+    /**
+     * @return mixed
+     */
     public function getMinimumAmountError()
     {
         $error = Mage::getStoreConfig('sales/minimum_order/multi_address_error_message');

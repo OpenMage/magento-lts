@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Index
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -46,8 +46,8 @@ class Mage_Index_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Check if semilar event exist before start saving data
      *
-     * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Index_Model_Resource_Event
+     * @param Mage_Index_Model_Event $object
+     * @inheritDoc
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
@@ -74,8 +74,8 @@ class Mage_Index_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Save assigned processes
      *
-     * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Index_Model_Resource_Event
+     * @param Mage_Index_Model_Event $object
+     * @inheritDoc
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -110,7 +110,7 @@ class Mage_Index_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @param int|array|Mage_Index_Model_Process $process
      * @param string $status
-     * @return Mage_Index_Model_Resource_Event
+     * @return $this
      */
     public function updateProcessEvents($process, $status = Mage_Index_Model_Process::EVENT_STATUS_DONE)
     {

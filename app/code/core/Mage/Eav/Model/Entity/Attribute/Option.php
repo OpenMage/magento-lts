@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,10 +29,12 @@
  *
  * @method Mage_Eav_Model_Resource_Entity_Attribute_Option _getResource()
  * @method Mage_Eav_Model_Resource_Entity_Attribute_Option getResource()
+ * @method Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection getCollection()
+ *
  * @method int getAttributeId()
- * @method Mage_Eav_Model_Entity_Attribute_Option setAttributeId(int $value)
+ * @method $this setAttributeId(int $value)
  * @method int getSortOrder()
- * @method Mage_Eav_Model_Entity_Attribute_Option setSortOrder(int $value)
+ * @method $this setSortOrder(int $value)
  *
  * @category    Mage
  * @package     Mage_Eav

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Authorizenet
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,7 +37,7 @@ class Mage_Authorizenet_Model_Directpost_Observer
      * Save order into registry to use it in the overloaded controller.
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Authorizenet_Model_Directpost_Observer
+     * @return $this
      */
     public function saveOrderAfterSubmit(Varien_Event_Observer $observer)
     {
@@ -52,7 +52,7 @@ class Mage_Authorizenet_Model_Directpost_Observer
      * Set data for response of frontend saveOrder action
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Authorizenet_Model_Directpost_Observer
+     * @return $this
      */
     public function addAdditionalFieldsToResponseFrontend(Varien_Event_Observer $observer)
     {
@@ -95,7 +95,7 @@ class Mage_Authorizenet_Model_Directpost_Observer
      * Needed for correct work of edit orders in Admin area.
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Authorizenet_Model_Directpost_Observer
+     * @return $this
      */
     public function updateAllEditIncrements(Varien_Event_Observer $observer)
     {

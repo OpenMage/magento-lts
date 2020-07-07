@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,9 +37,10 @@ class Mage_Sales_Model_Convert_Order extends Varien_Object
      * Converting order object to quote object
      *
      * @param   Mage_Sales_Model_Order $order
+     * @param null|Mage_Sales_Model_Quote $quote
      * @return  Mage_Sales_Model_Quote
      */
-    public function toQuote(Mage_Sales_Model_Order $order, $quote=null)
+    public function toQuote(Mage_Sales_Model_Order $order, $quote = null)
     {
         if (!($quote instanceof Mage_Sales_Model_Quote)) {
             $quote = Mage::getModel('sales/quote');
@@ -89,10 +90,11 @@ class Mage_Sales_Model_Convert_Order extends Varien_Object
     /**
      * Convert order payment to quote payment
      *
-     * @param   Mage_Sales_Model_Order_Payment $payment
+     * @param Mage_Sales_Model_Order_Payment $payment
+     * @param null|Mage_Sales_Model_Quote_Payment  $quotePayment
      * @return  Mage_Sales_Model_Quote_Payment
      */
-    public function paymentToQuotePayment(Mage_Sales_Model_Order_Payment $payment, $quotePayment=null)
+    public function paymentToQuotePayment(Mage_Sales_Model_Order_Payment $payment, $quotePayment = null)
     {
         if (!($quotePayment instanceof Mage_Sales_Model_Quote_Payment)) {
             $quotePayment = Mage::getModel('sales/quote_payment');
@@ -109,7 +111,7 @@ class Mage_Sales_Model_Convert_Order extends Varien_Object
      * Retrieve
      *
      * @param Mage_Sales_Model_Order_Item $item
-     * @return unknown
+     * @return Mage_Sales_Model_Quote_Item
      */
     public function itemToQuoteItem(Mage_Sales_Model_Order_Item $item)
     {

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -132,8 +132,14 @@ class Mage_Core_Model_Cache
         $backend    = $this->_getBackendOptions($options);
         $frontend   = $this->_getFrontendOptions($options);
 
-        $this->_frontend = Zend_Cache::factory('Varien_Cache_Core', $backend['type'], $frontend, $backend['options'],
-            true, true, true
+        $this->_frontend = Zend_Cache::factory(
+            'Varien_Cache_Core',
+            $backend['type'],
+            $frontend,
+            $backend['options'],
+            true,
+            true,
+            true
         );
 
         if (isset($options['request_processors'])) {
@@ -385,7 +391,7 @@ class Mage_Core_Model_Cache
      * @param string $data
      * @param string $id
      * @param array $tags
-     * @param int $lifeTime
+     * @param null|false|int $lifeTime
      * @return bool
      */
     public function save($data, $id, $tags = array(), $lifeTime = null)
@@ -401,6 +407,17 @@ class Mage_Core_Model_Cache
             $tags[] = Mage_Core_Model_App::CACHE_TAG;
         }
         return $this->getFrontend()->save((string)$data, $this->_id($id), $this->_tags($tags), $lifeTime);
+    }
+
+    /**
+     * Test data
+     *
+     * @param string $id
+     * @return false|int
+     */
+    public function test($id)
+    {
+        return $this->getFrontend()->test($this->_id($id));
     }
 
     /**
@@ -420,7 +437,7 @@ class Mage_Core_Model_Cache
      * @param   array $tags
      * @return  bool
      */
-    public function clean($tags=array())
+    public function clean($tags = array())
     {
         $mode = Zend_Cache::CLEANING_MODE_MATCHING_ANY_TAG;
         if (!empty($tags)) {
@@ -459,7 +476,7 @@ class Mage_Core_Model_Cache
     /**
      * Get cache resource model
      *
-     * @return Mage_Core_Model_Mysql4_Cache
+     * @return Mage_Core_Model_Resource_Cache
      */
     protected function _getResource()
     {
@@ -469,7 +486,7 @@ class Mage_Core_Model_Cache
     /**
      * Initialize cache types options
      *
-     * @return Mage_Core_Model_Cache
+     * @return $this
      */
     protected function _initOptions()
     {
@@ -499,7 +516,7 @@ class Mage_Core_Model_Cache
      * Save cache usage options
      *
      * @param array $options
-     * @return Mage_Core_Model_Cache
+     * @return $this
      */
     public function saveOptions($options)
     {
@@ -512,7 +529,7 @@ class Mage_Core_Model_Cache
      * Check if cache can be used for specific data type
      *
      * @param string $typeCode
-     * @return bool
+     * @return bool|array
      */
     public function canUse($typeCode)
     {
@@ -535,7 +552,7 @@ class Mage_Core_Model_Cache
      * Disable cache usage for specific data type
      *
      * @param string $typeCode
-     * @return Mage_Core_Model_Cache
+     * @return $this
      */
     public function banUse($typeCode)
     {
@@ -572,7 +589,7 @@ class Mage_Core_Model_Cache
         $types = array();
         $config = Mage::getConfig()->getNode(self::XML_PATH_TYPES);
         if ($config) {
-            foreach ($config->children() as $type=>$node) {
+            foreach ($config->children() as $type => $node) {
                 $types[$type] = new Varien_Object(array(
                     'id'            => $type,
                     'cache_type'    => Mage::helper('core')->__((string)$node->label),
@@ -605,7 +622,7 @@ class Mage_Core_Model_Cache
      * Save invalidated cache types
      *
      * @param array $types
-     * @return Mage_Core_Model_Cache
+     * @return $this
      */
     protected function _saveInvalidatedTypes($types)
     {
@@ -637,7 +654,7 @@ class Mage_Core_Model_Cache
      * Mark specific cache type(s) as invalidated
      *
      * @param string|array $typeCode
-     * @return Mage_Core_Model_Cache
+     * @return $this
      */
     public function invalidateType($typeCode)
     {
@@ -656,7 +673,7 @@ class Mage_Core_Model_Cache
      * Clean cached data for specific cache type
      *
      * @param string $typeCode
-     * @return Mage_Core_Model_Cache
+     * @return $this
      */
     public function cleanType($typeCode)
     {
@@ -697,6 +714,8 @@ class Mage_Core_Model_Cache
 
     /**
      * Get request processor object
+     * @param string $processor
+     * @return object
      */
     protected function _getProcessor($processor)
     {

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -45,7 +45,7 @@ class Mage_Tax_Model_Resource_Calculation_Rate extends Mage_Core_Model_Resource_
     /**
      * Initialize unique fields
      *
-     * @return Mage_Tax_Model_Resource_Calculation_Rate
+     * @return $this
      */
     protected function _initUniqueFields()
     {
@@ -59,7 +59,7 @@ class Mage_Tax_Model_Resource_Calculation_Rate extends Mage_Core_Model_Resource_
     /**
      * Delete all rates
      *
-     * @return Mage_Tax_Model_Resource_Calculation_Rate
+     * @return $this
      */
     public function deleteAllRates()
     {

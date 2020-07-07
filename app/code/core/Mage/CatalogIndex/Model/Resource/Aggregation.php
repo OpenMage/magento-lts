@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogIndex
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -88,7 +88,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
      * @param string $key
      * @param array|string $tags
      * @param int $storeId
-     * @return Mage_CatalogIndex_Model_Resource_Aggregation
+     * @return $this
      */
     public function saveCacheData($data, $key, $tags, $storeId)
     {
@@ -137,7 +137,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
      *
      * @param   array $tags
      * @param   int|null|string $storeId
-     * @return Mage_CatalogIndex_Model_Resource_Aggregation
+     * @return $this
      */
     public function clearCacheData($tags, $storeId)
     {
@@ -166,7 +166,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
      *
      * @param int $aggregationId
      * @param array $tags
-     * @return Mage_CatalogIndex_Model_Resource_Aggregation
+     * @return $this
      */
     protected function _saveTagRelations($aggregationId, $tags)
     {
@@ -217,7 +217,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
      * Insert tags to tag table
      *
      * @param string | array $tags
-     * @return Mage_CatalogIndex_Model_Resource_Aggregation
+     * @return $this
      */
     protected function _addTags($tags)
     {
@@ -228,8 +228,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
             }
             $query = "INSERT INTO `{$this->_tagTable}` (tag_code) VALUES (".implode('),(', $tags).")";
             $this->_getWriteAdapter()->query($query);
-        }
-        else {
+        } else {
             $this->_getWriteAdapter()->insert($this->_tagTable, array(
                 'tag_code' => $tags
             ));

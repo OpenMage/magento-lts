@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sendfriend
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -76,7 +76,7 @@ class Mage_Sendfriend_Model_Resource_Sendfriend extends Mage_Core_Model_Resource
      * @param int $ip
      * @param int $startTime
      * @param int $websiteId
-     * @return Mage_Sendfriend_Model_Resource_Sendfriend
+     * @return $this
      */
     public function addSendItem($ip, $startTime, $websiteId)
     {
@@ -95,7 +95,7 @@ class Mage_Sendfriend_Model_Resource_Sendfriend extends Mage_Core_Model_Resource
      * Delete Old logs
      *
      * @param int $time
-     * @return Mage_Sendfriend_Model_Resource_Sendfriend
+     * @return $this
      */
     public function deleteLogsBefore($time)
     {

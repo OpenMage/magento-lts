@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tag
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -47,7 +47,7 @@ class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resourc
      * Process tag save
      *
      * @param Mage_Index_Model_Event $event
-     * @return Mage_Tag_Model_Resource_Indexer_Summary
+     * @return $this
      */
     public function tagSave(Mage_Index_Model_Event $event)
     {
@@ -62,7 +62,7 @@ class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resourc
      * Process tag relation save
      *
      * @param Mage_Index_Model_Event $event
-     * @return Mage_Tag_Model_Resource_Indexer_Summary
+     * @return $this
      */
     public function tagRelationSave(Mage_Index_Model_Event $event)
     {
@@ -78,7 +78,7 @@ class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resourc
      * Method is responsible for index support when product was saved.
      *
      * @param Mage_Index_Model_Event $event
-     * @return Mage_Tag_Model_Resource_Indexer_Summary
+     * @return $this
      */
     public function catalogProductSave(Mage_Index_Model_Event $event)
     {
@@ -99,7 +99,7 @@ class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resourc
      * Method is responsible for index support when product was deleted
      *
      * @param Mage_Index_Model_Event $event
-     * @return Mage_Tag_Model_Resource_Indexer_Summary
+     * @return $this
      */
     public function catalogProductDelete(Mage_Index_Model_Event $event)
     {
@@ -114,7 +114,7 @@ class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resourc
      * Process product massaction
      *
      * @param Mage_Index_Model_Event $event
-     * @return Mage_Tag_Model_Resource_Indexer_Summary
+     * @return $this
      */
     public function catalogProductMassAction(Mage_Index_Model_Event $event)
     {
@@ -128,7 +128,7 @@ class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resourc
     /**
      * Reindex all tags
      *
-     * @return Mage_Tag_Model_Resource_Indexer_Summary
+     * @return $this
      */
     public function reindexAll()
     {
@@ -139,7 +139,7 @@ class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resourc
      * Aggregate tags by specified ids
      *
      * @param null|int|array $tagIds
-     * @return Mage_Tag_Model_Resource_Indexer_Summary
+     * @return $this
      */
     public function aggregate($tagIds = null)
     {
@@ -149,7 +149,8 @@ class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resourc
         try {
             if (!empty($tagIds)) {
                 $writeAdapter->delete(
-                    $this->getTable('tag/summary'), array('tag_id IN(?)' => $tagIds)
+                    $this->getTable('tag/summary'),
+                    array('tag_id IN(?)' => $tagIds)
                 );
             } else {
                 $writeAdapter->delete($this->getTable('tag/summary'));
@@ -168,7 +169,7 @@ class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resourc
                                 'tp.base_popularity IS NOT NULL',
                                 'tp.base_popularity',
                                 '0'
-                                )
+                            )
                             . ')',
                         'uses'              => new Zend_Db_Expr(0), // deprecated since 1.4.0.1
                         'historical_uses'   => new Zend_Db_Expr(0), // deprecated since 1.4.0.1

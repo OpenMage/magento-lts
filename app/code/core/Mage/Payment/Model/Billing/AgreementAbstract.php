@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Payment
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,6 +28,10 @@
  * Billing Agreement abstaract class
  *
  * @author Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getMethodCode()
+ * @method string getReferenceId()
+ * @method int getStoreId()
  */
 abstract class Mage_Payment_Model_Billing_AgreementAbstract extends Mage_Core_Model_Abstract
 {

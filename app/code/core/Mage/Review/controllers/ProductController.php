@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Review
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,6 +41,9 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
      */
     protected $_cookieCheckActions = array('post');
 
+    /**
+     * @return $this|Mage_Core_Controller_Front_Action|void
+     */
     public function preDispatch()
     {
         parent::preDispatch();
@@ -66,7 +69,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
     /**
      * Initialize and check product
      *
-     * @return Mage_Catalog_Model_Product
+     * @return Mage_Catalog_Model_Product|false
      */
     protected function _initProduct()
     {
@@ -114,7 +117,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
         $product = Mage::getModel('catalog/product')
             ->setStoreId(Mage::app()->getStore()->getId())
             ->load($productId);
-        /* @var $product Mage_Catalog_Model_Product */
+        /* @var Mage_Catalog_Model_Product $product */
         if (!$product->getId() || !$product->isVisibleInCatalog() || !$product->isVisibleInSiteVisibility()) {
             return false;
         }
@@ -129,7 +132,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
      * Load review model with data by passed id.
      * Return false if review was not loaded or review is not approved.
      *
-     * @param int $productId
+     * @param int $reviewId
      * @return bool|Mage_Review_Model_Review
      */
     protected function _loadReview($reviewId)
@@ -139,7 +142,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
         }
 
         $review = Mage::getModel('review/review')->load($reviewId);
-        /* @var $review Mage_Review_Model_Review */
+        /* @var Mage_Review_Model_Review $review */
         if (!$review->getId() || !$review->isApproved() || !$review->isAvailableOnStore(Mage::app()->getStore())) {
             return false;
         }
@@ -173,9 +176,9 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
         if (($product = $this->_initProduct()) && !empty($data)) {
             $session = Mage::getSingleton('core/session');
-            /* @var $session Mage_Core_Model_Session */
+            /* @var Mage_Core_Model_Session $session */
             $review = Mage::getModel('review/review')->setData($this->_cropReviewData($data));
-            /* @var $review Mage_Review_Model_Review */
+            /* @var Mage_Review_Model_Review $review */
 
             $validate = $review->validate();
             if ($validate === true) {
@@ -198,20 +201,17 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
                     $review->aggregate();
                     $session->addSuccess($this->__('Your review has been accepted for moderation.'));
-                }
-                catch (Exception $e) {
+                } catch (Exception $e) {
                     $session->setFormData($data);
                     $session->addError($this->__('Unable to post the review.'));
                 }
-            }
-            else {
+            } else {
                 $session->setFormData($data);
                 if (is_array($validate)) {
                     foreach ($validate as $errorMessage) {
                         $session->addError($errorMessage);
                     }
-                }
-                else {
+                } else {
                     $session->addError($this->__('Unable to post the review.'));
                 }
             }
@@ -282,7 +282,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
     /**
      * Load specific layout handles by product type id
-     *
+     * @param Mage_Catalog_Model_Product $product
      */
     protected function _initProductLayout($product)
     {
@@ -304,7 +304,17 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
             $this->getLayout()->helper('page/layout')
                 ->applyTemplate($product->getPageLayout());
         }
-        $update->addUpdate($product->getCustomLayoutUpdate());
+        $customLayout = $product->getCustomLayoutUpdate();
+        if ($customLayout) {
+            try {
+                if (!Mage::getModel('core/layout_validator')->isValid($customLayout)) {
+                    $customLayout = '';
+                }
+            } catch (Exception $e) {
+                $customLayout = '';
+            }
+        }
+        $update->addUpdate($customLayout);
         $this->generateLayoutXml()->generateLayoutBlocks();
     }
 

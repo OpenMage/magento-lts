@@ -20,10 +20,9 @@
  *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Report event collection
@@ -31,6 +30,9 @@
  * @category    Mage
  * @package     Mage_Reports
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Reports_Model_Resource_Event _getResource()
+ * @method Mage_Reports_Model_Resource_Event getResource()
  */
 class Mage_Reports_Model_Resource_Event_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -62,7 +64,7 @@ class Mage_Reports_Model_Resource_Event_Collection extends Mage_Core_Model_Resou
      * Add store ids filter
      *
      * @param array $storeIds
-     * @return Mage_Reports_Model_Resource_Event_Collection
+     * @return $this
      */
     public function addStoreFilter(array $storeIds)
     {
@@ -78,7 +80,7 @@ class Mage_Reports_Model_Resource_Event_Collection extends Mage_Core_Model_Resou
      * @param int $subtype
      * @param int|array $ignore
      * @param int $limit
-     * @return Mage_Reports_Model_Resource_Event_Collection
+     * @return $this
      */
     public function addRecentlyFiler($typeId, $subjectId, $subtype = 0, $ignore = null, $limit = 15)
     {

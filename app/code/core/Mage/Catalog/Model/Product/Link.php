@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -58,18 +58,27 @@ class Mage_Catalog_Model_Product_Link extends Mage_Core_Model_Abstract
         $this->_init('catalog/product_link');
     }
 
+    /**
+     * @return $this
+     */
     public function useRelatedLinks()
     {
         $this->setLinkTypeId(self::LINK_TYPE_RELATED);
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function useGroupedLinks()
     {
         $this->setLinkTypeId(self::LINK_TYPE_GROUPED);
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function useUpSellLinks()
     {
         $this->setLinkTypeId(self::LINK_TYPE_UPSELL);
@@ -77,7 +86,7 @@ class Mage_Catalog_Model_Product_Link extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return Mage_Catalog_Model_Product_Link
+     * @return $this
      */
     public function useCrossSellLinks()
     {
@@ -98,6 +107,7 @@ class Mage_Catalog_Model_Product_Link extends Mage_Core_Model_Abstract
 
     /**
      * Retrieve linked product collection
+     * @return Mage_Catalog_Model_Resource_Product_Link_Product_Collection
      */
     public function getProductCollection()
     {
@@ -108,6 +118,7 @@ class Mage_Catalog_Model_Product_Link extends Mage_Core_Model_Abstract
 
     /**
      * Retrieve link collection
+     * @return Mage_Catalog_Model_Resource_Product_Link_Collection
      */
     public function getLinkCollection()
     {
@@ -116,7 +127,11 @@ class Mage_Catalog_Model_Product_Link extends Mage_Core_Model_Abstract
         return $collection;
     }
 
-    public function getAttributes($type=null)
+    /**
+     * @param null $type
+     * @return array
+     */
+    public function getAttributes($type = null)
     {
         if (is_null($type)) {
             $type = $this->getLinkTypeId();
@@ -151,7 +166,7 @@ class Mage_Catalog_Model_Product_Link extends Mage_Core_Model_Abstract
      * Save grouped product relation links
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Catalog_Model_Product_Link
+     * @return $this
      */
     public function saveGroupedLinks($product)
     {

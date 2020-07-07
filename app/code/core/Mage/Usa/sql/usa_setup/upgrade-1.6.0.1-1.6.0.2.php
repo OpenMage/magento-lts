@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Usa
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -84,7 +84,7 @@ $select = $connection->select()
 $oldConfigValues = $connection->fetchAll($select);
 
 foreach ($oldConfigValues as $oldValue) {
-    $newValue = '';
+    $newValue = array();
     if (stripos($oldValue['path'], 'free_method') && isset($oldToNewMethodCodesMap[$oldValue['value']])) {
         $newValue = $oldToNewMethodCodesMap[$oldValue['value']];
     } else if (stripos($oldValue['path'], 'allowed_methods')) {
@@ -93,7 +93,7 @@ foreach ($oldConfigValues as $oldValue) {
                 $newValue[] = $oldToNewMethodCodesMap[$shippingMethod];
             }
         }
-        $newValue = implode($newValue, ',');
+        $newValue = implode(',', $newValue);
     } else {
         continue;
     }

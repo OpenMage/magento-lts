@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Persistent
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,8 +30,10 @@
  * @category    Mage
  * @package     Mage_Persistent
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setHref(string $value)
+ * @method $this setAnchorText(string $value)
  */
-
 class Mage_Persistent_Block_Header_Additional extends Mage_Core_Block_Html_Link
 {
     /**

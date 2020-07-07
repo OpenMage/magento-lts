@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -73,7 +73,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
      * Declare link model and initialize type attributes join
      *
      * @param Mage_Catalog_Model_Product_Link $linkModel
-     * @return Mage_Catalog_Model_Resource_Product_Link_Product_Collection
+     * @return $this
      */
     public function setLinkModel(Mage_Catalog_Model_Product_Link $linkModel)
     {
@@ -87,7 +87,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
     /**
      * Enable strong mode for inner join of linked products
      *
-     * @return Mage_Catalog_Model_Resource_Product_Link_Product_Collection
+     * @return $this
      */
     public function setIsStrongMode()
     {
@@ -109,7 +109,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
      * Initialize collection parent product and add limitation join
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Catalog_Model_Resource_Product_Link_Product_Collection
+     * @return $this
      */
     public function setProduct(Mage_Catalog_Model_Product $product)
     {
@@ -135,7 +135,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
      * Exclude products from filter
      *
      * @param array $products
-     * @return Mage_Catalog_Model_Resource_Product_Link_Product_Collection
+     * @return $this
      */
     public function addExcludeProductFilter($products)
     {
@@ -153,7 +153,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
      * Add products to filter
      *
      * @param array|int|string $products
-     * @return Mage_Catalog_Model_Resource_Product_Link_Product_Collection
+     * @return $this
      */
     public function addProductFilter($products)
     {
@@ -171,7 +171,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
     /**
      * Add random sorting order
      *
-     * @return Mage_Catalog_Model_Resource_Product_Link_Product_Collection
+     * @return $this
      */
     public function setRandomOrder()
     {
@@ -183,7 +183,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
      * Setting group by to exclude duplications in collection
      *
      * @param string $groupBy
-     * @return Mage_Catalog_Model_Resource_Product_Link_Product_Collection
+     * @return $this
      */
     public function setGroupBy($groupBy = 'e.entity_id')
     {
@@ -200,7 +200,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
     /**
      * Join linked products when specified link model
      *
-     * @return Mage_Catalog_Model_Resource_Product_Link_Product_Collection
+     * @inheritDoc
      */
     protected function _beforeLoad()
     {
@@ -213,7 +213,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
     /**
      * Join linked products and their attributes
      *
-     * @return Mage_Catalog_Model_Resource_Product_Link_Product_Collection
+     * @return $this
      */
     protected function _joinLinks()
     {
@@ -234,10 +234,10 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
                 $joinCondition[] = $adapter->quoteInto('links.product_id = ?', $productId);
             }
             $this->addFieldToFilter('entity_id', array('neq' => $productId));
-        } else if ($this->_isStrongMode) {
+        } elseif ($this->_isStrongMode) {
             $this->addFieldToFilter('entity_id', array('eq' => -1));
         }
-        if($this->_hasLinkFilter) {
+        if ($this->_hasLinkFilter) {
             $select->$joinType(
                 array('links' => $this->getTable('catalog/product_link')),
                 implode(' AND ', $joinCondition),
@@ -254,7 +254,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
      * Enable sorting products by its position
      *
      * @param string $dir sort type asc|desc
-     * @return Mage_Catalog_Model_Resource_Product_Link_Product_Collection
+     * @return $this
      */
     public function setPositionOrder($dir = self::SORT_ORDER_ASC)
     {
@@ -268,7 +268,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
      * Enable sorting products by its attribute set name
      *
      * @param string $dir sort type asc|desc
-     * @return Mage_Catalog_Model_Resource_Product_Link_Product_Collection
+     * @return $this
      */
     public function setAttributeSetIdOrder($dir = self::SORT_ORDER_ASC)
     {
@@ -298,7 +298,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
     /**
      * Join attributes
      *
-     * @return Mage_Catalog_Model_Resource_Product_Link_Product_Collection
+     * @return $this
      */
     public function joinAttributes()
     {
@@ -330,9 +330,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
      *
      * $attribute can also be an array of attributes
      *
-     * @param string|array $attribute
-     * @param string $dir
-     * @return Mage_Catalog_Model_Resource_Product_Link_Product_Collection
+     * @inheritDoc
      */
     public function setOrder($attribute, $dir = self::SORT_ORDER_ASC)
     {
@@ -350,7 +348,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
      * @param string $attributeCode
      * @param array|null $condition
      *
-     * @return Mage_Catalog_Model_Resource_Product_Link_Product_Collection
+     * @return $this
      */
     public function addLinkModelFieldToFilter($attributeCode, $condition = null)
     {

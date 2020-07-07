@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -46,7 +46,7 @@
     <td class="value">
         <?php echo trim($this->getElementHtml()) ?>
         <?php if ($_element->getNote()) : ?>
-            <p class="note"><?php echo $_element->getNote() ?></p>
+            <p class="note"><?php echo $this->__($_element->getNote()); ?></p>
         <?php endif; ?>
     </td>
     <td class="scope-label"><span class="nobr"><?php echo $this->getScopeLabel() ?></span></td>

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Centinel
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -185,7 +185,7 @@ class Mage_Centinel_Model_Api extends Varien_Object
     /**
      * Call centinel api lookup method
      *
-     * @return Mage_Centinel_Model_Api
+     * @return $this
      */
     public function callLookup($data)
     {
@@ -223,7 +223,7 @@ class Mage_Centinel_Model_Api extends Varien_Object
     /**
      * Call centinel api authentication method
      *
-     * @return Mage_Centinel_Model_Api
+     * @return $this
      */
     public function callAuthentication($data)
     {

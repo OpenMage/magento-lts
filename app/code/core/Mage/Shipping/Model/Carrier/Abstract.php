@@ -20,11 +20,20 @@
  *
  * @category    Mage
  * @package     Mage_Shipping
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * Class Mage_Shipping_Model_Carrier_Abstract
+ *
+ * @method $this setActiveFlag(bool $value)
+ * @method array getAllowedMethods()
+ * @method array getContainerTypesAll()
+ * @method array getContainerTypesFilter()
+ * @method Mage_Core_Model_Store getStore()
+ * @method $this setStore(Mage_Core_Model_Store $value)
+ */
 abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
 {
     /**
@@ -141,7 +150,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      * Do return of shipment
      * Implementation must be in overridden method
      *
-     * @param $request
+     * @param mixed $request
      * @return Varien_Object
      */
     public function returnOfShipment($request)
@@ -190,7 +199,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
 
         if ($countryShipper == self::USA_COUNTRY_ID && $countryRecipient == self::USA_COUNTRY_ID) {
             $direction = 'within_us';
-        } else if ($countryShipper == self::USA_COUNTRY_ID && $countryRecipient != self::USA_COUNTRY_ID) {
+        } elseif ($countryShipper == self::USA_COUNTRY_ID && $countryRecipient != self::USA_COUNTRY_ID) {
             $direction = 'from_us';
         } else {
             return $containersAll;
@@ -234,35 +243,39 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         return array();
     }
 
+    /**
+     * @param Mage_Shipping_Model_Rate_Request $request
+     * @return $this|bool|false|Mage_Core_Model_Abstract
+     */
     public function checkAvailableShipCountries(Mage_Shipping_Model_Rate_Request $request)
     {
         $speCountriesAllow = $this->getConfigData('sallowspecific');
         /*
         * for specific countries, the flag will be 1
         */
-        if ($speCountriesAllow && $speCountriesAllow == 1){
+        if ($speCountriesAllow && $speCountriesAllow == 1) {
              $showMethod = $this->getConfigData('showmethod');
              $availableCountries = array();
-             if($this->getConfigData('specificcountry')) {
-                $availableCountries = explode(',',$this->getConfigData('specificcountry'));
-             }
-             if ($availableCountries && in_array($request->getDestCountryId(), $availableCountries)) {
-                 return $this;
-             } elseif ($showMethod && (!$availableCountries || ($availableCountries
+            if ($this->getConfigData('specificcountry')) {
+                $availableCountries = explode(',', $this->getConfigData('specificcountry'));
+            }
+            if ($availableCountries && in_array($request->getDestCountryId(), $availableCountries)) {
+                return $this;
+            } elseif ($showMethod && (!$availableCountries || ($availableCountries
                  && !in_array($request->getDestCountryId(), $availableCountries)))
-             ){
-                   $error = Mage::getModel('shipping/rate_result_error');
-                   $error->setCarrier($this->_code);
-                   $error->setCarrierTitle($this->getConfigData('title'));
-                   $errorMsg = $this->getConfigData('specificerrmsg');
-                   $error->setErrorMessage($errorMsg ? $errorMsg : Mage::helper('shipping')->__('The shipping module is not available for selected delivery country.'));
-                   return $error;
-             } else {
-                 /*
+             ) {
+                  $error = Mage::getModel('shipping/rate_result_error');
+                  $error->setCarrier($this->_code);
+                  $error->setCarrierTitle($this->getConfigData('title'));
+                  $errorMsg = $this->getConfigData('specificerrmsg');
+                  $error->setErrorMessage($errorMsg ? $errorMsg : Mage::helper('shipping')->__('The shipping module is not available for selected delivery country.'));
+                  return $error;
+            } else {
+                /*
                 * The admin set not to show the shipping module if the devliery country is not within specific countries
                 */
                 return false;
-             }
+            }
         }
         return $this;
     }
@@ -347,7 +360,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         $freeRateId = false;
 
         if (is_object($this->_result)) {
-            foreach ($this->_result->getAllRates() as $i=>$item) {
+            foreach ($this->_result->getAllRates() as $i => $item) {
                 if ($item->getMethod() == $freeMethod) {
                     $freeRateId = $i;
                     break;
@@ -417,7 +430,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      */
     public function getFinalPriceWithHandlingFee($cost)
     {
-        $handlingFee = $this->getConfigData('handling_fee');
+        $handlingFee = (float)$this->getConfigData('handling_fee');
         $handlingType = $this->getConfigData('handling_type');
         if (!$handlingType) {
             $handlingType = self::HANDLING_TYPE_FIXED;
@@ -469,7 +482,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     /**
      *  Return weight in pounds
      *
-     *  @param integer Weight in someone measure
+     *  @param integer $weight Weight in someone measure
      *  @return float Weight in pounds
      */
     public function convertWeightToLbs($weight)
@@ -480,7 +493,8 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     /**
      * set the number of boxes for shipping
      *
-     * @return weight
+     * @param int $weight
+     * @return float
      */
     public function getTotalNumOfBoxes($weight)
     {

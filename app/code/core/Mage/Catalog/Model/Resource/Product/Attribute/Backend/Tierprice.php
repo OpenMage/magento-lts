@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,8 +32,7 @@
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Tierprice
-    extends Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice_Abstract
+class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Tierprice extends Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice_Abstract
 {
     /**
      * Initialize connection and define main table
@@ -83,7 +82,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Tierprice
         $websiteId = null;
         if ($attribute->isScopeGlobal()) {
             $websiteId = 0;
-        } else if ($product->getStoreId()) {
+        } elseif ($product->getStoreId()) {
             $websiteId = Mage::app()->getStore($product->getStoreId())->getWebsiteId();
         }
 
@@ -97,7 +96,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Tierprice
      *
      * @param Mage_Catalog_Model_Product $product
      * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
-     * @return Mage_Catalog_Model_Resource_Product_Attribute_Backend_Tierprice
+     * @return $this
      */
     public function deleteProductPrices($product, $attribute)
     {
@@ -121,7 +120,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Tierprice
      *
      * @param Mage_Catalog_Model_Product $product
      * @param array $data
-     * @return Mage_Catalog_Model_Resource_Product_Attribute_Backend_Tierprice
+     * @return $this
      */
     public function insertProductPrice($product, $data)
     {

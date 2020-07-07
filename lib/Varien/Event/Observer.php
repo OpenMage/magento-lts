@@ -20,10 +20,9 @@
  *
  * @category    Varien
  * @package     Varien_Event
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Event observer object
@@ -49,7 +48,7 @@ class Varien_Event_Observer extends Varien_Object
      * Dispatches an event to observer's callback
      *
      * @param Varien_Event $event
-     * @return Varien_Event_Observer
+     * @return $this
      */
     public function dispatch(Varien_Event $event)
     {
@@ -68,31 +67,52 @@ class Varien_Event_Observer extends Varien_Object
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->getData('name');
     }
 
+    /**
+     * @param string $data
+     * @return $this
+     */
     public function setName($data)
     {
         return $this->setData('name', $data);
     }
 
+    /**
+     * @return string
+     */
     public function getEventName()
     {
         return $this->getData('event_name');
     }
 
+    /**
+     * @param string $data
+     * @return $this
+     */
     public function setEventName($data)
     {
         return $this->setData('event_name', $data);
     }
 
+    /**
+     * @return string
+     */
     public function getCallback()
     {
         return $this->getData('callback');
     }
 
+    /**
+     * @param $data
+     * @return $this
+     */
     public function setCallback($data)
     {
         return $this->setData('callback', $data);
@@ -108,6 +128,10 @@ class Varien_Event_Observer extends Varien_Object
         return $this->getData('event');
     }
 
+    /**
+     * @param Varien_Event $data
+     * @return $this
+     */
     public function setEvent($data)
     {
         return $this->setData('event', $data);

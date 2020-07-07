@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_ImportExport
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -227,6 +227,11 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Error - super products sku not found
      */
     const ERROR_SUPER_PRODUCTS_SKU_NOT_FOUND = 'superProductsSkuNotFound';
+
+    /**
+     * Error - invalid product sku
+     */
+    const ERROR_INVALID_PRODUCT_SKU          = 'invalidSku';
     /**#@-*/
 
     /**
@@ -315,7 +320,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
         self::ERROR_INVALID_TIER_PRICE_GROUP     => 'Tier Price customer group ID is invalid',
         self::ERROR_TIER_DATA_INCOMPLETE         => 'Tier Price data is incomplete',
         self::ERROR_SKU_NOT_FOUND_FOR_DELETE     => 'Product with specified SKU not found',
-        self::ERROR_SUPER_PRODUCTS_SKU_NOT_FOUND => 'Product with specified super products SKU not found'
+        self::ERROR_SUPER_PRODUCTS_SKU_NOT_FOUND => 'Product with specified super products SKU not found',
+        self::ERROR_INVALID_PRODUCT_SKU          => 'Invalid value in SKU column. HTML tags are not allowed'
     );
 
     /**
@@ -449,7 +455,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Delete products.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return $this
      */
     protected function _deleteProducts()
     {
@@ -466,7 +472,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             if ($idToDelete) {
                 $this->_connection->query(
                     $this->_connection->quoteInto(
-                        "DELETE FROM `{$productEntityTable}` WHERE `entity_id` IN (?)", $idToDelete
+                        "DELETE FROM `{$productEntityTable}` WHERE `entity_id` IN (?)",
+                        $idToDelete
                     )
                 );
             }
@@ -500,12 +507,13 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Initialize attribute sets code-to-id pairs.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return $this
      */
     protected function _initAttributeSets()
     {
         foreach (Mage::getResourceModel('eav/entity_attribute_set_collection')
                 ->setEntityTypeFilter($this->_entityTypeId) as $attributeSet) {
+            /** @var Mage_Eav_Model_Entity_Attribute_Set $attributeSet */
             $this->_attrSetNameToId[$attributeSet->getAttributeSetName()] = $attributeSet->getId();
             $this->_attrSetIdToName[$attributeSet->getId()] = $attributeSet->getAttributeSetName();
         }
@@ -515,12 +523,12 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Initialize categories text-path to ID hash.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return $this
      */
     protected function _initCategories()
     {
         $collection = Mage::getResourceModel('catalog/category_collection')->addNameToResult();
-        /* @var $collection Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection */
+        /* @var Mage_Catalog_Model_Resource_Category_Collection $collection */
         foreach ($collection as $category) {
             $structure = explode('/', $category->getPath());
             $pathSize  = count($structure);
@@ -546,7 +554,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Initialize customer groups.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return $this
      */
     protected function _initCustomerGroups()
     {
@@ -559,7 +567,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Initialize existent product SKUs.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return $this
      */
     protected function _initSkus()
     {
@@ -580,7 +588,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Initialize stores hash.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return $this
      */
     protected function _initStores()
     {
@@ -595,7 +603,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Initialize product type models.
      *
      * @throws Exception
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return $this
      */
     protected function _initTypeModels()
     {
@@ -627,11 +635,11 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Initialize website values.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return $this
      */
     protected function _initWebsites()
     {
-        /** @var $website Mage_Core_Model_Website */
+        /** @var Mage_Core_Model_Website $website */
         foreach (Mage::app()->getWebsites() as $website) {
             $this->_websiteCodeToId[$website->getCode()] = $website->getId();
             $this->_websiteCodeToStoreIds[$website->getCode()] = array_flip($website->getStoreCodes());
@@ -797,13 +805,29 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     }
 
     /**
+     * Check product sku data.
+     *
+     * @param array $rowData
+     * @param int $rowNum
+     * @return bool
+     */
+    protected function _isProductSkuValid(array $rowData, $rowNum)
+    {
+        if (isset($rowData['sku']) && $rowData['sku'] != Mage::helper('core')->stripTags($rowData['sku'])) {
+            $this->addRowError(self::ERROR_INVALID_PRODUCT_SKU, $rowNum);
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Custom options save.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return $this
      */
     protected function _saveCustomOptions()
     {
-        /** @var $coreResource Mage_Core_Model_Resource */
+        /** @var Mage_Core_Model_Resource $coreResource */
         $coreResource   = Mage::getSingleton('core/resource');
         $productTable   = $coreResource->getTableName('catalog/product');
         $optionTable    = $coreResource->getTableName('catalog/product_option');
@@ -1109,7 +1133,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Gather and save information about product links.
      * Must be called after ALL products saving done.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return $this
      */
     protected function _saveLinks()
     {
@@ -1211,7 +1235,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Save product attributes.
      *
      * @param array $attributesData
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return $this
      */
     protected function _saveProductAttributes(array $attributesData)
     {
@@ -1244,7 +1268,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                             $this->_connection->quoteInto(' AND entity_type_id = ?', $this->_entityTypeId);
 
                         $this->_connection->delete(
-                            $tableName, $where
+                            $tableName,
+                            $where
                         );
                     }
                 }
@@ -1258,7 +1283,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Save product categories.
      *
      * @param array $categoriesData
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return $this
      */
     protected function _saveProductCategories(array $categoriesData)
     {
@@ -1297,7 +1322,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      *
      * @param array $entityRowsIn Row for insert
      * @param array $entityRowsUp Row for update
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return $this
      */
     protected function _saveProductEntity(array $entityRowsIn, array $entityRowsUp)
     {
@@ -1318,8 +1343,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
 
             $newProducts = $this->_connection->fetchPairs($this->_connection->select()
                 ->from($entityTable, array('sku', 'entity_id'))
-                ->where('sku IN (?)', array_keys($entityRowsIn))
-            );
+                ->where('sku IN (?)', array_keys($entityRowsIn)));
             foreach ($newProducts as $sku => $newId) { // fill up entity_id for new products
                 $this->_newSku[$sku]['entity_id'] = $newId;
             }
@@ -1330,7 +1354,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Gather and save information about product entities.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return $this
      */
     protected function _saveProducts()
     {
@@ -1527,6 +1551,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      */
     protected function _prepareAttributes($rowData, $rowScope, $attributes, $rowSku, $rowStore)
     {
+        /** @var Mage_ImportExport_Model_Import_Proxy_Product $product */
         $product = Mage::getModel('importexport/import_proxy_product', $rowData);
 
         foreach ($rowData as $attrCode => $attrValue) {
@@ -1584,7 +1609,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Save product tier prices.
      *
      * @param array $tierPriceData
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return $this
      */
     protected function _saveProductTierPrices(array $tierPriceData)
     {
@@ -1624,7 +1649,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Save product group prices.
      *
      * @param array $groupPriceData
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return $this
      */
     protected function _saveProductGroupPrices(array $groupPriceData)
     {
@@ -1706,7 +1731,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Save product media gallery.
      *
      * @param array $mediaGalleryData
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return $this
      */
     protected function _saveMediaGallery(array $mediaGalleryData)
     {
@@ -1740,7 +1765,6 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             }
 
             foreach ($mediaGalleryRows as $insertValue) {
-
                 if (!in_array($insertValue['value'], $insertedGalleryImgs)) {
                     $valueArr = array(
                         'attribute_id' => $insertValue['attribute_id'],
@@ -1756,8 +1780,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
 
                 $newMediaValues = $this->_connection->fetchPairs($this->_connection->select()
                                         ->from($mediaGalleryTableName, array('value', 'value_id'))
-                                        ->where('entity_id IN (?)', $productId)
-                );
+                                        ->where('entity_id IN (?)', $productId));
 
                 if (array_key_exists($insertValue['value'], $newMediaValues)) {
                     $insertValue['value_id'] = $newMediaValues[$insertValue['value']];
@@ -1776,7 +1799,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                             ->insertOnDuplicate($mediaValueTableName, $valueArr, array('value_id'));
                 } catch (Exception $e) {
                     $this->_connection->delete(
-                            $mediaGalleryTableName, $this->_connection->quoteInto('value_id IN (?)', $newMediaValues)
+                        $mediaGalleryTableName,
+                        $this->_connection->quoteInto('value_id IN (?)', $newMediaValues)
                     );
                 }
             }
@@ -1789,7 +1813,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Save product websites.
      *
      * @param array $websiteData
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return $this
      */
     protected function _saveProductWebsites(array $websiteData)
     {
@@ -1831,6 +1855,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      *
      * @param string $resourceModelName
      * @return Object
+     * @phpstan-ignore-next-line
      */
     protected function getResourceModel($resourceModelName)
     {
@@ -1842,6 +1867,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      *
      * @param string $helperName
      * @return Mage_Core_Helper_Abstract
+     * @phpstan-ignore-next-line
      */
     protected function getHelper($helperName)
     {
@@ -1862,7 +1888,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Stock item saving.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return $this
      */
     protected function _saveStockItem()
     {
@@ -1892,7 +1918,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
         );
 
         $entityTable = $this->getResourceModel('cataloginventory/stock_item')->getMainTable();
-        $helper      = $this->getHelper('catalogInventory');
+        $helper      = $this->getHelper('cataloginventory');
 
         while ($bunch = $this->getNextBunch()) {
             $stockData = array();
@@ -1912,7 +1938,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                 $row['product_id'] = $this->_newSku[$rowData[self::COL_SKU]]['entity_id'];
                 $row['stock_id'] = 1;
 
-                /** @var $stockItem Mage_CatalogInventory_Model_Stock_Item */
+                /** @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
                 $stockItem = $this->getModel('cataloginventory/stock_item');
                 $stockItem->loadByProduct($row['product_id']);
                 $existStockData = $stockItem->getData();
@@ -1930,8 +1956,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                     if ($stockItem->verifyNotification()) {
                         $stockItem->setLowStockDate(Mage::app()->getLocale()
                             ->date(null, null, null, false)
-                            ->toString(Varien_Date::DATETIME_INTERNAL_FORMAT)
-                        );
+                            ->toString(Varien_Date::DATETIME_INTERNAL_FORMAT));
                     }
                     $stockItem->setStockStatusChangedAutomatically((int) !$stockItem->verifyStock());
                 } else {
@@ -2137,7 +2162,9 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             $rowData[self::COL_ATTR_SET] = $this->_newSku[$sku]['attr_set_code'];
 
             $rowAttributesValid = $this->_productTypeModels[$this->_newSku[$sku]['type_id']]->isRowValid(
-                $rowData, $rowNum, !isset($this->_oldSku[$sku])
+                $rowData,
+                $rowNum,
+                !isset($this->_oldSku[$sku])
             );
             if (!$rowAttributesValid && self::SCOPE_DEFAULT == $rowScope) {
                 $sku = false; // mark SCOPE_DEFAULT row as invalid for future child rows
@@ -2160,6 +2187,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
         $this->_isTierPriceValid($rowData, $rowNum);
         $this->_isGroupPriceValid($rowData, $rowNum);
         $this->_isSuperProductsSkuValid($rowData, $rowNum);
+        $this->_isProductSkuValid($rowData, $rowNum);
     }
 
     /**

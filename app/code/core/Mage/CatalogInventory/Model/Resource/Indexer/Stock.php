@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogInventory
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -62,7 +62,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
      * Process stock item save action
      *
      * @param Mage_Index_Model_Event $event
-     * @return Mage_CatalogInventory_Model_Resource_Indexer_Stock
+     * @return $this
      */
     public function cataloginventoryStockItemSave(Mage_Index_Model_Event $event)
     {
@@ -81,7 +81,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
      * Refresh stock index for specific product ids
      *
      * @param array $productIds
-     * @return Mage_CatalogInventory_Model_Resource_Indexer_Stock
+     * @return $this
      */
     public function reindexProducts($productIds)
     {
@@ -128,7 +128,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
      * Processing parent products after child product deleted
      *
      * @param Mage_Index_Model_Event $event
-     * @return Mage_CatalogInventory_Model_Resource_Indexer_Stock
+     * @return $this
      */
     public function catalogProductDelete(Mage_Index_Model_Event $event)
     {
@@ -162,7 +162,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
      * Process product mass update action
      *
      * @param Mage_Index_Model_Event $event
-     * @return Mage_CatalogInventory_Model_Resource_Indexer_Stock
+     * @return $this
      */
     public function catalogProductMassAction(Mage_Index_Model_Event $event)
     {
@@ -234,7 +234,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
     /**
      * Rebuild all index data
      *
-     * @return Mage_CatalogInventory_Model_Resource_Indexer_Stock
+     * @return $this
      */
     public function reindexAll()
     {

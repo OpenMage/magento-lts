@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -234,7 +234,7 @@ class Mage_Paypal_Model_Cart
      * @param string $code
      * @param float $amount
      * @param string $lineItemDescription
-     * @return Mage_Paypal_Model_Cart
+     * @return $this
      */
     public function updateTotal($code, $amount, $lineItemDescription = null)
     {

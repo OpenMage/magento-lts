@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -61,6 +61,7 @@ class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abst
                     }
                     $collection->setPositionOrder()->load();
 
+                    /** @var Mage_Catalog_Model_Product_Link $item */
                     foreach ($collection as $item) {
                         $ninProductIds[] = $item->getId();
                         $items[] = $item;
@@ -80,7 +81,6 @@ class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abst
                         $items[] = $item;
                     }
                 }
-                
             }
 
             $this->setData('items', $items);
@@ -163,7 +163,7 @@ class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abst
     /**
      * Get crosssell products collection
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection
+     * @return Mage_Catalog_Model_Resource_Product_Link_Product_Collection
      */
     protected function _getCollection()
     {

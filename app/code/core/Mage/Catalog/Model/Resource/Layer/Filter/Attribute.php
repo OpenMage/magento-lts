@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -48,7 +48,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Attribute extends Mage_Core_Model
      *
      * @param Mage_Catalog_Model_Layer_Filter_Attribute $filter
      * @param int $value
-     * @return Mage_Catalog_Model_Resource_Layer_Filter_Attribute
+     * @return $this
      */
     public function applyFilterToCollection($filter, $value)
     {
@@ -101,7 +101,8 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Attribute extends Mage_Core_Model
             ->join(
                 array($tableAlias => $this->getMainTable()),
                 join(' AND ', $conditions),
-                array('value', 'count' => new Zend_Db_Expr("COUNT({$tableAlias}.entity_id)")))
+                array('value', 'count' => new Zend_Db_Expr("COUNT({$tableAlias}.entity_id)"))
+            )
             ->group("{$tableAlias}.value");
 
         return $connection->fetchPairs($select);

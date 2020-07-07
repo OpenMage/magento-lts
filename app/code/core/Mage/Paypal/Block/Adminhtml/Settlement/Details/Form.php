@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -35,7 +35,7 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Details_Form extends Mage_Adminhtml
 {
     /**
      * Prepare read-only data and group it by fieldsets
-     * @return Mage_Paypal_Block_Adminhtml_Settlement_Details_Form
+     * @return $this
      */
     protected function _prepareForm()
     {

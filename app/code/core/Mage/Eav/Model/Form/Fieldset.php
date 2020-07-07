@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,14 +28,17 @@
 /**
  * Eav Form Fieldset Model
  *
- * @method Mage_Eav_Model_Resource_Form_Fieldset _getResource()
  * @method Mage_Eav_Model_Resource_Form_Fieldset getResource()
+ *
  * @method int getTypeId()
- * @method Mage_Eav_Model_Form_Fieldset setTypeId(int $value)
+ * @method $this setTypeId(int $value)
  * @method string getCode()
- * @method Mage_Eav_Model_Form_Fieldset setCode(string $value)
+ * @method $this setCode(string $value)
+ * @method string getLabel()
+ * @method bool hasLabels()
  * @method int getSortOrder()
- * @method Mage_Eav_Model_Form_Fieldset setSortOrder(int $value)
+ * @method $this setSortOrder(int $value)
+ * @method bool hasStoreId()
  *
  * @category    Mage
  * @package     Mage_Eav
@@ -62,7 +65,7 @@ class Mage_Eav_Model_Form_Fieldset extends Mage_Core_Model_Abstract
     /**
      * Retrieve resource instance wrapper
      *
-     * @return Mage_Eav_Model_Mysql4_Form_Fieldset
+     * @inheritDoc
      */
     protected function _getResource()
     {
@@ -72,7 +75,7 @@ class Mage_Eav_Model_Form_Fieldset extends Mage_Core_Model_Abstract
     /**
      * Retrieve resource collection instance wrapper
      *
-     * @return Mage_Eav_Model_Mysql4_Form_Fieldset_Collection
+     * @inheritDoc
      */
     public function getCollection()
     {
@@ -83,7 +86,7 @@ class Mage_Eav_Model_Form_Fieldset extends Mage_Core_Model_Abstract
      * Validate data before save data
      *
      * @throws Mage_Core_Exception
-     * @return Mage_Eav_Model_Form_Fieldset
+     * @inheritDoc
      */
     protected function _beforeSave()
     {
@@ -115,7 +118,7 @@ class Mage_Eav_Model_Form_Fieldset extends Mage_Core_Model_Abstract
      * Input array where key - store_id and value = label
      *
      * @param array $labels
-     * @return Mage_Eav_Model_Form_Fieldset
+     * @return $this
      */
     public function setLabels(array $labels)
     {
@@ -127,7 +130,7 @@ class Mage_Eav_Model_Form_Fieldset extends Mage_Core_Model_Abstract
      *
      * @param int $storeId
      * @param string $label
-     * @return Mage_Eav_Model_Form_Fieldset
+     * @return $this
      */
     public function setStoreLabel($storeId, $label)
     {

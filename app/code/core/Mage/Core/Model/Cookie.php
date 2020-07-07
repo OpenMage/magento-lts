@@ -20,10 +20,9 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Core cookie model
@@ -52,7 +51,7 @@ class Mage_Core_Model_Cookie
      * Set Store object
      *
      * @param mixed $store
-     * @return Mage_Core_Model_Cookie
+     * @return $this
      */
     public function setStore($store)
     {
@@ -153,7 +152,7 @@ class Mage_Core_Model_Cookie
      * Set cookie lifetime
      *
      * @param int $lifetime
-     * @return Mage_Core_Model_Cookie
+     * @return $this
      */
     public function setLifetime($lifetime)
     {
@@ -186,6 +185,10 @@ class Mage_Core_Model_Cookie
         if ($this->getStore()->isAdmin()) {
             return $this->_getRequest()->isSecure();
         }
+        // Use secure cookie if unsecure base url is actually secure
+        if (preg_match('/^https:/', $this->getStore()->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK, false))) {
+            return true;
+        }
         return false;
     }
 
@@ -199,7 +202,7 @@ class Mage_Core_Model_Cookie
      * @param string $domain
      * @param int|bool $secure
      * @param bool $httponly
-     * @return Mage_Core_Model_Cookie
+     * @return $this
      */
     public function set($name, $value, $period = null, $path = null, $domain = null, $secure = null, $httponly = null)
     {
@@ -218,8 +221,7 @@ class Mage_Core_Model_Cookie
 
         if ($period == 0) {
             $expire = 0;
-        }
-        else {
+        } else {
             $expire = time() + $period;
         }
         if (is_null($path)) {
@@ -248,7 +250,8 @@ class Mage_Core_Model_Cookie
      * @param string $path
      * @param string $domain
      * @param int|bool $secure
-     * @return Mage_Core_Model_Cookie
+     * @param bool $httponly
+     * @return $this
      */
     public function renew($name, $period = null, $path = null, $domain = null, $secure = null, $httponly = null)
     {
@@ -265,7 +268,7 @@ class Mage_Core_Model_Cookie
     /**
      * Retrieve cookie or false if not exists
      *
-     * @param string $neme The cookie name
+     * @param string $name The cookie name
      * @return mixed
      */
     public function get($name = null)
@@ -281,7 +284,7 @@ class Mage_Core_Model_Cookie
      * @param string $domain
      * @param int|bool $secure
      * @param int|bool $httponly
-     * @return Mage_Core_Model_Cookie
+     * @return $this
      */
     public function delete($name, $path = null, $domain = null, $secure = null, $httponly = null)
     {
