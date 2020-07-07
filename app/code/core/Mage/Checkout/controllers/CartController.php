@@ -232,7 +232,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                 $this->_goBack();
                 return;
             }
-
+            $cart->getQuote()->removeAllAddresses()->getShippingAddress()->setPostcode('')->setCollectShippingRates(false)->removeAllShippingRates();
             $cart->addProduct($product, $params);
             if (!empty($related)) {
                 $cart->addProductsByIds(explode(',', $related));
@@ -482,6 +482,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                 }
 
                 $cartData = $cart->suggestItemsQty($cartData);
+                $cart->getQuote()->removeAllAddresses()->getShippingAddress()->setPostcode('')->setCollectShippingRates(false)->removeAllShippingRates();
                 $cart->updateItems($cartData)
                     ->save();
             }
@@ -518,6 +519,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             $id = (int)$this->getRequest()->getParam('id');
             if ($id) {
                 try {
+                    $this->_getCart()->getQuote()->removeAllAddresses()->getShippingAddress()->setPostcode('')->setCollectShippingRates(false)->removeAllShippingRates();
                     $this->_getCart()->removeItem($id)
                         ->save();
                 } catch (Exception $e) {
