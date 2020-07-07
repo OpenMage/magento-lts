@@ -30,6 +30,10 @@
  * @category   Mage
  * @package    Mage_Review
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setDisplayIfEmpty(bool $value)
+ * @method Mage_Catalog_Model_Product getProduct()
+ * @method $this setProduct(Mage_Catalog_Model_Product $value)
  */
 class Mage_Review_Block_Helper extends Mage_Core_Block_Template
 {
@@ -38,6 +42,13 @@ class Mage_Review_Block_Helper extends Mage_Core_Block_Template
         'short'   => 'review/helper/summary_short.phtml'
     );
 
+    /**
+     * @param Mage_Catalog_Model_Product $product
+     * @param string $templateType
+     * @param bool $displayIfNoReviews
+     * @return string
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function getSummaryHtml($product, $templateType, $displayIfNoReviews)
     {
         // pick template among available
@@ -57,16 +68,25 @@ class Mage_Review_Block_Helper extends Mage_Core_Block_Template
         return $this->toHtml();
     }
 
+    /**
+     * @return array
+     */
     public function getRatingSummary()
     {
         return $this->getProduct()->getRatingSummary()->getRatingSummary();
     }
 
+    /**
+     * @return int
+     */
     public function getReviewsCount()
     {
         return $this->getProduct()->getRatingSummary()->getReviewsCount();
     }
 
+    /**
+     * @return string
+     */
     public function getReviewsUrl()
     {
         return Mage::getUrl('review/product/list', array(

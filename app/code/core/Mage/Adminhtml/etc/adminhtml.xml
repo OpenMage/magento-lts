@@ -128,7 +128,7 @@
                 <title>Allow everything</title>
             </all>
             <admin translate="title" module="adminhtml">
-                <title>Magento Admin</title>
+                <title>OpenMage Admin</title>
                 <children>
                     <dashboard translate="title">
                         <title>Dashboard</title>

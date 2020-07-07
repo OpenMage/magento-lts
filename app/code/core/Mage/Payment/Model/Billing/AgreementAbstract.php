@@ -28,6 +28,10 @@
  * Billing Agreement abstaract class
  *
  * @author Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getMethodCode()
+ * @method string getReferenceId()
+ * @method int getStoreId()
  */
 abstract class Mage_Payment_Model_Billing_AgreementAbstract extends Mage_Core_Model_Abstract
 {

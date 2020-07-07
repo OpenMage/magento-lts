@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 
@@ -58,10 +58,16 @@ $table = $installer->getConnection()
     ->addIndex(
         $installer->getIdxName('wishlist/wishlist', 'customer_id', Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
         'customer_id',
-        array('type'=>Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
-    ->addForeignKey($installer->getFkName('wishlist/wishlist', 'customer_id', 'customer/entity', 'entity_id'),
-        'customer_id', $installer->getTable('customer/entity'), 'entity_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+        array('type'=>Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)
+    )
+    ->addForeignKey(
+        $installer->getFkName('wishlist/wishlist', 'customer_id', 'customer/entity', 'entity_id'),
+        'customer_id',
+        $installer->getTable('customer/entity'),
+        'entity_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
     ->setComment('Wishlist main Table');
 $installer->getConnection()->createTable($table);
 
@@ -98,17 +104,32 @@ $table = $installer->getConnection()
         'nullable'  => false,
         ), 'Qty')
     ->addIndex($installer->getIdxName('wishlist/item', 'wishlist_id'), 'wishlist_id')
-    ->addForeignKey($installer->getFkName('wishlist/item', 'wishlist_id', 'wishlist/wishlist', 'wishlist_id'),
-        'wishlist_id', $installer->getTable('wishlist/wishlist'), 'wishlist_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+    ->addForeignKey(
+        $installer->getFkName('wishlist/item', 'wishlist_id', 'wishlist/wishlist', 'wishlist_id'),
+        'wishlist_id',
+        $installer->getTable('wishlist/wishlist'),
+        'wishlist_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
     ->addIndex($installer->getIdxName('wishlist/item', 'product_id'), 'product_id')
-    ->addForeignKey($installer->getFkName('wishlist/item', 'product_id', 'catalog/product', 'entity_id'),
-        'product_id', $installer->getTable('catalog/product'), 'entity_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+    ->addForeignKey(
+        $installer->getFkName('wishlist/item', 'product_id', 'catalog/product', 'entity_id'),
+        'product_id',
+        $installer->getTable('catalog/product'),
+        'entity_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
     ->addIndex($installer->getIdxName('wishlist/item', 'store_id'), 'store_id')
-    ->addForeignKey($installer->getFkName('wishlist/item', 'store_id', 'core/store', 'store_id'),
-        'store_id', $installer->getTable('core/store'), 'store_id',
-        Varien_Db_Ddl_Table::ACTION_SET_NULL, Varien_Db_Ddl_Table::ACTION_CASCADE)
+    ->addForeignKey(
+        $installer->getFkName('wishlist/item', 'store_id', 'core/store', 'store_id'),
+        'store_id',
+        $installer->getTable('core/store'),
+        'store_id',
+        Varien_Db_Ddl_Table::ACTION_SET_NULL,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
     ->setComment('Wishlist items');
 $installer->getConnection()->createTable($table);
 
@@ -139,8 +160,12 @@ $table = $installer->getConnection()
         ), 'Value')
     ->addForeignKey(
         $installer->getFkName('wishlist/item_option', 'wishlist_item_id', 'wishlist/item', 'wishlist_item_id'),
-        'wishlist_item_id', $installer->getTable('wishlist/item'), 'wishlist_item_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+        'wishlist_item_id',
+        $installer->getTable('wishlist/item'),
+        'wishlist_item_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
     ->setComment('Wishlist Item Option Table');
 $installer->getConnection()->createTable($table);
 

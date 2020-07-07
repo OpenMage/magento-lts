@@ -37,7 +37,7 @@ class Mage_Tax_Model_Resource_Report_Collection extends Mage_Sales_Model_Resourc
     /**
      * Enter description here ...
      *
-     * @var unknown
+     * @var string
      */
     protected $_periodFormat;
 
@@ -51,7 +51,7 @@ class Mage_Tax_Model_Resource_Report_Collection extends Mage_Sales_Model_Resourc
     /**
      * Enter description here ...
      *
-     * @var unknown
+     * @var array
      */
     protected $_selectedColumns    = array();
 
@@ -70,7 +70,7 @@ class Mage_Tax_Model_Resource_Report_Collection extends Mage_Sales_Model_Resourc
     /**
      * Enter description here ...
      *
-     * @return unknown
+     * @return array
      */
     protected function _getSelectedColumns()
     {
@@ -110,7 +110,7 @@ class Mage_Tax_Model_Resource_Report_Collection extends Mage_Sales_Model_Resourc
      */
     protected function _initSelect()
     {
-        $this->getSelect()->from($this->getResource()->getMainTable() , $this->_getSelectedColumns());
+        $this->getSelect()->from($this->getResource()->getMainTable(), $this->_getSelectedColumns());
         if (!$this->isTotals() && !$this->isSubTotals()) {
             $this->getSelect()->group(array($this->_periodFormat, 'code', 'percent'));
         }

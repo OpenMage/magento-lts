@@ -88,7 +88,8 @@ class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_M
                 ->quoteInto('product_website.website_id IN(?)', $filters['website_ids']);
 
             $subQuery = $this->getConnection()->select()
-                ->from(array('product_website' => $this->getTable('catalog/product_website')),
+                ->from(
+                    array('product_website' => $this->getTable('catalog/product_website')),
                     array('product_website.product_id')
                 )
                 ->where(join(' AND ', $conditions));
