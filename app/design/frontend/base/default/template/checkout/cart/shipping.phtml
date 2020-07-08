@@ -52,7 +52,7 @@
                        <input type="text" id="region" name="region" value="<?php echo $this->escapeHtml($this->getEstimateRegion()) ?>"  title="<?php echo Mage::helper('core')->quoteEscape($this->__('State/Province')) ?>" class="input-text" style="display:none;" />
                    </div>
                 </li>
-            <?php //endif; ?>
+            <?php //endif ?>
             <?php if($this->getCityActive()): ?>
                 <li>
                     <label for="city"<?php if ($this->isCityRequired()) echo ' class="required"' ?>><?php if ($this->isCityRequired()) echo '<em>*</em>' ?><?php echo $this->__('City') ?></label>
