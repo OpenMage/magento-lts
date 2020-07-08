@@ -108,7 +108,7 @@
             <?php elseif ($this->isGatewayUsed()):?>
                 <input type="hidden" name="invoice[capture_case]" value="offline"/>
                 <p><?php echo Mage::helper('sales')->__('Invoice will be created without communication with payment gateway.') ?></p>
-            <?php endif?>
+            <?php endif ?>
           <?php endif; ?>
           <p>
               <label class="normal" for="notify_customer"><?php echo Mage::helper('sales')->__('Append Comments') ?></label>

@@ -50,10 +50,10 @@
                 <strong><?php echo $this->formatValue($_total) ?></strong>
             </td>
         </tr>
-        <?php endif?>
+        <?php endif ?>
     <?php endforeach?>
     </tfoot>
-    <?php endif?>
+    <?php endif ?>
 
     <?php $_totals = $this->getTotals('')?>
     <?php if ($_totals):?>
@@ -68,7 +68,7 @@
                 <strong><?php echo $this->escapeHtml($_total->getLabel()); ?></strong>
                 <?php else:?>
                 <?php echo $this->escapeHtml($_total->getLabel()); ?>
-                <?php endif?>
+                <?php endif ?>
             </td>
             <?php if ($_total->getStrong()):?>
             <td <?php echo $this->getValueProperties()?> class="emph">
@@ -76,11 +76,11 @@
             <?php else:?>
             <td <?php echo $this->getValueProperties()?>>
                 <?php echo $this->formatValue($_total) ?>
-            <?php endif?>
+            <?php endif ?>
             </td>
         </tr>
-        <?php endif?>
+        <?php endif ?>
     <?php endforeach?>
     </tbody>
-    <?php endif?>
+    <?php endif ?>
 </table>

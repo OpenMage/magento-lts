@@ -38,15 +38,15 @@
             <strong><?php echo $this->escapeHtml($_total->getLabel());?></strong>
             <?php else:?>
             <?php echo $this->escapeHtml($_total->getLabel());?>
-            <?php endif?>
+            <?php endif ?>
         </td>
         <td>
             <?php if ($_total->getStrong()):?>
             <strong><?php echo $this->formatValue($_total) ?></strong>
             <?php else:?>
             <?php echo $this->formatValue($_total) ?>
-            <?php endif?>
+            <?php endif ?>
         </td>
     </tr>
-    <?php endif?>
+    <?php endif ?>
 <?php endforeach?>

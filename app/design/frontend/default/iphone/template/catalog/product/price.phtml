@@ -370,7 +370,7 @@ $_minimalPrice = $_taxHelper->getPrice($_product, $_minimalPriceValue, $_simpleP
         <span class="minimal-price-link">
         <?php else:?>
         <span class="minimal-price-link">
-        <?php endif?>
+        <?php endif ?>
     <span class="label"><?php echo $this->__('As low as:') ?></span>
     <span class="price" id="product-minimal-price-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>">
                 <?php echo $_coreHelper->currency($_minimalPriceDisplayValue, true, false) ?>
@@ -379,7 +379,7 @@ $_minimalPrice = $_taxHelper->getPrice($_product, $_minimalPriceValue, $_simpleP
         </span>
         <?php else:?>
         </span>
-        <?php endif?>
+        <?php endif ?>
     <?php endif; /* if ($this->getDisplayMinimalPrice() && $_minimalPrice && $_minimalPrice < $_finalPrice): */ ?>
 </div>
 
