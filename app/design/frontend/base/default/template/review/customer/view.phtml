@@ -59,7 +59,7 @@
             <dt>
                 <?php if ($this->isReviewOwner()): ?>
                     <?php echo $this->__('Your Review (submitted on %s):', $this->dateFormat($this->getReviewData()->getCreatedAt())) ?>
-                <?php else :?>
+                <?php else: ?>
                     <?php echo $this->__('Review (submitted on %s):', $this->dateFormat($this->getReviewData()->getCreatedAt())) ?>
                 <?php endif ?>
             </dt>
