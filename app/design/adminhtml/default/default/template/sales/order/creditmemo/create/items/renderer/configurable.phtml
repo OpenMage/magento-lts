@@ -145,7 +145,7 @@
         <input type="text" class="input-text qty-input"
                name="creditmemo[items][<?php echo $_item->getOrderItemId() ?>][qty]"
                value="<?php echo $_item->getQty() * 1 ?>"/>
-    <?php else : ?>
+    <?php else: ?>
         <?php echo $_item->getQty() * 1 ?>
     <?php endif ?>
 </td>

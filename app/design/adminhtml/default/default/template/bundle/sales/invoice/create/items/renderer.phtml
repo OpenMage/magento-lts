@@ -225,7 +225,7 @@
             <?php if ($this->canShowPriceInfo($_item)): ?>
                 <?php if ($this->canEditQty()) : ?>
                     <input type="text" class="input-text qty-input" name="invoice[items][<?php echo $_item->getOrderItemId() ?>]" value="<?php echo $_item->getQty()*1 ?>" />
-                <?php else : ?>
+                <?php else: ?>
                     <?php echo $_item->getQty()*1 ?>
                 <?php endif ?>
             <?php else: ?>

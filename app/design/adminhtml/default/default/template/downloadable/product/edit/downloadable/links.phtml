@@ -121,7 +121,7 @@ var linkTemplate = '<tr>'+
         '<br /><input type="checkbox" id="downloadable_link_{{id}}_price" name="downloadable[link][{{id}}][use_default_price]" value="1"<?php if ($this->getCanEditPrice() === false) : ?> disabled="disabled"<?php endif ?> /> <label for="downloadable_link_{{id}}_price">Use Default Value</label>' +
         <?php endif ?>
     '</td>' +
-    <?php else : ?>
+    <?php else: ?>
     '<input type="hidden" id="downloadable_link_{{id}}_price_value" class="link-prices" name="downloadable[link][{{id}}][price]" value="0" />' +
     <?php if ($_product->getStoreId() && $this->getIsPriceWebsiteScope()) : ?>
     '<input type="hidden" id="downloadable_link_{{id}}_price" name="downloadable[link][{{id}}][use_default_price]" value="1" />' +
