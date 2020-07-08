@@ -34,7 +34,7 @@
             <label for="option_<?php echo $_i ?>"><?php echo Mage::helper('rating')->__('Option Title:') ?></label>
             <input id="option_<?php echo $_i ?>" name="option[<?php echo $_i ?>][code]" value="<?php echo $_i ?>" class="input-text" type="text" />
         </span>
-    <?php endfor; ?>
+    <?php endfor ?>
 <?php elseif( $options->getSize() > 0 ): ?>
     <?php foreach($options->getItems() as $_item): ?>
         <span class="field-row">

@@ -70,7 +70,7 @@
                         <input type="text" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Street Address %s', $_i)) ?>" name="billing[street][]" id="billing:street<?php echo $_i ?>" value="<?php echo $this->escapeHtml($this->getAddress()->getStreet($_i)) ?>" class="input-text <?php echo $_streetValidationClass ?>" />
                     </div>
                 </li>
-        <?php endfor; ?>
+        <?php endfor ?>
                 <?php if ($this->helper('customer/address')->isVatAttributeVisible()) : ?>
                 <li class="wide">
                     <label for="billing:vat_id"><?php echo $this->__('VAT Number') ?></label>
