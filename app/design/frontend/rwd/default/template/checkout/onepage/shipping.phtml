@@ -125,7 +125,7 @@
                 <?php if ($this->isCustomerLoggedIn() && $this->customerHasAddresses()):?>
                     <li class="control">
                         <input type="checkbox" name="shipping[save_in_address_book]" value="1" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Save in address book')) ?>" id="shipping:save_in_address_book" onchange="shipping.setSameAsBilling(false);"<?php if ($this->getAddress()->getSaveInAddressBook()):?> checked="checked"<?php endif ?> class="checkbox" /><label for="shipping:save_in_address_book"><?php echo $this->__('Save in address book') ?></label></li>
-                <?php else:?>
+                <?php else: ?>
                     <li class="no-display"><input type="hidden" name="shipping[save_in_address_book]" value="1" /></li>
                 <?php endif ?>
                 </ul>

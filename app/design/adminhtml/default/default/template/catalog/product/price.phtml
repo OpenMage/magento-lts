@@ -367,7 +367,7 @@ $_inclTax = $_taxHelper->getPrice($_product, $_minimalPriceValue, $includingTax 
 
     <?php if ($this->getUseLinkForAsLowAs()):?>
     <a href="<?php echo $_product->getProductUrl(); ?>" class="minimal-price-link">
-    <?php else:?>
+    <?php else: ?>
     <span class="minimal-price-link">
     <?php endif ?>
         <span class="label"><?php echo $this->__('As low as:') ?></span>
@@ -376,7 +376,7 @@ $_inclTax = $_taxHelper->getPrice($_product, $_minimalPriceValue, $includingTax 
         </span>
     <?php if ($this->getUseLinkForAsLowAs()):?>
     </a>
-    <?php else:?>
+    <?php else: ?>
     </span>
     <?php endif ?>
 <?php endif; /* if ($this->getDisplayMinimalPrice() && $_minimalPrice && $_minimalPrice < $_finalPrice): */ ?>

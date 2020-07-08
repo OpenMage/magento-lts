@@ -43,7 +43,7 @@
     <?php if ($this->_showSingle()): ?>
         <?php echo $this->getSelectionTitlePrice($_selections[0]) ?>
         <input type="hidden" name="bundle_option[<?php echo $_option->getId() ?>]" value="<?php echo $_selections[0]->getSelectionId() ?>" price="<?php echo $this->getSelectionPrice($_selections[0]) ?>" />
-    <?php else:?>
+    <?php else: ?>
         <ul class="options-list">
         <?php if (!$_option->getRequired()): ?>
             <li><input type="radio" class="radio" id="bundle-option-<?php echo $_option->getId() ?>" name="bundle_option[<?php echo $_option->getId() ?>]"<?php echo ($_default && $_default->isSalable())?'':' checked="checked" ' ?> value="" onclick="ProductConfigure.bundleControl.changeSelection(this)"/>

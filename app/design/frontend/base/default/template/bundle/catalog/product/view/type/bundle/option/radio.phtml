@@ -45,7 +45,7 @@
                 <?php $tierPriceHtml = $this->getTierPriceHtml($_selections[0]); ?>
         <?php endif ?>
         <input type="hidden" name="bundle_option[<?php echo $_option->getId() ?>]" value="<?php echo $_selections[0]->getSelectionId() ?>" />
-    <?php else:?>
+    <?php else: ?>
         <ul class="options-list">
         <?php if (!$_option->getRequired()): ?>
             <li><input type="radio" onclick="bundle.changeSelection(this)" class="radio" id="bundle-option-<?php echo $_option->getId() ?>" name="bundle_option[<?php echo $_option->getId() ?>]"<?php echo ($_default && $_default->isSalable())?'':' checked="checked" ' ?> value=""/>

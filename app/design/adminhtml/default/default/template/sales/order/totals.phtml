@@ -41,7 +41,7 @@
     <?php foreach ($this->getTotals('footer') as $_code => $_total): ?>
         <?php if ($_total->getBlockName()): ?>
             <?php echo $this->getChildHtml($_total->getBlockName(), false); ?>
-        <?php else:?>
+        <?php else: ?>
         <tr class="<?php echo $_code?>">
             <td <?php echo $this->getLabelProperties()?> class="label">
                 <strong><?php echo $this->escapeHtml($_total->getLabel()); ?></strong>
@@ -61,19 +61,19 @@
     <?php foreach ($_totals as $_code => $_total): ?>
         <?php if ($_total->getBlockName()): ?>
             <?php echo $this->getChildHtml($_total->getBlockName(), false); ?>
-        <?php else:?>
+        <?php else: ?>
         <tr class="<?php echo $_code?>">
             <td <?php echo $this->getLabelProperties()?> class="label">
                 <?php if ($_total->getStrong()):?>
                 <strong><?php echo $this->escapeHtml($_total->getLabel()); ?></strong>
-                <?php else:?>
+                <?php else: ?>
                 <?php echo $this->escapeHtml($_total->getLabel()); ?>
                 <?php endif ?>
             </td>
             <?php if ($_total->getStrong()):?>
             <td <?php echo $this->getValueProperties()?> class="emph">
                 <strong><?php echo $this->formatValue($_total) ?></strong>
-            <?php else:?>
+            <?php else: ?>
             <td <?php echo $this->getValueProperties()?>>
                 <?php echo $this->formatValue($_total) ?>
             <?php endif ?>

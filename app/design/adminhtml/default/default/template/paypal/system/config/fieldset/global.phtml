@@ -49,7 +49,7 @@
                 <?php endif ?>
                 <label for="<?php echo $htmlId?>"><?php echo $this->getElementHtml($element) ?><strong><?php echo $this->getElementLabelTextHtml($element)?></strong>&nbsp;&ndash; <?php echo $this->escapeHtml($this->getElementComment($element))?></label>
             </td>
-        <?php else:?>
+        <?php else: ?>
             <td>
                 <?php if ($this->hasInheritElement($element)): ?>
                     <div><?php echo $this->getInheritElementHtml($element) ?><?php echo $this->getInheritElementLabelHtml($element) ?></div>
