@@ -286,7 +286,7 @@ class Varien_Simplexml_Config
     /**
      * Enter description here...
      *
-     * @param string $data
+     * @param string|null $data
      * @return Varien_Simplexml_Config
      */
     public function setCacheChecksum($data)

@@ -31,11 +31,23 @@
  * @todo extend from Mage_Core_Model_Session_Abstract
  *
  * @method null|bool getCookieShouldBeReceived()
- * @method Mage_Core_Model_Session setCookieShouldBeReceived(bool $flag)
- * @method Mage_Core_Model_Session unsCookieShouldBeReceived()
+ * @method $this setCookieShouldBeReceived(bool $value)
+ * @method $this unsCookieShouldBeReceived()
+ * @method $this unsSessionHosts()
+ * @method string getCurrencyCode()
+ * @method $this setCurrencyCode(string $value)
+ * @method $this setFormData(array $value)
+ * @method int getJustVotedPoll()
+ * @method array getOrderIds()
+ * @method $this setOrderIds(array $value)
+ * @method $this setJustVotedPoll(int $value)
+ * @method $this setLastUrl(string $value)
  */
 class Mage_Core_Model_Session extends Mage_Core_Model_Session_Abstract
 {
+    /**
+     * @param array $data
+     */
     public function __construct($data = array())
     {
         $name = isset($data['name']) ? $data['name'] : null;

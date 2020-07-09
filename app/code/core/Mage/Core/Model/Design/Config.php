@@ -38,7 +38,8 @@ class Mage_Core_Model_Design_Config extends Varien_Simplexml_Config
 
     /**
      * Assemble themes inheritance config
-     *
+     * @param array $params
+     * @throws Mage_Core_Exception
      */
     public function __construct(array $params = array())
     {

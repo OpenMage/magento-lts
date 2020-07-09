@@ -73,8 +73,7 @@ class Mage_Checkout_Multishipping_AddressController extends Mage_Core_Controller
 
             if ($this->_getCheckout()->getCustomerDefaultShippingAddress()) {
                 $addressForm->setBackUrl(Mage::getUrl('*/multishipping/addresses'));
-            }
-            else {
+            } else {
                 $addressForm->setBackUrl(Mage::getUrl('*/cart/'));
             }
         }

@@ -33,6 +33,9 @@
  */
 class Mage_Downloadable_Model_System_Config_Source_Orderitemstatus
 {
+    /**
+     * @return array
+     */
     public function toOptionArray()
     {
         return array(

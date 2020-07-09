@@ -204,7 +204,7 @@ class Zend_Date extends Zend_Date_DateObject
         }
 
         // set datepart
-        if (($part !== null && $part !== self::TIMESTAMP) or (!is_numeric($date))) {
+        if (($part !== null && $part !== self::TIMESTAMP) || (!is_numeric($date))) {
             // switch off dst handling for value setting
             $this->setUnixTimestamp($this->getGmtOffset());
             $this->set($date, $part, $this->_locale);
@@ -472,7 +472,7 @@ class Zend_Date extends Zend_Date_DateObject
 
         if ($format === null) {
             $format = Zend_Locale_Format::getDateFormat($locale) . ' ' . Zend_Locale_Format::getTimeFormat($locale);
-        } else if (((self::$_options['format_type'] == 'php') && ($type === null)) or ($type == 'php')) {
+        } else if (((self::$_options['format_type'] == 'php') && ($type === null)) || ($type == 'php')) {
             $format = Zend_Locale_Format::convertPhpToIsoFormat($format);
         }
 
@@ -1276,9 +1276,9 @@ class Zend_Date extends Zend_Date_DateObject
         if ((self::$_options['fix_dst'] === true) && ($dst !== false) && ($this->_dst === true)) {
             $hour = $this->toString(self::HOUR, 'iso');
             if ($hour != $dst) {
-                if (($dst == ($hour + 1)) or ($dst == ($hour - 23))) {
+                if (($dst == ($hour + 1)) || ($dst == ($hour - 23))) {
                     $value += 3600;
-                } else if (($dst == ($hour - 1)) or ($dst == ($hour + 23))) {
+                } else if (($dst == ($hour - 1)) || ($dst == ($hour + 23))) {
                     $value -= 3600;
                 }
                 $this->setUnixTimestamp($value);
@@ -2795,7 +2795,7 @@ class Zend_Date extends Zend_Date_DateObject
             $time = $time->toString('HH:mm:ss', 'iso');
         } else {
             if (is_array($time)) {
-                if ((isset($time['hour']) === true) or (isset($time['minute']) === true) or
+                if ((isset($time['hour']) === true) || (isset($time['minute']) === true) ||
                     (isset($time['second']) === true)) {
                     $parsed = $time;
                 } else {
@@ -2957,7 +2957,7 @@ class Zend_Date extends Zend_Date_DateObject
             $date = $date->toString('d.M.y', 'iso');
         } else {
             if (is_array($date)) {
-                if ((isset($date['year']) === true) or (isset($date['month']) === true) or
+                if ((isset($date['year']) === true) || (isset($date['month']) === true) ||
                     (isset($date['day']) === true)) {
                     $parsed = $date;
                 } else {
@@ -3261,15 +3261,15 @@ class Zend_Date extends Zend_Date_DateObject
      */
     private function _checkLocation($location)
     {
-        if (!isset($location['longitude']) or !isset($location['latitude'])) {
+        if (!isset($location['longitude']) || !isset($location['latitude'])) {
             #require_once 'Zend/Date/Exception.php';
             throw new Zend_Date_Exception('Location must include \'longitude\' and \'latitude\'', 0, null, $location);
         }
-        if (($location['longitude'] > 180) or ($location['longitude'] < -180)) {
+        if (($location['longitude'] > 180) || ($location['longitude'] < -180)) {
             #require_once 'Zend/Date/Exception.php';
             throw new Zend_Date_Exception('Longitude must be between -180 and 180', 0, null, $location);
         }
-        if (($location['latitude'] > 90) or ($location['latitude'] < -90)) {
+        if (($location['latitude'] > 90) || ($location['latitude'] < -90)) {
             #require_once 'Zend/Date/Exception.php';
             throw new Zend_Date_Exception('Latitude must be between -90 and 90', 0, null, $location);
         }
@@ -4454,7 +4454,7 @@ class Zend_Date extends Zend_Date_DateObject
      */
     public function setFractionalPrecision($precision)
     {
-        if (!intval($precision) or ($precision < 0) or ($precision > 9)) {
+        if (!intval($precision) || ($precision < 0) || ($precision > 9)) {
             #require_once 'Zend/Date/Exception.php';
             throw new Zend_Date_Exception("precision ($precision) must be a positive integer less than 10", 0, null, $precision);
         }
@@ -4800,7 +4800,7 @@ class Zend_Date extends Zend_Date_DateObject
             $parsed = $date;
         }
 
-        if (((strpos($format, 'Y') !== false) or (strpos($format, 'y') !== false)) &&
+        if (((strpos($format, 'Y') !== false) || (strpos($format, 'y') !== false)) &&
             (!isset($parsed['year']))) {
             // Year expected but not found
             return false;
@@ -4816,7 +4816,7 @@ class Zend_Date extends Zend_Date_DateObject
             return false;
         }
 
-        if (((strpos($format, 'H') !== false) or (strpos($format, 'h') !== false)) &&
+        if (((strpos($format, 'H') !== false) || (strpos($format, 'h') !== false)) &&
             (!isset($parsed['hour']))) {
             // Hour expected but not found
             return false;

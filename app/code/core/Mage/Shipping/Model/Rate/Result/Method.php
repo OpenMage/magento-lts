@@ -33,6 +33,14 @@
  * - methodTitle: UPS 2nd Day Priority
  * - price: $9.40 (cost+handling)
  * - cost: $8.00
+ *
+ * @method $this setCarrier(string $value)
+ * @method $this setCarrierTitle(string $value)
+ * @method string getMethod()
+ * @method $this setMethod(string $value)
+ * @method $this setMethodTitle(string $value)
+ * @method float getPrice()
+ * @method $this setCost(float $value)
  */
 class Mage_Shipping_Model_Rate_Result_Method extends Mage_Shipping_Model_Rate_Result_Abstract
 {

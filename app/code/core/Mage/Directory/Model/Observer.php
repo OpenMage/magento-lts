@@ -65,13 +65,13 @@ class Mage_Directory_Model_Observer
         $rates = $importModel->fetchRates();
         $errors = $importModel->getMessages();
 
-        if (sizeof($errors) > 0) {
+        if (count($errors)) {
             foreach ($errors as $error) {
                 $importWarnings[] = Mage::helper('directory')->__('WARNING:') . ' ' . $error;
             }
         }
 
-        if (sizeof($importWarnings) == 0) {
+        if (!count($importWarnings)) {
             Mage::getModel('directory/currency')->saveRates($rates);
         } else {
             $translate = Mage::getSingleton('core/translate');

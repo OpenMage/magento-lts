@@ -219,8 +219,8 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
      */
     protected function _prepareDataForAdd($data)
     {
-        if (!isset($data['product_id']) or !isset($data['tag'])
-            or !isset($data['customer_id']) or !isset($data['store'])) {
+        if (!isset($data['product_id']) || !isset($data['tag'])
+            || !isset($data['customer_id']) || !isset($data['store'])) {
             $this->_fault('invalid_data');
         }
 
@@ -236,7 +236,7 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
     protected function _prepareDataForUpdate($data)
     {
         // $data should contain at least one field to change
-        if (!(isset($data['name']) or isset($data['status']) or isset($data['base_popularity']))) {
+        if (!(isset($data['name']) || isset($data['status']) || isset($data['base_popularity']))) {
             $this->_fault('invalid_data');
         }
 

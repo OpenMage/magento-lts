@@ -24,7 +24,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/** @var $installer Mage_Core_Model_Resource_Setup */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 /*
  * Prepare database for tables install
@@ -90,22 +90,42 @@ $table = $installer->getConnection()
         'unsigned'  => true,
         'nullable'  => false,
         ), 'Store Id')
-    ->addIndex($installer->getIdxName('reports/event', array('event_type_id')),
-        array('event_type_id'))
-    ->addIndex($installer->getIdxName('reports/event', array('subject_id')),
-        array('subject_id'))
-    ->addIndex($installer->getIdxName('reports/event', array('object_id')),
-        array('object_id'))
-    ->addIndex($installer->getIdxName('reports/event', array('subtype')),
-        array('subtype'))
-    ->addIndex($installer->getIdxName('reports/event', array('store_id')),
-        array('store_id'))
-    ->addForeignKey($installer->getFkName('reports/event', 'store_id', 'core/store', 'store_id'),
-        'store_id', $installer->getTable('core/store'), 'store_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->addForeignKey($installer->getFkName('reports/event', 'event_type_id', 'reports/event_type', 'event_type_id'),
-        'event_type_id', $installer->getTable('reports/event_type'), 'event_type_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+    ->addIndex(
+        $installer->getIdxName('reports/event', array('event_type_id')),
+        array('event_type_id')
+    )
+    ->addIndex(
+        $installer->getIdxName('reports/event', array('subject_id')),
+        array('subject_id')
+    )
+    ->addIndex(
+        $installer->getIdxName('reports/event', array('object_id')),
+        array('object_id')
+    )
+    ->addIndex(
+        $installer->getIdxName('reports/event', array('subtype')),
+        array('subtype')
+    )
+    ->addIndex(
+        $installer->getIdxName('reports/event', array('store_id')),
+        array('store_id')
+    )
+    ->addForeignKey(
+        $installer->getFkName('reports/event', 'store_id', 'core/store', 'store_id'),
+        'store_id',
+        $installer->getTable('core/store'),
+        'store_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
+    ->addForeignKey(
+        $installer->getFkName('reports/event', 'event_type_id', 'reports/event_type', 'event_type_id'),
+        'event_type_id',
+        $installer->getTable('reports/event_type'),
+        'event_type_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
     ->setComment('Reports Event Table');
 $installer->getConnection()->createTable($table);
 
@@ -141,25 +161,50 @@ if (!$installer->tableExists($tableName)) {
         ->addColumn('added_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
             'nullable'  => false,
             ), 'Added At')
-        ->addIndex($installer->getIdxName('reports/compared_product_index', array('visitor_id', 'product_id')),
-            array('visitor_id', 'product_id'))
-        ->addIndex($installer->getIdxName('reports/compared_product_index', array('customer_id', 'product_id')),
-            array('customer_id', 'product_id'))
-        ->addIndex($installer->getIdxName('reports/compared_product_index', array('store_id')),
-            array('store_id'))
-        ->addIndex($installer->getIdxName('reports/compared_product_index', array('added_at')),
-            array('added_at'))
-        ->addIndex($installer->getIdxName('reports/compared_product_index', array('product_id')),
-            array('product_id'))
-        ->addForeignKey($installer->getFkName('reports/compared_product_index', 'customer_id', 'customer/entity', 'entity_id'),
-            'customer_id', $installer->getTable('customer/entity'), 'entity_id',
-            Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-        ->addForeignKey($installer->getFkName('reports/compared_product_index', 'product_id', 'catalog/product', 'entity_id'),
-            'product_id', $installer->getTable('catalog/product'), 'entity_id',
-            Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-        ->addForeignKey($installer->getFkName('reports/compared_product_index', 'store_id', 'core/store', 'store_id'),
-            'store_id', $installer->getTable('core/store'), 'store_id',
-            Varien_Db_Ddl_Table::ACTION_SET_NULL, Varien_Db_Ddl_Table::ACTION_CASCADE)
+        ->addIndex(
+            $installer->getIdxName('reports/compared_product_index', array('visitor_id', 'product_id')),
+            array('visitor_id', 'product_id')
+        )
+        ->addIndex(
+            $installer->getIdxName('reports/compared_product_index', array('customer_id', 'product_id')),
+            array('customer_id', 'product_id')
+        )
+        ->addIndex(
+            $installer->getIdxName('reports/compared_product_index', array('store_id')),
+            array('store_id')
+        )
+        ->addIndex(
+            $installer->getIdxName('reports/compared_product_index', array('added_at')),
+            array('added_at')
+        )
+        ->addIndex(
+            $installer->getIdxName('reports/compared_product_index', array('product_id')),
+            array('product_id')
+        )
+        ->addForeignKey(
+            $installer->getFkName('reports/compared_product_index', 'customer_id', 'customer/entity', 'entity_id'),
+            'customer_id',
+            $installer->getTable('customer/entity'),
+            'entity_id',
+            Varien_Db_Ddl_Table::ACTION_CASCADE,
+            Varien_Db_Ddl_Table::ACTION_CASCADE
+        )
+        ->addForeignKey(
+            $installer->getFkName('reports/compared_product_index', 'product_id', 'catalog/product', 'entity_id'),
+            'product_id',
+            $installer->getTable('catalog/product'),
+            'entity_id',
+            Varien_Db_Ddl_Table::ACTION_CASCADE,
+            Varien_Db_Ddl_Table::ACTION_CASCADE
+        )
+        ->addForeignKey(
+            $installer->getFkName('reports/compared_product_index', 'store_id', 'core/store', 'store_id'),
+            'store_id',
+            $installer->getTable('core/store'),
+            'store_id',
+            Varien_Db_Ddl_Table::ACTION_SET_NULL,
+            Varien_Db_Ddl_Table::ACTION_CASCADE
+        )
         ->setComment('Reports Compared Product Index Table');
     $installer->getConnection()->createTable($table);
 }
@@ -196,25 +241,50 @@ if (!$installer->tableExists($tableName)) {
         ->addColumn('added_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
             'nullable'  => false,
             ), 'Added At')
-        ->addIndex($installer->getIdxName('reports/viewed_product_index', array('visitor_id', 'product_id')),
-            array('visitor_id', 'product_id'))
-        ->addIndex($installer->getIdxName('reports/viewed_product_index', array('customer_id', 'product_id')),
-            array('customer_id', 'product_id'))
-        ->addIndex($installer->getIdxName('reports/viewed_product_index', array('store_id')),
-            array('store_id'))
-        ->addIndex($installer->getIdxName('reports/viewed_product_index', array('added_at')),
-            array('added_at'))
-        ->addIndex($installer->getIdxName('reports/viewed_product_index', array('product_id')),
-            array('product_id'))
-        ->addForeignKey($installer->getFkName('reports/viewed_product_index', 'customer_id', 'customer/entity', 'entity_id'),
-            'customer_id', $installer->getTable('customer/entity'), 'entity_id',
-            Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-        ->addForeignKey($installer->getFkName('reports/viewed_product_index', 'product_id', 'catalog/product', 'entity_id'),
-            'product_id', $installer->getTable('catalog/product'), 'entity_id',
-            Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-        ->addForeignKey($installer->getFkName('reports/viewed_product_index', 'store_id', 'core/store', 'store_id'),
-            'store_id', $installer->getTable('core/store'), 'store_id',
-            Varien_Db_Ddl_Table::ACTION_SET_NULL, Varien_Db_Ddl_Table::ACTION_CASCADE)
+        ->addIndex(
+            $installer->getIdxName('reports/viewed_product_index', array('visitor_id', 'product_id')),
+            array('visitor_id', 'product_id')
+        )
+        ->addIndex(
+            $installer->getIdxName('reports/viewed_product_index', array('customer_id', 'product_id')),
+            array('customer_id', 'product_id')
+        )
+        ->addIndex(
+            $installer->getIdxName('reports/viewed_product_index', array('store_id')),
+            array('store_id')
+        )
+        ->addIndex(
+            $installer->getIdxName('reports/viewed_product_index', array('added_at')),
+            array('added_at')
+        )
+        ->addIndex(
+            $installer->getIdxName('reports/viewed_product_index', array('product_id')),
+            array('product_id')
+        )
+        ->addForeignKey(
+            $installer->getFkName('reports/viewed_product_index', 'customer_id', 'customer/entity', 'entity_id'),
+            'customer_id',
+            $installer->getTable('customer/entity'),
+            'entity_id',
+            Varien_Db_Ddl_Table::ACTION_CASCADE,
+            Varien_Db_Ddl_Table::ACTION_CASCADE
+        )
+        ->addForeignKey(
+            $installer->getFkName('reports/viewed_product_index', 'product_id', 'catalog/product', 'entity_id'),
+            'product_id',
+            $installer->getTable('catalog/product'),
+            'entity_id',
+            Varien_Db_Ddl_Table::ACTION_CASCADE,
+            Varien_Db_Ddl_Table::ACTION_CASCADE
+        )
+        ->addForeignKey(
+            $installer->getFkName('reports/viewed_product_index', 'store_id', 'core/store', 'store_id'),
+            'store_id',
+            $installer->getTable('core/store'),
+            'store_id',
+            Varien_Db_Ddl_Table::ACTION_SET_NULL,
+            Varien_Db_Ddl_Table::ACTION_CASCADE
+        )
         ->setComment('Reports Viewed Product Index Table');
     $installer->getConnection()->createTable($table);
 }
@@ -223,4 +293,3 @@ if (!$installer->tableExists($tableName)) {
  * Prepare database for tables install
  */
 $installer->endSetup();
-

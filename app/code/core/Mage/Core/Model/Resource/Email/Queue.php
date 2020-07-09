@@ -37,9 +37,8 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
     /**
      * Load recipients, unserialize message parameters
      *
-     * @param Mage_Core_Model_Abstract $object
-     *
-     * @return $this
+     * @param Mage_Core_Model_Email_Queue $object
+     * @inheritDoc
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
@@ -51,8 +50,8 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
     /**
      * Prepare object data for saving
      *
-     * @param Mage_Core_Model_Email_Queue|Mage_Core_Model_Abstract $object
-     * @return $this
+     * @param Mage_Core_Model_Email_Queue $object
+     * @inheritDoc
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
@@ -101,7 +100,7 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
                 $newEmails[$email] = array($email, $name, $type);
             }
             $diff = array_diff_key($newEmails, $oldEmails);
-            if (sizeof($diff) > 0) {
+            if (count($diff)) {
                 $queue->clearRecipients();
                 foreach ($diff as $recipient) {
                     list($email, $name, $type) = $recipient;

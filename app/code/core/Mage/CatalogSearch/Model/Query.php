@@ -29,24 +29,29 @@
  *
  * @method Mage_CatalogSearch_Model_Resource_Query _getResource()
  * @method Mage_CatalogSearch_Model_Resource_Query getResource()
- * @method string getQueryText()
- * @method Mage_CatalogSearch_Model_Query setQueryText(string $value)
- * @method int getNumResults()
- * @method Mage_CatalogSearch_Model_Query setNumResults(int $value)
- * @method int getPopularity()
- * @method Mage_CatalogSearch_Model_Query setPopularity(int $value)
- * @method string getRedirect()
- * @method Mage_CatalogSearch_Model_Query setRedirect(string $value)
- * @method string getSynonymFor()
- * @method Mage_CatalogSearch_Model_Query setSynonymFor(string $value)
+ * @method Mage_CatalogSearch_Model_Resource_Query_Collection getCollection()
+ * @method Mage_CatalogSearch_Model_Resource_Query_Collection getResourceCollection()()
+ *
  * @method int getDisplayInTerms()
- * @method Mage_CatalogSearch_Model_Query setDisplayInTerms(int $value)
+ * @method $this setDisplayInTerms(int $value)
  * @method int getIsActive()
- * @method Mage_CatalogSearch_Model_Query setIsActive(int $value)
+ * @method $this setIsActive(int $value)
  * @method int getIsProcessed()
- * @method Mage_CatalogSearch_Model_Query setIsProcessed(int $value)
+ * @method $this setIsProcessed(int $value)
+ * @method string getName()
+ * @method int getNumResults()
+ * @method $this setNumResults(int $value)
+ * @method int getPopularity()
+ * @method $this setPopularity(int $value)
+ * @method string getQueryText()
+ * @method $this setQueryText(string $value)
+ * @method $this setRatio(float $value)
+ * @method string getRedirect()
+ * @method $this setRedirect(string $value)
+ * @method string getSynonymFor()
+ * @method $this setSynonymFor(string $value)
  * @method string getUpdatedAt()
- * @method Mage_CatalogSearch_Model_Query setUpdatedAt(string $value)
+ * @method $this setUpdatedAt(string $value)
  *
  * @category    Mage
  * @package     Mage_CatalogSearch
@@ -219,7 +224,8 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
      *
      * @return int
      */
-    public function getMinQueryLength(){
+    public function getMinQueryLength()
+    {
         return $this->getMinQueryLenght();
     }
 

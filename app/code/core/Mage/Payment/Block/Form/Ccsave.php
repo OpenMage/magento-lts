@@ -33,5 +33,4 @@ class Mage_Payment_Block_Form_Ccsave extends Mage_Payment_Block_Form_Cc
         parent::_construct();
         $this->setTemplate('payment/form/ccsave.phtml');
     }
-
 }

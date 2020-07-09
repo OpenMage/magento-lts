@@ -46,10 +46,10 @@ class Mage_Oauth_Block_Customer_Token_List extends Mage_Customer_Block_Account_D
      */
     protected function _construct()
     {
-        /** @var $session Mage_Customer_Model_Session */
+        /** @var Mage_Customer_Model_Session $session */
         $session = Mage::getSingleton('customer/session');
 
-        /** @var $collection Mage_Oauth_Model_Resource_Token_Collection */
+        /** @var Mage_Oauth_Model_Resource_Token_Collection $collection */
         $collection = Mage::getModel('oauth/token')->getCollection();
         $collection->joinConsumerAsApplication()
                 ->addFilterByType(Mage_Oauth_Model_Token::TYPE_ACCESS)
@@ -84,7 +84,7 @@ class Mage_Oauth_Block_Customer_Token_List extends Mage_Customer_Block_Account_D
      */
     protected function _prepareLayout()
     {
-        /** @var $toolbar Mage_Page_Block_Html_Pager */
+        /** @var Mage_Page_Block_Html_Pager $toolbar */
         $toolbar = $this->getLayout()->createBlock('page/html_pager', 'customer_token.toolbar');
         $toolbar->setCollection($this->_collection);
         $this->setChild('toolbar', $toolbar);
@@ -110,8 +110,10 @@ class Mage_Oauth_Block_Customer_Token_List extends Mage_Customer_Block_Account_D
      */
     public function getUpdateRevokeLink(Mage_Oauth_Model_Token $model)
     {
-        return Mage::getUrl('oauth/customer_token/revoke/',
-            array('id' => $model->getId(), 'status' => (int) !$model->getRevoked()));
+        return Mage::getUrl(
+            'oauth/customer_token/revoke/',
+            array('id' => $model->getId(), 'status' => (int) !$model->getRevoked())
+        );
     }
 
     /**

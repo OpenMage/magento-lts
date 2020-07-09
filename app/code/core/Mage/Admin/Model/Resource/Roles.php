@@ -169,7 +169,7 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
         $users  = $this->getRoleUsers($role);
         $rowsCount = 0;
 
-        if (sizeof($users) > 0) {
+        if (count($users)) {
             $bind  = array('reload_acl_flag' => 1);
             $where = array('user_id IN(?)' => $users);
             $rowsCount = $write->update($this->_usersTable, $bind, $where);

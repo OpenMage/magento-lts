@@ -24,7 +24,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 
 $installer->startSetup();
@@ -65,7 +65,8 @@ $table = $installer->getConnection()
             'core/email_queue',
             array('entity_id', 'entity_type', 'event_type', 'message_body_hash')
         ),
-        array('entity_id', 'entity_type', 'event_type', 'message_body_hash'))
+        array('entity_id', 'entity_type', 'event_type', 'message_body_hash')
+    )
     ->setComment('Email Queue');
 $installer->getConnection()->createTable($table);
 
@@ -94,10 +95,14 @@ $table = $installer->getConnection()
             'nullable'  => false,
             'default'   => '0',
         ), 'Email Type')
-    ->addIndex($installer->getIdxName('core/email_recipients', array('recipient_email')),
-        array('recipient_email'))
-    ->addIndex($installer->getIdxName('core/email_recipients', array('email_type')),
-        array('email_type'))
+    ->addIndex(
+        $installer->getIdxName('core/email_recipients', array('recipient_email')),
+        array('recipient_email')
+    )
+    ->addIndex(
+        $installer->getIdxName('core/email_recipients', array('email_type')),
+        array('email_type')
+    )
     ->addIndex(
         $installer->getIdxName(
             'core/email_recipients',
@@ -105,12 +110,17 @@ $table = $installer->getConnection()
             Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
         ),
         array('message_id', 'recipient_email', 'email_type'),
-        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
-    ->addForeignKey($installer->getFkName('core/email_recipients', 'message_id', 'core/email_queue', 'message_id'),
-        'message_id', $installer->getTable('core/email_queue'), 'message_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)
+    )
+    ->addForeignKey(
+        $installer->getFkName('core/email_recipients', 'message_id', 'core/email_queue', 'message_id'),
+        'message_id',
+        $installer->getTable('core/email_queue'),
+        'message_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
     ->setComment('Email Queue');
 $installer->getConnection()->createTable($table);
 
 $installer->endSetup();
-

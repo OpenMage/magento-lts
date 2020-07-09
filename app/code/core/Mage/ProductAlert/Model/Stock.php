@@ -24,26 +24,27 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * ProductAlert for back in stock model
  *
  * @method Mage_ProductAlert_Model_Resource_Stock _getResource()
  * @method Mage_ProductAlert_Model_Resource_Stock getResource()
+ * @method Mage_ProductAlert_Model_Resource_Stock_Collection getCollection()
+ *
  * @method int getCustomerId()
- * @method Mage_ProductAlert_Model_Stock setCustomerId(int $value)
+ * @method $this setCustomerId(int $value)
  * @method int getProductId()
- * @method Mage_ProductAlert_Model_Stock setProductId(int $value)
+ * @method $this setProductId(int $value)
  * @method int getWebsiteId()
- * @method Mage_ProductAlert_Model_Stock setWebsiteId(int $value)
+ * @method $this setWebsiteId(int $value)
  * @method string getAddDate()
- * @method Mage_ProductAlert_Model_Stock setAddDate(string $value)
+ * @method $this setAddDate(string $value)
  * @method string getSendDate()
- * @method Mage_ProductAlert_Model_Stock setSendDate(string $value)
+ * @method $this setSendDate(string $value)
  * @method int getSendCount()
- * @method Mage_ProductAlert_Model_Stock setSendCount(int $value)
+ * @method $this setSendCount(int $value)
  * @method int getStatus()
- * @method Mage_ProductAlert_Model_Stock setStatus(int $value)
+ * @method $this setStatus(int $value)
  *
  * @category    Mage
  * @package     Mage_ProductAlert
@@ -56,11 +57,17 @@ class Mage_ProductAlert_Model_Stock extends Mage_Core_Model_Abstract
         $this->_init('productalert/stock');
     }
 
+    /**
+     * @return Mage_ProductAlert_Model_Resource_Stock_Customer_Collection
+     */
     public function getCustomerCollection()
     {
         return Mage::getResourceModel('productalert/stock_customer_collection');
     }
 
+    /**
+     * @return $this
+     */
     public function loadByParam()
     {
         if (!is_null($this->getProductId()) && !is_null($this->getCustomerId()) && !is_null($this->getWebsiteId())) {
@@ -69,6 +76,11 @@ class Mage_ProductAlert_Model_Stock extends Mage_Core_Model_Abstract
         return $this;
     }
 
+    /**
+     * @param int $customerId
+     * @param int $websiteId
+     * @return $this
+     */
     public function deleteCustomer($customerId, $websiteId = 0)
     {
         $this->getResource()->deleteCustomer($this, $customerId, $websiteId);

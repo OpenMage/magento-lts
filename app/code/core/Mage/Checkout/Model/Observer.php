@@ -42,11 +42,9 @@ class Mage_Checkout_Model_Observer
     {
         try {
             Mage::getSingleton('checkout/session')->loadCustomerQuote();
-        }
-        catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $e) {
             Mage::getSingleton('checkout/session')->addError($e->getMessage());
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             Mage::getSingleton('checkout/session')->addException(
                 $e,
                 Mage::helper('checkout')->__('Load customer quote error')
@@ -54,10 +52,13 @@ class Mage_Checkout_Model_Observer
         }
     }
 
-    public function salesQuoteSaveAfter($observer)
+    /**
+     * @param Varien_Event_Observer $observer
+     */
+    public function salesQuoteSaveAfter(Varien_Event_Observer $observer)
     {
         $quote = $observer->getEvent()->getQuote();
-        /* @var $quote Mage_Sales_Model_Quote */
+        /* @var Mage_Sales_Model_Quote $quote */
         if ($quote->getIsCheckoutCart()) {
             Mage::getSingleton('checkout/session')->getQuoteId($quote->getId());
         }

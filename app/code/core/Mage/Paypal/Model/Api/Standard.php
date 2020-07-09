@@ -151,7 +151,7 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
 
         // payer address
         $this->_importAddress($request);
-        $this->_debug(array('request' => $request)); // TODO: this is not supposed to be called in getter
+
         return $request;
     }
 

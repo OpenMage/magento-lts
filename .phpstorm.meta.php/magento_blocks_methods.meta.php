@@ -1341,12 +1341,6 @@ namespace PHPSTORM_META {
             'wishlist/share_email_items' => \Mage_Wishlist_Block_Share_Email_Items::class,
             'wishlist/share_email_rss' => \Mage_Wishlist_Block_Share_Email_Rss::class,
             'wishlist/share_wishlist' => \Mage_Wishlist_Block_Share_Wishlist::class,
-            'moneybookers/form' => \Phoenix_Moneybookers_Block_Form::class,
-            'moneybookers/info' => \Phoenix_Moneybookers_Block_Info::class,
-            'moneybookers/jsinit' => \Phoenix_Moneybookers_Block_Jsinit::class,
-            'moneybookers/payment' => \Phoenix_Moneybookers_Block_Payment::class,
-            'moneybookers/placeform' => \Phoenix_Moneybookers_Block_Placeform::class,
-            'moneybookers/redirect' => \Phoenix_Moneybookers_Block_Redirect::class,
         ])
     );
 }

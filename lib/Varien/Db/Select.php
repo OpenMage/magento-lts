@@ -29,22 +29,22 @@
  *
  * @method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract getAdapter()
  * @property Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract $_adapter
- * @method Varien_Db_Select from($name, $cols = '*', $schema = null)
- * @method Varien_Db_Select join($name, $cond, $cols = '*', $schema = null)
- * @method Varien_Db_Select joinInner($name, $cond, $cols = '*', $schema = null)
- * @method Varien_Db_Select joinLeft($name, $cond, $cols = '*', $schema = null)
- * @method Varien_Db_Select joinNatural($name, $cond, $cols = '*', $schema = null)
- * @method Varien_Db_Select joinFull($name, $cond, $cols = '*', $schema = null)
- * @method Varien_Db_Select joinRight($name, $cond, $cols = '*', $schema = null)
- * @method Varien_Db_Select joinCross($name, $cols = '*', $schema = null)
- * @method Varien_Db_Select orWhere($cond, $value = null, $type = null)
- * @method Varien_Db_Select group($spec)
- * @method Varien_Db_Select order($spec)
- * @method Varien_Db_Select limitPage($page, $rowCount)
- * @method Varien_Db_Select forUpdate($flag = true)
- * @method Varien_Db_Select distinct($flag = true)
- * @method Varien_Db_Select reset($part = null)
- * @method Varien_Db_Select columns($cols = '*', $correlationName = null)
+ * @method $this from($name, $cols = '*', $schema = null)
+ * @method $this join($name, $cond, $cols = '*', $schema = null)
+ * @method $this joinInner($name, $cond, $cols = '*', $schema = null)
+ * @method $this joinLeft($name, $cond, $cols = '*', $schema = null)
+ * @method $this joinNatural($name, $cond, $cols = '*', $schema = null)
+ * @method $this joinFull($name, $cond, $cols = '*', $schema = null)
+ * @method $this joinRight($name, $cond, $cols = '*', $schema = null)
+ * @method $this joinCross($name, $cols = '*', $schema = null)
+ * @method $this orWhere($cond, $value = null, $type = null)
+ * @method $this group($spec)
+ * @method $this order($spec)
+ * @method $this limitPage($page, $rowCount)
+ * @method $this forUpdate($flag = true)
+ * @method $this distinct($flag = true)
+ * @method $this reset($part = null)
+ * @method $this columns($cols = '*', $correlationName = null)
  *
  * @category    Varien
  * @package     Varien_Db
@@ -100,10 +100,10 @@ class Varien_Db_Select extends Zend_Db_Select
      * $db->fetchAll($select, array('id' => 5));
      * </code>
      *
-     * @param string   $cond  The WHERE condition.
-     * @param string   $value OPTIONAL A single value to quote into the condition.
-     * @param null|string $type  OPTIONAL The type of the given value
-     * @return Varien_Db_Select This Zend_Db_Select object.
+     * @param string $cond The WHERE condition.
+     * @param Zend_Db_Select|Zend_Db_Expr|array|null|int|string|float $value OPTIONAL A single value to quote into the condition.
+     * @param null|string|int $type  OPTIONAL The type of the given value e.g. Zend_Db::INT_TYPE, "INT"
+     * @return $this
      */
     public function where($cond, $value = null, $type = null)
     {
@@ -112,12 +112,13 @@ class Varien_Db_Select extends Zend_Db_Select
         }
         /**
          * Additional internal type used for really null value
+         * cast to string, to prevent false matching 0 == "TYPE_CONDITION"
          */
-        if ($type == self::TYPE_CONDITION) {
+        if ((string)$type === self::TYPE_CONDITION) {
             $type = null;
         }
         if (is_array($value)) {
-            $cond = $this->_adapter->quoteInto($cond, $value);
+            $cond = $this->_adapter->quoteInto($cond, $value, $type);
             $value = null;
         }
         return parent::where($cond, $value, $type);
@@ -126,7 +127,7 @@ class Varien_Db_Select extends Zend_Db_Select
     /**
      * Reset unused LEFT JOIN(s)
      *
-     * @return Varien_Db_Select
+     * @return $this
      */
     public function resetJoinLeft()
     {
@@ -186,7 +187,7 @@ class Varien_Db_Select extends Zend_Db_Select
     /**
      * Validate LEFT joins, and remove it if not exists
      *
-     * @return Varien_Db_Select
+     * @return $this
      */
     protected function _resetJoinLeft()
     {
@@ -357,7 +358,7 @@ class Varien_Db_Select extends Zend_Db_Select
      *
      * @param string $part
      * @param mixed $value
-     * @return Varien_Db_Select
+     * @return $this
      * @throws Zend_Db_Select_Exception
      */
     public function setPart($part, $value)
@@ -425,7 +426,7 @@ class Varien_Db_Select extends Zend_Db_Select
      * Adds the random order to query
      *
      * @param string $field     integer field name
-     * @return Varien_Db_Select
+     * @return $this
      */
     public function orderRand($field = null)
     {
@@ -453,7 +454,7 @@ class Varien_Db_Select extends Zend_Db_Select
      * @param  Varien_Db_Select $select
      * @param  string           $joinCondition
      * @param   bool            $isExists
-     * @return Varien_Db_Select
+     * @return $this
      */
     public function exists($select, $joinCondition, $isExists = true)
     {

@@ -29,26 +29,45 @@
  *
  * @method Mage_Downloadable_Model_Resource_Link _getResource()
  * @method Mage_Downloadable_Model_Resource_Link getResource()
+ * @method Mage_Downloadable_Model_Resource_Link_Collection getCollection()
+ *
  * @method int getProductId()
- * @method Mage_Downloadable_Model_Link setProductId(int $value)
+ * @method $this setProductId(int $value)
  * @method int getSortOrder()
- * @method Mage_Downloadable_Model_Link setSortOrder(int $value)
+ * @method $this setSortOrder(int $value)
  * @method int getNumberOfDownloads()
- * @method Mage_Downloadable_Model_Link setNumberOfDownloads(int $value)
+ * @method $this setNumberOfDownloads(int $value)
+ * @method bool getIsUnlimited()
  * @method int getIsShareable()
- * @method Mage_Downloadable_Model_Link setIsShareable(int $value)
+ * @method $this setIsShareable(int $value)
+ * @method int getLinkId()
  * @method string getLinkUrl()
- * @method Mage_Downloadable_Model_Link setLinkUrl(string $value)
+ * @method $this setLinkUrl(string $value)
  * @method string getLinkFile()
- * @method Mage_Downloadable_Model_Link setLinkFile(string $value)
+ * @method $this setLinkFile(string $value)
  * @method string getLinkType()
- * @method Mage_Downloadable_Model_Link setLinkType(string $value)
+ * @method $this setLinkType(string $value)
  * @method string getSampleUrl()
- * @method Mage_Downloadable_Model_Link setSampleUrl(string $value)
+ * @method $this setSampleUrl(string $value)
  * @method string getSampleFile()
- * @method Mage_Downloadable_Model_Link setSampleFile(string $value)
+ * @method $this setSampleFile(string $value)
  * @method string getSampleType()
- * @method Mage_Downloadable_Model_Link setSampleType(string $value)
+ * @method $this setSampleType(string $value)
+ * @method int getStoreId()
+ * @method $this setStoreId(int $value)
+ * @method string getStoreTitle()
+ * @method float getPrice()
+ * @method $this setPrice(float $value)
+ * @method Mage_Catalog_Model_Product getProduct()
+ * @method $this setProduct(Mage_Catalog_Model_Product $value)
+ * @method array getProductWebsiteIds()
+ * @method $this setProductWebsiteIds(array $value)
+ * @method string getTitle()
+ * @method bool getUseDefaultPrice()
+ * @method bool getUseDefaultTitle()
+ * @method int getWebsiteId()
+ * @method $this setWebsiteId(int $value)
+ * @method float getWebsitePrice()
  *
  * @category    Mage
  * @package     Mage_Downloadable
@@ -88,7 +107,7 @@ class Mage_Downloadable_Model_Link extends Mage_Core_Model_Abstract
     /**
      * Enter description here...
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _afterSave()
     {

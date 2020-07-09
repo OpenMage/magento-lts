@@ -102,7 +102,7 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
             array('rssObj'=> $rssObj, 'results'=> &$results)
         );
 
-        if (sizeof($results)>0) {
+        if (count($results)) {
             foreach($results as $result){
                 // render a row for RSS feed
                 $product->setData($result);

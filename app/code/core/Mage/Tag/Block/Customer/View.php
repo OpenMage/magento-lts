@@ -92,7 +92,7 @@ class Mage_Tag_Block_Customer_View extends Mage_Catalog_Block_Product_Abstract
      */
     public function getCount()
     {
-        return sizeof($this->getMyProducts());
+        return count($this->getMyProducts());
     }
 
     /**

@@ -24,17 +24,17 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Gift message inline edit form
  *
  * @category   Mage
  * @package    Mage_GiftMessage
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setDontDisplayContainer(bool $value)
  */
 class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
 {
-
     protected $_entity = null;
     protected $_type   = null;
     protected $_giftMessage = null;
@@ -48,7 +48,8 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
     /**
      * Set entity
      *
-     * @return mixed
+     * @param mixed $entity
+     * @return $this
      */
     public function setEntity($entity)
     {
@@ -145,7 +146,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
      * @param mixed $entity
      * @return string
      */
-    public function getMessage($entity=null)
+    public function getMessage($entity = null)
     {
         if (is_null($this->_giftMessage)) {
             $this->_initMessage();
@@ -192,7 +193,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
     /**
      * Retrieve additional url
      *
-     * @return bool
+     * @return string
      */
     public function getAdditionalUrl()
     {
@@ -251,7 +252,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
      * @param string $defaultValue
      * @return string
      */
-    public function getEscaped($value, $defaultValue='')
+    public function getEscaped($value, $defaultValue = '')
     {
         return $this->escapeHtml(trim($value)!='' ? $value : $defaultValue);
     }
@@ -259,7 +260,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
     /**
      * Check availability of giftmessages for specified entity
      *
-     * @return bool
+     * @return bool|int
      */
     public function isMessagesAvailable()
     {
@@ -269,7 +270,8 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
     /**
      * Check availability of giftmessages for specified entity item
      *
-     * @return bool
+     * @param Mage_Sales_Model_Quote_Item $item
+     * @return bool|int
      */
     public function isItemMessagesAvailable($item)
     {

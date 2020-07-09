@@ -138,10 +138,9 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             $item->setUrl($helper->getCurrentUrl() . $item->getBasename());
 
             if ($this->isImage($item->getBasename())) {
-                $thumbUrl = $this->getThumbnailUrl(
-                    Mage_Core_Model_File_Uploader::getCorrectFileName($item->getFilename()),
-                    true
-                );
+                $thumbImg = Mage_Core_Model_File_Uploader::getCorrectFileName($item->getBasename());
+                $thumbUrl = $this->getThumbnailUrl($path . DS . $thumbImg, true);
+
                 // generate thumbnail "on the fly" if it does not exists
                 if (! $thumbUrl) {
                     $thumbUrl = Mage::getSingleton('adminhtml/url')->getUrl('*/*/thumbnail', array('file' => $item->getId()));
@@ -344,24 +343,20 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      *
      * @param  string $filePath original file path
      * @param  boolean $checkFile OPTIONAL is it necessary to check file availability
-     * @return string | false
+     * @return string|false
      */
     public function getThumbnailUrl($filePath, $checkFile = false)
     {
         $mediaRootDir = Mage::getConfig()->getOptions()->getMediaDir() . DS;
-
         if (strpos($filePath, $mediaRootDir) === 0) {
-            $thumbSuffix = self::THUMBS_DIRECTORY_NAME . DS . Mage_Cms_Model_Wysiwyg_Config::IMAGE_DIRECTORY
-                . DS . substr($filePath, strlen($mediaRootDir));
-
-            if (! $checkFile || is_readable($this->getHelper()->getStorageRoot() . $thumbSuffix)) {
+            $thumbSuffix = self::THUMBS_DIRECTORY_NAME . DS . substr($filePath, strlen($mediaRootDir));
+            if (!$checkFile || is_readable($this->getHelper()->getStorageRoot() . $thumbSuffix)) {
                 $randomIndex = '?rand=' . time();
                 $thumbUrl = $this->getHelper()->getBaseUrl() . Mage_Cms_Model_Wysiwyg_Config::IMAGE_DIRECTORY
                     . DS . $thumbSuffix;
                 return str_replace('\\', '/', $thumbUrl) . $randomIndex;
             }
         }
-
         return false;
     }
 

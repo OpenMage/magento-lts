@@ -1154,7 +1154,7 @@ class Zend_Locale
      */
     public static function getDefault()
     {
-        if ((self::$compatibilityMode === true) or (func_num_args() > 0)) {
+        if ((self::$compatibilityMode === true) || (func_num_args() > 0)) {
             if (!self::$_breakChain) {
                 self::$_breakChain = true;
                 trigger_error('You are running Zend_Locale in compatibility mode... please migrate your scripts', E_USER_NOTICE);
@@ -1186,13 +1186,13 @@ class Zend_Locale
      */
     public static function setDefault($locale, $quality = 1)
     {
-        if (($locale === 'auto') or ($locale === 'root') or ($locale === 'default') or
-            ($locale === 'environment') or ($locale === 'browser')) {
+        if (($locale === 'auto') || ($locale === 'root') || ($locale === 'default') ||
+            ($locale === 'environment') || ($locale === 'browser')) {
             #require_once 'Zend/Locale/Exception.php';
             throw new Zend_Locale_Exception('Only full qualified locales can be used as default!');
         }
 
-        if (($quality < 0.1) or ($quality > 100)) {
+        if (($quality < 0.1) || ($quality > 100)) {
             #require_once 'Zend/Locale/Exception.php';
             throw new Zend_Locale_Exception("Quality must be between 0.1 and 100");
         }
@@ -1360,7 +1360,7 @@ class Zend_Locale
 
             $region = substr((string) $locale, 0, 3);
             if (isset($region[2]) === true) {
-                if (($region[2] === '_') or ($region[2] === '-')) {
+                if (($region[2] === '_') || ($region[2] === '-')) {
                     $region = substr($region, 0, 2);
                 }
             }
@@ -1907,7 +1907,7 @@ class Zend_Locale
                 $locale = self::$_default;
             }
 
-            if (($locale === 'auto') or ($locale === null)) {
+            if (($locale === 'auto') || ($locale === null)) {
                 $locale = self::$_auto;
             }
 
