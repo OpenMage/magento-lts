@@ -343,9 +343,6 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
                 true,
                 $ratingSummaryObject->getStoreId()
             );
-
-            Mage::log($reviewsCount . " " . $ratingSummaryObject->getStoreId());
-
             $select = $readAdapter->select()
                 ->from($this->_aggregateTable)
                 ->where('entity_pk_value = :pk_value')
