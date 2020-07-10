@@ -119,6 +119,12 @@ dl.accordion dt.open a:after, div.collapseable a.open:after {
   color: #fff;
 }
 
+.header-right fieldset input.input-text:hover, .header-right fieldset input.input-text:focus {
+  background-color: #fff;
+  outline: none;
+  box-shadow: none;
+}
+
 @font-face {
   font-family: "Open Sans";
   src: url("fonts/opensans/OpenSans-Light.eot");
@@ -409,20 +415,52 @@ small {
   background: #000537;
 }
 
-.header-right {
-  font-size: 12px;
+.header-top {
+  border-bottom: none !important;
+  height: 10px;
 }
-.header-right .super {
-  line-height: 2.8em;
-  margin-bottom: 0px;
+.header-top .logo {
+  position: absolute;
+  background: #000537;
+  display: block;
+  top: 8px;
+  left: 0;
+  margin: 0;
+  height: 40px;
+  padding: 0 27px;
 }
-.header-right fieldset {
-  margin-top: 3px;
-}
-.header-right fieldset input.input-text {
-  border: 0;
+.header-top .logo svg {
+  height: 40px;
+  width: auto;
 }
 
+.header-right {
+  position: absolute;
+  top: 10px;
+  right: 0;
+  padding: 0;
+  color: inherit;
+  z-index: 200;
+  height: 40px;
+  background: var(--color-main-xxl);
+}
+.header-right fieldset {
+  display: inline;
+  line-height: 40px;
+}
+.header-right fieldset input.input-text {
+  width: 250px;
+  border: 0 solid #FF666E73;
+  margin-top: -4px;
+  background-color: #fff;
+  padding-left: 10px;
+  min-width: 250px;
+  transition: width 100ms;
+  transition-delay: 200ms;
+}
+.header-right fieldset input.input-text:focus {
+  width: calc(100vw - 160px);
+}
 .footer {
   background: #eee;
   padding: 15px;
@@ -931,9 +969,7 @@ ul.tabs a.changed span.changed {
 }
 
 #page-help-link {
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' style='width:24px;height:24px' viewBox='0 0 24 24'%3E%3Cpath fill='%2300a9ff' d='M15.07,11.25L14.17,12.17C13.45,12.89 13,13.5 13,15H11V14.5C11,13.39 11.45,12.39 12.17,11.67L13.41,10.41C13.78,10.05 14,9.55 14,9C14,7.89 13.1,7 12,7A2,2 0 0,0 10,9H8A4,4 0 0,1 12,5A4,4 0 0,1 16,9C16,9.88 15.64,10.67 15.07,11.25M13,19H11V17H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2Z' /%3E%3C/svg%3E") no-repeat 0 50%;
-  background-size: 15px;
-  line-height: 38px;
+  display: none;
 }
 
 .message-popup {

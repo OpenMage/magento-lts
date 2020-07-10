@@ -363,19 +363,59 @@ small {
   background: $header_background;
 }
 
-.header-right {
-  font-size: 12px;
-  .super {
-    line-height: 2.8em;
-    margin-bottom: 0px;
-  }
-  fieldset {
-    margin-top: 3px;
-      input.input-text {
-      border: 0;
+.header-top {
+  border-bottom: none !important;
+  height: 10px;
+  .logo {
+    position: absolute;
+    background: $header_background;
+    display: block;
+    top: 8px;
+    left: 0;
+    margin: 0;
+    height: 40px;
+    padding: 0 27px;
+    svg {
+      height: 40px;
+      width: auto;
     }
   }
 }
+
+.header-right {
+  position: absolute;
+  top: 10px;
+  right: 0;
+  padding: 0;
+  color: inherit;
+  z-index: 200;
+  height: 40px;
+  background: var(--color-main-xxl);
+  fieldset {
+    display: inline;
+    line-height: 40px;
+    input.input-text {
+      width: 250px;
+      border: 0 solid #FF666E73;
+      margin-top: -4px;
+      background-color: $white;
+      padding-left: 10px;
+      min-width: 250px;
+      //Instead of the line below you could use @include transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+      transition: width 100ms;
+      //Instead of the line below you could use @include transition-delay($delay-1, $delay-2, $delay-3, $delay-4, $delay-5, $delay-6, $delay-7, $delay-8, $delay-9, $delay-10)
+      transition-delay: 200ms;
+      &:focus {
+        width: calc(100vw - 160px);
+        @extend %extend_29;
+      }
+      &:hover {
+        @extend %extend_29;
+      }
+    }
+  }
+}
+
 
 .footer {
   background: $color_gallery_approx;
@@ -1028,9 +1068,7 @@ ul.tabs a.changed span.changed {
 }
 
 #page-help-link {
-  background: icon-help($color-help) no-repeat 0 50%;
-  background-size: 15px;
-  line-height: 38px;
+  display:none;
 }
 
 .message-popup {

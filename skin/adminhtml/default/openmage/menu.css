@@ -9,9 +9,16 @@
   margin: 0;
 }
 
+#usermenu ul li a:hover {
+  color: #2f2f2f;
+  text-decoration: none;
+  background: var(--color-main-xs);
+  display: block;
+}
+
 .nav-bar {
   background: #202856;
-  padding: 0 30px;
+  padding: 0 70px;
 }
 .nav-bar:after {
   content: ".";
@@ -23,6 +30,9 @@
   overflow: hidden;
 }
 
+#nav {
+  padding-left: 0px;
+}
 #nav li {
   position: relative;
   text-align: left;
@@ -207,6 +217,55 @@
 #nav .level0.active > a {
   font-weight: 600;
   background: #273169;
+}
+
+#usermenu {
+  display: inline;
+  float: right;
+  text-align: left;
+}
+#usermenu ul {
+  position: absolute;
+  width: 220px;
+  top: 40px;
+  right: -10000px;
+  display: none;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.207843), 0 0 5px rgba(0, 0, 0, 0.207843);
+  background: #fff;
+}
+#usermenu ul li a:hover {
+  background: #202856;
+}
+#usermenu ul li.last span {
+  border-bottom: none;
+}
+#usermenu li ul li {
+  right: 5px;
+  display: block;
+}
+#usermenu li ul span {
+  border-bottom: 1px dotted var(--color-main-m);
+  display: block;
+  line-height: 31px;
+  padding: 0 10px;
+}
+#usermenu li.over ul {
+  right: 27px;
+  display: block;
+}
+#usermenu li.over ul a {
+  color: #000537;
+  text-decoration: none;
+  background: var(--color-main-xs);
+  display: block;
+}
+#usermenu > li > a {
+  padding: 0 27px 0 20px;
+  display: block;
+}
+#usermenu > li > a svg {
+  height: 40px;
+  width: auto;
 }
 
 /*# sourceMappingURL=menu.css.map */

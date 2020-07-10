@@ -7,7 +7,7 @@
 
 .nav-bar {
   background: $color_dorado_approx;
-  padding: 0 30px;
+  padding: 0 70px;
 
   &:after {
     content: ".";
@@ -21,6 +21,7 @@
 }
 
 #nav {
+  padding-left:0px;
   li {
     position: relative;
     text-align: left;
@@ -274,6 +275,63 @@
     &.active > a {
       font-weight: 600;
       background: darken($openmage_base_blue,14);
+    }
+  }
+}
+
+#usermenu {
+  display: inline;
+  float: right;
+  text-align: left;
+  ul {
+    position: absolute;
+    width: 220px;
+    top: 40px;
+    right: -10000px;
+    display: none;
+    //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+    box-shadow: 0 0 0 1px $black_20_7843, 0 0 5px $black_20_7843;
+    background: $white;
+    li {
+      a:hover {
+        @extend %extend_30;
+        background: $color_dorado_approx;
+      }
+      &.last span {
+        border-bottom: none;
+      }
+    }
+  }
+  li {
+    ul {
+      li {
+        right: 5px;
+        display: block;
+      }
+      span {
+        border-bottom: 1px dotted var(--color-main-m);
+        display: block;
+        line-height: 31px;
+        padding: 0 10px;
+      }
+    }
+    &.over ul {
+      right: 27px;
+      display: block;
+      a {
+        color: $header_background;
+        text-decoration: none;
+        background: var(--color-main-xs);
+        display: block;
+      }
+    }
+  }
+  > li > a {
+    padding: 0 27px 0 20px;
+    display: block;
+    svg {
+      height: 40px;
+      width: auto;
     }
   }
 }
