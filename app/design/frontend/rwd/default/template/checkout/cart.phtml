@@ -69,28 +69,21 @@
                     <th rowspan="<?php echo $mergedCells; ?>">&nbsp;</th>
 
                     <th class="a-center cart-price-head" colspan="<?php echo $mergedCells; ?>">
-<!--                            <div class="cart-price-placeholder">-->
-                            <span class="nobr"><?php echo $this->__('Price') ?></span>
-<!--                            </div>-->
+                        <span class="nobr"><?php echo $this->__('Price') ?></span>
                     </th>
 
                     <th rowspan="<?php echo $mergedCells; ?>" class="a-center">
                         <?php echo $this->__('Qty') ?>
-
-                        <?php /*if ($this->helper('wishlist')->isAllowInCart()) : ?>
+                        <?php /* if ($this->helper('wishlist')->isAllowInCart()) : ?>
                             <span class="nobr"><?php echo $this->__('Move to Wishlist') ?></span>
-                        <?php endif*/ ?>
-
+                        <?php endif */ ?>
                     </th>
 
                     <th class="a-center cart-total-head" colspan="<?php echo $mergedCells; ?>">
-<!--                            <div class="cart-total-placeholder">-->
-                            <?php echo $this->__('Subtotal') ?>
-<!--                            </div>-->
+                        <?php echo $this->__('Subtotal') ?>
                     </th>
 
                     <th class="a-center" rowspan="<?php echo $mergedCells; ?>">&nbsp;</th>
-
                 </tr>
                 <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
                 <tr>
@@ -114,31 +107,9 @@
 
                         <span class="or">-<?php echo $this->__('or'); ?>-</span>
 
-                        <?php if($this->getContinueShoppingUrl()): ?>
+                        <?php if ($this->getContinueShoppingUrl()): ?>
                             <button type="button" title="<?php echo $this->quoteEscape($this->__('Continue Shopping')) ?>" class="button2 btn-continue" onclick="setLocation('<?php echo Mage::helper('core')->quoteEscape($this->getContinueShoppingUrl()) ?>')"><span><span><?php echo $this->__('Continue Shopping') ?></span></span></button>
                         <?php endif; ?>
-                        <!--[if lt IE 8]>
-                        <input type="hidden" id="update_cart_action_container" data-cart-item-update />
-                        <script type="text/javascript">
-                        //<![CDATA[
-                            Event.observe(window, 'load', function()
-                            {
-                                // Internet Explorer (lt 8) does not support value attribute in button elements
-                                $emptyCartButton = $('empty_cart_button');
-                                $cartActionContainer = $('update_cart_action_container');
-                                if ($emptyCartButton && $cartActionContainer) {
-                                    Event.observe($emptyCartButton, 'click', function()
-                                    {
-                                        $emptyCartButton.setAttribute('name', 'update_cart_action_temp');
-                                        $cartActionContainer.setAttribute('name', 'update_cart_action');
-                                        $cartActionContainer.setValue('empty_cart');
-                                    });
-                                }
-
-                            });
-                        //]]>
-                        </script>
-                        <![endif]-->
                     </td>
                 </tr>
             </tfoot>

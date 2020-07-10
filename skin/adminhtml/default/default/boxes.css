@@ -550,7 +550,7 @@ td.divider              { font-size:1px; line-height:0; }
 .scrollContent              { position:absolute; left:0; top:0; }
 
 /* Horizontal scroll */
-.hor-scroll                 { width:100%; overflow:auto; padding-bottom:4px; margin-bottom:-4px; } /* IE has personal style, see iestyles.css */
+.hor-scroll                 { width:100%; overflow:auto; padding-bottom:4px; margin-bottom:-4px; }
 
 
 /**/
