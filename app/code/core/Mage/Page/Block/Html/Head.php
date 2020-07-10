@@ -86,10 +86,10 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      * @param string $referenceName
      * @param bool $before
      * @return $this
+     * @deprecated
      */
     public function addCssIe($name, $params = "", $referenceName = "*", $before = null)
     {
-        $this->addItem('skin_css', $name, $params, 'IE', null, $referenceName, $before);
         return $this;
     }
 
@@ -101,10 +101,10 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      * @param string $referenceName
      * @param bool $before
      * @return $this
+     * @deprecated
      */
     public function addJsIe($name, $params = "", $referenceName = "*", $before = null)
     {
-        $this->addItem('js', $name, $params, 'IE', null, $referenceName, $before);
         return $this;
     }
 
@@ -225,12 +225,8 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
                 continue;
             }
             if (!empty($if)) {
-                // open !IE conditional using raw value
-                if (strpos($if, "><!-->") !== false) {
-                    $html .= $if . "\n";
-                } else {
-                    $html .= '<!--[if '.$if.']>' . "\n";
-                }
+                // @deprecated
+                continue;
             }
 
             // static and skin css
@@ -252,15 +248,6 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
             // other stuff
             if (!empty($items['other'])) {
                 $html .= $this->_prepareOtherHtmlHeadElements($items['other']) . "\n";
-            }
-
-            if (!empty($if)) {
-                // close !IE conditional comments correctly
-                if (strpos($if, "><!-->") !== false) {
-                    $html .= '<!--<![endif]-->' . "\n";
-                } else {
-                    $html .= '<![endif]-->' . "\n";
-                }
             }
         }
         return $html;
