@@ -1218,7 +1218,6 @@ a.button:hover {
 }
 .btn-remove2:hover {
   background-color: transparent;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
   opacity: 0.8;
 }
 
@@ -7531,7 +7530,6 @@ body:not(.opc-has-progressed-from-login) .opc.opc-firststep-login .section#opc-l
 }
 .configurable-swatch-list .not-available .swatch-link.has-image img {
   opacity: 0.4;
-  filter: alpha(opacity=40);
 }
 .configurable-swatch-list .not-available .swatch-label {
   color: #aaa;
@@ -8911,7 +8909,6 @@ div.paypal-logo span > img {
 }
 .slideshow-prev.disabled,
 .slideshow-next.disabled {
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
   opacity: 0.5;
   cursor: default;
 }

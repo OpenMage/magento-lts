@@ -121,7 +121,6 @@ body .promos > li {
 }
 
 .promos a:hover {
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
   opacity: 0.8;
   display: block;
 }
