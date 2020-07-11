@@ -34,12 +34,12 @@ class Mage_Adminhtml_Model_System_Config_Backend_Image_Logo extends Mage_Adminht
     /**
      * The tail part of directory path for uploading
      */
-    const UPLOAD_DIR = 'frontend/base/default';
+    const UPLOAD_DIR = 'logo';
 
     /**
      * Token for the root part of directory path for uploading
      */
-    const UPLOAD_ROOT_TOKEN = 'skin';
+    const UPLOAD_ROOT_TOKEN = 'media';
 
     /**
      * Upload max file size in kilobytes

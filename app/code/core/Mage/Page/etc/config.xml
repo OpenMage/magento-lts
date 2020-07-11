@@ -124,9 +124,9 @@
                 <default_charset>utf-8</default_charset>
             </head>
             <header translate="welcome" module="page">
-                <logo_src>images/logo.svg</logo_src>
+                <logo_src>logo.svg</logo_src>
                 <logo_alt>Magento Commerce</logo_alt>
-                <logo_src_small>images/logo.svg</logo_src_small>
+                <logo_src_small>logo.svg</logo_src_small>
                 <welcome>Default welcome msg!</welcome>
             </header>
             <footer translate="copyright" module="page">
