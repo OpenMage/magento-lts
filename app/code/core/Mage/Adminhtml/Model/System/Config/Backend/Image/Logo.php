@@ -29,7 +29,7 @@
  * @package    Mage_Adminhtml
  * @author     RedChamps
  */
-class Mage_Adminhtml_Model_System_Config_Backend_Logo extends Mage_Adminhtml_Model_System_Config_Backend_Image
+class Mage_Adminhtml_Model_System_Config_Backend_Image_Logo extends Mage_Adminhtml_Model_System_Config_Backend_Image
 {
     /**
      * The tail part of directory path for uploading
