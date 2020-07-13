@@ -98,6 +98,7 @@ class Mage_Core_Model_File_Validator_Image
                 //replace tmp image with re-sampled copy to exclude images with malicious data
                 $image = imagecreatefromstring(file_get_contents($filePath));
                 if ($image !== false) {
+                    $tmpFilePath = $filePath . '_';
                     $img = imagecreatetruecolor($imageWidth, $imageHeight);
                     imagealphablending($img, false);
                     imagecopyresampled($img, $image, 0, 0, 0, 0, $imageWidth, $imageHeight, $imageWidth, $imageHeight);
@@ -119,17 +120,24 @@ class Mage_Core_Model_File_Validator_Image
                             if (!imageistruecolor($image)) {
                                 imagetruecolortopalette($img, false, imagecolorstotal($image));
                             }
-                            imagegif($img, $filePath);
+                            imagegif($img, $tmpFilePath);
                             break;
                         case IMAGETYPE_JPEG:
-                            imagejpeg($img, $filePath, 100);
+                            imagejpeg($img, $tmpFilePath, 100);
                             break;
                         case IMAGETYPE_PNG:
-                            imagepng($img, $filePath);
+                            imagepng($img, $tmpFilePath);
                             break;
                         default:
                             break;
                     }
+                    // START optimizing file size on upload
+                    if (filesize($tmpFilePath) < filesize($filePath)) {
+                        rename($tmpFilePath, $filePath);
+                    } else {
+                        unlink($tmpFilePath);
+                    }
+                    // END optimizing file size on upload
 
                     imagedestroy($img);
                     imagedestroy($image);
