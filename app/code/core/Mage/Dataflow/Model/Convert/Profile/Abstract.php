@@ -31,10 +31,8 @@
  * @package    Mage_Dataflow
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Dataflow_Model_Convert_Profile_Abstract
-    implements Mage_Dataflow_Model_Convert_Profile_Interface
+abstract class Mage_Dataflow_Model_Convert_Profile_Abstract implements Mage_Dataflow_Model_Convert_Profile_Interface
 {
-
     protected $_actions;
 
     protected $_containers;
@@ -137,8 +135,7 @@ abstract class Mage_Dataflow_Model_Convert_Profile_Abstract
             /* @var $action Mage_Dataflow_Model_Convert_Action */
             try {
                 $action->run();
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 $dfe = new Mage_Dataflow_Model_Convert_Exception($e->getMessage());
                 $dfe->setLevel(Mage_Dataflow_Model_Convert_Exception::FATAL);
                 $this->addException($dfe);
@@ -148,7 +145,8 @@ abstract class Mage_Dataflow_Model_Convert_Profile_Abstract
         return $this;
     }
 
-    public function setDataflowProfile($profile) {
+    public function setDataflowProfile($profile)
+    {
         if (is_array($profile)) {
             $this->_dataflow_profile = $profile;
         }

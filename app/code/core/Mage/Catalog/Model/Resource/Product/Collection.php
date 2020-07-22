@@ -1689,7 +1689,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
         $hasColumn = false;
         foreach ($this->getSelect()->getPart(Zend_Db_Select::COLUMNS) as $columnEntry) {
-            list(,,$alias) = $columnEntry;
+            list(, , $alias) = $columnEntry;
             if ($alias == 'visibility') {
                 $hasColumn = true;
             }

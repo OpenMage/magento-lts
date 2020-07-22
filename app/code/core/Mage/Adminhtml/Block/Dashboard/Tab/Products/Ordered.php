@@ -34,7 +34,6 @@
 
 class Mage_Adminhtml_Block_Dashboard_Tab_Products_Ordered extends Mage_Adminhtml_Block_Dashboard_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -49,7 +48,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Ordered extends Mage_Adminhtml
         if ($this->getParam('website')) {
             $storeIds = Mage::app()->getWebsite($this->getParam('website'))->getStoreIds();
             $storeId = array_pop($storeIds);
-        } else if ($this->getParam('group')) {
+        } elseif ($this->getParam('group')) {
             $storeIds = Mage::app()->getGroup($this->getParam('group'))->getStoreIds();
             $storeId = array_pop($storeIds);
         } else {
@@ -68,7 +67,6 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Ordered extends Mage_Adminhtml
 
     protected function _prepareColumns()
     {
-
         $this->addColumn('name', array(
             'header'    => Mage::helper('sales')->__('Product Name'),
             'sortable'  => false,

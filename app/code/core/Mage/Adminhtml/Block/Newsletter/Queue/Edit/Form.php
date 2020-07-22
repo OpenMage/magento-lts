@@ -56,8 +56,8 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit_Form extends Mage_Adminhtml_Blo
 
         $outputFormat = Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM);
 
-        if($queue->getQueueStatus() == Mage_Newsletter_Model_Queue::STATUS_NEVER) {
-            $fieldset->addField('date', 'date',array(
+        if ($queue->getQueueStatus() == Mage_Newsletter_Model_Queue::STATUS_NEVER) {
+            $fieldset->addField('date', 'date', array(
                 'name'      =>    'start_at',
                 'time'      =>    true,
                 'format'    =>    $outputFormat,
@@ -66,22 +66,21 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit_Form extends Mage_Adminhtml_Blo
             ));
 
             if (!Mage::app()->isSingleStoreMode()) {
-                $fieldset->addField('stores','multiselect',array(
+                $fieldset->addField('stores', 'multiselect', array(
                     'name'          => 'stores[]',
                     'label'         => Mage::helper('newsletter')->__('Subscribers From'),
                     'image'         => $this->getSkinUrl('images/grid-cal.gif'),
                     'values'        => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(),
                     'value'         => $queue->getStores()
                 ));
-            }
-            else {
+            } else {
                 $fieldset->addField('stores', 'hidden', array(
                     'name'      => 'stores[]',
                     'value'     => Mage::app()->getStore(true)->getId()
                 ));
             }
         } else {
-            $fieldset->addField('date','date',array(
+            $fieldset->addField('date', 'date', array(
                 'name'      => 'start_at',
                 'time'      => true,
                 'disabled'  => 'true',
@@ -92,7 +91,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit_Form extends Mage_Adminhtml_Blo
             ));
 
             if (!Mage::app()->isSingleStoreMode()) {
-                $fieldset->addField('stores','multiselect',array(
+                $fieldset->addField('stores', 'multiselect', array(
                     'name'          => 'stores[]',
                     'label'         => Mage::helper('newsletter')->__('Subscribers From'),
                     'image'         => $this->getSkinUrl('images/grid-cal.gif'),
@@ -100,8 +99,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit_Form extends Mage_Adminhtml_Blo
                     'values'        => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(),
                     'value'         => $queue->getStores()
                 ));
-            }
-            else {
+            } else {
                 $fieldset->addField('stores', 'hidden', array(
                     'name'      => 'stores[]',
                     'value'     => Mage::app()->getStore(true)->getId()
@@ -150,7 +148,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit_Form extends Mage_Adminhtml_Blo
             ->getConfig(array('widget_filters' => $widgetFilters));
 
         if ($queue->isNew()) {
-            $fieldset->addField('text','editor', array(
+            $fieldset->addField('text', 'editor', array(
                 'name'      => 'text',
                 'label'     => Mage::helper('newsletter')->__('Message'),
                 'state'     => 'html',
@@ -167,7 +165,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit_Form extends Mage_Adminhtml_Blo
                 'value'         => $queue->getTemplate()->getTemplateStyles()
             ));
         } elseif (Mage_Newsletter_Model_Queue::STATUS_NEVER != $queue->getQueueStatus()) {
-            $fieldset->addField('text','textarea', array(
+            $fieldset->addField('text', 'textarea', array(
                 'name'      =>    'text',
                 'label'     =>    Mage::helper('newsletter')->__('Message'),
                 'value'     =>    $queue->getNewsletterText(),
@@ -186,7 +184,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit_Form extends Mage_Adminhtml_Blo
             $form->getElement('sender_email')->setDisabled('true')->setRequired(false);
             $form->getElement('stores')->setDisabled('true');
         } else {
-            $fieldset->addField('text','editor', array(
+            $fieldset->addField('text', 'editor', array(
                 'name'      =>    'text',
                 'label'     =>    Mage::helper('newsletter')->__('Message'),
                 'state'     => 'html',

@@ -107,7 +107,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit_Form extends Mage_Adminhtml_Block_Wid
             //showing websites that only associated to products
             if ($product && $product->getId()) {
                 $entityStores = $product->getStoreIds() ? $product->getStoreIds() : array();
-                if  (!$entityStores) {
+                if (!$entityStores) {
                     $stores = array(); //reset the stores
                     $noStoreError = $this->__('Chosen product does not associated with any website, so url rewrite is not possible.');
                 }
@@ -115,12 +115,11 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit_Form extends Mage_Adminhtml_Block_Wid
                 if ($category && $category->getId()) {
                     $categoryStores = $category->getStoreIds() ? $category->getStoreIds() : array();
                     $entityStores = array_intersect($entityStores, $categoryStores);
-
                 }
                 $isFilterAllowed = true;
             } elseif ($category && $category->getId()) {
                 $entityStores = $category->getStoreIds() ? $category->getStoreIds() : array();
-                if  (!$entityStores) {
+                if (!$entityStores) {
                     $stores = array(); //reset the stores
                     $noStoreError = $this->__('Chosen category does not associated with any website, so url rewrite is not possible.');
                 }
@@ -137,7 +136,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit_Form extends Mage_Adminhtml_Block_Wid
                         $found = false;
                         foreach ($store['value'] as $_k => $_v) {
                             if (isset($_v['value']) && in_array($_v['value'], $entityStores)) {
-                               $found = true;
+                                $found = true;
                             } else {
                                 unset($stores[$i]['value'][$_k]);
                             }

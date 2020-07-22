@@ -601,8 +601,10 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
         switch ($lastMemoryLimitLetter) {
             case 'g':
                 $memoryLimit *= 1024;
+                // no break
             case 'm':
                 $memoryLimit *= 1024;
+                // no break
             case 'k':
                 $memoryLimit *= 1024;
                 break;

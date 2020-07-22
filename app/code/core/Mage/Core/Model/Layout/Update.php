@@ -350,7 +350,7 @@ class Mage_Core_Model_Layout_Update
 //        $area = $design->getArea();
 //        $storeId = Mage::app()->getStore()->getId();
 //        $cacheKey = 'LAYOUT_'.$area.'_STORE'.$storeId.'_'.$design->getPackageName().'_'.$design->getTheme('layout');
-//#echo "TEST:".$cacheKey;
+        //#echo "TEST:".$cacheKey;
 //        $cacheTags = array('layout');
 //
 //        if (Mage::app()->useCache('layout') && ($layoutStr = Mage::app()->loadCache($cacheKey))) {
@@ -417,7 +417,7 @@ class Mage_Core_Model_Layout_Update
         }
         /** @var Varien_Simplexml_Element $updateXml */
         foreach ($this->_packageLayout->$handle as $updateXml) {
-#echo '<textarea style="width:600px; height:400px;">'.$handle.':'.print_r($updateXml,1).'</textarea>';
+            #echo '<textarea style="width:600px; height:400px;">'.$handle.':'.print_r($updateXml,1).'</textarea>';
             $this->fetchRecursiveUpdates($updateXml);
             $this->addUpdate($updateXml->innerXml());
         }

@@ -34,9 +34,7 @@
  */
 interface Mage_Dataflow_Model_Convert_Adapter_Interface
 {
-
     public function load();
 
     public function save();
-
 }

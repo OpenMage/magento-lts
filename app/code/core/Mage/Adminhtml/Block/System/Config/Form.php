@@ -34,7 +34,6 @@
  */
 class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widget_Form
 {
-
     const SCOPE_DEFAULT = 'default';
     const SCOPE_WEBSITES = 'websites';
     const SCOPE_STORES   = 'stores';
@@ -152,11 +151,11 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
             if (!$this->_canShowField($section)) {
                 continue;
             }
-            foreach ($section->groups as $groups){
+            foreach ($section->groups as $groups) {
                 $groups = (array)$groups;
                 usort($groups, array($this, '_sortForm'));
 
-                foreach ($groups as $group){
+                foreach ($groups as $group) {
                     /* @var $group Varien_Simplexml_Element */
                     if (!$this->_canShowField($group)) {
                         continue;
@@ -238,9 +237,11 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      */
     protected function _getDependence()
     {
-        if (!$this->getChild('element_dependense')){
-            $this->setChild('element_dependense',
-                $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence'));
+        if (!$this->getChild('element_dependense')) {
+            $this->setChild(
+                'element_dependense',
+                $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence')
+            );
         }
         return $this->getChild('element_dependense');
     }
@@ -578,7 +579,6 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     protected function _sortForm($a, $b)
     {
         return (int)$a->sort_order < (int)$b->sort_order ? -1 : ((int)$a->sort_order > (int)$b->sort_order ? 1 : 0);
-
     }
 
     /**
@@ -773,5 +773,4 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     {
         return $this->getRequest()->getParam('store', '');
     }
-
 }

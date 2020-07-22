@@ -68,7 +68,7 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
             $this->_maxPopularity = reset($terms)->getPopularity();
             $this->_minPopularity = end($terms)->getPopularity();
             $range = $this->_maxPopularity - $this->_minPopularity;
-            $range = ( $range == 0 ) ? 1 : $range;
+            $range = ($range == 0) ? 1 : $range;
             /** @var Mage_CatalogSearch_Model_Query $term */
             foreach ($terms as $term) {
                 if (!$term->getPopularity()) {

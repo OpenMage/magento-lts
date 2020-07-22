@@ -164,12 +164,13 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
      */
     public function getExceptions()
     {
-        if (!is_null(parent::getExceptions()))
+        if (!is_null(parent::getExceptions())) {
             return parent::getExceptions();
+        }
         $exceptions = array();
         $this->getProfile()->run();
         foreach ($this->getProfile()->getExceptions() as $e) {
-                switch ($e->getLevel()) {
+            switch ($e->getLevel()) {
                     case Varien_Convert_Exception::FATAL:
                         $img = 'error_msg_icon.gif';
                         $liStyle = 'background-color:#FBB; ';
@@ -187,7 +188,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
                         $liStyle = 'background-color:#DDF; ';
                         break;
                 }
-                $exceptions[] = array(
+            $exceptions[] = array(
                     "style"     => $liStyle,
                     "src"       => Mage::getDesign()->getSkinUrl('images/'.$img),
                     "message"   => $e->getMessage(),

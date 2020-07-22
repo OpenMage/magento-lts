@@ -133,7 +133,7 @@ class Mage_Adminhtml_Model_Sales_Order_Random
         $this->_quote->getShippingAddress()->importCustomerAddress($customer->getDefaultShippingAddress());
 
         $productCount = rand(3, 10);
-        for ($i=0; $i<$productCount; $i++){
+        for ($i=0; $i<$productCount; $i++) {
             $product = $this->_getRandomProduct();
             if ($product) {
                 $product->setQuoteQty(1);
@@ -152,7 +152,7 @@ class Mage_Adminhtml_Model_Sales_Order_Random
 
     protected function _getRandomDate()
     {
-        $timestamp = mktime(rand(0,23), rand(0,59), 0, rand(1,11), rand(1,28), rand(2006, 2007));
+        $timestamp = mktime(rand(0, 23), rand(0, 59), 0, rand(1, 11), rand(1, 28), rand(2006, 2007));
         return date('Y-m-d H:i:s', $timestamp);
     }
 

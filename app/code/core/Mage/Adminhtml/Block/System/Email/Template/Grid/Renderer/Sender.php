@@ -38,15 +38,15 @@ class Mage_Adminhtml_Block_System_Email_Template_Grid_Renderer_Sender extends Ma
     {
         $str = '';
         
-        if($row->getTemplateSenderName()) {
+        if ($row->getTemplateSenderName()) {
             $str .= htmlspecialchars($row->getTemplateSenderName()) . ' ';
-        }        
+        }
         
-        if($row->getTemplateSenderEmail()) {
+        if ($row->getTemplateSenderEmail()) {
             $str .= '[' . $row->getTemplateSenderEmail() . ']';
-        }        
+        }
         
-        if($str == '') {
+        if ($str == '') {
             $str .= '---';
         }
             

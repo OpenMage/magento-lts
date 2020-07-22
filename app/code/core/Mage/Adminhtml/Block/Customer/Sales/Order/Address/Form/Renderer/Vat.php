@@ -31,8 +31,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Customer_Sales_Order_Address_Form_Renderer_Vat
-    extends Mage_Adminhtml_Block_Widget_Form_Renderer_Fieldset_Element
+class Mage_Adminhtml_Block_Customer_Sales_Order_Address_Form_Renderer_Vat extends Mage_Adminhtml_Block_Widget_Form_Renderer_Fieldset_Element
 {
     /**
      * Validate button block

@@ -42,14 +42,14 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Run extends Mage_Admi
     public function getRunButtonHtml()
     {
         $html = '';
-/*
-        if (Mage::registry('current_convert_profile')->getDirection()=='import') {
-            $html .= $this->getLayout()->createBlock('adminhtml/widget_button')->setType('button')
-                ->setLabel($this->__('Upload import file'))
-                ->setOnClick('showUpload()')
-                ->toHtml();
-        }
-*/
+        /*
+                if (Mage::registry('current_convert_profile')->getDirection()=='import') {
+                    $html .= $this->getLayout()->createBlock('adminhtml/widget_button')->setType('button')
+                        ->setLabel($this->__('Upload import file'))
+                        ->setOnClick('showUpload()')
+                        ->toHtml();
+                }
+        */
         /*
         $html .= $this->getLayout()->createBlock('adminhtml/widget_button')->setType('button')
             ->setClass('save')->setLabel($this->__('Run Profile Inside This Window'))
@@ -79,10 +79,9 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Run extends Mage_Admi
         }
         $dir = dir($path);
         while (false !== ($entry = $dir->read())) {
-            if($entry != '.'
+            if ($entry != '.'
                && $entry != '..'
-               && in_array(strtolower(substr($entry, strrpos($entry, '.')+1)), array($this->getParseType())))
-            {
+               && in_array(strtolower(substr($entry, strrpos($entry, '.')+1)), array($this->getParseType()))) {
                 $files[] = $entry;
             }
         }
@@ -94,7 +93,8 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Run extends Mage_Admi
     public function getParseType()
     {
         $data = Mage::registry('current_convert_profile')->getGuiData();
-        if ($data)
+        if ($data) {
             return ($data['parse']['type'] == 'excel_xml') ? 'xml': $data['parse']['type'];
+        }
     }
 }

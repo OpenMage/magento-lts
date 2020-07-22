@@ -53,7 +53,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
     protected function _prepareLayout()
     {
         if (!$this->getRequest()->getParam('popup')) {
-            $this->setChild('back_button',
+            $this->setChild(
+                'back_button',
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData(array(
                         'label'     => Mage::helper('catalog')->__('Back'),
@@ -63,7 +64,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                     ))
             );
         } else {
-            $this->setChild('back_button',
+            $this->setChild(
+                'back_button',
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData(array(
                         'label'     => Mage::helper('catalog')->__('Close Window'),
@@ -74,7 +76,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
         }
 
         if (!$this->getProduct()->isReadonly()) {
-            $this->setChild('reset_button',
+            $this->setChild(
+                'reset_button',
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData(array(
                         'label'     => Mage::helper('catalog')->__('Reset'),
@@ -82,7 +85,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                     ))
             );
 
-            $this->setChild('save_button',
+            $this->setChild(
+                'save_button',
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData(array(
                         'label'     => Mage::helper('catalog')->__('Save'),
@@ -94,7 +98,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
 
         if (!$this->getRequest()->getParam('popup')) {
             if (!$this->getProduct()->isReadonly()) {
-                $this->setChild('save_and_edit_button',
+                $this->setChild(
+                    'save_and_edit_button',
                     $this->getLayout()->createBlock('adminhtml/widget_button')
                         ->setData(array(
                             'label'     => Mage::helper('catalog')->__('Save and Continue Edit'),
@@ -104,11 +109,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                 );
             }
             if ($this->getProduct()->isDeleteable()) {
-
                 $confirmationMessage = Mage::helper('core')->jsQuoteEscape(
                     Mage::helper('catalog')->__('Are you sure?')
                 );
-                $this->setChild('delete_button',
+                $this->setChild(
+                    'delete_button',
                     $this->getLayout()->createBlock('adminhtml/widget_button')
                         ->setData(array(
                             'label'     => Mage::helper('catalog')->__('Delete'),
@@ -120,8 +125,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
             }
 
             if ($this->getProduct()->isDuplicable()) {
-                $this->setChild('duplicate_button',
-                $this->getLayout()->createBlock('adminhtml/widget_button')
+                $this->setChild(
+                    'duplicate_button',
+                    $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData(array(
                         'label'     => Mage::helper('catalog')->__('Duplicate'),
                         'onclick'   => 'setLocation(\'' . $this->getDuplicateUrl() . '\')',
@@ -218,8 +224,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
         $header = '';
         if ($this->getProduct()->getId()) {
             $header = $this->escapeHtml($this->getProduct()->getName());
-        }
-        else {
+        } else {
             $header = Mage::helper('catalog')->__('New Product');
         }
         if ($setName = $this->getAttributeSetName()) {

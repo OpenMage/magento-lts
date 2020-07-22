@@ -102,7 +102,7 @@ class Mage_Review_Block_Customer_View extends Mage_Catalog_Block_Product_Abstrac
                 ->setStoreFilter(Mage::app()->getStore()->getId())
                 ->load();
 
-            $this->setRatingCollection(( $ratingCollection->getSize() ) ? $ratingCollection : false);
+            $this->setRatingCollection(($ratingCollection->getSize()) ? $ratingCollection : false);
         }
 
         return $this->getRatingCollection();

@@ -52,4 +52,3 @@ class Mage_Centinel_Block_Adminhtml_Validation_Form extends Mage_Adminhtml_Block
         return '';
     }
 }
-

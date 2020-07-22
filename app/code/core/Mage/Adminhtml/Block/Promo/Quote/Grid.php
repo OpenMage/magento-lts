@@ -154,5 +154,4 @@ class Mage_Adminhtml_Block_Promo_Quote_Grid extends Mage_Adminhtml_Block_Widget_
     {
         return $this->getUrl('*/*/edit', array('id' => $row->getRuleId()));
     }
-
 }

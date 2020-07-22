@@ -34,7 +34,6 @@
 
 class Mage_Adminhtml_Block_Report_Review_Detail extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
-
     public function __construct()
     {
         $this->_controller = 'report_review_detail';
@@ -47,5 +46,4 @@ class Mage_Adminhtml_Block_Report_Review_Detail extends Mage_Adminhtml_Block_Wid
         $this->setBackUrl($this->getUrl('*/report_review/product/'));
         $this->_addBackButton();
     }
-
 }

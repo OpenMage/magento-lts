@@ -79,7 +79,8 @@ class Mage_Adminhtml_Block_Customer_Form_Element_Image extends Mage_Adminhtml_Bl
                 'onclick'   => "imagePreview('{$imageId}'); return false;",
             );
 
-            $html = sprintf('%s%s</a> ',
+            $html = sprintf(
+                '%s%s</a> ',
                 $this->_drawElementHtml('a', $link, false),
                 $this->_drawElementHtml('img', $image)
             );

@@ -34,5 +34,4 @@
  */
 class Mage_Checkout_Block_Onepage_Shipping_Method_Additional extends Mage_Checkout_Block_Onepage_Abstract
 {
-
 }

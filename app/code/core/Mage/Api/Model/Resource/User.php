@@ -97,7 +97,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
         if ($readAdapter->fetchRow($select)) {
             $writeAdapter->update(
                 $this->getTable('api/session'),
-                array ('logdate' => $loginDate),
+                array('logdate' => $loginDate),
                 $readAdapter->quoteInto('user_id = ?', $user->getId()) . ' AND '
                 . $readAdapter->quoteInto('sessid = ?', $user->getSessid())
             );

@@ -120,4 +120,3 @@ class Mage_Adminhtml_Block_Report_Search_Grid extends Mage_Adminhtml_Block_Widge
         return $this->getUrl('*/catalog_search/edit', array('id' => $row->getId()));
     }
 }
-

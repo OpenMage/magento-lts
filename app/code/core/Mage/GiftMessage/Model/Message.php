@@ -51,7 +51,7 @@ class Mage_GiftMessage_Model_Message extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    static protected $_allowedEntityTypes = array(
+    protected static $_allowedEntityTypes = array(
         'order'         => 'sales/order',
         'order_item'    => 'sales/order_item',
         'order_address' => 'sales/order_address',

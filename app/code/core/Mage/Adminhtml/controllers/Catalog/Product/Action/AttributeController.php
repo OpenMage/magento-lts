@@ -34,7 +34,6 @@
  */
 class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adminhtml_Controller_Action
 {
-
     protected function _construct()
     {
         // Define module dependent translate
@@ -183,14 +182,11 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
             $this->_getSession()->addSuccess(
                 $this->__('Total of %d record(s) were updated', count($this->_getHelper()->getProductIds()))
             );
-        }
-        catch (Mage_Eav_Model_Entity_Attribute_Exception $e) {
+        } catch (Mage_Eav_Model_Entity_Attribute_Exception $e) {
             $this->_getSession()->addError($attributeName . ': ' . $e->getMessage());
-        }
-        catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $this->_getSession()->addException($e, $this->__('An error occurred while updating the product(s) attributes.'));
         }
 
@@ -208,7 +204,7 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
         $productIds = $this->_getHelper()->getProductIds();
         if (!is_array($productIds)) {
             $error = $this->__('Please select products for attributes update');
-        } else if (!Mage::getModel('catalog/product')->isProductsHasSku($productIds)) {
+        } elseif (!Mage::getModel('catalog/product')->isProductsHasSku($productIds)) {
             $error = $this->__('Some of the processed products have no SKU value defined. Please fill it prior to performing operations on these products.');
         }
 

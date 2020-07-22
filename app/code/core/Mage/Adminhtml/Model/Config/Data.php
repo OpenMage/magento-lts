@@ -199,12 +199,10 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                      */
                     if (!$inherit) {
                         $saveTransaction->addObject($dataObject);
-                    }
-                    else {
+                    } else {
                         $deleteTransaction->addObject($dataObject);
                     }
-                }
-                elseif (!$inherit) {
+                } elseif (!$inherit) {
                     $dataObject->unsConfigId();
                     $saveTransaction->addObject($dataObject);
                 }
@@ -346,8 +344,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                     'value'     => $data->getValue(),
                     'config_id' => $data->getConfigId()
                 );
-            }
-            else {
+            } else {
                 $config[$data->getPath()] = $data->getValue();
             }
         }

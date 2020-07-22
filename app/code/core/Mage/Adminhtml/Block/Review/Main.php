@@ -55,7 +55,7 @@ class Mage_Adminhtml_Block_Review_Main extends Mage_Adminhtml_Block_Widget_Grid_
             $productName =  $this->escapeHtml($product->getName());
         }
 
-        if( Mage::registry('usePendingFilter') === true ) {
+        if (Mage::registry('usePendingFilter') === true) {
             if ($customerName) {
                 $this->_headerText = Mage::helper('review')->__('Pending Reviews of Customer `%s`', $customerName);
             } else {

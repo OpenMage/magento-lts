@@ -48,11 +48,10 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Preview_Form extends Mage_Adminhtml_
         ));
 
         if ($data = $this->getFormData()) {
-
             $mapper = array('preview_store_id' => 'store_id');
 
             foreach ($data as $key => $value) {
-                if(array_key_exists($key, $mapper)) {
+                if (array_key_exists($key, $mapper)) {
                     $name = $mapper[$key];
                 } else {
                     $name = $key;

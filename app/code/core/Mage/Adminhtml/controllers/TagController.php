@@ -33,7 +33,6 @@
  */
 class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 {
-
     protected function _initAction()
     {
         $this->loadLayout()
@@ -290,8 +289,8 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
     public function massDeleteAction()
     {
         $tagIds = $this->getRequest()->getParam('tag');
-        if(!is_array($tagIds)) {
-             Mage::getSingleton('adminhtml/session')->addError($this->__('Please select tag(s).'));
+        if (!is_array($tagIds)) {
+            Mage::getSingleton('adminhtml/session')->addError($this->__('Please select tag(s).'));
         } else {
             try {
                 foreach ($tagIds as $tagId) {
@@ -317,7 +316,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
     {
         $tagIds = $this->getRequest()->getParam('tag');
         $storeId = (int)$this->getRequest()->getParam('store', 0);
-        if(!is_array($tagIds)) {
+        if (!is_array($tagIds)) {
             // No products selected
             Mage::getSingleton('adminhtml/session')->addError($this->__('Please select tag(s).'));
         } else {
@@ -326,7 +325,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
                     $tag = Mage::getModel('tag/tag')
                         ->load($tagId)
                         ->setStatus($this->getRequest()->getParam('status'));
-                     $tag->save();
+                    $tag->save();
                 }
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     $this->__('Total of %d record(s) have been updated.', count($tagIds))

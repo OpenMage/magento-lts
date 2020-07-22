@@ -34,7 +34,6 @@
  */
 class Mage_Dataflow_Model_Convert_Adapter_Zend_Cache extends Mage_Dataflow_Model_Convert_Adapter_Abstract
 {
-
     public function getResource()
     {
         if (!$this->_resource) {
@@ -57,5 +56,4 @@ class Mage_Dataflow_Model_Convert_Adapter_Zend_Cache extends Mage_Dataflow_Model
         $this->getResource()->save($this->getData(), $this->getVar('id'));
         return $this;
     }
-
 }

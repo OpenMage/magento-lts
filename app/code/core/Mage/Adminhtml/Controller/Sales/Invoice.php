@@ -50,7 +50,7 @@ class Mage_Adminhtml_Controller_Sales_Invoice extends Mage_Adminhtml_Controller_
         $this->loadLayout()
             ->_setActiveMenu('sales/order')
             ->_addBreadcrumb($this->__('Sales'), $this->__('Sales'))
-            ->_addBreadcrumb($this->__('Invoices'),$this->__('Invoices'));
+            ->_addBreadcrumb($this->__('Invoices'), $this->__('Invoices'));
         return $this;
     }
 
@@ -120,24 +120,24 @@ class Mage_Adminhtml_Controller_Sales_Invoice extends Mage_Adminhtml_Controller_
                 $this->_prepareDownloadResponse('invoice'.Mage::getSingleton('core/date')->date('Y-m-d_H-i-s').
                     '.pdf', $pdf->render(), 'application/pdf');
             }
-        }
-        else {
+        } else {
             $this->_forward('noRoute');
         }
     }
 
-    public function pdfinvoicesAction(){
+    public function pdfinvoicesAction()
+    {
         $invoicesIds = $this->getRequest()->getPost('invoice_ids');
         if (!empty($invoicesIds)) {
             $invoices = Mage::getResourceModel('sales/order_invoice_collection')
                 ->addAttributeToSelect('*')
                 ->addAttributeToFilter('entity_id', array('in' => $invoicesIds))
                 ->load();
-            if (!isset($pdf)){
+            if (!isset($pdf)) {
                 $pdf = Mage::getModel('sales/order_pdf_invoice')->getPdf($invoices);
             } else {
                 $pages = Mage::getModel('sales/order_pdf_invoice')->getPdf($invoices);
-                $pdf->pages = array_merge ($pdf->pages, $pages->pages);
+                $pdf->pages = array_merge($pdf->pages, $pages->pages);
             }
 
             return $this->_prepareDownloadResponse('invoice'.Mage::getSingleton('core/date')->date('Y-m-d_H-i-s').
@@ -150,5 +150,4 @@ class Mage_Adminhtml_Controller_Sales_Invoice extends Mage_Adminhtml_Controller_
     {
         return Mage::getSingleton('admin/session')->isAllowed('sales/invoice');
     }
-
 }

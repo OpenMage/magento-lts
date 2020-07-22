@@ -36,7 +36,6 @@
  */
 class Mage_Dataflow_Model_Convert_Validator_Dryrun extends Mage_Dataflow_Model_Convert_Validator_Abstract
 {
-
     public function validate()
     {
         if ($this->getVar('dry_run') || $this->getProfile()->getDryRun()) {
@@ -44,5 +43,4 @@ class Mage_Dataflow_Model_Convert_Validator_Dryrun extends Mage_Dataflow_Model_C
         }
         return $this;
     }
-
 }

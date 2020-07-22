@@ -31,8 +31,7 @@
  * @package     Mage_Paypal
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Deprecated
-    extends Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Payment
+class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Deprecated extends Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Payment
 {
     /**
      * Get was enabled config path

@@ -60,7 +60,7 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
      *
      * @var array
      */
-    protected $_notButtonVars = array (
+    protected $_notButtonVars = array(
         'METHOD', 'BUTTONCODE', 'BUTTONTYPE');
 
     /**
@@ -157,7 +157,7 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
     {
         $request = array(
             'subtotal'      => $this->_formatPrice($order->getBaseSubtotal()),
-            'tax'           => $this->_formatPrice($order->getBaseTaxAmount() + $order->getHiddenTaxAmount() ),
+            'tax'           => $this->_formatPrice($order->getBaseTaxAmount() + $order->getHiddenTaxAmount()),
             'shipping'      => $this->_formatPrice($order->getBaseShippingAmount()),
             'invoice'       => $order->getIncrementId(),
             'address_override' => 'true',

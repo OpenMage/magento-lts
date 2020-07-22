@@ -30,7 +30,7 @@ $installer->startSetup();
 $connection = $installer->getConnection();
 $connection->beginTransaction();
 
-try{
+try {
     $paymentMethodCode = 'authorizenet';
     $transactionTable = $installer->getTable('sales/payment_transaction');
     $paymentTable = $installer->getTable('sales/order_payment');
@@ -42,9 +42,9 @@ try{
         $connection->select()
             ->from($paymentTable)
             ->joinLeft(
-            $transactionTable,
-            "$transactionTable.txn_id = $paymentTable.last_trans_id",
-               array(
+                $transactionTable,
+                "$transactionTable.txn_id = $paymentTable.last_trans_id",
+                array(
                    'last_transaction_id' => 'transaction_id',
                    'last_transaction_type' => 'txn_type',
                    'last_transaction_is_closed' => 'is_closed'
@@ -73,7 +73,7 @@ try{
             'refunded_amount' => $payment['base_amount_refunded_online']
         );
         $additionalInformation = unserialize($payment['additional_information']);
-        if (isset ($additionalInformation['authorize_cards'])) {
+        if (isset($additionalInformation['authorize_cards'])) {
             continue;
         }
         $additionalInformation['authorize_cards'] = array(

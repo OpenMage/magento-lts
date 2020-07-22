@@ -60,7 +60,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Sa
      */
     public function isReadonly()
     {
-         return $this->getProduct()->getDownloadableReadonly();
+        return $this->getProduct()->getDownloadableReadonly();
     }
 
 

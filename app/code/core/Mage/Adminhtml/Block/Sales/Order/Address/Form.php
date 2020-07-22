@@ -32,8 +32,7 @@
  * @package     Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Sales_Order_Address_Form
-    extends Mage_Adminhtml_Block_Sales_Order_Create_Form_Address
+class Mage_Adminhtml_Block_Sales_Order_Address_Form extends Mage_Adminhtml_Block_Sales_Order_Create_Form_Address
 {
     protected function _construct()
     {

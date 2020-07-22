@@ -143,12 +143,12 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract extends Mage_Admi
             /*
              * Filtering items by allowed product type
              */
-            foreach($items as $key => $item) {
+            foreach ($items as $key => $item) {
                 if ($item instanceof Mage_Catalog_Model_Product) {
                     $type = $item->getTypeId();
-                } else if ($item instanceof Mage_Sales_Model_Order_Item) {
+                } elseif ($item instanceof Mage_Sales_Model_Order_Item) {
                     $type = $item->getProductType();
-                } else if ($item instanceof Mage_Sales_Model_Quote_Item) {
+                } elseif ($item instanceof Mage_Sales_Model_Quote_Item) {
                     $type = $item->getProductType();
                 } else {
                     $type = '';
@@ -183,5 +183,4 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract extends Mage_Admi
     {
         return true;
     }
-
 }

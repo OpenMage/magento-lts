@@ -153,19 +153,19 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
 
             try {
                 $model->save();
-                if ( $uRoles = $this->getRequest()->getParam('roles', false) ) {
+                if ($uRoles = $this->getRequest()->getParam('roles', false)) {
                     /*parse_str($uRoles, $uRoles);
                     $uRoles = array_keys($uRoles);*/
                     if (count($uRoles) === 1) {
                         $model->setRoleIds($uRoles)
                             ->setRoleUserId($model->getUserId())
                             ->saveRelations();
-                    } else if (count($uRoles) > 1) {
+                    } elseif (count($uRoles) > 1) {
                         //@FIXME: stupid fix of previous multi-roles logic.
                         //@TODO:  make proper DB upgrade in the future revisions.
                         $rs = array();
                         $rs[0] = $uRoles[0];
-                        $model->setRoleIds( $rs )->setRoleUserId( $model->getUserId() )->saveRelations();
+                        $model->setRoleIds($rs)->setRoleUserId($model->getUserId())->saveRelations();
                     }
                 }
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The user has been saved.'));
@@ -185,15 +185,13 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
     public function deleteAction()
     {
         if ($id = $this->getRequest()->getParam('user_id')) {
-
             try {
                 $model = Mage::getModel('api/user')->load($id);
                 $model->delete();
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The user has been deleted.'));
                 $this->_redirect('*/*/');
                 return;
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 $this->_redirect('*/*/edit', array('user_id' => $this->getRequest()->getParam('user_id')));
                 return;
@@ -219,15 +217,15 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
     public function roleGridAction()
     {
         $this->getResponse()
-            ->setBody($this->getLayout()
+            ->setBody(
+                $this->getLayout()
             ->createBlock('adminhtml/api_user_grid')
             ->toHtml()
-        );
+            );
     }
 
     protected function _isAllowed()
     {
         return Mage::getSingleton('admin/session')->isAllowed('system/api/users');
     }
-
 }

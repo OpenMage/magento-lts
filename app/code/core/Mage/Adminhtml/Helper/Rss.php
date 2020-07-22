@@ -41,7 +41,7 @@ class Mage_Adminhtml_Helper_Rss extends Mage_Core_Helper_Abstract
         $adminSession = Mage::getModel('admin/session');
         $user = $adminSession->login($username, $password);
         //$user = Mage::getModel('admin/user')->login($username, $password);
-        if($user && $user->getId() && $user->getIsActive() == '1' && $adminSession->isAllowed($path)){
+        if ($user && $user->getId() && $user->getIsActive() == '1' && $adminSession->isAllowed($path)) {
             $session->setAdmin($user);
         } else {
             Mage::helper('core/http')->authFailed();

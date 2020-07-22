@@ -116,7 +116,7 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
 
     protected function _addColumnFilterToCollection($column)
     {
-        if($column->getIndex() == 'stores') {
+        if ($column->getIndex() == 'stores') {
             $this->getCollection()->addStoreFilter($column->getFilter()->getCondition(), false);
         } else {
             parent::_addColumnFilterToCollection($column);

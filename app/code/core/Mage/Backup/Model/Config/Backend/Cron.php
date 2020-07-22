@@ -64,8 +64,7 @@ class Mage_Backup_Model_Config_Backend_Cron extends Mage_Core_Model_Config_Data
                 ($frequency == $frequencyWeekly) ? '1' : '*',           # Day of the Week
             );
             $cronExprString = join(' ', $cronExprArray);
-        }
-        else {
+        } else {
             $cronExprString = '';
         }
 
@@ -81,8 +80,7 @@ class Mage_Backup_Model_Config_Backend_Cron extends Mage_Core_Model_Config_Data
                 ->setValue((string) Mage::getConfig()->getNode(self::CRON_MODEL_PATH))
                 ->setPath(self::CRON_MODEL_PATH)
                 ->save();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             Mage::throwException(Mage::helper('backup')->__('Unable to save the cron expression.'));
         }
     }

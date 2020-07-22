@@ -101,8 +101,10 @@ class Mage_Dataflow_Model_Resource_Import extends Mage_Core_Model_Resource_Db_Ab
         );
         $read = $this->_getReadAdapter();
         $select = $read->select()
-            ->from($this->getTable('dataflow/import'),
-                array('max'=>'max(import_id)', 'min'=>'min(import_id)', 'cnt'=>'count(*)'))
+            ->from(
+                $this->getTable('dataflow/import'),
+                array('max'=>'max(import_id)', 'min'=>'min(import_id)', 'cnt'=>'count(*)')
+            )
             ->where('status = :status')
             ->where('session_id = :$session_id');
         return $read->fetchRow($select, $bind);

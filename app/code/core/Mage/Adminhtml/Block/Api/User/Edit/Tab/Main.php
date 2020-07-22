@@ -34,7 +34,6 @@
 
 class Mage_Adminhtml_Block_Api_User_Edit_Tab_Main extends Mage_Adminhtml_Block_Widget_Form
 {
-
     protected function _prepareForm()
     {
         $model = Mage::registry('api_user');
@@ -88,7 +87,10 @@ class Mage_Adminhtml_Block_Api_User_Edit_Tab_Main extends Mage_Adminhtml_Block_W
             'required' => true,
         ));
 
-        $fieldset->addField('current_password', 'obscure', array(
+        $fieldset->addField(
+            'current_password',
+            'obscure',
+            array(
                 'name'  => 'current_password',
                 'label' => Mage::helper('adminhtml')->__('Current Admin Password'),
                 'title' => Mage::helper('adminhtml')->__('Current Admin Password'),
@@ -114,8 +116,7 @@ class Mage_Adminhtml_Block_Api_User_Edit_Tab_Main extends Mage_Adminhtml_Block_W
                 'id'    => 'confirmation',
                 'class' => 'input-text validate-cpassword',
             ));
-        }
-        else {
+        } else {
             $fieldset->addField('password', 'password', array(
                 'name'  => 'api_key',
                 'label' => Mage::helper('adminhtml')->__('API Key'),

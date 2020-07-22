@@ -32,5 +32,4 @@ class Mage_PaypalUk_Block_Express_Form extends Mage_Paypal_Block_Express_Form
      * @var string
      */
     protected $_methodCode = Mage_Paypal_Model_Config::METHOD_WPP_PE_EXPRESS;
-
 }

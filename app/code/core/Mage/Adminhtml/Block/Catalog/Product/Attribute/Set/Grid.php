@@ -33,7 +33,6 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -74,5 +73,4 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Grid extends Mage_Admin
     {
         return $this->getUrl('*/*/edit', array('id'=>$row->getAttributeSetId()));
     }
-
 }

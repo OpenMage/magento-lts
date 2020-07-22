@@ -31,8 +31,7 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Customer_Grid_Renderer_Multiaction
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action
+class Mage_Adminhtml_Block_Customer_Grid_Renderer_Multiaction extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action
 {
     /**
      * Renders column

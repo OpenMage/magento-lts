@@ -33,5 +33,4 @@
  */
 class Mage_Eav_Model_Entity_Attribute_Backend_Default extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
-
 }

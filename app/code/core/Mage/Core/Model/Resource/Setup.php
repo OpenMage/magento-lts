@@ -281,7 +281,7 @@ class Mage_Core_Model_Resource_Setup
         $dataVer= $this->_getResource()->getDataVersion($this->_resourceName);
         $configVer = (string)$this->_moduleConfig->version;
         if ($dataVer !== false) {
-             $status = version_compare($configVer, $dataVer);
+            $status = version_compare($configVer, $dataVer);
             if ($status == self::VERSION_COMPARE_GREATER) {
                 $this->_upgradeData($dataVer, $configVer);
             }
@@ -311,7 +311,7 @@ class Mage_Core_Model_Resource_Setup
 
         // Module is installed
         if ($dbVer !== false) {
-             $status = version_compare($configVer, $dbVer);
+            $status = version_compare($configVer, $dbVer);
             switch ($status) {
                 case self::VERSION_COMPARE_LOWER:
                     $this->_rollbackResourceDb($configVer, $dbVer);
@@ -705,7 +705,7 @@ class Mage_Core_Model_Resource_Setup
     }
 
 
-/******************* UTILITY METHODS *****************/
+    /******************* UTILITY METHODS *****************/
 
     /**
      * Retrieve row or field from table by id or string and parent id
@@ -746,16 +746,16 @@ class Mage_Core_Model_Resource_Setup
     }
 
 
-     /**
-     * Delete table row
-     *
-     * @param string $table
-     * @param string $idField
-     * @param int|string $id
-     * @param null|string $parentField
-     * @param int|string $parentId
-     * @return $this
-     */
+    /**
+    * Delete table row
+    *
+    * @param string $table
+    * @param string $idField
+    * @param int|string $id
+    * @param null|string $parentField
+    * @param int|string $parentId
+    * @return $this
+    */
     public function deleteTableRow($table, $idField, $id, $parentField = null, $parentId = 0)
     {
         if (strpos($table, '/') !== false) {
@@ -859,7 +859,7 @@ class Mage_Core_Model_Resource_Setup
         return $this->getConnection()->isTableExists($table);
     }
 
-/******************* CONFIG *****************/
+    /******************* CONFIG *****************/
 
     /**
      * Undefined

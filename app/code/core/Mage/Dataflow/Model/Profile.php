@@ -159,7 +159,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         $profileHistory = Mage::getModel('dataflow/profile_history');
 
         $adminUserId = $this->getAdminUserId();
-        if($adminUserId) {
+        if ($adminUserId) {
             $profileHistory->setUserId($adminUserId);
         }
 
@@ -289,8 +289,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
 
             $profile->setDataflowProfile($this->getData());
             $profile->run();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             echo $e;
         }
 
@@ -419,7 +418,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
 
         if ($import) {
 //            if ($this->getDataTransfer()==='interactive') {
-                $parseFileXmlInter .= '    <var name="store"><![CDATA[' . $this->getStoreId() . ']]></var>' . $nl;
+            $parseFileXmlInter .= '    <var name="store"><![CDATA[' . $this->getStoreId() . ']]></var>' . $nl;
 //            } else {
 //                $parseDataXml = '<action type="' . $parsers[$this->getEntityType()] . '" method="parse">' . $nl;
 //                $parseDataXml = '    <var name="store"><![CDATA[' . $this->getStoreId() . ']]></var>' . $nl;
@@ -451,7 +450,6 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
             $entityXml = '<action type="' . $adapters[$this->getEntityType()] . '" method="load">' . $nl;
             $entityXml .= '    <var name="store"><![CDATA[' . $this->getStoreId() . ']]></var>' . $nl;
             foreach ($p[$this->getEntityType()]['filter'] as $f=>$v) {
-
                 if (empty($v)) {
                     continue;
                 }
@@ -460,7 +458,6 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                     $parseFileXmlInter .= '    <var name="filter/' . $f . '"><![CDATA[' . $v . ']]></var>' . $nl;
                 } elseif (is_array($v)) {
                     foreach ($v as $a=>$b) {
-
                         if (strlen($b) == 0) {
                             continue;
                         }
@@ -495,16 +492,15 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                 $xml .= '</action>';
             }
             //$xml = $interactiveXml.$fileXml.$parseFileXml.$mapXml.$parseDataXml.$entityXml;
-
         } else {
             $xml = $entityXml . $parseDataXml . $mapXml . $parseFileXml . $fileXml . $interactiveXml;
         }
 
         $this->setGuiData($p);
         $this->setActionsXml($xml);
-/*echo "<pre>" . print_r($p,1) . "</pre>";
-echo "<xmp>" . $xml . "</xmp>";
-die;*/
+        /*echo "<pre>" . print_r($p,1) . "</pre>";
+        echo "<xmp>" . $xml . "</xmp>";
+        die;*/
         return $this;
     }
 

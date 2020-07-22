@@ -137,8 +137,12 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
         $sql = $this->_stripQuoted($sql);
 
         // split into text and params
-        $this->_sqlSplit = preg_split('/(\?|\:[a-zA-Z0-9_]+)/',
-            $sql, -1, PREG_SPLIT_DELIM_CAPTURE|PREG_SPLIT_NO_EMPTY);
+        $this->_sqlSplit = preg_split(
+            '/(\?|\:[a-zA-Z0-9_]+)/',
+            $sql,
+            -1,
+            PREG_SPLIT_DELIM_CAPTURE|PREG_SPLIT_NO_EMPTY
+        );
 
         // map params
         $this->_sqlParam = array();
@@ -151,7 +155,7 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
                     #require_once 'Zend/Db/Statement/Exception.php';
                     throw new Zend_Db_Statement_Exception("Invalid bind-variable position '$val'");
                 }
-            } else if ($val[0] == ':') {
+            } elseif ($val[0] == ':') {
                 if ($this->_adapter->supportsParameters('named') === false) {
                     /**
                      * @see Zend_Db_Statement_Exception
@@ -241,7 +245,7 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
             if ($intval >= 1 || $intval <= count($this->_sqlParam)) {
                 $position = $intval;
             }
-        } else if ($this->_adapter->supportsParameters('named')) {
+        } elseif ($this->_adapter->supportsParameters('named')) {
             if ($parameter[0] != ':') {
                 $parameter = ':' . $parameter;
             }

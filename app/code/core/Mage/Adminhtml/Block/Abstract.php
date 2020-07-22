@@ -43,5 +43,4 @@ class Mage_Adminhtml_Block_Abstract extends Mage_Core_Block_Template
     {
         return 'adminhtml/url';
     }
-
 }

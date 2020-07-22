@@ -34,7 +34,6 @@
 
 class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Main extends Mage_Adminhtml_Block_Widget_Form
 {
-
     protected function _prepareForm()
     {
         $model = Mage::registry('permissions_user');
@@ -115,8 +114,7 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Main extends Mage_Adminhtml
                 'id'    => 'confirmation',
                 'class' => 'input-text validate-cpassword',
             ));
-        }
-        else {
+        } else {
             $fieldset->addField('password', 'password', array(
                 'name'  => 'password',
                 'label' => Mage::helper('adminhtml')->__('Password'),

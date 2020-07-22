@@ -35,5 +35,4 @@
  */
 class Mage_CatalogSearch_Model_Mysql4_Indexer_Fulltext extends Mage_CatalogSearch_Model_Resource_Indexer_Fulltext
 {
-    
 }

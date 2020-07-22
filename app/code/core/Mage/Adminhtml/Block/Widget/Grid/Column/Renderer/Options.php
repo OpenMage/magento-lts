@@ -31,8 +31,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Options
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Text
+class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Options extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Text
 {
     /**
      * Render a grid cell as options
@@ -51,8 +50,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Options
                 foreach ($value as $item) {
                     if (isset($options[$item])) {
                         $res[] = $this->escapeHtml($options[$item]);
-                    }
-                    elseif ($showMissingOptionValues) {
+                    } elseif ($showMissingOptionValues) {
                         $res[] = $this->escapeHtml($item);
                     }
                 }

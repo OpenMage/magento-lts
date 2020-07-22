@@ -141,13 +141,13 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
         return $this;
     }
 
-   /**
-    * Filter collection to only active or inactive rules
-    *
-    * @param int $isActive
-    *
-    * @return Mage_Rule_Model_Resource_Rule_Collection_Abstract
-    */
+    /**
+     * Filter collection to only active or inactive rules
+     *
+     * @param int $isActive
+     *
+     * @return Mage_Rule_Model_Resource_Rule_Collection_Abstract
+     */
     public function addIsActiveFilter($isActive = 1)
     {
         if (!$this->getFlag('is_active_filter')) {

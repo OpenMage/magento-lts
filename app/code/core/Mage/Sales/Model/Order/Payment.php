@@ -1481,8 +1481,8 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      */
     protected function _formatAmount($amount, $asFloat = false)
     {
-         $amount = Mage::app()->getStore()->roundPrice($amount);
-         return !$asFloat ? (string)$amount : $amount;
+        $amount = Mage::app()->getStore()->roundPrice($amount);
+        return !$asFloat ? (string)$amount : $amount;
     }
 
     /**

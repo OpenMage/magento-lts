@@ -31,7 +31,7 @@
  */
 abstract class Mage_Shipping_Model_Rate_Abstract extends Mage_Core_Model_Abstract
 {
-    static protected $_instances;
+    protected static $_instances;
 
     /**
      * @return Mage_Shipping_Model_Carrier_Abstract

@@ -31,9 +31,7 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
-    extends Mage_Adminhtml_Block_Template
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_Block_Template implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     protected function _construct()
     {
@@ -62,7 +60,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
         $order = $this->getOrder();
 
         $history = array();
-        foreach ($order->getAllStatusHistory() as $orderComment){
+        foreach ($order->getAllStatusHistory() as $orderComment) {
             $history[] = $this->_prepareHistoryItem(
                 $orderComment->getStatusLabel(),
                 $orderComment->getIsCustomerNotified(),
@@ -71,14 +69,14 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
             );
         }
 
-        foreach ($order->getCreditmemosCollection() as $_memo){
+        foreach ($order->getCreditmemosCollection() as $_memo) {
             $history[] = $this->_prepareHistoryItem(
                 $this->__('Credit memo #%s created', $_memo->getIncrementId()),
                 $_memo->getEmailSent(),
                 $_memo->getCreatedAtDate()
             );
 
-            foreach ($_memo->getCommentsCollection() as $_comment){
+            foreach ($_memo->getCommentsCollection() as $_comment) {
                 $history[] = $this->_prepareHistoryItem(
                     $this->__('Credit memo #%s comment added', $_memo->getIncrementId()),
                     $_comment->getIsCustomerNotified(),
@@ -88,14 +86,14 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
             }
         }
 
-        foreach ($order->getShipmentsCollection() as $_shipment){
+        foreach ($order->getShipmentsCollection() as $_shipment) {
             $history[] = $this->_prepareHistoryItem(
                 $this->__('Shipment #%s created', $_shipment->getIncrementId()),
                 $_shipment->getEmailSent(),
                 $_shipment->getCreatedAtDate()
             );
 
-            foreach ($_shipment->getCommentsCollection() as $_comment){
+            foreach ($_shipment->getCommentsCollection() as $_comment) {
                 $history[] = $this->_prepareHistoryItem(
                     $this->__('Shipment #%s comment added', $_shipment->getIncrementId()),
                     $_comment->getIsCustomerNotified(),
@@ -105,14 +103,14 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
             }
         }
 
-        foreach ($order->getInvoiceCollection() as $_invoice){
+        foreach ($order->getInvoiceCollection() as $_invoice) {
             $history[] = $this->_prepareHistoryItem(
                 $this->__('Invoice #%s created', $_invoice->getIncrementId()),
                 $_invoice->getEmailSent(),
                 $_invoice->getCreatedAtDate()
             );
 
-            foreach ($_invoice->getCommentsCollection() as $_comment){
+            foreach ($_invoice->getCommentsCollection() as $_comment) {
                 $history[] = $this->_prepareHistoryItem(
                     $this->__('Invoice #%s comment added', $_invoice->getIncrementId()),
                     $_comment->getIsCustomerNotified(),
@@ -122,7 +120,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
             }
         }
 
-        foreach ($order->getTracksCollection() as $_track){
+        foreach ($order->getTracksCollection() as $_track) {
             $history[] = $this->_prepareHistoryItem(
                 $this->__('Tracking number %s for %s assigned', $_track->getNumber(), $_track->getTitle()),
                 false,

@@ -77,7 +77,7 @@ class Mage_Centinel_Adminhtml_Centinel_IndexController extends Mage_Adminhtml_Co
     public function authenticationCompleteAction()
     {
         try {
-           if ($validator = $this->_getValidator()) {
+            if ($validator = $this->_getValidator()) {
                 $request = $this->getRequest();
 
                 $data = new Varien_Object();
@@ -127,4 +127,3 @@ class Mage_Centinel_Adminhtml_Centinel_IndexController extends Mage_Adminhtml_Co
         return Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/review_payment');
     }
 }
-

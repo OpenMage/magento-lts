@@ -281,7 +281,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
             foreach ($rule->getCustomerGroupIds() as $customerGroupId) {
                 foreach ($rule->getWebsiteIds() as $websiteId) {
                     foreach ($attributeIds as $attribute) {
-                        $data[] = array (
+                        $data[] = array(
                             'rule_id'           => $rule->getId(),
                             'website_id'        => $websiteId,
                             'customer_group_id' => $customerGroupId,

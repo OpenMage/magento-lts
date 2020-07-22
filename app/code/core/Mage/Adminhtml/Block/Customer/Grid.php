@@ -33,7 +33,6 @@
  */
 class Mage_Adminhtml_Block_Customer_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -144,7 +143,8 @@ class Mage_Adminhtml_Block_Customer_Grid extends Mage_Adminhtml_Block_Widget_Gri
             ));
         }
 
-        $this->addColumn('action',
+        $this->addColumn(
+            'action',
             array(
                 'header'    =>  Mage::helper('customer')->__('Action'),
                 'width'     => '100',
@@ -161,7 +161,8 @@ class Mage_Adminhtml_Block_Customer_Grid extends Mage_Adminhtml_Block_Widget_Gri
                 'sortable'  => false,
                 'index'     => 'stores',
                 'is_system' => true,
-        ));
+        )
+        );
 
         $this->addExportType('*/*/exportCsv', Mage::helper('customer')->__('CSV'));
         $this->addExportType('*/*/exportXml', Mage::helper('customer')->__('Excel XML'));

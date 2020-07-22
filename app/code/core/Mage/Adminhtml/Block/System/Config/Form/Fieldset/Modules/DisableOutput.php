@@ -25,8 +25,7 @@
  */
 
 
-class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput
-    extends Mage_Adminhtml_Block_System_Config_Form_Fieldset
+class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput extends Mage_Adminhtml_Block_System_Config_Form_Fieldset
 {
     protected $_dummyElement;
     protected $_fieldRenderer;
@@ -99,7 +98,9 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput
 
         $e = $this->_getDummyElement();
 
-        $field = $fieldset->addField($moduleName, 'select',
+        $field = $fieldset->addField(
+            $moduleName,
+            'select',
             array(
                 'name'          => 'groups[modules_disable_output][fields]['.$moduleName.'][value]',
                 'label'         => $moduleName,
@@ -108,7 +109,8 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput
                 'inherit'       => $inherit,
                 'can_use_default_value' => $this->getForm()->canUseDefaultValue($e),
                 'can_use_website_value' => $this->getForm()->canUseWebsiteValue($e),
-            ))->setRenderer($this->_getFieldRenderer());
+            )
+        )->setRenderer($this->_getFieldRenderer());
 
         return $field->toHtml();
     }

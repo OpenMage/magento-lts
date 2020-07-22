@@ -36,5 +36,4 @@ require_once 'Mage/Bundle/controllers/Adminhtml/Bundle/SelectionController.php';
  */
 class Mage_Bundle_SelectionController extends Mage_Bundle_Adminhtml_Bundle_SelectionController
 {
-
 }

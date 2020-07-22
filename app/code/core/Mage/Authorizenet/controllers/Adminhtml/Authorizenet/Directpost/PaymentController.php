@@ -32,8 +32,7 @@ require_once 'Mage/Adminhtml/controllers/Sales/Order/CreateController.php';
  * @package    Mage_DirtectPost
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController
-    extends Mage_Adminhtml_Sales_Order_CreateController
+class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController extends Mage_Adminhtml_Sales_Order_CreateController
 {
     /**
      * Get session model
@@ -86,7 +85,6 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController
         }
 
         if (isset($paymentParam['method'])) {
-
             $result = array();
 
             //create order partially
@@ -121,7 +119,7 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController
                     $adminUrl = Mage::getSingleton('adminhtml/url');
                     if ($adminUrl->useSecretKey()) {
                         $requestToPaygate->setKey(
-                            $adminUrl->getSecretKey('authorizenet_directpost_payment','redirect')
+                            $adminUrl->getSecretKey('authorizenet_directpost_payment', 'redirect')
                         );
                     }
                     $result['directpost'] = array('fields' => $requestToPaygate->getData());
@@ -129,15 +127,13 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController
 
                 $result['success'] = 1;
                 $isError = false;
-            }
-            catch (Mage_Core_Exception $e) {
+            } catch (Mage_Core_Exception $e) {
                 $message = $e->getMessage();
-                if( !empty($message) ) {
+                if (!empty($message)) {
                     $this->_getSession()->addError($message);
                 }
                 $isError = true;
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 $this->_getSession()->addException($e, $this->__('Order saving error: %s', $e->getMessage()));
                 $isError = true;
             }
@@ -149,8 +145,7 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController
             }
 
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
-        }
-        else {
+        } else {
             $result = array(
                 'error_messages' => $this->__('Please, choose payment method')
             );

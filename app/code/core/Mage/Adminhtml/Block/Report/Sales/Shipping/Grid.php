@@ -111,6 +111,3 @@ class Mage_Adminhtml_Block_Report_Sales_Shipping_Grid extends Mage_Adminhtml_Blo
         return parent::_prepareColumns();
     }
 }
-
-
-

@@ -55,14 +55,14 @@ class Mage_Adminhtml_Model_Extension extends Varien_Object
         $this->_setMaintainers($pfm);
         $this->_setDependencies($pfm);
         $this->_setContents($pfm);
-#echo "<pre>".print_r($pfm,1)."</pre>";
+        #echo "<pre>".print_r($pfm,1)."</pre>";
         if (!$pfm->validate(PEAR_VALIDATE_NORMAL)) {
             //echo "<pre>".print_r($this->getData(),1)."</pre>";
             //echo "TEST:";
             //echo "<pre>".print_r($pfm->getValidationWarnings(), 1)."</pre>";
             $message = $pfm->getValidationWarnings();
             //$message = $message[0]['message'];
-             throw Mage::exception('Mage_Adminhtml', Mage::helper('adminhtml')->__($message[0]['message']));
+            throw Mage::exception('Mage_Adminhtml', Mage::helper('adminhtml')->__($message[0]['message']));
 
             return $this;
         }
@@ -76,7 +76,7 @@ class Mage_Adminhtml_Model_Extension extends Varien_Object
         $pfm->setPackageType('php');
         $pfm->setChannel($this->getData('channel'));
 
-    $pfm->setLicense($this->getData('license'), $this->getData('license_uri'));
+        $pfm->setLicense($this->getData('license'), $this->getData('license_uri'));
 
         $pfm->setPackage($this->getData('name'));
         $pfm->setSummary($this->getData('summary'));
@@ -134,10 +134,24 @@ class Mage_Adminhtml_Model_Extension extends Varien_Object
                     case 'package':
                         if ($type==='conflicts') {
                             $pfm->addConflictingPackageDepWithChannel(
-                                $name, $channel, false, $min, $max, $recommended, $exclude);
+                                $name,
+                                $channel,
+                                false,
+                                $min,
+                                $max,
+                                $recommended,
+                                $exclude
+                            );
                         } else {
                             $pfm->addPackageDepWithChannel(
-                                $type, $name, $channel, $min, $max, $recommended, $exclude);
+                                $type,
+                                $name,
+                                $channel,
+                                $min,
+                                $max,
+                                $recommended,
+                                $exclude
+                            );
                         }
                         break;
 
@@ -146,12 +160,25 @@ class Mage_Adminhtml_Model_Extension extends Varien_Object
                             Mage::throwException(Mage::helper('adminhtml')->__("Subpackage cannot be conflicting."));
                         }
                         $pfm->addSubpackageDepWithChannel(
-                            $type, $name, $channel, $min, $max, $recommended, $exclude);
+                            $type,
+                            $name,
+                            $channel,
+                            $min,
+                            $max,
+                            $recommended,
+                            $exclude
+                        );
                         break;
 
                     case 'extension':
                         $pfm->addExtensionDep(
-                            $type, $name, $min, $max, $recommended, $exclude);
+                            $type,
+                            $name,
+                            $min,
+                            $max,
+                            $recommended,
+                            $exclude
+                        );
                         break;
                 }
             }
@@ -196,7 +223,7 @@ class Mage_Adminhtml_Model_Extension extends Varien_Object
         }
 
         $pearRoles = $this->getRoles();
-#echo "<pre>".print_r($usesRoles,1)."</pre>";
+        #echo "<pre>".print_r($usesRoles,1)."</pre>";
         foreach ($usesRoles as $role=>$dummy) {
             if (empty($pearRoles[$role]['package'])) {
                 continue;

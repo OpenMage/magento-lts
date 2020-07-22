@@ -66,5 +66,4 @@ class Mage_Adminhtml_Model_System_Config_Clone_Media_Image extends Mage_Core_Mod
 
         return $prefixes;
     }
-
 }

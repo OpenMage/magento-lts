@@ -119,7 +119,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
     {
         $this->_isPaymentValid();
         $_cards = array();
-        foreach(array_keys($this->_cards) as $key) {
+        foreach (array_keys($this->_cards) as $key) {
             $_cards[$key] = $this->getCard($key);
         }
         return $_cards;

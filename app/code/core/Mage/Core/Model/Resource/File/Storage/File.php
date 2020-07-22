@@ -206,14 +206,14 @@ class Mage_Core_Model_Resource_File_Storage_File
             // If we already opened the file using lockCreateFile method
             if ($this->filePointer) {
                 $fp = $this->filePointer;
-                $this->filePointer = NULL;
+                $this->filePointer = null;
                 if (@fwrite($fp, $content) !== false && @fflush($fp) && @flock($fp, LOCK_UN) && @fclose($fp)) {
                     return true;
                 }
             }
             // If overwrite is not required then return if file could not be locked (assume it is being written by another process)
             // Exception is only thrown if file was opened but could not be written.
-            else if (!$overwrite) {
+            elseif (!$overwrite) {
                 if (!($fp = @fopen($fullPath, 'x'))) {
                     return false;
                 }
@@ -240,7 +240,7 @@ class Mage_Core_Model_Resource_File_Storage_File
     public function lockCreateFile($filePath)
     {
         $filename = basename($filePath);
-        $path = $this->getMediaBaseDirectory() . DS . str_replace('/', DS ,dirname($filePath));
+        $path = $this->getMediaBaseDirectory() . DS . str_replace('/', DS, dirname($filePath));
 
         if (!is_dir($path)) {
             @mkdir($path, 0777, true);
@@ -273,15 +273,14 @@ class Mage_Core_Model_Resource_File_Storage_File
     public function removeLockedFile($filePath)
     {
         $filename = basename($filePath);
-        $path = $this->getMediaBaseDirectory() . DS . str_replace('/', DS ,dirname($filePath));
+        $path = $this->getMediaBaseDirectory() . DS . str_replace('/', DS, dirname($filePath));
         $fullPath = $path . DS . $filename;
         if ($this->filePointer) {
             $fp = $this->filePointer;
-            $this->filePointer = NULL;
+            $this->filePointer = null;
             @flock($fp, LOCK_UN);
             @fclose($fp);
         }
         @unlink($fullPath);
     }
-
 }

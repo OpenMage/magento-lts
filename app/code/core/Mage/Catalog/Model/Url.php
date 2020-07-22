@@ -104,12 +104,12 @@ class Mage_Catalog_Model_Url
      */
     protected $_saveRewritesHistory = null;
 
-     /**
-     * Singleton of category model for building URL path
-     *
-     * @var Mage_Catalog_Model_Category
-     */
-    static protected $_categoryForUrlPath;
+    /**
+    * Singleton of category model for building URL path
+    *
+    * @var Mage_Catalog_Model_Category
+    */
+    protected static $_categoryForUrlPath;
 
     /**
      * Adds url_path property for non-root category - to ensure that url path is not empty.

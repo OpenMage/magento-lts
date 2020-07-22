@@ -27,7 +27,6 @@
 
 class Mage_Payment_Model_Method_Checkmo extends Mage_Payment_Model_Method_Abstract
 {
-
     protected $_code  = 'checkmo';
     protected $_formBlockType = 'payment/form_checkmo';
     protected $_infoBlockType = 'payment/info_checkmo';

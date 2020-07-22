@@ -33,7 +33,6 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_Form_Container
 {
-
     public function __construct()
     {
         $this->_objectId    = 'order_id';
@@ -61,7 +60,8 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
             // see if order has non-editable products as items
             $nonEditableTypes = array_keys($this->getOrder()->getResource()->aggregateProductsByTypes(
                 $order->getId(),
-                array_keys(Mage::getConfig()
+                array_keys(
+                    Mage::getConfig()
                     ->getNode('adminhtml/sales/order/create/available_product_types')
                     ->asArray()
                 ),
@@ -70,10 +70,15 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
             if ($nonEditableTypes) {
                 $confirmationMessage = $coreHelper->jsQuoteEscape(
                     Mage::helper('sales')
-                        ->__('This order contains (%s) items and therefore cannot be edited through the admin interface at this time, if you wish to continue editing the (%s) items will be removed, the order will be canceled and a new order will be placed.',
-                        implode(', ', $nonEditableTypes), implode(', ', $nonEditableTypes))
+                        ->__(
+                            'This order contains (%s) items and therefore cannot be edited through the admin interface at this time, if you wish to continue editing the (%s) items will be removed, the order will be canceled and a new order will be placed.',
+                            implode(', ', $nonEditableTypes),
+                            implode(', ', $nonEditableTypes)
+                        )
                 );
-                $this->_updateButton('order_edit', 'onclick',
+                $this->_updateButton(
+                    'order_edit',
+                    'onclick',
                     'if (!confirm(\'' . $confirmationMessage . '\')) return false;' . $onclickJs
                 );
             }

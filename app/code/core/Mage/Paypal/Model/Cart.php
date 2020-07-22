@@ -304,7 +304,7 @@ class Mage_Paypal_Model_Cart
             $address = $this->_salesEntity->getIsVirtual() ?
                 $this->_salesEntity->getBillingAddress() : $this->_salesEntity->getShippingAddress();
             $shippingDescription = $address->getShippingDescription();
-            $this->_totals = array (
+            $this->_totals = array(
                 self::TOTAL_SUBTOTAL => $this->_salesEntity->getBaseSubtotal(),
                 self::TOTAL_TAX      => $address->getBaseTaxAmount(),
                 self::TOTAL_SHIPPING => $address->getBaseShippingAmount(),
@@ -324,13 +324,19 @@ class Mage_Paypal_Model_Cart
 
         // discount, shipping as items
         if ($this->_isDiscountAsItem && $this->_totals[self::TOTAL_DISCOUNT]) {
-            $this->addItem(Mage::helper('paypal')->__('Discount'), 1, -1.00 * $this->_totals[self::TOTAL_DISCOUNT],
+            $this->addItem(
+                Mage::helper('paypal')->__('Discount'),
+                1,
+                -1.00 * $this->_totals[self::TOTAL_DISCOUNT],
                 $this->_renderTotalLineItemDescriptions(self::TOTAL_DISCOUNT)
             );
         }
         $shippingItemId = $this->_renderTotalLineItemDescriptions(self::TOTAL_SHIPPING, $shippingDescription);
         if ($this->_isShippingAsItem && (float)$this->_totals[self::TOTAL_SHIPPING]) {
-            $this->addItem(Mage::helper('paypal')->__('Shipping'), 1, (float)$this->_totals[self::TOTAL_SHIPPING],
+            $this->addItem(
+                Mage::helper('paypal')->__('Shipping'),
+                1,
+                (float)$this->_totals[self::TOTAL_SHIPPING],
                 $shippingItemId
             );
         }
@@ -437,7 +443,7 @@ class Mage_Paypal_Model_Cart
         if ($this->_salesEntity instanceof Mage_Sales_Model_Order) {
             $qty = (int) $salesItem->getQtyOrdered();
             $amount = (float) $salesItem->getBasePrice();
-            // TODO: nominal item for order
+        // TODO: nominal item for order
         } else {
             $qty = (int) $salesItem->getTotalQty();
             $amount = $salesItem->isNominal() ? 0 : (float) $salesItem->getBaseCalculationPrice();

@@ -37,15 +37,15 @@ class Mage_Adminhtml_Block_Newsletter_Template_Grid_Renderer_Sender extends Mage
     public function render(Varien_Object $row)
     {
         $str = '';
-        if($row->getTemplateSenderName()) {
+        if ($row->getTemplateSenderName()) {
             $str .= $this->escapeHtml($row->getTemplateSenderName()) . ' ';
-        }        
-        if($row->getTemplateSenderEmail()) {
+        }
+        if ($row->getTemplateSenderEmail()) {
             $str .= '[' .$this->escapeHtml($row->getTemplateSenderEmail()) . ']';
-        }        
-        if($str == '') {
+        }
+        if ($str == '') {
             $str .= '---';
-        }        
+        }
         return $str;
     }
 }

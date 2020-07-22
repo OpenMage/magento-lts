@@ -31,10 +31,10 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Widget_Accordion extends Mage_Adminhtml_Block_Widget 
+class Mage_Adminhtml_Block_Widget_Accordion extends Mage_Adminhtml_Block_Widget
 {
     protected $_items = array();
-    public function __construct() 
+    public function __construct()
     {
         parent::__construct();
         $this->setTemplate('widget/accordion.phtml');

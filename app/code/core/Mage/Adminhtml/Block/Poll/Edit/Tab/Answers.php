@@ -34,7 +34,4 @@
 
 class Mage_Adminhtml_Block_Poll_Edit_Tab_Answers extends Mage_Adminhtml_Block_Text_List
 {
-
-
-
 }

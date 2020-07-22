@@ -31,9 +31,7 @@
  * @package     Mage_Connect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Abstract
-    extends Mage_Adminhtml_Block_Widget_Form
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+abstract class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Abstract extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     /**
      * TODO
@@ -138,7 +136,6 @@ abstract class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Abstract
                     ->toHtml();
         }
         return $this->_addFileDepButtonHtml;
-
     }
 
     /**

@@ -150,8 +150,7 @@ class Mage_Centinel_Helper_Data extends Mage_Core_Helper_Abstract
         $blockType = 'centinel/logo';
         if ($this->getLayout()) {
             $block = $this->getLayout()->createBlock($blockType);
-        }
-        else {
+        } else {
             $className = Mage::getConfig()->getBlockClassName($blockType);
             $block = new $className;
         }

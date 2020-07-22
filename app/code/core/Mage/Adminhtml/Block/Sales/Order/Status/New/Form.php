@@ -57,7 +57,9 @@ class Mage_Adminhtml_Block_Sales_Order_Status_New_Form extends Mage_Adminhtml_Bl
 
         $fieldset->addField('is_new', 'hidden', array('name' => 'is_new', 'value' => 1));
 
-        $fieldset->addField('status', 'text',
+        $fieldset->addField(
+            'status',
+            'text',
             array(
                 'name'      => 'status',
                 'label'     => Mage::helper('sales')->__('Status Code'),
@@ -66,7 +68,9 @@ class Mage_Adminhtml_Block_Sales_Order_Status_New_Form extends Mage_Adminhtml_Bl
             )
         );
 
-        $fieldset->addField('label', 'text',
+        $fieldset->addField(
+            'label',
+            'text',
             array(
                 'name'      => 'label',
                 'label'     => Mage::helper('sales')->__('Status Label'),

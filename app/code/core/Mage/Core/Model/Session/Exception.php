@@ -36,5 +36,4 @@
  */
 class Mage_Core_Model_Session_Exception extends Mage_Core_Exception
 {
-
 }

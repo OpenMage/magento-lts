@@ -193,7 +193,7 @@ class Mage_Paypal_Model_Ipn
                 $this->_debugData['exception'] = sprintf('Wrong order ID: "%s".', $id);
                 $this->_debug();
                 Mage::app()->getResponse()
-                    ->setHeader('HTTP/1.1','503 Service Unavailable')
+                    ->setHeader('HTTP/1.1', '503 Service Unavailable')
                     ->sendResponse();
                 exit;
             }
@@ -230,7 +230,8 @@ class Mage_Paypal_Model_Ipn
             // re-initialize config with the method code and store id
             $methodCode = $this->_recurringProfile->getMethodCode();
             $this->_config = Mage::getModel(
-                'paypal/config', array($methodCode, $this->_recurringProfile->getStoreId())
+                'paypal/config',
+                array($methodCode, $this->_recurringProfile->getStoreId())
             );
             if (!$this->_config->isMethodActive($methodCode) || !$this->_config->isMethodAvailable()) {
                 throw new Exception(sprintf('Method "%s" is not available.', $methodCode));
@@ -257,7 +258,9 @@ class Mage_Paypal_Model_Ipn
             if (strtolower($merchantEmail) != strtolower($receiverEmail)) {
                 throw new Exception(
                     sprintf(
-                        'Requested %s and configured %s merchant emails do not match.', $receiverEmail, $merchantEmail
+                        'Requested %s and configured %s merchant emails do not match.',
+                        $receiverEmail,
+                        $merchantEmail
                     )
                 );
             }
@@ -417,7 +420,7 @@ class Mage_Paypal_Model_Ipn
                     throw new Exception("Cannot handle payment status '{$paymentStatus}'.");
             }
         } catch (Mage_Core_Exception $e) {
-// TODO: add to payment profile comments
+            // TODO: add to payment profile comments
 //            $comment = $this->_createIpnComment(Mage::helper('paypal')->__('Note: %s', $e->getMessage()), true);
 //            $comment->save();
             throw $e;
@@ -589,7 +592,8 @@ class Mage_Paypal_Model_Ipn
         $notificationAmount = $this->_order
             ->getBaseCurrency()
             ->formatTxt($this->_request['mc_gross'] + $this->_request['mc_fee']);
-        $paymentStatus = $this->_filterPaymentStatus(isset($this->_request['payment_status'])
+        $paymentStatus = $this->_filterPaymentStatus(
+            isset($this->_request['payment_status'])
             ? $this->_request['payment_status']
             : null
         );
@@ -804,7 +808,7 @@ class Mage_Paypal_Model_Ipn
             case 'Voided':    return Mage_Paypal_Model_Info::PAYMENTSTATUS_VOIDED;
         }
         return '';
-// documented in NVP, but not documented in IPN:
+        // documented in NVP, but not documented in IPN:
 //Mage_Paypal_Model_Info::PAYMENTSTATUS_NONE
 //Mage_Paypal_Model_Info::PAYMENTSTATUS_INPROGRESS
 //Mage_Paypal_Model_Info::PAYMENTSTATUS_REFUNDEDPART

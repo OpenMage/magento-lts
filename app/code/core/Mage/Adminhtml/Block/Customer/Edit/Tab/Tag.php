@@ -33,7 +33,6 @@
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Tag extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -48,8 +47,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Tag extends Mage_Adminhtml_Block_Wi
     {
         $tagId = Mage::registry('tagId');
 
-        if( $this->getCustomerId() instanceof Mage_Customer_Model_Customer ) {
-            $this->setCustomerId( $this->getCustomerId()->getId() );
+        if ($this->getCustomerId() instanceof Mage_Customer_Model_Customer) {
+            $this->setCustomerId($this->getCustomerId()->getId());
         }
 
         $collection = Mage::getResourceModel('tag/customer_collection')
@@ -62,7 +61,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Tag extends Mage_Adminhtml_Block_Wi
 
     protected function _afterLoadCollection()
     {
-            $this->getCollection()->addProductName();
+        $this->getCollection()->addProductName();
         return parent::_afterLoadCollection();
     }
 
@@ -118,5 +117,4 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Tag extends Mage_Adminhtml_Block_Wi
             'id'       => $this->getCustomerId()
         ));
     }
-
 }

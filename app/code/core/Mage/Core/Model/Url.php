@@ -126,14 +126,14 @@ class Mage_Core_Model_Url extends Varien_Object
      *
      * @var array
      */
-    static protected $_configDataCache;
+    protected static $_configDataCache;
 
     /**
      * Encrypted session identifier
      *
      * @var string|null
      */
-    static protected $_encryptedSessionId;
+    protected static $_encryptedSessionId;
 
     /**
      * Reserved Route parameter keys

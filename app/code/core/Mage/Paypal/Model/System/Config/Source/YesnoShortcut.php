@@ -42,6 +42,4 @@ class Mage_Paypal_Model_System_Config_Source_YesnoShortcut
             array('value' => 0, 'label' => Mage::helper('paypal')->__('No')),
         );
     }
-
 }
-

@@ -78,7 +78,9 @@ class Mage_Adminhtml_Block_Tax_Rule_Edit_Form extends Mage_Adminhtml_Block_Widge
             ->getCollection()
             ->getOptionRates();
 
-        $fieldset->addField('code', 'text',
+        $fieldset->addField(
+            'code',
+            'text',
             array(
                 'name'      => 'code',
                 'label'     => Mage::helper('tax')->__('Name'),
@@ -87,7 +89,9 @@ class Mage_Adminhtml_Block_Tax_Rule_Edit_Form extends Mage_Adminhtml_Block_Widge
             )
         );
 
-        $fieldset->addField('tax_customer_class', 'multiselect',
+        $fieldset->addField(
+            'tax_customer_class',
+            'multiselect',
             array(
                 'name'      => 'tax_customer_class',
                 'label'     => Mage::helper('tax')->__('Customer Tax Class'),
@@ -98,7 +102,9 @@ class Mage_Adminhtml_Block_Tax_Rule_Edit_Form extends Mage_Adminhtml_Block_Widge
             )
         );
 
-        $fieldset->addField('tax_product_class', 'multiselect',
+        $fieldset->addField(
+            'tax_product_class',
+            'multiselect',
             array(
                 'name'      => 'tax_product_class',
                 'label'     => Mage::helper('tax')->__('Product Tax Class'),
@@ -109,7 +115,9 @@ class Mage_Adminhtml_Block_Tax_Rule_Edit_Form extends Mage_Adminhtml_Block_Widge
             )
         );
 
-        $fieldset->addField('tax_rate', 'multiselect',
+        $fieldset->addField(
+            'tax_rate',
+            'multiselect',
             array(
                 'name'      => 'tax_rate',
                 'label'     => Mage::helper('tax')->__('Tax Rate'),
@@ -119,7 +127,9 @@ class Mage_Adminhtml_Block_Tax_Rule_Edit_Form extends Mage_Adminhtml_Block_Widge
                 'required'  => true,
             )
         );
-        $fieldset->addField('priority', 'text',
+        $fieldset->addField(
+            'priority',
+            'text',
             array(
                 'name'      => 'priority',
                 'label'     => Mage::helper('tax')->__('Priority'),
@@ -130,7 +140,9 @@ class Mage_Adminhtml_Block_Tax_Rule_Edit_Form extends Mage_Adminhtml_Block_Widge
             )
         );
 
-        $fieldset->addField('calculate_subtotal', 'checkbox',
+        $fieldset->addField(
+            'calculate_subtotal',
+            'checkbox',
             array(
                 'name'      => 'calculate_subtotal',
                 'label'     => Mage::helper('tax')->__('Calculate off subtotal only'),
@@ -138,7 +150,9 @@ class Mage_Adminhtml_Block_Tax_Rule_Edit_Form extends Mage_Adminhtml_Block_Widge
                 'checked'   => $model->getCalculateSubtotal()
             )
         );
-        $fieldset->addField('position', 'text',
+        $fieldset->addField(
+            'position',
+            'text',
             array(
                 'name'      => 'position',
                 'label'     => Mage::helper('tax')->__('Sort Order'),
@@ -148,8 +162,10 @@ class Mage_Adminhtml_Block_Tax_Rule_Edit_Form extends Mage_Adminhtml_Block_Widge
             )
         );
 
-        if ($model->getId() > 0 ) {
-            $fieldset->addField('tax_calculation_rule_id', 'hidden',
+        if ($model->getId() > 0) {
+            $fieldset->addField(
+                'tax_calculation_rule_id',
+                'hidden',
                 array(
                     'name'      => 'tax_calculation_rule_id',
                     'value'     => $model->getId(),

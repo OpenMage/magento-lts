@@ -33,7 +33,6 @@
  */
 class Mage_Adminhtml_Model_System_Config_Backend_Currency_Cron extends Mage_Core_Model_Config_Data
 {
-
     const CRON_STRING_PATH = 'crontab/jobs/currency_rates_update/schedule/cron_expr';
 
     protected function _afterSave()
@@ -64,5 +63,4 @@ class Mage_Adminhtml_Model_System_Config_Backend_Currency_Cron extends Mage_Core
             throw new Exception(Mage::helper('cron')->__('Unable to save the cron expression.'));
         }
     }
-
 }

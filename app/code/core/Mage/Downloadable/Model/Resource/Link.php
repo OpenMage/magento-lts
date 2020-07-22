@@ -51,7 +51,6 @@ class Mage_Downloadable_Model_Resource_Link extends Mage_Core_Model_Resource_Db_
      */
     public function saveItemTitleAndPrice($linkObject)
     {
-
         $writeAdapter   = $this->_getWriteAdapter();
         $linkTitleTable = $this->getTable('downloadable/link_title');
         $linkPriceTable = $this->getTable('downloadable/link_price');

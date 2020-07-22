@@ -103,7 +103,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
     {
         if (!$this->_resource) {
             $this->_resource = Mage::getResourceSingleton('catalog_entity/convert');
-                #->loadStores()
+            #->loadStores()
                 #->loadProducts()
                 #->loadAttributeSets()
                 #->loadAttributeOptions();

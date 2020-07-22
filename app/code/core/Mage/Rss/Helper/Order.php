@@ -52,7 +52,8 @@ class Mage_Rss_Helper_Order extends Mage_Core_Helper_Abstract
      */
     public function getStatusHistoryRssUrl($order)
     {
-        return $this->_getUrl('rss/order/status',
+        return $this->_getUrl(
+            'rss/order/status',
             array('_secure' => true, '_query' => array('data' => $this->getStatusUrlKey($order)))
         );
     }
@@ -71,7 +72,6 @@ class Mage_Rss_Helper_Order extends Mage_Core_Helper_Abstract
             'customer_id' => $order->getCustomerId()
         );
         return base64_encode(json_encode($data));
-
     }
 
     /**

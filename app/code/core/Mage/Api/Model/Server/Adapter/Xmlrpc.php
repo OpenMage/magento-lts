@@ -33,19 +33,19 @@
  */
 class Mage_Api_Model_Server_Adapter_Xmlrpc extends Varien_Object implements Mage_Api_Model_Server_Adapter_Interface
 {
-     /**
-      * XmlRpc Server
-      *
-      * @var Zend_XmlRpc_Server
-      */
+    /**
+     * XmlRpc Server
+     *
+     * @var Zend_XmlRpc_Server
+     */
     protected $_xmlRpc = null;
 
-     /**
-     * Set handler class name for webservice
-     *
-     * @param string $handler
-     * @return $this
-     */
+    /**
+    * Set handler class name for webservice
+    *
+    * @param string $handler
+    * @return $this
+    */
     public function setHandler($handler)
     {
         $this->setData('handler', $handler);
@@ -62,16 +62,16 @@ class Mage_Api_Model_Server_Adapter_Xmlrpc extends Varien_Object implements Mage
         return $this->getData('handler');
     }
 
-     /**
-     * Set webservice api controller
-     *
-     * @param Mage_Api_Controller_Action $controller
-     * @return $this
-     */
+    /**
+    * Set webservice api controller
+    *
+    * @param Mage_Api_Controller_Action $controller
+    * @return $this
+    */
     public function setController(Mage_Api_Controller_Action $controller)
     {
-         $this->setData('controller', $controller);
-         return $this;
+        $this->setData('controller', $controller);
+        return $this;
     }
 
     /**

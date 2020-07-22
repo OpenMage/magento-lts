@@ -88,7 +88,8 @@ class Mage_Rss_Block_Catalog_Review extends Mage_Rss_Block_Abstract
         Mage::getSingleton('core/resource_iterator')->walk(
             $collection->getSelect(),
             array(array($this, 'addReviewItemXmlCallback')),
-            array('rssObj'=> $rssObj, 'reviewModel'=> $reviewModel));
+            array('rssObj'=> $rssObj, 'reviewModel'=> $reviewModel)
+        );
         return $rssObj->createRssXml();
     }
 
@@ -108,14 +109,15 @@ class Mage_Rss_Block_Catalog_Review extends Mage_Rss_Block_Abstract
         $productUrl = $urlModel->getUrl('catalog/product/view', array('id' => $row['entity_id']));
         $reviewUrl = Mage::helper('adminhtml')->getUrl(
             'adminhtml/catalog_product_review/edit/',
-            array('id' => $row['review_id'], '_secure' => true, '_nosecret' => true));
+            array('id' => $row['review_id'], '_secure' => true, '_nosecret' => true)
+        );
         $storeName = $store->getName();
 
         $description = '<p>'
                      . $this->__('Product: <a href="%s">%s</a> <br/>', $productUrl, $row['name'])
                      . $this->__('Summary of review: %s <br/>', $row['title'])
                      . $this->__('Review: %s <br/>', $row['detail'])
-                     . $this->__('Store: %s <br/>', $storeName )
+                     . $this->__('Store: %s <br/>', $storeName)
                      . $this->__('click <a href="%s">here</a> to view the review', $reviewUrl)
                      . '</p>';
         $data = array(

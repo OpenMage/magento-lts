@@ -144,5 +144,4 @@ class Mage_Adminhtml_Block_Tag_Grid_Customers extends Mage_Adminhtml_Block_Widge
         }
         return $this;
     }
-
 }

@@ -33,7 +33,6 @@
  */
 class Mage_Adminhtml_Block_Report_Wishlist extends Mage_Adminhtml_Block_Template
 {
-
     public $wishlists_count;
     public $items_bought;
     public $shared_count;
@@ -63,5 +62,4 @@ class Mage_Adminhtml_Block_Report_Wishlist extends Mage_Adminhtml_Block_Template
 
         return $this;
     }
-
 }

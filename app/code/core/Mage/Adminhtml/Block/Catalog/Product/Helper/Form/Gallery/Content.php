@@ -49,7 +49,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
 
     protected function _prepareLayout()
     {
-        $this->setChild('uploader',
+        $this->setChild(
+            'uploader',
             $this->getLayout()->createBlock($this->_uploaderType)
         );
 
@@ -108,9 +109,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
 
     public function getImagesJson()
     {
-        if(is_array($this->getElement()->getValue())) {
+        if (is_array($this->getElement()->getValue())) {
             $value = $this->getElement()->getValue();
-            if(count($value['images'])>0) {
+            if (count($value['images'])>0) {
                 foreach ($value['images'] as &$image) {
                     $image['url'] = Mage::getSingleton('catalog/product_media_config')
                                         ->getMediaUrl($image['file']);
@@ -155,7 +156,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
     public function hasUseDefault()
     {
         foreach ($this->getMediaAttributes() as $attribute) {
-            if($this->getElement()->canDisplayUseDefault($attribute))  {
+            if ($this->getElement()->canDisplayUseDefault($attribute)) {
                 return true;
             }
         }
@@ -177,5 +178,4 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
     {
         return Mage::helper('core')->jsonEncode($this->getImageTypes());
     }
-
 }

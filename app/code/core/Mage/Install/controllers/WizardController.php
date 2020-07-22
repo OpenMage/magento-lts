@@ -130,8 +130,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
         $agree = $this->getRequest()->getPost('agree');
         if ($agree && $step = $this->_getWizard()->getStepByName('begin')) {
             $this->getResponse()->setRedirect($step->getNextUrl());
-        }
-        else {
+        } else {
             $this->_redirect('install');
         }
     }
@@ -313,7 +312,6 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
         $connectionConfig   = $this->getRequest()->getPost('connection');
 
         if ($config && $connectionConfig && isset($connectionConfig[$config['db_model']])) {
-
             $config['unsecure_base_url'] = Mage::helper('core/url')->encodePunycode($config['unsecure_base_url']);
             $config['secure_base_url'] = Mage::helper('core/url')->encodePunycode($config['unsecure_base_url']);
             $data = array_merge($config, $connectionConfig[$config['db_model']]);
@@ -326,8 +324,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
                 $this->_getInstaller()->installConfig($data);
                 $this->_redirect('*/*/installDb');
                 return $this;
-            }
-            catch (Exception $e){
+            } catch (Exception $e) {
                 Mage::getSingleton('install/session')->addError($e->getMessage());
                 $this->getResponse()->setRedirect($step->getUrl());
             }
@@ -352,8 +349,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
             Mage::app()->getStore()->resetConfig();
 
             $this->getResponse()->setRedirect(Mage::getUrl($step->getNextUrlPath()));
-        }
-        catch (Exception $e){
+        } catch (Exception $e) {
             Mage::getSingleton('install/session')->addError($e->getMessage());
             $this->getResponse()->setRedirect($step->getUrl());
         }
@@ -409,7 +405,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
         try {
             $this->_getInstaller()->createAdministrator($user);
             $this->_getInstaller()->installEnryptionKey($encryptionKey);
-        } catch (Exception $e){
+        } catch (Exception $e) {
             Mage::getSingleton('install/session')
                 ->setAdminData($adminData)
                 ->addError($e->getMessage());

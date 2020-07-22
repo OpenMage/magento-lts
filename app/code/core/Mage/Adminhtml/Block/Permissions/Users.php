@@ -33,7 +33,6 @@
  */
 class Mage_Adminhtml_Block_Permissions_Users extends Mage_Adminhtml_Block_Template
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -49,6 +48,4 @@ class Mage_Adminhtml_Block_Permissions_Users extends Mage_Adminhtml_Block_Templa
     {
         return $this->getLayout()->createBlock('adminhtml/permissions_grid_user')->toHtml();
     }
-
 }
-

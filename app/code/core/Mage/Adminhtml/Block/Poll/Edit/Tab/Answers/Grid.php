@@ -33,7 +33,6 @@
  */
 class Mage_Adminhtml_Block_Poll_Edit_Tab_Answers_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -102,5 +101,4 @@ class Mage_Adminhtml_Block_Poll_Edit_Tab_Answers_Grid extends Mage_Adminhtml_Blo
     {
         return $this->getUrl('*/poll_answer/grid', array('id' => $this->getRequest()->getParam('id')));
     }
-
 }

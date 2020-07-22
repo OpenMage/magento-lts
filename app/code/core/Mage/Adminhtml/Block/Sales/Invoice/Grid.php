@@ -31,7 +31,6 @@
  */
 class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -106,7 +105,8 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
             'currency'  => 'order_currency_code',
         ));
 
-        $this->addColumn('action',
+        $this->addColumn(
+            'action',
             array(
                 'header'    => Mage::helper('sales')->__('Action'),
                 'width'     => '50px',
@@ -122,7 +122,8 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
                 'filter'    => false,
                 'sortable'  => false,
                 'is_system' => true
-        ));
+        )
+        );
 
         $this->addExportType('*/*/exportCsv', Mage::helper('sales')->__('CSV'));
         $this->addExportType('*/*/exportExcel', Mage::helper('sales')->__('Excel XML'));
@@ -150,7 +151,8 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
             return false;
         }
 
-        return $this->getUrl('*/sales_invoice/view',
+        return $this->getUrl(
+            '*/sales_invoice/view',
             array(
                 'invoice_id'=> $row->getId(),
             )
@@ -161,5 +163,4 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
     {
         return $this->getUrl('*/*/grid', array('_current' => true));
     }
-
 }

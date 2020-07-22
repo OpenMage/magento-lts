@@ -69,7 +69,7 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
     const DEFAULT_FIRST_LIFETIME        = 600;      /* The session lifetime for non-bots on the first write */
     const DEFAULT_BOT_FIRST_LIFETIME    = 60;       /* The session lifetime for bots on the first write */
     const DEFAULT_BOT_LIFETIME          = 7200;     /* The session lifetime for bots - shorter to prevent bots from wasting backend storage */
-    const DEFAULT_DISABLE_LOCKING       = FALSE;    /* Session locking is enabled by default */
+    const DEFAULT_DISABLE_LOCKING       = false;    /* Session locking is enabled by default */
     const DEFAULT_MAX_LIFETIME		= 2592000;  /* Redis backend limit */
     const DEFAULT_MIN_LIFETIME		= 60;
 
@@ -95,13 +95,13 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
     protected $_maxLifetime;
     protected $_minLifetime;
 
-    static public $failedLockAttempts = 0; // for debug or informational purposes
+    public static $failedLockAttempts = 0; // for debug or informational purposes
 
     public function __construct()
     {
         $this->_config = $config = Mage::getConfig()->getNode('global/redis_session');
         if (!$config) {
-            $this->_useRedis = FALSE;
+            $this->_useRedis = false;
             Mage::log('Redis configuration does not exist, falling back to MySQL handler.', Zend_Log::EMERG);
             parent::__construct();
             return;
@@ -140,11 +140,15 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
         if (!empty($pass)) {
             $this->_redis->auth($pass) || Zend_Cache::throwException('Unable to authenticate with the redis server.');
         }
-        $this->_redis->setCloseOnDestruct(FALSE);  // Destructor order cannot be predicted
-        $this->_useRedis = TRUE;
+        $this->_redis->setCloseOnDestruct(false);  // Destructor order cannot be predicted
+        $this->_useRedis = true;
         if ($this->_logLevel >= Zend_Log::DEBUG) {
-            $this->_log(sprintf("%s initialized for connection to %s:%s after %.5f seconds",
-                get_class($this), $host, $port, (microtime(true) - $timeStart)
+            $this->_log(sprintf(
+                "%s initialized for connection to %s:%s after %.5f seconds",
+                get_class($this),
+                $host,
+                $port,
+                (microtime(true) - $timeStart)
             ));
         }
     }
@@ -165,22 +169,23 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
      */
     public function hasConnection()
     {
-        if( ! $this->_useRedis) return parent::hasConnection();
+        if (! $this->_useRedis) {
+            return parent::hasConnection();
+        }
 
         try {
             $this->_redis->connect();
             if ($this->_logLevel >= Zend_Log::DEBUG) {
                 $this->_log("Connected to Redis");
             }
-            return TRUE;
-        }
-        catch (Exception $e) {
+            return true;
+        } catch (Exception $e) {
             Mage::logException($e);
-            $this->_redis = NULL;
+            $this->_redis = null;
             Mage::log('Unable to connect to Redis; falling back to MySQL handler', Zend_Log::EMERG);
 
             // Fall-back to MySQL handler. If this fails, the file handler will be used.
-            $this->_useRedis = FALSE;
+            $this->_useRedis = false;
             parent::__construct();
             return parent::hasConnection();
         }
@@ -194,14 +199,16 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
      */
     public function read($sessionId)
     {
-        if ( ! $this->_useRedis) return parent::read($sessionId);
+        if (! $this->_useRedis) {
+            return parent::read($sessionId);
+        }
         Varien_Profiler::start(__METHOD__);
 
         // Get lock on session. Increment the "lock" field and if the new value is 1, we have the lock.
         $sessionId = self::SESSION_PREFIX.$sessionId;
         $tries = $waiting = $lock = 0;
-        $lockPid = $oldLockPid = NULL; // Restart waiting for lock when current lock holder changes
-        $detectZombies = FALSE;
+        $lockPid = $oldLockPid = null; // Restart waiting for lock when current lock holder changes
+        $detectZombies = false;
         if ($this->_logLevel >= Zend_Log::WARN) {
             $timeStart = microtime(true);
         }
@@ -209,8 +216,7 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
             $this->_log(sprintf("Attempting to take lock on ID %s", $sessionId));
         }
         $this->_redis->select($this->_dbNum);
-        while ($this->_useLocking)
-        {
+        while ($this->_useLocking) {
             // Increment lock value for this session and retrieve the new value
             $oldLock = $lock;
             $lock = $this->_redis->hIncrBy($sessionId, 'lock', 1);
@@ -221,18 +227,18 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
             }
 
             // If we got the lock, update with our pid and reset lock and expiration
-            if (   $lock == 1                          // We actually do have the lock
+            if ($lock == 1                          // We actually do have the lock
                 || (
-                        $tries >= $this->_breakAfter   // We are done waiting and want to start trying to break it
+                    $tries >= $this->_breakAfter   // We are done waiting and want to start trying to break it
                      && $oldLockPid == $lockPid        // Nobody else got the lock while we were waiting
-                   )
+                )
             ) {
-                $this->_hasLock = TRUE;
+                $this->_hasLock = true;
                 break;
             }
 
             // Otherwise, add to "wait" counter and continue
-            else if ( ! $waiting) {
+            elseif (! $waiting) {
                 $i = 0;
                 do {
                     $waiting = $this->_redis->hIncrBy($sessionId, 'wait', 1);
@@ -243,8 +249,8 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
             else {
                 // Detect broken sessions (e.g. caused by fatal errors)
                 if ($detectZombies) {
-                    $detectZombies = FALSE;
-                    if ( $lock > $oldLock                 // lock shouldn't be less than old lock (another process broke the lock)
+                    $detectZombies = false;
+                    if ($lock > $oldLock                 // lock shouldn't be less than old lock (another process broke the lock)
                       && $lock + 1 < $oldLock + $waiting // lock should be old+waiting, otherwise there must be a dead process
                     ) {
                         // Reset session to fresh state
@@ -252,8 +258,11 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
                             $this->_log(sprintf(
                                 "Detected zombie waiter after %.5f seconds for ID %s (%d waiting)\n  %s (%s - %s)",
                                 (microtime(true) - $timeStart),
-                                $sessionId, $waiting,
-                                Mage::app()->getRequest()->getRequestUri(), Mage::app()->getRequest()->getClientIp(), Mage::app()->getRequest()->getHeader('User-Agent')
+                                $sessionId,
+                                $waiting,
+                                Mage::app()->getRequest()->getRequestUri(),
+                                Mage::app()->getRequest()->getClientIp(),
+                                Mage::app()->getRequest()->getHeader('User-Agent')
                             ), Zend_Log::INFO);
                         }
                         $waiting = $this->_redis->hIncrBy($sessionId, 'wait', -1);
@@ -265,13 +274,17 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
                 if ($waiting >= $this->_maxConcurrency) {
                     // Overloaded sessions get 503 errors
                     $this->_redis->hIncrBy($sessionId, 'wait', -1);
-                    $this->_sessionWritten = TRUE; // Prevent session from getting written
+                    $this->_sessionWritten = true; // Prevent session from getting written
                     $writes = $this->_redis->hGet($sessionId, 'writes');
                     if ($this->_logLevel >= Zend_Log::WARN) {
                         $this->_log(sprintf(
                             "Session concurrency exceeded for ID %s; displaying HTTP 503 (%s waiting, %s total requests)\n  %s (%s - %s)",
-                            $sessionId, $waiting, $writes,
-                            Mage::app()->getRequest()->getRequestUri(), Mage::app()->getRequest()->getClientIp(), Mage::app()->getRequest()->getHeader('User-Agent')
+                            $sessionId,
+                            $waiting,
+                            $writes,
+                            Mage::app()->getRequest()->getRequestUri(),
+                            Mage::app()->getRequest()->getClientIp(),
+                            Mage::app()->getRequest()->getHeader('User-Agent')
                         ), Zend_Log::WARN);
                     }
                     $this->_logLevel = -1; // Disable further logging
@@ -286,7 +299,7 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
 
             // Detect dead lock waiters
             if ($tries % self::DETECT_ZOMBIES == 1) {
-                $detectZombies = TRUE;
+                $detectZombies = true;
                 $sleepTime += 10000; // sleep + 0.01 seconds
             }
             // Detect dead lock holder every 10 seconds (only works on same node as lock holder)
@@ -294,7 +307,8 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
                 Varien_Profiler::start(__METHOD__.'-detect-zombies');
                 if ($this->_logLevel >= Zend_Log::DEBUG) {
                     $this->_log(sprintf(
-                        "Checking for zombies after %.5f seconds of waiting...", (microtime(true) - $timeStart)
+                        "Checking for zombies after %.5f seconds of waiting...",
+                        (microtime(true) - $timeStart)
                     ));
                 }
                 $pid = $this->_redis->hGet($sessionId, 'pid');
@@ -304,8 +318,12 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
                     if ($this->_logLevel >= Zend_Log::INFO) {
                         $this->_log(sprintf(
                             "Detected zombie process (%s) for %s (%s waiting)\n  %s (%s - %s)",
-                            $pid, $sessionId, $waiting,
-                            Mage::app()->getRequest()->getRequestUri(), Mage::app()->getRequest()->getClientIp(), Mage::app()->getRequest()->getHeader('User-Agent')
+                            $pid,
+                            $sessionId,
+                            $waiting,
+                            Mage::app()->getRequest()->getRequestUri(),
+                            Mage::app()->getRequest()->getClientIp(),
+                            Mage::app()->getRequest()->getHeader('User-Agent')
                         ), Zend_Log::INFO);
                     }
                     Varien_Profiler::stop(__METHOD__.'-detect-zombies');
@@ -315,17 +333,20 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
             }
             // Timeout
             if ($tries >= $this->_breakAfter + $this->_failAfter) {
-                $this->_hasLock = FALSE;
+                $this->_hasLock = false;
                 if ($this->_logLevel >= Zend_Log::NOTICE) {
                     $this->_log(sprintf("Giving up on read lock for ID %s after %.5f seconds (%d attempts)", $sessionId, (microtime(true) - $timeStart), $tries), Zend_Log::NOTICE);
                 }
                 break;
-            }
-            else {
+            } else {
                 if ($this->_logLevel >= Zend_Log::DEBUG) {
                     $this->_log(sprintf(
                         "Waiting %.2f seconds for lock on ID %s (%d tries, lock pid is %s, %.5f seconds elapsed)",
-                        $sleepTime / 1000000, $sessionId, $tries, $lockPid, (microtime(true) - $timeStart)
+                        $sleepTime / 1000000,
+                        $sessionId,
+                        $tries,
+                        $lockPid,
+                        (microtime(true) - $timeStart)
                     ));
                 }
                 Varien_Profiler::start(__METHOD__.'-wait');
@@ -370,7 +391,11 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
                 if ($lock != 1) {
                     $this->_log(sprintf(
                         "Successfully broke lock for ID %s after %.5f seconds (%d attempts). Lock: %d\nLast request of broken lock: %s",
-                        $sessionId, (microtime(true) - $timeStart), $tries, $lock, $this->_redis->hGet($sessionId, 'req')
+                        $sessionId,
+                        (microtime(true) - $timeStart),
+                        $tries,
+                        $lock,
+                        $this->_redis->hGet($sessionId, 'req')
                     ), Zend_Log::INFO);
                 }
             }
@@ -382,7 +407,7 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
         $this->_redis->exec();
 
         // Reset flag in case of multiple session read/write operations
-        $this->_sessionWritten = FALSE;
+        $this->_sessionWritten = false;
 
         return $sessionData ? $this->_decodeData($sessionData) : '';
     }
@@ -397,56 +422,60 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
     public function write($sessionId, $sessionData)
     {
         Varien_Profiler::start(__METHOD__);
-        if ( ! $this->_useRedis) return parent::write($sessionId, $sessionData);
+        if (! $this->_useRedis) {
+            return parent::write($sessionId, $sessionData);
+        }
         if ($this->_sessionWritten) {
             if ($this->_logLevel >= Zend_Log::DEBUG) {
                 $this->_log(sprintf("Repeated session write detected; skipping for ID %s", $sessionId));
             }
             Varien_Profiler::stop(__METHOD__);
-            return TRUE;
+            return true;
         }
-        $this->_sessionWritten = TRUE;
+        $this->_sessionWritten = true;
         if ($this->_logLevel >= Zend_Log::WARN) {
             $timeStart = microtime(true);
         }
 
         // Do not overwrite the session if it is locked by another pid
         try {
-            if($this->_dbNum) $this->_redis->select($this->_dbNum);  // Prevent conflicts with other connections?
+            if ($this->_dbNum) {
+                $this->_redis->select($this->_dbNum);
+            }  // Prevent conflicts with other connections?
 
-            if ( ! $this->_useLocking
-              || ( ! ($pid = $this->_redis->hGet('sess_'.$sessionId, 'pid')) || $pid == $this->_getPid())
+            if (! $this->_useLocking
+              || (! ($pid = $this->_redis->hGet('sess_'.$sessionId, 'pid')) || $pid == $this->_getPid())
             ) {
                 $this->_writeRawSession($sessionId, $sessionData, $this->getLifeTime());
                 if ($this->_logLevel >= Zend_Log::DEBUG) {
                     $this->_log(sprintf("Data written to ID %s in %.5f seconds", $sessionId, (microtime(true) - $timeStart)));
                 }
-            }
-            else {
+            } else {
                 if ($this->_logLevel >= Zend_Log::WARN) {
                     if ($this->_hasLock) {
-                        $this->_log(sprintf("Did not write session for ID %s: another process took the lock.",
+                        $this->_log(sprintf(
+                            "Did not write session for ID %s: another process took the lock.",
                             $sessionId
                         ), Zend_Log::WARN);
                     } else {
-                        $this->_log(sprintf("Did not write session for ID %s: unable to acquire lock.",
+                        $this->_log(sprintf(
+                            "Did not write session for ID %s: unable to acquire lock.",
                             $sessionId
                         ), Zend_Log::WARN);
                     }
                 }
             }
-        }
-        catch(Exception $e) {
+        } catch (Exception $e) {
             if (class_exists('Mage', false)) {
                 Mage::logException($e);
             } else {
                 error_log("$e");
             }
             Varien_Profiler::stop(__METHOD__);
-            return FALSE;
+            return false;
         }
         Varien_Profiler::stop(__METHOD__);
-        return TRUE;
+        return true;
     }
 
     /**
@@ -457,18 +486,22 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
      */
     public function destroy($sessionId)
     {
-        if ( ! $this->_useRedis) return parent::destroy($sessionId);
+        if (! $this->_useRedis) {
+            return parent::destroy($sessionId);
+        }
         Varien_Profiler::start(__METHOD__);
 
         if ($this->_logLevel >= Zend_Log::DEBUG) {
             $this->_log(sprintf("Destroying ID %s", $sessionId));
         }
         $this->_redis->pipeline();
-        if($this->_dbNum) $this->_redis->select($this->_dbNum);
+        if ($this->_dbNum) {
+            $this->_redis->select($this->_dbNum);
+        }
         $this->_redis->del(self::SESSION_PREFIX.$sessionId);
         $this->_redis->exec();
         Varien_Profiler::stop(__METHOD__);
-        return TRUE;
+        return true;
     }
 
     /**
@@ -478,12 +511,16 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
      */
     public function close()
     {
-        if ( ! $this->_useRedis) return parent::close();
+        if (! $this->_useRedis) {
+            return parent::close();
+        }
         if ($this->_logLevel >= Zend_Log::DEBUG) {
             $this->_log("Closing connection");
         }
-        if ($this->_redis) $this->_redis->close();
-        return TRUE;
+        if ($this->_redis) {
+            $this->_redis->close();
+        }
+        return true;
     }
 
     /**
@@ -494,8 +531,10 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
      */
     public function gc($maxLifeTime)
     {
-        if ( ! $this->_useRedis) return parent::gc($maxLifeTime);
-        return TRUE;
+        if (! $this->_useRedis) {
+            return parent::gc($maxLifeTime);
+        }
+        return true;
     }
 
     /**
@@ -503,21 +542,23 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
      */
     public function getLifeTime()
     {
-        if ( ! $this->_config) return parent::getLifeTime();
+        if (! $this->_config) {
+            return parent::getLifeTime();
+        }
 
-        if ($this->_lifeTime === NULL) {
-            $lifeTime = NULL;
+        if ($this->_lifeTime === null) {
+            $lifeTime = null;
 
             // Detect bots by user agent
             $botLifetime = ((int) $this->_config->descend('bot_lifetime') ?: self::DEFAULT_BOT_LIFETIME);
             if ($botLifetime) {
-                $userAgent = empty($_SERVER['HTTP_USER_AGENT']) ? FALSE : $_SERVER['HTTP_USER_AGENT'];
+                $userAgent = empty($_SERVER['HTTP_USER_AGENT']) ? false : $_SERVER['HTTP_USER_AGENT'];
                 $isBot = ! $userAgent || preg_match(self::BOT_REGEX, $userAgent);
                 if ($isBot) {
                     if ($this->_logLevel > Zend_Log::DEBUG) {
                         $this->_log(sprintf("Bot detected for user agent: %s", $userAgent));
                     }
-                    if ( $this->_sessionWrites <= 1
+                    if ($this->_sessionWrites <= 1
                       && ($botFirstLifetime = ((int) $this->_config->descend('bot_first_lifetime') ?: self::DEFAULT_BOT_FIRST_LIFETIME))
                     ) {
                         $lifeTime = $botFirstLifetime * (1+$this->_sessionWrites);
@@ -528,7 +569,7 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
             }
 
             // Use different lifetime for first write
-            if ($lifeTime === NULL && $this->_sessionWrites <= 1) {
+            if ($lifeTime === null && $this->_sessionWrites <= 1) {
                 $firstLifetime = ((int) $this->_config->descend('first_lifetime') ?: self::DEFAULT_FIRST_LIFETIME);
                 if ($firstLifetime) {
                     $lifeTime = $firstLifetime * (1+$this->_sessionWrites);
@@ -536,7 +577,7 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
             }
 
             // Neither bot nor first write
-            if ($lifeTime === NULL) {
+            if ($lifeTime === null) {
                 $lifeTime = parent::getLifeTime();
             }
 
@@ -563,24 +604,26 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
         $originalDataSize = strlen($data);
         if ($this->_compressionThreshold > 0 && $this->_compressionLib != 'none' && $originalDataSize >= $this->_compressionThreshold) {
             if ($this->_logLevel >= Zend_Log::DEBUG) {
-                $this->_log(sprintf("Compressing %s bytes with %s", $originalDataSize,$this->_compressionLib));
+                $this->_log(sprintf("Compressing %s bytes with %s", $originalDataSize, $this->_compressionLib));
                 $timeStart = microtime(true);
             }
-            $prefix = ':'.substr($this->_compressionLib,0,2).':';
-            switch($this->_compressionLib) {
+            $prefix = ':'.substr($this->_compressionLib, 0, 2).':';
+            switch ($this->_compressionLib) {
                 case 'snappy': $data = snappy_compress($data); break;
                 case 'lzf':    $data = lzf_compress($data); break;
                 case 'lz4':    $data = lz4_compress($data); $prefix = ':l4:'; break;
                 case 'gzip':   $data = gzcompress($data, 1); break;
             }
-            if($data) {
+            if ($data) {
                 $data = $prefix.$data;
                 if ($this->_logLevel >= Zend_Log::DEBUG) {
-                    $this->_log(sprintf("Data compressed by %.1f percent in %.5f seconds",
-                        ($originalDataSize == 0 ? 0 : (100 - (strlen($data) / $originalDataSize * 100))), (microtime(true) - $timeStart)
+                    $this->_log(sprintf(
+                        "Data compressed by %.1f percent in %.5f seconds",
+                        ($originalDataSize == 0 ? 0 : (100 - (strlen($data) / $originalDataSize * 100))),
+                        (microtime(true) - $timeStart)
                     ));
                 }
-            } else if ($this->_logLevel >= Zend_Log::WARN) {
+            } elseif ($this->_logLevel >= Zend_Log::WARN) {
                 $this->_log(sprintf("Could not compress session data using %s", $this->_compressionLib), Zend_Log::WARN);
             }
         }
@@ -597,12 +640,12 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
     public function _decodeData($data)
     {
         Varien_Profiler::start(__METHOD__);
-        switch (substr($data,0,4)) {
+        switch (substr($data, 0, 4)) {
             // asking the data which library it uses allows for transparent changes of libraries
-            case ':sn:': $data = snappy_uncompress(substr($data,4)); break;
-            case ':lz:': $data = lzf_decompress(substr($data,4)); break;
-            case ':l4:': $data = lz4_uncompress(substr($data,4)); break;
-            case ':gz:': $data = gzuncompress(substr($data,4)); break;
+            case ':sn:': $data = snappy_uncompress(substr($data, 4)); break;
+            case ':lz:': $data = lzf_decompress(substr($data, 4)); break;
+            case ':l4:': $data = lz4_uncompress(substr($data, 4)); break;
+            case ':gz:': $data = gzuncompress(substr($data, 4)); break;
         }
         Varien_Profiler::stop(__METHOD__);
         return $data;
@@ -618,7 +661,7 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
      */
     public function _writeRawSession($id, $data, $lifetime)
     {
-        if ( ! $this->_useRedis) {
+        if (! $this->_useRedis) {
             throw new Exception('Not connected to redis!');
         }
 
@@ -641,7 +684,7 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
      */
     public function _inspectSession($id)
     {
-        if ( ! $this->_useRedis) {
+        if (! $this->_useRedis) {
             throw new Exception('Not connected to redis!');
         }
 
@@ -685,11 +728,10 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
      */
     public function _pidExists($pid)
     {
-        list($host,$pid) = explode('|', $pid);
+        list($host, $pid) = explode('|', $pid);
         if (PHP_OS != 'Linux' || $host != gethostname()) {
-            return TRUE;
+            return true;
         }
         return @file_exists('/proc/'.$pid);
     }
-
 }

@@ -428,10 +428,11 @@ class Mage_Index_Model_Indexer
         if ($process instanceof Mage_Index_Model_Process
             && $process->getMode() !== Mage_Index_Model_Process::MODE_MANUAL
             && !$process->isLocked()
-            && (is_null($event)
+            && (
+                is_null($event)
                 || ($event instanceof Mage_Index_Model_Event && $process->matchEvent($event))
                 || (is_array($event) && $process->matchEntityAndType($event[0], $event[1]))
-        )) {
+            )) {
             if ($enable) {
                 $process->enableIndexerKeys();
             } else {

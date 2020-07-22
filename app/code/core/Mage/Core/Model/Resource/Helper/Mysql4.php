@@ -234,7 +234,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
     protected function _assembleLimit($query, $limitCount, $limitOffset, $columnList = array())
     {
         if ($limitCount !== null) {
-              $limitCount = intval($limitCount);
+            $limitCount = intval($limitCount);
             if ($limitCount <= 0) {
 //                throw new Exception("LIMIT argument count={$limitCount} is not valid");
             }

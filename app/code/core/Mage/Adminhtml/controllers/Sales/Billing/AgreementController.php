@@ -206,8 +206,8 @@ class Mage_Adminhtml_Sales_Billing_AgreementController extends Mage_Adminhtml_Co
         $action = strtolower($this->getRequest()->getActionName());
         switch ($action) {
             case 'index':
-            case 'grid' :
-            case 'view' :
+            case 'grid':
+            case 'view':
                 return Mage::getSingleton('admin/session')->isAllowed('sales/billing_agreement/actions/view');
                 break;
             case 'cancel':

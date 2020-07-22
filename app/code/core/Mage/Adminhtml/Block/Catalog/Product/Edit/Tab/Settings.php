@@ -35,14 +35,15 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Settings extends Mage_Adminh
 {
     protected function _prepareLayout()
     {
-        $this->setChild('continue_button',
+        $this->setChild(
+            'continue_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
                     'label'     => Mage::helper('catalog')->__('Continue'),
                     'onclick'   => "setSettings('".$this->getContinueUrl()."','attribute_set_id','product_type')",
                     'class'     => 'save'
                     ))
-                );
+        );
         return parent::_prepareLayout();
     }
 

@@ -36,5 +36,4 @@
  */
 class Mage_Rule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Resource_Rule_Collection_Abstract
 {
-
 }

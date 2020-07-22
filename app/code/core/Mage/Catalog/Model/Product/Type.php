@@ -46,10 +46,10 @@ class Mage_Catalog_Model_Product_Type
     const DEFAULT_TYPE_MODEL    = 'catalog/product_type_simple';
     const DEFAULT_PRICE_MODEL   = 'catalog/product_type_price';
 
-    static protected $_types;
-    static protected $_compositeTypes;
-    static protected $_priceModels;
-    static protected $_typesPriority;
+    protected static $_types;
+    protected static $_compositeTypes;
+    protected static $_priceModels;
+    protected static $_typesPriority;
 
     /**
      * Product type instance factory

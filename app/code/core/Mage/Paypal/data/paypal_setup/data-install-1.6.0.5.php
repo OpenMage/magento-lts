@@ -47,7 +47,7 @@ Mage::getConfig()->saveConfig($ecSkipOrderReviewStepFlagPath, '1');
  * Set default value for "Mobile Optimized" option for Payflow Link/Advanced/Hosted Pro for new installations
  */
 $paymentCode = array('payflow_link', 'payflow_advanced', 'hosted_pro');
-foreach($paymentCode as $value) {
+foreach ($paymentCode as $value) {
     Mage::getConfig()->saveConfig("payment/{$value}/mobile_optimized", '1');
 }
 $installer->endSetup();

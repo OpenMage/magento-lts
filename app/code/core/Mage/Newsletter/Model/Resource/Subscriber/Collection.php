@@ -219,7 +219,6 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
      */
     public function getSelectCountSql()
     {
-
         $select = parent::getSelectCountSql();
         $countSelect = clone $this->getSelect();
 

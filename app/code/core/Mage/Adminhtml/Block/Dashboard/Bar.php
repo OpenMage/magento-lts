@@ -102,9 +102,9 @@ class Mage_Adminhtml_Block_Dashboard_Bar extends Mage_Adminhtml_Block_Dashboard_
         if (is_null($this->_currentCurrencyCode)) {
             if ($this->getRequest()->getParam('store')) {
                 $this->_currentCurrencyCode = Mage::app()->getStore($this->getRequest()->getParam('store'))->getBaseCurrency();
-            } else if ($this->getRequest()->getParam('website')){
+            } elseif ($this->getRequest()->getParam('website')) {
                 $this->_currentCurrencyCode = Mage::app()->getWebsite($this->getRequest()->getParam('website'))->getBaseCurrency();
-            } else if ($this->getRequest()->getParam('group')){
+            } elseif ($this->getRequest()->getParam('group')) {
                 $this->_currentCurrencyCode =  Mage::app()->getGroup($this->getRequest()->getParam('group'))->getWebsite()->getBaseCurrency();
             } else {
                 $this->_currentCurrencyCode = Mage::app()->getStore()->getBaseCurrency();

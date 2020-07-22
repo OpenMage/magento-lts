@@ -33,7 +33,6 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Block_Widget_Form_Container
 {
-
     public function __construct()
     {
         $this->_objectId    = 'shipment_id';
@@ -49,13 +48,17 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
             $confirmationMessage = Mage::helper('core')->jsQuoteEscape(
                 Mage::helper('sales')->__('Are you sure you want to send Shipment email to customer?')
             );
-            $this->_updateButton('save',
-                'onclick', "deleteConfirm('" . $confirmationMessage . "', '" . $this->getEmailUrl() . "')"
+            $this->_updateButton(
+                'save',
+                'onclick',
+                "deleteConfirm('" . $confirmationMessage . "', '" . $this->getEmailUrl() . "')"
             );
         }
 
         if ($this->getShipment()->getId()) {
-            $this->_addButton('print', array(
+            $this->_addButton(
+                'print',
+                array(
                 'label'     => Mage::helper('sales')->__('Print'),
                 'class'     => 'save',
                 'onclick'   => 'setLocation(\''.$this->getPrintUrl().'\')'
@@ -78,8 +81,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
     {
         if ($this->getShipment()->getEmailSent()) {
             $emailSent = Mage::helper('sales')->__('the shipment email was sent');
-        }
-        else {
+        } else {
             $emailSent = Mage::helper('sales')->__('the shipment email is not sent');
         }
         return Mage::helper('sales')->__('Shipment #%1$s | %3$s (%2$s)', $this->getShipment()->getIncrementId(), $emailSent, $this->formatDate($this->getShipment()->getCreatedAtDate(), 'medium', true));
@@ -92,7 +94,8 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
             array(
                 'order_id'  => $this->getShipment()->getOrderId(),
                 'active_tab'=> 'order_shipments'
-            ));
+            )
+        );
     }
 
     public function getEmailUrl()

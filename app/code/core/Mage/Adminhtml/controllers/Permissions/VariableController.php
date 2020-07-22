@@ -153,7 +153,6 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
 
                 $this->_redirect('*/*/');
                 return;
-
             } catch (Exception $e) {
                 // display error message
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
@@ -197,7 +196,8 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
     public function variableGridAction()
     {
         $this->getResponse()
-            ->setBody($this->getLayout()
+            ->setBody(
+                $this->getLayout()
                 ->createBlock('adminhtml/permissions_variable_grid')
                 ->toHtml()
             );

@@ -35,7 +35,8 @@ class Mage_Adminhtml_Block_Api_Tab_Roleinfo extends Mage_Adminhtml_Block_Widget_
         parent::__construct();
     }
 
-    public function _beforeToHtml() {
+    public function _beforeToHtml()
+    {
         $this->_initForm();
 
         return parent::_beforeToHtml();
@@ -49,7 +50,9 @@ class Mage_Adminhtml_Block_Api_Tab_Roleinfo extends Mage_Adminhtml_Block_Widget_
 
         $fieldset = $form->addFieldset('base_fieldset', array('legend'=>Mage::helper('adminhtml')->__('Role Information')));
 
-        $fieldset->addField('role_name', 'text',
+        $fieldset->addField(
+            'role_name',
+            'text',
             array(
                 'name'  => 'rolename',
                 'label' => Mage::helper('adminhtml')->__('Role Name'),
@@ -59,7 +62,9 @@ class Mage_Adminhtml_Block_Api_Tab_Roleinfo extends Mage_Adminhtml_Block_Widget_
             )
         );
 
-        $fieldset->addField('current_password', 'obscure',
+        $fieldset->addField(
+            'current_password',
+            'obscure',
             array(
                 'name'  => 'current_password',
                 'label' => Mage::helper('adminhtml')->__('Current Admin Password'),
@@ -68,14 +73,18 @@ class Mage_Adminhtml_Block_Api_Tab_Roleinfo extends Mage_Adminhtml_Block_Widget_
             )
         );
 
-        $fieldset->addField('role_id', 'hidden',
+        $fieldset->addField(
+            'role_id',
+            'hidden',
             array(
                 'name'  => 'role_id',
                 'id'    => 'role_id',
             )
         );
 
-        $fieldset->addField('in_role_user', 'hidden',
+        $fieldset->addField(
+            'in_role_user',
+            'hidden',
             array(
                 'name'  => 'in_role_user',
                 'id'    => 'in_role_userz',

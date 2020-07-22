@@ -60,7 +60,7 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
             ->addSubscriberTypeField()
             ->showStoreInfo();
 
-        if($this->getRequest()->getParam('queue', false)) {
+        if ($this->getRequest()->getParam('queue', false)) {
             $collection->useQueue(Mage::getModel('newsletter/queue')
                 ->load($this->getRequest()->getParam('queue')));
         }
@@ -72,7 +72,6 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
 
     protected function _prepareColumns()
     {
-
         $this->addColumn('subscriber_id', array(
             'header'    => Mage::helper('newsletter')->__('ID'),
             'index'     => 'subscriber_id'

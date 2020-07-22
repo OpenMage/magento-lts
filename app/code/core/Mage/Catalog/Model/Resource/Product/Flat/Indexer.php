@@ -623,7 +623,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
         // Extract columns we need to have in flat table
         $columns = $this->getFlatColumns();
         if (Mage::helper('core')->useDbCompatibleMode()) {
-             /* Convert old format of flat columns to new MMDB format that uses DDL types and definitions */
+            /* Convert old format of flat columns to new MMDB format that uses DDL types and definitions */
             foreach ($columns as $key => $column) {
                 $columns[$key] = Mage::getResourceHelper('core')->convertOldColumnDefinition($column);
             }

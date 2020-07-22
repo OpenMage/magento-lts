@@ -757,7 +757,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
             case '>=':
             case '<':
                 if (!is_scalar($validatedValue)) {
-                        return false;
+                    return false;
                 } else {
                     $result = $validatedValue >= $value;
                 }

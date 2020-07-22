@@ -33,5 +33,4 @@
  */
 class Mage_Checkout_Model_Cart_Api_V2 extends Mage_Checkout_Model_Cart_Api
 {
-    
 }

@@ -32,8 +32,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Massaction
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Checkbox
+class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Massaction extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Checkbox
 {
     protected $_defaultWidth = 20;
 
@@ -87,5 +86,4 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Massaction
         $html .= 'value="' . $this->escapeHtml($value) . '" class="massaction-checkbox"' . $checked . '/>';
         return $html;
     }
-
 }

@@ -794,7 +794,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     protected function _isSuperProductsSkuValid($rowData, $rowNum)
     {
         if (!empty($rowData['_super_products_sku'])
-            && (!isset($this->_oldSku[$rowData['_super_products_sku']])
+            && (
+                !isset($this->_oldSku[$rowData['_super_products_sku']])
                 && !isset($this->_newSku[$rowData['_super_products_sku']])
             )
         ) {
@@ -1479,7 +1480,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                 if (self::SCOPE_NULL == $rowScope) {
                     // for multiselect attributes only
                     if (!is_null($previousAttributeSet)) {
-                         $rowData[Mage_ImportExport_Model_Import_Entity_Product::COL_ATTR_SET] = $previousAttributeSet;
+                        $rowData[Mage_ImportExport_Model_Import_Entity_Product::COL_ATTR_SET] = $previousAttributeSet;
                     }
                     if (is_null($productType) && !is_null($previousType)) {
                         $productType = $previousType;

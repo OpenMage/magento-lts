@@ -48,7 +48,8 @@ class Mage_Adminhtml_Block_Permissions_Block_Edit_Form extends Mage_Adminhtml_Bl
             'method' => 'post'
         ));
         $fieldset = $form->addFieldset(
-            'block_details', array('legend' => $this->__('Block Details'))
+            'block_details',
+            array('legend' => $this->__('Block Details'))
         );
 
         $fieldset->addField('block_name', 'text', array(

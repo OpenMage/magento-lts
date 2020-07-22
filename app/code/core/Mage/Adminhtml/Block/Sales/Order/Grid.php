@@ -33,7 +33,6 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -63,7 +62,6 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
 
     protected function _prepareColumns()
     {
-
         $this->addColumn('real_order_id', array(
             'header' => Mage::helper('sales')->__('Order #'),
             'width'  => '80px',
@@ -123,7 +121,8 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
         ));
 
         if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/view')) {
-            $this->addColumn('action',
+            $this->addColumn(
+                'action',
                 array(
                     'header'    => Mage::helper('sales')->__('Action'),
                     'width'     => '50px',
@@ -141,7 +140,8 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
                     'sortable'  => false,
                     'index'     => 'stores',
                     'is_system' => true,
-            ));
+            )
+            );
         }
         $this->addRssList('rss/order/new', Mage::helper('sales')->__('New Order RSS'));
 
@@ -218,5 +218,4 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
     {
         return $this->getUrl('*/*/grid', array('_current'=>true));
     }
-
 }

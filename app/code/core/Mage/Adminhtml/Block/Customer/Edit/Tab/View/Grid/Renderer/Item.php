@@ -70,7 +70,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Grid_Renderer_Item extends Mag
         $productType = $product->getTypeId();
         if (isset($productHelpers[$productType])) {
             $helperName = $productHelpers[$productType];
-        } else if (isset($productHelpers['default'])) {
+        } elseif (isset($productHelpers['default'])) {
             $helperName = $productHelpers['default'];
         } else {
             $helperName = 'catalog/product_configuration';

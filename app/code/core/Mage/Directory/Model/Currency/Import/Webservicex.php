@@ -38,11 +38,11 @@ class Mage_Directory_Model_Currency_Import_Webservicex extends Mage_Directory_Mo
     protected $_url = 'http://www.webservicex.net/CurrencyConvertor.asmx/ConversionRate?FromCurrency={{CURRENCY_FROM}}&ToCurrency={{CURRENCY_TO}}';
     protected $_messages = array();
 
-     /**
-     * HTTP client
-     *
-     * @var Varien_Http_Client
-     */
+    /**
+    * HTTP client
+    *
+    * @var Varien_Http_Client
+    */
     protected $_httpClient;
 
     public function __construct()

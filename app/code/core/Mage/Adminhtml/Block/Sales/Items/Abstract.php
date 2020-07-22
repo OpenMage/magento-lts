@@ -32,7 +32,7 @@
  * @package     Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Template
+class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Template
 {
     /**
      * Renderers with render type key
@@ -245,16 +245,13 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
         if (Mage::registry('order')) {
             return Mage::registry('order');
         }
-        if ($this->getInvoice())
-        {
+        if ($this->getInvoice()) {
             return $this->getInvoice()->getOrder();
         }
-        if ($this->getCreditmemo())
-        {
+        if ($this->getCreditmemo()) {
             return $this->getCreditmemo()->getOrder();
         }
-        if ($this->getItem()->getOrder())
-        {
+        if ($this->getItem()->getOrder()) {
             return $this->getItem()->getOrder();
         }
 
@@ -334,8 +331,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
             $res.= $this->getOrder()->formatBasePricePrecision($basePrice, $precision);
             $res.= $separator;
             $res.= $this->getOrder()->formatPricePrecision($price, $precision, true);
-        }
-        else {
+        } else {
             $res = $this->getOrder()->formatPricePrecision($price, $precision);
             if ($strong) {
                 $res = '<strong>'.$res.'</strong>';
@@ -397,7 +393,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
     {
         if ($item->getTaxPercent() && $item->getTaxString() == '') {
             $percents = array($item->getTaxPercent());
-        } else if ($item->getTaxString()) {
+        } elseif ($item->getTaxString()) {
             $percents = explode(Mage_Tax_Model_Config::CALCULATION_STRING_SEPARATOR, $item->getTaxString());
         } else {
             return '0%';
@@ -450,7 +446,8 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
      * @see self::_canEditQty
      * @see self::canEditQty
      */
-    public function setCanEditQty($value) {
+    public function setCanEditQty($value)
+    {
         $this->_canEditQty = $value;
         return $this;
     }
@@ -521,7 +518,8 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
      * CREDITMEMO
      */
 
-    public function canReturnToStock() {
+    public function canReturnToStock()
+    {
         $canReturnToStock = Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_CAN_SUBTRACT);
         if (Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_CAN_SUBTRACT)) {
             return true;
@@ -535,15 +533,15 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
      * @param Mage_Sales_Model_Order_Creditmemo_Item $item
      * @return bool
      */
-    public function canReturnItemToStock($item=null) {
+    public function canReturnItemToStock($item=null)
+    {
         $canReturnToStock = Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_CAN_SUBTRACT);
         if (!is_null($item)) {
             if (!$item->hasCanReturnToStock()) {
                 $product = Mage::getModel('catalog/product')->load($item->getOrderItem()->getProductId());
-                if ( $product->getId() && $product->getStockItem()->getManageStock() ) {
+                if ($product->getId() && $product->getStockItem()->getManageStock()) {
                     $item->setCanReturnToStock(true);
-                }
-                else {
+                } else {
                     $item->setCanReturnToStock(false);
                 }
             }
@@ -560,10 +558,10 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
     {
         $canReturnToStock = Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_CAN_SUBTRACT);
         if (!is_null($item)) {
-            if ( $item->getCreditmemo()->getOrder()->hasCanReturnToStock() ) {
+            if ($item->getCreditmemo()->getOrder()->hasCanReturnToStock()) {
                 $canReturnToStock = $item->getCreditmemo()->getOrder()->getCanReturnToStock();
             }
-        } elseif ( $this->getOrder()->hasCanReturnToStock() ) {
+        } elseif ($this->getOrder()->hasCanReturnToStock()) {
             $canReturnToStock = $this->getOrder()->getCanReturnToStock();
         }
         return $canReturnToStock;
@@ -612,5 +610,4 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
         }
         return true;
     }
-
 }

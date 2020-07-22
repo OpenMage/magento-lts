@@ -33,7 +33,6 @@
  */
 class Mage_Adminhtml_Block_Sales_Order extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
-
     public function __construct()
     {
         $this->_controller = 'sales_order';
@@ -49,5 +48,4 @@ class Mage_Adminhtml_Block_Sales_Order extends Mage_Adminhtml_Block_Widget_Grid_
     {
         return $this->getUrl('*/sales_order_create/start');
     }
-
 }

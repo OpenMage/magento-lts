@@ -53,7 +53,7 @@ class Mage_Page_Block_Html_Topmenu_Renderer extends Mage_Page_Block_Html_Topmenu
         }
 
         $includeFilePath = realpath(Mage::getBaseDir('design') . DS . $this->getTemplateFile());
-        if (strpos($this->getTemplateFile(), '..') === FALSE) {
+        if (strpos($this->getTemplateFile(), '..') === false) {
             $this->_templateFile = $includeFilePath;
         } else {
             throw new Exception('Not valid template file:' . $this->_templateFile);

@@ -31,7 +31,6 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Customer_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -125,5 +124,4 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Customer_Grid extends Mage_Adminht
     {
         return $this->getUrl('*/*/loadBlock', array('block'=>'customer_grid'));
     }
-
 }

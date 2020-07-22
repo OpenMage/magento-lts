@@ -31,9 +31,7 @@
  * @package     Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Actions
-    extends Mage_Adminhtml_Block_Widget_Form
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Actions extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     /**
      * Prepare content for tab
@@ -83,7 +81,9 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Actions
 
         $form->setHtmlIdPrefix('rule_');
 
-        $fieldset = $form->addFieldset('action_fieldset', array(
+        $fieldset = $form->addFieldset(
+            'action_fieldset',
+            array(
                 'legend' => Mage::helper('catalogrule')->__('Update Prices Using the Following Information')
             )
         );

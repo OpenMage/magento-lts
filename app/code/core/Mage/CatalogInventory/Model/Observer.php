@@ -518,7 +518,8 @@ class Mage_CatalogInventory_Model_Observer
              * exception for updating also managed by product type
              */
             if ($result->getHasQtyOptionUpdate()
-                && (!$quoteItem->getParentItem()
+                && (
+                    !$quoteItem->getParentItem()
                     || $quoteItem->getParentItem()->getProduct()->getTypeInstance(true)
                         ->getForceChildItemQtyChanges($quoteItem->getParentItem()->getProduct())
                 )
@@ -592,7 +593,7 @@ class Mage_CatalogInventory_Model_Observer
         $qty = $itemQty;
         if (isset($this->_checkedQuoteItems[$productId]['qty']) &&
             !in_array($quoteItemId, $this->_checkedQuoteItems[$productId]['items'])) {
-                $qty += $this->_checkedQuoteItems[$productId]['qty'];
+            $qty += $this->_checkedQuoteItems[$productId]['qty'];
         }
 
         $this->_checkedQuoteItems[$productId]['qty'] = $qty;

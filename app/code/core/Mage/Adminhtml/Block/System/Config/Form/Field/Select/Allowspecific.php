@@ -34,7 +34,6 @@
  */
 class Mage_Adminhtml_Block_System_Config_Form_Field_Select_Allowspecific extends Varien_Data_Form_Element_Select
 {
-
     public function getAfterElementHtml()
     {
         $javaScript = "
@@ -49,7 +48,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Select_Allowspecific extends
 
     public function getHtml()
     {
-        if(!$this->getValue() || $this->getValue()!=1) {
+        if (!$this->getValue() || $this->getValue()!=1) {
             $this->getForm()->getElement($this->_getSpecificCountryElementId())->setDisabled('disabled');
         }
         return parent::getHtml();
@@ -59,5 +58,4 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Select_Allowspecific extends
     {
         return substr($this->getId(), 0, strrpos($this->getId(), 'allowspecific')) . 'specificcountry';
     }
-
 }

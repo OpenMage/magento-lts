@@ -153,7 +153,6 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
 
                 $this->_redirect('*/*/');
                 return;
-
             } catch (Exception $e) {
                 // display error message
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
@@ -181,8 +180,7 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('Block has been deleted.'));
                 $this->_redirect('*/*/');
                 return;
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 $this->_redirect('*/*/edit', array('block_id' => $id));
                 return;
@@ -198,7 +196,8 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
     public function blockGridAction()
     {
         $this->getResponse()
-            ->setBody($this->getLayout()
+            ->setBody(
+                $this->getLayout()
                 ->createBlock('adminhtml/permissions_block_grid')
                 ->toHtml()
             );

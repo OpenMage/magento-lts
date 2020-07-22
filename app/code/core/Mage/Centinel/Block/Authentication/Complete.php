@@ -45,4 +45,3 @@ class Mage_Centinel_Block_Authentication_Complete extends Mage_Core_Block_Templa
         return parent::_toHtml();
     }
 }
-

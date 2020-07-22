@@ -120,7 +120,6 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
             ? Mage::helper('catalogrule')->__('Edit Rule')
             : Mage::helper('catalogrule')->__('New Rule');
         $this->_addBreadcrumb($breadcrumb, $breadcrumb)->renderLayout();
-
     }
 
     public function saveAction()
@@ -146,7 +145,7 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
 
                 $validateResult = $model->validateData(new Varien_Object($data));
                 if ($validateResult !== true) {
-                    foreach($validateResult as $errorMessage) {
+                    foreach ($validateResult as $errorMessage) {
                         $this->_getSession()->addError($errorMessage);
                     }
                     $this->_getSession()->setPageData($data);

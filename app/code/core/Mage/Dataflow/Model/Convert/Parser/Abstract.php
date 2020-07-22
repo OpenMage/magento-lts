@@ -32,9 +32,7 @@
  * @package    Mage_Dataflow
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Dataflow_Model_Convert_Parser_Abstract
-    extends Mage_Dataflow_Model_Convert_Container_Abstract
-    implements Mage_Dataflow_Model_Convert_Parser_Interface
+abstract class Mage_Dataflow_Model_Convert_Parser_Abstract extends Mage_Dataflow_Model_Convert_Container_Abstract implements Mage_Dataflow_Model_Convert_Parser_Interface
 {
     /**
      * Dataflow batch model

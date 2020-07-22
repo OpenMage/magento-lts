@@ -52,7 +52,8 @@ class Mage_Adminhtml_Block_System_Currency_Rate_Services extends Mage_Adminhtml_
      */
     protected function _prepareLayout()
     {
-        $this->setChild('import_services',
+        $this->setChild(
+            'import_services',
             $this->getLayout()->createBlock('adminhtml/html_select')
             ->setOptions(Mage::getModel('adminhtml/system_config_source_currency_service')->toOptionArray(0))
             ->setId('rate_services')
@@ -63,5 +64,4 @@ class Mage_Adminhtml_Block_System_Currency_Rate_Services extends Mage_Adminhtml_
 
         return parent::_prepareLayout();
     }
-
 }

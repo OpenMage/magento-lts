@@ -171,8 +171,7 @@ class Mage_Dataflow_Model_Batch_Io
     {
         if ($csv) {
             $content = $this->getIoAdapter()->streamReadCsv($delimiter, $enclosure);
-        }
-        else {
+        } else {
             $content = $this->getIoAdapter()->streamRead(1024);
             $this->_fileSize += strlen($content);
         }

@@ -96,7 +96,7 @@ class Mage_Sales_Model_Resource_Quote_Item_Option_Collection extends Mage_Core_M
         if (empty($item)) {
             $this->_totalRecords = 0;
             $this->_setIsLoaded(true);
-            //$this->addFieldToFilter('item_id', '');
+        //$this->addFieldToFilter('item_id', '');
         } elseif (is_array($item)) {
             $this->addFieldToFilter('item_id', array('in' => $item));
         } elseif ($item instanceof Mage_Sales_Model_Quote_Item) {

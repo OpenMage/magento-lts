@@ -45,7 +45,11 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Product exten
         $isConfigurable = $row->canConfigure();
         $style          = $isConfigurable ? '' : 'style="color: #CCC;"';
         $prodAttributes = $isConfigurable ? sprintf('list_type = "product_to_add" product_id = %s', $row->getId()) : 'disabled="disabled"';
-        return sprintf('<a href="javascript:void(0)" %s class="f-right" %s>%s</a>',
-            $style, $prodAttributes, Mage::helper('sales')->__('Configure')) . $rendered;
+        return sprintf(
+            '<a href="javascript:void(0)" %s class="f-right" %s>%s</a>',
+            $style,
+            $prodAttributes,
+            Mage::helper('sales')->__('Configure')
+        ) . $rendered;
     }
 }

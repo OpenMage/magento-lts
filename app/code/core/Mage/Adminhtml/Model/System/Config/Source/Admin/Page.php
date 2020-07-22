@@ -51,7 +51,6 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
         $nonEscapableNbspChar = html_entity_decode('&#160;', ENT_NOQUOTES, 'UTF-8');
 
         foreach ($menuNode as $menu) {
-
             if (!empty($menu['url'])) {
                 $optionArray[] = array(
                     'label' => str_repeat($nonEscapableNbspChar, ($menu['level'] * 4)) . $menu['label'],
@@ -61,11 +60,10 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
                 if (isset($menu['children'])) {
                     $this->_createOptions($optionArray, $menu['children']);
                 }
-            }
-            else {
+            } else {
                 $children = array();
 
-                if(isset($menu['children'])) {
+                if (isset($menu['children'])) {
                     $this->_createOptions($children, $menu['children']);
                 }
 

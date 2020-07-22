@@ -44,5 +44,4 @@ class Mage_Adminhtml_Block_Text_List extends Mage_Core_Block_Text_List
     {
         return 'adminhtml/url';
     }
-
 }

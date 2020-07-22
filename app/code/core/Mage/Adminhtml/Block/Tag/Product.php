@@ -33,12 +33,11 @@
  */
 class Mage_Adminhtml_Block_Tag_Product extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
-
     public function __construct()
     {
         parent::__construct();
 
-        switch( $this->getRequest()->getParam('ret') ) {
+        switch ($this->getRequest()->getParam('ret')) {
             case 'all':
                 $url = $this->getUrl('*/*/');
                 break;
@@ -62,5 +61,4 @@ class Mage_Adminhtml_Block_Tag_Product extends Mage_Adminhtml_Block_Widget_Grid_
 
         $this->_headerText = Mage::helper('tag')->__("Products Tagged with '%s'", $this->escapeHtml($tagInfo->getName()));
     }
-
 }

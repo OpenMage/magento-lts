@@ -677,7 +677,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                     Mage::throwException(Mage::helper('core')->__('Unknown scope "%s".', $scope));
                 }
             }
-            $path = $scope . ($scopeCode ? '/' . $scopeCode : '' ) . (empty($path) ? '' : '/' . $path);
+            $path = $scope . ($scopeCode ? '/' . $scopeCode : '') . (empty($path) ? '' : '/' . $path);
         }
 
         /**
@@ -1025,7 +1025,8 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                 $host = $hostArr[0];
                 $port = isset(
                     $hostArr[1]
-                ) && (!$secure && $hostArr[1]!=80 || $secure && $hostArr[1]!=443
+                ) && (
+                    !$secure && $hostArr[1]!=80 || $secure && $hostArr[1]!=443
                 ) ? ':'.$hostArr[1] : '';
                 $path = Mage::app()->getRequest()->getBasePath();
 

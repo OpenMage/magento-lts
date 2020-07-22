@@ -59,5 +59,4 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tabs extends Mage_Adminhtml_Block_Wi
         $this->setDestElementId('sales_order_view');
         $this->setTitle(Mage::helper('sales')->__('Order View'));
     }
-
 }

@@ -31,8 +31,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Longtext
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
+class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Longtext extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
     /**
      * Render contents as a long text
@@ -54,7 +53,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Longtext
             $truncateLength = $this->getColumn()->getTruncate();
         }
         $text = Mage::helper('core/string')->truncate(parent::_getValue($row), $truncateLength);
-        if ($this->getColumn()->getEscape() !== FALSE) {
+        if ($this->getColumn()->getEscape() !== false) {
             $text = $this->escapeHtml($text);
         }
         if ($this->getColumn()->getNl2br()) {

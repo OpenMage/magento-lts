@@ -33,7 +33,6 @@
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Orders extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -132,5 +131,4 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Orders extends Mage_Adminhtml_Block
     {
         return $this->getUrl('*/*/orders', array('_current' => true));
     }
-
 }

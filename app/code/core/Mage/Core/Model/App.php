@@ -35,7 +35,6 @@
  */
 class Mage_Core_Model_App
 {
-
     const XML_PATH_INSTALL_DATE = 'global/install/date';
 
     const XML_PATH_SKIP_PROCESS_MODULES_UPDATES = 'global/skip_process_modules_updates';

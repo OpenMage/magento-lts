@@ -114,7 +114,8 @@ class Mage_Adminhtml_Block_Notification_Grid extends Mage_Adminhtml_Block_Widget
         return $this;
     }
 
-    public function getRowClass(Varien_Object $row) {
+    public function getRowClass(Varien_Object $row)
+    {
         return $row->getIsRead() ? 'read' : 'unread';
     }
 

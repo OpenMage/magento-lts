@@ -51,5 +51,4 @@ class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Form extends Mage_Admin
 
         return parent::_prepareForm();
     }
-
 }

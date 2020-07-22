@@ -131,7 +131,7 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
         if (is_array($translations)) {
             foreach ($translations as $storeId => $translate) {
                 if (is_null($translate) || $translate=='') {
-                     $where = array(
+                    $where = array(
                         'store_id = ?'    => $storeId,
                         'string = ?'      => $object->getString()
                     );

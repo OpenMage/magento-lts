@@ -33,5 +33,4 @@ class Mage_Adminhtml_Model_System_Config_Source_Nooptreq
             array('value'=>'req', 'label'=>Mage::helper('adminhtml')->__('Required')),
         );
     }
-
 }

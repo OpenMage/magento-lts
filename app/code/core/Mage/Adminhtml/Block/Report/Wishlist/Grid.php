@@ -33,7 +33,6 @@
  */
 class Mage_Adminhtml_Block_Report_Wishlist_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -44,7 +43,6 @@ class Mage_Adminhtml_Block_Report_Wishlist_Grid extends Mage_Adminhtml_Block_Wid
 
     protected function _prepareCollection()
     {
-
         $collection = Mage::getResourceModel('reports/wishlist_product_collection')
             ->addAttributeToSelect('entity_id')
             ->addAttributeToSelect('name')
@@ -108,6 +106,4 @@ class Mage_Adminhtml_Block_Report_Wishlist_Grid extends Mage_Adminhtml_Block_Wid
 
         return parent::_prepareColumns();
     }
-
 }
-

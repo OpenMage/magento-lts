@@ -31,8 +31,7 @@
  * @package     Mage_Connect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Release
-    extends Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Abstract
+class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Release extends Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Abstract
 {
     /**
      * Prepare Release Info Form before rendering HTML

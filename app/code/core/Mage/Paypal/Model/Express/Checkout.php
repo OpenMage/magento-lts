@@ -342,7 +342,8 @@ class Mage_Paypal_Model_Express_Checkout
                 $this->_api->setAddress($address);
             }
             $this->_quote->getPayment()->setAdditionalInformation(
-                self::PAYMENT_INFO_TRANSPORT_SHIPPING_OVERRIDEN, $isOverriden
+                self::PAYMENT_INFO_TRANSPORT_SHIPPING_OVERRIDEN,
+                $isOverriden
             );
             $this->_quote->getPayment()->save();
         }
@@ -449,7 +450,7 @@ class Mage_Paypal_Model_Express_Checkout
                 $code = '';
                 if ($this->_api->getShippingRateCode()) {
                     if ($code = $this->_matchShippingMethodCode($shippingAddress, $this->_api->getShippingRateCode())) {
-                         // possible bug of double collecting rates :-/
+                        // possible bug of double collecting rates :-/
                         $shippingAddress->setShippingMethod($code)->setCollectShippingRates(true);
                     }
                 }
@@ -619,7 +620,7 @@ class Mage_Paypal_Model_Express_Checkout
 
         // commence redirecting to finish payment, if paypal requires it
         if ($order->getPayment()->getAdditionalInformation(
-                Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_REDIRECT
+            Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_REDIRECT
         )) {
             $this->_redirectUrl = $this->_config->getExpressCheckoutCompleteUrl($token);
         }
@@ -728,8 +729,8 @@ class Mage_Paypal_Model_Express_Checkout
                 $oldData = $address->getDataUsingMethod($key);
                 $isEmpty = null;
                 if (is_array($oldData)) {
-                    foreach($oldData as $val) {
-                        if(!empty($val)) {
+                    foreach ($oldData as $val) {
+                        if (!empty($val)) {
                             $isEmpty = false;
                             break;
                         }
@@ -798,9 +799,13 @@ class Mage_Paypal_Model_Express_Checkout
      */
     protected function _prepareShippingOptions(
         Mage_Sales_Model_Quote_Address $address,
-        $mayReturnEmpty = false, $calculateTax = false
+        $mayReturnEmpty = false,
+        $calculateTax = false
     ) {
-        $options = array(); $i = 0; $iMin = false; $min = false;
+        $options = array();
+        $i = 0;
+        $iMin = false;
+        $min = false;
         $userSelectedOption = null;
 
         foreach ($address->getGroupedAllShippingRates() as $group) {

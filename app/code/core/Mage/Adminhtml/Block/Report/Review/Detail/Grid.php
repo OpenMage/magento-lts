@@ -33,7 +33,6 @@
  */
 class Mage_Adminhtml_Block_Report_Review_Detail_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -62,7 +61,6 @@ class Mage_Adminhtml_Block_Report_Review_Detail_Grid extends Mage_Adminhtml_Bloc
 
     protected function _prepareColumns()
     {
-
         $this->addColumn('nickname', array(
             'header'    =>Mage::helper('reports')->__('Customer'),
             'width'     =>'100px',
@@ -94,6 +92,4 @@ class Mage_Adminhtml_Block_Report_Review_Detail_Grid extends Mage_Adminhtml_Bloc
 
         return parent::_prepareColumns();
     }
-
 }
-

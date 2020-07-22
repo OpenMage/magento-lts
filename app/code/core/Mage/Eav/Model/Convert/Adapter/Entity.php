@@ -311,9 +311,9 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
                 }
             }
 
-           /**
-            * Load collection ids
-            */
+            /**
+             * Load collection ids
+             */
             $entityIds = $collection->getAllIds();
 
             $message = Mage::helper('eav')->__("Loaded %d records", count($entityIds));

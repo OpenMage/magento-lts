@@ -48,7 +48,8 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
         $this->_addBreadcrumb(Mage::helper('catalog')->__('Catalog'), Mage::helper('catalog')->__('Catalog'));
         $this->_addBreadcrumb(
             Mage::helper('catalog')->__('Manage Attribute Sets'),
-            Mage::helper('catalog')->__('Manage Attribute Sets'));
+            Mage::helper('catalog')->__('Manage Attribute Sets')
+        );
 
         $this->_addContent($this->getLayout()->createBlock('adminhtml/catalog_product_attribute_set_toolbar_main'));
         $this->_addContent($this->getLayout()->createBlock('adminhtml/catalog_product_attribute_set_grid'));
@@ -82,7 +83,8 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
         $this->_addBreadcrumb(Mage::helper('catalog')->__('Catalog'), Mage::helper('catalog')->__('Catalog'));
         $this->_addBreadcrumb(
             Mage::helper('catalog')->__('Manage Product Sets'),
-            Mage::helper('catalog')->__('Manage Product Sets'));
+            Mage::helper('catalog')->__('Manage Product Sets')
+        );
 
         $this->_addContent($this->getLayout()->createBlock('adminhtml/catalog_product_attribute_set_main'));
 
@@ -95,7 +97,8 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
         $this->getResponse()->setBody(
             $this->getLayout()
                 ->createBlock('adminhtml/catalog_product_attribute_set_grid')
-                ->toHtml());
+                ->toHtml()
+        );
     }
 
     /**
@@ -150,8 +153,10 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
             $this->_getSession()->addError($e->getMessage());
             $hasError = true;
         } catch (Exception $e) {
-            $this->_getSession()->addException($e,
-                Mage::helper('catalog')->__('An error occurred while saving the attribute set.'));
+            $this->_getSession()->addException(
+                $e,
+                Mage::helper('catalog')->__('An error occurred while saving the attribute set.')
+            );
             $hasError = true;
         }
 
@@ -225,8 +230,10 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
      */
     protected function _setTypeId()
     {
-        Mage::register('entityType',
-            Mage::getModel('catalog/product')->getResource()->getTypeId());
+        Mage::register(
+            'entityType',
+            Mage::getModel('catalog/product')->getResource()->getTypeId()
+        );
     }
 
     protected function _isAllowed()

@@ -47,10 +47,10 @@ class Mage_Adminhtml_Block_Report_Product_Lowstock_Grid extends Mage_Adminhtml_B
         if ($this->getRequest()->getParam('website')) {
             $storeIds = Mage::app()->getWebsite($this->getRequest()->getParam('website'))->getStoreIds();
             $storeId = array_pop($storeIds);
-        } else if ($this->getRequest()->getParam('group')) {
+        } elseif ($this->getRequest()->getParam('group')) {
             $storeIds = Mage::app()->getGroup($this->getRequest()->getParam('group'))->getStoreIds();
             $storeId = array_pop($storeIds);
-        } else if ($this->getRequest()->getParam('store')) {
+        } elseif ($this->getRequest()->getParam('store')) {
             $storeId = (int)$this->getRequest()->getParam('store');
         } else {
             $storeId = '';
@@ -66,7 +66,7 @@ class Mage_Adminhtml_Block_Report_Product_Lowstock_Grid extends Mage_Adminhtml_B
             ->useNotifyStockQtyFilter($storeId)
             ->setOrder('qty', Varien_Data_Collection::SORT_ORDER_ASC);
 
-        if( $storeId ) {
+        if ($storeId) {
             $collection->addStoreFilter($storeId);
         }
 

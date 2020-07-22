@@ -33,7 +33,6 @@
  */
 class Mage_Adminhtml_Media_UploaderController extends Mage_Adminhtml_Controller_Action
 {
-
     public function uploadAction()
     {
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($_REQUEST));

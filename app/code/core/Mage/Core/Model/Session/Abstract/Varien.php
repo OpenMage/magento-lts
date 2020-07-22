@@ -80,6 +80,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
                 if (!is_writable($this->getSessionSavePath())) {
                     break;
                 }
+                // no break
             default:
                 session_save_path($this->getSessionSavePath());
                 session_module_name($moduleName);
@@ -488,7 +489,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
 
         if ($this->useValidateSessionExpire()
             && isset($sessionData[self::VALIDATOR_SESSION_EXPIRE_TIMESTAMP])
-            && $sessionData[self::VALIDATOR_SESSION_EXPIRE_TIMESTAMP] < time() ) {
+            && $sessionData[self::VALIDATOR_SESSION_EXPIRE_TIMESTAMP] < time()) {
             return false;
         }
         if ($this->useValidateSessionPasswordTimestamp()

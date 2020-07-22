@@ -129,7 +129,7 @@ class Mage_Adminhtml_RatingController extends Mage_Adminhtml_Controller_Action
 
     public function deleteAction()
     {
-        if( $this->getRequest()->getParam('id') > 0 ) {
+        if ($this->getRequest()->getParam('id') > 0) {
             try {
                 $model = Mage::getModel('rating/rating');
                 /* @var $model Mage_Rating_Model_Rating */
@@ -158,5 +158,4 @@ class Mage_Adminhtml_RatingController extends Mage_Adminhtml_Controller_Action
     {
         return Mage::getSingleton('admin/session')->isAllowed('catalog/reviews_ratings/ratings');
     }
-
 }

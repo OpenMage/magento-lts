@@ -46,4 +46,3 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Msrp_Enabled extends Vari
         return parent::getElementHtml();
     }
 }
-

@@ -156,8 +156,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
     public function getConfigData($field, $storeId = null)
     {
         $value = null;
-        switch ($field)
-        {
+        switch ($field) {
             case 'cctypes':
                 $value = $this->getAllowedCcTypes();
                 break;

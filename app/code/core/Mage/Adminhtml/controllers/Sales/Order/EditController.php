@@ -48,8 +48,7 @@ class Mage_Adminhtml_Sales_Order_EditController extends Mage_Adminhtml_Sales_Ord
                 $this->_getSession()->setUseOldShippingMethod(true);
                 $this->_getOrderCreateModel()->initFromOrder($order);
                 $this->_redirect('*/*');
-            }
-            else {
+            } else {
                 $this->_redirect('*/sales_order/');
             }
         } catch (Mage_Core_Exception $e) {

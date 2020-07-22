@@ -76,7 +76,8 @@ class Mage_Rss_Block_Catalog_NotifyStock extends Mage_Rss_Block_Abstract
         $rssObj->_addHeader($data);
 
         $globalNotifyStockQty = (float) Mage::getStoreConfig(
-            Mage_CatalogInventory_Model_Stock_Item::XML_PATH_NOTIFY_STOCK_QTY);
+            Mage_CatalogInventory_Model_Stock_Item::XML_PATH_NOTIFY_STOCK_QTY
+        );
         Mage::helper('rss')->disableFlat();
         /* @var $product Mage_Catalog_Model_Product */
         $product = Mage::getModel('catalog/product');
@@ -90,7 +91,8 @@ class Mage_Rss_Block_Catalog_NotifyStock extends Mage_Rss_Block_Abstract
         ));
         $collection
             ->addAttributeToSelect('name', true)
-            ->addAttributeToFilter('status',
+            ->addAttributeToFilter(
+                'status',
                 array('in' => Mage::getSingleton('catalog/product_status')->getVisibleStatusIds())
             )
             ->setOrder('low_stock_date');
@@ -119,8 +121,10 @@ class Mage_Rss_Block_Catalog_NotifyStock extends Mage_Rss_Block_Abstract
     {
         $product = $args['product'];
         $product->setData($args['row']);
-        $url = Mage::helper('adminhtml')->getUrl('adminhtml/catalog_product/edit/',
-            array('id' => $product->getId(), '_secure' => true, '_nosecret' => true));
+        $url = Mage::helper('adminhtml')->getUrl(
+            'adminhtml/catalog_product/edit/',
+            array('id' => $product->getId(), '_secure' => true, '_nosecret' => true)
+        );
         $qty = 1 * $product->getQty();
         $description = Mage::helper('rss')->__('%s has reached a quantity of %s.', $product->getName(), $qty);
         $rssObj = $args['rssObj'];

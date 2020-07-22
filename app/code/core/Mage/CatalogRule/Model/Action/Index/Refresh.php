@@ -660,13 +660,13 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
         $productCondition = $modelCondition->setTable($this->_resource->getTable('catalogrule/affected_product'))
             ->setPkFieldName('product_id');
 
-            $this->_app->dispatchEvent(
-                'catalogrule_after_apply',
-                array(
+        $this->_app->dispatchEvent(
+            'catalogrule_after_apply',
+            array(
                     'product' => $this->_getProduct(),
                     'product_condition' => $productCondition
                 )
-            );
+        );
 
         $this->_connection->delete($this->_resource->getTable('catalogrule/affected_product'));
     }

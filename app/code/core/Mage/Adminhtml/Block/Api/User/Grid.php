@@ -33,7 +33,6 @@
  */
 class Mage_Adminhtml_Block_Api_User_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -102,5 +101,4 @@ class Mage_Adminhtml_Block_Api_User_Grid extends Mage_Adminhtml_Block_Widget_Gri
         //$uid = $this->getRequest()->getParam('user_id');
         return $this->getUrl('*/*/roleGrid', array());
     }
-
 }

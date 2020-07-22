@@ -118,8 +118,7 @@ class Mage_Dataflow_Model_Convert_Mapper_Column extends Mage_Dataflow_Model_Conv
 
         if ($this->getVar('map') && is_array($this->getVar('map'))) {
             $attributesToSelect = $this->getVar('map');
-        }
-        else {
+        } else {
             $attributesToSelect = array();
         }
 

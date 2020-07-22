@@ -54,23 +54,23 @@ abstract class Mage_Uploader_Model_Config_Abstract extends Varien_Object
      */
     public function __call($method, $args)
     {
-        $key = lcfirst($this->_camelize(substr($method,3)));
+        $key = lcfirst($this->_camelize(substr($method, 3)));
         switch (substr($method, 0, 3)) {
-            case 'get' :
+            case 'get':
                 $data = $this->getData($key, isset($args[0]) ? $args[0] : null);
                 return $data;
 
-            case 'set' :
+            case 'set':
                 $result = $this->setData($key, isset($args[0]) ? $args[0] : null);
                 return $result;
 
-            case 'uns' :
+            case 'uns':
                 $result = $this->unsetData($key);
                 return $result;
 
-            case 'has' :
+            case 'has':
                 return isset($this->_data[$key]);
         }
-        throw new Varien_Exception("Invalid method ".get_class($this)."::".$method."(".print_r($args,1).")");
+        throw new Varien_Exception("Invalid method ".get_class($this)."::".$method."(".print_r($args, 1).")");
     }
 }

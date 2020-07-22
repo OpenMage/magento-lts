@@ -63,7 +63,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
                     $this->_wishlist->unsetData();
                 }
             } else {
-                if($this->_getCustomer()->getId()) {
+                if ($this->_getCustomer()->getId()) {
                     $this->_wishlist->loadByCustomer($this->_getCustomer());
                 }
             }
@@ -84,7 +84,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
             $params = Mage::helper('core')->urlDecode($this->getRequest()->getParam('data'));
             $data   = explode(',', $params);
             $cId    = abs(intval($data[0]));
-            if ($cId && ($cId == Mage::getSingleton('customer/session')->getCustomerId()) ) {
+            if ($cId && ($cId == Mage::getSingleton('customer/session')->getCustomerId())) {
                 $this->_customer->load($cId);
             }
         }
@@ -153,7 +153,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
                     . '<p>';
 
                 if ($product->getAllowedPriceInRss()) {
-                    $description .= $this->getPriceHtml($product,true);
+                    $description .= $this->getPriceHtml($product, true);
                 }
                 $description .= '</p>';
                 if ($this->hasDescription($product)) {
@@ -172,8 +172,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
                     'description'   => $description,
                 ));
             }
-        }
-        else {
+        } else {
             $rssObj->_addHeader(array(
                 'title'         => Mage::helper('rss')->__('Cannot retrieve the wishlist'),
                 'description'   => Mage::helper('rss')->__('Cannot retrieve the wishlist'),

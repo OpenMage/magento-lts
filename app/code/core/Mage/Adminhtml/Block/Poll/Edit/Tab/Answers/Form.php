@@ -40,7 +40,10 @@ class Mage_Adminhtml_Block_Poll_Edit_Tab_Answers_Form extends Mage_Adminhtml_Blo
 
         $fieldset = $form->addFieldset('add_answer_form', array('legend' => Mage::helper('poll')->__('Add New Answer')));
 
-        $fieldset->addField('answer_title', 'text', array(
+        $fieldset->addField(
+            'answer_title',
+            'text',
+            array(
                     'name'      => 'answer_title',
                     'title'     => Mage::helper('poll')->__('Answer Title'),
                     'label'     => Mage::helper('poll')->__('Answer Title'),
@@ -49,14 +52,20 @@ class Mage_Adminhtml_Block_Poll_Edit_Tab_Answers_Form extends Mage_Adminhtml_Blo
                 )
         );
 
-        $fieldset->addField('poll_id', 'hidden', array(
+        $fieldset->addField(
+            'poll_id',
+            'hidden',
+            array(
                     'name'      => 'poll_id',
                     'no_span'   => true,
                     'value'     => $this->getRequest()->getParam('id'),
                 )
         );
 
-        $fieldset->addField('add_button', 'note', array(
+        $fieldset->addField(
+            'add_button',
+            'note',
+            array(
                     'text' => $this->getLayout()->createBlock('adminhtml/widget_button')
                                     ->setData(array(
                                         'label'     => Mage::helper('poll')->__('Add Answer'),

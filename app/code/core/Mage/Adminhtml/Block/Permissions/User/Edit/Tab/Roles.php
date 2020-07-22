@@ -26,7 +26,6 @@
 
 class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -47,14 +46,12 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtm
             }
             if ($column->getFilter()->getValue()) {
                 $this->getCollection()->addFieldToFilter('role_id', array('in'=>$userRoles));
-            }
-            else {
-                if($userRoles) {
+            } else {
+                if ($userRoles) {
                     $this->getCollection()->addFieldToFilter('role_id', array('nin'=>$userRoles));
                 }
             }
-        }
-        else {
+        } else {
             parent::_addColumnFilterToCollection($column);
         }
         return $this;
@@ -70,7 +67,6 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtm
 
     protected function _prepareColumns()
     {
-
         $this->addColumn('assigned_user_role', array(
             'header_css_class' => 'a-center',
             'header'    => Mage::helper('adminhtml')->__('Assigned'),
@@ -103,7 +99,7 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtm
 
     protected function _getSelectedRoles($json=false)
     {
-        if ( $this->getRequest()->getParam('user_roles') != "" ) {
+        if ($this->getRequest()->getParam('user_roles') != "") {
             return $this->getRequest()->getParam('user_roles');
         }
         /* @var $user Mage_Admin_Model_User */
@@ -117,12 +113,13 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtm
         }
 
         if ($json) {
-            $jsonRoles = Array();
-            foreach($uRoles as $urid) $jsonRoles[$urid] = 0;
+            $jsonRoles = array();
+            foreach ($uRoles as $urid) {
+                $jsonRoles[$urid] = 0;
+            }
             return Mage::helper('core')->jsonEncode((object)$jsonRoles);
         } else {
             return $uRoles;
         }
     }
-
 }

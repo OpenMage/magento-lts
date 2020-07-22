@@ -73,7 +73,7 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
     /**
      * Profile history view
      */
-// TODO: implement
+    // TODO: implement
 //    public function historyAction()
 //    {
 //        $this->_viewAction();
@@ -90,7 +90,7 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
     /**
      * Profile payment gateway info view
      */
-// TODO: implement
+    // TODO: implement
 //    public function vendorAction()
 //    {
 //        $this->_viewAction();

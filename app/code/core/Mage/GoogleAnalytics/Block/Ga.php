@@ -159,7 +159,8 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
         $result = array();
         $result[] = "ga('require', 'ecommerce')";
         foreach ($collection as $order) {
-            $result[] = sprintf("ga('ecommerce:addTransaction', {
+            $result[] = sprintf(
+                "ga('ecommerce:addTransaction', {
 'id': '%s',
 'affiliation': '%s',
 'revenue': '%s',
@@ -173,7 +174,8 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                 $order->getBaseShippingAmount()
             );
             foreach ($order->getAllVisibleItems() as $item) {
-                $result[] = sprintf("ga('ecommerce:addItem', {
+                $result[] = sprintf(
+                    "ga('ecommerce:addItem', {
 'id': '%s',
 'sku': '%s',
 'name': '%s',
@@ -215,7 +217,8 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
             } else {
                 $address = $order->getShippingAddress();
             }
-            $result[] = sprintf("_gaq.push(['_addTrans', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s']);",
+            $result[] = sprintf(
+                "_gaq.push(['_addTrans', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s']);",
                 $order->getIncrementId(),
                 $this->jsQuoteEscape(Mage::app()->getStore()->getFrontendName()),
                 $order->getBaseGrandTotal(),
@@ -226,11 +229,14 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                 $this->jsQuoteEscape(Mage::helper('core')->escapeHtml($address->getCountry()))
             );
             foreach ($order->getAllVisibleItems() as $item) {
-                $result[] = sprintf("_gaq.push(['_addItem', '%s', '%s', '%s', '%s', '%s', '%s']);",
+                $result[] = sprintf(
+                    "_gaq.push(['_addItem', '%s', '%s', '%s', '%s', '%s', '%s']);",
                     $order->getIncrementId(),
-                    $this->jsQuoteEscape($item->getSku()), $this->jsQuoteEscape($item->getName()),
+                    $this->jsQuoteEscape($item->getSku()),
+                    $this->jsQuoteEscape($item->getName()),
                     null, // there is no "category" defined for the order item
-                    $item->getBasePrice(), $item->getQtyOrdered()
+                    $item->getBasePrice(),
+                    $item->getQtyOrdered()
                 );
             }
             $result[] = "_gaq.push(['_trackTrans']);";

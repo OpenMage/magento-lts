@@ -32,8 +32,7 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Notification_Grid_Renderer_Actions
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
+class Mage_Adminhtml_Block_Notification_Grid_Renderer_Actions extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
     /**
      * Renders grid column
@@ -53,10 +52,13 @@ class Mage_Adminhtml_Block_Notification_Grid_Renderer_Actions
                 Mage::helper('adminnotification')->__('Mark as Read') .'</a> | '
             : '';
 
-        return sprintf('%s%s<a href="%s" onClick="deleteConfirm(\'%s\', this.href); return false;">%s</a>',
+        return sprintf(
+            '%s%s<a href="%s" onClick="deleteConfirm(\'%s\', this.href); return false;">%s</a>',
             $readDetailsHtml,
             $markAsReadHtml,
-            $this->getUrl('*/*/remove/', array(
+            $this->getUrl(
+                '*/*/remove/',
+                array(
                 '_current'=>true,
                 'id' => $row->getId(),
                 Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->helper('core/url')->getEncodedUrl())

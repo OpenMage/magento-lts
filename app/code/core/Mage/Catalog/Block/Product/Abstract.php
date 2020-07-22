@@ -691,7 +691,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * @param bool $addFormKey
      * @return string
      */
-    public function  getAddToCartUrlCustom($product, $additional = array(), $addFormKey = true)
+    public function getAddToCartUrlCustom($product, $additional = array(), $addFormKey = true)
     {
         if (!$product->getTypeInstance(true)->hasRequiredOptions($product)) {
             if (!$addFormKey) {

@@ -105,7 +105,7 @@ class Mage_Adminhtml_System_DesignController extends Mage_Adminhtml_Controller_A
                 $design->save();
 
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The design change has been saved.'));
-            } catch (Exception $e){
+            } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')
                     ->addError($e->getMessage())
                     ->setDesignData($data);

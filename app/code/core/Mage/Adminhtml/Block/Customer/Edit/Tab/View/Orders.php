@@ -33,7 +33,6 @@
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Orders extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -62,7 +61,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Orders extends Mage_Adminhtml_
 
     protected function _prepareColumns()
     {
-
         $this->addColumn('increment_id', array(
             'header'    => Mage::helper('customer')->__('Order #'),
             'align'     => 'center',
@@ -122,5 +120,4 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Orders extends Mage_Adminhtml_
     {
         return ($this->getCollection()->getSize() > 0);
     }
-
 }

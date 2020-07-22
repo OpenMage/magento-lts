@@ -42,7 +42,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Source_Unitofmeasure
     {
         $measureUnits = Mage::getSingleton('usa/shipping_carrier_fedex')->getCode('unit_of_measure');
         $result = array();
-        foreach ($measureUnits as $key => $val){
+        foreach ($measureUnits as $key => $val) {
             $result[] = array('value'=>$key,'label'=>$val);
         }
         return $result;

@@ -63,5 +63,4 @@ class Mage_Adminhtml_Block_Page_Header extends Mage_Adminhtml_Block_Template
     {
         return Mage::getStoreConfig('web/browser_capabilities/javascript');
     }
-
 }

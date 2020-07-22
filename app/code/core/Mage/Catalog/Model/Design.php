@@ -361,7 +361,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
                 return $this->_extractSettings($object);
             }
         } else {
-             return $this->_extractSettings($category);
+            return $this->_extractSettings($category);
         }
     }
 

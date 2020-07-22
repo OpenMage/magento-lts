@@ -54,7 +54,7 @@ class Mage_Rss_Block_Order_New extends Mage_Core_Block_Template
     protected function _toHtml()
     {
         $order = Mage::getModel('sales/order');
-        $passDate = $order->getResource()->formatDate(mktime(0,0,0,date('m'),date('d')-7));
+        $passDate = $order->getResource()->formatDate(mktime(0, 0, 0, date('m'), date('d')-7));
 
         $newurl = Mage::helper('adminhtml')->getUrl('adminhtml/sales_order', array('_secure' => true, '_nosecret' => true));
         $title = Mage::helper('rss')->__('New Orders');
@@ -69,7 +69,7 @@ class Mage_Rss_Block_Order_New extends Mage_Core_Block_Template
 
         $collection = $order->getCollection()
             ->addAttributeToFilter('created_at', array('date'=>true, 'from'=> $passDate))
-            ->addAttributeToSort('created_at','desc')
+            ->addAttributeToSort('created_at', 'desc')
         ;
 
         $detailBlock = Mage::getBlockSingleton('rss/order_details');

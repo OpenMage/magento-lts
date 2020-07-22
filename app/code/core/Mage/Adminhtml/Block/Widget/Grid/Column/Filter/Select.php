@@ -44,7 +44,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select extends Mage_Adminht
         }
 
         $colOptions = $this->getColumn()->getOptions();
-        if (!empty($colOptions) && is_array($colOptions) ) {
+        if (!empty($colOptions) && is_array($colOptions)) {
             $options = array($emptyOption);
             foreach ($colOptions as $value => $label) {
                 $options[] = array('value' => $value, 'label' => $label);
@@ -63,7 +63,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select extends Mage_Adminht
      */
     protected function _renderOption($option, $value)
     {
-        $selected = (($option['value'] == $value && (!is_null($value))) ? ' selected="selected"' : '' );
+        $selected = (($option['value'] == $value && (!is_null($value))) ? ' selected="selected"' : '');
         return '<option value="'. $this->escapeHtml($option['value']).'"'.$selected.'>'.$this->escapeHtml($option['label']).'</option>';
     }
 
@@ -71,7 +71,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select extends Mage_Adminht
     {
         $html = '<select name="'.$this->_getHtmlName().'" id="'.$this->_getHtmlId().'" class="no-changes">';
         $value = $this->getValue();
-        foreach ($this->_getOptions() as $option){
+        foreach ($this->_getOptions() as $option) {
             if (is_array($option['value'])) {
                 $html .= '<optgroup label="' . $this->escapeHtml($option['label']) . '">';
                 foreach ($option['value'] as $subOption) {
@@ -93,5 +93,4 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select extends Mage_Adminht
         }
         return array('eq' => $this->getValue());
     }
-
 }

@@ -259,8 +259,7 @@ class Mage_Core_Model_Translate_Inline
         $trigImg = Mage::getDesign()->getSkinUrl('images/fam_book_open.png');
 
         ob_start();
-        $magentoSkinUrl = Mage::getDesign()->getSkinUrl('lib/prototype/windows/themes/magento.css');
-?>
+        $magentoSkinUrl = Mage::getDesign()->getSkinUrl('lib/prototype/windows/themes/magento.css'); ?>
 <!-- script type="text/javascript" src="<?php echo $baseJsUrl ?>prototype/effects.js"></script -->
 <script type="text/javascript" src="<?php echo $baseJsUrl ?>prototype/window.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo $baseJsUrl ?>prototype/windows/themes/default.css"/>

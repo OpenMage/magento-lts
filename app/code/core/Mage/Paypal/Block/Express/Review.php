@@ -140,8 +140,10 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
         if ($rate->getErrorMessage()) {
             $price = $rate->getErrorMessage();
         } else {
-            $price = $this->_getShippingPrice($rate->getPrice(),
-                $this->helper('tax')->displayShippingPriceIncludingTax());
+            $price = $this->_getShippingPrice(
+                $rate->getPrice(),
+                $this->helper('tax')->displayShippingPriceIncludingTax()
+            );
 
             $incl = $this->_getShippingPrice($rate->getPrice(), true);
             if (($incl != $price) && $this->helper('tax')->displayShippingBothPrices()) {

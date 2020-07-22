@@ -101,7 +101,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
      *
      * @var array
      */
-    static protected $_labels                   = null;
+    protected static $_labels                   = null;
 
     protected function _construct()
     {

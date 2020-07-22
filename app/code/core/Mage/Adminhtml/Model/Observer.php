@@ -34,7 +34,6 @@
  */
 class Mage_Adminhtml_Model_Observer
 {
-
     public function bindLocale($observer)
     {
         if ($locale=$observer->getEvent()->getLocale()) {

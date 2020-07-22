@@ -73,5 +73,4 @@ class Mage_Adminhtml_Block_Page extends Mage_Adminhtml_Block_Template
         $this->setBodyClass($this->getBodyClass() . ' ' . $className);
         return $this;
     }
-
 }

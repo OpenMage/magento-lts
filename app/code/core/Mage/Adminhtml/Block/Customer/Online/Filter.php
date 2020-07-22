@@ -43,8 +43,10 @@ class Mage_Adminhtml_Block_Customer_Online_Filter extends Mage_Adminhtml_Block_W
     {
         $form = new Varien_Data_Form();
 
-        $form->addField('filter_value', 'select',
-                array(
+        $form->addField(
+            'filter_value',
+            'select',
+            array(
                     'name' => 'filter_value',
                     'onchange' => 'this.form.submit()',
                     'values' => array(

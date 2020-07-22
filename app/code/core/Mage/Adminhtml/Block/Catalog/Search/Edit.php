@@ -34,7 +34,6 @@
 
 class Mage_Adminhtml_Block_Catalog_Search_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
-
     public function __construct()
     {
         $this->_objectId = 'id';
@@ -50,10 +49,8 @@ class Mage_Adminhtml_Block_Catalog_Search_Edit extends Mage_Adminhtml_Block_Widg
     {
         if (Mage::registry('current_catalog_search')->getId()) {
             return Mage::helper('catalog')->__("Edit Search '%s'", $this->escapeHtml(Mage::registry('current_catalog_search')->getQueryText()));
-        }
-        else {
+        } else {
             return Mage::helper('catalog')->__('New Search');
         }
     }
-
 }

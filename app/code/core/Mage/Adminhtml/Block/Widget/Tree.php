@@ -32,5 +32,4 @@ class Mage_Adminhtml_Block_Tree extends Mage_Adminhtml_Block_Template
         parent::_construct();
         $this->setTemplate('tree.phtml');
     }
-
 }

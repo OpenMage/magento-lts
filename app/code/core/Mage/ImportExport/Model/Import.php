@@ -70,8 +70,8 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
      *
      * @var Mage_ImportExport_Model_Import_Entity_Abstract
      */
-    protected static $_entityInvalidatedIndexes = array (
-        'catalog_product' => array (
+    protected static $_entityInvalidatedIndexes = array(
+        'catalog_product' => array(
             'catalog_product_price',
             'catalog_category_product',
             'catalogsearch_fulltext',

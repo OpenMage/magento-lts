@@ -99,8 +99,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
                 Validation.add(
                     'validate-website-has-store',
                     '" . Mage::helper('core')->jsQuoteEscape(
-                        Mage::helper('customer')->__('Please select a website which contains store view')
-                    ) . "',
+                    Mage::helper('customer')->__('Please select a website which contains store view')
+                ) . "',
                     function(v, elem){
                         return {$prefix}_websites[elem.value] == true;
                     }
@@ -133,7 +133,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
             $prefixOptions = $this->helper('customer')->getNamePrefixOptions($customerStoreId);
             if (!empty($prefixOptions)) {
                 $fieldset->removeField($prefixElement->getId());
-                $prefixField = $fieldset->addField($prefixElement->getId(),
+                $prefixField = $fieldset->addField(
+                    $prefixElement->getId(),
                     'select',
                     $prefixElement->getData(),
                     $form->getElement('group_id')->getId()
@@ -142,7 +143,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
                 if ($customer->getId()) {
                     $prefixField->addElementValues($customer->getPrefix());
                 }
-
             }
         }
 
@@ -151,7 +151,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
             $suffixOptions = $this->helper('customer')->getNameSuffixOptions($customerStoreId);
             if (!empty($suffixOptions)) {
                 $fieldset->removeField($suffixElement->getId());
-                $suffixField = $fieldset->addField($suffixElement->getId(),
+                $suffixField = $fieldset->addField(
+                    $suffixElement->getId(),
                     'select',
                     $suffixElement->getData(),
                     $form->getElement('lastname')->getId()
@@ -172,7 +173,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
                     array('legend' => Mage::helper('customer')->__('Password Management'))
                 );
                 // New customer password
-                $field = $newFieldset->addField('new_password', 'text',
+                $field = $newFieldset->addField(
+                    'new_password',
+                    'text',
                     array(
                         'label' => Mage::helper('customer')->__('New Password'),
                         'name'  => 'new_password',
@@ -208,7 +211,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
                 }
 
                 if (Mage::helper('customer')->getIsRequireAdminUserToChangeUserPassword()) {
-                    $field = $newFieldset->addField('current_password', 'obscure',
+                    $field = $newFieldset->addField(
+                        'current_password',
+                        'obscure',
                         array(
                             'name'  => 'current_password',
                             'label' => Mage::helper('customer')->__('Current Admin Password'),
@@ -224,7 +229,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
                 'password_fieldset',
                 array('legend'=>Mage::helper('customer')->__('Password Management'))
             );
-            $field = $newFieldset->addField('password', 'text',
+            $field = $newFieldset->addField(
+                'password',
+                'text',
                 array(
                     'label' => Mage::helper('customer')->__('Password'),
                     'class' => 'input-text required-entry validate-password min-pass-length-' . $minPasswordLength,

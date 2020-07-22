@@ -136,13 +136,13 @@ class Mage_Connect_Model_Extension extends Varien_Object
     protected function packageFilesToArray($filesString)
     {
         $packageFiles = array();
-        if($filesString) {
+        if ($filesString) {
             $filesArray = preg_split("/[\n\r]+/", $filesString);
-            foreach($filesArray as $file) {
+            foreach ($filesArray as $file) {
                 $file = trim($file, "/");
                 $res = explode(DIRECTORY_SEPARATOR, $file, 2);
                 array_map('trim', $res);
-                if(2 == count($res)) {
+                if (2 == count($res)) {
                     $packageFiles[] = array('target'=>$res[0], 'path'=>$res[1]);
                 }
             }
@@ -338,5 +338,4 @@ class Mage_Connect_Model_Extension extends Varien_Object
         }
         return $this->_targets;
     }
-
 }

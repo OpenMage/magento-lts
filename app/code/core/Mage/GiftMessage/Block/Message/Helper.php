@@ -39,7 +39,7 @@ class Mage_GiftMessage_Block_Message_Helper extends Mage_Core_Block_Template
     protected $_type   = null;
     protected $_giftMessage = null;
 
-    static protected $_scriptIncluded = false;
+    protected static $_scriptIncluded = false;
 
     public function __construct()
     {

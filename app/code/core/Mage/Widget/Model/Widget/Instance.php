@@ -101,12 +101,12 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
         }
     }
 
-     /**
-     * Init mapping array of short fields to
-     * its full names
-     *
-     * @return Varien_Object
-     */
+    /**
+    * Init mapping array of short fields to
+    * its full names
+    *
+    * @return Varien_Object
+    */
     protected function _initOldFieldsMap()
     {
         $this->_oldFieldsMap = array(

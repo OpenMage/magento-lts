@@ -32,5 +32,4 @@
  */
 class Mage_Cms_Model_Mysql4_Page_Service extends Mage_Cms_Model_Resource_Page_Service
 {
-
 }

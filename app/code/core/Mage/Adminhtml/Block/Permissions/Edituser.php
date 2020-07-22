@@ -24,7 +24,8 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-class Mage_Adminhtml_Block_Permissions_Edituser extends Mage_Adminhtml_Block_Widget_Tabs {
+class Mage_Adminhtml_Block_Permissions_Edituser extends Mage_Adminhtml_Block_Widget_Tabs
+{
     public function __construct()
     {
         parent::__construct();
@@ -40,7 +41,7 @@ class Mage_Adminhtml_Block_Permissions_Edituser extends Mage_Adminhtml_Block_Wid
             'content'   => $this->getLayout()->createBlock('adminhtml/permissions_tab_useredit')->toHtml(),
             'active'    => true
         ));
-        if( $this->getUser()->getUserId() ) {
+        if ($this->getUser()->getUserId()) {
             $this->addTab('roles', array(
                 'label'     => Mage::helper('adminhtml')->__('Roles'),
                 'title'     => Mage::helper('adminhtml')->__('Roles'),

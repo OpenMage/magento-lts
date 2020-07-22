@@ -170,7 +170,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
         if ($this->getBackendType() == 'decimal' && $hasDefaultValue) {
             $locale = Mage::app()->getLocale()->getLocaleCode();
             if (!Zend_Locale_Format::isNumber($defaultValue, array('locale' => $locale))) {
-                 throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid default decimal value'));
+                throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid default decimal value'));
             }
 
             try {

@@ -31,8 +31,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Model_System_Config_Backend_Customer_Show_Address
-    extends Mage_Adminhtml_Model_System_Config_Backend_Customer_Show_Customer
+class Mage_Adminhtml_Model_System_Config_Backend_Customer_Show_Address extends Mage_Adminhtml_Model_System_Config_Backend_Customer_Show_Customer
 {
     /**
      * Retrieve attribute objects

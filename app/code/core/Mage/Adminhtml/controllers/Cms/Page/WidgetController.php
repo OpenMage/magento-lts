@@ -55,5 +55,4 @@ class Mage_Adminhtml_Cms_Page_WidgetController extends Mage_Adminhtml_Controller
     {
         return Mage::getSingleton('admin/session')->isAllowed('cms/widget_instance');
     }
-
 }

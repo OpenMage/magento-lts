@@ -329,9 +329,9 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
         }
 
         if (isset($productData['tier_price']) && is_array($productData['tier_price'])) {
-             $tierPrices = Mage::getModel('catalog/product_attribute_tierprice_api')
+            $tierPrices = Mage::getModel('catalog/product_attribute_tierprice_api')
                  ->prepareTierPrices($product, $productData['tier_price']);
-             $product->setData(Mage_Catalog_Model_Product_Attribute_Tierprice_Api::ATTRIBUTE_CODE, $tierPrices);
+            $product->setData(Mage_Catalog_Model_Product_Attribute_Tierprice_Api::ATTRIBUTE_CODE, $tierPrices);
         }
     }
 
@@ -395,13 +395,13 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
         return true;
     }
 
-   /**
-    * Get list of additional attributes which are not in default create/update list
-    *
-    * @param  int $productType
-    * @param  int $attributeSetId
-    * @return array
-    */
+    /**
+     * Get list of additional attributes which are not in default create/update list
+     *
+     * @param  int $productType
+     * @param  int $attributeSetId
+     * @return array
+     */
     public function getAdditionalAttributes($productType, $attributeSetId)
     {
         $this->_checkProductTypeExists($productType);

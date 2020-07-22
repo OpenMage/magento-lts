@@ -34,7 +34,6 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Data_Form_Element_Abstract
 {
-
     public function getElementHtml()
     {
         $html = $this->getContentHtml();
@@ -92,7 +91,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
 
         if (!$this->getDataObject()->getExistsStoreValueFlag($attributeCode)) {
             return true;
-        } else if ($this->getValue() == $defaultValue &&
+        } elseif ($this->getValue() == $defaultValue &&
                    $this->getDataObject()->getStoreId() != $this->_getDefaultStoreId()) {
             return false;
         }

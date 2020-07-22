@@ -31,8 +31,7 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple
-    extends Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes
+class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple extends Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes
 {
     /**
      * Link to currently editing product
@@ -66,14 +65,17 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple
 
         /* Standart attributes */
         foreach ($attributes as $attribute) {
-            if (($attribute->getIsRequired()
+            if ((
+                $attribute->getIsRequired()
                 && $attribute->getApplyTo()
                 // If not applied to configurable
                 && !in_array(Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE, $attribute->getApplyTo())
                 // If not used in configurable
-                && !in_array($attribute->getId(),
-                    $this->_getProduct()->getTypeInstance(true)->getUsedProductAttributeIds($this->_getProduct()))
+                && !in_array(
+                    $attribute->getId(),
+                    $this->_getProduct()->getTypeInstance(true)->getUsedProductAttributeIds($this->_getProduct())
                 )
+            )
                 // Or in additional
                 || in_array($attribute->getAttributeCode(), $attributesConfig['additional'])
             ) {
@@ -85,8 +87,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple
                 $attribute->setAttributeCode('simple_product_' . $attributeCode);
                 $element = $fieldset->addField(
                     'simple_product_' . $attributeCode,
-                     $inputType,
-                     array(
+                    $inputType,
+                    array(
                         'label'    => $attribute->getFrontend()->getLabel(),
                         'name'     => $attributeCode,
                         'required' => $attribute->getIsRequired(),
@@ -97,7 +99,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple
                     $element->setDisabled('true');
                     $element->setValue($this->_getProduct()->getData($attributeCode));
                     $element->setAfterElementHtml(
-                         '<input type="checkbox" id="simple_product_' . $attributeCode . '_autogenerate" '
+                        '<input type="checkbox" id="simple_product_' . $attributeCode . '_autogenerate" '
                          . 'name="simple_product[' . $attributeCode . '_autogenerate]" value="1" '
                          . 'onclick="toggleValueElements(this, this.parentNode)" checked="checked" /> '
                          . '<label for="simple_product_' . $attributeCode . '_autogenerate" >'
@@ -111,14 +113,13 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple
                     $element->setValues($attribute->getFrontend()->getSelectOptions());
                 }
             }
-
         }
 
         /* Configurable attributes */
         $usedAttributes = $this->_getProduct()->getTypeInstance(true)->getUsedProductAttributes($this->_getProduct());
         foreach ($usedAttributes as $attribute) {
             $attributeCode =  $attribute->getAttributeCode();
-            $fieldset->addField( 'simple_product_' . $attributeCode, 'select',  array(
+            $fieldset->addField('simple_product_' . $attributeCode, 'select', array(
                 'label' => $attribute->getFrontend()->getLabel(),
                 'name'  => $attributeCode,
                 'values' => $attribute->getSource()->getAllOptions(true, true),

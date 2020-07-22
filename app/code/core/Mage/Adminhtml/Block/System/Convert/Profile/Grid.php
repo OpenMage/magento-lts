@@ -33,7 +33,6 @@
  */
 class Mage_Adminhtml_Block_System_Convert_Profile_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -58,7 +57,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Grid extends Mage_Adminhtml_Bl
             'width'     => '50px',
             'index'     => 'profile_id',
         ));
-        $this->addColumn( 'name', array(
+        $this->addColumn('name', array(
             'header'    => Mage::helper('adminhtml')->__('Profile Name'),
             'index'     => 'name',
         ));
@@ -97,6 +96,4 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Grid extends Mage_Adminhtml_Bl
     {
         return $this->getUrl('*/*/edit', array('id'=>$row->getId()));
     }
-
 }
-

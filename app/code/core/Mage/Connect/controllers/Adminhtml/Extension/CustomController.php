@@ -132,10 +132,10 @@ class Mage_Connect_Adminhtml_Extension_CustomController extends Mage_Adminhtml_C
             } else {
                 $this->_forward('create');
             }
-        } catch (Mage_Core_Exception $e){
+        } catch (Mage_Core_Exception $e) {
             $session->addError($e->getMessage());
             $this->_redirect('*/*');
-        } catch (Exception $e){
+        } catch (Exception $e) {
             $session->addException($e, Mage::helper('connect')->__('Failed to save the package.'));
             $this->_redirect('*/*');
         }
@@ -163,10 +163,10 @@ class Mage_Connect_Adminhtml_Extension_CustomController extends Mage_Adminhtml_C
                 }
             }
             $this->_redirect('*/*');
-        } catch(Mage_Core_Exception $e){
+        } catch (Mage_Core_Exception $e) {
             $session->addError($e->getMessage());
             $this->_redirect('*/*');
-        } catch(Exception $e){
+        } catch (Exception $e) {
             $session->addException($e, Mage::helper('connect')->__('Failed to create the package.'));
             $this->_redirect('*/*');
         }

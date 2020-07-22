@@ -64,8 +64,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Serializer extends Mage_Core_Block_Templa
             foreach ($names as $name) {
                 $this->addColumnInputName($name);
             }
-        }
-        else {
+        } else {
             if (!in_array($names, $this->_inputsToSerialize)) {
                 $this->_inputsToSerialize[] = $names;
             }
@@ -95,8 +94,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Serializer extends Mage_Core_Block_Templa
         $result = array();
         if ($serializeData = $this->getSerializeData()) {
             $result = $serializeData;
-        }
-        elseif (!empty($this->_inputsToSerialize)) {
+        } elseif (!empty($this->_inputsToSerialize)) {
             return '{}';
         }
         return Mage::helper('core')->jsonEncode($result);
@@ -128,5 +126,4 @@ class Mage_Adminhtml_Block_Widget_Grid_Serializer extends Mage_Core_Block_Templa
                  ->setSerializeData($grid->$callback());
         }
     }
-
 }

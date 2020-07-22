@@ -34,5 +34,4 @@
  */
 class Mage_Admin_Model_Acl_Role_Generic extends Zend_Acl_Role
 {
-
 }

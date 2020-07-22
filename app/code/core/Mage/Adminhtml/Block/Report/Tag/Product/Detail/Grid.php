@@ -33,7 +33,6 @@
  */
 class Mage_Adminhtml_Block_Report_Tag_Product_Detail_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -42,7 +41,6 @@ class Mage_Adminhtml_Block_Report_Tag_Product_Detail_Grid extends Mage_Adminhtml
 
     protected function _prepareCollection()
     {
-
         $collection = Mage::getResourceModel('reports/tag_product_collection');
 
         $collection->addTagedCount()
@@ -59,7 +57,6 @@ class Mage_Adminhtml_Block_Report_Tag_Product_Detail_Grid extends Mage_Adminhtml
 
     protected function _prepareColumns()
     {
-
         $this->addColumn('tag_name', array(
             'header'    =>Mage::helper('reports')->__('Tag Name'),
             'index'     =>'tag_name'
@@ -88,6 +85,4 @@ class Mage_Adminhtml_Block_Report_Tag_Product_Detail_Grid extends Mage_Adminhtml
 
         return parent::_prepareColumns();
     }
-
 }
-

@@ -34,7 +34,6 @@
 
 class Mage_Adminhtml_Block_Report_Tag_Customer extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
-
     public function __construct()
     {
         $this->_controller = 'report_tag_customer';
@@ -42,5 +41,4 @@ class Mage_Adminhtml_Block_Report_Tag_Customer extends Mage_Adminhtml_Block_Widg
         parent::__construct();
         $this->_removeButton('add');
     }
-
 }

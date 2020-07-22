@@ -31,8 +31,7 @@
  * @package     Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address
-    extends Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
+class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
 {
     /**
      * Customer Address Form instance
@@ -109,7 +108,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address
             ->setEntity($addressModel);
 
         $attributes = $addressForm->getAttributes();
-        if(isset($attributes['street'])) {
+        if (isset($attributes['street'])) {
             Mage::helper('adminhtml/addresses')
                 ->processStreetAttribute($attributes['street']);
         }
@@ -120,7 +119,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address
             $prefixOptions = $this->helper('customer')->getNamePrefixOptions($this->getStore());
             if (!empty($prefixOptions)) {
                 $fieldset->removeField($prefixElement->getId());
-                $prefixField = $fieldset->addField($prefixElement->getId(),
+                $prefixField = $fieldset->addField(
+                    $prefixElement->getId(),
                     'select',
                     $prefixElement->getData(),
                     '^'
@@ -137,7 +137,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address
             $suffixOptions = $this->helper('customer')->getNameSuffixOptions($this->getStore());
             if (!empty($suffixOptions)) {
                 $fieldset->removeField($suffixElement->getId());
-                $suffixField = $fieldset->addField($suffixElement->getId(),
+                $suffixField = $fieldset->addField(
+                    $suffixElement->getId(),
                     'select',
                     $suffixElement->getData(),
                     $this->_form->getElement('lastname')->getId()

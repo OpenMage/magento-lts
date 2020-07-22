@@ -129,12 +129,12 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
         return true;
     }
 
-/**
-     * Retrieve category rewrite sufix for store
-     *
-     * @param int $storeId
-     * @return string
-     */
+    /**
+         * Retrieve category rewrite sufix for store
+         *
+         * @param int $storeId
+         * @return string
+         */
     public function getCategoryUrlSuffix($storeId = null)
     {
         if (is_null($storeId)) {

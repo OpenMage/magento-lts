@@ -49,5 +49,4 @@ class Mage_Adminhtml_Model_System_Config_Source_Currency_Service
         $options = $this->_options;
         return $options;
     }
-
 }

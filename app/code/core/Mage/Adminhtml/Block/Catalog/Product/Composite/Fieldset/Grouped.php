@@ -93,7 +93,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Grouped extends Ma
      *
      * @return Mage_Catalog_Block_Product_View_Type_Grouped
      */
-    public function setPreconfiguredValue() {
+    public function setPreconfiguredValue()
+    {
         $configValues = $this->getProduct()->getPreconfiguredValues()->getSuperGroup();
         if (is_array($configValues)) {
             $associatedProducts = $this->getAssociatedProducts();

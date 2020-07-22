@@ -34,7 +34,6 @@
 
 class Mage_Adminhtml_Rss_OrderController extends Mage_Adminhtml_Controller_Rss_Abstract
 {
-
     public function newAction()
     {
         if ($this->checkFeedEnable('order/new')) {

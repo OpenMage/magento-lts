@@ -34,7 +34,6 @@
  */
 class Mage_Dataflow_Model_Convert_Parser_Serialize extends Mage_Dataflow_Model_Convert_Parser_Abstract
 {
-
     public function parse()
     {
         $this->setData(unserialize($this->getData()));
@@ -46,5 +45,4 @@ class Mage_Dataflow_Model_Convert_Parser_Serialize extends Mage_Dataflow_Model_C
         $this->setData(serialize($this->getData()));
         return $this;
     }
-
 }

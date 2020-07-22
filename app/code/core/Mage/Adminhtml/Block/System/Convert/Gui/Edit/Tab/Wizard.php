@@ -33,7 +33,6 @@
  */
 class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Adminhtml_Block_Widget_Container
 {
-
     protected $_storeModel;
     protected $_attributes;
     protected $_addMapButtonHtml;
@@ -139,8 +138,10 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
 
         $opt = array();
         $opt = array(''=>$this->__('Any Attribute Set'));
-        if ($options) foreach($options as $index => $value) {
-            $opt[$index]  = $value;
+        if ($options) {
+            foreach ($options as $index => $value) {
+                $opt[$index]  = $value;
+            }
         }
         //array_slice($options, 0, 0, array(''=>$this->__('Any Attribute Set')));
         return $opt;
@@ -201,7 +202,8 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
      *
      * @return Mage_Adminhtml_Model_System_Store
      */
-    protected function _getStoreModel() {
+    protected function _getStoreModel()
+    {
         if (is_null($this->_storeModel)) {
             $this->_storeModel = Mage::getSingleton('adminhtml/system_store');
         }
@@ -232,6 +234,4 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
         }
         return $this->_shortDateFormat;
     }
-
 }
-

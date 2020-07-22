@@ -113,7 +113,8 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
     {
         $this->_beforeLoadByTxnId($txnId);
         $this->getResource()->loadObjectByTxnId(
-            $this, $txnId
+            $this,
+            $txnId
         );
         $this->_afterLoadByTxnId();
         return $this;

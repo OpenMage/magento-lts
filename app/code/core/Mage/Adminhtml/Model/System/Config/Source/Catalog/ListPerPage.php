@@ -34,7 +34,6 @@
  */
 class Mage_Adminhtml_Model_System_Config_Source_Catalog_ListPerPage
 {
-
     public function toOptionArray()
     {
         $result = array();
@@ -46,5 +45,4 @@ class Mage_Adminhtml_Model_System_Config_Source_Catalog_ListPerPage
         //$result[] = array('value' => 'all', 'label' => Mage::helper('catalog')->__('All'));
         return $result;
     }
-
 }

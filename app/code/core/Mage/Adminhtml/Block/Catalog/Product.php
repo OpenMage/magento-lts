@@ -87,7 +87,7 @@ class Mage_Adminhtml_Block_Catalog_Product extends Mage_Adminhtml_Block_Widget_C
     public function isSingleStoreMode()
     {
         if (!Mage::app()->isSingleStoreMode()) {
-               return false;
+            return false;
         }
         return true;
     }

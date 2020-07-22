@@ -33,19 +33,19 @@
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid_Renderer_Action extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
-
     public function render(Varien_Object $row)
     {
         $actions = array();
 
         $actions[] = array(
             '@'	=>  array(
-                'href'  => $this->getUrl('*/newsletter_template/preview',
+                'href'  => $this->getUrl(
+                    '*/newsletter_template/preview',
                     array(
                         'id'        => $row->getTemplateId(),
                         'subscriber'=> Mage::registry('subscriber')->getId()
                     )
-                                ),
+                ),
                 'target'=>	'_blank'
             ),
             '#'	=> Mage::helper('customer')->__('View')
@@ -56,7 +56,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid_Renderer_Action ext
 
     protected function _getEscapedValue($value)
     {
-        return addcslashes(htmlspecialchars($value),'\\\'');
+        return addcslashes(htmlspecialchars($value), '\\\'');
     }
 
     protected function _actionsToHtml(array $actions)
@@ -69,5 +69,4 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid_Renderer_Action ext
         }
         return implode('<span class="separator">&nbsp;|&nbsp;</span>', $html);
     }
-
 }

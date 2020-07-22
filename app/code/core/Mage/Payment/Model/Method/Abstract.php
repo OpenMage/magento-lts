@@ -400,10 +400,10 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      */
     public function validate()
     {
-         /**
-          * to validate payment method is allowed for billing country or not
-          */
-         $paymentInfo = $this->getInfoInstance();
+        /**
+         * to validate payment method is allowed for billing country or not
+         */
+        $paymentInfo = $this->getInfoInstance();
         if ($paymentInfo instanceof Mage_Sales_Model_Order_Payment) {
             $billingCountry = $paymentInfo->getOrder()->getBillingAddress()->getCountryId();
         } else {
@@ -412,7 +412,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
         if (!$this->canUseForCountry($billingCountry)) {
             Mage::throwException(Mage::helper('payment')->__('Selected payment type is not allowed for billing country.'));
         }
-         return $this;
+        return $this;
     }
 
     /**
@@ -501,7 +501,6 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      */
     public function refund(Varien_Object $payment, $amount)
     {
-
         if (!$this->canRefund()) {
             Mage::throwException(Mage::helper('payment')->__('Refund action is not available.'));
         }
@@ -648,11 +647,11 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
         return $this;
     }
 
-   /**
-     * Prepare info instance for save
-     *
-     * @return $this
-     */
+    /**
+      * Prepare info instance for save
+      *
+      * @return $this
+      */
     public function prepareSave()
     {
         return $this;

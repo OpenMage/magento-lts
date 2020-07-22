@@ -82,11 +82,11 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
      */
     public function getDefaultSender()
     {
-        if(!$this->getEntity()) {
+        if (!$this->getEntity()) {
             return '';
         }
 
-        if($this->_getSession()->getCustomer()->getId()) {
+        if ($this->_getSession()->getCustomer()->getId()) {
             return $this->_getSession()->getCustomer()->getName();
         }
 
@@ -106,7 +106,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
      */
     public function getDefaultRecipient()
     {
-        if(!$this->getEntity()) {
+        if (!$this->getEntity()) {
             return '';
         }
 
@@ -114,15 +114,13 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
 
         if ($this->getEntity()->getOrder()) {
             $object = $this->getEntity()->getOrder();
-        }
-        else if ($this->getEntity()->getQuote()){
+        } elseif ($this->getEntity()->getQuote()) {
             $object = $this->getEntity()->getQuote();
         }
 
         if ($object->getShippingAddress()) {
             return $object->getShippingAddress()->getName();
-        }
-        else if ($object->getBillingAddress()) {
+        } elseif ($object->getBillingAddress()) {
             return $object->getBillingAddress()->getName();
         }
 
@@ -139,7 +137,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
         $form = new Varien_Data_Form();
         $fieldset = $form->addFieldset('main', array('no_container'=>true));
 
-        $fieldset->addField('type','hidden',
+        $fieldset->addField(
+            'type',
+            'hidden',
             array(
                 'name' =>  $this->_getFieldName('type'),
             )
@@ -154,11 +154,11 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
         }
 
         // Set default sender and recipient from billing and shipping adresses
-        if(!$this->getMessage()->getSender()) {
+        if (!$this->getMessage()->getSender()) {
             $this->getMessage()->setSender($this->getDefaultSender());
         }
 
-        if(!$this->getMessage()->getRecipient()) {
+        if (!$this->getMessage()->getRecipient()) {
             $this->getMessage()->setRecipient($this->getDefaultRecipient());
         }
 
@@ -183,18 +183,24 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
      */
     protected function _prepareHiddenFields(Varien_Data_Form_Element_Fieldset $fieldset)
     {
-        $fieldset->addField('sender', 'hidden',
+        $fieldset->addField(
+            'sender',
+            'hidden',
             array(
                 'name' => $this->_getFieldName('sender')
             )
         );
-        $fieldset->addField('recipient', 'hidden',
+        $fieldset->addField(
+            'recipient',
+            'hidden',
             array(
                 'name' => $this->_getFieldName('recipient')
             )
         );
 
-        $fieldset->addField('message', 'hidden',
+        $fieldset->addField(
+            'message',
+            'hidden',
             array(
                 'name' => $this->_getFieldName('message')
             )
@@ -212,14 +218,18 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
      */
     protected function _prepareVisibleFields(Varien_Data_Form_Element_Fieldset $fieldset)
     {
-        $fieldset->addField('sender', 'text',
+        $fieldset->addField(
+            'sender',
+            'text',
             array(
                 'name'     => $this->_getFieldName('sender'),
                 'label'    => Mage::helper('sales')->__('From'),
                 'required' => $this->getMessage()->getMessage() ? true : false
             )
         );
-        $fieldset->addField('recipient', 'text',
+        $fieldset->addField(
+            'recipient',
+            'text',
             array(
                 'name'     => $this->_getFieldName('recipient'),
                 'label'    => Mage::helper('sales')->__('To'),
@@ -227,7 +237,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
             )
         );
 
-        $fieldset->addField('message', 'textarea',
+        $fieldset->addField(
+            'message',
+            'textarea',
             array(
                 'name'      => $this->_getFieldName('message'),
                 'label'     => Mage::helper('sales')->__('Message'),
@@ -246,8 +258,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     protected function _initMessage()
     {
         $this->_giftMessage = $this->helper('giftmessage/message')->getGiftMessage(
-                                   $this->getEntity()->getGiftMessageId()
-                              );
+            $this->getEntity()->getGiftMessageId()
+        );
         return $this;
     }
 
@@ -258,7 +270,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
      */
     public function getMessage()
     {
-        if(is_null($this->_giftMessage)) {
+        if (is_null($this->_giftMessage)) {
             $this->_initMessage();
         }
 
@@ -271,7 +283,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
      * @param string $name
      * @return string
      */
-    protected  function _getFieldName($name)
+    protected function _getFieldName($name)
     {
         return 'giftmessage[' . $this->getEntity()->getId() . '][' . $name . ']';
     }
@@ -282,7 +294,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
      * @param string $id
      * @return string
      */
-    protected  function _getFieldId($id)
+    protected function _getFieldId($id)
     {
         return $this->_getFieldIdPrefix() . $id;
     }
@@ -292,7 +304,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
      *
      * @return string
      */
-    protected  function _getFieldIdPrefix()
+    protected function _getFieldIdPrefix()
     {
         return 'giftmessage_' . $this->getEntity()->getId() . '_';
     }
@@ -304,12 +316,11 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
      */
     protected function _applyPostData()
     {
-        if(is_array($giftmessages = $this->getRequest()->getParam('giftmessage'))
+        if (is_array($giftmessages = $this->getRequest()->getParam('giftmessage'))
            && isset($giftmessages[$this->getEntity()->getId()])) {
             $this->getMessage()->addData($giftmessages[$this->getEntity()->getId()]);
         }
 
         return $this;
     }
-
 }

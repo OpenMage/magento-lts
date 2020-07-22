@@ -34,7 +34,6 @@
  */
 class Mage_Dataflow_Model_Convert_Profile_Collection
 {
-
     protected $_xml;
 
     protected $_containers;
@@ -168,7 +167,7 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
                         $mapData[(string)$mapNode['name']] = (string)$mapNode;
                     }
                     $container->setVar((string)$varNode['name'], $mapData);
-                }  else {
+                } else {
                     $value = (string)$varNode;
 
                     /**
@@ -200,5 +199,4 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
 
         return $this;
     }
-
 }

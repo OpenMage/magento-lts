@@ -113,7 +113,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
     public function setType($value='db')
     {
         $possibleTypes = Mage::helper('backup')->getBackupTypesList();
-        if(!in_array($value, $possibleTypes)) {
+        if (!in_array($value, $possibleTypes)) {
             $value = Mage::helper('backup')->getDefaultBackupType();
         }
 
@@ -156,8 +156,8 @@ class Mage_Backup_Model_Backup extends Varien_Object
         }
 
         $rawContent = '';
-        if ( $compress ) {
-            $rawContent = gzcompress( $content, self::COMPRESS_RATE );
+        if ($compress) {
+            $rawContent = gzcompress($content, self::COMPRESS_RATE);
         } else {
             $rawContent = $content;
         }
@@ -176,7 +176,6 @@ class Mage_Backup_Model_Backup extends Varien_Object
      */
     public function &getFile()
     {
-
         if (!$this->exists()) {
             Mage::throwException(Mage::helper('backup')->__("Backup file does not exist."));
         }
@@ -245,8 +244,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
             $path = $ioAdapter->getCleanPath($this->getPath());
             $ioAdapter->checkAndCreateFolder($path);
             $filePath = $path . DS . $this->getFileName();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             Mage::exception('Mage_Backup', $e->getMessage());
         }
 
@@ -308,8 +306,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
 
         try {
             gzwrite($this->_handler, $string);
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             Mage::exception('Mage_Backup', Mage::helper('backup')->__('An error occurred while writing to the backup file "%s".', $this->getFileName()));
         }
 

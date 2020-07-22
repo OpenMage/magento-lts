@@ -134,14 +134,14 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
           * Check order existing
           */
         if (!$order->getId()) {
-             $this->_fault('order_not_exists');
+            $this->_fault('order_not_exists');
         }
 
         /**
          * Check shipment create availability
          */
         if (!$order->canShip()) {
-             $this->_fault('data_invalid', Mage::helper('sales')->__('Cannot do shipment for order.'));
+            $this->_fault('data_invalid', Mage::helper('sales')->__('Cannot do shipment for order.'));
         }
 
         $shipment = $order->prepareShipment($itemsQty);
@@ -275,7 +275,7 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
      */
     public function infoTrack($shipmentIncrementId, $trackId)
     {
-         $shipment = Mage::getModel('sales/order_shipment')->loadByIncrementId($shipmentIncrementId);
+        $shipment = Mage::getModel('sales/order_shipment')->loadByIncrementId($shipmentIncrementId);
 
         if (!$shipment->getId()) {
             $this->_fault('not_exists');

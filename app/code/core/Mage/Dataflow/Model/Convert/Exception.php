@@ -34,7 +34,6 @@
  */
 class Mage_Dataflow_Model_Convert_Exception extends Varien_Exception
 {
-
     const NOTICE = 'NOTICE';
     const WARNING = 'WARNING';
     const ERROR = 'ERROR';
@@ -78,5 +77,4 @@ class Mage_Dataflow_Model_Convert_Exception extends Varien_Exception
         $this->_position = $position;
         return $this;
     }
-
 }

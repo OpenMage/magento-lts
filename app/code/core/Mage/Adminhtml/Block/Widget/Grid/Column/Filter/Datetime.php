@@ -32,8 +32,7 @@
  * @author      Magento Core Team <core@magentocommerce.com>
  * @todo        date format
  */
-class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Date
+class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Date
 {
     //full day is 86400, we need 23 hours:59 minutes:59 seconds = 86399
     const END_OF_DAY_IN_SECONDS = 86399;
@@ -92,8 +91,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime
                 $dateObj->setTimezone(Mage_Core_Model_Locale::DEFAULT_TIMEZONE);
 
                 return $dateObj;
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 return null;
             }
         }
@@ -138,7 +136,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime
                 inputField : "'.$htmlId.'_from",
                 ifFormat : "'.$format.'",
                 button : "'.$htmlId.'_from_trig",
-                showsTime: '. ( $this->getColumn()->getFilterTime() ? 'true' : 'false') .',
+                showsTime: '. ($this->getColumn()->getFilterTime() ? 'true' : 'false') .',
                 align : "Bl",
                 singleClick : true
             });
@@ -146,7 +144,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime
                 inputField : "'.$htmlId.'_to",
                 ifFormat : "'.$format.'",
                 button : "'.$htmlId.'_to_trig",
-                showsTime: '. ( $this->getColumn()->getFilterTime() ? 'true' : 'false') .',
+                showsTime: '. ($this->getColumn()->getFilterTime() ? 'true' : 'false') .',
                 align : "Bl",
                 singleClick : true
             });

@@ -34,5 +34,4 @@
  */
 class Mage_Api_Model_Acl_Resource extends Zend_Acl_Resource
 {
-
 }

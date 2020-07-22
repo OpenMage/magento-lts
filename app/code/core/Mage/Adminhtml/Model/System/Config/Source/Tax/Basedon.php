@@ -33,5 +33,4 @@ class Mage_Adminhtml_Model_System_Config_Source_Tax_Basedon
             array('value'=>'origin', 'label'=>Mage::helper('adminhtml')->__("Shipping Origin")),
         );
     }
-
 }

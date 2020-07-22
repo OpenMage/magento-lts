@@ -47,8 +47,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Checkboxes_Tree extends Mage_Adminht
     {
         if (empty($ids)) {
             $ids = array();
-        }
-        elseif (!is_array($ids)) {
+        } elseif (!is_array($ids)) {
             $ids = array((int)$ids);
         }
         $this->_selectedIds = $ids;
@@ -61,7 +60,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Checkboxes_Tree extends Mage_Adminht
         $item['text']= $this->escapeHtml($node->getName());
 
         if ($this->_withProductCount) {
-             $item['text'].= ' ('.$node->getProductCount().')';
+            $item['text'].= ' ('.$node->getProductCount().')';
         }
         $item['id']  = $node->getId();
         $item['path'] = $node->getData('path');

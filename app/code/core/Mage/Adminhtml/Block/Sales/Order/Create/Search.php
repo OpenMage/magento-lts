@@ -34,7 +34,6 @@
 
 class Mage_Adminhtml_Block_Sales_Order_Create_Search extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -60,5 +59,4 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search extends Mage_Adminhtml_Bloc
     {
         return 'head-catalog-product';
     }
-
 }

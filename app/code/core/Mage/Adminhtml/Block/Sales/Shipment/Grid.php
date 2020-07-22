@@ -108,7 +108,8 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
             'type'  => 'number',
         ));
 
-        $this->addColumn('action',
+        $this->addColumn(
+            'action',
             array(
                 'header'    => Mage::helper('sales')->__('Action'),
                 'width'     => '50px',
@@ -124,7 +125,8 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
                 'filter'    => false,
                 'sortable'  => false,
                 'is_system' => true
-        ));
+        )
+        );
 
         $this->addExportType('*/*/exportCsv', Mage::helper('sales')->__('CSV'));
         $this->addExportType('*/*/exportExcel', Mage::helper('sales')->__('Excel XML'));
@@ -144,7 +146,8 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
             return false;
         }
 
-        return $this->getUrl('*/sales_shipment/view',
+        return $this->getUrl(
+            '*/sales_shipment/view',
             array(
                 'shipment_id'=> $row->getId(),
             )
@@ -184,5 +187,4 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
     {
         return $this->getUrl('*/*/*', array('_current' => true));
     }
-
 }

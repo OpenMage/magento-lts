@@ -40,7 +40,10 @@ class Mage_Adminhtml_Block_Poll_Answer_Edit_Form extends Mage_Adminhtml_Block_Wi
 
         $fieldset = $form->addFieldset('edit_answer_form', array('legend' => Mage::helper('poll')->__('Edit Poll Answer')));
 
-        $fieldset->addField('answer_title', 'text', array(
+        $fieldset->addField(
+            'answer_title',
+            'text',
+            array(
                     'name'      => 'answer_title',
                     'title'     => Mage::helper('poll')->__('Answer Title'),
                     'label'     => Mage::helper('poll')->__('Answer Title'),
@@ -49,7 +52,10 @@ class Mage_Adminhtml_Block_Poll_Answer_Edit_Form extends Mage_Adminhtml_Block_Wi
                 )
         );
 
-        $fieldset->addField('votes_count', 'text', array(
+        $fieldset->addField(
+            'votes_count',
+            'text',
+            array(
                     'name'      => 'votes_count',
                     'title'     => Mage::helper('poll')->__('Votes Count'),
                     'label'     => Mage::helper('poll')->__('Votes Count'),
@@ -57,7 +63,10 @@ class Mage_Adminhtml_Block_Poll_Answer_Edit_Form extends Mage_Adminhtml_Block_Wi
                 )
         );
 
-        $fieldset->addField('poll_id', 'hidden', array(
+        $fieldset->addField(
+            'poll_id',
+            'hidden',
+            array(
                     'name'      => 'poll_id',
                     'no_span'   => true,
                 )

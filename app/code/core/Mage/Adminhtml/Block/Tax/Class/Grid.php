@@ -33,7 +33,6 @@
  */
 class Mage_Adminhtml_Block_Tax_Class_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -53,7 +52,8 @@ class Mage_Adminhtml_Block_Tax_Class_Grid extends Mage_Adminhtml_Block_Widget_Gr
 
     protected function _prepareColumns()
     {
-        $this->addColumn('class_name',
+        $this->addColumn(
+            'class_name',
             array(
                 'header'    => Mage::helper('tax')->__('Class Name'),
                 'align'     => 'left',
@@ -68,5 +68,4 @@ class Mage_Adminhtml_Block_Tax_Class_Grid extends Mage_Adminhtml_Block_Widget_Gr
     {
         return $this->getUrl('*/*/edit', array('id' => $row->getId()));
     }
-
 }

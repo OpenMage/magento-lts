@@ -34,7 +34,6 @@
  */
 class Mage_Adminhtml_Block_System_Currency extends Mage_Adminhtml_Block_Template
 {
-
     protected function _construct()
     {
         $this->setTemplate('system/currency/rates.phtml');
@@ -42,35 +41,43 @@ class Mage_Adminhtml_Block_System_Currency extends Mage_Adminhtml_Block_Template
 
     protected function _prepareLayout()
     {
-        $this->setChild('save_button',
+        $this->setChild(
+            'save_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
                     'label'     => Mage::helper('adminhtml')->__('Save Currency Rates'),
                     'onclick'   => 'currencyForm.submit();',
                     'class'     => 'save'
-        )));
+        ))
+        );
 
-        $this->setChild('reset_button',
+        $this->setChild(
+            'reset_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
                     'label'     => Mage::helper('adminhtml')->__('Reset'),
                     'onclick'   => 'document.location.reload()',
                     'class'     => 'reset'
-        )));
+        ))
+        );
 
-        $this->setChild('import_button',
+        $this->setChild(
+            'import_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
                     'label'     => Mage::helper('adminhtml')->__('Import'),
                     'class'     => 'add',
                     'type'      => 'submit',
-        )));
+        ))
+        );
 
-        $this->setChild('rates_matrix',
+        $this->setChild(
+            'rates_matrix',
             $this->getLayout()->createBlock('adminhtml/system_currency_rate_matrix')
         );
 
-        $this->setChild('import_services',
+        $this->setChild(
+            'import_services',
             $this->getLayout()->createBlock('adminhtml/system_currency_rate_services')
         );
 
@@ -111,5 +118,4 @@ class Mage_Adminhtml_Block_System_Currency extends Mage_Adminhtml_Block_Template
     {
         return $this->getUrl('*/*/fetchRates');
     }
-
 }

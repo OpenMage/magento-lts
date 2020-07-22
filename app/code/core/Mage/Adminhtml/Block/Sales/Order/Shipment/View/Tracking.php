@@ -41,14 +41,14 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View_Tracking extends Mage_Admin
     protected function _prepareLayout()
     {
         $onclick = "submitAndReloadArea($('shipment_tracking_info').parentNode, '".$this->getSubmitUrl()."')";
-        $this->setChild('save_button',
+        $this->setChild(
+            'save_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
                     'label'   => Mage::helper('sales')->__('Add'),
                     'class'   => 'save',
                     'onclick' => $onclick
                 ))
-
         );
     }
 
@@ -132,8 +132,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View_Tracking extends Mage_Admin
     {
         if ($carrier = Mage::getSingleton('shipping/config')->getCarrierInstance($code)) {
             return $carrier->getConfigData('title');
-        }
-        else {
+        } else {
             return Mage::helper('sales')->__('Custom Value');
         }
         return false;

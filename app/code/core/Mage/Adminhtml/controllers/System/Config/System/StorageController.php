@@ -150,10 +150,12 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
                                 ->save();
                         }
                     }
+                    // no break
                 case Mage_Core_Model_File_Storage_Flag::STATE_FINISHED:
                     Mage::dispatchEvent('add_synchronize_message');
 
                     $state = Mage_Core_Model_File_Storage_Flag::STATE_NOTIFIED;
+                    // no break
                 case Mage_Core_Model_File_Storage_Flag::STATE_NOTIFIED:
                     $block = Mage::getSingleton('core/layout')
                         ->createBlock('adminhtml/notification_toolbar')

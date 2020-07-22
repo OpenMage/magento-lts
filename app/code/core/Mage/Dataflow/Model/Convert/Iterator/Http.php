@@ -37,7 +37,7 @@ class Mage_Dataflow_Model_Convert_Iterator_Http extends Mage_Dataflow_Model_Conv
     public function load()
     {
         if (!$_FILES) {
-?>
+            ?>
 <form method="POST" enctype="multipart/form-data">
 File to upload: <input type="file" name="io_file"/> <input type="submit" value="Upload"/>
 </form>
@@ -52,12 +52,10 @@ File to upload: <input type="file" name="io_file"/> <input type="submit" value="
             if ($uploadFile = $uploader->getUploadedFileName()) {
                 $fp = fopen($uploadFile, 'rb');
                 while ($row = fgetcsv($fp)) {
-
                 }
                 fclose($fp);
             }
         }
         return $this;
     }
-
 }

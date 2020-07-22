@@ -235,7 +235,7 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
         if (isset($data['rewrite_product_ids'])) {
             $urlModel->clearStoreInvalidRewrites(); // Maybe some products were moved or removed from website
             foreach (array_unique($data['rewrite_product_ids']) as $productId) {
-                 $urlModel->refreshProductRewrite($productId);
+                $urlModel->refreshProductRewrite($productId);
             }
         }
 

@@ -32,8 +32,7 @@
  * @package     Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
-    extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract
+abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract
 {
     /**
      * Data Form object
@@ -164,7 +163,7 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
 
                 if ($inputType == 'select' || $inputType == 'multiselect') {
                     $element->setValues($attribute->getFrontend()->getSelectOptions());
-                } else if ($inputType == 'date') {
+                } elseif ($inputType == 'date') {
                     $format = Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
                     $element->setImage($this->getSkinUrl('images/grid-cal.gif'));
                     $element->setFormat($format);

@@ -40,11 +40,10 @@
      *
      */
 
-    public function __construct()
-    {
-        parent::__construct();
-        $this->setTemplate('dashboard/grid.phtml');
-        $this->setDefaultLimit(5);
-    }
+     public function __construct()
+     {
+         parent::__construct();
+         $this->setTemplate('dashboard/grid.phtml');
+         $this->setDefaultLimit(5);
+     }
  }
-

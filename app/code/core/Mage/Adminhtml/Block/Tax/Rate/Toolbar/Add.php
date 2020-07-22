@@ -42,7 +42,8 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Add extends Mage_Adminhtml_Block_Tem
 
     protected function _prepareLayout()
     {
-        $this->setChild('addButton',
+        $this->setChild(
+            'addButton',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
                     'label' => Mage::helper('tax')->__('Add New Tax Rate'),

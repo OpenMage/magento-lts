@@ -33,13 +33,12 @@
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 
-class Mage_Adminhtml_Block_Catalog_Form_Renderer_Attribute_Urlkey
-    extends Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element
+class Mage_Adminhtml_Block_Catalog_Form_Renderer_Attribute_Urlkey extends Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element
 {
     public function getElementHtml()
     {
         $element = $this->getElement();
-        if(!$element->getValue()) {
+        if (!$element->getValue()) {
             return parent::getElementHtml();
         }
         $element->setOnkeyup("onUrlkeyChanged('" . $element->getHtmlId() . "')");

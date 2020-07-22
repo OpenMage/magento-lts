@@ -101,5 +101,4 @@ class Mage_Connect_Model_Extension_Collection extends Varien_Data_Collection_Fil
         $this->setCollectFiles($collectFiles)->setCollectDirs($collectDirs);
         return $result;
     }
-
 }

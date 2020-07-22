@@ -26,5 +26,4 @@
 
 class Mage_Paypal_UnavailableException extends Mage_Core_Exception
 {
-
 }

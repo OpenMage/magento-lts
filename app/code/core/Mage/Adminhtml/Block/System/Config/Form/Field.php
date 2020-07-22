@@ -32,9 +32,7 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_System_Config_Form_Field
-    extends Mage_Adminhtml_Block_Abstract
-    implements Varien_Data_Form_Element_Renderer_Interface
+class Mage_Adminhtml_Block_System_Config_Form_Field extends Mage_Adminhtml_Block_Abstract implements Varien_Data_Form_Element_Renderer_Interface
 {
 
     /**
@@ -72,8 +70,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field
         if ($element->getCanUseWebsiteValue()) {
             $addInheritCheckbox = true;
             $checkboxLabel = $this->__('Use Website');
-        }
-        elseif ($element->getCanUseDefaultValue()) {
+        } elseif ($element->getCanUseDefaultValue()) {
             $addInheritCheckbox = true;
             $checkboxLabel = $this->__('Use Default');
         }
@@ -99,7 +96,6 @@ class Mage_Adminhtml_Block_System_Config_Form_Field
         $html.= '</td>';
 
         if ($addInheritCheckbox) {
-
             $defText = $element->getDefaultValue();
             if ($options) {
                 $defTextArr = array();

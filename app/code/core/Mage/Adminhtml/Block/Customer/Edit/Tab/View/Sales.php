@@ -82,8 +82,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Sales extends Mage_Adminhtml_B
                 $sale->setWebsiteName($store->getWebsite()->getName());
                 $sale->setGroupId($store->getGroupId());
                 $sale->setGroupName($store->getGroup()->getName());
-            }
-            else {
+            } else {
                 $websiteId  = 0;
                 $groupId    = 0;
                 $storeId    = 0;
@@ -135,5 +134,4 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Sales extends Mage_Adminhtml_B
     {
         return Mage::app()->getWebsite($websiteId)->getBaseCurrency()->format($price);
     }
-
 }

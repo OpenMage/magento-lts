@@ -33,7 +33,6 @@
  */
 class Mage_Adminhtml_Block_Customer_Online extends Mage_Adminhtml_Block_Template
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -56,5 +55,4 @@ class Mage_Adminhtml_Block_Customer_Online extends Mage_Adminhtml_Block_Template
     {
         return $this->getChild('filterForm')->toHtml();
     }
-
 }

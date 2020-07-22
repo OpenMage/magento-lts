@@ -72,7 +72,9 @@ class Mage_Adminhtml_Block_Permissions_Variable_Grid extends Mage_Adminhtml_Bloc
             'header'    => Mage::helper('adminhtml')->__('Variable'),
             'index'     => 'variable_name'
         ));
-        $this->addColumn('is_allowed', array(
+        $this->addColumn(
+            'is_allowed',
+            array(
             'header'    => Mage::helper('adminhtml')->__('Status'),
             'index'     => 'is_allowed',
             'type'      => 'options',

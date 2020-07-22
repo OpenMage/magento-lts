@@ -34,7 +34,6 @@
 
 class Mage_Adminhtml_Block_Customer extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
-
     public function __construct()
     {
         $this->_controller = 'customer';
@@ -42,5 +41,4 @@ class Mage_Adminhtml_Block_Customer extends Mage_Adminhtml_Block_Widget_Grid_Con
         $this->_addButtonLabel = Mage::helper('customer')->__('Add New Customer');
         parent::__construct();
     }
-
 }

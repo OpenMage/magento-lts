@@ -33,7 +33,6 @@
  */
 class Mage_Adminhtml_Block_Catalog_Category_Tab_General extends Mage_Adminhtml_Block_Catalog_Form
 {
-
     protected $_category;
 
     public function __construct()
@@ -132,6 +131,4 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_General extends Mage_Adminhtml_B
         }
         return $options;
     }
-
 }
-

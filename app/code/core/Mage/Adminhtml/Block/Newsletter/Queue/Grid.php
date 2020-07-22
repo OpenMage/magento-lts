@@ -33,7 +33,6 @@
  */
 class Mage_Adminhtml_Block_Newsletter_Queue_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -83,7 +82,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Grid extends Mage_Adminhtml_Block_Wi
             'index'     =>  'newsletter_subject'
         ));
 
-         $this->addColumn('status', array(
+        $this->addColumn('status', array(
             'header'    => Mage::helper('newsletter')->__('Status'),
             'index'		=> 'queue_status',
             'type'      => 'options',
@@ -125,6 +124,4 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Grid extends Mage_Adminhtml_Block_Wi
     {
         return $this->getUrl('*/*/edit', array('id'=>$row->getId()));
     }
-
 }
-

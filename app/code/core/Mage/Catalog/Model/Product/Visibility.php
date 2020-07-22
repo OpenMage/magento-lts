@@ -148,11 +148,11 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
         return self::getOptionArray();
     }
 
-     /**
-     * Retrieve all options
-     *
-     * @return array
-     */
+    /**
+    * Retrieve all options
+    *
+    * @return array
+    */
     public static function getAllOption()
     {
         $options = self::getOptionArray();
@@ -303,11 +303,11 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
                         . " AND {$valueTable2}.store_id='{$collection->getStoreId()}'",
                     array()
                 );
-                $valueExpr = $collection->getConnection()->getCheckSql(
-                    $valueTable2 . '.value_id > 0',
-                    $valueTable2 . '.value',
-                    $valueTable1 . '.value'
-                );
+            $valueExpr = $collection->getConnection()->getCheckSql(
+                $valueTable2 . '.value_id > 0',
+                $valueTable2 . '.value',
+                $valueTable1 . '.value'
+            );
         }
 
         $collection->getSelect()->order($valueExpr . ' ' . $dir);

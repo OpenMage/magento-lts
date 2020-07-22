@@ -88,8 +88,8 @@ class Mage_Adminhtml_Block_Tag_Grid_All extends Mage_Adminhtml_Block_Widget_Grid
     protected function _addColumnFilterToCollection($column)
     {
         if ($this->getCollection() && $column->getFilter()->getValue()) {
-            if($column->getIndex()=='stores') {
-                $this->getCollection()->addAttributeToFilter( $column->getIndex(), $column->getFilter()->getCondition());
+            if ($column->getIndex()=='stores') {
+                $this->getCollection()->addAttributeToFilter($column->getIndex(), $column->getFilter()->getCondition());
             } else {
                 $this->getCollection()->addStoreFilter($column->getFilter()->getCondition());
             }
@@ -101,5 +101,4 @@ class Mage_Adminhtml_Block_Tag_Grid_All extends Mage_Adminhtml_Block_Widget_Grid
     {
         return $this->getUrl('*/*/products', array('tag_id' => $row->getId()));
     }
-
 }

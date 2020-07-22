@@ -26,7 +26,6 @@
 
 class Mage_Adminhtml_Block_Sales_Order_Status_New extends Mage_Adminhtml_Block_Widget_Form_Container
 {
-
     public function __construct()
     {
         $this->_objectId = 'status';

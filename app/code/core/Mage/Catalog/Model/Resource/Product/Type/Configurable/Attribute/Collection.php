@@ -34,8 +34,7 @@
  *
  * @method Mage_Catalog_Model_Product_Type_Configurable_Attribute getItemById(int $value)
  */
-class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
-    extends Mage_Core_Model_Resource_Db_Collection_Abstract
+class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
      * Configurable attributes label table name
@@ -99,7 +98,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
      */
     public function orderByPosition($dir = self::SORT_ORDER_ASC)
     {
-        $this->setOrder('position ',  $dir);
+        $this->setOrder('position ', $dir);
         return $this;
     }
 
@@ -194,15 +193,16 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
                     array(
                         'use_default' => $useDefaultCheck,
                         'label' => $labelCheck
-                    ))
+                    )
+                )
                 ->where('def.product_super_attribute_id IN (?)', array_keys($this->_items))
                 ->where('def.store_id = ?', 0);
 
-                $result = $this->getConnection()->fetchAll($select);
-                foreach ($result as $data) {
-                    $this->getItemById($data['product_super_attribute_id'])->setLabel($data['label']);
-                    $this->getItemById($data['product_super_attribute_id'])->setUseDefault($data['use_default']);
-                }
+            $result = $this->getConnection()->fetchAll($select);
+            foreach ($result as $data) {
+                $this->getItemById($data['product_super_attribute_id'])->setLabel($data['label']);
+                $this->getItemById($data['product_super_attribute_id'])->setUseDefault($data['use_default']);
+            }
         }
         return $this;
     }
@@ -260,7 +260,6 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
                 foreach ($this->getProduct()->getTypeInstance(true)
                              ->getUsedProducts(array($productAttribute->getAttributeCode()), $this->getProduct())
                          as $associatedProduct) {
-
                     $optionValue = $associatedProduct->getData($productAttribute->getAttributeCode());
 
                     if (array_key_exists($optionValue, $optionsByValue)) {
@@ -283,7 +282,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
                 }
             }
 
-            uasort($values, function($a, $b) {
+            uasort($values, function ($a, $b) {
                 return $a['order'] - $b['order'];
             });
 

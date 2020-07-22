@@ -117,7 +117,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser extends Mage_Adminhtml_Block_Wid
      */
     protected function _prepareColumns()
     {
-       $this->addColumn('rule_id', array(
+        $this->addColumn('rule_id', array(
             'header'    => Mage::helper('salesrule')->__('ID'),
             'align'     => 'right',
             'width'     => '50px',

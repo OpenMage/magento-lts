@@ -138,7 +138,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
             }
 
             $optionId = $_option->getId();
-            $option = array (
+            $option = array(
                 'selections' => array(),
                 'title'      => $_option->getTitle(),
                 'isMulti'    => in_array($_option->getType(), array('multi', 'checkbox')),
@@ -247,7 +247,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                     );
                 }
 
-                $selection = array (
+                $selection = array(
                     'qty'              => $_qty,
                     'customQty'        => $_selection->getSelectionCanChangeQty(),
                     'price'            => $coreHelper::currency($_selection->getFinalPrice(), false, false),

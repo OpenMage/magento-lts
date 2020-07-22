@@ -518,12 +518,12 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $this->_init('sales/order');
     }
 
-     /**
-     * Init mapping array of short fields to
-     * its full names
-     *
-     * @return Varien_Object
-     */
+    /**
+    * Init mapping array of short fields to
+    * its full names
+    *
+    * @return Varien_Object
+    */
     protected function _initOldFieldsMap()
     {
         $this->_oldFieldsMap = Mage::helper('sales')->getOldFieldMap('order');
@@ -1571,7 +1571,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     public function sendOrderUpdateEmail($notifyCustomer = true, $comment = '')
     {
         $this->queueOrderUpdateEmail($notifyCustomer, $comment, true);
-         return $this;
+        return $this;
     }
 
     /**
@@ -1587,7 +1587,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         return false;
     }
 
-/*********************** ADDRESSES ***************************/
+    /*********************** ADDRESSES ***************************/
 
     /**
      * @return Mage_Sales_Model_Resource_Order_Address_Collection
@@ -1806,7 +1806,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         return true;
     }
 
-/*********************** PAYMENTS ***************************/
+    /*********************** PAYMENTS ***************************/
 
     /**
      * @return Mage_Sales_Model_Resource_Order_Payment_Collection
@@ -1883,7 +1883,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         return $payment;
     }
 
-/*********************** STATUSES ***************************/
+    /*********************** STATUSES ***************************/
 
     /**
      * Enter description here...
@@ -2146,11 +2146,11 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         return $this->_invoices;
     }
 
-     /**
-     * Retrieve order shipments collection
-     *
-     * @return Mage_Sales_Model_Resource_Order_Shipment_Collection|false
-     */
+    /**
+    * Retrieve order shipments collection
+    *
+    * @return Mage_Sales_Model_Resource_Order_Shipment_Collection|false
+    */
     public function getShipmentsCollection()
     {
         if (empty($this->_shipments)) {

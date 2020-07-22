@@ -200,6 +200,7 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
                     $this->_registerCoreStoreEvent($event);
                     break;
                 }
+                // no break
             case Mage_Catalog_Model_Resource_Eav_Attribute::ENTITY:
             case Mage_Core_Model_Store_Group::ENTITY:
                 $event->addNewData('catalog_product_flat_skip_call_event_handler', true);

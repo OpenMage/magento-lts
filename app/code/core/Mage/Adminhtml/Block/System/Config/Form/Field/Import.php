@@ -74,5 +74,4 @@ EndHTML;
 
         return $html;
     }
-
 }

@@ -40,5 +40,4 @@ class Mage_Adminhtml_Block_Sales_Transactions extends Mage_Adminhtml_Block_Widge
         parent::__construct();
         $this->_removeButton('add');
     }
-
 }

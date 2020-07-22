@@ -25,7 +25,6 @@
  */
 
 
-class Mage_Paygate_Model_Authorizenet_Result extends Varien_Object 
+class Mage_Paygate_Model_Authorizenet_Result extends Varien_Object
 {
-    
 }

@@ -46,7 +46,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Toolbar_Main_Filter ext
             ->load()
             ->toOptionArray();
 
-        $form->addField('set_switcher', 'select',
+        $form->addField(
+            'set_switcher',
+            'select',
             array(
                 'name' => 'set_switcher',
                 'required' => true,

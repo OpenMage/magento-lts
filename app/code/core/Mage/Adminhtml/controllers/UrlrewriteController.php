@@ -43,7 +43,9 @@ class Mage_Adminhtml_UrlrewriteController extends Mage_Adminhtml_Controller_Acti
         $this->_title($this->__('Rewrite Rules'));
 
         // initialize urlrewrite, product and category models
-        Mage::register('current_urlrewrite', Mage::getSingleton('core/factory')->getUrlRewriteInstance()
+        Mage::register(
+            'current_urlrewrite',
+            Mage::getSingleton('core/factory')->getUrlRewriteInstance()
             ->load($this->getRequest()->getParam('id', 0))
         );
         $productId  = $this->getRequest()->getParam('product', 0);
@@ -107,7 +109,8 @@ class Mage_Adminhtml_UrlrewriteController extends Mage_Adminhtml_Controller_Acti
     public function categoriesJsonAction()
     {
         $id = $this->getRequest()->getParam('id', null);
-        $this->getResponse()->setBody(Mage::getBlockSingleton('adminhtml/urlrewrite_category_tree')
+        $this->getResponse()->setBody(
+            Mage::getBlockSingleton('adminhtml/urlrewrite_category_tree')
             ->getTreeArray($id, true, 1)
         );
     }
@@ -166,7 +169,7 @@ class Mage_Adminhtml_UrlrewriteController extends Mage_Adminhtml_Controller_Acti
                             $exceptionTxt = 'Chosen product does not associated with the chosen store or category.';
                             Mage::throwException($exceptionTxt);
                         }
-                        if($rewrite->getId() && $rewrite->getId() != $model->getId()) {
+                        if ($rewrite->getId() && $rewrite->getId() != $model->getId()) {
                             $model->setIdPath($idPath);
                             $model->setTargetPath($rewrite->getRequestPath());
                             $found = true;

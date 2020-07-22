@@ -57,11 +57,11 @@ class Mage_Directory_Model_Currency_Import_Fixerio extends Mage_Directory_Model_
      */
     protected $_messages = array();
 
-     /**
-     * HTTP client
-     *
-     * @var Varien_Http_Client
-     */
+    /**
+    * HTTP client
+    *
+    * @var Varien_Http_Client
+    */
     protected $_httpClient;
 
     /**

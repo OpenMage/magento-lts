@@ -115,10 +115,10 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
                         Mage::throwException(
                             Mage::helper('catalog')->__('Search Term with such search query already exists.')
                         );
-                    } else if (!$model->getId() && $queryId) {
+                    } elseif (!$model->getId() && $queryId) {
                         $model->load($queryId);
                     }
-                } else if ($queryId) {
+                } elseif ($queryId) {
                     $model->load($queryId);
                 }
 
@@ -128,12 +128,12 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
                 $this->_getSession()->addSuccess(
                     Mage::helper('catalog')->__('You saved the search term.')
                 );
-
             } catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
                 $hasError = true;
             } catch (Exception $e) {
-                $this->_getSession()->addException($e,
+                $this->_getSession()->addException(
+                    $e,
                     Mage::helper('catalog')->__('An error occurred while saving the search query.')
                 );
                 $hasError = true;
@@ -158,8 +158,7 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('catalog')->__('The search was deleted.'));
                 $this->_redirect('*/*/');
                 return;
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('id')));
                 return;
@@ -172,8 +171,8 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
     public function massDeleteAction()
     {
         $searchIds = $this->getRequest()->getParam('search');
-        if(!is_array($searchIds)) {
-             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Please select catalog searches.'));
+        if (!is_array($searchIds)) {
+            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Please select catalog searches.'));
         } else {
             try {
                 foreach ($searchIds as $searchId) {

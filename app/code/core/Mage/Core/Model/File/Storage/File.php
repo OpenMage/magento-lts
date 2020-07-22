@@ -292,5 +292,4 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
     {
         $this->getResource()->removeLockedFile($filePath);
     }
-
 }

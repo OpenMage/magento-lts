@@ -34,7 +34,6 @@
 
 class Mage_Adminhtml_Block_Sales_Order_Create_Totals_Table extends Mage_Adminhtml_Block_Template
 {
-
     protected $_websiteCollection = null;
 
     public function __construct()
@@ -42,5 +41,4 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Totals_Table extends Mage_Adminhtm
         parent::__construct();
         $this->setId('sales_order_create_totals_table');
     }
-
 }

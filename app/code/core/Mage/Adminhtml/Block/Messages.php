@@ -44,5 +44,4 @@ class Mage_Adminhtml_Block_Messages extends Mage_Core_Block_Messages
     {
         return 'adminhtml/url';
     }
-
 }

@@ -33,7 +33,6 @@
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid_Filter_Status extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select
 {
-
     protected static $_statuses;
 
     public function __construct()
@@ -61,11 +60,10 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid_Filter_Status exten
 
     public function getCondition()
     {
-        if(is_null($this->getValue())) {
+        if (is_null($this->getValue())) {
             return null;
         }
 
         return array('eq'=>$this->getValue());
     }
-
 }

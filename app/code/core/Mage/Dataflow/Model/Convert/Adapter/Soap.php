@@ -34,7 +34,6 @@
  */
 class Mage_Dataflow_Model_Convert_Adapter_Soap extends Mage_Dataflow_Model_Convert_Adapter_Abstract
 {
-
     public function load()
     {
         return $this;
@@ -44,5 +43,4 @@ class Mage_Dataflow_Model_Convert_Adapter_Soap extends Mage_Dataflow_Model_Conve
     {
         return $this;
     }
-
 }

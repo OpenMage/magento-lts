@@ -51,5 +51,4 @@ class Mage_Adminhtml_Block_Sitemap_Grid_Renderer_Link extends Mage_Adminhtml_Blo
         }
         return $url;
     }
-
 }

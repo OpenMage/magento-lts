@@ -104,14 +104,14 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    static protected $_countryModels = array();
+    protected static $_countryModels = array();
 
     /**
      * Directory region models
      *
      * @var array
      */
-    static protected $_regionModels = array();
+    protected static $_regionModels = array();
 
     /**
      * Get full customer name

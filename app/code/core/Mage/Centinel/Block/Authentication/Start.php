@@ -45,4 +45,3 @@ class Mage_Centinel_Block_Authentication_Start extends Mage_Core_Block_Template
         return '';
     }
 }
-

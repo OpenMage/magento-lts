@@ -92,7 +92,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract_Backend_Abstract extends
                 break;
             }
         }
-        if(!$hasCorrectValue) {
+        if (!$hasCorrectValue) {
             Mage::throwException(Mage::helper('usa')->__('Field "%s" has wrong value.', $this->_nameErrorField));
         }
         return $this;

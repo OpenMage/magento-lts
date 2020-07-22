@@ -73,7 +73,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
                 $itemsProductId[$item->getId()]     = $item->getProductId();
                 $itemsOrderItemId[$item->getId()]   = $item->getOrderItemId();
             }
-        } else if ($orderId) {
+        } elseif ($orderId) {
             $urlParams['order_id'] = $orderId;
             $createLabelUrl = $this->getUrl('*/sales_order_shipment/save', $urlParams);
             $itemsGridUrl = $this->getUrl('*/sales_order_shipment/getShippingItemsGrid', $urlParams);
@@ -221,7 +221,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
         foreach ($items as $item) {
             if ($itemsOf == 'order' && $item->getOrderItemId() == $itemId) {
                 return $item;
-            } else if ($itemsOf == 'shipment' && $item->getId() == $itemId) {
+            } elseif ($itemsOf == 'shipment' && $item->getId() == $itemId) {
                 return $item;
             }
         }

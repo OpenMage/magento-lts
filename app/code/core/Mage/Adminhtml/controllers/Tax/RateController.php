@@ -179,17 +179,14 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                     Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('tax')->__('The tax rate has been deleted.'));
                     $this->getResponse()->setRedirect($this->getUrl("*/*/"));
                     return true;
-                }
-                catch (Mage_Core_Exception $e) {
+                } catch (Mage_Core_Exception $e) {
                     Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-                }
-                catch (Exception $e) {
+                } catch (Exception $e) {
                     Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('An error occurred while deleting this rate.'));
                 }
                 if ($referer = $this->getRequest()->getServer('HTTP_REFERER')) {
                     $this->getResponse()->setRedirect($referer);
-                }
-                else {
+                } else {
                     $this->getResponse()->setRedirect($this->getUrl("*/*/"));
                 }
             } else {
@@ -272,8 +269,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('Invalid file upload attempt'));
             }
-        }
-        else {
+        } else {
             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('Invalid file upload attempt'));
         }
         $this->_redirect('*/*/importExport');
@@ -316,7 +312,6 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
             if (!$found) {
                 $unset[] = $i;
             }
-
         }
 
         $regions = array();
@@ -379,7 +374,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                     );
 
                     $rateModel = Mage::getModel('tax/calculation_rate')->loadByCode($rateData['code']);
-                    foreach($rateData as $dataName => $dataValue) {
+                    foreach ($rateData as $dataName => $dataValue) {
                         $rateModel->setData($dataName, $dataValue);
                     }
 
@@ -465,7 +460,6 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
 
     protected function _isAllowed()
     {
-
         $action = strtolower($this->getRequest()->getActionName());
         switch ($action) {
             case 'importexport':

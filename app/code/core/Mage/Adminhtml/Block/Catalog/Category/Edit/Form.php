@@ -51,13 +51,15 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
         $category = $this->getCategory();
         $categoryId = (int) $category->getId(); // 0 when we create category, otherwise some value for editing category
 
-        $this->setChild('tabs',
+        $this->setChild(
+            'tabs',
             $this->getLayout()->createBlock('adminhtml/catalog_category_tabs', 'tabs')
         );
 
         // Save button
         if (!$category->isReadonly()) {
-            $this->setChild('save_button',
+            $this->setChild(
+                'save_button',
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData(array(
                         'label'     => Mage::helper('catalog')->__('Save Category'),
@@ -69,7 +71,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
 
         // Delete button
         if (!in_array($categoryId, $this->getRootIds()) && $category->isDeleteable()) {
-            $this->setChild('delete_button',
+            $this->setChild(
+                'delete_button',
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData(array(
                         'label'     => Mage::helper('catalog')->__('Delete Category'),
@@ -82,7 +85,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
         // Reset button
         if (!$category->isReadonly()) {
             $resetPath = $categoryId ? '*/*/edit' : '*/*/add';
-            $this->setChild('reset_button',
+            $this->setChild(
+                'reset_button',
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData(array(
                         'label'     => Mage::helper('catalog')->__('Reset'),
@@ -154,8 +158,10 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
         if (isset($config['name'])) {
             $config['element_name'] = $config['name'];
         }
-        $this->setChild($alias . '_button',
-                        $this->getLayout()->createBlock('adminhtml/widget_button')->addData($config));
+        $this->setChild(
+            $alias . '_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')->addData($config)
+        );
         $this->_additionalButtons[$alias] = $alias . '_button';
         return $this;
     }

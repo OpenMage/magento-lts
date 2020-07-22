@@ -118,7 +118,6 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      */
     public function getProducts($product = null, $lastEntityId = 0, $limit = 100)
     {
-
         $select = $this->_getReadAdapter()->select()
             ->from(
                 array('e' => $this->getTable('catalog/product')),

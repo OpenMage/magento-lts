@@ -78,8 +78,7 @@ class Mage_Backup_Model_Observer
 
             $backupManager->create();
             Mage::log(Mage::helper('backup')->getCreateSuccessMessageByType($type));
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $this->_errors[] = $e->getMessage();
             $this->_errors[] = $e->getTrace();
             Mage::log($e->getMessage(), Zend_Log::ERR);

@@ -36,5 +36,4 @@
  */
 class Mage_Payment_Model_Info_Exception extends Mage_Core_Exception
 {
-
 }

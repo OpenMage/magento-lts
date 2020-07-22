@@ -423,22 +423,21 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
      * @param array $qtys
      * @return bool
      */
-    protected function _needToAddDummy($item, $qtys) {
+    protected function _needToAddDummy($item, $qtys)
+    {
         if ($item->getHasChildren()) {
             foreach ($item->getChildrenItems() as $child) {
                 if (isset($qtys[$child->getId()])
                     && isset($qtys[$child->getId()]['qty'])
-                    && $qtys[$child->getId()]['qty'] > 0)
-                {
+                    && $qtys[$child->getId()]['qty'] > 0) {
                     return true;
                 }
             }
             return false;
-        } else if($item->getParentItem()) {
+        } elseif ($item->getParentItem()) {
             if (isset($qtys[$item->getParentItem()->getId()])
                 && isset($qtys[$item->getParentItem()->getId()]['qty'])
-                && $qtys[$item->getParentItem()->getId()]['qty'] > 0)
-            {
+                && $qtys[$item->getParentItem()->getId()]['qty'] > 0) {
                 return true;
             }
             return false;

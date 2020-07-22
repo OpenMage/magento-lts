@@ -31,7 +31,6 @@
  */
 class Mage_Adminhtml_Block_Sales_Creditmemo_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -105,7 +104,8 @@ class Mage_Adminhtml_Block_Sales_Creditmemo_Grid extends Mage_Adminhtml_Block_Wi
             'currency'  => 'order_currency_code',
         ));
 
-        $this->addColumn('action',
+        $this->addColumn(
+            'action',
             array(
                 'header'    => Mage::helper('sales')->__('Action'),
                 'width'     => '50px',
@@ -121,7 +121,8 @@ class Mage_Adminhtml_Block_Sales_Creditmemo_Grid extends Mage_Adminhtml_Block_Wi
                 'filter'    => false,
                 'sortable'  => false,
                 'is_system' => true
-        ));
+        )
+        );
 
         $this->addExportType('*/*/exportCsv', Mage::helper('sales')->__('CSV'));
         $this->addExportType('*/*/exportExcel', Mage::helper('sales')->__('Excel XML'));
@@ -149,7 +150,8 @@ class Mage_Adminhtml_Block_Sales_Creditmemo_Grid extends Mage_Adminhtml_Block_Wi
             return false;
         }
 
-        return $this->getUrl('*/sales_creditmemo/view',
+        return $this->getUrl(
+            '*/sales_creditmemo/view',
             array(
                 'creditmemo_id'=> $row->getId(),
             )
@@ -160,7 +162,4 @@ class Mage_Adminhtml_Block_Sales_Creditmemo_Grid extends Mage_Adminhtml_Block_Wi
     {
         return $this->getUrl('*/*/*', array('_current' => true));
     }
-
-
-
 }

@@ -204,13 +204,13 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
         return $this->getAddToWishlistUrlCustom($product);
     }
 
-     /**
-     * Returns item configure url in wishlist
-     *
-     * @param Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $product
-     *
-     * @return string
-     */
+    /**
+    * Returns item configure url in wishlist
+    *
+    * @param Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $product
+    *
+    * @return string
+    */
     public function getItemConfigureUrl($product)
     {
         if ($product instanceof Mage_Catalog_Model_Product) {

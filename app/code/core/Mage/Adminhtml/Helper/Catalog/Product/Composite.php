@@ -33,12 +33,12 @@
  */
 class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_Abstract
 {
-     /**
-     * Init layout of product configuration update result
-     *
-     * @param Mage_Adminhtml_Controller_Action $controller
-     * @return $this
-     */
+    /**
+    * Init layout of product configuration update result
+    *
+    * @param Mage_Adminhtml_Controller_Action $controller
+    * @return $this
+    */
     protected function _initUpdateResultLayout($controller)
     {
         $controller->getLayout()->getUpdate()
@@ -63,17 +63,17 @@ class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_A
         $controller->renderLayout();
     }
 
-     /**
-     * Init composite product configuration layout
-     *
-     * $isOk - true or false, whether action was completed nicely or with some error
-     * If $isOk is FALSE (some error during configuration), so $productType must be null
-     *
-     * @param Mage_Adminhtml_Controller_Action $controller
-     * @param bool $isOk
-     * @param string $productType
-     * @return $this
-     */
+    /**
+    * Init composite product configuration layout
+    *
+    * $isOk - true or false, whether action was completed nicely or with some error
+    * If $isOk is FALSE (some error during configuration), so $productType must be null
+    *
+    * @param Mage_Adminhtml_Controller_Action $controller
+    * @param bool $isOk
+    * @param string $productType
+    * @return $this
+    */
     protected function _initConfigureResultLayout($controller, $isOk, $productType)
     {
         $update = $controller->getLayout()->getUpdate();

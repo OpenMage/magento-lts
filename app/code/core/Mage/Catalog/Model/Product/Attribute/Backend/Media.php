@@ -384,7 +384,6 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         $move = false,
         $exclude = true
     ) {
-
         $alreadyAddedFiles = array();
         $alreadyAddedFilesNames = array();
 

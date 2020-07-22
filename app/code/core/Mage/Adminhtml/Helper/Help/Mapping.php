@@ -224,7 +224,7 @@ abstract class Mage_Adminhtml_Helper_Help_Mapping extends Mage_Core_Helper_Abstr
      */
     protected function findInMapping($frontModule, $controllerName, $actionName)
     {
-        if ($actionName === 'index' ) {
+        if ($actionName === 'index') {
             $targetToFind = $controllerName;
         } else {
             $targetToFind = $controllerName . '/' . $actionName;
@@ -247,5 +247,4 @@ abstract class Mage_Adminhtml_Helper_Help_Mapping extends Mage_Core_Helper_Abstr
     {
         return Mage::getConfig()->getNode('default/help/target_version');
     }
-
 }

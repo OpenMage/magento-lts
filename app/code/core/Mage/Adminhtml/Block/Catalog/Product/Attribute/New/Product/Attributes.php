@@ -35,7 +35,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Attributes exte
 {
     protected function _prepareForm()
     {
-
         $form = new Varien_Data_Form();
         /**
          * Initialize product object as form property

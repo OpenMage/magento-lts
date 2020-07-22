@@ -31,8 +31,7 @@
  * @package     Mage_Paypal
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_PathDependent
-    extends Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Payment
+class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_PathDependent extends Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Payment
 {
     /**
      * Check whether current payment method has active dependencies

@@ -97,7 +97,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     protected $_mail;
     protected $_bccEmails = array();
 
-    static protected $_defaultTemplates;
+    protected static $_defaultTemplates;
 
     /**
      * Initialize email template model
@@ -350,7 +350,6 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      */
     public function getPreparedTemplateText($html = null)
     {
-
         if ($this->isPlain() && $html) {
             return $html;
         } elseif ($this->isPlain()) {

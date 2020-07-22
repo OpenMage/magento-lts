@@ -33,7 +33,6 @@
  */
 class Mage_Adminhtml_Block_Tag_Product_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -109,7 +108,7 @@ class Mage_Adminhtml_Block_Tag_Product_Grid extends Mage_Adminhtml_Block_Widget_
 
     protected function _addColumnFilterToCollection($column)
     {
-        if($column->getIndex() == 'popularity') {
+        if ($column->getIndex() == 'popularity') {
             $this->getCollection()->addPopularityFilter($column->getFilter()->getCondition());
             return $this;
         } else {
@@ -121,5 +120,4 @@ class Mage_Adminhtml_Block_Tag_Product_Grid extends Mage_Adminhtml_Block_Widget_
     {
         return $this->getUrl('*/catalog_product/edit', array('id' => $row->getProductId()));
     }
-
 }

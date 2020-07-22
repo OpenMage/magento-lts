@@ -31,5 +31,4 @@
  */
 class Mage_Page_Helper_Html extends Mage_Core_Helper_Abstract
 {
-    
 }

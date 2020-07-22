@@ -86,8 +86,7 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
 
         if ($cacheSecretKey) {
             $secret = array(self::SECRET_KEY_PARAM_NAME => "\${$_controller}/{$_action}\$");
-        }
-        else {
+        } else {
             $secret = array(self::SECRET_KEY_PARAM_NAME => $this->getSecretKey($_controller, $_action));
         }
         if (is_array($routeParams)) {

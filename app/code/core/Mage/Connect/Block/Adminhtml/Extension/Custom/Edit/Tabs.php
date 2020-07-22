@@ -99,5 +99,4 @@ class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tabs extends Mage_Admin
 //            ->initForm()
 //            ->toHtml();
     }
-
 }

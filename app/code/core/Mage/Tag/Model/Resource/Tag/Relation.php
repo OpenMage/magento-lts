@@ -77,7 +77,7 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
                 $bind['sore_id'] = $model->getStoreId();
             }
             $data = $read->fetchRow($select, $bind);
-            $model->setData(( is_array($data) ) ? $data : array());
+            $model->setData((is_array($data)) ? $data : array());
         }
 
         return $this;

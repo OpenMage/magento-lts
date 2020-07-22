@@ -181,7 +181,7 @@ class Mage_Bundle_Model_Resource_Selection extends Mage_Core_Model_Resource_Db_A
                 )
             );
         } else {
-             $values = array(
+            $values = array(
                 'selection_id' => $item->getSelectionId(),
                 'website_id'   => $item->getWebsiteId(),
                 'selection_price_type' => $item->getSelectionPriceType(),

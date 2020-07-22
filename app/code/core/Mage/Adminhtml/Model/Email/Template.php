@@ -94,7 +94,6 @@ class Mage_Adminhtml_Model_Email_Template extends Mage_Core_Model_Email_Template
         }
 
         foreach ($sysCfgNodes as $fieldNode) {
-
             $groupNode = $fieldNode->getParent()->getParent();
             $sectionNode = $groupNode->getParent()->getParent();
 
@@ -119,7 +118,8 @@ class Mage_Adminhtml_Model_Email_Template extends Mage_Core_Model_Email_Template
      *
      * @return $this
      */
-    protected function _afterDelete() {
+    protected function _afterDelete()
+    {
         $paths = $this->getSystemConfigPathsWhereUsedCurrently();
         foreach ($paths as $path) {
             $configDataCollection = Mage::getModel('core/config_data')

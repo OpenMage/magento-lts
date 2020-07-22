@@ -27,5 +27,4 @@
 
 class Mage_Payment_Model_Paygate_Result extends Varien_Object
 {
-    
 }

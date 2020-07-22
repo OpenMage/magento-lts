@@ -134,7 +134,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
             $itemIds[] = $item->getId();
         }
 
-         $params = array(
+        $params = array(
             'items' => implode(',', $itemIds),
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->getEncodedUrl()
         );

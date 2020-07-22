@@ -147,7 +147,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
 
         $inputRuleClass = $this->_getInputValidateClass();
         if ($inputRuleClass) {
-             $out[] = $inputRuleClass;
+            $out[] = $inputRuleClass;
         }
         if (!empty($out)) {
             $out = implode(' ', $out);
@@ -157,11 +157,11 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
         return $out;
     }
 
-     /**
-     * Return validate class by attribute input validation rule
-     *
-     * @return string|false
-     */
+    /**
+    * Return validate class by attribute input validation rule
+    *
+    * @return string|false
+    */
     protected function _getInputValidateClass()
     {
         $class          = false;

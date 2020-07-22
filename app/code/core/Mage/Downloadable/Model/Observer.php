@@ -221,7 +221,7 @@ class Mage_Downloadable_Model_Observer
                 ) {
                     if ($item->getStatusId() == Mage_Sales_Model_Order_Item::STATUS_BACKORDERED &&
                         $orderItemStatusToEnable == Mage_Sales_Model_Order_Item::STATUS_PENDING &&
-                        !in_array(Mage_Sales_Model_Order_Item::STATUS_BACKORDERED, $availableStatuses, true) ) {
+                        !in_array(Mage_Sales_Model_Order_Item::STATUS_BACKORDERED, $availableStatuses, true)) {
                         $availableStatuses[] = Mage_Sales_Model_Order_Item::STATUS_BACKORDERED;
                     }
 

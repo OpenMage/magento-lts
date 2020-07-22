@@ -25,7 +25,6 @@
  */
 class Mage_Adminhtml_Block_Api_Tab_Userroles extends Mage_Adminhtml_Block_Widget_Tabs
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -45,5 +44,4 @@ class Mage_Adminhtml_Block_Api_Tab_Userroles extends Mage_Adminhtml_Block_Widget
             ->assign('roles', $roles)
             ->assign('user_roles', $user_roles);
     }
-
 }

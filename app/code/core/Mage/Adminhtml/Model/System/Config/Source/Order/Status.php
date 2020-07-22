@@ -44,8 +44,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Order_Status
     {
         if ($this->_stateStatuses) {
             $statuses = Mage::getSingleton('sales/order_config')->getStateStatuses($this->_stateStatuses);
-        }
-        else {
+        } else {
             $statuses = Mage::getSingleton('sales/order_config')->getStatuses();
         }
         $options = array();

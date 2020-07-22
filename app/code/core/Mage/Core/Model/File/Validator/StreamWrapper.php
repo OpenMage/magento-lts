@@ -61,7 +61,7 @@ class Mage_Core_Model_File_Validator_StreamWrapper
         if (($pos = strpos($filePath, '://')) > 0) {
             $wrapper = substr($filePath, 0, $pos);
             if (!in_array($wrapper, $this->_allowedStreamWrappers)) {
-                 return false;
+                return false;
             }
         }
         return true;

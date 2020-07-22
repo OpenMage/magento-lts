@@ -221,7 +221,9 @@ class Mage_Paypal_Model_Info
     public function &exportFromPayment(Mage_Payment_Model_Info $payment, $to, array $map = null)
     {
         $fullMap = array_merge($this->_paymentMap, $this->_systemMap);
-        Varien_Object_Mapper::accumulateByMap(array($payment, 'getAdditionalInformation'), $to,
+        Varien_Object_Mapper::accumulateByMap(
+            array($payment, 'getAdditionalInformation'),
+            $to,
             $map ? $map : array_flip($fullMap)
         );
         return $to;
@@ -372,8 +374,9 @@ class Mage_Paypal_Model_Info
         );
         $value = (array_key_exists($code, $comments) && !empty($comments[$code]))
             ? $comments[$code]
-            : Mage::helper('paypal')->__('Unknown reason. Please contact PayPal customer service.'
-        );
+            : Mage::helper('paypal')->__(
+                'Unknown reason. Please contact PayPal customer service.'
+            );
         return $value;
     }
 
@@ -465,9 +468,9 @@ class Mage_Paypal_Model_Info
                 return Mage::helper('paypal')->__('Address Verification System Response');
             case 'paypal_cvv2_match':
                 return Mage::helper('paypal')->__('CVV2 Check Result by PayPal');
-            case self::BUYER_TAX_ID :
+            case self::BUYER_TAX_ID:
                 return Mage::helper('paypal')->__('Buyer\'s Tax ID');
-            case self::BUYER_TAX_ID_TYPE :
+            case self::BUYER_TAX_ID_TYPE:
                 return Mage::helper('paypal')->__('Buyer\'s Tax ID Type');
             case self::CENTINEL_VPAS:
                 return Mage::helper('paypal')->__('PayPal/Centinel Visa Payer Authentication Service Result');
@@ -517,8 +520,9 @@ class Mage_Paypal_Model_Info
             case self::CENTINEL_ECI:
                 $label = $this->_getCentinelEciLabel($value);
                 break;
-            case self::BUYER_TAX_ID_TYPE :
+            case self::BUYER_TAX_ID_TYPE:
                 $value = $this->_getBuyerIdTypeValue($value);
+                // no break
             default:
                 return $value;
         }
@@ -694,10 +698,10 @@ class Mage_Paypal_Model_Info
     {
         $value = '';
         switch ($code) {
-            case self::BUYER_TAX_ID_TYPE_CNPJ :
+            case self::BUYER_TAX_ID_TYPE_CNPJ:
                 $value = Mage::helper('paypal')->__('CNPJ');
                 break;
-            case self::BUYER_TAX_ID_TYPE_CPF :
+            case self::BUYER_TAX_ID_TYPE_CPF:
                 $value = Mage::helper('paypal')->__('CPF');
                 break;
         }

@@ -25,8 +25,7 @@
  */
 
 
-class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Order_Statuses
-    extends Mage_Adminhtml_Block_System_Config_Form_Fieldset
+class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Order_Statuses extends Mage_Adminhtml_Block_System_Config_Form_Fieldset
 {
     protected $_dummyElement;
     protected $_fieldRenderer;
@@ -70,7 +69,9 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Order_Statuses
 
         $e = $this->_getDummyElement();
 
-        $field = $fieldset->addField($id, 'text',
+        $field = $fieldset->addField(
+            $id,
+            'text',
             array(
                 'name'          => 'groups[order_statuses][fields][status_'.$id.'][value]',
                 'label'         => $status,
@@ -80,9 +81,9 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Order_Statuses
                 'inherit'       => isset($data['inherit']) ? $data['inherit'] : '',
                 'can_use_default_value' => $this->getForm()->canUseDefaultValue($e),
                 'can_use_website_value' => $this->getForm()->canUseWebsiteValue($e),
-            ))->setRenderer($this->_getFieldRenderer());
+            )
+        )->setRenderer($this->_getFieldRenderer());
 
         return $field->toHtml();
     }
-
 }

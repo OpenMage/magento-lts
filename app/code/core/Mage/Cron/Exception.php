@@ -33,5 +33,4 @@
  */
 class Mage_Cron_Exception extends Mage_Core_Exception
 {
-
 }

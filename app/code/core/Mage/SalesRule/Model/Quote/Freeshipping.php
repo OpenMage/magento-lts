@@ -95,13 +95,13 @@ class Mage_SalesRule_Model_Quote_Freeshipping extends Mage_Sales_Model_Quote_Add
         return $this;
     }
 
-   /**
-    * Add information about free shipping for all address items to address object
-    * By default we not present such information
-    *
-    * @param   Mage_Sales_Model_Quote_Address $address
-    * @return  Mage_SalesRule_Model_Quote_Freeshipping
-    */
+    /**
+     * Add information about free shipping for all address items to address object
+     * By default we not present such information
+     *
+     * @param   Mage_Sales_Model_Quote_Address $address
+     * @return  Mage_SalesRule_Model_Quote_Freeshipping
+     */
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {
         return $this;

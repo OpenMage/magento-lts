@@ -53,7 +53,6 @@ class Mage_Adminhtml_Customer_GroupController extends Mage_Adminhtml_Controller_
         if (!is_null($groupId)) {
             Mage::registry('current_group')->load($groupId);
         }
-
     }
     /**
      * Customer groups list.

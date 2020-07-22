@@ -33,7 +33,6 @@
  */
 class Mage_Adminhtml_Block_Report_Shopcart_Product_Grid extends Mage_Adminhtml_Block_Report_Grid_Shopcart
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -103,4 +102,3 @@ class Mage_Adminhtml_Block_Report_Shopcart_Product_Grid extends Mage_Adminhtml_B
         return $this->getUrl('*/catalog_product/edit', array('id'=>$row->getEntityId()));
     }
 }
-

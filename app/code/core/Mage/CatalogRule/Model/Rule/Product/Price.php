@@ -81,7 +81,6 @@ class Mage_CatalogRule_Model_Rule_Product_Price extends Mage_Core_Model_Abstract
         $updateFields,
         $websiteDate
     ) {
-
         $this->_getResource()->applyPriceRuleToIndexTable(
             $select,
             $indexTable,

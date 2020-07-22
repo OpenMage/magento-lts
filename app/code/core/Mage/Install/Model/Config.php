@@ -34,7 +34,6 @@
  */
 class Mage_Install_Model_Config extends Varien_Simplexml_Config
 {
-
     const XML_PATH_WIZARD_STEPS     = 'wizard/steps';
     const XML_PATH_CHECK_WRITEABLE  = 'check/filesystem/writeable';
     const XML_PATH_CHECK_EXTENSIONS = 'check/php/extensions';
@@ -138,13 +137,11 @@ class Mage_Install_Model_Config extends Varien_Simplexml_Config
                 foreach ($value as $subname => $subvalue) {
                     $res[$name][] = $subname;
                 }
-            }
-            else {
+            } else {
                 $res[$name] = (array) $value;
             }
         }
 
         return $res;
     }
-
 }

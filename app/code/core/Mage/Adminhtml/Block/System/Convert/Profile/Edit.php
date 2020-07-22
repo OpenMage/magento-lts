@@ -47,7 +47,6 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit extends Mage_Adminhtml_Bl
             'onclick' => "$('edit_form').action += 'continue/true/'; editForm.submit();",
             'class' => 'save',
         ), -100);
-
     }
 
     public function getProfileId()
@@ -59,8 +58,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit extends Mage_Adminhtml_Bl
     {
         if (Mage::registry('current_convert_profile')->getId()) {
             return $this->escapeHtml(Mage::registry('current_convert_profile')->getName());
-        }
-        else {
+        } else {
             return Mage::helper('adminhtml')->__('New Profile');
         }
     }

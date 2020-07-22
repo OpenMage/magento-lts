@@ -122,9 +122,11 @@ class Zend_Mime
      * @param int $lineEnd Defaults to {@link LINEEND}
      * @return string
      */
-    public static function encodeQuotedPrintable($str,
+    public static function encodeQuotedPrintable(
+        $str,
         $lineLength = self::LINELENGTH,
-        $lineEnd = self::LINEEND)
+        $lineEnd = self::LINEEND
+    )
     {
         $out = '';
         $str = self::_encodeQuotedPrintable($str);
@@ -183,9 +185,12 @@ class Zend_Mime
      * @param int $lineEnd Defaults to {@link LINEEND}
      * @return string
      */
-    public static function encodeQuotedPrintableHeader($str, $charset,
+    public static function encodeQuotedPrintableHeader(
+        $str,
+        $charset,
         $lineLength = self::LINELENGTH,
-        $lineEnd = self::LINEEND)
+        $lineEnd = self::LINEEND
+    )
     {
         // Reduce line-length by the length of the required delimiter, charsets and encoding
         $prefix = sprintf('=?%s?Q?', $charset);
@@ -201,16 +206,16 @@ class Zend_Mime
 
         // Split encoded text into separate lines
         $tmp = "";
-        while(strlen($str) > 0) {
+        while (strlen($str) > 0) {
             $currentLine = max(count($lines)-1, 0);
             $token       = self::getNextQuotedPrintableToken($str);
             $str         = substr($str, strlen($token));
 
             $tmp .= $token;
-            if($token == '=20') {
+            if ($token == '=20') {
                 // only if we have a single char token or space, we can append the
                 // tempstring it to the current line or start a new line if necessary.
-                if(strlen($lines[$currentLine].$tmp) > $lineLength) {
+                if (strlen($lines[$currentLine].$tmp) > $lineLength) {
                     $lines[$currentLine+1] = $tmp;
                 } else {
                     $lines[$currentLine] .= $tmp;
@@ -218,13 +223,13 @@ class Zend_Mime
                 $tmp = "";
             }
             // don't forget to append the rest to the last line
-            if(strlen($str) == 0) {
+            if (strlen($str) == 0) {
                 $lines[$currentLine] .= $tmp;
             }
         }
 
         // assemble the lines together by pre- and appending delimiters, charset, encoding.
-        for($i = 0; $i < count($lines); $i++) {
+        for ($i = 0; $i < count($lines); $i++) {
             $lines[$i] = " ".$prefix.$lines[$i]."?=";
         }
         $str = trim(implode($lineEnd, $lines));
@@ -239,7 +244,7 @@ class Zend_Mime
      */
     private static function getNextQuotedPrintableToken($str)
     {
-        if(substr($str, 0, 1) == "=") {
+        if (substr($str, 0, 1) == "=") {
             $token = substr($str, 0, 3);
         } else {
             $token = substr($str, 0, 1);
@@ -256,10 +261,12 @@ class Zend_Mime
      * @param int $lineEnd Defaults to {@link LINEEND}
      * @return string
      */
-    public static function encodeBase64Header($str,
+    public static function encodeBase64Header(
+        $str,
         $charset,
         $lineLength = self::LINELENGTH,
-        $lineEnd = self::LINEEND)
+        $lineEnd = self::LINEEND
+    )
     {
         $prefix = '=?' . $charset . '?B?';
         $suffix = '?=';
@@ -280,9 +287,11 @@ class Zend_Mime
      * @param int $lineEnd Defaults to {@link LINEEND}
      * @return string
      */
-    public static function encodeBase64($str,
+    public static function encodeBase64(
+        $str,
         $lineLength = self::LINELENGTH,
-        $lineEnd = self::LINEEND)
+        $lineEnd = self::LINEEND
+    )
     {
         return rtrim(chunk_split(base64_encode($str), $lineLength, $lineEnd));
     }

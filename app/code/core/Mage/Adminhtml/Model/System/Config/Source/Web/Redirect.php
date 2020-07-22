@@ -25,7 +25,6 @@
  */
 class Mage_Adminhtml_Model_System_Config_Source_Web_Redirect
 {
-
     public function toOptionArray()
     {
         return array(
@@ -34,5 +33,4 @@ class Mage_Adminhtml_Model_System_Config_Source_Web_Redirect
             array('value' => 301, 'label'=>Mage::helper('adminhtml')->__('Yes (301 Moved Permanently)')),
         );
     }
-
 }

@@ -49,7 +49,7 @@ abstract class Mage_Core_Model_Resource_Abstract
      *
      * @var array
      */
-    static protected $_commitCallbacks = array();
+    protected static $_commitCallbacks = array();
 
     /**
      * Resource initialization
@@ -142,7 +142,7 @@ abstract class Mage_Core_Model_Resource_Abstract
      */
     public function formatDate($date, $includeTime = true)
     {
-         return Varien_Date::formatDate($date, $includeTime);
+        return Varien_Date::formatDate($date, $includeTime);
     }
 
     /**

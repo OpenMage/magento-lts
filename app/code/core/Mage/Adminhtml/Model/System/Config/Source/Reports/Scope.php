@@ -44,5 +44,4 @@ class Mage_Adminhtml_Model_System_Config_Source_Reports_Scope
             array('value'=>'store', 'label'=>Mage::helper('adminhtml')->__('Store View')),
         );
     }
-
 }

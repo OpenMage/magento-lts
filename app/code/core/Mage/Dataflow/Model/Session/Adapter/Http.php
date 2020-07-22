@@ -37,7 +37,7 @@
      public function load()
      {
          if (!$_FILES) {
-?>
+             ?>
 <form method="POST" enctype="multipart/form-data">
 File to upload: <input type="file" name="io_file"/> <input type="submit" value="Upload"/>
 </form>
@@ -46,42 +46,41 @@ File to upload: <input type="file" name="io_file"/> <input type="submit" value="
          }
 
          if (!empty($_FILES['io_file']['tmp_name'])) {
-            $uploader = new Mage_Core_Model_File_Uploader('io_file');
-            $uploader->setAllowedExtensions(array('csv','xml'));
-            $path = Mage::app()->getConfig()->getTempVarDir().'/import/';
-            $uploader->save($path);
-            if ($uploadFile = $uploader->getUploadedFileName()) {
-                $session = Mage::getModel('dataflow/session');
-                $session->setCreatedDate(date('Y-m-d H:i:s'));
-                $session->setDirection('import');
-                $session->setUserId(Mage::getSingleton('admin/session')->getUser()->getId());
-                $session->save();
-                $sessionId = $session->getId();
-                $newFilename = 'import_'.$sessionId.'_'.$uploadFile;
-                rename($path.$uploadFile, $path.$newFilename);
-                $session->setFile($newFilename);
-                $session->save();
-                $this->setData(file_get_contents($path.$newFilename));
-                Mage::register('current_dataflow_session_id', $sessionId);
-                /*
-                $read = @fopen($path.$newFilename, "r");
-                if ($read) {
-                    $i = 0;
-                    while (!feof($read)) {
+             $uploader = new Mage_Core_Model_File_Uploader('io_file');
+             $uploader->setAllowedExtensions(array('csv','xml'));
+             $path = Mage::app()->getConfig()->getTempVarDir().'/import/';
+             $uploader->save($path);
+             if ($uploadFile = $uploader->getUploadedFileName()) {
+                 $session = Mage::getModel('dataflow/session');
+                 $session->setCreatedDate(date('Y-m-d H:i:s'));
+                 $session->setDirection('import');
+                 $session->setUserId(Mage::getSingleton('admin/session')->getUser()->getId());
+                 $session->save();
+                 $sessionId = $session->getId();
+                 $newFilename = 'import_'.$sessionId.'_'.$uploadFile;
+                 rename($path.$uploadFile, $path.$newFilename);
+                 $session->setFile($newFilename);
+                 $session->save();
+                 $this->setData(file_get_contents($path.$newFilename));
+                 Mage::register('current_dataflow_session_id', $sessionId);
+                 /*
+                 $read = @fopen($path.$newFilename, "r");
+                 if ($read) {
+                     $i = 0;
+                     while (!feof($read)) {
 
-                        $buffer = fgets($read, 4096);
-                        $import = Mage::getModel('dataflow/import');
-                        $import->setSerialNumber($i);
-                        $import->setSessionId($sessionId);
-                        $import->setSessionId($value);
-                        $i++;
-                    }
-                    fclose($read);
-                }
-                */
-            }
+                         $buffer = fgets($read, 4096);
+                         $import = Mage::getModel('dataflow/import');
+                         $import->setSerialNumber($i);
+                         $import->setSessionId($sessionId);
+                         $import->setSessionId($value);
+                         $i++;
+                     }
+                     fclose($read);
+                 }
+                 */
+             }
          }
          return $this;
      }
-
  }

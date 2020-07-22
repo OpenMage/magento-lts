@@ -219,7 +219,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                 if ($storeId == 0 || !strlen($label)) {
                     continue;
                 }
-                $bind = array (
+                $bind = array(
                     'attribute_id' => $object->getId(),
                     'store_id'     => $storeId,
                     'value'        => $label

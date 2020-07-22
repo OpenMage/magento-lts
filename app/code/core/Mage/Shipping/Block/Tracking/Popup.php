@@ -98,12 +98,12 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
         return $this->_getData('track_id');
     }
 
-     /**
-      * @deprecated after 1.4.0.0-alpha3
-      * Initialize order model instance
-      *
-      * @return Mage_Sales_Model_Order|false
-      */
+    /**
+     * @deprecated after 1.4.0.0-alpha3
+     * Initialize order model instance
+     *
+     * @return Mage_Sales_Model_Order|false
+     */
     protected function _initOrder()
     {
         $order = Mage::getModel('sales/order')->load($this->getOrderId());

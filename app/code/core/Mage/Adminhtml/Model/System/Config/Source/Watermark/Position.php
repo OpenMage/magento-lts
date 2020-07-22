@@ -52,5 +52,4 @@ class Mage_Adminhtml_Model_System_Config_Source_Watermark_Position
             array('value' => 'center',          'label' => Mage::helper('catalog')->__('Center')),
         );
     }
-
 }

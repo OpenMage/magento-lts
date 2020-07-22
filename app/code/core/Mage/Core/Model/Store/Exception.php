@@ -34,5 +34,4 @@
  */
 class Mage_Core_Model_Store_Exception extends Mage_Core_Exception
 {
-
 }

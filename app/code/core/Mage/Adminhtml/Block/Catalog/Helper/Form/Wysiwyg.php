@@ -70,4 +70,3 @@ class Mage_Adminhtml_Block_Catalog_Helper_Form_Wysiwyg extends Varien_Data_Form_
         return false;
     }
 }
-

@@ -51,8 +51,11 @@ $table = $installer->getConnection()
         ), 'Filename')
     ->addColumn('last_modified', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
         ), 'Last Modified')
-    ->addIndex($installer->getIdxName('paypal/settlement_report', array('report_date', 'account_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
-        array('report_date', 'account_id'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
+    ->addIndex(
+        $installer->getIdxName('paypal/settlement_report', array('report_date', 'account_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
+        array('report_date', 'account_id'),
+        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)
+    )
     ->setComment('Paypal Settlement Report Table');
 $installer->getConnection()->createTable($table);
 
@@ -108,11 +111,18 @@ $table = $installer->getConnection()
         ), 'Custom Field')
     ->addColumn('consumer_id', Varien_Db_Ddl_Table::TYPE_TEXT, 127, array(
         ), 'Consumer Id')
-    ->addIndex($installer->getIdxName('paypal/settlement_report_row', array('report_id')),
-        array('report_id'))
-    ->addForeignKey($installer->getFkName('paypal/settlement_report_row', 'report_id', 'paypal/settlement_report', 'report_id'),
-        'report_id', $installer->getTable('paypal/settlement_report'), 'report_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+    ->addIndex(
+        $installer->getIdxName('paypal/settlement_report_row', array('report_id')),
+        array('report_id')
+    )
+    ->addForeignKey(
+        $installer->getFkName('paypal/settlement_report_row', 'report_id', 'paypal/settlement_report', 'report_id'),
+        'report_id',
+        $installer->getTable('paypal/settlement_report'),
+        'report_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
     ->setComment('Paypal Settlement Report Row Table');
 $installer->getConnection()->createTable($table);
 
@@ -136,11 +146,18 @@ $table = $installer->getConnection()
         ), 'Content')
     ->addColumn('updated_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
         ), 'Updated At')
-    ->addIndex($installer->getIdxName('paypal/cert', array('website_id')),
-        array('website_id'))
-    ->addForeignKey($installer->getFkName('paypal/cert', 'website_id', 'core/website', 'website_id'),
-        'website_id', $installer->getTable('core/website'), 'website_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+    ->addIndex(
+        $installer->getIdxName('paypal/cert', array('website_id')),
+        array('website_id')
+    )
+    ->addForeignKey(
+        $installer->getFkName('paypal/cert', 'website_id', 'core/website', 'website_id'),
+        'website_id',
+        $installer->getTable('core/website'),
+        'website_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
     ->setComment('Paypal Certificate Table');
 $installer->getConnection()->createTable($table);
 
@@ -158,4 +175,3 @@ $installer->addAttribute('order', 'paypal_ipn_customer_notified', array('type' =
  * Prepare database after install
  */
 $installer->endSetup();
-

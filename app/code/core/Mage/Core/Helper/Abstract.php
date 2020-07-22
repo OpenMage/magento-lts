@@ -231,12 +231,12 @@ abstract class Mage_Core_Helper_Abstract
         return $result;
     }
 
-     /**
-     * Remove html tags, but leave "<" and ">" signs
-     *
-     * @param   string $html
-     * @return  string
-     */
+    /**
+    * Remove html tags, but leave "<" and ">" signs
+    *
+    * @param   string $html
+    * @return  string
+    */
     public function removeTags($html)
     {
         $html = preg_replace_callback(
@@ -425,7 +425,7 @@ abstract class Mage_Core_Helper_Abstract
     public function urlDecodeAndEscape($url)
     {
         $url = $this->urlDecode($url);
-        $quote = array ('\'', '"');
+        $quote = array('\'', '"');
         $replace = array('%27', '%22');
         $url = str_replace($quote, $replace, $url);
         return $url;

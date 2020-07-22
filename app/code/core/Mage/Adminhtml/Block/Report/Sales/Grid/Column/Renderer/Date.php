@@ -32,8 +32,7 @@
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 
-class Mage_Adminhtml_Block_Report_Sales_Grid_Column_Renderer_Date
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Date
+class Mage_Adminhtml_Block_Report_Sales_Grid_Column_Renderer_Date extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Date
 {
     /**
      * Retrieve date format
@@ -49,11 +48,11 @@ class Mage_Adminhtml_Block_Report_Sales_Grid_Column_Renderer_Date
                     $localeCode = Mage::app()->getLocale()->getLocaleCode();
                     $localeData = new Zend_Locale_Data;
                     switch ($this->getColumn()->getPeriodType()) {
-                        case 'month' :
+                        case 'month':
                             self::$_format = $localeData::getContent($localeCode, 'dateitem', 'yM');
                             break;
 
-                        case 'year' :
+                        case 'year':
                             self::$_format = $localeData::getContent($localeCode, 'dateitem', 'y');
                             break;
 
@@ -63,9 +62,7 @@ class Mage_Adminhtml_Block_Report_Sales_Grid_Column_Renderer_Date
                             );
                             break;
                     }
-                }
-                catch (Exception $e) {
-
+                } catch (Exception $e) {
                 }
             }
             $format = self::$_format;
@@ -83,10 +80,10 @@ class Mage_Adminhtml_Block_Report_Sales_Grid_Column_Renderer_Date
     {
         if ($data = $row->getData($this->getColumn()->getIndex())) {
             switch ($this->getColumn()->getPeriodType()) {
-                case 'month' :
+                case 'month':
                     $dateFormat = 'yyyy-MM';
                     break;
-                case 'year' :
+                case 'year':
                     $dateFormat = 'yyyy';
                     break;
                 default:
@@ -99,8 +96,7 @@ class Mage_Adminhtml_Block_Report_Sales_Grid_Column_Renderer_Date
                 $data = ($this->getColumn()->getGmtoffset())
                     ? Mage::app()->getLocale()->date($data, $dateFormat)->toString($format)
                     : Mage::getSingleton('core/locale')->date($data, Zend_Date::ISO_8601, null, false)->toString($format);
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 $data = ($this->getColumn()->getTimezone())
                     ? Mage::app()->getLocale()->date($data, $dateFormat)->toString($format)
                     : Mage::getSingleton('core/locale')->date($data, $dateFormat, null, false)->toString($format);

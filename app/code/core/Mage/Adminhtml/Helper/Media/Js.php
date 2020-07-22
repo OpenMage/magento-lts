@@ -35,10 +35,9 @@
  */
 class Mage_Adminhtml_Helper_Media_Js extends Mage_Core_Helper_Js
 {
-
     public function __construct()
     {
-         $this->_translateData = array(
+        $this->_translateData = array(
             'Complete' => $this->__('Complete'),
             'File size should be more than 0 bytes' => $this->__('File size should be more than 0 bytes'),
             'Upload Security Error' => $this->__('Upload Security Error'),
@@ -67,5 +66,4 @@ class Mage_Adminhtml_Helper_Media_Js extends Mage_Core_Helper_Js
                 . '}';
         return $this->getScript($script);
     }
-
 }

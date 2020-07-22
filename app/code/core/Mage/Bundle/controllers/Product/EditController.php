@@ -36,5 +36,4 @@ require_once 'Mage/Bundle/controllers/Adminhtml/Bundle/Product/EditController.ph
  */
 class Mage_Bundle_Product_EditController extends Mage_Bundle_Adminhtml_Bundle_Product_EditController
 {
-
 }

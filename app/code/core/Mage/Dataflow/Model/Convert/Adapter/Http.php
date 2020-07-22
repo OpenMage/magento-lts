@@ -34,11 +34,10 @@
  */
 class Mage_Dataflow_Model_Convert_Adapter_Http extends Mage_Dataflow_Model_Convert_Adapter_Abstract
 {
-
     public function load()
     {
         if (!$_FILES) {
-?>
+            ?>
 <form method="POST" enctype="multipart/form-data">
 File to upload: <input type="file" name="io_file"/> <input type="submit" value="Upload"/>
 </form>
@@ -66,7 +65,7 @@ File to upload: <input type="file" name="io_file"/> <input type="submit" value="
     public function loadFile()
     {
         if (!$_FILES) {
-?>
+            ?>
 <form method="POST" enctype="multipart/form-data">
 File to upload: <input type="file" name="io_file"/> <input type="submit" value="Upload"/>
 </form>
@@ -95,5 +94,4 @@ File to upload: <input type="file" name="io_file"/> <input type="submit" value="
         }
         return $this;
     }
-
 }

@@ -34,7 +34,6 @@
 
 class Mage_Adminhtml_Block_Permissions_Role extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
-
     public function __construct()
     {
         $this->_controller = 'permissions_role';
@@ -42,5 +41,4 @@ class Mage_Adminhtml_Block_Permissions_Role extends Mage_Adminhtml_Block_Widget_
         $this->_addButtonLabel = Mage::helper('adminhtml')->__('Add New Role');
         parent::__construct();
     }
-
 }

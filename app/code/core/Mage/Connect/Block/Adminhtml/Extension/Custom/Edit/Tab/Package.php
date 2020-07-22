@@ -31,8 +31,7 @@
  * @package     Mage_Connect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Package
-    extends Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Abstract
+class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Package extends Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Abstract
 {
     /**
      * Prepare Package Info Form before rendering HTML
@@ -85,7 +84,7 @@ class Mage_Connect_Block_Adminhtml_Extension_Custom_Edit_Tab_Package
                 'value' => Mage_Connect_Package::PACKAGE_VERSION_1X
             )
         );
-        $fieldset->addField('version_ids','multiselect',array(
+        $fieldset->addField('version_ids', 'multiselect', array(
                 'name'     => 'version_ids',
                 'required' => true,
                 'label'    => Mage::helper('connect')->__('Supported releases'),

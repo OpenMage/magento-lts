@@ -26,7 +26,6 @@
 
 class Mage_Adminhtml_Block_Api_Buttons extends Mage_Adminhtml_Block_Template
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -35,7 +34,8 @@ class Mage_Adminhtml_Block_Api_Buttons extends Mage_Adminhtml_Block_Template
 
     protected function _prepareLayout()
     {
-        $this->setChild('backButton',
+        $this->setChild(
+            'backButton',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
                     'label'     => Mage::helper('adminhtml')->__('Back'),
@@ -44,7 +44,8 @@ class Mage_Adminhtml_Block_Api_Buttons extends Mage_Adminhtml_Block_Template
                 ))
         );
 
-        $this->setChild('resetButton',
+        $this->setChild(
+            'resetButton',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
                     'label'     => Mage::helper('adminhtml')->__('Reset'),
@@ -52,7 +53,8 @@ class Mage_Adminhtml_Block_Api_Buttons extends Mage_Adminhtml_Block_Template
                 ))
         );
 
-        $this->setChild('saveButton',
+        $this->setChild(
+            'saveButton',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
                     'label'     => Mage::helper('adminhtml')->__('Save Role'),
@@ -61,7 +63,8 @@ class Mage_Adminhtml_Block_Api_Buttons extends Mage_Adminhtml_Block_Template
                 ))
         );
 
-        $this->setChild('deleteButton',
+        $this->setChild(
+            'deleteButton',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
                     'label'     => Mage::helper('adminhtml')->__('Delete Role'),
@@ -96,7 +99,7 @@ class Mage_Adminhtml_Block_Api_Buttons extends Mage_Adminhtml_Block_Template
 
     public function getDeleteButtonHtml()
     {
-        if( intval($this->getRequest()->getParam('rid')) == 0 ) {
+        if (intval($this->getRequest()->getParam('rid')) == 0) {
             return;
         }
         return $this->getChildHtml('deleteButton');

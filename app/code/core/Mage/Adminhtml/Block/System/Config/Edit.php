@@ -53,7 +53,8 @@ class Mage_Adminhtml_Block_System_Config_Edit extends Mage_Adminhtml_Block_Widge
 
     protected function _prepareLayout()
     {
-        $this->setChild('save_button',
+        $this->setChild(
+            'save_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
                     'label'     => Mage::helper('adminhtml')->__('Save Config'),
@@ -87,12 +88,11 @@ class Mage_Adminhtml_Block_System_Config_Edit extends Mage_Adminhtml_Block_Widge
         if (empty($blockName)) {
             $blockName = self::DEFAULT_SECTION_BLOCK;
         }
-        $this->setChild('form',
+        $this->setChild(
+            'form',
             $this->getLayout()->createBlock($blockName)
                 ->initForm()
         );
         return $this;
     }
-
-
 }

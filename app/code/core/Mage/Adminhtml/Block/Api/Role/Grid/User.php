@@ -33,7 +33,6 @@
  */
 class Mage_Adminhtml_Block_Api_Role_Grid_User extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -125,23 +124,23 @@ class Mage_Adminhtml_Block_Api_Role_Grid_User extends Mage_Adminhtml_Block_Widge
             'options'   => array('1' => Mage::helper('adminhtml')->__('Active'), '0' => Mage::helper('adminhtml')->__('Inactive')),
         ));
 
-       /*
-        $this->addColumn('grid_actions',
-            array(
-                'header'=>Mage::helper('adminhtml')->__('Actions'),
-                'width'=>5,
-                'sortable'=>false,
-                'filter'    =>false,
-                'type' => 'action',
-                'actions'   => array(
-                                    array(
-                                        'caption' => Mage::helper('adminhtml')->__('Remove'),
-                                        'onClick' => 'role.deleteFromRole($role_id);'
-                                    )
-                                )
-            )
-        );
-        */
+        /*
+         $this->addColumn('grid_actions',
+             array(
+                 'header'=>Mage::helper('adminhtml')->__('Actions'),
+                 'width'=>5,
+                 'sortable'=>false,
+                 'filter'    =>false,
+                 'type' => 'action',
+                 'actions'   => array(
+                                     array(
+                                         'caption' => Mage::helper('adminhtml')->__('Remove'),
+                                         'onClick' => 'role.deleteFromRole($role_id);'
+                                     )
+                                 )
+             )
+         );
+         */
 
         return parent::_prepareColumns();
     }
@@ -157,7 +156,7 @@ class Mage_Adminhtml_Block_Api_Role_Grid_User extends Mage_Adminhtml_Block_Widge
         if ($this->getRequest()->getParam('in_role_user') != "") {
             return (int)$this->getRequest()->getParam('in_role_user');
         }
-        $roleId = ( $this->getRequest()->getParam('rid') > 0 ) ? $this->getRequest()->getParam('rid') : Mage::registry('RID');
+        $roleId = ($this->getRequest()->getParam('rid') > 0) ? $this->getRequest()->getParam('rid') : Mage::registry('RID');
         $users  = Mage::getModel('api/roles')->setId($roleId)->getRoleUsers();
         if (count($users)) {
             if ($json) {

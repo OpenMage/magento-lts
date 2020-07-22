@@ -33,7 +33,6 @@
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -44,7 +43,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid extends Mage_Adminh
         $this->setUseAjax(true);
 
         $this->setEmptyText(Mage::helper('customer')->__('No Newsletter Found'));
-
     }
 
     public function getGridUrl()
@@ -104,7 +102,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid extends Mage_Adminh
             'index'     =>  'template_subject'
         ));
 
-         $this->addColumn('status', array(
+        $this->addColumn('status', array(
             'header'    =>  Mage::helper('customer')->__('Status'),
             'align'     =>  'center',
             'filter'    =>  'adminhtml/customer_edit_tab_newsletter_grid_filter_status',
@@ -122,5 +120,4 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid extends Mage_Adminh
 
         return parent::_prepareColumns();
     }
-
 }

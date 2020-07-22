@@ -32,8 +32,7 @@
  * @author      Magento Core Team <core@magentocommerce.com>
  * @todo        date format
  */
-class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Date
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract
+class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Date extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract
 {
     protected $_locale;
 
@@ -202,8 +201,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Date
             $dateObj->setTimezone(Mage_Core_Model_Locale::DEFAULT_TIMEZONE);
 
             return $dateObj;
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             return null;
         }
     }

@@ -31,14 +31,13 @@
  * @package     Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController
-    extends Mage_Adminhtml_Controller_Action
+class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController extends Mage_Adminhtml_Controller_Action
 {
-     /**
-     * Wishlist we're working with
-     *
-     * @var Mage_Wishlist_Model_Wishlist
-     */
+    /**
+    * Wishlist we're working with
+    *
+    * @var Mage_Wishlist_Model_Wishlist
+    */
     protected $_wishlist = null;
 
     /**

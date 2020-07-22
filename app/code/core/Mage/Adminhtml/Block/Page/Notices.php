@@ -53,5 +53,4 @@ class Mage_Adminhtml_Block_Page_Notices extends Mage_Adminhtml_Block_Template
     {
         return Mage::getStoreConfig('design/head/demonotice');
     }
-
 }

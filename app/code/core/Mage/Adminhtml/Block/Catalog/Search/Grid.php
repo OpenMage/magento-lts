@@ -126,7 +126,8 @@ class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widg
             ),
             'align' => 'left',
         ));
-        $this->addColumn('action',
+        $this->addColumn(
+            'action',
             array(
                 'header'    => Mage::helper('catalog')->__('Action'),
                 'width'     => '100px',
@@ -142,7 +143,8 @@ class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widg
                 'filter'    => false,
                 'sortable'  => false,
                 'index'     => 'catalog',
-        ));
+        )
+        );
         return parent::_prepareColumns();
     }
 
@@ -174,5 +176,4 @@ class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widg
     {
         return $this->getUrl('*/*/edit', array('id' => $row->getId()));
     }
-
 }

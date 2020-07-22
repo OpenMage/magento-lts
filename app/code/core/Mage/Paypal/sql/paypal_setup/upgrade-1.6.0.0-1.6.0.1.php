@@ -50,6 +50,8 @@ $table = $installer->getConnection()
             array('txn_id'),
             Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
         ),
-        array('txn_id'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
+        array('txn_id'),
+        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)
+    )
     ->setComment('PayPal Payflow Link Payment Transaction');
 $installer->getConnection()->createTable($table);

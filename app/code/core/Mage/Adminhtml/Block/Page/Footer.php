@@ -51,7 +51,7 @@ class Mage_Adminhtml_Block_Page_Footer extends Mage_Adminhtml_Block_Template
 
     public function getUrlForReferer()
     {
-        return $this->getUrlEncoded('*/*/*',array('_current'=>true));
+        return $this->getUrlEncoded('*/*/*', array('_current'=>true));
     }
 
     public function getRefererParamName()

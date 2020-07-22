@@ -44,34 +44,34 @@ class Mage_Paypal_Model_Payflow_Request extends Varien_Object
      */
     public function __call($method, $args)
     {
-        $key = $this->_underscore(substr($method,3));
+        $key = $this->_underscore(substr($method, 3));
         if (isset($args[0]) && (strstr($args[0], '=') || strstr($args[0], '&'))) {
             $key .= '[' . strlen($args[0]) . ']';
         }
         switch (substr($method, 0, 3)) {
-            case 'get' :
+            case 'get':
                 //Varien_Profiler::start('GETTER: '.get_class($this).'::'.$method);
                 $data = $this->getData($key, isset($args[0]) ? $args[0] : null);
                 //Varien_Profiler::stop('GETTER: '.get_class($this).'::'.$method);
                 return $data;
 
-            case 'set' :
+            case 'set':
                 //Varien_Profiler::start('SETTER: '.get_class($this).'::'.$method);
                 $result = $this->setData($key, isset($args[0]) ? $args[0] : null);
                 //Varien_Profiler::stop('SETTER: '.get_class($this).'::'.$method);
                 return $result;
 
-            case 'uns' :
+            case 'uns':
                 //Varien_Profiler::start('UNS: '.get_class($this).'::'.$method);
                 $result = $this->unsetData($key);
                 //Varien_Profiler::stop('UNS: '.get_class($this).'::'.$method);
                 return $result;
 
-            case 'has' :
+            case 'has':
                 //Varien_Profiler::start('HAS: '.get_class($this).'::'.$method);
                 //Varien_Profiler::stop('HAS: '.get_class($this).'::'.$method);
                 return isset($this->_data[$key]);
         }
-        throw new Varien_Exception("Invalid method ".get_class($this)."::".$method."(".print_r($args,1).")");
+        throw new Varien_Exception("Invalid method ".get_class($this)."::".$method."(".print_r($args, 1).")");
     }
 }

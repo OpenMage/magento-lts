@@ -140,7 +140,7 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
                 $this->_collection->setCustomerId($this->getCustomerId());
             }
 
-                $this->_collection->excludeProductIds($this->_getModel()->getExcludeProductIds())
+            $this->_collection->excludeProductIds($this->_getModel()->getExcludeProductIds())
                     ->addUrlRewrite()
                     ->setPageSize($this->getPageSize())
                     ->setCurPage(1);

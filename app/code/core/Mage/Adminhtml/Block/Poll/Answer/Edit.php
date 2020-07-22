@@ -34,7 +34,6 @@
 
 class Mage_Adminhtml_Block_Poll_Answer_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -42,7 +41,7 @@ class Mage_Adminhtml_Block_Poll_Answer_Edit extends Mage_Adminhtml_Block_Widget_
         $this->_objectId = 'id';
         $this->_controller = 'poll_answer';
 
-        if( $this->getRequest()->getParam($this->_objectId) ) {
+        if ($this->getRequest()->getParam($this->_objectId)) {
             $answerData = Mage::getModel('poll/poll_answer')
                 ->load($this->getRequest()->getParam($this->_objectId));
             Mage::register('answer_data', $answerData);
@@ -57,5 +56,4 @@ class Mage_Adminhtml_Block_Poll_Answer_Edit extends Mage_Adminhtml_Block_Widget_
     {
         return Mage::helper('poll')->__("Edit Answer '%s'", $this->escapeHtml(Mage::registry('answer_data')->getAnswerTitle()));
     }
-
 }

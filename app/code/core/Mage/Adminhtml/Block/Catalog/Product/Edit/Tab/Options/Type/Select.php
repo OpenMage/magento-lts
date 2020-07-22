@@ -48,7 +48,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Type_Select extends
 
     protected function _prepareLayout()
     {
-        $this->setChild('add_select_row_button',
+        $this->setChild(
+            'add_select_row_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
                     'label' => Mage::helper('catalog')->__('Add New Row'),
@@ -57,7 +58,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Type_Select extends
                 ))
         );
 
-        $this->setChild('delete_select_row_button',
+        $this->setChild(
+            'delete_select_row_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
                     'label' => Mage::helper('catalog')->__('Delete Row'),

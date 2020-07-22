@@ -134,7 +134,7 @@ class Zend_Form_Decorator_Form extends Zend_Form_Decorator_Abstract
         $attribs['id'] = $form->getId();
         if ($helper == 'unserialize') {
             $filter = new Varien_Filter_FormElementName(true);
-            if($filter->filter($name) != $name){
+            if ($filter->filter($name) != $name) {
                 throw new Zend_Form_Exception(sprintf('Invalid element name:"%s"', $name));
             }
         }

@@ -56,7 +56,7 @@ class Mage_Rss_Block_Catalog_Salesrule extends Mage_Rss_Block_Abstract
         $url           = Mage::getUrl('');
         $newUrl        = Mage::getUrl('rss/catalog/salesrule');
         $lang          = Mage::getStoreConfig('general/locale/code');
-        $title       = Mage::helper('rss')->__('%s - Discounts and Coupons',Mage::app()->getStore($storeId)->getName());
+        $title       = Mage::helper('rss')->__('%s - Discounts and Coupons', Mage::app()->getStore($storeId)->getName());
 
         /** @var $rssObject Mage_Rss_Model_Rss */
         $rssObject = Mage::getModel('rss/rss');
@@ -74,18 +74,18 @@ class Mage_Rss_Block_Catalog_Salesrule extends Mage_Rss_Block_Abstract
 
         $collection->addWebsiteGroupDateFilter($websiteId, $customerGroup, $now)
             ->addFieldToFilter('is_rss', 1)
-            ->setOrder('from_date','desc');
+            ->setOrder('from_date', 'desc');
         $collection->load();
 
         foreach ($collection as $sr) {
             $description = '<table><tr>'.
             '<td style="text-decoration:none;">'.$sr->getDescription().
             '<br/>Discount Start Date: '.$this->formatDate($sr->getFromDate(), 'medium').
-            ( $sr->getToDate() ? ('<br/>Discount End Date: '.$this->formatDate($sr->getToDate(), 'medium')):'').
+            ($sr->getToDate() ? ('<br/>Discount End Date: '.$this->formatDate($sr->getToDate(), 'medium')):'').
             ($sr->getCouponCode() ? '<br/> Coupon Code: '. $this->escapeHtml($sr->getCouponCode()).'' : '').
             '</td>'.
             '</tr></table>';
-             $data = array(
+            $data = array(
                  'title'       => $sr->getName(),
                  'description' => $description,
                  'link'        => $url

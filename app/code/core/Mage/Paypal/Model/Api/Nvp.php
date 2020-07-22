@@ -359,7 +359,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      * Map for billing address import/export
      * @var array
      */
-    protected $_billingAddressMap = array (
+    protected $_billingAddressMap = array(
         'BUSINESS' => 'company',
         'NOTETEXT' => 'customer_notes',
         'EMAIL' => 'email',
@@ -384,7 +384,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      *
      * @var array
      */
-    protected $_billingAddressMapRequest = array ();
+    protected $_billingAddressMapRequest = array();
 
     /**
      * Map for shipping address import/export (extends billing address mapper)
@@ -826,7 +826,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     {
         $request = $this->_exportToRequest($this->_updateBillingAgreementRequest);
         try {
-        $response = $this->call('BillAgreementUpdate', $request);
+            $response = $this->call('BillAgreementUpdate', $request);
         } catch (Mage_Core_Exception $e) {
             if (in_array(10201, $this->_callErrors)) {
                 $this->setIsBillingAgreementAlreadyCancelled(true);
@@ -1054,7 +1054,8 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         }
 
         $errorMessages = implode(' ', array_values($errorMessages));
-        $exceptionLogMessage = sprintf('PayPal NVP gateway errors: %s Correlation ID: %s. Version: %s.',
+        $exceptionLogMessage = sprintf(
+            'PayPal NVP gateway errors: %s Correlation ID: %s. Version: %s.',
             $errorMessages,
             isset($response['CORRELATIONID']) ? $response['CORRELATIONID'] : '',
             isset($response['VERSION']) ? $response['VERSION'] : ''
@@ -1115,9 +1116,12 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
 
         for ($i = 0; isset($response["L_ERRORCODE{$i}"]); $i++) {
             $errorCode = $response["L_ERRORCODE{$i}"];
-            $errorMessage = $this->_formatErrorMessage($errorCode, $response["L_SHORTMESSAGE{$i}"],
-                $response["L_LONGMESSAGE{$i}"]);
-            $errors[] = array (
+            $errorMessage = $this->_formatErrorMessage(
+                $errorCode,
+                $response["L_SHORTMESSAGE{$i}"],
+                $response["L_LONGMESSAGE{$i}"]
+            );
+            $errors[] = array(
                 'code'    => $errorCode,
                 'message' => $errorMessage
             );
@@ -1183,19 +1187,19 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
 
         $nvpstr = strpos($nvpstr, "\r\n\r\n")!==false ? substr($nvpstr, strpos($nvpstr, "\r\n\r\n")+4) : $nvpstr;
 
-        while(strlen($nvpstr)) {
+        while (strlen($nvpstr)) {
             //postion of Key
-            $keypos= strpos($nvpstr,'=');
+            $keypos= strpos($nvpstr, '=');
             //position of value
-            $valuepos = strpos($nvpstr,'&') ? strpos($nvpstr,'&'): strlen($nvpstr);
+            $valuepos = strpos($nvpstr, '&') ? strpos($nvpstr, '&'): strlen($nvpstr);
 
             /*getting the Key and Value values and storing in a Associative Array*/
-            $keyval=substr($nvpstr,$intial,$keypos);
-            $valval=substr($nvpstr,$keypos+1,$valuepos-$keypos-1);
+            $keyval=substr($nvpstr, $intial, $keypos);
+            $valval=substr($nvpstr, $keypos+1, $valuepos-$keypos-1);
             //decoding the respose
-            $nvpArray[urldecode($keyval)] =urldecode( $valval);
-            $nvpstr=substr($nvpstr,$valuepos+1,strlen($nvpstr));
-         }
+            $nvpArray[urldecode($keyval)] =urldecode($valval);
+            $nvpstr=substr($nvpstr, $valuepos+1, strlen($nvpstr));
+        }
         return $nvpArray;
     }
 
@@ -1248,8 +1252,8 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     {
         // merge street addresses into 1
         if ($address->hasStreet2()) {
-             $address->setStreet(implode("\n", array($address->getStreet(), $address->getStreet2())));
-             $address->unsStreet2();
+            $address->setStreet(implode("\n", array($address->getStreet(), $address->getStreet2())));
+            $address->unsStreet2();
         }
         // attempt to fetch region_id from directory
         if ($address->getCountryId() && $address->getRegion()) {

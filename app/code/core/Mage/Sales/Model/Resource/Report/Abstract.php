@@ -34,5 +34,4 @@
  */
 abstract class Mage_Sales_Model_Resource_Report_Abstract extends Mage_Reports_Model_Resource_Report_Abstract
 {
-
 }

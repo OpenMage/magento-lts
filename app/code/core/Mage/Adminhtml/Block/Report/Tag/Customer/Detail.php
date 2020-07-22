@@ -34,7 +34,6 @@
 
 class Mage_Adminhtml_Block_Report_Tag_Customer_Detail extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
-
     public function __construct()
     {
         $this->_controller = 'report_tag_customer_detail';
@@ -47,5 +46,4 @@ class Mage_Adminhtml_Block_Report_Tag_Customer_Detail extends Mage_Adminhtml_Blo
         $this->setBackUrl($this->getUrl('*/report_tag/customer/'));
         $this->_addBackButton();
     }
-
 }

@@ -53,7 +53,6 @@ class Mage_Adminhtml_Block_Widget_View_Container extends Mage_Adminhtml_Block_Wi
             'class'     => 'edit',
             'onclick'   => 'window.location.href=\'' . $this->getEditUrl() . '\'',
         ));
-
     }
 
     protected function _prepareLayout()
@@ -71,5 +70,4 @@ class Mage_Adminhtml_Block_Widget_View_Container extends Mage_Adminhtml_Block_Wi
     {
         return $this->getChildHtml('plane');
     }
-
 }

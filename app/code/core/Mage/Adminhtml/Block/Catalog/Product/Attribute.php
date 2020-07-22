@@ -34,7 +34,6 @@
 
 class Mage_Adminhtml_Block_Catalog_Product_Attribute extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
-
     public function __construct()
     {
         $this->_controller = 'catalog_product_attribute';
@@ -42,5 +41,4 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute extends Mage_Adminhtml_Bloc
         $this->_addButtonLabel = Mage::helper('catalog')->__('Add New Attribute');
         parent::__construct();
     }
-
 }

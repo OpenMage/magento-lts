@@ -25,7 +25,6 @@
  */
 class Mage_Adminhtml_Block_Permissions_Tab_Useredit extends Mage_Adminhtml_Block_Widget_Form
 {
-
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form();
@@ -34,7 +33,9 @@ class Mage_Adminhtml_Block_Permissions_Tab_Useredit extends Mage_Adminhtml_Block
 
         $fieldset = $form->addFieldset('base_fieldset', array('legend'=>Mage::helper('adminhtml')->__('Account Information')));
 
-        $fieldset->addField('username', 'text',
+        $fieldset->addField(
+            'username',
+            'text',
             array(
                 'name'  => 'username',
                 'label' => Mage::helper('adminhtml')->__('User Name'),
@@ -45,7 +46,9 @@ class Mage_Adminhtml_Block_Permissions_Tab_Useredit extends Mage_Adminhtml_Block
             )
         );
 
-        $fieldset->addField('firstname', 'text',
+        $fieldset->addField(
+            'firstname',
+            'text',
             array(
                 'name'  => 'firstname',
                 'label' => Mage::helper('adminhtml')->__('First Name'),
@@ -56,7 +59,9 @@ class Mage_Adminhtml_Block_Permissions_Tab_Useredit extends Mage_Adminhtml_Block
             )
         );
 
-        $fieldset->addField('lastname', 'text',
+        $fieldset->addField(
+            'lastname',
+            'text',
             array(
                 'name'  => 'lastname',
                 'label' => Mage::helper('adminhtml')->__('Last Name'),
@@ -67,14 +72,18 @@ class Mage_Adminhtml_Block_Permissions_Tab_Useredit extends Mage_Adminhtml_Block
             )
         );
 
-        $fieldset->addField('user_id', 'hidden',
+        $fieldset->addField(
+            'user_id',
+            'hidden',
             array(
                 'name'  => 'user_id',
                 'id'    => 'user_id',
             )
         );
 
-        $fieldset->addField('email', 'text',
+        $fieldset->addField(
+            'email',
+            'text',
             array(
                 'name'  => 'email',
                 'label' => Mage::helper('adminhtml')->__('Email'),
@@ -87,7 +96,9 @@ class Mage_Adminhtml_Block_Permissions_Tab_Useredit extends Mage_Adminhtml_Block
 
         $minPasswordLength = Mage::getModel('customer/customer')->getMinPasswordLength();
         if ($user->getUserId()) {
-            $fieldset->addField('password', 'password',
+            $fieldset->addField(
+                'password',
+                'password',
                 array(
                     'name'  => 'new_password',
                     'label' => Mage::helper('adminhtml')->__('New Password'),
@@ -99,7 +110,9 @@ class Mage_Adminhtml_Block_Permissions_Tab_Useredit extends Mage_Adminhtml_Block
                 )
             );
 
-            $fieldset->addField('confirmation', 'password',
+            $fieldset->addField(
+                'confirmation',
+                'password',
                 array(
                     'name'  => 'password_confirmation',
                     'label' => Mage::helper('adminhtml')->__('Password Confirmation'),
@@ -107,9 +120,10 @@ class Mage_Adminhtml_Block_Permissions_Tab_Useredit extends Mage_Adminhtml_Block
                     'class' => 'input-text validate-cpassword',
                 )
             );
-        }
-        else {
-           $fieldset->addField('password', 'password',
+        } else {
+            $fieldset->addField(
+                'password',
+                'password',
                 array(
                     'name'  => 'password',
                     'label' => Mage::helper('adminhtml')->__('Password'),
@@ -121,7 +135,9 @@ class Mage_Adminhtml_Block_Permissions_Tab_Useredit extends Mage_Adminhtml_Block
                         ->__('Password must be at least of %d characters.', $minPasswordLength),
                 )
             );
-           $fieldset->addField('confirmation', 'password',
+            $fieldset->addField(
+                'confirmation',
+                'password',
                 array(
                     'name'  => 'password_confirmation',
                     'label' => Mage::helper('adminhtml')->__('Password Confirmation'),
@@ -133,7 +149,9 @@ class Mage_Adminhtml_Block_Permissions_Tab_Useredit extends Mage_Adminhtml_Block
             );
         }
 
-        $fieldset->addField('is_active', 'select',
+        $fieldset->addField(
+            'is_active',
+            'select',
             array(
                 'name'  	=> 'is_active',
                 'label' 	=> Mage::helper('adminhtml')->__('This Account is'),
@@ -164,6 +182,4 @@ class Mage_Adminhtml_Block_Permissions_Tab_Useredit extends Mage_Adminhtml_Block
 
         $this->setForm($form);
     }
-
 }
-

@@ -130,7 +130,7 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Report_Grid extends Mage_Adminhtml_
      */
     public function getGridUrl()
     {
-         return $this->getUrl('*/*/grid');
+        return $this->getUrl('*/*/grid');
     }
 
     /**

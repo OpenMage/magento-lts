@@ -43,7 +43,8 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Te
 
     protected function _prepareLayout()
     {
-        $this->setChild('backButton',
+        $this->setChild(
+            'backButton',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
                     'label'     => Mage::helper('tax')->__('Back'),
@@ -52,7 +53,8 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Te
                 ))
         );
 
-        $this->setChild('resetButton',
+        $this->setChild(
+            'resetButton',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
                     'label'     => Mage::helper('tax')->__('Reset'),
@@ -60,7 +62,8 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Te
                 ))
         );
 
-        $this->setChild('saveButton',
+        $this->setChild(
+            'saveButton',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
                     'label'     => Mage::helper('tax')->__('Save Rate'),
@@ -69,7 +72,8 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Te
                 ))
         );
 
-        $this->setChild('deleteButton',
+        $this->setChild(
+            'deleteButton',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
                     'label'     => Mage::helper('tax')->__('Delete Rate'),
@@ -103,7 +107,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Te
 
     public function getDeleteButtonHtml()
     {
-        if( intval($this->getRequest()->getParam('rate')) == 0 ) {
+        if (intval($this->getRequest()->getParam('rate')) == 0) {
             return;
         }
         return $this->getChildHtml('deleteButton');

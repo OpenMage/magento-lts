@@ -46,7 +46,7 @@ class Mage_Checkout_Block_Cart_Item_Configure extends Mage_Core_Block_Template
         // Set custom submit url route for form - to submit updated options to cart
         $block = $this->getLayout()->getBlock('product.info');
         if ($block) {
-             $block->setSubmitRouteData(array(
+            $block->setSubmitRouteData(array(
                 'route' => 'checkout/cart/updateItemOptions',
                 'params' => array('id' => $this->getRequest()->getParam('id'))
              ));

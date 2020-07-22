@@ -92,7 +92,8 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
         $this->_initAction()
             ->_addBreadcrumb(
                 $taxRuleId ? Mage::helper('tax')->__('Edit Rule') :  Mage::helper('tax')->__('New Rule'),
-                $taxRuleId ?  Mage::helper('tax')->__('Edit Rule') :  Mage::helper('tax')->__('New Rule'))
+                $taxRuleId ?  Mage::helper('tax')->__('Edit Rule') :  Mage::helper('tax')->__('New Rule')
+            )
             ->_addContent($this->getLayout()->createBlock('adminhtml/tax_rule_edit')
                 ->setData('action', $this->getUrl('*/tax_rule/save')))
             ->renderLayout();
@@ -131,11 +132,9 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
             }
 
             return $this->_redirect('*/*/');
-        }
-        catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $e) {
             $this->_getSingletonModel('adminhtml/session')->addError($e->getMessage());
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $this->_getSingletonModel('adminhtml/session')
                 ->addError($this->_getHelperModel('tax')->__('An error occurred while saving this tax rule.'));
         }
@@ -153,8 +152,11 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
      */
     protected function _isValidRuleRequest($ruleModel)
     {
-        $existingRules = $ruleModel->fetchRuleCodes($ruleModel->getTaxRate(),
-            $ruleModel->getTaxCustomerClass(), $ruleModel->getTaxProductClass());
+        $existingRules = $ruleModel->fetchRuleCodes(
+            $ruleModel->getTaxRate(),
+            $ruleModel->getTaxCustomerClass(),
+            $ruleModel->getTaxProductClass()
+        );
 
         //Remove the current one from the list
         $existingRules = array_diff($existingRules, array($ruleModel->getCode()));
@@ -163,7 +165,8 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
         if (count($existingRules) > 0) {
             $ruleCodes = implode(",", $existingRules);
             $this->_getSingletonModel('adminhtml/session')->addError(
-                $this->_getHelperModel('tax')->__('Rules (%s) already exist for the specified Tax Rate, Customer Tax Class and Product Tax Class combinations', $ruleCodes));
+                $this->_getHelperModel('tax')->__('Rules (%s) already exist for the specified Tax Rate, Customer Tax Class and Product Tax Class combinations', $ruleCodes)
+            );
             return false;
         }
         return true;
@@ -191,11 +194,9 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
             $this->_redirect('*/*/');
 
             return;
-        }
-        catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $e) {
             Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             Mage::getSingleton('adminhtml/session')
                 ->addError(Mage::helper('tax')->__('An error occurred while deleting this tax rule.'));
         }

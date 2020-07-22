@@ -43,7 +43,6 @@ class Mage_Checkout_Block_Onepage_Shipping_Method_Available extends Mage_Checkou
      */
     public function getShippingRates()
     {
-
         if (empty($this->_rates)) {
             $this->getAddress()->collectShippingRates()->save();
 

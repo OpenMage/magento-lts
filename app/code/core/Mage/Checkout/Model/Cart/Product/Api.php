@@ -310,7 +310,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
                     $quote->removeItem($quoteItem->getId());
                     unset($productsData[$key]);
                 } else {
-                     $errors[] = Mage::helper('checkout')->__("One item of products is not belong any of quote item");
+                    $errors[] = Mage::helper('checkout')->__("One item of products is not belong any of quote item");
                 }
             } catch (Mage_Core_Exception $e) {
                 $errors[] = $e->getMessage();
@@ -330,7 +330,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
                 ->collectTotals()
                 ->save();
         } catch (Exception $e) {
-             $this->_fault("product_move_quote_save_fault", $e->getMessage());
+            $this->_fault("product_move_quote_save_fault", $e->getMessage());
         }
 
         return true;

@@ -35,14 +35,14 @@ class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
     public $ERR_NO_PRODUCT_LOADED = 1;
     public $ERR_BAD_CONTROLLER_INTERFACE = 2;
 
-     /**
-     * Inits layout for viewing product page
-     *
-     * @param Mage_Catalog_Model_Product $product
-     * @param Mage_Core_Controller_Front_Action $controller
-     *
-     * @return $this
-     */
+    /**
+    * Inits layout for viewing product page
+    *
+    * @param Mage_Catalog_Model_Product $product
+    * @param Mage_Core_Controller_Front_Action $controller
+    *
+    * @return $this
+    */
     public function initProductLayout($product, $controller)
     {
         $design = Mage::getSingleton('catalog/design');

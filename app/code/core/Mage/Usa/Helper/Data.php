@@ -143,7 +143,8 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @return bool
      */
-    public function validateUpsType($valueForCheck) {
+    public function validateUpsType($valueForCheck)
+    {
         $result = false;
         $sourceModel = Mage::getSingleton('usa/shipping_carrier_ups_source_type');
         foreach ($sourceModel->toOptionArray() as $allowedValue) {

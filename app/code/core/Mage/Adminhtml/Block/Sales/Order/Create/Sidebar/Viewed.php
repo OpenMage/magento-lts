@@ -33,7 +33,6 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Viewed extends Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract
 {
-
     protected function _construct()
     {
         parent::_construct();
@@ -65,5 +64,4 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Viewed extends Mage_Adminh
     {
         return Mage::helper('sales')->__('Recently Viewed');
     }
-
 }

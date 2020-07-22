@@ -72,9 +72,9 @@ class Mage_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
                 'hash' => Mage::helper('core')->urlEncode("{$key}:{$model->$method()}:{$model->getProtectCode()}")
             );
         }
-         $storeId = is_object($model) ? $model->getStoreId() : null;
-         $storeModel = Mage::app()->getStore($storeId);
-         return $storeModel->getUrl('shipping/tracking/popup', $param);
+        $storeId = is_object($model) ? $model->getStoreId() : null;
+        $storeModel = Mage::app()->getStore($storeId);
+        return $storeModel->getUrl('shipping/tracking/popup', $param);
     }
 
     /**

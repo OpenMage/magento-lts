@@ -47,5 +47,4 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid_Renderer_I
                Mage::helper('catalog')->__('In Stock')
                : Mage::helper('catalog')->__('Out of Stock');
     }
-
 }

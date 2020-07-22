@@ -32,8 +32,7 @@
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 
-class Mage_Usa_Model_Shipping_Carrier_Ups_Backend_Freemethod
-    extends Mage_Usa_Model_Shipping_Carrier_Abstract_Backend_Abstract
+class Mage_Usa_Model_Shipping_Carrier_Ups_Backend_Freemethod extends Mage_Usa_Model_Shipping_Carrier_Abstract_Backend_Abstract
 {
     /**
      * Set source model to get allowed values

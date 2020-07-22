@@ -203,7 +203,6 @@
  */
 class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
 {
-
     const STATUS_PENDING        = 1; // No items shipped, invoiced, canceled, refunded nor backordered
     const STATUS_SHIPPED        = 2; // When qty ordered - [qty canceled + qty returned] = qty shipped
     const STATUS_INVOICED       = 9; // When qty ordered - [qty canceled + qty returned] = qty invoiced
@@ -238,12 +237,12 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
         $this->_init('sales/order_item');
     }
 
-     /**
-     * Init mapping array of short fields to
-     * its full names
-     *
-     * @return Varien_Object
-     */
+    /**
+    * Init mapping array of short fields to
+    * its full names
+    *
+    * @return Varien_Object
+    */
     protected function _initOldFieldsMap()
     {
         $this->_oldFieldsMap = Mage::helper('sales')->getOldFieldMap('order_item');
@@ -707,7 +706,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
 
         if (isset($options['product_calculations']) &&
              $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD) {
-                return true;
+            return true;
         }
         return false;
     }
@@ -743,7 +742,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
 
         if (isset($options['shipment_type']) &&
              $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY) {
-                return true;
+            return true;
         }
         return false;
     }

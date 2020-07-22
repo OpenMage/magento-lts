@@ -51,7 +51,6 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create extends Mage_Adminhtml_
             'onclick'   => '$(\'edit_form\').submit()',
             )
         );*/
-
     }
 
     /**

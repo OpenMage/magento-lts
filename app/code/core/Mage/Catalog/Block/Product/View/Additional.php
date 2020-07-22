@@ -34,7 +34,6 @@
  */
 class Mage_Catalog_Block_Product_View_Additional extends Mage_Core_Block_Template
 {
-
     protected $_list;
 
     public function __construct()

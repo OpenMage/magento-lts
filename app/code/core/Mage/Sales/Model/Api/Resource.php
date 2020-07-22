@@ -62,7 +62,6 @@ class Mage_Sales_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      */
     protected function _updateAttributes($data, $object, $type, array $attributes = null)
     {
-
         foreach ($data as $attribute => $value) {
             if ($this->_isAllowedAttribute($attribute, $type, $attributes)) {
                 $object->setData($attribute, $value);

@@ -33,13 +33,11 @@
  */
 class Mage_Adminhtml_Block_Sitemap_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
         $this->setId('sitemapGrid');
         $this->setDefaultSort('sitemap_id');
-
     }
 
     protected function _prepareCollection()
@@ -110,5 +108,4 @@ class Mage_Adminhtml_Block_Sitemap_Grid extends Mage_Adminhtml_Block_Widget_Grid
     {
         return $this->getUrl('*/*/edit', array('sitemap_id' => $row->getId()));
     }
-
 }

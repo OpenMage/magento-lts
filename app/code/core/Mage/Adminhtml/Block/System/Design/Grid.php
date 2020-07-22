@@ -123,5 +123,4 @@ class Mage_Adminhtml_Block_System_Design_Grid extends Mage_Adminhtml_Block_Widge
     {
         return $this->getUrl('*/*/grid', array('_current' => true));
     }
-
 }

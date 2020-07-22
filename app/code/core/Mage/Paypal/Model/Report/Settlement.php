@@ -269,12 +269,12 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
 
         $flippedSectionColumns = array_flip($sectionColumns);
         $fp = fopen($localCsv, 'r');
-        while($line = fgetcsv($fp)) {
+        while ($line = fgetcsv($fp)) {
             if (empty($line)) { // The line was empty, so skip it.
                 continue;
             }
             $lineType = $line[0];
-            switch($lineType) {
+            switch ($lineType) {
                 case 'RH': // Report header.
                     $lastModified = new Zend_Date($line[1]);
                     $this->setReportLastModified($lastModified->toString(Varien_Date::DATETIME_INTERNAL_FORMAT));
@@ -297,7 +297,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                     break;
                 case 'SB': // Section body.
                     $bodyItem = array();
-                    for($i = 1; $i < count($line); $i++) {
+                    for ($i = 1; $i < count($line); $i++) {
                         $bodyItem[$rowMap[$flippedSectionColumns[$i]]] = $line[$i];
                     }
                     $this->_rows[] = $bodyItem;
@@ -390,7 +390,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
     {
         $configs = array();
         $uniques = array();
-        foreach(Mage::app()->getStores() as $store) {
+        foreach (Mage::app()->getStores() as $store) {
             /*@var $store Mage_Core_Model_Store */
             $active = (bool)$store->getConfig('paypal/fetch_reports/active');
             if (!$active && $automaticMode) {

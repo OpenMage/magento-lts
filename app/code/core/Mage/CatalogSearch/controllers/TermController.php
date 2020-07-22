@@ -35,8 +35,8 @@ class Mage_CatalogSearch_TermController extends Mage_Core_Controller_Front_Actio
     {
         parent::preDispatch();
         if (!Mage::getStoreConfig('catalog/seo/search_terms')) {
-              $this->_redirect('noroute');
-              $this->setFlag('', self::FLAG_NO_DISPATCH, true);
+            $this->_redirect('noroute');
+            $this->setFlag('', self::FLAG_NO_DISPATCH, true);
         }
         return $this;
     }

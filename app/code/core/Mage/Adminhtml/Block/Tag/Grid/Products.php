@@ -33,7 +33,6 @@
  */
 class Mage_Adminhtml_Block_Tag_Grid_Products extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('tag/product_collection')
@@ -88,6 +87,4 @@ class Mage_Adminhtml_Block_Tag_Grid_Products extends Mage_Adminhtml_Block_Widget
 
         return parent::_prepareColumns();
     }
-
 }
-

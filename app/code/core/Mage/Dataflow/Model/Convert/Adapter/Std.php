@@ -34,7 +34,6 @@
  */
 class Mage_Dataflow_Model_Convert_Adapter_Std extends Mage_Dataflow_Model_Convert_Adapter_Abstract
 {
-
     public function load()
     {
         $data = '';
@@ -51,5 +50,4 @@ class Mage_Dataflow_Model_Convert_Adapter_Std extends Mage_Dataflow_Model_Conver
         echo $this->getData();
         return $this;
     }
-
 }

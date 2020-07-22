@@ -456,7 +456,7 @@ class Mage_Eav_Model_Config
         $entityType     = $this->getEntityType($entityType);
         $attributeSetId = 0;
         if (($object instanceof Varien_Object) && $object->getAttributeSetId()) {
-             $attributeSetId = $object->getAttributeSetId();
+            $attributeSetId = $object->getAttributeSetId();
         }
         $storeId = 0;
         if (($object instanceof Varien_Object) && $object->getStoreId()) {

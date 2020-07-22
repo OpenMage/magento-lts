@@ -33,7 +33,6 @@
  */
 class Mage_Adminhtml_Block_Report_Tag_Popular_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -42,12 +41,11 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Grid extends Mage_Adminhtml_Block_
 
     protected function _prepareCollection()
     {
-
         if ($this->getRequest()->getParam('website')) {
             $storeId = Mage::app()->getWebsite($this->getRequest()->getParam('website'))->getStoreIds();
-        } else if ($this->getRequest()->getParam('group')) {
+        } elseif ($this->getRequest()->getParam('group')) {
             $storeId = Mage::app()->getGroup($this->getRequest()->getParam('group'))->getStoreIds();
-        } else if ($this->getRequest()->getParam('store')) {
+        } elseif ($this->getRequest()->getParam('store')) {
             $storeId = (int)$this->getRequest()->getParam('store');
         } else {
             $storeId = '';
@@ -75,7 +73,8 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Grid extends Mage_Adminhtml_Block_
             'index'     =>'popularity'
         ));
 
-        $this->addColumn('action',
+        $this->addColumn(
+            'action',
             array(
                 'header'    => Mage::helper('catalog')->__('Action'),
                 'width'     => '100%',
@@ -94,7 +93,8 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Grid extends Mage_Adminhtml_Block_
                 'filter'    => false,
                 'sortable'  => false,
                 'index'     => 'stores',
-        ));
+        )
+        );
         $this->setFilterVisibility(false);
 
         $this->addExportType('*/*/exportPopularCsv', Mage::helper('reports')->__('CSV'));
@@ -107,5 +107,4 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Grid extends Mage_Adminhtml_Block_
     {
         return $this->getUrl('*/*/tagDetail', array('id'=>$row->getTagId()));
     }
-
 }

@@ -25,7 +25,6 @@
  */
 class Mage_Adminhtml_Model_System_Config_Source_Web_Protocol
 {
-
     public function toOptionArray()
     {
         return array(
@@ -34,5 +33,4 @@ class Mage_Adminhtml_Model_System_Config_Source_Web_Protocol
             array('value'=>'https', 'label'=>Mage::helper('adminhtml')->__('HTTPS (SSL)')),
         );
     }
-
 }

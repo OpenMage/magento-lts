@@ -41,5 +41,4 @@ interface Mage_Dataflow_Model_Convert_Action_Interface
      * @return Mage_Dataflow_Model_Convert_Action_Abstract
      */
     public function run();
-
 }

@@ -51,13 +51,15 @@ class Mage_Adminhtml_Block_System_Email_Template extends Mage_Adminhtml_Block_Te
      */
     protected function _prepareLayout()
     {
-        $this->setChild('add_button',
+        $this->setChild(
+            'add_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
                     'label'     => Mage::helper('adminhtml')->__('Add New Template'),
                     'onclick'   => "window.location='" . $this->getCreateUrl() . "'",
                     'class'     => 'add'
-        )));
+        ))
+        );
         $this->setChild('grid', $this->getLayout()->createBlock('adminhtml/system_email_template_grid', 'email.template.grid'));
         return parent::_prepareLayout();
     }

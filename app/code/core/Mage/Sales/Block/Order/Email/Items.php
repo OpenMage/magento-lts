@@ -34,5 +34,4 @@
  */
 class Mage_Sales_Block_Order_Email_Items extends Mage_Sales_Block_Items_Abstract
 {
-
 }

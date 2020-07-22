@@ -78,7 +78,9 @@ class Mage_Adminhtml_Customer_System_Config_ValidatevatController extends Mage_A
         }
 
         $groupId = Mage::helper('customer')->getCustomerGroupIdBasedOnVatNumber(
-            $this->getRequest()->getParam('country'), $result, $storeId
+            $this->getRequest()->getParam('country'),
+            $result,
+            $storeId
         );
 
         $body = $coreHelper->jsonEncode(array(

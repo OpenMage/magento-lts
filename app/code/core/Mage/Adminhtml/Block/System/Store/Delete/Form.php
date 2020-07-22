@@ -76,5 +76,4 @@ class Mage_Adminhtml_Block_System_Store_Delete_Form extends Mage_Adminhtml_Block
 
         return parent::_prepareForm();
     }
-
 }

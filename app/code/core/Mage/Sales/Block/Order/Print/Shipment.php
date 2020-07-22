@@ -41,11 +41,11 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
      */
     protected $_tracks = array();
 
-     /**
-     * Order shipments collection
-     *
-     * @var array|Mage_Sales_Model_Mysql4_Order_Shipment_Collection
-     */
+    /**
+    * Order shipments collection
+    *
+    * @var array|Mage_Sales_Model_Mysql4_Order_Shipment_Collection
+    */
     protected $_shipmentsCollection;
 
     /**
@@ -137,11 +137,11 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
         return parent::_prepareItem($renderer);
     }
 
-     /**
-     * Retrieve order shipments collection
-     *
-     * @return array|Mage_Sales_Model_Mysql4_Order_Shipment_Collection
-     */
+    /**
+    * Retrieve order shipments collection
+    *
+    * @return array|Mage_Sales_Model_Mysql4_Order_Shipment_Collection
+    */
     public function getShipmentsCollection()
     {
         return $this->_shipmentsCollection;

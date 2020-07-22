@@ -34,7 +34,6 @@
 
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_System extends Mage_Adminhtml_Block_Widget_Form
 {
-
     protected function _prepareForm()
     {
         $model = Mage::registry('entity_attribute');
@@ -130,5 +129,4 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_System extends Mag
 
         return parent::_prepareForm();
     }
-
 }

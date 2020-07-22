@@ -122,7 +122,7 @@ class Mage_Backup_Model_Resource_Db
         $fkScript = '';
         if (!$tableName) {
             $tables = $this->getTables();
-            foreach($tables as $table) {
+            foreach ($tables as $table) {
                 $tableFkScript = Mage::getResourceHelper('backup')->getTableForeignKeysSql($table);
                 if (!empty($tableFkScript)) {
                     $fkScript .= "\n" . $tableFkScript;
@@ -152,7 +152,8 @@ class Mage_Backup_Model_Resource_Db
             }
 
             $cntRow = $this->_write->fetchRow(
-                    $this->_write->select()->from($tableName, 'COUNT(1) as rows'));
+                $this->_write->select()->from($tableName, 'COUNT(1) as rows')
+            );
             $statusObject->setRows($cntRow['rows']);
 
             return $statusObject;
@@ -309,7 +310,8 @@ class Mage_Backup_Model_Resource_Db
      * @param $command
      * @return $this
      */
-    public function runCommand($command){
+    public function runCommand($command)
+    {
         $this->_write->query($command);
         return $this;
     }

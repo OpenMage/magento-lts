@@ -77,7 +77,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
                 ->where('name = :name');
             $data = $read->fetchRow($select, array('name' => $name));
 
-            $model->setData(( is_array($data) ) ? $data : array());
+            $model->setData((is_array($data)) ? $data : array());
         } else {
             return false;
         }

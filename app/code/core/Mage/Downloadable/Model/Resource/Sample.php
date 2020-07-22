@@ -100,7 +100,6 @@ class Mage_Downloadable_Model_Resource_Sample extends Mage_Core_Model_Resource_D
      */
     public function deleteItems($items)
     {
-
         $writeAdapter = $this->_getWriteAdapter();
         $where = '';
         if ($items instanceof Mage_Downloadable_Model_Sample) {

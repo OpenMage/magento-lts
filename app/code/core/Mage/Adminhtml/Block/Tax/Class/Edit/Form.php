@@ -52,7 +52,8 @@ class Mage_Adminhtml_Block_Tax_Class_Edit_Form extends Mage_Adminhtml_Block_Widg
 
         $classType  = $this->getClassType();
 
-        $this->setTitle($classType == Mage_Tax_Model_Class::TAX_CLASS_TYPE_CUSTOMER
+        $this->setTitle(
+            $classType == Mage_Tax_Model_Class::TAX_CLASS_TYPE_CUSTOMER
             ? Mage::helper('cms')->__('Customer Tax Class Information')
             : Mage::helper('cms')->__('Product Tax Class Information')
         );
@@ -63,7 +64,9 @@ class Mage_Adminhtml_Block_Tax_Class_Edit_Form extends Mage_Adminhtml_Block_Widg
                 : Mage::helper('tax')->__('Product Tax Class Information')
         ));
 
-        $fieldset->addField('class_name', 'text',
+        $fieldset->addField(
+            'class_name',
+            'text',
             array(
                 'name'  => 'class_name',
                 'label' => Mage::helper('tax')->__('Class Name'),
@@ -73,7 +76,9 @@ class Mage_Adminhtml_Block_Tax_Class_Edit_Form extends Mage_Adminhtml_Block_Widg
             )
         );
 
-        $fieldset->addField('class_type', 'hidden',
+        $fieldset->addField(
+            'class_type',
+            'hidden',
             array(
                 'name'      => 'class_type',
                 'value'     => $classType,
@@ -82,7 +87,9 @@ class Mage_Adminhtml_Block_Tax_Class_Edit_Form extends Mage_Adminhtml_Block_Widg
         );
 
         if ($model->getId()) {
-            $fieldset->addField('class_id', 'hidden',
+            $fieldset->addField(
+                'class_id',
+                'hidden',
                 array(
                     'name'      => 'class_id',
                     'value'     => $model->getId(),

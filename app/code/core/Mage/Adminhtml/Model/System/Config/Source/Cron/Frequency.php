@@ -27,7 +27,6 @@
 
 class Mage_Adminhtml_Model_System_Config_Source_Cron_Frequency
 {
-
     protected static $_options;
 
     const CRON_DAILY    = 'D';
@@ -54,5 +53,4 @@ class Mage_Adminhtml_Model_System_Config_Source_Cron_Frequency
         }
         return self::$_options;
     }
-
 }

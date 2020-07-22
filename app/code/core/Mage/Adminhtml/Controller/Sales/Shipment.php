@@ -50,7 +50,7 @@ class Mage_Adminhtml_Controller_Sales_Shipment extends Mage_Adminhtml_Controller
         $this->loadLayout()
             ->_setActiveMenu('sales/order')
             ->_addBreadcrumb($this->__('Sales'), $this->__('Sales'))
-            ->_addBreadcrumb($this->__('Shipments'),$this->__('Shipments'));
+            ->_addBreadcrumb($this->__('Shipments'), $this->__('Shipments'));
         return $this;
     }
 
@@ -78,18 +78,19 @@ class Mage_Adminhtml_Controller_Sales_Shipment extends Mage_Adminhtml_Controller
         }
     }
 
-    public function pdfshipmentsAction(){
+    public function pdfshipmentsAction()
+    {
         $shipmentIds = $this->getRequest()->getPost('shipment_ids');
         if (!empty($shipmentIds)) {
             $shipments = Mage::getResourceModel('sales/order_shipment_collection')
                 ->addAttributeToSelect('*')
                 ->addAttributeToFilter('entity_id', array('in' => $shipmentIds))
                 ->load();
-            if (!isset($pdf)){
+            if (!isset($pdf)) {
                 $pdf = Mage::getModel('sales/order_pdf_shipment')->getPdf($shipments);
             } else {
                 $pages = Mage::getModel('sales/order_pdf_shipment')->getPdf($shipments);
-                $pdf->pages = array_merge ($pdf->pages, $pages->pages);
+                $pdf->pages = array_merge($pdf->pages, $pages->pages);
             }
 
             return $this->_prepareDownloadResponse('packingslip'.Mage::getSingleton('core/date')->date('Y-m-d_H-i-s').'.pdf', $pdf->render(), 'application/pdf');
@@ -106,8 +107,7 @@ class Mage_Adminhtml_Controller_Sales_Shipment extends Mage_Adminhtml_Controller
                 $pdf = Mage::getModel('sales/order_pdf_shipment')->getPdf(array($shipment));
                 $this->_prepareDownloadResponse('packingslip'.Mage::getSingleton('core/date')->date('Y-m-d_H-i-s').'.pdf', $pdf->render(), 'application/pdf');
             }
-        }
-        else {
+        } else {
             $this->_forward('noRoute');
         }
     }

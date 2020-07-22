@@ -178,9 +178,9 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
                 && (
                     $object->getPrefix()
                     || $object->getCustomerPrefix()
-                    )
+                )
                 ) {
-                    $name .= ($object->getPrefix() ? $object->getPrefix() : $object->getCustomerPrefix()) . ' ';
+                $name .= ($object->getPrefix() ? $object->getPrefix() : $object->getCustomerPrefix()) . ' ';
             }
 
             $name .= $object->getFirstname() ? $object->getFirstname() : $object->getCustomerFirstname();
@@ -189,13 +189,13 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
                 && (
                     $object->getMiddlename()
                     || $object->getCustomerMiddlename()
-                    )
+                )
                 ) {
-                    $name .= ' ' . (
-                        $object->getMiddlename()
+                $name .= ' ' . (
+                    $object->getMiddlename()
                         ? $object->getMiddlename()
                         : $object->getCustomerMiddlename()
-                    );
+                );
             }
 
             $name .= ' ' . (
@@ -208,13 +208,13 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
                 && (
                     $object->getSuffix()
                     || $object->getCustomerSuffix()
-                    )
+                )
                 ) {
-                    $name .= ' ' . (
-                        $object->getSuffix()
+                $name .= ' ' . (
+                    $object->getSuffix()
                         ? $object->getSuffix()
                         : $object->getCustomerSuffix()
-                    );
+                );
             }
         }
         return $name;

@@ -54,8 +54,7 @@ class Mage_Adminhtml_Block_Permissions_Variable_Edit extends Mage_Adminhtml_Bloc
     {
         if (Mage::registry('permissions_variable')->getId()) {
             return Mage::helper('adminhtml')->__("Edit Variable '%s'", $this->escapeHtml(Mage::registry('permissions_variable')->getVariableName()));
-        }
-        else {
+        } else {
             return Mage::helper('adminhtml')->__('New Variable');
         }
     }

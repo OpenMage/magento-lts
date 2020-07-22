@@ -33,12 +33,12 @@
  */
 class Mage_Adminhtml_Block_Tax_Rate_Grid_Renderer_Country extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Country
 {
-/**
-     * Render column for export
-     *
-     * @param Varien_Object $row
-     * @return string
-     */
+    /**
+         * Render column for export
+         *
+         * @param Varien_Object $row
+         * @return string
+         */
     public function renderExport(Varien_Object $row)
     {
         return $row->getData($this->getColumn()->getIndex());

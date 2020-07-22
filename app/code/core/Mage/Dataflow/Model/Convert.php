@@ -34,8 +34,7 @@
  */
 class Mage_Dataflow_Model_Convert
 {
-
-    static public function convert($class, $method, $data, array $vars=array())
+    public static function convert($class, $method, $data, array $vars=array())
     {
         if (is_string($class)) {
             $class = new $class();
@@ -49,5 +48,4 @@ class Mage_Dataflow_Model_Convert
         $action->run();
         return $action->getData();
     }
-
 }

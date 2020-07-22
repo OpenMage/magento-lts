@@ -34,7 +34,6 @@
  */
 class Mage_Adminhtml_Block_Widget_Grid_Massaction_Item_Additional_Default extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Grid_Massaction_Item_Additional_Interface
 {
-
     public function createFromConfiguration(array $configuration)
     {
         $form = new Varien_Data_Form();
@@ -46,5 +45,4 @@ class Mage_Adminhtml_Block_Widget_Grid_Massaction_Item_Additional_Default extend
         $this->setForm($form);
         return $this;
     }
-
 }

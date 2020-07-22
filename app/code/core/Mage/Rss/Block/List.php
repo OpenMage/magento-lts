@@ -116,18 +116,18 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
         $this->CategoriesRssFeed();
         return $this->getRssFeeds();
 
-/*      $section = Mage::getSingleton('adminhtml/config')->getSections();
-        $catalogFeeds = $section->rss->groups->catalog->fields[0];
-        $res = array();
-        foreach($catalogFeeds as $code => $feed){
-            $prefix = self::XML_PATH_RSS_METHODS.'/catalog/'.$code;
-            if (!Mage::getStoreConfig($prefix) || $code=='tag') {
-                continue;
-            }
-            $res[$code] = $feed;
-        }
-        return $res;
-*/
+        /*      $section = Mage::getSingleton('adminhtml/config')->getSections();
+                $catalogFeeds = $section->rss->groups->catalog->fields[0];
+                $res = array();
+                foreach($catalogFeeds as $code => $feed){
+                    $prefix = self::XML_PATH_RSS_METHODS.'/catalog/'.$code;
+                    if (!Mage::getStoreConfig($prefix) || $code=='tag') {
+                        continue;
+                    }
+                    $res[$code] = $feed;
+                }
+                return $res;
+        */
     }
 
     public function getRssMiscFeeds()
@@ -156,7 +156,7 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
     public function NewProductRssFeed()
     {
         $path = self::XML_PATH_RSS_METHODS.'/catalog/new';
-        if((bool)Mage::getStoreConfig($path)){
+        if ((bool)Mage::getStoreConfig($path)) {
             $this->addRssFeed($path, $this->__('New Products'));
         }
     }
@@ -164,23 +164,23 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
     public function SpecialProductRssFeed()
     {
         $path = self::XML_PATH_RSS_METHODS.'/catalog/special';
-        if((bool)Mage::getStoreConfig($path)){
-            $this->addRssFeed($path, $this->__('Special Products'),array(),true);
+        if ((bool)Mage::getStoreConfig($path)) {
+            $this->addRssFeed($path, $this->__('Special Products'), array(), true);
         }
     }
 
     public function SalesRuleProductRssFeed()
     {
         $path = self::XML_PATH_RSS_METHODS.'/catalog/salesrule';
-        if((bool)Mage::getStoreConfig($path)){
-            $this->addRssFeed($path, $this->__('Coupons/Discounts'),array(),true);
+        if ((bool)Mage::getStoreConfig($path)) {
+            $this->addRssFeed($path, $this->__('Coupons/Discounts'), array(), true);
         }
     }
 
     public function CategoriesRssFeed()
     {
         $path = self::XML_PATH_RSS_METHODS.'/catalog/category';
-        if((bool)Mage::getStoreConfig($path)){
+        if ((bool)Mage::getStoreConfig($path)) {
             $category = Mage::getModel('catalog/category');
 
             /* @var $collection Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection */
@@ -196,13 +196,13 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
                 ->addAttributeToSelect('url_key')
                 ->addAttributeToSelect('name')
                 ->addAttributeToSelect('is_anchor')
-                ->addAttributeToFilter('is_active',1)
+                ->addAttributeToFilter('is_active', 1)
                 ->addIdFilter($nodeIds)
                 ->addAttributeToSort('name')
                 ->load();
 
             foreach ($collection as $category) {
-                $this->addRssFeed('rss/catalog/category', $category->getName(),array('cid'=>$category->getId()));
+                $this->addRssFeed('rss/catalog/category', $category->getName(), array('cid'=>$category->getId()));
             }
         }
     }

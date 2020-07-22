@@ -142,7 +142,7 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
 
     // PEAR specific message handling
     if (stripos($errfile.$errstr, 'pear') !== false) {
-         // ignore strict and deprecated notices
+        // ignore strict and deprecated notices
         if (($errno == E_STRICT) || ($errno == E_DEPRECATED)) {
             return true;
         }

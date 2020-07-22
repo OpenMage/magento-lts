@@ -66,4 +66,3 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Amounts extends Mage_Adminhtml_Block_Da
         parent::_prepareData();
     }
 }
-

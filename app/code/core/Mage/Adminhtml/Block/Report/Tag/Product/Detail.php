@@ -34,7 +34,6 @@
 
 class Mage_Adminhtml_Block_Report_Tag_Product_Detail extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
-
     public function __construct()
     {
         $this->_controller = 'report_tag_product_detail';
@@ -47,5 +46,4 @@ class Mage_Adminhtml_Block_Report_Tag_Product_Detail extends Mage_Adminhtml_Bloc
         $this->setBackUrl($this->getUrl('*/report_tag/product/'));
         $this->_addBackButton();
     }
-
 }

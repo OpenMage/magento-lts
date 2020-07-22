@@ -31,8 +31,7 @@
  * @package    Mage_Usa
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Usa_Model_Shipping_Carrier_Dhl_International_Source_Method_Freenondoc
-    extends Mage_Usa_Model_Shipping_Carrier_Dhl_International_Source_Method_Abstract
+class Mage_Usa_Model_Shipping_Carrier_Dhl_International_Source_Method_Freenondoc extends Mage_Usa_Model_Shipping_Carrier_Dhl_International_Source_Method_Abstract
 {
     /**
      * Carrier Product Type Indicator

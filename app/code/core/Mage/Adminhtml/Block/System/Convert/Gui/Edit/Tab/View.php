@@ -59,6 +59,4 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_View extends Mage_Adminht
 
         return $this;
     }
-
 }
-

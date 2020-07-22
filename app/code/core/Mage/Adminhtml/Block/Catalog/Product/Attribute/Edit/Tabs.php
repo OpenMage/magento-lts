@@ -33,7 +33,6 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -69,5 +68,4 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tabs extends Mage_Admi
 
         return parent::_beforeToHtml();
     }
-
 }

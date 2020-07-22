@@ -32,8 +32,7 @@
  * @package     Mage_Paypal
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Paypal_Model_Resource_Report_Settlement_Row_Collection
-    extends Mage_Core_Model_Resource_Db_Collection_Abstract
+class Mage_Paypal_Model_Resource_Report_Settlement_Row_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
      * Resource initializing

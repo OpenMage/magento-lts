@@ -536,7 +536,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     public function resetUniqueField()
     {
         $this->_uniqueFields = array();
-         return $this;
+        return $this;
     }
 
     /**

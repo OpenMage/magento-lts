@@ -41,7 +41,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
      *
      * @var array
      */
-    static protected $_conditionModels = array();
+    protected static $_conditionModels = array();
 
     /**
      * Prepare sql where by condition
@@ -111,7 +111,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
             }
         }
     }
-/* start aggregator methods */
+    /* start aggregator methods */
     /**
      * @return $this
      */
@@ -162,7 +162,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
             'value_name'=>$this->getAggregatorName(),
         ))->setRenderer(Mage::getBlockSingleton('rule/editable'));
     }
-/* end aggregator methods */
+    /* end aggregator methods */
 
     /**
      * @return $this|Mage_Rule_Model_Condition_Abstract
@@ -302,7 +302,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
      */
     public function asHtml()
     {
-           $html = $this->getTypeElement()->getHtml().
+        $html = $this->getTypeElement()->getHtml().
                Mage::helper('rule')->__('If %s of these conditions are %s:', $this->getAggregatorElement()->getHtml(), $this->getValueElement()->getHtml());
         if ($this->getId() != '1') {
             $html.= $this->getRemoveLinkHtml();

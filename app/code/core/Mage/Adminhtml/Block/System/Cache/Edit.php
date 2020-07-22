@@ -42,7 +42,8 @@ class Mage_Adminhtml_Block_System_Cache_Edit extends Mage_Adminhtml_Block_Widget
 
     protected function _prepareLayout()
     {
-        $this->setChild('save_button',
+        $this->setChild(
+            'save_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
                     'label'     => Mage::helper('adminhtml')->__('Save Cache Settings'),
@@ -65,7 +66,8 @@ class Mage_Adminhtml_Block_System_Cache_Edit extends Mage_Adminhtml_Block_Widget
 
     public function initForm()
     {
-        $this->setChild('form',
+        $this->setChild(
+            'form',
             $this->getLayout()->createBlock('adminhtml/system_cache_form')
                 ->initForm()
         );
