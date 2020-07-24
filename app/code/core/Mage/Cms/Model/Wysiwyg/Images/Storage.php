@@ -385,6 +385,11 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         $image->open($source);
         $width = $this->getConfigData('resize_width');
         $height = $this->getConfigData('resize_height');
+
+        if ($width == 0 || $height == 0) {
+            return false;
+        }
+
         $image->keepAspectRatio($keepRation);
         $image->resize($width, $height);
         $dest = $targetDir
