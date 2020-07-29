@@ -2355,6 +2355,11 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         }
 
         $this->setData('protect_code', substr(md5(uniqid(mt_rand(), true) . ':' . microtime(true)), 5, 6));
+
+        if ($this->getStatus() !== $this->getOrigData('status')) {
+            Mage::dispatchEvent('order_status_changed_before_save', ['order' => $this]);
+        }
+
         return $this;
     }
 
