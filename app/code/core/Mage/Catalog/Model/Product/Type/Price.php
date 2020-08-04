@@ -283,7 +283,7 @@ class Mage_Catalog_Model_Product_Type_Price
      */
     protected function _applySpecialPrice($product, $finalPrice)
     {
-        return self::calculateSpecialPrice(
+        return $this->calculateSpecialPrice(
             $finalPrice,
             $product->getSpecialPrice(),
             $product->getSpecialFromDate(),
