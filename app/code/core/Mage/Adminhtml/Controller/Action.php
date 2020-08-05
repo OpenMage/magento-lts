@@ -388,8 +388,8 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
             return true;
         }
 
-        if (!($secretKey = $this->getRequest()->getParam(Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME, null))
-            || $secretKey != Mage::getSingleton('adminhtml/url')->getSecretKey()) {
+        $secretKey = $this->getRequest()->getParam(Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME, null);
+        if (!$secretKey || !Mage_Core_Helper_Security::compareStrings(Mage::getSingleton('adminhtml/url')->getSecretKey(), $secretKey)) {
             return false;
         }
         return true;
