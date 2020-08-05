@@ -277,4 +277,8 @@ ul.messages ul {
   list-style-type: none;
 }
 
+.no-display {
+  display: none;
+}
+
 /*# sourceMappingURL=login.css.map */
