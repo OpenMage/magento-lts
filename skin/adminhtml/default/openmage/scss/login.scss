@@ -62,13 +62,8 @@ $color-black-075: hsla($hue, 13%, 8%, 0.75);
 $color-black-100: hsla($hue, 13%, 8%, 1);
 
 //urls
-$url_0: url(http://www.localhost.com:3000/skin/adminhtml/default/default/images/btn_bg.gif);
-$url_1: url(http://www.localhost.com:3000/skin/adminhtml/default/default/images/login_logo.png);
-$url_2: url(http://www.localhost.com:3000/skin/adminhtml/default/default/images/login_box_bg.jpg);
-$url_3: url(http://www.localhost.com:3000/skin/adminhtml/default/default/images/login_box_bottom.jpg);
-$url_4: url(http://www.localhost.com:3000/skin/adminhtml/default/default/images/login_box_legal_bg.gif);
-$url_5: url(images/login_background.jpg);
-$url_6: url(http://www.localhost.com:3000/skin/adminhtml/default/mageek/images/logo.svg);
+$url_login_background: url(images/login_background.jpg);
+$url_logo: url(images/logo.svg);
 
 * {
   margin: 0;
@@ -85,7 +80,7 @@ body {
 
   &#page-login {
     background-color: $color-main-xxl;
-    background-image: $url_5;
+    background-image: $url_login_background;
     background-repeat: no-repeat;
     background-position: center top;
     background-size: cover;
@@ -206,7 +201,7 @@ input {
   width: 345px;
   margin: 120px 0 0;
   padding-left: 200px;
-  background: $url_6 left center no-repeat;
+  background: $url_logo left center no-repeat;
   margin-left: calc(50vw - 372px);
 
   .legal {
@@ -290,7 +285,6 @@ input {
 .login-box .bottom {
   width: 581px;
   height: 5px;
-  background: $url_3 no-repeat;
   overflow: hidden;
   display: none;
 }
