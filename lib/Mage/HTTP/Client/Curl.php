@@ -437,7 +437,7 @@ implements Mage_HTTP_IClient
             $name = $value = '';
             $out  = explode(': ', trim($data), 2);
             if (count($out) === 2) {
-                [$name, $value] = $out;
+                list($name, $value) = $out;
             }
 
             if ('' !== $name) {
@@ -462,7 +462,7 @@ implements Mage_HTTP_IClient
      *
      * @throws Exception
      */
-    protected function validateHttpVersion(array $line): void
+    protected function validateHttpVersion(array $line)
     {
         if ($line[0] === 'HTTP/1.1') {
             if (count($line) !== 3) {
