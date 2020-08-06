@@ -33,7 +33,11 @@
  */
 class Varien_Data_Form_Element_Reset extends Varien_Data_Form_Element_Abstract
 {
-    public function __construct($attributes=array()) 
+    /**
+     * Varien_Data_Form_Element_Reset constructor.
+     * @param array $attributes
+     */
+    public function __construct($attributes=array())
     {
         parent::__construct($attributes);
         $this->setType('text');

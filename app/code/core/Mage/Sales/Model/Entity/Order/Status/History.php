@@ -43,5 +43,4 @@ class Mage_Sales_Model_Entity_Order_Status_History extends Mage_Eav_Model_Entity
             $resource->getConnection('sales_write')
         );
     }
-
 }

@@ -67,6 +67,7 @@ class Mage_Customer_Model_Resource_Group extends Mage_Core_Model_Resource_Db_Abs
      */
     protected function _beforeDelete(Mage_Core_Model_Abstract $group)
     {
+        /** @var Mage_Customer_Model_Group $group */
         if ($group->usesAsDefault()) {
             Mage::throwException(Mage::helper('customer')->__('The group "%s" cannot be deleted', $group->getCode()));
         }
@@ -84,6 +85,7 @@ class Mage_Customer_Model_Resource_Group extends Mage_Core_Model_Resource_Db_Abs
         $customerCollection = Mage::getResourceModel('customer/customer_collection')
             ->addAttributeToFilter('group_id', $group->getId())
             ->load();
+        /** @var Mage_Customer_Model_Customer $customer */
         foreach ($customerCollection as $customer) {
             $defaultGroupId = Mage::helper('customer')->getDefaultCustomerGroupId($customer->getStoreId());
             $customer->setGroupId($defaultGroupId);

@@ -159,7 +159,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                         $bundlePriceModel->getLowestPrice($currentProduct, $tierPriceInfo['price']);
                     $tierPriceInfo['website_price'] =
                         $bundlePriceModel->getLowestPrice($currentProduct, $tierPriceInfo['website_price']);
-                    $tierPriceInfo['price'] = $coreHelper->currency($tierPriceInfo['price'], false, false);
+                    $tierPriceInfo['price'] = $coreHelper::currency($tierPriceInfo['price'], false, false);
                     $tierPriceInfo['priceInclTax'] = $taxHelper->getPrice(
                         $_selection,
                         $tierPriceInfo['price'],
@@ -250,10 +250,10 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                 $selection = array (
                     'qty'              => $_qty,
                     'customQty'        => $_selection->getSelectionCanChangeQty(),
-                    'price'            => $coreHelper->currency($_selection->getFinalPrice(), false, false),
-                    'priceInclTax'     => $coreHelper->currency($_priceInclTax, false, false),
-                    'priceExclTax'     => $coreHelper->currency($_priceExclTax, false, false),
-                    'priceValue'       => $coreHelper->currency($_selection->getSelectionPriceValue(), false, false),
+                    'price'            => $coreHelper::currency($_selection->getFinalPrice(), false, false),
+                    'priceInclTax'     => $coreHelper::currency($_priceInclTax, false, false),
+                    'priceExclTax'     => $coreHelper::currency($_priceExclTax, false, false),
+                    'priceValue'       => $coreHelper::currency($_selection->getSelectionPriceValue(), false, false),
                     'priceType'        => $_selection->getSelectionPriceType(),
                     'tierPrice'        => $tierPrices,
                     'name'             => $_selection->getName(),
@@ -295,7 +295,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
             'selected'      => $selected,
             'bundleId'      => $currentProduct->getId(),
             'priceFormat'   => Mage::app()->getLocale()->getJsPriceFormat(),
-            'basePrice'     => $coreHelper->currency($currentProduct->getPrice(), false, false),
+            'basePrice'     => $coreHelper::currency($currentProduct->getPrice(), false, false),
             'priceType'     => $currentProduct->getPriceType(),
             'specialPrice'  => $currentProduct->getSpecialPrice(),
             'includeTax'    => Mage::helper('tax')->priceIncludesTax() ? 'true' : 'false',

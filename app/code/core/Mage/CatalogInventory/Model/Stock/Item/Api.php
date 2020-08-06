@@ -38,6 +38,10 @@ class Mage_CatalogInventory_Model_Stock_Item_Api extends Mage_Catalog_Model_Api_
         $this->_storeIdSessionField = 'product_store_id';
     }
 
+    /**
+     * @param array $productIds
+     * @return array
+     */
     public function items($productIds)
     {
         if (!is_array($productIds)) {
@@ -73,6 +77,12 @@ class Mage_CatalogInventory_Model_Stock_Item_Api extends Mage_Catalog_Model_Api_
         return $result;
     }
 
+    /**
+     * @param int $productId
+     * @param array $data
+     * @return bool
+     * @throws Mage_Api_Exception
+     */
     public function update($productId, $data)
     {
         $product = Mage::getModel('catalog/product');

@@ -92,7 +92,7 @@ class Mage_Core_Helper_File_Storage extends Mage_Core_Helper_Abstract
      *
      * @param  int|null $storage
      * @param  array $params
-     * @return Mage_Core_Model_Abstract|bool
+     * @return Mage_Core_Model_File_Storage_File|Mage_Core_Model_File_Storage_Database
      */
     public function getStorageModel($storage = null, $params = array())
     {

@@ -59,8 +59,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
 
     /**
      * Check whether the attribute is a quote item attribute
-     * @param $attributeCode
-     *
+     * @param string $attributeCode
      * @return bool
      */
     protected function _getIsQuoteItemAttribute($attributeCode)
@@ -70,10 +69,10 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
 
     /**
      * Add an attribute condition to the conditions group
-     * @param $conditionType
-     * @param $conditionModel
-     * @param $attributeCode
-     * @param $attributeLabel
+     * @param string $conditionType
+     * @param string $conditionModel
+     * @param string $attributeCode
+     * @param string $attributeLabel
      *
      * @return $this
      */
@@ -95,7 +94,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
 
     /**
      * Retrieve a conditions by group_id
-     * @param $conditionsGroup
+     * @param string $conditionsGroup
      *
      * @return array
      */
@@ -187,8 +186,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
 
     /**
      * Collect all validated attributes
-     * @param $productCollection
-     *
+     * @param Mage_Catalog_Model_Resource_Product_Collection $productCollection
      * @return $this
      */
     public function collectValidatedAttributes($productCollection)
@@ -216,7 +214,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
         $valid = parent::validate($object);
         if (!$valid && $product->getTypeId() == Mage_Catalog_Model_Product_Type_Configurable::TYPE_CODE) {
             $children = $object->getChildren();
-            if (is_array($children) and isset($children[0])) {
+            if (is_array($children) && isset($children[0])) {
                 $child = $children[0];
 
                 /** @var Mage_Catalog_Model_Product $childProduct */

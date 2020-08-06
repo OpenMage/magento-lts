@@ -24,12 +24,18 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
-class Mage_Eav_Model_Convert_Adapter_Grid
-    extends Mage_Dataflow_Model_Convert_Adapter_Abstract
+/**
+ * Class Mage_Eav_Model_Convert_Adapter_Grid
+ *
+ * @method $this setExceptionLocation(string $string)
+ */
+class Mage_Eav_Model_Convert_Adapter_Grid extends Mage_Dataflow_Model_Convert_Adapter_Abstract
 {
     protected $_entity;
 
+    /**
+     * @return Mage_Eav_Model_Entity_Interface
+     */
     public function getEntity()
     {
         if (!$this->_entityType) {
@@ -42,6 +48,9 @@ class Mage_Eav_Model_Convert_Adapter_Grid
         return $this->_entity;
     }
 
+    /**
+     * @return $this
+     */
     public function load()
     {
         try {
@@ -59,9 +68,12 @@ class Mage_Eav_Model_Convert_Adapter_Grid
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function save()
     {
-        foreach ($this->getData() as $i=>$row) {
+        foreach ($this->getData() as $i => $row) {
             $this->setExceptionLocation('Line: '.$i);
             $entity = Mage::getResourceModel($this->getEntity());
             if (!empty($row['entity_id'])) {

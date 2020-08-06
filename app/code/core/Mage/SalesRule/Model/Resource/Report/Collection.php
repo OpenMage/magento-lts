@@ -77,7 +77,7 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
     /**
      * collect columns for collection
      *
-     * @return unknown
+     * @return array
      */
     protected function _getSelectedColumns()
     {
@@ -129,7 +129,7 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
         $this->getSelect()->from($this->getResource()->getMainTable(), $this->_getSelectedColumns());
         if ($this->isSubTotals()) {
             $this->getSelect()->group($this->_periodFormat);
-        } else if (!$this->isTotals()) {
+        } elseif (!$this->isTotals()) {
             $this->getSelect()->group(array(
                 $this->_periodFormat,
                 'coupon_code'

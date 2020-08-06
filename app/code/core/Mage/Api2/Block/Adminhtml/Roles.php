@@ -45,7 +45,7 @@ class Mage_Api2_Block_Adminhtml_Roles extends Mage_Adminhtml_Block_Widget_Grid_C
         $this->_headerText = Mage::helper('adminhtml')->__('REST Roles');
 
         //check allow edit
-        /** @var $session Mage_Admin_Model_Session */
+        /** @var Mage_Admin_Model_Session $session */
         $session = Mage::getSingleton('admin/session');
         if ($session->isAllowed('system/api/roles/add')) {
             $this->_updateButton('add', 'label', $this->__('Add Admin Role'));

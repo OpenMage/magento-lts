@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Tax_Model_Mysql4_Setup */
+/* @var Mage_Tax_Model_Mysql4_Setup $installer */
 
 /**
  * Add new field to 'tax/sales_order_tax_item'

@@ -30,11 +30,16 @@
  * @category   Mage
  * @package    Mage_Customer
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setCreateAccountUrl(string $value)
  */
 class Mage_Customer_Block_Form_Login extends Mage_Core_Block_Template
 {
     private $_username = -1;
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
         $this->getLayout()->getBlock('head')->setTitle(Mage::helper('customer')->__('Customer Login'));

@@ -26,6 +26,9 @@
 
 class Mage_CatalogInventory_Model_Source_Backorders
 {
+    /**
+     * @return array
+     */
     public function toOptionArray()
     {
         return array(

@@ -24,14 +24,13 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
+/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 $installer = $this;
 
 $installer->startSetup();
 
 $installer->run("
     ALTER TABLE {$installer->getTable('catalog/product_super_attribute_pricing')}
-    CHANGE `pricing_value` `pricing_value` DECIMAL(20,4) NULL"
-);
+    CHANGE `pricing_value` `pricing_value` DECIMAL(20,4) NULL");
 
 $installer->endSetup();

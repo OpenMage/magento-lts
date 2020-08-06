@@ -25,8 +25,7 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Sales_Model_Mysql4_Setup */
+/* @var Mage_Sales_Model_Mysql4_Setup $installer */
 
 $installer->addAttribute('order_payment', 'base_amount_paid_online', array('type' => 'decimal'));
 $installer->addAttribute('order_payment', 'base_amount_refunded_online', array('type' => 'decimal'));
-

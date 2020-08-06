@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * String translate resource model
  *
@@ -44,12 +43,8 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
     }
 
     /**
-     * Load
-     *
-     * @param Mage_Core_Model_Abstract $object
-     * @param String $value
-     * @param String $field
-     * @return array
+     * @param Mage_Core_Model_Translate_String $object
+     * @inheritDoc
      */
     public function load(Mage_Core_Model_Abstract $object, $value, $field = null)
     {
@@ -84,8 +79,8 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
     /**
      * After translation loading
      *
-     * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Core_Model_Resource_Db_Abstract
+     * @param Mage_Core_Model_Translate_String $object
+     * @inheritDoc
      */
     public function _afterLoad(Mage_Core_Model_Abstract $object)
     {
@@ -99,10 +94,8 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
     }
 
     /**
-     * Before save
-     *
-     * @param Mage_Core_Model_Abstract $object
-     * @return $this
+     * @param Mage_Core_Model_Translate_String $object
+     * @inheritDoc
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
@@ -122,10 +115,8 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
     }
 
     /**
-     * After save
-     *
-     * @param Mage_Core_Model_Abstract $object
-     * @return $this
+     * @param Mage_Core_Model_Translate_String $object
+     * @inheritDoc
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -154,9 +145,10 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
 
                     if (isset($stores[$storeId])) {
                         $adapter->update(
-                           $this->getMainTable(),
-                           $data,
-                           array('key_id = ?' => $stores[$storeId]));
+                            $this->getMainTable(),
+                            $data,
+                            array('key_id = ?' => $stores[$storeId])
+                        );
                     } else {
                         $adapter->insert($this->getMainTable(), $data);
                     }

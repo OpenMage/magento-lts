@@ -70,8 +70,10 @@ class Mage_Checkout_Model_Resource_Cart extends Mage_Core_Model_Resource_Db_Abst
     {
         $read = $this->_getReadAdapter();
         $select = $read->select()
-            ->from(array('qi'=>$this->getTable('sales/quote_item')),
-                array('id'=>'item_id', 'product_id', 'super_product_id', 'qty', 'created_at'))
+            ->from(
+                array('qi'=>$this->getTable('sales/quote_item')),
+                array('id'=>'item_id', 'product_id', 'super_product_id', 'qty', 'created_at')
+            )
             ->where('qi.quote_id = :quote_id');
 
         return $read->fetchAll($select, array(':quote_id' => $quoteId));

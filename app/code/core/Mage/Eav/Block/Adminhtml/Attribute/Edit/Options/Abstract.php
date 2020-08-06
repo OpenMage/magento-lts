@@ -43,24 +43,28 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
     /**
      * Preparing layout, adding buttons
      *
-     * @return Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
-        $this->setChild('delete_button',
+        $this->setChild(
+            'delete_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
                     'label' => Mage::helper('eav')->__('Delete'),
                     'class' => 'delete delete-option'
-                )));
+                ))
+        );
 
-        $this->setChild('add_button',
+        $this->setChild(
+            'add_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
                     'label' => Mage::helper('eav')->__('Add Option'),
                     'class' => 'add',
                     'id'    => 'add_new_option_button'
-                )));
+                ))
+        );
         return parent::_prepareLayout();
     }
 
@@ -138,6 +142,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
                 ->load();
 
             $helper = Mage::helper('core');
+            /** @var Mage_Eav_Model_Entity_Attribute_Option $option */
             foreach ($optionCollection as $option) {
                 $value = array();
                 if (in_array($option->getId(), $defaultValues)) {
@@ -199,6 +204,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
                 ->setAttributeFilter($this->getAttributeObject()->getId())
                 ->setStoreFilter($storeId, false)
                 ->load();
+            /** @var Mage_Eav_Model_Entity_Attribute_Option $item */
             foreach ($valuesCollection as $item) {
                 $values[$item->getId()] = $item->getValue();
             }
@@ -216,5 +222,4 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
     {
         return Mage::registry('entity_attribute');
     }
-
 }

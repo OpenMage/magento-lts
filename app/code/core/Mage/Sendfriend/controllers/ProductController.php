@@ -43,9 +43,9 @@ class Mage_Sendfriend_ProductController extends Mage_Core_Controller_Front_Actio
     {
         parent::preDispatch();
 
-        /* @var $helper Mage_Sendfriend_Helper_Data */
+        /* @var Mage_Sendfriend_Helper_Data $helper */
         $helper = Mage::helper('sendfriend');
-        /* @var $session Mage_Customer_Model_Session */
+        /* @var Mage_Customer_Model_Session $session */
         $session = Mage::getSingleton('customer/session');
 
         if (!$helper->isEnabled()) {
@@ -70,7 +70,7 @@ class Mage_Sendfriend_ProductController extends Mage_Core_Controller_Front_Actio
     /**
      * Initialize Product Instance
      *
-     * @return Mage_Catalog_Model_Product
+     * @return Mage_Catalog_Model_Product|false
      */
     protected function _initProduct()
     {
@@ -179,22 +179,18 @@ class Mage_Sendfriend_ProductController extends Mage_Core_Controller_Front_Actio
                 Mage::getSingleton('catalog/session')->addSuccess($this->__('The link to a friend was sent.'));
                 $this->_redirectSuccess($product->getProductUrl());
                 return;
-            }
-            else {
+            } else {
                 if (is_array($validate)) {
                     foreach ($validate as $errorMessage) {
                         Mage::getSingleton('catalog/session')->addError($errorMessage);
                     }
-                }
-                else {
+                } else {
                     Mage::getSingleton('catalog/session')->addError($this->__('There were some problems with the data.'));
                 }
             }
-        }
-        catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $e) {
             Mage::getSingleton('catalog/session')->addError($e->getMessage());
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             Mage::getSingleton('catalog/session')
                 ->addException($e, $this->__('Some emails were not sent.'));
         }

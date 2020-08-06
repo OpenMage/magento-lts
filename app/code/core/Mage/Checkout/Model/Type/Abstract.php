@@ -61,7 +61,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
     /**
      * Retrieve quote items
      *
-     * @return array
+     * @return Mage_Sales_Model_Quote_Item[]
      */
     public function getQuoteItems()
     {
@@ -105,7 +105,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
             $address = $this->getCustomer()->getDefaultShippingAddress();
             if (!$address) {
                 foreach ($this->getCustomer()->getAddresses() as $address) {
-                    if($address){
+                    if ($address) {
                         break;
                     }
                 }
@@ -118,7 +118,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
     /**
      * Retrieve customer default billing address
      *
-     * @return Mage_Customer_Model_Address || false
+     * @return Mage_Customer_Model_Address|false
      */
     public function getCustomerDefaultBillingAddress()
     {
@@ -127,7 +127,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
             $address = $this->getCustomer()->getDefaultBillingAddress();
             if (!$address) {
                 foreach ($this->getCustomer()->getAddresses() as $address) {
-                    if($address){
+                    if ($address) {
                         break;
                     }
                 }
@@ -137,6 +137,10 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
         return $address;
     }
 
+    /**
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @return Mage_Sales_Model_Order
+     */
     protected function _createOrderFromAddress($address)
     {
         $order = Mage::getModel('sales/order')->createFromQuoteAddress($address)
@@ -151,6 +155,9 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
     }
 
     /**
+     * @param string|array $email
+     * @param string $name
+     * @param Mage_Sales_Model_Order $order
      * @deprecated after 1.4.0.0-rc1
      */
     protected function _emailOrderConfirmation($email, $name, $order)

@@ -33,6 +33,10 @@
  */
 class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
 {
+    /**
+     * @return $this|Mage_Core_Block_Template
+     * @throws Mage_Core_Model_Store_Exception
+     */
     protected function _prepareLayout()
     {
         parent::_prepareLayout();
@@ -57,7 +61,7 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
             want to show rss feed in the url
             */
             if ($this->IsRssCatalogEnable() && $this->IsTopCategory()) {
-                $title = $this->helper('rss')->__('%s RSS Feed',$this->getCurrentCategory()->getName());
+                $title = $this->helper('rss')->__('%s RSS Feed', $this->getCurrentCategory()->getName());
                 $headBlock->addItem('rss', $this->getRssLink(), 'title="'.$title.'"');
             }
         }
@@ -65,19 +69,30 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function IsRssCatalogEnable()
     {
         return Mage::getStoreConfig('rss/catalog/category');
     }
 
+    /**
+     * @return bool
+     */
     public function IsTopCategory()
     {
         return $this->getCurrentCategory()->getLevel()==2;
     }
 
+    /**
+     * @return string
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function getRssLink()
     {
-        return Mage::getUrl('rss/catalog/category',
+        return Mage::getUrl(
+            'rss/catalog/category',
             array(
                 'cid' => $this->getCurrentCategory()->getId(),
                 'store_id' => Mage::app()->getStore()->getId()
@@ -85,6 +100,9 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
         );
     }
 
+    /**
+     * @return string
+     */
     public function getProductListHtml()
     {
         return $this->getChildHtml('product_list');
@@ -103,6 +121,9 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
         return $this->getData('current_category');
     }
 
+    /**
+     * @return string
+     */
     public function getCmsBlockHtml()
     {
         if (!$this->getData('cms_block_html')) {

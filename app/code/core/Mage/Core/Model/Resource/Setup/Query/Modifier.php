@@ -51,7 +51,7 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
     /**
      * Inits query modifier
      *
-     * @param $adapter Varien_Db_Adapter_Pdo_Mysql
+     * @param Varien_Db_Adapter_Pdo_Mysql|array $args
      * @return void
      */
     public function __construct($args)
@@ -177,7 +177,7 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
     /**
      * Fixes column definition in already existing table, so outgoing foreign key will be successfully set
      *
-     * @param string $sql
+     * @param string $table
      * @param string $column
      * @param array $refColumnDefinition
      * @return $this
@@ -215,7 +215,7 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
     /**
      * Returns column definition from already existing table
      *
-     * @param string $sql
+     * @param string $table
      * @param string $column
      * @return array|null
      */

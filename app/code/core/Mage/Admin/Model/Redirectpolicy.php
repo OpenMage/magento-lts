@@ -56,11 +56,13 @@ class Mage_Admin_Model_Redirectpolicy
      * @param string|null $alternativeUrl
      * @return null|string
      */
-    public function getRedirectUrl(Mage_Admin_Model_User $user, Zend_Controller_Request_Http $request = null,
-                                $alternativeUrl = null)
-    {
+    public function getRedirectUrl(
+        Mage_Admin_Model_User $user,
+        Zend_Controller_Request_Http $request = null,
+        $alternativeUrl = null
+    ) {
         if (empty($request)) {
-            return;
+            return null;
         }
         $countRequiredParams = ($this->_urlModel->useSecretKey()
             && $request->getParam(Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME)) ? 1 : 0;

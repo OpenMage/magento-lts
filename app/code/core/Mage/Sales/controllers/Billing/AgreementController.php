@@ -28,6 +28,7 @@
  * Billing agreements controller
  *
  * @author Magento Core Team <core@magentocommerce.com>
+ * @method int getAgreementId()
  */
 class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_Action
 {
@@ -163,7 +164,7 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
     public function cancelAction()
     {
         $agreement = $this->_initAgreement();
-        if(!$agreement) {
+        if (!$agreement) {
             $this->_redirect('*/*/view', array('_current' => true));
             return;
         }
@@ -191,7 +192,7 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
     /**
      * Init billing agreement model from request
      *
-     * @return Mage_Sales_Model_Billing_Agreement
+     * @return Mage_Sales_Model_Billing_Agreement|false
      */
     protected function _initAgreement()
     {

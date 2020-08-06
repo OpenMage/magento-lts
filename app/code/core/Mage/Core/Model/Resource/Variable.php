@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Custom variable resource model
  *
@@ -78,10 +77,8 @@ class Mage_Core_Model_Resource_Variable extends Mage_Core_Model_Resource_Db_Abst
     }
 
     /**
-     * Perform actions after object save
-     *
-     * @param Mage_Core_Model_Abstract $object
-     * @return $this
+     * @param Mage_Core_Model_Variable $object
+     * @inheritDoc
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -91,10 +88,12 @@ class Mage_Core_Model_Resource_Variable extends Mage_Core_Model_Resource_Db_Abst
              * remove store value
              */
             $this->_getWriteAdapter()->delete(
-                $this->getTable('core/variable_value'), array(
+                $this->getTable('core/variable_value'),
+                array(
                     'variable_id = ?' => $object->getId(),
                     'store_id = ?' => $object->getStoreId()
-            ));
+                )
+            );
         } else {
             $data =  array(
                 'variable_id' => $object->getId(),
@@ -113,12 +112,8 @@ class Mage_Core_Model_Resource_Variable extends Mage_Core_Model_Resource_Db_Abst
     }
 
     /**
-     * Retrieve select object for load object data
-     *
-     * @param string $field
-     * @param mixed $value
-     * @param Mage_Core_Model_Abstract $object
-     * @return Zend_Db_Select
+     * @param Mage_Core_Model_Variable $object
+     * @inheritDoc
      */
     protected function _getLoadSelect($field, $value, $object)
     {
@@ -141,13 +136,15 @@ class Mage_Core_Model_Resource_Variable extends Mage_Core_Model_Resource_Db_Abst
         $ifNullHtmlValue  = $adapter->getCheckSql('store.html_value IS NULL', 'def.html_value', 'store.html_value');
 
         $select->joinLeft(
-                array('def' => $this->getTable('core/variable_value')),
-                'def.variable_id = '.$this->getMainTable().'.variable_id AND def.store_id = 0',
-                array())
+            array('def' => $this->getTable('core/variable_value')),
+            'def.variable_id = '.$this->getMainTable().'.variable_id AND def.store_id = 0',
+            array()
+        )
             ->joinLeft(
                 array('store' => $this->getTable('core/variable_value')),
                 'store.variable_id = def.variable_id AND store.store_id = ' . $adapter->quote($storeId),
-                array())
+                array()
+            )
             ->columns(array(
                 'plain_value'       => $ifNullPlainValue,
                 'html_value'        => $ifNullHtmlValue,

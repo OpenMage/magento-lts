@@ -89,5 +89,4 @@ class Mage_Downloadable_Adminhtml_Downloadable_FileController extends Mage_Admin
     {
         return Mage::getSingleton('admin/session')->isAllowed('catalog/products');
     }
-
 }

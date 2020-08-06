@@ -43,10 +43,10 @@ class Mage_Admin_Model_Observer
      */
     public function actionPreDispatchAdmin($observer)
     {
-        /** @var $session Mage_Admin_Model_Session */
+        /** @var Mage_Admin_Model_Session $session */
         $session = Mage::getSingleton('admin/session');
 
-        /** @var $request Mage_Core_Controller_Request_Http */
+        /** @var Mage_Core_Controller_Request_Http $request */
         $request = Mage::app()->getRequest();
         $user = $session->getUser();
 
@@ -147,7 +147,7 @@ class Mage_Admin_Model_Observer
                 Mage_Core_Model_Encryption::HASH_VERSION_SHA256
             )
         ) {
-            Mage::getModel('admin/user')->load($user->getId())
+            $user
                 ->setNewPassword($password)->setForceNewPassword(true)
                 ->save();
             $user->setPasswordUpgraded(true);

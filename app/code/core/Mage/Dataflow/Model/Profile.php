@@ -393,7 +393,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         }
         $mapXml .= '<action type="dataflow/convert_mapper_column" method="map">' . $nl;
         $map = $p['map'][$this->getEntityType()];
-        if (sizeof($map['db']) > 0) {
+        if (count($map['db'])) {
             $from = $map[$import?'file':'db'];
             $to = $map[$import?'db':'file'];
             $mapXml .= '    <var name="map">' . $nl;

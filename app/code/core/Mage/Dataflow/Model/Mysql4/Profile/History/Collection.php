@@ -31,8 +31,8 @@
  * @category    Mage
  * @package     Mage_Dataflow
  * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated
  */
-class Mage_Dataflow_Model_Mysql4_Profile_History_Collection
-    extends Mage_Dataflow_Model_Resource_Profile_History_Collection
+class Mage_Dataflow_Model_Mysql4_Profile_History_Collection extends Mage_Dataflow_Model_Resource_Profile_History_Collection
 {
 }

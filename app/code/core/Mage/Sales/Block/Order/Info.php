@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Invoice view  comments form
  *
@@ -42,6 +41,9 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
         $this->setTemplate('sales/order/info.phtml');
     }
 
+    /**
+     * @return void
+     */
     protected function _prepareLayout()
     {
         if ($headBlock = $this->getLayout()->getBlock('head')) {
@@ -53,6 +55,9 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
         );
     }
 
+    /**
+     * @return string
+     */
     public function getPaymentInfoHtml()
     {
         return $this->getChildHtml('payment_info');
@@ -68,6 +73,12 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
         return Mage::registry('current_order');
     }
 
+    /**
+     * @param string $name
+     * @param string $path
+     * @param string $label
+     * @return $this
+     */
     public function addLink($name, $path, $label)
     {
         $this->_links[$name] = new Varien_Object(array(
@@ -82,7 +93,7 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
     /**
      * Remove a link
      *
-     * @param $name Name of the link
+     * @param string $name of the link
      * @return $this
      */
     public function removeLink($name)
@@ -93,6 +104,9 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function getLinks()
     {
         $this->checkLinks();
@@ -117,7 +131,7 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
      * Get url for reorder action
      *
      * @deprecated after 1.6.0.0, logic moved to new block
-     * @param Mage_Sales_Order $order
+     * @param Mage_Sales_Model_Order $order
      * @return string
      */
     public function getReorderUrl($order)
@@ -132,7 +146,7 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
      * Get url for printing order
      *
      * @deprecated after 1.6.0.0, logic moved to new block
-     * @param Mage_Sales_Order $order
+     * @param Mage_Sales_Model_Order $order
      * @return string
      */
     public function getPrintUrl($order)
@@ -142,5 +156,4 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
         }
         return $this->getUrl('sales/order/print', array('order_id' => $order->getId()));
     }
-
 }

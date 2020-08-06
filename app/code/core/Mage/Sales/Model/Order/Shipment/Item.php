@@ -25,31 +25,33 @@
  */
 
 /**
- * Enter description here ...
+ * Class Mage_Sales_Model_Order_Shipment_Item
  *
  * @method Mage_Sales_Model_Resource_Order_Shipment_Item _getResource()
  * @method Mage_Sales_Model_Resource_Order_Shipment_Item getResource()
- * @method int getParentId()
- * @method Mage_Sales_Model_Order_Shipment_Item setParentId(int $value)
- * @method float getRowTotal()
- * @method Mage_Sales_Model_Order_Shipment_Item setRowTotal(float $value)
- * @method float getPrice()
- * @method Mage_Sales_Model_Order_Shipment_Item setPrice(float $value)
- * @method float getWeight()
- * @method Mage_Sales_Model_Order_Shipment_Item setWeight(float $value)
- * @method float getQty()
- * @method int getProductId()
- * @method Mage_Sales_Model_Order_Shipment_Item setProductId(int $value)
- * @method int getOrderItemId()
- * @method Mage_Sales_Model_Order_Shipment_Item setOrderItemId(int $value)
+ * @method Mage_Sales_Model_Resource_Order_Shipment_Item_Collection getCollection()()
  * @method string getAdditionalData()
- * @method Mage_Sales_Model_Order_Shipment_Item setAdditionalData(string $value)
+ * @method $this setAdditionalData(string $value)
  * @method string getDescription()
- * @method Mage_Sales_Model_Order_Shipment_Item setDescription(string $value)
+ * @method $this setDescription(string $value)
  * @method string getName()
- * @method Mage_Sales_Model_Order_Shipment_Item setName(string $value)
+ * @method $this setName(string $value)
+ * @method int getOrderItemId()
+ * @method $this setOrderItemId(int $value)
+ * @method int getParentId()
+ * @method $this setParentId(int $value)
+ * @method float getPrice()
+ * @method $this setPrice(float $value)
+ * @method int getProductId()
+ * @method $this setProductId(int $value)
+ * @method float getQty()
+ * @method float getRowTotal()
+ * @method $this setRowTotal(float $value)
  * @method string getSku()
- * @method Mage_Sales_Model_Order_Shipment_Item setSku(string $value)
+ * @method $this setStoreId(int $value)
+ * @method $this setSku(string $value)
+ * @method float getWeight()
+ * @method $this setWeight(float $value)
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -66,7 +68,7 @@ class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
     /**
      * Initialize resource model
      */
-    function _construct()
+    public function _construct()
     {
         $this->_init('sales/order_shipment_item');
     }
@@ -75,7 +77,7 @@ class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
      * Declare Shipment instance
      *
      * @param   Mage_Sales_Model_Order_Shipment $shipment
-     * @return  Mage_Sales_Model_Order_Shipment_Item
+     * @return  $this
      */
     public function setShipment(Mage_Sales_Model_Order_Shipment $shipment)
     {
@@ -97,7 +99,7 @@ class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
      * Declare order item instance
      *
      * @param   Mage_Sales_Model_Order_Item $item
-     * @return  Mage_Sales_Model_Order_Shipment_Item
+     * @return  $this
      */
     public function setOrderItem(Mage_Sales_Model_Order_Item $item)
     {
@@ -116,8 +118,7 @@ class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
         if (is_null($this->_orderItem)) {
             if ($this->getShipment()) {
                 $this->_orderItem = $this->getShipment()->getOrder()->getItemById($this->getOrderItemId());
-            }
-            else {
+            } else {
                 $this->_orderItem = Mage::getModel('sales/order_item')
                     ->load($this->getOrderItemId());
             }
@@ -128,15 +129,15 @@ class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
     /**
      * Declare qty
      *
-     * @param   float $qty
-     * @return  Mage_Sales_Model_Order_Invoice_Item
+     * @param float $qty
+     * @return $this
+     * @throws Mage_Core_Exception
      */
     public function setQty($qty)
     {
         if ($this->getOrderItem()->getIsQtyDecimal()) {
             $qty = (float) $qty;
-        }
-        else {
+        } else {
             $qty = (int) $qty;
         }
         $qty = $qty > 0 ? $qty : 0;
@@ -145,8 +146,7 @@ class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
          */
         if ($qty <= $this->getOrderItem()->getQtyToShip() || $this->getOrderItem()->isDummy(true)) {
             $this->setData('qty', $qty);
-        }
-        else {
+        } else {
             Mage::throwException(
                 Mage::helper('sales')->__('Invalid qty to ship for item "%s"', $this->getName())
             );
@@ -182,5 +182,4 @@ class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
 
         return $this;
     }
-
 }

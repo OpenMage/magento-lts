@@ -42,6 +42,8 @@ class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_M
     {
         parent::_construct();
         $this->_useAnalyticFunction = true;
+        // skip adding stock information to collection for perfromance reasons
+        $this->setFlag('no_stock_data', true);
     }
     /**
      * Set Date range to collection
@@ -53,7 +55,6 @@ class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_M
     public function setDateRange($from, $to)
     {
         $this->_reset()
-            ->addAttributeToSelect('*')
             ->addOrderedQty($from, $to)
             ->setOrder('ordered_qty', self::SORT_ORDER_DESC);
         return $this;
@@ -87,7 +88,8 @@ class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_M
                 ->quoteInto('product_website.website_id IN(?)', $filters['website_ids']);
 
             $subQuery = $this->getConnection()->select()
-                ->from(array('product_website' => $this->getTable('catalog/product_website')),
+                ->from(
+                    array('product_website' => $this->getTable('catalog/product_website')),
                     array('product_website.product_id')
                 )
                 ->where(join(' AND ', $conditions));

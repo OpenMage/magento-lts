@@ -24,9 +24,16 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * Class Mage_Sales_Model_Quote_Address_Total_Discount
+ */
 class Mage_Sales_Model_Quote_Address_Total_Discount extends Mage_Sales_Model_Quote_Address_Total_Abstract
 {
+    /**
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @return $this
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
         $quote = $address->getQuote();
@@ -61,8 +68,7 @@ class Mage_Sales_Model_Quote_Address_Total_Discount extends Mage_Sales_Model_Quo
 
                 $subtotalWithDiscount+=$item->getRowTotal();
                 $baseSubtotalWithDiscount+=$item->getBaseRowTotal();
-            }
-            else {
+            } else {
                 /**
                  * Child item discount we calculate for parent
                  */
@@ -94,7 +100,6 @@ class Mage_Sales_Model_Quote_Address_Total_Discount extends Mage_Sales_Model_Quo
                          * @todo Parent discount we apply for all children without discount
                          */
                         if (!$child->getDiscountAmount() && $item->getDiscountPercent()) {
-
                         }
                         $totalDiscountAmount += $child->getDiscountAmount();//*$item->getQty();
                         $baseTotalDiscountAmount += $child->getBaseDiscountAmount();//*$item->getQty();
@@ -105,8 +110,7 @@ class Mage_Sales_Model_Quote_Address_Total_Discount extends Mage_Sales_Model_Quo
                         $subtotalWithDiscount+=$child->getRowTotalWithDiscount();
                         $baseSubtotalWithDiscount+=$child->getBaseRowTotalWithDiscount();
                     }
-                }
-                else {
+                } else {
                     $eventArgs['item'] = $item;
                     Mage::dispatchEvent('sales_quote_address_discount_item', $eventArgs);
 
@@ -134,6 +138,10 @@ class Mage_Sales_Model_Quote_Address_Total_Discount extends Mage_Sales_Model_Quo
         return $this;
     }
 
+    /**
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @return $this
+     */
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {
         $amount = $address->getDiscountAmount();
@@ -151,5 +159,4 @@ class Mage_Sales_Model_Quote_Address_Total_Discount extends Mage_Sales_Model_Quo
         }
         return $this;
     }
-
 }

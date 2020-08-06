@@ -31,6 +31,7 @@
  * @category    Mage
  * @package     Mage_Review
  * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated
  */
 class Mage_Review_Model_Mysql4_Review_Product_Collection extends Mage_Review_Model_Resource_Review_Product_Collection
 {

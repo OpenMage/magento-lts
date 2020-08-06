@@ -43,6 +43,9 @@ class Mage_Checkout_Block_Multishipping_Shipping extends Mage_Sales_Block_Items_
         return Mage::getSingleton('checkout/type_multishipping');
     }
 
+    /**
+     * @return Mage_Sales_Block_Items_Abstract
+     */
     protected function _prepareLayout()
     {
         if ($headBlock = $this->getLayout()->getBlock('head')) {
@@ -51,11 +54,17 @@ class Mage_Checkout_Block_Multishipping_Shipping extends Mage_Sales_Block_Items_
         return parent::_prepareLayout();
     }
 
+    /**
+     * @return array
+     */
     public function getAddresses()
     {
         return $this->getCheckout()->getQuote()->getAllShippingAddresses();
     }
 
+    /**
+     * @return int|mixed
+     */
     public function getAddressCount()
     {
         $count = $this->getData('address_count');
@@ -66,6 +75,11 @@ class Mage_Checkout_Block_Multishipping_Shipping extends Mage_Sales_Block_Items_
         return $count;
     }
 
+    /**
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @return array|mixed
+     * @throws Exception
+     */
     public function getAddressItems($address)
     {
         $items = array();
@@ -81,17 +95,29 @@ class Mage_Checkout_Block_Multishipping_Shipping extends Mage_Sales_Block_Items_
         return $itemsFilter->filter($items);
     }
 
+    /**
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @return string
+     */
     public function getAddressShippingMethod($address)
     {
         return $address->getShippingMethod();
     }
 
+    /**
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @return array
+     */
     public function getShippingRates($address)
     {
         $groups = $address->getGroupedAllShippingRates();
         return $groups;
     }
 
+    /**
+     * @param string $carrierCode
+     * @return string
+     */
     public function getCarrierName($carrierCode)
     {
         if ($name = Mage::getStoreConfig('carriers/'.$carrierCode.'/title')) {
@@ -100,26 +126,45 @@ class Mage_Checkout_Block_Multishipping_Shipping extends Mage_Sales_Block_Items_
         return $carrierCode;
     }
 
+    /**
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @return string
+     */
     public function getAddressEditUrl($address)
     {
         return $this->getUrl('*/multishipping_address/editShipping', array('id'=>$address->getCustomerAddressId()));
     }
 
+    /**
+     * @return string
+     */
     public function getItemsEditUrl()
     {
         return $this->getUrl('*/*/backToAddresses');
     }
 
+    /**
+     * @return string
+     */
     public function getPostActionUrl()
     {
         return $this->getUrl('*/*/shippingPost');
     }
 
+    /**
+     * @return string
+     */
     public function getBackUrl()
     {
         return $this->getUrl('*/*/backtoaddresses');
     }
 
+    /**
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @param float $price
+     * @param bool $flag
+     * @return float
+     */
     public function getShippingPrice($address, $price, $flag)
     {
         return $address->getQuote()->getStore()->convertPrice($this->helper('tax')->getShippingPrice($price, $flag, $address), true);
