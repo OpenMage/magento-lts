@@ -66,7 +66,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Send authorize request to gateway
      *
-     * @param Varien_Object $payment
+     * @param Mage_Sales_Model_Order_Payment|Varien_Object $payment
      * @param float $amount
      * @return void
      */

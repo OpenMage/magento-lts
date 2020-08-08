@@ -30,6 +30,52 @@
  * @category   Mage
  * @package    Mage_Authorizenet
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setXAddress(string $value)
+ * @method float getXAmount()
+ * @method $this setXAmount(float $value)
+ * @method $this setXCity(string $value)
+ * @method $this setXCompany(string $value)
+ * @method $this setXCountry(string $value)
+ * @method string getXCurrencyCode()
+ * @method $this setXCurrencyCode(string $value)
+ * @method $this setXCustId(string $value)
+ * @method $this setXCustomerIp(string $value)
+ * @method $this setXCustomerTaxId(string $value)
+ * @method $this setXDelimData(string $value)
+ * @method $this setXEmail(string $value)
+ * @method $this setXEmailCustomer(string $value)
+ * @method $this setXFax(string $value)
+ * @method $this setXFirstName(string $value)
+ * @method $this setXFpHash(string $value)
+ * @method int getXFpSequence()
+ * @method $this setXFpSequence(int $value)
+ * @method $this setXFpTimestamp(string $value)
+ * @method $this setXFreight(string $value)
+ * @method $this setXInvoiceNum(string $value)
+ * @method $this setXLastName(string $value)
+ * @method string getXLogin()
+ * @method $this setXLogin(string $value)
+ * @method $this setXMerchantEmail(string $value)
+ * @method $this setXMethod(string $value)
+ * @method $this setXPhone(string $value)
+ * @method $this setXPoNum(string $value)
+ * @method $this setXRelayResponse(string $value)
+ * @method $this setXRelayUrl(string $value)
+ * @method $this setXShipToAddress(string $value)
+ * @method $this setXShipToCity(string $value)
+ * @method $this setXShipToCompany(string $value)
+ * @method $this setXShipToCountry(string $value)
+ * @method $this setXShipToFirstName(string $value)
+ * @method $this setXShipToLastName(string $value)
+ * @method $this setXShipToState(string $value)
+ * @method $this setXShipToZip(string $value)
+ * @method $this setXState(string $value)
+ * @method $this setXTax(string $value)
+ * @method $this setXTestRequest(string $value)
+ * @method $this setXType(string $value)
+ * @method $this setXZip(string $value)
+ * @method $this setXVersion(string $value)
  */
 class Mage_Authorizenet_Model_Directpost_Request extends Varien_Object
 {
@@ -143,37 +189,37 @@ class Mage_Authorizenet_Model_Directpost_Request extends Varien_Object
         //need to use strval() because NULL values IE6-8 decodes as "null" in JSON in JavaScript, but we need "" for null values.
         $billing = $order->getBillingAddress();
         if (!empty($billing)) {
-            $this->setXFirstName(strval($billing->getFirstname()))
-                ->setXLastName(strval($billing->getLastname()))
-                ->setXCompany(strval($billing->getCompany()))
-                ->setXAddress(strval($billing->getStreet(1)))
-                ->setXCity(strval($billing->getCity()))
-                ->setXState(strval($billing->getRegion()))
-                ->setXZip(strval($billing->getPostcode()))
-                ->setXCountry(strval($billing->getCountry()))
-                ->setXPhone(strval($billing->getTelephone()))
-                ->setXFax(strval($billing->getFax()))
-                ->setXCustId(strval($billing->getCustomerId()))
-                ->setXCustomerIp(strval($order->getRemoteIp()))
-                ->setXCustomerTaxId(strval($billing->getTaxId()))
-                ->setXEmail(strval($order->getCustomerEmail()))
-                ->setXEmailCustomer(strval($paymentMethod->getConfigData('email_customer')))
-                ->setXMerchantEmail(strval($paymentMethod->getConfigData('merchant_email')));
+            $this->setXFirstName((string)$billing->getFirstname())
+                ->setXLastName((string)$billing->getLastname())
+                ->setXCompany((string)$billing->getCompany())
+                ->setXAddress((string)$billing->getStreet(1))
+                ->setXCity((string)$billing->getCity())
+                ->setXState((string)$billing->getRegion())
+                ->setXZip((string)$billing->getPostcode())
+                ->setXCountry((string)$billing->getCountry())
+                ->setXPhone((string)$billing->getTelephone())
+                ->setXFax((string)$billing->getFax())
+                ->setXCustId((string)$billing->getCustomerId())
+                ->setXCustomerIp((string)$order->getRemoteIp())
+                ->setXCustomerTaxId((string)$billing->getTaxId())
+                ->setXEmail((string)$order->getCustomerEmail())
+                ->setXEmailCustomer((string)$paymentMethod->getConfigData('email_customer'))
+                ->setXMerchantEmail((string)$paymentMethod->getConfigData('merchant_email'));
         }
 
         $shipping = $order->getShippingAddress();
         if (!empty($shipping)) {
-            $this->setXShipToFirstName(strval($shipping->getFirstname()))
-                ->setXShipToLastName(strval($shipping->getLastname()))
-                ->setXShipToCompany(strval($shipping->getCompany()))
-                ->setXShipToAddress(strval($shipping->getStreet(1)))
-                ->setXShipToCity(strval($shipping->getCity()))
-                ->setXShipToState(strval($shipping->getRegion()))
-                ->setXShipToZip(strval($shipping->getPostcode()))
-                ->setXShipToCountry(strval($shipping->getCountry()));
+            $this->setXShipToFirstName((string)$shipping->getFirstname())
+                ->setXShipToLastName((string)$shipping->getLastname())
+                ->setXShipToCompany((string)$shipping->getCompany())
+                ->setXShipToAddress((string)$shipping->getStreet(1))
+                ->setXShipToCity((string)$shipping->getCity())
+                ->setXShipToState((string)$shipping->getRegion())
+                ->setXShipToZip((string)$shipping->getPostcode())
+                ->setXShipToCountry((string)$shipping->getCountry());
         }
 
-        $this->setXPoNum(strval($payment->getPoNumber()));
+        $this->setXPoNum((string)$payment->getPoNumber());
 
         return $this;
     }

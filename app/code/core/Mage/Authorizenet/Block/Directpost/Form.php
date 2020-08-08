@@ -30,6 +30,8 @@
  * @category   Mage
  * @package    Mage_Authorizenet
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setMethod(Mage_Payment_Model_Method_Abstract $getMethodInstance)
  */
 class Mage_Authorizenet_Block_Directpost_Form extends Mage_Payment_Block_Form_Cc
 {

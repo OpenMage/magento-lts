@@ -29,7 +29,13 @@
  *
  * @category   Mage
  * @package    Mage_Authorizenet
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com
+ *
+ * @method array getDirectPostOrderIncrementIds()
+ * @method $this setDirectPostOrderIncrementIds(array $orderIncIds)
+ * @method int getLastOrderIncrementId()
+ * @method $this setLastOrderIncrementId(int $value)
+ * @method $this setQuoteId(int $value)
  */
 class Mage_Authorizenet_Model_Directpost_Session extends Mage_Core_Model_Session_Abstract
 {
