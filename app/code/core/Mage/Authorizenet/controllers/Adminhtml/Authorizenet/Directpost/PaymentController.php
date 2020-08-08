@@ -175,7 +175,7 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController
             //cancel old order
             $oldOrder = $this->_getOrderCreateModel()->getSession()->getOrder();
             if ($oldOrder->getId()) {
-                /* @var $order Mage_Sales_Model_Order */
+                /* @var Mage_Sales_Model_Order $order */
                 $order = Mage::getModel('sales/order')->loadByIncrementId($redirectParams['x_invoice_num']);
                 if ($order->getId()) {
                     $oldOrder->cancel()
@@ -225,7 +225,7 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController
             $this->_getDirectPostSession()
                 ->isCheckoutOrderIncrementIdExist($incrementId)
         ) {
-            /* @var $order Mage_Sales_Model_Order */
+            /* @var Mage_Sales_Model_Order $order */
             $order = Mage::getModel('sales/order')->loadByIncrementId($incrementId);
             if ($order->getId()) {
                 $this->_getDirectPostSession()->removeCheckoutOrderIncrementId($order->getIncrementId());

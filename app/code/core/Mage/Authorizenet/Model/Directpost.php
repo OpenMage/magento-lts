@@ -66,10 +66,9 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Send authorize request to gateway
      *
-     * @param  Varien_Object $payment
-     * @param  float $amount
-     * @return Mage_Paygate_Model_Authorizenet
-     * @throws Mage_Core_Exception
+     * @param Varien_Object $payment
+     * @param float $amount
+     * @return void
      */
     public function authorize(Varien_Object $payment, $amount)
     {
@@ -136,7 +135,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Check void availability
      *
-     * @param   Varien_Object $invoicePayment
+     * @param Varien_Object $payment
      * @return  bool
      */
     public function canVoid(Varien_Object $payment)
@@ -232,7 +231,8 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * refund the amount with transaction id
      *
-     * @param string $payment Varien_Object object
+     * @param Varien_Object $payment Varien_Object object
+     * @param $amount
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -353,7 +353,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Generate request object and fill its fields from Quote or Order object
      *
-     * @param Mage_Core_Model_Abstract $entity Quote or order object.
+     * @param Mage_Sales_Model_Order $order
      * @return Mage_Authorizenet_Model_Directpost_Request
      */
     public function generateRequestFromOrder(Mage_Sales_Model_Order $order)
@@ -428,7 +428,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
         $responseText = $this->_wrapGatewayError($response->getXResponseReasonText());
         $isError = false;
         if ($orderIncrementId) {
-            /* @var $order Mage_Sales_Model_Order */
+            /* @var Mage_Sales_Model_Order $order */
             $order = Mage::getModel('sales/order')->loadByIncrementId($orderIncrementId);
             //check payment method
             $payment = $order->getPayment();
