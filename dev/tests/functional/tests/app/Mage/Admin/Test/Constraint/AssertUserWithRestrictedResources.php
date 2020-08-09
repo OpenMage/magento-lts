@@ -72,13 +72,13 @@ class AssertUserWithRestrictedResources extends AbstractConstraint
         $adminAuthLogin->getLoginBlock()->loginToAdminPanel($user->getData());
         $menuItems = $adminPanelHeader->getMenuFirstLevelItems();
 
-        \PHPUnit_Framework_Assert::assertTrue(
+        \PHPUnit\Framework\Assert::assertTrue(
             count($menuItems) == 1 && in_array('Sales', $menuItems),
             'Sales menu item is not visible or count of menu items is greater than 1.'
         );
 
         $browser->open($_ENV['app_backend_url'] . $this->manageProductsUrl);
-        \PHPUnit_Framework_Assert::assertTrue(
+        \PHPUnit\Framework\Assert::assertTrue(
             strpos($dashboard->getMainBlock()->getMainBlockText(), self::ACCESS_DENIED) !== false,
             self::ACCESS_DENIED . " text is not visible on dashboard page.");
     }

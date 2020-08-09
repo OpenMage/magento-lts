@@ -50,7 +50,7 @@ class AssertCustomerGroupInGrid extends AbstractConstraint
     {
         $customerGroupIndex->open();
         $customerGroupCode = $customerGroup->getCustomerGroupCode();
-        \PHPUnit_Framework_Assert::assertTrue(
+        \PHPUnit\Framework\Assert::assertTrue(
             $customerGroupIndex->getCustomerGroupGrid()->isRowVisible(['code' => $customerGroupCode]),
             "Group '{$customerGroupCode}' is absent in customer groups grid."
         );

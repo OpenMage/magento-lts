@@ -58,7 +58,7 @@ class AssertUpSellProductsSection extends AbstractConstraint
     ) {
         $browser->open($_ENV['app_frontend_url'] . $product->getUrlKey() . '.html');
         foreach ($upSellProducts as $upSellProduct) {
-            \PHPUnit_Framework_Assert::assertTrue(
+            \PHPUnit\Framework\Assert::assertTrue(
                 $catalogProductView->getUpsellBlock()->getItemBlock($upSellProduct)->isVisible(),
                 "Product {$upSellProduct->getName()} is absent in up-sells products."
             );

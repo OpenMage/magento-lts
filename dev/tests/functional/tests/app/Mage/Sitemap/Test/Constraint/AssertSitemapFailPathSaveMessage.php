@@ -53,7 +53,7 @@ class AssertSitemapFailPathSaveMessage extends AbstractConstraint
      */
     public function processAssert(SitemapIndex $sitemapIndex, Sitemap $sitemap)
     {
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             sprintf(self::FAIL_PATH_MESSAGE, $sitemap->getSitemapFilename()),
             $sitemapIndex->getMessagesBlock()->getErrorMessages()
         );

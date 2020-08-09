@@ -80,21 +80,21 @@ class AssertProductMapAppliedBeforeCheckout extends AbstractConstraint
             $listProductBlock = $catalogCategoryView->getListProductBlock();
             $productPriceBlock = $listProductBlock->getProductPriceBlock($productName);
             $productPriceBlock->clickForPrice();
-            \PHPUnit_Framework_Assert::assertFalse(
+            \PHPUnit\Framework\Assert::assertFalse(
                 $productPriceBlock->getMapBlock()->isPriceVisible(),
                 'Price is present in MSRP dialog on category page.'
             );
 
             // Check that price is not present on product page.
             $listProductBlock->openProductViewPage($productName);
-            \PHPUnit_Framework_Assert::assertFalse(
+            \PHPUnit\Framework\Assert::assertFalse(
                 $catalogProductView->getViewBlock()->getPriceBlock()->isRegularPriceVisible(),
                 'Price is present in View block on product page.'
             );
 
             // Check that price is not present on cart.
             $catalogProductView->getViewBlock()->addToCart($products[$i]);
-            \PHPUnit_Framework_Assert::assertTrue(
+            \PHPUnit\Framework\Assert::assertTrue(
                 $cart->getCartBlock()->getCartItem($products[$i])->isMsrpVisible(),
                 "MSRP link is not visible in cart."
             );
@@ -113,7 +113,7 @@ class AssertProductMapAppliedBeforeCheckout extends AbstractConstraint
             $shippingBlock->clickContinue();
             $paymentMethodBlock->selectPaymentMethod(['method' => 'checkmo']);
             $paymentMethodBlock->clickContinue();
-            \PHPUnit_Framework_Assert::assertEquals(
+            \PHPUnit\Framework\Assert::assertEquals(
                 number_format($products[$i]->getPrice(), 2),
                 $checkoutOnePage->getReviewBlock()->getTotalBlock()->getData('subtotal'),
                 "Subtotal in checkout one page for $productName is not equal to expected."

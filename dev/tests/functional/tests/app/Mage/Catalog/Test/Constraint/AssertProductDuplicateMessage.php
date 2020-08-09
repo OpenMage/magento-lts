@@ -47,7 +47,7 @@ class AssertProductDuplicateMessage extends AbstractConstraint
      */
     public function processAssert(CatalogProductEdit $productPage)
     {
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             self::DUPLICATE_MESSAGE,
             $productPage->getMessagesBlock()->getSuccessMessages()
         );

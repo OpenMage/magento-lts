@@ -78,7 +78,7 @@ abstract class AbstractAssertProductInShoppingCart extends AbstractAssertForm
         }
 
         $error = $this->verifyContainsData($productsData, $cartData);
-        \PHPUnit_Framework_Assert::assertEmpty($error, $error);
+        \PHPUnit\Framework\Assert::assertEmpty($error, $error);
     }
 
     /**

@@ -56,7 +56,7 @@ class AssertTaxRateForm extends AbstractAssertForm
         $formData = $taxRateNew->getTaxRateForm()->getData($taxRate);
         $errors = $this->verifyData($data, $formData);
 
-        \PHPUnit_Framework_Assert::assertEmpty($errors, $errors);
+        \PHPUnit\Framework\Assert::assertEmpty($errors, $errors);
     }
 
     /**

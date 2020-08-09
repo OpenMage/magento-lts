@@ -54,7 +54,7 @@ class AssertGrandTotalInShoppingCart extends AbstractConstraint
             $this->login($customer);
         }
         $checkoutCart->open();
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             number_format($cart->getGrandTotal(), 2),
             $checkoutCart->getTotalsBlock()->getData('grand_total')
         );

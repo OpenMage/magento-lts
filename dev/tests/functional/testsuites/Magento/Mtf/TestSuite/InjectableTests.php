@@ -32,7 +32,7 @@ use Magento\Mtf\ObjectManagerFactory;
 /**
  * Injectable tests class.
  */
-class InjectableTests extends \PHPUnit_Framework_TestSuite
+class InjectableTests extends \PHPUnit\Framework\TestSuite
 {
     /**
      * Object manager.
@@ -44,31 +44,31 @@ class InjectableTests extends \PHPUnit_Framework_TestSuite
     /**
      * Test suite.
      *
-     * @var \PHPUnit_Framework_TestSuite
+     * @var \PHPUnit\Framework\TestSuite
      */
     protected $suite;
 
     /**
      * Test result
      *
-     * @var \PHPUnit_Framework_TestResult
+     * @var \PHPUnit\Framework\TestResult
      */
     protected $result;
 
     /**
      * Run collected tests.
      *
-     * @param \PHPUnit_Framework_TestResult $result
+     * @param \PHPUnit\Framework\TestResult $result
      * @param bool $filter
      * @param array $groups
      * @param array $excludeGroups
      * @param bool $processIsolation
-     * @return \PHPUnit_Framework_TestResult|void
+     * @return \PHPUnit\Framework\TestResult|void
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function run(
-        \PHPUnit_Framework_TestResult $result = null,
+        \PHPUnit\Framework\TestResult $result = null,
         $filter = false,
         array $groups = [],
         array $excludeGroups = [],

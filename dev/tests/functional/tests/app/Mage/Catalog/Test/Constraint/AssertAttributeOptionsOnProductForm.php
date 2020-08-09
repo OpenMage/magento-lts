@@ -65,7 +65,7 @@ class AssertAttributeOptionsOnProductForm extends AbstractConstraint
         $productForm = $catalogProductEdit->getProductForm();
         $attributeOptions = $productForm->getAttributeElement($attribute)->getValues();
 
-        \PHPUnit_Framework_Assert::assertEquals($attributeOptionsFromFixture, $attributeOptions);
+        \PHPUnit\Framework\Assert::assertEquals($attributeOptionsFromFixture, $attributeOptions);
     }
 
     /**

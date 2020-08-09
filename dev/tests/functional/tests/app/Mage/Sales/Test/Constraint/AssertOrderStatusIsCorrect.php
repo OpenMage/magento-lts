@@ -52,7 +52,7 @@ class AssertOrderStatusIsCorrect extends AbstractConstraint
     {
         $salesOrder->open()->getSalesOrderGrid()->searchAndOpen(['id' => $orderId]);
 
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             $status,
             $salesOrderView->getOrderForm()->getTabElement('information')->getOrderInfoBlock()->getOrderStatus()
         );

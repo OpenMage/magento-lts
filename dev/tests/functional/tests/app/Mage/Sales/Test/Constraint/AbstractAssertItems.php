@@ -141,7 +141,7 @@ abstract class AbstractAssertItems extends AbstractAssertSales
         foreach ($ids[$this->entityType . 'Ids'] as $entityId) {
             $itemsData = $this->getItemsBlock($entityId)->getData();
             $error = $this->verifyData($productsData, $itemsData);
-            \PHPUnit_Framework_Assert::assertEmpty($error, $error);
+            \PHPUnit\Framework\Assert::assertEmpty($error, $error);
         }
     }
 

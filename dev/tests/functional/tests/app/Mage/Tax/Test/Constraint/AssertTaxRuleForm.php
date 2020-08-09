@@ -56,7 +56,7 @@ class AssertTaxRuleForm extends AbstractConstraint
         $formData = $taxRuleNew->getTaxRuleForm()->getData($taxRule);
         $dataDiff = $this->verifyForm($formData, $fixtureData);
 
-        \PHPUnit_Framework_Assert::assertEmpty($dataDiff, implode($dataDiff));
+        \PHPUnit\Framework\Assert::assertEmpty($dataDiff, implode($dataDiff));
     }
 
     /**

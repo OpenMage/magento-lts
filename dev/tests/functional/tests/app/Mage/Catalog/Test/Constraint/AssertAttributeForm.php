@@ -66,7 +66,7 @@ class AssertAttributeForm extends AbstractAssertForm
         $dataFixture = $attribute->getData();
         $dataForm = $catalogProductAttributeEdit->getAttributeForm()->getData($attribute);
         $errors = $this->verifyData($dataFixture, $dataForm);
-        \PHPUnit_Framework_Assert::assertEmpty($errors, $errors);
+        \PHPUnit\Framework\Assert::assertEmpty($errors, $errors);
     }
 
     /**

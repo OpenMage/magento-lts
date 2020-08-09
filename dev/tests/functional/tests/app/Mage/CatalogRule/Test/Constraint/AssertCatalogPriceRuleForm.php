@@ -68,7 +68,7 @@ class AssertCatalogPriceRuleForm extends AbstractAssertForm
         $fixtureData = $this->prepareFixtureData($catalogPriceRule->getData());
         $diff = $this->verifyData($formData, $fixtureData);
 
-        \PHPUnit_Framework_Assert::assertEmpty($diff, $diff);
+        \PHPUnit\Framework\Assert::assertEmpty($diff, $diff);
     }
 
     /**

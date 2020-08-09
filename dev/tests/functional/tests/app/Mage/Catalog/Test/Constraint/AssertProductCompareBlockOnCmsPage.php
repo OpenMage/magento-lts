@@ -59,7 +59,7 @@ class AssertProductCompareBlockOnCmsPage extends AbstractConstraint
         foreach ($products as &$product) {
             $product = strtolower($product->getName());
         }
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             $products,
             $cmsIndex->getCompareBlock()->getProducts(),
             'Compare product block contains NOT valid information about compared products.'

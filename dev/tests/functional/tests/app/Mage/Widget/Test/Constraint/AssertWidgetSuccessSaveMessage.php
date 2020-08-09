@@ -51,7 +51,7 @@ class AssertWidgetSuccessSaveMessage extends AbstractConstraint
      */
     public function processAssert(WidgetInstanceIndex $widgetInstanceIndex)
     {
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             self::SUCCESS_MESSAGE,
             $widgetInstanceIndex->getMessagesBlock()->getSuccessMessages()
         );

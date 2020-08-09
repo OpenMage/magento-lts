@@ -1,0 +1,36 @@
+#!/usr/bin/env php
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+$mtfRoot = dirname(__DIR__);
+$mtfRoot = str_replace('\\', '/', $mtfRoot);
+define('MTF_PHPUNIT_FILE', $mtfRoot . DIRECTORY_SEPARATOR . 'phpunit.xml');
+
+if (PHP_SAPI !== 'cli') {
+    echo 'utils/mtf must be run as a CLI application';
+    exit(1);
+}
+
+try {
+    require __DIR__ . DIRECTORY_SEPARATOR . 'bootstrap.php';
+} catch (\Exception $e) {
+    echo 'Autoload error: ' . $e->getMessage();
+    exit(1);
+}
+try {
+    #$handler = new \Magento\Framework\App\ErrorHandler();
+    #set_error_handler([$handler, 'handler']);
+    $application = $objectManager->create('Magento\Mtf\Console\Cli');
+    $application->run();
+} catch (\Exception $e) {
+    while ($e) {
+        echo $e->getMessage();
+        echo $e->getTraceAsString();
+        echo "\n\n";
+        $e = $e->getPrevious();
+    }
+    exit(1);
+}

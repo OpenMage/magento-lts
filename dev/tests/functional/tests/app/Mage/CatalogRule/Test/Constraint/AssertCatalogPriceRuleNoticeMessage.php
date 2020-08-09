@@ -58,7 +58,7 @@ class AssertCatalogPriceRuleNoticeMessage extends AbstractConstraint
      */
     public function processAssert(CatalogRuleIndex $pageCatalogRuleIndex)
     {
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             self::NOTICE_MESSAGE_RULES . self::NOTICE_MESSAGE_APPLY,
             $pageCatalogRuleIndex->getMessagesBlock()->getNoticeMessages()
         );

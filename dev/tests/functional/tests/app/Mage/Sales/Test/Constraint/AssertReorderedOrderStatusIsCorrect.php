@@ -57,7 +57,7 @@ class AssertReorderedOrderStatusIsCorrect extends AbstractConstraint
     ) {
         $salesOrder->open()->getSalesOrderGrid()->searchAndOpen(['id' => $order->getId()]);
 
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             $previousOrderStatus,
             $salesOrderView->getOrderForm()->getTabElement('information')->getOrderInfoBlock()->getOrderStatus(),
             'Order status is incorrect on order page in backend.'

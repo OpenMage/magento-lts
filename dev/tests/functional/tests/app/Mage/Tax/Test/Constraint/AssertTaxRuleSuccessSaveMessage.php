@@ -51,7 +51,7 @@ class AssertTaxRuleSuccessSaveMessage extends AbstractConstraint
      */
     public function processAssert(TaxRuleIndex $taxRuleIndex)
     {
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             self::SUCCESS_MESSAGE,
             $taxRuleIndex->getMessagesBlock()->getSuccessMessages()
         );

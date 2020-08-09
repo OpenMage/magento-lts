@@ -51,7 +51,7 @@ class AssertSearchTermSynonymOnFrontend extends AbstractConstraint
     public function processAssert(CmsIndex $cmsIndex, Browser $browser, CatalogSearchQuery $searchTerm)
     {
         $cmsIndex->open()->getSearchBlock()->search($searchTerm->getSynonymFor());
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             $searchTerm->getRedirect(),
             $browser->getUrl(),
             'Redirect by synonym was not executed.'

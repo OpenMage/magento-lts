@@ -62,7 +62,7 @@ class AssertStoreNotOnFrontend extends AbstractConstraint
             ? $headerBlock->isStoreViewVisible($store)
             : false; // if only one store view is assigned to store group
 
-        \PHPUnit_Framework_Assert::assertFalse(
+        \PHPUnit\Framework\Assert::assertFalse(
             $isStoreViewVisible,
             "Store view '{$store->getName()}' is visible in dropdown on CmsIndex page."
         );

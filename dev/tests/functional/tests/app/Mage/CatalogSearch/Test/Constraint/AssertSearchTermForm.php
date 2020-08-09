@@ -58,7 +58,7 @@ class AssertSearchTermForm extends AbstractConstraint
         CatalogSearchQuery $searchTerm
     ) {
         $indexPage->open()->getGrid()->searchAndOpen(['search_query' => $searchTerm->getQueryText()]);
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             $searchTerm->getData(),
             $editPage->getForm()->getData($searchTerm),
             'This form "Search Term" does not match the fixture data.'

@@ -58,7 +58,7 @@ class AssertCatalogPriceRuleNotInProductPage extends AbstractConstraint
         $browser->open($_ENV['app_frontend_url'] . $productSimple->getUrlKey() . '.html');
         $productPriceFromFixture = $productSimple->getPrice();
         $productPrice = number_format($catalogProductView->getViewBlock()->getPriceBlock()->getPrice(), 2);
-        \PHPUnit_Framework_Assert::assertEquals($productPrice, $productPriceFromFixture);
+        \PHPUnit\Framework\Assert::assertEquals($productPrice, $productPriceFromFixture);
     }
 
     /**

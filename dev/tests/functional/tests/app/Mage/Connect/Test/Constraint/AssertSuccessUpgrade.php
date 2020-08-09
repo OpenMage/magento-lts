@@ -42,7 +42,7 @@ class AssertSuccessUpgrade extends AbstractConstraint
      */
     public function processAssert(ConnectManager $connectManager)
     {
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             self::SUCCESS_MESSAGE,
             $connectManager->getMessages()->getSuccessMessages()
         );

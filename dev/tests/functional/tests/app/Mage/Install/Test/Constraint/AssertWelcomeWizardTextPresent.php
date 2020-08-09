@@ -47,7 +47,7 @@ class AssertWelcomeWizardTextPresent extends AbstractConstraint
      */
     public function processAssert(downloaderWelcome $downloaderWelcome)
     {
-        \PHPUnit_Framework_Assert::assertContains(
+        \PHPUnit\Framework\Assert::assertContains(
             self::WELCOME_WIZARD_TEXT,
             $downloaderWelcome->getWelcomeBlock()->getWizardTitle(),
             'This wrong page'

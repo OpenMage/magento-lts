@@ -54,7 +54,7 @@ class AssertUserSuccessSaveMessage extends AbstractConstraint
      */
     public function processAssert(UserIndex $userIndex)
     {
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             self::SUCCESS_SAVE_MESSAGE,
             $userIndex->getMessagesBlock()->getSuccessMessages(),
             'Wrong success save message is displayed.'

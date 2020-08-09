@@ -55,7 +55,7 @@ class AssertProductCanNotAddToCart extends AbstractConstraint
         Browser $browser
     ) {
         $browser->open($_ENV['app_frontend_url'] . $product->getUrlKey() . '.html');
-        \PHPUnit_Framework_Assert::assertFalse(
+        \PHPUnit\Framework\Assert::assertFalse(
             $catalogProductView->getViewBlock()->checkAddToCartButton(),
             'Add to Cart button is present on product page'
         );

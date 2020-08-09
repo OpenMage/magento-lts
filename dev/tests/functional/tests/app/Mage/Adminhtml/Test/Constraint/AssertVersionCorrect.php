@@ -46,7 +46,7 @@ class AssertVersionCorrect extends AbstractConstraint
         $config = \Magento\Mtf\ObjectManagerFactory::getObjectManager()->get('Magento\Mtf\Config\GlobalConfig');
         $newVersion = $config->get('version/0/value');
         $dashboard->open();
-        \PHPUnit_Framework_Assert::assertTrue(
+        \PHPUnit\Framework\Assert::assertTrue(
             $dashboard->getFooter()->findVersion($newVersion)->isVisible()
         );
     }

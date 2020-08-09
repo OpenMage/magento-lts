@@ -51,7 +51,7 @@ class AssertTermSuccessSaveMessage extends AbstractConstraint
      */
     public function processAssert(CheckoutAgreementIndex $agreementIndex)
     {
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             self::SUCCESS_SAVE_MESSAGE,
             $agreementIndex->getMessagesBlock()->getSuccessMessages()
         );

@@ -57,7 +57,7 @@ class AssertCategoryRedirect extends AbstractConstraint
     ) {
         $browser->open(str_replace('index', 'cron', $_ENV['app_frontend_url']));
         $browser->open($_ENV['app_frontend_url'] . $initialCategory->getUrlKey() . '.html');
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             $catalogCategoryView->getTitleBlock()->getTitle(),
             strtoupper($category->getName()),
             'Old category URL does not lead to appropriate Category in frontend.'

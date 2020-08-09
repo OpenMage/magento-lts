@@ -73,7 +73,7 @@ class AssertProductReviewInGrid extends AbstractConstraint
     ) {
         $reviewIndex->open();
         $filter = $this->prepareFilter($product, $review->getData(), $gridStatus);
-        \PHPUnit_Framework_Assert::assertTrue(
+        \PHPUnit\Framework\Assert::assertTrue(
             $reviewIndex->getReviewGrid()->isRowVisible($filter),
             'Review is absent in Review grid.'
         );

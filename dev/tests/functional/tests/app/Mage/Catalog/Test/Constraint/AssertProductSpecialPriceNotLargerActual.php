@@ -53,7 +53,7 @@ class AssertProductSpecialPriceNotLargerActual extends AbstractConstraint
     public function processAssert(CatalogProductNew $productPage, InjectableFixture $product)
     {
         $errorMessages = $productPage->getProductForm()->getRequireNoticeAttributes($product);
-        \PHPUnit_Framework_Assert::assertEquals(self::ERROR_MESSAGE, $errorMessages['prices']['specialprice']);
+        \PHPUnit\Framework\Assert::assertEquals(self::ERROR_MESSAGE, $errorMessages['prices']['specialprice']);
     }
 
     /**

@@ -51,7 +51,7 @@ class AssertCustomerGroupSuccessSaveMessage extends AbstractConstraint
      */
     public function processAssert(CustomerGroupIndex $customerGroupIndex)
     {
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             self::SUCCESS_MESSAGE,
             $customerGroupIndex->getMessagesBlock()->getSuccessMessages()
         );

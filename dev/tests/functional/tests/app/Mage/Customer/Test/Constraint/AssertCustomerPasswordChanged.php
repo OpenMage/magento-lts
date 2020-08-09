@@ -69,7 +69,7 @@ class AssertCustomerPasswordChanged extends AbstractConstraint
             'Mage\Customer\Test\TestStep\LoginCustomerOnFrontendStep',
             ['customer' => $customer]
         )->run();
-        \PHPUnit_Framework_Assert::assertTrue(
+        \PHPUnit\Framework\Assert::assertTrue(
             $customerAccountIndex->getAccountNavigationBlock()->isVisible(),
             'Customer Account Dashboard is not visible.'
         );

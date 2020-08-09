@@ -56,7 +56,7 @@ class AssertGroupedProductsDefaultQty extends AbstractAssertForm
         $fixtureQtyData = $this->prepareFixtureQtyData($product);
         $pageQtyData = $this->prepareFormQtyData($pageOptions);
         $error = $this->verifyData($fixtureQtyData, $pageQtyData);
-        \PHPUnit_Framework_Assert::assertEmpty($error, $error);
+        \PHPUnit\Framework\Assert::assertEmpty($error, $error);
     }
 
     /**

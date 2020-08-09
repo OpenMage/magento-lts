@@ -90,7 +90,7 @@ abstract class AbstractAssertTax extends AbstractAssertForm
     protected function assertOrderPrices(InjectableFixture $product, array $prices)
     {
         $error = $this->verifyData($prices, $this->getActualPrices($product, 'order_prices'));
-        \PHPUnit_Framework_Assert::assertTrue(empty($error), $error);
+        \PHPUnit\Framework\Assert::assertTrue(empty($error), $error);
     }
 
     /**

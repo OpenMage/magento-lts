@@ -59,7 +59,7 @@ class AssertAddedProductAttributeOnProductForm extends AbstractConstraint
         $productGrid->open();
         $productGrid->getProductGrid()->searchAndOpen(['sku' => $product->getSku()]);
 
-        \PHPUnit_Framework_Assert::assertTrue(
+        \PHPUnit\Framework\Assert::assertTrue(
             $productEdit->getProductForm()->checkAttributeLabel($attribute->getData()),
             "Product Attribute is absent on Product form."
         );

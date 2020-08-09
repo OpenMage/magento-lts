@@ -116,7 +116,7 @@ class AssertProductIsNotDisplayingOnFrontend extends AbstractConstraint
         $products = is_array($product) ? $product : [$product];
         foreach ($products as $product) {
             $errors = $this->isNotDisplayingOnFrontendAssert($product);
-            \PHPUnit_Framework_Assert::assertEmpty(
+            \PHPUnit\Framework\Assert::assertEmpty(
                 $errors,
                 "In the process of checking product availability on the frontend, found the following errors:\n"
                 . implode("\n", $errors)

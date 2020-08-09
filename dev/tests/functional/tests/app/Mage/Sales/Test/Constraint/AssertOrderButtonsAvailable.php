@@ -57,7 +57,7 @@ class AssertOrderButtonsAvailable extends AbstractConstraint
         $salesOrder->open()->getSalesOrderGrid()->searchAndOpen(['id' => $orderId]);
         $absentButtons = $this->getAbsentButtons($salesOrderView, $orderButtonsAvailable);
 
-        \PHPUnit_Framework_Assert::assertEmpty(
+        \PHPUnit\Framework\Assert::assertEmpty(
             $absentButtons,
             "Next buttons was not found on page: \n" . implode(";\n", $absentButtons)
         );

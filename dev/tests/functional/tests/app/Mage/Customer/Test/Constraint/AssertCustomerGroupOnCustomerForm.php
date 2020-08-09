@@ -51,7 +51,7 @@ class AssertCustomerGroupOnCustomerForm extends AbstractConstraint
         $customerNew->open();
         $formCustomerGroups = $customerNew->getCustomerForm()->getCustomerGroups();
         $customerGroupCode = $customerGroup->getCustomerGroupCode();
-        \PHPUnit_Framework_Assert::assertTrue(
+        \PHPUnit\Framework\Assert::assertTrue(
             in_array($customerGroupCode, $formCustomerGroups),
             "Customer group '{$customerGroupCode}' is absent on customer account information page"
         );

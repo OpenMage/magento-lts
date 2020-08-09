@@ -1231,14 +1231,14 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                 if (!empty($attr['frontend'])) {
                     if ('_' === $attr['frontend']) {
                         $attr['frontend'] = $frontendPrefix;
-                    } elseif ('_' === $attr['frontend']{0}) {
+                    } elseif ('_' === $attr['frontend'][0]) {
                         $attr['frontend'] = $frontendPrefix.$attr['frontend'];
                     }
                 }
                 if (!empty($attr['source'])) {
                     if ('_' === $attr['source']) {
                         $attr['source'] = $sourcePrefix;
-                    } elseif ('_' === $attr['source']{0}) {
+                    } elseif ('_' === $attr['source'][0]) {
                         $attr['source'] = $sourcePrefix . $attr['source'];
                     }
                 }

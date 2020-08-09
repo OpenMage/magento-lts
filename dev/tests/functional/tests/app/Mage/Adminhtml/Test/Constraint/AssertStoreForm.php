@@ -55,7 +55,7 @@ class AssertStoreForm extends AbstractAssertForm
     {
         $storeIndex->open()->getStoreGrid()->openStore($store);
         $errors = $this->verifyData($store->getData(), $storeNew->getStoreForm()->getData());
-        \PHPUnit_Framework_Assert::assertEmpty($errors, $errors);
+        \PHPUnit\Framework\Assert::assertEmpty($errors, $errors);
     }
 
     /**

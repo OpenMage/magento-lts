@@ -51,7 +51,7 @@ class AssertStoreGroupSuccessSaveMessage extends AbstractConstraint
      */
     public function processAssert(StoreIndex $storeIndex)
     {
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             self::SUCCESS_MESSAGE,
             $storeIndex->getMessagesBlock()->getSuccessMessages()
         );

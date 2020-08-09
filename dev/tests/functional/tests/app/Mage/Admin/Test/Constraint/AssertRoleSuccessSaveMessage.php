@@ -48,7 +48,7 @@ class AssertRoleSuccessSaveMessage extends AbstractConstraint
      */
     public function processAssert(UserRoleIndex $rolePage)
     {
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             self::SUCCESS_MESSAGE,
             $rolePage->getMessagesBlock()->getSuccessMessages()
         );

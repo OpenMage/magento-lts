@@ -91,7 +91,7 @@ class AssertTermOnCheckout extends AbstractConstraint
         $this->processCheckout($checkoutMethod, $billingAddress, $shipping, $payment);
         $alertText = $checkoutOnepage->getReviewBlock()->clickContinue();
 
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             self::NOTIFICATION_MESSAGE,
             $alertText,
             'Notification required message of Terms and Conditions is absent.'

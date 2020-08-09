@@ -67,7 +67,7 @@ class AssertGiftMessageInFrontendOrderItems extends AbstractAssertGiftMessageOnF
         $expectedData = $this->prepareExpectedData($giftMessage);
         $actualData = $this->prepareActualData($orderView, $products);
 
-        \PHPUnit_Framework_Assert::assertEquals($expectedData, $actualData);
+        \PHPUnit\Framework\Assert::assertEquals($expectedData, $actualData);
 
         $customerAccountLogout->open();
     }

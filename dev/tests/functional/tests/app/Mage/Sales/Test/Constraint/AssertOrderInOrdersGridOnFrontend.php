@@ -61,7 +61,7 @@ class AssertOrderInOrdersGridOnFrontend extends AbstractConstraint
             ['customer' => $customer]
         )->run();
         $customerAccountIndex->getAccountNavigationBlock()->openNavigationItem('My Orders');
-        \PHPUnit_Framework_Assert::assertTrue(
+        \PHPUnit\Framework\Assert::assertTrue(
             $orderHistory->getOrderHistoryBlock()->isOrderVisible($order),
             "Order with following id {$order->getId()} is absent in Orders block on frontend."
         );

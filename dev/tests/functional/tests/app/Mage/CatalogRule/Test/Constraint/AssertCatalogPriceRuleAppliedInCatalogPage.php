@@ -73,7 +73,7 @@ class AssertCatalogPriceRuleAppliedInCatalogPage extends AbstractAssertForm
         $formPrices = $this->getFormPrices($product, $catalogCategoryView);
         $fixturePrices = $this->prepareFixturePrices($prices);
         $diff = $this->verifyData($fixturePrices, $formPrices);
-        \PHPUnit_Framework_Assert::assertEmpty($diff, $diff . "\n On: " . date('l jS \of F Y h:i:s A'));
+        \PHPUnit\Framework\Assert::assertEmpty($diff, $diff . "\n On: " . date('l jS \of F Y h:i:s A'));
     }
 
     /**

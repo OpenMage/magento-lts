@@ -44,7 +44,7 @@ class AssertCurrencySelected extends AbstractConstraint
     public function processAssert(Dashboard $dashboard, $currencySymbol)
     {
         $dashboard->open();
-        \PHPUnit_Framework_Assert::assertTrue(
+        \PHPUnit\Framework\Assert::assertTrue(
             strpos($dashboard->getMainBlock()->getRevenuePrice(), $currencySymbol) !== false,
             'Selected currency symbol not displays on dashboard.'
         );

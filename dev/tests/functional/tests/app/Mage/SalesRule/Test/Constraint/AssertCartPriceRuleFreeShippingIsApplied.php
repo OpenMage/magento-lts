@@ -47,7 +47,7 @@ class AssertCartPriceRuleFreeShippingIsApplied extends AbstractCartPriceRuleAppl
      */
     protected function assert()
     {
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             $this->checkoutCart->getTotalsBlock()->getData('shipping_price'),
             self::FREE_SHIPPING_PRICE,
             "Free shipping hasn't been applied."

@@ -90,7 +90,7 @@ class AssertProductVisibleInCategory extends AbstractConstraint
             $this->successfulMessage = 'Asserts that the product could not be found in this category.';
         }
 
-        \PHPUnit_Framework_Assert::assertTrue(
+        \PHPUnit\Framework\Assert::assertTrue(
             $isProductVisible,
             $this->errorMessage
         );

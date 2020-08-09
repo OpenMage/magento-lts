@@ -52,7 +52,7 @@ class AssertStoreGroupInPurchasePointDropdown extends AbstractConstraint
         foreach ($storeGroups as $storeGroup) {
             /** @var StoreGroup $storeGroup */
             $storeGroupName = $storeGroup->getName();
-            \PHPUnit_Framework_Assert::assertTrue(
+            \PHPUnit\Framework\Assert::assertTrue(
                 $salesOrderIndex->getSalesOrderGrid()->isRowVisible(['purchased_from' => $storeGroupName]),
                 "Store group '$storeGroupName' is not present in grid filter."
             );

@@ -63,7 +63,7 @@ class AssertCmsPageForm extends AbstractAssertForm
         $cmsPageIndex->getCmsPageGridBlock()->searchAndOpen(['title' => $cms->getTitle()]);
         $cmsFormData = $cmsPageNew->getPageForm()->getData($cms);
         $errors = $this->verifyData($cms->getData(), $cmsFormData);
-        \PHPUnit_Framework_Assert::assertEmpty($errors, $errors);
+        \PHPUnit\Framework\Assert::assertEmpty($errors, $errors);
     }
 
     /**

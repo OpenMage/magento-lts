@@ -87,7 +87,7 @@ class AssertProductSpecialPriceOnProductPage extends AbstractConstraint implemen
      */
     public function assertPrice(InjectableFixture $product, View $productViewBlock)
     {
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             number_format($product->getSpecialPrice(), 2),
             $productViewBlock->getPriceBlock()->getSpecialPrice(),
             $this->errorMessage

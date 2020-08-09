@@ -64,7 +64,7 @@ class AssertProductDetailsInWishlist extends AbstractAssertForm
         $expectedOptions = $this->prepareOptions($cartFixture);
 
         $errors = $this->verifyData($expectedOptions, $this->sortDataByPath($actualOptions, '::title'));
-        \PHPUnit_Framework_Assert::assertEmpty($errors, $errors);
+        \PHPUnit\Framework\Assert::assertEmpty($errors, $errors);
     }
 
     /**

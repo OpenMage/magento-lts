@@ -89,7 +89,7 @@ class AssertProductPage extends AbstractAssertForm
         $this->catalogProductView = $catalogProductView;
 
         $errors = $this->verify();
-        \PHPUnit_Framework_Assert::assertEmpty(
+        \PHPUnit\Framework\Assert::assertEmpty(
             $errors,
             "\nFound the following errors:\n" . implode(" \n", $errors)
         );

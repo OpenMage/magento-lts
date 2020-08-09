@@ -121,7 +121,7 @@ class AssertFptApplied extends AbstractAssertForm
         $this->clearShoppingCart();
 
         $error = $this->verifyData($prices, $this->getPrices());
-        \PHPUnit_Framework_Assert::assertEmpty($error, $error);
+        \PHPUnit\Framework\Assert::assertEmpty($error, $error);
     }
 
     /**

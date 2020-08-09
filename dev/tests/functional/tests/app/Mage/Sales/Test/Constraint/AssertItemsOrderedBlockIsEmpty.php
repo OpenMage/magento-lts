@@ -46,7 +46,7 @@ class AssertItemsOrderedBlockIsEmpty extends AbstractConstraint
      */
     public function processAssert(SalesOrderCreateIndex $orderCreatePage)
     {
-        \PHPUnit_Framework_Assert::assertTrue(
+        \PHPUnit\Framework\Assert::assertTrue(
             $orderCreatePage->getCreateBlock()->getItemsBlock()->isEmptyBlockVisible(),
             "Items ordered block is not empty"
         );

@@ -54,7 +54,7 @@ class AssertCmsBlockInGrid extends AbstractConstraint
 
         $cmsBlockIndex->getCmsBlockGrid()->search($filter);
 
-        \PHPUnit_Framework_Assert::assertTrue(
+        \PHPUnit\Framework\Assert::assertTrue(
             $cmsBlockIndex->getCmsBlockGrid()->isRowVisible($filter, false, false)
         );
     }

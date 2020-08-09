@@ -47,7 +47,7 @@ class AssertCartPriceRuleIsAppliedToShipping extends AbstractCartPriceRuleApplyi
         $shippingPrice = $this->checkoutCart->getTotalsBlock()->getData('shipping_price');
         $discount = $this->checkoutCart->getTotalsBlock()->getData('discount');
         $calculatedGrandTotal = number_format(((float)$subTotal + (float)$shippingPrice - (float)$discount), 2);
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             $calculatedGrandTotal,
             $grandTotal,
             "Calculated grand total: '$calculatedGrandTotal' not equals with grand total: '$grandTotal' \n"

@@ -46,7 +46,7 @@ class AssertOrdersCount extends AbstractConstraint
      */
     public function processAssert(array $ordersIds, $ordersCount)
     {
-        \PHPUnit_Framework_Assert::assertEquals($ordersCount, count($ordersIds));
+        \PHPUnit\Framework\Assert::assertEquals($ordersCount, count($ordersIds));
     }
 
     /**

@@ -55,7 +55,7 @@ class AssertOrderGrandTotal extends AbstractConstraint
         $actual = $salesOrderView->getOrderForm()->getTabElement('information')->getOrderTotalsBlock()
             ->getData('grand_total');
 
-        \PHPUnit_Framework_Assert::assertEquals($expected, $actual, "Expected: $expected; Actual: $actual");
+        \PHPUnit\Framework\Assert::assertEquals($expected, $actual, "Expected: $expected; Actual: $actual");
     }
 
     /**

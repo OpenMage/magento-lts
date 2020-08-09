@@ -52,7 +52,7 @@ class AssertCatalogPriceRuleNotInGrid extends AbstractConstraint
             'name' => $catalogPriceRule->getName(),
         ];
         $catalogRuleIndex->open();
-        \PHPUnit_Framework_Assert::assertFalse(
+        \PHPUnit\Framework\Assert::assertFalse(
             $catalogRuleIndex->getCatalogRuleGrid()->isRowVisible($filter),
             "Catalog Price Rule {$filter['rule_id']} with name {$filter['name']} is present in Catalog Price Rule grid."
         );

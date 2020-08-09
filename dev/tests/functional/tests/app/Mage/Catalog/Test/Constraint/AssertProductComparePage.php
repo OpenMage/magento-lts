@@ -79,7 +79,7 @@ class AssertProductComparePage extends AbstractConstraint
         $comparePage->open();
         foreach ($products as $key => $product) {
             $attributeData = $this->prepareAttributeData($product, $key);
-            \PHPUnit_Framework_Assert::assertEquals(
+            \PHPUnit\Framework\Assert::assertEquals(
                 $attributeData['attributeValues'],
                 $attributeData['attributeValuesFromPage'],
                 "Product {$product->getName()} is not equals with data from fixture."

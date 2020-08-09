@@ -75,7 +75,7 @@ class AssertSitemapContent extends AbstractConstraint
             $frontendUrl . $category->getUrlKey() . '.html',
             $frontendUrl . $cmsPage->getIdentifier(),
         ];
-        \PHPUnit_Framework_Assert::assertTrue(
+        \PHPUnit\Framework\Assert::assertTrue(
             $this->checkContent($content, $urls),
             "File '{$sitemap->getSitemapFilename()}' does not contains correct content."
         );

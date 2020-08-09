@@ -59,7 +59,7 @@ class AssertProductInStock extends AbstractConstraint
     public function processAssert(CatalogProductView $catalogProductView, Browser $browser, InjectableFixture $product)
     {
         $browser->open($_ENV['app_frontend_url'] . $product->getUrlKey() . '.html');
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             self::STOCK_AVAILABILITY,
             $catalogProductView->getViewBlock()->getStockAvailability($product),
             'Control "' . self::STOCK_AVAILABILITY . '" is not visible.'

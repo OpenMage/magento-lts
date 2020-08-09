@@ -51,7 +51,7 @@ class AssertProductAttributeIsGlobal extends AbstractConstraint
         $attributeIndexPage->open();
         $code = $attribute->getAttributeCode();
         $filter = ['attribute_code' => $code, 'is_global' => $attribute->getIsGlobal()];
-        \PHPUnit_Framework_Assert::assertTrue(
+        \PHPUnit\Framework\Assert::assertTrue(
             $attributeIndexPage->getGrid()->isRowVisible($filter),
             "Attribute with attribute code '$code' isn't global."
         );

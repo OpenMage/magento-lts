@@ -64,7 +64,7 @@ class AssertGiftMessageInFrontendOrder extends AbstractAssertGiftMessageOnFronte
         $this->openOrderPage($orderHistory, $orderId);
         $expectedData = $this->prepareExpectedData($giftMessage);
 
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             $expectedData,
             $orderView->getGiftMessageForOrderBlock()->getGiftMessage()
         );

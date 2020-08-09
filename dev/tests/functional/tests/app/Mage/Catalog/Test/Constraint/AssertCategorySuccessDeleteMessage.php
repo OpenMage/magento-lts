@@ -47,7 +47,7 @@ class AssertCategorySuccessDeleteMessage extends AbstractConstraint
      */
     public function processAssert(CatalogCategoryIndex $catalogCategoryIndex)
     {
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             self::SUCCESS_DELETE_MESSAGE,
             $catalogCategoryIndex->getMessagesBlock()->getSuccessMessages()
         );

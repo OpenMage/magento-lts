@@ -45,7 +45,7 @@ class AssertSecureUrlEnabled extends AbstractConstraint
     public function processAssert(BrowserInterface $browser, Dashboard $dashboard)
     {
         $dashboard->open();
-        \PHPUnit_Framework_Assert::assertTrue(
+        \PHPUnit\Framework\Assert::assertTrue(
             strpos($browser->getUrl(), 'https://') !== false,
             'Secure Url is not displayed on backend.'
         );

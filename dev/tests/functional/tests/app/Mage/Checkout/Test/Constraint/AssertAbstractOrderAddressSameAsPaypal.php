@@ -81,7 +81,7 @@ abstract class AssertAbstractOrderAddressSameAsPaypal extends AbstractConstraint
         $orderAddress = $informationTab->$addressBlock()->getAddress();
         $payPalShippingAddress = $this->prepareCustomerAddress($paypalCustomer, $orderAddress);
 
-        \PHPUnit_Framework_Assert::assertEquals($payPalShippingAddress, $orderAddress);
+        \PHPUnit\Framework\Assert::assertEquals($payPalShippingAddress, $orderAddress);
     }
 
     /**

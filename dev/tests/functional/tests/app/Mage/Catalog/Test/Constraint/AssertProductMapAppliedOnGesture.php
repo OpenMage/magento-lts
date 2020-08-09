@@ -67,7 +67,7 @@ class AssertProductMapAppliedOnGesture extends AbstractConstraint
             $msrpPopupBlock = $productPriceBlock->getMapBlock();
             $map = $msrpPopupBlock->isVisible() ? $msrpPopupBlock->getMap() : null;
 
-            \PHPUnit_Framework_Assert::assertEquals(
+            \PHPUnit\Framework\Assert::assertEquals(
                 number_format($product->getPrice(), 2),
                 $map,
                 "MAP of $productName product is not visible or not equal to product price."

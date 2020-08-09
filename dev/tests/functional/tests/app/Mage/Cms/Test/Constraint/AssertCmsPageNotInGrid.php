@@ -60,7 +60,7 @@ class AssertCmsPageNotInGrid extends AbstractConstraint
             'identifier' => $cmsPage->getIdentifier(),
             'is_active' => $cmsPage->getIsActive()
         ];
-        \PHPUnit_Framework_Assert::assertFalse(
+        \PHPUnit\Framework\Assert::assertFalse(
             $cmsIndex->getCmsPageGridBlock()->isRowVisible($filter),
             "Cms page {$cmsPage->getTitle()} is present in pages grid."
         );

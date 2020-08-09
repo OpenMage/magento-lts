@@ -51,7 +51,7 @@ class AssertProductDuplicateIsNotDisplayingOnFrontend extends AbstractConstraint
     public function processAssert(InjectableFixture $product, Browser $browser, CatalogProductView $catalogProductView)
     {
         $browser->open($_ENV['app_frontend_url'] . $product->getUrlKey() . '-1' . '.html');
-        \PHPUnit_Framework_Assert::assertFalse(
+        \PHPUnit\Framework\Assert::assertFalse(
             $catalogProductView->getViewBlock()->isVisible(),
             'Duplicate Product is displayed on frontend.'
         );
