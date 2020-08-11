@@ -60,6 +60,12 @@ abstract class Varien_Image_Adapter_Abstract
     protected $_keepAspectRatio;
     protected $_keepFrame;
     protected $_keepTransparency;
+
+    /**
+     * Array with RGB values for background color e.g. [255, 255, 255]
+     *
+     * @var array
+     */
     protected $_backgroundColor;
     protected $_constrainOnly;
 
