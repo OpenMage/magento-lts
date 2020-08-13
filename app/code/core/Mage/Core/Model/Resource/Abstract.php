@@ -59,16 +59,20 @@ abstract class Mage_Core_Model_Resource_Abstract
     /**
      * Default transaction isolation level defined in the database.
      *
+     * @todo Default this value with whatever the database reports in SELECT @@GLOBAL.TX_ISOLATION
+     *
      * @var int
      */
-    static protected $_defaultIsolationLevel = self::REPEATABLE_READ;
+    static protected $_defaultIsolationLevel = self::READ_COMMITTED;
 
     /**
      * Current transaction isolation level changed in prepareTransactionIsolationLevel
      *
+     * @todo Default this value with whatever the database reports in SELECT @@GLOBAL.TX_ISOLATION
+     *
      * @var int
      */
-    static protected $_currentIsolationLevel = self::REPEATABLE_READ;
+    static protected $_currentIsolationLevel = self::READ_COMMITTED;
 
     /**
      * Array of callbacks subscribed to commit transaction commit
