@@ -281,7 +281,7 @@ abstract class Mage_Core_Model_Resource_Abstract
     }
 
     /**
-     * Prepare transaction isolation level for backup process
+     * Prepare transaction isolation level for session.
      *
      * @param int $isolationLevel Any of the supported isolation levels defined in this class.
      * @return void
@@ -295,7 +295,7 @@ abstract class Mage_Core_Model_Resource_Abstract
     }
 
     /**
-     * Restore transaction isolation level after backup
+     * Restore transaction isolation level for session
      *
      * @return void
      */
