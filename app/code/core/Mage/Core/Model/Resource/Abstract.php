@@ -38,7 +38,7 @@ abstract class Mage_Core_Model_Resource_Abstract
     const REPEATABLE_READ = 2;
     const SERIALIZABLE = 3;
 
-    protected const SUPPORTED_ISOLATION_LEVELS = [
+    const SUPPORTED_ISOLATION_LEVELS = [
         self::READ_UNCOMMITTED => "READ UNCOMMITTED",
         self::READ_COMMITTED   => "READ COMMITTED",
         self::REPEATABLE_READ  => "REPEATABLE READ",
