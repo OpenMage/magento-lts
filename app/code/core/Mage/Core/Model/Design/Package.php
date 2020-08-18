@@ -465,10 +465,18 @@ class Mage_Core_Model_Design_Package
      * @param string $file
      * @param array $params
      * @return string
+     * @throws Exception
      */
     public function getFilename($file, array $params)
     {
         Varien_Profiler::start(__METHOD__);
+
+        // Prevent reading files outside of the proper directory while still allowing symlinked files
+        if (strpos($file, '..') !== false) {
+            Mage::log(sprintf('Invalid path requested: %s (params: %s)', $file, json_encode($params)), Zend_Log::ERR);
+            throw new Exception('Invalid path requested.');
+        }
+
         $this->updateParamDefaults($params);
         $result = $this->_fallback(
             $file,
@@ -522,10 +530,18 @@ class Mage_Core_Model_Design_Package
      * @param string $file
      * @param array $params
      * @return string
+     * @throws Exception
      */
     public function getSkinUrl($file = null, array $params = array())
     {
         Varien_Profiler::start(__METHOD__);
+
+        // Prevent reading files outside of the proper directory while still allowing symlinked files
+        if (strpos($file, '..') !== false) {
+            Mage::log(sprintf('Invalid path requested: %s (params: %s)', $file, json_encode($params)), Zend_Log::ERR);
+            throw new Exception('Invalid path requested.');
+        }
+
         if (empty($params['_type'])) {
             $params['_type'] = 'skin';
         }

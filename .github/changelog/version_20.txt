@@ -1,9 +1,17 @@
 
 
 
+## v20.0.3 - unreleased
 
 
-## v20.1.0 - unreleased
+
+## v20.0.2 - 2020-08-18
+
+merged changes from v19.4.6
+including 
+CVE-2020-15151 Observable Timing Discrepancy - Improve validation of secret keys (#1138)
+
+## v20.0.1 - 2020-07-07
 
 merged changes from v19.4.5
 
