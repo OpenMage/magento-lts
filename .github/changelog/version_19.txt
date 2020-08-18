@@ -1,7 +1,24 @@
 
 
-## v19.4.6 - unreleased
+## v19.4.7 - unreleased
 
+
+
+## v19.4.6 - 2020-08-18
+
+CVE-2020-15151 Observable Timing Discrepancy - Improve validation of secret keys (#1138)
+#1136 Fix special price for bundle products
+#1111 fix Coupon related cancel order bug
+#1098 Cleanup: disable fixerio in config
+#1097 Cleanup: disable currencyconverterapi in config
+#1101 Fix Github Action: use cron schedule for labeler
+#1113 Fix iframe removal in TinyMCE
+#1078 Prevent Image resize to 0 width or height
+#1091 Added dash(-) as an allowed character for store code
+#1061 Fix bug related to filter in Admin UI for Role Users
+#1081 Fixed Magento not detecting HTTPS behind a proxy (makes use of HTTP_X_FORWARDED_PROTO header)
+#1079 Added GIT flow to README.md
+#442 Support symlinks while not allowing malicious template paths
 
 
 ## v19.4.5 - 2020-07-07
