@@ -3,15 +3,12 @@ version: "3.7"
 services:
   apache:
     image: openmage/php-dev:7.3-apache
-    hostname: openmage.docker
+    hostname: ${HOST_NAME:-openmage-7f000001.nip.io}
     ports:
-      - "80:80"
+      - "${HOST_PORT:-80}:80"
     volumes:
       - ../..:/var/www/html
     environment:
-      - VIRTUAL_HOST=openmage.docker
-      - VIRTUAL_PORT=80
-      - HTTPS_METHOD=noredirect
       - ENABLE_SENDMAIL=true
       - XDEBUG_CONFIG=remote_connect_back=1 remote_enable=1 idekey=phpstorm
     links:
@@ -44,7 +41,7 @@ services:
 #      - AWS_MEDIA_BUCKET=magemm
     links:
       - mysql
-      - "apache:openmage.docker"
+      - "apache:${HOST_NAME:-openmage-7f000001.nip.io}"
 
   mysql:
     image: mysql:5.7
@@ -53,9 +50,9 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
-      - MYSQL_USER=magento
-      - MYSQL_PASSWORD=magento
-      - MYSQL_DATABASE=magento
+      - MYSQL_USER=openmage
+      - MYSQL_PASSWORD=openmage
+      - MYSQL_DATABASE=openmage
     volumes:
       - mysql:/var/lib/mysql
 
