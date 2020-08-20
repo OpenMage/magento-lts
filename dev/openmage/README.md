@@ -10,8 +10,8 @@ For a more robust development environment that supports https, please consider u
 ## Prerequisites
 
 - Install [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/)
-- Port 80 on your host must be unused.
-- Clone the OpenMage LTS repo to your location of choice
+- Port 80 on your host must be unused. See [Environment Variables](#environment-variables) below if you need to use another port.
+- Clone the OpenMage LTS repo to your location of choice (`git clone https://github.com/OpenMage/magento-lts.git`).
 
 ## Installation
 
@@ -44,7 +44,7 @@ Environment Variables
 You can override some defaults using environment variables defined in a file that you must create at `dev/openmage/.env`.
 
 - `HOST_NAME=your-preferred-hostname`
-  - `openmage-7f000001.nip.io` is used by default to resolve to `127.0.0.1`. See nio.io for more info.
+  - `openmage-7f000001.nip.io` is used by default to resolve to `127.0.0.1`. See [nip.io](https://nip.io) for more info.
 - `HOST_PORT=8888`
    - `80` is used by default 
 - `ADMIN_EMAIL`
