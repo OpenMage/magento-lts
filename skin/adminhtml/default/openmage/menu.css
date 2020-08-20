@@ -1,0 +1,271 @@
+/* ! Do not edit css files !
+   Edit scss version and compile with sass from scss folder like this:
+   $ sass menu.scss ../menu.css
+ */
+#nav ul li.active, #nav ul li {
+  float: none;
+  height: auto;
+  background: none;
+  margin: 0;
+}
+
+#usermenu ul li a:hover {
+  color: #2f2f2f;
+  text-decoration: none;
+  background: var(--color-main-xs);
+  display: block;
+}
+
+.nav-bar {
+  background: #202856;
+  padding: 0 70px;
+}
+.nav-bar:after {
+  content: ".";
+  display: block;
+  clear: both;
+  font-size: 0;
+  line-height: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+#nav {
+  padding-left: 0px;
+}
+#nav li {
+  position: relative;
+  text-align: left;
+  float: left;
+}
+#nav li.over {
+  z-index: 99;
+}
+#nav li.over a {
+  color: #d6e2e5;
+}
+#nav li.over ul {
+  left: 0;
+}
+#nav li.over ul ul {
+  left: -10000px;
+}
+#nav li.over ul a {
+  color: #202856;
+  font-size: 12px;
+}
+#nav li.over ul li.over ul {
+  left: 100px;
+}
+#nav li.over ul li.over ul ul {
+  left: -10000px;
+}
+#nav li.over ul li.over ul li.over ul {
+  left: 100px;
+}
+#nav li.active {
+  z-index: 100;
+  margin-left: -1px;
+  color: #fff;
+  font-weight: bold;
+}
+#nav li.active em {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: -1px;
+  width: 3px;
+  height: 27px;
+}
+#nav li.active li {
+  font-weight: normal;
+}
+#nav li.level0 > a {
+  text-transform: none;
+  font-weight: 400;
+  color: #fff;
+  height: 38px;
+  line-height: 38px;
+}
+#nav li.level0 > a:hover {
+  background: #2c3878;
+  color: #fff;
+}
+#nav li.level0 li.parent > a:after {
+  content: "";
+  position: absolute;
+  right: 12px;
+  bottom: 9px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 5px 0 5px 6px;
+  border-color: transparent transparent transparent #ccc;
+}
+#nav li.level0.over > a {
+  background: #293470;
+  color: #fff;
+}
+#nav li.parent a {
+  cursor: default;
+}
+#nav li.parent li.parent a {
+  cursor: default;
+}
+#nav li.parent li.parent li.parent a {
+  cursor: default;
+}
+#nav li.parent li.parent li.parent li a {
+  cursor: pointer;
+}
+#nav li.parent li.parent li a {
+  cursor: pointer;
+}
+#nav li.parent li a {
+  cursor: pointer;
+}
+#nav li#bubblelauncher-status a {
+  background-position: center 8px;
+  line-height: 38px;
+  height: 38px;
+}
+#nav li#bubblelauncher-status.on a {
+  background-position: center -32px;
+}
+#nav a {
+  display: block;
+  text-decoration: none;
+  float: left;
+  padding: 0 12px;
+  color: #fff;
+  cursor: pointer;
+}
+#nav a:hover {
+  display: block;
+  text-decoration: none;
+}
+#nav ul {
+  position: absolute;
+  width: 189px;
+  top: 38px;
+  left: -10000px;
+  box-shadow: rgba(0, 0, 0, 0.180392) 1px 3px 4px;
+}
+#nav ul li {
+  padding: 0;
+}
+#nav ul li.active a {
+  color: #202856;
+  font-size: 12px;
+}
+#nav ul li a {
+  background: #fff;
+  color: #202856;
+  padding: 9px 12px;
+  color: #202856;
+  font-size: 12px;
+}
+#nav ul li a:hover {
+  background: #202856;
+  color: #fff;
+}
+#nav ul li.parent a {
+  background-position: 100% 100%;
+  background-repeat: no-repeat;
+}
+#nav ul li.parent li.parent a {
+  background-position: 100% 100%;
+  background-repeat: no-repeat;
+}
+#nav ul li.parent li.parent li a {
+  background-image: none;
+}
+#nav ul li.parent li a {
+  background-image: none;
+}
+#nav ul li.over a {
+  font-weight: normal;
+}
+#nav ul li.over a:hover {
+  font-weight: normal;
+}
+#nav ul a {
+  float: none;
+  line-height: 1.3em;
+  font-weight: normal;
+}
+#nav ul a:hover {
+  float: none;
+  line-height: 1.3em;
+}
+#nav ul ul {
+  border-top: 0;
+  padding-top: 2px;
+  left: 100px;
+  top: 13px;
+}
+#nav ul ul ul {
+  left: -10000px;
+}
+#nav .level0 > a:after {
+  content: "";
+  display: block;
+  margin-top: 10px;
+  height: 3px;
+  font-size: 0;
+}
+#nav .level0.active > a {
+  font-weight: 600;
+  background: #273169;
+}
+
+#usermenu {
+  display: inline;
+  float: right;
+  text-align: left;
+}
+#usermenu ul {
+  position: absolute;
+  width: 220px;
+  top: 40px;
+  right: -10000px;
+  display: none;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.207843), 0 0 5px rgba(0, 0, 0, 0.207843);
+  background: #fff;
+}
+#usermenu ul li a:hover {
+  background: #202856;
+}
+#usermenu ul li.last span {
+  border-bottom: none;
+}
+#usermenu li ul li {
+  right: 5px;
+  display: block;
+}
+#usermenu li ul span {
+  border-bottom: 1px dotted var(--color-main-m);
+  display: block;
+  line-height: 31px;
+  padding: 0 10px;
+}
+#usermenu li.over ul {
+  right: 27px;
+  display: block;
+}
+#usermenu li.over ul a {
+  color: #000537;
+  text-decoration: none;
+  background: var(--color-main-xs);
+  display: block;
+}
+#usermenu > li > a {
+  padding: 0 27px 0 20px;
+  display: block;
+}
+#usermenu > li > a svg {
+  height: 40px;
+  width: auto;
+}
+
+/*# sourceMappingURL=menu.css.map */
