@@ -20,17 +20,13 @@
  * @version    $Id$
  */
 
-
 /**
  * @see Zend_Db_Adapter_Abstract
  */
-#require_once 'Zend/Db/Adapter/Abstract.php';
 
 /**
  * @see Zend_Db_Expr
  */
-#require_once 'Zend/Db/Expr.php';
-
 
 /**
  * Class for SQL SELECT generation and results.
@@ -41,8 +37,6 @@
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
-
 class Zend_Db_Select
 {
 
@@ -290,8 +284,10 @@ class Zend_Db_Select
      *      ->order("id");
      * </code>
      *
-     * @param  array $select Array of select clauses for the union.
+     * @param array $select Array of select clauses for the union.
+     * @param string $type
      * @return $this This Zend_Db_Select object.
+     * @throws Zend_Db_Select_Exception
      */
     public function union($select = array(), $type = self::SQL_UNION)
     {
@@ -906,7 +902,13 @@ class Zend_Db_Select
      * * joinRightUsing
      * * joinLeftUsing
      *
+     * @param  null|string $type
+     * @param  array|string|Zend_Db_Expr $name
+     * @param  string $cond
+     * @param  array|string $cols
+     * @param  string|null $schema
      * @return $this This Zend_Db_Select object.
+     * @throws Zend_Db_Select_Exception
      */
     public function _joinUsing($type, $name, $cond, $cols = '*', $schema = null)
     {
@@ -954,10 +956,10 @@ class Zend_Db_Select
     /**
      * Adds to the internal table-to-column mapping array.
      *
-     * @param  string $tbl The table/join the columns come from.
-     * @param  array|string $cols The list of columns; preferably as
+     * @param string $correlationName The table/join the columns come from.
+     * @param array|string $cols The list of columns; preferably as
      * an array, but possibly as a string containing one column.
-     * @param  bool|string True if it should be prepended, a correlation name if it should be inserted
+     * @param string|null $afterCorrelationName True if it should be prepended, a correlation name if it should be inserted
      * @return void
      */
     protected function _tableCols($correlationName, $cols, $afterCorrelationName = null)

@@ -22,12 +22,10 @@
 /**
  * @see Zend_Validate_Abstract
  */
-#require_once 'Zend/Validate/Abstract.php';
 
 /**
  * @see Zend_Validate_Hostname
  */
-#require_once 'Zend/Validate/Hostname.php';
 
 /**
  * This class replaces default Zend_Validate_EmailAddress because of issues described in MPERF-9688 and MPERF-9689

@@ -22,10 +22,6 @@
 /**
  * Include needed Date classes
  */
-#require_once 'Zend/Date/DateObject.php';
-#require_once 'Zend/Locale.php';
-#require_once 'Zend/Locale/Format.php';
-#require_once 'Zend/Locale/Math.php';
 
 /**
  * This class replaces default Zend_Date because of problem described in Jira ticket MAGE-4872
@@ -140,11 +136,10 @@ class Zend_Date extends Zend_Date_DateObject
      * For example, in your bootstrap: date_default_timezone_set('America/Los_Angeles');
      * For detailed instructions please look in the docu.
      *
-     * @param  string|integer|Zend_Date|array  $date    OPTIONAL Date value or value of date part to set
+     * @param string|integer|Zend_Date|array $date OPTIONAL Date value or value of date part to set
      *                                                 ,depending on $part. If null the actual time is set
-     * @param  string                          $part    OPTIONAL Defines the input format of $date
-     * @param  string|Zend_Locale              $locale  OPTIONAL Locale for parsing input
-     * @return $this
+     * @param string $part OPTIONAL Defines the input format of $date
+     * @param string|Zend_Locale $locale OPTIONAL Locale for parsing input
      * @throws Zend_Date_Exception
      */
     public function __construct($date = null, $part = null, $locale = null)
@@ -244,9 +239,9 @@ class Zend_Date extends Zend_Date_DateObject
     /**
      * Sets class wide options, if no option was given, the actual set options will be returned
      *
-     * @param  array  $options  Options to set
+     * @param array $options Options to set
+     * @return array array if no option was given
      * @throws Zend_Date_Exception
-     * @return Options array if no option was given
      */
     public static function setOptions(array $options = array())
     {

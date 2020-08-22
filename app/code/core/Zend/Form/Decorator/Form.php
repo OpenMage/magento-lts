@@ -20,7 +20,6 @@
  */
 
 /** Zend_Form_Decorator_Abstract */
-#require_once 'Zend/Form/Decorator/Abstract.php';
 
 /**
  * This class replaces default Zend_Form_Decorator_Form because of problem described in MPERF-9707/MPERF-9769

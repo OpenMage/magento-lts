@@ -23,12 +23,10 @@
 /**
  * @see Zend_Db
  */
-#require_once 'Zend/Db.php';
 
 /**
  * @see Zend_Db_Statement_Interface
  */
-#require_once 'Zend/Db/Statement/Interface.php';
 
 /**
  * Abstract class to emulate a PDOStatement for native database adapters.
@@ -121,6 +119,7 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
      * Internal method called by abstract statment constructor to setup
      * the driver level statement
      *
+     * @param string $sql
      * @return void
      */
     protected function _prepare($sql)
@@ -394,8 +393,8 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
      * Set a statement attribute.
      *
      * @param string $key Attribute name.
-     * @param mixed  $val Attribute value.
-     * @return bool
+     * @param mixed $val Attribute value.
+     * @return void
      */
     public function setAttribute($key, $val)
     {
@@ -405,8 +404,8 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
     /**
      * Set the default fetch mode for this statement.
      *
-     * @param int   $mode The fetch mode.
-     * @return bool
+     * @param int $mode The fetch mode.
+     * @return void
      * @throws Zend_Db_Statement_Exception
      */
     public function setFetchMode($mode)

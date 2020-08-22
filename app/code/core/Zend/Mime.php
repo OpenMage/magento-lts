@@ -19,7 +19,6 @@
  * @version    $Id: Mime.php 16541 2009-07-07 06:59:03Z bkarwin $
  */
 
-
 /**
  * Support class for MultiPart Mime Messages
  *
@@ -119,7 +118,7 @@ class Zend_Mime
      *
      * @param string $str
      * @param int $lineLength Defaults to {@link LINELENGTH}
-     * @param int $lineEnd Defaults to {@link LINEEND}
+     * @param string $lineEnd Defaults to {@link LINEEND}
      * @return string
      */
     public static function encodeQuotedPrintable($str,
@@ -180,7 +179,7 @@ class Zend_Mime
      * @param string $str
      * @param string $charset
      * @param int $lineLength Defaults to {@link LINELENGTH}
-     * @param int $lineEnd Defaults to {@link LINEEND}
+     * @param string $lineEnd Defaults to {@link LINEEND}
      * @return string
      */
     public static function encodeQuotedPrintableHeader($str, $charset,
@@ -253,7 +252,7 @@ class Zend_Mime
      * @param string $str
      * @param string $charset
      * @param int $lineLength Defaults to {@link LINELENGTH}
-     * @param int $lineEnd Defaults to {@link LINEEND}
+     * @param string $lineEnd Defaults to {@link LINEEND}
      * @return string
      */
     public static function encodeBase64Header($str,
@@ -277,7 +276,7 @@ class Zend_Mime
      *
      * @param string $str
      * @param int $lineLength Defaults to {@link LINELENGTH}
-     * @param int $lineEnd Defaults to {@link LINEEND}
+     * @param string $lineEnd Defaults to {@link LINEEND}
      * @return string
      */
     public static function encodeBase64($str,
@@ -356,6 +355,7 @@ class Zend_Mime
      * Return MIME ending
      *
      * @access public
+     * @param string $EOL
      * @return string
      */
     public function mimeEnd($EOL = self::LINEEND)

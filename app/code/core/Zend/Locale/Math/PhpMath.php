@@ -19,7 +19,6 @@
  * @version    $Id$
  */
 
-
 /**
  * This class replaces default Zend_Locale_Math_PhpMath because of issues described in MPERF-10261 and MPERF-10262
  * The only difference between current class and original one is overwritten implementation of Sub method
@@ -56,7 +55,13 @@ class Zend_Locale_Math_PhpMath extends Zend_Locale_Math
     public static $defaultScale;
     public static $defaultPrecision;
 
-
+    /**
+     * @param string $op1
+     * @param string $op2
+     * @param string|null $scale
+     * @return false|string
+     * @throws Zend_Locale_Math_Exception
+     */
     public static function Add($op1, $op2, $scale = null)
     {
         if ($scale === null) {
@@ -80,6 +85,13 @@ class Zend_Locale_Math_PhpMath extends Zend_Locale_Math
         return self::round(self::normalize($result), $scale);
     }
 
+    /**
+     * @param string $op1
+     * @param string $op2
+     * @param string|null $scale
+     * @return false|string
+     * @throws Zend_Locale_Math_Exception
+     */
     public static function Sub($op1, $op2, $scale = null)
     {
         if ($scale === null) {
@@ -106,6 +118,13 @@ class Zend_Locale_Math_PhpMath extends Zend_Locale_Math
         return self::round(self::normalize($result), $scale);
     }
 
+    /**
+     * @param string $op1
+     * @param string $op2
+     * @param string|null $scale
+     * @return false|string
+     * @throws Zend_Locale_Math_Exception
+     */
     public static function Pow($op1, $op2, $scale = null)
     {
         if ($scale === null) {
@@ -128,6 +147,13 @@ class Zend_Locale_Math_PhpMath extends Zend_Locale_Math
         return self::round(self::normalize($result), $scale);
     }
 
+    /**
+     * @param string $op1
+     * @param string $op2
+     * @param string|null $scale
+     * @return false|string
+     * @throws Zend_Locale_Math_Exception
+     */
     public static function Mul($op1, $op2, $scale = null)
     {
         if ($scale === null) {
@@ -148,6 +174,13 @@ class Zend_Locale_Math_PhpMath extends Zend_Locale_Math
         return self::round(self::normalize($result), $scale);
     }
 
+    /**
+     * @param string $op1
+     * @param string $op2
+     * @param string|null $scale
+     * @return false|string
+     * @throws Zend_Locale_Math_Exception
+     */
     public static function Div($op1, $op2, $scale = null)
     {
         if ($scale === null) {
@@ -172,6 +205,11 @@ class Zend_Locale_Math_PhpMath extends Zend_Locale_Math
         return self::round(self::normalize($result), $scale);
     }
 
+    /**
+     * @param string $op1
+     * @param string|null $scale
+     * @return false|string|null
+     */
     public static function Sqrt($op1, $scale = null)
     {
         if ($scale === null) {
@@ -190,6 +228,12 @@ class Zend_Locale_Math_PhpMath extends Zend_Locale_Math
         return self::round(self::normalize($result), $scale);
     }
 
+    /**
+     * @param string $op1
+     * @param string $op2
+     * @return string|null
+     * @throws Zend_Locale_Math_Exception
+     */
     public static function Mod($op1, $op2)
     {
         if (empty($op1)) {
@@ -213,6 +257,12 @@ class Zend_Locale_Math_PhpMath extends Zend_Locale_Math
         return self::normalize($result);
     }
 
+    /**
+     * @param string $op1
+     * @param string $op2
+     * @param string|null $scale
+     * @return int|string
+     */
     public static function Comp($op1, $op2, $scale = null)
     {
         if ($scale === null) {
@@ -239,6 +289,11 @@ class Zend_Locale_Math_PhpMath extends Zend_Locale_Math
         return 0;
     }
 
+    /**
+     * @param string $scale
+     * @return bool
+     * @throws Zend_Locale_Math_Exception
+     */
     public static function Scale($scale)
     {
         if ($scale > 9) {

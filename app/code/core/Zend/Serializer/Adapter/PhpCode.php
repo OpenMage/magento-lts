@@ -20,7 +20,6 @@
  * @version    $Id$
  */
 /** @see Zend_Serializer_Adapter_AdapterAbstract */
-#require_once 'Zend/Serializer/Adapter/AdapterAbstract.php';
 
 /**
  * This class replaces default Zend_Serializer_Adapter_PhpCode because of problem described in MPERF-9450

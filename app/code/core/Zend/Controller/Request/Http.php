@@ -20,10 +20,8 @@
  */
 
 /** @see Zend_Controller_Request_Abstract */
-#require_once 'Zend/Controller/Request/Abstract.php';
 
 /** @see Zend_Uri */
-#require_once 'Zend/Uri.php';
 
 /**
  * Zend_Controller_Request_Http
@@ -541,6 +539,7 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
      * Everything in REQUEST_URI before PATH_INFO
      * <form action="<?=$baseUrl?>/news/submit" method="POST"/>
      *
+     * @param bool $raw
      * @return string
      */
     public function getBaseUrl($raw = false)
@@ -664,7 +663,7 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
      *
      * Can be empty array, or contain one or more of '_GET' or '_POST'.
      *
-     * @param  array $paramSoures
+     * @param array $paramSources
      * @return $this
      */
     public function setParamSources(array $paramSources = array())
