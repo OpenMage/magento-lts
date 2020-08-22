@@ -58,7 +58,7 @@
             <?php $_streetValidationClass = trim(str_replace('required-entry', '', $_streetValidationClass)); ?>
             <?php for ($_i = 2, $_n = $this->helper('customer/address')->getStreetLines(); $_i <= $_n; $_i++): ?>
                     <li class="wide">
-                        <label for="shipping:street<?php echo $_i ?>"><?php echo $this->__('Street Address %s', $_i)) ?> <?php echo $_i ?></label>
+                        <label for="shipping:street<?php echo $_i ?>"><?php echo $this->__('Street Address %s', $_i) ?> <?php echo $_i ?></label>
                         <div class="input-box">
                             <input type="text" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Street Address %s', $_i)) ?>" name="shipping[street][]" id="shipping:street<?php echo $_i ?>" value="<?php echo $this->escapeHtml($this->getAddress()->getStreet($_i)) ?>" class="input-text <?php echo $_streetValidationClass ?>" onchange="shipping.setSameAsBilling(false);" />
                         </div>
