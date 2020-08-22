@@ -639,7 +639,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * @param boolean $sortByPosition
      * @return string
      */
-    public function getChildren($recursive = false, $isActive = true, $sortByPosition = false)
+    public function getChildren($recursive = false, $isActive = true, $sortByPosition = true)
     {
         return implode(',', $this->getResource()->getChildren($this, $recursive, $isActive, $sortByPosition));
     }

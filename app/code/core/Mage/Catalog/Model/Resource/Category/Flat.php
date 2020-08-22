@@ -1323,7 +1323,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
             $select->where('is_active = ?', '1');
         }
         if ($sortByPosition) {
-            $select->order($maintable.'.position ASC');
+            $select->order($maintable . '.position ASC');
         }
 
         $_categories = $this->_getReadAdapter()->fetchAll($select);
