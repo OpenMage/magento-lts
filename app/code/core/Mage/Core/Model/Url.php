@@ -361,8 +361,6 @@ class Mage_Core_Model_Url extends Varien_Object
         }
         catch (Mage_Core_Model_Store_Exception $e) {
             Mage::logException($e);
-
-            throw new Mage_Core_Exception("Store with id {$data} was not found!");
         }
 
         return $this;
