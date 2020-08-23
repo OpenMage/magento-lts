@@ -56,8 +56,8 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
         $read = $this->_getReadAdapter();
         $select = $read->select();
         $select->from($this->getMainTable(), array('times_used'))
-          ->where('coupon_id = :coupon_id')
-          ->where('customer_id = :customer_id');
+                ->where('coupon_id = :coupon_id')
+                ->where('customer_id = :customer_id');
 
         $timesUsed = $read->fetchOne($select, array(':coupon_id' => $couponId, ':customer_id' => $customerId));
 
@@ -66,32 +66,32 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
 
             if ($newTimesUsed < 1) {
                 $this->_getWriteAdapter()->delete(
-                  $this->getMainTable(),
-                  array(
-                    'coupon_id = ?' => $couponId,
-                    'customer_id = ?' => $customerId,
-                  )
+                    $this->getMainTable(),
+                    array(
+                        'coupon_id = ?' => $couponId,
+                        'customer_id = ?' => $customerId,
+                    )
                 );
             } else {
                 $this->_getWriteAdapter()->update(
-                  $this->getMainTable(),
-                  array(
-                    'times_used' => $newTimesUsed
-                  ),
-                  array(
-                    'coupon_id = ?' => $couponId,
-                    'customer_id = ?' => $customerId,
-                  )
+                    $this->getMainTable(),
+                    array(
+                        'times_used' => $newTimesUsed,
+                    ),
+                    array(
+                        'coupon_id = ?' => $couponId,
+                        'customer_id = ?' => $customerId,
+                    )
                 );
             }
         } else {
             $this->_getWriteAdapter()->insert(
-              $this->getMainTable(),
-              array(
-                'coupon_id' => $couponId,
-                'customer_id' => $customerId,
-                'times_used' => 1
-              )
+                $this->getMainTable(),
+                array(
+                    'coupon_id' => $couponId,
+                    'customer_id' => $customerId,
+                    'times_used' => 1
+                )
             );
         }
     }
