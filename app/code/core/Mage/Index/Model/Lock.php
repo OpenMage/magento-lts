@@ -143,12 +143,14 @@ class Mage_Index_Model_Lock
                 $result = flock($this->_getLockFile($lockName), LOCK_EX);
             } catch(Exception $e) {
                 Mage::logException($e);
+                throw $e;
             }            
         } else {
             try {
                 $result = flock($this->_getLockFile($lockName), LOCK_EX | LOCK_NB);
             } catch(Exception $e) {
                 Mage::logException($e);
+                throw $e;
             }
         }
         if ($result) {
@@ -253,6 +255,7 @@ class Mage_Index_Model_Lock
             }
         } catch(Exception $e) {
             Mage::logException($e);
+            throw $e;
         }
         
         return $result;
