@@ -65,7 +65,7 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
     {
         $data = $this->getData('tier_price_attribute');
         if (is_null($data)) {
-            $data = Mage::getModel('eav/entity_attribute')->loadByCode(Mage_Catalog_Model_Product::ENTITY, 'tier_price');
+            $data = Mage::getSingleton('eav/config')->getAttribute(Mage_Catalog_Model_Product::ENTITY, 'tier_price');
             $this->setData('tier_price_attribute', $data);
         }
         return $data;
@@ -75,7 +75,7 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
     {
         $data = $this->getData('price_attribute');
         if (is_null($data)) {
-            $data = Mage::getModel('eav/entity_attribute')->loadByCode(Mage_Catalog_Model_Product::ENTITY, 'price');
+            $data = Mage::getSingleton('eav/config')->getAttribute(Mage_Catalog_Model_Product::ENTITY, 'price');
             $this->setData('price_attribute', $data);
         }
         return $data;
