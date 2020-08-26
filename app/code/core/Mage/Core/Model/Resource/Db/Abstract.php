@@ -336,7 +336,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Retrieve connection for read data
      *
-     * @return Varien_Db_Adapter_Interface
+     * @return Magento_Db_Adapter_Pdo_Mysql
      */
     protected function _getReadAdapter()
     {
