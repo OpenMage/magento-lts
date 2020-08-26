@@ -1565,6 +1565,9 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
         if ($oldOrder->getId()) {
             $oldOrder->setRelationChildId($order->getId());
             $oldOrder->setRelationChildRealId($order->getIncrementId());
+
+            Mage::dispatchEvent('order_edited_save_before', ['new_order' => $order, 'old_order' => $oldOrder]);
+
             $oldOrder->save();
             $order->save();
         }
