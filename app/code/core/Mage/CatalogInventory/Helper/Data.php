@@ -50,6 +50,11 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
     protected static $_isQtyTypeIds;
 
     /**
+     * Product ids to be re-indexed due to stock status change
+     */
+    protected $_productIdsForMassReindex = array();
+
+    /**
      * Check if quantity defined for specified product type
      *
      * @param string $productTypeId
@@ -139,5 +144,32 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
     public function isDisplayProductStockStatus()
     {
         return Mage::getStoreConfigFlag(self::XML_PATH_DISPLAY_PRODUCT_STOCK_STATUS);
+    }
+
+    /**
+     * @param $productId
+     * @return $this
+     */
+    public function addProductIdForMassReindex($productId)
+    {
+        $this->_productIdsForMassReindex[] = $productId;
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function clearProductIdsForMassReindex()
+     {
+         $this->_productIdsForMassReindex = array();
+         return $this;
+     }
+
+    /**
+     * @return array
+     */
+    public function getProductIdsForMassReindex()
+    {
+        return array_unique($this->_productIdsForMassReindex);
     }
 }
