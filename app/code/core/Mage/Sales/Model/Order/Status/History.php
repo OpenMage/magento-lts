@@ -75,7 +75,7 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * Set order object and grab some metadata from it
+     * Set order object
      *
      * @param   Mage_Sales_Model_Order $order
      * @return  Mage_Sales_Model_Order_Status_History
@@ -83,7 +83,6 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
     public function setOrder(Mage_Sales_Model_Order $order)
     {
         $this->_order = $order;
-        $this->setStoreId($order->getStoreId());
         return $this;
     }
 
@@ -145,6 +144,16 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
             return $this->getOrder()->getStore();
         }
         return Mage::app()->getStore();
+    }
+
+    /**
+     * Get store id
+     *
+     * @return integer
+     */
+    public function getStoreId()
+    {
+        return $this->getStore()->getStoreId();
     }
 
     /**
