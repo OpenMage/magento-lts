@@ -42,7 +42,7 @@ composer require openmage/magento-lts":"^19.4.0"
 To get the latest changes use:
 
 ```
-composer require openmage/magento-lts":"dev-master"
+composer require openmage/magento-lts":"dev-main"
 ```
 
 <small>Note: `dev-main` is just an alias for current `1.9.4.x` branch and may change</small>
