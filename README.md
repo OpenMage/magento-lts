@@ -45,7 +45,7 @@ To get the latest changes use:
 composer require openmage/magento-lts":"dev-master"
 ```
 
-<small>Note: `dev-master` is just an alias for current `1.9.4.x` branch and may change</small>
+<small>Note: `dev-main` is just an alias for current `1.9.4.x` branch and may change</small>
 
 ### Using Git
 

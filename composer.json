@@ -1,7 +1,10 @@
 {
   "name": "openmage/magento-lts",
   "description": "A fork of Magento-1 that is accepting bug fixes (backward compatible, drop in replacement for official Magento)",
-  "license": "OSL-3.0",
+  "license": [
+    "OSL-3.0",
+    "AFL-3.0"
+  ],
   "type": "magento-source",
   "require": {
     "php": ">=7.0 <7.5",
@@ -35,7 +38,7 @@
   ],
   "extra": {
     "branch-alias": {
-      "dev-master": "1.9.4.x"
+      "dev-main": "1.9.4.x"
     }
   }
 }
