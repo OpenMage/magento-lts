@@ -854,4 +854,16 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
 
         return $this;
     }
+
+    /**
+     * Magic clone function
+     *
+     * Clone also Zend_Db_Select
+     *
+     * @return void
+     */
+    public function __clone()
+    {
+        $this->_select = clone $this->_select;
+    }
 }
