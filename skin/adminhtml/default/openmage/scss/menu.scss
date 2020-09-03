@@ -1,0 +1,337 @@
+/* ! Do not edit css files !
+   Edit scss version and compile with sass from scss folder like this:
+   $ sass menu.scss ../menu.css
+ */
+
+@import "base";
+
+.nav-bar {
+  background: $color_dorado_approx;
+  padding: 0 70px;
+
+  &:after {
+    content: ".";
+    display: block;
+    clear: both;
+    font-size: 0;
+    line-height: 0;
+    height: 0;
+    overflow: hidden;
+  }
+}
+
+#nav {
+  padding-left:0px;
+  li {
+    position: relative;
+    text-align: left;
+    float: left;
+
+    &.over {
+      z-index: 99;
+
+      a {
+        color: $color_geyser_approx;
+      }
+
+      ul {
+        left: 0;
+
+        ul {
+          left: -10000px;
+        }
+
+        a {
+          color: $color_dorado_approx;
+          font-size: 12px;
+        }
+
+        li.over ul {
+          left: 100px;
+
+          ul {
+            left: -10000px;
+          }
+
+          li.over ul {
+            left: 100px;
+          }
+        }
+      }
+    }
+
+    &.active {
+      z-index: 100;
+      margin-left: -1px;
+      color: $white;
+      font-weight: bold;
+
+      em {
+        display: block;
+        position: absolute;
+        top: 0;
+        right: -1px;
+        width: 3px;
+        height: 27px;
+      }
+
+      li {
+        font-weight: normal;
+      }
+    }
+
+    &.level0 {
+      > a {
+        text-transform: none;
+        font-weight: 400;
+        color: $white;
+        height: 38px;
+        line-height: 38px;
+
+        &:hover {
+          background: darken($openmage_base_blue,10);
+          color: $white;
+        }
+      }
+
+      li.parent > a:after {
+        content: "";
+        position: absolute;
+        right: $menu_padding_h;
+        bottom: $menu_padding_v;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 5px 0 5px 6px;
+        border-color: transparent transparent transparent $color_silver_approx;
+      }
+
+      &.over > a {
+        background: darken($openmage_base_blue,12);
+        color: $white;
+      }
+    }
+
+    &.parent {
+      a {
+        cursor: default;
+      }
+
+      li {
+        &.parent {
+          a {
+            cursor: default;
+          }
+
+          li {
+            &.parent {
+              a {
+                cursor: default;
+              }
+
+              li a {
+                cursor: pointer;
+              }
+            }
+
+            a {
+              cursor: pointer;
+            }
+          }
+        }
+
+        a {
+          cursor: pointer;
+        }
+      }
+    }
+
+    &#bubblelauncher-status {
+      a {
+        background-position: center 8px;
+        line-height: 38px;
+        height: 38px;
+      }
+
+      &.on a {
+        background-position: center -32px;
+      }
+    }
+  }
+
+  a {
+    display: block;
+    text-decoration: none;
+    float: left;
+    padding: 0 12px;
+    color: $white;
+    cursor: pointer;
+
+    &:hover {
+      display: block;
+      text-decoration: none;
+    }
+  }
+
+  ul {
+    position: absolute;
+    width: 189px;
+    top: 38px;
+    left: -10000px;
+    //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+    box-shadow: $black_18_0392 1px 3px 4px;
+
+    li {
+      @extend %extend_17;
+      padding: 0;
+
+      &.active {
+        @extend %extend_17;
+
+        a {
+          color: $color_dorado_approx;
+          font-size: 12px;
+        }
+      }
+
+      a {
+        background: $white;
+        color: $color_dorado_approx;
+        padding: $menu_padding_v $menu_padding_h;
+        color: $color_dorado_approx;
+        font-size: 12px;
+
+        &:hover {
+          background: $color_dorado_approx;
+          color: $white;
+        }
+      }
+
+      &.parent {
+        a {
+          background-position: 100% 100%;
+          background-repeat: no-repeat;
+        }
+
+        li {
+          &.parent {
+            a {
+              background-position: 100% 100%;
+              background-repeat: no-repeat;
+            }
+
+            li a {
+              background-image: none;
+            }
+          }
+
+          a {
+            background-image: none;
+          }
+        }
+      }
+
+      &.over a {
+        font-weight: normal;
+
+        &:hover {
+          font-weight: normal;
+        }
+      }
+    }
+
+    a {
+      float: none;
+      line-height: 1.3em;
+      font-weight: normal;
+
+      &:hover {
+        float: none;
+        line-height: 1.3em;
+      }
+    }
+
+    ul {
+      border-top: 0;
+      padding-top: 2px;
+      left: 100px;
+      top: 13px;
+
+      ul {
+        left: -10000px;
+      }
+    }
+  }
+
+  .level0 {
+    > a:after {
+      content: "";
+      display: block;
+      margin-top: 10px;
+      height: 3px;
+      font-size: 0;
+    }
+
+    &.active > a {
+      font-weight: 600;
+      background: darken($openmage_base_blue,14);
+    }
+  }
+}
+
+#usermenu {
+  display: inline;
+  float: right;
+  text-align: left;
+  ul {
+    position: absolute;
+    width: 220px;
+    top: 40px;
+    right: -10000px;
+    display: none;
+    //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+    box-shadow: 0 0 0 1px $black_20_7843, 0 0 5px $black_20_7843;
+    background: $white;
+    li {
+      a:hover {
+        @extend %extend_30;
+        background: $color_dorado_approx;
+      }
+      &.last span {
+        border-bottom: none;
+      }
+    }
+  }
+  li {
+    ul {
+      li {
+        right: 5px;
+        display: block;
+      }
+      span {
+        border-bottom: 1px dotted var(--color-main-m);
+        display: block;
+        line-height: 31px;
+        padding: 0 10px;
+      }
+    }
+    &.over ul {
+      right: 27px;
+      display: block;
+      a {
+        color: $header_background;
+        text-decoration: none;
+        background: var(--color-main-xs);
+        display: block;
+      }
+    }
+  }
+  > li > a {
+    padding: 0 27px 0 20px;
+    display: block;
+    svg {
+      height: 40px;
+      width: auto;
+    }
+  }
+}

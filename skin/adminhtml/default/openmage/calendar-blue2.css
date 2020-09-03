@@ -1,0 +1,192 @@
+/* ! Do not edit css files !
+   Edit scss version and compile with sass from scss folder like this:
+   $ sass calendar-blue2.scss ../calendar-blue2.css
+ */
+.calendar table, .calendar {
+  color: #202856;
+  cursor: default;
+  background: #f1f8fc;
+  font: 400 12px/1.33 "Open Sans", sans-serif;
+}
+
+.calendar td.time .ampm, .calendar td.time .minute, .calendar td.time .hour {
+  padding: 0 3px 0 4px;
+  border: 1px solid #889;
+  font-weight: 600;
+  background-color: #f1f8fc;
+}
+
+.calendar {
+  box-shadow: 0 0 8px #888;
+}
+.calendar table .wn {
+  padding: 2px 3px 2px 2px;
+  border-right: 1px solid #000;
+  background: #f1f8fc;
+}
+.calendar .button {
+  text-align: center;
+  padding: 2px;
+}
+.calendar thead .title {
+  font-weight: 600;
+  text-align: center;
+  color: #fff;
+  padding: 2px;
+}
+.calendar thead tr {
+  background: #0090FF;
+  color: #fff;
+}
+.calendar thead .daynames {
+  background: #f1f8fc;
+}
+.calendar thead .name {
+  border-bottom: 1px solid #206a9b;
+  padding: 2px;
+  text-align: center;
+  color: #202856;
+}
+.calendar thead .weekend {
+  color: #a66;
+}
+.calendar thead .hilite {
+  background-color: #34abfa;
+}
+.calendar thead .active {
+  background-color: #006aa9;
+  padding: 2px 0 0 2px;
+}
+.calendar tbody .day {
+  width: 2em;
+  color: #456;
+  text-align: right;
+  padding: 2px 4px 2px 2px;
+}
+.calendar tbody .day.othermonth {
+  font-size: 80%;
+  color: #ccc;
+}
+.calendar tbody .day.othermonth.oweekend {
+  color: #fbb;
+}
+.calendar tbody td.hilite {
+  background: #def;
+  padding: 1px 3px 1px 1px;
+  border: 1px solid #8fc4e8;
+}
+.calendar tbody td.active {
+  background: #f1f8fc;
+  padding: 2px 2px 0 2px;
+}
+.calendar tbody td.selected {
+  font-weight: 600;
+  border: 1px solid #000;
+  padding: 1px 3px 1px 1px;
+  background: #fff;
+  color: #202856;
+}
+.calendar tbody td.weekend {
+  color: #a66;
+}
+.calendar tbody td.today {
+  font-weight: 600;
+  color: #d50000;
+}
+.calendar tbody .disabled {
+  color: #999;
+}
+.calendar tbody .emptycell {
+  visibility: hidden;
+}
+.calendar tbody .emptyrow {
+  display: none;
+}
+.calendar tbody .rowhilite td {
+  background: #def;
+}
+.calendar tbody .rowhilite td.wn {
+  background: #f1f8fc;
+}
+.calendar tfoot .footrow {
+  text-align: center;
+  background: #0090FF;
+  color: #fff;
+}
+.calendar tfoot .ttip {
+  color: #fff;
+  padding: 4px;
+}
+.calendar tfoot .hilite {
+  background: #b8daf0;
+  border: 1px solid #0090FF;
+  color: #202856;
+  padding: 1px;
+}
+.calendar tfoot .active {
+  background: #006aa9;
+  padding: 2px 0 0 2px;
+}
+.calendar .combo {
+  position: absolute;
+  display: none;
+  top: 0;
+  left: 0;
+  width: 4em;
+  cursor: default;
+  border: 1px solid #202856;
+  background: #def;
+  color: #202856;
+  font-size: 90%;
+  z-index: 100;
+}
+.calendar .combo .label {
+  text-align: center;
+  padding: 1px;
+}
+.calendar .combo .label-IEfix {
+  text-align: center;
+  padding: 1px;
+  width: 4em;
+}
+.calendar .combo .hilite {
+  background: #34abfa;
+  border-top: 1px solid #46a;
+  border-bottom: 1px solid #46a;
+  font-weight: 600;
+}
+.calendar .combo .active {
+  border-top: 1px solid #46a;
+  border-bottom: 1px solid #46a;
+  background: #f1f8fc;
+  font-weight: 600;
+}
+.calendar td.time {
+  border-top: 1px solid #000;
+  padding: 1px 0;
+  text-align: center;
+  background-color: #f1f8fc;
+}
+.calendar td.time .ampm {
+  text-align: center;
+}
+.calendar td.time .colon {
+  padding: 0 2px 0 3px;
+  font-weight: 600;
+}
+.calendar td.time span.hilite {
+  border-color: #000;
+  background-color: #3378a3;
+  color: #fff;
+}
+.calendar td.time span.active {
+  border-color: red;
+  background-color: #000;
+  color: #a5ff00;
+}
+
+div.calendar {
+  position: relative;
+}
+
+/*# sourceMappingURL=calendar-blue2.css.map */
