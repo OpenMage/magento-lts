@@ -43,6 +43,9 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Image extends Mage_Eav_Model
     public function afterSave($object)
     {
         $value = $object->getData($this->getAttribute()->getName());
+        if (empty($value) && empty($_FILES)) {
+            return $this;
+        }
 
         if (is_array($value) && !empty($value['delete'])) {
             $object->setData($this->getAttribute()->getName(), '');
