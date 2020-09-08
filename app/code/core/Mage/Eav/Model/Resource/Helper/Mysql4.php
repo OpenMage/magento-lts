@@ -115,7 +115,7 @@ class Mage_Eav_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Hel
         foreach ($selects as $eavType => $selectGroup) {
             $mainGroup = array_merge($mainGroup, $selectGroup);
         }
-        return array($mainGroup);
+        return $mainGroup;
     }
 
     /**
