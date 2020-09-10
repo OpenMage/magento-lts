@@ -32,38 +32,40 @@
  */
 /** @var $this Mage_Checkout_Block_Onepage_Login */
 ?>
+<?php $isRegistrationAllowed = $this->helper('customer')->isRegistrationAllowed() ?>
+<?php $isAllowedGuestCheckout = $this->getQuote()->isAllowedGuestCheckout() ?>
 <?php echo $this->getChildHtml('login_before') ?>
-<div class="col2-set<?php if (!$this->helper('customer')->isRegistrationAllowed() && !$this->getQuote()->isAllowedGuestCheckout()) echo ' login-only' ?>">
+<div class="col2-set<?php if (!$isRegistrationAllowed && !$isAllowedGuestCheckout) echo ' login-only' ?>">
     <div class="col-1">
         <h3>
-            <?php if( $this->getQuote()->isAllowedGuestCheckout() && $this->helper('customer')->isRegistrationAllowed() ): ?>
+            <?php if ($isAllowedGuestCheckout && $isRegistrationAllowed): ?>
                 <?php echo $this->__('Checkout as a Guest or Register') ?>
-            <?php elseif ( $this->getQuote()->isAllowedGuestCheckout() && !$this->helper('customer')->isRegistrationAllowed() ): ?>
+            <?php elseif ($isAllowedGuestCheckout && !$isRegistrationAllowed): ?>
                 <?php echo $this->__('Checkout as a Guest') ?>
             <?php else: ?>
                 <?php echo $this->__('Register to Create an Account') ?>
             <?php endif; ?>
         </h3>
-        <?php if( !$this->getQuote()->isAllowedGuestCheckout() && $this->helper('customer')->isRegistrationAllowed() ): ?>
+        <?php if (!$isAllowedGuestCheckout && $isRegistrationAllowed): ?>
             <p class="description"><?php echo $this->__('Register and save time!') ?></strong><br />
                 <?php echo $this->__('Register with us for future convenience:') ?></p>
             <ul>
                 <li><?php echo $this->__('Fast and easy check out') ?></li>
                 <li><?php echo $this->__('Easy access to your order history and status') ?></li>
             </ul>
-        <?php elseif( $this->getQuote()->isAllowedGuestCheckout() && $this->helper('customer')->isRegistrationAllowed() ): ?>
+        <?php elseif ($isAllowedGuestCheckout && $isRegistrationAllowed): ?>
             <p class="description"><?php echo $this->__('Register with us for future convenience:') ?></p>
         <?php endif ?>
-        <?php if( $this->getQuote()->isAllowedGuestCheckout() ): ?>
+        <?php if ($isAllowedGuestCheckout): ?>
             <ul class="form-list">
-                <?php if( $this->getQuote()->isAllowedGuestCheckout() ): ?>
+                <?php if ($isAllowedGuestCheckout): ?>
                 <li class="control">
                     <input type="radio" name="checkout_method" id="login:guest" value="guest"<?php if($this->getQuote()->getCheckoutMethod()!=Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER): ?> checked="checked"<?php endif; ?> class="radio" /><label for="login:guest"><?php echo $this->__('Checkout as Guest') ?></label>
                 </li>
                 <?php endif; ?>
-                <?php if( $this->helper('customer')->isRegistrationAllowed() ): ?>
+                <?php if ($isRegistrationAllowed): ?>
                 <li class="control">
-                    <input type="radio" name="checkout_method" id="login:register" value="register"<?php if($this->getQuote()->getCheckoutMethod()==Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER || !$this->getQuote()->isAllowedGuestCheckout()): ?> checked="checked"<?php endif ?> class="radio" />
+                    <input type="radio" name="checkout_method" id="login:register" value="register"<?php if($this->getQuote()->getCheckoutMethod()==Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER || !$isAllowedGuestCheckout): ?> checked="checked"<?php endif ?> class="radio" />
                     <label for="login:register"><?php echo $this->__('Register and Checkout') ?></label>
                 </li>
                 <?php endif; ?>
@@ -73,7 +75,7 @@
         <?php endif; ?>
         <div class="buttons-set">
             <p class="required">&nbsp;</p>
-            <?php if ($this->getQuote()->isAllowedGuestCheckout()): ?>
+            <?php if ($isAllowedGuestCheckout): ?>
                 <button id="onepage-guest-register-button" type="button" class="button" onclick="checkout.setMethod();"><span><span><?php echo $this->__('Continue') ?></span></span></button>
             <?php elseif ($this->helper('checkout')->isCustomerMustBeLogged()): ?>
                 <button id="onepage-guest-register-button" type="button" class="button" onclick="window.location='<?php echo $this->helper('checkout/url')->getRegistrationUrl();?>'"><span><span><?php echo $this->__('Register') ?></span></span></button>
