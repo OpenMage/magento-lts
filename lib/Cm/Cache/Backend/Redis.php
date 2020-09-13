@@ -365,7 +365,7 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
         $this->_redis->pipeline()->multi();
 
         // Remove data
-        $this->_redis->del(self::PREFIX_KEY.$id);
+        $this->_redis->unlink(self::PREFIX_KEY.$id);
 
         // Remove id from list of all ids
         if($this->_notMatchingTags) {
@@ -393,7 +393,7 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
             $this->_redis->pipeline()->multi();
 
             // Remove data
-            $this->_redis->del( $this->_preprocessIds($ids));
+            $this->_redis->unlink( $this->_preprocessIds($ids));
 
             // Remove ids from list of all ids
             if($this->_notMatchingTags) {
@@ -415,7 +415,7 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
             $this->_redis->pipeline()->multi();
 
             // Remove data
-            $this->_redis->del( $this->_preprocessIds($ids));
+            $this->_redis->unlink( $this->_preprocessIds($ids));
 
             // Remove ids from list of all ids
             if($this->_notMatchingTags) {
@@ -439,12 +439,12 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
                     "for i = 1, #KEYS, ARGV[5] do ".
                         "local keysToDel = redis.call('SUNION', unpack(KEYS, i, math.min(#KEYS, i + ARGV[5] - 1))) ".
                         "for _, keyname in ipairs(keysToDel) do ".
-                            "redis.call('DEL', ARGV[1]..keyname) ".
+                            "redis.call('UNLINK', ARGV[1]..keyname) ".
                             "if (ARGV[4] == '1') then ".
                                 "redis.call('SREM', ARGV[3], keyname) ".
                             "end ".
                         "end ".
-                        "redis.call('DEL', unpack(KEYS, i, math.min(#KEYS, i + ARGV[5] - 1))) ".
+                        "redis.call('UNLINK', unpack(KEYS, i, math.min(#KEYS, i + ARGV[5] - 1))) ".
                         "redis.call('SREM', ARGV[2], unpack(KEYS, i, math.min(#KEYS, i + ARGV[5] - 1))) ".
                     "end ".
                     "return true";
@@ -460,7 +460,7 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
         if($ids)
         {
             // Remove data
-            $this->_redis->del( $this->_preprocessIds($ids));
+            $this->_redis->unlink( $this->_preprocessIds($ids));
 
             // Remove ids from list of all ids
             if($this->_notMatchingTags) {
@@ -469,7 +469,7 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
         }
 
         // Remove tag id lists
-        $this->_redis->del( $this->_preprocessTagIds($tags));
+        $this->_redis->unlink( $this->_preprocessTagIds($tags));
 
         // Remove tags from list of tags
         $this->_redis->sRem( self::SET_TAGS, $tags);
@@ -526,7 +526,7 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
                                     "end ".
                                 "end ".
                                 "if (notExpiredCount == 0) then ".
-                                    "redis.call ('DEL', ARGV[4]..tagName) ".
+                                    "redis.call ('UNLINK', ARGV[4]..tagName) ".
                                     "redis.call ('SREM', ARGV[2], tagName) ".
                                 "end ".
                                 "expired = {} ".
@@ -580,7 +580,7 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
 
             // Remove empty tags or completely expired tags
             if ($numExpired == $numTagMembers) {
-                $this->_redis->del(self::PREFIX_TAG_IDS . $tag);
+                $this->_redis->unlink(self::PREFIX_TAG_IDS . $tag);
                 $this->_redis->sRem(self::SET_TAGS, $tag);
             }
             // Clean up expired ids from tag ids set
@@ -932,7 +932,7 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
      */
     public function ___expire($id)
     {
-        $this->_redis->del(self::PREFIX_KEY.$id);
+        $this->_redis->unlink(self::PREFIX_KEY.$id);
     }
 
 }

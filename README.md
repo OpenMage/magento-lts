@@ -54,6 +54,7 @@ git add -A && git commit
 
 - PHP 7.0+ (PHP 7.3 and OpenSSL extension strongly recommended)
 - MySQL 5.6+ (8.0+ Recommended)
+- redis 4.0+ (optional)
 
 ## Translations
 
