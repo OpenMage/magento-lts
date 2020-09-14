@@ -1807,7 +1807,6 @@ namespace PHPSTORM_META {
             'install/installer_db_mysql4' => \Mage_Install_Model_Installer_Db_Mysql4::class,
             'install/installer_env' => \Mage_Install_Model_Installer_Env::class,
             'install/installer_filesystem' => \Mage_Install_Model_Installer_Filesystem::class,
-            'install/installer_pear' => \Mage_Install_Model_Installer_Pear::class,
             'install/observer' => \Mage_Install_Model_Observer::class,
             'install/session' => \Mage_Install_Model_Session::class,
             'install/wizard' => \Mage_Install_Model_Wizard::class,
