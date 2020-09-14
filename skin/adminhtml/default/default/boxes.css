@@ -1485,13 +1485,6 @@ ul.super-product-attributes { padding-left:15px; }
 #page-help-link:link, #page-help-link:visited { text-decoration:none; }
 #page-help-link:hover { color:white; }
 
-/* Magento Connect Package Extensions */
-.table-editable { border:solid 1px #ccc; background:#fafafa; padding:5px; margin-bottom:5px; }
-.table-editable th { border-bottom:solid 1px #ccc; text-align:center; }
-.table-editable th, .table-editable td { padding:1px 3px; vertical-align:middle; }
-.table-editable select { height:19px; }
-
-
 /* CMS
 *******************************************************************************/
 .breadcrumbs { margin: 0 0 10px; }

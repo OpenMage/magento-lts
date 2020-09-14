@@ -1,8 +1,24 @@
 
 
-## v19.4.7 - unreleased
+## v19.4.8 - unreleased
 
 
+
+## v19.4.7 - 2020-09-15
+
+#952 Remove Magento Connect, Downloader and PEAR
+#1181 Updated lib Net/IDNA2 to latest version
+#1185 Removed unused class Varien_Filter_Money
+#1182 Mage_Eav - Fix PHP 7.4 deprecation: array/string curly braces access
+#1108 Ensure correctly sorted block children after unset some of them
+#969 Fix checkout address for guest order
+#1170 Throw exception when editing an order and the old order could not be cancelled
+#1130 Change default db name
+#510 Fix _addUrlRewrite() ignoring collection store scope
+#1117 Prevent duplicate entry when updating salesrule_coupon_usage
+#1146 Add doc comments to image related classes
+#1008 add OpenMage admin theme and theme switcher
+#1012 Add development environment setup files and README
 
 ## v19.4.6 - 2020-08-18
 
