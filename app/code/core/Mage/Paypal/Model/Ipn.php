@@ -532,6 +532,10 @@ class Mage_Paypal_Model_Ipn
     protected function _registerPaymentFailure()
     {
         $this->_importPaymentInformation();
+        // paypal bug, must remove invoice before order cancel 
+        foreach ($this->_order->getInvoiceCollection() as $invoice){
+            $invoice->cancel()->save();
+        }
         $this->_order
             ->registerCancellation($this->_createIpnComment(''), false)
             ->save();
