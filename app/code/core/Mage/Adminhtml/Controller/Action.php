@@ -160,11 +160,6 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
             ->setArea($this->_currentArea)
             ->setPackageName((string)Mage::getConfig()->getNode('stores/admin/design/package/name'))
             ->setTheme((string)$theme);
-        foreach (array('layout', 'template', 'skin', 'locale') as $type) {
-            if ($value = (string)Mage::getConfig()->getNode("stores/admin/design/theme/{$type}")) {
-                Mage::getDesign()->setTheme($type, $value);
-            }
-        }
 
         $this->getLayout()->setArea($this->_currentArea);
 
