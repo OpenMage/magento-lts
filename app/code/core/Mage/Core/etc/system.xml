@@ -1058,7 +1058,7 @@
             <show_in_website>0</show_in_website>
             <show_in_store>0</show_in_store>
             <groups>
-                <design translate="label">
+                <theme translate="label">
                     <label>Admin Theme</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>5</sort_order>
@@ -1066,18 +1066,57 @@
                     <show_in_website>0</show_in_website>
                     <show_in_store>0</show_in_store>
                     <fields>
-                        <use_legacy_theme translate="label comment">
-                            <label>Enable legacy Admin Theme</label>
-                            <comment>Use legacy theme from Magento CE</comment>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                        <package translate="label comment">
+                            <label>Admin Theme Package</label>
+                            <comment>Package name of admin theme</comment>
+                            <frontend_type>text</frontend_type>
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                        </use_legacy_theme>
+                        </package>
+                        <default translate="label comment">
+                            <label>default</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </default>
+                        <template translate="label comment">
+                            <label>template</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </template>
+                        <layout translate="label comment">
+                            <label>layout</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </layout>
+                        <skin translate="label comment">
+                            <label>skin</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </skin>
+                        <locale translate="label comment">
+                            <label>locale</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </locale>
                     </fields>
-                </design>
+                </theme>
 
                 <emails translate="label">
                     <label>Admin User Emails</label>

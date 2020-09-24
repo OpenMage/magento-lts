@@ -149,19 +149,14 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      */
     public function preDispatch()
     {
-        // get legacy theme choice form backend config
-        if (Mage::getStoreConfigFlag('admin/design/use_legacy_theme')) {
-            $theme = Mage::getConfig()->getNode("stores/admin/design/theme/default");
-        } else {
-            $theme = Mage::getConfig()->getNode("stores/admin/design/theme/openmage");
-        }
-
+        // override admin store design settings via admin config section
         Mage::getDesign()
             ->setArea($this->_currentArea)
-            ->setPackageName((string)Mage::getConfig()->getNode('stores/admin/design/package/name'))
-            ->setTheme((string)$theme);
+            ->setPackageName((string)Mage::getConfig()->getNode('stores/admin/admin/theme/package'))
+            ->setTheme((string)Mage::getConfig()->getNode('stores/admin/admin/theme/default'))
+        ;
         foreach (array('layout', 'template', 'skin', 'locale') as $type) {
-            if ($value = (string)Mage::getConfig()->getNode("stores/admin/design/theme/{$type}")) {
+            if ($value = (string)Mage::getConfig()->getNode("stores/admin/admin/theme/{$type}")) {
                 Mage::getDesign()->setTheme($type, $value);
             }
         }

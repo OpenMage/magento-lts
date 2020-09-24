@@ -236,22 +236,10 @@
         </help>
         <admin>
             <design>
-                <use_legacy_theme>0</use_legacy_theme>
+                <package>openmage</package>
             </design>
         </admin>
     </default>
-    <stores>
-        <admin>
-            <design>
-                <package>
-                    <name>default</name>
-                </package>
-                <theme>
-                    <default>default</default>
-                </theme>
-            </design>
-        </admin>
-    </stores>
     <websites>
         <admin>
             <web>
