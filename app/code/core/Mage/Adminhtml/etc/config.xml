@@ -234,12 +234,19 @@
         <help>
             <target_version>ce</target_version>
         </help>
+    </default>
+    <stores>
         <admin>
             <design>
-                <package>openmage</package>
+                <package>
+                    <name>default</name>
+                </package>
+                <theme>
+                    <default>default</default>
+                </theme>
             </design>
         </admin>
-    </default>
+    </stores>
     <websites>
         <admin>
             <web>

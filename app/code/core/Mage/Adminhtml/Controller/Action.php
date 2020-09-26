@@ -150,14 +150,28 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     public function preDispatch()
     {
         // override admin store design settings via admin config section
-        Mage::getDesign()
-            ->setArea($this->_currentArea)
-            ->setPackageName((string)Mage::getConfig()->getNode('stores/admin/admin/theme/package'))
-            ->setTheme((string)Mage::getConfig()->getNode('stores/admin/admin/theme/default'))
-        ;
-        foreach (array('layout', 'template', 'skin', 'locale') as $type) {
-            if ($value = (string)Mage::getConfig()->getNode("stores/admin/admin/theme/{$type}")) {
-                Mage::getDesign()->setTheme($type, $value);
+
+        $package = (string)Mage::getConfig()->getNode('stores/admin/admin/theme/package');
+
+        if ($package == 'legacy') {
+            Mage::getDesign()
+                ->setArea($this->_currentArea)
+                ->setPackageName((string)Mage::getConfig()->getNode('stores/admin/design/theme/package'))
+                ->setTheme((string)Mage::getConfig()->getNode('stores/admin/design/theme/default'));
+            foreach (array('layout', 'template', 'skin', 'locale') as $type) {
+                if ($value = (string)Mage::getConfig()->getNode("stores/admin/design/theme/{$type}")) {
+                    Mage::getDesign()->setTheme($type, $value);
+                }
+            }
+        } else {
+            Mage::getDesign()
+                ->setArea($this->_currentArea)
+                ->setPackageName($package)
+                ->setTheme((string)Mage::getConfig()->getNode('stores/admin/admin/theme/default'));
+            foreach (array('layout', 'template', 'skin', 'locale') as $type) {
+                if ($value = (string)Mage::getConfig()->getNode("stores/admin/admin/theme/{$type}")) {
+                    Mage::getDesign()->setTheme($type, $value);
+                }
             }
         }
 
