@@ -70,17 +70,20 @@ class Mage_Catalog_Model_Category_Api_V2 extends Mage_Catalog_Model_Category_Api
      *
      * @param int $parentId
      * @param array $categoryData
+     * @param null $store
      * @return int
+     * @throws Mage_Api_Exception
+     * @throws Mage_Eav_Model_Entity_Attribute_Exception
      */
     public function create($parentId, $categoryData, $store = null)
     {
         $parent_category = $this->_initCategory($parentId, $store);
 
-        /* @var $category Mage_Catalog_Model_Category */
+        /* @var Mage_Catalog_Model_Category $category */
         $category = Mage::getModel('catalog/category')
             ->setStoreId($this->_getStoreId($store));
 
-        $category->addData(array('path'=>implode('/',$parent_category->getPathIds())));
+        $category->addData(array('path'=>implode('/', $parent_category->getPathIds())));
 
         $category ->setAttributeSetId($category->getDefaultAttributeSetId());
 
@@ -102,16 +105,14 @@ class Mage_Catalog_Model_Category_Api_V2 extends Mage_Catalog_Model_Category_Api
                 foreach ($validate as $code => $error) {
                     if ($error === true) {
                         Mage::throwException(Mage::helper('catalog')->__('Attribute "%s" is required.', $code));
-                    }
-                    else {
+                    } else {
                         Mage::throwException($error);
                     }
                 }
             }
 
             $category->save();
-        }
-        catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $e) {
             $this->_fault('data_invalid', $e->getMessage());
         }
 
@@ -147,8 +148,7 @@ class Mage_Catalog_Model_Category_Api_V2 extends Mage_Catalog_Model_Category_Api
                 foreach ($validate as $code => $error) {
                     if ($error === true) {
                         Mage::throwException(Mage::helper('catalog')->__('Attribute "%s" is required.', $code));
-                    }
-                    else {
+                    } else {
                         Mage::throwException($error);
                     }
                 }

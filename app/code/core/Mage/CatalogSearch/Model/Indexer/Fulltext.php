@@ -145,7 +145,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
 
         $entity = $event->getEntity();
         if ($entity == Mage_Catalog_Model_Resource_Eav_Attribute::ENTITY) {
-            /* @var $attribute Mage_Catalog_Model_Resource_Eav_Attribute */
+            /* @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
             $attribute      = $event->getDataObject();
 
             if (!$attribute) {
@@ -157,11 +157,11 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
             } else {
                 $result = false;
             }
-        } else if ($entity == Mage_Core_Model_Store::ENTITY) {
+        } elseif ($entity == Mage_Core_Model_Store::ENTITY) {
             if ($event->getType() == Mage_Index_Model_Event::TYPE_DELETE) {
                 $result = true;
             } else {
-                /* @var $store Mage_Core_Model_Store */
+                /* @var Mage_Core_Model_Store $store */
                 $store = $event->getDataObject();
                 if ($store && $store->isObjectNew()) {
                     $result = true;
@@ -169,15 +169,15 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
                     $result = false;
                 }
             }
-        } else if ($entity == Mage_Core_Model_Store_Group::ENTITY) {
-            /* @var $storeGroup Mage_Core_Model_Store_Group */
+        } elseif ($entity == Mage_Core_Model_Store_Group::ENTITY) {
+            /* @var Mage_Core_Model_Store_Group $storeGroup */
             $storeGroup = $event->getDataObject();
             if ($storeGroup && $storeGroup->dataHasChangedFor('website_id')) {
                 $result = true;
             } else {
                 $result = false;
             }
-        } else if ($entity == Mage_Core_Model_Config_Data::ENTITY) {
+        } elseif ($entity == Mage_Core_Model_Config_Data::ENTITY) {
             $data = $event->getDataObject();
             if ($data && in_array($data->getPath(), $this->_relatedConfigSettings)) {
                 $result = $data->isValueChanged();
@@ -228,13 +228,13 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
      * Get data required for category'es products reindex
      *
      * @param Mage_Index_Model_Event $event
-     * @return Mage_CatalogSearch_Model_Indexer_Search
+     * @return Mage_CatalogSearch_Model_Indexer_Fulltext
      */
     protected function _registerCatalogCategoryEvent(Mage_Index_Model_Event $event)
     {
         switch ($event->getType()) {
             case Mage_Index_Model_Event::TYPE_SAVE:
-                /* @var $category Mage_Catalog_Model_Category */
+                /* @var Mage_Catalog_Model_Category $category */
                 $category   = $event->getDataObject();
                 $productIds = $category->getAffectedProductIds();
                 if ($productIds) {
@@ -257,25 +257,25 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
      * Register data required by catatalog product process in event object
      *
      * @param Mage_Index_Model_Event $event
-     * @return Mage_CatalogSearch_Model_Indexer_Search
+     * @return Mage_CatalogSearch_Model_Indexer_Fulltext
      */
     protected function _registerCatalogProductEvent(Mage_Index_Model_Event $event)
     {
         switch ($event->getType()) {
             case Mage_Index_Model_Event::TYPE_SAVE:
-                /* @var $product Mage_Catalog_Model_Product */
+                /* @var Mage_Catalog_Model_Product $product */
                 $product = $event->getDataObject();
 
                 $event->addNewData('catalogsearch_update_product_id', $product->getId());
                 break;
             case Mage_Index_Model_Event::TYPE_DELETE:
-                /* @var $product Mage_Catalog_Model_Product */
+                /* @var Mage_Catalog_Model_Product $product */
                 $product = $event->getDataObject();
 
                 $event->addNewData('catalogsearch_delete_product_id', $product->getId());
                 break;
             case Mage_Index_Model_Event::TYPE_MASS_ACTION:
-                /* @var $actionObject Varien_Object */
+                /* @var Varien_Object $actionObject */
                 $actionObject = $event->getDataObject();
                 $attrData     = $actionObject->getAttributesData();
                 $rebuildIndex = false;
@@ -331,10 +331,11 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
     protected function _getSearchableAttributes()
     {
         if (is_null($this->_searchableAttributes)) {
-            /** @var $attributeCollection Mage_Catalog_Model_Resource_Product_Attribute_Collection */
+            /** @var Mage_Catalog_Model_Resource_Product_Attribute_Collection $attributeCollection */
             $attributeCollection = Mage::getResourceModel('catalog/product_attribute_collection');
             $attributeCollection->addIsSearchableFilter();
 
+            $this->_searchableAttributes = [];
             foreach ($attributeCollection as $attribute) {
                 $this->_searchableAttributes[] = $attribute->getAttributeCode();
             }
@@ -366,7 +367,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
 
         if (!empty($data['catalogsearch_fulltext_reindex_all'])) {
             $this->reindexAll();
-        } else if (!empty($data['catalogsearch_delete_product_id'])) {
+        } elseif (!empty($data['catalogsearch_delete_product_id'])) {
             $productId = $data['catalogsearch_delete_product_id'];
 
             if (!$this->_isProductComposite($productId)) {
@@ -378,7 +379,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
 
             $this->_getIndexer()->cleanIndex(null, $productId)
                 ->resetSearchResults();
-        } else if (!empty($data['catalogsearch_update_product_id'])) {
+        } elseif (!empty($data['catalogsearch_update_product_id'])) {
             $productId = $data['catalogsearch_update_product_id'];
             $productIds = array($productId);
 
@@ -391,7 +392,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
 
             $this->_getIndexer()->rebuildIndex(null, $productIds)
                 ->resetSearchResults();
-        } else if (!empty($data['catalogsearch_product_ids'])) {
+        } elseif (!empty($data['catalogsearch_product_ids'])) {
             // mass action
             $productIds = $data['catalogsearch_product_ids'];
             $parentIds = $this->_getResource()->getRelationsByChild($productIds);
@@ -409,7 +410,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
                             $this->_getIndexer()
                                 ->cleanIndex($storeId, $productIds)
                                 ->resetSearchResults();
-                        } else if ($actionType == 'add') {
+                        } elseif ($actionType == 'add') {
                             $this->_getIndexer()
                                 ->rebuildIndex($storeId, $productIds)
                                 ->resetSearchResults();
@@ -434,7 +435,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
                     ->rebuildIndex(null, $productIds)
                     ->resetSearchResults();
             }
-        } else if (isset($data['catalogsearch_category_update_product_ids'])) {
+        } elseif (isset($data['catalogsearch_category_update_product_ids'])) {
             $productIds = $data['catalogsearch_category_update_product_ids'];
             $categoryIds = $data['catalogsearch_category_update_category_ids'];
 

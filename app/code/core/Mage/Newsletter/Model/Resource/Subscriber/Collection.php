@@ -140,22 +140,19 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
             ->joinLeft(
                 array('customer_lastname_table' => $lastname->getBackend()->getTable()),
                 $adapter->quoteInto('customer_lastname_table.entity_id=main_table.customer_id
-                    AND customer_lastname_table.attribute_id = ?', (int) $lastname->getAttributeId()
-                ),
+                    AND customer_lastname_table.attribute_id = ?', (int) $lastname->getAttributeId()),
                 array('customer_lastname'=>'value')
             )
             ->joinLeft(
                 array('customer_middlename_table' => $middlename->getBackend()->getTable()),
                 $adapter->quoteInto('customer_middlename_table.entity_id=main_table.customer_id
-                    AND customer_middlename_table.attribute_id = ?', (int) $middlename->getAttributeId()
-                ),
+                    AND customer_middlename_table.attribute_id = ?', (int) $middlename->getAttributeId()),
                 array('customer_middlename'=>'value')
             )
             ->joinLeft(
                 array('customer_firstname_table' => $firstname->getBackend()->getTable()),
                 $adapter->quoteInto('customer_firstname_table.entity_id=main_table.customer_id
-                    AND customer_firstname_table.attribute_id = ?', (int) $firstname->getAttributeId()
-                ),
+                    AND customer_firstname_table.attribute_id = ?', (int) $firstname->getAttributeId()),
                 array('customer_firstname'=>'value')
             );
 
@@ -201,7 +198,7 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
     public function _getFieldTableAlias($field)
     {
         if (strpos($field, 'customer') === 0) {
-           return $field .'_table.value';
+            return $field .'_table.value';
         }
 
         if ($field == 'type') {

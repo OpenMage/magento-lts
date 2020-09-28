@@ -49,7 +49,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     /**
      * Path info array used before applying rewrite from config
      *
-     * @var null || array
+     * @var null|array
      */
     protected $_rewritedPathInfo= null;
     protected $_requestedRouteName = null;
@@ -64,7 +64,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * Streight request flag.
      * If flag is determined no additional logic is applicable
      *
-     * @var $_isStraight bool
+     * @var bool $_isStraight
      */
     protected $_isStraight = false;
 
@@ -97,6 +97,10 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         return $this->_originalPathInfo;
     }
 
+    /**
+     * @return string|null
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function getStoreCodeFromPath()
     {
         if (!$this->_storeCode) {
@@ -112,14 +116,12 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
                     $this->setPathInfo(implode('/', $p));
                     $this->_storeCode = $storeCode;
                     Mage::app()->setCurrentStore($storeCode);
-                }
-                else {
+                } else {
                     $this->_storeCode = Mage::app()->getStore()->getCode();
                 }
             } else {
                 $this->_storeCode = Mage::app()->getStore()->getCode();
             }
-
         }
         return $this->_storeCode;
     }
@@ -166,8 +168,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
                     if ($storeCode!=='' && isset($stores[$storeCode])) {
                         Mage::app()->setCurrentStore($storeCode);
                         $pathInfo = '/'.(isset($pathParts[1]) ? $pathParts[1] : '');
-                    }
-                    elseif ($storeCode !== '') {
+                    } elseif ($storeCode !== '') {
                         $this->setActionName('noRoute');
                     }
                 }
@@ -239,6 +240,10 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         return $this->_directFrontNames;
     }
 
+    /**
+     * @return Zend_Controller_Request_Http
+     * @throws Zend_Controller_Request_Exception
+     */
     public function getOriginalRequest()
     {
         $request = new Zend_Controller_Request_Http();
@@ -246,11 +251,17 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         return $request;
     }
 
+    /**
+     * @return string
+     */
     public function getRequestString()
     {
         return $this->_requestString;
     }
 
+    /**
+     * @return string
+     */
     public function getBasePath()
     {
         $path = parent::getBasePath();
@@ -273,11 +284,17 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         return $url;
     }
 
+    /**
+     * @param string $route
+     * @return $this
+     */
     public function setRouteName($route)
     {
         $this->_route = $route;
         $router = Mage::app()->getFrontController()->getRouterByRoute($route);
-        if (!$router) return $this;
+        if (!$router) {
+            return $this;
+        }
         $module = $router->getFrontNameByRoute($route);
         if ($module) {
             $this->setModuleName($module);
@@ -285,6 +302,9 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getRouteName()
     {
         return $this->_route;
@@ -328,8 +348,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     {
         if (is_array($key)) {
             $_POST = $key;
-        }
-        else {
+        } else {
             $_POST[$key] = $value;
         }
         return $this;
@@ -488,7 +507,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * Collect properties changed by _forward in protected storage
      * before _forward was called first time.
      *
-     * @return Mage_Core_Controller_Varien_Action
+     * @return $this
      */
     public function initForward()
     {

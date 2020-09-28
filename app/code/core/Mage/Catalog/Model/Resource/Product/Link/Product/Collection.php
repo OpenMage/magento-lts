@@ -200,7 +200,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
     /**
      * Join linked products when specified link model
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _beforeLoad()
     {
@@ -234,10 +234,10 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
                 $joinCondition[] = $adapter->quoteInto('links.product_id = ?', $productId);
             }
             $this->addFieldToFilter('entity_id', array('neq' => $productId));
-        } else if ($this->_isStrongMode) {
+        } elseif ($this->_isStrongMode) {
             $this->addFieldToFilter('entity_id', array('eq' => -1));
         }
-        if($this->_hasLinkFilter) {
+        if ($this->_hasLinkFilter) {
             $select->$joinType(
                 array('links' => $this->getTable('catalog/product_link')),
                 implode(' AND ', $joinCondition),
@@ -330,9 +330,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
      *
      * $attribute can also be an array of attributes
      *
-     * @param string|array $attribute
-     * @param string $dir
-     * @return $this
+     * @inheritDoc
      */
     public function setOrder($attribute, $dir = self::SORT_ORDER_ASC)
     {

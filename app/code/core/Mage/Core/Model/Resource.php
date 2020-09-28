@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Resources and connections registry and factory
  *
@@ -50,7 +49,7 @@ class Mage_Core_Model_Resource
     /**
      * Instances of actual connections
      *
-     * @var array
+     * @var Varien_Db_Adapter_Interface[]|false
      */
     protected $_connections        = array();
 
@@ -79,7 +78,7 @@ class Mage_Core_Model_Resource
      * Creates a connection to resource whenever needed
      *
      * @param string $name
-     * @return Varien_Db_Adapter_Interface
+     * @return Varien_Db_Adapter_Interface|false
      */
     public function getConnection($name)
     {
@@ -91,6 +90,7 @@ class Mage_Core_Model_Resource
             }
             return $connection;
         }
+        /** @var Mage_Core_Model_Config_Element $connConfig */
         $connConfig = Mage::getConfig()->getResourceConnectionConfig($name);
 
         if (!$connConfig) {
@@ -127,7 +127,7 @@ class Mage_Core_Model_Resource
     /**
      * Get Instances of actual connections
      *
-     * @return array
+     * @return Varien_Db_Adapter_Interface[]|false
      */
     public function getConnections()
     {
@@ -232,7 +232,7 @@ class Mage_Core_Model_Resource
      *
      * @param string $model
      * @param string $entity
-     * @return Varien_Simplexml_Config
+     * @return SimpleXMLElement|Varien_Simplexml_Config
      */
     public function getEntity($model, $entity)
     {
@@ -344,7 +344,7 @@ class Mage_Core_Model_Resource
     {
         $zeroDate = $this->getConnection(self::DEFAULT_READ_RESOURCE)->getSuggestedZeroDate();
         if (!empty($row) && is_array($row)) {
-            foreach ($row as $key=>&$value) {
+            foreach ($row as $key => &$value) {
                 if (is_string($value) && $value === $zeroDate) {
                     $value = '';
                 }
@@ -359,7 +359,7 @@ class Mage_Core_Model_Resource
      * @param string $name
      * @param string $type
      * @param array $config
-     * @return unknown
+     * @return Varien_Db_Adapter_Interface
      */
     public function createConnection($name, $type, $config)
     {
@@ -378,12 +378,19 @@ class Mage_Core_Model_Resource
         }
     }
 
+    /**
+     * @return int
+     */
     public function getAutoUpdate()
     {
         return self::AUTO_UPDATE_ALWAYS;
         #return Mage::app()->loadCache(self::AUTO_UPDATE_CACHE_KEY);
     }
 
+    /**
+     * @param mixed $value
+     * @return $this
+     */
     public function setAutoUpdate($value)
     {
         #Mage::app()->saveCache($value, self::AUTO_UPDATE_CACHE_KEY);
@@ -415,7 +422,11 @@ class Mage_Core_Model_Resource
     public function getFkName($priTableName, $priColumnName, $refTableName, $refColumnName)
     {
         return $this->getConnection(self::DEFAULT_READ_RESOURCE)
-            ->getForeignKeyName($this->getTableName($priTableName), $priColumnName,
-                $this->getTableName($refTableName), $refColumnName);
+            ->getForeignKeyName(
+                $this->getTableName($priTableName),
+                $priColumnName,
+                $this->getTableName($refTableName),
+                $refColumnName
+            );
     }
 }

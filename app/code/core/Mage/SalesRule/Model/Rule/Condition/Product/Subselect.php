@@ -24,9 +24,13 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
-class Mage_SalesRule_Model_Rule_Condition_Product_Subselect
-    extends Mage_SalesRule_Model_Rule_Condition_Product_Combine
+/**
+ * Class Mage_SalesRule_Model_Rule_Condition_Product_Subselect
+ *
+ * @method $this setAttributeOption(array $value)
+ * @method $this setOperatorOption(array $value)
+ */
+class Mage_SalesRule_Model_Rule_Condition_Product_Subselect extends Mage_SalesRule_Model_Rule_Condition_Product_Combine
 {
     public function __construct()
     {
@@ -35,7 +39,12 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Subselect
             ->setValue(null);
     }
 
-    public function loadArray($arr, $key='conditions')
+    /**
+     * @param array $arr
+     * @param string $key
+     * @return $this|Mage_SalesRule_Model_Rule_Condition_Product_Combine
+     */
+    public function loadArray($arr, $key = 'conditions')
     {
         $this->setAttribute($arr['attribute']);
         $this->setOperator($arr['operator']);
@@ -43,7 +52,12 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Subselect
         return $this;
     }
 
-    public function asXml($containerKey='conditions', $itemKey='condition')
+    /**
+     * @param string $containerKey
+     * @param string $itemKey
+     * @return string
+     */
+    public function asXml($containerKey = 'conditions', $itemKey = 'condition')
     {
         $xml = '<attribute>'.$this->getAttribute().'</attribute>'
             . '<operator>'.$this->getOperator().'</operator>'
@@ -51,6 +65,9 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Subselect
         return $xml;
     }
 
+    /**
+     * @return $this|Mage_SalesRule_Model_Rule_Condition_Product_Combine
+     */
     public function loadAttributeOptions()
     {
         $this->setAttributeOption(array(
@@ -60,11 +77,17 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Subselect
         return $this;
     }
 
+    /**
+     * @return $this|Mage_SalesRule_Model_Rule_Condition_Product_Combine
+     */
     public function loadValueOptions()
     {
         return $this;
     }
 
+    /**
+     * @return $this|Mage_SalesRule_Model_Rule_Condition_Product_Combine
+     */
     public function loadOperatorOptions()
     {
         $this->setOperatorOption(array(
@@ -80,11 +103,17 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Subselect
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getValueElementType()
     {
         return 'text';
     }
 
+    /**
+     * @return string
+     */
     public function asHtml()
     {
         $html = $this->getTypeElement()->getHtml().

@@ -52,7 +52,7 @@ class Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website extends Ma
         }
 
         // Validate website
-        /* @var $website Mage_Core_Model_Website */
+        /* @var Mage_Core_Model_Website $website */
         $website = Mage::getModel('core/website')->load($data['website_id']);
         if (!$website->getId()) {
             $this->_addError(sprintf('Website #%d not found.', $data['website_id']));
@@ -61,8 +61,11 @@ class Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website extends Ma
 
         // Validate product to website association
         if (in_array($website->getId(), $product->getWebsiteIds())) {
-            $this->_addError(sprintf('Product #%d is already assigned to website #%d', $product->getId(),
-                $website->getId()));
+            $this->_addError(sprintf(
+                'Product #%d is already assigned to website #%d',
+                $product->getId(),
+                $website->getId()
+            ));
             return false;
         }
 
@@ -102,8 +105,10 @@ class Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website extends Ma
     protected function _checkStoreFrom($product, $website, $storeData)
     {
         if (!isset($storeData['store_from']) || !is_numeric($storeData['store_from'])) {
-            $this->_addError(sprintf('Invalid value for "store_from" for the website with ID #%d.',
-                $website->getId()));
+            $this->_addError(sprintf(
+                'Invalid value for "store_from" for the website with ID #%d.',
+                $website->getId()
+            ));
             return $this;
         }
 
@@ -111,8 +116,11 @@ class Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website extends Ma
         // and if it belongs to the product being edited
         $storeFrom = Mage::getModel('core/store')->load($storeData['store_from']);
         if (!$storeFrom->getId()) {
-            $this->_addError(sprintf('Store not found #%d for website #%d.', $storeData['store_from'],
-                $website->getId()));
+            $this->_addError(sprintf(
+                'Store not found #%d for website #%d.',
+                $storeData['store_from'],
+                $website->getId()
+            ));
             return $this;
         }
 
@@ -134,8 +142,10 @@ class Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website extends Ma
     protected function _checkStoreTo($website, $storeData)
     {
         if (!isset($storeData['store_to']) || !is_numeric($storeData['store_to'])) {
-            $this->_addError(sprintf('Invalid value for "store_to" for the website with ID #%d.',
-                $website->getId()));
+            $this->_addError(sprintf(
+                'Invalid value for "store_to" for the website with ID #%d.',
+                $website->getId()
+            ));
             return $this;
         }
 
@@ -143,8 +153,11 @@ class Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website extends Ma
         // and if it belongs to the website being added
         $storeTo = Mage::getModel('core/store')->load($storeData['store_to']);
         if (!$storeTo->getId()) {
-            $this->_addError(sprintf('Store not found #%d for website #%d.', $storeData['store_to'],
-                $website->getId()));
+            $this->_addError(sprintf(
+                'Store not found #%d for website #%d.',
+                $storeData['store_to'],
+                $website->getId()
+            ));
             return $this;
         }
 
@@ -169,8 +182,11 @@ class Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website extends Ma
     public function isWebsiteAssignedToProduct(Mage_Core_Model_Website $website, Mage_Catalog_Model_Product $product)
     {
         if (false === array_search($website->getId(), $product->getWebsiteIds())) {
-            $this->_addError(sprintf('Product #%d isn\'t assigned to website #%d', $product->getId(),
-                $website->getId()));
+            $this->_addError(sprintf(
+                'Product #%d isn\'t assigned to website #%d',
+                $product->getId(),
+                $website->getId()
+            ));
         }
         return !count($this->getErrors());
     }

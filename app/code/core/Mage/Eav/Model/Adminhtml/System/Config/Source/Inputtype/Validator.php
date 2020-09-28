@@ -40,7 +40,7 @@ class Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype_Validator extends 
     public function __construct()
     {
         //set data haystack
-        /** @var $helper Mage_Eav_Helper_Data */
+        /** @var Mage_Eav_Helper_Data $helper */
         $helper = Mage::helper('eav');
         $haystack = $helper->getInputTypesValidatorData();
 
@@ -58,7 +58,7 @@ class Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype_Validator extends 
     /**
      * Initialize message templates with translating
      *
-     * @return Mage_Adminhtml_Model_Core_File_Validator_SavePath_Available
+     * @return Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype_Validator
      */
     protected function _initMessageTemplates()
     {

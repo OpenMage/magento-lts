@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 
@@ -42,8 +42,10 @@ if (!empty($storeIds)) {
 
 $installer->getConnection()->addConstraint(
     'FK_DESIGN_CHANGE_STORE',
-    $installer->getTable('design_change'), 'store_id',
-    $installer->getTable('core_store'),    'store_id'
+    $installer->getTable('design_change'),
+    'store_id',
+    $installer->getTable('core_store'),
+    'store_id'
 );
 
 $installer->endSetup();

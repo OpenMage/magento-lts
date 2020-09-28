@@ -330,7 +330,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
         $resource = $role->getResource();
         $users = $resource->getRoleUsers($role);
 
-        if (sizeof($users) == 0) {
+        if (!count($users)) {
             $users = array();
         }
 

@@ -58,6 +58,11 @@ class Mage_Core_Model_Domainpolicy
      */
     protected $_store;
 
+    /**
+     * Mage_Core_Model_Domainpolicy constructor.
+     * @param array $options
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function __construct($options = array())
     {
         $this->_store = isset($options['store']) ? $options['store'] : Mage::app()->getStore();
@@ -66,23 +71,21 @@ class Mage_Core_Model_Domainpolicy
     /**
      * Add X-Frame-Options header to response, depends on config settings
      *
-     * @var Varien_Object $observer
+     * @var Varien_Event_Observer $observer
      * @return $this
      */
-    public function addDomainPolicyHeader($observer)
+    public function addDomainPolicyHeader(Varien_Event_Observer $observer)
     {
-        /** @var Mage_Core_Controller->getCurrentAreaDomainPolicy_Varien_Action $action */
         $action = $observer->getControllerAction();
         $policy = null;
 
         if ('adminhtml' == $action->getLayout()->getArea()) {
             $policy = $this->getBackendPolicy();
-        } elseif('frontend' == $action->getLayout()->getArea()) {
+        } elseif ('frontend' == $action->getLayout()->getArea()) {
             $policy = $this->getFrontendPolicy();
         }
 
         if ($policy) {
-            /** @var Mage_Core_Controller_Response_Http $response */
             $response = $action->getResponse();
             $response->setHeader('X-Frame-Options', $policy, true);
         }
@@ -110,17 +113,15 @@ class Mage_Core_Model_Domainpolicy
         return $this->_getDomainPolicyByCode((int)(string)$this->_store->getConfig(self::XML_DOMAIN_POLICY_FRONTEND));
     }
 
-
-
     /**
      * Return string representation for policy code
      *
-     * @param $policyCode
+     * @param string $policyCode
      * @return string|null
      */
     protected function _getDomainPolicyByCode($policyCode)
     {
-        switch($policyCode) {
+        switch ($policyCode) {
             case self::FRAME_POLICY_ALLOW:
                 $policy = null;
                 break;

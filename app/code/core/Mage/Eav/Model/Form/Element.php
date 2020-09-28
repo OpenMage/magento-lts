@@ -30,13 +30,14 @@
  *
  * @method Mage_Eav_Model_Resource_Form_Element getResource()
  * @method int getTypeId()
- * @method Mage_Eav_Model_Form_Element setTypeId(int $value)
+ * @method $this setTypeId(int $value)
  * @method int getFieldsetId()
- * @method Mage_Eav_Model_Form_Element setFieldsetId(int $value)
+ * @method $this setFieldsetId(int $value)
  * @method int getAttributeId()
- * @method Mage_Eav_Model_Form_Element setAttributeId(int $value)
+ * @method $this setAttributeId(int $value)
  * @method int getSortOrder()
- * @method Mage_Eav_Model_Form_Element setSortOrder(int $value)
+ * @method $this setSortOrder(int $value)
+ * @method int getEntityTypeId()
  *
  * @category    Mage
  * @package     Mage_Eav
@@ -63,7 +64,7 @@ class Mage_Eav_Model_Form_Element extends Mage_Core_Model_Abstract
     /**
      * Retrieve resource instance wrapper
      *
-     * @return Mage_Eav_Model_Mysql4_Form_Element
+     * @inheritDoc
      */
     protected function _getResource()
     {
@@ -73,7 +74,7 @@ class Mage_Eav_Model_Form_Element extends Mage_Core_Model_Abstract
     /**
      * Retrieve resource collection instance wrapper
      *
-     * @return Mage_Eav_Model_Mysql4_Form_Element_Collection
+     * @inheritDoc
      */
     public function getCollection()
     {
@@ -84,7 +85,7 @@ class Mage_Eav_Model_Form_Element extends Mage_Core_Model_Abstract
      * Validate data before save data
      *
      * @throws Mage_Core_Exception
-     * @return $this
+     * @inheritDoc
      */
     protected function _beforeSave()
     {

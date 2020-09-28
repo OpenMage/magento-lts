@@ -101,7 +101,8 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Attribute extends Mage_Core_Model
             ->join(
                 array($tableAlias => $this->getMainTable()),
                 join(' AND ', $conditions),
-                array('value', 'count' => new Zend_Db_Expr("COUNT({$tableAlias}.entity_id)")))
+                array('value', 'count' => new Zend_Db_Expr("COUNT({$tableAlias}.entity_id)"))
+            )
             ->group("{$tableAlias}.value");
 
         return $connection->fetchPairs($select);

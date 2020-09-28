@@ -31,6 +31,8 @@
  * @category   Varien
  * @package    Varien_Data
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getLegend()
  */
 class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstract
 {

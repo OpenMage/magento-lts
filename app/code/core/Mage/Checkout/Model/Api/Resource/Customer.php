@@ -48,11 +48,13 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
 
 
     /**
-     *
+     * @param int $customerId
+     * @return Mage_Customer_Model_Customer
+     * @throws Mage_Api_Exception
      */
     protected function _getCustomer($customerId)
     {
-        /** @var $customer Mage_Customer_Model_Customer */
+        /** @var Mage_Customer_Model_Customer $customer */
         $customer = Mage::getModel('customer/customer')
             ->load($customerId);
         if (!$customer->getId()) {
@@ -90,16 +92,16 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
     {
         $isNewCustomer = false;
         switch ($quote->getCheckoutMethod()) {
-        case self::MODE_GUEST:
-            $this->_prepareGuestQuote($quote);
-            break;
-        case self::MODE_REGISTER:
-            $this->_prepareNewCustomerQuote($quote);
-            $isNewCustomer = true;
-            break;
-        default:
-            $this->_prepareCustomerQuote($quote);
-            break;
+            case self::MODE_GUEST:
+                $this->_prepareGuestQuote($quote);
+                break;
+            case self::MODE_REGISTER:
+                $this->_prepareNewCustomerQuote($quote);
+                $isNewCustomer = true;
+                break;
+            default:
+                $this->_prepareCustomerQuote($quote);
+                break;
         }
 
         return $isNewCustomer;
@@ -133,7 +135,7 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
 
         //$customer = Mage::getModel('customer/customer');
         $customer = $quote->getCustomer();
-        /* @var $customer Mage_Customer_Model_Customer */
+        /* @var Mage_Customer_Model_Customer $customer */
         $customerBilling = $billing->exportCustomerAddress();
         $customer->addAddress($customerBilling);
         $billing->setCustomerAddress($customerBilling);
@@ -185,7 +187,7 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
         }
         if ($shipping && isset($customerShipping) && !$customer->getDefaultShipping()) {
             $customerShipping->setIsDefaultShipping(true);
-        } else if (isset($customerBilling) && !$customer->getDefaultShipping()) {
+        } elseif (isset($customerBilling) && !$customer->getDefaultShipping()) {
             $customerBilling->setIsDefaultShipping(true);
         }
         $quote->setCustomer($customer);

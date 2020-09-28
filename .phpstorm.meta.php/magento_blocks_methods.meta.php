@@ -280,7 +280,6 @@ namespace PHPSTORM_META {
             'adminhtml/notification_inbox' => \Mage_Adminhtml_Block_Notification_Inbox::class,
             'adminhtml/notification_security' => \Mage_Adminhtml_Block_Notification_Security::class,
             'adminhtml/notification_survey' => \Mage_Adminhtml_Block_Notification_Survey::class,
-            'adminhtml/notification_symlink' => \Mage_Adminhtml_Block_Notification_Symlink::class,
             'adminhtml/notification_toolbar' => \Mage_Adminhtml_Block_Notification_Toolbar::class,
             'adminhtml/notification_window' => \Mage_Adminhtml_Block_Notification_Window::class,
             'adminhtml/page' => \Mage_Adminhtml_Block_Page::class,
@@ -1342,12 +1341,6 @@ namespace PHPSTORM_META {
             'wishlist/share_email_items' => \Mage_Wishlist_Block_Share_Email_Items::class,
             'wishlist/share_email_rss' => \Mage_Wishlist_Block_Share_Email_Rss::class,
             'wishlist/share_wishlist' => \Mage_Wishlist_Block_Share_Wishlist::class,
-            'moneybookers/form' => \Phoenix_Moneybookers_Block_Form::class,
-            'moneybookers/info' => \Phoenix_Moneybookers_Block_Info::class,
-            'moneybookers/jsinit' => \Phoenix_Moneybookers_Block_Jsinit::class,
-            'moneybookers/payment' => \Phoenix_Moneybookers_Block_Payment::class,
-            'moneybookers/placeform' => \Phoenix_Moneybookers_Block_Placeform::class,
-            'moneybookers/redirect' => \Phoenix_Moneybookers_Block_Redirect::class,
         ])
     );
 }

@@ -29,11 +29,15 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method int getNumProducts()
  */
-
 class Mage_Catalog_Block_Product_List_Random extends Mage_Catalog_Block_Product_List
 {
+    /**
+     * @return Mage_Catalog_Model_Resource_Product_Collection|Mage_Eav_Model_Entity_Collection_Abstract|Object
+     */
     protected function _getProductCollection()
     {
         if (is_null($this->_productCollection)) {

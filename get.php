@@ -142,24 +142,24 @@ if (0 !== stripos($pathInfo, $mediaDirectory . '/')) {
     sendNotFoundPage();
 }
 
-$databaseFileStorage = Mage::getModel('core/file_storage_database');
+$localStorage = Mage::getModel('core/file_storage_file');
+$remoteStorage = Mage::getModel('core/file_storage_database');
 try {
-    $databaseFileStorage->loadByFilename($relativeFilename);
-} catch (Exception $e) {
-}
-if ($databaseFileStorage->getId()) {
-    try {
-        if (Mage::getModel('core/file_storage_file')->saveFile($databaseFileStorage, false) === false) {
-            // False return value means file was not overwritten. However, it may not be ready
-            // to be read yet so wait for shared lock to ensure file is not partially read.
-            if ($fp = fopen($filePath, 'r')) {
-                flock($fp, LOCK_SH) && flock($fp, LOCK_UN) && fclose($fp);
-            }
+    if ($localStorage->lockCreateFile($relativeFilename)) {
+        try {
+            $remoteStorage->loadByFilename($relativeFilename);
+        } catch (Exception $e) {
+            // Ignore errors
         }
-        sendFile($filePath);
-    } catch (Exception $e) {
-        Mage::logException($e);
+        if ($remoteStorage->getId()) {
+            $localStorage->saveFile($remoteStorage, false);
+        } else {
+            $localStorage->removeLockedFile($relativeFilename);
+        }
     }
+    sendFile($filePath);
+} catch (Exception $e) {
+    Mage::logException($e);
 }
 
 sendNotFoundPage();
@@ -200,7 +200,7 @@ function checkResource($resource, array $allowedResources)
  */
 function sendFile($file)
 {
-    if (file_exists($file) || is_readable($file)) {
+    if (is_readable($file) && filesize($file) > 0) {
         $transfer = new Varien_File_Transfer_Adapter_Http();
         $transfer->send($file);
         exit;

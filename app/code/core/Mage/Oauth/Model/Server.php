@@ -162,7 +162,7 @@ class Mage_Oauth_Model_Server
     /**
      * Request object
      *
-     * @var Mage_Core_Controller_Request_Http
+     * @var Mage_Core_Controller_Request_Http|Zend_Controller_Request_Http
      */
     protected $_request;
 
@@ -470,7 +470,7 @@ class Mage_Oauth_Model_Server
         if ($timestamp <= 0 || $timestamp > (time() + self::TIME_DEVIATION)) {
             $this->_throwException('', self::ERR_TIMESTAMP_REFUSED);
         }
-        /** @var $nonceObj Mage_Oauth_Model_Nonce */
+        /** @var Mage_Oauth_Model_Nonce $nonceObj */
         $nonceObj = Mage::getModel('oauth/nonce');
 
         $nonceObj->load($nonce, 'nonce');

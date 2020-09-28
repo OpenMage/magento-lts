@@ -39,9 +39,11 @@ class Mage_Catalog_Block_Product_View_Tabs extends Mage_Core_Block_Template
     /**
      * Add tab to the container
      *
+     * @param $alias
      * @param string $title
      * @param string $block
      * @param string $template
+     * @return bool
      */
     public function addTab($alias, $title, $block, $template)
     {
@@ -55,12 +57,16 @@ class Mage_Catalog_Block_Product_View_Tabs extends Mage_Core_Block_Template
             'title' => $title
         );
 
-        $this->setChild($alias,
+        $this->setChild(
+            $alias,
             $this->getLayout()->createBlock($block, $alias)
                 ->setTemplate($template)
-            );
+        );
     }
 
+    /**
+     * @return array
+     */
     public function getTabs()
     {
         return $this->_tabs;

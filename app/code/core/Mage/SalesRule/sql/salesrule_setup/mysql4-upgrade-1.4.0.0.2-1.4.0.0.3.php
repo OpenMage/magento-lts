@@ -25,13 +25,15 @@
  */
 
 $installer = $this;
-/** @var $installer Mage_Sales_Model_Mysql4_Setup */
+/** @var Mage_Sales_Model_Mysql4_Setup $installer */
 
 $installer->startSetup();
 
 $installer->getConnection()
-    ->modifyColumn($installer->getTable('salesrule'), 
-        'customer_group_ids', 
-        'TEXT');
+    ->modifyColumn(
+        $installer->getTable('salesrule'),
+        'customer_group_ids',
+        'TEXT'
+    );
 
 $installer->endSetup();

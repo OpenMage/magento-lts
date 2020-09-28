@@ -80,7 +80,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
     /**
      * Add search query filter
      *
-     * @param $query
+     * @param string $query
      * @return $this
      */
     public function addSearchFilter($query)

@@ -164,8 +164,7 @@ class Mage_Newsletter_Model_Resource_Subscriber extends Mage_Core_Model_Resource
                 'queue_id = ?' => $queue->getId()
             ));
             $this->_write->commit();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $this->_write->rollBack();
             Mage::throwException(Mage::helper('newsletter')->__('Cannot mark as received subscriber.'));
         }

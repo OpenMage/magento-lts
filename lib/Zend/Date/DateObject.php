@@ -641,7 +641,7 @@ abstract class Zend_Date_DateObject {
 
         // gregorian correction
         $correction = 0;
-        if (($year < 1582) or (($year == 1582) and (($month < 10) or (($month == 10) && ($day < 15))))) {
+        if (($year < 1582) || (($year == 1582) and (($month < 10) || (($month == 10) && ($day < 15))))) {
             $correction = 3;
         }
 
@@ -872,7 +872,7 @@ abstract class Zend_Date_DateObject {
 
         $dayofweek = self::dayOfWeek($year, $month, $day);
         $firstday  = self::dayOfWeek($year, 1, 1);
-        if (($month == 1) and (($firstday < 1) or ($firstday > 4)) and ($day < 4)) {
+        if (($month == 1) and (($firstday < 1) || ($firstday > 4)) and ($day < 4)) {
             $firstday  = self::dayOfWeek($year - 1, 1, 1);
             $month     = 12;
             $day       = 31;
@@ -1033,7 +1033,7 @@ abstract class Zend_Date_DateObject {
         }
         date_default_timezone_set($oldzone);
 
-        if (($zone == 'UTC') or ($zone == 'GMT')) {
+        if (($zone == 'UTC') || ($zone == 'GMT')) {
             $this->_dst = false;
         } else {
             $this->_dst = true;

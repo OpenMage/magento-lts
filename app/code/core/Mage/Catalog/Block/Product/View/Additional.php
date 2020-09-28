@@ -43,6 +43,9 @@ class Mage_Catalog_Block_Product_View_Additional extends Mage_Core_Block_Templat
         $this->setTemplate('catalog/product/view/additional.phtml');
     }
 
+    /**
+     * @return array
+     */
     public function getChildHtmlList()
     {
         if (is_null($this->_list)) {
@@ -57,5 +60,4 @@ class Mage_Catalog_Block_Product_View_Additional extends Mage_Core_Block_Templat
         }
         return $this->_list;
     }
-
 }

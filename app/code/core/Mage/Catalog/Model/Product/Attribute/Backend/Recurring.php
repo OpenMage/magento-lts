@@ -27,8 +27,7 @@
 /**
  * Backend for recurring profile parameter
  */
-class Mage_Catalog_Model_Product_Attribute_Backend_Recurring
-extends Mage_Eav_Model_Entity_Attribute_Backend_Serialized
+class Mage_Catalog_Model_Product_Attribute_Backend_Recurring extends Mage_Eav_Model_Entity_Attribute_Backend_Serialized
 {
     /**
      * Serialize or remove before saving
@@ -47,7 +46,7 @@ extends Mage_Eav_Model_Entity_Attribute_Backend_Serialized
 
     /**
      * Unserialize or remove on failure
-     * @param Mage_Catalog_Model_Product $product
+     * @param Varien_Object|Mage_Catalog_Model_Product $product
      */
     protected function _unserialize(Varien_Object $product)
     {

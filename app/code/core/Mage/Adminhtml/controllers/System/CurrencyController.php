@@ -78,7 +78,7 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
             }
             $rates = $importModel->fetchRates();
             $errors = $importModel->getMessages();
-            if( sizeof($errors) > 0 ) {
+            if(count($errors)) {
                 foreach ($errors as $error) {
                     Mage::getSingleton('adminhtml/session')->addWarning($error);
                 }

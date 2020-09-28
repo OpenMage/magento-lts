@@ -73,7 +73,7 @@ class Mage_Newsletter_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve Template processor for Newsletter template
      *
-     * @return Varien_Filter_Template
+     * @return false|Mage_Core_Model_Abstract|Varien_Filter_Template
      */
     public function getTemplateProcessor()
     {
@@ -81,4 +81,3 @@ class Mage_Newsletter_Helper_Data extends Mage_Core_Helper_Abstract
         return Mage::getModel($model);
     }
 }
-

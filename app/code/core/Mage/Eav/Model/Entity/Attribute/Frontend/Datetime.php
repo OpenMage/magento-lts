@@ -30,7 +30,7 @@ class Mage_Eav_Model_Entity_Attribute_Frontend_Datetime extends Mage_Eav_Model_E
     /**
      * Retreive attribute value
      *
-     * @param $object
+     * @param Varien_Object $object
      * @return mixed
      */
     public function getValue(Varien_Object $object)
@@ -52,4 +52,3 @@ class Mage_Eav_Model_Entity_Attribute_Frontend_Datetime extends Mage_Eav_Model_E
         return $data;
     }
 }
-

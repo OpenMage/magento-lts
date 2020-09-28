@@ -172,11 +172,11 @@ class Zend_Gdata_Analytics_AccountQuery extends Zend_Gdata_Query
         $url = $this->_defaultFeedUri;
         
         // add account id
-        if ($this->_webproperties or $this->_profiles or $this->_goals) {
+        if ($this->_webproperties || $this->_profiles || $this->_goals) {
             $url .= '/' . $this->_accountId . '/webproperties';
         }
         
-        if ($this->_profiles or $this->_goals) {
+        if ($this->_profiles || $this->_goals) {
             $url .= '/' . $this->_webpropertyId . '/profiles';
         }
         

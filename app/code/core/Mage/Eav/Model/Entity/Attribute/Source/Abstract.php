@@ -32,8 +32,7 @@
  * @package    Mage_Eav
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract
-    implements Mage_Eav_Model_Entity_Attribute_Source_Interface
+abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_Eav_Model_Entity_Attribute_Source_Interface
 {
     /**
      * Reference to the attribute instance
@@ -81,17 +80,23 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract
     {
         $options = $this->getAllOptions();
         // Fixed for tax_class_id and custom_design
-        if (sizeof($options) > 0) foreach($options as $option) {
-            if (isset($option['value']) && $option['value'] == $value) {
-                return isset($option['label']) ? $option['label'] : $option['value'];
-            }
-        } // End
+        if (count($options)) {
+            foreach ($options as $option) {
+                if (isset($option['value']) && $option['value'] == $value) {
+                    return isset($option['label']) ? $option['label'] : $option['value'];
+                }
+            } // End
+        }
         if (isset($options[$value])) {
             return $options[$value];
         }
         return false;
     }
 
+    /**
+     * @param string $value
+     * @return string|null
+     */
     public function getOptionId($value)
     {
         $bc_warning = false;
@@ -104,8 +109,10 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract
             }
         }
         if ($bc_warning) {
-            Mage::log('Mage_Eav_Model_Entity_Attribute_Source_Abstract::getOptionId() no longer accepts option_id as param',
-                      Zend_Log::WARN);
+            Mage::log(
+                'Mage_Eav_Model_Entity_Attribute_Source_Abstract::getOptionId() no longer accepts option_id as param',
+                Zend_Log::WARN
+            );
         }
         return null;
     }
@@ -117,7 +124,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract
      * @param string $dir direction
      * @return Mage_Eav_Model_Entity_Attribute_Source_Abstract
      */
-    public function addValueSortToCollection($collection, $dir = Varien_Data_Collection::SORT_ORDER_DESC) {
+    public function addValueSortToCollection($collection, $dir = Varien_Data_Collection::SORT_ORDER_DESC)
+    {
         return $this;
     }
 

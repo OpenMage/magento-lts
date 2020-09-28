@@ -146,6 +146,7 @@
                 <Mage_Adminhtml>
                     <files>
                         <default>Mage_Adminhtml.csv</default>
+                        <openmage_lts>Mage_Adminhtml_LTS.csv</openmage_lts>
                     </files>
                 </Mage_Adminhtml>
             </modules>
@@ -233,6 +234,11 @@
         <help>
             <target_version>ce</target_version>
         </help>
+        <admin>
+            <design>
+                <use_legacy_theme>0</use_legacy_theme>
+            </design>
+        </admin>
     </default>
     <stores>
         <admin>
@@ -242,6 +248,7 @@
                 </package>
                 <theme>
                     <default>default</default>
+                    <openmage>openmage</openmage>
                 </theme>
             </design>
         </admin>

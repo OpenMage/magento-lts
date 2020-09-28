@@ -112,10 +112,10 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
                 ->setStoreId(Mage::app()->getStore()->getId())
                 ->load($productId);
 
-            if($product->getId()) {
-                /** @var $item Mage_Catalog_Model_Product_Compare_Item */
+            if ($product->getId()) {
+                /** @var Mage_Catalog_Model_Product_Compare_Item $item */
                 $item = Mage::getModel('catalog/product_compare_item');
-                if(Mage::getSingleton('customer/session')->isLoggedIn()) {
+                if (Mage::getSingleton('customer/session')->isLoggedIn()) {
                     $item->addCustomerData(Mage::getSingleton('customer/session')->getCustomer());
                 } elseif ($this->_customerId) {
                     $item->addCustomerData(
@@ -127,7 +127,7 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
 
                 $item->loadByProduct($product);
 
-                if($item->getId()) {
+                if ($item->getId()) {
                     $item->delete();
                     Mage::getSingleton('catalog/session')->addSuccess(
                         $this->__('The product %s has been removed from comparison list.', $product->getName())
@@ -158,7 +158,7 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
             $items->setVisitorId(Mage::getSingleton('log/visitor')->getId());
         }
 
-        /** @var $session Mage_Catalog_Model_Session */
+        /** @var Mage_Catalog_Model_Session $session */
         $session = Mage::getSingleton('catalog/session');
 
         try {

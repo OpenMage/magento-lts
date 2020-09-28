@@ -46,7 +46,7 @@ class Mage_Poll_Model_Resource_Poll_Vote extends Mage_Core_Model_Resource_Db_Abs
     /**
      * Perform actions after object save
      *
-     * @param Varien_Object $object
+     * @param Mage_Core_Model_Abstract|Mage_Poll_Model_Poll_Vote $object
      * @return $this
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)

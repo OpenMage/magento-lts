@@ -27,12 +27,17 @@
 /**
  * Class Mage_Catalog_Model_Product_Condition
  *
- * @method Mage_Catalog_Model_Product_Condition setTable(string $tableName)
- * @method Mage_Catalog_Model_Product_Condition setPkFieldName(string $fieldName)
+ * @method string getTable()
+ * @method $this setTable(string $tableName)
+ * @method string getPkFieldName()
+ * @method $this setPkFieldName(string $fieldName)
  */
-class Mage_Catalog_Model_Product_Condition extends Varien_Object
-    implements Mage_Catalog_Model_Product_Condition_Interface
+class Mage_Catalog_Model_Product_Condition extends Varien_Object implements Mage_Catalog_Model_Product_Condition_Interface
 {
+    /**
+     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
+     * @return $this
+     */
     public function applyToCollection($collection)
     {
         if ($this->getTable() && $this->getPkFieldName()) {
@@ -45,6 +50,10 @@ class Mage_Catalog_Model_Product_Condition extends Varien_Object
         return $this;
     }
 
+    /**
+     * @param Magento_Db_Adapter_Pdo_Mysql $dbAdapter
+     * @return string
+     */
     public function getIdsSelect($dbAdapter)
     {
         if ($this->getTable() && $this->getPkFieldName()) {

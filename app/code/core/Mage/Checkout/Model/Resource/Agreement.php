@@ -46,7 +46,7 @@ class Mage_Checkout_Model_Resource_Agreement extends Mage_Core_Model_Resource_Db
     /**
      * Method to run before save
      *
-     * @param Mage_Core_Model_Abstract $object
+     * @param Mage_Core_Model_Abstract|Mage_Checkout_Model_Agreement $object
      * @return Mage_Core_Model_Resource_Db_Abstract
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
@@ -108,8 +108,8 @@ class Mage_Checkout_Model_Resource_Agreement extends Mage_Core_Model_Resource_Db
      * Get load select
      *
      * @param string $field
-     * @param value $value
-     * @param Varien_Object $object
+     * @param mixed $value
+     * @param Mage_Core_Model_Abstract|Mage_Checkout_Model_Agreement $object
      * @return Varien_Db_Select
      */
     protected function _getLoadSelect($field, $value, $object)

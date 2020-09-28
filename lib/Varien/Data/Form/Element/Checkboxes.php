@@ -30,6 +30,8 @@
  * @category   Varien
  * @package    Varien_Data
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method array getOptions()
  */
 class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstract
 {
@@ -119,6 +121,10 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
         return $html;
     }
 
+    /**
+     * @param string $value
+     * @return string|void
+     */
     public function getChecked($value)
     {
         if ($checked = $this->getValue()) {
@@ -126,7 +132,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
         elseif ($checked = $this->getData('checked')) {
         }
         else {
-            return ;
+            return;
         }
         if (!is_array($checked)) {
             $checked = array(strval($checked));
@@ -142,6 +148,10 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
         return ;
     }
 
+    /**
+     * @param string $value
+     * @return string|void
+     */
     public function getDisabled($value)
     {
         if ($disabled = $this->getData('disabled')) {
@@ -157,23 +167,31 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
                 return 'disabled';
             }
         }
-        return ;
+        return;
     }
 
+    /**
+     * @param string $value
+     * @return string|void
+     */
     public function getOnclick($value)
     {
         if ($onclick = $this->getData('onclick')) {
             return str_replace('$value', $value, $onclick);
         }
-        return ;
+        return;
     }
 
+    /**
+     * @param string $value
+     * @return string|void
+     */
     public function getOnchange($value)
     {
         if ($onchange = $this->getData('onchange')) {
             return str_replace('$value', $value, $onchange);
         }
-        return ;
+        return;
     }
 
 //    public function getName($value)
@@ -184,6 +202,10 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
 //        return ;
 //    }
 
+    /**
+     * @param array $option
+     * @return string
+     */
     protected function _optionToHtml($option)
     {
         $id = $this->getHtmlId().'_'.$this->_escape($option['value']);

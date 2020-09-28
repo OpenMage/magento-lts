@@ -45,8 +45,8 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
          */
         foreach ($this->getMethods() as $method) {
             $this->setChild(
-               'payment.method.'.$method->getCode(),
-               $this->helper('payment')->getMethodFormBlock($method)
+                'payment.method.' . $method->getCode(),
+                $this->helper('payment')->getMethodFormBlock($method)
             );
         }
 
@@ -63,8 +63,7 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
     {
         return $method->isApplicableToQuote($this->getQuote(), Mage_Payment_Model_Method_Abstract::CHECK_USE_FOR_COUNTRY
             | Mage_Payment_Model_Method_Abstract::CHECK_USE_FOR_CURRENCY
-            | Mage_Payment_Model_Method_Abstract::CHECK_ORDER_TOTAL_MIN_MAX
-        );
+            | Mage_Payment_Model_Method_Abstract::CHECK_ORDER_TOTAL_MIN_MAX);
     }
 
     /**
@@ -73,7 +72,7 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
      * Redeclare this method in child classes for declaring method info instance
      *
      * @param Mage_Payment_Model_Method_Abstract $method
-     * @return bool
+     * @return $this
      */
     protected function _assignMethod($method)
     {
@@ -86,9 +85,9 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
      *
      * @param   string $method
      * @param   string $template
-     * @return  Mage_Payment_Block_Form_Container
+     * @return  $this
      */
-    public function setMethodFormTemplate($method='', $template='')
+    public function setMethodFormTemplate($method = '', $template = '')
     {
         if (!empty($method) && !empty($template)) {
             if ($block = $this->getChild('payment.method.'.$method)) {
@@ -127,7 +126,7 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
     /**
      * Retrieve code of current payment method
      *
-     * @return mixed
+     * @return string|false
      */
     public function getSelectedMethodCode()
     {
