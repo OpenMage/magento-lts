@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Adminhtml>
-            <version>0.7.1</version>
+            <version>0.7.2</version>
         </Mage_Adminhtml>
     </modules>
     <global>
@@ -42,6 +42,13 @@
                 <deprecatedNode>adminhtml_mysql4</deprecatedNode>
             </adminhtml_resource>
         </models>
+        <resources>
+            <adminhtml_setup>
+                <setup>
+                    <module>Mage_Adminhtml</module>
+                </setup>
+            </adminhtml_setup>
+        </resources>
         <blocks>
             <adminhtml>
                 <class>Mage_Adminhtml_Block</class>
