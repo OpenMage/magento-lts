@@ -362,7 +362,9 @@ OrderReviewController.prototype = {
      * Disable Submit Order button
      */
     _onElementChange : function(){
-        this._updateOrderSubmit(true);
+        if (typeof input.id !== 'string' || input.id.substr(0,9) !== 'agreement') {
+            Event.observe(input, 'change', this._onElementChange.bindAsEventListener(this));
+        }
     },
 
     /**
