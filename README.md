@@ -55,6 +55,8 @@ git add -A && git commit
 - PHP 7.0+ (PHP 7.3 and OpenSSL extension strongly recommended)
 - MySQL 5.6+ (8.0+ Recommended)
 
+Installation on PHP 7.2.33 (7.2.x), MySQL 5.7.31-34 (5.7.x) Percona Server and Redis 6.x should work fine and confirmed by users.
+
 ## Translations
 
 There are some new or changed tranlations, if you want add them to your locale pack please check:
