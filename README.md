@@ -55,6 +55,8 @@ git add -A && git commit
 - PHP 7.0+ (PHP 7.3 and OpenSSL extension strongly recommended)
 - MySQL 5.6+ (8.0+ Recommended)
 
+If using php 7.2+ then mcrypt needs to be disabled in php.ini or pecl to fallback on mcryptcompat and phpseclib. mcrypt is deprecated from 7.2+ onwards.
+
 ## Translations
 
 There are some new or changed tranlations, if you want add them to your locale pack please check:
