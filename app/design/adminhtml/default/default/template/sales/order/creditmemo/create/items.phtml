@@ -104,6 +104,10 @@
               <label class="normal" for="notify_customer"><?php echo Mage::helper('sales')->__('Append Comments') ?></label>
               <input id="notify_customer" name="creditmemo[comment_customer_notify]" value="1" type="checkbox" />
           </p>
+          <p>
+              <label class="normal" for="newsletterunsubscribe_customer"><?php echo Mage::helper('sales')->__('Unsubscribe from Newsletter') ?></label>
+              <input id="newsletterunsubscribe_customer" name="creditmemo[newsletter_customer_unsubscribe]" value="" type="checkbox" />
+          </p>
           <?php if ($this->canSendCreditmemoEmail()):?>
           <p>
               <label class="normal" for="send_email"><?php echo Mage::helper('sales')->__('Email Copy of Credit Memo') ?></label>

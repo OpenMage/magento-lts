@@ -295,6 +295,19 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
                     }
                 }
 
+                $succesubscribemsg = '';
+                if (isset($data['newsletter_customer_unsubscribe'])) {
+                    $order = $creditmemo->getOrder();
+                    $email = (string)$order->getBillingAddress()->getEmail();
+                    if (!$email) $email = $order->getCustomerEmail();
+                    if (!empty($email)) { 
+                        if ($unsubscriber = Mage::getModel('newsletter/subscriber')->loadByEmail($email)) {
+                            $unsubscriber->unsubscribe();
+                            $this->_getSession()->addSuccess($this->__('Newsletter unsubscription success'));
+                        }
+                    }
+                }                
+                
                 if (isset($data['do_refund'])) {
                     $creditmemo->setRefundRequested(true);
                 }
