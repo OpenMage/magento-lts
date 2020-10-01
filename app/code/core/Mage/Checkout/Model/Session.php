@@ -135,6 +135,15 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
     protected $_order;
 
     /**
+     * A flag to track when the quote is being loaded and attached to the session object.
+     *
+     * Used in trigger_recollect infinite loop detection.
+     *
+     * @var bool
+     */
+    protected $_isLoading = false;
+
+    /**
      * Class constructor. Initialize checkout session namespace
      */
     public function __construct()
@@ -196,6 +205,10 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
 
         if ($this->_quote === null) {
             /** @var Mage_Sales_Model_Quote $quote */
+            if ($this->_isLoading) {
+                throw new Exception("Infinite loop detected, review the trace for the looping path");
+            }
+            $this->_isLoading = true;
             $quote = Mage::getModel('sales/quote')->setStoreId(Mage::app()->getStore()->getId());
             if ($this->getQuoteId()) {
                 if ($this->_loadInactive) {
@@ -246,6 +259,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
 
             $quote->setStore(Mage::app()->getStore());
             $this->_quote = $quote;
+            $this->_isLoading = false;
         }
 
         if ($remoteAddr = Mage::helper('core/http')->getRemoteAddr()) {
