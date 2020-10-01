@@ -355,16 +355,16 @@ OrderReviewController.prototype = {
      * @param input
      */
     _bindElementChange : function(input){
-        Event.observe(input, 'change', this._onElementChange.bindAsEventListener(this));
+        if (typeof input.id !== 'string' || input.id.substr(0,9) !== 'agreement') {
+            Event.observe(input, 'change', this._onElementChange.bindAsEventListener(this));
+        }
     },
 
     /**
      * Disable Submit Order button
      */
     _onElementChange : function(){
-        if (typeof input.id !== 'string' || input.id.substr(0,9) !== 'agreement') {
-            Event.observe(input, 'change', this._onElementChange.bindAsEventListener(this));
-        }
+        this._updateOrderSubmit(true);
     },
 
     /**
