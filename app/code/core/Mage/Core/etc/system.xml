@@ -1578,7 +1578,7 @@
                             <label>Same-Site</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_cookie_samesite</source_model>
-                            <comment><![CDATA[<a href="https://tools.ietf.org/html/draft-ietf-httpbis-cookie-same-site-00"/>https://tools.ietf.org/html/draft-ietf-httpbis-cookie-same-site-00</a>]]></comment>
+                            <comment><![CDATA[<a target="_blank" href="https://tools.ietf.org/html/draft-ietf-httpbis-cookie-same-site-00"/>https://tools.ietf.org/html/draft-ietf-httpbis-cookie-same-site-00</a>]]></comment>
                             <sort_order>45</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
