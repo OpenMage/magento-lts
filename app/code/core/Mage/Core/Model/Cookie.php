@@ -266,7 +266,7 @@ class Mage_Core_Model_Cookie
                     'domain'   => $domain,
                     'secure'   => $secure,
                     'httponly' => $httponly,
-                    'samesite' => $secure$sameSite,
+                    'samesite' => $sameSite,
                 ]
             );
         } else {
