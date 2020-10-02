@@ -178,13 +178,13 @@ class Mage_Core_Model_Cookie
     /**
      * Retrieve use SameSite
      *
-     * @return string|null
+     * @return string
      */
-    public function getSameSite()
+    public function getSameSite(): string
     {
         $sameSite = Mage::getStoreConfig(self::XML_PATH_COOKIE_SAMESITE, $this->getStore());
         if (is_null($sameSite)) {
-            return '';
+            return 'None';
         }
         return (string)$sameSite;
     }
@@ -266,7 +266,7 @@ class Mage_Core_Model_Cookie
                     'domain'   => $domain,
                     'secure'   => $secure,
                     'httponly' => $httponly,
-                    'samesite' => $sameSite,
+                    'samesite' => $sameSite
                 ]
             );
         } else {
