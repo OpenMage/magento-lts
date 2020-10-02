@@ -1574,6 +1574,15 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </cookie_httponly>
+                        <cookie_samesite translate="label">
+                            <label>Same-Site Cookies</label>
+                            <comment><![CDATA[None, Strict or Lax. (<a href="https://tools.ietf.org/html/draft-ietf-httpbis-cookie-same-site-00"/>Docs</a>]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>45</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cookie_samesite>
                         <cookie_restriction translate="label">
                             <label>Cookie Restriction Mode</label>
                             <frontend_type>select</frontend_type>

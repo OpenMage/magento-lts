@@ -37,6 +37,7 @@ class Mage_Core_Model_Cookie
     const XML_PATH_COOKIE_PATH      = 'web/cookie/cookie_path';
     const XML_PATH_COOKIE_LIFETIME  = 'web/cookie/cookie_lifetime';
     const XML_PATH_COOKIE_HTTPONLY  = 'web/cookie/cookie_httponly';
+    const XML_PATH_COOKIE_SAMESITE  = 'web/cookie/cookie_samesite';
 
     protected $_lifetime;
 
@@ -175,6 +176,20 @@ class Mage_Core_Model_Cookie
     }
 
     /**
+     * Retrieve use SameSite
+     *
+     * @return string|null
+     */
+    public function getSameSite()
+    {
+        $sameSite = Mage::getStoreConfig(self::XML_PATH_COOKIE_SAMESITE, $this->getStore());
+        if (is_null($sameSite)) {
+            return '';
+        }
+        return (string)$sameSite;
+    }
+
+    /**
      * Is https secure request
      * Use secure on adminhtml only
      *
@@ -202,9 +217,10 @@ class Mage_Core_Model_Cookie
      * @param string $domain
      * @param int|bool $secure
      * @param bool $httponly
+     * @param string $sameSite
      * @return $this
      */
-    public function set($name, $value, $period = null, $path = null, $domain = null, $secure = null, $httponly = null)
+    public function set($name, $value, $period = null, $path = null, $domain = null, $secure = null, $httponly = null, $sameSite = null)
     {
         /**
          * Check headers sent
@@ -236,8 +252,29 @@ class Mage_Core_Model_Cookie
         if (is_null($httponly)) {
             $httponly = $this->getHttponly();
         }
+        if (is_null($sameSite)) {
+            $sameSite = $this->getSameSite();
+        }
 
-        setcookie($name, $value, $expire, $path, $domain, $secure, $httponly);
+        if (PHP_VERSION_ID >= 70300) {
+            setcookie(
+                $name,
+                $value,
+                [
+                    'expires'  => $expire,
+                    'path'     => $path,
+                    'domain'   => $domain,
+                    'secure'   => $secure,
+                    'httponly' => $httponly,
+                    'samesite' => $sameSite,
+                ]
+            );
+        } else {
+            if (!empty($sameSite)) {
+                $path.= "; samesite=${$sameSite}";
+            }
+            setcookie($name, $value, $expire, $path, $domain, $secure, $httponly);
+        }
 
         return $this;
     }
