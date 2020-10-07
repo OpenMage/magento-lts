@@ -345,16 +345,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     public function appendChild($source)
     {
         if ($source->children()) {
-            /**
-             * @see http://bugs.php.net/bug.php?id=41867 , fixed in 5.2.4
-             */
-            if (version_compare(phpversion(), '5.2.4', '<')===true) {
-                $name = $source->children()->getName();
-            }
-            else {
-                $name = $source->getName();
-            }
-            $child = $this->addChild($name);
+            $child = $this->addChild($source->getName());
         } else {
             $child = $this->addChild($source->getName(), $this->xmlentities($source));
         }
@@ -477,13 +468,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
                 $xml->addChild($nodeName, $xml->xmlentities($value));
                 */
                 if (!isset($node->$nodeName) || $overwrite) {
-                    // http://bugs.php.net/bug.php?id=36795
-                    // comment on [8 Feb 8:09pm UTC]
-                    if (isset($node->$nodeName) && (version_compare(phpversion(), '5.2.6', '<')===true)) {
-                        $node->$nodeName = $node->xmlentities($value);
-                    } else {
-                        $node->$nodeName = $value;
-                    }
+                    $node->$nodeName = $value;
                 }
             } else {
                 if (!isset($node->$nodeName)) {
