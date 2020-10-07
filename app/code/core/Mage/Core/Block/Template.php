@@ -61,13 +61,6 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
 
     protected $_jsUrl;
 
-    /**
-     * Is allowed symlinks flag
-     *
-     * @var bool
-     */
-    protected $_allowSymlinks = null;
-
     protected static $_showTemplateHints;
     protected static $_showTemplateHintsBlocks;
 
@@ -171,8 +164,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
      */
     public function setScriptPath($dir)
     {
-        $scriptPath = realpath($dir);
-        if (strpos($scriptPath, realpath(Mage::getBaseDir('design'))) === 0 || $this->_getAllowSymlinks()) {
+        if (strpos($dir, '..') === FALSE && ($dir === Mage::getBaseDir('design') || strpos(realpath($dir), realpath(Mage::getBaseDir('design'))) === 0)) {
             $this->_viewDir = $dir;
         } else {
             Mage::log('Not valid script path:' . $dir, Zend_Log::CRIT, null, null, true);
@@ -243,9 +235,12 @@ HTML;
         }
 
         try {
-            $includeFilePath = realpath($this->_viewDir . DS . $fileName);
-            if ($includeFilePath != '' && (strpos($includeFilePath, realpath($this->_viewDir)) === 0 || $this->_getAllowSymlinks())) {
-                include $includeFilePath;
+            if (
+                strpos($this->_viewDir . DS . $fileName, '..') === FALSE
+                &&
+                ($this->_viewDir == Mage::getBaseDir('design') || strpos(realpath($this->_viewDir), realpath(Mage::getBaseDir('design'))) === 0)
+            ) {
+                include $this->_viewDir . DS . $fileName;
             } else {
                 $thisClass = get_class($this);
                 Mage::log('Not valid template file:' . $fileName . ' class: ' . $thisClass, Zend_Log::CRIT, null, true);
@@ -349,15 +344,13 @@ HTML;
     }
 
     /**
-     * Get is allowed symliks flag
+     * Get is allowed symlinks flag
      *
+     * @deprecated
      * @return bool
      */
     protected function _getAllowSymlinks()
     {
-        if (is_null($this->_allowSymlinks)) {
-            $this->_allowSymlinks = Mage::getStoreConfigFlag(self::XML_PATH_TEMPLATE_ALLOW_SYMLINK);
-        }
-        return $this->_allowSymlinks;
+        return FALSE;
     }
 }

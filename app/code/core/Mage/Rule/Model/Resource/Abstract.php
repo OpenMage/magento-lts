@@ -93,9 +93,9 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
     {
         $select = $this->_getReadAdapter()->select();
         $select->from(
-                array('p' => $this->getTable('catalog/product')),
-                array(new Zend_Db_Expr('DISTINCT p.entity_id'))
-            )
+            array('p' => $this->getTable('catalog/product')),
+            array(new Zend_Db_Expr('DISTINCT p.entity_id'))
+        )
             ->joinInner(
                 array('cpf' => $this->getTable('catalog/product_flat') . '_' . $storeId),
                 'cpf.entity_id = p.entity_id',
@@ -172,9 +172,10 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
             }
 
             if ($deleteOldResults) {
-                $adapter->delete($this->getTable($entityInfo['associations_table']),
+                $adapter->delete(
+                    $this->getTable($entityInfo['associations_table']),
                     $adapter->quoteInto($entityInfo['rule_id_field']   . ' IN (?) AND ', $ruleIds) .
-                    $adapter->quoteInto($entityInfo['entity_id_field'] . ' NOT IN (?)',  $entityIds)
+                    $adapter->quoteInto($entityInfo['entity_id_field'] . ' NOT IN (?)', $entityIds)
                 );
             }
 
@@ -182,7 +183,6 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
         } catch (Exception $e) {
             $adapter->rollBack();
             throw $e;
-
         }
 
         return $this;

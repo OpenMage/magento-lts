@@ -1549,6 +1549,10 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             $service->setOrderData($orderData);
 
             $oldOrder->cancel();
+
+            if(!$oldOrder->isCanceled()){
+                Mage::throwException('Could not cancel the old order during order edit.');
+            }
         }
 
         /** @var Mage_Sales_Model_Order $order */

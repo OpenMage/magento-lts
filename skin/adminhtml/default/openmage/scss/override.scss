@@ -1,0 +1,1135 @@
+/* ! Do not edit css files !
+   Edit scss version and compile with sass from scss folder like this:
+   $ sass override.scss ../override.css
+ */
+
+@import "base";
+@import "fonts";
+
+body {
+  @extend %extend_1;
+}
+
+h1 {
+  color: $color_dolphin_approx;
+  font-weight: 400;
+}
+
+h2 {
+  color: $color_dolphin_approx;
+  font-weight: 400;
+}
+
+h3 {
+  color: $color_dolphin_approx;
+  font-weight: 400;
+}
+
+h4 {
+  color: $color_dolphin_approx;
+  font-weight: 400;
+}
+
+h5 {
+  color: $color_dolphin_approx;
+  font-weight: 400;
+}
+
+h6 {
+  color: $color_dolphin_approx;
+  font-weight: 400;
+}
+
+label {
+  color: $color_dolphin_approx;
+  font-weight: 400;
+}
+
+a {
+  display: inline;
+  color: $color_curious_blue_approx;
+  text-decoration: none;
+
+  &:visited {
+    color: $color_curious_blue_approx;
+  }
+
+  &:focus {
+    color: $color_astral_approx;
+    text-decoration: none;
+  }
+
+  &:hover {
+    color: $color_astral_approx;
+    text-decoration: none;
+  }
+
+  &:active {
+    color: $color_astral_approx;
+    text-decoration: none;
+  }
+
+  &.error span {
+    color: $color_coral_red_approx !important;
+  }
+}
+
+strong {
+  font-weight: 600;
+}
+
+b {
+  font-weight: 600;
+}
+
+small {
+  font-size: 12px;
+  color: $color_dolphin_approx;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.header-top {
+  @extend %extend_2;
+  border: 0;
+}
+
+#nav {
+  @extend %extend_2;
+}
+
+.middle {
+  @extend %extend_2;
+  background: $color_wild_sand_approx;
+  flex-grow: 1;
+}
+
+.footer-content {
+  @extend %extend_2;
+}
+
+.content-header-floating {
+  opacity: 0.9;
+  border-bottom: solid 1px $color_silver_approx;
+
+  .content-header {
+    @extend %extend_2;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+
+  td {
+    padding-right: 0;
+  }
+
+  .form-buttons {
+    padding-right: 0;
+  }
+}
+
+.content-header {
+  @extend %extend_3;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  h3 {
+    @extend %extend_3;
+    margin: 0 0.3em 0.3em;
+    line-height: 32px;
+  }
+}
+
+.dashboard-container {
+  border: none;
+}
+
+.columns {
+  background: none;
+}
+
+.switcher {
+  background: none;
+  padding: 0px;
+  padding-bottom:10px;
+  border: none;
+
+}
+
+.entry-edit {
+  margin-top: 10px;
+
+  .entry-edit-head {
+    @extend %extend_4;
+
+    h4 {
+      color: $color_dolphin_approx;
+      line-height: 32px;
+      font-size: 16px;
+      font-weight: 300;
+    }
+
+    .tools {
+      line-height: 32px;
+
+      a:hover {
+        text-decoration: none;
+      }
+    }
+
+    strong {
+      @extend %extend_10;
+    }
+
+    a {
+      @extend %extend_10;
+    }
+  }
+
+  fieldset {
+    @extend %extend_5;
+  }
+
+  .fieldset {
+    @extend %extend_5;
+  }
+}
+
+.box {
+  @extend %extend_5;
+}
+
+.grid {
+  table {
+    border: 1px solid $color_alto_approx;
+    border-collapse: collapse;
+
+    &.border {
+      border: 1px solid $color_alto_approx;
+
+      tfoot tr td {
+        background: $white !important;
+      }
+    }
+
+    td {
+      border: 1px solid $color_alto_approx;
+      background: $white;
+      padding: 5px;
+
+      &.first {
+        border-right: 1px solid $color_alto_approx;
+      }
+
+      &.last {
+        border-right: 1px solid $color_alto_approx;
+      }
+    }
+
+    tfoot tr td {
+      border: 1px solid $color_alto_approx;
+      background: $white;
+    }
+
+    tbody tr {
+      &.selected td {
+        background: $color_alice_blue_approx;
+      }
+
+      &:hover td {
+        background: $color_alice_blue_approx;
+      }
+
+      &:nth-child(odd):hover td {
+        background: $color_alice_blue_approx;
+      }
+    }
+  }
+
+  tr {
+    &.filter {
+      background: $white !important;
+
+      th {
+        border: 1px solid $color_alto_approx;
+        border-top: 0;
+      }
+
+      .range {
+        .range-line {
+          width: 110px;
+        }
+
+        .label {
+          font-weight: 600;
+          width: 40px;
+          padding: 4px;
+        }
+      }
+
+      .date img {
+        @include replaceImage(icon-calendar($color_action),17px,17px);
+        margin-top: 5px;
+      }
+    }
+
+    &.headings {
+      background: $color_boulder_approx;
+      border: 1px solid $color_boulder_approx;
+
+      th {
+        padding: 4px;
+        font-size: 12px;
+        vertical-align: middle;
+        border: 1px solid $color_boulder_approx;
+        color: $white;
+        font-weight: 400;
+
+        a {
+          color: $white;
+          font-weight: 400;
+
+          &:hover {
+            color: $color_alto_approx;
+          }
+
+          &.sort-arrow-desc {
+            @extend %extend_6;
+
+            span.sort-title {
+              background: none;
+
+              &:after {
+                @extend %extend_7;
+                border-width: 6px 5px 0 5px;
+                border-color: $color_alto_approx transparent transparent transparent;
+              }
+            }
+          }
+
+          &.sort-arrow-asc {
+            @extend %extend_6;
+
+            span.sort-title {
+              background: none;
+
+              &:after {
+                @extend %extend_7;
+                border-width: 0 5px 6px 5px;
+                border-color: transparent transparent $color_alto_approx transparent;
+              }
+            }
+          }
+        }
+
+        &.no-link {
+          color: $white;
+          padding: 4px;
+        }
+      }
+    }
+
+    &.even {
+      td {
+        background: $color_gallery_approx;
+      }
+
+      tr td {
+        background: $color_gallery_approx;
+      }
+    }
+  }
+
+  tbody {
+    &.even tr td {
+      background: $color_gallery_approx !important;
+    }
+
+    &.odd tr td {
+      background: $color_wild_sand_approx !important;
+    }
+  }
+
+  td input.input-text {
+    min-width: 80px;
+  }
+}
+
+.header {
+  background: $header_background;
+}
+
+.header-top {
+  border-bottom: none !important;
+  height: 10px;
+  .logo {
+    position: absolute;
+    background: $header_background;
+    display: block;
+    top: 8px;
+    left: 0;
+    margin: 0;
+    height: 40px;
+    padding: 0 27px;
+    svg {
+      height: 40px;
+      width: auto;
+    }
+  }
+}
+
+.header-right {
+  position: absolute;
+  top: 10px;
+  right: 0;
+  padding: 0;
+  color: inherit;
+  z-index: 200;
+  height: 40px;
+  background: var(--color-main-xxl);
+  fieldset {
+    display: inline;
+    line-height: 40px;
+    input.input-text {
+      width: 250px;
+      border: 0 solid #FF666E73;
+      margin-top: -4px;
+      background-color: $white;
+      padding-left: 10px;
+      min-width: 250px;
+      //Instead of the line below you could use @include transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+      transition: width 100ms;
+      //Instead of the line below you could use @include transition-delay($delay-1, $delay-2, $delay-3, $delay-4, $delay-5, $delay-6, $delay-7, $delay-8, $delay-9, $delay-10)
+      transition-delay: 200ms;
+      &:focus {
+        width: calc(100vw - 160px);
+        @extend %extend_29;
+      }
+      &:hover {
+        @extend %extend_29;
+      }
+    }
+  }
+}
+
+
+.footer {
+  background: $color_gallery_approx;
+  padding: 15px;
+  margin-top: 30px;
+  border-top: 1px solid $color_silver_approx;
+  font-size: 12px;
+}
+
+ul {
+  &.tabs-horiz {
+    background: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      border: none;
+      margin: 0 10px 0 0;
+
+      a {
+        background: $color_gallery_approx;
+        color: $color_dolphin_approx !important;
+        font-size: 16px;
+        font-weight: 300;
+        padding: 9px 15px;
+        border: 0;
+
+        &.active {
+          border: 0;
+          background: $color_boulder_approx;
+          color: $white !important;
+        }
+      }
+    }
+  }
+
+  &.tabs {
+    background: none;
+    color: $color_dolphin_approx;
+    border-top: 0;
+
+    dl {
+      background: $color_dolphin_approx;
+      border: 1px solid $color_alto_approx;
+    }
+
+    a {
+      background: $white;
+      color: $color_dolphin_approx;
+      padding: 8px 18px;
+      border-bottom: 1px solid $color_gallery_approx;
+
+      &.active {
+        @extend %extend_9;
+        border-left: 3px solid $color_boulder_approx;
+        padding: 8px 18px;
+        background: $color_gallery_approx;
+        //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+        box-shadow: 0 1px 2px $color_silver_approx inset;
+        border-bottom: 1px solid $color_gallery_approx;
+
+        span {
+          background: none;
+          padding: 0;
+          background: none;
+          font-weight: 400;
+          background: none;
+          font-weight: 400;
+        }
+      }
+
+      &:hover {
+        @extend %extend_9;
+
+        &.active {
+          padding: 8px 18px;
+
+          span {
+            background: none;
+            font-weight: 400;
+          }
+        }
+      }
+    }
+
+    span {
+      background: none;
+      padding: 0;
+      background: none;
+      font-weight: 400;
+    }
+  }
+
+  &.config-tabs dt {
+    border: 0;
+    font-weight: 300;
+    text-transform: none;
+    padding-left: 10px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-right: 7px;
+    font-size: 18px;
+    border-top: 0;
+    background: $color_boulder_approx;
+    color: $white;
+  }
+}
+
+#grid_tab_content {
+  background: $white;
+  padding: 15px;
+}
+
+.nav-bar {
+  background: $color_dolphin_approx;
+  border: 0;
+}
+
+div {
+  &.collapseable {
+    margin-top: 10px;
+
+    a {
+      @extend %extend_10;
+      position: relative;
+      background: none;
+
+      &:hover {
+        @extend %extend_10;
+      }
+
+      &.open {
+        @extend %extend_10;
+        background: none;
+
+        &:after {
+          @extend %extend_12;
+        }
+      }
+
+      &:after {
+        @extend %extend_11;
+      }
+    }
+  }
+
+  &.autocomplete {
+    border: 0;
+    //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+    box-shadow: 0 3px 3px $mine_shaft_15;
+
+    ul li {
+      color: $color_dolphin_approx;
+
+      &.selected {
+        background: $color_gallery_approx;
+      }
+    }
+  }
+}
+
+.section-config {
+  .section-config {
+    > {
+      .config {
+        border: 0;
+      }
+
+      .entry-edit-head {
+        border: 0;
+
+        > a {
+          background: none;
+          color: $color_dolphin_approx;
+          font-size: 14px;
+          font-weight: 400;
+          border: 0;
+        }
+      }
+    }
+
+    .section-config {
+      .section-config {
+        .section-config > .config {
+          background: $color_alabaster_approx;
+        }
+
+        > .config {
+          background: $color_white_approx;
+        }
+      }
+
+      > .config {
+        background: $color_alabaster_approx;
+      }
+    }
+  }
+
+  .config-advanced > {
+    .entry-edit-head {
+      border: 0;
+      font-size: 14px;
+      //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+      box-shadow: none;
+
+      &.collapseable a {
+        &:after {
+          border: none;
+        }
+
+        &.open:after {
+          border: none;
+        }
+      }
+
+      a:after {
+        top: 5px;
+      }
+    }
+
+    .config {
+      padding: 10px;
+    }
+  }
+}
+
+.massaction {
+  background: none;
+  border: 0;
+  font-size: 12px;
+
+  td {
+    border-top: 0;
+    padding: 10px;
+  }
+
+  .entry-edit .field-row label {
+    vertical-align: middle;
+  }
+}
+
+.head-products {
+  background-position: left center;
+}
+
+.icon-head {
+  background-position: left center;
+}
+
+.x-tree-node {
+  a {
+    font-size: 12px;
+
+    span {
+      color: $color_dolphin_approx;
+    }
+  }
+
+  .x-tree-selected a span {
+    background: $color_alto_approx;
+    color: $color_dolphin_approx;
+  }
+}
+
+.categories-side-col {
+  .tree-holder {
+    margin-right: 0;
+  }
+
+  .tree-actions {
+    margin-right: 0;
+  }
+}
+
+#loading-mask {
+  background: $black_40;
+  z-index: 999;
+  color: $color_dolphin_approx;
+  opacity: 1;
+
+  .loader {
+    width: 160px;
+    height: 100px;
+    border: 0;
+    opacity: 0.95;
+    color: $color_dolphin_approx;
+    background: $white;
+    font-size: 18px;
+    font-weight: 400;
+  }
+}
+
+.error {
+  color: $color_coral_red_approx !important;
+}
+
+.required {
+  color: $color_coral_red_approx !important;
+}
+
+.validation-advice {
+  color: $color_coral_red_approx !important;
+  font-size: 12px;
+  font-weight: 600 !important;
+}
+
+.order-totals {
+  background: $color_gallery_approx;
+  border: 1px solid $color_alto_approx !important;
+}
+
+.order-choose-address {
+  background: $white;
+}
+
+.order-save-in-address-book {
+  background: $white;
+}
+
+.messages {
+  li {
+    font-weight: 400 !important;
+    font-size: 12px !important;
+    padding: 10px 26px 10px 35px !important;
+    min-height: inherit !important;
+  }
+
+  ul li {
+    margin: 0 !important;
+  }
+}
+
+.notice-msg {
+  @extend %extend_13;
+  background-image: $url_1 !important;
+  background-repeat: no-repeat !important;
+  background-size: 23px 23px !important;
+  background-color: $color_merino_approx !important;
+  background-position: 8px center !important;
+  border: 1px solid $color_chenin_approx !important;
+  color: $color_dolphin_approx !important;
+}
+
+.error-msg {
+  @extend %extend_13;
+  background-image: $url_2 !important;
+  background-repeat: no-repeat !important;
+  background-size: 23px 23px !important;
+  background-color: $color_pot_pourri_approx !important;
+  background-position: 8px center !important;
+  border: 1px solid $color_sanguine_brown_approx !important;
+  color: $color_sanguine_brown_approx !important;
+}
+
+.success-msg {
+  @extend %extend_13;
+  background-image: icon-success($color_san_felix_approx) !important;
+  background-repeat: no-repeat !important;
+  background-size: 16px 16px !important;
+  background-color: $color_chrome_white_approx !important;
+  background-position: 8px center !important;
+  border: 1px solid $color_foggy_gray_approx !important;
+  color: $color_san_felix_approx !important;
+}
+
+.warning-msg {
+  @extend %extend_13;
+  background-image: $url_1 !important;
+  background-repeat: no-repeat !important;
+  background-size: 23px 23px !important;
+  background-color: $color_island_spice_approx !important;
+  background-position: 8px center !important;
+  border: 1px solid $color_brandy_punch_approx !important;
+  color: $color_dolphin_approx !important;
+}
+
+.links-feed {
+  margin-top: 10px;
+}
+
+.link-feed {
+  margin-right: 20px;
+  font-size: 0.9em;
+  text-decoration: none;
+}
+
+.options-box {
+  .option-header {
+    background: none;
+    border: 0;
+  }
+
+  .option-title {
+    border-bottom: 1px solid $color_silver_approx;
+  }
+
+  .option-box {
+    background: $white;
+    border: 0;
+  }
+}
+
+#page-login {
+  background: $color_wild_sand_approx;
+}
+
+.login-box {
+  border:1px solid #cacaca;
+  box-shadow: 2px 2px 4px #8080806b;
+  .login-form {
+    background: white;
+    .form-button,button {
+      background: $color_action;
+    }
+  }
+  .bottom {
+    display: none;
+  }
+}
+.login-container .legal {
+  background: #eaeaea;
+}
+
+.config-heading {
+  background-color: $white;
+  border: 0;
+  margin: 4px 0 0;
+
+  .button span {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 28px;
+    //Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+    text-shadow: none;
+  }
+}
+
+#payment_pphs_settings_advanced-head {
+  margin-bottom: 10px;
+}
+
+#payment_settings_payments_standart_advanced-head {
+  margin-bottom: 10px;
+}
+
+#payment_settings_ec_advanced-head {
+  margin-bottom: 10px;
+}
+
+.grid-severity-notice {
+  @extend %extend_14;
+
+  span {
+    @extend %extend_15;
+    border: 0;
+    background: $color_apple_approx;
+    color: $white;
+  }
+}
+
+.grid-severity-critical {
+  @extend %extend_14;
+
+  span {
+    @extend %extend_15;
+    border: 0;
+    background: $color_coral_red_approx;
+    color: $white;
+  }
+}
+
+.grid-severity-major {
+  @extend %extend_14;
+
+  span {
+    @extend %extend_15;
+    @extend %extend_16;
+  }
+}
+
+.grid-severity-minor {
+  @extend %extend_14;
+
+  span {
+    @extend %extend_15;
+    @extend %extend_16;
+  }
+}
+
+.custom-options {
+  .box {
+    overflow: auto;
+  }
+
+  .option-box {
+    border: 0;
+    background: $white;
+
+    .border {
+      width: 700px;
+    }
+  }
+
+  .option-header {
+    background: $white;
+    border-bottom-color: $white;
+  }
+}
+
+.bold {
+  font-weight: 600 !important;
+}
+
+#address_form_container {
+  margin-top: 0;
+}
+
+.sub-btn-set {
+  border: 0;
+  padding: 6px 10px;
+  background: $color_gallery_approx;
+  border-top: 1px solid $color_alto_approx;
+}
+
+.no-display {
+  display: none !important;
+}
+
+.popup-window .content-header {
+  @extend %extend_1;
+}
+
+.side-col .switcher select {
+  margin: 4px 0;
+}
+
+dl.accordion dt {
+  @extend %extend_4;
+  margin-top: 10px;
+
+  a {
+    @extend %extend_10;
+    position: relative;
+    background: none;
+
+    &:hover {
+      @extend %extend_10;
+    }
+
+    &:after {
+      @extend %extend_11;
+    }
+  }
+
+  &.open a {
+    @extend %extend_10;
+    background: none;
+
+    &:after {
+      @extend %extend_12;
+    }
+  }
+}
+
+table.actions {
+  padding: 15px;
+  background: $white;
+  border: 1px solid $color_alto_approx;
+
+  td {
+    vertical-align: middle;
+  }
+}
+
+.x-dd-drag-ghost a {
+  font-size: 12px;
+
+  span {
+    color: $color_dolphin_approx;
+  }
+}
+
+.no-active-category a span {
+  color: $color_martini_approx !important;
+}
+
+.dialog table.table_window {
+  background: $white;
+  border: 0;
+
+  td {
+    padding: 6px 0;
+    vertical-align: middle;
+  }
+
+  th {
+    padding: 6px 0;
+    vertical-align: middle;
+  }
+
+  .fieldset td {
+    vertical-align: top;
+  }
+}
+
+.with-button.active:after {
+  background: none;
+  margin: 0;
+}
+
+.wrapper-popup .content-header table {
+  width: 90%;
+}
+
+.tier .data {
+  width: 550px;
+
+  select {
+    width: auto;
+  }
+
+  input.qty {
+    width: 50px !important;
+  }
+}
+
+.rule-param .label {
+  font-weight: 600;
+}
+
+a.rule-param-remove {
+  img {
+    @include replaceImage(icon-close($color-warning),13px,13px);
+  }
+}
+img.rule-param-add {
+  @include replaceImage(icon-add($color_apple_approx),13px,13px);
+}
+.address-list li.on {
+  background: $white;
+}
+
+ul.tabs a.changed span.changed {
+  background: icon-save($color_apple_approx) !important;
+}
+
+.notification-global {
+  background: $color_merino_approx icon-warning($color-warning) 27px 5px no-repeat;
+  background-size: 15px;
+}
+
+#page-help-link {
+  display:none;
+}
+
+.message-popup {
+  background: #929292;
+  .message-popup-head {
+    h2 {
+      color:$white;
+    }
+    a {
+      background: $color_action !important;
+      border: none;
+      margin-top: 1px;
+      span{
+        background: icon-close($white) no-repeat 0 50%;
+        background-size: 13px;
+      }
+    }
+  }
+  .message-popup-content {
+    background: $white;
+    .read-more {
+      a {
+        background: icon-arrow-right($color_action)  no-repeat 0 50%;
+        background-size: 13px;
+      }
+    }
+  }
+}
+
+.pager {
+  img[src$='pager_arrow_left.gif'].arrow {
+      @include replaceImage(icon-arrow-left($color_action),17px,17px);
+    }
+  img[src$='pager_arrow_right.gif'].arrow {
+      @include replaceImage(icon-arrow-right($color_action),17px,17px);
+    }
+  img[src$='pager_arrow_left_off.gif'].arrow {
+    @include replaceImage(icon-arrow-left($color_action),17px,17px);
+    opacity: 0.5;
+  }
+  img[src$='pager_arrow_right_off.gif'].arrow {
+    @include replaceImage(icon-arrow-right($color_action),17px,17px);
+    opacity: 0.5;
+  }
+
+}
+
+.export {
+  img {
+    @include replaceImage(icon-export($color_apple_approx),19px,19px);
+  }
+}
+
+img[src$='grid-cal.gif'] {
+  @include replaceImage(icon-calendar($color_action),17px,17px);
+}
+
+.link-store-scope {
+  background: icon-help($color-help);
+}
+
+.emph, .accent {
+  color: $color_action !important;
+}

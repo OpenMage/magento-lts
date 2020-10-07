@@ -83,8 +83,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Shipping extends Mage_Sales_Model_Quote_A
     /**
      * Collect totals information about shipping
      *
-     * @param   Mage_Sales_Model_Quote_Address $address
-     * @return  Mage_Sales_Model_Quote_Address_Total_Shipping
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @return Mage_Tax_Model_Sales_Total_Quote_Shipping
      */
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
@@ -120,7 +120,11 @@ class Mage_Tax_Model_Sales_Total_Quote_Shipping extends Mage_Sales_Model_Quote_A
             if ($this->_areTaxRequestsSimilar) {
                 $tax            = $this->_round($calc->calcTaxAmount($shipping, $rate, true, false), $rate, true);
                 $baseTax        = $this->_round(
-                    $calc->calcTaxAmount($baseShipping, $rate, true, false), $rate, true, 'base');
+                    $calc->calcTaxAmount($baseShipping, $rate, true, false),
+                    $rate,
+                    true,
+                    'base'
+                );
                 $taxShipping    = $shipping;
                 $baseTaxShipping = $baseShipping;
                 $shipping       = $shipping - $tax;
@@ -138,7 +142,11 @@ class Mage_Tax_Model_Sales_Total_Quote_Shipping extends Mage_Sales_Model_Quote_A
                 $baseShipping   = $calc->round($baseShipping - $baseStoreTax);
                 $tax            = $this->_round($calc->calcTaxAmount($shipping, $rate, false, false), $rate, true);
                 $baseTax        = $this->_round(
-                    $calc->calcTaxAmount($baseShipping, $rate, false, false), $rate, true, 'base');
+                    $calc->calcTaxAmount($baseShipping, $rate, false, false),
+                    $rate,
+                    true,
+                    'base'
+                );
                 $taxShipping    = $shipping + $tax;
                 $baseTaxShipping = $baseShipping + $baseTax;
                 $taxable        = $taxShipping;
@@ -156,7 +164,11 @@ class Mage_Tax_Model_Sales_Total_Quote_Shipping extends Mage_Sales_Model_Quote_A
                 $taxId = $appliedRate['id'];
                 $taxes[] = $this->_round($calc->calcTaxAmount($shipping, $taxRate, false, false), $taxId, false);
                 $baseTaxes[] = $this->_round(
-                    $calc->calcTaxAmount($baseShipping, $taxRate, false, false), $taxId, false, 'base');
+                    $calc->calcTaxAmount($baseShipping, $taxRate, false, false),
+                    $taxId,
+                    false,
+                    'base'
+                );
             }
             $tax            = array_sum($taxes);
             $baseTax        = array_sum($baseTaxes);
@@ -254,9 +266,9 @@ class Mage_Tax_Model_Sales_Total_Quote_Shipping extends Mage_Sales_Model_Quote_A
     /**
      * Calculate shipping price without store tax
      *
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @return void
      * @deprecated after 1.4.0.0
-     * @param   Mage_Sales_Model_Quote_Address $address
-     * @return  Mage_Tax_Model_Sales_Total_Quote_Subtotal
      */
     protected function _processShippingAmount($address)
     {

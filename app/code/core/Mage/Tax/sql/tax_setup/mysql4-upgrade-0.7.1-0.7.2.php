@@ -34,12 +34,12 @@
 
 
 $installer = $this;
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 
 $conn = $installer->getConnection();
-/* @var $conn Varien_Db_Adapter_Pdo_Mysql */
+/* @var Varien_Db_Adapter_Pdo_Mysql $conn */
 $conn->addColumn($installer->getTable('tax_rate'), 'tax_country_id', "char(2) not null default 'US' after `tax_rate_id`");
 
 $installer->endSetup();

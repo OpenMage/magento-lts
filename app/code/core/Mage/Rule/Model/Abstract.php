@@ -30,6 +30,24 @@
  * @category Mage
  * @package Mage_Rule
  * @author Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this unsActions()
+ * @method bool hasActionsSerialized()
+ * @method $this unsActionsSerialized()
+ * @method string getActionsSerialized()
+ * @method $this setActionsSerialized(string $value)
+ * @method $this unsConditions()
+ * @method bool hasConditionsSerialized()
+ * @method $this unsConditionsSerialized()
+ * @method string getConditionsSerialized()
+ * @method $this setConditionsSerialized(string $value)
+ * @method bool hasCustomerGroupIds()
+ * @method array getCustomerGroupIds()
+ * @method $this setCustomerGroupIds(array $value)
+ * @method bool hasDiscountAmount()
+ * @method float getDiscountAmount()
+ * @method bool hasWebsiteIds()
+ * @method $this setWebsiteIds(array $value)
  */
 abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
 {
@@ -90,7 +108,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
      */
     public function getProductFlatSelect($storeId)
     {
-        /** @var $resource Mage_Rule_Model_Resource_Abstract */
+        /** @var Mage_Rule_Model_Resource_Abstract $resource */
         $resource = $this->getResource();
 
         return $resource->getProductFlatSelect($storeId, $this->getConditions());
@@ -309,7 +327,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
         $arr = array();
         foreach ($data as $key => $value) {
             if (($key === 'conditions' || $key === 'actions') && is_array($value)) {
-                foreach ($value as $id=>$data) {
+                foreach ($value as $id => $data) {
                     $path = explode('--', $id);
                     $node =& $arr;
                     for ($i=0, $l=count($path); $i<$l; $i++) {
@@ -465,7 +483,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
      *
      * @return string
      */
-    public function asString($format='')
+    public function asString($format = '')
     {
         return '';
     }

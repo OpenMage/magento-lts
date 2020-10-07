@@ -72,8 +72,10 @@ class Mage_Persistent_Model_Persistent_Config
             $filePath = $this->_configFilePath;
             if (!is_file($filePath) || !is_readable($filePath)) {
                 $io = new Varien_Io_File();
-                Mage::throwException(Mage::helper('persistent')->__('Cannot load configuration from file %s.',
-                    $io->getFilteredPath($filePath)));
+                Mage::throwException(Mage::helper('persistent')->__(
+                    'Cannot load configuration from file %s.',
+                    $io->getFilteredPath($filePath)
+                ));
             }
             $xml = file_get_contents($filePath);
             $this->_xmlConfig = new Varien_Simplexml_Element($xml);
@@ -118,7 +120,7 @@ class Mage_Persistent_Model_Persistent_Config
      * Run one method by given method info
      *
      * @param array $info
-     * @param bool $instance
+     * @param Mage_Core_Block_Abstract|false $instance
      * @return $this
      */
     public function fireOne($info, $instance = false)

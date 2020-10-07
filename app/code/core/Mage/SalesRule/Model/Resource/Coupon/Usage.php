@@ -46,8 +46,9 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
     /**
      * Increment times_used counter
      *
-     * @param unknown_type $customerId
-     * @param unknown_type $couponId
+     *
+     * @param int $customerId
+     * @param int $couponId
      * @param bool $decrement   Decrement instead of increment times_used
      */
     public function updateCustomerCouponTimesUsed($customerId, $couponId, $decrement = false)
@@ -60,17 +61,20 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
 
         $timesUsed = $read->fetchOne($select, array(':coupon_id' => $couponId, ':customer_id' => $customerId));
 
-        if ($timesUsed !== false && $timesUsed > 0) {
-            $this->_getWriteAdapter()->update(
-                $this->getMainTable(),
-                array(
-                    'times_used' => $timesUsed + ($decrement ? -1 : 1)
-                ),
-                array(
-                    'coupon_id = ?' => $couponId,
-                    'customer_id = ?' => $customerId,
-                )
-            );
+        if ($timesUsed !== false) {
+            $timesUsed += ($decrement ? -1 : 1);
+            if($timesUsed >= 0) {
+                $this->_getWriteAdapter()->update(
+                    $this->getMainTable(),
+                    array(
+                        'times_used' => $timesUsed
+                    ),
+                    array(
+                        'coupon_id = ?' => $couponId,
+                        'customer_id = ?' => $customerId,
+                    )
+                );
+            }
         } else {
             $this->_getWriteAdapter()->insert(
                 $this->getMainTable(),
@@ -88,8 +92,8 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
      *
      *
      * @param Varien_Object $object
-     * @param unknown_type $customerId
-     * @param unknown_type $couponId
+     * @param int $customerId
+     * @param int $couponId
      * @return $this
      */
     public function loadByCustomerCoupon(Varien_Object $object, $customerId, $couponId)

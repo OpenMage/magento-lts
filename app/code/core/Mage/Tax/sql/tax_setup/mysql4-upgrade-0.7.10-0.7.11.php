@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Tax_Model_Mysql4_Setup */
+/* @var Mage_Tax_Model_Mysql4_Setup $installer */
 
 $installer->startSetup();
 
@@ -47,9 +47,9 @@ $installer->run("
 
 $installer->getConnection()->addConstraint(
     'FK_TAX_ORDER_AGGREGATED_CREATED_STORE',
-    $this->getTable('tax_order_aggregated_created'), 
+    $this->getTable('tax_order_aggregated_created'),
     'store_id',
-    $this->getTable('core_store'), 
+    $this->getTable('core_store'),
     'store_id'
 );
 

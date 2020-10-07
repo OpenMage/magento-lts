@@ -1,0 +1,322 @@
+@import "icons";
+@import "variables";
+
+//@extend-elements
+//original selectors
+//body, .popup-window .content-header
+%extend_1 {
+  color: $color_dolphin_approx;
+  font: 400 12px/1.33 'Open Sans', sans-serif;
+  background: $color_wild_sand_approx;
+}
+
+//original selectors
+//.header-top, #nav, .middle, .footer-content, .content-header-floating .content-header
+%extend_2 {
+  padding-left: 15px;
+  padding-right: 15px;
+  //Instead of the line below you could use @include box-sizing($bs)
+  box-sizing: border-box;
+  width: 100%;
+}
+
+//original selectors
+//.content-header, .content-header h3
+%extend_3 {
+  border: 0;
+  color: $color_dolphin_approx;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+//original selectors
+//dl.accordion dt, .entry-edit .entry-edit-head
+%extend_4 {
+  background: $color_white_approx;
+  color: $color_dolphin_approx;
+  padding: 4px 16px;
+  border: 1px solid $color_alto_approx;
+}
+
+//original selectors
+//.box, .entry-edit fieldset, .entry-edit .fieldset
+%extend_5 {
+  border: 1px solid $color_alto_approx;
+  background: $color_gallery_approx;
+  border-top: 1px solid $color_alto_approx;
+}
+
+//original selectors
+//.grid tr.headings th a.sort-arrow-desc, .grid tr.headings th a.sort-arrow-asc
+%extend_6 {
+  background: none;
+  border: 0;
+  box-sizing: border-box;
+  font-weight: bold;
+  position: relative;
+}
+
+//original selectors
+//.grid tr.headings th a.sort-arrow-desc span.sort-title:after, .grid tr.headings th a.sort-arrow-asc span.sort-title:after
+%extend_7 {
+  content: "";
+  display: block;
+  position: absolute;
+  right: 6px;
+  bottom: 8px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+//original selectors
+//.header-top .logo span.focusable:active, .header-top .logo span.focusable:focus
+%extend_8 {
+  clip: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  position: static;
+  width: auto;
+}
+
+//original selectors
+//ul.tabs a.active, ul.tabs a:hover
+%extend_9 {
+  background: $wild_sand;
+  color: $color_dolphin_approx;
+  //Instead of the line below you could use @include transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+  transition: background 0.3s ease-in-out;
+}
+
+//original selectors
+//dl.accordion dt a, div.collapseable a, .entry-edit .entry-edit-head strong, .entry-edit .entry-edit-head a, dl.accordion dt a:hover, div.collapseable a:hover, dl.accordion dt.open a, div.collapseable a.open
+%extend_10 {
+  color: $color_dolphin_approx;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 32px;
+}
+
+//original selectors
+//dl.accordion dt a:after, div.collapseable a:after
+%extend_11 {
+  content: "";
+  display: block;
+  position: absolute;
+  right: 0;
+  bottom: 10px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 8px 6px 0 6px;
+  border-color: $color_gray_approx transparent transparent transparent;
+}
+
+//original selectors
+//dl.accordion dt.open a:after, div.collapseable a.open:after
+%extend_12 {
+  content: "";
+  display: block;
+  position: absolute;
+  right: 0;
+  bottom: 10px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 6px 8px 6px;
+  border-color: transparent transparent $color_gray_approx transparent;
+}
+
+//original selectors
+//.notice-msg, .error-msg, .success-msg, .warning-msg
+%extend_13 {
+  //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+  border-radius: 5px;
+  margin: 20px 0;
+  padding: 10px 26px 10px 35px;
+  position: relative;
+  //Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+  text-shadow: none;
+}
+
+//original selectors
+//.grid-severity-notice, .grid-severity-critical, .grid-severity-major, .grid-severity-minor
+%extend_14 {
+  background: none;
+  padding: 0;
+  height: auto;
+}
+
+//original selectors
+//.grid-severity-notice span, .grid-severity-critical span, .grid-severity-major span, .grid-severity-minor span
+%extend_15 {
+  font: 400 12px/1.33 'Open Sans', sans-serif;
+  font-weight: 400;
+  padding: 2px 10px;
+}
+
+//original selectors
+//.grid-severity-major span, .grid-severity-minor span
+%extend_16 {
+  border: 0;
+  background: $color_casablanca_approx;
+  color: $white;
+}
+
+//original selectors
+//#nav ul li, #nav ul li.active
+%extend_17 {
+  float: none;
+  height: auto;
+  background: none;
+  margin: 0;
+}
+
+//original selectors
+//## Forminput.input-text, textarea, select
+%extend_18 {
+  font: 400 12px/1.33 'Open Sans', sans-serif;
+  display: inline-block;
+  padding: 1px 3px;
+  margin: 0;
+  background-color: $white;
+  height: 26px;
+  color: $color_dorado_approx;
+  border: 1px solid $color_silver_approx;
+  //Instead of the line below you could use @include box-sizing($bs)
+  box-sizing: border-box;
+}
+
+//original selectors
+//.form-list td.label, .form-list td.label label
+%extend_19 {
+  font-size: 12px;
+  font-weight: 400;
+  color: $color_dorado_approx;
+}
+
+//original selectors
+//button, .form-button
+%extend_20 {
+  background-image: none;
+  background-color: $color_boulder_approx;
+  padding: 0 13px;
+  color: $white;
+  border: 0;
+  cursor: pointer;
+  display: inline-block;
+  font-family: $font_0, $font_1, $font_2, $font_3, $font_4;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 26px;
+  //Instead of the line below you could use @include box-sizing($bs)
+  box-sizing: border-box;
+  margin: 0;
+  vertical-align: middle;
+}
+
+//original selectors
+//button:focus, button:active, .form-button:focus, .form-button:active
+%extend_21 {
+  background: $color_gray_approx;
+  border: 0;
+  outline: thin dotted;
+  outline-offset: -2px;
+}
+
+//original selectors
+//button.disabled, button[disabled], .form-button.disabled, .form-button[disabled]fieldset[disabled] button
+%extend_22 {
+  cursor: default;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+//original selectors
+//button.save, button.add, button.ok_button, .form-button.ok_button
+%extend_23 {
+  background-image: none;
+  background-color: $color_action;
+  padding: 0 13px;
+  color: $white;
+  border: 0;
+  cursor: pointer;
+  display: inline-block;
+  font-family: $font_0, $font_1, $font_2, $font_3, $font_4;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 26px;
+  //Instead of the line below you could use @include box-sizing($bs)
+  box-sizing: border-box;
+  vertical-align: middle;
+}
+
+//original selectors
+//button.save:focus, button.save:active, button.add:focus, button.add:active, button.ok_button:focus, button.ok_button:active, .form-button.ok_button:focus, .form-button.ok_button:active
+%extend_24 {
+  background-color: $color_bahama_blue_approx;
+  outline: thin dotted;
+  outline-offset: -2px;
+  color: $white;
+}
+
+//original selectors
+//button.save.disabled, button.save[disabled], fieldset[disabled] button.save, button.add.disabled, button.add[disabled], fieldset[disabled] button.add, button.ok_button.disabled, button.ok_button[disabled], fieldset[disabled] button.ok_button
+%extend_25 {
+  cursor: default;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+//original selectors
+//.field-100 textarea, .field-100 input.input-text
+%extend_26 {
+  float: none;
+  border: 1px solid $color_silver_approx !important;
+  padding: 1px 3px !important;
+}
+
+//original selectors
+//.calendar, .calendar table
+%extend_27 {
+  color: $color_dorado_approx;
+  cursor: default;
+  background: $color_link_water_approx;
+  font: 400 12px/1.33 'Open Sans', sans-serif;
+}
+
+//original selectors
+//.calendar td.time .hour, .calendar td.time .minute, .calendar td.time .ampm
+%extend_28 {
+  padding: 0 3px 0 4px;
+  border: 1px solid $color_manatee_approx;
+  font-weight: 600;
+  background-color: $color_link_water_approx;
+}
+
+//original selectors
+//.header-right fieldset input.input-text:hover, .header-right fieldset input.input-text:focus
+%extend_29 {
+  background-color: $white;
+  outline: none;
+  //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+  box-shadow: none;
+}
+
+//original selectors
+//#usermenu li.over ul a, #usermenu ul li a:hover
+%extend_30 {
+  color: $color_dark_grey;
+  text-decoration: none;
+  background: var(--color-main-xs);
+  display: block;
+}
+
+@mixin replaceImage($img,$width,$height){
+  padding-left: $width;
+  box-sizing: border-box;
+  width: $width;
+  background: $img no-repeat;
+  height: $height;
+}

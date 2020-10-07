@@ -95,10 +95,11 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
             $randomString = substr($hex, 0, $length); // we truncate at most 1 char if length parameter is an odd number
         } else {
             // fallback to mt_rand() if openssl is not installed
-            /** @var $helper Mage_Core_Helper_Data */
+            /** @var Mage_Core_Helper_Data $helper */
             $helper = Mage::helper('core');
             $randomString = $helper->getRandomString(
-                $length, Mage_Core_Helper_Data::CHARS_DIGITS . Mage_Core_Helper_Data::CHARS_LOWERS
+                $length,
+                Mage_Core_Helper_Data::CHARS_DIGITS . Mage_Core_Helper_Data::CHARS_LOWERS
             );
         }
 
@@ -170,7 +171,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
             return false;
         }
         if ($rejected) {
-            /** @var $consumer Mage_Oauth_Model_Consumer */
+            /** @var Mage_Oauth_Model_Consumer $consumer */
             $consumer = Mage::getModel('oauth/consumer')->load($token->getConsumerId());
 
             if ($consumer->getId() && $consumer->getRejectedCallbackUrl()) {
@@ -234,7 +235,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function sendNotificationOnTokenStatusChange($userEmail, $userName, $applicationName, $status)
     {
-        /* @var $mailTemplate Mage_Core_Model_Email_Template */
+        /* @var Mage_Core_Model_Email_Template $mailTemplate */
         $mailTemplate = Mage::getModel('core/email_template');
 
         $mailTemplate->sendTransactional(

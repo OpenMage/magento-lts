@@ -25,7 +25,7 @@
  */
 
 /**
- * @var $installer Mage_Core_Model_Resource_Setup
+ * @var Mage_Core_Model_Resource_Setup $installer
  */
 $installer = $this;
 
@@ -42,14 +42,14 @@ $installer->getConnection()
     );
 
 $installer->getConnection()->addColumn(
-        $installer->getTable('salesrule/coupon'),
-        'type',
-        array(
+    $installer->getTable('salesrule/coupon'),
+    'type',
+    array(
             'type'     => Varien_Db_Ddl_Table::TYPE_SMALLINT,
             'comment'  => 'Coupon Code Type',
             'default'  => 0
         )
-    );
+);
 
 $installer->getConnection()
     ->addColumn(

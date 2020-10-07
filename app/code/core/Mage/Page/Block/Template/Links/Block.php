@@ -117,7 +117,7 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
     /**
      * Return link position in link list
      *
-     * @return in
+     * @return int
      */
     public function getPosition()
     {
@@ -139,6 +139,7 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
      *
      * @param bool $value
      * return Mage_Page_Block_Template_Links_Block
+     * @return Mage_Page_Block_Template_Links_Block
      */
     public function setIsFirst($value)
     {
@@ -161,6 +162,7 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
      *
      * @param bool $value
      * return Mage_Page_Block_Template_Links_Block
+     * @return Mage_Page_Block_Template_Links_Block
      */
     public function setIsLast($value)
     {
@@ -210,7 +212,7 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
             return $params;
         } elseif (is_array($params)) {
             $result = '';
-            foreach ($params as $key=>$value) {
+            foreach ($params as $key => $value) {
                 $result .= ' ' . $key . '="' . addslashes($value) . '"';
             }
             return $result;
@@ -237,5 +239,4 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
     {
         return $this->_prepareParams($this->_aParams);
     }
-    
 }
