@@ -542,7 +542,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
         foreach ($this as $product) {
             if ($product->isRecurring() && $profile = $product->getRecurringProfile()) {
-                $product->setRecurringProfile(unserialize($profile));
+                $product->setRecurringProfile(unserialize($profile, ['allowed_classes' => false]));
             }
         }
 
@@ -1161,7 +1161,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             if (!($urlRewrites = Mage::app()->loadCache($this->_cacheConf['prefix'] . 'urlrewrite'))) {
                 $urlRewrites = null;
             } else {
-                $urlRewrites = unserialize($urlRewrites);
+                $urlRewrites = unserialize($urlRewrites, ['allowed_classes' => false]);
             }
         }
 

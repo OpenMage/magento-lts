@@ -40,7 +40,6 @@ class Mage_Core_Helper_UnserializeArray
      */
     public function unserialize($str)
     {
-        $parser = new Unserialize_Parser();
-        return $parser->unserialize($str);
+        return unserialize($str, ['allowed_classes' => false]);
     }
 }
