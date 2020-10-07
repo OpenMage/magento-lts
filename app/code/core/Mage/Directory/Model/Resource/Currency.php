@@ -49,6 +49,12 @@ class Mage_Directory_Model_Resource_Currency extends Mage_Core_Model_Resource_Db
     protected static $_rateCache;
 
     /**
+     * All allowed currencies cache
+     * @var array
+     */
+    protected $_configCurrencies;
+
+    /**
      * Define main and currency rate tables
      *
      */
@@ -183,19 +189,23 @@ class Mage_Directory_Model_Resource_Currency extends Mage_Core_Model_Resource_Db
      */
     public function getConfigCurrencies($model, $path)
     {
-        $adapter = $this->_getReadAdapter();
-        $bind    = array(':config_path' => $path);
-        $select  = $adapter->select()
+        if ($this->_configCurrencies == null) {
+            $adapter = $this->_getReadAdapter();
+            $select  = $adapter->select()
                 ->from($this->getTable('core/config_data'))
                 ->where('path = :config_path');
-        $result  = array();
-        $rowSet  = $adapter->fetchAll($select, $bind);
-        foreach ($rowSet as $row) {
-            $result = array_merge($result, explode(',', $row['value']));
-        }
-        sort($result);
 
-        return array_unique($result);
+            $result  = array();
+            $rowSet  = $adapter->fetchAll($select, [':config_path' => $path]);
+            foreach ($rowSet as $row) {
+                $result = array_merge($result, explode(',', trim($row['value'])));
+            }
+            sort($result);
+
+            $this->_configCurrencies = array_unique($result);
+        }
+
+        return $this->_configCurrencies;
     }
 
     /**
