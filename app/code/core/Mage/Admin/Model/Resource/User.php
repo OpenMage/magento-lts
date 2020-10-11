@@ -195,7 +195,8 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      * Delete user role record with user
      *
      * @param Mage_Core_Model_Abstract $user
-     * @return bool
+     * @return $this
+     * @throws Exception
      */
     public function delete(Mage_Core_Model_Abstract $user)
     {
@@ -212,15 +213,13 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
             $adapter->delete($this->getMainTable(), $conditions);
             $adapter->delete($this->getTable('admin/role'), $conditions);
             $adapter->commit();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Exception $e) {
             $adapter->rollBack();
             throw $e;
-        } catch (Exception $e) {
-            $adapter->rollBack();
-            return false;
         }
         $this->_afterDelete($user);
-        return true;
+        return $this;
     }
 
     /**

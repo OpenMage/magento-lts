@@ -499,6 +499,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      *
      * @param Mage_Core_Model_Abstract $object
      * @return $this
+     * @throws Exception
      */
     public function delete(Mage_Core_Model_Abstract $object)
     {

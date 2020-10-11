@@ -236,7 +236,8 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
      * Delete the object
      *
      * @param Mage_Core_Model_Abstract $user
-     * @return boolean
+     * @return $this
+     * @throws Exception
      */
     public function delete(Mage_Core_Model_Abstract $user)
     {
@@ -247,14 +248,11 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
             $dbh->delete($this->getTable('api/user'), array('user_id = ?' => $uid));
             $dbh->delete($this->getTable('api/role'), array('user_id = ?' => $uid));
             $dbh->commit();
-        } catch (Mage_Core_Exception $e) {
-            $dbh->rollBack();
-            throw $e;
         } catch (Exception $e) {
             $dbh->rollBack();
-            return false;
+            throw $e;
         }
-        return true;
+        return $this;
     }
 
     /**
