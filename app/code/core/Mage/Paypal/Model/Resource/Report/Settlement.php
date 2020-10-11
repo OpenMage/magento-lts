@@ -75,9 +75,9 @@ class Mage_Paypal_Model_Resource_Report_Settlement extends Mage_Core_Model_Resou
                     /*
                      * Converting dates
                      */
-                    $completionDate = new Zend_Date($rows[$key]['transaction_completion_date']);
+                    $completionDate = new Zend_Date($rows[$key]['transaction_completion_date'], 'yyyy/MM/dd HH:mm:ss Z');
                     $rows[$key]['transaction_completion_date'] = $date->date(null, $completionDate->getTimestamp());
-                    $initiationDate = new Zend_Date($rows[$key]['transaction_initiation_date']);
+                    $initiationDate = new Zend_Date($rows[$key]['transaction_initiation_date'], 'yyyy/MM/dd HH:mm:ss Z');
                     $rows[$key]['transaction_initiation_date'] = $date->date(null, $initiationDate->getTimestamp());
                     /*
                      * Converting numeric

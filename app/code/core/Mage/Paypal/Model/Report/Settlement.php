@@ -269,6 +269,14 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
 
         $flippedSectionColumns = array_flip($sectionColumns);
         $fp = fopen($localCsv, 'r');
+
+        // skip BOM if present
+        $bom = pack("CCC", 0xef, 0xbb, 0xbf);
+        $test = fread($fp, 3);
+        if (strncmp($test, $bom, 3) !== 0) {
+            fseek($fp, 0);
+        }
+
         while($line = fgetcsv($fp)) {
             if (empty($line)) { // The line was empty, so skip it.
                 continue;
@@ -298,7 +306,9 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                 case 'SB': // Section body.
                     $bodyItem = array();
                     for($i = 1; $i < count($line); $i++) {
-                        $bodyItem[$rowMap[$flippedSectionColumns[$i]]] = $line[$i];
+                        if (isset($rowMap[$flippedSectionColumns[$i]]) && $rowMap[$flippedSectionColumns[$i]]) {
+                            $bodyItem[$rowMap[$flippedSectionColumns[$i]]] = $line[$i];
+                        }
                     }
                     $this->_rows[] = $bodyItem;
                     break;
