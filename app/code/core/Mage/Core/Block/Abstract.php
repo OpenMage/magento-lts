@@ -567,6 +567,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      */
     public function getChildHtml($name = '', $useCache = true, $sorted = false)
     {
+        Varien_Profiler::start('getChildHtml: '.$name);
         if ($name === '') {
             if ($sorted) {
                 $children = array();
@@ -582,8 +583,10 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             }
             return $out;
         } else {
-            return $this->_getChildHtml($name, $useCache);
+            $out = $this->_getChildHtml($name, $useCache);
         }
+        Varien_Profiler::stop('getChildHtml: '.$name);
+        return $out;
     }
 
     /**
