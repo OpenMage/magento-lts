@@ -1054,6 +1054,8 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     public function clearCategoryProduct($storeId)
     {
         $adapter = $this->_getWriteAdapter();
+
+        $productUseCategories = Mage::getStoreConfigFlag('catalog/seo/product_use_categories');
         $select = $adapter->select()
             ->from(['tur' => $this->getMainTable()], $this->getIdFieldName())
             ->joinLeft(
@@ -1063,8 +1065,11 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             )
             ->where('tur.store_id = :store_id')
             ->where('tur.category_id IS NOT NULL')
-            ->where('tur.product_id IS NOT NULL')
-            ->where('tcp.category_id IS NULL');
+            ->where('tur.product_id IS NOT NULL');
+
+        if ($productUseCategories) {
+            $select->where('tcp.category_id IS NULL');
+        }
         $rewriteIds = $adapter->fetchCol($select, ['store_id' => $storeId]);
         if ($rewriteIds) {
             $where = [$this->getIdFieldName() . ' IN(?)' => $rewriteIds];
