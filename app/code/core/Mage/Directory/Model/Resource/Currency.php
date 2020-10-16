@@ -49,12 +49,6 @@ class Mage_Directory_Model_Resource_Currency extends Mage_Core_Model_Resource_Db
     protected static $_rateCache;
 
     /**
-     * All allowed currencies cache
-     * @var array
-     */
-    protected $_configCurrencies;
-
-    /**
      * Define main and currency rate tables
      *
      */
@@ -189,21 +183,23 @@ class Mage_Directory_Model_Resource_Currency extends Mage_Core_Model_Resource_Db
      */
     public function getConfigCurrencies($model, $path)
     {
-        if ($this->_configCurrencies == null) {
-            $adapter = $this->_getReadAdapter();
-            $select  = $adapter->select()
-                ->from($this->getTable('core/config_data'))
-                ->where('path = :config_path');
+        $result  = [];
+        $config = Mage::app()->getConfig();
 
-            $result  = array();
-            $rowSet  = $adapter->fetchAll($select, [':config_path' => $path]);
-            foreach ($rowSet as $row) {
-                $result = array_merge($result, explode(',', trim($row['value'])));
-            }
-            sort($result);
+        // default
+        $result = array_merge($result, explode(',', trim($config->getNode($path, 'default'))));
 
-            $this->_configCurrencies = array_unique($result);
+        // stores
+        foreach (Mage::app()->getStores(true) as $store) {
+            $result = array_merge($result, explode(',', trim($config->getNode($path, 'stores', $store->getCode()))));
         }
+
+        // websites
+        foreach (Mage::app()->getWebsites(true) as $website) {
+            $result = array_merge($result, explode(',', trim($config->getNode($path, 'websites', $website->getCode()))));
+        }
+
+        sort($result);
 
         return $this->_configCurrencies;
     }
