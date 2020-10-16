@@ -333,8 +333,8 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
      */
     public function getConfigBaseCurrencies()
     {
-        $defaultCurrencies = (string) Mage::app()->getConfig()->getNode(self::XML_PATH_CURRENCY_BASE, 'default');
-        return [$defaultCurrencies];
+        $defaultCurrencies = $this->_getResource()->getConfigCurrencies($this, self::XML_PATH_CURRENCY_BASE);
+        return $defaultCurrencies;
     }
 
     /**
