@@ -201,7 +201,7 @@ class Mage_Directory_Model_Resource_Currency extends Mage_Core_Model_Resource_Db
 
         sort($result);
 
-        return $this->_configCurrencies;
+        return array_unique($result);
     }
 
     /**
