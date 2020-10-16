@@ -27,19 +27,15 @@
 
 class Mage_Adminhtml_Model_System_Config_Source_Cookie_SameSite
 {
-    const SAMESITE_NONE      = 'None';
-    const SAMESITE_STRICT    = 'Strict';
-    const SAMESITE_LAX       = 'Lax';
-
     /**
      * @return array[]
      */
     public function toOptionArray(): array
     {
         return [
-            ['value' => self::SAMESITE_NONE, 'label' => Mage::helper('adminhtml')->__('None')],
-            ['value' => self::SAMESITE_STRICT, 'label' => Mage::helper('adminhtml')->__('Strict')],
-            ['value' => self::SAMESITE_LAX, 'label' => Mage::helper('adminhtml')->__('Lax')]
+            ['value' => 'None', 'label' => Mage::helper('adminhtml')->__('None')],
+            ['value' => 'Strict', 'label' => Mage::helper('adminhtml')->__('Strict')],
+            ['value' => 'Lax', 'label' => Mage::helper('adminhtml')->__('Lax')]
         ];
     }
 }

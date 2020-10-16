@@ -256,7 +256,8 @@ class Mage_Core_Model_Cookie
             $sameSite = $this->getSameSite();
         }
 
-        if ($sameSite === Mage_Adminhtml_Model_System_Config_Source_Cookie_SameSite::SAMESITE_NONE) {
+        if ($sameSite === 'None') {
+            // Enforce specification SameSite None requires secure
             $secure = true;
         }
 
