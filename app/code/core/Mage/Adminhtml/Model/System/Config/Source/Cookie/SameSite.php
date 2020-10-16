@@ -27,9 +27,9 @@
 
 class Mage_Adminhtml_Model_System_Config_Source_Cookie_SameSite
 {
-    public const SAMESITE_NONE = 'None';
-    public const SAMESITE_STRICT = 'Strict';
-    public const SAMESITE_LAX = 'Lax';
+    public const SAMESITE_NONE      = 'None';
+    public const SAMESITE_STRICT    = 'Strict';
+    public const SAMESITE_LAX       = 'Lax';
     /**
      * @return array[]
      */
