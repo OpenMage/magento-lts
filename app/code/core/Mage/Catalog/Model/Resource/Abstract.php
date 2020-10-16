@@ -635,12 +635,13 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         /**
          * Collecting typed attributes, performing separate SQL query for each attribute type table
          */
-        if ($store instanceof Mage_Core_Model_Store) {
-            $store = $store->getId();
-        }
-
-        $store = (int)$store;
         if ($typedAttributes) {
+            if ($store instanceof Mage_Core_Model_Store) {
+                $store = $store->getId();
+            }
+
+            $store = (int)$store;
+            
             foreach ($typedAttributes as $table => $_attributes) {
                 $select = $adapter->select()
                     ->from(array('default_value' => $table), array('attribute_id'))
