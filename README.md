@@ -76,7 +76,7 @@ You can add additional meta files in this directory to cover your own project fi
 for more information.
 
 ## Development Environment with ddev
-- Install ddev
+- Install [ddev](https://ddev.com/get-started/)
 - Clone the repository as described in Installation -> Using Git
 - Create a ddev config using ```$ ddev config``` the defaults should be good for you
 - Open .ddev/config.yaml and change the php version to 7.2
