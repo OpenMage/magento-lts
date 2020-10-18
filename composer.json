@@ -32,5 +32,12 @@
       "email": "github-sr@hotmail.com",
       "role": "Maintainer"
     }
-  ]
+  ],
+  "require-dev": {
+    "captainhook/captainhook": "^5.4",
+    "friendsofphp/php-cs-fixer": "^2.16"
+  },
+  "extra": {
+    "magento-root-dir": "."
+  }
 }
