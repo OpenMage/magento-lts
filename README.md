@@ -80,7 +80,7 @@ for more information.
 - Clone the repository as described in Installation -> Using Git
 - Create a ddev config using ```$ ddev config``` the defaults should be good for you
 - Open .ddev/config.yaml and change the php version to 7.2
-- Navigate to http://magento-lts.ddev.site
+- Navigate to https://magento-lts.ddev.site
 
 ## Removed Modules
 
