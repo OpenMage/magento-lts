@@ -1,7 +1,15 @@
 
 
 
-## v20.0.4 - unreleased
+## v20.0.5 - unreleased
+
+
+## v20.0.4 - 2020-10-20
+
+merged changes from v19.4.8
+including 
+CVE-2020-15244 RCE via PHP Object injection via SOAP Requests
+
 
 ## v20.0.3 - 2020-09-15
 
