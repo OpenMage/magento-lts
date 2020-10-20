@@ -236,6 +236,10 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
             $this->_fault('can_not_delete');
         }
 
+        if (!$model->getIsUserDefined()) {
+            $this->_fault('can_not_delete');
+        }
+
         try {
             $model->delete();
             return true;
