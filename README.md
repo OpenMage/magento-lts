@@ -75,6 +75,13 @@ You can add additional meta files in this directory to cover your own project fi
 [PhpStorm advanced metadata](https://www.jetbrains.com/help/phpstorm/ide-advanced-metadata.html)
 for more information.
 
+## Development Environment with ddev
+- Install [ddev](https://ddev.com/get-started/)
+- Clone the repository as described in Installation -> Using Git
+- Create a ddev config using ```$ ddev config``` the defaults should be good for you
+- Open .ddev/config.yaml and change the php version to 7.2
+- Navigate to https://magento-lts.ddev.site
+
 ## Removed Modules
 
 - Phoenix_Moneybookers
