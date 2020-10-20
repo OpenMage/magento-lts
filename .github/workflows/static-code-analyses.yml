@@ -12,7 +12,7 @@ jobs:
       max-parallel: 5
       matrix:
         operating-system: [ubuntu-latest]
-        php-versions: ['7.0', '7.1', '7.2', '7.3']
+        php-versions: ['7.0', '7.1', '7.2', '7.3', '7.4']
     steps:
       - uses: actions/checkout@v1
       - name: Setup PHP
@@ -39,7 +39,7 @@ jobs:
       fail-fast: false
       matrix:
         operating-system: [ubuntu-latest]
-        php-versions: ['7.4', '8.0']
+        php-versions: ['7.0', '7.1', '7.2', '7.3', '7.4', '8.0']
     steps:
       - uses: actions/checkout@v1
       - name: Setup PHP
@@ -54,7 +54,7 @@ jobs:
         run: php -v
       - name: Check .php files
         continue-on-error: true
-        run: '! find . -not \( -path ./.phpstorm.meta.php -prune \) -not \( -path ./lib/PEAR -prune \) -not \( -path ./lib/phpseclib -prune \) -not \( -path ./lib/Zend -prune \) -type f -name "*.php" -exec php -d error_reporting=32767 -l {} \; 2>&1 1> /dev/null | grep "^"'
+        run: '! find . -not \( -path ./.phpstorm.meta.php -prune \) -type f -name "*.php" -exec php -d error_reporting=32767 -l {} \; 2>&1 1> /dev/null | grep "^"'
       - name: Check .phtml files
         continue-on-error: true
         run: '! find app/design -type f -name "*.phtml" -exec php -d error_reporting=32767 -l {} \; 2>&1 1> /dev/null | grep "^"'
