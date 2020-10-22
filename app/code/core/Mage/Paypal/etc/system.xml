@@ -243,7 +243,6 @@
                                         <fields>
                                             <business_account translate="label comment tooltip">
                                                 <label>Email Associated with PayPal Merchant Account</label>
-                                                <comment><![CDATA[<a href="http://www.magentocommerce.com/paypal">Start accepting payments via PayPal!</a>]]></comment>
                                                 <tooltip>Don't have a PayPal account? Simply enter your email address.</tooltip>
                                                 <config_path>paypal/general/business_account</config_path>
                                                 <show_in_default>1</show_in_default>
