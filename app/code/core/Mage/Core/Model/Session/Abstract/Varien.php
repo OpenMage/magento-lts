@@ -121,12 +121,22 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
             $cookieParams['domain'] = $cookie->getDomain();
         }
 
-        call_user_func_array('session_set_cookie_params', $cookieParams);
+        call_user_func_array('session_set_cookie_params', array_values($cookieParams));
 
         if (!empty($sessionName)) {
             $this->setSessionName($sessionName);
-        }
 
+            // Migrate old cookie from 'frontend'
+            if ($sessionName === \Mage_Core_Controller_Front_Action::SESSION_NAMESPACE
+                && $cookie->get('frontend')
+                && ! $cookie->get(\Mage_Core_Controller_Front_Action::SESSION_NAMESPACE)
+            ) {
+                $frontendValue = $cookie->get('frontend');
+                $_COOKIE[\Mage_Core_Controller_Front_Action::SESSION_NAMESPACE] = $frontendValue;
+                $cookie->set(Mage_Core_Controller_Front_Action::SESSION_NAMESPACE, $frontendValue);
+                $cookie->delete('frontend');
+            }
+        }
         // potential custom logic for session id (ex. switching between hosts)
         $this->setSessionId();
 
@@ -143,6 +153,19 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
             $secureCookieName = $sessionName . '_cid';
             if (isset($_SESSION[self::SECURE_COOKIE_CHECK_KEY])) {
                 $cookieValue = $cookie->get($secureCookieName);
+
+                // Migrate old cookie from 'frontend'
+                if ( ! $cookieValue
+                    && $sessionName === \Mage_Core_Controller_Front_Action::SESSION_NAMESPACE
+                    && $cookie->get('frontend_cid')
+                    && ! $cookie->get($secureCookieName)
+                ) {
+                    $frontendValue = $cookie->get('frontend_cid');
+                    $_COOKIE[$secureCookieName] = $frontendValue;
+                    $cookie->set($secureCookieName, $frontendValue);
+                    $cookie->delete('frontend_cid');
+                }
+
                 if (!is_string($cookieValue) || $_SESSION[self::SECURE_COOKIE_CHECK_KEY] !== md5($cookieValue)) {
                     session_regenerate_id(false);
                     $sessionHosts = $this->getSessionHosts();

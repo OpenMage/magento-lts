@@ -542,7 +542,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
         foreach ($this as $product) {
             if ($product->isRecurring() && $profile = $product->getRecurringProfile()) {
-                $product->setRecurringProfile(unserialize($profile));
+                $product->setRecurringProfile(Mage::helper('core/unserializeArray')->unserialize($profile));
             }
         }
 

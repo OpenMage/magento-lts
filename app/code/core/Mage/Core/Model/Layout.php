@@ -346,7 +346,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
             }
 
             $this->_translateLayoutNode($node, $args);
-            call_user_func_array(array($block, $method), $args);
+            call_user_func_array(array($block, $method), array_values($args));
         }
 
         Varien_Profiler::stop($_profilerKey);

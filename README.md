@@ -57,6 +57,8 @@ git add -A && git commit
 
 Installation on PHP 7.2.33 (7.2.x), MySQL 5.7.31-34 (5.7.x) Percona Server and Redis 6.x should work fine and confirmed by users.
 
+If using php 7.2+ then mcrypt needs to be disabled in php.ini or pecl to fallback on mcryptcompat and phpseclib. mcrypt is deprecated from 7.2+ onwards.
+
 ## Translations
 
 There are some new or changed tranlations, if you want add them to your locale pack please check:
@@ -76,6 +78,13 @@ $ docker run --rm -u $UID -v $PWD:/var/www/html php:7.0-apache php n98-magerun.p
 You can add additional meta files in this directory to cover your own project files. See
 [PhpStorm advanced metadata](https://www.jetbrains.com/help/phpstorm/ide-advanced-metadata.html)
 for more information.
+
+## Development Environment with ddev
+- Install [ddev](https://ddev.com/get-started/)
+- Clone the repository as described in Installation -> Using Git
+- Create a ddev config using ```$ ddev config``` the defaults should be good for you
+- Open .ddev/config.yaml and change the php version to 7.2
+- Navigate to https://magento-lts.ddev.site
 
 ## Removed Modules
 

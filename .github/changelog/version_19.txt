@@ -1,6 +1,18 @@
 
 
-## v19.4.8 - unreleased
+## v19.4.9 - unreleased
+
+
+## v19.4.8 - 2020-10-20
+
+CVE-2020-15244 RCE via PHP Object injection via SOAP Requests
+#1250 removed use of travisCI
+#1236 Adds missing meta tags to prevent SUPEE-11295 related warnings from Magereport
+#991 Migrate to new frontend cookie name (session namespace) (#990)
+#1266 Add ddev based development setup to Readme
+#1247 Fix call_user_func_array arguments for PHP 8
+#1242 update mcrypt related explanation in Readme
+#1184 Add php-74 to static tests
 
 
 
