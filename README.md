@@ -82,7 +82,9 @@ for more information.
 - Clone the repository as described in Installation -> Using Git
 - Create a ddev config using ```$ ddev config``` the defaults should be good for you
 - Open .ddev/config.yaml and change the php version to 7.2
+- Type ```$ ddev start``` to download and start the containers
 - Navigate to https://magento-lts.ddev.site
+- When you are done you can stop the test system by typing ```$ ddev stop```
 
 ## Removed Modules
 
