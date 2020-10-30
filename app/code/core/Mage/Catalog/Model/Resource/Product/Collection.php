@@ -596,14 +596,10 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             return $this;
         }
         if (is_array($productId)) {
-            if (!empty($productId)) {
-                if ($exclude) {
-                    $condition = array('nin' => $productId);
-                } else {
-                    $condition = array('in' => $productId);
-                }
+            if ($exclude) {
+                $condition = array('nin' => $productId);
             } else {
-                $condition = '';
+                $condition = array('in' => $productId);
             }
         } else {
             if ($exclude) {
@@ -613,6 +609,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             }
         }
         $this->addFieldToFilter('entity_id', $condition);
+
         return $this;
     }
 
