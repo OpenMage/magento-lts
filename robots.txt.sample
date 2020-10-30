@@ -20,32 +20,6 @@ User-agent: *
 Allow: /*?p=
 
 ############################################
-## Do not crawl core directories
-
-Disallow: /404/
-Disallow: /app/
-Disallow: /cgi-bin/
-Disallow: /downloader/
-Disallow: /errors/
-Disallow: /includes/
-Disallow: /magento/
-Disallow: /media/captcha/
-Disallow: /media/customer/
-Disallow: /media/dhl/
-Disallow: /media/downloadable/
-Disallow: /media/import/
-Disallow: /media/pdf/
-Disallow: /media/sales/
-Disallow: /media/tmp/
-Disallow: /media/xmlconnect/
-Disallow: /pkginfo/
-Disallow: /report/
-Disallow: /scripts/
-Disallow: /shell/
-Disallow: /stats/
-Disallow: /var/
-
-############################################
 ## Do not crawl non-SEF paths and generated content (if you use a shop id in URL, you must prefix with * or copy for each shop)
 
 Disallow: */index.php/
@@ -64,18 +38,6 @@ Disallow: */review/
 Disallow: */sendfriend/
 Disallow: */tag/
 Disallow: */wishlist/
-
-############################################
-## Do not crawl core files
-
-Disallow: /cron.php
-Disallow: /cron.sh
-Disallow: /error_log
-Disallow: /install.php
-Disallow: /LICENSE.html
-Disallow: /LICENSE.txt
-Disallow: /LICENSE_AFL.txt
-Disallow: /STATUS.txt
 
 ############################################
 ## Do not crawl dynamic filters. Uncomment what you need or add custom filters
