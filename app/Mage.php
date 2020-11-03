@@ -905,9 +905,9 @@ final class Mage
     /**
      * Write exception to log
      *
-     * @param Exception $e
+     * @param Throwable $e
      */
-    public static function logException(Exception $e)
+    public static function logException(Throwable $e)
     {
         if (!self::getConfig()) {
             return;
@@ -941,9 +941,9 @@ final class Mage
     /**
      * Display exception
      *
-     * @param Exception $e
+     * @param Throwable $e
      */
-    public static function printException(Exception $e, $extra = '')
+    public static function printException(Throwable $e, $extra = '')
     {
         if (self::$_isDeveloperMode) {
             print '<pre>';
