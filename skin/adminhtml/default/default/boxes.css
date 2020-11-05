@@ -589,7 +589,7 @@ div.main-col-inner { float:left; /* Fixes some inner clears in the liquid main-c
 /* HEADER & FOOTER
 *******************************************************************************/
 
-.logo                                   { float:left; margin:5px 20px 5px 27px; height:43px; }
+.logo                                   { float:left; margin:5px 20px 5px 27px; height:43px; width:275px; }
 .header-top                             { border-bottom:1px solid #5F767F; }
 
 /* Header right */
