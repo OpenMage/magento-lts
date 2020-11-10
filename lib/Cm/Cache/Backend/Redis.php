@@ -59,6 +59,12 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
     const LUA_CLEAN_SH1 = '42ab2fe548aee5ff540123687a2c39a38b54e4a2';
     const LUA_GC_SH1 = 'c00416b970f1aa6363b44965d4cf60ee99a6f065';
 
+    protected $_setIds;
+    protected $_setTags;
+
+    protected $_prefixKey;
+    protected $_prefixTagIds;
+
     /** @var Credis_Client */
     protected $_redis;
 
@@ -116,6 +122,14 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
         if ( isset($options['force_standalone']) && $options['force_standalone']) {
             $this->_redis->forceStandalone();
         }
+
+        $siteId = isset($options['site']) ? $options['site'].':' : '';
+
+        $this->_setIds = $siteId.self::SET_IDS;
+        $this->_setTags = $siteId.self::SET_TAGS;
+
+        $this->_prefixKey = $siteId.self::PREFIX_KEY;
+        $this->_prefixTagIds = $siteId.self::PREFIX_TAG_IDS;
 
         $connectRetries = isset($options['connect_retries']) ? (int)$options['connect_retries'] : self::DEFAULT_CONNECT_RETRIES;
         $this->_redis->setMaxConnectRetries($connectRetries);
@@ -195,7 +209,7 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
      */
     public function load($id, $doNotTestCacheValidity = false)
     {
-        $data = $this->_redis->hGet(self::PREFIX_KEY.$id, self::FIELD_DATA);
+        $data = $this->_redis->hGet($this->_prefixKey.$id, self::FIELD_DATA);
         if ($data === NULL) {
             return FALSE;
         }
@@ -210,7 +224,7 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
      */
     public function test($id)
     {
-        $mtime = $this->_redis->hGet(self::PREFIX_KEY.$id, self::FIELD_MTIME);
+        $mtime = $this->_redis->hGet($this->_prefixKey.$id, self::FIELD_MTIME);
         return ($mtime ? $mtime : FALSE);
     }
 
@@ -238,14 +252,14 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
 
         if ($this->_useLua) {
             $sArgs = array(
-                self::PREFIX_KEY,
+                $this->_prefixKey,
                 self::FIELD_DATA,
                 self::FIELD_TAGS,
                 self::FIELD_MTIME,
                 self::FIELD_INF,
-                self::SET_TAGS,
-                self::PREFIX_TAG_IDS,
-                self::SET_IDS,
+                $this->_setTags,
+                $this->_prefixTagIds,
+                $this->_setIds,
                 $id,
                 $this->_encodeData($data, $this->_compressData),
                 $this->_encodeData(implode(',',$tags), $this->_compressTags),
@@ -288,7 +302,7 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
                     // Update the id list for each tag
                     foreach($remTags as $tag)
                     {
-                        $this->_redis->sRem(self::PREFIX_TAG_IDS . $tag, $id);
+                        $this->_redis->sRem($this->_prefixTagIds . $tag, $id);
                     }
                 }
             }
@@ -297,13 +311,14 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
         }
 
         // Get list of tags previously assigned
-        $oldTags = $this->_decodeData($this->_redis->hGet(self::PREFIX_KEY.$id, self::FIELD_TAGS));
+        $oldTags = $this->_decodeData($this->_redis->hGet($this->_prefixKey.$id, self::FIELD_TAGS));
+
         $oldTags = $oldTags ? explode(',', $oldTags) : array();
 
         $this->_redis->pipeline()->multi();
 
         // Set the data
-        $result = $this->_redis->hMSet(self::PREFIX_KEY.$id, array(
+        $result = $this->_redis->hMSet($this->_prefixKey.$id, array(
           self::FIELD_DATA => $this->_encodeData($data, $this->_compressData),
           self::FIELD_TAGS => $this->_encodeData(implode(',',$tags), $this->_compressTags),
           self::FIELD_MTIME => time(),
@@ -315,19 +330,20 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
 
         // Set expiration if specified
         if ($lifetime) {
-          $this->_redis->expire(self::PREFIX_KEY.$id, min($lifetime, self::MAX_LIFETIME));
+          $this->_redis->expire($this->_prefixKey.$id, min($lifetime, self::MAX_LIFETIME));
+
         }
 
         // Process added tags
         if ($tags)
         {
             // Update the list with all the tags
-            $this->_redis->sAdd( self::SET_TAGS, $tags);
+            $this->_redis->sAdd( $this->_setTags, $tags);
 
             // Update the id list for each tag
             foreach($tags as $tag)
             {
-                $this->_redis->sAdd(self::PREFIX_TAG_IDS . $tag, $id);
+                $this->_redis->sAdd($this->_prefixTagIds . $tag, $id);
             }
         }
 
@@ -337,13 +353,14 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
             // Update the id list for each tag
             foreach($remTags as $tag)
             {
-                $this->_redis->sRem(self::PREFIX_TAG_IDS . $tag, $id);
+                $this->_redis->sRem($this->_prefixTagIds . $tag, $id);
             }
         }
 
         // Update the list with all the ids
         if($this->_notMatchingTags) {
-            $this->_redis->sAdd(self::SET_IDS, $id);
+            $this->_redis->sAdd($this->_setIds, $id);
+
         }
 
         $this->_redis->exec();
@@ -360,21 +377,21 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
     public function remove($id)
     {
         // Get list of tags for this id
-        $tags = explode(',', $this->_decodeData($this->_redis->hGet(self::PREFIX_KEY.$id, self::FIELD_TAGS)));
+        $tags = explode(',', $this->_decodeData($this->_redis->hGet($this->_prefixKey.$id, self::FIELD_TAGS)));
 
         $this->_redis->pipeline()->multi();
 
         // Remove data
-        $this->_redis->del(self::PREFIX_KEY.$id);
+        $this->_redis->del($this->_prefixKey.$id);
 
         // Remove id from list of all ids
         if($this->_notMatchingTags) {
-            $this->_redis->sRem( self::SET_IDS, $id );
+            $this->_redis->sRem( $this->_setIds, $id );
         }
 
         // Update the id list for each tag
         foreach($tags as $tag) {
-            $this->_redis->sRem(self::PREFIX_TAG_IDS . $tag, $id);
+            $this->_redis->sRem($this->_prefixTagIds . $tag, $id);
         }
 
         $result = $this->_redis->exec();
@@ -397,7 +414,7 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
 
             // Remove ids from list of all ids
             if($this->_notMatchingTags) {
-                $this->_redis->sRem( self::SET_IDS, $ids);
+                $this->_redis->sRem( $this->_setIds, $ids);
             }
 
             $this->_redis->exec();
@@ -419,7 +436,7 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
 
             // Remove ids from list of all ids
             if($this->_notMatchingTags) {
-                $this->_redis->sRem( self::SET_IDS, $ids);
+                $this->_redis->sRem( $this->_setIds, $ids);
             }
 
             $this->_redis->exec();
@@ -433,7 +450,7 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
     {
         if ($this->_useLua) {
             $pTags = $this->_preprocessTagIds($tags);
-            $sArgs = array(self::PREFIX_KEY, self::SET_TAGS, self::SET_IDS, ($this->_notMatchingTags ? 1 : 0), (int) $this->_luaMaxCStack);
+            $sArgs = array($this->_prefixKey, $this->_setTags, $this->_setIds, ($this->_notMatchingTags ? 1 : 0), (int) $this->_luaMaxCStack);
             if ( ! $this->_redis->evalSha(self::LUA_CLEAN_SH1, $pTags, $sArgs)) {
                 $script =
                     "for i = 1, #KEYS, ARGV[5] do ".
@@ -464,7 +481,7 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
 
             // Remove ids from list of all ids
             if($this->_notMatchingTags) {
-                $this->_redis->sRem( self::SET_IDS, $ids);
+                $this->_redis->sRem( $this->_setIds, $ids);
             }
         }
 
@@ -472,7 +489,7 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
         $this->_redis->del( $this->_preprocessTagIds($tags));
 
         // Remove tags from list of tags
-        $this->_redis->sRem( self::SET_TAGS, $tags);
+        $this->_redis->sRem( $this->_setTags, $tags);
 
         $this->_redis->exec();
     }
@@ -485,8 +502,8 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
         // Clean up expired keys from tag id set and global id set
 
         if ($this->_useLua) {
-            $sArgs = array(self::PREFIX_KEY, self::SET_TAGS, self::SET_IDS, self::PREFIX_TAG_IDS, ($this->_notMatchingTags ? 1 : 0));
-            $allTags = (array) $this->_redis->sMembers(self::SET_TAGS);
+            $sArgs = array($this->_prefixKey, $this->_setTags, $this->_setIds, $this->_prefixTagIds, ($this->_notMatchingTags ? 1 : 0));
+            $allTags = (array) $this->_redis->sMembers($this->_setTags);
             $tagsCount = count($allTags);
             $counter = 0;
             $tagsBatch = array();
@@ -545,18 +562,18 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
         }
 
         $exists = array();
-        $tags = (array) $this->_redis->sMembers(self::SET_TAGS);
+        $tags = (array) $this->_redis->sMembers($this->_setTags);
         foreach($tags as $tag)
         {
             // Get list of expired ids for each tag
-            $tagMembers = $this->_redis->sMembers(self::PREFIX_TAG_IDS . $tag);
+            $tagMembers = $this->_redis->sMembers($this->_prefixTagIds . $tag);
             $numTagMembers = count($tagMembers);
             $expired = array();
             $numExpired = $numNotExpired = 0;
             if($numTagMembers) {
                 while ($id = array_pop($tagMembers)) {
                     if( ! isset($exists[$id])) {
-                        $exists[$id] = $this->_redis->exists(self::PREFIX_KEY.$id);
+                        $exists[$id] = $this->_redis->exists($this->_prefixKey.$id);
                     }
                     if ($exists[$id]) {
                         $numNotExpired++;
@@ -567,9 +584,9 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
 
                         // Remove incrementally to reduce memory usage
                         if (count($expired) % 100 == 0 && $numNotExpired > 0) {
-                            $this->_redis->sRem( self::PREFIX_TAG_IDS . $tag, $expired);
+                            $this->_redis->sRem( $this->_prefixTagIds . $tag, $expired);
                             if($this->_notMatchingTags) { // Clean up expired ids from ids set
-                                $this->_redis->sRem( self::SET_IDS, $expired);
+                                $this->_redis->sRem( $this->_setIds, $expired);
                             }
                             $expired = array();
                         }
@@ -580,14 +597,14 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
 
             // Remove empty tags or completely expired tags
             if ($numExpired == $numTagMembers) {
-                $this->_redis->del(self::PREFIX_TAG_IDS . $tag);
-                $this->_redis->sRem(self::SET_TAGS, $tag);
+                $this->_redis->del($this->_prefixTagIds . $tag);
+                $this->_redis->sRem($this->_setTags, $tag);
             }
             // Clean up expired ids from tag ids set
             else if (count($expired)) {
-                $this->_redis->sRem( self::PREFIX_TAG_IDS . $tag, $expired);
+                $this->_redis->sRem( $this->_prefixTagIds . $tag, $expired);
                 if($this->_notMatchingTags) { // Clean up expired ids from ids set
-                    $this->_redis->sRem( self::SET_IDS, $expired);
+                    $this->_redis->sRem( $this->_setIds, $expired);
                 }
             }
             unset($expired);
@@ -691,10 +708,10 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
     public function getIds()
     {
         if($this->_notMatchingTags) {
-            return (array) $this->_redis->sMembers(self::SET_IDS);
+            return (array) $this->_redis->sMembers($this->_setIds);
         } else {
-            $keys = $this->_redis->keys(self::PREFIX_KEY . '*');
-            $prefixLen = strlen(self::PREFIX_KEY);
+            $keys = $this->_redis->keys($this->_prefixKey . '*');
+            $prefixLen = strlen($this->_prefixKey);
             foreach($keys as $index => $key) {
                 $keys[$index] = substr($key, $prefixLen);
             }
@@ -709,7 +726,7 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
      */
     public function getTags()
     {
-        return (array) $this->_redis->sMembers(self::SET_TAGS);
+        return (array) $this->_redis->sMembers($this->_setTags);
     }
 
     /**
@@ -742,9 +759,9 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
             Zend_Cache::throwException("notMatchingTags is currently disabled.");
         }
         if ($tags) {
-            return (array) $this->_redis->sDiff( self::SET_IDS, $this->_preprocessTagIds($tags) );
+            return (array) $this->_redis->sDiff( $this->_setIds, $this->_preprocessTagIds($tags) );
         }
-        return (array) $this->_redis->sMembers( self::SET_IDS );
+        return (array) $this->_redis->sMembers( $this->_setIds );
     }
 
     /**
@@ -796,12 +813,12 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
      */
     public function getMetadatas($id)
     {
-        list($tags, $mtime, $inf) = $this->_redis->hMGet(self::PREFIX_KEY.$id, array(self::FIELD_TAGS, self::FIELD_MTIME, self::FIELD_INF));
+        list($tags, $mtime, $inf) = $this->_redis->hMGet($this->_prefixKey.$id, array(self::FIELD_TAGS, self::FIELD_MTIME, self::FIELD_INF));
         if( ! $mtime) {
           return FALSE;
         }
         $tags = explode(',', $this->_decodeData($tags));
-        $expire = $inf === '1' ? FALSE : time() + $this->_redis->ttl(self::PREFIX_KEY.$id);
+        $expire = $inf === '1' ? FALSE : time() + $this->_redis->ttl($this->_prefixKey.$id);
 
         return array(
             'expire' => $expire,
@@ -819,10 +836,10 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
      */
     public function touch($id, $extraLifetime)
     {
-        list($inf) = $this->_redis->hGet(self::PREFIX_KEY.$id, self::FIELD_INF);
+        list($inf) = $this->_redis->hGet($this->_prefixKey.$id, self::FIELD_INF);
         if ($inf === '0') {
-            $expireAt = time() + $this->_redis->ttl(self::PREFIX_KEY.$id) + $extraLifetime;
-            return (bool) $this->_redis->expireAt(self::PREFIX_KEY.$id, $expireAt);
+            $expireAt = time() + $this->_redis->ttl($this->_prefixKey.$id) + $extraLifetime;
+            return (bool) $this->_redis->expireAt($this->_prefixKey.$id, $expireAt);
         }
         return false;
     }
@@ -910,7 +927,7 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
      */
     protected function _preprocessIds($ids)
     {
-        array_walk($ids, array($this, '_preprocess'), self::PREFIX_KEY);
+        array_walk($ids, array($this, '_preprocess'), $this->_prefixKey);
         return $ids;
     }
 
@@ -920,7 +937,7 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
      */
     protected function _preprocessTagIds($tags)
     {
-        array_walk($tags, array($this, '_preprocess'), self::PREFIX_TAG_IDS);
+        array_walk($tags, array($this, '_preprocess'), $this->_prefixTagIds);
         return $tags;
     }
 
@@ -932,7 +949,7 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
      */
     public function ___expire($id)
     {
-        $this->_redis->del(self::PREFIX_KEY.$id);
+        $this->_redis->del($this->_prefixKey.$id);
     }
 
 }
