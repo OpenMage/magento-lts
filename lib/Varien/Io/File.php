@@ -486,8 +486,17 @@ class Varien_Io_File extends Varien_Io_Abstract
      */
     protected function _IsValidSource($src)
     {
-        //Treat string that contains a null byte as invalid
-        if ((is_string($src) && strpos($src, chr(0)) === false) || is_resource($src)) {
+        // In case of a string
+        if (is_string($src)) {
+            // If its a file we check for null byte
+            // If it's not a valid path, file_exists() will return a falsey value, and the @ will keep it from complaining about the bad string.
+            if (@file_exists($src)
+                && strpos($src, chr(0)) !== false) {
+                return false;
+            } else {
+                return true;
+            }
+        } elseif (is_resource($src)) {
             return true;
         }
 
@@ -533,7 +542,7 @@ class Varien_Io_File extends Varien_Io_Abstract
     protected function _checkSrcIsFile($src)
     {
         $result = false;
-        if (is_string($src) && is_readable($src) && is_file($src)) {
+        if (is_string($src) && @is_readable($src) && is_file($src)) {
             $result = true;
         }
 
