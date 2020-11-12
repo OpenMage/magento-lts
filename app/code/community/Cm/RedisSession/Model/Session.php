@@ -124,7 +124,12 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
         $this->_compressionThreshold =  ((int) $config->descend('compression_threshold') ?: self::DEFAULT_COMPRESSION_THRESHOLD);
         $this->_compressionLib =     ((string) $config->descend('compression_lib') ?: self::DEFAULT_COMPRESSION_LIB);
         $this->_maxConcurrency =        ((int) $config->descend('max_concurrency') ?: self::DEFAULT_MAX_CONCURRENCY);
-        $this->_breakAfter =          ((float) $config->descend('break_after_'.session_name()) ?: self::DEFAULT_BREAK_AFTER);
+       
+        $isAdmin = strpos(Mage::app()->getRequest()->getRequestUri(),(string)Mage::getConfig()
+                    ->getNode(Mage_Adminhtml_Helper_Data::XML_PATH_ADMINHTML_ROUTER_FRONTNAME)) !== false;
+        $currentArea = $isAdmin ? 'adminhtml' : 'frontend';
+        $this->_breakAfter =          ((float) $config->descend('break_after_'.$currentArea) ?: self::DEFAULT_BREAK_AFTER);
+       
         $this->_maxLifetime =           ((int) $config->descend('max_lifetime') ?: self::DEFAULT_MAX_LIFETIME);
         $this->_minLifetime =           ((int) $config->descend('min_lifetime') ?: self::DEFAULT_MIN_LIFETIME);
         $this->_useLocking = defined('CM_REDISSESSION_LOCKING_ENABLED')
