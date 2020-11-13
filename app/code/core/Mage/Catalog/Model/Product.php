@@ -588,7 +588,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     {
         if (is_string($ids) === true) {
             $ids = explode(',', $ids);
-            $ids = array_map('trim', $ids);
+            $ids = array_map('intval', $ids);
         } elseif (is_int($ids) === true) {
             $ids = (array) $ids;
         } elseif (is_array($ids) === false) {
