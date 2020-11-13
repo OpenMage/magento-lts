@@ -581,23 +581,21 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Set assigned category IDs array to product
      *
-     * @param array|string $ids
+     * @param array|int|string $ids
      * @return $this
      */
     public function setCategoryIds($ids)
     {
-        if (is_string($ids)) {
+        if (is_string($ids) === true) {
             $ids = explode(',', $ids);
-        } elseif (!is_array($ids)) {
+            $ids = array_map('trim', $ids);
+        } elseif (is_int($ids) === true) {
+            $ids = (array) $ids;
+        } elseif (is_array($ids) === false) {
             Mage::throwException(Mage::helper('catalog')->__('Invalid category IDs.'));
         }
-        foreach ($ids as $i => $v) {
-            if (empty($v)) {
-                unset($ids[$i]);
-            }
-        }
 
-        $this->setData('category_ids', $ids);
+        $this->setData('category_ids', array_filter($ids));
         return $this;
     }
 
