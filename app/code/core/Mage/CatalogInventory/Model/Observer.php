@@ -121,6 +121,14 @@ class Mage_CatalogInventory_Model_Observer
         } else {
             Mage::getModel('cataloginventory/stock_status')->addStockStatusToProducts($productCollection);
         }
+
+        // Stock items don't have any real changes (yet), unset the flag!
+        foreach($productCollection as $product){
+            $stockItem = $product->getStockItem();
+            /* @var $stockItem Mage_CatalogInventory_Model_Stock_Item */
+            $stockItem->setDataChanges(false);
+        }
+        
         return $this;
     }
 
