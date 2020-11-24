@@ -25,7 +25,7 @@
  */
 
 // Change current directory to the directory of current script
-chdir(dirname(__FILE__));
+chdir(__DIR__);
 
 require 'app/bootstrap.php';
 require 'app/Mage.php';
@@ -50,23 +50,24 @@ try {
 umask(0);
 
 $disabledFuncs = array_map('trim', explode(',', strtolower(ini_get('disable_functions'))));
-$isShellDisabled = is_array($disabledFuncs) ? in_array('shell_exec', $disabledFuncs) : true;
+$isShellDisabled = is_array($disabledFuncs) ? in_array('shell_exec', $disabledFuncs, true) : true;
 $isShellDisabled = (stripos(PHP_OS, 'win') === false) ? $isShellDisabled : true;
+$cronMode = 'default';
 
 try {
     if (stripos(PHP_OS, 'win') === false) {
         $options = getopt('m::');
         if (isset($options['m'])) {
-            if ($options['m'] == 'always') {
+            if ($options['m'] === 'always') {
                 $cronMode = 'always';
-            } elseif ($options['m'] == 'default') {
+            } elseif ($options['m'] === 'default') {
                 $cronMode = 'default';
             } else {
                 Mage::throwException('Unrecognized cron mode was defined');
             }
         } else if (!$isShellDisabled) {
             $fileName = escapeshellarg(basename(__FILE__));
-            $cronPath = escapeshellarg(dirname(__FILE__) . '/cron.sh');
+            $cronPath = escapeshellarg(__DIR__ . '/cron.sh');
 
             shell_exec(escapeshellcmd("/bin/sh $cronPath $fileName -mdefault 1") . " > /dev/null 2>&1 &");
             shell_exec(escapeshellcmd("/bin/sh $cronPath $fileName -malways 1") . " > /dev/null 2>&1 &");
@@ -85,4 +86,8 @@ try {
 } catch (Exception $e) {
     Mage::printException($e);
     exit(1);
+} catch (Throwable $e) {
+    Mage::printException($e);
+    // Re-throwing the error as this is what Magento originally did. In time, we may want to change this if backward compatibility is less important.
+    throw $e;
 }
