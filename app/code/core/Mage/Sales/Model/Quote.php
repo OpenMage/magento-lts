@@ -2037,7 +2037,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     {
         // collect totals and save me, if required
         if (1 == $this->getData('trigger_recollect')) {
-            $this->setData('trigger_recollect', 0)->save();
+            $this->setTriggerRecollect(0)->getResource()->save($this);
             $this->collectTotals()->save();
         }
         return parent::_afterLoad();
