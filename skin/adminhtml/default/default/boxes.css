@@ -333,7 +333,7 @@ table.form-edit                         { width:100%; }
 .entry-edit .entry-edit-head a          { color:#fff; font-size:1em; line-height:18px; min-height:0; font-weight:bold}
 .entry-edit .content                    { margin-left:0 !important; padding:10px 15px; }
 .entry-edit fieldset li,
-.entry-edit .fieldset li                { margin:4px 0; }
+.entry-edit .fieldset li                { margin:4px 0; word-break: break-all; }
 .entry-edit fieldset span.form_row,
 .entry-edit .fieldset span.form_row,
 .entry-edit fieldset .field-row .hint,
