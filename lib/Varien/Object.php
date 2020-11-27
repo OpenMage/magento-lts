@@ -47,13 +47,6 @@ class Varien_Object implements ArrayAccess
     protected $_hasDataChanges = false;
 
     /**
-    * Original data that was loaded
-    *
-    * @var array
-    */
-    protected $_origData;
-
-    /**
      * Name of object id field
      *
      * @var string
@@ -747,50 +740,6 @@ class Varien_Object implements ArrayAccess
         }
         $res = implode($fieldSeparator, $data);
         return $res;
-    }
-
-    /**
-     * Get object loaded data (original data)
-     *
-     * @param string $key
-     * @return mixed
-     */
-    public function getOrigData($key=null)
-    {
-        if (is_null($key)) {
-            return $this->_origData;
-        }
-        return isset($this->_origData[$key]) ? $this->_origData[$key] : null;
-    }
-
-    /**
-     * Initialize object original data
-     *
-     * @param string $key
-     * @param mixed $data
-     * @return $this
-     */
-    public function setOrigData($key=null, $data=null)
-    {
-        if (is_null($key)) {
-            $this->_origData = $this->_data;
-        } else {
-            $this->_origData[$key] = $data;
-        }
-        return $this;
-    }
-
-    /**
-     * Compare object data with original data
-     *
-     * @param string $field
-     * @return boolean
-     */
-    public function dataHasChangedFor($field)
-    {
-        $newData = $this->getData($field);
-        $origData = $this->getOrigData($field);
-        return $newData!=$origData;
     }
 
     /**
