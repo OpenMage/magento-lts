@@ -140,7 +140,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
     protected function _getRules()
     {
         $key = $this->getWebsiteId() . '_' . $this->getCustomerGroupId() . '_' . $this->getCouponCode();
-        return $this->_rules[$key];
+        return isset($this->_rules[$key]) ? $this->_rules[$key] :  null;
     }
 
     /**
