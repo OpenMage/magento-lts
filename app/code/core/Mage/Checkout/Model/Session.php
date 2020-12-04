@@ -323,9 +323,13 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
     }
 
     /**
-     * @param array $step
-     * @param array $data
-     * @param string $value
+     * Set step data for given checkout step (e.g. "billing").
+     * By providing the two parameters data and value, the data will be added to existing step data.
+     * By providing an associative array [data => value, ...] the existing step data will be replaced.
+     * 
+     * @param string $step
+     * @param array|string $data
+     * @param mixed|null $value
      * @return $this
      */
     public function setStepData($step, $data, $value = null)
@@ -349,9 +353,12 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
     }
 
     /**
-     * @param array $step
-     * @param array $data
-     * @return array|false
+     * Returns existing step data for all steps ($step = null) or the provided checkout step.
+     * By providing $data only this data of the given step will be returned, or false if not set.
+     *
+     * @param string|null $step
+     * @param string|null $data
+     * @return array|mixed|false
      */
     public function getStepData($step = null, $data = null)
     {
