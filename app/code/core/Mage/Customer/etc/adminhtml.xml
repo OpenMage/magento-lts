@@ -33,7 +33,7 @@
             <!-- action>adminhtml/customer/</action -->
             <children>
                 <manage translate="title" module="customer">
-                    <title>Manage Customers</title>
+                    <title>Customers</title>
                     <action>adminhtml/customer/</action>
                     <sort_order>0</sort_order>
                 </manage>

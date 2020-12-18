@@ -30,7 +30,7 @@
         <system>
             <children>
                 <currency translate="title" module="currencysymbol">
-                    <title>Manage Currency</title>
+                    <title>Currency</title>
                     <children>
                         <rates translate="title">
                             <title>Rates</title>

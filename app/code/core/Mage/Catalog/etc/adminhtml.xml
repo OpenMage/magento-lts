@@ -36,12 +36,12 @@
             </depends>
             <children>
                 <products translate="title" module="catalog">
-                    <title>Manage Products</title>
+                    <title>Products</title>
                     <action>adminhtml/catalog_product/</action>
                     <sort_order>0</sort_order>
                 </products>
                 <categories translate="title" module="catalog">
-                    <title>Manage Categories</title>
+                    <title>Categories</title>
                     <action>adminhtml/catalog_category/</action>
                     <sort_order>10</sort_order>
                 </categories>
@@ -49,11 +49,11 @@
                     <title>Attributes</title>
                     <children>
                         <attributes translate="title" module="catalog">
-                            <title>Manage Attributes</title>
+                            <title>Attributes</title>
                             <action>adminhtml/catalog_product_attribute/</action>
                         </attributes>
                         <sets translate="title" module="catalog">
-                            <title>Manage Attribute Sets</title>
+                            <title>Attribute Sets</title>
                             <action>adminhtml/catalog_product_set/</action>
                         </sets>
                     </children>

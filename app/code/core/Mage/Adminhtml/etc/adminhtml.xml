@@ -68,7 +68,7 @@
                     </children>
                 </convert>
                 <currency translate="title">
-                    <title>Manage Currency Rates</title>
+                    <title>Currency Rates</title>
                     <action>adminhtml/system_currency</action>
                     <sort_order>50</sort_order>
                 </currency>
@@ -110,7 +110,7 @@
                     <sort_order>90</sort_order>
                 </cache>
                 <store translate="title" module="core">
-                    <title>Manage Stores</title>
+                    <title>Stores</title>
                     <action>adminhtml/system_store/</action>
                     <sort_order>100</sort_order>
                 </store>
