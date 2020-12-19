@@ -38,7 +38,28 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
      *
      * @var array
      */
-    protected $_tabs = array();
+    protected $_tabs = [];
+
+    /**
+     * For sorting tabs.
+     * 
+     * @var array
+     */
+    protected $_afterTabIds = [];
+
+    /**
+     * For sorting tabs.
+     * 
+     * @var array
+     */
+    protected $_tabPositions = [];
+
+    /**
+     * For sorting tabs.
+     * 
+     * @var int
+     */
+    protected $_tabPosition = 100;
 
     /**
      * Active tab key
@@ -79,21 +100,21 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
      * Add new tab after another
      *
      * @param   string $tabId new tab Id
-     * @param   array|Varien_Object $tab
+     * @param   string|array|Varien_Object $tab
      * @param   string $afterTabId
      * @return  Mage_Adminhtml_Block_Widget_Tabs
      */
     public function addTabAfter($tabId, $tab, $afterTabId)
     {
         $this->addTab($tabId, $tab);
-        $this->_tabs[$tabId]->setAfter($afterTabId);
+        $this->_afterTabIds[$tabId] = $afterTabId;
     }
 
     /**
      * Add new tab
      *
      * @param   string $tabId
-     * @param   array|Varien_Object $tab
+     * @param   string|array|Varien_Object $tab
      * @return  Mage_Adminhtml_Block_Widget_Tabs
      */
     public function addTab($tabId, $tab)
@@ -141,6 +162,13 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
             $this->setActiveTab($tabId);
         }
 
+        // For sorting tabs.
+        $this->_tabPositions[$tabId] = $this->_tabPosition;
+        $this->_tabPosition += 100;
+        if ($this->_tabs[$tabId]->getAfter()) {
+            $this->_afterTabIds[$tabId] = $this->_tabs[$tabId]->getAfter();
+        }
+
         return $this;
     }
 
@@ -161,11 +189,6 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
         if (isset($this->_tabs[$tabId]) && $this->canShowTab($this->_tabs[$tabId])
             && !$this->getTabIsHidden($this->_tabs[$tabId])) {
             $this->_activeTab = $tabId;
-            if (!(is_null($this->_activeTab)) && ($tabId !== $this->_activeTab)) {
-                foreach ($this->_tabs as $id => $tab) {
-                    $tab->setActive($id === $tabId);
-                }
-            }
         }
         return $this;
     }
@@ -178,20 +201,12 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
      */
     protected function _setActiveTab($tabId)
     {
-        foreach ($this->_tabs as $id => $tab) {
-            if ($this->getTabId($tab) == $tabId) {
-                $this->_activeTab = $id;
-                $tab->setActive(true);
-                return $this;
-            }
-        }
+        $this->_activeTab = $tabId;
         return $this;
     }
 
     protected function _beforeToHtml()
     {
-        $this->_tabs = $this->_reorderTabs();
-
         if ($activeTab = $this->getRequest()->getParam('active_tab')) {
             $this->setActiveTab($activeTab);
         } elseif ($activeTabId = Mage::getSingleton('admin/session')->getActiveTabId()) {
@@ -202,88 +217,35 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
             $this->_activeTab = (reset($this->_tabs))->getId();
         }
 
+        if (!empty($this->_afterTabIds)) {
+            $this->_tabs = $this->_reorderTabs();
+        }
+
         $this->assign('tabs', $this->_tabs);
         return parent::_beforeToHtml();
     }
     
-    /**
-     * Reorder the tabs.
-     *
-     * @return array
-     */
-    private function _reorderTabs()
-    {
-        $orderByIdentity = [];
-        $orderByPosition = [];
-        $position        = 100;
-    
-        /**
-         * Set the initial positions for each tab.
-         *
-         * @var string       $key
-         * @var TabInterface $tab
-         */
-        foreach ($this->_tabs as $key => $tab) {
-            $tab->setPosition($position);
-    
-            $orderByIdentity[$key]      = $tab;
-            $orderByPosition[$position] = $tab;
-            
-            $position += 100;
-        }
-
-        return $this->_applyTabsCorrectOrder($orderByPosition, $orderByIdentity);
-    }
-
-    /**
-     * @param array $orderByPosition
-     * @param array $orderByIdentity
-     * @return array
-     */
-    private function _applyTabsCorrectOrder(array $orderByPosition, array $orderByIdentity)
+    protected function _reorderTabs()
     {
         $positionFactor = 1;
 
-        /**
-         * Rearrange the positions by using the after tag for each tab.
-         *
-         * @var integer $position
-         * @var Varien_Object $tab
-         */
-        foreach ($orderByPosition as $position => $tab) {
-            if (!$tab->getAfter() || !array_key_exists($tab->getAfter(), $orderByIdentity)) {
-                $positionFactor = 1;
-                continue;
+        // Set new position based on $afterTabId.
+        foreach ($this->_afterTabIds as $tabId => $afterTabId) {
+            if (array_key_exists($afterTabId, $this->_tabs)) {
+                $this->_tabPositions[$tabId] = $this->_tabPositions[$afterTabId] + $positionFactor;;
+                $positionFactor++;
             }
-
-            $grandPosition = $orderByIdentity[$tab->getAfter()]->getPosition();
-            $newPosition   = $grandPosition + $positionFactor;
-
-            unset($orderByPosition[$position]);
-            $orderByPosition[$newPosition] = $tab;
-            $tab->setPosition($newPosition);
-
-            $positionFactor++;
         }
 
-        return $this->_finalTabsSortOrder($orderByPosition);
-    }
-
-    /**
-     * Apply the last sort order to tabs.
-     *
-     * @param array $orderByPosition
-     * @return array
-     */
-    private function _finalTabsSortOrder(array $orderByPosition)
-    {
-        ksort($orderByPosition);
+        asort($this->_tabPositions);
 
         $ordered = [];
-
-        /** @var Varien_Object $tab */
-        foreach ($orderByPosition as $tab) {
-            $ordered[$tab->getId()] = $tab;
+        foreach ($this->_tabPositions as $tabId => $position) {
+            if (isset($this->_tabs[$tabId])) {
+                $tab = $this->_tabs[$tabId];
+                $tab->setActive($tab->getTabId() == $this->_activeTab);
+                $ordered[$tabId] = $tab;
+            }
         }
 
         return $ordered;
