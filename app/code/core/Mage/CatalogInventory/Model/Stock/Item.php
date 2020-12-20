@@ -160,6 +160,13 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
      */
     protected $_processIndexEvents = true;
 
+     /**
+     * Whether index events should be logged immediately
+     *
+     * @var bool
+     */
+    protected $_processIndexLogs = true;
+
     /**
      * Initialize resource model
      *
@@ -938,6 +945,18 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Set whether index events should be logged immediately
+     *
+     * @param bool $process
+     * @return $this
+     */
+    public function setProcessIndexLogs($process = true)
+    {
+        $this->_processIndexLogs = $process;
+        return $this;
+    }
+
+    /**
      * Callback function which called after transaction commit in resource model
      *
      * @return $this
@@ -951,7 +970,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
 
         if ($this->_processIndexEvents) {
             $indexer->processEntityAction($this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE);
-        } else {
+        } elseif ($this->_processIndexLogs) {
             $indexer->logEvent($this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE);
         }
         return $this;
