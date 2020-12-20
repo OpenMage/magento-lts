@@ -124,6 +124,7 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
                 /** @var $stockItem Mage_CatalogInventory_Model_Stock_Item */
                 $stockItem = Mage::getModel('cataloginventory/stock_item');
                 $stockItem->setProcessIndexEvents(false);
+                $stockItem->setProcessIndexLogs(false);
                 $stockItemSaved = false;
                 $changedProductIds = array();
 
