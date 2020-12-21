@@ -42,7 +42,7 @@ class Mage_Catalog_Model_Product_Attribute_Source_Countryofmanufacture extends M
     {
         $cacheKey = 'DIRECTORY_COUNTRY_SELECT_STORE_' . Mage::app()->getStore()->getCode();
         if (Mage::app()->useCache('config') && $cache = Mage::app()->loadCache($cacheKey)) {
-            $options = unserialize($cache);
+            $options = unserialize($cache, ['allowed_classes' => false]);
         } else {
             $collection = Mage::getModel('directory/country')->getResourceCollection();
             if (!Mage::app()->getStore()->isAdmin()) {

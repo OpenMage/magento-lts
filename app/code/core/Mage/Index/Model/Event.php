@@ -201,7 +201,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
         }
 
         if (!empty($data['new_data'])) {
-            $previousNewData = unserialize($data['new_data']);
+            $previousNewData = unserialize($data['new_data'], ['allowed_classes' => false]);
             $currentNewData  = $this->getNewData(false);
             $currentNewData = $this->_mergeNewDataRecursive($previousNewData, $currentNewData);
             $this->setNewData(serialize($currentNewData));
@@ -260,7 +260,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     {
         $data = $this->_getData('new_data');
         if (is_string($data)) {
-            $data = unserialize($data);
+            $data = unserialize($data, ['allowed_classes' => false]);
         } elseif (empty($data) || !is_array($data)) {
             $data = array();
         }

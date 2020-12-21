@@ -126,7 +126,7 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_View_Items_Renderer extends Mage_A
             $options = $item->getOrderItem()->getProductOptions();
         }
         if (isset($options['bundle_selection_attributes'])) {
-            return unserialize($options['bundle_selection_attributes']);
+            return unserialize($options['bundle_selection_attributes'], ['allowed_classes' => false]);
         }
         return null;
     }
