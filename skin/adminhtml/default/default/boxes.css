@@ -385,7 +385,6 @@ select.multiselect option       { padding:3px 4px; border-bottom:1px solid #ddd;
 .form-list td.note              { background:url(images/note_cell_bg.gif) 6px 10px no-repeat !important; padding-left:18px; }
 .form-list td.scope-label       { padding-left:5px; color:#6f8992; font-size:.9em; }
 .form-list p.note               { margin:0; padding:0 0 0 13px; background:url(images/note_bg.gif) 1px 6px no-repeat; font-size:11px; }
-.form-list td.value p.note      { width:268px; }
 
 .columns .form-list             { width:auto; }
 .columns .form-list td.value    { width:300px; padding-right:5px !important; }
