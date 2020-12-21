@@ -207,6 +207,8 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
 
     protected function _beforeToHtml()
     {
+        Mage::dispatchEvent('adminhtml_widget_tabs_html_before', array('block' => $this));
+
         if ($activeTab = $this->getRequest()->getParam('active_tab')) {
             $this->setActiveTab($activeTab);
         } elseif ($activeTabId = Mage::getSingleton('admin/session')->getActiveTabId()) {
@@ -224,16 +226,33 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
         $this->assign('tabs', $this->_tabs);
         return parent::_beforeToHtml();
     }
-    
+
+    /**
+     * Find the root parent Tab ID recursively.
+     * 
+     * @param string $currentAfterTabId
+     * @param int $degree Degrees of separation between child and root parent.
+     * @return string The parent tab ID.
+     */
+    protected function _getRootParentTabId($currentAfterTabId, &$degree)
+    {
+        if (array_key_exists($currentAfterTabId, $this->_afterTabIds)) {
+            $degree++;
+            return $this->_getRootParentTabId($this->_afterTabIds[$currentAfterTabId], $degree);
+        } else {
+            return $currentAfterTabId;
+        }
+    }
+
     protected function _reorderTabs()
     {
-        $positionFactor = 1;
-
         // Set new position based on $afterTabId.
         foreach ($this->_afterTabIds as $tabId => $afterTabId) {
             if (array_key_exists($afterTabId, $this->_tabs)) {
-                $this->_tabPositions[$tabId] = $this->_tabPositions[$afterTabId] + $positionFactor;;
-                $positionFactor++;
+                $degree = 1; // Initialize to 1 degree of separation.
+                $parentAfterTabId = $this->_getRootParentTabId($afterTabId, $degree);
+                $this->_tabPositions[$tabId] = $this->_tabPositions[$parentAfterTabId] + $degree;
+                $degree++;
             }
         }
 
@@ -243,7 +262,6 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
         foreach ($this->_tabPositions as $tabId => $position) {
             if (isset($this->_tabs[$tabId])) {
                 $tab = $this->_tabs[$tabId];
-                $tab->setActive($tab->getTabId() == $this->_activeTab);
                 $ordered[$tabId] = $tab;
             }
         }
