@@ -593,9 +593,8 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         } elseif (is_array($ids) === false) {
             Mage::throwException(Mage::helper('catalog')->__('Invalid category IDs.'));
         }
-        
-        $ids = array_map('intval', $ids);
-        $this->setData('category_ids', array_filter($ids));
+        $ids = array_filter(array_map('intval', $ids)));
+        $this->setData('category_ids', $ids);
         return $this;
     }
 
