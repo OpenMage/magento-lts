@@ -1,10 +1,7 @@
 <?php
 namespace PHPSTORM_META {
-    /** @noinspection PhpUnusedLocalVariableInspection */
-    /** @noinspection PhpIllegalArrayKeyTypeInspection */
-    /** @noinspection PhpLanguageLevelInspection */
-    $STATIC_METHOD_TYPES = [
-        \Mage::getBlockSingleton('') => [
+    override( \Mage::getBlockSingleton(0),
+        map( [
             'adminhtml/abstract' instanceof \Mage_Adminhtml_Block_Abstract,
             'adminhtml/api_buttons' instanceof \Mage_Adminhtml_Block_Api_Buttons,
             'adminhtml/api_editroles' instanceof \Mage_Adminhtml_Block_Api_Editroles,

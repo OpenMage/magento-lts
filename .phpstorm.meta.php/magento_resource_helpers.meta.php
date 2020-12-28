@@ -1,10 +1,7 @@
 <?php
 namespace PHPSTORM_META {
-    /** @noinspection PhpUnusedLocalVariableInspection */
-    /** @noinspection PhpIllegalArrayKeyTypeInspection */
-    /** @noinspection PhpLanguageLevelInspection */
-    $STATIC_METHOD_TYPES = [
-        \Mage::getResourceHelper('') => [
+    override( \Mage::getResourceHelper(0),
+        map( [
             'catalogsearch' instanceof \Mage_CatalogSearch_Model_Resource_Helper_Mysql4,
             'catalog' instanceof \Mage_Catalog_Model_Resource_Helper_Mysql4,
             'core' instanceof \Mage_Core_Model_Resource_Helper_Mysql4,

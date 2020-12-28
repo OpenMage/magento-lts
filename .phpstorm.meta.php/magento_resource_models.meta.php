@@ -1,10 +1,7 @@
 <?php
 namespace PHPSTORM_META {
-    /** @noinspection PhpUnusedLocalVariableInspection */
-    /** @noinspection PhpIllegalArrayKeyTypeInspection */
-    /** @noinspection PhpLanguageLevelInspection */
-    $STATIC_METHOD_TYPES = [
-        \Mage::getResourceModel('') => [
+    override( \Mage::getResourceModel(0),
+        map( [
             'adminnotification/inbox' instanceof \Mage_AdminNotification_Model_Resource_Inbox,
             'adminnotification/inbox_collection' instanceof \Mage_AdminNotification_Model_Resource_Inbox_Collection,
             'admin/acl' instanceof \Mage_Admin_Model_Resource_Acl,

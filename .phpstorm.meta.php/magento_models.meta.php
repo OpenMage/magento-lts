@@ -1,10 +1,7 @@
 <?php
 namespace PHPSTORM_META {
-    /** @noinspection PhpUnusedLocalVariableInspection */
-    /** @noinspection PhpIllegalArrayKeyTypeInspection */
-    /** @noinspection PhpLanguageLevelInspection */
-    $STATIC_METHOD_TYPES = [
-        \Mage::getModel('') => [
+    override( \Mage::getModel(0),
+        map( [
             'adminnotification/feed' instanceof \Mage_AdminNotification_Model_Feed,
             'adminnotification/inbox' instanceof \Mage_AdminNotification_Model_Inbox,
             'adminnotification/mysql4_inbox' instanceof \Mage_AdminNotification_Model_Mysql4_Inbox,

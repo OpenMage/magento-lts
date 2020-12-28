@@ -1,10 +1,7 @@
 <?php
 namespace PHPSTORM_META {
-    /** @noinspection PhpUnusedLocalVariableInspection */
-    /** @noinspection PhpIllegalArrayKeyTypeInspection */
-    /** @noinspection PhpLanguageLevelInspection */
-    $STATIC_METHOD_TYPES = [
-        \Mage::helper('') => [
+    override( \Mage::helper(0),
+        map( [
             'adminnotification' instanceof \Mage_AdminNotification_Helper_Data,
             'adminnotification/data' instanceof \Mage_AdminNotification_Helper_Data,
             'admin/block' instanceof \Mage_Admin_Helper_Block,
