@@ -548,7 +548,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
         $attributes = array();
         Varien_Profiler::start('CONFIGURABLE:'.__METHOD__);
         if ($attributesOption = $this->getProduct($product)->getCustomOption('attributes')) {
-            $data = unserialize($attributesOption->getValue());
+            $data = unserialize($attributesOption->getValue(), ['allowed_classes' => false]);
             $this->getUsedProductAttributeIds($product);
 
             $usedAttributes = $this->getProduct($product)->getData($this->_usedAttributes);
@@ -681,7 +681,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
         $product = $this->getProduct($product);
         $option = $product->getCustomOption('info_buyRequest');
         if ($option instanceof Mage_Sales_Model_Quote_Item_Option) {
-            $buyRequest = new Varien_Object(unserialize($option->getValue()));
+            $buyRequest = new Varien_Object(unserialize($option->getValue(), ['allowed_classes' => false]));
             $attributes = $buyRequest->getSuperAttribute();
             if (is_array($attributes)) {
                 foreach ($attributes as $key => $val) {

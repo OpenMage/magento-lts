@@ -1,7 +1,11 @@
 
 
 
-## v20.0.5 - unreleased
+## v20.0.6 - unreleased
+
+## v20.0.5 - 2020-12-29
+
+merged changes from v19.4.9
 
 
 ## v20.0.4 - 2020-10-20

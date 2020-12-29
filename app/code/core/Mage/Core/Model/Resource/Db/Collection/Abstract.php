@@ -547,9 +547,9 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     /**
      * Join table to collection select
      *
-     * @param string $table
-     * @param string $cond
-     * @param string $cols
+     * @param  array|string|Zend_Db_Expr $table Table name
+     * @param  string $cond Join on this condition
+     * @param  array|string $cols The columns to select from the joined table
      * @return $this
      */
     public function join($table, $cond, $cols = '*')

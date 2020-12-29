@@ -209,7 +209,7 @@ class Zend_Service_WindowsAzure_Diagnostics_Manager
 	 * @param Zend_Service_WindowsAzure_Diagnostics_ConfigurationInstance $configuration Configuration to apply
 	 * @throws Zend_Service_WindowsAzure_Diagnostics_Exception
 	 */
-	public function setConfigurationForRoleInstance($roleInstance = null, Zend_Service_WindowsAzure_Diagnostics_ConfigurationInstance $configuration)
+	public function setConfigurationForRoleInstance($roleInstance, Zend_Service_WindowsAzure_Diagnostics_ConfigurationInstance $configuration)
 	{
 		if (is_null($roleInstance)) {
 			#require_once 'Zend/Service/WindowsAzure/Diagnostics/Exception.php';

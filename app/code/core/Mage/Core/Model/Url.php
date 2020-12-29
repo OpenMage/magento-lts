@@ -413,7 +413,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Set Route Parameters
      *
-     * @param array $data
+     * @param array|string $data
      * @return $this
      */
     public function setRoutePath($data)
@@ -1008,7 +1008,7 @@ class Mage_Core_Model_Url extends Varien_Object
             if (is_string($query)) {
                 $this->setQuery($query);
             } elseif (is_array($query)) {
-                $this->setQueryParams($query, !empty($routeParams['_current']));
+                $this->setQueryParams($query);
             }
             if ($query === false) {
                 $this->setQueryParams(array());

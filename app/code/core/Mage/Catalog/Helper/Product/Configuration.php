@@ -85,7 +85,7 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
 
         $addOptions = $item->getOptionByCode('additional_options');
         if ($addOptions) {
-            $options = array_merge($options, unserialize($addOptions->getValue()));
+            $options = array_merge($options, unserialize($addOptions->getValue(), ['allowed_classes' => false]));
         }
 
         return $options;
