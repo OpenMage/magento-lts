@@ -1,6 +1,38 @@
 
 
-## v19.4.9 - unreleased
+## v19.4.10 - unreleased
+
+## v19.4.9 - 2020-12-29
+
+increase composer.json php version range to include 8.0
+#1349 Fixed Zend Lib Deprecated Notice PHP8
+#1213 Fix strpos with non-string needle
+add UnitTests to Github Actions
+#1348 Fixed Zend Lib Tool Deprecated Notice
+#1347 Fixed Zend Lib Amf Deprecated Notice
+#1340 Fixed Zend Lib Barcode Deprecated
+#1346 Fixed Zend Lib Validate Deprecated Notice
+#1256 Fix libxml_disable_entity_loader for PHP 8
+#1251 Disable class unserialization where it is not needed.
+#1350 Trim values from XML so auto-formatting our XML does not break the autoloader.
+#1345 Fixed Zend Lib Wildfire Deprecated Notice
+#1344 Fixed Zend Lib View Deprecated Notice
+#1343 Fixed Zend Lib JSON Deprecated Notice
+#1342 Fixed Zend Lib Filter Deprecated Notice
+#1341 fix "Cannot unset $this" error
+#1261 getAttributeRawValue() move operations with store to if statement
+#1274 Removed unused fetchAll in addRatingInfo()
+#1278 Handled the case where the coupon no longer exists
+#1328 Fix phpDoc for set/getStepData in Checkout
+#1323 Improve PHPDoc
+#1319 Fix for currency symbol not saved with fatal PHP error #1318
+#1297 Update SECURITY.md
+allow version 4 of hackathon composer installer
+#1292 Support the logging of Throwables
+#1285 Mage core model url - method call is provided 2 parameters, but the method signature uses 1 parameters
+#1161 cleanup: Remove some files left in previous PRs
+#1207 bugfix: don't cast min_sale_qty to int as it can be a decimal
+#1279 Remove php short open tag
 
 
 ## v19.4.8 - 2020-10-20
