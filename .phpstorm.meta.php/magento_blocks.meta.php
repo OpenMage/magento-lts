@@ -772,7 +772,6 @@ namespace PHPSTORM_META {
             'adminhtml/widget_grid_column_renderer_options' => \Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Options::class,
             'adminhtml/widget_grid_column_renderer_price' => \Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Price::class,
             'adminhtml/widget_grid_column_renderer_radio' => \Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Radio::class,
-            'adminhtml/widget_grid_column_renderer_ragioneSociale' => \Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_RagioneSociale::class,
             'adminhtml/widget_grid_column_renderer_select' => \Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Select::class,
             'adminhtml/widget_grid_column_renderer_store' => \Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Store::class,
             'adminhtml/widget_grid_column_renderer_text' => \Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Text::class,
