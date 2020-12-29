@@ -536,6 +536,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
                 $params = $args;
             }
 
+            Mage::helper('core/security')->validateAgainstBlockMethodBlacklist($child, $callback, $params);
             if ($result == call_user_func_array(array(&$child, $callback), $params)) {
                 $this->unsetChild($alias);
             }
