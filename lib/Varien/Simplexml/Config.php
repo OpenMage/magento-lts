@@ -495,7 +495,12 @@ class Varien_Simplexml_Config
 
         $fileData = file_get_contents($filePath);
         $fileData = $this->processFileData($fileData);
-        return $this->loadString($fileData, $this->_elementClass);
+        $success = $this->loadString($fileData, $this-_elementClass);
+
+        if($success === false){
+            Mage::throwException('Cannot parse XML file at '.$filePath);
+        }
+        return $success;
     }
 
     /**
@@ -507,14 +512,14 @@ class Varien_Simplexml_Config
     public function loadString($string)
     {
         if (is_string($string)) {
-            $xml = simplexml_load_string($string, $this->_elementClass);
+            $xml = @simplexml_load_string($string, $this->_elementClass);
 
             if ($xml instanceof Varien_Simplexml_Element) {
                 $this->_xml = $xml;
                 return true;
             }
         } else {
-            Mage::logException(new Exception('"$string" parameter for simplexml_load_string is not a string'));
+            Mage::logException(new InvalidArgumentException('"$string" parameter for simplexml_load_string is not a string'));
         }
         return false;
     }
