@@ -201,7 +201,13 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
      */
     protected function _setActiveTab($tabId)
     {
-        $this->_activeTab = $tabId;
+        foreach ($this->_tabs as $id => $tab) {
+            if ($this->getTabId($tab) == $tabId) {
+                $this->_activeTab = $id;
+                $tab->setActive(true);
+                return $this;
+            }
+        }
         return $this;
     }
 
