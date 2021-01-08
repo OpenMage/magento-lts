@@ -54,7 +54,9 @@ ProductConfigure.prototype = {
      * Initialize object
      */
     initialize: function() {
-        this._initWindowElements();
+        if ($("product_composite_configure")) {
+            this._initWindowElements();
+        }
     },
 
     /**
