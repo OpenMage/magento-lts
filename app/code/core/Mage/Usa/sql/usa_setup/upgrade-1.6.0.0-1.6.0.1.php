@@ -82,7 +82,6 @@ $select = $conn->select()
         );
 $mapsOld = $conn->fetchAll($select);
 foreach ($mapsOld as $mapOld) {
-    $mapNew = '';
     if (stripos($mapOld['path'], 'packaging') && isset($codes['packaging'][$mapOld['value']])) {
         $mapNew = $codes['packaging'][$mapOld['value']];
     } else if (stripos($mapOld['path'], 'dropoff') && isset($codes['dropoff'][$mapOld['value']])) {
@@ -90,6 +89,7 @@ foreach ($mapsOld as $mapOld) {
     } else if (stripos($mapOld['path'], 'free_method') && isset($codes['method'][$mapOld['value']])) {
         $mapNew = $codes['method'][$mapOld['value']];
     } else if (stripos($mapOld['path'], 'allowed_methods')) {
+        $mapNew = array();
         foreach (explode(',', $mapOld['value']) as $shippingMethod) {
             if (isset($codes['method'][$shippingMethod])) {
                 $mapNew[] = $codes['method'][$shippingMethod];
