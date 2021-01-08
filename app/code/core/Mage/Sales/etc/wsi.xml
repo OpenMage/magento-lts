@@ -881,6 +881,7 @@
                         <xsd:element minOccurs="1" maxOccurs="1" name="carrier" type="xsd:string" />
                         <xsd:element minOccurs="1" maxOccurs="1" name="title" type="xsd:string" />
                         <xsd:element minOccurs="1" maxOccurs="1" name="trackNumber" type="xsd:string" />
+                        <xsd:element minOccurs="0" maxOccurs="1" name="weight" type="xsd:double" />
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
