@@ -691,22 +691,6 @@ Calendar.cellClick = function(el, ev) {
             date.setMonth(m);
         };
         switch (el.navtype) {
-            case 400:
-            Calendar.removeClass(el, "hilite");
-            var text = Calendar._TT["ABOUT"];
-            if (typeof text != "undefined") {
-                text += cal.showsTime ? Calendar._TT["ABOUT_TIME"] : "";
-            } else {
-                // FIXME: this should be removed as soon as lang files get updated!
-                text = "Help and about box text is not translated into this language.\n" +
-                    "If you know this language and you feel generous please update\n" +
-                    "the corresponding file in \"lang\" subdir to match calendar-en.js\n" +
-                    "and send it back to <mihai_bazon@yahoo.com> to get it into the distribution  ;-)\n\n" +
-                    "Thank you!\n" +
-                    "http://dynarch.com/mishoo/calendar.epl\n";
-            }
-            alert(text);
-            return;
             case -2:
             if (year > cal.minYear) {
                 date.setFullYear(year - 1);
@@ -836,7 +820,7 @@ Calendar.prototype.create = function (_par) {
     (this.isPopup) && --title_length;
     (this.weekNumbers) && ++title_length;
 
-    hh("?", 1, 400).ttip = Calendar._TT["INFO"];
+    Calendar.createElement("td", row); // empty cell
     this.title = hh("", title_length, 300);
     this.title.className = "title";
     if (this.isPopup) {
