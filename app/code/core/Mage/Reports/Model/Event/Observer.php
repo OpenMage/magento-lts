@@ -250,7 +250,6 @@ class Mage_Reports_Model_Event_Observer
      *
      * @param Varien_Event_Observer $observer
      * @return $this
-     * @see Mage_XmlConnect_WishlistController::addAction()
      */
     public function wishlistAddProduct(Varien_Event_Observer $observer)
     {
