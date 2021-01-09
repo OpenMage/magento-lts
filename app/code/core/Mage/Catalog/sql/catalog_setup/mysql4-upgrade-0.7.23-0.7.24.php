@@ -25,6 +25,6 @@
  */
 
 $installer = $this;
-/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
+/* @var Mage_Catalog_Model_Resource_Setup $installer */
 
 $installer->run("UPDATE `{$this->getTable('catalog_category_entity')}` SET `position` = `entity_id` WHERE `position` = 0;");

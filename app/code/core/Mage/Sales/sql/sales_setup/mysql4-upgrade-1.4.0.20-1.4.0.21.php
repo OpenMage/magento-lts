@@ -29,9 +29,9 @@ $installer = $this;
 
 // Setup data to configure
 $frequencies = array(
-    Mage_Sales_Model_Mysql4_Report_Bestsellers::AGGREGATION_DAILY,
-    Mage_Sales_Model_Mysql4_Report_Bestsellers::AGGREGATION_MONTHLY,
-    Mage_Sales_Model_Mysql4_Report_Bestsellers::AGGREGATION_YEARLY
+    Mage_Sales_Model_Resource_Report_Bestsellers::AGGREGATION_DAILY,
+    Mage_Sales_Model_Resource_Report_Bestsellers::AGGREGATION_MONTHLY,
+    Mage_Sales_Model_Resource_Report_Bestsellers::AGGREGATION_YEARLY
 );
 
 $foreignKeys = array(

@@ -31,7 +31,7 @@
  * @package     Mage_ImportExport
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_ImportExport_Model_Import_Proxy_Product_Resource extends Mage_Catalog_Model_Resource_Eav_Mysql4_Product
+class Mage_ImportExport_Model_Import_Proxy_Product_Resource extends Mage_Catalog_Model_Resource_Product
 {
     /**
      * Product to category table.

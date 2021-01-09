@@ -57,14 +57,14 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
     /**
      * Related orders collection
      *
-     * @var Mage_Sales_Model_Mysql4_Order_Collection
+     * @var Mage_Sales_Model_Resource_Order_Collection
      */
     protected $_relatedOrders = null;
 
     /**
      * Retrieve related orders collection
      *
-     * @return Mage_Sales_Model_Mysql4_Order_Collection
+     * @return Mage_Sales_Model_Resource_Order_Collection
      */
     public function getRelatedOrders()
     {

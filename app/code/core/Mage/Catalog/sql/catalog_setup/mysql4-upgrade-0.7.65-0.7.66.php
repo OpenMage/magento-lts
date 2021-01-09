@@ -26,7 +26,7 @@
 
 
 $installer = $this;
-/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
+/* @var Mage_Catalog_Model_Resource_Setup $installer */
 
 Mage::getModel('catalog/product_flat_flag')
     ->loadSelf()

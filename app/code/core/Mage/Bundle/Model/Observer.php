@@ -89,7 +89,7 @@ class Mage_Bundle_Model_Observer
             return $this;
         }
 
-        /* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection $collection */
+        /* @var Mage_Catalog_Model_Resource_Product_Link_Product_Collection $collection */
         $collection = $observer->getEvent()->getCollection();
         $limit      = $observer->getEvent()->getLimit();
         if (is_array($limit)) {
@@ -100,7 +100,7 @@ class Mage_Bundle_Model_Observer
             }
         }
 
-        /* @var Mage_Bundle_Model_Mysql4_Selection $resource */
+        /* @var Mage_Bundle_Model_Resource_Selection $resource */
         $resource   = Mage::getResourceSingleton('bundle/selection');
 
         $productIds = array_keys($collection->getItems());
@@ -300,7 +300,7 @@ class Mage_Bundle_Model_Observer
      * CatalogIndex Indexer after plain reindex process
      *
      * @deprecated since 1.4.0.0
-     * @see Mage_Bundle_Model_Mysql4_Indexer_Price
+     * @see Mage_Bundle_Model_Resource_Indexer_Price
      *
      * @param Varien_Event_Observer $observer
      * @return $this

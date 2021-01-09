@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/* @var Mage_Sales_Model_Mysql4_Setup $installer */
+/* @var Mage_Sales_Model_Resource_Setup $installer */
 
 $installer->run("
 ALTER TABLE `{$installer->getTable('sales_order_tax')}` ADD `base_amount` DECIMAL( 12, 4 ) NOT NULL, ADD `process` SMALLINT NOT NULL;

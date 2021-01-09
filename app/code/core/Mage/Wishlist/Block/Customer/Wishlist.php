@@ -42,7 +42,7 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
     /**
      * Add wishlist conditions to collection
      *
-     * @param  Mage_Wishlist_Model_Mysql4_Item_Collection $collection
+     * @param  Mage_Wishlist_Model_Resource_Item_Collection $collection
      * @return $this
      */
     protected function _prepareCollection($collection)

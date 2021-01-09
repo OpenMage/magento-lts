@@ -25,7 +25,7 @@
  */
 
 
-/* @var Mage_Sales_Model_Mysql4_Setup $installer */
+/* @var Mage_Sales_Model_Resource_Setup $installer */
 $installer = $this;
 
 $this->startSetup();

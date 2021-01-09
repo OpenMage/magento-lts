@@ -35,7 +35,7 @@ class Mage_Sales_Block_Order_Comments extends Mage_Core_Block_Template
     /**
      * Currect comments collection
      *
-     * @var Mage_Sales_Model_Mysql4_Order_Comment_Collection_Abstract
+     * @var Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract
      */
     protected $_commentCollection;
 
@@ -65,7 +65,7 @@ class Mage_Sales_Block_Order_Comments extends Mage_Core_Block_Template
     /**
      * Initialize model comments and return comment collection
      *
-     * @return Mage_Sales_Model_Mysql4_Order_Comment_Collection_Abstract
+     * @return Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract
      */
     public function getComments()
     {

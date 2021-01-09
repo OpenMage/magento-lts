@@ -55,7 +55,7 @@ class Mage_Sales_Model_Observer
         foreach ($lifetimes as $storeId => $lifetime) {
             $lifetime *= 86400;
 
-            /** @var Mage_Sales_Model_Mysql4_Quote_Collection $quotes */
+            /* @var Mage_Sales_Model_Resource_Quote_Collection $quotes */
             $quotes = Mage::getModel('sales/quote')->getCollection();
 
             $quotes->addFieldToFilter('store_id', $storeId);

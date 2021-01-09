@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/* @var Mage_Sales_Model_Mysql4_Setup $installer */
+/* @var Mage_Sales_Model_Resource_Setup $installer */
 
 $installer->run("
     ALTER TABLE `{$this->getTable('sales_order')}` ADD INDEX `IDX_INCREMENT_ID` (`increment_id`);

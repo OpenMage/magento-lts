@@ -96,7 +96,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
         if (is_null($collection)) {
             $collection = Mage::getModel('catalog/category')->getCollection();
 
-            /* @var $collection Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection */
+            /* @var $collection Mage_Catalog_Model_Resource_Category_Collection */
             $collection->addAttributeToSelect('name')
                 ->addAttributeToSelect('is_active')
                 ->setProductStoreId($storeId)

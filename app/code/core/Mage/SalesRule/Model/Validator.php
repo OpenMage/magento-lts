@@ -45,7 +45,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
     /**
      * Rule source collection
      *
-     * @var Mage_SalesRule_Model_Mysql4_Rule_Collection
+     * @var Mage_SalesRule_Model_Resource_Rule_Collection
      */
     protected $_rules;
 
@@ -135,7 +135,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
     /**
      * Get rules collection for current object state
      *
-     * @return Mage_SalesRule_Model_Mysql4_Rule_Collection
+     * @return Mage_SalesRule_Model_Resource_Rule_Collection
      */
     protected function _getRules()
     {

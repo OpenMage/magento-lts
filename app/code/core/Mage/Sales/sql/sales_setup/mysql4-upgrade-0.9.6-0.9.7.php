@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/* @var Mage_Sales_Model_Mysql4_Setup $installer */
+/* @var Mage_Sales_Model_Resource_Setup $installer */
 
 $installer->addAttribute('quote_item', 'base_tax_before_discount', array('type'=>'decimal'));
 $installer->addAttribute('quote_item', 'tax_before_discount', array('type'=>'decimal'));

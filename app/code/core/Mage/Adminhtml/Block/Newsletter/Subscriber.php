@@ -37,7 +37,7 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber extends Mage_Adminhtml_Block_Te
     /**
      * Queue collection
      *
-     * @var Mage_Newsletter_Model_Mysql4_Queue_Collection
+     * @var Mage_Newsletter_Model_Resource_Queue_Collection
      */
     protected $_queueCollection = null;
 
@@ -65,7 +65,7 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber extends Mage_Adminhtml_Block_Te
     /**
      * Return queue collection with loaded neversent queues
      *
-     * @return Mage_Newsletter_Model_Mysql4_Queue_Collection
+     * @return Mage_Newsletter_Model_Resource_Queue_Collection
      */
     public function getQueueCollection()
     {

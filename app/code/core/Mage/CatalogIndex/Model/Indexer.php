@@ -165,15 +165,14 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Retreive store collection
      *
-     * @return Mage_Core_Model_Mysql4_Store_Collection
+     * @return Mage_Core_Model_Resource_Store_Collection
      */
     protected function _getWebsites()
     {
         $websites = $this->getData('_websites');
         if (is_null($websites)) {
             $websites = Mage::getModel('core/website')->getCollection()->load();
-            /* @var Mage_Core_Model_Mysql4_Website_Collection $stores */
-
+            /* @var Mage_Core_Model_Resource_Website_Collection $stores */
             $this->setData('_websites', $websites);
         }
         return $websites;

@@ -53,7 +53,7 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
     public function items($filters = null)
     {
         $invoices = array();
-        /** @var Mage_Sales_Model_Mysql4_Order_Invoice_Collection $invoiceCollection */
+        /* @var Mage_Sales_Model_Resource_Order_Invoice_Collection $invoiceCollection */
         $invoiceCollection = Mage::getResourceModel('sales/order_invoice_collection');
         $invoiceCollection->addAttributeToSelect('entity_id')
             ->addAttributeToSelect('order_id')
@@ -63,7 +63,7 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
             ->addAttributeToSelect('grand_total')
             ->addAttributeToSelect('order_currency_code');
 
-        /** @var Mage_Api_Helper_Data $apiHelper */
+        /* @var Mage_Api_Helper_Data $apiHelper */
         $apiHelper = Mage::helper('api');
         try {
             $filters = $apiHelper->parseFilters($filters, $this->_attributesMap['invoice']);

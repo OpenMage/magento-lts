@@ -87,8 +87,8 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
     /**
      * Filter collection by removing not available product types
      *
-     * @param Mage_Core_Model_Mysql4_Collection_Abstract $collection
-     * @return Mage_Core_Model_Mysql4_Collection_Abstract
+     * @param Mage_Core_Model_Resource_Db_Collection_Abstract $collection
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract
      */
     public function applySalableProductTypesFilter($collection)
     {

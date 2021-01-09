@@ -25,6 +25,6 @@
  */
 
 $installer = $this;
-/* @var Mage_Sales_Model_Mysql4_Setup $installer */
+/* @var Mage_Sales_Model_Resource_Setup $installer */
 
 $installer->getConnection()->modifyColumn($installer->getTable('sales/quote'), 'global_currency_code', 'varchar(255)');

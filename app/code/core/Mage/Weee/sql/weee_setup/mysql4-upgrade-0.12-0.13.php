@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/* @var Mage_Weee_Model_Mysql4_Setup $installer */
+/* @var Mage_Weee_Model_Resource_Setup $installer */
 
 $installer->getConnection()->modifyColumn($installer->getTable('sales/quote_item'), 'weee_tax_applied_amount', 'decimal(12,4)');
 $installer->getConnection()->modifyColumn($installer->getTable('sales/quote_item'), 'weee_tax_applied_row_amount', 'decimal(12,4)');

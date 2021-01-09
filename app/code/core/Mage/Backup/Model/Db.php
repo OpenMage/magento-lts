@@ -54,7 +54,7 @@ class Mage_Backup_Model_Db
     /**
      * Retrieve resource model
      *
-     * @return Mage_Backup_Model_Mysql4_Db
+     * @return Mage_Backup_Model_Resource_Db
      */
     public function getResource()
     {

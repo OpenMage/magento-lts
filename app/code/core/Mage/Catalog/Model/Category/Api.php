@@ -136,7 +136,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
             $parentId = 1;
         }
 
-        /* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree $tree */
+        /* @var Mage_Catalog_Model_Resource_Category_Tree $tree */
         $tree = Mage::getResourceSingleton('catalog/category_tree')
             ->load();
 

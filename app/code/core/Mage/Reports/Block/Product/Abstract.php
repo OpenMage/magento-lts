@@ -53,7 +53,7 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
     /**
      * Product Index Collection
      *
-     * @var Mage_Reports_Model_Mysql4_Product_Index_Collection_Abstract
+     * @var Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
      */
     protected $_collection;
 

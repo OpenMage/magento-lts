@@ -61,7 +61,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Wishlist Product Items Collection
      *
-     * @var Mage_Wishlist_Model_Mysql4_Product_Collection
+     * @var Mage_Wishlist_Model_Resource_Product_Collection
      */
     protected $_productCollection = null;
 
@@ -190,7 +190,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      * @deprecated after 1.4.2.0
      * @see Mage_Wishlist_Model_Wishlist::getItemCollection()
      *
-     * @return Mage_Wishlist_Model_Mysql4_Product_Collection
+     * @return Mage_Wishlist_Model_Resource_Product_Collection
      */
     public function getItemCollection()
     {
@@ -226,7 +226,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      * @deprecated after 1.4.2.0
      * @see Mage_Wishlist_Model_Wishlist::getItemCollection()
      *
-     * @return Mage_Wishlist_Model_Mysql4_Product_Collection
+     * @return Mage_Wishlist_Model_Resource_Product_Collection
      */
     public function getProductCollection()
     {

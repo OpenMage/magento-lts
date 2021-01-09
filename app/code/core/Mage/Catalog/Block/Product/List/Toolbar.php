@@ -39,7 +39,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     /**
      * Products collection
      *
-     * @var Mage_Core_Model_Mysql4_Collection_Abstract
+     * @var Mage_Core_Model_Resource_Db_Collection_Abstract
      */
     protected $_collection = null;
 
@@ -240,7 +240,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     /**
      * Return products collection instance
      *
-     * @return Mage_Core_Model_Mysql4_Collection_Abstract
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract
      */
     public function getCollection()
     {

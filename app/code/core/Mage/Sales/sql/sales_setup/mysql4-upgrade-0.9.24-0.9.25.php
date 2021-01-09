@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/* @var Mage_Sales_Model_Mysql4_Setup $installer */
+/* @var Mage_Sales_Model_Resource_Setup $installer */
 
 $installer->getConnection()->addColumn($this->getTable('sales_order'), 'shipping_tax_refunded', 'decimal(12,4) NULL');
 $installer->getConnection()->addColumn($this->getTable('sales_order'), 'base_shipping_tax_refunded', 'decimal(12,4) NULL');

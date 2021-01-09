@@ -318,7 +318,7 @@ class Mage_CatalogRule_Model_Observer
      */
     protected function _checkCatalogRulesAvailability($attributeCode)
     {
-        /* @var Mage_CatalogRule_Model_Mysql4_Rule_Collection $collection */
+        /* @var Mage_CatalogRule_Model_Resource_Rule_Collection $collection */
         $collection = Mage::getResourceModel('catalogrule/rule_collection')
             ->addAttributeInConditionFilter($attributeCode);
 

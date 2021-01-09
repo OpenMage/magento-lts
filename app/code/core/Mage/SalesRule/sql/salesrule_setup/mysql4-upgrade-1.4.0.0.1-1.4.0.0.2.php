@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/** @var Mage_Sales_Model_Mysql4_Setup $installer */
+/* @var Mage_Sales_Model_Resource_Setup $installer */
 
 $tableSalesrule = $installer->getTable('salesrule/rule');
 $tableSalesruleCoupon = $installer->getTable('salesrule/coupon');

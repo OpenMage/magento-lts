@@ -487,7 +487,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     /**
      * Get collection of values for current option
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Option_Value_Collection
+     * @return Mage_Catalog_Model_Resource_Product_Option_Value_Collection
      */
     public function getValuesCollection()
     {

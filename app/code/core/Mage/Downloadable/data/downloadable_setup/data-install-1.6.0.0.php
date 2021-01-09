@@ -23,7 +23,7 @@
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-/** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $this */
+/* @var Mage_Catalog_Model_Resource_Setup $this */
 $installer = $this;
 
 $fieldList = array(

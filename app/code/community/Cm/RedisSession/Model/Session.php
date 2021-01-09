@@ -49,7 +49,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *  - Detects inactive waiting processes to prevent false-positives in concurrency throttling.
  *
  */
-class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
+class Cm_RedisSession_Model_Session extends Mage_Core_Model_Resource_Session
 {
     const SLEEP_TIME         = 500000;   /* Sleep 0.5 seconds between lock attempts (1,000,000 == 1 second) */
     const FAIL_AFTER         = 15;       /* Try to break lock for at most this many seconds */

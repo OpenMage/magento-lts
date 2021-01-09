@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
+/* @var Mage_Catalog_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 $installer->updateAttribute('catalog_product', 'price_view', 'used_in_product_listing', 1);
