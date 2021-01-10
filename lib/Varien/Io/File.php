@@ -490,12 +490,7 @@ class Varien_Io_File extends Varien_Io_Abstract
         if (is_string($src)) {
             // If its a file we check for null byte
             // If it's not a valid path, file_exists() will return a falsey value, and the @ will keep it from complaining about the bad string.
-            if (@file_exists($src)
-                && strpos($src, chr(0)) !== false) {
-                return false;
-            } else {
-                return true;
-            }
+            return !(@file_exists($src) && strpos($src, chr(0)) !== false);
         } elseif (is_resource($src)) {
             return true;
         }
