@@ -201,7 +201,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
      * @param string $name
      * @return array|bool
      */
-    protected function getFieldValue($fields = array(), $name)
+    protected function getFieldValue($fields = array(), $name = '')
     {
         $result = array();
         if ($fields && $name) {

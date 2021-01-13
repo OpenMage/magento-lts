@@ -36,11 +36,11 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
     /**
      * Get product final price
      *
-     * @param   double $qty
-     * @param   Mage_Catalog_Model_Product $product
+     * @param float|null $qty
+     * @param Mage_Catalog_Model_Product $product
      * @return  double
      */
-    public function getFinalPrice($qty = null, $product)
+    public function getFinalPrice($qty, $product)
     {
         if (is_null($qty) && !is_null($product->getCalculatedFinalPrice())) {
             return $product->getCalculatedFinalPrice();
