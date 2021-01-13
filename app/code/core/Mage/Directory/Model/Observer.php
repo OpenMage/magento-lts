@@ -88,7 +88,7 @@ class Mage_Directory_Model_Observer
                 Mage::getStoreConfig(self::XML_PATH_ERROR_RECIPIENT),
                 null,
                 array(
-                    'warnings'    => join("\n", $importWarnings),
+                    'warnings' => implode("\n", $importWarnings),
                 )
             );
 

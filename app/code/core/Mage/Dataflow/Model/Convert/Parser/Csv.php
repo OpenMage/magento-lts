@@ -248,7 +248,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
             $line[] = $fEnc.$v.$fEnc;
         }
 
-        return join($fDel, $line);
+        return implode($fDel, $line);
     }
 
     /**
