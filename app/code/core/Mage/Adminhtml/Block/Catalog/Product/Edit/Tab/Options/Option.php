@@ -143,10 +143,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
 
     public function getAddButtonId()
     {
-        $buttonId = $this->getLayout()
+        return $this->getLayout()
                 ->getBlock('admin.product.options')
                 ->getChild('add_button')->getId();
-        return $buttonId;
     }
 
     public function getDeleteButtonHtml()
@@ -205,12 +204,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
             ->setCanReadPrice($canReadPrice)
             ->setCanEditPrice($canEditPrice);
 
-        $templates = $this->getChildHtml('text_option_type') . "\n" .
+        return $this->getChildHtml('text_option_type') . "\n" .
             $this->getChildHtml('file_option_type') . "\n" .
             $this->getChildHtml('select_option_type') . "\n" .
             $this->getChildHtml('date_option_type');
-
-        return $templates;
     }
 
     public function getOptionValues()

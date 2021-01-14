@@ -72,13 +72,12 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Re
      */
     protected function _getLoadSelect($field, $value, $object)
     {
-        $select = parent::_getLoadSelect($field, $value, $object)
+        return parent::_getLoadSelect($field, $value, $object)
             ->join(
                 array('p' => $this->getTable('catalog/product')),
                 'product_id=p.entity_id',
                 array('type_id')
             );
-        return $select;
     }
 
     /**

@@ -50,8 +50,7 @@ class Mage_Catalog_Block_Product_View_Media extends Mage_Catalog_Block_Product_V
         if ($this->_isGalleryDisabled) {
             return array();
         }
-        $collection = $this->getProduct()->getMediaGalleryImages();
-        return $collection;
+        return $this->getProduct()->getMediaGalleryImages();
     }
 
     /**

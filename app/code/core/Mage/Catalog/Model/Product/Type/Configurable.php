@@ -170,13 +170,11 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      */
     public function canUseAttribute(Mage_Eav_Model_Entity_Attribute $attribute)
     {
-        $allow = $attribute->getIsGlobal() == Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL
+        return $attribute->getIsGlobal() == Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL
             && $attribute->getIsVisible()
             && $attribute->getIsConfigurable()
             && $attribute->usesSource()
             && $attribute->getIsUserDefined();
-
-        return $allow;
     }
 
     /**
@@ -862,9 +860,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
         $superAttribute = $buyRequest->getSuperAttribute();
         $superAttribute = (is_array($superAttribute)) ? array_filter($superAttribute, 'intval') : array();
 
-        $options = array('super_attribute' => $superAttribute);
-
-        return $options;
+        return array('super_attribute' => $superAttribute);
     }
 
     /**

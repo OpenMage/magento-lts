@@ -65,9 +65,7 @@ class Mage_Adminhtml_Block_Api_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget
 
         $rootArray = $this->_getNodeJson($resources,1);
 
-        $json = Mage::helper('core')->jsonEncode(isset($rootArray['children']) ? $rootArray['children'] : array());
-
-        return $json;
+        return Mage::helper('core')->jsonEncode(isset($rootArray['children']) ? $rootArray['children'] : array());
     }
 
     protected function _sortTree($a, $b)

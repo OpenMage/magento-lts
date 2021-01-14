@@ -118,7 +118,7 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
         $connectDefault = Mage::getConfig()
                 ->getResourceConnectionConfig(Mage_Core_Model_Resource::DEFAULT_SETUP_RESOURCE);
 
-        $data = Mage::getModel('varien/object')
+        return Mage::getModel('varien/object')
             ->setDbHost($connectDefault->host)
             ->setDbName($connectDefault->dbname)
             ->setDbUser($connectDefault->username)
@@ -127,9 +127,7 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
             ->setSecureBaseUrl($baseSecureUrl)
             ->setUnsecureBaseUrl($baseUrl)
             ->setAdminFrontname('admin')
-            ->setEnableCharts('1')
-        ;
-        return $data;
+            ->setEnableCharts('1');
     }
 
     protected function _checkHostsInfo($data)

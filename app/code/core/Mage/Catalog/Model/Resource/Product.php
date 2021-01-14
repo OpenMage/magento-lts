@@ -508,7 +508,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      */
     public function getCategoryCollection($product)
     {
-        $collection = Mage::getResourceModel('catalog/category_collection')
+        return Mage::getResourceModel('catalog/category_collection')
             ->joinField(
                 'product_id',
                 'catalog/category_product',
@@ -517,7 +517,6 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
                 null
             )
             ->addFieldToFilter('product_id', (int)$product->getId());
-        return $collection;
     }
 
     /**
@@ -701,8 +700,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
             ->where('store_id IN (?)', $storeIds)
             ->where('attribute_code IN (?)', array('small_image', 'thumbnail', 'image'));
 
-        $images = $read->fetchAll($select);
-        return $images;
+        return $read->fetchAll($select);
     }
 
     /**

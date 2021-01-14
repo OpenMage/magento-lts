@@ -51,15 +51,13 @@ class Mage_Paypal_Model_Payflow_Request extends Varien_Object
         switch (substr($method, 0, 3)) {
             case 'get' :
                 //Varien_Profiler::start('GETTER: '.get_class($this).'::'.$method);
-                $data = $this->getData($key, isset($args[0]) ? $args[0] : null);
                 //Varien_Profiler::stop('GETTER: '.get_class($this).'::'.$method);
-                return $data;
+                return $this->getData($key, isset($args[0]) ? $args[0] : null);
 
             case 'set' :
                 //Varien_Profiler::start('SETTER: '.get_class($this).'::'.$method);
-                $result = $this->setData($key, isset($args[0]) ? $args[0] : null);
                 //Varien_Profiler::stop('SETTER: '.get_class($this).'::'.$method);
-                return $result;
+                return $this->setData($key, isset($args[0]) ? $args[0] : null);
 
             case 'uns' :
                 //Varien_Profiler::start('UNS: '.get_class($this).'::'.$method);

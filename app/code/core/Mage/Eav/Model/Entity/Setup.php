@@ -632,7 +632,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      */
     protected function _prepareValues($attr)
     {
-        $data = array(
+        return array(
             'backend_model'   => $this->_getValue($attr, 'backend'),
             'backend_type'    => $this->_getValue($attr, 'type', 'varchar'),
             'backend_table'   => $this->_getValue($attr, 'table'),
@@ -648,8 +648,6 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
             'note'            => $this->_getValue($attr, 'note'),
             'is_global'       => $this->_getValue($attr, 'global', 1),
         );
-
-        return $data;
     }
 
     /**

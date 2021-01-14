@@ -182,9 +182,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
 
     protected function _getSelectedProducts()
     {
-        $products = $this->getRequest()->getPost('products', array());
-
-        return $products;
+        return $this->getRequest()->getPost('products', array());
     }
 
     /**

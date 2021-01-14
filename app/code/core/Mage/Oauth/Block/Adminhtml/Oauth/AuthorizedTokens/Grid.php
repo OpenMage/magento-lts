@@ -189,9 +189,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
         $options = $column->getOptions();
 
         $value = ($row->getCustomerId())   ?$options[1]   :$options[0];
-        $cell = $value;
-
-        return $cell;
+        return $value;
     }
 
     /**
@@ -206,9 +204,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
     public function decorateUserId($value, $row, $column, $isExport)
     {
         $value = ($row->getCustomerId())   ?$row->getCustomerId()   :$row->getAdminId();
-        $cell = $value;
-
-        return $cell;
+        return $value;
     }
 
     /**

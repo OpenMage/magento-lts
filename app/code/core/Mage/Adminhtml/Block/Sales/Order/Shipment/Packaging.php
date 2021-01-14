@@ -152,8 +152,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
         $carrier = $this->getShipment()->getOrder()->getShippingCarrier();
         if ($carrier) {
             $containerTypes = $carrier->getContainerTypes();
-            $containerType = !empty($containerTypes[$code]) ? $containerTypes[$code] : '';
-            return $containerType;
+            return !empty($containerTypes[$code]) ? $containerTypes[$code] : '';
         }
         return '';
     }
@@ -171,8 +170,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
         if ($carrier) {
             $params = new Varien_Object(array('country_recipient' => $countryId));
             $confirmationTypes = $carrier->getDeliveryConfirmationTypes($params);
-            $confirmationType = !empty($confirmationTypes[$code]) ? $confirmationTypes[$code] : '';
-            return $confirmationType;
+            return !empty($confirmationTypes[$code]) ? $confirmationTypes[$code] : '';
         }
         return '';
     }

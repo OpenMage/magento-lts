@@ -59,10 +59,9 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Subselect extends Mage_SalesRu
      */
     public function asXml($containerKey = 'conditions', $itemKey = 'condition')
     {
-        $xml = '<attribute>'.$this->getAttribute().'</attribute>'
+        return '<attribute>'.$this->getAttribute().'</attribute>'
             . '<operator>'.$this->getOperator().'</operator>'
             . parent::asXml($containerKey, $itemKey);
-        return $xml;
     }
 
     /**

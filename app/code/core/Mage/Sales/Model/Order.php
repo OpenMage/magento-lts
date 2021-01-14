@@ -2499,8 +2499,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function prepareInvoice($qtys = array())
     {
-        $invoice = Mage::getModel('sales/service_order', $this)->prepareInvoice($qtys);
-        return $invoice;
+        return Mage::getModel('sales/service_order', $this)->prepareInvoice($qtys);
     }
 
     /**
@@ -2511,8 +2510,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function prepareShipment($qtys = array())
     {
-        $shipment = Mage::getModel('sales/service_order', $this)->prepareShipment($qtys);
-        return $shipment;
+        return Mage::getModel('sales/service_order', $this)->prepareShipment($qtys);
     }
 
     /**
