@@ -833,7 +833,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             $moduleDepends[$moduleName] = array(
                 'module'    => $moduleName,
                 'depends'   => $depends,
-                'active'    => ('true' === (string)$moduleNode->active ? true : false),
+                'active'    => ('true' === (string)$moduleNode->active),
             );
         }
 

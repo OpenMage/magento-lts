@@ -396,7 +396,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
         $query = $read->query($select, $bind);
         while ($row = $query->fetch()) {
             $salable = isset($row['salable']) ? $row['salable'] : true;
-            $website = $row['website_id'] > 0 ? true : false;
+            $website = $row['website_id'] > 0;
             $status  = $row['status'];
 
             $productsData[$row['entity_id']] = $salable && $status && $website;
