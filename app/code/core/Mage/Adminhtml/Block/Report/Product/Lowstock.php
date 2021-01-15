@@ -29,7 +29,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 
 class Mage_Adminhtml_Block_Report_Product_Lowstock extends Mage_Adminhtml_Block_Widget_Grid_Container
@@ -50,20 +50,21 @@ class Mage_Adminhtml_Block_Report_Product_Lowstock extends Mage_Adminhtml_Block_
                 ->setSwitchUrl($this->getUrl('*/*/*', array('store'=>null)))
                 ->setTemplate('report/store/switcher.phtml')
         );
-
         return parent::_prepareLayout();
     }
 
     public function getStoreSwitcherHtml()
     {
-        if (Mage::app()->isSingleStoreMode()) {
-            return '';
-        }
-        return $this->getChildHtml('store_switcher');
+        return Mage::app()->isSingleStoreMode() ? '' : $this->getChildHtml('store_switcher');
     }
 
     public function getGridHtml()
     {
         return $this->getStoreSwitcherHtml() . parent::getGridHtml();
+    }
+
+    public function getHeaderCssClass()
+    {
+        return 'icon-head head-report';
     }
 }

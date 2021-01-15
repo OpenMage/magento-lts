@@ -289,4 +289,9 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
         }
         return $this;
     }
+
+    public function getHeaderCssClass()
+    {
+        return 'icon-head head-urlrewrite';
+    }
 }
