@@ -559,14 +559,14 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
         $countryWeightUnit = $this->getCode('dimensions_variables', $this->_getWeightUnit());
 
         if ($configWeightUnit != $countryWeightUnit) {
-            $weight = (float) Mage::helper('usa')->convertMeasureWeight(
-                round($weight,3),
+            $weight = Mage::helper('usa')->convertMeasureWeight(
+                round((float) $weight,3),
                 $configWeightUnit,
                 $countryWeightUnit
             );
         }
 
-        return round($weight, 3);
+        return round((float) $weight, 3);
     }
 
     /**
