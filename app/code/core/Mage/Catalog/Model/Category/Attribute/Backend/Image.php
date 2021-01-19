@@ -30,7 +30,7 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Category_Attribute_Backend_Image extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
@@ -54,14 +54,11 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Image extends Mage_Eav_Model
         $path = Mage::getBaseDir('media') . DS . 'catalog' . DS . 'category' . DS;
 
         try {
+            $validator = Mage::getModel('core/file_validator_image');
             $uploader = new Mage_Core_Model_File_Uploader($this->getAttribute()->getName());
             $uploader->setAllowedExtensions(array('jpg','jpeg','gif','png'));
             $uploader->setAllowRenameFiles(true);
-            $uploader->addValidateCallback(
-                Mage_Core_Model_File_Validator_Image::NAME,
-                new Mage_Core_Model_File_Validator_Image(),
-                "validate"
-            );
+            $uploader->addValidateCallback(Mage_Core_Model_File_Validator_Image::NAME, $validator, 'validate');
             $result = $uploader->save($path);
 
             $object->setData($this->getAttribute()->getName(), $result['file']);
