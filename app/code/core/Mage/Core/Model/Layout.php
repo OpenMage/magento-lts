@@ -353,7 +353,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
                 }
             }
 
-            $this->validateAgainstBlacklist($block, $method, $args);
+            Mage::helper('core/security')->validateAgainstBlockMethodBlacklist($block, $method, $args);
 
             $this->_translateLayoutNode($node, $args);
             call_user_func_array(array($block, $method), array_values($args));
