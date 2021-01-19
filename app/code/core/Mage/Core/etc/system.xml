@@ -578,12 +578,46 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </profiler>
+                        <head_admin>
+                            <label>Admin</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>21</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </head_admin>
+                        <template_hints_admin translate="label">
+                            <label>Template Path Hints</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>22</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </template_hints_admin>
+                        <template_hints_blocks_admin translate="label">
+                            <label>Add Block Names to Hints</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>23</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </template_hints_blocks_admin>
+                        <head_front>
+                            <label>Frontend</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>31</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </head_front>
                         <template_hints translate="label">
                             <label>Template Path Hints</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>20</sort_order>
-                            <show_in_default>0</show_in_default>
+                            <sort_order>32</sort_order>
+                            <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </template_hints>
@@ -591,8 +625,8 @@
                             <label>Add Block Names to Hints</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>21</sort_order>
-                            <show_in_default>0</show_in_default>
+                            <sort_order>33</sort_order>
+                            <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </template_hints_blocks>
@@ -1574,6 +1608,16 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </cookie_httponly>
+                        <cookie_samesite translate="label">
+                            <label>Same-Site</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_cookie_samesite</source_model>
+                            <comment><![CDATA[<a target="_blank" href="https://tools.ietf.org/html/draft-ietf-httpbis-cookie-same-site-00"/>https://tools.ietf.org/html/draft-ietf-httpbis-cookie-same-site-00</a>]]></comment>
+                            <sort_order>45</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cookie_samesite>
                         <cookie_restriction translate="label">
                             <label>Cookie Restriction Mode</label>
                             <frontend_type>select</frontend_type>
