@@ -76,6 +76,7 @@ Most important changes will be listed here, all other changes since `19.4.0` can
 - `catalog/product_image/progressive_threshold`
 
 ### New Events
+- 'adminhtml_sales_order_create_save_before'
 - `checkout_cart_product_add_before`
 - `sitemap_cms_pages_generating_before`
 - `sitemap_urlset_generating_before`
