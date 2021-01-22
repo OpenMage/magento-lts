@@ -127,8 +127,9 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      */
     public function viewAction()
     {
-        if ($this->_initShipment()) {
-            $this->_title($this->__('View Shipment'));
+        $shipment = $this->_initShipment();
+        if ($shipment) {
+            $this->_title(sprintf("#%s", $shipment->getIncrementId()));
 
             $this->loadLayout();
             $this->getLayout()->getBlock('sales_shipment_view')
