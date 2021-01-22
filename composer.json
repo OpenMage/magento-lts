@@ -7,8 +7,8 @@
   ],
   "type": "magento-source",
   "require": {
-    "php": ">=7.0 <7.5",
-    "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1"
+    "php": ">=7.0 <7.5 || >=8.0 <8.1",
+    "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0"
   },
   "authors": [
     {

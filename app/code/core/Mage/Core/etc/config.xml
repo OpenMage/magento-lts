@@ -211,6 +211,7 @@
                 <Mage_Core>
                     <files>
                         <default>Mage_Core.csv</default>
+                        <openmage>Mage_Core_LTS.csv</openmage>
                     </files>
                 </Mage_Core>
             </modules>
@@ -407,6 +408,7 @@
             <cookie>
                 <cookie_lifetime>3600</cookie_lifetime>
                 <cookie_httponly>1</cookie_httponly>
+                <cookie_samesite>None</cookie_samesite>
                 <cookie_restriction>0</cookie_restriction>
                 <cookie_restriction_lifetime>31536000</cookie_restriction_lifetime>
             </cookie>

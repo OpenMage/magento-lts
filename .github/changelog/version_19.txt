@@ -1,8 +1,95 @@
 
+## v19.4.11 - unreleased
 
-## v19.4.7 - unreleased
+## v19.4.10 - 2021-01-21
 
 
+3 security updates
+
+GHSA-jrgf-vfw2-hj26 CMS Editor code execution
+GHSA-hj6w-xrv3-wjj9 Widget instances allows a hacker to inject an executable file on the server
+GHSA-99m6-r53j-4hh2 Layout XML RCE Vulnerability
+
+More Changes:
+#1246 Adds support for "SameSite" cookie property
+#1356 Fixed return type of Mage_Adminhtml_Block_System_Config_Form::_canShowField
+#1275 Add start & stop commands to ddev setup in readme
+#1273 Update static-code-analyses.yml
+#1206 Reduced multiple dispatch events in login form.
+#1140 Github Action Labeler Bot
+#1337 Allow rewrite of Mage_Core_Model_File_Validator_Image
+#1086 Allow debug in admin
+#1378 Declare two variables
+#1330 Allow min pass length to 5 during login
+#1373 Removed 2 unneeded function calls. Local var is already there.
+#1390 Fix class name and filename for case sensitive filesystems
+#1336 Fix getId() on bool when primary billing address is null
+#1370 Fixed adminhtml boxes.css fieldset-wide for note.
+#1168 New event "adminhtml_sales_order_create_save_before" when editing an order.
+#1393 Fixes PHP7.4 deprecated nested ternary operators
+#1403 TypeError: round(): Argument #1 ($num) must be of type int|float
+
+## v19.4.9 - 2020-12-29
+
+increase composer.json php version range to include 8.0
+#1349 Fixed Zend Lib Deprecated Notice PHP8
+#1213 Fix strpos with non-string needle
+add UnitTests to Github Actions
+#1348 Fixed Zend Lib Tool Deprecated Notice
+#1347 Fixed Zend Lib Amf Deprecated Notice
+#1340 Fixed Zend Lib Barcode Deprecated
+#1346 Fixed Zend Lib Validate Deprecated Notice
+#1256 Fix libxml_disable_entity_loader for PHP 8
+#1251 Disable class unserialization where it is not needed.
+#1350 Trim values from XML so auto-formatting our XML does not break the autoloader.
+#1345 Fixed Zend Lib Wildfire Deprecated Notice
+#1344 Fixed Zend Lib View Deprecated Notice
+#1343 Fixed Zend Lib JSON Deprecated Notice
+#1342 Fixed Zend Lib Filter Deprecated Notice
+#1341 fix "Cannot unset $this" error
+#1261 getAttributeRawValue() move operations with store to if statement
+#1274 Removed unused fetchAll in addRatingInfo()
+#1278 Handled the case where the coupon no longer exists
+#1328 Fix phpDoc for set/getStepData in Checkout
+#1323 Improve PHPDoc
+#1319 Fix for currency symbol not saved with fatal PHP error #1318
+#1297 Update SECURITY.md
+allow version 4 of hackathon composer installer
+#1292 Support the logging of Throwables
+#1285 Mage core model url - method call is provided 2 parameters, but the method signature uses 1 parameters
+#1161 cleanup: Remove some files left in previous PRs
+#1207 bugfix: don't cast min_sale_qty to int as it can be a decimal
+#1279 Remove php short open tag
+
+
+## v19.4.8 - 2020-10-20
+
+CVE-2020-15244 RCE via PHP Object injection via SOAP Requests
+#1250 removed use of travisCI
+#1236 Adds missing meta tags to prevent SUPEE-11295 related warnings from Magereport
+#991 Migrate to new frontend cookie name (session namespace) (#990)
+#1266 Add ddev based development setup to Readme
+#1247 Fix call_user_func_array arguments for PHP 8
+#1242 update mcrypt related explanation in Readme
+#1184 Add php-74 to static tests
+
+
+
+## v19.4.7 - 2020-09-15
+
+#952 Remove Magento Connect, Downloader and PEAR
+#1181 Updated lib Net/IDNA2 to latest version
+#1185 Removed unused class Varien_Filter_Money
+#1182 Mage_Eav - Fix PHP 7.4 deprecation: array/string curly braces access
+#1108 Ensure correctly sorted block children after unset some of them
+#969 Fix checkout address for guest order
+#1170 Throw exception when editing an order and the old order could not be cancelled
+#1130 Change default db name
+#510 Fix _addUrlRewrite() ignoring collection store scope
+#1117 Prevent duplicate entry when updating salesrule_coupon_usage
+#1146 Add doc comments to image related classes
+#1008 add OpenMage admin theme and theme switcher
+#1012 Add development environment setup files and README
 
 ## v19.4.6 - 2020-08-18
 
@@ -199,4 +286,3 @@ Additionally:
 
 
 ## before
-

@@ -8,7 +8,8 @@ We will keep the details of your security vulnerability report private and only 
 
 | OpenMage LTS Tag     | Magento Version   | Branch           | Supported          |
 | -------------------- | ----------------- | ---------------- | ------------------ |
-| ~19.4.3              | 1.9.4.5           | 1.9.4.x          | :white_check_mark: |
+| ~20.0.4              | 1.9.4.5           | 20.0             | :white_check_mark: |
+| ~19.4.8              | 1.9.4.5           | 1.9.4.x          | :white_check_mark: |
 | -                    | <= 1.9.4.4        | multiple         | :x:                |
 
 ## Reporting a Vulnerability

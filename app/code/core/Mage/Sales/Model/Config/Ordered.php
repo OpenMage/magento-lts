@@ -131,7 +131,7 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
         if (Mage::app()->useCache('config')) {
             $cachedData = Mage::app()->loadCache($this->_collectorsCacheKey);
             if ($cachedData) {
-                return unserialize($cachedData);
+                return unserialize($cachedData, ['allowed_classes' => false]);
             }
         }
         $configArray = $this->_modelsConfig;
