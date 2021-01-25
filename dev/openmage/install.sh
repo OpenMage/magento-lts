@@ -44,7 +44,7 @@ chmod g+ws ../../app/etc ../../media ../../media/* ../../var ../../vendor
 $dc run --rm --no-deps cli mkdir -p var/cache var/log var/locks var/session
 
 echo "Starting services..."
-$dc up -d mysql apache
+$dc up -d mysql redis
 sleep 4
 for i in $(seq 1 20); do
   sleep 1
@@ -77,6 +77,10 @@ $dc run --rm cli php install.php \
   --admin_password "$ADMIN_PASSWORD"
 docker-compose run --rm cli magerun \
   config:set -n --scope="stores" --scope-id="0" --force web/secure/base_url "${ADMIN_URL}"
+
+echo "Starting services..."
+$dc up -d php-fpm frontend admin cron
+
 echo ""
 echo "Setup is complete!"
 echo "Admin URL: ${ADMIN_URL}admin"
