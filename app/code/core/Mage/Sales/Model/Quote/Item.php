@@ -421,9 +421,9 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
         $this->setData('product', $product)
             ->setProductId($product->getId())
             ->setProductType($product->getTypeId())
-            ->setSku($product->getSku())
+            ->setSku($this->getProduct()->getSku())
             ->setName($product->getName())
-            ->setWeight($product->getWeight())
+            ->setWeight($this->getProduct()->getWeight())
             ->setTaxClassId($product->getTaxClassId())
             ->setBaseCost($product->getCost())
             ->setIsRecurring($product->getIsRecurring());
