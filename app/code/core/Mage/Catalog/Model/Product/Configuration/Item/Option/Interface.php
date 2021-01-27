@@ -34,6 +34,13 @@
 interface Mage_Catalog_Model_Product_Configuration_Item_Option_Interface
 {
     /**
+     * Retrieve associated product
+     *
+     * @return Mage_Catalog_Model_Product
+     */
+    public function getProduct();
+    
+    /**
      * Retrieve value associated with this option
      *
      * @return mixed
