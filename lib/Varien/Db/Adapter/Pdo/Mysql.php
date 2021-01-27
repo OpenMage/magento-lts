@@ -3001,7 +3001,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      */
     protected function _prepareQuotedSqlCondition($text, $value, $fieldName)
     {
-        $sql = $this->quoteInto($text, $value);
+        $sql = $this->quoteInto($text, str_replace("\0", '', $value));
         $sql = str_replace('{{fieldName}}', $fieldName, $sql);
         return $sql;
     }
@@ -3017,7 +3017,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      */
     protected function _transformStringSqlCondition($conditionKey, $value)
     {
-        $value = (string) $value;
+        $value = str_replace("\0", '', (string) $value);
         if ($value == '') {
             return ($conditionKey == 'seq') ? 'null' : 'notnull';
         } else {
@@ -3092,7 +3092,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             case 'mediumtext':
             case 'text':
             case 'longtext':
-                $value  = (string)$value;
+                $value  = str_replace("\0", '', (string)$value);
                 if ($column['NULLABLE'] && $value == '') {
                     $value = null;
                 }
