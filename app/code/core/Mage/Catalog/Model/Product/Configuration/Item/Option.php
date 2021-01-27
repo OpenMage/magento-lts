@@ -28,7 +28,18 @@
 class Mage_Catalog_Model_Product_Configuration_Item_Option extends Varien_Object implements Mage_Catalog_Model_Product_Configuration_Item_Option_Interface
 {
     /**
+     * Returns value of product associated with this option
+     * 
+     * @return Mage_Catalog_Model_Product
+     */
+    public function getProduct()
+    {
+        return $this->_getData('product');
+    }
+    
+    /**
      * Returns value of this option
+     * 
      * @return mixed
      */
     public function getValue()
