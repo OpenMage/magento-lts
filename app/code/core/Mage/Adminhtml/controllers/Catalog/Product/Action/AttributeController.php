@@ -188,9 +188,11 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
             $this->_getSession()->addError($attributeName . ': ' . $e->getMessage());
         }
         catch (Mage_Core_Exception $e) {
+            Mage::logException($e);
             $this->_getSession()->addError($e->getMessage());
         }
-        catch (Exception $e) {
+        catch (Throwable $e) {
+            Mage::logException($e);
             $this->_getSession()->addException($e, $this->__('An error occurred while updating the product(s) attributes.'));
         }
 
