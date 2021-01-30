@@ -215,6 +215,12 @@
 | customer_registration_is_allowed | 1.9.4.5 |
 | customer_session_init | 1.9.4.5 |
 | eav_collection_abstract_load_before | 1.9.4.5 |
+| email_queue_send_before | 19.4.18 |
+| email_queue_send_after | 19.4.18 |
+| email_send_before | 19.4.18 |
+| email_send_after | 19.4.18 |
+| email_template_send_before | 19.4.18 |
+| email_template_send_after | 19.4.18 |
 | end_index_events_[getEventTypeName] | 1.9.4.5 |
 | end_process_event_[getEventTypeName] | 1.9.4.5 |
 | gift_options_prepare_items | 1.9.4.5 |

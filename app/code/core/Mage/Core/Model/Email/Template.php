@@ -459,7 +459,30 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
         $mail->setFrom($this->getSenderEmail(), $this->getSenderName());
 
         try {
-            $mail->send();
+            $transport = new Varien_Object();
+
+            Mage::dispatchEvent('email_template_send_before', [
+                'mail'      => $mail,
+                'template'  => $this,
+                'transport' => $transport,
+                'variables' => $variables
+            ]);
+
+            if ($transport->getTransport()) {
+                $mail->send($transport->getTransport());
+            } else {
+                $mail->send();
+            }
+
+            foreach ($emails as $key => $email) {
+                Mage::dispatchEvent('email_template_send_after', [
+                    'to'         => $email,
+                    'html'       => !$this->isPlain(),
+                    'subject'    => $subject,
+                    'template'   => $this->getTemplateId(),
+                    'email_body' => $text
+                ]);
+            }
             $this->_mail = null;
         } catch (Exception $e) {
             $this->_mail = null;
