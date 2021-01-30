@@ -241,6 +241,8 @@
 | model_save_after | 1.9.4.5 |
 | model_save_before | 1.9.4.5 |
 | model_save_commit_after | 1.9.4.5 |
+| newsletter_send_before | 19.4.18 |
+| newsletter_send_after | 19.4.18 |
 | on_view_report | 1.9.4.5 |
 | order_cancel_after | 1.9.4.5 |
 | page_block_html_topmenu_gethtml_after | 1.9.4.5 |
