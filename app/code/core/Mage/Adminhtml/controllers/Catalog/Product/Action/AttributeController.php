@@ -188,7 +188,6 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
             $this->_getSession()->addError($attributeName . ': ' . $e->getMessage());
         }
         catch (Mage_Core_Exception $e) {
-            Mage::logException($e);
             $this->_getSession()->addError($e->getMessage());
         }
         catch (Throwable $e) {
