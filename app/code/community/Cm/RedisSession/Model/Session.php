@@ -465,7 +465,7 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
         }
         $this->_redis->pipeline();
         if($this->_dbNum) $this->_redis->select($this->_dbNum);
-        $this->_redis->del(self::SESSION_PREFIX.$sessionId);
+        $this->_redis->unlink(self::SESSION_PREFIX.$sessionId);
         $this->_redis->exec();
         Varien_Profiler::stop(__METHOD__);
         return TRUE;
