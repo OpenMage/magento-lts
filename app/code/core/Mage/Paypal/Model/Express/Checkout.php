@@ -189,7 +189,7 @@ class Mage_Paypal_Model_Express_Checkout
                     $this->_api->callGetPalDetails();
                     $pal = $this->_api->getPal();
                     Mage::app()->saveCache($pal, $cacheId, array(Mage_Core_Model_Config::CACHE_TAG));
-                } catch (Exception $e) {
+                } catch (Throwable $e) {
                     Mage::app()->saveCache(-1, $cacheId, array(Mage_Core_Model_Config::CACHE_TAG));
                     Mage::logException($e);
                 }
@@ -545,7 +545,7 @@ class Mage_Paypal_Model_Express_Checkout
             $debugData['response'] = $response;
             $logger->log($debugData);
             return $response;
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $logger->log($debugData);
             throw $e;
         }
@@ -602,7 +602,7 @@ class Mage_Paypal_Model_Express_Checkout
         if ($isNewCustomer) {
             try {
                 $this->_involveNewCustomer();
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 Mage::logException($e);
             }
         }

@@ -186,7 +186,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
                 } else {
                     return $this->_redirect('*/tag/' . $this->getRequest()->getParam('ret', 'index'));
                 }
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 Mage::getSingleton('adminhtml/session')->setTagData($data);
 
@@ -211,7 +211,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
             try {
                 $model->delete();
                 $session->addSuccess(Mage::helper('adminhtml')->__('The tag has been deleted.'));
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $session->addError($e->getMessage());
             }
         } else {
@@ -301,7 +301,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     $this->__('Total of %d record(s) have been deleted.', count($tagIds))
                 );
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
         }
@@ -331,7 +331,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     $this->__('Total of %d record(s) have been updated.', count($tagIds))
                 );
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
         }

@@ -82,7 +82,7 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
             $attributeSet->initFromSkeleton($skeletonSetId)->save();
         } catch (Mage_Eav_Exception $e) {
             $this->_fault('invalid_data', $e->getMessage());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_fault('create_attribute_set_error', $e->getMessage());
         }
         return (int)$attributeSet->getId();
@@ -113,7 +113,7 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
         }
         try {
             $attributeSet->delete();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_fault('remove_attribute_set_error', $e->getMessage());
         }
         return true;
@@ -161,7 +161,7 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
                     ->setAttributeGroupId($attributeGroupId)
                     ->setSortOrder($sortOrder)
                     ->save();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_fault('add_attribute_error', $e->getMessage());
         }
         return true;
@@ -197,7 +197,7 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
             // delete record from eav_entity_attribute
             // using entity_attribute_id loaded by loadEntityAttributeIdBySet()
             $attribute->deleteEntity();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_fault('remove_attribute_error', $e->getMessage());
         }
 
@@ -224,7 +224,7 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
         }
         try {
             $group->save();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_fault('group_add_error', $e->getMessage());
         }
         return (int)$group->getId();
@@ -250,7 +250,7 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
         );
         try {
             $model->save();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_fault('group_rename_error', $e->getMessage());
         }
         return true;
@@ -277,7 +277,7 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
         }
         try {
             $group->delete();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_fault('group_remove_error', $e->getMessage());
         }
         return true;

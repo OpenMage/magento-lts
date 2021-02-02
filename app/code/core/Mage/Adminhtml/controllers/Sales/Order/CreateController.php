@@ -391,7 +391,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
             $this->_reloadQuote();
             $this->_getSession()->addError($e->getMessage());
         }
-        catch (Exception $e){
+        catch (Throwable $e){
             $this->_reloadQuote();
             $this->_getSession()->addException($e, $e->getMessage());
         }
@@ -437,7 +437,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
             $this->_initSession()
                 ->_processData();
         }
-        catch (Exception $e){
+        catch (Throwable $e){
             $this->_reloadQuote();
             $errorMessage = $e->getMessage();
         }
@@ -536,7 +536,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
             }
             $this->_redirect('*/*/');
         }
-        catch (Exception $e){
+        catch (Throwable $e){
             $this->_getSession()->addException($e, $this->__('Order saving error: %s', $e->getMessage()));
             $this->_redirect('*/*/');
         }
@@ -637,7 +637,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
             $sessionQuote = Mage::getSingleton('adminhtml/session_quote');
             $configureResult->setCurrentCustomerId($sessionQuote->getCustomerId());
 
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $configureResult->setError(true);
             $configureResult->setMessage($e->getMessage());
         }

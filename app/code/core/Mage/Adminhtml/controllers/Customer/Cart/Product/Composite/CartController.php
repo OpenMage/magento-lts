@@ -107,7 +107,7 @@ class Mage_Adminhtml_Customer_Cart_Product_Composite_CartController extends Mage
             $configureResult->setBuyRequest($quoteItem->getBuyRequest());
             $configureResult->setCurrentStoreId($quoteItem->getStoreId());
             $configureResult->setCurrentCustomer($this->_customer);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $configureResult->setError(true);
             $configureResult->setMessage($e->getMessage());
         }
@@ -138,7 +138,7 @@ class Mage_Adminhtml_Customer_Cart_Product_Composite_CartController extends Mage
                 ->save();
 
             $updateResult->setOk(true);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $updateResult->setError(true);
             $updateResult->setMessage($e->getMessage());
         }

@@ -192,7 +192,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
         if (is_null($this->_store)) {
             try {
                 $store = Mage::app()->getStore($this->getVar('store'));
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $this->addException(
                     Mage::helper('catalog')->__('Invalid store specified'),
                     Varien_Convert_Exception::FATAL
@@ -377,7 +377,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                     }
                     unset($model);
                 } //foreach ($storeIds as $storeId)
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 if (!$e instanceof Mage_Dataflow_Model_Convert_Exception) {
                     $this->addException(
                         Mage::helper('catalog')->__('Error during retrieval of option value: %s', $e->getMessage()),

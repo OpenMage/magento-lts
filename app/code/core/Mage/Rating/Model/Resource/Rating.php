@@ -176,7 +176,7 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
                     }
                 }
                 $adapter->commit();
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 Mage::logException($e);
                 $adapter->rollBack();
             }
@@ -215,7 +215,7 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
                 }
 
                 $adapter->commit();
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 Mage::logException($e);
                 $adapter->rollBack();
             }

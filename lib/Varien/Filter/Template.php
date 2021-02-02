@@ -144,7 +144,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
                     }
                     try {
                         $replacedValue = call_user_func($callback, $construction);
-                    } catch (Exception $e) {
+                    } catch (Throwable $e) {
                         throw $e;
                     }
                     $value = str_replace($construction[0], $replacedValue, $value);
@@ -161,7 +161,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
                 }
                 try {
                     $replacedValue = call_user_func($callback, $construction);
-                } catch (Exception $e) {
+                } catch (Throwable $e) {
                     throw $e;
                 }
                 $value = str_replace($construction[0], $replacedValue, $value);

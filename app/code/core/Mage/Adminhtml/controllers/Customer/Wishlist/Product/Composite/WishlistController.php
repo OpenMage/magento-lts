@@ -93,7 +93,7 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController
             $configureResult->setCurrentCustomerId($this->_wishlist->getCustomerId());
 
             $configureResult->setOk(true);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $configureResult->setError(true);
             $configureResult->setMessage($e->getMessage());
         }
@@ -125,7 +125,7 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController
                 ->save();
 
             $updateResult->setOk(true);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $updateResult->setError(true);
             $updateResult->setMessage($e->getMessage());
         }

@@ -692,7 +692,7 @@ final class Mage
         } catch (Mage_Core_Model_Store_Exception $e) {
             require_once(self::getBaseDir() . DS . 'errors' . DS . '404.php');
             die;
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             self::printException($e);
             die;
         }
@@ -735,7 +735,7 @@ final class Mage
         } catch (Mage_Core_Model_Store_Exception $e) {
             require_once(self::getBaseDir() . DS . 'errors' . DS . '404.php');
             die();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             if (self::isInstalled() || self::$_isDownloader) {
                 self::printException($e);
                 exit();
@@ -747,7 +747,7 @@ final class Mage
                 } else {
                     self::printException($e);
                 }
-            } catch (Exception $ne) {
+            } catch (Throwable $ne) {
                 self::printException($ne, $e->getMessage());
             }
         }
@@ -840,7 +840,7 @@ final class Mage
                 $file = self::getStoreConfig('dev/log/file');
             }
         }
-        catch (Exception $e) {
+        catch (Throwable $e) {
             $logActive = true;
         }
 
@@ -898,7 +898,7 @@ final class Mage
             $message = addcslashes($message, '<?');
             $loggers[$file]->log($message, $level);
         }
-        catch (Exception $e) {
+        catch (Throwable $e) {
         }
     }
 
@@ -977,7 +977,7 @@ final class Mage
                 $storeCode = self::app()->getStore()->getCode();
                 $reportData['skin'] = $storeCode;
             }
-            catch (Exception $e) {}
+            catch (Throwable $e) {}
 
             require_once(self::getBaseDir() . DS . 'errors' . DS . 'report.php');
         }

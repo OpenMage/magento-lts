@@ -85,7 +85,7 @@ try {
     }
 
     $conn->commit();
-} catch (Exception $e) {
+} catch (Throwable $e) {
     $conn->rollBack();
     throw $e;
 }

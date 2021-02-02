@@ -356,7 +356,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('catalog')->__('The category has been saved.'));
                 $refreshTree = 'true';
             }
-            catch (Exception $e){
+            catch (Throwable $e){
                 $this->_getSession()->addError($e->getMessage())
                     ->setCategoryData($data);
                 $refreshTree = 'false';
@@ -394,7 +394,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
         catch (Mage_Core_Exception $e) {
             $this->getResponse()->setBody($e->getMessage());
         }
-        catch (Exception $e){
+        catch (Throwable $e){
             $this->getResponse()->setBody(Mage::helper('catalog')->__('Category move error %s', $e));
             Mage::logException($e);
         }
@@ -421,7 +421,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
                 $this->getResponse()->setRedirect($this->getUrl('*/*/edit', array('_current'=>true)));
                 return;
             }
-            catch (Exception $e){
+            catch (Throwable $e){
                 Mage::getSingleton('adminhtml/session')->addError(Mage::helper('catalog')->__('An error occurred while trying to delete the category.'));
                 $this->getResponse()->setRedirect($this->getUrl('*/*/edit', array('_current'=>true)));
                 return;

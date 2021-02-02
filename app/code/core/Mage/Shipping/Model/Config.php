@@ -115,7 +115,7 @@ class Mage_Shipping_Model_Config extends Varien_Object
         try {
             /** @var Mage_Shipping_Model_Carrier_Abstract $carrier */
             $carrier = Mage::getModel($modelName);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             Mage::logException($e);
             return false;
         }

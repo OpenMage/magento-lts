@@ -215,7 +215,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
         } catch (Mage_Core_Exception $e) {
             $adapter->rollBack();
             throw $e;
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $adapter->rollBack();
             return false;
         }
@@ -271,7 +271,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
         } catch (Mage_Core_Exception $e) {
             $adapter->rollBack();
             throw $e;
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $adapter->rollBack();
             throw $e;
         }
@@ -489,7 +489,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
         try {
             $unsterilizedData = Mage::helper('core/unserializeArray')->unserialize($user->getExtra());
             $user->setExtra($unsterilizedData);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $user->setExtra(false);
         }
         return $user;

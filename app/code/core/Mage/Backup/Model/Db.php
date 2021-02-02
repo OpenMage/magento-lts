@@ -156,7 +156,7 @@ class Mage_Backup_Model_Db
             $backup->write($this->getResource()->getFooter());
 
             $this->getResource()->commitTransaction();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->getResource()->rollBackTransaction();
             throw $e;
         }

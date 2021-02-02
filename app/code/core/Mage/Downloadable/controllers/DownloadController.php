@@ -228,7 +228,7 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
                 }
                 $linkPurchasedItem->save();
                 exit(0);
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $this->_getCustomerSession()->addError(
                     Mage::helper('downloadable')->__('An error occurred while getting the requested content. Please contact the store owner.')
                 );

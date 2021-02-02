@@ -88,7 +88,7 @@ class Magento_Crypt
                 throw new Magento_Exception('Init vector must be a string of ' . $initVectorSize . ' bytes.');
             }
             $this->_initVector = $initVector;
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             mcrypt_module_close($this->_handle);
             throw $e;
         }

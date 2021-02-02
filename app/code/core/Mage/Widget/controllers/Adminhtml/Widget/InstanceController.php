@@ -196,7 +196,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
             return;
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             Mage::logException($e);
             $this->_getSession()->addError($this->__('An error occurred during saving a widget: %s', $e->getMessage()));
         }
@@ -216,7 +216,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
                 $this->_getSession()->addSuccess(
                     Mage::helper('widget')->__('The widget instance has been deleted.')
                 );
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $this->_getSession()->addError($e->getMessage());
             }
         }
@@ -361,10 +361,10 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
                     ) {
                         $errorNo = false;
                     }
-                } catch (Exception $exception) {
-                    Mage::logException($exception);
+                } catch (Throwable $e) {
+                    Mage::logException($e);
                     $this->_getSession()->addError(
-                        $this->__('An error occurred during POST data validation: %s', $exception->getMessage())
+                        $this->__('An error occurred during POST data validation: %s', $e->getMessage())
                     );
                     $errorNo = false;
                 }

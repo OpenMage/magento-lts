@@ -220,7 +220,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
                     : null;
 
                 $this->_getResource()->saveFile($file);
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $this->_errors[] = $e->getMessage();
                 Mage::logException($e);
             }

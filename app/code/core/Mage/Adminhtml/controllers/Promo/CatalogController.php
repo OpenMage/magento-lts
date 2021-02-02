@@ -189,7 +189,7 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
                 return;
             } catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $this->_getSession()->addError(
                     Mage::helper('catalogrule')->__('An error occurred while saving the rule data. Please review the log and try again.')
                 );
@@ -226,7 +226,7 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
                 return;
             } catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $this->_getSession()->addError(
                     Mage::helper('catalogrule')->__('An error occurred while deleting the rule. Please review the log and try again.')
                 );
@@ -322,7 +322,7 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
             $this->_getSession()->addSuccess(Mage::helper('catalogrule')->__('The rules have been applied.'));
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($errorMessage . ' ' . $e->getMessage());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_getSession()->addError($errorMessage);
             Mage::logException($e);
         }

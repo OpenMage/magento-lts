@@ -98,7 +98,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
             }
         } catch (Mage_Core_Exception $e) {
             $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
 
@@ -174,7 +174,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
                         )
                     );
                 }
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $this->_errorMessage(
                     Mage_Api2_Model_Resource::RESOURCE_INTERNAL_ERROR,
                     Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR,
@@ -226,7 +226,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
             $product->save();
         } catch (Mage_Core_Exception $e) {
             $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
     }

@@ -140,7 +140,7 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract
         if ($this->isSerialized($data)) {
             try {
                 Mage::helper('core/unserializeArray')->unserialize($data);
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $result = false;
                 $this->addException(
                     "Invalid data, expecting serialized array.",

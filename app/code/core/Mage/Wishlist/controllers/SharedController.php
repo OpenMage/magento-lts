@@ -130,7 +130,7 @@ class Mage_Wishlist_SharedController extends Mage_Wishlist_Controller_Abstract
                 Mage::getSingleton('catalog/session')->addNotice($e->getMessage());
                 $redirectUrl = $item->getProductUrl();
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $session->addException($e, Mage::helper('wishlist')->__('Cannot add item to shopping cart'));
         }
 

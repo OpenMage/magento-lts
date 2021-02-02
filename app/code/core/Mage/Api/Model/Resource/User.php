@@ -250,7 +250,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
         } catch (Mage_Core_Exception $e) {
             $dbh->rollBack();
             throw $e;
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $dbh->rollBack();
             return false;
         }
@@ -302,7 +302,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
         } catch (Mage_Core_Exception $e) {
             $adapter->rollBack();
             throw $e;
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $adapter->rollBack();
         }
         return $this;

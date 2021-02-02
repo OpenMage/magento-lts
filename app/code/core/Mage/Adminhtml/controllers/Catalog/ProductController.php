@@ -90,7 +90,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         if ($productId) {
             try {
                 $product->load($productId);
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $product->setTypeId(Mage_Catalog_Model_Product_Type::DEFAULT_TYPE);
                 Mage::logException($e);
             }
@@ -554,7 +554,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         } catch (Mage_Core_Exception $e) {
             $response->setError(true);
             $response->setMessage($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_getSession()->addError($e->getMessage());
             $this->_initLayoutMessages('adminhtml/session');
             $response->setError(true);
@@ -759,7 +759,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
                 $this->_getSession()->addError($e->getMessage())
                     ->setProductData($data);
                 $redirectBack = true;
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 Mage::logException($e);
                 $this->_getSession()->addError($e->getMessage());
                 $redirectBack = true;
@@ -814,7 +814,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             $newProduct = $product->duplicate();
             $this->_getSession()->addSuccess($this->__('The product has been duplicated.'));
             $this->_redirect('*/*/edit', array('_current'=>true, 'id'=>$newProduct->getId()));
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             Mage::logException($e);
             $this->_getSession()->addError($e->getMessage());
             $this->_redirect('*/*/edit', array('_current'=>true));
@@ -845,7 +845,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             try {
                 $product->delete();
                 $this->_getSession()->addSuccess($this->__('The product has been deleted.'));
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $this->_getSession()->addError($e->getMessage());
             }
         }
@@ -932,7 +932,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
                     $this->_getSession()->addSuccess(
                         $this->__('Total of %d record(s) have been deleted.', count($productIds))
                     );
-                } catch (Exception $e) {
+                } catch (Throwable $e) {
                     $this->_getSession()->addError($e->getMessage());
                 }
             }
@@ -961,7 +961,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             );
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_getSession()
                 ->addException($e, $this->__('An error occurred while updating the product(s) status.'));
         }
@@ -1118,7 +1118,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
                 )
             );
 
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             Mage::logException($e);
             $result['error'] = array(
                 'message'   =>  $this->__('An error occurred while saving the product. ') . $e->getMessage()

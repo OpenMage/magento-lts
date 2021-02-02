@@ -114,7 +114,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
             } catch (Mage_Core_Exception $e) {
                 Mage::getSingleton('adminhtml/session')->setFormData($ratePost);
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
 
@@ -183,7 +183,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                 catch (Mage_Core_Exception $e) {
                     Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 }
-                catch (Exception $e) {
+                catch (Throwable $e) {
                     Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('An error occurred while deleting this rate.'));
                 }
                 if ($referer = $this->getRequest()->getServer('HTTP_REFERER')) {
@@ -269,7 +269,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('tax')->__('The tax rate has been imported.'));
             } catch (Mage_Core_Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('Invalid file upload attempt'));
             }
         }

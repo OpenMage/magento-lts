@@ -63,7 +63,7 @@ try {
 
     $installer->getConnection()->commit();
 
-} catch (Exception $e) {
+} catch (Throwable $e) {
     $installer->getConnection()->rollback();
     $installer->getConnection()->dropColumn($this->getTable('sales/order'), $attribute['attribute_code']);
     throw $e;

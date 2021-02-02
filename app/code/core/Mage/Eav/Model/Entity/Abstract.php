@@ -656,7 +656,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
                 $results[$attrCode] = call_user_func_array(array($instance, $method), $args);
             } catch (Mage_Eav_Model_Entity_Attribute_Exception $e) {
                 throw $e;
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $e = Mage::getModel('eav/entity_attribute_exception', $e->getMessage());
                 $e->setAttributeCode($attrCode)->setPart($part);
                 throw $e;
@@ -1464,7 +1464,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
             // reset data arrays
             $this->_attributeValuesToSave   = array();
             $this->_attributeValuesToDelete = array();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_attributeValuesToSave   = array();
             $this->_attributeValuesToDelete = array();
             throw $e;
@@ -1575,7 +1575,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
             }
             $this->_processAttributeValues();
             $adapter->commit();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $adapter->rollBack();
             throw $e;
         }
@@ -1609,7 +1609,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
             foreach ($this->getAttributesByTable() as $table => $attributes) {
                 $this->_getWriteAdapter()->delete($table, $where);
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             throw $e;
         }
 

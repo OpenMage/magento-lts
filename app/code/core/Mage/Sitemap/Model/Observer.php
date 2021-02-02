@@ -81,7 +81,7 @@ class Mage_Sitemap_Model_Observer
 
             try {
                 $sitemap->generateXml();
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $errors[] = $e->getMessage();
             }
         }

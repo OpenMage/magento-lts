@@ -172,7 +172,7 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
                 Mage::getSingleton('adminhtml/session')->setUserData(false);
                 $this->_redirect('*/*/edit', array('user_id' => $model->getUserId()));
                 return;
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 Mage::getSingleton('adminhtml/session')->setUserData($data);
                 $this->_redirect('*/*/edit', array('user_id' => $model->getUserId()));
@@ -193,7 +193,7 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
                 $this->_redirect('*/*/');
                 return;
             }
-            catch (Exception $e) {
+            catch (Throwable $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 $this->_redirect('*/*/edit', array('user_id' => $this->getRequest()->getParam('user_id')));
                 return;

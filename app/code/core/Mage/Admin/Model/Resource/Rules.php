@@ -92,7 +92,7 @@ class Mage_Admin_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstra
         } catch (Mage_Core_Exception $e) {
             $adapter->rollBack();
             throw $e;
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $adapter->rollBack();
             Mage::logException($e);
         }

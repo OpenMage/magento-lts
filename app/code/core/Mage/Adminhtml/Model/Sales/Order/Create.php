@@ -824,7 +824,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             catch (Mage_Core_Exception $e){
                 $this->getSession()->addError($e->getMessage());
             }
-            catch (Exception $e){
+            catch (Throwable $e){
                 return $e;
             }
         }
@@ -883,7 +883,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             } catch (Mage_Core_Exception $e) {
                 $this->recollectCart();
                 throw $e;
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 Mage::logException($e);
             }
             $this->recollectCart();
@@ -915,7 +915,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                         );
                     }
                     list($label,$value) = explode(':', $_additionalOption, 2);
-                } catch (Exception $e) {
+                } catch (Throwable $e) {
                     Mage::throwException(Mage::helper('adminhtml')->__('There is an error in one of the option rows.'));
                 }
                 $label = trim($label);

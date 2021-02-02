@@ -166,7 +166,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
                     $session->addSuccess(Mage::helper('catalog')->__('The review has been saved.'));
                 } catch (Mage_Core_Exception $e) {
                     $session->addError($e->getMessage());
-                } catch (Exception $e){
+                } catch (Throwable $e){
                     $session->addException($e, Mage::helper('catalog')->__('An error occurred while saving this review.'));
                 }
             }
@@ -195,7 +195,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
             return;
         } catch (Mage_Core_Exception $e) {
             $session->addError($e->getMessage());
-        } catch (Exception $e){
+        } catch (Throwable $e){
             $session->addException($e, Mage::helper('catalog')->__('An error occurred while deleting this review.'));
         }
 
@@ -220,7 +220,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
                 );
             } catch (Mage_Core_Exception $e) {
                 $session->addError($e->getMessage());
-            } catch (Exception $e){
+            } catch (Throwable $e){
                 $session->addException($e, Mage::helper('adminhtml')->__('An error occurred while deleting record(s).'));
             }
         }
@@ -250,7 +250,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
                 );
             } catch (Mage_Core_Exception $e) {
                 $session->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $session->addException($e, Mage::helper('adminhtml')->__('An error occurred while updating the selected review(s).'));
             }
         }
@@ -280,7 +280,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
                 );
             } catch (Mage_Core_Exception $e) {
                 $session->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $session->addException($e, Mage::helper('adminhtml')->__('An error occurred while updating the selected review(s).'));
             }
         }
@@ -361,7 +361,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
                 return;
             } catch (Mage_Core_Exception $e) {
                 $session->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $session->addException($e, Mage::helper('adminhtml')->__('An error occurred while saving review.'));
             }
         }

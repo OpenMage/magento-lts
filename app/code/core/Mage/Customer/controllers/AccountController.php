@@ -174,7 +174,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                     }
                     $session->addError($message);
                     $session->setUsername($login['username']);
-                } catch (Exception $e) {
+                } catch (Throwable $e) {
                     // Mage::logException($e); // PA DSS violation: this exception log can disclose customer password
                 }
             } else {
@@ -316,7 +316,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 $message = $this->_escapeHtml($e->getMessage());
             }
             $session->addError($message);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $session->setCustomerFormData($this->getRequest()->getPost());
             $session->addException($e, $this->__('Cannot save the customer.'));
         }
@@ -617,7 +617,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 if ((!$customer) || (!$customer->getId())) {
                     throw new Exception('Failed to load customer by id.');
                 }
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 throw new Exception($this->__('Wrong customer account specified.'));
             }
 
@@ -631,7 +631,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 try {
                     $customer->setConfirmation(null);
                     $customer->save();
-                } catch (Exception $e) {
+                } catch (Throwable $e) {
                     throw new Exception($this->__('Failed to confirm customer account.'));
                 }
 
@@ -645,7 +645,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             // die happy
             $this->_redirectSuccess($this->_getUrl('*/*/index', array('_secure' => true)));
             return;
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             // die unhappy
             $this->_getSession()->addError($e->getMessage());
             $this->_redirectError($this->_getUrl('*/*/index', array('_secure' => true)));
@@ -680,7 +680,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 }
                 $this->_getSession()->setUsername($email);
                 $this->_redirectSuccess($this->_getUrl('*/*/index', array('_secure' => true)));
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $this->_getSession()->addException($e, $this->__('Wrong email.'));
                 $this->_redirectError($this->_getUrl('*/*/*', array('email' => $email, '_secure' => true)));
             }
@@ -772,7 +772,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                     $customer->changeResetPasswordLinkCustomerId($newResetPasswordLinkCustomerId);
                     $customer->changeResetPasswordLinkToken($newResetPasswordLinkToken);
                     $customer->sendPasswordResetConfirmationEmail();
-                } catch (Exception $exception) {
+                } catch (Throwable $exception) {
                     $this->_getSession()->addError($exception->getMessage());
                     $this->_redirect('*/*/forgotpassword');
                     return;
@@ -804,7 +804,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             $this->_validateResetPasswordLinkToken($customerId, $resetPasswordLinkToken);
             $this->loadLayout();
             $this->renderLayout();
-        } catch (Exception $exception) {
+        } catch (Throwable $exception) {
             $this->_getSession()->addError($this->_getHelper('customer')->__('Your password reset link has expired.'));
             $this->_redirect('*/*/forgotpassword');
         }
@@ -825,7 +825,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             $this->_validateResetPasswordLinkToken($customerId, $resetPasswordLinkToken);
             $this->_saveRestorePasswordParameters($customerId, $resetPasswordLinkToken)
                 ->_redirect('*/*/changeforgotten');
-        } catch (Exception $exception) {
+        } catch (Throwable $exception) {
             $this->_getSession()->addError($this->_getHelper('customer')->__('Your password reset link has expired.'));
             $this->_redirect('*/*/forgotpassword');
         }
@@ -843,7 +843,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
         try {
             $this->_validateResetPasswordLinkToken($customerId, $resetPasswordLinkToken);
-        } catch (Exception $exception) {
+        } catch (Throwable $exception) {
             $this->_getSession()->addError($this->_getHelper('customer')->__('Your password reset link has expired.'));
             $this->_redirect('*/*/');
             return;
@@ -886,7 +886,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
             $this->_getSession()->addSuccess($this->_getHelper('customer')->__('Your password has been updated.'));
             $this->_redirect('*/*/login');
-        } catch (Exception $exception) {
+        } catch (Throwable $exception) {
             $this->_getSession()->addException($exception, $this->__('Cannot save a new password.'));
             $this->_redirect('*/*/changeforgotten');
             return;
@@ -1064,7 +1064,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             } catch (Mage_Core_Exception $e) {
                 $this->_getSession()->setCustomerFormData($this->getRequest()->getPost())
                     ->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $this->_getSession()->setCustomerFormData($this->getRequest()->getPost())
                     ->addException($e, $this->__('Cannot save the customer.'));
             }

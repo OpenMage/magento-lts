@@ -44,7 +44,7 @@ class Mage_Adminhtml_TaxController extends Mage_Adminhtml_Controller_Action
                 $path = 'tax/ignore_notification/' . $section;
                 Mage::getModel('core/config')->saveConfig($path, 1);
                 Mage::getConfig()->reinit();
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
         }

@@ -76,7 +76,7 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
         if ($this->hasVisitorId() || $this->hasCustomerId()) {
             try {
                 parent::save();
-            } catch (Exception $exception) {
+            } catch (Throwable $exception) {
                 if ($this->hasCustomerId()) {
                     $this->updateCustomerFromVisitor();
                     parent::save();
@@ -244,7 +244,7 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
     {
         try {
             $this->_getResource()->registerIds($this, $productIds);
-        } catch (Exception $exception) {
+        } catch (Throwable $exception) {
             if ($this->hasCustomerId()) {
                 $this->updateCustomerFromVisitor();
                 $this->_getResource()->registerIds($this, $productIds);

@@ -47,7 +47,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
         try {
             $this->_prepareBundlePrice();
             $this->commit();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->rollBack();
             throw $e;
         }

@@ -254,7 +254,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
                     $attribute->usesSource() && $attribute->getSource();
                     $attribute->getBackend();
                     $this->_attributes[$attributeCode] = $attribute;
-                } catch (Exception $e) {
+                } catch (Throwable $e) {
                     Mage::logException($e);
                 }
             }
@@ -1417,7 +1417,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
             try {
                 $this->rebuild($store);
                 $this->commit();
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $this->rollBack();
                 throw $e;
             }

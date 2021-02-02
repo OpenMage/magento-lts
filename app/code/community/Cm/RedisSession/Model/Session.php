@@ -174,7 +174,7 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
             }
             return TRUE;
         }
-        catch (Exception $e) {
+        catch (Throwable $e) {
             Mage::logException($e);
             $this->_redis = NULL;
             Mage::log('Unable to connect to Redis; falling back to MySQL handler', Zend_Log::EMERG);

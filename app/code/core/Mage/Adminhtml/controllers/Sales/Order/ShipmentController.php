@@ -236,7 +236,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
                 $this->_getSession()->addError($e->getMessage());
                 $this->_redirect('*/*/new', array('order_id' => $this->getRequest()->getParam('order_id')));
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             Mage::logException($e);
             if ($isNeedCreateLabel) {
                 $responseAjax->setError(true);
@@ -275,7 +275,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
             }
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_getSession()->addError($this->__('Cannot send shipment information.'));
         }
         $this->_redirect('*/*/view', array(
@@ -320,7 +320,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
                 'error'     => true,
                 'message'   => $e->getMessage(),
             );
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $response = array(
                 'error'     => true,
                 'message'   => $this->__('Cannot add tracking number.'),
@@ -353,7 +353,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
                         'message'   => $this->__('Cannot initialize shipment for delete tracking number.'),
                     );
                 }
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $response = array(
                     'error'     => true,
                     'message'   => $this->__('Cannot delete tracking number.'),
@@ -382,7 +382,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
         if ($track->getId()) {
             try {
                 $response = $track->getNumberDetail();
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $response = array(
                     'error'     => true,
                     'message'   => $this->__('Cannot retrieve tracking number detail.'),
@@ -445,7 +445,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
                 'message'   => $e->getMessage()
             );
             $response = Mage::helper('core')->jsonEncode($response);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $response = array(
                 'error'     => true,
                 'message'   => $this->__('Cannot add new comment.')
@@ -556,7 +556,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
         } catch (Mage_Core_Exception $e) {
             $response->setError(true);
             $response->setMessage($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             Mage::logException($e);
             $response->setError(true);
             $response->setMessage(Mage::helper('sales')->__('An error occurred while creating shipping label.'));
@@ -596,7 +596,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
             }
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             Mage::logException($e);
             $this->_getSession()
                 ->addError(Mage::helper('sales')->__('An error occurred while creating shipping label.'));

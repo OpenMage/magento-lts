@@ -47,7 +47,7 @@ class Mage_Core_Helper_Translate extends Mage_Core_Helper_Abstract
             }
             Mage::getModel('core/translate_inline')->processAjaxPost($translate);
             return $returnType == 'json' ? "{success:true}" : true;
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             return $returnType == 'json' ? "{error:true,message:'" . $e->getMessage() . "'}" : false;
         }
     }

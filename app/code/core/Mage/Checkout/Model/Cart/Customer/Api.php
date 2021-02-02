@@ -184,7 +184,7 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
             $quote
                 ->collectTotals()
                 ->save();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_fault('address_is_not_set', $e->getMessage());
         }
 

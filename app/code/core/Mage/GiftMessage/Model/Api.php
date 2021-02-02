@@ -68,7 +68,7 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
                 array('request' => $request, 'quote' => $quote)
             );
             return array('entityId' => $entityId, 'result' => true, 'error' => '');
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             return array('entityId' => $entityId, 'result' => false, 'error' => $e->getMessage());
         }
     }

@@ -62,7 +62,7 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
                'value' => $filePath,
                'type'  => 'filename'
             ));
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_forward('noRoute');
         }
     }
@@ -152,7 +152,7 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
                 return;
             }
             $this->_downloadFileAction($request['options'][$this->getRequest()->getParam('option_id')]);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_forward('noRoute');
         }
     }
@@ -193,7 +193,7 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
         try {
             $info = Mage::helper('core/unserializeArray')->unserialize($option->getValue());
             $this->_downloadFileAction($info);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_forward('noRoute');
         }
         exit(0);

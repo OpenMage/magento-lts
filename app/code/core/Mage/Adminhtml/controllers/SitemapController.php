@@ -211,7 +211,7 @@ class Mage_Adminhtml_SitemapController extends  Mage_Adminhtml_Controller_Action
                 $this->_redirect('*/*/');
                 return;
 
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 // display error message
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 // save data in session
@@ -253,7 +253,7 @@ class Mage_Adminhtml_SitemapController extends  Mage_Adminhtml_Controller_Action
                 $this->_redirect('*/*/');
                 return;
 
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 // display error message
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 // go back to edit form
@@ -289,7 +289,7 @@ class Mage_Adminhtml_SitemapController extends  Mage_Adminhtml_Controller_Action
             catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
             }
-            catch (Exception $e) {
+            catch (Throwable $e) {
                 $this->_getSession()->addException($e,
                     Mage::helper('sitemap')->__('Unable to generate the sitemap.'));
             }

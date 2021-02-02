@@ -190,7 +190,7 @@ class Mage_Sales_Model_Service_Quote
         Mage::dispatchEvent('sales_model_service_quote_submit_before', array('order'=>$order, 'quote'=>$quote));
         try {
             $transaction->save();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
                 // reset customer ID's on exception, because customer not saved
                 $quote->getCustomer()->setId(null);
@@ -238,7 +238,7 @@ class Mage_Sales_Model_Service_Quote
         try {
             $this->submitNominalItems();
             $this->_shouldInactivateQuote = $shouldInactivateQuoteOld;
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_shouldInactivateQuote = $shouldInactivateQuoteOld;
             throw $e;
         }

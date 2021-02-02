@@ -117,7 +117,7 @@ class Mage_Paypal_Model_Ipn
                 }
                 $this->_processOrder();
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_debugData['exception'] = $e->getMessage();
             $this->_debug();
             throw $e;
@@ -148,7 +148,7 @@ class Mage_Paypal_Model_Ipn
 
         try {
             $postbackResult = $httpAdapter->read();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_debugData['http_error'] = array('error' => $e->getMessage(), 'code' => $e->getCode());
             throw $e;
         }

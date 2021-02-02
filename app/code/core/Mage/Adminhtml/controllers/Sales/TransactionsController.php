@@ -115,7 +115,7 @@ class Mage_Adminhtml_Sales_TransactionsController extends Mage_Adminhtml_Control
             );
         } catch (Mage_Core_Exception $e) {
             Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             Mage::getSingleton('adminhtml/session')->addError(
                 Mage::helper('adminhtml')->__('Unable to update transaction details.')
             );

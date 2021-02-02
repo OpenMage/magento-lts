@@ -91,7 +91,7 @@ class Mage_Paypal_Adminhtml_Paypal_ReportsController extends Mage_Adminhtml_Cont
                     $this->_getSession()->addSuccess(
                         Mage::helper('paypal')->__("Fetched %s report rows from '%s@%s'.", $fetched, $config['username'], $config['hostname'])
                     );
-                } catch (Exception $e) {
+                } catch (Throwable $e) {
                     $this->_getSession()->addError(
                         Mage::helper('paypal')->__("Failed to fetch reports from '%s@%s'.", $config['username'], $config['hostname'])
                     );
@@ -100,7 +100,7 @@ class Mage_Paypal_Adminhtml_Paypal_ReportsController extends Mage_Adminhtml_Cont
             }
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             Mage::logException($e);
         }
         $this->_redirect('*/*/index');

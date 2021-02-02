@@ -152,7 +152,7 @@ class Mage_Centinel_Model_Api extends Varien_Object
                 $client->add($key, $val);
             }
             $client->sendHttp($this->_getApiEndpointUrl(), $this->_getTimeoutConnect(), $this->_getTimeoutRead());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $debugData['response'] = array('error' => $e->getMessage(), 'code' => $e->getCode());
             $this->_debug($debugData);
             throw $e;

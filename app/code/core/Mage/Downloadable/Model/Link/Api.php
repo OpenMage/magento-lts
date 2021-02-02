@@ -73,7 +73,7 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
                 $fullPath = rtrim($tmpPath, DS) . DS . ltrim($result['file'], DS);
                 Mage::helper('core/file_storage_database')->saveFile($fullPath);
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             if ($e->getMessage() != '') {
                 $this->_fault('upload_failed', $e->getMessage());
             } else {
@@ -101,7 +101,7 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
         try {
             $this->_getValidator()->validateType($resourceType);
             $this->_getValidator()->validateAttributes($resource, $resourceType);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_fault('validation_error', $e->getMessage());
         }
 
@@ -135,7 +135,7 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
             $downloadable = array($resourceType => array($resource));
             $product->setDownloadableData($downloadable);
             $product->save();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_fault('save_error', $e->getMessage());
         }
 
@@ -232,7 +232,7 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
     {
         try {
             $this->_getValidator()->validateType($resourceType);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_fault('validation_error', $e->getMessage());
         }
 
@@ -252,7 +252,7 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
 
         try {
             $downloadableModel->delete();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_fault('remove_error', $e->getMessage());
         }
 

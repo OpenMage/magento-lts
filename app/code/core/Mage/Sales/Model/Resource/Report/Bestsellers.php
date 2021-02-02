@@ -235,7 +235,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
 
 
             $this->_setFlagData(Mage_Reports_Model_Flag::REPORT_BESTSELLERS_FLAG_CODE);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             //$this->_getWriteAdapter()->rollBack();
             throw $e;
         }

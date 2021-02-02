@@ -331,7 +331,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
             $this->setInlineCssFile($processor->getInlineCssFile());
             // Now that all HTML has been assembled, run email through CSS inlining process
             $processedResult = $this->getPreparedTemplateText($result);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_cancelDesignConfig();
             throw $e;
         }
@@ -468,7 +468,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
         try {
             $mail->send();
             $this->_mail = null;
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_mail = null;
             Mage::logException($e);
             return false;
@@ -545,7 +545,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
         $this->_applyDesignConfig();
         try {
             $processedResult = $processor->filter($this->getTemplateSubject());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_cancelDesignConfig();
             throw $e;
         }

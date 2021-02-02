@@ -965,7 +965,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
                 $this->_buildQuery($request)
             );
             $response = $http->read();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $debugData['http_error'] = array('error' => $e->getMessage(), 'code' => $e->getCode());
             $this->_debug($debugData);
             throw $e;

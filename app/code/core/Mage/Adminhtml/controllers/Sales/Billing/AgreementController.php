@@ -116,7 +116,7 @@ class Mage_Adminhtml_Sales_Billing_AgreementController extends Mage_Adminhtml_Co
                 return;
             } catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $this->_getSession()->addError($this->__('Failed to cancel the billing agreement.'));
                 Mage::logException($e);
             }
@@ -140,7 +140,7 @@ class Mage_Adminhtml_Sales_Billing_AgreementController extends Mage_Adminhtml_Co
                 return;
             } catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $this->_getSession()->addError($this->__('Failed to delete the billing agreement.'));
                 Mage::logException($e);
             }

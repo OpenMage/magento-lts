@@ -119,7 +119,7 @@ class Mage_Adminhtml_Newsletter_SubscriberController extends Mage_Adminhtml_Cont
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     Mage::helper('adminhtml')->__('Total of %d record(s) were updated', count($subscribersIds))
                 );
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
         }
@@ -142,7 +142,7 @@ class Mage_Adminhtml_Newsletter_SubscriberController extends Mage_Adminhtml_Cont
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     Mage::helper('adminhtml')->__('Total of %d record(s) were deleted', count($subscribersIds))
                 );
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
         }

@@ -129,7 +129,7 @@ try {
             $insertQueryItems
         );
     }
-} catch (Exception $e) {
+} catch (Throwable $e) {
     $connection->rollBack();
     throw $e;
 }

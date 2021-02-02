@@ -378,7 +378,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                 $newTransaction = $this->_voidCardTransaction($payment, $card);
                 $messages[] = $newTransaction->getMessage();
                 $isSuccessful = true;
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $messages[] = $e->getMessage();
                 $isFiled = true;
                 continue;
@@ -440,7 +440,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                     $newTransaction = $this->_refundCardTransaction($payment, $cardAmountForRefund, $card);
                     $messages[] = $newTransaction->getMessage();
                     $isSuccessful = true;
-                } catch (Exception $e) {
+                } catch (Throwable $e) {
                     $messages[] = $e->getMessage();
                     $isFiled = true;
                     continue;
@@ -708,7 +708,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                     );
                     $messages[] = $newTransaction->getMessage();
                     $isSuccessful = true;
-                } catch (Exception $e) {
+                } catch (Throwable $e) {
                     $messages[] = $e->getMessage();
                     $isFiled = true;
                     continue;
@@ -1121,7 +1121,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                             Mage::helper('paygate')->__('Payment partial authorization error.')
                         );
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $exceptionMessage = $e->getMessage();
         }
 
@@ -1289,7 +1289,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
 
         try {
             $response = $client->request();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $result->setResponseCode(-1)
                 ->setResponseReasonCode($e->getCode())
                 ->setResponseReasonText($e->getMessage());
@@ -1565,7 +1565,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
             libxml_use_internal_errors(true);
             $responseXmlDocument = new Varien_Simplexml_Element($responseBody);
             libxml_use_internal_errors(false);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $debugData['exception'] = $e->getMessage();
             $this->_debug($debugData);
             Mage::throwException(Mage::helper('paygate')->__('Payment updating error.'));

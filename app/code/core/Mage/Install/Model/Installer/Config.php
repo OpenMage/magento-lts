@@ -153,7 +153,7 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
             /* @var $responce Zend_Http_Response */
             $body = $response->getBody();
         }
-        catch (Exception $e){
+        catch (Throwable $e){
             $this->_getInstaller()->getDataModel()
                 ->addError(Mage::helper('install')->__('The URL "%s" is not accessible.', $url));
             throw $e;

@@ -265,7 +265,7 @@ HTML;
                 $thisClass = get_class($this);
                 Mage::log('Not valid template file:' . $fileName . ' class: ' . $thisClass, Zend_Log::CRIT, null, true);
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             ob_get_clean();
             throw $e;
         }

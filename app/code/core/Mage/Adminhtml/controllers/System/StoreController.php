@@ -247,7 +247,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
                 $session->addError($e->getMessage());
                 $session->setPostData($postData);
             }
-            catch (Exception $e) {
+            catch (Throwable $e) {
                 $session->addException($e, Mage::helper('core')->__('An error occurred while saving. Please review the error log.'));
                 $session->setPostData($postData);
             }
@@ -379,7 +379,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
         catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
         }
-        catch (Exception $e) {
+        catch (Throwable $e) {
             $this->_getSession()->addException($e, Mage::helper('core')->__('Unable to delete website. Please, try again later.'));
         }
         $this->_redirect('*/*/editWebsite', array('website_id' => $itemId));
@@ -411,7 +411,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
         catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
         }
-        catch (Exception $e) {
+        catch (Throwable $e) {
             $this->_getSession()->addException($e, Mage::helper('core')->__('Unable to delete store. Please, try again later.'));
         }
         $this->_redirect('*/*/editGroup', array('group_id' => $itemId));
@@ -450,7 +450,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
         catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
         }
-        catch (Exception $e) {
+        catch (Throwable $e) {
             $this->_getSession()->addException($e, Mage::helper('core')->__('Unable to delete store view. Please, try again later.'));
         }
         $this->_redirect('*/*/editStore', array('store_id' => $itemId));
@@ -488,7 +488,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
             $this->_redirect($failPath, $arguments);
             return ;
         }
-        catch (Exception $e) {
+        catch (Throwable $e) {
             $this->_getSession()->addException($e, Mage::helper('backup')->__('Unable to create backup. Please, try again later.'));
             $this->_redirect($failPath, $arguments);
             return ;

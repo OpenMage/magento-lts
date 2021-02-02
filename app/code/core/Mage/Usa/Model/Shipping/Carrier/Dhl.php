@@ -547,7 +547,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
                 $debugData['result'] = $responseBody;
                 $this->_setCachedQuotes($request, $responseBody);
             }
-            catch (Exception $e) {
+            catch (Throwable $e) {
                 $debugData['result'] = array('error' => $e->getMessage(), 'code' => $e->getCode());
                 $responseBody = '';
             }
@@ -1043,7 +1043,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
             $responseBody = curl_exec($ch);
             $debugData['result'] = $responseBody;
             curl_close($ch);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $debugData['result'] = array('error' => $e->getMessage(), 'code' => $e->getCode());
             $responseBody = '';
         }

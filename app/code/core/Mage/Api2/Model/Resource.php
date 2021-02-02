@@ -791,7 +791,7 @@ abstract class Mage_Api2_Model_Resource
 
             try {
                 $collection->$methodName($attributeCode, $filterEntry);
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $this->_critical(self::RESOURCE_COLLECTION_FILTERING_ERROR);
             }
         }

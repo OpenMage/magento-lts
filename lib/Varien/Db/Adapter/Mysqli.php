@@ -100,7 +100,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
                 $this->clear_result();
                 $result = $this->getConnection()->query($sql);
                 $this->clear_result();
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 if ($tries < 10 && $e->getMessage() == $timeoutMessage) {
                     $retry = true;
                     $tries++;
@@ -158,7 +158,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
             } else {
                 throw new Zend_Db_Adapter_Mysqli_Exception('multi_query: '.$this->getConnection()->error);
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->rollBack();
             throw $e;
         }

@@ -102,7 +102,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
         if ($sessId = $this->getSessionId()) {
             try {
                 Mage::getModel('api/user')->logoutBySessId($sessId);
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 return false;
             }
         }
@@ -177,12 +177,12 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
                 if ($acl->isAllowed($user->getAclRole(), 'all', null)) {
                     return true;
                 }
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
             }
 
             try {
                 return $acl->isAllowed($user->getAclRole(), $resource, $privilege);
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 return false;
             }
         }

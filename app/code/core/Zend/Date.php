@@ -1232,7 +1232,7 @@ class Zend_Date extends Zend_Date_DateObject
                     return $match[count($match) - 1];
                 }
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             // fall through
         }
 

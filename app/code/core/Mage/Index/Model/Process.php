@@ -204,7 +204,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
                 try {
                     $this->_processEventsCollection($eventsCollection, false);
                     $this->_getResource()->commit();
-                } catch (Exception $e) {
+                } catch (Throwable $e) {
                     $this->_getResource()->rollBack();
                     throw $e;
                 }
@@ -221,7 +221,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
             } else {
                 $this->_getResource()->endProcess($this);
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->unlock();
             $this->_getResource()->failProcess($this);
             throw $e;
@@ -284,7 +284,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
 
         try {
             $this->getIndexer()->processEvent($event);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $isError = true;
         }
         $event->resetData();
@@ -363,7 +363,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
 
             $this->_processEventsCollection($eventsCollection);
             $this->unlock();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->unlock();
             throw $e;
         }
@@ -392,7 +392,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
                         $event->addProcessId($this->getId(), null);
                     }
                 }
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $event->addProcessId($this->getId(), self::EVENT_STATUS_ERROR);
             }
             $event->save();
@@ -622,7 +622,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
         try {
             $this->processEvent($event);
             $this->unlock();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->unlock();
             throw $e;
         }

@@ -178,7 +178,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
                     array('locale' => Mage::app()->getLocale()->getLocaleCode())
                 );
                 $this->setDefaultValue($filter->filter($defaultValue));
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid default decimal value'));
             }
         }
@@ -198,7 +198,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
                 try {
                     $defaultValue = Mage::app()->getLocale()->date($defaultValue, $format, null, false)->toValue();
                     $this->setDefaultValue($defaultValue);
-                } catch (Exception $e) {
+                } catch (Throwable $e) {
                     throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid default date'));
                 }
             }

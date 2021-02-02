@@ -245,8 +245,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
             $path = $ioAdapter->getCleanPath($this->getPath());
             $ioAdapter->checkAndCreateFolder($path);
             $filePath = $path . DS . $this->getFileName();
-        }
-        catch (Exception $e) {
+        } catch (Throwable $e) {
             Mage::exception('Mage_Backup', $e->getMessage());
         }
 
@@ -308,8 +307,7 @@ class Mage_Backup_Model_Backup extends Varien_Object
 
         try {
             gzwrite($this->_handler, $string);
-        }
-        catch (Exception $e) {
+        } catch (Throwable $e) {
             Mage::exception('Mage_Backup', Mage::helper('backup')->__('An error occurred while writing to the backup file "%s".', $this->getFileName()));
         }
 

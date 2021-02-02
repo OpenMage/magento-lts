@@ -75,7 +75,7 @@ try {
         }
     }
     $db->commit();
-} catch (Exception $e) {
+} catch (Throwable $e) {
     $db->rollBack();
     throw $e;
 }

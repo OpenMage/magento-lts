@@ -207,7 +207,7 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
                 } else {
                     Mage::throwException(Mage::helper('core')->__('Parent directory does not exist: %s', $dir['path']));
                 }
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 Mage::logException($e);
             }
         }

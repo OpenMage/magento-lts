@@ -141,7 +141,7 @@ try{
 
     $installer->endSetup();
     $connection->commit();
-} catch (Exception $e) {
+} catch (Throwable $e) {
     $connection->rollBack();
     throw $e;
 }

@@ -66,7 +66,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Image extends Mage_E
                 $this->getAttribute()->getEntity()
                     ->saveAttribute($object, $this->getAttribute()->getName());
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             return $this;
         }
 

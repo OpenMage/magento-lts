@@ -72,7 +72,7 @@ class Mage_Adminhtml_Catalog_Product_GalleryController extends Mage_Adminhtml_Co
                 'domain'   => $this->_getSession()->getCookieDomain()
             );
 
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $result = array(
                 'error' => $e->getMessage(),
                 'errorcode' => $e->getCode());

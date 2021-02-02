@@ -993,7 +993,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
             $idxAdapter->delete($anchorTable);
             $idxAdapter->delete($anchorProductsTable);
             $this->commit();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->rollBack();
             throw $e;
         }

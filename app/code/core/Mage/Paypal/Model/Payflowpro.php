@@ -414,7 +414,7 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
             */
             $response = $client->setUrlEncodeBody(false)->request();
         }
-        catch (Exception $e) {
+        catch (Throwable $e) {
             $result->setResponseCode(-1)
                 ->setResponseReasonCode($e->getCode())
                 ->setResponseReasonText($e->getMessage());

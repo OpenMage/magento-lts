@@ -135,7 +135,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
             $this->insertFromTable($this->getIdxTable(), $this->getMainTable());
 
             $this->commit();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->rollBack();
             throw $e;
         }
@@ -388,7 +388,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
 
             $this->syncData();
             $this->commit();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->rollBack();
             throw $e;
         }
@@ -611,7 +611,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
                 $write->insertMultiple($table, $data);
             }
             $write->commit();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $write->rollBack();
             throw $e;
         }

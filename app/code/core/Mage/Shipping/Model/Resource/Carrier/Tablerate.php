@@ -258,7 +258,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
             $adapter->rollBack();
             $io->streamClose();
             Mage::throwException($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $adapter->rollBack();
             $io->streamClose();
             Mage::logException($e);

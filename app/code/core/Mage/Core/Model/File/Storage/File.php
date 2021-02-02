@@ -177,7 +177,7 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
         foreach ($slice as $fileName) {
             try {
                 $fileInfo = $this->collectFileInfo($fileName);
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 Mage::logException($e);
                 continue;
             }
@@ -204,7 +204,7 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
         foreach ($data as $part) {
             try {
                 $this->$callback($part);
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $this->_errors[] = $e->getMessage();
                 Mage::logException($e);
             }
@@ -265,7 +265,7 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
 
                 return $this->_getResource()
                     ->saveFile($filename, $file['content'], $overwrite);
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 Mage::logException($e);
                 Mage::throwException(Mage::helper('core')->__('Unable to save file "%s" at "%s"', $file['filename'], $file['directory']));
             }

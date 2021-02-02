@@ -238,7 +238,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
                 $this->_redirect('*/*/installDb');
                 return $this;
             }
-            catch (Exception $e){
+            catch (Throwable $e){
                 Mage::getSingleton('install/session')->addError($e->getMessage());
                 $this->getResponse()->setRedirect($step->getUrl());
             }
@@ -264,7 +264,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
 
             $this->getResponse()->setRedirect(Mage::getUrl($step->getNextUrlPath()));
         }
-        catch (Exception $e){
+        catch (Throwable $e){
             Mage::getSingleton('install/session')->addError($e->getMessage());
             $this->getResponse()->setRedirect($step->getUrl());
         }
@@ -320,7 +320,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
         try {
             $this->_getInstaller()->createAdministrator($user);
             $this->_getInstaller()->installEnryptionKey($encryptionKey);
-        } catch (Exception $e){
+        } catch (Throwable $e){
             Mage::getSingleton('install/session')
                 ->setAdminData($adminData)
                 ->addError($e->getMessage());

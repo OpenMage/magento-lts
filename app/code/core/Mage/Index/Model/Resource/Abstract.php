@@ -112,7 +112,7 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
             $this->_getWriteAdapter()->delete($this->getMainTable());
             $this->insertFromTable($this->getIdxTable(), $this->getMainTable(), false);
             $this->commit();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->rollBack();
             throw $e;
         }

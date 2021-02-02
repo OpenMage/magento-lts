@@ -183,7 +183,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
             $model->save();
             // clear translation cache because attribute labels are stored in translation
             Mage::app()->cleanCache(array(Mage_Core_Model_Translate::CACHE_TAG));
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_fault('unable_to_save', $e->getMessage());
         }
 
@@ -217,7 +217,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
             // clear translation cache because attribute labels are stored in translation
             Mage::app()->cleanCache(array(Mage_Core_Model_Translate::CACHE_TAG));
             return true;
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_fault('unable_to_save', $e->getMessage());
         }
     }
@@ -243,7 +243,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
         try {
             $model->delete();
             return true;
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_fault('can_not_delete', $e->getMessage());
         }
     }
@@ -406,7 +406,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
         $model->addData($modelData);
         try {
             $model->save();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_fault('unable_to_add_option', $e->getMessage());
         }
 
@@ -444,7 +444,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
         $model->addData($modelData);
         try {
             $model->save();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_fault('unable_to_remove_option', $e->getMessage());
         }
 

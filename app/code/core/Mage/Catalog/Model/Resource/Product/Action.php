@@ -87,7 +87,7 @@ class Mage_Catalog_Model_Resource_Product_Action extends Mage_Catalog_Model_Reso
                 $this->_processAttributeValues();
             }
             $this->_getWriteAdapter()->commit();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_getWriteAdapter()->rollBack();
             throw $e;
         }

@@ -637,7 +637,7 @@ class Mage_Core_Model_Resource_Setup
                 if ($result) {
                     $this->_setResourceVersion($actionType, $file['toVersion']);
                 }
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 throw Mage::exception('Mage_Core', Mage::helper('core')->__('Error in file: "%s" - %s', $fileName, $e->getMessage()));
             }
             $version = $file['toVersion'];

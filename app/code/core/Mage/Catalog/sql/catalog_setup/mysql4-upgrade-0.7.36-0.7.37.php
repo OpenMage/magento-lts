@@ -42,6 +42,6 @@ try {
              REFERENCES `{$installer->getTable('core_website')}` (`website_id`) ON DELETE CASCADE ON UPDATE CASCADE,
             ROW_FORMAT = FIXED;
     ");
-} catch (Exception $e) {
+} catch (Throwable $e) {
 }
 $installer->endSetup();

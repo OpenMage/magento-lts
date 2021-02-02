@@ -377,7 +377,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
             }
 
             return $this->getStatus();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             throw new Exception($e->getMessage());
         }
     }

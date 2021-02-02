@@ -203,7 +203,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Date
 
             return $dateObj;
         }
-        catch (Exception $e) {
+        catch (Throwable $e) {
             return null;
         }
     }

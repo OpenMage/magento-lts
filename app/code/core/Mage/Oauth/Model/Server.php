@@ -590,7 +590,7 @@ class Mage_Oauth_Model_Server
             $this->_processRequest(self::REQUEST_TOKEN);
 
             $response = $this->_token->toString();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $response = $this->reportProblem($e);
         }
         $this->_getResponse()->setBody($response);
@@ -661,7 +661,7 @@ class Mage_Oauth_Model_Server
             $this->_processRequest(self::REQUEST_INITIATE);
 
             $response = $this->_token->toString() . '&oauth_callback_confirmed=true';
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $response = $this->reportProblem($e);
         }
         $this->_getResponse()->setBody($response);

@@ -184,7 +184,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
                 $session->addError($message);
             }
         }
-        catch (Exception $e) {
+        catch (Throwable $e) {
             $session->addException($e,
                 Mage::helper('adminhtml')->__('An error occurred while saving this configuration:') . ' '
                 . $e->getMessage());
@@ -292,7 +292,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             return false;
         }
-        catch (Exception $e) {
+        catch (Throwable $e) {
             $this->deniedAction();
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             return false;

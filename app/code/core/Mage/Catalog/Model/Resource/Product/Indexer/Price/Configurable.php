@@ -49,7 +49,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable extends Mag
             $this->_applyConfigurableOption();
             $this->_movePriceDataToIndexTable();
             $this->commit();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->rollBack();
             throw $e;
         }

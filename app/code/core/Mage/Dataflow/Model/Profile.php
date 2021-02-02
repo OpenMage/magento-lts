@@ -85,7 +85,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
             try {
                 $guiData = Mage::helper('core/unserializeArray')
                     ->unserialize($this->getGuiData());
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 Mage::logException($e);
             }
         }
@@ -151,7 +151,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                 $guiData = Mage::helper('core/unserializeArray')
                     ->unserialize($this->getGuiData());
                 $this->setGuiData($guiData);
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 Mage::logException($e);
             }
         }
@@ -201,7 +201,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                             foreach ($cells as $cell) {
                                 $fileData[] = $this->getNode($cell, 'Data')->item(0)->nodeValue;
                             }
-                        } catch (Exception $e) {
+                        } catch (Throwable $e) {
                             foreach ($newUploadedFilenames as $k => $v) {
                                 unlink($path . $v);
                             }
@@ -290,7 +290,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
             $profile->setDataflowProfile($this->getData());
             $profile->run();
         }
-        catch (Exception $e) {
+        catch (Throwable $e) {
             echo $e;
         }
 

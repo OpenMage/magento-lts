@@ -140,7 +140,7 @@ class Mage_Api2_Model_Multicall
             /** @var Mage_Api2_Model_Response $internalResponse */
             $internalResponse = Mage::getModel('api2/response');
             $server->internalCall($internalRequest, $internalResponse);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             // TODO: implement strict mode
             Mage::logException($e);
             $this->_getResponse()->setException($e);

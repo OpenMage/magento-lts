@@ -270,7 +270,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             } else {
                 $this->_redirectReferer(Mage::helper('checkout/cart')->getCartUrl());
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_getSession()->addException($e, $this->__('Cannot add the item to shopping cart.'));
             Mage::logException($e);
             $this->_goBack();
@@ -306,7 +306,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                 } else {
                     $this->_getSession()->addError($e->getMessage());
                 }
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $this->_getSession()->addException($e, $this->__('Cannot add the item to shopping cart.'));
                 Mage::logException($e);
                 $this->_goBack();
@@ -343,7 +343,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             $params->setBuyRequest($quoteItem->getBuyRequest());
 
             Mage::helper('catalog/product_view')->prepareAndRender($quoteItem->getProduct()->getId(), $this, $params);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_getSession()->addError($this->__('Cannot configure product.'));
             Mage::logException($e);
             $this->_goBack();
@@ -425,7 +425,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             } else {
                 $this->_redirectReferer(Mage::helper('checkout/cart')->getCartUrl());
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_getSession()->addException($e, $this->__('Cannot update the item.'));
             Mage::logException($e);
             $this->_goBack();
@@ -487,7 +487,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             $this->_getSession()->setCartWasUpdated(true);
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError(Mage::helper('core')->escapeHtml($e->getMessage()));
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_getSession()->addException($e, $this->__('Cannot update shopping cart.'));
             Mage::logException($e);
         }
@@ -503,7 +503,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             $this->_getSession()->setCartWasUpdated(true);
         } catch (Mage_Core_Exception $exception) {
             $this->_getSession()->addError($exception->getMessage());
-        } catch (Exception $exception) {
+        } catch (Throwable $exception) {
             $this->_getSession()->addException($exception, $this->__('Cannot update shopping cart.'));
         }
     }
@@ -519,7 +519,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                 try {
                     $this->_getCart()->removeItem($id)
                         ->save();
-                } catch (Exception $e) {
+                } catch (Throwable $e) {
                     $this->_getSession()->addError($this->__('Cannot remove the item.'));
                     Mage::logException($e);
                 }
@@ -624,7 +624,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             }
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_getSession()->addError($this->__('Cannot apply the coupon code.'));
             Mage::logException($e);
         }
@@ -654,7 +654,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                 $result['success'] = 1;
                 $result['message'] = $this->__('Item was removed successfully.');
                 Mage::dispatchEvent('ajax_cart_remove_item_success', array('id' => $id));
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $result['success'] = 0;
                 $result['error'] = $this->__('Can not remove the item.');
             }
@@ -707,7 +707,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                     $result['notice'] = $quoteItem->getMessage();
                 }
                 $result['success'] = 1;
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $result['success'] = 0;
                 $result['error'] = $this->__('Can not save item.');
             }

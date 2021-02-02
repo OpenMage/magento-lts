@@ -310,7 +310,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
                 ->load($order->getQuoteId())
                 ->setIsActive(false)
                 ->save();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             Mage::throwException(Mage::helper('paypal')->__('Can not send new order email.'));
         }
     }

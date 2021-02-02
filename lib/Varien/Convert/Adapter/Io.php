@@ -42,7 +42,7 @@
             $this->_resource = new $className();
             try {
                 $this->_resource->open($this->getVars());
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $this->addException('Error occured during file opening: '.$e->getMessage(), Varien_Convert_Exception::FATAL);
             }
          }

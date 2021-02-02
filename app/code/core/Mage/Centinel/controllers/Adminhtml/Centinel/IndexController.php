@@ -51,7 +51,7 @@ class Mage_Centinel_Adminhtml_Centinel_IndexController extends Mage_Adminhtml_Co
             $result['authenticationUrl'] = $validator->getAuthenticationStartUrl();
         } catch (Mage_Core_Exception $e) {
             $result['message'] = $e->getMessage();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             Mage::logException($e);
             $result['message'] = Mage::helper('centinel')->__('Validation failed.');
         }
@@ -87,7 +87,7 @@ class Mage_Centinel_Adminhtml_Centinel_IndexController extends Mage_Adminhtml_Co
                 $validator->authenticate($data);
                 Mage::register('current_centinel_validator', $validator);
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             Mage::register('current_centinel_validator', false);
         }
         $this->loadLayout()->renderLayout();

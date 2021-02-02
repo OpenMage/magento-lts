@@ -60,7 +60,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Rest extends Mage_Customer_Mode
             $customer->save();
         } catch (Mage_Core_Exception $e) {
             $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
 
@@ -121,7 +121,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Rest extends Mage_Customer_Mode
             $customer->save();
         } catch (Mage_Core_Exception $e) {
             $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
     }

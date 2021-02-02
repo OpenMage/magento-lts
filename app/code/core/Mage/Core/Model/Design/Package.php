@@ -651,7 +651,7 @@ class Mage_Core_Model_Design_Package
 
         try {
             $regexps = Mage::helper('core/unserializeArray')->unserialize($configValueSerialized);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             Mage::logException($e);
         }
 
@@ -829,7 +829,7 @@ class Mage_Core_Model_Design_Package
                 mkdir($dir);
             }
             return is_writeable($dir) ? $dir : false;
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             Mage::logException($e);
         }
         return false;

@@ -316,7 +316,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     {
         try {
             $this->_verifyThisTransactionExists();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             if ($dryRun) {
                 return false;
             }
@@ -533,7 +533,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
                 if ($paymentTransaction) {
                     $paymentTransaction->close($shouldSave);
                 }
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 if (!$this->_isFailsafe) {
                     throw $e;
                 }

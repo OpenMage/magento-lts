@@ -298,7 +298,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
         $adapter = $this->_getWriteAdapter();
         try {
             $adapter->insertOnDuplicate($this->getMainTable(), $rewriteData);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             Mage::logException($e);
             Mage::throwException(Mage::helper('catalog')->__('An error occurred while saving the URL rewrite'));
         }

@@ -225,7 +225,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
         try {
             $this->_startSession();
             $this->_getSession()->login($username, $apiKey);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             return $this->_fault('access_denied');
         }
         return $this->_getSession()->getSessionId();
@@ -288,7 +288,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
                 if ($model instanceof Mage_Api_Model_Resource_Abstract) {
                     $model->setResourceConfig($resources->$resourceName);
                 }
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 throw new Mage_Api_Exception('resource_path_not_callable');
             }
 
@@ -307,7 +307,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             }
         } catch (Mage_Api_Exception $e) {
             return $this->_fault($e->getMessage(), $resourceName, $e->getCustomMessage());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             Mage::logException($e);
             return $this->_fault('internal', null, $e->getMessage());
         }
@@ -403,7 +403,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
                 $modelName = $this->_prepareResourceModelName((string) $resources->$resourceName->model);
                 try {
                     $model = Mage::getModel($modelName);
-                } catch (Exception $e) {
+                } catch (Throwable $e) {
                     throw new Mage_Api_Exception('resource_path_not_callable');
                 }
 
@@ -427,7 +427,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
                 } else {
                     continue;
                 }
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 Mage::logException($e);
                 $result[] = $this->_faultAsArray('internal');
                 if (isset($options['break']) && $options['break']==1) {

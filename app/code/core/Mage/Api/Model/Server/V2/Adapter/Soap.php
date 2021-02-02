@@ -87,7 +87,7 @@ class Mage_Api_Model_Server_V2_Adapter_Soap extends Mage_Api_Model_Server_Adapte
                     ->setBody($content);
             } catch (Zend_Soap_Server_Exception $e) {
                 $this->fault($e->getCode(), $e->getMessage());
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $this->fault($e->getCode(), $e->getMessage());
             }
         }

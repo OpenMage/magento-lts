@@ -592,7 +592,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                         $i++;
                     }
                     $this->addException(Mage::helper('catalog')->__("Saved %d record(s)", $i));
-                } catch (Exception $e) {
+                } catch (Throwable $e) {
                     if (!$e instanceof Mage_Dataflow_Model_Convert_Exception) {
                         $this->addException(
                             Mage::helper('catalog')->__('An error occurred while saving the collection, aborting. Error message: %s', $e->getMessage()),
@@ -754,7 +754,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                     if (!in_array($website->getId(), $websiteIds)) {
                         $websiteIds[] = $website->getId();
                     }
-                } catch (Exception $e) {
+                } catch (Throwable $e) {
                 }
             }
             $product->setWebsiteIds($websiteIds);
@@ -898,7 +898,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
         try {
             $result = $this->saveRow($importData);
             return $result;
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             return false;
         }
     }

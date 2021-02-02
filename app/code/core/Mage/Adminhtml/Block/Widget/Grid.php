@@ -649,7 +649,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     {
         try {
             $this->_prepareGrid();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->resetSavedParametersInSession();
             throw $e;
         }

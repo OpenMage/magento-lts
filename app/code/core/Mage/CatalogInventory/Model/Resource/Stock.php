@@ -184,7 +184,7 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
         try {
             $adapter->update($this->getTable('cataloginventory/stock_item'), array('qty' => $value), $where);
             $adapter->commit();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $adapter->rollBack();
             throw $e;
         }

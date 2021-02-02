@@ -73,7 +73,7 @@ class Mage_Sales_Model_Resource_Recurring_Profile extends Mage_Sales_Model_Resou
             try {
                 $unserializedValue = Mage::helper('core/unserializeArray')
                 ->unserialize($value);
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 Mage::logException($e);
             }
             $object->setData($field, $unserializedValue);

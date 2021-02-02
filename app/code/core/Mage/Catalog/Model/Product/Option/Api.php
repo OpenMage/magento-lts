@@ -172,7 +172,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
 
                 $product->save();
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_fault('save_option_error', $e->getMessage());
         }
     }
@@ -303,7 +303,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
             $option->deletePrices($optionId);
             $option->deleteTitles($optionId);
             $option->delete();
-        } catch (Exception $e){
+        } catch (Throwable $e) {
             $this->_fault('delete_option_error');
         }
         return true;

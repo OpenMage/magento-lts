@@ -1494,7 +1494,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                 );
                 try {
                     $attributes = $this->_prepareAttributes($rowData, $rowScope, $attributes, $rowSku, $rowStore);
-                } catch (Exception $e) {
+                } catch (Throwable $e) {
                     Mage::logException($e);
                     continue;
                 }
@@ -1722,7 +1722,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
         try {
             $res = $this->_getUploader()->move($fileName);
             return $res['file'];
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             return '';
         }
     }
@@ -1797,7 +1797,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                 try {
                     $this->_connection
                             ->insertOnDuplicate($mediaValueTableName, $valueArr, array('value_id'));
-                } catch (Exception $e) {
+                } catch (Throwable $e) {
                     $this->_connection->delete(
                         $mediaGalleryTableName,
                         $this->_connection->quoteInto('value_id IN (?)', $newMediaValues)

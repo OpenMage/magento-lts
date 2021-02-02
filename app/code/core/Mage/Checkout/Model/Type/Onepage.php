@@ -822,7 +822,7 @@ class Mage_Checkout_Model_Type_Onepage
         if ($isNewCustomer) {
             try {
                 $this->_involveNewCustomer();
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 Mage::logException($e);
             }
         }
@@ -849,7 +849,7 @@ class Mage_Checkout_Model_Type_Onepage
             if (!$redirectUrl && $order->getCanSendNewEmailFlag()) {
                 try {
                     $order->queueNewOrderEmail();
-                } catch (Exception $e) {
+                } catch (Throwable $e) {
                     Mage::logException($e);
                 }
             }

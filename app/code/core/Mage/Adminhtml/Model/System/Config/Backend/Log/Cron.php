@@ -78,7 +78,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Log_Cron extends Mage_Core_Mode
                 ->setPath(self::CRON_MODEL_PATH)
                 ->save();
         }
-        catch (Exception $e) {
+        catch (Throwable $e) {
             Mage::throwException(Mage::helper('adminhtml')->__('Unable to save the cron expression.'));
         }
     }

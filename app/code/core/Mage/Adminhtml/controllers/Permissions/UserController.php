@@ -202,7 +202,7 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
                 $this->_redirect('*/*/');
                 return;
             }
-            catch (Exception $e) {
+            catch (Throwable $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 $this->_redirect('*/*/edit', array('user_id' => $this->getRequest()->getParam('user_id')));
                 return;

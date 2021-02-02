@@ -73,7 +73,7 @@ class Mage_Downloadable_Adminhtml_Downloadable_FileController extends Mage_Admin
                 'path'     => $this->_getSession()->getCookiePath(),
                 'domain'   => $this->_getSession()->getCookieDomain()
             );
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $result = array('error'=>$e->getMessage(), 'errorcode'=>$e->getCode());
         }
 

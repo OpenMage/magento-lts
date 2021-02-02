@@ -155,7 +155,7 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
                     Mage::getSingleton('checkout/session')->addError($e->getMessage());
                 }
                 $this->_redirect('*/*/history');
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 Mage::getSingleton('checkout/session')->addException(
                     $e,
                     Mage::helper('checkout')->__('Cannot add the item to shopping cart.')

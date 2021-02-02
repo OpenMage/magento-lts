@@ -132,7 +132,7 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
             } catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
                 $hasError = true;
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $this->_getSession()->addException($e,
                     Mage::helper('catalog')->__('An error occurred while saving the search query.')
                 );
@@ -159,7 +159,7 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
                 $this->_redirect('*/*/');
                 return;
             }
-            catch (Exception $e) {
+            catch (Throwable $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('id')));
                 return;
@@ -183,7 +183,7 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     Mage::helper('adminhtml')->__('Total of %d record(s) were deleted', count($searchIds))
                 );
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
         }

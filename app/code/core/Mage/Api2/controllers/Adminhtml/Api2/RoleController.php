@@ -256,7 +256,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
             $session->addSuccess($this->__('The role has been saved.'));
         } catch (Mage_Core_Exception $e) {
             $session->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $session->addException($e, $this->__('An error occurred while saving role.'));
         }
 
@@ -277,7 +277,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
             $this->_getSession()->addSuccess($this->__('Role has been deleted.'));
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_getSession()->addException($e, $this->__('An error occurred while deleting the role.'));
         }
 

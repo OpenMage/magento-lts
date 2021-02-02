@@ -156,7 +156,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             try {
                 $io = new Varien_Io_File();
                 $io->mkdir($destination);
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 throw new Exception("Unable to write file into directory '{$destinationDir}'. Access forbidden.");
             }
         }
@@ -289,7 +289,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                     return $transparentColor;
                 }
             }
-            catch (Exception $e) {
+            catch (Throwable $e) {
                 // fallback to default background color
             }
         }

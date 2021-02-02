@@ -437,7 +437,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
             @chmod('var/cache', 0777);
             @chmod('var/session', 0777);
 
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->addError('ERROR: ' . $e->getMessage());
             return false;
         }

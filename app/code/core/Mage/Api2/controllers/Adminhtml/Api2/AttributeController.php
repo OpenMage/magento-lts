@@ -151,7 +151,7 @@ class Mage_Api2_Adminhtml_Api2_AttributeController extends Mage_Adminhtml_Contro
             $session->addSuccess($this->__('The attribute rules were saved.'));
         } catch (Mage_Core_Exception $e) {
             $session->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $session->addException($e, $this->__('An error occurred while saving attribute rules.'));
         }
 
