@@ -36,3 +36,4 @@
     <?php if($this->getPaymentWhatIs()) {echo Mage::helper('paypal')->__($this->getPaymentWhatIs());} else {echo Mage::helper('paypal')->__('What is PayPal?');} ?>
 </a>
 <!-- PayPal Logo -->
+<?php echo $this->getChildHtml(); ?>

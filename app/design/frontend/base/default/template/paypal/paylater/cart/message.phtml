@@ -1,0 +1,6 @@
+<?php if($_quote = $this->getCurrentQuote()): ?>
+    <div class="paypal-paylater-message" data-pp-message data-pp-amount="<?php echo $_quote->getGrandTotal(); ?>"></div>
+    <?php if($this->canRenderScript()): ?>
+        <script defer src="https://www.paypal.com/sdk/js?client-id=<?php echo $this->getPaypalSdkClientId(); ?>&components=messages"></script>
+    <?php endif; ?>
+<?php endif; ?>

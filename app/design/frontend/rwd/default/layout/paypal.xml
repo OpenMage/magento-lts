@@ -39,6 +39,7 @@
             <block type="paypal/express_shortcut" name="checkout.cart.methods.paypal_express.bottom" before="checkout.cart.methods.onepage.bottom" template="paypal/express/shortcut.phtml">
                 <action method="setIsQuoteAllowed"><value>1</value></action>
                 <action method="setShowOrPosition"><value>after</value></action>
+                <block type="paypal/paylater_cart_message" name="checkout.cart.paypal.paylater" as="paylater.message" template="paypal/paylater/cart/message.phtml"/>
             </block>
         </reference>
 
@@ -98,6 +99,7 @@ Available logo types can be assigned with action="setLogoType":
                 <label>PayPal Express Checkout Shortcut Wrapper</label>
                 <block type="paypal/express_shortcut" name="product.info.addtocart.paypal" template="paypal/express/product/shortcut.phtml">
                     <action method="setIsInCatalogProduct"><value>1</value></action>
+                    <block type="paypal/paylater_product_message" name="product.info.paypal.paylater.message" as="paylater.message" template="paypal/paylater/product/message.phtml"/>
                 </block>
             </block>
         </reference>
@@ -167,7 +169,9 @@ Available logo types can be assigned with action="setLogoType":
             <block type="paypal/express_shortcut" name="paypal.partner.top_cart.shortcut" template="paypal/express/shortcut.phtml"/>
         </reference>
         <reference name="cart_sidebar.extra_actions">
-            <block type="paypal/express_shortcut" name="paypal.partner.cart_sidebar.shortcut" template="paypal/express/minicart/shortcut.phtml"/>
+            <block type="paypal/express_shortcut" name="paypal.partner.cart_sidebar.shortcut" template="paypal/express/minicart/shortcut.phtml">
+                <block type="paypal/paylater_cart_message" name="checkout.cart.paypal.paylater" as="paylater.message" template="paypal/paylater/cart/message.phtml"/>
+            </block>
         </reference>
     </default>
 

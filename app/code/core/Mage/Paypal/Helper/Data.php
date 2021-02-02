@@ -40,6 +40,17 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
     const MERCHANT_COUNTRY_CONFIG_PATH = 'paypal/general/merchant_country';
 
     /**
+     * Config path for Pay Later Enabled
+     */
+    const MERCHANT_PAYLATER_ENABLED_CONFIG_PATH = 'paypal/general/enable_paylater';
+
+    /**
+     * Config path for Pay Later SDK Client Id
+     */
+    const MERCHANT_PAYLATER_CLIENTID_CONFIG_PATH = 'paypal/general/sdk_client_id';
+
+
+    /**
      * Cache for shouldAskToCreateBillingAgreement()
      *
      * @var bool

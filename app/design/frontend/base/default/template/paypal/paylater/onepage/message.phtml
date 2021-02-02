@@ -1,0 +1,10 @@
+<?php if($_quote = $this->getCurrentQuote()): ?>
+    <div class="paypal-paylater-message" data-pp-message data-pp-amount="<?php echo $_quote->getGrandTotal(); ?>"></div>
+    <script>
+        var head = document.getElementsByTagName('head')[0];
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = 'https://www.paypal.com/sdk/js?client-id=<?php echo $this->getPaypalSdkClientId(); ?>&components=messages';
+        head.appendChild(script);
+    </script>
+<?php endif; ?>

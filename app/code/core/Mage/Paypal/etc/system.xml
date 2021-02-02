@@ -59,6 +59,30 @@
                             <show_in_website>1</show_in_website>
                             <sort_order>5</sort_order>
                         </merchant_country>
+                        <enable_paylater translate="label">
+                            <label>Show Pay Later Messages</label>
+                            <config_path>paypal/general/enable_paylater</config_path>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <sort_order>6</sort_order>
+                            <depends><merchant_country>US</merchant_country></depends>
+                            <comment><![CDATA[https://www.paypal.com/us/for-you/pay-in-4]]></comment>
+                        </enable_paylater>
+                        <sdk_client_id translate="label comment">
+                            <label>SDK Client ID</label>
+                            <config_path>paypal/general/sdk_client_id</config_path>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <sort_order>7</sort_order>
+                            <depends>
+                                <merchant_country>US</merchant_country>
+                                <enable_paylater>1</enable_paylater>
+                            </depends>
+                            <comment><![CDATA[https://developer.paypal.com/docs/business/pay-later/integrate/]]></comment>
+                        </sdk_client_id>
                     </fields>
                 </account>
 

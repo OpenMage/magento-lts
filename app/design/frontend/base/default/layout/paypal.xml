@@ -37,6 +37,7 @@
         <reference name="checkout.cart.methods">
             <block type="paypal/express_shortcut" name="checkout.cart.methods.paypal_express.bottom" before="-" template="paypal/express/shortcut.phtml">
                 <action method="setIsQuoteAllowed"><value>1</value></action>
+                <block type="paypal/paylater_cart_message" name="checkout.cart.paypal_paylater" as="paylater_message" template="paypal/paylater/message.phtml"/>
             </block>
         </reference>
 
@@ -95,6 +96,7 @@ Available logo types can be assigned with action="setLogoType":
                 <label>PayPal Express Checkout Shortcut Wrapper</label>
                 <block type="paypal/express_shortcut" name="product.info.addtocart.paypal" template="paypal/express/shortcut.phtml">
                     <action method="setIsInCatalogProduct"><value>1</value></action>
+                    <block type="paypal/paylater_product_message" name="product.info.paypal.paylater.message" as="paylater.message" template="paypal/paylater/message.phtml"/>
                 </block>
             </block>
         </reference>
