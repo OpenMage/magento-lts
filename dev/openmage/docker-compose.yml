@@ -11,6 +11,7 @@ services:
     environment:
       - ENABLE_SENDMAIL=true
       - XDEBUG_CONFIG=remote_connect_back=1 remote_enable=1 idekey=phpstorm
+      - MAGE_IS_DEVELOPER_MODE=1
     links:
       - mysql
 
