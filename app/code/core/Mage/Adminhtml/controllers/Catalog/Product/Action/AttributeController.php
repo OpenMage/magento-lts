@@ -192,7 +192,7 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
         }
         catch (Throwable $e) {
             Mage::logException($e);
-            $this->_getSession()->addException($e, $this->__('An error occurred while updating the product(s) attributes.'));
+            $this->_getSession()->addError($this->__('An error occurred while updating the product(s) attributes.'));
         }
 
         $this->_redirect('*/catalog_product/', array('store'=>$this->_getHelper()->getSelectedStoreId()));
