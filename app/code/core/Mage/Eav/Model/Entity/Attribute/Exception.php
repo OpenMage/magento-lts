@@ -32,7 +32,7 @@
  * @package    Mage_Eav
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Eav_Model_Entity_Attribute_Exception extends Exception
+class Mage_Eav_Model_Entity_Attribute_Exception extends RuntimeException
 {
     /**
      * Eav entity attribute

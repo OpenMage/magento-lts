@@ -162,7 +162,7 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
                 return false;
             }
         } elseif (!($value instanceof Varien_Simplexml_Element)) {
-            throw new Exception($this->_messageTemplates[self::INVALID_XML_OBJECT_EXCEPTION]);
+            throw new RuntimeException($this->_messageTemplates[self::INVALID_XML_OBJECT_EXCEPTION]);
         }
         if ($value->xpath($this->getXpathBlockValidationExpression())) {
             $this->_error(self::INVALID_BLOCK_NAME);
@@ -251,7 +251,7 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
                 $path = stripcslashes(trim((string) $path->children(), '"'));
             }
             if (strpos($path, '..' . DS) !== false) {
-                throw new Exception();
+                throw new RuntimeException();
             }
         }
     }

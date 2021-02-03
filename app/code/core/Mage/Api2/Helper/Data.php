@@ -192,7 +192,7 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
         } elseif (Mage_Api2_Model_Resource::OPERATION_UPDATE === $operation) {
             return Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_WRITE;
         } else {
-            throw new Exception('Can not determine operation type');
+            throw new RuntimeException('Can not determine operation type');
         }
     }
 }

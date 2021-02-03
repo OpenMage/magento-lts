@@ -89,7 +89,7 @@ class Mage_Adminhtml_Poll_AnswerController extends Mage_Adminhtml_Controller_Act
             $data = Zend_Json::decode($post['data']);
             try {
                 if( trim($data['answer_title']) == '' ) {
-                    throw new Exception(Mage::helper('poll')->__('Invalid Answer.'));
+                    throw new RuntimeException(Mage::helper('poll')->__('Invalid Answer.'));
                 }
                 $model = Mage::getModel('poll/poll_answer');
                 $model->setData($data)

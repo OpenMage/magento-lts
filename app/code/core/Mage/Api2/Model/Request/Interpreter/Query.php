@@ -48,7 +48,7 @@ class Mage_Api2_Model_Request_Interpreter_Query implements Mage_Api2_Model_Reque
     public function interpret($body)
     {
         if (!is_string($body)) {
-            throw new Exception(sprintf('Invalid data type "%s". String expected.', gettype($body)));
+            throw new RuntimeException(sprintf('Invalid data type "%s". String expected.', gettype($body)));
         }
 
         if (!$this->_validateQuery($body)) {

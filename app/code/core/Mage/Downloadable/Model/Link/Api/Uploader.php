@@ -55,7 +55,7 @@ class Mage_Downloadable_Model_Link_Api_Uploader extends Mage_Core_Model_File_Upl
     {
         $this->_setUploadFile($file);
         if (!file_exists($this->_file['tmp_name'])) {
-            throw new Exception('', 'file_not_uploaded');
+            throw new RuntimeException('', 'file_not_uploaded');
         } else {
             $this->_fileExists = true;
         }
@@ -71,7 +71,7 @@ class Mage_Downloadable_Model_Link_Api_Uploader extends Mage_Core_Model_File_Upl
     private function _setUploadFile($fileInfo)
     {
         if (!is_array($fileInfo)) {
-            throw new Exception('', 'file_data_not_correct');
+            throw new RuntimeException('', 'file_data_not_correct');
         }
 
         $this->_file = $this->_decodeFile($fileInfo);

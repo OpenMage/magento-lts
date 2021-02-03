@@ -1638,7 +1638,7 @@ XMLAuth;
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->getConfigFlag('verify_peer'));
             $xmlResponse = curl_exec($ch);
             if ($xmlResponse === false) {
-                throw new Exception(curl_error($ch));
+                throw new RuntimeException(curl_error($ch));
             } else {
                 $debugData['result'] = $xmlResponse;
                 $this->_setCachedQuotes($xmlRequest, $xmlResponse);

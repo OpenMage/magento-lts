@@ -121,7 +121,7 @@ class Mage_Paypal_Model_Cart
             && (($salesEntity instanceof Mage_Sales_Model_Order) || ($salesEntity instanceof Mage_Sales_Model_Quote))) {
             $this->_salesEntity = $salesEntity;
         } else {
-            throw new Exception('Invalid sales entity provided.');
+            throw new RuntimeException('Invalid sales entity provided.');
         }
     }
 

@@ -648,7 +648,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             $destFile = $this->_getUniqueFileName($file, $ioObject->dirsep());
 
             if (!$ioObject->fileExists($this->_getConfig()->getMediaPath($file), true)) {
-                throw new Exception();
+                throw new RuntimeException();
             }
 
             if (Mage::helper('core/file_storage_database')->checkDbUsage()) {

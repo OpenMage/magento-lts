@@ -177,7 +177,7 @@ class Mage_Centinel_Model_Api extends Varien_Object
         }
         $url = $this->getApiEndpointUrl();
         if (!$url) {
-            throw new Exception('Centinel API endpoint URL is not configured properly.');
+            throw new RuntimeException('Centinel API endpoint URL is not configured properly.');
         }
         return $url;
     }

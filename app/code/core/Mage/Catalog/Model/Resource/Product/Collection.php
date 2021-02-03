@@ -2066,7 +2066,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     public function addPriceDataFieldFilter($comparisonFormat, $fields)
     {
         if (!preg_match('/^%s( (<|>|=|<=|>=|<>) %s)*$/', $comparisonFormat)) {
-            throw new Exception('Invalid comparison format.');
+            throw new RuntimeException('Invalid comparison format.');
         }
 
         if (!is_array($fields)) {

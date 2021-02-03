@@ -128,7 +128,7 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Zend_Validate_String
     {
         $result = parent::isValid($value);
         if (!$result && isset($this->_messages[self::INVALID])) {
-            throw new Exception($this->_messages[self::INVALID]);
+            throw new RuntimeException($this->_messages[self::INVALID]);
         }
         return $result;
     }

@@ -1988,7 +1988,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     {
         if (!$this->getTotalsCollectedFlag()) {
             // Whoops! Make sure nominal totals must be calculated here.
-            throw new Exception('Quote totals must be collected before this operation.');
+            throw new RuntimeException('Quote totals must be collected before this operation.');
         }
 
         $result = array();

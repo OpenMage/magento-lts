@@ -83,7 +83,7 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
     public function __construct($options)
     {
         if (!isset($options['resource']) || !$options['resource'] instanceof Mage_Api2_Model_Resource) {
-            throw new Exception("Passed parameter 'resource' is wrong.");
+            throw new RuntimeException("Passed parameter 'resource' is wrong.");
         }
         $resource = $options['resource'];
         $userType = $resource->getUserType();
@@ -94,26 +94,26 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
         );
 
         if (empty($validationConfig[$userType]['form_model'])) {
-            throw new Exception("Config parameter 'formPath' is empty.");
+            throw new RuntimeException("Config parameter 'formPath' is empty.");
         }
         $this->_formPath = $validationConfig[$userType]['form_model'];
 
         if (empty($validationConfig[$userType]['form_code'])) {
-            throw new Exception("Config parameter 'formCode' is empty.");
+            throw new RuntimeException("Config parameter 'formCode' is empty.");
         }
         $this->_formCode = $validationConfig[$userType]['form_code'];
 
         if (empty($validationConfig[$userType]['entity_model'])) {
-            throw new Exception("Config parameter 'entity' is wrong.");
+            throw new RuntimeException("Config parameter 'entity' is wrong.");
         }
         $this->_entity = Mage::getModel($validationConfig[$userType]['entity_model']);
         if (empty($this->_entity) || !$this->_entity instanceof Mage_Core_Model_Abstract) {
-            throw new Exception("Entity is not model.");
+            throw new RuntimeException("Entity is not model.");
         }
 
         $this->_eavForm = Mage::getModel($this->_formPath);
         if (empty($this->_eavForm) || !$this->_eavForm instanceof Mage_Eav_Model_Form) {
-            throw new Exception("Eav form '{$this->_formPath}' is not found.");
+            throw new RuntimeException("Eav form '{$this->_formPath}' is not found.");
         }
         $this->_eavForm->setEntity($this->_entity)
             ->setFormCode($this->_formCode)

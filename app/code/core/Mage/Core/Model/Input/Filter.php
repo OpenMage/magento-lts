@@ -261,7 +261,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
     protected function _applyFiltrationWithHelper($value, Mage_Core_Helper_Abstract $helper, array $filterData)
     {
         if (!isset($filterData['method']) || empty($filterData['method'])) {
-            throw new Exception("Helper filtration method is not set");
+            throw new RuntimeException("Helper filtration method is not set");
         }
         if (!isset($filterData['args']) || empty($filterData['args'])) {
             $filterData['args'] = array();
@@ -288,7 +288,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
                 $helper = Mage::helper($helper);
             }
             if (!($helper instanceof Mage_Core_Helper_Abstract)) {
-                throw new Exception("Filter '{$filterData['helper']}' not found");
+                throw new RuntimeException("Filter '{$filterData['helper']}' not found");
             }
         }
         return $helper;
@@ -334,7 +334,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
             $filter = Mage::getModel($filterData['model'], $filterData['args']);
         }
         if (!($filter instanceof Zend_Filter_Interface)) {
-            throw new Exception('Filter is not instance of Zend_Filter_Interface');
+            throw new RuntimeException('Filter is not instance of Zend_Filter_Interface');
         }
         return $filter;
     }
@@ -358,7 +358,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
                     $filter = $class->newInstance();
                 }
             } else {
-                throw new Exception('Filter is not instance of Zend_Filter_Interface');
+                throw new RuntimeException('Filter is not instance of Zend_Filter_Interface');
             }
         }
         return $filter;

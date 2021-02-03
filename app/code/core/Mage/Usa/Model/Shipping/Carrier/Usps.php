@@ -1444,7 +1444,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
                 $serviceType = 'Library Mail';
                 break;
             default:
-                throw new Exception(Mage::helper('usa')->__('Service type does not match'));
+                throw new RuntimeException(Mage::helper('usa')->__('Service type does not match'));
         }
         $packageParams = $request->getPackageParams();
         $packageWeight = $request->getPackageWeight();

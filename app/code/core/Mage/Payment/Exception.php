@@ -32,7 +32,7 @@
  * @package    Mage_Payment
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Payment_Exception extends Exception
+class Mage_Payment_Exception extends RuntimeException
 {
     protected $_code = null;
 

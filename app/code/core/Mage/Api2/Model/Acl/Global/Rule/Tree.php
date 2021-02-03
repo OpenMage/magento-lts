@@ -140,7 +140,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
                 break;
 
             default:
-                throw new Exception(sprintf('Unknown tree type "%s".', $this->_type));
+                throw new RuntimeException(sprintf('Unknown tree type "%s".', $this->_type));
                 break;
         }
     }
@@ -162,11 +162,11 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
         $this->_resourcesConfig = $config->getResourceGroups();
 
         if ($this->_type == self::TYPE_ATTRIBUTE && !$this->_existOperations) {
-            throw new Exception('Operations is not set');
+            throw new RuntimeException('Operations is not set');
         }
 
         if ($this->_type == self::TYPE_PRIVILEGE && !$this->_existPrivileges) {
-            throw new Exception('Privileges is not set.');
+            throw new RuntimeException('Privileges is not set.');
         }
 
         return $this;

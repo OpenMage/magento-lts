@@ -474,7 +474,7 @@ class Mage_Core_Model_Design_Package
         // Prevent reading files outside of the proper directory while still allowing symlinked files
         if (strpos($file, '..') !== false) {
             Mage::log(sprintf('Invalid path requested: %s (params: %s)', $file, json_encode($params)), Zend_Log::ERR);
-            throw new Exception('Invalid path requested.');
+            throw new RuntimeException('Invalid path requested.');
         }
 
         $this->updateParamDefaults($params);
@@ -539,7 +539,7 @@ class Mage_Core_Model_Design_Package
         // Prevent reading files outside of the proper directory while still allowing symlinked files
         if (strpos($file, '..') !== false) {
             Mage::log(sprintf('Invalid path requested: %s (params: %s)', $file, json_encode($params)), Zend_Log::ERR);
-            throw new Exception('Invalid path requested.');
+            throw new RuntimeException('Invalid path requested.');
         }
 
         if (empty($params['_type'])) {

@@ -149,7 +149,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
 
         try {
             if (!$this->_isSectionAllowed($this->getRequest()->getParam('section'))) {
-                throw new Exception(Mage::helper('adminhtml')->__('This section is not allowed.'));
+                throw new RuntimeException(Mage::helper('adminhtml')->__('This section is not allowed.'));
             }
 
             // custom save logic
@@ -282,7 +282,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
             if ($session->getData('acl') instanceof Mage_Admin_Model_Acl) {
                 $resourceId = $session->getData('acl')->get($resourceLookup)->getResourceId();
                 if (!$session->isAllowed($resourceId)) {
-                    throw new Exception('');
+                    throw new RuntimeException('');
                 }
                 return true;
             }

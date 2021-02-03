@@ -90,7 +90,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
     {
         $codes = $this->getRequest()->getParam('code');
         if (!$codes) {
-            throw new Exception(Mage::helper('adminhtml')->__('No report code specified.'));
+            throw new RuntimeException(Mage::helper('adminhtml')->__('No report code specified.'));
         }
 
         if(!is_array($codes) && strpos($codes, ',') === false) {

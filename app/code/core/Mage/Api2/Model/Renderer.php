@@ -74,7 +74,7 @@ abstract class Mage_Api2_Model_Renderer
 
         $adapter = Mage::getModel($adapterPath);
         if (!$adapter) {
-            throw new Exception(sprintf('Response renderer adapter for content type "%s" not found.', $type));
+            throw new RuntimeException(sprintf('Response renderer adapter for content type "%s" not found.', $type));
         }
 
         return $adapter;

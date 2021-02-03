@@ -28,7 +28,7 @@
  * Controller exception that can fork different actions, cause forward or redirect
  *
  */
-class Mage_Core_Controller_Varien_Exception extends Exception
+class Mage_Core_Controller_Varien_Exception extends RuntimeException
 {
     const RESULT_FORWARD  = '_forward';
     const RESULT_REDIRECT = '_redirect';

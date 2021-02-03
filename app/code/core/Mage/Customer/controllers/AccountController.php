@@ -607,7 +607,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             $key     = $this->getRequest()->getParam('key', false);
             $backUrl = $this->getRequest()->getParam('back_url', false);
             if (empty($id) || empty($key)) {
-                throw new Exception($this->__('Bad request.'));
+                throw new RuntimeException($this->__('Bad request.'));
             }
 
             // load customer by id (try/catch in case if it throws exceptions)
@@ -615,16 +615,16 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 /** @var Mage_Customer_Model_Customer $customer */
                 $customer = $this->_getModel('customer/customer')->load($id);
                 if ((!$customer) || (!$customer->getId())) {
-                    throw new Exception('Failed to load customer by id.');
+                    throw new RuntimeException('Failed to load customer by id.');
                 }
             } catch (Throwable $e) {
-                throw new Exception($this->__('Wrong customer account specified.'));
+                throw new RuntimeException($this->__('Wrong customer account specified.'));
             }
 
             // check if it is inactive
             if ($customer->getConfirmation()) {
                 if ($customer->getConfirmation() !== $key) {
-                    throw new Exception($this->__('Wrong confirmation key.'));
+                    throw new RuntimeException($this->__('Wrong confirmation key.'));
                 }
 
                 // activate customer
@@ -632,7 +632,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                     $customer->setConfirmation(null);
                     $customer->save();
                 } catch (Throwable $e) {
-                    throw new Exception($this->__('Failed to confirm customer account.'));
+                    throw new RuntimeException($this->__('Failed to confirm customer account.'));
                 }
 
                 // log in and send greeting email, then die happy
@@ -670,7 +670,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             try {
                 $customer->setWebsiteId(Mage::app()->getStore()->getWebsiteId())->loadByEmail($email);
                 if (!$customer->getId()) {
-                    throw new Exception('');
+                    throw new RuntimeException('');
                 }
                 if ($customer->getConfirmation()) {
                     $customer->sendNewAccountEmail('confirmation', '', Mage::app()->getStore()->getId());

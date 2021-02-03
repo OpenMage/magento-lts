@@ -197,7 +197,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
     public function getProtocolEndpointUrl($type)
     {
         if (!in_array($type, $this->_endpoints)) {
-            throw new Exception('Invalid endpoint type passed.');
+            throw new RuntimeException('Invalid endpoint type passed.');
         }
         return rtrim(Mage::getUrl($type), '/');
     }
@@ -293,7 +293,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
                 $route = self::ENDPOINT_AUTHORIZE_ADMIN;
             }
         } else {
-            throw new Exception('Invalid user type.');
+            throw new RuntimeException('Invalid user type.');
         }
 
         return $this->_getUrl($route, array('_query' => array('oauth_token' => $this->getOauthToken())));

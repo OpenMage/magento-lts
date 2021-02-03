@@ -215,7 +215,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
         if ($object instanceof Mage_Payment_Model_Recurring_Profile_MethodInterface) {
             $this->_methodInstance = $object;
         } else {
-            throw new Exception('Invalid payment method instance for use in recurring profile.');
+            throw new RuntimeException('Invalid payment method instance for use in recurring profile.');
         }
         return $this;
     }
@@ -578,7 +578,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
     protected function _ensureLocaleAndStore()
     {
         if (!$this->_locale || !$this->_store) {
-            throw new Exception('Locale and store instances must be set for this operation.');
+            throw new RuntimeException('Locale and store instances must be set for this operation.');
         }
     }
 

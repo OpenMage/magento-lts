@@ -628,11 +628,11 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         try {
             $value = Mage::helper('core/unserializeArray')->unserialize($quoteOption->getValue());
             if (!isset($value['quote_path'])) {
-                throw new Exception();
+                throw new RuntimeException();
             }
             $quoteFileFullPath = Mage::getBaseDir() . $value['quote_path'];
             if (!is_file($quoteFileFullPath) || !is_readable($quoteFileFullPath)) {
-                throw new Exception();
+                throw new RuntimeException();
             }
             $orderFileFullPath = Mage::getBaseDir() . $value['order_path'];
             $dir = pathinfo($orderFileFullPath, PATHINFO_DIRNAME);

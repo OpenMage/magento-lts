@@ -51,7 +51,7 @@ class Mage_Install_Model_Installer_Filesystem extends Mage_Install_Model_Install
     public function install()
     {
         if (!$this->_checkFilesystem()) {
-            throw new Exception();
+            throw new RuntimeException();
         }
         return $this;
     }

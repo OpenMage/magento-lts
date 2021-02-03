@@ -352,7 +352,7 @@ class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_A
                 );
             }
             else {
-                throw new Exception($deleteFailMessage);
+                throw new RuntimeException($deleteFailMessage);
             }
         } catch (Throwable $e) {
             $resultData->setIsSuccess(false);

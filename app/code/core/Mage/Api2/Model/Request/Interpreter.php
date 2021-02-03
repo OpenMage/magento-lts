@@ -47,7 +47,7 @@ abstract class Mage_Api2_Model_Request_Interpreter
         $adapters = $helper->getRequestInterpreterAdapters();
 
         if (empty($adapters) || !is_array($adapters)) {
-            throw new Exception('Request interpreter adapters is not set.');
+            throw new RuntimeException('Request interpreter adapters is not set.');
         }
 
         $adapterModel = null;
@@ -68,7 +68,7 @@ abstract class Mage_Api2_Model_Request_Interpreter
 
         $adapter = Mage::getModel($adapterModel);
         if (!$adapter) {
-            throw new Exception(sprintf('Request interpreter adapter "%s" not found.', $type));
+            throw new RuntimeException(sprintf('Request interpreter adapter "%s" not found.', $type));
         }
 
         return $adapter;

@@ -127,7 +127,7 @@ class Mage_Api2_Model_Dispatcher
     public function getApiUser()
     {
         if (!$this->_apiUser) {
-            throw new Exception('API user is not set.');
+            throw new RuntimeException('API user is not set.');
         }
 
         return $this->_apiUser;

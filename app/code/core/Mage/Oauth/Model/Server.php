@@ -197,7 +197,7 @@ class Mage_Oauth_Model_Server
     {
         if (is_object($request)) {
             if (!$request instanceof Zend_Controller_Request_Http) {
-                throw new Exception('Invalid request object passed');
+                throw new RuntimeException('Invalid request object passed');
             }
             $this->_request = $request;
         } else {

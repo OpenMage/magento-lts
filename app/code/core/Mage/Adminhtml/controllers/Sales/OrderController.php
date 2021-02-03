@@ -252,7 +252,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                     $message = $this->__('Payment update has been made.');
                     break;
                 default:
-                    throw new Exception(sprintf('Action "%s" is not supported.', $action));
+                    throw new RuntimeException(sprintf('Action "%s" is not supported.', $action));
             }
             $order->save();
             $this->_getSession()->addSuccess($message);

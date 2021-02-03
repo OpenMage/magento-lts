@@ -33,7 +33,7 @@
  * @category   Mage
  * @package    Mage_Core
  */
-class Mage_Core_Exception extends Exception
+class Mage_Core_Exception extends RuntimeException
 {
     protected $_messages = array();
 

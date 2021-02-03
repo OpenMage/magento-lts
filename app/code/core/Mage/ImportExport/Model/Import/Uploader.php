@@ -140,7 +140,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
 
         $fileExtension = pathinfo($filePath, PATHINFO_EXTENSION);
         if (!$this->checkAllowedExtension($fileExtension)) {
-            throw new Exception('Disallowed file type.');
+            throw new RuntimeException('Disallowed file type.');
         }
         //run validate callbacks
         foreach ($this->_validateCallbacks as $params) {

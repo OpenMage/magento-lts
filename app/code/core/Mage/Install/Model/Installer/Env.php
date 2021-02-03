@@ -38,7 +38,7 @@ class Mage_Install_Model_Installer_Env extends Mage_Install_Model_Installer_Abst
     public function install()
     {
         if (!$this->_checkPhpExtensions()) {
-            throw new Exception();
+            throw new RuntimeException();
         }
         return $this;
     }

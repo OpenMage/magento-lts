@@ -128,7 +128,7 @@ class Mage_Dataflow_Model_Convert_Mapper_Column extends Mage_Dataflow_Model_Conv
                 ->setBatchId($this->getBatchModel()->getId())
                 ->deleteCollection();
 
-            throw new Exception(Mage::helper('dataflow')->__('Error in field mapping: field list for mapping is not defined.'));
+            throw new RuntimeException(Mage::helper('dataflow')->__('Error in field mapping: field list for mapping is not defined.'));
         }
 
         foreach ($batchExportIds as $batchExportId) {

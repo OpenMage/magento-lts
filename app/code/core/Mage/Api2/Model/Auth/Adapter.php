@@ -55,12 +55,12 @@ class Mage_Api2_Model_Auth_Adapter
             $adapterModel = Mage::getModel($adapterParams['model']);
 
             if (!$adapterModel instanceof Mage_Api2_Model_Auth_Adapter_Abstract) {
-                throw new Exception('Authentication adapter must to extend Mage_Api2_Model_Auth_Adapter_Abstract');
+                throw new RuntimeException('Authentication adapter must to extend Mage_Api2_Model_Auth_Adapter_Abstract');
             }
             $this->_adapters[$adapterKey] = $adapterModel;
         }
         if (!$this->_adapters) {
-            throw new Exception('No active authentication adapters found');
+            throw new RuntimeException('No active authentication adapters found');
         }
         return $this;
     }

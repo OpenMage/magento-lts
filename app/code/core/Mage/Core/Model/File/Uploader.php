@@ -121,7 +121,7 @@ class Mage_Core_Model_File_Uploader extends Varien_File_Uploader
     {
         $fileName = isset($newFileName) ? $newFileName : $this->_file['name'];
         if (strlen($fileName) > $this->_fileNameMaxLength) {
-            throw new Exception(
+            throw new RuntimeException(
                 Mage::helper('core')->__("File name is too long. Maximum length is %s.", $this->_fileNameMaxLength)
             );
         }

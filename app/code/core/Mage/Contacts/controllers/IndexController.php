@@ -91,7 +91,7 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
                 }
 
                 if ($error) {
-                    throw new Exception();
+                    throw new RuntimeException();
                 }
                 $mailTemplate = Mage::getModel('core/email_template');
                 /* @var Mage_Core_Model_Email_Template $mailTemplate */
@@ -106,7 +106,7 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
                     );
 
                 if (!$mailTemplate->getSentSuccess()) {
-                    throw new Exception();
+                    throw new RuntimeException();
                 }
 
                 $translate->setTranslateInline(true);

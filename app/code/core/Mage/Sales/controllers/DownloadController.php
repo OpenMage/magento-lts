@@ -45,7 +45,7 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
         $secretKey = $this->getRequest()->getParam('key');
         try {
             if ($secretKey != $info['secret_key']) {
-                throw new Exception();
+                throw new RuntimeException();
             }
 
             $this->_validateFilePath($info);
@@ -55,7 +55,7 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
                 //try get file from quote
                 $filePath = Mage::getBaseDir() . $info['quote_path'];
                 if ((!is_file($filePath) || !is_readable($filePath)) && !$this->_processDatabaseFile($filePath)) {
-                    throw new Exception();
+                    throw new RuntimeException();
                 }
             }
             $this->_prepareDownloadResponse($info['title'], array(
@@ -76,7 +76,7 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
         $optionFile = Mage::getModel('catalog/product_option_type_file');
         $optionStoragePath = $optionFile->getOrderTargetDir(true);
         if (strpos($info['order_path'], $optionStoragePath) !== 0) {
-            throw new Exception('Unexpected file path');
+            throw new RuntimeException('Unexpected file path');
         }
     }
 

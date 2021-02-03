@@ -157,12 +157,12 @@ class Mage_Paypal_Model_Express_Checkout
         if (isset($params['quote']) && $params['quote'] instanceof Mage_Sales_Model_Quote) {
             $this->_quote = $params['quote'];
         } else {
-            throw new Exception('Quote instance is required.');
+            throw new RuntimeException('Quote instance is required.');
         }
         if (isset($params['config']) && $params['config'] instanceof Mage_Paypal_Model_Config) {
             $this->_config = $params['config'];
         } else {
-            throw new Exception('Config instance is required.');
+            throw new RuntimeException('Config instance is required.');
         }
         $this->_customerSession = isset($params['session']) && $params['session'] instanceof Mage_Customer_Model_Session
             ? $params['session'] : Mage::getSingleton('customer/session');

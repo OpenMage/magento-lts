@@ -619,7 +619,7 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
     public function _writeRawSession($id, $data, $lifetime)
     {
         if ( ! $this->_useRedis) {
-            throw new Exception('Not connected to redis!');
+            throw new RuntimeException('Not connected to redis!');
         }
 
         $sessionId = 'sess_' . $id;
@@ -642,7 +642,7 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
     public function _inspectSession($id)
     {
         if ( ! $this->_useRedis) {
-            throw new Exception('Not connected to redis!');
+            throw new RuntimeException('Not connected to redis!');
         }
 
         $sessionId = strpos($id, 'sess_') === 0 ? $id : 'sess_' . $id;

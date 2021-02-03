@@ -95,7 +95,7 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
     public function validateType($type)
     {
         if (!in_array($type, $this->getResourceTypes())) {
-            throw new Exception('unknown_resource_type');
+            throw new RuntimeException('unknown_resource_type');
         }
         return true;
     }
@@ -127,14 +127,14 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
                 $this->validateFileDetails($resource['file']);
             }
             if ($resource['type'] == 'url' && empty($resource['link_url'])) {
-                throw new Exception('empty_url');
+                throw new RuntimeException('empty_url');
             }
             // sample
             if ($resource['sample']['type'] == 'file') {
                 $this->validateFileDetails($resource['sample']['file']);
             }
             if ($resource['sample']['type'] == 'url' && empty($resource['sample']['url'])) {
-                throw new Exception('empty_url');
+                throw new RuntimeException('empty_url');
             }
         }
         if ($resourceType == 'sample') {
@@ -142,7 +142,7 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
                 $this->validateFileDetails($resource['file']);
             }
             if ($resource['type'] == 'url' && empty($resource['sample_url'])) {
-                throw new Exception('empty_url');
+                throw new RuntimeException('empty_url');
             }
         }
     }
@@ -155,13 +155,13 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
     public function validateFileDetails(&$var)
     {
         if (!isset($var['name']) || !is_string($var['name']) || strlen($var['name']) === 0) {
-            throw new Exception('no_filename');
+            throw new RuntimeException('no_filename');
         }
         if (!isset($var['base64_content'])
             || !is_string($var['base64_content'])
             || strlen($var['base64_content']) === 0
         ) {
-            throw new Exception('no_file_base64_content');
+            throw new RuntimeException('no_file_base64_content');
         }
     }
 
@@ -192,7 +192,7 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
     public function validateTitle(&$var)
     {
         if (!is_string($var) || strlen($var) === 0) {
-            throw new Exception('no_title');
+            throw new RuntimeException('no_title');
         }
     }
 
@@ -257,7 +257,7 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
         if (is_string($var) && strlen($var) > 0) {
             $urlregex = "/^(https?|ftp)\:\/\/([a-z0-9+\!\*\(\)\,\;\?\&\=\$\_\.\-]+(\:[a-z0-9+\!\*\(\)\,\;\?\&\=\$\_\.\-]+)?@)?[a-z0-9\+\$\_\-]+(\.[a-z0-9+\$\_\-]+)*(\:[0-9]{2,5})?(\/([a-z0-9+\$\_\-]\.?)+)*\/?(\?[a-z\+\&\$\_\.\-][a-z0-9\;\:\@\/\&\%\=\+\$\_\.\-]*)?(#[a-z\_\.\-][a-z0-9\+\$\_\.\-]*)?$/i";
             if (!preg_match($urlregex, $var)) {
-                throw new Exception('url_not_valid');
+                throw new RuntimeException('url_not_valid');
             }
         } else {
             $var = '';

@@ -236,12 +236,12 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
         if ($limitCount !== null) {
               $limitCount = intval($limitCount);
             if ($limitCount <= 0) {
-//                throw new Exception("LIMIT argument count={$limitCount} is not valid");
+//                throw new RuntimeException("LIMIT argument count={$limitCount} is not valid");
             }
 
             $limitOffset = intval($limitOffset);
             if ($limitOffset < 0) {
-//                throw new Exception("LIMIT argument offset={$limitOffset} is not valid");
+//                throw new RuntimeException("LIMIT argument offset={$limitOffset} is not valid");
             }
 
             if ($limitOffset + $limitCount != $limitOffset + 1) {

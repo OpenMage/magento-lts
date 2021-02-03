@@ -63,12 +63,12 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
             if ($options['product'] instanceof Mage_Catalog_Model_Product) {
                 $this->_product = $options['product'];
             } else {
-                throw new Exception("Passed parameter 'product' is wrong.");
+                throw new RuntimeException("Passed parameter 'product' is wrong.");
             }
         }
 
         if (!isset($options['operation']) || empty($options['operation'])) {
-            throw new Exception("Passed parameter 'operation' is empty.");
+            throw new RuntimeException("Passed parameter 'operation' is empty.");
         }
         $this->_operation = $options['operation'];
     }

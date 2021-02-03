@@ -101,7 +101,7 @@ class Mage_Api2_Model_Renderer_Xml implements Mage_Api2_Model_Renderer_Interface
             if ($root) {
                 $data = array($data);
             } else {
-                throw new Exception('Prepare data must be an object or an array.');
+                throw new RuntimeException('Prepare data must be an object or an array.');
             }
         }
         $data = $data instanceof Varien_Object ? $data->toArray() : (array)$data;

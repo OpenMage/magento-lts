@@ -163,7 +163,7 @@ class Mage_Api2_Model_Acl_Filter_Attribute_ResourcePermission implements Mage_Ap
     public function setFilterValue($userType)
     {
         if (!array_key_exists($userType, Mage_Api2_Model_Auth_User::getUserTypes())) {
-            throw new Exception('Unknown user type.');
+            throw new RuntimeException('Unknown user type.');
         }
         $this->_userType = $userType;
         return $this;

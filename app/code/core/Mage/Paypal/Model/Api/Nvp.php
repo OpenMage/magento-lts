@@ -981,7 +981,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
 
         // handle transport error
         if ($http->getErrno()) {
-            Mage::logException(new Exception(
+            Mage::logException(new RuntimeException(
                 sprintf('PayPal NVP CURL connection error #%s: %s', $http->getErrno(), $http->getError())
             ));
             $http->close();
@@ -993,7 +993,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         $http->close();
 
         if (!$this->_validateResponse($methodName, $response)) {
-            Mage::logException(new Exception(
+            Mage::logException(new RuntimeException(
                 Mage::helper('paypal')->__("PayPal response hasn't required fields.")
             ));
             Mage::throwException(Mage::helper('paypal')->__('There was an error processing your order. Please contact us or try again later.'));

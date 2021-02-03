@@ -147,7 +147,7 @@ class Mage_Rating_Model_Resource_Rating_Option extends Mage_Core_Model_Resource_
             $adapter->commit();
         } catch (Throwable $e) {
             $adapter->rollBack();
-            throw new Exception($e->getMessage());
+            throw new RuntimeException($e->getMessage());
         }
         return $this;
     }

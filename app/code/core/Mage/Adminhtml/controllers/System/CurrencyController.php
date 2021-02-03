@@ -67,7 +67,7 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
             $service = $this->getRequest()->getParam('rate_services');
             $this->_getSession()->setCurrencyRateService($service);
             if( !$service ) {
-                throw new Exception(Mage::helper('adminhtml')->__('Invalid Import Service Specified'));
+                throw new RuntimeException(Mage::helper('adminhtml')->__('Invalid Import Service Specified'));
             }
             try {
                 $importModel = Mage::getModel(

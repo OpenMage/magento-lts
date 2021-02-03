@@ -44,7 +44,7 @@ class Mage_Centinel_Adminhtml_Centinel_IndexController extends Mage_Adminhtml_Co
             $paymentData = $this->getRequest()->getParam('payment');
             $validator = $this->_getValidator();
             if (!$validator) {
-                throw new Exception('This payment method does not have centinel validation.');
+                throw new RuntimeException('This payment method does not have centinel validation.');
             }
             $validator->reset();
             $this->_getPayment()->importData($paymentData);

@@ -69,7 +69,7 @@ class Mage_Api2_Model_Auth_User_Customer extends Mage_Api2_Model_Auth_User_Abstr
             /** @var Mage_Api2_Model_Acl_Global_Role $role */
             $role = Mage::getModel('api2/acl_global_role')->load(Mage_Api2_Model_Acl_Global_Role::ROLE_CUSTOMER_ID);
             if (!$role->getId()) {
-                throw new Exception('Customer role not found');
+                throw new RuntimeException('Customer role not found');
             }
 
             $this->_role = Mage_Api2_Model_Acl_Global_Role::ROLE_CUSTOMER_ID;
