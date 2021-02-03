@@ -436,7 +436,7 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
                 }
             }
         }
-        catch(Exception $e) {
+        catch(Throwable $e) {
             if (class_exists('Mage', false)) {
                 Mage::logException($e);
             } else {

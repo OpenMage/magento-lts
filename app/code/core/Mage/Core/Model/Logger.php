@@ -48,10 +48,10 @@ class Mage_Core_Model_Logger
     /**
      * Log exception wrapper
      *
-     * @param Exception $e
+     * @param Throwable $e
      * @return void
      */
-    public function logException(Exception $e)
+    public function logException(Throwable $e)
     {
         Mage::logException($e);
     }

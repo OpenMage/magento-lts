@@ -90,10 +90,10 @@ class Mage_Newsletter_Model_Problem extends Mage_Core_Model_Abstract
     /**
      * Add Error Data
      *
-     * @param Exception $e
+     * @param Throwable $e
      * @return $this
      */
-    public function addErrorData(Exception $e)
+    public function addErrorData(Throwable $e)
     {
         $this->setProblemErrorCode($e->getCode());
         $this->setProblemErrorText($e->getMessage());

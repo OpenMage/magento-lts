@@ -229,11 +229,11 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     /**
      * Not Mage exception handling
      *
-     * @param   Exception $exception
+     * @param   Throwable $exception
      * @param   string $alternativeText
      * @return  $this
      */
-    public function addException(Exception $exception, $alternativeText)
+    public function addException(Throwable $exception, $alternativeText)
     {
         // log exception to exceptions log
         $message = sprintf(
