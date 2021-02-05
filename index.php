@@ -41,6 +41,7 @@ define('MAGENTO_ROOT', getcwd());
 
 $mageFilename = MAGENTO_ROOT . '/app/Mage.php';
 $maintenanceFile = 'maintenance.flag';
+$maintenanceIpFile = 'maintenance.ip';
 
 if (!file_exists($mageFilename)) {
     if (is_dir('downloader')) {
@@ -48,11 +49,6 @@ if (!file_exists($mageFilename)) {
     } else {
         echo $mageFilename." was not found";
     }
-    exit;
-}
-
-if (file_exists($maintenanceFile)) {
-    include_once dirname(__FILE__) . '/errors/503.php';
     exit;
 }
 
@@ -74,5 +70,25 @@ $mageRunCode = isset($_SERVER['MAGE_RUN_CODE']) ? $_SERVER['MAGE_RUN_CODE'] : ''
 
 /* Run store or run website */
 $mageRunType = isset($_SERVER['MAGE_RUN_TYPE']) ? $_SERVER['MAGE_RUN_TYPE'] : 'store';
+
+if (file_exists($maintenanceFile)) {
+    $maintenanceBypass = false;
+
+    if (file_exists($maintenanceIpFile)) {
+        /* if maintenanceFile and maintenanceIpFile are set use Mage to get remote IP (in order to respect remote_addr_headers xml config) */
+        Mage::init($mageRunCode, $mageRunType);
+        $currentIp = Mage::helper('core/http')->getRemoteAddr();
+        $allowedIps = explode(',', trim(file_get_contents($maintenanceIpFile)));
+
+        if (in_array($currentIp, $allowedIps)) {
+            /* IP address matches, bypass maintenanceMode */
+            $maintenanceBypass = true;
+        }
+    }
+    if (!$maintenanceBypass) {
+        include_once dirname(__FILE__) . '/errors/503.php';
+        exit;
+    }
+}
 
 Mage::run($mageRunCode, $mageRunType);
