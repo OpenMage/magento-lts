@@ -776,22 +776,6 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     }
 
     /**
-     * Save model plus its options
-     * Ensures saving options in case when resource model was not changed
-     */
-    public function save()
-    {
-        $hasDataChanges = $this->hasDataChanges();
-        $this->_flagOptionsSaved = false;
-
-        parent::save();
-
-        if ($hasDataChanges && !$this->_flagOptionsSaved) {
-            $this->_saveItemOptions();
-        }
-    }
-
-    /**
      * Save item options after item saved
      *
      * @inheritDoc
