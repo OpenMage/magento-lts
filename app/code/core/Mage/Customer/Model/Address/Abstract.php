@@ -324,7 +324,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getCountry()
     {
