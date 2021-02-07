@@ -104,13 +104,6 @@ final class Mage
     static private $_objects;
 
     /**
-     * Is downloader flag
-     *
-     * @var bool
-     */
-    static private $_isDownloader               = false;
-
-    /**
      * Is developer mode flag
      *
      * @var bool
@@ -244,7 +237,6 @@ final class Mage
         self::$_config          = null;
         self::$_events          = null;
         self::$_objects         = null;
-        self::$_isDownloader    = false;
         self::$_isDeveloperMode = false;
         self::$_isInstalled     = null;
         // do not reset $headersSentThrowsException
@@ -736,7 +728,7 @@ final class Mage
             require_once(self::getBaseDir() . DS . 'errors' . DS . '404.php');
             die();
         } catch (Exception $e) {
-            if (self::isInstalled() || self::$_isDownloader) {
+            if (self::isInstalled()) {
                 self::printException($e);
                 exit();
             }
@@ -1038,10 +1030,10 @@ final class Mage
     /**
      * Set is downloader flag
      *
-     * @param bool $flag
+     * @deprecated
      */
-    public static function setIsDownloader($flag = true)
+    public static function setIsDownloader()
     {
-        self::$_isDownloader = $flag;
+
     }
 }
