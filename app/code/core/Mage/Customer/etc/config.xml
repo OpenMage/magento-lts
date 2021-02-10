@@ -424,6 +424,16 @@
                     <file>password_or_email_changed.html</file>
                     <type>html</type>
                 </customer_changed_account_password_or_email_template>
+                <customer_password_link_account_new_email_template translate="label" module="customer">
+                    <label>Email Link to Set Password on New Account</label>
+                    <file>account_new_password_link.html</file>
+                    <type>html</type>
+                </customer_password_link_account_new_email_template>
+                <customer_password_link_email_template translate="label" module="customer">
+                    <label>Email Link to Set Password</label>
+                    <file>account_password_reset_confirmation.html</file>
+                    <type>html</type>
+                </customer_password_link_email_template>
             </email>
         </template>
         <events>
@@ -543,6 +553,11 @@
                 <require_admin_user_to_change_user_password>1</require_admin_user_to_change_user_password>
                 <min_password_length>7</min_password_length>
             </password>
+            <password_link>
+                <email_identity>support</email_identity>
+                <account_new_email_template>customer_password_link_account_new_email_template</account_new_email_template>
+                <email_template>customer_password_link_email_template</email_template>
+            </password_link>
             <address>
                 <street_lines>2</street_lines>
                 <prefix_show/>

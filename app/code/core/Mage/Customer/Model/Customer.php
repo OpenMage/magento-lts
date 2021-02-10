@@ -136,6 +136,9 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     const XML_PATH_GENERATE_HUMAN_FRIENDLY_ID   = 'customer/create_account/generate_human_friendly_id';
     const XML_PATH_CHANGED_PASSWORD_OR_EMAIL_TEMPLATE = 'customer/changed_account/password_or_email_template';
     const XML_PATH_CHANGED_PASSWORD_OR_EMAIL_IDENTITY = 'customer/changed_account/password_or_email_identity';
+    const XML_PATH_PASSWORD_LINK_ACCOUNT_NEW_EMAIL_TEMPLATE = 'customer/password_link/account_new_email_template';
+    const XML_PATH_PASSWORD_LINK_EMAIL_TEMPLATE = 'customer/password_link/email_template';
+    const XML_PATH_PASSWORD_LINK_EMAIL_IDENTITY = 'customer/password_link/email_identity';
     /**#@-*/
 
     /**#@+
@@ -851,6 +854,40 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         $this->_sendEmailTemplate(
             self::XML_PATH_FORGOT_EMAIL_TEMPLATE,
             self::XML_PATH_FORGOT_EMAIL_IDENTITY,
+            array('customer' => $this),
+            $storeId
+        );
+
+        return $this;
+    }
+
+    /**
+     * Send email with link to set password
+     *
+     * @bool $isNew Send welcome email?
+     * @return $this
+     */
+    public function sendPasswordLinkEmail($isNew = false)
+    {
+        $storeId = Mage::app()->getStore()->getId();
+        if (!$storeId) {
+            $storeId = $this->_getWebsiteStoreId();
+        }
+
+        /** @var Mage_Customer_Helper_Data $helper */
+        $helper = Mage::helper('customer');
+        $newResetPasswordLinkToken = $helper->generateResetPasswordLinkToken();
+        $newResetPasswordLinkCustomerId = $helper->generateResetPasswordLinkCustomerId($this->getId());
+        $this->changeResetPasswordLinkCustomerId($newResetPasswordLinkCustomerId);
+        $this->changeResetPasswordLinkToken($newResetPasswordLinkToken);
+
+        $template = $isNew
+            ? self::XML_PATH_PASSWORD_LINK_ACCOUNT_NEW_EMAIL_TEMPLATE
+            : self::XML_PATH_PASSWORD_LINK_EMAIL_TEMPLATE;
+
+        $this->_sendEmailTemplate(
+            $template,
+            self::XML_PATH_PASSWORD_LINK_EMAIL_IDENTITY,
             array('customer' => $this),
             $storeId
         );

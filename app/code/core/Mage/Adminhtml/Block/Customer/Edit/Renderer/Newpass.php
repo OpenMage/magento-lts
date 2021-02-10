@@ -49,6 +49,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Newpass
         if ($element->getNote()) {
             $html .= '<p class="note"><span>' . $element->getNote() . '</span></p>';
         }
+        $html .= '<p id="email-passowrd-warning" style="display:none;" class="note"><span>' . Mage::helper('customer')->__('Warning: an email containing the plaintext password will be sent.') . '</span></p>';
         $html .= '</td>';
         $html .= '</tr>' . "\n";
         $html .= '<tr>';
@@ -63,7 +64,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Newpass
             . $element->getHtmlId()
             . '\', this.checked)"/>&nbsp;';
         $html .= '<label for="account-send-pass">'
-            . Mage::helper('customer')->__('Send Auto-Generated Password')
+            . Mage::helper('customer')->__('Email Link to Set Password')
             . '</label></td>';
         $html .= '</tr>'."\n";
 

@@ -346,6 +346,45 @@
                         </min_password_length>
                     </fields>
                 </password>
+                <password_link translate="label">
+                    <label>Email Link to Set Password Options</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>35</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <account_new_email_template translate="label comment">
+                            <label>New Account Email Template</label>
+                            <comment><![CDATA[This email with a link to set password is sent on new account creation in backend.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>41</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </account_new_email_template>
+                        <email_template translate="label comment">
+                            <label>Email Template</label>
+                            <comment><![CDATA[This email is sent on checkbox <em>Email Link to Set Password</em> is checked on the customer page in backend.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>42</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </email_template>
+                        <email_identity translate="label">
+                            <label>Email Sender</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_identity</source_model>
+                            <sort_order>43</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </email_identity>
+                    </fields>
+                </password_link>
                 <address translate="label">
                     <label>Name and Address Options</label>
                     <sort_order>40</sort_order>

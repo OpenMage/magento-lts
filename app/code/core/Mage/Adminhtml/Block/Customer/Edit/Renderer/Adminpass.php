@@ -70,6 +70,13 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Adminpass
                 $('{$element->getHtmlId()}_container').hide();
                 $('{$element->getHtmlId()}').disable();
             }
+            if ($('email-passowrd-warning')) {
+                if (!$('_accountnew_password').getValue() || $('account-send-pass').checked) {
+                    $('email-passowrd-warning').hide();
+                } else if ($('_accountnew_password').getValue()) {
+                    $('email-passowrd-warning').show();
+                }
+            }
         });
         $(elem).on('focus', function() {
             $('{$element->getHtmlId()}_container').show();
