@@ -21,32 +21,7 @@ dependency definition. Each Magento `1.<minor>.<revision>` release will get its 
 that will be independently maintained with upstream patches and community bug fixes for as long as it makes sense
 to do so (based on available resources). For example, Magento version `1.9.3.4` was merged into the `1.9.3.x` branch.
 
-Note, the branches older than `1.9.3.x` that were created before this strategy came into practice are **not maintained**.
-
-## Installation
-
-### Using Composer
-Download the latest archive and extract it, clone the repo, or add a composer dependency to your existing project like so:
-
-```json
-"openmage/magento-lts": "1.9.4.x"
-```
-
-### Using Git
-Go to `https://github.com/OpenMage/magento-lts` and fork the project. Enter your web directory and start a new git project utilizing `git init`. Set git remote to your forked repo using `git remote add origin https://github.com/<YOUR GIT USERNAME>/magento-lts`. Issue `git pull origin master`. Then add the official LTS repo as an upstream using `git remote add upstream https://github.com/OpenMage/magento-lts`. Issue `git pull upstream v19.4.4` or the latest version you want to pull. Be sure to check for conflicts before merging all in the next step. Dont forget to git commit and add files to your own forked repo.
-
-When using git you have the ability to fix and test your own code in your own repo. In addition you can periodically sync with the official upstream Magento LTS repo.
-
-```
-git init
-git remote add origin https://github.com/<YOUR GIT USERNAME>/magento-lts
-git pull origin master
-git remote add upstream https://github.com/OpenMage/magento-lts
-git pull upstream v19.4.4
-git add -A && git commit
-```
-
-[More Information](http://openmage.github.io/magento-lts/install.html)
+Note, the branches older than `1.9.4.x` and that were created before this strategy came into practice are **not maintained**.
 
 ## Requirements
 
@@ -55,25 +30,70 @@ git add -A && git commit
 
 If using php 7.2+ then mcrypt needs to be disabled in php.ini or pecl to fallback on mcryptcompat and phpseclib. mcrypt is deprecated from 7.2+ onwards.
 
-## Translations
+## Installation
 
-There are some new or changed tranlations, if you want add them to your locale pack please check:
-
-- `app/locale/en_US/*_LTS.csv`
-
-## PhpStorm Factory Helper
-
-This repo includes class maps for the core Magento files in `.phpstorm.meta.php`.
-This file is generated using the following commands:
+### Using Composer
+Download the latest archive and extract it, clone the repo, or add a composer dependency to your existing project like so:
 
 ```
-$ wget https://files.magerun.net/n98-magerun.phar
-$ docker run --rm -u $UID -v $PWD:/var/www/html php:7.0-apache php n98-magerun.phar dev:ide:phpstorm:meta
+composer require openmage/magento-lts":"^19.4.0"
 ```
 
-You can add additional meta files in this directory to cover your own project files. See
-[PhpStorm advanced metadata](https://www.jetbrains.com/help/phpstorm/ide-advanced-metadata.html)
-for more information.
+To get the latest changes use:
+
+```
+composer require openmage/magento-lts":"dev-main"
+```
+
+<small>Note: `dev-main` is just an alias for current `1.9.4.x` branch and may change</small>
+
+### Using Git
+
+If you want to contribute to the project:
+
+```
+git init
+git remote add origin https://github.com/<YOUR GIT USERNAME>/magento-lts
+git pull origin master
+git remote add upstream https://github.com/OpenMage/magento-lts
+git pull upstream 1.9.4.x
+git add -A && git commit
+```
+
+[More Information](http://openmage.github.io/magento-lts/install.html)
+
+## Changes
+
+Most important changes will be listed here, all other changes since `19.4.0` can be found in
+[release](https://github.com/OpenMage/magento-lts/releases) notes.
+
+### Performance
+<small>ToDo: Please add performance related changes as run-time cache, ...</small>
+
+### New Config Options
+- `admin/design/use_legacy_theme`
+- `admin/emails/admin_notification_email_template`
+- `catalog/product_image/progressive_threshold`
+
+### New Events
+- 'adminhtml_sales_order_create_save_before'
+- `checkout_cart_product_add_before`
+- `sitemap_cms_pages_generating_before`
+- `sitemap_urlset_generating_before`
+
+### New Translations
+
+There are some new or changed translations, if you want add them to your locale pack please check:
+
+- `app/locale/en_US/Adminhtml_LTS.csv`
+- `app/locale/en_US/Core_LTS.csv`
+- `app/locale/en_US/Sales_LTS.csv`
+
+### Removed Modules
+- `Mage_Compiler`
+- `Mage_GoogleBase`
+- `Mage_Xmlconnect`
+- `Phoenix_Moneybookers`
 
 ## Development Environment with ddev
 - Install [ddev](https://ddev.com/get-started/)
@@ -84,17 +104,21 @@ for more information.
 - Navigate to https://magento-lts.ddev.site
 - When you are done you can stop the test system by typing ```$ ddev stop```
 
-## Removed Modules
+### PhpStorm Factory Helper
 
-- Phoenix_Moneybookers
+This repo includes class maps for the core Magento files in `.phpstorm.meta.php`. 
+To add class maps for installed extensions, you have to install [N98-magerun](https://github.com/netz98/n98-magerun)
+and run command:
 
-    Re-install: `$ composer require openmage-module-fostering/phoenix_moneybookers`
+```
+n98-magerun dev:ide:phpstorm:meta
+```
 
-## License
+You can add additional meta files in this directory to cover your own project files. See
+[PhpStorm advanced metadata](https://www.jetbrains.com/help/phpstorm/ide-advanced-metadata.html)
+for more information.
 
-[OSL v3.0](http://opensource.org/licenses/OSL-3.0)
-
-## Public Communication and online Community places
+## Public Communication
 
 * [Discord](https://discord.gg/EV8aNbU) (maintained by Flyingmana)
 
@@ -105,7 +129,11 @@ for more information.
 * [Daniel Fahlke aka Flyingmana](https://github.com/Flyingmana)
 * [Tymoteusz Motylewski](https://github.com/tmotyl)
 * [Sven Reichel](https://github.com/sreichel)
-* Pull requests are welcome
+
+## License
+
+- [OSL v3.0](http://opensource.org/licenses/OSL-3.0)
+- [AFL v3.0](http://opensource.org/licenses/AFL-3.0)
 
 ## Contributors ✨
 
