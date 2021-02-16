@@ -769,7 +769,11 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public function isCurrentlySecure()
     {
-        if (!empty($_SERVER['HTTPS']) && ('off' != $_SERVER['HTTPS'])) {
+        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
+            return true;
+        }
+
+        if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
             return true;
         }
 
