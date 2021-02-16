@@ -786,11 +786,6 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
                     return true;
                 }
             }
-
-            $secureBaseUrl = Mage::getStoreConfig(Mage_Core_Model_Url::XML_PATH_SECURE_URL);
-            if ($secureBaseUrl && parse_url($secureBaseUrl, PHP_URL_SCHEME) === 'https') {
-                return true;
-            }
         }
 
         return false;
