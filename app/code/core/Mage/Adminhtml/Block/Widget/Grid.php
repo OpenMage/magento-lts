@@ -970,22 +970,20 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $originalCollection = $this->getCollection();
         $count = null;
         $page  = 1;
-        $lPage = null;
-        $break = false;
 
-        while ($break !== true) {
+        while (true) {
             $collection = clone $originalCollection;
             $collection->setPageSize($this->_exportPageSize);
             $collection->setCurPage($page);
             $collection->load();
-            if (is_null($count)) {
-                $count = $collection->getSize();
-                $lPage = $collection->getLastPageNumber();
+
+            $count = $collection->count();
+
+            if ($count < $this->_exportPageSize) {
+                break;
             }
-            if ($lPage == $page) {
-                $break = true;
-            }
-            $page ++;
+
+            $page++;
 
             foreach ($collection as $item) {
                 call_user_func_array(array($this, $callback), array_merge(array($item), $args));
@@ -993,6 +991,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             $collection->clear();
             unset($collection);
         }
+
+        return $this;
     }
 
     /**
