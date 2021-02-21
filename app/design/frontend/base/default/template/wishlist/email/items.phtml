@@ -38,7 +38,7 @@
             <p align="center" style="font-size:12px;"><a href="<?php echo $this->getProductUrl($_product) ?>" style="color:#203548;"><strong><?php echo $this->escapeHtml($_product->getName()) ?></strong></a></p>
             <?php if($this->hasDescription($item)): ?><p align="center" style="font-size:12px;"><?php echo $this->__('Comment') ?>:<br /><?php echo $this->getEscapedDescription($item) ?></p><?php endif; ?>
             <p align="center" style="font-size:12px;"><a href="<?php echo $this->getProductUrl($_product) ?>" style="color:#1E7EC8;"><?php echo $this->__('View Product') ?></a> <small>
-            <?php if ($_product->getIsSalable()): ?>|</small> <a href="<?php echo $this->getSharedItemAddToCartUrl($item) ?>" style="color:#1E7EC8;"><strong><?php echo $this->__('Add to Cart') ?></strong></a><?php endif;?>
+            <?php if ($_product->getIsSalable()): ?>|</small> <a href="<?php echo $this->getSharedItemAddToCartUrl($item) ?>" style="color:#1E7EC8;"><strong><?php echo $this->__('Add to Cart') ?></strong></a><?php endif ?>
             </p></td>
         <?php if ($i%3!=0): ?>
             <td width="2%"></td>

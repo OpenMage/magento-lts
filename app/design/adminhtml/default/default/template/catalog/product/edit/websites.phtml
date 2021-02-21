@@ -43,7 +43,7 @@
         <div class="tree-store-scope">
             <?php foreach ($this->getWebsiteCollection() as $_website): ?>
             <div class="website-name">
-                <input name="product[website_ids][]" value="<?php echo $_website->getId() ?>" <?php if ($this->isReadonly()):?> disabled="disabled"<?php endif;?> class="checkbox website-checkbox" id="product_website_<?php echo $_website->getId() ?>" type="checkbox"<?php if($this->hasWebsite($_website->getId())): ?> checked="checked"<?php endif; ?> />
+                <input name="product[website_ids][]" value="<?php echo $_website->getId() ?>" <?php if ($this->isReadonly()):?> disabled="disabled"<?php endif ?> class="checkbox website-checkbox" id="product_website_<?php echo $_website->getId() ?>" type="checkbox"<?php if($this->hasWebsite($_website->getId())): ?> checked="checked"<?php endif; ?> />
                 <big><strong><label for="product_website_<?php echo $_website->getId() ?>"><?php echo $this->escapeHtml($_website->getName()) ?></label></strong></big>
             </div>
             <div class="webiste-groups" id="product_website_<?php echo $_website->getId() ?>_data">

@@ -58,7 +58,7 @@
             <td class="value">
                 <?php if (!$_readonly):?>
                 <input type="hidden" id="original_inventory_qty" name="<?php echo $this->getFieldSuffix() ?>[stock_data][original_inventory_qty]" value="<?php echo $this->getFieldValue('qty')*1 ?>"/>
-                <?php endif;?>
+                <?php endif ?>
                 <input type="text" class="input-text required-entry validate-number" id="inventory_qty" name="<?php echo $this->getFieldSuffix() ?>[stock_data][qty]" value="<?php echo $this->getFieldValue('qty')*1 ?>" <?php echo $_readonly;?>/>
             </td>
             <td class="value scope-label"><?php echo Mage::helper('adminhtml')->__('[GLOBAL]') ?></td>

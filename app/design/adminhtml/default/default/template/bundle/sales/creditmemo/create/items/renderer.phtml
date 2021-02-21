@@ -226,7 +226,7 @@
         <td class="a-center">
             <?php if ($this->canShowPriceInfo($_item)): ?>
                 <?php if ($this->canReturnItemToStock($_item)) : ?>
-                    <input type="checkbox" name="creditmemo[items][<?php echo $_item->getOrderItemId() ?>][back_to_stock]" value="1"<?php if ($_item->getBackToStock()):?> checked="checked"<?php endif;?> />
+                    <input type="checkbox" name="creditmemo[items][<?php echo $_item->getOrderItemId() ?>][back_to_stock]" value="1"<?php if ($_item->getBackToStock()):?> checked="checked"<?php endif ?> />
                 <?php endif; ?>
             <?php else: ?>
                 &nbsp;
@@ -389,8 +389,8 @@
                             $('<?php echo $_id ?>').up().observe('mouseover', function(){$('<?php echo $_id ?>').show();});
                             $('<?php echo $_id ?>').up().observe('mouseout',  function(){$('<?php echo $_id ?>').hide();});
                             </script>
-                        <?php endif;?>
-                    <?php endif;?>
+                        <?php endif ?>
+                    <?php endif ?>
                     </dd>
                 <?php endforeach; ?>
                 </dl>

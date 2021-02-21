@@ -79,7 +79,7 @@ var arrayRow<?php echo $_htmlId ?> = {
 <?php endforeach;?>
 <?php if ($this->_addAfter):?>
             +'<td><button onclick="" class="scalable add" type="button" id="addAfterBtn#{_id}"><span><span><span><?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('adminhtml')->__('Add after')) ?><\/span><\/span><\/span><\/button><\/td>'
-<?php endif;?>
+<?php endif ?>
             +'<td><button onclick="arrayRow<?php echo $_htmlId ?>.del(\'#{_id}\')" class="scalable delete" type="button"><span><span><span><?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('adminhtml')->__('Delete')) ?><\/span><\/span><\/span><\/button><\/td>'
         +'<\/tr>'
     ),
@@ -110,7 +110,7 @@ var arrayRow<?php echo $_htmlId ?> = {
 
 <?php if ($this->_addAfter):?>
         Event.observe('addAfterBtn' + templateData._id, 'click', this.add.bind(this, '', templateData._id));
-<?php endif;?>
+<?php endif ?>
 
         this.rowsCount += 1;
     },
@@ -154,11 +154,11 @@ Event.observe('emptyAddBtn<?php echo $_htmlId ?>', 'click', function () {
 // if no rows, hide grid and show button only
 <?php if (!$this->getArrayRows()):?>
 arrayRow<?php echo $_htmlId ?>.showButtonOnly();
-<?php endif;?>
+<?php endif ?>
 
 // toggle the grid, if element is disabled (depending on scope)
 <?php if ($this->getElement()->getDisabled()):?>
 toggleValueElements({checked:true}, $('grid<?php echo $_htmlId ?>').parentNode);
-<?php endif;?>
+<?php endif ?>
 //]]>
 </script>

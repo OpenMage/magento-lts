@@ -73,14 +73,14 @@
         </td>
     </tr>
     <?php endforeach; ?>
-<?php endif;?>
+<?php endif ?>
 <tr <?php if ($this->helper('tax')->displayFullSummary() && $_value!=0): ?> class="summary-total" onclick="expandDetails(this, '.summary-details-<?php echo $taxIter;?>')"<?php endif; ?>>
     <td style="<?php echo $_style ?>" class="a-right" colspan="<?php echo $this->getColspan(); ?>">
         <?php if ($this->helper('tax')->displayFullSummary()): ?>
             <div class="summary-collapse"><?php echo $this->getTotal()->getTitle() ?></div>
         <?php else: ?>
             <?php echo $this->getTotal()->getTitle() ?>
-        <?php endif;?>
+        <?php endif ?>
     </td>
     <td style="<?php echo $_style ?>" class="a-right"><?php echo $this->helper('checkout')->formatPrice($_value) ?></td>
 </tr>

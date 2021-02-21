@@ -61,7 +61,7 @@
                     <?php echo $this->__('Your Review (submitted on %s):', $this->dateFormat($this->getReviewData()->getCreatedAt())) ?>
                 <?php else :?>
                     <?php echo $this->__('Review (submitted on %s):', $this->dateFormat($this->getReviewData()->getCreatedAt())) ?>
-                <?php endif;?>
+                <?php endif ?>
             </dt>
             <dd>
                 <?php echo nl2br($this->escapeHtml($this->getReviewData()->getDetail())) ?>

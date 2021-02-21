@@ -30,7 +30,7 @@
             <div class="rating-box">
                 <div class="rating" style="width:<?php echo $this->getRatingSummary() ?>%"></div>
             </div>
-        <?php endif;?>
+        <?php endif ?>
         <span class="amount"><a href="#" onclick="var t = opener ? opener.window : window; t.location.href='<?php echo $this->getReviewsUrl() ?>'; return false;"><?php echo $this->__('%d Review(s)', $this->getReviewsCount()) ?></a></span>
     </div>
 <?php elseif ($this->getDisplayIfEmpty()): ?>

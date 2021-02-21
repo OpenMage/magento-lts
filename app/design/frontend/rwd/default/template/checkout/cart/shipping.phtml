@@ -60,7 +60,7 @@
                 <li class="shipping-region">
                     <label for="city"<?php if ($this->isCityRequired()) echo ' class="required"' ?>><?php if ($this->isCityRequired()) echo '<em>*</em>' ?><?php echo $this->__('City') ?></label>
                     <div class="input-box">
-                        <input class="input-text<?php if ($this->isCityRequired()):?> required-entry<?php endif;?>" id="city" type="text" name="estimate_city" value="<?php echo $this->escapeHtml($this->getEstimateCity()) ?>" />
+                        <input class="input-text<?php if ($this->isCityRequired()):?> required-entry<?php endif ?>" id="city" type="text" name="estimate_city" value="<?php echo $this->escapeHtml($this->getEstimateCity()) ?>" />
                     </div>
                 </li>
             <?php endif; ?>
@@ -70,7 +70,7 @@
                     */ ?>
                     <label for="postcode" class="required"><em>*</em><?php echo $this->__('Zip') ?></label>
                     <div class="input-box">
-                        <input class="input-text validate-postcode<?php if ($this->isZipCodeRequired()):?> required-entry<?php endif;?>" type="text" id="postcode" name="estimate_postcode" value="<?php echo $this->escapeHtml($this->getEstimatePostcode()) ?>" />
+                        <input class="input-text validate-postcode<?php if ($this->isZipCodeRequired()):?> required-entry<?php endif ?>" type="text" id="postcode" name="estimate_postcode" value="<?php echo $this->escapeHtml($this->getEstimatePostcode()) ?>" />
                     </div>
                 </li>
             </ul>

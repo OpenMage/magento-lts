@@ -76,7 +76,7 @@ var groupPriceRowTemplate = '<tr>'
     <?php endforeach; ?>
     + '</select></td>'
     + '<td><input class="<?php echo $_htmlClass; ?> required-entry <?php echo $_priceValueValidation; ?>" type="text" name="<?php echo $_htmlName; ?>[{{index}}][price]" value="{{price}}" id="group_price_row_{{index}}_price" />'
-    + '<input type="hidden" name="<?php echo $_htmlName; ?>[{{index}}][is_percent]" value="<?php if ($this->getIsPercent()) : ?>1<?php else: ?>0<?php endif;?>" id="group_price_row_{{index}}_is_percent" /></td>'
+    + '<input type="hidden" name="<?php echo $_htmlName; ?>[{{index}}][is_percent]" value="<?php if ($this->getIsPercent()) : ?>1<?php else: ?>0<?php endif ?>" id="group_price_row_{{index}}_is_percent" /></td>'
     + '<td class="last"><input type="hidden" name="<?php echo $_htmlName; ?>[{{index}}][delete]" class="delete" value="" id="group_price_row_{{index}}_delete" />'
     + '<button title="<?php echo $this->jsQuoteEscape(Mage::helper('catalog')->__('Delete Group Price')); ?>" type="button" class="scalable delete icon-btn delete-product-option" id="group_price_row_{{index}}_delete_button" onclick="return groupPriceControl.deleteItem(event);">'
     + '<span><?php echo $this->jsQuoteEscape(Mage::helper('catalog')->__('Delete')); ?></span></button></td>'
@@ -121,7 +121,7 @@ var groupPriceControl = {
 
         websiteElement.insert({after:'<span class="website-name">' + websiteCaption + '</span>'});
         websiteElement.hide();
-        <?php endif;?>
+        <?php endif ?>
 
         if (data.readOnly == '1') {
             ['website', 'cust_group', 'price', 'delete', 'is_percent'].each(function(element_suffix) {

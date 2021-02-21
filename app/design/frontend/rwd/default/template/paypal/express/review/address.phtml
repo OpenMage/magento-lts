@@ -133,7 +133,7 @@
                     <li class="control">
                         <div class="field">
                             <div class="input-box">
-                                <input type="checkbox" name="<?php echo $prefix ?>[as_shipping]" class="checkbox" value="1" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Same as shipping')) ?>" id="<?php echo $prefix ?>:as_shipping" <?php if ($this->getAddress()->getSameAsBilling()):?>checked="checked"<?php endif;?>/>
+                                <input type="checkbox" name="<?php echo $prefix ?>[as_shipping]" class="checkbox" value="1" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Same as shipping')) ?>" id="<?php echo $prefix ?>:as_shipping" <?php if ($this->getAddress()->getSameAsBilling()):?>checked="checked"<?php endif ?>/>
                             </div>
                             <label for="<?php echo $prefix ?>:as_shipping"><?php echo $this->__('Same as shipping') ?></label>
                         </div>

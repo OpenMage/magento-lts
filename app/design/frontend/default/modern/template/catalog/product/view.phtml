@@ -78,12 +78,12 @@
                     <h2><?php echo $this->__('Quick Overview') ?></h2>
                     <div class="std"><?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?></div>
                 </div>
-            <?php endif;?>
+            <?php endif ?>
 
             <?php echo $this->getChildHtml('other');?>
             <?php if ($_product->isSaleable() && $this->hasOptions()):?>
                 <?php echo $this->getChildChildHtml('container1', '', true, true) ?>
-            <?php endif;?>
+            <?php endif ?>
 
         </div>
 
@@ -94,7 +94,7 @@
         <div class="clearer"></div>
         <?php if ($_product->isSaleable() && $this->hasOptions()):?>
             <?php echo $this->getChildChildHtml('container2', '', true, true) ?>
-        <?php endif;?>
+        <?php endif ?>
     </form>
     <script type="text/javascript">
     //<![CDATA[

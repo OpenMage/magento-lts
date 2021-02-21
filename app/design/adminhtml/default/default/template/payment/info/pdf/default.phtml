@@ -35,6 +35,6 @@
 <?php foreach ($_specificInfo as $_label => $_value):?>
 <?php echo $_label ?>: <?php echo implode(' ', $this->getValueAsArray($_value))?>{{pdf_row_separator}}
 <?php endforeach; ?>
-<?php endif;?>
+<?php endif ?>
 
 <?php echo implode('{{pdf_row_separator}}', $this->getChildPdfAsArray()) ?>

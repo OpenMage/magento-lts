@@ -56,7 +56,7 @@ $orderStoreDate = $this->formatDate($_order->getCreatedAtStoreDate(), 'medium', 
                 <td class="label"><label><?php echo Mage::helper('sales')->__('Order Date (%s)', $_order->getCreatedAtStoreDate()->getTimezone()) ?></label></td>
                 <td class="value"><strong><?php echo $orderStoreDate ?></strong></td>
             </tr>
-            <?php endif;?>
+            <?php endif ?>
             <tr>
                 <td class="label"><label><?php echo Mage::helper('sales')->__('Order Status') ?></label></td>
                 <td class="value"><strong><span id="order_status"><?php echo $_order->getStatusLabel() ?></span></strong></td>

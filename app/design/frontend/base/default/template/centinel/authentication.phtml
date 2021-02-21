@@ -42,7 +42,7 @@
             CentinelAuthenticateController.start('<?php echo $this->getFrameUrl() ?>');
         <?php elseif ($this->getAuthenticationStartMode() == 'window'):?>
             Event.observe(window, 'load', function(){CentinelAuthenticateController.start('<?php echo $this->getFrameUrl() ?>');});
-        <?php endif;?>
+        <?php endif ?>
     //]]>
     </script>
 <?php else:?>
@@ -53,4 +53,4 @@
         }
     //]]>
     </script>
-<?php endif;?>
+<?php endif ?>

@@ -45,8 +45,8 @@ $_options = $this->getOptionList();
     <td>
 
         <?php if ($this->hasProductUrl()):?>
-            <a href="<?php echo $this->getProductUrl() ?>" title="<?php echo $this->escapeHtml($this->getProductName()) ?>" class="product-image"><?php endif;?><img src="<?php echo $this->getProductThumbnail()->resize(114); ?>" width="57" height="57" alt="<?php echo $this->escapeHtml($this->getProductName()) ?>" /><?php if ($this->hasProductUrl()):?></a>
-        <?php endif;?>
+            <a href="<?php echo $this->getProductUrl() ?>" title="<?php echo $this->escapeHtml($this->getProductName()) ?>" class="product-image"><?php endif ?><img src="<?php echo $this->getProductThumbnail()->resize(114); ?>" width="57" height="57" alt="<?php echo $this->escapeHtml($this->getProductName()) ?>" /><?php if ($this->hasProductUrl()):?></a>
+        <?php endif ?>
 
         <?php if ($isVisibleProduct && $this->getOptionList()): ?>
             <p><a class="link-edit" href="<?php echo $this->getConfigureUrl() ?>" title="<?php echo $this->__('Edit item parameters') ?>"><?php echo $this->__('Edit') ?></a></p>
@@ -69,7 +69,7 @@ $_options = $this->getOptionList();
         <?php $addInfoBlock = $this->getProductAdditionalInformationBlock(); ?>
         <?php if ($addInfoBlock): ?>
             <?php echo $addInfoBlock->setItem($_item)->toHtml() ?>
-        <?php endif;?>
+        <?php endif ?>
 
         <div class="price-box">
 
@@ -301,4 +301,4 @@ $_options = $this->getOptionList();
         </div>
     </td>
 </tr>
-<?php endif;?>
+<?php endif ?>
