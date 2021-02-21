@@ -59,7 +59,7 @@
                 </span>
             </div>
         </li>
-        <?php endforeach; ?>
+        <?php endforeach ?>
     <?php endif ?>
     </ul>
 </td>
@@ -115,7 +115,7 @@
             <?php echo $this->getForm()->getHtml() ?>
             <input type="hidden" name="address[<?php echo $_address->getId() ?>][_deleted]" id="deleted_address_item_<?php echo $_address->getId() ?>" />
             </div>
-            <?php endforeach; ?>
+            <?php endforeach ?>
         <?php else: ?>
             <div id="no_address_message"><?php echo Mage::helper('customer')->__('This customer has no saved addresses.') ?></div>
         <?php endif ?>

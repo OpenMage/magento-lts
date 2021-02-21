@@ -130,7 +130,7 @@
                         <tbody>
                         <?php foreach ($this->getShippingAddressItems($_address) as $_item): ?>
                             <?php echo $this->getRowItemHtml($_item); ?>
-                        <?php endforeach; ?>
+                        <?php endforeach ?>
                         </tbody>
                     </table>
                     <script type="text/javascript">decorateTable('overview-table-<?php echo $_address->getId() ?>')</script>
@@ -138,7 +138,7 @@
             <?php if($this->getShippingAddressCount()!=$_index+1): ?>
                 <div class="divider"></div>
             <?php endif ?>
-        <?php endforeach; ?>
+        <?php endforeach ?>
         </div>
         <?php if ($this->getQuote()->hasVirtualItems()): ?>
         <div class="col2-set">
@@ -180,7 +180,7 @@
                     <tbody>
                     <?php foreach ($this->getVirtualItems() as $_item): ?>
                         <?php echo $this->getRowItemHtml($_item); ?>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                     </tbody>
                     </table>
                     <script type="text/javascript">decorateTable('virtual-overview-table')</script>

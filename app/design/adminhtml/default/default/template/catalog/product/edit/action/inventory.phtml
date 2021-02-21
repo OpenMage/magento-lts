@@ -120,7 +120,7 @@ function toggleValueElementsWithCheckbox(checkbox) {
                         <?php foreach ($this->getBackordersOption() as $option): ?>
                         <?php $_selected = ($option['value'] == $this->getDefaultConfigValue('backorders')) ? ' selected="selected"' : '' ?>
                         <option value="<?php echo $option['value'] ?>"<?php echo $_selected ?>><?php echo $option['label'] ?></option>
-                        <?php endforeach; ?>
+                        <?php endforeach ?>
                     </select>
                     <input type="checkbox" id="inventory_use_config_backorders" name="<?php echo $this->getFieldSuffix() ?>[use_config_backorders]" value="1" onclick="toggleValueElements(this, this.parentNode, $('inventory_backorders_checkbox'));" checked="checked" disabled="disabled" />
                     <label for="inventory_use_config_backorders" class="normal"><?php echo Mage::helper('catalog')->__('Use Config Settings') ?></label>

@@ -42,12 +42,12 @@
                     <optgroup label="&nbsp;&nbsp;&nbsp;<?php echo $this->escapeHtml($group->getName()); ?>">
                 <?php endif ?>
                 <option value="<?php echo $store->getId() ?>"<?php if($this->getStoreId() == $store->getId()): ?> selected="selected"<?php endif ?>>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $this->escapeHtml($store->getName()); ?></option>
-            <?php endforeach; ?>
+            <?php endforeach ?>
             <?php if ($showGroup): ?>
                 </optgroup>
             <?php endif ?>
-        <?php endforeach; ?>
-    <?php endforeach; ?>
+        <?php endforeach ?>
+    <?php endforeach ?>
 </select>
 <?php echo $this->getHintHtml() ?>
 <script type="text/javascript">

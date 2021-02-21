@@ -74,7 +74,7 @@ $numColumns = sizeof($this->getColumns());
                     <select name="report_period" id="report_period" style="width:6em;">
                     <?php foreach ($this->getPeriods() as $_value=>$_label): ?>
                         <option value="<?php echo $_value ?>" <?php if($this->getFilter('report_period')==$_value): ?> selected<?php endif ?>><?php echo $_label ?></option>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                     </select>
                     <?php echo $this->getRefreshButtonHtml() ?>
                 </div>
@@ -104,7 +104,7 @@ $numColumns = sizeof($this->getColumns());
                 <select name="<?php echo $this->getId() ?>_export" id="<?php echo $this->getId() ?>_export" style="width:8em;">
                 <?php foreach ($this->getExportTypes() as $_type): ?>
                     <option value="<?php echo $_type->getUrl() ?>"><?php echo $_type->getLabel() ?></option>
-                <?php endforeach; ?>
+                <?php endforeach ?>
                 </select>
                 <?php echo $this->getExportButtonHtml() ?>
             </td>
@@ -118,7 +118,7 @@ $numColumns = sizeof($this->getColumns());
         <col/>
         <?php foreach ($this->getColumns() as $_column): ?>
         <col <?php echo $_column->getHtmlProperty() ?>/>
-        <?php endforeach; ?>
+        <?php endforeach ?>
         <?php if ($this->getHeadersVisibility() || $this->getFilterVisibility()): ?>
             <thead>
                 <?php if ($this->getHeadersVisibility()): ?>
@@ -126,7 +126,7 @@ $numColumns = sizeof($this->getColumns());
                     <th class="no-link" style="width:100px"><span class="no-br"><?php echo $this->getPeriodText() ?></span></th>
                     <?php foreach ($this->getColumns() as $_column): ?>
                         <th <?php echo $_column->getHeaderHtmlProperty() ?>><span class="no-br"><?php echo $_column->getHeaderHtml() ?></span></th>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                     </tr>
                 <?php endif ?>
             </thead>
@@ -148,16 +148,16 @@ $numColumns = sizeof($this->getColumns());
                         <td class="<?php echo $_column->getCssProperty() ?> <?php echo ++$j==$numColumns?'last':'' ?>">
                             <?php echo (($_html = $_column->getRowField($_subItem)) != '' ? $_html : '&nbsp;') ?>
                         </td>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                     </tr>
-                <?php endforeach; ?>
+                <?php endforeach ?>
                 <?php if($this->getCountTotals() && $rows > 0 && $this->getSubtotalVisibility()): ?>
                 <tr>
                     <?php $j=0;foreach ($this->getColumns() as $_column): ?>
                         <td class="<?php echo $_column->getCssProperty() ?> <?php echo ++$j==$numColumns?'last':'' ?> subtotal">
                             <?php echo ($j==1)?$this->getSubtotalText():$_column->getRowField($this->getTotals()) ?>
                         </td>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                 </tr>
                 <?php endif ?>
             <?php else: ?>
@@ -165,7 +165,7 @@ $numColumns = sizeof($this->getColumns());
                 <td colspan="<?php echo $numColumns ?>" class="empty-text <?php echo $this->getEmptyTextClass() ?> last"><?php echo $this->getEmptyText() ?></td>
             <?php endif ?>
             </tr>
-        <?php endforeach; ?>
+        <?php endforeach ?>
         <?php elseif ($this->getEmptyText()): ?>
             <tr>
               <td class="empty-text <?php echo $this->getEmptyTextClass() ?>" colspan="<?php echo $numColumns + 1 ?>"><?php echo $this->getEmptyText() ?></td>
@@ -177,7 +177,7 @@ $numColumns = sizeof($this->getColumns());
             <tr><th><?php echo $this->getTotalText() ?></th>
             <?php $j=0;foreach ($this->getColumns() as $_column): ?>
                 <th class="<?php echo $_column->getCssProperty() ?> <?php echo ++$j==$numColumns?'last':'' ?>"><?php echo $_column->getRowField($this->getGrandTotals()) ?></th>
-            <?php endforeach; ?>
+            <?php endforeach ?>
             </tr>
          </tfoot>
         <?php endif ?>

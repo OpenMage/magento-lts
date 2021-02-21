@@ -217,9 +217,9 @@ bOption = new Bundle.Option(optionTemplate);
         <?php $_selection->setName($this->escapeHtml($_selection->getName())); ?>
         <?php $_selection->setSku($this->escapeHtml($_selection->getSku())); ?>
         bSelection.addRow(optionIndex, <?php echo $_selection->toJson() ?>);
-        <?php endforeach; ?>
+        <?php endforeach ?>
     <?php endif ?>
-<?php endforeach; ?>
+<?php endforeach ?>
 /**
  * Adding event on price type select box of product to hide or show prices for selections
  */

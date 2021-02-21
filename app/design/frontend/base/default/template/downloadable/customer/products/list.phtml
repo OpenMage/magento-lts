@@ -61,7 +61,7 @@
                     <td><em><?php echo Mage::helper('downloadable')->__(ucfirst($_item->getStatus())) ?></em></td>
                     <td><?php echo $this->getRemainingDownloads($_item) ?></td>
                 </tr>
-            <?php endforeach; ?>
+            <?php endforeach ?>
         </tbody>
     </table>
     <script type="text/javascript">decorateTable('my-downloadable-products-table')</script>

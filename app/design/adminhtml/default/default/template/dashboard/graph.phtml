@@ -34,7 +34,7 @@
                 <?php foreach ($this->helper('adminhtml/dashboard_data')->getDatePeriods() as $_value=>$_label): ?>
                     <?php if(in_array($_value, array('custom'))) continue; ?>
                     <option value="<?php echo $_value ?>" <?php if($this->getRequest()->getParam('period')==$_value): ?> selected<?php endif ?>><?php echo $_label ?></option>
-                <?php endforeach; ?>
+                <?php endforeach ?>
             </select>
             <img src="<?php echo Mage::getDesign()->getSkinUrl('images/dashboard-close.gif') ?>" onclick="toggleCal('<?php echo $this->getHtmlId() ?>')" />
         </div>
@@ -52,7 +52,7 @@
         <?php foreach ($this->helper('adminhtml/dashboard_data')->getDatePeriods() as $_value=>$_label): ?>
             <?php if(in_array($_value, array('custom'))) continue; ?>
             <option value="<?php echo $_value ?>" <?php if($this->getRequest()->getParam('period')==$_value): ?> selected="selected"<?php endif ?>><?php echo $_label ?></option>
-        <?php endforeach; ?>
+        <?php endforeach ?>
     </select></p><br/>
     <?php
     $_containerStyle = "width:{$this->getWidth()}px;height:{$this->getHeight()}px; margin:0 auto;";

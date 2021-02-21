@@ -100,7 +100,7 @@ $_inclTax = $_taxHelper->getPrice($_product, $_minimalPriceValue, $includingTax 
                         <?php echo $_weeeSeparator; ?>
                         <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo $_coreHelper->currencyByStore($_weeeTaxAttribute->getAmount(), $_storeId, true, true); ?>
                         <?php $_weeeSeparator = ' + '; ?>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                     )</span>
             </span>
         <?php elseif ($_weeeTaxAmount && $_weeeHelper->typeOfDisplay($_product, 4)): // incl. + weee ?>
@@ -120,7 +120,7 @@ $_inclTax = $_taxHelper->getPrice($_product, $_minimalPriceValue, $includingTax 
                         <?php echo $_weeeSeparator; ?>
                         <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo $_coreHelper->currencyByStore($_weeeTaxAttribute->getAmount()+$_weeeTaxAttribute->getTaxAmount(), $_storeId, true, true); ?>
                         <?php $_weeeSeparator = ' + '; ?>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                     )</span>
             </span>
         <?php elseif ($_weeeTaxAmount && $_weeeHelper->typeOfDisplay($_product, 2)): // excl. + weee + final ?>
@@ -134,7 +134,7 @@ $_inclTax = $_taxHelper->getPrice($_product, $_minimalPriceValue, $includingTax 
                 <span class="weee">
                     <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo $_coreHelper->currencyByStore($_weeeTaxAttribute->getAmount(), $_storeId, true, true); ?>
                 </span>
-            <?php endforeach; ?>
+            <?php endforeach ?>
             <span class="price-including-tax">
                 <span class="label"><?php echo $this->helper('tax')->__('Incl. Tax:') ?></span>
                 <span class="price" id="price-including-tax-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>">
@@ -169,7 +169,7 @@ $_inclTax = $_taxHelper->getPrice($_product, $_minimalPriceValue, $includingTax 
                     <?php echo $_weeeSeparator; ?>
                     <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo $_coreHelper->currencyByStore($_weeeTaxAttribute->getAmount(), $_storeId, true, true); ?>
                     <?php $_weeeSeparator = ' + '; ?>
-                <?php endforeach; ?>
+                <?php endforeach ?>
                 )</span>
         <?php elseif ($_weeeTaxAmount && $_weeeHelper->typeOfDisplay($_product, 4)): // incl. + weee ?>
             <span class="regular-price" id="product-price-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>">
@@ -180,7 +180,7 @@ $_inclTax = $_taxHelper->getPrice($_product, $_minimalPriceValue, $includingTax 
                     <?php echo $_weeeSeparator; ?>
                     <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo $_coreHelper->currencyByStore($_weeeTaxAttribute->getAmount()+$_weeeTaxAttribute->getTaxAmount(), $_storeId, true, true); ?>
                     <?php $_weeeSeparator = ' + '; ?>
-                <?php endforeach; ?>
+                <?php endforeach ?>
                 )</span>
         <?php elseif ($_weeeTaxAmount && $_weeeHelper->typeOfDisplay($_product, 2)): // excl. + weee + final ?>
             <span class="regular-price"><?php echo $_coreHelper->currencyByStore($_price, $_storeId, true, true) ?></span><br />
@@ -188,7 +188,7 @@ $_inclTax = $_taxHelper->getPrice($_product, $_minimalPriceValue, $includingTax 
                 <span class="weee">
                     <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo $_coreHelper->currencyByStore($_weeeTaxAttribute->getAmount(), $_storeId, true, true); ?>
                 </span>
-            <?php endforeach; ?>
+            <?php endforeach ?>
             <span class="regular-price" id="product-price-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>">
                 <?php echo $_coreHelper->currencyByStore($_price+$_weeeTaxAmount, $_storeId, true, true) ?>
             </span>
@@ -255,7 +255,7 @@ $_inclTax = $_taxHelper->getPrice($_product, $_minimalPriceValue, $includingTax 
                 <?php echo $_weeeSeparator; ?>
                 <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo $_coreHelper->currencyByStore($_weeeTaxAttribute->getAmount(), $_storeId, true, true); ?>
                 <?php $_weeeSeparator = ' + '; ?>
-            <?php endforeach; ?>
+            <?php endforeach ?>
             )</span>
         <span class="price-including-tax">
             <span class="label"><?php echo $this->helper('tax')->__('Incl. Tax:') ?></span>
@@ -285,7 +285,7 @@ $_inclTax = $_taxHelper->getPrice($_product, $_minimalPriceValue, $includingTax 
                 <?php echo $_weeeSeparator; ?>
                 <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo $_coreHelper->currencyByStore($_weeeTaxAttribute->getAmount()+$_weeeTaxAttribute->getTaxAmount(), $_storeId, true, true); ?>
                 <?php $_weeeSeparator = ' + '; ?>
-            <?php endforeach; ?>
+            <?php endforeach ?>
             )</span>
         <span class="price-including-tax">
             <span class="label"><?php echo $this->helper('tax')->__('Incl. Tax:') ?></span>
@@ -314,7 +314,7 @@ $_inclTax = $_taxHelper->getPrice($_product, $_minimalPriceValue, $includingTax 
                 <span class="weee">
                     <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo $_coreHelper->currencyByStore($_weeeTaxAttribute->getAmount(), $_storeId, true, true); ?>
                 </span>
-            <?php endforeach; ?>
+            <?php endforeach ?>
             <span class="price-including-tax">
                 <span class="label"><?php echo $this->helper('tax')->__('Incl. Tax:') ?></span>
                 <span class="price" id="price-including-tax-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>">

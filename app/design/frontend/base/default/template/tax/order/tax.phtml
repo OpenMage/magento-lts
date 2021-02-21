@@ -62,8 +62,8 @@
         <?php $isFirst = 0; ?>
         <?php $isTop = 0; ?>
         <?php $hasItemsInTaxSection = 1 ?>
-        <?php endforeach; ?>
-    <?php endforeach; ?>
+        <?php endforeach ?>
+    <?php endforeach ?>
 
     <?php foreach ($_weees as $weeeTitle => $weeeAmount): ?>
         <tr class="summary-details-<?php echo $taxIter; ?> summary-details<?php if ($isTop): echo ' summary-details-first'; endif; ?>"<?php if (!$this->getIsPlaneMode()):?> style="display:none;"<?php endif ?>>
@@ -76,7 +76,7 @@
             </td>
         </tr>
         <?php $hasItemsInTaxSection = 1 ?>
-    <?php endforeach; ?>
+    <?php endforeach ?>
 
 <?php endif ?>
 

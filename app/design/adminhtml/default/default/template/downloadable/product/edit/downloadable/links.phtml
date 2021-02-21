@@ -367,7 +367,7 @@ if($('add_link_item')) {
 
 <?php foreach ($this->getLinkData() as $item): ?>
     linkItems.add(<?php echo $item->toJson()?>);
-<?php endforeach; ?>
+<?php endforeach ?>
 
 Validation.addAllThese([
     ['validate-downloadable-link-sample-file', 'Please specify File.', function(v,element) {

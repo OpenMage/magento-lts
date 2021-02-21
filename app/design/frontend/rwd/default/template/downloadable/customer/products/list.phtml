@@ -61,7 +61,7 @@
                     <td data-rwd-label="<?php echo Mage::helper('downloadable')->__('Status') ?>"><em><?php echo Mage::helper('downloadable')->__(ucfirst($_item->getStatus())) ?></em></td>
                     <td data-rwd-label="<?php echo Mage::helper('downloadable')->__('Remaining Downloads') ?>"><?php echo $this->getRemainingDownloads($_item) ?></td>
                 </tr>
-            <?php endforeach; ?>
+            <?php endforeach ?>
         </tbody>
     </table>
     <script type="text/javascript">decorateTable('my-downloadable-products-table')</script>

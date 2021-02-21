@@ -43,10 +43,10 @@
                 <ul>
                     <?php foreach($searchCriterias[$side] as $criteria): ?>
                         <li><strong><?php echo $this->escapeHtml($this->helper('catalog')->__($criteria['name'])); ?>:</strong> <?php echo $this->escapeHtml($criteria['value']); ?></li>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                 </ul>
             <?php endif ?>
-        <?php endforeach; ?>
+        <?php endforeach ?>
     <?php if($this->getResultCount()): ?>
         <p>
             <?php echo $this->helper('catalogsearch')->__("Don't see what you're looking for?"); ?>

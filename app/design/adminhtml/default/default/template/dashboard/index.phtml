@@ -55,7 +55,7 @@ function changeDiagramsPeriod(periodObj) {
             }
         }
     });
-<?php endforeach; ?>
+<?php endforeach ?>
     ajaxBlockUrl = '<?php echo $this->getUrl('*/*/ajaxBlock', array('_current' => true, 'block' => 'totals', 'period' => '')) ?>' + periodParam;
     new Ajax.Request(ajaxBlockUrl, {
         parameters: {isAjax: 'true', form_key: FORM_KEY},

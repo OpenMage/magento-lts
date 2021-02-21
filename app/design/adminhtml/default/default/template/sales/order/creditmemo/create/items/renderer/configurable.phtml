@@ -54,19 +54,19 @@
                         <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
                             <span class="nobr"><?php echo $tax['title']; ?>
                                 : <?php echo $this->displayPrices($tax['base_amount'], $tax['amount']); ?></span>
-                        <?php endforeach; ?>
+                        <?php endforeach ?>
                     </small>
                 <?php elseif (Mage::helper('weee')->typeOfDisplay($_item, 2, 'sales')): ?>
                     <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
                         <span class="nobr"><small><?php echo $tax['title']; ?>
                                 : <?php echo $this->displayPrices($tax['base_amount'], $tax['amount']); ?></small></span>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                 <?php elseif (Mage::helper('weee')->typeOfDisplay($_item, 4, 'sales')): ?>
                     <small>
                         <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
                             <span class="nobr"><?php echo $tax['title']; ?>
                                 : <?php echo $this->displayPrices($tax['base_amount'], $tax['amount']); ?></span>
-                        <?php endforeach; ?>
+                        <?php endforeach ?>
                     </small>
                 <?php endif ?>
 
@@ -106,19 +106,19 @@
                         <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
                             <span class="nobr"><?php echo $tax['title']; ?>
                                 : <?php echo $this->displayPrices($tax['base_amount_incl_tax'], $tax['amount_incl_tax']); ?></span>
-                        <?php endforeach; ?>
+                        <?php endforeach ?>
                     </small>
                 <?php elseif (Mage::helper('weee')->typeOfDisplay($_item, 2, 'sales')): ?>
                     <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
                         <span class="nobr"><small><?php echo $tax['title']; ?>
                                 : <?php echo $this->displayPrices($tax['base_amount_incl_tax'], $tax['amount_incl_tax']); ?></small></span>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                 <?php elseif (Mage::helper('weee')->typeOfDisplay($_item, 4, 'sales')): ?>
                     <small>
                         <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
                             <span class="nobr"><?php echo $tax['title']; ?>
                                 : <?php echo $this->displayPrices($tax['base_amount_incl_tax'], $tax['amount_incl_tax']); ?></span>
-                        <?php endforeach; ?>
+                        <?php endforeach ?>
                     </small>
                 <?php endif ?>
 
@@ -174,19 +174,19 @@
                         <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
                             <span class="nobr"><?php echo $tax['title']; ?>
                                 : <?php echo $this->displayPrices($tax['base_row_amount'], $tax['row_amount']); ?></span>
-                        <?php endforeach; ?>
+                        <?php endforeach ?>
                     </small>
                 <?php elseif (Mage::helper('weee')->typeOfDisplay($_item, 2, 'sales')): ?>
                     <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
                         <span class="nobr"><small><?php echo $tax['title']; ?>
                                 : <?php echo $this->displayPrices($tax['base_row_amount'], $tax['row_amount']); ?></small></span>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                 <?php elseif (Mage::helper('weee')->typeOfDisplay($_item, 4, 'sales')): ?>
                     <small>
                         <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
                             <span class="nobr"><?php echo $tax['title']; ?>
                                 : <?php echo $this->displayPrices($tax['base_row_amount'], $tax['row_amount']); ?></span>
-                        <?php endforeach; ?>
+                        <?php endforeach ?>
                     </small>
                 <?php endif ?>
 
@@ -227,19 +227,19 @@
                         <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
                             <span class="nobr"><?php echo $tax['title']; ?>
                                 : <?php echo $this->displayPrices($tax['base_row_amount_incl_tax'], $tax['row_amount_incl_tax']); ?></span>
-                        <?php endforeach; ?>
+                        <?php endforeach ?>
                     </small>
                 <?php elseif (Mage::helper('weee')->typeOfDisplay($_item, 2, 'sales')): ?>
                     <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
                         <span class="nobr"><small><?php echo $tax['title']; ?>
                                 : <?php echo $this->displayPrices($tax['base_row_amount_incl_tax'], $tax['row_amount_incl_tax']); ?></small></span>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                 <?php elseif (Mage::helper('weee')->typeOfDisplay($_item, 4, 'sales')): ?>
                     <small>
                         <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
                             <span class="nobr"><?php echo $tax['title']; ?>
                                 : <?php echo $this->displayPrices($tax['base_row_amount_incl_tax'], $tax['row_amount_incl_tax']); ?></span>
-                        <?php endforeach; ?>
+                        <?php endforeach ?>
                     </small>
                 <?php endif ?>
 

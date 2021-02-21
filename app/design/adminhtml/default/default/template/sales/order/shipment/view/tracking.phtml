@@ -45,7 +45,7 @@
                 <select name="carrier" class="select" style="width:110px" onchange="selectCarrier(this)">
                     <?php foreach ($this->getCarriers() as $_code=>$_name): ?>
                     <option value="<?php echo $_code ?>"><?php echo $this->escapeHtml($_name) ?></option>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                 </select>
             </td>
             <td><input class="input-text" type="text" id="tracking_title" name="title" value="" /></td>
@@ -69,7 +69,7 @@
             </td>
             <td class="last"><a href="#" onclick="deleteTrackingNumber('<?php echo $this->getRemoveUrl($_track) ?>'); return false;"><?php echo Mage::helper('sales')->__('Delete') ?></a></td>
         </tr>
-    <?php endforeach; ?>
+    <?php endforeach ?>
     </tbody>
 <?php endif ?>
 </table>

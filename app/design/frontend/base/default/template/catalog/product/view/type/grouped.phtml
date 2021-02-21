@@ -82,7 +82,7 @@
             </td>
             <?php endif ?>
         </tr>
-    <?php endforeach; ?>
+    <?php endforeach ?>
     <?php else: ?>
        <tr>
            <td colspan="<?php if ($_product->isSaleable()): ?>4<?php else : ?>3<?php endif ?>"><?php echo $this->__('No options of this product are available.') ?></td>

@@ -33,7 +33,7 @@
             <select name="history[status]" class="select" id="history_status">
             <?php foreach ($this->getStatuses() as $_code=>$_label): ?>
                 <option value="<?php echo $_code ?>"<?php if($_code==$this->getOrder()->getStatus()): ?> selected="selected"<?php endif ?>><?php echo $_label ?></option>
-            <?php endforeach; ?>
+            <?php endforeach ?>
             </select>
         </span>
         <span class="field-row">
@@ -72,7 +72,7 @@
                 <br/><?php echo $this->escapeHtml($_item->getComment(), array('b', 'br', 'strong', 'i', 'u', 'a')) ?>
             <?php endif ?>
         </li>
-    <?php endforeach; ?>
+    <?php endforeach ?>
     </ul>
     <script type="text/javascript">
         if ($('order_status')) $('order_status').update('<?php echo $this->jsQuoteEscape($this->getOrder()->getStatusLabel()) ?>');

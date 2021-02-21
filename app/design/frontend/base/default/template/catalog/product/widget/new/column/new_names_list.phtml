@@ -38,7 +38,7 @@
                 <li class="item">
                     <p class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>)"><?php echo $this->helper('catalog/output')->productAttribute($_product, $_product->getName() , 'name') ?></a></p>
                 </li>
-            <?php endforeach; ?>
+            <?php endforeach ?>
             </ol>
             <script type="text/javascript">decorateList('widget-new-products-<?php echo $suffix; ?>', 'none-recursive')</script>
         </div>

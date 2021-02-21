@@ -35,7 +35,7 @@
                     <td>
                         <?php foreach ($columns as $column): ?>
                             <?php $column->setItem($item); echo $column->toHtml($item);?>
-                        <?php endforeach; ?>
+                        <?php endforeach ?>
                     </td>
                 </tr>
             <?php endforeach ?>
@@ -46,11 +46,11 @@
 </table>
 <?php foreach ($columns as $column): ?>
     <?php echo $column->getAdditionalHtml();?>
-<?php endforeach; ?>
+<?php endforeach ?>
 <script type="text/javascript">
 //<![CDATA[
 <?php foreach ($columns as $column): ?>
     <?php echo $column->getJs();?>
-<?php endforeach; ?>
+<?php endforeach ?>
 //]]>
 </script>

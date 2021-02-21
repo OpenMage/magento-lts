@@ -56,7 +56,7 @@ function showContent(select)
                 <select name="config[db_model]" onchange="showContent(this)">
                     <?php foreach($dbTypeOptions as $block): ?>
                         <option value="<?php echo $block->getIdPrefix()?>" <?php if($this->getFormData()->getDbModel() == $block->getIdPrefix()):?>selected="selected"<?php endif ?>><?php echo $block->getTitle()?></option>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                 </select>
             </div>
         </li>
@@ -75,6 +75,6 @@ function showContent(select)
                     <?php echo $block->toHtml(); ?>
                 </ul>
             </div>
-        <?php endforeach; ?>
+        <?php endforeach ?>
     </ul>
 </fieldset>

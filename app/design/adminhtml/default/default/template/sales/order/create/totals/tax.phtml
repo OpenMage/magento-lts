@@ -61,8 +61,8 @@ $taxIter++; ?>
             </tr>
             <?php $isFirst = 0; ?>
             <?php $isTop = 0; ?>
-        <?php endforeach; ?>
-    <?php endforeach; ?>
+        <?php endforeach ?>
+    <?php endforeach ?>
     <?php foreach ($_weees as $weeeTitle => $weeeAmount): ?>
         <tr class="summary-details-<?php echo $taxIter; ?> summary-details<?php if ($isTop): echo ' summary-details-first'; endif; ?>"
             style="display:none;">
@@ -74,7 +74,7 @@ $taxIter++; ?>
                 <?php echo $this->helper('checkout')->formatPrice($weeeAmount); ?>
             </td>
         </tr>
-    <?php endforeach; ?>
+    <?php endforeach ?>
 <?php endif ?>
 <?php $class = "{$this->getTotal()->getCode()} " . ($this->helper('tax')->displayFullSummary() ? 'summary-total' : ''); ?>
 <tr<?php if ($this->helper('tax')->displayFullSummary()): ?> onclick="expandDetails(this, '.summary-details-<?php echo $taxIter; ?>')"<?php endif ?>

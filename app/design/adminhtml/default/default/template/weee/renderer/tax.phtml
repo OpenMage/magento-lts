@@ -181,7 +181,7 @@
     }
     <?php foreach ($this->getValues() as $_item): ?>
     weeeTaxControl.addItem('<?php echo $_htmlId ?>', '<?php echo $_item['website_id'] ?>', '<?php echo $_item['country'] ?>', '<?php echo $_item['state'] ?>', '<?php echo sprintf('%.2f', $_item['value']) ?>');
-    <?php endforeach; ?>
+    <?php endforeach ?>
 
     if (typeof weeeEditorPrefixes == 'undefined') {
         var weeeEditorPrefixes = new Array();

@@ -206,12 +206,12 @@ Event.observe(window, 'load', function(){
                                     <optgroup label="&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $this->escapeHtml($_group->getName()); ?>">
                                 <?php endif ?>
                                 <option value="<?php echo $_store->getId() ?>" <?php echo $this->getSelected('store_id', $_store->getId()) ?>>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $this->escapeHtml($_store->getName()); ?></option>
-                            <?php endforeach; ?>
+                            <?php endforeach ?>
                             <?php if ($_groupShow): ?>
                                 </optgroup>
                             <?php endif ?>
-                        <?php endforeach; ?>
-                    <?php endforeach; ?>
+                        <?php endforeach ?>
+                    <?php endforeach ?>
                 </select>
                 <small class="profile_direction_import profile_entity_type_product">
                         <?php echo $this->__("(Products will be added/updated to this store if 'store' column is blank or missing in the import file.)") ?>

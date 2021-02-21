@@ -52,7 +52,7 @@
                 <tr>
                 <?php foreach ($this->getStores() as $_store): ?>
                     <th><?php echo $this->escapeHtml($_store->getName()); ?></th>
-                <?php endforeach; ?>
+                <?php endforeach ?>
                 </tr>
                 <tr>
                     <?php $_labels = $this->getLabelValues() ?>
@@ -60,7 +60,7 @@
                     <td>
                         <input class="input-text<?php if($_store->getId()==0): ?> required-option<?php endif ?>" type="text" name="frontend_label[<?php echo $_store->getId() ?>]" value="<?php echo $this->escapeHtml($_labels[$_store->getId()]); ?>"<?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif ?>/>
                     </td>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                 </tr>
             </table>
             </div>
@@ -77,7 +77,7 @@
                 <tr id="attribute-options-table">
                     <?php foreach ($this->getStores() as $_store): ?>
                         <th><?php echo $this->escapeHtml($_store->getName()); ?></th>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                         <th><?php echo $this->__('Position') ?></th>
                         <th class="nobr a-center"><?php echo $this->__('Is Default') ?></th>
                         <th>
@@ -89,7 +89,7 @@
                     <tr class="no-display template" id="row-template">
                         <?php foreach ($this->getStores() as $_store): ?>
                         <td><input name="option[value][{{id}}][<?php echo $_store->getId() ?>]" value="{{store<?php echo $_store->getId() ?>}}" class="input-text<?php if($_store->getId()==0): ?> required-option<?php endif ?>" type="text" <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif ?>/></td>
-                        <?php endforeach; ?>
+                        <?php endforeach ?>
                         <td class="a-center"><input class="input-text" type="text" name="option[order][{{id}}]" value="{{sort_order}}" <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif ?>/></td>
                         <td><input class="input-radio" type="radio" name="default[]" value="{{id}}" <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif ?>/></td>
                         <td class="a-left">
@@ -113,7 +113,7 @@ var templateText =
         '<tr class="option-row">'+
 <?php foreach ($this->getStores() as $_store): ?>
             '<td><input name="option[value][{{id}}][<?php echo $_store->getId() ?>]" value="{{store<?php echo $_store->getId() ?>}}" class="input-text<?php if($_store->getId()==0): ?> required-option<?php endif ?>" type="text" <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif ?>/><\/td>'+
-<?php endforeach; ?>
+<?php endforeach ?>
             '<td><input class="input-text" type="text" name="option[order][{{id}}]" value="{{sort_order}}" <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif ?>/><\/td>'+
             '<td class="a-center"><input class="input-radio" type="{{intype}}" name="default[]" value="{{id}}" {{checked}} <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif ?>/><\/td>'+
             '<td class="a-left" id="delete_button_container_{{id}}">'+
@@ -219,6 +219,6 @@ Validation.addAllThese([
 }]]);
 <?php foreach ($this->getOptionValues() as $_value): ?>
     attributeOption.add(<?php echo $_value->toJson() ?>);
-<?php endforeach; ?>
+<?php endforeach ?>
 //]]>
 </script>

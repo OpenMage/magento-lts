@@ -32,7 +32,7 @@
         <legend><?php echo $element->getLegend() ?></legend>
         <?php foreach ($element->getElements() as $_element): ?>
             <?php echo $formBlock->drawElement($_element) ?>
-        <?php endforeach; ?>
+        <?php endforeach ?>
     </fieldset>
       <?php break;
     case 'column': ?>
@@ -46,7 +46,7 @@
         <select name="<?php echo $element->getName() ?>" id="<?php echo $element->getHtmlId() ?>" class="select<?php echo $element->getClass() ?>" title="<?php echo $element->getTitle() ?>">
         <?php foreach ($element->getValues() as $_value): ?>
             <option <?php echo $_value->serialize() ?><?php if($_value->getValue() == $element->getValue()): ?> selected="selected"<?php endif ?>><?php echo $_value->getLabel() ?></option>
-        <?php endforeach; ?>
+        <?php endforeach ?>
         </select>
     </span>
       <?php break;
@@ -72,7 +72,7 @@
         <label for="<?php echo $element->getHtmlId() ?>"><?php echo $element->getLabel() ?>:</label>
     <?php foreach($element->getRadios() as $_radio): ?>
     <input type="radio" name="<?php echo $_radio->getName() ?>" id="<?php echo $_radio->getHtmlId() ?>" value="<?php echo $_radio->getValue() ?>" class="input-radio <?php echo $_radio->getClass() ?>" title="<?php echo $_radio->getTitle() ?>" <?php echo ( $_radio->getValue() == $element->getChecked() ) ? 'checked="true"' : '' ?> >&nbsp;<?php echo $_radio->getLabel() ?>
-    <?php endforeach; ?>
+    <?php endforeach ?>
     </span>
       <?php break;
     case 'wysiwyg': ?>

@@ -153,7 +153,7 @@
                             <td><span class="nobr"><?php echo $_detailTime ?></span></td>
                             <td><?php echo (isset($_detail['activity']) ? $_detail['activity'] : '') ?></td>
                         </tr>
-                   <?php endforeach; ?>
+                   <?php endforeach ?>
                    </tbody>
                 </table>
                 <script type="text/javascript">decorateTable('track-history-table-<?php echo $track->getTracking(); ?>');</script>
@@ -163,12 +163,12 @@
             <?php endif ?>
             <?php $counter++; ?>
         <!--end for each tracking information-->
-        <?php endforeach; ?>
+        <?php endforeach ?>
     <?php else: ?>
         <p><?php echo $this->__('There is no tracking available for this shipment.'); ?></p>
     <?php endif ?>
 
-<?php endforeach; ?>
+<?php endforeach ?>
 <?php else: ?>
     <p><?php echo $this->__('There is no tracking available.'); ?></p>
 <?php endif ?>

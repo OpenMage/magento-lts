@@ -41,6 +41,6 @@
             <label for="option_<?php echo $_item->getId() ?>"><?php echo Mage::helper('rating')->__('Option Title:') ?></label>
             <input id="option_<?php echo $_item->getId() ?>" name="option[<?php echo $_item->getId() ?>][code]" value="<?php echo $_item->getCode() ?>" class="input-text" type="text" />
         </span>
-    <?php endforeach; ?>
+    <?php endforeach ?>
 <?php endif ?>
 </fieldset>

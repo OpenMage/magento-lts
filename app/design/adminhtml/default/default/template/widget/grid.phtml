@@ -101,7 +101,7 @@ $numColumns = sizeof($this->getColumns());
             <select name="<?php echo $this->getId() ?>_export" id="<?php echo $this->getId() ?>_export" style="width:8em;">
             <?php foreach ($this->getExportTypes() as $_type): ?>
                 <option value="<?php echo $_type->getUrl() ?>"><?php echo $_type->getLabel() ?></option>
-            <?php endforeach; ?>
+            <?php endforeach ?>
             </select>
             <?php echo $this->getExportButtonHtml() ?>
         </td>
@@ -120,21 +120,21 @@ $numColumns = sizeof($this->getColumns());
     <table cellspacing="0" class="data" id="<?php echo $this->getId() ?>_table">
         <?php foreach ($this->getColumns() as $_column): ?>
         <col <?php echo $_column->getHtmlProperty() ?> />
-        <?php endforeach; ?>
+        <?php endforeach ?>
         <?php if ($this->getHeadersVisibility() || $this->getFilterVisibility()): ?>
             <thead>
                 <?php if ($this->getHeadersVisibility()): ?>
                     <tr class="headings">
                     <?php foreach ($this->getColumns() as $_column): ?>
                         <th<?php echo $_column->getHeaderHtmlProperty() ?>><span class="nobr"><?php echo $_column->getHeaderHtml() ?></span></th>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                     </tr>
                 <?php endif ?>
                 <?php if ($this->getFilterVisibility()): ?>
                     <tr class="filter">
                     <?php $i=0;foreach ($this->getColumns() as $_column): ?>
                         <th<?php echo $_column->getHeaderHtmlProperty() ?>><?php echo $_column->getFilterHtml() ?></th>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                     </tr>
                 <?php endif ?>
             </thead>
@@ -144,7 +144,7 @@ $numColumns = sizeof($this->getColumns());
                 <tr class="totals">
                 <?php foreach ($this->getColumns() as $_column): ?>
                     <th class="<?php echo $_column->getCssProperty() ?>"><?php echo ($_column->hasTotalsLabel()) ? $_column->getTotalsLabel() : $_column->getRowField($_column->getGrid()->getTotals()) ?>&nbsp;</th>
-                <?php endforeach; ?>
+                <?php endforeach ?>
                 </tr>
             </tfoot>
         <?php endif ?>
@@ -165,7 +165,7 @@ $numColumns = sizeof($this->getColumns());
                     <?php endif ?>
                 <?php endif ?>
 
-            <?php endforeach; ?>
+            <?php endforeach ?>
             </tr>
             <?php if ($_multipleRows = $this->getMultipleRows($_item)):?>
                 <?php foreach ($_multipleRows as $_i):?>
@@ -174,7 +174,7 @@ $numColumns = sizeof($this->getColumns());
                         <td class="<?php echo $_column->getCssProperty() ?> <?php echo ++$i==$numColumns-1?'last':'' ?>">
                             <?php echo (($_html = $_column->getRowField($_i)) != '' ? $_html : '&nbsp;') ?>
                         </td>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                 </tr>
                 <?php endforeach ?>
             <?php endif ?>
@@ -188,10 +188,10 @@ $numColumns = sizeof($this->getColumns());
                             );
                             ?>
                         </td>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                 </tr>
             <?php endif ?>
-        <?php endforeach; ?>
+        <?php endforeach ?>
         <?php elseif ($this->getEmptyText()): ?>
             <tr>
                 <td class="empty-text <?php echo $this->getEmptyTextClass() ?>" colspan="<?php echo $numColumns ?>"><?php echo $this->getEmptyText() ?></td>

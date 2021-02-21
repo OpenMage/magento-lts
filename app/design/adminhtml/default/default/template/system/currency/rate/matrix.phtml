@@ -39,7 +39,7 @@ $_rates = ( $_newRates ) ? $_newRates : $_oldRates;
                 <th class="a-right">&nbsp;</th>
                 <?php $_i = 0; foreach( $this->getAllowedCurrencies() as $_currencyCode ): ?>
                     <th class="<?php echo (( ++$_i == (sizeof($this->getAllowedCurrencies())) ) ? 'last' : '' ) ?> a-right"><strong><?php echo $this->escapeHtml($_currencyCode) ?><strong></th>
-                <?php endforeach; ?>
+                <?php endforeach ?>
             </tr>
         </thead>
         <?php $_j = 0; foreach( $this->getDefaultCurrencies() as $_currencyCode ): ?>
@@ -65,7 +65,7 @@ $_rates = ( $_newRates ) ? $_newRates : $_oldRates;
                 <?php endforeach; $_j = 0; ?>
             <?php endif ?>
         </tr>
-        <?php endforeach; ?>
+        <?php endforeach ?>
     </table>
     </div>
 </form>

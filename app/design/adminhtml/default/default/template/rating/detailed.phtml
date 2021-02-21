@@ -47,10 +47,10 @@
                 <?php foreach ($_options as $_option): ?>
                     <td<?php if($_iterator == 5): ?> class="last"<?php endif ?>><input type="radio" name="ratings[<?php echo ( $_rating->getVoteId() ) ? $_rating->getVoteId() : $_rating->getId() ?>]" id="<?php echo $this->escapeHtml($_rating->getRatingCode()) ?>_<?php echo $_option->getValue() ?>" value="<?php echo $_option->getId() ?>" <?php if( $this->isSelected($_option, $_rating)): ?>checked="checked"<?php endif ?> /></td>
                 <?php $_iterator++ ?>
-                <?php endforeach; ?>
+                <?php endforeach ?>
                 </tr>
             <?php $_oddIterator ++; ?>
-            <?php endforeach; ?>
+            <?php endforeach ?>
             </tbody>
         </table>
         <input type="hidden" name="validate_rating" class="validate-rating" value="" />

@@ -128,7 +128,7 @@
             <?php foreach ($this->getBackordersOption() as $option): ?>
                 <?php $_selected = ($option['value'] == $this->getFieldValue('backorders')) ? 'selected="selected"' : '' ?>
                 <option value="<?php echo $option['value'] ?>" <?php echo $_selected ?>><?php echo $option['label'] ?></option>
-            <?php endforeach; ?>
+            <?php endforeach ?>
             </select>
 
             <?php $_checked = ($this->getFieldValue('use_config_backorders') || $this->IsNew()) ? 'checked="checked"' : '' ?>
@@ -178,7 +178,7 @@
             <?php foreach ($this->getStockOption() as $option): ?>
                 <?php $_selected = ($option['value'] == $this->getFieldValue('is_in_stock')) ? 'selected="selected"' : '' ?>
                 <option value="<?php echo $option['value'] ?>" <?php echo $_selected ?>><?php echo $option['label'] ?></option>
-            <?php endforeach; ?>
+            <?php endforeach ?>
             </select>
             </td>
             <td class="value scope-label"><?php echo Mage::helper('adminhtml')->__('[GLOBAL]') ?></td>

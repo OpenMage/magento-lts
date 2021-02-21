@@ -41,7 +41,7 @@
     <?php foreach ($this->getGroups() as $_group): ?>
         <?php $_selected = ($_group->getId()==$this->getCurrentGroupId()) ? ' selected="selected"' : '' ?>
         <option value="<?php echo $_group->getHomeUrl() ?>"<?php echo $_selected ?>><?php echo $this->escapeHtml($_group->getName()) ?></option>
-    <?php endforeach; ?>
+    <?php endforeach ?>
     </select>
 </div>
 <?php endif ?>

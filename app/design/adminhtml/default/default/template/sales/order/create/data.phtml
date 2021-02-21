@@ -30,7 +30,7 @@
 <select id="currency_switcher" name="order[currency]" onchange="order.setCurrencyId(this.value); order.setCurrencySymbol(this.options[this.selectedIndex].getAttribute('symbol'));">
     <?php foreach ($this->getAvailableCurrencies() as $_code): ?>
     <option value="<?php echo $_code ?>"<?php if($_code==$this->getCurrentCurrencyCode()): ?> selected="selected"<?php endif ?> symbol="<?php echo $this->getCurrencySymbol($_code) ?>"><?php echo $this->getCurrencyName($_code) ?></option>
-    <?php endforeach; ?>
+    <?php endforeach ?>
 </select>
 </p>
     <script type="text/javascript">

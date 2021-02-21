@@ -53,7 +53,7 @@
                     <input type="radio" name="vote" class="radio poll_vote" id="vote_<?php echo $answer->getId() ?>" value="<?php echo $answer->getAnswerId() ?>" />
                     <span class="label"><label for="vote_<?php echo $answer->getId() ?>"><?php echo $this->escapeHtml($answer->getAnswerTitle()) ?></label></span>
                 </li>
-                <?php endforeach; ?>
+                <?php endforeach ?>
             </ul>
             <script type="text/javascript">decorateList('poll-answers');</script>
             <?php endif ?>

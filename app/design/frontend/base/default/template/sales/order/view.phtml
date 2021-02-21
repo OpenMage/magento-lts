@@ -82,7 +82,7 @@
             <?php foreach ($_history as $_historyItem): ?>
                 <dt><?php echo $this->formatDate($_historyItem->getCreatedAtStoreDate(), 'medium', true) ?></dt>
                 <dd><?php echo $this->escapeHtml($_historyItem->getComment()) ?></dd>
-            <?php endforeach; ?>
+            <?php endforeach ?>
         </dl>
     </div>
     <?php endif ?>

@@ -45,7 +45,7 @@
         <dd>
             <?php echo $this->getChildHtml('payment.method.'.$_code) ?>
         </dd>
-    <?php endforeach; ?>
+    <?php endforeach ?>
     </dl>
 </div>
 <script type="text/javascript">order.setPaymentMethod('<?php echo $this->getSelectedMethodCode() ?>')</script>

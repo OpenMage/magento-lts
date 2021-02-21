@@ -68,12 +68,12 @@ var groupPriceRowTemplate = '<tr>'
     + '<select class="<?php echo $_htmlClass; ?> required-entry" name="<?php echo $_htmlName; ?>[{{index}}][website_id]" id="group_price_row_{{index}}_website">'
     <?php foreach ($this->getWebsites() as $_websiteId => $_info) : ?>
     + '<option value="<?php echo $_websiteId; ?>"><?php echo $this->jsQuoteEscape($this->escapeHtml($_info['name'])); ?><?php if (!empty($_info['currency'])) : ?> [<?php echo $this->escapeHtml($_info['currency']); ?>]<?php endif ?></option>'
-    <?php endforeach; ?>
+    <?php endforeach ?>
     + '</select></td>'
     + '<td><select class="<?php echo $_htmlClass; ?> custgroup required-entry" name="<?php echo $_htmlName; ?>[{{index}}][cust_group]" id="group_price_row_{{index}}_cust_group">'
     <?php foreach ($this->getCustomerGroups() as $_groupId => $_groupName): ?>
     + '<option value="<?php echo $_groupId; ?>"><?php echo $this->jsQuoteEscape($this->escapeHtml($_groupName)); ?></option>'
-    <?php endforeach; ?>
+    <?php endforeach ?>
     + '</select></td>'
     + '<td><input class="<?php echo $_htmlClass; ?> required-entry <?php echo $_priceValueValidation; ?>" type="text" name="<?php echo $_htmlName; ?>[{{index}}][price]" value="{{price}}" id="group_price_row_{{index}}_price" />'
     + '<input type="hidden" name="<?php echo $_htmlName; ?>[{{index}}][is_percent]" value="<?php if ($this->getIsPercent()) : ?>1<?php else: ?>0<?php endif ?>" id="group_price_row_{{index}}_is_percent" /></td>'
@@ -160,7 +160,7 @@ var groupPriceControl = {
 };
 <?php foreach ($this->getValues() as $_item) : ?>
 groupPriceControl.addItem('<?php echo $_item['website_id']; ?>', '<?php echo $_item['cust_group']; ?>', '<?php echo sprintf('%.2f', $_item['price']); ?>', <?php echo (int)!empty($_item['readonly']); ?>);
-<?php endforeach; ?>
+<?php endforeach ?>
 <?php if ($_readonly) : ?>
 $('<?php echo $_htmlId; ?>_container').up('table').select('button')
     .each(groupPriceControl.disableElement);

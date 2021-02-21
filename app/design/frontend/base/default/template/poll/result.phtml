@@ -38,7 +38,7 @@
                     <span class="votes"><?php echo $answer->getVotesCount() ?> (<?php echo $answer->getPercent() ?>%)</span>
                     <span class="answer"><?php echo $this->escapeHtml($answer->getAnswerTitle()) ?>:</span>
                 </li>
-            <?php endforeach; ?>
+            <?php endforeach ?>
         </ol>
         <script type="text/javascript">decorateList('poll-answers');</script>
         <?php endif ?>

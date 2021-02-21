@@ -52,7 +52,7 @@ $links = $this->getLinks();
                     <?php else: ?>
                         <dd><?php echo $this->escapeHtml((isset($_option['print_value']) ? $_option['print_value'] : $_option['value'])) ?></dd>
                     <?php endif ?>
-                <?php endforeach; ?>
+                <?php endforeach ?>
             </dl>
         <?php endif ?>
 
@@ -62,7 +62,7 @@ $links = $this->getLinks();
                 <dt><?php echo $this->escapeHtml($this->getLinksTitle()); ?></dt>
                 <?php foreach ($links->getPurchasedItems() as $link): ?>
                     <dd><?php echo $this->escapeHtml($link->getLinkTitle()); ?></dd>
-                <?php endforeach; ?>
+                <?php endforeach ?>
             </dl>
         <?php endif ?>
         <!-- EOF downloadable -->
@@ -118,19 +118,19 @@ $links = $this->getLinks();
                                 <?php foreach (Mage::helper('weee')->getApplied($this->getItem()) as $tax): ?>
                                     <span class="nobr"><?php echo $tax['title']; ?>
                                         : <?php echo $this->getOrder()->formatPrice($tax['amount']); ?></span>
-                                <?php endforeach; ?>
+                                <?php endforeach ?>
                             </small>
                         <?php elseif (Mage::helper('weee')->typeOfDisplay($this->getItem(), 2, 'sales') && (float)$this->getItem()->getWeeeTaxAppliedAmount()): ?>
                             <?php foreach (Mage::helper('weee')->getApplied($this->getItem()) as $tax): ?>
                                 <span class="nobr"><small><?php echo $tax['title']; ?>
                                         : <?php echo $this->getOrder()->formatPrice($tax['amount']); ?></small></span>
-                            <?php endforeach; ?>
+                            <?php endforeach ?>
                         <?php elseif (Mage::helper('weee')->typeOfDisplay($this->getItem(), 4, 'sales') && (float)$this->getItem()->getWeeeTaxAppliedAmount()): ?>
                             <small>
                                 <?php foreach (Mage::helper('weee')->getApplied($this->getItem()) as $tax): ?>
                                     <span class="nobr"><?php echo $tax['title']; ?>
                                         : <?php echo $this->getOrder()->formatPrice($tax['amount']); ?></span>
-                                <?php endforeach; ?>
+                                <?php endforeach ?>
                             </small>
                         <?php endif ?>
                     </span>
@@ -183,19 +183,19 @@ $links = $this->getLinks();
                                 <?php foreach (Mage::helper('weee')->getApplied($this->getItem()) as $tax): ?>
                                     <span class="nobr"><?php echo $tax['title']; ?>
                                         : <?php echo $this->getOrder()->formatPrice($tax['amount_incl_tax']); ?></span>
-                                <?php endforeach; ?>
+                                <?php endforeach ?>
                             </small>
                         <?php elseif (Mage::helper('weee')->typeOfDisplay($this->getItem(), 2, 'sales') && (float)$this->getItem()->getWeeeTaxAppliedAmount()): ?>
                             <?php foreach (Mage::helper('weee')->getApplied($this->getItem()) as $tax): ?>
                                 <span class="nobr"><small><?php echo $tax['title']; ?>
                                         : <?php echo $this->getOrder()->formatPrice($tax['amount_incl_tax']); ?></small></span>
-                            <?php endforeach; ?>
+                            <?php endforeach ?>
                         <?php elseif (Mage::helper('weee')->typeOfDisplay($this->getItem(), 4, 'sales') && (float)$this->getItem()->getWeeeTaxAppliedAmount()): ?>
                             <small>
                                 <?php foreach (Mage::helper('weee')->getApplied($this->getItem()) as $tax): ?>
                                     <span class="nobr"><?php echo $tax['title']; ?>
                                         : <?php echo $this->getOrder()->formatPrice($tax['amount_incl_tax']); ?></span>
-                                <?php endforeach; ?>
+                                <?php endforeach ?>
                             </small>
                         <?php endif ?>
                     </span>
@@ -274,19 +274,19 @@ $links = $this->getLinks();
                                 <?php foreach (Mage::helper('weee')->getApplied($this->getItem()) as $tax): ?>
                                     <span class="nobr"><?php echo $tax['title']; ?>
                                         : <?php echo $this->getOrder()->formatPrice($tax['row_amount']); ?></span>
-                                <?php endforeach; ?>
+                                <?php endforeach ?>
                             </small>
                         <?php elseif (Mage::helper('weee')->typeOfDisplay($this->getItem(), 2, 'sales') && (float)$this->getItem()->getWeeeTaxAppliedAmount()): ?>
                             <?php foreach (Mage::helper('weee')->getApplied($this->getItem()) as $tax): ?>
                                 <span class="nobr"><small><?php echo $tax['title']; ?>
                                         : <?php echo $this->getOrder()->formatPrice($tax['row_amount']); ?></small></span>
-                            <?php endforeach; ?>
+                            <?php endforeach ?>
                         <?php elseif (Mage::helper('weee')->typeOfDisplay($this->getItem(), 4, 'sales') && (float)$this->getItem()->getWeeeTaxAppliedAmount()): ?>
                             <small>
                                 <?php foreach (Mage::helper('weee')->getApplied($this->getItem()) as $tax): ?>
                                     <span class="nobr"><?php echo $tax['title']; ?>
                                         : <?php echo $this->getOrder()->formatPrice($tax['row_amount']); ?></span>
-                                <?php endforeach; ?>
+                                <?php endforeach ?>
                             </small>
                         <?php endif ?>
                     </span>
@@ -339,19 +339,19 @@ $links = $this->getLinks();
                                 <?php foreach (Mage::helper('weee')->getApplied($this->getItem()) as $tax): ?>
                                     <span class="nobr"><?php echo $tax['title']; ?>
                                         : <?php echo $this->getOrder()->formatPrice($tax['row_amount_incl_tax']); ?></span>
-                                <?php endforeach; ?>
+                                <?php endforeach ?>
                             </small>
                         <?php elseif (Mage::helper('weee')->typeOfDisplay($this->getItem(), 2, 'sales') && (float)$this->getItem()->getWeeeTaxAppliedAmount()): ?>
                             <?php foreach (Mage::helper('weee')->getApplied($this->getItem()) as $tax): ?>
                                 <span class="nobr"><small><?php echo $tax['title']; ?>
                                         : <?php echo $this->getOrder()->formatPrice($tax['row_amount_incl_tax']); ?></small></span>
-                            <?php endforeach; ?>
+                            <?php endforeach ?>
                         <?php elseif (Mage::helper('weee')->typeOfDisplay($this->getItem(), 4, 'sales') && (float)$this->getItem()->getWeeeTaxAppliedAmount()): ?>
                             <small>
                                 <?php foreach (Mage::helper('weee')->getApplied($this->getItem()) as $tax): ?>
                                     <span class="nobr"><?php echo $tax['title']; ?>
                                         : <?php echo $this->getOrder()->formatPrice($tax['row_amount_incl_tax']); ?></span>
-                                <?php endforeach; ?>
+                                <?php endforeach ?>
                             </small>
                         <?php endif ?>
                     </span>

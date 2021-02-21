@@ -71,7 +71,7 @@
         <?php endif ?>
     </td>
 </tr>
-<?php endforeach; ?>
+<?php endforeach ?>
 
 <?php if ($_showlastRow): ?>
 <tr>
@@ -81,7 +81,7 @@
             <?php foreach ($this->getItemOptions() as $option): ?>
             <dt><strong><em><?php echo $option['label'] ?></em></strong>
                         <dd style="margin:0; padding:0 0 0 9px;"><?php echo $option['value'] ?></dd>
-            <?php endforeach; ?>
+            <?php endforeach ?>
         </dl>
         <?php endif ?>
         <?php echo $this->escapeHtml($_item->getDescription()) ?>

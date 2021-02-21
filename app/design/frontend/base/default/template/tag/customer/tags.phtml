@@ -33,7 +33,7 @@
     <ul class="tags-list">
         <?php foreach ($this->getTags() as $_tag): ?>
             <li><a href="<?php echo $this->getUrl('tag/customer/view', array('tagId' => $_tag->getTagId())) ?>" style="font-size:<?php echo $_tag->getRatio()*70+75 ?>%;"><?php echo $this->escapeHtml($_tag->getName()) ?></a></li>
-        <?php endforeach; ?>
+        <?php endforeach ?>
     </ul>
 <?php else: ?>
     <p><?php echo $this->__('You have not tagged any products yet.') ?></p>

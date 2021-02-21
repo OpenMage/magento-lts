@@ -62,7 +62,7 @@
                 <tr>
                     <td><a href="<?php echo $this->getItemValue($item, 'edit_url') ?>"><?php echo $this->__('View') ?></a></td>
                 </tr>
-                <?php endforeach; ?>
+                <?php endforeach ?>
             </tbody>
         </table>
     <?php else: ?>
@@ -82,7 +82,7 @@
                                 <option value=""><?php echo $this->__('-- Please Select --') ?></option>
                                 <?php foreach ($paymentMethods as $code => $title): ?>
                                     <option value="<?php echo $code ?>"><?php echo $title ?></option>
-                                <?php endforeach; ?>
+                                <?php endforeach ?>
                             </select>
                             <button type="submit" class="button"><span><span><?php echo $this->__('Create...') ?></span></span></button>
                         </li>

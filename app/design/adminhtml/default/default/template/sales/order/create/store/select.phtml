@@ -45,10 +45,10 @@
                     <input type="radio" id="store_<?php echo $_store->getId() ?>" class="radio" onclick="order.setStoreId('<?php echo $_store->getId() ?>')"/>
                     <label for="store_<?php echo $_store->getId() ?>" class="inline"><?php echo $this->escapeHtml($_store->getName()) ?></label>
                 </span>
-            <?php endforeach; ?>
+            <?php endforeach ?>
             <?php if ($showGroup): ?>
             <?php endif ?>
-        <?php endforeach; ?>
-    <?php endforeach; ?>
+        <?php endforeach ?>
+    <?php endforeach ?>
     </div>
 </div>

@@ -51,7 +51,7 @@
                     <td><?php echo $this->helper('review')->getDetailHtml($_review->getDetail()) ?></td>
                     <td><a href="<?php echo $this->getReviewLink() ?>id/<?php echo $_review->getReviewId() ?>" class="nobr"><?php echo $this->__('View Details') ?></a></td>
                 </tr>
-                <?php endforeach; ?>
+                <?php endforeach ?>
             </tbody>
         </table>
         <script type="text/javascript">decorateTable('my-reviews-table')</script>

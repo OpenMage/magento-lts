@@ -62,7 +62,7 @@
                                 <td><?php echo $this->escapeHtml($this->getObjectData($track, 'title')); ?></td>
                                 <td><?php echo $this->escapeHtml($this->getObjectData($track, 'number')); ?></td>
                             </tr>
-                        <?php endforeach; ?>
+                        <?php endforeach ?>
                     </tbody>
                 </table>
                 <script type="text/javascript">decorateTable('my-shipment-tracking');</script>
@@ -89,9 +89,9 @@
         <tbody>
             <?php echo $this->getItemHtml($item) ?>
         </tbody>
-        <?php endforeach; ?>
+        <?php endforeach ?>
     </table>
     <script type="text/javascript">decorateTable('my-shipment-table-<?php echo $this->getObjectData($shipment, 'id')?>', {'tbody' : ['odd', 'even'], 'tbody tr' : ['first', 'last']})</script>
-<?php endforeach; ?>
+<?php endforeach ?>
 <?php endif ?>
 <script type="text/javascript">window.print();</script>

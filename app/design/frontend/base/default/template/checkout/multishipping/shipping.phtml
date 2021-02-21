@@ -84,10 +84,10 @@
                                                 </label>
                                            <?php endif ?>
                                         </li>
-                                    <?php endforeach; ?>
+                                    <?php endforeach ?>
                                     </ul>
                                 </dd>
-                            <?php endforeach; ?>
+                            <?php endforeach ?>
                         </dl>
                         <?php endif ?>
                     </div>
@@ -113,14 +113,14 @@
                             </td>
                             <td class="a-center"><?php echo $_item->getQty() ?></td>
                         </tr>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                     </tbody>
                 </table>
                 <script type="text/javascript">decorateTable('shipping-table-<?php echo $_address->getId() ?>')</script>
                 <?php echo $this->helper('giftmessage/message')->getInline('multishipping_adress', $_address); ?>
             </div>
         </div>
-        <?php endforeach; ?>
+        <?php endforeach ?>
         <?php echo $this->getChildHtml('checkout_billing_items') ?>
         <div class="buttons-set">
             <p class="back-link"><a href="<?php echo $this->getBackUrl() ?>"><small>&laquo; </small><?php echo $this->__('Back to Select Addresses') ?></a></p>

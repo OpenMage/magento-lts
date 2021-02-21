@@ -75,11 +75,11 @@
                                 <?php endif ?>
                                 <button <?php if (!isset($_button['disabled']) || !$_button['disabled']):?>onclick="<?php echo $clickAction; ?>"<?php endif ?> id="<?php echo $_button['name'] ?>" type="button" class="scalable <?php if (isset($_button['disabled']) && $_button['disabled']):?>disabled<?php endif ?>" style=""><span><span><span><?php echo $_button['action'] ?></span></span></span></button>
                                 <?php if (isset($_button['comment'])): ?> <br /> <small><?php echo $_button['comment']; ?></small> <?php endif ?>
-                            <?php endforeach; ?>
+                            <?php endforeach ?>
                         </td>
                         <td><small>&nbsp;</small></td>
                     </tr>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                 </tbody>
             </table>
         </fieldset>

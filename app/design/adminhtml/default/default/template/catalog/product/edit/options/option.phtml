@@ -341,7 +341,7 @@ Validation.addAllThese([
 <?php foreach ($this->getOptionValues() as $_value): ?>
     productOption.add(<?php echo $_value->toJson() ?>);
     productOptionType.addDataToValues(<?php echo $_value->toJson() ?>);
-<?php endforeach; ?>
+<?php endforeach ?>
 
 //bind scope checkboxes
 productOptionScope.bindScopeCheckbox();

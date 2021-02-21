@@ -41,7 +41,7 @@
             <?php if ($methodHtml = $this->getMethodHtml($method)): ?>
             <li><?php echo $methodHtml; ?></li>
             <?php endif ?>
-        <?php endforeach; ?>
+        <?php endforeach ?>
         </ul>
         <?php endif ?>
     </div>
@@ -168,7 +168,7 @@
                 <?php if ($methodHtml = $this->getMethodHtml($method)): ?>
                 <li class="method-<?php echo preg_replace("/[^_a-zA-Z0-9-]/", '-', $method); ?>"><?php echo $methodHtml; ?></li>
                 <?php endif ?>
-            <?php endforeach; ?>
+            <?php endforeach ?>
             </ul>
             <?php endif ?>
         </div>

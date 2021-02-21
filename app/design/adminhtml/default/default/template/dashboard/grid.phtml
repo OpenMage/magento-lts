@@ -33,14 +33,14 @@ $numColumns = sizeof($this->getColumns());
 <table cellspacing="0" style="border:0;" id="<?php echo $this->getId() ?>_table">
     <?php foreach ($this->getColumns() as $_column): ?>
     <col <?php echo $_column->getHtmlProperty() ?> />
-    <?php endforeach; ?>
+    <?php endforeach ?>
     <?php if ($this->getHeadersVisibility() || $this->getFilterVisibility()): ?>
         <thead>
             <?php if ($this->getHeadersVisibility()): ?>
                 <tr class="headings">
                 <?php foreach ($this->getColumns() as $_column): ?>
                     <th <?php echo $_column->getHeaderHtmlProperty() ?>><span class="nobr"><?php echo $_column->getHeaderHtml() ?></span></th>
-                <?php endforeach; ?>
+                <?php endforeach ?>
                 </tr>
             <?php endif ?>
         </thead>
@@ -51,9 +51,9 @@ $numColumns = sizeof($this->getColumns());
         <tr title="<?php echo $this->getRowId($_item) ?>">
         <?php $i=0;foreach ($this->getColumns() as $_column): ?>
             <td class="<?php echo $_column->getCssProperty() ?> <?php echo ++$i==$numColumns?'last':'' ?>"><?php echo (($_html = $_column->getRowField($_item)) != '' ? $_html : '&nbsp;') ?></td>
-        <?php endforeach; ?>
+        <?php endforeach ?>
         </tr>
-    <?php endforeach; ?>
+    <?php endforeach ?>
     <?php elseif ($this->getEmptyText()): ?>
         <tr>
             <td class="empty-text <?php echo $this->getEmptyTextClass() ?>" colspan="100"><?php echo $this->getEmptyText() ?></td>

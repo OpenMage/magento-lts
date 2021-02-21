@@ -50,7 +50,7 @@ $_block = $this;
     <col width="70" />
     <?php foreach ($_block->getImageTypes() as $typeId=>$type): ?>
     <col />
-    <?php endforeach; ?>
+    <?php endforeach ?>
     <col width="70" />
     <col width="70" />
     <thead>
@@ -60,7 +60,7 @@ $_block = $this;
             <th><?php echo Mage::helper('catalog')->__('Sort Order') ?></th>
             <?php foreach ($_block->getImageTypes() as $typeId => $type): ?>
                 <th><?php echo $this->escapeHtml($type['label'], array('br')); ?></th>
-            <?php endforeach; ?>
+            <?php endforeach ?>
             <th><?php echo Mage::helper('catalog')->__('Exclude') ?></th>
             <th class="last"><?php echo Mage::helper('catalog')->__('Remove') ?></th>
         </tr>
@@ -72,7 +72,7 @@ $_block = $this;
                 <td class="cell-position"><input type="text" <?php if($_block->getElement()->getReadonly()):?> disabled="disabled"<?php endif ?> class="input-text validate-number" onkeyup="<?php echo $_block->getJsObjectName(); ?>.updateImage('__file__')" onchange="<?php echo $_block->getJsObjectName(); ?>.updateImage('__file__')" /></td>
                 <?php foreach ($_block->getImageTypes() as $typeId=>$type): ?>
                 <td class="cell-<?php echo $typeId ?> a-center"><input <?php if($_block->getElement()->getAttributeReadonly($typeId)) :?> disabled="disabled" <?php endif ?> type="radio" name="<?php echo $type['field'] ?>" onclick="<?php echo $_block->getJsObjectName(); ?>.setProductImages('__file__')" value="__file__" /></td>
-                <?php endforeach; ?>
+                <?php endforeach ?>
                 <td class="cell-disable a-center"><input type="checkbox" <?php if($_block->getElement()->getReadonly()):?> disabled="disabled"<?php endif ?> onclick="<?php echo $_block->getJsObjectName(); ?>.updateImage('__file__')" /></td>
                 <td class="cell-remove a-center last"><input type="checkbox" <?php if($_block->getElement()->getReadonly()):?> disabled="disabled"<?php endif ?> onclick="<?php echo $_block->getJsObjectName(); ?>.updateImage('__file__')" /></td>
         </tr>
@@ -88,7 +88,7 @@ $_block = $this;
 <?php if($_block->getElement()->usedDefault($_attribute)): ?>checked<?php endif ?> value="<?php echo $_attribute->getAttributeCode() ?>" />
                 <?php endif ?>
                 </td>
-                <?php endforeach; ?>
+                <?php endforeach ?>
                 <td>&nbsp;</td>
                 <td class="last">&nbsp;</td>
         </tr>
@@ -99,7 +99,7 @@ $_block = $this;
                 <td class="cell-position"><input type="hidden" />&nbsp;</td>
                 <?php foreach ($_block->getImageTypes() as $typeId=>$type): ?>
                 <td class="cell-<?php echo $typeId ?> a-center"><input type="radio" <?php if($_block->getElement()->getAttributeReadonly($typeId)) :?> disabled="disabled" <?php endif ?> name="<?php echo $type['field'] ?>" onclick="<?php echo $_block->getJsObjectName(); ?>.setProductImages('no_selection')" value="no_selection" /></td>
-                <?php endforeach; ?>
+                <?php endforeach ?>
                 <td class="cell-disable"><input type="hidden" />&nbsp;</td>
                 <td class="cell-remove last"><input type="hidden" />&nbsp;</td>
         </tr>
